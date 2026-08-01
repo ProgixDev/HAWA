@@ -15,6 +15,7 @@ import AuthScreen from '../screens/AuthScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
 import SecuritySetupScreen from '../screens/SecuritySetupScreen';
 import PinSetupScreen from '../screens/PinSetupScreen';
+import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -30,6 +31,7 @@ export type RootStackParamList = {
   Registration: undefined;
   SecuritySetup: undefined;
   PinSetup: undefined;
+  FaceIdSetup: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,6 +58,7 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="Registration" component={RegistrationScreen} />
         <Stack.Screen name="SecuritySetup" component={SecuritySetupScreen} />
         <Stack.Screen name="PinSetup" component={PinSetupScreen} />
+        <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
