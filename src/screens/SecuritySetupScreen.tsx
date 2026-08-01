@@ -5,7 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing} from '../theme/spacing';
-import {setPinEnabled} from '../state/securityPreferences';
+import {setBiometricEnabled, setPinEnabled} from '../state/securityPreferences';
 
 const HEADER = require('../assets/images/security-header.png');
 const PIN = require('../assets/images/security-pin-icon.png');
@@ -27,7 +27,7 @@ function SecuritySetupScreen({navigation}: Props): React.JSX.Element {
     <View style={styles.heading}><Text style={styles.title}>Protège ton espace</Text><Text style={styles.subtitle}>{'Choisis ce que tu actives maintenant —\ntout est modifiable plus tard.'}</Text></View>
     <View style={styles.options}>
       <SecurityOption description={'Verrouiller l’application\nà l’ouverture'} icon={PIN} onValueChange={value => {setPin(value); setPinEnabled(value);}} title="Code PIN" value={pin} />
-      <SecurityOption description={'Empreinte ou reconnaissance\nfaciale'} icon={BIOMETRIC} onValueChange={setBiometric} title="Biométrie" value={biometric} />
+      <SecurityOption description={'Empreinte ou reconnaissance\nfaciale'} icon={BIOMETRIC} onValueChange={value => {setBiometric(value); setBiometricEnabled(value);}} title="Biométrie" value={biometric} />
       <SecurityOption description={'Masquer le contenu\ndes notifications'} icon={NOTIFICATION} onValueChange={setNotifications} title="Notifications discrètes" value={notifications} />
     </View>
     <View style={styles.info}><View style={styles.infoIconBox}><Image accessibilityIgnoresInvertColors source={SHIELD} style={styles.infoIcon} /></View><View style={styles.infoCopy}><Text style={styles.infoTitle}>Tes choix sont privés et sécurisés.</Text><Text style={styles.infoText}>Tu peux les modifier à tout moment dans les paramètres.</Text></View><MaterialDesignIcons color="#9AA09D" name="chevron-right" size={26} /></View>
