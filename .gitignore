@@ -73,3 +73,7 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Java/JVM crash logs
+hs_err_pid*.log
+replay_pid*.log
