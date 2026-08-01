@@ -5,7 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {spacing} from '../theme/spacing';
-import {isPinEnabled} from '../state/securityPreferences';
+import {isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 
 const HEADER = require('../assets/images/auth-mosque-header.png');
 const APPLE_LOGO = require('../assets/images/auth-apple-logo.png');
@@ -25,6 +25,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
 
   const submit = () => {
     if (isPinEnabled()) {navigation.navigate('PinSetup'); return;}
+    if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;}
     Alert.alert('Connexion', 'Connexion réussie.');
   };
 
