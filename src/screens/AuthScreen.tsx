@@ -26,7 +26,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const submit = () => {
     if (isPinEnabled()) {navigation.navigate('PinSetup'); return;}
     if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;}
-    Alert.alert('Connexion', 'Connexion réussie.');
+    navigation.replace('CycleHome');
   };
 
   return (

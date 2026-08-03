@@ -6,6 +6,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing} from '../theme/spacing';
 import {isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
+import {setFirstName as saveFirstName} from '../state/onboardingPreferences';
 
 const HEADER = require('../assets/images/auth-mosque-header.png');
 const USER = require('../assets/images/register-user-icon.png');
@@ -50,7 +51,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       <Field icon={LOCK} label="Confirmer le mot de passe" onChangeText={setConfirmation} onToggle={() => setConfirmationVisible(v => !v)} placeholder="Confirmez votre mot de passe" secure value={confirmation} visible={confirmationVisible} />
     </View>
     <View style={styles.rules}>{rules.map(rule => <View key={rule.label} style={styles.rule}><Image accessibilityIgnoresInvertColors source={CHECK_ICON} style={[styles.ruleCheck, !rule.valid && styles.ruleCheckInactive]} /><Text style={[styles.ruleText, rule.valid && styles.ruleValid]}>{rule.label}</Text></View>)}</View>
-    <Pressable onPress={() => {if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;} if (isPinEnabled()) {navigation.navigate('PinSetup'); return;} if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;} Alert.alert('Compte', 'Compte créé.');}} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+    <Pressable onPress={() => {if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;} saveFirstName(firstName); if (isPinEnabled()) {navigation.navigate('PinSetup'); return;} if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;} navigation.replace('CycleHome');}} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
     <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>{[[GOOGLE, 'Google'], [APPLE, 'Apple'], [EMAIL_SOCIAL, 'E-mail']].map(([source, label]) => <Pressable key={label as string} onPress={() => Alert.alert(label as string)} style={styles.social}><Image accessibilityIgnoresInvertColors source={source as ImageSourcePropType} style={styles.socialLogo} /></Pressable>)}</View>
     <Text style={styles.legal}>En créant un compte, vous acceptez nos</Text><Text style={styles.legalStrong}>Conditions d’utilisation et notre Politique de confidentialité.</Text>
   </ScrollView></SafeAreaView></KeyboardAvoidingView>;
