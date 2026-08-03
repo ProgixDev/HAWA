@@ -4,6 +4,15 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
+import {
+  getCyclePreferences,
+  getSelectedLocation,
+  getSelectedObjective,
+  getSelectedSchool,
+  getSpiritualMarkersEnabled,
+  type ObjectiveId,
+  type SchoolId,
+} from '../state/onboardingPreferences';
 
 const BACKGROUND = require('../assets/images/objective-background.png');
 const WOMAN = require('../assets/images/summary-woman.png');
@@ -16,20 +25,36 @@ const PERIOD_ICON = require('../assets/images/summary-icon-period.png');
 const CYCLE_ICON = require('../assets/images/summary-icon-cycle.png');
 const REGULAR_ICON = require('../assets/images/summary-icon-regular.png');
 
-const rows = [
-  {icon: OBJECTIVE_ICON, label: 'Objectif principal', value: 'Suivre mon cycle'},
-  {icon: SPIRITUAL_ICON, label: 'Repères spirituels', value: 'Activés'},
-  {icon: SCHOOL_ICON, label: 'École juridique', value: 'Hanafi'},
-  {icon: LOCATION_ICON, label: 'Localisation', value: 'Alger, Algérie'},
-  {icon: CALENDAR_ICON, label: 'Dernières règles', value: '15 mai 2024'},
-  {icon: PERIOD_ICON, label: 'Durée moyenne des règles', value: '5 jours'},
-  {icon: CYCLE_ICON, label: 'Durée moyenne du cycle', value: '28 jours'},
-  {icon: REGULAR_ICON, label: 'Cycle régulier', value: 'Oui'},
-];
+const objectiveLabels: Record<ObjectiveId, string> = {
+  cycle: 'Suivre mon cycle', conceive: 'Essayer de concevoir',
+  contraception: 'Contraception', irregular: 'Cycles irréguliers (SOPK)',
+  menopause: 'Post-ménopause / Ménopause', pregnancy: 'Suivi de grossesse',
+  postpartum: 'Post-partum', loss: 'Après une fausse couche',
+};
+
+const schoolLabels: Record<SchoolId, string> = {
+  hanafi: 'Hanafi', maliki: 'Maliki', chafii: 'Chafi’i', hanbali: 'Hanbali',
+  unknown: 'Je ne sais pas encore',
+};
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Summary'>;
 
 function SummaryScreen({navigation}: Props): React.JSX.Element {
+  const cycle = getCyclePreferences();
+  const spiritualEnabled = getSpiritualMarkersEnabled();
+  const school = getSelectedSchool();
+  const location = getSelectedLocation();
+  const regularityLabels = {yes: 'Oui', no: 'Non', unknown: 'Je ne sais pas'};
+  const rows = [
+    {icon: OBJECTIVE_ICON, label: 'Objectif principal', value: objectiveLabels[getSelectedObjective()]},
+    {icon: SPIRITUAL_ICON, label: 'Repères spirituels', value: spiritualEnabled ? 'Activés' : 'Désactivés'},
+    {icon: SCHOOL_ICON, label: 'École juridique', value: spiritualEnabled && school ? schoolLabels[school] : 'Non renseignée'},
+    {icon: LOCATION_ICON, label: 'Localisation', value: location ? `${location.city}, ${location.country}` : 'Non renseignée'},
+    {icon: CALENDAR_ICON, label: 'Dernières règles', value: new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(cycle.lastPeriodStart)},
+    {icon: PERIOD_ICON, label: 'Durée moyenne des règles', value: `${cycle.periodDuration} jours`},
+    {icon: CYCLE_ICON, label: 'Durée moyenne du cycle', value: `${cycle.cycleDuration} jours`},
+    {icon: REGULAR_ICON, label: 'Cycle régulier', value: regularityLabels[cycle.regularity]},
+  ];
   return (
     <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.background}>
       <SafeAreaView style={styles.safeArea}>

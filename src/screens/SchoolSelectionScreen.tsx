@@ -13,6 +13,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
+import {setSelectedSchool, type SchoolId} from '../state/onboardingPreferences';
 
 const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
 
@@ -30,6 +31,7 @@ function SchoolSelectionScreen({navigation}: Props): React.JSX.Element {
   const [selectedId, setSelectedId] = useState('hanafi');
 
   const handleNext = () => {
+    setSelectedSchool(selectedId as SchoolId);
     navigation.navigate('Location');
   };
 

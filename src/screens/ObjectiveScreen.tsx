@@ -13,11 +13,12 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
+import {setSelectedObjective, type ObjectiveId} from '../state/onboardingPreferences';
 
 const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
 
 type Objective = {
-  id: string;
+  id: ObjectiveId;
   icon: string;
   label: string;
   tint: string;
@@ -40,6 +41,11 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
   const [selectedId, setSelectedId] = useState('cycle');
 
   const handleNext = () => {
+    setSelectedObjective(selectedId as ObjectiveId);
+    if (selectedId === 'cycle') {
+      navigation.navigate('CycleObjectiveConfirmation');
+      return;
+    }
     navigation.navigate('SpiritualPreferences');
   };
 

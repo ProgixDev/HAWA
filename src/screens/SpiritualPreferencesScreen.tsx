@@ -13,6 +13,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
+import {setSpiritualMarkersEnabled} from '../state/onboardingPreferences';
 
 const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
 
@@ -29,6 +30,7 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
   const [enabled, setEnabled] = useState(true);
 
   const handleNext = () => {
+    setSpiritualMarkersEnabled(enabled);
     if (enabled) {
       navigation.navigate('SchoolSelection');
       return;

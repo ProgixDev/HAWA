@@ -20,6 +20,7 @@ import {locations, type SelectedLocation} from '../data/locations';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
+import {setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 
 const LOCATION_BACKGROUND = require('../assets/images/location-background.png');
 const LOCATION_PIN = require('../assets/images/location-pin.png');
@@ -80,6 +81,7 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
     if (!selectedLocation) {
       return;
     }
+    saveSelectedLocation(selectedLocation);
     navigation.navigate('CycleInformation');
   };
 

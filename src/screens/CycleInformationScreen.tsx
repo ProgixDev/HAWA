@@ -14,6 +14,7 @@ import {
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
+import {setCyclePreferences} from '../state/onboardingPreferences';
 
 const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
@@ -34,8 +35,10 @@ const formatDate = (date: Date) =>
   }).format(date);
 
 function CycleInformationScreen({navigation}: Props): React.JSX.Element {
-  const [selectedDate, setSelectedDate] = useState(new Date(2024, 4, 15));
-  const [visibleMonth, setVisibleMonth] = useState(new Date(2024, 4, 1));
+  const [selectedDate, setSelectedDate] = useState(() => new Date());
+  const [visibleMonth, setVisibleMonth] = useState(
+    () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+  );
   const [calendarVisible, setCalendarVisible] = useState(false);
   const [durationPicker, setDurationPicker] = useState<DurationPicker>(null);
   const [periodDuration, setPeriodDuration] = useState(5);
@@ -80,6 +83,7 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
   };
 
   const handleNext = () => {
+    setCyclePreferences({lastPeriodStart: selectedDate, periodDuration, cycleDuration, regularity});
     navigation.navigate('SecuritySetup');
   };
 
