@@ -18,7 +18,16 @@ import SecuritySetupScreen from '../screens/SecuritySetupScreen';
 import PinSetupScreen from '../screens/PinSetupScreen';
 import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
 import CycleHomeScreen from '../screens/CycleHomeScreen';
-import JournalEntryPlaceholderScreen from '../screens/journal/JournalEntryPlaceholderScreen';
+import JournalSymptomsScreen from '../screens/journal/JournalSymptomsScreen';
+import JournalMoodScreen from '../screens/journal/JournalMoodScreen';
+import JournalFlowScreen from '../screens/journal/JournalFlowScreen';
+import JournalTemperatureScreen from '../screens/journal/JournalTemperatureScreen';
+import JournalSleepScreen from '../screens/journal/JournalSleepScreen';
+import JournalActivityScreen from '../screens/journal/JournalActivityScreen';
+import JournalHydrationWeightScreen from '../screens/journal/JournalHydrationWeightScreen';
+import JournalNoteScreen from '../screens/journal/JournalNoteScreen';
+import JournalIntimacyScreen from '../screens/journal/JournalIntimacyScreen';
+import JournalPrivatePhotosScreen from '../screens/journal/JournalPrivatePhotosScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -41,6 +50,9 @@ export type RootStackParamList = {
   MoodEntry: undefined;
   FlowEntry: undefined;
   TemperatureEntry: undefined;
+  SleepEntry: undefined;
+  ActivityEntry: undefined;
+  HydrationWeightEntry: undefined;
   NoteEntry: undefined;
   IntimacyEntry: undefined;
   PrivatePhotoEntry: undefined;
@@ -76,13 +88,16 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="PinSetup" component={PinSetupScreen} />
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
         <Stack.Screen name="CycleHome" component={CycleHomeScreen} />
-        <Stack.Screen name="SymptomEntry" component={JournalEntryPlaceholderScreen} />
-        <Stack.Screen name="MoodEntry" component={JournalEntryPlaceholderScreen} />
-        <Stack.Screen name="FlowEntry" component={JournalEntryPlaceholderScreen} />
-        <Stack.Screen name="TemperatureEntry" component={JournalEntryPlaceholderScreen} />
-        <Stack.Screen name="NoteEntry" component={JournalEntryPlaceholderScreen} />
-        <Stack.Screen name="IntimacyEntry" component={JournalEntryPlaceholderScreen} />
-        <Stack.Screen name="PrivatePhotoEntry" component={JournalEntryPlaceholderScreen} />
+        <Stack.Screen name="SymptomEntry" component={JournalSymptomsScreen} />
+        <Stack.Screen name="MoodEntry" component={JournalMoodScreen} />
+        <Stack.Screen name="FlowEntry" component={JournalFlowScreen} />
+        <Stack.Screen name="TemperatureEntry" component={JournalTemperatureScreen} />
+        <Stack.Screen name="SleepEntry" component={JournalSleepScreen} />
+        <Stack.Screen name="ActivityEntry" component={JournalActivityScreen} />
+        <Stack.Screen name="HydrationWeightEntry" component={JournalHydrationWeightScreen} />
+        <Stack.Screen name="NoteEntry" component={JournalNoteScreen} />
+        <Stack.Screen name="IntimacyEntry" component={JournalIntimacyScreen} />
+        <Stack.Screen name="PrivatePhotoEntry" component={JournalPrivatePhotosScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

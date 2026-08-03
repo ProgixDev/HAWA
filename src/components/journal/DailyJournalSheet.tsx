@@ -25,6 +25,9 @@ export type JournalRoute = Extract<
   | 'MoodEntry'
   | 'FlowEntry'
   | 'TemperatureEntry'
+  | 'SleepEntry'
+  | 'ActivityEntry'
+  | 'HydrationWeightEntry'
   | 'NoteEntry'
   | 'IntimacyEntry'
   | 'PrivatePhotoEntry'
@@ -45,11 +48,14 @@ const actions: Array<{
 }> = [
   {route: 'SymptomEntry', icon: 'heart-pulse', title: 'Symptôme', subtitle: 'Ajoute tes symptômes physiques', tint: '#E6F1E7'},
   {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: 'Humeur', subtitle: 'Comment te sens-tu aujourd’hui ?', tint: '#FBE8D7'},
-  {route: 'FlowEntry', icon: 'water-outline', title: 'Flux', subtitle: 'Intensité et couleur du flux', tint: '#F8DEDF'},
-  {route: 'TemperatureEntry', icon: 'thermometer', title: 'Température', subtitle: 'Température corporelle', tint: '#ECE6F8'},
+  {route: 'FlowEntry', icon: 'water-outline', title: 'Flux', subtitle: 'Intensité et caractéristiques du flux', tint: '#F8DEDF'},
+  {route: 'TemperatureEntry', icon: 'thermometer', title: 'Température', subtitle: 'Température corporelle ou basale', tint: '#ECE6F8'},
+  {route: 'SleepEntry', icon: 'weather-night', title: 'Sommeil', subtitle: 'Durée et qualité de ton sommeil', tint: '#E8E5F7'},
+  {route: 'ActivityEntry', icon: 'walk', title: 'Activité physique', subtitle: 'Mouvement et activité du jour', tint: '#E5F0E5'},
+  {route: 'HydrationWeightEntry', icon: 'cup-water', title: 'Hydratation et poids', subtitle: 'Eau consommée et évolution du poids', tint: '#E4EEF4'},
   {route: 'NoteEntry', icon: 'notebook-edit-outline', title: 'Note', subtitle: 'Écris tes pensées', tint: '#E5F0E5'},
-  {route: 'IntimacyEntry', icon: 'heart-outline', title: 'Vie intime', subtitle: 'Rapport et protection', tint: '#F8E2E3'},
-  {route: 'PrivatePhotoEntry', icon: 'camera-lock-outline', title: 'Photo privée', subtitle: 'Photos sécurisées', tint: '#E8E5F7'},
+  {route: 'IntimacyEntry', icon: 'heart-outline', title: 'Vie intime', subtitle: 'Rapport, protection et ressenti', tint: '#F8E2E3'},
+  {route: 'PrivatePhotoEntry', icon: 'camera-lock-outline', title: 'Photo privée', subtitle: 'Photos et observations personnelles', tint: '#E8E5F7'},
 ];
 
 function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Element {
