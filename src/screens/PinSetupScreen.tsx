@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, Image, ImageBackground, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
@@ -19,14 +19,14 @@ function PinSetupScreen({navigation}: Props): React.JSX.Element {
     if (key === 'delete') {setPin(value => value.slice(0, -1)); return;}
     if (key === 'empty' || pin.length >= 4) {return;}
     const next = `${pin}${key}`; setPin(next);
-    if (next.length === 4) {setTimeout(() => {if (isBiometricEnabled()) {navigation.replace('FaceIdSetup'); return;} Alert.alert('Code PIN créé', 'Ton espace est maintenant protégé.');}, 180);}
+    if (next.length === 4) {setTimeout(() => {if (isBiometricEnabled()) {navigation.replace('FaceIdSetup'); return;} navigation.replace('CycleHome');}, 180);}
   };
   return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><View style={styles.content}>
     <View style={styles.iconMedallion}><Image accessibilityIgnoresInvertColors source={LOCK_ICON} style={styles.lockIcon} /></View>
     <Text style={styles.title}>Créez votre code PIN</Text><Text style={styles.subtitle}>{'Choisissez un code à 4 chiffres\npour protéger vos données.'}</Text>
     <View accessibilityLabel={`${pin.length} chiffres saisis`} style={styles.dots}>{[0,1,2,3].map(index => <View key={index} style={[styles.dot, index < pin.length && styles.dotFilled]} />)}</View>
     <View style={styles.keypad}>{keys.map((key, index) => key === 'empty' ? <View key={key} style={styles.key} /> : <Pressable accessibilityLabel={key === 'delete' ? 'Effacer' : key} key={`${key}-${index}`} onPress={() => enter(key)} style={({pressed}) => [styles.key, styles.keyActive, pressed && styles.pressed]}>{key === 'delete' ? <Image accessibilityIgnoresInvertColors source={DELETE_ICON} style={styles.deleteIcon} /> : <><Text style={styles.number}>{key}</Text>{letters[key] && <Text style={styles.letters}>{letters[key]}</Text>}</>}</Pressable>)}</View>
-    <View style={styles.spacer} /><Pressable onPress={() => isBiometricEnabled() ? navigation.replace('FaceIdSetup') : navigation.goBack()}><Text style={styles.later}>Plus tard</Text></Pressable>
+    <View style={styles.spacer} /><Pressable onPress={() => isBiometricEnabled() ? navigation.replace('FaceIdSetup') : navigation.replace('CycleHome')}><Text style={styles.later}>Plus tard</Text></Pressable>
   </View></SafeAreaView></ImageBackground>;
 }
 

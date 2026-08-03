@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import {Alert, Animated, Easing, Image, ImageBackground, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, View, type ImageSourcePropType} from 'react-native';
+import {Animated, Easing, Image, ImageBackground, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, View, type ImageSourcePropType} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
@@ -22,13 +22,13 @@ function Benefit({delay, icon, title, description}: BenefitProps) {
 }
 
 function FaceIdSetupScreen({navigation}: Props): React.JSX.Element {
-  const finish = (enabled: boolean) => Alert.alert('Face ID', enabled ? 'Face ID est activé.' : 'Tu pourras activer Face ID plus tard dans les paramètres.');
+  const finish = () => navigation.replace('CycleHome');
   return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><View style={styles.content}>
     <Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.back}><Text style={styles.backText}>‹</Text></Pressable>
     <View style={styles.heroIconBox}><Image accessibilityIgnoresInvertColors source={FACE_ID} style={styles.heroIcon} /></View>
     <Text style={styles.title}>Utiliser Face ID ?</Text><Text style={styles.subtitle}>{'Activez Face ID pour déverrouiller\nHAWA rapidement et en toute sécurité.'}</Text>
     <View style={styles.benefits}><Benefit delay={130} description={'Vos données restent\nprotégées.'} icon={SHIELD} title="Sécurisé et privé" /><Benefit delay={260} description={'Accédez à votre compte\nen un seul regard.'} icon={LIGHTNING} title="Rapide et pratique" /></View>
-    <View style={styles.spacer} /><Pressable onPress={() => finish(true)} style={({pressed}) => [styles.primary, pressed && styles.pressed]}><Text style={styles.primaryText}>Activer Face ID</Text></Pressable><Pressable hitSlop={10} onPress={() => finish(false)}><Text style={styles.later}>Plus tard</Text></Pressable>
+    <View style={styles.spacer} /><Pressable onPress={finish} style={({pressed}) => [styles.primary, pressed && styles.pressed]}><Text style={styles.primaryText}>Activer Face ID</Text></Pressable><Pressable hitSlop={10} onPress={finish}><Text style={styles.later}>Plus tard</Text></Pressable>
   </View></SafeAreaView></ImageBackground>;
 }
 
