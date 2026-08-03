@@ -4,6 +4,6 @@ module.exports = {
     'node_modules/(?!((@)?react-native|@react-native|@react-navigation)/)',
   ],
   moduleNameMapper: {
-    '\\.(png)$': '<rootDir>/__mocks__/fileMock.js',
+    '\\.(png|ttf)$': '<rootDir>/__mocks__/fileMock.js',
   },
 };
