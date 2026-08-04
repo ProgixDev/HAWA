@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {AnimatedTabItem} from '../components/navigation/AnimatedTabItem';
@@ -104,6 +105,7 @@ const formatHijriDate = (date: Date): string | undefined => {
 };
 
 function CycleHomeScreen({navigation}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
   const initial = getCyclePreferences();
 
   const [periodStart, setPeriodStart] = useState(initial.lastPeriodStart);
@@ -349,7 +351,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
       <View style={styles.page}>
         <ScrollView
-          contentContainerStyle={styles.scrollContent}
+          contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 12) + 22}]}
           showsVerticalScrollIndicator={false}>
           <Animated.View style={[styles.header, animatedStyle]}>
             <View style={styles.greetingCopy}>
@@ -597,7 +599,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           </View>
         </ScrollView>
 
-        <View style={styles.bottomBar}>
+        <View style={[styles.bottomBar, {marginBottom: Math.max(insets.bottom, 8)}]}>
           <AnimatedTabItem
             focused={activeTab === 'home'}
             icon={

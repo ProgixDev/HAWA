@@ -27,6 +27,8 @@ import JournalActivityScreen from '../screens/journal/JournalActivityScreen';
 import JournalHydrationWeightScreen from '../screens/journal/JournalHydrationWeightScreen';
 import JournalNoteScreen from '../screens/journal/JournalNoteScreen';
 import JournalIntimacyScreen from '../screens/journal/JournalIntimacyScreen';
+import PrivateIntimacyUnlockScreen from '../screens/journal/PrivateIntimacyUnlockScreen';
+import PrivateIntimacyPinScreen from '../screens/journal/PrivateIntimacyPinScreen';
 import JournalPrivatePhotosScreen from '../screens/journal/JournalPrivatePhotosScreen';
 
 export type RootStackParamList = {
@@ -55,6 +57,8 @@ export type RootStackParamList = {
   HydrationWeightEntry: undefined;
   NoteEntry: undefined;
   IntimacyEntry: undefined;
+  PrivateIntimacyUnlock: undefined;
+  PrivateIntimacyPin: undefined;
   PrivatePhotoEntry: undefined;
 };
 
@@ -97,6 +101,8 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="HydrationWeightEntry" component={JournalHydrationWeightScreen} />
         <Stack.Screen name="NoteEntry" component={JournalNoteScreen} />
         <Stack.Screen name="IntimacyEntry" component={JournalIntimacyScreen} />
+        <Stack.Screen name="PrivateIntimacyUnlock" component={PrivateIntimacyUnlockScreen} />
+        <Stack.Screen name="PrivateIntimacyPin" component={PrivateIntimacyPinScreen} />
         <Stack.Screen name="PrivatePhotoEntry" component={JournalPrivatePhotosScreen} />
       </Stack.Navigator>
     </NavigationContainer>

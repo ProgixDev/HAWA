@@ -1,8 +1,8 @@
 import React from 'react';
-import {Image, ImageBackground, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {Image, ImageBackground, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {
   getCyclePreferences,
@@ -14,7 +14,7 @@ import {
   type SchoolId,
 } from '../state/onboardingPreferences';
 
-const BACKGROUND = require('../assets/images/objective-background.png');
+const BACKGROUND = require('../assets/images/school-selection-background.png');
 const WOMAN = require('../assets/images/summary-woman.png');
 const OBJECTIVE_ICON = require('../assets/images/summary-icon-objective.png');
 const SPIRITUAL_ICON = require('../assets/images/summary-icon-spiritual.png');
@@ -40,6 +40,7 @@ const schoolLabels: Record<SchoolId, string> = {
 type Props = NativeStackScreenProps<RootStackParamList, 'Summary'>;
 
 function SummaryScreen({navigation}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
   const cycle = getCyclePreferences();
   const spiritualEnabled = getSpiritualMarkersEnabled();
   const school = getSelectedSchool();
@@ -57,9 +58,9 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
   ];
   return (
     <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.background}>
-      <SafeAreaView style={styles.safeArea}>
+      <View style={styles.safeArea}>
         <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
-        <View style={styles.content}>
+        <ScrollView contentContainerStyle={[styles.content, {paddingTop: Math.max(insets.top, 20) + spacing.sm, paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>Récapitulatif</Text>
             <Text style={styles.subtitle}>{'Vérifie tes informations avant\nde commencer ton voyage.'}</Text>
@@ -89,28 +90,28 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
             style={({pressed}) => [styles.startButton, pressed && styles.pressed]}>
             <Text style={styles.startText}>Commencer</Text>
           </Pressable>
-        </View>
-      </SafeAreaView>
+        </ScrollView>
+      </View>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: colors.cream},
+  background: {flex: 1, backgroundColor: '#F8EFFF'},
   safeArea: {flex: 1},
-  content: {flex: 1, paddingTop: 42, paddingHorizontal: spacing.md, paddingBottom: spacing.md},
+  content: {flexGrow: 1, paddingHorizontal: spacing.md},
   header: {alignItems: 'center', marginBottom: 12},
-  title: {color: '#083F31', fontFamily: 'serif', fontSize: 29, fontWeight: '600'},
-  subtitle: {marginTop: 5, color: '#37413F', fontSize: 12, lineHeight: 17, textAlign: 'center'},
-  card: {overflow: 'hidden', borderWidth: 1, borderColor: '#E4D7C4', borderRadius: 18, backgroundColor: 'rgba(255,253,248,0.88)', paddingHorizontal: 12},
+  title: {color: '#28166F', fontFamily: 'serif', fontSize: 29, fontWeight: '700'},
+  subtitle: {marginTop: 5, color: '#655A8D', fontSize: 12, lineHeight: 17, textAlign: 'center'},
+  card: {overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(111,83,190,0.18)', borderRadius: 18, backgroundColor: 'rgba(255,252,255,0.90)', paddingHorizontal: 12},
   row: {height: 43, flexDirection: 'row', alignItems: 'center'},
   rowIcon: {width: 64, height: 64, marginHorizontal: -17, resizeMode: 'contain'},
-  separator: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#DED8CD'},
-  label: {flex: 1, marginLeft: 10, color: '#27312F', fontSize: 12},
-  value: {maxWidth: '39%', marginLeft: 8, color: '#25302E', fontSize: 11, fontWeight: '600', textAlign: 'right'},
+  separator: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#E2D8F0'},
+  label: {flex: 1, marginLeft: 10, color: '#433467', fontSize: 12},
+  value: {maxWidth: '39%', marginLeft: 8, color: '#2A2050', fontSize: 11, fontWeight: '600', textAlign: 'right'},
   illustrationArea: {flex: 1, minHeight: 130, alignItems: 'center', justifyContent: 'flex-end', overflow: 'hidden'},
   woman: {width: '116%', height: '116%', resizeMode: 'contain', marginBottom: -12},
-  startButton: {minHeight: 52, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: '#176548', elevation: 3},
+  startButton: {minHeight: 52, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: '#6949BE', shadowColor: '#4E319A', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.25, shadowRadius: 9, elevation: 5},
   startText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
   pressed: {opacity: 0.82},
 });
