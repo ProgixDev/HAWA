@@ -3,19 +3,20 @@ import {
   ImageBackground,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {setSpiritualMarkersEnabled} from '../state/onboardingPreferences';
 
-const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
+const SPIRITUAL_BACKGROUND = require('../assets/images/school-selection-background.png');
 
 const features = [
   {icon: '🗓️', label: 'Calendrier hijri'},
@@ -27,6 +28,7 @@ const features = [
 type Props = NativeStackScreenProps<RootStackParamList, 'SpiritualPreferences'>;
 
 function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
   const [enabled, setEnabled] = useState(true);
 
   const handleNext = () => {
@@ -41,7 +43,7 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
 
   return (
     <ImageBackground
-      source={OBJECTIVE_BACKGROUND}
+      source={SPIRITUAL_BACKGROUND}
       resizeMode="cover"
       style={styles.background}>
       <SafeAreaView style={styles.safeArea}>
@@ -51,7 +53,7 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
           barStyle="dark-content"
           translucent
         />
-        <View style={styles.content}>
+        <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>
               {'Souhaites-tu activer\nles repères spirituels ?'}
@@ -109,11 +111,29 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
 
           <View style={styles.features}>
             {features.map(feature => (
-              <View key={feature.label} style={styles.featureCard}>
-                <View style={styles.iconBox}>
-                  <Text style={styles.icon}>{feature.icon}</Text>
+              <View
+                key={feature.label}
+                accessibilityState={{disabled: !enabled}}
+                style={[
+                  styles.featureCard,
+                  !enabled && styles.featureCardDisabled,
+                ]}>
+                <View
+                  style={[
+                    styles.iconBox,
+                    !enabled && styles.iconBoxDisabled,
+                  ]}>
+                  <Text style={[styles.icon, !enabled && styles.iconDisabled]}>
+                    {feature.icon}
+                  </Text>
                 </View>
-                <Text style={styles.featureText}>{feature.label}</Text>
+                <Text
+                  style={[
+                    styles.featureText,
+                    !enabled && styles.featureTextDisabled,
+                  ]}>
+                  {feature.label}
+                </Text>
               </View>
             ))}
           </View>
@@ -125,17 +145,17 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
             <Text style={styles.nextText}>Suivant</Text>
           </Pressable>
 
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: colors.cream},
+  background: {flex: 1, backgroundColor: '#F8EFFF'},
   safeArea: {flex: 1},
   content: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     paddingTop: 36,
     paddingHorizontal: spacing.lg,
@@ -143,16 +163,16 @@ const styles = StyleSheet.create({
   },
   header: {alignItems: 'center', marginBottom: spacing.lg},
   title: {
-    color: '#07543D',
+    color: '#28166F',
     fontFamily: 'serif',
     fontSize: 28,
-    fontWeight: '600',
+    fontWeight: '700',
     lineHeight: 36,
     textAlign: 'center',
   },
   subtitle: {
     marginTop: 12,
-    color: '#172224',
+    color: '#655A8D',
     fontSize: 14,
     lineHeight: 21,
     textAlign: 'center',
@@ -163,24 +183,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E8D8BE',
+    borderColor: 'rgba(111, 83, 190, 0.16)',
     borderRadius: 18,
-    backgroundColor: 'rgba(255, 253, 248, 0.9)',
+    backgroundColor: 'rgba(255, 252, 255, 0.86)',
     paddingHorizontal: spacing.md,
   },
-  choiceActive: {borderColor: '#176548', backgroundColor: '#176548'},
+  choiceActive: {
+    borderColor: '#6848BC',
+    backgroundColor: '#6848BC',
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.2,
+    shadowRadius: 7,
+    elevation: 3,
+  },
   radio: {
     width: 22,
     height: 22,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: '#BDA477',
+    borderColor: '#AE9BCF',
     borderRadius: 11,
   },
-  radioActive: {borderColor: '#F0C668'},
+  radioActive: {borderColor: '#E7DAFF'},
   radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: '#FFFFFF'},
-  choiceText: {flex: 1, marginLeft: spacing.md, color: '#172022', fontSize: 17},
+  choiceText: {flex: 1, marginLeft: spacing.md, color: '#2A2050', fontSize: 17},
   choiceTextActive: {color: '#FFFFFF', fontWeight: '600'},
   checkCircle: {
     width: 28,
@@ -188,9 +216,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: colors.cream,
+    backgroundColor: '#F4ECFF',
   },
-  check: {color: '#176548', fontSize: 18, fontWeight: '700'},
+  check: {color: '#6848BC', fontSize: 18, fontWeight: '700'},
   pressed: {opacity: 0.82},
   features: {gap: 7, marginTop: spacing.md},
   featureCard: {
@@ -198,10 +226,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E9DCC7',
+    borderColor: 'rgba(111, 83, 190, 0.14)',
     borderRadius: 17,
-    backgroundColor: 'rgba(255, 253, 248, 0.88)',
+    backgroundColor: 'rgba(255, 252, 255, 0.84)',
     paddingHorizontal: 12,
+  },
+  featureCardDisabled: {
+    borderColor: 'rgba(155, 142, 179, 0.20)',
+    backgroundColor: 'rgba(236, 231, 243, 0.80)',
   },
   iconBox: {
     width: 38,
@@ -210,18 +242,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: spacing.md,
     borderRadius: 12,
-    backgroundColor: 'rgba(248, 240, 228, 0.9)',
+    backgroundColor: 'rgba(238, 227, 255, 0.82)',
   },
+  iconBoxDisabled: {backgroundColor: '#DDD6E8'},
   icon: {fontSize: 21},
-  featureText: {flex: 1, color: '#151C1E', fontSize: 15, lineHeight: 19},
+  iconDisabled: {opacity: 0.32},
+  featureText: {flex: 1, color: '#2A2050', fontSize: 15, lineHeight: 19},
+  featureTextDisabled: {color: '#9990A8'},
   nextButton: {
     minHeight: 50,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: spacing.md,
     borderRadius: 19,
-    backgroundColor: '#176548',
-    elevation: 3,
+    backgroundColor: '#6949BE',
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.25,
+    shadowRadius: 9,
+    elevation: 5,
   },
   nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
 });

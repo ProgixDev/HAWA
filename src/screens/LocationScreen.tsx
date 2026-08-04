@@ -7,6 +7,7 @@ import {
   Platform,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -15,10 +16,10 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {locations, type SelectedLocation} from '../data/locations';
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 
@@ -35,6 +36,7 @@ const normalize = (value: string) =>
 type Props = NativeStackScreenProps<RootStackParamList, 'Location'>;
 
 function LocationScreen({navigation}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
   const [query, setQuery] = useState('');
   const [selectedLocation, setSelectedLocation] =
     useState<SelectedLocation | null>(null);
@@ -98,9 +100,10 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
           translucent
         />
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={insets.top}
           style={styles.keyboardArea}>
-          <View style={styles.content}>
+          <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
               <Pressable
               accessibilityLabel="Retour"
               accessibilityRole="button"
@@ -108,7 +111,7 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
               onPress={navigation.goBack}
               style={styles.backButton}>
               <MaterialDesignIcons
-                color="#176548"
+                color="#6848BC"
                 name="chevron-left"
                 size={30}
               />
@@ -123,7 +126,7 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
 
             <View style={styles.searchArea}>
               <View style={styles.searchBox}>
-                <MaterialDesignIcons color="#8D9698" name="magnify" size={23} />
+                <MaterialDesignIcons color="#796A9D" name="magnify" size={23} />
                 <TextInput
                   accessibilityLabel="Rechercher une ville ou un pays"
                   autoCorrect={false}
@@ -131,7 +134,7 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
                   onFocus={() => setShowSuggestions(true)}
                   onSubmitEditing={applySearch}
                   placeholder="Rechercher une ville ou un pays"
-                  placeholderTextColor="#989A98"
+                  placeholderTextColor="#968AAE"
                   returnKeyType="search"
                   style={styles.input}
                   value={query}
@@ -222,7 +225,7 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
               ]}>
               <Text style={styles.nextText}>Suivant</Text>
             </Pressable>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </ImageBackground>
@@ -230,11 +233,11 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: colors.cream},
+  background: {flex: 1, backgroundColor: '#F8EFFF'},
   safeArea: {flex: 1},
   keyboardArea: {flex: 1},
   content: {
-    flex: 1,
+    flexGrow: 1,
     paddingTop: 52,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md,
@@ -251,16 +254,16 @@ const styles = StyleSheet.create({
   },
   header: {alignItems: 'center', marginBottom: spacing.lg},
   title: {
-    color: '#083F31',
+    color: '#28166F',
     fontFamily: 'serif',
     fontSize: 30,
-    fontWeight: '600',
+    fontWeight: '700',
     lineHeight: 37,
     textAlign: 'center',
   },
   subtitle: {
     marginTop: 8,
-    color: '#263031',
+    color: '#655A8D',
     fontSize: 13,
     lineHeight: 19,
     textAlign: 'center',
@@ -271,12 +274,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#DDD7CA',
+    borderColor: 'rgba(111, 83, 190, 0.20)',
     borderRadius: 15,
-    backgroundColor: 'rgba(255, 255, 252, 0.94)',
+    backgroundColor: 'rgba(255, 252, 255, 0.90)',
     paddingHorizontal: 13,
   },
-  input: {flex: 1, height: 50, marginHorizontal: 8, color: '#172021', fontSize: 14},
+  input: {flex: 1, height: 50, marginHorizontal: 8, color: '#2A2050', fontSize: 14},
   targetImage: {width: 27, height: 27},
   suggestions: {
     position: 'absolute',
@@ -285,9 +288,13 @@ const styles = StyleSheet.create({
     left: 0,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: '#DDD7CA',
+    borderColor: 'rgba(111, 83, 190, 0.20)',
     borderRadius: 14,
-    backgroundColor: '#FFFEFA',
+    backgroundColor: '#FFFCFF',
+    shadowColor: '#5A3DA6',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.14,
+    shadowRadius: 9,
     elevation: 8,
   },
   suggestion: {
@@ -295,40 +302,40 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E8E0D4',
+    borderBottomColor: '#E9DFF5',
     paddingHorizontal: 13,
   },
   suggestionCopy: {marginLeft: 9},
   suggestionPin: {width: 19, height: 22},
-  suggestionText: {color: '#25302E', fontSize: 14},
-  suggestionTimezone: {marginTop: 1, color: '#7B817D', fontSize: 11},
+  suggestionText: {color: '#2A2050', fontSize: 14},
+  suggestionTimezone: {marginTop: 1, color: '#7D7198', fontSize: 11},
   locationCard: {
     minHeight: 62,
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: spacing.md,
     borderWidth: 1.5,
-    borderColor: '#176548',
+    borderColor: '#6848BC',
     borderRadius: 16,
-    backgroundColor: 'rgba(247, 248, 240, 0.92)',
+    backgroundColor: 'rgba(250, 246, 255, 0.94)',
     paddingHorizontal: spacing.md,
   },
   locationCopy: {flex: 1, marginLeft: 14},
   locationPin: {width: 27, height: 32},
-  locationText: {color: '#18302A', fontSize: 16, fontWeight: '500'},
-  timezoneText: {marginTop: 2, color: '#66726C', fontSize: 12},
+  locationText: {color: '#2A2050', fontSize: 16, fontWeight: '500'},
+  timezoneText: {marginTop: 2, color: '#756A90', fontSize: 12},
   checkCircle: {
     width: 25,
     height: 25,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
-    backgroundColor: '#176548',
+    backgroundColor: '#6848BC',
   },
   validation: {
     minHeight: 24,
     marginTop: spacing.md,
-    color: '#8A6C42',
+    color: '#80669E',
     fontSize: 12,
     textAlign: 'center',
   },
@@ -342,10 +349,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: spacing.sm,
     borderRadius: 18,
-    backgroundColor: '#176548',
-    elevation: 3,
+    backgroundColor: '#6949BE',
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.25,
+    shadowRadius: 9,
+    elevation: 5,
   },
-  nextButtonDisabled: {backgroundColor: '#9BAFA5', elevation: 0},
+  nextButtonDisabled: {backgroundColor: '#B7A9CF', elevation: 0, shadowOpacity: 0},
   nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
   pressed: {opacity: 0.82},
 });

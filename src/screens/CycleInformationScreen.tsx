@@ -5,18 +5,18 @@ import {
   ImageBackground,
   Modal,
   Pressable,
-  SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {setCyclePreferences} from '../state/onboardingPreferences';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
+const CYCLE_BACKGROUND = require('../assets/images/school-selection-background.png');
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
 const WEEK_DAYS = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
@@ -35,6 +35,7 @@ const formatDate = (date: Date) =>
   }).format(date);
 
 function CycleInformationScreen({navigation}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
@@ -89,17 +90,25 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
 
   return (
     <ImageBackground
-      source={OBJECTIVE_BACKGROUND}
+      source={CYCLE_BACKGROUND}
       resizeMode="cover"
       style={styles.background}>
-      <SafeAreaView style={styles.safeArea}>
+      <View style={styles.safeArea}>
         <StatusBar
           hidden={false}
           backgroundColor="transparent"
           barStyle="dark-content"
           translucent
         />
-        <View style={styles.content}>
+        <ScrollView
+          contentContainerStyle={[
+            styles.content,
+            {
+              paddingTop: Math.max(insets.top, 20) + spacing.lg,
+              paddingBottom: Math.max(insets.bottom, 16),
+            },
+          ]}
+          showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>{'Informations\nde ton cycle'}</Text>
             <Text style={styles.subtitle}>
@@ -192,8 +201,8 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
             style={({pressed}) => [styles.nextButton, pressed && styles.pressed]}>
             <Text style={styles.nextText}>Suivant</Text>
           </Pressable>
-        </View>
-      </SafeAreaView>
+        </ScrollView>
+      </View>
 
       <Modal
         animationType="fade"
@@ -287,37 +296,36 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: colors.cream},
+  background: {flex: 1, backgroundColor: '#F8EFFF'},
   safeArea: {flex: 1},
   content: {
-    flex: 1,
-    paddingTop: 46,
+    flexGrow: 1,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md,
   },
   header: {alignItems: 'center', marginBottom: spacing.lg},
   title: {
-    color: '#083F31',
+    color: '#28166F',
     fontFamily: 'serif',
     fontSize: 30,
-    fontWeight: '600',
+    fontWeight: '700',
     lineHeight: 36,
     textAlign: 'center',
   },
-  subtitle: {marginTop: 8, color: '#37413F', fontSize: 13, lineHeight: 19, textAlign: 'center'},
+  subtitle: {marginTop: 8, color: '#655A8D', fontSize: 13, lineHeight: 19, textAlign: 'center'},
   form: {gap: 7},
-  label: {marginTop: 5, color: '#31534A', fontSize: 13, fontWeight: '500'},
+  label: {marginTop: 5, color: '#55447F', fontSize: 13, fontWeight: '600'},
   field: {
     minHeight: 48,
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E5D9C7',
+    borderColor: 'rgba(111, 83, 190, 0.18)',
     borderRadius: 13,
-    backgroundColor: 'rgba(255, 253, 248, 0.92)',
+    backgroundColor: 'rgba(255, 252, 255, 0.90)',
     paddingHorizontal: 13,
   },
-  fieldText: {flex: 1, marginHorizontal: 10, color: '#25302E', fontSize: 14},
+  fieldText: {flex: 1, marginHorizontal: 10, color: '#2A2050', fontSize: 14},
   calendarFieldIcon: {width: 22, height: 22, resizeMode: 'contain'},
   chevronIcon: {width: 20, height: 20, resizeMode: 'contain'},
   regularityRow: {flexDirection: 'row', gap: 8},
@@ -328,14 +336,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#E5D9C7',
+    borderColor: 'rgba(111, 83, 190, 0.18)',
     borderRadius: 13,
-    backgroundColor: 'rgba(255, 253, 248, 0.92)',
+    backgroundColor: 'rgba(255, 252, 255, 0.90)',
     paddingHorizontal: 5,
   },
-  regularitySelected: {borderColor: '#176548', backgroundColor: '#F2F6EF'},
+  regularitySelected: {borderColor: '#6848BC', backgroundColor: '#EEE5FF'},
   regularityText: {
-    color: '#26302E',
+    color: '#2A2050',
     fontSize: 13,
     textAlign: 'center',
   },
@@ -345,8 +353,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    backgroundColor: '#176548',
-    elevation: 3,
+    backgroundColor: '#6949BE',
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.25,
+    shadowRadius: 9,
+    elevation: 5,
   },
   nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
   pressed: {opacity: 0.8},
@@ -354,14 +366,14 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(3, 35, 27, 0.35)',
+    backgroundColor: 'rgba(30, 18, 65, 0.40)',
     padding: spacing.lg,
   },
   calendarCard: {
     width: '100%',
     maxWidth: 380,
     borderRadius: 22,
-    backgroundColor: '#FFFEF9',
+    backgroundColor: '#FFFCFF',
     padding: spacing.md,
     elevation: 12,
   },
@@ -372,35 +384,35 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 21,
-    backgroundColor: '#F5F1E7',
+    backgroundColor: '#F0E8FC',
   },
   calendarArrowText: {
-    color: '#176548',
+    color: '#6848BC',
     fontSize: 27,
     fontWeight: '600',
     lineHeight: 30,
   },
-  calendarTitle: {color: '#174F3D', fontFamily: 'serif', fontSize: 19, fontWeight: '600'},
+  calendarTitle: {color: '#382174', fontFamily: 'serif', fontSize: 19, fontWeight: '600'},
   weekRow: {flexDirection: 'row', marginTop: spacing.md},
-  weekDay: {width: '14.2857%', color: '#8A7960', fontSize: 12, textAlign: 'center'},
+  weekDay: {width: '14.2857%', color: '#85739F', fontSize: 12, textAlign: 'center'},
   daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
   dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
   dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
-  daySelected: {backgroundColor: '#176548'},
-  dayText: {color: '#26302E', fontSize: 14},
+  daySelected: {backgroundColor: '#6848BC'},
+  dayText: {color: '#2A2050', fontSize: 14},
   dayTextSelected: {color: '#FFFFFF', fontWeight: '700'},
   durationCard: {
     width: '100%',
     maxWidth: 360,
     borderRadius: 22,
-    backgroundColor: '#FFFEF9',
+    backgroundColor: '#FFFCFF',
     padding: spacing.md,
     elevation: 12,
   },
-  durationTitle: {marginBottom: spacing.md, color: '#174F3D', fontFamily: 'serif', fontSize: 20, fontWeight: '600', textAlign: 'center'},
+  durationTitle: {marginBottom: spacing.md, color: '#382174', fontFamily: 'serif', fontSize: 20, fontWeight: '600', textAlign: 'center'},
   durationGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center'},
-  durationOption: {minWidth: 82, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#E4D5BD', borderRadius: 12},
-  durationOptionText: {color: '#26302E', fontSize: 13},
+  durationOption: {minWidth: 82, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#DCCEF1', borderRadius: 12, backgroundColor: '#FAF6FF'},
+  durationOptionText: {color: '#2A2050', fontSize: 13},
 });
 
 export default CycleInformationScreen;

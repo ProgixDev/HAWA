@@ -3,24 +3,29 @@ import {
   Animated,
   Easing,
   Image,
+  ImageBackground,
   Pressable,
-  SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 const CONFIRMATION_IMAGE = require('../assets/images/cycle-objective-confirmation.png');
-const CREAM = '#FBF7EF';
-const GREEN = '#195B46';
+const BACKGROUND = require('../assets/images/school-selection-background.png');
+const PURPLE = '#6949BE';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleObjectiveConfirmation'>;
 
 function CycleObjectiveConfirmationScreen({navigation}: Props): React.JSX.Element {
+  const {height} = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const compact = height < 700;
   const entrance = useRef(new Animated.Value(0)).current;
   const breathe = useRef(new Animated.Value(0)).current;
 
@@ -56,11 +61,11 @@ function CycleObjectiveConfirmationScreen({navigation}: Props): React.JSX.Elemen
   const scale = breathe.interpolate({inputRange: [0, 1], outputRange: [1, 1.018]});
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar backgroundColor={CREAM} barStyle="dark-content" />
-      <View style={styles.page}>
+    <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.safeArea}>
+      <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+      <View style={[styles.page, {paddingTop: Math.max(insets.top, 20) + (compact ? 8 : 20), paddingBottom: Math.max(insets.bottom, 16) + 8}, compact && styles.pageCompact]}>
         <Animated.View style={[styles.content, {opacity: entrance, transform: [{translateY}]}]}>
-          <Animated.View style={[styles.imageWrap, {transform: [{scale}]}]}>
+          <Animated.View style={[styles.imageWrap, compact && styles.imageWrapCompact, {transform: [{scale}]}]}>
             <Image
               accessibilityLabel="Calendrier botanique validé"
               resizeMode="contain"
@@ -86,21 +91,23 @@ function CycleObjectiveConfirmationScreen({navigation}: Props): React.JSX.Elemen
           <Text style={styles.buttonText}>Commencer mon suivi</Text>
         </Pressable>
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {flex: 1, backgroundColor: CREAM},
-  page: {flex: 1, justifyContent: 'space-between', backgroundColor: CREAM, paddingHorizontal: 18, paddingTop: 24, paddingBottom: 20},
+  safeArea: {flex: 1, backgroundColor: '#F8EFFF'},
+  page: {flex: 1, justifyContent: 'space-between', paddingHorizontal: 18},
+  pageCompact: {},
   content: {flex: 1, alignItems: 'center', justifyContent: 'center'},
   imageWrap: {width: '88%', maxWidth: 390, aspectRatio: 1},
+  imageWrapCompact: {width: '62%', maxWidth: 230},
   image: {width: '100%', height: '100%'},
   copy: {alignItems: 'center', marginTop: -20},
-  title: {color: GREEN, fontFamily: 'serif', fontSize: 29, fontWeight: '600', lineHeight: 38, textAlign: 'center'},
-  lead: {marginTop: 14, color: '#243532', fontSize: 16, lineHeight: 23, textAlign: 'center'},
-  description: {marginTop: 27, color: '#243532', fontSize: 15, lineHeight: 22, textAlign: 'center'},
-  button: {height: 54, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: GREEN, elevation: 4, shadowColor: '#123C30', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.18, shadowRadius: 9},
+  title: {color: '#28166F', fontFamily: 'serif', fontSize: 29, fontWeight: '700', lineHeight: 38, textAlign: 'center'},
+  lead: {marginTop: 14, color: '#433467', fontSize: 16, lineHeight: 23, textAlign: 'center'},
+  description: {marginTop: 27, color: '#655A8D', fontSize: 15, lineHeight: 22, textAlign: 'center'},
+  button: {height: 54, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: PURPLE, elevation: 5, shadowColor: '#4E319A', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.25, shadowRadius: 9},
   buttonPressed: {opacity: 0.88, transform: [{scale: 0.99}]},
   buttonText: {color: '#FFFFFF', fontSize: 17, fontWeight: '600'},
 });

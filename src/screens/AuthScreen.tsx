@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, StatusBar, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {spacing} from '../theme/spacing';
 import {isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
@@ -18,6 +19,9 @@ const LOCK_FIELD_ICON = require('../assets/images/register-lock-icon.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 
 function AuthScreen({navigation}: Props): React.JSX.Element {
+  const {height} = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const compact = height < 700;
   const [mode, setMode] = useState<'login' | 'register'>('login');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -30,11 +34,11 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   };
 
   return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.page}>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
-        <View style={styles.content}>
-          <ImageBackground source={HEADER} resizeMode="cover" style={styles.hero}>
+        <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+          <ImageBackground source={HEADER} resizeMode="cover" style={[styles.hero, compact && styles.heroCompact]}>
             <View style={styles.brandArea}>
               <Text style={styles.brand}>HAWA</Text>
               <Text style={styles.tagline}>{'Pour une vie alignée,\nà chaque étape.'}</Text>
@@ -92,15 +96,16 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
           <View style={styles.spacer} />
           <Text style={styles.legal}>En continuant, vous acceptez nos</Text>
           <Text style={styles.legalStrong}>Conditions d’utilisation et notre Politique de confidentialité.</Text>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
-  page: {flex: 1, backgroundColor: '#FBF6EC'}, safeArea: {flex: 1}, content: {flex: 1, paddingHorizontal: spacing.lg, paddingBottom: 9},
+  page: {flex: 1, backgroundColor: '#FBF6EC'}, safeArea: {flex: 1}, content: {flexGrow: 1, paddingHorizontal: spacing.lg},
   hero: {height: 225, marginHorizontal: -spacing.lg, justifyContent: 'flex-end'},
+  heroCompact: {height: 170},
   brandArea: {alignItems: 'center', paddingBottom: 12}, brand: {color: '#0B5847', fontFamily: 'serif', fontSize: 45, letterSpacing: 2},
   tagline: {marginTop: 2, color: '#24594D', fontSize: 12, lineHeight: 17, fontWeight: '600', textAlign: 'center'},
   tabs: {flexDirection: 'row', gap: 9, marginTop: 4, marginBottom: 14}, tab: {flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#E8DED0', borderRadius: 15, backgroundColor: 'rgba(255,253,248,0.88)'},

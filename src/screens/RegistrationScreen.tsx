@@ -1,7 +1,8 @@
 import React, {useMemo, useState} from 'react';
-import {Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, type ImageSourcePropType} from 'react-native';
+import {Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View, type ImageSourcePropType} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing} from '../theme/spacing';
@@ -29,11 +30,14 @@ function Field({icon, label, placeholder, value, onChangeText, secure, visible, 
 }
 
 function RegistrationScreen({navigation}: Props): React.JSX.Element {
+  const {height} = useWindowDimensions();
+  const insets = useSafeAreaInsets();
+  const compact = height < 700;
   const [firstName, setFirstName] = useState(''); const [lastName, setLastName] = useState(''); const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); const [confirmation, setConfirmation] = useState(''); const [passwordVisible, setPasswordVisible] = useState(false); const [confirmationVisible, setConfirmationVisible] = useState(false);
   const rules = useMemo(() => [{label: '8 caractères minimum', valid: password.length >= 8}, {label: 'Un chiffre', valid: /\d/.test(password)}, {label: 'Une majuscule', valid: /[A-Z]/.test(password)}, {label: 'Un caractère spécial', valid: /[^A-Za-z0-9]/.test(password)}], [password]);
-  return <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-    <ImageBackground source={HEADER} resizeMode="cover" style={styles.hero}><Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color="#155B47" name="arrow-left" size={31} /></Pressable><View style={styles.brandArea}><Text style={styles.brand}>HAWA</Text></View></ImageBackground>
+  return <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+    <ImageBackground source={HEADER} resizeMode="cover" style={[styles.hero, compact && styles.heroCompact]}><Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={[styles.back, {top: Math.max(insets.top, 12)}]}><MaterialDesignIcons color="#155B47" name="arrow-left" size={31} /></Pressable><View style={styles.brandArea}><Text style={styles.brand}>HAWA</Text></View></ImageBackground>
     <View style={styles.tabs}>
       <Pressable onPress={() => navigation.navigate('Auth')} style={styles.tab}>
         <Text style={styles.tabText}>Connexion</Text>
@@ -59,6 +63,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
 
 const styles = StyleSheet.create({
   page: {flex: 1, backgroundColor: '#FBF6EC'}, safeArea: {flex: 1}, content: {paddingBottom: 20}, hero: {height: 230, justifyContent: 'flex-end'},
+  heroCompact: {height: 175},
   back: {position: 'absolute', top: 44, left: 17, width: 46, height: 46, alignItems: 'center', justifyContent: 'center'}, brandArea: {alignItems: 'center', paddingBottom: 4}, brand: {color: '#0B5847', fontFamily: 'serif', fontSize: 48, letterSpacing: 2},
   tabs: {flexDirection: 'row', gap: 9, marginTop: 8, marginHorizontal: spacing.lg},
   tab: {flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#E8DED0', borderRadius: 15, backgroundColor: 'rgba(255,253,248,0.9)'},

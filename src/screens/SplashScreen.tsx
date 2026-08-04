@@ -10,6 +10,7 @@ import {
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
@@ -23,6 +24,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 function SplashScreen({navigation}: Props): React.JSX.Element {
   const {width, height} = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoTranslateY = useRef(new Animated.Value(18)).current;
   const logoScale = useRef(new Animated.Value(1)).current;
@@ -138,7 +140,7 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
         </Animated.Text>
       </View>
 
-      <View style={[styles.progressTrack, {width: progressWidth}]}>
+      <View style={[styles.progressTrack, {width: progressWidth, bottom: Math.max(insets.bottom, 16) + 16}]}>
         <Animated.View
           style={[
             styles.progressFill,
@@ -191,7 +193,6 @@ const styles = StyleSheet.create({
   },
   progressTrack: {
     position: 'absolute',
-    bottom: spacing.xxl,
     alignSelf: 'center',
     height: 6,
     overflow: 'hidden',

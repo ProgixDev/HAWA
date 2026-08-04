@@ -3,12 +3,14 @@ import {
   ImageBackground,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
@@ -38,6 +40,7 @@ const objectives: Objective[] = [
 type Props = NativeStackScreenProps<RootStackParamList, 'Objective'>;
 
 function ObjectiveScreen({navigation}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
   const [selectedId, setSelectedId] = useState('cycle');
 
   const handleNext = () => {
@@ -61,7 +64,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
           barStyle="dark-content"
           translucent
         />
-        <View style={styles.content}>
+        <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{'Quel est ton\nobjectif principal ?'}</Text>
 
           <View style={styles.list}>
@@ -100,7 +103,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
             ]}>
             <Text style={styles.nextButtonText}>Suivant</Text>
           </Pressable>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </ImageBackground>
   );
@@ -110,7 +113,7 @@ const styles = StyleSheet.create({
   background: {flex: 1, backgroundColor: colors.cream},
   safeArea: {flex: 1},
   content: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     paddingTop: 34,
     paddingHorizontal: spacing.lg,
