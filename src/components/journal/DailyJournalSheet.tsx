@@ -14,10 +14,12 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 
 const JOURNAL_HEADER = require('../../assets/images/daily-journal-header.png');
-const GREEN = '#1E6249';
+const PURPLE = '#6047B6';
+const DEEP_PURPLE = '#21156B';
 
 export type JournalRoute = Extract<
   keyof RootStackParamList,
@@ -29,7 +31,7 @@ export type JournalRoute = Extract<
   | 'ActivityEntry'
   | 'HydrationWeightEntry'
   | 'NoteEntry'
-  | 'IntimacyEntry'
+  | 'PrivateIntimacyUnlock'
   | 'PrivatePhotoEntry'
 >;
 
@@ -39,6 +41,25 @@ type Props = {
   onNavigate: (route: JournalRoute) => void;
 };
 
+// const actions: Array<{
+//   route: JournalRoute;
+//   icon: string;
+//   title: string;
+//   subtitle: string;
+//   tint: string;
+// }> = [
+//   {route: 'SymptomEntry', icon: 'heart-pulse', title: 'Symptôme', subtitle: 'Ajoute tes symptômes physiques', tint: '#E6F1E7'},
+//   {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: 'Humeur', subtitle: 'Comment te sens-tu aujourd’hui ?', tint: '#FBE8D7'},
+//   {route: 'FlowEntry', icon: 'water-outline', title: 'Flux', subtitle: 'Intensité et caractéristiques du flux', tint: '#F8DEDF'},
+//   {route: 'TemperatureEntry', icon: 'thermometer', title: 'Température', subtitle: 'Température corporelle ou basale', tint: '#ECE6F8'},
+//   {route: 'SleepEntry', icon: 'weather-night', title: 'Sommeil', subtitle: 'Durée et qualité de ton sommeil', tint: '#E8E5F7'},
+//   {route: 'ActivityEntry', icon: 'walk', title: 'Activité physique', subtitle: 'Mouvement et activité du jour', tint: '#E5F0E5'},
+//   {route: 'HydrationWeightEntry', icon: 'cup-water', title: 'Hydratation et poids', subtitle: 'Eau consommée et évolution du poids', tint: '#E4EEF4'},
+//   {route: 'NoteEntry', icon: 'notebook-edit-outline', title: 'Note', subtitle: 'Écris tes pensées', tint: '#E5F0E5'},
+//   {route: 'IntimacyEntry', icon: 'heart-outline', title: 'Vie intime', subtitle: 'Rapport, protection et ressenti', tint: '#F8E2E3'},
+//   {route: 'PrivatePhotoEntry', icon: 'camera-lock-outline', title: 'Photo privée', subtitle: 'Photos et observations personnelles', tint: '#E8E5F7'},
+// ];
+
 const actions: Array<{
   route: JournalRoute;
   icon: string;
@@ -46,20 +67,52 @@ const actions: Array<{
   subtitle: string;
   tint: string;
 }> = [
-  {route: 'SymptomEntry', icon: 'heart-pulse', title: 'Symptôme', subtitle: 'Ajoute tes symptômes physiques', tint: '#E6F1E7'},
-  {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: 'Humeur', subtitle: 'Comment te sens-tu aujourd’hui ?', tint: '#FBE8D7'},
-  {route: 'FlowEntry', icon: 'water-outline', title: 'Flux', subtitle: 'Intensité et caractéristiques du flux', tint: '#F8DEDF'},
-  {route: 'TemperatureEntry', icon: 'thermometer', title: 'Température', subtitle: 'Température corporelle ou basale', tint: '#ECE6F8'},
-  {route: 'SleepEntry', icon: 'weather-night', title: 'Sommeil', subtitle: 'Durée et qualité de ton sommeil', tint: '#E8E5F7'},
-  {route: 'ActivityEntry', icon: 'walk', title: 'Activité physique', subtitle: 'Mouvement et activité du jour', tint: '#E5F0E5'},
-  {route: 'HydrationWeightEntry', icon: 'cup-water', title: 'Hydratation et poids', subtitle: 'Eau consommée et évolution du poids', tint: '#E4EEF4'},
-  {route: 'NoteEntry', icon: 'notebook-edit-outline', title: 'Note', subtitle: 'Écris tes pensées', tint: '#E5F0E5'},
-  {route: 'IntimacyEntry', icon: 'heart-outline', title: 'Vie intime', subtitle: 'Rapport, protection et ressenti', tint: '#F8E2E3'},
-  {route: 'PrivatePhotoEntry', icon: 'camera-lock-outline', title: 'Photo privée', subtitle: 'Photos et observations personnelles', tint: '#E8E5F7'},
+  {
+    route: 'SymptomEntry',
+    icon: 'heart-pulse',
+    title: 'Symptôme',
+    subtitle: 'Ajoute tes symptômes physiques',
+    tint: '#E9DFFF',
+  },
+  {
+    route: 'MoodEntry',
+    icon: 'emoticon-happy-outline',
+    title: 'Humeur',
+    subtitle: 'Comment te sens-tu aujourd’hui ?',
+    tint: '#F9DDE8',
+  },
+  {
+    route: 'SleepEntry',
+    icon: 'weather-night',
+    title: 'Sommeil',
+    subtitle: 'Durée et qualité de ton sommeil',
+    tint: '#E8DDF8',
+  },
+  {
+    route: 'ActivityEntry',
+    icon: 'walk',
+    title: 'Activité physique',
+    subtitle: 'Mouvement et activité du jour',
+    tint: '#DFF0F1',
+  },
+  {
+    route: 'NoteEntry',
+    icon: 'notebook-edit-outline',
+    title: 'Note personnelle',
+    subtitle: 'Écris tes observations et ajoute des photos privées',
+    tint: '#E9DFF7',
+  },
+  {
+    route: 'PrivateIntimacyUnlock',
+    icon: 'heart-outline',
+    title: 'Vie intime',
+    subtitle: 'Rapport, protection et ressenti',
+    tint: '#F9DCE8',
+  },
 ];
-
 function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Element {
   const {height} = useWindowDimensions();
+  const insets = useSafeAreaInsets();
   const progress = useRef(new Animated.Value(0)).current;
   const dragY = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -121,7 +174,7 @@ function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Ele
           <Pressable accessibilityLabel="Fermer" accessibilityRole="button" hitSlop={10} onPress={close} style={styles.closeButton}>
             <MaterialDesignIcons color="#FFFFFF" name="close" size={20} />
           </Pressable>
-          <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          <ScrollView contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + 20}]} showsVerticalScrollIndicator={false}>
             <Image accessibilityIgnoresInvertColors resizeMode="cover" source={JOURNAL_HEADER} style={styles.headerImage} />
             <Text style={styles.title}>Journal quotidien</Text>
             <Text style={styles.subtitle}>Comment te sens-tu aujourd’hui ?</Text>
@@ -137,17 +190,17 @@ function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Ele
                       accessibilityHint={`Ouvre la saisie ${action.title.toLowerCase()}`}
                       accessibilityLabel={action.title}
                       accessibilityRole="button"
-                      android_ripple={{color: 'rgba(30,98,73,0.08)'}}
+                      android_ripple={{color: 'rgba(96,71,182,0.10)'}}
                       onPress={() => onNavigate(action.route)}
                       style={({pressed}) => [styles.card, pressed && styles.cardPressed]}>
                       <View style={[styles.iconCircle, {backgroundColor: action.tint}]}>
-                        <MaterialDesignIcons color={GREEN} name={action.icon as never} size={23} />
+                        <MaterialDesignIcons color={PURPLE} name={action.icon as never} size={25} />
                       </View>
                       <View style={styles.cardCopy}>
                         <Text style={styles.cardTitle}>{action.title}</Text>
                         <Text numberOfLines={1} style={styles.cardSubtitle}>{action.subtitle}</Text>
                       </View>
-                      <MaterialDesignIcons color="#91A096" name="chevron-right" size={24} />
+                      <MaterialDesignIcons color="#665A91" name="chevron-right" size={26} />
                     </Pressable>
                   </Animated.View>
                 );
@@ -162,21 +215,21 @@ function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Ele
 
 const styles = StyleSheet.create({
   modalRoot: {flex: 1, justifyContent: 'flex-end'},
-  overlay: {...StyleSheet.absoluteFillObject, backgroundColor: '#092A21'},
-  sheet: {height: '88%', overflow: 'hidden', borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: '#FBF7EF', elevation: 24},
-  handle: {width: 46, height: 5, alignSelf: 'center', marginTop: 10, borderRadius: 3, backgroundColor: '#D9D2C7'},
-  closeButton: {position: 'absolute', right: 18, top: 17, zIndex: 3, width: 38, height: 38, alignItems: 'center', justifyContent: 'center', borderRadius: 19, backgroundColor: GREEN},
+  overlay: {...StyleSheet.absoluteFillObject, backgroundColor: '#17102F'},
+  sheet: {height: '88%', overflow: 'hidden', borderTopLeftRadius: 30, borderTopRightRadius: 30, backgroundColor: '#FCF8FF', elevation: 24},
+  handle: {width: 46, height: 5, alignSelf: 'center', marginTop: 10, borderRadius: 3, backgroundColor: '#DED5EB'},
+  closeButton: {position: 'absolute', right: 18, top: 17, zIndex: 3, width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: PURPLE},
   scrollContent: {paddingHorizontal: 16, paddingBottom: 30},
   headerImage: {width: '100%', height: 145, marginTop: 5, borderRadius: 20},
-  title: {marginTop: 3, color: '#173D30', fontFamily: 'serif', fontSize: 25, fontWeight: '600', textAlign: 'center'},
-  subtitle: {marginTop: 3, color: '#6D746F', fontSize: 13, textAlign: 'center'},
-  cards: {gap: 9, marginTop: 18},
-  card: {minHeight: 66, flexDirection: 'row', alignItems: 'center', overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(30,98,73,0.09)', borderRadius: 24, backgroundColor: '#FFFDF9', paddingHorizontal: 12, elevation: 1},
+  title: {marginTop: 3, color: DEEP_PURPLE, fontFamily: 'serif', fontSize: 29, fontWeight: '700', textAlign: 'center'},
+  subtitle: {marginTop: 2, color: '#675C94', fontSize: 14, textAlign: 'center'},
+  cards: {gap: 10, marginTop: 18},
+  card: {minHeight: 72, flexDirection: 'row', alignItems: 'center', overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(96,71,182,0.12)', borderRadius: 23, backgroundColor: '#FFFCFF', paddingHorizontal: 13, shadowColor: '#6D53A8', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 2},
   cardPressed: {opacity: 0.8, transform: [{scale: 0.99}]},
-  iconCircle: {width: 43, height: 43, alignItems: 'center', justifyContent: 'center', borderRadius: 22},
+  iconCircle: {width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderRadius: 24},
   cardCopy: {flex: 1, marginHorizontal: 12},
-  cardTitle: {color: '#173D30', fontSize: 15, fontWeight: '600'},
-  cardSubtitle: {marginTop: 2, color: '#6D746F', fontSize: 11},
+  cardTitle: {color: DEEP_PURPLE, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+  cardSubtitle: {marginTop: 2, color: '#675C94', fontSize: 12},
 });
 
 export default memo(DailyJournalSheet);
