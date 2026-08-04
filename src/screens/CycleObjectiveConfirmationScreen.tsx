@@ -3,7 +3,6 @@ import {
   Animated,
   Easing,
   Image,
-  ImageBackground,
   Pressable,
   StatusBar,
   StyleSheet,
@@ -17,7 +16,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 const CONFIRMATION_IMAGE = require('../assets/images/cycle-objective-confirmation.png');
-const BACKGROUND = require('../assets/images/school-selection-background.png');
 const PURPLE = '#6949BE';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleObjectiveConfirmation'>;
@@ -61,7 +59,7 @@ function CycleObjectiveConfirmationScreen({navigation}: Props): React.JSX.Elemen
   const scale = breathe.interpolate({inputRange: [0, 1], outputRange: [1, 1.018]});
 
   return (
-    <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.safeArea}>
+    <View style={styles.safeArea}>
       <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
       <View style={[styles.page, {paddingTop: Math.max(insets.top, 20) + (compact ? 8 : 20), paddingBottom: Math.max(insets.bottom, 16) + 8}, compact && styles.pageCompact]}>
         <Animated.View style={[styles.content, {opacity: entrance, transform: [{translateY}]}]}>
@@ -91,12 +89,12 @@ function CycleObjectiveConfirmationScreen({navigation}: Props): React.JSX.Elemen
           <Text style={styles.buttonText}>Commencer mon suivi</Text>
         </Pressable>
       </View>
-    </ImageBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safeArea: {flex: 1, backgroundColor: '#F8EFFF'},
+  safeArea: {flex: 1, backgroundColor: '#F0E3F9'},
   page: {flex: 1, justifyContent: 'space-between', paddingHorizontal: 18},
   pageCompact: {},
   content: {flex: 1, alignItems: 'center', justifyContent: 'center'},

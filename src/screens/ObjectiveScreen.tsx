@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   ImageBackground,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -13,11 +12,10 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {setSelectedObjective, type ObjectiveId} from '../state/onboardingPreferences';
 
-const OBJECTIVE_BACKGROUND = require('../assets/images/objective-background.png');
+const OBJECTIVE_BACKGROUND = require('../assets/images/school-selection-background.png');
 
 type Objective = {
   id: ObjectiveId;
@@ -57,14 +55,14 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
       source={OBJECTIVE_BACKGROUND}
       resizeMode="cover"
       style={styles.background}>
-      <SafeAreaView style={styles.safeArea}>
+      <View style={styles.safeArea}>
         <StatusBar
           hidden={false}
           backgroundColor="transparent"
           barStyle="dark-content"
           translucent
         />
-        <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={[styles.content, {paddingTop: Math.max(insets.top, 20) + spacing.md, paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{'Quel est ton\nobjectif principal ?'}</Text>
 
           <View style={styles.list}>
@@ -104,27 +102,26 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
             <Text style={styles.nextButtonText}>Suivant</Text>
           </Pressable>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: colors.cream},
+  background: {flex: 1, backgroundColor: '#F8EFFF'},
   safeArea: {flex: 1},
   content: {
     flexGrow: 1,
     justifyContent: 'center',
-    paddingTop: 34,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md,
   },
   title: {
     marginBottom: spacing.lg,
-    color: '#0A5B43',
+    color: '#28166F',
     fontFamily: 'serif',
     fontSize: 29,
-    fontWeight: '600',
+    fontWeight: '700',
     lineHeight: 36,
     textAlign: 'center',
   },
@@ -134,12 +131,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E9D8BC',
+    borderColor: 'rgba(111,83,190,0.18)',
     borderRadius: 18,
-    backgroundColor: 'rgba(255, 253, 248, 0.88)',
+    backgroundColor: 'rgba(255,252,255,0.88)',
     paddingHorizontal: 12,
   },
-  optionSelected: {borderColor: '#D7B05B'},
+  optionSelected: {borderColor: '#6848BC', backgroundColor: 'rgba(249,244,255,0.96)'},
   optionPressed: {opacity: 0.78},
   radio: {
     width: 20,
@@ -147,15 +144,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: '#CDBD9E',
+    borderColor: '#AE9BCF',
     borderRadius: 10,
   },
-  radioSelected: {borderColor: '#D2A13E'},
+  radioSelected: {borderColor: '#7654CE'},
   radioDot: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#176A4B',
+    backgroundColor: '#7654CE',
   },
   iconBox: {
     width: 38,
@@ -168,7 +165,7 @@ const styles = StyleSheet.create({
   icon: {fontSize: 21},
   optionLabel: {
     flex: 1,
-    color: '#151B1B',
+    color: '#2A2050',
     fontSize: 15,
     fontWeight: '500',
     lineHeight: 19,
@@ -179,8 +176,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: spacing.md,
     borderRadius: 19,
-    backgroundColor: '#146043',
-    elevation: 3,
+    backgroundColor: '#6949BE',
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.25,
+    shadowRadius: 9,
+    elevation: 5,
   },
   nextButtonPressed: {opacity: 0.86, transform: [{scale: 0.99}]},
   nextButtonText: {
