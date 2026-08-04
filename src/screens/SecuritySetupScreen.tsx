@@ -19,14 +19,14 @@ type Props = NativeStackScreenProps<RootStackParamList, 'SecuritySetup'>;
 type OptionProps = {icon: ImageSourcePropType; title: string; description: string; value: boolean; onValueChange: (value: boolean) => void};
 
 function SecurityOption({icon, title, description, value, onValueChange}: OptionProps) {
-  return <View style={styles.option}><View style={styles.iconBox}><Image accessibilityIgnoresInvertColors source={icon} style={styles.icon} /></View><View style={styles.optionCopy}><Text style={styles.optionTitle}>{title}</Text><Text style={styles.optionDescription}>{description}</Text></View><Switch ios_backgroundColor="#DED2C5" onValueChange={onValueChange} thumbColor="#FFFFFF" trackColor={{false: '#DED2C5', true: '#176548'}} value={value} /></View>;
+  return <View style={styles.option}><View style={styles.iconBox}><Image accessibilityIgnoresInvertColors source={icon} style={styles.icon} /></View><View style={styles.optionCopy}><Text style={styles.optionTitle}>{title}</Text><Text style={styles.optionDescription}>{description}</Text></View><Switch ios_backgroundColor="#D9CDEC" onValueChange={onValueChange} thumbColor="#FFFFFF" trackColor={{false: '#D9CDEC', true: '#6949BE'}} value={value} /></View>;
 }
 
 function SecuritySetupScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [pin, setPin] = useState(false); const [biometric, setBiometric] = useState(false); const [notifications, setNotifications] = useState(false);
   return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><View style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingTop: Math.max(insets.top, 20), paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
-    <ImageBackground source={HEADER} resizeMode="cover" style={styles.header}><Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color="#174F3D" name="arrow-left" size={29} /></Pressable></ImageBackground>
+    <ImageBackground source={HEADER} resizeMode="cover" style={styles.header}><Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color="#6949BE" name="arrow-left" size={29} /></Pressable></ImageBackground>
     <View style={styles.heading}><Text style={styles.title}>Protège ton espace</Text><Text style={styles.subtitle}>{'Choisis ce que tu actives maintenant —\ntout est modifiable plus tard.'}</Text></View>
     <View style={styles.options}>
       <SecurityOption description={'Verrouiller l’application\nà l’ouverture'} icon={PIN} onValueChange={value => {setPin(value); setPinEnabled(value);}} title="Code PIN" value={pin} />
