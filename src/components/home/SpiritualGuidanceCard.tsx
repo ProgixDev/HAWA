@@ -20,7 +20,7 @@ type Props = {
   locationConfigured: boolean;
 };
 
-const GREEN = '#1F5F46';
+const PURPLE = '#6949BE';
 
 function SpiritualGuidanceCard({
   hijriDate,
@@ -66,15 +66,15 @@ function SpiritualGuidanceCard({
       ]}>
       <View style={styles.headingRow}>
         <View style={styles.mosqueCircle}>
-          <MaterialDesignIcons color={GREEN} name="mosque" size={27} />
+          <MaterialDesignIcons color={PURPLE} name="mosque" size={27} />
         </View>
         <Text style={styles.title}>Repères spirituels</Text>
-        <MaterialDesignIcons color={GREEN} name="cog-outline" size={24} />
+        <MaterialDesignIcons color={PURPLE} name="cog-outline" size={24} />
       </View>
 
       <View style={styles.body}>
         <View style={styles.dateColumn}>
-          <MaterialDesignIcons color="#64736B" name="calendar-month-outline" size={25} />
+          <MaterialDesignIcons color="#655A8D" name="calendar-month-outline" size={25} />
           <Text style={styles.date}>{hijriDate ?? 'Date hijri indisponible'}</Text>
         </View>
 
@@ -90,7 +90,7 @@ function SpiritualGuidanceCard({
           ) : null}
           {prayerAvailable && remainingTime ? (
             <View style={styles.timeRow}>
-              <MaterialDesignIcons color={GREEN} name="clock-outline" size={20} />
+              <MaterialDesignIcons color={PURPLE} name="clock-outline" size={20} />
               <Text style={styles.remaining}>{remainingTime}</Text>
             </View>
           ) : null}
@@ -102,7 +102,7 @@ function SpiritualGuidanceCard({
           <Text style={styles.sectionLabel}>Statut</Text>
           <View style={[styles.statusBadge, isMenstruation ? styles.periodBadge : styles.purityBadge]}>
             <MaterialDesignIcons
-              color={isMenstruation ? '#A8505A' : GREEN}
+              color={isMenstruation ? '#A8505A' : PURPLE}
               name={isMenstruation ? 'flower-outline' : 'shield-check-outline'}
               size={19}
             />
@@ -118,28 +118,28 @@ function SpiritualGuidanceCard({
 }
 
 const styles = StyleSheet.create({
-  card: {marginTop: 15, borderWidth: 1, borderColor: 'rgba(31,95,70,0.20)', borderRadius: 25, backgroundColor: '#FFFDF8', padding: 14, elevation: 2, shadowColor: '#173D30', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 10},
+  card: {marginTop: 15, borderWidth: 1, borderColor: 'rgba(105,73,190,0.18)', borderRadius: 25, backgroundColor: '#FFFDF8', padding: 14, elevation: 2, shadowColor: '#28166F', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 10},
   headingRow: {flexDirection: 'row', alignItems: 'center'},
-  mosqueCircle: {width: 43, height: 43, alignItems: 'center', justifyContent: 'center', borderRadius: 22, backgroundColor: '#EAF1E8'},
-  title: {flex: 1, marginLeft: 11, color: '#173D30', fontFamily: 'serif', fontSize: 19, fontWeight: '700'},
+  mosqueCircle: {width: 43, height: 43, alignItems: 'center', justifyContent: 'center', borderRadius: 22, backgroundColor: '#EEE3FA'},
+  title: {flex: 1, marginLeft: 11, color: '#28166F', fontFamily: 'serif', fontSize: 19, fontWeight: '700'},
   body: {flexDirection: 'row', alignItems: 'stretch', marginTop: 13},
   dateColumn: {width: '25%', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 2},
-  date: {marginTop: 7, color: '#314A42', fontSize: 11, lineHeight: 15, textAlign: 'center'},
-  separator: {width: StyleSheet.hairlineWidth, marginHorizontal: 8, backgroundColor: 'rgba(31,95,70,0.14)'},
+  date: {marginTop: 7, color: '#655A8D', fontSize: 11, lineHeight: 15, textAlign: 'center'},
+  separator: {width: StyleSheet.hairlineWidth, marginHorizontal: 8, backgroundColor: 'rgba(105,73,190,0.16)'},
   prayerColumn: {flex: 0.85, justifyContent: 'center'},
   statusColumn: {flex: 1.2, justifyContent: 'center'},
-  sectionLabel: {color: '#64736B', fontSize: 11, fontWeight: '500'},
-  prayerName: {marginTop: 4, color: GREEN, fontSize: 17, fontWeight: '700'},
-  prayerTime: {marginTop: 1, color: '#64736B', fontSize: 11, fontWeight: '600'},
+  sectionLabel: {color: '#655A8D', fontSize: 11, fontWeight: '500'},
+  prayerName: {marginTop: 4, color: PURPLE, fontSize: 17, fontWeight: '700'},
+  prayerTime: {marginTop: 1, color: '#655A8D', fontSize: 11, fontWeight: '600'},
   timeRow: {flexDirection: 'row', alignItems: 'center', marginTop: 6},
-  remaining: {flex: 1, marginLeft: 5, color: '#314A42', fontSize: 11},
+  remaining: {flex: 1, marginLeft: 5, color: '#655A8D', fontSize: 11},
   statusBadge: {alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 5, borderRadius: 16, paddingHorizontal: 8, paddingVertical: 5},
   periodBadge: {backgroundColor: '#F5DEDE'},
-  purityBadge: {backgroundColor: '#EAF1E8'},
+  purityBadge: {backgroundColor: '#EEE3FA'},
   statusText: {marginLeft: 5, fontSize: 12, fontWeight: '700'},
   periodText: {color: '#A8505A'},
-  purityText: {color: GREEN},
-  message: {marginTop: 7, color: '#53645C', fontSize: 10, lineHeight: 14},
+  purityText: {color: PURPLE},
+  message: {marginTop: 7, color: '#7A6F98', fontSize: 10, lineHeight: 14},
 });
 
 export default memo(SpiritualGuidanceCard);

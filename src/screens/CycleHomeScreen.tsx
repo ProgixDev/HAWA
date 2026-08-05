@@ -2,7 +2,6 @@ import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
-  Image,
   ImageBackground,
   Pressable,
   SafeAreaView,
@@ -11,7 +10,6 @@ import {
   StyleSheet,
   Text,
   View,
-  type ImageSourcePropType,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -38,25 +36,18 @@ import {
   formatRemainingPrayerTime,
   type NextPrayer,
 } from '../services/prayerTimes';
+import {TOP_SPACING_EXTRA} from '../theme/spacing';
 
-const GREEN = '#145B45';
+const PURPLE = '#6949BE';
+const PURPLE_DARK = '#28166F';
+const TEXT_MUTED = '#655A8D';
 const PERIOD = '#DC7B82';
 const PERIOD_LIGHT = '#F7D7D6';
-const FERTILE = '#C8DDAA';
-const OVULATION = '#176448';
+const FERTILE = '#B9A3DC';
+const OVULATION = '#4E319A';
 
-const HOME_MENU_ICON = require('../assets/images/home-menu-icon.png');
-const CALENDAR_MENU_ICON = require('../assets/images/calendar-menu-icon.png');
-const STATISTICS_MENU_ICON = require('../assets/images/statistics-menu-icon.png');
-const PROFILE_MENU_ICON = require('../assets/images/profile-menu-icon.png');
-const ADD_MENU_ICON = require('../assets/images/add-menu-icon.png');
-const NOTIFICATION_ICON = require('../assets/images/notification-icon.png');
-
+const BACKGROUND = require('../assets/images/school-selection-background.png');
 const NEXT_PERIOD_CARD_BACKGROUND = require('../assets/images/next-period-card-background.png');
-
-const SYMPTOMS_QUICK_ICON = require('../assets/images/symptoms-quick-icon.png');
-const PRAYER_TIMES_QUICK_ICON = require('../assets/images/prayer-times-quick-icon.png');
-const LIBRARY_QUICK_ICON = require('../assets/images/library-quick-icon.png');
 
 const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 const DAY_MS = 86_400_000;
@@ -343,13 +334,18 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <StatusBar
-        backgroundColor="#FBF7EF"
-        barStyle="dark-content"
-      />
+    <ImageBackground
+      source={BACKGROUND}
+      resizeMode="cover"
+      style={styles.background}>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle="dark-content"
+          translucent
+        />
 
-      <View style={styles.page}>
+        <View style={styles.page}>
         <ScrollView
           contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 12) + 22}]}
           showsVerticalScrollIndicator={false}>
@@ -367,11 +363,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             <Pressable
               accessibilityLabel="Notifications"
               style={styles.notification}>
-              <Image
-                accessibilityIgnoresInvertColors
-                source={NOTIFICATION_ICON}
-                style={styles.notificationImage}
-              />
+              <MaterialDesignIcons color={PURPLE} name="bell-outline" size={26} />
 
               <View style={styles.notificationDot} />
             </Pressable>
@@ -404,7 +396,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 hitSlop={12}
                 onPress={() => changeMonth(-1)}>
                 <MaterialDesignIcons
-                  color={GREEN}
+                  color={PURPLE}
                   name="chevron-left"
                   size={26}
                 />
@@ -422,7 +414,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 hitSlop={12}
                 onPress={() => changeMonth(1)}>
                 <MaterialDesignIcons
-                  color={GREEN}
+                  color={PURPLE}
                   name="chevron-right"
                   size={26}
                 />
@@ -523,11 +515,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             source={NEXT_PERIOD_CARD_BACKGROUND}
             style={styles.nextCard}>
             <View style={styles.nextIcon}>
-              <Image
-                accessibilityIgnoresInvertColors
-                source={CALENDAR_MENU_ICON}
-                style={styles.nextPeriodImage}
-              />
+              <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={28} />
             </View>
 
             <View style={styles.nextCopy}>
@@ -551,7 +539,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             </View>
 
             <MaterialDesignIcons
-              color={GREEN}
+              color={PURPLE}
               name="chevron-right"
               size={24}
             />
@@ -575,25 +563,21 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <View style={styles.quickRow}>
             <QuickAction
               icon="calendar-check-outline"
-              image={CALENDAR_MENU_ICON}
               label="Calendrier"
             />
 
             <QuickAction
               icon="heart-pulse"
-              image={SYMPTOMS_QUICK_ICON}
               label="Symptômes"
             />
 
             <QuickAction
               icon="mosque"
-              image={PRAYER_TIMES_QUICK_ICON}
               label={'Horaires\nde prière'}
             />
 
             <QuickAction
               icon="book-open-page-variant-outline"
-              image={LIBRARY_QUICK_ICON}
               label="Bibliothèque"
             />
           </View>
@@ -603,10 +587,10 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <AnimatedTabItem
             focused={activeTab === 'home'}
             icon={
-              <Image
-                accessibilityIgnoresInvertColors
-                source={HOME_MENU_ICON}
-                style={styles.menuImage}
+              <MaterialDesignIcons
+                color={activeTab === 'home' ? PURPLE_DARK : '#F3ECFB'}
+                name="home-variant"
+                size={26}
               />
             }
             label="Accueil"
@@ -616,10 +600,10 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <AnimatedTabItem
             focused={activeTab === 'calendar'}
             icon={
-              <Image
-                accessibilityIgnoresInvertColors
-                source={CALENDAR_MENU_ICON}
-                style={styles.menuImage}
+              <MaterialDesignIcons
+                color={activeTab === 'calendar' ? PURPLE_DARK : '#F3ECFB'}
+                name="calendar-month-outline"
+                size={26}
               />
             }
             label="Calendrier"
@@ -641,21 +625,17 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                   {rotate: plusMotion.interpolate({inputRange: [0, 1], outputRange: ['0deg', '45deg']})},
                 ],
               }}>
-              <Image
-                accessibilityIgnoresInvertColors
-                source={ADD_MENU_ICON}
-                style={styles.addMenuImage}
-              />
+              <MaterialDesignIcons color="#FFFFFF" name="plus" size={30} />
             </Animated.View>
           </Pressable>
 
           <AnimatedTabItem
             focused={activeTab === 'statistics'}
             icon={
-              <Image
-                accessibilityIgnoresInvertColors
-                source={STATISTICS_MENU_ICON}
-                style={styles.menuImage}
+              <MaterialDesignIcons
+                color={activeTab === 'statistics' ? PURPLE_DARK : '#F3ECFB'}
+                name="chart-donut"
+                size={26}
               />
             }
             label="Statistiques"
@@ -665,23 +645,24 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <AnimatedTabItem
             focused={activeTab === 'profile'}
             icon={
-              <Image
-                accessibilityIgnoresInvertColors
-                source={PROFILE_MENU_ICON}
-                style={styles.menuImage}
+              <MaterialDesignIcons
+                color={activeTab === 'profile' ? PURPLE_DARK : '#F3ECFB'}
+                name="account-outline"
+                size={26}
               />
             }
             label="Profil"
-            onPress={() => setActiveTab('profile')}
+            onPress={() => navigation.navigate('Profile')}
           />
         </View>
-        <DailyJournalSheet
-          onClose={closeJournal}
-          onNavigate={navigateFromJournal}
-          visible={journalVisible}
-        />
-      </View>
-    </SafeAreaView>
+          <DailyJournalSheet
+            onClose={closeJournal}
+            onNavigate={navigateFromJournal}
+            visible={journalVisible}
+          />
+        </View>
+      </SafeAreaView>
+    </ImageBackground>
   );
 }
 
@@ -715,11 +696,9 @@ function Legend({
 
 function QuickAction({
   icon,
-  image,
   label,
 }: {
   icon: string;
-  image?: ImageSourcePropType;
   label: string;
 }) {
   return (
@@ -729,19 +708,11 @@ function QuickAction({
         pressed && styles.pressed,
       ]}>
       <View style={styles.quickIcon}>
-        {image ? (
-          <Image
-            accessibilityIgnoresInvertColors
-            source={image}
-            style={styles.quickActionImage}
-          />
-        ) : (
-          <MaterialDesignIcons
-            color={GREEN}
-            name={icon as never}
-            size={29}
-          />
-        )}
+        <MaterialDesignIcons
+          color={PURPLE}
+          name={icon as never}
+          size={29}
+        />
       </View>
 
       <Text style={styles.quickLabel}>
@@ -752,19 +723,24 @@ function QuickAction({
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: '#F8EFFF',
+  },
+
   safeArea: {
     flex: 1,
-    backgroundColor: '#FBF7EF',
+    backgroundColor: 'transparent',
   },
 
   page: {
     flex: 1,
-    backgroundColor: '#FBF7EF',
+    backgroundColor: 'transparent',
   },
 
   scrollContent: {
     paddingHorizontal: 16,
-    paddingTop: 18,
+    paddingTop: TOP_SPACING_EXTRA,
     paddingBottom: 22,
   },
 
@@ -781,14 +757,14 @@ const styles = StyleSheet.create({
   },
 
   greeting: {
-    color: '#174F40',
+    color: PURPLE_DARK,
     fontFamily: 'serif',
     fontSize: 20,
     lineHeight: 26,
   },
 
   name: {
-    color: '#174F40',
+    color: PURPLE_DARK,
     fontFamily: 'serif',
     fontSize: 25,
     fontWeight: '600',
@@ -800,12 +776,6 @@ const styles = StyleSheet.create({
     height: 46,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-
-  notificationImage: {
-    width: 30,
-    height: 30,
-    resizeMode: 'contain',
   },
 
   notificationDot: {
@@ -821,13 +791,13 @@ const styles = StyleSheet.create({
   calendarCard: {
     marginTop: 15,
     borderWidth: 1,
-    borderColor: '#EFE6DA',
+    borderColor: '#EDE3F8',
     borderRadius: 25,
     backgroundColor: '#FFFDF9',
     paddingHorizontal: 14,
     paddingTop: 18,
     paddingBottom: 15,
-    shadowColor: '#8C765D',
+    shadowColor: '#5D4394',
     shadowOffset: {
       width: 0,
       height: 6,
@@ -844,7 +814,7 @@ const styles = StyleSheet.create({
   },
 
   monthTitle: {
-    color: '#17201E',
+    color: PURPLE_DARK,
     fontFamily: 'serif',
     fontSize: 20,
     fontWeight: '700',
@@ -853,7 +823,7 @@ const styles = StyleSheet.create({
 
   hijri: {
     flex: 1,
-    color: GREEN,
+    color: PURPLE,
     fontSize: 14,
     fontWeight: '700',
     textAlign: 'right',
@@ -862,7 +832,7 @@ const styles = StyleSheet.create({
   calendarHint: {
     marginTop: 5,
     marginBottom: 13,
-    color: '#8B8A83',
+    color: TEXT_MUTED,
     fontSize: 11,
     textAlign: 'center',
   },
@@ -873,7 +843,7 @@ const styles = StyleSheet.create({
 
   weekDay: {
     width: '14.2857%',
-    color: '#38403D',
+    color: TEXT_MUTED,
     fontSize: 11,
     fontWeight: '600',
     textAlign: 'center',
@@ -901,7 +871,7 @@ const styles = StyleSheet.create({
   },
 
   dayText: {
-    color: '#1E2523',
+    color: PURPLE_DARK,
     fontSize: 14,
   },
 
@@ -923,7 +893,7 @@ const styles = StyleSheet.create({
 
   todayDay: {
     borderWidth: 2,
-    borderColor: GREEN,
+    borderColor: PURPLE,
   },
 
   dayTextLight: {
@@ -954,11 +924,11 @@ const styles = StyleSheet.create({
 
   legendOutline: {
     borderWidth: 1.5,
-    borderColor: GREEN,
+    borderColor: PURPLE,
   },
 
   legendText: {
-    color: '#27443B',
+    color: TEXT_MUTED,
     fontSize: 10,
   },
 
@@ -968,7 +938,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 15,
     borderWidth: 1,
-    borderColor: '#C7D0B9',
+    borderColor: '#E2D8F0',
     borderRadius: 24,
     backgroundColor: '#FFFDF9',
     paddingHorizontal: 16,
@@ -986,13 +956,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
-    backgroundColor: '#EFF2E5',
-  },
-
-  nextPeriodImage: {
-    width: 46,
-    height: 46,
-    resizeMode: 'contain',
+    backgroundColor: '#EEE3FA',
   },
 
   nextCopy: {
@@ -1002,7 +966,7 @@ const styles = StyleSheet.create({
   },
 
   nextTitle: {
-    color: GREEN,
+    color: PURPLE_DARK,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -1015,12 +979,12 @@ const styles = StyleSheet.create({
   },
 
   nextLabel: {
-    color: '#22322D',
+    color: TEXT_MUTED,
     fontSize: 13,
   },
 
   nextDateInline: {
-    color: GREEN,
+    color: PURPLE,
     fontSize: 13,
     fontWeight: '700',
     textTransform: 'capitalize',
@@ -1028,14 +992,14 @@ const styles = StyleSheet.create({
 
   nextDelay: {
     marginTop: 5,
-    color: GREEN,
+    color: PURPLE,
     fontSize: 12,
   },
 
   quickTitle: {
     marginTop: 20,
     marginLeft: 3,
-    color: '#15201D',
+    color: PURPLE_DARK,
     fontFamily: 'serif',
     fontSize: 19,
     fontWeight: '700',
@@ -1058,18 +1022,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 19,
-    backgroundColor: '#F8F0E5',
-  },
-
-  quickActionImage: {
-    width: 54,
-    height: 54,
-    resizeMode: 'contain',
+    backgroundColor: '#F3ECFB',
   },
 
   quickLabel: {
     marginTop: 7,
-    color: '#18211F',
+    color: TEXT_MUTED,
     fontSize: 11,
     lineHeight: 14,
     textAlign: 'center',
@@ -1083,15 +1041,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginBottom: 8,
     borderRadius: 34,
-    backgroundColor: GREEN,
+    backgroundColor: PURPLE_DARK,
     paddingHorizontal: 7,
     elevation: 8,
-  },
-
-  menuImage: {
-    width: 43,
-    height: 43,
-    resizeMode: 'contain',
   },
 
   addButton: {
@@ -1100,12 +1052,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
-  },
-
-  addMenuImage: {
-    width: 60,
-    height: 60,
-    resizeMode: 'contain',
+    backgroundColor: PURPLE,
+    elevation: 4,
   },
 
   pressed: {

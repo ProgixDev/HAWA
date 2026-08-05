@@ -52,28 +52,28 @@ const PHASES: Record<CyclePhase, PhaseConfig> = {
 
   follicular: {
     label: 'Phase folliculaire',
-    activeColor: colors.mutedGreen,
-    centerColor: '#EAF1EB',
+    activeColor: colors.muted,
+    centerColor: '#EFE6FA',
     symbol: '❀',
   },
 
   fertile: {
     label: 'Fenêtre fertile',
-    activeColor: '#91AD79',
-    centerColor: '#EFF4E9',
+    activeColor: '#8B6FD1',
+    centerColor: '#EFE6FA',
     symbol: '✤',
   },
 
   ovulation: {
     label: 'Ovulation',
-    activeColor: colors.primaryGreen,
-    centerColor: '#EAF1EB',
+    activeColor: colors.primary,
+    centerColor: '#EFE6FA',
     symbol: '✿',
   },
 
   luteal: {
     label: 'Phase lutéale',
-    activeColor: colors.gold,
+    activeColor: '#D8B05A',
     centerColor: '#F7EEDC',
     symbol: '✦',
   },
@@ -87,8 +87,8 @@ const PHASES: Record<CyclePhase, PhaseConfig> = {
 
   postpartum: {
     label: 'Post-partum',
-    activeColor: '#769885',
-    centerColor: '#EAF1EB',
+    activeColor: '#9C8AC2',
+    centerColor: '#EFE6FA',
     symbol: '❦',
   },
 };
@@ -493,12 +493,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
 
     borderWidth: 1,
-    borderColor: 'rgba(31, 95, 70, 0.10)',
+    borderColor: 'rgba(105, 73, 190, 0.12)',
     borderRadius: 27,
 
     backgroundColor: '#FFFDF9',
 
-    shadowColor: '#143C2D',
+    shadowColor: '#28166F',
     shadowOffset: {
       width: 0,
       height: 6,
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
     height: 86,
 
     borderRadius: 1,
-    backgroundColor: colors.mutedGreen,
+    backgroundColor: colors.muted,
   },
 
   stemOne: {
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
     height: 8,
 
     borderRadius: 10,
-    backgroundColor: '#C9D8C5',
+    backgroundColor: '#CBBEE3',
   },
 
   leafOne: {
@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
   },
 
   eyebrow: {
-    color: colors.primaryGreen,
+    color: colors.primary,
     fontSize: 15,
     fontWeight: '700',
   },
@@ -613,7 +613,7 @@ const styles = StyleSheet.create({
   phase: {
     marginTop: 12,
 
-    color: '#173D30',
+    color: '#28166F',
     fontFamily: 'serif',
     fontSize: 23,
     fontWeight: '600',
@@ -623,7 +623,7 @@ const styles = StyleSheet.create({
   cycleDay: {
     marginTop: 9,
 
-    color: '#547165',
+    color: '#655A8D',
     fontSize: 15,
     fontWeight: '600',
   },
@@ -632,7 +632,7 @@ const styles = StyleSheet.create({
     maxWidth: 215,
     marginTop: 6,
 
-    color: '#687D74',
+    color: '#7A6F98',
     fontSize: 13,
     lineHeight: 18,
   },
@@ -641,7 +641,7 @@ const styles = StyleSheet.create({
     maxWidth: 190,
     marginTop: 11,
 
-    color: '#547165',
+    color: '#655A8D',
     fontSize: 14,
     lineHeight: 20,
   },
