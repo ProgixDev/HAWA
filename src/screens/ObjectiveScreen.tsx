@@ -12,7 +12,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing} from '../theme/spacing';
+import {spacing, getTopPadding} from '../theme/spacing';
 import {setSelectedObjective, type ObjectiveId} from '../state/onboardingPreferences';
 
 const OBJECTIVE_BACKGROUND = require('../assets/images/school-selection-background.png');
@@ -62,7 +62,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
           barStyle="dark-content"
           translucent
         />
-        <ScrollView contentContainerStyle={[styles.content, {paddingTop: Math.max(insets.top, 20) + spacing.md, paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
+        <ScrollView contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>{'Quel est ton\nobjectif principal ?'}</Text>
 
           <View style={styles.list}>
