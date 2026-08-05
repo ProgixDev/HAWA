@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     width: 2,
     height: 285,
     borderRadius: 2,
-    backgroundColor: colors.mutedGreen,
+    backgroundColor: colors.muted,
     transform: [{rotate: '18deg'}],
   },
   mirroredStem: {left: 66, transform: [{rotate: '-18deg'}]},
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     width: 34,
     height: 68,
     borderRadius: 34,
-    backgroundColor: colors.mutedGreen,
+    backgroundColor: colors.muted,
   },
 });
 

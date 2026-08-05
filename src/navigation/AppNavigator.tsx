@@ -14,10 +14,12 @@ import PrivacyScreen from '../screens/PrivacyScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import AuthScreen from '../screens/AuthScreen';
 import RegistrationScreen from '../screens/RegistrationScreen';
+import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SecuritySetupScreen from '../screens/SecuritySetupScreen';
 import PinSetupScreen from '../screens/PinSetupScreen';
 import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
 import CycleHomeScreen from '../screens/CycleHomeScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 import JournalSymptomsScreen from '../screens/journal/JournalSymptomsScreen';
 import JournalMoodScreen from '../screens/journal/JournalMoodScreen';
 import JournalFlowScreen from '../screens/journal/JournalFlowScreen';
@@ -29,6 +31,7 @@ import JournalNoteScreen from '../screens/journal/JournalNoteScreen';
 import JournalIntimacyScreen from '../screens/journal/JournalIntimacyScreen';
 import PrivateIntimacyUnlockScreen from '../screens/journal/PrivateIntimacyUnlockScreen';
 import PrivateIntimacyPinScreen from '../screens/journal/PrivateIntimacyPinScreen';
+import PrivateIntimacyFaceIdScreen from '../screens/journal/PrivateIntimacyFaceIdScreen';
 import JournalPrivatePhotosScreen from '../screens/journal/JournalPrivatePhotosScreen';
 
 export type RootStackParamList = {
@@ -44,10 +47,12 @@ export type RootStackParamList = {
   Summary: undefined;
   Auth: undefined;
   Registration: undefined;
+  ForgotPassword: undefined;
   SecuritySetup: undefined;
   PinSetup: undefined;
   FaceIdSetup: undefined;
   CycleHome: undefined;
+  Profile: undefined;
   SymptomEntry: undefined;
   MoodEntry: undefined;
   FlowEntry: undefined;
@@ -59,6 +64,7 @@ export type RootStackParamList = {
   IntimacyEntry: undefined;
   PrivateIntimacyUnlock: undefined;
   PrivateIntimacyPin: undefined;
+  PrivateIntimacyFaceId: undefined;
   PrivatePhotoEntry: undefined;
 };
 
@@ -88,10 +94,12 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="Summary" component={SummaryScreen} />
         <Stack.Screen name="Auth" component={AuthScreen} />
         <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="SecuritySetup" component={SecuritySetupScreen} />
         <Stack.Screen name="PinSetup" component={PinSetupScreen} />
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
         <Stack.Screen name="CycleHome" component={CycleHomeScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="SymptomEntry" component={JournalSymptomsScreen} />
         <Stack.Screen name="MoodEntry" component={JournalMoodScreen} />
         <Stack.Screen name="FlowEntry" component={JournalFlowScreen} />
@@ -103,6 +111,7 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="IntimacyEntry" component={JournalIntimacyScreen} />
         <Stack.Screen name="PrivateIntimacyUnlock" component={PrivateIntimacyUnlockScreen} />
         <Stack.Screen name="PrivateIntimacyPin" component={PrivateIntimacyPinScreen} />
+        <Stack.Screen name="PrivateIntimacyFaceId" component={PrivateIntimacyFaceIdScreen} />
         <Stack.Screen name="PrivatePhotoEntry" component={JournalPrivatePhotosScreen} />
       </Stack.Navigator>
     </NavigationContainer>

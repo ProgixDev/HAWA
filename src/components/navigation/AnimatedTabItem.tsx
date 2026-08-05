@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     height: 51,
     borderRadius: 26,
     backgroundColor: colors.cream,
-    shadowColor: '#143C2D',
+    shadowColor: '#28166F',
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.18,
     shadowRadius: 6,
@@ -163,14 +163,14 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     backgroundColor: colors.cream,
   },
-  label: {color: '#F8F3E8', fontSize: 9, fontWeight: '500'},
-  labelFocused: {color: '#1F5F46', fontWeight: '700'},
+  label: {color: '#F3ECFB', fontSize: 9, fontWeight: '500'},
+  labelFocused: {color: '#6949BE', fontWeight: '700'},
   indicator: {
     width: 16,
     height: 3,
     marginTop: 2,
     borderRadius: 2,
-    backgroundColor: colors.goldLight,
+    backgroundColor: colors.accentLight,
   },
 });
 
