@@ -1,9 +1,25 @@
 import React from 'react';
-import {Image, ImageBackground, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Pressable,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing} from '../theme/spacing';
+import {
+  spacing,
+  TOP_SPACING_EXTRA,
+  TOP_SPACING_EXTRA_COMPACT,
+} from '../theme/spacing';
 import {
   getCyclePreferences,
   getSelectedLocation,
@@ -16,104 +32,712 @@ import {
 
 const BACKGROUND = require('../assets/images/school-selection-background.png');
 const WOMAN = require('../assets/images/summary-woman.png');
-const OBJECTIVE_ICON = require('../assets/images/summary-icon-objective.png');
-const SPIRITUAL_ICON = require('../assets/images/summary-icon-spiritual.png');
-const SCHOOL_ICON = require('../assets/images/summary-icon-school.png');
-const LOCATION_ICON = require('../assets/images/summary-icon-location.png');
-const CALENDAR_ICON = require('../assets/images/summary-icon-calendar.png');
-const PERIOD_ICON = require('../assets/images/summary-icon-period.png');
-const CYCLE_ICON = require('../assets/images/summary-icon-cycle.png');
-const REGULAR_ICON = require('../assets/images/summary-icon-regular.png');
+
+const PURPLE = '#6B4BC4';
+const PURPLE_DARK = '#28166F';
+const PURPLE_SOFT = '#F2ECFB';
+const PURPLE_PALE = '#FAF7FE';
+const TEXT_MUTED = '#6B6188';
+const BORDER = 'rgba(105,73,190,0.14)';
 
 const objectiveLabels: Record<ObjectiveId, string> = {
-  cycle: 'Suivre mon cycle', conceive: 'Essayer de concevoir',
-  contraception: 'Contraception', irregular: 'Cycles irréguliers (SOPK)',
-  menopause: 'Post-ménopause / Ménopause', pregnancy: 'Suivi de grossesse',
-  postpartum: 'Post-partum', loss: 'Après une fausse couche',
+  cycle: 'Suivre mon cycle',
+  conceive: 'Essayer de concevoir',
+  contraception: 'Contraception',
+  irregular: 'Cycles irréguliers (SOPK)',
+  menopause: 'Post-ménopause / Ménopause',
+  pregnancy: 'Suivi de grossesse',
+  postpartum: 'Post-partum',
+  loss: 'Après une fausse couche',
 };
 
 const schoolLabels: Record<SchoolId, string> = {
-  hanafi: 'Hanafi', maliki: 'Maliki', chafii: 'Chafi’i', hanbali: 'Hanbali',
+  hanafi: 'Hanafi',
+  maliki: 'Maliki',
+  chafii: 'Chafi’i',
+  hanbali: 'Hanbali',
   unknown: 'Je ne sais pas encore',
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Summary'>;
 
+type EditableRoute =
+  | 'Objective'
+  | 'SpiritualPreferences'
+  | 'SchoolSelection'
+  | 'Location'
+  | 'CycleInformation';
+
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+
+type SummaryRow = {
+  icon: IconName;
+  label: string;
+  value: string;
+  route: EditableRoute;
+  tone: 'purple' | 'rose' | 'blue' | 'green';
+};
+
+const TONE_ICON_COLOR: Record<SummaryRow['tone'], string> = {
+  purple: '#6B4BC4',
+  rose: '#C2568B',
+  blue: '#3E7BC4',
+  green: '#3FA372',
+};
+
 function SummaryScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {width, height} = useWindowDimensions();
+
+  const isSmallScreen = width < 375 || height < 720;
+  const isVerySmallScreen = width < 345 || height < 650;
+
   const cycle = getCyclePreferences();
   const spiritualEnabled = getSpiritualMarkersEnabled();
   const school = getSelectedSchool();
   const location = getSelectedLocation();
-  const regularityLabels = {yes: 'Oui', no: 'Non', unknown: 'Je ne sais pas'};
-  const rows = [
-    {icon: OBJECTIVE_ICON, label: 'Objectif principal', value: objectiveLabels[getSelectedObjective()]},
-    {icon: SPIRITUAL_ICON, label: 'Repères spirituels', value: spiritualEnabled ? 'Activés' : 'Désactivés'},
-    {icon: SCHOOL_ICON, label: 'École juridique', value: spiritualEnabled && school ? schoolLabels[school] : 'Non renseignée'},
-    {icon: LOCATION_ICON, label: 'Localisation', value: location ? `${location.city}, ${location.country}` : 'Non renseignée'},
-    {icon: CALENDAR_ICON, label: 'Dernières règles', value: new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(cycle.lastPeriodStart)},
-    {icon: PERIOD_ICON, label: 'Durée moyenne des règles', value: `${cycle.periodDuration} jours`},
-    {icon: CYCLE_ICON, label: 'Durée moyenne du cycle', value: `${cycle.cycleDuration} jours`},
-    {icon: REGULAR_ICON, label: 'Cycle régulier', value: regularityLabels[cycle.regularity]},
+
+  const regularityLabels = {
+    yes: 'Oui',
+    no: 'Non',
+    unknown: 'Je ne sais pas',
+  } as const;
+
+  const rows: SummaryRow[] = [
+    {
+      icon: 'calendar-heart',
+      label: 'Objectif principal',
+      value: objectiveLabels[getSelectedObjective()],
+      route: 'Objective',
+      tone: 'purple',
+    },
+    {
+      icon: 'star-crescent',
+      label: 'Repères spirituels',
+      value: spiritualEnabled ? 'Activés' : 'Désactivés',
+      route: 'SpiritualPreferences',
+      tone: 'rose',
+    },
+    {
+      icon: 'scale-balance',
+      label: 'École juridique',
+      value:
+        spiritualEnabled && school
+          ? schoolLabels[school]
+          : 'Non renseignée',
+      route: 'SchoolSelection',
+      tone: 'blue',
+    },
+    {
+      icon: 'map-marker-outline',
+      label: 'Localisation',
+      value: location
+        ? `${location.city}, ${location.country}`
+        : 'Non renseignée',
+      route: 'Location',
+      tone: 'green',
+    },
+    {
+      icon: 'calendar-month-outline',
+      label: 'Dernières règles',
+      value: new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }).format(cycle.lastPeriodStart),
+      route: 'CycleInformation',
+      tone: 'rose',
+    },
+    {
+      icon: 'water-outline',
+      label: 'Durée moyenne des règles',
+      value: `${cycle.periodDuration} jours`,
+      route: 'CycleInformation',
+      tone: 'purple',
+    },
+    {
+      icon: 'sync',
+      label: 'Durée moyenne du cycle',
+      value: `${cycle.cycleDuration} jours`,
+      route: 'CycleInformation',
+      tone: 'blue',
+    },
+    {
+      icon: 'shield-check-outline',
+      label: 'Cycle régulier',
+      value: regularityLabels[cycle.regularity],
+      route: 'CycleInformation',
+      tone: 'green',
+    },
   ];
+
+  const navigateToEdit = (route: EditableRoute) => {
+    navigation.navigate(route);
+  };
+
   return (
-    <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.background}>
-      <View style={styles.safeArea}>
-        <StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
-        <ScrollView contentContainerStyle={[styles.content, {paddingTop: Math.max(insets.top, 20) + spacing.sm, paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
-          <View style={styles.header}>
-            <Text style={styles.title}>Récapitulatif</Text>
-            <Text style={styles.subtitle}>{'Vérifie tes informations avant\nde commencer ton voyage.'}</Text>
-          </View>
+    <ImageBackground
+      resizeMode="cover"
+      source={BACKGROUND}
+      style={styles.background}>
+      <SafeAreaView
+        edges={['top', 'left', 'right']}
+        style={styles.safeArea}>
+        <StatusBar
+          backgroundColor="#F8EFFF"
+          barStyle="dark-content"
+          translucent={false}
+        />
 
-          <View style={styles.card}>
-            {rows.map((row, index) => (
-              <View key={row.label} style={[styles.row, index < rows.length - 1 && styles.separator]}>
-                <Image
-                  accessibilityIgnoresInvertColors
-                  source={row.icon}
-                  style={styles.rowIcon}
+        <ScrollView
+          contentContainerStyle={[
+            styles.content,
+            isSmallScreen && styles.contentSmall,
+            isVerySmallScreen && styles.contentVerySmall,
+            {
+              paddingTop: isSmallScreen
+                ? TOP_SPACING_EXTRA_COMPACT
+                : TOP_SPACING_EXTRA,
+              paddingBottom: Math.max(insets.bottom, 16) + spacing.md,
+            },
+          ]}
+          showsVerticalScrollIndicator={false}>
+          <View style={styles.heroCard}>
+            <View style={styles.heroGlowOne} />
+            <View style={styles.heroGlowTwo} />
+
+            <View style={styles.heroCopy}>
+              <View style={styles.stepBadge}>
+                <MaterialDesignIcons
+                  color={PURPLE}
+                  name="check-decagram"
+                  size={16}
                 />
-                <Text numberOfLines={1} style={styles.label}>{row.label}</Text>
-                <Text numberOfLines={1} style={styles.value}>{row.value}</Text>
+                <Text style={styles.stepBadgeText}>Dernière étape</Text>
               </View>
-            ))}
+
+              <Text
+                style={[
+                  styles.title,
+                  isSmallScreen && styles.titleSmall,
+                ]}>
+                Tout est prêt
+              </Text>
+
+              <Text
+                style={[
+                  styles.subtitle,
+                  isSmallScreen && styles.subtitleSmall,
+                ]}>
+                Vérifie tes informations avant de commencer.
+              </Text>
+
+              <View style={styles.editTip}>
+                <MaterialDesignIcons
+                  color={PURPLE}
+                  name="gesture-tap"
+                  size={17}
+                />
+                <Text style={styles.editTipText}>
+                  Appuie sur une carte pour la modifier
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.heroArt}>
+              <Image
+                accessibilityIgnoresInvertColors
+                source={WOMAN}
+                style={[
+                  styles.woman,
+                  isSmallScreen && styles.womanSmall,
+                ]}
+              />
+            </View>
           </View>
 
-          <View style={styles.illustrationArea}>
-            <Image accessibilityIgnoresInvertColors source={WOMAN} style={styles.woman} />
+          <View style={styles.sectionHeader}>
+            <View>
+              <Text style={styles.sectionTitle}>Tes informations</Text>
+              <Text style={styles.sectionSubtitle}>
+                Tout est modifiable avant de continuer.
+              </Text>
+            </View>
+
+            <View style={styles.sectionCount}>
+              <Text style={styles.sectionCountText}>{rows.length}</Text>
+            </View>
+          </View>
+
+          <View style={styles.grid}>
+            {rows.map(row => {
+              const missing = row.value === 'Non renseignée';
+
+              return (
+                <Pressable
+                  accessibilityHint="Ouvre l’écran correspondant pour modifier cette information"
+                  accessibilityLabel={`${row.label}, ${row.value}`}
+                  accessibilityRole="button"
+                  key={row.label}
+                  onPress={() => navigateToEdit(row.route)}
+                  style={({pressed}) => [
+                    styles.infoCard,
+                    isSmallScreen && styles.infoCardSmall,
+                    pressed && styles.infoCardPressed,
+                  ]}>
+                  <View
+                    style={[
+                      styles.iconWrap,
+                      styles[`iconWrap_${row.tone}`],
+                    ]}>
+                    <MaterialDesignIcons
+                      color={TONE_ICON_COLOR[row.tone]}
+                      name={row.icon}
+                      size={26}
+                    />
+                  </View>
+
+                  <View style={styles.infoCopy}>
+                    <Text
+                      numberOfLines={1}
+                      style={styles.label}>
+                      {row.label}
+                    </Text>
+
+                    <Text
+                      numberOfLines={2}
+                      style={[
+                        styles.value,
+                        missing && styles.valueMissing,
+                      ]}>
+                      {row.value}
+                    </Text>
+                  </View>
+
+                  <View style={styles.editIcon}>
+                    <MaterialDesignIcons
+                      color={PURPLE}
+                      name="pencil-outline"
+                      size={16}
+                    />
+                  </View>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <View style={styles.reassuranceCard}>
+            <View style={styles.reassuranceIcon}>
+              <MaterialDesignIcons
+                color={PURPLE}
+                name="shield-check-outline"
+                size={23}
+              />
+            </View>
+
+            <View style={styles.reassuranceCopy}>
+              <Text style={styles.reassuranceTitle}>
+                Tu gardes le contrôle
+              </Text>
+
+              <Text style={styles.reassuranceText}>
+                Tu pourras modifier ces informations plus tard depuis les paramètres.
+              </Text>
+            </View>
           </View>
 
           <Pressable
             accessibilityRole="button"
             onPress={() => navigation.navigate('Auth')}
-            style={({pressed}) => [styles.startButton, pressed && styles.pressed]}>
+            style={({pressed}) => [
+              styles.startButton,
+              isSmallScreen && styles.startButtonSmall,
+              pressed && styles.pressed,
+            ]}>
             <Text style={styles.startText}>Commencer</Text>
+
+            <View style={styles.startIcon}>
+              <MaterialDesignIcons
+                color={PURPLE}
+                name="arrow-right"
+                size={20}
+              />
+            </View>
           </Pressable>
         </ScrollView>
-      </View>
+      </SafeAreaView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F8EFFF'},
-  safeArea: {flex: 1},
-  content: {flexGrow: 1, paddingHorizontal: spacing.md},
-  header: {alignItems: 'center', marginBottom: 12},
-  title: {color: '#28166F', fontFamily: 'serif', fontSize: 29, fontWeight: '700'},
-  subtitle: {marginTop: 5, color: '#655A8D', fontSize: 12, lineHeight: 17, textAlign: 'center'},
-  card: {overflow: 'hidden', borderWidth: 1, borderColor: 'rgba(111,83,190,0.18)', borderRadius: 18, backgroundColor: 'rgba(255,252,255,0.90)', paddingHorizontal: 12},
-  row: {height: 43, flexDirection: 'row', alignItems: 'center'},
-  rowIcon: {width: 64, height: 64, marginHorizontal: -17, resizeMode: 'contain'},
-  separator: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#E2D8F0'},
-  label: {flex: 1, marginLeft: 10, color: '#433467', fontSize: 12},
-  value: {maxWidth: '39%', marginLeft: 8, color: '#2A2050', fontSize: 11, fontWeight: '600', textAlign: 'right'},
-  illustrationArea: {flex: 1, minHeight: 130, alignItems: 'center', justifyContent: 'flex-end', overflow: 'hidden'},
-  woman: {width: '116%', height: '116%', resizeMode: 'contain', marginBottom: -12},
-  startButton: {minHeight: 52, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: '#6949BE', shadowColor: '#4E319A', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.25, shadowRadius: 9, elevation: 5},
-  startText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
-  pressed: {opacity: 0.82},
+  background: {
+    flex: 1,
+    backgroundColor: '#F8EFFF',
+  },
+
+  safeArea: {
+    flex: 1,
+  },
+
+  content: {
+    flexGrow: 1,
+    paddingHorizontal: spacing.md,
+  },
+
+  contentSmall: {
+    paddingHorizontal: 12,
+  },
+
+  contentVerySmall: {
+    paddingHorizontal: 10,
+  },
+
+  heroCard: {
+    minHeight: 190,
+    overflow: 'hidden',
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: BORDER,
+    borderRadius: 28,
+    backgroundColor: 'rgba(255,252,255,0.88)',
+    shadowColor: '#5A3DA8',
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 14,
+    elevation: 3,
+  },
+
+  heroGlowOne: {
+    position: 'absolute',
+    top: -62,
+    right: -38,
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+    backgroundColor: 'rgba(126,92,205,0.12)',
+  },
+
+  heroGlowTwo: {
+    position: 'absolute',
+    right: 90,
+    bottom: -72,
+    width: 170,
+    height: 170,
+    borderRadius: 85,
+    backgroundColor: 'rgba(255,255,255,0.55)',
+  },
+
+  heroCopy: {
+    width: '58%',
+    justifyContent: 'center',
+    paddingLeft: 20,
+    paddingVertical: 18,
+    zIndex: 2,
+  },
+
+  stepBadge: {
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    borderRadius: 14,
+    backgroundColor: PURPLE_SOFT,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+
+  stepBadgeText: {
+    color: PURPLE,
+    fontSize: 9.5,
+    fontWeight: '800',
+  },
+
+  title: {
+    marginTop: 12,
+    color: PURPLE_DARK,
+    fontFamily: 'serif',
+    fontSize: 30,
+    lineHeight: 35,
+    fontWeight: '800',
+  },
+
+  titleSmall: {
+    fontSize: 25,
+    lineHeight: 30,
+  },
+
+  subtitle: {
+    marginTop: 7,
+    color: TEXT_MUTED,
+    fontSize: 12,
+    lineHeight: 17,
+  },
+
+  subtitleSmall: {
+    fontSize: 10.8,
+    lineHeight: 15,
+  },
+
+  editTip: {
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 13,
+  },
+
+  editTipText: {
+    color: PURPLE,
+    fontSize: 9,
+    fontWeight: '700',
+  },
+
+  heroArt: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    overflow: 'hidden',
+  },
+
+  woman: {
+    width: '145%',
+    height: 185,
+    resizeMode: 'contain',
+    marginRight: -18,
+    marginBottom: -6,
+  },
+
+  womanSmall: {
+    width: '138%',
+    height: 165,
+    marginRight: -14,
+    marginBottom: -4,
+  },
+
+  sectionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 18,
+    marginBottom: 10,
+    paddingHorizontal: 3,
+  },
+
+  sectionTitle: {
+    color: PURPLE_DARK,
+    fontSize: 16,
+    fontWeight: '800',
+  },
+
+  sectionSubtitle: {
+    marginTop: 3,
+    color: TEXT_MUTED,
+    fontSize: 9.5,
+  },
+
+  sectionCount: {
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: PURPLE_SOFT,
+  },
+
+  sectionCountText: {
+    color: PURPLE,
+    fontSize: 11,
+    fontWeight: '800',
+  },
+
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    rowGap: 10,
+  },
+
+  infoCard: {
+    width: '48.7%',
+    minHeight: 126,
+    borderWidth: 1,
+    borderColor: BORDER,
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.92)',
+    padding: 12,
+    shadowColor: '#5D4394',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    elevation: 1,
+  },
+
+  infoCardSmall: {
+    minHeight: 120,
+    padding: 10,
+  },
+
+  infoCardPressed: {
+    opacity: 0.84,
+    transform: [{scale: 0.985}],
+    backgroundColor: PURPLE_PALE,
+  },
+
+  iconWrap: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  iconWrap_purple: {
+    backgroundColor: '#EEE8FB',
+  },
+
+  iconWrap_rose: {
+    backgroundColor: '#FBEAF1',
+  },
+
+  iconWrap_blue: {
+    backgroundColor: '#E8F0FC',
+  },
+
+  iconWrap_green: {
+    backgroundColor: '#E8F7EF',
+  },
+
+  infoCopy: {
+    flex: 1,
+    marginTop: 12,
+  },
+
+  label: {
+    color: TEXT_MUTED,
+    fontSize: 9.5,
+    fontWeight: '600',
+  },
+
+  value: {
+    marginTop: 4,
+    color: PURPLE_DARK,
+    fontSize: 11.5,
+    lineHeight: 15,
+    fontWeight: '800',
+  },
+
+  valueMissing: {
+    color: '#A07861',
+    fontStyle: 'italic',
+  },
+
+  editIcon: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 9,
+    backgroundColor: PURPLE_SOFT,
+  },
+
+  reassuranceCard: {
+    minHeight: 68,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginTop: 12,
+    borderRadius: 18,
+    backgroundColor: 'rgba(245,238,252,0.92)',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+
+  reassuranceIcon: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 13,
+    backgroundColor: '#FFFFFF',
+  },
+
+  reassuranceCopy: {
+    flex: 1,
+  },
+
+  reassuranceTitle: {
+    color: PURPLE_DARK,
+    fontSize: 11,
+    fontWeight: '800',
+  },
+
+  reassuranceText: {
+    marginTop: 3,
+    color: TEXT_MUTED,
+    fontSize: 9,
+    lineHeight: 13,
+  },
+
+  startButton: {
+    position: 'relative',
+    width: '86%',
+    maxWidth: 360,
+    minHeight: 54,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 14,
+    paddingHorizontal: 54,
+    borderRadius: 19,
+    backgroundColor: PURPLE,
+    shadowColor: '#4E319A',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 10,
+    elevation: 5,
+  },
+
+  startButtonSmall: {
+    width: '90%',
+    minHeight: 50,
+    paddingHorizontal: 50,
+  },
+
+  startText: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+
+  startIcon: {
+    position: 'absolute',
+    right: 12,
+    width: 32,
+    height: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 11,
+    backgroundColor: '#FFFFFF',
+  },
+
+  pressed: {
+    opacity: 0.84,
+    transform: [{scale: 0.99}],
+  },
 });
 
 export default SummaryScreen;

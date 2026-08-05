@@ -13,7 +13,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing} from '../theme/spacing';
+import {spacing, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {setSpiritualMarkersEnabled} from '../state/onboardingPreferences';
 
 const SPIRITUAL_BACKGROUND = require('../assets/images/school-selection-background.png');
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
     justifyContent: 'center',
-    paddingTop: 36,
+    paddingTop: TOP_SPACING_EXTRA,
     paddingHorizontal: spacing.lg,
     paddingBottom: 10,
   },

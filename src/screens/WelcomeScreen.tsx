@@ -14,6 +14,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
+import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
 
 const WELCOME_BACKGROUND = require('../assets/images/welcome-background.png');
 const WELCOME_ARROW = require('../assets/images/welcome-arrow.png');
@@ -41,7 +42,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
             </Text>
             <View style={styles.brandLine}>
               <Text style={[styles.chez, compact && styles.chezCompact]}>chez</Text>
-              <Text style={[styles.hawa, compact && styles.hawaCompact]}> HAWA</Text>
+              <Text style={[styles.hawa, compact && styles.hawaCompact]}> AWA</Text>
             </View>
             <View style={styles.ornamentRow}>
               <View style={styles.ornamentLine} />
@@ -104,8 +105,8 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
 const styles = StyleSheet.create({
   safeArea: {flex: 1, backgroundColor: '#C9A9DB'},
   page: {flex: 1, justifyContent: 'space-between', backgroundColor: '#C9A9DB'},
-  intro: {alignItems: 'center', paddingTop: 22, paddingHorizontal: 24},
-  introCompact: {paddingTop: 10},
+  intro: {alignItems: 'center', paddingTop: TOP_SPACING_EXTRA, paddingHorizontal: 24},
+  introCompact: {paddingTop: TOP_SPACING_EXTRA_COMPACT},
   titleBlock: {alignItems: 'center'},
   welcomeTitle: {color: '#43206B', fontFamily: 'serif', fontSize: 44, lineHeight: 48},
   welcomeTitleCompact: {fontSize: 36, lineHeight: 39},

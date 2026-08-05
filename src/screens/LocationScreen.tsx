@@ -20,7 +20,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {locations, type SelectedLocation} from '../data/locations';
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing} from '../theme/spacing';
+import {spacing, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 
 const LOCATION_BACKGROUND = require('../assets/images/location-background.png');
@@ -104,16 +104,19 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
           keyboardVerticalOffset={insets.top}
           style={styles.keyboardArea}>
           <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-              <Pressable
+            <Pressable
               accessibilityLabel="Retour"
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
-              style={styles.backButton}>
+              style={({pressed}) => [
+                styles.backButton,
+                pressed && styles.pressed,
+              ]}>
               <MaterialDesignIcons
-                color="#6848BC"
-                name="chevron-left"
-                size={30}
+                name="arrow-left"
+                size={26}
+                color="#6949BE"
               />
             </Pressable>
 
@@ -238,19 +241,32 @@ const styles = StyleSheet.create({
   keyboardArea: {flex: 1},
   content: {
     flexGrow: 1,
-    paddingTop: 52,
+    paddingTop: TOP_SPACING_EXTRA,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md,
   },
   backButton: {
-    position: 'absolute',
-    top: 38,
-    left: spacing.md,
-    zIndex: 20,
-    minWidth: 44,
-    minHeight: 44,
+    alignSelf: 'flex-start',
+    marginBottom: spacing.lg,
+
+    width: 46,
+    height: 46,
+
     alignItems: 'center',
     justifyContent: 'center',
+
+    borderRadius: 23,
+
+    backgroundColor: 'rgba(249,244,255,0.92)',
+
+    shadowColor: '#6949BE',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.12,
+    shadowRadius: 8,
+    elevation: 3,
   },
   header: {alignItems: 'center', marginBottom: spacing.lg},
   title: {
@@ -348,6 +364,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: spacing.sm,
+    marginBottom: spacing.lg,
     borderRadius: 18,
     backgroundColor: '#6949BE',
     shadowColor: '#4E319A',

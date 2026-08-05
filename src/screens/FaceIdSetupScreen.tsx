@@ -1,35 +1,38 @@
 import React, {useEffect, useRef} from 'react';
-import {Animated, Easing, Image, ImageBackground, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View, type ImageSourcePropType} from 'react-native';
+import {Animated, Easing, ImageBackground, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing} from '../theme/spacing';
+import {spacing, TOP_SPACING_EXTRA} from '../theme/spacing';
 
-const BACKGROUND = require('../assets/images/objective-background.png');
-const FACE_ID = require('../assets/images/faceid-main-icon.png');
-const SHIELD = require('../assets/images/faceid-security-icon.png');
-const LIGHTNING = require('../assets/images/faceid-speed-icon.png');
+const BACKGROUND = require('../assets/images/school-selection-background.png');
+
+const PURPLE = '#6949BE';
+const PURPLE_DARK = '#28166F';
+const TEXT_MUTED = '#655A8D';
+
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'FaceIdSetup'>;
-type BenefitProps = {delay: number; icon: ImageSourcePropType; title: string; description: string};
+type BenefitProps = {delay: number; icon: IconName; title: string; description: string};
 
 function Benefit({delay, icon, title, description}: BenefitProps) {
   const progress = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     Animated.timing(progress, {delay, duration: 520, easing: Easing.out(Easing.cubic), toValue: 1, useNativeDriver: true}).start();
   }, [delay, progress]);
-  return <Animated.View style={[styles.benefit, {opacity: progress, transform: [{translateY: progress.interpolate({inputRange: [0, 1], outputRange: [14, 0]})}, {scale: progress.interpolate({inputRange: [0, 1], outputRange: [0.985, 1]})}]}]}><View style={styles.benefitIconBox}><Image accessibilityIgnoresInvertColors source={icon} style={styles.benefitIcon} /></View><View style={styles.benefitCopy}><Text style={styles.benefitTitle}>{title}</Text><View style={styles.goldLine} /><Text style={styles.benefitDescription}>{description}</Text></View></Animated.View>;
+  return <Animated.View style={[styles.benefit, {opacity: progress, transform: [{translateY: progress.interpolate({inputRange: [0, 1], outputRange: [14, 0]})}, {scale: progress.interpolate({inputRange: [0, 1], outputRange: [0.985, 1]})}]}]}><View style={styles.benefitIconBox}><MaterialDesignIcons color={PURPLE} name={icon} size={32} /></View><View style={styles.benefitCopy}><Text style={styles.benefitTitle}>{title}</Text><View style={styles.accentLine} /><Text style={styles.benefitDescription}>{description}</Text></View></Animated.View>;
 }
 
 function FaceIdSetupScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const finish = () => navigation.replace('CycleHome');
-  return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} showsVerticalScrollIndicator={false}>
-    <Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.back}><Text style={styles.backText}>‹</Text></Pressable>
-    <View style={styles.heroIconBox}><Image accessibilityIgnoresInvertColors source={FACE_ID} style={styles.heroIcon} /></View>
-    <Text style={styles.title}>Utiliser Face ID ?</Text><Text style={styles.subtitle}>{'Activez Face ID pour déverrouiller\nHAWA rapidement et en toute sécurité.'}</Text>
-    <View style={styles.benefits}><Benefit delay={130} description={'Vos données restent\nprotégées.'} icon={SHIELD} title="Sécurisé et privé" /><Benefit delay={260} description={'Accédez à votre compte\nen un seul regard.'} icon={LIGHTNING} title="Rapide et pratique" /></View>
+  return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingTop: TOP_SPACING_EXTRA + spacing.lg, paddingBottom: Math.max(insets.bottom, 16) + spacing.lg}]} showsVerticalScrollIndicator={false}>
+    <View style={styles.heroIconBox}><MaterialDesignIcons color={PURPLE} name="face-recognition" size={48} /></View>
+    <Text style={styles.title}>Utiliser Face ID ?</Text><Text style={styles.subtitle}>{'Activez Face ID pour déverrouiller\nAWA rapidement et en toute sécurité.'}</Text>
+    <View style={styles.benefits}><Benefit delay={130} description={'Vos données restent\nprotégées.'} icon="shield-star-outline" title="Sécurisé et privé" /><Benefit delay={260} description={'Accédez à votre compte\nen un seul regard.'} icon="lightning-bolt-outline" title="Rapide et pratique" /></View>
     <View style={styles.spacer} /><Pressable onPress={finish} style={({pressed}) => [styles.primary, pressed && styles.pressed]}><Text style={styles.primaryText}>Activer Face ID</Text></Pressable><Pressable hitSlop={10} onPress={finish}><Text style={styles.later}>Plus tard</Text></Pressable>
   </ScrollView></SafeAreaView></ImageBackground>;
 }
@@ -37,7 +40,7 @@ function FaceIdSetupScreen({navigation}: Props): React.JSX.Element {
 const styles = StyleSheet.create({
   page: {
     flexGrow: 1,
-    backgroundColor: '#FBF6EC',
+    backgroundColor: '#F8EFFF',
   },
 
   safeArea: {
@@ -48,27 +51,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     paddingHorizontal: spacing.lg,
-    paddingTop: 20,
+    paddingTop: TOP_SPACING_EXTRA,
     paddingBottom: 18,
-  },
-
-  back: {
-    position: 'absolute',
-    top: 16,
-    left: 16,
-    width: 34,
-    height: 34,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 17,
-    backgroundColor: 'rgba(248,243,234,0.88)',
-  },
-
-  backText: {
-    marginTop: -4,
-    color: '#174F3D',
-    fontSize: 32,
-    fontWeight: '300',
   },
 
   heroIconBox: {
@@ -78,18 +62,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 8,
     borderRadius: 44,
-    backgroundColor: 'rgba(248,238,220,0.84)',
-  },
-
-  heroIcon: {
-    width: 110,
-    height: 110,
-    resizeMode: 'contain',
+    backgroundColor: '#EEE3FA',
   },
 
   title: {
     marginTop: 18,
-    color: '#14201D',
+    color: PURPLE_DARK,
     fontFamily: 'serif',
     fontSize: 24,
     fontWeight: '600',
@@ -97,7 +75,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: 8,
-    color: '#4F5A56',
+    color: TEXT_MUTED,
     fontSize: 13,
     lineHeight: 19,
     textAlign: 'center',
@@ -114,11 +92,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#E9DED1',
+    borderColor: 'rgba(111,83,190,0.16)',
     borderRadius: 20,
-    backgroundColor: 'rgba(255,253,249,0.96)',
+    backgroundColor: 'rgba(255,252,255,0.92)',
     paddingHorizontal: 16,
-    shadowColor: '#705C45',
+    shadowColor: '#5D4394',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.10,
     shadowRadius: 10,
@@ -131,13 +109,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 34,
-    backgroundColor: '#F3F1E7',
-  },
-
-  benefitIcon: {
-    width: 42,
-    height: 42,
-    resizeMode: 'contain',
+    backgroundColor: '#EEE3FA',
   },
 
   benefitCopy: {
@@ -146,23 +118,23 @@ const styles = StyleSheet.create({
   },
 
   benefitTitle: {
-    color: '#174F3D',
+    color: PURPLE_DARK,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '700',
   },
 
-  goldLine: {
+  accentLine: {
     width: 24,
     height: 2,
     marginTop: 7,
     marginBottom: 6,
     borderRadius: 1,
-    backgroundColor: '#DCAF57',
+    backgroundColor: PURPLE,
   },
 
   benefitDescription: {
-    color: '#27312E',
+    color: TEXT_MUTED,
     fontSize: 13,
     lineHeight: 18,
   },
@@ -177,8 +149,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: '#176548',
-    elevation: 3,
+    backgroundColor: PURPLE,
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.25,
+    shadowRadius: 9,
+    elevation: 5,
   },
 
   primaryText: {
@@ -189,7 +165,7 @@ const styles = StyleSheet.create({
 
   later: {
     marginTop: 14,
-    color: '#176548',
+    color: PURPLE,
     fontSize: 13,
     fontWeight: '600',
   },

@@ -17,7 +17,7 @@ import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {typography} from '../theme/typography';
 
-const HAWA_LOGO = require('../assets/images/hawa-logo.png');
+const AWA_LOGO = require('../assets/images/hawa-logo.png');
 const SPLASH_BACKGROUND = require('../assets/images/hawa-splash-background.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
@@ -122,10 +122,10 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
             transform: [{translateY: logoTranslateY}, {scale: logoScale}],
           }}>
           <Image
-            source={HAWA_LOGO}
+            source={AWA_LOGO}
             resizeMode="contain"
             style={{width: logoWidth, height: logoWidth}}
-            accessibilityLabel="Logo HAWA"
+            accessibilityLabel="Logo AWA"
           />
         </Animated.View>
 
@@ -179,11 +179,11 @@ const styles = StyleSheet.create({
   separatorLine: {
     width: 48,
     height: StyleSheet.hairlineWidth,
-    backgroundColor: colors.gold,
+    backgroundColor: colors.accent,
   },
   separatorFlower: {
     marginHorizontal: spacing.sm,
-    color: colors.goldLight,
+    color: colors.accentLight,
     fontSize: 22,
   },
   slogan: {
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
   progressFill: {
     height: '100%',
     borderRadius: 3,
-    backgroundColor: colors.goldLight,
+    backgroundColor: colors.accentLight,
   },
 });
 

@@ -11,7 +11,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import {spacing} from '../theme/spacing';
+import {spacing, getTopPadding} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {setCyclePreferences} from '../state/onboardingPreferences';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -104,7 +104,7 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
           contentContainerStyle={[
             styles.content,
             {
-              paddingTop: Math.max(insets.top, 20) + spacing.lg,
+              paddingTop: getTopPadding(insets.top),
               paddingBottom: Math.max(insets.bottom, 16),
             },
           ]}
