@@ -6,6 +6,7 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 
 const PURPLE = '#5B3BA4';
 const ACTIVITY_ICONS = require('../../assets/images/activity-icons-sprite.png');
@@ -251,21 +252,21 @@ const styles = StyleSheet.create({
     minHeight: 68,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: TOP_SPACING_EXTRA,
     paddingBottom: 8,
     paddingHorizontal: 14,
   },
 
   headerSmall: {
     minHeight: 62,
-    paddingTop: 8,
+    paddingTop: TOP_SPACING_EXTRA_COMPACT,
     paddingBottom: 7,
     paddingHorizontal: 10,
   },
 
   headerVerySmall: {
     minHeight: 58,
-    paddingTop: 6,
+    paddingTop: TOP_SPACING_EXTRA_COMPACT,
     paddingBottom: 6,
     paddingHorizontal: 8,
   },

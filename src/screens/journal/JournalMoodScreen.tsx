@@ -19,6 +19,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import type {MoodLevel} from '../../types/journal';
+import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+
+const PURPLE = '#6949BE';
+const PURPLE_DARK = '#28166F';
+const ACTIVE_PURPLE = '#5D3FA8';
+const TEXT_MUTED = '#655A8D';
 
 type MoodOption = {label: string; emoji: string; value: MoodLevel; tint: string};
 type LevelRowProps = {
@@ -89,15 +95,15 @@ export default function JournalMoodScreen(): React.JSX.Element {
 
   return (
     <SafeAreaView style={styles.safe}>
-      <StatusBar backgroundColor="#F8F4EC" barStyle="dark-content" />
+      <StatusBar backgroundColor="#F8EFFF" barStyle="dark-content" />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={styles.topBar}>
           <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.roundButton}>
-            <MaterialDesignIcons color="#1E6249" name="arrow-left" size={25} />
+            <MaterialDesignIcons color={PURPLE} name="arrow-left" size={25} />
           </Pressable>
           <Text style={styles.pageTitle}>Humeur</Text>
           <Pressable accessibilityLabel="Enregistrer l'humeur" onPress={save} style={styles.roundButton}>
-            <MaterialDesignIcons color="#1E6249" name="check" size={24} />
+            <MaterialDesignIcons color={PURPLE} name="check" size={24} />
           </Pressable>
         </View>
 
@@ -134,7 +140,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
 
           <View style={styles.card}>
             <View style={styles.sectionHeading}>
-              <View style={styles.headingIcon}><MaterialDesignIcons color="#408663" name="chart-bar" size={18} /></View>
+              <View style={styles.headingIcon}><MaterialDesignIcons color={ACTIVE_PURPLE} name="chart-bar" size={18} /></View>
               <Text style={styles.sectionTitle}>Niveaux du jour</Text>
             </View>
             <LevelRow color="#2B7656" label="Énergie" onChange={setEnergy} paleColor="#DAE9DD" value={energy} />
@@ -145,7 +151,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
 
           <View style={styles.card}>
             <View style={styles.sectionHeading}>
-              <View style={styles.headingIcon}><MaterialDesignIcons color="#408663" name="pencil-outline" size={17} /></View>
+              <View style={styles.headingIcon}><MaterialDesignIcons color={ACTIVE_PURPLE} name="pencil-outline" size={17} /></View>
               <Text style={styles.sectionTitle}>Commentaire <Text style={styles.optional}>(optionnel)</Text></Text>
             </View>
             <View style={styles.noteBox}>
@@ -155,7 +161,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
                 multiline
                 onChangeText={setNote}
                 placeholder="Écris ici ce que tu ressens ou ce que tu souhaites noter..."
-                placeholderTextColor="#929B96"
+                placeholderTextColor="#9A8FB8"
                 style={styles.noteInput}
                 textAlignVertical="top"
                 value={note}
@@ -168,7 +174,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
                 <Text style={styles.kindnessTitle}>Chaque émotion compte.</Text>
                 <Text style={styles.kindnessText}>Écoute-toi avec bienveillance.</Text>
               </View>
-              <MaterialDesignIcons color="#B7CEAC" name="sprout" size={34} />
+              <MaterialDesignIcons color="#C7B8E3" name="sprout" size={34} />
             </View>
           </View>
 
@@ -198,47 +204,47 @@ export default function JournalMoodScreen(): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  safe: {flex: 1, backgroundColor: '#F8F4EC'},
+  safe: {flex: 1, backgroundColor: '#F8EFFF'},
   flex: {flex: 1},
-  topBar: {height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14},
-  roundButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: '#EEF2E9', marginTop: 9},
-  pageTitle: {color: '#173D30', fontFamily: 'serif', fontSize: 22, fontWeight: '700',marginTop: 13},
+  topBar: {height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, marginTop: TOP_SPACING_EXTRA},
+  roundButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: '#EEE3FA', marginTop: 9},
+  pageTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 22, fontWeight: '700',marginTop: 13},
   content: {paddingHorizontal: 11, paddingBottom: 34, gap: 8},
-  hero: {height: 125, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: '#DDE4D7', borderRadius: 20, backgroundColor: '#FBF8F1'},
+  hero: {height: 125, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: '#E2D8F0', borderRadius: 20, backgroundColor: '#FCF8FF'},
   heroImage: {borderRadius: 20, resizeMode: 'cover'},
   heroCopy: {width: '58%', paddingLeft: 26},
-  heroTitle: {color: '#174A37', fontFamily: 'serif', fontSize: 19, lineHeight: 23, fontWeight: '700'},
-  heroSubtitle: {marginTop: 7, color: '#51635A', fontSize: 11.5, lineHeight: 16},
-  card: {borderWidth: 1, borderColor: '#E7E2DA', borderRadius: 20, backgroundColor: 'rgba(255,253,249,0.96)', padding: 12, shadowColor: '#736A5B', shadowOpacity: 0.05, shadowRadius: 8, shadowOffset: {width: 0, height: 2}, elevation: 1},
+  heroTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 19, lineHeight: 23, fontWeight: '700'},
+  heroSubtitle: {marginTop: 7, color: TEXT_MUTED, fontSize: 11.5, lineHeight: 16},
+  card: {borderWidth: 1, borderColor: '#E8DFF5', borderRadius: 20, backgroundColor: 'rgba(255,253,249,0.96)', padding: 12, shadowColor: '#5D4394', shadowOpacity: 0.05, shadowRadius: 8, shadowOffset: {width: 0, height: 2}, elevation: 1},
   sectionHeading: {flexDirection: 'row', alignItems: 'center', marginBottom: 10},
-  headingIcon: {width: 27, height: 27, alignItems: 'center', justifyContent: 'center', borderRadius: 14, backgroundColor: '#EDF3E9'},
-  headingEmoji: {color: '#2D7657', fontSize: 20, lineHeight: 23},
-  sectionTitle: {marginLeft: 8, color: '#23513F', fontFamily: 'serif', fontSize: 15.5, fontWeight: '700'},
+  headingIcon: {width: 27, height: 27, alignItems: 'center', justifyContent: 'center', borderRadius: 14, backgroundColor: '#EEE3FA'},
+  headingEmoji: {color: ACTIVE_PURPLE, fontSize: 20, lineHeight: 23},
+  sectionTitle: {marginLeft: 8, color: PURPLE_DARK, fontFamily: 'serif', fontSize: 15.5, fontWeight: '700'},
   optional: {fontFamily: undefined, fontSize: 11, fontWeight: '400'},
   moodGrid: {flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: 8},
-  moodCard: {width: '18.2%', minWidth: 67, height: 78, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#EEE9E1', borderRadius: 13, backgroundColor: '#FBF9F5'},
-  moodCardSelected: {borderColor: '#77AA89', backgroundColor: '#F0F7F1'},
+  moodCard: {width: '18.2%', minWidth: 67, height: 78, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#E8DFF5', borderRadius: 13, backgroundColor: '#FCF9FF'},
+  moodCardSelected: {borderColor: '#9E86D6', backgroundColor: '#EFE6FA'},
   emojiCircle: {width: 39, height: 39, alignItems: 'center', justifyContent: 'center', borderRadius: 20},
   emoji: {fontSize: 25},
-  moodLabel: {marginTop: 5, color: '#315344', fontSize: 10.5},
-  moodLabelSelected: {color: '#194B37', fontWeight: '700'},
-  levelRow: {height: 48, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#EEEAE4'},
-  levelLabel: {width: 92, color: '#174A37', fontSize: 13, fontWeight: '700'},
+  moodLabel: {marginTop: 5, color: '#3D3560', fontSize: 10.5},
+  moodLabelSelected: {color: ACTIVE_PURPLE, fontWeight: '700'},
+  levelRow: {height: 48, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#EDE3F8'},
+  levelLabel: {width: 92, color: PURPLE_DARK, fontSize: 13, fontWeight: '700'},
   scale: {flex: 1, height: 28, flexDirection: 'row', alignItems: 'center'},
   scaleStep: {flex: 1, height: 28, alignItems: 'center', justifyContent: 'center'},
   scaleTrack: {position: 'absolute', left: 0, right: 0, height: 6, borderRadius: 3},
   scaleFill: {position: 'absolute', left: 0, height: 6, borderRadius: 3},
   scaleThumb: {position: 'absolute', width: 17, height: 17, marginLeft: -8.5, borderWidth: 2, borderColor: '#FFFDF9', borderRadius: 9},
-  levelValue: {width: 46, marginLeft: 12, color: '#6B736F', fontSize: 13, textAlign: 'right'},
-  noteBox: {height: 82, borderWidth: 1, borderColor: '#DFDDD7', borderRadius: 13, backgroundColor: '#FFFEFC'},
-  noteInput: {flex: 1, paddingHorizontal: 11, paddingTop: 9, paddingBottom: 20, color: '#24473A', fontSize: 11.5},
-  counter: {position: 'absolute', right: 9, bottom: 6, color: '#8A928E', fontSize: 9.5},
-  kindnessBox: {minHeight: 54, flexDirection: 'row', alignItems: 'center', marginTop: 8, borderRadius: 12, backgroundColor: '#F0F2E8', paddingHorizontal: 10},
-  kindnessIcon: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: '#DFEBDD'},
+  levelValue: {width: 46, marginLeft: 12, color: TEXT_MUTED, fontSize: 13, textAlign: 'right'},
+  noteBox: {height: 82, borderWidth: 1, borderColor: '#E8DFF5', borderRadius: 13, backgroundColor: '#FFFEFC'},
+  noteInput: {flex: 1, paddingHorizontal: 11, paddingTop: 9, paddingBottom: 20, color: '#3D3560', fontSize: 11.5},
+  counter: {position: 'absolute', right: 9, bottom: 6, color: '#8F84AC', fontSize: 9.5},
+  kindnessBox: {minHeight: 54, flexDirection: 'row', alignItems: 'center', marginTop: 8, borderRadius: 12, backgroundColor: '#F3ECFB', paddingHorizontal: 10},
+  kindnessIcon: {width: 30, height: 30, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: '#EEE3FA'},
   kindnessEmoji: {fontSize: 16},
   kindnessCopy: {flex: 1, marginLeft: 9},
-  kindnessTitle: {color: '#28533F', fontSize: 11, fontWeight: '700'},
-  kindnessText: {marginTop: 2, color: '#587066', fontSize: 10},
+  kindnessTitle: {color: PURPLE_DARK, fontSize: 11, fontWeight: '700'},
+  kindnessText: {marginTop: 2, color: TEXT_MUTED, fontSize: 10},
  saveButton: {
   width: '88%',
   maxWidth: 360,
@@ -251,7 +257,7 @@ const styles = StyleSheet.create({
   marginTop: 12,
   marginBottom: 8,
   borderRadius: 18,
-  backgroundColor: '#1E6249',
+  backgroundColor: PURPLE,
 },
   saveText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
   pressed: {opacity: 0.78, transform: [{scale: 0.985}]},

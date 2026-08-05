@@ -7,6 +7,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
+import {TOP_SPACING_EXTRA} from '../../theme/spacing';
 
 const PURPLE = '#7142BD';
 const DARK = '#28145C';
@@ -86,7 +87,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>Vie intime</Text><MaterialDesignIcons color={PURPLE} name="lock-outline" size={21} /></View><Text style={styles.date}>{dateLabel} · Jour {cycleDay} du cycle</Text></View>
         <Pressable accessibilityLabel="Masquer et verrouiller les informations" accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'CycleHome'},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={PURPLE} name="eye-off-outline" size={18} /><Text style={styles.hideText}>Masquer</Text></Pressable>
       </View>
-      <ScrollView contentContainerStyle={[styles.content, {paddingTop:6,paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+      <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/intimacy-header-woman.png')} style={styles.hero}>
           <View style={styles.heroCopy}><Text style={styles.heroTitle}>Ton intimité, ton espace ♡</Text><Text style={styles.heroText}>Note ce que tu ressens en toute confiance.{`\n`}Cette section est privée et protégée.</Text><View style={styles.learn}><Text style={styles.learnText}>En savoir plus</Text><MaterialDesignIcons color={PURPLE} name="information-outline" size={17} /></View></View>
         </ImageBackground>
@@ -471,6 +472,7 @@ const styles = StyleSheet.create({
     minHeight: 66,
     flexDirection: 'row',
     alignItems: 'center',
+    paddingTop: TOP_SPACING_EXTRA,
     paddingHorizontal: 14,
     gap: 9,
   },
@@ -529,6 +531,7 @@ const styles = StyleSheet.create({
 
   content: {
     paddingHorizontal: 13,
+    paddingTop: 6,
     gap: 8,
   },
 

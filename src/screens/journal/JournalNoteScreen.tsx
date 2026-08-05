@@ -19,6 +19,7 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 
 const PURPLE = '#7040B4';
 const DARK_PURPLE = '#30205F';
@@ -257,7 +258,7 @@ const styles = StyleSheet.create({
     minHeight: 72,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: 10,
+    paddingTop: TOP_SPACING_EXTRA,
     paddingBottom: 8,
     paddingHorizontal: 13,
     gap: 9,
@@ -265,7 +266,7 @@ const styles = StyleSheet.create({
 
   headerSmall: {
     minHeight: 64,
-    paddingTop: 8,
+    paddingTop: TOP_SPACING_EXTRA_COMPACT,
     paddingBottom: 7,
     paddingHorizontal: 10,
     gap: 7,
@@ -273,7 +274,7 @@ const styles = StyleSheet.create({
 
   headerVerySmall: {
     minHeight: 58,
-    paddingTop: 6,
+    paddingTop: TOP_SPACING_EXTRA_COMPACT,
     paddingBottom: 6,
     paddingHorizontal: 8,
     gap: 6,
