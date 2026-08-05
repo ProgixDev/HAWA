@@ -39,21 +39,29 @@ export function getBiometryLabel(type: Keychain.BIOMETRY_TYPE | null): string {
   return 'Utiliser la biométrie';
 }
 
+export function getBiometryIcon(type: Keychain.BIOMETRY_TYPE | null): string {
+  if (type === Keychain.BIOMETRY_TYPE.FACE || type === Keychain.BIOMETRY_TYPE.FACE_ID) {return 'face-recognition';}
+  if (type === Keychain.BIOMETRY_TYPE.FINGERPRINT || type === Keychain.BIOMETRY_TYPE.TOUCH_ID) {return 'fingerprint';}
+  if (type === Keychain.BIOMETRY_TYPE.IRIS) {return 'eye-outline';}
+  if (type === Keychain.BIOMETRY_TYPE.OPTIC_ID) {return 'eye-outline';}
+  return 'shield-lock-outline';
+}
+
 export async function authenticateWithBiometry(): Promise<boolean> {
   const existing = await Keychain.getGenericPassword({
     service: BIOMETRIC_SERVICE,
-    authenticationPrompt: {title:'Espace privé HAWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
+    authenticationPrompt: {title:'Espace privé AWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
   });
   if (existing) {return true;}
   await Keychain.setGenericPassword('intimacy-biometric', `session-${Date.now()}`, {
     service: BIOMETRIC_SERVICE,
     accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
     accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
-    authenticationPrompt: {title:'Espace privé HAWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
+    authenticationPrompt: {title:'Espace privé AWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
   });
   const verified = await Keychain.getGenericPassword({
     service: BIOMETRIC_SERVICE,
-    authenticationPrompt: {title:'Espace privé HAWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
+    authenticationPrompt: {title:'Espace privé AWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
   });
   return Boolean(verified);
 }
