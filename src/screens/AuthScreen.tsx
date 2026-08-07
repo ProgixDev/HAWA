@@ -65,7 +65,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
       return;
     }
 
-    navigation.replace('CycleHome');
+    navigation.replace('MainTabs', {screen: 'CycleHome'});
   };
 
   return (

@@ -64,7 +64,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
         <MaterialDesignIcons color={allRulesValid ? PURPLE : '#B3A6CC'} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />
         <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>8 caractères min., une majuscule, un chiffre et un caractère spécial</Text>
       </View>
-      <Pressable onPress={() => {if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;} saveFirstName(firstName); if (isPinEnabled()) {navigation.navigate('PinSetup'); return;} if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;} navigation.replace('CycleHome');}} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+      <Pressable onPress={() => {if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;} saveFirstName(firstName); if (isPinEnabled()) {navigation.navigate('PinSetup'); return;} if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;} navigation.replace('MainTabs', {screen: 'CycleHome'});}} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
       <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>
         <Pressable onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
         <Pressable onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
