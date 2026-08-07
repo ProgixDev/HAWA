@@ -85,7 +85,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
       <View style={styles.header}>
         <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.headerButton}><MaterialDesignIcons color={DARK} name="chevron-left" size={27} /></Pressable>
         <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>Vie intime</Text><MaterialDesignIcons color={PURPLE} name="lock-outline" size={21} /></View><Text style={styles.date}>{dateLabel} · Jour {cycleDay} du cycle</Text></View>
-        <Pressable accessibilityLabel="Masquer et verrouiller les informations" accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'CycleHome'},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={PURPLE} name="eye-off-outline" size={18} /><Text style={styles.hideText}>Masquer</Text></Pressable>
+        <Pressable accessibilityLabel="Masquer et verrouiller les informations" accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={PURPLE} name="eye-off-outline" size={18} /><Text style={styles.hideText}>Masquer</Text></Pressable>
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/intimacy-header-woman.png')} style={styles.hero}>
