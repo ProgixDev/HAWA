@@ -24,6 +24,17 @@ export async function saveJournalSection<K extends JournalSection>(
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
 }
 
+export async function getJournalEntry(date: string): Promise<DailyJournalEntry | undefined> {
+  const entries = await readEntries();
+  return entries.find(entry => entry.date === date);
+}
+
+export async function getJournalEntriesForMonth(year: number, month: number): Promise<DailyJournalEntry[]> {
+  const entries = await readEntries();
+  const prefix = `${year}-${String(month + 1).padStart(2, '0')}`;
+  return entries.filter(entry => entry.date.startsWith(prefix));
+}
+
 export async function deleteJournalSection(date: string, section: JournalSection): Promise<void> {
   const entries = await readEntries();
   const index = entries.findIndex(entry => entry.date === date);
