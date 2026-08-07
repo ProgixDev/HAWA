@@ -3,11 +3,14 @@ import {
   AccessibilityInfo,
   Animated,
   Easing,
+  Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+
+import {homeColors, homeRadii, homeShadow} from './homeTheme';
 
 export type SpiritualStatus = 'menstruation' | 'purity';
 
@@ -15,20 +18,30 @@ type Props = {
   hijriDate?: string;
   nextPrayerName?: string;
   nextPrayerTime?: string;
-  remainingTime?: string;
+  qadaaDays?: number;
   status: SpiritualStatus;
   locationConfigured: boolean;
+  onManage?: () => void;
 };
 
-const PURPLE = '#6949BE';
+function InfoBlock({icon, label, value}: {icon: React.ComponentProps<typeof MaterialDesignIcons>['name']; label: string; value: string}) {
+  return (
+    <View style={styles.infoBlock}>
+      <MaterialDesignIcons color={homeColors.primary} name={icon} size={19} />
+      <Text style={styles.infoLabel}>{label}</Text>
+      <Text numberOfLines={2} style={styles.infoValue}>{value}</Text>
+    </View>
+  );
+}
 
 function SpiritualGuidanceCard({
   hijriDate,
   nextPrayerName,
   nextPrayerTime,
-  remainingTime,
+  qadaaDays = 0,
   status,
   locationConfigured,
+  onManage,
 }: Props): React.JSX.Element {
   const entrance = useRef(new Animated.Value(0)).current;
 
@@ -45,15 +58,15 @@ function SpiritualGuidanceCard({
 
   const isMenstruation = status === 'menstruation';
   const prayerAvailable = Boolean(nextPrayerName);
-  const message = !locationConfigured
-    ? 'Ajoute ta localisation pour calculer les horaires de prière.'
-    : isMenstruation
-      ? 'Les prières sont suspendues durant cette période.'
-      : 'Toutes les prières sont à accomplir.';
+  const prayerValue = !locationConfigured
+    ? 'Ajoute ta localisation'
+    : prayerAvailable
+      ? `${nextPrayerName}${nextPrayerTime ? ` · ${nextPrayerTime}` : ''}`
+      : 'Indisponible';
 
   return (
     <Animated.View
-      accessibilityLabel={`Repères spirituels. Statut ${isMenstruation ? 'Menstrues' : 'Pureté'}. ${message}`}
+      accessibilityLabel={`Repères spirituels. Statut ${isMenstruation ? 'Menstrues' : 'Pureté'}.`}
       style={[
         styles.card,
         {
@@ -64,82 +77,74 @@ function SpiritualGuidanceCard({
           ],
         },
       ]}>
+      <MaterialDesignIcons color={homeColors.lightLavender} name="mosque" size={110} style={styles.watermark} />
+
       <View style={styles.headingRow}>
         <View style={styles.mosqueCircle}>
-          <MaterialDesignIcons color={PURPLE} name="mosque" size={27} />
+          <MaterialDesignIcons color={homeColors.primary} name="mosque" size={22} />
         </View>
         <Text style={styles.title}>Repères spirituels</Text>
-        <MaterialDesignIcons color={PURPLE} name="cog-outline" size={24} />
+        <Pressable accessibilityRole="button" hitSlop={8} onPress={onManage} style={({pressed}) => pressed && styles.pressed}>
+          <Text style={styles.manageLink}>Voir mes repères</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.badgeRow}>
+        <View style={[styles.badge, styles.activeBadge]}>
+          <Text style={styles.activeBadgeText}>Actif</Text>
+        </View>
+        <View style={[styles.badge, isMenstruation ? styles.periodBadge : styles.purityBadge]}>
+          <MaterialDesignIcons
+            color={isMenstruation ? '#A8505A' : homeColors.primary}
+            name={isMenstruation ? 'flower-outline' : 'shield-check-outline'}
+            size={13}
+          />
+          <Text style={[styles.badgeText, isMenstruation ? styles.periodText : styles.purityText]}>
+            {isMenstruation ? 'Menstrues' : 'Pureté'}
+          </Text>
+        </View>
       </View>
 
       <View style={styles.body}>
-        <View style={styles.dateColumn}>
-          <MaterialDesignIcons color="#655A8D" name="calendar-month-outline" size={25} />
-          <Text style={styles.date}>{hijriDate ?? 'Date hijri indisponible'}</Text>
-        </View>
-
+        <InfoBlock icon="alarm" label="Prochaine prière" value={prayerValue} />
         <View style={styles.separator} />
-
-        <View style={styles.prayerColumn}>
-          <Text style={styles.sectionLabel}>Prochaine prière</Text>
-          <Text numberOfLines={2} style={styles.prayerName}>
-            {prayerAvailable ? nextPrayerName : 'Horaires non disponibles'}
-          </Text>
-          {prayerAvailable && nextPrayerTime ? (
-            <Text style={styles.prayerTime}>{nextPrayerTime}</Text>
-          ) : null}
-          {prayerAvailable && remainingTime ? (
-            <View style={styles.timeRow}>
-              <MaterialDesignIcons color={PURPLE} name="clock-outline" size={20} />
-              <Text style={styles.remaining}>{remainingTime}</Text>
-            </View>
-          ) : null}
-        </View>
-
+        <InfoBlock icon="calendar-month-outline" label="Date Hijri" value={hijriDate ?? 'Indisponible'} />
         <View style={styles.separator} />
-
-        <View style={styles.statusColumn}>
-          <Text style={styles.sectionLabel}>Statut</Text>
-          <View style={[styles.statusBadge, isMenstruation ? styles.periodBadge : styles.purityBadge]}>
-            <MaterialDesignIcons
-              color={isMenstruation ? '#A8505A' : PURPLE}
-              name={isMenstruation ? 'flower-outline' : 'shield-check-outline'}
-              size={19}
-            />
-            <Text style={[styles.statusText, isMenstruation ? styles.periodText : styles.purityText]}>
-              {isMenstruation ? 'Menstrues' : 'Pureté'}
-            </Text>
-          </View>
-          <Text style={styles.message}>{message}</Text>
-        </View>
+        <InfoBlock icon="silverware-fork-knife" label="Jeûnes à rattraper" value={qadaaDays > 0 ? `${qadaaDays} jours` : 'À jour'} />
       </View>
     </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {marginTop: 15, borderWidth: 1, borderColor: 'rgba(105,73,190,0.18)', borderRadius: 25, backgroundColor: '#FFFDF8', padding: 14, elevation: 2, shadowColor: '#28166F', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 10},
+  card: {
+    overflow: 'hidden',
+    marginTop: 16,
+    borderRadius: homeRadii.card,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    ...homeShadow,
+  },
+  watermark: {position: 'absolute', right: -22, bottom: -22, opacity: 0.5},
   headingRow: {flexDirection: 'row', alignItems: 'center'},
-  mosqueCircle: {width: 43, height: 43, alignItems: 'center', justifyContent: 'center', borderRadius: 22, backgroundColor: '#EEE3FA'},
-  title: {flex: 1, marginLeft: 11, color: '#28166F', fontFamily: 'serif', fontSize: 19, fontWeight: '700'},
-  body: {flexDirection: 'row', alignItems: 'stretch', marginTop: 13},
-  dateColumn: {width: '25%', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 2},
-  date: {marginTop: 7, color: '#655A8D', fontSize: 11, lineHeight: 15, textAlign: 'center'},
-  separator: {width: StyleSheet.hairlineWidth, marginHorizontal: 8, backgroundColor: 'rgba(105,73,190,0.16)'},
-  prayerColumn: {flex: 0.85, justifyContent: 'center'},
-  statusColumn: {flex: 1.2, justifyContent: 'center'},
-  sectionLabel: {color: '#655A8D', fontSize: 11, fontWeight: '500'},
-  prayerName: {marginTop: 4, color: PURPLE, fontSize: 17, fontWeight: '700'},
-  prayerTime: {marginTop: 1, color: '#655A8D', fontSize: 11, fontWeight: '600'},
-  timeRow: {flexDirection: 'row', alignItems: 'center', marginTop: 6},
-  remaining: {flex: 1, marginLeft: 5, color: '#655A8D', fontSize: 11},
-  statusBadge: {alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', marginTop: 5, borderRadius: 16, paddingHorizontal: 8, paddingVertical: 5},
+  mosqueCircle: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20, backgroundColor: homeColors.lightLavender},
+  title: {flex: 1, marginLeft: 10, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+  manageLink: {color: homeColors.primary, fontSize: 11.5, fontWeight: '700'},
+  badgeRow: {flexDirection: 'row', gap: 8, marginTop: 10, marginLeft: 50},
+  badge: {flexDirection: 'row', alignItems: 'center', gap: 4, borderRadius: 12, paddingHorizontal: 9, paddingVertical: 4},
+  activeBadge: {backgroundColor: homeColors.greenLight},
+  activeBadgeText: {color: homeColors.green, fontSize: 10.5, fontWeight: '700'},
   periodBadge: {backgroundColor: '#F5DEDE'},
-  purityBadge: {backgroundColor: '#EEE3FA'},
-  statusText: {marginLeft: 5, fontSize: 12, fontWeight: '700'},
+  purityBadge: {backgroundColor: homeColors.lightLavender},
+  badgeText: {fontSize: 10.5, fontWeight: '700'},
   periodText: {color: '#A8505A'},
-  purityText: {color: PURPLE},
-  message: {marginTop: 7, color: '#7A6F98', fontSize: 10, lineHeight: 14},
+  purityText: {color: homeColors.primary},
+  body: {flexDirection: 'row', alignItems: 'stretch', marginTop: 14},
+  infoBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 3},
+  infoLabel: {marginTop: 6, color: homeColors.textSecondary, fontSize: 10, textAlign: 'center'},
+  infoValue: {marginTop: 3, color: homeColors.textPrimary, fontSize: 12, fontWeight: '700', textAlign: 'center'},
+  separator: {width: StyleSheet.hairlineWidth, marginHorizontal: 6, backgroundColor: homeColors.cardBorder},
+  pressed: {opacity: 0.7},
 });
 
 export default memo(SpiritualGuidanceCard);
