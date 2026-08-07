@@ -27,14 +27,14 @@ function PinSetupScreen({navigation}: Props): React.JSX.Element {
     if (key === 'delete') {setPin(value => value.slice(0, -1)); return;}
     if (key === 'empty' || pin.length >= 4) {return;}
     const next = `${pin}${key}`; setPin(next);
-    if (next.length === 4) {setTimeout(() => {if (isBiometricEnabled()) {navigation.replace('FaceIdSetup'); return;} navigation.replace('CycleHome');}, 180);}
+    if (next.length === 4) {setTimeout(() => {if (isBiometricEnabled()) {navigation.replace('FaceIdSetup'); return;} navigation.replace('MainTabs', {screen: 'CycleHome'});}, 180);}
   };
   return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><View style={[styles.content, {paddingTop: (compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA) + spacing.lg, paddingBottom: Math.max(insets.bottom, 16) + spacing.lg}]}>
     <View style={styles.iconMedallion}><MaterialDesignIcons color={PURPLE} name="lock-outline" size={28} /></View>
     <Text style={styles.title}>Créez votre code PIN</Text><Text style={styles.subtitle}>{'Choisissez un code à 4 chiffres\npour protéger vos données.'}</Text>
     <View accessibilityLabel={`${pin.length} chiffres saisis`} style={styles.dots}>{[0,1,2,3].map(index => <View key={index} style={[styles.dot, index < pin.length && styles.dotFilled]} />)}</View>
     <View style={[styles.keypad, compact && styles.keypadCompact]}>{keys.map((key, index) => key === 'empty' ? <View key={key} style={[styles.key, compact && styles.keyCompact]} /> : <Pressable accessibilityLabel={key === 'delete' ? 'Effacer' : key} key={`${key}-${index}`} onPress={() => enter(key)} style={({pressed}) => [styles.key, compact && styles.keyCompact, styles.keyActive, pressed && styles.pressed]}>{key === 'delete' ? <MaterialDesignIcons color={PURPLE_DARK} name="backspace-outline" size={26} /> : <><Text style={styles.number}>{key}</Text>{letters[key] && <Text style={styles.letters}>{letters[key]}</Text>}</>}</Pressable>)}</View>
-    <View style={styles.spacer} /><Pressable onPress={() => isBiometricEnabled() ? navigation.replace('FaceIdSetup') : navigation.replace('CycleHome')}><Text style={styles.later}>Plus tard</Text></Pressable>
+    <View style={styles.spacer} /><Pressable onPress={() => isBiometricEnabled() ? navigation.replace('FaceIdSetup') : navigation.replace('MainTabs', {screen: 'CycleHome'})}><Text style={styles.later}>Plus tard</Text></Pressable>
   </View></SafeAreaView></ImageBackground>;
 }
 

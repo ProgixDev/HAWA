@@ -28,7 +28,7 @@ function Benefit({delay, icon, title, description}: BenefitProps) {
 
 function FaceIdSetupScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const finish = () => navigation.replace('CycleHome');
+  const finish = () => navigation.replace('MainTabs', {screen: 'CycleHome'});
   return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingTop: TOP_SPACING_EXTRA + spacing.lg, paddingBottom: Math.max(insets.bottom, 16) + spacing.lg}]} showsVerticalScrollIndicator={false}>
     <View style={styles.heroIconBox}><MaterialDesignIcons color={PURPLE} name="face-recognition" size={48} /></View>
     <Text style={styles.title}>Utiliser Face ID ?</Text><Text style={styles.subtitle}>{'Activez Face ID pour déverrouiller\nAWA rapidement et en toute sécurité.'}</Text>
