@@ -8,11 +8,13 @@ export type ObjectiveId =
   | 'postpartum'
   | 'loss';
 
-type CyclePreferences = {
+export type CycleRegularity = 'yes' | 'no' | 'unknown';
+
+export type CyclePreferences = {
   lastPeriodStart: Date;
   periodDuration: number;
   cycleDuration: number;
-  regularity: 'yes' | 'no' | 'unknown';
+  regularity: CycleRegularity;
 };
 
 export type SchoolId = 'hanafi' | 'maliki' | 'chafii' | 'hanbali' | 'unknown';
