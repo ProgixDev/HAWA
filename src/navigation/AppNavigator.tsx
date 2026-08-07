@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, type NavigatorScreenParams} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 import SplashScreen from '../screens/SplashScreen';
@@ -18,8 +18,7 @@ import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SecuritySetupScreen from '../screens/SecuritySetupScreen';
 import PinSetupScreen from '../screens/PinSetupScreen';
 import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
-import CycleHomeScreen from '../screens/CycleHomeScreen';
-import ProfileScreen from '../screens/ProfileScreen';
+import MainTabNavigator, {type MainTabParamList} from './MainTabNavigator';
 import JournalSymptomsScreen from '../screens/journal/JournalSymptomsScreen';
 import JournalMoodScreen from '../screens/journal/JournalMoodScreen';
 import JournalFlowScreen from '../screens/journal/JournalFlowScreen';
@@ -51,8 +50,7 @@ export type RootStackParamList = {
   SecuritySetup: undefined;
   PinSetup: undefined;
   FaceIdSetup: undefined;
-  CycleHome: undefined;
-  Profile: undefined;
+  MainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
   SymptomEntry: undefined;
   MoodEntry: undefined;
   FlowEntry: undefined;
@@ -98,8 +96,7 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="SecuritySetup" component={SecuritySetupScreen} />
         <Stack.Screen name="PinSetup" component={PinSetupScreen} />
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
-        <Stack.Screen name="CycleHome" component={CycleHomeScreen} />
-        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         <Stack.Screen name="SymptomEntry" component={JournalSymptomsScreen} />
         <Stack.Screen name="MoodEntry" component={JournalMoodScreen} />
         <Stack.Screen name="FlowEntry" component={JournalFlowScreen} />
