@@ -1,4 +1,6 @@
 /* eslint-env jest */
+require('react-native-reanimated').setUpTests();
+
 const mockAsyncStorageData = new Map();
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
