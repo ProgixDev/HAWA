@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   Alert,
   Image,
@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -29,6 +30,7 @@ import {
   getSelectedObjective,
   getSelectedSchool,
   getSpiritualMarkersEnabled,
+  hydrateSelectedLocation,
   setSelectedObjective,
   setSpiritualMarkersEnabled,
   type ObjectiveId,
@@ -389,9 +391,16 @@ function ProfileScreen({
     [],
   );
 
-  const location = useMemo(
-    () => getSelectedLocation(),
-    [],
+  const [location, setLocation] = useState(getSelectedLocation());
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      hydrateSelectedLocation().then(value => {
+        if (active) {setLocation(value);}
+      });
+      return () => {active = false;};
+    }, []),
   );
 
   const cycle = useMemo(
@@ -465,18 +474,6 @@ function ProfileScreen({
       enabled,
     );
   };
-
-  const showAbout = () =>
-    Alert.alert(
-      'À propos de HAWA',
-      'HAWA t’accompagne au quotidien dans le suivi de ton cycle, avec douceur, pudeur et en accord avec tes repères spirituels.',
-    );
-
-  const showSupport = () =>
-    Alert.alert(
-      'Aide & support',
-      'Une question ou un souci ? Notre équipe support te répondra rapidement.',
-    );
 
   const confirmSignOut = () =>
     Alert.alert(
@@ -769,6 +766,7 @@ function ProfileScreen({
             }>
             <MenuRow
               icon="account-outline"
+              onPress={() => navigation.navigate('PersonalInformation')}
               subtitle="Nom, email, date de naissance…"
               title="Informations personnelles"
             />
@@ -802,6 +800,7 @@ function ProfileScreen({
 
             <MenuRow
               icon="heart-pulse"
+              onPress={() => navigation.navigate('GeneralHealth')}
               subtitle="Poids, taille, groupe sanguin, maladies…"
               title="Santé générale"
             />
@@ -816,7 +815,7 @@ function ProfileScreen({
               icon="shield-lock-outline"
               onPress={() =>
                 navigation.navigate(
-                  'SecuritySetup',
+                  'PrivacySecurity',
                 )
               }
               subtitle="Code, Face ID, mode discret, suppression des données"
@@ -831,6 +830,7 @@ function ProfileScreen({
 
             <MenuRow
               icon="cloud-outline"
+              onPress={() => navigation.navigate('BackupData')}
               subtitle="Sauvegarde cloud, restauration…"
               title="Sauvegarde"
             />
@@ -1005,9 +1005,9 @@ function ProfileScreen({
             }>
             <MenuRow
               icon="information-outline"
-              onPress={showAbout}
+              onPress={() => navigation.navigate('About')}
               subtitle="Version, mentions et valeurs de l’application"
-              title="À propos de HAWA"
+              title="À propos de AWA"
             />
 
             <View
@@ -1018,7 +1018,7 @@ function ProfileScreen({
 
             <MenuRow
               icon="lifebuoy"
-              onPress={showSupport}
+              onPress={() => navigation.navigate('HelpSupport')}
               subtitle="Questions, signalement, contact"
               title="Aide & support"
             />
