@@ -8,11 +8,11 @@ export type DailyJournalEntry = {
   cycleDay?: number;
   symptoms?: {names: string[]; severity?: SymptomSeverity; painLocation?: string; note?: string};
   mood?: {level: MoodLevel; energy: number; stress: number; irritability: number; motivation: number; note?: string};
-  flow?: {intensity: FlowIntensity; color?: string; clots?: string; periodStart?: boolean; periodEnd?: boolean; pain?: string; note?: string};
+  flow?: {intensity: FlowIntensity; color?: string; clots?: string; protections?: string[]; periodStart?: boolean; periodEnd?: boolean; pain?: string; note?: string};
   temperature?: {value: number; unit: 'C' | 'F'; time?: string; method?: string; note?: string};
   sleep?: {bedtime?: string; wakeTime?: string; duration?: string; quality?: string; awakenings?: number; wakeFeeling?: string; note?: string};
   activity?: {type?: string; durationMinutes?: number; intensity?: string; feeling?: string; none?: boolean; note?: string};
-  hydration?: {milliliters: number; dailyGoal?: number};
+  hydration?: {milliliters: number; dailyGoal?: number; glasses?: number; goalGlasses?: number};
   weight?: {value?: number; unit: 'kg' | 'lb'; moment?: string; note?: string};
   note?: {text: string; private: true; updatedAt: string};
   intimacy?: {answer: 'yes' | 'no' | 'preferNot'; protection?: string; libido?: string; discomfort?: string; note?: string};

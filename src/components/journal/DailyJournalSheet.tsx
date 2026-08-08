@@ -30,6 +30,8 @@ export type JournalRoute = Extract<
   | 'SleepEntry'
   | 'ActivityEntry'
   | 'HydrationWeightEntry'
+  | 'HydrationScreen'
+  | 'MenstrualFlowScreen'
   | 'NoteEntry'
   | 'PrivateIntimacyUnlock'
   | 'PrivatePhotoEntry'
@@ -82,13 +84,6 @@ const actions: Array<{
     tint: '#F9DDE8',
   },
   {
-    route: 'SleepEntry',
-    icon: 'weather-night',
-    title: 'Sommeil',
-    subtitle: 'Durée et qualité de ton sommeil',
-    tint: '#E8DDF8',
-  },
-  {
     route: 'ActivityEntry',
     icon: 'walk',
     title: 'Activité physique',
@@ -96,11 +91,25 @@ const actions: Array<{
     tint: '#DFF0F1',
   },
   {
-    route: 'NoteEntry',
-    icon: 'notebook-edit-outline',
-    title: 'Note personnelle',
-    subtitle: 'Écris tes observations et ajoute des photos privées',
-    tint: '#E9DFF7',
+    route: 'SleepEntry',
+    icon: 'weather-night',
+    title: 'Sommeil',
+    subtitle: 'Durée et qualité de ton sommeil',
+    tint: '#E8DDF8',
+  },
+  {
+    route: 'HydrationScreen',
+    icon: 'cup-water',
+    title: 'Hydratation',
+    subtitle: 'Suis ta consommation d’eau',
+    tint: '#DDEEFF',
+  },
+  {
+    route: 'MenstrualFlowScreen',
+    icon: 'water',
+    title: 'Flux menstruel',
+    subtitle: 'Intensité et caractéristiques du flux',
+    tint: '#F9DDE8',
   },
   {
     route: 'PrivateIntimacyUnlock',
@@ -108,6 +117,13 @@ const actions: Array<{
     title: 'Vie intime',
     subtitle: 'Rapport, protection et ressenti',
     tint: '#F9DCE8',
+  },
+  {
+    route: 'NoteEntry',
+    icon: 'notebook-edit-outline',
+    title: 'Note personnelle',
+    subtitle: 'Écris tes observations et ajoute des photos privées',
+    tint: '#E9DFF7',
   },
 ];
 function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Element {
