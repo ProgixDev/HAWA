@@ -89,24 +89,34 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
   };
 
   return (
-    <View style={[styles.bottomBar, {marginBottom: Math.max(insets.bottom, 8)}]}>
-      {renderTab(0)}
-      {renderTab(1)}
-      <CentralAddButton />
-      {renderTab(2)}
-      {renderTab(3)}
+    <View
+      style={[
+        styles.bottomBarArea,
+        {paddingBottom: Math.max(insets.bottom, 8)},
+      ]}>
+      <View style={styles.bottomBar}>
+        {renderTab(0)}
+        {renderTab(1)}
+        <CentralAddButton />
+        {renderTab(2)}
+        {renderTab(3)}
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+  bottomBarArea: {
+    backgroundColor: '#F7F3FF',
+    paddingTop: 4,
+  },
+
   bottomBar: {
     height: 58,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',
     marginHorizontal: 10,
-    marginBottom: 8,
     borderRadius: 34,
     backgroundColor: PURPLE_DARK,
     paddingHorizontal: 7,
