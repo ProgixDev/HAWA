@@ -28,6 +28,10 @@ import {
   getSelectedLocation,
   getSelectedSchool,
   getSpiritualMarkersEnabled,
+  hydrateSelectedLocation,
+  subscribeSelectedLocation,
+  type OnboardingLocation,
+  type SchoolId,
 } from '../state/onboardingPreferences';
 import {
   fetchNextPrayer,
@@ -36,6 +40,7 @@ import {
 import {getJournalEntry} from '../state/dailyJournalStore';
 import type {DailyJournalEntry} from '../types/journal';
 import {TOP_SPACING_EXTRA} from '../theme/spacing';
+import {loadPersonalInformation} from '../state/personalInformationStore';
 import {
   computeNextPeriod,
   cycleDayFor,
@@ -64,11 +69,22 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   const {open: openJournal} = useJournalSheet();
 
   const [journalEntry, setJournalEntry] = useState<DailyJournalEntry | undefined>(undefined);
-  const spiritualMarkersEnabled = getSpiritualMarkersEnabled();
-  const selectedLocation = useMemo(() => getSelectedLocation(), []);
-  const selectedSchool = useMemo(() => getSelectedSchool(), []);
+  const [, setProfileRevision] = useState(0);
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
+    getSpiritualMarkersEnabled(),
+  );
+  const [selectedLocation, setSelectedLocation] = useState<OnboardingLocation | null>(
+    getSelectedLocation(),
+  );
+  const [selectedSchool, setSelectedSchool] = useState<SchoolId | null>(
+    getSelectedSchool(),
+  );
   const [nextPrayer, setNextPrayer] = useState<NextPrayer>();
+  const [prayerLoading, setPrayerLoading] = useState(false);
+  const [prayerError, setPrayerError] = useState(false);
   const nextPrayerRef = useRef<NextPrayer | undefined>(undefined);
+  const prayerRequestRef = useRef(0);
+  const lastPrayerFetchRef = useRef(0);
 
   const entrance = useRef(new Animated.Value(0)).current;
 
@@ -86,6 +102,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
+      loadPersonalInformation().then(() => {
+        if (mounted) {setProfileRevision(current => current + 1);}
+      });
       getJournalEntry(new Date().toLocaleDateString('en-CA')).then(entry => {
         if (mounted) {setJournalEntry(entry);}
       });
@@ -93,24 +112,55 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     }, []),
   );
 
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      const refreshPreferences = async () => {
+        const location = await hydrateSelectedLocation();
+        if (!active) {return;}
+        setSelectedLocation(location);
+        setSelectedSchool(getSelectedSchool());
+        setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
+      };
+      refreshPreferences();
+      const unsubscribe = subscribeSelectedLocation(() => {
+        if (active) {setSelectedLocation(getSelectedLocation());}
+      });
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }, []),
+  );
+
   useEffect(() => {
+    const requestId = ++prayerRequestRef.current;
+    nextPrayerRef.current = undefined;
+    setNextPrayer(undefined);
+    setPrayerError(false);
     if (!spiritualMarkersEnabled || !selectedLocation) {
-      setNextPrayer(undefined);
+      setPrayerLoading(false);
       return;
     }
 
     let cancelled = false;
     const loadPrayer = async () => {
+      lastPrayerFetchRef.current = Date.now();
+      setPrayerLoading(true);
       try {
         const prayer = await fetchNextPrayer(selectedLocation, selectedSchool);
-        if (!cancelled) {
+        if (!cancelled && prayerRequestRef.current === requestId) {
           nextPrayerRef.current = prayer;
           setNextPrayer(prayer);
+          setPrayerError(!prayer);
+          setPrayerLoading(false);
         }
       } catch {
-        if (!cancelled) {
+        if (!cancelled && prayerRequestRef.current === requestId) {
           nextPrayerRef.current = undefined;
           setNextPrayer(undefined);
+          setPrayerError(true);
+          setPrayerLoading(false);
         }
       }
     };
@@ -118,7 +168,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     loadPrayer();
     const timer = setInterval(() => {
       const prayer = nextPrayerRef.current;
-      if (!prayer || prayer.at.getTime() <= Date.now()) {
+      const retryDue = Date.now() - lastPrayerFetchRef.current >= 5 * 60_000;
+      const prayerPassed = prayer ? prayer.at.getTime() <= Date.now() : false;
+      if (prayerPassed || (!prayer && retryDue)) {
         loadPrayer();
       }
     }, 30_000);
@@ -228,6 +280,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             <HeroCycleCard
               currentDay={currentCycleDay}
               cycleLength={initial.cycleDuration}
+              moodEntry={journalEntry?.mood}
               phase={currentPhase}
             />
           </View>
@@ -240,8 +293,11 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             <SpiritualGuidanceCard
               hijriDate={nextPrayer?.hijriDate ?? formatHijriDate(today)}
               locationConfigured={Boolean(selectedLocation)}
+              locationName={selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : undefined}
               nextPrayerName={nextPrayer?.name}
               nextPrayerTime={nextPrayer?.time}
+              prayerError={prayerError}
+              prayerLoading={prayerLoading}
               onManage={() => navigation.navigate('SpiritualPreferences')}
               status={currentPhase === 'menstruation' ? 'menstruation' : 'purity'}
             />

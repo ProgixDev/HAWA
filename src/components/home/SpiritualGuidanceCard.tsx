@@ -18,6 +18,9 @@ type Props = {
   hijriDate?: string;
   nextPrayerName?: string;
   nextPrayerTime?: string;
+  locationName?: string;
+  prayerLoading?: boolean;
+  prayerError?: boolean;
   qadaaDays?: number;
   status: SpiritualStatus;
   locationConfigured: boolean;
@@ -38,6 +41,9 @@ function SpiritualGuidanceCard({
   hijriDate,
   nextPrayerName,
   nextPrayerTime,
+  locationName,
+  prayerLoading = false,
+  prayerError = false,
   qadaaDays = 0,
   status,
   locationConfigured,
@@ -59,7 +65,11 @@ function SpiritualGuidanceCard({
   const isMenstruation = status === 'menstruation';
   const prayerAvailable = Boolean(nextPrayerName);
   const prayerValue = !locationConfigured
-    ? 'Ajoute ta localisation'
+    ? 'Localisation requise'
+    : prayerLoading
+      ? 'Calcul en cours…'
+      : prayerError
+        ? 'Horaires momentanément indisponibles'
     : prayerAvailable
       ? `${nextPrayerName}${nextPrayerTime ? ` · ${nextPrayerTime}` : ''}`
       : 'Indisponible';
@@ -105,6 +115,13 @@ function SpiritualGuidanceCard({
         </View>
       </View>
 
+      <View style={styles.locationRow}>
+        <MaterialDesignIcons color={homeColors.primary} name="map-marker-outline" size={15} />
+        <Text style={styles.locationText}>
+          {locationName ?? 'Configure ta localisation pour des horaires précis'}
+        </Text>
+      </View>
+
       <View style={styles.body}>
         <InfoBlock icon="alarm" label="Prochaine prière" value={prayerValue} />
         <View style={styles.separator} />
@@ -139,6 +156,8 @@ const styles = StyleSheet.create({
   badgeText: {fontSize: 10.5, fontWeight: '700'},
   periodText: {color: '#A8505A'},
   purityText: {color: homeColors.primary},
+  locationRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 5, marginTop: 12, paddingHorizontal: 4},
+  locationText: {flex: 1, color: homeColors.textSecondary, fontSize: 11.5, lineHeight: 16},
   body: {flexDirection: 'row', alignItems: 'stretch', marginTop: 14},
   infoBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 3},
   infoLabel: {marginTop: 6, color: homeColors.textSecondary, fontSize: 10, textAlign: 'center'},

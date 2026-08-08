@@ -21,6 +21,8 @@ const SHORTCUTS: Shortcut[] = [
   {section: 'mood', route: 'MoodEntry', icon: 'emoticon-happy-outline', label: 'Humeur'},
   {section: 'activity', route: 'ActivityEntry', icon: 'run', label: 'Activité'},
   {section: 'sleep', route: 'SleepEntry', icon: 'weather-night', label: 'Sommeil'},
+  {section: 'hydration', route: 'HydrationScreen', icon: 'cup-water', label: 'Hydratation'},
+  {section: 'flow', route: 'MenstrualFlowScreen', icon: 'water', label: 'Flux menstruel'},
   {
     section: 'intimacy',
     route: 'PrivateIntimacyUnlock',
@@ -111,8 +113,8 @@ const styles = StyleSheet.create({
   progressLabel: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
   track: {marginTop: 10, height: 6, borderRadius: 3, backgroundColor: homeColors.lightLavender, overflow: 'hidden'},
   fill: {height: '100%', borderRadius: 3, backgroundColor: homeColors.primary},
-  row: {flexDirection: 'row', marginTop: 14},
-  item: {flex: 1, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
+  row: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, rowGap: 12},
+  item: {flexBasis: '25%', flexGrow: 0, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
   iconWrap: {width: 36, height: 36},
   iconCircle: {
     width: 36,

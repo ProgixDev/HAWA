@@ -12,6 +12,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import {homeColors, homeRadii, homeShadow} from './homeTheme';
 import type {CyclePhase} from './CycleStatusCard';
+import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
 
 const FLOWER = require('../../assets/images/flower.png');
 
@@ -20,6 +21,7 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Props = {
   currentDay: number;
   cycleLength: number;
+  moodEntry?: DailyJournalEntry['mood'];
   phase: CyclePhase;
 };
 
@@ -91,6 +93,38 @@ const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   },
 };
 
+const MOOD_LABELS: Record<MoodLevel, string> = {
+  veryGood: 'Très bien',
+  good: 'Bien',
+  neutral: 'Neutre',
+  stressed: 'Stressée',
+  irritable: 'Irritable',
+  anxious: 'Anxieuse',
+  sad: 'Triste',
+  tired: 'Fatiguée',
+  motivated: 'Motivée',
+};
+
+const MOOD_TIPS: Record<MoodLevel, string> = {
+  veryGood: 'Profite de cet élan',
+  good: 'Cultive ce bien-être',
+  neutral: 'Écoute tes besoins',
+  stressed: 'Respire & ralentis',
+  irritable: 'Calme & douceur',
+  anxious: 'Ancre-toi doucement',
+  sad: 'Réconfort & soutien',
+  tired: 'Repos & hydratation',
+  motivated: 'Passe à l’action',
+};
+
+const ENERGY_LABELS: Record<number, string> = {
+  1: 'Très faible',
+  2: 'Faible',
+  3: 'Moyenne',
+  4: 'Élevée',
+  5: 'Très élevée',
+};
+
 const SEGMENT_COUNT = 60;
 const RING_SIZE = 116;
 
@@ -104,12 +138,20 @@ function Chip({icon, label, value}: {icon: IconName; label: string; value: strin
   );
 }
 
-function HeroCycleCard({currentDay, cycleLength, phase}: Props): React.JSX.Element {
+function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): React.JSX.Element {
   const entrance = useRef(new Animated.Value(0)).current;
   const progressAnimation = useRef(new Animated.Value(0)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
 
-  const insight = PHASE_INSIGHTS[phase];
+  const phaseInsight = PHASE_INSIGHTS[phase];
+  const insight = moodEntry
+    ? {
+        ...phaseInsight,
+        energy: ENERGY_LABELS[Math.min(5, Math.max(1, Math.round(moodEntry.energy)))] ?? phaseInsight.energy,
+        mood: MOOD_LABELS[moodEntry.level],
+        tip: MOOD_TIPS[moodEntry.level],
+      }
+    : phaseInsight;
   const safeCycleLength = Math.max(cycleLength, 1);
   const progress = Math.min(Math.max(currentDay / safeCycleLength, 0), 1);
 
