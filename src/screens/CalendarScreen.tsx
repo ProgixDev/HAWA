@@ -37,12 +37,13 @@ import {
   upcomingDateForCycleDay,
 } from '../utils/cycleMath';
 import {TOP_SPACING_EXTRA} from '../theme/spacing';
+import {loadPersonalInformation} from '../state/personalInformationStore';
 
 const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 
 type Props = MainTabScreenProps<'Calendar'>;
 
-function CalendarScreen({navigation}: Props): React.JSX.Element {
+function CalendarScreen(_: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const basics = getCyclePreferences();
   const today = useMemo(() => startOfDay(new Date()), []);
@@ -67,6 +68,9 @@ function CalendarScreen({navigation}: Props): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
+      loadPersonalInformation().then(information => {
+        if (mounted) {setDisplayMode(information.calendar);}
+      });
       getJournalEntriesForMonth(visibleMonth.getFullYear(), visibleMonth.getMonth()).then(entries => {
         if (!mounted) {return;}
         const map: Record<string, DayJournalFlags> = {};
@@ -168,7 +172,6 @@ function CalendarScreen({navigation}: Props): React.JSX.Element {
           contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + 24}]}
           showsVerticalScrollIndicator={false}>
           <CalendarHeader
-            onBack={navigation.goBack}
             onPressFilters={() => setFiltersVisible(true)}
             onPressLegend={() => setLegendVisible(true)}
           />

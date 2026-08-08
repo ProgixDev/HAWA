@@ -33,6 +33,11 @@ type Props = {
 const dateKey = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
+const backgroundColorStyle = (backgroundColor: string) => ({backgroundColor});
+
+const OVULATION_COLOR = '#8B5CF6';
+const NOTES_COLOR = '#2C8E93';
+
 const MODES: {key: CalendarDisplayMode; label: string}[] = [
   {key: 'gregorian', label: 'Grégorien'},
   {key: 'hijri', label: 'Hijri'},
@@ -69,10 +74,10 @@ function DayCell({
 
   const dots: string[] = [];
   if (kind === 'period' && filters.rules) {dots.push(homeColors.pink);}
-  if (kind === 'ovulation') {dots.push('#8B5CF6');}
+  if (kind === 'ovulation') {dots.push(OVULATION_COLOR);}
   if (kind === 'fertile') {dots.push('#3E8E56');}
   if (flags?.mood && filters.mood) {dots.push('#E0A93E');}
-  if ((flags?.notes || flags?.symptoms) && (filters.notes || filters.symptoms)) {dots.push(homeColors.primary);}
+  if ((flags?.notes || flags?.symptoms) && (filters.notes || filters.symptoms)) {dots.push(NOTES_COLOR);}
 
   return (
     <View style={styles.dayCell}>
@@ -86,16 +91,21 @@ function DayCell({
           kind === 'fertile' && styles.fertileDay,
           kind === 'ovulation' && styles.ovulationDay,
           isSelected && styles.selectedDay,
-          isToday && !isSelected && styles.todayDay,
+          isToday && styles.todayDayBorder,
           pressed && styles.pressed,
         ]}>
         <Text
-          style={[
-            styles.dayText,
-            (isSelected || kind === 'ovulation') && styles.dayTextLight,
-          ]}>
-          {date.getDate()}
-        </Text>
+  style={[
+    styles.dayText,
+
+    // Les jours sélectionnés / ovulation sont normalement blancs
+    (isSelected || kind === 'ovulation') && styles.dayTextLight,
+
+    // Aujourd'hui doit toujours rester noir et bien visible
+    isToday && styles.todayDayText,
+  ]}>
+  {date.getDate()}
+</Text>
         {hijriDay ? (
           <Text
             numberOfLines={1}
@@ -106,7 +116,13 @@ function DayCell({
         {dots.length > 0 ? (
           <View style={styles.dotRow}>
             {dots.slice(0, 3).map((color, index) => (
-              <View key={index} style={[styles.dot, {backgroundColor: isSelected ? '#FFFFFF' : color}]} />
+              <View
+                key={index}
+                style={[
+                  styles.dot,
+                  backgroundColorStyle(isSelected ? '#FFFFFF' : color),
+                ]}
+              />
             ))}
           </View>
         ) : null}
@@ -211,18 +227,28 @@ function MonthCalendarCard({
       <View style={styles.legendRow}>
         <LegendDot color={homeColors.pink} label="Règles" />
         <LegendDot color="#3E8E56" label="Fertile" />
-        <LegendDot color="#8B5CF6" label="Ovulation" />
+        <LegendDot color={OVULATION_COLOR} label="Ovulation" />
         <LegendDot color="#E0A93E" label="Humeur" />
-        <LegendDot color={homeColors.primary} label="Notes" />
+        <LegendDot color={NOTES_COLOR} label="Notes" />
+        <LegendDot color={homeColors.primaryDark} label="Aujourd’hui" outline />
       </View>
     </View>
   );
 }
 
-function LegendDot({color, label}: {color: string; label: string}) {
+function LegendDot({color, label, outline = false}: {color: string; label: string; outline?: boolean}) {
   return (
     <View style={styles.legendItem}>
-      <View style={[styles.legendDot, {backgroundColor: color}]} />
+      {outline ? (
+        <View
+          style={[
+            styles.legendTodayRing,
+            {borderColor: color},
+          ]}
+        />
+      ) : (
+        <View style={[styles.legendDot, {backgroundColor: color}]} />
+      )}
       <Text numberOfLines={1} style={styles.legendText}>{label}</Text>
     </View>
   );
@@ -255,14 +281,33 @@ const styles = StyleSheet.create({
   dayTextLight: {color: '#FFFFFF'},
   periodDay: {backgroundColor: '#F7D7D6'},
   fertileDay: {backgroundColor: '#DCEFE0'},
-  ovulationDay: {backgroundColor: '#8B5CF6'},
+  ovulationDay: {backgroundColor: OVULATION_COLOR},
   selectedDay: {backgroundColor: homeColors.primary},
-  todayDay: {borderWidth: 1.5, borderColor: homeColors.primary},
+  todayDayBorder: {
+    borderWidth: 1.8,
+    borderStyle: 'dashed',
+    borderColor: '#211A35',
+    borderRadius: 14,
+  },
+  todayDayText: {
+  color: '#211A35',
+  fontSize: 14,
+  fontWeight: '800',
+  zIndex: 4,
+},
   dotRow: {flexDirection: 'row', gap: 2, marginTop: 1},
   dot: {width: 3.5, height: 3.5, borderRadius: 2},
   legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
   legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
   legendDot: {width: 9, height: 9, borderRadius: 5},
+  legendTodayRing: {
+    width: 12,
+    height: 12,
+    borderWidth: 1.4,
+    borderStyle: 'dashed',
+    borderRadius: 6,
+    backgroundColor: 'rgba(105,73,190,0.03)',
+  },
   legendText: {color: homeColors.textSecondary, fontSize: 10.5},
   pressed: {opacity: 0.8},
 });
