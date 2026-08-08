@@ -1,5 +1,5 @@
-import React, {useEffect, useMemo, useState} from 'react';
-import {Alert, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {Alert, Animated, Easing, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -7,7 +7,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
-import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 
 const PURPLE = '#7142BD';
 const DARK = '#28145C';
@@ -31,12 +31,18 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const isSmallScreen = width < 380 || height < 720;
+  const isVerySmallScreen = width < 340 || height < 640;
   const [hasReport, setHasReport] = useState(true);
   const [time, setTime] = useState('21:30');
   const [libido, setLibido] = useState('Très élevée');
   const [symptoms, setSymptoms] = useState<string[]>([]);
   const [note, setNote] = useState('');
   const [activePicker, setActivePicker] = useState<PickerType | null>(null);
+  const [saving, setSaving] = useState(false);
+  const [successVisible, setSuccessVisible] = useState(false);
+
+  const successToastAnimation = useRef(new Animated.Value(0)).current;
+  const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cycleDay = useMemo(() => {
     const start = getCyclePreferences().lastPeriodStart;
     return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
@@ -69,20 +75,106 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
     const withoutNone = current.filter(value => value !== 'Aucun');
     return withoutNone.includes(item) ? withoutNone.filter(value => value !== item) : [...withoutNone, item];
   });
-  const save = async () => {
-    await saveJournalSection(new Date().toLocaleDateString('en-CA'), 'intimacy', {
-      answer: hasReport ? 'yes' : 'no', 
-      libido:hasReport ? libido : undefined, discomfort:hasReport ? symptoms.join(', ') : undefined,
-      note:note.trim(),
-    });
-    Alert.alert('Journal', 'Cette information a été enregistrée localement.');
-    navigation.goBack();
+  useEffect(() => {
+    return () => {
+      if (successToastTimeout.current) {
+        clearTimeout(successToastTimeout.current);
+      }
+    };
+  }, []);
+
+  const showSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+    }
+
+    setSuccessVisible(true);
+    successToastAnimation.stopAnimation();
+    successToastAnimation.setValue(0);
+
+    Animated.spring(successToastAnimation, {
+      toValue: 1,
+      damping: 17,
+      stiffness: 180,
+      mass: 0.85,
+      useNativeDriver: true,
+    }).start();
+
+    successToastTimeout.current = setTimeout(() => {
+      Animated.timing(successToastAnimation, {
+        toValue: 0,
+        duration: 220,
+        easing: Easing.in(Easing.quad),
+        useNativeDriver: true,
+      }).start(({finished}) => {
+        if (finished) {
+          setSuccessVisible(false);
+
+          // Retourne à l'écran précédent (CycleHome lorsque Vie intime
+          // a été ouverte depuis le journal quotidien de CycleHome).
+          navigation.goBack();
+        }
+      });
+    }, 2500);
   };
 
-  return <SafeAreaView edges={['top','bottom']} style={styles.safe}>
+  const hideSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+      successToastTimeout.current = null;
+    }
+
+    Animated.timing(successToastAnimation, {
+      toValue: 0,
+      duration: 180,
+      easing: Easing.in(Easing.quad),
+      useNativeDriver: true,
+    }).start(({finished}) => {
+      if (finished) {
+        setSuccessVisible(false);
+      }
+    });
+  };
+
+  const save = async () => {
+    if (saving) {
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      await saveJournalSection(
+        new Date().toLocaleDateString('en-CA'),
+        'intimacy',
+        {
+          answer: hasReport ? 'yes' : 'no',
+          libido: hasReport ? libido : undefined,
+          discomfort: hasReport ? symptoms.join(', ') : undefined,
+          note: note.trim(),
+        },
+      );
+
+      showSuccessToast();
+    } catch {
+      Alert.alert(
+        'Erreur',
+        "Impossible d'enregistrer ces informations pour le moment.",
+      );
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  return <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
     <StatusBar backgroundColor="#FCF9FD" barStyle="dark-content" />
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={0} style={styles.flex}>
-      <View style={styles.header}>
+      <View
+        style={[
+          styles.header,
+          isSmallScreen && styles.headerSmall,
+          isVerySmallScreen && styles.headerVerySmall,
+        ]}>
         <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.headerButton}><MaterialDesignIcons color={DARK} name="chevron-left" size={27} /></Pressable>
         <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>Vie intime</Text><MaterialDesignIcons color={PURPLE} name="lock-outline" size={21} /></View><Text style={styles.date}>{dateLabel} · Jour {cycleDay} du cycle</Text></View>
         <Pressable accessibilityLabel="Masquer et verrouiller les informations" accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={PURPLE} name="eye-off-outline" size={18} /><Text style={styles.hideText}>Masquer</Text></Pressable>
@@ -219,9 +311,80 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         </View>
 
         <View style={styles.security}><MaterialDesignIcons color={PURPLE} name="lock-outline" size={22} /><Text style={styles.securityText}>Cette section est protégée par un code ou Face ID séparé.{`\n`}Personne d’autre n’y a accès.</Text><MaterialDesignIcons color="#C6ADDC" name="shield-lock-outline" size={26} /></View>
-        <Pressable onPress={save} style={styles.save}><MaterialDesignIcons color="#FFFFFF" name="lock-outline" size={20} /><Text style={styles.saveText}>Enregistrer</Text></Pressable>
+        <Pressable
+          accessibilityLabel="Enregistrer les informations de vie intime"
+          accessibilityRole="button"
+          disabled={saving}
+          onPress={save}
+          style={({pressed}) => [
+            styles.save,
+            pressed && styles.pressed,
+            saving && styles.saveDisabled,
+          ]}>
+          <MaterialDesignIcons
+            color="#FFFFFF"
+            name={saving ? 'loading' : 'lock-outline'}
+            size={20}
+          />
+          <Text style={styles.saveText}>
+            {saving ? 'Enregistrement…' : 'Enregistrer'}
+          </Text>
+        </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>
+
+    {successVisible ? (
+      <Animated.View
+        style={[
+          styles.toast,
+          {
+            bottom: Math.max(insets.bottom, 18) + 12,
+            opacity: successToastAnimation,
+            transform: [
+              {
+                translateY: successToastAnimation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [18, 0],
+                }),
+              },
+              {
+                scale: successToastAnimation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.97, 1],
+                }),
+              },
+            ],
+          },
+        ]}>
+        <View style={styles.toastIcon}>
+          <MaterialDesignIcons
+            color="#FFFFFF"
+            name="check"
+            size={14}
+          />
+        </View>
+
+        <Text style={styles.toastText}>
+          Vie intime enregistrée avec succès ✨
+        </Text>
+
+        <Pressable
+          accessibilityLabel="Fermer"
+          accessibilityRole="button"
+          hitSlop={10}
+          onPress={hideSuccessToast}
+          style={({pressed}) => [
+            styles.toastCloseButton,
+            pressed && styles.toastCloseButtonPressed,
+          ]}>
+          <MaterialDesignIcons
+            color="#8E83A4"
+            name="close"
+            size={17}
+          />
+        </Pressable>
+      </Animated.View>
+    ) : null}
 
     <Modal
       animationType="fade"
@@ -473,8 +636,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: TOP_SPACING_EXTRA,
+    paddingBottom: 8,
     paddingHorizontal: 14,
     gap: 9,
+  },
+
+  headerSmall: {
+    minHeight: 62,
+    paddingTop: TOP_SPACING_EXTRA_COMPACT,
+    paddingBottom: 7,
+    paddingHorizontal: 10,
+  },
+
+  headerVerySmall: {
+    minHeight: 58,
+    paddingTop: TOP_SPACING_EXTRA_COMPACT,
+    paddingBottom: 6,
+    paddingHorizontal: 8,
   },
 
   headerButton: {
@@ -992,6 +1170,67 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.8,
     transform: [{scale: 0.985}],
+  },
+
+  saveDisabled: {
+    opacity: 0.55,
+  },
+
+  toast: {
+    position: 'absolute',
+    left: '7%',
+    right: '7%',
+    zIndex: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderWidth: 1,
+    borderColor: '#E3D8F2',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowColor: '#4F2A9C',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 13,
+    elevation: 7,
+  },
+
+  toastIcon: {
+    width: 24,
+    height: 24,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: PURPLE,
+  },
+
+  toastText: {
+    flex: 1,
+    minWidth: 0,
+    color: DARK,
+    fontSize: 12.5,
+    lineHeight: 17,
+    fontWeight: '700',
+  },
+
+  toastCloseButton: {
+    width: 32,
+    height: 32,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+
+  toastCloseButtonPressed: {
+    backgroundColor: '#F3EEF8',
+    opacity: 0.8,
   },
 
   modalOverlay: {

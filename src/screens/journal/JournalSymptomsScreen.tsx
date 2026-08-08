@@ -221,6 +221,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   const [note, setNote] = useState('');
 
   const [saving, setSaving] = useState(false);
+  const [successVisible, setSuccessVisible] = useState(false);
+
+  const successToastAnimation = useRef(new Animated.Value(0)).current;
+  const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   /**
    * Récupère les dimensions originales de l'image
@@ -399,6 +403,68 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
     );
   };
 
+  useEffect(() => {
+    return () => {
+      if (successToastTimeout.current) {
+        clearTimeout(successToastTimeout.current);
+      }
+    };
+  }, []);
+
+  const showSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+    }
+
+    setSuccessVisible(true);
+    successToastAnimation.stopAnimation();
+    successToastAnimation.setValue(0);
+
+    Animated.spring(successToastAnimation, {
+      toValue: 1,
+      damping: 17,
+      stiffness: 180,
+      mass: 0.85,
+      useNativeDriver: true,
+    }).start();
+
+    successToastTimeout.current = setTimeout(() => {
+      Animated.timing(successToastAnimation, {
+        toValue: 0,
+        duration: 220,
+        easing: Easing.in(Easing.quad),
+        useNativeDriver: true,
+      }).start(({finished}) => {
+        if (finished) {
+          setSuccessVisible(false);
+
+          // Retour à l'écran précédent.
+          // Dans ton flow, JournalSymptomsScreen est ouvert depuis CycleHome,
+          // donc goBack() retourne correctement vers CycleHome sans erreur de typage.
+          navigation.goBack();
+        }
+      });
+    }, 2500);
+  };
+
+  const hideSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+      successToastTimeout.current = null;
+    }
+
+    Animated.timing(successToastAnimation, {
+      toValue: 0,
+      duration: 180,
+      easing: Easing.in(Easing.quad),
+      useNativeDriver: true,
+    }).start(({finished}) => {
+      if (finished) {
+        setSuccessVisible(false);
+      }
+    });
+  };
+
   const save = async () => {
     if (saving) {
       return;
@@ -419,17 +485,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
         },
       );
 
-      Alert.alert(
-        'Journal',
-        'Tes symptômes ont été enregistrés.',
-        [
-          {
-            text: 'OK',
-            onPress: () =>
-              navigation.goBack(),
-          },
-        ],
-      );
+      showSuccessToast();
     } catch {
       Alert.alert(
         'Erreur',
@@ -1060,6 +1116,59 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {successVisible ? (
+        <Animated.View
+          style={[
+            styles.toast,
+            {
+              bottom: Math.max(insets.bottom, 18) + 12,
+              opacity: successToastAnimation,
+              transform: [
+                {
+                  translateY: successToastAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [18, 0],
+                  }),
+                },
+                {
+                  scale: successToastAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.97, 1],
+                  }),
+                },
+              ],
+            },
+          ]}>
+          <View style={styles.toastIcon}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name="check"
+              size={14}
+            />
+          </View>
+
+          <Text style={styles.toastText}>
+            Symptômes enregistrés avec succès ✨
+          </Text>
+
+          <Pressable
+            accessibilityLabel="Fermer"
+            accessibilityRole="button"
+            hitSlop={10}
+            onPress={hideSuccessToast}
+            style={({pressed}) => [
+              styles.toastCloseButton,
+              pressed && styles.toastCloseButtonPressed,
+            ]}>
+            <MaterialDesignIcons
+              color="#8E83A4"
+              name="close"
+              size={17}
+            />
+          </Pressable>
+        </Animated.View>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -1776,6 +1885,63 @@ const styles = StyleSheet.create({
         scale: 0.99,
       },
     ],
+  },
+
+  toast: {
+    position: 'absolute',
+    left: '7%',
+    right: '7%',
+    zIndex: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderWidth: 1,
+    borderColor: '#E3D8F2',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowColor: '#4F2A9C',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 13,
+    elevation: 7,
+  },
+
+  toastIcon: {
+    width: 24,
+    height: 24,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: PURPLE,
+  },
+
+  toastText: {
+    flex: 1,
+    minWidth: 0,
+    color: '#2F2258',
+    fontSize: 12.5,
+    lineHeight: 17,
+    fontWeight: '700',
+  },
+
+  toastCloseButton: {
+    width: 32,
+    height: 32,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+
+  toastCloseButtonPressed: {
+    backgroundColor: '#F3EEF8',
+    opacity: 0.8,
   },
 
   disabled: {

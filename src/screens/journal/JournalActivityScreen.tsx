@@ -1,5 +1,5 @@
-import React, {useMemo, useState} from 'react';
-import {Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {Alert, Animated, Easing, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -71,15 +71,107 @@ export default function JournalActivityScreen(): React.JSX.Element {
   const [intensity, setIntensity] = useState('Élevée');
   const [feeling, setFeeling] = useState('Très bien');
   const [note, setNote] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [successVisible, setSuccessVisible] = useState(false);
+
+  const successToastAnimation = useRef(new Animated.Value(0)).current;
+  const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cycleDay = useMemo(() => {
     const start = getCyclePreferences().lastPeriodStart;
     return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
   }, []);
   const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday: 'long', day: 'numeric', month: 'short'}).format(new Date());
+  useEffect(() => {
+    return () => {
+      if (successToastTimeout.current) {
+        clearTimeout(successToastTimeout.current);
+      }
+    };
+  }, []);
+
+  const showSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+    }
+
+    setSuccessVisible(true);
+    successToastAnimation.stopAnimation();
+    successToastAnimation.setValue(0);
+
+    Animated.spring(successToastAnimation, {
+      toValue: 1,
+      damping: 17,
+      stiffness: 180,
+      mass: 0.85,
+      useNativeDriver: true,
+    }).start();
+
+    successToastTimeout.current = setTimeout(() => {
+      Animated.timing(successToastAnimation, {
+        toValue: 0,
+        duration: 220,
+        easing: Easing.in(Easing.quad),
+        useNativeDriver: true,
+      }).start(({finished}) => {
+        if (finished) {
+          setSuccessVisible(false);
+
+          // Retour vers l'écran précédent (CycleHome)
+          // après l'affichage du toast de succès.
+          navigation.goBack();
+        }
+      });
+    }, 2500);
+  };
+
+  const hideSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+      successToastTimeout.current = null;
+    }
+
+    Animated.timing(successToastAnimation, {
+      toValue: 0,
+      duration: 180,
+      easing: Easing.in(Easing.quad),
+      useNativeDriver: true,
+    }).start(({finished}) => {
+      if (finished) {
+        setSuccessVisible(false);
+      }
+    });
+  };
+
   const save = async () => {
-    await saveJournalSection(new Date().toLocaleDateString('en-CA'), 'activity', {none: false, type: activity, durationMinutes: duration, intensity, feeling, note: note.trim()});
-    Alert.alert('Journal', 'Ton activité a été enregistrée.');
-    navigation.goBack();
+    if (saving) {
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      await saveJournalSection(
+        new Date().toLocaleDateString('en-CA'),
+        'activity',
+        {
+          none: false,
+          type: activity,
+          durationMinutes: duration,
+          intensity,
+          feeling,
+          note: note.trim(),
+        },
+      );
+
+      showSuccessToast();
+    } catch {
+      Alert.alert(
+        'Erreur',
+        "Impossible d'enregistrer ton activité pour le moment.",
+      );
+    } finally {
+      setSaving(false);
+    }
   };
   const changeDuration = (step: number) => setDuration(value => Math.min(120, Math.max(10, value + step)));
 
@@ -132,6 +224,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
         <Pressable
           accessibilityLabel="Enregistrer"
           accessibilityRole="button"
+          disabled={saving}
           hitSlop={10}
           onPress={save}
           style={({pressed}) => [
@@ -158,7 +251,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}>
         <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/activity-header-woman.png')} style={styles.hero}>
-          <View style={styles.heroCopy}><Text style={styles.heroTitle}>Bouge pour ton bien-être ✦</Text><Text style={styles.heroText}>L’activité physique régulière aide{`\n`}à réduire le stress, améliorer ton humeur{`\n`}et soulager certains symptômes.</Text></View>
+          <View style={styles.heroCopy}><Text style={styles.heroTitle}>Bouge pour ton bien-être ✦</Text><Text style={styles.heroText}>L’activité physique aide à réduire le stress,améliorer l’humeur et soulager{`\n`} les symptômes.</Text></View>
         </ImageBackground>
 
         <View style={styles.card}>
@@ -232,9 +325,72 @@ export default function JournalActivityScreen(): React.JSX.Element {
           <View style={styles.noteBox}><TextInput maxLength={200} multiline onChangeText={setNote} placeholder="Écris ici..." placeholderTextColor="#9A96A2" style={styles.note} textAlignVertical="top" value={note} /><View style={styles.noteFooter}><Text style={styles.counter}>{note.length} / 200</Text><MaterialDesignIcons color={PURPLE} name="paperclip" size={18} /><MaterialDesignIcons color={PURPLE} name="camera-outline" size={19} /></View></View>
         </View>
         <View style={styles.kindness}><MaterialDesignIcons color={PURPLE} name="heart-outline" size={17} /><Text style={styles.kindnessText}>Chaque pas compte. Félicite-toi pour avoir pris soin de toi aujourd’hui ! 💜</Text></View>
-        <Pressable onPress={save} style={styles.save}><MaterialDesignIcons color="#FFFFFF" name="content-save" size={18} /><Text style={styles.saveText}>Enregistrer</Text></Pressable>
+        <Pressable
+          accessibilityLabel="Enregistrer l'activité"
+          accessibilityRole="button"
+          disabled={saving}
+          onPress={save}
+          style={({pressed}) => [
+            styles.save,
+            pressed && styles.pressed,
+            saving && styles.saveDisabled,
+          ]}>
+          <MaterialDesignIcons
+            color="#FFFFFF"
+            name={saving ? 'loading' : 'content-save'}
+            size={18}
+          />
+          <Text style={styles.saveText}>
+            {saving ? 'Enregistrement…' : 'Enregistrer'}
+          </Text>
+        </Pressable>
       </ScrollView>
     </KeyboardAvoidingView>
+
+    {successVisible ? (
+      <Animated.View
+        style={[
+          styles.toast,
+          {
+            bottom: Math.max(insets.bottom, 18) + 12,
+            opacity: successToastAnimation,
+            transform: [
+              {
+                translateY: successToastAnimation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [18, 0],
+                }),
+              },
+              {
+                scale: successToastAnimation.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.97, 1],
+                }),
+              },
+            ],
+          },
+        ]}>
+        <View style={styles.toastIcon}>
+          <MaterialDesignIcons color="#FFFFFF" name="check" size={14} />
+        </View>
+
+        <Text style={styles.toastText}>
+          Activité enregistrée avec succès ✨
+        </Text>
+
+        <Pressable
+          accessibilityLabel="Fermer"
+          accessibilityRole="button"
+          hitSlop={10}
+          onPress={hideSuccessToast}
+          style={({pressed}) => [
+            styles.toastCloseButton,
+            pressed && styles.toastCloseButtonPressed,
+          ]}>
+          <MaterialDesignIcons color="#8E83A4" name="close" size={17} />
+        </Pressable>
+      </Animated.View>
+    ) : null}
   </SafeAreaView>;
 }
 
@@ -304,25 +460,25 @@ const styles = StyleSheet.create({
 
   title: {
     color: '#30205E',
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: '700',
     textAlign: 'center',
   },
 
   titleSmall: {
-    fontSize: 17,
+    fontSize: 19,
   },
 
   date: {
     maxWidth: '100%',
     marginTop: 2,
     color: '#77727D',
-    fontSize: 10,
+    fontSize: 11,
     textAlign: 'center',
   },
 
   dateSmall: {
-    fontSize: 8.5,
+    fontSize: 9.5,
   },
 
   content: {
@@ -364,15 +520,16 @@ const styles = StyleSheet.create({
 
   heroTitle: {
     color: '#32205F',
-    fontSize: 14,
+    fontSize: 16,
+    lineHeight: 22,
     fontWeight: '700',
   },
 
   heroText: {
-    marginTop: 8,
+    marginTop: 6,
     color: '#4E4860',
-    fontSize: 9.5,
-    lineHeight: 14,
+    fontSize: 10,
+    lineHeight: 15,
   },
 
   card: {
@@ -394,14 +551,14 @@ const styles = StyleSheet.create({
 
   sectionTitle: {
     color: '#33245C',
-    fontSize: 11.5,
+    fontSize: 14,
     fontWeight: '700',
   },
 
   hint: {
     marginTop: 2,
     color: '#87818C',
-    fontSize: 7.5,
+    fontSize: 9.5,
   },
 
   activityGrid: {
@@ -467,8 +624,8 @@ const styles = StyleSheet.create({
   activityLabel: {
     maxWidth: '100%',
     color: '#38323F',
-    fontSize: 7.2,
-    lineHeight: 9,
+    fontSize: 9,
+    lineHeight: 11,
     fontWeight: '600',
     textAlign: 'center',
   },
@@ -528,7 +685,7 @@ const styles = StyleSheet.create({
   minutes: {
     marginHorizontal: 9,
     color: '#56505E',
-    fontSize: 9,
+    fontSize: 11,
   },
 
   durationTrack: {
@@ -562,7 +719,7 @@ const styles = StyleSheet.create({
 
   scaleText: {
     color: '#817B86',
-    fontSize: 6.5,
+    fontSize: 9,
   },
 
   intensityRow: {
@@ -583,7 +740,7 @@ const styles = StyleSheet.create({
   intensityText: {
     marginTop: 4,
     color: '#494250',
-    fontSize: 6.5,
+    fontSize: 9,
     fontWeight: '600',
   },
 
@@ -609,12 +766,12 @@ const styles = StyleSheet.create({
   feelingText: {
     marginTop: 3,
     color: '#4A4450',
-    fontSize: 6.5,
+    fontSize: 9,
     textAlign: 'center',
   },
 
   optional: {
-    fontSize: 8,
+    fontSize: 10,
     fontWeight: '400',
   },
 
@@ -631,7 +788,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 8,
     color: '#3F3847',
-    fontSize: 9,
+    fontSize: 11.5,
   },
 
   noteFooter: {
@@ -646,7 +803,7 @@ const styles = StyleSheet.create({
   counter: {
     marginRight: 'auto',
     color: '#8E8991',
-    fontSize: 7,
+    fontSize: 9,
   },
 
   kindness: {
@@ -662,7 +819,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 7,
     color: '#635777',
-    fontSize: 8,
+    fontSize: 10,
   },
 
   save: {
@@ -680,8 +837,66 @@ const styles = StyleSheet.create({
   saveText: {
     marginLeft: 7,
     color: '#FFFFFF',
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: '700',
+  },
+
+  saveDisabled: {
+    opacity: 0.55,
+  },
+
+  toast: {
+    position: 'absolute',
+    left: '7%',
+    right: '7%',
+    zIndex: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderWidth: 1,
+    borderColor: '#E3D8F2',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowColor: '#4F2A9C',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.17,
+    shadowRadius: 13,
+    elevation: 7,
+  },
+
+  toastIcon: {
+    width: 24,
+    height: 24,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: PURPLE,
+  },
+
+  toastText: {
+    flex: 1,
+    minWidth: 0,
+    color: '#2F2258',
+    fontSize: 12.5,
+    lineHeight: 17,
+    fontWeight: '700',
+  },
+
+  toastCloseButton: {
+    width: 32,
+    height: 32,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+
+  toastCloseButtonPressed: {
+    backgroundColor: '#F3EEF8',
+    opacity: 0.8,
   },
 
   pressed: {

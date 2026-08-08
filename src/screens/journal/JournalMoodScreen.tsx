@@ -1,25 +1,28 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
+  Animated,
+  Easing,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   TextInput,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {saveJournalSection} from '../../state/dailyJournalStore';
+import {getCyclePreferences} from '../../state/onboardingPreferences';
 import type {MoodLevel} from '../../types/journal';
-import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 
 const PURPLE = '#6949BE';
 const PURPLE_DARK = '#28166F';
@@ -72,38 +75,161 @@ function LevelRow({label, value, color, paleColor, onChange}: LevelRowProps) {
 export default function JournalMoodScreen(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const {width, height} = useWindowDimensions();
+  const isSmallScreen = width < 370 || height < 720;
+  const isVerySmallScreen = width < 340 || height < 640;
+  const cycleDay = useMemo(() => {
+    const start = getCyclePreferences().lastPeriodStart;
+    return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
+  }, []);
+  const dateLabel = new Intl.DateTimeFormat('fr-FR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'short',
+  }).format(new Date());
   const [mood, setMood] = useState<MoodLevel>('veryGood');
   const [energy, setEnergy] = useState(4);
   const [stress, setStress] = useState(3);
   const [irritability, setIrritability] = useState(2);
   const [motivation, setMotivation] = useState(4);
   const [note, setNote] = useState('');
+  const [saving, setSaving] = useState(false);
+  const [successVisible, setSuccessVisible] = useState(false);
+
+  const successToastAnimation = useRef(new Animated.Value(0)).current;
+  const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const remaining = useMemo(() => 300 - note.length, [note.length]);
 
-  const save = async () => {
-    await saveJournalSection(new Date().toLocaleDateString('en-CA'), 'mood', {
-      level: mood,
-      energy,
-      stress,
-      irritability,
-      motivation,
-      note: note.trim(),
+  useEffect(() => {
+    return () => {
+      if (successToastTimeout.current) {
+        clearTimeout(successToastTimeout.current);
+      }
+    };
+  }, []);
+
+  const showSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+    }
+
+    setSuccessVisible(true);
+    successToastAnimation.stopAnimation();
+    successToastAnimation.setValue(0);
+
+    Animated.spring(successToastAnimation, {
+      toValue: 1,
+      damping: 17,
+      stiffness: 180,
+      mass: 0.85,
+      useNativeDriver: true,
+    }).start();
+
+    successToastTimeout.current = setTimeout(() => {
+      Animated.timing(successToastAnimation, {
+        toValue: 0,
+        duration: 220,
+        easing: Easing.in(Easing.quad),
+        useNativeDriver: true,
+      }).start(({finished}) => {
+        if (finished) {
+          setSuccessVisible(false);
+
+          // JournalMoodScreen est ouvert depuis CycleHome.
+          // goBack() retourne vers CycleHome sans conflit de typage.
+          navigation.goBack();
+        }
+      });
+    }, 2500);
+  };
+
+  const hideSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+      successToastTimeout.current = null;
+    }
+
+    Animated.timing(successToastAnimation, {
+      toValue: 0,
+      duration: 180,
+      easing: Easing.in(Easing.quad),
+      useNativeDriver: true,
+    }).start(({finished}) => {
+      if (finished) {
+        setSuccessVisible(false);
+      }
     });
-    Alert.alert('Journal', 'Ton humeur a été enregistrée.');
-    navigation.goBack();
+  };
+
+  const save = async () => {
+    if (saving) {
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      await saveJournalSection(
+        new Date().toLocaleDateString('en-CA'),
+        'mood',
+        {
+          level: mood,
+          energy,
+          stress,
+          irritability,
+          motivation,
+          note: note.trim(),
+        },
+      );
+
+      showSuccessToast();
+    } catch {
+      Alert.alert(
+        'Erreur',
+        "Impossible d'enregistrer ton humeur pour le moment.",
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
       <StatusBar backgroundColor="#F8EFFF" barStyle="dark-content" />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
-        <View style={styles.topBar}>
+        <View
+          style={[
+            styles.topBar,
+            isSmallScreen && styles.topBarSmall,
+            isVerySmallScreen && styles.topBarVerySmall,
+          ]}>
           <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.roundButton}>
             <MaterialDesignIcons color={PURPLE} name="arrow-left" size={25} />
           </Pressable>
-          <Text style={styles.pageTitle}>Humeur</Text>
-          <Pressable accessibilityLabel="Enregistrer l'humeur" onPress={save} style={styles.roundButton}>
-            <MaterialDesignIcons color={PURPLE} name="check" size={24} />
+          <View style={styles.headerCopy}>
+            <Text style={[styles.pageTitle, isSmallScreen && styles.pageTitleSmall]}>
+              Humeur
+            </Text>
+            <Text numberOfLines={1} style={[styles.date, isSmallScreen && styles.dateSmall]}>
+              {dateLabel} · Jour {cycleDay} du cycle
+            </Text>
+          </View>
+          <Pressable
+            accessibilityLabel="Enregistrer l'humeur"
+            accessibilityRole="button"
+            disabled={saving}
+            onPress={save}
+            style={[
+              styles.roundButton,
+              styles.saveHeaderButton,
+              saving && styles.saveDisabled,
+            ]}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name="check"
+              size={24}
+            />
           </Pressable>
         </View>
 
@@ -179,26 +305,80 @@ export default function JournalMoodScreen(): React.JSX.Element {
           </View>
 
           <Pressable
-  accessibilityRole="button"
-  onPress={save}
-  style={({pressed}) => [
-    styles.saveButton,
-    pressed && styles.pressed,
-  ]}>
+            accessibilityLabel="Enregistrer l'humeur"
+            accessibilityRole="button"
+            disabled={saving}
+            onPress={save}
+            style={({pressed}) => [
+              styles.saveButton,
+              pressed && styles.pressed,
+              saving && styles.saveDisabled,
+            ]}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name={saving ? 'loading' : 'content-save-outline'}
+              size={20}
+            />
 
-  <MaterialDesignIcons
-    color="#FFFFFF"
-    name="content-save-outline"
-    size={20}
-  />
-
-  <Text style={styles.saveText}>
-    Enregistrer
-  </Text>
-
-</Pressable>
+            <Text style={styles.saveText}>
+              {saving ? 'Enregistrement…' : 'Enregistrer'}
+            </Text>
+          </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {successVisible ? (
+        <Animated.View
+          style={[
+            styles.toast,
+            {
+              bottom: Math.max(insets.bottom, 18) + 12,
+              opacity: successToastAnimation,
+              transform: [
+                {
+                  translateY: successToastAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [18, 0],
+                  }),
+                },
+                {
+                  scale: successToastAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.97, 1],
+                  }),
+                },
+              ],
+            },
+          ]}>
+          <View style={styles.toastIcon}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name="check"
+              size={14}
+            />
+          </View>
+
+          <Text style={styles.toastText}>
+            Humeur enregistrée avec succès ✨
+          </Text>
+
+          <Pressable
+            accessibilityLabel="Fermer"
+            accessibilityRole="button"
+            hitSlop={10}
+            onPress={hideSuccessToast}
+            style={({pressed}) => [
+              styles.toastCloseButton,
+              pressed && styles.toastCloseButtonPressed,
+            ]}>
+            <MaterialDesignIcons
+              color="#8E83A4"
+              name="close"
+              size={17}
+            />
+          </Pressable>
+        </Animated.View>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -206,9 +386,15 @@ export default function JournalMoodScreen(): React.JSX.Element {
 const styles = StyleSheet.create({
   safe: {flex: 1, backgroundColor: '#F8EFFF'},
   flex: {flex: 1},
-  topBar: {height: 60, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 14, marginTop: TOP_SPACING_EXTRA},
-  roundButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: '#EEE3FA', marginTop: 9},
-  pageTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 22, fontWeight: '700',marginTop: 13},
+  topBar: {minHeight: 68, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingTop: TOP_SPACING_EXTRA, paddingBottom: 8, paddingHorizontal: 14},
+  topBarSmall: {minHeight: 62, paddingTop: TOP_SPACING_EXTRA_COMPACT, paddingBottom: 7, paddingHorizontal: 10},
+  topBarVerySmall: {minHeight: 58, paddingTop: TOP_SPACING_EXTRA_COMPACT, paddingBottom: 6, paddingHorizontal: 8},
+  roundButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: '#EEE3FA'},
+  headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 8},
+  pageTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 22, fontWeight: '700'},
+  pageTitleSmall: {fontSize: 19},
+  date: {maxWidth: '100%', marginTop: 2, color: TEXT_MUTED, fontSize: 11, textAlign: 'center'},
+  dateSmall: {fontSize: 9.5},
   content: {paddingHorizontal: 11, paddingBottom: 34, gap: 8},
   hero: {height: 125, justifyContent: 'center', overflow: 'hidden', borderWidth: 1, borderColor: '#E2D8F0', borderRadius: 20, backgroundColor: '#FCF8FF'},
   heroImage: {borderRadius: 20, resizeMode: 'cover'},
@@ -260,5 +446,68 @@ const styles = StyleSheet.create({
   backgroundColor: PURPLE,
 },
   saveText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
+
+  saveHeaderButton: {
+    backgroundColor: PURPLE,
+  },
+
+  saveDisabled: {
+    opacity: 0.55,
+  },
+
+  toast: {
+    position: 'absolute',
+    left: '7%',
+    right: '7%',
+    zIndex: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderWidth: 1,
+    borderColor: '#E3D8F2',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowColor: '#4F2A9C',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.17,
+    shadowRadius: 13,
+    elevation: 7,
+  },
+
+  toastIcon: {
+    width: 24,
+    height: 24,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: PURPLE,
+  },
+
+  toastText: {
+    flex: 1,
+    minWidth: 0,
+    color: PURPLE_DARK,
+    fontSize: 12.5,
+    lineHeight: 17,
+    fontWeight: '700',
+  },
+
+  toastCloseButton: {
+    width: 32,
+    height: 32,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+
+  toastCloseButtonPressed: {
+    backgroundColor: '#F3EEF8',
+    opacity: 0.8,
+  },
+
   pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
 });

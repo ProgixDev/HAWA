@@ -1,6 +1,8 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
+  Animated,
+  Easing,
   ImageBackground,
   KeyboardAvoidingView,
   Platform,
@@ -33,6 +35,11 @@ export default function JournalNoteScreen(): React.JSX.Element {
   const isVerySmallScreen = width < 340 || height < 640;
   const [text, setText] = useState('');
   const [hidden, setHidden] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [successVisible, setSuccessVisible] = useState(false);
+
+  const successToastAnimation = useRef(new Animated.Value(0)).current;
+  const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const now = new Date();
   const storageDate = now.toLocaleDateString('en-CA');
   const longDate = new Intl.DateTimeFormat('fr-FR', {
@@ -49,16 +56,98 @@ export default function JournalNoteScreen(): React.JSX.Element {
     return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (successToastTimeout.current) {
+        clearTimeout(successToastTimeout.current);
+      }
+    };
+  }, []);
+
+  const showSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+    }
+
+    setSuccessVisible(true);
+    successToastAnimation.stopAnimation();
+    successToastAnimation.setValue(0);
+
+    Animated.spring(successToastAnimation, {
+      toValue: 1,
+      damping: 17,
+      stiffness: 180,
+      mass: 0.85,
+      useNativeDriver: true,
+    }).start();
+
+    successToastTimeout.current = setTimeout(() => {
+      Animated.timing(successToastAnimation, {
+        toValue: 0,
+        duration: 220,
+        easing: Easing.in(Easing.quad),
+        useNativeDriver: true,
+      }).start(({finished}) => {
+        if (finished) {
+          setSuccessVisible(false);
+
+          // JournalNoteScreen est ouvert depuis CycleHome.
+          // goBack() retourne vers CycleHome sans conflit de typage.
+          navigation.goBack();
+        }
+      });
+    }, 2500);
+  };
+
+  const hideSuccessToast = () => {
+    if (successToastTimeout.current) {
+      clearTimeout(successToastTimeout.current);
+      successToastTimeout.current = null;
+    }
+
+    Animated.timing(successToastAnimation, {
+      toValue: 0,
+      duration: 180,
+      easing: Easing.in(Easing.quad),
+      useNativeDriver: true,
+    }).start(({finished}) => {
+      if (finished) {
+        setSuccessVisible(false);
+      }
+    });
+  };
+
   const save = async () => {
-    if (!text.trim()) {
-      Alert.alert('Note personnelle', 'Écris quelques mots avant d’enregistrer.');
+    if (saving) {
       return;
     }
-    await saveJournalSection(storageDate, 'note', {
-      text: text.trim(), private: true, updatedAt: new Date().toISOString(),
-    });
-    Alert.alert('Journal', 'Ta note a été enregistrée.');
-    navigation.goBack();
+
+    if (!text.trim()) {
+      Alert.alert(
+        'Note personnelle',
+        'Écris quelques mots avant d’enregistrer.',
+      );
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      await saveJournalSection(storageDate, 'note', {
+        text: text.trim(),
+        private: true,
+        updatedAt: new Date().toISOString(),
+      });
+
+      showSuccessToast();
+    } catch {
+      Alert.alert(
+        'Erreur',
+        "Impossible d'enregistrer ta note pour le moment.",
+      );
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -230,12 +319,80 @@ export default function JournalNoteScreen(): React.JSX.Element {
             <Info icon="flower-outline" label="Jour du cycle" value={`Jour ${cycleDay}`} />
           </View>
 
-          <Pressable onPress={save} style={styles.saveButton}>
-            <MaterialDesignIcons color="#FFFFFF" name="content-save" size={22} />
-            <Text style={styles.saveText}>Enregistrer ma note</Text>
+          <Pressable
+            accessibilityLabel="Enregistrer ma note"
+            accessibilityRole="button"
+            disabled={saving}
+            onPress={save}
+            style={({pressed}) => [
+              styles.saveButton,
+              pressed && styles.pressed,
+              saving && styles.saveButtonDisabled,
+            ]}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name={saving ? 'loading' : 'content-save'}
+              size={22}
+            />
+            <Text style={styles.saveText}>
+              {saving ? 'Enregistrement…' : 'Enregistrer ma note'}
+            </Text>
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      {successVisible ? (
+        <Animated.View
+          style={[
+            styles.toast,
+            {
+              bottom: Math.max(insets.bottom, 18) + 12,
+              opacity: successToastAnimation,
+              transform: [
+                {
+                  translateY: successToastAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [18, 0],
+                  }),
+                },
+                {
+                  scale: successToastAnimation.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0.97, 1],
+                  }),
+                },
+              ],
+            },
+          ]}>
+          <View style={styles.toastIcon}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name="check"
+              size={14}
+            />
+          </View>
+
+          <Text style={styles.toastText}>
+            Note enregistrée avec succès ✨
+          </Text>
+
+          <Pressable
+            accessibilityLabel="Fermer"
+            accessibilityRole="button"
+            hitSlop={10}
+            onPress={hideSuccessToast}
+            style={({pressed}) => [
+              styles.toastCloseButton,
+              pressed && styles.toastCloseButtonPressed,
+            ]}>
+            <MaterialDesignIcons
+              color="#8E83A4"
+              name="close"
+              size={17}
+            />
+          </Pressable>
+        </Animated.View>
+      ) : null}
     </SafeAreaView>
   );
 }
@@ -721,6 +878,67 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 14,
     fontWeight: '700',
+  },
+
+  saveButtonDisabled: {
+    opacity: 0.55,
+  },
+
+  toast: {
+    position: 'absolute',
+    left: '7%',
+    right: '7%',
+    zIndex: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    borderWidth: 1,
+    borderColor: '#E3D8F2',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowColor: '#4F2A9C',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 13,
+    elevation: 7,
+  },
+
+  toastIcon: {
+    width: 24,
+    height: 24,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: PURPLE,
+  },
+
+  toastText: {
+    flex: 1,
+    minWidth: 0,
+    color: DARK_PURPLE,
+    fontSize: 12.5,
+    lineHeight: 17,
+    fontWeight: '700',
+  },
+
+  toastCloseButton: {
+    width: 32,
+    height: 32,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+  },
+
+  toastCloseButtonPressed: {
+    backgroundColor: '#F3EEF8',
+    opacity: 0.8,
   },
 
   pressed: {
