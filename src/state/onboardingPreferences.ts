@@ -21,9 +21,9 @@ export type SchoolId = 'hanafi' | 'maliki' | 'chafii' | 'hanbali' | 'unknown';
 export type OnboardingLocation = {
   city: string;
   country: string;
-  timezone: string;
-  latitude?: number;
-  longitude?: number;
+  timezone?: string;
+  latitude: number;
+  longitude: number;
 };
 
 let objective: ObjectiveId = 'cycle';
@@ -31,6 +31,9 @@ let firstName = 'Amina';
 let spiritualMarkersEnabled = true;
 let selectedSchool: SchoolId | null = null;
 let selectedLocation: OnboardingLocation | null = null;
+const LOCATION_STORAGE_KEY = '@hawa/selected-location';
+const locationListeners = new Set<() => void>();
+let locationHydration: Promise<OnboardingLocation | null> | null = null;
 let cyclePreferences: CyclePreferences = {
   lastPeriodStart: new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 5)),
   periodDuration: 5,
@@ -56,12 +59,49 @@ export const setSelectedSchool = (value: SchoolId) => {
 
 export const getSelectedSchool = () => selectedSchool;
 
-export const setSelectedLocation = (value: OnboardingLocation) => {
+const isStoredLocation = (value: unknown): value is OnboardingLocation => {
+  if (!value || typeof value !== 'object') {return false;}
+  const candidate = value as Partial<OnboardingLocation>;
+  return typeof candidate.city === 'string' &&
+    typeof candidate.country === 'string' &&
+    Number.isFinite(candidate.latitude) &&
+    Number.isFinite(candidate.longitude);
+};
+
+const notifyLocationListeners = () => {
+  locationListeners.forEach(listener => listener());
+};
+
+export const setSelectedLocation = async (value: OnboardingLocation) => {
   selectedLocation = {...value};
+  notifyLocationListeners();
+  await AsyncStorage.setItem(LOCATION_STORAGE_KEY, JSON.stringify(selectedLocation));
 };
 
 export const getSelectedLocation = (): OnboardingLocation | null =>
   selectedLocation ? {...selectedLocation} : null;
+
+export const hydrateSelectedLocation = (): Promise<OnboardingLocation | null> => {
+  if (!locationHydration) {
+    locationHydration = AsyncStorage.getItem(LOCATION_STORAGE_KEY)
+      .then(raw => {
+        if (!raw) {return getSelectedLocation();}
+        const parsed: unknown = JSON.parse(raw);
+        if (isStoredLocation(parsed)) {
+          selectedLocation = {...parsed};
+          notifyLocationListeners();
+        }
+        return getSelectedLocation();
+      })
+      .catch(() => getSelectedLocation());
+  }
+  return locationHydration;
+};
+
+export const subscribeSelectedLocation = (listener: () => void) => {
+  locationListeners.add(listener);
+  return () => {locationListeners.delete(listener);};
+};
 
 export const setFirstName = (value: string) => {
   if (value.trim()) {
@@ -79,3 +119,4 @@ export const getCyclePreferences = (): CyclePreferences => ({
   ...cyclePreferences,
   lastPeriodStart: new Date(cyclePreferences.lastPeriodStart),
 });
+import AsyncStorage from '@react-native-async-storage/async-storage';

@@ -12,10 +12,10 @@ export type NextPrayer = {
 type ApiDay = {
   timings: Record<PrayerName, string>;
   date: {hijri: {day: string; month: {en: string}; year: string}};
+  meta: {timezone: string};
 };
 
 type ApiResponse = {code: number; data: ApiDay};
-
 const PRAYERS: PrayerName[] = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
 
 const normalizeCountry = (country: string) =>
@@ -30,9 +30,9 @@ const calculationMethodFor = (country: string) => {
   return 3;
 };
 
-const datePartsInTimezone = (date: Date, timezone: string) => {
+const dateParts = (date: Date, timezone?: string) => {
   const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: timezone,
+    ...(timezone ? {timeZone: timezone} : {}),
     day: '2-digit',
     month: '2-digit',
     year: 'numeric',
@@ -43,8 +43,8 @@ const datePartsInTimezone = (date: Date, timezone: string) => {
 };
 
 const fetchDay = async (
-  date: Date,
-  location: Required<Pick<OnboardingLocation, 'latitude' | 'longitude'>> & OnboardingLocation,
+  day: string,
+  location: OnboardingLocation,
   school: SchoolId | null,
 ): Promise<ApiDay> => {
   const params = new URLSearchParams({
@@ -52,14 +52,14 @@ const fetchDay = async (
     longitude: String(location.longitude),
     method: String(calculationMethodFor(location.country)),
     school: school === 'hanafi' ? '1' : '0',
-    timezonestring: location.timezone,
     iso8601: 'true',
   });
-  const day = datePartsInTimezone(date, location.timezone);
   const response = await fetch(`https://api.aladhan.com/v1/timings/${day}?${params}`);
-  if (!response.ok) {throw new Error('Prayer timings request failed');}
+  if (!response.ok) {throw new Error('PRAYER_HTTP_ERROR');}
   const payload = await response.json() as ApiResponse;
-  if (payload.code !== 200) {throw new Error('Prayer timings unavailable');}
+  if (payload.code !== 200 || !payload.data?.meta?.timezone) {
+    throw new Error('PRAYER_TIMINGS_UNAVAILABLE');
+  }
   return payload.data;
 };
 
@@ -70,7 +70,12 @@ const nextFromDay = (day: ApiDay, now: Date): NextPrayer | undefined => {
       return {
         name,
         at,
-        time: new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(at),
+        time: new Intl.DateTimeFormat('fr-FR', {
+          timeZone: day.meta.timezone,
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        }).format(at),
         hijriDate: `${day.date.hijri.day} ${day.date.hijri.month.en} ${day.date.hijri.year}`,
       };
     }
@@ -83,13 +88,20 @@ export async function fetchNextPrayer(
   school: SchoolId | null,
   now = new Date(),
 ): Promise<NextPrayer | undefined> {
-  if (location.latitude === undefined || location.longitude === undefined) {return undefined;}
-  const completeLocation = location as Required<Pick<OnboardingLocation, 'latitude' | 'longitude'>> & OnboardingLocation;
-  const today = await fetchDay(now, completeLocation, school);
+  const initialDay = dateParts(now, location.timezone);
+  let today = await fetchDay(initialDay, location, school);
+  const localDay = dateParts(now, today.meta.timezone);
+  if (localDay !== initialDay) {
+    today = await fetchDay(localDay, location, school);
+  }
   const todayPrayer = nextFromDay(today, now);
   if (todayPrayer) {return todayPrayer;}
-  const tomorrow = new Date(now.getTime() + 86_400_000);
-  return nextFromDay(await fetchDay(tomorrow, completeLocation, school), now);
+
+  const tomorrow = dateParts(
+    new Date(now.getTime() + 36 * 60 * 60 * 1000),
+    today.meta.timezone,
+  );
+  return nextFromDay(await fetchDay(tomorrow, location, school), now);
 }
 
 export const formatRemainingPrayerTime = (at: Date, now = new Date()) => {

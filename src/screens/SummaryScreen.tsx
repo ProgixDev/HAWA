@@ -24,10 +24,8 @@ import {
   getCyclePreferences,
   getSelectedLocation,
   getSelectedObjective,
-  getSelectedSchool,
   getSpiritualMarkersEnabled,
   type ObjectiveId,
-  type SchoolId,
 } from '../state/onboardingPreferences';
 
 const BACKGROUND = require('../assets/images/school-selection-background.png');
@@ -51,20 +49,11 @@ const objectiveLabels: Record<ObjectiveId, string> = {
   loss: 'Après une fausse couche',
 };
 
-const schoolLabels: Record<SchoolId, string> = {
-  hanafi: 'Hanafi',
-  maliki: 'Maliki',
-  chafii: 'Chafi’i',
-  hanbali: 'Hanbali',
-  unknown: 'Je ne sais pas encore',
-};
-
 type Props = NativeStackScreenProps<RootStackParamList, 'Summary'>;
 
 type EditableRoute =
   | 'Objective'
   | 'SpiritualPreferences'
-  | 'SchoolSelection'
   | 'Location'
   | 'CycleInformation';
 
@@ -94,7 +83,6 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
   const cycle = getCyclePreferences();
   const spiritualEnabled = getSpiritualMarkersEnabled();
-  const school = getSelectedSchool();
   const location = getSelectedLocation();
 
   const regularityLabels = {
@@ -117,16 +105,6 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       value: spiritualEnabled ? 'Activés' : 'Désactivés',
       route: 'SpiritualPreferences',
       tone: 'rose',
-    },
-    {
-      icon: 'scale-balance',
-      label: 'École juridique',
-      value:
-        spiritualEnabled && school
-          ? schoolLabels[school]
-          : 'Non renseignée',
-      route: 'SchoolSelection',
-      tone: 'blue',
     },
     {
       icon: 'map-marker-outline',

@@ -33,12 +33,7 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
 
   const handleNext = () => {
     setSpiritualMarkersEnabled(enabled);
-    if (enabled) {
-      navigation.navigate('SchoolSelection');
-      return;
-    }
-
-    navigation.navigate('CycleInformation');
+    navigation.navigate('Location');
   };
 
   return (
