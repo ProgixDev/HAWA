@@ -1,0 +1,691 @@
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  Image,
+  Pressable,
+  ScrollView,
+  Share,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
+import type {RootStackParamList} from '../../navigation/AppNavigator';
+import ReadingControls from '../../components/articles/ReadingControls';
+import {
+  isArticleBookmarked,
+  loadLibraryState,
+  saveScrollPosition,
+  toggleBookmark,
+} from '../../state/libraryStore';
+import {
+  getBottomPadding,
+  getTopPadding,
+  READING_CONTROLS_SPACE,
+} from '../../theme/spacing';
+
+const ID = 'pain-gerer-douleurs';
+
+const CREAM = '#FCF9F5';
+const INK = '#30283A';
+const PINK = '#B97083';
+
+const HERO = require('../../assets/images/library/pain-hero.png');
+
+const SOL = [
+  [
+    'Chaleur',
+    'Une bouillotte sur le bas-ventre peut détendre les muscles.',
+    require('../../assets/images/library/pain-heat.png'),
+  ],
+  [
+    'Mouvement doux',
+    'Yoga, étirements et marche légère soulagent les tensions.',
+    require('../../assets/images/library/pain-movement.png'),
+  ],
+  [
+    'Alimentation',
+    'Magnésium, oméga-3 et aliments anti-inflammatoires.',
+    require('../../assets/images/library/pain-food.png'),
+  ],
+  [
+    'Hydratation',
+    'Boire suffisamment aide à limiter les ballonnements.',
+    require('../../assets/images/library/pain-water.png'),
+  ],
+  [
+    'Massage',
+    'Un massage circulaire du bas-ventre détend.',
+    require('../../assets/images/library/pain-massage.png'),
+  ],
+] as const;
+
+const DAILY_TIPS = [
+  [
+    'weather-sunny',
+    'Échauffe doucement ton corps au réveil',
+  ],
+  [
+    'food-apple-outline',
+    'Privilégie une alimentation équilibrée',
+  ],
+  [
+    'sleep',
+    'Prends le temps de respirer et te détendre',
+  ],
+  [
+    'calendar-heart',
+    'Suis ton cycle pour mieux comprendre tes douleurs',
+  ],
+] as const;
+
+type Props = NativeStackScreenProps<
+  RootStackParamList,
+  'ArticleReader'
+>;
+
+export default function PeriodPainArticleScreen({
+  navigation,
+}: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
+  const [saved, setSaved] = useState(false);
+  const scrollRef = useRef<ScrollView>(null);
+
+  useEffect(() => {
+    let mounted = true;
+
+    loadLibraryState().then(() => {
+      if (mounted) {
+        setSaved(isArticleBookmarked(ID));
+      }
+    });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  const handleBookmark = () => {
+    setSaved(toggleBookmark(ID));
+  };
+
+  const handleShare = () => {
+    Share.share({
+      message: 'Gérer les douleurs menstruelles — AWA',
+    });
+  };
+
+  return (
+    <View style={styles.screen}>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="dark-content"
+      />
+
+      <ScrollView
+        ref={scrollRef}
+        onScroll={event =>
+          saveScrollPosition(
+            ID,
+            event.nativeEvent.contentOffset.y,
+          )
+        }
+        scrollEventThrottle={200}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[
+          styles.scroll,
+          {
+            paddingBottom: getBottomPadding(
+              insets.bottom,
+              READING_CONTROLS_SPACE,
+            ),
+          },
+        ]}>
+        <View style={styles.heroWrap}>
+          <Image
+            source={HERO}
+            resizeMode="cover"
+            style={styles.hero}
+          />
+
+          <View
+            style={[
+              styles.top,
+              {
+                paddingTop: getTopPadding(insets.top, true),
+              },
+            ]}>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Retour"
+              onPress={() => navigation.goBack()}
+              style={({pressed}) => [
+                styles.circle,
+                pressed && styles.pressed,
+              ]}>
+              <MaterialDesignIcons
+                name="chevron-left"
+                size={23}
+                color={INK}
+              />
+            </Pressable>
+
+            <View style={styles.actions}>
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Ajouter aux favoris"
+                onPress={handleBookmark}
+                style={({pressed}) => [
+                  styles.circle,
+                  pressed && styles.pressed,
+                ]}>
+                <MaterialDesignIcons
+                  name={
+                    saved
+                      ? 'bookmark'
+                      : 'bookmark-outline'
+                  }
+                  size={20}
+                  color={PINK}
+                />
+              </Pressable>
+
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Partager"
+                onPress={handleShare}
+                style={({pressed}) => [
+                  styles.circle,
+                  pressed && styles.pressed,
+                ]}>
+                <MaterialDesignIcons
+                  name="share-variant-outline"
+                  size={20}
+                  color={PINK}
+                />
+              </Pressable>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.article}>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>
+              DOULEURS
+            </Text>
+          </View>
+
+          <Text style={styles.title}>
+            Gérer les douleurs{`\n`}
+            menstruelles
+          </Text>
+
+          <View style={styles.metas}>
+            {[
+              ['clock-outline', '7 min de lecture'],
+              [
+                'book-open-page-variant-outline',
+                'Guide',
+              ],
+              ['chart-bar', 'Débutant'],
+              [
+                'shield-check-outline',
+                'Contenu validé',
+              ],
+            ].map(([icon, text], index) => (
+              <React.Fragment key={text}>
+                {index > 0 ? (
+                  <View style={styles.metaDivider} />
+                ) : null}
+
+                <View style={styles.metaItem}>
+                  <MaterialDesignIcons
+                    name={icon as never}
+                    color="#8A8190"
+                    size={17}
+                  />
+
+                  <Text style={styles.meta}>
+                    {text}
+                  </Text>
+                </View>
+              </React.Fragment>
+            ))}
+          </View>
+
+          <Text style={styles.intro}>
+            Chaleur, mouvement doux, alimentation :
+            des gestes qui soulagent vraiment.
+          </Text>
+
+          <View style={styles.contents}>
+            <Text style={styles.contentsTitle}>
+              Dans cet article
+            </Text>
+
+            {[
+              'Comprendre les douleurs menstruelles',
+              'Les solutions naturelles efficaces',
+              'Quand faut-il consulter ?',
+              'Conseils pratiques au quotidien',
+            ].map((item, index) => (
+              <View
+                key={item}
+                style={styles.contentRow}>
+                <View style={styles.contentLeft}>
+                  <Text style={styles.contentNumber}>
+                    {index + 1}.
+                  </Text>
+
+                  <Text style={styles.contentText}>
+                    {item}
+                  </Text>
+                </View>
+
+                <MaterialDesignIcons
+                  name="chevron-right"
+                  size={17}
+                  color={PINK}
+                />
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.h2}>
+            1. Comprendre les douleurs menstruelles
+          </Text>
+
+          <Text style={styles.body}>
+            Les crampes viennent des contractions
+            utérines qui aident à évacuer la
+            muqueuse. Elles sont dues aux
+            prostaglandines. Chaque corps réagit
+            différemment.
+          </Text>
+
+          <View style={styles.tip}>
+            <MaterialDesignIcons
+              name="lightbulb-outline"
+              size={24}
+              color={PINK}
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>
+                Bon à savoir
+              </Text>
+
+              <Text style={styles.tipText}>
+                Les douleurs peuvent varier d’un
+                cycle à l’autre et ne sont pas
+                toujours identiques.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.h2}>
+            2. Les solutions naturelles efficaces
+          </Text>
+
+          <ScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={styles.solutions}>
+            {SOL.map(([title, body, image]) => (
+              <View
+                key={title}
+                style={styles.solution}>
+                <Image
+                  source={image}
+                  resizeMode="cover"
+                  style={styles.solImage}
+                />
+
+                <Text style={styles.solTitle}>
+                  {title}
+                </Text>
+
+                <Text style={styles.solText}>
+                  {body}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
+
+          <Text style={styles.h2}>
+            3. Quand faut-il consulter ?
+          </Text>
+
+          <Text style={styles.body}>
+            Si les douleurs t’empêchent de vivre
+            normalement chaque mois malgré ces
+            solutions, il est important d’en parler
+            à un professionnel de santé.
+          </Text>
+
+          <View style={styles.alert}>
+            <MaterialDesignIcons
+              name="alert-circle-outline"
+              size={24}
+              color="#B45C67"
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>
+                Consulter si
+              </Text>
+
+              <Text style={styles.tipText}>
+                Douleurs très intenses, saignements
+                importants, fatigue extrême ou
+                symptômes anormaux.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.h2}>
+            4. Conseils pratiques au quotidien
+          </Text>
+
+          <View style={styles.daily}>
+            {DAILY_TIPS.map(([icon, text]) => (
+              <View
+                key={text}
+                style={styles.dailyItem}>
+                <MaterialDesignIcons
+                  name={icon as never}
+                  color={PINK}
+                  size={25}
+                />
+
+                <Text style={styles.dailyText}>
+                  {text}
+                </Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+
+      <ReadingControls
+        articleId={ID}
+        durationMinutes={7}
+        scrollRef={scrollRef}
+      />
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: CREAM,
+  },
+
+  scroll: {
+    paddingBottom: 30,
+  },
+
+  heroWrap: {
+    height: 245,
+  },
+
+  hero: {
+    width: '100%',
+    height: '100%',
+  },
+
+  top: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+
+  actions: {
+    flexDirection: 'row',
+    gap: 8,
+  },
+
+  circle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.90)',
+    borderWidth: 1,
+    borderColor: '#EAE3DE',
+  },
+
+  pressed: {
+    opacity: 0.74,
+  },
+
+  article: {
+    marginTop: -15,
+    padding: 20,
+    borderTopLeftRadius: 22,
+    borderTopRightRadius: 22,
+    backgroundColor: CREAM,
+  },
+
+  badge: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 10,
+    backgroundColor: '#F3DFE5',
+  },
+
+  badgeText: {
+    fontSize: 11,
+    color: PINK,
+    fontWeight: '800',
+  },
+
+  title: {
+    marginTop: 12,
+    fontFamily: 'serif',
+    fontSize: 25,
+    lineHeight: 32,
+    color: INK,
+    fontWeight: '700',
+  },
+
+  metas: {
+    marginTop: 14,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 12,
+  },
+
+  metaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+
+  metaDivider: {
+    width: 1,
+    height: 20,
+    backgroundColor: '#DDD5DA',
+  },
+
+  meta: {
+    fontSize: 10,
+    color: '#777078',
+  },
+
+  intro: {
+    marginTop: 17,
+    fontSize: 15,
+    lineHeight: 22,
+    color: '#49424A',
+    fontWeight: '600',
+  },
+
+  contents: {
+    marginTop: 19,
+    padding: 15,
+    borderRadius: 13,
+    backgroundColor: '#F8F2F4',
+  },
+
+  contentsTitle: {
+    marginBottom: 7,
+    fontSize: 15,
+    color: INK,
+    fontWeight: '800',
+  },
+
+  contentRow: {
+    minHeight: 38,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  contentLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  contentNumber: {
+    width: 24,
+    color: PINK,
+    fontSize: 12,
+    fontWeight: '800',
+  },
+
+  contentText: {
+    flex: 1,
+    fontSize: 13,
+    lineHeight: 17,
+    color: INK,
+  },
+
+  h2: {
+    marginTop: 24,
+    fontFamily: 'serif',
+    fontSize: 22,
+    lineHeight: 27,
+    color: INK,
+    fontWeight: '700',
+  },
+
+  body: {
+    marginTop: 8,
+    fontSize: 14.5,
+    lineHeight: 22,
+    color: '#4A444B',
+  },
+
+  tip: {
+    marginTop: 15,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#F5EBEF',
+  },
+
+  alert: {
+    marginTop: 14,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#F8E8E8',
+  },
+
+  tipCopy: {
+    flex: 1,
+    marginLeft: 11,
+  },
+
+  tipTitle: {
+    fontSize: 13,
+    color: INK,
+    fontWeight: '800',
+  },
+
+  tipText: {
+    marginTop: 3,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: '#585057',
+  },
+
+  solutions: {
+    gap: 8,
+    paddingTop: 13,
+    paddingBottom: 3,
+  },
+
+  solution: {
+    width: 132,
+    minHeight: 215,
+    padding: 9,
+    alignItems: 'center',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#EDE2E4',
+    backgroundColor: '#FFFDFC',
+  },
+
+  solImage: {
+    width: 72,
+    height: 72,
+    borderRadius: 12,
+  },
+
+  solTitle: {
+    marginTop: 8,
+    fontSize: 13,
+    color: INK,
+    fontWeight: '800',
+  },
+
+  solText: {
+    marginTop: 6,
+    fontSize: 10.5,
+    lineHeight: 15,
+    color: '#574F56',
+    textAlign: 'center',
+  },
+
+  daily: {
+    marginTop: 13,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+
+  dailyItem: {
+    width: '48.7%',
+    minHeight: 108,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#FBF5F6',
+  },
+
+  dailyText: {
+    marginTop: 7,
+    fontSize: 11,
+    lineHeight: 16,
+    color: INK,
+    textAlign: 'center',
+  },
+});
