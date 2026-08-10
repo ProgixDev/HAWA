@@ -25,6 +25,10 @@ type Props = {
   basics: CycleBasics;
   today: Date;
   selectedDate: Date;
+  // Whether `selectedDate` reflects a deliberate user tap (as opposed to the
+  // screen's initial default of "today") — controls whether the matching
+  // day cell gets the purple "selected" treatment.
+  showSelection: boolean;
   onSelectDate: (date: Date) => void;
   journalFlagsByDate: Record<string, DayJournalFlags>;
   filters: CalendarFilters;
@@ -49,6 +53,7 @@ function DayCell({
   basics,
   today,
   selectedDate,
+  showSelection,
   onSelectDate,
   showHijri,
   flags,
@@ -58,6 +63,7 @@ function DayCell({
   basics: CycleBasics;
   today: Date;
   selectedDate: Date;
+  showSelection: boolean;
   onSelectDate: (date: Date) => void;
   showHijri: boolean;
   flags?: DayJournalFlags;
@@ -68,7 +74,7 @@ function DayCell({
   }
 
   const kind = kindFor(date, basics);
-  const isSelected = sameDay(date, selectedDate);
+  const isSelected = showSelection && sameDay(date, selectedDate);
   const isToday = sameDay(date, today);
   const hijriDay = showHijri ? formatHijriDay(date) : undefined;
 
@@ -139,6 +145,7 @@ function MonthCalendarCard({
   basics,
   today,
   selectedDate,
+  showSelection,
   onSelectDate,
   journalFlagsByDate,
   filters,
@@ -219,6 +226,7 @@ function MonthCalendarCard({
             onSelectDate={onSelectDate}
             selectedDate={selectedDate}
             showHijri={showHijri}
+            showSelection={showSelection}
             today={today}
           />
         ))}

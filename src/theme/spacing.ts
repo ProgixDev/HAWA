@@ -23,3 +23,20 @@ export function getTopPadding(insetsTop: number, compact = false): number {
   const extra = compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA;
   return Math.max(insetsTop, minInset) + extra;
 }
+
+const BOTTOM_SPACING_MIN_INSET = 16;
+
+// Mirrors getTopPadding for the bottom edge: insets.bottom (floored so
+// devices/tests reporting 0 still get breathing room) plus extra HAWA
+// spacing — pass `spacing.md`/`spacing.lg` for a plain scrolling screen, or
+// READING_CONTROLS_SPACE for screens that render <ReadingControls/> so the
+// fixed bar never overlaps the last paragraph/card.
+export function getBottomPadding(insetsBottom: number, extra: number = spacing.md): number {
+  return Math.max(insetsBottom, BOTTOM_SPACING_MIN_INSET) + extra;
+}
+
+// Reserved space below scrollable Article content so the fixed
+// ReadingControls bar (src/components/articles/ReadingControls.tsx) never
+// overlaps the end of the article. Kept in one place so every article
+// screen scrolls its last paragraph fully clear of the bar.
+export const READING_CONTROLS_SPACE = 170;

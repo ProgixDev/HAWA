@@ -44,6 +44,9 @@ import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
 import {DataManagementScreen, DeleteAccountScreen} from '../screens/DataPrivacyScreens';
 import BackupDataScreen from '../screens/BackupDataScreen';
 import {DataExportScreen, DeleteTrackedDataScreen, RestoreBackupScreen} from '../screens/BackupUtilityScreens';
+import LibraryScreen from '../screens/LibraryScreen';
+import FeaturedArticlesScreen from '../screens/FeaturedArticlesScreen';
+import ArticleReaderScreen from '../screens/library/ArticleReaderScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -94,6 +97,9 @@ export type RootStackParamList = {
   RestoreBackup: undefined;
   DataExport: undefined;
   DeleteTrackedData: undefined;
+  Library: undefined;
+  FeaturedArticles: undefined;
+  ArticleReader: {articleId: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -158,6 +164,9 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="RestoreBackup" component={RestoreBackupScreen} />
         <Stack.Screen name="DataExport" component={DataExportScreen} />
         <Stack.Screen name="DeleteTrackedData" component={DeleteTrackedDataScreen} />
+        <Stack.Screen name="Library" component={LibraryScreen} />
+        <Stack.Screen name="FeaturedArticles" component={FeaturedArticlesScreen} />
+        <Stack.Screen name="ArticleReader" component={ArticleReaderScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

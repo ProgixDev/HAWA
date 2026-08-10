@@ -50,6 +50,11 @@ function CalendarScreen(_: Props): React.JSX.Element {
 
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1));
   const [selectedDate, setSelectedDate] = useState(today);
+  // The calendar opens with `selectedDate` defaulted to today purely so the
+  // day-details card below has something to show — that default must not be
+  // treated as an explicit user selection (which would paint today's cell
+  // purple). Only a real tap on a day flips this to true.
+  const [hasUserSelectedDate, setHasUserSelectedDate] = useState(false);
   const [displayMode, setDisplayMode] = useState<CalendarDisplayMode>('double');
   const [filters, setFilters] = useState<CalendarFilters>(DEFAULT_CALENDAR_FILTERS);
   const [filtersVisible, setFiltersVisible] = useState(false);
@@ -107,6 +112,11 @@ function CalendarScreen(_: Props): React.JSX.Element {
 
   const changeMonth = (offset: number) => {
     setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + offset, 1));
+  };
+
+  const handleSelectDate = (date: Date) => {
+    setSelectedDate(date);
+    setHasUserSelectedDate(true);
   };
 
   const selectedCycleDay = cycleDayFor(selectedDate, basics);
@@ -183,8 +193,9 @@ function CalendarScreen(_: Props): React.JSX.Element {
             journalFlagsByDate={journalFlagsByDate}
             onChangeDisplayMode={setDisplayMode}
             onChangeMonth={changeMonth}
-            onSelectDate={setSelectedDate}
+            onSelectDate={handleSelectDate}
             selectedDate={selectedDate}
+            showSelection={hasUserSelectedDate}
             today={today}
             visibleMonth={visibleMonth}
           />
