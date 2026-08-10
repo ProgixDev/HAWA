@@ -1150,7 +1150,7 @@ export function DeleteTrackedDataScreen({
                 style={
                   styles.accountNoticeText
                 }>
-                Ton compte HAWA ne sera pas supprimé.
+                Ton compte AWA ne sera pas supprimé.
               </Text>
             </View>
           </View>
