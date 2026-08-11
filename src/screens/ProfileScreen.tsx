@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Alert,
   Image,
@@ -25,17 +25,22 @@ import {getTopPadding} from '../theme/spacing';
 
 import {
   getCyclePreferences,
+  hydrateCyclePreferences,
+  subscribeCyclePreferences,
   getFirstName,
   getSelectedLocation,
   getSelectedObjective,
   getSelectedSchool,
   getSpiritualMarkersEnabled,
   hydrateSelectedLocation,
+  hydrateActiveObjective,
   setSelectedObjective,
+  subscribeActiveObjective,
   setSpiritualMarkersEnabled,
   type ObjectiveId,
   type SchoolId,
 } from '../state/onboardingPreferences';
+import {computeNextPeriod as computeCanonicalNextPeriod, startOfDay as canonicalStartOfDay} from '../utils/cycleMath';
 
 import {lockIntimacy} from '../state/privateSectionAuthStore';
 
@@ -174,13 +179,6 @@ const SCHOOL_LABELS: Record<SchoolId, string> = {
  * HELPERS
  * ============================================================ */
 
-const startOfDay = (date: Date) =>
-  new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-  );
-
 const formatShortDate = (date: Date) =>
   new Intl.DateTimeFormat('fr-FR', {
     day: 'numeric',
@@ -202,25 +200,6 @@ const formatHijriDate = (
   } catch {
     return undefined;
   }
-};
-
-const computeNextPeriod = (
-  lastPeriodStart: Date,
-  cycleDuration: number,
-): Date => {
-  const today = startOfDay(new Date());
-
-  let next = startOfDay(lastPeriodStart);
-
-  while (next.getTime() < today.getTime()) {
-    next = new Date(
-      next.getFullYear(),
-      next.getMonth(),
-      next.getDate() + cycleDuration,
-    );
-  }
-
-  return next;
 };
 
 /* ============================================================
@@ -365,6 +344,13 @@ function ProfileScreen({
       getSelectedObjective(),
     );
 
+  useEffect(() => {
+    let active = true;
+    hydrateActiveObjective().then(value => {if (active) {setObjective(value);}});
+    const unsubscribe = subscribeActiveObjective(() => {if (active) {setObjective(getSelectedObjective());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
+
   const [
     objectiveModalVisible,
     setObjectiveModalVisible,
@@ -403,17 +389,18 @@ function ProfileScreen({
     }, []),
   );
 
-  const cycle = useMemo(
-    () => getCyclePreferences(),
-    [],
-  );
+  const [cycle, setCycle] = useState(getCyclePreferences);
+
+  useEffect(() => {
+    let active = true;
+    hydrateCyclePreferences().then(value => {if (active) {setCycle(value);}});
+    const unsubscribe = subscribeCyclePreferences(() => {if (active) {setCycle(getCyclePreferences());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
 
   const nextPeriod = useMemo(
     () =>
-      computeNextPeriod(
-        cycle.lastPeriodStart,
-        cycle.cycleDuration,
-      ),
+      computeCanonicalNextPeriod(cycle, canonicalStartOfDay(new Date())),
     [cycle],
   );
 
@@ -443,10 +430,10 @@ function ProfileScreen({
    * CHANGER OBJECTIF
    * ======================================================== */
 
-  const changeObjective = (
+  const changeObjective = async (
     nextObjective: ObjectiveId,
   ) => {
-    setSelectedObjective(
+    await setSelectedObjective(
       nextObjective,
     );
 
@@ -716,40 +703,42 @@ function ProfileScreen({
 
           {/* STATS */}
 
-          <View
-            style={
-              styles.statsGrid
-            }>
-            <StatCard
-              icon="calendar-range"
-              label="Cycle moyen"
-              value={`${cycle.cycleDuration} jours`}
-            />
+          {objective !== 'pregnancy' ? (
+            <View
+              style={
+                styles.statsGrid
+              }>
+              <StatCard
+                icon="calendar-range"
+                label="Cycle moyen"
+                value={`${cycle.cycleDuration} jours`}
+              />
 
-            <StatCard
-              icon="water-outline"
-              label="Durée règles"
-              value={`${cycle.periodDuration} jours`}
-            />
+              <StatCard
+                icon="water-outline"
+                label="Durée règles"
+                value={`${cycle.periodDuration} jours`}
+              />
 
-            <StatCard
-              icon="calendar-month-outline"
-              label="Prochaines règles"
-              value={formatShortDate(
-                nextPeriod,
-              )}
-            />
+              <StatCard
+                icon="calendar-month-outline"
+                label="Prochaines règles"
+                value={formatShortDate(
+                  nextPeriod,
+                )}
+              />
 
-            <StatCard
-              icon="weather-night"
-              label="Date hijri"
-              value={
-                spiritualEnabled
-                  ? hijriToday ?? '—'
-                  : 'Désactivé'
-              }
-            />
-          </View>
+              <StatCard
+                icon="weather-night"
+                label="Date hijri"
+                value={
+                  spiritualEnabled
+                    ? hijriToday ?? '—'
+                    : 'Désactivé'
+                }
+              />
+            </View>
+          ) : null}
 
           {/* MES INFORMATIONS */}
 

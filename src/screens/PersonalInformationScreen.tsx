@@ -13,7 +13,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import DateTimePicker, {type DateTimePickerEvent} from '@react-native-community/datetimepicker';
+import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
@@ -112,11 +112,14 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
     if (uri) {persist({avatarUri: uri});}
   };
 
-  const onDateChange = (_: DateTimePickerEvent, date?: Date) => {
+  const onDateValueChange = (_event: DateTimePickerChangeEvent, date: Date) => {
     if (Platform.OS === 'android') {setDatePickerVisible(false);}
-    if (!date) {return;}
     const birthDate = date.toLocaleDateString('en-CA');
     persist({birthDate});
+  };
+
+  const onDatePickerDismiss = () => {
+    if (Platform.OS === 'android') {setDatePickerVisible(false);}
   };
 
   const filteredCountries = useMemo(
@@ -166,7 +169,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
         <View style={styles.infoCard}><MaterialDesignIcons color={PURPLE} name="information-outline" size={21} /><Text style={styles.infoText}>Tu peux modifier ces informations à tout moment.{`\n`}Certaines modifications peuvent affecter tes prédictions.</Text></View>
       </ScrollView>
 
-      {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onChange={onDateChange} value={new Date(`${profile.birthDate}T12:00:00`)} /> : null}
+      {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onDismiss={onDatePickerDismiss} onValueChange={onDateValueChange} value={new Date(`${profile.birthDate}T12:00:00`)} /> : null}
 
       <Modal animationType="slide" onRequestClose={() => setSheet(null)} statusBarTranslucent transparent visible={sheet !== null}>
         <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} style={styles.modalRoot}>
