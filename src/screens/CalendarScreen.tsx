@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {ImageBackground, SafeAreaView, ScrollView, StatusBar, StyleSheet} from 'react-native';
+import {Alert, ImageBackground, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -13,7 +13,7 @@ import MonthHistoryStrip from '../components/calendar/MonthHistoryStrip';
 import FiltersSheet from '../components/calendar/FiltersSheet';
 import LegendSheet from '../components/calendar/LegendSheet';
 import {homeColors} from '../components/home/homeTheme';
-import {getCyclePreferences} from '../state/onboardingPreferences';
+import {getCyclePreferences, getPeriodHistory, hydrateCyclePreferences, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
 import {
   DEFAULT_CALENDAR_FILTERS,
@@ -45,7 +45,7 @@ type Props = MainTabScreenProps<'Calendar'>;
 
 function CalendarScreen(_: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const basics = getCyclePreferences();
+  const [basics, setBasics] = useState(getCyclePreferences);
   const today = useMemo(() => startOfDay(new Date()), []);
 
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1));
@@ -61,6 +61,18 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const [legendVisible, setLegendVisible] = useState(false);
   const [journalFlagsByDate, setJournalFlagsByDate] = useState<Record<string, DayJournalFlags>>({});
   const [selectedEntry, setSelectedEntry] = useState<DailyJournalEntry | undefined>(undefined);
+  const [editingPeriod, setEditingPeriod] = useState(false);
+  const [draftPeriodDays, setDraftPeriodDays] = useState<Set<string>>(new Set());
+
+  const localDateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  const dateFromKey = (key: string) => {const [year, month, day] = key.split('-').map(Number); return new Date(year, month - 1, day);};
+
+  useEffect(() => {
+    let mounted = true;
+    hydrateCyclePreferences().then(value => {if (mounted) {setBasics(value);}});
+    const unsubscribe = subscribeCyclePreferences(() => {if (mounted) {setBasics(getCyclePreferences());}});
+    return () => {mounted = false; unsubscribe();};
+  }, []);
 
   useEffect(() => {
     let mounted = true;
@@ -117,12 +129,44 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date);
     setHasUserSelectedDate(true);
+    if (editingPeriod) {
+      const key = localDateKey(date);
+      setDraftPeriodDays(current => {const next = new Set(current); if (next.has(key)) {next.delete(key);} else {next.add(key);} return next;});
+    }
   };
 
-  const selectedCycleDay = cycleDayFor(selectedDate, basics);
-  const selectedPhase = phaseFor(selectedDate, basics);
-  const selectedPeriodStart = periodStartForCycleContaining(selectedDate, basics);
-  const selectedPeriodEnd = addDays(selectedPeriodStart, basics.periodDuration - 1);
+  const startPeriodEditing = () => {
+    const days = new Set<string>();
+    for (let index = 0; index < basics.periodDuration; index += 1) {days.add(localDateKey(addDays(basics.lastPeriodStart, index)));}
+    setDraftPeriodDays(days);
+    setVisibleMonth(new Date(basics.lastPeriodStart.getFullYear(), basics.lastPeriodStart.getMonth(), 1));
+    setEditingPeriod(true);
+  };
+
+  const cancelPeriodEditing = () => {setDraftPeriodDays(new Set()); setEditingPeriod(false);};
+
+  const savePeriodEditing = async () => {
+    const dates = [...draftPeriodDays].sort().map(dateFromKey);
+    if (dates.length === 0) {Alert.alert('Période menstruelle', 'Sélectionne au moins un jour de règles.'); return;}
+    const continuous = dates.every((date, index) => index === 0 || diffDays(date, dates[index - 1]) === 1);
+    if (!continuous) {Alert.alert('Sélection non continue', 'Les jours de règles doivent former une période continue.'); return;}
+    try {
+      await updateCurrentPeriodRange(dates[0], dates[dates.length - 1]);
+      setSelectedDate(dates[0]);
+      setEditingPeriod(false);
+      setDraftPeriodDays(new Set());
+    } catch (error) {
+      Alert.alert('Modification impossible', error instanceof Error && error.message === 'OVERLAPPING_RANGE' ? 'Cette période chevauche une période déjà enregistrée.' : 'Vérifie les dates sélectionnées.');
+    }
+  };
+
+  const sortedDraftDates = [...draftPeriodDays].sort().map(dateFromKey);
+  const displayedBasics = editingPeriod && sortedDraftDates.length ? {...basics, lastPeriodStart: sortedDraftDates[0], periodDuration: sortedDraftDates.length} : basics;
+  const selectedCycleDay = cycleDayFor(selectedDate, displayedBasics);
+  const selectedPhase = phaseFor(selectedDate, displayedBasics);
+  const selectedPeriodStart = editingPeriod && sortedDraftDates.length ? sortedDraftDates[0] : periodStartForCycleContaining(selectedDate, basics);
+  const selectedPeriodEnd = editingPeriod && sortedDraftDates.length ? sortedDraftDates[sortedDraftDates.length - 1] : addDays(selectedPeriodStart, basics.periodDuration - 1);
+  const displayedPeriodDuration = editingPeriod ? sortedDraftDates.length : basics.periodDuration;
 
   const nextPeriod = computeNextPeriod(basics, today);
   const daysUntilNext = Math.max(0, diffDays(nextPeriod, today));
@@ -179,7 +223,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
         <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
 
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + 24}]}
+          contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + (editingPeriod ? 132 : 24)}]}
           showsVerticalScrollIndicator={false}>
           <CalendarHeader
             onPressFilters={() => setFiltersVisible(true)}
@@ -190,6 +234,8 @@ function CalendarScreen(_: Props): React.JSX.Element {
             basics={basics}
             displayMode={displayMode}
             filters={filters}
+            editingPeriod={editingPeriod}
+            draftPeriodDays={draftPeriodDays}
             journalFlagsByDate={journalFlagsByDate}
             onChangeDisplayMode={setDisplayMode}
             onChangeMonth={changeMonth}
@@ -205,17 +251,19 @@ function CalendarScreen(_: Props): React.JSX.Element {
             date={selectedDate}
             entry={selectedEntry}
             filters={filters}
-            periodDuration={basics.periodDuration}
+            periodDuration={displayedPeriodDuration}
             periodEndDate={selectedPeriodEnd}
             periodStartDate={selectedPeriodStart}
             phase={selectedPhase}
+            editingPeriod={editingPeriod}
+            onEditPeriod={editingPeriod ? cancelPeriodEditing : startPeriodEditing}
           />
 
           <PredictionsCard items={predictionItems} regularity={basics.regularity} />
 
           <CycleTimelineCard steps={timelineSteps} />
 
-          <MonthHistoryStrip onSelectMonth={setVisibleMonth} visibleMonth={visibleMonth} />
+          <MonthHistoryStrip onSelectMonth={setVisibleMonth} periodHistory={getPeriodHistory()} visibleMonth={visibleMonth} />
         </ScrollView>
 
         <FiltersSheet
@@ -226,6 +274,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
         />
 
         <LegendSheet onClose={() => setLegendVisible(false)} visible={legendVisible} />
+        {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>Modifier mes règles</Text><Text style={styles.editBarSubtitle}>{draftPeriodDays.size} {draftPeriodDays.size > 1 ? 'jours sélectionnés' : 'jour sélectionné'}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>Annuler</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>Enregistrer</Text></Pressable></View></View> : null}
       </SafeAreaView>
     </ImageBackground>
   );
@@ -235,6 +284,15 @@ const styles = StyleSheet.create({
   background: {flex: 1, backgroundColor: '#F8EFFF'},
   safeArea: {flex: 1, backgroundColor: 'transparent'},
   scrollContent: {paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA},
+  editBar: {position: 'absolute', left: 12, right: 12, borderWidth: 1, borderColor: '#E6DDF2', borderRadius: 18, backgroundColor: '#FFFFFF', padding: 13, shadowColor: '#3E286E', shadowOffset: {width: 0, height: -3}, shadowOpacity: 0.12, shadowRadius: 12, elevation: 8},
+  editBarCopy: {marginBottom: 10},
+  editBarTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
+  editBarSubtitle: {marginTop: 2, color: homeColors.textSecondary, fontSize: 11.5},
+  editActions: {flexDirection: 'row', gap: 10},
+  cancelButton: {flex: 1, minHeight: 42, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: homeColors.primary, borderRadius: 12, backgroundColor: '#FFFFFF'},
+  cancelText: {color: homeColors.primary, fontSize: 13, fontWeight: '700'},
+  saveButton: {flex: 1.3, minHeight: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: homeColors.primary},
+  saveText: {color: '#FFFFFF', fontSize: 13, fontWeight: '800'},
 });
 
 export default CalendarScreen;

@@ -139,3 +139,24 @@ export const upcomingDateForCycleDay = (basics: CycleBasics, dayNumber: number, 
   }
   return date;
 };
+
+// phaseFor only estimates menstruation from the cycle length/period-duration
+// averages. If the user has explicitly confirmed her period ended (via
+// MenstrualFlowScreen) at a datetime within the current period, that
+// confirmation overrides the estimate so the rest of the app (purity status,
+// spiritual guidance) reflects reality instead of the average-based guess.
+export const isMenstruatingNow = (
+  now: Date,
+  basics: CycleBasics,
+  periodEndDateTime: Date | null,
+): boolean => {
+  if (phaseFor(now, basics) !== 'menstruation') {return false;}
+  if (
+    periodEndDateTime &&
+    periodEndDateTime.getTime() <= now.getTime() &&
+    periodEndDateTime.getTime() >= basics.lastPeriodStart.getTime()
+  ) {
+    return false;
+  }
+  return true;
+};

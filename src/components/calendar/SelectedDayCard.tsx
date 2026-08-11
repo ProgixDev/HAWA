@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
@@ -18,6 +18,8 @@ type Props = {
   periodStartDate: Date;
   periodEndDate: Date;
   periodDuration: number;
+  onEditPeriod: () => void;
+  editingPeriod?: boolean;
 };
 
 const PHASE_META: Record<ComputedCyclePhase, {label: string; subtitle: string; color: string; icon: IconName}> = {
@@ -130,6 +132,8 @@ function SelectedDayCard({
   periodStartDate,
   periodEndDate,
   periodDuration,
+  onEditPeriod,
+  editingPeriod = false,
 }: Props): React.JSX.Element {
   const meta = PHASE_META[phase];
   const hijriDate = formatHijriDate(date);
@@ -169,6 +173,7 @@ function SelectedDayCard({
         ))}
       </View>
 
+      <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>Période menstruelle</Text><Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={homeColors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? 'Modification' : 'Modifier'}</Text></Pressable></View>
       <View style={styles.periodRow}>
         <View style={styles.periodBox}>
           <Text numberOfLines={2} style={styles.periodLabel}>Début des règles</Text>
@@ -212,6 +217,11 @@ const styles = StyleSheet.create({
   healthLabel: {color: homeColors.textSecondary, fontSize: 10.5},
   healthValue: {marginTop: 1, color: homeColors.textPrimary, fontSize: 12.5, fontWeight: '700'},
   periodRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 16, gap: 10},
+  periodSectionHeader: {marginTop: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10},
+  periodSectionTitle: {flex: 1, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
+  editPeriodButton: {flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: homeColors.cardBorder, borderRadius: 11, backgroundColor: '#FBF9FF', paddingHorizontal: 10, paddingVertical: 7},
+  editPeriodText: {color: homeColors.primary, fontSize: 11.5, fontWeight: '700'},
+  pressed: {opacity: 0.72},
   periodBox: {
     flexBasis: '30%',
     flexGrow: 1,

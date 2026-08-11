@@ -32,6 +32,8 @@ type Props = {
   onSelectDate: (date: Date) => void;
   journalFlagsByDate: Record<string, DayJournalFlags>;
   filters: CalendarFilters;
+  editingPeriod?: boolean;
+  draftPeriodDays?: ReadonlySet<string>;
 };
 
 const dateKey = (date: Date) =>
@@ -58,6 +60,8 @@ function DayCell({
   showHijri,
   flags,
   filters,
+  editingPeriod = false,
+  draftPeriodDays,
 }: {
   date: Date | null;
   basics: CycleBasics;
@@ -68,12 +72,15 @@ function DayCell({
   showHijri: boolean;
   flags?: DayJournalFlags;
   filters: CalendarFilters;
+  editingPeriod?: boolean;
+  draftPeriodDays?: ReadonlySet<string>;
 }) {
   if (!date) {
     return <View style={styles.dayCell} />;
   }
 
   const kind = kindFor(date, basics);
+  const isDraftPeriod = editingPeriod && Boolean(draftPeriodDays?.has(dateKey(date)));
   const isSelected = showSelection && sameDay(date, selectedDate);
   const isToday = sameDay(date, today);
   const hijriDay = showHijri ? formatHijriDay(date) : undefined;
@@ -93,9 +100,10 @@ function DayCell({
         onPress={() => onSelectDate(date)}
         style={({pressed}) => [
           styles.day,
-          kind === 'period' && filters.rules && styles.periodDay,
-          kind === 'fertile' && styles.fertileDay,
-          kind === 'ovulation' && styles.ovulationDay,
+          !editingPeriod && kind === 'period' && filters.rules && styles.periodDay,
+          !editingPeriod && kind === 'fertile' && styles.fertileDay,
+          !editingPeriod && kind === 'ovulation' && styles.ovulationDay,
+          isDraftPeriod && styles.periodDay,
           isSelected && styles.selectedDay,
           isToday && styles.todayDayBorder,
           pressed && styles.pressed,
@@ -105,7 +113,7 @@ function DayCell({
     styles.dayText,
 
     // Les jours sélectionnés / ovulation sont normalement blancs
-    (isSelected || kind === 'ovulation') && styles.dayTextLight,
+    (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight,
 
     // Aujourd'hui doit toujours rester noir et bien visible
     isToday && styles.todayDayText,
@@ -115,7 +123,7 @@ function DayCell({
         {hijriDay ? (
           <Text
             numberOfLines={1}
-            style={[styles.hijriDayText, (isSelected || kind === 'ovulation') && styles.dayTextLight]}>
+            style={[styles.hijriDayText, (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight]}>
             {hijriDay}
           </Text>
         ) : null}
@@ -149,6 +157,8 @@ function MonthCalendarCard({
   onSelectDate,
   journalFlagsByDate,
   filters,
+  editingPeriod,
+  draftPeriodDays,
 }: Props): React.JSX.Element {
   const calendarDays = useMemo(() => {
     const year = visibleMonth.getFullYear();
@@ -221,6 +231,8 @@ function MonthCalendarCard({
             basics={basics}
             date={date}
             filters={filters}
+            editingPeriod={editingPeriod}
+            draftPeriodDays={draftPeriodDays}
             flags={date ? journalFlagsByDate[dateKey(date)] : undefined}
             key={date ? date.toISOString() : `empty-${index}`}
             onSelectDate={onSelectDate}
