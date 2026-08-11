@@ -41,8 +41,8 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [selectedId, setSelectedId] = useState('cycle');
 
-  const handleNext = () => {
-    setSelectedObjective(selectedId as ObjectiveId);
+  const handleNext = async () => {
+    await setSelectedObjective(selectedId as ObjectiveId);
     if (selectedId === 'cycle') {
       navigation.navigate('CycleObjectiveConfirmation');
       return;
