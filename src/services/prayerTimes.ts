@@ -1,6 +1,6 @@
 import type {OnboardingLocation, SchoolId} from '../state/onboardingPreferences';
 
-type PrayerName = 'Fajr' | 'Dhuhr' | 'Asr' | 'Maghrib' | 'Isha';
+export type PrayerName = 'Fajr' | 'Dhuhr' | 'Asr' | 'Maghrib' | 'Isha';
 
 export type NextPrayer = {
   hijriDate: string;
@@ -9,10 +9,46 @@ export type NextPrayer = {
   at: Date;
 };
 
+// A prayer window is [start, end). Per the HAWA product rule, each window's
+// end is the NEXT prayer's start, EXCEPT Fajr — Fajr's window closes at
+// Sunrise, not at Dhuhr, since Sunrise ends the Fajr prayer time. Isha's
+// window crosses midnight and only closes at the next day's Fajr.
+export type PrayerWindow = {
+  name: PrayerName;
+  start: Date;
+  end: Date;
+};
+
+export type PrayerSchedule = {
+  date: Date;
+  timezone: string;
+  hijriDate: string;
+  hijriDay: string;
+  fajrAngle?: number;
+  /** Today's 5 prayers, in order, for display ("Horaires du jour"). */
+  windows: PrayerWindow[];
+  /**
+   * Same windows plus the tail end of the previous day's Isha window
+   * (yesterday's Isha start → today's Fajr start), so a datetime anywhere
+   * in the 24h day — including the small hours before today's Fajr — falls
+   * inside exactly one window. Use this for purity/prayer-due comparisons.
+   */
+  purityWindows: PrayerWindow[];
+  /**
+   * Tomorrow's Fajr window (start = tomorrow's Fajr, end = tomorrow's
+   * Sunrise) — the "next prayer" once `now` has moved past today's Isha
+   * start, since today's own windows no longer contain a future prayer.
+   */
+  nextDayFirstWindow: PrayerWindow;
+};
+
 type ApiDay = {
-  timings: Record<PrayerName, string>;
+  timings: Record<PrayerName, string> & {Sunrise: string};
   date: {hijri: {day: string; month: {en: string}; year: string}};
-  meta: {timezone: string};
+  meta: {
+    timezone: string;
+    method?: {name?: string; params?: {Fajr?: number}};
+  };
 };
 
 type ApiResponse = {code: number; data: ApiDay};
@@ -40,6 +76,22 @@ const dateParts = (date: Date, timezone?: string) => {
   const value = (type: Intl.DateTimeFormatPartTypes) =>
     parts.find(part => part.type === type)?.value ?? '';
   return `${value('day')}-${value('month')}-${value('year')}`;
+};
+
+/**
+ * Shifts a "DD-MM-YYYY" day key by whole calendar days. This is pure
+ * calendar arithmetic anchored at UTC noon — it never looks at wall-clock
+ * time — so it can't roll over by an extra day depending on what time of
+ * day the caller happens to run (unlike adding/subtracting a fixed number
+ * of hours to a Date, which drifts by a day whenever the anchor time is on
+ * the "wrong" side of noon).
+ */
+const shiftDayKey = (dayKey: string, deltaDays: number): string => {
+  const [day, month, year] = dayKey.split('-').map(Number);
+  const anchor = new Date(Date.UTC(year, month - 1, day, 12, 0, 0));
+  const shifted = new Date(anchor.getTime() + deltaDays * 24 * 60 * 60 * 1000);
+  const pad = (value: number) => String(value).padStart(2, '0');
+  return `${pad(shifted.getUTCDate())}-${pad(shifted.getUTCMonth() + 1)}-${shifted.getUTCFullYear()}`;
 };
 
 const fetchDay = async (
@@ -102,6 +154,68 @@ export async function fetchNextPrayer(
     today.meta.timezone,
   );
   return nextFromDay(await fetchDay(tomorrow, location, school), now);
+}
+
+const PRAYER_ORDER: PrayerName[] = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'];
+
+/**
+ * Fetches the full day's 5 prayer windows for `date`, plus enough of the
+ * surrounding days to build purity-check windows that correctly handle
+ * Isha crossing midnight (its window only ends at the *next* day's Fajr).
+ */
+export async function fetchPrayerSchedule(
+  location: OnboardingLocation,
+  school: SchoolId | null,
+  date = new Date(),
+): Promise<PrayerSchedule> {
+  const initialDay = dateParts(date, location.timezone);
+  let today = await fetchDay(initialDay, location, school);
+  const localDay = dateParts(date, today.meta.timezone);
+  if (localDay !== initialDay) {
+    today = await fetchDay(localDay, location, school);
+  }
+  const tz = today.meta.timezone;
+
+  const previousDayKey = shiftDayKey(localDay, -1);
+  const nextDayKey = shiftDayKey(localDay, 1);
+
+  const [previousDay, nextDay] = await Promise.all([
+    fetchDay(previousDayKey, location, school),
+    fetchDay(nextDayKey, location, school),
+  ]);
+
+  const [fajrStart, dhuhrStart, asrStart, maghribStart, ishaStart] =
+    PRAYER_ORDER.map(name => new Date(today.timings[name]));
+  const sunrise = new Date(today.timings.Sunrise);
+  const nextFajr = new Date(nextDay.timings.Fajr);
+  const nextSunrise = new Date(nextDay.timings.Sunrise);
+  const previousIshaStart = new Date(previousDay.timings.Isha);
+
+  // Fajr's window closes at Sunrise, not at Dhuhr — Sunrise is only a
+  // timing boundary here, never treated as one of the five prayers.
+  const windows: PrayerWindow[] = [
+    {name: 'Fajr', start: fajrStart, end: sunrise},
+    {name: 'Dhuhr', start: dhuhrStart, end: asrStart},
+    {name: 'Asr', start: asrStart, end: maghribStart},
+    {name: 'Maghrib', start: maghribStart, end: ishaStart},
+    {name: 'Isha', start: ishaStart, end: nextFajr},
+  ];
+
+  const purityWindows: PrayerWindow[] = [
+    {name: 'Isha', start: previousIshaStart, end: windows[0].start},
+    ...windows,
+  ];
+
+  return {
+    date,
+    timezone: tz,
+    hijriDate: `${today.date.hijri.day} ${today.date.hijri.month.en} ${today.date.hijri.year}`,
+    hijriDay: today.date.hijri.day,
+    fajrAngle: today.meta.method?.params?.Fajr,
+    windows,
+    purityWindows,
+    nextDayFirstWindow: {name: 'Fajr', start: nextFajr, end: nextSunrise},
+  };
 }
 
 export const formatRemainingPrayerTime = (at: Date, now = new Date()) => {
