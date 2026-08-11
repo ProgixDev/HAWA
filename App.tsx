@@ -5,11 +5,13 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import AppNavigator from './src/navigation/AppNavigator';
 import {colors} from './src/theme/colors';
 import {loadSecurityPreferences} from './src/state/securityPreferences';
+import {hydrateActiveObjective} from './src/state/onboardingPreferences';
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
 // before reading isPinEnabled()/isBiometricEnabled().
 loadSecurityPreferences();
+hydrateActiveObjective();
 
 function App(): React.JSX.Element {
   return (

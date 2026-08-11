@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   createBottomTabNavigator,
   type BottomTabBarProps,
@@ -11,10 +11,12 @@ import type {RootStackParamList} from './AppNavigator';
 import {JournalSheetProvider, useJournalSheet} from './JournalSheetContext';
 import CustomBottomTabBar from '../components/navigation/CustomBottomTabBar';
 import DailyJournalSheet, {type JournalRoute} from '../components/journal/DailyJournalSheet';
-import CycleHomeScreen from '../screens/CycleHomeScreen';
-import CalendarScreen from '../screens/CalendarScreen';
-import StatisticsScreen from '../screens/StatisticsScreen';
+import PregnancyJournalSheet, {type PregnancyJournalRoute} from '../components/pregnancy/PregnancyJournalSheet';
+import HomeScreen from '../screens/HomeScreen';
+import ObjectiveAwareCalendarScreen from '../screens/ObjectiveAwareCalendarScreen';
+import ObjectiveAwareStatisticsScreen from '../screens/ObjectiveAwareStatisticsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
 
 export type MainTabParamList = {
   CycleHome: undefined;
@@ -44,11 +46,28 @@ function renderTabBar(props: BottomTabBarProps): React.JSX.Element {
 
 function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.Element {
   const {visible, close} = useJournalSheet();
+  const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+
+  useEffect(() => {
+    let active = true;
+    hydrateActiveObjective().then(value => {if (active) {setObjective(value);}});
+    const unsubscribe = subscribeActiveObjective(() => {if (active) {setObjective(getActiveObjective());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
 
   const navigateFromJournal = (route: JournalRoute) => {
     close();
     navigation.navigate(route);
   };
+
+  const navigateFromPregnancyJournal = (route: PregnancyJournalRoute) => {
+    close();
+    navigation.navigate(route);
+  };
+
+  if (objective === 'pregnancy') {
+    return <PregnancyJournalSheet onClose={close} onNavigate={navigateFromPregnancyJournal} visible={visible} />;
+  }
 
   return <DailyJournalSheet onClose={close} onNavigate={navigateFromJournal} visible={visible} />;
 }
@@ -60,9 +79,9 @@ function MainTabNavigator({navigation}: Props): React.JSX.Element {
         backBehavior="history"
         screenOptions={{headerShown: false}}
         tabBar={renderTabBar}>
-        <Tab.Screen component={CycleHomeScreen} name="CycleHome" />
-        <Tab.Screen component={CalendarScreen} name="Calendar" />
-        <Tab.Screen component={StatisticsScreen} name="Statistics" />
+        <Tab.Screen component={HomeScreen} name="CycleHome" />
+        <Tab.Screen component={ObjectiveAwareCalendarScreen} name="Calendar" />
+        <Tab.Screen component={ObjectiveAwareStatisticsScreen} name="Statistics" />
         <Tab.Screen component={ProfileScreen} name="Profile" />
       </Tab.Navigator>
       <JournalSheetHost navigation={navigation} />

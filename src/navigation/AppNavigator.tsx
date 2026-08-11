@@ -47,6 +47,14 @@ import {DataExportScreen, DeleteTrackedDataScreen, RestoreBackupScreen} from '..
 import LibraryScreen from '../screens/LibraryScreen';
 import FeaturedArticlesScreen from '../screens/FeaturedArticlesScreen';
 import ArticleReaderScreen from '../screens/library/ArticleReaderScreen';
+import PrayerTimesScreen from '../screens/PrayerTimesScreen';
+import HijriCalendarScreen from '../screens/HijriCalendarScreen';
+import FastingQadaaScreen from '../screens/FastingQadaaScreen';
+import PregnancySymptomsScreen from '../screens/pregnancy/PregnancySymptomsScreen';
+import PregnancyWeightScreen from '../screens/pregnancy/PregnancyWeightScreen';
+import PregnancyMedicalInformationScreen from '../screens/pregnancy/PregnancyMedicalInformationScreen';
+import PregnancyAppointmentsScreen from '../screens/pregnancy/PregnancyAppointmentsScreen';
+import PregnancyWeekScreen from '../screens/pregnancy/PregnancyWeekScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -100,6 +108,14 @@ export type RootStackParamList = {
   Library: undefined;
   FeaturedArticles: undefined;
   ArticleReader: {articleId: string};
+  PrayerTimes: undefined;
+  HijriCalendar: undefined;
+  FastingQadaa: undefined;
+  PregnancySymptoms: undefined;
+  PregnancyWeight: undefined;
+  PregnancyMedicalInformation: undefined;
+  PregnancyAppointments: undefined;
+  PregnancyWeek: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -167,6 +183,14 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="Library" component={LibraryScreen} />
         <Stack.Screen name="FeaturedArticles" component={FeaturedArticlesScreen} />
         <Stack.Screen name="ArticleReader" component={ArticleReaderScreen} />
+        <Stack.Screen name="PrayerTimes" component={PrayerTimesScreen} />
+        <Stack.Screen name="HijriCalendar" component={HijriCalendarScreen} />
+        <Stack.Screen name="FastingQadaa" component={FastingQadaaScreen} />
+        <Stack.Screen name="PregnancySymptoms" component={PregnancySymptomsScreen} />
+        <Stack.Screen name="PregnancyWeight" component={PregnancyWeightScreen} />
+        <Stack.Screen name="PregnancyMedicalInformation" component={PregnancyMedicalInformationScreen} />
+        <Stack.Screen name="PregnancyAppointments" component={PregnancyAppointmentsScreen} />
+        <Stack.Screen name="PregnancyWeek" component={PregnancyWeekScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
