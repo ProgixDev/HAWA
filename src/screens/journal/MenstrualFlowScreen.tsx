@@ -29,16 +29,19 @@ import Animated, {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
+import PeriodEndBottomSheet from '../../components/prayer/PeriodEndBottomSheet';
 import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {getCyclePreferences, getPeriodEndDateTime, hydratePeriodEndDateTime} from '../../state/onboardingPreferences';
 import type {FlowIntensity} from '../../types/journal';
-import {cycleDayFor} from '../../utils/cycleMath';
+import {cycleDayFor, formatFullDate, isMenstruatingNow} from '../../utils/cycleMath';
 
 const PURPLE = '#6D4AE8';
 const PURPLE_DARK = '#2F2258';
 const TEXT_MUTED = '#746D92';
 const BACKGROUND = '#FCFAFF';
 const LAVENDER = '#F7F3FF';
+const PERIOD_PINK = '#DC7B82';
+const PERIOD_PINK_LIGHT = '#F7D7D6';
 
 type IntensityOption = {
   label: string;
@@ -135,6 +138,36 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
     [selectedDate],
   );
 
+  const [periodEndRevision, setPeriodEndRevision] = useState(0);
+  const [periodEndSheetVisible, setPeriodEndSheetVisible] = useState(false);
+  const [periodEndToastVisible, setPeriodEndToastVisible] = useState(false);
+  const periodEndToastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const cyclePreferences = useMemo(() => getCyclePreferences(), []);
+  const periodEndDateTime = useMemo(
+    () => getPeriodEndDateTime(),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [periodEndRevision],
+  );
+  const isMenstruating = useMemo(
+    () => isMenstruatingNow(new Date(), cyclePreferences, periodEndDateTime),
+    [cyclePreferences, periodEndDateTime],
+  );
+  const periodStartLabel = useMemo(() => {
+    const start = cyclePreferences.lastPeriodStart;
+    const hasTime = start.getHours() !== 0 || start.getMinutes() !== 0;
+    const timeLabel = new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(start);
+    return hasTime ? `${formatFullDate(start)} à ${timeLabel}` : formatFullDate(start);
+  }, [cyclePreferences]);
+
+  useEffect(() => {
+    let mounted = true;
+    hydratePeriodEndDateTime().then(() => {
+      if (mounted) {setPeriodEndRevision(current => current + 1);}
+    });
+    return () => {mounted = false;};
+  }, []);
+
   const [selectedIntensity, setSelectedIntensity] = useState<FlowIntensity>('moderate');
   const [selectedColor, setSelectedColor] = useState(FLOW_COLORS[2]);
   const [selectedClotSize, setSelectedClotSize] = useState('none');
@@ -184,8 +217,24 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
       if (successTimeoutRef.current) {
         clearTimeout(successTimeoutRef.current);
       }
+      if (periodEndToastTimeoutRef.current) {
+        clearTimeout(periodEndToastTimeoutRef.current);
+      }
     };
   }, []);
+
+  const handlePeriodEndConfirmed = () => {
+    setPeriodEndRevision(current => current + 1);
+    setPeriodEndSheetVisible(false);
+
+    if (periodEndToastTimeoutRef.current) {
+      clearTimeout(periodEndToastTimeoutRef.current);
+    }
+    setPeriodEndToastVisible(true);
+    periodEndToastTimeoutRef.current = setTimeout(() => {
+      setPeriodEndToastVisible(false);
+    }, 2500);
+  };
 
   const showSuccessToastThenGoBack = () => {
     if (successTimeoutRef.current) {
@@ -282,6 +331,24 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           </View>
           <View style={styles.headerSpacer} />
         </Animated.View>
+
+        {isMenstruating ? (
+          <Animated.View entering={FadeInUp.delay(40).duration(400)} style={styles.periodStatusCard}>
+            <View style={styles.periodStatusHeading}>
+              <View style={styles.periodStatusDot} />
+              <Text style={styles.periodStatusTitle}>Règles en cours</Text>
+            </View>
+            <Text style={styles.periodStatusSubtitle}>Depuis le {periodStartLabel}</Text>
+            <Pressable
+              accessibilityLabel="Mes règles sont terminées"
+              accessibilityRole="button"
+              onPress={() => setPeriodEndSheetVisible(true)}
+              style={({pressed}) => [styles.periodEndButton, pressed && styles.pressed]}>
+              <MaterialDesignIcons color={PERIOD_PINK} name="check-circle-outline" size={17} />
+              <Text style={styles.periodEndButtonText}>Mes règles sont terminées</Text>
+            </Pressable>
+          </Animated.View>
+        ) : null}
 
         <Animated.View entering={FadeInUp.delay(80).duration(430)}>
           <LinearGradient
@@ -475,6 +542,28 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           </Pressable>
         </Animated.View>
       ) : null}
+
+      {periodEndToastVisible ? (
+        <Animated.View
+          entering={FadeInUp.springify().damping(17)}
+          style={[styles.toast, {bottom: Math.max(insets.bottom, 18) + 12}]}>
+          <View style={styles.toastIcon}>
+            <MaterialDesignIcons color="#FFFFFF" name="check" size={14} />
+          </View>
+          <Text style={styles.toastText}>Fin des règles enregistrée ✨</Text>
+          <Pressable accessibilityLabel="Fermer" hitSlop={10} onPress={() => setPeriodEndToastVisible(false)}>
+            <MaterialDesignIcons color="#8E83A4" name="close" size={17} />
+          </Pressable>
+        </Animated.View>
+      ) : null}
+
+      <PeriodEndBottomSheet
+        initialDateTime={periodEndDateTime ?? new Date()}
+        minDateTime={cyclePreferences.lastPeriodStart}
+        onClose={() => setPeriodEndSheetVisible(false)}
+        onConfirmed={handlePeriodEndConfirmed}
+        visible={periodEndSheetVisible}
+      />
     </KeyboardAvoidingView>
   );
 }
@@ -485,6 +574,20 @@ const styles = StyleSheet.create({
   contentCompact: {paddingHorizontal: 11},
   contentRegular: {paddingHorizontal: 16},
   header: {flexDirection: 'row', alignItems: 'center', paddingBottom: 3},
+  periodStatusCard: {
+    borderWidth: 1, borderColor: 'rgba(220,123,130,0.22)', borderRadius: 22,
+    backgroundColor: PERIOD_PINK_LIGHT, padding: 14,
+  },
+  periodStatusHeading: {flexDirection: 'row', alignItems: 'center', gap: 8},
+  periodStatusDot: {width: 8, height: 8, borderRadius: 4, backgroundColor: PERIOD_PINK},
+  periodStatusTitle: {color: '#8E3E48', fontSize: 14.5, fontWeight: '700'},
+  periodStatusSubtitle: {marginTop: 4, color: '#9A5C63', fontSize: 12},
+  periodEndButton: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7,
+    marginTop: 12, minHeight: 46, borderRadius: 18, borderWidth: 1.4, borderColor: PERIOD_PINK,
+    backgroundColor: '#FFFFFF',
+  },
+  periodEndButtonText: {color: PERIOD_PINK, fontSize: 13.5, fontWeight: '700'},
   backButton: {
     alignItems: 'center', justifyContent: 'center', borderRadius: 999,
     backgroundColor: '#FFFFFF', padding: 9, elevation: 2,

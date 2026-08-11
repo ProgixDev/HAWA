@@ -17,6 +17,12 @@ export type CyclePreferences = {
   regularity: CycleRegularity;
 };
 
+export type PeriodHistoryRecord = {
+  id: string;
+  startDate: string;
+  endDate: string;
+};
+
 export type SchoolId = 'hanafi' | 'maliki' | 'chafii' | 'hanbali' | 'unknown';
 export type OnboardingLocation = {
   city: string;
@@ -26,7 +32,13 @@ export type OnboardingLocation = {
   longitude: number;
 };
 
-let objective: ObjectiveId = 'cycle';
+const OBJECTIVE_STORAGE_KEY = '@hawa/active-objective';
+const OBJECTIVE_IDS: ObjectiveId[] = ['cycle', 'conceive', 'contraception', 'irregular', 'menopause', 'pregnancy', 'postpartum', 'loss'];
+let activeObjective: ObjectiveId = 'cycle';
+let objectiveHydrated = false;
+let objectiveHydration: Promise<ObjectiveId> | null = null;
+let objectiveRevision = 0;
+const objectiveListeners = new Set<() => void>();
 let firstName = 'Amina';
 let spiritualMarkersEnabled = true;
 let selectedSchool: SchoolId | null = null;
@@ -34,18 +46,72 @@ let selectedLocation: OnboardingLocation | null = null;
 const LOCATION_STORAGE_KEY = '@hawa/selected-location';
 const locationListeners = new Set<() => void>();
 let locationHydration: Promise<OnboardingLocation | null> | null = null;
+let locationHydrated = false;
 let cyclePreferences: CyclePreferences = {
   lastPeriodStart: new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 5)),
   periodDuration: 5,
   cycleDuration: 28,
   regularity: 'yes',
 };
+const CYCLE_STORAGE_KEY = '@hawa/cycle-preferences';
+const cycleListeners = new Set<() => void>();
+let cycleHydrated = false;
+let cycleHydration: Promise<CyclePreferences> | null = null;
+let periodHistory: PeriodHistoryRecord[] = [];
 
-export const setSelectedObjective = (value: ObjectiveId) => {
-  objective = value;
+const cycleDateKey = (date: Date): string =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+const cycleSnapshot = () => ({
+  preferences: {...cyclePreferences, lastPeriodStart: cyclePreferences.lastPeriodStart.toISOString()},
+  periodHistory,
+});
+
+const notifyCycleListeners = () => cycleListeners.forEach(listener => listener());
+const persistCycle = () => AsyncStorage.setItem(CYCLE_STORAGE_KEY, JSON.stringify(cycleSnapshot()));
+
+const isObjectiveId = (value: unknown): value is ObjectiveId =>
+  typeof value === 'string' && OBJECTIVE_IDS.includes(value as ObjectiveId);
+
+const notifyObjectiveListeners = () => objectiveListeners.forEach(listener => listener());
+
+export const getActiveObjective = (): ObjectiveId => activeObjective;
+
+export const setActiveObjective = async (value: ObjectiveId): Promise<void> => {
+  objectiveRevision += 1;
+  activeObjective = value;
+  notifyObjectiveListeners();
+  await AsyncStorage.setItem(OBJECTIVE_STORAGE_KEY, value);
 };
 
-export const getSelectedObjective = () => objective;
+export const hydrateActiveObjective = (): Promise<ObjectiveId> => {
+  if (objectiveHydrated) {return Promise.resolve(activeObjective);}
+  if (!objectiveHydration) {
+    const hydrationRevision = objectiveRevision;
+    objectiveHydration = AsyncStorage.getItem(OBJECTIVE_STORAGE_KEY).then(stored => {
+      objectiveHydrated = true;
+      if (hydrationRevision === objectiveRevision && isObjectiveId(stored)) {
+        activeObjective = stored;
+        notifyObjectiveListeners();
+      }
+      return activeObjective;
+    }).catch(() => {
+      objectiveHydrated = true;
+      return activeObjective;
+    });
+  }
+  return objectiveHydration;
+};
+
+export const subscribeActiveObjective = (listener: () => void) => {
+  objectiveListeners.add(listener);
+  return () => {objectiveListeners.delete(listener);};
+};
+
+// Compatibility aliases for the existing onboarding and summary screens.
+// They point to the same canonical activeObjective; no second state exists.
+export const setSelectedObjective = setActiveObjective;
+export const getSelectedObjective = getActiveObjective;
 
 export const setSpiritualMarkersEnabled = (value: boolean) => {
   spiritualMarkersEnabled = value;
@@ -82,9 +148,19 @@ export const getSelectedLocation = (): OnboardingLocation | null =>
   selectedLocation ? {...selectedLocation} : null;
 
 export const hydrateSelectedLocation = (): Promise<OnboardingLocation | null> => {
+  // Once the initial AsyncStorage read has resolved, the in-memory value is
+  // authoritative (kept current by setSelectedLocation) — return it
+  // directly instead of the cached first-read promise. Re-resolving that
+  // stale promise on every later call (e.g. a screen's useFocusEffect
+  // firing again) would silently overwrite a newer value with the snapshot
+  // from whenever the app first hydrated.
+  if (locationHydrated) {
+    return Promise.resolve(getSelectedLocation());
+  }
   if (!locationHydration) {
     locationHydration = AsyncStorage.getItem(LOCATION_STORAGE_KEY)
       .then(raw => {
+        locationHydrated = true;
         if (!raw) {return getSelectedLocation();}
         const parsed: unknown = JSON.parse(raw);
         if (isStoredLocation(parsed)) {
@@ -93,7 +169,10 @@ export const hydrateSelectedLocation = (): Promise<OnboardingLocation | null> =>
         }
         return getSelectedLocation();
       })
-      .catch(() => getSelectedLocation());
+      .catch(() => {
+        locationHydrated = true;
+        return getSelectedLocation();
+      });
   }
   return locationHydration;
 };
@@ -112,11 +191,160 @@ export const setFirstName = (value: string) => {
 export const getFirstName = () => firstName;
 
 export const setCyclePreferences = (value: CyclePreferences) => {
+  const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
   cyclePreferences = {...value, lastPeriodStart: new Date(value.lastPeriodStart)};
+  const start = new Date(cyclePreferences.lastPeriodStart);
+  const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + cyclePreferences.periodDuration - 1);
+  const record = {id: cycleDateKey(start), startDate: cycleDateKey(start), endDate: cycleDateKey(end)};
+  periodHistory = [...periodHistory.filter(item => item.id !== record.id), record]
+    .sort((a, b) => a.startDate.localeCompare(b.startDate));
+  notifyCycleListeners();
+  persistCycle().catch(() => {});
+
+  // A genuinely new period start supersedes any previously confirmed
+  // periodEndDateTime that belongs to an earlier period. Without this, a
+  // stale confirmation could later be paired with this unrelated cycle by
+  // any code reading periodEndDateTime alongside cyclePreferences (see the
+  // qadaa sync investigation). Only clear when the start actually moved
+  // forward past the old confirmed end, so editing the *same* period's
+  // start (e.g. correcting a typo) doesn't wipe a same-period confirmation.
+  const currentPeriodEnd = getPeriodEndDateTime();
+  if (
+    currentPeriodEnd &&
+    cyclePreferences.lastPeriodStart.getTime() !== previousLastPeriodStart.getTime() &&
+    currentPeriodEnd.getTime() < cyclePreferences.lastPeriodStart.getTime()
+  ) {
+    setPeriodEndDateTime(null);
+  }
 };
 
 export const getCyclePreferences = (): CyclePreferences => ({
   ...cyclePreferences,
   lastPeriodStart: new Date(cyclePreferences.lastPeriodStart),
 });
+
+export const getPeriodHistory = (): PeriodHistoryRecord[] => periodHistory.map(item => ({...item}));
+
+export const subscribeCyclePreferences = (listener: () => void) => {
+  cycleListeners.add(listener);
+  return () => {cycleListeners.delete(listener);};
+};
+
+export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
+  if (cycleHydrated) {return Promise.resolve(getCyclePreferences());}
+  if (!cycleHydration) {
+    cycleHydration = AsyncStorage.getItem(CYCLE_STORAGE_KEY).then(raw => {
+      cycleHydrated = true;
+      if (raw) {
+        const parsed = JSON.parse(raw) as {preferences?: Partial<CyclePreferences> & {lastPeriodStart?: string}; periodHistory?: PeriodHistoryRecord[]};
+        const start = parsed.preferences?.lastPeriodStart ? new Date(parsed.preferences.lastPeriodStart) : null;
+        if (start && !Number.isNaN(start.getTime())) {
+          cyclePreferences = {
+            ...cyclePreferences,
+            ...parsed.preferences,
+            lastPeriodStart: start,
+          } as CyclePreferences;
+        }
+        if (Array.isArray(parsed.periodHistory)) {
+          periodHistory = parsed.periodHistory.filter(item => item && typeof item.startDate === 'string' && typeof item.endDate === 'string');
+        }
+      }
+      if (periodHistory.length === 0) {
+        const start = cyclePreferences.lastPeriodStart;
+        const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + cyclePreferences.periodDuration - 1);
+        periodHistory = [{id: cycleDateKey(start), startDate: cycleDateKey(start), endDate: cycleDateKey(end)}];
+      }
+      notifyCycleListeners();
+      return getCyclePreferences();
+    }).catch(() => {
+      cycleHydrated = true;
+      return getCyclePreferences();
+    });
+  }
+  return cycleHydration;
+};
+
+export const updateCurrentPeriodRange = async (start: Date, end: Date): Promise<CyclePreferences> => {
+  const normalizedStart = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+  const normalizedEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+  if (normalizedEnd < normalizedStart) {throw new Error('INVALID_RANGE');}
+  const duration = Math.round((normalizedEnd.getTime() - normalizedStart.getTime()) / 86_400_000) + 1;
+  const previousId = cycleDateKey(cyclePreferences.lastPeriodStart);
+  const record = {id: cycleDateKey(normalizedStart), startDate: cycleDateKey(normalizedStart), endDate: cycleDateKey(normalizedEnd)};
+  const otherRecords = periodHistory.filter(item => item.id !== previousId);
+  const overlaps = otherRecords.some(item => record.startDate <= item.endDate && record.endDate >= item.startDate);
+  if (overlaps) {throw new Error('OVERLAPPING_RANGE');}
+  periodHistory = [...otherRecords, record].sort((a, b) => a.startDate.localeCompare(b.startDate));
+  const starts = periodHistory.map(item => new Date(`${item.startDate}T12:00:00`));
+  const lengths = starts.slice(1).map((date, index) => Math.round((date.getTime() - starts[index].getTime()) / 86_400_000)).filter(value => value >= 15 && value <= 90);
+  const cycleDuration = lengths.length > 0 ? Math.round(lengths.reduce((sum, value) => sum + value, 0) / lengths.length) : cyclePreferences.cycleDuration;
+  cyclePreferences = {...cyclePreferences, lastPeriodStart: normalizedStart, periodDuration: duration, cycleDuration};
+  notifyCycleListeners();
+  await persistCycle();
+  return getCyclePreferences();
+};
+
+// Exact end-of-period datetime the user confirmed (single source of truth for
+// the purity/prayer-due feature). Persisted the same way as the location, so
+// it survives app restarts and both MenstrualFlowScreen and PrayerTimesScreen
+// read/write this one value instead of keeping their own copies.
+let periodEndDateTime: Date | null = null;
+const PERIOD_END_STORAGE_KEY = '@hawa/period-end-datetime';
+const periodEndListeners = new Set<() => void>();
+let periodEndHydration: Promise<Date | null> | null = null;
+let periodEndHydrated = false;
+
+const notifyPeriodEndListeners = () => {
+  periodEndListeners.forEach(listener => listener());
+};
+
+export const setPeriodEndDateTime = async (value: Date | null): Promise<void> => {
+  periodEndDateTime = value ? new Date(value) : null;
+  notifyPeriodEndListeners();
+  if (periodEndDateTime) {
+    await AsyncStorage.setItem(PERIOD_END_STORAGE_KEY, periodEndDateTime.toISOString());
+  } else {
+    await AsyncStorage.removeItem(PERIOD_END_STORAGE_KEY);
+  }
+};
+
+export const getPeriodEndDateTime = (): Date | null =>
+  periodEndDateTime ? new Date(periodEndDateTime) : null;
+
+export const hydratePeriodEndDateTime = (): Promise<Date | null> => {
+  // Same reasoning as hydrateSelectedLocation: after the first real
+  // AsyncStorage read, the in-memory value is authoritative (kept current
+  // by setPeriodEndDateTime). Re-returning the cached first-read promise on
+  // every later call — e.g. every time a screen's useFocusEffect re-fires —
+  // would clobber a just-confirmed period end with the stale snapshot from
+  // whenever the app first hydrated, making the UI fall back to "still
+  // menstruating" even though the user already confirmed it ended.
+  if (periodEndHydrated) {
+    return Promise.resolve(getPeriodEndDateTime());
+  }
+  if (!periodEndHydration) {
+    periodEndHydration = AsyncStorage.getItem(PERIOD_END_STORAGE_KEY)
+      .then(raw => {
+        periodEndHydrated = true;
+        if (!raw) {return getPeriodEndDateTime();}
+        const parsed = new Date(raw);
+        if (!Number.isNaN(parsed.getTime())) {
+          periodEndDateTime = parsed;
+          notifyPeriodEndListeners();
+        }
+        return getPeriodEndDateTime();
+      })
+      .catch(() => {
+        periodEndHydrated = true;
+        return getPeriodEndDateTime();
+      });
+  }
+  return periodEndHydration;
+};
+
+export const subscribePeriodEndDateTime = (listener: () => void) => {
+  periodEndListeners.add(listener);
+  return () => {periodEndListeners.delete(listener);};
+};
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
