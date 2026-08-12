@@ -15,6 +15,11 @@ import type {PrayerWindow} from '../../services/prayerTimes';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 
 type Props = {
+  /** 'cycle' (default) shows the full existing section — menstruation/
+   * purity badge, purity-restored summary, and the qadaa (period-dependent
+   * fasting catch-up) info block. 'pregnancy' hides all three: Pregnancy
+   * must never display menstrual purity status or period-derived qadaa. */
+  objective?: 'cycle' | 'pregnancy';
   hijriDate?: string;
   nextWindow?: PrayerWindow;
   timezone?: string;
@@ -22,8 +27,8 @@ type Props = {
   prayerLoading?: boolean;
   prayerError?: boolean;
   qadaaDays?: number;
-  isMenstruating: boolean;
-  purityResult: PurityPrayerResult;
+  isMenstruating?: boolean;
+  purityResult?: PurityPrayerResult;
   periodEndDateTime?: Date | null;
   locationConfigured: boolean;
   onManage?: () => void;
@@ -49,6 +54,7 @@ function InfoBlock({icon, label, value}: {icon: React.ComponentProps<typeof Mate
 }
 
 function SpiritualGuidanceCard({
+  objective = 'cycle',
   hijriDate,
   nextWindow,
   timezone,
@@ -56,13 +62,14 @@ function SpiritualGuidanceCard({
   prayerLoading = false,
   prayerError = false,
   qadaaDays = 0,
-  isMenstruating,
+  isMenstruating = false,
   purityResult,
   periodEndDateTime,
   locationConfigured,
   onManage,
   onPressPuritySummary,
 }: Props): React.JSX.Element {
+  const isPregnancy = objective === 'pregnancy';
   const entrance = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -87,7 +94,8 @@ function SpiritualGuidanceCard({
       ? `${nextWindow.name} · ${formatTime(nextWindow.start, timezone)}`
       : 'Indisponible';
 
-  const showPuritySummary = !isMenstruating && purityResult.status === 'pure' && Boolean(periodEndDateTime);
+  const showPuritySummary =
+    !isPregnancy && !isMenstruating && purityResult?.status === 'pure' && Boolean(periodEndDateTime);
 
   // Two distinct concepts, kept explicit rather than both being labelled
   // "Prochaine prière": the info block above uses `nextWindow`, the next
@@ -95,19 +103,24 @@ function SpiritualGuidanceCard({
   // after the exact moment purity was restored (periodEndDateTime) —
   // `purityResult.nextPrayerName`/`nextPrayerTime`, already computed
   // relative to periodEndDateTime by getPrayerDueAfterPurity, not to now.
+  // Only ever computed/shown for Cycle — see showPuritySummary above.
   const purityPrimaryLine = periodEndDateTime
     ? `Pureté retrouvée à ${formatTime(periodEndDateTime, timezone)}`
     : '';
-  const nextPrayerAfterPurityLine = purityResult.prayerDue && purityResult.prayerName
+  const nextPrayerAfterPurityLine = purityResult?.prayerDue && purityResult.prayerName
     ? `${purityResult.prayerName} est due`
-    : purityResult.nextPrayerName && purityResult.nextPrayerTime
+    : purityResult?.nextPrayerName && purityResult.nextPrayerTime
       ? `1re prière après la pureté : ${purityResult.nextPrayerName} · ${formatTime(purityResult.nextPrayerTime, timezone)}`
       : '';
   const puritySummaryAccessibilityLabel = [purityPrimaryLine, nextPrayerAfterPurityLine].filter(Boolean).join('. ');
 
+  const cardAccessibilityLabel = isPregnancy
+    ? 'Repères spirituels.'
+    : `Repères spirituels. Statut ${isMenstruating ? 'Menstrues' : 'Pureté'}.`;
+
   return (
     <Animated.View
-      accessibilityLabel={`Repères spirituels. Statut ${isMenstruating ? 'Menstrues' : 'Pureté'}.`}
+      accessibilityLabel={cardAccessibilityLabel}
       style={[
         styles.card,
         {
@@ -134,16 +147,18 @@ function SpiritualGuidanceCard({
         <View style={[styles.badge, styles.activeBadge]}>
           <Text style={styles.activeBadgeText}>Actif</Text>
         </View>
-        <View style={[styles.badge, isMenstruating ? styles.periodBadge : styles.purityBadge]}>
-          <MaterialDesignIcons
-            color={isMenstruating ? '#A8505A' : homeColors.green}
-            name={isMenstruating ? 'flower-outline' : 'shield-check-outline'}
-            size={13}
-          />
-          <Text style={[styles.badgeText, isMenstruating ? styles.periodText : styles.purityText]}>
-            {isMenstruating ? 'Menstrues' : 'Pureté'}
-          </Text>
-        </View>
+        {!isPregnancy ? (
+          <View style={[styles.badge, isMenstruating ? styles.periodBadge : styles.purityBadge]}>
+            <MaterialDesignIcons
+              color={isMenstruating ? '#A8505A' : homeColors.green}
+              name={isMenstruating ? 'flower-outline' : 'shield-check-outline'}
+              size={13}
+            />
+            <Text style={[styles.badgeText, isMenstruating ? styles.periodText : styles.purityText]}>
+              {isMenstruating ? 'Menstrues' : 'Pureté'}
+            </Text>
+          </View>
+        ) : null}
       </View>
 
       <View style={styles.locationRow}>
@@ -157,8 +172,12 @@ function SpiritualGuidanceCard({
         <InfoBlock icon="alarm" label="Prochaine prière" value={prayerValue} />
         <View style={styles.separator} />
         <InfoBlock icon="calendar-month-outline" label="Date Hijri" value={hijriDate ?? 'Indisponible'} />
-        <View style={styles.separator} />
-        <InfoBlock icon="silverware-fork-knife" label="Jeûnes à rattraper" value={qadaaDays > 0 ? `${qadaaDays} jours` : 'À jour'} />
+        {!isPregnancy ? (
+          <>
+            <View style={styles.separator} />
+            <InfoBlock icon="silverware-fork-knife" label="Jeûnes à rattraper" value={qadaaDays > 0 ? `${qadaaDays} jours` : 'À jour'} />
+          </>
+        ) : null}
       </View>
 
       {showPuritySummary ? (

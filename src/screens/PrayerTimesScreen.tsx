@@ -25,6 +25,7 @@ import PeriodEndBottomSheet from '../components/prayer/PeriodEndBottomSheet';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {capitalize, formatFullDate, formatHijriDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
+import {getActiveObjective} from '../state/onboardingPreferences';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
@@ -37,6 +38,12 @@ function PrayerTimesScreen(): React.JSX.Element {
 
   const [refreshing, setRefreshing] = useState(false);
   const [sheetVisible, setSheetVisible] = useState(false);
+
+  // Shared screen for both objectives. Pregnancy keeps the general prayer
+  // schedule/location/Hijri info below, but must never surface menstrual
+  // purity status — see PurityStatusCard/spiritual-advice/PeriodEndBottomSheet
+  // below. Cycle's own behavior is entirely unchanged.
+  const isPregnancy = getActiveObjective() === 'pregnancy';
 
   const {
     cyclePreferences,
@@ -133,18 +140,20 @@ function PrayerTimesScreen(): React.JSX.Element {
           </Animated.View>
         ) : null}
 
-        <Animated.View entering={FadeInUp.delay(240).duration(420)}>
-          <PurityStatusCard
-            error={error}
-            loading={loading}
-            onEdit={() => setSheetVisible(true)}
-            periodEndDateTime={periodEndDateTime}
-            result={purityResult}
-            timezone={schedule?.timezone}
-          />
-        </Animated.View>
+        {!isPregnancy ? (
+          <Animated.View entering={FadeInUp.delay(240).duration(420)}>
+            <PurityStatusCard
+              error={error}
+              loading={loading}
+              onEdit={() => setSheetVisible(true)}
+              periodEndDateTime={periodEndDateTime}
+              result={purityResult}
+              timezone={schedule?.timezone}
+            />
+          </Animated.View>
+        ) : null}
 
-        {purityResult.status !== 'unknown' ? (
+        {!isPregnancy && purityResult.status !== 'unknown' ? (
           <Animated.View entering={FadeInUp.delay(280).duration(420)} style={styles.noteCard}>
             <Text style={styles.noteEyebrow}>Conseil spirituel</Text>
             <View style={styles.noteRow}>
@@ -173,13 +182,15 @@ function PrayerTimesScreen(): React.JSX.Element {
         </Animated.View>
       </ScrollView>
 
-      <PeriodEndBottomSheet
-        initialDateTime={periodEndDateTime ?? new Date()}
-        minDateTime={cyclePreferences.lastPeriodStart}
-        onClose={() => setSheetVisible(false)}
-        onConfirmed={() => setSheetVisible(false)}
-        visible={sheetVisible}
-      />
+      {!isPregnancy ? (
+        <PeriodEndBottomSheet
+          initialDateTime={periodEndDateTime ?? new Date()}
+          minDateTime={cyclePreferences.lastPeriodStart}
+          onClose={() => setSheetVisible(false)}
+          onConfirmed={() => setSheetVisible(false)}
+          visible={sheetVisible}
+        />
+      ) : null}
     </View>
   );
 }

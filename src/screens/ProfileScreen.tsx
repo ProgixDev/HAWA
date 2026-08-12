@@ -794,6 +794,23 @@ function ProfileScreen({
               title="Santé générale"
             />
 
+            {objective === 'pregnancy' ? (
+              <>
+                <View
+                  style={
+                    styles.menuDivider
+                  }
+                />
+
+                <MenuRow
+                  icon="bell-outline"
+                  onPress={() => navigation.navigate('PregnancyNotifications')}
+                  subtitle="Grossesse, rendez-vous, examens et rappels personnalisés"
+                  title="Notifications & rappels"
+                />
+              </>
+            ) : null}
+
             <View
               style={
                 styles.menuDivider

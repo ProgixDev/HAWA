@@ -35,7 +35,7 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {mapProvider, MapProviderError} from '../services/maps/mapProvider';
 import {loadMapStyle} from '../services/maps/mapStyle';
 import type {MapPlace} from '../services/maps/types';
-import {setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
+import {getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 import {spacing} from '../theme/spacing';
 
 const LOCATION_BACKGROUND = require('../assets/images/location-background.png');
@@ -234,6 +234,13 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
   const handleNext = async () => {
     if (!selectedLocation) {return;}
     await saveSelectedLocation(selectedLocation);
+    // Only the pregnancy objective replaces the Cycle-specific
+    // "Informations de ton cycle" step with its own dating-setup step —
+    // every other objective (including Cycle) keeps the existing flow.
+    if (getSelectedObjective() === 'pregnancy') {
+      navigation.navigate('PregnancyDatingSetup');
+      return;
+    }
     navigation.navigate('CycleInformation');
   };
 

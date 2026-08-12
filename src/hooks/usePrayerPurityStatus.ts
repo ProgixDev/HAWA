@@ -20,49 +20,29 @@ import {
 import {isMenstruatingNow} from '../utils/cycleMath';
 import {getPrayerDueAfterPurity, type PurityPrayerResult} from '../utils/purityPrayerLogic';
 
-export type PrayerPurityStatus = {
-  cyclePreferences: CyclePreferences;
+type PrayerScheduleStatus = {
   selectedLocation: OnboardingLocation | null;
-  periodEndDateTime: Date | null;
   schedule: PrayerSchedule | undefined;
   loading: boolean;
   error: boolean;
   now: Date;
-  isMenstruating: boolean;
-  purityResult: PurityPrayerResult;
   nextWindow: PrayerWindow | undefined;
   refresh: () => Promise<void>;
 };
 
 /**
- * Single source of truth for "is she menstruating / is purity restored / is
- * a prayer due" — the SAME fetchPrayerSchedule + getPrayerDueAfterPurity
- * calculation used by PrayerTimesScreen. The Home screen's compact
- * SpiritualGuidanceCard summary consumes this exact result too, so the two
- * screens can never disagree.
- *
- * Pass `enabled = false` to skip fetching entirely (e.g. Home hides this
- * behind the "spiritual markers" toggle) — location/period-end hydration
- * still runs since it's just a cheap local read, only the prayer-time
- * network request is skipped.
+ * Objective-agnostic prayer-schedule fetch: location + prayer times only,
+ * no menstrual/purity data. Shared base for `usePrayerPurityStatus` (Cycle)
+ * and `usePregnancySpiritualStatus` (Pregnancy) so both read the exact same
+ * location/schedule state instead of duplicating the fetch logic.
  */
-export function usePrayerPurityStatus(enabled = true): PrayerPurityStatus {
-  const [cyclePreferences, setCyclePreferences] = useState(getCyclePreferences);
-
+function usePrayerSchedule(enabled: boolean): PrayerScheduleStatus {
   const [selectedLocation, setSelectedLocation] = useState<OnboardingLocation | null>(getSelectedLocation());
   const [selectedSchool, setSelectedSchool] = useState<SchoolId | null>(getSelectedSchool());
-  const [periodEndDateTime, setPeriodEndDateTime] = useState<Date | null>(getPeriodEndDateTime());
   const [schedule, setSchedule] = useState<PrayerSchedule | undefined>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [now, setNow] = useState(() => new Date());
-
-  useEffect(() => {
-    let active = true;
-    hydrateCyclePreferences().then(value => {if (active) {setCyclePreferences(value);}});
-    const unsubscribe = subscribeCyclePreferences(() => {if (active) {setCyclePreferences(getCyclePreferences());}});
-    return () => {active = false; unsubscribe();};
-  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -73,19 +53,6 @@ export function usePrayerPurityStatus(enabled = true): PrayerPurityStatus {
       setSelectedSchool(getSelectedSchool());
       const unsubscribe = subscribeSelectedLocation(() => {
         if (active) {setSelectedLocation(getSelectedLocation());}
-      });
-      return () => {active = false; unsubscribe();};
-    }, []),
-  );
-
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      hydratePeriodEndDateTime().then(value => {
-        if (active) {setPeriodEndDateTime(value);}
-      });
-      const unsubscribe = subscribePeriodEndDateTime(() => {
-        if (active) {setPeriodEndDateTime(getPeriodEndDateTime());}
       });
       return () => {active = false; unsubscribe();};
     }, []),
@@ -115,32 +82,108 @@ export function usePrayerPurityStatus(enabled = true): PrayerPurityStatus {
     loadSchedule().finally(() => setLoading(false));
   }, [loadSchedule]);
 
-  const isMenstruating = useMemo(
-    () => isMenstruatingNow(now, cyclePreferences, periodEndDateTime),
-    [now, cyclePreferences, periodEndDateTime],
-  );
-
-  const purityResult = useMemo(
-    () => getPrayerDueAfterPurity(isMenstruating, periodEndDateTime, schedule?.purityWindows),
-    [isMenstruating, periodEndDateTime, schedule],
-  );
-
   const nextWindow = useMemo(() => {
     if (!schedule) {return undefined;}
     return schedule.windows.find(candidate => candidate.start.getTime() > now.getTime()) ?? schedule.nextDayFirstWindow;
   }, [schedule, now]);
 
   return {
-    cyclePreferences,
     selectedLocation,
-    periodEndDateTime,
     schedule,
     loading,
     error,
     now,
-    isMenstruating,
-    purityResult,
     nextWindow,
     refresh: loadSchedule,
   };
+}
+
+export type PrayerPurityStatus = {
+  cyclePreferences: CyclePreferences;
+  selectedLocation: OnboardingLocation | null;
+  periodEndDateTime: Date | null;
+  schedule: PrayerSchedule | undefined;
+  loading: boolean;
+  error: boolean;
+  now: Date;
+  isMenstruating: boolean;
+  purityResult: PurityPrayerResult;
+  nextWindow: PrayerWindow | undefined;
+  refresh: () => Promise<void>;
+};
+
+/**
+ * Single source of truth for "is she menstruating / is purity restored / is
+ * a prayer due" — the SAME fetchPrayerSchedule + getPrayerDueAfterPurity
+ * calculation used by PrayerTimesScreen. The Home screen's compact
+ * SpiritualGuidanceCard summary consumes this exact result too, so the two
+ * screens can never disagree.
+ *
+ * Pass `enabled = false` to skip fetching entirely (e.g. Home hides this
+ * behind the "spiritual markers" toggle) — location/period-end hydration
+ * still runs since it's just a cheap local read, only the prayer-time
+ * network request is skipped.
+ */
+export function usePrayerPurityStatus(enabled = true): PrayerPurityStatus {
+  const [cyclePreferences, setCyclePreferences] = useState(getCyclePreferences);
+  const [periodEndDateTime, setPeriodEndDateTime] = useState<Date | null>(getPeriodEndDateTime());
+
+  const schedule = usePrayerSchedule(enabled);
+
+  useEffect(() => {
+    let active = true;
+    hydrateCyclePreferences().then(value => {if (active) {setCyclePreferences(value);}});
+    const unsubscribe = subscribeCyclePreferences(() => {if (active) {setCyclePreferences(getCyclePreferences());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      hydratePeriodEndDateTime().then(value => {
+        if (active) {setPeriodEndDateTime(value);}
+      });
+      const unsubscribe = subscribePeriodEndDateTime(() => {
+        if (active) {setPeriodEndDateTime(getPeriodEndDateTime());}
+      });
+      return () => {active = false; unsubscribe();};
+    }, []),
+  );
+
+  const isMenstruating = useMemo(
+    () => isMenstruatingNow(schedule.now, cyclePreferences, periodEndDateTime),
+    [schedule.now, cyclePreferences, periodEndDateTime],
+  );
+
+  const purityResult = useMemo(
+    () => getPrayerDueAfterPurity(isMenstruating, periodEndDateTime, schedule.schedule?.purityWindows),
+    [isMenstruating, periodEndDateTime, schedule.schedule],
+  );
+
+  return {
+    cyclePreferences,
+    selectedLocation: schedule.selectedLocation,
+    periodEndDateTime,
+    schedule: schedule.schedule,
+    loading: schedule.loading,
+    error: schedule.error,
+    now: schedule.now,
+    isMenstruating,
+    purityResult,
+    nextWindow: schedule.nextWindow,
+    refresh: schedule.refresh,
+  };
+}
+
+export type PregnancySpiritualStatus = PrayerScheduleStatus;
+
+/**
+ * Pregnancy-safe counterpart to `usePrayerPurityStatus`: same shared
+ * location/prayer-schedule fetch, but deliberately never touches
+ * cyclePreferences / periodEndDateTime / menstruation or purity status.
+ * PregnancyDashboard must not derive spiritual state from Cycle menstrual
+ * data — see the "Repères spirituels" adaptation for Pregnancy.
+ */
+export function usePregnancySpiritualStatus(enabled = true): PregnancySpiritualStatus {
+  return usePrayerSchedule(enabled);
 }

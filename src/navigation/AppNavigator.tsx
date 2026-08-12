@@ -40,6 +40,7 @@ import {PrivacyPolicyScreen, TermsOfUseScreen} from '../screens/LegalDocumentScr
 import HelpSupportScreen from '../screens/HelpSupportScreen';
 import {FAQDetailScreen, FAQScreen, GuidesScreen, WhatsNewScreen} from '../screens/SupportResourcesScreens';
 import type {FaqId} from '../utils/supportContent';
+import type {PregnancyMedicalEventType} from '../state/pregnancyMedicalEventsStore';
 import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
 import {DataManagementScreen, DeleteAccountScreen} from '../screens/DataPrivacyScreens';
 import BackupDataScreen from '../screens/BackupDataScreen';
@@ -55,6 +56,10 @@ import PregnancyWeightScreen from '../screens/pregnancy/PregnancyWeightScreen';
 import PregnancyMedicalInformationScreen from '../screens/pregnancy/PregnancyMedicalInformationScreen';
 import PregnancyAppointmentsScreen from '../screens/pregnancy/PregnancyAppointmentsScreen';
 import PregnancyWeekScreen from '../screens/pregnancy/PregnancyWeekScreen';
+import PregnancyDatingSetupScreen from '../screens/pregnancy/PregnancyDatingSetupScreen';
+import PregnancyTrackingPreferencesScreen from '../screens/pregnancy/PregnancyTrackingPreferencesScreen';
+import PregnancyRemindersScreen from '../screens/pregnancy/PregnancyRemindersScreen';
+import PregnancyNotificationsScreen from '../screens/pregnancy/PregnancyNotificationsScreen';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -64,6 +69,9 @@ export type RootStackParamList = {
   SpiritualPreferences: undefined;
   Location: undefined;
   CycleInformation: undefined;
+  PregnancyDatingSetup: undefined;
+  PregnancyTrackingPreferences: undefined;
+  PregnancyReminders: undefined;
   Privacy: undefined;
   Summary: undefined;
   Auth: undefined;
@@ -114,8 +122,9 @@ export type RootStackParamList = {
   PregnancySymptoms: undefined;
   PregnancyWeight: undefined;
   PregnancyMedicalInformation: undefined;
-  PregnancyAppointments: undefined;
+  PregnancyAppointments: {initialType?: PregnancyMedicalEventType; eventId?: string} | undefined;
   PregnancyWeek: undefined;
+  PregnancyNotifications: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -139,6 +148,9 @@ function AppNavigator(): React.JSX.Element {
         />
         <Stack.Screen name="Location" component={LocationScreen} />
         <Stack.Screen name="CycleInformation" component={CycleInformationScreen} />
+        <Stack.Screen name="PregnancyDatingSetup" component={PregnancyDatingSetupScreen} />
+        <Stack.Screen name="PregnancyTrackingPreferences" component={PregnancyTrackingPreferencesScreen} />
+        <Stack.Screen name="PregnancyReminders" component={PregnancyRemindersScreen} />
         <Stack.Screen name="Privacy" component={PrivacyScreen} />
         <Stack.Screen name="Summary" component={SummaryScreen} />
         <Stack.Screen name="Auth" component={AuthScreen} />
@@ -191,6 +203,7 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="PregnancyMedicalInformation" component={PregnancyMedicalInformationScreen} />
         <Stack.Screen name="PregnancyAppointments" component={PregnancyAppointmentsScreen} />
         <Stack.Screen name="PregnancyWeek" component={PregnancyWeekScreen} />
+        <Stack.Screen name="PregnancyNotifications" component={PregnancyNotificationsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
