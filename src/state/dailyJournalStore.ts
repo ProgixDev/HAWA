@@ -35,6 +35,12 @@ export async function getJournalEntriesForMonth(year: number, month: number): Pr
   return entries.filter(entry => entry.date.startsWith(prefix));
 }
 
+/** Every entry, regardless of month — used by screens that filter their own
+ * date range client-side (e.g. Pregnancy Statistics' 7/30/all filter). */
+export async function getAllJournalEntries(): Promise<DailyJournalEntry[]> {
+  return readEntries();
+}
+
 export async function deleteJournalSection(date: string, section: JournalSection): Promise<void> {
   const entries = await readEntries();
   const index = entries.findIndex(entry => entry.date === date);
