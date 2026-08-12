@@ -43,11 +43,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
 
   const handleNext = async () => {
     await setSelectedObjective(selectedId as ObjectiveId);
-    if (selectedId === 'cycle') {
-      navigation.navigate('CycleObjectiveConfirmation');
-      return;
-    }
-    navigation.navigate('SpiritualPreferences');
+    navigation.navigate('CycleObjectiveConfirmation');
   };
 
   return (

@@ -27,6 +27,15 @@ import {
   getSpiritualMarkersEnabled,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
+import {
+  ALL_PREGNANCY_TRACKING_PREFERENCES,
+  getPregnancyDating,
+  getPregnancyReminderPreferences,
+  getPregnancyTrackingPreferences,
+  type PregnancyDatingMethod,
+  type PregnancyReminderPreferences,
+  type PregnancyTrackingPreference,
+} from '../state/pregnancyPreferences';
 
 const BACKGROUND = require('../assets/images/school-selection-background.png');
 const WOMAN = require('../assets/images/summary-woman.png');
@@ -49,13 +58,71 @@ const objectiveLabels: Record<ObjectiveId, string> = {
   loss: 'Après une fausse couche',
 };
 
+const DATING_METHOD_LABELS: Record<PregnancyDatingMethod, string> = {
+  lastPeriod: 'Premier jour de mes dernières règles',
+  dueDate: 'Date prévue d’accouchement',
+  conceptionDate: 'Date estimée de conception',
+  later: 'À renseigner plus tard',
+};
+
+// Dynamic label for the "date de référence" card — only shown for the
+// three methods that actually carry a real selected date.
+const DATING_REFERENCE_LABELS: Record<Exclude<PregnancyDatingMethod, 'later'>, string> = {
+  lastPeriod: 'Dernières règles',
+  dueDate: 'Date prévue d’accouchement',
+  conceptionDate: 'Date estimée de conception',
+};
+
+// Same category order/wording as PregnancyTrackingPreferencesScreen.tsx.
+const TRACKING_PREFERENCE_LABELS: Record<PregnancyTrackingPreference, string> = {
+  symptoms: 'Symptômes',
+  mood: 'Humeur',
+  weight: 'Poids',
+  sleep: 'Sommeil',
+  hydration: 'Hydratation',
+  activity: 'Activité physique',
+  notes: 'Notes personnelles',
+  medicalInfo: 'Informations médicales personnelles',
+  appointments: 'Rendez-vous et examens',
+};
+
+// Same order/wording as PregnancyRemindersScreen.tsx.
+const REMINDER_PREFERENCE_ORDER: Array<keyof PregnancyReminderPreferences> = [
+  'appointments', 'exams', 'dailyJournal', 'hydration', 'weight',
+];
+const REMINDER_PREFERENCE_LABELS: Record<keyof PregnancyReminderPreferences, string> = {
+  appointments: 'Rendez-vous',
+  exams: 'Examens',
+  dailyJournal: 'Journal quotidien',
+  hydration: 'Hydratation',
+  weight: 'Suivi du poids',
+};
+
+const formatSummaryDate = (date: Date): string =>
+  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+
+// Compact "3 premiers · +N" preview, or the neutral "tout sélectionné"
+// phrasing when every option is active — matches the Pregnancy Summary
+// reference exactly ("9 éléments sélectionnés" / "5 rappels activés").
+const summarizeSelection = (selectedLabels: string[], totalCount: number, allSelectedLabel: string): string => {
+  if (selectedLabels.length === 0) {return 'Aucun sélectionné';}
+  if (selectedLabels.length === totalCount) {return allSelectedLabel;}
+  const PREVIEW_COUNT = 3;
+  const preview = selectedLabels.slice(0, PREVIEW_COUNT).join(' · ');
+  const remaining = selectedLabels.length - PREVIEW_COUNT;
+  return remaining > 0 ? `${preview} · +${remaining}` : preview;
+};
+
 type Props = NativeStackScreenProps<RootStackParamList, 'Summary'>;
 
 type EditableRoute =
   | 'Objective'
   | 'SpiritualPreferences'
   | 'Location'
-  | 'CycleInformation';
+  | 'CycleInformation'
+  | 'PregnancyDatingSetup'
+  | 'PregnancyTrackingPreferences'
+  | 'PregnancyReminders';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -81,73 +148,142 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
   const isSmallScreen = width < 375 || height < 720;
   const isVerySmallScreen = width < 345 || height < 650;
 
-  const cycle = getCyclePreferences();
+  const objective = getSelectedObjective();
   const spiritualEnabled = getSpiritualMarkersEnabled();
   const location = getSelectedLocation();
 
-  const regularityLabels = {
-    yes: 'Oui',
-    no: 'Non',
-    unknown: 'Je ne sais pas',
-  } as const;
+  const objectiveRow: SummaryRow = {
+    icon: 'calendar-heart',
+    label: 'Objectif principal',
+    value: objectiveLabels[objective],
+    route: 'Objective',
+    tone: 'purple',
+  };
+  const spiritualRow: SummaryRow = {
+    icon: 'star-crescent',
+    label: 'Repères spirituels',
+    value: spiritualEnabled ? 'Activés' : 'Désactivés',
+    route: 'SpiritualPreferences',
+    tone: 'rose',
+  };
+  const locationRow: SummaryRow = {
+    icon: 'map-marker-outline',
+    label: 'Localisation',
+    value: location ? `${location.city}, ${location.country}` : 'Non renseignée',
+    route: 'Location',
+    tone: 'green',
+  };
 
-  const rows: SummaryRow[] = [
-    {
-      icon: 'calendar-heart',
-      label: 'Objectif principal',
-      value: objectiveLabels[getSelectedObjective()],
-      route: 'Objective',
-      tone: 'purple',
-    },
-    {
-      icon: 'star-crescent',
-      label: 'Repères spirituels',
-      value: spiritualEnabled ? 'Activés' : 'Désactivés',
-      route: 'SpiritualPreferences',
-      tone: 'rose',
-    },
-    {
-      icon: 'map-marker-outline',
-      label: 'Localisation',
-      value: location
-        ? `${location.city}, ${location.country}`
-        : 'Non renseignée',
-      route: 'Location',
-      tone: 'green',
-    },
-    {
-      icon: 'calendar-month-outline',
-      label: 'Dernières règles',
-      value: new Intl.DateTimeFormat('fr-FR', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      }).format(cycle.lastPeriodStart),
-      route: 'CycleInformation',
-      tone: 'rose',
-    },
-    {
-      icon: 'water-outline',
-      label: 'Durée moyenne des règles',
-      value: `${cycle.periodDuration} jours`,
-      route: 'CycleInformation',
-      tone: 'purple',
-    },
-    {
-      icon: 'sync',
-      label: 'Durée moyenne du cycle',
-      value: `${cycle.cycleDuration} jours`,
-      route: 'CycleInformation',
-      tone: 'blue',
-    },
-    {
-      icon: 'shield-check-outline',
-      label: 'Cycle régulier',
-      value: regularityLabels[cycle.regularity],
-      route: 'CycleInformation',
-      tone: 'green',
-    },
-  ];
+  const buildCycleRows = (): SummaryRow[] => {
+    const cycle = getCyclePreferences();
+    const regularityLabels = {
+      yes: 'Oui',
+      no: 'Non',
+      unknown: 'Je ne sais pas',
+    } as const;
+
+    return [
+      objectiveRow,
+      spiritualRow,
+      locationRow,
+      {
+        icon: 'calendar-month-outline',
+        label: 'Dernières règles',
+        value: formatSummaryDate(cycle.lastPeriodStart),
+        route: 'CycleInformation',
+        tone: 'rose',
+      },
+      {
+        icon: 'water-outline',
+        label: 'Durée moyenne des règles',
+        value: `${cycle.periodDuration} jours`,
+        route: 'CycleInformation',
+        tone: 'purple',
+      },
+      {
+        icon: 'sync',
+        label: 'Durée moyenne du cycle',
+        value: `${cycle.cycleDuration} jours`,
+        route: 'CycleInformation',
+        tone: 'blue',
+      },
+      {
+        icon: 'shield-check-outline',
+        label: 'Cycle régulier',
+        value: regularityLabels[cycle.regularity],
+        route: 'CycleInformation',
+        tone: 'green',
+      },
+    ];
+  };
+
+  const buildPregnancyRows = (): SummaryRow[] => {
+    const dating = getPregnancyDating();
+    const datingDate = dating.date ? new Date(dating.date) : null;
+    const trackingSelection = getPregnancyTrackingPreferences();
+    const reminderPreferences = getPregnancyReminderPreferences();
+
+    const trackingLabels = ALL_PREGNANCY_TRACKING_PREFERENCES
+      .filter(id => trackingSelection.has(id))
+      .map(id => TRACKING_PREFERENCE_LABELS[id]);
+    const reminderLabels = REMINDER_PREFERENCE_ORDER
+      .filter(id => reminderPreferences[id])
+      .map(id => REMINDER_PREFERENCE_LABELS[id]);
+
+    const rows: SummaryRow[] = [
+      objectiveRow,
+      spiritualRow,
+      locationRow,
+      {
+        icon: 'human-pregnant',
+        label: 'Datation de la grossesse',
+        value: DATING_METHOD_LABELS[dating.method],
+        route: 'PregnancyDatingSetup',
+        tone: 'purple',
+      },
+    ];
+
+    // Only shown once a real date exists — never a fake reference date for
+    // the "later" method (see PregnancyDatingSetupScreen/pregnancyPreferences.ts).
+    if (dating.method !== 'later' && datingDate) {
+      rows.push({
+        icon: 'calendar-month-outline',
+        label: DATING_REFERENCE_LABELS[dating.method],
+        value: formatSummaryDate(datingDate),
+        route: 'PregnancyDatingSetup',
+        tone: 'rose',
+      });
+    }
+
+    rows.push(
+      {
+        icon: 'clipboard-check-outline',
+        label: 'Suivi quotidien',
+        value: summarizeSelection(
+          trackingLabels,
+          ALL_PREGNANCY_TRACKING_PREFERENCES.length,
+          `${ALL_PREGNANCY_TRACKING_PREFERENCES.length} éléments sélectionnés`,
+        ),
+        route: 'PregnancyTrackingPreferences',
+        tone: 'blue',
+      },
+      {
+        icon: 'bell-ring-outline',
+        label: 'Rappels',
+        value: summarizeSelection(
+          reminderLabels,
+          REMINDER_PREFERENCE_ORDER.length,
+          `${REMINDER_PREFERENCE_ORDER.length} rappels activés`,
+        ),
+        route: 'PregnancyReminders',
+        tone: 'green',
+      },
+    );
+
+    return rows;
+  };
+
+  const rows: SummaryRow[] = objective === 'pregnancy' ? buildPregnancyRows() : buildCycleRows();
 
   const navigateToEdit = (route: EditableRoute) => {
     navigation.navigate(route);
