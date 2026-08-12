@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   ImageBackground,
   Modal,
@@ -10,9 +10,11 @@ import {
   Text,
   View,
 } from 'react-native';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+
+import type {RootStackParamList} from '../../navigation/AppNavigator';
 
 import {homeColors, homeShadow} from '../home/homeTheme';
 
@@ -32,14 +34,26 @@ import {
   WEEK_DAYS,
 } from '../../utils/cycleMath';
 
-import {MOCK_PREGNANCY} from '../../data/mockPregnancy';
-
 import {
   getPregnancyJournalState,
   type PregnancyJournalState,
 } from '../../state/pregnancyJournalStore';
 
 import {getJournalEntry} from '../../state/dailyJournalStore';
+
+import {
+  getPregnancyDating,
+  hydratePregnancyDating,
+  subscribePregnancyDating,
+} from '../../state/pregnancyPreferences';
+
+import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
+
+import {
+  getPregnancyMedicalEvents,
+  getUpcomingEvents,
+  type PregnancyMedicalEvent,
+} from '../../state/pregnancyMedicalEventsStore';
 
 import type {
   DailyJournalEntry,
@@ -305,9 +319,7 @@ function buildDailyItems(
     | DailyJournalEntry
     | undefined,
   pregnancy: PregnancyJournalState,
-  events: ReadonlyArray<
-    (typeof MOCK_PREGNANCY.calendar.events)[number]
-  >,
+  events: ReadonlyArray<PregnancyMedicalEvent>,
 ): DailyInfoItem[] {
   const symptomEntry =
     pregnancy.symptoms.find(
@@ -546,6 +558,8 @@ function isEventVisible(
 ============================================================ */
 
 function PregnancyCalendarContent(): React.JSX.Element {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
   const insets =
     useSafeAreaInsets();
 
@@ -557,16 +571,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
     [],
   );
 
-  const initialDate =
-    useMemo(
-      () =>
-        dateFromKey(
-          MOCK_PREGNANCY
-            .calendar
-            .selectedDate,
-        ),
-      [],
-    );
+  const initialDate = today;
 
   const [
     visibleMonth,
@@ -632,6 +637,37 @@ function PregnancyCalendarContent(): React.JSX.Element {
     setDailyEntry,
   ] =
     useState<DailyJournalEntry>();
+
+  const [dating, setDating] = useState(getPregnancyDating);
+  const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>([]);
+
+  /* ============================================================
+     PREGNANCY DATING
+  ============================================================ */
+
+  useEffect(() => {
+    let active = true;
+    hydratePregnancyDating().then(value => {if (active) {setDating(value);}});
+    const unsubscribe = subscribePregnancyDating(() => {if (active) {setDating(getPregnancyDating());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
+
+  /* ============================================================
+     MEDICAL EVENTS
+  ============================================================ */
+
+  useFocusEffect(
+    useCallback(() => {
+      let mounted = true;
+      getPregnancyMedicalEvents().then(value => {if (mounted) {setMedicalEvents(value);}});
+      return () => {mounted = false;};
+    }, []),
+  );
+
+  const pregnancyStatus = useMemo(
+    () => computePregnancyStatus(dating.method, dating.date ? new Date(dating.date) : null, selectedDate),
+    [dating, selectedDate],
+  );
 
   /* ============================================================
      CALENDAR PREFERENCE
@@ -795,36 +831,21 @@ function PregnancyCalendarContent(): React.JSX.Element {
   ============================================================ */
 
   const selectedEvents =
-    MOCK_PREGNANCY
-      .calendar.events.filter(
-        event =>
-          event.date ===
-          selectedKey,
-      );
+    medicalEvents.filter(
+      event =>
+        event.date ===
+        selectedKey,
+    );
 
   const upcomingEvents =
-    MOCK_PREGNANCY
-      .calendar.events
-      .filter(
-        event =>
-          event.date >=
-            MOCK_PREGNANCY
-              .calendar
-              .selectedDate &&
-          (event.type ===
-            'appointment' ||
-          event.type ===
-            'exam'
-            ? visibleFilters.has(
-                'appointments',
-              )
-            : true),
-      )
-      .sort((a, b) =>
-        a.date.localeCompare(
-          b.date,
-        ),
-      );
+    visibleFilters.has(
+      'appointments',
+    )
+      ? getUpcomingEvents(
+          medicalEvents,
+          today,
+        )
+      : [];
 
   const toggleFilter = (
     key: FilterKey,
@@ -1124,9 +1145,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                     );
 
                   const markers =
-                    MOCK_PREGNANCY
-                      .calendar
-                      .events.filter(
+                    medicalEvents.filter(
                         event =>
                           event.date ===
                             dateKey(
@@ -1343,17 +1362,21 @@ function PregnancyCalendarContent(): React.JSX.Element {
               }>
               <PregnancyInfo
                 label="Semaine de grossesse"
-                value={`Semaine ${MOCK_PREGNANCY.week}`}
+                value={pregnancyStatus.configured ? `Semaine ${pregnancyStatus.week}` : 'Non configurée'}
               />
 
               <PregnancyInfo
                 label="Gestation"
-                value={`${MOCK_PREGNANCY.gestationalAgeWeeks} SA + ${MOCK_PREGNANCY.gestationalAgeDays} jours`}
+                value={
+                  pregnancyStatus.configured
+                    ? `${pregnancyStatus.gestationalWeeks} SA + ${pregnancyStatus.gestationalDays} jours`
+                    : 'Non configurée'
+                }
               />
 
               <PregnancyInfo
                 label="Trimestre"
-                value={`${MOCK_PREGNANCY.trimester}e trimestre`}
+                value={pregnancyStatus.configured ? `${pregnancyStatus.trimester}e trimestre` : 'Non configurée'}
                 wide
               />
             </View>
@@ -1448,6 +1471,12 @@ function PregnancyCalendarContent(): React.JSX.Element {
               À venir
             </Text>
 
+            {upcomingEvents.length === 0 ? (
+              <Text style={styles.upcomingEmpty}>
+                Aucun rendez-vous ou examen à venir.
+              </Text>
+            ) : null}
+
             {upcomingEvents.map(
               (
                 event,
@@ -1464,17 +1493,28 @@ function PregnancyCalendarContent(): React.JSX.Element {
                   );
 
                 return (
-                  <View
+                  <Pressable
+                    accessibilityLabel={`Modifier ${event.title}`}
+                    accessibilityRole="button"
                     key={
                       event.id
                     }
-                    style={[
+                    onPress={() =>
+                      navigation.navigate(
+                        'PregnancyAppointments',
+                        {eventId: event.id},
+                      )
+                    }
+                    style={({pressed}) => [
                       styles.upcomingRow,
 
                       index ===
                         upcomingEvents.length -
                           1 &&
                         styles.lastRow,
+
+                      pressed &&
+                        styles.pressed,
                     ]}>
                     <View
                       style={[
@@ -1548,7 +1588,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                       name="chevron-right"
                       size={20}
                     />
-                  </View>
+                  </Pressable>
                 );
               },
             )}
@@ -2817,6 +2857,17 @@ const styles =
       fontSize: 15.5,
 
       fontWeight: '800',
+    },
+
+    upcomingEmpty: {
+      marginTop: 10,
+
+      color:
+        homeColors.textSecondary,
+
+      fontSize: 12,
+
+      lineHeight: 17,
     },
 
     upcomingRow: {
