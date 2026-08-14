@@ -20,6 +20,10 @@ type Props = {
   periodDuration: number;
   onEditPeriod: () => void;
   editingPeriod?: boolean;
+  /** Opens the same period-start confirmation sheet the Dashboard uses,
+   * pre-filled with `date`. Omit to hide the CTA entirely (e.g. while
+   * editing). */
+  onDeclarePeriodStart?: () => void;
 };
 
 const PHASE_META: Record<ComputedCyclePhase, {label: string; subtitle: string; color: string; icon: IconName}> = {
@@ -134,6 +138,7 @@ function SelectedDayCard({
   periodDuration,
   onEditPeriod,
   editingPeriod = false,
+  onDeclarePeriodStart,
 }: Props): React.JSX.Element {
   const meta = PHASE_META[phase];
   const hijriDate = formatHijriDate(date);
@@ -188,6 +193,17 @@ function SelectedDayCard({
           <Text style={styles.periodValue}>{periodDuration} jours</Text>
         </View>
       </View>
+
+      {onDeclarePeriodStart && !editingPeriod ? (
+        <Pressable
+          accessibilityLabel="Mes règles ont commencé ce jour"
+          accessibilityRole="button"
+          onPress={onDeclarePeriodStart}
+          style={({pressed}) => [styles.declareButton, pressed && styles.pressed]}>
+          <MaterialDesignIcons color={homeColors.pink} name="water-plus-outline" size={15} />
+          <Text style={styles.declareText}>Mes règles ont commencé ce jour</Text>
+        </Pressable>
+      ) : null}
     </View>
   );
 }
@@ -232,6 +248,20 @@ const styles = StyleSheet.create({
   },
   periodLabel: {color: homeColors.textSecondary, fontSize: 10},
   periodValue: {marginTop: 3, color: homeColors.textPrimary, fontSize: 12, fontWeight: '700'},
+  declareButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    marginTop: 12,
+    minHeight: 40,
+    borderWidth: 1.2,
+    borderColor: 'rgba(220,123,130,0.35)',
+    borderRadius: 14,
+    backgroundColor: '#FCEEEF',
+    paddingHorizontal: 12,
+  },
+  declareText: {color: homeColors.pink, fontSize: 12, fontWeight: '700', textAlign: 'center'},
 });
 
 export default memo(SelectedDayCard);

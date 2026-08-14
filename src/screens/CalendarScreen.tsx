@@ -12,8 +12,9 @@ import CycleTimelineCard, {type TimelineStep} from '../components/calendar/Cycle
 import MonthHistoryStrip from '../components/calendar/MonthHistoryStrip';
 import FiltersSheet from '../components/calendar/FiltersSheet';
 import LegendSheet from '../components/calendar/LegendSheet';
+import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {homeColors} from '../components/home/homeTheme';
-import {getCyclePreferences, getPeriodHistory, hydrateCyclePreferences, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
+import {getCycleObservationStartedAt, getCyclePreferences, getPeriodHistory, hydrateCyclePreferences, isDateWithinConfirmedPeriod, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
 import {
   DEFAULT_CALENDAR_FILTERS,
@@ -25,11 +26,13 @@ import {
 import type {DailyJournalEntry} from '../types/journal';
 import {
   addDays,
-  computeNextPeriod,
+  computeCyclePredictionStatus,
   cycleDayFor,
   diffDays,
   formatDateRange,
   formatShortDate,
+  IRREGULAR_WINDOW_MAX_DAYS,
+  IRREGULAR_WINDOW_MIN_DAYS,
   ovulationDayFor,
   periodStartForCycleContaining,
   phaseFor,
@@ -63,6 +66,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const [selectedEntry, setSelectedEntry] = useState<DailyJournalEntry | undefined>(undefined);
   const [editingPeriod, setEditingPeriod] = useState(false);
   const [draftPeriodDays, setDraftPeriodDays] = useState<Set<string>>(new Set());
+  const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
 
   const localDateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   const dateFromKey = (key: string) => {const [year, month, day] = key.split('-').map(Number); return new Date(year, month - 1, day);};
@@ -168,27 +172,74 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const selectedPeriodEnd = editingPeriod && sortedDraftDates.length ? sortedDraftDates[sortedDraftDates.length - 1] : addDays(selectedPeriodStart, basics.periodDuration - 1);
   const displayedPeriodDuration = editingPeriod ? sortedDraftDates.length : basics.periodDuration;
 
-  const nextPeriod = computeNextPeriod(basics, today);
-  const daysUntilNext = Math.max(0, diffDays(nextPeriod, today));
+  // Regularity-aware next-period prediction — see computeCyclePredictionStatus
+  // in cycleMath.ts, the one place this logic lives (shared with
+  // CycleHomeScreen so Dashboard and Calendar can never disagree).
+  const periodStartDates = getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
+  const predictionStatus = computeCyclePredictionStatus(basics, basics.regularity, periodStartDates, getCycleObservationStartedAt(), today);
+
+  const nextPeriodLabel = predictionStatus.mode === 'window' && predictionStatus.isLate ? 'Règles en retard' : 'Prochaines règles (est.)';
+  const nextPeriodValue = (() => {
+    if (predictionStatus.mode === 'exact') {return formatShortDate(predictionStatus.date);}
+    if (predictionStatus.mode === 'window') {
+      return predictionStatus.isLate
+        ? `Fenêtre dépassée depuis le ${formatShortDate(predictionStatus.windowEnd)}`
+        : formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd);
+    }
+    return `Mois ${predictionStatus.monthsElapsed} sur ${predictionStatus.totalMonths}`;
+  })();
+  const nextPeriodSubtitle = (() => {
+    if (predictionStatus.mode === 'exact') {return `Dans ${Math.max(0, diffDays(predictionStatus.date, today))} jours`;}
+    if (predictionStatus.mode === 'window') {
+      if (predictionStatus.isLate) {return 'Aucune nouvelle période enregistrée';}
+      const daysUntilStart = diffDays(predictionStatus.windowStart, today);
+      return daysUntilStart > 0 ? `Dans ${daysUntilStart} jours` : 'Fenêtre estimée en cours';
+    }
+    return predictionStatus.complete ? 'Données à compléter' : 'HAWA observe tes cycles';
+  })();
+
   const ovulationDay = ovulationDayFor(basics.cycleDuration);
   const fertileStart = upcomingDateForCycleDay(basics, ovulationDay - 5, today);
   const fertileEnd = upcomingDateForCycleDay(basics, ovulationDay + 1, today);
   const ovulationDate = upcomingDateForCycleDay(basics, ovulationDay, today);
 
+  // Same rule as CycleHomeScreen: match whatever computeCyclePredictionStatus
+  // actually derived instead of always presenting a single configured number
+  // — a learned observed average ('exact'), an honest 26–32 day window when
+  // the pattern is irregular/variable ('window'), or the still-provisional
+  // configured estimate while observation is incomplete ('observing').
+  const averageTile = (() => {
+    if (predictionStatus.mode === 'exact') {
+      return {
+        label: 'Durée moyenne',
+        value: `${predictionStatus.averageCycleLength} jours`,
+        subtitle: predictionStatus.observedPattern === 'regular-looking' ? 'Basée sur tes cycles enregistrés' : 'Basée sur ton cycle',
+      };
+    }
+    if (predictionStatus.mode === 'window') {
+      return {
+        label: 'Cycle variable',
+        value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
+        subtitle: 'Fenêtre estimée',
+      };
+    }
+    return {label: 'Durée moyenne', value: `${basics.cycleDuration} jours`, subtitle: 'Estimation provisoire'};
+  })();
+
   const predictionItems = [
     {
       key: 'average',
       icon: 'calendar-month-outline' as const,
-      label: 'Durée moyenne',
-      value: `${basics.cycleDuration} jours`,
-      subtitle: 'Basée sur ton cycle',
+      label: averageTile.label,
+      value: averageTile.value,
+      subtitle: averageTile.subtitle,
     },
     {
       key: 'next-period',
       icon: 'water' as const,
-      label: 'Prochaines règles (est.)',
-      value: formatShortDate(nextPeriod),
-      subtitle: `Dans ${daysUntilNext} jours`,
+      label: nextPeriodLabel,
+      value: nextPeriodValue,
+      subtitle: nextPeriodSubtitle,
     },
     {
       key: 'fertile',
@@ -214,7 +265,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
     {key: 'end', icon: 'water-off-outline', label: 'Fin des règles', date: formatShortDate(todayPeriodEnd), color: homeColors.pink},
     {key: 'fertile', icon: 'leaf', label: 'Fenêtre fertile', date: formatShortDate(fertileStart), color: '#3E8E56'},
     {key: 'ovulation', icon: 'egg-outline', label: 'Ovulation', date: formatShortDate(ovulationDate), color: '#8B5CF6'},
-    {key: 'next', icon: 'calendar-month-outline', label: 'Prochaines règles', date: formatShortDate(nextPeriod), color: homeColors.primary},
+    {key: 'next', icon: 'calendar-month-outline', label: nextPeriodLabel, date: nextPeriodValue, color: homeColors.primary},
   ];
 
   return (
@@ -256,6 +307,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
             periodStartDate={selectedPeriodStart}
             phase={selectedPhase}
             editingPeriod={editingPeriod}
+            onDeclarePeriodStart={isDateWithinConfirmedPeriod(selectedDate) ? undefined : () => setPeriodStartSheetVisible(true)}
             onEditPeriod={editingPeriod ? cancelPeriodEditing : startPeriodEditing}
           />
 
@@ -275,6 +327,13 @@ function CalendarScreen(_: Props): React.JSX.Element {
 
         <LegendSheet onClose={() => setLegendVisible(false)} visible={legendVisible} />
         {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>Modifier mes règles</Text><Text style={styles.editBarSubtitle}>{draftPeriodDays.size} {draftPeriodDays.size > 1 ? 'jours sélectionnés' : 'jour sélectionné'}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>Annuler</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>Enregistrer</Text></Pressable></View></View> : null}
+
+        <PeriodStartBottomSheet
+          initialDate={selectedDate}
+          onClose={() => setPeriodStartSheetVisible(false)}
+          onConfirmed={() => {}}
+          visible={periodStartSheetVisible}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
