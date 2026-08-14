@@ -58,6 +58,13 @@ const cycleListeners = new Set<() => void>();
 let cycleHydrated = false;
 let cycleHydration: Promise<CyclePreferences> | null = null;
 let periodHistory: PeriodHistoryRecord[] = [];
+// Anchor date for the 'unknown' regularity observation window (see
+// computeCyclePredictionStatus() in cycleMath.ts). Deliberately NOT a fresh
+// "now" timestamp — it's derived from the same lastPeriodStart every other
+// cycle calculation already uses, so observation counts from the most
+// recent REAL period known at the moment 'unknown' was selected, not from
+// an unrelated new concept of time.
+let cycleObservationStartedAt: Date | null = null;
 
 const cycleDateKey = (date: Date): string =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
@@ -65,6 +72,7 @@ const cycleDateKey = (date: Date): string =>
 const cycleSnapshot = () => ({
   preferences: {...cyclePreferences, lastPeriodStart: cyclePreferences.lastPeriodStart.toISOString()},
   periodHistory,
+  observationStartedAt: cycleObservationStartedAt ? cycleObservationStartedAt.toISOString() : null,
 });
 
 const notifyCycleListeners = () => cycleListeners.forEach(listener => listener());
@@ -192,7 +200,17 @@ export const getFirstName = () => firstName;
 
 export const setCyclePreferences = (value: CyclePreferences) => {
   const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
+  const previousRegularity = cyclePreferences.regularity;
   cyclePreferences = {...value, lastPeriodStart: new Date(value.lastPeriodStart)};
+
+  // Entering 'unknown' (freshly, or again after having left it) starts a new
+  // observation window anchored to the real period start just declared;
+  // re-saving while already 'unknown' preserves existing observation
+  // progress instead of resetting it.
+  if (cyclePreferences.regularity === 'unknown' && previousRegularity !== 'unknown') {
+    cycleObservationStartedAt = new Date(cyclePreferences.lastPeriodStart);
+  }
+
   const start = new Date(cyclePreferences.lastPeriodStart);
   const end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + cyclePreferences.periodDuration - 1);
   const record = {id: cycleDateKey(start), startDate: cycleDateKey(start), endDate: cycleDateKey(end)};
@@ -218,12 +236,43 @@ export const setCyclePreferences = (value: CyclePreferences) => {
   }
 };
 
+/** THE single canonical way to record "my period really started on this
+ * date" — used by the Dashboard/Calendar period-start confirmation CTA (and
+ * nowhere else; do not duplicate this call). Delegates entirely to
+ * setCyclePreferences(), so it inherits the exact same history-preserving
+ * persistence, observation-window anchoring, and stale periodEndDateTime
+ * cleanup — only `lastPeriodStart` changes, periodDuration/cycleDuration/
+ * regularity are left exactly as the user configured them. Any date/late
+ * status/irregular window derived from `lastPeriodStart` recomputes
+ * automatically the next time it's read — nothing here needs to reset a
+ * "late" flag or a stale prediction, because none is ever cached. */
+export const confirmPeriodStart = (date: Date): void => {
+  setCyclePreferences({...cyclePreferences, lastPeriodStart: new Date(date)});
+};
+
 export const getCyclePreferences = (): CyclePreferences => ({
   ...cyclePreferences,
   lastPeriodStart: new Date(cyclePreferences.lastPeriodStart),
 });
 
 export const getPeriodHistory = (): PeriodHistoryRecord[] => periodHistory.map(item => ({...item}));
+
+/** True only when `date` falls within a REAL confirmed period record
+ * (inclusive start/end) — never a predicted/estimated window. Compares
+ * calendar days only (via the same 'YYYY-MM-DD' key every periodHistory
+ * record already uses), so hours/minutes/timezone can't shift the result.
+ * This is the one place that answers "is today inside an active confirmed
+ * period?" — reuse it instead of re-deriving from phase/prediction state. */
+export const isDateWithinConfirmedPeriod = (date: Date): boolean => {
+  const key = cycleDateKey(date);
+  return periodHistory.some(record => record.startDate <= key && key <= record.endDate);
+};
+
+/** Anchor date for the 'unknown' regularity observation window — see
+ * computeCyclePredictionStatus() in cycleMath.ts. Null until the user has
+ * ever selected "Je ne sais pas". */
+export const getCycleObservationStartedAt = (): Date | null =>
+  cycleObservationStartedAt ? new Date(cycleObservationStartedAt) : null;
 
 export const subscribeCyclePreferences = (listener: () => void) => {
   cycleListeners.add(listener);
@@ -236,7 +285,11 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
     cycleHydration = AsyncStorage.getItem(CYCLE_STORAGE_KEY).then(raw => {
       cycleHydrated = true;
       if (raw) {
-        const parsed = JSON.parse(raw) as {preferences?: Partial<CyclePreferences> & {lastPeriodStart?: string}; periodHistory?: PeriodHistoryRecord[]};
+        const parsed = JSON.parse(raw) as {
+          preferences?: Partial<CyclePreferences> & {lastPeriodStart?: string};
+          periodHistory?: PeriodHistoryRecord[];
+          observationStartedAt?: string | null;
+        };
         const start = parsed.preferences?.lastPeriodStart ? new Date(parsed.preferences.lastPeriodStart) : null;
         if (start && !Number.isNaN(start.getTime())) {
           cyclePreferences = {
@@ -247,6 +300,10 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
         }
         if (Array.isArray(parsed.periodHistory)) {
           periodHistory = parsed.periodHistory.filter(item => item && typeof item.startDate === 'string' && typeof item.endDate === 'string');
+        }
+        if (parsed.observationStartedAt) {
+          const observationStart = new Date(parsed.observationStartedAt);
+          if (!Number.isNaN(observationStart.getTime())) {cycleObservationStartedAt = observationStart;}
         }
       }
       if (periodHistory.length === 0) {

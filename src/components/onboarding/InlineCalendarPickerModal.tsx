@@ -11,9 +11,13 @@ type Props = {
   value: Date;
   onClose: () => void;
   onSelect: (date: Date) => void;
+  /** Optional heading shown above the calendar grid — existing callers that
+   * don't pass these keep the exact same bare-calendar look. */
+  title?: string;
+  subtitle?: string;
 };
 
-function InlineCalendarPickerModal({visible, value, onClose, onSelect}: Props): React.JSX.Element {
+function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle}: Props): React.JSX.Element {
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(value.getFullYear(), value.getMonth(), 1));
 
   useEffect(() => {
@@ -45,6 +49,13 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect}: Props): 
     <Modal animationType="fade" onRequestClose={onClose} transparent visible={visible}>
       <Pressable onPress={onClose} style={styles.modalBackdrop}>
         <Pressable onPress={() => {}} style={styles.calendarCard}>
+          {title ? (
+            <View style={styles.titleBlock}>
+              <Text style={styles.pickerTitle}>{title}</Text>
+              {subtitle ? <Text style={styles.pickerSubtitle}>{subtitle}</Text> : null}
+            </View>
+          ) : null}
+
           <View style={styles.calendarHeader}>
             <Pressable
               accessibilityLabel="Mois précédent"
@@ -100,6 +111,9 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect}: Props): 
 const styles = StyleSheet.create({
   modalBackdrop: {flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30,18,65,0.40)', paddingHorizontal: 24},
   calendarCard: {width: '100%', maxWidth: 380, borderRadius: 22, backgroundColor: '#FFFCFF', padding: 16, elevation: 12},
+  titleBlock: {marginBottom: 12},
+  pickerTitle: {color: '#28166F', fontFamily: 'serif', fontSize: 18, fontWeight: '700', textAlign: 'center'},
+  pickerSubtitle: {marginTop: 4, color: '#655A8D', fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
   calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
   calendarArrowButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: '#F0E8FC'},
   calendarArrowText: {color: '#6848BC', fontSize: 27, fontWeight: '600', lineHeight: 30},
