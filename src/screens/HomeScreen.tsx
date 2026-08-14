@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import PregnancyDashboard from '../components/pregnancy/PregnancyDashboard';
+import PostpartumDashboard from '../components/postpartum/PostpartumDashboard';
+import MiscarriageDashboard from '../components/miscarriage/MiscarriageDashboard';
 import CycleHomeScreen from './CycleHomeScreen';
 import {
   getActiveObjective,
@@ -31,6 +33,14 @@ function HomeScreen(props: Props): React.JSX.Element {
 
   if (objective === 'pregnancy') {
     return <PregnancyDashboard {...props} />;
+  }
+
+  if (objective === 'postpartum') {
+    return <PostpartumDashboard {...props} />;
+  }
+
+  if (objective === 'loss') {
+    return <MiscarriageDashboard {...props} />;
   }
 
   return <CycleHomeScreen {...props} />;

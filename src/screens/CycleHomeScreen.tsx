@@ -3,14 +3,17 @@ import {
   Animated,
   Easing,
   ImageBackground,
+  Pressable,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
+  Text,
   View,
 } from 'react-native';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import type {CyclePhase} from '../components/home/CycleStatusCard';
@@ -21,12 +24,16 @@ import QuickActionsGrid, {type QuickActionItem} from '../components/home/QuickAc
 import SpiritualGuidanceCard from '../components/home/SpiritualGuidanceCard';
 import DailyJournalCard from '../components/home/DailyJournalCard';
 import MotivationCard from '../components/home/MotivationCard';
+import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {useJournalSheet} from '../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../hooks/useQadaaStatus';
 import {
   getCyclePreferences,
+  getCycleObservationStartedAt,
+  getPeriodHistory,
   hydrateCyclePreferences,
+  isDateWithinConfirmedPeriod,
   subscribeCyclePreferences,
   getFirstName,
   getSpiritualMarkersEnabled,
@@ -36,12 +43,14 @@ import type {DailyJournalEntry} from '../types/journal';
 import {TOP_SPACING_EXTRA} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
 import {
-  computeNextPeriod,
+  computeCyclePredictionStatus,
   cycleDayFor,
   diffDays,
   formatDateRange,
   formatHijriDate,
   formatShortDate,
+  IRREGULAR_WINDOW_MAX_DAYS,
+  IRREGULAR_WINDOW_MIN_DAYS,
   ovulationDayFor,
   phaseFor,
   startOfDay,
@@ -69,6 +78,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   );
 
   const entrance = useRef(new Animated.Value(0)).current;
+  const ctaEntrance = useRef(new Animated.Value(0)).current;
+
+  const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
 
   const today = useMemo(() => startOfDay(new Date()), []);
 
@@ -89,6 +101,16 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       useNativeDriver: true,
     }).start();
   }, [entrance]);
+
+  useEffect(() => {
+    Animated.timing(ctaEntrance, {
+      duration: 300,
+      delay: 200,
+      easing: Easing.out(Easing.cubic),
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  }, [ctaEntrance]);
 
   useEffect(() => {
     let mounted = true;
@@ -118,11 +140,93 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
   const ovulationDay = ovulationDayFor(initial.cycleDuration);
 
-  const currentCycleDay = cycleDayFor(today, initial);
-  const currentPhase: CyclePhase = phaseFor(today, initial);
+  // "Mes règles ont commencé" only makes sense when today ISN'T already
+  // covered by a real confirmed period — phaseFor() alone can't tell that
+  // apart from a merely predicted menstrual day, so this checks the actual
+  // confirmed period history instead.
+  const hasActiveConfirmedPeriod = isDateWithinConfirmedPeriod(today);
 
-  const nextPeriod = computeNextPeriod(initial, today);
-  const daysUntilNext = Math.max(0, diffDays(nextPeriod, today));
+  // Regularity-aware next-period prediction — 'yes' behaves exactly as
+  // before, 'no'/observed-variable produce a 26–32 day window instead of a
+  // single certain date, and 'unknown' stays in observation mode until
+  // enough real periods have been recorded. See computeCyclePredictionStatus
+  // in cycleMath.ts — the one place this logic lives.
+  const periodStartDates = getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
+  const predictionStatus = computeCyclePredictionStatus(initial, initial.regularity, periodStartDates, getCycleObservationStartedAt(), today);
+
+  // cycleDayFor()/phaseFor() wrap the elapsed day count modulo cycleDuration,
+  // which only means something once a single cycle length can be trusted —
+  // i.e. predictionStatus.mode === 'exact' (declared-regular, or an observed
+  // regular-looking pattern; using the OBSERVED average keeps this in sync
+  // with the same prediction). Outside 'exact' (irregular window / still
+  // observing), there is no reliable length to wrap by: elapsed days since
+  // the latest confirmed start can legitimately exceed cycleDuration (a late
+  // irregular period), and wrapping would silently — and wrongly — restart
+  // the count as if a new period had begun on schedule. In that case "Jour
+  // du cycle" is simply the raw elapsed count, and "menstruation" is only
+  // ever shown when that raw count actually falls within the real bleeding
+  // window, never because the wrap happened to land there by coincidence.
+  const rawCycleDay = diffDays(today, initial.lastPeriodStart) + 1;
+  const isReliablyMenstruating = rawCycleDay <= initial.periodDuration;
+  const currentCycleDay = predictionStatus.mode === 'exact'
+    ? cycleDayFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength})
+    : rawCycleDay;
+  const currentPhase: CyclePhase = (() => {
+    if (predictionStatus.mode === 'exact') {
+      return phaseFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength});
+    }
+    if (isReliablyMenstruating) {return 'menstruation';}
+    const wrappedPhase = phaseFor(today, initial);
+    return wrappedPhase === 'menstruation' ? 'follicular' : wrappedPhase;
+  })();
+  const nextPeriodTile = (() => {
+    if (predictionStatus.mode === 'exact') {
+      const daysUntil = Math.max(0, diffDays(predictionStatus.date, today));
+      return {value: formatShortDate(predictionStatus.date), subtitle: `Dans ${daysUntil} jours`};
+    }
+    if (predictionStatus.mode === 'window') {
+      if (predictionStatus.isLate) {
+        return {value: 'Règles en retard', subtitle: `Fenêtre : ${formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd)}`};
+      }
+      const daysUntilStart = diffDays(predictionStatus.windowStart, today);
+      return {
+        value: formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd),
+        subtitle: daysUntilStart > 0 ? `Dans ${daysUntilStart} jours` : 'Fenêtre estimée en cours',
+      };
+    }
+    return predictionStatus.complete
+      ? {value: 'Observation en cours', subtitle: 'Données à compléter'}
+      : {value: `Mois ${predictionStatus.monthsElapsed} sur ${predictionStatus.totalMonths}`, subtitle: 'Observation du cycle'};
+  })();
+
+  // The 4th overview tile must match whatever computeCyclePredictionStatus
+  // actually derived instead of always presenting a single configured
+  // number: a learned observed average ('exact'), an honest 26–32 day
+  // window when the pattern is irregular/variable ('window' — same wording
+  // for a declared-irregular cycle and an observed-variable one, since both
+  // already share the identical window), or the still-provisional
+  // configured estimate while observation is incomplete ('observing').
+  const averageTile = (() => {
+    if (predictionStatus.mode === 'exact') {
+      return {
+        label: 'Durée moyenne',
+        value: `${predictionStatus.averageCycleLength} jours`,
+        subtitle: predictionStatus.observedPattern === 'regular-looking' ? 'Basée sur tes cycles enregistrés' : 'Basée sur ton cycle',
+      };
+    }
+    if (predictionStatus.mode === 'window') {
+      return {
+        label: 'Cycle variable',
+        value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
+        subtitle: 'Fenêtre estimée',
+      };
+    }
+    return {
+      label: 'Durée moyenne',
+      value: `${initial.cycleDuration} jours`,
+      subtitle: 'Estimation provisoire',
+    };
+  })();
 
   const fertileStartDate = upcomingDateForCycleDay(initial, ovulationDay - 5, today);
   const fertileEndDate = upcomingDateForCycleDay(initial, ovulationDay + 1, today);
@@ -135,8 +239,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       iconColor: PERIOD,
       iconBg: PERIOD_LIGHT,
       label: 'Prochaines règles',
-      value: formatShortDate(nextPeriod),
-      subtitle: `Dans ${daysUntilNext} jours`,
+      value: nextPeriodTile.value,
+      subtitle: nextPeriodTile.subtitle,
     },
     {
       key: 'fertile-window',
@@ -161,9 +265,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       icon: 'calendar-month-outline',
       iconColor: PURPLE,
       iconBg: '#EEE3FA',
-      label: 'Durée moyenne',
-      value: `${initial.cycleDuration} jours`,
-      subtitle: 'Basée sur ton cycle',
+      label: averageTile.label,
+      value: averageTile.value,
+      subtitle: averageTile.subtitle,
     },
   ];
 
@@ -222,6 +326,33 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
           <CycleOverviewCard items={overviewItems} />
 
+          {!hasActiveConfirmedPeriod ? (
+            <Animated.View
+              style={[
+                styles.periodStartCtaWrap,
+                {
+                  opacity: ctaEntrance,
+                  transform: [
+                    {
+                      translateY: ctaEntrance.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [6, 0],
+                      }),
+                    },
+                  ],
+                },
+              ]}>
+              <Pressable
+                accessibilityLabel="Mes règles ont commencé"
+                accessibilityRole="button"
+                onPress={() => setPeriodStartSheetVisible(true)}
+                style={({pressed}) => [styles.periodStartCta, pressed && styles.periodStartCtaPressed]}>
+                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
+                <Text style={styles.periodStartCtaText}>Mes règles ont commencé</Text>
+              </Pressable>
+            </Animated.View>
+          ) : null}
+
           <QuickActionsGrid items={quickActionItems} />
 
           {spiritualMarkersEnabled ? (
@@ -247,6 +378,13 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <MotivationCard />
         </ScrollView>
       </SafeAreaView>
+
+      <PeriodStartBottomSheet
+        initialDate={today}
+        onClose={() => setPeriodStartSheetVisible(false)}
+        onConfirmed={() => {}}
+        visible={periodStartSheetVisible}
+      />
     </ImageBackground>
   );
 }
@@ -270,6 +408,34 @@ const styles = StyleSheet.create({
 
   heroSpacer: {
     marginTop: 16,
+  },
+
+  periodStartCtaWrap: {
+    marginTop: 10,
+    alignItems: 'center',
+  },
+
+  periodStartCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    minHeight: 40,
+    borderWidth: 1.2,
+    borderColor: 'rgba(220,123,130,0.35)',
+    borderRadius: 20,
+    backgroundColor: '#FCEEEF',
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+  },
+
+  periodStartCtaPressed: {
+    opacity: 0.78,
+  },
+
+  periodStartCtaText: {
+    color: PERIOD,
+    fontSize: 12.5,
+    fontWeight: '700',
   },
 });
 
