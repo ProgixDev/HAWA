@@ -106,6 +106,16 @@ export function computePregnancyStatus(
   };
 }
 
+// Business rule: from this gestational week onward, pregnancy is considered
+// "late stage" — the one place that decides when PregnancyDashboard's
+// delivery-confirmation CTA ("J'ai accouché") may appear. Centralized here,
+// next to computePregnancyStatus, so nothing else recomputes gestational
+// week to answer the same question.
+export const LATE_PREGNANCY_WEEK_THRESHOLD = 37;
+
+export const isLatePregnancy = (status: PregnancyStatus): boolean =>
+  status.configured && status.week >= LATE_PREGNANCY_WEEK_THRESHOLD;
+
 /**
  * "Suivi du jour" completion — whether a given tracking category has a real
  * saved entry for `todayKey` ('YYYY-MM-DD'). The ONE place this is decided,

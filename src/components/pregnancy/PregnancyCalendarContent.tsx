@@ -149,14 +149,18 @@ const EVENT_TYPES =
    FILTER TYPES
 ============================================================ */
 
+// Exactly the 5 canonical Pregnancy Daily Journal categories (see
+// pregnancyJournalStore.ts / PregnancyDashboard.tsx "Suivi du jour" /
+// PREGNANCY_JOURNAL_ITEMS in MainTabNavigator.tsx) plus the pre-existing
+// "Rendez-vous / Examens" medical-EVENT filter, which is a separate concern
+// (pregnancyMedicalEventsStore.ts) intentionally preserved alongside them.
+// Hydratation/Activité physique/Note personnelle were removed — they are
+// not, and have never been, Pregnancy Daily Journal categories.
 type FilterKey =
   | 'symptoms'
-  | 'mood'
   | 'weight'
+  | 'mood'
   | 'sleep'
-  | 'hydration'
-  | 'activity'
-  | 'note'
   | 'medical'
   | 'appointments';
 
@@ -179,20 +183,20 @@ const FILTER_META: Record<
     icon: 'clipboard-pulse-outline',
   },
 
-  mood: {
-    label: 'Humeur',
-    description:
-      'Humeurs et émotions notées au quotidien.',
-    empty: 'Non enregistrée',
-    icon: 'heart-outline',
-  },
-
   weight: {
     label: 'Poids',
     description:
       'Évolution de ton poids pendant la grossesse.',
     empty: 'Non enregistré',
     icon: 'scale-bathroom',
+  },
+
+  mood: {
+    label: 'Humeur',
+    description:
+      'Humeurs et émotions notées au quotidien.',
+    empty: 'Non enregistrée',
+    icon: 'heart-outline',
   },
 
   sleep: {
@@ -203,32 +207,8 @@ const FILTER_META: Record<
     icon: 'weather-night',
   },
 
-  hydration: {
-    label: 'Hydratation',
-    description:
-      'Suivi de ta consommation d’eau.',
-    empty: 'Non renseignée',
-    icon: 'water-outline',
-  },
-
-  activity: {
-    label: 'Activité physique',
-    description:
-      'Activités et mouvements enregistrés.',
-    empty: 'Non renseignée',
-    icon: 'run',
-  },
-
-  note: {
-    label: 'Note personnelle',
-    description:
-      'Notes et pensées personnelles.',
-    empty: 'Aucune note',
-    icon: 'notebook-edit-outline',
-  },
-
   medical: {
-    label: 'Infos médicales personnelles',
+    label: 'Infos médicales',
     description:
       'Informations médicales importantes.',
     empty: 'Aucune information',
@@ -386,22 +366,6 @@ function buildDailyItems(
     },
 
     {
-      key: 'mood',
-      label:
-        FILTER_META.mood
-          .label,
-      value: daily?.mood
-        ? MOOD_LABELS[
-            daily.mood.level
-          ]
-        : FILTER_META.mood
-            .empty,
-      icon:
-        FILTER_META.mood
-          .icon,
-    },
-
-    {
       key: 'weight',
       label:
         FILTER_META.weight
@@ -421,6 +385,22 @@ function buildDailyItems(
     },
 
     {
+      key: 'mood',
+      label:
+        FILTER_META.mood
+          .label,
+      value: daily?.mood
+        ? MOOD_LABELS[
+            daily.mood.level
+          ]
+        : FILTER_META.mood
+            .empty,
+      icon:
+        FILTER_META.mood
+          .icon,
+    },
+
+    {
       key: 'sleep',
       label:
         FILTER_META.sleep
@@ -434,71 +414,6 @@ function buildDailyItems(
           .empty,
       icon:
         FILTER_META.sleep
-          .icon,
-    },
-
-    {
-      key: 'hydration',
-      label:
-        FILTER_META.hydration
-          .label,
-      value:
-        daily?.hydration
-          ?.milliliters
-          ? `${String(
-              daily
-                .hydration
-                .milliliters /
-                1000,
-            ).replace(
-              '.',
-              ',',
-            )} L`
-          : FILTER_META
-              .hydration.empty,
-      icon:
-        FILTER_META.hydration
-          .icon,
-    },
-
-    {
-      key: 'activity',
-      label:
-        FILTER_META.activity
-          .label,
-      value:
-        daily?.activity?.none
-          ? 'Aucune activité'
-          : daily?.activity
-              ?.type
-            ? `${
-                daily.activity
-                  .type
-              }${
-                daily
-                  .activity
-                  .durationMinutes
-                  ? ` · ${daily.activity.durationMinutes} min`
-                  : ''
-              }`
-            : FILTER_META
-                .activity.empty,
-      icon:
-        FILTER_META.activity
-          .icon,
-    },
-
-    {
-      key: 'note',
-      label:
-        FILTER_META.note
-          .label,
-      value:
-        daily?.note?.text?.trim() ||
-        FILTER_META.note
-          .empty,
-      icon:
-        FILTER_META.note
           .icon,
     },
 
@@ -544,12 +459,11 @@ function isEventVisible(
     );
   }
 
-  if (type === 'note') {
-    return filters.has(
-      'note',
-    );
-  }
-
+  // 'reminder'/'note' event types are declared in EventType/EVENT_META for
+  // the Legend sheet, but PregnancyMedicalEventType (the real persisted
+  // shape, see pregnancyMedicalEventsStore.ts) only ever produces
+  // 'appointment'/'exam' — this default keeps both harmlessly always-visible
+  // rather than gating them on the removed Daily Journal 'note' filter.
   return true;
 }
 

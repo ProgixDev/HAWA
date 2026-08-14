@@ -20,6 +20,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import {requirePrivateAccess} from '../../navigation/privateAccess';
 import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
@@ -27,14 +28,18 @@ import {homeColors, homeShadow} from '../home/homeTheme';
 import {getFirstName, getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {
   getPregnancyDating,
-  getPregnancyTrackingPreferences,
   hydratePregnancyDating,
-  hydratePregnancyTrackingPreferences,
   subscribePregnancyDating,
-  subscribePregnancyTrackingPreferences,
   type PregnancyTrackingPreference,
 } from '../../state/pregnancyPreferences';
-import {computePregnancyStatus, isPregnancyTrackingCategoryCompleted} from '../../utils/pregnancyTrackingUtils';
+import {computePregnancyStatus, isLatePregnancy, isPregnancyTrackingCategoryCompleted} from '../../utils/pregnancyTrackingUtils';
+import {
+  getPostpartumPreferences,
+  hydratePostpartumPreferences,
+  subscribePostpartumPreferences,
+} from '../../state/postpartumPreferences';
+import DeliveryDateSheet from './DeliveryDateSheet';
+import PostpartumCongratsCard from './PostpartumCongratsCard';
 import {usePregnancySpiritualStatus} from '../../hooks/usePrayerPurityStatus';
 import {formatHijriDate} from '../../utils/cycleMath';
 import {getJournalEntry} from '../../state/dailyJournalStore';
@@ -67,16 +72,18 @@ type IconName = React.ComponentProps<
 >['name'];
 
 type Route =
-  | 'HydrationScreen'
   | 'MoodEntry'
   | 'SleepEntry'
-  | 'ActivityEntry'
   | 'PregnancyWeight'
   | 'PregnancySymptoms'
-  | 'NoteEntry'
-  | 'PregnancyMedicalInformation'
-  | 'PregnancyAppointments';
+  | 'PregnancyMedicalInformation';
 
+// The exact same 5 categories as the Pregnancy Daily Journal (see
+// PREGNANCY_JOURNAL_ITEMS in MainTabNavigator.tsx) — deliberately NOT
+// filtered by the user's tracking-preferences (Hydratation/Activité/Notes/
+// RDV are separate, opt-in reminder categories configured in
+// PregnancyTrackingPreferencesScreen.tsx; they were never part of the
+// Journal quotidien and must not appear in "Suivi du jour").
 const DAILY_ITEMS: Array<{
   label: string;
   icon: IconName;
@@ -84,10 +91,16 @@ const DAILY_ITEMS: Array<{
   preferenceKey: PregnancyTrackingPreference;
 }> = [
   {
-    label: 'Hydratation',
-    icon: 'water-outline',
-    route: 'HydrationScreen',
-    preferenceKey: 'hydration',
+    label: 'Symptômes',
+    icon: 'clipboard-pulse-outline',
+    route: 'PregnancySymptoms',
+    preferenceKey: 'symptoms',
+  },
+  {
+    label: 'Poids',
+    icon: 'scale-bathroom',
+    route: 'PregnancyWeight',
+    preferenceKey: 'weight',
   },
   {
     label: 'Humeur',
@@ -102,40 +115,10 @@ const DAILY_ITEMS: Array<{
     preferenceKey: 'sleep',
   },
   {
-    label: 'Activité',
-    icon: 'run',
-    route: 'ActivityEntry',
-    preferenceKey: 'activity',
-  },
-  {
-    label: 'Poids',
-    icon: 'scale-bathroom',
-    route: 'PregnancyWeight',
-    preferenceKey: 'weight',
-  },
-  {
-    label: 'Symptômes',
-    icon: 'clipboard-pulse-outline',
-    route: 'PregnancySymptoms',
-    preferenceKey: 'symptoms',
-  },
-  {
-    label: 'Notes',
-    icon: 'notebook-edit-outline',
-    route: 'NoteEntry',
-    preferenceKey: 'notes',
-  },
-  {
     label: 'Infos médicales',
     icon: 'shield-lock-outline',
     route: 'PregnancyMedicalInformation',
     preferenceKey: 'medicalInfo',
-  },
-  {
-    label: 'RDV / Examens',
-    icon: 'calendar-clock-outline',
-    route: 'PregnancyAppointments',
-    preferenceKey: 'appointments',
   },
 ];
 
@@ -158,20 +141,35 @@ function PregnancyDashboard({
   // pregnancyMedicalEventsStore and baby info from pregnancyWeekData, both
   // real, below.
   const [dating, setDating] = useState(getPregnancyDating);
-  const [trackingPreferences, setTrackingPreferences] = useState(getPregnancyTrackingPreferences);
+
+  // Whether a delivery has already been confirmed for this pregnancy — see
+  // src/state/postpartumPreferences.ts. Drives which CTA/step is shown: no
+  // date yet → "J'ai accouché" opens DeliveryDateSheet; date already
+  // persisted (e.g. she previously picked "Plus tard") → CTA becomes
+  // "Démarrer mon suivi post-partum" and jumps straight to the
+  // congratulations card, never asking for the date again.
+  const [postpartum, setPostpartum] = useState(getPostpartumPreferences);
+  const [deliverySheetVisible, setDeliverySheetVisible] = useState(false);
+  const [congratsVisible, setCongratsVisible] = useState(false);
+  // Set by DeliveryDateSheet's onConfirmed (fires right after the date is
+  // persisted, before its own closing animation finishes) and consumed by
+  // its onClose — so the congratulations card opens only once the date
+  // sheet has fully dismissed, and only when a date was actually just
+  // confirmed (not on "Annuler").
+  const [awaitingCongrats, setAwaitingCongrats] = useState(false);
 
   useEffect(() => {
     let active = true;
     hydratePregnancyDating().then(value => {if (active) {setDating(value);}});
     const unsubscribeDating = subscribePregnancyDating(() => {if (active) {setDating(getPregnancyDating());}});
-    hydratePregnancyTrackingPreferences().then(value => {if (active) {setTrackingPreferences(value);}});
-    const unsubscribeTracking = subscribePregnancyTrackingPreferences(() => {
-      if (active) {setTrackingPreferences(getPregnancyTrackingPreferences());}
+    hydratePostpartumPreferences().then(value => {if (active) {setPostpartum(value);}});
+    const unsubscribePostpartum = subscribePostpartumPreferences(() => {
+      if (active) {setPostpartum(getPostpartumPreferences());}
     });
     return () => {
       active = false;
       unsubscribeDating();
-      unsubscribeTracking();
+      unsubscribePostpartum();
     };
   }, []);
 
@@ -180,10 +178,28 @@ function PregnancyDashboard({
     [dating],
   );
 
-  const visibleDailyItems = useMemo(
-    () => DAILY_ITEMS.filter(item => trackingPreferences.has(item.preferenceKey)),
-    [trackingPreferences],
+  // Centralized rule (src/utils/pregnancyTrackingUtils.ts) — gestational
+  // week is never recomputed here, only read off the already-derived
+  // `status`. Once a delivery date already exists (she previously picked
+  // "Plus tard"), the CTA stays visible regardless of week — she has
+  // already delivered, so the normal late-pregnancy gate no longer applies
+  // — but its label/action change: it re-opens the congratulations card
+  // directly instead of asking for the date again.
+  const hasConfirmedDelivery = Boolean(postpartum.deliveryDate);
+  const showDeliveryCta = hasConfirmedDelivery || isLatePregnancy(status);
+  const deliveryCtaLabel = hasConfirmedDelivery ? 'Démarrer mon suivi post-partum' : 'J’ai accouché';
+  const deliveryDateForCard = useMemo(
+    () => (postpartum.deliveryDate ? new Date(`${postpartum.deliveryDate}T12:00:00`) : null),
+    [postpartum.deliveryDate],
   );
+
+  const handleDeliveryCtaPress = () => {
+    if (hasConfirmedDelivery) {
+      setCongratsVisible(true);
+    } else {
+      setDeliverySheetVisible(true);
+    }
+  };
 
   // Real, date-specific journal/medical data — refreshed on every focus so
   // returning from a journal screen or the Appointments screen immediately
@@ -211,10 +227,10 @@ function PregnancyDashboard({
 
   const completedTodayCount = useMemo(
     () =>
-      visibleDailyItems.filter(item =>
+      DAILY_ITEMS.filter(item =>
         isPregnancyTrackingCategoryCompleted(item.preferenceKey, todayKey, todayEntry, pregnancyJournal, medicalEvents),
       ).length,
-    [visibleDailyItems, todayKey, todayEntry, pregnancyJournal, medicalEvents],
+    [todayKey, todayEntry, pregnancyJournal, medicalEvents],
   );
 
   const nextAppointment = useMemo(() => getNextUpcomingEvent(medicalEvents, 'appointment', new Date()), [medicalEvents]);
@@ -226,9 +242,9 @@ function PregnancyDashboard({
   const weekData = status.configured ? getPregnancyWeekData(status.week) : undefined;
 
   // Same shared bottom-sheet context Cycle uses — JournalSheetHost (see
-  // MainTabNavigator.tsx) already renders PregnancyJournalSheet instead of
-  // DailyJournalSheet while activeObjective === 'pregnancy', so opening it
-  // here needs no Pregnancy-specific wiring.
+  // MainTabNavigator.tsx) already renders the shared DailyJournalSheet with
+  // Pregnancy's own action list while activeObjective === 'pregnancy', so
+  // opening it here needs no Pregnancy-specific wiring.
   const {open: openPregnancyJournal} = useJournalSheet();
 
   // Same 6-slot architecture/keys/colors as CycleHomeScreen's
@@ -499,6 +515,31 @@ function PregnancyDashboard({
               </View>
 
               {/* =======================================================
+                  J'AI ACCOUCHÉ / DÉMARRER MON SUIVI POST-PARTUM
+                  Discreet CTA — either late-stage pregnancy (see
+                  isLatePregnancy in pregnancyTrackingUtils.ts) with no
+                  delivery confirmed yet, opening DeliveryDateSheet; or a
+                  delivery date already exists (she previously picked
+                  "Plus tard"), in which case it reopens the
+                  congratulations card directly.
+              ======================================================== */}
+
+              {showDeliveryCta ? (
+                <Pressable
+                  accessibilityLabel={deliveryCtaLabel}
+                  accessibilityRole="button"
+                  onPress={handleDeliveryCtaPress}
+                  style={({pressed}) => [styles.deliveryCta, pressed && styles.pressed]}>
+                  <MaterialDesignIcons
+                    color={homeColors.primary}
+                    name={hasConfirmedDelivery ? 'arrow-right-circle-outline' : 'flower-outline'}
+                    size={16}
+                  />
+                  <Text style={styles.deliveryCtaText}>{deliveryCtaLabel}</Text>
+                </Pressable>
+              ) : null}
+
+              {/* =======================================================
                   CETTE SEMAINE / BÉBÉ
               ======================================================== */}
 
@@ -652,7 +693,7 @@ function PregnancyDashboard({
 
               <Text style={styles.dailyProgress}>
                 <Text style={styles.dailyProgressStrong}>
-                  {completedTodayCount} / {visibleDailyItems.length}
+                  {completedTodayCount} / {DAILY_ITEMS.length}
                 </Text>{' '}
                 complété
               </Text>
@@ -663,21 +704,25 @@ function PregnancyDashboard({
                 style={[
                   styles.progressFill,
                   {
-                    width: `${visibleDailyItems.length > 0 ? Math.round((completedTodayCount / visibleDailyItems.length) * 100) : 0}%`,
+                    width: `${Math.round((completedTodayCount / DAILY_ITEMS.length) * 100)}%`,
                   },
                 ]}
               />
             </View>
 
             <View style={styles.dailyGrid}>
-              {visibleDailyItems.map(item => (
+              {DAILY_ITEMS.map(item => (
                 <Pressable
                   accessibilityLabel={item.label}
                   accessibilityRole="button"
                   key={item.label}
-                  onPress={() =>
-                    navigation.navigate(item.route)
-                  }
+                  onPress={() => {
+                    if (item.route === 'PregnancyMedicalInformation') {
+                      requirePrivateAccess(navigation, 'pregnancyMedicalInformation');
+                      return;
+                    }
+                    navigation.navigate(item.route);
+                  }}
                   style={({pressed}) => [
                     styles.dailyItem,
                     pressed && styles.pressed,
@@ -736,6 +781,25 @@ function PregnancyDashboard({
           ) : null}
         </ScrollView>
       </SafeAreaView>
+
+      <DeliveryDateSheet
+        onClose={() => {
+          setDeliverySheetVisible(false);
+          if (awaitingCongrats) {
+            setCongratsVisible(true);
+            setAwaitingCongrats(false);
+          }
+        }}
+        onConfirmed={() => setAwaitingCongrats(true)}
+        visible={deliverySheetVisible}
+      />
+
+      <PostpartumCongratsCard
+        deliveryDate={deliveryDateForCard}
+        onLater={() => setCongratsVisible(false)}
+        onStarted={() => setCongratsVisible(false)}
+        visible={congratsVisible}
+      />
     </ImageBackground>
   );
 }
@@ -1185,6 +1249,36 @@ const styles = StyleSheet.create({
     color: homeColors.textSecondary,
 
     fontSize: 11.5,
+  },
+
+  /* ==========================================================
+     J'AI ACCOUCHÉ CTA
+  ========================================================== */
+
+  deliveryCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    gap: 7,
+
+    marginTop: 12,
+    minHeight: 40,
+
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+
+    borderWidth: 1.2,
+    borderColor: 'rgba(111,78,190,0.20)',
+    borderRadius: 20,
+
+    backgroundColor: '#F1EAFB',
+  },
+
+  deliveryCtaText: {
+    color: homeColors.primary,
+
+    fontSize: 12.5,
+    fontWeight: '700',
   },
 
   /* ==========================================================

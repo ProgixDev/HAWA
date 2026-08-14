@@ -152,12 +152,15 @@ export const subscribePregnancyTrackingPreferences = (listener: () => void) => {
 // Which reminder categories the user wants — the last pregnancy onboarding
 // step. Purely a UI preference at this stage: no notification/scheduling
 // infrastructure is wired up yet (see PregnancyRemindersScreen.tsx).
+// "Hydratation" and "Suivi du poids" (weight) reminders were replaced by a
+// single "Rappels personnalisés" (customReminders) option — see
+// normalizeReminderPreferences below for how old persisted data carrying
+// those obsolete keys is handled safely.
 export type PregnancyReminderPreferences = {
   appointments: boolean;
   exams: boolean;
   dailyJournal: boolean;
-  hydration: boolean;
-  weight: boolean;
+  customReminders: boolean;
 };
 
 const REMINDER_STORAGE_KEY = '@hawa/pregnancy-reminder-preferences';
@@ -168,8 +171,7 @@ const DEFAULT_REMINDER_PREFERENCES: PregnancyReminderPreferences = {
   appointments: true,
   exams: true,
   dailyJournal: true,
-  hydration: true,
-  weight: true,
+  customReminders: true,
 };
 
 let pregnancyReminderPreferences: PregnancyReminderPreferences = {...DEFAULT_REMINDER_PREFERENCES};
@@ -181,16 +183,23 @@ const notifyReminderListeners = () => {
   reminderListeners.forEach(listener => listener());
 };
 
-const isValidReminderPreferences = (value: unknown): value is PregnancyReminderPreferences => {
-  if (!value || typeof value !== 'object') {return false;}
-  const candidate = value as Partial<PregnancyReminderPreferences>;
-  return (
-    typeof candidate.appointments === 'boolean' &&
-    typeof candidate.exams === 'boolean' &&
-    typeof candidate.dailyJournal === 'boolean' &&
-    typeof candidate.hydration === 'boolean' &&
-    typeof candidate.weight === 'boolean'
-  );
+// Reconstructs a valid PregnancyReminderPreferences field-by-field rather
+// than rejecting the whole persisted object outright — old data may still
+// carry the obsolete `hydration`/`weight` reminder keys (from before they
+// were replaced by `customReminders`), and those must be safely ignored,
+// never crashing and never migrated into `customReminders` (they mean
+// different things). Each of the 4 current keys keeps its own real saved
+// value when present and falls back to its own canonical default otherwise
+// — so a user's existing appointments/exams/dailyJournal choices survive
+// even though `customReminders` didn't exist yet when they were saved.
+const normalizeReminderPreferences = (value: unknown): PregnancyReminderPreferences => {
+  const candidate = (value && typeof value === 'object' ? value : {}) as Partial<Record<keyof PregnancyReminderPreferences, unknown>>;
+  return {
+    appointments: typeof candidate.appointments === 'boolean' ? candidate.appointments : DEFAULT_REMINDER_PREFERENCES.appointments,
+    exams: typeof candidate.exams === 'boolean' ? candidate.exams : DEFAULT_REMINDER_PREFERENCES.exams,
+    dailyJournal: typeof candidate.dailyJournal === 'boolean' ? candidate.dailyJournal : DEFAULT_REMINDER_PREFERENCES.dailyJournal,
+    customReminders: typeof candidate.customReminders === 'boolean' ? candidate.customReminders : DEFAULT_REMINDER_PREFERENCES.customReminders,
+  };
 };
 
 export const getPregnancyReminderPreferences = (): PregnancyReminderPreferences => ({...pregnancyReminderPreferences});
@@ -211,10 +220,8 @@ export const hydratePregnancyReminderPreferences = (): Promise<PregnancyReminder
         reminderHydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
-          if (isValidReminderPreferences(parsed)) {
-            pregnancyReminderPreferences = parsed;
-            notifyReminderListeners();
-          }
+          pregnancyReminderPreferences = normalizeReminderPreferences(parsed);
+          notifyReminderListeners();
         }
         return getPregnancyReminderPreferences();
       })
