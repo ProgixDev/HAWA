@@ -14,7 +14,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA} from '../theme/spacing';
-import {setSpiritualMarkersEnabled} from '../state/onboardingPreferences';
+import {getSelectedObjective, setSpiritualMarkersEnabled} from '../state/onboardingPreferences';
 
 const SPIRITUAL_BACKGROUND = require('../assets/images/school-selection-background.png');
 
@@ -33,6 +33,16 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
 
   const handleNext = () => {
     setSpiritualMarkersEnabled(enabled);
+
+    // "Après une fausse couche" is the only objective where disabling
+    // spiritual landmarks skips LocationScreen entirely (see
+    // MiscarriageDateScreen) — every other objective keeps the existing,
+    // unconditional "always go through Location" behavior unchanged.
+    if (!enabled && getSelectedObjective() === 'loss') {
+      navigation.navigate('MiscarriageDate');
+      return;
+    }
+
     navigation.navigate('Location');
   };
 

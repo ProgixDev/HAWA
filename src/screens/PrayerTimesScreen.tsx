@@ -39,11 +39,12 @@ function PrayerTimesScreen(): React.JSX.Element {
   const [refreshing, setRefreshing] = useState(false);
   const [sheetVisible, setSheetVisible] = useState(false);
 
-  // Shared screen for both objectives. Pregnancy keeps the general prayer
-  // schedule/location/Hijri info below, but must never surface menstrual
-  // purity status — see PurityStatusCard/spiritual-advice/PeriodEndBottomSheet
-  // below. Cycle's own behavior is entirely unchanged.
-  const isPregnancy = getActiveObjective() === 'pregnancy';
+  // Shared screen for all three objectives. Pregnancy and Postpartum keep
+  // the general prayer schedule/location/Hijri info below, but must never
+  // surface normal menstrual purity status — see PurityStatusCard/
+  // spiritual-advice/PeriodEndBottomSheet below. Cycle's own behavior is
+  // entirely unchanged; menstrual purity only ever applies there.
+  const shouldShowMenstrualPurity = getActiveObjective() === 'cycle';
 
   const {
     cyclePreferences,
@@ -140,7 +141,7 @@ function PrayerTimesScreen(): React.JSX.Element {
           </Animated.View>
         ) : null}
 
-        {!isPregnancy ? (
+        {shouldShowMenstrualPurity ? (
           <Animated.View entering={FadeInUp.delay(240).duration(420)}>
             <PurityStatusCard
               error={error}
@@ -153,7 +154,7 @@ function PrayerTimesScreen(): React.JSX.Element {
           </Animated.View>
         ) : null}
 
-        {!isPregnancy && purityResult.status !== 'unknown' ? (
+        {shouldShowMenstrualPurity && purityResult.status !== 'unknown' ? (
           <Animated.View entering={FadeInUp.delay(280).duration(420)} style={styles.noteCard}>
             <Text style={styles.noteEyebrow}>Conseil spirituel</Text>
             <View style={styles.noteRow}>
@@ -182,7 +183,7 @@ function PrayerTimesScreen(): React.JSX.Element {
         </Animated.View>
       </ScrollView>
 
-      {!isPregnancy ? (
+      {shouldShowMenstrualPurity ? (
         <PeriodEndBottomSheet
           initialDateTime={periodEndDateTime ?? new Date()}
           minDateTime={cyclePreferences.lastPeriodStart}

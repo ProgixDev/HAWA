@@ -234,11 +234,21 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
   const handleNext = async () => {
     if (!selectedLocation) {return;}
     await saveSelectedLocation(selectedLocation);
-    // Only the pregnancy objective replaces the Cycle-specific
-    // "Informations de ton cycle" step with its own dating-setup step —
-    // every other objective (including Cycle) keeps the existing flow.
-    if (getSelectedObjective() === 'pregnancy') {
+    // Pregnancy, Postpartum and "Après une fausse couche" each replace the
+    // Cycle-specific "Informations de ton cycle" step with their own
+    // objective-specific step — every other objective (including Cycle)
+    // keeps the existing flow.
+    const objective = getSelectedObjective();
+    if (objective === 'pregnancy') {
       navigation.navigate('PregnancyDatingSetup');
+      return;
+    }
+    if (objective === 'postpartum') {
+      navigation.navigate('PostpartumDeliveryDate');
+      return;
+    }
+    if (objective === 'loss') {
+      navigation.navigate('MiscarriageDate');
       return;
     }
     navigation.navigate('CycleInformation');

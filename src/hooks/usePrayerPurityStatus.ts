@@ -187,3 +187,32 @@ export type PregnancySpiritualStatus = PrayerScheduleStatus;
 export function usePregnancySpiritualStatus(enabled = true): PregnancySpiritualStatus {
   return usePrayerSchedule(enabled);
 }
+
+export type PostpartumSpiritualStatus = PrayerScheduleStatus;
+
+/**
+ * Postpartum-safe counterpart to `usePrayerPurityStatus`: same shared
+ * location/prayer-schedule fetch, but deliberately never touches
+ * cyclePreferences / periodEndDateTime / menstruation or purity status —
+ * nifas is a distinct state from Cycle purity and has no rules engine here
+ * yet (see PostpartumDashboard's "Repères spirituels" card, which only
+ * shows a neutral "Nifas — Jour X" day count, never a purity verdict).
+ */
+export function usePostpartumSpiritualStatus(enabled = true): PostpartumSpiritualStatus {
+  return usePrayerSchedule(enabled);
+}
+
+export type MiscarriageSpiritualStatus = PrayerScheduleStatus;
+
+/**
+ * Miscarriage-safe counterpart to `usePrayerPurityStatus`: same shared
+ * location/prayer-schedule fetch, but deliberately never touches
+ * cyclePreferences / periodEndDateTime / menstruation or purity status —
+ * "Après une fausse couche" must never copy normal menstrual Cycle "purity
+ * status" automatically (see MiscarriageDashboard's "Repères spirituels"
+ * card, which only ever shows prayer time + Hijri date, exactly like
+ * Pregnancy's).
+ */
+export function useMiscarriageSpiritualStatus(enabled = true): MiscarriageSpiritualStatus {
+  return usePrayerSchedule(enabled);
+}

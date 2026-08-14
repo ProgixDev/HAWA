@@ -17,9 +17,12 @@ import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 type Props = {
   /** 'cycle' (default) shows the full existing section — menstruation/
    * purity badge, purity-restored summary, and the qadaa (period-dependent
-   * fasting catch-up) info block. 'pregnancy' hides all three: Pregnancy
-   * must never display menstrual purity status or period-derived qadaa. */
-  objective?: 'cycle' | 'pregnancy';
+   * fasting catch-up) info block. 'pregnancy', 'postpartum' and
+   * 'miscarriage' all hide those three: none of them must ever display
+   * menstrual purity status or period-derived qadaa. 'miscarriage' behaves
+   * identically to 'pregnancy' — a distinct literal instead of reusing
+   * 'pregnancy' purely for correct labeling/accessibility text. */
+  objective?: 'cycle' | 'pregnancy' | 'postpartum' | 'miscarriage';
   hijriDate?: string;
   nextWindow?: PrayerWindow;
   timezone?: string;
@@ -30,6 +33,11 @@ type Props = {
   isMenstruating?: boolean;
   purityResult?: PurityPrayerResult;
   periodEndDateTime?: Date | null;
+  /** Postpartum-only neutral tracking line, e.g. "Jour 4" or
+   * "Jour 4 · Selon l’avis Hanafi" — pre-formatted by the caller (this
+   * component never computes nifas day counts or fiqh rulings itself). Only
+   * rendered when objective === 'postpartum'. */
+  nifasValue?: string;
   locationConfigured: boolean;
   onManage?: () => void;
   onPressPuritySummary?: () => void;
@@ -65,11 +73,13 @@ function SpiritualGuidanceCard({
   isMenstruating = false,
   purityResult,
   periodEndDateTime,
+  nifasValue,
   locationConfigured,
   onManage,
   onPressPuritySummary,
 }: Props): React.JSX.Element {
-  const isPregnancy = objective === 'pregnancy';
+  const isCycle = objective === 'cycle';
+  const isPostpartum = objective === 'postpartum';
   const entrance = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -95,7 +105,7 @@ function SpiritualGuidanceCard({
       : 'Indisponible';
 
   const showPuritySummary =
-    !isPregnancy && !isMenstruating && purityResult?.status === 'pure' && Boolean(periodEndDateTime);
+    isCycle && !isMenstruating && purityResult?.status === 'pure' && Boolean(periodEndDateTime);
 
   // Two distinct concepts, kept explicit rather than both being labelled
   // "Prochaine prière": the info block above uses `nextWindow`, the next
@@ -114,9 +124,9 @@ function SpiritualGuidanceCard({
       : '';
   const puritySummaryAccessibilityLabel = [purityPrimaryLine, nextPrayerAfterPurityLine].filter(Boolean).join('. ');
 
-  const cardAccessibilityLabel = isPregnancy
-    ? 'Repères spirituels.'
-    : `Repères spirituels. Statut ${isMenstruating ? 'Menstrues' : 'Pureté'}.`;
+  const cardAccessibilityLabel = isCycle
+    ? `Repères spirituels. Statut ${isMenstruating ? 'Menstrues' : 'Pureté'}.`
+    : 'Repères spirituels.';
 
   return (
     <Animated.View
@@ -147,7 +157,7 @@ function SpiritualGuidanceCard({
         <View style={[styles.badge, styles.activeBadge]}>
           <Text style={styles.activeBadgeText}>Actif</Text>
         </View>
-        {!isPregnancy ? (
+        {isCycle ? (
           <View style={[styles.badge, isMenstruating ? styles.periodBadge : styles.purityBadge]}>
             <MaterialDesignIcons
               color={isMenstruating ? '#A8505A' : homeColors.green}
@@ -172,10 +182,16 @@ function SpiritualGuidanceCard({
         <InfoBlock icon="alarm" label="Prochaine prière" value={prayerValue} />
         <View style={styles.separator} />
         <InfoBlock icon="calendar-month-outline" label="Date Hijri" value={hijriDate ?? 'Indisponible'} />
-        {!isPregnancy ? (
+        {isCycle ? (
           <>
             <View style={styles.separator} />
             <InfoBlock icon="silverware-fork-knife" label="Jeûnes à rattraper" value={qadaaDays > 0 ? `${qadaaDays} jours` : 'À jour'} />
+          </>
+        ) : null}
+        {isPostpartum && nifasValue ? (
+          <>
+            <View style={styles.separator} />
+            <InfoBlock icon="flower-outline" label="Nifas" value={nifasValue} />
           </>
         ) : null}
       </View>
