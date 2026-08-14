@@ -199,25 +199,6 @@ function formatDurationMinutes(
   )}`;
 }
 
-function formatMilliliters(
-  ml: number,
-): string {
-  if (ml >= 1000) {
-    return `${(
-      ml / 1000
-    ).toLocaleString(
-      'fr-FR',
-      {
-        maximumFractionDigits: 1,
-      },
-    )} L`;
-  }
-
-  return `${Math.round(
-    ml,
-  )} mL`;
-}
-
 /* ============================================================
    EMPTY STATE
 ============================================================ */
@@ -678,25 +659,158 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       ],
     );
 
-  const trackedDays =
+  const rangeEntries =
+    useMemo(
+      () =>
+        journalEntries.filter(
+          entry =>
+            withinRange(
+              entry.date,
+              range,
+            ),
+        ),
+
+      [
+        journalEntries,
+        range,
+      ],
+    );
+
+  const medicalInfoDateInRange =
+    state.medicalInformation?.date &&
+    withinRange(
+      state.medicalInformation.date,
+      range,
+    )
+      ? state.medicalInformation.date
+      : undefined;
+
+  const trackingDates =
     useMemo(() => {
       const dates =
-        new Set([
-          ...weights.map(
-            item =>
-              item.date,
-          ),
+        new Set<string>();
 
-          ...symptoms.map(
-            item =>
-              item.date,
+      weights.forEach(
+        item =>
+          dates.add(
+            item.date,
           ),
-        ]);
+      );
 
-      return dates.size;
+      symptoms.forEach(
+        item =>
+          dates.add(
+            item.date,
+          ),
+      );
+
+      rangeEntries.forEach(
+        entry => {
+          if (
+            entry.mood
+          ) {
+            dates.add(
+              entry.date,
+            );
+          }
+
+          if (
+            entry.sleep
+          ) {
+            dates.add(
+              entry.date,
+            );
+          }
+        },
+      );
+
+      if (
+        medicalInfoDateInRange
+      ) {
+        dates.add(
+          medicalInfoDateInRange,
+        );
+      }
+
+      return dates;
     }, [
       symptoms,
       weights,
+      rangeEntries,
+      medicalInfoDateInRange,
+    ]);
+
+  const trackedDays =
+    trackingDates.size;
+
+  /* ==========================================================
+     COMPLETE DAYS — a Pregnancy day is only "complete" once all
+     5 canonical Daily Journal categories have a real saved entry
+     (symptoms/weight/mood/sleep/medicalInfo) — see
+     isPregnancyTrackingCategoryCompleted, the same source of truth
+     used by the Dashboard's "Suivi du jour" completion count.
+  ========================================================== */
+
+  const completeDays =
+    useMemo(() => {
+      let count = 0;
+
+      trackingDates.forEach(
+        date => {
+          const hasSymptoms =
+            symptoms.some(
+              item =>
+                item.date ===
+                date,
+            );
+
+          const hasWeight =
+            weights.some(
+              item =>
+                item.date ===
+                date,
+            );
+
+          const dailyEntry =
+            rangeEntries.find(
+              entry =>
+                entry.date ===
+                date,
+            );
+
+          const hasMood =
+            Boolean(
+              dailyEntry?.mood,
+            );
+
+          const hasSleep =
+            Boolean(
+              dailyEntry?.sleep,
+            );
+
+          const hasMedicalInfo =
+            medicalInfoDateInRange ===
+            date;
+
+          if (
+            hasSymptoms &&
+            hasWeight &&
+            hasMood &&
+            hasSleep &&
+            hasMedicalInfo
+          ) {
+            count += 1;
+          }
+        },
+      );
+
+      return count;
+    }, [
+      trackingDates,
+      symptoms,
+      weights,
+      rangeEntries,
+      medicalInfoDateInRange,
     ]);
 
   /* ==========================================================
@@ -835,27 +949,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
     );
 
   /* ==========================================================
-     DAILY JOURNAL RANGE
-  ========================================================== */
-
-  const rangeEntries =
-    useMemo(
-      () =>
-        journalEntries.filter(
-          entry =>
-            withinRange(
-              entry.date,
-              range,
-            ),
-        ),
-
-      [
-        journalEntries,
-        range,
-      ],
-    );
-
-  /* ==========================================================
      MOOD
   ========================================================== */
 
@@ -961,128 +1054,14 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       : undefined;
 
   /* ==========================================================
-     HYDRATION
+     MEDICAL INFORMATION — presence/history only, never an average
+     or a score (a free-text note has neither).
   ========================================================== */
 
-  const hydrationEntries =
-    useMemo(
-      () =>
-        rangeEntries.filter(
-          entry =>
-            typeof entry
-              .hydration
-              ?.milliliters ===
-            'number',
-        ),
-
-      [rangeEntries],
+  const hasMedicalInfoInRange =
+    Boolean(
+      medicalInfoDateInRange,
     );
-
-  const averageHydrationMl =
-    hydrationEntries.length >
-    0
-      ? hydrationEntries.reduce(
-          (
-            sum,
-            entry,
-          ) =>
-            sum +
-            (entry
-              .hydration
-              ?.milliliters ??
-              0),
-          0,
-        ) /
-        hydrationEntries.length
-      : undefined;
-
-  /* ==========================================================
-     ACTIVITY
-  ========================================================== */
-
-  const activityEntries =
-    useMemo(
-      () =>
-        rangeEntries.filter(
-          entry =>
-            entry.activity &&
-            !entry.activity
-              .none,
-        ),
-
-      [rangeEntries],
-    );
-
-  const activityDurations =
-    useMemo(
-      () =>
-        activityEntries
-          .map(
-            entry =>
-              entry.activity
-                ?.durationMinutes,
-          )
-          .filter(
-            (
-              value,
-            ): value is number =>
-              typeof value ===
-              'number',
-          ),
-
-      [activityEntries],
-    );
-
-  const totalActivityMinutes =
-    activityDurations.reduce(
-      (
-        sum,
-        value,
-      ) =>
-        sum + value,
-      0,
-    );
-
-  const activityTypeCounts =
-    useMemo(() => {
-      const counts =
-        new Map<
-          string,
-          number
-        >();
-
-      activityEntries.forEach(
-        entry => {
-          if (
-            entry.activity
-              ?.type
-          ) {
-            counts.set(
-              entry.activity
-                .type,
-
-              (counts.get(
-                entry
-                  .activity
-                  .type,
-              ) ??
-                0) +
-                1,
-            );
-          }
-        },
-      );
-
-      return [
-        ...counts.entries(),
-      ].sort(
-        (a, b) =>
-          b[1] - a[1],
-      );
-    }, [activityEntries]);
-
-  const mostFrequentActivityType =
-    activityTypeCounts[0]?.[0];
 
   /* ==========================================================
      RENDER
@@ -1532,6 +1511,19 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 0
                   ? String(
                       trackedDays,
+                    )
+                  : '—'
+              }
+            />
+
+            <KpiCard
+              icon="calendar-star"
+              label="Journées complètes"
+              value={
+                completeDays >
+                0
+                  ? String(
+                      completeDays,
                     )
                   : '—'
               }
@@ -2079,50 +2071,6 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   : '—'
               }
             />
-
-            <WellnessCard
-              icon="cup-water"
-              label="Hydratation"
-              supporting={
-                hydrationEntries.length >
-                0
-                  ? `${hydrationEntries.length} ${
-                      hydrationEntries.length >
-                      1
-                        ? 'jours suivis'
-                        : 'jour suivi'
-                    }`
-                  : 'Aucune donnée'
-              }
-              value={
-                averageHydrationMl !==
-                undefined
-                  ? `${formatMilliliters(
-                      averageHydrationMl,
-                    )}/j`
-                  : '—'
-              }
-            />
-
-            <WellnessCard
-              icon="run"
-              label="Activité"
-              supporting={
-                mostFrequentActivityType ??
-                (activityEntries.length >
-                0
-                  ? `${activityEntries.length} jours`
-                  : 'Aucune donnée')
-              }
-              value={
-                totalActivityMinutes >
-                0
-                  ? formatDurationMinutes(
-                      totalActivityMinutes,
-                    )
-                  : '—'
-              }
-            />
           </View>
 
           {/* ==================================================
@@ -2131,10 +2079,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
           {(sleepEntries.length >
             0 ||
-            hydrationEntries.length >
-              0 ||
-            activityEntries.length >
-              0) && (
+            hasMedicalInfoInRange) && (
             <View
               style={
                 styles.card
@@ -2150,6 +2095,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 <DetailRow
                   icon="weather-night"
                   label="Sommeil"
+                  last={
+                    !hasMedicalInfoInRange
+                  }
                   value={
                     averageSleepMinutes !==
                     undefined
@@ -2161,41 +2109,14 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 />
               ) : null}
 
-              {hydrationEntries.length >
-              0 ? (
+              {hasMedicalInfoInRange ? (
                 <DetailRow
-                  icon="cup-water"
-                  label="Hydratation"
-                  value={
-                    averageHydrationMl !==
-                    undefined
-                      ? `Moyenne ${formatMilliliters(
-                          averageHydrationMl,
-                        )}/jour`
-                      : `${hydrationEntries.length} jours suivis`
-                  }
-                />
-              ) : null}
-
-              {activityEntries.length >
-              0 ? (
-                <DetailRow
-                  icon="run"
-                  label="Activité physique"
+                  icon="clipboard-pulse-outline"
+                  label="Informations médicales"
                   last
-                  value={
-                    totalActivityMinutes >
-                    0
-                      ? `${formatDurationMinutes(
-                          totalActivityMinutes,
-                        )} au total${
-                          mostFrequentActivityType
-                            ? ` · ${mostFrequentActivityType}`
-                            : ''
-                        }`
-                      : mostFrequentActivityType ??
-                        `${activityEntries.length} jours suivis`
-                  }
+                  value={`Renseignées · ${dateLabel(
+                    medicalInfoDateInRange!,
+                  )}`}
                 />
               ) : null}
             </View>
