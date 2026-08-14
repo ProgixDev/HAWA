@@ -9,6 +9,17 @@ import CycleObjectiveConfirmationScreen from '../screens/CycleObjectiveConfirmat
 import SpiritualPreferencesScreen from '../screens/SpiritualPreferencesScreen';
 import LocationScreen from '../screens/LocationScreen';
 import CycleInformationScreen from '../screens/CycleInformationScreen';
+import PostpartumDeliveryDateScreen from '../screens/PostpartumDeliveryDateScreen';
+import PostpartumDeliveryTypeScreen from '../screens/PostpartumDeliveryTypeScreen';
+import PostpartumFeedingScreen from '../screens/PostpartumFeedingScreen';
+import PostpartumLochiaScreen from '../screens/PostpartumLochiaScreen';
+import PostpartumJournalEntryScreen from '../screens/PostpartumJournalEntryScreen';
+import PostpartumCycleReturnScreen from '../screens/PostpartumCycleReturnScreen';
+import MiscarriageDateScreen from '../screens/MiscarriageDateScreen';
+import MiscarriageBleedingScreen from '../screens/MiscarriageBleedingScreen';
+import MiscarriageCycleReturnScreen from '../screens/MiscarriageCycleReturnScreen';
+import MiscarriageTryingAgainScreen from '../screens/MiscarriageTryingAgainScreen';
+import MiscarriageJournalEntryScreen from '../screens/MiscarriageJournalEntryScreen';
 import PrivacyScreen from '../screens/PrivacyScreen';
 import SummaryScreen from '../screens/SummaryScreen';
 import AuthScreen from '../screens/AuthScreen';
@@ -41,6 +52,8 @@ import HelpSupportScreen from '../screens/HelpSupportScreen';
 import {FAQDetailScreen, FAQScreen, GuidesScreen, WhatsNewScreen} from '../screens/SupportResourcesScreens';
 import type {FaqId} from '../utils/supportContent';
 import type {PregnancyMedicalEventType} from '../state/pregnancyMedicalEventsStore';
+import type {PostpartumJournalCategory} from '../state/postpartumJournalStore';
+import type {MiscarriageJournalCategory} from '../state/miscarriageJournalStore';
 import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
 import {DataManagementScreen, DeleteAccountScreen} from '../screens/DataPrivacyScreens';
 import BackupDataScreen from '../screens/BackupDataScreen';
@@ -60,6 +73,8 @@ import PregnancyDatingSetupScreen from '../screens/pregnancy/PregnancyDatingSetu
 import PregnancyTrackingPreferencesScreen from '../screens/pregnancy/PregnancyTrackingPreferencesScreen';
 import PregnancyRemindersScreen from '../screens/pregnancy/PregnancyRemindersScreen';
 import PregnancyNotificationsScreen from '../screens/pregnancy/PregnancyNotificationsScreen';
+import PrivateAccessScreen from '../screens/PrivateAccessScreen';
+import type {PrivateAccessPurpose} from './privateAccess';
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -69,6 +84,17 @@ export type RootStackParamList = {
   SpiritualPreferences: undefined;
   Location: undefined;
   CycleInformation: undefined;
+  PostpartumDeliveryDate: undefined;
+  PostpartumDeliveryType: undefined;
+  PostpartumFeeding: undefined;
+  PostpartumLochia: undefined;
+  PostpartumJournalEntry: {category: PostpartumJournalCategory};
+  PostpartumCycleReturn: undefined;
+  MiscarriageDate: undefined;
+  MiscarriageBleeding: undefined;
+  MiscarriageCycleReturn: undefined;
+  MiscarriageTryingAgain: undefined;
+  MiscarriageJournalEntry: {category: MiscarriageJournalCategory};
   PregnancyDatingSetup: undefined;
   PregnancyTrackingPreferences: undefined;
   PregnancyReminders: undefined;
@@ -125,6 +151,7 @@ export type RootStackParamList = {
   PregnancyAppointments: {initialType?: PregnancyMedicalEventType; eventId?: string} | undefined;
   PregnancyWeek: undefined;
   PregnancyNotifications: undefined;
+  PrivateAccess: {purpose: PrivateAccessPurpose};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -148,6 +175,17 @@ function AppNavigator(): React.JSX.Element {
         />
         <Stack.Screen name="Location" component={LocationScreen} />
         <Stack.Screen name="CycleInformation" component={CycleInformationScreen} />
+        <Stack.Screen name="PostpartumDeliveryDate" component={PostpartumDeliveryDateScreen} />
+        <Stack.Screen name="PostpartumDeliveryType" component={PostpartumDeliveryTypeScreen} />
+        <Stack.Screen name="PostpartumFeeding" component={PostpartumFeedingScreen} />
+        <Stack.Screen name="PostpartumLochia" component={PostpartumLochiaScreen} />
+        <Stack.Screen name="PostpartumJournalEntry" component={PostpartumJournalEntryScreen} />
+        <Stack.Screen name="PostpartumCycleReturn" component={PostpartumCycleReturnScreen} />
+        <Stack.Screen name="MiscarriageDate" component={MiscarriageDateScreen} />
+        <Stack.Screen name="MiscarriageBleeding" component={MiscarriageBleedingScreen} />
+        <Stack.Screen name="MiscarriageCycleReturn" component={MiscarriageCycleReturnScreen} />
+        <Stack.Screen name="MiscarriageTryingAgain" component={MiscarriageTryingAgainScreen} />
+        <Stack.Screen name="MiscarriageJournalEntry" component={MiscarriageJournalEntryScreen} />
         <Stack.Screen name="PregnancyDatingSetup" component={PregnancyDatingSetupScreen} />
         <Stack.Screen name="PregnancyTrackingPreferences" component={PregnancyTrackingPreferencesScreen} />
         <Stack.Screen name="PregnancyReminders" component={PregnancyRemindersScreen} />
@@ -204,6 +242,7 @@ function AppNavigator(): React.JSX.Element {
         <Stack.Screen name="PregnancyAppointments" component={PregnancyAppointmentsScreen} />
         <Stack.Screen name="PregnancyWeek" component={PregnancyWeekScreen} />
         <Stack.Screen name="PregnancyNotifications" component={PregnancyNotificationsScreen} />
+        <Stack.Screen name="PrivateAccess" component={PrivateAccessScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
