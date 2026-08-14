@@ -24,7 +24,9 @@ import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import {getTopPadding} from '../theme/spacing';
 
 import {
+  getCycleObservationStartedAt,
   getCyclePreferences,
+  getPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
   getFirstName,
@@ -40,7 +42,29 @@ import {
   type ObjectiveId,
   type SchoolId,
 } from '../state/onboardingPreferences';
-import {computeNextPeriod as computeCanonicalNextPeriod, startOfDay as canonicalStartOfDay} from '../utils/cycleMath';
+import {
+  getPostpartumPreferences,
+  hydratePostpartumPreferences,
+  subscribePostpartumPreferences,
+  type PostpartumDeliveryType,
+  type PostpartumFeedingType,
+} from '../state/postpartumPreferences';
+import {
+  getMiscarriagePreferences,
+  hydrateMiscarriagePreferences,
+  subscribeMiscarriagePreferences,
+  type MiscarriageBleedingStatus,
+  type MiscarriageCycleReturnStatus,
+  type MiscarriageTryingAgainStatus,
+} from '../state/miscarriagePreferences';
+import {
+  computeCyclePredictionStatus,
+  formatDateRange as formatCanonicalDateRange,
+  formatFullDate,
+  IRREGULAR_WINDOW_MAX_DAYS,
+  IRREGULAR_WINDOW_MIN_DAYS,
+  startOfDay as canonicalStartOfDay,
+} from '../utils/cycleMath';
 
 import {lockIntimacy} from '../state/privateSectionAuthStore';
 
@@ -71,8 +95,42 @@ const OBJECTIVE_LABELS: Record<ObjectiveId, string> = {
   irregular: 'Cycles irréguliers (SOPK)',
   menopause: 'Post-ménopause / Ménopause',
   pregnancy: 'Suivi de grossesse',
-  postpartum: 'Post-partum',
+  postpartum: 'Suivi post-partum',
   loss: 'Après une fausse couche',
+};
+
+const DELIVERY_TYPE_LABELS: Record<PostpartumDeliveryType, string> = {
+  vaginal: 'Accouchement vaginal',
+  planned_csection: 'Césarienne programmée',
+  emergency_csection: 'Césarienne en urgence',
+  prefer_not_to_say: 'Je préfère ne pas préciser',
+};
+
+const FEEDING_TYPE_LABELS: Record<PostpartumFeedingType, string> = {
+  exclusive_breastfeeding: 'Allaitement maternel exclusif',
+  mixed: 'Allaitement mixte (sein + biberon)',
+  exclusive_bottle: 'Biberon exclusivement',
+  unknown: 'Je ne sais pas encore',
+};
+
+// Same wording as MiscarriageBleedingScreen/MiscarriageCycleReturnScreen/
+// MiscarriageTryingAgainScreen.
+const BLEEDING_STATUS_LABELS: Record<MiscarriageBleedingStatus, string> = {
+  yes: 'Oui',
+  no: 'Non',
+  variable: 'Variable',
+};
+
+const MISCARRIAGE_CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
+  no: 'Pas encore',
+  yes: 'Oui',
+  unknown: 'Je ne sais pas',
+};
+
+const MISCARRIAGE_TRYING_AGAIN_LABELS: Record<MiscarriageTryingAgainStatus, string> = {
+  not_now: 'Pas maintenant',
+  soon: 'Bientôt',
+  ready: 'Oui, je me sens prête',
 };
 
 const OBJECTIVES: Array<{
@@ -398,11 +456,58 @@ function ProfileScreen({
     return () => {active = false; unsubscribe();};
   }, []);
 
-  const nextPeriod = useMemo(
+  const [postpartum, setPostpartum] = useState(getPostpartumPreferences);
+
+  useEffect(() => {
+    let active = true;
+    hydratePostpartumPreferences().then(value => {if (active) {setPostpartum(value);}});
+    const unsubscribe = subscribePostpartumPreferences(() => {if (active) {setPostpartum(getPostpartumPreferences());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
+
+  const [miscarriage, setMiscarriage] = useState(getMiscarriagePreferences);
+
+  useEffect(() => {
+    let active = true;
+    hydrateMiscarriagePreferences().then(value => {if (active) {setMiscarriage(value);}});
+    const unsubscribe = subscribeMiscarriagePreferences(() => {if (active) {setMiscarriage(getMiscarriagePreferences());}});
+    return () => {active = false; unsubscribe();};
+  }, []);
+
+  // Regularity-aware — same computeCyclePredictionStatus() Dashboard/Calendar
+  // use, so an irregular/observing user never sees a falsely-exact date here
+  // while seeing a window everywhere else.
+  const nextPeriodStatus = useMemo(
     () =>
-      computeCanonicalNextPeriod(cycle, canonicalStartOfDay(new Date())),
+      computeCyclePredictionStatus(
+        cycle,
+        cycle.regularity,
+        getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`)),
+        getCycleObservationStartedAt(),
+        canonicalStartOfDay(new Date()),
+      ),
     [cycle],
   );
+
+  const nextPeriodValue = (() => {
+    if (nextPeriodStatus.mode === 'exact') {return formatShortDate(nextPeriodStatus.date);}
+    if (nextPeriodStatus.mode === 'window') {
+      return nextPeriodStatus.isLate ? 'Règles en retard' : formatCanonicalDateRange(nextPeriodStatus.windowStart, nextPeriodStatus.windowEnd);
+    }
+    return `Mois ${nextPeriodStatus.monthsElapsed} sur ${nextPeriodStatus.totalMonths}`;
+  })();
+
+  // Same rule as Dashboard/Calendar: don't present a single precise average
+  // once the pattern is irregular/variable — see computeCyclePredictionStatus.
+  const averageCycleTile = (() => {
+    if (nextPeriodStatus.mode === 'exact') {
+      return {label: 'Cycle moyen', value: `${nextPeriodStatus.averageCycleLength} jours`};
+    }
+    if (nextPeriodStatus.mode === 'window') {
+      return {label: 'Cycle variable', value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`};
+    }
+    return {label: 'Cycle moyen', value: `${cycle.cycleDuration} jours`};
+  })();
 
   const hijriToday = useMemo(
     () => formatHijriDate(new Date()),
@@ -703,15 +808,15 @@ function ProfileScreen({
 
           {/* STATS */}
 
-          {objective !== 'pregnancy' ? (
+          {objective !== 'pregnancy' && objective !== 'postpartum' && objective !== 'loss' ? (
             <View
               style={
                 styles.statsGrid
               }>
               <StatCard
                 icon="calendar-range"
-                label="Cycle moyen"
-                value={`${cycle.cycleDuration} jours`}
+                label={averageCycleTile.label}
+                value={averageCycleTile.value}
               />
 
               <StatCard
@@ -723,9 +828,7 @@ function ProfileScreen({
               <StatCard
                 icon="calendar-month-outline"
                 label="Prochaines règles"
-                value={formatShortDate(
-                  nextPeriod,
-                )}
+                value={nextPeriodValue}
               />
 
               <StatCard
@@ -736,6 +839,73 @@ function ProfileScreen({
                     ? hijriToday ?? '—'
                     : 'Désactivé'
                 }
+              />
+            </View>
+          ) : null}
+
+          {/* Postpartum's OWN summary — never Cycle-specific stats (last
+              period/cycle duration/regularity belong to the Cycle
+              objective only). Sourced directly from the same canonical
+              postpartumPreferences store the onboarding flow wrote to. */}
+          {objective === 'postpartum' ? (
+            <View style={styles.statsGrid}>
+              <StatCard
+                icon="calendar-month-outline"
+                label="Accouchement"
+                value={postpartum.deliveryDate ? formatFullDate(new Date(`${postpartum.deliveryDate}T12:00:00`)) : 'Non renseigné'}
+              />
+
+              <StatCard
+                icon="baby-face-outline"
+                label="Type d’accouchement"
+                value={postpartum.deliveryType ? DELIVERY_TYPE_LABELS[postpartum.deliveryType] : 'Non renseigné'}
+              />
+
+              <StatCard
+                icon="baby-bottle-outline"
+                label="Allaitement"
+                value={postpartum.feedingType ? FEEDING_TYPE_LABELS[postpartum.feedingType] : 'Non renseigné'}
+              />
+            </View>
+          ) : null}
+
+          {/* Miscarriage's OWN summary — never Cycle-specific stats (cycle
+              moyen/durée des règles/prochaines règles/ovulation/fenêtre
+              fertile belong to the Cycle objective only). Sourced directly
+              from the same canonical miscarriagePreferences store the
+              onboarding flow/Dashboard/Calendar/Statistics already read. */}
+          {objective === 'loss' ? (
+            <View style={styles.statsGrid}>
+              <StatCard
+                icon="calendar-heart"
+                label="Date de l’événement"
+                value={miscarriage.miscarriageDate ? formatFullDate(new Date(`${miscarriage.miscarriageDate}T12:00:00`)) : 'Non renseignée'}
+              />
+
+              <StatCard
+                icon="water-outline"
+                label="Saignements actuels"
+                value={miscarriage.bleedingStatus ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus] : 'Non renseigné'}
+              />
+
+              <StatCard
+                icon="sync-circle"
+                label="Retour du cycle"
+                value={miscarriage.cycleReturnStatus ? MISCARRIAGE_CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus] : 'Non renseigné'}
+              />
+
+              {miscarriage.cycleReturnStatus === 'yes' && miscarriage.firstReturnedPeriodDate ? (
+                <StatCard
+                  icon="calendar-check-outline"
+                  label="Date du retour des règles"
+                  value={formatFullDate(new Date(`${miscarriage.firstReturnedPeriodDate}T12:00:00`))}
+                />
+              ) : null}
+
+              <StatCard
+                icon="heart-outline"
+                label="Reprise des essais"
+                value={miscarriage.tryingAgainStatus ? MISCARRIAGE_TRYING_AGAIN_LABELS[miscarriage.tryingAgainStatus] : 'Non renseigné'}
               />
             </View>
           ) : null}

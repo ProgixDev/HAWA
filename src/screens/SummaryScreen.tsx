@@ -36,6 +36,17 @@ import {
   type PregnancyReminderPreferences,
   type PregnancyTrackingPreference,
 } from '../state/pregnancyPreferences';
+import {
+  getPostpartumPreferences,
+  type PostpartumDeliveryType,
+  type PostpartumFeedingType,
+} from '../state/postpartumPreferences';
+import {
+  getMiscarriagePreferences,
+  type MiscarriageBleedingStatus,
+  type MiscarriageCycleReturnStatus,
+  type MiscarriageTryingAgainStatus,
+} from '../state/miscarriagePreferences';
 
 const BACKGROUND = require('../assets/images/school-selection-background.png');
 const WOMAN = require('../assets/images/summary-woman.png');
@@ -88,14 +99,48 @@ const TRACKING_PREFERENCE_LABELS: Record<PregnancyTrackingPreference, string> = 
 
 // Same order/wording as PregnancyRemindersScreen.tsx.
 const REMINDER_PREFERENCE_ORDER: Array<keyof PregnancyReminderPreferences> = [
-  'appointments', 'exams', 'dailyJournal', 'hydration', 'weight',
+  'appointments', 'exams', 'dailyJournal', 'customReminders',
 ];
 const REMINDER_PREFERENCE_LABELS: Record<keyof PregnancyReminderPreferences, string> = {
   appointments: 'Rendez-vous',
   exams: 'Examens',
   dailyJournal: 'Journal quotidien',
-  hydration: 'Hydratation',
-  weight: 'Suivi du poids',
+  customReminders: 'Rappels personnalisés',
+};
+
+// Same wording as PostpartumDeliveryTypeScreen/PostpartumFeedingScreen.
+const DELIVERY_TYPE_LABELS: Record<PostpartumDeliveryType, string> = {
+  vaginal: 'Accouchement vaginal',
+  planned_csection: 'Césarienne programmée',
+  emergency_csection: 'Césarienne en urgence',
+  prefer_not_to_say: 'Je préfère ne pas préciser',
+};
+
+const FEEDING_TYPE_LABELS: Record<PostpartumFeedingType, string> = {
+  exclusive_breastfeeding: 'Allaitement maternel exclusif',
+  mixed: 'Allaitement mixte (sein + biberon)',
+  exclusive_bottle: 'Biberon exclusivement',
+  unknown: 'Je ne sais pas encore',
+};
+
+// Same wording as MiscarriageBleedingScreen/MiscarriageCycleReturnScreen/
+// MiscarriageTryingAgainScreen.
+const BLEEDING_STATUS_LABELS: Record<MiscarriageBleedingStatus, string> = {
+  yes: 'Oui',
+  no: 'Non',
+  variable: 'Je ne sais pas / cela varie',
+};
+
+const CYCLE_RETURN_STATUS_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
+  yes: 'Oui, mes règles sont revenues',
+  no: 'Non, pas encore',
+  unknown: 'Je ne sais pas encore',
+};
+
+const TRYING_AGAIN_STATUS_LABELS: Record<MiscarriageTryingAgainStatus, string> = {
+  not_now: 'Pas maintenant',
+  soon: 'Bientôt',
+  ready: 'Oui, je me sens prête',
 };
 
 const formatSummaryDate = (date: Date): string =>
@@ -122,7 +167,14 @@ type EditableRoute =
   | 'CycleInformation'
   | 'PregnancyDatingSetup'
   | 'PregnancyTrackingPreferences'
-  | 'PregnancyReminders';
+  | 'PregnancyReminders'
+  | 'PostpartumDeliveryDate'
+  | 'PostpartumDeliveryType'
+  | 'PostpartumFeeding'
+  | 'MiscarriageDate'
+  | 'MiscarriageBleeding'
+  | 'MiscarriageCycleReturn'
+  | 'MiscarriageTryingAgain';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -179,7 +231,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     const regularityLabels = {
       yes: 'Oui',
       no: 'Non',
-      unknown: 'Je ne sais pas',
+      unknown: 'À observer',
     } as const;
 
     return [
@@ -283,7 +335,116 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     return rows;
   };
 
-  const rows: SummaryRow[] = objective === 'pregnancy' ? buildPregnancyRows() : buildCycleRows();
+  // Postpartum-only rows — the NEW onboarding configuration for this
+  // objective (deliveryDate/deliveryType/feedingType from
+  // postpartumPreferences.ts). Deliberately excludes Cycle rows (last
+  // period/cycle duration/regularity) and Pregnancy rows (dating
+  // method/week/DPA) — those belong to other objectives.
+  const buildPostpartumRows = (): SummaryRow[] => {
+    const postpartum = getPostpartumPreferences();
+    const deliveryDate = postpartum.deliveryDate ? new Date(`${postpartum.deliveryDate}T12:00:00`) : null;
+
+    return [
+      objectiveRow,
+      spiritualRow,
+      locationRow,
+      {
+        icon: 'calendar-month-outline',
+        label: 'Date d’accouchement',
+        value: deliveryDate ? formatSummaryDate(deliveryDate) : 'Non renseignée',
+        route: 'PostpartumDeliveryDate',
+        tone: 'rose',
+      },
+      {
+        icon: 'baby-face-outline',
+        label: 'Type d’accouchement',
+        value: postpartum.deliveryType ? DELIVERY_TYPE_LABELS[postpartum.deliveryType] : 'Non renseigné',
+        route: 'PostpartumDeliveryType',
+        tone: 'purple',
+      },
+      {
+        icon: 'baby-bottle-outline',
+        label: 'Allaitement',
+        value: postpartum.feedingType ? FEEDING_TYPE_LABELS[postpartum.feedingType] : 'Non renseigné',
+        route: 'PostpartumFeeding',
+        tone: 'blue',
+      },
+    ];
+  };
+
+  // "Après une fausse couche"-only rows — sourced entirely from
+  // miscarriagePreferences.ts (spec section 25: no duplicated Summary
+  // state). Deliberately excludes Cycle rows (last period/cycle duration/
+  // regularity) and Pregnancy rows (dating/week/DPA) — this objective is
+  // separate from both (spec sections 23-24). The location row is only
+  // included when spiritual landmarks were enabled AND a real location was
+  // collected — when disabled, LocationScreen was skipped entirely and no
+  // fake location must ever be shown (spec section 22.3).
+  const buildMiscarriageRows = (): SummaryRow[] => {
+    const miscarriage = getMiscarriagePreferences();
+    const miscarriageDate = miscarriage.miscarriageDate ? new Date(`${miscarriage.miscarriageDate}T12:00:00`) : null;
+    const firstReturnedPeriodDate = miscarriage.firstReturnedPeriodDate
+      ? new Date(`${miscarriage.firstReturnedPeriodDate}T12:00:00`)
+      : null;
+
+    const rows: SummaryRow[] = [objectiveRow, spiritualRow];
+
+    if (spiritualEnabled && location) {
+      rows.push(locationRow);
+    }
+
+    rows.push(
+      {
+        icon: 'calendar-heart',
+        label: 'Date de la fausse couche',
+        value: miscarriageDate ? formatSummaryDate(miscarriageDate) : 'Non renseignée',
+        route: 'MiscarriageDate',
+        tone: 'rose',
+      },
+      {
+        icon: 'water-outline',
+        label: 'Saignements actuels',
+        value: miscarriage.bleedingStatus ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus] : 'Non renseigné',
+        route: 'MiscarriageBleeding',
+        tone: 'purple',
+      },
+      {
+        icon: 'calendar-sync-outline',
+        label: 'Retour du cycle',
+        value: miscarriage.cycleReturnStatus ? CYCLE_RETURN_STATUS_LABELS[miscarriage.cycleReturnStatus] : 'Non renseigné',
+        route: 'MiscarriageCycleReturn',
+        tone: 'blue',
+      },
+    );
+
+    // Only shown once a real date exists — never a fake reference date when
+    // the "yes" answer was given without a date (spec section 22.7).
+    if (miscarriage.cycleReturnStatus === 'yes' && firstReturnedPeriodDate) {
+      rows.push({
+        icon: 'calendar-check-outline',
+        label: 'Premières règles revenues',
+        value: formatSummaryDate(firstReturnedPeriodDate),
+        route: 'MiscarriageCycleReturn',
+        tone: 'green',
+      });
+    }
+
+    rows.push({
+      icon: 'heart-outline',
+      label: 'Reprise des essais',
+      value: miscarriage.tryingAgainStatus ? TRYING_AGAIN_STATUS_LABELS[miscarriage.tryingAgainStatus] : 'Non renseigné',
+      route: 'MiscarriageTryingAgain',
+      tone: 'green',
+    });
+
+    return rows;
+  };
+
+  const rows: SummaryRow[] =
+    objective === 'pregnancy' ? buildPregnancyRows()
+      : objective === 'postpartum' ? buildPostpartumRows()
+        : objective === 'loss' ? buildMiscarriageRows()
+          : buildCycleRows();
 
   const navigateToEdit = (route: EditableRoute) => {
     navigation.navigate(route);
