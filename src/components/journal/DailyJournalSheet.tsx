@@ -37,32 +37,33 @@ export type JournalRoute = Extract<
   | 'PrivatePhotoEntry'
 >;
 
+// Generic action descriptor for the shared journal sheet — every objective
+// (Cycle/Pregnancy/Postpartum) builds an array of these and hands the sheet
+// a ready-made `onPress` (close + navigate), so the sheet itself never needs
+// to know about route params. See MainTabNavigator's JournalSheetHost, the
+// single place that builds these arrays per objective.
+export type JournalSheetAction = {
+  key: string;
+  icon: string;
+  title: string;
+  subtitle: string;
+  tint: string;
+  onPress: () => void;
+};
+
 type Props = {
   visible: boolean;
   onClose: () => void;
-  onNavigate: (route: JournalRoute) => void;
+  title?: string;
+  subtitle?: string;
+  actions: JournalSheetAction[];
 };
 
-// const actions: Array<{
-//   route: JournalRoute;
-//   icon: string;
-//   title: string;
-//   subtitle: string;
-//   tint: string;
-// }> = [
-//   {route: 'SymptomEntry', icon: 'heart-pulse', title: 'Symptôme', subtitle: 'Ajoute tes symptômes physiques', tint: '#E6F1E7'},
-//   {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: 'Humeur', subtitle: 'Comment te sens-tu aujourd’hui ?', tint: '#FBE8D7'},
-//   {route: 'FlowEntry', icon: 'water-outline', title: 'Flux', subtitle: 'Intensité et caractéristiques du flux', tint: '#F8DEDF'},
-//   {route: 'TemperatureEntry', icon: 'thermometer', title: 'Température', subtitle: 'Température corporelle ou basale', tint: '#ECE6F8'},
-//   {route: 'SleepEntry', icon: 'weather-night', title: 'Sommeil', subtitle: 'Durée et qualité de ton sommeil', tint: '#E8E5F7'},
-//   {route: 'ActivityEntry', icon: 'walk', title: 'Activité physique', subtitle: 'Mouvement et activité du jour', tint: '#E5F0E5'},
-//   {route: 'HydrationWeightEntry', icon: 'cup-water', title: 'Hydratation et poids', subtitle: 'Eau consommée et évolution du poids', tint: '#E4EEF4'},
-//   {route: 'NoteEntry', icon: 'notebook-edit-outline', title: 'Note', subtitle: 'Écris tes pensées', tint: '#E5F0E5'},
-//   {route: 'IntimacyEntry', icon: 'heart-outline', title: 'Vie intime', subtitle: 'Rapport, protection et ressenti', tint: '#F8E2E3'},
-//   {route: 'PrivatePhotoEntry', icon: 'camera-lock-outline', title: 'Photo privée', subtitle: 'Photos et observations personnelles', tint: '#E8E5F7'},
-// ];
-
-const actions: Array<{
+// Cycle's own action list/copy — unchanged from before this component became
+// reusable. Kept here (not in MainTabNavigator) since it's this screen's
+// original, still-canonical content; PregnancyDashboard/PostpartumDashboard's
+// lists live alongside JournalSheetHost instead.
+export const CYCLE_JOURNAL_ITEMS: Array<{
   route: JournalRoute;
   icon: string;
   title: string;
@@ -126,7 +127,11 @@ const actions: Array<{
     tint: '#E9DFF7',
   },
 ];
-function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Element {
+
+const DEFAULT_TITLE = 'Journal quotidien';
+const DEFAULT_SUBTITLE = 'Comment te sens-tu aujourd’hui ?';
+
+function DailyJournalSheet({visible, onClose, title = DEFAULT_TITLE, subtitle = DEFAULT_SUBTITLE, actions}: Props): React.JSX.Element {
   const {height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const progress = useRef(new Animated.Value(0)).current;
@@ -192,8 +197,8 @@ function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Ele
           </Pressable>
           <ScrollView contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + 20}]} showsVerticalScrollIndicator={false}>
             <Image accessibilityIgnoresInvertColors resizeMode="cover" source={JOURNAL_HEADER} style={styles.headerImage} />
-            <Text style={styles.title}>Journal quotidien</Text>
-            <Text style={styles.subtitle}>Comment te sens-tu aujourd’hui ?</Text>
+            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.subtitle}>{subtitle}</Text>
             <View style={styles.cards}>
               {actions.map((action, index) => {
                 const start = 0.34 + index * 0.055;
@@ -201,13 +206,13 @@ function DailyJournalSheet({visible, onClose, onNavigate}: Props): React.JSX.Ele
                 const cardOpacity = progress.interpolate({inputRange: [0, start, end, 1], outputRange: [0, 0, 1, 1]});
                 const cardTranslateY = progress.interpolate({inputRange: [0, start, end, 1], outputRange: [16, 16, 0, 0]});
                 return (
-                  <Animated.View key={action.route} style={{opacity: cardOpacity, transform: [{translateY: cardTranslateY}]}}>
+                  <Animated.View key={action.key} style={{opacity: cardOpacity, transform: [{translateY: cardTranslateY}]}}>
                     <Pressable
                       accessibilityHint={`Ouvre la saisie ${action.title.toLowerCase()}`}
                       accessibilityLabel={action.title}
                       accessibilityRole="button"
                       android_ripple={{color: 'rgba(96,71,182,0.10)'}}
-                      onPress={() => onNavigate(action.route)}
+                      onPress={action.onPress}
                       style={({pressed}) => [styles.card, pressed && styles.cardPressed]}>
                       <View style={[styles.iconCircle, {backgroundColor: action.tint}]}>
                         <MaterialDesignIcons color={PURPLE} name={action.icon as never} size={25} />
