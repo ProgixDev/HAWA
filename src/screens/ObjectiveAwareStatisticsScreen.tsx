@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import PregnancyStatisticsScreen from './pregnancy/PregnancyStatisticsScreen';
+import PostpartumStatisticsScreen from './postpartum/PostpartumStatisticsScreen';
+import MiscarriageStatisticsScreen from './miscarriage/MiscarriageStatisticsScreen';
 import StatisticsScreen from './StatisticsScreen';
 import {
   getActiveObjective,
@@ -26,6 +28,14 @@ function ObjectiveAwareStatisticsScreen(props: Props): React.JSX.Element {
 
   if (objective === 'pregnancy') {
     return <PregnancyStatisticsScreen />;
+  }
+
+  if (objective === 'postpartum') {
+    return <PostpartumStatisticsScreen />;
+  }
+
+  if (objective === 'loss') {
+    return <MiscarriageStatisticsScreen />;
   }
 
   return <StatisticsScreen {...props} />;
