@@ -1,31 +1,53 @@
-import React, {memo} from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import React, { memo, useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import {homeColors} from './homeTheme';
+import { homeColors } from './homeTheme';
+import InAppNotificationCenter from './InAppNotificationCenter';
+import {
+  getUnreadInAppNotificationCount,
+  hydrateInAppNotifications,
+  subscribeInAppNotifications,
+} from '../../state/inAppNotificationStore';
+import { reconcileInAppNotifications } from '../../services/inAppNotificationReconciliation';
 
 type Props = {
   firstName: string;
   subtitle: string;
-  notificationCount?: number;
-  onPressNotifications?: () => void;
   onPressProfile: () => void;
 };
 
 function HomeHeader({
   firstName,
   subtitle,
-  notificationCount = 0,
-  onPressNotifications,
   onPressProfile,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const [panelVisible, setPanelVisible] = useState(false);
+  const [storedUnreadCount, setStoredUnreadCount] = useState(
+    getUnreadInAppNotificationCount,
+  );
+
+  useEffect(() => {
+    let active = true;
+    hydrateInAppNotifications().then(() => {
+      if (active) {
+        setStoredUnreadCount(getUnreadInAppNotificationCount());
+      }
+    });
+    const unsubscribe = subscribeInAppNotifications(() => {
+      if (active) {
+        setStoredUnreadCount(getUnreadInAppNotificationCount());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
+  const unreadCount = storedUnreadCount;
 
   const topSpacing = Math.max(insets.top + 9, 16);
 
@@ -36,51 +58,46 @@ function HomeHeader({
         {
           paddingTop: topSpacing,
         },
-      ]}>
+      ]}
+    >
       <View style={styles.greetingCopy}>
-        <Text style={styles.greeting}>
-          As-salamu ‘alaykum,
-        </Text>
+        <Text style={styles.greeting}>As-salamu ‘alaykum,</Text>
 
-        <Text
-          numberOfLines={2}
-          style={styles.name}>
+        <Text numberOfLines={2} style={styles.name}>
           {firstName} 🌸
         </Text>
 
-        <Text style={styles.subtitle}>
-          {subtitle}
-        </Text>
+        <Text style={styles.subtitle}>{subtitle}</Text>
       </View>
 
       <View style={styles.actions}>
         <Pressable
           accessibilityLabel={
-            notificationCount > 0
-              ? `Notifications, ${notificationCount} non lues`
+            unreadCount > 0
+              ? `Notifications, ${unreadCount} non lues`
               : 'Notifications'
           }
           accessibilityRole="button"
           hitSlop={8}
-          onPress={onPressNotifications}
-          style={({pressed}) => [
+          onPress={() => {
+            setPanelVisible(true);
+            reconcileInAppNotifications().catch(() => {});
+          }}
+          style={({ pressed }) => [
             styles.iconButton,
             pressed && styles.pressed,
-          ]}>
+          ]}
+        >
           <MaterialDesignIcons
             color={homeColors.primary}
             name="bell-outline"
             size={22}
           />
 
-          {notificationCount > 0 && (
+          {unreadCount > 0 && (
             <View style={styles.badge}>
-              <Text
-                numberOfLines={1}
-                style={styles.badgeText}>
-                {notificationCount > 9
-                  ? '9+'
-                  : notificationCount}
+              <Text numberOfLines={1} style={styles.badgeText}>
+                {unreadCount > 9 ? '9+' : unreadCount}
               </Text>
             </View>
           )}
@@ -91,10 +108,11 @@ function HomeHeader({
           accessibilityRole="button"
           hitSlop={8}
           onPress={onPressProfile}
-          style={({pressed}) => [
+          style={({ pressed }) => [
             styles.iconButton,
             pressed && styles.pressed,
-          ]}>
+          ]}
+        >
           <MaterialDesignIcons
             color={homeColors.primary}
             name="account-outline"
@@ -102,6 +120,10 @@ function HomeHeader({
           />
         </Pressable>
       </View>
+      <InAppNotificationCenter
+        onClose={() => setPanelVisible(false)}
+        visible={panelVisible}
+      />
     </View>
   );
 }
@@ -188,7 +210,7 @@ const styles = StyleSheet.create({
 
   pressed: {
     opacity: 0.8,
-    transform: [{scale: 0.97}],
+    transform: [{ scale: 0.97 }],
   },
 });
 
