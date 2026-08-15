@@ -55,7 +55,7 @@ export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfir
   postpartum: {
     title: 'Parfait ! 💜',
     description: 'Tu as choisi un accompagnement post-partum.',
-    nextStep: 'HAWA t’accompagnera dans ta récupération,\nle suivi des lochies, ton bien-être quotidien\net le retour progressif de ton cycle.',
+    nextStep: 'AWA t’accompagnera dans ta récupération,\nle suivi des lochies, ton bien-être quotidien\net le retour progressif de ton cycle.',
     buttonLabel: 'Commencer mon suivi',
   },
   loss: {

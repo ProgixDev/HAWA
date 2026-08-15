@@ -1,6 +1,13 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   Alert,
+  Animated,
   Image,
   ImageBackground,
   Modal,
@@ -14,14 +21,15 @@ import {
   useWindowDimensions,
 } from 'react-native';
 
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect} from '@react-navigation/native';
-import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type {RootStackParamList} from '../navigation/AppNavigator';
-import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
-import {getTopPadding} from '../theme/spacing';
+import type { RootStackParamList } from '../navigation/AppNavigator';
+import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
+import { getTopPadding } from '../theme/spacing';
+import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 
 import {
   getCycleObservationStartedAt,
@@ -66,21 +74,18 @@ import {
   startOfDay as canonicalStartOfDay,
 } from '../utils/cycleMath';
 
-import {lockIntimacy} from '../state/privateSectionAuthStore';
+import { lockIntimacy } from '../state/privateSectionAuthStore';
 
 const PURPLE = '#6949BE';
 const PURPLE_DARK = '#28166F';
 
 const BACKGROUND = require('../assets/images/homebackground.png');
 
-const PROFILE_CARD_BACKGROUND = require(
-  '../assets/images/background-card.png',
-);
+const PROFILE_CARD_BACKGROUND = require('../assets/images/background-card.png');
 
 const AVATAR = require('../assets/images/icone_avatar.png');
 
-type IconName =
-  React.ComponentProps<typeof MaterialDesignIcons>['name'];
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Props = MainTabScreenProps<'Profile'>;
 
@@ -121,13 +126,19 @@ const BLEEDING_STATUS_LABELS: Record<MiscarriageBleedingStatus, string> = {
   variable: 'Variable',
 };
 
-const MISCARRIAGE_CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
+const MISCARRIAGE_CYCLE_RETURN_LABELS: Record<
+  MiscarriageCycleReturnStatus,
+  string
+> = {
   no: 'Pas encore',
   yes: 'Oui',
   unknown: 'Je ne sais pas',
 };
 
-const MISCARRIAGE_TRYING_AGAIN_LABELS: Record<MiscarriageTryingAgainStatus, string> = {
+const MISCARRIAGE_TRYING_AGAIN_LABELS: Record<
+  MiscarriageTryingAgainStatus,
+  string
+> = {
   not_now: 'Pas maintenant',
   soon: 'Bientôt',
   ready: 'Oui, je me sens prête',
@@ -243,18 +254,13 @@ const formatShortDate = (date: Date) =>
     month: 'long',
   }).format(date);
 
-const formatHijriDate = (
-  date: Date,
-): string | undefined => {
+const formatHijriDate = (date: Date): string | undefined => {
   try {
-    return new Intl.DateTimeFormat(
-      'fr-FR-u-ca-islamic',
-      {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric',
-      },
-    ).format(date);
+    return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(date);
   } catch {
     return undefined;
   }
@@ -270,31 +276,284 @@ type StatCardProps = {
   value: string;
 };
 
-function StatCard({
-  icon,
-  label,
-  value,
-}: StatCardProps): React.JSX.Element {
+function StatCard({ icon, label, value }: StatCardProps): React.JSX.Element {
   return (
     <View style={styles.statCard}>
       <View style={styles.statIcon}>
-        <MaterialDesignIcons
-          color={PURPLE}
-          name={icon}
-          size={18}
-        />
+        <MaterialDesignIcons color={PURPLE} name={icon} size={18} />
       </View>
 
-      <Text style={styles.statValue}>
-        {value}
-      </Text>
+      <Text style={styles.statValue}>{value}</Text>
 
-      <Text style={styles.statLabel}>
-        {label}
-      </Text>
+      <Text style={styles.statLabel}>{label}</Text>
     </View>
   );
 }
+
+function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element {
+  const entrance = useRef(new Animated.Value(0)).current;
+  const pressScale = useRef(new Animated.Value(1)).current;
+  const shine = useRef(new Animated.Value(-1)).current;
+  const float = useRef(new Animated.Value(0)).current;
+  const sparkle = useRef(new Animated.Value(0)).current;
+  const arrow = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.spring(entrance, {
+      toValue: 1,
+      damping: 16,
+      stiffness: 120,
+      mass: 0.9,
+      useNativeDriver: true,
+    }).start();
+
+    const shineLoop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(3000),
+        Animated.timing(shine, {
+          toValue: 1,
+          duration: 1050,
+          useNativeDriver: true,
+        }),
+        Animated.timing(shine, {
+          toValue: -1,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+        Animated.delay(2400),
+      ]),
+    );
+
+    const floatLoop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(float, {
+          toValue: 1,
+          duration: 2400,
+          useNativeDriver: true,
+        }),
+        Animated.timing(float, {
+          toValue: 0,
+          duration: 2400,
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+
+    const sparkleLoop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(700),
+        Animated.timing(sparkle, {
+          toValue: 1,
+          duration: 750,
+          useNativeDriver: true,
+        }),
+        Animated.timing(sparkle, {
+          toValue: 0,
+          duration: 750,
+          useNativeDriver: true,
+        }),
+        Animated.delay(1300),
+      ]),
+    );
+
+    const arrowLoop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(1800),
+        Animated.timing(arrow, {
+          toValue: 1,
+          duration: 420,
+          useNativeDriver: true,
+        }),
+        Animated.timing(arrow, {
+          toValue: 0,
+          duration: 420,
+          useNativeDriver: true,
+        }),
+        Animated.delay(1700),
+      ]),
+    );
+
+    shineLoop.start();
+    floatLoop.start();
+    sparkleLoop.start();
+    arrowLoop.start();
+
+    return () => {
+      shineLoop.stop();
+      floatLoop.stop();
+      sparkleLoop.stop();
+      arrowLoop.stop();
+    };
+  }, [arrow, entrance, float, shine, sparkle]);
+
+  const handlePressIn = () => {
+    Animated.spring(pressScale, {
+      toValue: 0.988,
+      damping: 18,
+      stiffness: 260,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(pressScale, {
+      toValue: 1,
+      damping: 16,
+      stiffness: 240,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const entranceTranslateY = entrance.interpolate({
+    inputRange: [0, 1],
+    outputRange: [14, 0],
+  });
+
+  const glowOpacity = float.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.14, 0.3],
+  });
+
+  const crownTranslateY = float.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -2],
+  });
+
+  const sparkleScale = sparkle.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.85, 1.1],
+  });
+
+  const arrowTranslateX = arrow.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, 3],
+  });
+
+  return (
+    <Animated.View
+      style={{
+        opacity: entrance,
+        transform: [
+          {translateY: entranceTranslateY},
+          {scale: Animated.multiply(pressScale, entrance)},
+        ],
+      }}>
+      <Pressable
+        accessibilityHint="Ouvre la présentation des avantages Premium"
+        accessibilityLabel="Découvrir HAWA Premium"
+        accessibilityRole="button"
+        onPress={onPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
+        style={styles.premiumCard}>
+        <Animated.View
+          pointerEvents="none"
+          style={[styles.premiumGlow, {opacity: glowOpacity}]}
+        />
+        <View pointerEvents="none" style={styles.premiumAmbientOrbOne} />
+        <View pointerEvents="none" style={styles.premiumAmbientOrbTwo} />
+
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.premiumShine,
+            {
+              transform: [
+                {
+                  translateX: shine.interpolate({
+                    inputRange: [-1, 1],
+                    outputRange: [-240, 330],
+                  }),
+                },
+                {rotate: '18deg'},
+              ],
+            },
+          ]}
+        />
+
+        <View style={styles.premiumHeaderRow}>
+          <Animated.View
+            style={[
+              styles.premiumCrownWrap,
+              {transform: [{translateY: crownTranslateY}]},
+            ]}>
+            <MaterialDesignIcons color="#FFD85F" name="crown" size={25} />
+          </Animated.View>
+
+          <View style={styles.premiumCopy}>
+            <Text style={styles.premiumTitle}>HAWA Premium</Text>
+            <Text style={styles.premiumSubtitle}>
+              Débloque des outils avancés pour aller plus loin dans ton suivi.
+            </Text>
+          </View>
+
+          <Animated.View
+            style={[
+              styles.premiumStarWrap,
+              {
+                opacity: sparkle.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.55, 1],
+                }),
+                transform: [{scale: sparkleScale}],
+              },
+            ]}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name="star-four-points"
+              size={18}
+            />
+          </Animated.View>
+        </View>
+
+        <View style={styles.premiumFeaturesGrid}>
+          {[
+            'Statistiques avancées',
+            'Export PDF & CSV',
+            'Historique illimité',
+            'contenus éducatifs approfondis',
+            'thèmes visuels supplémentaires'
+          ].map(item => (
+            <View key={item} style={styles.premiumFeature}>
+              <View style={styles.premiumCheckCircle}>
+                <MaterialDesignIcons color="#FFFFFF" name="check" size={12} />
+              </View>
+              <Text style={styles.premiumFeatureText}>{item}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.premiumButton}>
+  <View style={styles.premiumButtonContent}>
+    <MaterialDesignIcons
+      color="#D5A928"
+      name="crown"
+      size={20}
+    />
+
+    <Text style={styles.premiumButtonText}>
+      Découvrir Premium
+    </Text>
+  </View>
+
+  <Animated.View
+    style={[
+      styles.premiumButtonArrow,
+      {transform: [{translateX: arrowTranslateX}]},
+    ]}>
+    <MaterialDesignIcons
+      color="#4F2A96"
+      name="chevron-right"
+      size={22}
+    />
+  </Animated.View>
+</View>
+
+      </Pressable>
+    </Animated.View>
+  );
+}
+
 
 /* ============================================================
  * MENU ROW
@@ -318,33 +577,19 @@ function MenuRow({
       accessibilityLabel={title}
       accessibilityRole="button"
       onPress={onPress}
-      style={({pressed}) => [
-        styles.menuRow,
-        pressed && styles.pressed,
-      ]}>
+      style={({ pressed }) => [styles.menuRow, pressed && styles.pressed]}
+    >
       <View style={styles.menuIcon}>
-        <MaterialDesignIcons
-          color={PURPLE}
-          name={icon}
-          size={21}
-        />
+        <MaterialDesignIcons color={PURPLE} name={icon} size={21} />
       </View>
 
       <View style={styles.menuCopy}>
-        <Text style={styles.menuTitle}>
-          {title}
-        </Text>
+        <Text style={styles.menuTitle}>{title}</Text>
 
-        <Text style={styles.menuSubtitle}>
-          {subtitle}
-        </Text>
+        <Text style={styles.menuSubtitle}>{subtitle}</Text>
       </View>
 
-      <MaterialDesignIcons
-        color="#B7ACC9"
-        name="chevron-right"
-        size={22}
-      />
+      <MaterialDesignIcons color="#B7ACC9" name="chevron-right" size={22} />
     </Pressable>
   );
 }
@@ -353,11 +598,10 @@ function MenuRow({
  * PROFILE SCREEN
  * ============================================================ */
 
-function ProfileScreen({
-  navigation,
-}: Props): React.JSX.Element {
+function ProfileScreen({ navigation }: Props): React.JSX.Element {
+  const [premiumVisible, setPremiumVisible] = useState(false);
   const insets = useSafeAreaInsets();
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const compact = width < 360;
 
@@ -368,18 +612,12 @@ function ProfileScreen({
    * ======================================================== */
 
   const profileBackgroundInfo = useMemo(
-    () =>
-      Image.resolveAssetSource(
-        PROFILE_CARD_BACKGROUND,
-      ),
+    () => Image.resolveAssetSource(PROFILE_CARD_BACKGROUND),
     [],
   );
 
   const profileCardAspectRatio = useMemo(() => {
-    if (
-      !profileBackgroundInfo?.width ||
-      !profileBackgroundInfo?.height
-    ) {
+    if (!profileBackgroundInfo?.width || !profileBackgroundInfo?.height) {
       /*
        * Fallback uniquement si React Native
        * n'arrive pas à lire les dimensions.
@@ -387,53 +625,48 @@ function ProfileScreen({
       return 2.15;
     }
 
-    return (
-      profileBackgroundInfo.width /
-      profileBackgroundInfo.height
-    );
+    return profileBackgroundInfo.width / profileBackgroundInfo.height;
   }, [profileBackgroundInfo]);
 
   /* ========================================================
    * OBJECTIF
    * ======================================================== */
 
-  const [objective, setObjective] =
-    useState<ObjectiveId>(
-      getSelectedObjective(),
-    );
+  const [objective, setObjective] = useState<ObjectiveId>(
+    getSelectedObjective(),
+  );
 
   useEffect(() => {
     let active = true;
-    hydrateActiveObjective().then(value => {if (active) {setObjective(value);}});
-    const unsubscribe = subscribeActiveObjective(() => {if (active) {setObjective(getSelectedObjective());}});
-    return () => {active = false; unsubscribe();};
+    hydrateActiveObjective().then(value => {
+      if (active) {
+        setObjective(value);
+      }
+    });
+    const unsubscribe = subscribeActiveObjective(() => {
+      if (active) {
+        setObjective(getSelectedObjective());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
-  const [
-    objectiveModalVisible,
-    setObjectiveModalVisible,
-  ] = useState(false);
+  const [objectiveModalVisible, setObjectiveModalVisible] = useState(false);
 
   /* ========================================================
    * REPÈRES
    * ======================================================== */
 
-  const [
-    spiritualEnabled,
-    setSpiritualEnabled,
-  ] = useState(
+  const [spiritualEnabled, setSpiritualEnabled] = useState(
     getSpiritualMarkersEnabled(),
   );
 
-  const [
-    spiritualModalVisible,
-    setSpiritualModalVisible,
-  ] = useState(false);
+  const [spiritualModalVisible, setSpiritualModalVisible] = useState(false);
 
-  const school = useMemo(
-    () => getSelectedSchool(),
-    [],
-  );
+  const school = useMemo(() => getSelectedSchool(), []);
 
   const [location, setLocation] = useState(getSelectedLocation());
 
@@ -441,9 +674,13 @@ function ProfileScreen({
     useCallback(() => {
       let active = true;
       hydrateSelectedLocation().then(value => {
-        if (active) {setLocation(value);}
+        if (active) {
+          setLocation(value);
+        }
       });
-      return () => {active = false;};
+      return () => {
+        active = false;
+      };
     }, []),
   );
 
@@ -451,27 +688,60 @@ function ProfileScreen({
 
   useEffect(() => {
     let active = true;
-    hydrateCyclePreferences().then(value => {if (active) {setCycle(value);}});
-    const unsubscribe = subscribeCyclePreferences(() => {if (active) {setCycle(getCyclePreferences());}});
-    return () => {active = false; unsubscribe();};
+    hydrateCyclePreferences().then(value => {
+      if (active) {
+        setCycle(value);
+      }
+    });
+    const unsubscribe = subscribeCyclePreferences(() => {
+      if (active) {
+        setCycle(getCyclePreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
   const [postpartum, setPostpartum] = useState(getPostpartumPreferences);
 
   useEffect(() => {
     let active = true;
-    hydratePostpartumPreferences().then(value => {if (active) {setPostpartum(value);}});
-    const unsubscribe = subscribePostpartumPreferences(() => {if (active) {setPostpartum(getPostpartumPreferences());}});
-    return () => {active = false; unsubscribe();};
+    hydratePostpartumPreferences().then(value => {
+      if (active) {
+        setPostpartum(value);
+      }
+    });
+    const unsubscribe = subscribePostpartumPreferences(() => {
+      if (active) {
+        setPostpartum(getPostpartumPreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
   const [miscarriage, setMiscarriage] = useState(getMiscarriagePreferences);
 
   useEffect(() => {
     let active = true;
-    hydrateMiscarriagePreferences().then(value => {if (active) {setMiscarriage(value);}});
-    const unsubscribe = subscribeMiscarriagePreferences(() => {if (active) {setMiscarriage(getMiscarriagePreferences());}});
-    return () => {active = false; unsubscribe();};
+    hydrateMiscarriagePreferences().then(value => {
+      if (active) {
+        setMiscarriage(value);
+      }
+    });
+    const unsubscribe = subscribeMiscarriagePreferences(() => {
+      if (active) {
+        setMiscarriage(getMiscarriagePreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
   // Regularity-aware — same computeCyclePredictionStatus() Dashboard/Calendar
@@ -482,7 +752,9 @@ function ProfileScreen({
       computeCyclePredictionStatus(
         cycle,
         cycle.regularity,
-        getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`)),
+        getPeriodHistory().map(
+          record => new Date(`${record.startDate}T12:00:00`),
+        ),
         getCycleObservationStartedAt(),
         canonicalStartOfDay(new Date()),
       ),
@@ -490,9 +762,16 @@ function ProfileScreen({
   );
 
   const nextPeriodValue = (() => {
-    if (nextPeriodStatus.mode === 'exact') {return formatShortDate(nextPeriodStatus.date);}
+    if (nextPeriodStatus.mode === 'exact') {
+      return formatShortDate(nextPeriodStatus.date);
+    }
     if (nextPeriodStatus.mode === 'window') {
-      return nextPeriodStatus.isLate ? 'Règles en retard' : formatCanonicalDateRange(nextPeriodStatus.windowStart, nextPeriodStatus.windowEnd);
+      return nextPeriodStatus.isLate
+        ? 'Règles en retard'
+        : formatCanonicalDateRange(
+            nextPeriodStatus.windowStart,
+            nextPeriodStatus.windowEnd,
+          );
     }
     return `Mois ${nextPeriodStatus.monthsElapsed} sur ${nextPeriodStatus.totalMonths}`;
   })();
@@ -501,30 +780,26 @@ function ProfileScreen({
   // once the pattern is irregular/variable — see computeCyclePredictionStatus.
   const averageCycleTile = (() => {
     if (nextPeriodStatus.mode === 'exact') {
-      return {label: 'Cycle moyen', value: `${nextPeriodStatus.averageCycleLength} jours`};
+      return {
+        label: 'Cycle moyen',
+        value: `${nextPeriodStatus.averageCycleLength} jours`,
+      };
     }
     if (nextPeriodStatus.mode === 'window') {
-      return {label: 'Cycle variable', value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`};
+      return {
+        label: 'Cycle variable',
+        value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
+      };
     }
-    return {label: 'Cycle moyen', value: `${cycle.cycleDuration} jours`};
+    return { label: 'Cycle moyen', value: `${cycle.cycleDuration} jours` };
   })();
 
-  const hijriToday = useMemo(
-    () => formatHijriDate(new Date()),
-    [],
-  );
+  const hijriToday = useMemo(() => formatHijriDate(new Date()), []);
 
-  const metaParts = [
-    OBJECTIVE_LABELS[objective],
-  ];
+  const metaParts = [OBJECTIVE_LABELS[objective]];
 
-  if (
-    school &&
-    school !== 'unknown'
-  ) {
-    metaParts.push(
-      SCHOOL_LABELS[school],
-    );
+  if (school && school !== 'unknown') {
+    metaParts.push(SCHOOL_LABELS[school]);
   }
 
   if (location?.city) {
@@ -535,36 +810,22 @@ function ProfileScreen({
    * CHANGER OBJECTIF
    * ======================================================== */
 
-  const changeObjective = async (
-    nextObjective: ObjectiveId,
-  ) => {
-    await setSelectedObjective(
-      nextObjective,
-    );
+  const changeObjective = async (nextObjective: ObjectiveId) => {
+    await setSelectedObjective(nextObjective);
 
-    setObjective(
-      nextObjective,
-    );
+    setObjective(nextObjective);
 
-    setObjectiveModalVisible(
-      false,
-    );
+    setObjectiveModalVisible(false);
   };
 
   /* ========================================================
    * CHANGER REPÈRES
    * ======================================================== */
 
-  const changeSpiritualMarkers = (
-    enabled: boolean,
-  ) => {
-    setSpiritualMarkersEnabled(
-      enabled,
-    );
+  const changeSpiritualMarkers = (enabled: boolean) => {
+    setSpiritualMarkersEnabled(enabled);
 
-    setSpiritualEnabled(
-      enabled,
-    );
+    setSpiritualEnabled(enabled);
   };
 
   const confirmSignOut = () =>
@@ -584,11 +845,7 @@ function ProfileScreen({
             lockIntimacy();
 
             navigation
-              .getParent<
-                NativeStackNavigationProp<
-                  RootStackParamList
-                >
-              >()
+              .getParent<NativeStackNavigationProp<RootStackParamList>>()
               ?.reset({
                 index: 0,
                 routes: [
@@ -603,10 +860,7 @@ function ProfileScreen({
     );
 
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={BACKGROUND}
-      style={styles.page}>
+    <ImageBackground resizeMode="cover" source={BACKGROUND} style={styles.page}>
       <SafeAreaView style={styles.safe}>
         <StatusBar
           backgroundColor="transparent"
@@ -618,55 +872,23 @@ function ProfileScreen({
           contentContainerStyle={[
             styles.content,
             {
-              paddingTop:
-                getTopPadding(
-                  insets.top,
-                  compact,
-                ),
+              paddingTop: getTopPadding(insets.top, compact),
 
-              paddingBottom:
-                Math.max(
-                  insets.bottom,
-                  16,
-                ) + 24,
+              paddingBottom: Math.max(insets.bottom, 16) + 24,
             },
           ]}
-          showsVerticalScrollIndicator={
-            false
-          }>
+          showsVerticalScrollIndicator={false}
+        >
           {/* HEADER */}
 
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.headerTitle}>
-                Profil
-              </Text>
+              <Text style={styles.headerTitle}>Profil</Text>
 
-              <Text
-                style={
-                  styles.headerSubtitle
-                }>
+              <Text style={styles.headerSubtitle}>
                 Gère tes informations et préférences
               </Text>
             </View>
-
-            <Pressable
-              accessibilityLabel="Notifications"
-              style={
-                styles.notification
-              }>
-              <MaterialDesignIcons
-                color={PURPLE}
-                name="bell-outline"
-                size={23}
-              />
-
-              <View
-                style={
-                  styles.notificationDot
-                }
-              />
-            </Pressable>
           </View>
 
           {/* =================================================
@@ -677,49 +899,34 @@ function ProfileScreen({
           ================================================= */}
 
           <ImageBackground
-            imageStyle={
-              styles.profileCardImage
-            }
+            imageStyle={styles.profileCardImage}
             resizeMode="cover"
-            source={
-              PROFILE_CARD_BACKGROUND
-            }
+            source={PROFILE_CARD_BACKGROUND}
             style={[
               styles.profileCard,
               {
-                aspectRatio:
-                  profileCardAspectRatio,
+                aspectRatio: profileCardAspectRatio,
               },
-            ]}>
-            <View
-              style={
-                styles.profileCardContent
-              }>
-              <View
-                style={
-                  styles.avatarRow
-                }>
-                <View
-                  style={
-                    styles.avatarWrap
-                  }>
+            ]}
+          >
+            <View style={styles.profileCardContent}>
+              <View style={styles.avatarRow}>
+                <View style={styles.avatarWrap}>
                   <Image
                     accessibilityIgnoresInvertColors
                     resizeMode="cover"
                     source={AVATAR}
-                    style={
-                      styles.avatar
-                    }
+                    style={styles.avatar}
                   />
 
                   <Pressable
                     accessibilityLabel="Changer la photo de profil"
-                    style={({pressed}) => [
+                    style={({ pressed }) => [
                       styles.avatarBadge,
 
-                      pressed &&
-                        styles.pressed,
-                    ]}>
+                      pressed && styles.pressed,
+                    ]}
+                  >
                     <MaterialDesignIcons
                       color="#FFFFFF"
                       name="camera-outline"
@@ -728,25 +935,16 @@ function ProfileScreen({
                   </Pressable>
                 </View>
 
-                <View
-                  style={
-                    styles.identity
-                  }>
-                  <View
-                    style={
-                      styles.nameRow
-                    }>
-                    <Text
-                      numberOfLines={1}
-                      style={
-                        styles.name
-                      }>
+                <View style={styles.identity}>
+                  <View style={styles.nameRow}>
+                    <Text numberOfLines={1} style={styles.name}>
                       {firstName}
                     </Text>
 
                     <Pressable
                       accessibilityLabel="Modifier le profil"
-                      hitSlop={8}>
+                      hitSlop={8}
+                    >
                       <MaterialDesignIcons
                         color={PURPLE}
                         name="pencil-outline"
@@ -755,35 +953,21 @@ function ProfileScreen({
                     </Pressable>
                   </View>
 
-                  <Text
-                    style={
-                      styles.meta
-                    }>
-                    {metaParts.join(
-                      ' • ',
-                    )}
-                  </Text>
+                  <Text style={styles.meta}>{metaParts.join(' • ')}</Text>
 
                   <Pressable
                     accessibilityRole="button"
-                    onPress={() =>
-                      setSpiritualModalVisible(
-                        true,
-                      )
-                    }
+                    onPress={() => setSpiritualModalVisible(true)}
                     style={[
                       styles.spiritualPill,
 
                       spiritualEnabled
                         ? styles.spiritualPillActive
                         : styles.spiritualPillInactive,
-                    ]}>
+                    ]}
+                  >
                     <MaterialDesignIcons
-                      color={
-                        spiritualEnabled
-                          ? '#FFFFFF'
-                          : PURPLE
-                      }
+                      color={spiritualEnabled ? '#FFFFFF' : PURPLE}
                       name="moon-waning-crescent"
                       size={12}
                     />
@@ -795,7 +979,8 @@ function ProfileScreen({
                         spiritualEnabled
                           ? styles.spiritualPillTextActive
                           : styles.spiritualPillTextInactive,
-                      ]}>
+                      ]}
+                    >
                       {spiritualEnabled
                         ? 'Repères spirituels activés'
                         : 'Repères spirituels désactivés'}
@@ -808,11 +993,10 @@ function ProfileScreen({
 
           {/* STATS */}
 
-          {objective !== 'pregnancy' && objective !== 'postpartum' && objective !== 'loss' ? (
-            <View
-              style={
-                styles.statsGrid
-              }>
+          {objective !== 'pregnancy' &&
+          objective !== 'postpartum' &&
+          objective !== 'loss' ? (
+            <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-range"
                 label={averageCycleTile.label}
@@ -834,11 +1018,7 @@ function ProfileScreen({
               <StatCard
                 icon="weather-night"
                 label="Date hijri"
-                value={
-                  spiritualEnabled
-                    ? hijriToday ?? '—'
-                    : 'Désactivé'
-                }
+                value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
               />
             </View>
           ) : null}
@@ -852,19 +1032,33 @@ function ProfileScreen({
               <StatCard
                 icon="calendar-month-outline"
                 label="Accouchement"
-                value={postpartum.deliveryDate ? formatFullDate(new Date(`${postpartum.deliveryDate}T12:00:00`)) : 'Non renseigné'}
+                value={
+                  postpartum.deliveryDate
+                    ? formatFullDate(
+                        new Date(`${postpartum.deliveryDate}T12:00:00`),
+                      )
+                    : 'Non renseigné'
+                }
               />
 
               <StatCard
                 icon="baby-face-outline"
                 label="Type d’accouchement"
-                value={postpartum.deliveryType ? DELIVERY_TYPE_LABELS[postpartum.deliveryType] : 'Non renseigné'}
+                value={
+                  postpartum.deliveryType
+                    ? DELIVERY_TYPE_LABELS[postpartum.deliveryType]
+                    : 'Non renseigné'
+                }
               />
 
               <StatCard
                 icon="baby-bottle-outline"
                 label="Allaitement"
-                value={postpartum.feedingType ? FEEDING_TYPE_LABELS[postpartum.feedingType] : 'Non renseigné'}
+                value={
+                  postpartum.feedingType
+                    ? FEEDING_TYPE_LABELS[postpartum.feedingType]
+                    : 'Non renseigné'
+                }
               />
             </View>
           ) : null}
@@ -879,50 +1073,69 @@ function ProfileScreen({
               <StatCard
                 icon="calendar-heart"
                 label="Date de l’événement"
-                value={miscarriage.miscarriageDate ? formatFullDate(new Date(`${miscarriage.miscarriageDate}T12:00:00`)) : 'Non renseignée'}
+                value={
+                  miscarriage.miscarriageDate
+                    ? formatFullDate(
+                        new Date(`${miscarriage.miscarriageDate}T12:00:00`),
+                      )
+                    : 'Non renseignée'
+                }
               />
 
               <StatCard
                 icon="water-outline"
                 label="Saignements actuels"
-                value={miscarriage.bleedingStatus ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus] : 'Non renseigné'}
+                value={
+                  miscarriage.bleedingStatus
+                    ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus]
+                    : 'Non renseigné'
+                }
               />
 
               <StatCard
                 icon="sync-circle"
                 label="Retour du cycle"
-                value={miscarriage.cycleReturnStatus ? MISCARRIAGE_CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus] : 'Non renseigné'}
+                value={
+                  miscarriage.cycleReturnStatus
+                    ? MISCARRIAGE_CYCLE_RETURN_LABELS[
+                        miscarriage.cycleReturnStatus
+                      ]
+                    : 'Non renseigné'
+                }
               />
 
-              {miscarriage.cycleReturnStatus === 'yes' && miscarriage.firstReturnedPeriodDate ? (
+              {miscarriage.cycleReturnStatus === 'yes' &&
+              miscarriage.firstReturnedPeriodDate ? (
                 <StatCard
                   icon="calendar-check-outline"
                   label="Date du retour des règles"
-                  value={formatFullDate(new Date(`${miscarriage.firstReturnedPeriodDate}T12:00:00`))}
+                  value={formatFullDate(
+                    new Date(`${miscarriage.firstReturnedPeriodDate}T12:00:00`),
+                  )}
                 />
               ) : null}
 
               <StatCard
                 icon="heart-outline"
                 label="Reprise des essais"
-                value={miscarriage.tryingAgainStatus ? MISCARRIAGE_TRYING_AGAIN_LABELS[miscarriage.tryingAgainStatus] : 'Non renseigné'}
+                value={
+                  miscarriage.tryingAgainStatus
+                    ? MISCARRIAGE_TRYING_AGAIN_LABELS[
+                        miscarriage.tryingAgainStatus
+                      ]
+                    : 'Non renseigné'
+                }
               />
             </View>
           ) : null}
 
+          <PremiumProfileCard onPress={() => setPremiumVisible(true)} />
+
           {/* MES INFORMATIONS */}
 
-          <Text
-            style={
-              styles.sectionTitle
-            }>
-            Mes informations
-          </Text>
+          <Text style={styles.sectionTitle}>Mes informations</Text>
 
-          <View
-            style={
-              styles.menuCard
-            }>
+          <View style={styles.menuCard}>
             <MenuRow
               icon="account-outline"
               onPress={() => navigation.navigate('PersonalInformation')}
@@ -930,32 +1143,16 @@ function ProfileScreen({
               title="Informations personnelles"
             />
 
-            <View
-              style={
-                styles.menuDivider
-              }
-            />
+            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="target"
-              onPress={() =>
-                setObjectiveModalVisible(
-                  true,
-                )
-              }
-              subtitle={
-                OBJECTIVE_LABELS[
-                  objective
-                ]
-              }
+              onPress={() => setObjectiveModalVisible(true)}
+              subtitle={OBJECTIVE_LABELS[objective]}
               title="Mon objectif"
             />
 
-            <View
-              style={
-                styles.menuDivider
-              }
-            />
+            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="heart-pulse"
@@ -966,11 +1163,7 @@ function ProfileScreen({
 
             {objective === 'pregnancy' ? (
               <>
-                <View
-                  style={
-                    styles.menuDivider
-                  }
-                />
+                <View style={styles.menuDivider} />
 
                 <MenuRow
                   icon="bell-outline"
@@ -981,28 +1174,16 @@ function ProfileScreen({
               </>
             ) : null}
 
-            <View
-              style={
-                styles.menuDivider
-              }
-            />
+            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="shield-lock-outline"
-              onPress={() =>
-                navigation.navigate(
-                  'PrivacySecurity',
-                )
-              }
+              onPress={() => navigation.navigate('PrivacySecurity')}
               subtitle="Code, Face ID, mode discret, suppression des données"
               title="Confidentialité & Sécurité"
             />
 
-            <View
-              style={
-                styles.menuDivider
-              }
-            />
+            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="cloud-outline"
@@ -1020,46 +1201,37 @@ function ProfileScreen({
             style={[
               styles.spiritualCard,
 
-              !spiritualEnabled &&
-                styles.spiritualCardDisabled,
-            ]}>
-            <View
-              style={
-                styles.spiritualHeader
-              }>
+              !spiritualEnabled && styles.spiritualCardDisabled,
+            ]}
+          >
+            <View style={styles.spiritualHeader}>
               <View
                 style={[
                   styles.spiritualIconCircle,
 
-                  !spiritualEnabled &&
-                    styles.spiritualIconCircleDisabled,
-                ]}>
+                  !spiritualEnabled && styles.spiritualIconCircleDisabled,
+                ]}
+              >
                 <Text
                   style={[
                     styles.moonEmoji,
 
-                    !spiritualEnabled &&
-                      styles.emojiDisabled,
-                  ]}>
+                    !spiritualEnabled && styles.emojiDisabled,
+                  ]}
+                >
                   🌙
                 </Text>
               </View>
 
-              <View
-                style={
-                  styles.spiritualCopy
-                }>
-                <View
-                  style={
-                    styles.spiritualTitleRow
-                  }>
+              <View style={styles.spiritualCopy}>
+                <View style={styles.spiritualTitleRow}>
                   <Text
                     style={[
                       styles.spiritualTitle,
 
-                      !spiritualEnabled &&
-                        styles.spiritualTitleDisabled,
-                    ]}>
+                      !spiritualEnabled && styles.spiritualTitleDisabled,
+                    ]}
+                  >
                     Repères spirituels
                   </Text>
 
@@ -1070,7 +1242,8 @@ function ProfileScreen({
                       spiritualEnabled
                         ? styles.statusBadgeActive
                         : styles.statusBadgeInactive,
-                    ]}>
+                    ]}
+                  >
                     <Text
                       style={[
                         styles.statusBadgeText,
@@ -1078,10 +1251,9 @@ function ProfileScreen({
                         spiritualEnabled
                           ? styles.statusBadgeTextActive
                           : styles.statusBadgeTextInactive,
-                      ]}>
-                      {spiritualEnabled
-                        ? 'Actif'
-                        : 'Inactif'}
+                      ]}
+                    >
+                      {spiritualEnabled ? 'Actif' : 'Inactif'}
                     </Text>
                   </View>
                 </View>
@@ -1090,73 +1262,57 @@ function ProfileScreen({
                   style={[
                     styles.spiritualText,
 
-                    !spiritualEnabled &&
-                      styles.spiritualTextDisabled,
-                  ]}>
+                    !spiritualEnabled && styles.spiritualTextDisabled,
+                  ]}
+                >
                   Calendrier hijri, prières, pureté, jeûne et rappels.
                 </Text>
               </View>
             </View>
 
-            <View
-              style={
-                styles.spiritualMiniFeatures
-              }>
-              {SPIRITUAL_FEATURES.map(
-                feature => (
-                  <View
-                    key={
-                      feature.label
-                    }
+            <View style={styles.spiritualMiniFeatures}>
+              {SPIRITUAL_FEATURES.map(feature => (
+                <View
+                  key={feature.label}
+                  style={[
+                    styles.spiritualMiniFeature,
+
+                    !spiritualEnabled && styles.spiritualMiniFeatureDisabled,
+                  ]}
+                >
+                  <Text
                     style={[
-                      styles.spiritualMiniFeature,
+                      styles.spiritualMiniEmoji,
 
-                      !spiritualEnabled &&
-                        styles.spiritualMiniFeatureDisabled,
-                    ]}>
-                    <Text
-                      style={[
-                        styles.spiritualMiniEmoji,
+                      !spiritualEnabled && styles.emojiDisabled,
+                    ]}
+                  >
+                    {feature.icon}
+                  </Text>
 
-                        !spiritualEnabled &&
-                          styles.emojiDisabled,
-                      ]}>
-                      {feature.icon}
-                    </Text>
+                  <Text
+                    style={[
+                      styles.spiritualMiniText,
 
-                    <Text
-                      style={[
-                        styles.spiritualMiniText,
-
-                        !spiritualEnabled &&
-                          styles.spiritualMiniTextDisabled,
-                      ]}>
-                      {feature.label}
-                    </Text>
-                  </View>
-                ),
-              )}
+                      !spiritualEnabled && styles.spiritualMiniTextDisabled,
+                    ]}
+                  >
+                    {feature.label}
+                  </Text>
+                </View>
+              ))}
             </View>
 
             <Pressable
               accessibilityRole="button"
-              onPress={() =>
-                setSpiritualModalVisible(
-                  true,
-                )
-              }
-              style={({pressed}) => [
+              onPress={() => setSpiritualModalVisible(true)}
+              style={({ pressed }) => [
                 styles.manageButton,
 
-                pressed &&
-                  styles.pressed,
-              ]}>
-              <Text
-                style={
-                  styles.manageButtonText
-                }>
-                Gérer les repères
-              </Text>
+                pressed && styles.pressed,
+              ]}
+            >
+              <Text style={styles.manageButtonText}>Gérer les repères</Text>
 
               <MaterialDesignIcons
                 color="#FFFFFF"
@@ -1168,17 +1324,9 @@ function ProfileScreen({
 
           {/* PLUS */}
 
-          <Text
-            style={
-              styles.sectionTitle
-            }>
-            Plus
-          </Text>
+          <Text style={styles.sectionTitle}>Plus</Text>
 
-          <View
-            style={
-              styles.menuCard
-            }>
+          <View style={styles.menuCard}>
             <MenuRow
               icon="information-outline"
               onPress={() => navigation.navigate('About')}
@@ -1186,11 +1334,7 @@ function ProfileScreen({
               title="À propos de AWA"
             />
 
-            <View
-              style={
-                styles.menuDivider
-              }
-            />
+            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="lifebuoy"
@@ -1203,26 +1347,14 @@ function ProfileScreen({
           <Pressable
             accessibilityRole="button"
             onPress={confirmSignOut}
-            style={({pressed}) => [
-              styles.signOut,
+            style={({ pressed }) => [styles.signOut, pressed && styles.pressed]}
+          >
+            <MaterialDesignIcons color="#B4485A" name="logout" size={19} />
 
-              pressed &&
-                styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color="#B4485A"
-              name="logout"
-              size={19}
-            />
-
-            <Text
-              style={
-                styles.signOutText
-              }>
-              Se déconnecter
-            </Text>
+            <Text style={styles.signOutText}>Se déconnecter</Text>
           </Pressable>
         </ScrollView>
+        <HawaPremiumBottomSheet visible={premiumVisible} onClose={() => setPremiumVisible(false)} />
 
         {/* =====================================================
             OBJECTIVE MODAL
@@ -1230,77 +1362,35 @@ function ProfileScreen({
 
         <Modal
           animationType="fade"
-          onRequestClose={() =>
-            setObjectiveModalVisible(
-              false,
-            )
-          }
+          onRequestClose={() => setObjectiveModalVisible(false)}
           statusBarTranslucent
           transparent
-          visible={
-            objectiveModalVisible
-          }>
-          <View
-            style={
-              styles.modalOverlay
-            }>
+          visible={objectiveModalVisible}
+        >
+          <View style={styles.modalOverlay}>
             <Pressable
-              onPress={() =>
-                setObjectiveModalVisible(
-                  false,
-                )
-              }
-              style={
-                StyleSheet.absoluteFill
-              }
+              onPress={() => setObjectiveModalVisible(false)}
+              style={StyleSheet.absoluteFill}
             />
 
-            <View
-              style={
-                styles.objectiveSheet
-              }>
-              <View
-                style={
-                  styles.sheetHandle
-                }
-              />
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
 
-              <View
-                style={
-                  styles.sheetHeader
-                }>
-                <View
-                  style={
-                    styles.sheetHeaderCopy
-                  }>
-                  <Text
-                    style={
-                      styles.sheetTitle
-                    }>
-                    Modifier mon objectif
-                  </Text>
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Modifier mon objectif</Text>
 
-                  <Text
-                    style={
-                      styles.sheetSubtitle
-                    }>
+                  <Text style={styles.sheetSubtitle}>
                     Choisis l’objectif qui correspond le mieux à ta situation.
                   </Text>
                 </View>
 
                 <Pressable
-                  onPress={() =>
-                    setObjectiveModalVisible(
-                      false,
-                    )
-                  }
-                  style={
-                    styles.sheetClose
-                  }>
+                  onPress={() => setObjectiveModalVisible(false)}
+                  style={styles.sheetClose}
+                >
                   <MaterialDesignIcons
-                    color={
-                      PURPLE_DARK
-                    }
+                    color={PURPLE_DARK}
                     name="close"
                     size={21}
                   />
@@ -1312,104 +1402,76 @@ function ProfileScreen({
                   styles.objectiveList,
 
                   {
-                    paddingBottom:
-                      Math.max(
-                        insets.bottom,
-                        14,
-                      ) + 14,
+                    paddingBottom: Math.max(insets.bottom, 14) + 14,
                   },
                 ]}
-                showsVerticalScrollIndicator={
-                  false
-                }>
-                {OBJECTIVES.map(
-                  item => {
-                    const active =
-                      objective ===
-                      item.id;
+                showsVerticalScrollIndicator={false}
+              >
+                {OBJECTIVES.map(item => {
+                  const active = objective === item.id;
 
-                    return (
-                      <Pressable
-                        key={item.id}
-                        accessibilityRole="radio"
-                        accessibilityState={{
-                          checked:
-                            active,
-                        }}
-                        onPress={() =>
-                          changeObjective(
-                            item.id,
-                          )
-                        }
-                        style={({
-                          pressed,
-                        }) => [
-                          styles.objectiveOption,
+                  return (
+                    <Pressable
+                      key={item.id}
+                      accessibilityRole="radio"
+                      accessibilityState={{
+                        checked: active,
+                      }}
+                      onPress={() => changeObjective(item.id)}
+                      style={({ pressed }) => [
+                        styles.objectiveOption,
 
-                          active &&
-                            styles.objectiveOptionActive,
+                        active && styles.objectiveOptionActive,
 
-                          pressed &&
-                            styles.optionPressed,
-                        ]}>
-                        <View
+                        pressed && styles.optionPressed,
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.objectiveIcon,
+
+                          {
+                            backgroundColor: item.tint,
+                          },
+                        ]}
+                      >
+                        <Text style={styles.objectiveEmoji}>{item.icon}</Text>
+                      </View>
+
+                      <View style={styles.objectiveOptionCopy}>
+                        <Text
                           style={[
-                            styles.objectiveIcon,
+                            styles.objectiveOptionTitle,
 
-                            {
-                              backgroundColor:
-                                item.tint,
-                            },
-                          ]}>
-                          <Text
-                            style={
-                              styles.objectiveEmoji
-                            }>
-                            {item.icon}
-                          </Text>
-                        </View>
+                            active && styles.objectiveOptionTitleActive,
+                          ]}
+                        >
+                          {item.label}
+                        </Text>
 
-                        <View
-                          style={
-                            styles.objectiveOptionCopy
-                          }>
-                          <Text
-                            style={[
-                              styles.objectiveOptionTitle,
+                        <Text style={styles.objectiveOptionSubtitle}>
+                          {item.subtitle}
+                        </Text>
+                      </View>
 
-                              active &&
-                                styles.objectiveOptionTitleActive,
-                            ]}>
-                            {item.label}
-                          </Text>
+                      <View
+                        style={[
+                          styles.objectiveRadio,
 
-                          <Text
-                            style={
-                              styles.objectiveOptionSubtitle
-                            }>
-                            {item.subtitle}
-                          </Text>
-                        </View>
-
-                        <View
-                          style={[
-                            styles.objectiveRadio,
-
-                            active &&
-                              styles.objectiveRadioActive,
-                          ]}>
-                          {active ? (
-                            <MaterialDesignIcons
-                              color="#FFFFFF"
-                              name="check"
-                              size={15}
-                            />
-                          ) : null}
-                        </View>
-                      </Pressable>
-                    );
-                  },
-                )}
+                          active && styles.objectiveRadioActive,
+                        ]}
+                      >
+                        {active ? (
+                          <MaterialDesignIcons
+                            color="#FFFFFF"
+                            name="check"
+                            size={15}
+                          />
+                        ) : null}
+                      </View>
+                    </Pressable>
+                  );
+                })}
               </ScrollView>
             </View>
           </View>
@@ -1421,89 +1483,39 @@ function ProfileScreen({
 
         <Modal
           animationType="fade"
-          onRequestClose={() =>
-            setSpiritualModalVisible(
-              false,
-            )
-          }
+          onRequestClose={() => setSpiritualModalVisible(false)}
           statusBarTranslucent
           transparent
-          visible={
-            spiritualModalVisible
-          }>
-          <View
-            style={
-              styles.modalOverlay
-            }>
+          visible={spiritualModalVisible}
+        >
+          <View style={styles.modalOverlay}>
             <Pressable
-              onPress={() =>
-                setSpiritualModalVisible(
-                  false,
-                )
-              }
-              style={
-                StyleSheet.absoluteFill
-              }
+              onPress={() => setSpiritualModalVisible(false)}
+              style={StyleSheet.absoluteFill}
             />
 
-            <View
-              style={
-                styles.spiritualSheet
-              }>
-              <View
-                style={
-                  styles.sheetHandle
-                }
-              />
+            <View style={styles.spiritualSheet}>
+              <View style={styles.sheetHandle} />
 
-              <View
-                style={
-                  styles.sheetHeader
-                }>
-                <View
-                  style={
-                    styles.spiritualSheetTitleIcon
-                  }>
-                  <Text
-                    style={
-                      styles.spiritualHeaderEmoji
-                    }>
-                    🌙
-                  </Text>
+              <View style={styles.sheetHeader}>
+                <View style={styles.spiritualSheetTitleIcon}>
+                  <Text style={styles.spiritualHeaderEmoji}>🌙</Text>
                 </View>
 
-                <View
-                  style={
-                    styles.sheetHeaderCopy
-                  }>
-                  <Text
-                    style={
-                      styles.sheetTitle
-                    }>
-                    Repères spirituels
-                  </Text>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Repères spirituels</Text>
 
-                  <Text
-                    style={
-                      styles.sheetSubtitle
-                    }>
-                    Active ou désactive les fonctionnalités spirituelles de HAWA.
+                  <Text style={styles.sheetSubtitle}>
+                    Active ou désactive les fonctionnalités spirituelles de AWA.
                   </Text>
                 </View>
 
                 <Pressable
-                  onPress={() =>
-                    setSpiritualModalVisible(
-                      false,
-                    )
-                  }
-                  style={
-                    styles.sheetClose
-                  }>
+                  onPress={() => setSpiritualModalVisible(false)}
+                  style={styles.sheetClose}
+                >
                   <MaterialDesignIcons
-                    color={
-                      PURPLE_DARK
-                    }
+                    color={PURPLE_DARK}
                     name="close"
                     size={21}
                   />
@@ -1515,76 +1527,48 @@ function ProfileScreen({
                   styles.spiritualSheetContent,
 
                   {
-                    paddingBottom:
-                      Math.max(
-                        insets.bottom,
-                        16,
-                      ) + 16,
+                    paddingBottom: Math.max(insets.bottom, 16) + 16,
                   },
                 ]}
-                showsVerticalScrollIndicator={
-                  false
-                }>
-                <Text
-                  style={
-                    styles.activationLabel
-                  }>
-                  État des repères
-                </Text>
+                showsVerticalScrollIndicator={false}
+              >
+                <Text style={styles.activationLabel}>État des repères</Text>
 
-                <View
-                  style={
-                    styles.activationChoices
-                  }>
+                <View style={styles.activationChoices}>
                   <Pressable
                     accessibilityRole="radio"
                     accessibilityState={{
-                      checked:
-                        spiritualEnabled,
+                      checked: spiritualEnabled,
                     }}
-                    onPress={() =>
-                      changeSpiritualMarkers(
-                        true,
-                      )
-                    }
-                    style={({
-                      pressed,
-                    }) => [
+                    onPress={() => changeSpiritualMarkers(true)}
+                    style={({ pressed }) => [
                       styles.activationChoice,
 
-                      spiritualEnabled &&
-                        styles.activationChoiceActive,
+                      spiritualEnabled && styles.activationChoiceActive,
 
-                      pressed &&
-                        styles.optionPressed,
-                    ]}>
+                      pressed && styles.optionPressed,
+                    ]}
+                  >
                     <View
                       style={[
                         styles.activationRadio,
 
-                        spiritualEnabled &&
-                          styles.activationRadioActive,
-                      ]}>
+                        spiritualEnabled && styles.activationRadioActive,
+                      ]}
+                    >
                       {spiritualEnabled ? (
-                        <View
-                          style={
-                            styles.activationRadioDot
-                          }
-                        />
+                        <View style={styles.activationRadioDot} />
                       ) : null}
                     </View>
 
-                    <View
-                      style={
-                        styles.activationCopy
-                      }>
+                    <View style={styles.activationCopy}>
                       <Text
                         style={[
                           styles.activationTitle,
 
-                          spiritualEnabled &&
-                            styles.activationTitleActive,
-                        ]}>
+                          spiritualEnabled && styles.activationTitleActive,
+                        ]}
+                      >
                         Oui, activer
                       </Text>
 
@@ -1594,16 +1578,14 @@ function ProfileScreen({
 
                           spiritualEnabled &&
                             styles.activationDescriptionActive,
-                        ]}>
+                        ]}
+                      >
                         Afficher les fonctionnalités spirituelles
                       </Text>
                     </View>
 
                     {spiritualEnabled ? (
-                      <View
-                        style={
-                          styles.activationCheck
-                        }>
+                      <View style={styles.activationCheck}>
                         <MaterialDesignIcons
                           color={PURPLE}
                           name="check"
@@ -1616,52 +1598,37 @@ function ProfileScreen({
                   <Pressable
                     accessibilityRole="radio"
                     accessibilityState={{
-                      checked:
-                        !spiritualEnabled,
+                      checked: !spiritualEnabled,
                     }}
-                    onPress={() =>
-                      changeSpiritualMarkers(
-                        false,
-                      )
-                    }
-                    style={({
-                      pressed,
-                    }) => [
+                    onPress={() => changeSpiritualMarkers(false)}
+                    style={({ pressed }) => [
                       styles.activationChoice,
 
-                      !spiritualEnabled &&
-                        styles.activationChoiceActive,
+                      !spiritualEnabled && styles.activationChoiceActive,
 
-                      pressed &&
-                        styles.optionPressed,
-                    ]}>
+                      pressed && styles.optionPressed,
+                    ]}
+                  >
                     <View
                       style={[
                         styles.activationRadio,
 
-                        !spiritualEnabled &&
-                          styles.activationRadioActive,
-                      ]}>
+                        !spiritualEnabled && styles.activationRadioActive,
+                      ]}
+                    >
                       {!spiritualEnabled ? (
-                        <View
-                          style={
-                            styles.activationRadioDot
-                          }
-                        />
+                        <View style={styles.activationRadioDot} />
                       ) : null}
                     </View>
 
-                    <View
-                      style={
-                        styles.activationCopy
-                      }>
+                    <View style={styles.activationCopy}>
                       <Text
                         style={[
                           styles.activationTitle,
 
-                          !spiritualEnabled &&
-                            styles.activationTitleActive,
-                        ]}>
+                          !spiritualEnabled && styles.activationTitleActive,
+                        ]}
+                      >
                         Non, désactiver
                       </Text>
 
@@ -1671,16 +1638,14 @@ function ProfileScreen({
 
                           !spiritualEnabled &&
                             styles.activationDescriptionActive,
-                        ]}>
+                        ]}
+                      >
                         Masquer les fonctionnalités spirituelles
                       </Text>
                     </View>
 
                     {!spiritualEnabled ? (
-                      <View
-                        style={
-                          styles.activationCheck
-                        }>
+                      <View style={styles.activationCheck}>
                         <MaterialDesignIcons
                           color={PURPLE}
                           name="check"
@@ -1691,14 +1656,8 @@ function ProfileScreen({
                   </Pressable>
                 </View>
 
-                <View
-                  style={
-                    styles.featuresHeader
-                  }>
-                  <Text
-                    style={
-                      styles.featuresTitle
-                    }>
+                <View style={styles.featuresHeader}>
+                  <Text style={styles.featuresTitle}>
                     Fonctionnalités concernées
                   </Text>
 
@@ -1709,7 +1668,8 @@ function ProfileScreen({
                       spiritualEnabled
                         ? styles.featuresStatusActive
                         : styles.featuresStatusDisabled,
-                    ]}>
+                    ]}
+                  >
                     <Text
                       style={[
                         styles.featuresStatusText,
@@ -1717,146 +1677,109 @@ function ProfileScreen({
                         spiritualEnabled
                           ? styles.featuresStatusTextActive
                           : styles.featuresStatusTextDisabled,
-                      ]}>
-                      {spiritualEnabled
-                        ? 'Activées'
-                        : 'Désactivées'}
+                      ]}
+                    >
+                      {spiritualEnabled ? 'Activées' : 'Désactivées'}
                     </Text>
                   </View>
                 </View>
 
-                <View
-                  style={
-                    styles.spiritualFeatures
-                  }>
-                  {SPIRITUAL_FEATURES.map(
-                    feature => (
+                <View style={styles.spiritualFeatures}>
+                  {SPIRITUAL_FEATURES.map(feature => (
+                    <View
+                      key={feature.label}
+                      style={[
+                        styles.spiritualFeatureCard,
+
+                        !spiritualEnabled &&
+                          styles.spiritualFeatureCardDisabled,
+                      ]}
+                    >
                       <View
-                        key={
-                          feature.label
-                        }
                         style={[
-                          styles.spiritualFeatureCard,
+                          styles.spiritualFeatureIcon,
 
                           !spiritualEnabled &&
-                            styles.spiritualFeatureCardDisabled,
-                        ]}>
-                        <View
+                            styles.spiritualFeatureIconDisabled,
+                        ]}
+                      >
+                        <Text
                           style={[
-                            styles.spiritualFeatureIcon,
+                            styles.spiritualFeatureEmoji,
+
+                            !spiritualEnabled && styles.emojiDisabled,
+                          ]}
+                        >
+                          {feature.icon}
+                        </Text>
+                      </View>
+
+                      <View style={styles.spiritualFeatureCopy}>
+                        <Text
+                          style={[
+                            styles.spiritualFeatureTitle,
 
                             !spiritualEnabled &&
-                              styles.spiritualFeatureIconDisabled,
-                          ]}>
-                          <Text
-                            style={[
-                              styles.spiritualFeatureEmoji,
+                              styles.spiritualFeatureTitleDisabled,
+                          ]}
+                        >
+                          {feature.label}
+                        </Text>
 
-                              !spiritualEnabled &&
-                                styles.emojiDisabled,
-                            ]}>
-                            {feature.icon}
-                          </Text>
-                        </View>
-
-                        <View
-                          style={
-                            styles.spiritualFeatureCopy
-                          }>
-                          <Text
-                            style={[
-                              styles.spiritualFeatureTitle,
-
-                              !spiritualEnabled &&
-                                styles.spiritualFeatureTitleDisabled,
-                            ]}>
-                            {feature.label}
-                          </Text>
-
-                          <Text
-                            style={[
-                              styles.spiritualFeatureDescription,
-
-                              !spiritualEnabled &&
-                                styles.spiritualFeatureDescriptionDisabled,
-                            ]}>
-                            {
-                              feature.description
-                            }
-                          </Text>
-                        </View>
-
-                        <View
+                        <Text
                           style={[
-                            styles.featureStateIcon,
+                            styles.spiritualFeatureDescription,
 
-                            spiritualEnabled
-                              ? styles.featureStateIconActive
-                              : styles.featureStateIconDisabled,
-                          ]}>
-                          <MaterialDesignIcons
-                            color={
-                              spiritualEnabled
-                                ? '#FFFFFF'
-                                : '#AAA3B5'
-                            }
-                            name={
-                              spiritualEnabled
-                                ? 'check'
-                                : 'minus'
-                            }
-                            size={14}
-                          />
-                        </View>
+                            !spiritualEnabled &&
+                              styles.spiritualFeatureDescriptionDisabled,
+                          ]}
+                        >
+                          {feature.description}
+                        </Text>
                       </View>
-                    ),
-                  )}
+
+                      <View
+                        style={[
+                          styles.featureStateIcon,
+
+                          spiritualEnabled
+                            ? styles.featureStateIconActive
+                            : styles.featureStateIconDisabled,
+                        ]}
+                      >
+                        <MaterialDesignIcons
+                          color={spiritualEnabled ? '#FFFFFF' : '#AAA3B5'}
+                          name={spiritualEnabled ? 'check' : 'minus'}
+                          size={14}
+                        />
+                      </View>
+                    </View>
+                  ))}
                 </View>
 
-                <View
-                  style={
-                    styles.spiritualInfoBox
-                  }>
+                <View style={styles.spiritualInfoBox}>
                   <MaterialDesignIcons
                     color={PURPLE}
                     name="information-outline"
                     size={19}
                   />
 
-                  <Text
-                    style={
-                      styles.spiritualInfoText
-                    }>
+                  <Text style={styles.spiritualInfoText}>
                     Tu peux modifier ce choix à tout moment depuis ton profil.
                   </Text>
                 </View>
 
                 <Pressable
-                  onPress={() =>
-                    setSpiritualModalVisible(
-                      false,
-                    )
-                  }
-                  style={({
-                    pressed,
-                  }) => [
+                  onPress={() => setSpiritualModalVisible(false)}
+                  style={({ pressed }) => [
                     styles.doneButton,
 
-                    pressed &&
-                      styles.optionPressed,
-                  ]}>
-                  <MaterialDesignIcons
-                    color="#FFFFFF"
-                    name="check"
-                    size={19}
-                  />
+                    pressed && styles.optionPressed,
+                  ]}
+                >
+                  <MaterialDesignIcons color="#FFFFFF" name="check" size={19} />
 
-                  <Text
-                    style={
-                      styles.doneButtonText
-                    }>
-                    Terminé
-                  </Text>
+                  <Text style={styles.doneButtonText}>Terminé</Text>
                 </Pressable>
               </ScrollView>
             </View>
@@ -1872,6 +1795,167 @@ function ProfileScreen({
  * ============================================================ */
 
 const styles = StyleSheet.create({
+  premiumCard: {
+    position: 'relative',
+    overflow: 'hidden',
+    marginTop: 16,
+    marginBottom: 18,
+    borderWidth: 1.6,
+    borderColor: '#E97BFF',
+    borderRadius: 24,
+    backgroundColor: '#4A2398',
+    paddingHorizontal: 15,
+    paddingTop: 14,
+    paddingBottom: 13,
+    shadowColor: '#D85BFF',
+    shadowOpacity: 0.38,
+    shadowRadius: 13,
+    shadowOffset: {width: 0, height: 6},
+    elevation: 7,
+  },
+
+  premiumGlow: {
+    position: 'absolute',
+    top: -54,
+    right: -38,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: '#A874FF',
+  },
+
+  premiumAmbientOrbOne: {
+    position: 'absolute',
+    left: -52,
+    bottom: -72,
+    width: 150,
+    height: 150,
+    borderRadius: 75,
+    backgroundColor: 'rgba(112,69,215,0.34)',
+  },
+
+  premiumAmbientOrbTwo: {
+    position: 'absolute',
+    right: 22,
+    bottom: -62,
+    width: 112,
+    height: 112,
+    borderRadius: 56,
+    backgroundColor: 'rgba(255,185,225,0.10)',
+  },
+
+  premiumShine: {
+    position: 'absolute',
+    top: -62,
+    bottom: -62,
+    width: 42,
+    backgroundColor: 'rgba(255,255,255,0.16)',
+  },
+
+  premiumHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+  },
+
+  premiumCrownWrap: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,221,115,0.26)',
+    borderRadius: 13,
+    backgroundColor: 'rgba(255,216,95,0.10)',
+  },
+
+  premiumCopy: {
+    flex: 1,
+    minWidth: 0,
+    marginLeft: 10,
+    marginRight: 8,
+  },
+
+  premiumTitle: {
+    color: '#FFFFFF',
+    fontFamily: 'serif',
+    fontSize: 20,
+    fontWeight: '800',
+    letterSpacing: 0.1,
+  },
+
+  premiumSubtitle: {
+    marginTop: 3,
+    color: '#F1E9FF',
+    fontSize: 10.8,
+    lineHeight: 15.5,
+  },
+
+  premiumStarWrap: {
+    width: 28,
+    height: 28,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 14,
+    backgroundColor: 'rgba(255,255,255,0.07)',
+  },
+
+  premiumFeaturesGrid: {
+    marginTop: 11,
+    gap: 5,
+  },
+
+  premiumFeature: {
+    minHeight: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  premiumCheckCircle: {
+    width: 17,
+    height: 17,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 8.5,
+    backgroundColor: 'rgba(255,255,255,0.16)',
+  },
+
+  premiumFeatureText: {
+    flex: 1,
+    marginLeft: 8,
+    color: '#FFFFFF',
+    fontSize: 10.8,
+    fontWeight: '600',
+    lineHeight: 14.5,
+  },
+
+  premiumButton: {
+    minHeight: 44,
+    marginTop: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.74)',
+    borderRadius: 16,
+    backgroundColor: '#FFFDFE',
+    paddingHorizontal: 14,
+    shadowColor: '#251059',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 2,
+  },
+
+  premiumButtonText: {
+    color: '#4F2A96',
+    fontSize: 13.5,
+    fontWeight: '900',
+  },
+
   page: {
     flex: 1,
     backgroundColor: '#F0E3F9',
@@ -2789,6 +2873,21 @@ const styles = StyleSheet.create({
       },
     ],
   },
+
+  premiumButtonContent: {
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: 8,
+},
+
+premiumButtonArrow: {
+  position: 'absolute',
+  right: 16,
+  alignItems: 'center',
+  justifyContent: 'center',
+},
+
 });
 
 export default ProfileScreen;

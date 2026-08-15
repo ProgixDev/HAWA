@@ -195,7 +195,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
       const daysUntilStart = diffDays(predictionStatus.windowStart, today);
       return daysUntilStart > 0 ? `Dans ${daysUntilStart} jours` : 'Fenêtre estimée en cours';
     }
-    return predictionStatus.complete ? 'Données à compléter' : 'HAWA observe tes cycles';
+    return predictionStatus.complete ? 'Données à compléter' : 'AWA observe tes cycles';
   })();
 
   const ovulationDay = ovulationDayFor(basics.cycleDuration);
