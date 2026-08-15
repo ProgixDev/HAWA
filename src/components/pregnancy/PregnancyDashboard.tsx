@@ -1,7 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   AccessibilityInfo,
-  Alert,
   Animated,
   Image,
   ImageBackground,
@@ -14,25 +19,34 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
-import {useJournalSheet} from '../../navigation/JournalSheetContext';
-import {requirePrivateAccess} from '../../navigation/privateAccess';
+import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
+import { useJournalSheet } from '../../navigation/JournalSheetContext';
+import { requirePrivateAccess } from '../../navigation/privateAccess';
 import HomeHeader from '../home/HomeHeader';
-import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
+import QuickActionsGrid, {
+  type QuickActionItem,
+} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
-import {homeColors, homeShadow} from '../home/homeTheme';
-import {getFirstName, getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
+import { homeColors, homeShadow } from '../home/homeTheme';
+import {
+  getFirstName,
+  getSpiritualMarkersEnabled,
+} from '../../state/onboardingPreferences';
 import {
   getPregnancyDating,
   hydratePregnancyDating,
   subscribePregnancyDating,
   type PregnancyTrackingPreference,
 } from '../../state/pregnancyPreferences';
-import {computePregnancyStatus, isLatePregnancy, isPregnancyTrackingCategoryCompleted} from '../../utils/pregnancyTrackingUtils';
+import {
+  computePregnancyStatus,
+  isLatePregnancy,
+  isPregnancyTrackingCategoryCompleted,
+} from '../../utils/pregnancyTrackingUtils';
 import {
   getPostpartumPreferences,
   hydratePostpartumPreferences,
@@ -40,17 +54,20 @@ import {
 } from '../../state/postpartumPreferences';
 import DeliveryDateSheet from './DeliveryDateSheet';
 import PostpartumCongratsCard from './PostpartumCongratsCard';
-import {usePregnancySpiritualStatus} from '../../hooks/usePrayerPurityStatus';
-import {formatHijriDate} from '../../utils/cycleMath';
-import {getJournalEntry} from '../../state/dailyJournalStore';
-import {getPregnancyJournalState, type PregnancyJournalState} from '../../state/pregnancyJournalStore';
+import { usePregnancySpiritualStatus } from '../../hooks/usePrayerPurityStatus';
+import { formatHijriDate } from '../../utils/cycleMath';
+import { getJournalEntry } from '../../state/dailyJournalStore';
+import {
+  getPregnancyJournalState,
+  type PregnancyJournalState,
+} from '../../state/pregnancyJournalStore';
 import {
   getNextUpcomingEvent,
   getPregnancyMedicalEvents,
   type PregnancyMedicalEvent,
 } from '../../state/pregnancyMedicalEventsStore';
-import {getPregnancyWeekData} from '../../data/pregnancyWeekData';
-import type {DailyJournalEntry} from '../../types/journal';
+import { getPregnancyWeekData } from '../../data/pregnancyWeekData';
+import type { DailyJournalEntry } from '../../types/journal';
 import BabyDevelopmentImage from './BabyDevelopmentImage';
 
 const BACKGROUND = require('../../assets/images/homebackground.png');
@@ -67,9 +84,7 @@ const PURPLE = '#6949BE';
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
-type IconName = React.ComponentProps<
-  typeof MaterialDesignIcons
->['name'];
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Route =
   | 'MoodEntry'
@@ -122,11 +137,9 @@ const DAILY_ITEMS: Array<{
   },
 ];
 
-function PregnancyDashboard({
-  navigation,
-}: Props): React.JSX.Element {
+function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const {width} = useWindowDimensions();
+  const { width } = useWindowDimensions();
 
   const compact = width < 370;
   const veryCompact = width < 345;
@@ -160,11 +173,25 @@ function PregnancyDashboard({
 
   useEffect(() => {
     let active = true;
-    hydratePregnancyDating().then(value => {if (active) {setDating(value);}});
-    const unsubscribeDating = subscribePregnancyDating(() => {if (active) {setDating(getPregnancyDating());}});
-    hydratePostpartumPreferences().then(value => {if (active) {setPostpartum(value);}});
+    hydratePregnancyDating().then(value => {
+      if (active) {
+        setDating(value);
+      }
+    });
+    const unsubscribeDating = subscribePregnancyDating(() => {
+      if (active) {
+        setDating(getPregnancyDating());
+      }
+    });
+    hydratePostpartumPreferences().then(value => {
+      if (active) {
+        setPostpartum(value);
+      }
+    });
     const unsubscribePostpartum = subscribePostpartumPreferences(() => {
-      if (active) {setPostpartum(getPostpartumPreferences());}
+      if (active) {
+        setPostpartum(getPostpartumPreferences());
+      }
     });
     return () => {
       active = false;
@@ -174,7 +201,12 @@ function PregnancyDashboard({
   }, []);
 
   const status = useMemo(
-    () => computePregnancyStatus(dating.method, dating.date ? new Date(dating.date) : null, new Date()),
+    () =>
+      computePregnancyStatus(
+        dating.method,
+        dating.date ? new Date(dating.date) : null,
+        new Date(),
+      ),
     [dating],
   );
 
@@ -187,9 +219,14 @@ function PregnancyDashboard({
   // directly instead of asking for the date again.
   const hasConfirmedDelivery = Boolean(postpartum.deliveryDate);
   const showDeliveryCta = hasConfirmedDelivery || isLatePregnancy(status);
-  const deliveryCtaLabel = hasConfirmedDelivery ? 'Démarrer mon suivi post-partum' : 'J’ai accouché';
+  const deliveryCtaLabel = hasConfirmedDelivery
+    ? 'Démarrer mon suivi post-partum'
+    : 'J’ai accouché';
   const deliveryDateForCard = useMemo(
-    () => (postpartum.deliveryDate ? new Date(`${postpartum.deliveryDate}T12:00:00`) : null),
+    () =>
+      postpartum.deliveryDate
+        ? new Date(`${postpartum.deliveryDate}T12:00:00`)
+        : null,
     [postpartum.deliveryDate],
   );
 
@@ -204,48 +241,71 @@ function PregnancyDashboard({
   // Real, date-specific journal/medical data — refreshed on every focus so
   // returning from a journal screen or the Appointments screen immediately
   // reflects what was just saved.
-  const [todayEntry, setTodayEntry] = useState<DailyJournalEntry | undefined>(undefined);
-  const [pregnancyJournal, setPregnancyJournal] = useState<PregnancyJournalState>({symptoms: [], weights: []});
-  const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>([]);
+  const [todayEntry, setTodayEntry] = useState<DailyJournalEntry | undefined>(
+    undefined,
+  );
+  const [pregnancyJournal, setPregnancyJournal] =
+    useState<PregnancyJournalState>({ symptoms: [], weights: [] });
+  const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>(
+    [],
+  );
   const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      Promise.all([getJournalEntry(todayKey), getPregnancyJournalState(), getPregnancyMedicalEvents()]).then(
-        ([daily, pregnancy, events]) => {
-          if (active) {
-            setTodayEntry(daily);
-            setPregnancyJournal(pregnancy);
-            setMedicalEvents(events);
-          }
-        },
-      );
-      return () => {active = false;};
+      Promise.all([
+        getJournalEntry(todayKey),
+        getPregnancyJournalState(),
+        getPregnancyMedicalEvents(),
+      ]).then(([daily, pregnancy, events]) => {
+        if (active) {
+          setTodayEntry(daily);
+          setPregnancyJournal(pregnancy);
+          setMedicalEvents(events);
+        }
+      });
+      return () => {
+        active = false;
+      };
     }, [todayKey]),
   );
 
   const completedTodayCount = useMemo(
     () =>
       DAILY_ITEMS.filter(item =>
-        isPregnancyTrackingCategoryCompleted(item.preferenceKey, todayKey, todayEntry, pregnancyJournal, medicalEvents),
+        isPregnancyTrackingCategoryCompleted(
+          item.preferenceKey,
+          todayKey,
+          todayEntry,
+          pregnancyJournal,
+          medicalEvents,
+        ),
       ).length,
     [todayKey, todayEntry, pregnancyJournal, medicalEvents],
   );
 
-  const nextAppointment = useMemo(() => getNextUpcomingEvent(medicalEvents, 'appointment', new Date()), [medicalEvents]);
-  const nextExam = useMemo(() => getNextUpcomingEvent(medicalEvents, 'exam', new Date()), [medicalEvents]);
+  const nextAppointment = useMemo(
+    () => getNextUpcomingEvent(medicalEvents, 'appointment', new Date()),
+    [medicalEvents],
+  );
+  const nextExam = useMemo(
+    () => getNextUpcomingEvent(medicalEvents, 'exam', new Date()),
+    [medicalEvents],
+  );
 
   // Week-specific baby reference content — see src/data/pregnancyWeekData.ts.
   // No fabricated fallback: when nothing is available for this week, the
   // "Ton bébé" card shows an honest message instead of a fixed number.
-  const weekData = status.configured ? getPregnancyWeekData(status.week) : undefined;
+  const weekData = status.configured
+    ? getPregnancyWeekData(status.week)
+    : undefined;
 
   // Same shared bottom-sheet context Cycle uses — JournalSheetHost (see
   // MainTabNavigator.tsx) already renders the shared DailyJournalSheet with
   // Pregnancy's own action list while activeObjective === 'pregnancy', so
   // opening it here needs no Pregnancy-specific wiring.
-  const {open: openPregnancyJournal} = useJournalSheet();
+  const { open: openPregnancyJournal } = useJournalSheet();
 
   // Same 6-slot architecture/keys/colors as CycleHomeScreen's
   // quickActionItems, routed to the identical shared screens — only the
@@ -253,18 +313,62 @@ function PregnancyDashboard({
   // even that difference is handled by the shared JournalSheetHost, not by
   // a Pregnancy-specific route.
   const pregnancyQuickActionItems: QuickActionItem[] = [
-    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
-    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
-    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: '#B23F63', iconBg: '#F9DCE8', label: 'Journal quotidien', onPress: openPregnancyJournal},
-    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
-    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Jeûne à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
-    {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: 'Statistiques', onPress: () => navigation.navigate('Statistics')},
+    {
+      key: 'prayer-times',
+      icon: 'mosque',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Horaires\nde prière',
+      onPress: () => navigation.navigate('PrayerTimes'),
+    },
+    {
+      key: 'library',
+      icon: 'book-open-page-variant-outline',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Bibliothèque',
+      onPress: () => navigation.navigate('Library'),
+    },
+    {
+      key: 'daily-journal',
+      icon: 'notebook-edit-outline',
+      iconColor: '#B23F63',
+      iconBg: '#F9DCE8',
+      label: 'Journal quotidien',
+      onPress: openPregnancyJournal,
+    },
+    {
+      key: 'hijri-calendar',
+      icon: 'moon-waning-crescent',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Calendrier Hijri',
+      onPress: () => navigation.navigate('HijriCalendar'),
+    },
+    {
+      key: 'qadaa',
+      icon: 'silverware-fork-knife',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Jeûne à rattraper',
+      onPress: () => navigation.navigate('FastingQadaa'),
+    },
+    {
+      key: 'statistics',
+      icon: 'chart-donut',
+      iconColor: '#2C8E93',
+      iconBg: '#DDF0F1',
+      label: 'Statistiques',
+      onPress: () => navigation.navigate('Statistics'),
+    },
   ];
 
   // Same global "Repères spirituels" preference Cycle reads (no dedicated
   // hydrate/subscribe — it's a session-only in-memory flag, so it's kept in
   // sync on focus exactly like CycleHomeScreen does).
-  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled());
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
+    getSpiritualMarkersEnabled(),
+  );
   useFocusEffect(
     useCallback(() => {
       setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
@@ -320,7 +424,8 @@ function PregnancyDashboard({
     <ImageBackground
       resizeMode="cover"
       source={BACKGROUND}
-      style={styles.background}>
+      style={styles.background}
+    >
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -336,18 +441,12 @@ function PregnancyDashboard({
               paddingBottom: Math.max(insets.bottom, 12) + 128,
             },
           ]}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           {/* HEADER */}
 
           <HomeHeader
             firstName={getFirstName()}
-            notificationCount={1}
-            onPressNotifications={() =>
-              Alert.alert(
-                'Notifications',
-                'Aucune nouvelle notification pour le moment.',
-              )
-            }
             onPressProfile={() => navigation.navigate('Profile')}
             subtitle=""
           />
@@ -374,7 +473,8 @@ function PregnancyDashboard({
                       },
                     ],
                   },
-                ]}>
+                ]}
+              >
                 {/* CARTE SEMAINE */}
 
                 <View
@@ -382,7 +482,8 @@ function PregnancyDashboard({
                     styles.weekPanel,
                     compact && styles.weekPanelCompact,
                     veryCompact && styles.weekPanelVeryCompact,
-                  ]}>
+                  ]}
+                >
                   <View style={styles.weekTopRow}>
                     <View style={styles.weekMiniIcon}>
                       <MaterialDesignIcons
@@ -392,9 +493,7 @@ function PregnancyDashboard({
                       />
                     </View>
 
-                    <Text style={styles.weekLabel}>
-                      Semaine actuelle
-                    </Text>
+                    <Text style={styles.weekLabel}>Semaine actuelle</Text>
                   </View>
 
                   <View
@@ -402,13 +501,15 @@ function PregnancyDashboard({
                       styles.weekNumberCircle,
                       compact && styles.weekNumberCircleCompact,
                       veryCompact && styles.weekNumberCircleVeryCompact,
-                    ]}>
+                    ]}
+                  >
                     <Text
                       style={[
                         styles.weekNumber,
                         compact && styles.weekNumberCompact,
                         veryCompact && styles.weekNumberVeryCompact,
-                      ]}>
+                      ]}
+                    >
                       {status.week}
                     </Text>
                   </View>
@@ -416,12 +517,10 @@ function PregnancyDashboard({
                   <Text
                     numberOfLines={1}
                     adjustsFontSizeToFit
-                    style={[
-                      styles.age,
-                      compact && styles.ageCompact,
-                    ]}>
-                    {status.gestationalWeeks} SA +{' '}
-                    {status.gestationalDays} jours
+                    style={[styles.age, compact && styles.ageCompact]}
+                  >
+                    {status.gestationalWeeks} SA + {status.gestationalDays}{' '}
+                    jours
                   </Text>
 
                   <View style={styles.weekDivider} />
@@ -468,17 +567,20 @@ function PregnancyDashboard({
                       />
                     </View>
 
-                    <Text style={styles.muted}>
-                      DPA
-                    </Text>
+                    <Text style={styles.muted}>DPA</Text>
                   </View>
 
                   <Text
                     numberOfLines={1}
                     adjustsFontSizeToFit
-                    style={styles.dueValue}>
+                    style={styles.dueValue}
+                  >
                     {status.estimatedDueDate
-                      ? new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(status.estimatedDueDate)
+                      ? new Intl.DateTimeFormat('fr-FR', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric',
+                        }).format(status.estimatedDueDate)
                       : '—'}
                   </Text>
                 </View>
@@ -495,22 +597,21 @@ function PregnancyDashboard({
                       />
                     </View>
 
-                    <Text style={styles.muted}>
-                      Temps restant
-                    </Text>
+                    <Text style={styles.muted}>Temps restant</Text>
                   </View>
 
                   <Text
                     numberOfLines={1}
                     adjustsFontSizeToFit
-                    style={styles.remainingValue}>
+                    style={styles.remainingValue}
+                  >
                     {status.remainingWeeks} semaines
-                    {status.remainingDaysRemainder > 0 ? ` + ${status.remainingDaysRemainder} jours` : ''}
+                    {status.remainingDaysRemainder > 0
+                      ? ` + ${status.remainingDaysRemainder} jours`
+                      : ''}
                   </Text>
 
-                  <Text style={styles.remainingSub}>
-                    restantes
-                  </Text>
+                  <Text style={styles.remainingSub}>restantes</Text>
                 </View>
               </View>
 
@@ -529,10 +630,18 @@ function PregnancyDashboard({
                   accessibilityLabel={deliveryCtaLabel}
                   accessibilityRole="button"
                   onPress={handleDeliveryCtaPress}
-                  style={({pressed}) => [styles.deliveryCta, pressed && styles.pressed]}>
+                  style={({ pressed }) => [
+                    styles.deliveryCta,
+                    pressed && styles.pressed,
+                  ]}
+                >
                   <MaterialDesignIcons
                     color={homeColors.primary}
-                    name={hasConfirmedDelivery ? 'arrow-right-circle-outline' : 'flower-outline'}
+                    name={
+                      hasConfirmedDelivery
+                        ? 'arrow-right-circle-outline'
+                        : 'flower-outline'
+                    }
                     size={16}
                   />
                   <Text style={styles.deliveryCtaText}>{deliveryCtaLabel}</Text>
@@ -546,22 +655,17 @@ function PregnancyDashboard({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel="Voir les informations de cette semaine"
-                onPress={() =>
-                  navigation.navigate('PregnancyWeek')
-                }
-                style={({pressed}) => [
+                onPress={() => navigation.navigate('PregnancyWeek')}
+                style={({ pressed }) => [
                   styles.babyCard,
                   compact && styles.babyCardCompact,
                   pressed && styles.pressed,
-                ]}>
+                ]}
+              >
                 <View style={styles.babyCopy}>
-                  <Text style={styles.cardTitle}>
-                    Cette semaine
-                  </Text>
+                  <Text style={styles.cardTitle}>Cette semaine</Text>
 
-                  <Text style={styles.babyEyebrow}>
-                    Ton bébé
-                  </Text>
+                  <Text style={styles.babyEyebrow}>Ton bébé</Text>
 
                   <Text style={styles.babyLine}>
                     {weekData?.babyDescription ??
@@ -571,18 +675,14 @@ function PregnancyDashboard({
                   {weekData?.weight ? (
                     <Text style={styles.babyLine}>
                       Pèse environ{' '}
-                      <Text style={styles.strong}>
-                        {weekData.weight}
-                      </Text>
+                      <Text style={styles.strong}>{weekData.weight}</Text>
                     </Text>
                   ) : null}
 
                   {weekData?.length ? (
                     <Text style={styles.babyLine}>
                       Mesure environ{' '}
-                      <Text style={styles.strong}>
-                        {weekData.length}
-                      </Text>
+                      <Text style={styles.strong}>{weekData.length}</Text>
                     </Text>
                   ) : null}
 
@@ -608,8 +708,17 @@ function PregnancyDashboard({
                 ) : (
                   <View
                     accessibilityLabel="Illustration non disponible pour cette semaine"
-                    style={[styles.baby, compact && styles.babyCompact, styles.babyPlaceholder]}>
-                    <MaterialDesignIcons color={homeColors.primary} name="baby-face-outline" size={compact ? 38 : 46} />
+                    style={[
+                      styles.baby,
+                      compact && styles.babyCompact,
+                      styles.babyPlaceholder,
+                    ]}
+                  >
+                    <MaterialDesignIcons
+                      color={homeColors.primary}
+                      name="baby-face-outline"
+                      size={compact ? 38 : 46}
+                    />
                   </View>
                 )}
               </Pressable>
@@ -628,16 +737,19 @@ function PregnancyDashboard({
             style={[
               styles.appointmentRow,
               veryCompact && styles.appointmentRowVeryCompact,
-            ]}>
+            ]}
+          >
             <AppointmentCard
               icon="calendar-month-outline"
               label="Prochain RDV"
               lines={
                 nextAppointment
                   ? [
-                      new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(
-                        new Date(`${nextAppointment.date}T12:00:00`),
-                      ),
+                      new Intl.DateTimeFormat('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }).format(new Date(`${nextAppointment.date}T12:00:00`)),
                       nextAppointment.time ?? '',
                       nextAppointment.title,
                       nextAppointment.practitioner ?? '',
@@ -658,9 +770,11 @@ function PregnancyDashboard({
               lines={
                 nextExam
                   ? [
-                      new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(
-                        new Date(`${nextExam.date}T12:00:00`),
-                      ),
+                      new Intl.DateTimeFormat('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }).format(new Date(`${nextExam.date}T12:00:00`)),
                       nextExam.time ?? '',
                       nextExam.title,
                     ].filter(Boolean)
@@ -682,9 +796,7 @@ function PregnancyDashboard({
           <View style={styles.dailyCard}>
             <View style={styles.dailyHeader}>
               <View>
-                <Text style={styles.cardTitle}>
-                  Suivi du jour
-                </Text>
+                <Text style={styles.cardTitle}>Suivi du jour</Text>
 
                 <Text style={styles.dailySubtitle}>
                   Prends un instant pour toi
@@ -704,7 +816,9 @@ function PregnancyDashboard({
                 style={[
                   styles.progressFill,
                   {
-                    width: `${Math.round((completedTodayCount / DAILY_ITEMS.length) * 100)}%`,
+                    width: `${Math.round(
+                      (completedTodayCount / DAILY_ITEMS.length) * 100,
+                    )}%`,
                   },
                 ]}
               />
@@ -718,15 +832,19 @@ function PregnancyDashboard({
                   key={item.label}
                   onPress={() => {
                     if (item.route === 'PregnancyMedicalInformation') {
-                      requirePrivateAccess(navigation, 'pregnancyMedicalInformation');
+                      requirePrivateAccess(
+                        navigation,
+                        'pregnancyMedicalInformation',
+                      );
                       return;
                     }
                     navigation.navigate(item.route);
                   }}
-                  style={({pressed}) => [
+                  style={({ pressed }) => [
                     styles.dailyItem,
                     pressed && styles.pressed,
-                  ]}>
+                  ]}
+                >
                   <View style={styles.dailyIcon}>
                     <MaterialDesignIcons
                       color={homeColors.primary}
@@ -735,9 +853,7 @@ function PregnancyDashboard({
                     />
                   </View>
 
-                  <Text
-                    numberOfLines={2}
-                    style={styles.dailyLabel}>
+                  <Text numberOfLines={2} style={styles.dailyLabel}>
                     {item.label}
                   </Text>
                 </Pressable>
@@ -764,7 +880,9 @@ function PregnancyDashboard({
 
           {spiritualMarkersEnabled ? (
             <SpiritualGuidanceCard
-              hijriDate={spiritual.schedule?.hijriDate ?? formatHijriDate(new Date())}
+              hijriDate={
+                spiritual.schedule?.hijriDate ?? formatHijriDate(new Date())
+              }
               locationConfigured={Boolean(spiritual.selectedLocation)}
               locationName={
                 spiritual.selectedLocation
@@ -811,22 +929,37 @@ function PregnancyDashboard({
    chosen) — never a fabricated week/DPA.
 ============================================================ */
 
-function UnconfiguredPregnancyCard({onConfigure}: {onConfigure: () => void}): React.JSX.Element {
+function UnconfiguredPregnancyCard({
+  onConfigure,
+}: {
+  onConfigure: () => void;
+}): React.JSX.Element {
   return (
     <View style={styles.unconfiguredCard}>
       <View style={styles.unconfiguredIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name="human-pregnant" size={30} />
+        <MaterialDesignIcons
+          color={homeColors.primary}
+          name="human-pregnant"
+          size={30}
+        />
       </View>
       <Text style={styles.unconfiguredTitle}>Configurer ma grossesse</Text>
       <Text style={styles.unconfiguredText}>
-        Indique le début de ta grossesse pour voir ta semaine, ta date prévue d’accouchement et ta progression.
+        Indique le début de ta grossesse pour voir ta semaine, ta date prévue
+        d’accouchement et ta progression.
       </Text>
       <Pressable
         accessibilityLabel="Configurer ma grossesse"
         accessibilityRole="button"
         onPress={onConfigure}
-        style={({pressed}) => [styles.unconfiguredButton, pressed && styles.pressed]}>
-        <Text style={styles.unconfiguredButtonText}>Configurer ma grossesse</Text>
+        style={({ pressed }) => [
+          styles.unconfiguredButton,
+          pressed && styles.pressed,
+        ]}
+      >
+        <Text style={styles.unconfiguredButtonText}>
+          Configurer ma grossesse
+        </Text>
       </Pressable>
     </View>
   );
@@ -852,10 +985,11 @@ function AppointmentCard({
       accessibilityLabel={label}
       accessibilityRole="button"
       onPress={onPress}
-      style={({pressed}) => [
+      style={({ pressed }) => [
         styles.appointmentCard,
         pressed && styles.pressed,
-      ]}>
+      ]}
+    >
       <View style={styles.appointmentTop}>
         <View style={styles.appointmentIcon}>
           <MaterialDesignIcons
@@ -875,9 +1009,7 @@ function AppointmentCard({
       </View>
 
       <View style={styles.appointmentCopy}>
-        <Text style={styles.appointmentLabel}>
-          {label}
-        </Text>
+        <Text style={styles.appointmentLabel}>{label}</Text>
 
         {lines.map((line, index) => (
           <Text
@@ -886,7 +1018,8 @@ function AppointmentCard({
             style={[
               styles.appointmentLine,
               index === 0 && styles.appointmentMain,
-            ]}>
+            ]}
+          >
             {line}
           </Text>
         ))}

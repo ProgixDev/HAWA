@@ -17,6 +17,7 @@ import notifee, {
 
 const CHANNEL_ID = 'pregnancy-reminders';
 let channelReady: Promise<string> | null = null;
+let permissionRequest: Promise<boolean> | null = null;
 
 function ensureChannel(): Promise<string> {
   if (!channelReady) {
@@ -31,8 +32,14 @@ function ensureChannel(): Promise<string> {
 
 /** Requests Android 13+ POST_NOTIFICATIONS permission. Safe to call repeatedly. */
 export async function ensureNotificationPermission(): Promise<boolean> {
-  const settings = await notifee.requestPermission();
-  return settings.authorizationStatus >= AuthorizationStatus.AUTHORIZED;
+  if (!permissionRequest) {
+    permissionRequest = notifee.requestPermission().then(
+      settings =>
+        settings.authorizationStatus >= AuthorizationStatus.AUTHORIZED,
+      () => false,
+    );
+  }
+  return permissionRequest;
 }
 
 export type ScheduleNotificationInput = {
@@ -42,6 +49,7 @@ export type ScheduleNotificationInput = {
   /** Fire date. If already in the past, scheduling is skipped (no-op). */
   fireDate: Date;
   repeatFrequency?: 'daily' | 'weekly';
+  data?: Record<string, string>;
 };
 
 const REPEAT_FREQUENCY: Record<'daily' | 'weekly', RepeatFrequency> = {
@@ -50,20 +58,33 @@ const REPEAT_FREQUENCY: Record<'daily' | 'weekly', RepeatFrequency> = {
 };
 
 /** Cancels any existing notification with this id, then schedules the new one (no-op past dates). Upsert semantics — safe to call on every create/update. */
-export async function scheduleLocalNotification({id, title, body, fireDate, repeatFrequency}: ScheduleNotificationInput): Promise<void> {
+export async function scheduleLocalNotification({
+  id,
+  title,
+  body,
+  fireDate,
+  repeatFrequency,
+  data,
+}: ScheduleNotificationInput): Promise<boolean> {
   await cancelLocalNotification(id);
 
-  if (fireDate.getTime() <= Date.now()) {return;}
+  if (fireDate.getTime() <= Date.now()) {
+    return false;
+  }
 
   const granted = await ensureNotificationPermission();
-  if (!granted) {return;}
+  if (!granted) {
+    return false;
+  }
 
   const channelId = await ensureChannel();
 
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,
     timestamp: fireDate.getTime(),
-    ...(repeatFrequency ? {repeatFrequency: REPEAT_FREQUENCY[repeatFrequency]} : {}),
+    ...(repeatFrequency
+      ? { repeatFrequency: REPEAT_FREQUENCY[repeatFrequency] }
+      : {}),
   };
 
   await notifee.createTriggerNotification(
@@ -71,14 +92,16 @@ export async function scheduleLocalNotification({id, title, body, fireDate, repe
       id,
       title,
       body,
+      data,
       android: {
         channelId,
         smallIcon: 'ic_launcher',
-        pressAction: {id: 'default'},
+        pressAction: { id: 'default' },
       },
     },
     trigger,
   );
+  return true;
 }
 
 /** Cancels a scheduled/displayed notification by id. No-op if it doesn't exist — safe to call unconditionally on delete. */
@@ -95,6 +118,8 @@ export async function cancelLocalNotification(id: string): Promise<void> {
   }
 }
 
-export async function cancelLocalNotifications(ids: readonly string[]): Promise<void> {
+export async function cancelLocalNotifications(
+  ids: readonly string[],
+): Promise<void> {
   await Promise.all(ids.map(id => cancelLocalNotification(id)));
 }
