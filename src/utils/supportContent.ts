@@ -99,7 +99,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment enregistrer mes règles ?',
     subtitle: 'Ajoute les dates et la durée de tes menstruations.',
     answer:
-      'Dans le calendrier ou le Journal quotidien, enregistre le début de tes règles, leur durée et l’intensité du flux. Ces informations alimentent ton historique personnel et servent aux estimations affichées dans HAWA.',
+      'Dans le calendrier ou le Journal quotidien, enregistre le début de tes règles, leur durée et l’intensité du flux. Ces informations alimentent ton historique personnel et servent aux estimations affichées dans AWA.',
     featured: true,
   },
   {
@@ -120,7 +120,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment sont calculées mes prochaines règles ?',
     subtitle: 'Des estimations basées sur ton historique personnel.',
     answer:
-      'HAWA estime les prochaines règles, la fenêtre fertile et l’ovulation à partir de ton historique personnel, de la durée de tes cycles et des informations que tu enregistres. Les estimations ne reposent pas uniquement sur un cycle standard de 28 jours.',
+      'AWA estime les prochaines règles, la fenêtre fertile et l’ovulation à partir de ton historique personnel, de la durée de tes cycles et des informations que tu enregistres. Les estimations ne reposent pas uniquement sur un cycle standard de 28 jours.',
   },
   {
     id: 'cycle-flow',
@@ -154,7 +154,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment connaître ma fenêtre fertile ?',
     subtitle: 'Repère les jours estimés comme les plus fertiles.',
     answer:
-      'En mode Essai de conception, HAWA affiche une fenêtre fertile estimée à partir des informations de ton cycle et de ton historique personnel.',
+      'En mode Essai de conception, AWA affiche une fenêtre fertile estimée à partir des informations de ton cycle et de ton historique personnel.',
     featured: true,
   },
   {
@@ -230,7 +230,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Puis-je créer un rappel pour ma pilule ?',
     subtitle: 'Configure des rappels personnalisables.',
     answer:
-      'Oui. HAWA prévoit des rappels personnalisables pour la prise de pilule ainsi que des notifications quotidiennes.',
+      'Oui. AWA prévoit des rappels personnalisables pour la prise de pilule ainsi que des notifications quotidiennes.',
   },
   {
     id: 'contraception-forgotten-pill',
@@ -260,7 +260,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Les prédictions restent-elles utiles sous contraception ?',
     subtitle: 'Certaines méthodes peuvent modifier le cycle naturel.',
     answer:
-      'HAWA peut continuer à afficher les informations de suivi disponibles, mais l’interprétation des prédictions dépend de ta situation et de la méthode utilisée. L’application ne remplace pas un avis médical.',
+      'AWA peut continuer à afficher les informations de suivi disponibles, mais l’interprétation des prédictions dépend de ta situation et de la méthode utilisée. L’application ne remplace pas un avis médical.',
   },
 
   // ============================================================
@@ -272,9 +272,9 @@ export const FAQ_ITEMS: FaqItem[] = [
     category: 'Cycles irréguliers / SOPK',
     objective: 'irregular',
     question: 'Un cycle long est-il considéré comme un retard ?',
-    subtitle: 'HAWA tient compte des cycles irréguliers.',
+    subtitle: 'AWA tient compte des cycles irréguliers.',
     answer:
-      'Non. Dans le mode SOPK et cycles irréguliers, HAWA ne doit pas considérer automatiquement un cycle long comme un retard.',
+      'Non. Dans le mode SOPK et cycles irréguliers, AWA ne doit pas considérer automatiquement un cycle long comme un retard.',
     featured: true,
   },
   {
@@ -315,7 +315,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Pourquoi mes prédictions varient-elles davantage ?',
     subtitle: 'Les cycles irréguliers rendent les estimations moins stables.',
     answer:
-      'Lorsque les cycles sont irréguliers, les estimations peuvent naturellement changer davantage. HAWA doit utiliser ton historique personnel sans interpréter automatiquement un cycle long comme un retard.',
+      'Lorsque les cycles sont irréguliers, les estimations peuvent naturellement changer davantage. AWA doit utiliser ton historique personnel sans interpréter automatiquement un cycle long comme un retard.',
   },
 
   // ============================================================
@@ -450,7 +450,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment suivre le retour de mes règles ?',
     subtitle: 'Observe progressivement la reprise du cycle.',
     answer:
-      'HAWA prévoit le suivi du retour du cycle, de la reprise des règles et de l’évolution hormonale après l’accouchement.',
+      'AWA prévoit le suivi du retour du cycle, de la reprise des règles et de l’évolution hormonale après l’accouchement.',
   },
   {
     id: 'postpartum-breastfeeding',
@@ -477,10 +477,10 @@ export const FAQ_ITEMS: FaqItem[] = [
     icon: 'mosque',
     category: 'Post-partum',
     objective: 'postpartum',
-    question: 'Comment HAWA gère-t-elle le nifas ?',
+    question: 'Comment AWA gère-t-elle le nifas ?',
     subtitle: 'Un repère religieux distinct du suivi médical.',
     answer:
-      'Lorsque les repères spirituels sont activés, HAWA peut suivre la durée des saignements post-partum et présenter le repère de fin du nifas selon la référence juridique retenue. Le cahier des charges précise que la durée maximale peut varier selon les écoles et ne doit pas être présentée comme une vérité unique lorsque les avis divergent.',
+      'Lorsque les repères spirituels sont activés, AWA peut suivre la durée des saignements post-partum et présenter le repère de fin du nifas selon la référence juridique retenue. Le cahier des charges précise que la durée maximale peut varier selon les écoles et ne doit pas être présentée comme une vérité unique lorsque les avis divergent.',
   },
 
   // ============================================================
@@ -505,7 +505,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment suivre le retour de mon cycle ?',
     subtitle: 'Reprends ton suivi progressivement.',
     answer:
-      'HAWA prévoit le suivi du retour du cycle après une fausse couche afin de reprendre progressivement l’historique sans imposer immédiatement un suivi menstruel classique.',
+      'AWA prévoit le suivi du retour du cycle après une fausse couche afin de reprendre progressivement l’historique sans imposer immédiatement un suivi menstruel classique.',
   },
   {
     id: 'loss-symptoms',
@@ -548,7 +548,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment fonctionne le calendrier hijri ?',
     subtitle: 'Affiche la date hijri avec la date grégorienne.',
     answer:
-      'Lorsque les repères spirituels sont activés, HAWA peut afficher la date hijri en parallèle de la date grégorienne et signaler des mois importants comme Ramadan ou Dhoul Hijja.',
+      'Lorsque les repères spirituels sont activés, AWA peut afficher la date hijri en parallèle de la date grégorienne et signaler des mois importants comme Ramadan ou Dhoul Hijja.',
     featured: true,
   },
   {
@@ -558,13 +558,13 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Que signifie le statut de pureté ?',
     subtitle: 'Un repère discret lié à la reprise des pratiques religieuses.',
     answer:
-      'HAWA peut afficher un indicateur discret distinguant la période de règles de la période de pureté lorsque les repères spirituels sont activés.',
+      'AWA peut afficher un indicateur discret distinguant la période de règles de la période de pureté lorsque les repères spirituels sont activés.',
   },
   {
     id: 'spiritual-prayer-return',
     icon: 'mosque',
     category: 'Repères spirituels',
-    question: 'Comment HAWA indique-t-elle la reprise de la prière ?',
+    question: 'Comment AWA indique-t-elle la reprise de la prière ?',
     subtitle: 'Un repère basé sur l’heure de fin des règles.',
     answer:
       'Le cahier des charges prévoit que si le retour de pureté survient avant la fin du créneau de la prière en cours, l’application peut signaler que cette prière redevient due. Les prières manquées pendant les règles ne sont pas comptées comme prières à rattraper.',
@@ -576,7 +576,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment fonctionne le suivi des jours de jeûne à rattraper ?',
     subtitle: 'Compte les jours manqués pendant les règles.',
     answer:
-      'HAWA peut proposer un compteur de jours de jeûne manqués à cause des règles, notamment pendant Ramadan, ainsi qu’un rappel doux après le mois pour organiser le rattrapage.',
+      'AWA peut proposer un compteur de jours de jeûne manqués à cause des règles, notamment pendant Ramadan, ainsi qu’un rappel doux après le mois pour organiser le rattrapage.',
   },
   {
     id: 'spiritual-nifas',
@@ -585,16 +585,16 @@ export const FAQ_ITEMS: FaqItem[] = [
     question: 'Comment le nifas est-il présenté ?',
     subtitle: 'Un repère qui peut varier selon les écoles juridiques.',
     answer:
-      'HAWA peut présenter la référence juridique retenue pour la durée maximale du nifas, en signalant les divergences entre écoles lorsque le contenu validé le prévoit. L’application ne doit pas imposer un chiffre unique comme vérité absolue.',
+      'AWA peut présenter la référence juridique retenue pour la durée maximale du nifas, en signalant les divergences entre écoles lorsque le contenu validé le prévoit. L’application ne doit pas imposer un chiffre unique comme vérité absolue.',
   },
   {
     id: 'spiritual-istihada',
     icon: 'book-open-page-variant-outline',
     category: 'Repères spirituels',
-    question: 'HAWA donne-t-elle des conseils sur l’istihâda ?',
+    question: 'AWA donne-t-elle des conseils sur l’istihâda ?',
     subtitle: 'Du contenu éducatif, pas une fatwa personnalisée.',
     answer:
-      'HAWA peut proposer du contenu éducatif général sur l’istihâda et ses implications. Le cahier des charges précise que l’application ne doit jamais délivrer de fatwa personnalisée et que les contenus religieux doivent être validés par une autorité reconnue.',
+      'AWA peut proposer du contenu éducatif général sur l’istihâda et ses implications. Le cahier des charges précise que l’application ne doit jamais délivrer de fatwa personnalisée et que les contenus religieux doivent être validés par une autorité reconnue.',
   },
 
   // ============================================================
@@ -635,7 +635,7 @@ export const FAQ_ITEMS: FaqItem[] = [
     id: 'security-private-data',
     icon: 'shield-lock-outline',
     category: 'Données & confidentialité',
-    question: 'Comment HAWA protège-t-elle mes données ?',
+    question: 'Comment AWA protège-t-elle mes données ?',
     subtitle: 'Confidentialité, sécurité et collecte minimale.',
     answer:
       'Le cahier des charges prévoit une collecte minimale des données, aucune publicité ciblée, aucune revente des données personnelles et un stockage sécurisé avec chiffrement réel des données sensibles.',
@@ -700,10 +700,10 @@ export const GUIDE_ITEMS: readonly GuideItem[] = [
   {
     id: 'getting-started',
     icon: 'rocket-launch-outline',
-    title: 'Bien démarrer avec HAWA',
+    title: 'Bien démarrer avec AWA',
     text:
       'Découvre ton accueil, ton calendrier, ton journal, ton objectif et tes repères spirituels.',
-    category: 'Découvrir HAWA',
+    category: 'Découvrir AWA',
     tone: 'purple',
   },
   {

@@ -151,7 +151,7 @@ export default function NutritionCycleArticleScreen({
   const handleShare = () => {
     Share.share({
       message:
-        'Alimentation et cycle : ce que ton corps aime — HAWA',
+        'Alimentation et cycle : ce que ton corps aime — AWA',
     });
   };
 

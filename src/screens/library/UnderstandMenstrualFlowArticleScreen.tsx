@@ -136,7 +136,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
   const handleShare = () => {
     Share.share({
       message:
-        'Comprendre les règles : ce qui se passe vraiment — HAWA',
+        'Comprendre les règles : ce qui se passe vraiment — AWA',
     });
   };
 

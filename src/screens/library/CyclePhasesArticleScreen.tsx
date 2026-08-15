@@ -141,7 +141,7 @@ function CyclePhasesArticleScreen({
   const handleShare = () => {
     Share.share({
       message:
-        'Les différentes phases du cycle expliquées — HAWA',
+        'Les différentes phases du cycle expliquées — AWA',
     });
   };
 
