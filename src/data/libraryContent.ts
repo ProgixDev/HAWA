@@ -1,21 +1,28 @@
-import type {ComponentProps} from 'react';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import type { ComponentProps } from 'react';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 
-import type {ObjectiveId} from '../state/onboardingPreferences';
-import type {ComputedCyclePhase} from '../utils/cycleMath';
+import type { ObjectiveId } from '../state/onboardingPreferences';
+import type { ComputedCyclePhase } from '../utils/cycleMath';
 
 export type IconName = ComponentProps<typeof MaterialDesignIcons>['name'];
 
-export type LibraryTint = 'pink' | 'purple' | 'green' | 'teal' | 'gold' | 'red' | 'blue';
+export type LibraryTint =
+  | 'pink'
+  | 'purple'
+  | 'green'
+  | 'teal'
+  | 'gold'
+  | 'red'
+  | 'blue';
 
-export const LIBRARY_TINTS: Record<LibraryTint, {fg: string; bg: string}> = {
-  pink: {fg: '#DC7B82', bg: '#F7D7D6'},
-  purple: {fg: '#6D4AE8', bg: '#EEE3FA'},
-  green: {fg: '#3E8E56', bg: '#E4F3E7'},
-  teal: {fg: '#2C8E93', bg: '#DDF0F1'},
-  gold: {fg: '#B7791F', bg: '#FBEFD9'},
-  red: {fg: '#C1485A', bg: '#FBE1E5'},
-  blue: {fg: '#3E6FBE', bg: '#E4ECFB'},
+export const LIBRARY_TINTS: Record<LibraryTint, { fg: string; bg: string }> = {
+  pink: { fg: '#DC7B82', bg: '#F7D7D6' },
+  purple: { fg: '#6D4AE8', bg: '#EEE3FA' },
+  green: { fg: '#3E8E56', bg: '#E4F3E7' },
+  teal: { fg: '#2C8E93', bg: '#DDF0F1' },
+  gold: { fg: '#B7791F', bg: '#FBEFD9' },
+  red: { fg: '#C1485A', bg: '#FBE1E5' },
+  blue: { fg: '#3E6FBE', bg: '#E4ECFB' },
 };
 
 // Every article belongs to exactly one lens. The two must never be blended
@@ -87,70 +94,383 @@ export type LibraryCategory = {
 };
 
 export const MEDICAL_CATEGORIES: LibraryCategory[] = [
-  {id: 'firstPeriod', label: 'Premières règles', icon: 'flower-outline', tint: 'pink', contentType: 'medical'},
-  {id: 'cycle', label: 'Comprendre son cycle', icon: 'autorenew', tint: 'purple', contentType: 'medical'},
-  {id: 'flow', label: 'Flux menstruel', icon: 'water', tint: 'pink', contentType: 'medical'},
-  {id: 'symptoms', label: 'Symptômes', icon: 'heart-outline', tint: 'pink', contentType: 'medical'},
-  {id: 'fertility', label: 'Fertilité', icon: 'sprout', tint: 'green', contentType: 'medical'},
-  {id: 'ovulation', label: 'Ovulation', icon: 'egg-outline', tint: 'purple', contentType: 'medical'},
-  {id: 'pain', label: 'Douleurs', icon: 'heart-flash', tint: 'red', contentType: 'medical'},
-  {id: 'hydration', label: 'Hydratation', icon: 'cup-water', tint: 'teal', contentType: 'medical'},
-  {id: 'sleep', label: 'Sommeil', icon: 'weather-night', tint: 'purple', contentType: 'medical'},
-  {id: 'mood', label: 'Humeur', icon: 'emoticon-happy-outline', tint: 'gold', contentType: 'medical'},
-  {id: 'basalTemperature', label: 'Température basale', icon: 'thermometer', tint: 'gold', contentType: 'medical'},
-  {id: 'cervicalMucus', label: 'Glaire cervicale', icon: 'water-percent', tint: 'green', contentType: 'medical'},
-  {id: 'lhTests', label: 'Tests d’ovulation (LH)', icon: 'test-tube', tint: 'purple', contentType: 'medical'},
-  {id: 'nutrition', label: 'Nutrition', icon: 'food-apple-outline', tint: 'green', contentType: 'medical'},
-  {id: 'conceptionTips', label: 'Conseils conception', icon: 'heart-plus-outline', tint: 'pink', contentType: 'medical'},
-  {id: 'birthControlPills', label: 'Pilule contraceptive', icon: 'pill', tint: 'purple', contentType: 'medical'},
-  {id: 'patch', label: 'Patch contraceptif', icon: 'bandage', tint: 'teal', contentType: 'medical'},
-  {id: 'ring', label: 'Anneau vaginal', icon: 'ring', tint: 'pink', contentType: 'medical'},
-  {id: 'hormonalTreatments', label: 'Traitements hormonaux', icon: 'sync', tint: 'blue', contentType: 'medical'},
-  {id: 'missedPills', label: 'Oubli de pilule', icon: 'calendar-remove-outline', tint: 'red', contentType: 'medical'},
-  {id: 'sideEffects', label: 'Effets secondaires', icon: 'alert-circle-outline', tint: 'red', contentType: 'medical'},
-  {id: 'pcos', label: 'SOPK', icon: 'snowflake-variant', tint: 'teal', contentType: 'medical'},
-  {id: 'hormones', label: 'Hormones', icon: 'atom-variant', tint: 'purple', contentType: 'medical'},
-  {id: 'acne', label: 'Acné hormonale', icon: 'spa-outline', tint: 'pink', contentType: 'medical'},
-  {id: 'weight', label: 'Poids', icon: 'scale-bathroom', tint: 'blue', contentType: 'medical'},
-  {id: 'exercise', label: 'Exercice', icon: 'dumbbell', tint: 'green', contentType: 'medical'},
-  {id: 'pregnancyWeekly', label: 'Grossesse semaine par semaine', icon: 'human-pregnant', tint: 'purple', contentType: 'medical'},
-  {id: 'babyDevelopment', label: 'Développement du bébé', icon: 'baby-face-outline', tint: 'blue', contentType: 'medical'},
-  {id: 'medicalExams', label: 'Examens médicaux', icon: 'stethoscope', tint: 'blue', contentType: 'medical'},
-  {id: 'childbirthPrep', label: 'Préparation à l’accouchement', icon: 'baby-carriage', tint: 'pink', contentType: 'medical'},
-  {id: 'postpartumRecovery', label: 'Récupération post-partum', icon: 'heart-outline', tint: 'blue', contentType: 'medical'},
-  {id: 'lochia', label: 'Lochies', icon: 'water', tint: 'pink', contentType: 'medical'},
-  {id: 'nifas', label: 'Nifas (aspect médical)', icon: 'water-off-outline', tint: 'gold', contentType: 'medical'},
-  {id: 'breastfeeding', label: 'Allaitement', icon: 'baby-bottle-outline', tint: 'pink', contentType: 'medical'},
-  {id: 'emotionalHealth', label: 'Santé émotionnelle', icon: 'brain', tint: 'purple', contentType: 'medical'},
-  {id: 'physicalRecoveryLoss', label: 'Récupération physique', icon: 'heart-pulse', tint: 'blue', contentType: 'medical'},
-  {id: 'emotionalRecoveryLoss', label: 'Récupération émotionnelle', icon: 'emoticon-outline', tint: 'purple', contentType: 'medical'},
-  {id: 'fertilityAfterLoss', label: 'Retour de la fertilité', icon: 'sprout-outline', tint: 'green', contentType: 'medical'},
-  {id: 'menopause', label: 'Ménopause & périménopause', icon: 'gender-female', tint: 'red', contentType: 'medical'},
-  {id: 'hotFlashes', label: 'Bouffées de chaleur', icon: 'fire', tint: 'red', contentType: 'medical'},
-  {id: 'bones', label: 'Os & ostéoporose', icon: 'bone', tint: 'blue', contentType: 'medical'},
-  {id: 'treatments', label: 'Traitements', icon: 'medical-bag', tint: 'blue', contentType: 'medical'},
+  {
+    id: 'firstPeriod',
+    label: 'Premières règles',
+    icon: 'flower-outline',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'cycle',
+    label: 'Comprendre son cycle',
+    icon: 'autorenew',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'flow',
+    label: 'Flux menstruel',
+    icon: 'water',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'symptoms',
+    label: 'Symptômes',
+    icon: 'heart-outline',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'fertility',
+    label: 'Fertilité',
+    icon: 'sprout',
+    tint: 'green',
+    contentType: 'medical',
+  },
+  {
+    id: 'ovulation',
+    label: 'Ovulation',
+    icon: 'egg-outline',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'pain',
+    label: 'Douleurs',
+    icon: 'heart-flash',
+    tint: 'red',
+    contentType: 'medical',
+  },
+  {
+    id: 'hydration',
+    label: 'Hydratation',
+    icon: 'cup-water',
+    tint: 'teal',
+    contentType: 'medical',
+  },
+  {
+    id: 'sleep',
+    label: 'Sommeil',
+    icon: 'weather-night',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'mood',
+    label: 'Humeur',
+    icon: 'emoticon-happy-outline',
+    tint: 'gold',
+    contentType: 'medical',
+  },
+  {
+    id: 'basalTemperature',
+    label: 'Température basale',
+    icon: 'thermometer',
+    tint: 'gold',
+    contentType: 'medical',
+  },
+  {
+    id: 'cervicalMucus',
+    label: 'Glaire cervicale',
+    icon: 'water-percent',
+    tint: 'green',
+    contentType: 'medical',
+  },
+  {
+    id: 'lhTests',
+    label: 'Tests d’ovulation (LH)',
+    icon: 'test-tube',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'nutrition',
+    label: 'Nutrition',
+    icon: 'food-apple-outline',
+    tint: 'green',
+    contentType: 'medical',
+  },
+  {
+    id: 'conceptionTips',
+    label: 'Conseils conception',
+    icon: 'heart-plus-outline',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'birthControlPills',
+    label: 'Pilule contraceptive',
+    icon: 'pill',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'patch',
+    label: 'Patch contraceptif',
+    icon: 'bandage',
+    tint: 'teal',
+    contentType: 'medical',
+  },
+  {
+    id: 'ring',
+    label: 'Anneau vaginal',
+    icon: 'ring',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'hormonalTreatments',
+    label: 'Traitements hormonaux',
+    icon: 'sync',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'missedPills',
+    label: 'Oubli de pilule',
+    icon: 'calendar-remove-outline',
+    tint: 'red',
+    contentType: 'medical',
+  },
+  {
+    id: 'sideEffects',
+    label: 'Effets secondaires',
+    icon: 'alert-circle-outline',
+    tint: 'red',
+    contentType: 'medical',
+  },
+  {
+    id: 'pcos',
+    label: 'SOPK',
+    icon: 'snowflake-variant',
+    tint: 'teal',
+    contentType: 'medical',
+  },
+  {
+    id: 'hormones',
+    label: 'Hormones',
+    icon: 'atom-variant',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'acne',
+    label: 'Acné hormonale',
+    icon: 'spa-outline',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'weight',
+    label: 'Poids',
+    icon: 'scale-bathroom',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'exercise',
+    label: 'Exercice',
+    icon: 'dumbbell',
+    tint: 'green',
+    contentType: 'medical',
+  },
+  {
+    id: 'pregnancyWeekly',
+    label: 'Grossesse semaine par semaine',
+    icon: 'human-pregnant',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'babyDevelopment',
+    label: 'Développement du bébé',
+    icon: 'baby-face-outline',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'medicalExams',
+    label: 'Examens médicaux',
+    icon: 'stethoscope',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'childbirthPrep',
+    label: 'Préparation à l’accouchement',
+    icon: 'baby-carriage',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'postpartumRecovery',
+    label: 'Récupération post-partum',
+    icon: 'heart-outline',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'lochia',
+    label: 'Lochies',
+    icon: 'water',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'nifas',
+    label: 'Nifas (aspect médical)',
+    icon: 'water-off-outline',
+    tint: 'gold',
+    contentType: 'medical',
+  },
+  {
+    id: 'breastfeeding',
+    label: 'Allaitement',
+    icon: 'baby-bottle-outline',
+    tint: 'pink',
+    contentType: 'medical',
+  },
+  {
+    id: 'emotionalHealth',
+    label: 'Santé émotionnelle',
+    icon: 'brain',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'physicalRecoveryLoss',
+    label: 'Récupération physique',
+    icon: 'heart-pulse',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'emotionalRecoveryLoss',
+    label: 'Récupération émotionnelle',
+    icon: 'emoticon-outline',
+    tint: 'purple',
+    contentType: 'medical',
+  },
+  {
+    id: 'fertilityAfterLoss',
+    label: 'Retour de la fertilité',
+    icon: 'sprout-outline',
+    tint: 'green',
+    contentType: 'medical',
+  },
+  {
+    id: 'menopause',
+    label: 'Ménopause & périménopause',
+    icon: 'gender-female',
+    tint: 'red',
+    contentType: 'medical',
+  },
+  {
+    id: 'hotFlashes',
+    label: 'Bouffées de chaleur',
+    icon: 'fire',
+    tint: 'red',
+    contentType: 'medical',
+  },
+  {
+    id: 'bones',
+    label: 'Os & ostéoporose',
+    icon: 'bone',
+    tint: 'blue',
+    contentType: 'medical',
+  },
+  {
+    id: 'treatments',
+    label: 'Traitements',
+    icon: 'medical-bag',
+    tint: 'blue',
+    contentType: 'medical',
+  },
 ];
 
 // "Cycle & pratique religieuse" — a fully separate, always educational-only
 // section. Never filtered by objective, never rendered inside the medical
 // chip bar / topic grid, never combined with medical articles in a list.
 export const RELIGIOUS_CATEGORIES: LibraryCategory[] = [
-  {id: 'fiqhWomen', label: 'Fiqh féminin', icon: 'book-heart-outline', tint: 'purple', contentType: 'religious'},
-  {id: 'menstruationPurity', label: 'Règles & pureté', icon: 'shield-check-outline', tint: 'gold', contentType: 'religious'},
-  {id: 'istihada', label: 'Istihâda', icon: 'water-alert-outline', tint: 'red', contentType: 'religious'},
-  {id: 'nifasFiqh', label: 'Nifas (fiqh)', icon: 'moon-waning-crescent', tint: 'gold', contentType: 'religious'},
-  {id: 'ramadan', label: 'Ramadan', icon: 'moon-waxing-crescent', tint: 'purple', contentType: 'religious'},
-  {id: 'fastingQadaa', label: 'Jeûne & Qadaa', icon: 'calendar-question-outline', tint: 'gold', contentType: 'religious'},
-  {id: 'prayerDuringMenstruation', label: 'Prière pendant les règles', icon: 'hands-pray', tint: 'purple', contentType: 'religious'},
-  {id: 'returningToPrayer', label: 'Retour à la prière', icon: 'clipboard-check-outline', tint: 'green', contentType: 'religious'},
-  {id: 'religiousFaq', label: 'Questions fréquentes', icon: 'frequently-asked-questions', tint: 'blue', contentType: 'religious'},
+  {
+    id: 'fiqhWomen',
+    label: 'Fiqh féminin',
+    icon: 'book-heart-outline',
+    tint: 'purple',
+    contentType: 'religious',
+  },
+  {
+    id: 'menstruationPurity',
+    label: 'Règles & pureté',
+    icon: 'shield-check-outline',
+    tint: 'gold',
+    contentType: 'religious',
+  },
+  {
+    id: 'istihada',
+    label: 'Istihâda',
+    icon: 'water-alert-outline',
+    tint: 'red',
+    contentType: 'religious',
+  },
+  {
+    id: 'nifasFiqh',
+    label: 'Nifas (fiqh)',
+    icon: 'moon-waning-crescent',
+    tint: 'gold',
+    contentType: 'religious',
+  },
+  {
+    id: 'ramadan',
+    label: 'Ramadan',
+    icon: 'moon-waxing-crescent',
+    tint: 'purple',
+    contentType: 'religious',
+  },
+  {
+    id: 'fastingQadaa',
+    label: 'Jeûne & Qadaa',
+    icon: 'calendar-question-outline',
+    tint: 'gold',
+    contentType: 'religious',
+  },
+  {
+    id: 'prayerDuringMenstruation',
+    label: 'Prière pendant les règles',
+    icon: 'hands-pray',
+    tint: 'purple',
+    contentType: 'religious',
+  },
+  {
+    id: 'returningToPrayer',
+    label: 'Retour à la prière',
+    icon: 'clipboard-check-outline',
+    tint: 'green',
+    contentType: 'religious',
+  },
+  {
+    id: 'religiousFaq',
+    label: 'Questions fréquentes',
+    icon: 'frequently-asked-questions',
+    tint: 'blue',
+    contentType: 'religious',
+  },
 ];
 
-export const LIBRARY_CATEGORIES: LibraryCategory[] = [...MEDICAL_CATEGORIES, ...RELIGIOUS_CATEGORIES];
+export const LIBRARY_CATEGORIES: LibraryCategory[] = [
+  ...MEDICAL_CATEGORIES,
+  ...RELIGIOUS_CATEGORIES,
+];
 
-const CATEGORY_BY_ID = new Map(LIBRARY_CATEGORIES.map(category => [category.id, category]));
+const CATEGORY_BY_ID = new Map(
+  LIBRARY_CATEGORIES.map(category => [category.id, category]),
+);
 
-export const getCategoryById = (id: LibraryCategoryId): LibraryCategory | undefined => CATEGORY_BY_ID.get(id);
+export const getCategoryById = (
+  id: LibraryCategoryId,
+): LibraryCategory | undefined => CATEGORY_BY_ID.get(id);
 
 export const OBJECTIVE_HEADLINES: Record<ObjectiveId, string> = {
   cycle: 'Suivre mon cycle',
@@ -167,19 +487,74 @@ export const OBJECTIVE_HEADLINES: Record<ObjectiveId, string> = {
 // dedicated category set is surfaced under "irregular cycles", which it very
 // commonly causes — this keeps every objective from the spec covered without
 // inventing a new ObjectiveId outside the onboarding flow.
-export const OBJECTIVE_CATEGORY_IDS: Record<ObjectiveId, LibraryCategoryId[]> = {
-  cycle: ['firstPeriod', 'cycle', 'flow', 'symptoms', 'fertility', 'ovulation', 'pain', 'hydration', 'sleep', 'mood'],
-  conceive: ['fertility', 'ovulation', 'basalTemperature', 'cervicalMucus', 'lhTests', 'nutrition', 'conceptionTips'],
-  contraception: ['birthControlPills', 'patch', 'ring', 'hormonalTreatments', 'missedPills', 'sideEffects'],
-  irregular: ['pcos', 'hormones', 'acne', 'weight', 'nutrition', 'exercise'],
-  pregnancy: ['pregnancyWeekly', 'babyDevelopment', 'nutrition', 'medicalExams', 'childbirthPrep'],
-  postpartum: ['postpartumRecovery', 'lochia', 'breastfeeding', 'nifas', 'emotionalHealth'],
-  loss: ['physicalRecoveryLoss', 'emotionalRecoveryLoss', 'fertilityAfterLoss'],
-  menopause: ['menopause', 'hormones', 'hotFlashes', 'sleep', 'bones', 'mood', 'treatments'],
-};
+export const OBJECTIVE_CATEGORY_IDS: Record<ObjectiveId, LibraryCategoryId[]> =
+  {
+    cycle: [
+      'firstPeriod',
+      'cycle',
+      'flow',
+      'symptoms',
+      'fertility',
+      'ovulation',
+      'pain',
+      'hydration',
+      'sleep',
+      'mood',
+    ],
+    conceive: [
+      'fertility',
+      'ovulation',
+      'basalTemperature',
+      'cervicalMucus',
+      'lhTests',
+      'nutrition',
+      'conceptionTips',
+    ],
+    contraception: [
+      'birthControlPills',
+      'patch',
+      'ring',
+      'hormonalTreatments',
+      'missedPills',
+      'sideEffects',
+    ],
+    irregular: ['pcos', 'hormones', 'acne', 'weight', 'nutrition', 'exercise'],
+    pregnancy: [
+      'pregnancyWeekly',
+      'babyDevelopment',
+      'nutrition',
+      'medicalExams',
+      'childbirthPrep',
+    ],
+    postpartum: [
+      'postpartumRecovery',
+      'lochia',
+      'breastfeeding',
+      'nifas',
+      'emotionalHealth',
+    ],
+    loss: [
+      'physicalRecoveryLoss',
+      'emotionalRecoveryLoss',
+      'fertilityAfterLoss',
+    ],
+    menopause: [
+      'menopause',
+      'hormones',
+      'hotFlashes',
+      'sleep',
+      'bones',
+      'mood',
+      'treatments',
+    ],
+  };
 
-export function getMedicalCategoriesForObjective(objective: ObjectiveId): LibraryCategory[] {
-  const ids = new Set<LibraryCategoryId>(OBJECTIVE_CATEGORY_IDS[objective] ?? []);
+export function getMedicalCategoriesForObjective(
+  objective: ObjectiveId,
+): LibraryCategory[] {
+  const ids = new Set<LibraryCategoryId>(
+    OBJECTIVE_CATEGORY_IDS[objective] ?? [],
+  );
   return MEDICAL_CATEGORIES.filter(category => ids.has(category.id));
 }
 
@@ -230,7 +605,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 5,
     tags: ['cycle', 'phases', 'hormones'],
     phases: ['follicular', 'luteal'],
-    summary: 'Œstrogènes, progestérone : ce qui se passe vraiment chaque semaine.',
+    summary:
+      'Œstrogènes, progestérone : ce qui se passe vraiment chaque semaine.',
     content: [
       'Pendant la phase folliculaire, les œstrogènes augmentent progressivement et préparent un nouvel ovule.',
       'À l’ovulation, un pic hormonal libère l’ovule le plus mature vers les trompes.',
@@ -245,7 +621,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'guide',
     durationMinutes: 5,
     tags: ['santé', 'bien-être', 'suivi', 'cycle'],
-    summary: 'Pourquoi le cycle est parfois appelé le « cinquième signe vital ».',
+    summary:
+      'Pourquoi le cycle est parfois appelé le « cinquième signe vital ».',
     content: [
       'Le cycle menstruel reflète souvent l’équilibre général du corps, au même titre que le pouls ou la tension.',
       'Un cycle régulier, sans douleur excessive, est généralement le signe d’un bon fonctionnement hormonal.',
@@ -295,7 +672,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 6,
     tags: ['hygiène', 'flux', 'protections'],
     phases: ['menstruation'],
-    summary: 'Des gestes simples pour rester à l’aise tout en respectant ton corps.',
+    summary:
+      'Des gestes simples pour rester à l’aise tout en respectant ton corps.',
     content: [
       'La zone intime s’auto-nettoie grâce à sa propre flore, un lavage doux à l’eau claire suffit la plupart du temps.',
       'Change régulièrement tes protections (toutes les 4 à 6 heures) et privilégie des sous-vêtements en coton.',
@@ -363,7 +741,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 7,
     tags: ['douleurs', 'crampes', 'confort'],
     phases: ['menstruation'],
-    summary: 'Chaleur, mouvement doux, alimentation : des gestes qui soulagent vraiment.',
+    summary:
+      'Chaleur, mouvement doux, alimentation : des gestes qui soulagent vraiment.',
     content: [
       'Les crampes viennent des contractions utérines qui aident à évacuer la muqueuse ; elles sont dues aux prostaglandines.',
       'Une bouillotte, un bain chaud ou un massage du bas-ventre peuvent réduire l’intensité de la douleur.',
@@ -380,7 +759,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 3,
     tags: ['hydratation', 'ballonnements'],
     phases: ['menstruation', 'luteal'],
-    summary: 'Pourquoi boire plus d’eau réduit les ballonnements prémenstruels.',
+    summary:
+      'Pourquoi boire plus d’eau réduit les ballonnements prémenstruels.',
     content: [
       'Contre-intuitif mais vrai : bien s’hydrater aide le corps à moins retenir d’eau et réduit les ballonnements.',
       'Vise environ 1,5 à 2 litres par jour, un peu plus pendant les règles pour compenser les pertes.',
@@ -397,7 +777,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 4,
     tags: ['sommeil', 'ménopause', 'cycle'],
     phases: ['luteal', 'menstruation'],
-    summary: 'Pourquoi ton sommeil varie selon la phase du cycle, et à la ménopause.',
+    summary:
+      'Pourquoi ton sommeil varie selon la phase du cycle, et à la ménopause.',
     content: [
       'La progestérone a un léger effet sédatif ; sa baisse en fin de cycle peut perturber le sommeil.',
       'À la ménopause, les bouffées de chaleur nocturnes sont une cause fréquente de réveils.',
@@ -481,7 +862,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'guide',
     durationMinutes: 6,
     tags: ['nutrition', 'fertilité', 'conception', 'SOPK', 'grossesse'],
-    summary: 'Les nutriments qui soutiennent un cycle fertile et une grossesse en santé.',
+    summary:
+      'Les nutriments qui soutiennent un cycle fertile et une grossesse en santé.',
     content: [
       'L’acide folique, le fer et les oméga-3 jouent un rôle reconnu dans la préparation à la conception et pendant la grossesse.',
       'Privilégier les légumes verts, les légumineuses et les bonnes graisses soutient l’équilibre hormonal.',
@@ -544,7 +926,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 6,
     tags: ['pilule', 'contraception hormonale'],
     isNew: true,
-    summary: 'Comment agit la pilule, et les points clés à connaître avant de la choisir.',
+    summary:
+      'Comment agit la pilule, et les points clés à connaître avant de la choisir.',
     content: [
       'La pilule contient des hormones (œstrogènes et/ou progestatif) qui empêchent l’ovulation et épaississent la glaire cervicale.',
       'Elle se prend chaque jour, idéalement à la même heure, pour garantir une efficacité optimale.',
@@ -594,7 +977,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'guide',
     durationMinutes: 6,
     tags: ['contraception', 'hormones', 'méthodes'],
-    summary: 'Pilule, patch, anneau, implant, stérilet hormonal : ce qui les distingue.',
+    summary:
+      'Pilule, patch, anneau, implant, stérilet hormonal : ce qui les distingue.',
     content: [
       'Toutes ces méthodes agissent en empêchant l’ovulation ou en épaississant la glaire cervicale, à des dosages et fréquences différents.',
       'L’implant et le stérilet hormonal offrent une protection de plusieurs années sans geste quotidien ni hebdomadaire.',
@@ -706,7 +1090,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'article',
     durationMinutes: 5,
     tags: ['fausse couche', 'hormones'],
-    summary: 'Ce que le corps traverse pour revenir à l’équilibre après une fausse couche.',
+    summary:
+      'Ce que le corps traverse pour revenir à l’équilibre après une fausse couche.',
     content: [
       'Le taux d’hCG met plusieurs semaines à redescendre complètement après une fausse couche.',
       'Ce retour progressif explique certains symptômes hormonaux persistants pendant quelques semaines.',
@@ -721,7 +1106,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'article',
     durationMinutes: 6,
     tags: ['insuline', 'SOPK', 'nutrition'],
-    summary: 'Le lien souvent méconnu entre glycémie et hormones, notamment en cas de SOPK.',
+    summary:
+      'Le lien souvent méconnu entre glycémie et hormones, notamment en cas de SOPK.',
     content: [
       'Une résistance à l’insuline pousse le corps à en produire davantage, ce qui stimule la production d’androgènes.',
       'Cela peut aggraver certains symptômes du SOPK comme l’acné ou les cycles irréguliers.',
@@ -738,7 +1124,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 4,
     tags: ['acné', 'SOPK', 'hormones'],
     isNew: true,
-    summary: 'Pourquoi elle apparaît souvent sur le bas du visage et la mâchoire.',
+    summary:
+      'Pourquoi elle apparaît souvent sur le bas du visage et la mâchoire.',
     content: [
       'Un excès relatif d’androgènes, fréquent en cas de SOPK ou avant les règles, stimule la production de sébum.',
       'L’acné hormonale touche typiquement le bas du visage, la mâchoire et le cou.',
@@ -928,9 +1315,10 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'article',
     durationMinutes: 5,
     tags: ['nifas', 'post-partum', 'saignements'],
-    summary: 'Ce que ce terme désigne sur le plan physiologique, et comment en prendre soin.',
+    summary:
+      'Ce que ce terme désigne sur le plan physiologique, et comment en prendre soin.',
     content: [
-      'Sur le plan médical, le nifas correspond aux saignements post-accouchement, un processus physiologique identique aux lochies.',
+      'Sur le plan médical, les lochies désignent les pertes post-accouchement. Le nifas relève d’un cadre religieux distinct, même si les observations médicales peuvent servir de contexte éducatif.',
       'Ces saignements diminuent progressivement sur plusieurs semaines à mesure que l’utérus retrouve sa taille normale.',
       'Une bonne hygiène, du repos et une hydratation suffisante favorisent une récupération confortable.',
     ],
@@ -960,7 +1348,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'article',
     durationMinutes: 5,
     tags: ['santé émotionnelle', 'baby blues', 'post-partum'],
-    summary: 'Différencier le baby blues passager d’une dépression post-partum.',
+    summary:
+      'Différencier le baby blues passager d’une dépression post-partum.',
     content: [
       'Le baby blues touche jusqu’à 80 % des jeunes mères, avec des pleurs et une hypersensibilité entre le 3e et le 5e jour.',
       'Il disparaît généralement en une à deux semaines sans traitement spécifique.',
@@ -1024,7 +1413,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     type: 'guide',
     durationMinutes: 6,
     tags: ['ménopause', 'périménopause'],
-    summary: 'Ce qui change progressivement, des années avant l’arrêt des règles.',
+    summary:
+      'Ce qui change progressivement, des années avant l’arrêt des règles.',
     content: [
       'La périménopause peut débuter plusieurs années avant la ménopause, avec des cycles de plus en plus irréguliers.',
       'La ménopause est confirmée après 12 mois consécutifs sans règles.',
@@ -1130,20 +1520,36 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     ],
   },
   {
-    id: 'nifasfiqh-repere-fiqh',
-    title: 'Le nifas en pratique religieuse',
-    categoryId: 'nifasFiqh',
-    level: 'beginner',
-    type: 'faq',
-    durationMinutes: 5,
-    tags: ['nifas', 'fiqh', 'post-partum'],
-    summary: 'Durée, prière et jeûne pendant la période de nifas.',
-    content: [
-      'Le nifas désigne, dans la pratique religieuse, les saignements suivant l’accouchement, avec une durée maximale généralement évoquée de 40 jours selon la majorité des écoles.',
-      'Pendant cette période, la prière et le jeûne ne sont pas obligatoires ; le jeûne manqué est rattrapé plus tard.',
-      'Si les saignements s’arrêtent avant 40 jours, les actes d’adoration reprennent normalement dès la purification (ghusl), selon l’avis suivi.',
-    ],
-  },
+  id: 'nifasfiqh-repere-fiqh',
+  title: 'Le nifas en pratique religieuse',
+  categoryId: 'nifasFiqh',
+  level: 'beginner',
+  type: 'faq',
+  durationMinutes: 6,
+  tags: [
+    'nifas',
+    'fiqh',
+    'post-partum',
+    'prière',
+    'jeûne',
+    'pureté',
+  ],
+  summary:
+    'Comprendre le nifas, sa durée, la prière, le jeûne et la reprise des adorations après l’accouchement.',
+  content: [
+    'Le nifas désigne, dans la pratique religieuse, la période liée aux saignements suivant l’accouchement.',
+
+    'Les références concernant sa durée maximale peuvent varier selon les écoles juridiques. Une référence fréquemment retenue est de 40 jours, sans qu’AWA ne présente ce chiffre comme une vérité unique.',
+
+    'Pendant la période reconnue comme nifas selon la référence suivie, la prière rituelle est suspendue.',
+
+    'Le jeûne obligatoire n’est pas accompli pendant la période de nifas ; les jours concernés peuvent ensuite être organisés dans le cadre du rattrapage selon la référence suivie.',
+
+    'Lorsque le nifas prend fin, la purification rituelle marque la reprise des actes d’adoration concernés selon la référence juridique retenue.',
+
+    'AWA fournit uniquement des repères éducatifs généraux. En cas de doute sur une situation personnelle, l’avis d’un savant qualifié ou d’une organisation religieuse reconnue doit être privilégié.',
+  ],
+},
   {
     id: 'ramadan-jeune-et-regles',
     title: 'Le jeûne pendant le Ramadan',
@@ -1153,7 +1559,8 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
     durationMinutes: 4,
     tags: ['ramadan', 'jeûne', 'règles'],
     isNew: true,
-    summary: 'Conseils pratiques pour vivre le mois de Ramadan en période de règles.',
+    summary:
+      'Conseils pratiques pour vivre le mois de Ramadan en période de règles.',
     content: [
       'Pendant les règles, le jeûne n’est pas requis et les jours seront rattrapés après le Ramadan.',
       'Certaines profitent de ces jours pour se reposer davantage et se recentrer autrement sur la spiritualité du mois.',
