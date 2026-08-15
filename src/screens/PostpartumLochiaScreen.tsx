@@ -1,7 +1,8 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
   ImageBackground,
+  Modal,
   Pressable,
   ScrollView,
   StatusBar,
@@ -10,17 +11,34 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
-
-import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing} from '../theme/spacing';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
+
+import type { RootStackParamList } from '../navigation/AppNavigator';
+import { spacing } from '../theme/spacing';
+import {
+  getAllPostpartumLochiaEntries,
   getPostpartumLochiaEntry,
+  getPostpartumLochiaTracking,
   hydratePostpartumLochia,
+  markPostpartumLochiaEnded,
+  reopenPostpartumLochiaTracking,
   savePostpartumLochiaEntry,
+  subscribePostpartumLochia,
+  type PostpartumLochiaEntry,
+  type PostpartumLochiaTracking,
 } from '../state/postpartumLochiaStore';
+import {
+  getPostpartumPreferences,
+  hydratePostpartumPreferences,
+  subscribePostpartumPreferences,
+} from '../state/postpartumPreferences';
+import { computePostpartumLochiaSummary } from '../utils/postpartumTrackingUtils';
+import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
 
 const BACKGROUND = require('../assets/images/school-selection-background.png');
 
@@ -36,51 +54,135 @@ type Flow = 'Très léger' | 'Léger' | 'Modéré' | 'Abondant';
 type LochiaColor = 'Rouge vif' | 'Rouge' | 'Rose' | 'Brun' | 'Jaune / blanc';
 type Consistency = 'Liquide' | 'Épais' | 'Avec petits caillots';
 
-const flowOptions: Array<{label: Flow; icon: string}> = [
-  {label: 'Très léger', icon: 'water-outline'},
-  {label: 'Léger', icon: 'water'},
-  {label: 'Modéré', icon: 'water'},
-  {label: 'Abondant', icon: 'water'},
+const flowOptions: Array<{ label: Flow; icon: string }> = [
+  { label: 'Très léger', icon: 'water-outline' },
+  { label: 'Léger', icon: 'water' },
+  { label: 'Modéré', icon: 'water' },
+  { label: 'Abondant', icon: 'water' },
 ];
 
-const colorOptions: Array<{label: LochiaColor; color: string}> = [
-  {label: 'Rouge vif', color: '#D8334A'},
-  {label: 'Rouge', color: '#E76578'},
-  {label: 'Rose', color: '#F4A5C3'},
-  {label: 'Brun', color: '#A87867'},
-  {label: 'Jaune / blanc', color: '#F2D6B3'},
+const colorOptions: Array<{ label: LochiaColor; color: string }> = [
+  { label: 'Rouge vif', color: '#D8334A' },
+  { label: 'Rouge', color: '#E76578' },
+  { label: 'Rose', color: '#F4A5C3' },
+  { label: 'Brun', color: '#A87867' },
+  { label: 'Jaune / blanc', color: '#F2D6B3' },
 ];
 
-const consistencyOptions: Consistency[] = ['Liquide', 'Épais', 'Avec petits caillots'];
-const symptomOptions = ['Aucun', 'Crampes', 'Fatigue', 'Maux de tête', 'Sensibilité', 'Autres'] as const;
+const consistencyOptions: Consistency[] = [
+  'Liquide',
+  'Épais',
+  'Avec petits caillots',
+];
+const symptomOptions = [
+  'Aucun',
+  'Crampes',
+  'Fatigue',
+  'Maux de tête',
+  'Sensibilité',
+  'Autres',
+] as const;
 
-function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
+function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [flow, setFlow] = useState<Flow>('Léger');
   const [color, setColor] = useState<LochiaColor>('Rose');
   const [consistency, setConsistency] = useState<Consistency>('Épais');
   const [symptoms, setSymptoms] = useState<string[]>(['Aucun']);
   const [note, setNote] = useState('');
+  const [finishModalVisible, setFinishModalVisible] = useState(false);
+  const [reopenModalVisible, setReopenModalVisible] = useState(false);
+  const [reopenConsistencyVisible, setReopenConsistencyVisible] =
+    useState(false);
+  const [deliveryDate, setDeliveryDate] = useState(
+    getPostpartumPreferences().deliveryDate,
+  );
+  const [entries, setEntries] = useState<Record<string, PostpartumLochiaEntry>>(
+    {},
+  );
+  const [tracking, setTracking] = useState<PostpartumLochiaTracking>(
+    getPostpartumLochiaTracking,
+  );
   const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
 
   useEffect(() => {
     let active = true;
     hydratePostpartumLochia().then(() => {
-      if (!active) {return;}
+      if (!active) {
+        return;
+      }
+      setEntries(getAllPostpartumLochiaEntries());
+      setTracking(getPostpartumLochiaTracking());
       const entry = getPostpartumLochiaEntry(todayKey);
-      if (!entry) {return;}
+      if (!entry) {
+        return;
+      }
       setFlow(entry.flow);
       setColor(entry.color);
       setConsistency(entry.consistency);
       setSymptoms(entry.symptoms);
       setNote(entry.note ?? '');
     });
-    return () => {active = false;};
+    hydratePostpartumPreferences().then(value => {
+      if (active) {
+        setDeliveryDate(value.deliveryDate);
+      }
+    });
+    const unsubscribeLochia = subscribePostpartumLochia(() => {
+      if (active) {
+        setEntries(getAllPostpartumLochiaEntries());
+        setTracking(getPostpartumLochiaTracking());
+      }
+    });
+    const unsubscribePreferences = subscribePostpartumPreferences(() => {
+      if (active) {
+        setDeliveryDate(getPostpartumPreferences().deliveryDate);
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribeLochia();
+      unsubscribePreferences();
+    };
   }, [todayKey]);
 
+  const summary = useMemo(
+    () => computePostpartumLochiaSummary(deliveryDate, entries, tracking),
+    [deliveryDate, entries, tracking],
+  );
+
   const save = () => {
-    savePostpartumLochiaEntry(todayKey, {flow, color, consistency, symptoms, note: note.trim() || undefined});
+    savePostpartumLochiaEntry(todayKey, {
+      flow,
+      color,
+      consistency,
+      symptoms,
+      note: note.trim() || undefined,
+    });
     Alert.alert('Lochies', 'Tes observations du jour ont été enregistrées.');
+  };
+
+  const finishTracking = () => {
+    setFinishModalVisible(true);
+  };
+
+  const confirmFinishTracking = async () => {
+    setFinishModalVisible(false);
+    await markPostpartumLochiaEnded(todayKey);
+  };
+
+  const reopenTracking = async () => {
+    await hydratePostpartumPreferences();
+    if (getPostpartumPreferences().firstPostpartumPeriodDate) {
+      setReopenConsistencyVisible(true);
+      return;
+    }
+    setReopenModalVisible(true);
+  };
+
+  const confirmReopenTracking = async () => {
+    setReopenModalVisible(false);
+    await reopenPostpartumLochiaTracking();
   };
 
   const todayLabel = useMemo(
@@ -109,32 +211,130 @@ function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
   };
 
   return (
-    <ImageBackground resizeMode="cover" source={BACKGROUND} style={styles.background}>
+    <ImageBackground
+      resizeMode="cover"
+      source={BACKGROUND}
+      style={styles.background}
+    >
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle="dark-content"
+          translucent
+        />
         <View style={styles.page}>
           <View style={styles.header}>
-            <Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.backButton}>
-              <MaterialDesignIcons color={PURPLE_DARK} name="arrow-left" size={24} />
+            <Pressable
+              accessibilityLabel="Retour"
+              hitSlop={12}
+              onPress={navigation.goBack}
+              style={styles.backButton}
+            >
+              <MaterialDesignIcons
+                color={PURPLE_DARK}
+                name="arrow-left"
+                size={24}
+              />
             </Pressable>
             <Text style={styles.headerTitle}>Lochies</Text>
             <View style={styles.infoButton}>
-              <MaterialDesignIcons color={PURPLE} name="information-outline" size={20} />
+              <MaterialDesignIcons
+                color={PURPLE}
+                name="information-outline"
+                size={20}
+              />
             </View>
           </View>
 
           <ScrollView
-            contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + spacing.lg}]}
+            contentContainerStyle={[
+              styles.scrollContent,
+              { paddingBottom: Math.max(insets.bottom, 16) + spacing.lg },
+            ]}
             keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}>
+            showsVerticalScrollIndicator={false}
+          >
             <View style={styles.dateCard}>
               <View>
                 <Text style={styles.dateEyebrow}>AUJOURD'HUI</Text>
                 <Text style={styles.dateText}>{todayLabel}</Text>
               </View>
               <View style={styles.calendarIcon}>
-                <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={20} />
+                <MaterialDesignIcons
+                  color={PURPLE}
+                  name="calendar-month-outline"
+                  size={20}
+                />
               </View>
+            </View>
+
+            <View style={styles.durationCard}>
+              <View style={styles.durationHeader}>
+                <View style={styles.durationIcon}>
+                  <MaterialDesignIcons
+                    color={PURPLE}
+                    name="timeline-clock-outline"
+                    size={20}
+                  />
+                </View>
+                <View style={styles.durationCopy}>
+                  <Text style={styles.durationTitle}>Durée des lochies</Text>
+                  <Text style={styles.durationSubtitle}>
+                    {summary.status === 'no_data'
+                      ? 'Aucune observation enregistrée pour le moment.'
+                      : summary.status === 'ended'
+                      ? `Terminées le ${formatLocalDate(summary.endedDate)}`
+                      : 'Suivi médical en cours'}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.durationMetrics}>
+                <DurationMetric
+                  label="Début"
+                  value={formatLocalDate(summary.deliveryDate)}
+                />
+                <DurationMetric
+                  label="Dernier relevé"
+                  value={formatLocalDate(summary.lastRecordedDate)}
+                />
+                <DurationMetric
+                  label="Durée"
+                  value={
+                    summary.durationDays ? `${summary.durationDays} jours` : '—'
+                  }
+                />
+              </View>
+              <Pressable
+                accessibilityRole="button"
+                onPress={
+                  summary.status === 'ended' ? reopenTracking : finishTracking
+                }
+                style={({ pressed }) => [
+                  styles.endButton,
+                  summary.status === 'ended' && styles.reopenButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <MaterialDesignIcons
+                  color={summary.status === 'ended' ? PURPLE : '#FFFFFF'}
+                  name={
+                    summary.status === 'ended'
+                      ? 'backup-restore'
+                      : 'check-circle-outline'
+                  }
+                  size={18}
+                />
+                <Text
+                  style={[
+                    styles.endButtonText,
+                    summary.status === 'ended' && styles.reopenButtonText,
+                  ]}
+                >
+                  {summary.status === 'ended'
+                    ? 'Corriger et reprendre le suivi'
+                    : 'Mes lochies sont terminées'}
+                </Text>
+              </Pressable>
             </View>
 
             <Section title="Flux">
@@ -142,11 +342,34 @@ function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
                 {flowOptions.map(item => {
                   const selected = flow === item.label;
                   return (
-                    <Pressable key={item.label} onPress={() => setFlow(item.label)} style={[styles.flowOption, selected && styles.selectedBox]}>
-                      <View style={[styles.flowIconCircle, selected && styles.flowIconCircleSelected]}>
-                        <MaterialDesignIcons color={selected ? PURPLE : '#85799F'} name={item.icon as never} size={21} />
+                    <Pressable
+                      key={item.label}
+                      onPress={() => setFlow(item.label)}
+                      style={[
+                        styles.flowOption,
+                        selected && styles.selectedBox,
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.flowIconCircle,
+                          selected && styles.flowIconCircleSelected,
+                        ]}
+                      >
+                        <MaterialDesignIcons
+                          color={selected ? PURPLE : '#85799F'}
+                          name={item.icon as never}
+                          size={21}
+                        />
                       </View>
-                      <Text style={[styles.flowLabel, selected && styles.selectedText]}>{item.label}</Text>
+                      <Text
+                        style={[
+                          styles.flowLabel,
+                          selected && styles.selectedText,
+                        ]}
+                      >
+                        {item.label}
+                      </Text>
                     </Pressable>
                   );
                 })}
@@ -158,11 +381,33 @@ function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
                 {colorOptions.map(item => {
                   const selected = color === item.label;
                   return (
-                    <Pressable key={item.label} onPress={() => setColor(item.label)} style={styles.colorOption}>
-                      <View style={[styles.colorOuter, selected && styles.colorOuterSelected]}>
-                        <View style={[styles.colorDot, {backgroundColor: item.color}]} />
+                    <Pressable
+                      key={item.label}
+                      onPress={() => setColor(item.label)}
+                      style={styles.colorOption}
+                    >
+                      <View
+                        style={[
+                          styles.colorOuter,
+                          selected && styles.colorOuterSelected,
+                        ]}
+                      >
+                        <View
+                          style={[
+                            styles.colorDot,
+                            { backgroundColor: item.color },
+                          ]}
+                        />
                       </View>
-                      <Text numberOfLines={2} style={[styles.colorLabel, selected && styles.selectedText]}>{item.label}</Text>
+                      <Text
+                        numberOfLines={2}
+                        style={[
+                          styles.colorLabel,
+                          selected && styles.selectedText,
+                        ]}
+                      >
+                        {item.label}
+                      </Text>
                     </Pressable>
                   );
                 })}
@@ -174,8 +419,22 @@ function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
                 {consistencyOptions.map(item => {
                   const selected = consistency === item;
                   return (
-                    <Pressable key={item} onPress={() => setConsistency(item)} style={[styles.consistencyChip, selected && styles.selectedBox]}>
-                      <Text style={[styles.consistencyText, selected && styles.selectedText]}>{item}</Text>
+                    <Pressable
+                      key={item}
+                      onPress={() => setConsistency(item)}
+                      style={[
+                        styles.consistencyChip,
+                        selected && styles.selectedBox,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.consistencyText,
+                          selected && styles.selectedText,
+                        ]}
+                      >
+                        {item}
+                      </Text>
                     </Pressable>
                   );
                 })}
@@ -187,8 +446,22 @@ function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
                 {symptomOptions.map(item => {
                   const selected = symptoms.includes(item);
                   return (
-                    <Pressable key={item} onPress={() => toggleSymptom(item)} style={[styles.symptomChip, selected && styles.selectedBox]}>
-                      <Text style={[styles.symptomText, selected && styles.selectedText]}>{item}</Text>
+                    <Pressable
+                      key={item}
+                      onPress={() => toggleSymptom(item)}
+                      style={[
+                        styles.symptomChip,
+                        selected && styles.selectedBox,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.symptomText,
+                          selected && styles.selectedText,
+                        ]}
+                      >
+                        {item}
+                      </Text>
                     </Pressable>
                   );
                 })}
@@ -212,27 +485,236 @@ function PostpartumLochiaScreen({navigation}: Props): React.JSX.Element {
             </Section>
 
             <View style={styles.reassurance}>
-              <MaterialDesignIcons color={PURPLE} name="heart-outline" size={18} />
+              <MaterialDesignIcons
+                color={PURPLE}
+                name="heart-outline"
+                size={18}
+              />
               <Text style={styles.reassuranceText}>
-                Observe simplement l’évolution jour après jour. Chaque corps récupère à son propre rythme.
+                Observe simplement l’évolution jour après jour. Chaque corps
+                récupère à son propre rythme.
               </Text>
             </View>
 
             <Pressable
               accessibilityRole="button"
               onPress={save}
-              style={({pressed}) => [styles.saveButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color="#FFFFFF" name="content-save-outline" size={20} />
+              style={({ pressed }) => [
+                styles.saveButton,
+                pressed && styles.pressed,
+              ]}
+            >
+              <MaterialDesignIcons
+                color="#FFFFFF"
+                name="content-save-outline"
+                size={20}
+              />
               <Text style={styles.saveText}>Enregistrer</Text>
             </Pressable>
           </ScrollView>
         </View>
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setFinishModalVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={finishModalVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              accessibilityLabel="Fermer la confirmation"
+              onPress={() => setFinishModalVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View accessibilityRole="alert" style={styles.confirmModalCard}>
+              <View style={styles.confirmIconWrap}>
+                <View style={styles.confirmIconHalo}>
+                  <MaterialDesignIcons
+                    color={PURPLE}
+                    name="check-circle-outline"
+                    size={34}
+                  />
+                </View>
+              </View>
+
+              <Text style={styles.confirmTitle}>
+                Terminer le suivi des lochies ?
+              </Text>
+
+              <Text style={styles.confirmText}>
+                Le <Text style={styles.confirmDate}>{todayLabel}</Text> sera
+                enregistré comme date de fin.
+              </Text>
+
+              <View style={styles.confirmInfoBox}>
+                <MaterialDesignIcons
+                  color={PURPLE}
+                  name="information-outline"
+                  size={18}
+                />
+                <Text style={styles.confirmInfoText}>
+                  Tu pourras corriger ce choix plus tard et reprendre le suivi
+                  si nécessaire.
+                </Text>
+              </View>
+
+              <View style={styles.confirmActions}>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setFinishModalVisible(false)}
+                  style={({ pressed }) => [
+                    styles.confirmCancelButton,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <Text style={styles.confirmCancelText}>Annuler</Text>
+                </Pressable>
+
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={confirmFinishTracking}
+                  style={({ pressed }) => [
+                    styles.confirmPrimaryButton,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <MaterialDesignIcons color="#FFFFFF" name="check" size={18} />
+                  <Text style={styles.confirmPrimaryText}>Confirmer</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setReopenModalVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={reopenModalVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              accessibilityLabel="Fermer la confirmation"
+              onPress={() => setReopenModalVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View accessibilityRole="alert" style={styles.confirmModalCard}>
+              <View style={styles.confirmIconWrap}>
+                <View style={[styles.confirmIconHalo, styles.reopenIconHalo]}>
+                  <MaterialDesignIcons
+                    color={PURPLE}
+                    name="backup-restore"
+                    size={34}
+                  />
+                </View>
+              </View>
+
+              <Text style={styles.confirmTitle}>Reprendre le suivi ?</Text>
+
+              <Text style={styles.confirmText}>
+                La date de fin des lochies sera retirée et le suivi redeviendra
+                actif.
+              </Text>
+
+              <View style={styles.confirmInfoBox}>
+                <MaterialDesignIcons
+                  color={PURPLE}
+                  name="information-outline"
+                  size={18}
+                />
+                <Text style={styles.confirmInfoText}>
+                  Tes observations déjà enregistrées seront conservées. Tu
+                  pourras continuer ton suivi à partir d’aujourd’hui.
+                </Text>
+              </View>
+
+              <View style={styles.confirmActions}>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => setReopenModalVisible(false)}
+                  style={({ pressed }) => [
+                    styles.confirmCancelButton,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <Text style={styles.confirmCancelText}>Annuler</Text>
+                </Pressable>
+
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={confirmReopenTracking}
+                  style={({ pressed }) => [
+                    styles.confirmPrimaryButton,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <MaterialDesignIcons
+                    color="#FFFFFF"
+                    name="backup-restore"
+                    size={18}
+                  />
+                  <Text style={styles.confirmPrimaryText}>Reprendre</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <PostpartumConsistencyModal
+          visible={reopenConsistencyVisible}
+          title="Vérifie ton suivi"
+          message="Une reprise du cycle est déjà enregistrée alors que tu souhaites reprendre le suivi des lochies."
+          infoText="Ces deux informations peuvent devenir incohérentes. Vérifie ton suivi avant de continuer."
+          primaryLabel="Voir le retour du cycle"
+          onPrimary={() => {
+            setReopenConsistencyVisible(false);
+            navigation.navigate('PostpartumCycleReturn');
+          }}
+          onSecondary={() => setReopenConsistencyVisible(false)}
+          onRequestClose={() => setReopenConsistencyVisible(false)}
+        />
       </SafeAreaView>
     </ImageBackground>
   );
 }
 
-function Section({title, children}: {title: string; children: React.ReactNode}): React.JSX.Element {
+const formatLocalDate = (value: string | null): string =>
+  value
+    ? new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }).format(new Date(`${value}T12:00:00`))
+    : 'Non renseigné';
+
+function DurationMetric({
+  label,
+  value,
+}: {
+  label: string;
+  value: string;
+}): React.JSX.Element {
+  return (
+    <View style={styles.durationMetric}>
+      <Text style={styles.durationMetricLabel}>{label}</Text>
+      <Text numberOfLines={2} style={styles.durationMetricValue}>
+        {value}
+      </Text>
+    </View>
+  );
+}
+
+function Section({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}): React.JSX.Element {
   return (
     <View style={styles.sectionCard}>
       <Text style={styles.sectionTitle}>{title}</Text>
@@ -242,47 +724,416 @@ function Section({title, children}: {title: string; children: React.ReactNode}):
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F8EFFF'},
-  safeArea: {flex: 1, backgroundColor: 'transparent'},
-  page: {flex: 1},
-  header: {minHeight: 54, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 16, marginBottom: 8},
-  backButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 14, backgroundColor: 'rgba(255,255,255,0.86)', borderWidth: 1, borderColor: PURPLE_BORDER},
-  headerTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 21, fontWeight: '800'},
-  infoButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center'},
-  scrollContent: {paddingHorizontal: 14},
-  dateCard: {minHeight: 66, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderRadius: 20, borderWidth: 1, borderColor: PURPLE_BORDER, backgroundColor: CARD, paddingHorizontal: 16, marginBottom: 10},
-  dateEyebrow: {color: PURPLE, fontSize: 9, fontWeight: '800', letterSpacing: 0.7},
-  dateText: {marginTop: 3, color: PURPLE_DARK, fontSize: 12.5, fontWeight: '700', textTransform: 'capitalize'},
-  calendarIcon: {width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 12, backgroundColor: PURPLE_SOFT},
-  sectionCard: {marginBottom: 10, borderRadius: 20, borderWidth: 1, borderColor: PURPLE_BORDER, backgroundColor: CARD, paddingHorizontal: 12, paddingTop: 12, paddingBottom: 13},
-  sectionTitle: {marginBottom: 10, color: PURPLE_DARK, fontSize: 13.5, fontWeight: '800'},
-  flowRow: {flexDirection: 'row', justifyContent: 'space-between', gap: 6},
-  flowOption: {flex: 1, minHeight: 74, alignItems: 'center', justifyContent: 'center', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(107,75,196,0.12)', backgroundColor: '#FFFDFF', paddingHorizontal: 4},
-  flowIconCircle: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: '#F2ECFA'},
-  flowIconCircleSelected: {backgroundColor: '#EEE4FF'},
-  flowLabel: {marginTop: 6, color: TEXT_SECONDARY, fontSize: 9.5, fontWeight: '600'},
-  colorRow: {flexDirection: 'row', justifyContent: 'space-between'},
-  colorOption: {width: '19%', alignItems: 'center'},
-  colorOuter: {width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 20, borderWidth: 1.5, borderColor: 'transparent'},
-  colorOuterSelected: {borderColor: PURPLE, backgroundColor: '#F6F0FF'},
-  colorDot: {width: 25, height: 25, borderRadius: 13},
-  colorLabel: {minHeight: 25, marginTop: 5, color: TEXT_SECONDARY, fontSize: 8.5, lineHeight: 11, textAlign: 'center'},
-  consistencyRow: {flexDirection: 'row', gap: 7},
-  consistencyChip: {flex: 1, minHeight: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 14, borderWidth: 1, borderColor: 'rgba(107,75,196,0.14)', backgroundColor: '#FFFDFF', paddingHorizontal: 7},
-  consistencyText: {color: TEXT_SECONDARY, fontSize: 9.5, fontWeight: '600', textAlign: 'center'},
-  symptomWrap: {flexDirection: 'row', flexWrap: 'wrap', gap: 7},
-  symptomChip: {minHeight: 34, justifyContent: 'center', borderRadius: 12, borderWidth: 1, borderColor: 'rgba(107,75,196,0.14)', backgroundColor: '#FFFDFF', paddingHorizontal: 13},
-  symptomText: {color: TEXT_SECONDARY, fontSize: 9.8, fontWeight: '600'},
-  selectedBox: {borderColor: PURPLE, backgroundColor: '#F5EEFF'},
-  selectedText: {color: PURPLE_DARK, fontWeight: '800'},
-  noteBox: {minHeight: 104, borderRadius: 15, borderWidth: 1, borderColor: 'rgba(107,75,196,0.14)', backgroundColor: '#FFFDFF', paddingHorizontal: 12, paddingTop: 10, paddingBottom: 25},
-  noteInput: {minHeight: 64, padding: 0, color: PURPLE_DARK, fontSize: 11, lineHeight: 16},
-  counter: {position: 'absolute', right: 10, bottom: 8, color: '#9B90AD', fontSize: 9},
-  reassurance: {flexDirection: 'row', alignItems: 'flex-start', gap: 8, marginBottom: 12, borderRadius: 14, backgroundColor: 'rgba(243,236,253,0.92)', paddingHorizontal: 12, paddingVertical: 10},
-  reassuranceText: {flex: 1, color: TEXT_SECONDARY, fontSize: 9.5, lineHeight: 14},
-  saveButton: {width: '88%', maxWidth: 360, minHeight: 50, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', alignSelf: 'center', gap: 8, borderRadius: 16, backgroundColor: PURPLE, shadowColor: '#4E319A', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.22, shadowRadius: 9, elevation: 5},
-  saveText: {color: '#FFFFFF', fontSize: 15, fontWeight: '800'},
-  pressed: {opacity: 0.82, transform: [{scale: 0.99}]},
+  background: { flex: 1, backgroundColor: '#F8EFFF' },
+  safeArea: { flex: 1, backgroundColor: 'transparent' },
+  page: { flex: 1 },
+  header: {
+    minHeight: 54,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    marginBottom: 8,
+  },
+  backButton: {
+    width: 42,
+    height: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 14,
+    backgroundColor: 'rgba(255,255,255,0.86)',
+    borderWidth: 1,
+    borderColor: PURPLE_BORDER,
+  },
+  headerTitle: {
+    color: PURPLE_DARK,
+    fontFamily: 'serif',
+    fontSize: 21,
+    fontWeight: '800',
+  },
+  infoButton: {
+    width: 42,
+    height: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  scrollContent: { paddingHorizontal: 14 },
+  dateCard: {
+    minHeight: 66,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: PURPLE_BORDER,
+    backgroundColor: CARD,
+    paddingHorizontal: 16,
+    marginBottom: 10,
+  },
+  durationCard: {
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: PURPLE_BORDER,
+    borderRadius: 22,
+    backgroundColor: CARD,
+    padding: 14,
+  },
+  durationHeader: { flexDirection: 'row', alignItems: 'center' },
+  durationIcon: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 14,
+    backgroundColor: PURPLE_SOFT,
+  },
+  durationCopy: { flex: 1, minWidth: 0, marginLeft: 10 },
+  durationTitle: {
+    color: PURPLE_DARK,
+    fontFamily: 'serif',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  durationSubtitle: {
+    marginTop: 2,
+    color: TEXT_SECONDARY,
+    fontSize: 9.5,
+    lineHeight: 13,
+  },
+  durationMetrics: {
+    flexDirection: 'row',
+    marginTop: 13,
+    borderRadius: 15,
+    backgroundColor: '#F8F4FC',
+    paddingVertical: 10,
+  },
+  durationMetric: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: 'center',
+    paddingHorizontal: 4,
+  },
+  durationMetricLabel: {
+    color: TEXT_SECONDARY,
+    fontSize: 8.5,
+    textAlign: 'center',
+  },
+  durationMetricValue: {
+    marginTop: 3,
+    color: PURPLE_DARK,
+    fontSize: 10,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  endButton: {
+    minHeight: 43,
+    marginTop: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    borderRadius: 14,
+    backgroundColor: PURPLE,
+  },
+  reopenButton: {
+    borderWidth: 1,
+    borderColor: PURPLE_BORDER,
+    backgroundColor: '#F7F2FD',
+  },
+  endButtonText: { color: '#FFFFFF', fontSize: 11.5, fontWeight: '800' },
+  reopenButtonText: { color: PURPLE },
+  dateEyebrow: {
+    color: PURPLE,
+    fontSize: 9,
+    fontWeight: '800',
+    letterSpacing: 0.7,
+  },
+  dateText: {
+    marginTop: 3,
+    color: PURPLE_DARK,
+    fontSize: 12.5,
+    fontWeight: '700',
+    textTransform: 'capitalize',
+  },
+  calendarIcon: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 12,
+    backgroundColor: PURPLE_SOFT,
+  },
+  sectionCard: {
+    marginBottom: 10,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: PURPLE_BORDER,
+    backgroundColor: CARD,
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    paddingBottom: 13,
+  },
+  sectionTitle: {
+    marginBottom: 10,
+    color: PURPLE_DARK,
+    fontSize: 13.5,
+    fontWeight: '800',
+  },
+  flowRow: { flexDirection: 'row', justifyContent: 'space-between', gap: 6 },
+  flowOption: {
+    flex: 1,
+    minHeight: 74,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: 'rgba(107,75,196,0.12)',
+    backgroundColor: '#FFFDFF',
+    paddingHorizontal: 4,
+  },
+  flowIconCircle: {
+    width: 34,
+    height: 34,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 17,
+    backgroundColor: '#F2ECFA',
+  },
+  flowIconCircleSelected: { backgroundColor: '#EEE4FF' },
+  flowLabel: {
+    marginTop: 6,
+    color: TEXT_SECONDARY,
+    fontSize: 9.5,
+    fontWeight: '600',
+  },
+  colorRow: { flexDirection: 'row', justifyContent: 'space-between' },
+  colorOption: { width: '19%', alignItems: 'center' },
+  colorOuter: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    borderWidth: 1.5,
+    borderColor: 'transparent',
+  },
+  colorOuterSelected: { borderColor: PURPLE, backgroundColor: '#F6F0FF' },
+  colorDot: { width: 25, height: 25, borderRadius: 13 },
+  colorLabel: {
+    minHeight: 25,
+    marginTop: 5,
+    color: TEXT_SECONDARY,
+    fontSize: 8.5,
+    lineHeight: 11,
+    textAlign: 'center',
+  },
+  consistencyRow: { flexDirection: 'row', gap: 7 },
+  consistencyChip: {
+    flex: 1,
+    minHeight: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(107,75,196,0.14)',
+    backgroundColor: '#FFFDFF',
+    paddingHorizontal: 7,
+  },
+  consistencyText: {
+    color: TEXT_SECONDARY,
+    fontSize: 9.5,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  symptomWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 7 },
+  symptomChip: {
+    minHeight: 34,
+    justifyContent: 'center',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(107,75,196,0.14)',
+    backgroundColor: '#FFFDFF',
+    paddingHorizontal: 13,
+  },
+  symptomText: { color: TEXT_SECONDARY, fontSize: 9.8, fontWeight: '600' },
+  selectedBox: { borderColor: PURPLE, backgroundColor: '#F5EEFF' },
+  selectedText: { color: PURPLE_DARK, fontWeight: '800' },
+  noteBox: {
+    minHeight: 104,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: 'rgba(107,75,196,0.14)',
+    backgroundColor: '#FFFDFF',
+    paddingHorizontal: 12,
+    paddingTop: 10,
+    paddingBottom: 25,
+  },
+  noteInput: {
+    minHeight: 64,
+    padding: 0,
+    color: PURPLE_DARK,
+    fontSize: 11,
+    lineHeight: 16,
+  },
+  counter: {
+    position: 'absolute',
+    right: 10,
+    bottom: 8,
+    color: '#9B90AD',
+    fontSize: 9,
+  },
+  reassurance: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 12,
+    borderRadius: 14,
+    backgroundColor: 'rgba(243,236,253,0.92)',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  reassuranceText: {
+    flex: 1,
+    color: TEXT_SECONDARY,
+    fontSize: 9.5,
+    lineHeight: 14,
+  },
+  saveButton: {
+    width: '88%',
+    maxWidth: 360,
+    minHeight: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    gap: 8,
+    borderRadius: 16,
+    backgroundColor: PURPLE,
+    shadowColor: '#4E319A',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.22,
+    shadowRadius: 9,
+    elevation: 5,
+  },
+  saveText: { color: '#FFFFFF', fontSize: 15, fontWeight: '800' },
+
+  modalOverlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(34,20,69,0.40)',
+    paddingHorizontal: 22,
+  },
+  confirmModalCard: {
+    width: '100%',
+    maxWidth: 390,
+    borderWidth: 1,
+    borderColor: 'rgba(107,75,196,0.14)',
+    borderRadius: 28,
+    backgroundColor: '#FFFDFF',
+    paddingHorizontal: 20,
+    paddingTop: 22,
+    paddingBottom: 18,
+    shadowColor: '#2F1B73',
+    shadowOffset: { width: 0, height: 14 },
+    shadowOpacity: 0.24,
+    shadowRadius: 24,
+    elevation: 12,
+  },
+  confirmIconWrap: {
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  confirmIconHalo: {
+    width: 72,
+    height: 72,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 36,
+    borderWidth: 1,
+    borderColor: 'rgba(107,75,196,0.14)',
+    backgroundColor: '#F2EAFB',
+  },
+  reopenIconHalo: {
+    backgroundColor: '#F6F0FF',
+  },
+  confirmTitle: {
+    color: PURPLE_DARK,
+    fontFamily: 'serif',
+    fontSize: 22,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  confirmText: {
+    marginTop: 9,
+    color: TEXT_SECONDARY,
+    fontSize: 12.5,
+    lineHeight: 19,
+    textAlign: 'center',
+  },
+  confirmDate: {
+    color: PURPLE_DARK,
+    fontWeight: '800',
+    textTransform: 'capitalize',
+  },
+  confirmInfoBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 9,
+    marginTop: 16,
+    borderRadius: 16,
+    backgroundColor: '#F6F0FC',
+    paddingHorizontal: 12,
+    paddingVertical: 11,
+  },
+  confirmInfoText: {
+    flex: 1,
+    color: TEXT_SECONDARY,
+    fontSize: 10.5,
+    lineHeight: 15,
+  },
+  confirmActions: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 18,
+  },
+  confirmCancelButton: {
+    flex: 1,
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: PURPLE_BORDER,
+    borderRadius: 16,
+    backgroundColor: '#F8F4FC',
+  },
+  confirmCancelText: {
+    color: PURPLE,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  confirmPrimaryButton: {
+    flex: 1.2,
+    minHeight: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    borderRadius: 16,
+    backgroundColor: PURPLE,
+    shadowColor: '#4E319A',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
+  },
+  confirmPrimaryText: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '800',
+  },
+
+  pressed: { opacity: 0.82, transform: [{ scale: 0.99 }] },
 });
 
 export default PostpartumLochiaScreen;
