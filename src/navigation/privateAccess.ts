@@ -1,7 +1,6 @@
-import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import type {RootStackParamList} from './AppNavigator';
-import {isBiometricEnabled, isPinEnabled, loadSecurityPreferences} from '../state/securityPreferences';
+import type { RootStackParamList } from './AppNavigator';
 
 /**
  * Every destination PrivateAccessScreen can protect. Add a new entry here
@@ -9,14 +8,19 @@ import {isBiometricEnabled, isPinEnabled, loadSecurityPreferences} from '../stat
  * screen/params through route params — keeps navigation fully typed and
  * avoids exposing arbitrary targets.
  */
-export type PrivateAccessPurpose = 'miscarriagePersonalNotes' | 'pregnancyMedicalInformation';
+export type PrivateAccessPurpose =
+  | 'miscarriagePersonalNotes'
+  | 'pregnancyMedicalInformation';
 
 // Only `navigate` is needed here, so callers can pass either a plain
 // stack navigation prop or a bottom-tabs/stack composite one (Dashboards,
 // JournalSheetHost) — requiring the full NativeStackNavigationProp shape
 // would reject composite props over an unrelated `dispatch` signature
 // mismatch that has nothing to do with how this helper actually navigates.
-type PrivateAccessNavigation = Pick<NativeStackNavigationProp<RootStackParamList>, 'navigate'>;
+type PrivateAccessNavigation = Pick<
+  NativeStackNavigationProp<RootStackParamList>,
+  'navigate'
+>;
 
 /** Navigates straight to the protected screen for a given purpose. */
 export function openPrivateDestination(
@@ -24,7 +28,9 @@ export function openPrivateDestination(
   purpose: PrivateAccessPurpose,
 ): void {
   if (purpose === 'miscarriagePersonalNotes') {
-    navigation.navigate('MiscarriageJournalEntry', {category: 'personalNotes'});
+    navigation.navigate('MiscarriageJournalEntry', {
+      category: 'personalNotes',
+    });
     return;
   }
   navigation.navigate('PregnancyMedicalInformation');
@@ -42,10 +48,5 @@ export async function requirePrivateAccess(
   navigation: PrivateAccessNavigation,
   purpose: PrivateAccessPurpose,
 ): Promise<void> {
-  await loadSecurityPreferences();
-  if (isPinEnabled() || isBiometricEnabled()) {
-    navigation.navigate('PrivateAccess', {purpose});
-    return;
-  }
-  openPrivateDestination(navigation, purpose);
+  navigation.navigate('PrivateAccess', { purpose });
 }
