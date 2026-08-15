@@ -1,4 +1,10 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -13,24 +19,26 @@ import {
   Text,
   View,
 } from 'react-native';
-import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
-import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
+import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import HomeHeader from '../home/HomeHeader';
-import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
+import QuickActionsGrid, {
+  type QuickActionItem,
+} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
-import {homeColors, homeShadow} from '../home/homeTheme';
+import { homeColors, homeShadow } from '../home/homeTheme';
 import {
   getFirstName,
   getSelectedLocation,
-  getSelectedSchool,
   getSpiritualMarkersEnabled,
+  hydrateSpiritualMarkersEnabled,
   hydrateSelectedLocation,
   subscribeSelectedLocation,
-  type SchoolId,
+  subscribeSpiritualMarkersEnabled,
 } from '../../state/onboardingPreferences';
 import {
   getPostpartumPreferences,
@@ -43,10 +51,23 @@ import {
   hydratePostpartumJournal,
   subscribePostpartumJournal,
 } from '../../state/postpartumJournalStore';
-import {POSTPARTUM_JOURNAL_ITEMS} from '../../config/postpartumJournalConfig';
-import {computePostpartumStatus} from '../../utils/postpartumTrackingUtils';
-import {usePostpartumSpiritualStatus} from '../../hooks/usePrayerPurityStatus';
-import {formatFullDate, formatHijriDate} from '../../utils/cycleMath';
+import { POSTPARTUM_JOURNAL_ITEMS } from '../../config/postpartumJournalConfig';
+import {
+  getAllPostpartumLochiaEntries,
+  getPostpartumLochiaTracking,
+  hydratePostpartumLochia,
+  subscribePostpartumLochia,
+  type PostpartumLochiaEntry,
+} from '../../state/postpartumLochiaStore';
+import {
+  computePostpartumLochiaSummary,
+  computePostpartumStatus,
+  getNifasReminderStatus,
+  getPostpartumNifasStatus,
+} from '../../utils/postpartumTrackingUtils';
+import { usePostpartumSpiritualStatus } from '../../hooks/usePrayerPurityStatus';
+import { formatFullDate, formatHijriDate } from '../../utils/cycleMath';
+import { NIFAS_EDUCATIONAL_ARTICLE_ID } from '../../config/nifasReminderConfig';
 
 const BACKGROUND = require('../../assets/images/homebackground.png');
 const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartum-mother-baby.png');
@@ -68,20 +89,13 @@ const FEEDING_SHORT_LABELS: Record<PostpartumFeedingType, string> = {
   unknown: 'Non précisé',
 };
 
-const SCHOOL_LABELS: Record<Exclude<SchoolId, 'unknown'>, string> = {
-  hanafi: 'Hanafi',
-  maliki: 'Maliki',
-  chafii: 'Chaféite',
-  hanbali: 'Hanbali',
-};
-
 // Shared with the "Journal quotidien" sheet + PostpartumJournalEntryScreen —
 // see src/config/postpartumJournalConfig.ts, the single source of truth for
 // these 5 fixed categories (Fatigue/Sommeil/Humeur/Douleurs/Récupération
 // physique) — deliberately different from Pregnancy's own 5 categories.
 const DAILY_ITEMS = POSTPARTUM_JOURNAL_ITEMS;
 
-function PostpartumDashboard({navigation}: Props): React.JSX.Element {
+function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
 
@@ -93,31 +107,61 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
 
   useEffect(() => {
     let active = true;
-    hydratePostpartumPreferences().then(value => {if (active) {setPostpartum(value);}});
-    const unsubscribe = subscribePostpartumPreferences(() => {if (active) {setPostpartum(getPostpartumPreferences());}});
-    return () => {active = false; unsubscribe();};
+    hydratePostpartumPreferences().then(value => {
+      if (active) {
+        setPostpartum(value);
+      }
+    });
+    const unsubscribe = subscribePostpartumPreferences(() => {
+      if (active) {
+        setPostpartum(getPostpartumPreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
   }, []);
 
   const deliveryDate = useMemo(
-    () => (postpartum.deliveryDate ? new Date(`${postpartum.deliveryDate}T12:00:00`) : null),
+    () =>
+      postpartum.deliveryDate
+        ? new Date(`${postpartum.deliveryDate}T12:00:00`)
+        : null,
     [postpartum.deliveryDate],
   );
   const today = useMemo(() => new Date(), []);
-  const status = useMemo(() => computePostpartumStatus(deliveryDate, today), [deliveryDate, today]);
+  const status = useMemo(
+    () => computePostpartumStatus(deliveryDate, today),
+    [deliveryDate, today],
+  );
 
   // Postpartum's OWN daily tracking (src/state/postpartumJournalStore.ts) —
   // never the shared Cycle dailyJournalStore, which also carries
   // Cycle-specific fields (flow/temperature/intimacy) that must never leak
   // into Postpartum.
   const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
-  const [todayEntry, setTodayEntry] = useState(() => getPostpartumJournalEntry(todayKey));
+  const [todayEntry, setTodayEntry] = useState(() =>
+    getPostpartumJournalEntry(todayKey),
+  );
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      hydratePostpartumJournal().then(() => {if (active) {setTodayEntry(getPostpartumJournalEntry(todayKey));}});
-      const unsubscribe = subscribePostpartumJournal(() => {if (active) {setTodayEntry(getPostpartumJournalEntry(todayKey));}});
-      return () => {active = false; unsubscribe();};
+      hydratePostpartumJournal().then(() => {
+        if (active) {
+          setTodayEntry(getPostpartumJournalEntry(todayKey));
+        }
+      });
+      const unsubscribe = subscribePostpartumJournal(() => {
+        if (active) {
+          setTodayEntry(getPostpartumJournalEntry(todayKey));
+        }
+      });
+      return () => {
+        active = false;
+        unsubscribe();
+      };
     }, [todayKey]),
   );
 
@@ -132,17 +176,70 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      hydrateSelectedLocation().then(value => {if (active) {setLocation(value);}});
-      const unsubscribe = subscribeSelectedLocation(() => {if (active) {setLocation(getSelectedLocation());}});
-      return () => {active = false; unsubscribe();};
+      hydrateSelectedLocation().then(value => {
+        if (active) {
+          setLocation(value);
+        }
+      });
+      const unsubscribe = subscribeSelectedLocation(() => {
+        if (active) {
+          setLocation(getSelectedLocation());
+        }
+      });
+      return () => {
+        active = false;
+        unsubscribe();
+      };
     }, []),
   );
-  const school = useMemo(() => getSelectedSchool(), []);
-
-  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled());
+  const [lochiaEntries, setLochiaEntries] = useState<
+    Record<string, PostpartumLochiaEntry>
+  >({});
+  const [lochiaTracking, setLochiaTracking] = useState(
+    getPostpartumLochiaTracking,
+  );
   useFocusEffect(
     useCallback(() => {
-      setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
+      let active = true;
+      hydratePostpartumLochia().then(() => {
+        if (active) {
+          setLochiaEntries(getAllPostpartumLochiaEntries());
+          setLochiaTracking(getPostpartumLochiaTracking());
+        }
+      });
+      const unsubscribe = subscribePostpartumLochia(() => {
+        if (active) {
+          setLochiaEntries(getAllPostpartumLochiaEntries());
+          setLochiaTracking(getPostpartumLochiaTracking());
+        }
+      });
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }, []),
+  );
+
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
+    getSpiritualMarkersEnabled(),
+  );
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      hydrateSpiritualMarkersEnabled().then(value => {
+        if (active) {
+          setSpiritualMarkersEnabled(value);
+        }
+      });
+      const unsubscribe = subscribeSpiritualMarkersEnabled(() => {
+        if (active) {
+          setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
+        }
+      });
+      return () => {
+        active = false;
+        unsubscribe();
+      };
     }, []),
   );
 
@@ -156,52 +253,152 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
   // (see MainTabNavigator.tsx) renders the shared DailyJournalSheet with
   // Postpartum's own 5-category action list while activeObjective ===
   // 'postpartum', so opening it here needs no Postpartum-specific wiring.
-  const {open: openPostpartumJournal} = useJournalSheet();
+  const { open: openPostpartumJournal } = useJournalSheet();
 
   useEffect(() => {
     let active = true;
     AccessibilityInfo.isReduceMotionEnabled().then(reduce => {
-      if (!active) {return;}
-      Animated.timing(entrance, {toValue: 1, duration: reduce ? 0 : 550, easing: Easing.out(Easing.cubic), useNativeDriver: true}).start();
+      if (!active) {
+        return;
+      }
+      Animated.timing(entrance, {
+        toValue: 1,
+        duration: reduce ? 0 : 550,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }).start();
     });
-    return () => {active = false;};
+    return () => {
+      active = false;
+    };
   }, [entrance]);
 
   const quickActionItems: QuickActionItem[] = [
-    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
-    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
-    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: '#B23F63', iconBg: '#F9DCE8', label: 'Journal quotidien', onPress: openPostpartumJournal},
-    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
-    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Jeûne à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
-    {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: 'Statistiques', onPress: () => navigation.navigate('Statistics')},
+    {
+      key: 'prayer-times',
+      icon: 'mosque',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Horaires\nde prière',
+      onPress: () => navigation.navigate('PrayerTimes'),
+    },
+    {
+      key: 'library',
+      icon: 'book-open-page-variant-outline',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Bibliothèque',
+      onPress: () => navigation.navigate('Library'),
+    },
+    {
+      key: 'daily-journal',
+      icon: 'notebook-edit-outline',
+      iconColor: '#B23F63',
+      iconBg: '#F9DCE8',
+      label: 'Journal quotidien',
+      onPress: openPostpartumJournal,
+    },
+    {
+      key: 'hijri-calendar',
+      icon: 'moon-waning-crescent',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Calendrier Hijri',
+      onPress: () => navigation.navigate('HijriCalendar'),
+    },
+    {
+      key: 'qadaa',
+      icon: 'silverware-fork-knife',
+      iconColor: PURPLE,
+      iconBg: '#EEE3FA',
+      label: 'Jeûne à rattraper',
+      onPress: () => navigation.navigate('FastingQadaa'),
+    },
+    {
+      key: 'statistics',
+      icon: 'chart-donut',
+      iconColor: '#2C8E93',
+      iconBg: '#DDF0F1',
+      label: 'Statistiques',
+      onPress: () => navigation.navigate('Statistics'),
+    },
   ];
 
   const entranceStyle = {
     opacity: entrance,
-    transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [14, 0]})}],
+    transform: [
+      {
+        translateY: entrance.interpolate({
+          inputRange: [0, 1],
+          outputRange: [14, 0],
+        }),
+      },
+    ],
   };
 
-  const feedingLabel = postpartum.feedingType ? FEEDING_SHORT_LABELS[postpartum.feedingType] : null;
-  const schoolLabel = school && school !== 'unknown' ? SCHOOL_LABELS[school] : null;
+  const feedingLabel = postpartum.feedingType
+    ? FEEDING_SHORT_LABELS[postpartum.feedingType]
+    : null;
+  const lochiaSummary = useMemo(
+    () =>
+      computePostpartumLochiaSummary(
+        postpartum.deliveryDate,
+        lochiaEntries,
+        lochiaTracking,
+      ),
+    [lochiaEntries, lochiaTracking, postpartum.deliveryDate],
+  );
+  const nifasStatus = useMemo(
+    () =>
+      getPostpartumNifasStatus(postpartum.deliveryDate, today, lochiaSummary),
+    [lochiaSummary, postpartum.deliveryDate, today],
+  );
 
   // Real cycle-return state — see PostpartumCycleReturnScreen.tsx, the only
   // place that ever writes firstPostpartumPeriodDate. Never inferred from
   // lochia entries; only an explicit user-confirmed period counts.
   const firstPeriodDate = useMemo(
-    () => (postpartum.firstPostpartumPeriodDate ? new Date(`${postpartum.firstPostpartumPeriodDate}T12:00:00`) : null),
+    () =>
+      postpartum.firstPostpartumPeriodDate
+        ? new Date(`${postpartum.firstPostpartumPeriodDate}T12:00:00`)
+        : null,
     [postpartum.firstPostpartumPeriodDate],
   );
-  const cycleReturnValue = firstPeriodDate ? 'Cycle repris' : 'Cycle non repris';
-  const cycleReturnSubvalue = firstPeriodDate ? `Depuis le ${formatFullDate(firstPeriodDate)}` : null;
-  const nifasValue = status.configured
-    ? `Jour ${status.postpartumDay}${schoolLabel ? ` · Selon l’avis ${schoolLabel}` : ''}`
-    : undefined;
+  const cycleReturnValue = firstPeriodDate
+    ? 'Cycle repris'
+    : 'Cycle non repris';
+  const cycleReturnSubvalue = firstPeriodDate
+    ? `Depuis le ${formatFullDate(firstPeriodDate)}`
+    : null;
+  const todayLochia = lochiaEntries[todayKey];
+  const lochiaDashboardValue = todayLochia
+    ? `${todayLochia.flow} · ${todayLochia.color}`
+    : lochiaSummary.status === 'ended'
+    ? `Terminées · ${lochiaSummary.durationDays ?? '—'} jours`
+    : 'Aucune information enregistrée aujourd’hui';
+  const nifasValue =
+    nifasStatus.status === 'losses_ended'
+      ? 'Pertes terminées'
+      : nifasStatus.status === 'losses_ongoing'
+      ? `Jour ${nifasStatus.postpartumDay} · Pertes en cours`
+      : nifasStatus.postpartumDay > 0
+      ? `Jour ${nifasStatus.postpartumDay} · Suivi non renseigné`
+      : undefined;
+  const nifasReminderStatus = useMemo(
+    () =>
+      getNifasReminderStatus({
+        postpartumDay: nifasStatus.postpartumDay,
+        lochiaEnded: nifasStatus.lochiaEnded,
+      }),
+    [nifasStatus.lochiaEnded, nifasStatus.postpartumDay],
+  );
 
   return (
     <ImageBackground
       resizeMode="cover"
       source={BACKGROUND}
-      style={styles.background}>
+      style={styles.background}
+    >
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -216,7 +413,8 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
               paddingBottom: Math.max(insets.bottom, 12) + 28,
             },
           ]}
-          showsVerticalScrollIndicator={false}>
+          showsVerticalScrollIndicator={false}
+        >
           <HomeHeader
             firstName={getFirstName()}
             onPressProfile={() => navigation.navigate('Profile')}
@@ -242,7 +440,9 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
                   <Text style={styles.heroTitle}>Ton post-partum</Text>
 
                   <View style={styles.heroDayRow}>
-                    <Text style={styles.heroDay}>Jour {status.postpartumDay}</Text>
+                    <Text style={styles.heroDay}>
+                      Jour {status.postpartumDay}
+                    </Text>
                     <View style={styles.heroDayDot} />
                   </View>
 
@@ -257,7 +457,9 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
                       size={16}
                     />
                     <View style={styles.heroDateCopy}>
-                      <Text style={styles.heroDeliveryLabel}>Accouchement le</Text>
+                      <Text style={styles.heroDeliveryLabel}>
+                        Accouchement le
+                      </Text>
                       <Text style={styles.heroDelivery}>
                         {formatFullDate(deliveryDate as Date)}
                       </Text>
@@ -300,10 +502,11 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
                   accessibilityLabel="Indique ta date d’accouchement"
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('PostpartumDeliveryDate')}
-                  style={({pressed}) => [
+                  style={({ pressed }) => [
                     styles.unconfiguredButton,
                     pressed && styles.pressed,
-                  ]}>
+                  ]}
+                >
                   <Text style={styles.unconfiguredButtonText}>
                     Renseigner la date
                   </Text>
@@ -338,10 +541,11 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
               accessibilityLabel="Lochies aujourd’hui"
               accessibilityRole="button"
               onPress={() => navigation.navigate('PostpartumLochia')}
-              style={({pressed}) => [
+              style={({ pressed }) => [
                 styles.featureCard,
                 pressed && styles.pressed,
-              ]}>
+              ]}
+            >
               <View style={[styles.featureIcon, styles.featureIconLochia]}>
                 <MaterialDesignIcons
                   color="#D76578"
@@ -353,9 +557,7 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
               <View style={styles.featureCopy}>
                 <Text style={styles.featureEyebrow}>SUIVI QUOTIDIEN</Text>
                 <Text style={styles.featureTitle}>Lochies aujourd’hui</Text>
-                <Text style={styles.featureValue}>
-                  Aucune information enregistrée aujourd’hui
-                </Text>
+                <Text style={styles.featureValue}>{lochiaDashboardValue}</Text>
               </View>
 
               <View style={styles.featureArrow}>
@@ -371,10 +573,11 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
               accessibilityLabel="Retour du cycle"
               accessibilityRole="button"
               onPress={() => navigation.navigate('PostpartumCycleReturn')}
-              style={({pressed}) => [
+              style={({ pressed }) => [
                 styles.featureCard,
                 pressed && styles.pressed,
-              ]}>
+              ]}
+            >
               <View style={[styles.featureIcon, styles.featureIconCycle]}>
                 <MaterialDesignIcons
                   color={homeColors.primary}
@@ -458,15 +661,14 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
                           category: item.key,
                         })
                       }
-                      style={({pressed}) => [
+                      style={({ pressed }) => [
                         styles.dailyItem,
                         pressed && styles.dailyItemPressed,
-                      ]}>
+                      ]}
+                    >
                       <View
-                        style={[
-                          styles.dailyIcon,
-                          done && styles.dailyIconDone,
-                        ]}>
+                        style={[styles.dailyIcon, done && styles.dailyIconDone]}
+                      >
                         <MaterialDesignIcons
                           color={done ? '#FFFFFF' : homeColors.primary}
                           name={item.icon}
@@ -499,7 +701,9 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
               <View style={styles.spiritualWrap}>
                 <View style={styles.sectionHeadingRow}>
                   <View>
-                    <Text style={styles.sectionHeading}>Repères spirituels</Text>
+                    <Text style={styles.sectionHeading}>
+                      Repères spirituels
+                    </Text>
                     <Text style={styles.sectionHeadingSub}>
                       Tes repères du jour, avec sérénité
                     </Text>
@@ -525,11 +729,15 @@ function PostpartumDashboard({navigation}: Props): React.JSX.Element {
                       : undefined
                   }
                   nextWindow={spiritual.nextWindow}
+                  nifasReminderStatus={nifasReminderStatus}
                   nifasValue={nifasValue}
                   objective="postpartum"
-                  onManage={() =>
-                    navigation.navigate('SpiritualPreferences')
+                  onPressNifas={() =>
+                    navigation.navigate('ArticleReader', {
+                      articleId: NIFAS_EDUCATIONAL_ARTICLE_ID,
+                    })
                   }
+                  onManage={() => navigation.navigate('SpiritualPreferences')}
                   prayerError={spiritual.error}
                   prayerLoading={spiritual.loading}
                   timezone={spiritual.schedule?.timezone}
@@ -978,7 +1186,7 @@ const styles = StyleSheet.create({
 
   dailyItemPressed: {
     opacity: 0.72,
-    transform: [{scale: 0.97}],
+    transform: [{ scale: 0.97 }],
   },
 
   dailyIcon: {
@@ -1034,7 +1242,7 @@ const styles = StyleSheet.create({
 
   pressed: {
     opacity: 0.82,
-    transform: [{scale: 0.99}],
+    transform: [{ scale: 0.99 }],
   },
 });
 
