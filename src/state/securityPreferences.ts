@@ -25,7 +25,8 @@ const DEFAULT_SETTINGS: PrivacySecuritySettings = {
 let pinEnabled = false;
 let biometricEnabled = false;
 let loadPromise: Promise<void> | null = null;
-let privacySettings = {...DEFAULT_SETTINGS};
+let privacySettings = { ...DEFAULT_SETTINGS };
+const settingsListeners = new Set<() => void>();
 
 async function readFlag(key: string): Promise<boolean> {
   try {
@@ -51,7 +52,12 @@ export function loadSecurityPreferences(): Promise<void> {
       pinEnabled = storedPin;
       biometricEnabled = storedBiometric;
       if (storedSettings) {
-        try {privacySettings = {...DEFAULT_SETTINGS, ...JSON.parse(storedSettings)};} catch {}
+        try {
+          privacySettings = {
+            ...DEFAULT_SETTINGS,
+            ...JSON.parse(storedSettings),
+          };
+        } catch {}
       }
     })();
   }
@@ -60,24 +66,42 @@ export function loadSecurityPreferences(): Promise<void> {
 
 export const setPinEnabled = (enabled: boolean): void => {
   pinEnabled = enabled;
-  AsyncStorage.setItem(PIN_ENABLED_KEY, enabled ? 'true' : 'false').catch(() => {});
+  AsyncStorage.setItem(PIN_ENABLED_KEY, enabled ? 'true' : 'false').catch(
+    () => {},
+  );
 };
 
 export const isPinEnabled = (): boolean => pinEnabled;
 
 export const setBiometricEnabled = (enabled: boolean): void => {
   biometricEnabled = enabled;
-  AsyncStorage.setItem(BIOMETRIC_ENABLED_KEY, enabled ? 'true' : 'false').catch(() => {});
+  AsyncStorage.setItem(BIOMETRIC_ENABLED_KEY, enabled ? 'true' : 'false').catch(
+    () => {},
+  );
 };
 
 export const isBiometricEnabled = (): boolean => biometricEnabled;
 
-export const getPrivacySecuritySettings = (): PrivacySecuritySettings => ({...privacySettings});
+export const getPrivacySecuritySettings = (): PrivacySecuritySettings => ({
+  ...privacySettings,
+});
 
 export const updatePrivacySecuritySettings = (
   patch: Partial<PrivacySecuritySettings>,
 ): PrivacySecuritySettings => {
-  privacySettings = {...privacySettings, ...patch};
-  AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(privacySettings)).catch(() => {});
-  return {...privacySettings};
+  privacySettings = { ...privacySettings, ...patch };
+  settingsListeners.forEach(listener => listener());
+  AsyncStorage.setItem(SETTINGS_KEY, JSON.stringify(privacySettings)).catch(
+    () => {},
+  );
+  return { ...privacySettings };
+};
+
+export const subscribePrivacySecuritySettings = (
+  listener: () => void,
+): (() => void) => {
+  settingsListeners.add(listener);
+  return () => {
+    settingsListeners.delete(listener);
+  };
 };

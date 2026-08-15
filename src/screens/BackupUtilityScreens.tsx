@@ -732,7 +732,7 @@ export function DataExportScreen({
 
       await Share.share({
         title:
-          'Export CSV HAWA',
+          'Export CSV AWA',
         message:
           rows.join('\n'),
       });
