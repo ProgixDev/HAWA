@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  ImageBackground,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -11,6 +10,7 @@ import {
 } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { spacing, TOP_SPACING_EXTRA } from '../theme/spacing';
@@ -18,8 +18,6 @@ import {
   getSelectedObjective,
   setSpiritualMarkersEnabled,
 } from '../state/onboardingPreferences';
-
-const SPIRITUAL_BACKGROUND = require('../assets/images/school-selection-background.png');
 
 const features = [
   { icon: '🗓️', label: 'Calendrier hijri' },
@@ -67,11 +65,19 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
   };
 
   return (
-    <ImageBackground
-      source={SPIRITUAL_BACKGROUND}
-      resizeMode="cover"
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
       style={styles.background}
     >
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           hidden={false}
@@ -190,12 +196,48 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
           </Pressable>
         </ScrollView>
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1, backgroundColor: '#F8EFFF' },
+  background: { flex: 1, backgroundColor: '#F2ECF8' },
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+  },
+
   safeArea: { flex: 1 },
   content: {
     flexGrow: 1,

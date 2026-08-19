@@ -2,7 +2,6 @@ import React, {useMemo, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   Image,
-  ImageBackground,
   Modal,
   Pressable,
   ScrollView,
@@ -15,8 +14,8 @@ import {spacing, getTopPadding} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {setCyclePreferences} from '../state/onboardingPreferences';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
-const CYCLE_BACKGROUND = require('../assets/images/school-selection-background.png');
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
 const WEEK_DAYS = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
@@ -89,10 +88,18 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
   };
 
   return (
-    <ImageBackground
-      source={CYCLE_BACKGROUND}
-      resizeMode="cover"
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
       style={styles.background}>
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <View style={styles.safeArea}>
         <StatusBar
           hidden={false}
@@ -291,12 +298,48 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
           </Pressable>
         </Pressable>
       </Modal>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F8EFFF'},
+  background: {flex: 1, backgroundColor: '#F2ECF8'},
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+  },
+
   safeArea: {flex: 1},
   content: {
     flexGrow: 1,
@@ -316,32 +359,51 @@ const styles = StyleSheet.create({
   form: {gap: 7},
   label: {marginTop: 5, color: '#55447F', fontSize: 13, fontWeight: '600'},
   field: {
-    minHeight: 48,
+    minHeight: 52,
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(111, 83, 190, 0.18)',
-    borderRadius: 13,
-    backgroundColor: 'rgba(255, 252, 255, 0.90)',
+    borderWidth: 1.25,
+    borderColor: 'rgba(104, 72, 188, 0.24)',
+    borderRadius: 16,
+    backgroundColor: 'rgba(255, 254, 255, 0.94)',
     paddingHorizontal: 13,
+    shadowColor: '#6848BC',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.045,
+    shadowRadius: 6,
+    elevation: 1,
   },
   fieldText: {flex: 1, marginHorizontal: 10, color: '#2A2050', fontSize: 14},
   calendarFieldIcon: {width: 22, height: 22, resizeMode: 'contain'},
   chevronIcon: {width: 20, height: 20, resizeMode: 'contain'},
   regularityRow: {flexDirection: 'row', gap: 8},
   regularityOption: {
-    minHeight: 46,
+    minHeight: 48,
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(111, 83, 190, 0.18)',
-    borderRadius: 13,
-    backgroundColor: 'rgba(255, 252, 255, 0.90)',
+    borderWidth: 1.25,
+    borderColor: 'rgba(104, 72, 188, 0.22)',
+    borderRadius: 15,
+    backgroundColor: 'rgba(255, 254, 255, 0.92)',
     paddingHorizontal: 5,
+    shadowColor: '#6848BC',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.035,
+    shadowRadius: 5,
+    elevation: 1,
   },
-  regularitySelected: {borderColor: '#6848BC', backgroundColor: '#EEE5FF'},
+  regularitySelected: {
+    borderWidth: 1.5,
+    borderColor: '#7656C4',
+    backgroundColor: '#F0E9FA',
+    shadowColor: '#6848BC',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.10,
+    shadowRadius: 7,
+    elevation: 2,
+  },
   regularityText: {
     color: '#2A2050',
     fontSize: 13,
