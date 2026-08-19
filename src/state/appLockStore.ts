@@ -1,0 +1,10 @@
+export const AUTO_LOCK_TIMEOUT_MS = 30_000;
+export type AppLockState = 'booting' | 'locked' | 'unlocked';
+let state: AppLockState = 'booting';
+const listeners = new Set<() => void>();
+const emit = () => listeners.forEach(listener => listener());
+export const getAppLockState = (): AppLockState => state;
+export const setAppLockState = (next: AppLockState): void => {if (state !== next) {state = next; emit();}};
+export const lockApp = (): void => setAppLockState('locked');
+export const unlockApp = (): void => setAppLockState('unlocked');
+export const subscribeAppLock = (listener: () => void): (() => void) => {listeners.add(listener); return () => listeners.delete(listener);};
