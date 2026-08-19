@@ -47,6 +47,8 @@ import {
   type MiscarriageCycleReturnStatus,
   type MiscarriageTryingAgainStatus,
 } from '../state/miscarriagePreferences';
+import {getConceptionPreferences, type ConceptionReminderKey, type ConceptionTryingDuration, type FertilityIndicator, type OvulationAwareness} from '../state/conceptionPreferences';
+import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 
 const BACKGROUND = require('../assets/images/school-selection-background.png');
 const WOMAN = require('../assets/images/summary-woman.png');
@@ -142,6 +144,10 @@ const TRYING_AGAIN_STATUS_LABELS: Record<MiscarriageTryingAgainStatus, string> =
   soon: 'Bientôt',
   ready: 'Oui, je me sens prête',
 };
+const CONCEPTION_DURATION_LABELS: Record<ConceptionTryingDuration, string> = {starting_now:'Je commence maintenant',under_3_months:'Moins de 3 mois','3_to_6_months':'3 à 6 mois','6_to_12_months':'6 à 12 mois',over_1_year:'Plus d’un an'};
+const OVULATION_AWARENESS_LABELS: Record<OvulationAwareness, string> = {often:'Oui, souvent',sometimes:'Parfois',not_really:'Non, pas vraiment'};
+const INDICATOR_LABELS: Record<FertilityIndicator, string> = {temperature:'Température basale',cervical_mucus:'Glaire cervicale',lh_tests:'Tests LH',intercourse:'Rapports'};
+const CONCEPTION_REMINDER_LABELS: Record<ConceptionReminderKey, string> = {fertile_window:'Fenêtre fertile',estimated_ovulation:'Ovulation estimée',temperature:'Température basale',lh_test:'Test LH',daily_journal:'Journal quotidien',intercourse:'Rapports'};
 
 const formatSummaryDate = (date: Date): string =>
   new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
@@ -174,7 +180,13 @@ type EditableRoute =
   | 'MiscarriageDate'
   | 'MiscarriageBleeding'
   | 'MiscarriageCycleReturn'
-  | 'MiscarriageTryingAgain';
+  | 'MiscarriageTryingAgain'
+  | 'ConceptionTryingDuration'
+  | 'ConceptionOvulationAwareness'
+  | 'ConceptionIndicators'
+  | 'ConceptionReminders'
+  | 'SecuritySetup'
+  | 'Privacy';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -372,6 +384,19 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     ];
   };
 
+  const buildConceptionRows = (): SummaryRow[] => {
+    const conception = getConceptionPreferences();
+    const rows: SummaryRow[] = [objectiveRow, spiritualRow];
+    if (spiritualEnabled && location) {rows.push(locationRow);}
+    rows.push(
+      {icon:'calendar-clock',label:'Essais de conception',value:conception.tryingDuration ? CONCEPTION_DURATION_LABELS[conception.tryingDuration] : 'Non renseigné',route:'ConceptionTryingDuration',tone:'rose'},
+      {icon:'target',label:'Repérage de l’ovulation',value:conception.ovulationAwareness ? OVULATION_AWARENESS_LABELS[conception.ovulationAwareness] : 'Non renseigné',route:'ConceptionOvulationAwareness',tone:'purple'},
+      {icon:'chart-timeline-variant',label:'Indicateurs suivis',value:summarizeSelection(conception.indicators.map(id => INDICATOR_LABELS[id]),4,'Tous les indicateurs'),route:'ConceptionIndicators',tone:'blue'},
+      {icon:'bell-ring-outline',label:'Rappels',value:summarizeSelection((Object.keys(conception.reminders) as ConceptionReminderKey[]).filter(id => conception.reminders[id]).map(id => CONCEPTION_REMINDER_LABELS[id]),6,'Tous les rappels'),route:'ConceptionReminders',tone:'green'},
+    );
+    return rows;
+  };
+
   // "Après une fausse couche"-only rows — sourced entirely from
   // miscarriagePreferences.ts (spec section 25: no duplicated Summary
   // state). Deliberately excludes Cycle rows (last period/cycle duration/
@@ -440,11 +465,19 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     return rows;
   };
 
-  const rows: SummaryRow[] =
+  const objectiveRows: SummaryRow[] =
     objective === 'pregnancy' ? buildPregnancyRows()
       : objective === 'postpartum' ? buildPostpartumRows()
         : objective === 'loss' ? buildMiscarriageRows()
+          : objective === 'conceive' ? buildConceptionRows()
           : buildCycleRows();
+  const privacy = getPrivacySecuritySettings();
+  const securityLabels = [isPinEnabled() ? 'PIN activé' : null, isBiometricEnabled() ? 'Biométrie activée' : null].filter((value): value is string => Boolean(value));
+  const privacyLabels = [privacy.discreetMode ? 'Mode discret activé' : null, privacy.hideNotificationPreview ? 'Aperçus masqués' : null, privacy.privateContentProtection ? 'Contenus privés protégés' : null].filter((value): value is string => Boolean(value));
+  const rows: SummaryRow[] = [...objectiveRows,
+    {icon:'shield-lock-outline',label:'Sécurité',value:securityLabels.length ? securityLabels.join(' · ') : 'Aucune protection supplémentaire',route:'SecuritySetup',tone:'purple'},
+    {icon:'incognito',label:'Confidentialité',value:privacyLabels.length ? privacyLabels.join(' · ') : 'Réglages standards',route:'Privacy',tone:'green'},
+  ];
 
   const navigateToEdit = (route: EditableRoute) => {
     navigation.navigate(route);

@@ -251,6 +251,10 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
       navigation.navigate('MiscarriageDate');
       return;
     }
+    if (objective === 'conceive') {
+      navigation.navigate('ConceptionTryingDuration');
+      return;
+    }
     navigation.navigate('CycleInformation');
   };
 

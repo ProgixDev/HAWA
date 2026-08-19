@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Image,
   ImageBackground,
@@ -14,12 +14,16 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useFocusEffect} from '@react-navigation/native';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {
-  setBiometricEnabled,
-  setPinEnabled,
+  getPrivacySecuritySettings,
+  isBiometricEnabled,
+  isPinEnabled,
+  loadSecurityPreferences,
+  updatePrivacySecuritySettings,
 } from '../state/securityPreferences';
 
 const SECURITY_BACKGROUND = require('../assets/images/security-setup-background.png');
@@ -97,9 +101,12 @@ function SecuritySetupScreen({
   const compact = height < 740 || width < 370;
   const veryCompact = height < 660 || width < 340;
 
-  const [pin, setPin] = useState(false);
-  const [biometric, setBiometric] = useState(false);
-  const [notifications, setNotifications] = useState(false);
+  const [pin, setPin] = useState(isPinEnabled());
+  const [biometric, setBiometric] = useState(isBiometricEnabled());
+  const [notifications, setNotifications] = useState(getPrivacySecuritySettings().discreetNotifications);
+  const refresh = useCallback(() => {setPin(isPinEnabled());setBiometric(isBiometricEnabled());setNotifications(getPrivacySecuritySettings().discreetNotifications);}, []);
+  useEffect(() => {loadSecurityPreferences().then(refresh);}, [refresh]);
+  useFocusEffect(refresh);
 
   return (
     <ImageBackground
@@ -165,10 +172,7 @@ function SecuritySetupScreen({
             compact={compact}
             description={'Verrouiller l’application\nà l’ouverture'}
             icon={PIN}
-            onValueChange={value => {
-              setPin(value);
-              setPinEnabled(value);
-            }}
+            onValueChange={value => navigation.navigate('PinSetup', {mode: value ? 'create' : 'disable', returnTo: 'onboarding'})}
             title="Code PIN"
             value={pin}
           />
@@ -177,10 +181,7 @@ function SecuritySetupScreen({
             compact={compact}
             description={'Empreinte ou reconnaissance\nfaciale'}
             icon={BIOMETRIC}
-            onValueChange={value => {
-              setBiometric(value);
-              setBiometricEnabled(value);
-            }}
+            onValueChange={value => navigation.navigate('FaceIdSetup', {action: value ? 'enable' : 'manage'})}
             title="Biométrie"
             value={biometric}
           />
@@ -189,7 +190,7 @@ function SecuritySetupScreen({
             compact={compact}
             description={'Masquer le contenu\ndes notifications'}
             icon={NOTIFICATION}
-            onValueChange={setNotifications}
+            onValueChange={value => {setNotifications(value);updatePrivacySecuritySettings({discreetNotifications:value,hideNotificationPreview:value});}}
             title="Notifications discrètes"
             value={notifications}
           />

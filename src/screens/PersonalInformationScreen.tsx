@@ -31,7 +31,6 @@ import {
 const PURPLE = '#6D4AE8';
 const DARK = '#2F2258';
 const MUTED = '#746D92';
-const AVATAR = require('../assets/images/icone_avatar.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PersonalInformation'>;
 type FieldKey = keyof Pick<PersonalInformation, 'firstName' | 'lastName' | 'email' | 'phone' | 'preferredName'>;
@@ -127,7 +126,6 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
     [query],
   );
 
-  const avatarSource = profile.avatarUri ? {uri: profile.avatarUri} : AVATAR;
   const calendarLabel = CALENDARS.find(item => item.value === profile.calendar)?.label ?? 'Double';
 
   return (
@@ -141,11 +139,69 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(80).duration(420)} style={styles.profileCard}>
-          <Pressable accessibilityLabel="Modifier la photo" onPress={() => openField('avatar')} style={styles.avatarWrap}>
-            <Image source={avatarSource} style={styles.avatar} />
-            <View style={styles.camera}><MaterialDesignIcons color={PURPLE} name="camera-outline" size={13} /></View>
-          </Pressable>
-          <View style={styles.profileCopy}><Text style={styles.greeting}>Salam ! 💜</Text><Text style={styles.profileText}>Ces informations sont utilisées pour personnaliser ton expérience dans AWA.</Text></View>
+          <View pointerEvents="none" style={styles.profileGlow} />
+          <View pointerEvents="none" style={styles.profileDecorTopRight} />
+
+          <View style={styles.profileTopRow}>
+            <View style={styles.avatarOuterRing}>
+              <Pressable
+                accessibilityLabel={profile.avatarUri ? 'Modifier la photo' : 'Ajouter une photo'}
+                onPress={() => openField('avatar')}
+                style={({pressed}) => [
+                  styles.avatarWrap,
+                  pressed && styles.pressed,
+                ]}>
+                {profile.avatarUri ? (
+                  <Image
+                    accessibilityIgnoresInvertColors
+                    resizeMode="cover"
+                    source={{uri: profile.avatarUri}}
+                    style={styles.avatar}
+                  />
+                ) : (
+                  <View style={styles.avatarPlaceholder}>
+                    <MaterialDesignIcons
+                      color="#7B62B3"
+                      name="account-outline"
+                      size={28}
+                    />
+                  </View>
+                )}
+
+                <View style={styles.camera}>
+                  <MaterialDesignIcons
+                    color="#FFFFFF"
+                    name={profile.avatarUri ? 'camera-outline' : 'camera-plus-outline'}
+                    size={12}
+                  />
+                </View>
+              </Pressable>
+            </View>
+
+            <View style={styles.profileCopy}>
+              <Text style={styles.greeting}>Salam ! 💜</Text>
+              <Text style={styles.profileText}>
+                Ces informations sont utilisées pour personnaliser ton expérience dans AWA.
+              </Text>
+
+              <Pressable
+                accessibilityLabel={profile.avatarUri ? 'Changer ma photo' : 'Ajouter une photo'}
+                onPress={() => openField('avatar')}
+                style={({pressed}) => [
+                  styles.photoAction,
+                  pressed && styles.pressed,
+                ]}>
+                <MaterialDesignIcons
+                  color="#6949BE"
+                  name={profile.avatarUri ? 'image-edit-outline' : 'image-plus-outline'}
+                  size={14}
+                />
+                <Text style={styles.photoActionText}>
+                  {profile.avatarUri ? 'Changer la photo' : 'Ajouter une photo'}
+                </Text>
+              </Pressable>
+            </View>
+          </View>
         </Animated.View>
 
         <Text style={styles.sectionTitle}>Informations de base</Text>
@@ -206,5 +262,5 @@ function Option({label, detail, selected, onPress}: {label: string; detail?: str
 function SaveButton({onPress}: {onPress: () => void}) {return <Pressable onPress={onPress} style={({pressed}) => [styles.save, pressed && styles.pressed]}><Text style={styles.saveText}>Enregistrer</Text></Pressable>;}
 
 const styles = StyleSheet.create({
-  safe:{flex:1,backgroundColor:'#FCFAFF'},content:{flexGrow:1,gap:12,paddingHorizontal:16},contentCompact:{paddingHorizontal:11},header:{flexDirection:'row',alignItems:'center'},back:{alignItems:'center',justifyContent:'center',borderRadius:999,backgroundColor:'#FFFFFF',padding:9,elevation:2},headerCopy:{flex:1,minWidth:0,paddingHorizontal:10},title:{color:DARK,fontFamily:'serif',fontSize:22,fontWeight:'700'},subtitle:{marginTop:3,color:MUTED,fontSize:11.5},decor:{alignItems:'center',justifyContent:'center',flexDirection:'row'},profileCard:{flexDirection:'row',alignItems:'center',borderRadius:26,backgroundColor:'#FFFFFF',padding:16,elevation:2,shadowColor:PURPLE,shadowOpacity:.08,shadowRadius:12,shadowOffset:{width:0,height:4}},avatarWrap:{flexBasis:'24%',aspectRatio:1,marginRight:14},avatar:{width:'100%',height:'100%',borderRadius:999,backgroundColor:'#EFE5FF'},camera:{position:'absolute',right:0,bottom:0,borderWidth:2,borderColor:'#FFF',borderRadius:999,backgroundColor:'#FFF',padding:5,elevation:2},profileCopy:{flex:1},greeting:{color:DARK,fontFamily:'serif',fontSize:18,fontWeight:'700'},profileText:{marginTop:6,color:MUTED,fontSize:11.5,lineHeight:17},sectionTitle:{marginTop:2,color:DARK,fontFamily:'serif',fontSize:16,fontWeight:'700'},card:{overflow:'hidden',borderWidth:1,borderColor:'#EEE8F5',borderRadius:24,backgroundColor:'#FFF',paddingHorizontal:12},row:{minHeight:62,flexDirection:'row',alignItems:'center',paddingVertical:8},rowBorder:{borderBottomWidth:StyleSheet.hairlineWidth,borderBottomColor:'#EEE8F3'},rowIcon:{alignItems:'center',justifyContent:'center',borderRadius:13,backgroundColor:'#F2EBFF',padding:9},rowCopy:{flex:1,minWidth:0,marginHorizontal:11},rowLabel:{color:MUTED,fontSize:10.5},rowValue:{marginTop:2,color:DARK,fontSize:12.5,fontWeight:'700'},infoCard:{flexDirection:'row',alignItems:'center',gap:10,borderRadius:18,backgroundColor:'#F1E8FF',padding:14},infoText:{flex:1,color:MUTED,fontSize:10.5,lineHeight:16},pressed:{opacity:.78,transform:[{scale:.985}]},modalRoot:{flex:1,justifyContent:'flex-end'},backdrop:{...StyleSheet.absoluteFillObject,backgroundColor:'rgba(35,21,72,.38)'},sheet:{maxHeight:'86%',borderTopLeftRadius:30,borderTopRightRadius:30,backgroundColor:'#FFF',paddingHorizontal:18,paddingTop:10},handle:{alignSelf:'center',width:'14%',aspectRatio:8,borderRadius:999,backgroundColor:'#DDD3EA'},sheetTitle:{marginTop:16,marginBottom:14,color:DARK,fontFamily:'serif',fontSize:21,fontWeight:'700',textAlign:'center'},inputLabel:{marginBottom:7,color:DARK,fontSize:12,fontWeight:'700'},input:{borderWidth:1,borderColor:'#DDD2ED',borderRadius:18,backgroundColor:'#FCFAFF',paddingHorizontal:14,paddingVertical:13,color:DARK,fontSize:14},inputError:{borderColor:'#C95565'},error:{marginTop:6,color:'#B4485A',fontSize:11},save:{alignItems:'center',marginTop:15,borderRadius:18,backgroundColor:PURPLE,padding:15},saveText:{color:'#FFF',fontSize:15,fontWeight:'700'},cancel:{alignItems:'center',marginTop:9,paddingVertical:12},cancelText:{color:MUTED,fontSize:13,fontWeight:'600'},sheetAction:{flexDirection:'row',alignItems:'center',gap:12,borderBottomWidth:StyleSheet.hairlineWidth,borderBottomColor:'#EEE7F5',paddingHorizontal:10,paddingVertical:15},sheetActionText:{color:DARK,fontSize:14,fontWeight:'600'},danger:{color:'#B64C5A'},optionsScroll:{maxHeight:'55%'},option:{flexDirection:'row',alignItems:'center',borderWidth:1,borderColor:'#E8DFF3',borderRadius:18,backgroundColor:'#FFF',padding:13,marginBottom:8},optionSelected:{borderColor:PURPLE,backgroundColor:'#F4EEFF'},optionCopy:{flex:1},optionLabel:{color:DARK,fontSize:14,fontWeight:'600'},optionLabelSelected:{color:PURPLE,fontWeight:'700'},optionDetail:{marginTop:3,color:MUTED,fontSize:10.5},radio:{width:21,height:21,borderWidth:1.5,borderColor:'#C6B8D9',borderRadius:999},toast:{position:'absolute',left:'12%',right:'12%',flexDirection:'row',alignItems:'center',justifyContent:'center',gap:8,borderRadius:18,backgroundColor:PURPLE,padding:13,elevation:8},toastText:{color:'#FFF',fontSize:12.5,fontWeight:'700'},
+  safe:{flex:1,backgroundColor:'#FCFAFF'},content:{flexGrow:1,gap:12,paddingHorizontal:16},contentCompact:{paddingHorizontal:11},header:{flexDirection:'row',alignItems:'center'},back:{alignItems:'center',justifyContent:'center',borderRadius:999,backgroundColor:'#FFFFFF',padding:9,elevation:2},headerCopy:{flex:1,minWidth:0,paddingHorizontal:10},title:{color:DARK,fontFamily:'serif',fontSize:22,fontWeight:'700'},subtitle:{marginTop:3,color:MUTED,fontSize:11.5},decor:{alignItems:'center',justifyContent:'center',flexDirection:'row'},profileCard:{position:'relative',overflow:'hidden',borderWidth:1,borderColor:'rgba(104,70,199,0.11)',borderRadius:24,backgroundColor:'#FBF9FE',paddingHorizontal:16,paddingVertical:15,elevation:3,shadowColor:'#34245F',shadowOpacity:.07,shadowRadius:14,shadowOffset:{width:0,height:5}},profileGlow:{position:'absolute',top:-48,right:-38,width:140,height:140,borderRadius:70,backgroundColor:'rgba(104,70,199,0.055)'},profileDecorTopRight:{position:'absolute',top:17,right:18,width:7,height:7,borderRadius:4,backgroundColor:'rgba(133,101,196,0.22)'},profileTopRow:{flexDirection:'row',alignItems:'center'},avatarOuterRing:{width:74,height:74,alignItems:'center',justifyContent:'center',flexShrink:0,borderWidth:1,borderColor:'rgba(105,73,190,0.15)',borderRadius:37,backgroundColor:'rgba(255,255,255,0.72)'},avatarWrap:{width:64,height:64,borderRadius:32},avatar:{width:64,height:64,borderRadius:32,backgroundColor:'#EFE5FF',borderWidth:2,borderColor:'#FFFFFF'},avatarPlaceholder:{width:64,height:64,alignItems:'center',justifyContent:'center',borderRadius:32,borderWidth:2,borderColor:'#FFFFFF',backgroundColor:'#EEE8F8'},camera:{position:'absolute',right:-1,bottom:-1,width:23,height:23,alignItems:'center',justifyContent:'center',borderWidth:2,borderColor:'#FFFFFF',borderRadius:12,backgroundColor:'#6846C7',elevation:2,shadowColor:'#34245F',shadowOpacity:.15,shadowRadius:3,shadowOffset:{width:0,height:2}},profileCopy:{flex:1,minWidth:0,marginLeft:14},greeting:{color:'#241B45',fontFamily:'serif',fontSize:18,fontWeight:'700',lineHeight:22},profileText:{marginTop:5,color:'#777184',fontSize:11.5,lineHeight:16},photoAction:{alignSelf:'flex-start',flexDirection:'row',alignItems:'center',gap:5,marginTop:9,borderWidth:1,borderColor:'rgba(105,73,190,0.14)',borderRadius:999,backgroundColor:'#F2ECF9',paddingHorizontal:9,paddingVertical:6},photoActionText:{color:'#6949BE',fontSize:10.5,fontWeight:'700'},sectionTitle:{marginTop:2,color:DARK,fontFamily:'serif',fontSize:16,fontWeight:'700'},card:{overflow:'hidden',borderWidth:1,borderColor:'#EEE8F5',borderRadius:24,backgroundColor:'#FFF',paddingHorizontal:12},row:{minHeight:62,flexDirection:'row',alignItems:'center',paddingVertical:8},rowBorder:{borderBottomWidth:StyleSheet.hairlineWidth,borderBottomColor:'#EEE8F3'},rowIcon:{alignItems:'center',justifyContent:'center',borderRadius:13,backgroundColor:'#F2EBFF',padding:9},rowCopy:{flex:1,minWidth:0,marginHorizontal:11},rowLabel:{color:MUTED,fontSize:10.5},rowValue:{marginTop:2,color:DARK,fontSize:12.5,fontWeight:'700'},infoCard:{flexDirection:'row',alignItems:'center',gap:10,borderRadius:18,backgroundColor:'#F1E8FF',padding:14},infoText:{flex:1,color:MUTED,fontSize:10.5,lineHeight:16},pressed:{opacity:.78,transform:[{scale:.985}]},modalRoot:{flex:1,justifyContent:'flex-end'},backdrop:{...StyleSheet.absoluteFillObject,backgroundColor:'rgba(35,21,72,.38)'},sheet:{maxHeight:'86%',borderTopLeftRadius:30,borderTopRightRadius:30,backgroundColor:'#FFF',paddingHorizontal:18,paddingTop:10},handle:{alignSelf:'center',width:'14%',aspectRatio:8,borderRadius:999,backgroundColor:'#DDD3EA'},sheetTitle:{marginTop:16,marginBottom:14,color:DARK,fontFamily:'serif',fontSize:21,fontWeight:'700',textAlign:'center'},inputLabel:{marginBottom:7,color:DARK,fontSize:12,fontWeight:'700'},input:{borderWidth:1,borderColor:'#DDD2ED',borderRadius:18,backgroundColor:'#FCFAFF',paddingHorizontal:14,paddingVertical:13,color:DARK,fontSize:14},inputError:{borderColor:'#C95565'},error:{marginTop:6,color:'#B4485A',fontSize:11},save:{alignItems:'center',marginTop:15,borderRadius:18,backgroundColor:PURPLE,padding:15},saveText:{color:'#FFF',fontSize:15,fontWeight:'700'},cancel:{alignItems:'center',marginTop:9,paddingVertical:12},cancelText:{color:MUTED,fontSize:13,fontWeight:'600'},sheetAction:{flexDirection:'row',alignItems:'center',gap:12,borderBottomWidth:StyleSheet.hairlineWidth,borderBottomColor:'#EEE7F5',paddingHorizontal:10,paddingVertical:15},sheetActionText:{color:DARK,fontSize:14,fontWeight:'600'},danger:{color:'#B64C5A'},optionsScroll:{maxHeight:'55%'},option:{flexDirection:'row',alignItems:'center',borderWidth:1,borderColor:'#E8DFF3',borderRadius:18,backgroundColor:'#FFF',padding:13,marginBottom:8},optionSelected:{borderColor:PURPLE,backgroundColor:'#F4EEFF'},optionCopy:{flex:1},optionLabel:{color:DARK,fontSize:14,fontWeight:'600'},optionLabelSelected:{color:PURPLE,fontWeight:'700'},optionDetail:{marginTop:3,color:MUTED,fontSize:10.5},radio:{width:21,height:21,borderWidth:1.5,borderColor:'#C6B8D9',borderRadius:999},toast:{position:'absolute',left:'12%',right:'12%',flexDirection:'row',alignItems:'center',justifyContent:'center',gap:8,borderRadius:18,backgroundColor:PURPLE,padding:13,elevation:8},toastText:{color:'#FFF',fontSize:12.5,fontWeight:'700'},
 });

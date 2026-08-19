@@ -16,6 +16,8 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {typography} from '../theme/typography';
+import {requiresAppLock} from '../state/securityPreferences';
+import {lockApp} from '../state/appLockStore';
 
 const AWA_LOGO = require('../assets/images/hawa-logo.png');
 const SPLASH_BACKGROUND = require('../assets/images/hawa-splash-background.png');
@@ -89,7 +91,10 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
     entrance.start(({finished}) => finished && breathing.start());
     progressAnimation.start();
 
-    const timer = setTimeout(() => navigation.replace('Welcome'), 5000);
+    const timer = setTimeout(() => {
+      if (requiresAppLock()) {lockApp();}
+      navigation.replace('Welcome');
+    }, 5000);
 
     return () => {
       clearTimeout(timer);

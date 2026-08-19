@@ -135,6 +135,9 @@ export function HawaPremiumBottomSheet({
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
 
+  /*
+   * Responsive breakpoints
+   */
   const isCompact = width < 370;
   const isVeryCompact = width < 340;
 
@@ -147,6 +150,43 @@ export function HawaPremiumBottomSheet({
   const sparkle = useRef(new Animated.Value(0)).current;
   const buttonScale = useRef(new Animated.Value(1)).current;
 
+  /*
+   * ============================================================
+   * RESPONSIVE SHEET STYLE
+   * ============================================================
+   *
+   * IMPORTANT:
+   * On calcule maxHeight ici au lieu de le mettre directement
+   * dans le JSX.
+   *
+   * Cela évite le warning :
+   *
+   * Inline style: {
+   *   maxHeight: ...
+   * }
+   */
+  const responsiveSheetStyle = useMemo(
+    () => ({
+      maxHeight: (height < 700 ? '96%' : '93%') as `${number}%`,
+      paddingBottom: Math.max(insets.bottom, 8),
+    }),
+    [height, insets.bottom],
+  );
+
+  /*
+   * Responsive padding pour le contenu.
+   */
+  const responsiveScrollStyle = useMemo(
+    () => ({
+      paddingHorizontal: isCompact ? 13 : 17,
+    }),
+    [isCompact],
+  );
+
+  /*
+   * Respect du réglage Android/iOS :
+   * réduire les animations.
+   */
   useEffect(() => {
     let active = true;
 
@@ -161,6 +201,9 @@ export function HawaPremiumBottomSheet({
     };
   }, []);
 
+  /*
+   * Animation ouverture / fermeture du BottomSheet.
+   */
   useEffect(() => {
     if (visible) {
       setMounted(true);
@@ -183,10 +226,17 @@ export function HawaPremiumBottomSheet({
     }
   }, [progress, reduceMotion, visible]);
 
+  /*
+   * Animations Premium :
+   *
+   * - couronne
+   * - halo / sparkle
+   */
   useEffect(() => {
     if (!visible || reduceMotion) {
       crownFloat.setValue(0);
       sparkle.setValue(0);
+
       return;
     }
 
@@ -245,6 +295,12 @@ export function HawaPremiumBottomSheet({
     [plan],
   );
 
+  /*
+   * ============================================================
+   * ANIMATIONS
+   * ============================================================
+   */
+
   const translateY = progress.interpolate({
     inputRange: [0, 1],
     outputRange: [height, 0],
@@ -286,20 +342,94 @@ export function HawaPremiumBottomSheet({
     outputRange: [0.45, 0.95],
   });
 
+  /*
+   * Ici les Animated.Value sont séparés des valeurs
+   * responsive classiques.
+   */
+  const animatedSheetStyle = useMemo(
+    () => ({
+      transform: [
+        {
+          translateY,
+        },
+        {
+          scale: sheetScale,
+        },
+      ],
+    }),
+    [sheetScale, translateY],
+  );
+
+  const heroAnimatedStyle = useMemo(
+    () => ({
+      opacity: heroOpacity,
+      transform: [
+        {
+          translateY: heroTranslateY,
+        },
+      ],
+    }),
+    [heroOpacity, heroTranslateY],
+  );
+
+  const emblemGlowAnimatedStyle = useMemo(
+    () => ({
+      opacity: sparkleOpacity,
+      transform: [
+        {
+          scale: sparkleScale,
+        },
+      ],
+    }),
+    [sparkleOpacity, sparkleScale],
+  );
+
+  const crownAnimatedStyle = useMemo(
+    () => ({
+      transform: [
+        {
+          translateY: crownTranslateY,
+        },
+        {
+          rotate: crownRotate,
+        },
+      ],
+    }),
+    [crownRotate, crownTranslateY],
+  );
+
+  const buttonAnimatedStyle = useMemo(
+    () => ({
+      transform: [
+        {
+          scale: buttonScale,
+        },
+      ],
+    }),
+    [buttonScale],
+  );
+
   if (!mounted) {
     return null;
   }
 
+  /*
+   * ============================================================
+   * SUBSCRIBE
+   * ============================================================
+   */
+
   const handleSubscribe = () => {
-    /**
-     * TODO:
-     * Connecter le vrai système de paiement :
+    /*
+     * TODO :
+     *
+     * Connecter ensuite :
      *
      * - Google Play Billing
      * - StoreKit
      * - RevenueCat
      *
-     * Ne pas activer Premium artificiellement ici.
+     * Ne pas activer Premium artificiellement.
      */
 
     console.log(
@@ -325,11 +455,16 @@ export function HawaPremiumBottomSheet({
       statusBarTranslucent
       transparent
       visible>
-      {/* Backdrop */}
+
+      {/* ======================================================
+          BACKDROP
+      ====================================================== */}
+
       <Animated.View
         pointerEvents="none"
         style={[
           styles.backdrop,
+          styles.absoluteFill,
           {
             opacity: progress,
           },
@@ -337,36 +472,27 @@ export function HawaPremiumBottomSheet({
       />
 
       <Pressable
-        accessibilityLabel="Fermer HAWA Premium"
+        accessibilityLabel="Fermer AWA Premium"
         accessibilityRole="button"
         onPress={onClose}
         style={StyleSheet.absoluteFill}
       />
 
-      {/* Premium sheet */}
+      {/* ======================================================
+          PREMIUM BOTTOM SHEET
+      ====================================================== */}
+
       <Animated.View
         style={[
           styles.sheet,
-          {
-            maxHeight:
-              height < 700
-                ? '96%'
-                : '93%',
-            paddingBottom: Math.max(
-              insets.bottom,
-              8,
-            ),
-            transform: [
-              {
-                translateY,
-              },
-              {
-                scale: sheetScale,
-              },
-            ],
-          },
+          responsiveSheetStyle,
+          animatedSheetStyle,
         ]}>
-        {/* HERO */}
+
+        {/* ====================================================
+            HERO
+        ==================================================== */}
+
         <LinearGradient
           colors={[
             '#2B155E',
@@ -385,39 +511,32 @@ export function HawaPremiumBottomSheet({
             styles.hero,
             isCompact && styles.heroCompact,
           ]}>
-          {/* Decorative glows */}
+
+          {/* Decorative glow */}
           <View style={styles.heroOrbTop} />
           <View style={styles.heroOrbBottom} />
           <View style={styles.heroOrbSmall} />
 
+          {/* Handle */}
           <View style={styles.handle} />
 
           <Animated.View
             style={[
               styles.heroContent,
-              {
-                opacity: heroOpacity,
-                transform: [
-                  {
-                    translateY: heroTranslateY,
-                  },
-                ],
-              },
+              heroAnimatedStyle,
             ]}>
-            {/* Premium emblem */}
+
+            {/* =================================================
+                PREMIUM EMBLEM
+            ================================================= */}
+
             <View style={styles.emblemWrapper}>
+
               <Animated.View
                 pointerEvents="none"
                 style={[
                   styles.emblemGlow,
-                  {
-                    opacity: sparkleOpacity,
-                    transform: [
-                      {
-                        scale: sparkleScale,
-                      },
-                    ],
-                  },
+                  emblemGlowAnimatedStyle,
                 ]}
               />
 
@@ -425,27 +544,12 @@ export function HawaPremiumBottomSheet({
                 <Animated.View
                   style={[
                     styles.emblemInner,
-                    {
-                      transform: [
-                        {
-                          translateY:
-                            crownTranslateY,
-                        },
-                        {
-                          rotate:
-                            crownRotate,
-                        },
-                      ],
-                    },
+                    crownAnimatedStyle,
                   ]}>
                   <MaterialDesignIcons
                     color={COLORS.gold}
                     name="crown"
-                    size={
-                      isVeryCompact
-                        ? 27
-                        : 31
-                    }
+                    size={isVeryCompact ? 27 : 31}
                   />
                 </Animated.View>
               </View>
@@ -459,25 +563,27 @@ export function HawaPremiumBottomSheet({
               </View>
             </View>
 
+            {/* =================================================
+                HERO TEXT
+            ================================================= */}
+
             <View style={styles.heroCopy}>
+
               <View style={styles.titleLine}>
                 <Text
-                  numberOfLines={1}
                   adjustsFontSizeToFit
                   minimumFontScale={0.8}
+                  numberOfLines={1}
                   style={[
                     styles.heroTitle,
                     isCompact &&
                       styles.heroTitleCompact,
                   ]}>
-                  HAWA Premium
+                  AWA Premium
                 </Text>
 
                 {!isVeryCompact ? (
-                  <View
-                    style={
-                      styles.premiumBadge
-                    }>
+                  <View style={styles.premiumBadge}>
                     <MaterialDesignIcons
                       color={COLORS.gold}
                       name="star-four-points"
@@ -505,8 +611,10 @@ export function HawaPremiumBottomSheet({
               </Text>
             </View>
 
+            {/* CLOSE */}
+
             <Pressable
-              accessibilityLabel="Fermer HAWA Premium"
+              accessibilityLabel="Fermer AWA Premium"
               accessibilityRole="button"
               hitSlop={10}
               onPress={onClose}
@@ -524,17 +632,25 @@ export function HawaPremiumBottomSheet({
           </Animated.View>
         </LinearGradient>
 
+        {/* ====================================================
+            SCROLLABLE CONTENT
+        ==================================================== */}
+
         <ScrollView
           bounces={false}
           contentContainerStyle={[
             styles.scrollContent,
-            isCompact &&
-              styles.scrollContentCompact,
+            responsiveScrollStyle,
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          {/* INTRO */}
+
+          {/* ==================================================
+              INTRO
+          ================================================== */}
+
           <View style={styles.introRow}>
+
             <View style={styles.introCopy}>
               <Text style={styles.eyebrow}>
                 TON EXPÉRIENCE PREMIUM
@@ -551,9 +667,8 @@ export function HawaPremiumBottomSheet({
               </Text>
 
               <Text style={styles.sectionSubtitle}>
-                Débloque les outils qui
-                enrichissent ton suivi au
-                quotidien.
+                Débloque les outils qui enrichissent
+                ton suivi au quotidien.
               </Text>
             </View>
 
@@ -566,80 +681,80 @@ export function HawaPremiumBottomSheet({
             </View>
           </View>
 
-          {/* BENEFITS */}
+          {/* ==================================================
+              BENEFITS
+          ================================================== */}
+
           <View style={styles.benefits}>
-            {BENEFITS.map(
-              (item, index) => {
-                const isLast =
-                  index ===
-                  BENEFITS.length - 1;
+            {BENEFITS.map((item, index) => {
+              const isLast =
+                index === BENEFITS.length - 1;
 
-                return (
+              return (
+                <View
+                  key={item.title}
+                  style={[
+                    styles.benefitCard,
+                    isCompact &&
+                      styles.benefitCardCompact,
+                    isLast &&
+                      styles.benefitCardWide,
+                  ]}>
+
                   <View
-                    key={item.title}
                     style={[
-                      styles.benefitCard,
-                      isCompact &&
-                        styles.benefitCardCompact,
-                      isLast &&
-                        styles.benefitCardWide,
+                      styles.benefitIcon,
+                      {
+                        backgroundColor:
+                          item.tint,
+                      },
                     ]}>
-                    <View
-                      style={[
-                        styles.benefitIcon,
-                        {
-                          backgroundColor:
-                            item.tint,
-                        },
-                      ]}>
-                      <MaterialDesignIcons
-                        color={
-                          item.iconColor
-                        }
-                        name={item.icon}
-                        size={21}
-                      />
-                    </View>
-
-                    <View
-                      style={
-                        styles.benefitCopy
-                      }>
-                      <Text
-                        style={
-                          styles.benefitTitle
-                        }>
-                        {item.title}
-                      </Text>
-
-                      <Text
-                        style={
-                          styles.benefitDescription
-                        }>
-                        {item.description}
-                      </Text>
-                    </View>
-
-                    <View
-                      style={
-                        styles.benefitCheck
-                      }>
-                      <MaterialDesignIcons
-                        color="#FFFFFF"
-                        name="check"
-                        size={10}
-                      />
-                    </View>
+                    <MaterialDesignIcons
+                      color={item.iconColor}
+                      name={item.icon}
+                      size={21}
+                    />
                   </View>
-                );
-              },
-            )}
+
+                  <View style={styles.benefitCopy}>
+                    <Text
+                      style={
+                        styles.benefitTitle
+                      }>
+                      {item.title}
+                    </Text>
+
+                    <Text
+                      style={
+                        styles.benefitDescription
+                      }>
+                      {item.description}
+                    </Text>
+                  </View>
+
+                  <View
+                    style={
+                      styles.benefitCheck
+                    }>
+                    <MaterialDesignIcons
+                      color="#FFFFFF"
+                      name="check"
+                      size={10}
+                    />
+                  </View>
+                </View>
+              );
+            })}
           </View>
 
           <View style={styles.divider} />
 
-          {/* PLAN HEADER */}
+          {/* ==================================================
+              PLAN HEADER
+          ================================================== */}
+
           <View style={styles.planHeadingRow}>
+
             <View style={styles.planHeadingCopy}>
               <Text style={styles.eyebrow}>
                 TON ABONNEMENT
@@ -651,8 +766,7 @@ export function HawaPremiumBottomSheet({
                   isCompact &&
                     styles.sectionTitleCompact,
                 ]}>
-                Choisis la formule qui te
-                convient
+                Choisis la formule qui te convient
               </Text>
 
               <Text style={styles.sectionSubtitle}>
@@ -679,7 +793,10 @@ export function HawaPremiumBottomSheet({
             </View>
           </View>
 
-          {/* ANNUAL */}
+          {/* ==================================================
+              ANNUAL PLAN
+          ================================================== */}
+
           <PlanCard
             checked={plan === 'annual'}
             detail={PREMIUM_PRICING.annual.detail}
@@ -689,7 +806,10 @@ export function HawaPremiumBottomSheet({
             recommended
           />
 
-          {/* MONTHLY */}
+          {/* ==================================================
+              MONTHLY PLAN
+          ================================================== */}
+
           <PlanCard
             checked={plan === 'monthly'}
             detail={PREMIUM_PRICING.monthly.detail}
@@ -698,9 +818,14 @@ export function HawaPremiumBottomSheet({
             price={PREMIUM_PRICING.monthly.price}
           />
 
-          {/* LOCAL PRICING */}
+          {/* ==================================================
+              LOCAL PRICING
+          ================================================== */}
+
           <View style={styles.localPricingCard}>
+
             <View style={styles.localPricingTop}>
+
               <View style={styles.localIcon}>
                 <MaterialDesignIcons
                   color={COLORS.purple}
@@ -714,7 +839,10 @@ export function HawaPremiumBottomSheet({
                   Tarification locale
                 </Text>
 
-                <Text style={styles.localSubtitle}>
+                <Text
+                  style={
+                    styles.localSubtitle
+                  }>
                   Des prix adaptés selon ton pays
                   et la plateforme utilisée.
                 </Text>
@@ -726,6 +854,7 @@ export function HawaPremiumBottomSheet({
                 <View
                   key={country.code}
                   style={styles.countryCard}>
+
                   <View
                     style={
                       styles.countryFlagBubble
@@ -739,7 +868,10 @@ export function HawaPremiumBottomSheet({
                     {country.name}
                   </Text>
 
-                  <Text style={styles.countryStatus}>
+                  <Text
+                    style={
+                      styles.countryStatus
+                    }>
                     Tarif local
                   </Text>
                 </View>
@@ -764,8 +896,12 @@ export function HawaPremiumBottomSheet({
             </View>
           </View>
 
-          {/* SECURITY */}
+          {/* ==================================================
+              SECURITY
+          ================================================== */}
+
           <View style={styles.securityCard}>
+
             <View style={styles.securityIcon}>
               <MaterialDesignIcons
                 color={COLORS.green}
@@ -781,8 +917,7 @@ export function HawaPremiumBottomSheet({
 
               <Text style={styles.securityText}>
                 Tes achats et abonnements seront
-                gérés par Google Play ou l’App
-                Store.
+                gérés par Google Play ou l’App Store.
               </Text>
             </View>
 
@@ -793,20 +928,18 @@ export function HawaPremiumBottomSheet({
             />
           </View>
 
-          {/* CTA */}
+          {/* ==================================================
+              PREMIUM CTA
+          ================================================== */}
+
           <Animated.View
             style={[
               styles.ctaWrapper,
-              {
-                transform: [
-                  {
-                    scale: buttonScale,
-                  },
-                ],
-              },
+              buttonAnimatedStyle,
             ]}>
+
             <Pressable
-              accessibilityLabel="S’abonner à HAWA Premium"
+              accessibilityLabel="S’abonner à AWA Premium"
               accessibilityRole="button"
               onPress={handleSubscribe}
               onPressIn={() =>
@@ -815,6 +948,7 @@ export function HawaPremiumBottomSheet({
               onPressOut={() =>
                 animateButton(false)
               }>
+
               <LinearGradient
                 colors={[
                   '#4B278E',
@@ -830,6 +964,7 @@ export function HawaPremiumBottomSheet({
                   y: 0,
                 }}
                 style={styles.cta}>
+
                 <View style={styles.ctaShine} />
 
                 <View
@@ -871,7 +1006,10 @@ export function HawaPremiumBottomSheet({
             </Pressable>
           </Animated.View>
 
-          {/* RESTORE */}
+          {/* ==================================================
+              RESTORE
+          ================================================== */}
+
           <Pressable
             accessibilityLabel="Restaurer mes achats"
             accessibilityRole="button"
@@ -932,6 +1070,7 @@ function PlanCard({
         checked && styles.planCardSelected,
         pressed && styles.planPressed,
       ]}>
+
       {recommended ? (
         <View style={styles.recommendedBadge}>
           <MaterialDesignIcons
@@ -957,6 +1096,7 @@ function PlanCard({
       </View>
 
       <View style={styles.planMain}>
+
         <View style={styles.planTitleRow}>
           <Text style={styles.planTitle}>
             {label}
@@ -983,7 +1123,10 @@ function PlanCard({
               size={13}
             />
 
-            <Text style={styles.planFeatureText}>
+            <Text
+              style={
+                styles.planFeatureText
+              }>
               Accès Premium pendant 12 mois
             </Text>
           </View>
@@ -993,7 +1136,7 @@ function PlanCard({
       <View style={styles.planPriceArea}>
         <Text
           adjustsFontSizeToFit
-          minimumFontScale={0.75}
+          minimumFontScale={0.72}
           numberOfLines={1}
           style={styles.planPrice}>
           {price}
@@ -1003,18 +1146,22 @@ function PlanCard({
   );
 }
 
+/* ============================================================
+   STYLES
+============================================================ */
+
 const styles = StyleSheet.create({
-  /* ============================================================
-     MODAL
-  ============================================================ */
+  absoluteFill: {
+    ...StyleSheet.absoluteFillObject,
+  },
 
   backdrop: {
-    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(18,9,38,0.72)',
   },
 
   sheet: {
     position: 'absolute',
+
     right: 0,
     bottom: 0,
     left: 0,
@@ -1043,6 +1190,7 @@ const styles = StyleSheet.create({
 
   hero: {
     position: 'relative',
+
     overflow: 'hidden',
 
     paddingHorizontal: 18,
@@ -1294,6 +1442,7 @@ const styles = StyleSheet.create({
 
   closeButtonPressed: {
     opacity: 0.75,
+
     transform: [
       {
         scale: 0.94,
@@ -1306,13 +1455,8 @@ const styles = StyleSheet.create({
   ============================================================ */
 
   scrollContent: {
-    paddingHorizontal: 17,
     paddingTop: 20,
     paddingBottom: 12,
-  },
-
-  scrollContentCompact: {
-    paddingHorizontal: 13,
   },
 
   eyebrow: {
@@ -1412,10 +1556,12 @@ const styles = StyleSheet.create({
     padding: 12,
 
     shadowColor: '#563892',
+
     shadowOffset: {
       width: 0,
       height: 3,
     },
+
     shadowOpacity: 0.045,
     shadowRadius: 8,
 
@@ -1574,10 +1720,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FDFBFF',
 
     shadowColor: COLORS.purple,
+
     shadowOffset: {
       width: 0,
       height: 5,
     },
+
     shadowOpacity: 0.1,
     shadowRadius: 11,
 
@@ -1722,6 +1870,8 @@ const styles = StyleSheet.create({
 
   planPriceArea: {
     maxWidth: 95,
+
+    flexShrink: 1,
 
     alignItems: 'flex-end',
   },
@@ -1875,6 +2025,7 @@ const styles = StyleSheet.create({
 
   localNoticeText: {
     flex: 1,
+    minWidth: 0,
 
     color: COLORS.secondary,
 
@@ -1951,10 +2102,12 @@ const styles = StyleSheet.create({
     borderRadius: 29,
 
     shadowColor: COLORS.purple,
+
     shadowOffset: {
       width: 0,
       height: 7,
     },
+
     shadowOpacity: 0.23,
     shadowRadius: 13,
 

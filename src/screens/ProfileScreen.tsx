@@ -9,7 +9,6 @@ import {
   Alert,
   Animated,
   Image,
-  ImageBackground,
   Modal,
   Pressable,
   SafeAreaView,
@@ -25,6 +24,7 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
@@ -38,17 +38,13 @@ import {
   hydrateCyclePreferences,
   subscribeCyclePreferences,
   getFirstName,
-  getSelectedLocation,
   getSelectedObjective,
-  getSelectedSchool,
   getSpiritualMarkersEnabled,
-  hydrateSelectedLocation,
   hydrateActiveObjective,
   setSelectedObjective,
   subscribeActiveObjective,
   setSpiritualMarkersEnabled,
   type ObjectiveId,
-  type SchoolId,
 } from '../state/onboardingPreferences';
 import {
   getPostpartumPreferences,
@@ -75,15 +71,34 @@ import {
 } from '../utils/cycleMath';
 
 import { lockIntimacy } from '../state/privateSectionAuthStore';
+import {
+  ensureAnonymousAccount,
+  getAnonymousAccount,
+  getPrivacySecuritySettings,
+  isBiometricEnabled,
+  isPinEnabled,
+  loadSecurityPreferences,
+  subscribePrivacySecuritySettings,
+  subscribeSecurityPreferences,
+  type AnonymousAccountInfo,
+} from '../state/securityPreferences';
+import {
+  getCachedPersonalInformation,
+  loadPersonalInformation,
+  updatePersonalInformation,
+} from '../state/personalInformationStore';
+import {
+  getProfileAvatarPreferences,
+  hydrateProfileAvatarPreferences,
+  subscribeProfileAvatarPreferences,
+  type AnonymousAvatarStyleId,
+} from '../state/profileAvatarPreferences';
+import AnonymousAvatar from '../components/profile/AnonymousAvatar';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 const PURPLE = '#6949BE';
 const PURPLE_DARK = '#28166F';
 
-const BACKGROUND = require('../assets/images/homebackground.png');
-
-const PROFILE_CARD_BACKGROUND = require('../assets/images/background-card.png');
-
-const AVATAR = require('../assets/images/icone_avatar.png');
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -235,14 +250,6 @@ const SPIRITUAL_FEATURES = [
     description: 'Recevoir des rappels liés aux prières',
   },
 ];
-
-const SCHOOL_LABELS: Record<SchoolId, string> = {
-  hanafi: 'École hanafite',
-  maliki: 'École malikite',
-  chafii: 'École chaféite',
-  hanbali: 'École hanbalite',
-  unknown: 'École non précisée',
-};
 
 /* ============================================================
  * HELPERS
@@ -440,7 +447,7 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
       }}>
       <Pressable
         accessibilityHint="Ouvre la présentation des avantages Premium"
-        accessibilityLabel="Découvrir HAWA Premium"
+        accessibilityLabel="Découvrir AWA Premium"
         accessibilityRole="button"
         onPress={onPress}
         onPressIn={handlePressIn}
@@ -481,7 +488,7 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
           </Animated.View>
 
           <View style={styles.premiumCopy}>
-            <Text style={styles.premiumTitle}>HAWA Premium</Text>
+            <Text style={styles.premiumTitle}>AWA Premium</Text>
             <Text style={styles.premiumSubtitle}>
               Débloque des outils avancés pour aller plus loin dans ton suivi.
             </Text>
@@ -559,11 +566,74 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
  * MENU ROW
  * ============================================================ */
 
+type MenuTone =
+  | 'default'
+  | 'personal'
+  | 'anonymous'
+  | 'objective'
+  | 'health'
+  | 'security'
+  | 'backup'
+  | 'about'
+  | 'support';
+
 type MenuRowProps = {
   icon: IconName;
   title: string;
   subtitle: string;
   onPress?: () => void;
+  tone?: MenuTone;
+};
+
+const MENU_TONES: Record<
+  MenuTone,
+  {iconBackground: string; iconColor: string; accent: string}
+> = {
+  default: {
+    iconBackground: '#F1EBF9',
+    iconColor: PURPLE,
+    accent: '#8B6CC7',
+  },
+  personal: {
+    iconBackground: '#EEE8FB',
+    iconColor: '#6848C6',
+    accent: '#8060C6',
+  },
+  anonymous: {
+    iconBackground: '#F2ECFA',
+    iconColor: '#7354AF',
+    accent: '#8A70BD',
+  },
+  objective: {
+    iconBackground: '#F8EDF4',
+    iconColor: '#A85C80',
+    accent: '#C2799A',
+  },
+  health: {
+    iconBackground: '#ECF4F1',
+    iconColor: '#4F8177',
+    accent: '#69A094',
+  },
+  security: {
+    iconBackground: '#EDF1F7',
+    iconColor: '#566B8E',
+    accent: '#7185A6',
+  },
+  backup: {
+    iconBackground: '#EEF3FA',
+    iconColor: '#5B79A9',
+    accent: '#7793BD',
+  },
+  about: {
+    iconBackground: '#F3EFF8',
+    iconColor: '#755B9A',
+    accent: '#927BB2',
+  },
+  support: {
+    iconBackground: '#EDF5F4',
+    iconColor: '#4D817A',
+    accent: '#6C9E97',
+  },
 };
 
 function MenuRow({
@@ -571,26 +641,65 @@ function MenuRow({
   title,
   subtitle,
   onPress,
+  tone = 'default',
 }: MenuRowProps): React.JSX.Element {
+  const palette = MENU_TONES[tone];
+
   return (
     <Pressable
       accessibilityLabel={title}
       accessibilityRole="button"
       onPress={onPress}
-      style={({ pressed }) => [styles.menuRow, pressed && styles.pressed]}
-    >
-      <View style={styles.menuIcon}>
-        <MaterialDesignIcons color={PURPLE} name={icon} size={21} />
+      style={({pressed}) => [
+        styles.menuRow,
+        pressed && styles.menuRowPressed,
+      ]}>
+      <View
+        pointerEvents="none"
+        style={[styles.menuAccent, {backgroundColor: palette.accent}]}
+      />
+
+      <View
+        style={[
+          styles.menuIcon,
+          {backgroundColor: palette.iconBackground},
+        ]}>
+        <MaterialDesignIcons color={palette.iconColor} name={icon} size={20} />
       </View>
 
       <View style={styles.menuCopy}>
         <Text style={styles.menuTitle}>{title}</Text>
-
         <Text style={styles.menuSubtitle}>{subtitle}</Text>
       </View>
 
-      <MaterialDesignIcons color="#B7ACC9" name="chevron-right" size={22} />
+      <View style={styles.menuChevron}>
+        <MaterialDesignIcons color="#9C91AE" name="chevron-right" size={19} />
+      </View>
     </Pressable>
+  );
+}
+
+function SectionHeader({
+  icon,
+  title,
+  subtitle,
+}: {
+  icon: IconName;
+  title: string;
+  subtitle: string;
+}): React.JSX.Element {
+  return (
+    <View style={styles.sectionHeader}>
+      <View style={styles.sectionHeaderTopRow}>
+        <View style={styles.sectionHeaderIcon}>
+          <MaterialDesignIcons color={PURPLE} name={icon} size={18} />
+        </View>
+
+        <Text style={styles.sectionTitle}>{title}</Text>
+      </View>
+
+      <Text style={styles.sectionSubtitle}>{subtitle}</Text>
+    </View>
   );
 }
 
@@ -606,27 +715,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   const compact = width < 360;
 
   const firstName = getFirstName();
-
-  /* ========================================================
-   * RATIO RÉEL DE background-card.png
-   * ======================================================== */
-
-  const profileBackgroundInfo = useMemo(
-    () => Image.resolveAssetSource(PROFILE_CARD_BACKGROUND),
-    [],
-  );
-
-  const profileCardAspectRatio = useMemo(() => {
-    if (!profileBackgroundInfo?.width || !profileBackgroundInfo?.height) {
-      /*
-       * Fallback uniquement si React Native
-       * n'arrive pas à lire les dimensions.
-       */
-      return 2.15;
-    }
-
-    return profileBackgroundInfo.width / profileBackgroundInfo.height;
-  }, [profileBackgroundInfo]);
 
   /* ========================================================
    * OBJECTIF
@@ -665,24 +753,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   );
 
   const [spiritualModalVisible, setSpiritualModalVisible] = useState(false);
-
-  const school = useMemo(() => getSelectedSchool(), []);
-
-  const [location, setLocation] = useState(getSelectedLocation());
-
-  useFocusEffect(
-    useCallback(() => {
-      let active = true;
-      hydrateSelectedLocation().then(value => {
-        if (active) {
-          setLocation(value);
-        }
-      });
-      return () => {
-        active = false;
-      };
-    }, []),
-  );
 
   const [cycle, setCycle] = useState(getCyclePreferences);
 
@@ -744,6 +814,157 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
+  /* ========================================================
+   * ANONYMOUS MODE
+   *
+   * Single source of truth: state/securityPreferences.ts (same store
+   * AnonymousModeScreen/PrivacySecurityScreen already read/write). No
+   * separate anonymous-profile state is kept — ProfileScreen only mirrors
+   * it locally so the JSX below can branch on it.
+   * ======================================================== */
+
+  const [anonymousMode, setAnonymousMode] = useState(
+    () => getPrivacySecuritySettings().anonymousMode,
+  );
+  const [securityLocked, setSecurityLocked] = useState(
+    () => isPinEnabled() || isBiometricEnabled(),
+  );
+  const [anonymousAccount, setAnonymousAccount] =
+    useState<AnonymousAccountInfo | null>(getAnonymousAccount);
+  const [accountInfoModalVisible, setAccountInfoModalVisible] =
+    useState(false);
+
+  const refreshSecurity = useCallback(() => {
+    setAnonymousMode(getPrivacySecuritySettings().anonymousMode);
+    setSecurityLocked(isPinEnabled() || isBiometricEnabled());
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      loadSecurityPreferences().then(() => {
+        if (active) {
+          refreshSecurity();
+        }
+      });
+      const unsubscribeSettings =
+        subscribePrivacySecuritySettings(refreshSecurity);
+      const unsubscribeSecurity =
+        subscribeSecurityPreferences(refreshSecurity);
+      return () => {
+        active = false;
+        unsubscribeSettings();
+        unsubscribeSecurity();
+      };
+    }, [refreshSecurity]),
+  );
+
+  // The identifier is generated once by AnonymousModeCreatingScreen when
+  // the mode is first activated; this only hydrates the already-persisted
+  // value (e.g. after an app restart, when the in-memory cache is empty).
+  useEffect(() => {
+    let active = true;
+    if (anonymousMode && !anonymousAccount) {
+      ensureAnonymousAccount().then(value => {
+        if (active) {
+          setAnonymousAccount(value);
+        }
+      });
+    }
+    return () => {
+      active = false;
+    };
+  }, [anonymousMode, anonymousAccount]);
+
+  /* ========================================================
+   * PROFILE PHOTO (normal mode) / ANONYMOUS AVATAR (anonymous mode)
+   *
+   * Normal mode reuses the SAME store PersonalInformationScreen already
+   * writes to (state/personalInformationStore.ts's avatarUri) — no second
+   * copy of the photo. Anonymous mode reads its own tiny, independent
+   * style/color preference (state/profileAvatarPreferences.ts) — the two
+   * never mix, satisfying the "never show the real photo while anonymous"
+   * rule structurally rather than by an extra runtime check.
+   * ======================================================== */
+
+  const [photoUri, setPhotoUri] = useState<string | null>(
+    () => getCachedPersonalInformation().avatarUri ?? null,
+  );
+  const [photoSheetVisible, setPhotoSheetVisible] = useState(false);
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      loadPersonalInformation().then(value => {
+        if (active) {
+          setPhotoUri(value.avatarUri ?? null);
+        }
+      });
+      return () => {
+        active = false;
+      };
+    }, []),
+  );
+
+  const [anonymousAvatarStyle, setAnonymousAvatarStyle] =
+    useState<AnonymousAvatarStyleId>(
+      () => getProfileAvatarPreferences().anonymousAvatarStyle,
+    );
+  const [anonymousAvatarColor, setAnonymousAvatarColor] = useState<string>(
+    () => getProfileAvatarPreferences().anonymousAvatarColor,
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      const refreshAvatar = () => {
+        const value = getProfileAvatarPreferences();
+        if (active) {
+          setAnonymousAvatarStyle(value.anonymousAvatarStyle);
+          setAnonymousAvatarColor(value.anonymousAvatarColor);
+        }
+      };
+      hydrateProfileAvatarPreferences().then(refreshAvatar);
+      const unsubscribe = subscribeProfileAvatarPreferences(refreshAvatar);
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }, []),
+  );
+
+  const choosePhoto = async (useCamera: boolean) => {
+    try {
+      const result = useCamera
+        ? await launchCamera({mediaType: 'photo', quality: 0.8})
+        : await launchImageLibrary({mediaType: 'photo', quality: 0.8, selectionLimit: 1});
+      if (result.didCancel) {
+        return;
+      }
+      if (result.errorCode) {
+        Alert.alert('Photo de profil', 'Impossible d’accéder à la caméra ou à la galerie pour le moment.');
+        return;
+      }
+      const uri = result.assets?.[0]?.uri;
+      if (uri) {
+        const updated = await updatePersonalInformation({avatarUri: uri});
+        setPhotoUri(updated.avatarUri ?? null);
+      }
+    } catch {
+      Alert.alert('Photo de profil', 'Une erreur est survenue. Réessaie.');
+    } finally {
+      setPhotoSheetVisible(false);
+    }
+  };
+
+  const removePhoto = async () => {
+    const updated = await updatePersonalInformation({avatarUri: undefined});
+    setPhotoUri(updated.avatarUri ?? null);
+    setPhotoSheetVisible(false);
+  };
+
+  const firstNameInitial = firstName.trim().charAt(0).toUpperCase() || '?';
+
   // Regularity-aware — same computeCyclePredictionStatus() Dashboard/Calendar
   // use, so an irregular/observing user never sees a falsely-exact date here
   // while seeing a window everywhere else.
@@ -795,16 +1016,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   })();
 
   const hijriToday = useMemo(() => formatHijriDate(new Date()), []);
-
-  const metaParts = [OBJECTIVE_LABELS[objective]];
-
-  if (school && school !== 'unknown') {
-    metaParts.push(SCHOOL_LABELS[school]);
-  }
-
-  if (location?.city) {
-    metaParts.push(location.city);
-  }
 
   /* ========================================================
    * CHANGER OBJECTIF
@@ -860,7 +1071,23 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     );
 
   return (
-    <ImageBackground resizeMode="cover" source={BACKGROUND} style={styles.page}>
+    <LinearGradient
+  colors={[
+    '#FAF8FD',
+    '#F4EFFA',
+    '#EEE7F7',
+    '#E9E1F3',
+  ]}
+  locations={[0, 0.32, 0.7, 1]}
+  start={{x: 0, y: 0}}
+  end={{x: 1, y: 1}}
+  style={styles.page}>
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <SafeAreaView style={styles.safe}>
         <StatusBar
           backgroundColor="transparent"
@@ -892,104 +1119,131 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           </View>
 
           {/* =================================================
-              PROFILE CARD
-
-              IMPORTANT :
-              aspectRatio = ratio réel de background-card.png
+              IDENTITY CARD — sober, minimal: avatar + name only.
+              Objective/spiritual/location status live in their own
+              dedicated sections further down, not duplicated here.
           ================================================= */}
 
-          <ImageBackground
-            imageStyle={styles.profileCardImage}
-            resizeMode="cover"
-            source={PROFILE_CARD_BACKGROUND}
-            style={[
-              styles.profileCard,
-              {
-                aspectRatio: profileCardAspectRatio,
-              },
-            ]}
-          >
-            <View style={styles.profileCardContent}>
-              <View style={styles.avatarRow}>
+          <LinearGradient
+            colors={['#FFFFFF', '#F8F4FC', '#F1EAF9']}
+            start={{x: 0, y: 0}}
+            end={{x: 1, y: 1}}
+            style={styles.identityCard}>
+            <View pointerEvents="none" style={styles.identityGlow} />
+            <View pointerEvents="none" style={styles.identityDecorTopRight} />
+
+            <View style={styles.identityTopRow}>
+              <View style={styles.avatarOuterRing}>
                 <View style={styles.avatarWrap}>
-                  <Image
-                    accessibilityIgnoresInvertColors
-                    resizeMode="cover"
-                    source={AVATAR}
-                    style={styles.avatar}
-                  />
+                  {anonymousMode ? (
+                    <AnonymousAvatar
+                      color={anonymousAvatarColor}
+                      size={64}
+                      style={anonymousAvatarStyle}
+                    />
+                  ) : photoUri ? (
+                    <Image
+                      accessibilityIgnoresInvertColors
+                      resizeMode="cover"
+                      source={{uri: photoUri}}
+                      style={styles.avatar}
+                    />
+                  ) : (
+                    <View style={styles.avatarFallback}>
+                      <Text style={styles.avatarFallbackText}>
+                        {firstNameInitial}
+                      </Text>
+                    </View>
+                  )}
 
                   <Pressable
-                    accessibilityLabel="Changer la photo de profil"
-                    style={({ pressed }) => [
+                    accessibilityLabel={
+                      anonymousMode
+                        ? 'Personnaliser mon avatar anonyme'
+                        : 'Changer la photo de profil'
+                    }
+                    hitSlop={8}
+                    onPress={() =>
+                      anonymousMode
+                        ? navigation.navigate('AnonymousAvatarCustomizer')
+                        : setPhotoSheetVisible(true)
+                    }
+                    style={({pressed}) => [
                       styles.avatarBadge,
-
                       pressed && styles.pressed,
-                    ]}
-                  >
+                    ]}>
                     <MaterialDesignIcons
                       color="#FFFFFF"
-                      name="camera-outline"
-                      size={14}
-                    />
-                  </Pressable>
-                </View>
-
-                <View style={styles.identity}>
-                  <View style={styles.nameRow}>
-                    <Text numberOfLines={1} style={styles.name}>
-                      {firstName}
-                    </Text>
-
-                    <Pressable
-                      accessibilityLabel="Modifier le profil"
-                      hitSlop={8}
-                    >
-                      <MaterialDesignIcons
-                        color={PURPLE}
-                        name="pencil-outline"
-                        size={16}
-                      />
-                    </Pressable>
-                  </View>
-
-                  <Text style={styles.meta}>{metaParts.join(' • ')}</Text>
-
-                  <Pressable
-                    accessibilityRole="button"
-                    onPress={() => setSpiritualModalVisible(true)}
-                    style={[
-                      styles.spiritualPill,
-
-                      spiritualEnabled
-                        ? styles.spiritualPillActive
-                        : styles.spiritualPillInactive,
-                    ]}
-                  >
-                    <MaterialDesignIcons
-                      color={spiritualEnabled ? '#FFFFFF' : PURPLE}
-                      name="moon-waning-crescent"
+                      name={anonymousMode ? 'pencil-outline' : 'camera-outline'}
                       size={12}
                     />
-
-                    <Text
-                      style={[
-                        styles.spiritualPillText,
-
-                        spiritualEnabled
-                          ? styles.spiritualPillTextActive
-                          : styles.spiritualPillTextInactive,
-                      ]}
-                    >
-                      {spiritualEnabled
-                        ? 'Repères spirituels activés'
-                        : 'Repères spirituels désactivés'}
-                    </Text>
                   </Pressable>
                 </View>
               </View>
+
+              <View style={styles.identity}>
+                <View style={styles.identityEyebrowRow}>
+                  <MaterialDesignIcons
+                    color="#826CB0"
+                    name={anonymousMode ? 'incognito' : 'account-outline'}
+                    size={13}
+                  />
+                  <Text style={styles.identityEyebrow}>
+                    {anonymousMode ? 'MODE PRIVÉ' : 'MON PROFIL'}
+                  </Text>
+                </View>
+
+                {anonymousMode ? (
+                  <>
+                    <View style={styles.identityMainLine}>
+                      <Text style={styles.identityTitle}>Mode Anonyme</Text>
+                      <View style={styles.activeBadge}>
+                        <View style={styles.activeDot} />
+                        <Text style={styles.activeBadgeText}>Actif</Text>
+                      </View>
+                    </View>
+                    <Text style={styles.identitySubtitle}>
+                      Ton identité réelle reste masquée
+                    </Text>
+                  </>
+                ) : (
+                  <>
+                    <View style={styles.nameRow}>
+                      <Text style={styles.name}>{firstName}</Text>
+
+                      <Pressable
+                        accessibilityLabel="Modifier le profil"
+                        hitSlop={10}
+                        onPress={() => navigation.navigate('PersonalInformation')}
+                        style={({pressed}) => [
+                          styles.identityEditButton,
+                          pressed && styles.pressed,
+                        ]}>
+                        <MaterialDesignIcons
+                          color="#6848C6"
+                          name="pencil-outline"
+                          size={14}
+                        />
+                      </Pressable>
+                    </View>
+
+                    <Text style={styles.identitySubtitle}>
+                      Informations et préférences du profil
+                    </Text>
+                  </>
+                )}
+
+                <View style={styles.identityPrivacyPill}>
+                  <MaterialDesignIcons
+                    color="#6E57A6"
+                    name="shield-check-outline"
+                    size={13}
+                  />
+                  <Text style={styles.identityPrivacyText}>Données protégées</Text>
+                </View>
+              </View>
             </View>
-          </ImageBackground>
+          </LinearGradient>
 
           {/* STATS */}
 
@@ -1133,65 +1387,111 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           {/* MES INFORMATIONS */}
 
-          <Text style={styles.sectionTitle}>Mes informations</Text>
+          <SectionHeader
+            icon="account-cog-outline"
+            title="Mes informations"
+            subtitle="Toutes tes informations importantes, organisées simplement."
+          />
 
           <View style={styles.menuCard}>
             <MenuRow
               icon="account-outline"
-              onPress={() => navigation.navigate('PersonalInformation')}
-              subtitle="Nom, email, date de naissance…"
-              title="Informations personnelles"
+              onPress={() =>
+                anonymousMode
+                  ? setAccountInfoModalVisible(true)
+                  : navigation.navigate('PersonalInformation')
+              }
+              subtitle={anonymousMode ? 'Compte protégé et anonyme' : 'Nom, email, date de naissance…'}
+              title={anonymousMode ? 'Informations du compte' : 'Informations personnelles'}
+              tone="personal"
             />
 
-            <View style={styles.menuDivider} />
+            {anonymousMode ? (
+              <MenuRow
+                icon="incognito"
+                onPress={() => navigation.navigate('AnonymousMode')}
+                subtitle="Gérer ton identité privée et tes options anonymes"
+                title="Mode Anonyme"
+                tone="anonymous"
+              />
+            ) : null}
 
             <MenuRow
               icon="target"
               onPress={() => setObjectiveModalVisible(true)}
               subtitle={OBJECTIVE_LABELS[objective]}
               title="Mon objectif"
+              tone="objective"
             />
-
-            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="heart-pulse"
               onPress={() => navigation.navigate('GeneralHealth')}
               subtitle="Poids, taille, groupe sanguin, maladies…"
               title="Santé générale"
+              tone="health"
             />
 
             {objective === 'pregnancy' ? (
-              <>
-                <View style={styles.menuDivider} />
-
-                <MenuRow
-                  icon="bell-outline"
-                  onPress={() => navigation.navigate('PregnancyNotifications')}
-                  subtitle="Grossesse, rendez-vous, examens et rappels personnalisés"
-                  title="Notifications & rappels"
-                />
-              </>
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('PregnancyNotifications')}
+                subtitle="Grossesse, rendez-vous, examens et rappels personnalisés"
+                title="Notifications & rappels"
+                tone="default"
+              />
             ) : null}
-
-            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="shield-lock-outline"
               onPress={() => navigation.navigate('PrivacySecurity')}
-              subtitle="Code, Face ID, mode discret, suppression des données"
+              subtitle="Code, biométrie, mode discret et protection des données"
               title="Confidentialité & Sécurité"
+              tone="security"
             />
-
-            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="cloud-outline"
               onPress={() => navigation.navigate('BackupData')}
-              subtitle="Sauvegarde cloud, restauration…"
+              subtitle="Sauvegarde cloud et restauration de tes données"
               title="Sauvegarde"
+              tone="backup"
             />
           </View>
+
+          {/* Only shown while anonymous AND genuinely unprotected — once
+              PIN/biométrie is on, this card disappears rather than nag. */}
+          {anonymousMode && !securityLocked ? (
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => navigation.navigate('PrivacySecurity')}
+              style={({ pressed }) => [
+                styles.securityRecommendationCard,
+                pressed && styles.pressed,
+              ]}
+            >
+              <View style={styles.securityRecommendationIcon}>
+                <MaterialDesignIcons
+                  color="#A16C55"
+                  name="shield-alert-outline"
+                  size={20}
+                />
+              </View>
+
+              <View style={styles.securityRecommendationCopy}>
+                <Text style={styles.securityRecommendationTitle}>
+                  Verrouillage recommandé
+                </Text>
+                <Text style={styles.securityRecommendationText}>
+                  Protège ton accès avec un PIN ou la biométrie.
+                </Text>
+              </View>
+
+              <View style={styles.securityRecommendationCta}>
+                <Text style={styles.securityRecommendationCtaText}>Configurer</Text>
+              </View>
+            </Pressable>
+          ) : null}
 
           {/* =================================================
               REPÈRES SPIRITUELS
@@ -1324,35 +1624,71 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           {/* PLUS */}
 
-          <Text style={styles.sectionTitle}>Plus</Text>
+          <SectionHeader
+            icon="dots-horizontal-circle-outline"
+            title="Plus"
+            subtitle="Aide, informations sur AWA et gestion de ta session."
+          />
 
-          <View style={styles.menuCard}>
+          <View style={[styles.menuCard, styles.moreMenuCard]}>
             <MenuRow
               icon="information-outline"
               onPress={() => navigation.navigate('About')}
-              subtitle="Version, mentions et valeurs de l’application"
+              subtitle="Version, mentions, confidentialité et valeurs de l’application"
               title="À propos de AWA"
+              tone="about"
             />
-
-            <View style={styles.menuDivider} />
 
             <MenuRow
               icon="lifebuoy"
               onPress={() => navigation.navigate('HelpSupport')}
-              subtitle="Questions, signalement, contact"
+              subtitle="Questions fréquentes, signalement et contact"
               title="Aide & support"
+              tone="support"
             />
           </View>
 
-          <Pressable
-            accessibilityRole="button"
-            onPress={confirmSignOut}
-            style={({ pressed }) => [styles.signOut, pressed && styles.pressed]}
-          >
-            <MaterialDesignIcons color="#B4485A" name="logout" size={19} />
+          {anonymousMode ? (
+            <Pressable
+              accessibilityLabel="Quitter le mode anonyme"
+              accessibilityRole="button"
+              onPress={() => navigation.navigate('AnonymousMode')}
+              style={({pressed}) => [
+                styles.simpleAccountButton,
+                styles.anonymousExit,
+                pressed && styles.simpleAccountButtonPressed,
+              ]}>
+              <MaterialDesignIcons
+                color="#6849BE"
+                name="incognito"
+                size={18}
+              />
 
-            <Text style={styles.signOutText}>Se déconnecter</Text>
-          </Pressable>
+              <Text style={styles.anonymousExitText}>
+                Quitter le mode anonyme
+              </Text>
+            </Pressable>
+          ) : (
+            <Pressable
+              accessibilityLabel="Se déconnecter"
+              accessibilityRole="button"
+              onPress={confirmSignOut}
+              style={({pressed}) => [
+                styles.simpleAccountButton,
+                styles.signOut,
+                pressed && styles.simpleAccountButtonPressed,
+              ]}>
+              <MaterialDesignIcons
+                color="#B4485A"
+                name="logout"
+                size={18}
+              />
+
+              <Text style={styles.signOutText}>
+                Se déconnecter
+              </Text>
+            </Pressable>
+          )}
         </ScrollView>
         <HawaPremiumBottomSheet visible={premiumVisible} onClose={() => setPremiumVisible(false)} />
 
@@ -1785,8 +2121,168 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             </View>
           </View>
         </Modal>
+
+        {/* =====================================================
+            ACCOUNT INFO MODAL (Anonymous Mode)
+        ===================================================== */}
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setAccountInfoModalVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={accountInfoModalVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setAccountInfoModalVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Informations du compte</Text>
+
+                  <Text style={styles.sheetSubtitle}>
+                    Ton profil anonyme ne contient aucune information permettant de t’identifier.
+                  </Text>
+                </View>
+
+                <Pressable
+                  onPress={() => setAccountInfoModalVisible(false)}
+                  style={styles.sheetClose}
+                >
+                  <MaterialDesignIcons
+                    color={PURPLE_DARK}
+                    name="close"
+                    size={21}
+                  />
+                </Pressable>
+              </View>
+
+              <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
+                <View style={styles.accountInfoRow}>
+                  <Text style={styles.accountInfoLabel}>Mode anonyme</Text>
+                  <Text style={styles.accountInfoValue}>Activé</Text>
+                </View>
+
+                <View style={styles.accountInfoRow}>
+                  <Text style={styles.accountInfoLabel}>Identifiant anonyme</Text>
+                  <Text style={styles.accountInfoValue}>{anonymousAccount?.id ?? '—'}</Text>
+                </View>
+
+                <View style={styles.accountInfoRow}>
+                  <Text style={styles.accountInfoLabel}>Créé le</Text>
+                  <Text style={styles.accountInfoValue}>
+                    {anonymousAccount
+                      ? formatFullDate(new Date(anonymousAccount.createdAt))
+                      : '—'}
+                  </Text>
+                </View>
+
+                <View style={styles.accountInfoRow}>
+                  <Text style={styles.accountInfoLabel}>Sécurité</Text>
+                  <Text style={styles.accountInfoValue}>
+                    {securityLocked ? 'PIN / Biométrie' : 'Non configurée'}
+                  </Text>
+                </View>
+
+                <View style={[styles.accountInfoRow, styles.accountInfoRowLast]}>
+                  <Text style={styles.accountInfoLabel}>Synchronisation</Text>
+                  <Text style={styles.accountInfoValue}>Locale uniquement</Text>
+                </View>
+
+                <View style={styles.spiritualInfoBox}>
+                  <MaterialDesignIcons
+                    color={PURPLE}
+                    name="information-outline"
+                    size={19}
+                  />
+
+                  <Text style={styles.spiritualInfoText}>
+                    Tes données restent privées sur cet appareil et ne sont pas synchronisées sur d’autres appareils.
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* =====================================================
+            PHOTO MODAL (Normal Mode)
+        ===================================================== */}
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setPhotoSheetVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={photoSheetVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setPhotoSheetVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Modifier la photo</Text>
+                </View>
+
+                <Pressable
+                  onPress={() => setPhotoSheetVisible(false)}
+                  style={styles.sheetClose}
+                >
+                  <MaterialDesignIcons
+                    color={PURPLE_DARK}
+                    name="close"
+                    size={21}
+                  />
+                </Pressable>
+              </View>
+
+              <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
+                <MenuRow
+                  icon="camera-outline"
+                  onPress={() => choosePhoto(true)}
+                  subtitle="Utiliser l’appareil photo"
+                  title="Prendre une photo"
+                />
+
+                <View style={styles.menuDivider} />
+
+                <MenuRow
+                  icon="image-outline"
+                  onPress={() => choosePhoto(false)}
+                  subtitle="Sélectionner une image existante"
+                  title="Choisir depuis la galerie"
+                />
+
+                {photoUri ? (
+                  <>
+                    <View style={styles.menuDivider} />
+
+                    <MenuRow
+                      icon="delete-outline"
+                      onPress={removePhoto}
+                      subtitle="Revenir à l’avatar par défaut"
+                      title="Supprimer la photo"
+                    />
+                  </>
+                ) : null}
+              </View>
+            </View>
+          </View>
+        </Modal>
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -1795,6 +2291,45 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
  * ============================================================ */
 
 const styles = StyleSheet.create({
+  page: {
+  flex: 1,
+  backgroundColor: '#F2ECF8',
+},
+
+pageBackgroundDecor: {
+  ...StyleSheet.absoluteFillObject,
+  overflow: 'hidden',
+},
+
+pageGlowTop: {
+  position: 'absolute',
+  top: -150,
+  right: -110,
+  width: 330,
+  height: 330,
+  borderRadius: 165,
+  backgroundColor: 'rgba(111, 82, 170, 0.07)',
+},
+
+pageGlowMiddle: {
+  position: 'absolute',
+  top: '38%',
+  left: -130,
+  width: 260,
+  height: 260,
+  borderRadius: 130,
+  backgroundColor: 'rgba(139, 112, 188, 0.045)',
+},
+
+pageGlowBottom: {
+  position: 'absolute',
+  bottom: -150,
+  right: -100,
+  width: 310,
+  height: 310,
+  borderRadius: 155,
+  backgroundColor: 'rgba(92, 67, 139, 0.05)',
+},
   premiumCard: {
     position: 'relative',
     overflow: 'hidden',
@@ -1956,11 +2491,6 @@ const styles = StyleSheet.create({
     fontWeight: '900',
   },
 
-  page: {
-    flex: 1,
-    backgroundColor: '#F0E3F9',
-  },
-
   safe: {
     flex: 1,
   },
@@ -2018,80 +2548,111 @@ const styles = StyleSheet.create({
   },
 
   /* ========================================================
-   * PROFILE CARD
-   *
-   * PAS DE HEIGHT FIXE.
-   * PAS DE minHeight.
-   *
-   * aspectRatio est injecté depuis Image.resolveAssetSource().
+   * IDENTITY CARD — compact premium version
    * ======================================================== */
 
-  profileCard: {
-    width: '100%',
-    marginTop: 18,
+  identityCard: {
     overflow: 'hidden',
-    borderRadius: 26,
-    backgroundColor: '#F1E8FA',
-
-    shadowColor: '#4E319A',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 10,
+    marginTop: 14,
+    minHeight: 108,
+    borderWidth: 1,
+    borderColor: 'rgba(104,70,199,0.11)',
+    borderRadius: 22,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    shadowColor: '#34245F',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.06,
+    shadowRadius: 13,
     elevation: 3,
   },
 
-  /*
-   * Même bordure exacte que le cadre.
-   */
-  profileCardImage: {
-    borderRadius: 26,
+  identityGlow: {
+    position: 'absolute',
+    top: -92,
+    left: -62,
+    width: 190,
+    height: 190,
+    borderRadius: 95,
+    backgroundColor: 'rgba(255,255,255,0.82)',
   },
 
-  /*
-   * Ce contenu remplit le cadre sans modifier
-   * les dimensions imposées par aspectRatio.
-   */
-  profileCardContent: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+  identityDecorTopRight: {
+    position: 'absolute',
+    top: -42,
+    right: -30,
+    width: 116,
+    height: 116,
+    borderRadius: 58,
+    backgroundColor: 'rgba(104,70,199,0.055)',
   },
 
-  avatarRow: {
+  identityTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
   },
 
+  avatarOuterRing: {
+    width: 76,
+    height: 76,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 38,
+    backgroundColor: 'rgba(255,255,255,0.86)',
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.12)',
+  },
+
   avatarWrap: {
-    width: 68,
-    height: 68,
+    width: 64,
+    height: 64,
     flexShrink: 0,
   },
 
   avatar: {
-    width: 68,
-    height: 68,
-    borderRadius: 34,
+    width: 64,
+    height: 64,
+    borderRadius: 32,
     borderWidth: 2,
     borderColor: '#FFFFFF',
   },
 
+  avatarFallback: {
+    width: 64,
+    height: 64,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 32,
+    borderWidth: 2,
+    borderColor: '#FFFFFF',
+    backgroundColor: '#EEE8F8',
+  },
+
+  avatarFallbackText: {
+    color: '#6846C7',
+    fontFamily: 'serif',
+    fontSize: 24,
+    fontWeight: '700',
+  },
+
   avatarBadge: {
     position: 'absolute',
-    right: -2,
+    right: -3,
     bottom: -2,
-    width: 25,
-    height: 25,
+    width: 23,
+    height: 23,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: '#FFFFFF',
-    borderRadius: 13,
-    backgroundColor: PURPLE,
+    borderRadius: 12,
+    backgroundColor: '#6846C7',
+    shadowColor: '#34245F',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.16,
+    shadowRadius: 4,
+    elevation: 2,
   },
 
   identity: {
@@ -2100,57 +2661,124 @@ const styles = StyleSheet.create({
     marginLeft: 13,
   },
 
+  identityEyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 3,
+  },
+
+  identityEyebrow: {
+    color: '#826CB0',
+    fontSize: 8.5,
+    lineHeight: 11,
+    fontWeight: '800',
+    letterSpacing: 0.9,
+  },
+
+  identityMainLine: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 7,
+  },
+
   nameRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 7,
+    flexWrap: 'wrap',
+    gap: 6,
   },
 
   name: {
     flexShrink: 1,
-    color: PURPLE_DARK,
+    color: '#241B45',
     fontFamily: 'serif',
-    fontSize: 20,
+    fontSize: 19,
+    lineHeight: 24,
     fontWeight: '700',
   },
 
-  meta: {
-    marginTop: 3,
-    color: '#5B5177',
-    fontSize: 11.5,
-    lineHeight: 16,
+  identityEditButton: {
+    width: 26,
+    height: 26,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 9,
+    backgroundColor: 'rgba(255,255,255,0.88)',
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.12)',
   },
 
-  spiritualPill: {
+  identityTitle: {
+    flexShrink: 1,
+    color: '#241B45',
+    fontFamily: 'serif',
+    fontSize: 18,
+    fontWeight: '700',
+    lineHeight: 23,
+  },
+
+  identitySubtitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginTop: 2,
+  },
+
+  identitySubtitle: {
+    flexShrink: 1,
+    marginTop: 2,
+    color: '#7C7488',
+    fontSize: 10.5,
+    lineHeight: 14,
+  },
+
+  activeBadge: {
+    flexShrink: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 999,
+    backgroundColor: '#EAF5EE',
+  },
+
+  activeDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 3,
+    backgroundColor: '#4F8F6D',
+  },
+
+  activeBadgeText: {
+    color: '#4F8F6D',
+    fontSize: 9.5,
+    fontWeight: '800',
+  },
+
+  identityPrivacyPill: {
     alignSelf: 'flex-start',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
     marginTop: 7,
-    borderRadius: 14,
-    paddingHorizontal: 9,
+    paddingHorizontal: 8,
     paddingVertical: 4,
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.72)',
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.09)',
   },
 
-  spiritualPillActive: {
-    backgroundColor: PURPLE,
-  },
-
-  spiritualPillInactive: {
-    backgroundColor: 'rgba(105,73,190,0.14)',
-  },
-
-  spiritualPillText: {
+  identityPrivacyText: {
+    color: '#6E6380',
     fontSize: 9.5,
+    lineHeight: 12,
     fontWeight: '700',
-  },
-
-  spiritualPillTextActive: {
-    color: '#FFFFFF',
-  },
-
-  spiritualPillTextInactive: {
-    color: PURPLE,
   },
 
   statsGrid: {
@@ -2194,64 +2822,212 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 
+  sectionHeader: {
+    marginTop: 25,
+    marginBottom: 11,
+    paddingHorizontal: 2,
+  },
+
+  sectionHeaderTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+
+  sectionHeaderIcon: {
+    width: 34,
+    height: 34,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 11,
+    backgroundColor: '#EEE8F7',
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.09)',
+  },
+
+  sectionHeaderCopy: {
+    flex: 1,
+    minWidth: 0,
+    marginLeft: 10,
+  },
+
   sectionTitle: {
-    marginTop: 22,
-    marginBottom: 9,
+    marginLeft: 9,
     color: PURPLE_DARK,
     fontFamily: 'serif',
-    fontSize: 16,
+    fontSize: 17,
+    lineHeight: 22,
     fontWeight: '700',
   },
 
+  sectionSubtitle: {
+    marginTop: 5,
+    marginLeft: 43,
+    color: '#8A8196',
+    fontSize: 11.5,
+    lineHeight: 16,
+  },
+
   menuCard: {
-    borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.14)',
-    borderRadius: 22,
-    backgroundColor: 'rgba(255,252,255,0.92)',
-    paddingHorizontal: 6,
+    gap: 8,
+    backgroundColor: 'transparent',
+  },
+
+  moreMenuCard: {
+    backgroundColor: 'transparent',
   },
 
   menuRow: {
-    minHeight: 66,
+    position: 'relative',
+    overflow: 'hidden',
+    minHeight: 68,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(99,76,151,0.10)',
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,253,255,0.96)',
+    shadowColor: '#34245F',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.035,
+    shadowRadius: 8,
+    elevation: 1,
+  },
+
+  menuRowPressed: {
+    opacity: 0.9,
+    transform: [{scale: 0.992}],
+  },
+
+  menuAccent: {
+    position: 'absolute',
+    left: 0,
+    top: 15,
+    bottom: 15,
+    width: 3,
+    borderTopRightRadius: 3,
+    borderBottomRightRadius: 3,
+    opacity: 0.78,
   },
 
   menuDivider: {
     height: StyleSheet.hairlineWidth,
-    marginHorizontal: 8,
-    backgroundColor: 'rgba(111,83,190,0.14)',
+    marginLeft: 58,
+    marginRight: 8,
+    backgroundColor: 'rgba(111,83,190,0.10)',
   },
 
   menuIcon: {
-    width: 42,
-    height: 42,
+    width: 40,
+    height: 40,
     flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
+  },
+
+  menuIconDefault: {
     backgroundColor: '#F0E8FC',
+    borderColor: 'transparent',
+  },
+
+  menuIconSoft: {
+    backgroundColor: '#F4EFF9',
+    borderColor: 'transparent',
+  },
+
+  menuIconSecurity: {
+    backgroundColor: '#ECF3F1',
+    borderColor: 'transparent',
   },
 
   menuCopy: {
     flex: 1,
     minWidth: 0,
-    marginHorizontal: 11,
+    marginLeft: 11,
+    marginRight: 7,
   },
 
   menuTitle: {
     color: '#2A2050',
-    fontSize: 14.5,
+    fontSize: 14,
+    lineHeight: 18,
     fontWeight: '700',
   },
 
   menuSubtitle: {
+    marginTop: 3,
+    color: '#8A8196',
+    fontSize: 11,
+    lineHeight: 15.5,
+  },
+
+  menuChevron: {
+    width: 28,
+    height: 28,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 9,
+    backgroundColor: '#F6F2F9',
+  },
+
+  securityRecommendationCard: {
+    minHeight: 66,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(161,108,85,0.28)',
+    borderRadius: 20,
+    backgroundColor: '#FBF1EC',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+
+  securityRecommendationIcon: {
+    width: 40,
+    height: 40,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 13,
+    backgroundColor: '#F3E1D6',
+  },
+
+  securityRecommendationCopy: {
+    flex: 1,
+    minWidth: 0,
+    marginHorizontal: 11,
+  },
+
+  securityRecommendationTitle: {
+    color: '#7A4B36',
+    fontSize: 13.5,
+    fontWeight: '700',
+  },
+
+  securityRecommendationText: {
     marginTop: 2,
-    color: '#8479A0',
+    color: '#8F6E5C',
     fontSize: 11.5,
     lineHeight: 16,
+  },
+
+  securityRecommendationCta: {
+    flexShrink: 0,
+    borderRadius: 12,
+    backgroundColor: '#A16C55',
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+
+  securityRecommendationCtaText: {
+    color: '#FFFFFF',
+    fontSize: 11.5,
+    fontWeight: '700',
   },
 
   spiritualCard: {
@@ -2408,22 +3184,48 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
 
-  signOut: {
-    minHeight: 52,
+  /* ========================================================
+   * SIMPLE ACCOUNT ACTION
+   * ======================================================== */
+
+  simpleAccountButton: {
+    minHeight: 48,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    marginTop: 22,
+    marginTop: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 11,
     borderWidth: 1,
-    borderColor: 'rgba(180,72,90,0.28)',
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,252,255,0.9)',
+    borderRadius: 15,
+  },
+
+  simpleAccountButtonPressed: {
+    opacity: 0.72,
+  },
+
+  signOut: {
+    borderColor: 'rgba(180,72,90,0.30)',
+    backgroundColor: 'rgba(255,255,255,0.72)',
   },
 
   signOutText: {
     color: '#B4485A',
-    fontSize: 15,
+    fontSize: 14,
+    lineHeight: 19,
+    fontWeight: '700',
+  },
+
+  anonymousExit: {
+    borderColor: 'rgba(105,73,190,0.28)',
+    backgroundColor: 'rgba(255,255,255,0.72)',
+  },
+
+  anonymousExitText: {
+    color: '#6849BE',
+    fontSize: 14,
+    lineHeight: 19,
     fontWeight: '700',
   },
 
@@ -2505,6 +3307,34 @@ const styles = StyleSheet.create({
   objectiveList: {
     gap: 9,
     paddingTop: 2,
+  },
+
+  accountInfoList: {
+    paddingTop: 2,
+  },
+
+  accountInfoRow: {
+    minHeight: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: 'rgba(105,73,190,0.12)',
+  },
+
+  accountInfoRowLast: {
+    borderBottomWidth: 0,
+  },
+
+  accountInfoLabel: {
+    color: '#756A90',
+    fontSize: 13,
+  },
+
+  accountInfoValue: {
+    color: PURPLE_DARK,
+    fontSize: 13.5,
+    fontWeight: '700',
   },
 
   objectiveOption: {

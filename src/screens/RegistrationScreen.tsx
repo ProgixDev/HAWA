@@ -6,8 +6,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
-import {isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 import {setFirstName as saveFirstName} from '../state/onboardingPreferences';
+import {getPrivacySecuritySettings, updatePrivacySecuritySettings} from '../state/securityPreferences';
 
 const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 const GOOGLE = require('../assets/images/auth-google-logo.png');
@@ -64,7 +64,14 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
         <MaterialDesignIcons color={allRulesValid ? PURPLE : '#B3A6CC'} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />
         <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>8 caractères min., une majuscule, un chiffre et un caractère spécial</Text>
       </View>
-      <Pressable onPress={() => {if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;} saveFirstName(firstName); if (isPinEnabled()) {navigation.navigate('PinSetup'); return;} if (isBiometricEnabled()) {navigation.navigate('FaceIdSetup'); return;} navigation.replace('MainTabs', {screen: 'CycleHome'});}} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+      <Pressable onPress={() => {
+        if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;}
+        saveFirstName(firstName);
+        // Successful account creation converts an anonymous profile back to
+        // a normal one — ProfileScreen re-reads this on its next focus.
+        if (getPrivacySecuritySettings().anonymousMode) {updatePrivacySecuritySettings({anonymousMode: false});}
+        navigation.replace('MainTabs', {screen: 'CycleHome'});
+      }} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
       <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>
         <Pressable onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
         <Pressable onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>

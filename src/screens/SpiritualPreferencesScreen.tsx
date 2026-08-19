@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ImageBackground,
   Pressable,
@@ -9,25 +9,28 @@ import {
   Text,
   View,
 } from 'react-native';
-import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import type {RootStackParamList} from '../navigation/AppNavigator';
-import {spacing, TOP_SPACING_EXTRA} from '../theme/spacing';
-import {getSelectedObjective, setSpiritualMarkersEnabled} from '../state/onboardingPreferences';
+import type { RootStackParamList } from '../navigation/AppNavigator';
+import { spacing, TOP_SPACING_EXTRA } from '../theme/spacing';
+import {
+  getSelectedObjective,
+  setSpiritualMarkersEnabled,
+} from '../state/onboardingPreferences';
 
 const SPIRITUAL_BACKGROUND = require('../assets/images/school-selection-background.png');
 
 const features = [
-  {icon: '🗓️', label: 'Calendrier hijri'},
-  {icon: '🤲', label: 'Prières & statut de pureté'},
-  {icon: '🌙', label: 'Jeûne (Ramadan, rattrapages)'},
-  {icon: '🔔', label: 'Rappels de la prière'},
+  { icon: '🗓️', label: 'Calendrier hijri' },
+  { icon: '🤲', label: 'Prières & statut de pureté' },
+  { icon: '🌙', label: 'Jeûne (Ramadan, rattrapages)' },
+  { icon: '🔔', label: 'Rappels de la prière' },
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SpiritualPreferences'>;
 
-function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
+function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [enabled, setEnabled] = useState(true);
 
@@ -38,8 +41,25 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
     // spiritual landmarks skips LocationScreen entirely (see
     // MiscarriageDateScreen) — every other objective keeps the existing,
     // unconditional "always go through Location" behavior unchanged.
-    if (!enabled && getSelectedObjective() === 'loss') {
+    const objective = getSelectedObjective();
+    if (!enabled && objective === 'postpartum') {
+      navigation.navigate('PostpartumDeliveryDate');
+      return;
+    }
+    if (!enabled && objective === 'pregnancy') {
+      navigation.navigate('PregnancyDatingSetup');
+      return;
+    }
+    if (!enabled && objective === 'loss') {
       navigation.navigate('MiscarriageDate');
+      return;
+    }
+    if (!enabled && objective === 'cycle') {
+      navigation.navigate('CycleInformation');
+      return;
+    }
+    if (!enabled && objective === 'conceive') {
+      navigation.navigate('ConceptionTryingDuration');
       return;
     }
 
@@ -50,7 +70,8 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
     <ImageBackground
       source={SPIRITUAL_BACKGROUND}
       resizeMode="cover"
-      style={styles.background}>
+      style={styles.background}
+    >
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           hidden={false}
@@ -58,30 +79,41 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
           barStyle="dark-content"
           translucent
         />
-        <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16)}]} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={[
+            styles.content,
+            { paddingBottom: Math.max(insets.bottom, 16) },
+          ]}
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.header}>
             <Text style={styles.title}>
               {'Souhaites-tu activer\nles repères spirituels ?'}
             </Text>
             <Text style={styles.subtitle}>
-              {'Calendrier hijri, prières, jeûne, état de pureté…\nTu pourras modifier ce choix à tout moment.'}
+              {
+                'Calendrier hijri, prières, jeûne, état de pureté…\nTu pourras modifier ce choix à tout moment.'
+              }
             </Text>
           </View>
 
           <View style={styles.choices} accessibilityRole="radiogroup">
             <Pressable
               accessibilityRole="radio"
-              accessibilityState={{checked: enabled}}
+              accessibilityState={{ checked: enabled }}
               onPress={() => setEnabled(true)}
-              style={({pressed}) => [
+              style={({ pressed }) => [
                 styles.choice,
                 enabled && styles.choiceActive,
                 pressed && styles.pressed,
-              ]}>
+              ]}
+            >
               <View style={[styles.radio, enabled && styles.radioActive]}>
                 {enabled && <View style={styles.radioDot} />}
               </View>
-              <Text style={[styles.choiceText, enabled && styles.choiceTextActive]}>
+              <Text
+                style={[styles.choiceText, enabled && styles.choiceTextActive]}
+              >
                 Oui, activer
               </Text>
               {enabled && (
@@ -93,17 +125,20 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
 
             <Pressable
               accessibilityRole="radio"
-              accessibilityState={{checked: !enabled}}
+              accessibilityState={{ checked: !enabled }}
               onPress={() => setEnabled(false)}
-              style={({pressed}) => [
+              style={({ pressed }) => [
                 styles.choice,
                 !enabled && styles.choiceActive,
                 pressed && styles.pressed,
-              ]}>
+              ]}
+            >
               <View style={[styles.radio, !enabled && styles.radioActive]}>
                 {!enabled && <View style={styles.radioDot} />}
               </View>
-              <Text style={[styles.choiceText, !enabled && styles.choiceTextActive]}>
+              <Text
+                style={[styles.choiceText, !enabled && styles.choiceTextActive]}
+              >
                 Non, pas maintenant
               </Text>
               {!enabled && (
@@ -118,16 +153,15 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
             {features.map(feature => (
               <View
                 key={feature.label}
-                accessibilityState={{disabled: !enabled}}
+                accessibilityState={{ disabled: !enabled }}
                 style={[
                   styles.featureCard,
                   !enabled && styles.featureCardDisabled,
-                ]}>
+                ]}
+              >
                 <View
-                  style={[
-                    styles.iconBox,
-                    !enabled && styles.iconBoxDisabled,
-                  ]}>
+                  style={[styles.iconBox, !enabled && styles.iconBoxDisabled]}
+                >
                   <Text style={[styles.icon, !enabled && styles.iconDisabled]}>
                     {feature.icon}
                   </Text>
@@ -136,7 +170,8 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
                   style={[
                     styles.featureText,
                     !enabled && styles.featureTextDisabled,
-                  ]}>
+                  ]}
+                >
                   {feature.label}
                 </Text>
               </View>
@@ -146,10 +181,13 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
           <Pressable
             accessibilityRole="button"
             onPress={handleNext}
-            style={({pressed}) => [styles.nextButton, pressed && styles.pressed]}>
+            style={({ pressed }) => [
+              styles.nextButton,
+              pressed && styles.pressed,
+            ]}
+          >
             <Text style={styles.nextText}>Suivant</Text>
           </Pressable>
-
         </ScrollView>
       </SafeAreaView>
     </ImageBackground>
@@ -157,8 +195,8 @@ function SpiritualPreferencesScreen({navigation}: Props): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F8EFFF'},
-  safeArea: {flex: 1},
+  background: { flex: 1, backgroundColor: '#F8EFFF' },
+  safeArea: { flex: 1 },
   content: {
     flexGrow: 1,
     justifyContent: 'center',
@@ -166,7 +204,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingBottom: 10,
   },
-  header: {alignItems: 'center', marginBottom: spacing.lg},
+  header: { alignItems: 'center', marginBottom: spacing.lg },
   title: {
     color: '#28166F',
     fontFamily: 'serif',
@@ -182,7 +220,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     textAlign: 'center',
   },
-  choices: {gap: 8},
+  choices: { gap: 8 },
   choice: {
     minHeight: 56,
     flexDirection: 'row',
@@ -197,7 +235,7 @@ const styles = StyleSheet.create({
     borderColor: '#6848BC',
     backgroundColor: '#6848BC',
     shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 3},
+    shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.2,
     shadowRadius: 7,
     elevation: 3,
@@ -211,10 +249,20 @@ const styles = StyleSheet.create({
     borderColor: '#AE9BCF',
     borderRadius: 11,
   },
-  radioActive: {borderColor: '#E7DAFF'},
-  radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: '#FFFFFF'},
-  choiceText: {flex: 1, marginLeft: spacing.md, color: '#2A2050', fontSize: 17},
-  choiceTextActive: {color: '#FFFFFF', fontWeight: '600'},
+  radioActive: { borderColor: '#E7DAFF' },
+  radioDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#FFFFFF',
+  },
+  choiceText: {
+    flex: 1,
+    marginLeft: spacing.md,
+    color: '#2A2050',
+    fontSize: 17,
+  },
+  choiceTextActive: { color: '#FFFFFF', fontWeight: '600' },
   checkCircle: {
     width: 28,
     height: 28,
@@ -223,9 +271,9 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: '#F4ECFF',
   },
-  check: {color: '#6848BC', fontSize: 18, fontWeight: '700'},
-  pressed: {opacity: 0.82},
-  features: {gap: 7, marginTop: spacing.md},
+  check: { color: '#6848BC', fontSize: 18, fontWeight: '700' },
+  pressed: { opacity: 0.82 },
+  features: { gap: 7, marginTop: spacing.md },
   featureCard: {
     minHeight: 52,
     flexDirection: 'row',
@@ -249,11 +297,11 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     backgroundColor: 'rgba(238, 227, 255, 0.82)',
   },
-  iconBoxDisabled: {backgroundColor: '#DDD6E8'},
-  icon: {fontSize: 21},
-  iconDisabled: {opacity: 0.32},
-  featureText: {flex: 1, color: '#2A2050', fontSize: 15, lineHeight: 19},
-  featureTextDisabled: {color: '#9990A8'},
+  iconBoxDisabled: { backgroundColor: '#DDD6E8' },
+  icon: { fontSize: 21 },
+  iconDisabled: { opacity: 0.32 },
+  featureText: { flex: 1, color: '#2A2050', fontSize: 15, lineHeight: 19 },
+  featureTextDisabled: { color: '#9990A8' },
   nextButton: {
     minHeight: 50,
     alignItems: 'center',
@@ -262,12 +310,12 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     backgroundColor: '#6949BE',
     shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 5},
+    shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.25,
     shadowRadius: 9,
     elevation: 5,
   },
-  nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
+  nextText: { color: '#FFFFFF', fontSize: 18, fontWeight: '600' },
 });
 
 export default SpiritualPreferencesScreen;

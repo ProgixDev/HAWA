@@ -24,11 +24,6 @@ import {
   TOP_SPACING_EXTRA,
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
-import {
-  isBiometricEnabled,
-  isPinEnabled,
-  loadSecurityPreferences,
-} from '../state/securityPreferences';
 
 const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 const APPLE_LOGO = require('../assets/images/auth-apple-logo.png');
@@ -53,18 +48,6 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const submit = async () => {
-    await loadSecurityPreferences();
-
-    if (isPinEnabled()) {
-      navigation.navigate('PinSetup');
-      return;
-    }
-
-    if (isBiometricEnabled()) {
-      navigation.navigate('FaceIdSetup');
-      return;
-    }
-
     navigation.replace('MainTabs', {screen: 'CycleHome'});
   };
 
@@ -304,7 +287,11 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                 </View>
 
                 <Pressable
-                  onPress={() => Alert.alert('Mode anonyme')}
+                  accessibilityLabel="Utiliser AWA en mode anonyme"
+                  accessibilityRole="button"
+                  onPress={() =>
+                    navigation.navigate('AnonymousMode', {source: 'auth'})
+                  }
                   style={({pressed}) => [
                     styles.anonymous,
                     pressed && styles.pressed,

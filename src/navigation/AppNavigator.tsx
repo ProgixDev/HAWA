@@ -11,6 +11,7 @@ import ObjectiveScreen from '../screens/ObjectiveScreen';
 import CycleObjectiveConfirmationScreen from '../screens/CycleObjectiveConfirmationScreen';
 import SpiritualPreferencesScreen from '../screens/SpiritualPreferencesScreen';
 import LocationScreen from '../screens/LocationScreen';
+import {ConceptionTryingDurationScreen, ConceptionOvulationAwarenessScreen, ConceptionIndicatorsScreen, ConceptionRemindersScreen} from '../screens/ConceptionOnboardingScreens';
 import CycleInformationScreen from '../screens/CycleInformationScreen';
 import PostpartumDeliveryDateScreen from '../screens/PostpartumDeliveryDateScreen';
 import PostpartumDeliveryTypeScreen from '../screens/PostpartumDeliveryTypeScreen';
@@ -30,6 +31,13 @@ import RegistrationScreen from '../screens/RegistrationScreen';
 import ForgotPasswordScreen from '../screens/ForgotPasswordScreen';
 import SecuritySetupScreen from '../screens/SecuritySetupScreen';
 import PinSetupScreen from '../screens/PinSetupScreen';
+import PinConfirmScreen from '../screens/PinConfirmScreen';
+import PinManagementScreen from '../screens/PinManagementScreen';
+import AnonymousModeScreen from '../screens/AnonymousModeScreen';
+import AnonymousModeLimitationsScreen from '../screens/AnonymousModeLimitationsScreen';
+import AnonymousModeCreatingScreen from '../screens/AnonymousModeCreatingScreen';
+import AnonymousModeSuccessScreen from '../screens/AnonymousModeSuccessScreen';
+import AnonymousAvatarCustomizerScreen from '../screens/AnonymousAvatarCustomizerScreen';
 import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
 import MainTabNavigator, { type MainTabParamList } from './MainTabNavigator';
 import JournalSymptomsScreen from '../screens/journal/JournalSymptomsScreen';
@@ -95,6 +103,15 @@ import PrivateAccessScreen from '../screens/PrivateAccessScreen';
 import type { PrivateAccessPurpose } from './privateAccess';
 import { navigationRef } from './navigationRef';
 
+// Where the Anonymous Mode flow was entered from — lets the shared screens
+// (AnonymousMode → …Limitations → …Creating → …Success → AnonymousAvatarCustomizer)
+// behave correctly for both entry points without duplicating any of them:
+// 'auth' = fresh setup straight from AuthScreen, ends by entering MainTabs;
+// 'settings' (the default when the param is omitted, e.g. from
+// PrivacySecurityScreen's existing "Mode anonyme" row) = managing an
+// already-completed onboarding, ends by returning to that settings screen.
+export type AnonymousFlowSource = 'auth' | 'settings';
+
 export type RootStackParamList = {
   Splash: undefined;
   Welcome: undefined;
@@ -102,6 +119,10 @@ export type RootStackParamList = {
   CycleObjectiveConfirmation: undefined;
   SpiritualPreferences: undefined;
   Location: undefined;
+  ConceptionTryingDuration: undefined;
+  ConceptionOvulationAwareness: undefined;
+  ConceptionIndicators: undefined;
+  ConceptionReminders: undefined;
   CycleInformation: undefined;
   PostpartumDeliveryDate: undefined;
   PostpartumDeliveryType: undefined;
@@ -123,8 +144,15 @@ export type RootStackParamList = {
   Registration: undefined;
   ForgotPassword: undefined;
   SecuritySetup: undefined;
-  PinSetup: undefined;
-  FaceIdSetup: undefined;
+  PinSetup: {mode?: 'create' | 'change' | 'disable'; returnTo?: 'previous' | 'onboarding'} | undefined;
+  PinConfirm: {returnTo: 'previous' | 'onboarding'};
+  PinManagement: undefined;
+  AnonymousMode: {source?: AnonymousFlowSource} | undefined;
+  AnonymousModeLimitations: {source?: AnonymousFlowSource} | undefined;
+  AnonymousModeCreating: {source?: AnonymousFlowSource} | undefined;
+  AnonymousModeSuccess: {source?: AnonymousFlowSource} | undefined;
+  AnonymousAvatarCustomizer: {source?: AnonymousFlowSource} | undefined;
+  FaceIdSetup: {action?: 'enable' | 'manage'} | undefined;
   MainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
   SymptomEntry: undefined;
   MoodEntry: undefined;
@@ -200,6 +228,10 @@ function AppNavigator({
           component={SpiritualPreferencesScreen}
         />
         <Stack.Screen name="Location" component={LocationScreen} />
+        <Stack.Screen name="ConceptionTryingDuration" component={ConceptionTryingDurationScreen} />
+        <Stack.Screen name="ConceptionOvulationAwareness" component={ConceptionOvulationAwarenessScreen} />
+        <Stack.Screen name="ConceptionIndicators" component={ConceptionIndicatorsScreen} />
+        <Stack.Screen name="ConceptionReminders" component={ConceptionRemindersScreen} />
         <Stack.Screen
           name="CycleInformation"
           component={CycleInformationScreen}
@@ -267,6 +299,13 @@ function AppNavigator({
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
         <Stack.Screen name="SecuritySetup" component={SecuritySetupScreen} />
         <Stack.Screen name="PinSetup" component={PinSetupScreen} />
+        <Stack.Screen name="PinConfirm" component={PinConfirmScreen} />
+        <Stack.Screen name="PinManagement" component={PinManagementScreen} />
+        <Stack.Screen name="AnonymousMode" component={AnonymousModeScreen} />
+        <Stack.Screen name="AnonymousModeLimitations" component={AnonymousModeLimitationsScreen} />
+        <Stack.Screen name="AnonymousModeCreating" component={AnonymousModeCreatingScreen} />
+        <Stack.Screen name="AnonymousModeSuccess" component={AnonymousModeSuccessScreen} />
+        <Stack.Screen name="AnonymousAvatarCustomizer" component={AnonymousAvatarCustomizerScreen} />
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
         <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         <Stack.Screen name="SymptomEntry" component={JournalSymptomsScreen} />
