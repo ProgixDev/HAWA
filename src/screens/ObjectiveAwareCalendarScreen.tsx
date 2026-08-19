@@ -4,6 +4,7 @@ import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import PregnancyCalendarContent from '../components/pregnancy/PregnancyCalendarContent';
 import PostpartumCalendarContent from '../components/postpartum/PostpartumCalendarContent';
 import MiscarriageCalendarContent from '../components/miscarriage/MiscarriageCalendarContent';
+import ConceiveCalendarContent from '../components/conceive/ConceiveCalendarContent';
 import CalendarScreen from './CalendarScreen';
 import {
   getActiveObjective,
@@ -41,6 +42,10 @@ function ObjectiveAwareCalendarScreen(props: Props): React.JSX.Element {
 
   if (objective === 'loss') {
     return <MiscarriageCalendarContent />;
+  }
+
+  if (objective === 'conceive') {
+    return <ConceiveCalendarContent />;
   }
 
   return <CalendarScreen {...props} />;
