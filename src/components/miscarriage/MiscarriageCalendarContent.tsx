@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  ImageBackground,
   Modal,
   Pressable,
   SafeAreaView,
@@ -12,6 +11,7 @@ import {
 } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -57,8 +57,6 @@ import { TOP_SPACING_EXTRA } from '../../theme/spacing';
 // cycleDayFor/phaseFor/fertileWindow/ovulation/predicted-period from
 // cycleMath.ts (this objective must stay separate from classic cycle
 // tracking, even once periods have returned).
-
-const BACKGROUND = require('../../assets/images/auth-mosque-background.png');
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -375,11 +373,17 @@ function MiscarriageCalendarContent(): React.JSX.Element {
     isReturnedPeriodDaySelected;
 
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={BACKGROUND}
-      style={styles.background}
-    >
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
+      style={styles.background}>
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -519,10 +523,11 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                 const markers = categoriesPresent(dayEntry).filter(key =>
                   visibleFilters.has(key),
                 );
-                const lightText =
-                  (selected && !isToday) ||
-                  isMiscarriageDay ||
-                  isReturnedPeriodDay;
+                // Light text is ONLY for the strong-purple selected fill.
+                // Event-day cells (returnedPeriodDay/miscarriageDay) use a
+                // light lavender/pink background, so their number must stay
+                // dark — forcing white text there made dates unreadable.
+                const lightText = selected;
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
@@ -537,12 +542,19 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                           !selected &&
                           styles.returnedPeriodDay,
                         isMiscarriageDay && !selected && styles.miscarriageDay,
-                        selected && !isToday && styles.selectedDay,
+                        selected && styles.selectedDay,
                         isToday && styles.todayDay,
                       ]}
                     >
                       <Text
-                        style={[styles.dayText, lightText && styles.lightText]}
+                        style={[
+                          styles.dayText,
+                          lightText && styles.lightText,
+                          // Selected always wins (white-on-purple); today
+                          // only gets the bold dark-violet treatment when
+                          // it isn't also selected.
+                          isToday && !selected && styles.todayDayText,
+                        ]}
                       >
                         {date.getDate()}
                       </Text>
@@ -552,6 +564,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                           style={[
                             styles.hijriDay,
                             lightText && styles.lightText,
+                            isToday && !selected && styles.todayHijriText,
                           ]}
                         >
                           {formatHijriDay(date)}
@@ -741,7 +754,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
           visibleFilters={visibleFilters}
         />
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -997,7 +1010,35 @@ function MiscarriageCalendarSheet({
 ============================================================ */
 
 const styles = StyleSheet.create({
-  background: { flex: 1, backgroundColor: '#F8F4FC' },
+  background: { flex: 1, backgroundColor: '#F2ECF8' },
+  pageBackgroundDecor: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+  },
   safeArea: { flex: 1 },
   content: { paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA },
   flexCopy: { flex: 1, minWidth: 0 },
@@ -1119,7 +1160,12 @@ const styles = StyleSheet.create({
   returnedPeriodDay: { backgroundColor: homeColors.lightLavender },
   dayText: { color: homeColors.textPrimary, fontSize: 12, fontWeight: '700' },
   lightText: { color: '#FFFFFF' },
+  // Wins over `lightText`/any background tint whenever a day is today —
+  // today's number must always stay readable, regardless of selection or
+  // event-day overlap (same rule MonthCalendarCard.tsx already applies).
+  todayDayText: { color: homeColors.textPrimary, fontWeight: '800', zIndex: 4 },
   hijriDay: { marginTop: 1, color: homeColors.textSecondary, fontSize: 7 },
+  todayHijriText: { color: homeColors.textPrimary },
 
   markerRow: { position: 'absolute', bottom: 3, flexDirection: 'row', gap: 2 },
   marker: { width: 3.5, height: 3.5, borderRadius: 2 },
