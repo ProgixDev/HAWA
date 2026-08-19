@@ -8,7 +8,7 @@ import type {DailyJournalEntry, JournalSection} from '../../types/journal';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-type Shortcut = {
+export type Shortcut = {
   section: JournalSection;
   route: JournalRoute;
   icon: IconName;
@@ -36,12 +36,19 @@ const SHORTCUTS: Shortcut[] = [
 type Props = {
   entry?: DailyJournalEntry;
   onNavigate: (route: JournalRoute) => void;
+  /** Defaults to the original generic 8-item list so every existing caller
+   * (CycleHomeScreen) is unaffected — lets an objective with different
+   * priority daily items (e.g. Trying to Conceive) reuse this exact same
+   * card design instead of a duplicated one. */
+  shortcuts?: Shortcut[];
+  /** Defaults to the original hardcoded title, same reasoning as above. */
+  title?: string;
 };
 
-function DailyJournalCard({entry, onNavigate}: Props): React.JSX.Element {
+function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Journal du jour'}: Props): React.JSX.Element {
   const progress = useRef(new Animated.Value(0)).current;
-  const completed = SHORTCUTS.filter(shortcut => Boolean(entry?.[shortcut.section])).length;
-  const ratio = completed / SHORTCUTS.length;
+  const completed = shortcuts.filter(shortcut => Boolean(entry?.[shortcut.section])).length;
+  const ratio = completed / shortcuts.length;
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(reduceMotion => {
@@ -57,8 +64,8 @@ function DailyJournalCard({entry, onNavigate}: Props): React.JSX.Element {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>Journal du jour</Text>
-        <Text style={styles.progressLabel}>{completed} / {SHORTCUTS.length} complété</Text>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.progressLabel}>{completed} / {shortcuts.length} complété</Text>
       </View>
 
       <View style={styles.track}>
@@ -71,7 +78,7 @@ function DailyJournalCard({entry, onNavigate}: Props): React.JSX.Element {
       </View>
 
       <View style={styles.row}>
-        {SHORTCUTS.map(shortcut => {
+        {shortcuts.map(shortcut => {
           const done = Boolean(entry?.[shortcut.section]);
           return (
             <Pressable

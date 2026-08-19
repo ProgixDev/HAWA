@@ -27,6 +27,8 @@ export type JournalRoute = Extract<
   | 'MoodEntry'
   | 'FlowEntry'
   | 'TemperatureEntry'
+  | 'CervicalMucusEntry'
+  | 'LHTestEntry'
   | 'SleepEntry'
   | 'ActivityEntry'
   | 'HydrationWeightEntry'
