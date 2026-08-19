@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
-  ImageBackground,
   Pressable,
   ScrollView,
   StatusBar,
@@ -13,6 +12,7 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
@@ -24,13 +24,10 @@ import {
   type PregnancyDatingMethod,
 } from '../../state/pregnancyPreferences';
 
-const BACKGROUND = require('../../assets/images/school-selection-background.png');
-
 const PURPLE = '#6949BE';
 const PURPLE_DARK = '#28166F';
 const PURPLE_SOFT = '#F1EAFB';
 const TEXT_SECONDARY = '#706587';
-const PINK = '#D96FA5';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -292,10 +289,18 @@ function PregnancyDatingSetupScreen({
   };
 
   return (
-    <ImageBackground
-      source={BACKGROUND}
-      resizeMode="cover"
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
       style={styles.background}>
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <View style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -349,67 +354,51 @@ function PregnancyDatingSetupScreen({
               PREMIUM HEADER
           ===================================================== */}
 
-          <Animated.View
-            style={headerStyle}>
+          <Animated.View style={headerStyle}>
             <View style={styles.header}>
-              {/* ICON FEMME ENCEINTE */}
+              <View style={styles.pregnancyHeroIcon}>
+                <View pointerEvents="none" style={styles.pregnancyHeroGlowOuter} />
+                <View pointerEvents="none" style={styles.pregnancyHeroGlowInner} />
 
-              <View
-                style={
-                  styles.pregnancyHeroIcon
-                }>
-                <View
-                  style={
-                    styles.pregnancyHeroGlowOuter
-                  }
-                />
-
-                <View
-                  style={
-                    styles.pregnancyHeroGlowInner
-                  }
-                />
-
-                <View
-                  style={
-                    styles.pregnancyHeroInner
-                  }>
+                <LinearGradient
+                  colors={['#FFFFFF', '#F6F1FB']}
+                  start={{x: 0, y: 0}}
+                  end={{x: 1, y: 1}}
+                  style={styles.pregnancyHeroInner}>
                   <MaterialDesignIcons
                     color={PURPLE}
                     name="human-pregnant"
-                    size={36}
+                    size={34}
                   />
-                </View>
+                </LinearGradient>
 
-                <View
-                  style={
-                    styles.pregnancyAccent
-                  }>
+                <View style={styles.pregnancyAccent}>
                   <MaterialDesignIcons
-                    color={PINK}
-                    name="heart"
-                    size={12}
+                    color="#FFFFFF"
+                    name="baby-face-outline"
+                    size={14}
                   />
                 </View>
               </View>
 
-              <Text style={styles.eyebrow}>
-                MA GROSSESSE
-              </Text>
+              <View style={styles.eyebrowPill}>
+                <MaterialDesignIcons
+                  color="#745DA3"
+                  name="heart-pulse"
+                  size={13}
+                />
+                <Text style={styles.eyebrow}>MA GROSSESSE</Text>
+              </View>
 
-              <Text style={styles.title}>
-                Configurer ma grossesse
-              </Text>
+              <Text style={styles.title}>Configurer ma grossesse</Text>
 
-              <Text
-                style={
-                  styles.subtitle
-                }>
-                Choisis la méthode qui te convient
-                pour estimer le début de ta grossesse.
+              <Text style={styles.subtitle}>
+                Choisis la méthode qui te convient pour estimer le début de ta grossesse.
               </Text>
             </View>
           </Animated.View>
+
+
 
           {/* ====================================================
               OPTIONS
@@ -657,7 +646,7 @@ function PregnancyDatingSetupScreen({
           }
         />
       </View>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -672,7 +661,42 @@ const styles = StyleSheet.create({
 
   background: {
     flex: 1,
-    backgroundColor: '#F8EFFF',
+    backgroundColor: '#F2ECF8',
+  },
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
   },
 
   safeArea: {
@@ -732,198 +756,146 @@ const styles = StyleSheet.create({
 
   header: {
     alignItems: 'center',
-
-    marginBottom: 24,
-
-    paddingHorizontal: 4,
+    marginTop: -10,
+    marginBottom: 16,
+    paddingHorizontal: 8,
   },
 
   pregnancyHeroIcon: {
     position: 'relative',
-
-    width: 88,
-    height: 88,
-
+    width: 76,
+    height: 76,
     alignItems: 'center',
     justifyContent: 'center',
-
-    marginBottom: 13,
+    marginBottom: 8,
   },
 
   pregnancyHeroGlowOuter: {
     position: 'absolute',
-
-    width: 88,
-    height: 88,
-
-    borderRadius: 44,
-
-    backgroundColor:
-      'rgba(105,73,190,0.07)',
+    width: 82,
+    height: 82,
+    borderRadius: 41,
+    backgroundColor: 'rgba(105,73,190,0.055)',
   },
 
   pregnancyHeroGlowInner: {
     position: 'absolute',
-
-    width: 76,
-    height: 76,
-
-    borderRadius: 38,
-
-    backgroundColor:
-      'rgba(105,73,190,0.08)',
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: 'rgba(105,73,190,0.07)',
   },
 
   pregnancyHeroInner: {
-    width: 64,
-    height: 64,
-
+    width: 58,
+    height: 58,
     alignItems: 'center',
     justifyContent: 'center',
-
     borderWidth: 1,
-    borderColor:
-      'rgba(105,73,190,0.12)',
-    borderRadius: 32,
-
-    backgroundColor:
-      'rgba(255,255,255,0.96)',
-
-    shadowColor:
-      '#593EA2',
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.14,
-    shadowRadius: 14,
-
-    elevation: 5,
+    borderColor: 'rgba(105,73,190,0.14)',
+    borderRadius: 20,
+    shadowColor: '#4E337C',
+    shadowOffset: {width: 0, height: 6},
+    shadowOpacity: 0.10,
+    shadowRadius: 12,
+    elevation: 4,
   },
 
   pregnancyAccent: {
     position: 'absolute',
-
-    right: 2,
-    bottom: 8,
-
-    width: 28,
-    height: 28,
-
+    right: 1,
+    bottom: 6,
+    width: 27,
+    height: 27,
     alignItems: 'center',
     justifyContent: 'center',
-
     borderWidth: 3,
-    borderColor:
-      '#F8F0FC',
+    borderColor: '#F6F0FA',
     borderRadius: 14,
-
-    backgroundColor:
-      '#FCEAF4',
-
-    shadowColor:
-      '#BB5B8E',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.12,
+    backgroundColor: PURPLE,
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.16,
     shadowRadius: 5,
+    elevation: 3,
+  },
 
-    elevation: 2,
+  eyebrowPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginBottom: 7,
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.12)',
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.55)',
+    paddingHorizontal: 9,
+    paddingVertical: 5,
   },
 
   eyebrow: {
-    marginBottom: 6,
-
-    color: '#9179C8',
-
+    color: '#745DA3',
     fontSize: 9.5,
     fontWeight: '800',
-
-    letterSpacing: 1.7,
-
+    letterSpacing: 1.25,
     textAlign: 'center',
   },
 
   title: {
     color: PURPLE_DARK,
-
     fontFamily: 'serif',
-    fontSize: 27,
-    lineHeight: 33,
+    fontSize: 26,
+    lineHeight: 32,
     fontWeight: '800',
-
     textAlign: 'center',
   },
 
   subtitle: {
     maxWidth: 330,
-
-    marginTop: 8,
-
+    marginTop: 0,
     color: TEXT_SECONDARY,
-
-    fontSize: 13.5,
-    lineHeight: 20,
-
+    fontSize: 12.5,
+    lineHeight: 18,
     textAlign: 'center',
   },
+
+
 
   /* ==========================================================
      OPTIONS
   ========================================================== */
 
   list: {
-    gap: 11,
+    gap: 10,
   },
 
   card: {
-    padding: 14,
-
+    padding: 13,
     borderWidth: 1,
-    borderColor:
-      'rgba(111,83,190,0.11)',
-    borderRadius: 22,
-
-    backgroundColor:
-      'rgba(255,255,255,0.92)',
-
-    shadowColor:
-      '#4E337C',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.055,
-    shadowRadius: 12,
-
-    elevation: 2,
+    borderColor: 'rgba(111,83,190,0.12)',
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.88)',
+    shadowColor: '#4E337C',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.045,
+    shadowRadius: 10,
+    elevation: 1,
   },
 
   cardSelected: {
     borderWidth: 1.5,
-    borderColor:
-      '#9C80DA',
-
-    backgroundColor:
-      'rgba(248,244,254,0.98)',
-
-    shadowColor:
-      '#6949BE',
-    shadowOffset: {
-      width: 0,
-      height: 7,
-    },
-    shadowOpacity: 0.13,
-    shadowRadius: 14,
-
-    elevation: 4,
+    borderColor: '#8D72C6',
+    backgroundColor: 'rgba(248,245,253,0.98)',
+    shadowColor: '#6949BE',
+    shadowOffset: {width: 0, height: 5},
+    shadowOpacity: 0.10,
+    shadowRadius: 12,
+    elevation: 3,
   },
 
   cardTopRow: {
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
 
   /* ==========================================================
@@ -971,23 +943,20 @@ const styles = StyleSheet.create({
   ========================================================== */
 
   iconBox: {
-    width: 42,
-    height: 42,
-
-    marginHorizontal: 11,
-
+    width: 40,
+    height: 40,
+    marginHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
-
-    borderRadius: 15,
-
-    backgroundColor:
-      '#F2ECFA',
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.08)',
+    borderRadius: 13,
+    backgroundColor: '#F2ECFA',
   },
 
   iconBoxSelected: {
-    backgroundColor:
-      '#EDE4FC',
+    borderColor: 'rgba(105,73,190,0.14)',
+    backgroundColor: '#EDE4FC',
   },
 
   cardCopy: {
@@ -1000,19 +969,16 @@ const styles = StyleSheet.create({
 
   cardLabel: {
     color: '#291D4E',
-
-    fontSize: 14.5,
-    lineHeight: 20,
+    fontSize: 14,
+    lineHeight: 19,
     fontWeight: '800',
   },
 
   cardDescription: {
-    marginTop: 4,
-
+    marginTop: 3,
     color: '#7A6F91',
-
-    fontSize: 11.5,
-    lineHeight: 16,
+    fontSize: 11,
+    lineHeight: 15,
   },
 
   selectedCheck: {
@@ -1025,7 +991,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     marginLeft: 7,
-    marginTop: 4,
+    marginTop: 0,
 
     borderRadius: 12,
 
