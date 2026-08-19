@@ -5,6 +5,13 @@
  */
 export const NIFAS_REFERENCE_DAYS = 40;
 export const NIFAS_WARNING_DAYS = 35;
-export const NIFAS_REFERENCE_CONFIG_VERSION = 1;
+
+
+
+// Bumped so already-scheduled J40 reminders get cancelled and
+// rescheduled with the new "Les 40 jours de nifâs sont terminés"
+// notification copy instead of silently keeping their old content
+// (syncPostpartumNifasReminders only reschedules when this changes).
+export const NIFAS_REFERENCE_CONFIG_VERSION = 2;
 
 export const NIFAS_EDUCATIONAL_ARTICLE_ID = 'nifasfiqh-repere-fiqh';

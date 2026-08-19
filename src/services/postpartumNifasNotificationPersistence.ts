@@ -50,8 +50,8 @@ export async function persistPostpartumNifasNotification(
     message:
       getNotificationDataString(notification, 'inAppMessage') ??
       (reached
-        ? 'Le repère présenté par HAWA a été atteint.'
-        : 'Le repère présenté par HAWA approche.'),
+        ? 'Le repère présenté par AWA a été atteint.'
+        : 'Le repère présenté par AWA approche.'),
     receivedAt: new Date().toISOString(),
     read,
     route: 'ArticleReader',

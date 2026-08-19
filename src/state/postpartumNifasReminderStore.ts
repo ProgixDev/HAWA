@@ -10,6 +10,12 @@ export type PostpartumNifasReminderState = {
   referenceFireAt: string | null;
   warningOccurrenceId: string | null;
   referenceOccurrenceId: string | null;
+  /** Whether the user has acknowledged the Nifas completion screen for
+   * `deliveryDate` — scoped to that delivery date so a later pregnancy's
+   * fresh postpartum cycle never inherits a stale acknowledgement. Absent
+   * on records persisted before this field existed, which correctly reads
+   * as `false` (not yet acknowledged). */
+  completionAcknowledged: boolean;
 };
 
 const STORAGE_KEY = '@hawa/postpartum-nifas-reminders/v1';
@@ -22,6 +28,7 @@ const DEFAULT_STATE: PostpartumNifasReminderState = {
   referenceFireAt: null,
   warningOccurrenceId: null,
   referenceOccurrenceId: null,
+  completionAcknowledged: false,
 };
 
 let state = { ...DEFAULT_STATE };
@@ -56,6 +63,7 @@ export const hydratePostpartumNifasReminderState =
               referenceOccurrenceId: readString(
                 candidate.referenceOccurrenceId,
               ),
+              completionAcknowledged: candidate.completionAcknowledged === true,
             };
           }
           return getPostpartumNifasReminderState();
@@ -69,5 +77,19 @@ export const setPostpartumNifasReminderState = async (
   next: PostpartumNifasReminderState,
 ): Promise<void> => {
   state = { ...next };
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+};
+
+/** True only if the currently persisted acknowledgement belongs to this
+ * exact delivery date — never stale-matches a previous postpartum cycle. */
+export const isPostpartumNifasCompletionAcknowledged = (
+  deliveryDate: string,
+): boolean =>
+  state.deliveryDate === deliveryDate && state.completionAcknowledged === true;
+
+export const setPostpartumNifasCompletionAcknowledged = async (
+  deliveryDate: string,
+): Promise<void> => {
+  state = { ...state, deliveryDate, completionAcknowledged: true };
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 };
