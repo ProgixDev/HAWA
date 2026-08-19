@@ -1,6 +1,8 @@
 export type SymptomSeverity = 'mild' | 'moderate' | 'severe';
 export type MoodLevel = 'veryGood' | 'good' | 'neutral' | 'stressed' | 'irritable' | 'anxious' | 'sad' | 'tired' | 'motivated';
 export type FlowIntensity = 'none' | 'light' | 'moderate' | 'heavy' | 'veryHeavy';
+export type CervicalMucusType = 'dry' | 'sticky' | 'creamy' | 'watery' | 'eggWhite';
+export type LHTestResult = 'negative' | 'positive' | 'invalid';
 
 export type DailyJournalEntry = {
   id: string;
@@ -16,6 +18,8 @@ export type DailyJournalEntry = {
   weight?: {value?: number; unit: 'kg' | 'lb'; moment?: string; note?: string};
   note?: {text: string; private: true; updatedAt: string};
   intimacy?: {answer: 'yes' | 'no' | 'preferNot'; protection?: string; libido?: string; discomfort?: string; note?: string};
+  cervicalMucus?: {type: CervicalMucusType; note?: string};
+  lhTest?: {result: LHTestResult; time?: string; note?: string};
 };
 
 export type JournalSection = Exclude<keyof DailyJournalEntry, 'id' | 'date' | 'cycleDay'>;
