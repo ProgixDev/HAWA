@@ -183,6 +183,29 @@ export function getPostpartumNifasStatus(
   };
 }
 
+/**
+ * AWA product decision: the RELIGIOUS Nifas state has a hard maximum of
+ * NIFAS_REFERENCE_DAYS (40) days — delivery day is "Jour 1", so the
+ * religious threshold is reached on day NIFAS_REFERENCE_DAYS itself. Uses
+ * the same `>=` boundary as getNifasReminderStatus's 'reference_reached'
+ * below, so the completion screen and the reminder banner always agree on
+ * which day the reference is reached (and so NIFAS_REFERENCE_DAYS can be
+ * lowered for testing without the two disagreeing). This is deliberately
+ * independent from general Postpartum health tracking (computePostpartumStatus
+ * stays unbounded) and from the medical lochia/bleeding state
+ * (computePostpartumLochiaSummary) — lochia may continue past the threshold
+ * while the religious Nifas period has already ended. Not a fiqh ruling
+ * engine: just the single day boundary check the Nifas completion screen
+ * and Dashboard use to know when to stop presenting Nifas as active.
+ */
+export function hasReligiousNifasEnded(
+  deliveryDate: Date | null,
+  referenceDate: Date,
+): boolean {
+  const status = computePostpartumStatus(deliveryDate, referenceDate);
+  return status.configured && status.postpartumDay >= NIFAS_REFERENCE_DAYS;
+}
+
 export type NifasReminderStatus = 'none' | 'approaching' | 'reference_reached';
 
 /** Product reminder state only; never a purity or prayer ruling. */

@@ -10,7 +10,7 @@ import {
   Animated,
   Easing,
   Image,
-  ImageBackground,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -22,6 +22,7 @@ import {
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -30,7 +31,7 @@ import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
-import { homeColors, homeShadow } from '../home/homeTheme';
+import { homeColors, homeRadii, homeShadow } from '../home/homeTheme';
 import {
   getFirstName,
   getSelectedLocation,
@@ -64,12 +65,17 @@ import {
   computePostpartumStatus,
   getNifasReminderStatus,
   getPostpartumNifasStatus,
+  hasReligiousNifasEnded,
 } from '../../utils/postpartumTrackingUtils';
+import {
+  hydratePostpartumNifasReminderState,
+  isPostpartumNifasCompletionAcknowledged,
+  setPostpartumNifasCompletionAcknowledged,
+} from '../../state/postpartumNifasReminderStore';
 import { usePostpartumSpiritualStatus } from '../../hooks/usePrayerPurityStatus';
 import { formatFullDate, formatHijriDate } from '../../utils/cycleMath';
 import { NIFAS_EDUCATIONAL_ARTICLE_ID } from '../../config/nifasReminderConfig';
 
-const BACKGROUND = require('../../assets/images/homebackground.png');
 const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartum-mother-baby.png');
 
 // No dedicated mother-and-baby illustration exists yet in
@@ -249,6 +255,66 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
   // count for it, never a purity verdict.
   const spiritual = usePostpartumSpiritualStatus(spiritualMarkersEnabled);
 
+  // Religious Nifas has a hard NIFAS_REFERENCE_DAYS-day maximum (AWA product
+  // decision, independent from the unbounded general Postpartum tracking
+  // above). Once that reference day is reached and the user hasn't
+  // acknowledged it yet for this deliveryDate, show the small completion
+  // popup right on top of this same Dashboard (no navigation) — this
+  // re-checks on every focus (not just app launch), so returning to the
+  // Dashboard on any later day (e.g. closing the app on J38, reopening on
+  // J43) still catches it exactly once. `nifasCompletionAcknowledged` also
+  // silences the old "reference reached" banner below once true, so it
+  // never persists forever after the user has already been told.
+  const [nifasCompletionAcknowledged, setNifasCompletionAcknowledged] =
+    useState(false);
+  const [nifasCompletionModalVisible, setNifasCompletionModalVisible] =
+    useState(false);
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      (async () => {
+        const [preferences] = await Promise.all([
+          hydratePostpartumPreferences(),
+          hydratePostpartumNifasReminderState(),
+        ]);
+        if (!active) {
+          return;
+        }
+        const acknowledged = preferences.deliveryDate
+          ? isPostpartumNifasCompletionAcknowledged(preferences.deliveryDate)
+          : false;
+        setNifasCompletionAcknowledged(acknowledged);
+        if (!preferences.deliveryDate || !getSpiritualMarkersEnabled() || acknowledged) {
+          return;
+        }
+        const deliveryDateValue = new Date(`${preferences.deliveryDate}T12:00:00`);
+        if (hasReligiousNifasEnded(deliveryDateValue, new Date())) {
+          setNifasCompletionModalVisible(true);
+        }
+      })();
+      return () => {
+        active = false;
+      };
+    }, []),
+  );
+
+  const acknowledgeNifasCompletion = useCallback(async () => {
+    if (postpartum.deliveryDate) {
+      await setPostpartumNifasCompletionAcknowledged(postpartum.deliveryDate);
+    }
+    setNifasCompletionAcknowledged(true);
+    setNifasCompletionModalVisible(false);
+  }, [postpartum.deliveryDate]);
+
+  const handleNifasCompletionContinue = useCallback(() => {
+    acknowledgeNifasCompletion();
+  }, [acknowledgeNifasCompletion]);
+
+  const handleNifasCompletionChooseAnother = useCallback(() => {
+    acknowledgeNifasCompletion();
+    navigation.navigate('Profile');
+  }, [acknowledgeNifasCompletion, navigation]);
+
   // Same shared bottom-sheet context Cycle/Pregnancy use — JournalSheetHost
   // (see MainTabNavigator.tsx) renders the shared DailyJournalSheet with
   // Postpartum's own 5-category action list while activeObjective ===
@@ -386,19 +452,34 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       : undefined;
   const nifasReminderStatus = useMemo(
     () =>
-      getNifasReminderStatus({
-        postpartumDay: nifasStatus.postpartumDay,
-        lochiaEnded: nifasStatus.lochiaEnded,
-      }),
-    [nifasStatus.lochiaEnded, nifasStatus.postpartumDay],
+      nifasCompletionAcknowledged
+        ? 'none'
+        : getNifasReminderStatus({
+            postpartumDay: nifasStatus.postpartumDay,
+            lochiaEnded: nifasStatus.lochiaEnded,
+          }),
+    [
+      nifasCompletionAcknowledged,
+      nifasStatus.lochiaEnded,
+      nifasStatus.postpartumDay,
+    ],
   );
 
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={BACKGROUND}
+    <>
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      end={{x: 1, y: 1}}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
       style={styles.background}
     >
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -747,14 +828,108 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           </Animated.View>
         </ScrollView>
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
+
+    <Modal
+      animationType="fade"
+      onRequestClose={() => setNifasCompletionModalVisible(false)}
+      transparent
+      visible={nifasCompletionModalVisible}
+    >
+      <View style={styles.nifasModalOverlay}>
+        <View style={styles.nifasModalCard}>
+          <View style={styles.nifasModalIconWrap}>
+            <MaterialDesignIcons
+              color={homeColors.primary}
+              name="weather-night"
+              size={26}
+            />
+          </View>
+
+          <Text style={styles.nifasModalTitle}>
+            Les 40 jours de nifâs sont terminés
+          </Text>
+
+          <Text style={styles.nifasModalBody}>
+            À partir d’aujourd’hui, reprends tes prières, même si les
+            lochies ou les saignements persistent.
+          </Text>
+
+          <Text style={styles.nifasModalNote}>
+            Tu peux continuer ton suivi post-partum dans AWA.
+          </Text>
+
+          <Pressable
+            accessibilityLabel="Compris"
+            accessibilityRole="button"
+            onPress={handleNifasCompletionContinue}
+            style={({pressed}) => [
+              styles.nifasModalPrimary,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Text style={styles.nifasModalPrimaryText}>Compris</Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityLabel="Choisir un autre suivi"
+            accessibilityRole="button"
+            onPress={handleNifasCompletionChooseAnother}
+            style={({pressed}) => [
+              styles.nifasModalSecondary,
+              pressed && styles.pressed,
+            ]}
+          >
+            <Text style={styles.nifasModalSecondaryText}>
+              Choisir un autre suivi
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F8EFFF',
+    backgroundColor: '#F2ECF8',
+  },
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
   },
 
   safeArea: {
@@ -1243,6 +1418,83 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.82,
     transform: [{ scale: 0.99 }],
+  },
+
+  nifasModalOverlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 28,
+    backgroundColor: 'rgba(47, 34, 88, 0.32)',
+  },
+  nifasModalCard: {
+    width: '100%',
+    maxWidth: 340,
+    alignItems: 'center',
+    borderRadius: homeRadii.card,
+    borderWidth: 1,
+    borderColor: homeColors.cardBorder,
+    backgroundColor: homeColors.lightLavender,
+    paddingHorizontal: 22,
+    paddingTop: 22,
+    paddingBottom: 18,
+    ...homeShadow,
+  },
+  nifasModalIconWrap: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    backgroundColor: '#FFFFFF',
+  },
+  nifasModalTitle: {
+    marginTop: 14,
+    color: homeColors.textPrimary,
+    fontSize: 17,
+    lineHeight: 22,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  nifasModalBody: {
+    marginTop: 8,
+    color: homeColors.textPrimary,
+    fontSize: 13.5,
+    lineHeight: 19,
+    textAlign: 'center',
+  },
+  nifasModalNote: {
+    marginTop: 8,
+    color: homeColors.textSecondary,
+    fontSize: 12.5,
+    lineHeight: 18,
+    textAlign: 'center',
+  },
+  nifasModalPrimary: {
+    marginTop: 18,
+    width: '100%',
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: homeRadii.button,
+    backgroundColor: homeColors.primary,
+  },
+  nifasModalPrimaryText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  nifasModalSecondary: {
+    marginTop: 10,
+    width: '100%',
+    minHeight: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  nifasModalSecondaryText: {
+    color: homeColors.primary,
+    fontSize: 13.5,
+    fontWeight: '600',
   },
 });
 

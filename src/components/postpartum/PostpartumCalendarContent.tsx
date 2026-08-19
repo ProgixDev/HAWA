@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
-  ImageBackground,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -16,9 +16,12 @@ import {
 } from '@react-navigation/native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
+import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { homeColors, homeShadow } from '../home/homeTheme';
+import { TOP_SPACING_EXTRA } from '../../theme/spacing';
 import {
   loadPersonalInformation,
   type CalendarPreference,
@@ -44,6 +47,8 @@ import {
   getAllPostpartumJournalEntries,
   hydratePostpartumJournal,
   subscribePostpartumJournal,
+  type PostpartumJournalCategory,
+  type PostpartumJournalEntry,
 } from '../../state/postpartumJournalStore';
 import { POSTPARTUM_JOURNAL_ITEMS } from '../../config/postpartumJournalConfig';
 import {
@@ -54,16 +59,17 @@ import {
 } from '../../state/postpartumLochiaStore';
 
 // Postpartum Calendar — a dedicated content branch for the ONE global
-// Calendar tab (see ObjectiveAwareCalendarScreen.tsx), structurally modeled
-// after PregnancyCalendarContent.tsx (same premium HAWA card language, month
-// nav, Grégorien/Hijri/Double mode, inline legend, selected-day card) but
-// with entirely Postpartum-specific meaning/markers/data. Deliberately does
-// NOT import or call cycleDayFor/phaseFor/fertileWindow/ovulation/predicted
-// -period from cycleMath.ts, and does NOT reuse MonthCalendarCard.tsx (which
-// is wired to Cycle's period/fertile/ovulation day-kind system) — Postpartum
-// day is derived only from deliveryDate + the selected date.
-
-const BACKGROUND = require('../../assets/images/auth-mosque-background.png');
+// Calendar tab (see ObjectiveAwareCalendarScreen.tsx). Same premium HAWA
+// calendar design system as Cycle/Pregnancy/Miscarriage (month nav,
+// Grégorien/Hijri/Double mode, header Filtres/Légende actions, filterable
+// day markers, bottom-sheet Filtres/Légende, selected-day card) — but every
+// category/label/marker is entirely Postpartum-specific, sourced only from
+// data already in the project (postpartumJournalStore's 5 canonical
+// categories + postpartumLochiaStore). Deliberately does NOT import or call
+// cycleDayFor/phaseFor/fertileWindow/ovulation/predictedPeriod from
+// cycleMath.ts, and does NOT reuse MonthCalendarCard.tsx (which is wired to
+// Cycle's period/fertile/ovulation day-kind system) — Postpartum day is
+// derived only from deliveryDate + the selected date.
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -79,11 +85,89 @@ const MODES: Array<{ key: CalendarPreference; label: string }> = [
   { key: 'double', label: 'Double' },
 ];
 
+/* ============================================================
+   CATEGORY META — Lochies (postpartumLochiaStore) + the 5 real
+   Postpartum Journal categories (postpartumJournalConfig.ts), the ONLY
+   categories this calendar ever displays/filters. Labels/icons mirror the
+   existing config exactly; nothing here is invented.
+============================================================ */
+
+type PostpartumCalendarCategory = PostpartumJournalCategory | 'lochia';
+
+const CATEGORY_META: Record<
+  PostpartumCalendarCategory,
+  { label: string; description: string; icon: IconName; color: string }
+> = {
+  lochia: {
+    label: 'Lochies',
+    description: 'Flux et couleur des lochies enregistrés dans ton suivi.',
+    icon: 'water-outline',
+    color: DELIVERY_COLOR,
+  },
+  fatigue: {
+    label: 'Fatigue',
+    description: 'Évalue ton niveau de fatigue aujourd’hui',
+    icon: 'lightning-bolt-outline',
+    color: '#8C6FD6',
+  },
+  sleep: {
+    label: 'Sommeil',
+    description: 'Durée et qualité de ton sommeil',
+    icon: 'weather-night',
+    color: '#6F8FD1',
+  },
+  mood: {
+    label: 'Humeur',
+    description: 'Comment te sens-tu aujourd’hui ?',
+    icon: 'heart-outline',
+    color: '#D889AE',
+  },
+  pain: {
+    label: 'Douleurs',
+    description: 'Note les douleurs que tu ressens aujourd’hui',
+    icon: 'heat-wave',
+    color: '#D79A55',
+  },
+  physicalRecovery: {
+    label: 'Récupération physique',
+    description: 'Comment progresse ta récupération ?',
+    icon: 'heart-pulse',
+    color: homeColors.primary,
+  },
+};
+
+const CATEGORY_KEYS = Object.keys(
+  CATEGORY_META,
+) as PostpartumCalendarCategory[];
+
 const dateKey = (date: Date): string => date.toLocaleDateString('en-CA');
+const backgroundColorStyle = (backgroundColor: string) => ({ backgroundColor });
+
+/* ============================================================
+   DAY MARKERS — only categories with real saved data ever appear;
+   never a fabricated value.
+============================================================ */
+
+function categoriesPresent(
+  entry: PostpartumJournalEntry | undefined,
+  lochiaEntry: PostpartumLochiaEntry | undefined,
+): PostpartumCalendarCategory[] {
+  const present: PostpartumCalendarCategory[] = [];
+  if (lochiaEntry) {
+    present.push('lochia');
+  }
+  for (const item of POSTPARTUM_JOURNAL_ITEMS) {
+    if (entry?.[item.key]) {
+      present.push(item.key);
+    }
+  }
+  return present;
+}
 
 function PostpartumCalendarContent(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const { open: openPostpartumJournal } = useJournalSheet();
   const today = useMemo(() => startOfDay(new Date()), []);
 
   const [visibleMonth, setVisibleMonth] = useState(
@@ -91,6 +175,10 @@ function PostpartumCalendarContent(): React.JSX.Element {
   );
   const [selectedDate, setSelectedDate] = useState(today);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
+  const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
+  const [visibleFilters, setVisibleFilters] = useState<
+    Set<PostpartumCalendarCategory>
+  >(() => new Set(CATEGORY_KEYS));
 
   // Canonical delivery date — src/state/postpartumPreferences.ts, the same
   // source PostpartumDashboard reads. Never hardcoded.
@@ -121,8 +209,9 @@ function PostpartumCalendarContent(): React.JSX.Element {
     [postpartum.deliveryDate],
   );
 
-  // Same shared Grégorien/Hijri/Double preference Cycle/Pregnancy calendars
-  // already read — reusing the existing architecture, not reimplementing it.
+  // Same shared Grégorien/Hijri/Double preference Cycle/Pregnancy/Miscarriage
+  // calendars already read — reusing the existing architecture, not
+  // reimplementing it.
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
@@ -138,7 +227,8 @@ function PostpartumCalendarContent(): React.JSX.Element {
   );
 
   // Postpartum's OWN daily tracking (src/state/postpartumJournalStore.ts) —
-  // never Cycle's dailyJournalStore or Pregnancy's pregnancyJournalStore.
+  // never Cycle's dailyJournalStore or Pregnancy's/Miscarriage's own
+  // journals.
   const [entries, setEntries] = useState(getAllPostpartumJournalEntries);
   const [lochiaEntries, setLochiaEntries] = useState<
     Record<string, PostpartumLochiaEntry>
@@ -219,6 +309,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
   const selectedLochia = lochiaEntries[selectedKey];
   const isFirstPeriodSelected =
     postpartum.firstPostpartumPeriodDate === selectedKey;
+  const isTodaySelected = sameDay(selectedDate, today);
 
   // Postpartum day is derived ONLY from deliveryDate + the selected date —
   // never cycleDayFor/phaseFor/fertileWindow/ovulation/predictedPeriod.
@@ -238,6 +329,18 @@ function PostpartumCalendarContent(): React.JSX.Element {
   const isDeliveryDaySelected =
     Boolean(deliveryDate) && sameDay(selectedDate, deliveryDate as Date);
 
+  const toggleFilter = (key: PostpartumCalendarCategory) => {
+    setVisibleFilters(current => {
+      const next = new Set(current);
+      if (next.has(key)) {
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
   // Only the Postpartum Journal's 5 real canonical categories (Fatigue /
   // Sommeil / Humeur / Douleurs / Récupération physique) — Pregnancy's
   // Symptômes/Poids/Informations médicales never appear here, see
@@ -246,7 +349,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
   // per-category formatting is needed (unlike the old Symptômes/Poids shape).
   const selectedJournalRows = useMemo(() => {
     const rows: Array<{
-      key: string;
+      key: PostpartumJournalCategory;
       icon: IconName;
       label: string;
       value: string;
@@ -266,12 +369,30 @@ function PostpartumCalendarContent(): React.JSX.Element {
     return rows;
   }, [selectedEntry]);
 
+  // Filters only hide/show rows that already have real data — never affect
+  // whether the data itself exists.
+  const visibleJournalRows = useMemo(
+    () => selectedJournalRows.filter(row => visibleFilters.has(row.key)),
+    [selectedJournalRows, visibleFilters],
+  );
+  const showLochiaRow = visibleFilters.has('lochia');
+  const hasAnyVisibleData =
+    visibleJournalRows.length > 0 || (showLochiaRow && Boolean(selectedLochia));
+
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={BACKGROUND}
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      end={{x: 1, y: 1}}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
       style={styles.background}
     >
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -287,8 +408,21 @@ function PostpartumCalendarContent(): React.JSX.Element {
         >
           {/* HEADER */}
           <View style={styles.header}>
-            <Text style={styles.title}>Calendrier</Text>
-            <Text style={styles.subtitle}>Suis ton parcours post-partum</Text>
+            <View style={styles.headerCopy}>
+              <Text style={styles.title}>Calendrier</Text>
+              <Text style={styles.subtitle}>Suis ton parcours post-partum</Text>
+            </View>
+
+            <HeaderAction
+              icon="tune-variant"
+              label="Filtres"
+              onPress={() => setSheet('filters')}
+            />
+            <HeaderAction
+              icon="format-list-bulleted"
+              label="Légende"
+              onPress={() => setSheet('legend')}
+            />
           </View>
 
           {/* CALENDAR CARD */}
@@ -388,11 +522,10 @@ function PostpartumCalendarContent(): React.JSX.Element {
                 const isPostpartumDay =
                   Boolean(deliveryDate) &&
                   diffDays(date, deliveryDate as Date) >= 0;
-                const hasData = Boolean(
-                  entries[dateKey(date)] ||
-                    lochiaEntries[dateKey(date)] ||
-                    postpartum.firstPostpartumPeriodDate === dateKey(date),
-                );
+                const markers = categoriesPresent(
+                  entries[dateKey(date)],
+                  lochiaEntries[dateKey(date)],
+                ).filter(key => visibleFilters.has(key));
                 const lightText = selected || isDelivery;
 
                 return (
@@ -432,14 +565,21 @@ function PostpartumCalendarContent(): React.JSX.Element {
                           {formatHijriDay(date)}
                         </Text>
                       ) : null}
-                      {hasData ? (
+                      {markers.length > 0 ? (
                         <View style={styles.markerRow}>
-                          <View
-                            style={[
-                              styles.marker,
-                              lightText && styles.markerLight,
-                            ]}
-                          />
+                          {markers.slice(0, 4).map(key => (
+                            <View
+                              key={key}
+                              style={[
+                                styles.marker,
+                                backgroundColorStyle(
+                                  lightText
+                                    ? '#FFFFFF'
+                                    : CATEGORY_META[key].color,
+                                ),
+                              ]}
+                            />
+                          ))}
                         </View>
                       ) : null}
                     </Pressable>
@@ -450,27 +590,22 @@ function PostpartumCalendarContent(): React.JSX.Element {
 
             {/* INLINE LEGEND */}
             <View style={styles.inlineLegend}>
+              {CATEGORY_KEYS.map(key => (
+                <View key={key} style={styles.inlineLegendItem}>
+                  <View
+                    style={[
+                      styles.inlineLegendDot,
+                      backgroundColorStyle(CATEGORY_META[key].color),
+                    ]}
+                  />
+                  <Text style={styles.inlineLegendText}>
+                    {CATEGORY_META[key].label}
+                  </Text>
+                </View>
+              ))}
               <View style={styles.inlineLegendItem}>
-                <View
-                  style={[styles.inlineLegendDot, styles.legendDeliveryDot]}
-                />
-                <Text style={styles.inlineLegendText}>Accouchement</Text>
-              </View>
-              <View style={styles.inlineLegendItem}>
-                <View
-                  style={[styles.inlineLegendDot, styles.legendTrackingDot]}
-                />
-                <Text style={styles.inlineLegendText}>Suivi post-partum</Text>
-              </View>
-              <View style={styles.inlineLegendItem}>
-                <View style={[styles.inlineLegendDot, styles.legendDataDot]} />
-                <Text style={styles.inlineLegendText}>
-                  Données enregistrées
-                </Text>
-              </View>
-              <View style={styles.inlineLegendItem}>
-                <View style={styles.inlineSelectedIndicator} />
-                <Text style={styles.inlineLegendText}>Jour sélectionné</Text>
+                <View style={styles.inlineTodayIndicator} />
+                <Text style={styles.inlineLegendText}>Aujourd’hui</Text>
               </View>
             </View>
           </View>
@@ -533,36 +668,38 @@ function PostpartumCalendarContent(): React.JSX.Element {
                 </View>
 
                 <View style={styles.dataRows}>
-                  <Pressable
-                    accessibilityLabel="Lochies"
-                    accessibilityRole="button"
-                    onPress={() => navigation.navigate('PostpartumLochia')}
-                    style={({ pressed }) => [
-                      styles.dataRow,
-                      pressed && styles.pressed,
-                    ]}
-                  >
-                    <View style={[styles.dataRowIcon, styles.lochiesIcon]}>
+                  {showLochiaRow ? (
+                    <Pressable
+                      accessibilityLabel="Lochies"
+                      accessibilityRole="button"
+                      onPress={() => navigation.navigate('PostpartumLochia')}
+                      style={({ pressed }) => [
+                        styles.dataRow,
+                        pressed && styles.pressed,
+                      ]}
+                    >
+                      <View style={[styles.dataRowIcon, styles.lochiesIcon]}>
+                        <MaterialDesignIcons
+                          color={DELIVERY_COLOR}
+                          name="water-outline"
+                          size={18}
+                        />
+                      </View>
+                      <View style={styles.flexCopy}>
+                        <Text style={styles.dataRowLabel}>Lochies</Text>
+                        <Text style={styles.dataRowValue}>
+                          {selectedLochia
+                            ? `${selectedLochia.flow} · ${selectedLochia.color}`
+                            : 'Non renseigné'}
+                        </Text>
+                      </View>
                       <MaterialDesignIcons
-                        color={DELIVERY_COLOR}
-                        name="water-outline"
+                        color={homeColors.primary}
+                        name="chevron-right"
                         size={18}
                       />
-                    </View>
-                    <View style={styles.flexCopy}>
-                      <Text style={styles.dataRowLabel}>Lochies</Text>
-                      <Text style={styles.dataRowValue}>
-                        {selectedLochia
-                          ? `${selectedLochia.flow} · ${selectedLochia.color}`
-                          : 'Non renseigné'}
-                      </Text>
-                    </View>
-                    <MaterialDesignIcons
-                      color={homeColors.primary}
-                      name="chevron-right"
-                      size={18}
-                    />
-                  </Pressable>
+                    </Pressable>
+                  ) : null}
 
                   {isFirstPeriodSelected ? (
                     <View style={styles.dataRow}>
@@ -582,48 +719,368 @@ function PostpartumCalendarContent(): React.JSX.Element {
                     </View>
                   ) : null}
 
-                  {selectedJournalRows.length === 0 ? (
-                    <Text style={styles.emptyText}>
-                      Aucune donnée enregistrée pour cette journée.
-                    </Text>
-                  ) : (
-                    selectedJournalRows.map(row => (
-                      <View key={row.key} style={styles.dataRow}>
-                        <View style={styles.dataRowIcon}>
+                  {visibleJournalRows.length > 0
+                    ? visibleJournalRows.map(row => (
+                        <View key={row.key} style={styles.dataRow}>
+                          <View style={styles.dataRowIcon}>
+                            <MaterialDesignIcons
+                              color={homeColors.primary}
+                              name={row.icon}
+                              size={18}
+                            />
+                          </View>
+                          <View style={styles.flexCopy}>
+                            <Text style={styles.dataRowLabel}>{row.label}</Text>
+                            <Text numberOfLines={2} style={styles.dataRowValue}>
+                              {row.value}
+                            </Text>
+                          </View>
+                        </View>
+                      ))
+                    : !hasAnyVisibleData && !isFirstPeriodSelected ? (
+                        <View style={styles.emptyBox}>
                           <MaterialDesignIcons
-                            color={homeColors.primary}
-                            name={row.icon}
-                            size={18}
+                            color={homeColors.textSecondary}
+                            name="information-outline"
+                            size={19}
                           />
-                        </View>
-                        <View style={styles.flexCopy}>
-                          <Text style={styles.dataRowLabel}>{row.label}</Text>
-                          <Text numberOfLines={2} style={styles.dataRowValue}>
-                            {row.value}
+                          <Text style={styles.emptyText}>
+                            Aucune donnée enregistrée pour cette journée.
                           </Text>
+                          {isTodaySelected ? (
+                            <Pressable
+                              accessibilityLabel="Ajouter au journal"
+                              accessibilityRole="button"
+                              onPress={openPostpartumJournal}
+                              style={({ pressed }) => [
+                                styles.addButton,
+                                pressed && styles.pressed,
+                              ]}
+                            >
+                              <MaterialDesignIcons
+                                color="#FFFFFF"
+                                name="plus"
+                                size={16}
+                              />
+                              <Text style={styles.addButtonText}>
+                                Ajouter au journal
+                              </Text>
+                            </Pressable>
+                          ) : null}
                         </View>
-                      </View>
-                    ))
-                  )}
+                      ) : null}
                 </View>
               </>
             )}
           </View>
         </ScrollView>
+
+        {/* SHEET */}
+        <PostpartumCalendarSheet
+          mode={sheet}
+          onClose={() => setSheet(null)}
+          onToggle={toggleFilter}
+          showHijri={showHijri}
+          today={today}
+          visibleFilters={visibleFilters}
+        />
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
+  );
+}
+
+/* ============================================================
+   HEADER ACTION
+============================================================ */
+
+function HeaderAction({
+  icon,
+  label,
+  onPress,
+}: {
+  icon: IconName;
+  label: string;
+  onPress: () => void;
+}): React.JSX.Element {
+  return (
+    <Pressable
+      accessibilityLabel={label}
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => [styles.headerAction, pressed && styles.pressed]}
+    >
+      <MaterialDesignIcons color={homeColors.primary} name={icon} size={18} />
+      <Text style={styles.headerActionLabel}>{label}</Text>
+    </Pressable>
+  );
+}
+
+/* ============================================================
+   CALENDAR SHEET — Filtres / Légende, same premium bottom-sheet
+   pattern as the other objectives' calendars. The Légende sheet's
+   footer ("Fermer") stays flexShrink:0 below a scrollable list, so
+   it can never be hidden behind the Android nav bar/tab bar.
+============================================================ */
+
+function PostpartumCalendarSheet({
+  mode,
+  onClose,
+  onToggle,
+  visibleFilters,
+  today,
+  showHijri,
+}: {
+  mode: 'filters' | 'legend' | null;
+  onClose: () => void;
+  onToggle: (key: PostpartumCalendarCategory) => void;
+  visibleFilters: Set<PostpartumCalendarCategory>;
+  today: Date;
+  showHijri: boolean;
+}): React.JSX.Element {
+  const insets = useSafeAreaInsets();
+
+  return (
+    <Modal
+      animationType="fade"
+      onRequestClose={onClose}
+      statusBarTranslucent
+      transparent
+      visible={mode !== null}
+    >
+      <View style={styles.modalRoot}>
+        <Pressable
+          accessibilityLabel="Fermer"
+          onPress={onClose}
+          style={styles.backdrop}
+        />
+
+        {mode === 'legend' ? (
+          <View
+            style={[
+              styles.sheet,
+              styles.legendSheet,
+              { paddingBottom: Math.max(insets.bottom, 10) },
+            ]}
+          >
+            <View style={styles.handle} />
+
+            <ScrollView
+              bounces={false}
+              contentContainerStyle={styles.legendScrollContent}
+              showsVerticalScrollIndicator={false}
+              style={styles.legendScroll}
+            >
+              <View style={styles.legendSheetHeader}>
+                <Text style={styles.legendSheetTitle}>
+                  Légende du calendrier
+                </Text>
+                <Text style={styles.legendSheetSubtitle}>
+                  Comprendre les couleurs et repères utilisés.
+                </Text>
+              </View>
+
+              <View style={styles.legendRows}>
+                {CATEGORY_KEYS.map((key, index) => {
+                  const meta = CATEGORY_META[key];
+                  return (
+                    <View
+                      key={key}
+                      style={[
+                        styles.legendRow,
+                        index === CATEGORY_KEYS.length - 1 &&
+                          styles.legendRowLast,
+                      ]}
+                    >
+                      <View style={styles.legendLargeIcon}>
+                        <MaterialDesignIcons
+                          color={homeColors.primary}
+                          name={meta.icon}
+                          size={27}
+                        />
+                      </View>
+                      <View
+                        style={[
+                          styles.legendDotLarge,
+                          backgroundColorStyle(meta.color),
+                        ]}
+                      />
+                      <View style={styles.legendRowCopy}>
+                        <Text style={styles.legendRowTitle}>{meta.label}</Text>
+                        <Text style={styles.legendRowText}>
+                          {meta.description}
+                        </Text>
+                      </View>
+                    </View>
+                  );
+                })}
+              </View>
+
+              <View style={styles.todayLegend}>
+                <View style={styles.todayLegendPreview}>
+                  <Text style={styles.todayLegendDay}>{today.getDate()}</Text>
+                  {showHijri ? (
+                    <Text style={styles.todayLegendHijri}>
+                      {formatHijriDay(today)}
+                    </Text>
+                  ) : null}
+                </View>
+                <View style={styles.todayCopy}>
+                  <Text style={styles.todayTitle}>Aujourd’hui</Text>
+                  <Text style={styles.todayText}>
+                    Le contour noir en pointillés indique la date d’aujourd’hui.
+                  </Text>
+                </View>
+              </View>
+            </ScrollView>
+
+            <View style={styles.legendFooter}>
+              <Pressable
+                accessibilityLabel="Fermer la légende"
+                accessibilityRole="button"
+                onPress={onClose}
+                style={({ pressed }) => [
+                  styles.closeLegendButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={styles.closeLegendText}>Fermer</Text>
+              </Pressable>
+            </View>
+          </View>
+        ) : mode === 'filters' ? (
+          <View
+            style={[
+              styles.sheet,
+              styles.filterSheet,
+              { paddingBottom: Math.max(insets.bottom, 10) },
+            ]}
+          >
+            <View style={styles.handle} />
+
+            <View style={styles.filterSheetHeader}>
+              <Text style={styles.filterSheetTitle}>Filtres du calendrier</Text>
+              <Text style={styles.filterSheetSubtitle}>
+                Choisis les informations à afficher sur ton calendrier.
+              </Text>
+            </View>
+
+            <ScrollView
+              bounces={false}
+              contentContainerStyle={styles.filterRows}
+              showsVerticalScrollIndicator={false}
+              style={styles.filterScroll}
+            >
+              {CATEGORY_KEYS.map((key, index) => {
+                const meta = CATEGORY_META[key];
+                const active = visibleFilters.has(key);
+                return (
+                  <Pressable
+                    accessibilityRole="switch"
+                    accessibilityState={{ checked: active }}
+                    key={key}
+                    onPress={() => onToggle(key)}
+                    style={[
+                      styles.filterRow,
+                      index === CATEGORY_KEYS.length - 1 &&
+                        styles.filterRowLast,
+                    ]}
+                  >
+                    <View style={styles.filterIcon}>
+                      <MaterialDesignIcons
+                        color={homeColors.primary}
+                        name={meta.icon}
+                        size={24}
+                      />
+                    </View>
+                    <View style={styles.filterCopy}>
+                      <Text style={styles.filterTitle}>{meta.label}</Text>
+                      <Text style={styles.filterDescription}>
+                        {meta.description}
+                      </Text>
+                    </View>
+                    <View
+                      style={[
+                        styles.switchTrack,
+                        active && styles.switchTrackActive,
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.switchThumb,
+                          active && styles.switchThumbActive,
+                        ]}
+                      />
+                    </View>
+                  </Pressable>
+                );
+              })}
+            </ScrollView>
+
+            <View style={styles.filterFooter}>
+              <Pressable
+                accessibilityRole="button"
+                onPress={onClose}
+                style={({ pressed }) => [
+                  styles.doneButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={styles.doneText}>Terminé</Text>
+              </Pressable>
+            </View>
+          </View>
+        ) : null}
+      </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1, backgroundColor: '#F8F4FC' },
+  background: { flex: 1, backgroundColor: '#F2ECF8' },
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+  },
+
   safeArea: { flex: 1 },
-  content: { paddingHorizontal: 16, paddingTop: 16 },
+  content: { paddingHorizontal: 16, paddingTop: TOP_SPACING_EXTRA },
   flexCopy: { flex: 1, minWidth: 0 },
   pressed: { opacity: 0.78 },
 
   /* HEADER */
-  header: { marginBottom: 12 },
+  header: { flexDirection: 'row', alignItems: 'center', marginBottom: 12 },
+  headerCopy: { flex: 1, minWidth: 0 },
   title: {
     color: homeColors.textPrimary,
     fontFamily: 'serif',
@@ -631,6 +1088,24 @@ const styles = StyleSheet.create({
     fontWeight: '800',
   },
   subtitle: { marginTop: 2, color: homeColors.textSecondary, fontSize: 10.5 },
+  headerAction: {
+    ...homeShadow,
+    width: 52,
+    height: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 6,
+    borderWidth: 1,
+    borderColor: homeColors.cardBorder,
+    borderRadius: 17,
+    backgroundColor: '#FFFFFF',
+  },
+  headerActionLabel: {
+    marginTop: 2,
+    color: homeColors.primary,
+    fontSize: 8,
+    fontWeight: '800',
+  },
 
   /* CALENDAR */
   calendarCard: {
@@ -723,13 +1198,7 @@ const styles = StyleSheet.create({
   },
 
   markerRow: { position: 'absolute', bottom: 3, flexDirection: 'row', gap: 2 },
-  marker: {
-    width: 3.5,
-    height: 3.5,
-    borderRadius: 2,
-    backgroundColor: homeColors.primary,
-  },
-  markerLight: { backgroundColor: '#FFFFFF' },
+  marker: { width: 3.5, height: 3.5, borderRadius: 2 },
 
   /* INLINE LEGEND */
   inlineLegend: {
@@ -743,26 +1212,15 @@ const styles = StyleSheet.create({
     borderTopColor: '#E9E2F0',
   },
   inlineLegendItem: { flexDirection: 'row', alignItems: 'center' },
-  inlineLegendDot: { width: 9, height: 9, marginRight: 4, borderRadius: 5 },
-  legendDeliveryDot: { backgroundColor: DELIVERY_COLOR },
-  legendTrackingDot: {
-    backgroundColor: homeColors.lightLavender,
-    borderWidth: 1,
-    borderColor: 'rgba(111,78,190,0.25)',
-  },
-  legendDataDot: {
-    width: 7,
-    height: 7,
-    marginRight: 4,
-    marginTop: 1,
-    backgroundColor: homeColors.primary,
-  },
-  inlineSelectedIndicator: {
-    width: 12,
-    height: 12,
+  inlineLegendDot: { width: 7, height: 7, marginRight: 4, borderRadius: 4 },
+  inlineTodayIndicator: {
+    width: 15,
+    height: 15,
     marginRight: 5,
-    borderRadius: 6,
-    backgroundColor: homeColors.primary,
+    borderWidth: 1.5,
+    borderColor: '#2F2938',
+    borderStyle: 'dashed',
+    borderRadius: 5,
   },
   inlineLegendText: {
     color: homeColors.textSecondary,
@@ -881,12 +1339,268 @@ const styles = StyleSheet.create({
     lineHeight: 15,
   },
 
+  emptyBox: {
+    alignItems: 'center',
+    marginTop: 4,
+    padding: 15,
+    borderRadius: 16,
+    backgroundColor: '#F7F3FC',
+  },
   emptyText: {
     marginTop: 4,
     color: homeColors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
     textAlign: 'center',
+  },
+  addButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginTop: 12,
+    minHeight: 42,
+    paddingHorizontal: 16,
+    borderRadius: 15,
+    backgroundColor: homeColors.primary,
+  },
+  addButtonText: { color: '#FFFFFF', fontSize: 12.5, fontWeight: '800' },
+
+  /* MODAL */
+  modalRoot: { flex: 1, justifyContent: 'flex-end' },
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(35,22,65,0.34)',
+  },
+  sheet: {
+    maxHeight: '90%',
+    paddingTop: 9,
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    backgroundColor: '#FCFAFF',
+    overflow: 'hidden',
+  },
+  handle: {
+    width: 44,
+    height: 5,
+    alignSelf: 'center',
+    flexShrink: 0,
+    borderRadius: 3,
+    backgroundColor: '#CBB9F7',
+  },
+
+  /* FILTER SHEET */
+  filterSheet: { height: '88%' },
+  filterScroll: { flex: 1, minHeight: 0 },
+  filterSheetHeader: {
+    flexShrink: 0,
+    marginTop: 18,
+    marginBottom: 10,
+    paddingHorizontal: 22,
+  },
+  filterSheetTitle: {
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 24,
+    fontWeight: '800',
+  },
+  filterSheetSubtitle: {
+    marginTop: 8,
+    color: homeColors.textSecondary,
+    fontSize: 13,
+    lineHeight: 18,
+  },
+  filterRows: { paddingHorizontal: 22, paddingBottom: 10 },
+  filterRow: {
+    minHeight: 66,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#E5DDEF',
+  },
+  filterRowLast: { borderBottomWidth: 0 },
+  filterIcon: {
+    width: 44,
+    height: 44,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    backgroundColor: '#F0E9FC',
+  },
+  filterCopy: { flex: 1, minWidth: 0, marginHorizontal: 12 },
+  filterTitle: {
+    color: homeColors.textPrimary,
+    fontSize: 13,
+    fontWeight: '800',
+  },
+  filterDescription: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 14,
+  },
+  switchTrack: {
+    width: 42,
+    height: 24,
+    flexShrink: 0,
+    justifyContent: 'center',
+    paddingHorizontal: 2,
+    borderRadius: 13,
+    backgroundColor: '#D7D0DF',
+  },
+  switchTrackActive: { backgroundColor: homeColors.primary },
+  switchThumb: {
+    ...homeShadow,
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  switchThumbActive: { alignSelf: 'flex-end' },
+  filterFooter: {
+    flexShrink: 0,
+    paddingHorizontal: 22,
+    paddingTop: 10,
+    paddingBottom: 4,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#E7DFEF',
+    backgroundColor: '#FCFAFF',
+  },
+  doneButton: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: homeColors.primary,
+  },
+  doneText: { color: '#FFFFFF', fontSize: 14, fontWeight: '800' },
+
+  /* LEGEND SHEET */
+  legendSheet: { height: '88%', paddingHorizontal: 0 },
+  legendScroll: { flex: 1, minHeight: 0 },
+  legendScrollContent: {
+    paddingHorizontal: 22,
+    paddingTop: 4,
+    paddingBottom: 16,
+  },
+  legendSheetHeader: { marginTop: 18 },
+  legendSheetTitle: {
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 24,
+    fontWeight: '800',
+  },
+  legendSheetSubtitle: {
+    marginTop: 7,
+    color: homeColors.textSecondary,
+    fontSize: 13,
+  },
+  legendRows: { marginTop: 16 },
+  legendRow: {
+    minHeight: 88,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#E7E0EE',
+  },
+  legendRowLast: { borderBottomWidth: 0 },
+  legendLargeIcon: {
+    width: 54,
+    height: 54,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: '#EFE8FC',
+  },
+  legendDotLarge: {
+    width: 11,
+    height: 11,
+    flexShrink: 0,
+    marginLeft: 16,
+    borderRadius: 6,
+  },
+  legendRowCopy: { flex: 1, minWidth: 0, marginLeft: 14 },
+  legendRowTitle: {
+    color: homeColors.textPrimary,
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  legendRowText: {
+    marginTop: 4,
+    color: homeColors.textSecondary,
+    fontSize: 11,
+    lineHeight: 16,
+  },
+
+  todayLegend: {
+    minHeight: 90,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 14,
+    padding: 13,
+    borderWidth: 1,
+    borderColor: '#E5DDF0',
+    borderRadius: 20,
+    backgroundColor: '#FAF7FE',
+  },
+  todayLegendPreview: {
+    width: 52,
+    height: 58,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 14,
+    borderWidth: 1.8,
+    borderColor: '#2F2938',
+    borderStyle: 'dashed',
+    borderRadius: 15,
+    backgroundColor: '#FFFFFF',
+  },
+  todayLegendDay: {
+    color: homeColors.textPrimary,
+    fontSize: 17,
+    fontWeight: '800',
+  },
+  todayLegendHijri: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 9,
+    fontWeight: '600',
+  },
+  todayCopy: { flex: 1, minWidth: 0 },
+  todayTitle: {
+    color: homeColors.textPrimary,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+  todayText: {
+    marginTop: 4,
+    color: homeColors.textSecondary,
+    fontSize: 11,
+    lineHeight: 16,
+  },
+
+  legendFooter: {
+    flexShrink: 0,
+    paddingHorizontal: 22,
+    paddingTop: 10,
+    paddingBottom: 4,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: '#E7DFEF',
+    backgroundColor: '#FCFAFF',
+  },
+  closeLegendButton: {
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: homeColors.lightLavender,
+  },
+  closeLegendText: {
+    color: homeColors.primary,
+    fontSize: 14,
+    fontWeight: '800',
   },
 });
 
