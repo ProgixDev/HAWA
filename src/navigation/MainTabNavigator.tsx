@@ -18,6 +18,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {POSTPARTUM_JOURNAL_ITEMS} from '../config/postpartumJournalConfig';
 import {MISCARRIAGE_JOURNAL_ITEMS} from '../config/miscarriageJournalConfig';
+import {CONCEPTION_JOURNAL_ITEMS} from '../config/conceptionJournalConfig';
 import {requirePrivateAccess} from './privateAccess';
 
 // Pregnancy's own "Journal quotidien" content — same shared sheet chrome as
@@ -151,6 +152,26 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
         actions={miscarriageActions}
         onClose={close}
         subtitle="Prends un instant pour toi aujourd’hui."
+        title="Journal quotidien"
+        visible={visible}
+      />
+    );
+  }
+
+  if (objective === 'conceive') {
+    const conceiveActions: JournalSheetAction[] = CONCEPTION_JOURNAL_ITEMS.map(item => ({
+      key: item.route,
+      icon: item.icon,
+      title: item.title,
+      subtitle: item.subtitle,
+      tint: item.tint,
+      onPress: () => {close(); navigation.navigate(item.route);},
+    }));
+    return (
+      <DailyJournalSheet
+        actions={conceiveActions}
+        onClose={close}
+        subtitle="Ton suivi de fertilité, un jour à la fois."
         title="Journal quotidien"
         visible={visible}
       />

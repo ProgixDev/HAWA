@@ -44,6 +44,8 @@ import JournalSymptomsScreen from '../screens/journal/JournalSymptomsScreen';
 import JournalMoodScreen from '../screens/journal/JournalMoodScreen';
 import JournalFlowScreen from '../screens/journal/JournalFlowScreen';
 import JournalTemperatureScreen from '../screens/journal/JournalTemperatureScreen';
+import JournalCervicalMucusScreen from '../screens/journal/JournalCervicalMucusScreen';
+import JournalLHTestScreen from '../screens/journal/JournalLHTestScreen';
 import JournalSleepScreen from '../screens/journal/JournalSleepScreen';
 import JournalActivityScreen from '../screens/journal/JournalActivityScreen';
 import JournalHydrationWeightScreen from '../screens/journal/JournalHydrationWeightScreen';
@@ -158,6 +160,8 @@ export type RootStackParamList = {
   MoodEntry: undefined;
   FlowEntry: undefined;
   TemperatureEntry: undefined;
+  CervicalMucusEntry: undefined;
+  LHTestEntry: undefined;
   SleepEntry: undefined;
   ActivityEntry: undefined;
   HydrationWeightEntry: undefined;
@@ -315,6 +319,11 @@ function AppNavigator({
           name="TemperatureEntry"
           component={JournalTemperatureScreen}
         />
+        <Stack.Screen
+          name="CervicalMucusEntry"
+          component={JournalCervicalMucusScreen}
+        />
+        <Stack.Screen name="LHTestEntry" component={JournalLHTestScreen} />
         <Stack.Screen name="SleepEntry" component={JournalSleepScreen} />
         <Stack.Screen name="ActivityEntry" component={JournalActivityScreen} />
         <Stack.Screen
