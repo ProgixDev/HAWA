@@ -10,7 +10,9 @@
     "test": "jest"
   },
   "dependencies": {
+    "@dr.pogodin/react-native-fs": "^2.40.0",
     "@maplibre/maplibre-react-native": "^11.3.6",
+    "@noble/ciphers": "^2.3.0",
     "@notifee/react-native": "^9.1.8",
     "@react-native-async-storage/async-storage": "^3.1.1",
     "@react-native-community/datetimepicker": "^9.1.0",
@@ -23,6 +25,7 @@
     "js-sha256": "^1.0.0",
     "react": "19.1.0",
     "react-native": "0.80.2",
+    "react-native-get-random-values": "^1.11.0",
     "react-native-image-picker": "^8.2.1",
     "react-native-keychain": "^10.0.0",
     "react-native-linear-gradient": "^2.8.3",

@@ -11,12 +11,15 @@ import {
 import {
   getActiveObjective,
   hydrateActiveObjective,
+  hydrateCyclePreferences,
   hydrateSpiritualMarkersEnabled,
   subscribeActiveObjective,
+  subscribeCyclePreferences,
   subscribeSpiritualMarkersEnabled,
 } from './src/state/onboardingPreferences';
 import { resyncAllPregnancyNotifications } from './src/utils/pregnancyReminderScheduling';
 import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
+import { syncConceptionReminders } from './src/utils/conceptionReminderScheduling';
 import {
   hydratePostpartumPreferences,
   subscribePostpartumPreferences,
@@ -26,10 +29,11 @@ import {
   subscribePostpartumLochia,
 } from './src/state/postpartumLochiaStore';
 import { openPendingPostpartumNifasNotification } from './src/services/postpartumNifasNotificationNavigation';
+import { openPendingConceptionReminderNotification } from './src/services/conceptionReminderNotificationNavigation';
 import { registerNotificationForegroundHandlers } from './src/services/notificationForegroundHandlers';
 import { reconcileInAppNotifications } from './src/services/inAppNotificationReconciliation';
 import { hydrateInAppNotifications } from './src/state/inAppNotificationStore';
-import {hydrateConceptionPreferences} from './src/state/conceptionPreferences';
+import {hydrateConceptionPreferences, subscribeConceptionPreferences} from './src/state/conceptionPreferences';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
@@ -77,6 +81,22 @@ subscribePostpartumPreferences(syncNifasReminders);
 subscribePostpartumLochia(syncNifasReminders);
 subscribePrivacySecuritySettings(syncNifasReminders);
 
+// TTC ("Essayer de concevoir") local reminders — objective-specific like
+// Nifas above; syncConceptionReminders() itself cancels every TTC
+// notification when the active objective isn't 'conceive', so switching
+// away cleanly clears them and switching back reschedules them. Re-runs on
+// cycle-preference changes (a new confirmed period start shifts the fertile
+// window/ovulation dates) and on conceptionPreferences changes (toggling a
+// "Rappels personnalisés" switch) so the schedule never lags behind either.
+Promise.all([
+  hydrateActiveObjective(),
+  hydrateCyclePreferences(),
+  hydrateConceptionPreferences(),
+]).then(syncConceptionReminders);
+subscribeActiveObjective(syncConceptionReminders);
+subscribeCyclePreferences(syncConceptionReminders);
+subscribeConceptionPreferences(syncConceptionReminders);
+
 function App(): React.JSX.Element {
   const [lockState, setLockState] = React.useState(getAppLockState);
   const [privacyCover, setPrivacyCover] = React.useState(false);
@@ -110,7 +130,12 @@ function App(): React.JSX.Element {
         barStyle="light-content"
         hidden
       />
-      <AppNavigator onReady={openPendingPostpartumNifasNotification} />
+      <AppNavigator
+        onReady={() => {
+          openPendingPostpartumNifasNotification();
+          openPendingConceptionReminderNotification();
+        }}
+      />
       {lockState === 'locked' ? <AppLockScreen /> : null}
       {privacyCover ? <View accessibilityLabel="AWA protégée" style={styles.privacyCover}><Text style={styles.privacyCoverText}>AWA</Text><Text style={styles.privacyCoverSubtext}>Ton espace reste privé</Text></View> : null}
     </SafeAreaProvider>
