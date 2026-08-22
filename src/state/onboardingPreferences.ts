@@ -49,8 +49,19 @@ let objectiveHydrated = false;
 let objectiveHydration: Promise<ObjectiveId> | null = null;
 let objectiveRevision = 0;
 const objectiveListeners = new Set<() => void>();
-let firstName = 'Amina';
+// No fake placeholder — genuinely empty until personalInformationStore.ts
+// (the canonical persisted source; this is only a synchronous in-memory
+// mirror of it) has real data to push in via setFirstName() below.
+let firstName = '';
 let spiritualMarkersEnabled = true;
+// Provenance flag: true only once the user (or an existing pre-fix install
+// — see the migration branch in hydrateSpiritualMarkersEnabled()) has
+// actually confirmed a real choice. `spiritualMarkersEnabled` itself stays a
+// plain boolean for every existing consumer (dashboards/Library/reminders/
+// Settings/Summary) — this flag is consulted only by the onboarding screen,
+// which must never let "Suivant" silently persist the untouched default as
+// if it were a deliberate choice.
+let hasConfirmedSpiritualMarkersChoice = false;
 let spiritualMarkersHydration: Promise<boolean> | null = null;
 const spiritualMarkersListeners = new Set<() => void>();
 let selectedSchool: SchoolId | null = null;
@@ -74,6 +85,15 @@ const cycleListeners = new Set<() => void>();
 let cycleHydrated = false;
 let cycleHydration: Promise<CyclePreferences> | null = null;
 let periodHistory: PeriodHistoryRecord[] = [];
+// Provenance flag: true only once the user has gone through a legitimate
+// cycle-confirmation flow (CycleInformationScreen, confirmPeriodStart(), or
+// updateCurrentPeriodRange() — the only 3 call sites that ever set it).
+// Never inferred by comparing lastPeriodStart/periodDuration/cycleDuration
+// against the fallback constants below, since a real user can legitimately
+// land on those exact values. Used by TTC (and only TTC today) to decide
+// whether it's safe to present cycle-derived predictions as personalized
+// fact, or must show an honest "configure ton cycle" state instead.
+let hasConfirmedCycleData = false;
 // Anchor date for the 'unknown' regularity observation window (see
 // computeCyclePredictionStatus() in cycleMath.ts). Deliberately NOT a fresh
 // "now" timestamp — it's derived from the same lastPeriodStart every other
@@ -97,6 +117,7 @@ const cycleSnapshot = () => ({
   observationStartedAt: cycleObservationStartedAt
     ? cycleObservationStartedAt.toISOString()
     : null,
+  hasConfirmedCycleData,
 });
 
 const notifyCycleListeners = () =>
@@ -154,8 +175,14 @@ export const subscribeActiveObjective = (listener: () => void) => {
 export const setSelectedObjective = setActiveObjective;
 export const getSelectedObjective = getActiveObjective;
 
+/** THE single legitimate way to record a real spiritual-markers choice —
+ * called by SpiritualPreferencesScreen.tsx (onboarding, only once she's
+ * explicitly tapped one of the two options) and ProfileScreen.tsx's Settings
+ * toggle. Marks the choice as confirmed so onboarding never mistakes the
+ * internal default for a deliberate answer again. */
 export const setSpiritualMarkersEnabled = (value: boolean) => {
   spiritualMarkersEnabled = value;
+  hasConfirmedSpiritualMarkersChoice = true;
   spiritualMarkersListeners.forEach(listener => listener());
   AsyncStorage.setItem(
     SPIRITUAL_MARKERS_STORAGE_KEY,
@@ -165,6 +192,13 @@ export const setSpiritualMarkersEnabled = (value: boolean) => {
 
 export const getSpiritualMarkersEnabled = () => spiritualMarkersEnabled;
 
+/** True once a real choice exists — either just made this session, or
+ * migrated from an existing install (see hydrateSpiritualMarkersEnabled()).
+ * Consult this — never a value comparison — before treating the current
+ * boolean as something the user actually chose. Only the onboarding screen
+ * needs this; every other consumer only ever wants the plain boolean. */
+export const getHasConfirmedSpiritualMarkersChoice = (): boolean => hasConfirmedSpiritualMarkersChoice;
+
 export const hydrateSpiritualMarkersEnabled = (): Promise<boolean> => {
   if (!spiritualMarkersHydration) {
     spiritualMarkersHydration = AsyncStorage.getItem(
@@ -172,7 +206,13 @@ export const hydrateSpiritualMarkersEnabled = (): Promise<boolean> => {
     )
       .then(value => {
         if (value !== null) {
+          // The key can only exist on disk because a real
+          // setSpiritualMarkersEnabled() call wrote it (onboarding or
+          // Settings) — so its mere presence is itself proof of a real
+          // prior choice, whatever that value is. Preserve it exactly;
+          // never reset or reinterpret it.
           spiritualMarkersEnabled = value === 'true';
+          hasConfirmedSpiritualMarkersChoice = true;
         }
         spiritualMarkersListeners.forEach(listener => listener());
         return spiritualMarkersEnabled;
@@ -264,10 +304,12 @@ export const subscribeSelectedLocation = (listener: () => void) => {
   };
 };
 
+// Mirrors personalInformationStore's real preferredName/firstName, including
+// clearing to '' when she has none (or deliberately removed it) — never
+// guards against an empty value, since that would silently keep a stale
+// name after a real, deliberate clear.
 export const setFirstName = (value: string) => {
-  if (value.trim()) {
-    firstName = value.trim();
-  }
+  firstName = value.trim();
 };
 
 export const getFirstName = () => firstName;
@@ -279,6 +321,7 @@ export const setCyclePreferences = (value: CyclePreferences) => {
     ...value,
     lastPeriodStart: new Date(value.lastPeriodStart),
   };
+  hasConfirmedCycleData = true;
 
   // Entering 'unknown' (freshly, or again after having left it) starts a new
   // observation window anchored to the real period start just declared;
@@ -346,6 +389,13 @@ export const getCyclePreferences = (): CyclePreferences => ({
   lastPeriodStart: new Date(cyclePreferences.lastPeriodStart),
 });
 
+/** True only once real cycle information has actually been confirmed by the
+ * user (see the `hasConfirmedCycleData` field comment above for the exact 3
+ * legitimate call sites). Consult this — never a comparison against
+ * 28/5/"today minus 5 days" — before treating cyclePreferences as
+ * personalized fact. */
+export const getHasConfirmedCycleData = (): boolean => hasConfirmedCycleData;
+
 export const getPeriodHistory = (): PeriodHistoryRecord[] =>
   periodHistory.map(item => ({ ...item }));
 
@@ -383,6 +433,7 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
     cycleHydration = AsyncStorage.getItem(CYCLE_STORAGE_KEY)
       .then(raw => {
         cycleHydrated = true;
+        let migratedFromUnflaggedRecord = false;
         if (raw) {
           const parsed = JSON.parse(raw) as {
             preferences?: Partial<CyclePreferences> & {
@@ -390,6 +441,7 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
             };
             periodHistory?: PeriodHistoryRecord[];
             observationStartedAt?: string | null;
+            hasConfirmedCycleData?: boolean;
           };
           const start = parsed.preferences?.lastPeriodStart
             ? new Date(parsed.preferences.lastPeriodStart)
@@ -415,6 +467,19 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
               cycleObservationStartedAt = observationStart;
             }
           }
+          // Migration for installs from before this flag existed: the only
+          // way this blob could ever have been written to disk at all is
+          // through setCyclePreferences()/updateCurrentPeriodRange() (see
+          // persistCycle()'s call sites) — both real-confirmation paths — so
+          // a persisted blob predating this field is itself the evidence.
+          // A blob that already carries an explicit boolean (post-migration
+          // steady state) is trusted as-is instead.
+          if (typeof parsed.hasConfirmedCycleData === 'boolean') {
+            hasConfirmedCycleData = parsed.hasConfirmedCycleData;
+          } else {
+            hasConfirmedCycleData = true;
+            migratedFromUnflaggedRecord = true;
+          }
         }
         if (periodHistory.length === 0) {
           const start = cyclePreferences.lastPeriodStart;
@@ -432,6 +497,9 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
           ];
         }
         notifyCycleListeners();
+        if (migratedFromUnflaggedRecord) {
+          persistCycle().catch(() => {});
+        }
         return getCyclePreferences();
       })
       .catch(() => {
@@ -501,6 +569,7 @@ export const updateCurrentPeriodRange = async (
     periodDuration: duration,
     cycleDuration,
   };
+  hasConfirmedCycleData = true;
   notifyCycleListeners();
   await persistCycle();
   return getCyclePreferences();
