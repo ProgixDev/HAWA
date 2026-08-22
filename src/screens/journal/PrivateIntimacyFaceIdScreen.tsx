@@ -21,7 +21,7 @@ function getBiometrySubtitle(type: Keychain.BIOMETRY_TYPE | null): string {
   return 'Utilise ta biométrie pour déverrouiller\ncet espace privé.';
 }
 
-export default function PrivateIntimacyFaceIdScreen({navigation}: Props): React.JSX.Element {
+export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const shake = useRef(new Animated.Value(0)).current;
@@ -55,7 +55,7 @@ export default function PrivateIntimacyFaceIdScreen({navigation}: Props): React.
     try {
       setBusy(true);
       setError('');
-      if (await authenticateWithBiometry()) {unlockIntimacy(); navigation.replace('IntimacyEntry'); return;}
+      if (await authenticateWithBiometry()) {unlockIntimacy(); navigation.replace(route.params?.target === 'conception' ? 'JournalConceptionReports' : route.params?.target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry'); return;}
       fail('Authentification non reconnue. Réessaie.');
     } catch {
       fail('Authentification non reconnue. Réessaie.');
@@ -111,7 +111,7 @@ export default function PrivateIntimacyFaceIdScreen({navigation}: Props): React.
             <Text style={styles.primaryText}>{busy ? 'Vérification…' : buttonLabel}</Text>
           </Pressable>
 
-          <Pressable accessibilityLabel="Utiliser le code privé" hitSlop={10} onPress={() => navigation.replace('PrivateIntimacyPin')}>
+          <Pressable accessibilityLabel="Utiliser le code privé" hitSlop={10} onPress={() => navigation.replace('PrivateIntimacyPin', {target: route.params?.target})}>
             <Text style={styles.link}>Utiliser le code privé à la place</Text>
           </Pressable>
         </View>
@@ -136,4 +136,3 @@ const styles = StyleSheet.create({
   pressed: {opacity: 0.82, transform: [{scale: 0.99}]},
   disabled: {opacity: 0.55},
 });
-

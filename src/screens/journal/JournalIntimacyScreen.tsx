@@ -4,9 +4,10 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {saveJournalSection} from '../../state/dailyJournalStore';
+import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
+import {encryptIntimacySection, resolveIntimacySection} from '../../services/privateJournalEncryption';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 
 const PURPLE = '#7142BD';
@@ -40,6 +41,18 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   const [activePicker, setActivePicker] = useState<PickerType | null>(null);
   const [saving, setSaving] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  // Whether today's entry still has the old plaintext `intimacy` field (and
+  // no `encryptedIntimacy` yet) — this screen doesn't prefill its form from
+  // existing data (a pre-existing, unrelated behavior), but Save still needs
+  // to know this to safely migrate: the legacy field is only ever deleted
+  // AFTER the new encrypted write succeeds, never before.
+  const [hadLegacyPlaintextIntimacy, setHadLegacyPlaintextIntimacy] = useState(false);
+  // Set when an encrypted payload exists for today but can't be decrypted
+  // (corrupted/tampered) — an honest failure state, matching the same
+  // "Impossible de lire ces données privées." message already shown by the
+  // sibling JournalConceptionReportsScreen.tsx. Never auto-cleared except by
+  // an explicit new Save, which overwrites it.
+  const [corrupted, setCorrupted] = useState(false);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
   const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -48,7 +61,14 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
     return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
   }, []);
   const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday:'long', day:'numeric', month:'long'}).format(new Date());
-  useEffect(() => {if (!isIntimacyUnlocked()) {navigation.navigate('PrivateIntimacyUnlock');}}, [navigation]);
+  useEffect(() => {
+    if (!isIntimacyUnlocked()) {navigation.navigate('PrivateIntimacyUnlock'); return;}
+    getJournalEntry(new Date().toLocaleDateString('en-CA')).then(async entry => {
+      setHadLegacyPlaintextIntimacy(Boolean(entry?.intimacy) && !entry?.encryptedIntimacy);
+      const {corrupted: isCorrupted} = await resolveIntimacySection(entry);
+      setCorrupted(isCorrupted);
+    });
+  }, [navigation]);
 
   const openPicker = (picker: PickerType) => {
     if (!hasReport) {
@@ -143,20 +163,35 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
 
     try {
       setSaving(true);
+      if (__DEV__) {console.log('[INTIMACY_SAVE][CYCLE] start');}
 
-      await saveJournalSection(
-        new Date().toLocaleDateString('en-CA'),
-        'intimacy',
-        {
-          answer: hasReport ? 'yes' : 'no',
-          libido: hasReport ? libido : undefined,
-          discomfort: hasReport ? symptoms.join(', ') : undefined,
-          note: note.trim(),
-        },
-      );
+      const date = new Date().toLocaleDateString('en-CA');
+      const encrypted = await encryptIntimacySection({
+        answer: hasReport ? 'yes' : 'no',
+        libido: hasReport ? libido : undefined,
+        discomfort: hasReport ? symptoms.join(', ') : undefined,
+        note: note.trim(),
+      });
+      if (__DEV__) {console.log('[INTIMACY_SAVE][CYCLE] encryption ok');}
+      await saveJournalSection(date, 'encryptedIntimacy', encrypted);
+      if (__DEV__) {console.log('[INTIMACY_SAVE][CYCLE] AsyncStorage write ok');}
+
+      // Only delete the old plaintext field once the new encrypted write
+      // has actually succeeded above — never before, and never if this day
+      // had no legacy field to begin with.
+      if (hadLegacyPlaintextIntimacy) {
+        await deleteJournalSection(date, 'intimacy');
+        setHadLegacyPlaintextIntimacy(false);
+        if (__DEV__) {console.log('[INTIMACY_SAVE][CYCLE] legacy plaintext cleanup ok');}
+      }
+      setCorrupted(false);
 
       showSuccessToast();
-    } catch {
+    } catch (error) {
+      if (__DEV__) {
+        const safe = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+        console.log('[INTIMACY_SAVE][CYCLE] FAILED:', safe);
+      }
       Alert.alert(
         'Erreur',
         "Impossible d'enregistrer ces informations pour le moment.",
@@ -185,6 +220,13 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         </ImageBackground>
 
         <View style={styles.privateArea}>
+          {corrupted ? (
+            <View style={styles.noReportMessage}>
+              <MaterialDesignIcons color="#9C8CAF" name="alert-circle-outline" size={18} />
+              <Text style={styles.noReportText}>Impossible de lire ces données privées.</Text>
+            </View>
+          ) : null}
+
           <Card>
             <View style={styles.reportTitleRow}>
               <Heading

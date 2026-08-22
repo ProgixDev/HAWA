@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyPin'>;
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'empty', '0', 'delete'] as const;
 const PURPLE = '#6736B4';
 
-export default function PrivateIntimacyPinScreen({navigation}: Props): React.JSX.Element {
+export default function PrivateIntimacyPinScreen({navigation, route}: Props): React.JSX.Element {
   const {height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const compact = height < 720;
@@ -42,13 +42,13 @@ export default function PrivateIntimacyPinScreen({navigation}: Props): React.JSX
   const complete = async (value: string) => {
     try {
       if (configured) {
-        if (await verifyPrivatePin(value)) {unlockIntimacy(); navigation.replace('IntimacyEntry');}
+        if (await verifyPrivatePin(value)) {unlockIntimacy(); navigation.replace(route.params?.target === 'conception' ? 'JournalConceptionReports' : route.params?.target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry');}
         else {fail('Code incorrect. Réessaie.');}
         return;
       }
       if (!first) {setFirst(value); setPin(''); setError('Confirme ton nouveau code.'); return;}
       if (first !== value) {setFirst(''); fail('Les codes ne correspondent pas. Recommence.'); return;}
-      await savePrivatePin(value); unlockIntimacy(); navigation.replace('IntimacyEntry');
+      await savePrivatePin(value); unlockIntimacy(); navigation.replace(route.params?.target === 'conception' ? 'JournalConceptionReports' : route.params?.target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry');
     } catch (err) {
       console.error('[PrivateIntimacyPin] verify/save failed', err);
       fail('Une erreur est survenue. Réessaie.');

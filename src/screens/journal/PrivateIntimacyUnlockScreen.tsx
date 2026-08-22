@@ -11,7 +11,7 @@ import {getBiometryLabel, getBiometryType, hasPrivatePin} from '../../services/p
 const PURPLE = '#6736B4';
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyUnlock'>;
 
-export default function PrivateIntimacyUnlockScreen({navigation}: Props): React.JSX.Element {
+export default function PrivateIntimacyUnlockScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
   const compact = height < 700;
@@ -19,9 +19,10 @@ export default function PrivateIntimacyUnlockScreen({navigation}: Props): React.
   const [biometryLabel, setBiometryLabel] = useState('Utiliser la biométrie');
   const [biometryAvailable, setBiometryAvailable] = useState(false);
   const [pinConfigured, setPinConfigured] = useState(false);
+  const target = route.params?.target;
 
   useEffect(() => {
-    if (isIntimacyUnlocked()) {navigation.replace('IntimacyEntry'); return;}
+    if (isIntimacyUnlocked()) {navigation.replace(target === 'conception' ? 'JournalConceptionReports' : target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry'); return;}
     Promise.all([loadSecurityPreferences(), getBiometryType(), hasPrivatePin()]).then(([, type, hasPin]) => {
       setBiometryAvailable(Boolean(type) && isBiometricEnabled());
       setBiometryLabel(getBiometryLabel(type));
@@ -31,7 +32,7 @@ export default function PrivateIntimacyUnlockScreen({navigation}: Props): React.
       setPinConfigured(false);
     });
     AccessibilityInfo.isReduceMotionEnabled().then(reduce => Animated.timing(progress, {toValue:1,duration:reduce?0:380,easing:Easing.out(Easing.cubic),useNativeDriver:true}).start());
-  }, [navigation, progress]);
+  }, [navigation, progress, target]);
 
   return <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
     <SafeAreaView edges={['top','bottom']} style={styles.flex}>
@@ -46,8 +47,8 @@ export default function PrivateIntimacyUnlockScreen({navigation}: Props): React.
       </Animated.View>
 
       <View style={[styles.actionsCard,compact&&styles.actionsCardCompact]}>
-        {biometryAvailable && <Pressable accessibilityHint="Ouvre l'écran de déverrouillage Face ID" accessibilityLabel={biometryLabel} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyFaceId')} style={({pressed})=>[styles.primary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.primaryIcon}><MaterialDesignIcons color="#FFFFFF" name="face-recognition" size={30}/></View><View style={styles.buttonCopy}><Text style={styles.primaryTitle}>{biometryLabel}</Text><Text style={styles.primarySubtitle}>Déverrouiller avec biométrie</Text></View><MaterialDesignIcons color="#FFFFFF" name="chevron-right" size={28}/></Pressable>}
-        <Pressable accessibilityHint="Ouvre le clavier du code privé" accessibilityLabel={pinConfigured?'Saisir le code privé':'Configurer un code privé'} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyPin')} style={({pressed})=>[styles.secondary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.secondaryIcon}><MaterialDesignIcons color="#3F168C" name="lock-outline" size={28}/></View><View style={styles.buttonCopy}><Text style={styles.secondaryTitle}>{pinConfigured?'Saisir le code privé':'Configurer un code privé'}</Text><Text style={styles.secondarySubtitle}>{pinConfigured?'Utiliser ton code à 6 chiffres':'Créer un code sécurisé à 6 chiffres'}</Text></View><MaterialDesignIcons color="#35117E" name="chevron-right" size={28}/></Pressable>
+        {biometryAvailable && <Pressable accessibilityHint="Ouvre l'écran de déverrouillage Face ID" accessibilityLabel={biometryLabel} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyFaceId', {target: route.params?.target})} style={({pressed})=>[styles.primary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.primaryIcon}><MaterialDesignIcons color="#FFFFFF" name="face-recognition" size={30}/></View><View style={styles.buttonCopy}><Text style={styles.primaryTitle}>{biometryLabel}</Text><Text style={styles.primarySubtitle}>Déverrouiller avec biométrie</Text></View><MaterialDesignIcons color="#FFFFFF" name="chevron-right" size={28}/></Pressable>}
+        <Pressable accessibilityHint="Ouvre le clavier du code privé" accessibilityLabel={pinConfigured?'Saisir le code privé':'Configurer un code privé'} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyPin', {target: route.params?.target})} style={({pressed})=>[styles.secondary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.secondaryIcon}><MaterialDesignIcons color="#3F168C" name="lock-outline" size={28}/></View><View style={styles.buttonCopy}><Text style={styles.secondaryTitle}>{pinConfigured?'Saisir le code privé':'Configurer un code privé'}</Text><Text style={styles.secondarySubtitle}>{pinConfigured?'Utiliser ton code à 6 chiffres':'Créer un code sécurisé à 6 chiffres'}</Text></View><MaterialDesignIcons color="#35117E" name="chevron-right" size={28}/></Pressable>
         <View style={[styles.privacy,compact&&styles.privacyCompact]}><View style={styles.privacyIcon}><MaterialDesignIcons color={PURPLE} name="shield-lock" size={25}/></View><View style={styles.privacyCopy}><Text style={styles.privacyTitle}>Ta confidentialité est notre priorité</Text><Text style={styles.privacyText}>Tes données restent privées et ne sont accessibles que par toi.</Text></View></View>
       </View>
     </View>
