@@ -29,6 +29,7 @@ export type JournalRoute = Extract<
   | 'TemperatureEntry'
   | 'CervicalMucusEntry'
   | 'LHTestEntry'
+  | 'CycleEvolutionEntry'
   | 'SleepEntry'
   | 'ActivityEntry'
   | 'HydrationWeightEntry'
@@ -36,6 +37,7 @@ export type JournalRoute = Extract<
   | 'MenstrualFlowScreen'
   | 'NoteEntry'
   | 'PrivateIntimacyUnlock'
+  | 'JournalConceptionReports'
   | 'PrivatePhotoEntry'
 >;
 

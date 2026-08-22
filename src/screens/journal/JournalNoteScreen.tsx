@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
   Animated,
@@ -16,11 +16,12 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useNavigation, type NavigationProp} from '@react-navigation/native';
+import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {saveJournalSection} from '../../state/dailyJournalStore';
+import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {resolvePrivatePhotos} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 
 const PURPLE = '#7040B4';
@@ -37,6 +38,7 @@ export default function JournalNoteScreen(): React.JSX.Element {
   const [hidden, setHidden] = useState(false);
   const [saving, setSaving] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
+  const [photoCount, setPhotoCount] = useState(0);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
   const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -63,6 +65,21 @@ export default function JournalNoteScreen(): React.JSX.Element {
       }
     };
   }, []);
+
+  // Reflects how many private photos already exist for today (0-5) so this
+  // card never shows a stale "Ajouter" prompt — kept in sync on focus since
+  // photos are added/removed on a different screen (PrivatePhotoEntry) that
+  // we navigate away to and back from. resolvePrivatePhotos() also covers a
+  // legacy single-photo entry saved before multi-photo support existed.
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      getJournalEntry(storageDate).then(entry => {
+        if (active) {setPhotoCount(resolvePrivatePhotos(entry).length);}
+      });
+      return () => {active = false;};
+    }, [storageDate]),
+  );
 
   const showSuccessToast = () => {
     if (successToastTimeout.current) {
@@ -298,11 +315,19 @@ export default function JournalNoteScreen(): React.JSX.Element {
               </View>
               
             </View>
-            <Pressable onPress={() => navigation.navigate('PrivatePhotoEntry')} style={styles.photoEmpty}>
-              <View style={styles.photoPlus}><MaterialDesignIcons color="#FFFFFF" name="plus" size={29} /></View>
-              <Text style={styles.photoEmptyTitle}>Ajouter une photo privée</Text>
-              <Text style={styles.photoEmptyText}>Tes photos restent uniquement sur ton appareil.</Text>
-            </Pressable>
+            {photoCount > 0 ? (
+              <Pressable onPress={() => navigation.navigate('PrivatePhotoEntry')} style={[styles.photoEmpty, styles.photoAdded]}>
+                <View style={[styles.photoPlus, styles.photoAddedIcon]}><MaterialDesignIcons color="#FFFFFF" name="check" size={24} /></View>
+                <Text style={styles.photoEmptyTitle}>{photoCount === 1 ? '1 photo ajoutée' : `${photoCount} photos ajoutées`}</Text>
+                <Text style={styles.photoEmptyText}>Touche pour voir, remplacer ou supprimer.</Text>
+              </Pressable>
+            ) : (
+              <Pressable onPress={() => navigation.navigate('PrivatePhotoEntry')} style={styles.photoEmpty}>
+                <View style={styles.photoPlus}><MaterialDesignIcons color="#FFFFFF" name="plus" size={29} /></View>
+                <Text style={styles.photoEmptyTitle}>Ajouter des photos privées</Text>
+                <Text style={styles.photoEmptyText}>Tes photos restent uniquement sur ton appareil.</Text>
+              </Pressable>
+            )}
 
             <View style={styles.protection}>
               <View style={styles.protectionIcon}><MaterialDesignIcons color={PURPLE} name="shield-lock-outline" size={27} /></View>
@@ -753,6 +778,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F7F0FA',
   },
 
+  photoAdded: {
+    borderStyle: 'solid',
+    borderColor: '#B9A0D6',
+    backgroundColor: '#F0E7F8',
+  },
+
   photoPlus: {
     width: 39,
     height: 39,
@@ -760,6 +791,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 20,
     backgroundColor: PURPLE,
+  },
+
+  photoAddedIcon: {
+    backgroundColor: '#4E9D6E',
   },
 
   photoEmptyTitle: {
