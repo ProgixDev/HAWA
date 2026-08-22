@@ -9,6 +9,7 @@ import SplashScreen from '../screens/SplashScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ObjectiveScreen from '../screens/ObjectiveScreen';
 import CycleObjectiveConfirmationScreen from '../screens/CycleObjectiveConfirmationScreen';
+import NameOnboardingScreen from '../screens/NameOnboardingScreen';
 import SpiritualPreferencesScreen from '../screens/SpiritualPreferencesScreen';
 import LocationScreen from '../screens/LocationScreen';
 import {ConceptionTryingDurationScreen, ConceptionOvulationAwarenessScreen, ConceptionIndicatorsScreen, ConceptionRemindersScreen} from '../screens/ConceptionOnboardingScreens';
@@ -46,6 +47,7 @@ import JournalFlowScreen from '../screens/journal/JournalFlowScreen';
 import JournalTemperatureScreen from '../screens/journal/JournalTemperatureScreen';
 import JournalCervicalMucusScreen from '../screens/journal/JournalCervicalMucusScreen';
 import JournalLHTestScreen from '../screens/journal/JournalLHTestScreen';
+import JournalCycleEvolutionScreen from '../screens/journal/JournalCycleEvolutionScreen';
 import JournalSleepScreen from '../screens/journal/JournalSleepScreen';
 import JournalActivityScreen from '../screens/journal/JournalActivityScreen';
 import JournalHydrationWeightScreen from '../screens/journal/JournalHydrationWeightScreen';
@@ -53,6 +55,7 @@ import HydrationScreen from '../screens/journal/HydrationScreen';
 import MenstrualFlowScreen from '../screens/journal/MenstrualFlowScreen';
 import JournalNoteScreen from '../screens/journal/JournalNoteScreen';
 import JournalIntimacyScreen from '../screens/journal/JournalIntimacyScreen';
+import JournalConceptionReportsScreen from '../screens/journal/JournalConceptionReportsScreen';
 import PrivateIntimacyUnlockScreen from '../screens/journal/PrivateIntimacyUnlockScreen';
 import PrivateIntimacyPinScreen from '../screens/journal/PrivateIntimacyPinScreen';
 import PrivateIntimacyFaceIdScreen from '../screens/journal/PrivateIntimacyFaceIdScreen';
@@ -119,16 +122,21 @@ export type RootStackParamList = {
   Welcome: undefined;
   Objective: undefined;
   CycleObjectiveConfirmation: undefined;
+  NameOnboarding: undefined;
   SpiritualPreferences: undefined;
-  Location: undefined;
+  Location: {mode?: 'onboarding' | 'edit'} | undefined;
   ConceptionTryingDuration: undefined;
   ConceptionOvulationAwareness: undefined;
   ConceptionIndicators: undefined;
   ConceptionReminders: undefined;
-  CycleInformation: undefined;
+  // `fromDashboardCTA` is set only when reached from an in-app "Configure
+  // ton cycle" prompt (e.g. TTC Dashboard/Calendar/Statistics) rather than
+  // from the onboarding stack — every existing onboarding call site passes
+  // no params, so this is additive and doesn't change their behavior.
+  CycleInformation: {fromDashboardCTA?: boolean} | undefined;
   PostpartumDeliveryDate: undefined;
   PostpartumDeliveryType: undefined;
-  PostpartumFeeding: undefined;
+  PostpartumFeeding: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumLochia: undefined;
   PostpartumJournalEntry: { category: PostpartumJournalCategory };
   PostpartumCycleReturn: undefined;
@@ -162,6 +170,7 @@ export type RootStackParamList = {
   TemperatureEntry: undefined;
   CervicalMucusEntry: undefined;
   LHTestEntry: undefined;
+  CycleEvolutionEntry: undefined;
   SleepEntry: undefined;
   ActivityEntry: undefined;
   HydrationWeightEntry: undefined;
@@ -169,9 +178,10 @@ export type RootStackParamList = {
   MenstrualFlowScreen: undefined;
   NoteEntry: undefined;
   IntimacyEntry: undefined;
-  PrivateIntimacyUnlock: undefined;
-  PrivateIntimacyPin: undefined;
-  PrivateIntimacyFaceId: undefined;
+  JournalConceptionReports: undefined;
+  PrivateIntimacyUnlock: {target?: 'cycle' | 'conception' | 'photos'} | undefined;
+  PrivateIntimacyPin: {target?: 'cycle' | 'conception' | 'photos'} | undefined;
+  PrivateIntimacyFaceId: {target?: 'cycle' | 'conception' | 'photos'} | undefined;
   PrivatePhotoEntry: undefined;
   PersonalInformation: undefined;
   GeneralHealth: undefined;
@@ -226,6 +236,10 @@ function AppNavigator({
         <Stack.Screen
           name="CycleObjectiveConfirmation"
           component={CycleObjectiveConfirmationScreen}
+        />
+        <Stack.Screen
+          name="NameOnboarding"
+          component={NameOnboardingScreen}
         />
         <Stack.Screen
           name="SpiritualPreferences"
@@ -313,6 +327,7 @@ function AppNavigator({
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
         <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         <Stack.Screen name="SymptomEntry" component={JournalSymptomsScreen} />
+        <Stack.Screen name="CycleEvolutionEntry" component={JournalCycleEvolutionScreen} />
         <Stack.Screen name="MoodEntry" component={JournalMoodScreen} />
         <Stack.Screen name="FlowEntry" component={JournalFlowScreen} />
         <Stack.Screen
@@ -337,6 +352,7 @@ function AppNavigator({
         />
         <Stack.Screen name="NoteEntry" component={JournalNoteScreen} />
         <Stack.Screen name="IntimacyEntry" component={JournalIntimacyScreen} />
+        <Stack.Screen name="JournalConceptionReports" component={JournalConceptionReportsScreen} />
         <Stack.Screen
           name="PrivateIntimacyUnlock"
           component={PrivateIntimacyUnlockScreen}
