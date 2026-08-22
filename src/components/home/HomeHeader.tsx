@@ -63,9 +63,11 @@ function HomeHeader({
       <View style={styles.greetingCopy}>
         <Text style={styles.greeting}>As-salamu ‘alaykum,</Text>
 
-        <Text numberOfLines={2} style={styles.name}>
-          {firstName} 🌸
-        </Text>
+        {firstName.trim().length > 0 && (
+          <Text numberOfLines={2} style={styles.name}>
+            {firstName} 🌸
+          </Text>
+        )}
 
         <Text style={styles.subtitle}>{subtitle}</Text>
       </View>

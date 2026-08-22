@@ -39,6 +39,7 @@ import {
   getSpiritualMarkersEnabled,
 } from '../state/onboardingPreferences';
 import {getJournalEntry} from '../state/dailyJournalStore';
+import {withResolvedIntimacyForDisplay} from '../services/privateJournalEncryption';
 import type {DailyJournalEntry} from '../types/journal';
 import {TOP_SPACING_EXTRA} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
@@ -123,9 +124,11 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       loadPersonalInformation().then(() => {
         if (mounted) {setProfileRevision(current => current + 1);}
       });
-      getJournalEntry(new Date().toLocaleDateString('en-CA')).then(entry => {
-        if (mounted) {setJournalEntry(entry);}
-      });
+      getJournalEntry(new Date().toLocaleDateString('en-CA'))
+        .then(withResolvedIntimacyForDisplay)
+        .then(entry => {
+          if (mounted) {setJournalEntry(entry);}
+        });
       return () => {mounted = false;};
     }, []),
   );
