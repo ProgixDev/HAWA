@@ -526,7 +526,10 @@ function PostpartumCalendarContent(): React.JSX.Element {
                   entries[dateKey(date)],
                   lochiaEntries[dateKey(date)],
                 ).filter(key => visibleFilters.has(key));
-                const lightText = selected || isDelivery;
+                // Never white-out text/markers on Today — it keeps a
+                // neutral fill (styles.todayDayBorder) with no strong-colored
+                // background left to contrast against.
+                const lightText = (selected || isDelivery) && !isToday;
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
@@ -541,9 +544,12 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         isPostpartumDay &&
                           !isDelivery &&
                           !selected &&
+                          !isToday &&
                           styles.trackingDay,
-                        isDelivery && !selected && styles.deliveryDay,
-                        selected && styles.selectedDay,
+                        // TODAY always wins over delivery/selected backgrounds
+                        // so the dashed outline and journal markers stay legible.
+                        isDelivery && !selected && !isToday && styles.deliveryDay,
+                        selected && !isToday && styles.selectedDay,
                         isToday && styles.todayDayBorder,
                       ]}
                     >
@@ -1191,6 +1197,9 @@ const styles = StyleSheet.create({
   deliveryDay: { backgroundColor: DELIVERY_COLOR },
   selectedDay: { backgroundColor: homeColors.primary },
   todayDayBorder: {
+    // Neutral fill — always wins over delivery/selected backgrounds so the
+    // dashed outline and journal markers stay legible.
+    backgroundColor: homeColors.lightLavender,
     borderWidth: 1.7,
     borderColor: '#2F2938',
     borderStyle: 'dashed',

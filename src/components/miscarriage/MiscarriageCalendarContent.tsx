@@ -523,11 +523,15 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                 const markers = categoriesPresent(dayEntry).filter(key =>
                   visibleFilters.has(key),
                 );
-                // Light text is ONLY for the strong-purple selected fill.
-                // Event-day cells (returnedPeriodDay/miscarriageDay) use a
-                // light lavender/pink background, so their number must stay
-                // dark — forcing white text there made dates unreadable.
-                const lightText = selected;
+                // Light text is ONLY for the strong-purple selected fill —
+                // and never for Today, which keeps a neutral fill (see
+                // styles.todayDay) with no colored background to contrast
+                // against, so every marker/text color must render at full,
+                // real value there. Event-day cells (returnedPeriodDay/
+                // miscarriageDay) use a light lavender/pink background, so
+                // their number must stay dark — forcing white text there
+                // made dates unreadable.
+                const lightText = selected && !isToday;
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
@@ -538,11 +542,14 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                       onPress={() => setSelectedDate(date)}
                       style={[
                         styles.dayButton,
+                        // TODAY always wins over every colored background so
+                        // the dashed outline and journal markers stay legible.
                         isReturnedPeriodDay &&
                           !selected &&
+                          !isToday &&
                           styles.returnedPeriodDay,
-                        isMiscarriageDay && !selected && styles.miscarriageDay,
-                        selected && styles.selectedDay,
+                        isMiscarriageDay && !selected && !isToday && styles.miscarriageDay,
+                        selected && !isToday && styles.selectedDay,
                         isToday && styles.todayDay,
                       ]}
                     >
@@ -550,10 +557,9 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                         style={[
                           styles.dayText,
                           lightText && styles.lightText,
-                          // Selected always wins (white-on-purple); today
-                          // only gets the bold dark-violet treatment when
-                          // it isn't also selected.
-                          isToday && !selected && styles.todayDayText,
+                          // Today keeps its bold dark-violet treatment even
+                          // when also selected — see `lightText` above.
+                          isToday && styles.todayDayText,
                         ]}
                       >
                         {date.getDate()}
@@ -564,7 +570,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                           style={[
                             styles.hijriDay,
                             lightText && styles.lightText,
-                            isToday && !selected && styles.todayHijriText,
+                            isToday && styles.todayHijriText,
                           ]}
                         >
                           {formatHijriDay(date)}
@@ -1151,6 +1157,9 @@ const styles = StyleSheet.create({
   },
   selectedDay: { backgroundColor: homeColors.primary },
   todayDay: {
+    // Neutral fill — always wins over event/selected backgrounds so the
+    // dashed outline and journal markers stay legible.
+    backgroundColor: homeColors.lightLavender,
     borderWidth: 1.7,
     borderColor: '#2F2938',
     borderStyle: 'dashed',

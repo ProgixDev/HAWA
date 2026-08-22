@@ -39,7 +39,7 @@ import {
   type PregnancyJournalState,
 } from '../../state/pregnancyJournalStore';
 
-import {getJournalEntry} from '../../state/dailyJournalStore';
+import {getJournalEntriesForMonth, getJournalEntry} from '../../state/dailyJournalStore';
 
 import {
   getPregnancyDating,
@@ -544,6 +544,13 @@ function PregnancyCalendarContent(): React.JSX.Element {
   ] =
     useState<DailyJournalEntry>();
 
+  // Mood/Sleep for the WHOLE visible month (unlike `dailyEntry` above, which
+  // is only the single `selectedDate`) — needed so the month-grid dots below
+  // can reflect a mood/sleep save on any day, not just the currently
+  // selected one. Same `getJournalEntriesForMonth` API Cycle's own
+  // CalendarScreen.tsx already uses for its own month-grid dots.
+  const [monthDailyEntries, setMonthDailyEntries] = useState<Record<string, DailyJournalEntry>>({});
+
   const [dating, setDating] = useState(getPregnancyDating);
   const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>([]);
 
@@ -730,6 +737,31 @@ function PregnancyCalendarContent(): React.JSX.Element {
         mounted = false;
       };
     }, [selectedKey]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      let mounted = true;
+
+      getJournalEntriesForMonth(
+        visibleMonth.getFullYear(),
+        visibleMonth.getMonth(),
+      ).then(entries => {
+        if (!mounted) {
+          return;
+        }
+
+        const map: Record<string, DailyJournalEntry> = {};
+        entries.forEach(entry => {
+          map[entry.date] = entry;
+        });
+        setMonthDailyEntries(map);
+      });
+
+      return () => {
+        mounted = false;
+      };
+    }, [visibleMonth]),
   );
 
   /* ============================================================
@@ -1070,6 +1102,31 @@ function PregnancyCalendarContent(): React.JSX.Element {
                           ),
                       );
 
+                  // Daily-tracking activity for this day — symptoms/weight/
+                  // medical info come straight from `pregnancyJournal`
+                  // (already loaded in full, no extra fetch needed); mood/
+                  // sleep come from `monthDailyEntries` (the shared
+                  // dailyJournalStore, fetched for the whole visible month).
+                  // Reuses the existing "Note" teal (EVENT_META.note.color)
+                  // rather than inventing a new color, matching how Cycle's
+                  // own calendar groups its non-phase categories into one
+                  // shared dot color.
+                  const cellKey = dateKey(date);
+                  const hasDailyTracking =
+                    (visibleFilters.has('symptoms') && pregnancyJournal.symptoms.some(entry => entry.date === cellKey)) ||
+                    (visibleFilters.has('weight') && pregnancyJournal.weights.some(entry => entry.date === cellKey)) ||
+                    (visibleFilters.has('medical') && pregnancyJournal.medicalInformation?.date === cellKey) ||
+                    (visibleFilters.has('mood') && Boolean(monthDailyEntries[cellKey]?.mood)) ||
+                    (visibleFilters.has('sleep') && Boolean(monthDailyEntries[cellKey]?.sleep));
+
+                  const dotColors = markers
+                    .slice(0, 3)
+                    .map(event => EVENT_META[event.type].color);
+                  if (hasDailyTracking && !dotColors.includes(EVENT_META.note.color)) {
+                    dotColors.push(EVENT_META.note.color);
+                  }
+                  const visibleDots = Array.from(new Set(dotColors)).slice(0, 3);
+
                   return (
                     <View
                       key={date.toISOString()}
@@ -1118,22 +1175,18 @@ function PregnancyCalendarContent(): React.JSX.Element {
                           </Text>
                         ) : null}
 
-                        {markers.length >
+                        {visibleDots.length >
                         0 ? (
                           <View
                             style={
                               styles.markerRow
                             }>
-                            {markers
-                              .slice(
-                                0,
-                                3,
-                              )
+                            {visibleDots
                               .map(
-                                event => (
+                                (color, dotIndex) => (
                                   <View
                                     key={
-                                      event.id
+                                      dotIndex
                                     }
                                     style={[
                                       styles.marker,
@@ -1141,11 +1194,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                                       backgroundColorStyle(
                                         selected && !isToday
                                           ? '#FFFFFF'
-                                          : EVENT_META[
-                                              event
-                                                .type
-                                            ]
-                                              .color,
+                                          : color,
                                       ),
                                     ]}
                                   />
@@ -1663,7 +1712,7 @@ function PregnancyCalendarSheet({
       'Prises de médicaments, vitamines ou autres rappels importants.',
 
     note:
-      'Notes personnelles ou informations importantes.',
+      'Suivi quotidien enregistré ce jour-là (symptômes, poids, humeur, sommeil ou informations médicales).',
   };
 
   return (
@@ -2461,8 +2510,11 @@ const styles =
 
       borderRadius: 13,
 
+      // Neutral fill — matches the same "Aujourd'hui" treatment used by
+      // every other objective's calendar (Cycle/Conceive/Miscarriage/
+      // Postpartum), instead of a fully transparent cell.
       backgroundColor:
-        'transparent',
+        homeColors.lightLavender,
     },
 
     dayText: {
