@@ -32,10 +32,12 @@ import { homeColors, homeShadow } from '../../components/home/homeTheme';
 import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
 
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
+import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
 import type { DailyJournalEntry } from '../../types/journal';
 
 import {
   getCyclePreferences,
+  getHasConfirmedCycleData,
   getPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
@@ -462,6 +464,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
 
   const [tab, setTab] = useState<TabKey>('summary');
   const [cyclePrefs, setCyclePrefs] = useState(getCyclePreferences);
+  const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
   const [allEntries, setAllEntries] = useState<DailyJournalEntry[]>([]);
   const tabAnimation = useRef(new Animated.Value(1)).current;
 
@@ -476,11 +479,13 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
     hydrateCyclePreferences().then(value => {
       if (active) {
         setCyclePrefs(value);
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
       }
     });
     const unsubscribe = subscribeCyclePreferences(() => {
       if (active) {
         setCyclePrefs(getCyclePreferences());
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
       }
     });
     return () => {
@@ -492,11 +497,13 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      getAllJournalEntries().then(entries => {
-        if (active) {
-          setAllEntries(entries);
-        }
-      });
+      getAllJournalEntries()
+        .then(withResolvedIntimacyForDisplayMany)
+        .then(entries => {
+          if (active) {
+            setAllEntries(entries);
+          }
+        });
       return () => {
         active = false;
       };
@@ -788,7 +795,9 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
               averageCycleLength={averageCycleLength}
               currentCycleDay={currentCycleDay}
               fertileRange={`${formatShortDate(fertileStartDate)} – ${formatShortDate(fertileEndDate)}`}
+              hasConfirmedCycleData={hasConfirmedCycleData}
               intercourseThisCycle={intercourseThisCycle}
+              onConfigureCycle={() => navigation.navigate('CycleInformation', { fromDashboardCTA: true })}
               ovulationDate={formatShortDate(ovulationDate)}
               positiveLhCount={positiveLhCount}
               temperatureCount={temperatureEntries.length}
@@ -799,6 +808,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
           {tab === 'temperature' ? (
             <TemperatureTab
               average={averageTemperature}
+              count={temperatureEntries.length}
               latest={latestTemperature?.temperature.value ?? null}
               latestDate={latestTemperature?.date}
               max={maxTemperature}
@@ -824,6 +834,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
           {tab === 'cycle' ? (
             <CycleTab
               averageLength={averageCycleLength}
+              hasConfirmedCycleData={hasConfirmedCycleData}
               intercourseThisCycle={intercourseThisCycle}
               longest={longestCycle}
               shortest={shortestCycle}
@@ -849,6 +860,8 @@ function SummaryTab({
   positiveLhCount,
   intercourseThisCycle,
   temperatureTrend,
+  hasConfirmedCycleData,
+  onConfigureCycle,
 }: {
   currentCycleDay: number;
   fertileRange: string;
@@ -858,6 +871,8 @@ function SummaryTab({
   positiveLhCount: number;
   intercourseThisCycle: number;
   temperatureTrend: Array<{ date: string; display: string; scaled: number }>;
+  hasConfirmedCycleData: boolean;
+  onConfigureCycle: () => void;
 }): React.JSX.Element {
   return (
     <>
@@ -872,14 +887,43 @@ function SummaryTab({
             title="Aperçu"
           />
 
-          <View style={styles.kpiGrid}>
-            <KpiCard accent="purple" icon="calendar-blank-outline" label="Jour du cycle" value={`Jour ${currentCycleDay}`} />
-            <KpiCard accent="green" icon="leaf" label="Fenêtre fertile" value={fertileRange} />
-            <KpiCard accent="blue" icon="egg-outline" label="Ovulation estimée" value={ovulationDate} />
-            <KpiCard accent="purple" icon="calendar-month-outline" label="Durée moyenne du cycle" value={`${averageCycleLength} j`} />
-            <KpiCard accent="pink" icon="thermometer" label="Températures enregistrées" value={String(temperatureCount)} />
-            <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
-          </View>
+          {hasConfirmedCycleData ? (
+            <View style={styles.kpiGrid}>
+              <KpiCard accent="purple" icon="calendar-blank-outline" label="Jour du cycle" value={`Jour ${currentCycleDay}`} />
+              <KpiCard accent="green" icon="leaf" label="Fenêtre fertile" value={fertileRange} />
+              <KpiCard accent="blue" icon="egg-outline" label="Ovulation estimée" value={ovulationDate} />
+              <KpiCard accent="purple" icon="calendar-month-outline" label="Durée moyenne du cycle" value={`${averageCycleLength} j`} />
+              <KpiCard accent="pink" icon="thermometer" label="Températures enregistrées" value={String(temperatureCount)} />
+              <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
+            </View>
+          ) : (
+            // Cycle day/fertile window/ovulation/average length all derive
+            // from the shared cyclePreferences baseline — until it's really
+            // confirmed, that's the app's internal fallback (28-day cycle),
+            // not a personalized prediction, so none of the 4 render here.
+            <View style={styles.insufficientDataWrap}>
+              <View style={styles.insufficientDataIcon}>
+                <MaterialDesignIcons color={PURPLE} name="calendar-alert-outline" size={22} />
+              </View>
+              <Text style={styles.insufficientDataTitle}>Configure ton cycle</Text>
+              <Text style={styles.insufficientDataText}>
+                Quelques informations sont nécessaires pour estimer ta fenêtre fertile.
+              </Text>
+              <Pressable
+                accessibilityLabel="Configurer mon cycle"
+                accessibilityRole="button"
+                onPress={onConfigureCycle}
+                style={({ pressed }) => [styles.insufficientDataCta, pressed && { opacity: 0.85 }]}
+              >
+                <MaterialDesignIcons color="#FFFFFF" name="calendar-edit" size={16} />
+                <Text style={styles.insufficientDataCtaText}>Configurer mon cycle</Text>
+              </Pressable>
+              <View style={styles.kpiGrid}>
+                <KpiCard accent="pink" icon="thermometer" label="Températures enregistrées" value={String(temperatureCount)} />
+                <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
+              </View>
+            </View>
+          )}
         </View>
       </AnimatedSection>
 
@@ -925,15 +969,17 @@ function SummaryTab({
             </Text>
           </View>
 
-          <View style={styles.statusCard}>
-            <View style={styles.statusIconPink}>
-              <MaterialDesignIcons color={PINK} name="egg-outline" size={23} />
+          {hasConfirmedCycleData ? (
+            <View style={styles.statusCard}>
+              <View style={styles.statusIconPink}>
+                <MaterialDesignIcons color={PINK} name="egg-outline" size={23} />
+              </View>
+              <Text style={styles.statusLabel}>Ovulation estimée</Text>
+              <Text numberOfLines={2} style={styles.statusValue}>
+                {ovulationDate}
+              </Text>
             </View>
-            <Text style={styles.statusLabel}>Ovulation estimée</Text>
-            <Text numberOfLines={2} style={styles.statusValue}>
-              {ovulationDate}
-            </Text>
-          </View>
+          ) : null}
         </View>
       </AnimatedSection>
 
@@ -968,6 +1014,7 @@ function TemperatureTab({
   min,
   max,
   trend,
+  count,
 }: {
   latest: number | null;
   latestDate: string | undefined;
@@ -975,6 +1022,10 @@ function TemperatureTab({
   min: number | null;
   max: number | null;
   trend: Array<{ date: string; display: string; scaled: number }>;
+  // True total of recorded measurements — NOT `trend.length`, which the
+  // chart above deliberately caps to the last 10 for readability (same
+  // convention as the Summary tab's own "Températures enregistrées" KPI).
+  count: number;
 }): React.JSX.Element {
   if (trend.length === 0) {
     return (
@@ -995,7 +1046,7 @@ function TemperatureTab({
       <AnimatedSection>
         <View style={styles.kpiGrid}>
           <KpiCard accent="pink" icon="thermometer" label="Dernière température" value={latest !== null ? `${latest.toFixed(1)}°` : '—'} />
-          <KpiCard accent="purple" icon="calendar-check-outline" label="Relevés enregistrés" value={String(trend.length)} />
+          <KpiCard accent="purple" icon="calendar-check-outline" label="Relevés enregistrés" value={String(count)} />
           <KpiCard accent="blue" icon="chart-line" label="Moyenne" value={average !== null ? `${average.toFixed(1)}°` : '—'} />
           <KpiCard accent="green" icon="arrow-collapse-vertical" label="Min / Max" value={min !== null && max !== null ? `${min.toFixed(1)}° / ${max.toFixed(1)}°` : '—'} />
         </View>
@@ -1168,12 +1219,14 @@ function CycleTab({
   shortest,
   longest,
   intercourseThisCycle,
+  hasConfirmedCycleData,
 }: {
   trend: Array<{ date: string; value: number }>;
   averageLength: number;
   shortest: number | null;
   longest: number | null;
   intercourseThisCycle: number;
+  hasConfirmedCycleData: boolean;
 }): React.JSX.Element {
   const maxLength = Math.max(...trend.map(item => item.value), 1);
 
@@ -1181,7 +1234,11 @@ function CycleTab({
     <>
       <AnimatedSection>
         <View style={styles.kpiGrid}>
-          <KpiCard accent="purple" icon="calendar-month-outline" label="Durée moyenne" value={`${averageLength} j`} />
+          {/* Without real history (trend.length === 0, always true until
+              cycle data is confirmed), averageLength silently falls back to
+              the internal cyclePreferences default — show "—" instead of
+              presenting that constant as a personalized average. */}
+          <KpiCard accent="purple" icon="calendar-month-outline" label="Durée moyenne" value={hasConfirmedCycleData ? `${averageLength} j` : '—'} />
           <KpiCard accent="blue" icon="arrow-collapse-vertical" label="Plus court / plus long" value={shortest !== null && longest !== null ? `${shortest} / ${longest} j` : '—'} />
           <KpiCard accent="pink" icon="heart-outline" label="Rapports ce cycle" value={String(intercourseThisCycle)} />
         </View>
@@ -1443,6 +1500,42 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     rowGap: 9,
   },
+
+  insufficientDataWrap: { alignItems: 'center', marginTop: 13, paddingVertical: 6 },
+  insufficientDataIcon: {
+    width: 46,
+    height: 46,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 17,
+    backgroundColor: PURPLE_SOFT,
+  },
+  insufficientDataTitle: {
+    marginTop: 11,
+    color: PURPLE_DARK,
+    fontFamily: 'serif',
+    fontSize: 16,
+    fontWeight: '700',
+  },
+  insufficientDataText: {
+    marginTop: 6,
+    color: TEXT_SECONDARY,
+    fontSize: 12.5,
+    lineHeight: 18,
+    textAlign: 'center',
+    paddingHorizontal: 8,
+  },
+  insufficientDataCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 15,
+    minHeight: 42,
+    borderRadius: 21,
+    backgroundColor: PURPLE,
+    paddingHorizontal: 18,
+  },
+  insufficientDataCtaText: { color: '#FFFFFF', fontSize: 12.5, fontWeight: '700' },
   kpiCard: {
     width: '48.4%',
     minWidth: 0,

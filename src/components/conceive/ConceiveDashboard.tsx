@@ -30,6 +30,7 @@ import {useQadaaStatus} from '../../hooks/useQadaaStatus';
 import {
   getCyclePreferences,
   getCycleObservationStartedAt,
+  getHasConfirmedCycleData,
   getPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
@@ -37,9 +38,11 @@ import {
   getSpiritualMarkersEnabled,
 } from '../../state/onboardingPreferences';
 import {getJournalEntry} from '../../state/dailyJournalStore';
+import {withResolvedIntimacyForDisplay} from '../../services/privateJournalEncryption';
 import type {DailyJournalEntry} from '../../types/journal';
 import {loadPersonalInformation} from '../../state/personalInformationStore';
 import {CONCEPTION_JOURNAL_ITEMS} from '../../config/conceptionJournalConfig';
+import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {LIBRARY_ARTICLES, type LibraryArticle} from '../../data/libraryContent';
 import {TOP_SPACING_EXTRA} from '../../theme/spacing';
@@ -312,6 +315,7 @@ const ARTICLE_IMAGES: Record<string, ReturnType<typeof require>> = {
 function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [initial, setCyclePreferencesState] = useState(getCyclePreferences);
+  const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
   const {open: openJournal} = useJournalSheet();
 
   const [journalEntry, setJournalEntry] = useState<DailyJournalEntry | undefined>(undefined);
@@ -338,8 +342,18 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
   useEffect(() => {
     let mounted = true;
-    hydrateCyclePreferences().then(value => {if (mounted) {setCyclePreferencesState(value);}});
-    const unsubscribe = subscribeCyclePreferences(() => {if (mounted) {setCyclePreferencesState(getCyclePreferences());}});
+    hydrateCyclePreferences().then(value => {
+      if (mounted) {
+        setCyclePreferencesState(value);
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
+      }
+    });
+    const unsubscribe = subscribeCyclePreferences(() => {
+      if (mounted) {
+        setCyclePreferencesState(getCyclePreferences());
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
+      }
+    });
     return () => {mounted = false; unsubscribe();};
   }, []);
 
@@ -349,9 +363,17 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
       loadPersonalInformation().then(() => {
         if (mounted) {setProfileRevision(current => current + 1);}
       });
-      getJournalEntry(new Date().toLocaleDateString('en-CA')).then(entry => {
-        if (mounted) {setJournalEntry(entry);}
-      });
+      getJournalEntry(new Date().toLocaleDateString('en-CA'))
+        .then(withResolvedIntimacyForDisplay)
+        .then(entry => {
+          if (mounted) {setJournalEntry(entry);}
+        });
+      // Keeps the cycle-relative TTC reminders (fertile window/ovulation/LH)
+      // pointed at the correct upcoming date as cycles roll over — this is
+      // the most-visited TTC screen, so refreshing here on every focus keeps
+      // them from lagging behind between the rarer boot/preference-change
+      // syncs already wired in App.tsx.
+      syncConceptionReminders();
       return () => {mounted = false;};
     }, []),
   );
@@ -420,11 +442,14 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   // array so the same action looks identical across every objective.
   //
   // Deliberately NOT included here: Température basale/Glaire cervicale/
-  // Test LH/Rapports/Évolution du cycle. Those five keep working exactly as
-  // before — they live in "Suivi du jour" (CONCEIVE_SHORTCUTS below) and are
-  // reachable via "Journal quotidien" here, same as every other objective's
-  // full tracking set is reached through its own journal entry point rather
-  // than duplicated as separate quick-action cards.
+  // Test LH/Rapports. Those four keep working exactly as before — they live
+  // in "Suivi du jour" (CONCEIVE_SHORTCUTS below) and are reachable via
+  // "Journal quotidien" here, same as every other objective's full tracking
+  // set is reached through its own journal entry point rather than
+  // duplicated as separate quick-action cards. "Évolution du cycle" is
+  // calculated/read-only, not a daily-tracking item, so it isn't part of
+  // either list — it has its own dedicated card (see below, just above
+  // "Suivi du jour").
   const quickActionItems: QuickActionItem[] = [
     {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
     {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
@@ -490,77 +515,127 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
           </Animated.View>
 
           <View style={styles.heroCard}>
-            <View style={styles.heroTopRow}>
-              <FertilityRing cycleLength={cycleLength} day={currentCycleDay} progress={ringProgress} />
+            {hasConfirmedCycleData ? (
+              <>
+                <View style={styles.heroTopRow}>
+                  <FertilityRing cycleLength={cycleLength} day={currentCycleDay} progress={ringProgress} />
 
-              <View style={styles.heroCopy}>
-                <View style={styles.heroBadgeRow}>
-                  {heroStatus.badge ? (
-                    <View style={styles.heroBadge}>
-                      <Text style={styles.heroBadgeText}>{heroStatus.badge}</Text>
+                  <View style={styles.heroCopy}>
+                    <View style={styles.heroBadgeRow}>
+                      {heroStatus.badge ? (
+                        <View style={styles.heroBadge}>
+                          <Text style={styles.heroBadgeText}>{heroStatus.badge}</Text>
+                        </View>
+                      ) : null}
                     </View>
-                  ) : null}
+                    <Text style={styles.heroTitle}>{heroStatus.title}</Text>
+                    <Text style={styles.heroDescription}>{heroStatus.description}</Text>
+                  </View>
                 </View>
-                <Text style={styles.heroTitle}>{heroStatus.title}</Text>
-                <Text style={styles.heroDescription}>{heroStatus.description}</Text>
-              </View>
-            </View>
 
-            <View style={styles.timelineWrap}>
-              <View style={styles.timelineTrack}>
-                <View style={[styles.timelineSegment, {flex: initial.periodDuration, backgroundColor: PERIOD}]} />
-                {follicularGapDays > 0 ? (
-                  <View style={[styles.timelineSegment, {flex: follicularGapDays, backgroundColor: TRACK_COLOR}]} />
-                ) : null}
-                <View style={[styles.timelineSegment, {flex: fertileEndDay - fertileStartDay + 1, backgroundColor: FERTILE_COLOR}]} />
-                <View style={[styles.timelineSegment, {flex: lutealDays, backgroundColor: LUTEAL_COLOR}]} />
-                <View style={[styles.timelinePuck, {left: puckLeft}]} />
-              </View>
+                <View style={styles.timelineWrap}>
+                  <View style={styles.timelineTrack}>
+                    <View style={[styles.timelineSegment, {flex: initial.periodDuration, backgroundColor: PERIOD}]} />
+                    {follicularGapDays > 0 ? (
+                      <View style={[styles.timelineSegment, {flex: follicularGapDays, backgroundColor: TRACK_COLOR}]} />
+                    ) : null}
+                    <View style={[styles.timelineSegment, {flex: fertileEndDay - fertileStartDay + 1, backgroundColor: FERTILE_COLOR}]} />
+                    <View style={[styles.timelineSegment, {flex: lutealDays, backgroundColor: LUTEAL_COLOR}]} />
+                    <View style={[styles.timelinePuck, {left: puckLeft}]} />
+                  </View>
 
-              <View style={styles.timelineLegend}>
-                <View style={styles.timelineLegendItem}>
-                  <View style={[styles.timelineDot, {backgroundColor: PERIOD}]} />
-                  <Text style={styles.timelineLegendLabel}>Règles</Text>
-                  <Text style={styles.timelineLegendValue}>J1-{initial.periodDuration}</Text>
+                  <View style={styles.timelineLegend}>
+                    <View style={styles.timelineLegendItem}>
+                      <View style={[styles.timelineDot, {backgroundColor: PERIOD}]} />
+                      <Text style={styles.timelineLegendLabel}>Règles</Text>
+                      <Text style={styles.timelineLegendValue}>J1-{initial.periodDuration}</Text>
+                    </View>
+                    <View style={styles.timelineLegendItem}>
+                      <View style={[styles.timelineDot, {backgroundColor: FERTILE_COLOR}]} />
+                      <Text style={styles.timelineLegendLabel}>Fertile</Text>
+                      <Text style={styles.timelineLegendValue}>J{fertileStartDay}-{fertileEndDay}</Text>
+                    </View>
+                    <View style={styles.timelineLegendItem}>
+                      <View style={[styles.timelineDot, {backgroundColor: OVULATION}]} />
+                      <Text style={styles.timelineLegendLabel}>Ovulation</Text>
+                      <Text style={styles.timelineLegendValue}>J{ovulationDay}</Text>
+                    </View>
+                    <View style={styles.timelineLegendItem}>
+                      <View style={[styles.timelineDot, {backgroundColor: LUTEAL_COLOR}]} />
+                      <Text style={styles.timelineLegendLabel}>Lutéale</Text>
+                      <Text style={styles.timelineLegendValue}>J{fertileEndDay + 1}-{cycleLength}</Text>
+                    </View>
+                  </View>
                 </View>
-                <View style={styles.timelineLegendItem}>
-                  <View style={[styles.timelineDot, {backgroundColor: FERTILE_COLOR}]} />
-                  <Text style={styles.timelineLegendLabel}>Fertile</Text>
-                  <Text style={styles.timelineLegendValue}>J{fertileStartDay}-{fertileEndDay}</Text>
-                </View>
-                <View style={styles.timelineLegendItem}>
-                  <View style={[styles.timelineDot, {backgroundColor: OVULATION}]} />
-                  <Text style={styles.timelineLegendLabel}>Ovulation</Text>
-                  <Text style={styles.timelineLegendValue}>J{ovulationDay}</Text>
-                </View>
-                <View style={styles.timelineLegendItem}>
-                  <View style={[styles.timelineDot, {backgroundColor: LUTEAL_COLOR}]} />
-                  <Text style={styles.timelineLegendLabel}>Lutéale</Text>
-                  <Text style={styles.timelineLegendValue}>J{fertileEndDay + 1}-{cycleLength}</Text>
-                </View>
-              </View>
-            </View>
 
-            <View style={styles.heroDivider} />
+                <View style={styles.heroDivider} />
 
-            <View style={styles.heroFooterRow}>
-              <View style={styles.heroFooterCopy}>
-                <Text style={styles.heroFooterLabel}>Prochaines règles prévues</Text>
-                <Text style={styles.heroFooterValue}>{nextPeriodTile.value}</Text>
-                <Text style={styles.heroFooterSubtitle}>{nextPeriodTile.subtitle}</Text>
+                <View style={styles.heroFooterRow}>
+                  <View style={styles.heroFooterCopy}>
+                    <Text style={styles.heroFooterLabel}>Prochaines règles prévues</Text>
+                    <Text style={styles.heroFooterValue}>{nextPeriodTile.value}</Text>
+                    <Text style={styles.heroFooterSubtitle}>{nextPeriodTile.subtitle}</Text>
+                  </View>
+                  <Pressable
+                    accessibilityLabel="Voir le calendrier"
+                    accessibilityRole="button"
+                    onPress={() => navigation.navigate('Calendar')}
+                    style={({pressed}) => [styles.calendarCta, pressed && styles.calendarCtaPressed]}>
+                    <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={16} />
+                    <Text style={styles.calendarCtaText}>Voir le calendrier</Text>
+                  </Pressable>
+                </View>
+              </>
+            ) : (
+              // Honest insufficient-data state — AWA must never present the
+              // internal cyclePreferences fallback (28-day cycle, "5 days
+              // ago" last period) as a personalized fertile
+              // window/ovulation/phase. Shown until CycleInformationScreen
+              // is completed, reusing this same card's background/shadow.
+              <View style={styles.insufficientDataWrap}>
+                <View style={styles.insufficientDataIcon}>
+                  <MaterialDesignIcons color={PURPLE} name="calendar-alert-outline" size={24} />
+                </View>
+                <Text style={styles.insufficientDataTitle}>Configure ton cycle</Text>
+                <Text style={styles.insufficientDataText}>
+                  Quelques informations sont nécessaires pour estimer ta fenêtre fertile.
+                </Text>
+                <Pressable
+                  accessibilityLabel="Configurer mon cycle"
+                  accessibilityRole="button"
+                  onPress={() => navigation.navigate('CycleInformation', {fromDashboardCTA: true})}
+                  style={({pressed}) => [styles.insufficientDataCta, pressed && styles.calendarCtaPressed]}>
+                  <MaterialDesignIcons color="#FFFFFF" name="calendar-edit" size={16} />
+                  <Text style={styles.insufficientDataCtaText}>Configurer mon cycle</Text>
+                </Pressable>
               </View>
-              <Pressable
-                accessibilityLabel="Voir le calendrier"
-                accessibilityRole="button"
-                onPress={() => navigation.navigate('Calendar')}
-                style={({pressed}) => [styles.calendarCta, pressed && styles.calendarCtaPressed]}>
-                <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={16} />
-                <Text style={styles.calendarCtaText}>Voir le calendrier</Text>
-              </Pressable>
-            </View>
+            )}
           </View>
 
           <QuickActionsGrid items={quickActionItems} />
+
+          {/* "Évolution du cycle" is calculated/read-only (cycle day, phase,
+              fertile window, ovulation, next period — all from cycleMath.ts,
+              the same computations feeding the hero card above), never a
+              manual journal entry, so it gets its own dashboard entry point
+              here instead of living inside "Suivi du jour" alongside the
+              4 real daily-tracking items. */}
+          <Pressable
+            accessibilityLabel="Voir l’évolution du cycle"
+            accessibilityRole="button"
+            onPress={() => navigation.navigate('CycleEvolutionEntry')}
+            style={({pressed}) => [styles.evolutionCard, pressed && styles.pressed]}>
+            <View style={styles.evolutionIcon}>
+              <MaterialDesignIcons color={PURPLE} name="chart-donut" size={22} />
+            </View>
+            <View style={styles.evolutionCopy}>
+              <Text style={styles.evolutionTitle}>Évolution du cycle</Text>
+              <Text style={styles.evolutionSubtitle}>
+                {hasConfirmedCycleData ? `Jour ${currentCycleDay} · ${heroStatus.title}` : 'Configure ton cycle pour la voir'}
+              </Text>
+            </View>
+            <MaterialDesignIcons color={PURPLE} name="chevron-right" size={20} />
+          </Pressable>
 
           <DailyJournalCard
             entry={journalEntry}
@@ -569,7 +644,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             title="Suivi du jour"
           />
 
-          {advice ? (
+          {advice && hasConfirmedCycleData ? (
             <View style={styles.adviceCard}>
               <View style={styles.adviceIcon}>
                 <Text style={styles.adviceEmoji}>🌸</Text>
@@ -872,6 +947,63 @@ const styles = StyleSheet.create({
   },
   calendarCtaPressed: {opacity: 0.8},
   calendarCtaText: {color: PURPLE, fontSize: 12, fontWeight: '700'},
+
+  insufficientDataWrap: {alignItems: 'center', paddingVertical: 8},
+  insufficientDataIcon: {
+    width: 48,
+    height: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: '#EEE3FA',
+  },
+  insufficientDataTitle: {
+    marginTop: 12,
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 17,
+    fontWeight: '700',
+  },
+  insufficientDataText: {
+    marginTop: 6,
+    color: homeColors.textSecondary,
+    fontSize: 12.5,
+    lineHeight: 18,
+    textAlign: 'center',
+    paddingHorizontal: 8,
+  },
+  insufficientDataCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 16,
+    minHeight: 44,
+    borderRadius: 22,
+    backgroundColor: PURPLE,
+    paddingHorizontal: 20,
+  },
+  insufficientDataCtaText: {color: '#FFFFFF', fontSize: 13, fontWeight: '700'},
+
+  evolutionCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 16,
+    borderRadius: homeRadii.card,
+    backgroundColor: '#FFFFFF',
+    padding: 16,
+    ...homeShadow,
+  },
+  evolutionIcon: {
+    width: 44,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    backgroundColor: '#EEE3FA',
+  },
+  evolutionCopy: {flex: 1, minWidth: 0, marginLeft: 12, marginRight: 8},
+  evolutionTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
+  evolutionSubtitle: {marginTop: 3, color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
 
   adviceCard: {
     flexDirection: 'row',

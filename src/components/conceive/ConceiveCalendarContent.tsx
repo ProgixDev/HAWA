@@ -9,11 +9,12 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation/native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { homeColors, homeShadow } from '../home/homeTheme';
 import {
@@ -34,10 +35,12 @@ import {
 } from '../../utils/cycleMath';
 import {
   getCyclePreferences,
+  getHasConfirmedCycleData,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
 } from '../../state/onboardingPreferences';
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
+import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
 import type { DailyJournalEntry } from '../../types/journal';
 import { TOP_SPACING_EXTRA } from '../../theme/spacing';
 import type { CyclePhase } from '../home/CycleStatusCard';
@@ -200,6 +203,7 @@ function journalMarkersPresent(entry: DailyJournalEntry | undefined): JournalCat
 
 function ConceiveCalendarContent(): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { open: openJournal } = useJournalSheet();
 
   const today = useMemo(() => startOfDay(new Date()), []);
@@ -217,16 +221,19 @@ function ConceiveCalendarContent(): React.JSX.Element {
   // Same cycle store CycleHomeScreen/ConceiveDashboard already read — TTC
   // has no separate cycle store of its own.
   const [cyclePrefs, setCyclePrefs] = useState(getCyclePreferences);
+  const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
   useEffect(() => {
     let active = true;
     hydrateCyclePreferences().then(value => {
       if (active) {
         setCyclePrefs(value);
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
       }
     });
     const unsubscribe = subscribeCyclePreferences(() => {
       if (active) {
         setCyclePrefs(getCyclePreferences());
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
       }
     });
     return () => {
@@ -241,16 +248,18 @@ function ConceiveCalendarContent(): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      getAllJournalEntries().then(entries => {
-        if (!active) {
-          return;
-        }
-        const byDate: Record<string, DailyJournalEntry> = {};
-        entries.forEach(entry => {
-          byDate[entry.date] = entry;
+      getAllJournalEntries()
+        .then(withResolvedIntimacyForDisplayMany)
+        .then(entries => {
+          if (!active) {
+            return;
+          }
+          const byDate: Record<string, DailyJournalEntry> = {};
+          entries.forEach(entry => {
+            byDate[entry.date] = entry;
+          });
+          setEntriesByDate(byDate);
         });
-        setEntriesByDate(byDate);
-      });
       return () => {
         active = false;
       };
@@ -524,7 +533,15 @@ function ConceiveCalendarContent(): React.JSX.Element {
 
                 const selected = sameDay(date, selectedDate);
                 const isToday = sameDay(date, today);
-                const phase = phaseForDate(date);
+                // Menstruation/fertile/ovulation are all derived from
+                // cyclePrefs via phaseForDate() — until real cycle data is
+                // confirmed that's the app's internal fallback, not a real
+                // prediction, so none of these markers may render (see
+                // getHasConfirmedCycleData()'s doc comment). Real journal
+                // category dots (`markers` below) are unaffected — they
+                // reflect genuine logged entries, independent of the
+                // cycle baseline.
+                const phase = hasConfirmedCycleData ? phaseForDate(date) : null;
                 const isMenstruationDay =
                   phase === 'menstruation' && visibleFilters.has('menstruation');
                 const isFertileDay =
@@ -539,7 +556,10 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 // Light text is ONLY for the strong-purple selected fill.
                 // Event-day cells (menstruation/fertile) use a light
                 // pink/lavender background, so their number must stay dark.
-                const lightText = selected;
+                // Never whiten text/markers on Today — it has no colored
+                // background left to contrast against (see styles.todayDay),
+                // so every category color must render at full, real value.
+                const lightText = selected && !isToday;
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
@@ -552,9 +572,13 @@ function ConceiveCalendarContent(): React.JSX.Element {
                       onPress={() => setSelectedDate(date)}
                       style={[
                         styles.dayButton,
-                        isMenstruationDay && !selected && styles.menstruationDay,
-                        isFertileDay && !selected && styles.fertileDay,
-                        selected && styles.selectedDay,
+                        // TODAY always wins over every colored background —
+                        // its neutral fill (styles.todayDay) must never be
+                        // covered by menstruation/fertile/selected tints, so
+                        // the dashed outline and journal markers stay legible.
+                        isMenstruationDay && !selected && !isToday && styles.menstruationDay,
+                        isFertileDay && !selected && !isToday && styles.fertileDay,
+                        selected && !isToday && styles.selectedDay,
                         isToday && styles.todayDay,
                       ]}
                     >
@@ -578,10 +602,10 @@ function ConceiveCalendarContent(): React.JSX.Element {
                         style={[
                           styles.dayText,
                           lightText && styles.lightText,
-                          // Selected always wins (white-on-purple); today
-                          // only gets the bold dark-violet treatment when
-                          // it isn't also selected.
-                          isToday && !selected && styles.todayDayText,
+                          // Today keeps its bold dark-violet treatment even
+                          // when also selected — it no longer has a colored
+                          // fill to contrast against (see `lightText` above).
+                          isToday && styles.todayDayText,
                         ]}
                       >
                         {date.getDate()}
@@ -592,7 +616,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                           style={[
                             styles.hijriDay,
                             lightText && styles.lightText,
-                            isToday && !selected && styles.todayHijriText,
+                            isToday && styles.todayHijriText,
                           ]}
                         >
                           {formatHijriDay(date)}
@@ -677,21 +701,46 @@ function ConceiveCalendarContent(): React.JSX.Element {
             </View>
 
             {/* CONTEXTUAL STATUS — cycle day + fertility status are always
-                computable (never "missing"), unlike journal-logged items. */}
-            <View style={styles.statusGrid}>
-              <View style={styles.statusInfo}>
-                <Text style={styles.statusInfoLabel}>Jour du cycle</Text>
-                <Text style={styles.statusInfoValue}>
-                  Jour {selectedCycleDay}
-                </Text>
+                computable (never "missing"), unlike journal-logged items,
+                but ONLY once real cycle data is confirmed — otherwise this
+                would present the internal fallback (28-day cycle, "5 days
+                ago" last period) as personalized fact. */}
+            {hasConfirmedCycleData ? (
+              <View style={styles.statusGrid}>
+                <View style={styles.statusInfo}>
+                  <Text style={styles.statusInfoLabel}>Jour du cycle</Text>
+                  <Text style={styles.statusInfoValue}>
+                    Jour {selectedCycleDay}
+                  </Text>
+                </View>
+                <View style={styles.statusInfo}>
+                  <Text style={styles.statusInfoLabel}>Statut de fertilité</Text>
+                  <Text style={styles.statusInfoValue}>
+                    {PHASE_LABEL[selectedPhase]}
+                  </Text>
+                </View>
               </View>
-              <View style={styles.statusInfo}>
-                <Text style={styles.statusInfoLabel}>Statut de fertilité</Text>
-                <Text style={styles.statusInfoValue}>
-                  {PHASE_LABEL[selectedPhase]}
+            ) : (
+              <View style={styles.emptyBox}>
+                <MaterialDesignIcons
+                  color={homeColors.textSecondary}
+                  name="calendar-alert-outline"
+                  size={19}
+                />
+                <Text style={styles.emptyText}>
+                  Configure ton cycle pour voir ton jour du cycle et ta fenêtre fertile.
                 </Text>
+                <Pressable
+                  accessibilityLabel="Configurer mon cycle"
+                  accessibilityRole="button"
+                  onPress={() => navigation.navigate('CycleInformation', { fromDashboardCTA: true })}
+                  style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
+                >
+                  <MaterialDesignIcons color="#FFFFFF" name="calendar-edit" size={16} />
+                  <Text style={styles.addButtonText}>Configurer mon cycle</Text>
+                </Pressable>
               </View>
-            </View>
+            )}
 
             {/* TTC FIELDS — Température basale/Glaire cervicale/Test LH/
                 Rapports always render (real value or "Non renseigné"),
@@ -1153,6 +1202,9 @@ const styles = StyleSheet.create({
   },
   selectedDay: { backgroundColor: homeColors.primary },
   todayDay: {
+    // Neutral fill — always wins over menstruation/fertile/selected
+    // backgrounds so the dashed outline and journal markers stay legible.
+    backgroundColor: homeColors.lightLavender,
     borderWidth: 1.7,
     borderColor: '#2F2938',
     borderStyle: 'dashed',
