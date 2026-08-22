@@ -21,14 +21,19 @@ export type PersonalInformation = {
 const STORAGE_KEY = '@hawa/personal-information/v1';
 
 const DEFAULT_INFORMATION: PersonalInformation = {
-  firstName: 'Amina',
+  // firstName/preferredName intentionally start empty — a new user's real
+  // choice (or explicit skip) from NameOnboardingScreen.tsx is the only
+  // thing that should ever populate them. Never presented as a real value
+  // until she actually provides one (see HomeHeader.tsx/ProfileScreen.tsx/
+  // PersonalInformationScreen.tsx's empty-name fallback handling).
+  firstName: '',
   lastName: 'Benali',
   birthDate: '1998-05-14',
   email: 'amina.benali@email.com',
   phone: '+213 6 12 34 56 78',
   country: 'Algérie',
   language: 'Français',
-  preferredName: 'Amina',
+  preferredName: '',
   calendar: 'double',
   timeFormat: '24h',
 };

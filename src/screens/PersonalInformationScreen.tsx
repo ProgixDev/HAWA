@@ -206,7 +206,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
 
         <Text style={styles.sectionTitle}>Informations de base</Text>
         <Animated.View entering={FadeInUp.delay(150).duration(420)} style={styles.card}>
-          <InfoRow icon="account-outline" label="Prénom" value={profile.firstName} onPress={() => openField('firstName')} />
+          <InfoRow icon="account-outline" label="Prénom" value={profile.firstName || 'Non renseigné'} onPress={() => openField('firstName')} />
           <InfoRow icon="account-outline" label="Nom" value={profile.lastName} onPress={() => openField('lastName')} />
           <InfoRow icon="calendar-month-outline" label="Date de naissance" value={formatBirthDate(profile.birthDate)} onPress={() => setDatePickerVisible(true)} />
           <InfoRow icon="email-outline" label="Adresse e-mail" value={profile.email} onPress={() => openField('email')} />
@@ -217,7 +217,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
 
         <Text style={styles.sectionTitle}>Préférences personnelles</Text>
         <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
-          <InfoRow icon="gender-female" label="Comment souhaites-tu que AWA t’appelle ?" value={profile.preferredName} onPress={() => openField('preferredName')} />
+          <InfoRow icon="gender-female" label="Comment souhaites-tu que AWA t’appelle ?" value={profile.preferredName || 'Non renseigné'} onPress={() => openField('preferredName')} />
           <InfoRow icon="weather-night" label="Calendrier principal" value={calendarLabel} onPress={() => openField('calendar')} />
           <InfoRow icon="clock-outline" label="Format de l’heure" value={profile.timeFormat === '24h' ? '24 heures' : '12 heures'} last onPress={() => openField('timeFormat')} />
         </Animated.View>
