@@ -26,13 +26,16 @@ function customReminderNotificationId(reminder: CustomReminder): string {
   return `pregnancy-custom-${reminder.id}`;
 }
 
-function parseHHmm(value: string): {hours: number; minutes: number} {
+/** Exported so other objectives' reminder-scheduling modules (e.g.
+ * conceptionReminderScheduling.ts) can reuse these instead of duplicating
+ * the same HH:mm parsing / "roll to next occurrence" logic. */
+export function parseHHmm(value: string): {hours: number; minutes: number} {
   const [hours, minutes] = value.split(':').map(Number);
   return {hours: hours || 0, minutes: minutes || 0};
 }
 
 /** Next occurrence of `time` today-or-later, local time. */
-function nextDailyFireDate(time: string, now = new Date()): Date {
+export function nextDailyFireDate(time: string, now = new Date()): Date {
   const {hours, minutes} = parseHHmm(time);
   const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
   if (candidate.getTime() <= now.getTime()) {candidate.setDate(candidate.getDate() + 1);}
