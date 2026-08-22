@@ -33,9 +33,6 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumFeeding'>;
 type FeedingOption = {
   id: PostpartumFeedingType;
   label: string;
-  // NOTE: these 4 illustrations don't exist yet in
-  // src/assets/images/postpartum/feeding/ — add them at these exact paths
-  // (see final report). Until then this screen will fail to bundle.
   image: number;
 };
 
@@ -103,8 +100,15 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
   );
 }
 
-function PostpartumFeedingScreen({navigation}: Props): React.JSX.Element {
+function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+
+  // Onboarding (default, unchanged behavior) vs. edit — reached later from
+  // PostpartumCycleReturnScreen.tsx's "Allaitement" row so she can update
+  // her choice without re-entering onboarding. Same screen, same store,
+  // same setFeedingType() — only the post-save destination differs.
+  const mode = route.params?.mode ?? 'onboarding';
+  const isEdit = mode === 'edit';
 
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -140,7 +144,13 @@ function PostpartumFeedingScreen({navigation}: Props): React.JSX.Element {
       if (selected) {
         await setFeedingType(selected);
       }
-      navigation.navigate('SecuritySetup');
+      // Edit mode returns to wherever she came from (PostpartumCycleReturnScreen)
+      // — never forces her back into the onboarding funnel.
+      if (isEdit) {
+        navigation.goBack();
+      } else {
+        navigation.navigate('SecuritySetup');
+      }
     } finally {
       setSaving(false);
     }
@@ -176,6 +186,16 @@ function PostpartumFeedingScreen({navigation}: Props): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           <Animated.View style={[styles.mainContent, entranceStyle]}>
             <View style={styles.header}>
+              {isEdit ? (
+                <Pressable
+                  accessibilityLabel="Retour"
+                  accessibilityRole="button"
+                  hitSlop={10}
+                  onPress={navigation.goBack}
+                  style={({pressed}) => [styles.editBackButton, pressed && styles.pressed]}>
+                  <MaterialDesignIcons color={PURPLE_DARK} name="arrow-left" size={22} />
+                </Pressable>
+              ) : null}
               <Text style={styles.title}>Allaitement</Text>
               <Text style={styles.subtitle}>Ton choix nous aide à personnaliser ton suivi et nos conseils.</Text>
             </View>
@@ -199,7 +219,9 @@ function PostpartumFeedingScreen({navigation}: Props): React.JSX.Element {
             disabled={saving}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>
+              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}
+            </Text>
           </Pressable>
         </ScrollView>
       </View>
@@ -249,6 +271,24 @@ const styles = StyleSheet.create({
   content: {flexGrow: 1, paddingHorizontal: spacing.lg},
   mainContent: {flex: 1},
   header: {alignItems: 'center', paddingTop: 24, marginBottom: spacing.md},
+  editBackButton: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: 42,
+    height: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(111,83,190,0.14)',
+    borderRadius: 15,
+    backgroundColor: 'rgba(255,252,255,0.94)',
+    shadowColor: '#4E319A',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 3,
+  },
   title: {
     color: PURPLE_DARK,
     fontFamily: 'serif',

@@ -744,6 +744,9 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               <FactorRow
                 description="Peut influencer le moment du retour des règles."
                 icon="baby-face-outline"
+                onPress={() =>
+                  navigation.navigate('PostpartumFeeding', {mode: 'edit'})
+                }
                 title="Allaitement"
                 value={feedingLabel}
               />
