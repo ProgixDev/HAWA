@@ -146,7 +146,7 @@ const TRYING_AGAIN_STATUS_LABELS: Record<MiscarriageTryingAgainStatus, string> =
 const CONCEPTION_DURATION_LABELS: Record<ConceptionTryingDuration, string> = {starting_now:'Je commence maintenant',under_3_months:'Moins de 3 mois','3_to_6_months':'3 à 6 mois','6_to_12_months':'6 à 12 mois',over_1_year:'Plus d’un an'};
 const OVULATION_AWARENESS_LABELS: Record<OvulationAwareness, string> = {often:'Oui, souvent',sometimes:'Parfois',not_really:'Non, pas vraiment'};
 const INDICATOR_LABELS: Record<FertilityIndicator, string> = {temperature:'Température basale',cervical_mucus:'Glaire cervicale',lh_tests:'Tests LH',intercourse:'Rapports'};
-const CONCEPTION_REMINDER_LABELS: Record<ConceptionReminderKey, string> = {fertile_window:'Fenêtre fertile',estimated_ovulation:'Ovulation estimée',temperature:'Température basale',lh_test:'Test LH',daily_journal:'Journal quotidien',intercourse:'Rapports'};
+const CONCEPTION_REMINDER_LABELS: Record<ConceptionReminderKey, string> = {fertile_window:'Fenêtre fertile',estimated_ovulation:'Ovulation estimée',temperature:'Température basale',lh_test:'Test LH',daily_journal:'Journal quotidien'};
 
 const formatSummaryDate = (date: Date): string =>
   new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
@@ -391,7 +391,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       {icon:'calendar-clock',label:'Essais de conception',value:conception.tryingDuration ? CONCEPTION_DURATION_LABELS[conception.tryingDuration] : 'Non renseigné',route:'ConceptionTryingDuration',tone:'rose'},
       {icon:'target',label:'Repérage de l’ovulation',value:conception.ovulationAwareness ? OVULATION_AWARENESS_LABELS[conception.ovulationAwareness] : 'Non renseigné',route:'ConceptionOvulationAwareness',tone:'purple'},
       {icon:'chart-timeline-variant',label:'Indicateurs suivis',value:summarizeSelection(conception.indicators.map(id => INDICATOR_LABELS[id]),4,'Tous les indicateurs'),route:'ConceptionIndicators',tone:'blue'},
-      {icon:'bell-ring-outline',label:'Rappels',value:summarizeSelection((Object.keys(conception.reminders) as ConceptionReminderKey[]).filter(id => conception.reminders[id]).map(id => CONCEPTION_REMINDER_LABELS[id]),6,'Tous les rappels'),route:'ConceptionReminders',tone:'green'},
+      {icon:'bell-ring-outline',label:'Rappels',value:summarizeSelection((Object.keys(conception.reminders) as ConceptionReminderKey[]).filter(id => conception.reminders[id]).map(id => CONCEPTION_REMINDER_LABELS[id]),5,'Tous les rappels'),route:'ConceptionReminders',tone:'green'},
     );
     return rows;
   };

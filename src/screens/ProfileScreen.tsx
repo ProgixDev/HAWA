@@ -1209,7 +1209,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 ) : (
                   <>
                     <View style={styles.nameRow}>
-                      <Text style={styles.name}>{firstName}</Text>
+                      <Text style={styles.name}>{firstName || 'Non renseigné'}</Text>
 
                       <Pressable
                         accessibilityLabel="Modifier le profil"
