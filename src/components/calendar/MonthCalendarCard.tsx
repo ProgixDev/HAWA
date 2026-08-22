@@ -11,11 +11,31 @@ import {
   sameDay,
   WEEK_DAYS,
 } from '../../utils/cycleMath';
+import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
+import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import type {CalendarFilters} from '../../state/calendarFilters';
+
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export type CalendarDisplayMode = 'gregorian' | 'hijri' | 'double';
 
-export type DayJournalFlags = {mood: boolean; notes: boolean; symptoms: boolean};
+// One boolean per category Cycle's own "Journal quotidien" (CYCLE_JOURNAL_ITEMS
+// in DailyJournalSheet.tsx) can actually save. `mood` and `flow` get their own
+// dot color (flow reuses the existing "Règles" pink); the rest — notes,
+// symptoms, activity, sleep, hydration, intimacy — share the existing
+// "Notes / Symptômes" teal dot rather than inventing new colors for each
+// (also keeps `intimacy` presence-only on the calendar, never distinguishing
+// its value, consistent with how private/intimate data is treated elsewhere).
+export type DayJournalFlags = {
+  mood: boolean;
+  notes: boolean;
+  symptoms: boolean;
+  activity: boolean;
+  sleep: boolean;
+  hydration: boolean;
+  flow: boolean;
+  intimacy: boolean;
+};
 
 type Props = {
   visibleMonth: Date;
@@ -43,6 +63,12 @@ const backgroundColorStyle = (backgroundColor: string) => ({backgroundColor});
 
 const OVULATION_COLOR = '#8B5CF6';
 const NOTES_COLOR = '#2C8E93';
+// Reuses AWA's existing spiritual/Hijri accent colors verbatim — the same
+// purple already used for the crescent-moon icon throughout
+// HijriCalendarScreen.tsx/PrayerTimesScreen.tsx, and the same warm gold
+// already used for that screen's "Ramadan" pill — no new arbitrary palette.
+const RAMADAN_MARKER_COLOR = homeColors.primary;
+const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
 const MODES: {key: CalendarDisplayMode; label: string}[] = [
   {key: 'gregorian', label: 'Grégorien'},
@@ -62,6 +88,7 @@ function DayCell({
   filters,
   editingPeriod = false,
   draftPeriodDays,
+  spiritualMarkersEnabled,
 }: {
   date: Date | null;
   basics: CycleBasics;
@@ -74,6 +101,7 @@ function DayCell({
   filters: CalendarFilters;
   editingPeriod?: boolean;
   draftPeriodDays?: ReadonlySet<string>;
+  spiritualMarkersEnabled: boolean;
 }) {
   if (!date) {
     return <View style={styles.dayCell} />;
@@ -85,26 +113,60 @@ function DayCell({
   const isToday = sameDay(date, today);
   const hijriDay = showHijri ? formatHijriDay(date) : undefined;
 
+  // Visible regardless of displayMode (Gregorian/Hijri/Double) — the whole
+  // point is surfacing Ramadan/Dhou al-Hijja to a user who never switches to
+  // Hijri mode. Reuses the exact canonical per-date Hijri helpers, no new
+  // conversion logic. Independent visual channel from the dot row below
+  // (never competes for/truncates a real journal-category dot), and follows
+  // the exact same light/dark contrast rule already used for the day text.
+  const spiritualMonth = !spiritualMarkersEnabled
+    ? null
+    : isRamadan(date)
+      ? 'ramadan'
+      : isDhoulHijja(date)
+        ? 'dhoulHijja'
+        : null;
+  const useLightMarker = !isToday && (isSelected || (!editingPeriod && kind === 'ovulation'));
+  const spiritualMarkerColor = useLightMarker
+    ? '#FFFFFF'
+    : spiritualMonth === 'ramadan'
+      ? RAMADAN_MARKER_COLOR
+      : DHOUL_HIJJA_MARKER_COLOR;
+  const spiritualMarkerLabel =
+    spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : '';
+
+  const isPeriodDay = kind === 'period' && filters.rules;
   const dots: string[] = [];
-  if (kind === 'period' && filters.rules) {dots.push(homeColors.pink);}
+  if (isPeriodDay) {dots.push(homeColors.pink);}
   if (kind === 'ovulation') {dots.push(OVULATION_COLOR);}
   if (kind === 'fertile') {dots.push('#3E8E56');}
   if (flags?.mood && filters.mood) {dots.push('#E0A93E');}
-  if ((flags?.notes || flags?.symptoms) && (filters.notes || filters.symptoms)) {dots.push(NOTES_COLOR);}
+  // Manually-logged flow outside a computed period day (e.g. spotting) still
+  // deserves a "Règles" dot — skip it when the phase already added one so a
+  // single day never shows two identical pink dots.
+  if (!isPeriodDay && flags?.flow && filters.rules) {dots.push(homeColors.pink);}
+  const hasMiscTracking = flags?.notes || flags?.symptoms || flags?.activity || flags?.sleep || flags?.hydration || flags?.intimacy;
+  const miscFilterOn = filters.notes || filters.symptoms || filters.activity || filters.sleep || filters.hydration || filters.intimacy;
+  if (hasMiscTracking && miscFilterOn) {dots.push(NOTES_COLOR);}
+  const uniqueDots = Array.from(new Set(dots));
 
   return (
     <View style={styles.dayCell}>
       <Pressable
-        accessibilityLabel={`${date.getDate()}, ${kind}`}
+        accessibilityLabel={`${date.getDate()}, ${kind}${spiritualMarkerLabel}`}
         accessibilityRole="button"
         onPress={() => onSelectDate(date)}
         style={({pressed}) => [
           styles.day,
-          !editingPeriod && kind === 'period' && filters.rules && styles.periodDay,
-          !editingPeriod && kind === 'fertile' && styles.fertileDay,
-          !editingPeriod && kind === 'ovulation' && styles.ovulationDay,
+          // TODAY always wins over every colored background (period/fertile/
+          // ovulation/selected) so the journal dots stay legible — the
+          // underlying state (kind/flags) is untouched and still surfaces as
+          // its own dot below, only the cell FILL is suppressed for today.
+          !editingPeriod && !isToday && kind === 'period' && filters.rules && styles.periodDay,
+          !editingPeriod && !isToday && kind === 'fertile' && styles.fertileDay,
+          !editingPeriod && !isToday && kind === 'ovulation' && styles.ovulationDay,
           isDraftPeriod && styles.periodDay,
-          isSelected && styles.selectedDay,
+          isSelected && !isToday && styles.selectedDay,
           isToday && styles.todayDayBorder,
           pressed && styles.pressed,
         ]}>
@@ -112,8 +174,9 @@ function DayCell({
   style={[
     styles.dayText,
 
-    // Les jours sélectionnés / ovulation sont normalement blancs
-    (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight,
+    // Les jours sélectionnés / ovulation sont normalement blancs — mais
+    // jamais pour Aujourd'hui, qui n'a plus de fond coloré à contraster.
+    !isToday && (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight,
 
     // Aujourd'hui doit toujours rester noir et bien visible
     isToday && styles.todayDayText,
@@ -123,21 +186,28 @@ function DayCell({
         {hijriDay ? (
           <Text
             numberOfLines={1}
-            style={[styles.hijriDayText, (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight]}>
+            style={[styles.hijriDayText, !isToday && (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight]}>
             {hijriDay}
           </Text>
         ) : null}
-        {dots.length > 0 ? (
+        {uniqueDots.length > 0 ? (
           <View style={styles.dotRow}>
-            {dots.slice(0, 3).map((color, index) => (
+            {uniqueDots.slice(0, 3).map((color, index) => (
               <View
                 key={index}
                 style={[
                   styles.dot,
-                  backgroundColorStyle(isSelected ? '#FFFFFF' : color),
+                  // Never whiten a dot on Today — its neutral background
+                  // means every category color already reads fine.
+                  backgroundColorStyle(isSelected && !isToday ? '#FFFFFF' : color),
                 ]}
               />
             ))}
+          </View>
+        ) : null}
+        {spiritualMonth ? (
+          <View style={styles.spiritualMarker}>
+            <MaterialDesignIcons color={spiritualMarkerColor} name="moon-waning-crescent" size={9} />
           </View>
         ) : null}
       </Pressable>
@@ -171,6 +241,12 @@ function MonthCalendarCard({
   }, [visibleMonth]);
 
   const showHijri = displayMode !== 'gregorian';
+  // Read once per render rather than per cell — cheap, already-hydrated
+  // global preference (same objective-agnostic flag every other religious
+  // surface in the app gates on), not a live subscription: this component
+  // re-renders on every navigation/filter/focus change already, which is
+  // frequent enough for this flag to never stay visibly stale in practice.
+  const spiritualMarkersEnabled = getSpiritualMarkersEnabled();
 
   const hijriRangeLabel = useMemo(() => {
     if (!showHijri) {return undefined;}
@@ -239,6 +315,7 @@ function MonthCalendarCard({
             selectedDate={selectedDate}
             showHijri={showHijri}
             showSelection={showSelection}
+            spiritualMarkersEnabled={spiritualMarkersEnabled}
             today={today}
           />
         ))}
@@ -251,15 +328,23 @@ function MonthCalendarCard({
         <LegendDot color="#E0A93E" label="Humeur" />
         <LegendDot color={NOTES_COLOR} label="Notes" />
         <LegendDot color={homeColors.primaryDark} label="Aujourd’hui" outline />
+        {spiritualMarkersEnabled ? (
+          <>
+            <LegendDot color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" />
+            <LegendDot color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" />
+          </>
+        ) : null}
       </View>
     </View>
   );
 }
 
-function LegendDot({color, label, outline = false}: {color: string; label: string; outline?: boolean}) {
+function LegendDot({color, label, outline = false, icon}: {color: string; label: string; outline?: boolean; icon?: IconName}) {
   return (
     <View style={styles.legendItem}>
-      {outline ? (
+      {icon ? (
+        <MaterialDesignIcons color={color} name={icon} size={11} />
+      ) : outline ? (
         <View
           style={[
             styles.legendTodayRing,
@@ -304,6 +389,9 @@ const styles = StyleSheet.create({
   ovulationDay: {backgroundColor: OVULATION_COLOR},
   selectedDay: {backgroundColor: homeColors.primary},
   todayDayBorder: {
+    // Neutral fill — always wins over period/fertile/ovulation/selected
+    // backgrounds so the dashed outline and journal dots stay legible.
+    backgroundColor: homeColors.lightLavender,
     borderWidth: 1.8,
     borderStyle: 'dashed',
     borderColor: '#211A35',
@@ -316,6 +404,7 @@ const styles = StyleSheet.create({
   zIndex: 4,
 },
   dotRow: {flexDirection: 'row', gap: 2, marginTop: 1},
+  spiritualMarker: {position: 'absolute', top: 3, right: 3},
   dot: {width: 3.5, height: 3.5, borderRadius: 2},
   legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
   legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5},

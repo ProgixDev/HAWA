@@ -10,16 +10,40 @@ import {
   Text,
   View,
 } from 'react-native';
+import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {homeColors, homeRadii} from '../home/homeTheme';
+
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type LegendEntry = {
   color: string;
   label: string;
   description: string;
   outline?: boolean;
+  icon?: IconName;
 };
+
+// Same colors as MonthCalendarCard.tsx's own spiritual markers — reused
+// verbatim, not redefined, so the two never drift apart.
+const RAMADAN_MARKER_COLOR = homeColors.primary;
+const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
+
+const SPIRITUAL_ENTRIES: LegendEntry[] = [
+  {
+    color: RAMADAN_MARKER_COLOR,
+    label: 'Ramadan',
+    description: 'Ce jour se situe dans le mois du Ramadan (jeûne).',
+    icon: 'moon-waning-crescent',
+  },
+  {
+    color: DHOUL_HIJJA_MARKER_COLOR,
+    label: 'Dhou al-Hijja',
+    description: 'Ce jour se situe dans le mois de Dhou al-Hijja.',
+    icon: 'moon-waning-crescent',
+  },
+];
 
 const ENTRIES: LegendEntry[] = [
   {
@@ -47,7 +71,7 @@ const ENTRIES: LegendEntry[] = [
     color: '#2C8E93',
     label: 'Notes / Symptômes',
     description:
-      'Une note ou un symptôme a été enregistré pour ce jour.',
+      'Une note, un symptôme, ou un autre suivi quotidien (activité, sommeil, hydratation, vie intime) a été enregistré pour ce jour.',
   },
   {
     color: '#211A35',
@@ -61,13 +85,19 @@ const ENTRIES: LegendEntry[] = [
 type Props = {
   visible: boolean;
   onClose: () => void;
+  // Only true when the app-wide spiritual-markers preference is on — the
+  // calendar itself hides the Ramadan/Dhou al-Hijja markers in that case, so
+  // the legend must never describe an indicator that can't actually appear.
+  showSpiritualMarkers?: boolean;
 };
 
 function LegendSheet({
   visible,
   onClose,
+  showSpiritualMarkers = false,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const entries = showSpiritualMarkers ? [...ENTRIES, ...SPIRITUAL_ENTRIES] : ENTRIES;
 
   const progress = useRef(
     new Animated.Value(0),
@@ -180,11 +210,18 @@ function LegendSheet({
             showsVerticalScrollIndicator={
               false
             }>
-            {ENTRIES.map(entry => (
+            {entries.map(entry => (
               <View
                 key={entry.label}
                 style={styles.row}>
-                {entry.outline ? (
+                {entry.icon ? (
+                  <MaterialDesignIcons
+                    color={entry.color}
+                    name={entry.icon}
+                    size={16}
+                    style={styles.iconMarker}
+                  />
+                ) : entry.outline ? (
                   <View
                     style={[
                       styles.todayOutline,
@@ -311,6 +348,14 @@ const styles = StyleSheet.create({
     marginTop: 2,
     borderWidth: 0,
     borderRadius: 8,
+  },
+
+  iconMarker: {
+    width: 18,
+    height: 18,
+    marginTop: 1,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
 
   todayOutline: {

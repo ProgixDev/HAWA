@@ -15,8 +15,9 @@ import FiltersSheet from '../components/calendar/FiltersSheet';
 import LegendSheet from '../components/calendar/LegendSheet';
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {homeColors} from '../components/home/homeTheme';
-import {getCycleObservationStartedAt, getCyclePreferences, getPeriodHistory, hydrateCyclePreferences, isDateWithinConfirmedPeriod, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
+import {getCycleObservationStartedAt, getCyclePreferences, getPeriodHistory, getSpiritualMarkersEnabled, hydrateCyclePreferences, isDateWithinConfirmedPeriod, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
+import {withResolvedIntimacyForDisplay, withResolvedIntimacyForDisplayMany} from '../services/privateJournalEncryption';
 import {
   DEFAULT_CALENDAR_FILTERS,
   loadCalendarFilters,
@@ -66,6 +67,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const [editingPeriod, setEditingPeriod] = useState(false);
   const [draftPeriodDays, setDraftPeriodDays] = useState<Set<string>>(new Set());
   const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled);
 
   const localDateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   const dateFromKey = (key: string) => {const [year, month, day] = key.split('-').map(Number); return new Date(year, month - 1, day);};
@@ -91,18 +93,26 @@ function CalendarScreen(_: Props): React.JSX.Element {
       loadPersonalInformation().then(information => {
         if (mounted) {setDisplayMode(information.calendar);}
       });
-      getJournalEntriesForMonth(visibleMonth.getFullYear(), visibleMonth.getMonth()).then(entries => {
-        if (!mounted) {return;}
-        const map: Record<string, DayJournalFlags> = {};
-        entries.forEach(entry => {
-          map[entry.date] = {
-            mood: Boolean(entry.mood),
-            notes: Boolean(entry.note),
-            symptoms: Boolean(entry.symptoms),
-          };
+      setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
+      getJournalEntriesForMonth(visibleMonth.getFullYear(), visibleMonth.getMonth())
+        .then(withResolvedIntimacyForDisplayMany)
+        .then(entries => {
+          if (!mounted) {return;}
+          const map: Record<string, DayJournalFlags> = {};
+          entries.forEach(entry => {
+            map[entry.date] = {
+              mood: Boolean(entry.mood),
+              notes: Boolean(entry.note),
+              symptoms: Boolean(entry.symptoms),
+              activity: Boolean(entry.activity),
+              sleep: Boolean(entry.sleep),
+              hydration: Boolean(entry.hydration),
+              flow: Boolean(entry.flow),
+              intimacy: Boolean(entry.intimacy),
+            };
+          });
+          setJournalFlagsByDate(map);
         });
-        setJournalFlagsByDate(map);
-      });
       return () => {mounted = false;};
     }, [visibleMonth]),
   );
@@ -110,9 +120,11 @@ function CalendarScreen(_: Props): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let mounted = true;
-      getJournalEntry(selectedDate.toLocaleDateString('en-CA')).then(entry => {
-        if (mounted) {setSelectedEntry(entry);}
-      });
+      getJournalEntry(selectedDate.toLocaleDateString('en-CA'))
+        .then(withResolvedIntimacyForDisplay)
+        .then(entry => {
+          if (mounted) {setSelectedEntry(entry);}
+        });
       return () => {mounted = false;};
     }, [selectedDate]),
   );
@@ -334,7 +346,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
           visible={filtersVisible}
         />
 
-        <LegendSheet onClose={() => setLegendVisible(false)} visible={legendVisible} />
+        <LegendSheet onClose={() => setLegendVisible(false)} showSpiritualMarkers={spiritualMarkersEnabled} visible={legendVisible} />
         {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>Modifier mes règles</Text><Text style={styles.editBarSubtitle}>{draftPeriodDays.size} {draftPeriodDays.size > 1 ? 'jours sélectionnés' : 'jour sélectionné'}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>Annuler</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>Enregistrer</Text></Pressable></View></View> : null}
 
         <PeriodStartBottomSheet
