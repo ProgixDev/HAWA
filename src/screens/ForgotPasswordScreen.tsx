@@ -5,6 +5,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -18,6 +19,7 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
+import {isValidEmail} from '../utils/emailValidation';
 
 const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 
@@ -40,11 +42,29 @@ function ForgotPasswordScreen({
   const veryCompact = height < 650 || width < 340;
 
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
 
   const sendResetLink = () => {
-    Alert.alert(
-      'Lien envoyé',
-      'Vérifie ta boîte e-mail pour réinitialiser ton mot de passe.',
+    const trimmedEmail = email.trim();
+
+    if (!trimmedEmail) {
+      setEmailError('Entre ton adresse e-mail.');
+      setInfoMessage('');
+      return;
+    }
+
+    if (!isValidEmail(trimmedEmail)) {
+      setEmailError('Entre une adresse e-mail valide.');
+      setInfoMessage('');
+      return;
+    }
+
+    setEmailError('');
+    // Frontend validation passing does NOT mean a reset e-mail was sent —
+    // no e-mail service exists yet, so we never claim delivery here.
+    setInfoMessage(
+      'L’adresse est valide. L’envoi du lien de réinitialisation sera disponible avec le service d’authentification.',
     );
   };
 
@@ -73,8 +93,8 @@ function ForgotPasswordScreen({
           behavior={Platform.OS === 'ios' ? 'padding' : undefined}
           keyboardVerticalOffset={0}
           style={styles.page}>
-          <View
-            style={[
+          <ScrollView
+            contentContainerStyle={[
               styles.content,
               compact && styles.contentCompact,
               veryCompact && styles.contentVeryCompact,
@@ -82,7 +102,9 @@ function ForgotPasswordScreen({
                 paddingTop: getTopPadding(insets.top),
                 paddingBottom: Math.max(insets.bottom, 12) + 6,
               },
-            ]}>
+            ]}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}>
             <View
               style={[
                 styles.hero,
@@ -165,6 +187,7 @@ function ForgotPasswordScreen({
                 style={[
                   styles.field,
                   compact && styles.fieldCompact,
+                  emailError && styles.fieldError,
                 ]}>
                 <MaterialDesignIcons
                   color={PURPLE}
@@ -176,15 +199,23 @@ function ForgotPasswordScreen({
                   autoCapitalize="none"
                   autoCorrect={false}
                   keyboardType="email-address"
-                  onChangeText={setEmail}
+                  onChangeText={value => {
+                    setEmail(value);
+                    setEmailError('');
+                    setInfoMessage('');
+                  }}
                   placeholder="exemple@email.com"
                   placeholderTextColor="#8A7FA6"
                   returnKeyType="send"
                   onSubmitEditing={sendResetLink}
                   style={styles.input}
+                  textContentType="emailAddress"
                   value={email}
                 />
               </View>
+              {emailError ? (
+                <Text style={styles.fieldErrorText}>{emailError}</Text>
+              ) : null}
             </View>
 
             <Pressable
@@ -203,6 +234,17 @@ function ForgotPasswordScreen({
                 Envoyer le lien de réinitialisation
               </Text>
             </Pressable>
+
+            {infoMessage ? (
+              <View style={styles.infoCard}>
+                <MaterialDesignIcons
+                  color={PURPLE}
+                  name="information-outline"
+                  size={16}
+                />
+                <Text style={styles.infoText}>{infoMessage}</Text>
+              </View>
+            ) : null}
 
             <View style={styles.flexSpacer} />
 
@@ -251,7 +293,7 @@ function ForgotPasswordScreen({
                 size={compact ? 20 : 22}
               />
             </Pressable>
-          </View>
+          </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
     </ImageBackground>
@@ -273,7 +315,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: spacing.lg,
   },
 
@@ -454,6 +496,40 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     color: '#2A2050',
     fontSize: 13.5,
+  },
+
+  fieldError: {
+    borderColor: '#C95565',
+  },
+
+  fieldErrorText: {
+    marginTop: 6,
+    marginLeft: 4,
+    color: '#B4485A',
+    fontSize: 11,
+  },
+
+  infoCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    width: '88%',
+    maxWidth: 360,
+    alignSelf: 'center',
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(111,83,190,0.16)',
+    borderRadius: 14,
+    backgroundColor: '#F1E8FF',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+
+  infoText: {
+    flex: 1,
+    color: '#5F547C',
+    fontSize: 11.5,
+    lineHeight: 16,
   },
 
   primaryButton: {

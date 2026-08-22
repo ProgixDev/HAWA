@@ -6,8 +6,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
-import {setFirstName as saveFirstName} from '../state/onboardingPreferences';
-import {getPrivacySecuritySettings, updatePrivacySecuritySettings} from '../state/securityPreferences';
+import {updatePersonalInformation} from '../state/personalInformationStore';
+import {isValidEmail} from '../utils/emailValidation';
 
 const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 const GOOGLE = require('../assets/images/auth-google-logo.png');
@@ -19,13 +19,16 @@ const PURPLE_DARK = '#28166F';
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Registration'>;
-type FieldProps = {icon: IconName; label: string; placeholder: string; value: string; onChangeText: (value: string) => void; secure?: boolean; visible?: boolean; onToggle?: () => void; keyboardType?: 'default' | 'email-address'};
+type FieldProps = {icon: IconName; label: string; placeholder: string; value: string; onChangeText: (value: string) => void; secure?: boolean; visible?: boolean; onToggle?: () => void; keyboardType?: 'default' | 'email-address'; error?: string};
 
-function Field({icon, label, placeholder, value, onChangeText, secure, visible, onToggle, keyboardType = 'default'}: FieldProps) {
-  return <View style={styles.field}>
-    <MaterialDesignIcons color={PURPLE} name={icon} size={22} />
-    <View style={styles.fieldCopy}><Text style={styles.fieldLabel}>{label}</Text><TextInput autoCapitalize={keyboardType === 'email-address' ? 'none' : 'words'} keyboardType={keyboardType} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor="#909390" secureTextEntry={secure && !visible} style={styles.input} value={value} /></View>
-    {secure && <Pressable hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={PURPLE} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
+function Field({icon, label, placeholder, value, onChangeText, secure, visible, onToggle, keyboardType = 'default', error}: FieldProps) {
+  return <View>
+    <View style={[styles.field, error ? styles.fieldError : null]}>
+      <MaterialDesignIcons color={PURPLE} name={icon} size={22} />
+      <View style={styles.fieldCopy}><Text style={styles.fieldLabel}>{label}</Text><TextInput autoCapitalize={keyboardType === 'email-address' ? 'none' : 'words'} keyboardType={keyboardType} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor="#909390" secureTextEntry={secure && !visible} style={styles.input} textContentType={keyboardType === 'email-address' ? 'emailAddress' : secure ? 'password' : 'none'} value={value} /></View>
+      {secure && <Pressable hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={PURPLE} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
+    </View>
+    {error ? <Text style={styles.fieldErrorText}>{error}</Text> : null}
   </View>;
 }
 
@@ -35,8 +38,67 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const compact = height < 700;
   const [firstName, setFirstName] = useState(''); const [lastName, setLastName] = useState(''); const [email, setEmail] = useState('');
   const [password, setPassword] = useState(''); const [confirmation, setConfirmation] = useState(''); const [passwordVisible, setPasswordVisible] = useState(false); const [confirmationVisible, setConfirmationVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmationError, setConfirmationError] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
   const rules = useMemo(() => [{label: '8 caractères minimum', valid: password.length >= 8}, {label: 'Un chiffre', valid: /\d/.test(password)}, {label: 'Une majuscule', valid: /[A-Z]/.test(password)}, {label: 'Un caractère spécial', valid: /[^A-Za-z0-9]/.test(password)}], [password]);
   const allRulesValid = rules.every(rule => rule.valid);
+
+  const handleSubmit = async () => {
+    if (submitting) {return;}
+
+    const trimmedEmail = email.trim();
+    let hasError = false;
+
+    if (!trimmedEmail) {
+      setEmailError('Entre ton adresse e-mail.');
+      hasError = true;
+    } else if (!isValidEmail(trimmedEmail)) {
+      setEmailError('Entre une adresse e-mail valide.');
+      hasError = true;
+    } else {
+      setEmailError('');
+    }
+
+    if (!allRulesValid) {
+      setPasswordError('Le mot de passe ne respecte pas les critères ci-dessus.');
+      hasError = true;
+    } else {
+      setPasswordError('');
+    }
+
+    if (!confirmation) {
+      setConfirmationError('Confirme ton mot de passe.');
+      hasError = true;
+    } else if (confirmation !== password) {
+      setConfirmationError('Les mots de passe ne correspondent pas.');
+      hasError = true;
+    } else {
+      setConfirmationError('');
+    }
+
+    if (hasError) {
+      setInfoMessage('');
+      return;
+    }
+
+    try {
+      setSubmitting(true);
+      const trimmedFirstName = firstName.trim();
+      // Only persists her chosen display name (same canonical store
+      // NameOnboardingScreen/PersonalInformationScreen use) — does NOT flip
+      // anonymousMode or navigate, since no real account is actually created
+      // here yet.
+      if (trimmedFirstName) {await updatePersonalInformation({firstName: trimmedFirstName});}
+      setInfoMessage(
+        'La création de compte sera disponible avec l’activation du service d’authentification.',
+      );
+    } finally {
+      setSubmitting(false);
+    }
+  };
   return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.background}><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12, paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
     <View style={styles.hero}>
       <View style={styles.brandArea}><Text style={styles.brand}>AWA</Text></View>
@@ -56,22 +118,31 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       <View style={styles.form}>
         <Field icon="account-outline" label="Prénom" onChangeText={setFirstName} placeholder="Entrez votre prénom" value={firstName} />
         <Field icon="account-outline" label="Nom" onChangeText={setLastName} placeholder="Entrez votre nom" value={lastName} />
-        <Field icon="email-outline" keyboardType="email-address" label="Adresse e-mail" onChangeText={setEmail} placeholder="Entrez votre adresse e-mail" value={email} />
-        <Field icon="lock-outline" label="Mot de passe" onChangeText={setPassword} onToggle={() => setPasswordVisible(v => !v)} placeholder="Créez un mot de passe" secure value={password} visible={passwordVisible} />
-        <Field icon="lock-outline" label="Confirmer le mot de passe" onChangeText={setConfirmation} onToggle={() => setConfirmationVisible(v => !v)} placeholder="Confirmez votre mot de passe" secure value={confirmation} visible={confirmationVisible} />
+        <Field error={emailError} icon="email-outline" keyboardType="email-address" label="Adresse e-mail" onChangeText={value => {setEmail(value); setEmailError(''); setInfoMessage('');}} placeholder="Entrez votre adresse e-mail" value={email} />
+        <Field error={passwordError} icon="lock-outline" label="Mot de passe" onChangeText={value => {setPassword(value); setPasswordError(''); setInfoMessage('');}} onToggle={() => setPasswordVisible(v => !v)} placeholder="Créez un mot de passe" secure value={password} visible={passwordVisible} />
+        <Field error={confirmationError} icon="lock-outline" label="Confirmer le mot de passe" onChangeText={value => {setConfirmation(value); setConfirmationError(''); setInfoMessage('');}} onToggle={() => setConfirmationVisible(v => !v)} placeholder="Confirmez votre mot de passe" secure value={confirmation} visible={confirmationVisible} />
       </View>
       <View style={styles.hint}>
         <MaterialDesignIcons color={allRulesValid ? PURPLE : '#B3A6CC'} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />
         <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>8 caractères min., une majuscule, un chiffre et un caractère spécial</Text>
       </View>
-      <Pressable onPress={() => {
-        if (password !== confirmation) {Alert.alert('Compte', 'Les mots de passe ne correspondent pas.'); return;}
-        saveFirstName(firstName);
-        // Successful account creation converts an anonymous profile back to
-        // a normal one — ProfileScreen re-reads this on its next focus.
-        if (getPrivacySecuritySettings().anonymousMode) {updatePrivacySecuritySettings({anonymousMode: false});}
-        navigation.replace('MainTabs', {screen: 'CycleHome'});
-      }} style={styles.primary}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+      <Pressable disabled={submitting} onPress={handleSubmit} style={({pressed}) => [styles.primary, submitting && styles.disabled, pressed && !submitting && styles.pressed]}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+      {infoMessage ? (
+        <View style={styles.infoCard}>
+          <MaterialDesignIcons color={PURPLE} name="information-outline" size={16} />
+          <Text style={styles.infoText}>{infoMessage}</Text>
+        </View>
+      ) : null}
+      {__DEV__ ? (
+        <Pressable
+          accessibilityLabel="Continuer en mode développement — ne pas utiliser en production"
+          accessibilityRole="button"
+          onPress={() => navigation.replace('MainTabs', {screen: 'CycleHome'})}
+          style={({pressed}) => [styles.devBypass, pressed && styles.pressed]}>
+          <MaterialDesignIcons color="#8A7FA6" name="flask-outline" size={14} />
+          <Text style={styles.devBypassText}>Continuer en mode développement</Text>
+        </Pressable>
+      ) : null}
       <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>
         <Pressable onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
         <Pressable onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
@@ -98,8 +169,12 @@ const styles = StyleSheet.create({
   tabTextActive: {color: '#FFFFFF', fontWeight: '600'},
   title: {marginTop: 4, color: PURPLE_DARK, fontSize: 20, fontWeight: '600', textAlign: 'center', textShadowColor: 'rgba(255,255,255,0.85)', textShadowOffset: {width: 0, height: 1}, textShadowRadius: 8}, subtitle: {marginTop: 3, color: '#655A8D', fontSize: 12, lineHeight: 16, textAlign: 'center', textShadowColor: 'rgba(255,255,255,0.85)', textShadowOffset: {width: 0, height: 1}, textShadowRadius: 6},
   form: {gap: 5, marginTop: 10, paddingHorizontal: spacing.lg}, field: {minHeight: 48, flexDirection: 'row', alignItems: 'center', gap: 10, borderWidth: 1, borderColor: 'rgba(111,83,190,0.20)', borderRadius: 14, backgroundColor: 'rgba(255,252,255,0.92)', paddingHorizontal: 12}, fieldCopy: {flex: 1}, fieldLabel: {color: '#2A2050', fontSize: 12.5, fontWeight: '500'}, input: {height: 24, paddingVertical: 0, color: '#2A2050', fontSize: 12.5},
+  fieldError: {borderColor: '#C95565'}, fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: '#B4485A', fontSize: 10.5},
   hint: {flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 8, paddingHorizontal: spacing.lg}, hintText: {flex: 1, color: '#8A7FA6', fontSize: 9.5, lineHeight: 13}, hintTextValid: {color: PURPLE},
   primary: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginHorizontal: spacing.lg, borderRadius: 16, backgroundColor: PURPLE, shadowColor: '#4E319A', shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.25, shadowRadius: 9, elevation: 5}, primaryText: {color: '#FFFFFF', fontSize: 16, fontWeight: '600'},
+  disabled: {opacity: 0.55}, pressed: {opacity: 0.85},
+  infoCard: {flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10, marginHorizontal: spacing.lg, borderWidth: 1, borderColor: 'rgba(111,83,190,0.16)', borderRadius: 14, backgroundColor: '#F1E8FF', paddingHorizontal: 12, paddingVertical: 10}, infoText: {flex: 1, color: '#5F547C', fontSize: 11, lineHeight: 15},
+  devBypass: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 10, marginHorizontal: spacing.lg, minHeight: 34, borderWidth: 1, borderStyle: 'dashed', borderColor: 'rgba(138,127,166,0.45)', borderRadius: 12, backgroundColor: 'transparent'}, devBypassText: {color: '#8A7FA6', fontSize: 10.5, fontWeight: '600'},
   or: {marginVertical: 8, color: '#8A7FA6', fontSize: 11, textAlign: 'center'}, socialRow: {flexDirection: 'row', justifyContent: 'center', gap: 20}, social: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(111,83,190,0.20)', borderRadius: 22, backgroundColor: '#FFFCFF'}, socialLogo: {width: 26, height: 26, resizeMode: 'contain'},
   legalArea: {marginTop: 16}, legal: {color: '#8A7FA6', fontSize: 9, textAlign: 'center'}, legalStrong: {marginTop: 2, color: '#5F547C', fontSize: 9, fontWeight: '600', textAlign: 'center'},
 });

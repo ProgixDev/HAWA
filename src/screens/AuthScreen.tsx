@@ -24,6 +24,7 @@ import {
   TOP_SPACING_EXTRA,
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
+import {isValidEmail} from '../utils/emailValidation';
 
 const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 const APPLE_LOGO = require('../assets/images/auth-apple-logo.png');
@@ -46,9 +47,41 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [infoMessage, setInfoMessage] = useState('');
 
-  const submit = async () => {
-    navigation.replace('MainTabs', {screen: 'CycleHome'});
+  const submit = () => {
+    const trimmedEmail = email.trim();
+    let hasError = false;
+
+    if (!trimmedEmail) {
+      setEmailError('Entre ton adresse e-mail.');
+      hasError = true;
+    } else if (!isValidEmail(trimmedEmail)) {
+      setEmailError('Entre une adresse e-mail valide.');
+      hasError = true;
+    } else {
+      setEmailError('');
+    }
+
+    if (!password) {
+      setPasswordError('Entre ton mot de passe.');
+      hasError = true;
+    } else {
+      setPasswordError('');
+    }
+
+    if (hasError) {
+      setInfoMessage('');
+      return;
+    }
+
+    // Frontend validation passing is NOT authentication — no backend exists
+    // yet, so we neither navigate nor claim she's logged in.
+    setInfoMessage(
+      'La connexion sera disponible avec l’activation du service d’authentification.',
+    );
   };
 
   return (
@@ -155,7 +188,8 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}>
               <View style={styles.form}>
-                <View style={styles.field}>
+                <View
+                  style={[styles.field, emailError && styles.fieldError]}>
                   <MaterialDesignIcons
                     color={PURPLE}
                     name="email-outline"
@@ -166,16 +200,25 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                     autoCapitalize="none"
                     autoCorrect={false}
                     keyboardType="email-address"
-                    onChangeText={setEmail}
+                    onChangeText={value => {
+                      setEmail(value);
+                      setEmailError('');
+                      setInfoMessage('');
+                    }}
                     placeholder="Adresse e-mail"
                     placeholderTextColor="#8A7FA6"
                     returnKeyType="next"
                     style={styles.input}
+                    textContentType="emailAddress"
                     value={email}
                   />
                 </View>
+                {emailError ? (
+                  <Text style={styles.fieldErrorText}>{emailError}</Text>
+                ) : null}
 
-                <View style={styles.field}>
+                <View
+                  style={[styles.field, passwordError && styles.fieldError]}>
                   <MaterialDesignIcons
                     color={PURPLE}
                     name="lock-outline"
@@ -184,12 +227,17 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
 
                   <TextInput
                     autoCapitalize="none"
-                    onChangeText={setPassword}
+                    onChangeText={value => {
+                      setPassword(value);
+                      setPasswordError('');
+                      setInfoMessage('');
+                    }}
                     placeholder="Mot de passe"
                     placeholderTextColor="#8A7FA6"
                     returnKeyType="done"
                     secureTextEntry={!passwordVisible}
                     style={styles.input}
+                    textContentType="password"
                     value={password}
                   />
 
@@ -214,6 +262,9 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                     />
                   </Pressable>
                 </View>
+                {passwordError ? (
+                  <Text style={styles.fieldErrorText}>{passwordError}</Text>
+                ) : null}
 
                 {mode === 'login' ? (
                   <Pressable
@@ -239,6 +290,39 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       : 'Créer mon compte'}
                   </Text>
                 </Pressable>
+
+                {infoMessage ? (
+                  <View style={styles.infoCard}>
+                    <MaterialDesignIcons
+                      color={PURPLE}
+                      name="information-outline"
+                      size={16}
+                    />
+                    <Text style={styles.infoText}>{infoMessage}</Text>
+                  </View>
+                ) : null}
+
+                {__DEV__ ? (
+                  <Pressable
+                    accessibilityLabel="Continuer en mode développement — ne pas utiliser en production"
+                    accessibilityRole="button"
+                    onPress={() =>
+                      navigation.replace('MainTabs', {screen: 'CycleHome'})
+                    }
+                    style={({pressed}) => [
+                      styles.devBypass,
+                      pressed && styles.pressed,
+                    ]}>
+                    <MaterialDesignIcons
+                      color="#8A7FA6"
+                      name="flask-outline"
+                      size={14}
+                    />
+                    <Text style={styles.devBypassText}>
+                      Continuer en mode développement
+                    </Text>
+                  </Pressable>
+                ) : null}
 
                 <Text style={styles.or}>ou continuer avec</Text>
 
@@ -498,6 +582,58 @@ const styles = StyleSheet.create({
     color: PURPLE,
     fontSize: 11,
     textAlign: 'right',
+  },
+
+  fieldError: {
+    borderColor: '#C95565',
+  },
+
+  fieldErrorText: {
+    marginTop: -6,
+    marginBottom: 8,
+    marginLeft: 4,
+    color: '#B4485A',
+    fontSize: 10.5,
+  },
+
+  infoCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(111,83,190,0.16)',
+    borderRadius: 14,
+    backgroundColor: '#F1E8FF',
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+
+  infoText: {
+    flex: 1,
+    color: '#5F547C',
+    fontSize: 11,
+    lineHeight: 15,
+  },
+
+  devBypass: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: 10,
+    minHeight: 34,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: 'rgba(138,127,166,0.45)',
+    borderRadius: 12,
+    backgroundColor: 'transparent',
+  },
+
+  devBypassText: {
+    color: '#8A7FA6',
+    fontSize: 10.5,
+    fontWeight: '600',
   },
 
   primaryButton: {
