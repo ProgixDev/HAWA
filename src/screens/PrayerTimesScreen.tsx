@@ -114,7 +114,7 @@ function PrayerTimesScreen(): React.JSX.Element {
         <Animated.View entering={FadeInUp.delay(60).duration(400)} style={[styles.metaBlock, compact && styles.metaBlockCompact]}>
           <Pressable
             accessibilityRole="button"
-            onPress={() => navigation.navigate('Location')}
+            onPress={() => navigation.navigate('Location', {mode: 'edit'})}
             style={({pressed}) => [styles.locationPill, pressed && styles.pressed]}>
             <MaterialDesignIcons color={homeColors.primary} name="map-marker-outline" size={15} />
             <Text numberOfLines={1} style={styles.locationText}>

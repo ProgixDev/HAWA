@@ -35,7 +35,7 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {mapProvider, MapProviderError} from '../services/maps/mapProvider';
 import {loadMapStyle} from '../services/maps/mapStyle';
 import type {MapPlace} from '../services/maps/types';
-import {getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
+import {getHasConfirmedCycleData, getSelectedLocation, getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 import {spacing} from '../theme/spacing';
 
 const LOCATION_PIN = require('../assets/images/location-pin.png');
@@ -61,15 +61,31 @@ const geocodingErrorMessage = (error: unknown) => {
   return 'Impossible d’identifier ce lieu pour le moment.';
 };
 
-function LocationScreen({navigation}: Props): React.JSX.Element {
+function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
   const cameraRef = useRef<CameraRef>(null);
   const reverseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reverseRequest = useRef(0);
-  const [query, setQuery] = useState('');
+
+  // Onboarding (default, unchanged behavior) vs. edit — reached from
+  // PrayerTimesScreen.tsx's "Modifier" location pill so she can update her
+  // saved location without re-entering onboarding. Same screen, same
+  // canonical onboardingPreferences location store — only the post-save
+  // destination differs.
+  const mode = route.params?.mode ?? 'onboarding';
+  const isEdit = mode === 'edit';
+
+  // Prefills whatever location is already saved (regardless of mode) — a
+  // form should never blank out a real, previously-entered value. A
+  // brand-new user with nothing saved yet still sees the normal empty state,
+  // since getSelectedLocation() returns null until she's ever chosen one.
+  const initialLocation = getSelectedLocation();
+  const [query, setQuery] = useState(
+    initialLocation ? `${initialLocation.city}, ${initialLocation.country}` : '',
+  );
   const [suggestions, setSuggestions] = useState<MapPlace[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<MapPlace | null>(null);
+  const [selectedLocation, setSelectedLocation] = useState<MapPlace | null>(initialLocation);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searching, setSearching] = useState(false);
   const [resolving, setResolving] = useState(false);
@@ -233,6 +249,15 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
   const handleNext = async () => {
     if (!selectedLocation) {return;}
     await saveSelectedLocation(selectedLocation);
+    // Edit mode (opened from PrayerTimesScreen.tsx) just updates the saved
+    // location and returns — active objective is irrelevant here, and this
+    // must never continue into onboarding regardless of which objective is
+    // active. PrayerTimesScreen.tsx already refreshes on focus via its
+    // existing hydrate/subscribe architecture, so goBack() alone is enough.
+    if (isEdit) {
+      navigation.goBack();
+      return;
+    }
     // Pregnancy, Postpartum and "Après une fausse couche" each replace the
     // Cycle-specific "Informations de ton cycle" step with their own
     // objective-specific step — every other objective (including Cycle)
@@ -251,7 +276,15 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
       return;
     }
     if (objective === 'conceive') {
-      navigation.navigate('ConceptionTryingDuration');
+      // A brand-new TTC user with no confirmed cycle baseline goes through
+      // the same CycleInformationScreen every other objective without a
+      // dedicated dating step uses (see the fallthrough below) before
+      // reaching the TTC-specific onboarding — TTC must never compute
+      // "Jour X"/fertile window/ovulation from the hardcoded fallback and
+      // present it as personalized. An existing user who already confirmed
+      // real cycle data (e.g. re-running onboarding) skips straight ahead,
+      // exactly as before, so she's never asked twice.
+      navigation.navigate(getHasConfirmedCycleData() ? 'ConceptionTryingDuration' : 'CycleInformation');
       return;
     }
     navigation.navigate('CycleInformation');
@@ -393,7 +426,7 @@ function LocationScreen({navigation}: Props): React.JSX.Element {
             disabled={!selectedLocation}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, !selectedLocation && styles.nextButtonDisabled, pressed && styles.pressed]}>
-            <Text style={styles.nextText}>Suivant</Text>
+            <Text style={styles.nextText}>{isEdit ? 'Enregistrer' : 'Suivant'}</Text>
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>

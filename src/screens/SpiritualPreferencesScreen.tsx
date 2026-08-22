@@ -15,7 +15,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { spacing, TOP_SPACING_EXTRA } from '../theme/spacing';
 import {
+  getHasConfirmedCycleData,
+  getHasConfirmedSpiritualMarkersChoice,
   getSelectedObjective,
+  getSpiritualMarkersEnabled,
   setSpiritualMarkersEnabled,
 } from '../state/onboardingPreferences';
 
@@ -30,9 +33,18 @@ type Props = NativeStackScreenProps<RootStackParamList, 'SpiritualPreferences'>;
 
 function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const [enabled, setEnabled] = useState(true);
+  // null = no explicit choice yet (brand-new users start here — never
+  // silently treated as true or false). Pre-fills her real answer if she's
+  // already confirmed one before (e.g. navigating back), instead of
+  // resetting to unanswered every time.
+  const [enabled, setEnabled] = useState<boolean | null>(() =>
+    getHasConfirmedSpiritualMarkersChoice() ? getSpiritualMarkersEnabled() : null,
+  );
+  const isYes = enabled === true;
+  const isNo = enabled === false;
 
   const handleNext = () => {
+    if (enabled === null) {return;}
     setSpiritualMarkersEnabled(enabled);
 
     // "Après une fausse couche" is the only objective where disabling
@@ -57,7 +69,10 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
       return;
     }
     if (!enabled && objective === 'conceive') {
-      navigation.navigate('ConceptionTryingDuration');
+      // Same "confirm cycle baseline first" rule as LocationScreen's
+      // equivalent branch — this path only fires when the user disabled
+      // spiritual markers, which also skips Location entirely.
+      navigation.navigate(getHasConfirmedCycleData() ? 'ConceptionTryingDuration' : 'CycleInformation');
       return;
     }
 
@@ -106,23 +121,23 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
           <View style={styles.choices} accessibilityRole="radiogroup">
             <Pressable
               accessibilityRole="radio"
-              accessibilityState={{ checked: enabled }}
+              accessibilityState={{ checked: isYes }}
               onPress={() => setEnabled(true)}
               style={({ pressed }) => [
                 styles.choice,
-                enabled && styles.choiceActive,
+                isYes && styles.choiceActive,
                 pressed && styles.pressed,
               ]}
             >
-              <View style={[styles.radio, enabled && styles.radioActive]}>
-                {enabled && <View style={styles.radioDot} />}
+              <View style={[styles.radio, isYes && styles.radioActive]}>
+                {isYes && <View style={styles.radioDot} />}
               </View>
               <Text
-                style={[styles.choiceText, enabled && styles.choiceTextActive]}
+                style={[styles.choiceText, isYes && styles.choiceTextActive]}
               >
                 Oui, activer
               </Text>
-              {enabled && (
+              {isYes && (
                 <View style={styles.checkCircle}>
                   <Text style={styles.check}>✓</Text>
                 </View>
@@ -131,23 +146,23 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
 
             <Pressable
               accessibilityRole="radio"
-              accessibilityState={{ checked: !enabled }}
+              accessibilityState={{ checked: isNo }}
               onPress={() => setEnabled(false)}
               style={({ pressed }) => [
                 styles.choice,
-                !enabled && styles.choiceActive,
+                isNo && styles.choiceActive,
                 pressed && styles.pressed,
               ]}
             >
-              <View style={[styles.radio, !enabled && styles.radioActive]}>
-                {!enabled && <View style={styles.radioDot} />}
+              <View style={[styles.radio, isNo && styles.radioActive]}>
+                {isNo && <View style={styles.radioDot} />}
               </View>
               <Text
-                style={[styles.choiceText, !enabled && styles.choiceTextActive]}
+                style={[styles.choiceText, isNo && styles.choiceTextActive]}
               >
                 Non, pas maintenant
               </Text>
-              {!enabled && (
+              {isNo && (
                 <View style={styles.checkCircle}>
                   <Text style={styles.check}>✓</Text>
                 </View>
@@ -159,23 +174,23 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
             {features.map(feature => (
               <View
                 key={feature.label}
-                accessibilityState={{ disabled: !enabled }}
+                accessibilityState={{ disabled: isNo }}
                 style={[
                   styles.featureCard,
-                  !enabled && styles.featureCardDisabled,
+                  isNo && styles.featureCardDisabled,
                 ]}
               >
                 <View
-                  style={[styles.iconBox, !enabled && styles.iconBoxDisabled]}
+                  style={[styles.iconBox, isNo && styles.iconBoxDisabled]}
                 >
-                  <Text style={[styles.icon, !enabled && styles.iconDisabled]}>
+                  <Text style={[styles.icon, isNo && styles.iconDisabled]}>
                     {feature.icon}
                   </Text>
                 </View>
                 <Text
                   style={[
                     styles.featureText,
-                    !enabled && styles.featureTextDisabled,
+                    isNo && styles.featureTextDisabled,
                   ]}
                 >
                   {feature.label}
@@ -186,10 +201,12 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
 
           <Pressable
             accessibilityRole="button"
+            disabled={enabled === null}
             onPress={handleNext}
             style={({ pressed }) => [
               styles.nextButton,
-              pressed && styles.pressed,
+              enabled === null && styles.disabled,
+              pressed && enabled !== null && styles.pressed,
             ]}
           >
             <Text style={styles.nextText}>Suivant</Text>
@@ -358,6 +375,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   nextText: { color: '#FFFFFF', fontSize: 18, fontWeight: '600' },
+  disabled: { opacity: 0.55 },
 });
 
 export default SpiritualPreferencesScreen;
