@@ -182,6 +182,20 @@ function InAppNotificationCenter({
       navigationRef.navigate('ArticleReader', {
         articleId: notification.data.articleId,
       });
+      return;
+    }
+    if (notification.route === 'conception-reminder' && navigationRef.isReady()) {
+      const reminderType = notification.data?.conceptionReminderType;
+      if (reminderType === 'temperature') {
+        navigationRef.navigate('TemperatureEntry');
+      } else if (reminderType === 'lh_test') {
+        navigationRef.navigate('LHTestEntry');
+      } else {
+        // fertile_window / estimated_ovulation / daily_journal — the TTC
+        // Dashboard; "Journal quotidien" is a context-based bottom sheet,
+        // not a stack route, so it can't be deep-linked into from here.
+        navigationRef.navigate('MainTabs', { screen: 'CycleHome' });
+      }
     }
   };
 

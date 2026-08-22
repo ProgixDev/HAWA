@@ -8,6 +8,10 @@ import {
   openPendingPostpartumNifasNotification,
   storePendingPostpartumNifasNotification,
 } from './postpartumNifasNotificationNavigation';
+import {
+  openPendingConceptionReminderNotification,
+  storePendingConceptionReminderNotification,
+} from './conceptionReminderNotificationNavigation';
 
 let registered = false;
 
@@ -25,7 +29,9 @@ export function registerNotificationForegroundHandlers(): void {
     if (type === EventType.PRESS) {
       await markDeliveredInAppNotificationRead(detail.notification);
       await storePendingPostpartumNifasNotification(detail.notification);
+      await storePendingConceptionReminderNotification(detail.notification);
       await openPendingPostpartumNifasNotification();
+      await openPendingConceptionReminderNotification();
     }
   });
   notifee.getInitialNotification().then(async initial => {
@@ -34,5 +40,6 @@ export function registerNotificationForegroundHandlers(): void {
     }
     await markDeliveredInAppNotificationRead(initial.notification);
     await storePendingPostpartumNifasNotification(initial.notification);
+    await storePendingConceptionReminderNotification(initial.notification);
   });
 }
