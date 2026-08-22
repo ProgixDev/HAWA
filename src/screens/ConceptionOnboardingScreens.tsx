@@ -165,12 +165,12 @@ const indicatorOptions: Array<{
   },
 ];
 
-/*
- * Seulement les rappels essentiels.
- *
- * Température, LH et rapports restent suivis dans le Journal quotidien,
- * mais ne possèdent plus chacun leur propre notification.
- */
+// All 5 ConceptionReminderKey values get their own toggle + notification
+// here (see conceptionReminderScheduling.ts), each off by default — opt-in
+// only, never auto-enabled. Deliberately no "Rapports" reminder: it
+// overlapped with the fertile-window reminder and risked feeling intrusive
+// (product decision) — "Rapports" itself is still tracked in the Journal
+// quotidien exactly as before, this only removes its automatic reminder.
 const reminderOptions: Array<{
   id: ConceptionReminderKey;
   label: string;
@@ -212,6 +212,28 @@ const reminderOptions: Array<{
     icon: 'notebook-outline',
     accent: '#6949BE',
     background: '#EFE7FB',
+  },
+  {
+    id: 'temperature',
+    label: 'Température basale',
+    description:
+      'Un rappel chaque matin pour prendre ta température.',
+    detail:
+      'Idéal pour ne pas oublier ta mesure au réveil, avant de te lever.',
+    icon: 'thermometer',
+    accent: '#8B6FD1',
+    background: '#EEE7FA',
+  },
+  {
+    id: 'lh_test',
+    label: 'Test LH',
+    description:
+      'Un rappel pendant ta fenêtre fertile pour ton test d’ovulation.',
+    detail:
+      'Un repère pour penser à faire ton test LH au bon moment.',
+    icon: 'test-tube',
+    accent: '#8C5A9E',
+    background: '#F3E9F7',
   },
 ];
 

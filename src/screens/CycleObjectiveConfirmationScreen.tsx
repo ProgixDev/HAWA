@@ -119,7 +119,7 @@ function CycleObjectiveConfirmationScreen({navigation}: Props): React.JSX.Elemen
           <Pressable
             accessibilityLabel={content.buttonLabel}
             accessibilityRole="button"
-            onPress={() => navigation.navigate('SpiritualPreferences')}
+            onPress={() => navigation.navigate('NameOnboarding')}
             style={({pressed}) => [styles.button, pressed && styles.buttonPressed]}>
             <Text style={styles.buttonText}>{content.buttonLabel}</Text>
           </Pressable>

@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import {spacing, getTopPadding} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {setCyclePreferences} from '../state/onboardingPreferences';
+import {getSelectedObjective, setCyclePreferences} from '../state/onboardingPreferences';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -33,7 +33,7 @@ const formatDate = (date: Date) =>
     year: 'numeric',
   }).format(date);
 
-function CycleInformationScreen({navigation}: Props): React.JSX.Element {
+function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [selectedDate, setSelectedDate] = useState(() => new Date());
   const [visibleMonth, setVisibleMonth] = useState(
@@ -84,6 +84,24 @@ function CycleInformationScreen({navigation}: Props): React.JSX.Element {
 
   const handleNext = () => {
     setCyclePreferences({lastPeriodStart: selectedDate, periodDuration, cycleDuration, regularity});
+
+    // Reached from an in-app "Configure ton cycle" prompt (TTC
+    // Dashboard/Calendar/Statistics) rather than onboarding — return to
+    // wherever she came from instead of continuing into an onboarding step.
+    if (route.params?.fromDashboardCTA) {
+      navigation.goBack();
+      return;
+    }
+
+    // TTC's onboarding branches through this same screen (see
+    // LocationScreen/SpiritualPreferencesScreen) before its own
+    // Conception* steps — every other objective that reaches this screen
+    // (Cycle/contraception/irregular/menopause) keeps going to SecuritySetup
+    // exactly as before.
+    if (getSelectedObjective() === 'conceive') {
+      navigation.navigate('ConceptionTryingDuration');
+      return;
+    }
     navigation.navigate('SecuritySetup');
   };
 
