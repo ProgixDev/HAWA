@@ -19,19 +19,19 @@ export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfir
   cycle: {
     title: 'Parfait ! 🎉',
     description: 'Tu as choisi le suivi classique du cycle.',
-    nextStep: 'Tu pourras personnaliser ton suivi\net ajouter tes premières informations\nà l’étape suivante.',
+    nextStep: 'Tu pourras personnaliser ton suivi et ajouter tes premières informations\nà l’étape suivante.',
     buttonLabel: 'Commencer mon suivi',
   },
   conceive: {
     title: 'Parfait ! 🎉',
     description: 'Tu as choisi un suivi pour t’accompagner dans ton projet de conception.',
-    nextStep: 'Nous allons personnaliser ton suivi de fertilité,\nd’ovulation et de cycle selon tes besoins.',
+    nextStep: 'Nous allons personnaliser ton suivi de fertilité,d’ovulation et de cycle selon tes besoins.',
     buttonLabel: 'Configurer mon suivi',
   },
   contraception: {
     title: 'Parfait ! 🎉',
     description: 'Tu as choisi un suivi adapté à ta contraception.',
-    nextStep: 'Tu pourras renseigner ton type de contraception\net personnaliser le suivi de ton cycle.',
+    nextStep: 'Tu pourras renseigner ton type de contraception et personnaliser le \nsuivi de ton cycle.',
     buttonLabel: 'Configurer mon suivi',
   },
   irregular: {
@@ -49,13 +49,13 @@ export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfir
   pregnancy: {
     title: 'Parfait ! 🎉',
     description: 'Tu as choisi le suivi de grossesse.',
-    nextStep: 'Nous allons personnaliser ton accompagnement\npour suivre ta grossesse semaine après semaine.',
+    nextStep: 'Nous allons personnaliser ton accompagnement pour suivre ta grossesse semaine après semaine.',
     buttonLabel: 'Commencer mon suivi',
   },
   postpartum: {
     title: 'Parfait ! 💜',
     description: 'Tu as choisi un accompagnement post-partum.',
-    nextStep: 'AWA t’accompagnera dans ta récupération,\nle suivi des lochies, ton bien-être quotidien\net le retour progressif de ton cycle.',
+    nextStep: 'AWA t’accompagnera dans ta récupération,le suivi des lochies, ton bien-être quotidien et le retour progressif de ton cycle.',
     buttonLabel: 'Commencer mon suivi',
   },
   loss: {

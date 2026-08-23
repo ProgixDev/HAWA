@@ -16,6 +16,7 @@ import LegendSheet from '../components/calendar/LegendSheet';
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {homeColors} from '../components/home/homeTheme';
 import {getCycleObservationStartedAt, getCyclePreferences, getPeriodHistory, getSpiritualMarkersEnabled, hydrateCyclePreferences, isDateWithinConfirmedPeriod, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
+import {recordConfirmedPeriodEnd, removeConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
 import {withResolvedIntimacyForDisplay, withResolvedIntimacyForDisplayMany} from '../services/privateJournalEncryption';
 import {
@@ -166,7 +167,27 @@ function CalendarScreen(_: Props): React.JSX.Element {
     const continuous = dates.every((date, index) => index === 0 || diffDays(date, dates[index - 1]) === 1);
     if (!continuous) {Alert.alert('Sélection non continue', 'Les jours de règles doivent former une période continue.'); return;}
     try {
-      await updateCurrentPeriodRange(dates[0], dates[dates.length - 1]);
+      const previousPeriodStart = basics.lastPeriodStart;
+      const rangeStart = dates[0];
+      const rangeEnd = dates[dates.length - 1];
+      await updateCurrentPeriodRange(rangeStart, rangeEnd);
+
+      // A range the user explicitly marks as fully in the past is a real
+      // completed historical period — make it available to Qadaa's
+      // confirmed history too (see confirmedPeriodHistoryStore.ts), the same
+      // way the Purity "Quand tes règles se sont-elles terminées ?" flow
+      // already does. A range that includes today or any future day is
+      // ongoing/predictive and must never be auto-confirmed this way — that
+      // would turn predicted menstruation into religiously-relevant
+      // confirmed data; the existing Purity/period-end flow stays the only
+      // path for an ongoing period.
+      if (rangeEnd.getTime() < startOfDay(new Date()).getTime()) {
+        await recordConfirmedPeriodEnd(rangeStart, rangeEnd);
+        if (localDateKey(previousPeriodStart) !== localDateKey(rangeStart)) {
+          await removeConfirmedPeriodOccurrence(previousPeriodStart);
+        }
+      }
+
       setSelectedDate(dates[0]);
       setEditingPeriod(false);
       setDraftPeriodDays(new Set());

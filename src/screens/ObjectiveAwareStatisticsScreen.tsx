@@ -5,6 +5,7 @@ import PregnancyStatisticsScreen from './pregnancy/PregnancyStatisticsScreen';
 import PostpartumStatisticsScreen from './postpartum/PostpartumStatisticsScreen';
 import MiscarriageStatisticsScreen from './miscarriage/MiscarriageStatisticsScreen';
 import ConceiveStatisticsScreen from './conceive/ConceiveStatisticsScreen';
+import ContraceptionStatisticsScreen from './contraception/ContraceptionStatisticsScreen';
 import StatisticsScreen from './StatisticsScreen';
 import {
   getActiveObjective,
@@ -41,6 +42,10 @@ function ObjectiveAwareStatisticsScreen(props: Props): React.JSX.Element {
 
   if (objective === 'conceive') {
     return <ConceiveStatisticsScreen />;
+  }
+
+  if (objective === 'contraception') {
+    return <ContraceptionStatisticsScreen />;
   }
 
   return <StatisticsScreen {...props} />;

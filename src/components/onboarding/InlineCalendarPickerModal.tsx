@@ -15,9 +15,13 @@ type Props = {
    * don't pass these keep the exact same bare-calendar look. */
   title?: string;
   subtitle?: string;
+  /** Optional upper bound — days after this date render disabled (greyed,
+   * unpressable) instead of being silently correctable after the fact.
+   * Omitted by existing callers, so their behavior is unchanged. */
+  maximumDate?: Date;
 };
 
-function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle}: Props): React.JSX.Element {
+function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle, maximumDate}: Props): React.JSX.Element {
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(value.getFullYear(), value.getMonth(), 1));
 
   useEffect(() => {
@@ -40,7 +44,14 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
     setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + offset, 1));
   };
 
+  const isDisabledDay = (day: number) => {
+    if (!maximumDate) {return false;}
+    const candidate = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
+    return candidate.getTime() > maximumDate.getTime();
+  };
+
   const chooseDay = (day: number) => {
+    if (isDisabledDay(day)) {return;}
     onSelect(new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day));
     onClose();
   };
@@ -88,14 +99,19 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
                 day === value.getDate() &&
                 visibleMonth.getMonth() === value.getMonth() &&
                 visibleMonth.getFullYear() === value.getFullYear();
+              const disabled = day !== null && isDisabledDay(day);
               return (
                 <View key={`${day ?? 'empty'}-${index}`} style={styles.dayCell}>
                   {day ? (
                     <Pressable
                       accessibilityLabel={`${day} ${new Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(visibleMonth)}`}
+                      accessibilityState={{disabled}}
+                      disabled={disabled}
                       onPress={() => chooseDay(day)}
                       style={[styles.dayButton, selected && styles.daySelected]}>
-                      <Text style={[styles.dayText, selected && styles.dayTextSelected]}>{day}</Text>
+                      <Text style={[styles.dayText, selected && styles.dayTextSelected, disabled && styles.dayTextDisabled]}>
+                        {day}
+                      </Text>
                     </Pressable>
                   ) : null}
                 </View>
@@ -126,6 +142,7 @@ const styles = StyleSheet.create({
   daySelected: {backgroundColor: '#6848BC'},
   dayText: {color: '#2A2050', fontSize: 14},
   dayTextSelected: {color: '#FFFFFF', fontWeight: '700'},
+  dayTextDisabled: {color: '#C8BEDB'},
 });
 
 export default InlineCalendarPickerModal;

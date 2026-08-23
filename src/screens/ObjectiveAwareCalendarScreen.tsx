@@ -5,6 +5,7 @@ import PregnancyCalendarContent from '../components/pregnancy/PregnancyCalendarC
 import PostpartumCalendarContent from '../components/postpartum/PostpartumCalendarContent';
 import MiscarriageCalendarContent from '../components/miscarriage/MiscarriageCalendarContent';
 import ConceiveCalendarContent from '../components/conceive/ConceiveCalendarContent';
+import ContraceptionCalendarContent from '../components/contraception/ContraceptionCalendarContent';
 import CalendarScreen from './CalendarScreen';
 import {
   getActiveObjective,
@@ -46,6 +47,10 @@ function ObjectiveAwareCalendarScreen(props: Props): React.JSX.Element {
 
   if (objective === 'conceive') {
     return <ConceiveCalendarContent />;
+  }
+
+  if (objective === 'contraception') {
+    return <ContraceptionCalendarContent />;
   }
 
   return <CalendarScreen {...props} />;

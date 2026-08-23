@@ -229,6 +229,58 @@ export const subscribeSpiritualMarkersEnabled = (listener: () => void) => {
   };
 };
 
+export type HijriAdjustmentDays = -1 | 0 | 1;
+
+const HIJRI_ADJUSTMENT_STORAGE_KEY = '@hawa/hijri-adjustment-days';
+let hijriAdjustmentDays: HijriAdjustmentDays = 0;
+let hijriAdjustmentHydration: Promise<HijriAdjustmentDays> | null = null;
+const hijriAdjustmentListeners = new Set<() => void>();
+
+const isValidHijriAdjustment = (value: number): value is HijriAdjustmentDays =>
+  value === -1 || value === 0 || value === 1;
+
+/**
+ * The user's manual day-shift applied uniformly to AWA's single canonical
+ * ICU Hijri calculation (see src/utils/hijriCalendar.ts's hijriPartsFor) so
+ * she can align the calendar with whatever local/regional reference she
+ * personally follows, without AWA ever claiming to know an "official" date.
+ * Defaults to 0 (AWA's raw calculation, unchanged) for every existing
+ * install until she explicitly changes it — no migration ever sets this to
+ * anything else. Applied in exactly ONE place (hijriPartsFor) so Ramadan/
+ * Dhoul Hijja classification, Qadaa, the post-Ramadan reminder, and every
+ * displayed Hijri date can never disagree with each other.
+ */
+export const setHijriAdjustmentDays = (value: HijriAdjustmentDays) => {
+  hijriAdjustmentDays = value;
+  hijriAdjustmentListeners.forEach(listener => listener());
+  AsyncStorage.setItem(HIJRI_ADJUSTMENT_STORAGE_KEY, String(value)).catch(() => {});
+};
+
+export const getHijriAdjustmentDays = (): HijriAdjustmentDays => hijriAdjustmentDays;
+
+export const hydrateHijriAdjustmentDays = (): Promise<HijriAdjustmentDays> => {
+  if (!hijriAdjustmentHydration) {
+    hijriAdjustmentHydration = AsyncStorage.getItem(HIJRI_ADJUSTMENT_STORAGE_KEY)
+      .then(value => {
+        const parsed = value !== null ? Number(value) : NaN;
+        if (isValidHijriAdjustment(parsed)) {
+          hijriAdjustmentDays = parsed;
+        }
+        hijriAdjustmentListeners.forEach(listener => listener());
+        return hijriAdjustmentDays;
+      })
+      .catch(() => hijriAdjustmentDays);
+  }
+  return hijriAdjustmentHydration;
+};
+
+export const subscribeHijriAdjustmentDays = (listener: () => void) => {
+  hijriAdjustmentListeners.add(listener);
+  return () => {
+    hijriAdjustmentListeners.delete(listener);
+  };
+};
+
 export const setSelectedSchool = (value: SchoolId) => {
   selectedSchool = value;
 };

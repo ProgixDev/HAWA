@@ -82,6 +82,25 @@ export const recordConfirmedPeriodEnd = async (
   return getConfirmedPeriodHistory();
 };
 
+/**
+ * Removes one confirmed occurrence by its period-start day, if present.
+ * No-ops (no write, no notify) when nothing matches — safe to call
+ * speculatively, e.g. to clean up the old occurrence after a period-range
+ * edit renames its start date (see CalendarScreen.tsx's savePeriodEditing).
+ */
+export const removeConfirmedPeriodOccurrence = async (
+  periodStart: Date,
+): Promise<ConfirmedPeriodOccurrence[]> => {
+  const id = dateKey(periodStart);
+  if (!history.some(occurrence => occurrence.id === id)) {
+    return getConfirmedPeriodHistory();
+  }
+  history = history.filter(occurrence => occurrence.id !== id);
+  notifyListeners();
+  await AsyncStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
+  return getConfirmedPeriodHistory();
+};
+
 export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurrence[]> => {
   // Same reasoning as onboardingPreferences' hydrate* functions: once the
   // first real AsyncStorage read resolves, the in-memory list is

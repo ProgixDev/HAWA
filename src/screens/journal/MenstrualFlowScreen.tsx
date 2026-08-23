@@ -498,34 +498,36 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           </Animated.View>
         </Animated.View>
 
-        <Animated.View entering={FadeIn.delay(530).duration(400)} style={saveAnimatedStyle}>
-          <Pressable
-            accessibilityLabel="Enregistrer le flux menstruel"
-            accessibilityRole="button"
-            disabled={saving}
-            onPress={save}
-            onPressIn={() => {
-              if (!saving) {
-                saveScale.value = withTiming(0.97, {duration: 75});
-              }
-            }}
-            onPressOut={() => {
-              saveScale.value = withSpring(1);
-            }}
-            style={[
-              styles.savePressable,
-              saving && styles.savePressableDisabled,
-            ]}>
-            <LinearGradient
-              colors={['#7657EB', '#6539D5']}
-              end={{x: 1, y: 1}}
-              start={{x: 0, y: 0}}
-              style={styles.saveGradient}>
-              <Text style={styles.saveText}>
-                {saving ? 'Enregistrement…' : 'Enregistrer'}
-              </Text>
-            </LinearGradient>
-          </Pressable>
+        <Animated.View entering={FadeIn.delay(530).duration(400)}>
+          <Animated.View style={saveAnimatedStyle}>
+            <Pressable
+              accessibilityLabel="Enregistrer le flux menstruel"
+              accessibilityRole="button"
+              disabled={saving}
+              onPress={save}
+              onPressIn={() => {
+                if (!saving) {
+                  saveScale.value = withTiming(0.97, {duration: 75});
+                }
+              }}
+              onPressOut={() => {
+                saveScale.value = withSpring(1);
+              }}
+              style={[
+                styles.savePressable,
+                saving && styles.savePressableDisabled,
+              ]}>
+              <LinearGradient
+                colors={['#7657EB', '#6539D5']}
+                end={{x: 1, y: 1}}
+                start={{x: 0, y: 0}}
+                style={styles.saveGradient}>
+                <Text style={styles.saveText}>
+                  {saving ? 'Enregistrement…' : 'Enregistrer'}
+                </Text>
+              </LinearGradient>
+            </Pressable>
+          </Animated.View>
         </Animated.View>
       </ScrollView>
 

@@ -12,7 +12,18 @@ import {
 } from 'react-native';
 import {spacing, getTopPadding} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {getSelectedObjective, setCyclePreferences} from '../state/onboardingPreferences';
+import {
+  getCyclePreferences,
+  getPeriodEndDateTime,
+  getSelectedObjective,
+  setCyclePreferences,
+  setPeriodEndDateTime,
+} from '../state/onboardingPreferences';
+import {
+  recordConfirmedPeriodEnd,
+  removeConfirmedPeriodOccurrence,
+} from '../state/confirmedPeriodHistoryStore';
+import {startOfDay} from '../utils/cycleMath';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -23,7 +34,9 @@ const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);
 const CYCLE_DURATIONS = Array.from({length: 21}, (_, index) => index + 20);
 
 type Regularity = 'yes' | 'no' | 'unknown';
+type Terminated = 'yes' | 'no';
 type DurationPicker = 'period' | 'cycle' | null;
+type DatePickerTarget = 'start' | 'end' | null;
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleInformation'>;
 
 const formatDate = (date: Date) =>
@@ -33,17 +46,46 @@ const formatDate = (date: Date) =>
     year: 'numeric',
   }).format(date);
 
+const localDateKey = (date: Date) =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
 function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const [selectedDate, setSelectedDate] = useState(() => new Date());
-  const [visibleMonth, setVisibleMonth] = useState(
-    () => new Date(new Date().getFullYear(), new Date().getMonth(), 1),
+
+  // Prefill from the real, previously-saved values so revisiting this screen
+  // (Back from a later onboarding step, or the TTC "Configure ton cycle"
+  // CTA) never silently resets her real answers back to today/5/28/yes.
+  const initialCyclePreferences = useMemo(() => getCyclePreferences(), []);
+  const initialPeriodEndDateTime = useMemo(() => getPeriodEndDateTime(), []);
+  // A periodEndDateTime only describes the CURRENT actual period if it's not
+  // older than its start — the same relevance check useQadaaStatus.ts's own
+  // legacy-migration bootstrap already uses. An older/unrelated value must
+  // never be shown as if it confirmed this period as terminated.
+  const initialHasValidEnd =
+    initialPeriodEndDateTime !== null &&
+    initialPeriodEndDateTime.getTime() >= initialCyclePreferences.lastPeriodStart.getTime();
+
+  const [actualPeriodStart, setActualPeriodStart] = useState(
+    () => initialCyclePreferences.lastPeriodStart,
   );
-  const [calendarVisible, setCalendarVisible] = useState(false);
+  const [periodTerminated, setPeriodTerminated] = useState<Terminated>(
+    () => (initialHasValidEnd ? 'yes' : 'no'),
+  );
+  const [actualPeriodEnd, setActualPeriodEnd] = useState<Date | null>(
+    () => (initialHasValidEnd ? initialPeriodEndDateTime : null),
+  );
+  const [visibleMonth, setVisibleMonth] = useState(
+    () => new Date(initialCyclePreferences.lastPeriodStart.getFullYear(), initialCyclePreferences.lastPeriodStart.getMonth(), 1),
+  );
+  const [datePicker, setDatePicker] = useState<DatePickerTarget>(null);
   const [durationPicker, setDurationPicker] = useState<DurationPicker>(null);
-  const [periodDuration, setPeriodDuration] = useState(5);
-  const [cycleDuration, setCycleDuration] = useState(28);
-  const [regularity, setRegularity] = useState<Regularity>('yes');
+  const [periodDuration, setPeriodDuration] = useState(() => initialCyclePreferences.periodDuration);
+  const [cycleDuration, setCycleDuration] = useState(() => initialCyclePreferences.cycleDuration);
+  const [regularity, setRegularity] = useState<Regularity>(() => initialCyclePreferences.regularity);
+  const [errors, setErrors] = useState<{start?: string; end?: string}>({});
+  const [submitting, setSubmitting] = useState(false);
+
+  const activeCalendarDate = datePicker === 'end' ? (actualPeriodEnd ?? new Date()) : actualPeriodStart;
 
   const calendarDays = useMemo(() => {
     const year = visibleMonth.getFullYear();
@@ -61,16 +103,27 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
     durationPicker === 'period' ? PERIOD_DURATIONS : CYCLE_DURATIONS;
 
   const chooseDay = (day: number) => {
-    setSelectedDate(
-      new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day),
-    );
-    setCalendarVisible(false);
+    const picked = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
+    if (datePicker === 'start') {
+      setActualPeriodStart(picked);
+      setErrors(current => ({...current, start: undefined}));
+    } else if (datePicker === 'end') {
+      setActualPeriodEnd(picked);
+      setErrors(current => ({...current, end: undefined}));
+    }
+    setDatePicker(null);
   };
 
   const changeMonth = (offset: number) => {
     setVisibleMonth(
       current => new Date(current.getFullYear(), current.getMonth() + offset, 1),
     );
+  };
+
+  const openDatePicker = (target: 'start' | 'end') => {
+    const base = target === 'start' ? actualPeriodStart : actualPeriodEnd ?? new Date();
+    setVisibleMonth(new Date(base.getFullYear(), base.getMonth(), 1));
+    setDatePicker(target);
   };
 
   const selectDuration = (duration: number) => {
@@ -82,27 +135,99 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
     setDurationPicker(null);
   };
 
-  const handleNext = () => {
-    setCyclePreferences({lastPeriodStart: selectedDate, periodDuration, cycleDuration, regularity});
+  const handleTerminatedChange = (value: Terminated) => {
+    setPeriodTerminated(value);
+    if (value === 'no') {
+      setErrors(current => ({...current, end: undefined}));
+    }
+  };
 
-    // Reached from an in-app "Configure ton cycle" prompt (TTC
-    // Dashboard/Calendar/Statistics) rather than onboarding — return to
-    // wherever she came from instead of continuing into an onboarding step.
-    if (route.params?.fromDashboardCTA) {
-      navigation.goBack();
+  const handleNext = async () => {
+    if (submitting) {return;}
+
+    const today = startOfDay(new Date());
+    const nextErrors: {start?: string; end?: string} = {};
+    if (startOfDay(actualPeriodStart).getTime() > today.getTime()) {
+      nextErrors.start = 'Cette date ne peut pas être dans le futur.';
+    }
+    if (periodTerminated === 'yes') {
+      if (!actualPeriodEnd) {
+        nextErrors.end = 'Indique la date de fin de tes dernières règles.';
+      } else if (startOfDay(actualPeriodEnd).getTime() > today.getTime()) {
+        nextErrors.end = 'Cette date ne peut pas être dans le futur.';
+      } else if (startOfDay(actualPeriodEnd).getTime() < startOfDay(actualPeriodStart).getTime()) {
+        nextErrors.end = 'La date de fin doit être après la date de début.';
+      }
+    }
+    if (nextErrors.start || nextErrors.end) {
+      setErrors(nextErrors);
       return;
     }
+    setErrors({});
 
-    // TTC's onboarding branches through this same screen (see
-    // LocationScreen/SpiritualPreferencesScreen) before its own
-    // Conception* steps — every other objective that reaches this screen
-    // (Cycle/contraception/irregular/menopause) keeps going to SecuritySetup
-    // exactly as before.
-    if (getSelectedObjective() === 'conceive') {
-      navigation.navigate('ConceptionTryingDuration');
-      return;
+    setSubmitting(true);
+    try {
+      // previousActualStart is captured BEFORE this save so a start-date
+      // edit can clean up the now-orphaned old confirmed occurrence below —
+      // same rename-safe pattern already used by CalendarScreen's period
+      // editor. periodDuration/cycleDuration/regularity stay exactly what
+      // they've always been: habitual/predictive, unrelated to Qadaa.
+      const previousActualStart = getCyclePreferences().lastPeriodStart;
+      setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity});
+
+      if (periodTerminated === 'yes' && actualPeriodEnd) {
+        // An explicit "Oui" + a validated end date is the same trust signal
+        // PeriodEndBottomSheet's own "Confirmer la fin des règles" already
+        // relies on — reuse its exact two-call sequence so Qadaa/confirmed
+        // history and the Purity/prayer feature both immediately agree this
+        // period is over, with no separate/duplicate Ramadan or Qadaa logic.
+        await setPeriodEndDateTime(actualPeriodEnd);
+        await recordConfirmedPeriodEnd(actualPeriodStart, actualPeriodEnd);
+        if (localDateKey(previousActualStart) !== localDateKey(actualPeriodStart)) {
+          await removeConfirmedPeriodOccurrence(previousActualStart);
+        }
+      } else {
+        // "Non": the CURRENT period's end-state must never be described by
+        // a periodEndDateTime left over from an earlier answer (e.g. she
+        // switches this same period from "Oui" back to "Non" to correct
+        // herself) — always clear it so Purity/prayer features see it as
+        // still ongoing, exactly matching what "Non" asserts.
+        await setPeriodEndDateTime(null);
+
+        // A confirmed occurrence for the SAME start date directly
+        // contradicts this "Non" — this is her own just-prior "Oui" claim
+        // for this exact period, not unrelated history, so it must be
+        // retracted too (no-op if none exists). A DIFFERENT (unchanged)
+        // start date's confirmed occurrence is deliberately left alone: that
+        // represents a genuinely separate, already-completed historical
+        // period and must never be deleted just because this later answer
+        // for a different period is "Non".
+        if (localDateKey(previousActualStart) === localDateKey(actualPeriodStart)) {
+          await removeConfirmedPeriodOccurrence(actualPeriodStart);
+        }
+      }
+
+      // Reached from an in-app "Configure ton cycle" prompt (TTC
+      // Dashboard/Calendar/Statistics) rather than onboarding — return to
+      // wherever she came from instead of continuing into an onboarding step.
+      if (route.params?.fromDashboardCTA) {
+        navigation.goBack();
+        return;
+      }
+
+      // TTC's onboarding branches through this same screen (see
+      // LocationScreen/SpiritualPreferencesScreen) before its own
+      // Conception* steps — every other objective that reaches this screen
+      // (Cycle/contraception/irregular/menopause) keeps going to SecuritySetup
+      // exactly as before.
+      if (getSelectedObjective() === 'conceive') {
+        navigation.navigate('ConceptionTryingDuration');
+        return;
+      }
+      navigation.navigate('SecuritySetup');
+    } finally {
+      setSubmitting(false);
     }
-    navigation.navigate('SecuritySetup');
   };
 
   return (
@@ -142,26 +267,91 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           </View>
 
           <View style={styles.form}>
-            <Text style={styles.label}>Date des dernières règles</Text>
+            <Text style={styles.label}>Date de début de tes dernières règles</Text>
             <Pressable
-              accessibilityLabel="Choisir la date des dernières règles"
+              accessibilityLabel="Choisir la date de début de tes dernières règles"
               accessibilityRole="button"
-              onPress={() => setCalendarVisible(true)}
-              style={({pressed}) => [styles.field, pressed && styles.pressed]}>
+              onPress={() => openDatePicker('start')}
+              style={({pressed}) => [
+                styles.field,
+                errors.start && styles.fieldError,
+                pressed && styles.pressed,
+              ]}>
               <Image
                 accessibilityIgnoresInvertColors
                 source={CALENDAR_ICON}
                 style={styles.calendarFieldIcon}
               />
-              <Text style={styles.fieldText}>{formatDate(selectedDate)}</Text>
+              <Text style={styles.fieldText}>{formatDate(actualPeriodStart)}</Text>
               <Image
                 accessibilityIgnoresInvertColors
                 source={CALENDAR_ICON}
                 style={styles.calendarFieldIcon}
               />
             </Pressable>
+            {errors.start ? <Text style={styles.fieldErrorText}>{errors.start}</Text> : null}
 
-            <Text style={styles.label}>Durée moyenne des règles</Text>
+            <Text style={styles.label}>Tes dernières règles sont-elles terminées ?</Text>
+            <View accessibilityRole="radiogroup" style={styles.regularityRow}>
+              {[
+                {id: 'yes' as const, label: 'Oui'},
+                {id: 'no' as const, label: 'Non'},
+              ].map(option => {
+                const selected = periodTerminated === option.id;
+                return (
+                  <Pressable
+                    key={option.id}
+                    accessibilityRole="radio"
+                    accessibilityState={{checked: selected}}
+                    onPress={() => handleTerminatedChange(option.id)}
+                    style={({pressed}) => [
+                      styles.regularityOption,
+                      selected && styles.regularitySelected,
+                      pressed && styles.pressed,
+                    ]}>
+                    <Text
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.82}
+                      numberOfLines={1}
+                      style={styles.regularityText}>
+                      {option.label}
+                    </Text>
+                  </Pressable>
+                );
+              })}
+            </View>
+
+            {periodTerminated === 'yes' ? (
+              <>
+                <Text style={styles.label}>Date de fin de tes dernières règles</Text>
+                <Pressable
+                  accessibilityLabel="Choisir la date de fin de tes dernières règles"
+                  accessibilityRole="button"
+                  onPress={() => openDatePicker('end')}
+                  style={({pressed}) => [
+                    styles.field,
+                    errors.end && styles.fieldError,
+                    pressed && styles.pressed,
+                  ]}>
+                  <Image
+                    accessibilityIgnoresInvertColors
+                    source={CALENDAR_ICON}
+                    style={styles.calendarFieldIcon}
+                  />
+                  <Text style={actualPeriodEnd ? styles.fieldText : styles.fieldPlaceholder}>
+                    {actualPeriodEnd ? formatDate(actualPeriodEnd) : 'Sélectionner une date'}
+                  </Text>
+                  <Image
+                    accessibilityIgnoresInvertColors
+                    source={CALENDAR_ICON}
+                    style={styles.calendarFieldIcon}
+                  />
+                </Pressable>
+                {errors.end ? <Text style={styles.fieldErrorText}>{errors.end}</Text> : null}
+              </>
+            ) : null}
+
+            <Text style={styles.label}>Durée habituelle de tes règles</Text>
             <Pressable
               accessibilityRole="button"
               onPress={() => setDurationPicker('period')}
@@ -173,8 +363,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                 style={styles.chevronIcon}
               />
             </Pressable>
+            <Text style={styles.helperText}>Utilisée pour estimer tes prochaines règles.</Text>
 
-            <Text style={styles.label}>Durée moyenne du cycle</Text>
+            <Text style={styles.label}>Durée habituelle de ton cycle</Text>
             <Pressable
               accessibilityRole="button"
               onPress={() => setDurationPicker('cycle')}
@@ -187,7 +378,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
               />
             </Pressable>
 
-            <Text style={styles.label}>Cycle régulier ?</Text>
+            <Text style={styles.label}>Ton cycle est-il généralement régulier ?</Text>
             <View accessibilityRole="radiogroup" style={styles.regularityRow}>
               {[
                 {id: 'yes' as const, label: 'Oui'},
@@ -222,19 +413,20 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           <View style={styles.spacer} />
           <Pressable
             accessibilityRole="button"
+            disabled={submitting}
             onPress={handleNext}
-            style={({pressed}) => [styles.nextButton, pressed && styles.pressed]}>
-            <Text style={styles.nextText}>Suivant</Text>
+            style={({pressed}) => [styles.nextButton, (pressed || submitting) && styles.pressed]}>
+            <Text style={styles.nextText}>{submitting ? 'Enregistrement…' : 'Suivant'}</Text>
           </Pressable>
         </ScrollView>
       </View>
 
       <Modal
         animationType="fade"
-        onRequestClose={() => setCalendarVisible(false)}
+        onRequestClose={() => setDatePicker(null)}
         transparent
-        visible={calendarVisible}>
-        <Pressable style={styles.modalBackdrop} onPress={() => setCalendarVisible(false)}>
+        visible={datePicker !== null}>
+        <Pressable style={styles.modalBackdrop} onPress={() => setDatePicker(null)}>
           <Pressable style={styles.calendarCard} onPress={() => {}}>
             <View style={styles.calendarHeader}>
               <Pressable
@@ -266,9 +458,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
             <View style={styles.daysGrid}>
               {calendarDays.map((day, index) => {
                 const selected =
-                  day === selectedDate.getDate() &&
-                  visibleMonth.getMonth() === selectedDate.getMonth() &&
-                  visibleMonth.getFullYear() === selectedDate.getFullYear();
+                  day === activeCalendarDate.getDate() &&
+                  visibleMonth.getMonth() === activeCalendarDate.getMonth() &&
+                  visibleMonth.getFullYear() === activeCalendarDate.getFullYear();
                 return (
                   <View key={`${day ?? 'empty'}-${index}`} style={styles.dayCell}>
                     {day && (
@@ -392,6 +584,10 @@ const styles = StyleSheet.create({
     elevation: 1,
   },
   fieldText: {flex: 1, marginHorizontal: 10, color: '#2A2050', fontSize: 14},
+  fieldPlaceholder: {flex: 1, marginHorizontal: 10, color: '#948BB0', fontSize: 14},
+  fieldError: {borderColor: '#C95565'},
+  fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: '#B4485A', fontSize: 10.5},
+  helperText: {marginTop: 4, marginLeft: 4, color: '#8B81A6', fontSize: 11},
   calendarFieldIcon: {width: 22, height: 22, resizeMode: 'contain'},
   chevronIcon: {width: 20, height: 20, resizeMode: 'contain'},
   regularityRow: {flexDirection: 'row', gap: 8},

@@ -1,4 +1,5 @@
 import type {CycleRegularity} from '../state/onboardingPreferences';
+import {getHijriAdjustmentDays} from '../state/onboardingPreferences';
 
 export type DayKind = 'period' | 'fertile' | 'ovulation' | 'normal';
 
@@ -51,6 +52,13 @@ export const formatDateRange = (start: Date, end: Date): string => {
     : `${formatShortDate(start)} – ${formatShortDate(end)}`;
 };
 
+// Same adjustment application as hijriCalendar.ts's hijriPartsFor() — shift
+// the Gregorian input before formatting, never the displayed string itself,
+// so this stays mathematically identical to the classification path (isRamadan/
+// isDhoulHijja) and can never show a Hijri date that disagrees with a Ramadan/
+// Dhoul Hijja marker computed from the same underlying date.
+const withHijriAdjustment = (date: Date): Date => addDays(date, getHijriAdjustmentDays());
+
 export const formatHijriDate = (date: Date): string | undefined => {
   try {
     return capitalize(
@@ -58,7 +66,7 @@ export const formatHijriDate = (date: Date): string | undefined => {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
-      }).format(date),
+      }).format(withHijriAdjustment(date)),
     );
   } catch {
     return undefined;
@@ -67,7 +75,7 @@ export const formatHijriDate = (date: Date): string | undefined => {
 
 export const formatHijriDay = (date: Date): string | undefined => {
   try {
-    return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {day: 'numeric'}).format(date);
+    return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {day: 'numeric'}).format(withHijriAdjustment(date));
   } catch {
     return undefined;
   }
@@ -76,7 +84,7 @@ export const formatHijriDay = (date: Date): string | undefined => {
 export const formatHijriMonthYear = (date: Date): string | undefined => {
   try {
     return capitalize(
-      new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {month: 'long', year: 'numeric'}).format(date),
+      new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {month: 'long', year: 'numeric'}).format(withHijriAdjustment(date)),
     );
   } catch {
     return undefined;
