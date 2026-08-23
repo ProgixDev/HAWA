@@ -19,6 +19,9 @@ import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, ty
 import {POSTPARTUM_JOURNAL_ITEMS} from '../config/postpartumJournalConfig';
 import {MISCARRIAGE_JOURNAL_ITEMS} from '../config/miscarriageJournalConfig';
 import {CONCEPTION_JOURNAL_ITEMS} from '../config/conceptionJournalConfig';
+import {CONTRACEPTION_JOURNAL_ITEMS} from '../config/contraceptionJournalConfig';
+import {CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL, CONTRACEPTION_INTAKE_ACTION_LABEL} from '../config/contraceptionLabels';
+import {getContraceptionPreferences} from '../state/contraceptionPreferences';
 import {requirePrivateAccess} from './privateAccess';
 
 // Pregnancy's own "Journal quotidien" content — same shared sheet chrome as
@@ -172,6 +175,38 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
         actions={conceiveActions}
         onClose={close}
         subtitle="Ton suivi de fertilité, un jour à la fois."
+        title="Journal quotidien"
+        visible={visible}
+      />
+    );
+  }
+
+  if (objective === 'contraception') {
+    const contraceptionMethod = getContraceptionPreferences().method;
+    // Ring/patch are tracked as discrete insertion/removal/replacement
+    // events (contraceptionEventStore.ts), not a daily taken/missed/late
+    // status — so the "Oubli ou retard" entry point doesn't apply to them.
+    const isEventMethod = contraceptionMethod === 'ring' || contraceptionMethod === 'patch';
+    const contraceptionJournalItems = isEventMethod
+      ? CONTRACEPTION_JOURNAL_ITEMS.filter(item => item.key !== 'missedOrLate')
+      : CONTRACEPTION_JOURNAL_ITEMS;
+    const contraceptionActions: JournalSheetAction[] = contraceptionJournalItems.map(item => ({
+      key: item.key,
+      icon: item.icon,
+      // "Prise / utilisation du jour" adapts to the real persisted method so
+      // the wording never assumes every user takes a pill.
+      title: item.key === 'intake'
+        ? (contraceptionMethod ? CONTRACEPTION_INTAKE_ACTION_LABEL[contraceptionMethod] : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL)
+        : item.label,
+      subtitle: item.journalSubtitle,
+      tint: item.tint,
+      onPress: () => {close(); navigation.navigate('ContraceptionJournalEntry', {category: item.key});},
+    }));
+    return (
+      <DailyJournalSheet
+        actions={contraceptionActions}
+        onClose={close}
+        subtitle="Ton suivi de contraception, un jour à la fois."
         title="Journal quotidien"
         visible={visible}
       />

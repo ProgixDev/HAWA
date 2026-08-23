@@ -14,6 +14,11 @@ import SpiritualPreferencesScreen from '../screens/SpiritualPreferencesScreen';
 import LocationScreen from '../screens/LocationScreen';
 import {ConceptionTryingDurationScreen, ConceptionOvulationAwarenessScreen, ConceptionIndicatorsScreen, ConceptionRemindersScreen} from '../screens/ConceptionOnboardingScreens';
 import CycleInformationScreen from '../screens/CycleInformationScreen';
+import ContraceptionMethodScreen from '../screens/contraception/ContraceptionMethodScreen';
+import ContraceptionInformationScreen from '../screens/contraception/ContraceptionInformationScreen';
+import PillScheduleScreen from '../screens/contraception/PillScheduleScreen';
+import ContraceptionRemindersScreen from '../screens/contraception/ContraceptionRemindersScreen';
+import ContraceptionJournalEntryScreen from '../screens/contraception/ContraceptionJournalEntryScreen';
 import PostpartumDeliveryDateScreen from '../screens/PostpartumDeliveryDateScreen';
 import PostpartumDeliveryTypeScreen from '../screens/PostpartumDeliveryTypeScreen';
 import PostpartumFeedingScreen from '../screens/PostpartumFeedingScreen';
@@ -78,6 +83,7 @@ import type { FaqId } from '../utils/supportContent';
 import type { PregnancyMedicalEventType } from '../state/pregnancyMedicalEventsStore';
 import type { PostpartumJournalCategory } from '../state/postpartumJournalStore';
 import type { MiscarriageJournalCategory } from '../state/miscarriageJournalStore';
+import type { ContraceptionJournalCategory } from '../config/contraceptionJournalConfig';
 import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
 import {
   DataManagementScreen,
@@ -129,6 +135,10 @@ export type RootStackParamList = {
   ConceptionOvulationAwareness: undefined;
   ConceptionIndicators: undefined;
   ConceptionReminders: undefined;
+  ContraceptionMethod: {mode?: 'onboarding' | 'edit'} | undefined;
+  ContraceptionInformation: {mode?: 'onboarding' | 'edit'} | undefined;
+  PillSchedule: {mode?: 'onboarding' | 'edit'} | undefined;
+  ContraceptionReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   // `fromDashboardCTA` is set only when reached from an in-app "Configure
   // ton cycle" prompt (e.g. TTC Dashboard/Calendar/Statistics) rather than
   // from the onboarding stack — every existing onboarding call site passes
@@ -145,6 +155,7 @@ export type RootStackParamList = {
   MiscarriageCycleReturn: undefined;
   MiscarriageTryingAgain: undefined;
   MiscarriageJournalEntry: { category: MiscarriageJournalCategory };
+  ContraceptionJournalEntry: { category: ContraceptionJournalCategory };
   PregnancyDatingSetup: undefined;
   PregnancyTrackingPreferences: undefined;
   PregnancyReminders: undefined;
@@ -250,6 +261,11 @@ function AppNavigator({
         <Stack.Screen name="ConceptionOvulationAwareness" component={ConceptionOvulationAwarenessScreen} />
         <Stack.Screen name="ConceptionIndicators" component={ConceptionIndicatorsScreen} />
         <Stack.Screen name="ConceptionReminders" component={ConceptionRemindersScreen} />
+        <Stack.Screen name="ContraceptionMethod" component={ContraceptionMethodScreen} />
+        <Stack.Screen name="ContraceptionInformation" component={ContraceptionInformationScreen} />
+        <Stack.Screen name="PillSchedule" component={PillScheduleScreen} />
+        <Stack.Screen name="ContraceptionReminders" component={ContraceptionRemindersScreen} />
+        <Stack.Screen name="ContraceptionJournalEntry" component={ContraceptionJournalEntryScreen} />
         <Stack.Screen
           name="CycleInformation"
           component={CycleInformationScreen}
