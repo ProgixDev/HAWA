@@ -36,9 +36,11 @@ import {
 import {
   getCyclePreferences,
   getHasConfirmedCycleData,
+  getSpiritualMarkersEnabled,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
 } from '../../state/onboardingPreferences';
+import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
 import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
 import type { DailyJournalEntry } from '../../types/journal';
@@ -70,6 +72,10 @@ const PERIOD_LIGHT = '#F7D7D6';
 const FERTILE_COLOR = '#8B6FD1';
 const FERTILE_LIGHT = '#EEE7FA';
 const OVULATION = '#4E319A';
+// Same spiritual/Hijri accent colors as MonthCalendarCard.tsx — reused
+// verbatim, not redefined, so the two calendars never visually drift apart.
+const RAMADAN_MARKER_COLOR = homeColors.primary;
+const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
 /* ============================================================
    CATEGORY META — 3 computed cycle-phase categories (Règles,
@@ -222,6 +228,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
   // has no separate cycle store of its own.
   const [cyclePrefs, setCyclePrefs] = useState(getCyclePreferences);
   const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled);
   useEffect(() => {
     let active = true;
     hydrateCyclePreferences().then(value => {
@@ -276,6 +283,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
           setDisplayMode(info.calendar);
         }
       });
+      setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
       return () => {
         mounted = false;
       };
@@ -561,6 +569,29 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 // so every category color must render at full, real value.
                 const lightText = selected && !isToday;
 
+                // Visible regardless of displayMode — reuses the exact
+                // canonical per-date Hijri helpers (see MonthCalendarCard.tsx,
+                // no new conversion logic). Independent corner channel from
+                // the ovulation badge (opposite corner) and the marker dots.
+                const spiritualMonth = !spiritualMarkersEnabled
+                  ? null
+                  : isRamadan(date)
+                    ? 'ramadan'
+                    : isDhoulHijja(date)
+                      ? 'dhoulHijja'
+                      : null;
+                const spiritualMarkerColor = lightText
+                  ? '#FFFFFF'
+                  : spiritualMonth === 'ramadan'
+                    ? RAMADAN_MARKER_COLOR
+                    : DHOUL_HIJJA_MARKER_COLOR;
+                const spiritualMarkerLabel =
+                  spiritualMonth === 'ramadan'
+                    ? ', Ramadan'
+                    : spiritualMonth === 'dhoulHijja'
+                      ? ', Dhou al-Hijja'
+                      : '';
+
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
                     <Pressable
@@ -568,7 +599,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                         isMenstruationDay ? ', règles' : ''
                       }${isFertileDay ? ', fenêtre fertile' : ''}${
                         isOvulationDay ? ', ovulation estimée' : ''
-                      }`}
+                      }${spiritualMarkerLabel}`}
                       onPress={() => setSelectedDate(date)}
                       style={[
                         styles.dayButton,
@@ -593,6 +624,16 @@ function ConceiveCalendarContent(): React.JSX.Element {
                           <MaterialDesignIcons
                             color={lightText ? '#FFFFFF' : OVULATION}
                             name="star-four-points"
+                            size={9}
+                          />
+                        </View>
+                      ) : null}
+
+                      {spiritualMonth ? (
+                        <View pointerEvents="none" style={styles.spiritualMarkerBadge}>
+                          <MaterialDesignIcons
+                            color={spiritualMarkerColor}
+                            name="moon-waning-crescent"
                             size={9}
                           />
                         </View>
@@ -678,6 +719,18 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 <View style={styles.inlineTodayIndicator} />
                 <Text style={styles.inlineLegendText}>Aujourd’hui</Text>
               </View>
+              {spiritualMarkersEnabled ? (
+                <>
+                  <View style={styles.inlineLegendItem}>
+                    <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={11} />
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Ramadan</Text>
+                  </View>
+                  <View style={styles.inlineLegendItem}>
+                    <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={11} />
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Dhou al-Hijja</Text>
+                  </View>
+                </>
+              ) : null}
             </View>
           </View>
 
@@ -802,6 +855,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
           onClose={() => setSheet(null)}
           onToggle={toggleFilter}
           showHijri={showHijri}
+          showSpiritualMarkers={spiritualMarkersEnabled}
           today={today}
           visibleFilters={visibleFilters}
         />
@@ -850,6 +904,7 @@ function ConceiveCalendarSheet({
   visibleFilters,
   today,
   showHijri,
+  showSpiritualMarkers,
 }: {
   mode: 'filters' | 'legend' | null;
   onClose: () => void;
@@ -857,6 +912,7 @@ function ConceiveCalendarSheet({
   visibleFilters: Set<ConceiveCategory>;
   today: Date;
   showHijri: boolean;
+  showSpiritualMarkers: boolean;
 }): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -909,6 +965,7 @@ function ConceiveCalendarSheet({
                       style={[
                         styles.legendRow,
                         index === CATEGORY_KEYS.length - 1 &&
+                          !showSpiritualMarkers &&
                           styles.legendRowLast,
                       ]}
                     >
@@ -934,6 +991,30 @@ function ConceiveCalendarSheet({
                     </View>
                   );
                 })}
+                {showSpiritualMarkers ? (
+                  <>
+                    <View style={styles.legendRow}>
+                      <View style={styles.legendLargeIcon}>
+                        <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={27} />
+                      </View>
+                      <View style={[styles.legendDotLarge, backgroundColorStyle(RAMADAN_MARKER_COLOR)]} />
+                      <View style={styles.legendRowCopy}>
+                        <Text style={styles.legendRowTitle}>Ramadan</Text>
+                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois du Ramadan (jeûne).</Text>
+                      </View>
+                    </View>
+                    <View style={[styles.legendRow, styles.legendRowLast]}>
+                      <View style={styles.legendLargeIcon}>
+                        <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={27} />
+                      </View>
+                      <View style={[styles.legendDotLarge, backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR)]} />
+                      <View style={styles.legendRowCopy}>
+                        <Text style={styles.legendRowTitle}>Dhou al-Hijja</Text>
+                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois de Dhou al-Hijja.</Text>
+                      </View>
+                    </View>
+                  </>
+                ) : null}
               </View>
 
               <View style={styles.todayLegend}>
@@ -1215,6 +1296,9 @@ const styles = StyleSheet.create({
   // Corner icon, not a border — see the inline comment at its usage for why
   // a border-based ovulation marker would conflict with todayDay's border.
   ovulationBadge: { position: 'absolute', top: 2, right: 2 },
+  // Opposite corner from ovulationBadge so both can appear on the same day
+  // without overlapping — independent channel from the marker dots below.
+  spiritualMarkerBadge: { position: 'absolute', top: 2, left: 2 },
   dayText: { color: homeColors.textPrimary, fontSize: 12, fontWeight: '700' },
   lightText: { color: '#FFFFFF' },
   // Wins over `lightText`/any background tint whenever a day is today —
@@ -1255,6 +1339,7 @@ const styles = StyleSheet.create({
     fontSize: 8.5,
     fontWeight: '600',
   },
+  inlineLegendTextWithIcon: { marginLeft: 4 },
 
   /* SELECTED CARD */
   selectedCard: {

@@ -536,9 +536,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <SpiritualGuidanceCard
-                  hijriDate={
-                    spiritual.schedule?.hijriDate ?? formatHijriDate(today)
-                  }
+                  hijriDate={formatHijriDate(today)}
                   locationConfigured={Boolean(location)}
                   locationName={
                     location

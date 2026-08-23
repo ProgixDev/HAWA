@@ -885,9 +885,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
 
           {spiritualMarkersEnabled ? (
             <SpiritualGuidanceCard
-              hijriDate={
-                spiritual.schedule?.hijriDate ?? formatHijriDate(new Date())
-              }
+              hijriDate={formatHijriDate(new Date())}
               locationConfigured={Boolean(spiritual.selectedLocation)}
               locationName={
                 spiritual.selectedLocation

@@ -688,7 +688,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
           {spiritualMarkersEnabled ? (
             <SpiritualGuidanceCard
-              hijriDate={prayer.schedule?.hijriDate ?? formatHijriDate(today)}
+              hijriDate={formatHijriDate(today)}
               isMenstruating={prayer.isMenstruating}
               locationConfigured={Boolean(prayer.selectedLocation)}
               locationName={prayer.selectedLocation ? `${prayer.selectedLocation.city}, ${prayer.selectedLocation.country}` : undefined}

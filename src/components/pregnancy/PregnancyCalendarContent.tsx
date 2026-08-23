@@ -48,6 +48,8 @@ import {
 } from '../../state/pregnancyPreferences';
 
 import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
+import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
+import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 
 import {
   getPregnancyMedicalEvents,
@@ -136,6 +138,12 @@ const EVENT_META: Record<
 
 const EVENT_TYPES =
   Object.keys(EVENT_META) as EventType[];
+
+// Same canonical spiritual-marker colors already approved in the seven
+// other objective calendars. The Hijri classification itself is provided by
+// the shared hijriCalendar utility below; no Pregnancy-specific conversion.
+const RAMADAN_MARKER_COLOR = homeColors.primary;
+const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
 /* ============================================================
    FILTER TYPES
@@ -506,6 +514,10 @@ function PregnancyCalendarContent(): React.JSX.Element {
       'double',
     );
 
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
+    getSpiritualMarkersEnabled,
+  );
+
   const [
     sheet,
     setSheet,
@@ -599,6 +611,11 @@ function PregnancyCalendarContent(): React.JSX.Element {
           }
         },
       );
+
+      // Profile owns this shared preference. Refreshing on focus mirrors the
+      // already-approved Conceive/Postpartum/Miscarriage calendars and makes
+      // a Settings change visible without introducing another store.
+      setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
 
       return () => {
         mounted = false;
@@ -1089,6 +1106,29 @@ function PregnancyCalendarContent(): React.JSX.Element {
                       today,
                     );
 
+                  // The top-right crescent is deliberately independent from
+                  // the capped event/journal dot row below and from the
+                  // Today/Selected/Normal background-priority system.
+                  const spiritualMonth = !spiritualMarkersEnabled
+                    ? null
+                    : isRamadan(date)
+                      ? 'ramadan'
+                      : isDhoulHijja(date)
+                        ? 'dhoulHijja'
+                        : null;
+                  const lightText = selected && !isToday;
+                  const spiritualMarkerColor = lightText
+                    ? '#FFFFFF'
+                    : spiritualMonth === 'ramadan'
+                      ? RAMADAN_MARKER_COLOR
+                      : DHOUL_HIJJA_MARKER_COLOR;
+                  const spiritualMarkerLabel =
+                    spiritualMonth === 'ramadan'
+                      ? ', Ramadan'
+                      : spiritualMonth === 'dhoulHijja'
+                        ? ', Dhou al-Hijja'
+                        : '';
+
                   const markers =
                     medicalEvents.filter(
                         event =>
@@ -1134,6 +1174,8 @@ function PregnancyCalendarContent(): React.JSX.Element {
                         styles.dayCell
                       }>
                       <Pressable
+                        accessibilityLabel={`${date.getDate()} ${monthTitle}${spiritualMarkerLabel}`}
+                        accessibilityRole="button"
                         onPress={() =>
                           setSelectedDate(
                             date,
@@ -1149,6 +1191,18 @@ function PregnancyCalendarContent(): React.JSX.Element {
                           isToday &&
                             styles.todayDay,
                         ]}>
+                        {spiritualMonth ? (
+                          <View
+                            pointerEvents="none"
+                            style={styles.spiritualMarkerBadge}>
+                            <MaterialDesignIcons
+                              color={spiritualMarkerColor}
+                              name="moon-waning-crescent"
+                              size={9}
+                            />
+                          </View>
+                        ) : null}
+
                         <Text
                           style={[
                             styles.dayText,
@@ -1256,6 +1310,40 @@ function PregnancyCalendarContent(): React.JSX.Element {
                   Aujourd’hui
                 </Text>
               </View>
+
+              {spiritualMarkersEnabled ? (
+                <>
+                  <View style={styles.inlineLegendItem}>
+                    <MaterialDesignIcons
+                      color={RAMADAN_MARKER_COLOR}
+                      name="moon-waning-crescent"
+                      size={11}
+                    />
+                    <Text
+                      style={[
+                        styles.inlineLegendText,
+                        styles.inlineLegendTextWithIcon,
+                      ]}>
+                      Ramadan
+                    </Text>
+                  </View>
+
+                  <View style={styles.inlineLegendItem}>
+                    <MaterialDesignIcons
+                      color={DHOUL_HIJJA_MARKER_COLOR}
+                      name="moon-waning-crescent"
+                      size={11}
+                    />
+                    <Text
+                      style={[
+                        styles.inlineLegendText,
+                        styles.inlineLegendTextWithIcon,
+                      ]}>
+                      Dhou al-Hijja
+                    </Text>
+                  </View>
+                </>
+              ) : null}
             </View>
           </View>
 
@@ -1574,6 +1662,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
           }
           today={today}
           showHijri={showHijri}
+          showSpiritualMarkers={spiritualMarkersEnabled}
         />
       </SafeAreaView>
     </LinearGradient>
@@ -1677,6 +1766,7 @@ function PregnancyCalendarSheet({
   visibleFilters,
   today,
   showHijri,
+  showSpiritualMarkers,
 }: {
   mode:
     | 'filters'
@@ -1694,6 +1784,8 @@ function PregnancyCalendarSheet({
   today: Date;
 
   showHijri: boolean;
+
+  showSpiritualMarkers: boolean;
 }): React.JSX.Element {
   const insets =
     useSafeAreaInsets();
@@ -1837,6 +1929,7 @@ function PregnancyCalendarSheet({
                           index ===
                             EVENT_TYPES.length -
                               1 &&
+                            !showSpiritualMarkers &&
                             styles.legendRowLast,
                         ]}>
                         <View
@@ -1894,6 +1987,58 @@ function PregnancyCalendarSheet({
                     );
                   },
                 )}
+
+                {showSpiritualMarkers ? (
+                  <>
+                    <View style={styles.legendRow}>
+                      <View style={styles.legendLargeIcon}>
+                        <MaterialDesignIcons
+                          color={RAMADAN_MARKER_COLOR}
+                          name="moon-waning-crescent"
+                          size={27}
+                        />
+                      </View>
+
+                      <View
+                        style={[
+                          styles.legendDotLarge,
+                          backgroundColorStyle(RAMADAN_MARKER_COLOR),
+                        ]}
+                      />
+
+                      <View style={styles.legendRowCopy}>
+                        <Text style={styles.legendRowTitle}>Ramadan</Text>
+                        <Text style={styles.legendRowText}>
+                          Ce jour se situe dans le mois du Ramadan (jeûne).
+                        </Text>
+                      </View>
+                    </View>
+
+                    <View style={[styles.legendRow, styles.legendRowLast]}>
+                      <View style={styles.legendLargeIcon}>
+                        <MaterialDesignIcons
+                          color={DHOUL_HIJJA_MARKER_COLOR}
+                          name="moon-waning-crescent"
+                          size={27}
+                        />
+                      </View>
+
+                      <View
+                        style={[
+                          styles.legendDotLarge,
+                          backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR),
+                        ]}
+                      />
+
+                      <View style={styles.legendRowCopy}>
+                        <Text style={styles.legendRowTitle}>Dhou al-Hijja</Text>
+                        <Text style={styles.legendRowText}>
+                          Ce jour se situe dans le mois de Dhou al-Hijja.
+                        </Text>
+                      </View>
+                    </View>
+                  </>
+                ) : null}
               </View>
 
               {/* TODAY */}
@@ -2557,6 +2702,14 @@ const styles =
       borderRadius: 2,
     },
 
+    spiritualMarkerBadge: {
+      position: 'absolute',
+
+      top: 2,
+
+      right: 2,
+    },
+
     /* ==========================================================
        INLINE LEGEND
     ========================================================== */
@@ -2626,6 +2779,10 @@ const styles =
       fontSize: 8.5,
 
       fontWeight: '600',
+    },
+
+    inlineLegendTextWithIcon: {
+      marginLeft: 4,
     },
 
     /* ==========================================================
