@@ -20,11 +20,11 @@ type Props = {
    * purity badge, purity-restored summary, and the qadaa (period-dependent
    * fasting catch-up) info block.
    *
-   * 'pregnancy', 'postpartum' and 'miscarriage' all hide those three:
-   * none of them must ever display menstrual purity status or
+   * 'pregnancy', 'postpartum', 'miscarriage' and 'contraception' all hide
+   * those three: none of them must ever display menstrual purity status or
    * period-derived qadaa.
    */
-  objective?: 'cycle' | 'pregnancy' | 'postpartum' | 'miscarriage';
+  objective?: 'cycle' | 'pregnancy' | 'postpartum' | 'miscarriage' | 'contraception';
 
   hijriDate?: string;
   nextWindow?: PrayerWindow;

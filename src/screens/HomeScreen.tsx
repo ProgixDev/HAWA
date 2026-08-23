@@ -5,6 +5,7 @@ import PregnancyDashboard from '../components/pregnancy/PregnancyDashboard';
 import PostpartumDashboard from '../components/postpartum/PostpartumDashboard';
 import MiscarriageDashboard from '../components/miscarriage/MiscarriageDashboard';
 import ConceiveDashboard from '../components/conceive/ConceiveDashboard';
+import ContraceptionDashboard from '../components/contraception/ContraceptionDashboard';
 import CycleHomeScreen from './CycleHomeScreen';
 import { PostpartumSuccessToast } from '../components/postpartum/PostpartumSuccessToast';
 import {
@@ -56,6 +57,10 @@ function HomeScreen(props: Props): React.JSX.Element {
 
   if (objective === 'conceive') {
     return <ConceiveDashboard {...props} />;
+  }
+
+  if (objective === 'contraception') {
+    return <ContraceptionDashboard {...props} />;
   }
 
   return <CycleHomeScreen {...props} />;
