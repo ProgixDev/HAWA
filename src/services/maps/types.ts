@@ -1,4 +1,7 @@
 export type MapPlace = {
+  /** The provider's own stable feature id (e.g. MapTiler's "place.123"), when
+   * available — the preferred React list key over any derived/composite one. */
+  id?: string;
   city: string;
   country: string;
   latitude: number;

@@ -32,7 +32,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {IS_MAPS_CONFIGURED} from '../config/maps';
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {mapProvider, MapProviderError} from '../services/maps/mapProvider';
+import {mapPlaceIdentity, mapProvider, MapProviderError} from '../services/maps/mapProvider';
 import {loadMapStyle} from '../services/maps/mapStyle';
 import type {MapPlace} from '../services/maps/types';
 import {getHasConfirmedCycleData, getSelectedLocation, getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
@@ -287,6 +287,15 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       navigation.navigate(getHasConfirmedCycleData() ? 'ConceptionTryingDuration' : 'CycleInformation');
       return;
     }
+    if (objective === 'contraception') {
+      // Contraception has its own dedicated onboarding branch (method/
+      // information/reminders) — it deliberately does NOT go through
+      // CycleInformationScreen (period-length/regularity data isn't part of
+      // the Contraception cahier des charges). SOPK/Menopause are unaffected
+      // and keep using the CycleInformation fallthrough below.
+      navigation.navigate('ContraceptionMethod');
+      return;
+    }
     navigation.navigate('CycleInformation');
   };
 
@@ -356,7 +365,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
               <View style={styles.suggestions}>
                 {suggestions.map(place => (
                   <Pressable
-                    key={`${place.latitude}-${place.longitude}`}
+                    key={mapPlaceIdentity(place)}
                     onPress={() => moveTo(place)}
                     style={styles.suggestion}>
                     <Image source={LOCATION_PIN} style={styles.suggestionPin} />

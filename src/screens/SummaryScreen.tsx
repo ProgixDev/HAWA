@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback, useReducer} from 'react';
 import {
   Image,
   Pressable,
@@ -10,6 +10,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -48,6 +49,8 @@ import {
   type MiscarriageTryingAgainStatus,
 } from '../state/miscarriagePreferences';
 import {getConceptionPreferences, type ConceptionReminderKey, type ConceptionTryingDuration, type FertilityIndicator, type OvulationAwareness} from '../state/conceptionPreferences';
+import {getContraceptionPreferences} from '../state/contraceptionPreferences';
+import {CONTRACEPTION_METHOD_LABELS} from '../config/contraceptionLabels';
 import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 
 const WOMAN = require('../assets/images/summary-woman.png');
@@ -184,6 +187,10 @@ type EditableRoute =
   | 'ConceptionOvulationAwareness'
   | 'ConceptionIndicators'
   | 'ConceptionReminders'
+  | 'ContraceptionMethod'
+  | 'ContraceptionInformation'
+  | 'PillSchedule'
+  | 'ContraceptionReminders'
   | 'SecuritySetup'
   | 'Privacy';
 
@@ -207,6 +214,15 @@ const TONE_ICON_COLOR: Record<SummaryRow['tone'], string> = {
 function SummaryScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
+
+  // Every row below reads its value via a plain synchronous store getter at
+  // render time (no subscriptions) — returning here via goBack() after an
+  // edit doesn't automatically re-render this already-mounted screen, so
+  // without this the row would keep showing whatever was true at the last
+  // render. Bumping this on every focus forces a fresh render (and thus
+  // fresh getter reads) with no new store/subscription needed.
+  const [, forceRefresh] = useReducer((tick: number) => tick + 1, 0);
+  useFocusEffect(useCallback(() => {forceRefresh();}, []));
 
   const isSmallScreen = width < 375 || height < 720;
   const isVerySmallScreen = width < 345 || height < 650;
@@ -383,6 +399,68 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     ];
   };
 
+  // Contraception-only rows — sourced entirely from contraceptionPreferences.ts
+  // (no duplicated Summary state). Deliberately excludes Cycle rows (last
+  // period/cycle duration/regularity): Contraception no longer routes
+  // through CycleInformationScreen at all (see LocationScreen.tsx). The
+  // reminders row is generic (`remindersEnabled`) and shown for every method
+  // once a method is selected — reminders are no longer a pill-only concept.
+  const buildContraceptionRows = (): SummaryRow[] => {
+    const contraception = getContraceptionPreferences();
+    const startDate = contraception.methodStartDate
+      ? new Date(`${contraception.methodStartDate}T12:00:00`)
+      : null;
+
+    const rows: SummaryRow[] = [
+      objectiveRow,
+      spiritualRow,
+      locationRow,
+      {
+        icon: 'pill',
+        label: 'Méthode de contraception',
+        value: contraception.method ? CONTRACEPTION_METHOD_LABELS[contraception.method] : 'Non renseignée',
+        route: 'ContraceptionMethod',
+        tone: 'rose',
+      },
+      {
+        icon: 'calendar-month-outline',
+        label: 'Depuis quand',
+        value: startDate ? formatSummaryDate(startDate) : 'Non renseignée',
+        route: 'ContraceptionInformation',
+        tone: 'purple',
+      },
+    ];
+
+    if (contraception.method === 'pill') {
+      const scheduleValue =
+        contraception.pillScheduleType === 'cyclic' && contraception.activeDays !== null && contraception.breakDays !== null
+          ? `${contraception.activeDays} j. + ${contraception.breakDays} j. d’arrêt`
+          : contraception.pillScheduleType === 'continuous'
+            ? 'Prise continue'
+            : 'Non renseigné';
+
+      rows.push({
+        icon: 'calendar-month-outline',
+        label: 'Schéma de pilule',
+        value: scheduleValue,
+        route: 'PillSchedule',
+        tone: 'purple',
+      });
+    }
+
+    if (contraception.method) {
+      rows.push({
+        icon: 'bell-ring-outline',
+        label: 'Rappels',
+        value: contraception.remindersEnabled ? 'Activés' : 'Désactivés',
+        route: 'ContraceptionReminders',
+        tone: 'blue',
+      });
+    }
+
+    return rows;
+  };
+
   const buildConceptionRows = (): SummaryRow[] => {
     const conception = getConceptionPreferences();
     const rows: SummaryRow[] = [objectiveRow, spiritualRow];
@@ -469,6 +547,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       : objective === 'postpartum' ? buildPostpartumRows()
         : objective === 'loss' ? buildMiscarriageRows()
           : objective === 'conceive' ? buildConceptionRows()
+            : objective === 'contraception' ? buildContraceptionRows()
           : buildCycleRows();
   const privacy = getPrivacySecuritySettings();
   const securityLabels = [isPinEnabled() ? 'PIN activé' : null, isBiometricEnabled() ? 'Biométrie activée' : null].filter((value): value is string => Boolean(value));
@@ -478,8 +557,35 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     {icon:'incognito',label:'Confidentialité',value:privacyLabels.length ? privacyLabels.join(' · ') : 'Réglages standards',route:'Privacy',tone:'green'},
   ];
 
+  // Only routes that actually declare/read a `mode` param are told they're
+  // being opened for editing — every other pre-existing row is left exactly
+  // as it was (a separate, not-yet-approved task covers generalizing this to
+  // the remaining onboarding screens; none of them read route.params today,
+  // so omitting the param here is a complete no-op for them, not a
+  // regression).
   const navigateToEdit = (route: EditableRoute) => {
-    navigation.navigate(route);
+    switch (route) {
+      case 'Location':
+        navigation.navigate('Location', {mode: 'edit'});
+        return;
+      case 'PostpartumFeeding':
+        navigation.navigate('PostpartumFeeding', {mode: 'edit'});
+        return;
+      case 'ContraceptionMethod':
+        navigation.navigate('ContraceptionMethod', {mode: 'edit'});
+        return;
+      case 'ContraceptionInformation':
+        navigation.navigate('ContraceptionInformation', {mode: 'edit'});
+        return;
+      case 'PillSchedule':
+        navigation.navigate('PillSchedule', {mode: 'edit'});
+        return;
+      case 'ContraceptionReminders':
+        navigation.navigate('ContraceptionReminders', {mode: 'edit'});
+        return;
+      default:
+        navigation.navigate(route);
+    }
   };
 
   return (

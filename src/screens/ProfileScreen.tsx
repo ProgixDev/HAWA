@@ -44,6 +44,7 @@ import {
   setSelectedObjective,
   subscribeActiveObjective,
   setSpiritualMarkersEnabled,
+  subscribeHijriAdjustmentDays,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
 import {
@@ -65,6 +66,7 @@ import {
   computeCyclePredictionStatus,
   formatDateRange as formatCanonicalDateRange,
   formatFullDate,
+  formatHijriDate,
   IRREGULAR_WINDOW_MAX_DAYS,
   IRREGULAR_WINDOW_MIN_DAYS,
   startOfDay as canonicalStartOfDay,
@@ -260,18 +262,6 @@ const formatShortDate = (date: Date) =>
     day: 'numeric',
     month: 'long',
   }).format(date);
-
-const formatHijriDate = (date: Date): string | undefined => {
-  try {
-    return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(date);
-  } catch {
-    return undefined;
-  }
-};
 
 /* ============================================================
  * STAT CARD
@@ -1015,7 +1005,14 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     return { label: 'Cycle moyen', value: `${cycle.cycleDuration} jours` };
   })();
 
-  const hijriToday = useMemo(() => formatHijriDate(new Date()), []);
+  const [hijriToday, setHijriToday] = useState(() => formatHijriDate(new Date()));
+  useFocusEffect(
+    useCallback(() => {
+      setHijriToday(formatHijriDate(new Date()));
+      const unsubscribe = subscribeHijriAdjustmentDays(() => setHijriToday(formatHijriDate(new Date())));
+      return unsubscribe;
+    }, []),
+  );
 
   /* ========================================================
    * CHANGER OBJECTIF

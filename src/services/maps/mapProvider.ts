@@ -94,12 +94,42 @@ const toPlace = (feature: GeocodingFeature): MapPlace | null => {
   }
 
   return {
+    id: feature.id,
     city,
     country,
     latitude: latitude as number,
     longitude: longitude as number,
     displayName: feature.place_name_fr ?? feature.place_name,
   };
+};
+
+/** Identity used to tell whether two MapPlace results represent the same
+ * real-world place — the provider's own feature id when present (two
+ * different features never share one), otherwise the exact displayed
+ * city/country/coordinates. Exported so callers rendering a list of results
+ * (e.g. LocationScreen's suggestions dropdown) can key off the same notion
+ * of "same place" this module uses to deduplicate, rather than inventing a
+ * second one. */
+export const mapPlaceIdentity = (place: MapPlace): string =>
+  place.id ?? `${place.city}|${place.country}|${place.latitude}|${place.longitude}`;
+
+/**
+ * MapTiler can return multiple distinct feature entries (e.g. a city matched
+ * directly, and separately via a POI/address whose context resolves to the
+ * same city) that toPlace() converts into identical-looking results — same
+ * city/country/coordinates, different underlying feature id. These are
+ * genuinely redundant to a user picking a location, so collapse them here,
+ * before they ever reach a rendered list, rather than only making their
+ * React keys unique while still showing the same place twice.
+ */
+const dedupePlaces = (places: MapPlace[]): MapPlace[] => {
+  const seen = new Set<string>();
+  return places.filter(place => {
+    const identity = mapPlaceIdentity(place);
+    if (seen.has(identity)) {return false;}
+    seen.add(identity);
+    return true;
+  });
 };
 
 const fetchGeocoding = async (
@@ -142,9 +172,10 @@ class MapTilerProvider implements MapProvider {
   async searchPlaces(query: string): Promise<MapPlace[]> {
     const encodedQuery = encodeURIComponent(query.trim());
     const data = await fetchGeocoding(encodedQuery, 'forward');
-    return (data.features ?? [])
+    const places = (data.features ?? [])
       .map(toPlace)
       .filter((place): place is MapPlace => place !== null);
+    return dedupePlaces(places);
   }
 
   async reverseGeocode(
