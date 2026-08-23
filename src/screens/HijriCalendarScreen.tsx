@@ -182,19 +182,21 @@ function HijriCalendarScreen(): React.JSX.Element {
           />
         </Animated.View>
 
-        <Animated.View entering={FadeInUp.delay(180).duration(420)} style={[styles.selectedCard, selectedAnimatedStyle]}>
-          <Text style={styles.selectedLabel}>Date sélectionnée</Text>
-          <View style={styles.selectedRow}>
-            <View style={styles.selectedCopy}>
-              <Text style={styles.selectedHijri}>{selectedHijriDate}</Text>
-              <Text style={styles.selectedGregorian}>{selectedWeekdayDate}</Text>
-            </View>
-            {selectedIsToday ? (
-              <View style={styles.todayPill}>
-                <Text style={styles.todayPillText}>Aujourd’hui</Text>
+        <Animated.View entering={FadeInUp.delay(180).duration(420)}>
+          <Animated.View style={[styles.selectedCard, selectedAnimatedStyle]}>
+            <Text style={styles.selectedLabel}>Date sélectionnée</Text>
+            <View style={styles.selectedRow}>
+              <View style={styles.selectedCopy}>
+                <Text style={styles.selectedHijri}>{selectedHijriDate}</Text>
+                <Text style={styles.selectedGregorian}>{selectedWeekdayDate}</Text>
               </View>
-            ) : null}
-          </View>
+              {selectedIsToday ? (
+                <View style={styles.todayPill}>
+                  <Text style={styles.todayPillText}>Aujourd’hui</Text>
+                </View>
+              ) : null}
+            </View>
+          </Animated.View>
         </Animated.View>
 
         <Animated.View

@@ -1,4 +1,5 @@
 import {addDays} from './cycleMath';
+import {getHijriAdjustmentDays} from '../state/onboardingPreferences';
 
 export type HijriDateParts = {year: number; month: number; day: number};
 
@@ -18,8 +19,20 @@ const hijriNumericFormatter = new Intl.DateTimeFormat('en-u-ca-islamic', {
   day: 'numeric',
 });
 
+/**
+ * THE single point where the user's manual Hijri adjustment
+ * (onboardingPreferences.ts's getHijriAdjustmentDays()) is applied — shifting
+ * the Gregorian input by that many days before the ICU lookup is
+ * mathematically equivalent to shifting the resulting Hijri day count by the
+ * same amount (both calendars are simple sequential day counts), and it
+ * naturally propagates to every function below without any of them needing
+ * to know the adjustment exists. Never apply the adjustment a second time
+ * anywhere else — every Hijri classification/formatting path must go through
+ * this one function (directly, or via the other exports in this file).
+ */
 export function hijriPartsFor(date: Date): HijriDateParts {
-  const parts = hijriNumericFormatter.formatToParts(date);
+  const adjustedDate = addDays(date, getHijriAdjustmentDays());
+  const parts = hijriNumericFormatter.formatToParts(adjustedDate);
   const value = (type: string) => Number(parts.find(part => part.type === type)?.value ?? NaN);
   return {year: value('year'), month: value('month'), day: value('day')};
 }

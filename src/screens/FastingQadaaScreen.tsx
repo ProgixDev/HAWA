@@ -176,8 +176,6 @@ function FastingQadaaScreen(): React.JSX.Element {
     hijriYear,
     loading,
     showReminder,
-
-    // Claude must add this to useQadaaStatus:
     markOneQadaaDayCompleted,
   } = useQadaaStatus();
 

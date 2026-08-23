@@ -216,3 +216,16 @@ export type MiscarriageSpiritualStatus = PrayerScheduleStatus;
 export function useMiscarriageSpiritualStatus(enabled = true): MiscarriageSpiritualStatus {
   return usePrayerSchedule(enabled);
 }
+
+export type ContraceptionSpiritualStatus = PrayerScheduleStatus;
+
+/**
+ * Contraception-safe counterpart to `usePrayerPurityStatus`: same shared
+ * location/prayer-schedule fetch, but deliberately never touches
+ * cyclePreferences / periodEndDateTime / menstruation or purity status —
+ * ContraceptionDashboard's "Repères spirituels" card only ever shows prayer
+ * time + Hijri date, exactly like Pregnancy/Postpartum/Miscarriage's.
+ */
+export function useContraceptionSpiritualStatus(enabled = true): ContraceptionSpiritualStatus {
+  return usePrayerSchedule(enabled);
+}

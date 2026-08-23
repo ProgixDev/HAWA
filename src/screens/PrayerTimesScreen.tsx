@@ -1,6 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   Image,
+  Modal,
   Pressable,
   RefreshControl,
   ScrollView,
@@ -25,7 +26,13 @@ import PeriodEndBottomSheet from '../components/prayer/PeriodEndBottomSheet';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {capitalize, formatFullDate, formatHijriDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
-import {getActiveObjective} from '../state/onboardingPreferences';
+import {
+  getActiveObjective,
+  getHijriAdjustmentDays,
+  setHijriAdjustmentDays,
+  subscribeHijriAdjustmentDays,
+  type HijriAdjustmentDays,
+} from '../state/onboardingPreferences';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
@@ -38,6 +45,14 @@ function PrayerTimesScreen(): React.JSX.Element {
 
   const [refreshing, setRefreshing] = useState(false);
   const [sheetVisible, setSheetVisible] = useState(false);
+  const [hijriInfoVisible, setHijriInfoVisible] = useState(false);
+  const [hijriAdjustment, setHijriAdjustmentState] = useState<HijriAdjustmentDays>(getHijriAdjustmentDays);
+
+  useEffect(() => subscribeHijriAdjustmentDays(() => setHijriAdjustmentState(getHijriAdjustmentDays())), []);
+
+  const handleSetHijriAdjustment = (value: HijriAdjustmentDays) => {
+    setHijriAdjustmentDays(value);
+  };
 
   // Shared screen for all three objectives. Pregnancy and Postpartum keep
   // the general prayer schedule/location/Hijri info below, but must never
@@ -66,7 +81,7 @@ function PrayerTimesScreen(): React.JSX.Element {
   }, [refresh]);
 
   const weekdayLabel = capitalize(new Intl.DateTimeFormat('fr-FR', {weekday: 'long'}).format(now));
-  const hijriLabel = schedule?.hijriDate ?? formatHijriDate(now) ?? '—';
+  const hijriLabel = formatHijriDate(now) ?? '—';
   const metaDateLabel = `${weekdayLabel} ${formatFullDate(now)}`;
 
   return (
@@ -181,6 +196,66 @@ function PrayerTimesScreen(): React.JSX.Element {
             <MaterialDesignIcons color={homeColors.textSecondary} name="chevron-right" size={19} />
           </Pressable>
         </Animated.View>
+
+        <Animated.View entering={FadeInUp.delay(360).duration(420)} style={styles.hijriCard}>
+          <Text style={styles.hijriEyebrow}>Calendrier Hijri</Text>
+
+          <View style={styles.hijriRow}>
+            <Text style={styles.hijriRowLabel}>Pays</Text>
+            <Text numberOfLines={1} style={styles.hijriRowValue}>
+              {selectedLocation?.country ?? 'Non défini'}
+            </Text>
+          </View>
+
+          <Text style={[styles.hijriRowLabel, styles.hijriAdjustmentLabel]}>Ajuster la date Hijri</Text>
+          <View accessibilityRole="radiogroup" style={styles.hijriAdjustmentRow}>
+            {([-1, 0, 1] as const).map(value => {
+              const selected = hijriAdjustment === value;
+              const label = value === 0 ? 'Aucun' : value > 0 ? '+1 jour' : '-1 jour';
+              return (
+                <Pressable
+                  key={value}
+                  accessibilityLabel={`Ajustement Hijri : ${label}`}
+                  accessibilityRole="radio"
+                  accessibilityState={{checked: selected}}
+                  onPress={() => handleSetHijriAdjustment(value)}
+                  style={({pressed}) => [
+                    styles.hijriAdjustmentOption,
+                    selected && styles.hijriAdjustmentOptionSelected,
+                    pressed && styles.pressed,
+                  ]}>
+                  <Text
+                    style={[
+                      styles.hijriAdjustmentOptionText,
+                      selected && styles.hijriAdjustmentOptionTextSelected,
+                    ]}>
+                    {label}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Text style={styles.hijriHelperText}>
+            Laisse « Aucun » si la date affichée correspond à celle suivie dans ta région.
+          </Text>
+
+          {hijriAdjustment !== 0 ? (
+            <Text style={styles.hijriActiveNote}>
+              Calendrier ajusté de {hijriAdjustment > 0 ? '+1 jour' : '−1 jour'}
+            </Text>
+          ) : null}
+
+          <Pressable
+            accessibilityLabel="À propos du calendrier Hijri"
+            accessibilityRole="button"
+            hitSlop={8}
+            onPress={() => setHijriInfoVisible(true)}
+            style={({pressed}) => [styles.hijriInfoRow, pressed && styles.pressed]}>
+            <MaterialDesignIcons color={homeColors.textSecondary} name="information-outline" size={14} />
+            <Text style={styles.hijriInfoText}>À propos du calendrier Hijri</Text>
+          </Pressable>
+        </Animated.View>
       </ScrollView>
 
       {shouldShowMenstrualPurity ? (
@@ -192,6 +267,42 @@ function PrayerTimesScreen(): React.JSX.Element {
           visible={sheetVisible}
         />
       ) : null}
+
+      <Modal
+        animationType="slide"
+        onRequestClose={() => setHijriInfoVisible(false)}
+        statusBarTranslucent
+        transparent
+        visible={hijriInfoVisible}>
+        <View style={styles.infoModalRoot}>
+          <Pressable
+            accessibilityLabel="Fermer"
+            onPress={() => setHijriInfoVisible(false)}
+            style={styles.infoOverlay}
+          />
+          <View style={[styles.infoSheet, {paddingBottom: getBottomPadding(insets.bottom) + 8}]}>
+            <View style={styles.infoHandle} />
+            <Text style={styles.infoTitle}>À propos du calendrier Hijri</Text>
+
+            <Text style={styles.infoParagraph}>
+              Les dates Hijri sont calculées et peuvent varier d’un jour selon l’observation lunaire et les annonces
+              officielles locales.
+            </Text>
+            <Text style={styles.infoParagraph}>Méthode : calendrier Hijri calculé</Text>
+            <Text style={styles.infoParagraph}>
+              Le pays affiché correspond à la localisation utilisée pour tes horaires de prière. Il ne signifie pas
+              qu’AWA récupère automatiquement les annonces officielles de ce pays.
+            </Text>
+
+            <Pressable
+              accessibilityRole="button"
+              onPress={() => setHijriInfoVisible(false)}
+              style={({pressed}) => [styles.infoCloseButton, pressed && styles.pressed]}>
+              <Text style={styles.infoCloseText}>Fermer</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -236,6 +347,54 @@ const styles = StyleSheet.create({
   guidanceCopy: {flex: 1},
   guidanceTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
   guidanceSubtitle: {marginTop: 3, color: homeColors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  hijriCard: {
+    borderRadius: homeRadii.card, backgroundColor: '#FFFFFF',
+    padding: 15, ...homeShadow,
+  },
+  hijriEyebrow: {
+    color: homeColors.textSecondary, fontSize: 10.5, fontWeight: '700',
+    textTransform: 'uppercase', letterSpacing: 0.6,
+  },
+  hijriRow: {
+    marginTop: 12, flexDirection: 'row', alignItems: 'center',
+    justifyContent: 'space-between', gap: 10,
+  },
+  hijriRowLabel: {color: homeColors.textPrimary, fontSize: 13, fontWeight: '700'},
+  hijriRowValue: {flexShrink: 1, color: homeColors.textSecondary, fontSize: 13, textAlign: 'right'},
+  hijriAdjustmentLabel: {marginTop: 16},
+  hijriAdjustmentRow: {marginTop: 8, flexDirection: 'row', gap: 8},
+  hijriAdjustmentOption: {
+    flex: 1, minHeight: 44, alignItems: 'center', justifyContent: 'center',
+    borderRadius: homeRadii.button, borderWidth: 1.25, borderColor: homeColors.cardBorder,
+    backgroundColor: homeColors.lightLavender,
+  },
+  hijriAdjustmentOptionSelected: {borderColor: homeColors.primary, backgroundColor: '#F0E9FA'},
+  hijriAdjustmentOptionText: {color: homeColors.textSecondary, fontSize: 12.5, fontWeight: '700'},
+  hijriAdjustmentOptionTextSelected: {color: homeColors.primary},
+  hijriHelperText: {marginTop: 8, color: homeColors.textSecondary, fontSize: 11, lineHeight: 15},
+  hijriActiveNote: {marginTop: 8, color: homeColors.primary, fontSize: 11.5, fontWeight: '700'},
+  hijriInfoRow: {
+    marginTop: 14, flexDirection: 'row', alignItems: 'center', gap: 6,
+    alignSelf: 'flex-start',
+  },
+  hijriInfoText: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+  infoModalRoot: {flex: 1, justifyContent: 'flex-end'},
+  infoOverlay: {...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(30, 18, 65, 0.40)'},
+  infoSheet: {
+    borderTopLeftRadius: homeRadii.card, borderTopRightRadius: homeRadii.card,
+    backgroundColor: '#FCFAFF', paddingHorizontal: 18, paddingTop: 10, elevation: 20,
+  },
+  infoHandle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: homeColors.cardBorder},
+  infoTitle: {
+    marginTop: 14, color: homeColors.textPrimary, fontFamily: 'serif',
+    fontSize: 18, fontWeight: '700', lineHeight: 23,
+  },
+  infoParagraph: {marginTop: 12, color: homeColors.textSecondary, fontSize: 13, lineHeight: 19},
+  infoCloseButton: {
+    marginTop: 20, minHeight: 50, alignItems: 'center', justifyContent: 'center',
+    borderRadius: homeRadii.button, backgroundColor: homeColors.primary,
+  },
+  infoCloseText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
 });
 
 export default PrayerTimesScreen;
