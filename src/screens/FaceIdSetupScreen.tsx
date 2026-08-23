@@ -1,8 +1,8 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
-  ImageBackground,
   Pressable,
+  ScrollView,
   StatusBar,
   StyleSheet,
   Text,
@@ -14,6 +14,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -26,8 +27,6 @@ import {
   isBiometricEnabled,
   setBiometricEnabled,
 } from '../state/securityPreferences';
-
-const BACKGROUND = require('../assets/images/school-selection-background.png');
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -178,10 +177,18 @@ export default function FaceIdSetupScreen({
     : 'Aucune méthode biométrique utilisable n’a été détectée.';
 
   return (
-    <ImageBackground
-      source={BACKGROUND}
-      resizeMode="cover"
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
       style={styles.page}>
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <SafeAreaView style={styles.safe}>
         <StatusBar
           translucent
@@ -189,48 +196,52 @@ export default function FaceIdSetupScreen({
           barStyle="dark-content"
         />
 
+        {/* TOP BAR — fixed above the scroll area so it's always reachable */}
+
         <View
           style={[
+            styles.topBar,
+            {paddingTop: Math.max(insets.top, 16) + 4},
+          ]}>
+          <Pressable
+            accessibilityLabel="Retour"
+            accessibilityRole="button"
+            onPress={navigation.goBack}
+            style={({pressed}) => [
+              styles.back,
+              pressed && styles.pressed,
+            ]}>
+            <MaterialDesignIcons
+              name="arrow-left"
+              size={24}
+              color={COLORS.primary}
+            />
+          </Pressable>
+
+          <View style={styles.securityBadge}>
+            <MaterialDesignIcons
+              name="shield-check-outline"
+              size={15}
+              color={COLORS.primary}
+            />
+
+            <Text style={styles.securityBadgeText}>
+              Sécurité
+            </Text>
+          </View>
+        </View>
+
+        <ScrollView
+          contentContainerStyle={[
             styles.content,
             {
-              paddingTop: Math.max(insets.top, 16) + 4,
               paddingBottom: Math.max(
                 insets.bottom,
                 18,
               ),
             },
-          ]}>
-          {/* TOP BAR */}
-
-          <View style={styles.topBar}>
-            <Pressable
-              accessibilityLabel="Retour"
-              accessibilityRole="button"
-              onPress={navigation.goBack}
-              style={({pressed}) => [
-                styles.back,
-                pressed && styles.pressed,
-              ]}>
-              <MaterialDesignIcons
-                name="arrow-left"
-                size={24}
-                color={COLORS.primary}
-              />
-            </Pressable>
-
-            <View style={styles.securityBadge}>
-              <MaterialDesignIcons
-                name="shield-check-outline"
-                size={15}
-                color={COLORS.primary}
-              />
-
-              <Text style={styles.securityBadgeText}>
-                Sécurité
-              </Text>
-            </View>
-          </View>
-
+          ]}
+          showsVerticalScrollIndicator={false}>
           {/* HERO */}
 
           <View style={styles.hero}>
@@ -408,9 +419,9 @@ export default function FaceIdSetupScreen({
               </Pressable>
             </>
           )}
-        </View>
+        </ScrollView>
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -420,12 +431,27 @@ const styles = StyleSheet.create({
     backgroundColor: '#F8EFFF',
   },
 
+  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
+
+  pageGlowTop: {
+    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
+    borderRadius: 165, backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+  pageGlowMiddle: {
+    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
+    borderRadius: 130, backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+  pageGlowBottom: {
+    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
+    borderRadius: 155, backgroundColor: 'rgba(92, 67, 139, 0.05)',
+  },
+
   safe: {
     flex: 1,
   },
 
   content: {
-    flex: 1,
+    flexGrow: 1,
     paddingHorizontal: 20,
   },
 
@@ -433,6 +459,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: 20,
   },
 
   back: {
