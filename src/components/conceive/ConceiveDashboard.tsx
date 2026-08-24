@@ -658,6 +658,24 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             </View>
           ) : null}
 
+          {spiritualMarkersEnabled ? (
+            <SpiritualGuidanceCard
+              hijriDate={formatHijriDate(today)}
+              isMenstruating={prayer.isMenstruating}
+              locationConfigured={Boolean(prayer.selectedLocation)}
+              locationName={prayer.selectedLocation ? `${prayer.selectedLocation.city}, ${prayer.selectedLocation.country}` : undefined}
+              nextWindow={prayer.nextWindow}
+              onManage={() => navigation.navigate('SpiritualPreferences')}
+              onPressPuritySummary={() => navigation.navigate('PrayerTimes')}
+              periodEndDateTime={prayer.periodEndDateTime}
+              prayerError={prayer.error}
+              prayerLoading={prayer.loading}
+              purityResult={prayer.purityResult}
+              qadaaDays={qadaa.remainingQadaaDays ?? 0}
+              timezone={prayer.schedule?.timezone}
+            />
+          ) : null}
+
           <View style={styles.articlesCard}>
             <View style={styles.articlesHeader}>
               <Text style={styles.articlesTitle}>Pour t’accompagner</Text>
@@ -683,26 +701,6 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
               ))}
             </ScrollView>
           </View>
-
-
-
-          {spiritualMarkersEnabled ? (
-            <SpiritualGuidanceCard
-              hijriDate={formatHijriDate(today)}
-              isMenstruating={prayer.isMenstruating}
-              locationConfigured={Boolean(prayer.selectedLocation)}
-              locationName={prayer.selectedLocation ? `${prayer.selectedLocation.city}, ${prayer.selectedLocation.country}` : undefined}
-              nextWindow={prayer.nextWindow}
-              onManage={() => navigation.navigate('SpiritualPreferences')}
-              onPressPuritySummary={() => navigation.navigate('PrayerTimes')}
-              periodEndDateTime={prayer.periodEndDateTime}
-              prayerError={prayer.error}
-              prayerLoading={prayer.loading}
-              purityResult={prayer.purityResult}
-              qadaaDays={qadaa.remainingQadaaDays ?? 0}
-              timezone={prayer.schedule?.timezone}
-            />
-          ) : null}
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>

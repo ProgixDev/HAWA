@@ -10,6 +10,7 @@ import {
   Animated,
   Easing,
   Image,
+  Modal,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -32,6 +33,7 @@ import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
+import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 
 import { homeShadow } from '../home/homeTheme';
 
@@ -40,6 +42,7 @@ import {
   getSelectedLocation,
   getSpiritualMarkersEnabled,
   hydrateSelectedLocation,
+  setSelectedObjective,
   subscribeSelectedLocation,
 } from '../../state/onboardingPreferences';
 
@@ -86,6 +89,267 @@ const CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
 };
 
 const DAILY_ITEMS = MISCARRIAGE_JOURNAL_ITEMS;
+
+/* ============================================================
+ * CONCEIVE TRANSITION — PREMIUM CONFIRMATION MODAL
+ *
+ * Purely a UI/UX confirmation surface: it owns no objective-switching logic
+ * itself — onConfirm/onCancel are handled entirely by MiscarriageDashboard,
+ * which is the only place setSelectedObjective('conceive') is ever called.
+ * Modeled on the same premium centered-card pattern already used for
+ * confirmations elsewhere in AWA (PostpartumConsistencyModal's radii/
+ * shadows/typography), kept local here since this exact copy/icon/tone is
+ * specific to this one transition and not yet needed by another screen.
+ * ============================================================ */
+
+type ConceiveTransitionModalProps = {
+  visible: boolean;
+  confirming: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+};
+
+function ConceiveTransitionModal({
+  visible,
+  confirming,
+  onCancel,
+  onConfirm,
+}: ConceiveTransitionModalProps): React.JSX.Element {
+  const insets = useSafeAreaInsets();
+  const entrance = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (!visible) {
+      entrance.setValue(0);
+      return;
+    }
+
+    let active = true;
+
+    AccessibilityInfo.isReduceMotionEnabled().then(reduce => {
+      if (!active) {
+        return;
+      }
+
+      Animated.timing(entrance, {
+        toValue: 1,
+        duration: reduce ? 0 : 320,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }).start();
+    });
+
+    return () => {
+      active = false;
+    };
+  }, [visible, entrance]);
+
+  const cardStyle = {
+    opacity: entrance,
+    transform: [
+      {
+        translateY: entrance.interpolate({
+          inputRange: [0, 1],
+          outputRange: [24, 0],
+        }),
+      },
+      {
+        scale: entrance.interpolate({
+          inputRange: [0, 1],
+          outputRange: [0.98, 1],
+        }),
+      },
+    ],
+  };
+
+  return (
+    <Modal
+      animationType="none"
+      onRequestClose={onCancel}
+      statusBarTranslucent
+      transparent
+      visible={visible}
+    >
+      <View
+        accessibilityViewIsModal
+        style={[transitionModalStyles.overlay, { paddingBottom: Math.max(insets.bottom, 16) }]}
+      >
+        <Animated.View
+          style={[
+            StyleSheet.absoluteFill,
+            transitionModalStyles.backdrop,
+            { opacity: entrance },
+          ]}
+        >
+          <Pressable
+            accessibilityLabel="Fermer"
+            accessibilityRole="button"
+            onPress={onCancel}
+            style={StyleSheet.absoluteFill}
+          />
+        </Animated.View>
+
+        <Animated.View
+          accessibilityRole="alert"
+          style={[transitionModalStyles.card, cardStyle]}
+        >
+          <View style={transitionModalStyles.icon}>
+            <MaterialDesignIcons color={PURPLE} name="heart-outline" size={32} />
+          </View>
+
+          <Text style={transitionModalStyles.title}>Passer au suivi conception ?</Text>
+
+          <Text style={transitionModalStyles.message}>
+            Tu peux commencer ton suivi pour essayer de concevoir. Tes données
+            liées à ton parcours après fausse couche resteront enregistrées et
+            tu pourras les retrouver à tout moment.
+          </Text>
+
+          <View style={transitionModalStyles.reassurance}>
+            <MaterialDesignIcons color={PURPLE} name="check-circle-outline" size={16} />
+            <Text style={transitionModalStyles.reassuranceText}>
+              Tes données sont conservées
+            </Text>
+          </View>
+
+          <Pressable
+            accessibilityLabel="Continuer et passer au suivi conception"
+            accessibilityRole="button"
+            accessibilityState={{ disabled: confirming }}
+            disabled={confirming}
+            onPress={onConfirm}
+            style={({ pressed }) => [
+              transitionModalStyles.primary,
+              pressed && transitionModalStyles.primaryPressed,
+              confirming && transitionModalStyles.primaryDisabled,
+            ]}
+          >
+            <Text style={transitionModalStyles.primaryText}>Continuer</Text>
+          </Pressable>
+
+          <Pressable
+            accessibilityLabel="Annuler"
+            accessibilityRole="button"
+            onPress={onCancel}
+            style={({ pressed }) => [
+              transitionModalStyles.secondary,
+              pressed && transitionModalStyles.secondaryPressed,
+            ]}
+          >
+            <Text style={transitionModalStyles.secondaryText}>Annuler</Text>
+          </Pressable>
+        </Animated.View>
+      </View>
+    </Modal>
+  );
+}
+
+const transitionModalStyles = StyleSheet.create({
+  overlay: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 22,
+  },
+  backdrop: {
+    backgroundColor: 'rgba(34,20,69,0.40)',
+  },
+  card: {
+    width: '100%',
+    maxWidth: 390,
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: '#E4D9F5',
+    backgroundColor: '#FFFDFF',
+    padding: 24,
+    shadowColor: '#24134A',
+    shadowOpacity: 0.25,
+    shadowRadius: 22,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 10,
+  },
+  icon: {
+    width: 66,
+    height: 66,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 33,
+    backgroundColor: '#F0E8FC',
+  },
+  title: {
+    marginTop: 16,
+    color: DEEP_PURPLE,
+    fontFamily: 'serif',
+    fontSize: 21,
+    fontWeight: '800',
+    lineHeight: 27,
+    textAlign: 'center',
+  },
+  message: {
+    marginTop: 10,
+    color: MUTED,
+    fontSize: 13.5,
+    lineHeight: 20,
+    textAlign: 'center',
+  },
+  reassurance: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    marginTop: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 14,
+    backgroundColor: '#F2ECFC',
+  },
+  reassuranceText: {
+    color: '#61557B',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  primary: {
+    minHeight: 52,
+    marginTop: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    backgroundColor: PURPLE,
+    shadowColor: '#4E2A9B',
+    shadowOpacity: 0.22,
+    shadowRadius: 9,
+    shadowOffset: { width: 0, height: 5 },
+    elevation: 4,
+  },
+  primaryPressed: {
+    opacity: 0.9,
+  },
+  primaryDisabled: {
+    opacity: 0.7,
+  },
+  primaryText: {
+    color: '#FFFFFF',
+    fontSize: 15,
+    fontWeight: '800',
+  },
+  secondary: {
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 8,
+    borderRadius: 16,
+    backgroundColor: '#F7F3FC',
+  },
+  secondaryPressed: {
+    opacity: 0.85,
+  },
+  secondaryText: {
+    color: PURPLE,
+    fontSize: 14,
+    fontWeight: '800',
+  },
+});
 
 function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -212,6 +476,40 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
   const spiritual = useMiscarriageSpiritualStatus(spiritualMarkersEnabled);
 
   const { open: openMiscarriageJournal } = useJournalSheet();
+
+  // Explicit, user-confirmed transition to the Conceive objective — only
+  // ever reachable when the user has already told us she feels ready
+  // (tryingAgainStatus === 'ready'), and only ever fires on an explicit tap
+  // + confirmation, never automatically from that stored preference. Reuses
+  // the exact same canonical setSelectedObjective('conceive') Profile's
+  // "Mon objectif" switcher already uses — no second objective-switch
+  // mechanism, no store reset: Miscarriage's own data is never touched here.
+  const [conceiveTransitionVisible, setConceiveTransitionVisible] = useState(false);
+  const [confirmingConceiveTransition, setConfirmingConceiveTransition] = useState(false);
+
+  const openConceiveTransitionModal = () => {
+    setConfirmingConceiveTransition(false);
+    setConceiveTransitionVisible(true);
+  };
+
+  // Covers Annuler, backdrop tap AND the Android hardware back button —
+  // Modal's onRequestClose fires for all three, so one handler is enough
+  // and every dismissal path is guaranteed to behave identically (no
+  // objective switch).
+  const closeConceiveTransitionModal = () => {
+    setConceiveTransitionVisible(false);
+  };
+
+  const confirmConceiveTransition = () => {
+    // Guards against a double-tap firing setSelectedObjective twice while
+    // the modal's close animation/transition is still settling.
+    if (confirmingConceiveTransition) {
+      return;
+    }
+    setConfirmingConceiveTransition(true);
+    setSelectedObjective('conceive');
+    setConceiveTransitionVisible(false);
+  };
 
   useEffect(() => {
     let active = true;
@@ -489,6 +787,40 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
               </View>
             )}
 
+            {miscarriage.tryingAgainStatus === 'ready' ? (
+              <View style={styles.conceiveTransitionCard}>
+                <View style={styles.conceiveTransitionIcon}>
+                  <MaterialDesignIcons color={PURPLE} name="heart-outline" size={20} />
+                </View>
+
+                <View style={styles.conceiveTransitionCopy}>
+                  <Text style={styles.conceiveTransitionTitle}>
+                    Reprendre ton projet de conception
+                  </Text>
+
+                  <Text style={styles.conceiveTransitionText}>
+                    Si tu le souhaites, tu peux passer au suivi Essayer de concevoir.
+                  </Text>
+
+                  <Pressable
+                    accessibilityLabel="Passer au suivi conception"
+                    accessibilityRole="button"
+                    onPress={openConceiveTransitionModal}
+                    style={({ pressed }) => [
+                      styles.conceiveTransitionButton,
+                      pressed && styles.pressed,
+                    ]}
+                  >
+                    <Text style={styles.conceiveTransitionButtonText}>
+                      Passer au suivi conception
+                    </Text>
+
+                    <MaterialDesignIcons color={PURPLE} name="arrow-right" size={15} />
+                  </Pressable>
+                </View>
+              </View>
+            ) : null}
+
             <View style={styles.sectionHeader}>
               <View>
                 <Text style={styles.sectionTitle}>Actions rapides</Text>
@@ -719,9 +1051,22 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                 />
               </Pressable>
             </View>
+
+            <ObjectiveArticlesSection
+              objective="loss"
+              onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+              onSeeAll={() => navigation.navigate('Library')}
+            />
           </Animated.View>
         </ScrollView>
       </SafeAreaView>
+
+      <ConceiveTransitionModal
+        confirming={confirmingConceiveTransition}
+        onCancel={closeConceiveTransitionModal}
+        onConfirm={confirmConceiveTransition}
+        visible={conceiveTransitionVisible}
+      />
     </LinearGradient>
   );
 }
@@ -1050,6 +1395,71 @@ const styles = StyleSheet.create({
   unconfiguredButtonText: {
     color: '#FFFFFF',
     fontSize: 13.5,
+    fontWeight: '700',
+  },
+
+  // Secondary, supportive-tone card — deliberately lighter than heroCard
+  // (tinted background, thin border, no shadow) so it reads as a gentle
+  // follow-up suggestion, never as the Dashboard's main focus.
+  conceiveTransitionCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    marginTop: 14,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.10)',
+    borderRadius: 22,
+    backgroundColor: 'rgba(240,233,251,0.55)',
+  },
+
+  conceiveTransitionIcon: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 11,
+    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+  },
+
+  conceiveTransitionCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+
+  conceiveTransitionTitle: {
+    color: DEEP_PURPLE,
+    fontFamily: 'serif',
+    fontSize: 14.5,
+    lineHeight: 19,
+    fontWeight: '800',
+  },
+
+  conceiveTransitionText: {
+    marginTop: 4,
+    color: MUTED,
+    fontSize: 11.5,
+    lineHeight: 16,
+  },
+
+  conceiveTransitionButton: {
+    flexDirection: 'row',
+    alignSelf: 'flex-start',
+    alignItems: 'center',
+    marginTop: 11,
+    gap: 7,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderWidth: 1.3,
+    borderColor: PURPLE,
+    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+  },
+
+  conceiveTransitionButtonText: {
+    color: PURPLE,
+    fontSize: 12,
     fontWeight: '700',
   },
 

@@ -31,6 +31,7 @@ import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
+import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import { homeColors, homeRadii, homeShadow } from '../home/homeTheme';
 import {
   getFirstName,
@@ -823,6 +824,12 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 />
               </View>
             ) : null}
+
+            <ObjectiveArticlesSection
+              objective="postpartum"
+              onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+              onSeeAll={() => navigation.navigate('Library')}
+            />
           </Animated.View>
         </ScrollView>
       </SafeAreaView>

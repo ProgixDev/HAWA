@@ -13,9 +13,9 @@ import {
 import {
   useNavigation,
   useRoute,
-  type NavigationProp,
   type RouteProp,
 } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {
   type DateTimePickerChangeEvent,
@@ -35,6 +35,8 @@ import {
   hydrateMiscarriageJournal,
   saveMiscarriageJournalField,
 } from '../state/miscarriageJournalStore';
+
+import { isIntimacyUnlocked } from '../state/privateSectionAuthStore';
 
 import {
   MISCARRIAGE_BLEEDING_OPTIONS,
@@ -213,14 +215,27 @@ function AnimatedSection({
    MAIN SCREEN
 ============================================================ */
 
-export default function MiscarriageJournalEntryScreen(): React.JSX.Element {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+export default function MiscarriageJournalEntryScreen(): React.JSX.Element | null {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const route = useRoute<Props>();
 
   const { category } = route.params;
 
   const item = MISCARRIAGE_JOURNAL_ITEMS.find(entry => entry.key === category);
+
+  // "Notes personnelles" reuses the app's single existing intimacy PIN/
+  // biometric gate (same as Vie intime/Rapports/Photos privées/Contraception's
+  // Notes) — never a Miscarriage-specific PIN. Computed once on mount so a
+  // locked Notes screen never flashes its content before the redirect
+  // effect below fires; every other category is never gated.
+  const [notesUnlocked] = useState(() => category !== 'personalNotes' || isIntimacyUnlocked());
+
+  useEffect(() => {
+    if (category === 'personalNotes' && !isIntimacyUnlocked()) {
+      navigation.replace('PrivateIntimacyUnlock', { target: 'miscarriageNotes' });
+    }
+  }, [category, navigation]);
 
   const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
 
@@ -278,7 +293,13 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element {
 
       setSymptomsNote(entry?.physicalSymptomsNote ?? '');
 
-      setPersonalNotes(entry?.personalNotes ?? '');
+      // Never load the real note text into state while the private section
+      // is locked — notesUnlocked was already computed once at mount, so
+      // this stays consistent for the lifetime of a locked screen (which
+      // redirects away before the user could act on it anyway).
+      if (notesUnlocked) {
+        setPersonalNotes(entry?.personalNotes ?? '');
+      }
 
       setTryingAgain(entry?.tryingAgain);
     });
@@ -286,7 +307,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element {
     return () => {
       active = false;
     };
-  }, [todayKey]);
+  }, [todayKey, notesUnlocked]);
 
   /* ==========================================================
      SYMPTOM TOGGLE
@@ -459,6 +480,9 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element {
   ========================================================== */
 
   if (category === 'personalNotes') {
+    if (!notesUnlocked) {
+      return null;
+    }
     return (
       <PostpartumJournalScreenLayout
         compact

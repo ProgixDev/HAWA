@@ -31,6 +31,7 @@ import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
+import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import { homeColors, homeShadow } from '../home/homeTheme';
 import {
   getFirstName,
@@ -900,6 +901,12 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
               timezone={spiritual.schedule?.timezone}
             />
           ) : null}
+
+          <ObjectiveArticlesSection
+            objective="pregnancy"
+            onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onSeeAll={() => navigation.navigate('Library')}
+          />
         </ScrollView>
       </SafeAreaView>
 
