@@ -19,6 +19,7 @@ import ContraceptionInformationScreen from '../screens/contraception/Contracepti
 import PillScheduleScreen from '../screens/contraception/PillScheduleScreen';
 import ContraceptionRemindersScreen from '../screens/contraception/ContraceptionRemindersScreen';
 import ContraceptionJournalEntryScreen from '../screens/contraception/ContraceptionJournalEntryScreen';
+import MenopauseJournalEntryScreen from '../screens/menopause/MenopauseJournalEntryScreen';
 import PostpartumDeliveryDateScreen from '../screens/PostpartumDeliveryDateScreen';
 import PostpartumDeliveryTypeScreen from '../screens/PostpartumDeliveryTypeScreen';
 import PostpartumFeedingScreen from '../screens/PostpartumFeedingScreen';
@@ -29,6 +30,10 @@ import MiscarriageDateScreen from '../screens/MiscarriageDateScreen';
 import MiscarriageBleedingScreen from '../screens/MiscarriageBleedingScreen';
 import MiscarriageCycleReturnScreen from '../screens/MiscarriageCycleReturnScreen';
 import MiscarriageTryingAgainScreen from '../screens/MiscarriageTryingAgainScreen';
+import MenopauseStageScreen from '../screens/MenopauseStageScreen';
+import MenopauseSymptomsScreen from '../screens/MenopauseSymptomsScreen';
+import MenopauseHormonalTreatmentScreen from '../screens/MenopauseHormonalTreatmentScreen';
+import MenopauseLabTrackingScreen from '../screens/MenopauseLabTrackingScreen';
 import MiscarriageJournalEntryScreen from '../screens/MiscarriageJournalEntryScreen';
 import PrivacyScreen from '../screens/PrivacyScreen';
 import SummaryScreen from '../screens/SummaryScreen';
@@ -45,6 +50,7 @@ import AnonymousModeCreatingScreen from '../screens/AnonymousModeCreatingScreen'
 import AnonymousModeSuccessScreen from '../screens/AnonymousModeSuccessScreen';
 import AnonymousAvatarCustomizerScreen from '../screens/AnonymousAvatarCustomizerScreen';
 import FaceIdSetupScreen from '../screens/FaceIdSetupScreen';
+import DiscreetLauncherScreen from '../screens/DiscreetLauncherScreen';
 import MainTabNavigator, { type MainTabParamList } from './MainTabNavigator';
 import JournalSymptomsScreen from '../screens/journal/JournalSymptomsScreen';
 import JournalMoodScreen from '../screens/journal/JournalMoodScreen';
@@ -84,6 +90,7 @@ import type { PregnancyMedicalEventType } from '../state/pregnancyMedicalEventsS
 import type { PostpartumJournalCategory } from '../state/postpartumJournalStore';
 import type { MiscarriageJournalCategory } from '../state/miscarriageJournalStore';
 import type { ContraceptionJournalCategory } from '../config/contraceptionJournalConfig';
+import type { MenopauseJournalCategory } from '../state/menopauseJournalStore';
 import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
 import {
   DataManagementScreen,
@@ -154,8 +161,13 @@ export type RootStackParamList = {
   MiscarriageBleeding: undefined;
   MiscarriageCycleReturn: undefined;
   MiscarriageTryingAgain: undefined;
+  MenopauseStage: undefined;
+  MenopauseSymptoms: undefined;
+  MenopauseHormonalTreatment: undefined;
+  MenopauseLabTracking: undefined;
   MiscarriageJournalEntry: { category: MiscarriageJournalCategory };
   ContraceptionJournalEntry: { category: ContraceptionJournalCategory };
+  MenopauseJournalEntry: { category: MenopauseJournalCategory };
   PregnancyDatingSetup: undefined;
   PregnancyTrackingPreferences: undefined;
   PregnancyReminders: undefined;
@@ -174,6 +186,7 @@ export type RootStackParamList = {
   AnonymousModeSuccess: {source?: AnonymousFlowSource} | undefined;
   AnonymousAvatarCustomizer: {source?: AnonymousFlowSource} | undefined;
   FaceIdSetup: {action?: 'enable' | 'manage'} | undefined;
+  DiscreetLauncher: undefined;
   MainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
   SymptomEntry: undefined;
   MoodEntry: undefined;
@@ -190,9 +203,9 @@ export type RootStackParamList = {
   NoteEntry: undefined;
   IntimacyEntry: undefined;
   JournalConceptionReports: undefined;
-  PrivateIntimacyUnlock: {target?: 'cycle' | 'conception' | 'photos'} | undefined;
-  PrivateIntimacyPin: {target?: 'cycle' | 'conception' | 'photos'} | undefined;
-  PrivateIntimacyFaceId: {target?: 'cycle' | 'conception' | 'photos'} | undefined;
+  PrivateIntimacyUnlock: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes'} | undefined;
+  PrivateIntimacyPin: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes'} | undefined;
+  PrivateIntimacyFaceId: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes'} | undefined;
   PrivatePhotoEntry: undefined;
   PersonalInformation: undefined;
   GeneralHealth: undefined;
@@ -266,6 +279,7 @@ function AppNavigator({
         <Stack.Screen name="PillSchedule" component={PillScheduleScreen} />
         <Stack.Screen name="ContraceptionReminders" component={ContraceptionRemindersScreen} />
         <Stack.Screen name="ContraceptionJournalEntry" component={ContraceptionJournalEntryScreen} />
+        <Stack.Screen name="MenopauseJournalEntry" component={MenopauseJournalEntryScreen} />
         <Stack.Screen
           name="CycleInformation"
           component={CycleInformationScreen}
@@ -311,6 +325,22 @@ function AppNavigator({
           component={MiscarriageTryingAgainScreen}
         />
         <Stack.Screen
+          name="MenopauseStage"
+          component={MenopauseStageScreen}
+        />
+        <Stack.Screen
+          name="MenopauseSymptoms"
+          component={MenopauseSymptomsScreen}
+        />
+        <Stack.Screen
+          name="MenopauseHormonalTreatment"
+          component={MenopauseHormonalTreatmentScreen}
+        />
+        <Stack.Screen
+          name="MenopauseLabTracking"
+          component={MenopauseLabTrackingScreen}
+        />
+        <Stack.Screen
           name="MiscarriageJournalEntry"
           component={MiscarriageJournalEntryScreen}
         />
@@ -341,6 +371,7 @@ function AppNavigator({
         <Stack.Screen name="AnonymousModeSuccess" component={AnonymousModeSuccessScreen} />
         <Stack.Screen name="AnonymousAvatarCustomizer" component={AnonymousAvatarCustomizerScreen} />
         <Stack.Screen name="FaceIdSetup" component={FaceIdSetupScreen} />
+        <Stack.Screen name="DiscreetLauncher" component={DiscreetLauncherScreen} />
         <Stack.Screen name="MainTabs" component={MainTabNavigator} />
         <Stack.Screen name="SymptomEntry" component={JournalSymptomsScreen} />
         <Stack.Screen name="CycleEvolutionEntry" component={JournalCycleEvolutionScreen} />

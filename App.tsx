@@ -51,6 +51,7 @@ import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
 import {requiresAppLock} from './src/state/securityPreferences';
+import {migrateLegacyPlainNotes} from './src/services/privateNotesEncryption';
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
@@ -63,6 +64,10 @@ hydrateContraceptionIntakeHistory();
 hydrateContraceptionJournal();
 hydrateContraceptionEvents();
 registerNotificationForegroundHandlers();
+// One-shot, idempotent, crash-safe migration of legacy plaintext "Notes
+// personnelles" to AES-256-GCM-at-rest — see privateNotesEncryption.ts.
+// Never blocks app startup; a failed/partial sweep is retried next launch.
+migrateLegacyPlainNotes().catch(() => {});
 
 // Pregnancy Tracking reminders are objective-specific: they must only be
 // (re)scheduled while the user's active objective is 'pregnancy', never for
@@ -155,7 +160,14 @@ function App(): React.JSX.Element {
   const backgroundedAt = React.useRef<number | null>(null);
   useEffect(() => {
     let mounted = true;
-    loadSecurityPreferences().finally(() => {if (mounted) {setAppLockState('unlocked');}});
+    // Cold-start fix: the app must never default to 'unlocked' — once
+    // security preferences have hydrated, the lock state must reflect
+    // requiresAppLock() immediately, not rely on some later screen (e.g. the
+    // Splash screen's own delayed lockApp() call) to catch up. A previous
+    // version of this line unconditionally set 'unlocked' here, which left a
+    // real (if brief) window on every cold launch where the app was
+    // unlocked despite an app-wide PIN/biometric lock being configured.
+    loadSecurityPreferences().finally(() => {if (mounted) {setAppLockState(requiresAppLock() ? 'locked' : 'unlocked');}});
     const unsubscribeLock = subscribeAppLock(() => {if (mounted) {setLockState(getAppLockState());}});
     reconcileInAppNotifications().catch(() => {});
     const subscription = AppState.addEventListener('change', state => {

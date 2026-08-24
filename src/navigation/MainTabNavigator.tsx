@@ -22,6 +22,8 @@ import {CONCEPTION_JOURNAL_ITEMS} from '../config/conceptionJournalConfig';
 import {CONTRACEPTION_JOURNAL_ITEMS} from '../config/contraceptionJournalConfig';
 import {CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL, CONTRACEPTION_INTAKE_ACTION_LABEL} from '../config/contraceptionLabels';
 import {getContraceptionPreferences} from '../state/contraceptionPreferences';
+import {MENOPAUSE_JOURNAL_ITEMS} from '../config/menopauseJournalConfig';
+import {getMenopausePreferences} from '../state/menopausePreferences';
 import {requirePrivateAccess} from './privateAccess';
 
 // Pregnancy's own "Journal quotidien" content — same shared sheet chrome as
@@ -183,14 +185,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
 
   if (objective === 'contraception') {
     const contraceptionMethod = getContraceptionPreferences().method;
-    // Ring/patch are tracked as discrete insertion/removal/replacement
-    // events (contraceptionEventStore.ts), not a daily taken/missed/late
-    // status — so the "Oubli ou retard" entry point doesn't apply to them.
-    const isEventMethod = contraceptionMethod === 'ring' || contraceptionMethod === 'patch';
-    const contraceptionJournalItems = isEventMethod
-      ? CONTRACEPTION_JOURNAL_ITEMS.filter(item => item.key !== 'missedOrLate')
-      : CONTRACEPTION_JOURNAL_ITEMS;
-    const contraceptionActions: JournalSheetAction[] = contraceptionJournalItems.map(item => ({
+    const contraceptionActions: JournalSheetAction[] = CONTRACEPTION_JOURNAL_ITEMS.map(item => ({
       key: item.key,
       icon: item.icon,
       // "Prise / utilisation du jour" adapts to the real persisted method so
@@ -207,6 +202,36 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
         actions={contraceptionActions}
         onClose={close}
         subtitle="Ton suivi de contraception, un jour à la fois."
+        title="Journal quotidien"
+        visible={visible}
+      />
+    );
+  }
+
+  if (objective === 'menopause') {
+    const menopausePreferences = getMenopausePreferences();
+    const menopauseActions: JournalSheetAction[] = MENOPAUSE_JOURNAL_ITEMS
+      // "Traitement hormonal"/"Résultats d'analyses" only appear once the
+      // matching onboarding preference makes them relevant — never forced
+      // on a user who opted out (see menopausePreferences.ts).
+      .filter(item => {
+        if (item.key === 'treatment') {return menopausePreferences.hormonalTreatmentStatus === 'track';}
+        if (item.key === 'labResults') {return menopausePreferences.labTracking !== null && menopausePreferences.labTracking !== 'none';}
+        return true;
+      })
+      .map(item => ({
+        key: item.key,
+        icon: item.icon,
+        title: item.label,
+        subtitle: item.journalSubtitle,
+        tint: item.tint,
+        onPress: () => {close(); navigation.navigate('MenopauseJournalEntry', {category: item.key});},
+      }));
+    return (
+      <DailyJournalSheet
+        actions={menopauseActions}
+        onClose={close}
+        subtitle="Ton suivi périménopause / ménopause, un jour à la fois."
         title="Journal quotidien"
         visible={visible}
       />
