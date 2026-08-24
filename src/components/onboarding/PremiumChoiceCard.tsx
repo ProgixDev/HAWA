@@ -24,6 +24,12 @@ type Props = {
   /** Extra content rendered inside the card, only while selected — e.g. the
    * conditional "date des règles revenues" field on MiscarriageCycleReturnScreen. */
   children?: React.ReactNode;
+  /** 'radio' (default) keeps every existing single-select caller unchanged.
+   * 'checkbox' swaps the trailing indicator for a check square and the
+   * accessibility role for "checkbox" — for multi-select onboarding steps
+   * (e.g. MenopauseSymptomsScreen) where more than one card can be selected
+   * at once, without introducing a visually different sibling component. */
+  selectionStyle?: 'radio' | 'checkbox';
 };
 
 function PremiumChoiceCard({
@@ -34,10 +40,12 @@ function PremiumChoiceCard({
   selected,
   onPress,
   children,
+  selectionStyle = 'radio',
 }: Props): React.JSX.Element {
+  const isCheckbox = selectionStyle === 'checkbox';
   return (
     <Pressable
-      accessibilityRole="radio"
+      accessibilityRole={isCheckbox ? 'checkbox' : 'radio'}
       accessibilityState={{checked: selected}}
       onPress={onPress}
       style={({pressed}) => [
@@ -55,9 +63,15 @@ function PremiumChoiceCard({
           <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
 
-        <View style={[styles.radio, selected && styles.radioSelected]}>
-          {selected ? <View style={styles.radioDot} /> : null}
-        </View>
+        {isCheckbox ? (
+          <View style={[styles.checkbox, selected && styles.checkboxSelected]}>
+            {selected ? <MaterialDesignIcons color="#FFFFFF" name="check" size={14} /> : null}
+          </View>
+        ) : (
+          <View style={[styles.radio, selected && styles.radioSelected]}>
+            {selected ? <View style={styles.radioDot} /> : null}
+          </View>
+        )}
       </View>
 
       {selected && children ? <View style={styles.extra}>{children}</View> : null}
@@ -108,6 +122,17 @@ const styles = StyleSheet.create({
   },
   radioSelected: {borderColor: PURPLE},
   radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: PURPLE},
+  checkbox: {
+    width: 22,
+    height: 22,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: '#AE9BCF',
+    borderRadius: 7,
+  },
+  checkboxSelected: {borderColor: PURPLE, backgroundColor: PURPLE},
   extra: {
     marginTop: 12,
     paddingTop: 12,

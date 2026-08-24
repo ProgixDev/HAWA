@@ -51,6 +51,13 @@ import {
 import {getConceptionPreferences, type ConceptionReminderKey, type ConceptionTryingDuration, type FertilityIndicator, type OvulationAwareness} from '../state/conceptionPreferences';
 import {getContraceptionPreferences} from '../state/contraceptionPreferences';
 import {CONTRACEPTION_METHOD_LABELS} from '../config/contraceptionLabels';
+import {
+  getMenopausePreferences,
+  type MenopauseHormonalTreatmentStatus,
+  type MenopauseLabTracking,
+  type MenopauseStage,
+  type MenopauseSymptom,
+} from '../state/menopausePreferences';
 import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 
 const WOMAN = require('../assets/images/summary-woman.png');
@@ -151,6 +158,34 @@ const OVULATION_AWARENESS_LABELS: Record<OvulationAwareness, string> = {often:'O
 const INDICATOR_LABELS: Record<FertilityIndicator, string> = {temperature:'Température basale',cervical_mucus:'Glaire cervicale',lh_tests:'Tests LH',intercourse:'Rapports'};
 const CONCEPTION_REMINDER_LABELS: Record<ConceptionReminderKey, string> = {fertile_window:'Fenêtre fertile',estimated_ovulation:'Ovulation estimée',temperature:'Température basale',lh_test:'Test LH',daily_journal:'Journal quotidien'};
 
+// Same wording as MenopauseStageScreen/MenopauseSymptomsScreen/
+// MenopauseHormonalTreatmentScreen/MenopauseLabTrackingScreen.
+const MENOPAUSE_STAGE_LABELS: Record<MenopauseStage, string> = {
+  perimenopause: 'Périménopause',
+  menopause: 'Ménopause',
+  unsure: 'Je ne sais pas encore',
+};
+const MENOPAUSE_SYMPTOM_LABELS: Record<MenopauseSymptom, string> = {
+  hot_flashes: 'Bouffées de chaleur',
+  night_sweats: 'Sueurs nocturnes',
+  sleep_disturbances: 'Troubles du sommeil',
+  fatigue: 'Fatigue',
+  mood_changes: 'Variations d’humeur',
+  brain_fog: 'Brouillard mental',
+};
+const MENOPAUSE_ALL_SYMPTOMS: MenopauseSymptom[] = ['hot_flashes', 'night_sweats', 'sleep_disturbances', 'fatigue', 'mood_changes', 'brain_fog'];
+const MENOPAUSE_HORMONAL_TREATMENT_LABELS: Record<MenopauseHormonalTreatmentStatus, string> = {
+  track: 'Oui, suivi dans AWA',
+  no: 'Non',
+  not_now: 'Pas pour le moment',
+};
+const MENOPAUSE_LAB_TRACKING_LABELS: Record<MenopauseLabTracking, string> = {
+  fsh: 'FSH',
+  estradiol: 'Estradiol',
+  both: 'FSH et Estradiol',
+  none: 'Pas pour le moment',
+};
+
 const formatSummaryDate = (date: Date): string =>
   new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
@@ -191,6 +226,10 @@ type EditableRoute =
   | 'ContraceptionInformation'
   | 'PillSchedule'
   | 'ContraceptionReminders'
+  | 'MenopauseStage'
+  | 'MenopauseSymptoms'
+  | 'MenopauseHormonalTreatment'
+  | 'MenopauseLabTracking'
   | 'SecuritySetup'
   | 'Privacy';
 
@@ -542,12 +581,60 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     return rows;
   };
 
+  // "Post-ménopause / Ménopause"-only rows — sourced entirely from
+  // menopausePreferences.ts (no duplicated Summary state). Deliberately
+  // excludes Cycle rows (last period/cycle duration/regularity): this
+  // objective no longer routes through CycleInformationScreen at all (see
+  // LocationScreen.tsx). No stage/symptom/treatment/lab value is ever
+  // interpreted here — only the user's own stored choices are displayed.
+  const buildMenopauseRows = (): SummaryRow[] => {
+    const menopause = getMenopausePreferences();
+    const symptomLabels = MENOPAUSE_ALL_SYMPTOMS
+      .filter(id => menopause.trackedSymptoms.includes(id))
+      .map(id => MENOPAUSE_SYMPTOM_LABELS[id]);
+
+    return [
+      objectiveRow,
+      spiritualRow,
+      locationRow,
+      {
+        icon: 'flower-outline',
+        label: 'Étape actuelle',
+        value: menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : 'Non renseignée',
+        route: 'MenopauseStage',
+        tone: 'rose',
+      },
+      {
+        icon: 'clipboard-pulse-outline',
+        label: 'Symptômes suivis',
+        value: summarizeSelection(symptomLabels, MENOPAUSE_ALL_SYMPTOMS.length, 'Tous les symptômes'),
+        route: 'MenopauseSymptoms',
+        tone: 'purple',
+      },
+      {
+        icon: 'pill',
+        label: 'Traitement hormonal',
+        value: menopause.hormonalTreatmentStatus ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus] : 'Non renseigné',
+        route: 'MenopauseHormonalTreatment',
+        tone: 'blue',
+      },
+      {
+        icon: 'flask-outline',
+        label: 'Analyses biologiques',
+        value: menopause.labTracking ? MENOPAUSE_LAB_TRACKING_LABELS[menopause.labTracking] : 'Non renseigné',
+        route: 'MenopauseLabTracking',
+        tone: 'green',
+      },
+    ];
+  };
+
   const objectiveRows: SummaryRow[] =
     objective === 'pregnancy' ? buildPregnancyRows()
       : objective === 'postpartum' ? buildPostpartumRows()
         : objective === 'loss' ? buildMiscarriageRows()
           : objective === 'conceive' ? buildConceptionRows()
             : objective === 'contraception' ? buildContraceptionRows()
+              : objective === 'menopause' ? buildMenopauseRows()
           : buildCycleRows();
   const privacy = getPrivacySecuritySettings();
   const securityLabels = [isPinEnabled() ? 'PIN activé' : null, isBiometricEnabled() ? 'Biométrie activée' : null].filter((value): value is string => Boolean(value));

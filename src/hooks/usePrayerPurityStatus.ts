@@ -229,3 +229,16 @@ export type ContraceptionSpiritualStatus = PrayerScheduleStatus;
 export function useContraceptionSpiritualStatus(enabled = true): ContraceptionSpiritualStatus {
   return usePrayerSchedule(enabled);
 }
+
+export type MenopauseSpiritualStatus = PrayerScheduleStatus;
+
+/**
+ * Menopause-safe counterpart to `usePrayerPurityStatus`: same shared
+ * location/prayer-schedule fetch, but deliberately never touches
+ * cyclePreferences / periodEndDateTime / menstruation or purity status —
+ * MenopauseDashboard's "Repères spirituels" card only ever shows prayer time
+ * + Hijri date, exactly like Pregnancy/Postpartum/Miscarriage/Contraception's.
+ */
+export function useMenopauseSpiritualStatus(enabled = true): MenopauseSpiritualStatus {
+  return usePrayerSchedule(enabled);
+}

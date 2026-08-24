@@ -291,9 +291,17 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       // Contraception has its own dedicated onboarding branch (method/
       // information/reminders) — it deliberately does NOT go through
       // CycleInformationScreen (period-length/regularity data isn't part of
-      // the Contraception cahier des charges). SOPK/Menopause are unaffected
-      // and keep using the CycleInformation fallthrough below.
+      // the Contraception cahier des charges). SOPK is unaffected and keeps
+      // using the CycleInformation fallthrough below.
       navigation.navigate('ContraceptionMethod');
+      return;
+    }
+    if (objective === 'menopause') {
+      // Post-ménopause / Ménopause has its own dedicated 4-step onboarding
+      // (stage/symptoms/hormonal treatment/lab tracking) — period-length/
+      // regularity data isn't part of that flow, so it deliberately skips
+      // CycleInformationScreen, the same way Contraception does above.
+      navigation.navigate('MenopauseStage');
       return;
     }
     navigation.navigate('CycleInformation');

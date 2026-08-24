@@ -75,6 +75,16 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
       navigation.navigate(getHasConfirmedCycleData() ? 'ConceptionTryingDuration' : 'CycleInformation');
       return;
     }
+    if (!enabled && objective === 'menopause') {
+      // Same reasoning as the other objectives above: Location only exists
+      // to support spiritual/prayer-time features, so disabling spiritual
+      // markers skips it entirely and goes straight into Menopause's own
+      // dedicated onboarding (see LocationScreen.tsx's own 'menopause'
+      // branch for the enabled=true path, which continues to the same
+      // MenopauseStage screen after Location).
+      navigation.navigate('MenopauseStage');
+      return;
+    }
 
     navigation.navigate('Location');
   };

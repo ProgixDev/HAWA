@@ -63,6 +63,15 @@ import {
   type MiscarriageTryingAgainStatus,
 } from '../state/miscarriagePreferences';
 import {
+  getContraceptionPreferences,
+  hydrateContraceptionPreferences,
+  subscribeContraceptionPreferences,
+} from '../state/contraceptionPreferences';
+import {
+  CONTRACEPTION_METHOD_ICONS,
+  CONTRACEPTION_METHOD_LABELS,
+} from '../config/contraceptionLabels';
+import {
   computeCyclePredictionStatus,
   formatDateRange as formatCanonicalDateRange,
   formatFullDate,
@@ -804,6 +813,30 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
+  // Same canonical store the Contraception Dashboard/Calendar/Statistics
+  // already read/write — no Profile-specific method/reminder/start-date
+  // state. Hydrate + subscribe so a method/reminder change made from the
+  // Contraception screens (or a method switch) reflects here immediately.
+  const [contraception, setContraception] = useState(getContraceptionPreferences);
+
+  useEffect(() => {
+    let active = true;
+    hydrateContraceptionPreferences().then(value => {
+      if (active) {
+        setContraception(value);
+      }
+    });
+    const unsubscribe = subscribeContraceptionPreferences(() => {
+      if (active) {
+        setContraception(getContraceptionPreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
   /* ========================================================
    * ANONYMOUS MODE
    *
@@ -1246,7 +1279,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           {objective !== 'pregnancy' &&
           objective !== 'postpartum' &&
-          objective !== 'loss' ? (
+          objective !== 'loss' &&
+          objective !== 'contraception' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-range"
@@ -1264,6 +1298,51 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 icon="calendar-month-outline"
                 label="Prochaines règles"
                 value={nextPeriodValue}
+              />
+
+              <StatCard
+                icon="weather-night"
+                label="Date hijri"
+                value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
+              />
+            </View>
+          ) : null}
+
+          {/* Contraception's OWN summary — never Cycle-specific stats
+              (cycle moyen/durée des règles/prochaines règles belong to the
+              Cycle objective only, and must not leak here). Sourced
+              directly from the same canonical contraceptionPreferences
+              store the Contraception Dashboard/Calendar/Statistics already
+              read/write, and the same CONTRACEPTION_METHOD_LABELS/ICONS —
+              never a hardcoded method or a Profile-specific copy. */}
+          {objective === 'contraception' ? (
+            <View style={styles.statsGrid}>
+              <StatCard
+                icon={contraception.method ? CONTRACEPTION_METHOD_ICONS[contraception.method] : 'pill'}
+                label="Méthode actuelle"
+                value={
+                  contraception.method
+                    ? CONTRACEPTION_METHOD_LABELS[contraception.method]
+                    : 'Non renseignée'
+                }
+              />
+
+              <StatCard
+                icon="calendar-check-outline"
+                label="Début du suivi"
+                value={
+                  contraception.methodStartDate
+                    ? formatFullDate(
+                        new Date(`${contraception.methodStartDate}T12:00:00`),
+                      )
+                    : 'Non renseigné'
+                }
+              />
+
+              <StatCard
+                icon={contraception.remindersEnabled ? 'bell-check-outline' : 'bell-off-outline'}
+                label="Rappels"
+                value={contraception.remindersEnabled ? 'Activés' : 'Désactivés'}
               />
 
               <StatCard
