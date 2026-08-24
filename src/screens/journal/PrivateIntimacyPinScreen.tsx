@@ -5,7 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {hasPrivatePin, savePrivatePin, verifyPrivatePin} from '../../services/privateSectionAuth';
-import {unlockIntimacy} from '../../state/privateSectionAuthStore';
+import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyPin'>;
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'empty', '0', 'delete'] as const;
@@ -42,13 +42,13 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
   const complete = async (value: string) => {
     try {
       if (configured) {
-        if (await verifyPrivatePin(value)) {unlockIntimacy(); navigation.replace(route.params?.target === 'conception' ? 'JournalConceptionReports' : route.params?.target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry');}
+        if (await verifyPrivatePin(value)) {unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target);}
         else {fail('Code incorrect. Réessaie.');}
         return;
       }
       if (!first) {setFirst(value); setPin(''); setError('Confirme ton nouveau code.'); return;}
       if (first !== value) {setFirst(''); fail('Les codes ne correspondent pas. Recommence.'); return;}
-      await savePrivatePin(value); unlockIntimacy(); navigation.replace(route.params?.target === 'conception' ? 'JournalConceptionReports' : route.params?.target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry');
+      await savePrivatePin(value); unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target);
     } catch (err) {
       console.error('[PrivateIntimacyPin] verify/save failed', err);
       fail('Une erreur est survenue. Réessaie.');

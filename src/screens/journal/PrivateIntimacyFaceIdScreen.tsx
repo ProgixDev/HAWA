@@ -5,7 +5,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {authenticateWithBiometry, getBiometryIcon, getBiometryLabel, getBiometryType} from '../../services/privateSectionAuth';
-import {unlockIntimacy} from '../../state/privateSectionAuthStore';
+import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 import type * as Keychain from 'react-native-keychain';
 
 const PURPLE = '#6736B4';
@@ -55,7 +55,7 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
     try {
       setBusy(true);
       setError('');
-      if (await authenticateWithBiometry()) {unlockIntimacy(); navigation.replace(route.params?.target === 'conception' ? 'JournalConceptionReports' : route.params?.target === 'photos' ? 'PrivatePhotoEntry' : 'IntimacyEntry'); return;}
+      if (await authenticateWithBiometry()) {unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target); return;}
       fail('Authentification non reconnue. Réessaie.');
     } catch {
       fail('Authentification non reconnue. Réessaie.');

@@ -16,7 +16,19 @@ export type DailyJournalEntry = {
   activity?: {type?: string; durationMinutes?: number; intensity?: string; feeling?: string; none?: boolean; note?: string};
   hydration?: {milliliters: number; dailyGoal?: number; glasses?: number; goalGlasses?: number};
   weight?: {value?: number; unit: 'kg' | 'lb'; moment?: string; note?: string};
+  // LEGACY plaintext shape — no longer written, kept only so existing
+  // "Notes personnelles" saved before encryption-at-rest existed still count
+  // as "a note exists" for presence checks (CalendarScreen.tsx,
+  // SelectedDayCard.tsx) and so migrateLegacyPlainNotes() in
+  // privateNotesEncryption.ts can find and upgrade them. Never write this
+  // field again; see `encryptedNote` below.
   note?: {text: string; private: true; updatedAt: string};
+  // AES-256-GCM-encrypted "Notes personnelles" (see
+  // privateNotesEncryption.ts) — the only field that ever holds this
+  // section's real content going forward. Same envelope shape as
+  // `encryptedIntimacy` below, own Keychain key/domain. Frontend local
+  // encryption only — see TODO.md §1.19.
+  encryptedNote?: EncryptedNotePayload;
   // LEGACY plaintext shape — no longer written, kept only so
   // resolveIntimacySection() in privateJournalEncryption.ts can still read
   // entries saved before encryption-at-rest existed. Never write this field
@@ -52,6 +64,12 @@ export type IntimacySection = {answer: 'yes' | 'no' | 'preferNot'; time?: string
  * which uses @noble/ciphers' own bytesToHex/hexToBytes — no separate base64
  * dependency). `ciphertext` already includes the GCM authentication tag. */
 export type EncryptedIntimacyPayload = {version: 1; iv: string; ciphertext: string};
+
+/** Same hex-envelope shape as EncryptedIntimacyPayload — see
+ * privateNotesEncryption.ts. A distinct type (not a shared alias) so a
+ * future change to one payload's shape can never silently affect the
+ * other. */
+export type EncryptedNotePayload = {version: 1; iv: string; ciphertext: string};
 
 export type JournalSection = Exclude<keyof DailyJournalEntry, 'id' | 'date' | 'cycleDay'>;
 

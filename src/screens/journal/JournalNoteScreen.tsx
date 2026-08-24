@@ -16,24 +16,40 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {encryptNoteSection} from '../../services/privateNotesEncryption';
 import {resolvePrivatePhotos} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
+import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
 
 const PURPLE = '#7040B4';
 const DARK_PURPLE = '#30205F';
 const MAX = 1000;
 
-export default function JournalNoteScreen(): React.JSX.Element {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+export default function JournalNoteScreen(): React.JSX.Element | null {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const isSmallScreen = width < 370 || height < 720;
   const isVerySmallScreen = width < 340 || height < 640;
+
+  // "Notes personnelles" reuses the app's single existing intimacy PIN/
+  // biometric gate (same as Vie intime/Rapports/Photos privées) — never a
+  // Cycle-specific PIN. Computed once on mount so a locked screen never
+  // renders its TextInput before the redirect effect below fires.
+  const [unlocked] = useState(() => isIntimacyUnlocked());
+
+  useEffect(() => {
+    if (!isIntimacyUnlocked()) {
+      navigation.replace('PrivateIntimacyUnlock', {target: 'cycleNotes'});
+    }
+  }, [navigation]);
+
   const [text, setText] = useState('');
   const [hidden, setHidden] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -150,11 +166,13 @@ export default function JournalNoteScreen(): React.JSX.Element {
     try {
       setSaving(true);
 
-      await saveJournalSection(storageDate, 'note', {
-        text: text.trim(),
-        private: true,
-        updatedAt: new Date().toISOString(),
-      });
+      const updatedAt = new Date().toISOString();
+      const encrypted = await encryptNoteSection({text: text.trim(), updatedAt});
+      await saveJournalSection(storageDate, 'encryptedNote', encrypted);
+      // A fresh encrypted note supersedes any legacy plaintext note for the
+      // same day — safe to drop now that the encrypted write above has
+      // already succeeded (never the other way around).
+      await deleteJournalSection(storageDate, 'note');
 
       showSuccessToast();
     } catch {
@@ -166,6 +184,10 @@ export default function JournalNoteScreen(): React.JSX.Element {
       setSaving(false);
     }
   };
+
+  if (!unlocked) {
+    return null;
+  }
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
