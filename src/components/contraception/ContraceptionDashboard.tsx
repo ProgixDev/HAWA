@@ -39,6 +39,7 @@ import QuickActionsGrid, {
   type QuickActionItem,
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
+import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 
 import {
   getFirstName,
@@ -79,12 +80,16 @@ import {
   CONTRACEPTION_DEFAULT_REMINDER_CONTENT,
   CONTRACEPTION_EVENT_ICONS,
   CONTRACEPTION_EVENT_LABELS,
+  CONTRACEPTION_HERO_ACTION_LABELS,
   CONTRACEPTION_INTAKE_ACTION_LABEL,
   CONTRACEPTION_INTAKE_STATUS_LABELS,
   CONTRACEPTION_METHOD_EVENT_TYPES,
   CONTRACEPTION_METHOD_ICONS,
   CONTRACEPTION_METHOD_LABELS,
   CONTRACEPTION_REMINDER_CONTENT,
+  getContraceptionEventSummaryLabel,
+  isContraceptionEventForMethod,
+  isContraceptionIntakeRecordForMethod,
 } from '../../config/contraceptionLabels';
 
 import {getPillPackDay} from '../../utils/contraceptionMath';
@@ -121,6 +126,17 @@ const DANGER_SOFT = '#FFF0F3';
 // where it's set (Journal) and where it's displayed (here).
 const WARNING = '#C77B2E';
 const WARNING_SOFT = '#FFF0E3';
+
+// Dashboard hero's 3-way intake quick actions — one shared color pair per
+// status, reusing the exact SUCCESS/WARNING/DANGER tokens already used
+// elsewhere in this file (LIGNE 1's icon, PillPackProgressRing's status
+// display) so "taken"/"late"/"missed" never disagree on color between the
+// hero and the rest of the Dashboard.
+const HERO_ACTION_COLORS: Record<ContraceptionIntakeStatus, {color: string; soft: string}> = {
+  taken: {color: SUCCESS, soft: SUCCESS_SOFT},
+  late: {color: WARNING, soft: WARNING_SOFT},
+  missed: {color: DANGER, soft: DANGER_SOFT},
+};
 
 const CARD_BACKGROUND = 'rgba(255,255,255,0.97)';
 
@@ -489,6 +505,54 @@ function PillPackProgressRing({
   );
 }
 
+/** One of the hero's 3 daily-intake quick actions (taken/late/missed) — a
+ * single reusable button so the 2 different layouts below (one row on
+ * regular screens, a full-width row + a 2-column row on compact ones) don't
+ * each hand-duplicate 3 near-identical Pressable blocks. Writes go through
+ * the same canonical setContraceptionIntakeStatus() call the Journal and
+ * History use — this is a second UI entry point onto the same one record,
+ * never a second store. */
+function HeroIntakeActionButton({
+  status,
+  label,
+  icon,
+  selected,
+  onPress,
+  compact,
+}: {
+  status: ContraceptionIntakeStatus;
+  label: string;
+  icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
+  selected: boolean;
+  onPress: () => void;
+  compact: boolean;
+}): React.JSX.Element {
+  const {color, soft} = HERO_ACTION_COLORS[status];
+
+  return (
+    <Pressable
+      accessibilityLabel={label}
+      accessibilityRole="button"
+      accessibilityState={{selected}}
+      onPress={onPress}
+      style={({pressed}) => [
+        styles.heroActionButton,
+        {borderColor: selected ? color : `${color}30`, backgroundColor: selected ? color : soft},
+        pressed && styles.pressed,
+      ]}>
+      <View style={[styles.heroActionIcon, selected && styles.heroActionIconSelected]}>
+        <MaterialDesignIcons color={selected ? '#FFFFFF' : color} name={icon} size={compact ? 14 : 15} />
+      </View>
+
+      <Text
+        numberOfLines={2}
+        style={[styles.heroActionText, selected && styles.heroActionTextSelected]}>
+        {label}
+      </Text>
+    </Pressable>
+  );
+}
+
 function ContraceptionDashboard({
   navigation,
 }: Props): React.JSX.Element {
@@ -557,8 +621,8 @@ function ContraceptionDashboard({
   );
 
   const [
-    todayRecord,
-    setTodayRecord,
+    rawTodayRecord,
+    setRawTodayRecord,
   ] = useState<
     ContraceptionIntakeRecord | undefined
   >(() =>
@@ -566,8 +630,8 @@ function ContraceptionDashboard({
   );
 
   const [
-    recentRecords,
-    setRecentRecords,
+    rawRecentRecords,
+    setRawRecentRecords,
   ] = useState<
     ContraceptionIntakeRecord[]
   >(() =>
@@ -575,8 +639,8 @@ function ContraceptionDashboard({
   );
 
   const [
-    allHistoryRecords,
-    setAllHistoryRecords,
+    rawAllHistoryRecords,
+    setRawAllHistoryRecords,
   ] = useState<
     ContraceptionIntakeRecord[]
   >(() =>
@@ -663,19 +727,19 @@ function ContraceptionDashboard({
 
   const refreshIntakeHistory =
     useCallback(() => {
-      setTodayRecord(
+      setRawTodayRecord(
         getContraceptionIntakeRecord(
           today,
         ),
       );
 
-      setRecentRecords(
+      setRawRecentRecords(
         getRecentContraceptionIntakeRecords(
           7,
         ),
       );
 
-      setAllHistoryRecords(
+      setRawAllHistoryRecords(
         getRecentContraceptionIntakeRecords(
           100,
         ),
@@ -927,8 +991,8 @@ function ContraceptionDashboard({
       : null;
 
   // Ring/patch are tracked as discrete insertion/removal/replacement events
-  // (contraceptionEventStore.ts), never as a single daily taken/missed/late
-  // status — so the "Oubli ou retard" row below (which reads and writes
+  // (contraceptionEventStore.ts), never as a single daily taken/late/missed
+  // status — so the "Suivi du jour" row below (which reads and writes
   // contraceptionIntakeHistoryStore.ts) doesn't apply to them.
   const isEventMethod = method === 'ring' || method === 'patch';
 
@@ -941,6 +1005,54 @@ function ContraceptionDashboard({
   const methodEventTypes = method
     ? CONTRACEPTION_METHOD_EVENT_TYPES[method] ?? []
     : [];
+
+  // Method-isolation fix: contraceptionEventStore.ts is shared across every
+  // event-based method ever used (switching ring -> patch never deletes the
+  // old ring events), so the raw todayEvents/recentEvents/allHistoryEvents
+  // state above can legitimately contain a mix of methods. Every piece of
+  // CURRENT-method operational UI below (Dashboard "Suivi du jour", the
+  // "Historique" mini card, and the "Voir tout l'historique" modal, which
+  // is this same card's own drill-down — not a separate deliberately-global
+  // archive) must only ever show the ACTIVE method's events. Filtering here
+  // — once, via the shared isContraceptionEventForMethod() helper — never
+  // touches the store, so a real historical event from a previous method is
+  // never lost; switching back to that method makes it visible again.
+  const currentMethodTodayEvents = useMemo(
+    () => todayEvents.filter(event => isContraceptionEventForMethod(event.type, method)),
+    [todayEvents, method],
+  );
+  const currentMethodRecentEvents = useMemo(
+    () => recentEvents.filter(event => isContraceptionEventForMethod(event.type, method)),
+    [recentEvents, method],
+  );
+  const currentMethodAllHistoryEvents = useMemo(
+    () => allHistoryEvents.filter(event => isContraceptionEventForMethod(event.type, method)),
+    [allHistoryEvents, method],
+  );
+
+  // Same reasoning as the events filtering above, applied to intake records:
+  // pill and other share one store/shape with no way to tell them apart
+  // except the record's own optional `method` tag (see
+  // isContraceptionIntakeRecordForMethod). Named to shadow the plain
+  // "todayRecord"/"recentRecords"/"allHistoryRecords" identifiers on purpose
+  // — every render site below already reads those names, so scoping the
+  // filter here (once) makes the whole file method-safe without having to
+  // touch each of the ~30 usages individually.
+  const todayRecord = useMemo(
+    () =>
+      rawTodayRecord && isContraceptionIntakeRecordForMethod(rawTodayRecord.method, method)
+        ? rawTodayRecord
+        : undefined,
+    [rawTodayRecord, method],
+  );
+  const recentRecords = useMemo(
+    () => rawRecentRecords.filter(record => isContraceptionIntakeRecordForMethod(record.method, method)),
+    [rawRecentRecords, method],
+  );
+  const allHistoryRecords = useMemo(
+    () => rawAllHistoryRecords.filter(record => isContraceptionIntakeRecordForMethod(record.method, method)),
+    [rawAllHistoryRecords, method],
+  );
 
   const methodLabel = method
     ? CONTRACEPTION_METHOD_LABELS[
@@ -984,13 +1096,6 @@ function ContraceptionDashboard({
         : todayRecord?.status === 'missed'
           ? 'Oubli signalé'
           : 'À renseigner';
-
-  const missedStateLabel =
-    todayRecord?.status === 'late'
-      ? 'Retard signalé'
-      : todayRecord?.status === 'missed'
-        ? 'Signalé'
-        : 'Aucun signalement';
 
   const feelingsCount = todayJournalEntry?.feelings?.length ?? 0;
 
@@ -1054,11 +1159,26 @@ function ContraceptionDashboard({
    * ============================================================
    */
 
+  // Tags the record with whichever intake method is CURRENTLY active — see
+  // isContraceptionIntakeRecordForMethod / ContraceptionIntakeRecord.method.
+  const currentIntakeMethodTag: 'pill' | 'other' | undefined =
+    method === 'pill' || method === 'other' ? method : undefined;
+
   const handleMarkTaken =
     async () => {
       await setContraceptionIntakeStatus(
         today,
         'taken',
+        currentIntakeMethodTag,
+      );
+    };
+
+  const handleMarkLate =
+    async () => {
+      await setContraceptionIntakeStatus(
+        today,
+        'late',
+        currentIntakeMethodTag,
       );
     };
 
@@ -1067,8 +1187,17 @@ function ContraceptionDashboard({
       await setContraceptionIntakeStatus(
         today,
         'missed',
+        currentIntakeMethodTag,
       );
     };
+
+  // Method-adaptive hero button wording — pill keeps its existing colloquial
+  // phrasing ("Prise effectuée"/"J'ai oublié"); every other intake-tracked
+  // method (currently just 'other') falls back to the shared, method-neutral
+  // CONTRACEPTION_INTAKE_STATUS_LABELS. Never hardcode pill wording here.
+  const heroActionLabel = (status: ContraceptionIntakeStatus): string =>
+    (method ? CONTRACEPTION_HERO_ACTION_LABELS[method]?.[status] : undefined) ??
+    CONTRACEPTION_INTAKE_STATUS_LABELS[status];
 
   /*
    * ============================================================
@@ -1103,7 +1232,7 @@ function ContraceptionDashboard({
       : 'Tes rappels sont désactivés.';
 
   const circleStatusText = isEventMethod
-    ? todayEvents.length > 0
+    ? currentMethodTodayEvents.length > 0
       ? 'Enregistré'
       : 'À faire'
     : todayRecord?.status ===
@@ -1117,8 +1246,8 @@ function ContraceptionDashboard({
           : 'À faire';
 
   const circleStatusIcon = isEventMethod
-    ? todayEvents.length > 0
-      ? CONTRACEPTION_EVENT_ICONS[todayEvents[0].type]
+    ? currentMethodTodayEvents.length > 0
+      ? CONTRACEPTION_EVENT_ICONS[currentMethodTodayEvents[0].type]
       : methodIcon
     : todayRecord?.status ===
       'taken'
@@ -1437,92 +1566,70 @@ function ContraceptionDashboard({
               />
             </View>
 
-            {isPill ? (
-              <View
-                style={
-                  styles.heroActionsRow
-                }>
-                <Pressable
-                  accessibilityLabel="Prise effectuée"
-                  accessibilityRole="button"
-                  onPress={
-                    handleMarkTaken
-                  }
-                  style={({
-                    pressed,
-                  }) => [
-                    styles.heroActionButton,
-                    styles.heroTakenButton,
-                    todayRecord?.status ===
-                      'taken' &&
-                      styles.heroTakenButtonSelected,
-                    pressed &&
-                      styles.pressed,
-                  ]}>
-                  <View style={styles.heroActionIconTaken}>
-                    <MaterialDesignIcons
-                      color={PURPLE}
-                      name="check-bold"
-                      size={compact ? 14 : 15}
+            {isIntakeMethod ? (
+              compact ? (
+                <View style={styles.heroActionsColumn}>
+                  <View style={styles.heroActionsRowNested}>
+                    <HeroIntakeActionButton
+                      compact={compact}
+                      icon="check-bold"
+                      label={heroActionLabel('taken')}
+                      onPress={handleMarkTaken}
+                      selected={todayRecord?.status === 'taken'}
+                      status="taken"
                     />
                   </View>
 
-                  <Text
-                    style={[
-                      styles.heroActionText,
-                      styles.heroTakenText,
-                      todayRecord?.status === 'taken' &&
-                        styles.heroActionTextSelected,
-                    ]}>
-                    Prise effectuée
-                  </Text>
-                </Pressable>
+                  <View style={styles.heroActionsRowNested}>
+                    <HeroIntakeActionButton
+                      compact={compact}
+                      icon="clock-alert-outline"
+                      label={heroActionLabel('late')}
+                      onPress={handleMarkLate}
+                      selected={todayRecord?.status === 'late'}
+                      status="late"
+                    />
 
-                <Pressable
-                  accessibilityLabel="J’ai oublié"
-                  accessibilityRole="button"
-                  onPress={
-                    handleMarkMissed
-                  }
-                  style={({
-                    pressed,
-                  }) => [
-                    styles.heroActionButton,
-                    styles.heroMissedButton,
-                    todayRecord?.status ===
-                      'missed' &&
-                      styles.heroMissedButtonSelected,
-                    pressed &&
-                      styles.pressed,
-                  ]}>
-                  <View
-                    style={[
-                      styles.heroActionIconMissed,
-                      todayRecord?.status === 'missed' &&
-                        styles.heroActionIconMissedSelected,
-                    ]}>
-                    <MaterialDesignIcons
-                      color={
-                        todayRecord?.status === 'missed'
-                          ? '#FFFFFF'
-                          : DANGER
-                      }
-                      name="alert-outline"
-                      size={compact ? 14 : 15}
+                    <HeroIntakeActionButton
+                      compact={compact}
+                      icon="alert-outline"
+                      label={heroActionLabel('missed')}
+                      onPress={handleMarkMissed}
+                      selected={todayRecord?.status === 'missed'}
+                      status="missed"
                     />
                   </View>
+                </View>
+              ) : (
+                <View style={styles.heroActionsRow}>
+                  <HeroIntakeActionButton
+                    compact={compact}
+                    icon="check-bold"
+                    label={heroActionLabel('taken')}
+                    onPress={handleMarkTaken}
+                    selected={todayRecord?.status === 'taken'}
+                    status="taken"
+                  />
 
-                  <Text
-                    style={[
-                      styles.heroActionText,
-                      styles.heroMissedText,
-                      todayRecord?.status === 'missed' &&
-                        styles.heroActionTextSelected,
-                    ]}>
-                    J’ai oublié
-                  </Text>
-                </Pressable>
-              </View>
+                  <HeroIntakeActionButton
+                    compact={compact}
+                    icon="clock-alert-outline"
+                    label={heroActionLabel('late')}
+                    onPress={handleMarkLate}
+                    selected={todayRecord?.status === 'late'}
+                    status="late"
+                  />
+
+                  <HeroIntakeActionButton
+                    compact={compact}
+                    icon="alert-outline"
+                    label={heroActionLabel('missed')}
+                    onPress={handleMarkMissed}
+                    selected={todayRecord?.status === 'missed'}
+                    status="missed"
+                  />
+                </View>
+              )
             ) : null}
           </View>
 
@@ -1769,31 +1876,39 @@ function ContraceptionDashboard({
                   style={[
                     styles.dailyStatIcon,
                     isEventMethod
-                      ? todayEvents.length > 0
+                      ? currentMethodTodayEvents.length > 0
                         ? styles.dailyStatusPurple
                         : styles.dailyStatusMuted
                       : todayRecord?.status === 'taken'
                         ? styles.dailyStatusGreen
                         : todayRecord?.status === 'late'
                           ? styles.dailyStatusAmber
-                          : styles.dailyStatusMuted,
+                          : todayRecord?.status === 'missed'
+                            ? styles.dailyStatusRed
+                            : styles.dailyStatusMuted,
                   ]}>
                   <MaterialDesignIcons
                     color={
                       isEventMethod
-                        ? todayEvents.length > 0
+                        ? currentMethodTodayEvents.length > 0
                           ? PURPLE
                           : MUTED
                         : todayRecord?.status === 'taken'
                           ? SUCCESS
                           : todayRecord?.status === 'late'
                             ? WARNING
-                            : MUTED
+                            : todayRecord?.status === 'missed'
+                              ? DANGER
+                              : MUTED
                     }
                     name={
-                      isEventMethod && todayEvents.length > 0
-                        ? CONTRACEPTION_EVENT_ICONS[todayEvents[0].type]
-                        : 'check-circle-outline'
+                      isEventMethod && currentMethodTodayEvents.length > 0
+                        ? CONTRACEPTION_EVENT_ICONS[currentMethodTodayEvents[0].type]
+                        : !isEventMethod && todayRecord?.status === 'missed'
+                          ? 'alert-outline'
+                          : !isEventMethod && todayRecord?.status === 'late'
+                            ? 'clock-alert-outline'
+                            : 'check-circle-outline'
                     }
                     size={18}
                   />
@@ -1809,7 +1924,7 @@ function ContraceptionDashboard({
                     style={[
                       styles.dailyStatValue,
                       isEventMethod
-                        ? todayEvents.length > 0
+                        ? currentMethodTodayEvents.length > 0
                           ? undefined
                           : styles.dailyValueMuted
                         : todayRecord?.status === 'taken'
@@ -1821,9 +1936,7 @@ function ContraceptionDashboard({
                               : styles.dailyValueMuted,
                     ]}>
                     {isEventMethod
-                      ? todayEvents.length > 0
-                        ? todayEvents.map(event => CONTRACEPTION_EVENT_LABELS[event.type]).join(', ')
-                        : 'Aucun événement aujourd’hui'
+                      ? getContraceptionEventSummaryLabel(currentMethodTodayEvents)
                       : intakeStateLabel}
                   </Text>
                 </View>
@@ -1833,64 +1946,7 @@ function ContraceptionDashboard({
                 </View>
               </Pressable>
 
-              {/* LIGNE 2 — OUBLI OU RETARD (pill/other only — ring/patch use
-                  discrete events, not a daily taken/missed/late status) */}
-              {!isEventMethod ? (
-                <Pressable
-                  accessibilityLabel="Oubli ou retard"
-                  accessibilityRole="button"
-                  onPress={() =>
-                    navigation.navigate('ContraceptionJournalEntry', {category: 'missedOrLate'})
-                  }
-                  style={({pressed}) => [styles.dailyStatRow, pressed && styles.pressed]}>
-                  <View
-                    style={[
-                      styles.dailyStatIcon,
-                      todayRecord?.status === 'late'
-                        ? styles.dailyStatusAmber
-                        : todayRecord?.status === 'missed'
-                          ? styles.dailyStatusRed
-                          : styles.dailyStatusMuted,
-                    ]}>
-                    <MaterialDesignIcons
-                      color={
-                        todayRecord?.status === 'late'
-                          ? WARNING
-                          : todayRecord?.status === 'missed'
-                            ? DANGER
-                            : MUTED
-                      }
-                      name="alert-outline"
-                      size={18}
-                    />
-                  </View>
-
-                  <View style={styles.dailyStatTextGroup}>
-                    <Text numberOfLines={1} style={styles.dailyStatLabel}>
-                      Oubli ou retard
-                    </Text>
-
-                    <Text
-                      numberOfLines={1}
-                      style={[
-                        styles.dailyStatValue,
-                        todayRecord?.status === 'late'
-                          ? styles.dailyValueWarning
-                          : todayRecord?.status === 'missed'
-                            ? styles.dailyValueDanger
-                            : styles.dailyValueMuted,
-                      ]}>
-                      {missedStateLabel}
-                    </Text>
-                  </View>
-
-                  <View style={styles.dailyStatTrailing}>
-                    <MaterialDesignIcons color="#B9ACC9" name="chevron-right" size={18} />
-                  </View>
-                </Pressable>
-              ) : null}
-
-              {/* LIGNE 3 — EFFETS RESSENTIS */}
+              {/* LIGNE 2 — EFFETS RESSENTIS */}
               <Pressable
                 accessibilityLabel="Effets ressentis"
                 accessibilityRole="button"
@@ -1930,7 +1986,7 @@ function ContraceptionDashboard({
                 </View>
               </Pressable>
 
-              {/* LIGNE 4 — NOTES DU JOUR */}
+              {/* LIGNE 3 — NOTES DU JOUR */}
               <Pressable
                 accessibilityLabel="Notes du jour"
                 accessibilityRole="button"
@@ -2059,11 +2115,11 @@ function ContraceptionDashboard({
                 </View>
               </View>
 
-              {recentEvents.length === 0 ? (
+              {currentMethodRecentEvents.length === 0 ? (
                 <Text style={styles.emptySummaryText}>Aucun événement enregistré pour le moment.</Text>
               ) : (
                 <View style={styles.recentEventsList}>
-                  {recentEvents.map(event => (
+                  {currentMethodRecentEvents.map(event => (
                     <View key={event.id} style={styles.recentEventRow}>
                       <View style={[styles.dailyStatIcon, styles.dailyStatusPurple]}>
                         <MaterialDesignIcons color={PURPLE} name={CONTRACEPTION_EVENT_ICONS[event.type]} size={16} />
@@ -2221,6 +2277,12 @@ function ContraceptionDashboard({
               </Pressable>
             </View>
           ) : null}
+
+          <ObjectiveArticlesSection
+            objective="contraception"
+            onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onSeeAll={() => navigation.navigate('Library')}
+          />
         </ScrollView>
 
         <Modal
@@ -2348,7 +2410,7 @@ function ContraceptionDashboard({
                 showsVerticalScrollIndicator
                 style={styles.historyModalScroll}>
                 {isEventMethod ? (
-                  allHistoryEvents.filter(event => historyEventFilters[event.type]).length === 0 ? (
+                  currentMethodAllHistoryEvents.filter(event => historyEventFilters[event.type]).length === 0 ? (
                     <View style={styles.historyModalEmpty}>
                       <View style={styles.historyModalEmptyIcon}>
                         <MaterialDesignIcons color={PURPLE} name="calendar-blank-outline" size={25} />
@@ -2361,7 +2423,7 @@ function ContraceptionDashboard({
                       </Text>
                     </View>
                   ) : (
-                    allHistoryEvents.filter(event => historyEventFilters[event.type]).map(event => (
+                    currentMethodAllHistoryEvents.filter(event => historyEventFilters[event.type]).map(event => (
                       <Pressable
                         accessibilityHint="Ouvre les options de suppression"
                         accessibilityLabel={`${CONTRACEPTION_EVENT_LABELS[event.type]}, ${formatRecordDate(event.date)}`}
@@ -2957,6 +3019,15 @@ const styles =
       marginTop: 14,
     },
 
+    // Same row shape as heroActionsRow, but without its own top margin —
+    // used for the two inner rows of the compact column layout, where
+    // heroActionsColumn already supplies the spacing (its own marginTop
+    // above the first row, its `gap` between the two rows).
+    heroActionsRowNested: {
+      flexDirection: 'row',
+      gap: 8,
+    },
+
     heroActionButton: {
       flex: 1,
       minHeight: 46,
@@ -2973,57 +3044,29 @@ const styles =
       elevation: 2,
     },
 
-    heroTakenButton: {
-      borderColor: 'rgba(105,73,190,0.18)',
-      backgroundColor: '#F1E9FC',
-      shadowColor: '#6949BE',
-      shadowOpacity: 0.07,
+    heroActionsColumn: {
+      gap: 8,
+      marginTop: 14,
     },
 
-    heroTakenButtonSelected: {
-      borderColor: '#5B39B6',
-      backgroundColor: PURPLE,
-      shadowOpacity: 0.14,
-    },
-
-    heroMissedButton: {
-      borderColor: 'rgba(217,97,118,0.18)',
-      backgroundColor: '#FFF7F8',
-      shadowColor: '#D96176',
-      shadowOpacity: 0.05,
-    },
-
-    heroMissedButtonSelected: {
-      borderColor: DANGER,
-      backgroundColor: DANGER,
-      shadowOpacity: 0.14,
-    },
-
-    heroActionIconTaken: {
+    heroActionIcon: {
       width: 25,
       height: 25,
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 8,
       backgroundColor: '#FFFFFF',
-      shadowColor: '#6949BE',
+      shadowColor: '#000000',
       shadowOffset: {width: 0, height: 1},
       shadowOpacity: 0.06,
       shadowRadius: 3,
       elevation: 1,
     },
 
-    heroActionIconMissed: {
-      width: 25,
-      height: 25,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 8,
-      backgroundColor: '#FFF0F3',
-    },
-
-    heroActionIconMissedSelected: {
-      backgroundColor: 'rgba(255,255,255,0.18)',
+    heroActionIconSelected: {
+      backgroundColor: 'rgba(255,255,255,0.22)',
+      shadowOpacity: 0,
+      elevation: 0,
     },
 
     heroActionText: {
@@ -3033,14 +3076,6 @@ const styles =
       lineHeight: 14,
       fontWeight: '800',
       textAlign: 'center',
-    },
-
-    heroTakenText: {
-      color: PURPLE_DARK,
-    },
-
-    heroMissedText: {
-      color: DANGER,
     },
 
     heroActionTextSelected: {

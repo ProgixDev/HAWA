@@ -2,7 +2,7 @@ import type {MaterialDesignIcons} from '@react-native-vector-icons/material-desi
 
 import type {ContraceptionMethod} from '../state/contraceptionPreferences';
 import type {ContraceptionIntakeStatus} from '../state/contraceptionIntakeHistoryStore';
-import type {ContraceptionEventType} from '../state/contraceptionEventStore';
+import type {ContraceptionEvent, ContraceptionEventType} from '../state/contraceptionEventStore';
 
 // Single shared source for contraception method/reminder copy — consumed by
 // SummaryScreen, ContraceptionRemindersScreen and ContraceptionDashboard so
@@ -101,6 +101,24 @@ export const CONTRACEPTION_INTAKE_STATUS_LABELS: Record<ContraceptionIntakeStatu
   late: 'En retard',
 };
 
+// Dashboard hero quick-action button wording — deliberately more colloquial
+// than CONTRACEPTION_INTAKE_STATUS_LABELS above ("Prise effectuée"/"J'ai
+// oublié" read more naturally as a tappable button label than the neutral
+// "Effectuée"/"Oubliée" do, but only for pill, whose wording this already
+// was before the 3-button hero existed). Only 'pill' is overridden here;
+// every other intake-tracked method (currently just 'other') falls back to
+// the shared, method-neutral CONTRACEPTION_INTAKE_STATUS_LABELS — never
+// hardcode pill-specific wording ("prise") for a non-pill method.
+export const CONTRACEPTION_HERO_ACTION_LABELS: Partial<
+  Record<ContraceptionMethod, Record<ContraceptionIntakeStatus, string>>
+> = {
+  pill: {
+    taken: 'Prise effectuée',
+    late: 'En retard',
+    missed: 'J’ai oublié',
+  },
+};
+
 // Event-type wording/icons for ring/patch (tracked via
 // contraceptionEventStore.ts) — reused by the Daily Journal, Calendar,
 // History and Dashboard so none of them invent their own phrasing for the
@@ -132,4 +150,60 @@ export const CONTRACEPTION_EVENT_ICONS: Record<ContraceptionEventType, MaterialD
 export const CONTRACEPTION_METHOD_EVENT_TYPES: Partial<Record<ContraceptionMethod, ContraceptionEventType[]>> = {
   ring: ['ring_insertion', 'ring_removal', 'ring_replacement'],
   patch: ['patch_application', 'patch_removal', 'patch_replacement'],
+};
+
+/** The single canonical check for "does this event belong to the CURRENTLY
+ * selected method" — every screen that reads contraceptionEventStore.ts
+ * events for current-method operational UI (Dashboard "Suivi du jour",
+ * Calendar markers/selected-day, Statistics, the Daily Journal's "already
+ * recorded today" summary) must filter through this, never re-derive it
+ * locally, so they can never disagree. A ring_* event only ever belongs to
+ * 'ring', a patch_* event only to 'patch' — the event's own `type` already
+ * encodes its method (no separate `method` field exists or is needed on the
+ * event). This is a DISPLAY-time filter only: it never deletes or migrates
+ * a persisted event — an old method's events remain in the store untouched
+ * so switching back to that method still shows its real history. */
+export const isContraceptionEventForMethod = (
+  type: ContraceptionEventType,
+  method: ContraceptionMethod | null,
+): boolean => (method ? (CONTRACEPTION_METHOD_EVENT_TYPES[method] ?? []).includes(type) : false);
+
+/** The intake-history equivalent of isContraceptionEventForMethod above —
+ * pill and other hormonal treatment share the exact same
+ * contraceptionIntakeHistoryStore shape/store (both use a single daily
+ * taken/late/missed status), so a record's own `method` tag is the only
+ * thing that can tell a Pill-era record apart from an Other-era one after a
+ * method switch. `undefined` (a record written before this tag existed, or
+ * never tagged) is treated as belonging to EITHER intake method — it is
+ * real history that must stay visible, never hidden or reassigned by a
+ * guess. Ring/patch never call this — they have no intake records. */
+export const isContraceptionIntakeRecordForMethod = (
+  recordMethod: 'pill' | 'other' | undefined,
+  currentMethod: ContraceptionMethod | null,
+): boolean =>
+  (currentMethod === 'pill' || currentMethod === 'other') &&
+  (recordMethod === undefined || recordMethod === currentMethod);
+
+/** Compact, non-truncating label for a day's real ring/patch events —
+ * ContraceptionDashboard's "Suivi du jour" row is a single line, so joining
+ * every event's label with commas (e.g. "Anneau remplacé, Anneau inséré,
+ * Anneau retiré, Anneau inséré") clips on small screens and reads as noise.
+ * This never hides or drops data — the full itemized, timestamped list
+ * remains exactly where it already lives (Journal "déjà enregistré", the
+ * Calendar's selected-day card, History, Statistics counts); this is only
+ * the ONE-LINE Dashboard summary of whichever real events already exist.
+ * Deliberately makes no claim about a current device state ("en place" /
+ * "absent" / "à remplacer dans X jours") — those aren't safely derivable
+ * from an append-only event log with no schedule model, so this only ever
+ * describes what was actually recorded, never what it might imply. */
+export const getContraceptionEventSummaryLabel = (
+  events: ContraceptionEvent[],
+): string => {
+  if (events.length === 0) {
+    return 'À renseigner';
+  }
+  if (events.length === 1) {
+    return CONTRACEPTION_EVENT_LABELS[events[0].type];
+  }
+  return `${events.length} événements enregistrés`;
 };

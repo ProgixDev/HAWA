@@ -39,6 +39,7 @@ import {
   getAllContraceptionEvents,
   hydrateContraceptionEvents,
   subscribeContraceptionEvents,
+  type ContraceptionEvent,
 } from '../../state/contraceptionEventStore';
 
 import {
@@ -46,6 +47,8 @@ import {
   CONTRACEPTION_METHOD_EVENT_TYPES,
   CONTRACEPTION_METHOD_ICONS,
   CONTRACEPTION_METHOD_LABELS,
+  isContraceptionEventForMethod,
+  isContraceptionIntakeRecordForMethod,
 } from '../../config/contraceptionLabels';
 
 import {
@@ -313,9 +316,26 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
         ]
       : 'pill';
 
+  // Method-isolation: pill and other share the exact same
+  // contraceptionIntakeHistoryStore.ts shape/store (a single daily
+  // taken/late/missed status each), so a record recorded while on Pill and
+  // never deleted would otherwise silently count toward Other's statistics
+  // after a method switch, and vice versa. Same canonical-helper pattern as
+  // currentMethodEventsByDate below, via isContraceptionIntakeRecordForMethod.
+  const currentMethodRecordsByDate = useMemo(() => {
+    if (!isIntakeMethod) {return {};}
+    const filtered: Record<string, ContraceptionIntakeRecord> = {};
+    for (const [date, record] of Object.entries(recordsByDate)) {
+      if (isContraceptionIntakeRecordForMethod(record.method, method)) {
+        filtered[date] = record;
+      }
+    }
+    return filtered;
+  }, [isIntakeMethod, recordsByDate, method]);
+
   const hasAnyIntakeRecord =
     Object.keys(
-      recordsByDate,
+      currentMethodRecordsByDate,
     ).length > 0;
 
   const rangeStartKey =
@@ -341,13 +361,13 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
     useMemo(
       () =>
         computeContraceptionRangeSummary(
-          recordsByDate,
+          currentMethodRecordsByDate,
           rangeStartKey,
           todayKey,
           methodStartDate,
         ),
       [
-        recordsByDate,
+        currentMethodRecordsByDate,
         rangeStartKey,
         todayKey,
         methodStartDate,
@@ -359,17 +379,17 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
       return periodMonths ===
         1
         ? computeContraceptionWeeklyBreakdown(
-            recordsByDate,
+            currentMethodRecordsByDate,
             rangeStartKey,
             todayKey,
           )
         : computeContraceptionMonthlyBreakdown(
-            recordsByDate,
+            currentMethodRecordsByDate,
             rangeStartKey,
             todayKey,
           );
     }, [
-      recordsByDate,
+      currentMethodRecordsByDate,
       rangeStartKey,
       todayKey,
       periodMonths,
@@ -379,12 +399,12 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
     useMemo(
       () =>
         computeContraceptionBestStreak(
-          recordsByDate,
+          currentMethodRecordsByDate,
           rangeStartKey,
           todayKey,
         ),
       [
-        recordsByDate,
+        currentMethodRecordsByDate,
         rangeStartKey,
         todayKey,
       ],
@@ -454,19 +474,37 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
       summary.missed,
     );
 
+  // Method-isolation: eventsByDate is shared across every event-based method
+  // ever used (switching ring -> patch never deletes old ring/patch
+  // events), and computeContraceptionEventCounts itself has no concept of
+  // "method" — so the map it receives must already be scoped to the
+  // CURRENT one, or a previous method's real events would silently inflate
+  // this period's counts too. Uses the same canonical
+  // isContraceptionEventForMethod() check as Dashboard/Calendar.
+  const currentMethodEventsByDate =
+    useMemo(() => {
+      if (!isEventMethod) {return {};}
+      const filtered: Record<string, ContraceptionEvent[]> = {};
+      for (const [date, events] of Object.entries(eventsByDate)) {
+        const matching = events.filter(event => isContraceptionEventForMethod(event.type, method));
+        if (matching.length > 0) {filtered[date] = matching;}
+      }
+      return filtered;
+    }, [isEventMethod, eventsByDate, method]);
+
   const eventCounts =
     useMemo(
       () =>
         isEventMethod
           ? computeContraceptionEventCounts(
-              eventsByDate,
+              currentMethodEventsByDate,
               rangeStartKey,
               todayKey,
             )
           : {},
       [
         isEventMethod,
-        eventsByDate,
+        currentMethodEventsByDate,
         rangeStartKey,
         todayKey,
       ],

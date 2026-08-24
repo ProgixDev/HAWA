@@ -2,9 +2,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Contraception's OWN daily-journal store — holds ONLY 'feelings' and
 // 'notes', the two categories that have nowhere else to live. Deliberately
-// does NOT duplicate 'intake'/'missedOrLate' tracking: those two Journal
-// quotidien categories read/write the existing contraceptionIntakeHistoryStore
-// (one taken/missed record per day), never a second history store. One
+// does NOT duplicate 'intake' tracking: that Journal quotidien category
+// reads/writes the existing contraceptionIntakeHistoryStore (one
+// taken/late/missed record per day), never a second history store. One
 // entry per calendar day, keyed the same 'YYYY-MM-DD' way every other
 // journal-style store in this project uses (see miscarriageJournalStore.ts,
 // the closest architectural reference).

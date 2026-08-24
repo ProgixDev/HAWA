@@ -3,9 +3,9 @@ import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {
   useNavigation,
   useRoute,
-  type NavigationProp,
   type RouteProp,
 } from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -17,6 +17,8 @@ import {
 import {homeColors} from '../../components/home/homeTheme';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
+
+import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
 
 import {
   CONTRACEPTION_FEELINGS_OPTIONS,
@@ -30,6 +32,7 @@ import {
   CONTRACEPTION_INTAKE_ACTION_LABEL,
   CONTRACEPTION_INTAKE_STATUS_LABELS,
   CONTRACEPTION_METHOD_EVENT_TYPES,
+  isContraceptionEventForMethod,
 } from '../../config/contraceptionLabels';
 
 import {
@@ -67,7 +70,6 @@ const GREEN = '#42A66A';
 const GREEN_LIGHT = '#EDF8F1';
 
 const ORANGE = '#C77B2E';
-const ORANGE_LIGHT = '#FFF0E3';
 
 const DANGER = '#D96176';
 
@@ -553,8 +555,8 @@ function NotesContent({
    MAIN SCREEN
 ============================================================ */
 
-export default function ContraceptionJournalEntryScreen(): React.JSX.Element {
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+export default function ContraceptionJournalEntryScreen(): React.JSX.Element | null {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<Props>();
   const {category} = route.params;
 
@@ -580,19 +582,40 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
+  // "Notes du jour" reuses the app's single existing intimacy PIN/biometric
+  // gate (Cycle "Vie intime" / TTC "Rapports") — never a Contraception-
+  // specific PIN. Computed once on mount so a locked Notes screen never
+  // flashes its content before the redirect effect below fires; `intake`
+  // and `feelings` are never gated.
+  const [notesUnlocked] = useState(() => category !== 'notes' || isIntimacyUnlocked());
+
+  useEffect(() => {
+    if (category === 'notes' && !isIntimacyUnlocked()) {
+      navigation.replace('PrivateIntimacyUnlock', {target: 'contraceptionNotes'});
+    }
+  }, [category, navigation]);
+
   useEffect(() => {
     let active = true;
 
     if (category === 'intake' && isEventMethod) {
       hydrateContraceptionEvents().then(() => {
         if (active) {
-          setTodayEvents(getContraceptionEventsForDate(todayKey));
+          // Method-isolation: a date can hold real events from a PREVIOUS
+          // method (e.g. old Patch events never deleted on a method
+          // switch) — only today's CURRENT-method events belong in this
+          // "already recorded today" summary.
+          setTodayEvents(
+            getContraceptionEventsForDate(todayKey).filter(event =>
+              isContraceptionEventForMethod(event.type, method),
+            ),
+          );
         }
       });
       return () => {active = false;};
     }
 
-    if (category === 'intake' || category === 'missedOrLate') {
+    if (category === 'intake') {
       hydrateContraceptionIntakeHistory().then(() => {
         if (active) {
           setStatus(getContraceptionIntakeRecord(todayKey)?.status);
@@ -605,11 +628,17 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element {
       if (!active) {return;}
       const entry = getContraceptionJournalEntry(todayKey);
       setFeelings(entry?.feelings ?? []);
-      setNotes(entry?.notes ?? '');
+      // Never load the real note text into state while the private section
+      // is locked — notesUnlocked was already computed once at mount, so
+      // this stays consistent for the lifetime of a locked screen (which
+      // redirects away before the user could act on it anyway).
+      if (notesUnlocked) {
+        setNotes(entry?.notes ?? '');
+      }
     });
 
     return () => {active = false;};
-  }, [category, isEventMethod, todayKey]);
+  }, [category, isEventMethod, method, todayKey, notesUnlocked]);
 
   const toggleFeeling = (option: string) => {
     setFeelings(current =>
@@ -637,14 +666,18 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element {
       return;
     }
 
-    if (category === 'intake' || category === 'missedOrLate') {
+    if (category === 'intake') {
       if (!status) {
         setError('Choisis une réponse avant d’enregistrer.');
         return;
       }
       setSaving(true);
       try {
-        await setContraceptionIntakeStatus(todayKey, status);
+        await setContraceptionIntakeStatus(
+          todayKey,
+          status,
+          method === 'pill' || method === 'other' ? method : undefined,
+        );
         navigation.goBack();
       } finally {
         setSaving(false);
@@ -680,45 +713,6 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element {
     }
   };
 
-  // Defense-in-depth: ring/patch don't have a daily taken/missed/late status
-  // (they log discrete events instead — see EventTypeContent above), so this
-  // category should never actually be reached for them. MainTabNavigator's
-  // journal-sheet and ContraceptionDashboard's "Oubli ou retard" row both
-  // already avoid navigating here for those methods, but if this route is
-  // ever reached anyway (e.g. a stale back-navigation), redirect out rather
-  // than rendering a pill-shaped status screen that would write into
-  // contraceptionIntakeHistoryStore.ts — the wrong store for these methods.
-  useEffect(() => {
-    if (category === 'missedOrLate' && isEventMethod) {
-      navigation.goBack();
-    }
-  }, [category, isEventMethod, navigation]);
-
-  if (category === 'missedOrLate' && isEventMethod) {
-    return <></>;
-  }
-
-  if (category === 'missedOrLate') {
-    return (
-      <PostpartumJournalScreenLayout
-        compact
-        error={error}
-        icon={item?.icon ?? 'alert-outline'}
-        onSave={save}
-        saving={saving}
-        subtitle={todaySubtitle}
-        tint={ORANGE_LIGHT}
-        title="Oubli ou retard">
-        <IntakeStatusContent
-          heroSubtitle={`Signale un oubli ou un retard pour : ${intakeActionLabel.toLowerCase()}.`}
-          heroTitle="Un oubli, un retard ?"
-          onSelect={setStatus}
-          status={status}
-        />
-      </PostpartumJournalScreenLayout>
-    );
-  }
-
   if (category === 'feelings') {
     return (
       <PostpartumJournalScreenLayout
@@ -736,6 +730,9 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element {
   }
 
   if (category === 'notes') {
+    if (!notesUnlocked) {
+      return null;
+    }
     return (
       <PostpartumJournalScreenLayout
         compact

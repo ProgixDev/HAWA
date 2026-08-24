@@ -22,6 +22,15 @@ export type ContraceptionIntakeRecord = {
   status: ContraceptionIntakeStatus;
   /** ISO timestamp of when this record was last written. */
   recordedAt: string;
+  /** Which intake-tracked method recorded this — 'pill' and 'other' share
+   * this exact store/shape (both use the same taken/late/missed model), so
+   * without this tag a Pill→Other (or Other→Pill) method switch would show
+   * the previous method's real history as if it belonged to the new one.
+   * `undefined` on records written before this field existed — those stay
+   * visible under EITHER current method (see isContraceptionIntakeRecordForMethod
+   * in contraceptionLabels.ts) rather than guessing which method they came
+   * from or hiding them; never fabricated. */
+  method?: 'pill' | 'other';
 };
 
 const STORAGE_KEY = '@hawa/contraception-intake-history/v1';
@@ -40,6 +49,9 @@ const notifyListeners = () => {
 const isStatus = (value: unknown): value is ContraceptionIntakeStatus =>
   value === 'taken' || value === 'missed' || value === 'late';
 
+const isIntakeMethodTag = (value: unknown): value is 'pill' | 'other' =>
+  value === 'pill' || value === 'other';
+
 const isValidRecord = (value: unknown): value is ContraceptionIntakeRecord => {
   if (!value || typeof value !== 'object') {
     return false;
@@ -48,7 +60,8 @@ const isValidRecord = (value: unknown): value is ContraceptionIntakeRecord => {
   return (
     typeof candidate.date === 'string' &&
     isStatus(candidate.status) &&
-    typeof candidate.recordedAt === 'string'
+    typeof candidate.recordedAt === 'string' &&
+    (candidate.method === undefined || isIntakeMethodTag(candidate.method))
   );
 };
 
@@ -75,14 +88,26 @@ export const getRecentContraceptionIntakeRecords = (
 
 /** Upserts by local date — a second call for the same date (e.g. correcting
  * "Prise effectuée" to "J'ai oublié") overwrites that day's record instead
- * of creating a second, contradictory one. */
+ * of creating a second, contradictory one. `method` should be passed by
+ * every NEW-recording call site (Dashboard's hero buttons, the Journal
+ * screen) so the record is tagged with whichever method actually recorded
+ * it; a CORRECTION call site (History's "modifier le statut") should omit
+ * it so the record's existing method tag is preserved rather than silently
+ * reassigned to whatever method happens to be active when the correction is
+ * made. */
 export async function setContraceptionIntakeStatus(
   date: string,
   status: ContraceptionIntakeStatus,
+  method?: 'pill' | 'other',
 ): Promise<void> {
   entries = {
     ...entries,
-    [date]: {date, status, recordedAt: new Date().toISOString()},
+    [date]: {
+      date,
+      status,
+      recordedAt: new Date().toISOString(),
+      method: method ?? entries[date]?.method,
+    },
   };
   notifyListeners();
   await persist();

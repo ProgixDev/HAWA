@@ -2,22 +2,25 @@ import type {MaterialDesignIcons} from '@react-native-vector-icons/material-desi
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-// Single source of truth for Contraception's 4 fixed daily-tracking
+// Single source of truth for Contraception's 3 fixed daily-tracking
 // categories — shared by ContraceptionDashboard's "Suivi du jour" card AND
 // the Contraception "Journal quotidien" sheet + ContraceptionJournalEntryScreen,
 // so the two entry points can never drift onto different category sets.
 // Deliberately a DIFFERENT shape from every other objective's Journal
 // quotidien (Cycle/Pregnancy/Postpartum/Miscarriage) — this objective tracks
-// its own things by design. 'intake' and 'missedOrLate' both read/write the
-// existing contraceptionIntakeHistoryStore (one taken/missed record per
-// day — never a separate store); 'feelings' and 'notes' read/write the new
-// contraceptionJournalStore. `label` for 'intake' is a neutral fallback —
-// consumers that know the real persisted method should prefer
-// CONTRACEPTION_INTAKE_ACTION_LABEL from contraceptionLabels.ts instead, so
-// the wording never assumes every user takes a pill.
+// its own things by design. 'intake' reads/writes the existing
+// contraceptionIntakeHistoryStore (one taken/late/missed record per day —
+// never a separate store) for pill/other, or contraceptionEventStore for
+// ring/patch; 'feelings' and 'notes' read/write contraceptionJournalStore.
+// A former separate 'missedOrLate' category was removed: it read/wrote the
+// exact same intake record as 'intake' and rendered the identical 3-way
+// status picker (Effectuée/En retard/Oubliée) under a different title — a
+// pure UI duplicate, not a distinct concept. `label` for 'intake' is a
+// neutral fallback — consumers that know the real persisted method should
+// prefer CONTRACEPTION_INTAKE_ACTION_LABEL from contraceptionLabels.ts
+// instead, so the wording never assumes every user takes a pill.
 export type ContraceptionJournalCategory =
   | 'intake'
-  | 'missedOrLate'
   | 'feelings'
   | 'notes';
 
@@ -35,13 +38,6 @@ export const CONTRACEPTION_JOURNAL_ITEMS: Array<{
     icon: 'check-circle-outline',
     journalSubtitle: 'Enregistre ton suivi d’aujourd’hui',
     tint: '#EDF8F1',
-  },
-  {
-    key: 'missedOrLate',
-    label: 'Oubli ou retard',
-    icon: 'alert-outline',
-    journalSubtitle: 'Signale un oubli ou un retard',
-    tint: '#FFF0E3',
   },
   {
     key: 'feelings',

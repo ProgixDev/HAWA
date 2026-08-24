@@ -39,6 +39,12 @@ import {
 } from '../../state/contraceptionEventStore';
 
 import {
+  getContraceptionJournalEntry,
+  hydrateContraceptionJournal,
+  subscribeContraceptionJournal,
+} from '../../state/contraceptionJournalStore';
+
+import {
   CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL,
   CONTRACEPTION_EVENT_ICONS,
   CONTRACEPTION_EVENT_LABELS,
@@ -46,6 +52,8 @@ import {
   CONTRACEPTION_METHOD_EVENT_TYPES,
   CONTRACEPTION_METHOD_ICONS,
   CONTRACEPTION_METHOD_LABELS,
+  isContraceptionEventForMethod,
+  isContraceptionIntakeRecordForMethod,
 } from '../../config/contraceptionLabels';
 
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
@@ -157,6 +165,12 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
     getSpiritualMarkersEnabled(),
   );
+  // contraceptionJournalStore.ts has no bulk getter (only per-date reads),
+  // so rather than adding one purely for this one-date-at-a-time selected-day
+  // card, a version counter triggers a re-render on hydrate/change and the
+  // real value is read fresh via getContraceptionJournalEntry() below — same
+  // safe hydrate+subscribe shape as every other store in this screen.
+  const [journalVersion, setJournalVersion] = useState(0);
 
   useFocusEffect(
     useCallback(() => {
@@ -183,6 +197,13 @@ function ContraceptionCalendarContent(): React.JSX.Element {
         if (active) {setEventsByDate(getAllContraceptionEvents());}
       });
 
+      hydrateContraceptionJournal().then(() => {
+        if (active) {setJournalVersion(v => v + 1);}
+      });
+      const unsubscribeJournal = subscribeContraceptionJournal(() => {
+        if (active) {setJournalVersion(v => v + 1);}
+      });
+
       setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
 
       return () => {
@@ -190,6 +211,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
         unsubscribePreferences();
         unsubscribeIntake();
         unsubscribeEvents();
+        unsubscribeJournal();
       };
     }, []),
   );
@@ -216,10 +238,44 @@ function ContraceptionCalendarContent(): React.JSX.Element {
     ? CONTRACEPTION_INTAKE_ACTION_LABEL[method]
     : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL;
 
+  // Method-isolation: pill and other share the exact same
+  // contraceptionIntakeHistoryStore.ts shape/store (a single daily
+  // taken/late/missed status each) — a record written while on Pill and
+  // never deleted would otherwise resurface as if it were Other's own after
+  // a method switch, and vice versa. Same isContraceptionIntakeRecordForMethod
+  // helper used by Dashboard/Statistics; returns nothing for ring/patch/null,
+  // which is correct since none of them read intake records at all.
+  const currentMethodRecordsByDate = useMemo(() => {
+    const filtered: Record<string, ContraceptionIntakeRecord> = {};
+    for (const [date, record] of Object.entries(recordsByDate)) {
+      if (isContraceptionIntakeRecordForMethod(record.method, method)) {
+        filtered[date] = record;
+      }
+    }
+    return filtered;
+  }, [recordsByDate, method]);
+
   const selectedDateKey = useMemo(() => localDateKey(selectedDate), [selectedDate]);
   const isSelectedToday = selectedDateKey === todayKey;
-  const selectedRecord = recordsByDate[selectedDateKey];
-  const selectedDateEvents = eventsByDate[selectedDateKey] ?? [];
+  const selectedRecord = currentMethodRecordsByDate[selectedDateKey];
+  // Method-isolation: a date can hold real events from a PREVIOUS method
+  // (e.g. old Patch events) that were never deleted on a method switch —
+  // only the events belonging to the CURRENTLY selected method may appear
+  // in this current-method detail card. See isContraceptionEventForMethod.
+  const selectedDateEvents = (eventsByDate[selectedDateKey] ?? []).filter(event =>
+    isContraceptionEventForMethod(event.type, method),
+  );
+
+  // Effects felt are date-based, not method-scoped (contraceptionJournalStore.ts
+  // holds them regardless of contraception method — same as Dashboard already
+  // treats them) — real bug fix: this card previously never read this store
+  // at all, so a saved "Effets ressentis" answer never appeared here even
+  // though Dashboard already showed it correctly.
+  const selectedFeelingsCount = useMemo(
+    () => getContraceptionJournalEntry(selectedDateKey)?.feelings?.length ?? 0,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedDateKey, journalVersion],
+  );
 
   const selectedPillPackDay = useMemo(
     () =>
@@ -232,8 +288,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   const selectedHijriDate = useMemo(() => formatHijriDate(selectedDate), [selectedDate]);
 
   const monthlySummary = useMemo(
-    () => computeContraceptionMonthlySummary(recordsByDate, visibleMonth, todayKey, methodStartDate),
-    [recordsByDate, visibleMonth, todayKey, methodStartDate],
+    () => computeContraceptionMonthlySummary(currentMethodRecordsByDate, visibleMonth, todayKey, methodStartDate),
+    [currentMethodRecordsByDate, visibleMonth, todayKey, methodStartDate],
   );
 
   const monthStartKey = useMemo(
@@ -246,12 +302,27 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   );
   const monthEndKey = monthEndKeyRaw < todayKey ? monthEndKeyRaw : todayKey;
 
+  // Same method-isolation reasoning as selectedDateEvents/dayEvents above —
+  // computeContraceptionEventCounts itself has no concept of "method," so
+  // the map it's given must already be scoped to the current one, or a
+  // previous method's real events would silently inflate this month's
+  // counts too.
+  const currentMethodEventsByDate = useMemo(() => {
+    if (!isEventMethod) {return {};}
+    const filtered: Record<string, ContraceptionEvent[]> = {};
+    for (const [date, events] of Object.entries(eventsByDate)) {
+      const matching = events.filter(event => isContraceptionEventForMethod(event.type, method));
+      if (matching.length > 0) {filtered[date] = matching;}
+    }
+    return filtered;
+  }, [isEventMethod, eventsByDate, method]);
+
   const monthlyEventCounts = useMemo(
     () =>
       isEventMethod && monthStartKey <= monthEndKey
-        ? computeContraceptionEventCounts(eventsByDate, monthStartKey, monthEndKey)
+        ? computeContraceptionEventCounts(currentMethodEventsByDate, monthStartKey, monthEndKey)
         : {},
-    [isEventMethod, eventsByDate, monthStartKey, monthEndKey],
+    [isEventMethod, currentMethodEventsByDate, monthStartKey, monthEndKey],
   );
 
   const hijriRangeLabel = useMemo(() => {
@@ -370,9 +441,11 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 }
 
                 const dateKey = localDateKey(date);
-                const record = recordsByDate[dateKey];
+                const record = currentMethodRecordsByDate[dateKey];
                 const dayEvents = isEventMethod
-                  ? (eventsByDate[dateKey] ?? []).filter(event => filters[event.type])
+                  ? (eventsByDate[dateKey] ?? []).filter(
+                      event => isContraceptionEventForMethod(event.type, method) && filters[event.type],
+                    )
                   : [];
                 const isToday = sameDay(date, today);
                 const isSelected = sameDay(date, selectedDate);
@@ -405,6 +478,13 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 const showLateMarker = filters.late && record?.status === 'late';
                 const showMissedMarker = filters.missed && record?.status === 'missed';
                 const showEventMarker = dayEvents.length > 0;
+                // Duplicate same-type events (e.g. two "Anneau inséré" in one
+                // day) collapse to one marker; genuinely DISTINCT types
+                // recorded the same day (e.g. insertion + removal) each get
+                // their own icon — History/Statistics/selected-day detail
+                // still show every individual real record, this only affects
+                // which icons the tiny day cell draws.
+                const distinctDayEventTypes = [...new Set(dayEvents.map(event => event.type))];
 
                 const lightText = isSelected && !isToday;
 
@@ -437,7 +517,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                           {hijriDay}
                         </Text>
                       ) : null}
-                      {!isToday && showTakenMarker ? (
+                      {showTakenMarker ? (
                         <MaterialDesignIcons
                           color={lightText ? '#FFFFFF' : SUCCESS}
                           name="check-circle"
@@ -445,7 +525,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                           style={styles.statusIcon}
                         />
                       ) : null}
-                      {!isToday && showLateMarker ? (
+                      {showLateMarker ? (
                         <MaterialDesignIcons
                           color={lightText ? '#FFFFFF' : WARNING}
                           name="clock-alert"
@@ -453,7 +533,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                           style={styles.statusIcon}
                         />
                       ) : null}
-                      {!isToday && showMissedMarker ? (
+                      {showMissedMarker ? (
                         <MaterialDesignIcons
                           color={lightText ? '#FFFFFF' : DANGER}
                           name="alert-circle"
@@ -461,13 +541,17 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                           style={styles.statusIcon}
                         />
                       ) : null}
-                      {!isToday && showEventMarker ? (
-                        <MaterialDesignIcons
-                          color={lightText ? '#FFFFFF' : PURPLE}
-                          name={CONTRACEPTION_EVENT_ICONS[dayEvents[0].type]}
-                          size={9}
-                          style={styles.statusIcon}
-                        />
+                      {showEventMarker ? (
+                        <View style={styles.eventMarkerRow}>
+                          {distinctDayEventTypes.map(type => (
+                            <MaterialDesignIcons
+                              color={lightText ? '#FFFFFF' : PURPLE}
+                              key={type}
+                              name={CONTRACEPTION_EVENT_ICONS[type]}
+                              size={9}
+                            />
+                          ))}
+                        </View>
                       ) : null}
                       {spiritualMonth ? (
                         <View pointerEvents="none" style={styles.spiritualMarker}>
@@ -487,7 +571,14 @@ function ContraceptionCalendarContent(): React.JSX.Element {
             {/* LEGEND */}
             <View style={styles.legendRow}>
               {isEventMethod ? (
-                <LegendItem color={PURPLE} label="Événement enregistré" />
+                methodEventTypes.map(type => (
+                  <LegendItem
+                    color={PURPLE}
+                    icon={CONTRACEPTION_EVENT_ICONS[type]}
+                    key={type}
+                    label={CONTRACEPTION_EVENT_LABELS[type]}
+                  />
+                ))
               ) : (
                 <>
                   <LegendItem color={SUCCESS} label="Effectuée" />
@@ -615,6 +706,24 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 </View>
               </View>
             )}
+
+            <View style={styles.selectedRow}>
+              <View style={[styles.selectedRowIcon, selectedFeelingsCount > 0 ? styles.selectedRowIconPurple : styles.selectedRowIconMuted]}>
+                <MaterialDesignIcons
+                  color={selectedFeelingsCount > 0 ? PURPLE : MUTED}
+                  name="heart-pulse"
+                  size={17}
+                />
+              </View>
+              <View style={styles.selectedRowTextGroup}>
+                <Text style={styles.selectedRowLabel}>Effets ressentis</Text>
+                <Text style={styles.selectedRowValue}>
+                  {selectedFeelingsCount > 0
+                    ? `${selectedFeelingsCount} élément${selectedFeelingsCount > 1 ? 's' : ''}`
+                    : 'Non renseigné'}
+                </Text>
+              </View>
+            </View>
 
             <View style={styles.selectedRow}>
               <View style={[styles.selectedRowIcon, remindersEnabled ? styles.selectedRowIconGreen : styles.selectedRowIconMuted]}>
@@ -1151,6 +1260,7 @@ const styles = StyleSheet.create({
   dayTextToday: {color: PURPLE_DARK, fontWeight: '800'},
   hijriDayText: {color: MUTED, fontSize: 8.5, marginTop: 1},
   statusIcon: {marginTop: 1},
+  eventMarkerRow: {flexDirection: 'row', marginTop: 1, gap: 2},
   spiritualMarker: {position: 'absolute', top: 3, right: 3},
 
   legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
