@@ -218,8 +218,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
       // TTC's onboarding branches through this same screen (see
       // LocationScreen/SpiritualPreferencesScreen) before its own
       // Conception* steps — every other objective that reaches this screen
-      // (Cycle/contraception/irregular/menopause) keeps going to SecuritySetup
-      // exactly as before.
+      // (Cycle/contraception/irregular) keeps going to SecuritySetup exactly
+      // as before. Menopause no longer reaches this screen at all — it has
+      // its own dedicated onboarding branch (see LocationScreen.tsx).
       if (getSelectedObjective() === 'conceive') {
         navigation.navigate('ConceptionTryingDuration');
         return;

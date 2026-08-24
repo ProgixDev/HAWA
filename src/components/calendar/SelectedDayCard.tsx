@@ -122,7 +122,7 @@ function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
       key: 'notes',
       icon: 'notebook-edit-outline',
       label: 'Notes',
-      value: entry?.note?.text ? 'Voir la note' : 'Aucune note',
+      value: entry?.note?.text || entry?.encryptedNote ? 'Voir la note' : 'Aucune note',
     },
   ];
 }

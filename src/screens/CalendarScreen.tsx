@@ -103,7 +103,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
           entries.forEach(entry => {
             map[entry.date] = {
               mood: Boolean(entry.mood),
-              notes: Boolean(entry.note),
+              notes: Boolean(entry.note) || Boolean(entry.encryptedNote),
               symptoms: Boolean(entry.symptoms),
               activity: Boolean(entry.activity),
               sleep: Boolean(entry.sleep),
