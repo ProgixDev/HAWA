@@ -24,6 +24,7 @@ import QuickActionsGrid, {type QuickActionItem} from '../components/home/QuickAc
 import SpiritualGuidanceCard from '../components/home/SpiritualGuidanceCard';
 import DailyJournalCard from '../components/home/DailyJournalCard';
 import MotivationCard from '../components/home/MotivationCard';
+import ObjectiveArticlesSection from '../components/home/ObjectiveArticlesSection';
 import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomSheet';
 import {useJournalSheet} from '../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
@@ -384,6 +385,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <DailyJournalCard entry={journalEntry} onNavigate={route => navigation.navigate(route)} />
 
           <MotivationCard />
+
+          <ObjectiveArticlesSection
+            objective="cycle"
+            onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onSeeAll={() => navigation.navigate('Library')}
+          />
         </ScrollView>
       </SafeAreaView>
 
