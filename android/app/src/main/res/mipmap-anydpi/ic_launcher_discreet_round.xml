@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pre-API26 fallback for the round variant — see ic_launcher_discreet.xml
+     in this same folder for the full explanation. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/ic_launcher_discreet_background"
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z" />
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M40,26 L46,26 L46,40 L40,40 Z" />
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M62,26 L68,26 L68,40 L62,40 Z" />
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M30,34 L78,34 L78,46 L30,46 Z" />
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M30,50 L78,50 L78,82 L30,82 Z" />
+</vector>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AWA</string>
+    <!-- Discreet launcher identity — see DiscreetLauncherScreen.tsx /
+         PrivacySecurityScreen.tsx "Apparence discrète". Launcher name/icon
+         only; changes nothing about app data or encryption. -->
+    <string name="app_name_discreet">Agenda</string>
 </resources>

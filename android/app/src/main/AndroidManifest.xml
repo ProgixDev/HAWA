@@ -21,11 +21,45 @@
         android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
         android:launchMode="singleTask"
         android:windowSoftInputMode="adjustResize"
+        android:exported="true" />
+
+      <!--
+        Discreet launcher identity ("Apparence discrète" in
+        PrivacySecurityScreen.tsx / DiscreetLauncherScreen.tsx). Both aliases
+        target the SAME .MainActivity — package identity, app data, and
+        deep-link handling are all unaffected; only which launcher icon/name
+        is visible changes. Exactly one of the two must be enabled at any
+        time (enforced by DiscreetLauncherModule.kt via
+        PackageManager#setComponentEnabledSetting), never both and never
+        neither. "awa-launcher" ships enabled by default so a fresh install
+        behaves exactly as before this feature existed.
+      -->
+      <activity-alias
+        android:name=".LauncherAwa"
+        android:targetActivity=".MainActivity"
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:enabled="true"
         android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-      </activity>
+      </activity-alias>
+
+      <activity-alias
+        android:name=".LauncherDiscreet"
+        android:targetActivity=".MainActivity"
+        android:label="@string/app_name_discreet"
+        android:icon="@mipmap/ic_launcher_discreet"
+        android:roundIcon="@mipmap/ic_launcher_discreet_round"
+        android:enabled="false"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+      </activity-alias>
     </application>
 </manifest>

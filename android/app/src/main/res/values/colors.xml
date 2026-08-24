@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="ic_launcher_background">#FBE5FF</color>
+    <!-- Discreet launcher identity ("Agenda") — a neutral, generic-utility
+         gray, deliberately unrelated to AWA's lavender/pink palette so the
+         two identities never look visually connected. -->
+    <color name="ic_launcher_discreet_background">#EEF0F3</color>
+    <color name="ic_launcher_discreet_foreground_color">#4A5568</color>
 </resources>

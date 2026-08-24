@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Discreet launcher identity ("Agenda") adaptive-icon foreground.
+  Deliberately generic: a plain notebook/agenda glyph (page + two ring tabs),
+  no text, no cycle/health/religious/gender symbolism, no reference to AWA.
+  Content is kept inside the ~66dp safe-zone circle centered in the 108x108
+  viewport, per Android adaptive-icon masking guidance.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Two small ring tabs at the top of the page -->
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M40,26 L46,26 L46,40 L40,40 Z" />
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M62,26 L68,26 L68,40 L62,40 Z" />
+    <!-- Header strip -->
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M30,34 L78,34 L78,46 L30,46 Z" />
+    <!-- Page body, separated from the header by a thin gap -->
+    <path
+        android:fillColor="@color/ic_launcher_discreet_foreground_color"
+        android:pathData="M30,50 L78,50 L78,82 L30,82 Z" />
+</vector>
