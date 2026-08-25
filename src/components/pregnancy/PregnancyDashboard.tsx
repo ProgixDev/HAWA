@@ -245,7 +245,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
     undefined,
   );
   const [pregnancyJournal, setPregnancyJournal] =
-    useState<PregnancyJournalState>({ symptoms: [], weights: [] });
+    useState<PregnancyJournalState>({ symptoms: [], weights: [], medicalInformationHistory: [] });
   const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>(
     [],
   );
