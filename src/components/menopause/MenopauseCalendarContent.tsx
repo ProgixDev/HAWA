@@ -55,6 +55,7 @@ import {
   WEEK_DAYS,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
+import {computeMenopauseMonthlySummary} from '../../utils/menopauseCalendarMath';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -251,20 +252,10 @@ function MenopauseCalendarContent(): React.JSX.Element {
       selectedEntry?.notes?.trim(),
   );
 
-  const monthlySummary = useMemo(() => {
-    const year = visibleMonth.getFullYear();
-    const month = visibleMonth.getMonth();
-    const entriesThisMonth: MenopauseJournalEntry[] = Object.values(entriesByDate).filter(entry => {
-      const parsed = new Date(`${entry.date}T12:00:00`);
-      return parsed.getFullYear() === year && parsed.getMonth() === month;
-    });
-    return {
-      daysWithSymptoms: entriesThisMonth.filter(entry => entry.symptoms && entry.symptoms.length > 0).length,
-      hotFlashDays: entriesThisMonth.filter(entry => entry.symptoms?.includes('hot_flashes')).length,
-      nightSweatNights: entriesThisMonth.filter(entry => entry.symptoms?.includes('night_sweats')).length,
-      fatigueDays: entriesThisMonth.filter(entry => entry.symptoms?.includes('fatigue')).length,
-    };
-  }, [visibleMonth, entriesByDate]);
+  const monthlySummary = useMemo(
+    () => computeMenopauseMonthlySummary(entriesByDate, visibleMonth.getFullYear(), visibleMonth.getMonth()),
+    [visibleMonth, entriesByDate],
+  );
 
   const hasAnyDataAtAll = Object.keys(entriesByDate).length > 0 || labResults.length > 0;
 
