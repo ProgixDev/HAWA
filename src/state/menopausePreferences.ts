@@ -34,6 +34,21 @@ export type MenopausePreferences = {
   trackedSymptoms: MenopauseSymptom[];
   hormonalTreatmentStatus: MenopauseHormonalTreatmentStatus | null;
   labTracking: MenopauseLabTracking | null;
+  /** Optional reminder onboarding (MenopauseRemindersScreen). Both reminders
+   * are opt-in and independent — enabling one never implies the other.
+   * `*ReminderTime` is 'HH:mm' local time, same format as
+   * pregnancyNotificationSettingsStore.ts's dailyJournalTime and
+   * contraceptionPreferences.ts's reminderTime — never a second time format.
+   * `null` until the user explicitly picks a time; never a fabricated
+   * default hour, so `*ReminderEnabled` can be true while the time is still
+   * unset only transiently, during the onboarding screen's own validation. */
+  dailyTrackingReminderEnabled: boolean;
+  dailyTrackingReminderTime: string | null;
+  /** Only ever meaningful while hormonalTreatmentStatus === 'track' — see
+   * menopauseReminderScheduling.ts, which re-checks that condition on every
+   * sync rather than trusting this flag alone. */
+  treatmentReminderEnabled: boolean;
+  treatmentReminderTime: string | null;
 };
 
 const STORAGE_KEY = '@hawa/menopause-preferences/v1';
@@ -42,6 +57,10 @@ const DEFAULT_PREFERENCES: MenopausePreferences = {
   trackedSymptoms: [],
   hormonalTreatmentStatus: null,
   labTracking: null,
+  dailyTrackingReminderEnabled: false,
+  dailyTrackingReminderTime: null,
+  treatmentReminderEnabled: false,
+  treatmentReminderTime: null,
 };
 
 let menopausePreferences: MenopausePreferences = {...DEFAULT_PREFERENCES};
@@ -70,6 +89,9 @@ const isValidHormonalTreatmentStatus = (value: unknown): value is MenopauseHormo
 const isValidLabTracking = (value: unknown): value is MenopauseLabTracking =>
   value === 'fsh' || value === 'estradiol' || value === 'both' || value === 'none';
 
+const isValidReminderTime = (value: unknown): value is string | null =>
+  value === null || value === undefined || typeof value === 'string';
+
 const isValidPreferences = (value: unknown): value is Partial<MenopausePreferences> => {
   if (!value || typeof value !== 'object') {return false;}
   const candidate = value as Partial<MenopausePreferences>;
@@ -77,7 +99,11 @@ const isValidPreferences = (value: unknown): value is Partial<MenopausePreferenc
     (candidate.stage === undefined || candidate.stage === null || isValidStage(candidate.stage)) &&
     (candidate.trackedSymptoms === undefined || (Array.isArray(candidate.trackedSymptoms) && candidate.trackedSymptoms.every(isValidSymptom))) &&
     (candidate.hormonalTreatmentStatus === undefined || candidate.hormonalTreatmentStatus === null || isValidHormonalTreatmentStatus(candidate.hormonalTreatmentStatus)) &&
-    (candidate.labTracking === undefined || candidate.labTracking === null || isValidLabTracking(candidate.labTracking))
+    (candidate.labTracking === undefined || candidate.labTracking === null || isValidLabTracking(candidate.labTracking)) &&
+    (candidate.dailyTrackingReminderEnabled === undefined || typeof candidate.dailyTrackingReminderEnabled === 'boolean') &&
+    isValidReminderTime(candidate.dailyTrackingReminderTime) &&
+    (candidate.treatmentReminderEnabled === undefined || typeof candidate.treatmentReminderEnabled === 'boolean') &&
+    isValidReminderTime(candidate.treatmentReminderTime)
   );
 };
 
@@ -122,6 +148,19 @@ export const setMenopauseHormonalTreatmentStatus = async (status: MenopauseHormo
  * never a value, an interpretation or a threshold. */
 export const setMenopauseLabTracking = async (labTracking: MenopauseLabTracking): Promise<void> => {
   await setMenopausePreferences({...menopausePreferences, labTracking});
+};
+
+/** THE single canonical way to record the optional reminder onboarding
+ * answer — used by MenopauseRemindersScreen (and nowhere else; do not
+ * duplicate this call). Never infers a schedule: both times come only from
+ * what the user explicitly picked on that screen. */
+export const setMenopauseReminderPreferences = async (value: {
+  dailyTrackingReminderEnabled: boolean;
+  dailyTrackingReminderTime: string | null;
+  treatmentReminderEnabled: boolean;
+  treatmentReminderTime: string | null;
+}): Promise<void> => {
+  await setMenopausePreferences({...menopausePreferences, ...value});
 };
 
 export const hydrateMenopausePreferences = (): Promise<MenopausePreferences> => {
