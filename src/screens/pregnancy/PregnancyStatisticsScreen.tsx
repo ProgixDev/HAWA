@@ -64,6 +64,7 @@ type IconName = React.ComponentProps<
 const EMPTY: PregnancyJournalState = {
   symptoms: [],
   weights: [],
+  medicalInformationHistory: [],
 };
 
 const RANGE_OPTIONS: Array<{
@@ -674,14 +675,26 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       ],
     );
 
-  const medicalInfoDateInRange =
-    state.medicalInformation?.date &&
-    withinRange(
-      state.medicalInformation.date,
-      range,
-    )
-      ? state.medicalInformation.date
-      : undefined;
+  const medicalInfoDatesInRange =
+    useMemo(
+      () =>
+        state.medicalInformationHistory
+          .filter(
+            entry =>
+              entry.date &&
+              withinRange(
+                entry.date,
+                range,
+              ),
+          )
+          .map(entry => entry.date as string)
+          .sort(),
+
+      [
+        state.medicalInformationHistory,
+        range,
+      ],
+    );
 
   const trackingDates =
     useMemo(() => {
@@ -722,20 +735,19 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
         },
       );
 
-      if (
-        medicalInfoDateInRange
-      ) {
-        dates.add(
-          medicalInfoDateInRange,
-        );
-      }
+      medicalInfoDatesInRange.forEach(
+        date =>
+          dates.add(
+            date,
+          ),
+      );
 
       return dates;
     }, [
       symptoms,
       weights,
       rangeEntries,
-      medicalInfoDateInRange,
+      medicalInfoDatesInRange,
     ]);
 
   const trackedDays =
@@ -787,8 +799,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             );
 
           const hasMedicalInfo =
-            medicalInfoDateInRange ===
-            date;
+            medicalInfoDatesInRange.includes(
+              date,
+            );
 
           if (
             hasSymptoms &&
@@ -808,7 +821,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       symptoms,
       weights,
       rangeEntries,
-      medicalInfoDateInRange,
+      medicalInfoDatesInRange,
     ]);
 
   /* ==========================================================
@@ -1057,9 +1070,8 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
   ========================================================== */
 
   const hasMedicalInfoInRange =
-    Boolean(
-      medicalInfoDateInRange,
-    );
+    medicalInfoDatesInRange.length >
+    0;
 
   /* ==========================================================
      RENDER
@@ -2119,9 +2131,14 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   icon="clipboard-pulse-outline"
                   label="Informations médicales"
                   last
-                  value={`Renseignées · ${dateLabel(
-                    medicalInfoDateInRange!,
-                  )}`}
+                  value={
+                    medicalInfoDatesInRange.length ===
+                    1
+                      ? `Renseignées · ${dateLabel(
+                          medicalInfoDatesInRange[0],
+                        )}`
+                      : `${medicalInfoDatesInRange.length} jours renseignés`
+                  }
                 />
               ) : null}
             </View>
