@@ -78,6 +78,27 @@ export async function resolveNoteSection(entry: DailyJournalEntry | undefined): 
   return {data: undefined, corrupted: false};
 }
 
+/** Centralized display-only resolver for non-gated UI surfaces that merely
+ * need to know "was Notes personnelles recorded today" — the Cycle
+ * Dashboard's "Suivi du jour" completion tile/progress count. Mirrors
+ * withResolvedIntimacyForDisplay() in privateJournalEncryption.ts exactly:
+ * built on resolveNoteSection() (the one canonical decrypt path — never a
+ * second crypto implementation), reduced to the minimum needed to know
+ * "does an entry exist" — the real decrypted text is NEVER carried into the
+ * returned object, only a presence marker plus `updatedAt`. Returns a plain
+ * DailyJournalEntry so DailyJournalCard's existing generic
+ * `Boolean(entry?.[shortcut.section])` completion check keeps working
+ * unchanged, with no risk of ever rendering real note content. A
+ * corrupted/unreadable payload resolves to "not recorded" here (never a
+ * crash, never garbage) — same discipline as the intimacy resolver. Must
+ * only be called from an existing async data-loading effect
+ * (useFocusEffect/useEffect), never from inside a render loop. */
+export async function withResolvedNoteForDisplay(entry: DailyJournalEntry | undefined): Promise<DailyJournalEntry | undefined> {
+  if (!entry) {return undefined;}
+  const {data} = await resolveNoteSection(entry);
+  return {...entry, note: data ? {text: '', private: true, updatedAt: data.updatedAt} : undefined};
+}
+
 /** One-shot, idempotent, crash-safe migration for every day's note ever
  * saved before encryption-at-rest existed — called once at app boot
  * (App.tsx), same spirit as the other one-shot hydrate calls there.

@@ -25,6 +25,7 @@ import {
   getBottomPadding,
   getTopPadding,
   READING_CONTROLS_SPACE,
+  spacing,
 } from '../../theme/spacing';
 
 const ID = 'nifasfiqh-repere-fiqh';
@@ -81,6 +82,13 @@ export default function NifasFiqhArticleScreen({
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const [saved, setSaved] = useState(false);
+  // Real measured height of the fixed ReadingControls area (it grows once
+  // reading starts — the added progress-bar row — so a fixed estimate alone
+  // can under-reserve). null until its first onLayout fires; the ScrollView
+  // falls back to the existing constant-based estimate until then, so the
+  // padding is never smaller than before, only ever corrected to the real
+  // height once known.
+  const [readingControlsHeight, setReadingControlsHeight] = useState<number | null>(null);
   useEffect(() => {
     let mounted = true;
     loadLibraryState().then(() => mounted && setSaved(isArticleBookmarked(ID)));
@@ -103,10 +111,16 @@ export default function NifasFiqhArticleScreen({
         scrollEventThrottle={200}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          paddingBottom: getBottomPadding(
-            insets.bottom,
-            READING_CONTROLS_SPACE,
-          ),
+          // readingControlsHeight already includes ReadingControls' own
+          // safe-area bottom padding (it measures the real rendered view),
+          // so only a small breathing-room margin is added on top — never
+          // insets.bottom a second time. Falls back to the previous
+          // constant-based estimate until the first real measurement
+          // arrives, so this is never smaller than before.
+          paddingBottom:
+            readingControlsHeight !== null
+              ? readingControlsHeight + spacing.md
+              : getBottomPadding(insets.bottom, READING_CONTROLS_SPACE),
         }}
       >
         <View style={styles.heroWrap}>
@@ -341,6 +355,7 @@ export default function NifasFiqhArticleScreen({
       <ReadingControls
         articleId={ID}
         durationMinutes={6}
+        onLayout={event => setReadingControlsHeight(event.nativeEvent.layout.height)}
         scrollRef={scrollRef}
       />
     </View>

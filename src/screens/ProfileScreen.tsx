@@ -124,7 +124,7 @@ const OBJECTIVE_LABELS: Record<ObjectiveId, string> = {
   conceive: 'Essayer de concevoir',
   contraception: 'Contraception',
   irregular: 'Cycles irréguliers (SOPK)',
-  menopause: 'Post-ménopause / Ménopause',
+  menopause: 'Périménopause / Ménopause',
   pregnancy: 'Suivi de grossesse',
   postpartum: 'Suivi post-partum',
   loss: 'Après une fausse couche',
@@ -208,7 +208,7 @@ const OBJECTIVES: Array<{
   {
     id: 'menopause',
     icon: '👤',
-    label: 'Post-ménopause / Ménopause',
+    label: 'Périménopause / Ménopause',
     subtitle: 'Suivre mon bien-être pendant cette période',
     tint: '#EFE7F4',
   },
@@ -1513,6 +1513,56 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 icon="bell-outline"
                 onPress={() => navigation.navigate('PregnancyNotifications')}
                 subtitle="Grossesse, rendez-vous, examens et rappels personnalisés"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'contraception' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('ContraceptionReminders', {mode: 'edit'})}
+                subtitle="Rappels liés à ta méthode de contraception"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'cycle' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('CycleReminders', {mode: 'edit'})}
+                subtitle="Règles, journal quotidien, ovulation et fenêtre fertile"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'conceive' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('ConceptionReminders', {mode: 'edit'})}
+                subtitle="Gérer mes rappels de conception"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'menopause' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('MenopauseReminders', {mode: 'edit'})}
+                subtitle="Suivi quotidien et rappel de traitement"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'postpartum' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('PostpartumReminders', {mode: 'edit'})}
+                subtitle="Gérer mon rappel de suivi quotidien"
                 title="Notifications & rappels"
                 tone="default"
               />

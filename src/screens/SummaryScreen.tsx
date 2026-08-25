@@ -31,12 +31,11 @@ import {
 import {
   ALL_PREGNANCY_TRACKING_PREFERENCES,
   getPregnancyDating,
-  getPregnancyReminderPreferences,
   getPregnancyTrackingPreferences,
   type PregnancyDatingMethod,
-  type PregnancyReminderPreferences,
   type PregnancyTrackingPreference,
 } from '../state/pregnancyPreferences';
+import {getPregnancyNotificationSettings} from '../state/pregnancyNotificationSettingsStore';
 import {
   getPostpartumPreferences,
   type PostpartumDeliveryType,
@@ -74,7 +73,7 @@ const objectiveLabels: Record<ObjectiveId, string> = {
   conceive: 'Essayer de concevoir',
   contraception: 'Contraception',
   irregular: 'Cycles irréguliers (SOPK)',
-  menopause: 'Post-ménopause / Ménopause',
+  menopause: 'Périménopause / Ménopause',
   pregnancy: 'Suivi de grossesse',
   postpartum: 'Post-partum',
   loss: 'Après une fausse couche',
@@ -108,15 +107,20 @@ const TRACKING_PREFERENCE_LABELS: Record<PregnancyTrackingPreference, string> = 
   appointments: 'Rendez-vous et examens',
 };
 
-// Same order/wording as PregnancyRemindersScreen.tsx.
-const REMINDER_PREFERENCE_ORDER: Array<keyof PregnancyReminderPreferences> = [
-  'appointments', 'exams', 'dailyJournal', 'customReminders',
+// Same 3 canonical toggles PregnancyRemindersScreen.tsx now reads/writes —
+// the REAL pregnancyNotificationSettingsStore.ts fields, not the old
+// disconnected pregnancyPreferences.ts reminder preferences. "Rappels
+// personnalisés" has no equivalent boolean in the real architecture (it's
+// individually-created reminder entries, not a single switch — see
+// PregnancyRemindersScreen.tsx's own comment), so it's intentionally not
+// listed here.
+const REMINDER_PREFERENCE_ORDER: Array<'appointmentsEnabled' | 'examsEnabled' | 'dailyJournalEnabled'> = [
+  'appointmentsEnabled', 'examsEnabled', 'dailyJournalEnabled',
 ];
-const REMINDER_PREFERENCE_LABELS: Record<keyof PregnancyReminderPreferences, string> = {
-  appointments: 'Rendez-vous',
-  exams: 'Examens',
-  dailyJournal: 'Journal quotidien',
-  customReminders: 'Rappels personnalisés',
+const REMINDER_PREFERENCE_LABELS: Record<'appointmentsEnabled' | 'examsEnabled' | 'dailyJournalEnabled', string> = {
+  appointmentsEnabled: 'Rendez-vous',
+  examsEnabled: 'Examens',
+  dailyJournalEnabled: 'Journal quotidien',
 };
 
 // Same wording as PostpartumDeliveryTypeScreen/PostpartumFeedingScreen.
@@ -214,6 +218,7 @@ type EditableRoute =
   | 'PostpartumDeliveryDate'
   | 'PostpartumDeliveryType'
   | 'PostpartumFeeding'
+  | 'PostpartumReminders'
   | 'MiscarriageDate'
   | 'MiscarriageBleeding'
   | 'MiscarriageCycleReturn'
@@ -230,6 +235,7 @@ type EditableRoute =
   | 'MenopauseSymptoms'
   | 'MenopauseHormonalTreatment'
   | 'MenopauseLabTracking'
+  | 'MenopauseReminders'
   | 'SecuritySetup'
   | 'Privacy';
 
@@ -339,7 +345,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     const dating = getPregnancyDating();
     const datingDate = dating.date ? new Date(dating.date) : null;
     const trackingSelection = getPregnancyTrackingPreferences();
-    const reminderPreferences = getPregnancyReminderPreferences();
+    const reminderPreferences = getPregnancyNotificationSettings();
 
     const trackingLabels = ALL_PREGNANCY_TRACKING_PREFERENCES
       .filter(id => trackingSelection.has(id))
@@ -434,6 +440,16 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         value: postpartum.feedingType ? FEEDING_TYPE_LABELS[postpartum.feedingType] : 'Non renseigné',
         route: 'PostpartumFeeding',
         tone: 'blue',
+      },
+      {
+        icon: 'bell-outline',
+        label: 'Rappels',
+        value:
+          postpartum.dailyTrackingReminderEnabled && postpartum.dailyTrackingReminderTime
+            ? `Suivi quotidien à ${postpartum.dailyTrackingReminderTime}`
+            : 'Aucun rappel activé',
+        route: 'PostpartumReminders',
+        tone: 'green',
       },
     ];
   };
@@ -625,6 +641,26 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         route: 'MenopauseLabTracking',
         tone: 'green',
       },
+      {
+        icon: 'bell-outline',
+        label: 'Rappels',
+        value: (() => {
+          const active: string[] = [];
+          if (menopause.dailyTrackingReminderEnabled && menopause.dailyTrackingReminderTime) {
+            active.push(`Suivi quotidien à ${menopause.dailyTrackingReminderTime}`);
+          }
+          if (
+            menopause.hormonalTreatmentStatus === 'track' &&
+            menopause.treatmentReminderEnabled &&
+            menopause.treatmentReminderTime
+          ) {
+            active.push(`Traitement à ${menopause.treatmentReminderTime}`);
+          }
+          return active.length > 0 ? active.join(' · ') : 'Aucun rappel activé';
+        })(),
+        route: 'MenopauseReminders',
+        tone: 'blue',
+      },
     ];
   };
 
@@ -658,6 +694,9 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       case 'PostpartumFeeding':
         navigation.navigate('PostpartumFeeding', {mode: 'edit'});
         return;
+      case 'PostpartumReminders':
+        navigation.navigate('PostpartumReminders', {mode: 'edit'});
+        return;
       case 'ContraceptionMethod':
         navigation.navigate('ContraceptionMethod', {mode: 'edit'});
         return;
@@ -669,6 +708,12 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         return;
       case 'ContraceptionReminders':
         navigation.navigate('ContraceptionReminders', {mode: 'edit'});
+        return;
+      case 'MenopauseReminders':
+        navigation.navigate('MenopauseReminders', {mode: 'edit'});
+        return;
+      case 'ConceptionReminders':
+        navigation.navigate('ConceptionReminders', {mode: 'edit'});
         return;
       default:
         navigation.navigate(route);

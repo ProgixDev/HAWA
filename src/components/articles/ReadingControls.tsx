@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {type LayoutChangeEvent, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -16,6 +16,14 @@ export type ReadingControlsProps = {
   articleId: string;
   durationMinutes: number;
   scrollRef: React.RefObject<ScrollView | null>;
+  /** Fires with this component's own real rendered height (its `bottomReadingArea`
+   * root is `position: absolute`, so a wrapping View can't measure it via its own
+   * layout — this reports the true height directly). Optional: existing callers
+   * that don't pass it keep their exact current behavior. A caller can use this
+   * to reserve exactly enough scroll bottom-padding for the real card height —
+   * which grows once reading starts (the added progress-bar row) — instead of a
+   * fixed estimate. */
+  onLayout?: (event: LayoutChangeEvent) => void;
 };
 
 // "45 s restantes" under a minute; otherwise minutes (+seconds when
@@ -61,7 +69,7 @@ function buttonCopyFor(status: ReadingStatus): {label: string; icon: React.Compo
   return {label: 'Commencer à lire', icon: 'play'};
 }
 
-function ReadingControls({articleId, durationMinutes, scrollRef}: ReadingControlsProps): React.JSX.Element {
+function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: ReadingControlsProps): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {status, remainingSeconds, progressPercent, start, pause} = useArticleReadingProgress({articleId, durationMinutes});
 
@@ -92,7 +100,9 @@ function ReadingControls({articleId, durationMinutes, scrollRef}: ReadingControl
   const roundedPercent = Math.round(progressPercent);
 
   return (
-    <View style={[styles.bottomReadingArea, {paddingBottom: Math.max(insets.bottom, 10) + 10}]}>
+    <View
+      onLayout={onLayout}
+      style={[styles.bottomReadingArea, {paddingBottom: Math.max(insets.bottom, 10) + 10}]}>
       <Pressable
         accessibilityLabel={`${title}. ${subtitle}`}
         accessibilityRole="button"

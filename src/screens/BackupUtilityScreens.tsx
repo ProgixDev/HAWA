@@ -3,7 +3,6 @@ import {
   ActivityIndicator,
   Pressable,
   ScrollView,
-  Share,
   StatusBar,
   StyleSheet,
   Text,
@@ -11,7 +10,6 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
@@ -29,7 +27,16 @@ import {
   type BackupSnapshot,
 } from '../services/backupService';
 
-import type {DailyJournalEntry} from '../types/journal';
+import {getExportConfigurationForObjective} from '../config/objectiveExportConfig';
+import {buildMedicalExport} from '../services/medicalExportOrchestrator';
+import {generateMedicalExportPdfBase64} from '../services/medicalExportPdf';
+import {buildExportFilename, shareExportFile} from '../services/medicalExportShare';
+import {
+  getActiveObjective,
+  hydrateActiveObjective,
+  subscribeActiveObjective,
+  type ObjectiveId,
+} from '../state/onboardingPreferences';
 
 const PURPLE = '#6D4AE8';
 const PURPLE_DARK = '#2F2258';
@@ -64,65 +71,6 @@ type IconName =
     typeof MaterialDesignIcons
   >['name'];
 
-const CATEGORIES = [
-  {
-    value: 'cycle',
-    label: 'Cycle',
-    icon: 'calendar-heart',
-  },
-  {
-    value: 'flow',
-    label: 'Flux menstruel',
-    icon: 'water-outline',
-  },
-  {
-    value: 'symptoms',
-    label: 'Symptômes',
-    icon: 'heart-pulse',
-  },
-  {
-    value: 'mood',
-    label: 'Humeur',
-    icon: 'emoticon-happy-outline',
-  },
-  {
-    value: 'sleep',
-    label: 'Sommeil',
-    icon: 'weather-night',
-  },
-  {
-    value: 'activity',
-    label: 'Activité',
-    icon: 'walk',
-  },
-  {
-    value: 'hydration',
-    label: 'Hydratation',
-    icon: 'cup-water',
-  },
-  {
-    value: 'temperature',
-    label: 'Température',
-    icon: 'thermometer',
-  },
-  {
-    value: 'notes',
-    label: 'Notes privées',
-    icon: 'notebook-edit-outline',
-    sensitive: true,
-  },
-  {
-    value: 'weight',
-    label: 'Poids',
-    icon: 'scale-bathroom',
-  },
-  {
-    value: 'intimacy',
-    label: 'Vie intime',
-    icon: 'heart-outline',
-    sensitive: true,
-  },
-] as const;
 
 /* ============================================================
    SHELL
@@ -592,25 +540,45 @@ export function DataExportScreen({
     'csv',
   );
 
+  // Objective-aware: every category shown/exported below comes from the
+  // ACTIVE objective's own configuration (objectiveExportConfig.ts), never a
+  // fixed global list — so Grossesse never shows Ménopause categories, and
+  // vice versa. App.tsx already hydrates onboardingPreferences.ts at boot.
+  const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+
+  useEffect(() => {
+    hydrateActiveObjective().then(setObjective);
+    return subscribeActiveObjective(() => setObjective(getActiveObjective()));
+  }, []);
+
+  const exportConfig = getExportConfigurationForObjective(objective);
+
   const [
     selected,
     setSelected,
-  ] = useState<string[]>([
-    'cycle',
-    'flow',
-    'symptoms',
-    'mood',
-    'sleep',
-    'activity',
-    'hydration',
-    'temperature',
-    'weight',
-  ]);
+  ] = useState<string[]>(() =>
+    getExportConfigurationForObjective(getActiveObjective())
+      .categories.filter(category => !category.sensitive)
+      .map(category => category.value),
+  );
+
+  // Switching objective mid-session (e.g. via Profil) resets the selection
+  // to that objective's own defaults — never keeps a category value that
+  // belongs to the previous objective's configuration.
+  useEffect(() => {
+    setSelected(exportConfig.categories.filter(category => !category.sensitive).map(category => category.value));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [objective]);
 
   const [
     message,
     setMessage,
   ] = useState('');
+
+  const [
+    exporting,
+    setExporting,
+  ] = useState(false);
 
   const toggle = (
     value: string,
@@ -628,115 +596,43 @@ export function DataExportScreen({
     );
   };
 
-  const exportData =
-    async () => {
-      setMessage('');
+  const exportData = async () => {
+    if (exporting) {return;}
+    setMessage('');
 
-      if (
-        format === 'pdf'
-      ) {
-        setMessage(
-          'Le générateur PDF n’est pas encore configuré. Utilise CSV pour un export réel.',
-        );
+    if (!selected.length) {
+      setMessage('Sélectionne au moins une catégorie à exporter.');
+      return;
+    }
 
+    setExporting(true);
+    try {
+      const result = await buildMedicalExport(
+        objective,
+        period,
+        format,
+        selected,
+      );
+
+      if (result.kind === 'empty') {
+        setMessage('Aucune donnée disponible pour cette période et ces catégories.');
         return;
       }
 
-      const raw =
-        await AsyncStorage.getItem(
-          '@hawa/daily-journal/v1',
-        );
+      const filename = buildExportFilename(format, result.fromKey, result.toKey);
+      const content =
+        result.kind === 'csv'
+          ? result.content
+          : await generateMedicalExportPdfBase64(result.model);
 
-      const entries: DailyJournalEntry[] =
-        raw
-          ? JSON.parse(raw)
-          : [];
-
-      const months =
-        period === 'all'
-          ? Infinity
-          : Number(
-              period.replace(
-                'm',
-                '',
-              ),
-            );
-
-      const cutoff =
-        new Date();
-
-      if (
-        Number.isFinite(
-          months,
-        )
-      ) {
-        cutoff.setMonth(
-          cutoff.getMonth() -
-            months,
-        );
-      }
-
-      const filtered =
-        entries.filter(
-          entry =>
-            period ===
-              'all' ||
-            new Date(
-              `${entry.date}T12:00:00`,
-            ) >= cutoff,
-        );
-
-      const rows = [
-        'date,categorie,valeur',
-      ];
-
-      filtered.forEach(
-        entry =>
-          selected.forEach(
-            category => {
-              const key =
-                category ===
-                'notes'
-                  ? 'note'
-                  : category;
-
-              if (
-                key ===
-                'cycle'
-              ) {
-                rows.push(
-                  `${entry.date},cycleDay,${entry.cycleDay ?? ''}`,
-                );
-
-                return;
-              }
-
-              const value =
-                entry[
-                  key as keyof DailyJournalEntry
-                ];
-
-              if (value) {
-                rows.push(
-                  `${entry.date},${category},"${JSON.stringify(
-                    value,
-                  ).replace(
-                    /"/g,
-                    '""',
-                  )}"`,
-                );
-              }
-            },
-          ),
-      );
-
-      await Share.share({
-        title:
-          'Export CSV AWA',
-        message:
-          rows.join('\n'),
-      });
-    };
+      const outcome = await shareExportFile(format, content, filename);
+      if (outcome === 'cancelled') {return;}
+    } catch {
+      setMessage('L’export a échoué. Réessaie dans un instant.');
+    } finally {
+      setExporting(false);
+    }
+  };
 
   return (
     <Shell
@@ -774,6 +670,13 @@ export function DataExportScreen({
               styles.exportDescription
             }>
             Sélectionne la période, le format et les informations à inclure.
+          </Text>
+
+          <Text
+            style={
+              styles.exportObjectiveLabel
+            }>
+            Objectif actif : {exportConfig.label}
           </Text>
         </View>
       </View>
@@ -834,7 +737,7 @@ export function DataExportScreen({
 
       <SectionTitle
         title="Format"
-        subtitle="CSV est disponible immédiatement."
+        subtitle="CSV et PDF sont générés directement sur ton téléphone."
       />
 
       <View
@@ -873,7 +776,7 @@ export function DataExportScreen({
         style={
           styles.categoryCard
         }>
-        {CATEGORIES.map(
+        {exportConfig.categories.map(
           (
             category,
             index,
@@ -904,7 +807,7 @@ export function DataExportScreen({
                   styles.category,
 
                   index !==
-                    CATEGORIES.length -
+                    exportConfig.categories.length -
                       1 &&
                     styles.categoryBorder,
 
@@ -1015,8 +918,10 @@ export function DataExportScreen({
       </View>
 
       <PrimaryButton
+        disabled={exporting}
         icon="export-variant"
-        label="Exporter mes données"
+        label={exporting ? 'Génération en cours…' : 'Exporter mes données'}
+        loading={exporting}
         onPress={exportData}
       />
 
@@ -1418,21 +1323,31 @@ function PrimaryButton({
   label,
   icon,
   onPress,
+  disabled,
+  loading,
 }: {
   label: string;
   icon?: IconName;
   onPress: () => void;
+  disabled?: boolean;
+  loading?: boolean;
 }) {
   return (
     <Pressable
       accessibilityRole="button"
+      accessibilityState={{disabled: Boolean(disabled)}}
+      disabled={disabled}
       onPress={onPress}
       style={({pressed}) => [
         styles.primaryButton,
         pressed &&
           styles.pressed,
+        disabled &&
+          styles.primaryButtonDisabled,
       ]}>
-      {icon ? (
+      {loading ? (
+        <ActivityIndicator color="#FFFFFF" size="small" />
+      ) : icon ? (
         <MaterialDesignIcons
           color="#FFFFFF"
           name={icon}
@@ -1810,6 +1725,10 @@ const styles =
       fontWeight: '700',
     },
 
+    primaryButtonDisabled: {
+      opacity: 0.6,
+    },
+
     confirmCard: {
       borderWidth: 1,
 
@@ -1982,6 +1901,15 @@ const styles =
 
       fontSize: 11.5,
       lineHeight: 16,
+    },
+
+    exportObjectiveLabel: {
+      marginTop: 6,
+
+      color: PURPLE,
+
+      fontSize: 11,
+      fontWeight: '700',
     },
 
     sectionTitle: {
