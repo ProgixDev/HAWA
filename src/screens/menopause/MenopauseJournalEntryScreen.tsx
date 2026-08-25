@@ -570,25 +570,19 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           title="Symptômes ressentis"
         />
         <ChoiceGrid third>
-          {MENOPAUSE_SYMPTOM_OPTIONS
-            .filter(
-              option =>
-                preferences.trackedSymptoms.length === 0 ||
-                preferences.trackedSymptoms.includes(option.id),
-            )
-            .map(option => (
-              <SelectableIconCard
-                compact
-                icon={option.icon}
-                iconColor={option.iconColor}
-                key={option.id}
-                label={option.label}
-                multi
-                onPress={() => toggleSymptom(option.id)}
-                selected={symptoms.includes(option.id)}
-                tint={option.tint}
-              />
-            ))}
+          {MENOPAUSE_SYMPTOM_OPTIONS.map(option => (
+            <SelectableIconCard
+              compact
+              icon={option.icon}
+              iconColor={option.iconColor}
+              key={option.id}
+              label={option.label}
+              multi
+              onPress={() => toggleSymptom(option.id)}
+              selected={symptoms.includes(option.id)}
+              tint={option.tint}
+            />
+          ))}
         </ChoiceGrid>
       </JournalCard>
 
