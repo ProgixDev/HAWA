@@ -153,7 +153,7 @@ function MenopauseLabTrackingScreen({
 
     try {
       await setMenopauseLabTracking(selected);
-      navigation.navigate('SecuritySetup');
+      navigation.navigate('MenopauseReminders');
     } finally {
       setSaving(false);
     }
