@@ -148,18 +148,14 @@ export function isPregnancyTrackingCategoryCompleted(
     case 'symptoms':
       return pregnancyJournal.symptoms.some(entry => entry.date === todayKey);
     case 'medicalInfo': {
-      // `medicalInformation.date` is an OPTIONAL user-chosen reference date
-      // (e.g. "date of an exam mentioned in the note") — not "the day this
-      // was saved." Using it here was the actual bug: saving today with no
-      // reference date picked (the common case, since that field is
-      // explicitly optional) left "Suivi du jour" showing this category as
-      // not completed even though it was. `updatedAt` is always set to the
-      // real save timestamp, so it's the correct field to check against
-      // `todayKey` — same "was this touched today" semantics as every other
-      // case above.
-      const updatedAt = pregnancyJournal.medicalInformation?.updatedAt;
-      if (!updatedAt) {return false;}
-      return new Date(updatedAt).toLocaleDateString('en-CA') === todayKey;
+      // An entry's `date` is an OPTIONAL user-chosen reference date (e.g.
+      // "date of an exam mentioned in the note") — not "the day this was
+      // saved." `updatedAt` is always set to the real save timestamp, so
+      // it's the correct field to check against `todayKey` — same "was this
+      // touched today" semantics as every other case above.
+      return pregnancyJournal.medicalInformationHistory.some(
+        entry => new Date(entry.updatedAt).toLocaleDateString('en-CA') === todayKey,
+      );
     }
     case 'appointments':
       return events.some(event => event.date === todayKey);

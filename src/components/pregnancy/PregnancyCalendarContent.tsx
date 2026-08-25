@@ -315,10 +315,9 @@ function buildDailyItems(
 
   const medicalEntry =
     pregnancy
-      .medicalInformation
-      ?.date === date
-      ? pregnancy.medicalInformation
-      : undefined;
+      .medicalInformationHistory.find(
+        item => item.date === date,
+      );
 
   const appointments =
     events.filter(
@@ -418,14 +417,17 @@ function buildDailyItems(
     },
 
     {
+      // Medical-information content is private (see
+      // PregnancyMedicalInformationScreen.tsx, behind requirePrivateAccess).
+      // The Calendar may only ever reveal WHETHER an entry exists for this
+      // date, never `medicalEntry.note` itself — do not read `.note` here.
       key: 'medical',
       label:
         FILTER_META.medical
           .label,
-      value:
-        medicalEntry?.note?.trim() ||
-        FILTER_META.medical
-          .empty,
+      value: medicalEntry
+        ? 'Enregistré'
+        : 'Non enregistré',
       icon:
         FILTER_META.medical
           .icon,
@@ -547,6 +549,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
       {
         symptoms: [],
         weights: [],
+        medicalInformationHistory: [],
       },
     );
 
@@ -1155,7 +1158,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                   const hasDailyTracking =
                     (visibleFilters.has('symptoms') && pregnancyJournal.symptoms.some(entry => entry.date === cellKey)) ||
                     (visibleFilters.has('weight') && pregnancyJournal.weights.some(entry => entry.date === cellKey)) ||
-                    (visibleFilters.has('medical') && pregnancyJournal.medicalInformation?.date === cellKey) ||
+                    (visibleFilters.has('medical') && pregnancyJournal.medicalInformationHistory.some(entry => entry.date === cellKey)) ||
                     (visibleFilters.has('mood') && Boolean(monthDailyEntries[cellKey]?.mood)) ||
                     (visibleFilters.has('sleep') && Boolean(monthDailyEntries[cellKey]?.sleep));
 
