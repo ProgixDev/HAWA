@@ -31,6 +31,9 @@ import {getExportConfigurationForObjective} from '../config/objectiveExportConfi
 import {buildMedicalExport} from '../services/medicalExportOrchestrator';
 import {generateMedicalExportPdfBase64} from '../services/medicalExportPdf';
 import {buildExportFilename, shareExportFile} from '../services/medicalExportShare';
+import {usePremium} from '../hooks/usePremium';
+import {PremiumLockedCard} from '../components/premium/PremiumLockedCard';
+import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {
   getActiveObjective,
   hydrateActiveObjective,
@@ -553,6 +556,14 @@ export function DataExportScreen({
 
   const exportConfig = getExportConfigurationForObjective(objective);
 
+  // Export (CSV & PDF) is a marketed Premium benefit — see the "Exports
+  // santé" line in HawaPremiumBottomSheet.tsx's own BENEFITS list and the
+  // "Export PDF & CSV" line on ProfileScreen.tsx's Premium card. Gated here,
+  // above the existing export logic — medicalExportOrchestrator.ts/
+  // medicalExportPdf.ts/medicalExportShare.ts are completely untouched.
+  const {isPremium} = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
   const [
     selected,
     setSelected,
@@ -681,6 +692,8 @@ export function DataExportScreen({
         </View>
       </View>
 
+      {isPremium ? (
+      <>
       <SectionTitle
         title="Période"
         subtitle="Choisis la durée de l’historique à exporter."
@@ -944,6 +957,17 @@ export function DataExportScreen({
           </Text>
         </View>
       ) : null}
+      </>
+      ) : (
+        <PremiumLockedCard
+          ctaLabel="Découvrir Premium"
+          description="Génère et partage un rapport CSV ou PDF de ton suivi, à tout moment."
+          onUpgrade={() => setPremiumVisible(true)}
+          title="Export CSV & PDF"
+        />
+      )}
+
+      <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
     </Shell>
   );
 }

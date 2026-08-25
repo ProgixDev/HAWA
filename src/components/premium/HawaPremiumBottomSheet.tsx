@@ -6,6 +6,7 @@ import React, {
 } from 'react';
 import {
   AccessibilityInfo,
+  ActivityIndicator,
   Animated,
   Easing,
   Modal,
@@ -24,6 +25,8 @@ import {
   PREMIUM_PRICING,
   type PremiumPlan,
 } from '../../config/premiumPricing';
+import {usePremium} from '../../hooks/usePremium';
+import {purchasePremium, restorePurchases} from '../../services/purchaseService';
 
 type Props = {
   visible: boolean;
@@ -144,6 +147,13 @@ export function HawaPremiumBottomSheet({
   const [mounted, setMounted] = useState(visible);
   const [plan, setPlan] = useState<PremiumPlan>('annual');
   const [reduceMotion, setReduceMotion] = useState(false);
+
+  // THE canonical Premium state (src/state/premiumStore.ts) — never a local
+  // `isPremium` snapshot. `feedback` is purely transient UI copy about the
+  // LAST subscribe/restore attempt's outcome; it never itself decides
+  // whether Premium is unlocked.
+  const {isPremium, purchaseInProgress, restoreInProgress} = usePremium();
+  const [feedback, setFeedback] = useState<{tone: 'success' | 'neutral' | 'error'; message: string} | null>(null);
 
   const progress = useRef(new Animated.Value(0)).current;
   const crownFloat = useRef(new Animated.Value(0)).current;
@@ -419,24 +429,57 @@ export function HawaPremiumBottomSheet({
    * ============================================================
    */
 
-  const handleSubscribe = () => {
-    /*
-     * TODO :
-     *
-     * Connecter ensuite :
-     *
-     * - Google Play Billing
-     * - StoreKit
-     * - RevenueCat
-     *
-     * Ne pas activer Premium artificiellement.
-     */
+  const handleSubscribe = async () => {
+    if (purchaseInProgress || restoreInProgress) {return;}
+    setFeedback(null);
 
-    console.log(
-      'Premium plan selected:',
-      plan,
-      selectedPricing,
-    );
+    const outcome = await purchasePremium(plan);
+
+    if (outcome === 'success') {
+      setFeedback({tone: 'success', message: 'AWA Premium est maintenant actif. Merci !'});
+      return;
+    }
+    if (outcome === 'cancelled') {
+      // Not a fatal error — she simply closed the payment sheet.
+      return;
+    }
+    if (outcome === 'unavailable') {
+      setFeedback({
+        tone: 'neutral',
+        message: 'Aucun achat ne sera activé tant que le système de paiement n’est pas connecté.',
+      });
+      return;
+    }
+    setFeedback({tone: 'error', message: 'Une erreur est survenue. Réessaie dans un instant.'});
+  };
+
+  /*
+   * ============================================================
+   * RESTORE
+   * ============================================================
+   */
+
+  const handleRestore = async () => {
+    if (purchaseInProgress || restoreInProgress) {return;}
+    setFeedback(null);
+
+    const outcome = await restorePurchases();
+
+    if (outcome === 'success') {
+      setFeedback({tone: 'success', message: 'Tes achats ont été restaurés.'});
+      return;
+    }
+    if (outcome === 'cancelled') {
+      return;
+    }
+    if (outcome === 'unavailable') {
+      setFeedback({
+        tone: 'neutral',
+        message: 'Aucun achat ne sera activé tant que le système de paiement n’est pas connecté.',
+      });
+      return;
+    }
+    setFeedback({tone: 'error', message: 'Impossible de restaurer tes achats pour le moment.'});
   };
 
   const animateButton = (pressed: boolean) => {
@@ -929,109 +972,155 @@ export function HawaPremiumBottomSheet({
           </View>
 
           {/* ==================================================
-              PREMIUM CTA
+              PREMIUM CTA — replaced by an active-status confirmation
+              once Premium is genuinely unlocked, never a misleading
+              "Subscribe" CTA shown to an already-Premium user.
           ================================================== */}
 
-          <Animated.View
-            style={[
-              styles.ctaWrapper,
-              buttonAnimatedStyle,
-            ]}>
+          {isPremium ? (
+            <View accessibilityRole="alert" style={styles.activeStatusCard}>
+              <View style={styles.activeStatusIconCircle}>
+                <MaterialDesignIcons color={COLORS.green} name="check-circle" size={22} />
+              </View>
+              <View style={styles.ctaCopy}>
+                <Text style={styles.activeStatusTitle}>Abonnement actif</Text>
+                <Text style={styles.activeStatusSubtitle}>Merci de soutenir AWA — profite de tous les avantages Premium.</Text>
+              </View>
+            </View>
+          ) : (
+            <Animated.View
+              style={[
+                styles.ctaWrapper,
+                buttonAnimatedStyle,
+              ]}>
 
-            <Pressable
-              accessibilityLabel="S’abonner à AWA Premium"
-              accessibilityRole="button"
-              onPress={handleSubscribe}
-              onPressIn={() =>
-                animateButton(true)
-              }
-              onPressOut={() =>
-                animateButton(false)
-              }>
+              <Pressable
+                accessibilityHint={purchaseInProgress ? 'Achat en cours' : undefined}
+                accessibilityLabel="S’abonner à AWA Premium"
+                accessibilityRole="button"
+                accessibilityState={{disabled: purchaseInProgress || restoreInProgress, busy: purchaseInProgress}}
+                disabled={purchaseInProgress || restoreInProgress}
+                onPress={handleSubscribe}
+                onPressIn={() =>
+                  animateButton(true)
+                }
+                onPressOut={() =>
+                  animateButton(false)
+                }
+                style={(purchaseInProgress || restoreInProgress) && styles.ctaDisabled}>
 
-              <LinearGradient
-                colors={[
-                  '#4B278E',
-                  '#6740B7',
-                  '#8D4EB5',
-                ]}
-                end={{
-                  x: 1,
-                  y: 1,
-                }}
-                start={{
-                  x: 0,
-                  y: 0,
-                }}
-                style={styles.cta}>
+                <LinearGradient
+                  colors={[
+                    '#4B278E',
+                    '#6740B7',
+                    '#8D4EB5',
+                  ]}
+                  end={{
+                    x: 1,
+                    y: 1,
+                  }}
+                  start={{
+                    x: 0,
+                    y: 0,
+                  }}
+                  style={styles.cta}>
 
-                <View style={styles.ctaShine} />
+                  <View style={styles.ctaShine} />
 
-                <View
-                  style={
-                    styles.ctaIconCircle
-                  }>
-                  <MaterialDesignIcons
-                    color={COLORS.gold}
-                    name="crown"
-                    size={20}
-                  />
-                </View>
+                  <View
+                    style={
+                      styles.ctaIconCircle
+                    }>
+                    {purchaseInProgress ? (
+                      <ActivityIndicator color="#FFFFFF" size="small" />
+                    ) : (
+                      <MaterialDesignIcons
+                        color={COLORS.gold}
+                        name="crown"
+                        size={20}
+                      />
+                    )}
+                  </View>
 
-                <View style={styles.ctaCopy}>
-                  <Text style={styles.ctaText}>
-                    S’abonner maintenant
-                  </Text>
+                  <View style={styles.ctaCopy}>
+                    <Text style={styles.ctaText}>
+                      {purchaseInProgress ? 'Achat en cours…' : 'S’abonner maintenant'}
+                    </Text>
 
-                  <Text
-                    numberOfLines={1}
-                    style={styles.ctaSubText}>
-                    {selectedPricing.label}
-                    {' · '}
-                    {selectedPricing.price}
-                  </Text>
-                </View>
+                    <Text
+                      numberOfLines={1}
+                      style={styles.ctaSubText}>
+                      {selectedPricing.label}
+                      {' · '}
+                      {selectedPricing.price}
+                    </Text>
+                  </View>
 
-                <View
-                  style={
-                    styles.ctaArrowCircle
-                  }>
-                  <MaterialDesignIcons
-                    color="#FFFFFF"
-                    name="arrow-right"
-                    size={18}
-                  />
-                </View>
-              </LinearGradient>
-            </Pressable>
-          </Animated.View>
+                  <View
+                    style={
+                      styles.ctaArrowCircle
+                    }>
+                    <MaterialDesignIcons
+                      color="#FFFFFF"
+                      name="arrow-right"
+                      size={18}
+                    />
+                  </View>
+                </LinearGradient>
+              </Pressable>
+            </Animated.View>
+          )}
 
           {/* ==================================================
               RESTORE
           ================================================== */}
 
-          <Pressable
-            accessibilityLabel="Restaurer mes achats"
-            accessibilityRole="button"
-            style={({pressed}) => [
-              styles.restoreButton,
-              pressed && styles.pressed,
-            ]}>
-            <MaterialDesignIcons
-              color={COLORS.purple}
-              name="restore"
-              size={17}
-            />
+          {!isPremium ? (
+            <Pressable
+              accessibilityLabel="Restaurer mes achats"
+              accessibilityRole="button"
+              accessibilityState={{disabled: purchaseInProgress || restoreInProgress, busy: restoreInProgress}}
+              disabled={purchaseInProgress || restoreInProgress}
+              onPress={handleRestore}
+              style={({pressed}) => [
+                styles.restoreButton,
+                pressed && styles.pressed,
+                (purchaseInProgress || restoreInProgress) && styles.ctaDisabled,
+              ]}>
+              {restoreInProgress ? (
+                <ActivityIndicator color={COLORS.purple} size="small" />
+              ) : (
+                <MaterialDesignIcons
+                  color={COLORS.purple}
+                  name="restore"
+                  size={17}
+                />
+              )}
 
-            <Text style={styles.restoreText}>
-              Restaurer mes achats
+              <Text style={styles.restoreText}>
+                {restoreInProgress ? 'Restauration en cours…' : 'Restaurer mes achats'}
+              </Text>
+            </Pressable>
+          ) : null}
+
+          {feedback ? (
+            <View
+              accessibilityRole="alert"
+              style={[
+                styles.feedbackCard,
+                feedback.tone === 'success' && styles.feedbackCardSuccess,
+                feedback.tone === 'error' && styles.feedbackCardError,
+              ]}>
+              <Text style={styles.feedbackText}>{feedback.message}</Text>
+            </View>
+          ) : null}
+
+          {!isPremium ? (
+            <Text style={styles.footerText}>
+              Aucun achat ne sera activé tant que le
+              système de paiement n’est pas connecté.
             </Text>
-          </Pressable>
-
-          <Text style={styles.footerText}>
-            Aucun achat ne sera activé tant que le
-            système de paiement n’est pas connecté.
-          </Text>
+          ) : null}
         </ScrollView>
       </Animated.View>
     </Modal>
@@ -2241,5 +2330,65 @@ const styles = StyleSheet.create({
 
   pressed: {
     opacity: 0.75,
+  },
+
+  ctaDisabled: {
+    opacity: 0.6,
+  },
+
+  activeStatusCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: COLORS.greenLight,
+    backgroundColor: COLORS.greenLight,
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  activeStatusIconCircle: {
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 20,
+    backgroundColor: '#FFFFFF',
+  },
+  activeStatusTitle: {
+    color: COLORS.text,
+    fontSize: 14.5,
+    fontWeight: '800',
+  },
+  activeStatusSubtitle: {
+    marginTop: 2,
+    color: COLORS.secondary,
+    fontSize: 11.5,
+    lineHeight: 16,
+  },
+
+  feedbackCard: {
+    marginTop: 10,
+    marginHorizontal: 4,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: COLORS.border,
+    backgroundColor: COLORS.lavenderSoft,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  feedbackCardSuccess: {
+    borderColor: COLORS.greenLight,
+    backgroundColor: COLORS.greenLight,
+  },
+  feedbackCardError: {
+    borderColor: 'rgba(199,70,105,0.25)',
+    backgroundColor: '#FFF0F4',
+  },
+  feedbackText: {
+    color: COLORS.text,
+    fontSize: 12,
+    lineHeight: 17,
+    textAlign: 'center',
   },
 });

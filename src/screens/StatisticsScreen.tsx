@@ -20,6 +20,9 @@ import {
   homeColors,
   homeShadow,
 } from '../components/home/homeTheme';
+import {usePremium} from '../hooks/usePremium';
+import {PremiumLockedCard} from '../components/premium/PremiumLockedCard';
+import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 
 /* ============================================================
    TYPES
@@ -569,6 +572,14 @@ function StatisticsScreen(
   ] =
     useState<Range>('6');
 
+  // "Statistiques avancées" (3/6/12-month trend analysis) is a marketed
+  // Premium benefit — see HawaPremiumBottomSheet.tsx's own BENEFITS list
+  // ("Analyse ton évolution sur 3, 6 et 12 mois") and ProfileScreen.tsx's
+  // Premium card. Gated here, above the existing (currently mock/preview)
+  // content — no data/logic below this point was changed.
+  const {isPremium} = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
   const data =
     PREVIEW_DATA[range];
 
@@ -694,6 +705,8 @@ function StatisticsScreen(
             </View>
           </View>
 
+          {isPremium ? (
+          <>
           {/* ==================================================
               RANGE FILTER
           =================================================== */}
@@ -1250,6 +1263,17 @@ function StatisticsScreen(
               </Text>
             </View>
           </View>
+          </>
+          ) : (
+            <PremiumLockedCard
+              ctaLabel="Découvrir Premium"
+              description="Analyse ton évolution sur 3, 6 et 12 mois : durée de cycle, symptômes, humeur et bien plus."
+              onUpgrade={() => setPremiumVisible(true)}
+              title="Statistiques avancées"
+            />
+          )}
+
+          <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
         </ScrollView>
       </SafeAreaView>
     </LinearGradient>

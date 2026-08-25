@@ -21,6 +21,7 @@ import {
 } from 'react-native';
 
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { usePremium } from '../hooks/usePremium';
 import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -297,6 +298,11 @@ function StatCard({ icon, label, value }: StatCardProps): React.JSX.Element {
 }
 
 function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element {
+  // Canonical Premium state (src/state/premiumStore.ts) — never a local
+  // isPremium snapshot; reactive via usePremium(), so an activation/restore
+  // elsewhere in the app updates this card immediately without navigating
+  // away and back.
+  const {isPremium} = usePremium();
   const entrance = useRef(new Animated.Value(0)).current;
   const pressScale = useRef(new Animated.Value(1)).current;
   const shine = useRef(new Animated.Value(-1)).current;
@@ -489,7 +495,9 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
           <View style={styles.premiumCopy}>
             <Text style={styles.premiumTitle}>AWA Premium</Text>
             <Text style={styles.premiumSubtitle}>
-              Débloque des outils avancés pour aller plus loin dans ton suivi.
+              {isPremium
+                ? 'Merci de soutenir AWA — ton abonnement est actif.'
+                : 'Débloque des outils avancés pour aller plus loin dans ton suivi.'}
             </Text>
           </View>
 
@@ -532,13 +540,13 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
         <View style={styles.premiumButton}>
   <View style={styles.premiumButtonContent}>
     <MaterialDesignIcons
-      color="#D5A928"
-      name="crown"
+      color={isPremium ? '#4F9185' : '#D5A928'}
+      name={isPremium ? 'check-decagram' : 'crown'}
       size={20}
     />
 
     <Text style={styles.premiumButtonText}>
-      Découvrir Premium
+      {isPremium ? 'Abonnement actif' : 'Découvrir Premium'}
     </Text>
   </View>
 
