@@ -145,11 +145,13 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
         await setFeedingType(selected);
       }
       // Edit mode returns to wherever she came from (PostpartumCycleReturnScreen)
-      // — never forces her back into the onboarding funnel.
+      // — never forces her back into the onboarding funnel. Onboarding
+      // continues to the optional "Suivi quotidien" reminder screen (last
+      // onboarding step before SecuritySetup — see PostpartumRemindersScreen.tsx).
       if (isEdit) {
         navigation.goBack();
       } else {
-        navigation.navigate('SecuritySetup');
+        navigation.navigate('PostpartumReminders');
       }
     } finally {
       setSaving(false);
