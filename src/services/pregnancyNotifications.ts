@@ -107,10 +107,17 @@ export async function scheduleLocalNotification({
   // settings the app doesn't control). The real content always still goes
   // into `data`/the in-app notification center by whichever caller passed
   // it, so nothing here affects what AWA shows once the user opens the app.
+  //
+  // `discreetMode` (AWA's global "Mode discret / pudeur" toggle,
+  // PrivacySecurityScreen.tsx) is included here too: a user who has turned
+  // on the app's broader privacy mode shouldn't have to separately discover
+  // and enable "Notifications discrètes"/"Masquer l'aperçu" just to keep
+  // sensitive reminder text off her lock screen. This is the one place the
+  // decision is made — no objective-specific file re-implements this logic.
   await loadSecurityPreferences();
   const privacy = getPrivacySecuritySettings();
   const hidePreview =
-    privacy.discreetNotifications || privacy.hideNotificationPreview;
+    privacy.discreetNotifications || privacy.hideNotificationPreview || privacy.discreetMode;
   const displayTitle = hidePreview ? PRIVACY_GENERIC_TITLE : title;
   const displayBody = hidePreview ? PRIVACY_GENERIC_BODY : body;
 

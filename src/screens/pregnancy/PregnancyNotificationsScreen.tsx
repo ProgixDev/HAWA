@@ -18,7 +18,7 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {homeColors, homeRadii, homeShadow} from '../../components/home/homeTheme';
+import {homeColors} from '../../components/home/homeTheme';
 import {getBottomPadding, spacing} from '../../theme/spacing';
 import {
   getPregnancyNotificationSettings,
@@ -687,18 +687,55 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
       <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+
+      <View pointerEvents="none" style={styles.backgroundDecor}>
+        <View style={styles.glowTop} />
+        <View style={styles.glowMiddle} />
+      </View>
+
       <View style={styles.header}>
-        <Pressable accessibilityLabel="Retour" accessibilityRole="button" hitSlop={10} onPress={navigation.goBack} style={styles.backButton}>
-          <MaterialDesignIcons color={homeColors.primary} name="arrow-left" size={24} />
+        <Pressable
+          accessibilityLabel="Retour"
+          accessibilityRole="button"
+          hitSlop={10}
+          onPress={navigation.goBack}
+          style={({pressed}) => [
+            styles.backButton,
+            pressed && styles.backButtonPressed,
+          ]}>
+          <MaterialDesignIcons color={homeColors.primaryDark} name="chevron-left" size={22} />
         </Pressable>
-        <Text numberOfLines={1} style={styles.headerTitle}>Notifications & rappels</Text>
+
+        <View style={styles.headerCopy}>
+          <Text
+            adjustsFontSizeToFit
+            minimumFontScale={0.78}
+            numberOfLines={2}
+            style={styles.headerTitle}>
+            Notifications & rappels
+          </Text>
+          <Text numberOfLines={1} style={styles.headerSubtitle}>
+            Personnalise ce que tu souhaites recevoir
+          </Text>
+        </View>
+
         <View style={styles.headerSpacer} />
       </View>
 
       <ScrollView
         contentContainerStyle={[styles.content, {paddingBottom: getBottomPadding(insets.bottom, spacing.lg)}]}
         showsVerticalScrollIndicator={false}>
-        <Text style={styles.intro}>Choisis les rappels que tu souhaites recevoir.</Text>
+        <View style={styles.introCard}>
+          <View style={styles.introIcon}>
+            <MaterialDesignIcons color={homeColors.primary} name="bell-outline" size={20} />
+          </View>
+          <View style={styles.introCopy}>
+            <Text style={styles.introTitle}>Des rappels utiles, à ton rythme</Text>
+            <Text style={styles.introText}>
+              Active uniquement les notifications qui t’accompagnent vraiment au quotidien.
+            </Text>
+          </View>
+        </View>
 
         {/* ============================= A. GROSSESSE ============================= */}
         <View style={styles.card}>
@@ -893,89 +930,504 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {flex: 1, backgroundColor: '#FCFAFF'},
-  header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingTop: spacing.sm},
-  backButton: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderRadius: 22, backgroundColor: '#FFFFFF', ...homeShadow},
-  headerTitle: {flex: 1, minWidth: 0, marginHorizontal: 10, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textAlign: 'center'},
-  headerSpacer: {width: 44},
-  content: {paddingHorizontal: spacing.md, paddingTop: spacing.sm},
-  intro: {marginBottom: 4, color: homeColors.textSecondary, fontSize: 13, lineHeight: 19},
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#FAF8FD',
+  },
+
+  backgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+  glowTop: {
+    position: 'absolute',
+    top: -155,
+    right: -125,
+    width: 320,
+    height: 320,
+    borderRadius: 160,
+    backgroundColor: 'rgba(112,82,200,0.055)',
+  },
+  glowMiddle: {
+    position: 'absolute',
+    top: '42%',
+    left: -150,
+    width: 280,
+    height: 280,
+    borderRadius: 140,
+    backgroundColor: 'rgba(163,135,204,0.035)',
+  },
+
+  header: {
+    minHeight: 66,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 13,
+    paddingTop: 5,
+    paddingBottom: 6,
+  },
+  backButton: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 13,
+    backgroundColor: 'rgba(255,255,255,0.94)',
+    shadowColor: '#4B396C',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.05,
+    shadowRadius: 7,
+    elevation: 2,
+  },
+  backButtonPressed: {
+    opacity: 0.72,
+    transform: [{scale: 0.96}],
+  },
+  headerCopy: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 6,
+  },
+  headerTitle: {
+    width: '100%',
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 19,
+    lineHeight: 24,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  headerSubtitle: {
+    maxWidth: '100%',
+    marginTop: 1,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 14,
+    textAlign: 'center',
+  },
+  headerSpacer: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+  },
+
+  content: {
+    paddingHorizontal: 12,
+    paddingTop: 2,
+  },
+
+  introCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 2,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.085)',
+    borderRadius: 17,
+    backgroundColor: 'rgba(255,255,255,0.76)',
+    paddingHorizontal: 11,
+    paddingVertical: 10,
+  },
+  introIcon: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 9,
+    borderRadius: 13,
+    backgroundColor: '#F1EBFA',
+  },
+  introCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  introTitle: {
+    color: homeColors.textPrimary,
+    fontSize: 13,
+    lineHeight: 17,
+    fontWeight: '800',
+  },
+  introText: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 15,
+  },
 
   card: {
-    marginTop: 16,
-    padding: 15,
-    borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    ...homeShadow,
+    marginTop: 10,
+    padding: 11,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.95)',
+    shadowColor: '#493765',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.035,
+    shadowRadius: 8,
+    elevation: 1,
   },
-  sectionHeader: {flex: 1, minWidth: 0, flexDirection: 'row', alignItems: 'center'},
-  sectionIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginRight: 10, borderRadius: 13, backgroundColor: homeColors.lightLavender},
-  sectionCopy: {flex: 1, minWidth: 0},
-  sectionTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 16, fontWeight: '800'},
-  sectionSubtitle: {marginTop: 2, color: homeColors.textSecondary, fontSize: 11},
-  divider: {height: StyleSheet.hairlineWidth, marginVertical: 14, backgroundColor: homeColors.cardBorder},
 
-  toggleRow: {marginTop: 4},
-  toggleHeaderRow: {flexDirection: 'row', alignItems: 'center'},
-  fieldIcon: {width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: homeColors.lightLavender},
-  toggleCopy: {flex: 1, minWidth: 0, marginHorizontal: 11},
-  toggleTitle: {color: homeColors.textPrimary, fontSize: 14.5, fontWeight: '700'},
-  toggleDescription: {marginTop: 2, color: homeColors.textSecondary, fontSize: 11.5, lineHeight: 16},
-  toggleBody: {marginTop: 12, paddingLeft: 47},
-  toggleHint: {marginBottom: 8, color: homeColors.textSecondary, fontSize: 11, fontWeight: '600'},
+  sectionHeader: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 9,
+  },
+  sectionIcon: {
+    width: 33,
+    height: 33,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
+    borderRadius: 11,
+    backgroundColor: '#F2EDFA',
+  },
+  sectionCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  sectionTitle: {
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 15,
+    lineHeight: 19,
+    fontWeight: '800',
+  },
+  sectionSubtitle: {
+    marginTop: 1,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 14,
+  },
 
-  chips: {flexDirection: 'row', flexWrap: 'wrap', gap: 8},
-  chip: {borderWidth: 1, borderColor: homeColors.cardBorder, borderRadius: 14, backgroundColor: homeColors.lightLavender, paddingHorizontal: 12, paddingVertical: 9},
-  chipActive: {borderColor: homeColors.primary, backgroundColor: homeColors.primary},
-  chipText: {color: homeColors.textSecondary, fontSize: 12, fontWeight: '700'},
-  chipTextActive: {color: '#FFFFFF'},
+  divider: {
+    height: 7,
+    backgroundColor: 'transparent',
+  },
 
-  cardFootnote: {marginTop: 14, color: homeColors.textSecondary, fontSize: 10.5, lineHeight: 15},
+  toggleRow: {
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.075)',
+    borderRadius: 14,
+    backgroundColor: '#FDFBFE',
+    paddingHorizontal: 9,
+    paddingVertical: 9,
+  },
+  toggleHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  fieldIcon: {
+    width: 31,
+    height: 31,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#F1EBFA',
+  },
+  toggleCopy: {
+    flex: 1,
+    minWidth: 0,
+    marginHorizontal: 8,
+  },
+  toggleTitle: {
+    color: homeColors.textPrimary,
+    fontSize: 13,
+    lineHeight: 17,
+    fontWeight: '700',
+  },
+  toggleDescription: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 14,
+  },
+  toggleBody: {
+    marginTop: 8,
+    paddingLeft: 39,
+  },
+  toggleHint: {
+    marginBottom: 6,
+    color: homeColors.textSecondary,
+    fontSize: 12,
+    fontWeight: '700',
+  },
 
-  subsectionHeaderRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  subsectionSpacing: {marginTop: 18},
-  subsectionTitle: {flex: 1, minWidth: 0, color: homeColors.textPrimary, fontSize: 13.5, fontWeight: '800'},
-  addChip: {width: 30, height: 30, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: homeColors.lightLavender},
+  chips: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 5,
+  },
+  chip: {
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 10,
+    backgroundColor: '#F4F0F9',
+    paddingHorizontal: 9,
+    paddingVertical: 6,
+  },
+  chipActive: {
+    borderColor: homeColors.primary,
+    backgroundColor: homeColors.primary,
+  },
+  chipText: {
+    color: homeColors.textSecondary,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  chipTextActive: {
+    color: '#FFFFFF',
+  },
 
-  emptyText: {marginTop: 10, color: homeColors.textSecondary, fontSize: 12},
+  cardFootnote: {
+    marginTop: 9,
+    color: '#8C8498',
+    fontSize: 10,
+    lineHeight: 14,
+  },
 
-  list: {marginTop: 10, gap: 8},
-  listRow: {flexDirection: 'row', alignItems: 'center', gap: 9, borderWidth: 1, borderColor: homeColors.cardBorder, borderRadius: 16, backgroundColor: '#FFFFFF', paddingHorizontal: 11, paddingVertical: 10},
-  rowIcon: {width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: homeColors.lightLavender},
-  rowCopy: {flex: 1, minWidth: 0},
-  rowTitle: {color: homeColors.textPrimary, fontSize: 13, fontWeight: '700'},
-  rowMeta: {marginTop: 2, color: homeColors.textSecondary, fontSize: 10.5},
-  rowDelete: {width: 30, height: 30, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 15, backgroundColor: '#FBEEF0'},
-  pressed: {opacity: 0.85},
+  subsectionHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  subsectionSpacing: {
+    marginTop: 13,
+    paddingTop: 12,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(109,74,232,0.09)',
+  },
+  subsectionTitle: {
+    flex: 1,
+    minWidth: 0,
+    color: homeColors.textPrimary,
+    fontSize: 12.5,
+    lineHeight: 16,
+    fontWeight: '800',
+  },
+  addChip: {
+    width: 27,
+    height: 27,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 9,
+    backgroundColor: '#F1EBFA',
+  },
 
-  field: {flexDirection: 'row', alignItems: 'center', gap: 11, minHeight: 56, marginTop: 10, borderWidth: 1.4, borderColor: homeColors.cardBorder, borderRadius: homeRadii.button, backgroundColor: '#FFFFFF', paddingHorizontal: 13},
-  fieldActive: {borderColor: homeColors.primary},
-  fieldCopy: {flex: 1, minWidth: 0},
-  fieldLabel: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
-  fieldValue: {marginTop: 2, color: homeColors.textPrimary, fontSize: 14, fontWeight: '700'},
-  staticValue: {marginTop: 4, marginBottom: 2, color: homeColors.textPrimary, fontSize: 13.5, fontWeight: '700'},
+  emptyText: {
+    marginTop: 7,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 14,
+  },
 
-  textFieldWrap: {marginTop: 14},
-  textInput: {minHeight: 50, marginTop: 7, borderWidth: 1.4, borderColor: homeColors.cardBorder, borderRadius: homeRadii.button, backgroundColor: '#FFFFFF', paddingHorizontal: 15, color: homeColors.textPrimary, fontSize: 14},
-  textInputMultiline: {minHeight: 84, paddingTop: 12, textAlignVertical: 'top'},
+  list: {
+    marginTop: 7,
+    gap: 6,
+  },
+  listRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.075)',
+    borderRadius: 13,
+    backgroundColor: '#FDFBFE',
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+  },
+  rowIcon: {
+    width: 30,
+    height: 30,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#F1EBFA',
+  },
+  rowCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  rowTitle: {
+    color: homeColors.textPrimary,
+    fontSize: 12,
+    lineHeight: 15,
+    fontWeight: '700',
+  },
+  rowMeta: {
+    marginTop: 1,
+    color: homeColors.textSecondary,
+    fontSize: 9.5,
+    lineHeight: 12,
+  },
+  rowDelete: {
+    width: 27,
+    height: 27,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 9,
+    backgroundColor: '#FCEFF1',
+  },
 
-  clearLink: {marginTop: 10, alignSelf: 'flex-start'},
-  clearLinkText: {color: homeColors.primary, fontSize: 12, fontWeight: '700'},
+  pressed: {
+    opacity: 0.82,
+  },
 
-  modalOverlay: {flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(29,20,45,0.45)'},
-  modalCard: {maxHeight: '88%', padding: 20, borderTopLeftRadius: 28, borderTopRightRadius: 28, backgroundColor: '#FFFFFF'},
-  modalTitle: {marginBottom: 4, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 18, fontWeight: '800'},
-  modalActionsRow: {flexDirection: 'row', gap: 8, marginTop: 20, marginBottom: 8},
+  field: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    minHeight: 47,
+    marginTop: 7,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 13,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 9,
+  },
+  fieldActive: {
+    borderColor: homeColors.primary,
+  },
+  fieldCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  fieldLabel: {
+    color: homeColors.textSecondary,
+    fontSize: 10,
+    fontWeight: '600',
+  },
+  fieldValue: {
+    marginTop: 1,
+    color: homeColors.textPrimary,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  staticValue: {
+    marginTop: 3,
+    marginBottom: 1,
+    color: homeColors.textPrimary,
+    fontSize: 12,
+    fontWeight: '700',
+  },
 
-  deleteButton: {minHeight: 50, paddingHorizontal: 16, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button, borderWidth: 1.4, borderColor: '#E9C7CC', backgroundColor: '#FBEEF0'},
-  deleteButtonText: {color: '#A8505A', fontSize: 13.5, fontWeight: '700'},
-  cancelButton: {flex: 1, minHeight: 50, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button, borderWidth: 1.4, borderColor: homeColors.cardBorder, backgroundColor: '#FFFFFF'},
-  cancelButtonText: {color: homeColors.textSecondary, fontSize: 14, fontWeight: '700'},
-  saveButton: {flex: 1, minHeight: 50, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button, backgroundColor: homeColors.primary},
-  saveButtonDisabled: {opacity: 0.45},
-  saveButtonText: {color: '#FFFFFF', fontSize: 14, fontWeight: '700'},
-});
+  textFieldWrap: {
+    marginTop: 10,
+  },
+  textInput: {
+    minHeight: 45,
+    marginTop: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 13,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 11,
+    color: homeColors.textPrimary,
+    fontSize: 12,
+  },
+  textInputMultiline: {
+    minHeight: 72,
+    paddingTop: 9,
+    textAlignVertical: 'top',
+  },
+
+  clearLink: {
+    marginTop: 8,
+    alignSelf: 'flex-start',
+  },
+  clearLinkText: {
+    color: homeColors.primary,
+    fontSize: 10.5,
+    fontWeight: '700',
+  },
+
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(29,20,45,0.36)',
+  },
+  modalCard: {
+    maxHeight: '88%',
+    padding: 16,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    backgroundColor: '#FFFFFF',
+  },
+  modalTitle: {
+    marginBottom: 3,
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 17,
+    fontWeight: '800',
+  },
+  modalActionsRow: {
+    flexDirection: 'row',
+    gap: 7,
+    marginTop: 15,
+    marginBottom: 6,
+  },
+
+  deleteButton: {
+    minHeight: 44,
+    paddingHorizontal: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: '#E9C7CC',
+    backgroundColor: '#FBEEF0',
+  },
+  deleteButtonText: {
+    color: '#A8505A',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  cancelButton: {
+    flex: 1,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 13,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    backgroundColor: '#FFFFFF',
+  },
+  cancelButtonText: {
+    color: homeColors.textSecondary,
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  saveButton: {
+    flex: 1,
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 13,
+    backgroundColor: homeColors.primary,
+  },
+  saveButtonDisabled: {
+    opacity: 0.45,
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+})
 
 export default PregnancyNotificationsScreen;

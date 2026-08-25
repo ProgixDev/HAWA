@@ -18,10 +18,11 @@ import LinearGradient from 'react-native-linear-gradient';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {
-  getPregnancyReminderPreferences,
-  setPregnancyReminderPreferences,
-  type PregnancyReminderPreferences,
-} from '../../state/pregnancyPreferences';
+  getPregnancyNotificationSettings,
+  hydratePregnancyNotificationSettings,
+  setPregnancyNotificationSettings,
+} from '../../state/pregnancyNotificationSettingsStore';
+import {resyncAllPregnancyNotifications} from '../../utils/pregnancyReminderScheduling';
 
 const PURPLE = '#6949BE';
 const TRACK_ON = '#6949BE';
@@ -32,7 +33,14 @@ type Props = NativeStackScreenProps<
   'PregnancyReminders'
 >;
 
-type ReminderKey = keyof PregnancyReminderPreferences;
+// These 3 keys are THE canonical toggles — same fields
+// pregnancyNotificationSettingsStore.ts already defines and
+// pregnancyReminderScheduling.ts already schedules from. This onboarding
+// screen no longer maintains its own disconnected boolean state: enabling
+// "Journal quotidien" here uses the store's own existing default time
+// (dailyJournalTime, already '20:00' unless she later picks another time in
+// "Notifications & rappels") — never an invented one.
+type ReminderKey = 'appointmentsEnabled' | 'examsEnabled' | 'dailyJournalEnabled';
 
 type OptionConfig = {
   id: ReminderKey;
@@ -45,28 +53,22 @@ type OptionConfig = {
 
 const OPTIONS: OptionConfig[] = [
   {
-    id: 'appointments',
+    id: 'appointmentsEnabled',
     icon: 'calendar-month-outline',
     label: 'Rendez-vous médicaux',
     description: 'Rappels pour vos rendez-vous médicaux.',
   },
   {
-    id: 'exams',
+    id: 'examsEnabled',
     icon: 'clipboard-pulse-outline',
     label: 'Examens',
     description: 'Rappels pour vos examens à réaliser.',
   },
   {
-    id: 'dailyJournal',
+    id: 'dailyJournalEnabled',
     icon: 'notebook-edit-outline',
     label: 'Journal quotidien',
     description: 'Rappel pour compléter votre suivi du jour.',
-  },
-  {
-    id: 'customReminders',
-    icon: 'bell-plus-outline',
-    label: 'Rappels personnalisés',
-    description: 'Créez vos propres rappels selon vos besoins.',
   },
 ];
 
@@ -162,10 +164,36 @@ function PregnancyRemindersScreen({
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
-  const [preferences, setPreferences] =
-    useState<PregnancyReminderPreferences>(
-      () => getPregnancyReminderPreferences(),
-    );
+  // Reads the REAL canonical Pregnancy notification settings — same store
+  // PregnancyNotificationsScreen.tsx and pregnancyReminderScheduling.ts
+  // already use — so this onboarding screen can no longer drift from what
+  // actually gets scheduled. Re-hydrated below in case App.tsx's own
+  // boot-time hydrate hasn't resolved yet by the time onboarding reaches
+  // this screen (same defensive pattern as MenopauseLabTrackingScreen.tsx).
+  const [preferences, setPreferences] = useState<Record<ReminderKey, boolean>>(() => {
+    const settings = getPregnancyNotificationSettings();
+    return {
+      appointmentsEnabled: settings.appointmentsEnabled,
+      examsEnabled: settings.examsEnabled,
+      dailyJournalEnabled: settings.dailyJournalEnabled,
+    };
+  });
+
+  useEffect(() => {
+    let active = true;
+    hydratePregnancyNotificationSettings().then(settings => {
+      if (active) {
+        setPreferences({
+          appointmentsEnabled: settings.appointmentsEnabled,
+          examsEnabled: settings.examsEnabled,
+          dailyJournalEnabled: settings.dailyJournalEnabled,
+        });
+      }
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const headerAnim = useRef(
     new Animated.Value(0),
@@ -224,9 +252,17 @@ function PregnancyRemindersScreen({
   };
 
   const handleFinish = async () => {
-    await setPregnancyReminderPreferences(
-      preferences,
-    );
+    // Merge onto the CURRENT real settings (never overwrite fields this
+    // screen doesn't own, like weeklyUpdateEnabled/dailyJournalTime/reminder
+    // offsets) and resync through the existing scheduling architecture —
+    // same two calls PregnancyNotificationsScreen.tsx already makes after
+    // its own save, never a second scheduling path.
+    const current = getPregnancyNotificationSettings();
+    await setPregnancyNotificationSettings({
+      ...current,
+      ...preferences,
+    });
+    resyncAllPregnancyNotifications();
 
     navigation.navigate(
       'SecuritySetup',
@@ -387,6 +423,30 @@ function PregnancyRemindersScreen({
                 />
               ),
             )}
+
+            {/* "Rappels personnalisés" isn't a global on/off switch in the
+                real architecture — pregnancyCustomRemindersStore.ts models
+                it as individually-created reminder entries, not a single
+                boolean. Rather than persist a fake flag nothing reads, this
+                links straight to where those entries are actually created:
+                the same "Notifications & rappels" screen
+                PregnancyNotificationsScreen.tsx already provides. */}
+            <Pressable
+              accessibilityLabel="Rappels personnalisés"
+              accessibilityRole="button"
+              onPress={() => navigation.navigate('PregnancyNotifications')}
+              style={({pressed}) => [styles.row, pressed && styles.pressed]}>
+              <View style={styles.iconBox}>
+                <MaterialDesignIcons color={PURPLE} name="bell-plus-outline" size={19} />
+              </View>
+              <View style={styles.rowCopy}>
+                <Text style={styles.rowLabel}>Rappels personnalisés</Text>
+                <Text style={styles.rowDescription}>
+                  Créez vos propres rappels dans Notifications &amp; rappels.
+                </Text>
+              </View>
+              <MaterialDesignIcons color="#8A7EA8" name="chevron-right" size={20} />
+            </Pressable>
           </View>
 
           {/* INFO CARD */}

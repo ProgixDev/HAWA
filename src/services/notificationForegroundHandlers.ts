@@ -12,6 +12,10 @@ import {
   openPendingConceptionReminderNotification,
   storePendingConceptionReminderNotification,
 } from './conceptionReminderNotificationNavigation';
+import {
+  openPendingMenopauseReminderNotification,
+  storePendingMenopauseReminderNotification,
+} from './menopauseReminderNotificationNavigation';
 
 let registered = false;
 
@@ -30,8 +34,10 @@ export function registerNotificationForegroundHandlers(): void {
       await markDeliveredInAppNotificationRead(detail.notification);
       await storePendingPostpartumNifasNotification(detail.notification);
       await storePendingConceptionReminderNotification(detail.notification);
+      await storePendingMenopauseReminderNotification(detail.notification);
       await openPendingPostpartumNifasNotification();
       await openPendingConceptionReminderNotification();
+      await openPendingMenopauseReminderNotification();
     }
   });
   notifee.getInitialNotification().then(async initial => {
@@ -41,5 +47,6 @@ export function registerNotificationForegroundHandlers(): void {
     await markDeliveredInAppNotificationRead(initial.notification);
     await storePendingPostpartumNifasNotification(initial.notification);
     await storePendingConceptionReminderNotification(initial.notification);
+    await storePendingMenopauseReminderNotification(initial.notification);
   });
 }
