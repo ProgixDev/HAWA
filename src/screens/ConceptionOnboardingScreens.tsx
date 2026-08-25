@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
@@ -564,13 +564,27 @@ export function ConceptionIndicatorsScreen({
  * 4 — REMINDERS
  * ============================================================ */
 
+type RemindersProps = NativeStackScreenProps<RootStackParamList, 'ConceptionReminders'>;
+
 export function ConceptionRemindersScreen({
   navigation,
   route,
-}: Props) {
+}: RemindersProps) {
+  // Same canonical conceptionPreferences.ts store regardless of mode — this
+  // is what makes onboarding and Profile → Notifications & rappels literally
+  // the same setting rather than two disconnected copies (see
+  // conceptionReminderScheduling.ts, the sole scheduler, which already reads
+  // this exact store). Reached with {mode:'edit'} from ProfileScreen.tsx and
+  // SummaryScreen.tsx; defaults to 'onboarding' for the real onboarding flow,
+  // whose behavior below is unchanged.
+  const mode = route.params?.mode ?? 'onboarding';
+  const isEdit = mode === 'edit';
+  const insets = useSafeAreaInsets();
+
   const [values, setValues] = useState(
     () => getConceptionPreferences().reminders,
   );
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     hydrateConceptionPreferences().then(value => {
@@ -588,16 +602,101 @@ export function ConceptionRemindersScreen({
     }));
   };
 
+  // Shared by both modes: switches only ever change local draft state
+  // (`values`) — nothing is written to conceptionPreferences.ts until this
+  // commits it in one call, exactly like the onboarding flow already did
+  // before this screen supported edit mode. Only the post-save navigation
+  // differs.
+  const handleSave = async () => {
+    if (saving) {return;}
+    setSaving(true);
+    try {
+      await setConceptionPreferences({
+        reminders: values,
+      });
+
+      if (isEdit) {
+        navigation.goBack();
+      } else {
+        navigation.navigate('SecuritySetup');
+      }
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Profile → Santé générale → Notifications & rappels gets a distinct,
+  // sober settings-style presentation (same visual language as
+  // PrivacySecurityScreen.tsx: flat background, compact header, one card
+  // with SafeAreaView-aware switch rows) — NOT the premium onboarding Shell
+  // below, which stays completely untouched for the real onboarding flow.
+  if (isEdit) {
+    return (
+      <SafeAreaView edges={['left', 'right']} style={editStyles.safe}>
+        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <ScrollView
+          contentContainerStyle={[
+            editStyles.content,
+            {paddingTop: Math.max(insets.top, 18) + 8, paddingBottom: Math.max(insets.bottom, 18) + 25},
+          ]}
+          showsVerticalScrollIndicator={false}>
+          <View style={editStyles.header}>
+            <Pressable
+              accessibilityLabel="Retour"
+              accessibilityRole="button"
+              hitSlop={10}
+              onPress={navigation.goBack}
+              style={({pressed}) => [editStyles.back, pressed && editStyles.pressed]}>
+              <MaterialDesignIcons color={COLORS.primary} name="chevron-left" size={26} />
+            </Pressable>
+            <View style={editStyles.headerCopy}>
+              <Text style={editStyles.title}>Notifications &amp; rappels</Text>
+              <Text style={editStyles.subtitle}>
+                Choisis les rappels qui t’accompagnent dans ton projet de conception.
+              </Text>
+            </View>
+          </View>
+
+          <View style={editStyles.card}>
+            {reminderOptions.map((item, index) => (
+              <View
+                key={item.id}
+                style={[editStyles.row, index < reminderOptions.length - 1 && editStyles.rowBorder]}>
+                <View style={[editStyles.rowIcon, {backgroundColor: item.background}]}>
+                  <MaterialDesignIcons color={item.accent} name={item.icon} size={18} />
+                </View>
+                <View style={editStyles.rowCopy}>
+                  <Text style={editStyles.rowTitle}>{item.label}</Text>
+                  <Text style={editStyles.rowSubtitle}>{item.description}</Text>
+                </View>
+                <Switch
+                  accessibilityLabel={item.label}
+                  ios_backgroundColor="#DED9E7"
+                  onValueChange={value => toggleReminder(item.id, value)}
+                  thumbColor="#FFFFFF"
+                  trackColor={{false: '#DED9E7', true: COLORS.primary}}
+                  value={values[item.id]}
+                />
+              </View>
+            ))}
+          </View>
+
+          <Pressable
+            accessibilityRole="button"
+            disabled={saving}
+            onPress={handleSave}
+            style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
+            <Text style={editStyles.saveButtonText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+          </Pressable>
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <Shell
       navigation={navigation}
-      onNext={async () => {
-        await setConceptionPreferences({
-          reminders: values,
-        });
-
-        navigation.navigate('SecuritySetup');
-      }}
+      onNext={handleSave}
       route={route}
       step={4}
       subtitle="Choisis seulement les rappels qui te sont vraiment utiles."
@@ -881,6 +980,50 @@ function Info({
     </View>
   );
 }
+
+/* ============================================================
+ * EDIT-MODE STYLES — ConceptionRemindersScreen's Profile presentation only.
+ * Deliberately separate from `styles` below (the onboarding Shell's styles,
+ * shared with the other 3 onboarding screens in this file) so neither can
+ * ever accidentally affect the other. Modeled on PrivacySecurityScreen.tsx's
+ * own sober settings-card language (flat background, compact header, one
+ * card with switch rows) — the established "Profile settings screen"
+ * convention, not the premium onboarding-card gradient used elsewhere.
+ * ============================================================ */
+
+const editStyles = StyleSheet.create({
+  safe: {flex: 1, backgroundColor: '#FCFAFF'},
+  content: {flexGrow: 1, paddingHorizontal: 16},
+  pressed: {opacity: 0.82},
+
+  header: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18},
+  back: {
+    alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+    width: 40, height: 40, borderRadius: 20, backgroundColor: '#FFFFFF',
+    elevation: 2, shadowColor: COLORS.primaryDark, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 6,
+  },
+  headerCopy: {flex: 1, minWidth: 0, marginLeft: 12, paddingTop: 6},
+  title: {color: COLORS.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
+  subtitle: {marginTop: 5, color: COLORS.textSecondary, fontSize: 12.5, lineHeight: 17},
+
+  card: {
+    overflow: 'hidden', borderWidth: 1, borderColor: COLORS.border, borderRadius: 20,
+    backgroundColor: '#FFFFFF', paddingHorizontal: 12,
+  },
+  row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
+  rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#EEE7F5'},
+  rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
+  rowCopy: {flex: 1, minWidth: 0},
+  rowTitle: {color: COLORS.text, fontSize: 13.5, fontWeight: '700'},
+  rowSubtitle: {marginTop: 3, color: COLORS.textSecondary, fontSize: 11.5, lineHeight: 15.5},
+
+  saveButton: {
+    minHeight: 54, alignItems: 'center', justifyContent: 'center', marginTop: 18,
+    borderRadius: 18, backgroundColor: COLORS.primary,
+    shadowColor: COLORS.primaryDark, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4,
+  },
+  saveButtonText: {color: '#FFFFFF', fontSize: 15.5, fontWeight: '800'},
+});
 
 /* ============================================================
  * STYLES
