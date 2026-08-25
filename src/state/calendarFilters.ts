@@ -1,5 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Temperature/Poids were removed from the Cycle Calendar's markers/filters/
+// legend/selected-day presentation (they remain fully available in Journal
+// quotidien/Suivi du jour and the dedicated entry screens — this is a
+// presentation-scope removal only, no data was touched). Do not re-add
+// 'temperature'/'weight' here without also wiring a real day-cell marker
+// for them — the app currently has none (see DayJournalFlags in
+// MonthCalendarCard.tsx), so the filter would control nothing.
 export type CalendarFilterKey =
   | 'rules'
   | 'symptoms'
@@ -8,8 +15,6 @@ export type CalendarFilterKey =
   | 'activity'
   | 'sleep'
   | 'hydration'
-  | 'temperature'
-  | 'weight'
   | 'intimacy';
 
 export type CalendarFilters = Record<CalendarFilterKey, boolean>;
@@ -24,8 +29,6 @@ export const DEFAULT_CALENDAR_FILTERS: CalendarFilters = {
   activity: true,
   sleep: true,
   hydration: true,
-  temperature: true,
-  weight: true,
   intimacy: true,
 };
 

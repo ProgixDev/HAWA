@@ -95,22 +95,10 @@ function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
           : 'Non renseigné',
     },
     {
-      key: 'temperature',
-      icon: 'thermometer',
-      label: 'Température',
-      value: entry?.temperature ? `${entry.temperature.value} °${entry.temperature.unit}` : 'Non renseignée',
-    },
-    {
       key: 'hydration',
       icon: 'cup-water',
       label: 'Hydratation',
       value: entry?.hydration ? `${(entry.hydration.milliliters / 1000).toFixed(1).replace('.', ',')} L` : 'Non renseignée',
-    },
-    {
-      key: 'weight',
-      icon: 'scale-bathroom',
-      label: 'Poids',
-      value: entry?.weight?.value ? `${entry.weight.value} ${entry.weight.unit}` : 'Non renseigné',
     },
     {
       key: 'intimacy',

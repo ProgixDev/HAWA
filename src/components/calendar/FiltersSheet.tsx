@@ -29,8 +29,6 @@ const OPTIONS: FilterOption[] = [
   {key: 'activity', icon: 'run', label: 'Activité'},
   {key: 'sleep', icon: 'weather-night', label: 'Sommeil'},
   {key: 'hydration', icon: 'cup-water', label: 'Hydratation'},
-  {key: 'temperature', icon: 'thermometer', label: 'Température'},
-  {key: 'weight', icon: 'scale-bathroom', label: 'Poids'},
   {key: 'intimacy', icon: 'shield-lock-outline', label: 'Vie intime'},
 ];
 
