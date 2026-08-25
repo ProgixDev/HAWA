@@ -2029,74 +2029,6 @@ function ContraceptionDashboard({
           </View>
 
           {/* ===========================
-              RAPPELS
-          =========================== */}
-
-          <View style={styles.dailyCard}>
-            <View style={styles.dailyHeader}>
-              <View style={styles.dailyHeaderLeft}>
-                <View style={styles.dailyTitleIcon}>
-                  <MaterialDesignIcons
-                    color={PURPLE}
-                    name="bell-outline"
-                    size={19}
-                  />
-                </View>
-
-                <View style={styles.flexOne}>
-                  <Text style={styles.dailyTitle}>
-                    Rappels
-                  </Text>
-
-                  <Text style={styles.dailySubtitle}>
-                    {remindersEnabled ? 'Rappels activés' : 'Rappels désactivés'}
-                  </Text>
-                </View>
-              </View>
-            </View>
-
-            <Pressable
-              accessibilityLabel="Modifier les rappels"
-              accessibilityRole="button"
-              onPress={() =>
-                navigation.navigate(
-                  'ContraceptionReminders',
-                  {
-                    mode: 'edit',
-                  },
-                )
-              }
-              style={({pressed}) => [
-                styles.reminderManageRow,
-                pressed && styles.pressed,
-              ]}>
-              <View style={styles.reminderManageIcon}>
-                <MaterialDesignIcons
-                  color={PURPLE}
-                  name={remindersEnabled ? 'bell-check-outline' : 'bell-off-outline'}
-                  size={17}
-                />
-              </View>
-
-              <View style={styles.reminderManageCopy}>
-                <Text numberOfLines={1} style={styles.reminderManageTitle}>
-                  {reminderContent.cardDescription}
-                </Text>
-
-                <Text style={styles.reminderManageSubtitle}>
-                  Modifier les rappels
-                </Text>
-              </View>
-
-              <MaterialDesignIcons
-                color={PURPLE}
-                name="chevron-right"
-                size={20}
-              />
-            </Pressable>
-          </View>
-
-          {/* ===========================
               HISTORIQUE
           =========================== */}
 
@@ -3470,48 +3402,6 @@ const styles =
 
     dailyValueMuted: {
       color: MUTED,
-    },
-
-    reminderManageRow: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      gap: 9,
-      marginTop: 10,
-      paddingHorizontal: 11,
-      paddingVertical: 9,
-      borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.09)',
-      borderRadius: 15,
-      backgroundColor: '#F8F3FD',
-    },
-
-    reminderManageIcon: {
-      width: 31,
-      height: 31,
-      alignItems: 'center',
-      justifyContent: 'center',
-      flexShrink: 0,
-      borderRadius: 10,
-      backgroundColor: PURPLE_SOFT,
-    },
-
-    reminderManageCopy: {
-      flex: 1,
-      minWidth: 0,
-    },
-
-    reminderManageTitle: {
-      color: PURPLE_DARK,
-      fontSize: 10.5,
-      lineHeight: 14,
-      fontWeight: '900',
-    },
-
-    reminderManageSubtitle: {
-      marginTop: 2,
-      color: MUTED,
-      fontSize: 9.2,
-      lineHeight: 13,
     },
 
 
