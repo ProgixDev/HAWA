@@ -25,6 +25,7 @@ import {
   CONTRACEPTION_METHOD_ICONS,
   CONTRACEPTION_REMINDER_CONTENT,
 } from '../../config/contraceptionLabels';
+import {contraceptionMethodSupportsDailyReminder} from '../../utils/contraceptionReminderScheduling';
 
 // Same 'HH:mm' formatting/parsing convention as
 // PregnancyNotificationsScreen.tsx's dailyJournalTime field — kept local
@@ -77,8 +78,24 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
     : CONTRACEPTION_DEFAULT_REMINDER_CONTENT;
   const illustrationIcon = method ? CONTRACEPTION_METHOD_ICONS[method] : 'pill';
 
+  // 'ring'/'patch' have no daily action to remind about — see
+  // contraceptionReminderScheduling.ts's own comment on why no schedule is
+  // invented for them. Only 'pill'/'other' (and the no-method-yet default)
+  // get the enable/time controls, so this screen never promises a reminder
+  // the scheduler wouldn't actually set.
+  const supportsDailyReminder = contraceptionMethodSupportsDailyReminder(method) || method === null;
+
   const handleFinish = async () => {
     if (saving) {return;}
+    if (!supportsDailyReminder) {
+      // Nothing editable for this method — just leave.
+      if (isEdit) {
+        navigation.goBack();
+      } else {
+        navigation.navigate('SecuritySetup');
+      }
+      return;
+    }
     // Never persist "enabled" without a real, user-chosen time — no
     // fallback hour is invented here; she must explicitly pick one.
     if (enabled && !reminderTime) {
@@ -162,69 +179,89 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
             </View>
           </View>
 
-          <View style={styles.toggleRow}>
-            <Text style={styles.toggleLabel}>Activer les rappels</Text>
-            <Switch
-              ios_backgroundColor="#D9CDEC"
-              onValueChange={value => {
-                setEnabled(value);
-                setError('');
-              }}
-              thumbColor="#FFFFFF"
-              trackColor={{false: '#D9CDEC', true: PURPLE}}
-              value={enabled}
-            />
-          </View>
-
-          {enabled ? (
-            <Pressable
-              accessibilityLabel={reminderTime ? `Heure du rappel, ${reminderTime}` : 'Choisir une heure de rappel'}
-              accessibilityRole="button"
-              onPress={() => setTimePickerVisible(true)}
-              style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
-              <View style={styles.timeIconBox}>
-                <MaterialDesignIcons color={PURPLE} name="clock-outline" size={18} />
+          {supportsDailyReminder ? (
+            <>
+              <View style={styles.toggleRow}>
+                <Text style={styles.toggleLabel}>Activer les rappels</Text>
+                <Switch
+                  ios_backgroundColor="#D9CDEC"
+                  onValueChange={value => {
+                    setEnabled(value);
+                    setError('');
+                  }}
+                  thumbColor="#FFFFFF"
+                  trackColor={{false: '#D9CDEC', true: PURPLE}}
+                  value={enabled}
+                />
               </View>
-              <View style={styles.timeCopy}>
-                <Text style={styles.timeLabel}>Heure du rappel</Text>
-                <Text style={reminderTime ? styles.timeValue : styles.timeValuePlaceholder}>
-                  {reminderTime ?? 'Choisir une heure'}
-                </Text>
+
+              {enabled ? (
+                <Pressable
+                  accessibilityLabel={reminderTime ? `Heure du rappel, ${reminderTime}` : 'Choisir une heure de rappel'}
+                  accessibilityRole="button"
+                  onPress={() => setTimePickerVisible(true)}
+                  style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
+                  <View style={styles.timeIconBox}>
+                    <MaterialDesignIcons color={PURPLE} name="clock-outline" size={18} />
+                  </View>
+                  <View style={styles.timeCopy}>
+                    <Text style={styles.timeLabel}>Heure du rappel</Text>
+                    <Text style={reminderTime ? styles.timeValue : styles.timeValuePlaceholder}>
+                      {reminderTime ?? 'Choisir une heure'}
+                    </Text>
+                  </View>
+                  <MaterialDesignIcons color="#8A7EA8" name="chevron-right" size={20} />
+                </Pressable>
+              ) : null}
+
+              {timePickerVisible ? (
+                <DateTimePicker
+                  display="default"
+                  mode="time"
+                  onValueChange={(_event: DateTimePickerChangeEvent, selected?: Date) => {
+                    setTimePickerVisible(false);
+                    if (selected) {
+                      setReminderTime(formatTimeValue(selected));
+                      setError('');
+                    }
+                  }}
+                  value={reminderTime ? parseTimeToDate(reminderTime) : new Date()}
+                />
+              ) : null}
+
+              {error ? (
+                <View accessibilityRole="alert" style={styles.errorCard}>
+                  <MaterialDesignIcons color="#C74669" name="alert-outline" size={16} />
+                  <Text style={styles.errorText}>{error}</Text>
+                </View>
+              ) : null}
+            </>
+          ) : (
+            // Ring/patch: no daily action to schedule a reminder for, and no
+            // predicted next-change date exists anywhere in the app (see
+            // contraceptionReminderScheduling.ts) — an honest message
+            // instead of a switch that would silently do nothing.
+            <View style={styles.info}>
+              <View style={styles.infoIconBox}>
+                <MaterialDesignIcons color={PURPLE} name="information-outline" size={18} />
               </View>
-              <MaterialDesignIcons color="#8A7EA8" name="chevron-right" size={20} />
-            </Pressable>
-          ) : null}
+              <Text style={styles.infoText}>
+                Les rappels programmés ne sont pas encore disponibles pour cette méthode. Tu peux
+                enregistrer tes utilisations directement depuis le tableau de bord.
+              </Text>
+            </View>
+          )}
 
-          {timePickerVisible ? (
-            <DateTimePicker
-              display="default"
-              mode="time"
-              onValueChange={(_event: DateTimePickerChangeEvent, selected?: Date) => {
-                setTimePickerVisible(false);
-                if (selected) {
-                  setReminderTime(formatTimeValue(selected));
-                  setError('');
-                }
-              }}
-              value={reminderTime ? parseTimeToDate(reminderTime) : new Date()}
-            />
-          ) : null}
-
-          {error ? (
-            <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color="#C74669" name="alert-outline" size={16} />
-              <Text style={styles.errorText}>{error}</Text>
+          {supportsDailyReminder ? (
+            <View style={styles.info}>
+              <View style={styles.infoIconBox}>
+                <MaterialDesignIcons color={PURPLE} name="information-outline" size={18} />
+              </View>
+              <Text style={styles.infoText}>
+                Tu pourras modifier ce réglage à tout moment dans les paramètres.
+              </Text>
             </View>
           ) : null}
-
-          <View style={styles.info}>
-            <View style={styles.infoIconBox}>
-              <MaterialDesignIcons color={PURPLE} name="information-outline" size={18} />
-            </View>
-            <Text style={styles.infoText}>
-              Tu pourras modifier ce réglage à tout moment dans les paramètres.
-            </Text>
-          </View>
 
           <View pointerEvents="none" style={styles.illustrationRow}>
             <View style={[styles.illustrationBadge, styles.illustrationBadgeBack]}>
