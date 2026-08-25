@@ -43,7 +43,7 @@ export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfir
   menopause: {
     title: 'Parfait ! 🎉',
     description: 'Tu as choisi un suivi adapté à la ménopause.',
-    nextStep: 'Tu pourras suivre ton bien-être, tes symptômes\net les changements que tu observes au quotidien.',
+    nextStep: 'Tu pourras suivre ton bien-être, tes symptômes et les changements que \ntu observes au quotidien.',
     buttonLabel: 'Commencer mon suivi',
   },
   pregnancy: {
@@ -61,7 +61,7 @@ export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfir
   loss: {
     title: 'Ton suivi est prêt',
     description: 'Tu as choisi un suivi après une fausse couche.',
-    nextStep: 'Nous allons adapter ton espace de suivi\nà ta récupération et à ton bien-être.',
+    nextStep: 'Nous allons adapter ton espace de suivi à ta récupération et à ton bien-être.',
     buttonLabel: 'Commencer mon suivi',
   },
 };

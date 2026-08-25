@@ -27,7 +27,7 @@ const objectives: Objective[] = [
   {id: 'conceive', icon: '💗', label: 'Essayer de concevoir', tint: '#FBE8E8'},
   {id: 'contraception', icon: '💊', label: 'Contraception', tint: '#F1E8F5'},
   {id: 'irregular', icon: '🪷', label: 'Cycles irréguliers (SOPK)', tint: '#FBE9E7'},
-  {id: 'menopause', icon: '👤', label: 'Post-ménopause / Ménopause', tint: '#EFE7F4'},
+  {id: 'menopause', icon: '👤', label: 'périménopause / Ménopause', tint: '#EFE7F4'},
   {id: 'pregnancy', icon: '🤰', label: 'Suivi de grossesse', tint: '#FBE9EB'},
   {id: 'postpartum', icon: '🍼', label: 'Post-partum', tint: '#E8F1E9'},
   {id: 'loss', icon: '☁️', label: 'Après une fausse couche', tint: '#EDF2E9'},
