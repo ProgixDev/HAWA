@@ -169,6 +169,13 @@ const occurrenceIdFor = (
  * CONTENT
  * ============================================================ */
 
+// Wording reuses the same "repère/référence retenu(e) par AWA" vocabulary
+// already validated in the Nifas educational article
+// (NifasFiqhArticleScreen.tsx: "40 jours est une référence fréquemment
+// retenue, sans être présentée comme une règle universelle par AWA" /
+// callout "Repère souvent utilisé") — never presenting the 40-day figure as
+// an absolute universal ruling, and never issuing an unconditional command
+// where the app itself documents jurisprudential divergence.
 const internalContent = (
   type: ReminderType,
 ) =>
@@ -176,12 +183,12 @@ const internalContent = (
     ? {
         title: 'Repère du nifâs à venir',
         message:
-          'Le seuil des 40 jours approche.',
+          'Le repère des 40 jours retenu par AWA approche.',
       }
     : {
-        title: 'Les 40 jours de nifâs sont terminés',
+        title: 'Le repère des 40 jours retenu par AWA est atteint',
         message:
-          'Reprends tes prières, même si les lochies persistent.',
+          'Selon ce repère, tu peux reprendre tes prières même si des saignements persistent.',
       };
 
 /**
@@ -200,22 +207,22 @@ const notificationTitle = (
   type: ReminderType,
 ): string =>
   type === 'reference'
-    ? 'Les 40 jours de nifâs sont terminés'
+    ? 'Le repère des 40 jours retenu par AWA est atteint'
     : internalContent(type).title;
 
 /**
  * Real Android notification body.
  *
- * The J40/reference body deliberately matches the "resume prayer even if
- * lochies persist" message from the existing Nifas completion popup on
+ * The J40/reference body deliberately matches the (equally reworded)
+ * "selon ce repère" message from the Nifas completion popup on
  * PostpartumDashboard, just shortened for a notification — the popup
- * itself is untouched and remains the detailed explanation.
+ * remains the detailed explanation.
  */
 const notificationBody = (
   type: ReminderType,
 ): string =>
   type === 'reference'
-    ? 'Reprends tes prières, même si les lochies persistent.'
+    ? 'Selon ce repère, tu peux reprendre tes prières même si des saignements persistent.'
     : 'Un repère concernant ton suivi post-partum approche.';
 
 /* ============================================================

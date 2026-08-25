@@ -46,6 +46,16 @@ export type PostpartumPreferences = {
    * lochia bleeding or any other signal — only an explicit user action sets
    * this. */
   firstPostpartumPeriodDate: string | null;
+  /** Optional "Suivi quotidien" reminder onboarding (PostpartumRemindersScreen)
+   * — a separate, user-configurable, recurring health-tracking reminder,
+   * deliberately independent from the automatic religious Nifas J35/J40
+   * reminders (see postpartumNifasReminderStore.ts, never touched by this
+   * field). `dailyTrackingReminderTime` is 'HH:mm' local time, same format
+   * as menopausePreferences.ts's own reminder times — never a second time
+   * format. `null` until the user explicitly picks a time; never a
+   * fabricated default hour. */
+  dailyTrackingReminderEnabled: boolean;
+  dailyTrackingReminderTime: string | null;
 };
 
 const STORAGE_KEY = '@hawa/postpartum-preferences/v1';
@@ -55,6 +65,8 @@ const DEFAULT_PREFERENCES: PostpartumPreferences = {
   deliveryType: null,
   feedingType: null,
   firstPostpartumPeriodDate: null,
+  dailyTrackingReminderEnabled: false,
+  dailyTrackingReminderTime: null,
 };
 
 let postpartumPreferences: PostpartumPreferences = {...DEFAULT_PREFERENCES};
@@ -85,7 +97,12 @@ const isValidPreferences = (value: unknown): value is Partial<PostpartumPreferen
     // Absent on data persisted before this field existed.
     (candidate.firstPostpartumPeriodDate === undefined ||
       candidate.firstPostpartumPeriodDate === null ||
-      typeof candidate.firstPostpartumPeriodDate === 'string')
+      typeof candidate.firstPostpartumPeriodDate === 'string') &&
+    // Absent on data persisted before these fields existed.
+    (candidate.dailyTrackingReminderEnabled === undefined || typeof candidate.dailyTrackingReminderEnabled === 'boolean') &&
+    (candidate.dailyTrackingReminderTime === undefined ||
+      candidate.dailyTrackingReminderTime === null ||
+      typeof candidate.dailyTrackingReminderTime === 'string')
   );
 };
 
@@ -136,6 +153,19 @@ export const recordFirstPostpartumPeriod = async (date: Date): Promise<void> => 
     ...postpartumPreferences,
     firstPostpartumPeriodDate: date.toLocaleDateString('en-CA'),
   });
+};
+
+/** THE single canonical way to record the optional "Suivi quotidien" reminder
+ * answer — used by PostpartumRemindersScreen, in BOTH onboarding and Profile
+ * → Santé générale → Notifications & rappels edit mode (and nowhere else; do
+ * not duplicate this call). Never infers a schedule: the time comes only
+ * from what the user explicitly picked on that screen. Completely
+ * independent of the Nifas J35/J40 reminders (postpartumNifasReminderStore.ts). */
+export const setPostpartumDailyTrackingReminder = async (value: {
+  dailyTrackingReminderEnabled: boolean;
+  dailyTrackingReminderTime: string | null;
+}): Promise<void> => {
+  await setPostpartumPreferences({...postpartumPreferences, ...value});
 };
 
 export const hydratePostpartumPreferences = (): Promise<PostpartumPreferences> => {
