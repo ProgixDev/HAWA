@@ -21,6 +21,7 @@ import {
 } from './src/state/onboardingPreferences';
 import { resyncAllPregnancyNotifications } from './src/utils/pregnancyReminderScheduling';
 import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
+import { syncPostpartumDailyTrackingReminder } from './src/utils/postpartumReminderScheduling';
 import { syncConceptionReminders } from './src/utils/conceptionReminderScheduling';
 import { syncQadaaReminderNotification } from './src/utils/qadaaReminderScheduling';
 import {
@@ -47,11 +48,17 @@ import {syncContraceptionReminder} from './src/utils/contraceptionReminderSchedu
 import {hydrateContraceptionIntakeHistory} from './src/state/contraceptionIntakeHistoryStore';
 import {hydrateContraceptionJournal} from './src/state/contraceptionJournalStore';
 import {hydrateContraceptionEvents} from './src/state/contraceptionEventStore';
+import {hydrateMenopausePreferences, subscribeMenopausePreferences} from './src/state/menopausePreferences';
+import {syncMenopauseReminders} from './src/utils/menopauseReminderScheduling';
+import {openPendingMenopauseReminderNotification} from './src/services/menopauseReminderNotificationNavigation';
+import {hydrateCycleReminderPreferences, subscribeCycleReminderPreferences} from './src/state/cycleReminderPreferences';
+import {syncCycleReminders} from './src/utils/cycleReminderScheduling';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
 import {requiresAppLock} from './src/state/securityPreferences';
 import {migrateLegacyPlainNotes} from './src/services/privateNotesEncryption';
+import {initializePremium} from './src/services/purchaseService';
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
@@ -64,6 +71,12 @@ hydrateContraceptionIntakeHistory();
 hydrateContraceptionJournal();
 hydrateContraceptionEvents();
 registerNotificationForegroundHandlers();
+// Premium/subscription status must be known (or explicitly "unknown, still
+// resolving") before any screen renders a Premium gate — never left to the
+// default `initialized: false` indefinitely, so usePremium() consumers can
+// tell "loading" apart from "confirmed free" and avoid a flash of unlocked
+// content that then locks itself. Never throws (see purchaseService.ts).
+initializePremium();
 // One-shot, idempotent, crash-safe migration of legacy plaintext "Notes
 // personnelles" to AES-256-GCM-at-rest — see privateNotesEncryption.ts.
 // Never blocks app startup; a failed/partial sweep is retried next launch.
@@ -102,6 +115,20 @@ subscribeSpiritualMarkersEnabled(syncNifasReminders);
 subscribePostpartumPreferences(syncNifasReminders);
 subscribePostpartumLochia(syncNifasReminders);
 subscribePrivacySecuritySettings(syncNifasReminders);
+
+// Post-partum's optional "Suivi quotidien" reminder — objective-specific like
+// Menopause's own reminders above; syncPostpartumDailyTrackingReminder()
+// itself cancels the notification whenever the active objective isn't
+// 'postpartum' or dailyTrackingReminderEnabled/Time isn't set, so switching
+// away or disabling cleanly clears it and switching back or re-enabling
+// reschedules it. Completely independent from the Nifas reminders above —
+// no shared state, no shared notification ID.
+Promise.all([
+  hydrateActiveObjective(),
+  hydratePostpartumPreferences(),
+]).then(syncPostpartumDailyTrackingReminder);
+subscribeActiveObjective(syncPostpartumDailyTrackingReminder);
+subscribePostpartumPreferences(syncPostpartumDailyTrackingReminder);
 
 // Post-Ramadan Qadaa local reminder — completes the existing in-screen
 // reactive card (FastingQadaaScreen.tsx's shouldShowQadaaReminder()) with a
@@ -154,6 +181,36 @@ Promise.all([
 subscribeActiveObjective(syncContraceptionReminder);
 subscribeContraceptionPreferences(syncContraceptionReminder);
 
+// Menopause's two optional reminders (daily tracking + treatment) —
+// objective-specific like Contraception's above; syncMenopauseReminders()
+// itself cancels both notifications whenever the active objective isn't
+// 'menopause' or the relevant enabled/time preference isn't set, so
+// switching away or disabling cleanly clears them and switching back or
+// re-enabling reschedules them.
+Promise.all([
+  hydrateActiveObjective(),
+  hydrateMenopausePreferences(),
+]).then(syncMenopauseReminders);
+subscribeActiveObjective(syncMenopauseReminders);
+subscribeMenopausePreferences(syncMenopauseReminders);
+
+// Cycle's 5 optional reminders — objective-specific like the others above;
+// syncCycleReminders() itself cancels every one of them whenever the active
+// objective isn't 'cycle', so switching away cleanly clears them and
+// switching back reschedules them. Reuses the SAME subscribeCyclePreferences
+// TTC already subscribes to above — a newly recorded/edited/deleted period,
+// or a changed regularity setting, all funnel through setCyclePreferences()
+// (onboardingPreferences.ts), so this one subscription already covers every
+// case where the cycle prediction could have changed.
+Promise.all([
+  hydrateActiveObjective(),
+  hydrateCyclePreferences(),
+  hydrateCycleReminderPreferences(),
+]).then(syncCycleReminders);
+subscribeActiveObjective(syncCycleReminders);
+subscribeCyclePreferences(syncCycleReminders);
+subscribeCycleReminderPreferences(syncCycleReminders);
+
 function App(): React.JSX.Element {
   const [lockState, setLockState] = React.useState(getAppLockState);
   const [privacyCover, setPrivacyCover] = React.useState(false);
@@ -198,6 +255,7 @@ function App(): React.JSX.Element {
         onReady={() => {
           openPendingPostpartumNifasNotification();
           openPendingConceptionReminderNotification();
+          openPendingMenopauseReminderNotification();
         }}
       />
       {lockState === 'locked' ? <AppLockScreen /> : null}

@@ -23,6 +23,7 @@ import MenopauseJournalEntryScreen from '../screens/menopause/MenopauseJournalEn
 import PostpartumDeliveryDateScreen from '../screens/PostpartumDeliveryDateScreen';
 import PostpartumDeliveryTypeScreen from '../screens/PostpartumDeliveryTypeScreen';
 import PostpartumFeedingScreen from '../screens/PostpartumFeedingScreen';
+import PostpartumRemindersScreen from '../screens/PostpartumRemindersScreen';
 import PostpartumLochiaScreen from '../screens/PostpartumLochiaScreen';
 import PostpartumJournalEntryScreen from '../screens/PostpartumJournalEntryScreen';
 import PostpartumCycleReturnScreen from '../screens/PostpartumCycleReturnScreen';
@@ -34,6 +35,8 @@ import MenopauseStageScreen from '../screens/MenopauseStageScreen';
 import MenopauseSymptomsScreen from '../screens/MenopauseSymptomsScreen';
 import MenopauseHormonalTreatmentScreen from '../screens/MenopauseHormonalTreatmentScreen';
 import MenopauseLabTrackingScreen from '../screens/MenopauseLabTrackingScreen';
+import MenopauseRemindersScreen from '../screens/MenopauseRemindersScreen';
+import CycleRemindersScreen from '../screens/CycleRemindersScreen';
 import MiscarriageJournalEntryScreen from '../screens/MiscarriageJournalEntryScreen';
 import PrivacyScreen from '../screens/PrivacyScreen';
 import SummaryScreen from '../screens/SummaryScreen';
@@ -141,7 +144,7 @@ export type RootStackParamList = {
   ConceptionTryingDuration: undefined;
   ConceptionOvulationAwareness: undefined;
   ConceptionIndicators: undefined;
-  ConceptionReminders: undefined;
+  ConceptionReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   ContraceptionMethod: {mode?: 'onboarding' | 'edit'} | undefined;
   ContraceptionInformation: {mode?: 'onboarding' | 'edit'} | undefined;
   PillSchedule: {mode?: 'onboarding' | 'edit'} | undefined;
@@ -154,6 +157,7 @@ export type RootStackParamList = {
   PostpartumDeliveryDate: undefined;
   PostpartumDeliveryType: undefined;
   PostpartumFeeding: {mode?: 'onboarding' | 'edit'} | undefined;
+  PostpartumReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumLochia: undefined;
   PostpartumJournalEntry: { category: PostpartumJournalCategory };
   PostpartumCycleReturn: undefined;
@@ -165,6 +169,8 @@ export type RootStackParamList = {
   MenopauseSymptoms: undefined;
   MenopauseHormonalTreatment: undefined;
   MenopauseLabTracking: undefined;
+  MenopauseReminders: {mode?: 'onboarding' | 'edit'} | undefined;
+  CycleReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   MiscarriageJournalEntry: { category: MiscarriageJournalCategory };
   ContraceptionJournalEntry: { category: ContraceptionJournalCategory };
   MenopauseJournalEntry: { category: MenopauseJournalCategory };
@@ -297,6 +303,10 @@ function AppNavigator({
           component={PostpartumFeedingScreen}
         />
         <Stack.Screen
+          name="PostpartumReminders"
+          component={PostpartumRemindersScreen}
+        />
+        <Stack.Screen
           name="PostpartumLochia"
           component={PostpartumLochiaScreen}
         />
@@ -339,6 +349,14 @@ function AppNavigator({
         <Stack.Screen
           name="MenopauseLabTracking"
           component={MenopauseLabTrackingScreen}
+        />
+        <Stack.Screen
+          name="MenopauseReminders"
+          component={MenopauseRemindersScreen}
+        />
+        <Stack.Screen
+          name="CycleReminders"
+          component={CycleRemindersScreen}
         />
         <Stack.Screen
           name="MiscarriageJournalEntry"
