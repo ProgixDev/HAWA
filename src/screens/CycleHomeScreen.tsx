@@ -41,6 +41,7 @@ import {
 } from '../state/onboardingPreferences';
 import {getJournalEntry} from '../state/dailyJournalStore';
 import {withResolvedIntimacyForDisplay} from '../services/privateJournalEncryption';
+import {withResolvedNoteForDisplay} from '../services/privateNotesEncryption';
 import type {DailyJournalEntry} from '../types/journal';
 import {TOP_SPACING_EXTRA} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
@@ -127,6 +128,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       });
       getJournalEntry(new Date().toLocaleDateString('en-CA'))
         .then(withResolvedIntimacyForDisplay)
+        .then(withResolvedNoteForDisplay)
         .then(entry => {
           if (mounted) {setJournalEntry(entry);}
         });
