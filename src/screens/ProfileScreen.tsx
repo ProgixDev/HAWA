@@ -73,6 +73,13 @@ import {
   CONTRACEPTION_METHOD_LABELS,
 } from '../config/contraceptionLabels';
 import {
+  getMenopausePreferences,
+  hydrateMenopausePreferences,
+  subscribeMenopausePreferences,
+  type MenopauseHormonalTreatmentStatus,
+  type MenopauseStage,
+} from '../state/menopausePreferences';
+import {
   computeCyclePredictionStatus,
   formatDateRange as formatCanonicalDateRange,
   formatFullDate,
@@ -136,6 +143,22 @@ const DELIVERY_TYPE_LABELS: Record<PostpartumDeliveryType, string> = {
   planned_csection: 'Césarienne programmée',
   emergency_csection: 'Césarienne en urgence',
   prefer_not_to_say: 'Je préfère ne pas préciser',
+};
+
+// Same wording as SummaryScreen.tsx's own local MENOPAUSE_STAGE_LABELS/
+// MENOPAUSE_HORMONAL_TREATMENT_LABELS — kept as Profile's own local display
+// copy, same "duplicate small static label maps per screen" convention
+// already used above for DELIVERY_TYPE_LABELS/FEEDING_TYPE_LABELS.
+const MENOPAUSE_STAGE_LABELS: Record<MenopauseStage, string> = {
+  perimenopause: 'Périménopause',
+  menopause: 'Ménopause',
+  unsure: 'Non précisée',
+};
+
+const MENOPAUSE_HORMONAL_TREATMENT_LABELS: Record<MenopauseHormonalTreatmentStatus, string> = {
+  track: 'Suivi activé',
+  no: 'Non suivi',
+  not_now: 'Pas pour le moment',
 };
 
 const FEEDING_TYPE_LABELS: Record<PostpartumFeedingType, string> = {
@@ -801,6 +824,26 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
+  const [menopause, setMenopause] = useState(getMenopausePreferences);
+
+  useEffect(() => {
+    let active = true;
+    hydrateMenopausePreferences().then(value => {
+      if (active) {
+        setMenopause(value);
+      }
+    });
+    const unsubscribe = subscribeMenopausePreferences(() => {
+      if (active) {
+        setMenopause(getMenopausePreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
   const [miscarriage, setMiscarriage] = useState(getMiscarriagePreferences);
 
   useEffect(() => {
@@ -1288,7 +1331,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           {objective !== 'pregnancy' &&
           objective !== 'postpartum' &&
           objective !== 'loss' &&
-          objective !== 'contraception' ? (
+          objective !== 'contraception' &&
+          objective !== 'menopause' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-range"
@@ -1312,6 +1356,43 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 icon="weather-night"
                 label="Date hijri"
                 value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
+              />
+            </View>
+          ) : null}
+
+          {/* Menopause/Périménopause's OWN summary — never Cycle-specific
+              stats (cycle moyen/durée des règles/prochaines règles belong to
+              the standard Cycle objective only, and must not leak here since
+              this objective no longer routes through cycle configuration at
+              all — see LocationScreen.tsx's own 'menopause' branch). Sourced
+              directly from the same canonical menopausePreferences store the
+              Menopause Dashboard/Calendar/Statistics/Summary already
+              read/write — never a hardcoded value or a Profile-specific
+              copy. "Date hijri" is intentionally omitted here since it isn't
+              a Menopause-specific datum (it belongs to the shared spiritual
+              markers feature, already surfaced elsewhere in Profile). */}
+          {objective === 'menopause' ? (
+            <View style={styles.statsGrid}>
+              <StatCard
+                icon="flower-outline"
+                label="Étape actuelle"
+                value={menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : 'Non renseignée'}
+              />
+
+              <StatCard
+                icon="clipboard-pulse-outline"
+                label="Symptômes suivis"
+                value={menopause.trackedSymptoms.length > 0 ? `${menopause.trackedSymptoms.length}` : 'Aucun'}
+              />
+
+              <StatCard
+                icon="pill"
+                label="Traitement hormonal"
+                value={
+                  menopause.hormonalTreatmentStatus
+                    ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus]
+                    : 'Non renseigné'
+                }
               />
             </View>
           ) : null}

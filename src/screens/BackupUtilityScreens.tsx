@@ -41,17 +41,17 @@ import {
   type ObjectiveId,
 } from '../state/onboardingPreferences';
 
-const PURPLE = '#6D4AE8';
-const PURPLE_DARK = '#2F2258';
+const PURPLE = '#6F52C8';
+const PURPLE_DARK = '#2E215B';
 
-const TEXT_SECONDARY = '#746D92';
+const TEXT_SECONDARY = '#756D8D';
 
-const BACKGROUND = '#F8F4FC';
-const WHITE = '#FFFFFF';
+const BACKGROUND = '#F9F7FC';
 
-const BORDER = 'rgba(109,74,232,0.12)';
-const SOFT_PURPLE = '#F2ECFF';
-const VERY_SOFT_PURPLE = '#FAF7FF';
+
+const BORDER = 'rgba(111,82,200,0.11)';
+const SOFT_PURPLE = '#F1ECFA';
+const VERY_SOFT_PURPLE = '#FBF9FD';
 
 const SUCCESS = '#3E9B63';
 const SUCCESS_BG = '#EAF6ED';
@@ -111,6 +111,12 @@ function Shell({
         barStyle="dark-content"
       />
 
+      <View pointerEvents="none" style={styles.backgroundDecor}>
+        <View style={styles.glowTop} />
+        <View style={styles.glowLeft} />
+        <View style={styles.glowBottom} />
+      </View>
+
       <View
         style={[
           styles.header,
@@ -146,6 +152,9 @@ function Shell({
             styles.headerCopy
           }>
           <Text
+            adjustsFontSizeToFit
+            minimumFontScale={0.82}
+            numberOfLines={1}
             style={[
               styles.headerTitle,
               compact &&
@@ -1507,159 +1516,174 @@ const styles =
         BACKGROUND,
     },
 
+    backgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
+
+    glowTop: {
+      position: 'absolute',
+      top: -190,
+      right: -130,
+      width: 380,
+      height: 380,
+      borderRadius: 190,
+      backgroundColor: 'rgba(111,82,200,0.06)',
+    },
+
+    glowLeft: {
+      position: 'absolute',
+      top: '34%',
+      left: -170,
+      width: 320,
+      height: 320,
+      borderRadius: 160,
+      backgroundColor: 'rgba(166,139,205,0.045)',
+    },
+
+    glowBottom: {
+      position: 'absolute',
+      bottom: -180,
+      right: -120,
+      width: 350,
+      height: 350,
+      borderRadius: 175,
+      backgroundColor: 'rgba(92,67,139,0.045)',
+    },
+
     header: {
       flexDirection: 'row',
       alignItems: 'center',
-      paddingHorizontal: 16,
-      paddingBottom: 10,
+      paddingHorizontal: 14,
+      paddingBottom: 8,
     },
 
     backButton: {
-      width: 40,
-      height: 40,
+      width: 38,
+      height: 38,
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      borderColor: BORDER,
-      borderRadius: 22,
-      backgroundColor:
-        'rgba(255,255,255,0.94)',
-
-      shadowColor:
-        PURPLE_DARK,
-
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-
-      shadowOpacity: 0.08,
+      borderColor: 'rgba(111,82,200,0.10)',
+      borderRadius: 13,
+      backgroundColor: 'rgba(255,255,255,0.94)',
+      shadowColor: '#49386B',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.055,
       shadowRadius: 8,
       elevation: 2,
     },
 
     headerCopy: {
       flex: 1,
+      minWidth: 0,
       alignItems: 'center',
       paddingHorizontal: 8,
     },
 
     headerTitle: {
+      width: '100%',
       color: PURPLE_DARK,
       fontFamily: 'serif',
       fontSize: 18,
-      fontWeight: '700',
+      lineHeight: 22,
+      fontWeight: '800',
       textAlign: 'center',
+      letterSpacing: -0.15,
     },
 
     headerTitleCompact: {
-      fontSize: 18,
+      fontSize: 16.5,
+      lineHeight: 20,
     },
 
     headerSubtitle: {
-      marginTop: 3,
+      maxWidth: 320,
+      marginTop: 2,
       color: TEXT_SECONDARY,
-      fontSize: 10,
+      fontSize: 9.5,
       lineHeight: 13,
       textAlign: 'center',
     },
 
     headerSpacer: {
-      width: 40,
-      height: 40,
+      width: 38,
+      height: 38,
     },
 
     content: {
-      gap: 9,
+      gap: 10,
     },
 
     contentCompact: {
-      gap: 7,
-      paddingHorizontal: 16,
+      gap: 8,
+      paddingHorizontal: 13,
     },
 
     contentRegular: {
-      paddingHorizontal: 20,
+      paddingHorizontal: 16,
     },
 
     heroCard: {
       alignItems: 'center',
-
+      overflow: 'hidden',
       borderWidth: 1,
-      borderColor: BORDER,
-
+      borderColor: 'rgba(111,82,200,0.10)',
       borderRadius: 22,
-
-      backgroundColor:
-        WHITE,
-
-      paddingHorizontal: 15,
-      paddingVertical: 16,
-
-      shadowColor:
-        PURPLE_DARK,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.06,
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      paddingHorizontal: 16,
+      paddingVertical: 17,
+      shadowColor: '#4A386C',
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.05,
       shadowRadius: 14,
       elevation: 2,
     },
 
     heroIcon: {
-      width: 52,
-      height: 52,
-
+      width: 54,
+      height: 54,
       alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 22,
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: 'rgba(255,255,255,0.92)',
+      borderRadius: 18,
+      shadowColor: '#5A4578',
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.07,
+      shadowRadius: 9,
+      elevation: 2,
     },
 
     heroTitle: {
-      marginTop: 9,
-
+      marginTop: 10,
       color: PURPLE_DARK,
-
       fontFamily: 'serif',
-
-      fontSize: 18,
-      fontWeight: '700',
-
+      fontSize: 17,
+      lineHeight: 21,
+      fontWeight: '800',
       textAlign: 'center',
+      letterSpacing: -0.15,
     },
 
     heroDescription: {
-      maxWidth: 300,
-
-      marginTop: 7,
-
+      maxWidth: 315,
+      marginTop: 6,
       color: TEXT_SECONDARY,
-
-      fontSize: 11.5,
+      fontSize: 11,
       lineHeight: 16,
-
       textAlign: 'center',
     },
 
     backupInfo: {
       width: '100%',
-
-      marginTop: 12,
-
+      marginTop: 13,
+      overflow: 'hidden',
       borderWidth: 1,
-      borderColor: BORDER,
-
+      borderColor: 'rgba(111,82,200,0.09)',
       borderRadius: 16,
-
-      backgroundColor:
-        VERY_SOFT_PURPLE,
-
-      paddingHorizontal: 14,
+      backgroundColor: VERY_SOFT_PURPLE,
+      paddingHorizontal: 12,
     },
 
     infoRow: {
@@ -1713,40 +1737,26 @@ const styles =
     },
 
     primaryButton: {
-      minHeight: 46,
-
+      minHeight: 50,
       flexDirection: 'row',
-
       alignItems: 'center',
-      justifyContent:
-        'center',
-
+      justifyContent: 'center',
       gap: 8,
-
-      borderRadius: 16,
-
-      backgroundColor:
-        PURPLE,
-
+      borderRadius: 17,
+      backgroundColor: PURPLE,
       paddingHorizontal: 18,
-
-      shadowColor: PURPLE,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.2,
-      shadowRadius: 10,
+      shadowColor: '#51359D',
+      shadowOffset: {width: 0, height: 6},
+      shadowOpacity: 0.18,
+      shadowRadius: 11,
       elevation: 4,
     },
 
     primaryText: {
       color: '#FFFFFF',
-
       fontSize: 13.5,
-      fontWeight: '700',
+      lineHeight: 17,
+      fontWeight: '800',
     },
 
     primaryButtonDisabled: {
@@ -1875,32 +1885,26 @@ const styles =
 
     exportHero: {
       flexDirection: 'row',
-
       alignItems: 'center',
-
       borderWidth: 1,
-      borderColor: BORDER,
-
-      borderRadius: 19,
-
-      backgroundColor:
-        WHITE,
-
-      padding: 12,
+      borderColor: 'rgba(111,82,200,0.10)',
+      borderRadius: 20,
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      padding: 13,
+      shadowColor: '#4A386C',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.035,
+      shadowRadius: 8,
+      elevation: 1,
     },
 
     exportIcon: {
-      width: 54,
-      height: 54,
-
+      width: 50,
+      height: 50,
       alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 15,
-
-      backgroundColor:
-        SOFT_PURPLE,
+      justifyContent: 'center',
+      borderRadius: 16,
+      backgroundColor: SOFT_PURPLE,
     },
 
     exportCopy: {
@@ -1911,20 +1915,17 @@ const styles =
 
     exportTitle: {
       color: PURPLE_DARK,
-
       fontFamily: 'serif',
-
-      fontSize: 15.5,
-      fontWeight: '700',
+      fontSize: 15,
+      lineHeight: 19,
+      fontWeight: '800',
     },
 
     exportDescription: {
       marginTop: 3,
-
       color: TEXT_SECONDARY,
-
-      fontSize: 11.5,
-      lineHeight: 16,
+      fontSize: 10.5,
+      lineHeight: 15,
     },
 
     exportObjectiveLabel: {
@@ -1938,61 +1939,52 @@ const styles =
 
     sectionTitle: {
       color: PURPLE_DARK,
-
       fontFamily: 'serif',
-
-      fontSize: 15.5,
-      fontWeight: '700',
+      fontSize: 14.5,
+      lineHeight: 18,
+      fontWeight: '800',
     },
 
     sectionSubtitle: {
-      marginTop: 3,
-
+      marginTop: 2,
       color: TEXT_SECONDARY,
-
-      fontSize: 10.5,
-      lineHeight: 15,
+      fontSize: 10,
+      lineHeight: 14,
     },
 
     choiceGrid: {
       flexDirection: 'row',
       flexWrap: 'wrap',
-      gap: 10,
+      gap: 8,
     },
 
     formatRow: {
       flexDirection: 'row',
-      gap: 10,
+      gap: 8,
     },
 
     choice: {
       minWidth: '47%',
-
       flex: 1,
-
-      minHeight: 48,
-
+      minHeight: 52,
       flexDirection: 'row',
       alignItems: 'center',
-
       borderWidth: 1,
-      borderColor: BORDER,
-
+      borderColor: 'rgba(111,82,200,0.10)',
       borderRadius: 15,
-
-      backgroundColor:
-        WHITE,
-
-      paddingHorizontal: 8,
-      paddingVertical: 7,
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      paddingHorizontal: 9,
+      paddingVertical: 8,
     },
 
     choiceSelected: {
-      borderColor:
-        PURPLE,
-
-      backgroundColor:
-        '#F7F3FF',
+      borderColor: PURPLE,
+      backgroundColor: '#F7F3FD',
+      shadowColor: '#5B429C',
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.04,
+      shadowRadius: 6,
+      elevation: 1,
     },
 
     choicePressed: {
@@ -2006,34 +1998,24 @@ const styles =
     },
 
     choiceIcon: {
-      width: 28,
-      height: 28,
-
+      width: 30,
+      height: 30,
       alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 11,
-
-      backgroundColor:
-        '#F4EFF9',
+      justifyContent: 'center',
+      borderRadius: 10,
+      backgroundColor: '#F4F0F8',
     },
 
     choiceIconSelected: {
-      backgroundColor:
-        '#E9DEFF',
+      backgroundColor: '#ECE4F8',
     },
 
     choiceLabel: {
       flex: 1,
-
       marginHorizontal: 8,
-
       color: TEXT_SECONDARY,
-
-      fontSize: 10,
-      lineHeight: 13,
-
+      fontSize: 10.5,
+      lineHeight: 13.5,
       fontWeight: '600',
     },
 
@@ -2076,24 +2058,22 @@ const styles =
 
     categoryCard: {
       overflow: 'hidden',
-
       borderWidth: 1,
-
-      borderColor: BORDER,
-
+      borderColor: 'rgba(111,82,200,0.10)',
       borderRadius: 19,
-
-      backgroundColor:
-        WHITE,
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      shadowColor: '#4A386C',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.03,
+      shadowRadius: 8,
+      elevation: 1,
     },
 
     category: {
-      minHeight: 48,
-
+      minHeight: 50,
       flexDirection: 'row',
       alignItems: 'center',
-
-      paddingHorizontal: 10,
+      paddingHorizontal: 11,
     },
 
     categoryBorder: {
@@ -2110,17 +2090,12 @@ const styles =
     },
 
     categoryIcon: {
-      width: 28,
-      height: 28,
-
+      width: 30,
+      height: 30,
       alignItems: 'center',
-      justifyContent:
-        'center',
-
-      borderRadius: 13,
-
-      backgroundColor:
-        '#F5F1F8',
+      justifyContent: 'center',
+      borderRadius: 10,
+      backgroundColor: '#F5F1F8',
     },
 
     categoryIconActive: {
@@ -2136,9 +2111,9 @@ const styles =
 
     categoryName: {
       color: PURPLE_DARK,
-
-      fontSize: 12,
-      fontWeight: '600',
+      fontSize: 11.5,
+      lineHeight: 15,
+      fontWeight: '700',
     },
 
     sensitiveBadge: {
@@ -2170,19 +2145,15 @@ const styles =
     },
 
     selectionInfo: {
-      minHeight: 38,
-
+      minHeight: 40,
       flexDirection: 'row',
       alignItems: 'center',
-
       gap: 8,
-
-      borderRadius: 15,
-
-      backgroundColor:
-        SOFT_PURPLE,
-
-      paddingHorizontal: 12,
+      borderWidth: 1,
+      borderColor: 'rgba(111,82,200,0.07)',
+      borderRadius: 14,
+      backgroundColor: SOFT_PURPLE,
+      paddingHorizontal: 11,
     },
 
     selectionText: {
@@ -2222,57 +2193,45 @@ const styles =
 
     dangerHero: {
       alignItems: 'center',
-
       borderWidth: 1,
-
-      borderColor:
-        '#F2CDD2',
-
+      borderColor: '#F0CDD3',
       borderRadius: 22,
-
-      backgroundColor:
-        DANGER_BG,
-
-      padding: 12,
+      backgroundColor: '#FFF4F6',
+      padding: 14,
+      shadowColor: '#8C4A56',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.035,
+      shadowRadius: 8,
+      elevation: 1,
     },
 
     dangerTitle: {
-      marginTop: 13,
-
+      marginTop: 11,
       color: DANGER,
-
       fontFamily: 'serif',
-
-      fontSize: 18,
-      fontWeight: '700',
+      fontSize: 17,
+      lineHeight: 21,
+      fontWeight: '800',
     },
 
     dangerDescription: {
-      maxWidth: 300,
-
-      marginTop: 7,
-
+      maxWidth: 305,
+      marginTop: 6,
       color: '#826168',
-
-      fontSize: 12,
-      lineHeight: 18,
-
+      fontSize: 11,
+      lineHeight: 16,
       textAlign: 'center',
     },
 
     dangerItems: {
       width: '100%',
-
-      marginTop: 10,
-
-      gap: 8,
-
+      marginTop: 11,
+      gap: 7,
+      borderWidth: 1,
+      borderColor: 'rgba(217,68,88,0.07)',
       borderRadius: 15,
-
-      backgroundColor:
-        'rgba(255,255,255,0.78)',
-
-      padding: 12,
+      backgroundColor: 'rgba(255,255,255,0.82)',
+      padding: 11,
     },
 
     dangerItem: {
@@ -2332,15 +2291,15 @@ const styles =
 
     deleteConfirmCard: {
       borderWidth: 1,
-
-      borderColor: BORDER,
-
+      borderColor: 'rgba(111,82,200,0.10)',
       borderRadius: 19,
-
-      backgroundColor:
-        WHITE,
-
-      padding: 12,
+      backgroundColor: 'rgba(255,255,255,0.96)',
+      padding: 13,
+      shadowColor: '#4A386C',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.03,
+      shadowRadius: 8,
+      elevation: 1,
     },
 
     deleteConfirmHeader: {
@@ -2392,27 +2351,16 @@ const styles =
     },
 
     input: {
-      minHeight: 44,
-
-      marginTop: 9,
-
+      minHeight: 46,
+      marginTop: 10,
       borderWidth: 1,
-
-      borderColor:
-        '#D9CEEA',
-
-      borderRadius: 17,
-
-      backgroundColor:
-        VERY_SOFT_PURPLE,
-
-      paddingHorizontal: 14,
-
+      borderColor: '#D8CDEA',
+      borderRadius: 15,
+      backgroundColor: VERY_SOFT_PURPLE,
+      paddingHorizontal: 13,
       color: PURPLE_DARK,
-
-      fontSize: 14,
-      fontWeight: '700',
-
+      fontSize: 13,
+      fontWeight: '800',
       letterSpacing: 0.5,
     },
 
@@ -2465,32 +2413,17 @@ const styles =
     },
 
     deleteButton: {
-      minHeight: 46,
-
+      minHeight: 50,
       flexDirection: 'row',
-
       alignItems: 'center',
-      justifyContent:
-        'center',
-
+      justifyContent: 'center',
       gap: 8,
-
-      borderRadius: 16,
-
-      backgroundColor:
-        DANGER,
-
-      shadowColor:
-        DANGER,
-
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-
-      shadowOpacity: 0.18,
+      borderRadius: 17,
+      backgroundColor: DANGER,
+      shadowColor: '#B33246',
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.16,
       shadowRadius: 10,
-
       elevation: 3,
     },
 
@@ -2515,18 +2448,16 @@ const styles =
 
     successCard: {
       alignItems: 'center',
-
       borderWidth: 1,
-
-      borderColor:
-        '#D2E9D9',
-
+      borderColor: '#D2E9D9',
       borderRadius: 22,
-
-      backgroundColor:
-        '#F7FCF8',
-
+      backgroundColor: '#F7FCF8',
       padding: 18,
+      shadowColor: '#477B58',
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.03,
+      shadowRadius: 8,
+      elevation: 1,
     },
 
     successTitle: {
