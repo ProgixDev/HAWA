@@ -852,12 +852,13 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           </View>
 
           <Text style={styles.nifasModalTitle}>
-            Les 40 jours de nifâs sont terminés
+            Le repère des 40 jours retenu par AWA est atteint
           </Text>
 
           <Text style={styles.nifasModalBody}>
-            À partir d’aujourd’hui, reprends tes prières, même si les
-            lochies ou les saignements persistent.
+            Selon ce repère, tu peux reprendre tes prières à partir
+            d’aujourd’hui, même si les lochies ou les saignements
+            persistent. Suis la référence religieuse que tu as choisie.
           </Text>
 
           <Text style={styles.nifasModalNote}>
