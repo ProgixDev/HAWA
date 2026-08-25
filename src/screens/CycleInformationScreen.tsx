@@ -225,6 +225,18 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         navigation.navigate('ConceptionTryingDuration');
         return;
       }
+      // Cycle's own optional reminder onboarding step (Profile → Santé
+      // générale → Notifications & rappels shows the exact same canonical
+      // cycleReminderPreferences.ts values this screen configures — see
+      // CycleRemindersScreen.tsx). Scoped to 'cycle' only, matching
+      // ProfileScreen.tsx's own "Notifications & rappels" entry, which is
+      // likewise shown only for objective === 'cycle' — 'irregular'/
+      // 'contraception' (on the rare path that still reaches this screen)
+      // keep going straight to SecuritySetup exactly as before.
+      if (getSelectedObjective() === 'cycle') {
+        navigation.navigate('CycleReminders');
+        return;
+      }
       navigation.navigate('SecuritySetup');
     } finally {
       setSubmitting(false);
