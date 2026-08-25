@@ -817,30 +817,31 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
   ========================================================== */
 
   useEffect(() => {
+    // Multiple dated entries can now coexist (see pregnancyJournalStore.ts),
+    // so opening this screen resumes TODAY's entry specifically — matching
+    // how the sibling Daily Journal categories (symptoms/mood/sleep) always
+    // reopen to today — rather than whichever note happens to be the most
+    // recently saved one overall.
+    const todayKey = toDateKey(
+      new Date(),
+    );
+
     getPregnancyJournalState().then(
       state => {
-        setNote(
-          state
-            .medicalInformation
-            ?.note ?? '',
-        );
-
-        const stored =
-          state
-            .medicalInformation
-            ?.date ?? '';
-
-        const parsed =
-          parseStoredDate(
-            stored,
+        const todaysEntry =
+          state.medicalInformationHistory.find(
+            entry =>
+              entry.date ===
+              todayKey,
           );
 
+        setNote(
+          todaysEntry?.note ?? '',
+        );
+
         setDate(
-          parsed
-            ? toDateKey(
-                parsed,
-              )
-            : '',
+          todaysEntry?.date ??
+            todayKey,
         );
       },
     );
