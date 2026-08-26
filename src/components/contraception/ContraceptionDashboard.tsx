@@ -1,14 +1,10 @@
 import React, {
   useCallback,
-  useEffect,
   useMemo,
-  useRef,
   useState,
 } from 'react';
 import {
   Alert,
-  Animated,
-  Easing,
   Image,
   Modal,
   Pressable,
@@ -24,12 +20,6 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
-import Svg, {
-  Circle,
-  Defs,
-  LinearGradient as SvgGradient,
-  Stop,
-} from 'react-native-svg';
 
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
@@ -40,6 +30,7 @@ import QuickActionsGrid, {
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
+import {AnimatedProgressRing} from '../home/AnimatedProgressRing';
 
 import {
   getFirstName,
@@ -143,11 +134,6 @@ const CARD_BACKGROUND = 'rgba(255,255,255,0.97)';
 const CONTRACEPTION_CAPSULE_IMAGE = require('../../assets/images/contraception/contraception-capsule.png');
 const CONTRACEPTION_PILL_PACK_IMAGE = require('../../assets/images/contraception/contraception-pill-pack.png');
 
-const PACK_RING_SIZE = 142;
-const PACK_RING_STROKE = 9;
-const PACK_RING_RADIUS = (PACK_RING_SIZE - PACK_RING_STROKE) / 2;
-const PACK_RING_CIRCUMFERENCE = 2 * Math.PI * PACK_RING_RADIUS;
-
 type Props = MainTabScreenProps<'CycleHome'>;
 
 type HistoryDay = {
@@ -191,8 +177,15 @@ const formatRecordDate = (
   return formatFullDate(parsed);
 };
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
+// Thin wrapper preserving the EXACT same call-site signature this file
+// already used everywhere (day/totalDays/statusColor/statusIcon/statusText)
+// so nothing else in this file needed to change. The actual animated ring
+// (SVG arc, breathe/glint/float/sparkle loops) now lives in the shared
+// src/components/home/AnimatedProgressRing.tsx, reused identically by the
+// SOPK Dashboard — same component, same animation, same timing. `progress`
+// is still computed here, exactly as before (day/totalDays — a REAL pack
+// length from the user's own PillScheduleScreen answer, never hardcoded),
+// since AnimatedProgressRing itself never assumes what "progress" means.
 function PillPackProgressRing({
   day,
   totalDays,
@@ -210,298 +203,24 @@ function PillPackProgressRing({
   statusIcon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   statusText: string;
 }): React.JSX.Element {
-  const progressAnimation = useRef(new Animated.Value(0)).current;
-  const breatheAnimation = useRef(new Animated.Value(0)).current;
-  const glintAnimation = useRef(new Animated.Value(0)).current;
-  const floatAnimation = useRef(new Animated.Value(0)).current;
-  const sparkleAnimation = useRef(new Animated.Value(0)).current;
-
   const isConfigured = day !== null && totalDays !== null;
   const progress = isConfigured ? day / totalDays : 0;
 
-  useEffect(() => {
-    progressAnimation.setValue(0);
-
-    Animated.timing(progressAnimation, {
-      toValue: progress,
-      duration: 1250,
-      easing: Easing.out(Easing.cubic),
-      useNativeDriver: false,
-    }).start();
-
-    const breathe = Animated.loop(
-      Animated.sequence([
-        Animated.timing(breatheAnimation, {
-          toValue: 1,
-          duration: 1750,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(breatheAnimation, {
-          toValue: 0,
-          duration: 1750,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const glint = Animated.loop(
-      Animated.timing(glintAnimation, {
-        toValue: 1,
-        duration: 5600,
-        easing: Easing.linear,
-        useNativeDriver: true,
-      }),
-    );
-
-    const floating = Animated.loop(
-      Animated.sequence([
-        Animated.timing(floatAnimation, {
-          toValue: 1,
-          duration: 1600,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-        Animated.timing(floatAnimation, {
-          toValue: 0,
-          duration: 1600,
-          easing: Easing.inOut(Easing.sin),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    const sparkle = Animated.loop(
-      Animated.sequence([
-        Animated.timing(sparkleAnimation, {
-          toValue: 1,
-          duration: 850,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
-        }),
-        Animated.timing(sparkleAnimation, {
-          toValue: 0,
-          duration: 850,
-          easing: Easing.inOut(Easing.quad),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-
-    breathe.start();
-    glint.start();
-    floating.start();
-    sparkle.start();
-
-    return () => {
-      breathe.stop();
-      glint.stop();
-      floating.stop();
-      sparkle.stop();
-    };
-  }, [
-    breatheAnimation,
-    floatAnimation,
-    glintAnimation,
-    progress,
-    progressAnimation,
-    sparkleAnimation,
-  ]);
-
-  const dashOffset = progressAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [PACK_RING_CIRCUMFERENCE, 0],
-  });
-
-  const breatheScale = breatheAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.035],
-  });
-
-  const coreScale = breatheAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1, 1.018],
-  });
-
-  const breatheOpacity = breatheAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.09, 0.25],
-  });
-
-  const floatTranslateY = floatAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [1.5, -3.5],
-  });
-
-  const glintRotation = glintAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['0deg', '360deg'],
-  });
-
-  const haloRotation = glintAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: ['360deg', '0deg'],
-  });
-
-  const sparkleOpacity = sparkleAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.35, 1],
-  });
-
-  const sparkleScale = sparkleAnimation.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.78, 1.16],
-  });
-
   return (
-    <View
+    <AnimatedProgressRing
       accessibilityLabel={
-        isConfigured
-          ? `Jour ${day} sur ${totalDays}, plaquette en cours`
-          : `${statusText}, suivi en cours`
+        isConfigured ? `Jour ${day} sur ${totalDays}, plaquette en cours` : `${statusText}, suivi en cours`
       }
-      accessibilityRole="image"
-      style={styles.progressOuter}>
-      <Animated.View
-        style={[
-          styles.progressPremiumCore,
-          {
-            transform: [
-              {translateY: floatTranslateY},
-              {scale: coreScale},
-            ],
-          },
-        ]}>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.progressGlow,
-            {
-              opacity: breatheOpacity,
-              transform: [{scale: breatheScale}],
-            },
-          ]}
-        />
-
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.progressHalo,
-            {
-              transform: [{rotate: haloRotation}],
-            },
-          ]}
-        />
-
-        <Svg height={PACK_RING_SIZE} width={PACK_RING_SIZE}>
-          <Defs>
-            <SvgGradient id="packRingGradient" x1="0" x2="1" y1="0" y2="1">
-              <Stop offset="0" stopColor="#D9C9F6" />
-              <Stop offset="0.34" stopColor="#A87BE9" />
-              <Stop offset="0.68" stopColor="#7A4FD0" />
-              <Stop offset="1" stopColor={PURPLE} />
-            </SvgGradient>
-          </Defs>
-
-          <Circle
-            cx={PACK_RING_SIZE / 2}
-            cy={PACK_RING_SIZE / 2}
-            fill="none"
-            r={PACK_RING_RADIUS}
-            stroke="#E9DFF7"
-            strokeWidth={PACK_RING_STROKE}
-          />
-
-          <AnimatedCircle
-            cx={PACK_RING_SIZE / 2}
-            cy={PACK_RING_SIZE / 2}
-            fill="none"
-            origin={`${PACK_RING_SIZE / 2}, ${PACK_RING_SIZE / 2}`}
-            r={PACK_RING_RADIUS}
-            rotation="-90"
-            stroke="url(#packRingGradient)"
-            strokeDasharray={`${PACK_RING_CIRCUMFERENCE} ${PACK_RING_CIRCUMFERENCE}`}
-            strokeDashoffset={dashOffset}
-            strokeLinecap="round"
-            strokeWidth={PACK_RING_STROKE}
-          />
-        </Svg>
-
-        <View pointerEvents="none" style={styles.progressInner}>
-          {isConfigured ? (
-            <>
-              <Text style={styles.progressCaption}>Jour</Text>
-              <Text style={styles.progressDay}>{day}</Text>
-              <Text style={styles.progressTotal}>sur {totalDays}</Text>
-            </>
-          ) : (
-            <>
-              <View
-                style={[
-                  styles.progressStatusIcon,
-                  {backgroundColor: `${statusColor}18`},
-                ]}>
-                <MaterialDesignIcons
-                  color={statusColor}
-                  name={statusIcon}
-                  size={23}
-                />
-              </View>
-
-              <Text style={[styles.progressStatus, {color: statusColor}]}>
-                {statusText}
-              </Text>
-            </>
-          )}
-        </View>
-
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.progressGlintOrbit,
-            {
-              transform: [{rotate: glintRotation}],
-            },
-          ]}>
-          <View style={styles.progressGlintDot}>
-            <View style={styles.progressGlintCore} />
-          </View>
-        </Animated.View>
-
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.progressSparkleTop,
-            {
-              opacity: sparkleOpacity,
-              transform: [{scale: sparkleScale}],
-            },
-          ]}>
-          <MaterialDesignIcons
-            color="#FFFFFF"
-            name="creation"
-            size={10}
-          />
-        </Animated.View>
-
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.progressSparkleBottom,
-            {
-              opacity: sparkleOpacity,
-              transform: [{scale: sparkleScale}],
-            },
-          ]}>
-          <View style={styles.progressMiniSparkle} />
-        </Animated.View>
-      </Animated.View>
-
-      <Text pointerEvents="none" style={styles.progressFootnote}>
-        {isConfigured ? 'Plaquette en cours' : 'Suivi en cours'}
-      </Text>
-    </View>
+      centerCaption="Jour"
+      centerDetail={isConfigured ? `sur ${totalDays}` : undefined}
+      centerValue={day ?? undefined}
+      footnote={isConfigured ? 'Plaquette en cours' : 'Suivi en cours'}
+      isConfigured={isConfigured}
+      progress={progress}
+      statusColor={statusColor}
+      statusIcon={statusIcon}
+      statusText={statusText}
+    />
   );
 }
 
@@ -2746,204 +2465,10 @@ const styles =
       lineHeight: 15,
     },
 
-    /* CIRCLE */
-
-    progressOuter: {
-      position: 'relative',
-      width: PACK_RING_SIZE,
-      height: PACK_RING_SIZE + 27,
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      flexShrink: 0,
-    },
-
-    progressPremiumCore: {
-      position: 'relative',
-      width: PACK_RING_SIZE,
-      height: PACK_RING_SIZE,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
-    progressGlow: {
-      position: 'absolute',
-      top: 6,
-      left: 6,
-      width: PACK_RING_SIZE - 12,
-      height: PACK_RING_SIZE - 12,
-      borderRadius: (PACK_RING_SIZE - 12) / 2,
-      backgroundColor: '#9C70E4',
-      shadowColor: '#8E62D9',
-      shadowOffset: {
-        width: 0,
-        height: 7,
-      },
-      shadowOpacity: 0.28,
-      shadowRadius: 18,
-      elevation: 5,
-    },
-
-    progressHalo: {
-      position: 'absolute',
-      top: -5,
-      left: -5,
-      width: PACK_RING_SIZE + 10,
-      height: PACK_RING_SIZE + 10,
-      borderRadius: (PACK_RING_SIZE + 10) / 2,
-      borderWidth: 1.25,
-      borderStyle: 'dashed',
-      borderColor: 'rgba(142,98,217,0.32)',
-    },
-
-    progressInner: {
-      position: 'absolute',
-      top: 22,
-      left: 22,
-      width: PACK_RING_SIZE - 44,
-      height: PACK_RING_SIZE - 44,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: (PACK_RING_SIZE - 44) / 2,
-      backgroundColor: '#FFFFFF',
-      borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.08)',
-      shadowColor: '#6949BE',
-      shadowOffset: {
-        width: 0,
-        height: 5,
-      },
-      shadowOpacity: 0.13,
-      shadowRadius: 12,
-      elevation: 4,
-    },
-
-    progressCaption: {
-      color: MUTED,
-      fontSize: 10,
-      fontWeight: '800',
-      letterSpacing: 0.2,
-    },
-
-    progressDay: {
-      marginTop: -2,
-      color: PURPLE_DARK,
-      fontFamily: 'serif',
-      fontSize: 31,
-      lineHeight: 34,
-      fontWeight: '900',
-    },
-
-    progressTotal: {
-      marginTop: -2,
-      color: PURPLE,
-      fontSize: 9.5,
-      fontWeight: '900',
-    },
-
-    progressStatusIcon: {
-      width: 32,
-      height: 32,
-      marginTop: 3,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 16,
-    },
-
-    progressStatus: {
-      marginTop: 2,
-      fontSize: 10.5,
-      fontWeight: '900',
-    },
-
-    progressGlintOrbit: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: PACK_RING_SIZE,
-      height: PACK_RING_SIZE,
-    },
-
-    progressGlintDot: {
-      position: 'absolute',
-      top: -1,
-      left: PACK_RING_SIZE / 2 - 5,
-      width: 10,
-      height: 10,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 5,
-      backgroundColor: 'rgba(255,255,255,0.46)',
-      shadowColor: '#FFFFFF',
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 1,
-      shadowRadius: 9,
-      elevation: 4,
-    },
-
-    progressGlintCore: {
-      width: 5,
-      height: 5,
-      borderRadius: 2.5,
-      backgroundColor: '#FFFFFF',
-    },
-
-    progressSparkleTop: {
-      position: 'absolute',
-      top: 15,
-      right: 7,
-      width: 19,
-      height: 19,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 9.5,
-      backgroundColor: '#A77AE7',
-      shadowColor: '#8E62D9',
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.32,
-      shadowRadius: 6,
-      elevation: 3,
-    },
-
-    progressSparkleBottom: {
-      position: 'absolute',
-      left: 7,
-      bottom: 23,
-      width: 12,
-      height: 12,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-
-    progressMiniSparkle: {
-      width: 6,
-      height: 6,
-      borderRadius: 3,
-      backgroundColor: '#D8C3F4',
-      shadowColor: '#A77AE7',
-      shadowOffset: {
-        width: 0,
-        height: 1,
-      },
-      shadowOpacity: 0.65,
-      shadowRadius: 5,
-      elevation: 2,
-    },
-
-    progressFootnote: {
-      position: 'absolute',
-      bottom: 0,
-      color: PURPLE,
-      fontSize: 9,
-      fontWeight: '800',
-      textAlign: 'center',
-      letterSpacing: 0.1,
-    },
+    /* CIRCLE — see src/components/home/AnimatedProgressRing.tsx, the shared
+       component the ring itself now lives in (also reused by the SOPK
+       Dashboard). Nothing under this dashboard's own `styles` needs to size
+       or style the ring anymore. */
 
     heroActionsRow: {
       flexDirection: 'row',
