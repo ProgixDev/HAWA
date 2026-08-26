@@ -20,17 +20,25 @@ import {
 import {getMenopausePreferences} from '../../state/menopausePreferences';
 import {getTopPadding, spacing} from '../../theme/spacing';
 import type {MoodLevel} from '../../types/journal';
+import {usePremium} from '../../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 
 const PURPLE = '#6949BE';
 const PURPLE_DARK = '#28166F';
 const MUTED = '#776C92';
 
-type PeriodOption = {key: '1m' | '3m' | '6m'; label: string; months: number};
+type PeriodOption = {key: '1m' | '3m' | '6m' | '12m'; label: string; months: number};
 const PERIODS: PeriodOption[] = [
   {key: '1m', label: '1 mois', months: 1},
   {key: '3m', label: '3 mois', months: 3},
   {key: '6m', label: '6 mois', months: 6},
+  {key: '12m', label: '12 mois', months: 12},
 ];
+
+/** Free tier = 1 mois only; 3/6/12 mois require AWA Premium. */
+function isPeriodFree(option: PeriodOption): boolean {
+  return option.key === '1m';
+}
 
 function formatResultDate(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00`);
@@ -69,8 +77,18 @@ function EmptyCardState({title, text}: {title: string; text: string}): React.JSX
 
 function MenopauseStatisticsScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const [period, setPeriod] = useState<PeriodOption>(PERIODS[1]);
+  const {isPremium} = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+  const [period, setPeriod] = useState<PeriodOption>(PERIODS[0]);
   const preferences = useMemo(() => getMenopausePreferences(), []);
+
+  const handleSelectPeriod = (target: PeriodOption): void => {
+    if (!isPeriodFree(target) && !isPremium) {
+      setPremiumVisible(true);
+      return;
+    }
+    setPeriod(target);
+  };
 
   const entriesInPeriod = useMemo(() => {
     const allEntries = Object.values(getAllMenopauseJournalEntries());
@@ -138,14 +156,18 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
         <View style={styles.periodRow}>
           {PERIODS.map(option => {
             const active = option.key === period.key;
+            const locked = !isPeriodFree(option) && !isPremium;
             return (
               <Pressable
                 accessibilityRole="button"
                 accessibilityState={{selected: active}}
                 key={option.key}
-                onPress={() => setPeriod(option)}
+                onPress={() => handleSelectPeriod(option)}
                 style={({pressed}) => [styles.periodButton, active && styles.periodButtonActive, pressed && styles.pressed]}>
-                <Text style={[styles.periodText, active && styles.periodTextActive]}>{option.label}</Text>
+                <View style={styles.periodButtonContent}>
+                  <Text style={[styles.periodText, active && styles.periodTextActive]}>{option.label}</Text>
+                  {locked ? <MaterialDesignIcons color={MUTED} name="lock-outline" size={10} /> : null}
+                </View>
               </Pressable>
             );
           })}
@@ -286,6 +308,8 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
           </>
         )}
       </ScrollView>
+
+      <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
     </View>
   );
 }
@@ -300,6 +324,7 @@ const styles = StyleSheet.create({
   periodRow: {flexDirection: 'row', marginTop: 16, gap: 8, backgroundColor: '#EFE7F4', borderRadius: 16, padding: 4},
   periodButton: {flex: 1, minHeight: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
   periodButtonActive: {backgroundColor: PURPLE},
+  periodButtonContent: {flexDirection: 'row', alignItems: 'center', gap: 3},
   periodText: {color: MUTED, fontSize: 12.5, fontWeight: '700'},
   periodTextActive: {color: '#FFFFFF'},
 

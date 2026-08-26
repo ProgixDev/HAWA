@@ -5,7 +5,6 @@ import React, {
   useState,
 } from 'react';
 import {
-  Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -36,12 +35,27 @@ import {
   subscribePregnancyDating,
 } from '../../state/pregnancyPreferences';
 import {getAllJournalEntries} from '../../state/dailyJournalStore';
+import {
+  getPregnancyMedicalEvents,
+  type PregnancyMedicalEvent,
+} from '../../state/pregnancyMedicalEventsStore';
 import type {
   DailyJournalEntry,
   MoodLevel,
 } from '../../types/journal';
 import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
+import {addDays} from '../../utils/cycleMath';
+import {
+  coverageMonthsForAnchor,
+  cutoffDateForPeriod,
+  describeMonthsCoverage,
+  formatMonthLabel,
+} from '../../utils/cycleStatisticsMath';
+import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
 import {spacing} from '../../theme/spacing';
+import {usePremium} from '../../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
+import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
 
 /* ============================================================
    ASSETS / CONSTANTS
@@ -54,8 +68,34 @@ const PURPLE_SURFACE = '#F8F4FC';
 const TEXT_SECONDARY = homeColors.textSecondary;
 
 const PREGNANCY_TOTAL_WEEKS = 40;
+// Standard obstetric convention (40 weeks = 280 days) — same total this
+// screen already displays via "Semaine X sur 40" in the hero card. Reused
+// below to derive the real LMP-equivalent tracking-start anchor from
+// computePregnancyStatus's own estimatedDueDate, instead of duplicating the
+// PREGNANCY_TOTAL_DAYS/CONCEPTION_TO_LMP_OFFSET_DAYS constants that already
+// live (privately) inside pregnancyTrackingUtils.ts.
+const PREGNANCY_TOTAL_DAYS = PREGNANCY_TOTAL_WEEKS * 7;
 
-type Range = '7' | '30' | 'all';
+/** One real calendar month's aggregate for the Premium longitudinal
+ * ("Évolution mensuelle") view — counts/dates only, never medical-event
+ * title/practitioner/location/notes text. A month with zero real recorded
+ * data across every category is simply omitted upstream. */
+type MonthlyPregnancyBucket = {
+  monthKey: string;
+  monthLabel: string;
+  trackedDays: number;
+  topSymptoms: Array<{
+    name: string;
+    count: number;
+  }>;
+  weightCount: number;
+  latestWeightKg?: number;
+  mostFrequentMood?: MoodLevel;
+  sleepCount: number;
+  averageSleepMinutes?: number;
+  appointmentCount: number;
+  examCount: number;
+};
 
 type IconName = React.ComponentProps<
   typeof MaterialDesignIcons
@@ -66,24 +106,6 @@ const EMPTY: PregnancyJournalState = {
   weights: [],
   medicalInformationHistory: [],
 };
-
-const RANGE_OPTIONS: Array<{
-  key: Range;
-  label: string;
-}> = [
-  {
-    key: '7',
-    label: '7 jours',
-  },
-  {
-    key: '30',
-    label: '30 jours',
-  },
-  {
-    key: 'all',
-    label: 'Tout',
-  },
-];
 
 const MOOD_LABELS: Record<
   MoodLevel,
@@ -134,35 +156,63 @@ const dateLabel = (
     ),
   );
 
-const withinRange = (
+/** Real period-window membership test (Free = 1 mois, Premium = 3/6/12
+ * mois) — replaces the old day-based `withinRange`. Mirrors
+ * `filterEntriesForPeriod` from cycleStatisticsMath.ts but works on any
+ * Pregnancy-specific `{date}` record (symptoms/weights/medical events), not
+ * just `DailyJournalEntry[]`. */
+const withinPeriod = (
   date: string,
-  range: Range,
+  period: StatisticsPeriod,
+  now: Date,
 ): boolean => {
-  if (range === 'all') {
-    return true;
-  }
-
-  const cutoff = new Date();
-
-  cutoff.setHours(
-    0,
-    0,
-    0,
-    0,
+  const cutoff = cutoffDateForPeriod(
+    period,
+    now,
   );
 
-  cutoff.setDate(
-    cutoff.getDate() -
-      Number(range) +
-      1,
+  const target = new Date(
+    `${date}T12:00:00`,
   );
 
   return (
-    new Date(
-      `${date}T12:00:00`,
-    ) >= cutoff
+    target.getTime() >=
+      cutoff.getTime() &&
+    target.getTime() <=
+      now.getTime()
   );
 };
+
+/** Groups any Pregnancy-specific `{date}` record set by real calendar month
+ * ('YYYY-MM') — the same grouping `groupEntriesByMonth` does in
+ * cycleStatisticsMath.ts, generalized here since symptoms/weights/medical
+ * events aren't `DailyJournalEntry[]`. */
+function groupByMonth<
+  T extends {date: string},
+>(items: readonly T[]): Map<string, T[]> {
+  const byMonth = new Map<
+    string,
+    T[]
+  >();
+
+  items.forEach(item => {
+    const monthKey =
+      item.date.slice(0, 7);
+
+    const bucket =
+      byMonth.get(monthKey);
+
+    if (bucket) {
+      bucket.push(item);
+    } else {
+      byMonth.set(monthKey, [
+        item,
+      ]);
+    }
+  });
+
+  return byMonth;
+}
 
 function parseSleepDurationMinutes(
   label: string,
@@ -196,6 +246,44 @@ function formatDurationMinutes(
     2,
     '0',
   )}`;
+}
+
+/** Counts/dates-only summary for a trimester's medical follow-up — never
+ * surfaces title/practitioner/location/notes text (see privacy rule in
+ * CLAUDE.md §6). */
+function formatMedicalSummary(
+  appointmentCount: number,
+  examCount: number,
+): string {
+  const parts: string[] =
+    [];
+
+  if (
+    appointmentCount > 0
+  ) {
+    parts.push(
+      `${appointmentCount} rendez-vous ${
+        appointmentCount >
+        1
+          ? 'suivis'
+          : 'suivi'
+      }`,
+    );
+  }
+
+  if (examCount > 0) {
+    parts.push(
+      `${examCount} examen${
+        examCount > 1
+          ? 's'
+          : ''
+      }`,
+    );
+  }
+
+  return parts.join(
+    ' · ',
+  );
 }
 
 /* ============================================================
@@ -520,12 +608,35 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
   >([]);
 
   const [
-    range,
-    setRange,
+    medicalEvents,
+    setMedicalEvents,
+  ] = useState<
+    PregnancyMedicalEvent[]
+  >([]);
+
+  const [
+    period,
+    setPeriod,
   ] =
-    useState<Range>(
-      '30',
+    useState<StatisticsPeriod>(
+      '1',
     );
+
+  const {isPremium} =
+    usePremium();
+
+  const [
+    premiumVisible,
+    setPremiumVisible,
+  ] = useState(false);
+
+  // Frozen once per mount (not recomputed per render) so every period-filter
+  // memo below shares the exact same "now" boundary — same convention as
+  // Conceive/Cycle Statistics screens.
+  const now = useMemo(
+    () => new Date(),
+    [],
+  );
 
   /* ==========================================================
      LOAD JOURNAL
@@ -538,10 +649,12 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       Promise.all([
         getPregnancyJournalState(),
         getAllJournalEntries(),
+        getPregnancyMedicalEvents(),
       ]).then(
         ([
           journal,
           entries,
+          events,
         ]) => {
           if (mounted) {
             setState(
@@ -550,6 +663,10 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
             setJournalEntries(
               entries,
+            );
+
+            setMedicalEvents(
+              events,
             );
           }
         },
@@ -629,14 +746,16 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       () =>
         state.weights.filter(
           item =>
-            withinRange(
+            withinPeriod(
               item.date,
-              range,
+              period,
+              now,
             ),
         ),
 
       [
-        range,
+        period,
+        now,
         state.weights,
       ],
     );
@@ -646,45 +765,50 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       () =>
         state.symptoms.filter(
           item =>
-            withinRange(
+            withinPeriod(
               item.date,
-              range,
+              period,
+              now,
             ),
         ),
 
       [
-        range,
+        period,
+        now,
         state.symptoms,
       ],
     );
 
-  const rangeEntries =
+  const periodEntries =
     useMemo(
       () =>
         journalEntries.filter(
           entry =>
-            withinRange(
+            withinPeriod(
               entry.date,
-              range,
+              period,
+              now,
             ),
         ),
 
       [
         journalEntries,
-        range,
+        period,
+        now,
       ],
     );
 
-  const medicalInfoDatesInRange =
+  const medicalInfoDatesInPeriod =
     useMemo(
       () =>
         state.medicalInformationHistory
           .filter(
             entry =>
               entry.date &&
-              withinRange(
+              withinPeriod(
                 entry.date,
-                range,
+                period,
+                now,
               ),
           )
           .map(entry => entry.date as string)
@@ -692,8 +816,52 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
       [
         state.medicalInformationHistory,
-        range,
+        period,
+        now,
       ],
+    );
+
+  const medicalEventsInPeriod =
+    useMemo(
+      () =>
+        medicalEvents.filter(
+          event =>
+            withinPeriod(
+              event.date,
+              period,
+              now,
+            ),
+        ),
+
+      [
+        medicalEvents,
+        period,
+        now,
+      ],
+    );
+
+  const appointmentCount =
+    useMemo(
+      () =>
+        medicalEventsInPeriod.filter(
+          event =>
+            event.type ===
+            'appointment',
+        ).length,
+
+      [medicalEventsInPeriod],
+    );
+
+  const examCount =
+    useMemo(
+      () =>
+        medicalEventsInPeriod.filter(
+          event =>
+            event.type ===
+            'exam',
+        ).length,
+
+      [medicalEventsInPeriod],
     );
 
   const trackingDates =
@@ -715,7 +883,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
           ),
       );
 
-      rangeEntries.forEach(
+      periodEntries.forEach(
         entry => {
           if (
             entry.mood
@@ -735,10 +903,17 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
         },
       );
 
-      medicalInfoDatesInRange.forEach(
+      medicalInfoDatesInPeriod.forEach(
         date =>
           dates.add(
             date,
+          ),
+      );
+
+      medicalEventsInPeriod.forEach(
+        event =>
+          dates.add(
+            event.date,
           ),
       );
 
@@ -746,8 +921,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
     }, [
       symptoms,
       weights,
-      rangeEntries,
-      medicalInfoDatesInRange,
+      periodEntries,
+      medicalInfoDatesInPeriod,
+      medicalEventsInPeriod,
     ]);
 
   const trackedDays =
@@ -782,7 +958,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             );
 
           const dailyEntry =
-            rangeEntries.find(
+            periodEntries.find(
               entry =>
                 entry.date ===
                 date,
@@ -799,7 +975,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             );
 
           const hasMedicalInfo =
-            medicalInfoDatesInRange.includes(
+            medicalInfoDatesInPeriod.includes(
               date,
             );
 
@@ -820,8 +996,8 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
       trackingDates,
       symptoms,
       weights,
-      rangeEntries,
-      medicalInfoDatesInRange,
+      periodEntries,
+      medicalInfoDatesInPeriod,
     ]);
 
   /* ==========================================================
@@ -966,12 +1142,12 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
   const moodEntries =
     useMemo(
       () =>
-        rangeEntries.filter(
+        periodEntries.filter(
           entry =>
             entry.mood,
         ),
 
-      [rangeEntries],
+      [periodEntries],
     );
 
   const moodCounts =
@@ -1020,13 +1196,13 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
   const sleepEntries =
     useMemo(
       () =>
-        rangeEntries.filter(
+        periodEntries.filter(
           entry =>
             entry.sleep
               ?.duration,
         ),
 
-      [rangeEntries],
+      [periodEntries],
     );
 
   const sleepDurations =
@@ -1069,9 +1245,403 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
      or a score (a free-text note has neither).
   ========================================================== */
 
-  const hasMedicalInfoInRange =
-    medicalInfoDatesInRange.length >
+  const hasMedicalInfoInPeriod =
+    medicalInfoDatesInPeriod.length >
     0;
+
+  const hasAppointmentsInPeriod =
+    appointmentCount +
+      examCount >
+    0;
+
+  // "Détails du suivi" renders sleep, then medical info, then
+  // appointments/exams — only the last row actually shown should draw
+  // without a bottom border.
+  const isSleepRowLast =
+    sleepEntries.length >
+      0 &&
+    !hasMedicalInfoInPeriod &&
+    !hasAppointmentsInPeriod;
+
+  const isMedicalInfoRowLast =
+    hasMedicalInfoInPeriod &&
+    !hasAppointmentsInPeriod;
+
+  /* ==========================================================
+     PERIOD COVERAGE — the real Pregnancy tracking-start anchor is
+     derived from computePregnancyStatus's own `estimatedDueDate`
+     (LMP-equivalent start = DPA − 280 jours), the SAME anchor the
+     hero card already uses, regardless of which of the 3 dating
+     methods was chosen — so a 12-month Premium selection never
+     implies more history exists than a pregnancy naturally has.
+  ========================================================== */
+
+  const anchorDate =
+    useMemo(() => {
+      if (
+        !pregnancyStatus.configured ||
+        !pregnancyStatus.estimatedDueDate
+      ) {
+        return null;
+      }
+
+      return addDays(
+        pregnancyStatus.estimatedDueDate,
+        -PREGNANCY_TOTAL_DAYS,
+      );
+    }, [pregnancyStatus]);
+
+  const coverageMonths =
+    useMemo(
+      () =>
+        coverageMonthsForAnchor(
+          period,
+          anchorDate,
+          now,
+        ),
+
+      [
+        period,
+        anchorDate,
+        now,
+      ],
+    );
+
+  const coverageMessage =
+    useMemo(
+      () =>
+        describeMonthsCoverage(
+          period,
+          coverageMonths,
+        ),
+
+      [
+        period,
+        coverageMonths,
+      ],
+    );
+
+  const showLongitudinalView =
+    period !== '1';
+
+  /* ==========================================================
+     MONTHLY BREAKDOWN (PREMIUM, 3/6/12 mois) — real month-by-month
+     evolution of symptoms/weight/mood/sleep/appointments-exams
+     across the selected period, built from the SAME period-filtered
+     sets every other section above already uses (symptoms, weights,
+     periodEntries, medicalEventsInPeriod) — never a separate,
+     independently-filtered dataset. A month with zero real data
+     across every category is omitted, never shown as a zero row.
+     Only counts/dates ever surface here — no medical-event
+     title/practitioner/location/notes text.
+  ========================================================== */
+
+  const monthlyBreakdown =
+    useMemo<
+      MonthlyPregnancyBucket[]
+    >(() => {
+      const symptomsByMonth =
+        groupByMonth(
+          symptoms,
+        );
+
+      const weightsByMonth =
+        groupByMonth(
+          weights,
+        );
+
+      const journalByMonth =
+        groupByMonth(
+          periodEntries,
+        );
+
+      const eventsByMonth =
+        groupByMonth(
+          medicalEventsInPeriod,
+        );
+
+      const monthKeys =
+        new Set<string>([
+          ...symptomsByMonth.keys(),
+          ...weightsByMonth.keys(),
+          ...journalByMonth.keys(),
+          ...eventsByMonth.keys(),
+        ]);
+
+      return Array.from(
+        monthKeys,
+      )
+        .sort()
+        .map(monthKey => {
+          const monthSymptoms =
+            symptomsByMonth.get(
+              monthKey,
+            ) ?? [];
+
+          const monthWeights =
+            weightsByMonth.get(
+              monthKey,
+            ) ?? [];
+
+          const monthJournal =
+            journalByMonth.get(
+              monthKey,
+            ) ?? [];
+
+          const monthEvents =
+            eventsByMonth.get(
+              monthKey,
+            ) ?? [];
+
+          const trackedDates =
+            new Set<string>();
+
+          monthSymptoms.forEach(
+            item =>
+              trackedDates.add(
+                item.date,
+              ),
+          );
+
+          monthWeights.forEach(
+            item =>
+              trackedDates.add(
+                item.date,
+              ),
+          );
+
+          monthJournal.forEach(
+            entry => {
+              if (
+                entry.mood ||
+                entry.sleep
+              ) {
+                trackedDates.add(
+                  entry.date,
+                );
+              }
+            },
+          );
+
+          monthEvents.forEach(
+            event =>
+              trackedDates.add(
+                event.date,
+              ),
+          );
+
+          if (
+            trackedDates.size ===
+            0
+          ) {
+            return null;
+          }
+
+          const monthSymptomCounts =
+            new Map<
+              string,
+              number
+            >();
+
+          monthSymptoms.forEach(
+            entry => {
+              entry.symptoms.forEach(
+                name => {
+                  monthSymptomCounts.set(
+                    name,
+                    (monthSymptomCounts.get(
+                      name,
+                    ) ??
+                      0) +
+                      1,
+                  );
+                },
+              );
+            },
+          );
+
+          const topSymptoms =
+            [
+              ...monthSymptomCounts.entries(),
+            ]
+              .map(
+                ([
+                  name,
+                  count,
+                ]) => ({
+                  name,
+                  count,
+                }),
+              )
+              .sort(
+                (
+                  a,
+                  b,
+                ) =>
+                  b.count -
+                    a.count ||
+                  a.name.localeCompare(
+                    b.name,
+                  ),
+              )
+              .slice(
+                0,
+                3,
+              );
+
+          const sortedWeights =
+            [
+              ...monthWeights,
+            ].sort(
+              (a, b) =>
+                a.date.localeCompare(
+                  b.date,
+                ),
+            );
+
+          const latestWeightEntry =
+            sortedWeights[
+              sortedWeights.length -
+                1
+            ];
+
+          const monthMoodEntries =
+            monthJournal.filter(
+              entry =>
+                entry.mood,
+            );
+
+          const monthMoodCounts =
+            new Map<
+              MoodLevel,
+              number
+            >();
+
+          monthMoodEntries.forEach(
+            entry => {
+              if (
+                entry.mood
+              ) {
+                monthMoodCounts.set(
+                  entry.mood
+                    .level,
+                  (monthMoodCounts.get(
+                    entry.mood
+                      .level,
+                  ) ??
+                    0) +
+                    1,
+                );
+              }
+            },
+          );
+
+          const monthMostFrequentMood =
+            [
+              ...monthMoodCounts.entries(),
+            ].sort(
+              (a, b) =>
+                b[1] -
+                a[1],
+            )[0]?.[0];
+
+          const monthSleepEntries =
+            monthJournal.filter(
+              entry =>
+                entry.sleep
+                  ?.duration,
+            );
+
+          const monthSleepDurations =
+            monthSleepEntries
+              .map(entry =>
+                parseSleepDurationMinutes(
+                  entry.sleep!
+                    .duration!,
+                ),
+              )
+              .filter(
+                (
+                  value,
+                ): value is number =>
+                  value !==
+                  null,
+              );
+
+          const monthAverageSleepMinutes =
+            monthSleepDurations.length >
+            0
+              ? monthSleepDurations.reduce(
+                  (
+                    sum,
+                    value,
+                  ) =>
+                    sum +
+                    value,
+                  0,
+                ) /
+                monthSleepDurations.length
+              : undefined;
+
+          const result: MonthlyPregnancyBucket =
+            {
+              monthKey,
+
+              monthLabel:
+                formatMonthLabel(
+                  monthKey,
+                ),
+
+              trackedDays:
+                trackedDates.size,
+
+              topSymptoms,
+
+              weightCount:
+                monthWeights.length,
+
+              latestWeightKg:
+                latestWeightEntry?.valueKg,
+
+              mostFrequentMood:
+                monthMostFrequentMood,
+
+              sleepCount:
+                monthSleepEntries.length,
+
+              averageSleepMinutes:
+                monthAverageSleepMinutes,
+
+              appointmentCount:
+                monthEvents.filter(
+                  event =>
+                    event.type ===
+                    'appointment',
+                ).length,
+
+              examCount:
+                monthEvents.filter(
+                  event =>
+                    event.type ===
+                    'exam',
+                ).length,
+            };
+
+          return result;
+        })
+        .filter(
+          (
+            bucket,
+          ): bucket is MonthlyPregnancyBucket =>
+            bucket !==
+            null,
+        );
+    }, [
+      symptoms,
+      weights,
+      periodEntries,
+      medicalEventsInPeriod,
+    ]);
 
   /* ==========================================================
      RENDER
@@ -1439,56 +2009,55 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
           )}
 
           {/* ==================================================
-              FILTERS
+              PERIOD SELECTOR — 1 mois (Free), 3/6/12 mois (Premium)
+              — same architecture and component as every other
+              objective's Statistics screen.
           =================================================== */}
 
           <View
             style={
               styles.filtersWrapper
             }>
-            <View
-              style={
-                styles.filters
-              }>
-              {RANGE_OPTIONS.map(
-                item => {
-                  const active =
-                    range ===
-                    item.key;
+            <StatisticsPeriodSelector
+              isPremium={
+                isPremium
+              }
+              onRequestPremium={() =>
+                setPremiumVisible(
+                  true,
+                )
+              }
+              onSelectPeriod={
+                setPeriod
+              }
+              period={
+                period
+              }
+            />
 
-                  return (
-                    <Pressable
-                      accessibilityRole="button"
-                      key={
-                        item.key
-                      }
-                      onPress={() =>
-                        setRange(
-                          item.key,
-                        )
-                      }
-                      style={[
-                        styles.filter,
+            {coverageMessage ? (
+              <View
+                style={
+                  styles.hintCard
+                }>
+                <MaterialDesignIcons
+                  color={
+                    PURPLE
+                  }
+                  name="information-outline"
+                  size={17}
+                />
 
-                        active &&
-                          styles.filterActive,
-                      ]}>
-                      <Text
-                        style={[
-                          styles.filterText,
-
-                          active &&
-                            styles.filterTextActive,
-                        ]}>
-                        {
-                          item.label
-                        }
-                      </Text>
-                    </Pressable>
-                  );
-                },
-              )}
-            </View>
+                <Text
+                  style={
+                    styles.hint
+                  }>
+                  {
+                    coverageMessage
+                  }
+                </Text>
+              </View>
+            ) : null}
           </View>
 
           {/* ==================================================
@@ -1878,6 +2447,74 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 )}
               </>
             )}
+
+            {showLongitudinalView &&
+            monthlyBreakdown.some(
+              month =>
+                month.weightCount >
+                0,
+            ) ? (
+              <View
+                style={
+                  styles.monthList
+                }>
+                <Text
+                  style={
+                    styles.monthListTitle
+                  }>
+                  Évolution par mois
+                </Text>
+
+                {monthlyBreakdown
+                  .filter(
+                    month =>
+                      month.weightCount >
+                      0,
+                  )
+                  .map(month => (
+                    <View
+                      key={
+                        month.monthKey
+                      }
+                      style={
+                        styles.monthItem
+                      }>
+                      <View
+                        style={
+                          styles.monthTop
+                        }>
+                        <Text
+                          style={
+                            styles.monthLabel
+                          }>
+                          {
+                            month.monthLabel
+                          }
+                        </Text>
+
+                        <Text
+                          style={
+                            styles.monthMeta
+                          }>
+                          {
+                            month.weightCount
+                          }{' '}
+                          {month.weightCount >
+                          1
+                            ? 'mesures'
+                            : 'mesure'}
+                          {month.latestWeightKg !==
+                          undefined
+                            ? ` · dernière ${month.latestWeightKg.toLocaleString(
+                                'fr-FR',
+                              )} kg`
+                            : ''}
+                        </Text>
+                      </View>
+                    </View>
+                  ))}
+              </View>
+            ) : null}
           </View>
 
           {/* ==================================================
@@ -1890,7 +2527,11 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             }>
             <SectionHeader
               icon="heart-pulse"
-              subtitle="Les symptômes que tu as le plus enregistrés"
+              subtitle={
+                showLongitudinalView
+                  ? 'Fréquence et évolution sur la période sélectionnée'
+                  : 'Les symptômes que tu as le plus enregistrés'
+              }
               title="Symptômes fréquents"
             />
 
@@ -2005,6 +2646,88 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   )}
               </View>
             )}
+
+            {showLongitudinalView &&
+            monthlyBreakdown.some(
+              month =>
+                month.topSymptoms
+                  .length >
+                0,
+            ) ? (
+              <View
+                style={
+                  styles.monthList
+                }>
+                <Text
+                  style={
+                    styles.monthListTitle
+                  }>
+                  Évolution par mois
+                </Text>
+
+                {monthlyBreakdown
+                  .filter(
+                    month =>
+                      month.topSymptoms
+                        .length >
+                      0,
+                  )
+                  .map(month => (
+                    <View
+                      key={
+                        month.monthKey
+                      }
+                      style={
+                        styles.monthItem
+                      }>
+                      <View
+                        style={
+                          styles.monthTop
+                        }>
+                        <Text
+                          style={
+                            styles.monthLabel
+                          }>
+                          {
+                            month.monthLabel
+                          }
+                        </Text>
+                      </View>
+
+                      <View
+                        style={
+                          styles.chipRow
+                        }>
+                        {month.topSymptoms.map(
+                          symptom => (
+                            <View
+                              key={
+                                symptom.name
+                              }
+                              style={
+                                styles.chip
+                              }>
+                              <Text
+                                style={
+                                  styles.chipText
+                                }>
+                                {
+                                  symptom.name
+                                }{' '}
+                                ·{' '}
+                                {
+                                  symptom.count
+                                }{' '}
+                                j
+                              </Text>
+                            </View>
+                          ),
+                        )}
+                      </View>
+                    </View>
+                  ))}
+              </View>
+            ) : null}
           </View>
 
           {/* ==================================================
@@ -2027,7 +2750,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.sectionDescription
                 }>
-                Tes tendances quotidiennes
+                {showLongitudinalView
+                  ? 'Ton évolution sur la période sélectionnée'
+                  : 'Tes tendances quotidiennes'}
               </Text>
             </View>
           </View>
@@ -2090,13 +2815,131 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             />
           </View>
 
+          {showLongitudinalView &&
+          monthlyBreakdown.some(
+            month =>
+              month.mostFrequentMood !==
+                undefined ||
+              month.sleepCount >
+                0,
+          ) ? (
+            <View
+              style={
+                styles.card
+              }>
+              <SectionHeader
+                icon="chart-box-outline"
+                subtitle="Ton humeur et ton sommeil, mois par mois"
+                title="Évolution du bien-être"
+              />
+
+              <View
+                style={
+                  styles.monthList
+                }>
+                {monthlyBreakdown
+                  .filter(
+                    month =>
+                      month.mostFrequentMood !==
+                        undefined ||
+                      month.sleepCount >
+                        0,
+                  )
+                  .map(
+                    (
+                      month,
+                      index,
+                      array,
+                    ) => (
+                      <View
+                        key={
+                          month.monthKey
+                        }
+                        style={[
+                          styles.monthItem,
+
+                          index ===
+                            array.length -
+                              1 &&
+                            styles.lastRow,
+                        ]}>
+                        <View
+                          style={
+                            styles.monthTop
+                          }>
+                          <Text
+                            style={
+                              styles.monthLabel
+                            }>
+                            {
+                              month.monthLabel
+                            }
+                          </Text>
+                        </View>
+
+                        <View
+                          style={
+                            styles.chipRow
+                          }>
+                          {month.mostFrequentMood !==
+                          undefined ? (
+                            <View
+                              style={
+                                styles.chip
+                              }>
+                              <Text
+                                style={
+                                  styles.chipText
+                                }>
+                                Humeur ·{' '}
+                                {
+                                  MOOD_LABELS[
+                                    month
+                                      .mostFrequentMood
+                                  ]
+                                }
+                              </Text>
+                            </View>
+                          ) : null}
+
+                          {month.sleepCount >
+                          0 ? (
+                            <View
+                              style={
+                                styles.chip
+                              }>
+                              <Text
+                                style={
+                                  styles.chipText
+                                }>
+                                Sommeil ·{' '}
+                                {month.averageSleepMinutes !==
+                                undefined
+                                  ? formatDurationMinutes(
+                                      month.averageSleepMinutes,
+                                    )
+                                  : `${
+                                      month.sleepCount
+                                    } nuits`}
+                              </Text>
+                            </View>
+                          ) : null}
+                        </View>
+                      </View>
+                    ),
+                  )}
+              </View>
+            </View>
+          ) : null}
+
           {/* ==================================================
               DETAILS IF DATA EXISTS
           =================================================== */}
 
           {(sleepEntries.length >
             0 ||
-            hasMedicalInfoInRange) && (
+            hasMedicalInfoInPeriod ||
+            hasAppointmentsInPeriod) && (
             <View
               style={
                 styles.card
@@ -2113,7 +2956,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   icon="weather-night"
                   label="Sommeil"
                   last={
-                    !hasMedicalInfoInRange
+                    isSleepRowLast
                   }
                   value={
                     averageSleepMinutes !==
@@ -2126,25 +2969,111 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 />
               ) : null}
 
-              {hasMedicalInfoInRange ? (
+              {hasMedicalInfoInPeriod ? (
                 <DetailRow
                   icon="clipboard-pulse-outline"
                   label="Informations médicales"
-                  last
+                  last={
+                    isMedicalInfoRowLast
+                  }
                   value={
-                    medicalInfoDatesInRange.length ===
+                    medicalInfoDatesInPeriod.length ===
                     1
                       ? `Renseignées · ${dateLabel(
-                          medicalInfoDatesInRange[0],
+                          medicalInfoDatesInPeriod[0],
                         )}`
-                      : `${medicalInfoDatesInRange.length} jours renseignés`
+                      : `${medicalInfoDatesInPeriod.length} jours renseignés`
                   }
                 />
+              ) : null}
+
+              {hasAppointmentsInPeriod ? (
+                <DetailRow
+                  icon="calendar-check-outline"
+                  label="Suivi médical"
+                  last
+                  value={formatMedicalSummary(
+                    appointmentCount,
+                    examCount,
+                  )}
+                />
+              ) : null}
+
+              {showLongitudinalView &&
+              monthlyBreakdown.some(
+                month =>
+                  month.appointmentCount +
+                    month.examCount >
+                  0,
+              ) ? (
+                <View
+                  style={
+                    styles.monthList
+                  }>
+                  <Text
+                    style={
+                      styles.monthListTitle
+                    }>
+                    Évolution par mois
+                  </Text>
+
+                  {monthlyBreakdown
+                    .filter(
+                      month =>
+                        month.appointmentCount +
+                          month.examCount >
+                        0,
+                    )
+                    .map(month => (
+                      <View
+                        key={
+                          month.monthKey
+                        }
+                        style={
+                          styles.monthItem
+                        }>
+                        <View
+                          style={
+                            styles.monthTop
+                          }>
+                          <Text
+                            style={
+                              styles.monthLabel
+                            }>
+                            {
+                              month.monthLabel
+                            }
+                          </Text>
+
+                          <Text
+                            style={
+                              styles.monthMeta
+                            }>
+                            {formatMedicalSummary(
+                              month.appointmentCount,
+                              month.examCount,
+                            )}
+                          </Text>
+                        </View>
+                      </View>
+                    ))}
+                </View>
               ) : null}
             </View>
           )}
         </ScrollView>
       </SafeAreaView>
+
+      <HawaPremiumBottomSheet
+        onClose={() =>
+          setPremiumVisible(
+            false,
+          )
+        }
+        visible={
+          premiumVisible
+        }
+      />
     </LinearGradient>
   );
 }
@@ -2596,51 +3525,6 @@ const styles = StyleSheet.create({
 
   filtersWrapper: {
     marginTop: 14,
-  },
-
-  filters: {
-    flexDirection: 'row',
-
-    padding: 4,
-
-    borderWidth: 1,
-    borderColor:
-      'rgba(105,73,190,0.05)',
-    borderRadius: 16,
-
-    backgroundColor:
-      '#EEE8F5',
-  },
-
-  filter: {
-    flex: 1,
-
-    alignItems: 'center',
-
-    paddingVertical: 9,
-
-    borderRadius: 12,
-  },
-
-  filterActive: {
-    ...homeShadow,
-
-    backgroundColor:
-      '#FFFFFF',
-  },
-
-  filterText: {
-    color:
-      TEXT_SECONDARY,
-
-    fontSize: 11,
-    fontWeight: '700',
-  },
-
-  filterTextActive: {
-    color: PURPLE,
-
-    fontWeight: '800',
   },
 
   /* ==========================================================
@@ -3418,6 +4302,86 @@ const styles = StyleSheet.create({
 
     fontSize: 9.5,
     lineHeight: 13,
+  },
+
+  /* ==========================================================
+     MONTHLY BREAKDOWN (PREMIUM longitudinal views) — same visual
+     language as StatisticsScreen.tsx's own "Évolution par mois"
+     lists, reused here for consistency across every objective's
+     Statistics screen.
+  ========================================================== */
+
+  monthList: {
+    marginTop: 14,
+  },
+
+  monthListTitle: {
+    marginBottom: 6,
+
+    color:
+      homeColors.textPrimary,
+
+    fontSize: 11.5,
+    fontWeight: '800',
+  },
+
+  monthItem: {
+    paddingVertical: 10,
+
+    borderBottomWidth:
+      StyleSheet.hairlineWidth,
+
+    borderBottomColor:
+      '#ECE6F1',
+  },
+
+  monthTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent:
+      'space-between',
+  },
+
+  monthLabel: {
+    color:
+      homeColors.textPrimary,
+
+    fontSize: 11.5,
+    fontWeight: '800',
+  },
+
+  monthMeta: {
+    color:
+      TEXT_SECONDARY,
+
+    fontSize: 9.5,
+  },
+
+  chipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+
+    gap: 6,
+
+    marginTop: 8,
+  },
+
+  chip: {
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+
+    borderRadius: 10,
+
+    backgroundColor:
+      '#F5F1F9',
+  },
+
+  chipText: {
+    color:
+      TEXT_SECONDARY,
+
+    fontSize: 9.5,
+    fontWeight: '700',
   },
 });
 

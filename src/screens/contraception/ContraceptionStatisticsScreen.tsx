@@ -22,6 +22,9 @@ import {
   homeShadow,
 } from '../../components/home/homeTheme';
 
+import {usePremium} from '../../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
+
 import {
   getContraceptionPreferences,
   hydrateContraceptionPreferences,
@@ -97,8 +100,13 @@ const BORDER =
 type PeriodMonths =
   | 1
   | 3
-  | 6;
+  | 6
+  | 12;
 
+// Ring/Patch's event section keeps its own original 1/3/6 selector
+// untouched (no Premium gating, no 12-month option) — only the
+// intake-method (Pill/Other) selector below gets the 12-month option and
+// Premium gating, via INTAKE_PERIOD_OPTIONS.
 const PERIOD_OPTIONS: {
   value: PeriodMonths;
   label: string;
@@ -116,6 +124,23 @@ const PERIOD_OPTIONS: {
     label: '6 mois',
   },
 ];
+
+const INTAKE_PERIOD_OPTIONS: {
+  value: PeriodMonths;
+  label: string;
+}[] = [
+  ...PERIOD_OPTIONS,
+  {
+    value: 12,
+    label: '12 mois',
+  },
+];
+
+// FREE tier = 1 month only; 3/6/12 months are Premium-gated, same
+// FREE/PREMIUM split pattern as StatisticsScreen.tsx's isPeriodFree().
+const isIntakePeriodFree = (
+  value: PeriodMonths,
+): boolean => value === 1;
 
 const localDateKey = (
   date: Date,
@@ -154,6 +179,15 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
       [today],
     );
 
+  const {isPremium} =
+    usePremium();
+
+  const [
+    premiumVisible,
+    setPremiumVisible,
+  ] =
+    useState(false);
+
   const [
     periodMonths,
     setPeriodMonths,
@@ -161,6 +195,22 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
     useState<PeriodMonths>(
       1,
     );
+
+  // Same FREE/PREMIUM gating pattern as StatisticsScreen.tsx's
+  // handleSelectPeriod — applies ONLY to the intake-method (Pill/Other)
+  // selector; the Ring/Patch event selector below calls setPeriodMonths
+  // directly and stays ungated.
+  const handleSelectIntakePeriod = useCallback(
+    (target: PeriodMonths): void => {
+      if (!isIntakePeriodFree(target) && !isPremium) {
+        setPremiumVisible(true);
+        return;
+      }
+
+      setPeriodMonths(target);
+    },
+    [isPremium],
+  );
 
   const [
     contraception,
@@ -622,11 +672,17 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.periodRow
                 }>
-                {PERIOD_OPTIONS.map(
+                {INTAKE_PERIOD_OPTIONS.map(
                   option => {
                     const active =
                       option.value ===
                       periodMonths;
+
+                    const locked =
+                      !isIntakePeriodFree(
+                        option.value,
+                      ) &&
+                      !isPremium;
 
                     return (
                       <Pressable
@@ -642,7 +698,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           option.value
                         }
                         onPress={() =>
-                          setPeriodMonths(
+                          handleSelectIntakePeriod(
                             option.value,
                           )
                         }
@@ -657,17 +713,34 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           pressed &&
                             styles.pressed,
                         ]}>
-                        <Text
-                          style={[
-                            styles.periodButtonText,
+                        <View
+                          style={
+                            styles.periodButtonContent
+                          }>
+                          <Text
+                            style={[
+                              styles.periodButtonText,
 
-                            active &&
-                              styles.periodButtonTextActive,
-                          ]}>
-                          {
-                            option.label
-                          }
-                        </Text>
+                              active &&
+                                styles.periodButtonTextActive,
+                            ]}>
+                            {
+                              option.label
+                            }
+                          </Text>
+
+                          {locked ? (
+                            <MaterialDesignIcons
+                              color={
+                                homeColors.textSecondary
+                              }
+                              name="lock-outline"
+                              size={
+                                10
+                              }
+                            />
+                          ) : null}
+                        </View>
                       </Pressable>
                     );
                   },
@@ -1090,23 +1163,29 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   {/* PERIOD SELECTOR */}
 
                   <View style={styles.periodRow}>
-                    {PERIOD_OPTIONS.map(option => {
+                    {INTAKE_PERIOD_OPTIONS.map(option => {
                       const active = option.value === periodMonths;
+                      const locked = !isIntakePeriodFree(option.value) && !isPremium;
                       return (
                         <Pressable
                           accessibilityLabel={option.label}
                           accessibilityRole="button"
                           accessibilityState={{selected: active}}
                           key={option.value}
-                          onPress={() => setPeriodMonths(option.value)}
+                          onPress={() => handleSelectIntakePeriod(option.value)}
                           style={({pressed}) => [
                             styles.periodButton,
                             active && styles.periodButtonActive,
                             pressed && styles.pressed,
                           ]}>
-                          <Text style={[styles.periodButtonText, active && styles.periodButtonTextActive]}>
-                            {option.label}
-                          </Text>
+                          <View style={styles.periodButtonContent}>
+                            <Text style={[styles.periodButtonText, active && styles.periodButtonTextActive]}>
+                              {option.label}
+                            </Text>
+                            {locked ? (
+                              <MaterialDesignIcons color={MUTED} name="lock-outline" size={10} />
+                            ) : null}
+                          </View>
                         </Pressable>
                       );
                     })}
@@ -1297,6 +1376,17 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      <HawaPremiumBottomSheet
+        onClose={() =>
+          setPremiumVisible(
+            false,
+          )
+        }
+        visible={
+          premiumVisible
+        }
+      />
     </LinearGradient>
   );
 }
@@ -1636,6 +1726,16 @@ const styles =
     periodButtonActive: {
       backgroundColor:
         PURPLE,
+    },
+
+    periodButtonContent: {
+      flexDirection:
+        'row',
+
+      alignItems:
+        'center',
+
+      gap: 3,
     },
 
     periodButtonText: {

@@ -15,6 +15,8 @@ import {
   StyleSheet,
   Text,
   View,
+  type StyleProp,
+  type ViewStyle,
 } from 'react-native';
 import {
   useFocusEffect,
@@ -54,6 +56,17 @@ import {
 
 import { diffDays, startOfDay } from '../../utils/cycleMath';
 import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingAgainDisplay';
+
+import { usePremium } from '../../hooks/usePremium';
+import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
+import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
+import {
+  cutoffDateForPeriod,
+  formatMonthLabel,
+  coverageMonthsForAnchor,
+  describeMonthsCoverage,
+  type StatisticsPeriod,
+} from '../../utils/cycleStatisticsMath';
 
 /* ============================================================
    THEME
@@ -200,6 +213,73 @@ function countBySymptom(entries: MiscarriageJournalEntry[]): Array<{
   }))
     .filter(item => item.count > 0)
     .sort((a, b) => b.count - a.count);
+}
+
+/* ============================================================
+   MONTHLY HISTORY HELPERS (Premium — descriptive only, never
+   predictive: groups real recorded entries by calendar month,
+   omitting any month with no real entries)
+============================================================ */
+
+function groupBleedingByMonth(entries: MiscarriageJournalEntry[]): Array<{
+  month: string;
+  label: string;
+  value: number;
+}> {
+  const buckets = new Map<string, number[]>();
+
+  entries.forEach(entry => {
+    if (!entry.bleeding) {
+      return;
+    }
+
+    const intensity =
+      MISCARRIAGE_BLEEDING_OPTIONS.indexOf(entry.bleeding as string) + 1;
+
+    if (intensity <= 0) {
+      return;
+    }
+
+    const key = entry.date.slice(0, 7);
+    const values = buckets.get(key) ?? [];
+
+    values.push(intensity);
+    buckets.set(key, values);
+  });
+
+  return Array.from(buckets.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, values]) => ({
+      month: key,
+      label: formatMonthLabel(key),
+      value: values.reduce((sum, item) => sum + item, 0) / values.length,
+    }));
+}
+
+function groupSymptomsByMonth(entries: MiscarriageJournalEntry[]): Array<{
+  month: string;
+  label: string;
+  daysCount: number;
+  mostFrequent: string | undefined;
+}> {
+  const buckets = new Map<string, MiscarriageJournalEntry[]>();
+
+  entries.forEach(entry => {
+    const key = entry.date.slice(0, 7);
+    const list = buckets.get(key) ?? [];
+
+    list.push(entry);
+    buckets.set(key, list);
+  });
+
+  return Array.from(buckets.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([key, monthEntries]) => ({
+      month: key,
+      label: formatMonthLabel(key),
+      daysCount: monthEntries.length,
+      mostFrequent: countBySymptom(monthEntries)[0]?.label,
+    }));
 }
 
 /* ============================================================
@@ -525,11 +605,13 @@ function TrendBar({
   value,
   maxValue,
   delay,
+  columnStyle,
 }: {
   label: string;
   value: number;
   maxValue: number;
   delay: number;
+  columnStyle?: StyleProp<ViewStyle>;
 }): React.JSX.Element {
   const anim = useRef(new Animated.Value(0)).current;
 
@@ -565,7 +647,7 @@ function TrendBar({
   });
 
   return (
-    <View style={styles.barColumn}>
+    <View style={[styles.barColumn, columnStyle]}>
       <View style={styles.barTrack}>
         <Animated.View
           style={[
@@ -603,6 +685,14 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
     Record<string, MiscarriageJournalEntry>
   >({});
 
+  const { isPremium } = usePremium();
+
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
+  const [period, setPeriod] = useState<StatisticsPeriod>('1');
+
+  const [now, setNow] = useState<Date>(() => new Date());
+
   const tabAnimation = useRef(new Animated.Value(1)).current;
 
   /* ==========================================================
@@ -612,6 +702,8 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   useFocusEffect(
     useCallback(() => {
       let active = true;
+
+      setNow(new Date());
 
       hydrateMiscarriagePreferences().then(value => {
         if (active) {
@@ -685,33 +777,56 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
     [journalEntries],
   );
 
+  /* Real 1/3/6/12-month date-window filter — mirrors
+     cycleStatisticsMath's filterEntriesForPeriod, applied here to
+     MiscarriageJournalEntry (a different shape from DailyJournalEntry, so
+     the shared helper's generic type can't be reused directly). Applies
+     uniformly to every tab below, replacing the previous "last 10
+     entries" free-tier cap with a real 1-month window and the previous
+     unconditional "full history" premium view with a real 3/6/12-month
+     window. */
+  const periodJournalDays = useMemo(() => {
+    const cutoff = cutoffDateForPeriod(period, now);
+
+    return journalDays.filter(entry => {
+      const entryDate = new Date(`${entry.date}T12:00:00`);
+
+      return (
+        entryDate.getTime() >= cutoff.getTime() &&
+        entryDate.getTime() <= now.getTime()
+      );
+    });
+  }, [journalDays, period, now]);
+
+  const showMonthlyView = period !== '1';
+
   const trackedDays = useMemo(
     () =>
-      journalDays.filter(
+      periodJournalDays.filter(
         entry =>
           Boolean(entry.bleeding) ||
           Boolean(entry.physicalSymptoms?.length) ||
           Boolean(entry.personalNotes?.trim()) ||
           Boolean(entry.tryingAgain),
       ).length,
-    [journalDays],
+    [periodJournalDays],
   );
 
   const completeDays = useMemo(
     () =>
-      journalDays.filter(
+      periodJournalDays.filter(
         entry =>
           Boolean(entry.bleeding) &&
           Boolean(entry.physicalSymptoms?.length) &&
           Boolean(entry.personalNotes?.trim()) &&
           Boolean(entry.tryingAgain),
       ).length,
-    [journalDays],
+    [periodJournalDays],
   );
 
   const bleedingEntries = useMemo(
-    () => journalDays.filter(entry => entry.bleeding),
-    [journalDays],
+    () => periodJournalDays.filter(entry => entry.bleeding),
+    [periodJournalDays],
   );
 
   const bleedingCounts = useMemo(
@@ -729,7 +844,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
 
   const bleedingTrend = useMemo(
     () =>
-      bleedingEntries.slice(-10).map(entry => ({
+      bleedingEntries.map(entry => ({
         date: entry.date,
 
         value:
@@ -739,8 +854,8 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   );
 
   const symptomEntries = useMemo(
-    () => journalDays.filter(entry => entry.physicalSymptoms?.length),
-    [journalDays],
+    () => periodJournalDays.filter(entry => entry.physicalSymptoms?.length),
+    [periodJournalDays],
   );
 
   const symptomCounts = useMemo(
@@ -753,13 +868,13 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   const maxSymptomCount = Math.max(...symptomCounts.map(item => item.count), 1);
 
   const notesEntries = useMemo(
-    () => journalDays.filter(entry => entry.personalNotes?.trim()),
-    [journalDays],
+    () => periodJournalDays.filter(entry => entry.personalNotes?.trim()),
+    [periodJournalDays],
   );
 
   const tryingAgainEntries = useMemo(
-    () => journalDays.filter(entry => entry.tryingAgain),
-    [journalDays],
+    () => periodJournalDays.filter(entry => entry.tryingAgain),
+    [periodJournalDays],
   );
 
   const tryingAgainCounts = useMemo(
@@ -781,6 +896,39 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   const maxTryingAgainCount = Math.max(
     ...tryingAgainCounts.map(item => item.count),
     1,
+  );
+
+  /* ==========================================================
+     PREMIUM — HISTORY BY MONTH, WITHIN THE SELECTED WINDOW
+     (descriptive only, never predictive)
+  ========================================================== */
+
+  const bleedingMonthlyTrend = useMemo(
+    () => groupBleedingByMonth(bleedingEntries),
+    [bleedingEntries],
+  );
+
+  const symptomsMonthlyHistory = useMemo(
+    () => groupSymptomsByMonth(symptomEntries),
+    [symptomEntries],
+  );
+
+  /* ==========================================================
+     COVERAGE MESSAGING
+     A loss's tracking naturally has less than 12 months of real
+     history when the miscarriage was recent — this is displayed as
+     information, never as an error, and never backfilled with fake
+     zeros.
+  ========================================================== */
+
+  const coverageMonths = useMemo(
+    () => coverageMonthsForAnchor(period, miscarriageDate, now),
+    [period, miscarriageDate, now],
+  );
+
+  const coverageMessage = useMemo(
+    () => describeMonthsCoverage(period, coverageMonths),
+    [period, coverageMonths],
   );
 
   /* ==========================================================
@@ -896,6 +1044,23 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
         </View>
       </AnimatedSection>
 
+      {/* PERIOD SELECTOR — 1 mois (Free), 3/6/12 mois (Premium) */}
+
+      <AnimatedSection delay={60}>
+        <View style={styles.periodSelectorWrap}>
+          <StatisticsPeriodSelector
+            isPremium={isPremium}
+            onRequestPremium={() => setPremiumVisible(true)}
+            onSelectPeriod={setPeriod}
+            period={period}
+          />
+
+          {coverageMessage ? (
+            <Text style={styles.coverageText}>{coverageMessage}</Text>
+          ) : null}
+        </View>
+      </AnimatedSection>
+
       {/* TABS */}
 
       <AnimatedSection delay={80}>
@@ -975,6 +1140,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           {tab === 'summary' ? (
             <SummaryTab
               bleedingCount={bleedingEntries.length}
+              bleedingMonthlyTrend={bleedingMonthlyTrend}
               bleedingTrend={bleedingTrend}
               completeDays={completeDays}
               cycleReturnLabel={
@@ -984,6 +1150,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
               }
               daysSinceEvent={daysSinceEvent}
               firstReturnedPeriodDate={firstReturnedPeriodDate}
+              showMonthlyView={showMonthlyView}
               symptomsCount={symptomEntries.length}
               trackedDays={trackedDays}
               tryingAgainLabel={
@@ -997,7 +1164,9 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
               counts={bleedingCounts}
               entriesCount={bleedingEntries.length}
               maxCount={maxBleedingCount}
+              monthlyTrend={bleedingMonthlyTrend}
               mostFrequent={mostFrequentBleeding}
+              showMonthlyView={showMonthlyView}
               trend={bleedingTrend}
             />
           ) : null}
@@ -1007,7 +1176,9 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
               counts={symptomCounts}
               entriesCount={symptomEntries.length}
               maxCount={maxSymptomCount}
+              monthlyHistory={symptomsMonthlyHistory}
               mostFrequent={mostFrequentSymptom}
+              showMonthlyView={showMonthlyView}
             />
           ) : null}
 
@@ -1029,6 +1200,11 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           ) : null}
         </ScrollView>
       </Animated.View>
+
+      <HawaPremiumBottomSheet
+        onClose={() => setPremiumVisible(false)}
+        visible={premiumVisible}
+      />
     </LinearGradient>
   );
 }
@@ -1044,6 +1220,8 @@ function SummaryTab({
   bleedingCount,
   symptomsCount,
   bleedingTrend,
+  bleedingMonthlyTrend,
+  showMonthlyView,
   cycleReturnLabel,
   firstReturnedPeriodDate,
   tryingAgainLabel,
@@ -1058,6 +1236,14 @@ function SummaryTab({
     date: string;
     value: number;
   }>;
+
+  bleedingMonthlyTrend: Array<{
+    month: string;
+    label: string;
+    value: number;
+  }>;
+
+  showMonthlyView: boolean;
 
   cycleReturnLabel: string;
 
@@ -1123,11 +1309,41 @@ function SummaryTab({
           <SectionHeader
             accent="pink"
             icon="chart-bar"
-            subtitle="Intensité enregistrée au fil des jours"
+            subtitle={
+              showMonthlyView
+                ? 'Intensité moyenne, par mois'
+                : 'Intensité enregistrée au fil des jours'
+            }
             title="Évolution des saignements"
           />
 
-          {bleedingTrend.length === 0 ? (
+          {showMonthlyView ? (
+            bleedingMonthlyTrend.length === 0 ? (
+              <EmptyState
+                icon="water-outline"
+                text="Pas encore assez de données pour un historique mensuel."
+              />
+            ) : (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.monthlyChartScroll}
+              >
+                <View style={styles.monthlyChartContent}>
+                  {bleedingMonthlyTrend.map((item, index) => (
+                    <TrendBar
+                      columnStyle={styles.monthlyBarColumn}
+                      delay={index * 35}
+                      key={item.month}
+                      label={item.label}
+                      maxValue={4}
+                      value={item.value}
+                    />
+                  ))}
+                </View>
+              </ScrollView>
+            )
+          ) : bleedingTrend.length === 0 ? (
             <EmptyState
               icon="water-outline"
               text="Enregistre tes saignements dans ton journal pour voir leur évolution."
@@ -1221,6 +1437,8 @@ function BleedingTab({
   counts,
   maxCount,
   mostFrequent,
+  monthlyTrend,
+  showMonthlyView,
 }: {
   entriesCount: number;
 
@@ -1237,6 +1455,14 @@ function BleedingTab({
   maxCount: number;
 
   mostFrequent: string | undefined;
+
+  monthlyTrend: Array<{
+    month: string;
+    label: string;
+    value: number;
+  }>;
+
+  showMonthlyView: boolean;
 }): React.JSX.Element {
   if (entriesCount === 0) {
     return (
@@ -1282,21 +1508,53 @@ function BleedingTab({
           <SectionHeader
             accent="pink"
             icon="chart-bar"
-            subtitle="Séquence enregistrée"
+            subtitle={
+              showMonthlyView
+                ? 'Évolution mensuelle, sur la période sélectionnée'
+                : 'Séquence enregistrée'
+            }
             title="Évolution du flux"
           />
 
-          <View style={styles.chart}>
-            {trend.map((item, index) => (
-              <TrendBar
-                delay={index * 50}
-                key={item.date}
-                label={dateLabel(item.date)}
-                maxValue={4}
-                value={item.value}
+          {showMonthlyView ? (
+            monthlyTrend.length === 0 ? (
+              <EmptyState
+                icon="water-outline"
+                text="Pas encore assez de données pour un historique mensuel."
               />
-            ))}
-          </View>
+            ) : (
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.monthlyChartScroll}
+              >
+                <View style={styles.monthlyChartContent}>
+                  {monthlyTrend.map((item, index) => (
+                    <TrendBar
+                      columnStyle={styles.monthlyBarColumn}
+                      delay={index * 35}
+                      key={item.month}
+                      label={item.label}
+                      maxValue={4}
+                      value={item.value}
+                    />
+                  ))}
+                </View>
+              </ScrollView>
+            )
+          ) : (
+            <View style={styles.chart}>
+              {trend.map((item, index) => (
+                <TrendBar
+                  delay={index * 50}
+                  key={item.date}
+                  label={dateLabel(item.date)}
+                  maxValue={4}
+                  value={item.value}
+                />
+              ))}
+            </View>
+          )}
         </View>
       </AnimatedSection>
 
@@ -1349,6 +1607,8 @@ function SymptomsTab({
   counts,
   maxCount,
   mostFrequent,
+  monthlyHistory,
+  showMonthlyView,
 }: {
   entriesCount: number;
 
@@ -1360,6 +1620,15 @@ function SymptomsTab({
   maxCount: number;
 
   mostFrequent: string | undefined;
+
+  monthlyHistory: Array<{
+    month: string;
+    label: string;
+    daysCount: number;
+    mostFrequent: string | undefined;
+  }>;
+
+  showMonthlyView: boolean;
 }): React.JSX.Element {
   if (entriesCount === 0) {
     return (
@@ -1400,7 +1669,11 @@ function SymptomsTab({
         <View style={styles.card}>
           <SectionHeader
             icon="chart-donut"
-            subtitle="Selon tes journées enregistrées"
+            subtitle={
+              showMonthlyView
+                ? 'Évolution mensuelle, sur la période sélectionnée'
+                : 'Selon tes journées enregistrées'
+            }
             title="Fréquence des symptômes"
           />
 
@@ -1415,6 +1688,35 @@ function SymptomsTab({
               />
             ))}
           </View>
+
+          {showMonthlyView ? (
+            monthlyHistory.length === 0 ? (
+              <EmptyState
+                icon="heart-pulse"
+                text="Pas encore assez de données pour un historique mensuel."
+              />
+            ) : (
+              <View style={styles.monthlyList}>
+                {monthlyHistory.map((item, index) => (
+                  <View
+                    key={item.month}
+                    style={[
+                      styles.monthlyRow,
+                      index === monthlyHistory.length - 1 && styles.lastRow,
+                    ]}
+                  >
+                    <Text style={styles.monthlyRowLabel}>{item.label}</Text>
+
+                    <Text style={styles.monthlyRowMeta}>
+                      {item.daysCount}{' '}
+                      {item.daysCount > 1 ? 'jours' : 'jour'}
+                      {item.mostFrequent ? ` · ${item.mostFrequent}` : ''}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            )
+          ) : null}
         </View>
       </AnimatedSection>
     </>
@@ -2327,6 +2629,64 @@ const styles = StyleSheet.create({
     color: PURPLE,
     fontSize: 9.5,
     fontWeight: '700',
+  },
+
+  periodSelectorWrap: {
+    marginTop: 12,
+    marginHorizontal: 16,
+  },
+
+  coverageText: {
+    marginTop: -8,
+    marginBottom: 10,
+    color: TEXT_SECONDARY,
+    fontSize: 9.5,
+    textAlign: 'center',
+  },
+
+  monthlyChartScroll: {
+    marginTop: 16,
+  },
+
+  monthlyChartContent: {
+    height: 155,
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    gap: 8,
+    paddingRight: 4,
+  },
+
+  monthlyBarColumn: {
+    flex: 0,
+    width: 42,
+    height: '100%',
+  },
+
+  monthlyList: {
+    marginTop: 13,
+  },
+
+  monthlyRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    paddingVertical: 10,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: '#ECE5F1',
+  },
+
+  monthlyRowLabel: {
+    color: PURPLE_DARK,
+    fontSize: 11.5,
+    fontWeight: '700',
+  },
+
+  monthlyRowMeta: {
+    flexShrink: 1,
+    color: TEXT_SECONDARY,
+    fontSize: 9.7,
+    textAlign: 'right',
   },
 
   pressed: {

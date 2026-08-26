@@ -52,6 +52,17 @@ import {
   upcomingDateForCycleDay,
 } from '../../utils/cycleMath';
 
+import {
+  cutoffDateForPeriod,
+  filterEntriesForPeriod,
+  isPeriodFree,
+  STATISTICS_PERIODS,
+  type StatisticsPeriod,
+} from '../../utils/cycleStatisticsMath';
+
+import { usePremium } from '../../hooks/usePremium';
+import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
+
 // Trying-to-Conceive Statistics — structurally modeled after
 // MiscarriageStatisticsScreen.tsx (same premium HAWA card language, tabs,
 // KpiCard/TrendBar/DistributionRow/SectionHeader/EmptyState/AnimatedSection
@@ -60,11 +71,16 @@ import {
 // intercourse. Reads onboardingPreferences' cycle store + cycleMath.ts
 // (same as ConceiveDashboard.tsx/ConceiveCalendarContent.tsx) and the
 // generic dailyJournalStore.ts — never a separate TTC store, never
-// pregnancy/postpartum/miscarriage data. Like the Miscarriage screen this
-// mirrors, there is no month-range (3/6/12) selector anywhere in that
-// architecture to reuse — trends here use the same "last up to 10 real
-// entries" approach already established. Never a diagnosis or a guaranteed
-// pregnancy probability — every disclaimer card says so explicitly.
+// pregnancy/postpartum/miscarriage data. Freemium period selector (1/3/6/12
+// mois) reuses the generic, Cycle-agnostic helpers from
+// cycleStatisticsMath.ts (already built for reuse across objectives per
+// that file's own doc comment) — same Free/Premium split and
+// usePremium()/HawaPremiumBottomSheet pattern as StatisticsScreen.tsx.
+// Trends within the selected period keep a reasonable display cap for
+// chart readability, but the underlying stats (counts, averages,
+// distributions) are computed from the real period-filtered data, never a
+// hardcoded "last 10". Never a diagnosis or a guaranteed pregnancy
+// probability — every disclaimer card says so explicitly.
 
 /* ============================================================
    THEME
@@ -128,6 +144,19 @@ const LH_LABEL: Record<string, string> = {
   positive: 'Positif',
   invalid: 'Non valide',
 };
+
+const PERIOD_LABELS: Record<StatisticsPeriod, string> = {
+  '1': '1 mois',
+  '3': '3 mois',
+  '6': '6 mois',
+  '12': '12 mois',
+};
+
+/** Chart readability cap only — the underlying stats/counts below are
+ * always computed from the full real period-filtered set, never from this
+ * slice (mirrors the same "cap the chart, not the data" convention already
+ * used by StatisticsScreen.tsx's longitudinal views). */
+const TREND_DISPLAY_CAP = 20;
 
 /* ============================================================
    FORMATTERS
@@ -468,6 +497,10 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const [allEntries, setAllEntries] = useState<DailyJournalEntry[]>([]);
   const tabAnimation = useRef(new Animated.Value(1)).current;
 
+  const { isPremium } = usePremium();
+  const [period, setPeriod] = useState<StatisticsPeriod>('1');
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
   const today = useMemo(() => startOfDay(new Date()), []);
 
   /* ==========================================================
@@ -530,13 +563,21 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
     [allEntries],
   );
 
+  // Real period-filtered window (Free = 1 mois, Premium = 3/6/12 mois) —
+  // every trend/count below derives from this set, never an arbitrary
+  // "last 10" slice regardless of the selected period.
+  const periodEntries = useMemo(
+    () => filterEntriesForPeriod(journalDays, period, today),
+    [journalDays, period, today],
+  );
+
   const temperatureEntries = useMemo(
-    () => journalDays.filter((entry): entry is DailyJournalEntry & { temperature: NonNullable<DailyJournalEntry['temperature']> } => Boolean(entry.temperature)),
-    [journalDays],
+    () => periodEntries.filter((entry): entry is DailyJournalEntry & { temperature: NonNullable<DailyJournalEntry['temperature']> } => Boolean(entry.temperature)),
+    [periodEntries],
   );
 
   const temperatureTrend = useMemo(
-    () => temperatureEntries.slice(-10).map(entry => ({ date: entry.date, value: entry.temperature.value })),
+    () => temperatureEntries.slice(-TREND_DISPLAY_CAP).map(entry => ({ date: entry.date, value: entry.temperature.value })),
     [temperatureEntries],
   );
 
@@ -571,8 +612,8 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
     : null;
 
   const mucusEntries = useMemo(
-    () => journalDays.filter((entry): entry is DailyJournalEntry & { cervicalMucus: NonNullable<DailyJournalEntry['cervicalMucus']> } => Boolean(entry.cervicalMucus)),
-    [journalDays],
+    () => periodEntries.filter((entry): entry is DailyJournalEntry & { cervicalMucus: NonNullable<DailyJournalEntry['cervicalMucus']> } => Boolean(entry.cervicalMucus)),
+    [periodEntries],
   );
   const mucusCounts = useMemo(
     () => countByLabel(mucusEntries.map(entry => entry.cervicalMucus.type), MUCUS_LABEL),
@@ -582,8 +623,8 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const latestMucus = mucusEntries[mucusEntries.length - 1];
 
   const lhEntries = useMemo(
-    () => journalDays.filter((entry): entry is DailyJournalEntry & { lhTest: NonNullable<DailyJournalEntry['lhTest']> } => Boolean(entry.lhTest)),
-    [journalDays],
+    () => periodEntries.filter((entry): entry is DailyJournalEntry & { lhTest: NonNullable<DailyJournalEntry['lhTest']> } => Boolean(entry.lhTest)),
+    [periodEntries],
   );
   const lhCounts = useMemo(
     () => countByLabel(lhEntries.map(entry => entry.lhTest.result), LH_LABEL),
@@ -611,7 +652,12 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
      CycleHomeScreen/ConceiveDashboard already read)
   ========================================================== */
 
-  const cycleLengthTrend = useMemo(() => {
+  // Full real cycle-length history (every consecutive gap between confirmed
+  // period starts) — computed once, unbounded. The selected period then
+  // filters this real set by date, so a wider Premium window (3/6/12 mois)
+  // surfaces more of this same real history instead of an arbitrary
+  // "last 10" cap.
+  const allCycleLengths = useMemo(() => {
     const starts = getPeriodHistory()
       .map(record => startOfDay(new Date(`${record.startDate}T12:00:00`)))
       .sort((a, b) => a.getTime() - b.getTime());
@@ -622,8 +668,18 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
         lengths.push({ date: starts[index].toLocaleDateString('en-CA'), value: length });
       }
     }
-    return lengths.slice(-10);
+    return lengths;
   }, []);
+
+  const cycleLengthTrend = useMemo(() => {
+    const cutoff = cutoffDateForPeriod(period, today);
+    return allCycleLengths
+      .filter(item => {
+        const date = new Date(`${item.date}T12:00:00`);
+        return date.getTime() >= cutoff.getTime() && date.getTime() <= today.getTime();
+      })
+      .slice(-TREND_DISPLAY_CAP);
+  }, [allCycleLengths, period, today]);
 
   const averageCycleLength = useMemo(() => {
     if (cycleLengthTrend.length === 0) {
@@ -643,6 +699,17 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   /* ==========================================================
      TAB CHANGE
   ========================================================== */
+
+  const handleSelectPeriod = useCallback(
+    (target: StatisticsPeriod) => {
+      if (!isPeriodFree(target) && !isPremium) {
+        setPremiumVisible(true);
+        return;
+      }
+      setPeriod(target);
+    },
+    [isPremium],
+  );
 
   const handleTabChange = useCallback(
     (nextTab: TabKey) => {
@@ -725,6 +792,44 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
             <Text style={styles.objectiveValue}>Essayer de concevoir</Text>
           </View>
           <View style={styles.objectiveDot} />
+        </View>
+      </AnimatedSection>
+
+      {/* PERIOD SELECTOR — 1 mois (Free), 3/6/12 mois (Premium) */}
+      <AnimatedSection delay={60}>
+        <View style={styles.periodFilters}>
+          {STATISTICS_PERIODS.map(item => {
+            const active = period === item;
+            const locked = !isPeriodFree(item) && !isPremium;
+
+            return (
+              <Pressable
+                accessibilityRole="button"
+                accessibilityState={{ selected: active }}
+                key={item}
+                onPress={() => handleSelectPeriod(item)}
+                style={({ pressed }) => [
+                  styles.periodFilterButton,
+                  active && styles.periodFilterButtonActive,
+                  pressed && styles.tabPressed,
+                ]}
+              >
+                <View style={styles.periodFilterButtonContent}>
+                  <Text
+                    style={[
+                      styles.periodFilterText,
+                      active && styles.periodFilterTextActive,
+                    ]}
+                  >
+                    {PERIOD_LABELS[item]}
+                  </Text>
+                  {locked ? (
+                    <MaterialDesignIcons color={TEXT_SECONDARY} name="lock-outline" size={10} />
+                  ) : null}
+                </View>
+              </Pressable>
+            );
+          })}
         </View>
       </AnimatedSection>
 
@@ -843,6 +948,8 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
           ) : null}
         </ScrollView>
       </Animated.View>
+
+      <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
     </LinearGradient>
   );
 }
@@ -1022,9 +1129,10 @@ function TemperatureTab({
   min: number | null;
   max: number | null;
   trend: Array<{ date: string; display: string; scaled: number }>;
-  // True total of recorded measurements — NOT `trend.length`, which the
-  // chart above deliberately caps to the last 10 for readability (same
-  // convention as the Summary tab's own "Températures enregistrées" KPI).
+  // True total of recorded measurements within the selected period — NOT
+  // `trend.length`, which the chart above caps at TREND_DISPLAY_CAP purely
+  // for readability (same convention as the Summary tab's own
+  // "Températures enregistrées" KPI).
   count: number;
 }): React.JSX.Element {
   if (trend.length === 0) {
@@ -1398,6 +1506,31 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   objectiveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#80B98F' },
+
+  periodFilters: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    marginTop: 11,
+    padding: 4,
+    borderWidth: 1,
+    borderColor: 'rgba(105,73,190,0.05)',
+    borderRadius: 17,
+    backgroundColor: '#EEE8F5',
+  },
+  periodFilterButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 38,
+    borderRadius: 13,
+  },
+  periodFilterButtonActive: {
+    ...homeShadow,
+    backgroundColor: '#FFFFFF',
+  },
+  periodFilterButtonContent: { flexDirection: 'row', alignItems: 'center', gap: 3 },
+  periodFilterText: { color: TEXT_SECONDARY, fontSize: 10.5, fontWeight: '700' },
+  periodFilterTextActive: { color: PURPLE, fontWeight: '800' },
 
   tabsScroll: { flexGrow: 0, marginTop: 11 },
   tabsScrollContent: { paddingHorizontal: 16, paddingBottom: 10, gap: 8 },

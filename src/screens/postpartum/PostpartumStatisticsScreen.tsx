@@ -19,6 +19,16 @@ import LinearGradient from 'react-native-linear-gradient';
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { homeColors, homeShadow } from '../../components/home/homeTheme';
 import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
+import { usePremium } from '../../hooks/usePremium';
+import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
+import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
+import {
+  coverageMonthsForAnchor,
+  cutoffDateForPeriod,
+  describeMonthsCoverage,
+  formatMonthLabel,
+  type StatisticsPeriod,
+} from '../../utils/cycleStatisticsMath';
 import {
   getAllPostpartumJournalEntries,
   hydratePostpartumJournal,
@@ -91,6 +101,12 @@ const TABS: Array<{ key: TabKey; label: string }> = [
   { key: 'recovery', label: 'Récupération' },
 ];
 
+/** Display cap on the FREE (1 mois) daily trend charts — the underlying
+ * entry set is already restricted to the selected period's real date
+ * window (`withinPeriod`), so this only bounds how many daily bars a dense
+ * month renders, never a substitute for real date filtering. */
+const TREND_DISPLAY_CAP = 20;
+
 const LOCHIA_FLOW_VALUE: Record<LochiaFlow, number> = {
   'Très léger': 1,
   Léger: 2,
@@ -133,6 +149,72 @@ function countByOption<T extends PostpartumJournalEntry>(
     .map(label => ({ label, count: counts.get(label) ?? 0 }))
     .filter(item => item.count > 0)
     .sort((a, b) => b.count - a.count);
+}
+
+/** Counts frequency of items inside a multi-select `string[]` field
+ * (e.g. lochia `symptoms`) across all entries. */
+function countByTag(entries: PostpartumLochiaEntry[]): Array<{
+  label: string;
+  count: number;
+}> {
+  const counts = new Map<string, number>();
+  entries.forEach(entry => {
+    entry.symptoms.forEach(symptom => {
+      counts.set(symptom, (counts.get(symptom) ?? 0) + 1);
+    });
+  });
+  return Array.from(counts.entries())
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count);
+}
+
+/** True when `date` (a 'YYYY-MM-DD' journal/lochia entry date) falls inside
+ * the selected period's real lookback window — used to replace the old
+ * "last 8-10 entries" cap with a real date-window filter. */
+function withinPeriod(date: string, cutoff: Date, now: Date): boolean {
+  const time = new Date(`${date}T12:00:00`).getTime();
+  return time >= cutoff.getTime() && time <= now.getTime();
+}
+
+/** Groups entries by their real calendar month (from `entry.date`,
+ * `YYYY-MM-DD`) — a month with zero real entries is simply absent,
+ * never fabricated. Kept local to this screen (Postpartum-specific
+ * entry shapes aren't compatible with cycleStatisticsMath.ts's
+ * DailyJournalEntry-typed `groupEntriesByMonth`), but reuses the shared
+ * `formatMonthLabel` for the label itself. */
+function groupByMonth<T extends { date: string }>(
+  entries: T[],
+): Array<{ monthKey: string; entries: T[] }> {
+  const buckets = new Map<string, T[]>();
+  entries.forEach(entry => {
+    const key = entry.date.slice(0, 7);
+    const bucket = buckets.get(key);
+    if (bucket) {
+      bucket.push(entry);
+    } else {
+      buckets.set(key, [entry]);
+    }
+  });
+  return Array.from(buckets.entries())
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([monthKey, monthEntries]) => ({ monthKey, entries: monthEntries }));
+}
+
+/** Averages a numeric field per real calendar month — the Premium (3/6/12
+ * mois) counterpart to the free tier's real 1-month window trend. Callers
+ * pass an already period-filtered entry set, so a 12-month selection never
+ * silently includes data from outside that window. */
+function averageByMonth<T extends { date: string }>(
+  entries: T[],
+  valueOf: (entry: T) => number,
+): Array<{ date: string; label: string; value: number }> {
+  return groupByMonth(entries).map(group => ({
+    date: group.monthKey,
+    label: formatMonthLabel(group.monthKey),
+    value:
+      group.entries.reduce((sum, entry) => sum + valueOf(entry), 0) /
+      group.entries.length,
+  }));
 }
 
 /* ============================================================
@@ -266,6 +348,14 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [tab, setTab] = useState<TabKey>('summary');
 
+  const { isPremium } = usePremium();
+  const [premiumSheetVisible, setPremiumSheetVisible] = useState(false);
+  // Single global time-period selector shared by all 7 tabs — replaces the
+  // former per-tab "Vue complète" toggle so Postpartum matches the same
+  // FREE=1 mois / PREMIUM=3-6-12 mois architecture every other objective's
+  // Statistics screen uses.
+  const [period, setPeriod] = useState<StatisticsPeriod>('1');
+
   const [prefs, setPrefs] = useState(getPostpartumPreferences);
   const [journalEntries, setJournalEntries] = useState<
     Record<string, PostpartumJournalEntry>
@@ -340,16 +430,39 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   );
 
   /* ==========================================================
+     PERIOD WINDOW — real 1/3/6/12-month lookback shared by every
+     tab (StatisticsPeriodSelector above). Coverage messaging tells
+     the user when the delivery-date anchor is more recent than the
+     selected window, instead of ever implying more history exists.
+  ========================================================== */
+
+  const now = useMemo(() => new Date(), []);
+  const periodCutoff = useMemo(
+    () => cutoffDateForPeriod(period, now),
+    [period, now],
+  );
+  const coverageMonths = useMemo(
+    () => coverageMonthsForAnchor(period, deliveryDate, now),
+    [period, deliveryDate, now],
+  );
+  const coverageMessage = useMemo(
+    () => describeMonthsCoverage(period, coverageMonths),
+    [period, coverageMonths],
+  );
+  const isMonthlyView = period !== '1';
+
+  /* ==========================================================
      JOURNAL — Jours de suivi / Journées complètes, and each of the
-     5 canonical categories, all derived from the same array.
+     5 canonical categories, all derived from the same array,
+     restricted to the selected period's real date window.
   ========================================================== */
 
   const journalDays = useMemo(
     () =>
-      Object.values(journalEntries).sort((a, b) =>
-        a.date.localeCompare(b.date),
-      ),
-    [journalEntries],
+      Object.values(journalEntries)
+        .filter(entry => withinPeriod(entry.date, periodCutoff, now))
+        .sort((a, b) => a.date.localeCompare(b.date)),
+    [journalEntries, periodCutoff, now],
   );
 
   const trackedDays = useMemo(
@@ -381,12 +494,20 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   const fatigueTrend = useMemo(
     () =>
       fatigueEntries
-        .slice(-8)
+        .slice(-TREND_DISPLAY_CAP)
         .map(entry => ({
           date: entry.date,
           value:
             POSTPARTUM_FATIGUE_OPTIONS.indexOf(entry.fatigue as string) + 1,
         })),
+    [fatigueEntries],
+  );
+  const fatigueTrendFull = useMemo(
+    () =>
+      averageByMonth(
+        fatigueEntries,
+        entry => POSTPARTUM_FATIGUE_OPTIONS.indexOf(entry.fatigue as string) + 1,
+      ),
     [fatigueEntries],
   );
 
@@ -428,9 +549,17 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         0,
       ) / sleepDurationEntries.length
     : undefined;
-  const visibleSleepChart = sleepDurationEntries.slice(-8);
+  const visibleSleepChart = sleepDurationEntries.slice(-TREND_DISPLAY_CAP);
   const maxSleepDuration = Math.max(
     ...visibleSleepChart.map(entry => entry.sleepDuration),
+    1,
+  );
+  const sleepChartFull = useMemo(
+    () => averageByMonth(sleepDurationEntries, entry => entry.sleepDuration),
+    [sleepDurationEntries],
+  );
+  const maxSleepDurationFull = Math.max(
+    ...sleepChartFull.map(item => item.value),
     1,
   );
 
@@ -447,11 +576,19 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   const painTrend = useMemo(
     () =>
       painEntries
-        .slice(-8)
+        .slice(-TREND_DISPLAY_CAP)
         .map(entry => ({
           date: entry.date,
           value: POSTPARTUM_PAIN_OPTIONS.indexOf(entry.pain as string) + 1,
         })),
+    [painEntries],
+  );
+  const painTrendFull = useMemo(
+    () =>
+      averageByMonth(
+        painEntries,
+        entry => POSTPARTUM_PAIN_OPTIONS.indexOf(entry.pain as string) + 1,
+      ),
     [painEntries],
   );
 
@@ -476,7 +613,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   const recoveryTrend = useMemo(
     () =>
       recoveryEntries
-        .slice(-8)
+        .slice(-TREND_DISPLAY_CAP)
         .map(entry => ({
           date: entry.date,
           value:
@@ -486,21 +623,35 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         })),
     [recoveryEntries],
   );
+  const recoveryTrendFull = useMemo(
+    () =>
+      averageByMonth(
+        recoveryEntries,
+        entry =>
+          POSTPARTUM_RECOVERY_OPTIONS.indexOf(
+            entry.physicalRecovery as string,
+          ) + 1,
+      ),
+    [recoveryEntries],
+  );
 
   /* ==========================================================
      LOCHIA — count / chart / distribution, all from
-     postpartumLochiaStore only.
+     postpartumLochiaStore only, restricted to the selected period's
+     real date window (same withinPeriod filter as journalDays above).
   ========================================================== */
 
   const lochiaDays = useMemo(
     () =>
-      Object.values(lochiaEntries).sort((a, b) => a.date.localeCompare(b.date)),
-    [lochiaEntries],
+      Object.values(lochiaEntries)
+        .filter(entry => withinPeriod(entry.date, periodCutoff, now))
+        .sort((a, b) => a.date.localeCompare(b.date)),
+    [lochiaEntries, periodCutoff, now],
   );
 
   const lochiaChart = useMemo(
     () =>
-      lochiaDays.slice(-10).map(entry => {
+      lochiaDays.slice(-TREND_DISPLAY_CAP).map(entry => {
         const entryStatus = computePostpartumStatus(
           deliveryDate,
           new Date(`${entry.date}T12:00:00`),
@@ -515,6 +666,16 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         };
       }),
     [lochiaDays, deliveryDate],
+  );
+  const lochiaChartFull = useMemo(
+    () => averageByMonth(lochiaDays, entry => LOCHIA_FLOW_VALUE[entry.flow]),
+    [lochiaDays],
+  );
+
+  const lochiaSymptomCounts = useMemo(() => countByTag(lochiaDays), [lochiaDays]);
+  const maxLochiaSymptomCount = Math.max(
+    ...lochiaSymptomCounts.map(item => item.count),
+    1,
   );
 
   const lochiaFlowCounts = useMemo(() => {
@@ -590,6 +751,25 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         </View>
       </View>
 
+      <View style={styles.periodSelectorWrap}>
+        <StatisticsPeriodSelector
+          isPremium={isPremium}
+          onRequestPremium={() => setPremiumSheetVisible(true)}
+          onSelectPeriod={setPeriod}
+          period={period}
+        />
+        {coverageMessage ? (
+          <View style={styles.coverageNote}>
+            <MaterialDesignIcons
+              color={PURPLE}
+              name="information-outline"
+              size={13}
+            />
+            <Text style={styles.coverageNoteText}>{coverageMessage}</Text>
+          </View>
+        ) : null}
+      </View>
+
       <ScrollView
         contentContainerStyle={styles.tabsScrollContent}
         horizontal
@@ -627,7 +807,9 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           <SummaryTab
             averageSleepHours={averageSleepHours}
             completeDays={completeDays}
-            lochiaChart={lochiaChart}
+            firstPostpartumPeriodDate={prefs.firstPostpartumPeriodDate}
+            isMonthlyView={isMonthlyView}
+            lochiaChart={isMonthlyView ? lochiaChartFull : lochiaChart}
             lochiaCount={lochiaDays.length}
             moodEntriesCount={moodEntries.length}
             mostFrequentMood={mostFrequentMood}
@@ -639,11 +821,14 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
 
         {tab === 'lochia' ? (
           <LochiaTab
-            chart={lochiaChart}
+            chart={isMonthlyView ? lochiaChartFull : lochiaChart}
             entriesCount={lochiaDays.length}
             flowCounts={lochiaFlowCounts}
+            isMonthlyView={isMonthlyView}
             maxFlowCount={maxLochiaFlowCount}
+            maxSymptomCount={maxLochiaSymptomCount}
             summary={lochiaSummary}
+            symptomCounts={lochiaSymptomCounts}
             timeline={lochiaDays.slice(-12).reverse()}
           />
         ) : null}
@@ -655,12 +840,13 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             emptyText="Enregistre ta fatigue dans ton journal quotidien pour voir son évolution ici."
             entriesCount={fatigueEntries.length}
             icon="lightning-bolt-outline"
+            isMonthlyView={isMonthlyView}
             kpiIcon="lightning-bolt-outline"
             kpiLabel="Fatigue la plus fréquente"
             maxCount={maxFatigueCount}
             mostFrequent={mostFrequentFatigue}
             title="Fatigue"
-            trend={fatigueTrend}
+            trend={isMonthlyView ? fatigueTrendFull : fatigueTrend}
             trendMax={5}
           />
         ) : null}
@@ -672,6 +858,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             emptyText="Enregistre ton humeur dans ton journal quotidien pour voir son évolution ici."
             entriesCount={moodEntries.length}
             icon="heart-outline"
+            isMonthlyView={isMonthlyView}
             kpiIcon="emoticon-happy-outline"
             kpiLabel="Humeur la plus fréquente"
             maxCount={maxMoodCount}
@@ -685,8 +872,16 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         {tab === 'sleep' ? (
           <SleepTab
             averageHours={averageSleepHours}
-            chart={visibleSleepChart}
-            maxDuration={maxSleepDuration}
+            chart={
+              isMonthlyView
+                ? sleepChartFull
+                : visibleSleepChart.map(entry => ({
+                    date: entry.date,
+                    value: entry.sleepDuration,
+                  }))
+            }
+            isMonthlyView={isMonthlyView}
+            maxDuration={isMonthlyView ? maxSleepDurationFull : maxSleepDuration}
             maxQualityCount={maxSleepQualityCount}
             nightsCount={sleepDurationEntries.length}
             qualityCounts={sleepQualityCounts}
@@ -700,12 +895,13 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             emptyText="Enregistre tes douleurs dans ton journal quotidien pour voir leur fréquence ici."
             entriesCount={painEntries.length}
             icon="heat-wave"
+            isMonthlyView={isMonthlyView}
             kpiIcon="heat-wave"
             kpiLabel="Douleur la plus fréquente"
             maxCount={maxPainCount}
             mostFrequent={mostFrequentPain}
             title="Douleurs"
-            trend={painTrend}
+            trend={isMonthlyView ? painTrendFull : painTrend}
             trendMax={5}
           />
         ) : null}
@@ -717,16 +913,22 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             emptyText="Enregistre ta récupération dans ton journal quotidien pour voir sa progression ici."
             entriesCount={recoveryEntries.length}
             icon="heart-pulse"
+            isMonthlyView={isMonthlyView}
             kpiIcon="heart-pulse"
             kpiLabel="Récupération la plus fréquente"
             maxCount={maxRecoveryCount}
             mostFrequent={mostFrequentRecovery}
             title="Récupération physique"
-            trend={recoveryTrend}
+            trend={isMonthlyView ? recoveryTrendFull : recoveryTrend}
             trendMax={5}
           />
         ) : null}
       </ScrollView>
+
+      <HawaPremiumBottomSheet
+        onClose={() => setPremiumSheetVisible(false)}
+        visible={premiumSheetVisible}
+      />
     </LinearGradient>
   );
 }
@@ -745,6 +947,8 @@ function SummaryTab({
   sleepEntriesCount,
   mostFrequentMood,
   moodEntriesCount,
+  firstPostpartumPeriodDate,
+  isMonthlyView,
 }: {
   status: ReturnType<typeof computePostpartumStatus>;
   trackedDays: number;
@@ -752,7 +956,6 @@ function SummaryTab({
   lochiaCount: number;
   lochiaChart: Array<{
     date: string;
-    flow: LochiaFlow;
     value: number;
     label: string;
   }>;
@@ -760,6 +963,8 @@ function SummaryTab({
   sleepEntriesCount: number;
   mostFrequentMood: string | undefined;
   moodEntriesCount: number;
+  firstPostpartumPeriodDate: string | null;
+  isMonthlyView: boolean;
 }): React.JSX.Element {
   return (
     <>
@@ -802,12 +1007,26 @@ function SummaryTab({
             et Récupération physique.
           </Text>
         </View>
+        <View style={styles.infoStrip}>
+          <MaterialDesignIcons
+            color={PURPLE}
+            name="calendar-refresh-outline"
+            size={16}
+          />
+          <Text style={styles.infoStripText}>
+            {firstPostpartumPeriodDate
+              ? `Retour des règles : le ${dateLabel(firstPostpartumPeriodDate)}`
+              : 'Retour des règles : pas encore enregistré'}
+          </Text>
+        </View>
       </View>
 
       <View style={styles.card}>
         <SectionHeader
           icon="chart-bar"
-          subtitle="Flux dominant"
+          subtitle={
+            isMonthlyView ? 'Historique complet, par mois' : 'Flux dominant'
+          }
           title="Évolution des lochies"
         />
         {lochiaChart.length === 0 ? (
@@ -909,11 +1128,13 @@ function LochiaTab({
   maxFlowCount,
   timeline,
   summary,
+  symptomCounts,
+  maxSymptomCount,
+  isMonthlyView,
 }: {
   entriesCount: number;
   chart: Array<{
     date: string;
-    flow: LochiaFlow;
     value: number;
     label: string;
   }>;
@@ -921,6 +1142,9 @@ function LochiaTab({
   maxFlowCount: number;
   timeline: PostpartumLochiaEntry[];
   summary: PostpartumLochiaSummary;
+  symptomCounts: Array<{ label: string; count: number }>;
+  maxSymptomCount: number;
+  isMonthlyView: boolean;
 }): React.JSX.Element {
   return (
     <>
@@ -979,7 +1203,11 @@ function LochiaTab({
           <View style={styles.card}>
             <SectionHeader
               icon="chart-bar"
-              subtitle="Séquence enregistrée"
+              subtitle={
+                isMonthlyView
+                  ? 'Historique complet, par mois'
+                  : 'Séquence enregistrée'
+              }
               title="Évolution du flux"
             />
             <View style={styles.chart}>
@@ -1006,6 +1234,25 @@ function LochiaTab({
               />
             ))}
           </View>
+
+          {symptomCounts.length > 0 ? (
+            <View style={styles.card}>
+              <SectionHeader
+                icon="alert-circle-outline"
+                subtitle="Symptômes déjà notés dans le journal des lochies"
+                title="Symptômes associés"
+              />
+              {symptomCounts.map((item, index) => (
+                <DistributionRow
+                  count={item.count}
+                  key={item.label}
+                  label={item.label}
+                  last={index === symptomCounts.length - 1}
+                  maxCount={maxSymptomCount}
+                />
+              ))}
+            </View>
+          ) : null}
 
           <View style={styles.card}>
             <SectionHeader icon="history" title="Historique" />
@@ -1089,6 +1336,7 @@ function LevelTab({
   trendMax,
   counts,
   maxCount,
+  isMonthlyView,
 }: {
   icon: IconName;
   title: string;
@@ -1098,10 +1346,11 @@ function LevelTab({
   entriesCount: number;
   kpiIcon: IconName;
   kpiLabel: string;
-  trend: Array<{ date: string; value: number }>;
+  trend: Array<{ date: string; value: number; label?: string }>;
   trendMax: number;
   counts: Array<{ label: string; count: number }>;
   maxCount: number;
+  isMonthlyView: boolean;
 }): React.JSX.Element {
   if (entriesCount === 0) {
     return (
@@ -1127,14 +1376,16 @@ function LevelTab({
         <View style={styles.card}>
           <SectionHeader
             icon="chart-bar"
-            subtitle="Évolution récente"
+            subtitle={
+              isMonthlyView ? 'Historique complet, par mois' : 'Évolution récente'
+            }
             title={`Évolution — ${title}`}
           />
           <View style={styles.chart}>
             {trend.map(point => (
               <TrendBar
                 key={point.date}
-                label={dateLabel(point.date)}
+                label={point.label ?? dateLabel(point.date)}
                 maxValue={trendMax}
                 value={point.value}
               />
@@ -1170,13 +1421,15 @@ function SleepTab({
   maxDuration,
   qualityCounts,
   maxQualityCount,
+  isMonthlyView,
 }: {
   averageHours: number | undefined;
   nightsCount: number;
-  chart: Array<PostpartumJournalEntry & { sleepDuration: number }>;
+  chart: Array<{ date: string; value: number; label?: string }>;
   maxDuration: number;
   qualityCounts: Array<{ label: string; count: number }>;
   maxQualityCount: number;
+  isMonthlyView: boolean;
 }): React.JSX.Element {
   if (nightsCount === 0 && qualityCounts.length === 0) {
     return (
@@ -1213,16 +1466,20 @@ function SleepTab({
         <View style={styles.card}>
           <SectionHeader
             icon="chart-bar"
-            subtitle="Durée par jour enregistré"
+            subtitle={
+              isMonthlyView
+                ? 'Historique complet, par mois'
+                : 'Durée par jour enregistré'
+            }
             title="Évolution du sommeil"
           />
           <View style={styles.chart}>
             {chart.map(entry => (
               <TrendBar
                 key={entry.date}
-                label={dateLabel(entry.date)}
+                label={entry.label ?? dateLabel(entry.date)}
                 maxValue={maxDuration}
-                value={entry.sleepDuration}
+                value={entry.value}
               />
             ))}
           </View>
@@ -1331,6 +1588,17 @@ const styles = StyleSheet.create({
     ...homeShadow,
   },
   objectivePillText: { color: PURPLE, fontSize: 11, fontWeight: '800' },
+
+  periodSelectorWrap: { paddingHorizontal: 14, marginTop: 2 },
+  coverageNote: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: -8,
+    marginBottom: 12,
+    paddingHorizontal: 2,
+  },
+  coverageNoteText: { flex: 1, color: TEXT_SECONDARY, fontSize: 10.5 },
 
   tabsScroll: { flexGrow: 0, marginBottom: 4 },
   tabsScrollContent: { paddingHorizontal: 14, gap: 8, paddingBottom: 10 },
