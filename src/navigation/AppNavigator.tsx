@@ -13,6 +13,10 @@ import NameOnboardingScreen from '../screens/NameOnboardingScreen';
 import SpiritualPreferencesScreen from '../screens/SpiritualPreferencesScreen';
 import LocationScreen from '../screens/LocationScreen';
 import {ConceptionTryingDurationScreen, ConceptionOvulationAwarenessScreen, ConceptionIndicatorsScreen, ConceptionRemindersScreen} from '../screens/ConceptionOnboardingScreens';
+import {IrregularCyclePatternScreen, IrregularLastPeriodScreen, IrregularTrackedItemsScreen, IrregularRemindersScreen} from '../screens/irregular/IrregularOnboardingScreens';
+import IrregularJournalEntryScreen from '../screens/IrregularJournalEntryScreen';
+import IrregularJournalOverviewScreen from '../screens/irregular/IrregularJournalOverviewScreen';
+import type {IrregularJournalRouteCategory} from '../state/irregularJournalStore';
 import CycleInformationScreen from '../screens/CycleInformationScreen';
 import ContraceptionMethodScreen from '../screens/contraception/ContraceptionMethodScreen';
 import ContraceptionInformationScreen from '../screens/contraception/ContraceptionInformationScreen';
@@ -145,6 +149,12 @@ export type RootStackParamList = {
   ConceptionOvulationAwareness: undefined;
   ConceptionIndicators: undefined;
   ConceptionReminders: {mode?: 'onboarding' | 'edit'} | undefined;
+  IrregularCyclePattern: undefined;
+  IrregularLastPeriod: undefined;
+  IrregularTrackedItems: undefined;
+  IrregularReminders: {mode?: 'onboarding' | 'edit'} | undefined;
+  IrregularJournalEntry: {category: IrregularJournalRouteCategory};
+  IrregularJournalOverview: undefined;
   ContraceptionMethod: {mode?: 'onboarding' | 'edit'} | undefined;
   ContraceptionInformation: {mode?: 'onboarding' | 'edit'} | undefined;
   PillSchedule: {mode?: 'onboarding' | 'edit'} | undefined;
@@ -280,6 +290,12 @@ function AppNavigator({
         <Stack.Screen name="ConceptionOvulationAwareness" component={ConceptionOvulationAwarenessScreen} />
         <Stack.Screen name="ConceptionIndicators" component={ConceptionIndicatorsScreen} />
         <Stack.Screen name="ConceptionReminders" component={ConceptionRemindersScreen} />
+        <Stack.Screen name="IrregularCyclePattern" component={IrregularCyclePatternScreen} />
+        <Stack.Screen name="IrregularLastPeriod" component={IrregularLastPeriodScreen} />
+        <Stack.Screen name="IrregularTrackedItems" component={IrregularTrackedItemsScreen} />
+        <Stack.Screen name="IrregularReminders" component={IrregularRemindersScreen} />
+        <Stack.Screen name="IrregularJournalEntry" component={IrregularJournalEntryScreen} />
+        <Stack.Screen name="IrregularJournalOverview" component={IrregularJournalOverviewScreen} />
         <Stack.Screen name="ContraceptionMethod" component={ContraceptionMethodScreen} />
         <Stack.Screen name="ContraceptionInformation" component={ContraceptionInformationScreen} />
         <Stack.Screen name="PillSchedule" component={PillScheduleScreen} />

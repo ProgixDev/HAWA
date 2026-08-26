@@ -18,6 +18,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
 import {POSTPARTUM_JOURNAL_ITEMS} from '../config/postpartumJournalConfig';
 import {MISCARRIAGE_JOURNAL_ITEMS} from '../config/miscarriageJournalConfig';
+import {IRREGULAR_JOURNAL_ITEMS} from '../config/irregularJournalConfig';
 import {CONCEPTION_JOURNAL_ITEMS} from '../config/conceptionJournalConfig';
 import {CONTRACEPTION_JOURNAL_ITEMS} from '../config/contraceptionJournalConfig';
 import {CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL, CONTRACEPTION_INTAKE_ACTION_LABEL} from '../config/contraceptionLabels';
@@ -157,6 +158,39 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
         actions={miscarriageActions}
         onClose={close}
         subtitle="Prends un instant pour toi aujourd’hui."
+        title="Journal quotidien"
+        visible={visible}
+      />
+    );
+  }
+
+  if (objective === 'irregular') {
+    // The SOPK period form mirrors its confirmed flow to dailyJournalStore so
+    // Calendar/Statistics retain their canonical period record. It remains a
+    // separate action because it has SOPK-specific questions and design.
+    const irregularActions: JournalSheetAction[] = [
+      {
+        key: 'periodStart',
+        icon: 'water-outline',
+        title: 'Règles',
+        subtitle: 'Renseigne le début de tes règles',
+        tint: '#FBEAF0',
+        onPress: () => {close(); navigation.navigate('IrregularJournalEntry', {category: 'period'});},
+      },
+      ...IRREGULAR_JOURNAL_ITEMS.map(item => ({
+        key: item.key,
+        icon: item.icon,
+        title: item.label,
+        subtitle: item.dashboardSubtitle,
+        tint: item.tint,
+        onPress: () => {close(); navigation.navigate('IrregularJournalEntry', {category: item.key});},
+      })),
+    ];
+    return (
+      <DailyJournalSheet
+        actions={irregularActions}
+        onClose={close}
+        subtitle="Ton suivi, à ton rythme."
         title="Journal quotidien"
         visible={visible}
       />

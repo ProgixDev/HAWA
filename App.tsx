@@ -23,6 +23,8 @@ import { resyncAllPregnancyNotifications } from './src/utils/pregnancyReminderSc
 import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
 import { syncPostpartumDailyTrackingReminder } from './src/utils/postpartumReminderScheduling';
 import { syncConceptionReminders } from './src/utils/conceptionReminderScheduling';
+import { syncIrregularReminders } from './src/utils/irregularReminderScheduling';
+import { hydrateIrregularPreferences, subscribeIrregularPreferences } from './src/state/irregularPreferences';
 import { syncQadaaReminderNotification } from './src/utils/qadaaReminderScheduling';
 import {
   hydrateConfirmedPeriodHistory,
@@ -210,6 +212,22 @@ Promise.all([
 subscribeActiveObjective(syncCycleReminders);
 subscribeCyclePreferences(syncCycleReminders);
 subscribeCycleReminderPreferences(syncCycleReminders);
+
+// SOPK ("Cycles irréguliers") daily-journal + unrecorded-period reminders —
+// objective-specific like the others above; syncIrregularReminders() itself
+// cancels both whenever the active objective isn't 'irregular', so switching
+// away cleanly clears them and switching back reschedules them. Also
+// resubscribes to confirmedPeriodHistoryStore (already hydrated for Cycle
+// above) since the unrecorded-period reminder is computed from that same
+// real confirmed-period history, never a fabricated/predicted date.
+Promise.all([
+  hydrateActiveObjective(),
+  hydrateIrregularPreferences(),
+  hydrateConfirmedPeriodHistory(),
+]).then(() => syncIrregularReminders());
+subscribeActiveObjective(() => syncIrregularReminders());
+subscribeIrregularPreferences(() => syncIrregularReminders());
+subscribeConfirmedPeriodHistory(() => syncIrregularReminders());
 
 function App(): React.JSX.Element {
   const [lockState, setLockState] = React.useState(getAppLockState);
