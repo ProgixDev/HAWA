@@ -18,6 +18,7 @@ import {
   StyleSheet,
   Text,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useFocusEffect } from '@react-navigation/native';
@@ -285,6 +286,7 @@ const transitionModalStyles = StyleSheet.create({
     fontWeight: '800',
     lineHeight: 27,
     textAlign: 'center',
+    flexShrink: 1,
   },
   message: {
     marginTop: 10,
@@ -292,6 +294,7 @@ const transitionModalStyles = StyleSheet.create({
     fontSize: 13.5,
     lineHeight: 20,
     textAlign: 'center',
+    flexShrink: 1,
   },
   reassurance: {
     flexDirection: 'row',
@@ -305,9 +308,14 @@ const transitionModalStyles = StyleSheet.create({
     backgroundColor: '#F2ECFC',
   },
   reassuranceText: {
+    flex: 1,
+    minWidth: 0,
     color: '#61557B',
     fontSize: 12,
+    lineHeight: 16,
     fontWeight: '700',
+    textAlign: 'center',
+    flexShrink: 1,
   },
   primary: {
     minHeight: 52,
@@ -331,7 +339,10 @@ const transitionModalStyles = StyleSheet.create({
   primaryText: {
     color: '#FFFFFF',
     fontSize: 15,
+    lineHeight: 19,
     fontWeight: '800',
+    textAlign: 'center',
+    flexShrink: 1,
   },
   secondary: {
     minHeight: 48,
@@ -347,12 +358,17 @@ const transitionModalStyles = StyleSheet.create({
   secondaryText: {
     color: PURPLE,
     fontSize: 14,
+    lineHeight: 18,
     fontWeight: '800',
+    textAlign: 'center',
+    flexShrink: 1,
   },
 });
 
 function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {width} = useWindowDimensions();
+  const compact = width < 370;
 
   const entrance = useRef(new Animated.Value(0)).current;
 
@@ -639,6 +655,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.scrollContent,
+            compact && styles.scrollContentCompact,
             {
               paddingBottom: Math.max(insets.bottom, 12) + 42,
             },
@@ -700,12 +717,12 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
 
                       <Text style={styles.heroStatLabel}>Retour du cycle</Text>
 
-                      <Text numberOfLines={2} style={styles.heroStatValueSmall}>
+                      <Text style={styles.heroStatValueSmall}>
                         {cycleReturnLabel}
                       </Text>
 
                       {cycleReturnSubvalue ? (
-                        <Text numberOfLines={1} style={styles.heroStatSubvalue}>
+                        <Text style={styles.heroStatSubvalue}>
                           {cycleReturnSubvalue}
                         </Text>
                       ) : null}
@@ -821,19 +838,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
               </View>
             ) : null}
 
-            <View style={styles.sectionHeader}>
-              <View>
-                <Text style={styles.sectionTitle}>Actions rapides</Text>
-
-                <Text style={styles.sectionSubtitle}>
-                  Accède rapidement à tes essentiels
-                </Text>
-              </View>
-
-              <View style={styles.sectionSparkle}>
-                <MaterialDesignIcons color={PURPLE} name="creation" size={18} />
-              </View>
-            </View>
+        
 
             <View style={styles.quickActionsWrapper}>
               <QuickActionsGrid
@@ -849,23 +854,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
 
             {spiritualMarkersEnabled ? (
               <View style={styles.spiritualSection}>
-                <View style={styles.sectionHeader}>
-                  <View>
-                    <Text style={styles.sectionTitle}>Repères spirituels</Text>
-
-                    <Text style={styles.sectionSubtitle}>
-                      Tes repères du jour
-                    </Text>
-                  </View>
-
-                  <View style={styles.sectionMoon}>
-                    <MaterialDesignIcons
-                      color={PURPLE}
-                      name="moon-waning-crescent"
-                      size={18}
-                    />
-                  </View>
-                </View>
+          
 
                 <SpiritualGuidanceCard
                   hijriDate={formatHijriDate(today)}
@@ -896,7 +885,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                     />
                   </View>
 
-                  <View>
+                  <View style={styles.dailyTitleCopy}>
                     <Text style={styles.dailyTitle}>Suivi du jour</Text>
 
                     <Text style={styles.dailySubtitle}>
@@ -992,7 +981,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         )}
                       </View>
 
-                      <Text numberOfLines={2} style={styles.dailyLabel}>
+                      <Text style={styles.dailyLabel}>
                         {item.dashboardLabel}
                       </Text>
 
@@ -1122,6 +1111,10 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
 
+  scrollContentCompact: {
+    paddingHorizontal: 12,
+  },
+
   heroCard: {
     ...homeShadow,
     position: 'relative',
@@ -1164,11 +1157,13 @@ const styles = StyleSheet.create({
 
   heroHeader: {
     zIndex: 2,
+    minWidth: 0,
   },
 
   heroTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    minWidth: 0,
   },
 
   heroTitleDot: {
@@ -1180,6 +1175,8 @@ const styles = StyleSheet.create({
   },
 
   heroTitle: {
+    flex: 1,
+    minWidth: 0,
     flexShrink: 1,
     color: DEEP_PURPLE,
     fontFamily: 'serif',
@@ -1194,27 +1191,31 @@ const styles = StyleSheet.create({
     color: '#8A79B6',
     fontSize: 11,
     lineHeight: 16,
+    flexShrink: 1,
   },
 
   heroContentRow: {
     flexDirection: 'row',
     alignItems: 'stretch',
     marginTop: 14,
+    minWidth: 0,
   },
 
   heroStatsRow: {
     zIndex: 2,
-    width: '64%',
-    flexDirection: 'row',
+    flex: 1,
+    minWidth: 0,
+    flexDirection: 'column',
     gap: 8,
+    paddingRight: 112,
   },
 
   heroStatCard: {
-    flex: 1,
+    width: '100%',
     minWidth: 0,
-    minHeight: 154,
-    paddingHorizontal: 10,
-    paddingVertical: 12,
+    minHeight: 108,
+    paddingHorizontal: 11,
+    paddingVertical: 11,
     borderWidth: 1,
     borderColor: 'rgba(105,73,190,0.12)',
     borderRadius: 18,
@@ -1222,11 +1223,11 @@ const styles = StyleSheet.create({
   },
 
   heroWoman: {
-    width: '45%',
-    height: 177,
-    marginLeft: -13,
-    marginTop: -18,
-    marginBottom: -5,
+    position: 'absolute',
+    right: -10,
+    bottom: -3,
+    width: 120,
+    height: 178,
   },
 
   heroStatIcon: {
@@ -1248,12 +1249,12 @@ const styles = StyleSheet.create({
   },
 
   heroStatLabel: {
-    minHeight: 34,
-    marginTop: 10,
+    marginTop: 9,
     color: '#714AC2',
     fontSize: 10,
     fontWeight: '600',
-    lineHeight: 13,
+    lineHeight: 14,
+    flexShrink: 1,
   },
 
   heroStatValue: {
@@ -1261,7 +1262,9 @@ const styles = StyleSheet.create({
     color: DEEP_PURPLE,
     fontFamily: 'serif',
     fontSize: 17,
+    lineHeight: 21,
     fontWeight: '800',
+    flexShrink: 1,
   },
 
   heroStatValueSmall: {
@@ -1271,12 +1274,15 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     fontWeight: '800',
     lineHeight: 18,
+    flexShrink: 1,
   },
 
   heroStatSubvalue: {
     marginTop: 4,
     color: '#8A7D9E',
     fontSize: 9.5,
+    lineHeight: 13,
+    flexShrink: 1,
   },
 
   supportStrip: {
@@ -1353,7 +1359,8 @@ const styles = StyleSheet.create({
   },
 
   unconfiguredTitle: {
-    maxWidth: 290,
+    width: '100%',
+    maxWidth: 300,
     marginTop: 7,
     color: DEEP_PURPLE,
     fontFamily: 'serif',
@@ -1361,41 +1368,46 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     lineHeight: 25,
     textAlign: 'center',
+    flexShrink: 1,
   },
 
   unconfiguredText: {
-    maxWidth: 290,
+    width: '100%',
+    maxWidth: 300,
     marginTop: 8,
     color: MUTED,
     fontSize: 11.5,
     lineHeight: 17,
     textAlign: 'center',
+    flexShrink: 1,
   },
 
   unconfiguredButton: {
     minHeight: 50,
+    width: '100%',
+    maxWidth: 300,
     marginTop: 18,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 9,
-    paddingHorizontal: 21,
+    paddingHorizontal: 16,
     borderRadius: 17,
     backgroundColor: PURPLE,
     shadowColor: PURPLE,
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
+    shadowOffset: {width: 0, height: 6},
     shadowOpacity: 0.22,
     shadowRadius: 10,
     elevation: 5,
   },
 
   unconfiguredButtonText: {
+    flexShrink: 1,
     color: '#FFFFFF',
     fontSize: 13.5,
+    lineHeight: 17,
     fontWeight: '700',
+    textAlign: 'center',
   },
 
   // Secondary, supportive-tone card — deliberately lighter than heroCard
@@ -1434,6 +1446,7 @@ const styles = StyleSheet.create({
     fontSize: 14.5,
     lineHeight: 19,
     fontWeight: '800',
+    flexShrink: 1,
   },
 
   conceiveTransitionText: {
@@ -1441,15 +1454,17 @@ const styles = StyleSheet.create({
     color: MUTED,
     fontSize: 11.5,
     lineHeight: 16,
+    flexShrink: 1,
   },
 
   conceiveTransitionButton: {
     flexDirection: 'row',
-    alignSelf: 'flex-start',
+    alignSelf: 'stretch',
     alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 11,
     gap: 7,
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
     paddingVertical: 10,
     borderWidth: 1.3,
     borderColor: PURPLE,
@@ -1458,36 +1473,52 @@ const styles = StyleSheet.create({
   },
 
   conceiveTransitionButtonText: {
+    flex: 1,
+    minWidth: 0,
     color: PURPLE,
     fontSize: 12,
+    lineHeight: 16,
     fontWeight: '700',
+    textAlign: 'center',
+    flexShrink: 1,
   },
 
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: 10,
     marginTop: 22,
     marginBottom: 9,
     paddingHorizontal: 3,
+  },
+
+  sectionHeaderCopy: {
+    flex: 1,
+    minWidth: 0,
   },
 
   sectionTitle: {
     color: DEEP_PURPLE,
     fontFamily: 'serif',
     fontSize: 20,
+    lineHeight: 24,
     fontWeight: '800',
+    flexShrink: 1,
   },
 
   sectionSubtitle: {
     marginTop: 3,
     color: MUTED,
     fontSize: 10.5,
+    lineHeight: 14,
+    flexShrink: 1,
   },
 
   sectionSparkle: {
     width: 34,
     height: 34,
+    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
@@ -1497,6 +1528,7 @@ const styles = StyleSheet.create({
   sectionMoon: {
     width: 34,
     height: 34,
+    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
@@ -1544,6 +1576,11 @@ const styles = StyleSheet.create({
     gap: 10,
   },
 
+  dailyTitleCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+
   dailyTitleIcon: {
     width: 44,
     height: 44,
@@ -1558,19 +1595,24 @@ const styles = StyleSheet.create({
     color: DEEP_PURPLE,
     fontFamily: 'serif',
     fontSize: 19,
+    lineHeight: 23,
     fontWeight: '800',
+    flexShrink: 1,
   },
 
   dailySubtitle: {
     marginTop: 3,
     color: MUTED,
     fontSize: 10.5,
+    lineHeight: 14,
+    flexShrink: 1,
   },
 
   progressBadge: {
     minWidth: 62,
+    flexShrink: 0,
     alignItems: 'center',
-    paddingHorizontal: 10,
+    paddingHorizontal: 9,
     paddingVertical: 7,
     borderRadius: 15,
     backgroundColor: '#F2EBFB',
@@ -1627,7 +1669,8 @@ const styles = StyleSheet.create({
 
   dailyItem: {
     width: '48.4%',
-    minHeight: 126,
+    minWidth: 0,
+    minHeight: 132,
     padding: 13,
     borderWidth: 1,
     borderColor: 'rgba(105,73,190,0.08)',
@@ -1677,18 +1720,19 @@ const styles = StyleSheet.create({
   },
 
   dailyLabel: {
-    minHeight: 36,
     marginTop: 10,
     color: DEEP_PURPLE,
     fontSize: 12.5,
     fontWeight: '700',
     lineHeight: 17,
+    flexShrink: 1,
   },
 
   dailyStateRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 7,
+    minWidth: 0,
   },
 
   dailyStateDot: {
@@ -1704,9 +1748,13 @@ const styles = StyleSheet.create({
   },
 
   dailyStateText: {
+    flex: 1,
+    minWidth: 0,
     color: '#978AA6',
     fontSize: 9.5,
+    lineHeight: 13,
     fontWeight: '600',
+    flexShrink: 1,
   },
 
   dailyStateTextDone: {
@@ -1742,13 +1790,17 @@ const styles = StyleSheet.create({
   completeJournalTitle: {
     color: DEEP_PURPLE,
     fontSize: 11.5,
+    lineHeight: 15,
     fontWeight: '700',
+    flexShrink: 1,
   },
 
   completeJournalSubtitle: {
     marginTop: 2,
     color: MUTED,
     fontSize: 9.5,
+    lineHeight: 13,
+    flexShrink: 1,
   },
 
   pressed: {

@@ -20,11 +20,14 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import DateTimePicker, {
   type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import {
   PostpartumInfoPanel,
   PostpartumJournalScreenLayout,
 } from '../components/postpartum/PostpartumJournalScreenLayout';
+
+import { JournalSaveToast, useJournalSaveToast } from '../components/journal/JournalSaveToast';
 
 import { homeColors } from '../components/home/homeTheme';
 
@@ -218,6 +221,10 @@ function AnimatedSection({
 export default function MiscarriageJournalEntryScreen(): React.JSX.Element | null {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
+  const insets = useSafeAreaInsets();
+
+  const saveToast = useJournalSaveToast();
+
   const route = useRoute<Props>();
 
   const { category } = route.params;
@@ -360,7 +367,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           bleedingNote.trim(),
         );
 
-        navigation.goBack();
+        saveToast.show('Saignements enregistrés', 'Ton suivi a bien été mis à jour.', navigation.goBack);
       } finally {
         setSaving(false);
       }
@@ -394,7 +401,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           );
         }
 
-        navigation.goBack();
+        saveToast.show('Symptômes enregistrés', 'Ton suivi a bien été mis à jour.', navigation.goBack);
       } finally {
         setSaving(false);
       }
@@ -420,7 +427,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           personalNotes.trim(),
         );
 
-        navigation.goBack();
+        saveToast.show('Note enregistrée', 'Ta note personnelle a bien été enregistrée.', navigation.goBack);
       } finally {
         setSaving(false);
       }
@@ -443,11 +450,34 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
       await setMiscarriageTryingAgainStatus(tryingAgain);
 
-      navigation.goBack();
+      saveToast.show('Information enregistrée', 'Ton suivi a bien été mis à jour.', navigation.goBack);
     } finally {
       setSaving(false);
     }
   };
+
+  /* ==========================================================
+     SAVE CONFIRMATION TOAST
+
+     Rendered as a sibling of PostpartumJournalScreenLayout (never as one
+     of its `children`, which live inside its internal ScrollView — an
+     absolutely-positioned toast anchored there would sit at the bottom of
+     the scrollable content instead of the visible screen). Shared across
+     all 4 categories below since each is its own screen instance (one
+     mounted MiscarriageJournalEntryScreen = one category = one save
+     action = one toast).
+  ========================================================== */
+
+  const toastElement = (
+    <JournalSaveToast
+      animation={saveToast.animation}
+      bottom={Math.max(insets.bottom, 18) + 12}
+      message={saveToast.message}
+      onDismiss={saveToast.hide}
+      title={saveToast.title}
+      visible={saveToast.visible}
+    />
+  );
 
   /* ==========================================================
      SYMPTÔMES PHYSIQUES
@@ -455,23 +485,27 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
   if (category === 'physicalSymptoms') {
     return (
-      <PostpartumJournalScreenLayout
-        compact
-        error={error}
-        icon={item?.icon ?? 'clipboard-pulse-outline'}
-        onSave={save}
-        saving={saving}
-        subtitle={todaySubtitle}
-        tint="#EEE7FC"
-        title="Symptômes physiques"
-      >
-        <SymptomsContent
-          note={symptomsNote}
-          selected={symptoms}
-          setNote={setSymptomsNote}
-          toggle={toggleSymptom}
-        />
-      </PostpartumJournalScreenLayout>
+      <View style={styles.screenWrapper}>
+        <PostpartumJournalScreenLayout
+          compact
+          error={error}
+          icon={item?.icon ?? 'clipboard-pulse-outline'}
+          onSave={save}
+          saving={saving}
+          subtitle={todaySubtitle}
+          tint="#EEE7FC"
+          title="Symptômes physiques"
+        >
+          <SymptomsContent
+            note={symptomsNote}
+            selected={symptoms}
+            setNote={setSymptomsNote}
+            toggle={toggleSymptom}
+          />
+        </PostpartumJournalScreenLayout>
+
+        {toastElement}
+      </View>
     );
   }
 
@@ -484,18 +518,22 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
       return null;
     }
     return (
-      <PostpartumJournalScreenLayout
-        compact
-        error={error}
-        icon="notebook-edit-outline"
-        onSave={save}
-        saving={saving}
-        subtitle={todaySubtitle}
-        tint="#EEE7FC"
-        title="Notes personnelles"
-      >
-        <NotesContent note={personalNotes} setNote={setPersonalNotes} />
-      </PostpartumJournalScreenLayout>
+      <View style={styles.screenWrapper}>
+        <PostpartumJournalScreenLayout
+          compact
+          error={error}
+          icon="notebook-edit-outline"
+          onSave={save}
+          saving={saving}
+          subtitle={todaySubtitle}
+          tint="#EEE7FC"
+          title="Notes personnelles"
+        >
+          <NotesContent note={personalNotes} setNote={setPersonalNotes} />
+        </PostpartumJournalScreenLayout>
+
+        {toastElement}
+      </View>
     );
   }
 
@@ -505,18 +543,22 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
   if (category === 'tryingAgain') {
     return (
-      <PostpartumJournalScreenLayout
-        compact
-        error={error}
-        icon="heart-outline"
-        onSave={save}
-        saving={saving}
-        subtitle={todaySubtitle}
-        tint="#FBEAF0"
-        title="Reprise des essais"
-      >
-        <TryingAgainContent onSelect={setTryingAgain} selected={tryingAgain} />
-      </PostpartumJournalScreenLayout>
+      <View style={styles.screenWrapper}>
+        <PostpartumJournalScreenLayout
+          compact
+          error={error}
+          icon="heart-outline"
+          onSave={save}
+          saving={saving}
+          subtitle={todaySubtitle}
+          tint="#FBEAF0"
+          title="Reprise des essais"
+        >
+          <TryingAgainContent onSelect={setTryingAgain} selected={tryingAgain} />
+        </PostpartumJournalScreenLayout>
+
+        {toastElement}
+      </View>
     );
   }
 
@@ -529,27 +571,31 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
   ========================================================== */
 
   return (
-    <PostpartumJournalScreenLayout
-      compact
-      error={error}
-      icon="water-outline"
-      onSave={save}
-      saving={saving}
-      subtitle={todaySubtitle}
-      tint="#FBEAF0"
-      title="Saignements"
-    >
-      <BleedingContent
-        color={bleedingColor}
-        note={bleedingNote}
-        onSelect={setBleeding}
-        selected={bleeding}
-        setColor={setBleedingColor}
-        setNote={setBleedingNote}
-        setStartDate={setBleedingStartDate}
-        startDate={bleedingStartDate}
-      />
-    </PostpartumJournalScreenLayout>
+    <View style={styles.screenWrapper}>
+      <PostpartumJournalScreenLayout
+        compact
+        error={error}
+        icon="water-outline"
+        onSave={save}
+        saving={saving}
+        subtitle={todaySubtitle}
+        tint="#FBEAF0"
+        title="Saignements"
+      >
+        <BleedingContent
+          color={bleedingColor}
+          note={bleedingNote}
+          onSelect={setBleeding}
+          selected={bleeding}
+          setColor={setBleedingColor}
+          setNote={setBleedingNote}
+          setStartDate={setBleedingStartDate}
+          startDate={bleedingStartDate}
+        />
+      </PostpartumJournalScreenLayout>
+
+      {toastElement}
+    </View>
   );
 }
 
@@ -1412,6 +1458,14 @@ function TryingAgainContent({
 ============================================================ */
 
 const styles = StyleSheet.create({
+  // Wraps PostpartumJournalScreenLayout (which fills the screen on its own)
+  // so JournalSaveToast can be rendered as its sibling — never inside its
+  // `children`, which live inside its internal ScrollView — and still
+  // resolve its `position: 'absolute'` against the full screen.
+  screenWrapper: {
+    flex: 1,
+  },
+
   pressed: {
     opacity: 0.82,
 
