@@ -7,6 +7,7 @@ import MiscarriageDashboard from '../components/miscarriage/MiscarriageDashboard
 import ConceiveDashboard from '../components/conceive/ConceiveDashboard';
 import ContraceptionDashboard from '../components/contraception/ContraceptionDashboard';
 import MenopauseDashboard from '../components/menopause/MenopauseDashboard';
+import IrregularDashboard from '../components/irregular/IrregularDashboard';
 import CycleHomeScreen from './CycleHomeScreen';
 import { PostpartumSuccessToast } from '../components/postpartum/PostpartumSuccessToast';
 import {
@@ -66,6 +67,10 @@ function HomeScreen(props: Props): React.JSX.Element {
 
   if (objective === 'menopause') {
     return <MenopauseDashboard {...props} />;
+  }
+
+  if (objective === 'irregular') {
+    return <IrregularDashboard {...props} />;
   }
 
   return <CycleHomeScreen {...props} />;
