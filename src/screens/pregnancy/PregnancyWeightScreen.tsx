@@ -4,22 +4,27 @@ import {
   Animated,
   Easing,
   Image,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {homeColors, homeShadow} from '../../components/home/homeTheme';
+import {homeColors} from '../../components/home/homeTheme';
 import {getTopPadding, spacing} from '../../theme/spacing';
 import {getPregnancyJournalState, savePregnancyWeight, type PregnancyWeightEntry} from '../../state/pregnancyJournalStore';
+import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 
 const WEIGHT_ILLUSTRATION = require('../../assets/images/pregnancy/pregnancy-weight-scale.png');
 
@@ -77,61 +82,182 @@ function WeightEntrySheet({
   error: string;
 }): React.JSX.Element {
   const insets = useSafeAreaInsets();
-  const [draft, setDraft] = useState<number>(initialValue ?? 60);
+  const [draft, setDraft] = useState(initialValue ? formatKg(initialValue) : '');
 
   useEffect(() => {
-    if (visible) {setDraft(initialValue ?? 60);}
+    if (visible) {
+      setDraft(initialValue ? formatKg(initialValue) : '');
+    }
   }, [visible, initialValue]);
 
-  const adjust = (delta: number) => {
-    setDraft(current => Math.min(300, Math.max(30, Math.round((current + delta) * 10) / 10)));
+  const normalizedDraft = draft.replace(',', '.').trim();
+  const numericValue = Number(normalizedDraft);
+  const isValid =
+    normalizedDraft.length > 0 &&
+    Number.isFinite(numericValue) &&
+    numericValue >= 30 &&
+    numericValue <= 300;
+
+  const handleChange = (value: string) => {
+    const sanitized = value
+      .replace(/[^\d.,]/g, '')
+      .replace(/([.,].*)[.,]/g, '$1');
+
+    const parts = sanitized.split(/[.,]/);
+
+    if (parts.length > 1) {
+      const decimalSeparator = sanitized.includes(',') ? ',' : '.';
+      setDraft(`${parts[0].slice(0, 3)}${decimalSeparator}${parts[1].slice(0, 1)}`);
+      return;
+    }
+
+    setDraft(sanitized.slice(0, 3));
+  };
+
+  const handleSubmit = () => {
+    if (!isValid || saving) {
+      return;
+    }
+
+    onSave(Math.round(numericValue * 10) / 10);
   };
 
   return (
-    <Modal animationType="fade" onRequestClose={onClose} transparent visible={visible}>
-      <View style={styles.sheetOverlay}>
-        <Pressable accessibilityLabel="Fermer" onPress={onClose} style={StyleSheet.absoluteFill} />
-        <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 16) + spacing.md}]}>
+    <Modal
+      animationType="fade"
+      onRequestClose={onClose}
+      statusBarTranslucent
+      transparent
+      visible={visible}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={styles.sheetOverlay}>
+        <Pressable
+          accessibilityLabel="Fermer"
+          accessibilityRole="button"
+          onPress={onClose}
+          style={StyleSheet.absoluteFill}
+        />
+
+        <View
+          style={[
+            styles.sheet,
+            {paddingBottom: Math.max(insets.bottom, 16) + spacing.md},
+          ]}>
           <View style={styles.sheetHandle} />
-          <Text style={styles.sheetTitle}>Poids</Text>
 
-          <View style={styles.stepperRow}>
-            <Pressable
-              accessibilityLabel="Diminuer de 0,1 kg"
-              accessibilityRole="button"
-              onPress={() => adjust(-0.1)}
-              style={({pressed}) => [styles.stepperButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={homeColors.primary} name="minus" size={22} />
-            </Pressable>
-
-            <View style={styles.stepperValueBlock}>
-              <Text style={styles.stepperValue}>{formatKg(draft)}</Text>
-              <Text style={styles.stepperUnit}>kg</Text>
+          <View style={styles.sheetHeader}>
+            <View style={styles.sheetIcon}>
+              <MaterialDesignIcons
+                color={homeColors.primary}
+                name="scale-bathroom"
+                size={21}
+              />
             </View>
 
-            <Pressable
-              accessibilityLabel="Augmenter de 0,1 kg"
-              accessibilityRole="button"
-              onPress={() => adjust(0.1)}
-              style={({pressed}) => [styles.stepperButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={homeColors.primary} name="plus" size={22} />
-            </Pressable>
+            <View style={styles.sheetHeaderCopy}>
+              <Text style={styles.sheetTitle}>
+                {initialValue ? 'Modifier ton poids' : 'Ajouter ton poids'}
+              </Text>
+              <Text style={styles.sheetSubtitle}>
+                Saisis directement la mesure du jour
+              </Text>
+            </View>
           </View>
 
-          {error ? <Text accessibilityRole="alert" style={styles.sheetError}>{error}</Text> : null}
+          <View style={styles.weightInputCard}>
+            <Text style={styles.weightInputLabel}>Poids actuel</Text>
+
+            <View
+              style={[
+                styles.weightInputRow,
+                draft.length > 0 && styles.weightInputRowActive,
+              ]}>
+              <TextInput
+                accessibilityLabel="Poids en kilogrammes"
+                autoFocus
+                keyboardType="decimal-pad"
+                maxLength={5}
+                onChangeText={handleChange}
+                onSubmitEditing={handleSubmit}
+                placeholder="Ex. 64,5"
+                placeholderTextColor="#B3A9C3"
+                returnKeyType="done"
+                selectTextOnFocus
+                style={styles.weightInput}
+                value={draft}
+              />
+
+              <View style={styles.unitBadge}>
+                <Text style={styles.unitBadgeText}>kg</Text>
+              </View>
+            </View>
+
+            <View style={styles.inputSupportRow}>
+              <MaterialDesignIcons
+                color={homeColors.primary}
+                name="information-outline"
+                size={14}
+              />
+              <Text style={styles.inputSupportText}>
+                Entre une valeur entre 30 et 300 kg.
+              </Text>
+            </View>
+          </View>
+
+          {initialValue ? (
+            <View style={styles.previousValueCard}>
+              <View style={styles.previousValueIcon}>
+                <MaterialDesignIcons
+                  color={homeColors.primary}
+                  name="history"
+                  size={17}
+                />
+              </View>
+              <View style={styles.previousValueCopy}>
+                <Text style={styles.previousValueLabel}>
+                  Valeur enregistrée aujourd’hui
+                </Text>
+                <Text style={styles.previousValueText}>
+                  {formatKg(initialValue)} kg
+                </Text>
+              </View>
+            </View>
+          ) : null}
+
+          {error ? (
+            <View accessibilityRole="alert" style={styles.errorCard}>
+              <MaterialDesignIcons
+                color="#A8505A"
+                name="alert-circle-outline"
+                size={16}
+              />
+              <Text style={styles.sheetError}>{error}</Text>
+            </View>
+          ) : null}
 
           <Pressable
             accessibilityLabel="Enregistrer le poids"
             accessibilityRole="button"
-            accessibilityState={{disabled: saving}}
-            disabled={saving}
-            onPress={() => onSave(draft)}
-            style={({pressed}) => [styles.saveButton, (pressed || saving) && styles.pressed]}>
-            <MaterialDesignIcons color="#FFFFFF" name={saving ? 'loading' : 'check-circle-outline'} size={20} />
-            <Text style={styles.saveText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+            accessibilityState={{disabled: saving || !isValid}}
+            disabled={saving || !isValid}
+            onPress={handleSubmit}
+            style={({pressed}) => [
+              styles.saveButton,
+              (!isValid || saving) && styles.saveButtonDisabled,
+              pressed && isValid && !saving && styles.saveButtonPressed,
+            ]}>
+            <MaterialDesignIcons
+              color="#FFFFFF"
+              name={saving ? 'loading' : 'check-circle-outline'}
+              size={19}
+            />
+            <Text style={styles.saveText}>
+              {saving ? 'Enregistrement…' : 'Enregistrer ce poids'}
+            </Text>
           </Pressable>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 }
@@ -139,6 +265,8 @@ function WeightEntrySheet({
 export default function PregnancyWeightScreen(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const {width, height} = useWindowDimensions();
+  const compact = width < 370 || height < 720;
   const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
   const todayLabel = useMemo(
     () => new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(new Date()),
@@ -150,6 +278,8 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
   const [sheetVisible, setSheetVisible] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+
+  const saveToast = useJournalSaveToast();
 
   const entrance = useRef(new Animated.Value(0)).current;
 
@@ -200,6 +330,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       await savePregnancyWeight(entry);
       setTodayEntry(entry);
       setSheetVisible(false);
+      saveToast.show('Poids enregistré', 'Ton suivi de poids a bien été mis à jour.');
     } finally {
       setSaving(false);
     }
@@ -230,10 +361,23 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       </View>
 
       <ScrollView
-        contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + spacing.lg}]}
+        contentContainerStyle={[
+          styles.content,
+          compact && styles.contentCompact,
+          {paddingBottom: Math.max(insets.bottom, 16) + spacing.lg},
+        ]}
         showsVerticalScrollIndicator={false}>
         <Animated.View style={[styles.body, entranceStyle]}>
           <ScaleIllustration />
+
+          <View style={styles.sectionBadge}>
+            <MaterialDesignIcons
+              color={homeColors.primary}
+              name="calendar-today-outline"
+              size={13}
+            />
+            <Text style={styles.sectionBadgeText}>MESURE DU JOUR</Text>
+          </View>
 
           {!todayEntry ? (
             <View style={styles.emptyBlock}>
@@ -284,94 +428,370 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
         saving={saving}
         visible={sheetVisible}
       />
+
+      <JournalSaveToast
+        animation={saveToast.animation}
+        bottom={Math.max(insets.bottom, 18) + 12}
+        message={saveToast.message}
+        onDismiss={saveToast.hide}
+        title={saveToast.title}
+        visible={saveToast.visible}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: {flex: 1, backgroundColor: '#F8F4FC'},
+  safe: {flex: 1, backgroundColor: '#F8F5FC'},
 
-  header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 16, paddingBottom: 10},
-  backButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: '#FFFFFF', ...homeShadow},
-  headerSpacer: {width: 42},
-  pressed: {opacity: 0.8},
-  headerCopy: {flex: 1, minWidth: 0, alignItems: 'center'},
-  title: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 21, fontWeight: '800'},
-  subtitle: {marginTop: 3, color: homeColors.textSecondary, fontSize: 12},
-
-  content: {flexGrow: 1, paddingHorizontal: 20, paddingTop: spacing.lg},
-  body: {flex: 1, alignItems: 'center', justifyContent: 'center'},
-
-  illustrationWrap: {width: '100%', maxWidth: 290, alignSelf: 'center', aspectRatio: 1},
-  weightIllustration: {width: '100%', height: '100%'},
-
-  emptyBlock: {marginTop: spacing.xl, alignItems: 'center', paddingHorizontal: 12},
-  emptyTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 18, fontWeight: '800', textAlign: 'center'},
-  emptyText: {marginTop: 8, color: homeColors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center'},
-
-  recordedBlock: {marginTop: spacing.xl, alignItems: 'center', width: '100%'},
-  recordedLabel: {color: homeColors.textSecondary, fontSize: 12.5, fontWeight: '700'},
-  recordedValue: {marginTop: 6, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 38, fontWeight: '800'},
-  recordedDate: {marginTop: 4, color: homeColors.textSecondary, fontSize: 12},
-
-  evolutionCard: {
-    marginTop: 20,
-    width: '100%',
-    maxWidth: 320,
+  header: {
+    minHeight: 58,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    borderRadius: 16,
-    backgroundColor: homeColors.lightLavender,
     paddingHorizontal: 14,
-    paddingVertical: 12,
+    paddingBottom: 8,
   },
-  evolutionCopy: {flex: 1, minWidth: 0},
-  evolutionTitle: {color: homeColors.textPrimary, fontSize: 12, fontWeight: '800'},
-  evolutionText: {marginTop: 2, color: homeColors.textSecondary, fontSize: 11.5},
-
-  ctaWrap: {paddingHorizontal: 20},
-  cta: {
-    minHeight: 54,
+  backButton: {
+    width: 40,
+    height: 40,
+    flexShrink: 0,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 18,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.08)',
+    borderRadius: 14,
+    backgroundColor: '#FFFFFF',
+    shadowColor: '#49356C',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.06,
+    shadowRadius: 7,
+    elevation: 2,
+  },
+  headerSpacer: {width: 40},
+  pressed: {opacity: 0.78},
+  headerCopy: {flex: 1, minWidth: 0, alignItems: 'center', paddingHorizontal: 6},
+  title: {
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 20,
+    lineHeight: 24,
+    fontWeight: '800',
+  },
+  subtitle: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 14,
+    textAlign: 'center',
+  },
+
+  content: {flexGrow: 1, paddingHorizontal: 18, paddingTop: 10},
+  contentCompact: {paddingHorizontal: 14, paddingTop: 6},
+  body: {flex: 1, alignItems: 'center', justifyContent: 'center'},
+
+  illustrationWrap: {
+    width: '100%',
+    maxWidth: 250,
+    alignSelf: 'center',
+    aspectRatio: 1,
+  },
+  weightIllustration: {width: '100%', height: '100%'},
+
+  sectionBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 4,
+    borderRadius: 12,
+    backgroundColor: '#F0E9FA',
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+  },
+  sectionBadgeText: {
+    color: homeColors.primary,
+    fontSize: 8.5,
+    fontWeight: '800',
+    letterSpacing: 0.7,
+  },
+
+  emptyBlock: {
+    width: '100%',
+    maxWidth: 330,
+    alignItems: 'center',
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.08)',
+    borderRadius: 20,
+    backgroundColor: 'rgba(255,255,255,0.84)',
+    paddingHorizontal: 16,
+    paddingVertical: 15,
+  },
+  emptyTitle: {
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 16,
+    lineHeight: 20,
+    fontWeight: '800',
+    textAlign: 'center',
+  },
+  emptyText: {
+    marginTop: 6,
+    color: homeColors.textSecondary,
+    fontSize: 11,
+    lineHeight: 16,
+    textAlign: 'center',
+  },
+
+  recordedBlock: {
+    width: '100%',
+    maxWidth: 330,
+    alignItems: 'center',
+    marginTop: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.90)',
+    paddingHorizontal: 16,
+    paddingVertical: 15,
+    shadowColor: '#49356C',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.04,
+    shadowRadius: 10,
+    elevation: 1,
+  },
+  recordedLabel: {
+    color: homeColors.textSecondary,
+    fontSize: 10.5,
+    lineHeight: 13,
+    fontWeight: '700',
+  },
+  recordedValue: {
+    marginTop: 4,
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 34,
+    lineHeight: 39,
+    fontWeight: '800',
+  },
+  recordedDate: {marginTop: 2, color: homeColors.textSecondary, fontSize: 10},
+
+  evolutionCard: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 9,
+    marginTop: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.07)',
+    borderRadius: 14,
+    backgroundColor: '#F4EFFA',
+    paddingHorizontal: 11,
+    paddingVertical: 9,
+  },
+  evolutionCopy: {flex: 1, minWidth: 0},
+  evolutionTitle: {color: homeColors.textPrimary, fontSize: 10.5, fontWeight: '800'},
+  evolutionText: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 9.5,
+    lineHeight: 13,
+    flexShrink: 1,
+  },
+
+  ctaWrap: {paddingHorizontal: 18},
+  cta: {
+    minHeight: 52,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 17,
     backgroundColor: homeColors.primary,
     shadowColor: '#4E319A',
     shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.22,
+    shadowOpacity: 0.20,
     shadowRadius: 9,
     elevation: 5,
   },
-  ctaText: {color: '#FFFFFF', fontSize: 16, fontWeight: '700'},
+  ctaText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
 
-  sheetOverlay: {flex: 1, justifyContent: 'flex-end', backgroundColor: 'rgba(28,17,56,0.42)'},
-  sheet: {borderTopLeftRadius: 26, borderTopRightRadius: 26, backgroundColor: '#FFFFFF', paddingTop: 10, paddingHorizontal: 20},
-  sheetHandle: {width: 44, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: '#D8CBE3', marginBottom: 16},
-  sheetTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '800', textAlign: 'center'},
+  sheetOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(28,17,56,0.40)',
+  },
+  sheet: {
+    borderTopLeftRadius: 28,
+    borderTopRightRadius: 28,
+    backgroundColor: '#FFFDFF',
+    paddingTop: 10,
+    paddingHorizontal: 18,
+    shadowColor: '#2D1B54',
+    shadowOffset: {width: 0, height: -5},
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    elevation: 10,
+  },
+  sheetHandle: {
+    width: 42,
+    height: 4,
+    alignSelf: 'center',
+    marginBottom: 14,
+    borderRadius: 2,
+    backgroundColor: '#D9CEE5',
+  },
+  sheetHeader: {flexDirection: 'row', alignItems: 'center', marginBottom: 15},
+  sheetIcon: {
+    width: 42,
+    height: 42,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    borderRadius: 14,
+    backgroundColor: '#F1EBFA',
+  },
+  sheetHeaderCopy: {flex: 1, minWidth: 0},
+  sheetTitle: {
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 17,
+    lineHeight: 21,
+    fontWeight: '800',
+  },
+  sheetSubtitle: {
+    marginTop: 2,
+    color: homeColors.textSecondary,
+    fontSize: 10,
+    lineHeight: 14,
+  },
 
-  stepperRow: {marginTop: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 20},
-  stepperButton: {width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderRadius: 24, backgroundColor: homeColors.lightLavender},
-  stepperValueBlock: {alignItems: 'center', minWidth: 110},
-  stepperValue: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 40, fontWeight: '800'},
-  stepperUnit: {marginTop: 2, color: homeColors.textSecondary, fontSize: 13, fontWeight: '700'},
+  weightInputCard: {
+    borderWidth: 1,
+    borderColor: 'rgba(109,74,232,0.09)',
+    borderRadius: 20,
+    backgroundColor: '#FAF7FD',
+    padding: 13,
+  },
+  weightInputLabel: {
+    color: homeColors.textPrimary,
+    fontSize: 11.5,
+    lineHeight: 15,
+    fontWeight: '800',
+  },
+  weightInputRow: {
+    minHeight: 70,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+    borderWidth: 1.2,
+    borderColor: '#DDD2EA',
+    borderRadius: 17,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: 12,
+  },
+  weightInputRowActive: {
+    borderColor: homeColors.primary,
+    shadowColor: '#5E3EAA',
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.08,
+    shadowRadius: 8,
+    elevation: 1,
+  },
+  weightInput: {
+    flex: 1,
+    minWidth: 0,
+    paddingVertical: 0,
+    color: homeColors.textPrimary,
+    fontFamily: 'serif',
+    fontSize: 30,
+    lineHeight: 36,
+    fontWeight: '800',
+    textAlign: 'left',
+  },
+  unitBadge: {
+    minWidth: 44,
+    height: 38,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 8,
+    borderRadius: 12,
+    backgroundColor: '#F0E9FA',
+  },
+  unitBadgeText: {color: homeColors.primary, fontSize: 12, fontWeight: '800'},
+  inputSupportRow: {flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 8},
+  inputSupportText: {
+    flex: 1,
+    minWidth: 0,
+    color: homeColors.textSecondary,
+    fontSize: 9,
+    lineHeight: 12.5,
+  },
 
-  sheetError: {marginTop: 14, color: '#A8505A', fontSize: 12.5, textAlign: 'center'},
+  previousValueCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 10,
+    borderRadius: 14,
+    backgroundColor: '#F4EFFA',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
+  previousValueIcon: {
+    width: 30,
+    height: 30,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
+    borderRadius: 10,
+    backgroundColor: '#FFFFFF',
+  },
+  previousValueCopy: {flex: 1, minWidth: 0},
+  previousValueLabel: {color: homeColors.textSecondary, fontSize: 8.8, lineHeight: 12},
+  previousValueText: {
+    marginTop: 1,
+    color: homeColors.textPrimary,
+    fontSize: 11.5,
+    fontWeight: '800',
+  },
+
+  errorCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 10,
+    borderRadius: 12,
+    backgroundColor: '#FCEFF1',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+  },
+  sheetError: {
+    flex: 1,
+    minWidth: 0,
+    color: '#A8505A',
+    fontSize: 10.5,
+    lineHeight: 14,
+  },
 
   saveButton: {
-    marginTop: 22,
-    minHeight: 54,
+    minHeight: 52,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    borderRadius: 18,
+    marginTop: 14,
+    borderRadius: 17,
     backgroundColor: homeColors.primary,
     shadowColor: '#4E319A',
     shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.22,
+    shadowOpacity: 0.20,
     shadowRadius: 9,
-    elevation: 5,
+    elevation: 4,
   },
-  saveText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
-});
+  saveButtonDisabled: {
+    backgroundColor: '#B7A9CF',
+    shadowOpacity: 0,
+    elevation: 0,
+  },
+  saveButtonPressed: {opacity: 0.88, transform: [{scale: 0.99}]},
+  saveText: {color: '#FFFFFF', fontSize: 14.5, fontWeight: '700'},
+})

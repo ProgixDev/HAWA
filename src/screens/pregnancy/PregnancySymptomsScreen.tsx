@@ -22,6 +22,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {homeColors} from '../../components/home/homeTheme';
 import {getTopPadding, spacing} from '../../theme/spacing';
 import {getPregnancyJournalState, savePregnancySymptoms} from '../../state/pregnancyJournalStore';
+import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 
 // Pregnancy's "Symptômes ressentis" — visually rebuilt to match Cycle's own
 // JournalSymptomsScreen.tsx (src/screens/journal/JournalSymptomsScreen.tsx)
@@ -75,6 +76,8 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
+  const saveToast = useJournalSaveToast();
+
   const entrance = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -121,7 +124,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
         note: note.trim() || undefined,
         updatedAt: new Date().toISOString(),
       });
-      navigation.goBack();
+      saveToast.show('Symptômes enregistrés', 'Ton suivi de grossesse a bien été mis à jour.', navigation.goBack);
     } finally {
       setSaving(false);
     }
@@ -252,6 +255,15 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <JournalSaveToast
+        animation={saveToast.animation}
+        bottom={Math.max(insets.bottom, 18) + 12}
+        message={saveToast.message}
+        onDismiss={saveToast.hide}
+        title={saveToast.title}
+        visible={saveToast.visible}
+      />
     </View>
   );
 }
