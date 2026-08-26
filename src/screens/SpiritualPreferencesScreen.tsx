@@ -95,6 +95,18 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
       navigation.navigate('ContraceptionMethod');
       return;
     }
+    if (!enabled && objective === 'irregular') {
+      // Same reasoning as the other objectives above: Location only exists
+      // to support spiritual/prayer-time features, so disabling spiritual
+      // markers skips it entirely and goes straight into SOPK's own
+      // dedicated onboarding (see LocationScreen.tsx's own 'irregular'
+      // branch for the enabled=true path, which continues to this exact same
+      // IrregularCyclePattern screen after Location). Before this branch
+      // existed, 'irregular' fell through to the unconditional
+      // navigation.navigate('Location') below regardless of this toggle.
+      navigation.navigate('IrregularCyclePattern');
+      return;
+    }
 
     navigation.navigate('Location');
   };

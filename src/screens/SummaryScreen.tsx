@@ -48,6 +48,7 @@ import {
   type MiscarriageTryingAgainStatus,
 } from '../state/miscarriagePreferences';
 import {getConceptionPreferences, type ConceptionReminderKey, type ConceptionTryingDuration, type FertilityIndicator, type OvulationAwareness} from '../state/conceptionPreferences';
+import {getIrregularPreferences, type IrregularCyclePattern, type IrregularTrackedItem} from '../state/irregularPreferences';
 import {getContraceptionPreferences} from '../state/contraceptionPreferences';
 import {CONTRACEPTION_METHOD_LABELS} from '../config/contraceptionLabels';
 import {
@@ -161,6 +162,8 @@ const CONCEPTION_DURATION_LABELS: Record<ConceptionTryingDuration, string> = {st
 const OVULATION_AWARENESS_LABELS: Record<OvulationAwareness, string> = {often:'Oui, souvent',sometimes:'Parfois',not_really:'Non, pas vraiment'};
 const INDICATOR_LABELS: Record<FertilityIndicator, string> = {temperature:'Température basale',cervical_mucus:'Glaire cervicale',lh_tests:'Tests LH',intercourse:'Rapports'};
 const CONCEPTION_REMINDER_LABELS: Record<ConceptionReminderKey, string> = {fertile_window:'Fenêtre fertile',estimated_ovulation:'Ovulation estimée',temperature:'Température basale',lh_test:'Test LH',daily_journal:'Journal quotidien'};
+const IRREGULAR_CYCLE_PATTERN_LABELS: Record<IrregularCyclePattern, string> = {regular:'Plutôt réguliers',irregular:'Irréguliers',very_variable:'Très variables',unknown:'Je ne sais pas encore'};
+const IRREGULAR_TRACKED_ITEM_LABELS: Record<IrregularTrackedItem, string> = {acne:'Acné',hairGrowth:'Pilosité',weight:'Poids',pain:'Douleurs',mood:'Humeur',fatigue:'Fatigue',otherSymptoms:'Autres symptômes'};
 
 // Same wording as MenopauseStageScreen/MenopauseSymptomsScreen/
 // MenopauseHormonalTreatmentScreen/MenopauseLabTrackingScreen.
@@ -227,6 +230,10 @@ type EditableRoute =
   | 'ConceptionOvulationAwareness'
   | 'ConceptionIndicators'
   | 'ConceptionReminders'
+  | 'IrregularCyclePattern'
+  | 'IrregularLastPeriod'
+  | 'IrregularTrackedItems'
+  | 'IrregularReminders'
   | 'ContraceptionMethod'
   | 'ContraceptionInformation'
   | 'PillSchedule'
@@ -664,6 +671,60 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     ];
   };
 
+  // SOPK-only rows — sourced entirely from irregularPreferences.ts (no
+  // duplicated Summary state). Deliberately excludes Cycle's generic
+  // regularity/period-duration rows: SOPK never displays a cycle as "late",
+  // so no row here ever references delay/lateness.
+  const buildIrregularRows = (): SummaryRow[] => {
+    const irregular = getIrregularPreferences();
+    const trackedLabels = irregular.trackedItems.map(id => IRREGULAR_TRACKED_ITEM_LABELS[id]);
+    const remindersActive: string[] = [];
+    if (irregular.reminders.dailyJournalEnabled) {
+      remindersActive.push(
+        irregular.reminders.dailyJournalTime
+          ? `Journal quotidien à ${irregular.reminders.dailyJournalTime}`
+          : 'Journal quotidien',
+      );
+    }
+    if (irregular.reminders.unrecordedPeriodEnabled) {
+      remindersActive.push('Règles non renseignées');
+    }
+
+    return [
+      objectiveRow,
+      spiritualRow,
+      locationRow,
+      {
+        icon: 'chart-timeline-variant',
+        label: 'Profil des cycles',
+        value: irregular.cyclePattern ? IRREGULAR_CYCLE_PATTERN_LABELS[irregular.cyclePattern] : 'Non renseigné',
+        route: 'IrregularCyclePattern',
+        tone: 'rose',
+      },
+      {
+        icon: 'calendar-month-outline',
+        label: 'Dernières règles',
+        value: irregular.lastPeriodDate ? formatSummaryDate(new Date(`${irregular.lastPeriodDate}T12:00:00`)) : 'Non renseignées',
+        route: 'IrregularLastPeriod',
+        tone: 'purple',
+      },
+      {
+        icon: 'clipboard-pulse-outline',
+        label: 'Suivi personnalisé',
+        value: summarizeSelection(trackedLabels, Object.keys(IRREGULAR_TRACKED_ITEM_LABELS).length, 'Tous les éléments'),
+        route: 'IrregularTrackedItems',
+        tone: 'blue',
+      },
+      {
+        icon: 'bell-outline',
+        label: 'Rappels',
+        value: remindersActive.length > 0 ? remindersActive.join(' · ') : 'Désactivés',
+        route: 'IrregularReminders',
+        tone: 'green',
+      },
+    ];
+  };
+
   const objectiveRows: SummaryRow[] =
     objective === 'pregnancy' ? buildPregnancyRows()
       : objective === 'postpartum' ? buildPostpartumRows()
@@ -671,6 +732,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
           : objective === 'conceive' ? buildConceptionRows()
             : objective === 'contraception' ? buildContraceptionRows()
               : objective === 'menopause' ? buildMenopauseRows()
+                : objective === 'irregular' ? buildIrregularRows()
           : buildCycleRows();
   const privacy = getPrivacySecuritySettings();
   const securityLabels = [isPinEnabled() ? 'PIN activé' : null, isBiometricEnabled() ? 'Biométrie activée' : null].filter((value): value is string => Boolean(value));
@@ -714,6 +776,9 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         return;
       case 'ConceptionReminders':
         navigation.navigate('ConceptionReminders', {mode: 'edit'});
+        return;
+      case 'IrregularReminders':
+        navigation.navigate('IrregularReminders', {mode: 'edit'});
         return;
       default:
         navigation.navigate(route);

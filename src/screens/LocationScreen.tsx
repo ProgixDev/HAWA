@@ -304,6 +304,16 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       navigation.navigate('MenopauseStage');
       return;
     }
+    if (objective === 'irregular') {
+      // SOPK / Cycles irréguliers has its own dedicated 4-step onboarding
+      // (cycle pattern/last period/tracked items/reminders) — the generic
+      // Cycle regularity question in CycleInformationScreen doesn't apply
+      // here, so it deliberately skips it, the same way Menopause/
+      // Contraception do above. Before this branch existed, 'irregular' fell
+      // through to the CycleInformation fallthrough below.
+      navigation.navigate('IrregularCyclePattern');
+      return;
+    }
     navigation.navigate('CycleInformation');
   };
 

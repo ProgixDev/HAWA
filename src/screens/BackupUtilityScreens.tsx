@@ -32,7 +32,6 @@ import {buildMedicalExport} from '../services/medicalExportOrchestrator';
 import {generateMedicalExportPdfBase64} from '../services/medicalExportPdf';
 import {buildExportFilename, shareExportFile} from '../services/medicalExportShare';
 import {usePremium} from '../hooks/usePremium';
-import {PremiumLockedCard} from '../components/premium/PremiumLockedCard';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {
   getActiveObjective,
@@ -968,16 +967,97 @@ export function DataExportScreen({
       ) : null}
       </>
       ) : (
-        <PremiumLockedCard
-          ctaLabel="Découvrir Premium"
-          description="Génère et partage un rapport CSV ou PDF de ton suivi, à tout moment."
-          onUpgrade={() => setPremiumVisible(true)}
-          title="Export CSV & PDF"
-        />
+        <PremiumExportLockedCard onUpgrade={() => setPremiumVisible(true)} />
       )}
+
+      {!isPremium ? (
+        <View style={styles.privacyPriorityCard}>
+          <View style={styles.privacyPriorityIcon}>
+            <MaterialDesignIcons color={PURPLE} name="shield-check-outline" size={23} />
+          </View>
+          <View style={styles.privacyPriorityCopy}>
+            <Text style={styles.privacyPriorityTitle}>Ta confidentialité est notre priorité</Text>
+            <Text style={styles.privacyPriorityDescription}>AWA ne partage jamais tes informations.</Text>
+          </View>
+          <MaterialDesignIcons color="#8B7AB8" name="chevron-right" size={25} />
+        </View>
+      ) : null}
 
       <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
     </Shell>
+  );
+}
+
+function PremiumExportBenefit({icon, title, description}: {icon: IconName; title: string; description: string}) {
+  return (
+    <View style={styles.premiumBenefitRow}>
+      <View style={styles.premiumBenefitIcon}>
+        <MaterialDesignIcons color={PURPLE} name={icon} size={22} />
+      </View>
+      <View style={styles.premiumBenefitCopy}>
+        <Text style={styles.premiumBenefitTitle}>{title}</Text>
+        <Text style={styles.premiumBenefitDescription}>{description}</Text>
+      </View>
+    </View>
+  );
+}
+
+function PremiumExportLockedCard({onUpgrade}: {onUpgrade: () => void}) {
+  return (
+    <View style={styles.premiumExportCard}>
+      <View style={styles.premiumLockHalo}>
+        <View style={styles.premiumLockHexagon}>
+          <MaterialDesignIcons color="#FFFFFF" name="lock-outline" size={27} />
+        </View>
+      </View>
+
+      <View style={styles.premiumPill}>
+        <Text style={styles.premiumPillText}>PREMIUM</Text>
+      </View>
+
+      <Text style={styles.premiumExportTitle}>Export CSV &amp; PDF</Text>
+      <Text style={styles.premiumExportDescription}>
+        Génère et partage un rapport complet de ton suivi à tout moment.
+      </Text>
+
+      <View style={styles.premiumDividerRow}>
+        <View style={styles.premiumDivider} />
+        <MaterialDesignIcons color={PURPLE} name="crown" size={21} />
+        <View style={styles.premiumDivider} />
+      </View>
+
+      <View style={styles.premiumBenefits}>
+        <PremiumExportBenefit
+          icon="file-document-outline"
+          title="Rapports complets et structurés"
+          description="CSV ou PDF prêts à être utilisés ou partagés."
+        />
+        <PremiumExportBenefit
+          icon="history"
+          title="Historique illimité"
+          description="Accède à tout ton historique sans aucune limite."
+        />
+        <PremiumExportBenefit
+          icon="shield-check-outline"
+          title="Confidentialité assurée"
+          description="Tes données restent 100% privées et sécurisées."
+        />
+        <PremiumExportBenefit
+          icon="chart-box-outline"
+          title="Analyse avancée"
+          description="Exploite tes données avec plus de profondeur et de clarté."
+        />
+      </View>
+
+      <Pressable
+        accessibilityRole="button"
+        onPress={onUpgrade}
+        style={({pressed}) => [styles.premiumUpgradeButton, pressed && styles.pressed]}>
+        <MaterialDesignIcons color="#FFFFFF" name="crown" size={23} />
+        <Text style={styles.premiumUpgradeText}>Découvrir Premium</Text>
+        <MaterialDesignIcons color="#FFFFFF" name="chevron-right" size={27} />
+      </Pressable>
+    </View>
   );
 }
 
@@ -2492,6 +2572,200 @@ const styles =
 
       backgroundColor:
         '#DDEDE2',
+    },
+
+    premiumExportCard: {
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: 'rgba(111,82,200,0.28)',
+      borderRadius: 24,
+      backgroundColor: 'rgba(255,255,255,0.92)',
+      paddingHorizontal: 18,
+      paddingTop: 20,
+      paddingBottom: 18,
+      shadowColor: '#5B3DB1',
+      shadowOffset: {width: 0, height: 7},
+      shadowOpacity: 0.08,
+      shadowRadius: 18,
+      elevation: 3,
+    },
+
+    premiumLockHalo: {
+      width: 72,
+      height: 72,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1.5,
+      borderStyle: 'dashed',
+      borderColor: '#BDA7F6',
+      borderRadius: 36,
+      backgroundColor: '#FBF9FF',
+    },
+
+    premiumLockHexagon: {
+      width: 50,
+      height: 50,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 17,
+      backgroundColor: '#815AE7',
+      shadowColor: '#6F52C8',
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.22,
+      shadowRadius: 10,
+      elevation: 4,
+    },
+
+    premiumPill: {
+      marginTop: 7,
+      borderRadius: 999,
+      backgroundColor: '#B89AF0',
+      paddingHorizontal: 12,
+      paddingVertical: 3,
+    },
+
+    premiumPillText: {
+      color: '#FFFFFF',
+      fontSize: 10.5,
+      fontWeight: '800',
+      letterSpacing: 0.6,
+    },
+
+    premiumExportTitle: {
+      marginTop: 8,
+      color: PURPLE_DARK,
+      fontFamily: 'serif',
+      fontSize: 22,
+      lineHeight: 27,
+      fontWeight: '800',
+      textAlign: 'center',
+    },
+
+    premiumExportDescription: {
+      maxWidth: 315,
+      marginTop: 6,
+      color: TEXT_SECONDARY,
+      fontSize: 12,
+      lineHeight: 18,
+      textAlign: 'center',
+    },
+
+    premiumDividerRow: {
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      marginVertical: 14,
+    },
+
+    premiumDivider: {
+      flex: 1,
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: '#DCCFF5',
+    },
+
+    premiumBenefits: {
+      width: '100%',
+      gap: 12,
+    },
+
+    premiumBenefitRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
+    premiumBenefitIcon: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 16,
+      backgroundColor: '#F1EBFF',
+    },
+
+    premiumBenefitCopy: {
+      flex: 1,
+      marginLeft: 11,
+    },
+
+    premiumBenefitTitle: {
+      color: '#271B62',
+      fontSize: 12.5,
+      lineHeight: 16,
+      fontWeight: '800',
+    },
+
+    premiumBenefitDescription: {
+      marginTop: 2,
+      color: TEXT_SECONDARY,
+      fontSize: 10.5,
+      lineHeight: 15,
+    },
+
+    premiumUpgradeButton: {
+      width: '100%',
+      minHeight: 52,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: 18,
+      borderRadius: 16,
+      backgroundColor: '#6D3DE3',
+      paddingHorizontal: 17,
+      shadowColor: '#5C2FC4',
+      shadowOffset: {width: 0, height: 6},
+      shadowOpacity: 0.22,
+      shadowRadius: 11,
+      elevation: 5,
+    },
+
+    premiumUpgradeText: {
+      flex: 1,
+      marginHorizontal: 10,
+      color: '#FFFFFF',
+      fontSize: 15,
+      lineHeight: 19,
+      fontWeight: '800',
+      textAlign: 'center',
+    },
+
+    privacyPriorityCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: 'rgba(111,82,200,0.09)',
+      borderRadius: 18,
+      backgroundColor: 'rgba(255,255,255,0.82)',
+      paddingHorizontal: 13,
+      paddingVertical: 11,
+    },
+
+    privacyPriorityIcon: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 15,
+      backgroundColor: '#EFE8FF',
+    },
+
+    privacyPriorityCopy: {
+      flex: 1,
+      marginLeft: 11,
+    },
+
+    privacyPriorityTitle: {
+      color: '#2A1B73',
+      fontSize: 12,
+      lineHeight: 16,
+      fontWeight: '800',
+    },
+
+    privacyPriorityDescription: {
+      marginTop: 2,
+      color: '#7D70A2',
+      fontSize: 10.5,
+      lineHeight: 15,
     },
 
     pressed: {

@@ -80,6 +80,21 @@ import {
   type MenopauseStage,
 } from '../state/menopausePreferences';
 import {
+  getIrregularPreferences,
+  hydrateIrregularPreferences,
+  subscribeIrregularPreferences,
+  type IrregularCyclePattern,
+} from '../state/irregularPreferences';
+import {
+  getConfirmedPeriodHistory,
+  hydrateConfirmedPeriodHistory,
+  subscribeConfirmedPeriodHistory,
+} from '../state/confirmedPeriodHistoryStore';
+import {
+  computeConfirmedPeriodDurationDays,
+  findLatestConfirmedPeriod,
+} from '../utils/irregularDailyTrackingMath';
+import {
   computeCyclePredictionStatus,
   formatDateRange as formatCanonicalDateRange,
   formatFullDate,
@@ -159,6 +174,16 @@ const MENOPAUSE_HORMONAL_TREATMENT_LABELS: Record<MenopauseHormonalTreatmentStat
   track: 'Suivi activé',
   no: 'Non suivi',
   not_now: 'Pas pour le moment',
+};
+
+// Same exact wording as the SOPK onboarding's own (private, screen-local)
+// cyclePatternOptions in IrregularOnboardingScreens.tsx — displays the
+// user's real saved answer instead of a hardcoded "Cycles irréguliers".
+const IRREGULAR_CYCLE_PATTERN_LABELS: Record<IrregularCyclePattern, string> = {
+  regular: 'Plutôt réguliers',
+  irregular: 'Irréguliers',
+  very_variable: 'Très variables',
+  unknown: 'Je ne sais pas encore',
 };
 
 const FEEDING_TYPE_LABELS: Record<PostpartumFeedingType, string> = {
@@ -844,6 +869,46 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
+  const [irregularPrefs, setIrregularPrefs] = useState(getIrregularPreferences);
+
+  useEffect(() => {
+    let active = true;
+    hydrateIrregularPreferences().then(value => {
+      if (active) {
+        setIrregularPrefs(value);
+      }
+    });
+    const unsubscribe = subscribeIrregularPreferences(() => {
+      if (active) {
+        setIrregularPrefs(getIrregularPreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
+  const [confirmedPeriodHistory, setConfirmedPeriodHistory] = useState(getConfirmedPeriodHistory);
+
+  useEffect(() => {
+    let active = true;
+    hydrateConfirmedPeriodHistory().then(value => {
+      if (active) {
+        setConfirmedPeriodHistory(value);
+      }
+    });
+    const unsubscribe = subscribeConfirmedPeriodHistory(() => {
+      if (active) {
+        setConfirmedPeriodHistory(getConfirmedPeriodHistory());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
+
   const [miscarriage, setMiscarriage] = useState(getMiscarriagePreferences);
 
   useEffect(() => {
@@ -1089,6 +1154,31 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     return { label: 'Cycle moyen', value: `${cycle.cycleDuration} jours` };
   })();
 
+  // SOPK's own Profile summary — deliberately independent of
+  // computeCyclePredictionStatus()/nextPeriodStatus above (no "Prochaines
+  // règles", no "Cycle moyen", no automatic "retard" for a long cycle — see
+  // IrregularDashboard.tsx's own header comment for the same product rule).
+  // Sourced from the real onboarding answer and the real confirmed period
+  // history only — never a fabricated default.
+  const irregularCycleTypeValue = irregularPrefs.cyclePattern
+    ? IRREGULAR_CYCLE_PATTERN_LABELS[irregularPrefs.cyclePattern]
+    : 'Non renseigné';
+
+  const latestConfirmedPeriod = useMemo(
+    () => findLatestConfirmedPeriod(confirmedPeriodHistory),
+    [confirmedPeriodHistory],
+  );
+
+  const irregularPeriodDurationValue = (() => {
+    if (!latestConfirmedPeriod) {return 'Non renseignée';}
+    const days = computeConfirmedPeriodDurationDays(latestConfirmedPeriod);
+    return days ? `${days} ${days > 1 ? 'jours' : 'jour'}` : 'Non renseignée';
+  })();
+
+  const irregularLastPeriodValue = latestConfirmedPeriod
+    ? formatShortDate(new Date(`${latestConfirmedPeriod.periodStart}T12:00:00`))
+    : 'Non renseignées';
+
   const [hijriToday, setHijriToday] = useState(() => formatHijriDate(new Date()));
   useFocusEffect(
     useCallback(() => {
@@ -1332,7 +1422,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           objective !== 'postpartum' &&
           objective !== 'loss' &&
           objective !== 'contraception' &&
-          objective !== 'menopause' ? (
+          objective !== 'menopause' &&
+          objective !== 'irregular' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-range"
@@ -1393,6 +1484,45 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus]
                     : 'Non renseigné'
                 }
+              />
+            </View>
+          ) : null}
+
+          {/* SOPK / "Cycles irréguliers"'s OWN summary — never the standard
+              Cycle objective's stats (cycle moyen/prochaines règles rely on
+              computeCyclePredictionStatus(), whose 'window' mode can surface
+              "Règles en retard" — forbidden for SOPK, see
+              IrregularDashboard.tsx's own header comment on this rule).
+              "Durée des règles"/"Dernières règles" describe only the most
+              recently CONFIRMED real period (confirmedPeriodHistoryStore.ts —
+              the same canonical history qadaa/exports already read), never a
+              predicted or averaged value. "Type de cycle" reflects the SOPK
+              onboarding's real saved answer (irregularPreferences.ts), never
+              a hardcoded "Cycles irréguliers". */}
+          {objective === 'irregular' ? (
+            <View style={styles.statsGrid}>
+              <StatCard
+                icon="sync"
+                label="Type de cycle"
+                value={irregularCycleTypeValue}
+              />
+
+              <StatCard
+                icon="water-outline"
+                label="Durée des règles"
+                value={irregularPeriodDurationValue}
+              />
+
+              <StatCard
+                icon="calendar-month-outline"
+                label="Dernières règles"
+                value={irregularLastPeriodValue}
+              />
+
+              <StatCard
+                icon="weather-night"
+                label="Date hijri"
+                value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
               />
             </View>
           ) : null}
@@ -1652,6 +1782,16 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 icon="bell-outline"
                 onPress={() => navigation.navigate('PostpartumReminders', {mode: 'edit'})}
                 subtitle="Gérer mon rappel de suivi quotidien"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'irregular' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('IrregularReminders', {mode: 'edit'})}
+                subtitle="Journal quotidien et règles non renseignées"
                 title="Notifications & rappels"
                 tone="default"
               />

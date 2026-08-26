@@ -37,7 +37,7 @@ export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfir
   irregular: {
     title: 'Parfait ! 🎉',
     description: 'Tu as choisi un suivi pour mieux comprendre tes cycles irréguliers.',
-    nextStep: 'Nous allons adapter ton suivi pour observer\ntes cycles, symptômes et tendances dans le temps.',
+    nextStep: 'Nous allons adapter ton suivi pour observer tes cycles, symptômes et tendances dans le temps.',
     buttonLabel: 'Configurer mon suivi',
   },
   menopause: {
