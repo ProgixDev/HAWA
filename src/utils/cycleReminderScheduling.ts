@@ -32,6 +32,13 @@ const DAILY_JOURNAL_ID = 'cycle-daily-journal-reminder';
 const FERTILE_WINDOW_ID = 'cycle-fertile-window-reminder';
 const OVULATION_ID = 'cycle-ovulation-reminder';
 
+// Tag carried in the notification's `data` payload so
+// genericReminderNotificationPersistence.ts can recognize and record every
+// Cycle reminder into the in-app notification history — never used to decide
+// whether/how to schedule. Same pattern already established by
+// postpartum/menopause/qadaa's own exported *_NOTIFICATION_KIND constants.
+export const CYCLE_REMINDER_NOTIFICATION_KIND = 'cycle-reminder';
+
 // Same fixed local fire-hour convention already established by
 // postpartumNifasReminderScheduling.ts / qadaaReminderScheduling.ts for
 // date-based (not daily-habit) reminders — never a silently invented hour.
@@ -71,6 +78,12 @@ async function syncUpcomingPeriodReminder(
     // the time-of-day), so the day offset must be applied BEFORE
     // atReminderHour() sets the hour — not after, or the hour is lost.
     fireDate: atReminderHour(addDays(prediction.date, -prefs.upcomingPeriodDaysBefore)),
+    data: {
+      hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
+      cycleReminderType: 'upcoming-period',
+      inAppTitle: 'Tes règles sont prévues bientôt 🌸',
+      inAppMessage: 'Pense à garder ce dont tu as besoin à portée de main.',
+    },
   });
 }
 
@@ -95,6 +108,12 @@ async function syncPeriodStartCheckReminder(
     title: 'Tes règles ont peut-être commencé ?',
     body: 'Pense à renseigner leur début pour garder ton suivi à jour.',
     fireDate: atReminderHour(prediction.date),
+    data: {
+      hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
+      cycleReminderType: 'period-start-check',
+      inAppTitle: 'Tes règles ont peut-être commencé ?',
+      inAppMessage: 'Pense à renseigner leur début pour garder ton suivi à jour.',
+    },
   });
 }
 
@@ -110,6 +129,12 @@ async function syncDailyJournalReminder(active: boolean, prefs: CycleReminderPre
     body: 'Prends un moment pour mettre ton suivi à jour.',
     fireDate: nextDailyFireDate(prefs.dailyJournalTime),
     repeatFrequency: 'daily',
+    data: {
+      hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
+      cycleReminderType: 'daily-journal',
+      inAppTitle: 'Comment te sens-tu aujourd’hui ?',
+      inAppMessage: 'Prends un moment pour mettre ton suivi à jour.',
+    },
   });
 }
 
@@ -146,6 +171,12 @@ async function syncFertileWindowReminder(
     // Same addDays()-before-atReminderHour() ordering as the upcoming-period
     // reminder above — addDays() would otherwise zero the hour it sets.
     fireDate: atReminderHour(addDays(fertileStart, -FERTILE_WINDOW_LEAD_DAYS)),
+    data: {
+      hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
+      cycleReminderType: 'fertile-window',
+      inAppTitle: 'Ta fenêtre fertile estimée approche',
+      inAppMessage: 'Selon les données de ton cycle, ta période fertile estimée commence bientôt.',
+    },
   });
 }
 
@@ -166,6 +197,12 @@ async function syncOvulationReminder(
     title: 'Ovulation estimée 🌸',
     body: 'Selon ton suivi, ton ovulation est estimée prochainement.',
     fireDate: atReminderHour(ovulation),
+    data: {
+      hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
+      cycleReminderType: 'ovulation',
+      inAppTitle: 'Ovulation estimée 🌸',
+      inAppMessage: 'Selon ton suivi, ton ovulation est estimée prochainement.',
+    },
   });
 }
 

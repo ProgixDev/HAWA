@@ -163,6 +163,7 @@ function SecurityOption({
 
 function SecuritySetupScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets =
     useSafeAreaInsets();
@@ -669,9 +670,11 @@ function SecuritySetupScreen({
         <Pressable
           accessibilityRole="button"
           onPress={() =>
-            navigation.navigate(
-              'Privacy',
-            )
+            route.params?.mode === 'edit'
+              ? navigation.goBack()
+              : navigation.navigate(
+                  'Privacy',
+                )
           }
           style={({
             pressed,

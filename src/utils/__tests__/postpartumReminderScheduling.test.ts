@@ -102,6 +102,10 @@ describe('syncPostpartumDailyTrackingReminder', () => {
     expect(call.body).toBe('Prends un moment pour noter comment tu te sens aujourd’hui.');
     expect(call.repeatFrequency).toBe('daily');
     expect(call.fireDate).toBeInstanceOf(Date);
-    expect(call.data).toEqual({hawaNotificationKind: POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND});
+    expect(call.data).toEqual({
+      hawaNotificationKind: POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND,
+      inAppTitle: 'Ton suivi du jour',
+      inAppMessage: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+    });
   });
 });

@@ -48,7 +48,7 @@ const guarantees: {icon: IconName; title: string; description: string}[] = [
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Privacy'>;
 
-function PrivacyScreen({navigation}: Props): React.JSX.Element {
+function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
   return (
@@ -202,7 +202,11 @@ function PrivacyScreen({navigation}: Props): React.JSX.Element {
 
           <Pressable
             accessibilityRole="button"
-            onPress={() => navigation.navigate('Summary')}
+            onPress={() =>
+              route.params?.mode === 'edit'
+                ? navigation.goBack()
+                : navigation.navigate('Summary')
+            }
             style={({pressed}) => [
               styles.nextButton,
               pressed && styles.pressed,

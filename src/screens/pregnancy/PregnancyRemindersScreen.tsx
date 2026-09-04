@@ -161,6 +161,7 @@ function ReminderRow({
 
 function PregnancyRemindersScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -263,6 +264,11 @@ function PregnancyRemindersScreen({
       ...preferences,
     });
     resyncAllPregnancyNotifications();
+
+    if (route.params?.mode === 'edit') {
+      navigation.goBack();
+      return;
+    }
 
     navigation.navigate(
       'SecuritySetup',

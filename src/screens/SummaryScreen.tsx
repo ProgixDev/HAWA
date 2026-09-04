@@ -742,46 +742,125 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     {icon:'incognito',label:'Confidentialité',value:privacyLabels.length ? privacyLabels.join(' · ') : 'Réglages standards',route:'Privacy',tone:'green'},
   ];
 
-  // Only routes that actually declare/read a `mode` param are told they're
-  // being opened for editing — every other pre-existing row is left exactly
-  // as it was (a separate, not-yet-approved task covers generalizing this to
-  // the remaining onboarding screens; none of them read route.params today,
-  // so omitting the param here is a complete no-op for them, not a
-  // regression).
+  // Summary sits at the end of the single onboarding stack, so every one of
+  // these routes already exists earlier in navigation history.
+  // navigation.navigate() to an in-stack route pops back to it — discarding
+  // Summary itself — which is why "Modify" used to feel like it restarted
+  // onboarding. navigation.push() always stacks a fresh instance on top of
+  // Summary instead, so the target screen's own goBack() (explicit, or the
+  // default header/hardware back button) reliably lands back on Summary.
+  // 'Objective' is deliberately excluded: changing the primary objective
+  // invalidates the rest of this screen's rows and keeps its original
+  // full-flow behavior.
   const navigateToEdit = (route: EditableRoute) => {
     switch (route) {
+      case 'Objective':
+        // Excluded from the edit-mode fix: changing the primary objective
+        // invalidates the rest of this screen's rows, so it keeps its
+        // original full-onboarding-flow behavior.
+        navigation.navigate('Objective');
+        return;
+      case 'SpiritualPreferences':
+        navigation.push('SpiritualPreferences', {mode: 'edit'});
+        return;
       case 'Location':
-        navigation.navigate('Location', {mode: 'edit'});
+        navigation.push('Location', {mode: 'edit'});
+        return;
+      case 'CycleInformation':
+        navigation.push('CycleInformation', {mode: 'edit'});
+        return;
+      case 'PregnancyDatingSetup':
+        navigation.push('PregnancyDatingSetup', {mode: 'edit'});
+        return;
+      case 'PregnancyTrackingPreferences':
+        navigation.push('PregnancyTrackingPreferences', {mode: 'edit'});
+        return;
+      case 'PregnancyReminders':
+        navigation.push('PregnancyReminders', {mode: 'edit'});
+        return;
+      case 'PostpartumDeliveryDate':
+        navigation.push('PostpartumDeliveryDate', {mode: 'edit'});
+        return;
+      case 'PostpartumDeliveryType':
+        navigation.push('PostpartumDeliveryType', {mode: 'edit'});
         return;
       case 'PostpartumFeeding':
-        navigation.navigate('PostpartumFeeding', {mode: 'edit'});
+        navigation.push('PostpartumFeeding', {mode: 'edit'});
         return;
       case 'PostpartumReminders':
-        navigation.navigate('PostpartumReminders', {mode: 'edit'});
+        navigation.push('PostpartumReminders', {mode: 'edit'});
         return;
-      case 'ContraceptionMethod':
-        navigation.navigate('ContraceptionMethod', {mode: 'edit'});
+      case 'MiscarriageDate':
+        navigation.push('MiscarriageDate', {mode: 'edit'});
         return;
-      case 'ContraceptionInformation':
-        navigation.navigate('ContraceptionInformation', {mode: 'edit'});
+      case 'MiscarriageBleeding':
+        navigation.push('MiscarriageBleeding', {mode: 'edit'});
         return;
-      case 'PillSchedule':
-        navigation.navigate('PillSchedule', {mode: 'edit'});
+      case 'MiscarriageCycleReturn':
+        navigation.push('MiscarriageCycleReturn', {mode: 'edit'});
         return;
-      case 'ContraceptionReminders':
-        navigation.navigate('ContraceptionReminders', {mode: 'edit'});
+      case 'MiscarriageTryingAgain':
+        navigation.push('MiscarriageTryingAgain', {mode: 'edit'});
         return;
-      case 'MenopauseReminders':
-        navigation.navigate('MenopauseReminders', {mode: 'edit'});
+      case 'ConceptionTryingDuration':
+        navigation.push('ConceptionTryingDuration', {mode: 'edit'});
+        return;
+      case 'ConceptionOvulationAwareness':
+        navigation.push('ConceptionOvulationAwareness', {mode: 'edit'});
+        return;
+      case 'ConceptionIndicators':
+        navigation.push('ConceptionIndicators', {mode: 'edit'});
         return;
       case 'ConceptionReminders':
-        navigation.navigate('ConceptionReminders', {mode: 'edit'});
+        navigation.push('ConceptionReminders', {mode: 'edit'});
+        return;
+      case 'IrregularCyclePattern':
+        navigation.push('IrregularCyclePattern', {mode: 'edit'});
+        return;
+      case 'IrregularLastPeriod':
+        navigation.push('IrregularLastPeriod', {mode: 'edit'});
+        return;
+      case 'IrregularTrackedItems':
+        navigation.push('IrregularTrackedItems', {mode: 'edit'});
         return;
       case 'IrregularReminders':
-        navigation.navigate('IrregularReminders', {mode: 'edit'});
+        navigation.push('IrregularReminders', {mode: 'edit'});
+        return;
+      case 'ContraceptionMethod':
+        navigation.push('ContraceptionMethod', {mode: 'edit'});
+        return;
+      case 'ContraceptionInformation':
+        navigation.push('ContraceptionInformation', {mode: 'edit'});
+        return;
+      case 'PillSchedule':
+        navigation.push('PillSchedule', {mode: 'edit'});
+        return;
+      case 'ContraceptionReminders':
+        navigation.push('ContraceptionReminders', {mode: 'edit'});
+        return;
+      case 'MenopauseStage':
+        navigation.push('MenopauseStage', {mode: 'edit'});
+        return;
+      case 'MenopauseSymptoms':
+        navigation.push('MenopauseSymptoms', {mode: 'edit'});
+        return;
+      case 'MenopauseHormonalTreatment':
+        navigation.push('MenopauseHormonalTreatment', {mode: 'edit'});
+        return;
+      case 'MenopauseLabTracking':
+        navigation.push('MenopauseLabTracking', {mode: 'edit'});
+        return;
+      case 'MenopauseReminders':
+        navigation.push('MenopauseReminders', {mode: 'edit'});
+        return;
+      case 'SecuritySetup':
+        navigation.push('SecuritySetup', {mode: 'edit'});
+        return;
+      case 'Privacy':
+        navigation.push('Privacy', {mode: 'edit'});
         return;
       default:
-        navigation.navigate(route);
+        route satisfies never;
     }
   };
 

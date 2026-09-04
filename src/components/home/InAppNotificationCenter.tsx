@@ -56,6 +56,36 @@ const formatReceivedAt = (isoDate: string): string => {
   }).format(date)} · ${time}`;
 };
 
+// French display label for the "objective/category" this notification came
+// from, shown next to its date. Purely cosmetic — never used for routing or
+// persistence, so a missing/unrecognized type only ever omits the label.
+const CATEGORY_LABELS: Record<string, string> = {
+  'postpartum-nifas': 'Nifas',
+  'conception-reminder': 'Essayer de concevoir',
+  'cycle-reminder': 'Cycle menstruel',
+  'irregular-reminder': 'SOPK',
+  'contraception-reminder': 'Contraception',
+  'pregnancy-reminder': 'Grossesse',
+  'postpartum-daily-tracking-reminder': 'Post-partum',
+  'menopause-daily-tracking-reminder': 'Ménopause',
+  'menopause-treatment-reminder': 'Ménopause',
+  'qadaa-post-ramadan': 'Jeûne (Qadaa)',
+  'miscarriage-daily-tracking-reminder': 'Après une fausse couche',
+};
+
+function iconForType(type: string): string {
+  if (type === 'postpartum-nifas') {
+    return 'bell-ring-outline';
+  }
+  if (type === 'conception-reminder') {
+    return 'bell-outline';
+  }
+  if (type in CATEGORY_LABELS) {
+    return 'calendar-clock-outline';
+  }
+  return 'bell-outline';
+}
+
 function NotificationItem({
   notification,
   onOpen,
@@ -65,6 +95,8 @@ function NotificationItem({
   onOpen: () => void;
   onDelete: () => void;
 }): React.JSX.Element {
+  const categoryLabel = CATEGORY_LABELS[notification.type];
+
   return (
     <Pressable
       accessibilityLabel={`${notification.title}. ${notification.message}`}
@@ -79,11 +111,7 @@ function NotificationItem({
       <View style={styles.itemIcon}>
         <MaterialDesignIcons
           color={homeColors.primary}
-          name={
-            notification.type === 'postpartum-nifas'
-              ? 'bell-ring-outline'
-              : 'bell-outline'
-          }
+          name={iconForType(notification.type) as never}
           size={18}
         />
       </View>
@@ -105,6 +133,7 @@ function NotificationItem({
         </Text>
         <Text style={styles.itemDate}>
           {formatReceivedAt(notification.receivedAt)}
+          {categoryLabel ? ` · ${categoryLabel}` : ''}
         </Text>
       </View>
       <Pressable
@@ -196,6 +225,33 @@ function InAppNotificationCenter({
         // not a stack route, so it can't be deep-linked into from here.
         navigationRef.navigate('MainTabs', { screen: 'CycleHome' });
       }
+      return;
+    }
+    if (notification.route === 'menopause-treatment-reminder' && navigationRef.isReady()) {
+      // Same destination as menopauseReminderNotificationNavigation.ts's own
+      // OS-notification-tap handling for this exact reminder kind.
+      navigationRef.navigate('MenopauseJournalEntry', { category: 'treatment' });
+      return;
+    }
+    if (notification.route === 'qadaa-reminder' && navigationRef.isReady()) {
+      navigationRef.navigate('FastingQadaa');
+      return;
+    }
+    if (notification.route === 'miscarriage-journal' && navigationRef.isReady()) {
+      // The existing Miscarriage journal entry screen — the real place this
+      // gentle "comment tu te sens" check-in can actually be recorded
+      // (bleeding/physical symptoms live under their own dedicated
+      // categories; 'personalNotes' is the closest match to an open-ended
+      // daily check-in, never a specific symptom prompt).
+      navigationRef.navigate('MiscarriageJournalEntry', { category: 'personalNotes' });
+      return;
+    }
+    if (notification.route === 'objective-home' && navigationRef.isReady()) {
+      // Cycle / SOPK / Contraception / Pregnancy / Postpartum daily-tracking /
+      // Menopause daily-tracking reminders — the objective-aware Home screen
+      // already renders the correct dashboard for whichever objective is
+      // active, exactly like TTC's own fallback above.
+      navigationRef.navigate('MainTabs', { screen: 'CycleHome' });
     }
   };
 

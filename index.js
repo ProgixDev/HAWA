@@ -13,6 +13,7 @@ import App from './App';
 import { name as appName } from './app.json';
 import { handlePostpartumNifasBackgroundNotification } from './src/services/postpartumNifasBackgroundNotificationHandler';
 import { handleConceptionReminderBackgroundNotification } from './src/services/conceptionReminderBackgroundHandler';
+import { handleGenericReminderBackgroundNotification } from './src/services/genericReminderBackgroundHandler';
 
 notifee.onBackgroundEvent(async ({ type, detail }) => {
   if (type === EventType.DELIVERED) {
@@ -24,6 +25,10 @@ notifee.onBackgroundEvent(async ({ type, detail }) => {
       'delivered',
       detail.notification,
     );
+    await handleGenericReminderBackgroundNotification(
+      'delivered',
+      detail.notification,
+    );
   }
   if (type === EventType.PRESS) {
     await handlePostpartumNifasBackgroundNotification(
@@ -31,6 +36,10 @@ notifee.onBackgroundEvent(async ({ type, detail }) => {
       detail.notification,
     );
     await handleConceptionReminderBackgroundNotification(
+      'press',
+      detail.notification,
+    );
+    await handleGenericReminderBackgroundNotification(
       'press',
       detail.notification,
     );

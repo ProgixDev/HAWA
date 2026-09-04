@@ -25,6 +25,12 @@ import {getConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
 const DAILY_JOURNAL_ID = 'irregular-daily-journal-reminder';
 const UNRECORDED_PERIOD_ID = 'irregular-unrecorded-period-reminder';
 
+// Tag carried in the notification's `data` payload so
+// genericReminderNotificationPersistence.ts can recognize and record every
+// SOPK reminder into the in-app notification history — never used to decide
+// whether/how to schedule.
+export const IRREGULAR_REMINDER_NOTIFICATION_KIND = 'irregular-reminder';
+
 const DATE_REMINDER_HOUR = 9;
 
 /** Deliberately generous — this is NOT a "late period" threshold. It is only
@@ -68,6 +74,12 @@ async function syncDailyJournalReminder(active: boolean, prefs: IrregularPrefere
     body: 'Comment te sens-tu aujourd’hui ? Pense à mettre ton suivi à jour.',
     fireDate: nextDailyFireDate(prefs.reminders.dailyJournalTime),
     repeatFrequency: 'daily',
+    data: {
+      hawaNotificationKind: IRREGULAR_REMINDER_NOTIFICATION_KIND,
+      irregularReminderType: 'daily-journal',
+      inAppTitle: 'Journal quotidien',
+      inAppMessage: 'Comment te sens-tu aujourd’hui ? Pense à mettre ton suivi à jour.',
+    },
   });
 }
 
@@ -88,6 +100,13 @@ async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPre
     title: 'Règles non renseignées',
     body: 'Tu n’as pas encore renseigné de nouvelles règles. Pense à mettre ton suivi à jour si elles ont commencé.',
     fireDate,
+    data: {
+      hawaNotificationKind: IRREGULAR_REMINDER_NOTIFICATION_KIND,
+      irregularReminderType: 'unrecorded-period',
+      inAppTitle: 'Règles non renseignées',
+      inAppMessage:
+        'Tu n’as pas encore renseigné de nouvelles règles. Pense à mettre ton suivi à jour si elles ont commencé.',
+    },
   });
 }
 

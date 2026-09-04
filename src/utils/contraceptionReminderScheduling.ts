@@ -39,6 +39,12 @@ export function contraceptionMethodSupportsDailyReminder(
 
 const CONTRACEPTION_REMINDER_ID = 'contraception-daily-reminder';
 
+// Tag carried in the notification's `data` payload so
+// genericReminderNotificationPersistence.ts can recognize and record this
+// reminder into the in-app notification history — never used to decide
+// whether/how to schedule.
+export const CONTRACEPTION_REMINDER_NOTIFICATION_KIND = 'contraception-reminder';
+
 export type ContraceptionReminderScheduleStatus = 'idle' | 'scheduled' | 'failed';
 
 // Deliberately NOT persisted to AsyncStorage: this reflects whether the last
@@ -89,12 +95,19 @@ export async function syncContraceptionReminder(): Promise<void> {
     CONTRACEPTION_REMINDER_NOTIFICATION_TITLE[preferences.method] ??
     CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE;
 
+  const body = 'Prends un instant pour ton suivi de contraception.';
+
   const success = await scheduleLocalNotification({
     id: CONTRACEPTION_REMINDER_ID,
     title,
-    body: 'Prends un instant pour ton suivi de contraception.',
+    body,
     fireDate: nextDailyFireDate(preferences.reminderTime),
     repeatFrequency: 'daily',
+    data: {
+      hawaNotificationKind: CONTRACEPTION_REMINDER_NOTIFICATION_KIND,
+      inAppTitle: title,
+      inAppMessage: body,
+    },
   });
 
   setScheduleStatus(success ? 'scheduled' : 'failed');

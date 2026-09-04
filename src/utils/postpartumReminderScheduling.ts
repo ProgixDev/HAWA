@@ -47,6 +47,10 @@ export async function syncPostpartumDailyTrackingReminder(): Promise<void> {
     body: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
     fireDate: nextDailyFireDate(preferences.dailyTrackingReminderTime),
     repeatFrequency: 'daily',
-    data: {hawaNotificationKind: POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND},
+    data: {
+      hawaNotificationKind: POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND,
+      inAppTitle: 'Ton suivi du jour',
+      inAppMessage: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+    },
   });
 }

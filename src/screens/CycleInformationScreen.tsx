@@ -210,7 +210,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
       // Reached from an in-app "Configure ton cycle" prompt (TTC
       // Dashboard/Calendar/Statistics) rather than onboarding — return to
       // wherever she came from instead of continuing into an onboarding step.
-      if (route.params?.fromDashboardCTA) {
+      if (route.params?.fromDashboardCTA || route.params?.mode === 'edit') {
         navigation.goBack();
         return;
       }

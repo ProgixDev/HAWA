@@ -1,6 +1,7 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
 import type {PregnancyMedicalEvent, PregnancyReminderOffset} from '../state/pregnancyMedicalEventsStore';
 import {getPregnancyNotificationSettings} from '../state/pregnancyNotificationSettingsStore';
+import {PREGNANCY_REMINDER_NOTIFICATION_KIND} from './pregnancyReminderScheduling';
 
 // Keeps a PregnancyMedicalEvent's reminder fields and its real scheduled
 // local notification in sync. Every appointment/exam create, update and
@@ -70,11 +71,20 @@ export async function syncEventReminder(event: PregnancyMedicalEvent): Promise<v
     return;
   }
 
+  const title = `${TYPE_LABELS[event.type]} à venir`;
+  const body = event.time ? `${event.title} · ${event.time}` : event.title;
+
   await scheduleLocalNotification({
     id,
-    title: `${TYPE_LABELS[event.type]} à venir`,
-    body: event.time ? `${event.title} · ${event.time}` : event.title,
+    title,
+    body,
     fireDate,
+    data: {
+      hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
+      pregnancyReminderType: 'event',
+      inAppTitle: title,
+      inAppMessage: body,
+    },
   });
 }
 

@@ -10,6 +10,11 @@ import {
   isConceptionReminderNotification,
   persistConceptionReminderNotification,
 } from './conceptionReminderNotificationPersistence';
+import {
+  getGenericReminderOccurrenceId,
+  isGenericReminderNotification,
+  persistGenericReminderNotification,
+} from './genericReminderNotificationPersistence';
 import { markInAppNotificationAsRead } from '../state/inAppNotificationStore';
 
 const log = (...args: unknown[]): void => {
@@ -39,6 +44,9 @@ export async function recordDeliveredInAppNotification(
   if (isConceptionReminderNotification(notification)) {
     await persistConceptionReminderNotification(notification);
   }
+  if (isGenericReminderNotification(notification)) {
+    await persistGenericReminderNotification(notification);
+  }
 }
 
 export async function markDeliveredInAppNotificationRead(
@@ -57,6 +65,11 @@ export async function markDeliveredInAppNotificationRead(
   if (isConceptionReminderNotification(notification)) {
     await markInAppNotificationAsRead(
       getConceptionReminderOccurrenceId(notification),
+    );
+  }
+  if (isGenericReminderNotification(notification)) {
+    await markInAppNotificationAsRead(
+      getGenericReminderOccurrenceId(notification),
     );
   }
 }

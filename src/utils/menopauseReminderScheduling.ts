@@ -35,7 +35,11 @@ async function syncDailyTrackingReminder(active: boolean): Promise<void> {
     body: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
     fireDate: nextDailyFireDate(preferences.dailyTrackingReminderTime),
     repeatFrequency: 'daily',
-    data: {hawaNotificationKind: MENOPAUSE_DAILY_TRACKING_NOTIFICATION_KIND},
+    data: {
+      hawaNotificationKind: MENOPAUSE_DAILY_TRACKING_NOTIFICATION_KIND,
+      inAppTitle: 'Ton suivi du jour',
+      inAppMessage: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+    },
   });
 }
 
@@ -62,7 +66,11 @@ async function syncTreatmentReminder(active: boolean): Promise<void> {
     body: 'Ton rappel personnel est prévu maintenant.',
     fireDate: nextDailyFireDate(preferences.treatmentReminderTime as string),
     repeatFrequency: 'daily',
-    data: {hawaNotificationKind: MENOPAUSE_TREATMENT_NOTIFICATION_KIND},
+    data: {
+      hawaNotificationKind: MENOPAUSE_TREATMENT_NOTIFICATION_KIND,
+      inAppTitle: 'Petit rappel',
+      inAppMessage: 'Ton rappel personnel est prévu maintenant.',
+    },
   });
 }
 

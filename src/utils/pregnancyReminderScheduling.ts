@@ -18,6 +18,15 @@ import {syncEventReminder} from './pregnancyEventReminders';
 const WEEKLY_UPDATE_ID = 'pregnancy-weekly-update';
 const DAILY_JOURNAL_ID = 'pregnancy-daily-journal';
 
+// Tag carried in the notification's `data` payload so
+// genericReminderNotificationPersistence.ts can recognize and record every
+// Pregnancy reminder (this file's weekly-update/daily-journal/health/custom,
+// plus pregnancyEventReminders.ts's appointment/exam reminders) into the
+// in-app notification history — never used to decide whether/how to
+// schedule. Exported so pregnancyEventReminders.ts can reuse the same
+// constant instead of redeclaring it.
+export const PREGNANCY_REMINDER_NOTIFICATION_KIND = 'pregnancy-reminder';
+
 function healthReminderNotificationId(reminder: HealthReminder): string {
   return `pregnancy-health-${reminder.id}`;
 }
@@ -72,6 +81,12 @@ async function syncWeeklyUpdateReminder(settings: PregnancyNotificationSettings)
     body: 'Découvre les informations de ta nouvelle semaine.',
     fireDate: nextWeeklyUpdateFireDate(status.gestationalDays, '09:00'),
     repeatFrequency: 'weekly',
+    data: {
+      hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
+      pregnancyReminderType: 'weekly-update',
+      inAppTitle: 'Nouvelle semaine de grossesse',
+      inAppMessage: 'Découvre les informations de ta nouvelle semaine.',
+    },
   });
 }
 
@@ -87,6 +102,12 @@ async function syncDailyJournalReminder(settings: PregnancyNotificationSettings)
     body: 'Prends un instant pour compléter ton suivi du jour.',
     fireDate: nextDailyFireDate(settings.dailyJournalTime),
     repeatFrequency: 'daily',
+    data: {
+      hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
+      pregnancyReminderType: 'daily-journal',
+      inAppTitle: 'Journal quotidien',
+      inAppMessage: 'Prends un instant pour compléter ton suivi du jour.',
+    },
   });
 }
 
@@ -112,12 +133,20 @@ export async function syncHealthReminder(reminder: HealthReminder): Promise<void
     return new Date(year, month - 1, day, hours, minutes, 0, 0);
   })() : nextDailyFireDate(reminder.time);
 
+  const title = reminder.kind === 'vitamin' ? 'Vitamines & compléments' : 'Médicament';
+
   await scheduleLocalNotification({
     id,
-    title: reminder.kind === 'vitamin' ? 'Vitamines & compléments' : 'Médicament',
+    title,
     body: reminder.name,
     fireDate,
     repeatFrequency: 'daily',
+    data: {
+      hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
+      pregnancyReminderType: 'health',
+      inAppTitle: title,
+      inAppMessage: reminder.name,
+    },
   });
 }
 
@@ -133,12 +162,20 @@ export async function syncCustomReminder(reminder: CustomReminder): Promise<void
   const [year, month, day] = reminder.date.split('-').map(Number);
   const fireDate = new Date(year, month - 1, day, hours, minutes, 0, 0);
 
+  const body = reminder.description?.trim() || 'Rappel personnalisé';
+
   await scheduleLocalNotification({
     id,
     title: reminder.title,
-    body: reminder.description?.trim() || 'Rappel personnalisé',
+    body,
     fireDate,
     repeatFrequency: reminder.repeat === 'once' ? undefined : reminder.repeat,
+    data: {
+      hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
+      pregnancyReminderType: 'custom',
+      inAppTitle: reminder.title,
+      inAppMessage: body,
+    },
   });
 }
 
