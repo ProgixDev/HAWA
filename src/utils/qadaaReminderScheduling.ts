@@ -22,6 +22,12 @@ import {
 // (pregnancyNotifications.ts) already used by every other AWA reminder.
 export const QADAA_POST_RAMADAN_NOTIFICATION_ID = 'qadaa-post-ramadan-reminder';
 
+// Tag carried in the notification's `data` payload so
+// genericReminderNotificationPersistence.ts can recognize and record this
+// reminder into the in-app notification history — never used to decide
+// whether/how to schedule.
+export const QADAA_POST_RAMADAN_NOTIFICATION_KIND = 'qadaa-post-ramadan';
+
 // Matches the fixed local fire-hour convention already established by
 // postpartumNifasReminderScheduling.ts's own reminders.
 const REMINDER_HOUR = 9;
@@ -138,7 +144,12 @@ export async function syncQadaaReminderNotification(): Promise<void> {
     title: NOTIFICATION_TITLE,
     body: NOTIFICATION_BODY,
     fireDate,
-    data: {hawaNotificationKind: 'qadaa-post-ramadan'},
+    data: {
+      hawaNotificationKind: QADAA_POST_RAMADAN_NOTIFICATION_KIND,
+      inAppOccurrenceId: occurrenceId,
+      inAppTitle: NOTIFICATION_TITLE,
+      inAppMessage: NOTIFICATION_BODY,
+    },
   });
 
   await setQadaaReminderNotificationState({

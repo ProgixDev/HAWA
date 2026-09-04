@@ -27,46 +27,32 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'nifasfiqh-repere-fiqh';
+const ID = 'fastingqadaa-dispense-et-rattrapage';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
+const HERO = require('../../assets/images/library/rules-hero.png');
+
+const ART = {
+  balance: require('../../assets/images/library/regular-cycle-balance.png'),
+  pregnancy: require('../../assets/images/library/category-pregnancy.png'),
+};
 
 const RELIGIOUS_DISCLAIMER =
   'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
 
-const STEPS = [
-  'Observer la fin des pertes',
-  'Effectuer la purification rituelle',
-  'Reprendre les actes d’adoration concernés',
-];
-
-const FAQ = [
-  {
-    q: 'Le nifas dure-t-il toujours 40 jours ?',
-    a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
-  },
-  {
-    q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
-    a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
-  },
-  {
-    q: 'Et si les saignements continuent longtemps ?',
-    a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
-  },
-  {
-    q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
-    a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
-  },
+const RECORD_TIPS = [
+  'Noter le nombre total de jours à rattraper dès la fin du Ramadan',
+  'Choisir une méthode simple : calendrier, application, carnet',
+  'Cocher chaque jour rattrapé au fur et à mesure',
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function NifasFiqhArticleScreen({
+export default function FastingQadaaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -93,7 +79,7 @@ export default function NifasFiqhArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas en pratique religieuse — AWA',
+      message: 'Jeûne et dispense : le rattrapage (Qadaa) — AWA',
     });
   };
 
@@ -173,11 +159,11 @@ export default function NifasFiqhArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIFAS (FIQH)</Text>
+            <Text style={styles.badgeText}>JEÛNE & QADAA</Text>
           </View>
 
           <Text style={styles.title}>
-            Le nifas en{`\n`}pratique religieuse
+            Jeûne et dispense :{`\n`}le rattrapage (Qadaa)
           </Text>
 
           <View style={styles.metas}>
@@ -204,8 +190,8 @@ export default function NifasFiqhArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le nifas, sa durée, la prière, le jeûne et la reprise
-            des adorations après l’accouchement.
+            Comment et quand rattraper les jours de jeûne manqués, à son
+            propre rythme et sans culpabilité.
           </Text>
 
           <View style={styles.alert}>
@@ -225,12 +211,10 @@ export default function NifasFiqhArticleScreen({
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
             {[
-              'Qu’est-ce que le nifas ?',
-              'Sa durée selon les références juridiques',
-              'Prière pendant le nifas',
-              'Jeûne pendant le nifas',
-              'Purification et reprise des adorations',
-              'Questions fréquentes',
+              'Quand rattraper les jours manqués ?',
+              'Un délai courant : avant le Ramadan suivant',
+              'Grossesse et allaitement',
+              'À retenir',
             ].map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
@@ -247,14 +231,98 @@ export default function NifasFiqhArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que le nifas ?</Text>
+          <Text style={styles.h2}>1. Quand rattraper les jours manqués ?</Text>
 
           <Text style={styles.body}>
-            Le nifas désigne, dans la pratique religieuse, la période liée
-            aux pertes de sang après l’accouchement. Les lochies décrivent
-            l’aspect médical et physiologique de ces pertes ; le nifas est
-            leur classification religieuse. Ces deux notions ne doivent pas
-            être confondues.
+            Le Qadaa désigne le fait de rattraper, plus tard, les jours de
+            jeûne manqués pendant le Ramadan — notamment en raison des
+            règles. Ces jours doivent être rattrapés car le jeûne du
+            Ramadan reste un pilier du mois, et les jours suspendus pour
+            cause de règles sont comptés comme dus, sans qu’il s’agisse
+            d’une faute de ta part.
+          </Text>
+
+          <Text style={styles.body}>
+            Le rattrapage peut généralement commencer dès la fin du
+            Ramadan, dès que ta situation le permet. Tu peux organiser ces
+            jours selon ton propre rythme : certaines personnes préfèrent
+            les regrouper rapidement après le Ramadan, d’autres les
+            répartissent progressivement au fil des mois suivants.
+          </Text>
+
+          <View style={styles.alert}>
+            <MaterialDesignIcons
+              name="alert-outline"
+              size={24}
+              color="#B76568"
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipText}>
+                Rattraper les jours de manière consécutive ou de façon
+                répartie peut faire l’objet d’avis différents selon les
+                écoles juridiques ; aucune des deux approches n’est
+                présentée ici comme la seule valable.
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.checkList}>
+            {RECORD_TIPS.map(item => (
+              <View key={item} style={styles.checkRow}>
+                <MaterialDesignIcons
+                  name="check-circle-outline"
+                  size={18}
+                  color="#789276"
+                />
+
+                <Text style={styles.checkText}>{item}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.body}>
+            Par exemple, une personne ayant 6 jours à rattraper peut choisir
+            d’en jeûner un par semaine pendant six semaines, ou de les
+            regrouper sur une même période si cela lui convient mieux.
+          </Text>
+
+          <Text style={styles.h2}>
+            2. Un délai courant : avant le Ramadan suivant
+          </Text>
+
+          <Text style={styles.body}>
+            Il est courant de chercher à rattraper les jours manqués avant
+            le Ramadan suivant. Cette pratique n’est pas systématiquement
+            obligatoire dans tous les cas, mais elle facilite l’organisation
+            et évite d’accumuler un nombre important de jours en attente.
+          </Text>
+
+          <View style={styles.visualCard}>
+            <Image
+              source={ART.balance}
+              resizeMode="cover"
+              style={styles.visualImage}
+            />
+
+            <View style={styles.visualCopy}>
+              <Text style={styles.visualTitle}>
+                Un rythme qui s’adapte à toi
+              </Text>
+
+              <Text style={styles.visualText}>
+                Répartir les jours à rattraper selon ton emploi du temps
+                permet d’avancer sereinement, sans pression.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.body}>
+            Planifier à l’avance permet d’éviter le stress de dernière
+            minute. Une astuce simple consiste à compter le nombre de jours
+            restants avant le prochain Ramadan et à répartir les jours à
+            rattraper sur les semaines ou mois disponibles.
           </Text>
 
           <View style={styles.tip}>
@@ -265,147 +333,97 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                AWA sépare volontairement les informations médicales sur les
-                lochies des repères religieux sur le nifas.
+                Si une raison durable ou récurrente empêche de jeûner (un
+                état de santé prolongé, par exemple), la situation peut
+                relever d’un cadre différent ; il est alors particulièrement
+                utile d’en parler avec un savant qualifié.
               </Text>
             </View>
-          </View>
-
-          <Text style={styles.h2}>
-            2. Sa durée selon les références juridiques
-          </Text>
-
-          <Text style={styles.question}>Combien de temps dure le nifas ?</Text>
-
-          <Text style={styles.body}>
-            La durée maximale peut varier selon l’école juridique ou la
-            référence religieuse suivie. 40 jours est une référence
-            fréquemment retenue, sans être présentée comme une règle
-            universelle par AWA.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-star"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Repère souvent utilisé</Text>
-              <Text style={styles.tipText}>
-                Une référence fréquemment retenue est de 40 jours, mais AWA
-                ne présente pas ce chiffre comme une vérité unique pour
-                toutes les écoles juridiques. Suis la référence religieuse
-                que tu as choisie.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>3. Prière pendant le nifas</Text>
-
-          <Text style={styles.question}>Dois-je prier pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Pendant une période reconnue comme nifas selon la référence
-            suivie, la prière rituelle est suspendue. AWA ne classe pas
-            automatiquement les saignements et ne fournit pas de décision
-            personnalisée. Aucun compteur de prières manquées n’est ajouté
-            pour cette période.
-          </Text>
-
-          <Text style={styles.h2}>4. Jeûne pendant le nifas</Text>
-
-          <Text style={styles.question}>Puis-je jeûner pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Le jeûne obligatoire n’est pas accompli pendant une période
-            reconnue comme nifas. Les jours concernés sont ensuite traités
-            par le rattrapage approprié, selon la référence suivie.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-refresh-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Organiser, sans décider</Text>
-              <Text style={styles.tipText}>
-                AWA peut t’aider à mémoriser ou organiser les jours
-                concernés, sans émettre de décision religieuse personnalisée.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>
-            5. Purification et reprise des adorations
-          </Text>
-
-          <Text style={styles.body}>
-            La reprise dépend des signes observés et de la référence
-            religieuse suivie.
-          </Text>
-
-          <View style={styles.checkList}>
-            {STEPS.map((label, index) => (
-              <View key={label} style={styles.checkRow}>
-                <MaterialDesignIcons
-                  name="check-circle-outline"
-                  size={18}
-                  color="#789276"
-                />
-
-                <Text style={styles.checkText}>
-                  {index + 1}. {label}
-                </Text>
-              </View>
-            ))}
           </View>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
-              name="alert-outline"
+              name="alert-circle-outline"
               size={24}
               color="#B76568"
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
+              <Text style={styles.tipTitle}>Information importante</Text>
               <Text style={styles.tipText}>
-                Si les saignements persistent au-delà de la durée maximale
-                retenue par la référence suivie, leur statut religieux peut
-                changer. Un avis qualifié est recommandé.
+                Les modalités précises en cas de délai dépassé peuvent
+                différer selon les interprétations. Pour toute situation
+                compliquée, l’avis d’un savant ou d’une savante qualifiée
+                reste la référence.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Questions fréquentes</Text>
+          <Text style={styles.body}>
+            Par exemple, si le prochain Ramadan commence dans 8 mois et
+            qu’il reste 6 jours à rattraper, une possibilité est de prévoir
+            environ un jour par mois, avec de la flexibilité selon les
+            imprévus.
+          </Text>
 
-          {FAQ.map(item => (
-            <View key={item.q} style={styles.faqItem}>
-              <Text style={styles.question}>{item.q}</Text>
-              <Text style={styles.body}>{item.a}</Text>
+          <Text style={styles.h2}>3. Grossesse et allaitement</Text>
+
+          <Text style={styles.body}>
+            La grossesse et l’allaitement peuvent affecter la capacité à
+            jeûner, notamment lorsque le jeûne présente un risque pour la
+            santé de la mère ou de l’enfant. Le bien-être physique et la
+            capacité réelle à jeûner sont des éléments importants à prendre
+            en compte.
+          </Text>
+
+          <View style={styles.visualCard}>
+            <Image
+              source={ART.pregnancy}
+              resizeMode="cover"
+              style={styles.visualImage}
+            />
+
+            <View style={styles.visualCopy}>
+              <Text style={styles.visualTitle}>Une situation prise en compte</Text>
+
+              <Text style={styles.visualText}>
+                Ces circonstances sont reconnues par la tradition religieuse
+                comme pouvant donner lieu à une dispense.
+              </Text>
             </View>
-          ))}
+          </View>
 
-          <View style={styles.alert}>
+          <Text style={styles.body}>
+            Les avis religieux concernant le jeûne non effectué pendant la
+            grossesse ou l’allaitement peuvent varier selon les écoles,
+            notamment sur la question de savoir si un simple rattrapage
+            suffit ou si une compensation est également concernée. La
+            raison précise de l’absence de jeûne et la situation
+            personnelle peuvent influencer la réponse applicable.
+          </Text>
+
+
+
+  
+          <Text style={styles.h2}>4. À retenir</Text>
+
+          <View style={styles.tip}>
             <MaterialDesignIcons
-              name="shield-check-outline"
+              name="lightbulb-outline"
               size={24}
-              color="#B76568"
+              color={ROSE}
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Un repère, pas une fatwa</Text>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                Les situations personnelles peuvent être différentes. En cas
-                de doute, rapproche-toi d’un savant qualifié ou d’une
-                organisation religieuse reconnue.
+                Le Qadaa permet de rattraper sereinement les jours de jeûne
+                manqués, à ton propre rythme. En cas de situation
+                particulière (délai dépassé, grossesse, allaitement,
+                empêchement durable), l’avis d’un savant qualifié reste la
+                meilleure ressource.
               </Text>
             </View>
           </View>
@@ -515,19 +533,22 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
-  question: {marginTop: 14, fontSize: 14, color: INK, fontWeight: '800'},
   body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
-  tip: {
+  visualCard: {
     marginTop: 15,
-    padding: 14,
+    minHeight: 98,
     flexDirection: 'row',
     alignItems: 'center',
+    padding: 10,
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    borderWidth: 1,
+    borderColor: '#EDE2E4',
+    backgroundColor: '#FFFDFC',
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
+  visualImage: {width: 72, height: 72, borderRadius: 12},
+  visualCopy: {flex: 1, marginLeft: 12},
+  visualTitle: {color: INK, fontSize: 13, lineHeight: 17, fontWeight: '800'},
+  visualText: {marginTop: 4, color: '#585057', fontSize: 11, lineHeight: 16},
   checkList: {
     marginTop: 13,
     padding: 13,
@@ -541,5 +562,15 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
-  faqItem: {marginBottom: 4},
+  tip: {
+    marginTop: 15,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#F5EBEF',
+  },
+  tipCopy: {flex: 1, marginLeft: 11},
+  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
+  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
 });

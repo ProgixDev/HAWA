@@ -27,46 +27,40 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'nifasfiqh-repere-fiqh';
+const ID = 'menstruationpurity-statut-de-purete';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
+const HERO = require('../../assets/images/library/spm-water.png');
+
+const ART = {
+  process: require('../../assets/images/library/rules-process.png'),
+  ghusl: require('../../assets/images/library/tip-water.png'),
+};
 
 const RELIGIOUS_DISCLAIMER =
   'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
 
-const STEPS = [
-  'Observer la fin des pertes',
-  'Effectuer la purification rituelle',
-  'Reprendre les actes d’adoration concernés',
+const DURING_PERIOD = [
+  'Le dhikr (évocation de Dieu) et les invocations (du’a)',
+  'L’écoute ou la lecture de contenus éducatifs et spirituels',
+  'Le soutien à la pratique religieuse de ses proches',
+  'La réflexion et l’apprentissage religieux',
 ];
 
-const FAQ = [
-  {
-    q: 'Le nifas dure-t-il toujours 40 jours ?',
-    a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
-  },
-  {
-    q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
-    a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
-  },
-  {
-    q: 'Et si les saignements continuent longtemps ?',
-    a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
-  },
-  {
-    q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
-    a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
-  },
+const DOUBT_MARKERS = [
+  'Observer l’absence totale de saignement, et non une simple diminution',
+  'Laisser passer un temps suffisant avant de conclure à la fin des règles',
+  'Se baser sur une observation claire plutôt que sur une simple impression',
+  'Tenir compte de ton propre rythme habituel, qui peut varier d’un cycle à l’autre',
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function NifasFiqhArticleScreen({
+export default function MenstruationPurityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -93,7 +87,7 @@ export default function NifasFiqhArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas en pratique religieuse — AWA',
+      message: 'Statut de pureté : les bases — AWA',
     });
   };
 
@@ -173,17 +167,17 @@ export default function NifasFiqhArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIFAS (FIQH)</Text>
+            <Text style={styles.badgeText}>RÈGLES & PURETÉ</Text>
           </View>
 
           <Text style={styles.title}>
-            Le nifas en{`\n`}pratique religieuse
+            Statut de pureté :{`\n`}les bases
           </Text>
 
           <View style={styles.metas}>
             {[
               ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
+              ['book-open-page-variant-outline', 'Guide'],
               ['chart-bar', 'Débutant'],
               ['shield-check-outline', 'Contenu validé'],
             ].map(([icon, text], index) => (
@@ -204,8 +198,8 @@ export default function NifasFiqhArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le nifas, sa durée, la prière, le jeûne et la reprise
-            des adorations après l’accouchement.
+            Comprendre le lien entre le cycle et l’état de pureté rituelle,
+            pour aborder cette période avec plus de clarté.
           </Text>
 
           <View style={styles.alert}>
@@ -225,12 +219,12 @@ export default function NifasFiqhArticleScreen({
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
             {[
-              'Qu’est-ce que le nifas ?',
-              'Sa durée selon les références juridiques',
-              'Prière pendant le nifas',
-              'Jeûne pendant le nifas',
-              'Purification et reprise des adorations',
-              'Questions fréquentes',
+              'Comprendre ce que signifie la pureté rituelle',
+              'Règles et dispense d’adoration',
+              'Après les règles : reconnaître le retour à la pureté',
+              'Le ghusl : comprendre son rôle',
+              'Que faire lorsqu’on n’est pas sûre ?',
+              'À retenir',
             ].map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
@@ -247,122 +241,41 @@ export default function NifasFiqhArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Le nifas désigne, dans la pratique religieuse, la période liée
-            aux pertes de sang après l’accouchement. Les lochies décrivent
-            l’aspect médical et physiologique de ces pertes ; le nifas est
-            leur classification religieuse. Ces deux notions ne doivent pas
-            être confondues.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="lightbulb-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
-              <Text style={styles.tipText}>
-                AWA sépare volontairement les informations médicales sur les
-                lochies des repères religieux sur le nifas.
-              </Text>
-            </View>
-          </View>
-
           <Text style={styles.h2}>
-            2. Sa durée selon les références juridiques
-          </Text>
-
-          <Text style={styles.question}>Combien de temps dure le nifas ?</Text>
-
-          <Text style={styles.body}>
-            La durée maximale peut varier selon l’école juridique ou la
-            référence religieuse suivie. 40 jours est une référence
-            fréquemment retenue, sans être présentée comme une règle
-            universelle par AWA.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-star"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Repère souvent utilisé</Text>
-              <Text style={styles.tipText}>
-                Une référence fréquemment retenue est de 40 jours, mais AWA
-                ne présente pas ce chiffre comme une vérité unique pour
-                toutes les écoles juridiques. Suis la référence religieuse
-                que tu as choisie.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>3. Prière pendant le nifas</Text>
-
-          <Text style={styles.question}>Dois-je prier pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Pendant une période reconnue comme nifas selon la référence
-            suivie, la prière rituelle est suspendue. AWA ne classe pas
-            automatiquement les saignements et ne fournit pas de décision
-            personnalisée. Aucun compteur de prières manquées n’est ajouté
-            pour cette période.
-          </Text>
-
-          <Text style={styles.h2}>4. Jeûne pendant le nifas</Text>
-
-          <Text style={styles.question}>Puis-je jeûner pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Le jeûne obligatoire n’est pas accompli pendant une période
-            reconnue comme nifas. Les jours concernés sont ensuite traités
-            par le rattrapage approprié, selon la référence suivie.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-refresh-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Organiser, sans décider</Text>
-              <Text style={styles.tipText}>
-                AWA peut t’aider à mémoriser ou organiser les jours
-                concernés, sans émettre de décision religieuse personnalisée.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>
-            5. Purification et reprise des adorations
+            1. Comprendre ce que signifie la pureté rituelle
           </Text>
 
           <Text style={styles.body}>
-            La reprise dépend des signes observés et de la référence
-            religieuse suivie.
+            Dans la tradition islamique, la pureté rituelle (tahara) désigne
+            l’état requis pour accomplir certains actes d’adoration, comme
+            la prière. Elle ne renvoie pas à une notion de propreté au sens
+            courant, mais à un état spécifique reconnu par le fiqh, qui
+            évolue selon les étapes du cycle féminin.
+          </Text>
+
+          <Text style={styles.h2}>2. Règles et dispense d’adoration</Text>
+
+          <Text style={styles.body}>
+            Pendant les règles, la femme est dispensée de certains actes
+            d’adoration, en particulier la prière et le jeûne du Ramadan,
+            qui pourra être rattrapé plus tard. Cette dispense est reconnue
+            comme une facilité, et non comme une sanction.
           </Text>
 
           <View style={styles.checkList}>
-            {STEPS.map((label, index) => (
-              <View key={label} style={styles.checkRow}>
+            <Text style={styles.checkListTitle}>
+              Ce qui reste accessible pendant les règles
+            </Text>
+
+            {DURING_PERIOD.map(item => (
+              <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
                   color="#789276"
                 />
 
-                <Text style={styles.checkText}>
-                  {index + 1}. {label}
-                </Text>
+                <Text style={styles.checkText}>{item}</Text>
               </View>
             ))}
           </View>
@@ -375,37 +288,155 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
+              <Text style={styles.tipTitle}>À noter</Text>
               <Text style={styles.tipText}>
-                Si les saignements persistent au-delà de la durée maximale
-                retenue par la référence suivie, leur statut religieux peut
-                changer. Un avis qualifié est recommandé.
+                Certains détails (comme la lecture directe du Coran ou
+                l’accès à la mosquée) peuvent varier selon les écoles
+                juridiques ; mieux vaut se référer à l’avis suivi
+                habituellement ou à un savant qualifié pour ces cas précis.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Questions fréquentes</Text>
+          <Text style={styles.h2}>
+            3. Après les règles : reconnaître le retour à la pureté
+          </Text>
 
-          {FAQ.map(item => (
-            <View key={item.q} style={styles.faqItem}>
-              <Text style={styles.question}>{item.q}</Text>
-              <Text style={styles.body}>{item.a}</Text>
+          <Text style={styles.body}>
+            La fin des règles marque le retour progressif vers l’état de
+            pureté rituelle. Sur le plan physique, cela correspond à l’arrêt
+            du saignement, un repère que différentes traditions savantes
+            peuvent définir avec des nuances légèrement différentes.
+          </Text>
+
+          <View style={styles.visualCard}>
+            <Image
+              source={ART.process}
+              resizeMode="cover"
+              style={styles.visualImage}
+            />
+
+            <View style={styles.visualCopy}>
+              <Text style={styles.visualTitle}>Un processus physiologique</Text>
+
+              <Text style={styles.visualText}>
+                Comprendre les étapes du cycle aide à mieux repérer le
+                moment où les règles se terminent réellement.
+              </Text>
             </View>
-          ))}
+          </View>
+
+          <Text style={styles.body}>
+            Une fois ce repère observé, le ghusl (grande ablution) permet de
+            renouer avec la pureté rituelle et de reprendre les actes
+            d’adoration suspendus.
+          </Text>
+
+          <Text style={styles.h2}>4. Le ghusl : comprendre son rôle</Text>
+
+          <Text style={styles.body}>
+            Le ghusl est une grande ablution rituelle qui consiste à laver
+            l’intégralité du corps avec l’intention de se purifier. Il
+            marque la fin de l’état de dispense et permet de reprendre la
+            prière normalement, sans qu’il soit nécessaire de rattraper les
+            prières manquées pendant les règles.
+          </Text>
+
+          <View style={styles.visualCard}>
+            <Image
+              source={ART.ghusl}
+              resizeMode="cover"
+              style={styles.visualImage}
+            />
+
+            <View style={styles.visualCopy}>
+              <Text style={styles.visualTitle}>Un rituel de purification</Text>
+
+              <Text style={styles.visualText}>
+                Le déroulement précis du ghusl peut varier légèrement selon
+                les écoles juridiques suivies.
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.tip}>
+            <MaterialDesignIcons
+              name="lightbulb-outline"
+              size={24}
+              color={ROSE}
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipText}>
+                Si tu ne connais pas les étapes précises suivies dans ton
+                école, une personne de confiance ou un savant qualifié
+                pourra te les expliquer clairement.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.h2}>
+            5. Que faire lorsqu’on n’est pas sûre ?
+          </Text>
+
+          <Text style={styles.body}>
+            Il est fréquent de ressentir un doute sur la fin réelle des
+            règles, notamment lorsque le saignement diminue progressivement
+            plutôt que de s’arrêter net.
+          </Text>
+
+          <View style={styles.checkList}>
+            <Text style={styles.checkListTitle}>Quelques repères utiles</Text>
+
+            {DOUBT_MARKERS.map(item => (
+              <View key={item} style={styles.checkRow}>
+                <MaterialDesignIcons
+                  name="check-circle-outline"
+                  size={18}
+                  color="#789276"
+                />
+
+                <Text style={styles.checkText}>{item}</Text>
+              </View>
+            ))}
+          </View>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
-              name="shield-check-outline"
+              name="alert-circle-outline"
               size={24}
               color="#B76568"
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Un repère, pas une fatwa</Text>
+              <Text style={styles.tipTitle}>Information importante</Text>
               <Text style={styles.tipText}>
-                Les situations personnelles peuvent être différentes. En cas
-                de doute, rapproche-toi d’un savant qualifié ou d’une
-                organisation religieuse reconnue.
+                En cas de saignements prolongés, irréguliers, ou de doute
+                persistant, ces situations méritent d’être évoquées avec un
+                savant qualifié, qui pourra t’orienter selon ta situation
+                personnelle. Ce contenu reste informatif et ne remplace pas
+                un avis religieux individualisé.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.h2}>6. À retenir</Text>
+
+          <View style={styles.tip}>
+            <MaterialDesignIcons
+              name="lightbulb-outline"
+              size={24}
+              color={ROSE}
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipText}>
+                Ces repères sont des rappels éducatifs généraux. Chaque
+                situation peut avoir ses particularités : en cas de doute,
+                le dialogue avec un savant ou une savante qualifiée reste la
+                meilleure ressource pour une réponse adaptée.
               </Text>
             </View>
           </View>
@@ -515,8 +546,36 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
-  question: {marginTop: 14, fontSize: 14, color: INK, fontWeight: '800'},
   body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
+  visualCard: {
+    marginTop: 15,
+    minHeight: 98,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#EDE2E4',
+    backgroundColor: '#FFFDFC',
+  },
+  visualImage: {width: 72, height: 72, borderRadius: 12},
+  visualCopy: {flex: 1, marginLeft: 12},
+  visualTitle: {color: INK, fontSize: 13, lineHeight: 17, fontWeight: '800'},
+  visualText: {marginTop: 4, color: '#585057', fontSize: 11, lineHeight: 16},
+  checkList: {
+    marginTop: 15,
+    padding: 13,
+    borderRadius: 12,
+    backgroundColor: '#FBF8F5',
+  },
+  checkListTitle: {marginBottom: 9, fontSize: 13, color: INK, fontWeight: '800'},
+  checkRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 9,
+  },
+  checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
   tip: {
     marginTop: 15,
     padding: 14,
@@ -528,18 +587,4 @@ const styles = StyleSheet.create({
   tipCopy: {flex: 1, marginLeft: 11},
   tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
   tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
-  checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: '#FBF8F5',
-  },
-  checkRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 8,
-    marginBottom: 9,
-  },
-  checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
-  faqItem: {marginBottom: 4},
 });

@@ -27,46 +27,84 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'nifasfiqh-repere-fiqh';
+const ID = 'religiousfaq-questions-frequentes';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
+const HERO = require('../../assets/images/library/popular-flower.png');
 
 const RELIGIOUS_DISCLAIMER =
   'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
 
-const STEPS = [
-  'Observer la fin des pertes',
-  'Effectuer la purification rituelle',
-  'Reprendre les actes d’adoration concernés',
+const FAQ_ITEMS = [
+  [
+    'Qu’est-ce que le fiqh féminin ?',
+    'Le fiqh féminin regroupe les règles pratiques qui concernent spécifiquement le corps et le culte des femmes : cycle, pureté, prière, jeûne, nifas et istihâda.',
+  ],
+  [
+    'Quels sont les grands sujets couverts par le fiqh féminin ?',
+    'Il aborde notamment les règles et le cycle, la pureté rituelle, le ghusl, la prière et le jeûne pendant et après les règles, le nifas et l’istihâda.',
+  ],
+  [
+    'Quelle est la différence entre règles, saignements post-partum et saignements irréguliers ?',
+    'Les règles (hayd) suivent le cycle habituel, le nifas survient après l’accouchement, et l’Istihâda désigne un saignement irrégulier, hors cycle. Chacun suit un statut différent.',
+  ],
+  [
+    'Qu’advient-il de la prière pendant les règles ?',
+    'La prière est suspendue pendant cette période : il s’agit d’une dispense reconnue, à vivre sans culpabilité.',
+  ],
+  [
+    'Qu’advient-il du jeûne pendant les règles ?',
+    'Le jeûne est également suspendu ; les jours non jeûnés sont rattrapés plus tard (qadaa), en dehors du Ramadan.',
+  ],
+  [
+    'Pourquoi les prières manquées ne sont-elles généralement pas rattrapées, contrairement au jeûne ?',
+    'Cette différence tient à la nature des deux actes : la prière est quotidienne et répétée, tandis que le jeûne est annuel et concentré sur un mois. Suivre la dispense fait pleinement partie de la pratique religieuse.',
+  ],
+  [
+    'Quand la prière reprend-elle après les règles ?',
+    'Dès que les règles sont terminées et que le ghusl a été effectué, la prière reprend normalement, sans délai.',
+  ],
+  [
+    'Quel est le rôle du ghusl ?',
+    'Le ghusl est la grande ablution qui permet de retrouver l’état de pureté rituelle nécessaire pour reprendre la prière et d’autres actes d’adoration.',
+  ],
+  [
+    'Que faire si on n’est pas sûre que les règles sont terminées ?',
+    'Observer l’absence totale de saignement pendant un temps suffisant, plutôt que de se fier à une impression ponctuelle, aide à clarifier la situation.',
+  ],
+  [
+    'Peut-on pratiquer d’autres formes d’adoration pendant les règles ?',
+    'Oui : le dhikr, les invocations, la charité, l’apprentissage religieux et d’autres gestes de bienveillance restent accessibles.',
+  ],
+  [
+    'Pourquoi certaines réponses peuvent-elles varier selon la situation ?',
+    'Le fiqh est un champ d’interprétation : les avis peuvent varier selon les écoles juridiques et les circonstances personnelles, sans qu’un avis soit à lui seul absolu.',
+  ],
 ];
 
-const FAQ = [
-  {
-    q: 'Le nifas dure-t-il toujours 40 jours ?',
-    a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
-  },
-  {
-    q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
-    a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
-  },
-  {
-    q: 'Et si les saignements continuent longtemps ?',
-    a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
-  },
-  {
-    q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
-    a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
-  },
+const DOUBT_SITUATIONS = [
+  'Il y a une incertitude sur la fin réelle des règles',
+  'La nature d’un saignement reste incertaine (règles, istihâda, autre)',
+  'Un doute persiste sur la nécessité d’effectuer le ghusl',
+  'La question de la reprise de la prière reste incertaine',
+  'Des informations contradictoires ont été trouvées en ligne',
+];
+
+const KEY_POINTS = [
+  'Le fiqh féminin couvre de nombreux aspects de la pratique religieuse des femmes',
+  'Certains détails peuvent légitimement varier selon les écoles',
+  'Une information générale ne remplace pas un avis religieux personnalisé',
+  'Un doute persistant mérite d’être posé à un savant qualifié',
+  'Le rôle d’AWA est éducatif, non de délivrer des fatwas',
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function NifasFiqhArticleScreen({
+export default function ReligiousFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -93,7 +131,7 @@ export default function NifasFiqhArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas en pratique religieuse — AWA',
+      message: 'Questions fréquentes de fiqh féminin — AWA',
     });
   };
 
@@ -173,16 +211,16 @@ export default function NifasFiqhArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIFAS (FIQH)</Text>
+            <Text style={styles.badgeText}>QUESTIONS FRÉQUENTES</Text>
           </View>
 
           <Text style={styles.title}>
-            Le nifas en{`\n`}pratique religieuse
+            Questions fréquentes{`\n`}de fiqh féminin
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
+              ['clock-outline', '8 min de lecture'],
               ['book-open-page-variant-outline', 'FAQ'],
               ['chart-bar', 'Débutant'],
               ['shield-check-outline', 'Contenu validé'],
@@ -204,8 +242,8 @@ export default function NifasFiqhArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le nifas, sa durée, la prière, le jeûne et la reprise
-            des adorations après l’accouchement.
+            Les interrogations les plus posées sur le fiqh féminin, réunies
+            en un endroit avec des réponses claires.
           </Text>
 
           <View style={styles.alert}>
@@ -225,12 +263,10 @@ export default function NifasFiqhArticleScreen({
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
             {[
-              'Qu’est-ce que le nifas ?',
-              'Sa durée selon les références juridiques',
-              'Prière pendant le nifas',
-              'Jeûne pendant le nifas',
-              'Purification et reprise des adorations',
-              'Questions fréquentes',
+              'Les questions qui reviennent souvent',
+              'Des écoles juridiques qui peuvent varier',
+              'En cas de doute persistant',
+              'Points clés à retenir',
             ].map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
@@ -247,14 +283,44 @@ export default function NifasFiqhArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que le nifas ?</Text>
+          <Text style={styles.h2}>1. Les questions qui reviennent souvent</Text>
 
           <Text style={styles.body}>
-            Le nifas désigne, dans la pratique religieuse, la période liée
-            aux pertes de sang après l’accouchement. Les lochies décrivent
-            l’aspect médical et physiologique de ces pertes ; le nifas est
-            leur classification religieuse. Ces deux notions ne doivent pas
-            être confondues.
+            De nombreuses questions autour du cycle, de la prière et du
+            jeûne reviennent régulièrement d’une femme à l’autre. Voici des
+            réponses générales aux plus fréquentes ; pour aller plus loin,
+            chaque thème est aussi développé dans un article dédié.
+          </Text>
+
+          <View style={styles.faqList}>
+            {FAQ_ITEMS.map(([question, answer], index) => (
+              <View
+                key={question}
+                style={[
+                  styles.faqItem,
+                  index === 0 && styles.faqItemFirst,
+                ]}>
+                <Text style={styles.faqQuestion}>{question}</Text>
+                <Text style={styles.faqAnswer}>{answer}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.h2}>2. Des écoles juridiques qui peuvent varier</Text>
+
+          <Text style={styles.body}>
+            Le fiqh islamique comporte des différences d’interprétation
+            reconnues sur certains points de détail. Ces différences
+            existent depuis des siècles et sont considérées comme
+            légitimes au sein de la tradition religieuse.
+          </Text>
+
+          <Text style={styles.body}>
+            Selon la source consultée, une même question peut ainsi
+            recevoir des réponses légèrement différentes. Cela ne signifie
+            pas qu’une réponse serait automatiquement fausse : cela reflète
+            des méthodologies et des lectures différentes des mêmes
+            sources.
           </Text>
 
           <View style={styles.tip}>
@@ -265,154 +331,76 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                AWA sépare volontairement les informations médicales sur les
-                lochies des repères religieux sur le nifas.
+                Suivre une source qualifiée de manière cohérente, plutôt que
+                de changer constamment d’avis selon les réponses trouvées,
+                aide à garder une pratique claire et sereine.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>
-            2. Sa durée selon les références juridiques
-          </Text>
-
-          <Text style={styles.question}>Combien de temps dure le nifas ?</Text>
+          <Text style={styles.h2}>3. En cas de doute persistant</Text>
 
           <Text style={styles.body}>
-            La durée maximale peut varier selon l’école juridique ou la
-            référence religieuse suivie. 40 jours est une référence
-            fréquemment retenue, sans être présentée comme une règle
-            universelle par AWA.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-star"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Repère souvent utilisé</Text>
-              <Text style={styles.tipText}>
-                Une référence fréquemment retenue est de 40 jours, mais AWA
-                ne présente pas ce chiffre comme une vérité unique pour
-                toutes les écoles juridiques. Suis la référence religieuse
-                que tu as choisie.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>3. Prière pendant le nifas</Text>
-
-          <Text style={styles.question}>Dois-je prier pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Pendant une période reconnue comme nifas selon la référence
-            suivie, la prière rituelle est suspendue. AWA ne classe pas
-            automatiquement les saignements et ne fournit pas de décision
-            personnalisée. Aucun compteur de prières manquées n’est ajouté
-            pour cette période.
-          </Text>
-
-          <Text style={styles.h2}>4. Jeûne pendant le nifas</Text>
-
-          <Text style={styles.question}>Puis-je jeûner pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Le jeûne obligatoire n’est pas accompli pendant une période
-            reconnue comme nifas. Les jours concernés sont ensuite traités
-            par le rattrapage approprié, selon la référence suivie.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-refresh-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Organiser, sans décider</Text>
-              <Text style={styles.tipText}>
-                AWA peut t’aider à mémoriser ou organiser les jours
-                concernés, sans émettre de décision religieuse personnalisée.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>
-            5. Purification et reprise des adorations
-          </Text>
-
-          <Text style={styles.body}>
-            La reprise dépend des signes observés et de la référence
-            religieuse suivie.
+            Certaines situations restent difficiles à trancher à partir
+            d’une seule explication générale. C’est notamment le cas
+            lorsque :
           </Text>
 
           <View style={styles.checkList}>
-            {STEPS.map((label, index) => (
-              <View key={label} style={styles.checkRow}>
+            {DOUBT_SITUATIONS.map(item => (
+              <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
                   color="#789276"
                 />
 
-                <Text style={styles.checkText}>
-                  {index + 1}. {label}
-                </Text>
+                <Text style={styles.checkText}>{item}</Text>
               </View>
             ))}
           </View>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
-              name="alert-outline"
+              name="alert-circle-outline"
               size={24}
               color="#B76568"
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
+              <Text style={styles.tipTitle}>Information importante</Text>
               <Text style={styles.tipText}>
-                Si les saignements persistent au-delà de la durée maximale
-                retenue par la référence suivie, leur statut religieux peut
-                changer. Un avis qualifié est recommandé.
+                Lorsqu’une situation est personnelle, complexe ou
+                persistante, elle ne peut pas être résolue par une
+                information générale. Le recours à un savant ou une savante
+                qualifiée, capable de tenir compte de ta situation précise,
+                reste alors la meilleure approche. AWA ne délivre pas de
+                fatwas ni de décisions religieuses personnalisées.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Questions fréquentes</Text>
+          <Text style={styles.h2}>4. Points clés à retenir</Text>
 
-          {FAQ.map(item => (
-            <View key={item.q} style={styles.faqItem}>
-              <Text style={styles.question}>{item.q}</Text>
-              <Text style={styles.body}>{item.a}</Text>
-            </View>
-          ))}
+          <View style={styles.checkList}>
+            {KEY_POINTS.map(item => (
+              <View key={item} style={styles.checkRow}>
+                <MaterialDesignIcons
+                  name="check-circle-outline"
+                  size={18}
+                  color="#789276"
+                />
 
-          <View style={styles.alert}>
-            <MaterialDesignIcons
-              name="shield-check-outline"
-              size={24}
-              color="#B76568"
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Un repère, pas une fatwa</Text>
-              <Text style={styles.tipText}>
-                Les situations personnelles peuvent être différentes. En cas
-                de doute, rapproche-toi d’un savant qualifié ou d’une
-                organisation religieuse reconnue.
-              </Text>
-            </View>
+                <Text style={styles.checkText}>{item}</Text>
+              </View>
+            ))}
           </View>
         </View>
       </ScrollView>
 
-      <ReadingControls articleId={ID} durationMinutes={6} scrollRef={scrollRef} />
+      <ReadingControls articleId={ID} durationMinutes={8} scrollRef={scrollRef} />
     </View>
   );
 }
@@ -515,19 +503,22 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
-  question: {marginTop: 14, fontSize: 14, color: INK, fontWeight: '800'},
   body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
-  tip: {
-    marginTop: 15,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+  faqList: {marginTop: 4},
+  faqItem: {
+    marginTop: 16,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#ECE5DF',
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
+  faqItemFirst: {marginTop: 16, paddingTop: 0, borderTopWidth: 0},
+  faqQuestion: {fontSize: 14.5, lineHeight: 20, color: INK, fontWeight: '800'},
+  faqAnswer: {
+    marginTop: 5,
+    fontSize: 13.5,
+    lineHeight: 20,
+    color: '#4A444B',
+  },
   checkList: {
     marginTop: 13,
     padding: 13,
@@ -541,5 +532,15 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
-  faqItem: {marginBottom: 4},
+  tip: {
+    marginTop: 15,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#F5EBEF',
+  },
+  tipCopy: {flex: 1, marginLeft: 11},
+  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
+  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
 });

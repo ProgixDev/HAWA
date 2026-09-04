@@ -27,46 +27,46 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'nifasfiqh-repere-fiqh';
+const ID = 'istihada-comprendre-les-saignements';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
+const HERO = require('../../assets/images/library/featured-tracking-hero.png');
+
+const ART = {
+  observe: require('../../assets/images/library/flow-texture-creamy.png'),
+};
 
 const RELIGIOUS_DISCLAIMER =
   'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
 
-const STEPS = [
-  'Observer la fin des pertes',
-  'Effectuer la purification rituelle',
-  'Reprendre les actes d’adoration concernés',
+const DIFFERENCES = [
+  ['calendar-clock-outline', 'Durée par rapport à ton cycle habituel'],
+  ['repeat-variant', 'Régularité ou caractère inhabituel du saignement'],
+  ['water-outline', 'Évolution du saignement dans le temps'],
+  ['clipboard-pulse-outline', 'Présence éventuelle d’une cause médicale connue'],
+] as const;
+
+const OBSERVE_TIPS = [
+  'Noter la date de début et, si possible, la durée habituelle de tes cycles',
+  'Observer si le saignement suit une évolution proche de tes règles précédentes',
+  'Ne pas te baser uniquement sur une seule journée isolée',
+  'Consigner ces observations si tu prévois de consulter un savant ou un professionnel de santé',
 ];
 
-const FAQ = [
-  {
-    q: 'Le nifas dure-t-il toujours 40 jours ?',
-    a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
-  },
-  {
-    q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
-    a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
-  },
-  {
-    q: 'Et si les saignements continuent longtemps ?',
-    a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
-  },
-  {
-    q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
-    a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
-  },
+const DOUBT_STEPS = [
+  'Te référer à la durée et au rythme habituels de tes propres règles',
+  'Consulter un professionnel de santé si le saignement est inhabituel ou prolongé',
+  'Demander l’avis d’un savant ou d’une savante qualifiée pour la dimension religieuse',
+  'Garder à l’esprit qu’une réponse générale ne remplace pas un avis adapté à ta situation',
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function NifasFiqhArticleScreen({
+export default function IstihadaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -93,7 +93,7 @@ export default function NifasFiqhArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas en pratique religieuse — AWA',
+      message: 'Comprendre l’Istihâda — AWA',
     });
   };
 
@@ -173,18 +173,16 @@ export default function NifasFiqhArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIFAS (FIQH)</Text>
+            <Text style={styles.badgeText}>ISTIHÂDA</Text>
           </View>
 
-          <Text style={styles.title}>
-            Le nifas en{`\n`}pratique religieuse
-          </Text>
+          <Text style={styles.title}>Comprendre l’Istihâda</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
+              ['clock-outline', '7 min de lecture'],
               ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Débutant'],
+              ['chart-bar', 'Intermédiaire'],
               ['shield-check-outline', 'Contenu validé'],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
@@ -204,8 +202,8 @@ export default function NifasFiqhArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le nifas, sa durée, la prière, le jeûne et la reprise
-            des adorations après l’accouchement.
+            Distinguer un saignement irrégulier des règles habituelles, avec
+            des repères généraux pour t’orienter.
           </Text>
 
           <View style={styles.alert}>
@@ -225,12 +223,13 @@ export default function NifasFiqhArticleScreen({
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
             {[
-              'Qu’est-ce que le nifas ?',
-              'Sa durée selon les références juridiques',
-              'Prière pendant le nifas',
-              'Jeûne pendant le nifas',
-              'Purification et reprise des adorations',
-              'Questions fréquentes',
+              'Qu’est-ce que l’Istihâda ?',
+              'Pourquoi peut-elle être difficile à identifier ?',
+              'Les différences entre menstruation et Istihâda',
+              'Comment observer les saignements ?',
+              'Prière et jeûne pendant l’Istihâda',
+              'Que faire en cas de doute ?',
+              'À retenir',
             ].map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
@@ -247,14 +246,46 @@ export default function NifasFiqhArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que le nifas ?</Text>
+          <Text style={styles.h2}>1. Qu’est-ce que l’Istihâda ?</Text>
 
           <Text style={styles.body}>
-            Le nifas désigne, dans la pratique religieuse, la période liée
-            aux pertes de sang après l’accouchement. Les lochies décrivent
-            l’aspect médical et physiologique de ces pertes ; le nifas est
-            leur classification religieuse. Ces deux notions ne doivent pas
-            être confondues.
+            L’Istihâda désigne un saignement qui survient en dehors du cycle
+            menstruel habituel, ou qui se prolonge au-delà de la durée des
+            règles reconnue par la tradition islamique. Contrairement aux
+            règles (hayd) ou au nifas (saignement après l’accouchement),
+            elle n’a pas le même statut rituel : elle est généralement
+            considérée comme un saignement de nature différente, parfois
+            lié à une cause médicale.
+          </Text>
+
+          <View style={styles.alert}>
+            <MaterialDesignIcons
+              name="alert-outline"
+              size={24}
+              color="#B76568"
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipText}>
+                Ce contenu explique le concept de manière générale ; il ne
+                permet pas de déterminer si un saignement précis correspond
+                à une Istihâda dans ta situation personnelle.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.h2}>
+            2. Pourquoi peut-elle être difficile à identifier ?
+          </Text>
+
+          <Text style={styles.body}>
+            Il peut être difficile de distinguer l’Istihâda des règles ou
+            d’un cycle irrégulier, car les saignements peuvent parfois se
+            ressembler, varier en intensité, ou se prolonger de façon
+            inhabituelle. Cette difficulté est reconnue par les savants
+            eux-mêmes, ce qui explique l’existence de plusieurs approches
+            pour l’identifier.
           </Text>
 
           <View style={styles.tip}>
@@ -265,104 +296,35 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                AWA sépare volontairement les informations médicales sur les
-                lochies des repères religieux sur le nifas.
+                Il est normal de ne pas savoir immédiatement à quoi
+                correspond un saignement inhabituel ; ce doute est une
+                situation courante, pas une erreur de ta part.
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Sa durée selon les références juridiques
-          </Text>
-
-          <Text style={styles.question}>Combien de temps dure le nifas ?</Text>
-
-          <Text style={styles.body}>
-            La durée maximale peut varier selon l’école juridique ou la
-            référence religieuse suivie. 40 jours est une référence
-            fréquemment retenue, sans être présentée comme une règle
-            universelle par AWA.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-star"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Repère souvent utilisé</Text>
-              <Text style={styles.tipText}>
-                Une référence fréquemment retenue est de 40 jours, mais AWA
-                ne présente pas ce chiffre comme une vérité unique pour
-                toutes les écoles juridiques. Suis la référence religieuse
-                que tu as choisie.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>3. Prière pendant le nifas</Text>
-
-          <Text style={styles.question}>Dois-je prier pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Pendant une période reconnue comme nifas selon la référence
-            suivie, la prière rituelle est suspendue. AWA ne classe pas
-            automatiquement les saignements et ne fournit pas de décision
-            personnalisée. Aucun compteur de prières manquées n’est ajouté
-            pour cette période.
-          </Text>
-
-          <Text style={styles.h2}>4. Jeûne pendant le nifas</Text>
-
-          <Text style={styles.question}>Puis-je jeûner pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Le jeûne obligatoire n’est pas accompli pendant une période
-            reconnue comme nifas. Les jours concernés sont ensuite traités
-            par le rattrapage approprié, selon la référence suivie.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-refresh-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Organiser, sans décider</Text>
-              <Text style={styles.tipText}>
-                AWA peut t’aider à mémoriser ou organiser les jours
-                concernés, sans émettre de décision religieuse personnalisée.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>
-            5. Purification et reprise des adorations
+            3. Les différences entre menstruation et Istihâda
           </Text>
 
           <Text style={styles.body}>
-            La reprise dépend des signes observés et de la référence
-            religieuse suivie.
+            Certains éléments peuvent aider à orienter la réflexion, sans
+            constituer des règles universelles, car les repères précis
+            varient selon les écoles juridiques.
           </Text>
 
-          <View style={styles.checkList}>
-            {STEPS.map((label, index) => (
-              <View key={label} style={styles.checkRow}>
+          <View style={styles.daily}>
+            {DIFFERENCES.map(([icon, label]) => (
+              <View key={label} style={styles.dailyItem}>
                 <MaterialDesignIcons
-                  name="check-circle-outline"
-                  size={18}
-                  color="#789276"
+                  name={icon as never}
+                  color={ROSE}
+                  size={25}
                 />
 
-                <Text style={styles.checkText}>
-                  {index + 1}. {label}
-                </Text>
+                <Text style={styles.dailyText}>{label}</Text>
               </View>
             ))}
           </View>
@@ -375,44 +337,137 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
+              <Text style={styles.tipTitle}>À noter</Text>
               <Text style={styles.tipText}>
-                Si les saignements persistent au-delà de la durée maximale
-                retenue par la référence suivie, leur statut religieux peut
-                changer. Un avis qualifié est recommandé.
+                Ces éléments sont des repères généraux et non des critères
+                absolus : ils peuvent être interprétés différemment selon
+                les savants et les écoles juridiques.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Questions fréquentes</Text>
+          <Text style={styles.h2}>4. Comment observer les saignements ?</Text>
 
-          {FAQ.map(item => (
-            <View key={item.q} style={styles.faqItem}>
-              <Text style={styles.question}>{item.q}</Text>
-              <Text style={styles.body}>{item.a}</Text>
+          <Text style={styles.body}>
+            Prendre le temps d’observer ses saignements sur plusieurs jours,
+            sans précipitation, aide à mieux comprendre sa propre situation
+            avant d’en tirer une conclusion.
+          </Text>
+
+          <Image
+            source={ART.observe}
+            resizeMode="cover"
+            style={styles.wideImage}
+          />
+
+          <View style={styles.checkList}>
+            <Text style={styles.checkListTitle}>Quelques repères pratiques</Text>
+
+            {OBSERVE_TIPS.map(item => (
+              <View key={item} style={styles.checkRow}>
+                <MaterialDesignIcons
+                  name="check-circle-outline"
+                  size={18}
+                  color="#789276"
+                />
+
+                <Text style={styles.checkText}>{item}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.h2}>5. Prière et jeûne pendant l’Istihâda</Text>
+
+          <Text style={styles.body}>
+            Dans le cas de l’Istihâda, la prière et le jeûne restent
+            généralement obligatoires, à la différence des règles. Des
+            précautions d’hygiène (comme des protections adaptées) sont
+            alors recommandées pour permettre la pratique du culte, selon
+            les modalités enseignées par les différentes écoles juridiques.
+          </Text>
+
+          <View style={styles.tip}>
+            <MaterialDesignIcons
+              name="lightbulb-outline"
+              size={24}
+              color={ROSE}
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipText}>
+                Les précautions précises (comme le renouvellement des
+                ablutions) peuvent varier selon l’école juridique suivie ;
+                se référer à l’avis habituellement suivi ou à un savant
+                qualifié aide à les appliquer correctement.
+              </Text>
             </View>
-          ))}
+          </View>
+
+          <Text style={styles.h2}>6. Que faire en cas de doute ?</Text>
+
+          <Text style={styles.body}>
+            Un doute persistant sur la nature d’un saignement est une
+            situation fréquente, qui ne doit pas être source d’inquiétude
+            excessive.
+          </Text>
+
+          <View style={styles.checkList}>
+            {DOUBT_STEPS.map(item => (
+              <View key={item} style={styles.checkRow}>
+                <MaterialDesignIcons
+                  name="check-circle-outline"
+                  size={18}
+                  color="#789276"
+                />
+
+                <Text style={styles.checkText}>{item}</Text>
+              </View>
+            ))}
+          </View>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
-              name="shield-check-outline"
+              name="alert-circle-outline"
               size={24}
               color="#B76568"
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Un repère, pas une fatwa</Text>
+              <Text style={styles.tipTitle}>Information importante</Text>
               <Text style={styles.tipText}>
-                Les situations personnelles peuvent être différentes. En cas
-                de doute, rapproche-toi d’un savant qualifié ou d’une
-                organisation religieuse reconnue.
+                Ce contenu reste éducatif et général : il ne constitue pas
+                une fatwa ni une décision religieuse individuelle. Pour
+                toute situation personnelle, en particulier en cas de doute
+                prolongé, l’avis d’un savant qualifié reste la référence.
+              </Text>
+            </View>
+          </View>
+
+          <Text style={styles.h2}>7. À retenir</Text>
+
+          <View style={styles.tip}>
+            <MaterialDesignIcons
+              name="lightbulb-outline"
+              size={24}
+              color={ROSE}
+            />
+
+            <View style={styles.tipCopy}>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipText}>
+                L’Istihâda est un concept qui distingue un saignement
+                inhabituel des règles ou du nifas, avec des implications
+                spécifiques sur la prière et le jeûne. En cas de doute,
+                l’observation attentive et l’avis d’un savant qualifié
+                restent les meilleures ressources.
               </Text>
             </View>
           </View>
         </View>
       </ScrollView>
 
-      <ReadingControls articleId={ID} durationMinutes={6} scrollRef={scrollRef} />
+      <ReadingControls articleId={ID} durationMinutes={7} scrollRef={scrollRef} />
     </View>
   );
 }
@@ -515,8 +570,39 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
-  question: {marginTop: 14, fontSize: 14, color: INK, fontWeight: '800'},
   body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
+  wideImage: {width: '100%', height: 120, marginTop: 14, borderRadius: 12},
+  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  dailyItem: {
+    width: '48.7%',
+    minHeight: 108,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#FBF5F6',
+  },
+  dailyText: {
+    marginTop: 7,
+    fontSize: 11,
+    lineHeight: 16,
+    color: INK,
+    textAlign: 'center',
+  },
+  checkList: {
+    marginTop: 13,
+    padding: 13,
+    borderRadius: 12,
+    backgroundColor: '#FBF8F5',
+  },
+  checkListTitle: {marginBottom: 9, fontSize: 13, color: INK, fontWeight: '800'},
+  checkRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 9,
+  },
+  checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
   tip: {
     marginTop: 15,
     padding: 14,
@@ -528,18 +614,4 @@ const styles = StyleSheet.create({
   tipCopy: {flex: 1, marginLeft: 11},
   tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
   tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
-  checkList: {
-    marginTop: 13,
-    padding: 13,
-    borderRadius: 12,
-    backgroundColor: '#FBF8F5',
-  },
-  checkRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 8,
-    marginBottom: 9,
-  },
-  checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
-  faqItem: {marginBottom: 4},
 });

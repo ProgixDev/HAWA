@@ -27,46 +27,29 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'nifasfiqh-repere-fiqh';
+const ID = 'returningtoprayer-le-ghusl-et-le-retour';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
+const HERO = require('../../assets/images/library/category-spiritual.png');
 
 const RELIGIOUS_DISCLAIMER =
   'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
 
-const STEPS = [
-  'Observer la fin des pertes',
-  'Effectuer la purification rituelle',
-  'Reprendre les actes d’adoration concernés',
-];
-
-const FAQ = [
-  {
-    q: 'Le nifas dure-t-il toujours 40 jours ?',
-    a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
-  },
-  {
-    q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
-    a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
-  },
-  {
-    q: 'Et si les saignements continuent longtemps ?',
-    a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
-  },
-  {
-    q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
-    a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
-  },
+const PRACTICAL_POINTS = [
+  'Reconnaître la fin des règles avec certitude',
+  'Effectuer le ghusl (grande ablution) pour retrouver la pureté rituelle',
+  'Reprendre la prière normalement, sans délai',
+  'Savoir que les prières manquées pendant les règles ne sont généralement pas rattrapées',
+  'Demander conseil à un savant qualifié pour toute situation particulière ou un doute persistant',
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function NifasFiqhArticleScreen({
+export default function ReturningToPrayerArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -93,7 +76,7 @@ export default function NifasFiqhArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas en pratique religieuse — AWA',
+      message: 'Le ghusl et le retour à la prière — AWA',
     });
   };
 
@@ -173,17 +156,17 @@ export default function NifasFiqhArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIFAS (FIQH)</Text>
+            <Text style={styles.badgeText}>RETOUR À LA PRIÈRE</Text>
           </View>
 
           <Text style={styles.title}>
-            Le nifas en{`\n`}pratique religieuse
+            Le ghusl et le{`\n`}retour à la prière
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
+              ['clock-outline', '5 min de lecture'],
+              ['book-open-page-variant-outline', 'Guide'],
               ['chart-bar', 'Débutant'],
               ['shield-check-outline', 'Contenu validé'],
             ].map(([icon, text], index) => (
@@ -204,8 +187,8 @@ export default function NifasFiqhArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le nifas, sa durée, la prière, le jeûne et la reprise
-            des adorations après l’accouchement.
+            Les étapes générales pour reprendre la prière après les règles,
+            avec sérénité.
           </Text>
 
           <View style={styles.alert}>
@@ -225,12 +208,10 @@ export default function NifasFiqhArticleScreen({
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
             {[
-              'Qu’est-ce que le nifas ?',
-              'Sa durée selon les références juridiques',
-              'Prière pendant le nifas',
-              'Jeûne pendant le nifas',
-              'Purification et reprise des adorations',
-              'Questions fréquentes',
+              'Le ghusl, retour à la pureté rituelle',
+              'Une méthode qui peut varier selon l’école',
+              'La reprise de la prière, sans rattrapage',
+              'Points pratiques à retenir',
             ].map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
@@ -247,14 +228,28 @@ export default function NifasFiqhArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que le nifas ?</Text>
+          <Text style={styles.h2}>1. Le ghusl, retour à la pureté rituelle</Text>
 
           <Text style={styles.body}>
-            Le nifas désigne, dans la pratique religieuse, la période liée
-            aux pertes de sang après l’accouchement. Les lochies décrivent
-            l’aspect médical et physiologique de ces pertes ; le nifas est
-            leur classification religieuse. Ces deux notions ne doivent pas
-            être confondues.
+            Le ghusl est une grande ablution rituelle : elle consiste à
+            laver l’intégralité du corps avec l’intention de retrouver
+            l’état de pureté rituelle (tahara), nécessaire à l’accomplissement
+            de la prière et d’autres actes d’adoration.
+          </Text>
+
+          <Text style={styles.body}>
+            Avant d’effectuer le ghusl, il est important de s’assurer que
+            les règles sont réellement terminées : le ghusl doit suivre, et
+            non précéder, la certitude que le saignement s’est arrêté. De
+            manière générale, cette fin se reconnaît à l’arrêt total du
+            saignement, observé sur une durée suffisante pour écarter tout
+            doute — un point détaillé dans l’article dédié à la pureté
+            rituelle.
+          </Text>
+
+          <Text style={styles.body}>
+            C’est cette purification qui permet de renouer avec les moments
+            d’adoration suspendus pendant les règles.
           </Text>
 
           <View style={styles.tip}>
@@ -265,107 +260,25 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                AWA sépare volontairement les informations médicales sur les
-                lochies des repères religieux sur le nifas.
+                Il n’y a pas d’urgence à ressentir : le ghusl peut être
+                effectué dès que tu es prête, sans pression, une fois la fin
+                des règles constatée avec certitude.
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Sa durée selon les références juridiques
-          </Text>
-
-          <Text style={styles.question}>Combien de temps dure le nifas ?</Text>
-
-          <Text style={styles.body}>
-            La durée maximale peut varier selon l’école juridique ou la
-            référence religieuse suivie. 40 jours est une référence
-            fréquemment retenue, sans être présentée comme une règle
-            universelle par AWA.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-star"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Repère souvent utilisé</Text>
-              <Text style={styles.tipText}>
-                Une référence fréquemment retenue est de 40 jours, mais AWA
-                ne présente pas ce chiffre comme une vérité unique pour
-                toutes les écoles juridiques. Suis la référence religieuse
-                que tu as choisie.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>3. Prière pendant le nifas</Text>
-
-          <Text style={styles.question}>Dois-je prier pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Pendant une période reconnue comme nifas selon la référence
-            suivie, la prière rituelle est suspendue. AWA ne classe pas
-            automatiquement les saignements et ne fournit pas de décision
-            personnalisée. Aucun compteur de prières manquées n’est ajouté
-            pour cette période.
-          </Text>
-
-          <Text style={styles.h2}>4. Jeûne pendant le nifas</Text>
-
-          <Text style={styles.question}>Puis-je jeûner pendant le nifas ?</Text>
-
-          <Text style={styles.body}>
-            Le jeûne obligatoire n’est pas accompli pendant une période
-            reconnue comme nifas. Les jours concernés sont ensuite traités
-            par le rattrapage approprié, selon la référence suivie.
-          </Text>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="calendar-refresh-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Organiser, sans décider</Text>
-              <Text style={styles.tipText}>
-                AWA peut t’aider à mémoriser ou organiser les jours
-                concernés, sans émettre de décision religieuse personnalisée.
-              </Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>
-            5. Purification et reprise des adorations
+            2. Une méthode qui peut varier selon l’école
           </Text>
 
           <Text style={styles.body}>
-            La reprise dépend des signes observés et de la référence
-            religieuse suivie.
+            Le ghusl repose sur des principes généraux communs : l’intention
+            de se purifier, et le lavage complet du corps, y compris les
+            cheveux et la peau. Les détails précis de la méthode peuvent en
+            revanche varier selon les écoles juridiques suivies.
           </Text>
-
-          <View style={styles.checkList}>
-            {STEPS.map((label, index) => (
-              <View key={label} style={styles.checkRow}>
-                <MaterialDesignIcons
-                  name="check-circle-outline"
-                  size={18}
-                  color="#789276"
-                />
-
-                <Text style={styles.checkText}>
-                  {index + 1}. {label}
-                </Text>
-              </View>
-            ))}
-          </View>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -375,44 +288,59 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
+              <Text style={styles.tipTitle}>Note importante</Text>
               <Text style={styles.tipText}>
-                Si les saignements persistent au-delà de la durée maximale
-                retenue par la référence suivie, leur statut religieux peut
-                changer. Un avis qualifié est recommandé.
+                Aucune méthode particulière n’est présentée ici comme la
+                seule valable : se référer à l’école ou à l’avis suivi
+                habituellement, ou demander conseil à un savant qualifié,
+                permet de connaître les modalités précises adaptées à ta
+                situation.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Questions fréquentes</Text>
+          <Text style={styles.h2}>3. La reprise de la prière, sans rattrapage</Text>
 
-          {FAQ.map(item => (
-            <View key={item.q} style={styles.faqItem}>
-              <Text style={styles.question}>{item.q}</Text>
-              <Text style={styles.body}>{item.a}</Text>
-            </View>
-          ))}
+          <Text style={styles.body}>
+            Une fois les règles terminées et le ghusl effectué, la prière
+            reprend normalement, sans délai particulier ni condition
+            supplémentaire.
+          </Text>
 
-          <View style={styles.alert}>
-            <MaterialDesignIcons
-              name="shield-check-outline"
-              size={24}
-              color="#B76568"
-            />
+          <Text style={styles.body}>
+            Il est utile de distinguer deux situations qui suivent des
+            règles différentes : les prières non accomplies pendant les
+            règles ne sont généralement pas rattrapées, alors que les jours
+            de jeûne manqués pendant le Ramadan doivent, eux, être rattrapés
+            plus tard (qadaa).
+          </Text>
 
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Un repère, pas une fatwa</Text>
-              <Text style={styles.tipText}>
-                Les situations personnelles peuvent être différentes. En cas
-                de doute, rapproche-toi d’un savant qualifié ou d’une
-                organisation religieuse reconnue.
-              </Text>
-            </View>
+          <Text style={styles.body}>
+            Par exemple, une femme ayant eu ses règles pendant 6 jours
+            reprend la prière normalement après le ghusl, sans avoir à
+            rattraper les prières de ces 6 jours. Les 6 jours de jeûne
+            correspondants, en revanche, seront rattrapés après le Ramadan.
+          </Text>
+
+          <Text style={styles.h2}>4. Points pratiques à retenir</Text>
+
+          <View style={styles.checkList}>
+            {PRACTICAL_POINTS.map(item => (
+              <View key={item} style={styles.checkRow}>
+                <MaterialDesignIcons
+                  name="check-circle-outline"
+                  size={18}
+                  color="#789276"
+                />
+
+                <Text style={styles.checkText}>{item}</Text>
+              </View>
+            ))}
           </View>
         </View>
       </ScrollView>
 
-      <ReadingControls articleId={ID} durationMinutes={6} scrollRef={scrollRef} />
+      <ReadingControls articleId={ID} durationMinutes={5} scrollRef={scrollRef} />
     </View>
   );
 }
@@ -515,19 +443,7 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
-  question: {marginTop: 14, fontSize: 14, color: INK, fontWeight: '800'},
   body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
-  tip: {
-    marginTop: 15,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F5EBEF',
-  },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
   checkList: {
     marginTop: 13,
     padding: 13,
@@ -541,5 +457,15 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
-  faqItem: {marginBottom: 4},
+  tip: {
+    marginTop: 15,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#F5EBEF',
+  },
+  tipCopy: {flex: 1, marginLeft: 11},
+  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
+  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
 });

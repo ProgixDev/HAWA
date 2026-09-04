@@ -31,7 +31,7 @@ const features = [
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SpiritualPreferences'>;
 
-function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
+function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   // null = no explicit choice yet (brand-new users start here — never
   // silently treated as true or false). Pre-fills her real answer if she's
@@ -46,6 +46,15 @@ function SpiritualPreferencesScreen({ navigation }: Props): React.JSX.Element {
   const handleNext = () => {
     if (enabled === null) {return;}
     setSpiritualMarkersEnabled(enabled);
+
+    // Reached from Summary's "Modify" action: save the toggle and return
+    // directly, without forcing LocationScreen even if just turned on — the
+    // Location row (where shown) will read "Non renseignée" until edited
+    // separately, exactly like every other missing field.
+    if (route.params?.mode === 'edit') {
+      navigation.goBack();
+      return;
+    }
 
     // "Après une fausse couche" is the only objective where disabling
     // spiritual landmarks skips LocationScreen entirely (see
