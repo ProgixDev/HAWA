@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { AppState, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { AppState, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import AppNavigator from './src/navigation/AppNavigator';
-import { colors } from './src/theme/colors';
+import { AwaThemeProvider } from './src/theme/AwaThemeProvider';
+import { AwaRootStatusBar } from './src/theme/AwaRootStatusBar';
 import {
   loadSecurityPreferences,
   subscribePrivacySecuritySettings,
@@ -22,6 +23,7 @@ import {
 import { resyncAllPregnancyNotifications } from './src/utils/pregnancyReminderScheduling';
 import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
 import { syncPostpartumDailyTrackingReminder } from './src/utils/postpartumReminderScheduling';
+import { syncMiscarriageDailyTrackingReminder } from './src/utils/miscarriageReminderScheduling';
 import { syncConceptionReminders } from './src/utils/conceptionReminderScheduling';
 import { syncIrregularReminders } from './src/utils/irregularReminderScheduling';
 import { hydrateIrregularPreferences, subscribeIrregularPreferences } from './src/state/irregularPreferences';
@@ -35,6 +37,10 @@ import {
   hydratePostpartumPreferences,
   subscribePostpartumPreferences,
 } from './src/state/postpartumPreferences';
+import {
+  hydrateMiscarriagePreferences,
+  subscribeMiscarriagePreferences,
+} from './src/state/miscarriagePreferences';
 import {
   hydratePostpartumLochia,
   subscribePostpartumLochia,
@@ -116,7 +122,6 @@ subscribeActiveObjective(syncNifasReminders);
 subscribeSpiritualMarkersEnabled(syncNifasReminders);
 subscribePostpartumPreferences(syncNifasReminders);
 subscribePostpartumLochia(syncNifasReminders);
-subscribePrivacySecuritySettings(syncNifasReminders);
 
 // Post-partum's optional "Suivi quotidien" reminder — objective-specific like
 // Menopause's own reminders above; syncPostpartumDailyTrackingReminder()
@@ -131,6 +136,21 @@ Promise.all([
 ]).then(syncPostpartumDailyTrackingReminder);
 subscribeActiveObjective(syncPostpartumDailyTrackingReminder);
 subscribePostpartumPreferences(syncPostpartumDailyTrackingReminder);
+
+// Miscarriage ("Après une fausse couche")'s ONLY reminder — the same
+// optional "Suivi quotidien" pattern as Postpartum's above, objective-gated
+// on 'loss'. syncMiscarriageDailyTrackingReminder() itself cancels the
+// notification whenever the active objective isn't 'loss' or
+// dailyTrackingReminderEnabled/Time isn't set, so switching away or
+// disabling cleanly clears it and switching back or re-enabling reschedules
+// it. Deliberately the ONLY Miscarriage reminder — no period/fertility
+// prediction is ever computed or scheduled for this objective.
+Promise.all([
+  hydrateActiveObjective(),
+  hydrateMiscarriagePreferences(),
+]).then(syncMiscarriageDailyTrackingReminder);
+subscribeActiveObjective(syncMiscarriageDailyTrackingReminder);
+subscribeMiscarriagePreferences(syncMiscarriageDailyTrackingReminder);
 
 // Post-Ramadan Qadaa local reminder — completes the existing in-screen
 // reactive card (FastingQadaaScreen.tsx's shouldShowQadaaReminder()) with a
@@ -229,6 +249,33 @@ subscribeActiveObjective(() => syncIrregularReminders());
 subscribeIrregularPreferences(() => syncIrregularReminders());
 subscribeConfirmedPeriodHistory(() => syncIrregularReminders());
 
+// Privacy/discreet-notification settings ("Notifications discrètes",
+// "Masquer l'aperçu des notifications", "Mode discret") are read fresh by
+// scheduleLocalNotification() on every call, but a Notifee trigger
+// notification bakes its title/body in at creation time — so a reminder
+// scheduled before a privacy setting is turned on (or off) would otherwise
+// keep firing with its stale, pre-change payload until something unrelated
+// happened to resync it. Re-running every objective's own sync function here
+// (each already cancels-then-reschedules by the same notification id, and
+// each already internally no-ops when its objective isn't active or its
+// reminder isn't enabled) guarantees every already-scheduled reminder is
+// rebuilt with the current privacy setting immediately, from ONE shared
+// place, instead of duplicating privacy-change awareness into every
+// scheduler.
+function resyncAllRemindersForPrivacyChange(): void {
+  syncNifasReminders();
+  resyncPregnancyNotificationsIfActive();
+  syncPostpartumDailyTrackingReminder();
+  syncMiscarriageDailyTrackingReminder();
+  syncQadaaReminderNotification();
+  syncConceptionReminders();
+  syncContraceptionReminder();
+  syncMenopauseReminders();
+  syncCycleReminders();
+  syncIrregularReminders();
+}
+subscribePrivacySecuritySettings(resyncAllRemindersForPrivacyChange);
+
 function App(): React.JSX.Element {
   const [lockState, setLockState] = React.useState(getAppLockState);
   const [privacyCover, setPrivacyCover] = React.useState(false);
@@ -264,20 +311,18 @@ function App(): React.JSX.Element {
 
   return (
     <SafeAreaProvider>
-      <StatusBar
-        backgroundColor={colors.backgroundDark}
-        barStyle="light-content"
-        hidden
-      />
-      <AppNavigator
-        onReady={() => {
-          openPendingPostpartumNifasNotification();
-          openPendingConceptionReminderNotification();
-          openPendingMenopauseReminderNotification();
-        }}
-      />
-      {lockState === 'locked' ? <AppLockScreen /> : null}
-      {privacyCover ? <View accessibilityLabel="AWA protégée" style={styles.privacyCover}><Text style={styles.privacyCoverText}>AWA</Text><Text style={styles.privacyCoverSubtext}>Ton espace reste privé</Text></View> : null}
+      <AwaThemeProvider>
+        <AwaRootStatusBar />
+        <AppNavigator
+          onReady={() => {
+            openPendingPostpartumNifasNotification();
+            openPendingConceptionReminderNotification();
+            openPendingMenopauseReminderNotification();
+          }}
+        />
+        {lockState === 'locked' ? <AppLockScreen /> : null}
+        {privacyCover ? <View accessibilityLabel="AWA protégée" style={styles.privacyCover}><Text style={styles.privacyCoverText}>AWA</Text><Text style={styles.privacyCoverSubtext}>Ton espace reste privé</Text></View> : null}
+      </AwaThemeProvider>
     </SafeAreaProvider>
   );
 }

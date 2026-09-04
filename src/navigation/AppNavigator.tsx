@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import {
   NavigationContainer,
   type NavigatorScreenParams,
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { useAwaTheme } from '../theme/AwaThemeProvider';
+import { toReactNavigationTheme } from '../theme/awaNavigationTheme';
 
 import SplashScreen from '../screens/SplashScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
@@ -35,6 +38,7 @@ import MiscarriageDateScreen from '../screens/MiscarriageDateScreen';
 import MiscarriageBleedingScreen from '../screens/MiscarriageBleedingScreen';
 import MiscarriageCycleReturnScreen from '../screens/MiscarriageCycleReturnScreen';
 import MiscarriageTryingAgainScreen from '../screens/MiscarriageTryingAgainScreen';
+import MiscarriageRemindersScreen from '../screens/MiscarriageRemindersScreen';
 import MenopauseStageScreen from '../screens/MenopauseStageScreen';
 import MenopauseSymptomsScreen from '../screens/MenopauseSymptomsScreen';
 import MenopauseHormonalTreatmentScreen from '../screens/MenopauseHormonalTreatmentScreen';
@@ -98,6 +102,7 @@ import type { PostpartumJournalCategory } from '../state/postpartumJournalStore'
 import type { MiscarriageJournalCategory } from '../state/miscarriageJournalStore';
 import type { ContraceptionJournalCategory } from '../config/contraceptionJournalConfig';
 import type { MenopauseJournalCategory } from '../state/menopauseJournalStore';
+import AppearanceScreen from '../screens/AppearanceScreen';
 import PrivacySecurityScreen from '../screens/PrivacySecurityScreen';
 import {
   DataManagementScreen,
@@ -143,15 +148,15 @@ export type RootStackParamList = {
   Objective: undefined;
   CycleObjectiveConfirmation: undefined;
   NameOnboarding: undefined;
-  SpiritualPreferences: undefined;
+  SpiritualPreferences: {mode?: 'onboarding' | 'edit'} | undefined;
   Location: {mode?: 'onboarding' | 'edit'} | undefined;
-  ConceptionTryingDuration: undefined;
-  ConceptionOvulationAwareness: undefined;
-  ConceptionIndicators: undefined;
+  ConceptionTryingDuration: {mode?: 'onboarding' | 'edit'} | undefined;
+  ConceptionOvulationAwareness: {mode?: 'onboarding' | 'edit'} | undefined;
+  ConceptionIndicators: {mode?: 'onboarding' | 'edit'} | undefined;
   ConceptionReminders: {mode?: 'onboarding' | 'edit'} | undefined;
-  IrregularCyclePattern: undefined;
-  IrregularLastPeriod: undefined;
-  IrregularTrackedItems: undefined;
+  IrregularCyclePattern: {mode?: 'onboarding' | 'edit'} | undefined;
+  IrregularLastPeriod: {mode?: 'onboarding' | 'edit'} | undefined;
+  IrregularTrackedItems: {mode?: 'onboarding' | 'edit'} | undefined;
   IrregularReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   IrregularJournalEntry: {category: IrregularJournalRouteCategory};
   IrregularJournalOverview: undefined;
@@ -163,36 +168,37 @@ export type RootStackParamList = {
   // ton cycle" prompt (e.g. TTC Dashboard/Calendar/Statistics) rather than
   // from the onboarding stack — every existing onboarding call site passes
   // no params, so this is additive and doesn't change their behavior.
-  CycleInformation: {fromDashboardCTA?: boolean} | undefined;
-  PostpartumDeliveryDate: undefined;
-  PostpartumDeliveryType: undefined;
+  CycleInformation: {fromDashboardCTA?: boolean; mode?: 'onboarding' | 'edit'} | undefined;
+  PostpartumDeliveryDate: {mode?: 'onboarding' | 'edit'} | undefined;
+  PostpartumDeliveryType: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumFeeding: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumLochia: undefined;
   PostpartumJournalEntry: { category: PostpartumJournalCategory };
   PostpartumCycleReturn: undefined;
-  MiscarriageDate: undefined;
-  MiscarriageBleeding: undefined;
-  MiscarriageCycleReturn: undefined;
-  MiscarriageTryingAgain: undefined;
-  MenopauseStage: undefined;
-  MenopauseSymptoms: undefined;
-  MenopauseHormonalTreatment: undefined;
-  MenopauseLabTracking: undefined;
+  MiscarriageDate: {mode?: 'onboarding' | 'edit'} | undefined;
+  MiscarriageBleeding: {mode?: 'onboarding' | 'edit'} | undefined;
+  MiscarriageCycleReturn: {mode?: 'onboarding' | 'edit'} | undefined;
+  MiscarriageTryingAgain: {mode?: 'onboarding' | 'edit'} | undefined;
+  MiscarriageReminders: {mode?: 'onboarding' | 'edit'} | undefined;
+  MenopauseStage: {mode?: 'onboarding' | 'edit'} | undefined;
+  MenopauseSymptoms: {mode?: 'onboarding' | 'edit'} | undefined;
+  MenopauseHormonalTreatment: {mode?: 'onboarding' | 'edit'} | undefined;
+  MenopauseLabTracking: {mode?: 'onboarding' | 'edit'} | undefined;
   MenopauseReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   CycleReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   MiscarriageJournalEntry: { category: MiscarriageJournalCategory };
   ContraceptionJournalEntry: { category: ContraceptionJournalCategory };
   MenopauseJournalEntry: { category: MenopauseJournalCategory };
-  PregnancyDatingSetup: undefined;
-  PregnancyTrackingPreferences: undefined;
-  PregnancyReminders: undefined;
-  Privacy: undefined;
+  PregnancyDatingSetup: {mode?: 'onboarding' | 'edit'} | undefined;
+  PregnancyTrackingPreferences: {mode?: 'onboarding' | 'edit'} | undefined;
+  PregnancyReminders: {mode?: 'onboarding' | 'edit'} | undefined;
+  Privacy: {mode?: 'onboarding' | 'edit'} | undefined;
   Summary: undefined;
   Auth: undefined;
   Registration: undefined;
   ForgotPassword: undefined;
-  SecuritySetup: undefined;
+  SecuritySetup: {mode?: 'onboarding' | 'edit'} | undefined;
   PinSetup: {mode?: 'create' | 'change' | 'disable'; returnTo?: 'previous' | 'onboarding'} | undefined;
   PinConfirm: {returnTo: 'previous' | 'onboarding'};
   PinManagement: undefined;
@@ -233,6 +239,7 @@ export type RootStackParamList = {
   FAQDetail: { id: FaqId };
   Guides: undefined;
   WhatsNew: undefined;
+  Appearance: undefined;
   PrivacySecurity: undefined;
   DataManagement: undefined;
   DeleteAccount: undefined;
@@ -264,8 +271,11 @@ function AppNavigator({
 }: {
   onReady?: () => void;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const navigationTheme = useMemo(() => toReactNavigationTheme(theme), [theme]);
+
   return (
-    <NavigationContainer onReady={onReady} ref={navigationRef}>
+    <NavigationContainer onReady={onReady} ref={navigationRef} theme={navigationTheme}>
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{ headerShown: false, animation: 'fade' }}
@@ -349,6 +359,10 @@ function AppNavigator({
         <Stack.Screen
           name="MiscarriageTryingAgain"
           component={MiscarriageTryingAgainScreen}
+        />
+        <Stack.Screen
+          name="MiscarriageReminders"
+          component={MiscarriageRemindersScreen}
         />
         <Stack.Screen
           name="MenopauseStage"
@@ -463,6 +477,7 @@ function AppNavigator({
         <Stack.Screen name="FAQDetail" component={FAQDetailScreen} />
         <Stack.Screen name="Guides" component={GuidesScreen} />
         <Stack.Screen name="WhatsNew" component={WhatsNewScreen} />
+        <Stack.Screen name="Appearance" component={AppearanceScreen} />
         <Stack.Screen
           name="PrivacySecurity"
           component={PrivacySecurityScreen}

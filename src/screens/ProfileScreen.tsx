@@ -1797,6 +1797,24 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
+            {objective === 'loss' ? (
+              <MenuRow
+                icon="bell-outline"
+                onPress={() => navigation.navigate('MiscarriageReminders', {mode: 'edit'})}
+                subtitle="Un rappel doux pour prendre un moment pour ton suivi"
+                title="Notifications & rappels"
+                tone="default"
+              />
+            ) : null}
+
+            <MenuRow
+              icon="palette"
+              onPress={() => navigation.navigate('Appearance')}
+              subtitle="Thèmes, couleurs et affichage"
+              title="Apparence"
+              tone="default"
+            />
+
             <MenuRow
               icon="shield-lock-outline"
               onPress={() => navigation.navigate('PrivacySecurity')}
