@@ -5,7 +5,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {ObjectiveId} from '../../state/onboardingPreferences';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {LIBRARY_ARTICLES, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
-import {homeColors, homeRadii, homeShadow} from './homeTheme';
+import {homeRadii} from './homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // "Pour t'accompagner" — the exact same contextual-article section already
 // built (inline) in ConceiveDashboard.tsx, extracted here so every other
@@ -21,7 +23,9 @@ import {homeColors, homeRadii, homeShadow} from './homeTheme';
 // filtered out (never a fabricated placeholder); if that leaves zero real
 // articles for an objective, the whole section renders nothing rather than
 // showing an empty/fake card.
-const PURPLE = homeColors.primary;
+//
+// PHASE C — chrome only (card/border/text/shadow) is theme-driven; the
+// article thumbnail illustrations below are never recolored.
 
 // One shared thumbnail per Library categoryId, reusing only existing
 // illustration assets (no new image was created for this task) — the same
@@ -79,6 +83,9 @@ type Props = {
 };
 
 function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): React.JSX.Element | null {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const articles = useMemo(() => {
     const recommendedIds = getLibraryConfigForObjective(objective).recommendedArticleIds;
     const byId = new Map(LIBRARY_ARTICLES.map(article => [article.id, article]));
@@ -110,7 +117,7 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
             <Image resizeMode="cover" source={CATEGORY_IMAGES[article.categoryId] ?? FALLBACK_IMAGE} style={styles.articleImage} />
             <Text numberOfLines={2} style={styles.articleTileTitle}>{article.title}</Text>
             <View style={styles.articleTileMetaRow}>
-              <MaterialDesignIcons color={homeColors.textSecondary} name="book-outline" size={12} />
+              <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
               <Text style={styles.articleTileMeta}>{article.durationMinutes} min de lecture</Text>
             </View>
           </Pressable>
@@ -120,33 +127,35 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
   );
 }
 
-const styles = StyleSheet.create({
-  articlesCard: {
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 16,
-    paddingLeft: 16,
-    ...homeShadow,
-  },
-  articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
-  articlesTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  articlesSeeAll: {color: PURPLE, fontSize: 12.5, fontWeight: '700'},
-  articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
-  articleTile: {
-    width: 140,
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    borderRadius: homeRadii.quickAction,
-    backgroundColor: '#FFFDFF',
-    overflow: 'hidden',
-    paddingBottom: 10,
-  },
-  articleImage: {width: '100%', height: 76},
-  articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: homeColors.textPrimary, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
-  articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
-  articleTileMeta: {color: homeColors.textSecondary, fontSize: 9.5},
-  pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    articlesCard: {
+      marginTop: 16,
+      borderRadius: homeRadii.card,
+      backgroundColor: theme.colors.surface,
+      paddingVertical: 16,
+      paddingLeft: 16,
+      ...theme.shadow,
+    },
+    articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
+    articlesTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+    articlesSeeAll: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
+    articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
+    articleTile: {
+      width: 140,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: homeRadii.quickAction,
+      backgroundColor: theme.colors.surface,
+      overflow: 'hidden',
+      paddingBottom: 10,
+    },
+    articleImage: {width: '100%', height: 76},
+    articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: theme.colors.text, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
+    articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
+    articleTileMeta: {color: theme.colors.textSecondary, fontSize: 9.5},
+    pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
+  });
+}
 
 export default ObjectiveArticlesSection;

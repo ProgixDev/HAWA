@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii, homeShadow} from './homeTheme';
+import {homeRadii} from './homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {CyclePhase} from './CycleStatusCard';
 import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
 
@@ -34,10 +36,19 @@ type PhaseInsight = {
   tip: string;
 };
 
+// SEMANTIC — each cycle phase gets its OWN fixed identity color, exactly
+// like MonthCalendarCard's period/fertile/ovulation dots (Phase C). Two of
+// these (`follicular`, `ovulation`) happen to equal the current AWA brand
+// purple today, but that is NOT a decorative choice to keep tracking the
+// palette — the other five phases each already have their own bespoke,
+// unrelated color, so letting only these two silently follow `theme.colors.
+// primary` would make phase identity arbitrarily inconsistent (2 of 7
+// phases shifting hue with the palette, 5 staying fixed). All seven are
+// therefore fixed literals, never theme-driven.
 const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   menstruation: {
     label: 'Phase menstruelle',
-    ringColor: homeColors.pink,
+    ringColor: '#DC7B82',
     message: 'Ton énergie sera plus faible. Prends le temps de te reposer et prends soin de toi.',
     energy: 'Faible',
     mood: 'Sensible',
@@ -45,7 +56,7 @@ const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   },
   follicular: {
     label: 'Phase folliculaire',
-    ringColor: homeColors.primary,
+    ringColor: '#6D4AE8',
     message: 'Ton énergie remonte doucement, c’est un bon moment pour te reconnecter à toi-même.',
     energy: 'Croissante',
     mood: 'Sereine',
@@ -61,7 +72,7 @@ const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   },
   ovulation: {
     label: 'Ovulation',
-    ringColor: homeColors.primary,
+    ringColor: '#6D4AE8',
     message: 'L’ovulation est prévue aujourd’hui, ton énergie est à son maximum.',
     energy: 'Élevée',
     mood: 'Rayonnante',
@@ -128,10 +139,22 @@ const ENERGY_LABELS: Record<number, string> = {
 const SEGMENT_COUNT = 60;
 const RING_SIZE = 116;
 
-function Chip({icon, label, value}: {icon: IconName; label: string; value: string}) {
+function Chip({
+  icon,
+  label,
+  value,
+  theme,
+  styles,
+}: {
+  icon: IconName;
+  label: string;
+  value: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
+}) {
   return (
     <View style={styles.chip}>
-      <MaterialDesignIcons color={homeColors.primary} name={icon} size={16} />
+      <MaterialDesignIcons color={theme.colors.primary} name={icon} size={16} />
       <Text numberOfLines={2} style={styles.chipLabel}>{label}</Text>
       <Text numberOfLines={2} style={styles.chipValue}>{value}</Text>
     </View>
@@ -139,6 +162,8 @@ function Chip({icon, label, value}: {icon: IconName; label: string; value: strin
 }
 
 function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
   const progressAnimation = useRef(new Animated.Value(0)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -232,99 +257,108 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
         <View style={styles.todayColumn}>
           <View style={styles.todayHeader}>
             <Text style={styles.todayTitle}>Aujourd’hui</Text>
-            <MaterialDesignIcons color={homeColors.primary} name="calendar-blank-outline" size={16} />
+            <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={16} />
           </View>
           <Text style={styles.todayMessage}>{insight.message}</Text>
         </View>
       </View>
 
       <View style={styles.chipsRow}>
-        <Chip icon="lightning-bolt-outline" label="Énergie" value={insight.energy} />
+        <Chip icon="lightning-bolt-outline" label="Énergie" styles={styles} theme={theme} value={insight.energy} />
         <View style={styles.chipDivider} />
-        <Chip icon="emoticon-outline" label="Humeur" value={insight.mood} />
+        <Chip icon="emoticon-outline" label="Humeur" styles={styles} theme={theme} value={insight.mood} />
         <View style={styles.chipDivider} />
-        <Chip icon="heart-outline" label="Conseil du jour" value={insight.tip} />
+        <Chip icon="heart-outline" label="Conseil du jour" styles={styles} theme={theme} value={insight.tip} />
       </View>
     </Animated.View>
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    overflow: 'hidden',
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 16,
-    paddingTop: 18,
-    paddingBottom: 14,
-    ...homeShadow,
-  },
-  flower: {
-    position: 'absolute',
-    top: '6%',
-    right: -8,
-    width: 66,
-    height: 62,
-    resizeMode: 'contain',
-    transform: [{rotate: '8deg'}],
-  },
-  topRow: {flexDirection: 'row', alignItems: 'center'},
-  ring: {
-    width: RING_SIZE,
-    height: RING_SIZE,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  segmentOrbit: {
-    position: 'absolute',
-    width: RING_SIZE,
-    height: RING_SIZE,
-    alignItems: 'center',
-  },
-  trackSegment: {
-    position: 'absolute',
-    top: 0,
-    width: 3,
-    height: 8,
-    borderRadius: 2,
-    backgroundColor: homeColors.lightLavender,
-  },
-  activeSegment: {
-    position: 'absolute',
-    top: 0,
-    width: 3,
-    height: 8,
-    borderRadius: 2,
-  },
-  ringCenter: {
-    width: 82,
-    height: 82,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 41,
-    backgroundColor: homeColors.lightLavender,
-  },
-  ringEyebrow: {color: homeColors.textSecondary, fontSize: 9.5, fontWeight: '600'},
-  ringNumber: {marginTop: 1, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 30, fontWeight: '700', lineHeight: 34},
-  ringPhase: {marginTop: 1, fontSize: 9.5, fontWeight: '700', textAlign: 'center', paddingHorizontal: 6},
-  todayColumn: {flex: 1, marginLeft: 14},
-  todayHeader: {flexDirection: 'row', alignItems: 'center', gap: 6, paddingRight: 44},
-  todayTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-  todayMessage: {marginTop: 6, color: homeColors.textSecondary, fontSize: 12.5, lineHeight: 18},
-  chipsRow: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    marginTop: 16,
-    borderRadius: homeRadii.button,
-    backgroundColor: homeColors.lightLavender,
-    paddingVertical: 10,
-    paddingHorizontal: 4,
-  },
-  chip: {flex: 1, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
-  chipDivider: {width: StyleSheet.hairlineWidth, backgroundColor: 'rgba(109,74,232,0.18)'},
-  chipLabel: {marginTop: 4, color: homeColors.textSecondary, fontSize: 9.5, textAlign: 'center'},
-  chipValue: {marginTop: 2, color: homeColors.textPrimary, fontSize: 11, fontWeight: '700', textAlign: 'center'},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    card: {
+      overflow: 'hidden',
+      borderRadius: homeRadii.card,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 16,
+      paddingTop: 18,
+      paddingBottom: 14,
+      ...theme.shadow,
+    },
+    flower: {
+      position: 'absolute',
+      top: '6%',
+      right: -8,
+      width: 66,
+      height: 62,
+      resizeMode: 'contain',
+      transform: [{rotate: '8deg'}],
+    },
+    topRow: {flexDirection: 'row', alignItems: 'center'},
+    ring: {
+      width: RING_SIZE,
+      height: RING_SIZE,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    segmentOrbit: {
+      position: 'absolute',
+      width: RING_SIZE,
+      height: RING_SIZE,
+      alignItems: 'center',
+    },
+    // TRACK — decorative, themeable (Step 11's terminology, though this is
+    // the hero card's own bespoke ring, not AnimatedProgressRing itself).
+    trackSegment: {
+      position: 'absolute',
+      top: 0,
+      width: 3,
+      height: 8,
+      borderRadius: 2,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    // ACTIVE segment color comes from `insight.ringColor` at the JSX call
+    // site (SEMANTIC per-phase color, see PHASE_INSIGHTS above) — this
+    // style intentionally carries no color of its own.
+    activeSegment: {
+      position: 'absolute',
+      top: 0,
+      width: 3,
+      height: 8,
+      borderRadius: 2,
+    },
+    ringCenter: {
+      width: 82,
+      height: 82,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 41,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    ringEyebrow: {color: theme.colors.textSecondary, fontSize: 9.5, fontWeight: '600'},
+    ringNumber: {marginTop: 1, color: theme.colors.text, fontFamily: 'serif', fontSize: 30, fontWeight: '700', lineHeight: 34},
+    // ringPhase's `color` is set per-render from `insight.ringColor`
+    // (SEMANTIC) at the JSX call site — no color here.
+    ringPhase: {marginTop: 1, fontSize: 9.5, fontWeight: '700', textAlign: 'center', paddingHorizontal: 6},
+    todayColumn: {flex: 1, marginLeft: 14},
+    todayHeader: {flexDirection: 'row', alignItems: 'center', gap: 6, paddingRight: 44},
+    todayTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
+    todayMessage: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
+    chipsRow: {
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      marginTop: 16,
+      borderRadius: homeRadii.button,
+      backgroundColor: theme.colors.primarySoft,
+      paddingVertical: 10,
+      paddingHorizontal: 4,
+    },
+    chip: {flex: 1, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
+    chipDivider: {width: StyleSheet.hairlineWidth, backgroundColor: theme.colors.border},
+    chipLabel: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 9.5, textAlign: 'center'},
+    chipValue: {marginTop: 2, color: theme.colors.text, fontSize: 11, fontWeight: '700', textAlign: 'center'},
+  });
+}
 
 export default memo(HeroCycleCard);

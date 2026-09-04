@@ -17,6 +17,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import type {CyclePhase} from '../components/home/CycleStatusCard';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import HomeHeader from '../components/home/HomeHeader';
 import HeroCycleCard from '../components/home/HeroCycleCard';
 import CycleOverviewCard, {type OverviewItem} from '../components/home/CycleOverviewCard';
@@ -60,15 +62,31 @@ import {
   upcomingDateForCycleDay,
 } from '../utils/cycleMath';
 
-const PURPLE = '#6949BE';
+// SEMANTIC — real cycle-tracking meaning, never theme-driven (see the
+// "PHASE D1" note on the overview/quick-action item arrays below for which
+// other colors in this file share that same protection).
 const PERIOD = '#DC7B82';
 const PERIOD_LIGHT = '#F7D7D6';
+const FERTILE = '#3E8E56';
+const FERTILE_LIGHT = '#E4F3E7';
 const OVULATION = '#4E319A';
+const OVULATION_LIGHT = '#EFE6FA';
+// Category E (Phase D1) — a deliberate visual-variety accent for two
+// specific, frequently-used quick actions, chosen by this screen's own
+// author to stand out from the generic purple-icon actions below; not tied
+// to any tracked health/symptom meaning, so left fixed rather than either
+// "semantic" or "generic decorative brand purple".
+const DAILY_JOURNAL_ACCENT = '#B23F63';
+const DAILY_JOURNAL_ACCENT_LIGHT = '#F9DCE8';
+const STATISTICS_ACCENT = '#2C8E93';
+const STATISTICS_ACCENT_LIGHT = '#DDF0F1';
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
 function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const [initial, setCyclePreferencesState] = useState(getCyclePreferences);
   const {open: openJournal} = useJournalSheet();
 
@@ -249,8 +267,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     {
       key: 'fertile-window',
       icon: 'leaf',
-      iconColor: '#3E8E56',
-      iconBg: '#E4F3E7',
+      iconColor: FERTILE,
+      iconBg: FERTILE_LIGHT,
       label: 'Fenêtre fertile',
       value: formatDateRange(fertileStartDate, fertileEndDate),
       subtitle: `Dans ${Math.max(0, diffDays(fertileStartDate, today))} jours`,
@@ -259,7 +277,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       key: 'ovulation',
       icon: 'egg-outline',
       iconColor: OVULATION,
-      iconBg: '#EFE6FA',
+      iconBg: OVULATION_LIGHT,
       label: 'Ovulation prévue',
       value: formatShortDate(ovulationDate),
       subtitle: `Dans ${Math.max(0, diffDays(ovulationDate, today))} jours`,
@@ -267,8 +285,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     {
       key: 'average-length',
       icon: 'calendar-month-outline',
-      iconColor: PURPLE,
-      iconBg: '#EEE3FA',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
       label: averageTile.label,
       value: averageTile.value,
       subtitle: averageTile.subtitle,
@@ -276,12 +294,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   ];
 
   const quickActionItems: QuickActionItem[] = [
-    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
-    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
-    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: '#B23F63', iconBg: '#F9DCE8', label: 'Journal quotidien', onPress: openJournal},
-    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
-    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
-    {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: 'Statistiques'},
+    {key: 'prayer-times', icon: 'mosque', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
+    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
+    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: DAILY_JOURNAL_ACCENT, iconBg: DAILY_JOURNAL_ACCENT_LIGHT, label: 'Journal quotidien', onPress: openJournal},
+    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
+    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
+    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: STATISTICS_ACCENT_LIGHT, label: 'Statistiques'},
   ];
 
   const animatedStyle = {
@@ -298,7 +316,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -311,7 +329,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -406,89 +424,95 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#F2ECF8',
-  },
+// PHASE D1 — page-level background/decor is now theme-driven; the
+// "Mes règles ont commencé" CTA (border/background/text) stays fixed in the
+// period-pink family (SEMANTIC — see the constants above), unchanged here.
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  safeArea: {
-    flex: 1,
-    backgroundColor: 'transparent',
-  },
+    safeArea: {
+      flex: 1,
+      backgroundColor: 'transparent',
+    },
 
-  scrollContent: {
-    paddingHorizontal: 16,
-    paddingTop: TOP_SPACING_EXTRA,
-    paddingBottom: 22,
-  },
+    scrollContent: {
+      paddingHorizontal: 16,
+      paddingTop: TOP_SPACING_EXTRA,
+      paddingBottom: 22,
+    },
 
-  heroSpacer: {
-    marginTop: 16,
-  },
+    heroSpacer: {
+      marginTop: 16,
+    },
 
-  periodStartCtaWrap: {
-    marginTop: 10,
-    alignItems: 'center',
-  },
+    periodStartCtaWrap: {
+      marginTop: 10,
+      alignItems: 'center',
+    },
 
-  periodStartCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    minHeight: 40,
-    borderWidth: 1.2,
-    borderColor: 'rgba(220,123,130,0.35)',
-    borderRadius: 20,
-    backgroundColor: '#FCEEEF',
-    paddingHorizontal: 16,
-    paddingVertical: 9,
-  },
+    // SEMANTIC (period-pink family) — never theme-driven.
+    periodStartCta: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+      minHeight: 40,
+      borderWidth: 1.2,
+      borderColor: 'rgba(220,123,130,0.35)',
+      borderRadius: 20,
+      backgroundColor: '#FCEEEF',
+      paddingHorizontal: 16,
+      paddingVertical: 9,
+    },
 
-  periodStartCtaPressed: {
-    opacity: 0.78,
-  },
+    periodStartCtaPressed: {
+      opacity: 0.78,
+    },
 
-  periodStartCtaText: {
-    color: PERIOD,
-    fontSize: 12.5,
-    fontWeight: '700',
-  },
-});
+    periodStartCtaText: {
+      color: PERIOD,
+      fontSize: 12.5,
+      fontWeight: '700',
+    },
+  });
+}
 
 export default CycleHomeScreen;

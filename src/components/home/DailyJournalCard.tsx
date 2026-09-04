@@ -1,10 +1,17 @@
-import React, {memo, useEffect, useRef} from 'react';
+import React, {memo, useEffect, useMemo, useRef} from 'react';
 import {AccessibilityInfo, Animated, Easing, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii, homeShadow} from './homeTheme';
+import {homeRadii} from './homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {JournalRoute} from '../journal/DailyJournalSheet';
 import type {DailyJournalEntry, JournalSection} from '../../types/journal';
+
+// PHASE C — no symptom/mood VALUE is color-coded here (that lives in each
+// objective's own journal config, untouched) — the little checkmark badge is
+// a generic "logged today" completion indicator, mapped to the theme's own
+// success token; everything else is decorative chrome.
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -46,6 +53,8 @@ type Props = {
 };
 
 function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Journal du jour'}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const progress = useRef(new Animated.Value(0)).current;
   const completed = shortcuts.filter(shortcut => Boolean(entry?.[shortcut.section])).length;
   const ratio = completed / shortcuts.length;
@@ -90,11 +99,11 @@ function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Jo
               style={({pressed}) => [styles.item, pressed && styles.pressed]}>
               <View style={styles.iconWrap}>
                 <View style={[styles.iconCircle, done && styles.iconCircleDone]}>
-                  <MaterialDesignIcons color={done ? '#FFFFFF' : homeColors.primary} name={shortcut.icon} size={16} />
+                  <MaterialDesignIcons color={done ? onPrimaryTextColor(theme) : theme.colors.primary} name={shortcut.icon} size={16} />
                 </View>
                 {done && (
                   <View style={styles.check}>
-                    <MaterialDesignIcons color="#FFFFFF" name="check" size={9} />
+                    <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="check" size={9} />
                   </View>
                 )}
               </View>
@@ -107,46 +116,50 @@ function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Jo
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    ...homeShadow,
-  },
-  header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  title: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  progressLabel: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
-  track: {marginTop: 10, height: 6, borderRadius: 3, backgroundColor: homeColors.lightLavender, overflow: 'hidden'},
-  fill: {height: '100%', borderRadius: 3, backgroundColor: homeColors.primary},
-  row: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, rowGap: 12},
-  item: {flexBasis: '25%', flexGrow: 0, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
-  iconWrap: {width: 36, height: 36},
-  iconCircle: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: homeColors.lightLavender,
-  },
-  iconCircleDone: {backgroundColor: homeColors.primary},
-  check: {
-    position: 'absolute',
-    right: -2,
-    bottom: -2,
-    width: 15,
-    height: 15,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: '#FFFFFF',
-    backgroundColor: homeColors.green,
-  },
-  label: {marginTop: 6, color: homeColors.textSecondary, fontSize: 9, lineHeight: 11.5, textAlign: 'center'},
-  pressed: {opacity: 0.75},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    card: {
+      marginTop: 16,
+      borderRadius: homeRadii.card,
+      backgroundColor: theme.colors.surface,
+      padding: 16,
+      ...theme.shadow,
+    },
+    header: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+    progressLabel: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+    track: {marginTop: 10, height: 6, borderRadius: 3, backgroundColor: theme.colors.primarySoft, overflow: 'hidden'},
+    fill: {height: '100%', borderRadius: 3, backgroundColor: theme.colors.primary},
+    row: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, rowGap: 12},
+    item: {flexBasis: '25%', flexGrow: 0, alignItems: 'center', paddingHorizontal: 1, minWidth: 0},
+    iconWrap: {width: 36, height: 36},
+    iconCircle: {
+      width: 36,
+      height: 36,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    iconCircleDone: {backgroundColor: theme.colors.primary},
+    // Generic "logged today" completion badge — success token, not a
+    // symptom/mood VALUE color.
+    check: {
+      position: 'absolute',
+      right: -2,
+      bottom: -2,
+      width: 15,
+      height: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 8,
+      borderWidth: 1.5,
+      borderColor: theme.colors.surface,
+      backgroundColor: theme.colors.success,
+    },
+    label: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 9, lineHeight: 11.5, textAlign: 'center'},
+    pressed: {opacity: 0.75},
+  });
+}
 
 export default memo(DailyJournalCard);

@@ -24,7 +24,15 @@ import {
   subscribeInAppNotifications,
   type InAppNotification,
 } from '../../state/inAppNotificationStore';
-import { homeColors, homeShadow } from './homeTheme';
+import { useAwaTheme } from '../../theme/AwaThemeProvider';
+import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+
+// PHASE C — every color here is decorative chrome (no health/tracking
+// meaning); the one exception is the "Tout effacer" destructive action,
+// deliberately mapped to `theme.colors.danger` (the resolved theme's own
+// per-palette "this is risky" token) rather than left as a hardcoded red —
+// this is a generic destructive-action affordance, not the kind of fixed
+// semantic color Phase C protects (that's HomeHeader's unread badge).
 
 type Props = { visible: boolean; onClose: () => void };
 
@@ -90,10 +98,14 @@ function NotificationItem({
   notification,
   onOpen,
   onDelete,
+  theme,
+  styles,
 }: {
   notification: InAppNotification;
   onOpen: () => void;
   onDelete: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const categoryLabel = CATEGORY_LABELS[notification.type];
 
@@ -110,7 +122,7 @@ function NotificationItem({
     >
       <View style={styles.itemIcon}>
         <MaterialDesignIcons
-          color={homeColors.primary}
+          color={theme.colors.primary}
           name={iconForType(notification.type) as never}
           size={18}
         />
@@ -146,7 +158,7 @@ function NotificationItem({
         }}
         style={styles.deleteButton}
       >
-        <MaterialDesignIcons color="#9C90AC" name="close" size={16} />
+        <MaterialDesignIcons color={theme.colors.textMuted} name="close" size={16} />
       </Pressable>
     </Pressable>
   );
@@ -157,6 +169,8 @@ function InAppNotificationCenter({
   onClose,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
   const [overflowVisible, setOverflowVisible] = useState(false);
   const [notifications, setNotifications] = useState(getInAppNotifications);
@@ -325,7 +339,7 @@ function InAppNotificationCenter({
                   style={styles.moreButton}
                 >
                   <MaterialDesignIcons
-                    color={homeColors.primary}
+                    color={theme.colors.primary}
                     name="dots-horizontal"
                     size={21}
                   />
@@ -338,7 +352,7 @@ function InAppNotificationCenter({
             <View style={styles.emptyState}>
               <View style={styles.emptyIcon}>
                 <MaterialDesignIcons
-                  color={homeColors.primary}
+                  color={theme.colors.primary}
                   name="bell-outline"
                   size={27}
                 />
@@ -362,6 +376,8 @@ function InAppNotificationCenter({
                     clearInAppNotification(notification.id).catch(() => {})
                   }
                   onOpen={() => openNotification(notification).catch(() => {})}
+                  styles={styles}
+                  theme={theme}
                 />
               ))}
             </ScrollView>
@@ -374,7 +390,7 @@ function InAppNotificationCenter({
               style={styles.overflowMenu}
             >
               <MaterialDesignIcons
-                color="#A65A6E"
+                color={theme.colors.danger}
                 name="trash-can-outline"
                 size={15}
               />
@@ -387,160 +403,165 @@ function InAppNotificationCenter({
   );
 }
 
-const styles = StyleSheet.create({
-  modalRoot: { flex: 1 },
-  backdrop: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: 'rgba(31, 20, 58, 0.18)',
-  },
-  popup: {
-    position: 'absolute',
-    right: 16,
-    left: 16,
-    maxHeight: '54%',
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#E3D6F5',
-    borderRadius: 22,
-    backgroundColor: '#FFFDFF',
-    padding: 14,
-    ...homeShadow,
-  },
-  header: {
-    position: 'relative',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingBottom: 10,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#EDE7F4',
-  },
-  title: {
-    color: homeColors.textPrimary,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '800',
-  },
-  headerActions: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  readAllButton: {
-    borderRadius: 11,
-    backgroundColor: '#F0E7FC',
-    paddingHorizontal: 9,
-    paddingVertical: 6,
-  },
-  readAllText: { color: homeColors.primary, fontSize: 10.5, fontWeight: '800' },
-  moreButton: {
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-  },
-  overflowMenu: {
-    position: 'absolute',
-    zIndex: 20,
-    top: 54,
-    right: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    borderWidth: 1,
-    borderColor: '#F0DFE4',
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 10,
-    paddingVertical: 9,
-    ...homeShadow,
-    elevation: 20,
-  },
-  overflowText: { color: '#A65A6E', fontSize: 10.5, fontWeight: '700' },
-  list: { gap: 7, paddingTop: 10 },
-  item: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    borderRadius: 15,
-    backgroundColor: '#FFFFFF',
-    paddingVertical: 9,
-    paddingHorizontal: 8,
-  },
-  itemUnread: {
-    borderWidth: 1,
-    borderColor: '#E5D8F6',
-    backgroundColor: '#F8F4FF',
-  },
-  itemIcon: {
-    width: 34,
-    height: 34,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: '#EEE5FB',
-  },
-  itemCopy: { flex: 1, minWidth: 0, marginLeft: 8 },
-  itemTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  unreadDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: homeColors.primary,
-  },
-  itemTitle: {
-    flexShrink: 1,
-    color: homeColors.textPrimary,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
-  itemTitleRead: { color: '#5E5373', fontWeight: '700' },
-  itemMessage: {
-    marginTop: 2,
-    color: homeColors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 13,
-  },
-  itemDate: {
-    marginTop: 4,
-    color: '#9185A7',
-    fontSize: 8.5,
-    fontWeight: '600',
-  },
-  deleteButton: {
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 3,
-  },
-  emptyState: {
-    alignItems: 'center',
-    paddingHorizontal: 22,
-    paddingTop: 22,
-    paddingBottom: 24,
-  },
-  emptyIcon: {
-    width: 56,
-    height: 56,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 28,
-    backgroundColor: '#F0E7FC',
-  },
-  emptyTitle: {
-    marginTop: 11,
-    color: homeColors.textPrimary,
-    fontSize: 13,
-    fontWeight: '800',
-  },
-  emptyText: {
-    marginTop: 4,
-    color: homeColors.textSecondary,
-    fontSize: 10,
-    textAlign: 'center',
-  },
-  pressed: { opacity: 0.74, transform: [{ scale: 0.98 }] },
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    modalRoot: { flex: 1 },
+    // Modal backdrop — deliberately theme-independent (a dark dim always
+    // reads correctly behind a modal, in both light and dark mode; flipping
+    // it light in dark mode would stop dimming the screen behind it).
+    backdrop: {
+      position: 'absolute',
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+      backgroundColor: 'rgba(31, 20, 58, 0.18)',
+    },
+    popup: {
+      position: 'absolute',
+      right: 16,
+      left: 16,
+      maxHeight: '54%',
+      overflow: 'hidden',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 22,
+      backgroundColor: theme.colors.surface,
+      padding: 14,
+      ...theme.shadow,
+    },
+    header: {
+      position: 'relative',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingBottom: 10,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.border,
+    },
+    title: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 19,
+      fontWeight: '800',
+    },
+    headerActions: { flexDirection: 'row', alignItems: 'center', gap: 4 },
+    readAllButton: {
+      borderRadius: 11,
+      backgroundColor: theme.colors.primarySoft,
+      paddingHorizontal: 9,
+      paddingVertical: 6,
+    },
+    readAllText: { color: theme.colors.primary, fontSize: 10.5, fontWeight: '800' },
+    moreButton: {
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 15,
+    },
+    overflowMenu: {
+      position: 'absolute',
+      zIndex: 20,
+      top: 54,
+      right: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 12,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 10,
+      paddingVertical: 9,
+      ...theme.shadow,
+      elevation: 20,
+    },
+    overflowText: { color: theme.colors.danger, fontSize: 10.5, fontWeight: '700' },
+    list: { gap: 7, paddingTop: 10 },
+    item: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      borderRadius: 15,
+      backgroundColor: theme.colors.surface,
+      paddingVertical: 9,
+      paddingHorizontal: 8,
+    },
+    itemUnread: {
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    itemIcon: {
+      width: 34,
+      height: 34,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    itemCopy: { flex: 1, minWidth: 0, marginLeft: 8 },
+    itemTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+    unreadDot: {
+      width: 6,
+      height: 6,
+      borderRadius: 3,
+      backgroundColor: theme.colors.primary,
+    },
+    itemTitle: {
+      flexShrink: 1,
+      color: theme.colors.text,
+      fontSize: 11.5,
+      fontWeight: '800',
+    },
+    itemTitleRead: { color: theme.colors.textMuted, fontWeight: '700' },
+    itemMessage: {
+      marginTop: 2,
+      color: theme.colors.textSecondary,
+      fontSize: 9.5,
+      lineHeight: 13,
+    },
+    itemDate: {
+      marginTop: 4,
+      color: theme.colors.textMuted,
+      fontSize: 8.5,
+      fontWeight: '600',
+    },
+    deleteButton: {
+      width: 24,
+      height: 24,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: 3,
+    },
+    emptyState: {
+      alignItems: 'center',
+      paddingHorizontal: 22,
+      paddingTop: 22,
+      paddingBottom: 24,
+    },
+    emptyIcon: {
+      width: 56,
+      height: 56,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 28,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    emptyTitle: {
+      marginTop: 11,
+      color: theme.colors.text,
+      fontSize: 13,
+      fontWeight: '800',
+    },
+    emptyText: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 10,
+      textAlign: 'center',
+    },
+    pressed: { opacity: 0.74, transform: [{ scale: 0.98 }] },
+  });
+}
 
 export default InAppNotificationCenter;

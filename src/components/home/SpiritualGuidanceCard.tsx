@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef} from 'react';
+import React, {memo, useEffect, useMemo, useRef} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -10,9 +10,24 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii, homeShadow} from './homeTheme';
+import {homeColors, homeRadii} from './homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PrayerWindow} from '../../services/prayerTimes';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
+
+// ============================================================================
+// PHASE C — SEMANTIC vs THEMEABLE COLORS IN THIS FILE
+// ============================================================================
+// The "Menstrues"/"Pureté" status badge (and its accompanying purity-summary
+// block) encode real menstrual/religious status — a health+religious
+// meaning — and are DELIBERATELY left exactly as they were, still sourced
+// from `homeColors.green`/`homeColors.greenLight` and the fixed rose
+// '#A8505A'/'#F5DEDE' pair, never `theme.colors.*`. Switching from Rose
+// Quartz to Sage Serenity must not change what "Pureté" or "Menstrues" look
+// like. Everything else (card chrome, generic info blocks, the "Actif"
+// feature-status badge, Nifas education/reminder cards) is decorative and
+// now theme-driven.
 
 type Props = {
   /**
@@ -68,15 +83,19 @@ function InfoBlock({
   icon,
   label,
   value,
+  theme,
+  styles,
 }: {
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   label: string;
   value: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View style={styles.infoBlock}>
       <MaterialDesignIcons
-        color={homeColors.primary}
+        color={theme.colors.primary}
         name={icon}
         size={19}
       />
@@ -118,6 +137,8 @@ function SpiritualGuidanceCard({
   onPressNifas,
   onPressPuritySummary,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const isCycle = objective === 'cycle';
   const isPostpartum = objective === 'postpartum';
 
@@ -213,7 +234,7 @@ function SpiritualGuidanceCard({
       ]}>
       {/* Watermark */}
       <MaterialDesignIcons
-        color={homeColors.lightLavender}
+        color={theme.colors.primarySoft}
         name="mosque"
         size={110}
         style={styles.watermark}
@@ -223,7 +244,7 @@ function SpiritualGuidanceCard({
       <View style={styles.headingRow}>
         <View style={styles.mosqueCircle}>
           <MaterialDesignIcons
-            color={homeColors.primary}
+            color={theme.colors.primary}
             name="mosque"
             size={22}
           />
@@ -290,7 +311,7 @@ function SpiritualGuidanceCard({
       {/* Localisation */}
       <View style={styles.locationRow}>
         <MaterialDesignIcons
-          color={homeColors.primary}
+          color={theme.colors.primary}
           name="map-marker-outline"
           size={15}
         />
@@ -306,6 +327,8 @@ function SpiritualGuidanceCard({
         <InfoBlock
           icon="alarm"
           label="Prochaine prière"
+          styles={styles}
+          theme={theme}
           value={prayerValue}
         />
 
@@ -314,6 +337,8 @@ function SpiritualGuidanceCard({
         <InfoBlock
           icon="calendar-month-outline"
           label="Date Hijri"
+          styles={styles}
+          theme={theme}
           value={hijriDate ?? 'Indisponible'}
         />
 
@@ -324,6 +349,8 @@ function SpiritualGuidanceCard({
             <InfoBlock
               icon="silverware-fork-knife"
               label="Jeûnes à rattraper"
+              styles={styles}
+              theme={theme}
               value={qadaaDays > 0 ? `${qadaaDays} jours` : 'À jour'}
             />
           </>
@@ -336,6 +363,8 @@ function SpiritualGuidanceCard({
             <InfoBlock
               icon="flower-outline"
               label="Nifas"
+              styles={styles}
+              theme={theme}
               value={nifasValue}
             />
           </>
@@ -377,7 +406,7 @@ function SpiritualGuidanceCard({
           </View>
 
           <MaterialDesignIcons
-            color={homeColors.textSecondary}
+            color={theme.colors.textSecondary}
             name="chevron-right"
             size={17}
           />
@@ -394,7 +423,7 @@ function SpiritualGuidanceCard({
             pressed && styles.pressed,
           ]}>
           <MaterialDesignIcons
-            color={homeColors.primary}
+            color={theme.colors.primary}
             name="book-open-page-variant-outline"
             size={17}
           />
@@ -410,7 +439,7 @@ function SpiritualGuidanceCard({
           </View>
 
           <MaterialDesignIcons
-            color={homeColors.textSecondary}
+            color={theme.colors.textSecondary}
             name="chevron-right"
             size={18}
           />
@@ -429,7 +458,7 @@ function SpiritualGuidanceCard({
           ]}>
           <View style={styles.nifasReminderIcon}>
             <MaterialDesignIcons
-              color={homeColors.primary}
+              color={theme.colors.primary}
               name="bell-outline"
               size={18}
             />
@@ -458,298 +487,306 @@ function SpiritualGuidanceCard({
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    overflow: 'hidden',
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    ...homeShadow,
-  },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    card: {
+      overflow: 'hidden',
+      marginTop: 16,
+      borderRadius: homeRadii.card,
+      backgroundColor: theme.colors.surface,
+      padding: 16,
+      ...theme.shadow,
+    },
 
-  watermark: {
-    position: 'absolute',
-    right: -22,
-    bottom: -22,
-    opacity: 0.5,
-  },
+    watermark: {
+      position: 'absolute',
+      right: -22,
+      bottom: -22,
+      opacity: 0.5,
+    },
 
-  headingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+    headingRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
 
-  mosqueCircle: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    backgroundColor: homeColors.lightLavender,
-  },
+    mosqueCircle: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 20,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  title: {
-    flex: 1,
-    minWidth: 0,
-    marginLeft: 10,
-    color: homeColors.textPrimary,
-    fontFamily: 'serif',
-    fontSize: 17,
-    fontWeight: '700',
-  },
+    title: {
+      flex: 1,
+      minWidth: 0,
+      marginLeft: 10,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 17,
+      fontWeight: '700',
+    },
 
-  manageLink: {
-    color: homeColors.primary,
-    fontSize: 11.5,
-    fontWeight: '700',
-  },
+    manageLink: {
+      color: theme.colors.primary,
+      fontSize: 11.5,
+      fontWeight: '700',
+    },
 
-  badgeRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-    marginTop: 10,
-    marginLeft: 50,
-  },
+    badgeRow: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+      marginTop: 10,
+      marginLeft: 50,
+    },
 
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    borderRadius: 12,
-    paddingHorizontal: 9,
-    paddingVertical: 4,
-  },
+    badge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      borderRadius: 12,
+      paddingHorizontal: 9,
+      paddingVertical: 4,
+    },
 
-  activeBadge: {
-    backgroundColor: homeColors.greenLight,
-  },
+    // Generic "this feature is on" status chip — not itself a menstrual/
+    // religious status value (that's the period/purity badge below), so it
+    // follows the theme's own success token.
+    activeBadge: {
+      backgroundColor: theme.colors.success,
+    },
 
-  activeBadgeText: {
-    color: homeColors.green,
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
+    activeBadgeText: {
+      color: pickReadableTextColor(theme.colors.success),
+      fontSize: 10.5,
+      fontWeight: '700',
+    },
 
-  periodBadge: {
-    backgroundColor: '#F5DEDE',
-  },
+    // SEMANTIC — menstrual status, never theme-driven (see file header note).
+    periodBadge: {
+      backgroundColor: '#F5DEDE',
+    },
 
-  purityBadge: {
-    backgroundColor: homeColors.greenLight,
-  },
+    purityBadge: {
+      backgroundColor: homeColors.greenLight,
+    },
 
-  badgeText: {
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
+    badgeText: {
+      fontSize: 10.5,
+      fontWeight: '700',
+    },
 
-  periodText: {
-    color: '#A8505A',
-  },
+    periodText: {
+      color: '#A8505A',
+    },
 
-  purityText: {
-    color: homeColors.green,
-  },
+    purityText: {
+      color: homeColors.green,
+    },
 
-  locationRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 5,
-    marginTop: 12,
-    paddingHorizontal: 4,
-  },
+    locationRow: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 5,
+      marginTop: 12,
+      paddingHorizontal: 4,
+    },
 
-  locationText: {
-    flex: 1,
-    minWidth: 0,
-    color: homeColors.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 16,
-  },
+    locationText: {
+      flex: 1,
+      minWidth: 0,
+      color: theme.colors.textSecondary,
+      fontSize: 11.5,
+      lineHeight: 16,
+    },
 
-  /**
-   * IMPORTANT:
-   * Les blocs restent sur une seule ligne mais chacun
-   * peut réduire sa largeur proprement.
-   */
-  body: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    marginTop: 14,
-  },
+    /**
+     * IMPORTANT:
+     * Les blocs restent sur une seule ligne mais chacun
+     * peut réduire sa largeur proprement.
+     */
+    body: {
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      marginTop: 14,
+    },
 
-  /**
-   * minWidth: 0 est important en React Native
-   * lorsque plusieurs éléments flexibles sont côte à côte.
-   */
-  infoBlock: {
-    flex: 1,
-    minWidth: 0,
-    alignItems: 'center',
-    paddingHorizontal: 2,
-  },
+    /**
+     * minWidth: 0 est important en React Native
+     * lorsque plusieurs éléments flexibles sont côte à côte.
+     */
+    infoBlock: {
+      flex: 1,
+      minWidth: 0,
+      alignItems: 'center',
+      paddingHorizontal: 2,
+    },
 
-  infoLabel: {
-    marginTop: 6,
-    color: homeColors.textSecondary,
-    fontSize: 9.5,
-    lineHeight: 13,
-    textAlign: 'center',
-  },
+    infoLabel: {
+      marginTop: 6,
+      color: theme.colors.textSecondary,
+      fontSize: 9.5,
+      lineHeight: 13,
+      textAlign: 'center',
+    },
 
-  /**
-   * Pas de hauteur fixe.
-   * Pas de numberOfLines.
-   *
-   * Cela permet :
-   *
-   * Jour 3 · Pertes
-   * en cours
-   *
-   * ou même 3 lignes sur un très petit écran.
-   */
-  infoValue: {
-    width: '100%',
-    flexShrink: 1,
-    marginTop: 3,
-    color: homeColors.textPrimary,
-    fontSize: 10.5,
-    lineHeight: 14,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
+    /**
+     * Pas de hauteur fixe.
+     * Pas de numberOfLines.
+     *
+     * Cela permet :
+     *
+     * Jour 3 · Pertes
+     * en cours
+     *
+     * ou même 3 lignes sur un très petit écran.
+     */
+    infoValue: {
+      width: '100%',
+      flexShrink: 1,
+      marginTop: 3,
+      color: theme.colors.text,
+      fontSize: 10.5,
+      lineHeight: 14,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
 
-  separator: {
-    width: StyleSheet.hairlineWidth,
-    marginHorizontal: 4,
-    backgroundColor: homeColors.cardBorder,
-  },
+    separator: {
+      width: StyleSheet.hairlineWidth,
+      marginHorizontal: 4,
+      backgroundColor: theme.colors.border,
+    },
 
-  pressed: {
-    opacity: 0.7,
-  },
+    pressed: {
+      opacity: 0.7,
+    },
 
-  puritySummary: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-    width: '100%',
-    marginTop: 14,
-    borderRadius: 16,
-    backgroundColor: homeColors.greenLight,
-    paddingHorizontal: 12,
-    paddingVertical: 11,
-  },
+    // SEMANTIC — same purity-confirmed language as the badge above, never
+    // theme-driven, except the neutral white icon backdrop below.
+    puritySummary: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 9,
+      width: '100%',
+      marginTop: 14,
+      borderRadius: 16,
+      backgroundColor: homeColors.greenLight,
+      paddingHorizontal: 12,
+      paddingVertical: 11,
+    },
 
-  purityCheckCircle: {
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-    flexShrink: 0,
-  },
+    purityCheckCircle: {
+      width: 24,
+      height: 24,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      backgroundColor: theme.colors.surface,
+      flexShrink: 0,
+    },
 
-  puritySummaryCopy: {
-    flex: 1,
-    minWidth: 0,
-    flexShrink: 1,
-  },
+    puritySummaryCopy: {
+      flex: 1,
+      minWidth: 0,
+      flexShrink: 1,
+    },
 
-  puritySummaryPrimary: {
-    color: '#1F5C34',
-    fontSize: 12.5,
-    fontWeight: '700',
-    lineHeight: 17,
-  },
+    puritySummaryPrimary: {
+      color: '#1F5C34',
+      fontSize: 12.5,
+      fontWeight: '700',
+      lineHeight: 17,
+    },
 
-  puritySummarySecondary: {
-    marginTop: 2,
-    color: '#3E7A54',
-    fontSize: 11.5,
-    fontWeight: '600',
-    lineHeight: 15,
-  },
+    puritySummarySecondary: {
+      marginTop: 2,
+      color: '#3E7A54',
+      fontSize: 11.5,
+      fontWeight: '600',
+      lineHeight: 15,
+    },
 
-  nifasEducation: {
-    marginTop: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-    borderRadius: 15,
-    backgroundColor: '#F4EEFB',
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-  },
+    nifasEducation: {
+      marginTop: 13,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 9,
+      borderRadius: 15,
+      backgroundColor: theme.colors.primarySoft,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+    },
 
-  nifasEducationCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
+    nifasEducationCopy: {
+      flex: 1,
+      minWidth: 0,
+    },
 
-  nifasEducationTitle: {
-    color: homeColors.textPrimary,
-    fontSize: 12,
-    fontWeight: '800',
-  },
+    nifasEducationTitle: {
+      color: theme.colors.text,
+      fontSize: 12,
+      fontWeight: '800',
+    },
 
-  nifasEducationText: {
-    marginTop: 2,
-    color: homeColors.textSecondary,
-    fontSize: 10,
-    lineHeight: 14,
-  },
+    nifasEducationText: {
+      marginTop: 2,
+      color: theme.colors.textSecondary,
+      fontSize: 10,
+      lineHeight: 14,
+    },
 
-  nifasReminder: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-    marginTop: 10,
-    borderWidth: 1,
-    borderColor: '#E6D9F8',
-    borderRadius: 15,
-    backgroundColor: '#FBF8FF',
-    paddingHorizontal: 11,
-    paddingVertical: 10,
-  },
+    nifasReminder: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 9,
+      marginTop: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 15,
+      backgroundColor: theme.colors.primarySoft,
+      paddingHorizontal: 11,
+      paddingVertical: 10,
+    },
 
-  nifasReminderIcon: {
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-    backgroundColor: '#F0E7FC',
-    flexShrink: 0,
-  },
+    nifasReminderIcon: {
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 15,
+      backgroundColor: theme.colors.primarySoft,
+      flexShrink: 0,
+    },
 
-  nifasReminderCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
+    nifasReminderCopy: {
+      flex: 1,
+      minWidth: 0,
+    },
 
-  nifasReminderTitle: {
-    color: homeColors.textPrimary,
-    fontSize: 12,
-    fontWeight: '800',
-  },
+    nifasReminderTitle: {
+      color: theme.colors.text,
+      fontSize: 12,
+      fontWeight: '800',
+    },
 
-  nifasReminderText: {
-    marginTop: 2,
-    color: homeColors.textSecondary,
-    fontSize: 10,
-    lineHeight: 14,
-  },
+    nifasReminderText: {
+      marginTop: 2,
+      color: theme.colors.textSecondary,
+      fontSize: 10,
+      lineHeight: 14,
+    },
 
-  nifasReminderLink: {
-    flexShrink: 0,
-    color: homeColors.primary,
-    fontSize: 9.5,
-    fontWeight: '800',
-  },
-});
+    nifasReminderLink: {
+      flexShrink: 0,
+      color: theme.colors.primary,
+      fontSize: 9.5,
+      fontWeight: '800',
+    },
+  });
+}
 
 export default memo(SpiritualGuidanceCard);

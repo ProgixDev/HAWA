@@ -24,6 +24,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {
@@ -104,13 +106,13 @@ import {
   formatHijriDate,
 } from '../../utils/cycleMath';
 
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F1EAFB';
-
-const BORDER_STRONG = 'rgba(105,73,190,0.18)';
-
-const MUTED = '#776C92';
+// PHASE D2 — PURPLE/PURPLE_DARK/PURPLE_SOFT/BORDER_STRONG/MUTED/CARD_BACKGROUND
+// used to be fixed literals here; they are now derived from useAwaTheme() at
+// the top of ContraceptionDashboard() (and re-derived identically inside
+// createStyles(theme)) so every decorative-purple usage in this file follows
+// the resolved global theme. Only ONE usage (HeroIntakeActionButton's
+// unselected label, styles.heroActionText) keeps a hardcoded dark-purple
+// literal instead — see that style's own comment for why.
 
 const SUCCESS = '#42A66A';
 const SUCCESS_SOFT = '#EDF8F1';
@@ -134,8 +136,6 @@ const HERO_ACTION_COLORS: Record<ContraceptionIntakeStatus, {color: string; soft
   late: {color: WARNING, soft: WARNING_SOFT},
   missed: {color: DANGER, soft: DANGER_SOFT},
 };
-
-const CARD_BACKGROUND = 'rgba(255,255,255,0.97)';
 
 const CONTRACEPTION_CAPSULE_IMAGE = require('../../assets/images/contraception/contraception-capsule.png');
 const CONTRACEPTION_PILL_PACK_IMAGE = require('../../assets/images/contraception/contraception-pill-pack.png');
@@ -244,6 +244,7 @@ function HeroIntakeActionButton({
   selected,
   onPress,
   compact,
+  styles,
 }: {
   status: ContraceptionIntakeStatus;
   label: string;
@@ -251,6 +252,7 @@ function HeroIntakeActionButton({
   selected: boolean;
   onPress: () => void;
   compact: boolean;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const {color, soft} = HERO_ACTION_COLORS[status];
 
@@ -312,6 +314,18 @@ function ContraceptionDashboard({
 
   const {isPremium} = usePremium();
   const [historyPremiumVisible, setHistoryPremiumVisible] = useState(false);
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // PHASE D2 — decorative-brand-purple identifiers, now theme-derived (see
+  // the module-level comment above where these used to be fixed literals).
+  // SUCCESS/WARNING/DANGER (health-status semantics) stay fixed module
+  // consts, untouched.
+  const PURPLE = theme.colors.primary;
+  const PURPLE_DARK = theme.colors.accent;
+  const PURPLE_SOFT = theme.colors.primarySoft;
+  const MUTED = theme.colors.textMuted;
 
   /*
    * ============================================================
@@ -1047,7 +1061,7 @@ function ContraceptionDashboard({
         key: 'prayer-times',
         icon: 'mosque',
         iconColor: PURPLE,
-        iconBg: '#EEE5FB',
+        iconBg: PURPLE_SOFT,
         label:
           'Horaires\nde prière',
         onPress: () =>
@@ -1061,7 +1075,7 @@ function ContraceptionDashboard({
         icon:
           'book-open-page-variant-outline',
         iconColor: PURPLE,
-        iconBg: '#EFE8FB',
+        iconBg: PURPLE_SOFT,
         label: 'Bibliothèque',
         onPress: () =>
           navigation.navigate(
@@ -1084,7 +1098,7 @@ function ContraceptionDashboard({
         icon:
           'moon-waning-crescent',
         iconColor: PURPLE,
-        iconBg: '#EEE5FB',
+        iconBg: PURPLE_SOFT,
         label:
           'Calendrier Hijri',
         onPress: () =>
@@ -1098,7 +1112,7 @@ function ContraceptionDashboard({
         icon:
           'silverware-fork-knife',
         iconColor: PURPLE,
-        iconBg: '#F1EAFB',
+        iconBg: PURPLE_SOFT,
         label:
           'Jeûne à rattraper',
         onPress: () =>
@@ -1139,12 +1153,7 @@ function ContraceptionDashboard({
 
   return (
     <LinearGradient
-      colors={[
-        '#FAF8FD',
-        '#F4EFFA',
-        '#EEE7F7',
-        '#E9E1F3',
-      ]}
+      colors={[...theme.gradients.pageBackground]}
       locations={[
         0,
         0.32,
@@ -1188,7 +1197,7 @@ function ContraceptionDashboard({
         style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -1341,6 +1350,7 @@ function ContraceptionDashboard({
                       onPress={handleMarkTaken}
                       selected={todayRecord?.status === 'taken'}
                       status="taken"
+                      styles={styles}
                     />
                   </View>
 
@@ -1352,6 +1362,7 @@ function ContraceptionDashboard({
                       onPress={handleMarkLate}
                       selected={todayRecord?.status === 'late'}
                       status="late"
+                      styles={styles}
                     />
 
                     <HeroIntakeActionButton
@@ -1361,6 +1372,7 @@ function ContraceptionDashboard({
                       onPress={handleMarkMissed}
                       selected={todayRecord?.status === 'missed'}
                       status="missed"
+                      styles={styles}
                     />
                   </View>
                 </View>
@@ -1373,6 +1385,7 @@ function ContraceptionDashboard({
                     onPress={handleMarkTaken}
                     selected={todayRecord?.status === 'taken'}
                     status="taken"
+                    styles={styles}
                   />
 
                   <HeroIntakeActionButton
@@ -1382,6 +1395,7 @@ function ContraceptionDashboard({
                     onPress={handleMarkLate}
                     selected={todayRecord?.status === 'late'}
                     status="late"
+                    styles={styles}
                   />
 
                   <HeroIntakeActionButton
@@ -1391,6 +1405,7 @@ function ContraceptionDashboard({
                     onPress={handleMarkMissed}
                     selected={todayRecord?.status === 'missed'}
                     status="missed"
+                    styles={styles}
                   />
                 </View>
               )
@@ -1458,7 +1473,7 @@ function ContraceptionDashboard({
               <View style={styles.methodOverviewRow}>
                 <View style={styles.methodLargeIcon}>
                   <LinearGradient
-                    colors={['#F8F2FF', '#ECE1FB']}
+                    colors={[withAlpha(theme.colors.primary, 0.06), theme.colors.primarySoft]}
                     style={styles.methodLargeIconGradient}>
                     {isPill ? (
                       <Image
@@ -1531,7 +1546,7 @@ function ContraceptionDashboard({
                       <Text style={styles.methodConfigureText}>Configurer</Text>
                     </View>
                   ) : (
-                    <MaterialDesignIcons color="#B9ACC9" name="chevron-right" size={18} />
+                    <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
                   )}
                 </Pressable>
               ) : null}
@@ -1706,7 +1721,7 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.dailyStatTrailing}>
-                  <MaterialDesignIcons color="#B9ACC9" name="chevron-right" size={18} />
+                  <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
                 </View>
               </Pressable>
 
@@ -1746,7 +1761,7 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.dailyStatTrailing}>
-                  <MaterialDesignIcons color="#B9ACC9" name="chevron-right" size={18} />
+                  <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
                 </View>
               </Pressable>
 
@@ -1786,7 +1801,7 @@ function ContraceptionDashboard({
                 </View>
 
                 <View style={styles.dailyStatTrailing}>
-                  <MaterialDesignIcons color="#B9ACC9" name="chevron-right" size={18} />
+                  <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
                 </View>
               </Pressable>
             </View>
@@ -2334,16 +2349,29 @@ function ContraceptionDashboard({
   );
 }
 
-const styles =
-  StyleSheet.create({
+// PHASE D2 — converted to a createStyles(theme) factory (see D1's
+// CycleHomeScreen.tsx for the identical pattern). PURPLE/PURPLE_DARK/
+// PURPLE_SOFT/BORDER_STRONG/MUTED/CARD_BACKGROUND are re-derived here (same
+// mapping as the component-body copies above) so every style below keeps
+// working unchanged by name. SUCCESS/SUCCESS_SOFT/DANGER/DANGER_SOFT/
+// WARNING/WARNING_SOFT (module-level, above) stay fixed semantic literals —
+// never theme-driven.
+function createStyles(theme: ResolvedAwaTheme) {
+  const PURPLE = theme.colors.primary;
+  const PURPLE_DARK = theme.colors.accent;
+  const PURPLE_SOFT = theme.colors.primarySoft;
+  const BORDER_STRONG = withAlpha(theme.colors.primary, 0.18);
+  const MUTED = theme.colors.textMuted;
+  const CARD_BACKGROUND = withAlpha(theme.colors.surface, 0.97);
+
+  return StyleSheet.create({
     flexOne: {
       flex: 1,
     },
 
     background: {
       flex: 1,
-      backgroundColor:
-        '#F2ECF8',
+      backgroundColor: theme.colors.background,
     },
 
     safeArea: {
@@ -2362,8 +2390,7 @@ const styles =
       width: 330,
       height: 330,
       borderRadius: 165,
-      backgroundColor:
-        'rgba(111,82,170,0.07)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
     },
 
     pageGlowMiddle: {
@@ -2373,8 +2400,7 @@ const styles =
       width: 270,
       height: 270,
       borderRadius: 135,
-      backgroundColor:
-        'rgba(139,112,188,0.045)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
     },
 
     pageGlowBottom: {
@@ -2384,8 +2410,7 @@ const styles =
       width: 310,
       height: 310,
       borderRadius: 155,
-      backgroundColor:
-        'rgba(92,67,139,0.05)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
     },
 
     scrollContent: {
@@ -2417,8 +2442,7 @@ const styles =
       backgroundColor:
         CARD_BACKGROUND,
 
-      shadowColor:
-        '#4B348A',
+      shadowColor: theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -2437,8 +2461,7 @@ const styles =
       top: -100,
       right: -62,
       borderRadius: 95,
-      backgroundColor:
-        'rgba(121,77,214,0.10)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.10),
     },
 
     todayHeroGlowTwo: {
@@ -2448,8 +2471,7 @@ const styles =
       left: -90,
       bottom: -105,
       borderRadius: 85,
-      backgroundColor:
-        'rgba(239,186,215,0.11)',
+      backgroundColor: withAlpha(theme.colors.secondary, 0.11),
     },
 
     todayBadge: {
@@ -2457,8 +2479,7 @@ const styles =
       paddingHorizontal: 9,
       paddingVertical: 5,
       borderRadius: 999,
-      backgroundColor:
-        '#F0E8FB',
+      backgroundColor: PURPLE_SOFT,
     },
 
     todayBadgeText: {
@@ -2597,7 +2618,14 @@ const styles =
 
     heroActionText: {
       flexShrink: 1,
-      color: PURPLE_DARK,
+      // Fixed, NOT `PURPLE_DARK` — this label sits on the unselected state's
+      // background (HERO_ACTION_COLORS[status].soft), which is one of the
+      // deliberately-fixed SUCCESS_SOFT/WARNING_SOFT/DANGER_SOFT pastels
+      // (always light, regardless of palette/dark mode). `theme.colors.
+      // accent` inverts to a LIGHT tint in dark mode and would lose contrast
+      // against that always-light background — see MotivationCard's
+      // identical "fixed text over a fixed surface" precedent (Phase D1).
+      color: '#28166F',
       fontSize: 10.5,
       lineHeight: 14,
       fontWeight: '800',
@@ -2614,10 +2642,10 @@ const styles =
       marginTop: 15,
       padding: 16,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.12)',
+      borderColor: withAlpha(theme.colors.primary, 0.12),
       borderRadius: 26,
-      backgroundColor: 'rgba(255,255,255,0.98)',
-      shadowColor: '#4D3983',
+      backgroundColor: withAlpha(theme.colors.surface, 0.98),
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 8},
       shadowOpacity: 0.08,
       shadowRadius: 18,
@@ -2647,7 +2675,7 @@ const styles =
       paddingHorizontal: 10,
       paddingVertical: 6,
       borderRadius: 999,
-      backgroundColor: '#F1E9FC',
+      backgroundColor: PURPLE_SOFT,
     },
 
     methodEditText: {
@@ -2661,7 +2689,7 @@ const styles =
       gap: 12,
       padding: 13,
       borderRadius: 20,
-      backgroundColor: '#FAF7FE',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     methodOverviewRow: {
@@ -2676,7 +2704,7 @@ const styles =
       borderRadius: 19,
       overflow: 'hidden',
       flexShrink: 0,
-      shadowColor: '#6949BE',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.08,
       shadowRadius: 7,
@@ -2719,9 +2747,9 @@ const styles =
       paddingHorizontal: 11,
       paddingVertical: 10,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.09)',
+      borderColor: withAlpha(theme.colors.primary, 0.09),
       borderRadius: 15,
-      backgroundColor: '#FFFFFF',
+      backgroundColor: theme.colors.surface,
     },
 
     methodStartIcon: {
@@ -2767,7 +2795,7 @@ const styles =
     },
 
     methodConfigureText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 9.5,
       fontWeight: '800',
     },
@@ -2803,8 +2831,7 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 13,
-      backgroundColor:
-        '#F1E9FC',
+      backgroundColor: PURPLE_SOFT,
     },
 
     sectionMoon: {
@@ -2813,8 +2840,7 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 13,
-      backgroundColor:
-        '#F0E8FB',
+      backgroundColor: PURPLE_SOFT,
     },
 
     quickActionsWrapper: {
@@ -2831,10 +2857,10 @@ const styles =
       marginTop: 20,
       padding: 15,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.11)',
+      borderColor: withAlpha(theme.colors.primary, 0.11),
       borderRadius: 24,
-      backgroundColor: 'rgba(255,255,255,0.98)',
-      shadowColor: '#513A8D',
+      backgroundColor: withAlpha(theme.colors.surface, 0.98),
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 7,
@@ -2863,9 +2889,9 @@ const styles =
       justifyContent: 'center',
       flexShrink: 0,
       borderRadius: 13,
-      backgroundColor: '#F0E8FB',
+      backgroundColor: PURPLE_SOFT,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.07)',
+      borderColor: withAlpha(theme.colors.primary, 0.07),
     },
 
     dailyTitle: {
@@ -2886,9 +2912,9 @@ const styles =
       marginTop: 14,
       overflow: 'hidden',
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.08)',
+      borderColor: withAlpha(theme.colors.primary, 0.08),
       borderRadius: 17,
-      backgroundColor: '#FBF9FE',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     dailyStatRow: {
@@ -2898,8 +2924,8 @@ const styles =
       paddingHorizontal: 11,
       paddingVertical: 9,
       borderBottomWidth: StyleSheet.hairlineWidth,
-      borderBottomColor: 'rgba(105,73,190,0.09)',
-      backgroundColor: '#FBF9FE',
+      borderBottomColor: withAlpha(theme.colors.primary, 0.09),
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     dailyStatIcon: {
@@ -2942,7 +2968,7 @@ const styles =
     },
 
     dailyStatusMuted: {
-      backgroundColor: '#F0EDF4',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     dailyStatusDot: {
@@ -2964,7 +2990,7 @@ const styles =
     },
 
     dailyStatusDotMuted: {
-      backgroundColor: '#B5AEC1',
+      backgroundColor: MUTED,
     },
 
     dailyStatLabel: {
@@ -3007,10 +3033,10 @@ const styles =
       paddingTop: 14,
       paddingBottom: 13,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.11)',
+      borderColor: withAlpha(theme.colors.primary, 0.11),
       borderRadius: 25,
-      backgroundColor: 'rgba(255,255,255,0.98)',
-      shadowColor: '#513A8D',
+      backgroundColor: withAlpha(theme.colors.surface, 0.98),
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 7,
@@ -3059,7 +3085,7 @@ const styles =
       justifyContent: 'center',
       flexShrink: 0,
       borderRadius: 12,
-      backgroundColor: '#F0E8FB',
+      backgroundColor: PURPLE_SOFT,
     },
 
     historyHeaderCopy: {
@@ -3100,15 +3126,15 @@ const styles =
       paddingTop: 9,
       paddingBottom: 7,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.075)',
+      borderColor: withAlpha(theme.colors.primary, 0.075),
       borderRadius: 14,
-      backgroundColor: '#FCFAFE',
+      backgroundColor: withAlpha(theme.colors.surface, 0.98),
     },
 
     historyDayCardToday: {
       borderWidth: 1.5,
-      borderColor: '#8C63DC',
-      backgroundColor: '#F7F1FF',
+      borderColor: PURPLE,
+      backgroundColor: PURPLE_SOFT,
       shadowColor: PURPLE,
       shadowOffset: {
         width: 0,
@@ -3135,7 +3161,7 @@ const styles =
 
     historyDayNumber: {
       marginTop: 4,
-      color: '#55496C',
+      color: theme.colors.textSecondary,
       fontSize: 12,
       lineHeight: 16,
       fontWeight: '700',
@@ -3194,15 +3220,15 @@ const styles =
 
     historyDayEmptyCircle: {
       borderWidth: 1,
-      borderColor: 'rgba(119,108,146,0.18)',
-      backgroundColor: '#F3EFF7',
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     historyDayEmptyDot: {
       width: 5,
       height: 5,
       borderRadius: 3,
-      backgroundColor: '#C5BBCF',
+      backgroundColor: MUTED,
     },
 
     historyDayStatusText: {
@@ -3215,6 +3241,10 @@ const styles =
       textAlign: 'center',
     },
 
+    // Fixed, not `SUCCESS` — a pre-existing, slightly different green than
+    // SUCCESS ('#42A66A'). Semantic (health-status), not decorative, and a
+    // known minor authoring drift documented rather than "fixed" here, same
+    // treatment as D1's dual-ovulation-purple finding.
     historyDayStatusTaken: {
       color: '#3D9460',
     },
@@ -3228,7 +3258,7 @@ const styles =
     },
 
     historyDayStatusEmpty: {
-      color: '#AAA1B5',
+      color: MUTED,
     },
 
     historyViewAllButton: {
@@ -3241,9 +3271,9 @@ const styles =
       marginTop: 14,
       paddingHorizontal: 14,
       borderWidth: 1.25,
-      borderColor: '#8C63DC',
+      borderColor: PURPLE,
       borderRadius: 15,
-      backgroundColor: 'rgba(255,255,255,0.66)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.66),
     },
 
     historyViewAllButtonPressed: {
@@ -3272,10 +3302,13 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 10,
-      backgroundColor: '#F1EAFB',
+      backgroundColor: PURPLE_SOFT,
     },
 
 
+    // Fixed — a modal dim/scrim, not a surface. Matches Phase C's
+    // InAppNotificationCenter precedent: overlay dims stay dark regardless
+    // of the resolved theme so the sheet above it always pops.
     historyModalBackdrop: {
       flex: 1,
       justifyContent: 'flex-end',
@@ -3292,8 +3325,8 @@ const styles =
       overflow: 'hidden',
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
-      backgroundColor: '#FCFAFF',
-      shadowColor: '#28166F',
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: -8,
@@ -3310,15 +3343,15 @@ const styles =
       marginTop: 10,
       marginBottom: 12,
       borderRadius: 999,
-      backgroundColor: '#D9CEE8',
+      backgroundColor: theme.colors.border,
     },
 
     recordActionSheet: {
       paddingHorizontal: 18,
       borderTopLeftRadius: 30,
       borderTopRightRadius: 30,
-      backgroundColor: '#FCFAFF',
-      shadowColor: '#28166F',
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: -8},
       shadowOpacity: 0.14,
       shadowRadius: 24,
@@ -3349,8 +3382,8 @@ const styles =
       paddingHorizontal: 12,
       borderRadius: 16,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.10)',
-      backgroundColor: '#FFFFFF',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
+      backgroundColor: theme.colors.surface,
       marginBottom: 8,
     },
 
@@ -3425,13 +3458,13 @@ const styles =
       flexShrink: 0,
       marginLeft: 10,
       borderRadius: 13,
-      backgroundColor: '#F2ECF9',
+      backgroundColor: PURPLE_SOFT,
     },
 
     historyModalDivider: {
       height: StyleSheet.hairlineWidth,
       marginHorizontal: 18,
-      backgroundColor: 'rgba(105,73,190,0.12)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.12),
     },
 
     historyFilterRow: {
@@ -3447,8 +3480,8 @@ const styles =
       paddingVertical: 7,
       borderRadius: 14,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.16)',
-      backgroundColor: '#FFFFFF',
+      borderColor: withAlpha(theme.colors.primary, 0.16),
+      backgroundColor: theme.colors.surface,
     },
 
     historyFilterChipActive: {
@@ -3485,8 +3518,8 @@ const styles =
       paddingVertical: 12,
       borderRadius: 16,
       borderWidth: 1,
-      borderColor: 'rgba(109,74,232,0.18)',
-      backgroundColor: 'rgba(109,74,232,0.06)',
+      borderColor: withAlpha(theme.colors.primary, 0.18),
+      backgroundColor: withAlpha(theme.colors.primary, 0.06),
     },
 
     historyPremiumHintText: {
@@ -3505,10 +3538,10 @@ const styles =
       paddingVertical: 10,
       marginBottom: 9,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.09)',
+      borderColor: withAlpha(theme.colors.primary, 0.09),
       borderRadius: 18,
-      backgroundColor: '#FFFFFF',
-      shadowColor: '#4E319A',
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 3,
@@ -3588,7 +3621,7 @@ const styles =
       paddingHorizontal: 9,
       paddingVertical: 6,
       borderRadius: 10,
-      backgroundColor: '#F7F3FB',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     historyModalTime: {
@@ -3633,5 +3666,6 @@ const styles =
     },
 
   });
+}
 
 export default ContraceptionDashboard;

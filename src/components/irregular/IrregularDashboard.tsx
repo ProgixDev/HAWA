@@ -16,7 +16,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
-import {homeColors, homeShadow} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
@@ -73,6 +74,9 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const compact = width < 380 || height < 720;
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
 
@@ -185,20 +189,22 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
     {
       key: 'prayer-times',
       icon: 'mosque',
-      iconColor: homeColors.primary,
-      iconBg: '#EEE3FA',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
       label: 'Horaires\nde prière',
       onPress: () => navigation.navigate('PrayerTimes'),
     },
     {
       key: 'library',
       icon: 'book-open-page-variant-outline',
-      iconColor: homeColors.primary,
-      iconBg: '#EEE3FA',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
       label: 'Bibliothèque',
       onPress: () => navigation.navigate('Library'),
     },
     {
+      // Category E (fixed action-identity accent, same as Cycle D1 and
+      // Contraception D2 — never theme-driven).
       key: 'daily-journal',
       icon: 'notebook-edit-outline',
       iconColor: '#B23F63',
@@ -209,20 +215,22 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
     {
       key: 'hijri-calendar',
       icon: 'moon-waning-crescent',
-      iconColor: homeColors.primary,
-      iconBg: '#EEE3FA',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
       label: 'Calendrier Hijri',
       onPress: () => navigation.navigate('HijriCalendar'),
     },
     {
       key: 'qadaa',
       icon: 'silverware-fork-knife',
-      iconColor: homeColors.primary,
-      iconBg: '#EEE3FA',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
       label: 'Jeûnes à rattraper',
       onPress: () => navigation.navigate('FastingQadaa'),
     },
     {
+      // Category E (fixed action-identity accent, same as Cycle D1 and
+      // Contraception D2 — never theme-driven).
       key: 'statistics',
       icon: 'chart-donut',
       iconColor: '#2C8E93',
@@ -234,7 +242,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -246,7 +254,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       </View>
 
       <View style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -271,7 +279,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
             <View style={styles.mainCardTopRow}>
               <View style={styles.mainCopy}>
                 <View style={styles.badge}>
-                  <MaterialDesignIcons color={homeColors.primary} name="flower-outline" size={13} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="flower-outline" size={13} />
                   <Text style={styles.badgeText}>MODE SOPK</Text>
                 </View>
 
@@ -279,7 +287,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
 
                 <View style={styles.profileLine}>
                   <View style={styles.profileInfoIcon}>
-                    <MaterialDesignIcons color={homeColors.primary} name="information-outline" size={15} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={15} />
                   </View>
                   <Text style={styles.mainSubtitle}>Suivi adapté à ton profil</Text>
                 </View>
@@ -308,7 +316,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   // file's own header comment and the final report for the
                   // full rationale.
                   progress={cycleDay !== null ? 1 : 0}
-                  statusColor={homeColors.primary}
+                  statusColor={theme.colors.primary}
                   statusIcon="calendar-clock-outline"
                   statusText="Cycle à renseigner"
                 />
@@ -320,12 +328,12 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               onPress={() => navigation.navigate('IrregularCyclePattern')}
               style={({pressed}) => [styles.calloutCard, pressed && styles.calloutPressed]}>
               <View style={styles.calloutIcon}>
-                <MaterialDesignIcons color="#FFFFFF" name="information-outline" size={16} />
+                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="information-outline" size={16} />
               </View>
               <Text style={styles.calloutText}>
                 Dans le mode SOPK, un cycle long n’est pas considéré automatiquement comme un retard.
               </Text>
-              <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={20} />
+              <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={20} />
             </Pressable>
           </View>
 
@@ -373,7 +381,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               style={({pressed}) => [styles.dailyHeader, pressed && styles.pressed]}>
               <View style={styles.dailyHeaderLeft}>
                 <View style={styles.dailyHeaderIcon}>
-                  <MaterialDesignIcons color={homeColors.primary} name="notebook-check-outline" size={20} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="notebook-check-outline" size={20} />
                 </View>
                 <View style={styles.dailyHeaderCopy}>
                   <Text style={styles.dailyTitle}>Suivi du jour</Text>
@@ -403,7 +411,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   pressed && styles.dailyItemPressed,
                 ]}>
                 <View style={[styles.dailyIcon, periodDoneToday && styles.dailyIconDone]}>
-                  <MaterialDesignIcons color={periodDoneToday ? '#FFFFFF' : homeColors.primary} name="water-outline" size={20} />
+                  <MaterialDesignIcons color={periodDoneToday ? onPrimaryTextColor(theme) : theme.colors.primary} name="water-outline" size={20} />
                 </View>
                 <View style={styles.dailyItemCopy}>
                   <Text style={styles.dailyLabel}>Règles</Text>
@@ -411,9 +419,9 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                 </View>
                 <View style={[styles.dailyStateIndicator, periodDoneToday && styles.dailyStateIndicatorDone]}>
                   {periodDoneToday ? (
-                    <MaterialDesignIcons color="#FFFFFF" name="check" size={10} />
+                    <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="check" size={10} />
                   ) : (
-                    <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={15} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={15} />
                   )}
                 </View>
               </Pressable>
@@ -427,7 +435,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                     onPress={() => navigation.navigate('IrregularJournalEntry', {category: item.key})}
                     style={({pressed}) => [styles.dailyItem, done && styles.dailyItemDone, pressed && styles.dailyItemPressed]}>
                     <View style={[styles.dailyIcon, done && styles.dailyIconDone]}>
-                      <MaterialDesignIcons color={done ? '#FFFFFF' : homeColors.primary} name={item.icon} size={20} />
+                      <MaterialDesignIcons color={done ? onPrimaryTextColor(theme) : theme.colors.primary} name={item.icon} size={20} />
                     </View>
                     <View style={styles.dailyItemCopy}>
                       <Text style={styles.dailyLabel}>{item.dashboardLabel}</Text>
@@ -435,9 +443,9 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                     </View>
                     <View style={[styles.dailyStateIndicator, done && styles.dailyStateIndicatorDone]}>
                       {done ? (
-                        <MaterialDesignIcons color="#FFFFFF" name="check" size={10} />
+                        <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="check" size={10} />
                       ) : (
-                        <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={15} />
+                        <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={15} />
                       )}
                     </View>
                   </Pressable>
@@ -449,9 +457,9 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               accessibilityRole="button"
               onPress={() => navigation.navigate('IrregularJournalOverview')}
               style={({pressed}) => [styles.completeJournalButton, pressed && styles.completeJournalButtonPressed]}>
-              <MaterialDesignIcons color={homeColors.primary} name="plus-circle-outline" size={17} />
+              <MaterialDesignIcons color={theme.colors.primary} name="plus-circle-outline" size={17} />
               <Text style={styles.completeJournalText}>Compléter mon journal</Text>
-              <MaterialDesignIcons color={homeColors.primary} name="arrow-right" size={16} />
+              <MaterialDesignIcons color={theme.colors.primary} name="arrow-right" size={16} />
             </Pressable>
           </Animated.View>
 
@@ -470,21 +478,32 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+// PHASE D3 — converted to a createStyles(theme) factory, same pattern as
+// CycleHomeScreen.tsx (D1) and ContraceptionDashboard.tsx (D2). Every color
+// below was decorative brand-purple or generic chrome (Category A) — this
+// dashboard has no symptom/acne/hair/weight cards of its own to preserve
+// semantic color for; `dailyItemDone`/`dailyIconDone`/`dailyStateIndicatorDone`
+// are a generic "logged today" completion indicator (not a symptom-severity
+// claim), mapped to `theme.colors.success`/`theme.colors.primary` exactly
+// like DailyJournalCard's own "done" badge (Phase C). The two Category E
+// quick-action accents (daily-journal rose, statistics teal) stay fixed,
+// same as Cycle D1 and Contraception D2.
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  background: {flex: 1, backgroundColor: theme.colors.background},
   safeArea: {flex: 1},
   pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
   pageGlowTop: {
     position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
   pageGlowMiddle: {
     position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
   pageGlowBottom: {
     position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   scrollContent: {paddingHorizontal: 16},
@@ -492,25 +511,25 @@ const styles = StyleSheet.create({
   pressed: {opacity: 0.82},
 
   mainCard: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 16,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(111,78,190,0.10)',
+    borderColor: withAlpha(theme.colors.primary, 0.10),
     borderRadius: 28,
-    backgroundColor: 'rgba(255,255,255,0.96)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.96),
     padding: 16,
   },
   mainCardCompact: {padding: 14, borderRadius: 24},
   mainCardTopRow: {minHeight: 190, flexDirection: 'row', alignItems: 'center'},
   mainCopy: {flex: 1, minWidth: 0, zIndex: 2, paddingRight: 8},
-  badge: {alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 5, borderRadius: 12, backgroundColor: '#F0E8FB', paddingHorizontal: 10, paddingVertical: 5},
-  badgeText: {color: homeColors.primary, fontSize: 9, fontWeight: '800', letterSpacing: 0.7},
-  mainTitle: {marginTop: 13, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 22, lineHeight: 27, fontWeight: '800', flexShrink: 1},
+  badge: {alignSelf: 'flex-start', flexDirection: 'row', alignItems: 'center', gap: 5, borderRadius: 12, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 10, paddingVertical: 5},
+  badgeText: {color: theme.colors.primary, fontSize: 9, fontWeight: '800', letterSpacing: 0.7},
+  mainTitle: {marginTop: 13, color: theme.colors.text, fontFamily: 'serif', fontSize: 22, lineHeight: 27, fontWeight: '800', flexShrink: 1},
   profileLine: {flexDirection: 'row', alignItems: 'center', marginTop: 7},
-  profileInfoIcon: {width: 22, height: 22, alignItems: 'center', justifyContent: 'center', marginRight: 6, borderRadius: 11, backgroundColor: '#F0E8FB'},
-  mainSubtitle: {flex: 1, minWidth: 0, color: homeColors.primary, fontSize: 11.5, lineHeight: 15, fontWeight: '700'},
-  mainDescription: {maxWidth: 190, marginTop: 10, color: homeColors.textSecondary, fontSize: 10.5, lineHeight: 15.5, flexShrink: 1},
+  profileInfoIcon: {width: 22, height: 22, alignItems: 'center', justifyContent: 'center', marginRight: 6, borderRadius: 11, backgroundColor: theme.colors.primarySoft},
+  mainSubtitle: {flex: 1, minWidth: 0, color: theme.colors.primary, fontSize: 11.5, lineHeight: 15, fontWeight: '700'},
+  mainDescription: {maxWidth: 190, marginTop: 10, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15.5, flexShrink: 1},
 
   // The ring itself (size, layers, animation) now lives entirely in the
   // shared src/components/home/AnimatedProgressRing.tsx — same component,
@@ -518,40 +537,43 @@ const styles = StyleSheet.create({
   // a small margin wrapper remains here.
   ringWrap: {flexShrink: 0, marginLeft: 6},
 
-  calloutCard: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12, borderWidth: 1, borderColor: 'rgba(111,78,190,0.08)', borderRadius: 18, backgroundColor: '#F4EDFB', paddingHorizontal: 11, paddingVertical: 10},
+  calloutCard: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 18, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 11, paddingVertical: 10},
   calloutPressed: {opacity: 0.84, transform: [{scale: 0.992}]},
-  calloutIcon: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: homeColors.primary},
-  calloutText: {flex: 1, minWidth: 0, color: '#655A7D', fontSize: 10.2, lineHeight: 14.5},
+  calloutIcon: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primary},
+  calloutText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.2, lineHeight: 14.5},
 
-  dailyCard: {...homeShadow, marginTop: 16, padding: 15, borderWidth: 1, borderColor: 'rgba(111,78,190,0.10)', borderRadius: 24, backgroundColor: 'rgba(255,255,255,0.97)'},
+  dailyCard: {...theme.shadow, marginTop: 16, padding: 15, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.10), borderRadius: 24, backgroundColor: withAlpha(theme.colors.surface, 0.97)},
   dailyCardCompact: {padding: 13, borderRadius: 21},
   dailyHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10},
   dailyHeaderLeft: {flex: 1, minWidth: 0, flexDirection: 'row', alignItems: 'center'},
-  dailyHeaderIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginRight: 9, borderRadius: 14, backgroundColor: '#F0E8FB'},
+  dailyHeaderIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginRight: 9, borderRadius: 14, backgroundColor: theme.colors.primarySoft},
   dailyHeaderCopy: {flex: 1, minWidth: 0},
-  dailyTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, lineHeight: 21, fontWeight: '800'},
-  dailySubtitle: {marginTop: 2, color: homeColors.textSecondary, fontSize: 9.5, lineHeight: 13, flexShrink: 1},
-  progressBadge: {minWidth: 62, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: '#F2EBFA', paddingHorizontal: 8, paddingVertical: 6},
-  progressBadgeValue: {color: homeColors.primary, fontSize: 11.5, fontWeight: '800'},
-  progressBadgeLabel: {marginTop: 1, color: homeColors.textSecondary, fontSize: 7.5, fontWeight: '700'},
-  progressTrack: {height: 7, marginTop: 13, overflow: 'hidden', borderRadius: 4, backgroundColor: '#EEE8F4'},
-  progressFill: {height: '100%', borderRadius: 4, backgroundColor: homeColors.primary},
-  dailySectionLabel: {marginTop: 14, marginBottom: 8, color: homeColors.primary, fontSize: 8, fontWeight: '800', letterSpacing: 0.8},
+  dailyTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, lineHeight: 21, fontWeight: '800'},
+  dailySubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13, flexShrink: 1},
+  progressBadge: {minWidth: 62, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 8, paddingVertical: 6},
+  progressBadgeValue: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
+  progressBadgeLabel: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 7.5, fontWeight: '700'},
+  progressTrack: {height: 7, marginTop: 13, overflow: 'hidden', borderRadius: 4, backgroundColor: theme.colors.primarySoft},
+  progressFill: {height: '100%', borderRadius: 4, backgroundColor: theme.colors.primary},
+  dailySectionLabel: {marginTop: 14, marginBottom: 8, color: theme.colors.primary, fontSize: 8, fontWeight: '800', letterSpacing: 0.8},
   dailyGrid: {gap: 8},
-  dailyItem: {position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: 'rgba(111,78,190,0.08)', borderRadius: 16, backgroundColor: '#FBF9FD', paddingHorizontal: 10, paddingVertical: 9},
-  dailyItemDone: {borderColor: 'rgba(63,163,114,0.18)', backgroundColor: '#FAFEFC'},
+  dailyItem: {position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 16, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 10, paddingVertical: 9},
+  // Generic "logged today" completion tint — success token, not a
+  // symptom-severity claim (see file header comment).
+  dailyItemDone: {borderColor: withAlpha(theme.colors.success, 0.18), backgroundColor: withAlpha(theme.colors.success, 0.05)},
   dailyItemPressed: {opacity: 0.82, transform: [{scale: 0.993}]},
-  dailyIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: '#F0E8FB'},
-  dailyIconDone: {backgroundColor: homeColors.primary},
+  dailyIcon: {width: 40, height: 40, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
+  dailyIconDone: {backgroundColor: theme.colors.primary},
   dailyItemCopy: {flex: 1, minWidth: 0, marginLeft: 10},
-  dailyLabel: {color: homeColors.textPrimary, fontSize: 11.5, lineHeight: 14.5, fontWeight: '800', flexShrink: 1},
-  dailyItemSubtitle: {marginTop: 2, color: homeColors.textSecondary, fontSize: 9, lineHeight: 12.5, flexShrink: 1},
-  dailyStateIndicator: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginLeft: 8, borderRadius: 10, backgroundColor: '#F0E8FB'},
-  dailyStateIndicatorDone: {backgroundColor: '#3FA372'},
-  completeJournalButton: {minHeight: 43, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, marginTop: 10, borderWidth: 1, borderColor: 'rgba(111,78,190,0.11)', borderRadius: 14, backgroundColor: '#F6F1FB', paddingHorizontal: 12},
+  dailyLabel: {color: theme.colors.text, fontSize: 11.5, lineHeight: 14.5, fontWeight: '800', flexShrink: 1},
+  dailyItemSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9, lineHeight: 12.5, flexShrink: 1},
+  dailyStateIndicator: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', marginLeft: 8, borderRadius: 10, backgroundColor: theme.colors.primarySoft},
+  dailyStateIndicatorDone: {backgroundColor: theme.colors.success},
+  completeJournalButton: {minHeight: 43, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7, marginTop: 10, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.11), borderRadius: 14, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12},
   completeJournalButtonPressed: {opacity: 0.82},
-  completeJournalText: {flex: 1, minWidth: 0, color: homeColors.primary, fontSize: 10.5, fontWeight: '800', textAlign: 'center'},
+  completeJournalText: {flex: 1, minWidth: 0, color: theme.colors.primary, fontSize: 10.5, fontWeight: '800', textAlign: 'center'},
 
-});
+  });
+}
 
 export default IrregularDashboard;

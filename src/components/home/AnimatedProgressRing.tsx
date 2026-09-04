@@ -1,7 +1,10 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {Animated, Easing, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Svg, {Circle, Defs, LinearGradient as SvgGradient, Stop} from 'react-native-svg';
+
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // The single animated progress ring shared across objective Dashboards —
 // originally built (and still used) as ContraceptionDashboard.tsx's
@@ -24,10 +27,6 @@ const RING_SIZE = 142;
 const RING_STROKE = 9;
 const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const MUTED = '#776C92';
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -63,6 +62,18 @@ export function AnimatedProgressRing({
   footnote,
   accessibilityLabel,
 }: AnimatedProgressRingProps): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  const gradientStops = useMemo(
+    () => [
+      interpolateHex(theme.colors.primarySoft, theme.colors.primary, 0),
+      interpolateHex(theme.colors.primarySoft, theme.colors.primary, 0.34),
+      interpolateHex(theme.colors.primarySoft, theme.colors.primary, 0.68),
+      theme.colors.primary,
+    ],
+    [theme],
+  );
+
   const progressAnimation = useRef(new Animated.Value(0)).current;
   const breatheAnimation = useRef(new Animated.Value(0)).current;
   const glintAnimation = useRef(new Animated.Value(0)).current;
@@ -144,10 +155,10 @@ export function AnimatedProgressRing({
         <Svg height={RING_SIZE} width={RING_SIZE}>
           <Defs>
             <SvgGradient id="animatedProgressRingGradient" x1="0" x2="1" y1="0" y2="1">
-              <Stop offset="0" stopColor="#D9C9F6" />
-              <Stop offset="0.34" stopColor="#A87BE9" />
-              <Stop offset="0.68" stopColor="#7A4FD0" />
-              <Stop offset="1" stopColor={PURPLE} />
+              <Stop offset="0" stopColor={gradientStops[0]} />
+              <Stop offset="0.34" stopColor={gradientStops[1]} />
+              <Stop offset="0.68" stopColor={gradientStops[2]} />
+              <Stop offset="1" stopColor={gradientStops[3]} />
             </SvgGradient>
           </Defs>
 
@@ -156,7 +167,7 @@ export function AnimatedProgressRing({
             cy={RING_SIZE / 2}
             fill="none"
             r={RING_RADIUS}
-            stroke="#E9DFF7"
+            stroke={theme.colors.primarySoft}
             strokeWidth={RING_STROKE}
           />
 
@@ -201,7 +212,7 @@ export function AnimatedProgressRing({
         <Animated.View
           pointerEvents="none"
           style={[styles.sparkleTop, {opacity: sparkleOpacity, transform: [{scale: sparkleScale}]}]}>
-          <MaterialDesignIcons color="#FFFFFF" name="creation" size={10} />
+          <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="creation" size={10} />
         </Animated.View>
 
         <Animated.View
@@ -216,7 +227,14 @@ export function AnimatedProgressRing({
   );
 }
 
-const styles = StyleSheet.create({
+// PHASE D2 — converted to a createStyles(theme) factory (same pattern as
+// ContraceptionDashboard.tsx and D1's CycleHomeScreen.tsx). glintDot/
+// glintCore stay fixed WHITE — a genuine "shine" highlight, not a
+// palette-hued accent, the same way a reflection stays white regardless of
+// the surface it glints off. Everything else here is decorative-brand-purple
+// and is now theme-derived.
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   outer: {
     position: 'relative',
     width: RING_SIZE,
@@ -241,8 +259,8 @@ const styles = StyleSheet.create({
     width: RING_SIZE - 12,
     height: RING_SIZE - 12,
     borderRadius: (RING_SIZE - 12) / 2,
-    backgroundColor: '#9C70E4',
-    shadowColor: '#8E62D9',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 7},
     shadowOpacity: 0.28,
     shadowRadius: 18,
@@ -258,7 +276,7 @@ const styles = StyleSheet.create({
     borderRadius: (RING_SIZE + 10) / 2,
     borderWidth: 1.25,
     borderStyle: 'dashed',
-    borderColor: 'rgba(142,98,217,0.32)',
+    borderColor: withAlpha(theme.colors.primary, 0.32),
   },
 
   inner: {
@@ -270,19 +288,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: (RING_SIZE - 44) / 2,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
-    shadowColor: '#6949BE',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 5},
     shadowOpacity: 0.13,
     shadowRadius: 12,
     elevation: 4,
   },
 
-  caption: {color: MUTED, fontSize: 10, fontWeight: '800', letterSpacing: 0.2},
-  value: {marginTop: -2, color: PURPLE_DARK, fontFamily: 'serif', fontSize: 31, lineHeight: 34, fontWeight: '900'},
-  detail: {marginTop: -2, color: PURPLE, fontSize: 9.5, fontWeight: '900'},
+  caption: {color: theme.colors.textMuted, fontSize: 10, fontWeight: '800', letterSpacing: 0.2},
+  value: {marginTop: -2, color: theme.colors.accent, fontFamily: 'serif', fontSize: 31, lineHeight: 34, fontWeight: '900'},
+  detail: {marginTop: -2, color: theme.colors.primary, fontSize: 9.5, fontWeight: '900'},
 
   statusIcon: {width: 32, height: 32, marginTop: 3, alignItems: 'center', justifyContent: 'center', borderRadius: 16},
   status: {marginTop: 2, fontSize: 10.5, fontWeight: '900'},
@@ -315,8 +333,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 9.5,
-    backgroundColor: '#A77AE7',
-    shadowColor: '#8E62D9',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.32,
     shadowRadius: 6,
@@ -327,15 +345,16 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: '#D8C3F4',
-    shadowColor: '#A77AE7',
+    backgroundColor: theme.colors.secondary,
+    shadowColor: theme.colors.primary,
     shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.65,
     shadowRadius: 5,
     elevation: 2,
   },
 
-  footnote: {position: 'absolute', bottom: 0, color: PURPLE, fontSize: 9, fontWeight: '800', textAlign: 'center', letterSpacing: 0.1},
-});
+  footnote: {position: 'absolute', bottom: 0, color: theme.colors.primary, fontSize: 9, fontWeight: '800', textAlign: 'center', letterSpacing: 0.1},
+  });
+}
 
 export default AnimatedProgressRing;
