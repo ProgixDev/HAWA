@@ -1,16 +1,15 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {type LayoutChangeEvent, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {homeColors} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useArticleReadingProgress, type ReadingStatus} from '../../hooks/useArticleReadingProgress';
 import {getReadingSessionState} from '../../state/libraryStore';
 
-const PURPLE = homeColors.primary;
-const INK = homeColors.textPrimary;
-const MUTED = homeColors.textSecondary;
-const LAVENDER = homeColors.lightLavender;
+// PHASE C — no reading meaning here at all (no health/tracking semantics),
+// every color is decorative chrome, fully migrated to `useAwaTheme()`.
 
 export type ReadingControlsProps = {
   articleId: string;
@@ -71,6 +70,8 @@ function buttonCopyFor(status: ReadingStatus): {label: string; icon: React.Compo
 
 function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: ReadingControlsProps): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const {status, remainingSeconds, progressPercent, start, pause} = useArticleReadingProgress({articleId, durationMinutes});
 
   const scrollToSavedPosition = () => {
@@ -109,7 +110,7 @@ function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: Read
         onPress={handleCardPress}
         style={({pressed}) => [styles.resumeCard, pressed && styles.pressed]}>
         <View style={styles.resumeIconWrap}>
-          <MaterialDesignIcons color={PURPLE} name={cardIcon.name} size={20} />
+          <MaterialDesignIcons color={theme.colors.primary} name={cardIcon.name} size={20} />
         </View>
 
         <View style={styles.resumeCopy}>
@@ -125,7 +126,7 @@ function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: Read
           )}
         </View>
 
-        <MaterialDesignIcons color={PURPLE} name="chevron-right" size={20} style={styles.chevron} />
+        <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={20} style={styles.chevron} />
       </Pressable>
 
       <Pressable
@@ -133,76 +134,78 @@ function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: Read
         accessibilityRole="button"
         onPress={handleButtonPress}
         style={({pressed}) => [styles.primaryReadingButton, pressed && styles.pressed]}>
-        <MaterialDesignIcons color="#FFFFFF" name={buttonCopy.icon} size={19} />
+        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={buttonCopy.icon} size={19} />
         <Text style={styles.primaryReadingText}>{buttonCopy.label}</Text>
       </Pressable>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  bottomReadingArea: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    gap: 10,
-    paddingHorizontal: 16,
-    paddingTop: 10,
-    backgroundColor: 'rgba(252,250,255,0.98)',
-    borderTopWidth: 1,
-    borderTopColor: homeColors.cardBorder,
-  },
-  resumeCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    minHeight: 66,
-    borderRadius: 18,
-    borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 12,
-    paddingVertical: 9,
-    shadowColor: homeColors.primaryDark,
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 1,
-  },
-  resumeIconWrap: {
-    width: 42,
-    height: 42,
-    borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: LAVENDER,
-    flexShrink: 0,
-  },
-  resumeCopy: {flex: 1, minWidth: 0},
-  resumeTopRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8},
-  resumeTitle: {flex: 1, minWidth: 0, color: INK, fontSize: 14.5, fontWeight: '700'},
-  resumePercent: {color: PURPLE, fontSize: 13, fontWeight: '700'},
-  resumeSubtitle: {marginTop: 2, color: MUTED, fontSize: 11},
-  progressTrack: {marginTop: 6, height: 4, borderRadius: 2, backgroundColor: LAVENDER, overflow: 'hidden'},
-  progressFill: {height: '100%', borderRadius: 2, backgroundColor: PURPLE},
-  chevron: {flexShrink: 0},
-  primaryReadingButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    minHeight: 56,
-    borderRadius: 17,
-    backgroundColor: PURPLE,
-    shadowColor: homeColors.primaryDark,
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.16,
-    shadowRadius: 10,
-    elevation: 3,
-  },
-  primaryReadingText: {color: '#FFFFFF', fontSize: 15, fontWeight: '800'},
-  pressed: {opacity: 0.85},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    bottomReadingArea: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      bottom: 0,
+      gap: 10,
+      paddingHorizontal: 16,
+      paddingTop: 10,
+      backgroundColor: withAlpha(theme.colors.surface, 0.98),
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.border,
+    },
+    resumeCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      minHeight: 66,
+      borderRadius: 18,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 12,
+      paddingVertical: 9,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.06,
+      shadowRadius: 8,
+      elevation: 1,
+    },
+    resumeIconWrap: {
+      width: 42,
+      height: 42,
+      borderRadius: 14,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+      flexShrink: 0,
+    },
+    resumeCopy: {flex: 1, minWidth: 0},
+    resumeTopRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8},
+    resumeTitle: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
+    resumePercent: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
+    resumeSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+    progressTrack: {marginTop: 6, height: 4, borderRadius: 2, backgroundColor: theme.colors.primarySoft, overflow: 'hidden'},
+    progressFill: {height: '100%', borderRadius: 2, backgroundColor: theme.colors.primary},
+    chevron: {flexShrink: 0},
+    primaryReadingButton: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 8,
+      minHeight: 56,
+      borderRadius: 17,
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.16,
+      shadowRadius: 10,
+      elevation: 3,
+    },
+    primaryReadingText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800'},
+    pressed: {opacity: 0.85},
+  });
+}
 
 export default ReadingControls;

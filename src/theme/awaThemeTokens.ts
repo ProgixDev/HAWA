@@ -117,7 +117,7 @@ function rgbToHex([r, g, b]: readonly [number, number, number]): string {
   return `#${[r, g, b].map(channel => clamp(channel).toString(16).padStart(2, '0')).join('').toUpperCase()}`;
 }
 
-function interpolateHex(from: string, to: string, t: number): string {
+export function interpolateHex(from: string, to: string, t: number): string {
   const [r1, g1, b1] = hexToRgb(from);
   const [r2, g2, b2] = hexToRgb(to);
   return rgbToHex([r1 + (r2 - r1) * t, g1 + (g2 - g1) * t, b1 + (b2 - b1) * t]);
@@ -346,6 +346,78 @@ function gradientFor(id: ResolvableAwaThemeId, isDark: boolean, variant: ThemeVa
     return {pageBackground: AWA_ORIGINAL_LIGHT_GRADIENT};
   }
   return {pageBackground: buildPageGradient(variant.colors.background, variant.colors.surfaceSecondary)};
+}
+
+/* -------------------------------------------------------------------------- */
+/*                    PHASE C — SMALL SHARED-COMPONENT HELPERS                */
+/* -------------------------------------------------------------------------- */
+
+// Two small, pure, generic derivations needed repeatedly once real shared
+// components consume `theme.colors.*` directly — added here (not
+// re-implemented per component) per the "do not duplicate theme resolution
+// logic inside components" rule. Neither is a new *color token*: both are
+// pure functions of already-resolved values.
+
+/**
+ * The readable text/icon color for something drawn ON TOP of an arbitrary
+ * already-resolved fill color (a filled button using `theme.colors.primary`,
+ * a "done"/status badge using `theme.colors.success`, etc.) — decided from
+ * THAT fill's own real luminance, never from `theme.isDark` or from a
+ * different color entirely.
+ *
+ * PROVEN CONTRAST FINDING (Phase C): an earlier version of this helper
+ * special-cased `theme.colors.primary` and picked purely from `theme.isDark`
+ * ("white in light mode, dark background in dark mode"). Computing real
+ * luminance for every one of the 12 theme × light/dark `primary` values
+ * showed that rule fails broadly:
+ *   - awa-original LIGHT: 0.36 (dark enough — matches the app's existing
+ *     white-on-primary buttons exactly, unchanged).
+ *   - rose-quartz LIGHT: 0.59, sage-serenity LIGHT: 0.55, ocean-calm LIGHT:
+ *     0.52, warm-sand LIGHT: 0.56, lavender-night LIGHT: 0.50 — all
+ *     light-luminance. White text on any of these has poor contrast; this
+ *     was a real, pre-existing characteristic of these palettes' `primary`
+ *     values (rose-quartz's in particular was already this way in the
+ *     untouched awaThemes.ts registry) that nothing had ever actually
+ *     rendered until this phase's migration made real UI use it as a bold
+ *     fill for the first time.
+ *   - every DARK variant's `primary` (0.59-0.75): all light-luminance by
+ *     design (see the "DARK VARIANTS" section above) — white text is
+ *     always wrong there too.
+ *   - `theme.colors.success` (used as a badge fill, not `primary`) is
+ *     ALSO light-luminance in every theme except awa-original's own DARK
+ *     (Midnight) variant — the earlier helper being keyed to `primary`'s
+ *     luminance while actually being applied on top of a `success` fill was
+ *     itself a mismatch bug, not just a threshold problem.
+ *
+ * The fix: take the actual fill color as the argument and decide purely
+ * from ITS real luminance — dark text once it's light enough to need it,
+ * plain white otherwise. This keeps AWA Original LIGHT's existing
+ * white-on-primary buttons pixel-identical (0.36 stays under the
+ * threshold) while correctly fixing every other case, whichever token is
+ * used as the fill.
+ */
+const READABLE_TEXT_LUMINANCE_THRESHOLD = 0.45;
+const READABLE_DARK_TEXT = '#1A1626';
+
+export function pickReadableTextColor(fillHex: string): string {
+  return relativeLuminance(fillHex) > READABLE_TEXT_LUMINANCE_THRESHOLD
+    ? READABLE_DARK_TEXT
+    : '#FFFFFF';
+}
+
+/** Convenience alias for the single most common case — text/icons drawn on
+ * top of `theme.colors.primary` specifically. */
+export function onPrimaryTextColor(theme: ResolvedAwaTheme): string {
+  return pickReadableTextColor(theme.colors.primary);
+}
+
+/** `#RRGGBB` (or `#RGB`) + an 0-1 alpha -> `rgba(r,g,b,a)`. Used only to
+ * preserve an existing component's own translucency effect (e.g. a
+ * frosted bottom bar) while sourcing the underlying color from the
+ * resolved theme instead of a hardcoded literal. */
+export function withAlpha(hex: string, alpha: number): string {
+  const [r, g, b] = hexToRgb(hex);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 /* -------------------------------------------------------------------------- */

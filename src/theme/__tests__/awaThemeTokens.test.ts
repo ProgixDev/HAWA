@@ -1,6 +1,8 @@
 import {homeColors, homeShadow} from '../../components/home/homeTheme';
 import {getAwaThemeById} from '../../config/awaThemes';
-import {resolveAwaTheme} from '../awaThemeTokens';
+import {onPrimaryTextColor, pickReadableTextColor, resolveAwaTheme} from '../awaThemeTokens';
+
+const ALL_SELECTABLE_IDS = ['awa-original', 'lavender-night', 'rose-quartz', 'sage-serenity', 'ocean-calm', 'warm-sand'] as const;
 
 const CANONICAL_PAGE_GRADIENT = ['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3'];
 
@@ -144,5 +146,48 @@ describe('resolveAwaTheme — palette and appearance mode are independent dimens
     expect(light.id).toBe('rose-quartz');
     expect(dark.id).toBe('rose-quartz');
     expect(light.colors.background).not.toBe(dark.colors.background);
+  });
+});
+
+describe('pickReadableTextColor / onPrimaryTextColor — proven contrast fix (Phase C)', () => {
+  it('AWA Original LIGHT keeps its existing white-on-primary buttons pixel-identical', () => {
+    const theme = resolveAwaTheme('awa-original', false, false);
+    expect(onPrimaryTextColor(theme)).toBe('#FFFFFF');
+  });
+
+  it('every LIGHT variant whose primary is too light for white text gets dark text instead', () => {
+    // rose-quartz/sage-serenity/ocean-calm/warm-sand/lavender-night LIGHT
+    // primaries are all light-luminance (see the helper's own doc comment)
+    // — white text on any of them would fail contrast.
+    (['rose-quartz', 'sage-serenity', 'ocean-calm', 'warm-sand', 'lavender-night'] as const).forEach(id => {
+      const theme = resolveAwaTheme(id, false, false);
+      expect(onPrimaryTextColor(theme)).not.toBe('#FFFFFF');
+    });
+  });
+
+  it('every DARK variant (primary is always a lightened tint) gets dark text, never white', () => {
+    ALL_SELECTABLE_IDS.forEach(id => {
+      const theme = resolveAwaTheme(id, true, false);
+      expect(onPrimaryTextColor(theme)).not.toBe('#FFFFFF');
+    });
+  });
+
+  it('is keyed to the ACTUAL fill color, not a fixed "primary" assumption — success and primary can resolve differently', () => {
+    const theme = resolveAwaTheme('awa-original', false, false);
+    // awa-original LIGHT: primary is dark-luminance (white text correct),
+    // success is also dark-luminance here — both happen to want white — but
+    // the two calls must independently reflect their OWN fill's luminance,
+    // not silently reuse one shared answer.
+    expect(pickReadableTextColor(theme.colors.primary)).toBe(onPrimaryTextColor(theme));
+    expect(pickReadableTextColor(theme.colors.success)).toEqual(expect.any(String));
+  });
+
+  it('never crashes on any real resolved success color across every theme × variant', () => {
+    ALL_SELECTABLE_IDS.forEach(id => {
+      [false, true].forEach(isDark => {
+        const theme = resolveAwaTheme(id, isDark, false);
+        expect(() => pickReadableTextColor(theme.colors.success)).not.toThrow();
+      });
+    });
   });
 });

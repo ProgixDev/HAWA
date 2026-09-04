@@ -2,7 +2,9 @@ import React, {memo, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
+import {homeRadii} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   type CycleBasics,
   formatHijriDay,
@@ -18,6 +20,25 @@ import type {CalendarFilters} from '../../state/calendarFilters';
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export type CalendarDisplayMode = 'gregorian' | 'hijri' | 'double';
+
+// ============================================================================
+// PHASE C — SEMANTIC vs THEMEABLE COLORS IN THIS FILE
+// ============================================================================
+// Calendar tracking-meaning colors (period/fertile/ovulation/mood/notes dots,
+// the two religious-month markers) are DELIBERATELY left as fixed literals,
+// NOT sourced from `theme.colors.*` — switching palettes must never change
+// what "period"/"fertile"/"ovulation" mean. Only generic, decorative chrome
+// (card surface, borders, titles, the segmented mode selector, the "selected
+// day" brand-purple fill, shadows) now reads from `useAwaTheme()`.
+//
+// RAMADAN_MARKER_COLOR previously reused `homeColors.primary` (the app's one
+// brand purple) specifically because there was no dedicated "religious
+// marker" color at the time — reusing the current brand purple was already
+// the deliberate choice. It is now hardcoded to that same resolved value
+// ('#6D4AE8') rather than following `theme.colors.primary`, so it stays
+// visually stable alongside its fixed sibling DHOUL_HIJJA_MARKER_COLOR —
+// switching to Sage Serenity must not turn Ramadan's marker green while
+// Dhou al-Hijja's stays gold.
 
 // One boolean per category Cycle's own "Journal quotidien" (CYCLE_JOURNAL_ITEMS
 // in DailyJournalSheet.tsx) can actually save. `mood` and `flow` get their own
@@ -61,13 +82,13 @@ const dateKey = (date: Date) =>
 
 const backgroundColorStyle = (backgroundColor: string) => ({backgroundColor});
 
+// SEMANTIC — calendar tracking meaning, never theme-driven (see header note).
+const PERIOD_DOT_COLOR = '#DC7B82';
+const FERTILE_COLOR = '#3E8E56';
 const OVULATION_COLOR = '#8B5CF6';
+const MOOD_DOT_COLOR = '#E0A93E';
 const NOTES_COLOR = '#2C8E93';
-// Reuses AWA's existing spiritual/Hijri accent colors verbatim — the same
-// purple already used for the crescent-moon icon throughout
-// HijriCalendarScreen.tsx/PrayerTimesScreen.tsx, and the same warm gold
-// already used for that screen's "Ramadan" pill — no new arbitrary palette.
-const RAMADAN_MARKER_COLOR = homeColors.primary;
+const RAMADAN_MARKER_COLOR = '#6D4AE8';
 const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
 const MODES: {key: CalendarDisplayMode; label: string}[] = [
@@ -89,6 +110,8 @@ function DayCell({
   editingPeriod = false,
   draftPeriodDays,
   spiritualMarkersEnabled,
+  theme,
+  styles,
 }: {
   date: Date | null;
   basics: CycleBasics;
@@ -102,6 +125,8 @@ function DayCell({
   editingPeriod?: boolean;
   draftPeriodDays?: ReadonlySet<string>;
   spiritualMarkersEnabled: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   if (!date) {
     return <View style={styles.dayCell} />;
@@ -126,25 +151,38 @@ function DayCell({
       : isDhoulHijja(date)
         ? 'dhoulHijja'
         : null;
-  const useLightMarker = !isToday && (isSelected || (!editingPeriod && kind === 'ovulation'));
-  const spiritualMarkerColor = useLightMarker
-    ? '#FFFFFF'
-    : spiritualMonth === 'ramadan'
-      ? RAMADAN_MARKER_COLOR
-      : DHOUL_HIJJA_MARKER_COLOR;
+
+  // The cell's fill follows a strict priority (matching the `day` style
+  // array below): today > selected > ovulation. Only "selected" sits on a
+  // THEME-DRIVEN background (`theme.colors.primary`), so only that case
+  // needs the dark-mode-aware `onPrimaryTextColor` — ovulation's background
+  // is a fixed, always-dark-enough purple, so plain white always contrasts
+  // regardless of the active palette/mode.
+  const onColoredBg =
+    isToday
+      ? null
+      : isSelected
+        ? onPrimaryTextColor(theme)
+        : !editingPeriod && kind === 'ovulation'
+          ? '#FFFFFF'
+          : null;
+
+  const spiritualMarkerColor =
+    onColoredBg ??
+    (spiritualMonth === 'ramadan' ? RAMADAN_MARKER_COLOR : DHOUL_HIJJA_MARKER_COLOR);
   const spiritualMarkerLabel =
     spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : '';
 
   const isPeriodDay = kind === 'period' && filters.rules;
   const dots: string[] = [];
-  if (isPeriodDay) {dots.push(homeColors.pink);}
+  if (isPeriodDay) {dots.push(PERIOD_DOT_COLOR);}
   if (kind === 'ovulation') {dots.push(OVULATION_COLOR);}
-  if (kind === 'fertile') {dots.push('#3E8E56');}
-  if (flags?.mood && filters.mood) {dots.push('#E0A93E');}
+  if (kind === 'fertile') {dots.push(FERTILE_COLOR);}
+  if (flags?.mood && filters.mood) {dots.push(MOOD_DOT_COLOR);}
   // Manually-logged flow outside a computed period day (e.g. spotting) still
   // deserves a "Règles" dot — skip it when the phase already added one so a
   // single day never shows two identical pink dots.
-  if (!isPeriodDay && flags?.flow && filters.rules) {dots.push(homeColors.pink);}
+  if (!isPeriodDay && flags?.flow && filters.rules) {dots.push(PERIOD_DOT_COLOR);}
   const hasMiscTracking = flags?.notes || flags?.symptoms || flags?.activity || flags?.sleep || flags?.hydration || flags?.intimacy;
   const miscFilterOn = filters.notes || filters.symptoms || filters.activity || filters.sleep || filters.hydration || filters.intimacy;
   if (hasMiscTracking && miscFilterOn) {dots.push(NOTES_COLOR);}
@@ -171,22 +209,22 @@ function DayCell({
           pressed && styles.pressed,
         ]}>
         <Text
-  style={[
-    styles.dayText,
-
-    // Les jours sélectionnés / ovulation sont normalement blancs — mais
-    // jamais pour Aujourd'hui, qui n'a plus de fond coloré à contraster.
-    !isToday && (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight,
-
-    // Aujourd'hui doit toujours rester noir et bien visible
-    isToday && styles.todayDayText,
-  ]}>
-  {date.getDate()}
-</Text>
+          style={[
+            styles.dayText,
+            // Les jours sélectionnés / ovulation sont normalement clairs —
+            // mais jamais pour Aujourd'hui, qui n'a plus de fond coloré à
+            // contraster.
+            onColoredBg ? {color: onColoredBg} : null,
+            // Aujourd'hui doit toujours rester bien visible sur son propre
+            // fond neutre, dans n'importe quel thème.
+            isToday && styles.todayDayText,
+          ]}>
+          {date.getDate()}
+        </Text>
         {hijriDay ? (
           <Text
             numberOfLines={1}
-            style={[styles.hijriDayText, !isToday && (isSelected || (!editingPeriod && kind === 'ovulation')) && styles.dayTextLight]}>
+            style={[styles.hijriDayText, onColoredBg ? {color: onColoredBg} : null]}>
             {hijriDay}
           </Text>
         ) : null}
@@ -197,9 +235,9 @@ function DayCell({
                 key={index}
                 style={[
                   styles.dot,
-                  // Never whiten a dot on Today — its neutral background
+                  // Never lighten a dot on Today — its neutral background
                   // means every category color already reads fine.
-                  backgroundColorStyle(isSelected && !isToday ? '#FFFFFF' : color),
+                  backgroundColorStyle(isSelected && !isToday ? onPrimaryTextColor(theme) : color),
                 ]}
               />
             ))}
@@ -230,6 +268,9 @@ function MonthCalendarCard({
   editingPeriod,
   draftPeriodDays,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const calendarDays = useMemo(() => {
     const year = visibleMonth.getFullYear();
     const month = visibleMonth.getMonth();
@@ -263,7 +304,7 @@ function MonthCalendarCard({
     <View style={styles.card}>
       <View style={styles.monthHeader}>
         <Pressable accessibilityLabel="Mois précédent" hitSlop={12} onPress={() => onChangeMonth(-1)}>
-          <MaterialDesignIcons color={homeColors.primary} name="chevron-left" size={24} />
+          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
         </Pressable>
 
         <View style={styles.monthTitleBlock}>
@@ -276,7 +317,7 @@ function MonthCalendarCard({
         </View>
 
         <Pressable accessibilityLabel="Mois suivant" hitSlop={12} onPress={() => onChangeMonth(1)}>
-          <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={24} />
+          <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={24} />
         </Pressable>
       </View>
 
@@ -316,22 +357,24 @@ function MonthCalendarCard({
             showHijri={showHijri}
             showSelection={showSelection}
             spiritualMarkersEnabled={spiritualMarkersEnabled}
+            styles={styles}
+            theme={theme}
             today={today}
           />
         ))}
       </View>
 
       <View style={styles.legendRow}>
-        <LegendDot color={homeColors.pink} label="Règles" />
-        <LegendDot color="#3E8E56" label="Fertile" />
-        <LegendDot color={OVULATION_COLOR} label="Ovulation" />
-        <LegendDot color="#E0A93E" label="Humeur" />
-        <LegendDot color={NOTES_COLOR} label="Notes" />
-        <LegendDot color={homeColors.primaryDark} label="Aujourd’hui" outline />
+        <LegendDot color={PERIOD_DOT_COLOR} label="Règles" styles={styles} />
+        <LegendDot color={FERTILE_COLOR} label="Fertile" styles={styles} />
+        <LegendDot color={OVULATION_COLOR} label="Ovulation" styles={styles} />
+        <LegendDot color={MOOD_DOT_COLOR} label="Humeur" styles={styles} />
+        <LegendDot color={NOTES_COLOR} label="Notes" styles={styles} />
+        <LegendDot color={theme.colors.text} label="Aujourd’hui" outline styles={styles} />
         {spiritualMarkersEnabled ? (
           <>
-            <LegendDot color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" />
-            <LegendDot color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" />
+            <LegendDot color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" styles={styles} />
+            <LegendDot color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" styles={styles} />
           </>
         ) : null}
       </View>
@@ -339,7 +382,19 @@ function MonthCalendarCard({
   );
 }
 
-function LegendDot({color, label, outline = false, icon}: {color: string; label: string; outline?: boolean; icon?: IconName}) {
+function LegendDot({
+  color,
+  label,
+  outline = false,
+  icon,
+  styles,
+}: {
+  color: string;
+  label: string;
+  outline?: boolean;
+  icon?: IconName;
+  styles: ReturnType<typeof createStyles>;
+}) {
   return (
     <View style={styles.legendItem}>
       {icon ? (
@@ -359,66 +414,69 @@ function LegendDot({color, label, outline = false, icon}: {color: string; label:
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    marginTop: 16,
-    borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    ...homeShadow,
-  },
-  monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  monthTitleBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 6},
-  monthTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textTransform: 'capitalize'},
-  hijriRange: {marginTop: 2, color: homeColors.primary, fontSize: 10, fontWeight: '600', textAlign: 'center'},
-  modeRow: {flexDirection: 'row', marginTop: 12, gap: 8, backgroundColor: homeColors.lightLavender, borderRadius: homeRadii.button, padding: 4},
-  modeButton: {flex: 1, minHeight: 30, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button - 2},
-  modeButtonActive: {backgroundColor: homeColors.primary},
-  modeText: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '700'},
-  modeTextActive: {color: '#FFFFFF'},
-  weekRow: {flexDirection: 'row', marginTop: 14},
-  weekDay: {width: '14.2857%', color: homeColors.textSecondary, fontSize: 11, fontWeight: '600', textAlign: 'center'},
-  daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 6},
-  dayCell: {width: '14.2857%', minHeight: 56, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
-  day: {width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 14},
-  dayText: {color: homeColors.textPrimary, fontSize: 13, fontWeight: '600'},
-  hijriDayText: {color: homeColors.textSecondary, fontSize: 8.5, marginTop: 1},
-  dayTextLight: {color: '#FFFFFF'},
-  periodDay: {backgroundColor: '#F7D7D6'},
-  fertileDay: {backgroundColor: '#DCEFE0'},
-  ovulationDay: {backgroundColor: OVULATION_COLOR},
-  selectedDay: {backgroundColor: homeColors.primary},
-  todayDayBorder: {
-    // Neutral fill — always wins over period/fertile/ovulation/selected
-    // backgrounds so the dashed outline and journal dots stay legible.
-    backgroundColor: homeColors.lightLavender,
-    borderWidth: 1.8,
-    borderStyle: 'dashed',
-    borderColor: '#211A35',
-    borderRadius: 14,
-  },
-  todayDayText: {
-  color: '#211A35',
-  fontSize: 14,
-  fontWeight: '800',
-  zIndex: 4,
-},
-  dotRow: {flexDirection: 'row', gap: 2, marginTop: 1},
-  spiritualMarker: {position: 'absolute', top: 3, right: 3},
-  dot: {width: 3.5, height: 3.5, borderRadius: 2},
-  legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
-  legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
-  legendDot: {width: 9, height: 9, borderRadius: 5},
-  legendTodayRing: {
-    width: 12,
-    height: 12,
-    borderWidth: 1.4,
-    borderStyle: 'dashed',
-    borderRadius: 6,
-    backgroundColor: 'rgba(105,73,190,0.03)',
-  },
-  legendText: {color: homeColors.textSecondary, fontSize: 10.5},
-  pressed: {opacity: 0.8},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    card: {
+      marginTop: 16,
+      borderRadius: homeRadii.card,
+      backgroundColor: theme.colors.surface,
+      padding: 16,
+      ...theme.shadow,
+    },
+    monthHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    monthTitleBlock: {flex: 1, alignItems: 'center', paddingHorizontal: 6},
+    monthTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textTransform: 'capitalize'},
+    hijriRange: {marginTop: 2, color: theme.colors.primary, fontSize: 10, fontWeight: '600', textAlign: 'center'},
+    modeRow: {flexDirection: 'row', marginTop: 12, gap: 8, backgroundColor: theme.colors.primarySoft, borderRadius: homeRadii.button, padding: 4},
+    modeButton: {flex: 1, minHeight: 30, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button - 2},
+    modeButtonActive: {backgroundColor: theme.colors.primary},
+    modeText: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
+    modeTextActive: {color: onPrimaryTextColor(theme)},
+    weekRow: {flexDirection: 'row', marginTop: 14},
+    weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600', textAlign: 'center'},
+    daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 6},
+    dayCell: {width: '14.2857%', minHeight: 56, alignItems: 'center', justifyContent: 'center', paddingVertical: 2},
+    day: {width: '86%', minHeight: 40, maxWidth: 42, paddingVertical: 4, alignItems: 'center', justifyContent: 'center', borderRadius: 14},
+    dayText: {color: theme.colors.text, fontSize: 13, fontWeight: '600'},
+    hijriDayText: {color: theme.colors.textSecondary, fontSize: 8.5, marginTop: 1},
+    // SEMANTIC backgrounds — never theme-driven, see file header note.
+    periodDay: {backgroundColor: '#F7D7D6'},
+    fertileDay: {backgroundColor: '#DCEFE0'},
+    ovulationDay: {backgroundColor: OVULATION_COLOR},
+    selectedDay: {backgroundColor: theme.colors.primary},
+    todayDayBorder: {
+      // Neutral fill — always wins over period/fertile/ovulation/selected
+      // backgrounds so the dashed outline and journal dots stay legible, in
+      // every theme/mode.
+      backgroundColor: theme.colors.primarySoft,
+      borderWidth: 1.8,
+      borderStyle: 'dashed',
+      borderColor: theme.colors.text,
+      borderRadius: 14,
+    },
+    todayDayText: {
+      color: theme.colors.text,
+      fontSize: 14,
+      fontWeight: '800',
+      zIndex: 4,
+    },
+    dotRow: {flexDirection: 'row', gap: 2, marginTop: 1},
+    spiritualMarker: {position: 'absolute', top: 3, right: 3},
+    dot: {width: 3.5, height: 3.5, borderRadius: 2},
+    legendRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 12},
+    legendItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
+    legendDot: {width: 9, height: 9, borderRadius: 5},
+    legendTodayRing: {
+      width: 12,
+      height: 12,
+      borderWidth: 1.4,
+      borderStyle: 'dashed',
+      borderRadius: 6,
+      backgroundColor: 'transparent',
+    },
+    legendText: {color: theme.colors.textSecondary, fontSize: 10.5},
+    pressed: {opacity: 0.8},
+  });
+}
 
 export default memo(MonthCalendarCard);

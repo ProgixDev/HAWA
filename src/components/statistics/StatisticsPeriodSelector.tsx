@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors, homeShadow} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {STATISTICS_PERIODS, isPeriodFree} from '../../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
 
@@ -12,6 +13,9 @@ import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
 // all 8 objectives; only what each screen calculates and displays for the
 // selected period differs. Keep this component free of any
 // objective-specific semantics.
+//
+// PHASE C — purely decorative chrome, no entitlement/period logic touched.
+// isPeriodFree()/isPremium/onSelectPeriod/onRequestPremium are unchanged.
 
 export const STATISTICS_PERIOD_LABELS: Record<StatisticsPeriod, string> = {
   '1': '1 mois',
@@ -33,6 +37,9 @@ function StatisticsPeriodSelector({
   onSelectPeriod,
   onRequestPremium,
 }: StatisticsPeriodSelectorProps): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.filters}>
       {STATISTICS_PERIODS.map(item => {
@@ -52,7 +59,7 @@ function StatisticsPeriodSelector({
               </Text>
 
               {locked ? (
-                <MaterialDesignIcons color={homeColors.textSecondary} name="lock-outline" size={10} />
+                <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
               ) : null}
             </View>
           </Pressable>
@@ -62,46 +69,48 @@ function StatisticsPeriodSelector({
   );
 }
 
-const styles = StyleSheet.create({
-  filters: {
-    flexDirection: 'row',
-    padding: 4,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.05)',
-    borderRadius: 17,
-    backgroundColor: '#EEE8F5',
-  },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    filters: {
+      flexDirection: 'row',
+      padding: 4,
+      marginBottom: 16,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 17,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
 
-  filterButton: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    minHeight: 40,
-    borderRadius: 13,
-  },
+    filterButton: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: 40,
+      borderRadius: 13,
+    },
 
-  filterButtonActive: {
-    ...homeShadow,
-    backgroundColor: '#FFFFFF',
-  },
+    filterButtonActive: {
+      ...theme.shadow,
+      backgroundColor: theme.colors.surface,
+    },
 
-  filterButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-  },
+    filterButtonContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 3,
+    },
 
-  filterText: {
-    color: homeColors.textSecondary,
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
+    filterText: {
+      color: theme.colors.textSecondary,
+      fontSize: 10.5,
+      fontWeight: '700',
+    },
 
-  filterTextActive: {
-    color: homeColors.primary,
-    fontWeight: '800',
-  },
-});
+    filterTextActive: {
+      color: theme.colors.primary,
+      fontWeight: '800',
+    },
+  });
+}
 
 export default StatisticsPeriodSelector;
