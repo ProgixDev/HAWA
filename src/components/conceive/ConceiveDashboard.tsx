@@ -23,7 +23,9 @@ import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import DailyJournalCard, {type Shortcut} from '../home/DailyJournalCard';
-import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
+import {homeColors, homeRadii} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../../hooks/useQadaaStatus';
@@ -75,12 +77,20 @@ import {
 // / JournalLHTestScreen, registered as CervicalMucusEntry / LHTestEntry) —
 // previously neither existed anywhere in the project.
 
-const PURPLE = '#6949BE';
+// PHASE D4 — SEMANTIC fertility-phase identity colors, never theme-driven
+// (PERIOD/OVULATION match Cycle D1's own protected constants exactly;
+// FERTILE_COLOR matches HeroCycleCard's fertile ringColor; LUTEAL_COLOR is
+// this file's own pre-existing value, a known cross-objective inconsistency
+// with Cycle's luteal tint, documented — not fixed — same as D1's own
+// dual-ovulation-purple finding). PURPLE/TRACK_COLOR used to be fixed
+// literals here; they are now derived from useAwaTheme() inside
+// ConceiveDashboard() (and re-derived identically inside createStyles(theme)
+// and passed into FertilityRing as props, since it's a sibling top-level
+// component that can no longer close over module-scope values).
 const PERIOD = '#DC7B82';
 const OVULATION = '#4E319A';
 const FERTILE_COLOR = '#8B6FD1';
 const LUTEAL_COLOR = '#D8CDEE';
-const TRACK_COLOR = '#F0E9FA';
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
@@ -126,10 +136,14 @@ function FertilityRing({
   day,
   cycleLength,
   progress,
+  theme,
+  styles,
 }: {
   day: number;
   cycleLength: number;
   progress: number;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   const progressAnim = useRef(new Animated.Value(0)).current;
   const breatheAnim = useRef(new Animated.Value(0)).current;
@@ -138,6 +152,21 @@ function FertilityRing({
 
   const clamped = Math.min(Math.max(progress, 0), 1);
   const AnimatedCircle = Animated.createAnimatedComponent(Circle);
+
+  // Decorative pink-to-purple ring gradient — approximates the original
+  // fixed spectrum (#E06B9F -> PURPLE) using this theme's own secondary
+  // (its "pink" role for awa-original, homeColors.pink) -> primary pair, the
+  // same interpolateHex(...) technique AnimatedProgressRing's own D2
+  // migration already established for an equivalent multi-stop SVG arc.
+  const gradientStops = useMemo(
+    () => [
+      interpolateHex(theme.colors.secondary, theme.colors.primary, 0),
+      interpolateHex(theme.colors.secondary, theme.colors.primary, 0.34),
+      interpolateHex(theme.colors.secondary, theme.colors.primary, 0.68),
+      theme.colors.primary,
+    ],
+    [theme],
+  );
 
   useEffect(() => {
     progressAnim.setValue(0);
@@ -254,10 +283,10 @@ function FertilityRing({
       <Svg height={RING_SIZE} width={RING_SIZE}>
         <Defs>
           <SvgGradient id="fertilityRingGradient" x1="0" x2="1" y1="0" y2="1">
-            <Stop offset="0" stopColor="#E06B9F" />
-            <Stop offset="0.34" stopColor="#C572CA" />
-            <Stop offset="0.68" stopColor="#8F63D5" />
-            <Stop offset="1" stopColor={PURPLE} />
+            <Stop offset="0" stopColor={gradientStops[0]} />
+            <Stop offset="0.34" stopColor={gradientStops[1]} />
+            <Stop offset="0.68" stopColor={gradientStops[2]} />
+            <Stop offset="1" stopColor={gradientStops[3]} />
           </SvgGradient>
         </Defs>
 
@@ -266,7 +295,7 @@ function FertilityRing({
           cy={RING_SIZE / 2}
           fill="none"
           r={RING_RADIUS}
-          stroke="#F1EBF8"
+          stroke={theme.colors.primarySoft}
           strokeWidth={RING_STROKE}
         />
 
@@ -317,6 +346,16 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   const [initial, setCyclePreferencesState] = useState(getCyclePreferences);
   const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
   const {open: openJournal} = useJournalSheet();
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // PHASE D4 — decorative-brand-purple identifiers, now theme-derived (see
+  // the module-level comment above where these used to be fixed literals).
+  // PERIOD/OVULATION/FERTILE_COLOR/LUTEAL_COLOR (fertility-phase semantics)
+  // stay fixed module consts, untouched.
+  const PURPLE = theme.colors.primary;
+  const TRACK_COLOR = theme.colors.primarySoft;
 
   const [journalEntry, setJournalEntry] = useState<DailyJournalEntry | undefined>(undefined);
   const [, setProfileRevision] = useState(0);
@@ -451,11 +490,15 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   // either list — it has its own dedicated card (see below, just above
   // "Suivi du jour").
   const quickActionItems: QuickActionItem[] = [
-    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
-    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
+    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
+    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
+    // Category E (fixed action-identity accent, same as Cycle D1,
+    // Contraception D2, Irregular D3 — never theme-driven).
     {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: '#B23F63', iconBg: '#F9DCE8', label: 'Journal\nquotidien', onPress: openJournal},
-    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
-    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: '#EEE3FA', label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
+    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
+    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
+    // Category E (fixed action-identity accent, same as Cycle D1,
+    // Contraception D2, Irregular D3 — never theme-driven).
     {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: 'Statistiques', onPress: () => navigation.navigate('Statistics')},
   ];
 
@@ -486,7 +529,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -499,7 +542,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
       <SafeAreaView style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -518,7 +561,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             {hasConfirmedCycleData ? (
               <>
                 <View style={styles.heroTopRow}>
-                  <FertilityRing cycleLength={cycleLength} day={currentCycleDay} progress={ringProgress} />
+                  <FertilityRing cycleLength={cycleLength} day={currentCycleDay} progress={ringProgress} styles={styles} theme={theme} />
 
                   <View style={styles.heroCopy}>
                     <View style={styles.heroBadgeRow}>
@@ -605,7 +648,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('CycleInformation', {fromDashboardCTA: true})}
                   style={({pressed}) => [styles.insufficientDataCta, pressed && styles.calendarCtaPressed]}>
-                  <MaterialDesignIcons color="#FFFFFF" name="calendar-edit" size={16} />
+                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
                   <Text style={styles.insufficientDataCtaText}>Configurer mon cycle</Text>
                 </Pressable>
               </View>
@@ -694,7 +737,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                   <Image resizeMode="cover" source={ARTICLE_IMAGES[article.categoryId] ?? ARTICLE_IMAGES.fertility} style={styles.articleImage} />
                   <Text numberOfLines={2} style={styles.articleTileTitle}>{article.title}</Text>
                   <View style={styles.articleTileMetaRow}>
-                    <MaterialDesignIcons color={homeColors.textSecondary} name="book-outline" size={12} />
+                    <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
                     <Text style={styles.articleTileMeta}>{article.durationMinutes} min de lecture</Text>
                   </View>
                 </Pressable>
@@ -707,13 +750,23 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+// PHASE D4 — converted to a createStyles(theme) factory, same pattern as
+// CycleHomeScreen.tsx (D1), ContraceptionDashboard.tsx (D2) and
+// IrregularDashboard.tsx (D3). PURPLE/TRACK_COLOR are re-derived here
+// exactly as in the component body above, so every style below keeps
+// working unchanged by name. adviceCard/adviceIcon/adviceTitle/
+// adviceSubtitle/adviceText are the one deliberate exception — see their
+// own comment below.
+function createStyles(theme: ResolvedAwaTheme) {
+  const PURPLE = theme.colors.primary;
+
+  return StyleSheet.create({
+  background: {flex: 1, backgroundColor: theme.colors.background},
 
   pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {position: 'absolute', top: -150, right: -110, width: 330, height: 330, borderRadius: 165, backgroundColor: 'rgba(111, 82, 170, 0.07)'},
-  pageGlowMiddle: {position: 'absolute', top: '38%', left: -130, width: 260, height: 260, borderRadius: 130, backgroundColor: 'rgba(139, 112, 188, 0.045)'},
-  pageGlowBottom: {position: 'absolute', bottom: -150, right: -100, width: 310, height: 310, borderRadius: 155, backgroundColor: 'rgba(92, 67, 139, 0.05)'},
+  pageGlowTop: {position: 'absolute', top: -150, right: -110, width: 330, height: 330, borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
+  pageGlowMiddle: {position: 'absolute', top: '38%', left: -130, width: 260, height: 260, borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045)},
+  pageGlowBottom: {position: 'absolute', bottom: -150, right: -100, width: 310, height: 310, borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05)},
 
   safeArea: {flex: 1, backgroundColor: 'transparent'},
 
@@ -727,13 +780,13 @@ const styles = StyleSheet.create({
     marginTop: 16,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 30,
-    backgroundColor: 'rgba(255,255,255,0.985)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.985),
     paddingHorizontal: 16,
     paddingTop: 20,
     paddingBottom: 17,
-    shadowColor: '#4C3379',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 9},
     shadowOpacity: 0.13,
     shadowRadius: 22,
@@ -757,7 +810,7 @@ const styles = StyleSheet.create({
     height: RING_SIZE + 12,
     borderRadius: (RING_SIZE + 12) / 2,
     borderWidth: 1,
-    borderColor: 'rgba(129,86,196,0.18)',
+    borderColor: withAlpha(theme.colors.primary, 0.18),
   },
   ringHaloDot: {
     position: 'absolute',
@@ -767,14 +820,14 @@ const styles = StyleSheet.create({
     height: 7,
     marginLeft: -3.5,
     borderRadius: 4,
-    backgroundColor: '#C56CBD',
+    backgroundColor: theme.colors.secondary,
   },
   ringGlow: {
     position: 'absolute',
     width: RING_SIZE - 8,
     height: RING_SIZE - 8,
     borderRadius: (RING_SIZE - 8) / 2,
-    backgroundColor: '#B78BDF',
+    backgroundColor: theme.colors.primary,
   },
   ringCenter: {
     position: 'absolute',
@@ -782,7 +835,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   ringEyebrow: {
-    color: '#746A84',
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
     letterSpacing: 0.5,
@@ -790,7 +843,7 @@ const styles = StyleSheet.create({
   },
   ringDay: {
     marginTop: 1,
-    color: '#2A204B',
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 38,
     fontWeight: '700',
@@ -799,12 +852,12 @@ const styles = StyleSheet.create({
   ringCyclePill: {
     marginTop: 4,
     borderRadius: 999,
-    backgroundColor: 'rgba(246,240,252,0.96)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.96),
     paddingHorizontal: 8,
     paddingVertical: 3,
   },
   ringSubtitle: {
-    color: '#6E6481',
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '600',
   },
@@ -820,24 +873,29 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 8,
   },
+  // Decorative status pill — phase-invariant (same style for every
+  // heroStatus.badge value, "RÈGLES" through "APRÈS OVULATION"), so it
+  // never actually encodes fertility meaning through color despite sitting
+  // next to phase copy. Uses the theme's own secondary ("pink") role rather
+  // than primary, preserving the original pink accent's spirit.
   heroBadge: {
     alignSelf: 'flex-start',
     borderWidth: 1,
-    borderColor: 'rgba(178,63,99,0.08)',
+    borderColor: withAlpha(theme.colors.secondary, 0.08),
     borderRadius: 13,
-    backgroundColor: '#FCECF5',
+    backgroundColor: withAlpha(theme.colors.secondary, 0.12),
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   heroBadgeText: {
-    color: '#A84568',
+    color: theme.colors.secondary,
     fontSize: 9.5,
     fontWeight: '800',
     letterSpacing: 0.45,
   },
   heroTitle: {
     marginTop: 9,
-    color: '#2D2250',
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 22,
     lineHeight: 27,
@@ -845,7 +903,7 @@ const styles = StyleSheet.create({
   },
   heroDescription: {
     marginTop: 5,
-    color: '#6E6481',
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
   },
@@ -897,20 +955,20 @@ const styles = StyleSheet.create({
   timelineDot: {width: 8, height: 8, borderRadius: 4},
   timelineLegendLabel: {
     marginTop: 5,
-    color: '#352A55',
+    color: theme.colors.text,
     fontSize: 10.5,
     fontWeight: '700',
   },
   timelineLegendValue: {
     marginTop: 2,
-    color: '#7B718A',
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
   },
 
   heroDivider: {
     marginTop: 18,
     height: StyleSheet.hairlineWidth,
-    backgroundColor: '#ECE6F3',
+    backgroundColor: theme.colors.border,
   },
 
   heroFooterRow: {
@@ -921,16 +979,16 @@ const styles = StyleSheet.create({
   },
   heroFooterCopy: {flex: 1, minWidth: 0, marginRight: 10},
   heroFooterLabel: {
-    color: '#746A84',
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
   },
   heroFooterValue: {
     marginTop: 3,
-    color: '#2F2451',
+    color: theme.colors.text,
     fontSize: 15.5,
     fontWeight: '800',
   },
-  heroFooterSubtitle: {marginTop: 1, color: homeColors.textSecondary, fontSize: 10.5},
+  heroFooterSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 10.5},
 
   calendarCta: {
     flexDirection: 'row',
@@ -938,9 +996,9 @@ const styles = StyleSheet.create({
     gap: 6,
     minHeight: 40,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 20,
-    backgroundColor: '#F6F0FC',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 14,
   },
   calendarCtaPressed: {opacity: 0.8},
@@ -953,18 +1011,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    backgroundColor: '#EEE3FA',
+    backgroundColor: theme.colors.primarySoft,
   },
   insufficientDataTitle: {
     marginTop: 12,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '700',
   },
   insufficientDataText: {
     marginTop: 6,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 12.5,
     lineHeight: 18,
     textAlign: 'center',
@@ -980,16 +1038,16 @@ const styles = StyleSheet.create({
     backgroundColor: PURPLE,
     paddingHorizontal: 20,
   },
-  insufficientDataCtaText: {color: '#FFFFFF', fontSize: 13, fontWeight: '700'},
+  insufficientDataCtaText: {color: onPrimaryTextColor(theme), fontSize: 13, fontWeight: '700'},
 
   evolutionCard: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 16,
     borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     padding: 16,
-    ...homeShadow,
+    ...theme.shadow,
   },
   evolutionIcon: {
     width: 44,
@@ -997,12 +1055,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
-    backgroundColor: '#EEE3FA',
+    backgroundColor: theme.colors.primarySoft,
   },
   evolutionCopy: {flex: 1, minWidth: 0, marginLeft: 12, marginRight: 8},
-  evolutionTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
-  evolutionSubtitle: {marginTop: 3, color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+  evolutionTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
+  evolutionSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
 
+  // Fixed — a self-contained "romantic/nurturing" rose card, deliberately
+  // NOT following the resolved palette (same treatment as Cycle/
+  // Contraception/Irregular's fixed daily-journal rose accent, '#B23F63',
+  // reused verbatim here). Its background never adapts to Dark/True Black,
+  // so every text/icon color drawn on top of it must also stay fixed —
+  // exactly like MotivationCard's "text calibrated against a fixed surface"
+  // precedent (Phase D1) — rather than partially theming a card whose own
+  // surface stays static.
   adviceCard: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1028,31 +1094,31 @@ const styles = StyleSheet.create({
   articlesCard: {
     marginTop: 16,
     borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingVertical: 16,
     paddingLeft: 16,
-    ...homeShadow,
+    ...theme.shadow,
   },
   articlesHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingRight: 16},
-  articlesTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+  articlesTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
   articlesSeeAll: {color: PURPLE, fontSize: 12.5, fontWeight: '700'},
   articlesRow: {marginTop: 12, gap: 10, paddingRight: 16},
   articleTile: {
     width: 140,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: theme.colors.border,
     borderRadius: homeRadii.quickAction,
-    backgroundColor: '#FFFDFF',
+    backgroundColor: theme.colors.surface,
     overflow: 'hidden',
     paddingBottom: 10,
   },
   articleImage: {width: '100%', height: 76},
-  articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: homeColors.textPrimary, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
+  articleTileTitle: {marginTop: 8, marginHorizontal: 9, color: theme.colors.text, fontSize: 11.5, fontWeight: '700', lineHeight: 15},
   articleTileMetaRow: {marginTop: 6, marginHorizontal: 9, flexDirection: 'row', alignItems: 'center', gap: 4},
-  articleTileMeta: {color: homeColors.textSecondary, fontSize: 9.5},
+  articleTileMeta: {color: theme.colors.textSecondary, fontSize: 9.5},
   pressed: {opacity: 0.82, transform: [{scale: 0.98}]},
 
-
-});
+  });
+}
 
 export default ConceiveDashboard;
