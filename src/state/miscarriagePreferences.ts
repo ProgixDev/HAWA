@@ -26,6 +26,15 @@ export type MiscarriagePreferences = {
    * 'yes' so a stale date can never linger under a 'no'/'unknown' answer. */
   firstReturnedPeriodDate: string | null;
   tryingAgainStatus: MiscarriageTryingAgainStatus | null;
+  /** The ONLY Miscarriage reminder: an optional, gentle "Suivi quotidien"
+   * nudge — never a period/fertility prediction (see the objective's own
+   * boundary rule above). Same shape/naming convention as
+   * postpartumPreferences.ts's/menopausePreferences.ts's own
+   * dailyTrackingReminderEnabled/Time pair — read/written identically by
+   * MiscarriageRemindersScreen.tsx in both its onboarding and Profile "Mon
+   * objectif" edit modes, so there is exactly one source of truth. */
+  dailyTrackingReminderEnabled: boolean;
+  dailyTrackingReminderTime: string | null;
 };
 
 const STORAGE_KEY = '@hawa/miscarriage-preferences/v1';
@@ -35,6 +44,8 @@ const DEFAULT_PREFERENCES: MiscarriagePreferences = {
   cycleReturnStatus: null,
   firstReturnedPeriodDate: null,
   tryingAgainStatus: null,
+  dailyTrackingReminderEnabled: false,
+  dailyTrackingReminderTime: null,
 };
 
 let miscarriagePreferences: MiscarriagePreferences = {...DEFAULT_PREFERENCES};
@@ -63,7 +74,11 @@ const isValidPreferences = (value: unknown): value is Partial<MiscarriagePrefere
     (candidate.bleedingStatus === undefined || candidate.bleedingStatus === null || isValidBleedingStatus(candidate.bleedingStatus)) &&
     (candidate.cycleReturnStatus === undefined || candidate.cycleReturnStatus === null || isValidCycleReturnStatus(candidate.cycleReturnStatus)) &&
     (candidate.firstReturnedPeriodDate === undefined || candidate.firstReturnedPeriodDate === null || typeof candidate.firstReturnedPeriodDate === 'string') &&
-    (candidate.tryingAgainStatus === undefined || candidate.tryingAgainStatus === null || isValidTryingAgainStatus(candidate.tryingAgainStatus))
+    (candidate.tryingAgainStatus === undefined || candidate.tryingAgainStatus === null || isValidTryingAgainStatus(candidate.tryingAgainStatus)) &&
+    (candidate.dailyTrackingReminderEnabled === undefined || typeof candidate.dailyTrackingReminderEnabled === 'boolean') &&
+    (candidate.dailyTrackingReminderTime === undefined ||
+      candidate.dailyTrackingReminderTime === null ||
+      typeof candidate.dailyTrackingReminderTime === 'string')
   );
 };
 
@@ -121,6 +136,17 @@ export const setMiscarriageCycleReturnStatus = async (
  * user can manually switch objective later from Profile if she wants. */
 export const setMiscarriageTryingAgainStatus = async (status: MiscarriageTryingAgainStatus): Promise<void> => {
   await setMiscarriagePreferences({...miscarriagePreferences, tryingAgainStatus: status});
+};
+
+/** THE single canonical way to change the "Suivi quotidien" reminder — used
+ * by MiscarriageRemindersScreen.tsx in BOTH its onboarding and Profile
+ * "Notifications & rappels" edit modes (and nowhere else; do not duplicate
+ * this call or introduce a second onboarding-only/Profile-only value). */
+export const setMiscarriageDailyTrackingReminder = async (value: {
+  dailyTrackingReminderEnabled: boolean;
+  dailyTrackingReminderTime: string | null;
+}): Promise<void> => {
+  await setMiscarriagePreferences({...miscarriagePreferences, ...value});
 };
 
 export const hydrateMiscarriagePreferences = (): Promise<MiscarriagePreferences> => {

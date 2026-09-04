@@ -59,7 +59,9 @@ import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingA
 
 import { usePremium } from '../../hooks/usePremium';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
-import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
+import StatisticsPeriodSelector, {
+  STATISTICS_PERIOD_LABELS,
+} from '../../components/statistics/StatisticsPeriodSelector';
 import {
   cutoffDateForPeriod,
   formatMonthLabel,
@@ -67,6 +69,7 @@ import {
   describeMonthsCoverage,
   type StatisticsPeriod,
 } from '../../utils/cycleStatisticsMath';
+import {resolveCycleReturnEventInPeriod} from '../../utils/miscarriageStatisticsMath';
 
 /* ============================================================
    THEME
@@ -800,6 +803,27 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
 
   const showMonthlyView = period !== '1';
 
+  // Premium "Retour du cycle" evolution — honest, period-aware read of the
+  // ONE confirmed return date this objective's data model actually stores
+  // (miscarriagePreferences.ts has no history of multiple returns; a
+  // returned period here deliberately never starts classic cycle/fertility
+  // tracking). Never infers a return from elapsed days, bleeding entries or
+  // an average cycle duration — only a real 'yes' + a real recorded date
+  // counts. Falls back to null (not "late", not "no event") whenever the
+  // confirmed date exists but falls outside the currently selected 1/3/6/12
+  // month window, so an old confirmation is never shown as if it belonged to
+  // a shorter selected period.
+  const cycleReturnEventInPeriod = useMemo(
+    () =>
+      resolveCycleReturnEventInPeriod(
+        prefs.cycleReturnStatus,
+        firstReturnedPeriodDate,
+        cutoffDateForPeriod(period, now),
+        now,
+      ),
+    [prefs.cycleReturnStatus, firstReturnedPeriodDate, period, now],
+  );
+
   const trackedDays = useMemo(
     () =>
       periodJournalDays.filter(
@@ -1184,6 +1208,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
 
           {tab === 'tracking' ? (
             <TrackingTab
+              cycleReturnEventInPeriod={cycleReturnEventInPeriod}
               cycleReturnLabel={
                 prefs.cycleReturnStatus
                   ? CYCLE_RETURN_LABELS[prefs.cycleReturnStatus]
@@ -1192,6 +1217,8 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
               firstReturnedPeriodDate={firstReturnedPeriodDate}
               maxTryingAgainCount={maxTryingAgainCount}
               notesCount={notesEntries.length}
+              periodLabel={STATISTICS_PERIOD_LABELS[period]}
+              showMonthlyView={showMonthlyView}
               tryingAgainCounts={tryingAgainCounts}
               tryingAgainLabel={
                 getMiscarriageTryingAgainDisplay(prefs.tryingAgainStatus).label
@@ -1734,6 +1761,9 @@ function TrackingTab({
   maxTryingAgainCount,
   cycleReturnLabel,
   firstReturnedPeriodDate,
+  cycleReturnEventInPeriod,
+  showMonthlyView,
+  periodLabel,
 }: {
   notesCount: number;
 
@@ -1749,6 +1779,15 @@ function TrackingTab({
   cycleReturnLabel: string;
 
   firstReturnedPeriodDate: Date | null;
+
+  /** The confirmed return-of-cycle date ONLY when it falls inside the
+   * currently selected 1/3/6/12 month window — null otherwise (no event,
+   * unconfirmed, or the real date exists but belongs to an older period). */
+  cycleReturnEventInPeriod: Date | null;
+
+  showMonthlyView: boolean;
+
+  periodLabel: string;
 }): React.JSX.Element {
   return (
     <>
@@ -1857,6 +1896,40 @@ function TrackingTab({
           ) : null}
         </View>
       </AnimatedSection>
+
+      {showMonthlyView ? (
+        <AnimatedSection delay={140}>
+          <View
+            accessibilityLabel={`Repères de retour du cycle enregistrés sur ${periodLabel}`}
+            style={styles.card}
+          >
+            <SectionHeader
+              accent="purple"
+              icon="calendar-heart"
+              subtitle="Repères enregistrés au fil du temps"
+              title="Retour du cycle"
+            />
+
+            {cycleReturnEventInPeriod ? (
+              <View style={styles.currentStatusBox}>
+                <Text style={styles.currentStatusLabel}>
+                  Retour du cycle confirmé
+                </Text>
+
+                <Text style={styles.currentStatusValue}>
+                  Tu as indiqué le retour de tes règles le{' '}
+                  {formatFullDate(cycleReturnEventInPeriod)}.
+                </Text>
+              </View>
+            ) : (
+              <EmptyState
+                icon="calendar-heart"
+                text={`Aucun retour de cycle confirmé sur ${periodLabel}.`}
+              />
+            )}
+          </View>
+        </AnimatedSection>
+      ) : null}
 
       <AnimatedSection delay={160}>
         <View style={styles.softInfoCard}>

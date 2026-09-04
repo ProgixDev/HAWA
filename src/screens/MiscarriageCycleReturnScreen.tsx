@@ -50,7 +50,7 @@ const OPTIONS: Array<{
 const formatFullDate = (date: Date): string =>
   new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
-function MiscarriageCycleReturnScreen({navigation}: Props): React.JSX.Element {
+function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -114,6 +114,10 @@ function MiscarriageCycleReturnScreen({navigation}: Props): React.JSX.Element {
     setSaving(true);
     try {
       await setMiscarriageCycleReturnStatus(selected, selected === 'yes' ? returnedDate : null);
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
+      }
       navigation.navigate('MiscarriageTryingAgain');
     } finally {
       setSaving(false);

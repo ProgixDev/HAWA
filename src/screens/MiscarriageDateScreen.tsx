@@ -41,7 +41,7 @@ const formatMonthYear = (date: Date): string => {
   return label.charAt(0).toUpperCase() + label.slice(1);
 };
 
-function MiscarriageDateScreen({navigation}: Props): React.JSX.Element {
+function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const entrance = useRef(new Animated.Value(0)).current;
@@ -128,6 +128,10 @@ function MiscarriageDateScreen({navigation}: Props): React.JSX.Element {
     try {
       // Timezone-safe 'YYYY-MM-DD' persistence — see setMiscarriageDate().
       await setMiscarriageDate(selectedDate);
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
+      }
       navigation.navigate('MiscarriageBleeding');
     } finally {
       setSaving(false);

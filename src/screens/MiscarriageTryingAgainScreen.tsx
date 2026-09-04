@@ -44,7 +44,7 @@ const OPTIONS: Array<{
   {id: 'ready', title: 'Oui, je me sens prête', subtitle: 'Je souhaite reprendre les essais', icon: 'heart-outline', tint: '#FBE8E8'},
 ];
 
-function MiscarriageTryingAgainScreen({navigation}: Props): React.JSX.Element {
+function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -82,7 +82,11 @@ function MiscarriageTryingAgainScreen({navigation}: Props): React.JSX.Element {
       // Personalizes the miscarriage support experience only — activeObjective
       // stays 'loss' (never auto-switched to 'conceive'), per spec section 19.
       await setMiscarriageTryingAgainStatus(selected);
-      navigation.navigate('SecuritySetup');
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
+      }
+      navigation.navigate('MiscarriageReminders');
     } finally {
       setSaving(false);
     }

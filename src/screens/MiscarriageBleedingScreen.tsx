@@ -44,7 +44,7 @@ const OPTIONS: Array<{
   {id: 'variable', title: 'Je ne sais pas / cela varie', subtitle: 'C’est irrégulier', icon: 'help-circle-outline', tint: '#F1E8F5'},
 ];
 
-function MiscarriageBleedingScreen({navigation}: Props): React.JSX.Element {
+function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -82,6 +82,10 @@ function MiscarriageBleedingScreen({navigation}: Props): React.JSX.Element {
     setSaving(true);
     try {
       await setMiscarriageBleedingStatus(selected);
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
+      }
       navigation.navigate('MiscarriageCycleReturn');
     } finally {
       setSaving(false);
