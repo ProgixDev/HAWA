@@ -1,7 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
-  ImageBackground,
   Modal,
   Pressable,
   ScrollView,
@@ -17,6 +16,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { spacing } from '../theme/spacing';
@@ -39,8 +39,6 @@ import {
 } from '../state/postpartumPreferences';
 import { computePostpartumLochiaSummary } from '../utils/postpartumTrackingUtils';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
-
-const BACKGROUND = require('../assets/images/school-selection-background.png');
 
 const PURPLE = '#6B4BC4';
 const PURPLE_DARK = '#2F1B73';
@@ -211,11 +209,19 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   };
 
   return (
-    <ImageBackground
-      resizeMode="cover"
-      source={BACKGROUND}
+    <LinearGradient
+      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
       style={styles.background}
     >
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
@@ -678,7 +684,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
           onRequestClose={() => setReopenConsistencyVisible(false)}
         />
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
@@ -724,7 +730,43 @@ function Section({
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1, backgroundColor: '#F8EFFF' },
+  background: { flex: 1, backgroundColor: '#F2ECF8' },
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+  },
+
   safeArea: { flex: 1, backgroundColor: 'transparent' },
   page: { flex: 1 },
   header: {
