@@ -42,27 +42,27 @@ const FLOW = require('../assets/images/library/featured-flow.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'FeaturedArticles'>;
 
 const HERO_SLIDES = [
-  {id: 'cycle-phases-expliquees', image: HERO, title: 'Comprendre les\nphases de ton cycle', summary: 'Découvre les phases de ton cycle et leur rôle dans ton équilibre hormonal.', minutes: 6},
-  {id: 'pain-gerer-douleurs', image: COMFORT_HERO, title: 'Soulager les douleurs\nmenstruelles', summary: 'Des gestes doux et naturels pour apaiser les crampes et retrouver ton confort.', minutes: 7},
-  {id: 'cycle-comprendre-ton-cycle', image: TRACKING_HERO, title: 'Mieux suivre\nton cycle', summary: 'Observe tes rythmes et apprends à reconnaître les signaux uniques de ton corps.', minutes: 6},
+  {id: 'cycle-phases-expliquees', image: HERO, title: 'Les différentes phases du cycle', summary: 'Découvre les phases de ton cycle et leur rôle dans ton équilibre hormonal.', minutes: 6},
+  {id: 'pain-gerer-douleurs', image: COMFORT_HERO, title: 'Gérer les douleurs menstruelles', summary: 'Des gestes doux et naturels pour apaiser les crampes et retrouver ton confort.', minutes: 7},
+  {id: 'cycle-comprendre-ton-cycle', image: TRACKING_HERO, title: 'Comprendre ton cycle menstruel', summary: 'Observe tes rythmes et apprends à reconnaître les signaux uniques de ton corps.', minutes: 6},
 ] as const;
 
 const POPULAR = [
   {
     id: 'cycle-phases-expliquees',
-    title: 'Les différentes\nphases du cycle\nexpliquées',
+    title: 'Les différentes phases du cycle',
     minutes: 6,
     image: PHASES,
   },
   {
     id: 'flow-comprendre-flux',
-    title: 'Comprendre les\nrègles : ce qui se\npasse vraiment',
+    title: 'Comprendre ton flux menstruel',
     minutes: 6,
     image: BRANCH,
   },
   {
     id: 'nutrition-conception-fertilite',
-    title: 'Alimentation\net cycle : ce que\nton corps aime',
+    title: 'Nutrition et fertilité',
     minutes: 4,
     image: FOOD,
   },
@@ -71,26 +71,26 @@ const POPULAR = [
 const NEW_ARTICLES = [
   {
     id: 'pain-gerer-douleurs',
-    title: 'Douleurs de règles : causes\net solutions naturelles',
-    meta: '7 min de lecture  ·  Publié aujourd’hui',
+    title: 'Gérer les douleurs menstruelles',
+    meta: '7 min de lecture',
     image: PAIN,
   },
   {
     id: 'cycle-comprendre-ton-cycle',
-    title: 'Cycle régulier ou irrégulier :\nquelles différences ?',
-    meta: '5 min de lecture  ·  Publié hier',
+    title: 'Comprendre ton cycle menstruel',
+    meta: '5 min de lecture',
     image: TRACKER,
   },
   {
     id: 'symptoms-reconnaitre',
-    title: 'Syndrome prémenstruel (SPM) :\nmieux le comprendre',
-    meta: '4 min de lecture  ·  Publié il y a 2 jours',
+    title: 'Comprendre les symptômes avant les règles',
+    meta: '4 min de lecture',
     image: SPM,
   },
   {
     id: 'flow-colors-textures',
-    title: 'Flux menstruel : comprendre\nles couleurs et textures',
-    meta: '4 min de lecture  ·  Publié il y a 3 jours',
+    title: 'Flux menstruel : comprendre les couleurs et textures',
+    meta: '4 min de lecture',
     image: FLOW,
   },
 ] as const;

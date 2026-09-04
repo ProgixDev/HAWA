@@ -33,7 +33,14 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 import FlowMenstrualArticleScreen from './FlowMenstrualArticleScreen';
+import CycleVitalSignArticleScreen from './CycleVitalSignArticleScreen';
 import FirstPeriodArticleScreen from './FirstPeriodArticleScreen';
+import FirstPeriodSignsArticleScreen from './FirstPeriodSignsArticleScreen';
+import FirstPeriodComingArticleScreen from './FirstPeriodComingArticleScreen';
+import FirstPeriodProtectionArticleScreen from './FirstPeriodProtectionArticleScreen';
+import FirstPeriodDailyLifeArticleScreen from './FirstPeriodDailyLifeArticleScreen';
+import FirstPeriodIrregularArticleScreen from './FirstPeriodIrregularArticleScreen';
+import FirstPeriodFaqArticleScreen from './FirstPeriodFaqArticleScreen';
 import UnderstandMenstrualFlowArticleScreen from './UnderstandMenstrualFlowArticleScreen';
 import RegularIrregularCycleArticleScreen from './RegularIrregularCycleArticleScreen';
 import CyclePhasesArticleScreen from './CyclePhasesArticleScreen';
@@ -42,6 +49,61 @@ import PeriodPainArticleScreen from './PeriodPainArticleScreen';
 import PmsArticleScreen from './PmsArticleScreen';
 import FlowColorsTexturesArticleScreen from './FlowColorsTexturesArticleScreen';
 import NifasFiqhArticleScreen from './NifasFiqhArticleScreen';
+import FiqhWomenIntroArticleScreen from './FiqhWomenIntroArticleScreen';
+import MenstruationPurityArticleScreen from './MenstruationPurityArticleScreen';
+import IstihadaArticleScreen from './IstihadaArticleScreen';
+import RamadanFastingArticleScreen from './RamadanFastingArticleScreen';
+import FastingQadaaArticleScreen from './FastingQadaaArticleScreen';
+import PrayerDuringMenstruationArticleScreen from './PrayerDuringMenstruationArticleScreen';
+import ReturningToPrayerArticleScreen from './ReturningToPrayerArticleScreen';
+import ReligiousFaqArticleScreen from './ReligiousFaqArticleScreen';
+import ReligiousFaqAfterLossArticleScreen from './ReligiousFaqAfterLossArticleScreen';
+import FertilityWindowArticleScreen from './FertilityWindowArticleScreen';
+import OvulationArticleScreen from './OvulationArticleScreen';
+import ConceptionStartArticleScreen from './ConceptionStartArticleScreen';
+import NidationArticleScreen from './NidationArticleScreen';
+import ConceptionLifestyleArticleScreen from './ConceptionLifestyleArticleScreen';
+import BirthControlPillsArticleScreen from './BirthControlPillsArticleScreen';
+import PatchArticleScreen from './PatchArticleScreen';
+import VaginalRingArticleScreen from './VaginalRingArticleScreen';
+import HormonalTreatmentsPanoramaArticleScreen from './HormonalTreatmentsPanoramaArticleScreen';
+import ChooseHormonalMethodArticleScreen from './ChooseHormonalMethodArticleScreen';
+import MissedPillsArticleScreen from './MissedPillsArticleScreen';
+import SideEffectsArticleScreen from './SideEffectsArticleScreen';
+import MenopauseTransitionArticleScreen from './MenopauseTransitionArticleScreen';
+import HotFlashesArticleScreen from './HotFlashesArticleScreen';
+import BoneHealthArticleScreen from './BoneHealthArticleScreen';
+import MenopauseTreatmentsArticleScreen from './MenopauseTreatmentsArticleScreen';
+import PcosIntroArticleScreen from './PcosIntroArticleScreen';
+import PcosCycleFertilityArticleScreen from './PcosCycleFertilityArticleScreen';
+import PcosSkinHairArticleScreen from './PcosSkinHairArticleScreen';
+import PcosDiagnosisArticleScreen from './PcosDiagnosisArticleScreen';
+import PcosMetabolismArticleScreen from './PcosMetabolismArticleScreen';
+import PcosLifestyleManagementArticleScreen from './PcosLifestyleManagementArticleScreen';
+import PcosHormonalAcneArticleScreen from './PcosHormonalAcneArticleScreen';
+import ExerciseCycleSupportArticleScreen from './ExerciseCycleSupportArticleScreen';
+import PregnancyWeeklyArticleScreen from './PregnancyWeeklyArticleScreen';
+import BabyDevelopmentArticleScreen from './BabyDevelopmentArticleScreen';
+import MedicalExamsArticleScreen from './MedicalExamsArticleScreen';
+import ChildbirthPrepArticleScreen from './ChildbirthPrepArticleScreen';
+import PregnancyExerciseArticleScreen from './PregnancyExerciseArticleScreen';
+import PerineumStrengtheningArticleScreen from './PerineumStrengtheningArticleScreen';
+import PostpartumRecoveryArticleScreen from './PostpartumRecoveryArticleScreen';
+import PostpartumPeriodReturnArticleScreen from './PostpartumPeriodReturnArticleScreen';
+import LochiaArticleScreen from './LochiaArticleScreen';
+import NifasMedicalArticleScreen from './NifasMedicalArticleScreen';
+import BreastfeedingArticleScreen from './BreastfeedingArticleScreen';
+import BabyBluesArticleScreen from './BabyBluesArticleScreen';
+import MiscarriagePhysicalRecoveryArticleScreen from './MiscarriagePhysicalRecoveryArticleScreen';
+import MiscarriageGriefArticleScreen from './MiscarriageGriefArticleScreen';
+import MiscarriageFertilityArticleScreen from './MiscarriageFertilityArticleScreen';
+import HydrationCycleArticleScreen from './HydrationCycleArticleScreen';
+import SleepHormonesArticleScreen from './SleepHormonesArticleScreen';
+import MoodHormonesArticleScreen from './MoodHormonesArticleScreen';
+import MenopauseHormonesArticleScreen from './MenopauseHormonesArticleScreen';
+import BasalTemperatureArticleScreen from './BasalTemperatureArticleScreen';
+import CervicalMucusArticleScreen from './CervicalMucusArticleScreen';
+import LhTestsArticleScreen from './LhTestsArticleScreen';
 
 const LEVEL_LABEL = {
   beginner: 'Débutant',
@@ -57,7 +119,14 @@ const BESPOKE_ARTICLE_SCREENS: Partial<
   Record<string, React.ComponentType<Props>>
 > = {
   'flow-hygiene-intime': FlowMenstrualArticleScreen,
+  'cycle-signe-vital': CycleVitalSignArticleScreen,
   'firstperiod-premieres-regles': FirstPeriodArticleScreen,
+  'firstperiod-premiers-signes': FirstPeriodSignsArticleScreen,
+  'firstperiod-comment-savoir': FirstPeriodComingArticleScreen,
+  'firstperiod-choisir-protection': FirstPeriodProtectionArticleScreen,
+  'firstperiod-gerer-quotidien': FirstPeriodDailyLifeArticleScreen,
+  'firstperiod-cycle-irregulier': FirstPeriodIrregularArticleScreen,
+  'firstperiod-questions-frequentes': FirstPeriodFaqArticleScreen,
   'flow-comprendre-flux': UnderstandMenstrualFlowArticleScreen,
   'cycle-comprendre-ton-cycle': RegularIrregularCycleArticleScreen,
   'cycle-phases-expliquees': CyclePhasesArticleScreen,
@@ -66,6 +135,61 @@ const BESPOKE_ARTICLE_SCREENS: Partial<
   'symptoms-reconnaitre': PmsArticleScreen,
   'flow-colors-textures': FlowColorsTexturesArticleScreen,
   'nifasfiqh-repere-fiqh': NifasFiqhArticleScreen,
+  'fiqhwomen-introduction': FiqhWomenIntroArticleScreen,
+  'menstruationpurity-statut-de-purete': MenstruationPurityArticleScreen,
+  'istihada-comprendre-les-saignements': IstihadaArticleScreen,
+  'ramadan-jeune-et-regles': RamadanFastingArticleScreen,
+  'fastingqadaa-dispense-et-rattrapage': FastingQadaaArticleScreen,
+  'prayerduringmenstruation-la-priere-suspendue': PrayerDuringMenstruationArticleScreen,
+  'returningtoprayer-le-ghusl-et-le-retour': ReturningToPrayerArticleScreen,
+  'religiousfaq-questions-frequentes': ReligiousFaqArticleScreen,
+  'religiousfaq-reperes-apres-une-perte': ReligiousFaqAfterLossArticleScreen,
+  'fertility-fenetre-fertile': FertilityWindowArticleScreen,
+  'ovulation-comprendre-ovulation': OvulationArticleScreen,
+  'conceptiontips-essayer-de-concevoir': ConceptionStartArticleScreen,
+  'conceptiontips-comprendre-nidation': NidationArticleScreen,
+  'conceptiontips-hygiene-de-vie': ConceptionLifestyleArticleScreen,
+  'birthcontrolpills-comprendre-la-pilule': BirthControlPillsArticleScreen,
+  'patch-le-patch-contraceptif': PatchArticleScreen,
+  'ring-anneau-vaginal': VaginalRingArticleScreen,
+  'hormonaltreatments-panorama': HormonalTreatmentsPanoramaArticleScreen,
+  'hormonaltreatments-choisir-sa-methode': ChooseHormonalMethodArticleScreen,
+  'missedpills-que-faire-en-cas-doubli': MissedPillsArticleScreen,
+  'sideeffects-reconnaitre-les-effets-secondaires': SideEffectsArticleScreen,
+  'menopause-comprendre-la-transition': MenopauseTransitionArticleScreen,
+  'hotflashes-bouffees-de-chaleur': HotFlashesArticleScreen,
+  'bones-sante-osseuse': BoneHealthArticleScreen,
+  'treatments-traitements-menopause': MenopauseTreatmentsArticleScreen,
+  'pcos-comprendre-sopk': PcosIntroArticleScreen,
+  'pcos-cycle-ovulation-fertilite': PcosCycleFertilityArticleScreen,
+  'pcos-peau-pilosite-symptomes': PcosSkinHairArticleScreen,
+  'pcos-diagnostic-examens': PcosDiagnosisArticleScreen,
+  'pcos-poids-metabolisme-insuline': PcosMetabolismArticleScreen,
+  'pcos-mode-de-vie-prise-en-charge': PcosLifestyleManagementArticleScreen,
+  'pcos-acne-hormonale': PcosHormonalAcneArticleScreen,
+  'exercise-bouger-pour-le-cycle': ExerciseCycleSupportArticleScreen,
+  'pregnancy-semaine-par-semaine': PregnancyWeeklyArticleScreen,
+  'babydevelopment-developpement-bebe': BabyDevelopmentArticleScreen,
+  'medicalexams-suivi-medical': MedicalExamsArticleScreen,
+  'childbirthprep-preparer-accouchement': ChildbirthPrepArticleScreen,
+  'exercise-bouger-enceinte': PregnancyExerciseArticleScreen,
+  'exercise-renforcer-perinee': PerineumStrengtheningArticleScreen,
+  'postpartum-recuperation-globale': PostpartumRecoveryArticleScreen,
+  'postpartum-retour-de-couches': PostpartumPeriodReturnArticleScreen,
+  'lochia-comprendre-lochies': LochiaArticleScreen,
+  'nifas-aspects-medicaux': NifasMedicalArticleScreen,
+  'breastfeeding-debuter-allaitement': BreastfeedingArticleScreen,
+  'emotionalhealth-baby-blues': BabyBluesArticleScreen,
+  'lossphysical-recuperation-physique': MiscarriagePhysicalRecoveryArticleScreen,
+  'lossemotional-traverser-le-deuil': MiscarriageGriefArticleScreen,
+  'lossfertility-fertilite-apres-perte': MiscarriageFertilityArticleScreen,
+  'hydration-bien-shydrater': HydrationCycleArticleScreen,
+  'sleep-sommeil-et-cycle': SleepHormonesArticleScreen,
+  'mood-humeur-et-hormones': MoodHormonesArticleScreen,
+  'hormones-menopause-equilibre': MenopauseHormonesArticleScreen,
+  'basaltemp-suivre-temperature': BasalTemperatureArticleScreen,
+  'cervicalmucus-observer-glaire': CervicalMucusArticleScreen,
+  'lhtests-comprendre-tests-ovulation': LhTestsArticleScreen,
 };
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
