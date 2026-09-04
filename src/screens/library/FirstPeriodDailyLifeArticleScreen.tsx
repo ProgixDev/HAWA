@@ -27,37 +27,45 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'firstperiod-premieres-regles';
+const ID = 'firstperiod-gerer-quotidien';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = require('../../assets/images/library/rules-hero.png');
 
-// Same title/text pairs the article always had — TOPICS supplies each
-// section's heading + illustration, DETAILS supplies the visualCard's own
-// mini-title + description. Preserved verbatim, only the container changed.
-const TOPICS = [
-  {title: 'Quand arrivent les premières règles ?', image: require('../../assets/images/first-period-calendar.png')},
-  {title: 'Ce qui est normal', image: require('../../assets/images/first-period-normal.png')},
-  {title: 'Comment ça fonctionne ?', image: require('../../assets/images/first-period-pad.png')},
-  {title: 'Prendre soin de soi', image: require('../../assets/images/first-period-care.png')},
-  {title: 'Parler et se faire soutenir', image: require('../../assets/images/first-period-support.png')},
+const DAILY_TIPS = [
+  ['school-outline', 'École ou activités : garde une protection dans ton sac'],
+  ['run', 'Sport : le sport reste possible, adapte simplement ton rythme'],
+  ['power-sleep', 'Sommeil : une protection de nuit adaptée suffit'],
 ] as const;
 
-const DETAILS = [
-  {title: 'Quand arrivent les premières règles ?', text: 'Elles apparaissent le plus souvent entre 10 et 15 ans, environ deux ans après les premiers signes de la puberté.'},
-  {title: 'Ce qui est tout à fait normal', text: 'Au début, les cycles peuvent être irréguliers, courts ou longs. Ton corps prend simplement le temps de trouver son rythme.'},
-  {title: 'Comprendre comment ça fonctionne', text: 'Les règles durent généralement de 3 à 7 jours. Le flux et la couleur peuvent changer d’un jour à l’autre.'},
-  {title: 'Prendre soin de toi', text: 'Change régulièrement de protection, lave-toi doucement et choisis des vêtements confortables pour rester à l’aise.'},
-  {title: 'Parler et se faire soutenir', text: 'Tu peux en parler à ta mère, une sœur, une proche, une enseignante ou un professionnel de santé en qui tu as confiance.'},
+const RELATED = [
+  {
+    title: 'Quelle protection choisir pour mes premières règles ?',
+    meta: '6 min  ·  Guide',
+    image: require('../../assets/images/library/featured-flow.png'),
+    articleId: 'firstperiod-choisir-protection',
+  },
+  {
+    title: 'Gérer les douleurs menstruelles',
+    meta: '7 min  ·  Guide',
+    image: require('../../assets/images/library/pain-hero.png'),
+    articleId: 'pain-gerer-douleurs',
+  },
+  {
+    title: 'Mes premières règles sont irrégulières : est-ce normal ?',
+    meta: '5 min  ·  Guide',
+    image: require('../../assets/images/library/regular-cycle-hero.png'),
+    articleId: 'firstperiod-cycle-irregulier',
+  },
 ] as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function FirstPeriodArticleScreen({
+export default function FirstPeriodDailyLifeArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -84,8 +92,7 @@ export default function FirstPeriodArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      title: 'Premières règles · AWA',
-      message: 'Tes premières règles : à quoi t’attendre · AWA',
+      message: 'Comment gérer ses premières règles au quotidien ? — AWA',
     });
   };
 
@@ -169,7 +176,7 @@ export default function FirstPeriodArticleScreen({
           </View>
 
           <Text style={styles.title}>
-            Tes premières règles :{`\n`}à quoi t’attendre
+            Comment gérer ses{`\n`}premières règles au quotidien ?
           </Text>
 
           <View style={styles.metas}>
@@ -196,17 +203,22 @@ export default function FirstPeriodArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ce qui est normal, ce qui rassure, et ce qu’il faut savoir.
+            Avec quelques petites habitudes, les premières règles s’intègrent
+            facilement à ton quotidien, à l’école comme en dehors.
           </Text>
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
-            {TOPICS.map((topic, index) => (
-              <View key={topic.title} style={styles.contentRow}>
+            {[
+              'S’organiser au quotidien',
+              'Préparer une trousse de secours',
+              'Si les règles arrivent de façon inattendue',
+            ].map((item, index) => (
+              <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{topic.title}</Text>
+                  <Text style={styles.contentText}>{item}</Text>
                 </View>
 
                 <MaterialDesignIcons
@@ -218,35 +230,31 @@ export default function FirstPeriodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. {TOPICS[0].title}</Text>
+          <Text style={styles.h2}>1. S’organiser au quotidien</Text>
 
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[0].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
+          <Text style={styles.body}>
+            École, sport, sommeil : les règles n’empêchent pas de continuer
+            tes activités habituelles. Il suffit d’adapter quelques
+            habitudes pour rester à l’aise tout au long de la journée.
+          </Text>
 
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[0].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[0].text}</Text>
-            </View>
+          <View style={styles.daily}>
+            {DAILY_TIPS.map(([icon, text]) => (
+              <View key={text} style={styles.dailyItem}>
+                <MaterialDesignIcons name={icon as never} color={ROSE} size={25} />
+                <Text style={styles.dailyText}>{text}</Text>
+              </View>
+            ))}
           </View>
 
-          <Text style={styles.h2}>2. {TOPICS[1].title}</Text>
+          <Text style={styles.h2}>2. Préparer une trousse de secours</Text>
 
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[1].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[1].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[1].text}</Text>
-            </View>
-          </View>
+          <Text style={styles.body}>
+            Une petite trousse avec une ou deux protections, une culotte de
+            rechange et des lingettes peut se glisser facilement dans un sac
+            d’école ou de sport. Elle permet de rester tranquille en toute
+            circonstance.
+          </Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -258,79 +266,68 @@ export default function FirstPeriodArticleScreen({
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                Un cycle irrégulier au début est tout à fait normal. Ton corps
-                apprend encore à fonctionner.
+                Garder toujours une protection avec toi évite le stress d’être
+                prise au dépourvu.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. {TOPICS[2].title}</Text>
+          <Text style={styles.h2}>
+            3. Si les règles arrivent de façon inattendue
+          </Text>
 
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[2].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[2].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[2].text}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>4. {TOPICS[3].title}</Text>
-
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[3].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[3].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[3].text}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>5. {TOPICS[4].title}</Text>
-
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[4].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[4].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[4].text}</Text>
-            </View>
-          </View>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="lightbulb-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Tu n’es pas seule</Text>
-              <Text style={styles.tipText}>
-                Chaque corps est unique. Prends le temps, sois patiente et
-                n’hésite pas à demander de l’aide à une personne de confiance.
-              </Text>
-            </View>
-          </View>
+          <Text style={styles.body}>
+            Cela arrive souvent, surtout au début. Une infirmière scolaire,
+            une enseignante ou une amie a presque toujours de quoi dépanner.
+            Un vêtement noué autour de la taille peut aussi suffire en
+            attendant de trouver une protection.
+          </Text>
         </View>
+
+        <View style={styles.relatedHeader}>
+          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+        </View>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.relatedRow}>
+          {RELATED.map(item => (
+            <Pressable
+              key={item.title}
+              onPress={() =>
+                navigation.push('ArticleReader', {articleId: item.articleId})
+              }
+              style={styles.relatedCard}>
+              <Image
+                source={item.image}
+                resizeMode="cover"
+                style={styles.relatedImage}
+              />
+
+              <View style={styles.relatedCopy}>
+                <Text numberOfLines={3} style={styles.relatedCardTitle}>
+                  {item.title}
+                </Text>
+                <Text style={styles.relatedMeta}>{item.meta}</Text>
+              </View>
+            </Pressable>
+          ))}
+        </ScrollView>
       </ScrollView>
 
       <ReadingControls articleId={ID} durationMinutes={5} scrollRef={scrollRef} />
     </View>
   );
 }
+
+const shadow = {
+  shadowColor: '#4B3166',
+  shadowOffset: {width: 0, height: 5},
+  shadowOpacity: 0.08,
+  shadowRadius: 12,
+  elevation: 2,
+};
 
 const styles = StyleSheet.create({
   screen: {flex: 1, backgroundColor: CREAM},
@@ -377,7 +374,7 @@ const styles = StyleSheet.create({
     marginTop: 12,
     fontFamily: 'serif',
     fontSize: 25,
-    lineHeight: 31,
+    lineHeight: 32,
     color: INK,
     fontWeight: '700',
   },
@@ -422,21 +419,7 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
-  visualCard: {
-    marginTop: 15,
-    minHeight: 98,
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#EDE2E4',
-    backgroundColor: '#FFFDFC',
-  },
-  visualImage: {width: 72, height: 72, borderRadius: 12},
-  visualCopy: {flex: 1, marginLeft: 12},
-  visualTitle: {color: INK, fontSize: 13, lineHeight: 17, fontWeight: '800'},
-  visualText: {marginTop: 4, color: '#585057', fontSize: 11, lineHeight: 16},
+  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
   tip: {
     marginTop: 15,
     padding: 14,
@@ -448,4 +431,45 @@ const styles = StyleSheet.create({
   tipCopy: {flex: 1, marginLeft: 11},
   tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
   tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
+  daily: {marginTop: 13, flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  dailyItem: {
+    width: '48.7%',
+    minHeight: 108,
+    padding: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
+    backgroundColor: '#FBF5F6',
+  },
+  dailyText: {
+    marginTop: 7,
+    fontSize: 11,
+    lineHeight: 16,
+    color: INK,
+    textAlign: 'center',
+  },
+  relatedHeader: {
+    marginTop: 24,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  relatedTitle: {color: INK, fontSize: 16, fontWeight: '800'},
+  relatedRow: {gap: 10, paddingHorizontal: 20, paddingTop: 14, paddingBottom: 5},
+  relatedCard: {
+    width: 230,
+    height: 105,
+    borderRadius: 20,
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: '#F0EAF5',
+    flexDirection: 'row',
+    overflow: 'hidden',
+    ...shadow,
+  },
+  relatedImage: {width: 80, height: '100%'},
+  relatedCopy: {flex: 1, padding: 12},
+  relatedCardTitle: {color: INK, fontSize: 11.5, lineHeight: 15, fontWeight: '800'},
+  relatedMeta: {marginTop: 9, color: '#77708F', fontSize: 9.5},
 });

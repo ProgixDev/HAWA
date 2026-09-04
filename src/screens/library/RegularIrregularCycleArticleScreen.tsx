@@ -201,7 +201,6 @@ export default function RegularIrregularCycleArticleScreen({
           <View style={styles.metas}>
             {[
               ['clock-outline', '5 min de lecture'],
-              ['calendar-month-outline', '12 mai 2024'],
               ['shield-check-outline', 'Contenu validé'],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>

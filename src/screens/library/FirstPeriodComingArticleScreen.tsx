@@ -27,37 +27,57 @@ import {
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
 
-const ID = 'firstperiod-premieres-regles';
+const ID = 'firstperiod-comment-savoir';
 
 const CREAM = '#FCF9F5';
 const INK = '#30283A';
 const ROSE = '#B96778';
 const BORDER = '#ECE5DF';
 
-const HERO = require('../../assets/images/library/cycle-phases-hero.png');
+const HERO = require('../../assets/images/library/flow-colors-hero.png');
 
-// Same title/text pairs the article always had — TOPICS supplies each
-// section's heading + illustration, DETAILS supplies the visualCard's own
-// mini-title + description. Preserved verbatim, only the container changed.
-const TOPICS = [
-  {title: 'Quand arrivent les premières règles ?', image: require('../../assets/images/first-period-calendar.png')},
-  {title: 'Ce qui est normal', image: require('../../assets/images/first-period-normal.png')},
-  {title: 'Comment ça fonctionne ?', image: require('../../assets/images/first-period-pad.png')},
-  {title: 'Prendre soin de soi', image: require('../../assets/images/first-period-care.png')},
-  {title: 'Parler et se faire soutenir', image: require('../../assets/images/first-period-support.png')},
+const OBSERVE = [
+  [
+    'Pertes blanchâtres',
+    'De légères pertes claires apparaissent souvent quelques mois avant.',
+    require('../../assets/images/library/flow-texture-mucus.png'),
+  ],
+  [
+    'Poitrine qui se développe',
+    'Un signe fréquent, apparu généralement bien avant les règles.',
+    require('../../assets/images/library/spm-woman.png'),
+  ],
+  [
+    'Tiraillements au ventre',
+    'De petites sensations peuvent annoncer l’arrivée prochaine des règles.',
+    require('../../assets/images/library/pain-massage.png'),
+  ],
 ] as const;
 
-const DETAILS = [
-  {title: 'Quand arrivent les premières règles ?', text: 'Elles apparaissent le plus souvent entre 10 et 15 ans, environ deux ans après les premiers signes de la puberté.'},
-  {title: 'Ce qui est tout à fait normal', text: 'Au début, les cycles peuvent être irréguliers, courts ou longs. Ton corps prend simplement le temps de trouver son rythme.'},
-  {title: 'Comprendre comment ça fonctionne', text: 'Les règles durent généralement de 3 à 7 jours. Le flux et la couleur peuvent changer d’un jour à l’autre.'},
-  {title: 'Prendre soin de toi', text: 'Change régulièrement de protection, lave-toi doucement et choisis des vêtements confortables pour rester à l’aise.'},
-  {title: 'Parler et se faire soutenir', text: 'Tu peux en parler à ta mère, une sœur, une proche, une enseignante ou un professionnel de santé en qui tu as confiance.'},
+const RELATED = [
+  {
+    title: 'Les premiers signes avant les règles',
+    meta: '5 min  ·  Article',
+    image: require('../../assets/images/library/spm-hero.png'),
+    articleId: 'firstperiod-premiers-signes',
+  },
+  {
+    title: 'Quelle protection choisir pour mes premières règles ?',
+    meta: '6 min  ·  Guide',
+    image: require('../../assets/images/library/featured-flow.png'),
+    articleId: 'firstperiod-choisir-protection',
+  },
+  {
+    title: 'Tes premières règles : à quoi t’attendre',
+    meta: '5 min  ·  Guide',
+    image: require('../../assets/images/library/cycle-phases-hero.png'),
+    articleId: 'firstperiod-premieres-regles',
+  },
 ] as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
-export default function FirstPeriodArticleScreen({
+export default function FirstPeriodComingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
@@ -84,8 +104,7 @@ export default function FirstPeriodArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      title: 'Premières règles · AWA',
-      message: 'Tes premières règles : à quoi t’attendre · AWA',
+      message: 'Comment savoir si mes premières règles arrivent ? — AWA',
     });
   };
 
@@ -169,7 +188,7 @@ export default function FirstPeriodArticleScreen({
           </View>
 
           <Text style={styles.title}>
-            Tes premières règles :{`\n`}à quoi t’attendre
+            Comment savoir si mes{`\n`}premières règles arrivent ?
           </Text>
 
           <View style={styles.metas}>
@@ -196,17 +215,23 @@ export default function FirstPeriodArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ce qui est normal, ce qui rassure, et ce qu’il faut savoir.
+            Quelques signes concrets t’aident à repérer que tes premières
+            règles approchent vraiment.
           </Text>
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>Dans cet article</Text>
 
-            {TOPICS.map((topic, index) => (
-              <View key={topic.title} style={styles.contentRow}>
+            {[
+              'Les signes à observer',
+              'Premières pertes : à quoi ressemblent-elles ?',
+              'Pertes vaginales ou sang menstruel ?',
+              'Quand en parler à un adulte ?',
+            ].map((item, index) => (
+              <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{topic.title}</Text>
+                  <Text style={styles.contentText}>{item}</Text>
                 </View>
 
                 <MaterialDesignIcons
@@ -218,35 +243,44 @@ export default function FirstPeriodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. {TOPICS[0].title}</Text>
+          <Text style={styles.h2}>1. Les signes à observer</Text>
 
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[0].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
+          {OBSERVE.map(([title, description, image]) => (
+            <View key={title} style={styles.visualCard}>
+              <Image source={image} resizeMode="cover" style={styles.visualImage} />
 
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[0].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[0].text}</Text>
+              <View style={styles.visualCopy}>
+                <Text style={styles.visualTitle}>{title}</Text>
+                <Text style={styles.visualText}>{description}</Text>
+              </View>
             </View>
-          </View>
+          ))}
 
-          <Text style={styles.h2}>2. {TOPICS[1].title}</Text>
+          <Text style={styles.h2}>
+            2. Premières pertes : à quoi ressemblent-elles ?
+          </Text>
 
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[1].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
+          <Text style={styles.body}>
+            Avant l’arrivée des toutes premières règles, il est fréquent de
+            remarquer de légères pertes blanchâtres ou légèrement jaunâtres
+            dans les sous-vêtements. C’est un phénomène normal, lié à
+            l’activité hormonale qui se met en place.
+          </Text>
 
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[1].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[1].text}</Text>
-            </View>
-          </View>
+          <Text style={styles.h2}>3. Pertes vaginales ou sang menstruel ?</Text>
+
+          <Text style={styles.body}>
+            Les pertes vaginales sont claires ou blanchâtres, sans odeur
+            marquée. Le sang menstruel, lui, a une couleur rouge à brunâtre et
+            marque le vrai début des règles. Si un doute persiste, ce n’est
+            jamais grave d’en parler.
+          </Text>
+
+          <Image
+            source={require('../../assets/images/library/rules-process.png')}
+            resizeMode="cover"
+            style={styles.wideImage}
+          />
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -258,79 +292,67 @@ export default function FirstPeriodArticleScreen({
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>Bon à savoir</Text>
               <Text style={styles.tipText}>
-                Un cycle irrégulier au début est tout à fait normal. Ton corps
-                apprend encore à fonctionner.
+                Il n’existe pas de moyen de prédire le jour exact. Garder une
+                protection avec toi dès les premiers signes reste la meilleure
+                habitude.
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. {TOPICS[2].title}</Text>
+          <Text style={styles.h2}>4. Quand en parler à un adulte ?</Text>
 
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[2].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[2].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[2].text}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>4. {TOPICS[3].title}</Text>
-
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[3].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[3].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[3].text}</Text>
-            </View>
-          </View>
-
-          <Text style={styles.h2}>5. {TOPICS[4].title}</Text>
-
-          <View style={styles.visualCard}>
-            <Image
-              source={TOPICS[4].image}
-              resizeMode="cover"
-              style={styles.visualImage}
-            />
-
-            <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[4].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[4].text}</Text>
-            </View>
-          </View>
-
-          <View style={styles.tip}>
-            <MaterialDesignIcons
-              name="lightbulb-outline"
-              size={24}
-              color={ROSE}
-            />
-
-            <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Tu n’es pas seule</Text>
-              <Text style={styles.tipText}>
-                Chaque corps est unique. Prends le temps, sois patiente et
-                n’hésite pas à demander de l’aide à une personne de confiance.
-              </Text>
-            </View>
-          </View>
+          <Text style={styles.body}>
+            Dès que tu observes ces signes, ou dès que tu as une question ou
+            une inquiétude, tu peux en parler à ta mère, une sœur, une proche
+            ou un professionnel de santé de confiance. Il n’y a jamais de
+            mauvais moment pour demander de l’aide.
+          </Text>
         </View>
+
+        <View style={styles.relatedHeader}>
+          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+        </View>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.relatedRow}>
+          {RELATED.map(item => (
+            <Pressable
+              key={item.title}
+              onPress={() =>
+                navigation.push('ArticleReader', {articleId: item.articleId})
+              }
+              style={styles.relatedCard}>
+              <Image
+                source={item.image}
+                resizeMode="cover"
+                style={styles.relatedImage}
+              />
+
+              <View style={styles.relatedCopy}>
+                <Text numberOfLines={3} style={styles.relatedCardTitle}>
+                  {item.title}
+                </Text>
+                <Text style={styles.relatedMeta}>{item.meta}</Text>
+              </View>
+            </Pressable>
+          ))}
+        </ScrollView>
       </ScrollView>
 
       <ReadingControls articleId={ID} durationMinutes={5} scrollRef={scrollRef} />
     </View>
   );
 }
+
+const shadow = {
+  shadowColor: '#4B3166',
+  shadowOffset: {width: 0, height: 5},
+  shadowOpacity: 0.08,
+  shadowRadius: 12,
+  elevation: 2,
+};
 
 const styles = StyleSheet.create({
   screen: {flex: 1, backgroundColor: CREAM},
@@ -422,6 +444,18 @@ const styles = StyleSheet.create({
     color: INK,
     fontWeight: '700',
   },
+  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
+  tip: {
+    marginTop: 15,
+    padding: 14,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    backgroundColor: '#F5EBEF',
+  },
+  tipCopy: {flex: 1, marginLeft: 11},
+  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
+  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
   visualCard: {
     marginTop: 15,
     minHeight: 98,
@@ -437,15 +471,29 @@ const styles = StyleSheet.create({
   visualCopy: {flex: 1, marginLeft: 12},
   visualTitle: {color: INK, fontSize: 13, lineHeight: 17, fontWeight: '800'},
   visualText: {marginTop: 4, color: '#585057', fontSize: 11, lineHeight: 16},
-  tip: {
-    marginTop: 15,
-    padding: 14,
+  wideImage: {width: '100%', height: 120, marginTop: 14, borderRadius: 12},
+  relatedHeader: {
+    marginTop: 8,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    justifyContent: 'space-between',
   },
-  tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
+  relatedTitle: {color: INK, fontSize: 16, fontWeight: '800'},
+  relatedRow: {gap: 10, paddingHorizontal: 20, paddingTop: 14, paddingBottom: 5},
+  relatedCard: {
+    width: 230,
+    height: 105,
+    borderRadius: 20,
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: '#F0EAF5',
+    flexDirection: 'row',
+    overflow: 'hidden',
+    ...shadow,
+  },
+  relatedImage: {width: 80, height: '100%'},
+  relatedCopy: {flex: 1, padding: 12},
+  relatedCardTitle: {color: INK, fontSize: 11.5, lineHeight: 15, fontWeight: '800'},
+  relatedMeta: {marginTop: 9, color: '#77708F', fontSize: 9.5},
 });

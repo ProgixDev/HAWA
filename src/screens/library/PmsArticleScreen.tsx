@@ -244,7 +244,6 @@ export default function PmsArticleScreen({
           <View style={styles.metas}>
             {[
               ['clock-outline', '4 min de lecture'],
-              ['calendar-month-outline', '12 mai 2024'],
               ['check-decagram-outline', 'Contenu vérifié'],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>

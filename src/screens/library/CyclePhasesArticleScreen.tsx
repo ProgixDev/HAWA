@@ -272,10 +272,6 @@ function CyclePhasesArticleScreen({
                 '6 min de lecture',
               ],
               [
-                'calendar-blank-outline',
-                '12 mai 2024',
-              ],
-              [
                 'shield-check-outline',
                 'Contenu validé',
               ],
