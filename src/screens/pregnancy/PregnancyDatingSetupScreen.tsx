@@ -177,6 +177,7 @@ function DateField({
 
 function PregnancyDatingSetupScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -268,6 +269,11 @@ function PregnancyDatingSetupScreen({
         ? date.toISOString()
         : null,
     });
+
+    if (route.params?.mode === 'edit') {
+      navigation.goBack();
+      return;
+    }
 
     navigation.navigate(
       'PregnancyTrackingPreferences',

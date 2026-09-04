@@ -241,6 +241,10 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
       onNext={async () => {
         if (!selected) {return;}
         await setIrregularPreferences({cyclePattern: selected});
+        if (route.params?.mode === 'edit') {
+          navigation.goBack();
+          return;
+        }
         navigation.navigate('IrregularLastPeriod');
       }}
       route={route}
@@ -295,6 +299,10 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
         // fabricated default date (spec requirement).
         const lastPeriodDate = !skipped && selectedDate ? selectedDate.toLocaleDateString('en-CA') : null;
         await setIrregularPreferences({lastPeriodDate});
+        if (route.params?.mode === 'edit') {
+          navigation.goBack();
+          return;
+        }
         navigation.navigate('IrregularTrackedItems');
       }}
       route={route}
@@ -383,6 +391,10 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
       nextDisabled={selected.size === 0}
       onNext={async () => {
         await setIrregularPreferences({trackedItems: [...selected]});
+        if (route.params?.mode === 'edit') {
+          navigation.goBack();
+          return;
+        }
         navigation.navigate('IrregularReminders');
       }}
       route={route}

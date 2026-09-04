@@ -44,6 +44,9 @@ import {
 } from '../utils/cycleMath';
 import {TOP_SPACING_EXTRA} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
+import {usePremium} from '../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
+import {isMonthWithinHistoryAccess} from '../utils/historyAccess';
 
 type Props = MainTabScreenProps<'Calendar'>;
 
@@ -51,6 +54,9 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [basics, setBasics] = useState(getCyclePreferences);
   const today = useMemo(() => startOfDay(new Date()), []);
+
+  const {isPremium} = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
 
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(today.getFullYear(), today.getMonth(), 1));
   const [selectedDate, setSelectedDate] = useState(today);
@@ -138,8 +144,28 @@ function CalendarScreen(_: Props): React.JSX.Element {
     });
   };
 
+  // "Historique illimité" — going backward (offset < 0) is the only
+  // direction that can leave the FREE history window; forward navigation
+  // (toward today) is never restricted. Tapping a locked previous month
+  // opens the existing Premium sheet instead of silently doing nothing or
+  // disabling the button — see historyAccess.ts for the shared rule.
   const changeMonth = (offset: number) => {
-    setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + offset, 1));
+    setVisibleMonth(current => {
+      const target = new Date(current.getFullYear(), current.getMonth() + offset, 1);
+      if (offset < 0 && !isMonthWithinHistoryAccess(target, isPremium)) {
+        setPremiumVisible(true);
+        return current;
+      }
+      return target;
+    });
+  };
+
+  const handleSelectHistoryMonth = (month: Date): void => {
+    if (!isMonthWithinHistoryAccess(month, isPremium)) {
+      setPremiumVisible(true);
+      return;
+    }
+    setVisibleMonth(month);
   };
 
   const handleSelectDate = (date: Date) => {
@@ -357,7 +383,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
 
           <CycleTimelineCard steps={timelineSteps} />
 
-          <MonthHistoryStrip onSelectMonth={setVisibleMonth} periodHistory={getPeriodHistory()} visibleMonth={visibleMonth} />
+          <MonthHistoryStrip onSelectMonth={handleSelectHistoryMonth} periodHistory={getPeriodHistory()} visibleMonth={visibleMonth} />
         </ScrollView>
 
         <FiltersSheet
@@ -376,6 +402,8 @@ function CalendarScreen(_: Props): React.JSX.Element {
           onConfirmed={() => {}}
           visible={periodStartSheetVisible}
         />
+
+        <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
       </SafeAreaView>
     </LinearGradient>
   );

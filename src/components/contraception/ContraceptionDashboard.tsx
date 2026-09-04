@@ -1,5 +1,6 @@
 import React, {
   useCallback,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -48,6 +49,7 @@ import {
 
 import {
   deleteContraceptionIntakeRecord,
+  getAllContraceptionIntakeRecords,
   getContraceptionIntakeRecord,
   getRecentContraceptionIntakeRecords,
   hydrateContraceptionIntakeHistory,
@@ -59,6 +61,7 @@ import {
 
 import {
   deleteContraceptionEvent,
+  getAllContraceptionEvents,
   getContraceptionEventsForDate,
   getRecentContraceptionEvents,
   hydrateContraceptionEvents,
@@ -84,6 +87,9 @@ import {
 } from '../../config/contraceptionLabels';
 
 import {getPillPackDay} from '../../utils/contraceptionMath';
+import {usePremium} from '../../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
+import {filterRecordsForHistoryAccess} from '../../utils/historyAccess';
 
 import {
   getContraceptionJournalEntry,
@@ -272,6 +278,25 @@ function HeroIntakeActionButton({
   );
 }
 
+/** Most-recent-first — mirrors getRecentContraceptionIntakeRecords()'s own
+ * comparator so the "Voir tout l'historique" ordering never changes. */
+const sortIntakeRecordsDesc = (
+  entries: Record<string, ContraceptionIntakeRecord>,
+): ContraceptionIntakeRecord[] =>
+  Object.values(entries).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+
+/** Most-recent-first (by date, then by recordedAt within a date) — mirrors
+ * getRecentContraceptionEvents()'s own comparator. */
+const sortEventsDesc = (
+  entries: Record<string, ContraceptionEvent[]>,
+): ContraceptionEvent[] =>
+  Object.values(entries)
+    .flat()
+    .sort((a, b) => {
+      if (a.date !== b.date) {return a.date < b.date ? 1 : -1;}
+      return a.recordedAt < b.recordedAt ? 1 : -1;
+    });
+
 function ContraceptionDashboard({
   navigation,
 }: Props): React.JSX.Element {
@@ -284,6 +309,9 @@ function ContraceptionDashboard({
     width < 380 || height < 720;
 
   const {open: openJournal} = useJournalSheet();
+
+  const {isPremium} = usePremium();
+  const [historyPremiumVisible, setHistoryPremiumVisible] = useState(false);
 
   /*
    * ============================================================
@@ -363,7 +391,10 @@ function ContraceptionDashboard({
   ] = useState<
     ContraceptionIntakeRecord[]
   >(() =>
-    getRecentContraceptionIntakeRecords(100),
+    filterRecordsForHistoryAccess(
+      sortIntakeRecordsDesc(getAllContraceptionIntakeRecords()),
+      isPremium,
+    ),
   );
 
   const [
@@ -459,11 +490,12 @@ function ContraceptionDashboard({
       );
 
       setRawAllHistoryRecords(
-        getRecentContraceptionIntakeRecords(
-          100,
+        filterRecordsForHistoryAccess(
+          sortIntakeRecordsDesc(getAllContraceptionIntakeRecords()),
+          isPremium,
         ),
       );
-    }, [today]);
+    }, [today, isPremium]);
 
   useFocusEffect(
     useCallback(() => {
@@ -525,7 +557,10 @@ function ContraceptionDashboard({
   ] = useState<
     ContraceptionEvent[]
   >(() =>
-    getRecentContraceptionEvents(100),
+    filterRecordsForHistoryAccess(
+      sortEventsDesc(getAllContraceptionEvents()),
+      isPremium,
+    ),
   );
 
   const refreshEventHistory =
@@ -543,11 +578,12 @@ function ContraceptionDashboard({
       );
 
       setAllHistoryEvents(
-        getRecentContraceptionEvents(
-          100,
+        filterRecordsForHistoryAccess(
+          sortEventsDesc(getAllContraceptionEvents()),
+          isPremium,
         ),
       );
-    }, [today]);
+    }, [today, isPremium]);
 
   useFocusEffect(
     useCallback(() => {
@@ -576,6 +612,15 @@ function ContraceptionDashboard({
       };
     }, [refreshEventHistory]),
   );
+
+  // Upgrading/downgrading Premium changes which already-stored records are
+  // reachable, not which exist — re-derive both "all history" lists
+  // immediately so access reflects the new entitlement without waiting for
+  // the next focus/store event.
+  useEffect(() => {
+    refreshIntakeHistory();
+    refreshEventHistory();
+  }, [isPremium, refreshIntakeHistory, refreshEventHistory]);
 
   /*
    * ============================================================
@@ -2184,10 +2229,34 @@ function ContraceptionDashboard({
                     );
                   })
                 )}
+
+                {!isPremium ? (
+                  <Pressable
+                    accessibilityLabel="Débloquer tout l’historique avec Premium"
+                    accessibilityRole="button"
+                    onPress={() => setHistoryPremiumVisible(true)}
+                    style={({pressed}) => [
+                      styles.historyPremiumHint,
+                      pressed && styles.pressed,
+                    ]}>
+                    <MaterialDesignIcons color={PURPLE} name="infinity" size={16} />
+
+                    <Text style={styles.historyPremiumHintText}>
+                      Avec Premium, retrouve tout ton historique sans limite de 30 jours.
+                    </Text>
+
+                    <MaterialDesignIcons color={PURPLE} name="chevron-right" size={16} />
+                  </Pressable>
+                ) : null}
               </ScrollView>
             </View>
           </View>
         </Modal>
+
+        <HawaPremiumBottomSheet
+          onClose={() => setHistoryPremiumVisible(false)}
+          visible={historyPremiumVisible}
+        />
 
         <Modal
           animationType="fade"
@@ -3405,6 +3474,27 @@ const styles =
       paddingHorizontal: 16,
       paddingTop: 12,
       paddingBottom: 24,
+    },
+
+    historyPremiumHint: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      marginTop: 4,
+      paddingHorizontal: 13,
+      paddingVertical: 12,
+      borderRadius: 16,
+      borderWidth: 1,
+      borderColor: 'rgba(109,74,232,0.18)',
+      backgroundColor: 'rgba(109,74,232,0.06)',
+    },
+
+    historyPremiumHintText: {
+      flex: 1,
+      fontSize: 12.5,
+      lineHeight: 17,
+      fontWeight: '600',
+      color: PURPLE_DARK,
     },
 
     historyModalRow: {

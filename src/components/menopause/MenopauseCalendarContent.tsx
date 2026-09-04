@@ -16,6 +16,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {usePremium} from '../../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
+import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 
 import {
   getMenopausePreferences,
@@ -168,6 +171,24 @@ function MenopauseCalendarContent(): React.JSX.Element {
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
   const [selectedDate, setSelectedDate] = useState(today);
+  const {isPremium} = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
+  // "Historique illimité" — backward navigation only; see historyAccess.ts.
+  const goToPreviousMonth = useCallback(() => {
+    setVisibleMonth(current => {
+      const target = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+      if (!isMonthWithinHistoryAccess(target, isPremium)) {
+        setPremiumVisible(true);
+        return current;
+      }
+      return target;
+    });
+  }, [isPremium]);
+
+  const goToNextMonth = useCallback(() => {
+    setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
+  }, []);
 
   const [filters, setFilters] = useState<MenopauseCalendarFilters>(DEFAULT_CALENDAR_FILTERS);
   const [sheet, setSheet] = useState<CalendarSheetMode>(null);
@@ -317,9 +338,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 accessibilityLabel="Mois précédent"
                 accessibilityRole="button"
                 hitSlop={12}
-                onPress={() =>
-                  setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() - 1, 1))
-                }>
+                onPress={goToPreviousMonth}>
                 <MaterialDesignIcons color={PURPLE} name="chevron-left" size={24} />
               </Pressable>
 
@@ -336,9 +355,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 accessibilityLabel="Mois suivant"
                 accessibilityRole="button"
                 hitSlop={12}
-                onPress={() =>
-                  setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1))
-                }>
+                onPress={goToNextMonth}>
                 <MaterialDesignIcons color={PURPLE} name="chevron-right" size={24} />
               </Pressable>
             </View>
@@ -639,6 +656,8 @@ function MenopauseCalendarContent(): React.JSX.Element {
           spiritualMarkersEnabled={spiritualMarkersEnabled}
           visibleCategories={visibleCategories}
         />
+
+        <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
       </SafeAreaView>
     </LinearGradient>
   );

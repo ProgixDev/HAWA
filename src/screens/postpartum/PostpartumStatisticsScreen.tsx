@@ -21,12 +21,13 @@ import { homeColors, homeShadow } from '../../components/home/homeTheme';
 import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
 import { usePremium } from '../../hooks/usePremium';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
-import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
+import StatisticsPeriodSelector, {
+  STATISTICS_PERIOD_LABELS,
+} from '../../components/statistics/StatisticsPeriodSelector';
 import {
   coverageMonthsForAnchor,
   cutoffDateForPeriod,
   describeMonthsCoverage,
-  formatMonthLabel,
   type StatisticsPeriod,
 } from '../../utils/cycleStatisticsMath';
 import {
@@ -62,6 +63,11 @@ import {
   POSTPARTUM_RECOVERY_OPTIONS,
   POSTPARTUM_SLEEP_OPTIONS,
 } from '../../config/postpartumJournalConfig';
+import {
+  averageByMonth,
+  resolvePostpartumCycleReturnEventInPeriod,
+  withinPeriod,
+} from '../../utils/postpartumStatisticsMath';
 
 /* ============================================================
    Postpartum Statistics — every number on this screen is derived
@@ -166,55 +172,6 @@ function countByTag(entries: PostpartumLochiaEntry[]): Array<{
   return Array.from(counts.entries())
     .map(([label, count]) => ({ label, count }))
     .sort((a, b) => b.count - a.count);
-}
-
-/** True when `date` (a 'YYYY-MM-DD' journal/lochia entry date) falls inside
- * the selected period's real lookback window — used to replace the old
- * "last 8-10 entries" cap with a real date-window filter. */
-function withinPeriod(date: string, cutoff: Date, now: Date): boolean {
-  const time = new Date(`${date}T12:00:00`).getTime();
-  return time >= cutoff.getTime() && time <= now.getTime();
-}
-
-/** Groups entries by their real calendar month (from `entry.date`,
- * `YYYY-MM-DD`) — a month with zero real entries is simply absent,
- * never fabricated. Kept local to this screen (Postpartum-specific
- * entry shapes aren't compatible with cycleStatisticsMath.ts's
- * DailyJournalEntry-typed `groupEntriesByMonth`), but reuses the shared
- * `formatMonthLabel` for the label itself. */
-function groupByMonth<T extends { date: string }>(
-  entries: T[],
-): Array<{ monthKey: string; entries: T[] }> {
-  const buckets = new Map<string, T[]>();
-  entries.forEach(entry => {
-    const key = entry.date.slice(0, 7);
-    const bucket = buckets.get(key);
-    if (bucket) {
-      bucket.push(entry);
-    } else {
-      buckets.set(key, [entry]);
-    }
-  });
-  return Array.from(buckets.entries())
-    .sort(([a], [b]) => a.localeCompare(b))
-    .map(([monthKey, monthEntries]) => ({ monthKey, entries: monthEntries }));
-}
-
-/** Averages a numeric field per real calendar month — the Premium (3/6/12
- * mois) counterpart to the free tier's real 1-month window trend. Callers
- * pass an already period-filtered entry set, so a 12-month selection never
- * silently includes data from outside that window. */
-function averageByMonth<T extends { date: string }>(
-  entries: T[],
-  valueOf: (entry: T) => number,
-): Array<{ date: string; label: string; value: number }> {
-  return groupByMonth(entries).map(group => ({
-    date: group.monthKey,
-    label: formatMonthLabel(group.monthKey),
-    value:
-      group.entries.reduce((sum, entry) => sum + valueOf(entry), 0) /
-      group.entries.length,
-  }));
 }
 
 /* ============================================================
@@ -451,6 +408,22 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   );
   const isMonthlyView = period !== '1';
 
+  // Premium "Retour du cycle" evolution — the ONE real confirmed date
+  // postpartumPreferences.ts actually stores (firstPostpartumPeriodDate,
+  // written only by recordFirstPostpartumPeriod() — lochia bleeding is
+  // explicitly never passed there), shown only when it falls inside the
+  // currently selected 1/3/6/12-month window. See
+  // postpartumStatisticsMath.ts for the no-inference guarantee.
+  const cycleReturnEventInPeriod = useMemo(
+    () =>
+      resolvePostpartumCycleReturnEventInPeriod(
+        prefs.firstPostpartumPeriodDate,
+        periodCutoff,
+        now,
+      ),
+    [prefs.firstPostpartumPeriodDate, periodCutoff, now],
+  );
+
   /* ==========================================================
      JOURNAL — Jours de suivi / Journées complètes, and each of the
      5 canonical categories, all derived from the same array,
@@ -521,6 +494,29 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
   );
   const mostFrequentMood = moodCounts[0]?.label;
   const maxMoodCount = Math.max(...moodCounts.map(item => item.count), 1);
+  // Mirrors fatigue/pain/recovery's own trend pattern exactly:
+  // POSTPARTUM_MOOD_OPTIONS (postpartumJournalConfig.ts) is a documented,
+  // deliberately ordered 5-point scale ('Très difficile' → 'Très bien') —
+  // this ordinal mapping is used ONLY to pick a bar's height, never shown
+  // to the user as a number, and never a new/invented mood state.
+  const moodTrend = useMemo(
+    () =>
+      moodEntries
+        .slice(-TREND_DISPLAY_CAP)
+        .map(entry => ({
+          date: entry.date,
+          value: POSTPARTUM_MOOD_OPTIONS.indexOf(entry.mood as string) + 1,
+        })),
+    [moodEntries],
+  );
+  const moodTrendFull = useMemo(
+    () =>
+      averageByMonth(
+        moodEntries,
+        entry => POSTPARTUM_MOOD_OPTIONS.indexOf(entry.mood as string) + 1,
+      ),
+    [moodEntries],
+  );
 
   const sleepQualityEntries = useMemo(
     () => journalDays.filter(entry => entry.sleep),
@@ -807,8 +803,10 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           <SummaryTab
             averageSleepHours={averageSleepHours}
             completeDays={completeDays}
+            cycleReturnEventInPeriod={cycleReturnEventInPeriod}
             firstPostpartumPeriodDate={prefs.firstPostpartumPeriodDate}
             isMonthlyView={isMonthlyView}
+            periodLabel={STATISTICS_PERIOD_LABELS[period]}
             lochiaChart={isMonthlyView ? lochiaChartFull : lochiaChart}
             lochiaCount={lochiaDays.length}
             moodEntriesCount={moodEntries.length}
@@ -864,7 +862,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             maxCount={maxMoodCount}
             mostFrequent={mostFrequentMood}
             title="Humeur"
-            trend={[]}
+            trend={isMonthlyView ? moodTrendFull : moodTrend}
             trendMax={5}
           />
         ) : null}
@@ -949,6 +947,8 @@ function SummaryTab({
   moodEntriesCount,
   firstPostpartumPeriodDate,
   isMonthlyView,
+  cycleReturnEventInPeriod,
+  periodLabel,
 }: {
   status: ReturnType<typeof computePostpartumStatus>;
   trackedDays: number;
@@ -965,6 +965,11 @@ function SummaryTab({
   moodEntriesCount: number;
   firstPostpartumPeriodDate: string | null;
   isMonthlyView: boolean;
+  /** The confirmed "retour des règles" date ONLY when it falls inside the
+   * currently selected 1/3/6/12 month window — null otherwise (no event,
+   * or a real event outside the selected window). */
+  cycleReturnEventInPeriod: Date | null;
+  periodLabel: string;
 }): React.JSX.Element {
   return (
     <>
@@ -1020,6 +1025,37 @@ function SummaryTab({
           </Text>
         </View>
       </View>
+
+      {isMonthlyView ? (
+        <View
+          accessibilityLabel={`Retour du cycle — repères enregistrés sur ${periodLabel}`}
+          style={styles.card}
+        >
+          <SectionHeader
+            icon="calendar-heart"
+            subtitle="Repères enregistrés au fil du temps"
+            title="Retour du cycle"
+          />
+          {cycleReturnEventInPeriod && firstPostpartumPeriodDate ? (
+            <View style={styles.infoStrip}>
+              <MaterialDesignIcons
+                color={PURPLE}
+                name="calendar-check-outline"
+                size={16}
+              />
+              <Text style={styles.infoStripText}>
+                Retour du cycle confirmé — tu as indiqué le retour de tes
+                règles le {dateLabel(firstPostpartumPeriodDate)}.
+              </Text>
+            </View>
+          ) : (
+            <EmptyState
+              icon="calendar-heart"
+              text={`Aucun retour de cycle confirmé sur ${periodLabel}.`}
+            />
+          )}
+        </View>
+      ) : null}
 
       <View style={styles.card}>
         <SectionHeader

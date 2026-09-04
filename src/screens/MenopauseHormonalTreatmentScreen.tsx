@@ -67,6 +67,7 @@ const OPTIONS: Array<{
 
 function MenopauseHormonalTreatmentScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -148,6 +149,10 @@ function MenopauseHormonalTreatmentScreen({
 
     try {
       await setMenopauseHormonalTreatmentStatus(selected);
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
+      }
       navigation.navigate('MenopauseLabTracking');
     } finally {
       setSaving(false);

@@ -146,6 +146,7 @@ function OptionCard({
 
 function PostpartumDeliveryTypeScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -184,6 +185,11 @@ function PostpartumDeliveryTypeScreen({
     try {
       if (selected) {
         await setDeliveryType(selected);
+      }
+
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
       }
 
       navigation.navigate('PostpartumFeeding');

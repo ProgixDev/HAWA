@@ -50,6 +50,9 @@ import {
 import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
+import {usePremium} from '../../hooks/usePremium';
+import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
+import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 
 import {
   getPregnancyMedicalEvents,
@@ -500,6 +503,28 @@ function PregnancyCalendarContent(): React.JSX.Element {
         1,
       ),
   );
+
+  const {isPremium} = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
+  // "Historique illimité" — backward navigation only; see historyAccess.ts.
+  // A pregnancy's own natural anchor already bounds how much real history
+  // can exist — this only ever restricts a FREE user further, to the most
+  // recent 30 days, never fabricating extra history beyond what's real.
+  const goToPreviousMonth = useCallback(() => {
+    setVisibleMonth(current => {
+      const target = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+      if (!isMonthWithinHistoryAccess(target, isPremium)) {
+        setPremiumVisible(true);
+        return current;
+      }
+      return target;
+    });
+  }, [isPremium]);
+
+  const goToNextMonth = useCallback(() => {
+    setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
+  }, []);
 
   const [
     selectedDate,
@@ -984,17 +1009,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               }>
               <Pressable
                 accessibilityLabel="Mois précédent"
-                onPress={() =>
-                  setVisibleMonth(
-                    current =>
-                      new Date(
-                        current.getFullYear(),
-                        current.getMonth() -
-                          1,
-                        1,
-                      ),
-                  )
-                }
+                onPress={goToPreviousMonth}
                 style={
                   styles.arrowButton
                 }>
@@ -1032,17 +1047,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
-                onPress={() =>
-                  setVisibleMonth(
-                    current =>
-                      new Date(
-                        current.getFullYear(),
-                        current.getMonth() +
-                          1,
-                        1,
-                      ),
-                  )
-                }
+                onPress={goToNextMonth}
                 style={
                   styles.arrowButton
                 }>
@@ -1667,6 +1672,8 @@ function PregnancyCalendarContent(): React.JSX.Element {
           showHijri={showHijri}
           showSpiritualMarkers={spiritualMarkersEnabled}
         />
+
+        <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
       </SafeAreaView>
     </LinearGradient>
   );

@@ -33,7 +33,7 @@ import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
 
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
 import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
-import type { DailyJournalEntry } from '../../types/journal';
+import type { CervicalMucusType, DailyJournalEntry } from '../../types/journal';
 
 import {
   getCyclePreferences,
@@ -59,6 +59,7 @@ import {
   STATISTICS_PERIODS,
   type StatisticsPeriod,
 } from '../../utils/cycleStatisticsMath';
+import {calculateLhMonthlyTrend, buildMucusTimeline} from '../../utils/conceptionStatisticsMath';
 
 import { usePremium } from '../../hooks/usePremium';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
@@ -144,6 +145,7 @@ const LH_LABEL: Record<string, string> = {
   positive: 'Positif',
   invalid: 'Non valide',
 };
+
 
 const PERIOD_LABELS: Record<StatisticsPeriod, string> = {
   '1': '1 mois',
@@ -502,6 +504,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const [premiumVisible, setPremiumVisible] = useState(false);
 
   const today = useMemo(() => startOfDay(new Date()), []);
+  const showLongitudinalView = period !== '1';
 
   /* ==========================================================
      HYDRATION
@@ -622,6 +625,10 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const maxMucusCount = Math.max(...mucusCounts.map(item => item.count), 1);
   const latestMucus = mucusEntries[mucusEntries.length - 1];
 
+  // Premium "Évolution de la glaire cervicale" — see conceptionStatisticsMath.ts
+  // for the real-data, no-mock guarantee.
+  const mucusTimeline = useMemo(() => buildMucusTimeline(mucusEntries, TREND_DISPLAY_CAP), [mucusEntries]);
+
   const lhEntries = useMemo(
     () => periodEntries.filter((entry): entry is DailyJournalEntry & { lhTest: NonNullable<DailyJournalEntry['lhTest']> } => Boolean(entry.lhTest)),
     [periodEntries],
@@ -633,6 +640,10 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const maxLhCount = Math.max(...lhCounts.map(item => item.count), 1);
   const positiveLhCount = lhEntries.filter(entry => entry.lhTest.result === 'positive').length;
   const latestLh = lhEntries[lhEntries.length - 1];
+
+  // Premium "Évolution des tests LH" — see conceptionStatisticsMath.ts for
+  // the real-data, no-fabricated-scale guarantee.
+  const lhMonthlyTrend = useMemo(() => calculateLhMonthlyTrend(lhEntries), [lhEntries]);
 
   const intercourseEntries = useMemo(
     () => journalDays.filter(entry => entry.intimacy?.answer === 'yes'),
@@ -929,10 +940,14 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
               latestMucusDate={latestMucus?.date}
               latestMucusLabel={latestMucus ? (MUCUS_LABEL[latestMucus.cervicalMucus.type] ?? latestMucus.cervicalMucus.type) : undefined}
               lhCounts={lhCounts}
+              lhMonthlyTrend={lhMonthlyTrend}
               maxLhCount={maxLhCount}
               maxMucusCount={maxMucusCount}
               mucusCounts={mucusCounts}
+              mucusTimeline={mucusTimeline}
+              periodLabel={PERIOD_LABELS[period]}
               positiveLhCount={positiveLhCount}
+              showLongitudinalView={showLongitudinalView}
             />
           ) : null}
 
@@ -1208,20 +1223,28 @@ function FertilityTab({
   latestLhDate,
   lhCounts,
   maxLhCount,
+  lhMonthlyTrend,
   latestMucusLabel,
   latestMucusDate,
   mucusCounts,
   maxMucusCount,
+  mucusTimeline,
+  showLongitudinalView,
+  periodLabel,
 }: {
   positiveLhCount: number;
   latestLhLabel: string | undefined;
   latestLhDate: string | undefined;
   lhCounts: Array<{ label: string; count: number }>;
   maxLhCount: number;
+  lhMonthlyTrend: Array<{ monthKey: string; monthLabel: string; positiveCount: number; totalCount: number }>;
   latestMucusLabel: string | undefined;
   latestMucusDate: string | undefined;
   mucusCounts: Array<{ label: string; count: number }>;
   maxMucusCount: number;
+  mucusTimeline: Array<{ date: string; type: CervicalMucusType; order: number }>;
+  showLongitudinalView: boolean;
+  periodLabel: string;
 }): React.JSX.Element {
   const hasAnyData = lhCounts.length > 0 || mucusCounts.length > 0;
 
@@ -1275,6 +1298,52 @@ function FertilityTab({
         </View>
       </AnimatedSection>
 
+      {showLongitudinalView ? (
+        <AnimatedSection delay={80}>
+          <View
+            accessibilityLabel={`Évolution des tests LH sur ${periodLabel}`}
+            style={styles.card}
+          >
+            <SectionHeader
+              accent="pink"
+              icon="chart-timeline-variant"
+              subtitle="Tes résultats enregistrés au fil du temps."
+              title="Évolution des tests LH"
+            />
+            {(() => {
+              const totalLhTests = lhMonthlyTrend.reduce((total, month) => total + month.totalCount, 0);
+              if (totalLhTests < 2) {
+                return (
+                  <EmptyState
+                    icon="test-tube"
+                    text="Pas encore assez de données pour afficher une évolution des tests LH."
+                  />
+                );
+              }
+              return (
+                <>
+                  <View style={styles.chart}>
+                    {lhMonthlyTrend.map((month, index) => (
+                      <TrendBar
+                        delay={index * 45}
+                        key={month.monthKey}
+                        label={month.monthLabel.slice(0, 3)}
+                        maxValue={Math.max(...lhMonthlyTrend.map(item => item.positiveCount), 1)}
+                        value={month.positiveCount}
+                      />
+                    ))}
+                  </View>
+                  <Text style={styles.softInfoText}>
+                    Hauteur des barres = nombre de tests LH positifs enregistrés
+                    ce mois-ci, sur {totalLhTests} test{totalLhTests > 1 ? 's' : ''} au total sur {periodLabel}.
+                  </Text>
+                </>
+              );
+            })()}
+          </View>
+        </AnimatedSection>
+      ) : null}
+
       <AnimatedSection delay={100}>
         <View style={styles.card}>
           <SectionHeader
@@ -1301,6 +1370,47 @@ function FertilityTab({
           )}
         </View>
       </AnimatedSection>
+
+      {showLongitudinalView ? (
+        <AnimatedSection delay={120}>
+          <View
+            accessibilityLabel={`Évolution de la glaire cervicale sur ${periodLabel}`}
+            style={styles.card}
+          >
+            <SectionHeader
+              accent="green"
+              icon="chart-timeline-variant"
+              subtitle="Tes observations enregistrées au fil du temps."
+              title="Évolution de la glaire cervicale"
+            />
+            {mucusTimeline.length < 2 ? (
+              <EmptyState
+                icon="water-outline"
+                text="Pas encore assez de données pour afficher une évolution de la glaire cervicale."
+              />
+            ) : (
+              <>
+                <View style={styles.chart}>
+                  {mucusTimeline.map((item, index) => (
+                    <TrendBar
+                      delay={index * 40}
+                      key={item.date}
+                      label={dateLabel(item.date)}
+                      maxValue={4}
+                      value={item.order}
+                    />
+                  ))}
+                </View>
+                <Text style={styles.softInfoText}>
+                  Repère visuel : plus la barre est haute, plus l’observation
+                  se rapproche du type "{MUCUS_LABEL.eggWhite}" — de gauche à
+                  droite : {MUCUS_LABEL.dry}, {MUCUS_LABEL.sticky}, {MUCUS_LABEL.creamy}, {MUCUS_LABEL.watery}, {MUCUS_LABEL.eggWhite}.
+                </Text>
+              </>
+            )}
+          </View>
+        </AnimatedSection>
+      ) : null}
 
       <AnimatedSection delay={140}>
         <View style={styles.softInfoCard}>

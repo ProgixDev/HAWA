@@ -373,6 +373,11 @@ export function ConceptionTryingDurationScreen({
           tryingDuration: selected,
         });
 
+        if (route.params?.mode === 'edit') {
+          navigation.goBack();
+          return;
+        }
+
         navigation.navigate(
           'ConceptionOvulationAwareness',
         );
@@ -433,6 +438,11 @@ export function ConceptionOvulationAwarenessScreen({
         await setConceptionPreferences({
           ovulationAwareness: selected,
         });
+
+        if (route.params?.mode === 'edit') {
+          navigation.goBack();
+          return;
+        }
 
         navigation.navigate(
           'ConceptionIndicators',
@@ -511,6 +521,11 @@ export function ConceptionIndicatorsScreen({
         await setConceptionPreferences({
           indicators: [...selected],
         });
+
+        if (route.params?.mode === 'edit') {
+          navigation.goBack();
+          return;
+        }
 
         navigation.navigate(
           'ConceptionReminders',

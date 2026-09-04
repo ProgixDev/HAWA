@@ -74,6 +74,7 @@ const OPTIONS: Array<{
 
 function MenopauseLabTrackingScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -153,6 +154,10 @@ function MenopauseLabTrackingScreen({
 
     try {
       await setMenopauseLabTracking(selected);
+      if (route.params?.mode === 'edit') {
+        navigation.goBack();
+        return;
+      }
       navigation.navigate('MenopauseReminders');
     } finally {
       setSaving(false);

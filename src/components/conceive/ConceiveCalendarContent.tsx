@@ -46,6 +46,9 @@ import { withResolvedIntimacyForDisplayMany } from '../../services/privateJourna
 import type { DailyJournalEntry } from '../../types/journal';
 import { TOP_SPACING_EXTRA } from '../../theme/spacing';
 import type { CyclePhase } from '../home/CycleStatusCard';
+import { usePremium } from '../../hooks/usePremium';
+import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
+import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 
 // Trying-to-Conceive Calendar — a dedicated content branch for the ONE
 // global Calendar tab (see ObjectiveAwareCalendarScreen.tsx), structurally
@@ -217,6 +220,27 @@ function ConceiveCalendarContent(): React.JSX.Element {
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
+  const { isPremium } = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
+  // "Historique illimité" — going backward is the only direction that can
+  // leave the FREE history window; forward navigation is never restricted.
+  // Tapping a locked previous month opens the existing Premium sheet
+  // instead of silently doing nothing — see historyAccess.ts.
+  const goToPreviousMonth = useCallback(() => {
+    setVisibleMonth(current => {
+      const target = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+      if (!isMonthWithinHistoryAccess(target, isPremium)) {
+        setPremiumVisible(true);
+        return current;
+      }
+      return target;
+    });
+  }, [isPremium]);
+
+  const goToNextMonth = useCallback(() => {
+    setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
+  }, []);
   const [selectedDate, setSelectedDate] = useState(today);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
@@ -475,16 +499,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
             <View style={styles.monthHeader}>
               <Pressable
                 accessibilityLabel="Mois précédent"
-                onPress={() =>
-                  setVisibleMonth(
-                    current =>
-                      new Date(
-                        current.getFullYear(),
-                        current.getMonth() - 1,
-                        1,
-                      ),
-                  )
-                }
+                onPress={goToPreviousMonth}
                 style={styles.arrowButton}
               >
                 <MaterialDesignIcons
@@ -505,16 +520,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
-                onPress={() =>
-                  setVisibleMonth(
-                    current =>
-                      new Date(
-                        current.getFullYear(),
-                        current.getMonth() + 1,
-                        1,
-                      ),
-                  )
-                }
+                onPress={goToNextMonth}
                 style={styles.arrowButton}
               >
                 <MaterialDesignIcons
@@ -859,6 +865,8 @@ function ConceiveCalendarContent(): React.JSX.Element {
           today={today}
           visibleFilters={visibleFilters}
         />
+
+        <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
       </SafeAreaView>
     </LinearGradient>
   );

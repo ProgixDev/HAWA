@@ -36,7 +36,7 @@ const formatMonthYear = (date: Date): string => {
   return label.charAt(0).toUpperCase() + label.slice(1);
 };
 
-function PostpartumDeliveryDateScreen({navigation}: Props): React.JSX.Element {
+function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const entrance = useRef(new Animated.Value(0)).current;
@@ -112,6 +112,10 @@ function PostpartumDeliveryDateScreen({navigation}: Props): React.JSX.Element {
     if (saving) {return;}
     setSaving(true);
     await confirmDelivery(selectedDate);
+    if (route.params?.mode === 'edit') {
+      navigation.goBack();
+      return;
+    }
     navigation.navigate('PostpartumDeliveryType');
   };
 

@@ -43,6 +43,9 @@ import {
   subscribePostpartumPreferences,
 } from '../../state/postpartumPreferences';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
+import { usePremium } from '../../hooks/usePremium';
+import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
+import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import { computePostpartumStatus } from '../../utils/postpartumTrackingUtils';
 import {
@@ -179,6 +182,25 @@ function PostpartumCalendarContent(): React.JSX.Element {
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
+  const { isPremium } = usePremium();
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
+  // "Historique illimité" — backward navigation only; see historyAccess.ts.
+  const goToPreviousMonth = useCallback(() => {
+    setVisibleMonth(current => {
+      const target = new Date(current.getFullYear(), current.getMonth() - 1, 1);
+      if (!isMonthWithinHistoryAccess(target, isPremium)) {
+        setPremiumVisible(true);
+        return current;
+      }
+      return target;
+    });
+  }, [isPremium]);
+
+  const goToNextMonth = useCallback(() => {
+    setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
+  }, []);
+
   const [selectedDate, setSelectedDate] = useState(today);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
@@ -461,16 +483,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
             <View style={styles.monthHeader}>
               <Pressable
                 accessibilityLabel="Mois précédent"
-                onPress={() =>
-                  setVisibleMonth(
-                    current =>
-                      new Date(
-                        current.getFullYear(),
-                        current.getMonth() - 1,
-                        1,
-                      ),
-                  )
-                }
+                onPress={goToPreviousMonth}
                 style={styles.arrowButton}
               >
                 <MaterialDesignIcons
@@ -489,16 +502,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
-                onPress={() =>
-                  setVisibleMonth(
-                    current =>
-                      new Date(
-                        current.getFullYear(),
-                        current.getMonth() + 1,
-                        1,
-                      ),
-                  )
-                }
+                onPress={goToNextMonth}
                 style={styles.arrowButton}
               >
                 <MaterialDesignIcons
@@ -844,6 +848,8 @@ function PostpartumCalendarContent(): React.JSX.Element {
           today={today}
           visibleFilters={visibleFilters}
         />
+
+        <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
       </SafeAreaView>
     </LinearGradient>
   );

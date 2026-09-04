@@ -22,6 +22,14 @@ import {getTopPadding, spacing} from '../../theme/spacing';
 import type {MoodLevel} from '../../types/journal';
 import {usePremium} from '../../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
+import {
+  buildLabChartPoints,
+  calculateEnergyMonthlyTrend,
+  calculateMoodMonthlyTrend,
+  calculateSleepMonthlyTrend,
+  calculateSymptomMonthlyTrend,
+  filterLabResultsForPeriod,
+} from '../../utils/menopauseStatisticsMath';
 
 const PURPLE = '#6949BE';
 const PURPLE_DARK = '#28166F';
@@ -75,6 +83,36 @@ function EmptyCardState({title, text}: {title: string; text: string}): React.JSX
   );
 }
 
+/** THE single reusable Premium longitudinal (month-by-month, or per-real-
+ * result for lab values) bar chart for this screen — reused by every new
+ * "Évolution ..." section below instead of each one hand-rolling its own
+ * bar/scale logic. `value`/`maxValue` only ever come from real store data —
+ * never a mock — and `label` is always a real month or date, never an
+ * index. */
+function MonthlyBarChart({
+  points,
+  color,
+}: {
+  points: Array<{key: string; label: string; value: number; maxValue: number}>;
+  color: string;
+}): React.JSX.Element {
+  return (
+    <ScrollView contentContainerStyle={styles.trendChart} horizontal showsHorizontalScrollIndicator={false}>
+      {points.map(point => {
+        const ratio = point.maxValue > 0 ? Math.max(0.06, Math.min(1, point.value / point.maxValue)) : 0.06;
+        return (
+          <View key={point.key} style={styles.trendColumn}>
+            <View style={styles.trendTrack}>
+              <View style={[styles.trendFill, {backgroundColor: color, height: `${ratio * 100}%`}]} />
+            </View>
+            <Text numberOfLines={1} style={styles.trendLabel}>{point.label}</Text>
+          </View>
+        );
+      })}
+    </ScrollView>
+  );
+}
+
 function MenopauseStatisticsScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {isPremium} = usePremium();
@@ -90,12 +128,21 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
     setPeriod(target);
   };
 
-  const entriesInPeriod = useMemo(() => {
-    const allEntries = Object.values(getAllMenopauseJournalEntries());
+  // Extracted so the NEW lab-result filtering below shares the exact same
+  // cutoff as every existing journal-entry stat — the period now genuinely
+  // governs the whole screen, not just the journal-derived cards.
+  const periodCutoff = useMemo(() => {
     const cutoff = new Date();
     cutoff.setMonth(cutoff.getMonth() - period.months);
-    return allEntries.filter((entry: MenopauseJournalEntry) => new Date(`${entry.date}T12:00:00`) >= cutoff);
+    return cutoff;
   }, [period]);
+
+  const entriesInPeriod = useMemo(() => {
+    const allEntries = Object.values(getAllMenopauseJournalEntries());
+    return allEntries.filter((entry: MenopauseJournalEntry) => new Date(`${entry.date}T12:00:00`) >= periodCutoff);
+  }, [periodCutoff]);
+
+  const showLongitudinalView = period.key !== '1m';
 
   const daysTracked = entriesInPeriod.length;
 
@@ -137,8 +184,54 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
   const treatmentTaken = treatmentEntries.filter(entry => entry.treatmentStatus === 'taken').length;
   const treatmentNotTaken = treatmentEntries.filter(entry => entry.treatmentStatus === 'not_taken').length;
 
-  const fshResults = getMenopauseLabResults('fsh');
-  const estradiolResults = getMenopauseLabResults('estradiol');
+  /* ==========================================================
+     PREMIUM LONGITUDINAL TRENDS — real month-by-month buckets of the
+     SAME entriesInPeriod already used above (never a separate/wider
+     fetch) — see utils/menopauseStatisticsMath.ts for the real-data, no-
+     mock guarantee. Only rendered when showLongitudinalView (period !== 1
+     mois, i.e. Premium-unlocked).
+  ========================================================== */
+
+  // One real per-month day-count per tracked symptom (hot flashes, night
+  // sweats, sleep disturbances, fatigue, mood changes, brain fog — the 6
+  // real MenopauseSymptom ids, config/menopauseJournalConfig.ts). A symptom
+  // with zero recorded days across the whole period is simply omitted.
+  const symptomMonthlyTrend = useMemo(
+    () =>
+      MENOPAUSE_SYMPTOM_OPTIONS.map(option => {
+        const points = calculateSymptomMonthlyTrend(entriesInPeriod, option.id);
+        const totalCount = points.reduce((sum, point) => sum + point.count, 0);
+        return {...option, points, totalCount};
+      }).filter(item => item.totalCount > 0),
+    [entriesInPeriod],
+  );
+
+  const sleepMonthlyTrend = useMemo(() => calculateSleepMonthlyTrend(entriesInPeriod), [entriesInPeriod]);
+  const energyMonthlyTrend = useMemo(() => calculateEnergyMonthlyTrend(entriesInPeriod), [entriesInPeriod]);
+  const moodMonthlyTrend = useMemo(() => calculateMoodMonthlyTrend(entriesInPeriod), [entriesInPeriod]);
+
+  /* ==========================================================
+     LAB RESULTS — now genuinely respect the selected period (previously
+     ignored it entirely: getMenopauseLabResults() returned full history
+     regardless of the 1/3/6/12-month selector). "Latest" below always
+     means latest WITHIN the selected period, since the period is meant to
+     govern the whole screen — never silently mixed with older results.
+  ========================================================== */
+
+  const allFshResults = getMenopauseLabResults('fsh');
+  const allEstradiolResults = getMenopauseLabResults('estradiol');
+
+  const fshResults = useMemo(() => filterLabResultsForPeriod(allFshResults, periodCutoff), [allFshResults, periodCutoff]);
+  const estradiolResults = useMemo(() => filterLabResultsForPeriod(allEstradiolResults, periodCutoff), [allEstradiolResults, periodCutoff]);
+
+  const fshChartPoints = useMemo(
+    () => buildLabChartPoints(fshResults).map(point => ({...point, label: formatResultDate(point.label)})),
+    [fshResults],
+  );
+  const estradiolChartPoints = useMemo(
+    () => buildLabChartPoints(estradiolResults).map(point => ({...point, label: formatResultDate(point.label)})),
+    [estradiolResults],
+  );
 
   const showTreatment = preferences.hormonalTreatmentStatus === 'track';
   const showLab = preferences.labTracking !== null && preferences.labTracking !== 'none';
@@ -212,6 +305,31 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
               <Text style={styles.progressHint}>Fréquence relative sur la période sélectionnée — un simple suivi, jamais une indication médicale.</Text>
             </View>
 
+            {showLongitudinalView ? (
+              <View accessibilityLabel={`Évolution des symptômes sur ${period.label}`} style={styles.card}>
+                <Text style={styles.cardTitle}>Évolution des symptômes</Text>
+                {symptomMonthlyTrend.length === 0 ? (
+                  <EmptyCardState text="Pas encore assez de données pour afficher une évolution sur cette période." title="Rien à afficher" />
+                ) : (
+                  symptomMonthlyTrend.map(item => (
+                    <View key={item.id} style={styles.symptomTrendBlock}>
+                      <View style={styles.symptomTrendHeader}>
+                        <View style={[styles.statIcon, styles.symptomTrendIcon, {backgroundColor: item.tint}]}>
+                          <MaterialDesignIcons color={item.iconColor} name={item.icon} size={15} />
+                        </View>
+                        <Text numberOfLines={1} style={styles.statLabel}>{item.label}</Text>
+                      </View>
+                      <MonthlyBarChart
+                        color={item.iconColor}
+                        points={item.points.map(point => ({key: point.monthKey, label: point.monthLabel.slice(0, 3), value: point.count, maxValue: Math.max(...item.points.map(p => p.count), 1)}))}
+                      />
+                    </View>
+                  ))
+                )}
+                <Text style={styles.trendHint}>Hauteur des barres = nombre de jours avec ce symptôme, mois par mois.</Text>
+              </View>
+            ) : null}
+
             <View style={styles.card}>
               <Text style={styles.cardTitle}>Humeur</Text>
               {moodCounts.length === 0 ? (
@@ -229,6 +347,21 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                   </View>
                 ))
               )}
+              {showLongitudinalView ? (
+                <View accessibilityLabel={`Évolution de l’humeur sur ${period.label}`}>
+                  <Text style={[styles.statLabel, styles.moodTrendLabel]}>Évolution mois par mois</Text>
+                  {moodMonthlyTrend.length === 0 ? (
+                    <EmptyCardState text="Pas encore assez de données pour afficher une évolution." title="Rien à afficher" />
+                  ) : (
+                    moodMonthlyTrend.map(item => (
+                      <View key={item.monthKey} style={styles.monthlyMoodRow}>
+                        <Text style={styles.statLabel}>{item.monthLabel}</Text>
+                        <Text style={styles.statValue}>{MENOPAUSE_MOOD_LABELS[item.dominantMood]} · {item.dominantCount}/{item.totalCount} j</Text>
+                      </View>
+                    ))
+                  )}
+                </View>
+              ) : null}
             </View>
 
             <View style={styles.card}>
@@ -237,6 +370,19 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                 <Text style={styles.statLabel}>Durée moyenne enregistrée</Text>
                 <Text style={styles.statValue}>{averageSleep !== null ? `${averageSleep.toFixed(1)} h` : 'Non renseigné'}</Text>
               </View>
+              {showLongitudinalView ? (
+                sleepMonthlyTrend.length < 2 ? (
+                  <EmptyCardState text="Pas encore assez de données pour afficher une évolution du sommeil." title="Rien à afficher" />
+                ) : (
+                  <View accessibilityLabel={`Évolution du sommeil sur ${period.label}`}>
+                    <MonthlyBarChart
+                      color="#4D8791"
+                      points={sleepMonthlyTrend.map(item => ({key: item.monthKey, label: item.monthLabel.slice(0, 3), value: item.averageHours, maxValue: Math.max(...sleepMonthlyTrend.map(p => p.averageHours), 1)}))}
+                    />
+                    <Text style={styles.trendHint}>Durée moyenne de sommeil enregistrée, mois par mois.</Text>
+                  </View>
+                )
+              ) : null}
             </View>
 
             <View style={styles.card}>
@@ -259,6 +405,21 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                   </View>
                 ))
               )}
+              {showLongitudinalView ? (
+                energyMonthlyTrend.length < 2 ? (
+                  <EmptyCardState text="Pas encore assez de données pour afficher une évolution de l’énergie." title="Rien à afficher" />
+                ) : (
+                  <View accessibilityLabel={`Évolution de l’énergie sur ${period.label}`}>
+                    <MonthlyBarChart
+                      color="#B9823D"
+                      points={energyMonthlyTrend.map(item => ({key: item.monthKey, label: item.monthLabel.slice(0, 3), value: item.averageScore, maxValue: 3}))}
+                    />
+                    <Text style={styles.trendHint}>
+                      Repère visuel (bas → haut) ; niveau dominant par mois : {energyMonthlyTrend.map(item => `${item.monthLabel.slice(0, 3)} : ${MENOPAUSE_ENERGY_LABELS[item.dominantLevel]}`).join(' · ')}.
+                    </Text>
+                  </View>
+                )
+              ) : null}
             </View>
 
             {showTreatment ? (
@@ -278,15 +439,32 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
             {showLab ? (
               <View style={styles.card}>
                 <Text style={styles.cardTitle}>Historique des analyses</Text>
+                <Text style={styles.trendHint}>Résultats de {period.label} · "Dernier résultat" = le plus récent sur cette période.</Text>
                 {(preferences.labTracking === 'fsh' || preferences.labTracking === 'both') ? (
                   <View style={styles.labBlock}>
                     <View style={styles.labBlockHeader}>
                       <MaterialDesignIcons color="#4D8791" name={MENOPAUSE_LAB_TYPE_ICONS.fsh} size={15} />
                       <Text style={styles.statLabel}>{MENOPAUSE_LAB_TYPE_LABELS.fsh} — {fshResults.length} résultat{fshResults.length > 1 ? 's' : ''}</Text>
                     </View>
-                    {fshResults.slice(0, 6).map(result => (
-                      <Text key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</Text>
-                    ))}
+                    {fshResults.length === 0 ? (
+                      <EmptyCardState text={`Aucun résultat FSH enregistré sur ${period.label}.`} title="Rien à afficher" />
+                    ) : (
+                      <>
+                        {fshResults.length === 1 ? (
+                          <Text style={styles.labResultLatest}>
+                            Un seul résultat sur cette période : {fshResults[0].value}{fshResults[0].unit ? ` ${fshResults[0].unit}` : ''} le {formatResultDate(fshResults[0].date)}.
+                          </Text>
+                        ) : null}
+                        {showLongitudinalView && fshResults.length >= 2 ? (
+                          <View accessibilityLabel={`Évolution FSH sur ${period.label}`}>
+                            <MonthlyBarChart color="#4D8791" points={fshChartPoints} />
+                          </View>
+                        ) : null}
+                        {fshResults.slice(-6).map(result => (
+                          <Text key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</Text>
+                        ))}
+                      </>
+                    )}
                   </View>
                 ) : null}
                 {(preferences.labTracking === 'estradiol' || preferences.labTracking === 'both') ? (
@@ -295,13 +473,26 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                       <MaterialDesignIcons color="#4D8791" name={MENOPAUSE_LAB_TYPE_ICONS.estradiol} size={15} />
                       <Text style={styles.statLabel}>{MENOPAUSE_LAB_TYPE_LABELS.estradiol} — {estradiolResults.length} résultat{estradiolResults.length > 1 ? 's' : ''}</Text>
                     </View>
-                    {estradiolResults.slice(0, 6).map(result => (
-                      <Text key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</Text>
-                    ))}
+                    {estradiolResults.length === 0 ? (
+                      <EmptyCardState text={`Aucun résultat estradiol enregistré sur ${period.label}.`} title="Rien à afficher" />
+                    ) : (
+                      <>
+                        {estradiolResults.length === 1 ? (
+                          <Text style={styles.labResultLatest}>
+                            Un seul résultat sur cette période : {estradiolResults[0].value}{estradiolResults[0].unit ? ` ${estradiolResults[0].unit}` : ''} le {formatResultDate(estradiolResults[0].date)}.
+                          </Text>
+                        ) : null}
+                        {showLongitudinalView && estradiolResults.length >= 2 ? (
+                          <View accessibilityLabel={`Évolution estradiol sur ${period.label}`}>
+                            <MonthlyBarChart color="#B9823D" points={estradiolChartPoints} />
+                          </View>
+                        ) : null}
+                        {estradiolResults.slice(-6).map(result => (
+                          <Text key={result.id} style={styles.labResultLine}>{formatResultDate(result.date)} · {result.value}{result.unit ? ` ${result.unit}` : ''}</Text>
+                        ))}
+                      </>
+                    )}
                   </View>
-                ) : null}
-                {fshResults.length === 0 && estradiolResults.length === 0 ? (
-                  <EmptyCardState text="Ajoute un résultat depuis le Journal quotidien." title="Aucun résultat enregistré" />
                 ) : null}
               </View>
             ) : null}
@@ -368,6 +559,19 @@ const styles = StyleSheet.create({
   emptyState: {alignItems: 'center', paddingVertical: 10},
   emptyTitle: {color: PURPLE_DARK, fontSize: 13, fontWeight: '700', textAlign: 'center'},
   emptyText: {marginTop: 4, color: MUTED, fontSize: 11.5, textAlign: 'center'},
+
+  trendChart: {flexDirection: 'row', alignItems: 'flex-end', gap: 10, paddingVertical: 4},
+  trendColumn: {alignItems: 'center', width: 34},
+  trendTrack: {width: 16, height: 74, borderRadius: 8, backgroundColor: '#EFE9F7', justifyContent: 'flex-end', overflow: 'hidden'},
+  trendFill: {width: '100%', borderRadius: 8},
+  trendLabel: {marginTop: 6, color: MUTED, fontSize: 9, fontWeight: '600', textAlign: 'center'},
+  trendHint: {marginTop: 10, color: MUTED, fontSize: 10, lineHeight: 14},
+  symptomTrendBlock: {marginTop: 12},
+  symptomTrendHeader: {flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6},
+  symptomTrendIcon: {marginRight: 0},
+  moodTrendLabel: {marginTop: 12, marginBottom: 4},
+  monthlyMoodRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 7, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: 'rgba(105,73,190,0.1)'},
+  labResultLatest: {marginTop: 4, color: PURPLE_DARK, fontSize: 12, fontWeight: '700'},
 
   pressed: {opacity: 0.82},
 });

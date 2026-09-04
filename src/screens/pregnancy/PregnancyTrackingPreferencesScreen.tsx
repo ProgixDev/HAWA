@@ -203,6 +203,7 @@ function TrackingRow({
 
 function PregnancyTrackingPreferencesScreen({
   navigation,
+  route,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
 
@@ -292,6 +293,11 @@ function PregnancyTrackingPreferencesScreen({
     await setPregnancyTrackingPreferences(
       selected,
     );
+
+    if (route.params?.mode === 'edit') {
+      navigation.goBack();
+      return;
+    }
 
     navigation.navigate(
       'PregnancyReminders',
