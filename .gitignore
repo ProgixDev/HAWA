@@ -1,3 +1,17 @@
+# AWA repository layout: the React Native app lives entirely under mobile/
+# (see mobile/README.md). Patterns below with no leading slash already match
+# at any depth, so they cover mobile/node_modules/, mobile/android/build/,
+# mobile/ios/Pods/, etc. without change. mobile/coverage and
+# mobile/vendor/bundle/ are called out explicitly below since their root-only
+# equivalents (/coverage, /vendor/bundle/) are anchored.
+
+# Environment secrets (mobile)
+#
+mobile/.env
+mobile/.env.local
+mobile/.env.development
+mobile/.env.production
+
 # OSX
 #
 .DS_Store
@@ -59,12 +73,14 @@ yarn-error.log
 # Ruby / CocoaPods
 **/Pods/
 /vendor/bundle/
+mobile/vendor/bundle/
 
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
 
 # testing
 /coverage
+mobile/coverage
 
 # Yarn
 .yarn/*
@@ -77,3 +93,12 @@ yarn-error.log
 # Java/JVM crash logs
 hs_err_pid*.log
 replay_pid*.log
+
+# Local development tools
+.vscode/
+.claude/
+.audit_tmp.json
+# Local development tools
+.vscode/
+.claude/
+.audit_tmp.json

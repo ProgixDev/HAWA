@@ -1,0 +1,1895 @@
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import {
+  AccessibilityInfo,
+  Animated,
+  Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
+import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useFocusEffect } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
+
+import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
+import { useJournalSheet } from '../../navigation/JournalSheetContext';
+import { requirePrivateAccess } from '../../navigation/privateAccess';
+import HomeHeader from '../home/HomeHeader';
+import QuickActionsGrid, {
+  type QuickActionItem,
+} from '../home/QuickActionsGrid';
+import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
+import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
+import { useAwaTheme } from '../../theme/AwaThemeProvider';
+import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import {
+  getFirstName,
+  getSpiritualMarkersEnabled,
+} from '../../state/onboardingPreferences';
+import {
+  getPregnancyDating,
+  hydratePregnancyDating,
+  subscribePregnancyDating,
+  type PregnancyTrackingPreference,
+} from '../../state/pregnancyPreferences';
+import {
+  computePregnancyStatus,
+  isLatePregnancy,
+  isPregnancyTrackingCategoryCompleted,
+} from '../../utils/pregnancyTrackingUtils';
+import {
+  getPostpartumPreferences,
+  hydratePostpartumPreferences,
+  subscribePostpartumPreferences,
+} from '../../state/postpartumPreferences';
+import DeliveryDateSheet from './DeliveryDateSheet';
+import PostpartumCongratsCard from './PostpartumCongratsCard';
+import { usePregnancySpiritualStatus } from '../../hooks/usePrayerPurityStatus';
+import { formatHijriDate } from '../../utils/cycleMath';
+import { getJournalEntry } from '../../state/dailyJournalStore';
+import {
+  getPregnancyJournalState,
+  type PregnancyJournalState,
+} from '../../state/pregnancyJournalStore';
+import {
+  getNextUpcomingEvent,
+  getPregnancyMedicalEvents,
+  type PregnancyMedicalEvent,
+} from '../../state/pregnancyMedicalEventsStore';
+import { getPregnancyWeekData } from '../../data/pregnancyWeekData';
+import type { DailyJournalEntry } from '../../types/journal';
+import BabyDevelopmentImage from './BabyDevelopmentImage';
+
+const WOMAN = require('../../assets/images/pregnancy/pregnancy-woman-week18.png');
+// No week-specific, medically-validated fetal illustration exists yet (see
+// src/data/pregnancyWeekData.ts) — the "Ton bébé" card falls back to a
+// neutral icon (below) instead of showing one fixed developed-fetus image
+// for every week, which would be misleading this early in the pregnancy.
+
+// PHASE D5 — PURPLE used to be a fixed literal here; it is now derived from
+// useAwaTheme() inside PregnancyDashboard() (and re-derived identically
+// inside createStyles(theme) and passed into AppointmentCard/
+// UnconfiguredPregnancyCard as props, since they're sibling top-level
+// components that can no longer close over module-scope values). No
+// medical/pregnancy-semantic color exists in this file — trimester, week,
+// due date and appointment cards all share the same generic decorative
+// purple-brand chrome, never varying by pregnancy meaning.
+
+type Props = MainTabScreenProps<'CycleHome'>;
+
+type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+
+type Route =
+  | 'MoodEntry'
+  | 'SleepEntry'
+  | 'PregnancyWeight'
+  | 'PregnancySymptoms'
+  | 'PregnancyMedicalInformation';
+
+// The exact same 5 categories as the Pregnancy Daily Journal (see
+// PREGNANCY_JOURNAL_ITEMS in MainTabNavigator.tsx) — deliberately NOT
+// filtered by the user's tracking-preferences (Hydratation/Activité/Notes/
+// RDV are separate, opt-in reminder categories configured in
+// PregnancyTrackingPreferencesScreen.tsx; they were never part of the
+// Journal quotidien and must not appear in "Suivi du jour").
+const DAILY_ITEMS: Array<{
+  label: string;
+  icon: IconName;
+  route: Route;
+  preferenceKey: PregnancyTrackingPreference;
+}> = [
+  {
+    label: 'Symptômes',
+    icon: 'clipboard-pulse-outline',
+    route: 'PregnancySymptoms',
+    preferenceKey: 'symptoms',
+  },
+  {
+    label: 'Poids',
+    icon: 'scale-bathroom',
+    route: 'PregnancyWeight',
+    preferenceKey: 'weight',
+  },
+  {
+    label: 'Humeur',
+    icon: 'heart-outline',
+    route: 'MoodEntry',
+    preferenceKey: 'mood',
+  },
+  {
+    label: 'Sommeil',
+    icon: 'weather-night',
+    route: 'SleepEntry',
+    preferenceKey: 'sleep',
+  },
+  {
+    label: 'Infos médicales',
+    icon: 'shield-lock-outline',
+    route: 'PregnancyMedicalInformation',
+    preferenceKey: 'medicalInfo',
+  },
+];
+
+function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
+  const insets = useSafeAreaInsets();
+  const { width } = useWindowDimensions();
+
+  const compact = width < 370;
+  const veryCompact = width < 345;
+
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const entrance = useRef(new Animated.Value(0)).current;
+  const float = useRef(new Animated.Value(0)).current;
+
+  // Canonical pregnancy onboarding data (src/state/pregnancyPreferences.ts)
+  // — the same source SummaryScreen reads. Core values (week, gestational
+  // age, trimester, DPA, progress) are derived from this via
+  // computePregnancyStatus; appointments/exams come from
+  // pregnancyMedicalEventsStore and baby info from pregnancyWeekData, both
+  // real, below.
+  const [dating, setDating] = useState(getPregnancyDating);
+
+  // Whether a delivery has already been confirmed for this pregnancy — see
+  // src/state/postpartumPreferences.ts. Drives which CTA/step is shown: no
+  // date yet → "J'ai accouché" opens DeliveryDateSheet; date already
+  // persisted (e.g. she previously picked "Plus tard") → CTA becomes
+  // "Démarrer mon suivi post-partum" and jumps straight to the
+  // congratulations card, never asking for the date again.
+  const [postpartum, setPostpartum] = useState(getPostpartumPreferences);
+  const [deliverySheetVisible, setDeliverySheetVisible] = useState(false);
+  const [congratsVisible, setCongratsVisible] = useState(false);
+  // Set by DeliveryDateSheet's onConfirmed (fires right after the date is
+  // persisted, before its own closing animation finishes) and consumed by
+  // its onClose — so the congratulations card opens only once the date
+  // sheet has fully dismissed, and only when a date was actually just
+  // confirmed (not on "Annuler").
+  const [awaitingCongrats, setAwaitingCongrats] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    hydratePregnancyDating().then(value => {
+      if (active) {
+        setDating(value);
+      }
+    });
+    const unsubscribeDating = subscribePregnancyDating(() => {
+      if (active) {
+        setDating(getPregnancyDating());
+      }
+    });
+    hydratePostpartumPreferences().then(value => {
+      if (active) {
+        setPostpartum(value);
+      }
+    });
+    const unsubscribePostpartum = subscribePostpartumPreferences(() => {
+      if (active) {
+        setPostpartum(getPostpartumPreferences());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribeDating();
+      unsubscribePostpartum();
+    };
+  }, []);
+
+  const status = useMemo(
+    () =>
+      computePregnancyStatus(
+        dating.method,
+        dating.date ? new Date(dating.date) : null,
+        new Date(),
+      ),
+    [dating],
+  );
+
+  // Centralized rule (src/utils/pregnancyTrackingUtils.ts) — gestational
+  // week is never recomputed here, only read off the already-derived
+  // `status`. Once a delivery date already exists (she previously picked
+  // "Plus tard"), the CTA stays visible regardless of week — she has
+  // already delivered, so the normal late-pregnancy gate no longer applies
+  // — but its label/action change: it re-opens the congratulations card
+  // directly instead of asking for the date again.
+  const hasConfirmedDelivery = Boolean(postpartum.deliveryDate);
+  const showDeliveryCta = hasConfirmedDelivery || isLatePregnancy(status);
+  const deliveryCtaLabel = hasConfirmedDelivery
+    ? 'Démarrer mon suivi post-partum'
+    : 'J’ai accouché';
+  const deliveryDateForCard = useMemo(
+    () =>
+      postpartum.deliveryDate
+        ? new Date(`${postpartum.deliveryDate}T12:00:00`)
+        : null,
+    [postpartum.deliveryDate],
+  );
+
+  const handleDeliveryCtaPress = () => {
+    if (hasConfirmedDelivery) {
+      setCongratsVisible(true);
+    } else {
+      setDeliverySheetVisible(true);
+    }
+  };
+
+  // Real, date-specific journal/medical data — refreshed on every focus so
+  // returning from a journal screen or the Appointments screen immediately
+  // reflects what was just saved.
+  const [todayEntry, setTodayEntry] = useState<DailyJournalEntry | undefined>(
+    undefined,
+  );
+  const [pregnancyJournal, setPregnancyJournal] =
+    useState<PregnancyJournalState>({ symptoms: [], weights: [], medicalInformationHistory: [] });
+  const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>(
+    [],
+  );
+  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      Promise.all([
+        getJournalEntry(todayKey),
+        getPregnancyJournalState(),
+        getPregnancyMedicalEvents(),
+      ]).then(([daily, pregnancy, events]) => {
+        if (active) {
+          setTodayEntry(daily);
+          setPregnancyJournal(pregnancy);
+          setMedicalEvents(events);
+        }
+      });
+      return () => {
+        active = false;
+      };
+    }, [todayKey]),
+  );
+
+  const completedTodayCount = useMemo(
+    () =>
+      DAILY_ITEMS.filter(item =>
+        isPregnancyTrackingCategoryCompleted(
+          item.preferenceKey,
+          todayKey,
+          todayEntry,
+          pregnancyJournal,
+          medicalEvents,
+        ),
+      ).length,
+    [todayKey, todayEntry, pregnancyJournal, medicalEvents],
+  );
+
+  const nextAppointment = useMemo(
+    () => getNextUpcomingEvent(medicalEvents, 'appointment', new Date()),
+    [medicalEvents],
+  );
+  const nextExam = useMemo(
+    () => getNextUpcomingEvent(medicalEvents, 'exam', new Date()),
+    [medicalEvents],
+  );
+
+  // Week-specific baby reference content — see src/data/pregnancyWeekData.ts.
+  // No fabricated fallback: when nothing is available for this week, the
+  // "Ton bébé" card shows an honest message instead of a fixed number.
+  const weekData = status.configured
+    ? getPregnancyWeekData(status.week)
+    : undefined;
+
+  // Same shared bottom-sheet context Cycle uses — JournalSheetHost (see
+  // MainTabNavigator.tsx) already renders the shared DailyJournalSheet with
+  // Pregnancy's own action list while activeObjective === 'pregnancy', so
+  // opening it here needs no Pregnancy-specific wiring.
+  const { open: openPregnancyJournal } = useJournalSheet();
+
+  // Same 6-slot architecture/keys/colors as CycleHomeScreen's
+  // quickActionItems, routed to the identical shared screens — only the
+  // "Journal quotidien" action and its icon tint differ per objective, and
+  // even that difference is handled by the shared JournalSheetHost, not by
+  // a Pregnancy-specific route.
+  const pregnancyQuickActionItems: QuickActionItem[] = [
+    {
+      key: 'prayer-times',
+      icon: 'mosque',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
+      label: 'Horaires\nde prière',
+      onPress: () => navigation.navigate('PrayerTimes'),
+    },
+    {
+      key: 'library',
+      icon: 'book-open-page-variant-outline',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
+      label: 'Bibliothèque',
+      onPress: () => navigation.navigate('Library'),
+    },
+    // Category E (fixed action-identity accent, same as Cycle D1,
+    // Contraception D2, Irregular D3, Conceive D4 — never theme-driven).
+    {
+      key: 'daily-journal',
+      icon: 'notebook-edit-outline',
+      iconColor: '#B23F63',
+      iconBg: '#F9DCE8',
+      label: 'Journal quotidien',
+      onPress: openPregnancyJournal,
+    },
+    {
+      key: 'hijri-calendar',
+      icon: 'moon-waning-crescent',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
+      label: 'Calendrier Hijri',
+      onPress: () => navigation.navigate('HijriCalendar'),
+    },
+    {
+      key: 'qadaa',
+      icon: 'silverware-fork-knife',
+      iconColor: theme.colors.primary,
+      iconBg: theme.colors.primarySoft,
+      label: 'Jeûne à rattraper',
+      onPress: () => navigation.navigate('FastingQadaa'),
+    },
+    // Category E (fixed action-identity accent, same as Cycle D1,
+    // Contraception D2, Irregular D3, Conceive D4 — never theme-driven).
+    {
+      key: 'statistics',
+      icon: 'chart-donut',
+      iconColor: '#2C8E93',
+      iconBg: '#DDF0F1',
+      label: 'Statistiques',
+      onPress: () => navigation.navigate('Statistics'),
+    },
+  ];
+
+  // Same global "Repères spirituels" preference Cycle reads (no dedicated
+  // hydrate/subscribe — it's a session-only in-memory flag, so it's kept in
+  // sync on focus exactly like CycleHomeScreen does).
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
+    getSpiritualMarkersEnabled(),
+  );
+  useFocusEffect(
+    useCallback(() => {
+      setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
+    }, []),
+  );
+
+  // Pregnancy-safe prayer/location fetch — same underlying schedule service
+  // as Cycle, but never derives menstruation/purity status.
+  const spiritual = usePregnancySpiritualStatus(spiritualMarkersEnabled);
+
+  useEffect(() => {
+    let loop: Animated.CompositeAnimation | undefined;
+    let active = true;
+
+    AccessibilityInfo.isReduceMotionEnabled().then(reduce => {
+      if (!active) {
+        return;
+      }
+
+      Animated.timing(entrance, {
+        toValue: 1,
+        duration: reduce ? 0 : 520,
+        useNativeDriver: true,
+      }).start();
+
+      if (!reduce) {
+        loop = Animated.loop(
+          Animated.sequence([
+            Animated.timing(float, {
+              toValue: 1,
+              duration: 2200,
+              useNativeDriver: true,
+            }),
+            Animated.timing(float, {
+              toValue: 0,
+              duration: 2200,
+              useNativeDriver: true,
+            }),
+          ]),
+        );
+
+        loop.start();
+      }
+    });
+
+    return () => {
+      active = false;
+      loop?.stop();
+    };
+  }, [entrance, float]);
+
+  return (
+    <LinearGradient
+      colors={[...theme.gradients.pageBackground]}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
+      end={{x: 1, y: 1}}
+      style={styles.background}>
+      <View pointerEvents="none" style={styles.pageBackgroundDecor}>
+        <View style={styles.pageGlowTop} />
+        <View style={styles.pageGlowMiddle} />
+        <View style={styles.pageGlowBottom} />
+      </View>
+      <SafeAreaView style={styles.safeArea}>
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle={theme.statusBarStyle}
+          translucent
+        />
+
+        <ScrollView
+          contentContainerStyle={[
+            styles.content,
+            compact && styles.contentCompact,
+            {
+              paddingBottom: Math.max(insets.bottom, 12) + 128,
+            },
+          ]}
+          showsVerticalScrollIndicator={false}
+        >
+          {/* HEADER */}
+
+          <HomeHeader
+            firstName={getFirstName()}
+            onPressProfile={() => navigation.navigate('Profile')}
+            subtitle=""
+          />
+
+          {status.configured ? (
+            <>
+              {/* =======================================================
+                  HERO GROSSESSE
+              ======================================================== */}
+
+              <Animated.View
+                style={[
+                  styles.heroSection,
+                  compact && styles.heroSectionCompact,
+                  veryCompact && styles.heroSectionVeryCompact,
+                  {
+                    opacity: entrance,
+                    transform: [
+                      {
+                        translateY: entrance.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [14, 0],
+                        }),
+                      },
+                    ],
+                  },
+                ]}
+              >
+                {/* CARTE SEMAINE */}
+
+                <View
+                  style={[
+                    styles.weekPanel,
+                    compact && styles.weekPanelCompact,
+                    veryCompact && styles.weekPanelVeryCompact,
+                  ]}
+                >
+                  <View style={styles.weekTopRow}>
+                    <View style={styles.weekMiniIcon}>
+                      <MaterialDesignIcons
+                        color={theme.colors.primary}
+                        name="calendar-heart"
+                        size={16}
+                      />
+                    </View>
+
+                    <Text style={styles.weekLabel}>Semaine actuelle</Text>
+                  </View>
+
+                  <View
+                    style={[
+                      styles.weekNumberCircle,
+                      compact && styles.weekNumberCircleCompact,
+                      veryCompact && styles.weekNumberCircleVeryCompact,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.weekNumber,
+                        compact && styles.weekNumberCompact,
+                        veryCompact && styles.weekNumberVeryCompact,
+                      ]}
+                    >
+                      {status.week}
+                    </Text>
+                  </View>
+
+                  <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    style={[styles.age, compact && styles.ageCompact]}
+                  >
+                    {status.gestationalWeeks} SA + {status.gestationalDays}{' '}
+                    jours
+                  </Text>
+
+                  <View style={styles.weekDivider} />
+
+                  <View style={styles.trimester}>
+                    <MaterialDesignIcons
+                      color={theme.colors.primary}
+                      name="creation-outline"
+                      size={13}
+                    />
+
+                    <Text style={styles.trimesterText}>
+                      {status.trimester}e trimestre
+                    </Text>
+                  </View>
+                </View>
+
+                {/* FEMME */}
+
+                <Image
+                  accessibilityLabel="Illustration d’une femme enceinte"
+                  resizeMode="contain"
+                  source={WOMAN}
+                  style={[
+                    styles.woman,
+                    compact && styles.womanCompact,
+                    veryCompact && styles.womanVeryCompact,
+                  ]}
+                />
+              </Animated.View>
+
+              {/* =======================================================
+                  DPA
+              ======================================================== */}
+
+              <View style={styles.dueCard}>
+                <View style={styles.dueColumn}>
+                  <View style={styles.dueLabelRow}>
+                    <View style={styles.smallIconCircle}>
+                      <MaterialDesignIcons
+                        color={theme.colors.primary}
+                        name="calendar-heart"
+                        size={17}
+                      />
+                    </View>
+
+                    <Text style={styles.muted}>DPA</Text>
+                  </View>
+
+                  <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    style={styles.dueValue}
+                  >
+                    {status.estimatedDueDate
+                      ? new Intl.DateTimeFormat('fr-FR', {
+                          day: 'numeric',
+                          month: 'long',
+                          year: 'numeric',
+                        }).format(status.estimatedDueDate)
+                      : '—'}
+                  </Text>
+                </View>
+
+                <View style={styles.verticalDivider} />
+
+                <View style={styles.remainingColumn}>
+                  <View style={styles.dueLabelRow}>
+                    <View style={styles.smallIconCircle}>
+                      <MaterialDesignIcons
+                        color={theme.colors.primary}
+                        name="timer-sand"
+                        size={17}
+                      />
+                    </View>
+
+                    <Text style={styles.muted}>Temps restant</Text>
+                  </View>
+
+                  <Text
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    style={styles.remainingValue}
+                  >
+                    {status.remainingWeeks} semaines
+                    {status.remainingDaysRemainder > 0
+                      ? ` + ${status.remainingDaysRemainder} jours`
+                      : ''}
+                  </Text>
+
+                  <Text style={styles.remainingSub}>restantes</Text>
+                </View>
+              </View>
+
+              {/* =======================================================
+                  J'AI ACCOUCHÉ / DÉMARRER MON SUIVI POST-PARTUM
+                  Discreet CTA — either late-stage pregnancy (see
+                  isLatePregnancy in pregnancyTrackingUtils.ts) with no
+                  delivery confirmed yet, opening DeliveryDateSheet; or a
+                  delivery date already exists (she previously picked
+                  "Plus tard"), in which case it reopens the
+                  congratulations card directly.
+              ======================================================== */}
+
+              {showDeliveryCta ? (
+                <Pressable
+                  accessibilityLabel={deliveryCtaLabel}
+                  accessibilityRole="button"
+                  onPress={handleDeliveryCtaPress}
+                  style={({ pressed }) => [
+                    styles.deliveryCta,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <MaterialDesignIcons
+                    color={theme.colors.primary}
+                    name={
+                      hasConfirmedDelivery
+                        ? 'arrow-right-circle-outline'
+                        : 'flower-outline'
+                    }
+                    size={16}
+                  />
+                  <Text style={styles.deliveryCtaText}>{deliveryCtaLabel}</Text>
+                </Pressable>
+              ) : null}
+
+              {/* =======================================================
+                  CETTE SEMAINE / BÉBÉ
+              ======================================================== */}
+
+              <Pressable
+                accessibilityRole="button"
+                accessibilityLabel="Voir les informations de cette semaine"
+                onPress={() => navigation.navigate('PregnancyWeek')}
+                style={({ pressed }) => [
+                  styles.babyCard,
+                  compact && styles.babyCardCompact,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <View style={styles.babyCopy}>
+                  <Text style={styles.cardTitle}>Cette semaine</Text>
+
+                  <Text style={styles.babyEyebrow}>Ton bébé</Text>
+
+                  <Text style={styles.babyLine}>
+                    {weekData?.babyDescription ??
+                      'Les informations détaillées de cette semaine seront bientôt disponibles.'}
+                  </Text>
+
+                  {weekData?.weight ? (
+                    <Text style={styles.babyLine}>
+                      Pèse environ{' '}
+                      <Text style={styles.strong}>{weekData.weight}</Text>
+                    </Text>
+                  ) : null}
+
+                  {weekData?.length ? (
+                    <Text style={styles.babyLine}>
+                      Mesure environ{' '}
+                      <Text style={styles.strong}>{weekData.length}</Text>
+                    </Text>
+                  ) : null}
+
+                  <View style={styles.weekLink}>
+                    <Text style={styles.weekLinkText}>
+                      Découvrir la semaine
+                    </Text>
+
+                    <MaterialDesignIcons
+                      color={theme.colors.primary}
+                      name="chevron-right"
+                      size={18}
+                    />
+                  </View>
+                </View>
+
+                {weekData?.babyImage != null ? (
+                  <BabyDevelopmentImage
+                    accessibilityLabel={`Illustration du bébé à la semaine ${status.week}`}
+                    source={weekData.babyImage}
+                    style={[styles.baby, compact && styles.babyCompact]}
+                  />
+                ) : (
+                  <View
+                    accessibilityLabel="Illustration non disponible pour cette semaine"
+                    style={[
+                      styles.baby,
+                      compact && styles.babyCompact,
+                      styles.babyPlaceholder,
+                    ]}
+                  >
+                    <MaterialDesignIcons
+                      color={theme.colors.primary}
+                      name="baby-face-outline"
+                      size={compact ? 38 : 46}
+                    />
+                  </View>
+                )}
+              </Pressable>
+            </>
+          ) : (
+            <UnconfiguredPregnancyCard
+              onConfigure={() => navigation.navigate('PregnancyDatingSetup')}
+              styles={styles}
+              theme={theme}
+            />
+          )}
+
+          {/* =======================================================
+              RDV + EXAMEN
+          ======================================================== */}
+
+          <View
+            style={[
+              styles.appointmentRow,
+              veryCompact && styles.appointmentRowVeryCompact,
+            ]}
+          >
+            <AppointmentCard
+              icon="calendar-month-outline"
+              label="Prochain RDV"
+              lines={
+                nextAppointment
+                  ? [
+                      new Intl.DateTimeFormat('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }).format(new Date(`${nextAppointment.date}T12:00:00`)),
+                      nextAppointment.time ?? '',
+                      nextAppointment.title,
+                      nextAppointment.practitioner ?? '',
+                    ].filter(Boolean)
+                  : ['Aucun rendez-vous prévu']
+              }
+              onPress={() =>
+                navigation.navigate('PregnancyAppointments', {
+                  initialType: 'appointment',
+                  eventId: nextAppointment?.id,
+                })
+              }
+              styles={styles}
+              theme={theme}
+            />
+
+            <AppointmentCard
+              icon="medical-bag"
+              label="Prochain examen"
+              lines={
+                nextExam
+                  ? [
+                      new Intl.DateTimeFormat('fr-FR', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }).format(new Date(`${nextExam.date}T12:00:00`)),
+                      nextExam.time ?? '',
+                      nextExam.title,
+                    ].filter(Boolean)
+                  : ['Aucun examen prévu']
+              }
+              onPress={() =>
+                navigation.navigate('PregnancyAppointments', {
+                  initialType: 'exam',
+                  eventId: nextExam?.id,
+                })
+              }
+              styles={styles}
+              theme={theme}
+            />
+          </View>
+
+          {/* =======================================================
+              SUIVI DU JOUR
+          ======================================================== */}
+
+          <View style={styles.dailyCard}>
+            <View style={styles.dailyHeader}>
+              <View>
+                <Text style={styles.cardTitle}>Suivi du jour</Text>
+
+                <Text style={styles.dailySubtitle}>
+                  Prends un instant pour toi
+                </Text>
+              </View>
+
+              <Text style={styles.dailyProgress}>
+                <Text style={styles.dailyProgressStrong}>
+                  {completedTodayCount} / {DAILY_ITEMS.length}
+                </Text>{' '}
+                complété
+              </Text>
+            </View>
+
+            <View style={styles.progressTrack}>
+              <View
+                style={[
+                  styles.progressFill,
+                  {
+                    width: `${Math.round(
+                      (completedTodayCount / DAILY_ITEMS.length) * 100,
+                    )}%`,
+                  },
+                ]}
+              />
+            </View>
+
+            <View style={styles.dailyGrid}>
+              {DAILY_ITEMS.map(item => (
+                <Pressable
+                  accessibilityLabel={item.label}
+                  accessibilityRole="button"
+                  key={item.label}
+                  onPress={() => {
+                    if (item.route === 'PregnancyMedicalInformation') {
+                      requirePrivateAccess(
+                        navigation,
+                        'pregnancyMedicalInformation',
+                      );
+                      return;
+                    }
+                    navigation.navigate(item.route);
+                  }}
+                  style={({ pressed }) => [
+                    styles.dailyItem,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <View style={styles.dailyIcon}>
+                    <MaterialDesignIcons
+                      color={theme.colors.primary}
+                      name={item.icon}
+                      size={22}
+                    />
+                  </View>
+
+                  <Text numberOfLines={2} style={styles.dailyLabel}>
+                    {item.label}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </View>
+
+          {/* =======================================================
+              ACTIONS RAPIDES
+              Same shared QuickActionsGrid component/card architecture as
+              Cycle — only the items array (routes/labels) differs.
+          ======================================================== */}
+
+          <QuickActionsGrid items={pregnancyQuickActionItems} />
+
+          {/* =======================================================
+              REPÈRES SPIRITUELS
+              Same shared card/preference as Cycle (SpiritualGuidanceCard,
+              getSpiritualMarkersEnabled) — objective="pregnancy" hides the
+              menstrual purity badge, purity-restored summary, and
+              period-derived qadaa block. No pregnancy-specific spiritual
+              logic is introduced here.
+          ======================================================== */}
+
+          {spiritualMarkersEnabled ? (
+            <SpiritualGuidanceCard
+              hijriDate={formatHijriDate(new Date())}
+              locationConfigured={Boolean(spiritual.selectedLocation)}
+              locationName={
+                spiritual.selectedLocation
+                  ? `${spiritual.selectedLocation.city}, ${spiritual.selectedLocation.country}`
+                  : undefined
+              }
+              nextWindow={spiritual.nextWindow}
+              objective="pregnancy"
+              onManage={() => navigation.navigate('SpiritualPreferences')}
+              prayerError={spiritual.error}
+              prayerLoading={spiritual.loading}
+              timezone={spiritual.schedule?.timezone}
+            />
+          ) : null}
+
+          <ObjectiveArticlesSection
+            objective="pregnancy"
+            onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+            onSeeAll={() => navigation.navigate('Library')}
+          />
+        </ScrollView>
+      </SafeAreaView>
+
+      <DeliveryDateSheet
+        onClose={() => {
+          setDeliverySheetVisible(false);
+          if (awaitingCongrats) {
+            setCongratsVisible(true);
+            setAwaitingCongrats(false);
+          }
+        }}
+        onConfirmed={() => setAwaitingCongrats(true)}
+        visible={deliverySheetVisible}
+      />
+
+      <PostpartumCongratsCard
+        deliveryDate={deliveryDateForCard}
+        onLater={() => setCongratsVisible(false)}
+        onStarted={() => setCongratsVisible(false)}
+        visible={congratsVisible}
+      />
+    </LinearGradient>
+  );
+}
+
+/* ============================================================
+   UNCONFIGURED PREGNANCY STATE
+   Shown instead of the week/DPA/baby hero while no real dating
+   information has been provided yet (method === 'later' or no date
+   chosen) — never a fabricated week/DPA.
+============================================================ */
+
+function UnconfiguredPregnancyCard({
+  onConfigure,
+  theme,
+  styles,
+}: {
+  onConfigure: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
+}): React.JSX.Element {
+  return (
+    <View style={styles.unconfiguredCard}>
+      <View style={styles.unconfiguredIcon}>
+        <MaterialDesignIcons
+          color={theme.colors.primary}
+          name="human-pregnant"
+          size={30}
+        />
+      </View>
+      <Text style={styles.unconfiguredTitle}>Configurer ma grossesse</Text>
+      <Text style={styles.unconfiguredText}>
+        Indique le début de ta grossesse pour voir ta semaine, ta date prévue
+        d’accouchement et ta progression.
+      </Text>
+      <Pressable
+        accessibilityLabel="Configurer ma grossesse"
+        accessibilityRole="button"
+        onPress={onConfigure}
+        style={({ pressed }) => [
+          styles.unconfiguredButton,
+          pressed && styles.pressed,
+        ]}
+      >
+        <Text style={styles.unconfiguredButtonText}>
+          Configurer ma grossesse
+        </Text>
+      </Pressable>
+    </View>
+  );
+}
+
+/* ============================================================
+   APPOINTMENT CARD
+============================================================ */
+
+function AppointmentCard({
+  icon,
+  label,
+  lines,
+  onPress,
+  theme,
+  styles,
+}: {
+  icon: IconName;
+  label: string;
+  lines: readonly string[];
+  onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
+}): React.JSX.Element {
+  return (
+    <Pressable
+      accessibilityLabel={label}
+      accessibilityRole="button"
+      onPress={onPress}
+      style={({ pressed }) => [
+        styles.appointmentCard,
+        pressed && styles.pressed,
+      ]}
+    >
+      <View style={styles.appointmentTop}>
+        <View style={styles.appointmentIcon}>
+          <MaterialDesignIcons
+            color={theme.colors.primary}
+            name={icon}
+            size={24}
+          />
+        </View>
+
+        <View style={styles.appointmentChevron}>
+          <MaterialDesignIcons
+            color={theme.colors.primary}
+            name="chevron-right"
+            size={18}
+          />
+        </View>
+      </View>
+
+      <View style={styles.appointmentCopy}>
+        <Text style={styles.appointmentLabel}>{label}</Text>
+
+        {lines.map((line, index) => (
+          <Text
+            key={`${line}-${index}`}
+            numberOfLines={1}
+            style={[
+              styles.appointmentLine,
+              index === 0 && styles.appointmentMain,
+            ]}
+          >
+            {line}
+          </Text>
+        ))}
+      </View>
+    </Pressable>
+  );
+}
+
+/* ============================================================
+   STYLES
+============================================================ */
+
+// PHASE D5 — converted to a createStyles(theme) factory, same pattern as
+// CycleHomeScreen.tsx (D1), ContraceptionDashboard.tsx (D2),
+// IrregularDashboard.tsx (D3) and ConceiveDashboard.tsx (D4). No
+// medical/pregnancy-semantic color exists in this file (see the header
+// comment above) — every color below was generic decorative purple-brand
+// chrome. The two Category E quick-action accents (daily-journal rose,
+// statistics teal) stay fixed, same as every prior dashboard.
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  background: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+
+  pageBackgroundDecor: {
+    ...StyleSheet.absoluteFillObject,
+    overflow: 'hidden',
+  },
+
+  pageGlowTop: {
+    position: 'absolute',
+    top: -150,
+    right: -110,
+    width: 330,
+    height: 330,
+    borderRadius: 165,
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
+  },
+
+  pageGlowMiddle: {
+    position: 'absolute',
+    top: '38%',
+    left: -130,
+    width: 260,
+    height: 260,
+    borderRadius: 130,
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
+  },
+
+  pageGlowBottom: {
+    position: 'absolute',
+    bottom: -150,
+    right: -100,
+    width: 310,
+    height: 310,
+    borderRadius: 155,
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
+  },
+
+  safeArea: {
+    flex: 1,
+  },
+
+  content: {
+    paddingHorizontal: 16,
+    paddingTop: 2,
+  },
+
+  contentCompact: {
+    paddingHorizontal: 11,
+  },
+
+  /* ==========================================================
+     HERO
+  ========================================================== */
+
+  heroSection: {
+    position: 'relative',
+    height: 300,
+    marginTop: 12,
+  },
+
+  heroSectionCompact: {
+    height: 285,
+  },
+
+  heroSectionVeryCompact: {
+    height: 270,
+  },
+
+  /* ==========================================================
+     CARTE SEMAINE PREMIUM
+  ========================================================== */
+
+  weekPanel: {
+    ...theme.shadow,
+
+    position: 'absolute',
+    left: 2,
+    top: 25,
+    zIndex: 4,
+
+    width: '53%',
+    minHeight: 238,
+
+    alignItems: 'center',
+
+    paddingHorizontal: 14,
+    paddingTop: 16,
+    paddingBottom: 15,
+
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.12),
+    borderRadius: 28,
+
+    backgroundColor: withAlpha(theme.colors.surface, 0.95),
+
+    shadowColor: theme.shadow.shadowColor,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 0.11,
+    shadowRadius: 18,
+
+    elevation: 5,
+  },
+
+  weekPanelCompact: {
+    width: '54%',
+    minHeight: 222,
+
+    paddingHorizontal: 10,
+    paddingTop: 14,
+    paddingBottom: 13,
+
+    borderRadius: 25,
+  },
+
+  weekPanelVeryCompact: {
+    width: '55%',
+    minHeight: 208,
+
+    top: 20,
+
+    paddingHorizontal: 8,
+  },
+
+  weekTopRow: {
+    width: '100%',
+
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    gap: 6,
+  },
+
+  weekMiniIcon: {
+    width: 28,
+    height: 28,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 10,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  weekLabel: {
+    color: theme.colors.textSecondary,
+
+    fontSize: 11.5,
+    fontWeight: '700',
+
+    letterSpacing: 0.1,
+  },
+
+  weekNumberCircle: {
+    width: 105,
+    height: 105,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    marginTop: 12,
+
+    borderRadius: 53,
+
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.10),
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  weekNumberCircleCompact: {
+    width: 94,
+    height: 94,
+
+    marginTop: 10,
+
+    borderRadius: 47,
+  },
+
+  weekNumberCircleVeryCompact: {
+    width: 84,
+    height: 84,
+
+    borderRadius: 42,
+  },
+
+  weekNumber: {
+    color: theme.colors.accent,
+
+    fontFamily: 'serif',
+    fontSize: 60,
+    lineHeight: 64,
+    fontWeight: '800',
+
+    textAlign: 'center',
+  },
+
+  weekNumberCompact: {
+    fontSize: 53,
+    lineHeight: 57,
+  },
+
+  weekNumberVeryCompact: {
+    fontSize: 47,
+    lineHeight: 51,
+  },
+
+  age: {
+    marginTop: 10,
+
+    color: theme.colors.text,
+
+    fontSize: 14,
+    fontWeight: '800',
+
+    textAlign: 'center',
+  },
+
+  ageCompact: {
+    fontSize: 12.5,
+  },
+
+  weekDivider: {
+    width: '58%',
+    height: 1,
+
+    marginTop: 11,
+    marginBottom: 9,
+
+    backgroundColor: theme.colors.border,
+  },
+
+  trimester: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    gap: 5,
+
+    paddingHorizontal: 11,
+    paddingVertical: 6,
+
+    borderRadius: 15,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  trimesterText: {
+    color: theme.colors.primary,
+
+    fontSize: 10.5,
+    fontWeight: '800',
+  },
+
+  /* ==========================================================
+     FEMME
+  ========================================================== */
+
+  woman: {
+    position: 'absolute',
+
+    right: -10,
+    bottom: -2,
+
+    width: '61%',
+    height: '100%',
+
+    zIndex: 2,
+  },
+
+  womanCompact: {
+    right: -17,
+
+    width: '59%',
+    height: '97%',
+  },
+
+  womanVeryCompact: {
+    right: -20,
+
+    width: '58%',
+    height: '94%',
+  },
+
+  /* ==========================================================
+     DPA
+  ========================================================== */
+
+  dueCard: {
+    ...theme.shadow,
+
+    minHeight: 102,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    marginTop: 2,
+    paddingHorizontal: 17,
+    paddingVertical: 14,
+
+    borderRadius: 23,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.07),
+
+    backgroundColor: theme.colors.surface,
+  },
+
+  dueColumn: {
+    flex: 1.15,
+    minWidth: 0,
+  },
+
+  remainingColumn: {
+    flex: 0.85,
+    minWidth: 0,
+  },
+
+  dueLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+  },
+
+  smallIconCircle: {
+    width: 29,
+    height: 29,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 11,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  muted: {
+    color: theme.colors.textSecondary,
+
+    fontSize: 11.5,
+    fontWeight: '600',
+  },
+
+  dueValue: {
+    marginTop: 8,
+
+    color: theme.colors.text,
+
+    fontSize: 17,
+    fontWeight: '800',
+  },
+
+  verticalDivider: {
+    width: 1,
+    height: 60,
+
+    marginHorizontal: 15,
+
+    backgroundColor: theme.colors.border,
+  },
+
+  remainingValue: {
+    marginTop: 8,
+
+    color: theme.colors.text,
+
+    fontSize: 15,
+    fontWeight: '800',
+
+    textAlign: 'left',
+  },
+
+  remainingSub: {
+    marginTop: 2,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 11.5,
+  },
+
+  /* ==========================================================
+     J'AI ACCOUCHÉ CTA
+  ========================================================== */
+
+  deliveryCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignSelf: 'center',
+    gap: 7,
+
+    marginTop: 12,
+    minHeight: 40,
+
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+
+    borderWidth: 1.2,
+    borderColor: withAlpha(theme.colors.primary, 0.20),
+    borderRadius: 20,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  deliveryCtaText: {
+    color: theme.colors.primary,
+
+    fontSize: 12.5,
+    fontWeight: '700',
+  },
+
+  /* ==========================================================
+     BABY CARD
+  ========================================================== */
+
+  babyCard: {
+    ...theme.shadow,
+
+    minHeight: 190,
+
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    marginTop: 14,
+
+    paddingLeft: 19,
+    paddingRight: 10,
+    paddingVertical: 17,
+
+    overflow: 'hidden',
+
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.07),
+
+    backgroundColor: theme.colors.surface,
+  },
+
+  babyCardCompact: {
+    minHeight: 178,
+
+    paddingLeft: 15,
+  },
+
+  babyCopy: {
+    flex: 1,
+    minWidth: 0,
+
+    zIndex: 3,
+  },
+
+  cardTitle: {
+    color: theme.colors.text,
+
+    fontFamily: 'serif',
+    fontSize: 19,
+    fontWeight: '800',
+  },
+
+  babyEyebrow: {
+    marginTop: 15,
+
+    color: theme.colors.primary,
+
+    fontSize: 15,
+    fontWeight: '800',
+  },
+
+  babyLine: {
+    marginTop: 8,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 12.5,
+    lineHeight: 18,
+  },
+
+  strong: {
+    color: theme.colors.text,
+    fontWeight: '800',
+  },
+
+  weekLink: {
+    flexDirection: 'row',
+    alignItems: 'center',
+
+    alignSelf: 'flex-start',
+
+    marginTop: 13,
+  },
+
+  weekLinkText: {
+    color: theme.colors.primary,
+
+    fontSize: 11.5,
+    fontWeight: '700',
+  },
+
+  baby: {
+    width: '46%',
+    maxWidth: 170,
+
+    aspectRatio: 1,
+
+    marginRight: -2,
+  },
+
+  babyCompact: {
+    width: '43%',
+    maxWidth: 145,
+  },
+
+  babyPlaceholder: {
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 24,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  /* ==========================================================
+     APPOINTMENTS
+  ========================================================== */
+
+  appointmentRow: {
+    flexDirection: 'row',
+
+    gap: 10,
+
+    marginTop: 14,
+  },
+
+  appointmentRowVeryCompact: {
+    gap: 7,
+  },
+
+  appointmentCard: {
+    ...theme.shadow,
+
+    flex: 1,
+
+    minWidth: 0,
+    minHeight: 160,
+
+    padding: 13,
+
+    borderRadius: 22,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.07),
+
+    backgroundColor: theme.colors.surface,
+  },
+
+  appointmentTop: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+
+  appointmentIcon: {
+    width: 44,
+    height: 44,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 17,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  appointmentChevron: {
+    width: 30,
+    height: 30,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 15,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  appointmentCopy: {
+    minWidth: 0,
+
+    marginTop: 10,
+  },
+
+  appointmentLabel: {
+    color: theme.colors.textSecondary,
+
+    fontSize: 11.5,
+  },
+
+  appointmentLine: {
+    marginTop: 3,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 10.5,
+  },
+
+  appointmentMain: {
+    marginTop: 5,
+
+    color: theme.colors.text,
+
+    fontSize: 13.5,
+    fontWeight: '800',
+  },
+
+  /* ==========================================================
+     DAILY
+  ========================================================== */
+
+  dailyCard: {
+    ...theme.shadow,
+
+    marginTop: 14,
+
+    padding: 16,
+
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.07),
+
+    backgroundColor: theme.colors.surface,
+  },
+
+  dailyHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+
+    gap: 12,
+  },
+
+  dailySubtitle: {
+    marginTop: 4,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 10.5,
+  },
+
+  dailyProgress: {
+    color: theme.colors.textSecondary,
+
+    fontSize: 11,
+  },
+
+  dailyProgressStrong: {
+    color: theme.colors.primary,
+
+    fontWeight: '800',
+  },
+
+  progressTrack: {
+    height: 5,
+
+    overflow: 'hidden',
+
+    marginTop: 12,
+
+    borderRadius: 3,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  progressFill: {
+    width: '0%',
+    height: '100%',
+
+    borderRadius: 3,
+
+    backgroundColor: theme.colors.primary,
+  },
+
+  dailyGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+
+    marginTop: 15,
+
+    rowGap: 15,
+  },
+
+  dailyItem: {
+    width: '33.333%',
+    minWidth: 0,
+
+    alignItems: 'center',
+
+    paddingHorizontal: 2,
+  },
+
+  dailyIcon: {
+    width: 46,
+    height: 46,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 18,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  dailyLabel: {
+    marginTop: 6,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 9.5,
+    lineHeight: 12,
+
+    textAlign: 'center',
+  },
+
+  pressed: {
+    opacity: 0.78,
+
+    transform: [
+      {
+        scale: 0.985,
+      },
+    ],
+  },
+
+  /* ==========================================================
+     UNCONFIGURED PREGNANCY STATE
+  ========================================================== */
+
+  unconfiguredCard: {
+    ...theme.shadow,
+
+    alignItems: 'center',
+
+    marginTop: 12,
+    padding: 22,
+
+    borderRadius: 25,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.10),
+
+    backgroundColor: theme.colors.surface,
+  },
+
+  unconfiguredIcon: {
+    width: 60,
+    height: 60,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 30,
+
+    backgroundColor: theme.colors.primarySoft,
+  },
+
+  unconfiguredTitle: {
+    marginTop: 14,
+
+    color: theme.colors.text,
+
+    fontFamily: 'serif',
+    fontSize: 18,
+    fontWeight: '800',
+
+    textAlign: 'center',
+  },
+
+  unconfiguredText: {
+    marginTop: 8,
+
+    maxWidth: 300,
+
+    color: theme.colors.textSecondary,
+
+    fontSize: 12.5,
+    lineHeight: 18,
+
+    textAlign: 'center',
+  },
+
+  unconfiguredButton: {
+    minHeight: 48,
+
+    marginTop: 16,
+    paddingHorizontal: 22,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 16,
+
+    backgroundColor: theme.colors.primary,
+  },
+
+  unconfiguredButtonText: {
+    color: onPrimaryTextColor(theme),
+
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  });
+}
+
+export default PregnancyDashboard;
