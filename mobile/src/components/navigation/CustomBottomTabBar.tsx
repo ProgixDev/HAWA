@@ -90,6 +90,7 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
 
   return (
     <View
+      pointerEvents="box-none"
       style={[
         styles.bottomBarArea,
         {paddingBottom: Math.max(insets.bottom, 8)},
@@ -107,7 +108,11 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
 
 const styles = StyleSheet.create({
   bottomBarArea: {
-    backgroundColor: '#F7F3FF',
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'transparent',
     paddingTop: 4,
   },
 
