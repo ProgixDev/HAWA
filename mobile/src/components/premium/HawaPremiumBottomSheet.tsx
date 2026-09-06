@@ -27,6 +27,8 @@ import {
 } from '../../config/premiumPricing';
 import {usePremium} from '../../hooks/usePremium';
 import {purchasePremium, restorePurchases} from '../../services/purchaseService';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 type Props = {
   visible: boolean;
@@ -44,35 +46,19 @@ type Benefit = {
   iconColor: string;
 };
 
+// Category E — fixed Premium brand identity (the hero banner, its crown/
+// star emblem, the CTA button's own gradient, and the "RECOMMANDÉ" ribbon)
+// stays gold/deep-violet regardless of the active AWA theme/palette, the
+// same way Premium's identity is fixed everywhere else in the app (e.g. the
+// gold/violet brand colors documented in prior Dark Mode audits). Every
+// other structural color (sheet surface, generic text, borders, cards,
+// selection state, success/secure indicators, footer) is now resolved from
+// `theme` inside createStyles(theme) instead of being a fixed literal here.
 const COLORS = {
-  deep: '#2B145D',
   deepSecondary: '#3D2278',
-
-  purple: '#7252C7',
-  purpleStrong: '#5F3DB9',
-  purpleLight: '#9A7DE1',
-
-  pink: '#D66DA5',
   pinkLight: '#F9E8F2',
-
   gold: '#F2C76D',
   goldLight: '#FFF4D7',
-
-  green: '#5C9B79',
-  greenLight: '#EAF6EF',
-
-  background: '#FAF8FD',
-  surface: '#FFFFFF',
-
-  text: '#2E2345',
-  secondary: '#766D84',
-  subtle: '#9A92A5',
-
-  lavender: '#F1EBFA',
-  lavenderSoft: '#F8F4FC',
-
-  border: 'rgba(102,74,177,0.12)',
-  borderStrong: 'rgba(102,74,177,0.23)',
 };
 
 const BENEFITS: Benefit[] = [
@@ -117,6 +103,8 @@ export function HawaPremiumBottomSheet({
   visible,
   onClose,
 }: Props): React.JSX.Element | null {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
 
@@ -699,7 +687,7 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.sparkleBubble}>
               <MaterialDesignIcons
-                color={COLORS.purple}
+                color={theme.colors.primary}
                 name="star-four-points-outline"
                 size={20}
               />
@@ -762,7 +750,7 @@ export function HawaPremiumBottomSheet({
                       styles.benefitCheck
                     }>
                     <MaterialDesignIcons
-                      color="#FFFFFF"
+                      color={pickReadableTextColor(theme.colors.success)}
                       name="check"
                       size={10}
                     />
@@ -802,7 +790,7 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.secureBadge}>
               <MaterialDesignIcons
-                color={COLORS.green}
+                color={theme.colors.success}
                 name="shield-check-outline"
                 size={15}
               />
@@ -851,7 +839,7 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.securityIcon}>
               <MaterialDesignIcons
-                color={COLORS.green}
+                color={theme.colors.success}
                 name="shield-check-outline"
                 size={21}
               />
@@ -869,7 +857,7 @@ export function HawaPremiumBottomSheet({
             </View>
 
             <MaterialDesignIcons
-              color="#B0A7BC"
+              color={theme.colors.textMuted}
               name="chevron-right"
               size={20}
             />
@@ -884,7 +872,7 @@ export function HawaPremiumBottomSheet({
           {isPremium ? (
             <View accessibilityRole="alert" style={styles.activeStatusCard}>
               <View style={styles.activeStatusIconCircle}>
-                <MaterialDesignIcons color={COLORS.green} name="check-circle" size={22} />
+                <MaterialDesignIcons color={theme.colors.success} name="check-circle" size={22} />
               </View>
               <View style={styles.ctaCopy}>
                 <Text style={styles.activeStatusTitle}>Abonnement actif</Text>
@@ -992,10 +980,10 @@ export function HawaPremiumBottomSheet({
                 (purchaseInProgress || restoreInProgress) && styles.ctaDisabled,
               ]}>
               {restoreInProgress ? (
-                <ActivityIndicator color={COLORS.purple} size="small" />
+                <ActivityIndicator color={theme.colors.primary} size="small" />
               ) : (
                 <MaterialDesignIcons
-                  color={COLORS.purple}
+                  color={theme.colors.primary}
                   name="restore"
                   size={17}
                 />
@@ -1050,6 +1038,9 @@ function PlanCard({
   price: string;
   recommended?: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <Pressable
       accessibilityLabel={`Choisir ${label}`}
@@ -1111,7 +1102,7 @@ function PlanCard({
         {recommended ? (
           <View style={styles.planFeatureRow}>
             <MaterialDesignIcons
-              color={COLORS.green}
+              color={theme.colors.success}
               name="check-circle"
               size={13}
             />
@@ -1143,7 +1134,8 @@ function PlanCard({
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   absoluteFill: {
     ...StyleSheet.absoluteFillObject,
   },
@@ -1164,7 +1156,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 34,
     borderTopRightRadius: 34,
 
-    backgroundColor: COLORS.background,
+    backgroundColor: theme.colors.surface,
 
     shadowColor: '#17082E',
     shadowOffset: {
@@ -1453,7 +1445,7 @@ const styles = StyleSheet.create({
   },
 
   eyebrow: {
-    color: COLORS.purple,
+    color: theme.colors.primary,
 
     fontSize: 8.5,
     fontWeight: '900',
@@ -1474,7 +1466,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     marginTop: 4,
 
-    color: COLORS.text,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
     fontSize: 20,
@@ -1493,7 +1485,7 @@ const styles = StyleSheet.create({
 
     marginTop: 4,
 
-    color: COLORS.secondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 11,
     lineHeight: 16,
@@ -1514,7 +1506,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 14,
 
-    backgroundColor: COLORS.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   /* ============================================================
@@ -1540,11 +1532,11 @@ const styles = StyleSheet.create({
     minHeight: 110,
 
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: theme.colors.border,
 
     borderRadius: 19,
 
-    backgroundColor: COLORS.surface,
+    backgroundColor: theme.colors.surface,
 
     padding: 12,
 
@@ -1599,7 +1591,7 @@ const styles = StyleSheet.create({
   benefitTitle: {
     marginTop: 8,
 
-    color: '#342650',
+    color: theme.colors.text,
 
     fontSize: 12,
     lineHeight: 16,
@@ -1610,7 +1602,7 @@ const styles = StyleSheet.create({
   benefitDescription: {
     marginTop: 3,
 
-    color: COLORS.secondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.8,
     lineHeight: 14,
@@ -1632,7 +1624,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 9,
 
-    backgroundColor: COLORS.green,
+    backgroundColor: theme.colors.success,
   },
 
   divider: {
@@ -1641,7 +1633,7 @@ const styles = StyleSheet.create({
     marginVertical: 22,
 
     backgroundColor:
-      'rgba(101,74,173,0.13)',
+      withAlpha(theme.colors.primary, 0.13),
   },
 
   /* ============================================================
@@ -1668,14 +1660,14 @@ const styles = StyleSheet.create({
 
     borderRadius: 11,
 
-    backgroundColor: COLORS.greenLight,
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
 
     paddingHorizontal: 8,
     paddingVertical: 6,
   },
 
   secureBadgeText: {
-    color: COLORS.green,
+    color: theme.colors.success,
 
     fontSize: 9,
     fontWeight: '800',
@@ -1696,11 +1688,11 @@ const styles = StyleSheet.create({
     marginTop: 13,
 
     borderWidth: 1,
-    borderColor: '#E4DDEC',
+    borderColor: theme.colors.border,
 
     borderRadius: 21,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
 
     paddingHorizontal: 13,
     paddingVertical: 14,
@@ -1708,11 +1700,11 @@ const styles = StyleSheet.create({
 
   planCardSelected: {
     borderWidth: 1.6,
-    borderColor: COLORS.purple,
+    borderColor: theme.colors.primary,
 
-    backgroundColor: '#FDFBFF',
+    backgroundColor: theme.colors.primarySoft,
 
-    shadowColor: COLORS.purple,
+    shadowColor: theme.colors.primary,
 
     shadowOffset: {
       width: 0,
@@ -1773,17 +1765,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderWidth: 1.6,
-    borderColor: '#CFC5DD',
+    borderColor: theme.colors.border,
 
     borderRadius: 12,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   planRadioSelected: {
-    borderColor: COLORS.purple,
+    borderColor: theme.colors.primary,
 
-    backgroundColor: '#F0E9FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   planRadioInner: {
@@ -1792,7 +1784,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 6,
 
-    backgroundColor: COLORS.purple,
+    backgroundColor: theme.colors.primary,
   },
 
   planMain: {
@@ -1812,7 +1804,7 @@ const styles = StyleSheet.create({
   },
 
   planTitle: {
-    color: COLORS.text,
+    color: theme.colors.text,
 
     fontSize: 15,
     fontWeight: '900',
@@ -1837,7 +1829,7 @@ const styles = StyleSheet.create({
   planDescription: {
     marginTop: 3,
 
-    color: COLORS.secondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 10.2,
     lineHeight: 14,
@@ -1855,7 +1847,7 @@ const styles = StyleSheet.create({
   planFeatureText: {
     flexShrink: 1,
 
-    color: COLORS.green,
+    color: theme.colors.success,
 
     fontSize: 9,
     fontWeight: '700',
@@ -1870,7 +1862,7 @@ const styles = StyleSheet.create({
   },
 
   planPrice: {
-    color: COLORS.purpleStrong,
+    color: theme.colors.accent,
 
     fontSize: 12,
     fontWeight: '900',
@@ -1889,11 +1881,11 @@ const styles = StyleSheet.create({
     marginTop: 14,
 
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: theme.colors.border,
 
     borderRadius: 18,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
 
     paddingHorizontal: 11,
     paddingVertical: 10,
@@ -1910,7 +1902,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: COLORS.greenLight,
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
 
   securityCopy: {
@@ -1922,7 +1914,7 @@ const styles = StyleSheet.create({
   },
 
   securityTitle: {
-    color: COLORS.text,
+    color: theme.colors.text,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -1931,7 +1923,7 @@ const styles = StyleSheet.create({
   securityText: {
     marginTop: 2,
 
-    color: COLORS.secondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.3,
     lineHeight: 13,
@@ -1946,7 +1938,9 @@ const styles = StyleSheet.create({
 
     borderRadius: 29,
 
-    shadowColor: COLORS.purple,
+    // Shadow beneath the CTA's own fixed Premium gradient — stays fixed
+    // alongside it, not theme-derived.
+    shadowColor: '#7252C7',
 
     shadowOffset: {
       width: 0,
@@ -2066,7 +2060,7 @@ const styles = StyleSheet.create({
   },
 
   restoreText: {
-    color: COLORS.purple,
+    color: theme.colors.primary,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -2076,7 +2070,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 5,
 
-    color: COLORS.subtle,
+    color: theme.colors.textMuted,
 
     fontSize: 8.3,
     lineHeight: 12,
@@ -2098,8 +2092,8 @@ const styles = StyleSheet.create({
     gap: 12,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: COLORS.greenLight,
-    backgroundColor: COLORS.greenLight,
+    borderColor: withAlpha(theme.colors.success, 0.14),
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
     paddingHorizontal: 16,
     paddingVertical: 14,
   },
@@ -2109,16 +2103,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   activeStatusTitle: {
-    color: COLORS.text,
+    color: theme.colors.text,
     fontSize: 14.5,
     fontWeight: '800',
   },
   activeStatusSubtitle: {
     marginTop: 2,
-    color: COLORS.secondary,
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 16,
   },
@@ -2128,23 +2122,24 @@ const styles = StyleSheet.create({
     marginHorizontal: 4,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: COLORS.border,
-    backgroundColor: COLORS.lavenderSoft,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surfaceSecondary,
     paddingHorizontal: 14,
     paddingVertical: 10,
   },
   feedbackCardSuccess: {
-    borderColor: COLORS.greenLight,
-    backgroundColor: COLORS.greenLight,
+    borderColor: withAlpha(theme.colors.success, 0.14),
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
   feedbackCardError: {
-    borderColor: 'rgba(199,70,105,0.25)',
-    backgroundColor: '#FFF0F4',
+    borderColor: withAlpha(theme.colors.danger, 0.25),
+    backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
   feedbackText: {
-    color: COLORS.text,
+    color: theme.colors.text,
     fontSize: 12,
     lineHeight: 17,
     textAlign: 'center',
   },
-});
+  });
+}

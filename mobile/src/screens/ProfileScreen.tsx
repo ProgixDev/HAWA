@@ -29,7 +29,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
-import { getTopPadding } from '../theme/spacing';
+import { getFloatingTabBarClearance, getTopPadding } from '../theme/spacing';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 
 import {
@@ -1296,7 +1296,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             {
               paddingTop: getTopPadding(insets.top, compact),
 
-              paddingBottom: Math.max(insets.bottom, 16) + 24,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 24),
             },
           ]}
           showsVerticalScrollIndicator={false}
