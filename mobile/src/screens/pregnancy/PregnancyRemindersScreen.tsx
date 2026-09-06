@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
@@ -17,16 +17,14 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getPregnancyNotificationSettings,
   hydratePregnancyNotificationSettings,
   setPregnancyNotificationSettings,
 } from '../../state/pregnancyNotificationSettingsStore';
 import {resyncAllPregnancyNotifications} from '../../utils/pregnancyReminderScheduling';
-
-const PURPLE = '#6949BE';
-const TRACK_ON = '#6949BE';
-const TRACK_OFF = '#D9CFE8';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -77,6 +75,8 @@ type ReminderRowProps = {
   enabled: boolean;
   delay: number;
   onToggle: (value: boolean) => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 };
 
 function ReminderRow({
@@ -84,6 +84,8 @@ function ReminderRow({
   enabled,
   delay,
   onToggle,
+  theme,
+  styles,
 }: ReminderRowProps): React.JSX.Element {
   const entranceAnim = useRef(
     new Animated.Value(0),
@@ -121,7 +123,7 @@ function ReminderRow({
         {/* ICON */}
         <View style={styles.iconBox}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name={option.icon}
             size={19}
           />
@@ -145,12 +147,12 @@ function ReminderRow({
           accessibilityState={{
             checked: enabled,
           }}
-          ios_backgroundColor={TRACK_OFF}
+          ios_backgroundColor={theme.colors.primarySoft}
           onValueChange={onToggle}
-          thumbColor="#FFFFFF"
+          thumbColor={theme.colors.surface}
           trackColor={{
-            false: TRACK_OFF,
-            true: TRACK_ON,
+            false: theme.colors.primarySoft,
+            true: theme.colors.primary,
           }}
           value={enabled}
         />
@@ -163,6 +165,8 @@ function PregnancyRemindersScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   // Reads the REAL canonical Pregnancy notification settings — same store
@@ -319,7 +323,7 @@ function PregnancyRemindersScreen({
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -333,7 +337,7 @@ function PregnancyRemindersScreen({
       <View style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -365,7 +369,7 @@ function PregnancyRemindersScreen({
             }
             style={styles.backButton}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="arrow-left"
               size={25}
             />
@@ -378,7 +382,7 @@ function PregnancyRemindersScreen({
               <View
                 style={styles.headerIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="bell-ring-outline"
                   size={26}
                 />
@@ -426,6 +430,8 @@ function PregnancyRemindersScreen({
                     )
                   }
                   option={option}
+                  styles={styles}
+                  theme={theme}
                 />
               ),
             )}
@@ -443,7 +449,7 @@ function PregnancyRemindersScreen({
               onPress={() => navigation.navigate('PregnancyNotifications')}
               style={({pressed}) => [styles.row, pressed && styles.pressed]}>
               <View style={styles.iconBox}>
-                <MaterialDesignIcons color={PURPLE} name="bell-plus-outline" size={19} />
+                <MaterialDesignIcons color={theme.colors.primary} name="bell-plus-outline" size={19} />
               </View>
               <View style={styles.rowCopy}>
                 <Text style={styles.rowLabel}>Rappels personnalisés</Text>
@@ -451,7 +457,7 @@ function PregnancyRemindersScreen({
                   Créez vos propres rappels dans Notifications &amp; rappels.
                 </Text>
               </View>
-              <MaterialDesignIcons color="#8A7EA8" name="chevron-right" size={20} />
+              <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
             </Pressable>
           </View>
 
@@ -462,7 +468,7 @@ function PregnancyRemindersScreen({
               infoStyle,
             ]}>
             <MaterialDesignIcons
-              color="#7A6C9C"
+              color={theme.colors.textSecondary}
               name="information-outline"
               size={17}
             />
@@ -499,10 +505,11 @@ function PregnancyRemindersScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -517,7 +524,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -527,7 +534,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
   },
 
   pageGlowBottom: {
@@ -537,7 +544,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
   },
 
   safeArea: {
@@ -559,11 +566,11 @@ const styles = StyleSheet.create({
     borderRadius: 21,
 
     backgroundColor:
-      'rgba(255,255,255,0.88)',
+      withAlpha(theme.colors.surface, 0.88),
 
     elevation: 3,
 
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -591,13 +598,13 @@ const styles = StyleSheet.create({
     borderRadius: 26,
 
     backgroundColor:
-      'rgba(255,255,255,0.75)',
+      withAlpha(theme.colors.surface, 0.75),
 
     marginBottom: 10,
   },
 
   title: {
-    color: '#28166F',
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -612,7 +619,7 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 8,
 
-    color: '#433467',
+    color: theme.colors.text,
 
     fontSize: 14.5,
 
@@ -626,7 +633,7 @@ const styles = StyleSheet.create({
 
     marginTop: 6,
 
-    color: '#655A8D',
+    color: theme.colors.textSecondary,
 
     fontSize: 12.5,
 
@@ -649,19 +656,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
 
     borderColor:
-      'rgba(111,83,190,0.14)',
+      theme.colors.border,
 
     borderRadius: 16,
 
     backgroundColor:
-      'rgba(255,252,255,0.90)',
+      withAlpha(theme.colors.surface, 0.90),
 
     paddingHorizontal: 12,
     paddingVertical: 10,
 
     elevation: 2,
 
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -683,7 +690,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: '#F0E8FC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   rowCopy: {
@@ -695,7 +702,7 @@ const styles = StyleSheet.create({
   },
 
   rowLabel: {
-    color: '#2A2050',
+    color: theme.colors.text,
 
     fontSize: 14,
 
@@ -707,7 +714,7 @@ const styles = StyleSheet.create({
   rowDescription: {
     marginTop: 2,
 
-    color: '#756A90',
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
 
@@ -726,7 +733,7 @@ const styles = StyleSheet.create({
     borderRadius: 14,
 
     backgroundColor:
-      'rgba(240,232,252,0.75)',
+      withAlpha(theme.colors.primarySoft, 0.75),
 
     paddingHorizontal: 13,
     paddingVertical: 11,
@@ -737,7 +744,7 @@ const styles = StyleSheet.create({
 
     minWidth: 0,
 
-    color: '#655A8D',
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
 
@@ -758,9 +765,9 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
 
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -775,12 +782,13 @@ const styles = StyleSheet.create({
   },
 
   nextText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 17,
 
     fontWeight: '600',
   },
-});
+  });
+}
 
 export default PregnancyRemindersScreen;

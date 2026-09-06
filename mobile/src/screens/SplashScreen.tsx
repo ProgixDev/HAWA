@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo, useRef} from 'react';
 import {
   Animated,
   Easing,
@@ -13,11 +13,12 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {colors} from '../theme/colors';
 import {spacing} from '../theme/spacing';
 import {typography} from '../theme/typography';
 import {requiresAppLock} from '../state/securityPreferences';
 import {lockApp} from '../state/appLockStore';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const AWA_LOGO = require('../assets/images/hawa-logo.png');
 const SPLASH_BACKGROUND = require('../assets/images/hawa-splash-background.png');
@@ -27,6 +28,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 function SplashScreen({navigation}: Props): React.JSX.Element {
   const {width, height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const logoOpacity = useRef(new Animated.Value(0)).current;
   const logoTranslateY = useRef(new Animated.Value(18)).current;
   const logoScale = useRef(new Animated.Value(1)).current;
@@ -162,53 +165,66 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-    backgroundColor: colors.backgroundDark,
-    overflow: 'hidden',
-  },
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: spacing.xl,
-    paddingBottom: spacing.xxl,
-  },
-  separator: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: -spacing.sm,
-    marginBottom: spacing.lg,
-  },
-  separatorLine: {
-    width: 48,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: colors.accent,
-  },
-  separatorFlower: {
-    marginHorizontal: spacing.sm,
-    color: colors.accentLight,
-    fontSize: 22,
-  },
-  slogan: {
-    ...typography.slogan,
-    color: colors.cream,
-    textAlign: 'center',
-  },
-  progressTrack: {
-    position: 'absolute',
-    alignSelf: 'center',
-    height: 6,
-    overflow: 'hidden',
-    borderRadius: 3,
-    backgroundColor: colors.progressTrack,
-  },
-  progressFill: {
-    height: '100%',
-    borderRadius: 3,
-    backgroundColor: colors.accentLight,
-  },
-});
+// The splash artwork (SPLASH_BACKGROUND) is a fixed, always-dark brand image
+// that never changes with the selected theme/appearance — so any accent or
+// text drawn on top of it must stay reliably light/readable in every one of
+// the 6 palettes x Light/Dark/True-Black combinations, not just flip with
+// `theme.isDark` (forbidden) or a literal hex (forbidden). `theme.shadow.
+// shadowColor` is, by construction, ALWAYS a dark tone (the palette's own
+// deep accent in Light, pure black in Dark/True Black — see
+// awaThemeTokens.ts's buildVariant()), so running it through
+// `pickReadableTextColor` deterministically yields a light, legible color in
+// every configuration without ever branching on light/dark ourselves.
+function createStyles(theme: ResolvedAwaTheme) {
+  const legibleOnSplashArt = pickReadableTextColor(theme.shadow.shadowColor);
+  return StyleSheet.create({
+    safeArea: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+      overflow: 'hidden',
+    },
+    content: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingHorizontal: spacing.xl,
+      paddingBottom: spacing.xxl,
+    },
+    separator: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: -spacing.sm,
+      marginBottom: spacing.lg,
+    },
+    separatorLine: {
+      width: 48,
+      height: StyleSheet.hairlineWidth,
+      backgroundColor: theme.colors.primary,
+    },
+    separatorFlower: {
+      marginHorizontal: spacing.sm,
+      color: legibleOnSplashArt,
+      fontSize: 22,
+    },
+    slogan: {
+      ...typography.slogan,
+      color: legibleOnSplashArt,
+      textAlign: 'center',
+    },
+    progressTrack: {
+      position: 'absolute',
+      alignSelf: 'center',
+      height: 6,
+      overflow: 'hidden',
+      borderRadius: 3,
+      backgroundColor: withAlpha(theme.colors.primary, 0.35),
+    },
+    progressFill: {
+      height: '100%',
+      borderRadius: 3,
+      backgroundColor: legibleOnSplashArt,
+    },
+  });
+}
 
 export default SplashScreen;

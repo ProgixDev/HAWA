@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -37,6 +37,8 @@ import {loadMapStyle} from '../services/maps/mapStyle';
 import type {MapPlace} from '../services/maps/types';
 import {getHasConfirmedCycleData, getSelectedLocation, getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 import {spacing} from '../theme/spacing';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const LOCATION_PIN = require('../assets/images/location-pin.png');
 const LOCATION_TARGET = require('../assets/images/location-target.png');
@@ -64,6 +66,8 @@ const geocodingErrorMessage = (error: unknown) => {
 function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const cameraRef = useRef<CameraRef>(null);
   const reverseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reverseRequest = useRef(0);
@@ -319,7 +323,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -330,7 +334,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
         <View style={styles.pageGlowBottom} />
       </View>
 
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         keyboardVerticalOffset={insets.top}
@@ -344,7 +348,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
           <Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.backButton}>
-            <MaterialDesignIcons name="arrow-left" size={25} color="#6949BE" />
+            <MaterialDesignIcons name="arrow-left" size={25} color={theme.colors.primary} />
           </Pressable>
 
           <View style={styles.header}>
@@ -354,7 +358,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
 
           <View style={styles.searchArea}>
             <View style={styles.searchBox}>
-              <MaterialDesignIcons color="#796A9D" name="magnify" size={22} />
+              <MaterialDesignIcons color={theme.colors.textSecondary} name="magnify" size={22} />
               <TextInput
                 accessibilityLabel="Rechercher une ville"
                 autoCorrect={false}
@@ -365,15 +369,15 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                 }}
                 onFocus={() => setShowSuggestions(true)}
                 placeholder="Rechercher une ville"
-                placeholderTextColor="#968AAE"
+                placeholderTextColor={theme.colors.textMuted}
                 returnKeyType="search"
                 style={styles.input}
                 value={query}
               />
-              {searching ? <ActivityIndicator color="#6949BE" size="small" /> : null}
+              {searching ? <ActivityIndicator color={theme.colors.primary} size="small" /> : null}
               <Pressable accessibilityLabel="Utiliser ma position" hitSlop={10} onPress={useCurrentLocation}>
                 {locating ? (
-                  <ActivityIndicator color="#6949BE" size="small" />
+                  <ActivityIndicator color={theme.colors.primary} size="small" />
                 ) : (
                   <Image source={LOCATION_TARGET} style={styles.targetImage} />
                 )}
@@ -418,9 +422,9 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             ) : (
               <View style={styles.mapUnavailable}>
                 {IS_MAPS_CONFIGURED && !mapStyleFailed ? (
-                  <ActivityIndicator color="#6949BE" size="large" />
+                  <ActivityIndicator color={theme.colors.primary} size="large" />
                 ) : (
-                  <MaterialDesignIcons name="map-outline" size={42} color="#8067C8" />
+                  <MaterialDesignIcons name="map-outline" size={42} color={theme.colors.primary} />
                 )}
                 <Text style={styles.mapUnavailableTitle}>
                   {IS_MAPS_CONFIGURED && !mapStyleFailed ? 'Chargement de la carte…' : 'Carte indisponible'}
@@ -440,8 +444,8 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
               </Text>
               <Text style={styles.locationHint}>{selectedLocation?.timezone ?? 'Position sélectionnée sur la carte'}</Text>
             </View>
-            {resolving ? <ActivityIndicator color="#6949BE" size="small" /> : selectedLocation ? (
-              <View style={styles.checkCircle}><MaterialDesignIcons color="#FFFFFF" name="check" size={16} /></View>
+            {resolving ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
+              <View style={styles.checkCircle}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} /></View>
             ) : null}
           </View>
 
@@ -461,85 +465,87 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  flex: {flex: 1},
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    flex: {flex: 1},
+    background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
-  content: {flexGrow: 1, paddingHorizontal: spacing.lg},
-  contentNotched: {paddingTop: 8},
-  contentRegular: {paddingTop: 18},
-  contentBottomNotched: {paddingBottom: 10},
-  contentBottomRegular: {paddingBottom: 18},
-  backButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: 'rgba(255,255,255,0.88)', elevation: 3},
-  header: {alignItems: 'center', marginTop: 4, marginBottom: 14},
-  title: {color: '#28166F', fontFamily: 'serif', fontSize: 28, fontWeight: '700', lineHeight: 34, textAlign: 'center'},
-  subtitle: {maxWidth: 330, marginTop: 5, color: '#655A8D', fontSize: 13, lineHeight: 18, textAlign: 'center'},
-  searchArea: {zIndex: 10},
-  searchBox: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#D9C9EF', borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.95)', paddingHorizontal: 13, gap: 8},
-  input: {flex: 1, minWidth: 0, height: 50, color: '#2A2050', fontSize: 14},
-  targetImage: {width: 26, height: 26},
-  suggestions: {position: 'absolute', top: 54, right: 0, left: 0, overflow: 'hidden', borderWidth: 1, borderColor: '#D9C9EF', borderRadius: 14, backgroundColor: '#FFFFFF', elevation: 9},
-  suggestion: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#E9DFF5', paddingHorizontal: 12, gap: 10},
-  suggestionPin: {width: 18, height: 22},
-  suggestionTitle: {color: '#2A2050', fontSize: 14, fontWeight: '600'},
-  suggestionDetail: {marginTop: 2, color: '#7D7198', fontSize: 11},
-  mapCard: {overflow: 'hidden', marginTop: 12, borderWidth: 1, borderColor: '#DCCCF1', borderRadius: 22, backgroundColor: '#EEE5FA', elevation: 4},
-  mapSmall: {height: 260},
-  mapMedium: {height: 300},
-  mapLarge: {height: 340},
-  map: {flex: 1},
-  centerMarker: {position: 'absolute', top: '50%', left: '50%', alignItems: 'center', transform: [{translateX: -18}, {translateY: -38}]},
-  centerMarkerImage: {width: 36, height: 44},
-  markerShadow: {width: 18, height: 5, marginTop: -3, borderRadius: 9, backgroundColor: 'rgba(45,24,90,0.20)'},
-  mapUnavailable: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28},
-  mapUnavailableTitle: {marginTop: 8, color: '#39226F', fontSize: 16, fontWeight: '700'},
-  mapUnavailableText: {marginTop: 5, color: '#756A90', fontSize: 12, lineHeight: 17, textAlign: 'center'},
-  locationCard: {minHeight: 66, flexDirection: 'row', alignItems: 'center', marginTop: 12, borderWidth: 1, borderColor: '#D9C9EF', borderRadius: 17, backgroundColor: 'rgba(255,255,255,0.95)', paddingHorizontal: 14},
-  locationPin: {width: 25, height: 30},
-  locationCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  locationText: {color: '#2A2050', fontSize: 15, fontWeight: '600'},
-  locationHint: {marginTop: 2, color: '#756A90', fontSize: 11},
-  checkCircle: {width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: '#6949BE'},
-  errorText: {marginTop: 7, color: '#A83E63', fontSize: 12, lineHeight: 17, textAlign: 'center'},
-  infoText: {marginTop: 7, color: '#6E5B94', fontSize: 12, lineHeight: 17, textAlign: 'center'},
-  nextButton: {minHeight: 50, alignItems: 'center', justifyContent: 'center', marginTop: 12, borderRadius: 17, backgroundColor: '#6949BE', shadowColor: '#4E319A', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.22, shadowRadius: 8, elevation: 4},
-  nextButtonDisabled: {backgroundColor: '#B7A9CF', elevation: 0, shadowOpacity: 0},
-  nextText: {color: '#FFFFFF', fontSize: 17, fontWeight: '600'},
-  pressed: {opacity: 0.82},
-});
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
+    content: {flexGrow: 1, paddingHorizontal: spacing.lg},
+    contentNotched: {paddingTop: 8},
+    contentRegular: {paddingTop: 18},
+    contentBottomNotched: {paddingBottom: 10},
+    contentBottomRegular: {paddingBottom: 18},
+    backButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: withAlpha(theme.colors.surface, 0.88), elevation: 3},
+    header: {alignItems: 'center', marginTop: 4, marginBottom: 14},
+    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 28, fontWeight: '700', lineHeight: 34, textAlign: 'center'},
+    subtitle: {maxWidth: 330, marginTop: 5, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 18, textAlign: 'center'},
+    searchArea: {zIndex: 10},
+    searchBox: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.95), paddingHorizontal: 13, gap: 8},
+    input: {flex: 1, minWidth: 0, height: 50, color: theme.colors.text, fontSize: 14},
+    targetImage: {width: 26, height: 26},
+    suggestions: {position: 'absolute', top: 54, right: 0, left: 0, overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: theme.colors.surface, elevation: 9},
+    suggestion: {minHeight: 50, flexDirection: 'row', alignItems: 'center', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border, paddingHorizontal: 12, gap: 10},
+    suggestionPin: {width: 18, height: 22},
+    suggestionTitle: {color: theme.colors.text, fontSize: 14, fontWeight: '600'},
+    suggestionDetail: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+    mapCard: {overflow: 'hidden', marginTop: 12, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22, backgroundColor: theme.colors.primarySoft, elevation: 4},
+    mapSmall: {height: 260},
+    mapMedium: {height: 300},
+    mapLarge: {height: 340},
+    map: {flex: 1},
+    centerMarker: {position: 'absolute', top: '50%', left: '50%', alignItems: 'center', transform: [{translateX: -18}, {translateY: -38}]},
+    centerMarkerImage: {width: 36, height: 44},
+    markerShadow: {width: 18, height: 5, marginTop: -3, borderRadius: 9, backgroundColor: withAlpha(theme.colors.primary, 0.2)},
+    mapUnavailable: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 28},
+    mapUnavailableTitle: {marginTop: 8, color: theme.colors.text, fontSize: 16, fontWeight: '700'},
+    mapUnavailableText: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17, textAlign: 'center'},
+    locationCard: {minHeight: 66, flexDirection: 'row', alignItems: 'center', marginTop: 12, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 17, backgroundColor: withAlpha(theme.colors.surface, 0.95), paddingHorizontal: 14},
+    locationPin: {width: 25, height: 30},
+    locationCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
+    locationText: {color: theme.colors.text, fontSize: 15, fontWeight: '600'},
+    locationHint: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+    checkCircle: {width: 25, height: 25, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primary},
+    errorText: {marginTop: 7, color: theme.colors.danger, fontSize: 12, lineHeight: 17, textAlign: 'center'},
+    infoText: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17, textAlign: 'center'},
+    nextButton: {minHeight: 50, alignItems: 'center', justifyContent: 'center', marginTop: 12, borderRadius: 17, backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.22, shadowRadius: 8, elevation: 4},
+    nextButtonDisabled: {backgroundColor: withAlpha(theme.colors.primary, 0.45), elevation: 0, shadowOpacity: 0},
+    nextText: {color: onPrimaryTextColor(theme), fontSize: 17, fontWeight: '600'},
+    pressed: {opacity: 0.82},
+  });
+}
 
 export default LocationScreen;

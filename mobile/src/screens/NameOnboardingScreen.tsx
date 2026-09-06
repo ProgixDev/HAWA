@@ -1,4 +1,5 @@
 import React, {
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -44,36 +45,14 @@ import {
   getCachedPersonalInformation,
   updatePersonalInformation,
 } from '../state/personalInformationStore';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 /* ============================================================
    CONSTANTS
 ============================================================ */
 
 const MAX_NAME_LENGTH = 40;
-
-const COLORS = {
-  background: '#F7F3FB',
-  backgroundDeep: '#EEE7F7',
-
-  white: '#FFFFFF',
-
-  deepPurple: '#2F1B55',
-  purple: '#6847B8',
-  purpleStrong: '#5C39A8',
-  purpleSoft: '#8E73C7',
-
-  lavender: '#EEE6F8',
-  lavenderSoft: '#F7F2FB',
-
-  text: '#332A3E',
-  secondary: '#71667D',
-  muted: '#A099AA',
-
-  border: 'rgba(103,72,181,0.14)',
-
-  success: '#5E8A72',
-  successSoft: '#EAF4EE',
-};
 
 type Props =
   NativeStackScreenProps<
@@ -90,6 +69,9 @@ function NameOnboardingScreen({
 }: Props): React.JSX.Element {
   const insets =
     useSafeAreaInsets();
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [
     name,
@@ -174,8 +156,8 @@ function NameOnboardingScreen({
           [0, 1],
 
         outputRange: [
-          'rgba(103,72,181,0.14)',
-          'rgba(103,72,181,0.55)',
+          withAlpha(theme.colors.primary, 0.14),
+          withAlpha(theme.colors.primary, 0.55),
         ],
       },
     );
@@ -193,16 +175,11 @@ function NameOnboardingScreen({
 
   return (
     <LinearGradient
-      colors={[
-        '#FBF9FD',
-        '#F5F0FA',
-        '#EEE7F7',
-        '#EAE1F3',
-      ]}
+      colors={[...theme.gradients.pageBackground]}
       locations={[
         0,
         0.32,
-        0.72,
+        0.7,
         1,
       ]}
       start={{
@@ -265,7 +242,7 @@ function NameOnboardingScreen({
 
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -319,8 +296,8 @@ function NameOnboardingScreen({
 
                 <LinearGradient
                   colors={[
-                    '#ECE2F7',
-                    '#F7F3FB',
+                    theme.colors.primarySoft,
+                    theme.colors.surfaceSecondary,
                   ]}
                   start={{
                     x: 0,
@@ -336,7 +313,7 @@ function NameOnboardingScreen({
 
                   <MaterialDesignIcons
                     color={
-                      COLORS.purple
+                      theme.colors.primary
                     }
                     name="account-heart-outline"
                     size={29}
@@ -349,7 +326,7 @@ function NameOnboardingScreen({
                   }>
 
                   <MaterialDesignIcons
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                     name="star-four-points"
                     size={10}
                   />
@@ -411,7 +388,7 @@ function NameOnboardingScreen({
 
                   <MaterialDesignIcons
                     color={
-                      COLORS.purple
+                      theme.colors.primary
                     }
                     name="account-outline"
                     size={20}
@@ -455,8 +432,8 @@ function NameOnboardingScreen({
                 <MaterialDesignIcons
                   color={
                     hasName
-                      ? COLORS.purple
-                      : COLORS.muted
+                      ? theme.colors.primary
+                      : theme.colors.textMuted
                   }
                   name="account-edit-outline"
                   size={21}
@@ -482,10 +459,10 @@ function NameOnboardingScreen({
                     handleNext
                   }
                   placeholder="Ton prénom ou pseudo"
-                  placeholderTextColor="#A79CC4"
+                  placeholderTextColor={theme.colors.textMuted}
                   returnKeyType="done"
                   selectionColor={
-                    COLORS.purple
+                    theme.colors.primary
                   }
                   style={
                     styles.input
@@ -503,7 +480,7 @@ function NameOnboardingScreen({
 
                     <MaterialDesignIcons
                       color={
-                        COLORS.success
+                        theme.colors.success
                       }
                       name="check"
                       size={14}
@@ -524,7 +501,7 @@ function NameOnboardingScreen({
 
                   <MaterialDesignIcons
                     color={
-                      COLORS.purpleSoft
+                      theme.colors.primary
                     }
                     name="shield-lock-outline"
                     size={13}
@@ -563,7 +540,7 @@ function NameOnboardingScreen({
 
                 <MaterialDesignIcons
                   color={
-                    COLORS.purple
+                    theme.colors.primary
                   }
                   name="message-text-outline"
                   size={17}
@@ -617,8 +594,8 @@ function NameOnboardingScreen({
 
               <LinearGradient
                 colors={[
-                  '#6D4CC2',
-                  '#5A35A7',
+                  theme.colors.primary,
+                  theme.colors.accent,
                 ]}
                 start={{
                   x: 0,
@@ -647,7 +624,7 @@ function NameOnboardingScreen({
                   }>
 
                   <MaterialDesignIcons
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                     name="arrow-right"
                     size={19}
                   />
@@ -672,13 +649,13 @@ function NameOnboardingScreen({
    STYLES
 ============================================================ */
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     background: {
       flex: 1,
 
       backgroundColor:
-        '#F2ECF8',
+        theme.colors.background,
     },
 
     flex: {
@@ -713,7 +690,7 @@ const styles =
       borderRadius: 170,
 
       backgroundColor:
-        'rgba(99, 67, 160, 0.09)',
+        withAlpha(theme.colors.primary, 0.09),
     },
 
     pageGlowMiddle: {
@@ -729,7 +706,7 @@ const styles =
       borderRadius: 143,
 
       backgroundColor:
-        'rgba(125, 96, 177, 0.055)',
+        withAlpha(theme.colors.primary, 0.055),
     },
 
     pageGlowBottom: {
@@ -745,7 +722,7 @@ const styles =
       borderRadius: 160,
 
       backgroundColor:
-        'rgba(83, 57, 129, 0.065)',
+        withAlpha(theme.colors.primary, 0.065),
     },
 
     ringTop: {
@@ -761,7 +738,7 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(82, 55, 126, 0.05)',
+        withAlpha(theme.colors.primary, 0.05),
 
       borderRadius: 73,
     },
@@ -779,7 +756,7 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(82, 55, 126, 0.04)',
+        withAlpha(theme.colors.primary, 0.04),
 
       borderRadius: 60,
     },
@@ -836,12 +813,12 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,73,190,0.10)',
+        withAlpha(theme.colors.primary, 0.10),
 
       borderRadius: 21,
 
       shadowColor:
-        '#44237D',
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -876,19 +853,19 @@ const styles =
       borderWidth: 3,
 
       borderColor:
-        '#F7F3FB',
+        theme.colors.background,
 
       borderRadius: 12,
 
       backgroundColor:
-        COLORS.purple,
+        theme.colors.primary,
     },
 
     brandEyebrow: {
       marginTop: 7,
 
       color:
-        COLORS.purpleSoft,
+        theme.colors.primary,
 
       fontSize: 8,
 
@@ -912,7 +889,7 @@ const styles =
 
     title: {
       color:
-        COLORS.deepPurple,
+        theme.colors.text,
 
       fontFamily:
         'serif',
@@ -937,7 +914,7 @@ const styles =
       marginTop: 11,
 
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 13.5,
 
@@ -955,17 +932,17 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,73,190,0.10)',
+        withAlpha(theme.colors.primary, 0.10),
 
       borderRadius: 24,
 
       backgroundColor:
-        'rgba(255,255,255,0.78)',
+        withAlpha(theme.colors.surface, 0.78),
 
       padding: 14,
 
       shadowColor:
-        '#452879',
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1006,7 +983,7 @@ const styles =
       borderRadius: 13,
 
       backgroundColor:
-        COLORS.lavender,
+        theme.colors.primarySoft,
     },
 
     formCardHeaderCopy: {
@@ -1019,7 +996,7 @@ const styles =
 
     formCardTitle: {
       color:
-        COLORS.text,
+        theme.colors.text,
 
       fontSize: 12.5,
 
@@ -1031,7 +1008,7 @@ const styles =
       marginTop: 2,
 
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 9.5,
 
@@ -1056,12 +1033,12 @@ const styles =
       borderRadius: 18,
 
       backgroundColor:
-        '#FFFDFF',
+        theme.colors.surface,
 
       paddingHorizontal: 13,
 
       shadowColor:
-        '#5C37A9',
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1081,7 +1058,7 @@ const styles =
       marginLeft: 9,
 
       color:
-        COLORS.deepPurple,
+        theme.colors.text,
 
       fontSize: 16,
 
@@ -1106,7 +1083,7 @@ const styles =
       borderRadius: 9,
 
       backgroundColor:
-        COLORS.successSoft,
+        withAlpha(theme.colors.success, 0.15),
     },
 
     inputMetaRow: {
@@ -1134,14 +1111,14 @@ const styles =
 
     privacyMetaText: {
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 9.5,
     },
 
     counter: {
       color:
-        COLORS.muted,
+        theme.colors.textMuted,
 
       fontSize: 9,
     },
@@ -1164,12 +1141,12 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,73,190,0.09)',
+        withAlpha(theme.colors.primary, 0.09),
 
       borderRadius: 18,
 
       backgroundColor:
-        'rgba(245,239,250,0.76)',
+        withAlpha(theme.colors.surfaceSecondary, 0.76),
 
       paddingHorizontal: 12,
 
@@ -1191,7 +1168,7 @@ const styles =
       borderRadius: 12,
 
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     previewCopy: {
@@ -1204,7 +1181,7 @@ const styles =
 
     previewLabel: {
       color:
-        COLORS.purpleSoft,
+        theme.colors.primary,
 
       fontSize: 8,
 
@@ -1219,7 +1196,7 @@ const styles =
       marginTop: 2,
 
       color:
-        COLORS.deepPurple,
+        theme.colors.text,
 
       fontSize: 12.5,
 
@@ -1238,7 +1215,7 @@ const styles =
       borderRadius: 20,
 
       shadowColor:
-        '#4E319A',
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1274,7 +1251,7 @@ const styles =
 
     nextText: {
       color:
-        '#FFFFFF',
+        onPrimaryTextColor(theme),
 
       fontSize: 17,
 
@@ -1303,19 +1280,19 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(255,255,255,0.28)',
+        withAlpha(onPrimaryTextColor(theme), 0.28),
 
       borderRadius: 19,
 
       backgroundColor:
-        'rgba(255,255,255,0.10)',
+        withAlpha(onPrimaryTextColor(theme), 0.10),
     },
 
     footerText: {
       marginTop: 11,
 
       color:
-        COLORS.muted,
+        theme.colors.textMuted,
 
       fontSize: 9.5,
 
@@ -1341,6 +1318,6 @@ const styles =
       opacity: 0.55,
     },
   });
+}
 
 export default NameOnboardingScreen;
-

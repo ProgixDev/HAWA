@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Alert,
@@ -28,10 +28,8 @@ import {
   type MiscarriageCycleReturnStatus,
 } from '../state/miscarriagePreferences';
 import {diffDays, startOfDay} from '../utils/cycleMath';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_SECONDARY = '#655A8D';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageCycleReturn'>;
 
@@ -51,6 +49,8 @@ const formatFullDate = (date: Date): string =>
   new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -131,7 +131,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -143,7 +143,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
       </View>
 
       <View style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" hidden={false} translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -182,7 +182,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                         onPress={() => setPickerVisible(true)}
                         style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
                         <View style={styles.dateFieldIcon}>
-                          <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={18} />
+                          <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={18} />
                         </View>
                         <View style={styles.dateFieldCopy}>
                           <Text style={styles.dateFieldLabel}>
@@ -193,7 +193,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                             {returnedDate ? formatFullDate(returnedDate) : 'JJ / MM / AAAA'}
                           </Text>
                         </View>
-                        <MaterialDesignIcons color="#9C91B3" name="chevron-right" size={18} />
+                        <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
                       </Pressable>
                     ) : null}
                   </PremiumChoiceCard>
@@ -228,8 +228,9 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  background: {flex: 1, backgroundColor: theme.colors.background},
 
   pageBackgroundDecor: {
     ...StyleSheet.absoluteFillObject,
@@ -243,7 +244,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -253,7 +254,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
 
   pageGlowBottom: {
@@ -263,7 +264,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: {flex: 1},
@@ -272,7 +273,7 @@ const styles = StyleSheet.create({
   header: {alignItems: 'center', paddingTop: 5, marginBottom: spacing.md},
   headerImage: {width: 210, height: 135, marginBottom: 2},
   title: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 26,
     fontWeight: '700',
@@ -282,7 +283,7 @@ const styles = StyleSheet.create({
   subtitle: {
     marginTop: 10,
     maxWidth: 310,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     textAlign: 'center',
@@ -294,9 +295,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.18)',
+    borderColor: theme.colors.border,
     borderRadius: 14,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 10,
   },
   dateFieldIcon: {
@@ -306,29 +307,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 11,
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
   dateFieldCopy: {flex: 1, minWidth: 0, marginHorizontal: 9},
-  dateFieldLabel: {color: TEXT_SECONDARY, fontSize: 9.5, lineHeight: 13},
+  dateFieldLabel: {color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13},
   dateFieldOptional: {fontStyle: 'italic'},
-  dateFieldValue: {marginTop: 2, color: PURPLE_DARK, fontSize: 12.5, fontWeight: '700'},
-  dateFieldPlaceholder: {color: '#A79CBE', fontWeight: '500'},
+  dateFieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
+  dateFieldPlaceholder: {color: theme.colors.textMuted, fontWeight: '500'},
   nextButton: {
     minHeight: 54,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: spacing.sm,
     borderRadius: 18,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 5},
     shadowOpacity: 0.25,
     shadowRadius: 9,
     elevation: 5,
   },
-  nextButtonDisabled: {backgroundColor: '#B7A9CF', shadowOpacity: 0, elevation: 0},
-  nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
+  nextButtonDisabled: {backgroundColor: withAlpha(theme.colors.primary, 0.45), shadowOpacity: 0, elevation: 0},
+  nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
   pressed: {opacity: 0.82},
-});
+  });
+}
 
 export default MiscarriageCycleReturnScreen;
