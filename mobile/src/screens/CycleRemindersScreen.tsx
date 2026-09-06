@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -22,6 +22,8 @@ import {
   setCycleReminderPreferences,
   type UpcomingPeriodDaysBefore,
 } from '../state/cycleReminderPreferences';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 // Same 'HH:mm' formatting/parsing convention as
 // MenopauseRemindersScreen.tsx's/ContraceptionRemindersScreen.tsx's own
@@ -36,17 +38,14 @@ function parseTimeToDate(hhmm: string): Date {
   return date;
 }
 
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F1EAFB';
-const TEXT_SECONDARY = '#655A8D';
-
 const DAYS_BEFORE_OPTIONS: UpcomingPeriodDaysBefore[] = [1, 2, 3];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleReminders'>;
 
 function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const mode = route.params?.mode ?? 'onboarding';
   const isEdit = mode === 'edit';
@@ -137,7 +136,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -149,7 +148,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
       </View>
 
       <View style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -164,7 +163,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               hitSlop={12}
               onPress={navigation.goBack}
               style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={PURPLE} name="arrow-left" size={24} />
+              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
             </Pressable>
           ) : null}
 
@@ -173,11 +172,11 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               <View pointerEvents="none" style={styles.heroGlowOuter} />
               <View pointerEvents="none" style={styles.heroGlowInner} />
               <LinearGradient
-                colors={['#FFFFFF', '#F6F1FB']}
+                colors={[theme.colors.surface, theme.colors.surfaceSecondary]}
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 1}}
                 style={styles.heroInner}>
-                <MaterialDesignIcons color={PURPLE} name="bell-outline" size={30} />
+                <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={30} />
               </LinearGradient>
             </View>
 
@@ -193,7 +192,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.cardTopRow}>
               <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={PURPLE} name="water-outline" size={22} />
+                <MaterialDesignIcons color={theme.colors.primary} name="water-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
                 <Text style={styles.cardTitle}>Règles à venir</Text>
@@ -202,13 +201,13 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 </Text>
               </View>
               <Switch
-                ios_backgroundColor="#D9CDEC"
+                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setUpcomingPeriodEnabled(value);
                   setError('');
                 }}
-                thumbColor="#FFFFFF"
-                trackColor={{false: '#D9CDEC', true: PURPLE}}
+                thumbColor={theme.colors.surface}
+                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={upcomingPeriodEnabled}
               />
             </View>
@@ -243,7 +242,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.cardTopRow}>
               <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={PURPLE} name="calendar-check-outline" size={22} />
+                <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
                 <Text style={styles.cardTitle}>Saisie du début des règles</Text>
@@ -252,13 +251,13 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 </Text>
               </View>
               <Switch
-                ios_backgroundColor="#D9CDEC"
+                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setPeriodStartCheckEnabled(value);
                   setError('');
                 }}
-                thumbColor="#FFFFFF"
-                trackColor={{false: '#D9CDEC', true: PURPLE}}
+                thumbColor={theme.colors.surface}
+                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={periodStartCheckEnabled}
               />
             </View>
@@ -268,20 +267,20 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.cardTopRow}>
               <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={PURPLE} name="notebook-edit-outline" size={22} />
+                <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
                 <Text style={styles.cardTitle}>Journal quotidien</Text>
                 <Text style={styles.cardDescription}>Un petit rappel pour compléter ton suivi du jour.</Text>
               </View>
               <Switch
-                ios_backgroundColor="#D9CDEC"
+                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setDailyJournalEnabled(value);
                   setError('');
                 }}
-                thumbColor="#FFFFFF"
-                trackColor={{false: '#D9CDEC', true: PURPLE}}
+                thumbColor={theme.colors.surface}
+                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={dailyJournalEnabled}
               />
             </View>
@@ -293,7 +292,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 onPress={() => setTimePickerVisible(true)}
                 style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
                 <View style={styles.timeIconBox}>
-                  <MaterialDesignIcons color={PURPLE} name="clock-outline" size={18} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
                   <Text style={styles.timeLabel}>Heure</Text>
@@ -301,7 +300,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                     {dailyJournalTime ?? 'Choisir une heure'}
                   </Text>
                 </View>
-                <MaterialDesignIcons color="#8A7EA8" name="chevron-right" size={20} />
+                <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
               </Pressable>
             ) : null}
           </View>
@@ -310,17 +309,17 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.cardTopRow}>
               <View style={styles.cardIcon}>
-                <MaterialDesignIcons color={PURPLE} name="egg-outline" size={22} />
+                <MaterialDesignIcons color={theme.colors.primary} name="egg-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
                 <Text style={styles.cardTitle}>Ovulation &amp; fenêtre fertile</Text>
                 <Text style={styles.cardDescription}>Reçois des rappels basés sur les estimations de ton cycle.</Text>
               </View>
               <Switch
-                ios_backgroundColor="#D9CDEC"
+                ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={toggleFertility}
-                thumbColor="#FFFFFF"
-                trackColor={{false: '#D9CDEC', true: PURPLE}}
+                thumbColor={theme.colors.surface}
+                trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                 value={fertilityEnabled}
               />
             </View>
@@ -334,7 +333,9 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                   onPress={() => setFertileWindowEnabled(current => !current)}
                   style={({pressed}) => [styles.checkboxRow, pressed && styles.pressed]}>
                   <View style={[styles.checkbox, fertileWindowEnabled && styles.checkboxChecked]}>
-                    {fertileWindowEnabled ? <MaterialDesignIcons color="#FFFFFF" name="check" size={14} /> : null}
+                    {fertileWindowEnabled ? (
+                      <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
+                    ) : null}
                   </View>
                   <Text style={styles.checkboxLabel}>Début estimé de la fenêtre fertile</Text>
                 </Pressable>
@@ -346,7 +347,9 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                   onPress={() => setOvulationEnabled(current => !current)}
                   style={({pressed}) => [styles.checkboxRow, pressed && styles.pressed]}>
                   <View style={[styles.checkbox, ovulationEnabled && styles.checkboxChecked]}>
-                    {ovulationEnabled ? <MaterialDesignIcons color="#FFFFFF" name="check" size={14} /> : null}
+                    {ovulationEnabled ? (
+                      <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
+                    ) : null}
                   </View>
                   <Text style={styles.checkboxLabel}>Ovulation estimée</Text>
                 </Pressable>
@@ -371,14 +374,14 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
 
           {error ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color="#C74669" name="alert-outline" size={16} />
+              <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
               <Text style={styles.errorText}>{error}</Text>
             </View>
           ) : null}
 
           {permissionNotice ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color="#C74669" name="bell-off-outline" size={16} />
+              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={styles.errorText}>
                 Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
               </Text>
@@ -387,7 +390,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
 
           <View style={styles.info}>
             <View style={styles.infoIconBox}>
-              <MaterialDesignIcons color={PURPLE} name="information-outline" size={18} />
+              <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
             </View>
             <Text style={styles.infoText}>
               Les dates de règles, de fenêtre fertile et d’ovulation sont des estimations basées sur les
@@ -420,129 +423,131 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
+    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+    pageGlowTop: {
+      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
+      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
+    pageGlowMiddle: {
+      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
+      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
+    pageGlowBottom: {
+      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
+      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  safeArea: {flex: 1},
-  content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
-  pressed: {opacity: 0.82},
+    safeArea: {flex: 1},
+    content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
+    pressed: {opacity: 0.82},
 
-  backButton: {
-    width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-    marginBottom: 5, borderWidth: 1, borderColor: 'rgba(105,73,190,0.08)',
-    borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.88)',
-    shadowColor: '#493276', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-  },
+    backButton: {
+      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
+      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
+      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
+    },
 
-  header: {alignItems: 'center', marginBottom: 18},
-  heroIcon: {
-    position: 'relative', width: 76, height: 76,
-    alignItems: 'center', justifyContent: 'center', marginBottom: 12,
-  },
-  heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: 'rgba(105,73,190,0.055)'},
-  heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: 'rgba(105,73,190,0.07)'},
-  heroInner: {
-    width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: 'rgba(105,73,190,0.14)', borderRadius: 20,
-    shadowColor: '#4E337C', shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-  },
+    header: {alignItems: 'center', marginBottom: 18},
+    heroIcon: {
+      position: 'relative', width: 76, height: 76,
+      alignItems: 'center', justifyContent: 'center', marginBottom: 12,
+    },
+    heroGlowOuter: {position: 'absolute', width: 82, height: 82, borderRadius: 41, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
+    heroGlowInner: {position: 'absolute', width: 70, height: 70, borderRadius: 35, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
+    heroInner: {
+      width: 58, height: 58, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
+    },
 
-  title: {
-    color: PURPLE_DARK, fontFamily: 'serif', fontSize: 24, lineHeight: 30,
-    fontWeight: '800', textAlign: 'center', paddingHorizontal: 8,
-  },
-  subtitle: {
-    maxWidth: 320, marginTop: 8, color: TEXT_SECONDARY, fontSize: 13, lineHeight: 19, textAlign: 'center',
-  },
+    title: {
+      color: theme.colors.text, fontFamily: 'serif', fontSize: 24, lineHeight: 30,
+      fontWeight: '800', textAlign: 'center', paddingHorizontal: 8,
+    },
+    subtitle: {
+      maxWidth: 320, marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
+    },
 
-  card: {
-    marginTop: 14, padding: 15,
-    borderWidth: 1, borderColor: 'rgba(111,83,190,0.14)', borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.92)',
-    shadowColor: '#4E337C', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-  },
-  cardTopRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 12},
-  cardIcon: {
-    width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 14, backgroundColor: PURPLE_SOFT,
-  },
-  cardCopy: {flex: 1, minWidth: 0},
-  cardTitle: {color: '#291D4E', fontFamily: 'serif', fontSize: 15.5, lineHeight: 20, fontWeight: '700'},
-  cardDescription: {marginTop: 4, color: TEXT_SECONDARY, fontSize: 11.5, lineHeight: 16},
+    card: {
+      marginTop: 14, padding: 15,
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      backgroundColor: withAlpha(theme.colors.surface, 0.92),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
+    },
+    cardTopRow: {flexDirection: 'row', alignItems: 'flex-start', gap: 12},
+    cardIcon: {
+      width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+    },
+    cardCopy: {flex: 1, minWidth: 0},
+    cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15.5, lineHeight: 20, fontWeight: '700'},
+    cardDescription: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
 
-  daysBeforeRow: {flexDirection: 'row', gap: 8, marginTop: 12},
-  daysBeforeChip: {
-    flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 13, borderWidth: 1, borderColor: 'rgba(105,73,190,0.16)', backgroundColor: '#FBF9FE',
-  },
-  daysBeforeChipSelected: {backgroundColor: PURPLE, borderColor: PURPLE},
-  daysBeforeChipText: {color: TEXT_SECONDARY, fontSize: 11.5, fontWeight: '700'},
-  daysBeforeChipTextSelected: {color: '#FFFFFF'},
+    daysBeforeRow: {flexDirection: 'row', gap: 8, marginTop: 12},
+    daysBeforeChip: {
+      flex: 1, minHeight: 40, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 13, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.16), backgroundColor: theme.colors.primarySoft,
+    },
+    daysBeforeChipSelected: {backgroundColor: theme.colors.primary, borderColor: theme.colors.primary},
+    daysBeforeChipText: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
+    daysBeforeChipTextSelected: {color: onPrimaryTextColor(theme)},
 
-  timeRow: {
-    minHeight: 58, marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 12,
-    paddingHorizontal: 14, borderWidth: 1, borderColor: 'rgba(111,83,190,0.14)', borderRadius: 18,
-    backgroundColor: '#FBF9FE',
-  },
-  timeIconBox: {
-    width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 12, backgroundColor: PURPLE_SOFT,
-  },
-  timeCopy: {flex: 1, minWidth: 0},
-  timeLabel: {color: TEXT_SECONDARY, fontSize: 10.5, fontWeight: '700'},
-  timeValue: {marginTop: 2, color: '#291D4E', fontSize: 14, fontWeight: '800'},
-  timeValuePlaceholder: {marginTop: 2, color: '#948BB0', fontSize: 14, fontWeight: '600'},
+    timeRow: {
+      minHeight: 58, marginTop: 12, flexDirection: 'row', alignItems: 'center', gap: 12,
+      paddingHorizontal: 14, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 18,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    timeIconBox: {
+      width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 12, backgroundColor: theme.colors.primarySoft,
+    },
+    timeCopy: {flex: 1, minWidth: 0},
+    timeLabel: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700'},
+    timeValue: {marginTop: 2, color: theme.colors.text, fontSize: 14, fontWeight: '800'},
+    timeValuePlaceholder: {marginTop: 2, color: theme.colors.textMuted, fontSize: 14, fontWeight: '600'},
 
-  checkboxList: {marginTop: 12, gap: 8},
-  checkboxRow: {flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 38},
-  checkbox: {
-    width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 7, borderWidth: 1.4, borderColor: 'rgba(105,73,190,0.35)', backgroundColor: '#FFFFFF',
-  },
-  checkboxChecked: {backgroundColor: PURPLE, borderColor: PURPLE},
-  checkboxLabel: {flex: 1, minWidth: 0, color: '#291D4E', fontSize: 12.5, fontWeight: '600'},
+    checkboxList: {marginTop: 12, gap: 8},
+    checkboxRow: {flexDirection: 'row', alignItems: 'center', gap: 10, minHeight: 38},
+    checkbox: {
+      width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 7, borderWidth: 1.4, borderColor: withAlpha(theme.colors.primary, 0.35), backgroundColor: theme.colors.surface,
+    },
+    checkboxChecked: {backgroundColor: theme.colors.primary, borderColor: theme.colors.primary},
+    checkboxLabel: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 12.5, fontWeight: '600'},
 
-  errorCard: {
-    flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
-    paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
-    backgroundColor: '#FFF0F4', borderWidth: 1, borderColor: 'rgba(199,70,105,0.15)',
-  },
-  errorText: {flex: 1, color: '#98394F', fontSize: 11.5, lineHeight: 16},
+    errorCard: {
+      flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
+      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.danger, 0.1), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
+    },
+    errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
 
-  info: {
-    flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16,
-    borderRadius: 16, backgroundColor: 'rgba(246,239,255,0.9)', paddingHorizontal: 12, paddingVertical: 11,
-  },
-  infoIconBox: {
-    width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 11, backgroundColor: '#FFFFFF',
-  },
-  infoText: {flex: 1, color: TEXT_SECONDARY, fontSize: 11.5, lineHeight: 16},
+    info: {
+      flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16,
+      borderRadius: 16, backgroundColor: withAlpha(theme.colors.primarySoft, 0.9), paddingHorizontal: 12, paddingVertical: 11,
+    },
+    infoIconBox: {
+      width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 11, backgroundColor: theme.colors.surface,
+    },
+    infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
 
-  nextButton: {
-    minHeight: 54, alignItems: 'center', justifyContent: 'center',
-    marginTop: 16, borderRadius: 20, backgroundColor: PURPLE,
-    shadowColor: '#4E319A', shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-  },
-  nextText: {color: '#FFFFFF', fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+    nextButton: {
+      minHeight: 54, alignItems: 'center', justifyContent: 'center',
+      marginTop: 16, borderRadius: 20, backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
+    },
+    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
 
-  skipButton: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 4},
-  skipText: {color: TEXT_SECONDARY, fontSize: 13, fontWeight: '700'},
-});
+    skipButton: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 4},
+    skipText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '700'},
+  });
+}
 
 export default CycleRemindersScreen;

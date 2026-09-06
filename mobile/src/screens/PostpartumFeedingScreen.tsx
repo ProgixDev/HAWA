@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -23,10 +23,8 @@ import {
   setFeedingType,
   type PostpartumFeedingType,
 } from '../state/postpartumPreferences';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_SECONDARY = '#655A8D';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumFeeding'>;
 
@@ -68,6 +66,8 @@ type OptionCardProps = {
 // Identical card behavior/animation to PostpartumDeliveryTypeScreen's
 // OptionCard — same subtle scale pulse on selection.
 function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -93,7 +93,7 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
         <Text style={styles.optionLabel}>{option.label}</Text>
 
         <View style={[styles.checkBadge, selected && styles.checkBadgeSelected]}>
-          {selected ? <MaterialDesignIcons color="#FFFFFF" name="check" size={14} /> : null}
+          {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} /> : null}
         </View>
       </Pressable>
     </Animated.View>
@@ -101,6 +101,8 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
 }
 
 function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   // Onboarding (default, unchanged behavior) vs. edit — reached later from
@@ -165,7 +167,7 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -177,7 +179,7 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
       </View>
 
       <View style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" hidden={false} translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -195,7 +197,7 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
                   hitSlop={10}
                   onPress={navigation.goBack}
                   style={({pressed}) => [styles.editBackButton, pressed && styles.pressed]}>
-                  <MaterialDesignIcons color={PURPLE_DARK} name="arrow-left" size={22} />
+                  <MaterialDesignIcons color={theme.colors.text} name="arrow-left" size={22} />
                 </Pressable>
               ) : null}
               <Text style={styles.title}>Allaitement</Text>
@@ -231,140 +233,142 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  safeArea: {flex: 1},
-  content: {flexGrow: 1, paddingHorizontal: spacing.lg},
-  mainContent: {flex: 1},
-  header: {alignItems: 'center', paddingTop: 24, marginBottom: spacing.md},
-  editBackButton: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.14)',
-    borderRadius: 15,
-    backgroundColor: 'rgba(255,252,255,0.94)',
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  title: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 26,
-    fontWeight: '700',
-    lineHeight: 32,
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginTop: 10,
-    maxWidth: 310,
-    color: TEXT_SECONDARY,
-    fontSize: 13,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  optionsCenterContainer: {flex: 1, justifyContent: 'center', paddingVertical: spacing.md},
-  optionsList: {gap: 12},
-  optionWrapper: {width: '100%'},
-  optionCard: {
-    width: '100%',
-    minHeight: 68,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1.4,
-    borderColor: 'rgba(111,83,190,0.14)',
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,252,255,0.94)',
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    elevation: 3,
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-  },
-  optionCardSelected: {borderColor: PURPLE, backgroundColor: '#F5F0FC'},
-  optionIcon: {
-    width: 52,
-    height: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-    backgroundColor: '#F1EAFB',
-    overflow: 'hidden',
-  },
-  optionImage: {width: 48, height: 48},
-  optionLabel: {flex: 1, minWidth: 0, marginHorizontal: 13, color: '#2A2050', fontSize: 14.5, fontWeight: '600', lineHeight: 19},
-  checkBadge: {
-    width: 24,
-    height: 24,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.4,
-    borderColor: 'rgba(111,83,190,0.28)',
-    borderRadius: 12,
-    backgroundColor: 'transparent',
-  },
-  checkBadgeSelected: {borderColor: PURPLE, backgroundColor: PURPLE},
-  nextButton: {
-    minHeight: 54,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: spacing.sm,
-    borderRadius: 18,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
-  pressed: {opacity: 0.82},
-});
+    safeArea: {flex: 1},
+    content: {flexGrow: 1, paddingHorizontal: spacing.lg},
+    mainContent: {flex: 1},
+    header: {alignItems: 'center', paddingTop: 24, marginBottom: spacing.md},
+    editBackButton: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: 42,
+      height: 42,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 15,
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.1,
+      shadowRadius: 6,
+      elevation: 3,
+    },
+    title: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 26,
+      fontWeight: '700',
+      lineHeight: 32,
+      textAlign: 'center',
+    },
+    subtitle: {
+      marginTop: 10,
+      maxWidth: 310,
+      color: theme.colors.textSecondary,
+      fontSize: 13,
+      lineHeight: 19,
+      textAlign: 'center',
+    },
+    optionsCenterContainer: {flex: 1, justifyContent: 'center', paddingVertical: spacing.md},
+    optionsList: {gap: 12},
+    optionWrapper: {width: '100%'},
+    optionCard: {
+      width: '100%',
+      minHeight: 68,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1.4,
+      borderColor: theme.colors.border,
+      borderRadius: 18,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 14,
+      paddingVertical: 7,
+      elevation: 3,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.08,
+      shadowRadius: 10,
+    },
+    optionCardSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
+    optionIcon: {
+      width: 52,
+      height: 52,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 16,
+      backgroundColor: theme.colors.primarySoft,
+      overflow: 'hidden',
+    },
+    optionImage: {width: 48, height: 48},
+    optionLabel: {flex: 1, minWidth: 0, marginHorizontal: 13, color: theme.colors.text, fontSize: 14.5, fontWeight: '600', lineHeight: 19},
+    checkBadge: {
+      width: 24,
+      height: 24,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1.4,
+      borderColor: withAlpha(theme.colors.primary, 0.28),
+      borderRadius: 12,
+      backgroundColor: 'transparent',
+    },
+    checkBadgeSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
+    nextButton: {
+      minHeight: 54,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: spacing.sm,
+      borderRadius: 18,
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.25,
+      shadowRadius: 9,
+      elevation: 5,
+    },
+    nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
+    pressed: {opacity: 0.82},
+  });
+}
 
 export default PostpartumFeedingScreen;

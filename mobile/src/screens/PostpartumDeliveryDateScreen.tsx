@@ -19,12 +19,10 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {confirmDelivery, getPostpartumPreferences} from '../state/postpartumPreferences';
 import {diffDays, startOfDay} from '../utils/cycleMath';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_SECONDARY = '#655A8D';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumDeliveryDate'>;
 
@@ -37,6 +35,8 @@ const formatMonthYear = (date: Date): string => {
 };
 
 function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const entrance = useRef(new Animated.Value(0)).current;
@@ -133,7 +133,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -145,7 +145,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
       </View>
 
       <View style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" hidden={false} translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -225,7 +225,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
 
           <Animated.View style={[styles.selectedCard, cardStyle]}>
             <View style={styles.selectedIcon}>
-              <MaterialDesignIcons color={PURPLE} name="calendar-heart" size={20} />
+              <MaterialDesignIcons color={theme.colors.primary} name="calendar-heart" size={20} />
             </View>
             <View style={styles.selectedCopy}>
               <Text style={styles.selectedLabel}>Date sélectionnée</Text>
@@ -251,146 +251,148 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  safeArea: {flex: 1},
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.md,
-  },
-  header: {alignItems: 'center', marginBottom: spacing.lg},
-  title: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 29,
-    fontWeight: '700',
-    lineHeight: 36,
-    textAlign: 'center',
-  },
-  subtitle: {
-    marginTop: 8,
-    maxWidth: 300,
-    color: TEXT_SECONDARY,
-    fontSize: 13,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  calendarCard: {
-    width: '100%',
-    borderRadius: 22,
-    borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.14)',
-    backgroundColor: 'rgba(255,252,255,0.94)',
-    padding: spacing.md,
-    elevation: 6,
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 6},
-    shadowOpacity: 0.12,
-    shadowRadius: 14,
-  },
-  calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  calendarArrowButton: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 20,
-    backgroundColor: '#F0E8FC',
-  },
-  calendarArrowButtonDisabled: {opacity: 0.4},
-  calendarArrowText: {color: PURPLE, fontSize: 22, fontWeight: '600', lineHeight: 26},
-  calendarArrowTextDisabled: {color: TEXT_SECONDARY},
-  calendarTitle: {
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 18,
-    fontWeight: '600',
-    textTransform: 'capitalize',
-  },
-  weekRow: {flexDirection: 'row', marginTop: spacing.md},
-  weekDay: {width: '14.2857%', color: '#85739F', fontSize: 11.5, textAlign: 'center'},
-  daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
-  dayCell: {width: '14.2857%', height: 40, alignItems: 'center', justifyContent: 'center'},
-  dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
-  daySelected: {backgroundColor: PURPLE},
-  dayText: {color: '#2A2050', fontSize: 14},
-  dayTextDisabled: {color: '#C4B9DA'},
-  dayTextSelected: {color: '#FFFFFF', fontWeight: '700'},
-  selectedCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    minHeight: 66,
-    marginTop: spacing.md,
-    borderRadius: 17,
-    borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.16)',
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    paddingHorizontal: 14,
-  },
-  selectedIcon: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 14,
-    backgroundColor: '#F1EAFB',
-  },
-  selectedCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  selectedLabel: {color: TEXT_SECONDARY, fontSize: 11.5},
-  selectedValue: {marginTop: 2, color: '#2A2050', fontSize: 15, fontWeight: '700'},
-  modifyText: {color: PURPLE, fontSize: 13, fontWeight: '700'},
-  spacer: {flex: 1, minHeight: spacing.lg},
-  nextButton: {
-    minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
-  pressed: {opacity: 0.82},
-});
+    safeArea: {flex: 1},
+    content: {
+      flexGrow: 1,
+      paddingHorizontal: spacing.lg,
+      paddingBottom: spacing.md,
+    },
+    header: {alignItems: 'center', marginBottom: spacing.lg},
+    title: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 29,
+      fontWeight: '700',
+      lineHeight: 36,
+      textAlign: 'center',
+    },
+    subtitle: {
+      marginTop: 8,
+      maxWidth: 300,
+      color: theme.colors.textSecondary,
+      fontSize: 13,
+      lineHeight: 19,
+      textAlign: 'center',
+    },
+    calendarCard: {
+      width: '100%',
+      borderRadius: 22,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+      padding: spacing.md,
+      elevation: 6,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 6},
+      shadowOpacity: 0.12,
+      shadowRadius: 14,
+    },
+    calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    calendarArrowButton: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 20,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    calendarArrowButtonDisabled: {opacity: 0.4},
+    calendarArrowText: {color: theme.colors.primary, fontSize: 22, fontWeight: '600', lineHeight: 26},
+    calendarArrowTextDisabled: {color: theme.colors.textSecondary},
+    calendarTitle: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 18,
+      fontWeight: '600',
+      textTransform: 'capitalize',
+    },
+    weekRow: {flexDirection: 'row', marginTop: spacing.md},
+    weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 11.5, textAlign: 'center'},
+    daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
+    dayCell: {width: '14.2857%', height: 40, alignItems: 'center', justifyContent: 'center'},
+    dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
+    daySelected: {backgroundColor: theme.colors.primary},
+    dayText: {color: theme.colors.text, fontSize: 14},
+    dayTextDisabled: {color: theme.colors.textMuted},
+    dayTextSelected: {color: onPrimaryTextColor(theme), fontWeight: '700'},
+    selectedCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      minHeight: 66,
+      marginTop: spacing.md,
+      borderRadius: 17,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 14,
+    },
+    selectedIcon: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 14,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    selectedCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
+    selectedLabel: {color: theme.colors.textSecondary, fontSize: 11.5},
+    selectedValue: {marginTop: 2, color: theme.colors.text, fontSize: 15, fontWeight: '700'},
+    modifyText: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
+    spacer: {flex: 1, minHeight: spacing.lg},
+    nextButton: {
+      minHeight: 52,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.25,
+      shadowRadius: 9,
+      elevation: 5,
+    },
+    nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
+    pressed: {opacity: 0.82},
+  });
+}
 
 export default PostpartumDeliveryDateScreen;

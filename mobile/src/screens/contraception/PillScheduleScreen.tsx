@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -17,19 +17,14 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getContraceptionPreferences,
   hydrateContraceptionPreferences,
   setContraceptionPreferences,
   type PillScheduleType,
 } from '../../state/contraceptionPreferences';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F1EAFB';
-const TEXT_SECONDARY = '#655A8D';
-const WARNING = '#C77B2E';
-const WARNING_SOFT = '#FFF0E3';
 
 const ACTIVE_DAYS_MIN = 1;
 const ACTIVE_DAYS_MAX = 90;
@@ -45,6 +40,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PillSchedule'>;
 
 function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const mode = route.params?.mode ?? 'onboarding';
   const isEdit = mode === 'edit';
@@ -174,7 +171,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -186,7 +183,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
       </View>
 
       <View style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" hidden={false} translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} hidden={false} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -201,7 +198,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
               hitSlop={12}
               onPress={navigation.goBack}
               style={({pressed}) => [styles.backButton, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={PURPLE} name="arrow-left" size={24} />
+              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
             </Pressable>
           ) : null}
 
@@ -210,11 +207,11 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
               <View pointerEvents="none" style={styles.heroGlowOuter} />
               <View pointerEvents="none" style={styles.heroGlowInner} />
               <LinearGradient
-                colors={['#FFFFFF', '#F6F1FB']}
+                colors={[theme.colors.surface, theme.colors.primarySoft]}
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 1}}
                 style={styles.heroInner}>
-                <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={30} />
+                <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={30} />
               </LinearGradient>
             </View>
           </Animated.View>
@@ -229,7 +226,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
               <Animated.View style={[styles.card, fadeUp(card1Entrance)]}>
                 <View style={styles.cardHeaderRow}>
                   <View style={styles.cardIcon}>
-                    <MaterialDesignIcons color={PURPLE} name="pill" size={18} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="pill" size={18} />
                   </View>
                   <View style={styles.cardCopy}>
                     <Text style={styles.cardTitle}>Jours de prise</Text>
@@ -244,7 +241,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     disabled={unknown}
                     onPress={() => adjustActiveDays(-1)}
                     style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={PURPLE} name="minus" size={20} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="minus" size={20} />
                   </Pressable>
 
                   <View style={styles.stepperValueBlock}>
@@ -258,7 +255,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     disabled={unknown}
                     onPress={() => adjustActiveDays(1)}
                     style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={PURPLE} name="plus" size={20} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="plus" size={20} />
                   </Pressable>
                 </View>
               </Animated.View>
@@ -266,7 +263,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
               <Animated.View style={[styles.card, styles.cardAccentWarning, fadeUp(card2Entrance)]}>
                 <View style={styles.cardHeaderRow}>
                   <View style={[styles.cardIcon, styles.cardIconWarning]}>
-                    <MaterialDesignIcons color={WARNING} name="pause-circle-outline" size={18} />
+                    <MaterialDesignIcons color={theme.colors.warning} name="pause-circle-outline" size={18} />
                   </View>
                   <View style={styles.cardCopy}>
                     <Text style={styles.cardTitle}>Jours d’arrêt</Text>
@@ -281,7 +278,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     disabled={unknown}
                     onPress={() => adjustBreakDays(-1)}
                     style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={WARNING} name="minus" size={20} />
+                    <MaterialDesignIcons color={theme.colors.warning} name="minus" size={20} />
                   </Pressable>
 
                   <View style={styles.stepperValueBlock}>
@@ -295,7 +292,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     disabled={unknown}
                     onPress={() => adjustBreakDays(1)}
                     style={({pressed}) => [styles.stepperButton, (pressed || unknown) && styles.pressed]}>
-                    <MaterialDesignIcons color={WARNING} name="plus" size={20} />
+                    <MaterialDesignIcons color={theme.colors.warning} name="plus" size={20} />
                   </Pressable>
                 </View>
 
@@ -305,7 +302,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
               {!unknown ? (
                 <Animated.View style={[styles.summaryCard, fadeUp(summaryEntrance)]}>
                   <View style={styles.summaryHeaderRow}>
-                    <MaterialDesignIcons color={PURPLE} name="calendar-check-outline" size={16} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={16} />
                     <Text style={styles.summaryTitle}>Ton schéma</Text>
                   </View>
 
@@ -335,7 +332,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                   onPress={() => setUnknown(current => !current)}
                   style={({pressed}) => [styles.unknownRow, unknown && styles.unknownRowActive, pressed && styles.pressed]}>
                   <MaterialDesignIcons
-                    color={unknown ? PURPLE : '#948BB0'}
+                    color={unknown ? theme.colors.primary : theme.colors.textMuted}
                     name={unknown ? 'checkbox-marked-circle' : 'checkbox-blank-circle-outline'}
                     size={18}
                   />
@@ -352,7 +349,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
             <Animated.View style={[styles.card, fadeUp(card1Entrance)]}>
               <View style={styles.cardHeaderRow}>
                 <View style={styles.cardIcon}>
-                  <MaterialDesignIcons color={PURPLE} name="infinity" size={18} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="infinity" size={18} />
                 </View>
                 <View style={styles.cardCopy}>
                   <Text style={styles.cardTitle}>Prise continue</Text>
@@ -388,115 +385,122 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
+    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
-  pageGlowTop: {
-    position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+    pageGlowTop: {
+      position: 'absolute', top: -150, right: -110, width: 330, height: 330,
+      borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
+    pageGlowMiddle: {
+      position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
+      borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
+    pageGlowBottom: {
+      position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
+      borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  safeArea: {flex: 1},
-  content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
-  pressed: {opacity: 0.82},
+    safeArea: {flex: 1},
+    content: {flexGrow: 1, paddingHorizontal: spacing.lg, paddingBottom: spacing.md},
+    pressed: {opacity: 0.82},
 
-  backButton: {
-    width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
-    marginBottom: 5, borderWidth: 1, borderColor: 'rgba(105,73,190,0.08)',
-    borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.88)',
-    shadowColor: '#493276', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
-  },
+    backButton: {
+      width: 42, height: 42, alignItems: 'center', justifyContent: 'center',
+      marginBottom: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08),
+      borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.88),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
+    },
 
-  header: {alignItems: 'center', marginBottom: 14},
-  heroIcon: {
-    position: 'relative', width: 72, height: 72,
-    alignItems: 'center', justifyContent: 'center', marginBottom: 4,
-  },
-  heroGlowOuter: {position: 'absolute', width: 78, height: 78, borderRadius: 39, backgroundColor: 'rgba(105,73,190,0.055)'},
-  heroGlowInner: {position: 'absolute', width: 66, height: 66, borderRadius: 33, backgroundColor: 'rgba(105,73,190,0.07)'},
-  heroInner: {
-    width: 56, height: 56, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: 'rgba(105,73,190,0.14)', borderRadius: 19,
-    shadowColor: '#4E337C', shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
-  },
+    header: {alignItems: 'center', marginBottom: 14},
+    heroIcon: {
+      position: 'relative', width: 72, height: 72,
+      alignItems: 'center', justifyContent: 'center', marginBottom: 4,
+    },
+    heroGlowOuter: {position: 'absolute', width: 78, height: 78, borderRadius: 39, backgroundColor: withAlpha(theme.colors.primary, 0.055)},
+    heroGlowInner: {position: 'absolute', width: 66, height: 66, borderRadius: 33, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
+    heroInner: {
+      width: 56, height: 56, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 19,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.10, shadowRadius: 12, elevation: 4,
+    },
 
-  title: {
-    color: PURPLE_DARK, fontFamily: 'serif', fontSize: 23, lineHeight: 29,
-    fontWeight: '800', textAlign: 'center',
-  },
-  subtitle: {
-    maxWidth: 320, alignSelf: 'center', marginTop: 6, marginBottom: 18,
-    color: TEXT_SECONDARY, fontSize: 13, lineHeight: 19, textAlign: 'center',
-  },
+    title: {
+      color: theme.colors.text, fontFamily: 'serif', fontSize: 23, lineHeight: 29,
+      fontWeight: '800', textAlign: 'center',
+    },
+    subtitle: {
+      maxWidth: 320, alignSelf: 'center', marginTop: 6, marginBottom: 18,
+      color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center',
+    },
 
-  card: {
-    marginBottom: 14, padding: 16, borderWidth: 1, borderColor: 'rgba(111,83,190,0.14)', borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.94)',
-    shadowColor: '#4E337C', shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
-  },
-  cardAccentWarning: {borderColor: 'rgba(199,123,46,0.18)'},
+    card: {
+      marginBottom: 14, padding: 16, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22,
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 1,
+    },
+    // "Jours d'arrêt" (pause) card accent — a structural pause/caution
+    // indicator, not a dose-tracking status (there is no taken/late/missed
+    // grid in this file; that lives in ContraceptionJournalEntryScreen's own
+    // fixed GREEN/ORANGE/DANGER), so it legitimately maps to the design
+    // system's own `warning` token rather than staying a fixed literal.
+    cardAccentWarning: {borderColor: withAlpha(theme.colors.warning, 0.18)},
 
-  cardHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
-  cardIcon: {
-    width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 13, backgroundColor: PURPLE_SOFT,
-  },
-  cardIconWarning: {backgroundColor: WARNING_SOFT},
-  cardCopy: {flex: 1, minWidth: 0},
-  cardTitle: {color: '#291D4E', fontFamily: 'serif', fontSize: 15, lineHeight: 20, fontWeight: '700'},
-  cardSubtitle: {marginTop: 2, color: TEXT_SECONDARY, fontSize: 11.5, lineHeight: 16},
-  cardFootnote: {marginTop: 12, color: TEXT_SECONDARY, fontSize: 10.5, lineHeight: 15},
+    cardHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
+    cardIcon: {
+      width: 36, height: 36, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 13, backgroundColor: theme.colors.primarySoft,
+    },
+    cardIconWarning: {backgroundColor: withAlpha(theme.colors.warning, 0.15)},
+    cardCopy: {flex: 1, minWidth: 0},
+    cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, lineHeight: 20, fontWeight: '700'},
+    cardSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    cardFootnote: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15},
 
-  stepperRow: {marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 18},
-  stepperButton: {
-    width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 22, backgroundColor: PURPLE_SOFT,
-  },
-  stepperValueBlock: {alignItems: 'center', minWidth: 76},
-  stepperValue: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 34, fontWeight: '800'},
-  stepperUnit: {marginTop: 1, color: TEXT_SECONDARY, fontSize: 11.5, fontWeight: '700'},
+    stepperRow: {marginTop: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 18},
+    stepperButton: {
+      width: 44, height: 44, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 22, backgroundColor: theme.colors.primarySoft,
+    },
+    stepperValueBlock: {alignItems: 'center', minWidth: 76},
+    stepperValue: {color: theme.colors.text, fontFamily: 'serif', fontSize: 34, fontWeight: '800'},
+    stepperUnit: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700'},
 
-  summaryCard: {
-    marginBottom: 14, padding: 15, borderWidth: 1, borderColor: 'rgba(111,83,190,0.14)', borderRadius: 20,
-    backgroundColor: '#F8F4FE',
-  },
-  summaryHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 10},
-  summaryTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 13.5, fontWeight: '800'},
-  summaryRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 4},
-  summaryLabel: {color: TEXT_SECONDARY, fontSize: 12.5, fontWeight: '600'},
-  summaryValue: {color: '#291D4E', fontSize: 12.5, fontWeight: '800'},
-  summaryDivider: {height: 1, marginVertical: 6, backgroundColor: 'rgba(111,83,190,0.14)'},
-  summaryTotalLabel: {color: PURPLE_DARK, fontSize: 13, fontWeight: '800'},
-  summaryTotalValue: {color: PURPLE, fontSize: 13, fontWeight: '900'},
+    summaryCard: {
+      marginBottom: 14, padding: 15, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    summaryHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 7, marginBottom: 10},
+    summaryTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 13.5, fontWeight: '800'},
+    summaryRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 4},
+    summaryLabel: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '600'},
+    summaryValue: {color: theme.colors.text, fontSize: 12.5, fontWeight: '800'},
+    summaryDivider: {height: 1, marginVertical: 6, backgroundColor: theme.colors.border},
+    summaryTotalLabel: {color: theme.colors.text, fontSize: 13, fontWeight: '800'},
+    summaryTotalValue: {color: theme.colors.primary, fontSize: 13, fontWeight: '900'},
 
-  unknownRow: {
-    flexDirection: 'row', alignItems: 'center', gap: 10, padding: 13, marginBottom: 10,
-    borderWidth: 1, borderColor: 'rgba(148,139,176,0.22)', borderRadius: 16, backgroundColor: 'rgba(255,255,255,0.7)',
-  },
-  unknownRowActive: {borderColor: PURPLE, backgroundColor: PURPLE_SOFT},
-  unknownCopy: {flex: 1, minWidth: 0},
-  unknownText: {color: '#5A5075', fontSize: 12.5, fontWeight: '700'},
-  unknownTextActive: {color: PURPLE_DARK},
-  unknownSubtext: {marginTop: 2, color: TEXT_SECONDARY, fontSize: 10.5, lineHeight: 14},
+    unknownRow: {
+      flexDirection: 'row', alignItems: 'center', gap: 10, padding: 13, marginBottom: 10,
+      borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.22), borderRadius: 16, backgroundColor: withAlpha(theme.colors.surface, 0.7),
+    },
+    unknownRowActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
+    unknownCopy: {flex: 1, minWidth: 0},
+    unknownText: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '700'},
+    unknownTextActive: {color: theme.colors.text},
+    unknownSubtext: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 14},
 
-  spacer: {flex: 1, minHeight: 12},
+    spacer: {flex: 1, minHeight: 12},
 
-  nextButton: {
-    minHeight: 54, alignItems: 'center', justifyContent: 'center',
-    marginTop: 12, borderRadius: 20, backgroundColor: PURPLE,
-    shadowColor: '#4E319A', shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
-  },
-  nextText: {color: '#FFFFFF', fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
-});
+    nextButton: {
+      minHeight: 54, alignItems: 'center', justifyContent: 'center',
+      marginTop: 12, borderRadius: 20, backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 7}, shadowOpacity: 0.25, shadowRadius: 12, elevation: 6,
+    },
+    nextText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800', letterSpacing: 0.2},
+  });
+}
 
 export default PillScheduleScreen;

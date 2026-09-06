@@ -26,6 +26,8 @@ import {
 import {startOfDay} from '../utils/cycleMath';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
@@ -51,6 +53,8 @@ const localDateKey = (date: Date) =>
 
 function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   // Prefill from the real, previously-saved values so revisiting this screen
   // (Back from a later onboarding step, or the TTC "Configure ton cycle"
@@ -245,7 +249,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -260,7 +264,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         <StatusBar
           hidden={false}
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
         <ScrollView
@@ -525,183 +529,185 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F2ECF8'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {flex: 1, backgroundColor: theme.colors.background},
 
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
 
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
 
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  safeArea: {flex: 1},
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.md,
-  },
-  header: {alignItems: 'center', marginBottom: spacing.lg},
-  title: {
-    color: '#28166F',
-    fontFamily: 'serif',
-    fontSize: 30,
-    fontWeight: '700',
-    lineHeight: 36,
-    textAlign: 'center',
-  },
-  subtitle: {marginTop: 8, color: '#655A8D', fontSize: 13, lineHeight: 19, textAlign: 'center'},
-  form: {gap: 7},
-  label: {marginTop: 5, color: '#55447F', fontSize: 13, fontWeight: '600'},
-  field: {
-    minHeight: 52,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1.25,
-    borderColor: 'rgba(104, 72, 188, 0.24)',
-    borderRadius: 16,
-    backgroundColor: 'rgba(255, 254, 255, 0.94)',
-    paddingHorizontal: 13,
-    shadowColor: '#6848BC',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.045,
-    shadowRadius: 6,
-    elevation: 1,
-  },
-  fieldText: {flex: 1, marginHorizontal: 10, color: '#2A2050', fontSize: 14},
-  fieldPlaceholder: {flex: 1, marginHorizontal: 10, color: '#948BB0', fontSize: 14},
-  fieldError: {borderColor: '#C95565'},
-  fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: '#B4485A', fontSize: 10.5},
-  helperText: {marginTop: 4, marginLeft: 4, color: '#8B81A6', fontSize: 11},
-  calendarFieldIcon: {width: 22, height: 22, resizeMode: 'contain'},
-  chevronIcon: {width: 20, height: 20, resizeMode: 'contain'},
-  regularityRow: {flexDirection: 'row', gap: 8},
-  regularityOption: {
-    minHeight: 48,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.25,
-    borderColor: 'rgba(104, 72, 188, 0.22)',
-    borderRadius: 15,
-    backgroundColor: 'rgba(255, 254, 255, 0.92)',
-    paddingHorizontal: 5,
-    shadowColor: '#6848BC',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.035,
-    shadowRadius: 5,
-    elevation: 1,
-  },
-  regularitySelected: {
-    borderWidth: 1.5,
-    borderColor: '#7656C4',
-    backgroundColor: '#F0E9FA',
-    shadowColor: '#6848BC',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.10,
-    shadowRadius: 7,
-    elevation: 2,
-  },
-  regularityText: {
-    color: '#2A2050',
-    fontSize: 13,
-    textAlign: 'center',
-  },
-  spacer: {flex: 1},
-  nextButton: {
-    minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: '#6949BE',
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.25,
-    shadowRadius: 9,
-    elevation: 5,
-  },
-  nextText: {color: '#FFFFFF', fontSize: 18, fontWeight: '600'},
-  pressed: {opacity: 0.8},
-  modalBackdrop: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(30, 18, 65, 0.40)',
-    padding: spacing.lg,
-  },
-  calendarCard: {
-    width: '100%',
-    maxWidth: 380,
-    borderRadius: 22,
-    backgroundColor: '#FFFCFF',
-    padding: spacing.md,
-    elevation: 12,
-  },
-  calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  calendarArrowButton: {
-    width: 42,
-    height: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 21,
-    backgroundColor: '#F0E8FC',
-  },
-  calendarArrowText: {
-    color: '#6848BC',
-    fontSize: 27,
-    fontWeight: '600',
-    lineHeight: 30,
-  },
-  calendarTitle: {color: '#382174', fontFamily: 'serif', fontSize: 19, fontWeight: '600'},
-  weekRow: {flexDirection: 'row', marginTop: spacing.md},
-  weekDay: {width: '14.2857%', color: '#85739F', fontSize: 12, textAlign: 'center'},
-  daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
-  dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
-  dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
-  daySelected: {backgroundColor: '#6848BC'},
-  dayText: {color: '#2A2050', fontSize: 14},
-  dayTextSelected: {color: '#FFFFFF', fontWeight: '700'},
-  durationCard: {
-    width: '100%',
-    maxWidth: 360,
-    borderRadius: 22,
-    backgroundColor: '#FFFCFF',
-    padding: spacing.md,
-    elevation: 12,
-  },
-  durationTitle: {marginBottom: spacing.md, color: '#382174', fontFamily: 'serif', fontSize: 20, fontWeight: '600', textAlign: 'center'},
-  durationGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center'},
-  durationOption: {minWidth: 82, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#DCCEF1', borderRadius: 12, backgroundColor: '#FAF6FF'},
-  durationOptionText: {color: '#2A2050', fontSize: 13},
-});
+    safeArea: {flex: 1},
+    content: {
+      flexGrow: 1,
+      paddingHorizontal: spacing.lg,
+      paddingBottom: spacing.md,
+    },
+    header: {alignItems: 'center', marginBottom: spacing.lg},
+    title: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 30,
+      fontWeight: '700',
+      lineHeight: 36,
+      textAlign: 'center',
+    },
+    subtitle: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19, textAlign: 'center'},
+    form: {gap: 7},
+    label: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600'},
+    field: {
+      minHeight: 52,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 1.25,
+      borderColor: withAlpha(theme.colors.primary, 0.24),
+      borderRadius: 16,
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
+      paddingHorizontal: 13,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.045,
+      shadowRadius: 6,
+      elevation: 1,
+    },
+    fieldText: {flex: 1, marginHorizontal: 10, color: theme.colors.text, fontSize: 14},
+    fieldPlaceholder: {flex: 1, marginHorizontal: 10, color: theme.colors.textMuted, fontSize: 14},
+    fieldError: {borderColor: theme.colors.danger},
+    fieldErrorText: {marginTop: 4, marginBottom: 2, marginLeft: 4, color: theme.colors.danger, fontSize: 10.5},
+    helperText: {marginTop: 4, marginLeft: 4, color: theme.colors.textMuted, fontSize: 11},
+    calendarFieldIcon: {width: 22, height: 22, resizeMode: 'contain'},
+    chevronIcon: {width: 20, height: 20, resizeMode: 'contain'},
+    regularityRow: {flexDirection: 'row', gap: 8},
+    regularityOption: {
+      minHeight: 48,
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1.25,
+      borderColor: withAlpha(theme.colors.primary, 0.22),
+      borderRadius: 15,
+      backgroundColor: withAlpha(theme.colors.surface, 0.92),
+      paddingHorizontal: 5,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.035,
+      shadowRadius: 5,
+      elevation: 1,
+    },
+    regularitySelected: {
+      borderWidth: 1.5,
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primarySoft,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.10,
+      shadowRadius: 7,
+      elevation: 2,
+    },
+    regularityText: {
+      color: theme.colors.text,
+      fontSize: 13,
+      textAlign: 'center',
+    },
+    spacer: {flex: 1},
+    nextButton: {
+      minHeight: 52,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.25,
+      shadowRadius: 9,
+      elevation: 5,
+    },
+    nextText: {color: onPrimaryTextColor(theme), fontSize: 18, fontWeight: '600'},
+    pressed: {opacity: 0.8},
+    modalBackdrop: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: withAlpha(theme.shadow.shadowColor, 0.40),
+      padding: spacing.lg,
+    },
+    calendarCard: {
+      width: '100%',
+      maxWidth: 380,
+      borderRadius: 22,
+      backgroundColor: theme.colors.surface,
+      padding: spacing.md,
+      elevation: 12,
+    },
+    calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    calendarArrowButton: {
+      width: 42,
+      height: 42,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 21,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    calendarArrowText: {
+      color: theme.colors.primary,
+      fontSize: 27,
+      fontWeight: '600',
+      lineHeight: 30,
+    },
+    calendarTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '600'},
+    weekRow: {flexDirection: 'row', marginTop: spacing.md},
+    weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 12, textAlign: 'center'},
+    daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: spacing.sm},
+    dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
+    dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
+    daySelected: {backgroundColor: theme.colors.primary},
+    dayText: {color: theme.colors.text, fontSize: 14},
+    dayTextSelected: {color: onPrimaryTextColor(theme), fontWeight: '700'},
+    durationCard: {
+      width: '100%',
+      maxWidth: 360,
+      borderRadius: 22,
+      backgroundColor: theme.colors.surface,
+      padding: spacing.md,
+      elevation: 12,
+    },
+    durationTitle: {marginBottom: spacing.md, color: theme.colors.text, fontFamily: 'serif', fontSize: 20, fontWeight: '600', textAlign: 'center'},
+    durationGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, justifyContent: 'center'},
+    durationOption: {minWidth: 82, minHeight: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 12, backgroundColor: theme.colors.primarySoft},
+    durationOptionText: {color: theme.colors.text, fontSize: 13},
+  });
+}
 
 export default CycleInformationScreen;
