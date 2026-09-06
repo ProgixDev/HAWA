@@ -18,7 +18,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
+import {getFloatingTabBarClearance, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
@@ -261,7 +261,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
             styles.scrollContent,
             {
               paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA,
-              paddingBottom: Math.max(insets.bottom, 12) + 22,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 22),
             },
           ]}
           showsVerticalScrollIndicator={false}>

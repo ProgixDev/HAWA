@@ -45,7 +45,7 @@ import {getJournalEntry} from '../state/dailyJournalStore';
 import {withResolvedIntimacyForDisplay} from '../services/privateJournalEncryption';
 import {withResolvedNoteForDisplay} from '../services/privateNotesEncryption';
 import type {DailyJournalEntry} from '../types/journal';
-import {TOP_SPACING_EXTRA} from '../theme/spacing';
+import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
 import {
   computeCyclePredictionStatus,
@@ -334,7 +334,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
         />
 
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 12) + 22}]}
+          contentContainerStyle={[styles.scrollContent, {paddingBottom: getFloatingTabBarClearance(insets.bottom, 22)}]}
           showsVerticalScrollIndicator={false}>
           <Animated.View style={animatedStyle}>
             <HomeHeader

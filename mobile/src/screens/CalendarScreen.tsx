@@ -44,7 +44,7 @@ import {
   startOfDay,
   upcomingDateForCycleDay,
 } from '../utils/cycleMath';
-import {TOP_SPACING_EXTRA} from '../theme/spacing';
+import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
 import {usePremium} from '../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
@@ -346,7 +346,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + (editingPeriod ? 132 : 24)}]}
+          contentContainerStyle={[styles.scrollContent, {paddingBottom: getFloatingTabBarClearance(insets.bottom, editingPeriod ? 132 : 24)}]}
           showsVerticalScrollIndicator={false}>
           <CalendarHeader
             onPressFilters={() => setFiltersVisible(true)}

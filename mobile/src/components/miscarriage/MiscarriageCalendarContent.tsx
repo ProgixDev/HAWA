@@ -46,7 +46,7 @@ import {
   type MiscarriageJournalEntry,
 } from '../../state/miscarriageJournalStore';
 import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingAgainDisplay';
-import { TOP_SPACING_EXTRA } from '../../theme/spacing';
+import { TOP_SPACING_EXTRA, getFloatingTabBarClearance } from '../../theme/spacing';
 import { getSpiritualMarkersEnabled } from '../../state/onboardingPreferences';
 import { usePremium } from '../../hooks/usePremium';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
@@ -431,7 +431,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: Math.max(insets.bottom, 16) + 30 },
+            { paddingBottom: getFloatingTabBarClearance(insets.bottom, 30) },
           ]}
           showsVerticalScrollIndicator={false}
         >

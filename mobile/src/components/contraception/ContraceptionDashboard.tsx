@@ -26,6 +26,7 @@ import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getFloatingTabBarClearance} from '../../theme/spacing';
 
 import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {
@@ -1205,11 +1206,7 @@ function ContraceptionDashboard({
           contentContainerStyle={[
             styles.scrollContent,
             {
-              paddingBottom:
-                Math.max(
-                  insets.bottom,
-                  12,
-                ) + 48,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 48),
             },
           ]}
           showsVerticalScrollIndicator={

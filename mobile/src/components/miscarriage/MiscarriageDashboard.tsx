@@ -35,6 +35,7 @@ import QuickActionsGrid, {
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
+import { getFloatingTabBarClearance } from '../../theme/spacing';
 
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
@@ -690,7 +691,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
             styles.scrollContent,
             compact && styles.scrollContentCompact,
             {
-              paddingBottom: Math.max(insets.bottom, 12) + 42,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 42),
             },
           ]}
           showsVerticalScrollIndicator={false}
