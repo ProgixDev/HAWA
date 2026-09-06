@@ -17,10 +17,9 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
-import {
-  homeColors,
-  homeShadow,
-} from '../components/home/homeTheme';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getFloatingTabBarClearance} from '../theme/spacing';
 import {usePremium} from '../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
@@ -91,10 +90,13 @@ function SectionHeader({
   title: string;
   subtitle?: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.sectionHeader}>
       <View style={styles.sectionIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={21} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={21} />
       </View>
 
       <View style={styles.sectionHeaderCopy}>
@@ -119,10 +121,13 @@ function DataNotice({
   title: string;
   detail: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.notice}>
       <View style={styles.noticeIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={20} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={20} />
       </View>
 
       <View style={styles.noticeCopy}>
@@ -141,6 +146,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width} = useWindowDimensions();
   const compact = width < 370;
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
@@ -213,7 +221,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -225,13 +233,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
       </View>
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
           contentContainerStyle={[
             styles.scrollContent,
             compact && styles.scrollContentCompact,
-            {paddingBottom: Math.max(insets.bottom, 16) + 120},
+            {paddingBottom: getFloatingTabBarClearance(insets.bottom, 120)},
           ]}
           showsVerticalScrollIndicator={false}>
           {/* ==================================================
@@ -246,7 +254,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
             <View style={styles.headerIcon}>
               <MaterialDesignIcons
-                color={homeColors.primary}
+                color={theme.colors.primary}
                 name="chart-timeline-variant-shimmer"
                 size={25}
               />
@@ -279,7 +287,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                     </Text>
 
                     {locked ? (
-                      <MaterialDesignIcons color={homeColors.textSecondary} name="lock-outline" size={10} />
+                      <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
                     ) : null}
                   </View>
                 </Pressable>
@@ -315,7 +323,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.periodBadge}>
-                  <MaterialDesignIcons color={homeColors.primary} name="calendar-range" size={18} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="calendar-range" size={18} />
                   <Text style={styles.periodBadgeText}>{monthsLabel}</Text>
                 </View>
               </View>
@@ -393,7 +401,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                       <View style={styles.flowTop}>
                         <View style={styles.flowIcon}>
                           <MaterialDesignIcons
-                            color={homeColors.primary}
+                            color={theme.colors.primary}
                             name={FLOW_ICONS[item.intensity]}
                             size={18}
                           />
@@ -505,7 +513,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           =================================================== */}
 
           <View style={styles.medicalHint}>
-            <MaterialDesignIcons color={homeColors.primary} name="information-outline" size={17} />
+            <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
 
             <Text style={styles.medicalHintText}>
               Ces tendances, basées sur tes données réelles, peuvent t’aider à mieux décrire ton historique lors
@@ -524,10 +532,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -542,7 +551,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -552,7 +561,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
 
   pageGlowBottom: {
@@ -562,7 +571,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: {
@@ -591,7 +600,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 28,
     lineHeight: 34,
@@ -601,13 +610,13 @@ const styles = StyleSheet.create({
   subtitle: {
     maxWidth: 300,
     marginTop: 3,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 17,
   },
 
   headerIcon: {
-    ...homeShadow,
+    ...theme.shadow,
     width: 49,
     height: 49,
     flexShrink: 0,
@@ -615,9 +624,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 10,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   filters: {
@@ -625,9 +634,9 @@ const styles = StyleSheet.create({
     padding: 4,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.05)',
+    borderColor: withAlpha(theme.colors.primary, 0.05),
     borderRadius: 17,
-    backgroundColor: '#EEE8F5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   filterButton: {
@@ -639,8 +648,8 @@ const styles = StyleSheet.create({
   },
 
   filterButtonActive: {
-    ...homeShadow,
-    backgroundColor: '#FFFFFF',
+    ...theme.shadow,
+    backgroundColor: theme.colors.surface,
   },
 
   filterButtonContent: {
@@ -650,18 +659,18 @@ const styles = StyleSheet.create({
   },
 
   filterText: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     fontWeight: '700',
   },
 
   filterTextActive: {
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
   filterTextLocked: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
   },
 
   sectionHeading: {
@@ -670,7 +679,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 19,
     fontWeight: '800',
@@ -678,19 +687,19 @@ const styles = StyleSheet.create({
 
   sectionDescription: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
   },
 
   cycleHero: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     padding: 17,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 27,
-    backgroundColor: 'rgba(255,255,255,0.96)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
   heroDecorationOne: {
@@ -700,7 +709,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
-    backgroundColor: 'rgba(105,73,190,0.06)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.06),
   },
 
   heroDecorationTwo: {
@@ -710,7 +719,7 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 28,
-    backgroundColor: 'rgba(198,174,235,0.18)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.18),
   },
 
   heroTop: {
@@ -724,8 +733,11 @@ const styles = StyleSheet.create({
     minWidth: 0,
   },
 
+  // Small muted-purple caption — numerically and semantically closer to
+  // textMuted than to solid primary (see StatisticsPeriodSelector precedent
+  // in ContraceptionStatisticsScreen.tsx's own heroEyebrow).
   heroEyebrow: {
-    color: '#9179C8',
+    color: theme.colors.textMuted,
     fontSize: 9,
     fontWeight: '800',
     letterSpacing: 1,
@@ -738,7 +750,7 @@ const styles = StyleSheet.create({
   },
 
   heroNumber: {
-    color: '#28166F',
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 48,
     lineHeight: 53,
@@ -750,7 +762,7 @@ const styles = StyleSheet.create({
   },
 
   heroUnit: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
@@ -762,14 +774,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 9,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   periodBadgeText: {
     marginTop: 4,
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontSize: 9,
     lineHeight: 12,
     fontWeight: '800',
@@ -779,11 +791,11 @@ const styles = StyleSheet.create({
   heroDivider: {
     height: StyleSheet.hairlineWidth,
     marginVertical: 14,
-    backgroundColor: '#E9E2F0',
+    backgroundColor: theme.colors.border,
   },
 
   heroFootnote: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -794,9 +806,9 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 15,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.85)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.85),
   },
 
   noticeIcon: {
@@ -806,7 +818,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   noticeCopy: {
@@ -815,26 +827,26 @@ const styles = StyleSheet.create({
   },
 
   noticeTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 12.5,
     fontWeight: '800',
   },
 
   noticeDetail: {
     marginTop: 3,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
 
   card: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 14,
     padding: 15,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 23,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   sectionHeader: {
@@ -850,7 +862,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 10,
     borderRadius: 14,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   sectionHeaderCopy: {
@@ -859,7 +871,7 @@ const styles = StyleSheet.create({
   },
 
   cardTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
@@ -867,7 +879,7 @@ const styles = StyleSheet.create({
 
   cardSubtitle: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 13,
   },
@@ -891,19 +903,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 11,
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   flowLabel: {
     flex: 1,
     marginLeft: 9,
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '700',
   },
 
   flowValue: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
   },
 
@@ -913,9 +925,15 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginLeft: 41,
     borderRadius: 3,
-    backgroundColor: '#EFE9F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
+  // Category A generic decorative fill — every flow intensity uses this
+  // exact same color (see FLOW_ICONS above: intensities are told apart by
+  // icon shape/label, never by color), so it carries no category/series
+  // meaning of its own. Left as a fixed literal rather than theme.colors.*
+  // so it keeps reading as a distinct, softer tone from the solid brand
+  // purple used for icons/active states elsewhere on this same card.
   flowFill: {
     height: '100%',
     borderRadius: 3,
@@ -929,7 +947,7 @@ const styles = StyleSheet.create({
   symptomItem: {
     paddingVertical: 11,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE6F1',
+    borderBottomColor: theme.colors.border,
   },
 
   symptomTop: {
@@ -944,11 +962,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   rankText: {
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontSize: 10.5,
     fontWeight: '800',
   },
@@ -957,7 +975,7 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     marginHorizontal: 9,
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '700',
   },
@@ -966,11 +984,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 9,
-    backgroundColor: '#F5F1F9',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   symptomDays: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 8.5,
     fontWeight: '700',
   },
@@ -981,9 +999,12 @@ const styles = StyleSheet.create({
     marginTop: 7,
     marginLeft: 38,
     borderRadius: 3,
-    backgroundColor: '#EFE9F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
+  // Same intentionally-fixed generic fill as flowFill above (see its
+  // comment) — every symptom row shares this one color regardless of which
+  // symptom it is.
   symptomFill: {
     height: '100%',
     borderRadius: 3,
@@ -1000,7 +1021,7 @@ const styles = StyleSheet.create({
 
   monthListTitle: {
     marginBottom: 6,
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '800',
   },
@@ -1008,7 +1029,7 @@ const styles = StyleSheet.create({
   monthItem: {
     paddingVertical: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE6F1',
+    borderBottomColor: theme.colors.border,
   },
 
   monthTop: {
@@ -1018,13 +1039,13 @@ const styles = StyleSheet.create({
   },
 
   monthLabel: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '800',
   },
 
   monthMeta: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
   },
 
@@ -1039,11 +1060,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F5F1F9',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   chipText: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
   },
@@ -1055,15 +1076,16 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 12,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.6),
   },
 
   medicalHintText: {
     flex: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 14,
   },
-});
+  });
+}
 
 export default StatisticsScreen;

@@ -17,10 +17,9 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {
-  homeColors,
-  homeShadow,
-} from '../../components/home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getFloatingTabBarClearance} from '../../theme/spacing';
 
 import {usePremium} from '../../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
@@ -68,34 +67,27 @@ import {
   startOfDay,
 } from '../../utils/cycleMath';
 
-const PURPLE =
-  homeColors.primary;
+// PHASE E5 — PURPLE/PURPLE_DARK/PURPLE_SOFT/MUTED/BORDER used to be fixed
+// homeColors-derived literals here; they are now derived from useAwaTheme()
+// at the top of ContraceptionStatisticsScreen() (and re-derived identically
+// inside createStyles(theme), and inside DistributionBar/TrendColumn/
+// LegendDot below) so every decorative-purple usage in this file follows
+// the resolved global theme — same pattern already used by
+// ContraceptionDashboard.tsx / ContraceptionCalendarContent.tsx.
+// SUCCESS/SUCCESS_SOFT/DANGER/WARNING (health-status semantics) stay fixed
+// module literals — exactly the pre-existing values this file already used
+// (via homeColors.green/greenLight before this migration) — never
+// theme-driven, so the meaning of "taken"/"late"/"missed" never changes
+// with the palette.
+const SUCCESS = '#3E8E56';
+const SUCCESS_SOFT = '#E4F3E7';
 
-const PURPLE_DARK =
-  homeColors.textPrimary;
-
-const PURPLE_SOFT =
-  homeColors.lightLavender;
-
-const MUTED =
-  homeColors.textSecondary;
-
-const SUCCESS =
-  homeColors.green;
-
-const SUCCESS_SOFT =
-  homeColors.greenLight;
-
-const DANGER =
-  '#D96176';
+const DANGER = '#D96176';
 
 // Same hex as ContraceptionJournalEntryScreen.tsx's/ContraceptionDashboard.tsx's/
 // ContraceptionCalendarContent.tsx's local warning color — the 'late'
 // status's color everywhere it's shown.
 const WARNING = '#C77B2E';
-
-const BORDER =
-  homeColors.cardBorder;
 
 type PeriodMonths =
   | 1
@@ -160,6 +152,19 @@ const localDateKey = (
 function ContraceptionStatisticsScreen(): React.JSX.Element {
   const insets =
     useSafeAreaInsets();
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // PHASE E5 — decorative-brand-purple identifiers, now theme-derived (see
+  // the module-level comment above where these used to be homeColors-derived
+  // literals). SUCCESS/WARNING/DANGER (health-status semantics) stay fixed
+  // module consts, untouched. Only PURPLE/MUTED are referenced directly in
+  // this component's JSX below — PURPLE_DARK/PURPLE_SOFT are only ever used
+  // inside createStyles(theme) (re-derived there identically), so they are
+  // not redeclared here too.
+  const PURPLE = theme.colors.primary;
+  const MUTED = theme.colors.textMuted;
 
   const today =
     useMemo(
@@ -566,12 +571,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={[
-        '#FAF8FD',
-        '#F4EFFA',
-        '#EEE7F7',
-        '#E9E1F3',
-      ]}
+      colors={[...theme.gradients.pageBackground]}
       locations={[
         0,
         0.32,
@@ -619,7 +619,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
         }>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -633,11 +633,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   14,
                 ) + 10,
 
-              paddingBottom:
-                Math.max(
-                  insets.bottom,
-                  16,
-                ) + 24,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 24),
             },
           ]}
           showsVerticalScrollIndicator={
@@ -732,7 +728,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           {locked ? (
                             <MaterialDesignIcons
                               color={
-                                homeColors.textSecondary
+                                MUTED
                               }
                               name="lock-outline"
                               size={
@@ -1402,6 +1398,9 @@ function DistributionBar({
   maxValue: number;
   color: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const widthPercent =
     Math.max(
       4,
@@ -1465,6 +1464,9 @@ function TrendColumn({
   bucket: ContraceptionPeriodBucket;
   maxValue: number;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const takenHeight =
     Math.max(
       3,
@@ -1561,6 +1563,9 @@ function LegendDot({
   color: string;
   label: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View
       style={
@@ -1586,12 +1591,17 @@ function LegendDot({
   );
 }
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  const PURPLE = theme.colors.primary;
+  const PURPLE_DARK = theme.colors.accent;
+  const PURPLE_SOFT = theme.colors.primarySoft;
+  const MUTED = theme.colors.textMuted;
+
+  return StyleSheet.create({
     background: {
       flex: 1,
       backgroundColor:
-        '#F2ECF8',
+        theme.colors.background,
     },
 
     pageBackgroundDecor: {
@@ -1607,7 +1617,7 @@ const styles =
       height: 330,
       borderRadius: 165,
       backgroundColor:
-        'rgba(111,82,170,0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     pageGlowMiddle: {
@@ -1618,7 +1628,7 @@ const styles =
       height: 260,
       borderRadius: 130,
       backgroundColor:
-        'rgba(139,112,188,0.045)',
+        withAlpha(theme.colors.primary, 0.045),
     },
 
     pageGlowBottom: {
@@ -1629,7 +1639,7 @@ const styles =
       height: 310,
       borderRadius: 155,
       backgroundColor:
-        'rgba(92,67,139,0.05)',
+        withAlpha(theme.colors.primary, 0.05),
     },
 
     safeArea: {
@@ -1683,14 +1693,14 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        BORDER,
+        withAlpha(theme.colors.primary, 0.14),
 
       borderRadius: 24,
 
       backgroundColor:
-        'rgba(255,255,255,0.98)',
+        withAlpha(theme.colors.surface, 0.98),
 
-      ...homeShadow,
+      ...theme.shadow,
     },
 
     periodRow: {
@@ -1750,7 +1760,7 @@ const styles =
 
     periodButtonTextActive: {
       color:
-        '#FFFFFF',
+        onPrimaryTextColor(theme),
     },
 
     emptyIcon: {
@@ -1994,7 +2004,7 @@ const styles =
       borderRadius: 4,
 
       backgroundColor:
-        '#EFEAF6',
+        theme.colors.primarySoft,
     },
 
     distributionFill: {
@@ -2198,7 +2208,7 @@ const styles =
 
     selectedRowIconMuted: {
       backgroundColor:
-        '#F0EDF4',
+        theme.colors.surfaceSecondary,
     },
 
     selectedRowTextGroup: {
@@ -2238,5 +2248,6 @@ const styles =
         0.82,
     },
   });
+}
 
 export default ContraceptionStatisticsScreen;

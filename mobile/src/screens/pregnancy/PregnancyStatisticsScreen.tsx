@@ -20,10 +20,11 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {
-  homeColors,
-  homeShadow,
-} from '../../components/home/homeTheme';
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../../theme/awaThemeTokens';
 import {
   getPregnancyJournalState,
   type PregnancyJournalState,
@@ -52,7 +53,7 @@ import {
   formatMonthLabel,
 } from '../../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
-import {spacing} from '../../theme/spacing';
+import {getFloatingTabBarClearance, spacing} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
@@ -61,11 +62,11 @@ import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeri
    ASSETS / CONSTANTS
 ============================================================ */
 
-const PURPLE = homeColors.primary;
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F1EBFA';
-const PURPLE_SURFACE = '#F8F4FC';
-const TEXT_SECONDARY = homeColors.textSecondary;
+// The module-level color constants this screen used to hardcode (a purple,
+// a darker purple, a soft-purple tint, a purple surface tint, a secondary
+// text tone) now live on the resolved theme's `colors.*` (see useAwaTheme())
+// and are read fresh inside every component/createStyles() below instead of
+// being frozen at module scope.
 
 const PREGNANCY_TOTAL_WEEKS = 40;
 // Standard obstetric convention (40 weeks = 280 days) — same total this
@@ -297,6 +298,8 @@ function EmptyState({
   text: string;
   icon?: IconName;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.empty}>
       <View
@@ -304,7 +307,7 @@ function EmptyState({
           styles.emptyIcon
         }>
         <MaterialDesignIcons
-          color="#9E89C8"
+          color={theme.colors.textMuted}
           name={icon}
           size={23}
         />
@@ -333,6 +336,8 @@ function SectionHeader({
   title: string;
   subtitle?: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View
       style={
@@ -343,7 +348,7 @@ function SectionHeader({
           styles.sectionIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={20}
         />
@@ -388,6 +393,8 @@ function KpiCard({
   label: string;
   wide?: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View
       style={[
@@ -400,7 +407,7 @@ function KpiCard({
           styles.kpiIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={20}
         />
@@ -446,6 +453,8 @@ function WellnessCard({
   supporting?: string;
   wide?: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View
       style={[
@@ -462,14 +471,14 @@ function WellnessCard({
             styles.wellnessIcon
           }>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name={icon}
             size={21}
           />
         </View>
 
         <MaterialDesignIcons
-          color="#C1B3D8"
+          color={theme.colors.textMuted}
           name="chart-line"
           size={16}
         />
@@ -516,6 +525,8 @@ function WeightBar({
   min: number;
   max: number;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const span = Math.max(
     max - min,
     0.4,
@@ -583,6 +594,9 @@ function WeightBar({
 ============================================================ */
 
 function PregnancyStatisticsScreen(): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets =
     useSafeAreaInsets();
 
@@ -1649,7 +1663,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -1672,7 +1686,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
         }>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -1684,11 +1698,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               styles.contentCompact,
 
             {
-              paddingBottom:
-                Math.max(
-                  insets.bottom,
-                  16,
-                ) + 30,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 30),
             },
           ]}
           showsVerticalScrollIndicator={
@@ -1727,7 +1737,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               }>
               <MaterialDesignIcons
                 color={
-                  PURPLE
+                  theme.colors.primary
                 }
                 name="chart-timeline-variant-shimmer"
                 size={25}
@@ -1913,7 +1923,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     }>
                     <MaterialDesignIcons
                       color={
-                        PURPLE
+                        theme.colors.primary
                       }
                       name="progress-clock"
                       size={18}
@@ -1963,7 +1973,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     }>
                     <MaterialDesignIcons
                       color={
-                        PURPLE
+                        theme.colors.primary
                       }
                       name="calendar-heart"
                       size={18}
@@ -2042,7 +2052,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 }>
                 <MaterialDesignIcons
                   color={
-                    PURPLE
+                    theme.colors.primary
                   }
                   name="information-outline"
                   size={17}
@@ -2212,8 +2222,8 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                           undefined &&
                         weightDelta <
                           0
-                          ? '#A8505A'
-                          : PURPLE
+                          ? theme.colors.danger
+                          : theme.colors.primary
                       }
                       name={
                         weightDelta ===
@@ -2271,7 +2281,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     }>
                     <MaterialDesignIcons
                       color={
-                        PURPLE
+                        theme.colors.primary
                       }
                       name="information-outline"
                       size={17}
@@ -2392,7 +2402,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                               }>
                               <MaterialDesignIcons
                                 color={
-                                  PURPLE
+                                  theme.colors.primary
                                 }
                                 name="calendar-blank-outline"
                                 size={15}
@@ -3093,6 +3103,8 @@ function DetailRow({
   value: string;
   last?: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View
       style={[
@@ -3106,7 +3118,7 @@ function DetailRow({
           styles.detailIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={18}
         />
@@ -3139,14 +3151,15 @@ function DetailRow({
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   /* ==========================================================
      GLOBAL
   ========================================================== */
 
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
   pageBackgroundDecor: {
     ...StyleSheet.absoluteFillObject,
@@ -3159,7 +3172,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
   pageGlowMiddle: {
     position: 'absolute',
@@ -3168,7 +3181,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
   pageGlowBottom: {
     position: 'absolute',
@@ -3177,7 +3190,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: {
@@ -3212,7 +3225,7 @@ const styles = StyleSheet.create({
 
   title: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 27,
@@ -3226,14 +3239,14 @@ const styles = StyleSheet.create({
     marginTop: 3,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 11.5,
     lineHeight: 17,
   },
 
   headerIcon: {
-    ...homeShadow,
+    ...theme.shadow,
 
     width: 48,
     height: 48,
@@ -3247,11 +3260,11 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.08)',
+      withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
 
     backgroundColor:
-      '#F1EAFB',
+      theme.colors.primarySoft,
   },
 
   /* ==========================================================
@@ -3259,7 +3272,7 @@ const styles = StyleSheet.create({
   ========================================================== */
 
   heroCard: {
-    ...homeShadow,
+    ...theme.shadow,
 
     position: 'relative',
 
@@ -3269,11 +3282,11 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.09)',
+      withAlpha(theme.colors.primary, 0.09),
     borderRadius: 27,
 
     backgroundColor:
-      'rgba(255,255,255,0.96)',
+      withAlpha(theme.colors.surface, 0.96),
   },
 
   heroDecorOne: {
@@ -3288,7 +3301,7 @@ const styles = StyleSheet.create({
     borderRadius: 65,
 
     backgroundColor:
-      'rgba(105,73,190,0.055)',
+      withAlpha(theme.colors.primary, 0.055),
   },
 
   heroDecorTwo: {
@@ -3303,7 +3316,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
 
     backgroundColor:
-      'rgba(218,193,240,0.17)',
+      withAlpha(theme.colors.primary, 0.17),
   },
 
   heroTop: {
@@ -3319,7 +3332,7 @@ const styles = StyleSheet.create({
   },
 
   heroEyebrow: {
-    color: '#9078C3',
+    color: theme.colors.primary,
 
     fontSize: 9,
     fontWeight: '800',
@@ -3335,7 +3348,7 @@ const styles = StyleSheet.create({
   },
 
   heroWeekNumber: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 48,
@@ -3349,7 +3362,7 @@ const styles = StyleSheet.create({
 
   heroWeekLabel: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 17,
@@ -3360,7 +3373,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 10.5,
     fontWeight: '600',
@@ -3379,15 +3392,15 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.12)',
+      withAlpha(theme.colors.primary, 0.12),
     borderRadius: 32,
 
     backgroundColor:
-      '#F2EBFB',
+      theme.colors.primarySoft,
   },
 
   heroPercentValue: {
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 17,
     fontWeight: '800',
@@ -3397,7 +3410,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 7.5,
   },
@@ -3413,7 +3426,7 @@ const styles = StyleSheet.create({
 
   heroProgressLabel: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 10.5,
     fontWeight: '800',
@@ -3421,7 +3434,7 @@ const styles = StyleSheet.create({
 
   heroProgressRight: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9,
   },
@@ -3436,7 +3449,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
 
     backgroundColor:
-      '#ECE5F6',
+      theme.colors.primarySoft,
   },
 
   heroProgressFill: {
@@ -3445,7 +3458,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
 
     backgroundColor:
-      PURPLE,
+      theme.colors.primary,
   },
 
   heroMeta: {
@@ -3459,7 +3472,7 @@ const styles = StyleSheet.create({
       StyleSheet.hairlineWidth,
 
     borderTopColor:
-      '#EAE3F1',
+      withAlpha(theme.colors.primary, 0.10),
   },
 
   heroMetaItem: {
@@ -3482,7 +3495,7 @@ const styles = StyleSheet.create({
     borderRadius: 11,
 
     backgroundColor:
-      '#F0E9FA',
+      theme.colors.primarySoft,
   },
 
   heroMetaCopy: {
@@ -3494,7 +3507,7 @@ const styles = StyleSheet.create({
 
   heroMetaLabel: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 8.5,
   },
@@ -3503,7 +3516,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 11,
     fontWeight: '800',
@@ -3516,7 +3529,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
 
     backgroundColor:
-      '#E5DDEC',
+      withAlpha(theme.colors.primary, 0.14),
   },
 
   /* ==========================================================
@@ -3538,7 +3551,7 @@ const styles = StyleSheet.create({
 
   sectionTitle: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 18,
@@ -3549,7 +3562,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 10.5,
   },
@@ -3566,7 +3579,7 @@ const styles = StyleSheet.create({
   },
 
   kpiCard: {
-    ...homeShadow,
+    ...theme.shadow,
 
     width: '48.5%',
     minWidth: 0,
@@ -3577,11 +3590,11 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.08)',
+      withAlpha(theme.colors.primary, 0.08),
     borderRadius: 19,
 
     backgroundColor:
-      '#FFFFFF',
+      theme.colors.surface,
   },
 
   kpiCardWide: {
@@ -3603,7 +3616,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
 
     backgroundColor:
-      PURPLE_SOFT,
+      theme.colors.primarySoft,
   },
 
   kpiCopy: {
@@ -3615,7 +3628,7 @@ const styles = StyleSheet.create({
 
   kpiValue: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 15,
     lineHeight: 18,
@@ -3626,7 +3639,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9.5,
   },
@@ -3636,7 +3649,7 @@ const styles = StyleSheet.create({
   ========================================================== */
 
   card: {
-    ...homeShadow,
+    ...theme.shadow,
 
     marginTop: 14,
 
@@ -3644,11 +3657,11 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.08)',
+      withAlpha(theme.colors.primary, 0.08),
     borderRadius: 23,
 
     backgroundColor:
-      '#FFFFFF',
+      theme.colors.surface,
   },
 
   sectionHeader: {
@@ -3670,7 +3683,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
 
     backgroundColor:
-      PURPLE_SOFT,
+      theme.colors.primarySoft,
   },
 
   sectionHeaderCopy: {
@@ -3680,7 +3693,7 @@ const styles = StyleSheet.create({
 
   cardTitle: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 16,
@@ -3691,7 +3704,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9.5,
     lineHeight: 13,
@@ -3718,7 +3731,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
 
     backgroundColor:
-      '#F2ECFA',
+      theme.colors.primarySoft,
   },
 
   emptyText: {
@@ -3727,7 +3740,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 11,
     lineHeight: 16,
@@ -3752,7 +3765,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
 
     backgroundColor:
-      PURPLE_SURFACE,
+      theme.colors.primarySoft,
   },
 
   weightSummaryCopy: {
@@ -3762,7 +3775,7 @@ const styles = StyleSheet.create({
 
   metricLabel: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9.5,
   },
@@ -3770,7 +3783,7 @@ const styles = StyleSheet.create({
   metricValue: {
     marginTop: 2,
 
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 23,
@@ -3781,7 +3794,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9,
   },
@@ -3802,30 +3815,30 @@ const styles = StyleSheet.create({
     borderRadius: 14,
 
     backgroundColor:
-      '#ECE4FA',
+      theme.colors.primarySoft,
   },
 
   deltaBadgeNegative: {
     backgroundColor:
-      '#FBECEF',
+      withAlpha(theme.colors.danger, 0.12),
   },
 
   deltaValue: {
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 10.5,
     fontWeight: '800',
   },
 
   deltaValueNegative: {
-    color: '#A8505A',
+    color: theme.colors.danger,
   },
 
   deltaLabel: {
     marginTop: 1,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 6.8,
   },
@@ -3843,14 +3856,14 @@ const styles = StyleSheet.create({
     borderRadius: 13,
 
     backgroundColor:
-      '#F6F2FA',
+      theme.colors.primarySoft,
   },
 
   hint: {
     flex: 1,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 10,
     lineHeight: 14,
@@ -3871,7 +3884,7 @@ const styles = StyleSheet.create({
 
   chartTitle: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -3879,7 +3892,7 @@ const styles = StyleSheet.create({
 
   chartHint: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 8.5,
   },
@@ -3908,7 +3921,7 @@ const styles = StyleSheet.create({
 
   barValue: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 8,
     fontWeight: '700',
@@ -3930,7 +3943,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
 
     backgroundColor:
-      '#F0EAF7',
+      theme.colors.primarySoft,
   },
 
   barFill: {
@@ -3939,12 +3952,12 @@ const styles = StyleSheet.create({
     borderRadius: 7,
 
     backgroundColor:
-      '#8D6ED5',
+      theme.colors.primary,
   },
 
   barDate: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 7,
   },
@@ -3964,7 +3977,7 @@ const styles = StyleSheet.create({
 
   historyTitle: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -3977,12 +3990,12 @@ const styles = StyleSheet.create({
     borderRadius: 9,
 
     backgroundColor:
-      '#F2ECF8',
+      theme.colors.primarySoft,
   },
 
   historyCountText: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 8,
     fontWeight: '700',
@@ -4002,7 +4015,7 @@ const styles = StyleSheet.create({
       StyleSheet.hairlineWidth,
 
     borderBottomColor:
-      '#ECE6F1',
+      withAlpha(theme.colors.primary, 0.10),
   },
 
   historyDateIcon: {
@@ -4017,7 +4030,7 @@ const styles = StyleSheet.create({
     borderRadius: 9,
 
     backgroundColor:
-      '#F4EFFA',
+      theme.colors.primarySoft,
   },
 
   weightHistoryDate: {
@@ -4025,14 +4038,14 @@ const styles = StyleSheet.create({
     minWidth: 0,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 10.5,
   },
 
   weightHistoryValue: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -4043,7 +4056,7 @@ const styles = StyleSheet.create({
 
     marginLeft: 8,
 
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 9.5,
     fontWeight: '800',
@@ -4052,7 +4065,7 @@ const styles = StyleSheet.create({
   },
 
   weightHistoryDeltaNegative: {
-    color: '#A8505A',
+    color: theme.colors.danger,
   },
 
   lastRow: {
@@ -4074,7 +4087,7 @@ const styles = StyleSheet.create({
       StyleSheet.hairlineWidth,
 
     borderBottomColor:
-      '#ECE6F1',
+      withAlpha(theme.colors.primary, 0.10),
   },
 
   symptomItemLast: {
@@ -4098,11 +4111,11 @@ const styles = StyleSheet.create({
     borderRadius: 9,
 
     backgroundColor:
-      PURPLE_SOFT,
+      theme.colors.primarySoft,
   },
 
   rankText: {
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 10.5,
     fontWeight: '800',
@@ -4115,7 +4128,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 9,
 
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 12,
     fontWeight: '700',
@@ -4128,12 +4141,12 @@ const styles = StyleSheet.create({
     borderRadius: 9,
 
     backgroundColor:
-      '#F5F1F9',
+      theme.colors.primarySoft,
   },
 
   symptomCount: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 8.5,
     fontWeight: '700',
@@ -4150,7 +4163,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
 
     backgroundColor:
-      '#EFE9F5',
+      theme.colors.primarySoft,
   },
 
   symptomProgressFill: {
@@ -4159,7 +4172,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
 
     backgroundColor:
-      '#9A7ADD',
+      theme.colors.primary,
   },
 
   /* ==========================================================
@@ -4174,7 +4187,7 @@ const styles = StyleSheet.create({
   },
 
   wellnessCard: {
-    ...homeShadow,
+    ...theme.shadow,
 
     width: '48.5%',
     minWidth: 0,
@@ -4185,11 +4198,11 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.07)',
+      withAlpha(theme.colors.primary, 0.07),
     borderRadius: 20,
 
     backgroundColor:
-      '#FFFFFF',
+      theme.colors.surface,
   },
 
   wellnessCardWide: {
@@ -4213,14 +4226,14 @@ const styles = StyleSheet.create({
     borderRadius: 13,
 
     backgroundColor:
-      PURPLE_SOFT,
+      theme.colors.primarySoft,
   },
 
   wellnessValue: {
     marginTop: 11,
 
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 17,
@@ -4232,7 +4245,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 10.5,
     fontWeight: '700',
@@ -4242,7 +4255,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 8.5,
   },
@@ -4261,7 +4274,7 @@ const styles = StyleSheet.create({
       StyleSheet.hairlineWidth,
 
     borderBottomColor:
-      '#ECE6F1',
+      withAlpha(theme.colors.primary, 0.10),
   },
 
   detailIcon: {
@@ -4278,7 +4291,7 @@ const styles = StyleSheet.create({
     borderRadius: 11,
 
     backgroundColor:
-      '#F2ECFA',
+      theme.colors.primarySoft,
   },
 
   detailCopy: {
@@ -4288,7 +4301,7 @@ const styles = StyleSheet.create({
 
   detailLabel: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 10.5,
     fontWeight: '800',
@@ -4298,7 +4311,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
 
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9.5,
     lineHeight: 13,
@@ -4319,7 +4332,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
 
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -4332,7 +4345,7 @@ const styles = StyleSheet.create({
       StyleSheet.hairlineWidth,
 
     borderBottomColor:
-      '#ECE6F1',
+      withAlpha(theme.colors.primary, 0.10),
   },
 
   monthTop: {
@@ -4344,7 +4357,7 @@ const styles = StyleSheet.create({
 
   monthLabel: {
     color:
-      homeColors.textPrimary,
+      theme.colors.accent,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -4352,7 +4365,7 @@ const styles = StyleSheet.create({
 
   monthMeta: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9.5,
   },
@@ -4373,16 +4386,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 
     backgroundColor:
-      '#F5F1F9',
+      theme.colors.primarySoft,
   },
 
   chipText: {
     color:
-      TEXT_SECONDARY,
+      theme.colors.textSecondary,
 
     fontSize: 9.5,
     fontWeight: '700',
   },
-});
+  });
+}
 
 export default PregnancyStatisticsScreen;

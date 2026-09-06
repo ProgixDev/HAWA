@@ -16,10 +16,9 @@ import {
 } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
-import {
-  homeColors,
-  homeShadow,
-} from '../../components/home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getFloatingTabBarClearance} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import {
@@ -95,10 +94,12 @@ function SectionHeader({
   title: string;
   subtitle?: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.sectionHeader}>
       <View style={styles.sectionIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={21} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={21} />
       </View>
 
       <View style={styles.sectionHeaderCopy}>
@@ -122,10 +123,12 @@ function DataNotice({
   title: string;
   detail: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.notice}>
       <View style={styles.noticeIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={20} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={20} />
       </View>
 
       <View style={styles.noticeCopy}>
@@ -155,6 +158,8 @@ function CategoryCard({
   showLongitudinalView: boolean;
   monthsLabel: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const totalRecordedDays = distribution.reduce((sum, item) => sum + item.days, 0);
   const maxDays = Math.max(1, ...distribution.map(item => item.days));
 
@@ -184,7 +189,7 @@ function CategoryCard({
                 </View>
 
                 <View style={styles.monthVisualizationIcon}>
-                  <MaterialDesignIcons color={homeColors.primary} name={icon} size={22} />
+                  <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
                 </View>
               </View>
 
@@ -266,6 +271,9 @@ function IrregularStatisticsScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width} = useWindowDimensions();
   const compact = width < 370;
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
@@ -381,7 +389,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -393,13 +401,13 @@ function IrregularStatisticsScreen(): React.JSX.Element {
       </View>
 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
           contentContainerStyle={[
             styles.scrollContent,
             compact && styles.scrollContentCompact,
-            {paddingBottom: Math.max(insets.bottom, 16) + 120},
+            {paddingBottom: getFloatingTabBarClearance(insets.bottom, 120)},
           ]}
           showsVerticalScrollIndicator={false}>
           {/* ==================================================
@@ -414,7 +422,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
             <View style={styles.headerIcon}>
               <MaterialDesignIcons
-                color={homeColors.primary}
+                color={theme.colors.primary}
                 name="chart-timeline-variant-shimmer"
                 size={25}
               />
@@ -442,7 +450,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                     </Text>
 
                     {locked ? (
-                      <MaterialDesignIcons color={homeColors.textSecondary} name="lock-outline" size={10} />
+                      <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
                     ) : null}
                   </View>
                 </Pressable>
@@ -477,7 +485,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 </View>
 
                 <View style={styles.periodBadge}>
-                  <MaterialDesignIcons color={homeColors.primary} name="calendar-range" size={18} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="calendar-range" size={18} />
                   <Text style={styles.periodBadgeText}>{monthsLabel}</Text>
                 </View>
               </View>
@@ -501,7 +509,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
               <View style={styles.emptyCycleIconRing}>
                 <View style={styles.emptyCycleIcon}>
                   <MaterialDesignIcons
-                    color={homeColors.primary}
+                    color={theme.colors.primary}
                     name="calendar-refresh-outline"
                     size={29}
                   />
@@ -522,7 +530,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
               <View style={styles.emptyCyclePill}>
                 <MaterialDesignIcons
-                  color={homeColors.primary}
+                  color={theme.colors.primary}
                   name="chart-timeline-variant"
                   size={15}
                 />
@@ -533,7 +541,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
               <View style={styles.emptyCycleHint}>
                 <MaterialDesignIcons
-                  color="#8E7BB8"
+                  color={theme.colors.primary}
                   name="information-outline"
                   size={14}
                 />
@@ -570,7 +578,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 <View style={styles.monthSnapshot}>
                   <View style={styles.snapshotMetric}>
                     <View style={styles.snapshotMetricIcon}>
-                      <MaterialDesignIcons color={homeColors.primary} name="calendar-check-outline" size={19} />
+                      <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={19} />
                     </View>
                     <Text style={styles.snapshotMetricValue}>{trackedDays}</Text>
                     <Text style={styles.snapshotMetricLabel}>Jours renseignés</Text>
@@ -580,7 +588,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
                   <View style={styles.snapshotMetric}>
                     <View style={styles.snapshotMetricIcon}>
-                      <MaterialDesignIcons color={homeColors.primary} name="heart-pulse" size={19} />
+                      <MaterialDesignIcons color={theme.colors.primary} name="heart-pulse" size={19} />
                     </View>
                     <Text style={styles.snapshotMetricValue}>{daysWithAnySymptom}</Text>
                     <Text style={styles.snapshotMetricLabel}>Jours avec observation</Text>
@@ -590,7 +598,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
                   <View style={styles.snapshotMetric}>
                     <View style={styles.snapshotMetricIcon}>
-                      <MaterialDesignIcons color={homeColors.primary} name="chart-donut" size={19} />
+                      <MaterialDesignIcons color={theme.colors.primary} name="chart-donut" size={19} />
                     </View>
                     <Text style={styles.snapshotMetricValue}>
                       {trackedDays > 0 ? Math.round((daysWithAnySymptom / trackedDays) * 100) : 0}%
@@ -698,7 +706,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                     </View>
 
                     <View style={styles.weightMonthIcon}>
-                      <MaterialDesignIcons color={homeColors.primary} name="scale-bathroom" size={24} />
+                      <MaterialDesignIcons color={theme.colors.primary} name="scale-bathroom" size={24} />
                     </View>
                   </View>
 
@@ -726,7 +734,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
           =================================================== */}
 
           <View style={styles.medicalHint}>
-            <MaterialDesignIcons color={homeColors.primary} name="information-outline" size={17} />
+            <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
             <Text style={styles.medicalHintText}>
               Ces repères, basés sur tes données réelles, peuvent t’aider à décrire ton historique lors d’un
               rendez-vous médical. Ils ne posent aucun diagnostic et ne remplacent pas un avis médical.
@@ -744,10 +752,11 @@ function IrregularStatisticsScreen(): React.JSX.Element {
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -762,7 +771,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -772,7 +781,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
 
   pageGlowBottom: {
@@ -782,7 +791,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: {
@@ -811,7 +820,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 28,
     lineHeight: 34,
@@ -821,13 +830,13 @@ const styles = StyleSheet.create({
   subtitle: {
     maxWidth: 300,
     marginTop: 3,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 17,
   },
 
   headerIcon: {
-    ...homeShadow,
+    ...theme.shadow,
     width: 49,
     height: 49,
     flexShrink: 0,
@@ -835,9 +844,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 10,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   filters: {
@@ -845,9 +854,9 @@ const styles = StyleSheet.create({
     padding: 4,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.05)',
+    borderColor: withAlpha(theme.colors.primary, 0.05),
     borderRadius: 17,
-    backgroundColor: '#EEE8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   filterButton: {
@@ -859,8 +868,8 @@ const styles = StyleSheet.create({
   },
 
   filterButtonActive: {
-    ...homeShadow,
-    backgroundColor: '#FFFFFF',
+    ...theme.shadow,
+    backgroundColor: theme.colors.surface,
   },
 
   filterButtonContent: {
@@ -870,13 +879,13 @@ const styles = StyleSheet.create({
   },
 
   filterText: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     fontWeight: '700',
   },
 
   filterTextActive: {
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -886,7 +895,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 19,
     fontWeight: '800',
@@ -894,19 +903,19 @@ const styles = StyleSheet.create({
 
   sectionDescription: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
   },
 
   cycleHero: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     padding: 17,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 27,
-    backgroundColor: 'rgba(255,255,255,0.96)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
   heroDecorationOne: {
@@ -916,7 +925,7 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 75,
-    backgroundColor: 'rgba(105,73,190,0.06)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.06),
   },
 
   heroDecorationTwo: {
@@ -926,7 +935,7 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 28,
-    backgroundColor: 'rgba(198,174,235,0.18)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.18),
   },
 
   heroTop: {
@@ -941,7 +950,7 @@ const styles = StyleSheet.create({
   },
 
   heroEyebrow: {
-    color: '#9179C8',
+    color: theme.colors.primary,
     fontSize: 9,
     fontWeight: '800',
     letterSpacing: 1,
@@ -954,7 +963,7 @@ const styles = StyleSheet.create({
   },
 
   heroNumber: {
-    color: '#28166F',
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 48,
     lineHeight: 53,
@@ -966,7 +975,7 @@ const styles = StyleSheet.create({
   },
 
   heroUnit: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
@@ -978,14 +987,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 9,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   periodBadgeText: {
     marginTop: 4,
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontSize: 9,
     lineHeight: 12,
     fontWeight: '800',
@@ -995,25 +1004,25 @@ const styles = StyleSheet.create({
   heroDivider: {
     height: StyleSheet.hairlineWidth,
     marginVertical: 14,
-    backgroundColor: '#E9E2F0',
+    backgroundColor: withAlpha(theme.colors.primary, 0.14),
   },
 
   heroFootnote: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
 
   coverageText: {
     marginTop: 8,
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontSize: 9.5,
     fontWeight: '700',
   },
 
   overviewText: {
     marginTop: 10,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 16,
   },
@@ -1024,9 +1033,9 @@ const styles = StyleSheet.create({
     gap: 10,
     padding: 15,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.85)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.85),
   },
 
   noticeIcon: {
@@ -1036,7 +1045,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   noticeCopy: {
@@ -1045,26 +1054,26 @@ const styles = StyleSheet.create({
   },
 
   noticeTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 12.5,
     fontWeight: '800',
   },
 
   noticeDetail: {
     marginTop: 3,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
 
   card: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 14,
     padding: 15,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 23,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   sectionHeader: {
@@ -1080,7 +1089,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 10,
     borderRadius: 14,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   sectionHeaderCopy: {
@@ -1089,7 +1098,7 @@ const styles = StyleSheet.create({
   },
 
   cardTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
@@ -1097,7 +1106,7 @@ const styles = StyleSheet.create({
 
   cardSubtitle: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 13,
   },
@@ -1108,7 +1117,7 @@ const styles = StyleSheet.create({
 
   monthListTitle: {
     marginBottom: 6,
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '800',
   },
@@ -1116,7 +1125,7 @@ const styles = StyleSheet.create({
   monthItem: {
     paddingVertical: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE6F1',
+    borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
 
   monthTop: {
@@ -1126,13 +1135,13 @@ const styles = StyleSheet.create({
   },
 
   monthLabel: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '800',
   },
 
   monthMeta: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
   },
 
@@ -1147,17 +1156,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F5F1F9',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   chipText: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
   },
 
   emptyCycleCard: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     alignItems: 'center',
@@ -1165,9 +1174,9 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 20,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 27,
-    backgroundColor: 'rgba(255,255,255,0.97)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.97),
   },
 
   emptyCycleGlowOne: {
@@ -1177,7 +1186,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 90,
-    backgroundColor: 'rgba(105,73,190,0.055)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.055),
   },
 
   emptyCycleGlowTwo: {
@@ -1187,7 +1196,7 @@ const styles = StyleSheet.create({
     width: 165,
     height: 165,
     borderRadius: 83,
-    backgroundColor: 'rgba(198,174,235,0.10)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.10),
   },
 
   emptyCycleIconRing: {
@@ -1197,9 +1206,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 13,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.11)',
+    borderColor: withAlpha(theme.colors.primary, 0.11),
     borderRadius: 24,
-    backgroundColor: 'rgba(255,255,255,0.68)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.68),
   },
 
   emptyCycleIcon: {
@@ -1208,11 +1217,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 19,
-    backgroundColor: '#F0E9FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   emptyCycleEyebrow: {
-    color: '#9179C8',
+    color: theme.colors.primary,
     fontSize: 8.8,
     lineHeight: 12,
     fontWeight: '900',
@@ -1223,7 +1232,7 @@ const styles = StyleSheet.create({
   emptyCycleTitle: {
     maxWidth: 300,
     marginTop: 6,
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 18.5,
     lineHeight: 23,
@@ -1234,7 +1243,7 @@ const styles = StyleSheet.create({
   emptyCycleText: {
     maxWidth: 305,
     marginTop: 8,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.8,
     lineHeight: 16.5,
     textAlign: 'center',
@@ -1249,13 +1258,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 11,
     paddingVertical: 7,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 14,
-    backgroundColor: '#F6F1FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   emptyCyclePillText: {
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontSize: 9.3,
     lineHeight: 13,
     fontWeight: '800',
@@ -1271,12 +1280,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 11,
     paddingVertical: 9,
     borderRadius: 14,
-    backgroundColor: 'rgba(244,239,250,0.78)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.78),
   },
 
   emptyCycleHintText: {
     flex: 1,
-    color: '#75688F',
+    color: theme.colors.textSecondary,
     fontSize: 9.2,
     lineHeight: 13.5,
   },
@@ -1288,9 +1297,9 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 8,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 20,
-    backgroundColor: '#F8F4FC',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   snapshotMetric: {
@@ -1308,11 +1317,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 7,
     borderRadius: 12,
-    backgroundColor: '#EEE7F8',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   snapshotMetricValue: {
-    color: '#28166F',
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 25,
@@ -1321,7 +1330,7 @@ const styles = StyleSheet.create({
 
   snapshotMetricLabel: {
     marginTop: 3,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 8.8,
     lineHeight: 12,
     fontWeight: '700',
@@ -1331,16 +1340,16 @@ const styles = StyleSheet.create({
   snapshotDivider: {
     width: StyleSheet.hairlineWidth,
     marginVertical: 6,
-    backgroundColor: '#E2D9ED',
+    backgroundColor: withAlpha(theme.colors.primary, 0.14),
   },
 
   monthVisualization: {
     marginTop: 13,
     padding: 14,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 20,
-    backgroundColor: '#FAF8FD',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   monthVisualizationTop: {
@@ -1351,7 +1360,7 @@ const styles = StyleSheet.create({
   },
 
   monthVisualizationEyebrow: {
-    color: '#9278C7',
+    color: theme.colors.primary,
     fontSize: 8.5,
     lineHeight: 12,
     fontWeight: '900',
@@ -1360,7 +1369,7 @@ const styles = StyleSheet.create({
 
   monthVisualizationNumber: {
     marginTop: 2,
-    color: '#28166F',
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 32,
     lineHeight: 36,
@@ -1369,7 +1378,7 @@ const styles = StyleSheet.create({
 
   monthVisualizationUnit: {
     marginTop: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
   },
@@ -1380,7 +1389,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: '#EFE8F9',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   distributionList: {
@@ -1400,13 +1409,13 @@ const styles = StyleSheet.create({
 
   distributionLabel: {
     flex: 1,
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 10.5,
     fontWeight: '800',
   },
 
   distributionValue: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
   },
@@ -1415,22 +1424,22 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: 7,
     borderRadius: 99,
-    backgroundColor: '#ECE5F3',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   distributionFill: {
     height: '100%',
     borderRadius: 99,
-    backgroundColor: homeColors.primary,
+    backgroundColor: theme.colors.primary,
   },
 
   weightMonthPanel: {
     marginTop: 13,
     padding: 14,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 20,
-    backgroundColor: '#FAF8FD',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   weightMonthTop: {
@@ -1442,7 +1451,7 @@ const styles = StyleSheet.create({
 
   weightMonthCount: {
     marginTop: 2,
-    color: '#28166F',
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 31,
     lineHeight: 35,
@@ -1451,7 +1460,7 @@ const styles = StyleSheet.create({
 
   weightMonthLabel: {
     marginTop: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
   },
@@ -1462,7 +1471,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
-    backgroundColor: '#EFE8F9',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   weightTimeline: {
@@ -1483,9 +1492,9 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginRight: 11,
     borderWidth: 3,
-    borderColor: '#E6D9F7',
+    borderColor: theme.colors.primarySoft,
     borderRadius: 6,
-    backgroundColor: homeColors.primary,
+    backgroundColor: theme.colors.primary,
   },
 
   weightTimelineLine: {
@@ -1494,7 +1503,7 @@ const styles = StyleSheet.create({
     top: 15,
     bottom: -3,
     width: 1,
-    backgroundColor: '#DED2EB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   weightTimelineCopy: {
@@ -1504,14 +1513,14 @@ const styles = StyleSheet.create({
   },
 
   weightTimelineValue: {
-    color: homeColors.textPrimary,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '900',
   },
 
   weightTimelineDate: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 8.8,
   },
 
@@ -1522,15 +1531,16 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 12,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.6),
   },
 
   medicalHintText: {
     flex: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 14,
   },
-});
+  });
+}
 
 export default IrregularStatisticsScreen;

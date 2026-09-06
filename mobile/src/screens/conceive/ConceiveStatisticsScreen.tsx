@@ -27,9 +27,10 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 
-import { homeColors, homeShadow } from '../../components/home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
-import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
+import { getTopPadding, getFloatingTabBarClearance, spacing } from '../../theme/spacing';
 
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
 import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
@@ -87,27 +88,35 @@ import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBott
    THEME
 ============================================================ */
 
-const PURPLE = homeColors.primary;
-const PURPLE_DARK = homeColors.textPrimary;
-const TEXT_SECONDARY = homeColors.textSecondary;
-
-const BACKGROUND = '#F2ECF8';
-
-const CARD = '#FFFFFF';
-const CARD_SOFT = '#FCFAFE';
-
-const PURPLE_SOFT = '#F1EAFB';
-
-const PINK_SOFT = '#FBEAF1';
-const PINK = '#CB5C82';
-
-const GREEN_SOFT = '#EAF6EF';
-const GREEN = '#5B9B72';
-
+// PHASE E5 — visual-only migration to the app's resolved global theme
+// (useAwaTheme() / awaThemeTokens.ts). PURPLE/PURPLE_DARK/TEXT_SECONDARY/
+// BACKGROUND/CARD/CARD_SOFT/PURPLE_SOFT/BORDER used to be fixed literals
+// here (all equal to, or standing in for, homeColors.* values already
+// covered by ResolvedAwaTheme) — they are now resolved from `theme` at
+// render time inside createStyles() and each helper component instead, so
+// removed as module constants.
+//
+// PINK/GREEN back this screen's own generic KpiCard/SectionHeader/
+// DistributionRow accent-rotation identity, reused across unrelated real
+// concepts throughout this screen ("pink" alone backs Températures
+// enregistrées, Tests LH positifs and Rapports ce cycle; "green" backs
+// Fenêtre fertile, Min/Max température AND Glaire cervicale) — a decorative
+// categorical rotation for telling stat cards/sections apart, never a
+// per-value LH/mucus/period/fertile/ovulation medical color keyed to one
+// concept. They are now derived from theme.colors.secondary/theme.colors.success
+// at each use site (re-declared locally per function, since this is a
+// module-scope comment, not a closure) — matching the pattern already used
+// by MiscarriageStatisticsScreen.tsx's own PINK/GREEN. Declared as local
+// `const PINK = theme.colors.secondary;`/`const GREEN = theme.colors.success;`
+// wherever needed below, not as module constants, since theme is only
+// available at render time.
+//
+// BLUE/BLUE_SOFT stay fixed literals — this screen's 4th accent has no
+// corresponding resolved-theme token (ResolvedAwaTheme.colors has no
+// "tertiary/info" slot), the same Category E finding already documented for
+// MiscarriageStatisticsScreen.tsx's own fixed BLUE/BLUE_SOFT.
 const BLUE_SOFT = '#EAF3F7';
 const BLUE = '#4B8996';
-
-const BORDER = 'rgba(105,73,190,0.09)';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -259,6 +268,8 @@ function EmptyState({
   text: string;
   icon?: IconName;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const anim = useEntranceAnimation(80);
   return (
     <Animated.View
@@ -278,7 +289,7 @@ function EmptyState({
       ]}
     >
       <View style={styles.emptyIcon}>
-        <MaterialDesignIcons color="#9A82C9" name={icon} size={27} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={27} />
       </View>
       <Text style={styles.emptyTitle}>Pas encore de données</Text>
       <Text style={styles.emptyText}>{text}</Text>
@@ -301,10 +312,12 @@ function SectionHeader({
   subtitle?: string;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const palette = {
-    purple: { bg: PURPLE_SOFT, color: PURPLE },
-    pink: { bg: PINK_SOFT, color: PINK },
-    green: { bg: GREEN_SOFT, color: GREEN },
+    purple: { bg: theme.colors.primarySoft, color: theme.colors.primary },
+    pink: { bg: withAlpha(theme.colors.secondary, 0.16), color: theme.colors.secondary },
+    green: { bg: withAlpha(theme.colors.success, 0.16), color: theme.colors.success },
     blue: { bg: BLUE_SOFT, color: BLUE },
   }[accent];
 
@@ -336,10 +349,12 @@ function KpiCard({
   label: string;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const palette = {
-    purple: { bg: PURPLE_SOFT, color: PURPLE },
-    pink: { bg: PINK_SOFT, color: PINK },
-    green: { bg: GREEN_SOFT, color: GREEN },
+    purple: { bg: theme.colors.primarySoft, color: theme.colors.primary },
+    pink: { bg: withAlpha(theme.colors.secondary, 0.16), color: theme.colors.secondary },
+    green: { bg: withAlpha(theme.colors.success, 0.16), color: theme.colors.success },
     blue: { bg: BLUE_SOFT, color: BLUE },
   }[accent];
 
@@ -378,10 +393,12 @@ function DistributionRow({
   last?: boolean;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const progress = useRef(new Animated.Value(0)).current;
   const percent =
     maxCount > 0 ? Math.min(100, Math.max(8, (count / maxCount) * 100)) : 0;
-  const palette = { purple: PURPLE, pink: PINK, green: GREEN, blue: BLUE }[
+  const palette = { purple: theme.colors.primary, pink: theme.colors.secondary, green: theme.colors.success, blue: BLUE }[
     accent
   ];
 
@@ -444,6 +461,8 @@ function TrendBar({
   maxValue: number;
   delay: number;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const anim = useRef(new Animated.Value(0)).current;
   const span = Math.max(maxValue, 1);
   const target = Math.min(100, Math.max(12, (value / span) * 100));
@@ -490,6 +509,8 @@ function TrendBar({
 ============================================================ */
 
 function ConceiveStatisticsScreen(): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
 
@@ -748,7 +769,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -760,7 +781,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
       </View>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -775,7 +796,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
           onPress={navigation.goBack}
           style={({ pressed }) => [styles.backButton, pressed && styles.pressed]}
         >
-          <MaterialDesignIcons color={PURPLE_DARK} name="chevron-left" size={25} />
+          <MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={25} />
         </Pressable>
 
         <View style={styles.headerCopy}>
@@ -785,7 +806,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
 
         <View style={styles.headerBadgeIcon}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="chart-timeline-variant-shimmer"
             size={21}
           />
@@ -796,7 +817,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
       <AnimatedSection delay={40}>
         <View style={styles.objectiveCard}>
           <View style={styles.objectiveIcon}>
-            <MaterialDesignIcons color={PURPLE} name="heart-outline" size={20} />
+            <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={20} />
           </View>
           <View style={styles.objectiveCopy}>
             <Text style={styles.objectiveLabel}>OBJECTIF ACTUEL</Text>
@@ -835,7 +856,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
                     {PERIOD_LABELS[item]}
                   </Text>
                   {locked ? (
-                    <MaterialDesignIcons color={TEXT_SECONDARY} name="lock-outline" size={10} />
+                    <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
                   ) : null}
                 </View>
               </Pressable>
@@ -867,7 +888,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
                 ]}
               >
                 <MaterialDesignIcons
-                  color={active ? PURPLE : '#9587A7'}
+                  color={active ? theme.colors.primary : theme.colors.textSecondary}
                   name={item.icon}
                   size={16}
                 />
@@ -902,7 +923,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: getBottomPadding(insets.bottom, spacing.xl) + 24 },
+            { paddingBottom: getFloatingTabBarClearance(insets.bottom, spacing.xl + 24) },
           ]}
           showsVerticalScrollIndicator={false}
         >
@@ -996,6 +1017,8 @@ function SummaryTab({
   hasConfirmedCycleData: boolean;
   onConfigureCycle: () => void;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
       <AnimatedSection>
@@ -1025,7 +1048,7 @@ function SummaryTab({
             // not a personalized prediction, so none of the 4 render here.
             <View style={styles.insufficientDataWrap}>
               <View style={styles.insufficientDataIcon}>
-                <MaterialDesignIcons color={PURPLE} name="calendar-alert-outline" size={22} />
+                <MaterialDesignIcons color={theme.colors.primary} name="calendar-alert-outline" size={22} />
               </View>
               <Text style={styles.insufficientDataTitle}>Configure ton cycle</Text>
               <Text style={styles.insufficientDataText}>
@@ -1037,7 +1060,7 @@ function SummaryTab({
                 onPress={onConfigureCycle}
                 style={({ pressed }) => [styles.insufficientDataCta, pressed && { opacity: 0.85 }]}
               >
-                <MaterialDesignIcons color="#FFFFFF" name="calendar-edit" size={16} />
+                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
                 <Text style={styles.insufficientDataCtaText}>Configurer mon cycle</Text>
               </Pressable>
               <View style={styles.kpiGrid}>
@@ -1083,7 +1106,7 @@ function SummaryTab({
         <View style={styles.statusGrid}>
           <View style={styles.statusCard}>
             <View style={styles.statusIconPurple}>
-              <MaterialDesignIcons color={PURPLE} name="heart-outline" size={23} />
+              <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={23} />
             </View>
             <Text style={styles.statusLabel}>Rapports ce cycle</Text>
             <Text numberOfLines={2} style={styles.statusValue}>
@@ -1094,7 +1117,7 @@ function SummaryTab({
           {hasConfirmedCycleData ? (
             <View style={styles.statusCard}>
               <View style={styles.statusIconPink}>
-                <MaterialDesignIcons color={PINK} name="egg-outline" size={23} />
+                <MaterialDesignIcons color={theme.colors.secondary} name="egg-outline" size={23} />
               </View>
               <Text style={styles.statusLabel}>Ovulation estimée</Text>
               <Text numberOfLines={2} style={styles.statusValue}>
@@ -1109,7 +1132,7 @@ function SummaryTab({
         <View style={styles.adviceCard}>
           <View style={styles.adviceGlow} />
           <View style={styles.adviceIcon}>
-            <MaterialDesignIcons color={PURPLE} name="information-outline" size={22} />
+            <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={22} />
           </View>
           <View style={styles.adviceCopy}>
             <Text style={styles.adviceTitle}>Un repère, pas un diagnostic</Text>
@@ -1150,6 +1173,8 @@ function TemperatureTab({
   // "Températures enregistrées" KPI).
   count: number;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   if (trend.length === 0) {
     return (
       <AnimatedSection>
@@ -1200,7 +1225,7 @@ function TemperatureTab({
       <AnimatedSection delay={110}>
         <View style={styles.softInfoCard}>
           <View style={styles.softInfoIcon}>
-            <MaterialDesignIcons color={PINK} name="information-outline" size={18} />
+            <MaterialDesignIcons color={theme.colors.secondary} name="information-outline" size={18} />
           </View>
           <Text style={styles.softInfoText}>
             L’échelle du graphique est ajustée à tes propres relevés pour
@@ -1246,6 +1271,8 @@ function FertilityTab({
   showLongitudinalView: boolean;
   periodLabel: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const hasAnyData = lhCounts.length > 0 || mucusCounts.length > 0;
 
   if (!hasAnyData) {
@@ -1415,7 +1442,7 @@ function FertilityTab({
       <AnimatedSection delay={140}>
         <View style={styles.softInfoCard}>
           <View style={styles.softInfoIcon}>
-            <MaterialDesignIcons color={PINK} name="heart-outline" size={18} />
+            <MaterialDesignIcons color={theme.colors.secondary} name="heart-outline" size={18} />
           </View>
           <Text style={styles.softInfoText}>
             Ce suivi est un repère personnel. Un test positif n’est pas une
@@ -1446,6 +1473,8 @@ function CycleTab({
   intercourseThisCycle: number;
   hasConfirmedCycleData: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const maxLength = Math.max(...trend.map(item => item.value), 1);
 
   return (
@@ -1494,7 +1523,7 @@ function CycleTab({
       <AnimatedSection delay={110}>
         <View style={styles.softInfoCard}>
           <View style={styles.softInfoIconPurple}>
-            <MaterialDesignIcons color={PURPLE} name="information-outline" size={18} />
+            <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
           </View>
           <Text style={styles.softInfoText}>
             La durée de ton cycle peut varier naturellement d’un mois à
@@ -1510,8 +1539,14 @@ function CycleTab({
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: BACKGROUND },
+function createStyles(theme: ResolvedAwaTheme) {
+  // Generic content-card/button border — the file's single most common
+  // "generic border" (backButton/objectiveCard/card/heroCard/statusCard) —
+  // matches the same withAlpha(theme.colors.primary, 0.14) convention
+  // already used for outer-card borders in ConceiveCalendarContent.tsx.
+  const border = withAlpha(theme.colors.primary, 0.14);
+  return StyleSheet.create({
+  safe: { flex: 1, backgroundColor: theme.colors.background },
 
   pageBackgroundDecor: { ...StyleSheet.absoluteFillObject, overflow: 'hidden' },
   pageGlowTop: {
@@ -1521,7 +1556,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
   pageGlowMiddle: {
     position: 'absolute',
@@ -1530,7 +1565,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
   pageGlowBottom: {
     position: 'absolute',
@@ -1539,7 +1574,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   header: {
@@ -1556,10 +1591,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: border,
     borderRadius: 16,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#4A318A',
+    backgroundColor: theme.colors.surface,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.07,
     shadowRadius: 7,
@@ -1567,32 +1602,32 @@ const styles = StyleSheet.create({
   },
   headerCopy: { flex: 1, minWidth: 0 },
   headerTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 24,
     fontWeight: '800',
   },
-  headerSubtitle: { marginTop: 2, color: TEXT_SECONDARY, fontSize: 10.5 },
+  headerSubtitle: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10.5 },
   headerBadgeIcon: {
     width: 42,
     height: 42,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 16,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   objectiveCard: {
-    ...homeShadow,
+    ...theme.shadow,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 16,
     marginTop: 3,
     padding: 12,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: border,
     borderRadius: 19,
-    backgroundColor: 'rgba(255,255,255,0.96)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
   objectiveIcon: {
     width: 39,
@@ -1600,22 +1635,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   objectiveCopy: { flex: 1, minWidth: 0, marginHorizontal: 10 },
   objectiveLabel: {
-    color: '#9A86B8',
+    color: theme.colors.textMuted,
     fontSize: 8.5,
     fontWeight: '800',
     letterSpacing: 1.05,
   },
   objectiveValue: {
     marginTop: 2,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontSize: 12.5,
     fontWeight: '700',
   },
-  objectiveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: '#80B98F' },
+  objectiveDot: { width: 8, height: 8, borderRadius: 4, backgroundColor: theme.colors.success },
 
   periodFilters: {
     flexDirection: 'row',
@@ -1623,9 +1658,9 @@ const styles = StyleSheet.create({
     marginTop: 11,
     padding: 4,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.05)',
+    borderColor: withAlpha(theme.colors.primary, 0.05),
     borderRadius: 17,
-    backgroundColor: '#EEE8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   periodFilterButton: {
     flex: 1,
@@ -1635,12 +1670,12 @@ const styles = StyleSheet.create({
     borderRadius: 13,
   },
   periodFilterButtonActive: {
-    ...homeShadow,
-    backgroundColor: '#FFFFFF',
+    ...theme.shadow,
+    backgroundColor: theme.colors.surface,
   },
   periodFilterButtonContent: { flexDirection: 'row', alignItems: 'center', gap: 3 },
-  periodFilterText: { color: TEXT_SECONDARY, fontSize: 10.5, fontWeight: '700' },
-  periodFilterTextActive: { color: PURPLE, fontWeight: '800' },
+  periodFilterText: { color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700' },
+  periodFilterTextActive: { color: theme.colors.primary, fontWeight: '800' },
 
   tabsScroll: { flexGrow: 0, marginTop: 11 },
   tabsScrollContent: { paddingHorizontal: 16, paddingBottom: 10, gap: 8 },
@@ -1657,30 +1692,30 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   tabPillActive: {
-    borderColor: 'rgba(105,73,190,0.10)',
-    backgroundColor: PURPLE_SOFT,
-    shadowColor: PURPLE,
+    borderColor: withAlpha(theme.colors.primary, 0.10),
+    backgroundColor: theme.colors.primarySoft,
+    shadowColor: theme.colors.primary,
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.07,
     shadowRadius: 7,
     elevation: 2,
   },
-  tabPillText: { color: '#8D809E', fontSize: 11.5, fontWeight: '700' },
-  tabPillTextActive: { color: PURPLE, fontWeight: '800' },
+  tabPillText: { color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700' },
+  tabPillTextActive: { color: theme.colors.primary, fontWeight: '800' },
   tabPressed: { opacity: 0.78, transform: [{ scale: 0.98 }] },
 
   tabContent: { flex: 1 },
   content: { paddingHorizontal: 16, paddingTop: 1 },
 
   card: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: border,
     borderRadius: 25,
-    backgroundColor: CARD,
-    shadowColor: '#4A318A',
+    backgroundColor: theme.colors.surface,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 7 },
     shadowOpacity: 0.06,
     shadowRadius: 17,
@@ -1688,15 +1723,15 @@ const styles = StyleSheet.create({
   },
 
   heroCard: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     marginTop: 8,
     padding: 16,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: border,
     borderRadius: 28,
-    backgroundColor: CARD,
+    backgroundColor: theme.colors.surface,
   },
   heroGlowOne: {
     position: 'absolute',
@@ -1705,7 +1740,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     borderRadius: 80,
-    backgroundColor: 'rgba(183,156,231,0.11)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.11),
   },
   heroGlowTwo: {
     position: 'absolute',
@@ -1714,7 +1749,7 @@ const styles = StyleSheet.create({
     width: 155,
     height: 155,
     borderRadius: 78,
-    backgroundColor: 'rgba(237,190,211,0.08)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   sectionHeader: { flexDirection: 'row', alignItems: 'center', marginBottom: 5 },
@@ -1729,12 +1764,12 @@ const styles = StyleSheet.create({
   },
   sectionHeaderCopy: { flex: 1, minWidth: 0 },
   cardTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 16.5,
     fontWeight: '800',
   },
-  cardSubtitle: { marginTop: 2, color: TEXT_SECONDARY, fontSize: 10, lineHeight: 14 },
+  cardSubtitle: { marginTop: 2, color: theme.colors.textSecondary, fontSize: 10, lineHeight: 14 },
 
   kpiGrid: {
     marginTop: 13,
@@ -1751,18 +1786,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 17,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   insufficientDataTitle: {
     marginTop: 11,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 16,
     fontWeight: '700',
   },
   insufficientDataText: {
     marginTop: 6,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 12.5,
     lineHeight: 18,
     textAlign: 'center',
@@ -1775,25 +1810,25 @@ const styles = StyleSheet.create({
     marginTop: 15,
     minHeight: 42,
     borderRadius: 21,
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
     paddingHorizontal: 18,
   },
-  insufficientDataCtaText: { color: '#FFFFFF', fontSize: 12.5, fontWeight: '700' },
+  insufficientDataCtaText: { color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '700' },
   kpiCard: {
     width: '48.4%',
     minWidth: 0,
     minHeight: 112,
     padding: 12,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 19,
-    backgroundColor: CARD_SOFT,
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   kpiTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   kpiIcon: { width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 13 },
   kpiDot: { width: 6, height: 6, borderRadius: 3, opacity: 0.5 },
-  kpiValue: { marginTop: 11, color: PURPLE_DARK, fontSize: 20, fontWeight: '800' },
-  kpiLabel: { marginTop: 3, color: TEXT_SECONDARY, fontSize: 9.7, lineHeight: 13 },
+  kpiValue: { marginTop: 11, color: theme.colors.accent, fontSize: 20, fontWeight: '800' },
+  kpiLabel: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.7, lineHeight: 13 },
 
   chart: { height: 155, marginTop: 16, flexDirection: 'row', alignItems: 'flex-end', gap: 5 },
   barColumn: { flex: 1, minWidth: 0, height: '100%', alignItems: 'center' },
@@ -1806,9 +1841,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginVertical: 6,
     borderRadius: 9,
-    backgroundColor: '#F0E9F7',
+    backgroundColor: theme.colors.primarySoft,
   },
-  barFill: { width: '100%', minHeight: 6, borderRadius: 9, backgroundColor: '#8D6BD4' },
+  barFill: { width: '100%', minHeight: 6, borderRadius: 9, backgroundColor: theme.colors.primary },
   barShine: {
     position: 'absolute',
     top: 0,
@@ -1817,7 +1852,7 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor: 'rgba(255,255,255,0.14)',
   },
-  barLabel: { color: TEXT_SECONDARY, fontSize: 7.5, textAlign: 'center' },
+  barLabel: { color: theme.colors.textSecondary, fontSize: 7.5, textAlign: 'center' },
 
   statusGrid: { flexDirection: 'row', justifyContent: 'space-between', gap: 10, marginTop: 12 },
   statusCard: {
@@ -1826,10 +1861,10 @@ const styles = StyleSheet.create({
     minHeight: 135,
     padding: 14,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: border,
     borderRadius: 22,
-    backgroundColor: '#FFFFFF',
-    ...homeShadow,
+    backgroundColor: theme.colors.surface,
+    ...theme.shadow,
   },
   statusIconPurple: {
     width: 40,
@@ -1837,7 +1872,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   statusIconPink: {
     width: 40,
@@ -1845,12 +1880,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: PINK_SOFT,
+    backgroundColor: withAlpha(theme.colors.secondary, 0.16),
   },
-  statusLabel: { marginTop: 11, color: TEXT_SECONDARY, fontSize: 9.5, fontWeight: '600' },
+  statusLabel: { marginTop: 11, color: theme.colors.textSecondary, fontSize: 9.5, fontWeight: '600' },
   statusValue: {
     marginTop: 4,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 15,
     lineHeight: 19,
@@ -1858,7 +1893,7 @@ const styles = StyleSheet.create({
   },
 
   adviceCard: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     marginTop: 12,
@@ -1867,9 +1902,9 @@ const styles = StyleSheet.create({
     gap: 11,
     padding: 15,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 22,
-    backgroundColor: '#F4EDFC',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   adviceGlow: {
     position: 'absolute',
@@ -1878,7 +1913,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'rgba(255,255,255,0.30)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.30),
   },
   adviceIcon: {
     width: 42,
@@ -1887,24 +1922,24 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: 'rgba(255,255,255,0.80)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.80),
   },
   adviceCopy: { flex: 1, minWidth: 0 },
-  adviceTitle: { color: PURPLE_DARK, fontFamily: 'serif', fontSize: 14.5, fontWeight: '800' },
-  adviceText: { marginTop: 3, color: TEXT_SECONDARY, fontSize: 10.5, lineHeight: 15 },
+  adviceTitle: { color: theme.colors.accent, fontFamily: 'serif', fontSize: 14.5, fontWeight: '800' },
+  adviceText: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15 },
 
   distributionList: { marginTop: 11 },
   distributionRow: {
     paddingVertical: 11,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE5F1',
+    borderBottomColor: withAlpha(theme.colors.primary, 0.12),
   },
   lastRow: { borderBottomWidth: 0 },
   distributionTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 8 },
   distributionLabel: {
     flex: 1,
     minWidth: 0,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontSize: 11.5,
     fontWeight: '700',
     lineHeight: 15,
@@ -1914,15 +1949,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 4,
     borderRadius: 10,
-    backgroundColor: '#F4EFF9',
+    backgroundColor: theme.colors.primarySoft,
   },
-  distributionCount: { color: TEXT_SECONDARY, fontSize: 8.7, fontWeight: '700' },
+  distributionCount: { color: theme.colors.textSecondary, fontSize: 8.7, fontWeight: '700' },
   distributionTrack: {
     height: 7,
     overflow: 'hidden',
     marginTop: 8,
     borderRadius: 4,
-    backgroundColor: '#EFE9F5',
+    backgroundColor: theme.colors.primarySoft,
   },
   distributionFill: { height: '100%', borderRadius: 4 },
 
@@ -1933,11 +1968,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    backgroundColor: '#F2EBFA',
+    backgroundColor: theme.colors.primarySoft,
   },
   emptyTitle: {
     marginTop: 12,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 14,
     fontWeight: '800',
@@ -1945,7 +1980,7 @@ const styles = StyleSheet.create({
   emptyText: {
     maxWidth: 285,
     marginTop: 5,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
     textAlign: 'center',
@@ -1958,9 +1993,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
     padding: 13,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 18,
-    backgroundColor: '#F5F0FB',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   softInfoIcon: {
     width: 34,
@@ -1969,7 +2004,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: PINK_SOFT,
+    backgroundColor: withAlpha(theme.colors.secondary, 0.16),
   },
   softInfoIconPurple: {
     width: 34,
@@ -1978,11 +2013,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
-  softInfoText: { flex: 1, minWidth: 0, color: TEXT_SECONDARY, fontSize: 10.3, lineHeight: 15 },
+  softInfoText: { flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.3, lineHeight: 15 },
 
   pressed: { opacity: 0.78, transform: [{ scale: 0.97 }] },
-});
+  });
+}
 
 export default ConceiveStatisticsScreen;

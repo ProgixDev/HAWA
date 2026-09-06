@@ -29,9 +29,10 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 
-import { homeColors, homeShadow } from '../../components/home/homeTheme';
+import { useAwaTheme } from '../../theme/AwaThemeProvider';
+import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 
-import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
+import { getTopPadding, getFloatingTabBarClearance, spacing } from '../../theme/spacing';
 
 import {
   getAllMiscarriageJournalEntries,
@@ -73,29 +74,36 @@ import {resolveCycleReturnEventInPeriod} from '../../utils/miscarriageStatistics
 
 /* ============================================================
    THEME
+
+   PHASE E5 — PURPLE/PURPLE_DARK/TEXT_SECONDARY/BACKGROUND/CARD/CARD_SOFT/
+   PURPLE_SOFT/PINK_SOFT/PINK/GREEN_SOFT/GREEN/BORDER used to be fixed
+   literals here; they are now derived from useAwaTheme() inside every
+   component below (and re-derived identically inside createStyles(theme),
+   since it is a sibling top-level function that can no longer close over
+   module-scope values — same pattern as MiscarriageDashboard.tsx/
+   MiscarriageJournalEntryScreen.tsx's own createStyles(theme)).
+
+   BLUE stays a fixed literal — this screen's 4th KPI/section accent has no
+   corresponding resolved-theme token (ResolvedAwaTheme.colors has no
+   "tertiary/info" slot), the same Category E finding already documented
+   for MiscarriageDashboard.tsx's own fixed teal "Statistiques" quick-action
+   accent. No medical/chart-series-identity color exists in this file — see
+   the final report's color-classification audit (the bleeding/symptoms/
+   trying-again charts here all use ONE uniform decorative accent per
+   section, never a per-category swatch, unlike the Calendar/Journal
+   screens' real frozen palettes).
+
+   BLUE_SOFT is now a translucent overlay of BLUE (withAlpha) instead of a
+   separate solid pastel literal — matching the exact mechanism its pink/
+   green siblings already use (withAlpha(theme.colors.secondary/success,
+   0.16)), so the "blue" icon badge blends with whatever surface it sits on
+   in Dark Mode instead of staying an opaque light-only pastel. BLUE's own
+   hue stays fixed (Category E); only its badge background now composites
+   correctly.
 ============================================================ */
 
-const PURPLE = homeColors.primary;
-const PURPLE_DARK = homeColors.textPrimary;
-const TEXT_SECONDARY = homeColors.textSecondary;
-
-const BACKGROUND = '#F2ECF8';
-
-const CARD = '#FFFFFF';
-const CARD_SOFT = '#FCFAFE';
-
-const PURPLE_SOFT = '#F1EAFB';
-
-const PINK_SOFT = '#FBEAF1';
-const PINK = '#CB5C82';
-
-const GREEN_SOFT = '#EAF6EF';
-const GREEN = '#5B9B72';
-
-const BLUE_SOFT = '#EAF3F7';
 const BLUE = '#4B8996';
-
-const BORDER = 'rgba(105,73,190,0.09)';
+const BLUE_SOFT = withAlpha(BLUE, 0.16);
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -360,6 +368,9 @@ function EmptyState({
   text: string;
   icon?: IconName;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const anim = useEntranceAnimation(80);
 
   return (
@@ -380,7 +391,7 @@ function EmptyState({
       ]}
     >
       <View style={styles.emptyIcon}>
-        <MaterialDesignIcons color="#9A82C9" name={icon} size={27} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={27} />
       </View>
 
       <Text style={styles.emptyTitle}>Pas encore de données</Text>
@@ -405,18 +416,25 @@ function SectionHeader({
   subtitle?: string;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // 'purple'/'pink'/'green' are decorative section-categorization accents
+  // (not medical/chart-series-identity colors — see the module-level THEME
+  // comment) and are theme-derived; 'blue' has no corresponding resolved
+  // token and stays a fixed literal (Category E).
   const palette = {
     purple: {
-      bg: PURPLE_SOFT,
-      color: PURPLE,
+      bg: theme.colors.primarySoft,
+      color: theme.colors.primary,
     },
     pink: {
-      bg: PINK_SOFT,
-      color: PINK,
+      bg: withAlpha(theme.colors.secondary, 0.16),
+      color: theme.colors.secondary,
     },
     green: {
-      bg: GREEN_SOFT,
-      color: GREEN,
+      bg: withAlpha(theme.colors.success, 0.16),
+      color: theme.colors.success,
     },
     blue: {
       bg: BLUE_SOFT,
@@ -461,18 +479,23 @@ function KpiCard({
   label: string;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // Same accent system as SectionHeader — decorative categorization only,
+  // 'blue' fixed (Category E, no corresponding resolved token).
   const palette = {
     purple: {
-      bg: PURPLE_SOFT,
-      color: PURPLE,
+      bg: theme.colors.primarySoft,
+      color: theme.colors.primary,
     },
     pink: {
-      bg: PINK_SOFT,
-      color: PINK,
+      bg: withAlpha(theme.colors.secondary, 0.16),
+      color: theme.colors.secondary,
     },
     green: {
-      bg: GREEN_SOFT,
-      color: GREEN,
+      bg: withAlpha(theme.colors.success, 0.16),
+      color: theme.colors.success,
     },
     blue: {
       bg: BLUE_SOFT,
@@ -532,15 +555,23 @@ function DistributionRow({
   last?: boolean;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const progress = useRef(new Animated.Value(0)).current;
 
   const percent =
     maxCount > 0 ? Math.min(100, Math.max(8, (count / maxCount) * 100)) : 0;
 
+  // Same accent system as SectionHeader/KpiCard — a single decorative fill
+  // reused across every row of a given distribution (never a per-category
+  // swatch: e.g. every symptom row and every bleeding-intensity row shares
+  // one accent regardless of which real label it represents). 'blue' fixed
+  // (Category E, no corresponding resolved token).
   const palette = {
-    purple: PURPLE,
-    pink: PINK,
-    green: GREEN,
+    purple: theme.colors.primary,
+    pink: theme.colors.secondary,
+    green: theme.colors.success,
     blue: BLUE,
   }[accent];
 
@@ -616,6 +647,9 @@ function TrendBar({
   delay: number;
   columnStyle?: StyleProp<ViewStyle>;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const anim = useRef(new Animated.Value(0)).current;
 
   const span = Math.max(maxValue, 1);
@@ -677,6 +711,16 @@ function TrendBar({
 
 function MiscarriageStatisticsScreen(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // Decorative accents referenced directly in this component's own JSX
+  // (below) — same PHASE E5 derivation as every other component in this
+  // file; see the module-level THEME comment.
+  const PURPLE = theme.colors.primary;
+  const PURPLE_DARK = theme.colors.accent;
+  const TEXT_SECONDARY = theme.colors.textSecondary;
 
   const insets = useSafeAreaInsets();
 
@@ -988,7 +1032,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -1000,7 +1044,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
       </View>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -1114,7 +1158,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
                 ]}
               >
                 <MaterialDesignIcons
-                  color={active ? PURPLE : '#9587A7'}
+                  color={active ? PURPLE : TEXT_SECONDARY}
                   name={item.icon}
                   size={16}
                 />
@@ -1156,7 +1200,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           contentContainerStyle={[
             styles.content,
             {
-              paddingBottom: getBottomPadding(insets.bottom, spacing.xl) + 24,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, spacing.xl + 24),
             },
           ]}
           showsVerticalScrollIndicator={false}
@@ -1278,6 +1322,12 @@ function SummaryTab({
 
   tryingAgainLabel: string;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const PURPLE = theme.colors.primary;
+  const PINK = theme.colors.secondary;
+
   return (
     <>
       <AnimatedSection>
@@ -1491,6 +1541,11 @@ function BleedingTab({
 
   showMonthlyView: boolean;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const PINK = theme.colors.secondary;
+
   if (entriesCount === 0) {
     return (
       <AnimatedSection>
@@ -1657,6 +1712,9 @@ function SymptomsTab({
 
   showMonthlyView: boolean;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   if (entriesCount === 0) {
     return (
       <AnimatedSection>
@@ -1789,6 +1847,11 @@ function TrackingTab({
 
   periodLabel: string;
 }): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const PURPLE = theme.colors.primary;
+
   return (
     <>
       <AnimatedSection>
@@ -1811,7 +1874,7 @@ function TrackingTab({
             </View>
 
             <MaterialDesignIcons
-              color="#B5A7C8"
+              color={theme.colors.textMuted}
               name="shield-lock-outline"
               size={18}
             />
@@ -1955,7 +2018,26 @@ function TrackingTab({
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+// PHASE E5 — converted to a createStyles(theme) factory, same pattern as
+// every already-migrated file in this objective (MiscarriageDashboard,
+// MiscarriageCalendarContent, MiscarriageJournalEntryScreen).
+// PURPLE/PURPLE_DARK/TEXT_SECONDARY/BACKGROUND/CARD/CARD_SOFT/PURPLE_SOFT/
+// PINK_SOFT/BORDER are re-derived here from theme.colors.* so every style
+// below keeps working unchanged by name. BLUE/BLUE_SOFT stay the fixed
+// module-level literals declared above (Category E — no corresponding
+// resolved-theme token).
+function createStyles(theme: ResolvedAwaTheme) {
+  const PURPLE = theme.colors.primary;
+  const PURPLE_DARK = theme.colors.accent;
+  const TEXT_SECONDARY = theme.colors.textSecondary;
+  const BACKGROUND = theme.colors.background;
+  const CARD = theme.colors.surface;
+  const CARD_SOFT = theme.colors.background;
+  const PURPLE_SOFT = theme.colors.primarySoft;
+  const PINK_SOFT = withAlpha(theme.colors.secondary, 0.16);
+  const BORDER = withAlpha(theme.colors.primary, 0.09);
+
+  return StyleSheet.create({
   safe: {
     flex: 1,
     backgroundColor: BACKGROUND,
@@ -1972,7 +2054,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
   pageGlowMiddle: {
     position: 'absolute',
@@ -1981,7 +2063,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
   pageGlowBottom: {
     position: 'absolute',
@@ -1990,7 +2072,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   header: {
@@ -2010,8 +2092,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 16,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#4A318A',
+    backgroundColor: theme.colors.surface,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -2049,7 +2131,7 @@ const styles = StyleSheet.create({
   },
 
   objectiveCard: {
-    ...homeShadow,
+    ...theme.shadow,
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: 16,
@@ -2058,7 +2140,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 19,
-    backgroundColor: 'rgba(255,255,255,0.96)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.96),
   },
 
   objectiveIcon: {
@@ -2077,7 +2159,7 @@ const styles = StyleSheet.create({
   },
 
   objectiveLabel: {
-    color: '#9A86B8',
+    color: TEXT_SECONDARY,
     fontSize: 8.5,
     fontWeight: '800',
     letterSpacing: 1.05,
@@ -2094,7 +2176,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#80B98F',
+    backgroundColor: theme.colors.success,
   },
 
   tabsScroll: {
@@ -2122,7 +2204,7 @@ const styles = StyleSheet.create({
   },
 
   tabPillActive: {
-    borderColor: 'rgba(105,73,190,0.10)',
+    borderColor: withAlpha(theme.colors.primary, 0.10),
     backgroundColor: PURPLE_SOFT,
     shadowColor: PURPLE,
     shadowOffset: {
@@ -2135,7 +2217,7 @@ const styles = StyleSheet.create({
   },
 
   tabPillText: {
-    color: '#8D809E',
+    color: TEXT_SECONDARY,
     fontSize: 11.5,
     fontWeight: '700',
   },
@@ -2164,14 +2246,14 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 12,
     padding: 16,
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 25,
     backgroundColor: CARD,
-    shadowColor: '#4A318A',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 7,
@@ -2182,7 +2264,7 @@ const styles = StyleSheet.create({
   },
 
   heroCard: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     marginTop: 8,
@@ -2200,7 +2282,7 @@ const styles = StyleSheet.create({
     width: 160,
     height: 160,
     borderRadius: 80,
-    backgroundColor: 'rgba(183,156,231,0.11)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.11),
   },
 
   heroGlowTwo: {
@@ -2210,7 +2292,7 @@ const styles = StyleSheet.create({
     width: 155,
     height: 155,
     borderRadius: 78,
-    backgroundColor: 'rgba(237,190,211,0.08)',
+    backgroundColor: withAlpha(theme.colors.secondary, 0.08),
   },
 
   sectionHeader: {
@@ -2262,7 +2344,7 @@ const styles = StyleSheet.create({
     minHeight: 112,
     padding: 12,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 19,
     backgroundColor: CARD_SOFT,
   },
@@ -2326,16 +2408,19 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginVertical: 6,
     borderRadius: 9,
-    backgroundColor: '#F0E9F7',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   barFill: {
     width: '100%',
     minHeight: 6,
     borderRadius: 9,
-    backgroundColor: '#8D6BD4',
+    backgroundColor: PURPLE,
   },
 
+  // Fixed glass/shine overlay on the bar fill — a lighting effect, not a
+  // brand color, so it stays a plain white translucency regardless of theme
+  // (Category F).
   barShine: {
     position: 'absolute',
     top: 0,
@@ -2366,8 +2451,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 22,
-    backgroundColor: '#FFFFFF',
-    ...homeShadow,
+    backgroundColor: theme.colors.surface,
+    ...theme.shadow,
   },
 
   statusIconPurple: {
@@ -2406,12 +2491,12 @@ const styles = StyleSheet.create({
 
   statusMeta: {
     marginTop: 5,
-    color: '#8B7C9D',
+    color: TEXT_SECONDARY,
     fontSize: 9,
   },
 
   adviceCard: {
-    ...homeShadow,
+    ...theme.shadow,
     position: 'relative',
     overflow: 'hidden',
     marginTop: 12,
@@ -2420,9 +2505,9 @@ const styles = StyleSheet.create({
     gap: 11,
     padding: 15,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 22,
-    backgroundColor: '#F4EDFC',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   adviceGlow: {
@@ -2432,7 +2517,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 120,
     borderRadius: 60,
-    backgroundColor: 'rgba(255,255,255,0.30)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.30),
   },
 
   adviceIcon: {
@@ -2442,7 +2527,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: 'rgba(255,255,255,0.80)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.80),
   },
 
   adviceCopy: {
@@ -2471,7 +2556,7 @@ const styles = StyleSheet.create({
   distributionRow: {
     paddingVertical: 11,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE5F1',
+    borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
 
   lastRow: {
@@ -2499,7 +2584,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 4,
     borderRadius: 10,
-    backgroundColor: '#F4EFF9',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   distributionCount: {
@@ -2513,7 +2598,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: 8,
     borderRadius: 4,
-    backgroundColor: '#EFE9F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   distributionFill: {
@@ -2533,7 +2618,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    backgroundColor: '#F2EBFA',
+    backgroundColor: PURPLE_SOFT,
   },
 
   emptyTitle: {
@@ -2560,9 +2645,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
     padding: 13,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
     borderRadius: 18,
-    backgroundColor: '#F5F0FB',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   softInfoIcon: {
@@ -2594,13 +2679,13 @@ const styles = StyleSheet.create({
   },
 
   trackingStatusCard: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 12,
     padding: 15,
     borderWidth: 1,
     borderColor: BORDER,
     borderRadius: 23,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   trackingTop: {
@@ -2670,7 +2755,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 13,
     borderRadius: 17,
-    backgroundColor: '#FAF6FD',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   currentStatusLabel: {
@@ -2746,7 +2831,7 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 10,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE5F1',
+    borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
 
   monthlyRowLabel: {
@@ -2770,6 +2855,7 @@ const styles = StyleSheet.create({
       },
     ],
   },
-});
+  });
+}
 
 export default MiscarriageStatisticsScreen;
