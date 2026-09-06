@@ -35,6 +35,9 @@ import {
   periodStartForCycleContaining,
 } from '../../utils/cycleMath';
 
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+
 /* ============================================================
    CONSTANTS
 ============================================================ */
@@ -47,26 +50,17 @@ const PHASE_LABEL = {
   luteal: 'Phase lutéale',
 } as const;
 
-const COLORS = {
-  deepPurple: '#35205E',
-  purple: '#6942BD',
-  purpleStrong: '#5D35AE',
-
-  lavender: '#EEE6F8',
-  lavenderSoft: '#F8F4FC',
-  lavenderBorder: '#E6DDEE',
-
-  white: '#FFFFFF',
-
-  text: '#30263F',
-  secondary: '#71677D',
-  muted: '#968CA0',
-
-  green: '#5B8C70',
-  greenSoft: '#EAF4EE',
-
-  gold: '#B28D5F',
-  goldSoft: '#F6F0E6',
+// SEMANTIC — per-marker category accent (fertile window / ovulation / next
+// period), matching the same "differentiated per-item accent" convention
+// used for journal-category tints elsewhere in the app. Never theme-driven;
+// only the generic structural chrome around them (below) is.
+const MARKER_COLORS = {
+  fertileBackground: '#EEF5EF',
+  fertileIcon: '#5B8C70',
+  ovulationBackground: '#EEE6F8',
+  ovulationIcon: '#6942BD',
+  periodBackground: '#F6F0E6',
+  periodIcon: '#B28D5F',
 };
 
 /* ============================================================
@@ -74,6 +68,9 @@ const COLORS = {
 ============================================================ */
 
 export default function JournalCycleEvolutionScreen(): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const basics =
     getCyclePreferences();
 
@@ -544,7 +541,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
                 }>
                 <MaterialDesignIcons
                   color={
-                    COLORS.purple
+                    theme.colors.primary
                   }
                   name="calendar-heart"
                   size={18}
@@ -693,7 +690,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
 
           <MaterialDesignIcons
             color={
-              COLORS.purple
+              theme.colors.primary
             }
             name="information-outline"
             size={20}
@@ -744,30 +741,33 @@ function Marker({
     | 'period';
   last?: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const config =
     variant === 'fertile'
       ? {
           background:
-            '#EEF5EF',
+            MARKER_COLORS.fertileBackground,
 
           iconColor:
-            COLORS.green,
+            MARKER_COLORS.fertileIcon,
         }
       : variant ===
           'ovulation'
         ? {
             background:
-              COLORS.lavender,
+              MARKER_COLORS.ovulationBackground,
 
             iconColor:
-              COLORS.purple,
+              MARKER_COLORS.ovulationIcon,
           }
         : {
             background:
-              COLORS.goldSoft,
+              MARKER_COLORS.periodBackground,
 
             iconColor:
-              COLORS.gold,
+              MARKER_COLORS.periodIcon,
           };
 
   return (
@@ -826,7 +826,7 @@ function Marker({
         }>
 
         <MaterialDesignIcons
-          color="#AAA0B5"
+          color={theme.colors.textMuted}
           name="chevron-right"
           size={19}
         />
@@ -839,8 +839,8 @@ function Marker({
    STYLES
 ============================================================ */
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     /* ========================================================
        PHASE CARD
     ======================================================== */
@@ -883,7 +883,7 @@ const styles =
       borderRadius: 52,
 
       backgroundColor:
-        COLORS.purple,
+        theme.colors.primary,
     },
 
     ringOuter: {
@@ -899,7 +899,7 @@ const styles =
       borderRadius: 48,
 
       backgroundColor:
-        'rgba(255,255,255,0.55)',
+        withAlpha(theme.colors.surface, 0.55),
     },
 
     ring: {
@@ -915,15 +915,15 @@ const styles =
       borderWidth: 9,
 
       borderColor:
-        '#BBA4DF',
+        withAlpha(theme.colors.primary, 0.35),
 
       borderRadius: 46,
 
       backgroundColor:
-        COLORS.lavenderSoft,
+        theme.colors.surfaceSecondary,
 
       shadowColor:
-        COLORS.purple,
+        theme.colors.primary,
 
       shadowOffset: {
         width: 0,
@@ -950,7 +950,7 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,66,189,0.08)',
+        withAlpha(theme.colors.primary, 0.08),
 
       borderRadius: 33,
 
@@ -960,7 +960,7 @@ const styles =
 
     day: {
       color:
-        COLORS.deepPurple,
+        theme.colors.accent,
 
       fontSize: 29,
 
@@ -974,7 +974,7 @@ const styles =
       marginTop: 1,
 
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 9,
 
@@ -1022,7 +1022,7 @@ const styles =
       borderRadius: 11,
 
       backgroundColor:
-        COLORS.lavender,
+        theme.colors.primarySoft,
     },
 
     phase: {
@@ -1031,7 +1031,7 @@ const styles =
       marginLeft: 8,
 
       color:
-        COLORS.deepPurple,
+        theme.colors.accent,
 
       fontSize: 17,
 
@@ -1045,7 +1045,7 @@ const styles =
       marginTop: 7,
 
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 11.5,
 
@@ -1057,7 +1057,7 @@ const styles =
       marginTop: 5,
 
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 9.5,
 
@@ -1083,7 +1083,7 @@ const styles =
 
     progressLabel: {
       color:
-        COLORS.muted,
+        theme.colors.textMuted,
 
       fontSize: 8.5,
 
@@ -1093,7 +1093,7 @@ const styles =
 
     progressValue: {
       color:
-        COLORS.purple,
+        theme.colors.primary,
 
       fontSize: 9,
 
@@ -1112,7 +1112,7 @@ const styles =
       borderRadius: 4,
 
       backgroundColor:
-        '#ECE5F3',
+        theme.colors.surfaceSecondary,
     },
 
     fill: {
@@ -1121,7 +1121,7 @@ const styles =
       borderRadius: 4,
 
       backgroundColor:
-        COLORS.purple,
+        theme.colors.primary,
     },
 
     /* ========================================================
@@ -1140,7 +1140,7 @@ const styles =
       borderBottomWidth: 1,
 
       borderBottomColor:
-        '#EEE8F2',
+        theme.colors.border,
 
       paddingVertical: 9,
     },
@@ -1174,7 +1174,7 @@ const styles =
 
     markerLabel: {
       color:
-        COLORS.secondary,
+        theme.colors.textSecondary,
 
       fontSize: 10,
 
@@ -1186,7 +1186,7 @@ const styles =
       marginTop: 4,
 
       color:
-        COLORS.deepPurple,
+        theme.colors.accent,
 
       fontSize: 13,
 
@@ -1221,12 +1221,12 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,66,189,0.10)',
+        withAlpha(theme.colors.primary, 0.10),
 
       borderRadius: 20,
 
       backgroundColor:
-        COLORS.lavender,
+        theme.colors.primarySoft,
 
       padding: 13,
     },
@@ -1246,7 +1246,7 @@ const styles =
       borderRadius: 13,
 
       backgroundColor:
-        COLORS.white,
+        theme.colors.surface,
     },
 
     infoCopy: {
@@ -1259,7 +1259,7 @@ const styles =
 
     infoTitle: {
       color:
-        COLORS.deepPurple,
+        theme.colors.accent,
 
       fontSize: 12,
 
@@ -1271,7 +1271,7 @@ const styles =
       marginTop: 4,
 
       color:
-        '#5B506A',
+        theme.colors.textSecondary,
 
       fontSize: 10,
 
@@ -1281,3 +1281,4 @@ const styles =
         '500',
     },
   });
+}
