@@ -27,7 +27,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
-import { requirePrivateAccess } from '../../navigation/privateAccess';
 
 import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {
@@ -975,13 +974,13 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                       accessibilityRole="button"
                       key={item.key}
                       onPress={() => {
-                        if (item.key === 'personalNotes') {
-                          requirePrivateAccess(
-                            navigation,
-                            'miscarriagePersonalNotes',
-                          );
-                          return;
-                        }
+                        // Single authentication boundary: MiscarriageJournalEntryScreen
+                        // already gates its own 'personalNotes' category via
+                        // isIntimacyUnlocked()/PrivateIntimacyUnlock (target:
+                        // 'miscarriageNotes') — the same pattern every other
+                        // objective's daily-notes/personal-notes action uses.
+                        // Routing through requirePrivateAccess() here first
+                        // caused a second, redundant PIN/biometric prompt.
                         navigation.navigate('MiscarriageJournalEntry', {
                           category: item.key,
                         });

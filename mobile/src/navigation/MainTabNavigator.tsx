@@ -146,10 +146,13 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       tint: item.tint,
       onPress: () => {
         close();
-        if (item.key === 'personalNotes') {
-          requirePrivateAccess(navigation, 'miscarriagePersonalNotes');
-          return;
-        }
+        // Single authentication boundary: MiscarriageJournalEntryScreen
+        // already gates its own 'personalNotes' category via
+        // isIntimacyUnlocked()/PrivateIntimacyUnlock (target:
+        // 'miscarriageNotes') — the same pattern every other objective's
+        // daily-notes/personal-notes action uses in this same sheet.
+        // Routing through requirePrivateAccess() here first caused a
+        // second, redundant PIN/biometric prompt.
         navigation.navigate('MiscarriageJournalEntry', {category: item.key});
       },
     }));
