@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {
   Alert,
   Image,
-  ImageBackground,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -15,6 +14,7 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -25,8 +25,8 @@ import {
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
 import {isValidEmail} from '../utils/emailValidation';
+import {AUTH_LIGHT_THEME} from '../theme/authLightTheme';
 
-const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 const APPLE_LOGO = require('../assets/images/auth-apple-logo.png');
 const GOOGLE_LOGO = require('../assets/images/auth-google-logo.png');
 
@@ -85,9 +85,11 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   };
 
   return (
-    <ImageBackground
-      source={BACKGROUND}
-      resizeMode="cover"
+    <LinearGradient
+      colors={[...AUTH_LIGHT_THEME.gradients.pageBackground]}
+      end={{x: 1, y: 1}}
+      locations={[0, 0.32, 0.7, 1]}
+      start={{x: 0, y: 0}}
       style={styles.background}>
       <SafeAreaView
         edges={['top', 'left', 'right', 'bottom']}
@@ -409,7 +411,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
           </View>
         </View>
       </SafeAreaView>
-    </ImageBackground>
+    </LinearGradient>
   );
 }
 
