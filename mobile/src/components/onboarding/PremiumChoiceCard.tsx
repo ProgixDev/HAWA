@@ -1,6 +1,9 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // Shared selectable option card for the single-choice onboarding steps
 // (icon + title + subtitle + radio, selected = purple border + light
@@ -8,9 +11,6 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 // MiscarriageCycleReturnScreen and MiscarriageTryingAgainScreen so the
 // three screens stay visually identical without triplicating the same
 // ~150 lines of styles.
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_SECONDARY = '#655A8D';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -42,6 +42,8 @@ function PremiumChoiceCard({
   children,
   selectionStyle = 'radio',
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const isCheckbox = selectionStyle === 'checkbox';
   return (
     <Pressable
@@ -55,7 +57,7 @@ function PremiumChoiceCard({
       ]}>
       <View style={styles.row}>
         <View style={[styles.iconBox, {backgroundColor: iconTint}]}>
-          <MaterialDesignIcons color={PURPLE} name={icon} size={22} />
+          <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
         </View>
 
         <View style={styles.copy}>
@@ -65,7 +67,7 @@ function PremiumChoiceCard({
 
         {isCheckbox ? (
           <View style={[styles.checkbox, selected && styles.checkboxSelected]}>
-            {selected ? <MaterialDesignIcons color="#FFFFFF" name="check" size={14} /> : null}
+            {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} /> : null}
           </View>
         ) : (
           <View style={[styles.radio, selected && styles.radioSelected]}>
@@ -79,67 +81,69 @@ function PremiumChoiceCard({
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    minHeight: 74,
-    borderWidth: 1.4,
-    borderColor: 'rgba(111,83,190,0.14)',
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,252,255,0.94)',
-    paddingHorizontal: 13,
-    paddingVertical: 12,
-    elevation: 3,
-    shadowColor: '#4E319A',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.07,
-    shadowRadius: 9,
-  },
-  cardSelected: {
-    borderColor: PURPLE,
-    backgroundColor: '#F5F0FC',
-  },
-  row: {flexDirection: 'row', alignItems: 'center'},
-  iconBox: {
-    width: 46,
-    height: 46,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 15,
-  },
-  copy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  title: {color: PURPLE_DARK, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-  subtitle: {marginTop: 2, color: TEXT_SECONDARY, fontSize: 11.5, lineHeight: 16},
-  radio: {
-    width: 22,
-    height: 22,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#AE9BCF',
-    borderRadius: 11,
-  },
-  radioSelected: {borderColor: PURPLE},
-  radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: PURPLE},
-  checkbox: {
-    width: 22,
-    height: 22,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 2,
-    borderColor: '#AE9BCF',
-    borderRadius: 7,
-  },
-  checkboxSelected: {borderColor: PURPLE, backgroundColor: PURPLE},
-  extra: {
-    marginTop: 12,
-    paddingTop: 12,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(111,83,190,0.18)',
-  },
-  pressed: {opacity: 0.86},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    card: {
+      minHeight: 74,
+      borderWidth: 1.4,
+      borderColor: theme.colors.border,
+      borderRadius: 18,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 13,
+      paddingVertical: 12,
+      elevation: 3,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.07,
+      shadowRadius: 9,
+    },
+    cardSelected: {
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    row: {flexDirection: 'row', alignItems: 'center'},
+    iconBox: {
+      width: 46,
+      height: 46,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 15,
+    },
+    copy: {flex: 1, minWidth: 0, marginHorizontal: 12},
+    title: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
+    subtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    radio: {
+      width: 22,
+      height: 22,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 2,
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      borderRadius: 11,
+    },
+    radioSelected: {borderColor: theme.colors.primary},
+    radioDot: {width: 10, height: 10, borderRadius: 5, backgroundColor: theme.colors.primary},
+    checkbox: {
+      width: 22,
+      height: 22,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 2,
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      borderRadius: 7,
+    },
+    checkboxSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
+    extra: {
+      marginTop: 12,
+      paddingTop: 12,
+      borderTopWidth: StyleSheet.hairlineWidth,
+      borderTopColor: theme.colors.border,
+    },
+    pressed: {opacity: 0.86},
+  });
+}
 
 export default PremiumChoiceCard;

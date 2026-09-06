@@ -1,6 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+
 // Same visual pattern as the existing onboarding calendar (see
 // CycleInformationScreen.tsx) — kept as its own component here since that
 // screen must not be modified, but the look should stay consistent.
@@ -22,6 +25,8 @@ type Props = {
 };
 
 function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle, maximumDate}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(value.getFullYear(), value.getMonth(), 1));
 
   useEffect(() => {
@@ -124,25 +129,27 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
   );
 }
 
-const styles = StyleSheet.create({
-  modalBackdrop: {flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(30,18,65,0.40)', paddingHorizontal: 24},
-  calendarCard: {width: '100%', maxWidth: 380, borderRadius: 22, backgroundColor: '#FFFCFF', padding: 16, elevation: 12},
-  titleBlock: {marginBottom: 12},
-  pickerTitle: {color: '#28166F', fontFamily: 'serif', fontSize: 18, fontWeight: '700', textAlign: 'center'},
-  pickerSubtitle: {marginTop: 4, color: '#655A8D', fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
-  calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
-  calendarArrowButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: '#F0E8FC'},
-  calendarArrowText: {color: '#6848BC', fontSize: 27, fontWeight: '600', lineHeight: 30},
-  calendarTitle: {color: '#382174', fontFamily: 'serif', fontSize: 19, fontWeight: '600', textTransform: 'capitalize'},
-  weekRow: {flexDirection: 'row', marginTop: 16},
-  weekDay: {width: '14.2857%', color: '#85739F', fontSize: 12, textAlign: 'center'},
-  daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 8},
-  dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
-  dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
-  daySelected: {backgroundColor: '#6848BC'},
-  dayText: {color: '#2A2050', fontSize: 14},
-  dayTextSelected: {color: '#FFFFFF', fontWeight: '700'},
-  dayTextDisabled: {color: '#C8BEDB'},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    modalBackdrop: {flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: withAlpha(theme.shadow.shadowColor, 0.40), paddingHorizontal: 24},
+    calendarCard: {width: '100%', maxWidth: 380, borderRadius: 22, backgroundColor: theme.colors.surface, padding: 16, elevation: 12},
+    titleBlock: {marginBottom: 12},
+    pickerTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 18, fontWeight: '700', textAlign: 'center'},
+    pickerSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+    calendarHeader: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
+    calendarArrowButton: {width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21, backgroundColor: theme.colors.primarySoft},
+    calendarArrowText: {color: theme.colors.primary, fontSize: 27, fontWeight: '600', lineHeight: 30},
+    calendarTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '600', textTransform: 'capitalize'},
+    weekRow: {flexDirection: 'row', marginTop: 16},
+    weekDay: {width: '14.2857%', color: theme.colors.textSecondary, fontSize: 12, textAlign: 'center'},
+    daysGrid: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 8},
+    dayCell: {width: '14.2857%', height: 39, alignItems: 'center', justifyContent: 'center'},
+    dayButton: {width: 34, height: 34, alignItems: 'center', justifyContent: 'center', borderRadius: 17},
+    daySelected: {backgroundColor: theme.colors.primary},
+    dayText: {color: theme.colors.text, fontSize: 14},
+    dayTextSelected: {color: onPrimaryTextColor(theme), fontWeight: '700'},
+    dayTextDisabled: {color: theme.colors.textMuted},
+  });
+}
 
 export default InlineCalendarPickerModal;

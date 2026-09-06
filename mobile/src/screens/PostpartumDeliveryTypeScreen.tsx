@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -23,10 +23,8 @@ import {
   setDeliveryType,
   type PostpartumDeliveryType,
 } from '../state/postpartumPreferences';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_SECONDARY = '#655A8D';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -73,6 +71,8 @@ function OptionCard({
   selected,
   onPress,
 }: OptionCardProps): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -133,7 +133,7 @@ function OptionCard({
           ]}>
           {selected ? (
             <MaterialDesignIcons
-              color="#FFFFFF"
+              color={onPrimaryTextColor(theme)}
               name="check"
               size={14}
             />
@@ -148,6 +148,8 @@ function PostpartumDeliveryTypeScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const entrance = useRef(new Animated.Value(0)).current;
@@ -212,7 +214,7 @@ function PostpartumDeliveryTypeScreen({
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -226,7 +228,7 @@ function PostpartumDeliveryTypeScreen({
       <View style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           hidden={false}
           translucent
         />
@@ -284,7 +286,7 @@ function PostpartumDeliveryTypeScreen({
 
               <View style={styles.infoRow}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="information-outline"
                   size={17}
                 />
@@ -320,290 +322,292 @@ function PostpartumDeliveryTypeScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#F2ECF8',
-  },
-
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
-
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
-
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
-
-  safeArea: {
-    flex: 1,
-  },
-
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: spacing.lg,
-  },
-
-  mainContent: {
-    flex: 1,
-  },
-
-  /*
-   * HEADER
-   *
-   * paddingTop permet de faire descendre
-   * le titre et le sous-titre.
-   *
-   * Si tu veux encore plus bas :
-   * 24 -> 30 ou 35
-   */
-  header: {
-    alignItems: 'center',
-
-    paddingTop: 24,
-
-    marginBottom: spacing.md,
-  },
-
-  title: {
-    color: PURPLE_DARK,
-
-    fontFamily: 'serif',
-
-    fontSize: 26,
-    fontWeight: '700',
-
-    lineHeight: 32,
-
-    textAlign: 'center',
-  },
-
-  subtitle: {
-    marginTop: 10,
-
-    maxWidth: 310,
-
-    color: TEXT_SECONDARY,
-
-    fontSize: 13,
-    lineHeight: 19,
-
-    textAlign: 'center',
-  },
-
-  /*
-   * Cette partie prend l'espace disponible
-   * entre le header et le bouton.
-   *
-   * Les choix restent centrés verticalement.
-   */
-  optionsCenterContainer: {
-    flex: 1,
-
-    justifyContent: 'center',
-
-    paddingVertical: spacing.md,
-  },
-
-  optionsList: {
-    gap: 12,
-  },
-
-  optionWrapper: {
-    width: '100%',
-  },
-
-  optionCard: {
-    width: '100%',
-
-    minHeight: 68,
-
-    flexDirection: 'row',
-
-    alignItems: 'center',
-
-    borderWidth: 1.4,
-
-    borderColor: 'rgba(111,83,190,0.14)',
-
-    borderRadius: 18,
-
-    backgroundColor: 'rgba(255,252,255,0.94)',
-
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-
-    elevation: 3,
-
-    shadowColor: '#4E319A',
-
-    shadowOffset: {
-      width: 0,
-      height: 4,
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
     },
 
-    shadowOpacity: 0.08,
-
-    shadowRadius: 10,
-  },
-
-  optionCardSelected: {
-    borderColor: PURPLE,
-
-    backgroundColor: '#F5F0FC',
-  },
-
-  optionIcon: {
-    width: 52,
-    height: 52,
-
-    alignItems: 'center',
-
-    justifyContent: 'center',
-
-    borderRadius: 16,
-
-    backgroundColor: '#F1EAFB',
-
-    overflow: 'hidden',
-  },
-
-  optionImage: {
-    width: 48,
-    height: 48,
-  },
-
-  optionLabel: {
-    flex: 1,
-
-    minWidth: 0,
-
-    marginHorizontal: 13,
-
-    color: '#2A2050',
-
-    fontSize: 14.5,
-
-    fontWeight: '600',
-
-    lineHeight: 19,
-  },
-
-  checkBadge: {
-    width: 24,
-    height: 24,
-
-    alignItems: 'center',
-
-    justifyContent: 'center',
-
-    borderWidth: 1.4,
-
-    borderColor: 'rgba(111,83,190,0.28)',
-
-    borderRadius: 12,
-
-    backgroundColor: 'transparent',
-  },
-
-  checkBadgeSelected: {
-    borderColor: PURPLE,
-
-    backgroundColor: PURPLE,
-  },
-
-  infoRow: {
-    flexDirection: 'row',
-
-    alignItems: 'flex-start',
-
-    gap: 8,
-
-    marginTop: spacing.lg,
-
-    paddingHorizontal: 4,
-  },
-
-  infoText: {
-    flex: 1,
-
-    color: TEXT_SECONDARY,
-
-    fontSize: 12,
-
-    lineHeight: 17,
-  },
-
-  /*
-   * Bouton toujours en bas du contenu,
-   * mais sans position absolute.
-   *
-   * Cela reste responsive.
-   */
-  nextButton: {
-    minHeight: 54,
-
-    alignItems: 'center',
-
-    justifyContent: 'center',
-
-    marginTop: spacing.sm,
-
-    borderRadius: 18,
-
-    backgroundColor: PURPLE,
-
-    shadowColor: '#4E319A',
-
-    shadowOffset: {
-      width: 0,
-      height: 5,
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
     },
 
-    shadowOpacity: 0.25,
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
 
-    shadowRadius: 9,
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-    elevation: 5,
-  },
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  nextText: {
-    color: '#FFFFFF',
+    safeArea: {
+      flex: 1,
+    },
 
-    fontSize: 18,
+    content: {
+      flexGrow: 1,
+      paddingHorizontal: spacing.lg,
+    },
 
-    fontWeight: '600',
-  },
+    mainContent: {
+      flex: 1,
+    },
 
-  pressed: {
-    opacity: 0.82,
-  },
-});
+    /*
+     * HEADER
+     *
+     * paddingTop permet de faire descendre
+     * le titre et le sous-titre.
+     *
+     * Si tu veux encore plus bas :
+     * 24 -> 30 ou 35
+     */
+    header: {
+      alignItems: 'center',
+
+      paddingTop: 24,
+
+      marginBottom: spacing.md,
+    },
+
+    title: {
+      color: theme.colors.text,
+
+      fontFamily: 'serif',
+
+      fontSize: 26,
+      fontWeight: '700',
+
+      lineHeight: 32,
+
+      textAlign: 'center',
+    },
+
+    subtitle: {
+      marginTop: 10,
+
+      maxWidth: 310,
+
+      color: theme.colors.textSecondary,
+
+      fontSize: 13,
+      lineHeight: 19,
+
+      textAlign: 'center',
+    },
+
+    /*
+     * Cette partie prend l'espace disponible
+     * entre le header et le bouton.
+     *
+     * Les choix restent centrés verticalement.
+     */
+    optionsCenterContainer: {
+      flex: 1,
+
+      justifyContent: 'center',
+
+      paddingVertical: spacing.md,
+    },
+
+    optionsList: {
+      gap: 12,
+    },
+
+    optionWrapper: {
+      width: '100%',
+    },
+
+    optionCard: {
+      width: '100%',
+
+      minHeight: 68,
+
+      flexDirection: 'row',
+
+      alignItems: 'center',
+
+      borderWidth: 1.4,
+
+      borderColor: theme.colors.border,
+
+      borderRadius: 18,
+
+      backgroundColor: theme.colors.surface,
+
+      paddingHorizontal: 14,
+      paddingVertical: 7,
+
+      elevation: 3,
+
+      shadowColor: theme.shadow.shadowColor,
+
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+
+      shadowOpacity: 0.08,
+
+      shadowRadius: 10,
+    },
+
+    optionCardSelected: {
+      borderColor: theme.colors.primary,
+
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    optionIcon: {
+      width: 52,
+      height: 52,
+
+      alignItems: 'center',
+
+      justifyContent: 'center',
+
+      borderRadius: 16,
+
+      backgroundColor: theme.colors.primarySoft,
+
+      overflow: 'hidden',
+    },
+
+    optionImage: {
+      width: 48,
+      height: 48,
+    },
+
+    optionLabel: {
+      flex: 1,
+
+      minWidth: 0,
+
+      marginHorizontal: 13,
+
+      color: theme.colors.text,
+
+      fontSize: 14.5,
+
+      fontWeight: '600',
+
+      lineHeight: 19,
+    },
+
+    checkBadge: {
+      width: 24,
+      height: 24,
+
+      alignItems: 'center',
+
+      justifyContent: 'center',
+
+      borderWidth: 1.4,
+
+      borderColor: withAlpha(theme.colors.primary, 0.28),
+
+      borderRadius: 12,
+
+      backgroundColor: 'transparent',
+    },
+
+    checkBadgeSelected: {
+      borderColor: theme.colors.primary,
+
+      backgroundColor: theme.colors.primary,
+    },
+
+    infoRow: {
+      flexDirection: 'row',
+
+      alignItems: 'flex-start',
+
+      gap: 8,
+
+      marginTop: spacing.lg,
+
+      paddingHorizontal: 4,
+    },
+
+    infoText: {
+      flex: 1,
+
+      color: theme.colors.textSecondary,
+
+      fontSize: 12,
+
+      lineHeight: 17,
+    },
+
+    /*
+     * Bouton toujours en bas du contenu,
+     * mais sans position absolute.
+     *
+     * Cela reste responsive.
+     */
+    nextButton: {
+      minHeight: 54,
+
+      alignItems: 'center',
+
+      justifyContent: 'center',
+
+      marginTop: spacing.sm,
+
+      borderRadius: 18,
+
+      backgroundColor: theme.colors.primary,
+
+      shadowColor: theme.shadow.shadowColor,
+
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+
+      shadowOpacity: 0.25,
+
+      shadowRadius: 9,
+
+      elevation: 5,
+    },
+
+    nextText: {
+      color: onPrimaryTextColor(theme),
+
+      fontSize: 18,
+
+      fontWeight: '600',
+    },
+
+    pressed: {
+      opacity: 0.82,
+    },
+  });
+}
 
 export default PostpartumDeliveryTypeScreen;
