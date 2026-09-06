@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -31,12 +31,8 @@ import {
   savePrivatePin,
   verifyPrivatePin,
 } from '../services/privateSectionAuth';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_MUTED = '#655A8D';
-const ERROR_TEXT = '#8A5370';
-const SUCCESS = '#5B9B72';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const PIN_LENGTH = 6;
 
@@ -99,9 +95,11 @@ function openDestination(
 function PinDot({
   filled,
   tone,
+  styles,
 }: {
   filled: boolean;
   tone: 'default' | 'success';
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const anim = useRef(
     new Animated.Value(filled ? 1 : 0),
@@ -174,12 +172,16 @@ function KeypadKey({
   label,
   letters,
   onPress,
+  theme,
+  styles,
 }: {
   compact: boolean;
   icon?: IconName;
   label?: string;
   letters?: string;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const scale = useRef(new Animated.Value(1)).current;
   const reduceMotion = useRef(false);
@@ -243,7 +245,7 @@ function KeypadKey({
         ]}>
         {icon ? (
           <MaterialDesignIcons
-            color={PURPLE_DARK}
+            color={theme.colors.accent}
             name={icon}
             size={25}
           />
@@ -270,6 +272,9 @@ export default function PrivateAccessScreen({
   route,
 }: Props): React.JSX.Element {
   const {purpose} = route.params;
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const insets = useSafeAreaInsets();
   const {height, width} = useWindowDimensions();
@@ -541,7 +546,7 @@ export default function PrivateAccessScreen({
         style={styles.flex}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -568,7 +573,7 @@ export default function PrivateAccessScreen({
             }
             style={styles.back}>
             <MaterialDesignIcons
-              color={PURPLE_DARK}
+              color={theme.colors.accent}
               name="arrow-left"
               size={26}
             />
@@ -604,7 +609,7 @@ export default function PrivateAccessScreen({
               }>
               <View style={styles.leaf}>
                 <MaterialDesignIcons
-                  color="#C7B3E8"
+                  color={withAlpha(theme.colors.primary, 0.5)}
                   name="sprout-outline"
                   size={18}
                 />
@@ -615,7 +620,7 @@ export default function PrivateAccessScreen({
                   styles.lockBadge
                 }>
                 <MaterialDesignIcons
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                   name="lock"
                   size={32}
                 />
@@ -627,7 +632,7 @@ export default function PrivateAccessScreen({
                   styles.leafRight,
                 ]}>
                 <MaterialDesignIcons
-                  color="#C7B3E8"
+                  color={withAlpha(theme.colors.primary, 0.5)}
                   name="sprout-outline"
                   size={18}
                 />
@@ -694,6 +699,7 @@ export default function PrivateAccessScreen({
                       'success'
                   }
                   key={index}
+                  styles={styles}
                   tone={tone}
                 />
               ),
@@ -753,6 +759,8 @@ export default function PrivateAccessScreen({
                     onPress={() =>
                       enter(key)
                     }
+                    styles={styles}
+                    theme={theme}
                   />
                 );
               }
@@ -770,6 +778,8 @@ export default function PrivateAccessScreen({
                     onPress={() =>
                       enter(key)
                     }
+                    styles={styles}
+                    theme={theme}
                   />
                 );
               }
@@ -785,6 +795,8 @@ export default function PrivateAccessScreen({
                   onPress={() =>
                     enter(key)
                   }
+                  styles={styles}
+                  theme={theme}
                 />
               );
             })}
@@ -801,7 +813,7 @@ export default function PrivateAccessScreen({
                 styles.privacyIcon
               }>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="shield-check-outline"
                 size={22}
               />
@@ -834,12 +846,15 @@ export default function PrivateAccessScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   safe: {
     flex: 1,
 
-    // Fond violet clair sans PNG
-    backgroundColor: '#F3EEFC',
+    // Reads the GLOBAL theme so it supports Light/Dark/System/True Black/
+    // Premium palettes — the "no PNG, calm flat page" structural principle
+    // this screen originally established.
+    backgroundColor: theme.colors.background,
   },
 
   flex: {
@@ -860,10 +875,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#E2D8F0',
+    borderColor: theme.colors.border,
     borderRadius: 16,
     backgroundColor:
-      'rgba(255,255,255,0.86)',
+      withAlpha(theme.colors.surface, 0.86),
   },
 
   hero: {
@@ -887,7 +902,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 42,
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
     elevation: 4,
   },
 
@@ -912,7 +927,7 @@ const styles = StyleSheet.create({
 
   title: {
     marginTop: 16,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 28,
     fontWeight: '800',
@@ -924,21 +939,21 @@ const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: 6,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 14,
     fontWeight: '600',
   },
 
   purposeLine: {
     marginTop: 10,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 12.5,
     textAlign: 'center',
   },
 
   instruction: {
     marginTop: 4,
-    color: '#3D3552',
+    color: theme.colors.text,
     fontSize: 13.5,
     textAlign: 'center',
   },
@@ -953,25 +968,25 @@ const styles = StyleSheet.create({
     width: 14,
     height: 14,
     borderWidth: 1.5,
-    borderColor: '#A98AC6',
+    borderColor: withAlpha(theme.colors.primary, 0.4),
     borderRadius: 7,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   dotFilled: {
-    borderColor: PURPLE,
-    backgroundColor: PURPLE,
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary,
   },
 
   dotSuccess: {
-    borderColor: SUCCESS,
-    backgroundColor: SUCCESS,
+    borderColor: theme.colors.success,
+    backgroundColor: theme.colors.success,
   },
 
   error: {
     height: 28,
     marginTop: 8,
-    color: ERROR_TEXT,
+    color: theme.colors.danger,
     fontSize: 11.5,
     textAlign: 'center',
   },
@@ -992,9 +1007,9 @@ const styles = StyleSheet.create({
     borderRadius: 34,
     borderWidth: 1,
     borderColor:
-      'rgba(111,83,190,0.16)',
+      withAlpha(theme.colors.primary, 0.16),
     backgroundColor:
-      'rgba(255,255,255,0.78)',
+      withAlpha(theme.colors.surface, 0.78),
   },
 
   keyCompact: {
@@ -1009,13 +1024,13 @@ const styles = StyleSheet.create({
   },
 
   number: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontSize: 22,
     fontWeight: '600',
   },
 
   letters: {
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 7,
     fontWeight: '700',
     letterSpacing: 1,
@@ -1029,10 +1044,10 @@ const styles = StyleSheet.create({
     marginTop: 22,
     borderRadius: 18,
     backgroundColor:
-      'rgba(255,255,255,0.78)',
+      withAlpha(theme.colors.surface, 0.78),
     borderWidth: 1,
     borderColor:
-      'rgba(111,83,190,0.14)',
+      withAlpha(theme.colors.primary, 0.14),
     paddingHorizontal: 14,
   },
 
@@ -1047,7 +1062,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 20,
-    backgroundColor: '#EAE0FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   privacyCopy: {
@@ -1056,15 +1071,16 @@ const styles = StyleSheet.create({
   },
 
   privacyTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontSize: 13,
     fontWeight: '700',
   },
 
   privacyText: {
     marginTop: 2,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 15,
   },
-});
+  });
+}

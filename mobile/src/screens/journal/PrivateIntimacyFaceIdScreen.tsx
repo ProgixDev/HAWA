@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {AccessibilityInfo, Animated, Easing, ImageBackground, Pressable, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {AccessibilityInfo, Animated, Easing, Pressable, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -24,16 +24,10 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
-  // Every objective's own "Note personnelle"/"Notes du jour" personal-notes
-  // field (Cycle/Contraception/Menopause/Miscarriage — see IntimacyTarget in
-  // privateSectionAuthStore.ts) reuses this shared Face ID/biometric screen
-  // but shows the flat AWA background already used by Pregnancy
-  // "Informations médicales personnelles" / Miscarriage "Notes personnelles"
-  // (PrivateAccessScreen.tsx, `#F3EEFC`) instead of the padlock-artwork PNG —
-  // every other target (cycle/conception/photos — Vie intime/Rapports/Photos
-  // privées) keeps that PNG unchanged.
-  const target = route.params?.target;
-  const isPersonalNoteTarget = target === 'cycleNotes' || target === 'contraceptionNotes' || target === 'menopauseNotes' || target === 'miscarriageNotes';
+  // Unified, theme-aware lock presentation (see PrivateIntimacyUnlockScreen.tsx's
+  // UNIFIED_PURPOSE_COPY) — now applies to every IntimacyTarget value. The
+  // legacy padlock-artwork PNG background has been fully retired from this
+  // file.
   const entrance = useRef(new Animated.Value(0)).current;
   const shake = useRef(new Animated.Value(0)).current;
   const attempted = useRef(false);
@@ -86,7 +80,7 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
       <SafeAreaView edges={['top', 'bottom']} style={styles.flex}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
-        <View style={[styles.content, isPersonalNoteTarget && styles.contentFlat, {paddingBottom: Math.max(insets.bottom, 14)}]}>
+        <View style={[styles.content, {paddingBottom: Math.max(insets.bottom, 14)}]}>
           <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.back}>
             <MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={27} />
           </Pressable>
@@ -128,29 +122,18 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
       </SafeAreaView>
   );
 
-  if (isPersonalNoteTarget) {
-    return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
-  }
-
-  return (
-    <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
-      {content}
-    </ImageBackground>
-  );
+  return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     safe: {flex: 1, backgroundColor: theme.colors.background},
-    // Same flat AWA background PrivateAccessScreen.tsx already uses for
-    // Pregnancy "Informations médicales personnelles" / Miscarriage "Notes
-    // personnelles" ("Fond violet clair sans PNG") — reused as-is, not a new
-    // asset.
-    flatBackground: {backgroundColor: '#F3EEFC'},
+    // Reads the GLOBAL theme so it supports Light/Dark/System/True Black/
+    // Premium palettes — the "no PNG, calm flat page" structural principle
+    // originally inspired by Pregnancy's private-access design.
+    flatBackground: {backgroundColor: theme.colors.background},
     flex: {flex: 1},
-    content: {flex: 1, alignItems: 'center', paddingTop: 246, paddingHorizontal: 26},
-    // No padlock artwork to clear on the flat background.
-    contentFlat: {paddingTop: 32},
+    content: {flex: 1, alignItems: 'center', paddingTop: 32, paddingHorizontal: 26},
     back: {position: 'absolute', top: 12, left: 16, zIndex: 2, width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: theme.colors.surface},
     main: {alignItems: 'center'},
     badge: {width: 118, height: 118, alignItems: 'center', justifyContent: 'center', borderRadius: 59, backgroundColor: theme.colors.primarySoft},
