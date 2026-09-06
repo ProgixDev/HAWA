@@ -32,6 +32,7 @@ import QuickActionsGrid, {
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
+import { getFloatingTabBarClearance } from '../../theme/spacing';
 import { homeRadii } from '../home/homeTheme';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
@@ -504,7 +505,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           contentContainerStyle={[
             styles.scrollContent,
             {
-              paddingBottom: Math.max(insets.bottom, 12) + 28,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 28),
             },
           ]}
           showsVerticalScrollIndicator={false}

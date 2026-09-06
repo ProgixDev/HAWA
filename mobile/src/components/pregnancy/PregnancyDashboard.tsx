@@ -32,6 +32,7 @@ import QuickActionsGrid, {
 } from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
+import { getFloatingTabBarClearance } from '../../theme/spacing';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import {
@@ -456,7 +457,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
             styles.content,
             compact && styles.contentCompact,
             {
-              paddingBottom: Math.max(insets.bottom, 12) + 128,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 128),
             },
           ]}
           showsVerticalScrollIndicator={false}

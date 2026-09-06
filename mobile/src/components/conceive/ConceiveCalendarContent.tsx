@@ -45,7 +45,7 @@ import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
 import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
 import type { DailyJournalEntry } from '../../types/journal';
-import { TOP_SPACING_EXTRA } from '../../theme/spacing';
+import { TOP_SPACING_EXTRA, getFloatingTabBarClearance } from '../../theme/spacing';
 import type { CyclePhase } from '../home/CycleStatusCard';
 import { usePremium } from '../../hooks/usePremium';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
@@ -454,7 +454,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: Math.max(insets.bottom, 16) + 30 },
+            { paddingBottom: getFloatingTabBarClearance(insets.bottom, 30) },
           ]}
           showsVerticalScrollIndicator={false}
         >

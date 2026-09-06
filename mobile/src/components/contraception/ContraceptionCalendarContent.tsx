@@ -15,7 +15,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
-import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
@@ -402,7 +402,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
-          contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 24}]}
+          contentContainerStyle={[styles.content, {paddingBottom: getFloatingTabBarClearance(insets.bottom, 24)}]}
           showsVerticalScrollIndicator={false}>
           {/* HEADER */}
           <View style={styles.header}>

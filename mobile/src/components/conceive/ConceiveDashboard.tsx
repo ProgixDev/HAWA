@@ -47,7 +47,7 @@ import {CONCEPTION_JOURNAL_ITEMS} from '../../config/conceptionJournalConfig';
 import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {LIBRARY_ARTICLES, type LibraryArticle} from '../../data/libraryContent';
-import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../../theme/spacing';
 import {
   computeCyclePredictionStatus,
   cycleDayFor,
@@ -547,7 +547,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
         />
 
         <ScrollView
-          contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 12) + 22}]}
+          contentContainerStyle={[styles.scrollContent, {paddingBottom: getFloatingTabBarClearance(insets.bottom, 22)}]}
           showsVerticalScrollIndicator={false}>
           <Animated.View style={animatedStyle}>
             <HomeHeader

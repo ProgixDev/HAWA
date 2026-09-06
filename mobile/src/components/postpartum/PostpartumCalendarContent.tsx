@@ -22,7 +22,7 @@ import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
-import { TOP_SPACING_EXTRA } from '../../theme/spacing';
+import { TOP_SPACING_EXTRA, getFloatingTabBarClearance } from '../../theme/spacing';
 import {
   loadPersonalInformation,
   type CalendarPreference,
@@ -440,7 +440,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.content,
-            { paddingBottom: Math.max(insets.bottom, 16) + 30 },
+            { paddingBottom: getFloatingTabBarClearance(insets.bottom, 30) },
           ]}
           showsVerticalScrollIndicator={false}
         >

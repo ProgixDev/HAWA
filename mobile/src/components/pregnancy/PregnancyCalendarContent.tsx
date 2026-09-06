@@ -66,7 +66,7 @@ import type {
   MoodLevel,
 } from '../../types/journal';
 
-import {TOP_SPACING_EXTRA} from '../../theme/spacing';
+import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 
 /* ============================================================
    CALENDAR MODES
@@ -894,11 +894,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
           contentContainerStyle={[
             styles.content,
             {
-              paddingBottom:
-                Math.max(
-                  insets.bottom,
-                  16,
-                ) + 30,
+              paddingBottom: getFloatingTabBarClearance(insets.bottom, 30),
             },
           ]}
           showsVerticalScrollIndicator={

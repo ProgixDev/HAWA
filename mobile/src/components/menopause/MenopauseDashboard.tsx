@@ -38,6 +38,7 @@ import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
+import {getFloatingTabBarClearance} from '../../theme/spacing';
 import PremiumChoiceCard from '../onboarding/PremiumChoiceCard';
 import {JournalSaveToast, useJournalSaveToast} from '../journal/JournalSaveToast';
 
@@ -830,7 +831,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
         <ScrollView
           contentContainerStyle={[
             styles.scrollContent,
-            {paddingBottom: Math.max(insets.bottom, 12) + 22},
+            {paddingBottom: getFloatingTabBarClearance(insets.bottom, 22)},
           ]}
           showsVerticalScrollIndicator={false}>
           <HomeHeader
