@@ -40,3 +40,35 @@ export function getBottomPadding(insetsBottom: number, extra: number = spacing.m
 // overlaps the end of the article. Kept in one place so every article
 // screen scrolls its last paragraph fully clear of the bar.
 export const READING_CONTROLS_SPACE = 170;
+
+// Mirrors the floating bottom tab bar's own occupied footprint
+// (src/components/navigation/CustomBottomTabBar.tsx: `bottomBar` height 58,
+// `bottomBarArea` paddingTop 4, and its own `Math.max(insets.bottom, 8)`
+// SafeArea floor) — kept in sync manually since that file is out of scope
+// for this change, exactly like awaThemeTokens.ts's TRUE_BLACK_* literals
+// are kept in sync with AppearanceScreen.tsx's DARK_CHROME.
+//
+// Since the navbar became an absolute floating overlay, React Navigation no
+// longer reserves layout space for it — every scrollable main-tab screen
+// (Accueil/Calendrier/Statistiques/Profil, and every objective's own
+// dashboard/calendar/statistics implementation) must add this to its OWN
+// `contentContainerStyle.paddingBottom` so the last piece of content can
+// scroll fully above the pill instead of being hidden behind it.
+const FLOATING_TAB_BAR_PILL_HEIGHT = 58;
+const FLOATING_TAB_BAR_TOP_SPACING = 4;
+const FLOATING_TAB_BAR_MIN_BOTTOM_INSET = 8;
+
+// `insetsBottom` must be that SAME screen's own `useSafeAreaInsets().bottom`
+// — passed straight through, not pre-floored or added to separately, or the
+// SafeArea inset ends up counted twice. `extra` is the screen's own existing
+// breathing-room choice (its previous non-navbar-related bottom padding
+// value, or `spacing.md` by default) — this only corrects the floor to
+// additionally clear the floating pill, it does not reset per-screen intent.
+export function getFloatingTabBarClearance(insetsBottom: number, extra: number = spacing.md): number {
+  return (
+    FLOATING_TAB_BAR_TOP_SPACING +
+    FLOATING_TAB_BAR_PILL_HEIGHT +
+    Math.max(insetsBottom, FLOATING_TAB_BAR_MIN_BOTTOM_INSET) +
+    extra
+  );
+}
