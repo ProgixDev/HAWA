@@ -1,6 +1,7 @@
 import React, {useMemo, useState} from 'react';
-import {Alert, Image, ImageBackground, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
+import {Alert, Image, KeyboardAvoidingView, Platform, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, TextInput, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
@@ -8,8 +9,9 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
 import {updatePersonalInformation} from '../state/personalInformationStore';
 import {isValidEmail} from '../utils/emailValidation';
+import {AUTH_LIGHT_THEME} from '../theme/authLightTheme';
+import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
-const BACKGROUND = require('../assets/images/auth-mosque-background.png');
 const GOOGLE = require('../assets/images/auth-google-logo.png');
 const APPLE = require('../assets/images/auth-apple-logo.png');
 
@@ -99,7 +101,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       setSubmitting(false);
     }
   };
-  return <ImageBackground source={BACKGROUND} resizeMode="cover" style={styles.background}><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle="dark-content" /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12, paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
+  return <LinearGradient colors={[...AUTH_LIGHT_THEME.gradients.pageBackground]} end={{x: 1, y: 1}} locations={[0, 0.32, 0.7, 1]} start={{x: 0, y: 0}} style={styles.background}><View pointerEvents="none" style={styles.pageBackgroundDecor}><View style={styles.pageGlowTop} /><View style={styles.pageGlowMiddle} /><View style={styles.pageGlowBottom} /></View><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle={AUTH_LIGHT_THEME.statusBarStyle} /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12, paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
     <View style={styles.hero}>
       <View style={styles.brandArea}><Text style={styles.brand}>AWA</Text></View>
       <Text style={styles.title}>Créer votre compte</Text>
@@ -153,12 +155,20 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
     <View style={styles.legalArea}>
       <Text style={styles.legal}>En créant un compte, vous acceptez nos</Text><Text style={styles.legalStrong}>Conditions d’utilisation et notre Politique de confidentialité.</Text>
     </View>
-  </ScrollView></SafeAreaView></KeyboardAvoidingView></ImageBackground>;
+  </ScrollView></SafeAreaView></KeyboardAvoidingView></LinearGradient>;
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1},
-  page: {flex: 1}, safeArea: {flex: 1}, content: {flexGrow: 1, justifyContent: 'center'}, hero: {alignItems: 'center'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  // Same canonical AWA page-background mechanism as the objective dashboards
+  // (e.g. CycleHomeScreen.tsx): a theme-driven gradient plus 3 soft
+  // decorative "glow" views, replacing the old auth-mosque-background.png.
+  background: {flex: 1, backgroundColor: theme.colors.background},
+  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
+  pageGlowTop: {position: 'absolute', top: -150, right: -110, width: 330, height: 330, borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07)},
+  pageGlowMiddle: {position: 'absolute', top: '38%', left: -130, width: 260, height: 260, borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045)},
+  pageGlowBottom: {position: 'absolute', bottom: -150, right: -100, width: 310, height: 310, borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05)},
+  page: {flex: 1}, safeArea: {flex: 1, backgroundColor: 'transparent'}, content: {flexGrow: 1, justifyContent: 'center'}, hero: {alignItems: 'center'},
   formArea: {marginTop: spacing.xl},
   brandArea: {alignItems: 'center', paddingBottom: 4},
   brand: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 40, letterSpacing: 2, textShadowColor: 'rgba(255,255,255,0.85)', textShadowOffset: {width: 0, height: 1}, textShadowRadius: 8},
@@ -177,5 +187,12 @@ const styles = StyleSheet.create({
   devBypass: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 10, marginHorizontal: spacing.lg, minHeight: 34, borderWidth: 1, borderStyle: 'dashed', borderColor: 'rgba(138,127,166,0.45)', borderRadius: 12, backgroundColor: 'transparent'}, devBypassText: {color: '#8A7FA6', fontSize: 10.5, fontWeight: '600'},
   or: {marginVertical: 8, color: '#8A7FA6', fontSize: 11, textAlign: 'center'}, socialRow: {flexDirection: 'row', justifyContent: 'center', gap: 20}, social: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: 'rgba(111,83,190,0.20)', borderRadius: 22, backgroundColor: '#FFFCFF'}, socialLogo: {width: 26, height: 26, resizeMode: 'contain'},
   legalArea: {marginTop: 16}, legal: {color: '#8A7FA6', fontSize: 9, textAlign: 'center'}, legalStrong: {marginTop: 2, color: '#5F547C', fontSize: 9, fontWeight: '600', textAlign: 'center'},
-});
+  });
+}
+
+// Auth is intentionally Light-only (see authLightTheme.ts) — styles are
+// derived once from the frozen AUTH_LIGHT_THEME, not recomputed per render
+// from a reactive theme.
+const styles = createStyles(AUTH_LIGHT_THEME);
+
 export default RegistrationScreen;
