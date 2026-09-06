@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -18,6 +18,8 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getTopPadding} from '../../theme/spacing';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {ensureNotificationPermission} from '../../services/pregnancyNotifications';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 import {
   getIrregularPreferences,
@@ -34,18 +36,6 @@ import {
 // answers are ever used to diagnose PCOS or to classify a long cycle as
 // "late" — see irregularPreferences.ts's and irregularReminderScheduling.ts's
 // own header comments for the same rule enforced on the data/scheduling side.
-
-/* ============================================================
- * COLORS — identical palette to ConceptionOnboardingScreens.tsx, for visual
- * consistency across every objective's onboarding.
- * ============================================================ */
-
-const COLORS = {
-  primary: '#6949BE',
-  primaryDark: '#3F278D',
-  text: '#26184F',
-  textSecondary: '#655A7D',
-};
 
 /* ============================================================
  * TYPES
@@ -151,6 +141,8 @@ function Shell({
   nextDisabled,
   nextLabel,
   onNext,
+  theme,
+  styles,
 }: Props & {
   step: number;
   title: string;
@@ -159,12 +151,14 @@ function Shell({
   nextDisabled?: boolean;
   nextLabel?: string;
   onNext: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   const insets = useSafeAreaInsets();
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -175,7 +169,7 @@ function Shell({
         <View style={styles.pageGlowBottom} />
       </View>
 
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
       <ScrollView
         contentContainerStyle={[
@@ -193,7 +187,7 @@ function Shell({
             hitSlop={8}
             onPress={navigation.goBack}
             style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={COLORS.primary} name="arrow-left" size={24} />
+            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
           </Pressable>
         </View>
 
@@ -213,7 +207,7 @@ function Shell({
               pressed && !nextDisabled && styles.primaryPressed,
             ]}>
             <Text style={styles.primaryText}>{nextLabel ?? (step === 4 ? 'Continuer' : 'Suivant')}</Text>
-            <MaterialDesignIcons color="#FFFFFF" name="arrow-right" size={18} />
+            <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={18} />
           </Pressable>
         </View>
       </ScrollView>
@@ -226,6 +220,9 @@ function Shell({
  * ============================================================ */
 
 export function IrregularCyclePatternScreen({navigation, route}: Props) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [selected, setSelected] = useState<IrregularCyclePattern | null>(
     () => getIrregularPreferences().cyclePattern,
   );
@@ -249,7 +246,9 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
       }}
       route={route}
       step={1}
+      styles={styles}
       subtitle="Cela nous aide à adapter ton suivi, sans jamais poser de diagnostic."
+      theme={theme}
       title="Comment sont généralement tes cycles ?">
       <View style={[styles.list, styles.listTop]}>
         {cyclePatternOptions.map(item => (
@@ -260,11 +259,17 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
             label={item.label}
             onPress={() => setSelected(item.id)}
             selected={selected === item.id}
+            styles={styles}
+            theme={theme}
           />
         ))}
       </View>
 
-      <Info text="Chaque cycle est différent. AWA t’accompagne pour mieux comprendre le tien, à ton rythme." />
+      <Info
+        styles={styles}
+        text="Chaque cycle est différent. AWA t’accompagne pour mieux comprendre le tien, à ton rythme."
+        theme={theme}
+      />
     </Shell>
   );
 }
@@ -274,6 +279,9 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
  * ============================================================ */
 
 export function IrregularLastPeriodScreen({navigation, route}: Props) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [selectedDate, setSelectedDate] = useState<Date | null>(() => {
     const stored = getIrregularPreferences().lastPeriodDate;
     return stored ? new Date(`${stored}T12:00:00`) : null;
@@ -307,7 +315,9 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
       }}
       route={route}
       step={2}
+      styles={styles}
       subtitle="Cette information reste indicative — elle ne détermine jamais un retard."
+      theme={theme}
       title="Quand ont commencé tes dernières règles ?">
       <View style={[styles.list, styles.listTop]}>
         <Pressable
@@ -323,7 +333,7 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
             pressed && styles.choicePressed,
           ]}>
           <View style={styles.dateFieldIcon}>
-            <MaterialDesignIcons color={COLORS.primary} name="calendar-month-outline" size={22} />
+            <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={22} />
           </View>
           <View style={styles.copy}>
             <Text style={styles.label}>Choisir une date</Text>
@@ -338,10 +348,12 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
           label="Je ne sais pas / Je préfère renseigner plus tard"
           onPress={() => setSkipped(true)}
           selected={skipped || !selectedDate}
+          styles={styles}
+          theme={theme}
         />
       </View>
 
-      <Info icon="lightbulb-outline" text="Pas de souci si tu ne sais pas encore. Tu pourras toujours l’ajouter plus tard." />
+      <Info icon="lightbulb-outline" styles={styles} text="Pas de souci si tu ne sais pas encore. Tu pourras toujours l’ajouter plus tard." theme={theme} />
 
       <InlineCalendarPickerModal
         maximumDate={new Date()}
@@ -365,6 +377,9 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
  * ============================================================ */
 
 export function IrregularTrackedItemsScreen({navigation, route}: Props) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [selected, setSelected] = useState<Set<IrregularTrackedItem>>(
     () => new Set(getIrregularPreferences().trackedItems),
   );
@@ -399,7 +414,9 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
       }}
       route={route}
       step={3}
+      styles={styles}
       subtitle="Sélectionne ceux qui sont importants pour toi. Tu pourras les modifier à tout moment."
+      theme={theme}
       title="Quels éléments souhaites-tu suivre ?">
       <View style={[styles.list, styles.listTop, styles.trackedItemsList]}>
         {trackedItemOptions.map(item => (
@@ -412,11 +429,13 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
             label={item.label}
             onPress={() => toggle(item.id)}
             selected={selected.has(item.id)}
+            styles={styles}
+            theme={theme}
           />
         ))}
       </View>
 
-      <Info icon="notebook-outline" text="Tu retrouveras toujours l’ensemble de ton Journal quotidien, quels que soient tes choix ici." />
+      <Info icon="notebook-outline" styles={styles} text="Tu retrouveras toujours l’ensemble de ton Journal quotidien, quels que soient tes choix ici." theme={theme} />
     </Shell>
   );
 }
@@ -441,6 +460,9 @@ function parseTimeToDate(hhmm: string): Date {
 type RemindersProps = NativeStackScreenProps<RootStackParamList, 'IrregularReminders'>;
 
 export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   // Same canonical irregularPreferences.ts store regardless of mode — this is
   // what makes onboarding and Profile → Notifications & rappels literally the
   // same setting rather than two disconnected copies (see
@@ -506,7 +528,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -518,7 +540,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
       </View>
 
       <SafeAreaView edges={['left', 'right']} style={styles.safeArea}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <ScrollView
           contentContainerStyle={[
@@ -537,7 +559,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                 hitSlop={8}
                 onPress={navigation.goBack}
                 style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-                <MaterialDesignIcons color={COLORS.primary} name="arrow-left" size={24} />
+                <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
               </Pressable>
             ) : null}
           </View>
@@ -553,7 +575,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
             <View style={styles.reminderCard}>
               <View style={styles.reminderTopRow}>
                 <View style={styles.reminderIcon}>
-                  <MaterialDesignIcons color={COLORS.primary} name="notebook-edit-outline" size={22} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
                 </View>
                 <View style={styles.copy}>
                   <Text style={styles.label}>Journal quotidien</Text>
@@ -563,13 +585,13 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                 </View>
                 <Switch
                   accessibilityRole="switch"
-                  ios_backgroundColor="#DED9E7"
+                  ios_backgroundColor={theme.colors.surfaceSecondary}
                   onValueChange={value => {
                     setDailyJournalEnabled(value);
                     setError('');
                   }}
-                  thumbColor="#FFFFFF"
-                  trackColor={{false: '#DED9E7', true: COLORS.primary}}
+                  thumbColor={theme.colors.surface}
+                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={dailyJournalEnabled}
                 />
               </View>
@@ -581,7 +603,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                   onPress={() => setTimePickerVisible(true)}
                   style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
                   <View style={styles.dateFieldIcon}>
-                    <MaterialDesignIcons color={COLORS.primary} name="clock-outline" size={18} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.copy}>
                     <Text style={styles.timeLabel}>Heure du rappel</Text>
@@ -589,7 +611,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                       {dailyJournalTime ?? 'Choisir une heure'}
                     </Text>
                   </View>
-                  <MaterialDesignIcons color="#8A7EA8" name="chevron-right" size={20} />
+                  <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
                 </Pressable>
               ) : null}
             </View>
@@ -597,7 +619,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
             <View style={styles.reminderCard}>
               <View style={styles.reminderTopRow}>
                 <View style={styles.reminderIcon}>
-                  <MaterialDesignIcons color={COLORS.primary} name="calendar-alert-outline" size={22} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="calendar-alert-outline" size={22} />
                 </View>
                 <View style={styles.copy}>
                   <Text style={styles.label}>Règles non renseignées</Text>
@@ -608,13 +630,13 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                 </View>
                 <Switch
                   accessibilityRole="switch"
-                  ios_backgroundColor="#DED9E7"
+                  ios_backgroundColor={theme.colors.surfaceSecondary}
                   onValueChange={value => {
                     setUnrecordedPeriodEnabled(value);
                     setError('');
                   }}
-                  thumbColor="#FFFFFF"
-                  trackColor={{false: '#DED9E7', true: COLORS.primary}}
+                  thumbColor={theme.colors.surface}
+                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={unrecordedPeriodEnabled}
                 />
               </View>
@@ -638,14 +660,14 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
 
           {error ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color="#C74669" name="alert-outline" size={16} />
+              <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={16} />
               <Text style={styles.errorText}>{error}</Text>
             </View>
           ) : null}
 
           {permissionNotice ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
-              <MaterialDesignIcons color="#C74669" name="bell-off-outline" size={16} />
+              <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={styles.errorText}>
                 Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
               </Text>
@@ -681,6 +703,8 @@ function Choice({
   checkbox,
   compact,
   onPress,
+  theme,
+  styles,
 }: {
   label: string;
   description?: string;
@@ -689,6 +713,8 @@ function Choice({
   checkbox?: boolean;
   compact?: boolean;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <Pressable
@@ -709,7 +735,7 @@ function Choice({
             selected && styles.iconBoxSelected,
           ]}>
           <MaterialDesignIcons
-            color={selected ? '#FFFFFF' : COLORS.primary}
+            color={selected ? onPrimaryTextColor(theme) : theme.colors.primary}
             name={icon}
             size={compact ? 20 : 21}
           />
@@ -723,7 +749,7 @@ function Choice({
 
       <View style={[checkbox ? styles.checkbox : styles.radio, selected && styles.selectedMark]}>
         {selected ? (
-          <MaterialDesignIcons color="#FFFFFF" name={checkbox ? 'check' : 'circle'} size={checkbox ? 15 : 9} />
+          <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={checkbox ? 'check' : 'circle'} size={checkbox ? 15 : 9} />
         ) : null}
       </View>
     </Pressable>
@@ -734,11 +760,11 @@ function Choice({
  * SHARED INFO
  * ============================================================ */
 
-function Info({text, icon = 'heart-outline'}: {text: string; icon?: IconName}) {
+function Info({text, icon = 'heart-outline', theme, styles}: {text: string; icon?: IconName; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
   return (
     <View style={styles.info}>
       <View style={styles.infoIcon}>
-        <MaterialDesignIcons color={COLORS.primary} name={icon} size={22} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
       </View>
       <Text style={styles.infoText}>{text}</Text>
     </View>
@@ -749,188 +775,190 @@ function Info({text, icon = 'heart-outline'}: {text: string; icon?: IconName}) {
  * STYLES — same visual language as ConceptionOnboardingScreens.tsx.
  * ============================================================ */
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F6F2FA'},
-  safeArea: {flex: 1},
-  pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
-  pageGlowTop: {
-    position: 'absolute', top: -175, right: -120, width: 355, height: 355,
-    borderRadius: 178, backgroundColor: 'rgba(111,82,170,0.065)',
-  },
-  pageGlowMiddle: {
-    position: 'absolute', top: '38%', left: -145, width: 290, height: 290,
-    borderRadius: 145, backgroundColor: 'rgba(139,112,188,0.04)',
-  },
-  pageGlowBottom: {
-    position: 'absolute', bottom: -175, right: -115, width: 335, height: 335,
-    borderRadius: 168, backgroundColor: 'rgba(92,67,139,0.045)',
-  },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {flex: 1, backgroundColor: theme.colors.background},
+    safeArea: {flex: 1},
+    pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
+    pageGlowTop: {
+      position: 'absolute', top: -175, right: -120, width: 355, height: 355,
+      borderRadius: 178, backgroundColor: withAlpha(theme.colors.primary, 0.065),
+    },
+    pageGlowMiddle: {
+      position: 'absolute', top: '38%', left: -145, width: 290, height: 290,
+      borderRadius: 145, backgroundColor: withAlpha(theme.colors.primary, 0.04),
+    },
+    pageGlowBottom: {
+      position: 'absolute', bottom: -175, right: -115, width: 335, height: 335,
+      borderRadius: 168, backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-  content: {flexGrow: 1, paddingHorizontal: 16},
+    content: {flexGrow: 1, paddingHorizontal: 16},
 
-  progressRow: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',
-    minHeight: 42, marginBottom: 4,
-  },
-  back: {
-    width: 38, height: 38, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: 'rgba(105,73,190,0.10)', borderRadius: 13,
-    backgroundColor: 'rgba(255,255,255,0.94)',
-    shadowColor: '#5C3A8D', shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.06, shadowRadius: 8, elevation: 2,
-  },
+    progressRow: {
+      flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start',
+      minHeight: 42, marginBottom: 4,
+    },
+    back: {
+      width: 38, height: 38, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 13,
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.06, shadowRadius: 8, elevation: 2,
+    },
 
-  title: {
-    alignSelf: 'center', width: '100%', maxWidth: 335, marginTop: 8,
-    color: COLORS.text, fontFamily: 'serif', fontSize: 22, lineHeight: 28,
-    fontWeight: '800', textAlign: 'center', flexShrink: 1,
-  },
-  subtitle: {
-    alignSelf: 'center', width: '100%', maxWidth: 320, marginTop: 7,
-    color: COLORS.textSecondary, fontSize: 10.5, lineHeight: 15.5,
-    textAlign: 'center', flexShrink: 1,
-  },
+    title: {
+      alignSelf: 'center', width: '100%', maxWidth: 335, marginTop: 8,
+      color: theme.colors.text, fontFamily: 'serif', fontSize: 22, lineHeight: 28,
+      fontWeight: '800', textAlign: 'center', flexShrink: 1,
+    },
+    subtitle: {
+      alignSelf: 'center', width: '100%', maxWidth: 320, marginTop: 7,
+      color: theme.colors.textSecondary, fontSize: 10.5, lineHeight: 15.5,
+      textAlign: 'center', flexShrink: 1,
+    },
 
-  list: {gap: 9},
-  listTop: {marginTop: 18},
+    list: {gap: 9},
+    listTop: {marginTop: 18},
 
-  trackedItemsList: {
-    gap: 7,
-    marginTop: 16,
-  },
+    trackedItemsList: {
+      gap: 7,
+      marginTop: 16,
+    },
 
-  choiceCompact: {
-    minHeight: 58,
-    paddingHorizontal: 11,
-    paddingVertical: 8,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.97)',
-  },
+    choiceCompact: {
+      minHeight: 58,
+      paddingHorizontal: 11,
+      paddingVertical: 8,
+      borderRadius: 16,
+      backgroundColor: withAlpha(theme.colors.surface, 0.97),
+    },
 
-  iconBoxCompact: {
-    width: 38,
-    height: 38,
-    marginRight: 10,
-    borderRadius: 12,
-  },
+    iconBoxCompact: {
+      width: 38,
+      height: 38,
+      marginRight: 10,
+      borderRadius: 12,
+    },
 
-  choice: {
-    position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center',
-    overflow: 'hidden', paddingHorizontal: 12, paddingVertical: 10,
-    borderWidth: 1, borderColor: 'rgba(112,77,178,0.10)', borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    shadowColor: '#6B4C9B', shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.035, shadowRadius: 9, elevation: 1,
-  },
-  choiceSelected: {
-    borderColor: 'rgba(105,73,190,0.50)', backgroundColor: '#FCFAFF',
-    shadowColor: '#6949BE', shadowOpacity: 0.10, shadowRadius: 12, elevation: 3,
-    transform: [{translateY: -1}],
-  },
-  choicePressed: {opacity: 0.86, transform: [{scale: 0.99}]},
+    choice: {
+      position: 'relative', minHeight: 68, flexDirection: 'row', alignItems: 'center',
+      overflow: 'hidden', paddingHorizontal: 12, paddingVertical: 10,
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      backgroundColor: withAlpha(theme.colors.surface, 0.95),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.035, shadowRadius: 9, elevation: 1,
+    },
+    choiceSelected: {
+      borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft,
+      shadowColor: theme.colors.primary, shadowOpacity: 0.10, shadowRadius: 12, elevation: 3,
+      transform: [{translateY: -1}],
+    },
+    choicePressed: {opacity: 0.86, transform: [{scale: 0.99}]},
 
-  dateField: {
-    minHeight: 68, flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 12, paddingVertical: 10,
-    borderWidth: 1, borderColor: 'rgba(112,77,178,0.10)', borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.95)',
-  },
-  dateFieldSelected: {borderColor: 'rgba(105,73,190,0.50)', backgroundColor: '#FCFAFF'},
-  dateFieldIcon: {
-    width: 40, height: 40, marginRight: 10, flexShrink: 0,
-    alignItems: 'center', justifyContent: 'center', borderRadius: 14,
-    backgroundColor: '#F2ECFA',
-  },
+    dateField: {
+      minHeight: 68, flexDirection: 'row', alignItems: 'center',
+      paddingHorizontal: 12, paddingVertical: 10,
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      backgroundColor: withAlpha(theme.colors.surface, 0.95),
+    },
+    dateFieldSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
+    dateFieldIcon: {
+      width: 40, height: 40, marginRight: 10, flexShrink: 0,
+      alignItems: 'center', justifyContent: 'center', borderRadius: 14,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  iconBox: {
-    width: 40, height: 40, marginRight: 10, flexShrink: 0,
-    alignItems: 'center', justifyContent: 'center', borderRadius: 14,
-    backgroundColor: '#F2ECFA',
-  },
-  iconBoxSelected: {
-    backgroundColor: COLORS.primary,
-    shadowColor: COLORS.primary, shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.16, shadowRadius: 5, elevation: 2,
-  },
+    iconBox: {
+      width: 40, height: 40, marginRight: 10, flexShrink: 0,
+      alignItems: 'center', justifyContent: 'center', borderRadius: 14,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    iconBoxSelected: {
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.16, shadowRadius: 5, elevation: 2,
+    },
 
-  copy: {flex: 1, minWidth: 0, paddingRight: 8},
-  label: {
-    color: '#261C47', fontSize: 13, lineHeight: 17, fontWeight: '700', flexShrink: 1,
-  },
-  labelSelected: {color: COLORS.primaryDark, fontWeight: '800'},
-  description: {
-    marginTop: 3,
-    color: '#655B78',
-    fontSize: 10,
-    lineHeight: 14.5,
-    flexShrink: 1,
-  },
+    copy: {flex: 1, minWidth: 0, paddingRight: 8},
+    label: {
+      color: theme.colors.text, fontSize: 13, lineHeight: 17, fontWeight: '700', flexShrink: 1,
+    },
+    labelSelected: {color: theme.colors.accent, fontWeight: '800'},
+    description: {
+      marginTop: 3,
+      color: theme.colors.textSecondary,
+      fontSize: 10,
+      lineHeight: 14.5,
+      flexShrink: 1,
+    },
 
-  radio: {
-    width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1.5, borderColor: '#CDC4DA', borderRadius: 11, backgroundColor: '#FFFFFF',
-  },
-  checkbox: {
-    width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1.5, borderColor: '#CDC4DA', borderRadius: 7, backgroundColor: '#FFFFFF',
-  },
-  selectedMark: {borderColor: COLORS.primary, backgroundColor: COLORS.primary},
+    radio: {
+      width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1.5, borderColor: withAlpha(theme.colors.primary, 0.35), borderRadius: 11, backgroundColor: theme.colors.surface,
+    },
+    checkbox: {
+      width: 22, height: 22, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderWidth: 1.5, borderColor: withAlpha(theme.colors.primary, 0.35), borderRadius: 7, backgroundColor: theme.colors.surface,
+    },
+    selectedMark: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
 
-  info: {
-    flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12,
-    paddingHorizontal: 12, paddingVertical: 10,
-    borderWidth: 1, borderColor: 'rgba(105,73,190,0.07)', borderRadius: 17,
-    backgroundColor: 'rgba(247,241,252,0.86)',
-  },
-  infoIcon: {
-    width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 12, backgroundColor: '#FFFFFF',
-    shadowColor: '#68479C', shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.04, shadowRadius: 5, elevation: 1,
-  },
-  infoText: {
-    flex: 1, minWidth: 0, color: '#5F5576', fontSize: 10, lineHeight: 14.5,
-  },
+    info: {
+      flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12,
+      paddingHorizontal: 12, paddingVertical: 10,
+      borderWidth: 1, borderColor: theme.colors.border, borderRadius: 17,
+      backgroundColor: withAlpha(theme.colors.primarySoft, 0.86),
+    },
+    infoIcon: {
+      width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      borderRadius: 12, backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.04, shadowRadius: 5, elevation: 1,
+    },
+    infoText: {
+      flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10, lineHeight: 14.5,
+    },
 
-  reminderCard: {
-    padding: 13, borderWidth: 1, borderColor: 'rgba(112,77,178,0.10)',
-    borderRadius: 21, backgroundColor: 'rgba(255,255,255,0.95)',
-    shadowColor: '#664692', shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.04, shadowRadius: 10, elevation: 1,
-  },
-  reminderTopRow: {flexDirection: 'row', alignItems: 'flex-start'},
-  reminderIcon: {
-    width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
-    marginRight: 10, borderRadius: 14, backgroundColor: '#F0E7FC',
-  },
+    reminderCard: {
+      padding: 13, borderWidth: 1, borderColor: theme.colors.border,
+      borderRadius: 21, backgroundColor: withAlpha(theme.colors.surface, 0.95),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.04, shadowRadius: 10, elevation: 1,
+    },
+    reminderTopRow: {flexDirection: 'row', alignItems: 'flex-start'},
+    reminderIcon: {
+      width: 42, height: 42, flexShrink: 0, alignItems: 'center', justifyContent: 'center',
+      marginRight: 10, borderRadius: 14, backgroundColor: theme.colors.primarySoft,
+    },
 
-  timeRow: {
-    minHeight: 52, marginTop: 11, flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 11, borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.12)', borderRadius: 15,
-    backgroundColor: '#FBF9FE',
-  },
-  timeLabel: {color: COLORS.textSecondary, fontSize: 10, fontWeight: '700'},
-  timeValue: {marginTop: 2, color: '#291D4E', fontSize: 13.5, fontWeight: '800'},
+    timeRow: {
+      minHeight: 52, marginTop: 11, flexDirection: 'row', alignItems: 'center',
+      paddingHorizontal: 11, borderWidth: 1,
+      borderColor: theme.colors.border, borderRadius: 15,
+      backgroundColor: theme.colors.surface,
+    },
+    timeLabel: {color: theme.colors.textSecondary, fontSize: 10, fontWeight: '700'},
+    timeValue: {marginTop: 2, color: theme.colors.text, fontSize: 13.5, fontWeight: '800'},
 
-  errorCard: {
-    flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
-    paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
-    backgroundColor: '#FFF0F4', borderWidth: 1, borderColor: 'rgba(199,70,105,0.15)',
-  },
-  errorText: {flex: 1, minWidth: 0, color: '#98394F', fontSize: 11, lineHeight: 15},
+    errorCard: {
+      flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 12,
+      paddingHorizontal: 12, paddingVertical: 10, borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.danger, 0.08), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
+    },
+    errorText: {flex: 1, minWidth: 0, color: theme.colors.danger, fontSize: 11, lineHeight: 15},
 
-  navRow: {alignItems: 'center', justifyContent: 'center', marginTop: 18, paddingTop: 12},
-  primary: {
-    width: '86%', maxWidth: 360, minHeight: 52,
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7,
-    borderRadius: 18, backgroundColor: COLORS.primary,
-    shadowColor: COLORS.primaryDark, shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.18, shadowRadius: 9, elevation: 4,
-  },
-  primaryPressed: {opacity: 0.90, transform: [{scale: 0.985}]},
-  disabled: {opacity: 0.45, elevation: 0},
-  primaryText: {color: '#FFFFFF', fontSize: 14, fontWeight: '800'},
+    navRow: {alignItems: 'center', justifyContent: 'center', marginTop: 18, paddingTop: 12},
+    primary: {
+      width: '86%', maxWidth: 360, minHeight: 52,
+      flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 7,
+      borderRadius: 18, backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.18, shadowRadius: 9, elevation: 4,
+    },
+    primaryPressed: {opacity: 0.90, transform: [{scale: 0.985}]},
+    disabled: {opacity: 0.45, elevation: 0},
+    primaryText: {color: onPrimaryTextColor(theme), fontSize: 14, fontWeight: '800'},
 
-  pressed: {opacity: 0.80},
-})
+    pressed: {opacity: 0.80},
+  });
+}

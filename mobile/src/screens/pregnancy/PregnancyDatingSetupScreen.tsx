@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
@@ -18,16 +18,13 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {formatFullDate} from '../../utils/cycleMath';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getPregnancyDating,
   setPregnancyDating,
   type PregnancyDatingMethod,
 } from '../../state/pregnancyPreferences';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F1EAFB';
-const TEXT_SECONDARY = '#706587';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -90,10 +87,14 @@ function DateField({
   label,
   date,
   onPress,
+  theme,
+  styles,
 }: {
   label: string;
   date: Date | null;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const fieldAnim = useRef(
     new Animated.Value(0),
@@ -147,7 +148,7 @@ function DateField({
         ]}>
         <View style={styles.dateIcon}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="calendar-month-outline"
             size={18}
           />
@@ -161,7 +162,7 @@ function DateField({
 
         <View style={styles.dateChevron}>
           <MaterialDesignIcons
-            color="#8A7EA8"
+            color={theme.colors.textSecondary}
             name="chevron-right"
             size={20}
           />
@@ -179,6 +180,8 @@ function PregnancyDatingSetupScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const [method, setMethod] =
@@ -296,7 +299,7 @@ function PregnancyDatingSetupScreen({
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -310,7 +313,7 @@ function PregnancyDatingSetupScreen({
       <View style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -350,7 +353,7 @@ function PregnancyDatingSetupScreen({
                 styles.pressed,
             ]}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="arrow-left"
               size={24}
             />
@@ -367,12 +370,12 @@ function PregnancyDatingSetupScreen({
                 <View pointerEvents="none" style={styles.pregnancyHeroGlowInner} />
 
                 <LinearGradient
-                  colors={['#FFFFFF', '#F6F1FB']}
+                  colors={[theme.colors.surface, theme.colors.primarySoft]}
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 1}}
                   style={styles.pregnancyHeroInner}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="human-pregnant"
                     size={34}
                   />
@@ -380,7 +383,7 @@ function PregnancyDatingSetupScreen({
 
                 <View style={styles.pregnancyAccent}>
                   <MaterialDesignIcons
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                     name="baby-face-outline"
                     size={14}
                   />
@@ -389,7 +392,7 @@ function PregnancyDatingSetupScreen({
 
               <View style={styles.eyebrowPill}>
                 <MaterialDesignIcons
-                  color="#745DA3"
+                  color={theme.colors.textSecondary}
                   name="heart-pulse"
                   size={13}
                 />
@@ -513,8 +516,8 @@ function PregnancyDatingSetupScreen({
                           <MaterialDesignIcons
                             color={
                               selected
-                                ? PURPLE
-                                : '#806AAE'
+                                ? theme.colors.primary
+                                : theme.colors.textSecondary
                             }
                             name={
                               option.icon
@@ -556,7 +559,7 @@ function PregnancyDatingSetupScreen({
                               styles.selectedCheck
                             }>
                             <MaterialDesignIcons
-                              color="#FFFFFF"
+                              color={onPrimaryTextColor(theme)}
                               name="check"
                               size={14}
                             />
@@ -580,6 +583,8 @@ function PregnancyDatingSetupScreen({
                               true,
                             )
                           }
+                          styles={styles}
+                          theme={theme}
                         />
                       ) : null}
                     </Pressable>
@@ -625,7 +630,7 @@ function PregnancyDatingSetupScreen({
             </Text>
 
             <MaterialDesignIcons
-              color="#FFFFFF"
+              color={onPrimaryTextColor(theme)}
               name="arrow-right"
               size={20}
             />
@@ -660,14 +665,15 @@ function PregnancyDatingSetupScreen({
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   /* ==========================================================
      GLOBAL
   ========================================================== */
 
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -682,7 +688,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -692,7 +698,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
   },
 
   pageGlowBottom: {
@@ -702,7 +708,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
   },
 
   safeArea: {
@@ -738,14 +744,14 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      'rgba(105,73,190,0.08)',
+      withAlpha(theme.colors.primary, 0.08),
     borderRadius: 16,
 
     backgroundColor:
-      'rgba(255,255,255,0.88)',
+      withAlpha(theme.colors.surface, 0.88),
 
     shadowColor:
-      '#493276',
+      theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -781,7 +787,7 @@ const styles = StyleSheet.create({
     width: 82,
     height: 82,
     borderRadius: 41,
-    backgroundColor: 'rgba(105,73,190,0.055)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.055),
   },
 
   pregnancyHeroGlowInner: {
@@ -789,7 +795,7 @@ const styles = StyleSheet.create({
     width: 70,
     height: 70,
     borderRadius: 35,
-    backgroundColor: 'rgba(105,73,190,0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pregnancyHeroInner: {
@@ -798,9 +804,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.14)',
+    borderColor: theme.colors.border,
     borderRadius: 20,
-    shadowColor: '#4E337C',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 6},
     shadowOpacity: 0.10,
     shadowRadius: 12,
@@ -816,10 +822,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 3,
-    borderColor: '#F6F0FA',
+    borderColor: theme.colors.surface,
     borderRadius: 14,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.16,
     shadowRadius: 5,
@@ -832,15 +838,15 @@ const styles = StyleSheet.create({
     gap: 5,
     marginBottom: 7,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.12)',
+    borderColor: withAlpha(theme.colors.primary, 0.12),
     borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.55),
     paddingHorizontal: 9,
     paddingVertical: 5,
   },
 
   eyebrow: {
-    color: '#745DA3',
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '800',
     letterSpacing: 1.25,
@@ -848,7 +854,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 26,
     lineHeight: 32,
@@ -859,7 +865,7 @@ const styles = StyleSheet.create({
   subtitle: {
     maxWidth: 330,
     marginTop: 0,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 12.5,
     lineHeight: 18,
     textAlign: 'center',
@@ -878,10 +884,10 @@ const styles = StyleSheet.create({
   card: {
     padding: 13,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.12)',
+    borderColor: theme.colors.border,
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.88)',
-    shadowColor: '#4E337C',
+    backgroundColor: withAlpha(theme.colors.surface, 0.88),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.045,
     shadowRadius: 10,
@@ -890,9 +896,9 @@ const styles = StyleSheet.create({
 
   cardSelected: {
     borderWidth: 1.5,
-    borderColor: '#8D72C6',
-    backgroundColor: 'rgba(248,245,253,0.98)',
-    shadowColor: '#6949BE',
+    borderColor: theme.colors.primary,
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.98),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 5},
     shadowOpacity: 0.10,
     shadowRadius: 12,
@@ -919,19 +925,19 @@ const styles = StyleSheet.create({
 
     borderWidth: 1.8,
     borderColor:
-      '#B7A8CC',
+      withAlpha(theme.colors.primary, 0.35),
     borderRadius: 11,
 
     backgroundColor:
-      '#FFFFFF',
+      theme.colors.surface,
   },
 
   radioSelected: {
     borderColor:
-      PURPLE,
+      theme.colors.primary,
 
     backgroundColor:
-      '#F5F0FD',
+      theme.colors.primarySoft,
   },
 
   radioDot: {
@@ -941,7 +947,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
 
     backgroundColor:
-      PURPLE,
+      theme.colors.primary,
   },
 
   /* ==========================================================
@@ -955,14 +961,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
     borderRadius: 13,
-    backgroundColor: '#F2ECFA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   iconBoxSelected: {
-    borderColor: 'rgba(105,73,190,0.14)',
-    backgroundColor: '#EDE4FC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   cardCopy: {
@@ -974,7 +980,7 @@ const styles = StyleSheet.create({
   },
 
   cardLabel: {
-    color: '#291D4E',
+    color: theme.colors.text,
     fontSize: 14,
     lineHeight: 19,
     fontWeight: '800',
@@ -982,7 +988,7 @@ const styles = StyleSheet.create({
 
   cardDescription: {
     marginTop: 3,
-    color: '#7A6F91',
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 15,
   },
@@ -1002,7 +1008,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
 
     backgroundColor:
-      PURPLE,
+      theme.colors.primary,
   },
 
   /* ==========================================================
@@ -1020,11 +1026,11 @@ const styles = StyleSheet.create({
     marginBottom: 12,
 
     backgroundColor:
-      'rgba(111,83,190,0.14)',
+      theme.colors.border,
   },
 
   dateFieldLabel: {
-    color: '#655A8D',
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
     fontWeight: '700',
@@ -1042,14 +1048,14 @@ const styles = StyleSheet.create({
 
     borderWidth: 1,
     borderColor:
-      '#DDD1EF',
+      theme.colors.border,
     borderRadius: 16,
 
     backgroundColor:
-      '#FFFFFF',
+      theme.colors.surface,
 
     shadowColor:
-      '#4C3476',
+      theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -1072,7 +1078,7 @@ const styles = StyleSheet.create({
     borderRadius: 11,
 
     backgroundColor:
-      PURPLE_SOFT,
+      theme.colors.primarySoft,
   },
 
   dateFieldValue: {
@@ -1080,7 +1086,7 @@ const styles = StyleSheet.create({
 
     minWidth: 0,
 
-    color: '#2A2050',
+    color: theme.colors.text,
 
     fontSize: 13.5,
     fontWeight: '700',
@@ -1096,7 +1102,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
 
     backgroundColor:
-      '#F7F3FB',
+      theme.colors.primarySoft,
   },
 
   /* ==========================================================
@@ -1117,10 +1123,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
 
     backgroundColor:
-      PURPLE,
+      theme.colors.primary,
 
     shadowColor:
-      '#4E319A',
+      theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 7,
@@ -1143,7 +1149,7 @@ const styles = StyleSheet.create({
 
   nextButtonDisabled: {
     backgroundColor:
-      '#C5B9D8',
+      withAlpha(theme.colors.primary, 0.45),
 
     elevation: 0,
 
@@ -1151,13 +1157,14 @@ const styles = StyleSheet.create({
   },
 
   nextText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 16,
     fontWeight: '800',
 
     letterSpacing: 0.2,
   },
-});
+  });
+}
 
 export default PregnancyDatingSetupScreen;

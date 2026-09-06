@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -23,15 +24,8 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getTopPadding} from '../theme/spacing';
 import {getSelectedObjective} from '../state/onboardingPreferences';
 import {OBJECTIVE_CONFIRMATION_CONTENT} from '../data/objectiveConfirmationContent';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#EEE5FC';
-
-const TEXT = '#433467';
-const TEXT_MUTED = '#655A8D';
-
-const SUCCESS = '#58A678';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -42,6 +36,8 @@ function CycleObjectiveConfirmationScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [objective] = useState(getSelectedObjective);
 
@@ -563,12 +559,7 @@ function CycleObjectiveConfirmationScreen({
 
   return (
     <LinearGradient
-      colors={[
-        '#FAF8FD',
-        '#F4EFFA',
-        '#EEE7F7',
-        '#E9E1F3',
-      ]}
+      colors={[...theme.gradients.pageBackground]}
       locations={[
         0,
         0.32,
@@ -619,7 +610,7 @@ function CycleObjectiveConfirmationScreen({
         <StatusBar
           translucent
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
         />
 
         <Animated.View
@@ -686,8 +677,8 @@ function CycleObjectiveConfirmationScreen({
                       }>
                       <LinearGradient
                         colors={[
-                          '#FFFFFF',
-                          '#F7F2FD',
+                          theme.colors.surface,
+                          theme.colors.surfaceSecondary,
                         ]}
                         start={{
                           x: 0,
@@ -707,8 +698,8 @@ function CycleObjectiveConfirmationScreen({
                           <MaterialDesignIcons
                             color={
                               gentle
-                                ? PURPLE
-                                : SUCCESS
+                                ? theme.colors.primary
+                                : theme.colors.success
                             }
                             name={
                               gentle
@@ -732,7 +723,7 @@ function CycleObjectiveConfirmationScreen({
                         styles.successBadge
                       }>
                       <MaterialDesignIcons
-                        color="#FFFFFF"
+                        color={onPrimaryTextColor(theme)}
                         name="star-four-points"
                         size={11}
                       />
@@ -780,7 +771,7 @@ function CycleObjectiveConfirmationScreen({
                     styles.detailIcon
                   }>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="creation-outline"
                     size={21}
                   />
@@ -836,7 +827,7 @@ function CycleObjectiveConfirmationScreen({
                     styles.buttonArrow
                   }>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="arrow-right"
                     size={18}
                   />
@@ -854,8 +845,8 @@ function CycleObjectiveConfirmationScreen({
  * STYLES
  * =========================================================== */
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     /* ========================================================
        BACKGROUND — UNCHANGED
     ======================================================== */
@@ -864,7 +855,7 @@ const styles =
       flex: 1,
 
       backgroundColor:
-        '#F2ECF8',
+        theme.colors.background,
     },
 
     pageBackgroundDecor: {
@@ -885,7 +876,7 @@ const styles =
       borderRadius: 165,
 
       backgroundColor:
-        'rgba(111, 82, 170, 0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     pageGlowMiddle: {
@@ -900,7 +891,7 @@ const styles =
       borderRadius: 130,
 
       backgroundColor:
-        'rgba(139, 112, 188, 0.045)',
+        withAlpha(theme.colors.primary, 0.045),
     },
 
     pageGlowBottom: {
@@ -915,7 +906,7 @@ const styles =
       borderRadius: 155,
 
       backgroundColor:
-        'rgba(92, 67, 139, 0.05)',
+        withAlpha(theme.colors.primary, 0.05),
     },
 
     safeArea: {
@@ -933,8 +924,7 @@ const styles =
     page: {
       flexGrow: 1,
 
-      justifyContent:
-        'space-between',
+      justifyContent: 'space-between',
 
       paddingHorizontal: 22,
     },
@@ -944,8 +934,7 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       paddingTop: 20,
       paddingBottom: 25,
@@ -963,8 +952,7 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
     },
 
     successHalo: {
@@ -976,7 +964,7 @@ const styles =
       borderRadius: 71,
 
       backgroundColor:
-        'rgba(105,73,190,0.10)',
+        withAlpha(theme.colors.primary, 0.1),
     },
 
     successArea: {
@@ -987,8 +975,7 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
     },
 
     successOuter: {
@@ -997,13 +984,12 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       borderRadius: 63,
 
       backgroundColor:
-        'rgba(105,73,190,0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     successMiddle: {
@@ -1012,13 +998,12 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       borderRadius: 50,
 
       backgroundColor:
-        'rgba(105,73,190,0.11)',
+        withAlpha(theme.colors.primary, 0.11),
     },
 
     successInner: {
@@ -1027,18 +1012,17 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,73,190,0.11)',
+        withAlpha(theme.colors.primary, 0.11),
 
       borderRadius: 38,
 
       shadowColor:
-        PURPLE,
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1063,21 +1047,20 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       borderWidth: 3,
 
       borderColor:
-        '#F4EFFA',
+        theme.colors.background,
 
       borderRadius: 15,
 
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
 
       shadowColor:
-        PURPLE,
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1101,7 +1084,7 @@ const styles =
       marginTop: 16,
 
       color:
-        PURPLE_DARK,
+        theme.colors.text,
 
       fontFamily: 'serif',
 
@@ -1123,7 +1106,7 @@ const styles =
 
       marginTop: 10,
 
-      color: TEXT,
+      color: theme.colors.text,
 
       fontSize: 14.5,
 
@@ -1141,8 +1124,7 @@ const styles =
 
       flexDirection: 'row',
 
-      alignItems:
-        'flex-start',
+      alignItems: 'flex-start',
 
       gap: 11,
 
@@ -1155,7 +1137,7 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,73,190,0.17)',
+        withAlpha(theme.colors.primary, 0.17),
 
       borderRadius: 20,
 
@@ -1163,8 +1145,7 @@ const styles =
        * IMPORTANT:
        * Border remains but white rectangle is removed.
        */
-      backgroundColor:
-        'transparent',
+      backgroundColor: 'transparent',
 
       elevation: 0,
     },
@@ -1175,15 +1156,14 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       flexShrink: 0,
 
       borderRadius: 12,
 
       backgroundColor:
-        PURPLE_SOFT,
+        theme.colors.primarySoft,
     },
 
     description: {
@@ -1192,7 +1172,7 @@ const styles =
       minWidth: 0,
 
       color:
-        TEXT_MUTED,
+        theme.colors.textSecondary,
 
       fontSize: 13,
 
@@ -1200,8 +1180,7 @@ const styles =
 
       fontWeight: '500',
 
-      backgroundColor:
-        'transparent',
+      backgroundColor: 'transparent',
     },
 
     /* ========================================================
@@ -1223,16 +1202,15 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       borderRadius: 19,
 
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
 
       shadowColor:
-        '#4E319A',
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1250,7 +1228,7 @@ const styles =
       paddingHorizontal: 52,
 
       color:
-        '#FFFFFF',
+        onPrimaryTextColor(theme),
 
       fontSize: 16,
 
@@ -1269,13 +1247,12 @@ const styles =
 
       alignItems: 'center',
 
-      justifyContent:
-        'center',
+      justifyContent: 'center',
 
       borderRadius: 12,
 
       backgroundColor:
-        '#FFFFFF',
+        onPrimaryTextColor(theme),
     },
 
     buttonPressed: {
@@ -1288,5 +1265,6 @@ const styles =
       ],
     },
   });
+}
 
 export default CycleObjectiveConfirmationScreen;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -15,6 +15,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getTopPadding} from '../theme/spacing';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 import {
   getConceptionPreferences,
@@ -31,31 +33,6 @@ import {
  * ============================================================ */
 
 
-
-/* ============================================================
- * COLORS
- * ============================================================ */
-
-const COLORS = {
-  primary: '#6949BE',
-  primaryDark: '#3F278D',
-  primarySoft: '#F0E7FC',
-
-  text: '#26184F',
-  textSecondary: '#655A7D',
-
-  pink: '#D94D91',
-  pinkSoft: '#FBE8F2',
-
-  lavender: '#F5EEFC',
-  lavenderStrong: '#E9DDFC',
-
-  white: '#FFFFFF',
-
-  border: 'rgba(112,77,178,0.12)',
-
-  success: '#62AE88',
-};
 
 /* ============================================================
  * TYPES
@@ -171,6 +148,11 @@ const indicatorOptions: Array<{
 // overlapped with the fertile-window reminder and risked feeling intrusive
 // (product decision) — "Rapports" itself is still tracked in the Journal
 // quotidien exactly as before, this only removes its automatic reminder.
+//
+// NOTE (theme migration): `accent`/`background` below are a deliberate
+// per-item DECORATIVE icon-tint palette (category-identity accents) — left
+// as fixed literals verbatim per the theme-migration rules, never mapped to
+// theme tokens.
 const reminderOptions: Array<{
   id: ConceptionReminderKey;
   label: string;
@@ -249,6 +231,8 @@ function Shell({
   children,
   nextDisabled,
   onNext,
+  theme,
+  styles,
 }: Props & {
   step: number;
   title: string;
@@ -256,6 +240,8 @@ function Shell({
   children: React.ReactNode;
   nextDisabled?: boolean;
   onNext: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   const insets = useSafeAreaInsets();
 
@@ -263,7 +249,7 @@ function Shell({
     <>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -287,7 +273,7 @@ function Shell({
               pressed && styles.pressed,
             ]}>
             <MaterialDesignIcons
-              color={COLORS.primary}
+              color={theme.colors.primary}
               name="arrow-left"
               size={24}
             />
@@ -315,7 +301,7 @@ function Shell({
             </Text>
 
             <MaterialDesignIcons
-              color="#FFFFFF"
+              color={onPrimaryTextColor(theme)}
               name="arrow-right"
               size={18}
             />
@@ -327,7 +313,7 @@ function Shell({
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -350,6 +336,9 @@ export function ConceptionTryingDurationScreen({
   navigation,
   route,
 }: Props) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [selected, setSelected] =
     useState<ConceptionTryingDuration | null>(
       () => getConceptionPreferences().tryingDuration,
@@ -384,7 +373,9 @@ export function ConceptionTryingDurationScreen({
       }}
       route={route}
       step={1}
+      styles={styles}
       subtitle="Choisissez la durée qui vous correspond."
+      theme={theme}
       title="Depuis combien de temps essayez-vous de concevoir ?"
       nextDisabled={!selected}>
 
@@ -395,12 +386,16 @@ export function ConceptionTryingDurationScreen({
             label={item.label}
             onPress={() => setSelected(item.id)}
             selected={selected === item.id}
+            styles={styles}
+            theme={theme}
           />
         ))}
       </View>
 
       <Info
+        styles={styles}
         text="Chaque parcours est unique. AWA est là pour t’accompagner à chaque étape."
+        theme={theme}
       />
     </Shell>
   );
@@ -414,6 +409,9 @@ export function ConceptionOvulationAwarenessScreen({
   navigation,
   route,
 }: Props) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [selected, setSelected] =
     useState<OvulationAwareness | null>(
       () =>
@@ -450,7 +448,9 @@ export function ConceptionOvulationAwarenessScreen({
       }}
       route={route}
       step={2}
+      styles={styles}
       subtitle="Cela nous aide à te proposer le meilleur suivi."
+      theme={theme}
       title="Arrives-tu généralement à repérer ton ovulation ?"
       nextDisabled={!selected}>
 
@@ -461,13 +461,17 @@ export function ConceptionOvulationAwarenessScreen({
             {...item}
             onPress={() => setSelected(item.id)}
             selected={selected === item.id}
+            styles={styles}
+            theme={theme}
           />
         ))}
       </View>
 
       <Info
         icon="lightbulb-outline"
+        styles={styles}
         text="Pas de souci si tu ne sais pas encore. AWA t’aidera à observer ton cycle progressivement."
+        theme={theme}
       />
     </Shell>
   );
@@ -481,6 +485,9 @@ export function ConceptionIndicatorsScreen({
   navigation,
   route,
 }: Props) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const [selected, setSelected] = useState<
     Set<FertilityIndicator>
   >(
@@ -533,7 +540,9 @@ export function ConceptionIndicatorsScreen({
       }}
       route={route}
       step={3}
+      styles={styles}
       subtitle="Sélectionne ce qui t’aide le plus à comprendre ta fertilité."
+      theme={theme}
       title="Quels indicateurs souhaites-tu suivre ?"
       nextDisabled={selected.size === 0}>
       <View style={[styles.list, styles.listTop]}>
@@ -544,6 +553,8 @@ export function ConceptionIndicatorsScreen({
             checkbox
             onPress={() => toggle(item.id)}
             selected={selected.has(item.id)}
+            styles={styles}
+            theme={theme}
           />
         ))}
 
@@ -564,12 +575,16 @@ export function ConceptionIndicatorsScreen({
             )
           }
           selected={all}
+          styles={styles}
+          theme={theme}
         />
       </View>
 
       <Info
         icon="shield-lock-outline"
+        styles={styles}
         text="Les informations liées à ta vie intime restent privées et peuvent être protégées par tes réglages de confidentialité."
+        theme={theme}
       />
     </Shell>
   );
@@ -585,6 +600,10 @@ export function ConceptionRemindersScreen({
   navigation,
   route,
 }: RemindersProps) {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  const editStyles = useMemo(() => createEditStyles(theme), [theme]);
+
   // Same canonical conceptionPreferences.ts store regardless of mode — this
   // is what makes onboarding and Profile → Notifications & rappels literally
   // the same setting rather than two disconnected copies (see
@@ -648,7 +667,7 @@ export function ConceptionRemindersScreen({
   if (isEdit) {
     return (
       <SafeAreaView edges={['left', 'right']} style={editStyles.safe}>
-        <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+        <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
         <ScrollView
           contentContainerStyle={[
             editStyles.content,
@@ -662,7 +681,7 @@ export function ConceptionRemindersScreen({
               hitSlop={10}
               onPress={navigation.goBack}
               style={({pressed}) => [editStyles.back, pressed && editStyles.pressed]}>
-              <MaterialDesignIcons color={COLORS.primary} name="chevron-left" size={26} />
+              <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
             </Pressable>
             <View style={editStyles.headerCopy}>
               <Text style={editStyles.title}>Notifications &amp; rappels</Text>
@@ -686,10 +705,10 @@ export function ConceptionRemindersScreen({
                 </View>
                 <Switch
                   accessibilityLabel={item.label}
-                  ios_backgroundColor="#DED9E7"
+                  ios_backgroundColor={theme.colors.surfaceSecondary}
                   onValueChange={value => toggleReminder(item.id, value)}
-                  thumbColor="#FFFFFF"
-                  trackColor={{false: '#DED9E7', true: COLORS.primary}}
+                  thumbColor={theme.colors.surface}
+                  trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}}
                   value={values[item.id]}
                 />
               </View>
@@ -714,7 +733,9 @@ export function ConceptionRemindersScreen({
       onNext={handleSave}
       route={route}
       step={4}
+      styles={styles}
       subtitle="Choisis seulement les rappels qui te sont vraiment utiles."
+      theme={theme}
       title="Rappels personnalisés">
       {/* REMINDER CARDS */}
 
@@ -767,17 +788,17 @@ export function ConceptionRemindersScreen({
                 </View>
 
                 <Switch
-                  ios_backgroundColor="#DED9E7"
+                  ios_backgroundColor={theme.colors.surfaceSecondary}
                   onValueChange={value =>
                     toggleReminder(
                       item.id,
                       value,
                     )
                   }
-                  thumbColor="#FFFFFF"
+                  thumbColor={theme.colors.surface}
                   trackColor={{
-                    false: '#DED9E7',
-                    true: '#7946D0',
+                    false: theme.colors.surfaceSecondary,
+                    true: theme.colors.primary,
                   }}
                   value={enabled}
                 />
@@ -793,7 +814,7 @@ export function ConceptionRemindersScreen({
                       styles.reminderDetailIcon
                     }>
                     <MaterialDesignIcons
-                      color={COLORS.primary}
+                      color={theme.colors.primary}
                       name="information-outline"
                       size={17}
                     />
@@ -819,7 +840,7 @@ export function ConceptionRemindersScreen({
                       styles.journalIncludedIcon
                     }>
                     <MaterialDesignIcons
-                      color={COLORS.primary}
+                      color={theme.colors.primary}
                       name="creation"
                       size={15}
                     />
@@ -848,7 +869,7 @@ export function ConceptionRemindersScreen({
         <View
           style={styles.privacyReminderIcon}>
           <MaterialDesignIcons
-            color={COLORS.primary}
+            color={theme.colors.primary}
             name="shield-check-outline"
             size={25}
           />
@@ -868,7 +889,7 @@ export function ConceptionRemindersScreen({
         </View>
 
         <MaterialDesignIcons
-          color="#A88CD9"
+          color={theme.colors.textMuted}
           name="lock-outline"
           size={22}
         />
@@ -878,7 +899,7 @@ export function ConceptionRemindersScreen({
 
       <View style={styles.settingsNotice}>
         <MaterialDesignIcons
-          color={COLORS.primary}
+          color={theme.colors.primary}
           name="heart-outline"
           size={23}
         />
@@ -903,6 +924,8 @@ function Choice({
   selected,
   checkbox,
   onPress,
+  theme,
+  styles,
 }: {
   label: string;
   description?: string;
@@ -910,6 +933,8 @@ function Choice({
   selected: boolean;
   checkbox?: boolean;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <Pressable
@@ -925,7 +950,7 @@ function Choice({
         <View style={[styles.iconBox, selected && styles.iconBoxSelected]}>
           <View style={[styles.iconInner, selected && styles.iconInnerSelected]}>
             <MaterialDesignIcons
-              color={selected ? '#FFFFFF' : COLORS.primary}
+              color={selected ? onPrimaryTextColor(theme) : theme.colors.primary}
               name={icon}
               size={23}
             />
@@ -934,7 +959,7 @@ function Choice({
       ) : (
         <View style={[styles.optionAccent, selected && styles.optionAccentSelected]}>
           <MaterialDesignIcons
-            color={selected ? COLORS.primary : '#A695C3'}
+            color={selected ? theme.colors.primary : theme.colors.textMuted}
             name="star-four-points-outline"
             size={17}
           />
@@ -958,7 +983,7 @@ function Choice({
         ]}>
         {selected ? (
           <MaterialDesignIcons
-            color="#FFFFFF"
+            color={onPrimaryTextColor(theme)}
             name={checkbox ? 'check' : 'circle'}
             size={checkbox ? 15 : 9}
           />
@@ -975,15 +1000,19 @@ function Choice({
 function Info({
   text,
   icon = 'heart-outline',
+  theme,
+  styles,
 }: {
   text: string;
   icon?: IconName;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View style={styles.info}>
       <View style={styles.infoIcon}>
         <MaterialDesignIcons
-          color={COLORS.primary}
+          color={theme.colors.primary}
           name={icon}
           size={22}
         />
@@ -998,565 +1027,570 @@ function Info({
 
 /* ============================================================
  * EDIT-MODE STYLES — ConceptionRemindersScreen's Profile presentation only.
- * Deliberately separate from `styles` below (the onboarding Shell's styles,
- * shared with the other 3 onboarding screens in this file) so neither can
- * ever accidentally affect the other. Modeled on PrivacySecurityScreen.tsx's
- * own sober settings-card language (flat background, compact header, one
- * card with switch rows) — the established "Profile settings screen"
- * convention, not the premium onboarding-card gradient used elsewhere.
+ * Deliberately separate from `createStyles` below (the onboarding Shell's
+ * styles, shared with the other 3 onboarding screens in this file) so
+ * neither can ever accidentally affect the other. Modeled on
+ * PrivacySecurityScreen.tsx's own sober settings-card language (flat
+ * background, compact header, one card with switch rows) — the established
+ * "Profile settings screen" convention, not the premium onboarding-card
+ * gradient used elsewhere.
  * ============================================================ */
 
-const editStyles = StyleSheet.create({
-  safe: {flex: 1, backgroundColor: '#FCFAFF'},
-  content: {flexGrow: 1, paddingHorizontal: 16},
-  pressed: {opacity: 0.82},
+function createEditStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    safe: {flex: 1, backgroundColor: theme.colors.background},
+    content: {flexGrow: 1, paddingHorizontal: 16},
+    pressed: {opacity: 0.82},
 
-  header: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18},
-  back: {
-    alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-    width: 40, height: 40, borderRadius: 20, backgroundColor: '#FFFFFF',
-    elevation: 2, shadowColor: COLORS.primaryDark, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 6,
-  },
-  headerCopy: {flex: 1, minWidth: 0, marginLeft: 12, paddingTop: 6},
-  title: {color: COLORS.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
-  subtitle: {marginTop: 5, color: COLORS.textSecondary, fontSize: 12.5, lineHeight: 17},
+    header: {flexDirection: 'row', alignItems: 'flex-start', marginBottom: 18},
+    back: {
+      alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+      width: 40, height: 40, borderRadius: 20, backgroundColor: theme.colors.surface,
+      elevation: 2, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.08, shadowRadius: 6,
+    },
+    headerCopy: {flex: 1, minWidth: 0, marginLeft: 12, paddingTop: 6},
+    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
+    subtitle: {marginTop: 5, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 17},
 
-  card: {
-    overflow: 'hidden', borderWidth: 1, borderColor: COLORS.border, borderRadius: 20,
-    backgroundColor: '#FFFFFF', paddingHorizontal: 12,
-  },
-  row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
-  rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#EEE7F5'},
-  rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
-  rowCopy: {flex: 1, minWidth: 0},
-  rowTitle: {color: COLORS.text, fontSize: 13.5, fontWeight: '700'},
-  rowSubtitle: {marginTop: 3, color: COLORS.textSecondary, fontSize: 11.5, lineHeight: 15.5},
+    card: {
+      overflow: 'hidden', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 20,
+      backgroundColor: theme.colors.surface, paddingHorizontal: 12,
+    },
+    row: {minHeight: 68, flexDirection: 'row', alignItems: 'center', paddingVertical: 10, gap: 11},
+    rowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
+    rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
+    rowCopy: {flex: 1, minWidth: 0},
+    rowTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
+    rowSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 15.5},
 
-  saveButton: {
-    minHeight: 54, alignItems: 'center', justifyContent: 'center', marginTop: 18,
-    borderRadius: 18, backgroundColor: COLORS.primary,
-    shadowColor: COLORS.primaryDark, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4,
-  },
-  saveButtonText: {color: '#FFFFFF', fontSize: 15.5, fontWeight: '800'},
-});
+    saveButton: {
+      minHeight: 54, alignItems: 'center', justifyContent: 'center', marginTop: 18,
+      borderRadius: 18, backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.2, shadowRadius: 10, elevation: 4,
+    },
+    saveButtonText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
+  });
+}
 
 /* ============================================================
  * STYLES
  * ============================================================ */
 
-const styles = StyleSheet.create({
-  // Exact copy of ProfileScreen.tsx's background — used by all Conception onboarding screens.
-  profileGradientBackground: {
-    flex: 1,
-    backgroundColor: '#F2ECF8',
-  },
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-  pageGlowTop: {
-    position: 'absolute',
-    top: -150,
-    right: -110,
-    width: 330,
-    height: 330,
-    borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
-  },
-  pageGlowMiddle: {
-    position: 'absolute',
-    top: '38%',
-    left: -130,
-    width: 260,
-    height: 260,
-    borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
-  },
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -150,
-    right: -100,
-    width: 310,
-    height: 310,
-    borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
-  },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    // Exact copy of ProfileScreen.tsx's background — used by all Conception onboarding screens.
+    profileGradientBackground: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
+    pageGlowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
+    pageGlowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: 18,
-  },
+    content: {
+      flexGrow: 1,
+      paddingHorizontal: 18,
+    },
 
-  /* HEADER */
+    /* HEADER */
 
-  progressRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    marginBottom: 2,
-  },
+    progressRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      marginBottom: 2,
+    },
 
-  back: {
-    width: 40,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.10)',
-    borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.92)',
-    shadowColor: '#5C3A8D',
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.06,
-    shadowRadius: 8,
-    elevation: 2,
-  },
+    back: {
+      width: 40,
+      height: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.surface, 0.92),
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 3},
+      shadowOpacity: 0.06,
+      shadowRadius: 8,
+      elevation: 2,
+    },
 
-  title: {
-    alignSelf: 'center',
-    maxWidth: 330,
-    marginTop: 8,
-    color: COLORS.text,
-    fontFamily: 'serif',
-    fontSize: 24,
-    lineHeight: 30,
-    fontWeight: '700',
-    textAlign: 'center',
-  },
+    title: {
+      alignSelf: 'center',
+      maxWidth: 330,
+      marginTop: 8,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 24,
+      lineHeight: 30,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
 
-  subtitle: {
-    alignSelf: 'center',
-    maxWidth: 315,
-    marginTop: 5,
-    color: COLORS.textSecondary,
-    fontSize: 11.5,
-    lineHeight: 17,
-    textAlign: 'center',
-  },
+    subtitle: {
+      alignSelf: 'center',
+      maxWidth: 315,
+      marginTop: 5,
+      color: theme.colors.textSecondary,
+      fontSize: 11.5,
+      lineHeight: 17,
+      textAlign: 'center',
+    },
 
-  /* GENERIC LIST */
+    /* GENERIC LIST */
 
-  list: {
-    gap: 9,
-  },
+    list: {
+      gap: 9,
+    },
 
-  listTop: {
-    marginTop: 15,
-  },
+    listTop: {
+      marginTop: 15,
+    },
 
-  choice: {
-    position: 'relative',
-    minHeight: 62,
-    flexDirection: 'row',
-    alignItems: 'center',
-    overflow: 'hidden',
-    paddingHorizontal: 12,
-    paddingVertical: 9,
-    borderWidth: 1,
-    borderColor: 'rgba(112,77,178,0.12)',
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.94)',
-    shadowColor: '#6B4C9B',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.045,
-    shadowRadius: 9,
-    elevation: 2,
-  },
+    choice: {
+      position: 'relative',
+      minHeight: 62,
+      flexDirection: 'row',
+      alignItems: 'center',
+      overflow: 'hidden',
+      paddingHorizontal: 12,
+      paddingVertical: 9,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 18,
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.045,
+      shadowRadius: 9,
+      elevation: 2,
+    },
 
-  choiceSelected: {
-    borderColor: 'rgba(105,73,190,0.52)',
-    backgroundColor: '#FEFCFF',
-    shadowColor: '#6949BE',
-    shadowOpacity: 0.12,
-    shadowRadius: 13,
-    elevation: 4,
-  },
+    choiceSelected: {
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primarySoft,
+      shadowColor: theme.colors.primary,
+      shadowOpacity: 0.12,
+      shadowRadius: 13,
+      elevation: 4,
+    },
 
-  choicePressed: {
-    opacity: 0.88,
-    transform: [{scale: 0.992}],
-  },
+    choicePressed: {
+      opacity: 0.88,
+      transform: [{scale: 0.992}],
+    },
 
-  optionAccent: {
-    width: 38,
-    height: 38,
-    marginRight: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 13,
-    backgroundColor: '#F7F1FC',
-  },
+    optionAccent: {
+      width: 38,
+      height: 38,
+      marginRight: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 13,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  optionAccentSelected: {
-    backgroundColor: '#EEE5FB',
-  },
+    optionAccentSelected: {
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  copy: {
-    flex: 1,
-    minWidth: 0,
-    paddingRight: 8,
-  },
+    copy: {
+      flex: 1,
+      minWidth: 0,
+      paddingRight: 8,
+    },
 
-  label: {
-    color: '#261C47',
-    fontSize: 13.2,
-    lineHeight: 17,
-    fontWeight: '700',
-  },
+    label: {
+      color: theme.colors.text,
+      fontSize: 13.2,
+      lineHeight: 17,
+      fontWeight: '700',
+    },
 
-  labelSelected: {
-    color: COLORS.primaryDark,
-    fontWeight: '800',
-  },
+    labelSelected: {
+      color: theme.colors.accent,
+      fontWeight: '800',
+    },
 
-  description: {
-    marginTop: 4,
-    color: '#655B78',
-    fontSize: 10.6,
-    lineHeight: 15,
-  },
+    description: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 10.6,
+      lineHeight: 15,
+    },
 
-  radio: {
-    width: 22,
-    height: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: '#CDC4DA',
-    borderRadius: 11,
-    backgroundColor: '#FFFFFF',
-  },
+    radio: {
+      width: 22,
+      height: 22,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1.5,
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      borderRadius: 11,
+      backgroundColor: theme.colors.surface,
+    },
 
-  checkbox: {
-    width: 22,
-    height: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: '#CDC4DA',
-    borderRadius: 7,
-    backgroundColor: '#FFFFFF',
-  },
+    checkbox: {
+      width: 22,
+      height: 22,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1.5,
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      borderRadius: 7,
+      backgroundColor: theme.colors.surface,
+    },
 
-  selectedMark: {
-    borderColor: COLORS.primary,
-    backgroundColor: COLORS.primary,
-  },
+    selectedMark: {
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primary,
+    },
 
-  iconBox: {
-    width: 48,
-    height: 48,
-    marginRight: 11,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 17,
-    backgroundColor: '#F6ECF7',
-  },
+    iconBox: {
+      width: 48,
+      height: 48,
+      marginRight: 11,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 17,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  iconBoxSelected: {
-    backgroundColor: '#EEE4FB',
-  },
+    iconBoxSelected: {
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  iconInner: {
-    width: 34,
-    height: 34,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-  },
+    iconInner: {
+      width: 34,
+      height: 34,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      backgroundColor: theme.colors.surface,
+    },
 
-  iconInnerSelected: {
-    backgroundColor: COLORS.primary,
-    shadowColor: COLORS.primary,
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.22,
-    shadowRadius: 7,
-    elevation: 3,
-  },
+    iconInnerSelected: {
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.colors.primary,
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.22,
+      shadowRadius: 7,
+      elevation: 3,
+    },
 
-  /* INFO */
+    /* INFO */
 
-  info: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-    marginTop: 12,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
-    borderRadius: 16,
-    backgroundColor: 'rgba(247,241,252,0.92)',
-  },
+    info: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 9,
+      marginTop: 12,
+      paddingHorizontal: 12,
+      paddingVertical: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 16,
+      backgroundColor: withAlpha(theme.colors.primarySoft, 0.92),
+    },
 
-  infoIcon: {
-    width: 34,
-    height: 34,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 12,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#68479C',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 1,
-  },
+    infoIcon: {
+      width: 34,
+      height: 34,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 12,
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.05,
+      shadowRadius: 5,
+      elevation: 1,
+    },
 
-  infoText: {
-    flex: 1,
-    color: '#5F5576',
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+    infoText: {
+      flex: 1,
+      color: theme.colors.textSecondary,
+      fontSize: 10.5,
+      lineHeight: 15,
+    },
 
-  /* REMINDER SCREEN */
+    /* REMINDER SCREEN */
 
-  reminderList: {
-    gap: 12,
-    marginTop: 21,
-  },
+    reminderList: {
+      gap: 12,
+      marginTop: 21,
+    },
 
-  reminderCard: {
-    position: 'relative',
-    overflow: 'hidden',
-    padding: 14,
-    borderWidth: 1,
-    borderColor: 'rgba(112,77,178,0.11)',
-    borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    shadowColor: '#664692',
-    shadowOffset: {width: 0, height: 6},
-    shadowOpacity: 0.055,
-    shadowRadius: 12,
-    elevation: 2,
-  },
+    reminderCard: {
+      position: 'relative',
+      overflow: 'hidden',
+      padding: 14,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 22,
+      backgroundColor: withAlpha(theme.colors.surface, 0.95),
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 6},
+      shadowOpacity: 0.055,
+      shadowRadius: 12,
+      elevation: 2,
+    },
 
-  reminderCardActive: {
-    borderColor: 'rgba(105,73,190,0.30)',
-    backgroundColor: '#FFFDFF',
-    shadowColor: '#6949BE',
-    shadowOpacity: 0.11,
-    shadowRadius: 14,
-    elevation: 4,
-  },
+    reminderCardActive: {
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primarySoft,
+      shadowColor: theme.colors.primary,
+      shadowOpacity: 0.11,
+      shadowRadius: 14,
+      elevation: 4,
+    },
 
-  reminderAccent: {
-    position: 'absolute',
-    top: 16,
-    bottom: 16,
-    left: 0,
-    width: 4,
-    borderTopRightRadius: 4,
-    borderBottomRightRadius: 4,
-  },
+    reminderAccent: {
+      position: 'absolute',
+      top: 16,
+      bottom: 16,
+      left: 0,
+      width: 4,
+      borderTopRightRadius: 4,
+      borderBottomRightRadius: 4,
+    },
 
-  reminderAccentInactive: {
-    opacity: 0.22,
-  },
+    reminderAccentInactive: {
+      opacity: 0.22,
+    },
 
-  reminderTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+    reminderTopRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
 
-  reminderIcon: {
-    width: 54,
-    height: 54,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.75)',
-    borderRadius: 18,
-  },
+    reminderIcon: {
+      width: 54,
+      height: 54,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.surface, 0.75),
+      borderRadius: 18,
+    },
 
-  reminderCopy: {
-    flex: 1,
-    minWidth: 0,
-    marginLeft: 12,
-    marginRight: 7,
-  },
+    reminderCopy: {
+      flex: 1,
+      minWidth: 0,
+      marginLeft: 12,
+      marginRight: 7,
+    },
 
-  reminderTitle: {
-    color: COLORS.text,
-    fontSize: 14.5,
-    fontWeight: '800',
-  },
+    reminderTitle: {
+      color: theme.colors.text,
+      fontSize: 14.5,
+      fontWeight: '800',
+    },
 
-  reminderDescription: {
-    marginTop: 4,
-    color: COLORS.textSecondary,
-    fontSize: 10.8,
-    lineHeight: 15,
-  },
+    reminderDescription: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 10.8,
+      lineHeight: 15,
+    },
 
-  reminderDetailBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    marginTop: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 9,
-    borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.06)',
-    borderRadius: 14,
-    backgroundColor: '#F7F2FC',
-  },
+    reminderDetailBox: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      marginTop: 12,
+      paddingHorizontal: 10,
+      paddingVertical: 9,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 14,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  reminderDetailIcon: {
-    width: 30,
-    height: 30,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 11,
-    backgroundColor: '#EDE2FB',
-  },
+    reminderDetailIcon: {
+      width: 30,
+      height: 30,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 11,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  reminderDetailText: {
-    flex: 1,
-    color: '#523D83',
-    fontSize: 9.8,
-    lineHeight: 14,
-  },
+    reminderDetailText: {
+      flex: 1,
+      color: theme.colors.textSecondary,
+      fontSize: 9.8,
+      lineHeight: 14,
+    },
 
-  journalIncludedBox: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 8,
-    marginTop: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 9,
-    borderRadius: 14,
-    backgroundColor: 'rgba(244,237,252,0.72)',
-  },
+    journalIncludedBox: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 8,
+      marginTop: 8,
+      paddingHorizontal: 10,
+      paddingVertical: 9,
+      borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.primarySoft, 0.72),
+    },
 
-  journalIncludedIcon: {
-    width: 30,
-    height: 30,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 11,
-    backgroundColor: '#FFFFFF',
-  },
+    journalIncludedIcon: {
+      width: 30,
+      height: 30,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 11,
+      backgroundColor: theme.colors.surface,
+    },
 
-  journalIncludedText: {
-    flex: 1,
-    color: '#65557E',
-    fontSize: 9.6,
-    lineHeight: 14,
-  },
+    journalIncludedText: {
+      flex: 1,
+      color: theme.colors.textSecondary,
+      fontSize: 9.6,
+      lineHeight: 14,
+    },
 
-  privacyReminderCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 14,
-    paddingHorizontal: 14,
-    paddingVertical: 13,
-    borderWidth: 1,
-    borderColor: 'rgba(98,174,136,0.15)',
-    borderRadius: 20,
-    backgroundColor: 'rgba(249,255,252,0.94)',
-    shadowColor: '#5D7F6F',
-    shadowOffset: {width: 0, height: 4},
-    shadowOpacity: 0.04,
-    shadowRadius: 8,
-    elevation: 1,
-  },
+    privacyReminderCard: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: 14,
+      paddingHorizontal: 14,
+      paddingVertical: 13,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.success, 0.15),
+      borderRadius: 20,
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 4},
+      shadowOpacity: 0.04,
+      shadowRadius: 8,
+      elevation: 1,
+    },
 
-  privacyReminderIcon: {
-    width: 46,
-    height: 46,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
-    backgroundColor: '#E8F5EE',
-  },
+    privacyReminderIcon: {
+      width: 46,
+      height: 46,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 16,
+      backgroundColor: withAlpha(theme.colors.success, 0.16),
+    },
 
-  privacyReminderCopy: {
-    flex: 1,
-    minWidth: 0,
-    marginHorizontal: 10,
-  },
+    privacyReminderCopy: {
+      flex: 1,
+      minWidth: 0,
+      marginHorizontal: 10,
+    },
 
-  privacyReminderTitle: {
-    color: COLORS.text,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
+    privacyReminderTitle: {
+      color: theme.colors.text,
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
 
-  privacyReminderText: {
-    marginTop: 3,
-    color: COLORS.textSecondary,
-    fontSize: 9.7,
-    lineHeight: 14,
-  },
+    privacyReminderText: {
+      marginTop: 3,
+      color: theme.colors.textSecondary,
+      fontSize: 9.7,
+      lineHeight: 14,
+    },
 
-  settingsNotice: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginTop: 11,
-    paddingHorizontal: 14,
-    paddingVertical: 11,
-    borderRadius: 17,
-    backgroundColor: 'rgba(246,239,252,0.84)',
-  },
+    settingsNotice: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 10,
+      marginTop: 11,
+      paddingHorizontal: 14,
+      paddingVertical: 11,
+      borderRadius: 17,
+      backgroundColor: withAlpha(theme.colors.primarySoft, 0.84),
+    },
 
-  settingsNoticeText: {
-    flex: 1,
-    color: '#62557A',
-    fontSize: 10.2,
-    lineHeight: 15,
-  },
+    settingsNoticeText: {
+      flex: 1,
+      color: theme.colors.textSecondary,
+      fontSize: 10.2,
+      lineHeight: 15,
+    },
 
-  /* NAVIGATION */
+    /* NAVIGATION */
 
-  navRow: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 'auto',
-    paddingTop: 14,
-  },
+    navRow: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: 'auto',
+      paddingTop: 14,
+    },
 
-  primary: {
-    width: '72%',
-    minHeight: 50,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 7,
-    borderRadius: 17,
-    backgroundColor: COLORS.primary,
-    shadowColor: COLORS.primaryDark,
-    shadowOffset: {width: 0, height: 5},
-    shadowOpacity: 0.20,
-    shadowRadius: 9,
-    elevation: 4,
-  },
+    primary: {
+      width: '72%',
+      minHeight: 50,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 7,
+      borderRadius: 17,
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 5},
+      shadowOpacity: 0.20,
+      shadowRadius: 9,
+      elevation: 4,
+    },
 
-  primaryPressed: {
-    opacity: 0.89,
-    transform: [{scale: 0.985}],
-  },
+    primaryPressed: {
+      opacity: 0.89,
+      transform: [{scale: 0.985}],
+    },
 
-  disabled: {
-    opacity: 0.42,
-    elevation: 0,
-  },
+    disabled: {
+      opacity: 0.42,
+      elevation: 0,
+    },
 
-  primaryText: {
-    color: '#FFFFFF',
-    fontSize: 14,
-    fontWeight: '800',
-  },
+    primaryText: {
+      color: onPrimaryTextColor(theme),
+      fontSize: 14,
+      fontWeight: '800',
+    },
 
-  pressed: {
-    opacity: 0.7,
-  },
-});
+    pressed: {
+      opacity: 0.7,
+    },
+  });
+}

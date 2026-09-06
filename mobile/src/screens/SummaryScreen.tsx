@@ -1,4 +1,4 @@
-import React, {useCallback, useReducer} from 'react';
+import React, {useCallback, useMemo, useReducer} from 'react';
 import {
   Image,
   Pressable,
@@ -21,6 +21,8 @@ import {
   TOP_SPACING_EXTRA,
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {
   getCyclePreferences,
   getSelectedLocation,
@@ -61,13 +63,6 @@ import {
 import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
 
 const WOMAN = require('../assets/images/summary-woman.png');
-
-const PURPLE = '#6B4BC4';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F2ECFB';
-const PURPLE_PALE = '#FAF7FE';
-const TEXT_MUTED = '#6B6188';
-const BORDER = 'rgba(105,73,190,0.14)';
 
 const objectiveLabels: Record<ObjectiveId, string> = {
   cycle: 'Suivre mon cycle',
@@ -256,6 +251,11 @@ type SummaryRow = {
   tone: 'purple' | 'rose' | 'blue' | 'green';
 };
 
+// Per-row category-identity accent palette — each tone is a fixed decorative
+// color deliberately independent of the active theme (mirrors how a
+// list-item's own category color is treated elsewhere in the app), so it is
+// NOT sourced from theme tokens even though 'purple' happens to be close to
+// the app's own brand primary.
 const TONE_ICON_COLOR: Record<SummaryRow['tone'], string> = {
   purple: '#6B4BC4',
   rose: '#C2568B',
@@ -264,6 +264,8 @@ const TONE_ICON_COLOR: Record<SummaryRow['tone'], string> = {
 };
 
 function SummaryScreen({navigation}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
 
@@ -866,7 +868,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -882,7 +884,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
         style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -906,7 +908,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
             <View style={styles.heroCopy}>
               <View style={styles.stepBadge}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="check-decagram"
                   size={16}
                 />
@@ -931,7 +933,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
               <View style={styles.editTip}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="gesture-tap"
                   size={17}
                 />
@@ -1013,7 +1015,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
                   <View style={styles.editIcon}>
                     <MaterialDesignIcons
-                      color={PURPLE}
+                      color={theme.colors.primary}
                       name="pencil-outline"
                       size={16}
                     />
@@ -1026,7 +1028,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
           <View style={styles.reassuranceCard}>
             <View style={styles.reassuranceIcon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="shield-check-outline"
                 size={23}
               />
@@ -1055,7 +1057,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
             <View style={styles.startIcon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="arrow-right"
                 size={20}
               />
@@ -1067,10 +1069,11 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -1085,7 +1088,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -1095,7 +1098,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
   },
 
   pageGlowBottom: {
@@ -1105,7 +1108,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
   },
 
   safeArea: {
@@ -1130,10 +1133,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flexDirection: 'row',
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 28,
-    backgroundColor: 'rgba(255,252,255,0.88)',
-    shadowColor: '#5A3DA8',
+    backgroundColor: withAlpha(theme.colors.surface, 0.88),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 6,
@@ -1150,7 +1153,7 @@ const styles = StyleSheet.create({
     width: 180,
     height: 180,
     borderRadius: 90,
-    backgroundColor: 'rgba(126,92,205,0.12)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.12),
   },
 
   heroGlowTwo: {
@@ -1160,7 +1163,7 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     borderRadius: 85,
-    backgroundColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.55),
   },
 
   heroCopy: {
@@ -1177,20 +1180,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 6,
     borderRadius: 14,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
 
   stepBadgeText: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 9.5,
     fontWeight: '800',
   },
 
   title: {
     marginTop: 12,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 30,
     lineHeight: 35,
@@ -1204,7 +1207,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: 7,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
   },
@@ -1223,7 +1226,7 @@ const styles = StyleSheet.create({
   },
 
   editTipText: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 9,
     fontWeight: '700',
   },
@@ -1260,14 +1263,14 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 16,
     fontWeight: '800',
   },
 
   sectionSubtitle: {
     marginTop: 3,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
   },
 
@@ -1277,11 +1280,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   sectionCountText: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 11,
     fontWeight: '800',
   },
@@ -1297,11 +1300,11 @@ const styles = StyleSheet.create({
     width: '48.7%',
     minHeight: 126,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 20,
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
     padding: 12,
-    shadowColor: '#5D4394',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -1319,9 +1322,12 @@ const styles = StyleSheet.create({
   infoCardPressed: {
     opacity: 0.84,
     transform: [{scale: 0.985}],
-    backgroundColor: PURPLE_PALE,
+    backgroundColor: theme.colors.primarySoft,
   },
 
+  // Per-row category-identity accent backgrounds — fixed decorative tints
+  // paired with TONE_ICON_COLOR above (same "leave verbatim" exception),
+  // kept independent of the active theme.
   iconWrap: {
     width: 52,
     height: 52,
@@ -1352,21 +1358,21 @@ const styles = StyleSheet.create({
   },
 
   label: {
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '600',
   },
 
   value: {
     marginTop: 4,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 11.5,
     lineHeight: 15,
     fontWeight: '800',
   },
 
   valueMissing: {
-    color: '#A07861',
+    color: theme.colors.warning,
     fontStyle: 'italic',
   },
 
@@ -1379,7 +1385,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 9,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   reassuranceCard: {
@@ -1389,7 +1395,7 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: 12,
     borderRadius: 18,
-    backgroundColor: 'rgba(245,238,252,0.92)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.92),
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
@@ -1400,7 +1406,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   reassuranceCopy: {
@@ -1408,14 +1414,14 @@ const styles = StyleSheet.create({
   },
 
   reassuranceTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 11,
     fontWeight: '800',
   },
 
   reassuranceText: {
     marginTop: 3,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 9,
     lineHeight: 13,
   },
@@ -1431,8 +1437,8 @@ const styles = StyleSheet.create({
     marginTop: 14,
     paddingHorizontal: 54,
     borderRadius: 19,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 5,
@@ -1449,7 +1455,7 @@ const styles = StyleSheet.create({
   },
 
   startText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 17,
     fontWeight: '800',
     textAlign: 'center',
@@ -1463,13 +1469,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 11,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   pressed: {
     opacity: 0.84,
     transform: [{scale: 0.99}],
   },
-});
+  });
+}
 
 export default SummaryScreen;

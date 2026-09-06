@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -18,19 +18,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import PremiumChoiceCard from '../components/onboarding/PremiumChoiceCard';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {
   getMenopausePreferences,
   hydrateMenopausePreferences,
   setMenopauseTrackedSymptoms,
   type MenopauseSymptom,
 } from '../state/menopausePreferences';
-
-const PURPLE = '#7052C8';
-const PURPLE_DARK = '#2A185F';
-const PURPLE_SOFT = '#F3EEF9';
-const TEXT_SECONDARY = '#746B88';
-const TEXT_MUTED = '#948CA4';
-const WHITE = '#FFFFFF';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -92,6 +87,8 @@ function MenopauseSymptomsScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const entrance = useRef(new Animated.Value(0)).current;
@@ -220,7 +217,7 @@ function MenopauseSymptomsScreen({
 
   return (
     <LinearGradient
-      colors={['#FCFAFE', '#F7F3FB', '#F1EBF7', '#ECE5F4']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.34, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -237,7 +234,7 @@ function MenopauseSymptomsScreen({
       <View style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -267,13 +264,13 @@ function MenopauseSymptomsScreen({
                 ]}>
 
                 <LinearGradient
-                  colors={['#FFFFFF', '#F1EBFA']}
+                  colors={[theme.colors.surface, theme.colors.primarySoft]}
                   start={{x: 0, y: 0}}
                   end={{x: 1, y: 1}}
                   style={styles.heroIconInner}>
 
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="heart-pulse"
                     size={22}
                   />
@@ -300,7 +297,7 @@ function MenopauseSymptomsScreen({
 
                 <View style={styles.summaryIcon}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="check-circle-outline"
                     size={14}
                   />
@@ -386,7 +383,7 @@ function MenopauseSymptomsScreen({
 
             <View style={styles.helperBox}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="information-outline"
                 size={14}
               />
@@ -411,8 +408,8 @@ function MenopauseSymptomsScreen({
               <LinearGradient
                 colors={
                   saving
-                    ? ['#BFB3D3', '#A99BC0']
-                    : ['#8061D7', '#6847B8']
+                    ? [withAlpha(theme.colors.primary, 0.45), withAlpha(theme.colors.primary, 0.45)]
+                    : [theme.colors.primary, theme.colors.primary]
                 }
                 start={{x: 0, y: 0}}
                 end={{x: 1, y: 1}}
@@ -427,7 +424,7 @@ function MenopauseSymptomsScreen({
                 {!saving && (
                   <View style={styles.arrowCircle}>
                     <MaterialDesignIcons
-                      color={WHITE}
+                      color={onPrimaryTextColor(theme)}
                       name="arrow-right"
                       size={16}
                     />
@@ -448,309 +445,311 @@ function MenopauseSymptomsScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    backgroundColor: '#F4EEF9',
-  },
-
-  safeArea: {
-    flex: 1,
-  },
-
-  pageBackgroundDecor: {
-    ...StyleSheet.absoluteFillObject,
-    overflow: 'hidden',
-  },
-
-  pageGlowTop: {
-    position: 'absolute',
-    top: -190,
-    right: -125,
-    width: 370,
-    height: 370,
-    borderRadius: 185,
-    backgroundColor: 'rgba(112,82,200,0.065)',
-  },
-
-  pageGlowLeft: {
-    position: 'absolute',
-    top: '38%',
-    left: -165,
-    width: 320,
-    height: 320,
-    borderRadius: 160,
-    backgroundColor: 'rgba(180,151,220,0.05)',
-  },
-
-  pageGlowBottom: {
-    position: 'absolute',
-    bottom: -200,
-    right: -120,
-    width: 350,
-    height: 350,
-    borderRadius: 175,
-    backgroundColor: 'rgba(102,74,164,0.045)',
-  },
-
-  content: {
-    flexGrow: 1,
-    paddingHorizontal: spacing.lg,
-  },
-
-  mainContent: {
-    flexGrow: 1,
-  },
-
-  heroSection: {
-    alignItems: 'center',
-    paddingTop: 2,
-    paddingHorizontal: 8,
-  },
-
-  heroIconOuter: {
-    marginBottom: 10,
-  },
-
-  heroIconInner: {
-    width: 50,
-    height: 50,
-    borderRadius: 17,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderWidth: 1,
-    borderColor: 'rgba(112,82,200,0.09)',
-
-    shadowColor: '#6A48B8',
-    shadowOffset: {
-      width: 0,
-      height: 5,
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    background: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
     },
-    shadowOpacity: 0.10,
-    shadowRadius: 9,
-    elevation: 3,
-  },
 
-  eyebrow: {
-    marginBottom: 5,
-    color: PURPLE,
-    fontSize: 7.8,
-    fontWeight: '800',
-    letterSpacing: 1.2,
-  },
-
-  title: {
-    maxWidth: 310,
-    color: PURPLE_DARK,
-    fontFamily: 'serif',
-    fontSize: 19,
-    fontWeight: '700',
-    lineHeight: 24,
-    letterSpacing: -0.15,
-    textAlign: 'center',
-  },
-
-  subtitle: {
-    maxWidth: 300,
-    marginTop: 7,
-    color: TEXT_SECONDARY,
-    fontSize: 10,
-    lineHeight: 15,
-    textAlign: 'center',
-  },
-
-  summaryCard: {
-    minHeight: 52,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(112,82,200,0.07)',
-    borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.72)',
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-  },
-
-  summaryLeft: {
-    flex: 1,
-    minWidth: 0,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  summaryIcon: {
-    width: 30,
-    height: 30,
-    flexShrink: 0,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 8,
-    borderRadius: 10,
-    backgroundColor: PURPLE_SOFT,
-  },
-
-  summaryTextWrapper: {
-    flex: 1,
-    minWidth: 0,
-  },
-
-  summaryTitle: {
-    color: PURPLE_DARK,
-    fontSize: 9.8,
-    fontWeight: '700',
-  },
-
-  summarySubtitle: {
-    marginTop: 2,
-    color: TEXT_MUTED,
-    fontSize: 7.8,
-  },
-
-  counterBadge: {
-    minWidth: 25,
-    height: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginLeft: 7,
-    paddingHorizontal: 6,
-    borderRadius: 13,
-    backgroundColor: PURPLE,
-  },
-
-  counterBadgeEmpty: {
-    backgroundColor: '#EFEAF3',
-  },
-
-  counterText: {
-    color: WHITE,
-    fontSize: 9.5,
-    fontWeight: '800',
-  },
-
-  counterTextEmpty: {
-    color: '#8D849A',
-  },
-
-  optionsWrapper: {
-    marginTop: 16,
-  },
-
-  optionsHeader: {
-    minHeight: 22,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: 8,
-    paddingHorizontal: 2,
-  },
-
-  optionsTitle: {
-    flex: 1,
-    minWidth: 0,
-    color: PURPLE_DARK,
-    fontSize: 10,
-    fontWeight: '700',
-  },
-
-  clearButton: {
-    marginLeft: 8,
-    borderRadius: 8,
-    backgroundColor: '#F1EBF7',
-    paddingHorizontal: 7,
-    paddingVertical: 3.5,
-  },
-
-  clearButtonPressed: {
-    opacity: 0.7,
-  },
-
-  clearText: {
-    color: PURPLE,
-    fontSize: 7.8,
-    fontWeight: '700',
-  },
-
-  optionsList: {
-    gap: 8,
-    paddingBottom: spacing.xs,
-  },
-
-  bottomSection: {
-    marginTop: 16,
-  },
-
-  helperBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 8,
-    borderRadius: 10,
-    backgroundColor: 'rgba(112,82,200,0.045)',
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-  },
-
-  helperText: {
-    flex: 1,
-    minWidth: 0,
-    marginLeft: 5,
-    color: '#81768E',
-    fontSize: 8.8,
-    lineHeight: 12,
-  },
-
-  buttonPressable: {
-    borderRadius: 17,
-  },
-
-  buttonPressed: {
-    opacity: 0.92,
-    transform: [{scale: 0.985}],
-  },
-
-  nextButton: {
-    minHeight: 48,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 17,
-    paddingHorizontal: 14,
-
-    shadowColor: '#4C2C99',
-    shadowOffset: {
-      width: 0,
-      height: 4,
+    safeArea: {
+      flex: 1,
     },
-    shadowOpacity: 0.16,
-    shadowRadius: 8,
-    elevation: 4,
-  },
 
-  nextText: {
-    color: WHITE,
-    fontSize: 14,
-    fontWeight: '700',
-  },
+    pageBackgroundDecor: {
+      ...StyleSheet.absoluteFillObject,
+      overflow: 'hidden',
+    },
 
-  arrowCircle: {
-    position: 'absolute',
-    right: 8,
+    pageGlowTop: {
+      position: 'absolute',
+      top: -190,
+      right: -125,
+      width: 370,
+      height: 370,
+      borderRadius: 185,
+      backgroundColor: withAlpha(theme.colors.primary, 0.065),
+    },
 
-    width: 30,
-    height: 30,
+    pageGlowLeft: {
+      position: 'absolute',
+      top: '38%',
+      left: -165,
+      width: 320,
+      height: 320,
+      borderRadius: 160,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
+    },
 
-    alignItems: 'center',
-    justifyContent: 'center',
+    pageGlowBottom: {
+      position: 'absolute',
+      bottom: -200,
+      right: -120,
+      width: 350,
+      height: 350,
+      borderRadius: 175,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
 
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
-    borderRadius: 15,
-    backgroundColor: 'rgba(255,255,255,0.14)',
-  },
-});
+    content: {
+      flexGrow: 1,
+      paddingHorizontal: spacing.lg,
+    },
+
+    mainContent: {
+      flexGrow: 1,
+    },
+
+    heroSection: {
+      alignItems: 'center',
+      paddingTop: 2,
+      paddingHorizontal: 8,
+    },
+
+    heroIconOuter: {
+      marginBottom: 10,
+    },
+
+    heroIconInner: {
+      width: 50,
+      height: 50,
+      borderRadius: 17,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.primary, 0.09),
+
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+      shadowOpacity: 0.10,
+      shadowRadius: 9,
+      elevation: 3,
+    },
+
+    eyebrow: {
+      marginBottom: 5,
+      color: theme.colors.primary,
+      fontSize: 7.8,
+      fontWeight: '800',
+      letterSpacing: 1.2,
+    },
+
+    title: {
+      maxWidth: 310,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 19,
+      fontWeight: '700',
+      lineHeight: 24,
+      letterSpacing: -0.15,
+      textAlign: 'center',
+    },
+
+    subtitle: {
+      maxWidth: 300,
+      marginTop: 7,
+      color: theme.colors.textSecondary,
+      fontSize: 10,
+      lineHeight: 15,
+      textAlign: 'center',
+    },
+
+    summaryCard: {
+      minHeight: 52,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: 16,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.primary, 0.07),
+      borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.surface, 0.72),
+      paddingHorizontal: 10,
+      paddingVertical: 7,
+    },
+
+    summaryLeft: {
+      flex: 1,
+      minWidth: 0,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
+    summaryIcon: {
+      width: 30,
+      height: 30,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginRight: 8,
+      borderRadius: 10,
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    summaryTextWrapper: {
+      flex: 1,
+      minWidth: 0,
+    },
+
+    summaryTitle: {
+      color: theme.colors.text,
+      fontSize: 9.8,
+      fontWeight: '700',
+    },
+
+    summarySubtitle: {
+      marginTop: 2,
+      color: theme.colors.textMuted,
+      fontSize: 7.8,
+    },
+
+    counterBadge: {
+      minWidth: 25,
+      height: 25,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: 7,
+      paddingHorizontal: 6,
+      borderRadius: 13,
+      backgroundColor: theme.colors.primary,
+    },
+
+    counterBadgeEmpty: {
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    counterText: {
+      color: onPrimaryTextColor(theme),
+      fontSize: 9.5,
+      fontWeight: '800',
+    },
+
+    counterTextEmpty: {
+      color: theme.colors.textMuted,
+    },
+
+    optionsWrapper: {
+      marginTop: 16,
+    },
+
+    optionsHeader: {
+      minHeight: 22,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginBottom: 8,
+      paddingHorizontal: 2,
+    },
+
+    optionsTitle: {
+      flex: 1,
+      minWidth: 0,
+      color: theme.colors.text,
+      fontSize: 10,
+      fontWeight: '700',
+    },
+
+    clearButton: {
+      marginLeft: 8,
+      borderRadius: 8,
+      backgroundColor: theme.colors.primarySoft,
+      paddingHorizontal: 7,
+      paddingVertical: 3.5,
+    },
+
+    clearButtonPressed: {
+      opacity: 0.7,
+    },
+
+    clearText: {
+      color: theme.colors.primary,
+      fontSize: 7.8,
+      fontWeight: '700',
+    },
+
+    optionsList: {
+      gap: 8,
+      paddingBottom: spacing.xs,
+    },
+
+    bottomSection: {
+      marginTop: 16,
+    },
+
+    helperBox: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 8,
+      borderRadius: 10,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+      paddingHorizontal: 8,
+      paddingVertical: 6,
+    },
+
+    helperText: {
+      flex: 1,
+      minWidth: 0,
+      marginLeft: 5,
+      color: theme.colors.textMuted,
+      fontSize: 8.8,
+      lineHeight: 12,
+    },
+
+    buttonPressable: {
+      borderRadius: 17,
+    },
+
+    buttonPressed: {
+      opacity: 0.92,
+      transform: [{scale: 0.985}],
+    },
+
+    nextButton: {
+      minHeight: 48,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      borderRadius: 17,
+      paddingHorizontal: 14,
+
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+      shadowOpacity: 0.16,
+      shadowRadius: 8,
+      elevation: 4,
+    },
+
+    nextText: {
+      color: onPrimaryTextColor(theme),
+      fontSize: 14,
+      fontWeight: '700',
+    },
+
+    arrowCircle: {
+      position: 'absolute',
+      right: 8,
+
+      width: 30,
+      height: 30,
+
+      alignItems: 'center',
+      justifyContent: 'center',
+
+      borderWidth: 1,
+      borderColor: withAlpha(onPrimaryTextColor(theme), 0.12),
+      borderRadius: 15,
+      backgroundColor: withAlpha(onPrimaryTextColor(theme), 0.14),
+    },
+  });
+}
 
 export default MenopauseSymptomsScreen;

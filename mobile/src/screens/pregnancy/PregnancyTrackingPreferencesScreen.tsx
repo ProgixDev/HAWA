@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
@@ -16,13 +16,13 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getPregnancyTrackingPreferences,
   setPregnancyTrackingPreferences,
   type PregnancyTrackingPreference,
 } from '../../state/pregnancyPreferences';
-
-const PURPLE = '#6949BE';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -81,6 +81,8 @@ type TrackingRowProps = {
   selected: boolean;
   delay: number;
   onToggle: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 };
 
 function TrackingRow({
@@ -88,6 +90,8 @@ function TrackingRow({
   selected,
   delay,
   onToggle,
+  theme,
+  styles,
 }: TrackingRowProps): React.JSX.Element {
   const entranceAnim = useRef(
     new Animated.Value(0),
@@ -176,7 +180,7 @@ function TrackingRow({
           ]}>
           {selected ? (
             <MaterialDesignIcons
-              color="#FFFFFF"
+              color={onPrimaryTextColor(theme)}
               name="check"
               size={14}
             />
@@ -186,7 +190,7 @@ function TrackingRow({
         {/* ICON */}
         <View style={styles.iconBox}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name={option.icon}
             size={19}
           />
@@ -205,6 +209,8 @@ function PregnancyTrackingPreferencesScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const [selected, setSelected] = useState<
@@ -334,7 +340,7 @@ function PregnancyTrackingPreferencesScreen({
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -348,7 +354,7 @@ function PregnancyTrackingPreferencesScreen({
       <View style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -380,7 +386,7 @@ function PregnancyTrackingPreferencesScreen({
             }
             style={styles.backButton}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="arrow-left"
               size={25}
             />
@@ -426,6 +432,8 @@ function PregnancyTrackingPreferencesScreen({
                   selected={selected.has(
                     option.id,
                   )}
+                  styles={styles}
+                  theme={theme}
                 />
               ),
             )}
@@ -466,10 +474,11 @@ function PregnancyTrackingPreferencesScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -484,7 +493,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -494,7 +503,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.secondary, 0.045),
   },
 
   pageGlowBottom: {
@@ -504,7 +513,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.05),
   },
 
   safeArea: {
@@ -526,11 +535,11 @@ const styles = StyleSheet.create({
     borderRadius: 21,
 
     backgroundColor:
-      'rgba(255,255,255,0.88)',
+      withAlpha(theme.colors.surface, 0.88),
 
     elevation: 3,
 
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -549,7 +558,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: '#28166F',
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -566,7 +575,7 @@ const styles = StyleSheet.create({
 
     marginTop: 8,
 
-    color: '#655A8D',
+    color: theme.colors.textSecondary,
 
     fontSize: 13.5,
 
@@ -588,19 +597,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
 
     borderColor:
-      'rgba(111,83,190,0.14)',
+      theme.colors.border,
 
     borderRadius: 17,
 
     backgroundColor:
-      'rgba(255,252,255,0.92)',
+      withAlpha(theme.colors.surface, 0.92),
 
     paddingHorizontal: 13,
     paddingVertical: 6,
 
     elevation: 2,
 
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -612,10 +621,10 @@ const styles = StyleSheet.create({
   },
 
   rowSelected: {
-    borderColor: '#6848BC',
+    borderColor: theme.colors.primary,
 
     backgroundColor:
-      'rgba(249,244,255,0.98)',
+      withAlpha(theme.colors.primarySoft, 0.98),
   },
 
   pressed: {
@@ -631,7 +640,7 @@ const styles = StyleSheet.create({
 
     borderWidth: 2,
 
-    borderColor: '#C6B8E0',
+    borderColor: withAlpha(theme.colors.primary, 0.35),
 
     borderRadius: 7,
 
@@ -640,8 +649,8 @@ const styles = StyleSheet.create({
   },
 
   checkboxSelected: {
-    borderColor: PURPLE,
-    backgroundColor: PURPLE,
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary,
   },
 
   iconBox: {
@@ -655,7 +664,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 19,
 
-    backgroundColor: '#F0E8FC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   rowLabel: {
@@ -663,7 +672,7 @@ const styles = StyleSheet.create({
 
     minWidth: 0,
 
-    color: '#2A2050',
+    color: theme.colors.text,
 
     fontSize: 14.2,
 
@@ -685,9 +694,9 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
 
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -702,7 +711,7 @@ const styles = StyleSheet.create({
   },
 
   nextButtonDisabled: {
-    backgroundColor: '#B7A9CF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.45),
 
     elevation: 0,
 
@@ -710,12 +719,13 @@ const styles = StyleSheet.create({
   },
 
   nextText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 17,
 
     fontWeight: '600',
   },
-});
+  });
+}
 
 export default PregnancyTrackingPreferencesScreen;
