@@ -3,6 +3,9 @@ import {Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-na
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+
 import {
   getAllMenopauseJournalEntries,
   getMenopauseLabResults,
@@ -18,7 +21,7 @@ import {
   MENOPAUSE_SYMPTOM_OPTIONS,
 } from '../../config/menopauseJournalConfig';
 import {getMenopausePreferences} from '../../state/menopausePreferences';
-import {getTopPadding, spacing} from '../../theme/spacing';
+import {getFloatingTabBarClearance, getTopPadding, spacing} from '../../theme/spacing';
 import type {MoodLevel} from '../../types/journal';
 import {usePremium} from '../../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
@@ -30,10 +33,6 @@ import {
   calculateSymptomMonthlyTrend,
   filterLabResultsForPeriod,
 } from '../../utils/menopauseStatisticsMath';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const MUTED = '#776C92';
 
 type PeriodOption = {key: '1m' | '3m' | '6m' | '12m'; label: string; months: number};
 const PERIODS: PeriodOption[] = [
@@ -55,6 +54,9 @@ function formatResultDate(dateKey: string): string {
 }
 
 function ProgressBar({ratio, color}: {ratio: number; color: string}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.progressTrack}>
       <View style={[styles.progressFill, {backgroundColor: color, width: `${Math.max(0, Math.min(1, ratio)) * 100}%`}]} />
@@ -63,10 +65,13 @@ function ProgressBar({ratio, color}: {ratio: number; color: string}): React.JSX.
 }
 
 function OverviewTile({icon, label, value}: {icon: React.ComponentProps<typeof MaterialDesignIcons>['name']; label: string; value: string}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.overviewTile}>
       <View style={styles.overviewIcon}>
-        <MaterialDesignIcons color={PURPLE} name={icon} size={17} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={17} />
       </View>
       <Text style={styles.overviewValue}>{value}</Text>
       <Text style={styles.overviewLabel}>{label}</Text>
@@ -75,6 +80,9 @@ function OverviewTile({icon, label, value}: {icon: React.ComponentProps<typeof M
 }
 
 function EmptyCardState({title, text}: {title: string; text: string}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <View style={styles.emptyState}>
       <Text style={styles.emptyTitle}>{title}</Text>
@@ -96,6 +104,9 @@ function MonthlyBarChart({
   points: Array<{key: string; label: string; value: number; maxValue: number}>;
   color: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <ScrollView contentContainerStyle={styles.trendChart} horizontal showsHorizontalScrollIndicator={false}>
       {points.map(point => {
@@ -115,6 +126,8 @@ function MonthlyBarChart({
 
 function MenopauseStatisticsScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
   const [period, setPeriod] = useState<PeriodOption>(PERIODS[0]);
@@ -239,9 +252,9 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
 
   return (
     <View style={styles.background}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <ScrollView
-        contentContainerStyle={[styles.scrollContent, {paddingTop: getTopPadding(insets.top), paddingBottom: Math.max(insets.bottom, 16) + spacing.lg}]}
+        contentContainerStyle={[styles.scrollContent, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, spacing.lg)}]}
         showsVerticalScrollIndicator={false}>
         <Text style={styles.pageTitle}>Statistiques</Text>
         <Text style={styles.pageSubtitle}>Ton suivi périménopause / ménopause, en un coup d’œil.</Text>
@@ -259,7 +272,7 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                 style={({pressed}) => [styles.periodButton, active && styles.periodButtonActive, pressed && styles.pressed]}>
                 <View style={styles.periodButtonContent}>
                   <Text style={[styles.periodText, active && styles.periodTextActive]}>{option.label}</Text>
-                  {locked ? <MaterialDesignIcons color={MUTED} name="lock-outline" size={10} /> : null}
+                  {locked ? <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} /> : null}
                 </View>
               </Pressable>
             );
@@ -505,28 +518,40 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {flex: 1, backgroundColor: '#F4EFFA'},
+function createStyles(theme: ResolvedAwaTheme) {
+  // PURPLE/PURPLE_DARK/MUTED used to be fixed hex literals here; re-derived
+  // from the resolved theme so every style below keeps working unchanged by
+  // name (same pattern as ContraceptionStatisticsScreen.tsx's createStyles).
+  const PURPLE = theme.colors.primary;
+  const PURPLE_DARK = theme.colors.accent;
+  const MUTED = theme.colors.textMuted;
+
+  return StyleSheet.create({
+  background: {flex: 1, backgroundColor: theme.colors.background},
   scrollContent: {paddingHorizontal: 16},
 
   pageTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 24, fontWeight: '800'},
   pageSubtitle: {marginTop: 4, color: MUTED, fontSize: 12.5},
 
-  periodRow: {flexDirection: 'row', marginTop: 16, gap: 8, backgroundColor: '#EFE7F4', borderRadius: 16, padding: 4},
+  periodRow: {flexDirection: 'row', marginTop: 16, gap: 8, backgroundColor: theme.colors.primarySoft, borderRadius: 16, padding: 4},
   periodButton: {flex: 1, minHeight: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 13},
   periodButtonActive: {backgroundColor: PURPLE},
   periodButtonContent: {flexDirection: 'row', alignItems: 'center', gap: 3},
   periodText: {color: MUTED, fontSize: 12.5, fontWeight: '700'},
-  periodTextActive: {color: '#FFFFFF'},
+  periodTextActive: {color: onPrimaryTextColor(theme)},
 
+  // Custom, deliberately softer shadow shape than the app's canonical
+  // theme.shadow (smaller offset/opacity/radius) — kept exactly as before,
+  // only shadowColor is re-themed (matches resolveAwaTheme's own light-mode
+  // shadowColor derivation: theme's accent tone).
   card: {
     marginTop: 16,
     borderRadius: 22,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     padding: 16,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.12)',
-    shadowColor: '#4E319A',
+    borderColor: withAlpha(theme.colors.primary, 0.12),
+    shadowColor: theme.colors.accent,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.06,
     shadowRadius: 10,
@@ -535,20 +560,24 @@ const styles = StyleSheet.create({
   cardTitle: {color: PURPLE_DARK, fontFamily: 'serif', fontSize: 16, fontWeight: '700', marginBottom: 12},
 
   overviewGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},
-  overviewTile: {flexGrow: 1, minWidth: '44%', borderRadius: 16, borderWidth: 1, borderColor: 'rgba(105,73,190,0.1)', backgroundColor: '#FAF8FD', padding: 12},
-  overviewIcon: {width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: '#EEE5FB', marginBottom: 8},
+  overviewTile: {flexGrow: 1, minWidth: '44%', borderRadius: 16, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.1), backgroundColor: theme.colors.surfaceSecondary, padding: 12},
+  overviewIcon: {width: 28, height: 28, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primarySoft, marginBottom: 8},
   overviewValue: {color: PURPLE_DARK, fontSize: 18, fontWeight: '800'},
   overviewLabel: {marginTop: 2, color: MUTED, fontSize: 10.5},
 
-  statRow: {flexDirection: 'row', alignItems: 'center', paddingVertical: 9, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: 'rgba(105,73,190,0.1)'},
-  statRowPlain: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: 'rgba(105,73,190,0.1)'},
-  statIcon: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: '#EEE5FB', marginRight: 10},
+  statRow: {flexDirection: 'row', alignItems: 'center', paddingVertical: 9, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.1)},
+  statRowPlain: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.1)},
+  statIcon: {width: 28, height: 28, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primarySoft, marginRight: 10},
   statBody: {flex: 1, minWidth: 0},
   statHeaderRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
   statLabel: {flex: 1, color: PURPLE_DARK, fontSize: 13, fontWeight: '600'},
   statValue: {marginLeft: 8, color: MUTED, fontSize: 12, fontWeight: '600'},
 
-  progressTrack: {marginTop: 6, height: 6, borderRadius: 3, backgroundColor: '#EFE9F7', overflow: 'hidden'},
+  // Category A generic unfilled track — the fill color itself (passed in via
+  // the `color` prop at each call site: symptom/mood colors from
+  // menopauseJournalConfig.ts, or the fixed energy/sleep/lab semantic hexes)
+  // stays completely untouched; only this empty background is theme-reactive.
+  progressTrack: {marginTop: 6, height: 6, borderRadius: 3, backgroundColor: theme.colors.surfaceSecondary, overflow: 'hidden'},
   progressFill: {height: 6, borderRadius: 3},
   progressHint: {marginTop: 10, color: MUTED, fontSize: 10, lineHeight: 14},
 
@@ -562,7 +591,10 @@ const styles = StyleSheet.create({
 
   trendChart: {flexDirection: 'row', alignItems: 'flex-end', gap: 10, paddingVertical: 4},
   trendColumn: {alignItems: 'center', width: 34},
-  trendTrack: {width: 16, height: 74, borderRadius: 8, backgroundColor: '#EFE9F7', justifyContent: 'flex-end', overflow: 'hidden'},
+  // Same "unfilled track only" rule as progressTrack above — the bar's own
+  // fill color is always supplied by the caller (config-driven or a fixed
+  // semantic hex) and is never touched here.
+  trendTrack: {width: 16, height: 74, borderRadius: 8, backgroundColor: theme.colors.surfaceSecondary, justifyContent: 'flex-end', overflow: 'hidden'},
   trendFill: {width: '100%', borderRadius: 8},
   trendLabel: {marginTop: 6, color: MUTED, fontSize: 9, fontWeight: '600', textAlign: 'center'},
   trendHint: {marginTop: 10, color: MUTED, fontSize: 10, lineHeight: 14},
@@ -570,10 +602,11 @@ const styles = StyleSheet.create({
   symptomTrendHeader: {flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6},
   symptomTrendIcon: {marginRight: 0},
   moodTrendLabel: {marginTop: 12, marginBottom: 4},
-  monthlyMoodRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 7, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: 'rgba(105,73,190,0.1)'},
+  monthlyMoodRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 7, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: withAlpha(theme.colors.primary, 0.1)},
   labResultLatest: {marginTop: 4, color: PURPLE_DARK, fontSize: 12, fontWeight: '700'},
 
   pressed: {opacity: 0.82},
-});
+  });
+}
 
 export default MenopauseStatisticsScreen;

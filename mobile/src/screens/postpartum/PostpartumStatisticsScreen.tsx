@@ -17,8 +17,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
-import { homeColors, homeShadow } from '../../components/home/homeTheme';
-import { getTopPadding, getBottomPadding, spacing } from '../../theme/spacing';
+import { useAwaTheme } from '../../theme/AwaThemeProvider';
+import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { getTopPadding, getFloatingTabBarClearance, spacing } from '../../theme/spacing';
 import { usePremium } from '../../hooks/usePremium';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector, {
@@ -82,10 +83,27 @@ import {
    médicales), which lives entirely in PregnancyStatisticsScreen.tsx.
 ============================================================ */
 
-const PURPLE = homeColors.primary;
-const PURPLE_DARK = homeColors.textPrimary;
-const PURPLE_SOFT = '#F1EBFA';
-const TEXT_SECONDARY = homeColors.textSecondary;
+// PHASE E5 — PURPLE/PURPLE_DARK/PURPLE_SOFT/TEXT_SECONDARY (generic
+// decorative chrome) are now derived per-component from useAwaTheme(); see
+// createStyles(theme) below.
+//
+// CHART-ACCENT INVESTIGATION: every TrendBar/DistributionRow on this screen
+// renders with the EXACT SAME fill color regardless of which series is
+// plotted — lochia flow, fatigue, mood, sleep, pain and recovery all share
+// CHART_FILL/DISTRIBUTION_FILL below; only the bar's height/length reflects
+// the real value. There is no per-category or per-severity color coding
+// here today, unlike PostpartumCalendarContent.tsx's CATEGORY_META (lochia
+// = DELIVERY_COLOR, fatigue/sleep/mood/pain/recovery each their own hue) or
+// PostpartumJournalEntryScreen.tsx's per-option `tint` on
+// FATIGUE_RATINGS/PAIN_RATINGS/RECOVERY_RATINGS. So neither DELIVERY_COLOR
+// ('#DC7B82') nor those option tints are reused here — doing so would
+// fabricate a per-series color scheme this screen has never actually
+// rendered, which would change its appearance rather than just re-theme
+// it. CHART_FILL/DISTRIBUTION_FILL stay fixed literals (not theme-derived)
+// because no ResolvedAwaTheme token reproduces them for "AWA Original"
+// without a visible saturation/hue shift on every chart on this screen.
+const CHART_FILL = '#8D6ED5';
+const DISTRIBUTION_FILL = '#9A7ADD';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type TabKey =
@@ -185,10 +203,12 @@ function EmptyState({
   text: string;
   icon?: IconName;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.empty}>
       <View style={styles.emptyIcon}>
-        <MaterialDesignIcons color="#9E89C8" name={icon} size={22} />
+        <MaterialDesignIcons color={theme.colors.textMuted} name={icon} size={22} />
       </View>
       <Text style={styles.emptyText}>{text}</Text>
     </View>
@@ -204,10 +224,12 @@ function SectionHeader({
   title: string;
   subtitle?: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.sectionHeader}>
       <View style={styles.sectionIcon}>
-        <MaterialDesignIcons color={PURPLE} name={icon} size={19} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} />
       </View>
       <View style={styles.sectionHeaderCopy}>
         <Text style={styles.cardTitle}>{title}</Text>
@@ -226,10 +248,12 @@ function KpiCard({
   value: string;
   label: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.kpiCard}>
       <View style={styles.kpiIcon}>
-        <MaterialDesignIcons color={PURPLE} name={icon} size={19} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} />
       </View>
       <Text numberOfLines={1} style={styles.kpiValue}>
         {value}
@@ -252,6 +276,8 @@ function DistributionRow({
   maxCount: number;
   last?: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const percent = maxCount > 0 ? (count / maxCount) * 100 : 0;
   return (
     <View style={[styles.distributionRow, last && styles.lastRow]}>
@@ -282,6 +308,8 @@ function TrendBar({
   value: number;
   maxValue: number;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const span = Math.max(maxValue, 1);
   const heightPercent = Math.min(100, Math.max(14, (value / span) * 100));
   return (
@@ -303,6 +331,8 @@ function TrendBar({
 function PostpartumStatisticsScreen(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const [tab, setTab] = useState<TabKey>('summary');
 
   const { isPremium } = usePremium();
@@ -704,7 +734,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       end={{x: 1, y: 1}}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
@@ -717,7 +747,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
 
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
       <View
@@ -734,16 +764,16 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           ]}
         >
           <MaterialDesignIcons
-            color={PURPLE_DARK}
+            color={theme.colors.text}
             name="chevron-left"
             size={24}
           />
         </Pressable>
         <Text style={styles.headerTitle}>Statistiques</Text>
         <View style={styles.objectivePill}>
-          <MaterialDesignIcons color={PURPLE} name="chart-donut" size={15} />
+          <MaterialDesignIcons color={theme.colors.primary} name="chart-donut" size={15} />
           <Text style={styles.objectivePillText}>Post-partum</Text>
-          <MaterialDesignIcons color={PURPLE} name="chevron-down" size={15} />
+          <MaterialDesignIcons color={theme.colors.primary} name="chevron-down" size={15} />
         </View>
       </View>
 
@@ -757,7 +787,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         {coverageMessage ? (
           <View style={styles.coverageNote}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="information-outline"
               size={13}
             />
@@ -795,7 +825,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[
           styles.content,
-          { paddingBottom: getBottomPadding(insets.bottom, spacing.lg) },
+          { paddingBottom: getFloatingTabBarClearance(insets.bottom, spacing.lg) },
         ]}
         showsVerticalScrollIndicator={false}
       >
@@ -971,6 +1001,8 @@ function SummaryTab({
   cycleReturnEventInPeriod: Date | null;
   periodLabel: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
       <View style={styles.card}>
@@ -1003,7 +1035,7 @@ function SummaryTab({
         </View>
         <View style={styles.infoStrip}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="information-outline"
             size={16}
           />
@@ -1014,7 +1046,7 @@ function SummaryTab({
         </View>
         <View style={styles.infoStrip}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="calendar-refresh-outline"
             size={16}
           />
@@ -1039,7 +1071,7 @@ function SummaryTab({
           {cycleReturnEventInPeriod && firstPostpartumPeriodDate ? (
             <View style={styles.infoStrip}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="calendar-check-outline"
                 size={16}
               />
@@ -1083,7 +1115,7 @@ function SummaryTab({
           </View>
         )}
         <View style={styles.infoStrip}>
-          <MaterialDesignIcons color={PURPLE} name="heart-outline" size={16} />
+          <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={16} />
           <Text style={styles.infoStripText}>
             L’évolution des lochies est propre à chaque femme. Continue ton
             suivi quotidien.
@@ -1097,7 +1129,7 @@ function SummaryTab({
           <View style={styles.averageCard}>
             <View style={styles.averageIcon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="weather-night"
                 size={18}
               />
@@ -1118,7 +1150,7 @@ function SummaryTab({
           <View style={styles.averageCard}>
             <View style={styles.averageIcon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="emoticon-happy-outline"
                 size={18}
               />
@@ -1139,7 +1171,7 @@ function SummaryTab({
 
       <View style={styles.adviceCard}>
         <View style={styles.adviceIcon}>
-          <MaterialDesignIcons color={PURPLE} name="sprout" size={20} />
+          <MaterialDesignIcons color={theme.colors.primary} name="sprout" size={20} />
         </View>
         <View style={styles.adviceCopy}>
           <Text style={styles.adviceTitle}>Conseil</Text>
@@ -1182,6 +1214,8 @@ function LochiaTab({
   maxSymptomCount: number;
   isMonthlyView: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
       <View style={styles.card}>
@@ -1303,7 +1337,7 @@ function LochiaTab({
                 >
                   <View style={styles.timelineIcon}>
                     <MaterialDesignIcons
-                      color={PURPLE}
+                      color={theme.colors.primary}
                       name="calendar-blank-outline"
                       size={14}
                     />
@@ -1321,7 +1355,7 @@ function LochiaTab({
 
           <View style={styles.infoStrip}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="heart-outline"
               size={16}
             />
@@ -1346,6 +1380,8 @@ function SummaryValue({
   label: string;
   value: string;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.lochiaSummaryValue}>
       <Text style={styles.lochiaSummaryLabel}>{label}</Text>
@@ -1388,6 +1424,8 @@ function LevelTab({
   maxCount: number;
   isMonthlyView: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   if (entriesCount === 0) {
     return (
       <View style={styles.card}>
@@ -1467,6 +1505,8 @@ function SleepTab({
   maxQualityCount: number;
   isMonthlyView: boolean;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   if (nightsCount === 0 && qualityCounts.length === 0) {
     return (
       <View style={styles.card}>
@@ -1544,8 +1584,9 @@ function SleepTab({
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#F2ECF8' },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  safe: { flex: 1, backgroundColor: theme.colors.background },
 
   pageBackgroundDecor: {
     ...StyleSheet.absoluteFillObject,
@@ -1559,7 +1600,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -1569,7 +1610,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
 
   pageGlowBottom: {
@@ -1579,7 +1620,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   header: {
@@ -1596,15 +1637,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
   },
   pressed: { opacity: 0.78 },
   headerTitle: {
     flex: 1,
     minWidth: 0,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 19,
     fontWeight: '800',
@@ -1619,11 +1660,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    ...homeShadow,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
+    backgroundColor: withAlpha(theme.colors.surface, 0.9),
+    ...theme.shadow,
   },
-  objectivePillText: { color: PURPLE, fontSize: 11, fontWeight: '800' },
+  objectivePillText: { color: theme.colors.primary, fontSize: 11, fontWeight: '800' },
 
   periodSelectorWrap: { paddingHorizontal: 14, marginTop: 2 },
   coverageNote: {
@@ -1634,7 +1675,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     paddingHorizontal: 2,
   },
-  coverageNoteText: { flex: 1, color: TEXT_SECONDARY, fontSize: 10.5 },
+  coverageNoteText: { flex: 1, color: theme.colors.textSecondary, fontSize: 10.5 },
 
   tabsScroll: { flexGrow: 0, marginBottom: 4 },
   tabsScrollContent: { paddingHorizontal: 14, gap: 8, paddingBottom: 10 },
@@ -1645,20 +1686,20 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     backgroundColor: 'transparent',
   },
-  tabPillActive: { backgroundColor: PURPLE_SOFT },
-  tabPillText: { color: TEXT_SECONDARY, fontSize: 12.5, fontWeight: '700' },
-  tabPillTextActive: { color: PURPLE, fontWeight: '800' },
+  tabPillActive: { backgroundColor: theme.colors.primarySoft },
+  tabPillText: { color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '700' },
+  tabPillTextActive: { color: theme.colors.primary, fontWeight: '800' },
 
   content: { paddingHorizontal: 14, paddingTop: 4 },
 
   card: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 12,
     padding: 15,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 24,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   lochiaSummaryGrid: {
     marginTop: 12,
@@ -1672,12 +1713,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 11,
     borderRadius: 15,
-    backgroundColor: '#F8F4FC',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
-  lochiaSummaryLabel: { color: TEXT_SECONDARY, fontSize: 9.5, lineHeight: 13 },
+  lochiaSummaryLabel: { color: theme.colors.textSecondary, fontSize: 9.5, lineHeight: 13 },
   lochiaSummaryText: {
     marginTop: 4,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 11.5,
     fontWeight: '800',
     lineHeight: 15,
@@ -1696,18 +1737,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 10,
     borderRadius: 13,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   sectionHeaderCopy: { flex: 1, minWidth: 0 },
   cardTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 15.5,
     fontWeight: '800',
   },
   cardSubtitle: {
     marginTop: 2,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 10,
     lineHeight: 13,
   },
@@ -1719,9 +1760,9 @@ const styles = StyleSheet.create({
     minHeight: 82,
     padding: 11,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 17,
-    backgroundColor: '#FBF8FE',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   kpiIcon: {
     width: 30,
@@ -1729,17 +1770,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 11,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   kpiValue: {
     marginTop: 8,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 16,
     fontWeight: '800',
   },
   kpiLabel: {
     marginTop: 2,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9,
     lineHeight: 12,
   },
@@ -1751,11 +1792,11 @@ const styles = StyleSheet.create({
     marginTop: 13,
     padding: 11,
     borderRadius: 14,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   infoStripText: {
     flex: 1,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -1776,10 +1817,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginVertical: 5,
     borderRadius: 7,
-    backgroundColor: '#F0EAF7',
+    backgroundColor: theme.colors.primarySoft,
   },
-  barFill: { width: '100%', borderRadius: 7, backgroundColor: '#8D6ED5' },
-  barLabel: { color: TEXT_SECONDARY, fontSize: 8 },
+  barFill: { width: '100%', borderRadius: 7, backgroundColor: CHART_FILL },
+  barLabel: { color: theme.colors.textSecondary, fontSize: 8 },
 
   averagesRow: {
     marginTop: 13,
@@ -1792,9 +1833,9 @@ const styles = StyleSheet.create({
     minWidth: 140,
     padding: 12,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 17,
-    backgroundColor: '#FBF8FE',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   averageIcon: {
     width: 32,
@@ -1802,34 +1843,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   averageLabel: {
     marginTop: 8,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 10,
     fontWeight: '700',
   },
   averageValue: {
     marginTop: 3,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 15,
     fontWeight: '800',
   },
-  averageSupporting: { marginTop: 3, color: TEXT_SECONDARY, fontSize: 8.5 },
+  averageSupporting: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 8.5 },
 
   adviceCard: {
-    ...homeShadow,
+    ...theme.shadow,
     marginTop: 12,
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 10,
     padding: 15,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
     borderRadius: 22,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   adviceIcon: {
     width: 38,
@@ -1838,18 +1879,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   adviceCopy: { flex: 1, minWidth: 0 },
   adviceTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 14,
     fontWeight: '800',
   },
   adviceText: {
     marginTop: 3,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 16,
   },
@@ -1861,12 +1902,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: '#F2ECFA',
+    backgroundColor: theme.colors.primarySoft,
   },
   emptyText: {
     maxWidth: 280,
     marginTop: 9,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 16,
     textAlign: 'center',
@@ -1875,7 +1916,7 @@ const styles = StyleSheet.create({
   distributionRow: {
     paddingVertical: 9,
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE6F1',
+    borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
   lastRow: { borderBottomWidth: 0 },
   distributionTop: {
@@ -1887,12 +1928,12 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     marginRight: 8,
-    color: PURPLE_DARK,
+    color: theme.colors.accent,
     fontSize: 12,
     fontWeight: '700',
   },
   distributionCount: {
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '700',
   },
@@ -1901,12 +1942,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     marginTop: 7,
     borderRadius: 3,
-    backgroundColor: '#EFE9F5',
+    backgroundColor: theme.colors.primarySoft,
   },
   distributionFill: {
     height: '100%',
     borderRadius: 3,
-    backgroundColor: '#9A7ADD',
+    backgroundColor: DISTRIBUTION_FILL,
   },
 
   timelineList: { marginTop: 10 },
@@ -1915,7 +1956,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#ECE6F1',
+    borderBottomColor: withAlpha(theme.colors.primary, 0.10),
   },
   timelineIcon: {
     width: 26,
@@ -1924,10 +1965,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 8,
     borderRadius: 9,
-    backgroundColor: '#F4EFFA',
+    backgroundColor: theme.colors.primarySoft,
   },
-  timelineDate: { flex: 1, minWidth: 0, color: TEXT_SECONDARY, fontSize: 10.5 },
-  timelineValue: { color: PURPLE_DARK, fontSize: 11, fontWeight: '800' },
-});
+  timelineDate: { flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.5 },
+  timelineValue: { color: theme.colors.text, fontSize: 11, fontWeight: '800' },
+  });
+}
 
 export default PostpartumStatisticsScreen;
