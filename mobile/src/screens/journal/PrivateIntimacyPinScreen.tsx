@@ -18,13 +18,26 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
   const {height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const compact = height < 720;
+  // Every objective's own "Note personnelle"/"Notes du jour" personal-notes
+  // field (Cycle/Contraception/Menopause/Miscarriage — see IntimacyTarget in
+  // privateSectionAuthStore.ts) reuses this shared PIN screen but shows the
+  // flat AWA background already used by Pregnancy "Informations médicales
+  // personnelles" / Miscarriage "Notes personnelles" (PrivateAccessScreen.tsx,
+  // `#F3EEFC`) instead of the padlock-artwork PNG — every other target
+  // (cycle/conception/photos — Vie intime/Rapports/Photos privées) keeps
+  // that PNG unchanged.
+  const target = route.params?.target;
+  const isPersonalNoteTarget = target === 'cycleNotes' || target === 'contraceptionNotes' || target === 'menopauseNotes' || target === 'miscarriageNotes';
   // The padlock artwork (+ its soft shadow) baked into the background ends at ~37% of screen
   // height on our target aspect ratios; clear it with margin before any text renders. Capped so
-  // the keypad below it can never be pushed past the bottom edge on shorter devices.
+  // the keypad below it can never be pushed past the bottom edge on shorter devices. The flat
+  // background has no artwork to clear, so it only needs a small top gap.
   const availableHeight = height - insets.top - insets.bottom - 12;
   const minContentBelowArtwork = compact ? 340 : 356;
   const desiredClearance = height * 0.4 - insets.top;
-  const artworkClearance = Math.max(20, Math.min(desiredClearance, availableHeight - minContentBelowArtwork));
+  const artworkClearance = isPersonalNoteTarget
+    ? 20
+    : Math.max(20, Math.min(desiredClearance, availableHeight - minContentBelowArtwork));
 
   const [configured, setConfigured] = useState(false);
   const [pin, setPin] = useState('');
@@ -67,8 +80,7 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
     if (next.length === 6) {setTimeout(() => complete(next), 120);}
   };
 
-  return (
-    <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
+  const content = (
       <SafeAreaView edges={['top', 'bottom']} style={styles.flex}>
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
@@ -115,6 +127,15 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
           <View style={styles.bottomSpacer} />
         </View>
       </SafeAreaView>
+  );
+
+  if (isPersonalNoteTarget) {
+    return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
+  }
+
+  return (
+    <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
+      {content}
     </ImageBackground>
   );
 }
@@ -122,6 +143,11 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     safe: {flex: 1, backgroundColor: theme.colors.background},
+    // Same flat AWA background PrivateAccessScreen.tsx already uses for
+    // Pregnancy "Informations médicales personnelles" / Miscarriage "Notes
+    // personnelles" ("Fond violet clair sans PNG") — reused as-is, not a new
+    // asset.
+    flatBackground: {backgroundColor: '#F3EEFC'},
     flex: {flex: 1},
     content: {flex: 1, alignItems: 'center', paddingHorizontal: 22, paddingBottom: 12},
     back: {position: 'absolute', top: 12, left: 16, zIndex: 2, width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: theme.colors.surface},

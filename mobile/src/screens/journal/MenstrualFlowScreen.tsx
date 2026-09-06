@@ -118,9 +118,15 @@ function Selectable({
     }
   }, [progress, scale, selected]);
 
+  // `withAlpha` is a plain JS helper, not a Reanimated worklet — it must be
+  // computed here on the JS thread and passed into the worklet as an already
+  // resolved string. Recomputed on every render, so it still tracks theme
+  // changes (see MenstrualFlowScreen's own inputAnimatedStyle for the same
+  // pattern).
+  const selectableBorderColorStart = withAlpha(theme.colors.primary, 0.14);
   const animatedStyle = useAnimatedStyle(() => ({
     backgroundColor: interpolateColor(progress.value, [0, 1], [theme.colors.surface, theme.colors.primarySoft]),
-    borderColor: interpolateColor(progress.value, [0, 1], [withAlpha(theme.colors.primary, 0.14), theme.colors.primary]),
+    borderColor: interpolateColor(progress.value, [0, 1], [selectableBorderColorStart, theme.colors.primary]),
     shadowOpacity: progress.value * 0.15,
     transform: [{scale: scale.value}],
   }));
@@ -309,8 +315,11 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
     opacity: heroDropScale.value,
     transform: [{scale: heroDropScale.value}],
   }));
+  // Same non-worklet-function constraint as Selectable's animatedStyle above:
+  // withAlpha must run on the JS thread before the worklet reads it.
+  const inputBorderColorStart = withAlpha(theme.colors.primary, 0.14);
   const inputAnimatedStyle = useAnimatedStyle(() => ({
-    borderColor: interpolateColor(focusProgress.value, [0, 1], [withAlpha(theme.colors.primary, 0.14), theme.colors.primary]),
+    borderColor: interpolateColor(focusProgress.value, [0, 1], [inputBorderColorStart, theme.colors.primary]),
     shadowOpacity: focusProgress.value * 0.11,
   }));
 

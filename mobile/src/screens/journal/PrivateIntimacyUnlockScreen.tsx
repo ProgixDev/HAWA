@@ -23,6 +23,16 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
   const [biometryAvailable, setBiometryAvailable] = useState(false);
   const [pinConfigured, setPinConfigured] = useState(false);
   const target = route.params?.target;
+  // Every objective's own "Note personnelle"/"Notes du jour" personal-notes
+  // field (Cycle/Contraception/Menopause/Miscarriage — see IntimacyTarget in
+  // privateSectionAuthStore.ts) reuses this shared "Espace privé" gate (same
+  // as Vie intime/Rapports/Photos privées) but must show the flat AWA
+  // background already used by Pregnancy "Informations médicales
+  // personnelles" / Miscarriage "Notes personnelles" (PrivateAccessScreen.tsx,
+  // `#F3EEFC`, "Fond violet clair sans PNG") instead of the padlock-artwork
+  // PNG — every other target (cycle/conception/photos — Vie intime/Rapports/
+  // Photos privées) keeps that PNG unchanged.
+  const isPersonalNoteTarget = target === 'cycleNotes' || target === 'contraceptionNotes' || target === 'menopauseNotes' || target === 'miscarriageNotes';
 
   useEffect(() => {
     if (isIntimacyUnlocked()) {replaceWithIntimacyDestination(navigation, target); return;}
@@ -37,12 +47,12 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
     AccessibilityInfo.isReduceMotionEnabled().then(reduce => Animated.timing(progress, {toValue:1,duration:reduce?0:380,easing:Easing.out(Easing.cubic),useNativeDriver:true}).start());
   }, [navigation, progress, target]);
 
-  return <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
+  const content = (
     <SafeAreaView edges={['top','bottom']} style={styles.flex}>
     <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
     <View style={[styles.content,{paddingBottom:Math.max(insets.bottom,14)}]}>
       <Pressable accessibilityLabel="Retour au journal" accessibilityRole="button" hitSlop={10} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={26}/></Pressable>
-      <Animated.View style={[styles.main,compact?styles.mainCompact:styles.mainNormal,{opacity:progress,transform:[{translateY:progress.interpolate({inputRange:[0,1],outputRange:[12,0]})}]}]}>
+      <Animated.View style={[styles.main,isPersonalNoteTarget?styles.mainFlat:(compact?styles.mainCompact:styles.mainNormal),{opacity:progress,transform:[{translateY:progress.interpolate({inputRange:[0,1],outputRange:[12,0]})}]}]}>
         <Text style={[styles.title,compact&&styles.titleCompact]}>Espace privé ♡</Text>
         <Text style={[styles.lead,compact&&styles.leadCompact]}>Cette section contient des{`\n`}informations sensibles.</Text>
         <View style={[styles.divider,compact&&styles.dividerCompact]}><View style={styles.line}/><MaterialDesignIcons color={theme.colors.primary} name="heart" size={17}/><View style={styles.line}/></View>
@@ -56,17 +66,34 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
       </View>
     </View>
     </SafeAreaView>
+  );
+
+  if (isPersonalNoteTarget) {
+    return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
+  }
+
+  return <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
+    {content}
   </ImageBackground>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({safe:{flex:1,backgroundColor:theme.colors.background},
+  // Same flat AWA background PrivateAccessScreen.tsx already uses for
+  // Pregnancy "Informations médicales personnelles" / Miscarriage "Notes
+  // personnelles" ("Fond violet clair sans PNG") — reused as-is, not a new
+  // asset.
+  flatBackground:{backgroundColor:'#F3EEFC'},
   flex:{flex:1},
   content:{flex:1,paddingTop:12,paddingHorizontal:16},
   back:{position:'absolute',top:12,left:16,zIndex:2,width:48,height:48,alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:theme.colors.border,borderRadius:17,backgroundColor:theme.colors.surface,elevation:2},
   main:{alignItems:'center'},
   mainNormal:{marginTop:230}
   ,mainCompact:{marginTop:150},
+  // No padlock artwork to clear on the flat background — a small top gap
+  // (matching PrivateAccessScreen.tsx's own hero spacing) replaces the
+  // large image-clearance margins above.
+  mainFlat:{marginTop:24},
   title:{color:theme.colors.accent,fontFamily:'serif',fontSize:31,fontWeight:'800'},
   titleCompact:{fontSize:26},
   lead: {
