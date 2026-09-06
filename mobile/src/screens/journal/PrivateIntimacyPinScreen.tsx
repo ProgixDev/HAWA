@@ -1,13 +1,13 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {Animated, Easing, ImageBackground, Pressable, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {Animated, Easing, Pressable, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {hasPrivatePin, savePrivatePin, verifyPrivatePin} from '../../services/privateSectionAuth';
 import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyPin'>;
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'empty', '0', 'delete'] as const;
@@ -16,29 +16,11 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {height} = useWindowDimensions();
-  const insets = useSafeAreaInsets();
   const compact = height < 720;
-  // Every objective's own "Note personnelle"/"Notes du jour" personal-notes
-  // field (Cycle/Contraception/Menopause/Miscarriage — see IntimacyTarget in
-  // privateSectionAuthStore.ts) reuses this shared PIN screen but shows the
-  // flat AWA background already used by Pregnancy "Informations médicales
-  // personnelles" / Miscarriage "Notes personnelles" (PrivateAccessScreen.tsx,
-  // `#F3EEFC`) instead of the padlock-artwork PNG — every other target
-  // (cycle/conception/photos — Vie intime/Rapports/Photos privées) keeps
-  // that PNG unchanged.
-  const target = route.params?.target;
-  const isPersonalNoteTarget = target === 'cycleNotes' || target === 'contraceptionNotes' || target === 'menopauseNotes' || target === 'miscarriageNotes';
-  // The padlock artwork (+ its soft shadow) baked into the background ends at ~37% of screen
-  // height on our target aspect ratios; clear it with margin before any text renders. Capped so
-  // the keypad below it can never be pushed past the bottom edge on shorter devices. The flat
-  // background has no artwork to clear, so it only needs a small top gap.
-  const availableHeight = height - insets.top - insets.bottom - 12;
-  const minContentBelowArtwork = compact ? 340 : 356;
-  const desiredClearance = height * 0.4 - insets.top;
-  const artworkClearance = isPersonalNoteTarget
-    ? 20
-    : Math.max(20, Math.min(desiredClearance, availableHeight - minContentBelowArtwork));
-
+  // Unified, theme-aware lock presentation (see PrivateIntimacyUnlockScreen.tsx's
+  // UNIFIED_PURPOSE_COPY) — now applies to every IntimacyTarget value. The
+  // legacy padlock-artwork PNG background (and the top clearance it needed)
+  // has been fully retired from this file.
   const [configured, setConfigured] = useState(false);
   const [pin, setPin] = useState('');
   const [first, setFirst] = useState('');
@@ -89,9 +71,12 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
             <MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={27} />
           </Pressable>
 
-          <View style={{height: artworkClearance}} />
+          <View style={styles.topGap} />
 
           <View style={styles.titleBlock}>
+            <View style={styles.lockBadge}>
+              <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={26} />
+            </View>
             <Text style={[styles.title, compact && styles.titleCompact]}>
               {configured ? 'Saisis ton code privé' : first ? 'Confirme ton code' : 'Crée ton code privé'}
             </Text>
@@ -129,29 +114,22 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
       </SafeAreaView>
   );
 
-  if (isPersonalNoteTarget) {
-    return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
-  }
-
-  return (
-    <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
-      {content}
-    </ImageBackground>
-  );
+  return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     safe: {flex: 1, backgroundColor: theme.colors.background},
-    // Same flat AWA background PrivateAccessScreen.tsx already uses for
-    // Pregnancy "Informations médicales personnelles" / Miscarriage "Notes
-    // personnelles" ("Fond violet clair sans PNG") — reused as-is, not a new
-    // asset.
-    flatBackground: {backgroundColor: '#F3EEFC'},
+    // Reads the GLOBAL theme so it supports Light/Dark/System/True Black/
+    // Premium palettes — the "no PNG, calm flat page" structural principle
+    // originally inspired by Pregnancy's private-access design.
+    flatBackground: {backgroundColor: theme.colors.background},
     flex: {flex: 1},
     content: {flex: 1, alignItems: 'center', paddingHorizontal: 22, paddingBottom: 12},
+    topGap: {height: 20},
     back: {position: 'absolute', top: 12, left: 16, zIndex: 2, width: 48, height: 48, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 16, backgroundColor: theme.colors.surface},
     titleBlock: {alignItems: 'center'},
+    lockBadge: {width: 64, height: 64, marginBottom: 14, alignItems: 'center', justifyContent: 'center', borderRadius: 32, backgroundColor: theme.colors.primary, shadowColor: theme.colors.primary, shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.22, shadowRadius: 14, elevation: 4},
     title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 24, fontWeight: '800', textAlign: 'center'},
     titleCompact: {fontSize: 21},
     subtitle: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12},

@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {AccessibilityInfo, Animated, Easing, ImageBackground, Pressable, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {AccessibilityInfo, Animated, Easing, Pressable, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -12,6 +12,24 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyUnlock'>;
 
+// Purpose-specific line for the unified lock design — same structural idea
+// as PrivateAccessScreen.tsx's PURPOSE_COPY, kept local here since that
+// screen has its own separate gate (System B: purpose-based PrivateAccess,
+// vs. this System A: target-based Intimacy flow) and is out of scope for
+// this change. `cycle` also covers `undefined` (Vie intime never passes a
+// target param). Covers every IntimacyTarget value — `photos` and
+// `miscarriageNotes` were the last two still on the legacy padlock-artwork
+// PNG background; this file no longer renders that PNG for any target.
+export const UNIFIED_PURPOSE_COPY: Record<string, string> = {
+  cycle: 'Ta vie intime reste entièrement privée.',
+  conception: 'Tes rapports restent entièrement privés.',
+  cycleNotes: 'Tes notes personnelles restent entièrement privées.',
+  contraceptionNotes: 'Tes notes du jour restent entièrement privées.',
+  menopauseNotes: 'Tes notes du jour restent entièrement privées.',
+  photos: 'Tes photos restent entièrement privées.',
+  miscarriageNotes: 'Tes notes personnelles restent entièrement privées.',
+};
+
 export default function PrivateIntimacyUnlockScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -23,16 +41,13 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
   const [biometryAvailable, setBiometryAvailable] = useState(false);
   const [pinConfigured, setPinConfigured] = useState(false);
   const target = route.params?.target;
-  // Every objective's own "Note personnelle"/"Notes du jour" personal-notes
-  // field (Cycle/Contraception/Menopause/Miscarriage — see IntimacyTarget in
-  // privateSectionAuthStore.ts) reuses this shared "Espace privé" gate (same
-  // as Vie intime/Rapports/Photos privées) but must show the flat AWA
-  // background already used by Pregnancy "Informations médicales
-  // personnelles" / Miscarriage "Notes personnelles" (PrivateAccessScreen.tsx,
-  // `#F3EEFC`, "Fond violet clair sans PNG") instead of the padlock-artwork
-  // PNG — every other target (cycle/conception/photos — Vie intime/Rapports/
-  // Photos privées) keeps that PNG unchanged.
-  const isPersonalNoteTarget = target === 'cycleNotes' || target === 'contraceptionNotes' || target === 'menopauseNotes' || target === 'miscarriageNotes';
+  // Unified, theme-aware lock presentation (inspired by Pregnancy
+  // "Informations médicales personnelles" centered-badge layout, but
+  // reading the GLOBAL theme instead of a fixed color) — now applies to
+  // every IntimacyTarget value. `photos` and `miscarriageNotes` were the
+  // last two still on the legacy padlock-artwork PNG background; that
+  // branch has been fully retired from this file.
+  const purposeLine = UNIFIED_PURPOSE_COPY[target ?? 'cycle'] ?? UNIFIED_PURPOSE_COPY.cycle;
 
   useEffect(() => {
     if (isIntimacyUnlocked()) {replaceWithIntimacyDestination(navigation, target); return;}
@@ -47,17 +62,23 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
     AccessibilityInfo.isReduceMotionEnabled().then(reduce => Animated.timing(progress, {toValue:1,duration:reduce?0:380,easing:Easing.out(Easing.cubic),useNativeDriver:true}).start());
   }, [navigation, progress, target]);
 
+  const heroAnimatedStyle = {opacity:progress,transform:[{translateY:progress.interpolate({inputRange:[0,1],outputRange:[12,0]})}]};
+
+  const hero = (
+    <Animated.View style={[styles.main,styles.mainUnified,heroAnimatedStyle]}>
+      <View style={styles.lockBadge}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={30}/></View>
+      <Text style={[styles.title,compact&&styles.titleCompact]}>Espace privé</Text>
+      <Text style={styles.purposeLine}>{purposeLine}</Text>
+      <Text style={styles.subtitle}>Déverrouille avec ton code privé{`\n`}ou ta biométrie.</Text>
+    </Animated.View>
+  );
+
   const content = (
     <SafeAreaView edges={['top','bottom']} style={styles.flex}>
     <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
     <View style={[styles.content,{paddingBottom:Math.max(insets.bottom,14)}]}>
       <Pressable accessibilityLabel="Retour au journal" accessibilityRole="button" hitSlop={10} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={26}/></Pressable>
-      <Animated.View style={[styles.main,isPersonalNoteTarget?styles.mainFlat:(compact?styles.mainCompact:styles.mainNormal),{opacity:progress,transform:[{translateY:progress.interpolate({inputRange:[0,1],outputRange:[12,0]})}]}]}>
-        <Text style={[styles.title,compact&&styles.titleCompact]}>Espace privé ♡</Text>
-        <Text style={[styles.lead,compact&&styles.leadCompact]}>Cette section contient des{`\n`}informations sensibles.</Text>
-        <View style={[styles.divider,compact&&styles.dividerCompact]}><View style={styles.line}/><MaterialDesignIcons color={theme.colors.primary} name="heart" size={17}/><View style={styles.line}/></View>
-        <Text style={styles.subtitle}>Déverrouille avec ton code privé{`\n`}ou ta biométrie.</Text>
-      </Animated.View>
+      {hero}
 
       <View style={[styles.actionsCard,compact&&styles.actionsCardCompact]}>
         {biometryAvailable && <Pressable accessibilityHint="Ouvre l'écran de déverrouillage Face ID" accessibilityLabel={biometryLabel} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyFaceId', {target: route.params?.target})} style={({pressed})=>[styles.primary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.primaryIcon}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="face-recognition" size={30}/></View><View style={styles.buttonCopy}><Text style={styles.primaryTitle}>{biometryLabel}</Text><Text style={styles.primarySubtitle}>Déverrouiller avec biométrie</Text></View><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="chevron-right" size={28}/></Pressable>}
@@ -68,51 +89,25 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
     </SafeAreaView>
   );
 
-  if (isPersonalNoteTarget) {
-    return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
-  }
-
-  return <ImageBackground resizeMode="cover" source={require('../../assets/images/private-lock-background.png')} style={styles.safe}>
-    {content}
-  </ImageBackground>;
+  return <View style={[styles.safe, styles.flatBackground]}>{content}</View>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({safe:{flex:1,backgroundColor:theme.colors.background},
-  // Same flat AWA background PrivateAccessScreen.tsx already uses for
-  // Pregnancy "Informations médicales personnelles" / Miscarriage "Notes
-  // personnelles" ("Fond violet clair sans PNG") — reused as-is, not a new
-  // asset.
-  flatBackground:{backgroundColor:'#F3EEFC'},
+  // Reads the GLOBAL theme so it supports Light/Dark/System/True Black/
+  // Premium palettes — the "no PNG, calm flat page" structural principle
+  // originally inspired by Pregnancy's private-access design.
+  flatBackground:{backgroundColor:theme.colors.background},
   flex:{flex:1},
   content:{flex:1,paddingTop:12,paddingHorizontal:16},
   back:{position:'absolute',top:12,left:16,zIndex:2,width:48,height:48,alignItems:'center',justifyContent:'center',borderWidth:1,borderColor:theme.colors.border,borderRadius:17,backgroundColor:theme.colors.surface,elevation:2},
   main:{alignItems:'center'},
-  mainNormal:{marginTop:230}
-  ,mainCompact:{marginTop:150},
-  // No padlock artwork to clear on the flat background — a small top gap
-  // (matching PrivateAccessScreen.tsx's own hero spacing) replaces the
-  // large image-clearance margins above.
-  mainFlat:{marginTop:24},
+  mainUnified:{marginTop:32},
+  lockBadge:{width:76,height:76,marginBottom:16,alignItems:'center',justifyContent:'center',borderRadius:38,backgroundColor:theme.colors.primary,shadowColor:theme.colors.primary,shadowOffset:{width:0,height:6},shadowOpacity:0.22,shadowRadius:14,elevation:4},
+  purposeLine:{marginTop:10,color:theme.colors.textSecondary,fontSize:13,textAlign:'center'},
   title:{color:theme.colors.accent,fontFamily:'serif',fontSize:31,fontWeight:'800'},
   titleCompact:{fontSize:26},
-  lead: {
-  marginTop: 12,
-  color: theme.colors.textSecondary,
-  fontSize: 17,
-  lineHeight: 24,
-  textAlign: 'center',
-},
-
-leadCompact: {
-  marginTop: 1,
-  fontSize: 15,
-  lineHeight: 20,
-},
-  divider:{height:28,flexDirection:'row',alignItems:'center',gap:11},
-  dividerCompact:{height:20},
   subtitle:{color:theme.colors.textSecondary,fontSize:15,lineHeight:21,textAlign:'center'},
-  line:{width:22,height:1,backgroundColor:withAlpha(theme.colors.primary,0.35)},
  actionsCard: {
   marginTop: 10,
   gap: 10,
