@@ -1,4 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  decryptFieldValue,
+  encryptFieldValue,
+  isEncryptedFieldPayload,
+} from '../services/atRestFieldEncryption';
 
 // Postpartum's own Lochia daily-tracking store — one entry per calendar day,
 // same module-singleton + AsyncStorage pattern as postpartumJournalStore.ts.
@@ -32,11 +37,6 @@ export type PostpartumLochiaTracking = {
   /** Local YYYY-MM-DD selected by the user when she explicitly marks the
    * medical lochia tracking as finished. Null means it remains open. */
   endedDate: string | null;
-};
-
-type PersistedLochiaState = {
-  entries: EntriesByDate;
-  tracking: PostpartumLochiaTracking;
 };
 
 const DEFAULT_TRACKING: PostpartumLochiaTracking = { endedDate: null };
@@ -83,11 +83,48 @@ const isValidEntry = (value: unknown): value is PostpartumLochiaEntry => {
   );
 };
 
-const persist = () =>
-  AsyncStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify({ entries, tracking } satisfies PersistedLochiaState),
-  ).catch(() => {});
+// `flow`/`color`/`consistency` are fixed enums and `symptoms` is a
+// structured tag list — `note` is the only genuine free-text field here and
+// the only one encrypted at rest. `tracking` (endedDate) is unrelated
+// metadata and is never touched by this transform.
+const ENCRYPTION_SERVICE = 'com.hawa.private.postpartum-lochia.encryption-key';
+
+async function encryptEntryForStorage(entry: PostpartumLochiaEntry): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...entry};
+  if (typeof entry.note === 'string' && entry.note.length > 0) {
+    output.note = await encryptFieldValue(ENCRYPTION_SERVICE, entry.note);
+  } else {
+    delete output.note;
+  }
+  return output;
+}
+
+async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...raw};
+  if (isEncryptedFieldPayload(raw.note)) {
+    try {
+      output.note = await decryptFieldValue<string>(ENCRYPTION_SERVICE, raw.note);
+    } catch {
+      delete output.note;
+    }
+  }
+  return output;
+}
+
+const persist = async () => {
+  try {
+    const serializableEntries: Record<string, unknown> = {};
+    for (const [date, entry] of Object.entries(entries)) {
+      serializableEntries[date] = await encryptEntryForStorage(entry);
+    }
+    await AsyncStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({entries: serializableEntries, tracking}),
+    );
+  } catch {
+    // never throw out of a save action
+  }
+};
 
 export const getPostpartumLochiaEntry = (
   date: string,
@@ -132,7 +169,7 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
   }
   if (!hydration) {
     hydration = AsyncStorage.getItem(STORAGE_KEY)
-      .then(raw => {
+      .then(async raw => {
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
@@ -145,9 +182,11 @@ export const hydratePostpartumLochia = (): Promise<EntriesByDate> => {
                 ? (candidate.entries as Record<string, unknown>)
                 : candidate;
             const valid: EntriesByDate = {};
-            for (const [key, value] of Object.entries(rawEntries)) {
-              if (isValidEntry(value)) {
-                valid[key] = value;
+            for (const [key, rawValue] of Object.entries(rawEntries)) {
+              if (!rawValue || typeof rawValue !== 'object') {continue;}
+              const decrypted = await decryptEntryFromStorage(rawValue as Record<string, unknown>);
+              if (isValidEntry(decrypted)) {
+                valid[key] = decrypted;
               }
             }
             entries = valid;
@@ -179,3 +218,28 @@ export const subscribePostpartumLochia = (listener: () => void) => {
     listeners.delete(listener);
   };
 };
+
+/**
+ * Idempotent boot-time migration: re-saves any entry whose `note` is still
+ * a plain string, encrypting it via the same at-rest scheme as every other
+ * sensitive journal field. No-ops if no plaintext note is found (safe to
+ * call on every app launch). Never touches `tracking`.
+ */
+export async function migrateLegacyPlainPostpartumLochiaNotes(): Promise<void> {
+  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  if (!raw) {return;}
+  const parsed: unknown = JSON.parse(raw);
+  if (!parsed || typeof parsed !== 'object') {return;}
+  const candidate = parsed as Record<string, unknown>;
+  const rawEntries =
+    candidate.entries && typeof candidate.entries === 'object'
+      ? (candidate.entries as Record<string, unknown>)
+      : candidate;
+  const hasLegacyPlainNote = Object.values(rawEntries).some(rawEntry => {
+    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
+    return typeof (rawEntry as Record<string, unknown>).note === 'string';
+  });
+  if (!hasLegacyPlainNote) {return;}
+  await hydratePostpartumLochia();
+  await persist();
+}
