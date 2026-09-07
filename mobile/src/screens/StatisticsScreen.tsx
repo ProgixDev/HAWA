@@ -19,7 +19,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {getFloatingTabBarClearance} from '../theme/spacing';
+import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {usePremium} from '../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
@@ -603,7 +603,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
   scrollContent: {
     paddingHorizontal: 16,
-    paddingTop: 8,
+    // Same shared breathing-room constant CalendarScreen.tsx uses above its
+    // own SafeAreaView(top)-reserved inset — was a flat 8, sitting visibly
+    // closer to the top than Calendar's 32.
+    paddingTop: TOP_SPACING_EXTRA,
   },
 
   scrollContentCompact: {
