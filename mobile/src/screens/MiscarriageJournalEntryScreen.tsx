@@ -1524,10 +1524,12 @@ function TryingAgainContent({
 // re-derived here from theme.colors.* so every style below keeps working
 // unchanged by name. BLUE/BLUE_LIGHT are gone — they were only ever used by
 // SYMPTOM_VISUALS, which is now frozen to literal hex (see its own header
-// comment). The bleeding-intensity ("Flux"/"Couleur") widget's own styles
-// (dropCircle*, colorCircle*, colorSwatch, otherSwatch, colorSelectedBadge,
-// smallCheck) are deliberately left untouched below — see the final report's
-// color-classification audit for why.
+// comment). The bleeding-intensity ("Flux"/"Couleur") widget's card/badge
+// CHROME (dropCircle*, colorCircle*, smallCheck, colorSelectedBadge) now
+// uses PURPLE/DANGER/theme.colors.surface/theme.shadow.shadowColor below —
+// only colorSwatch/otherSwatch (the actual flow-color options a user picks
+// from) stay frozen literals, since those represent real medical
+// bleeding-color identities, not UI chrome.
 function createStyles(theme: ResolvedAwaTheme) {
   const PURPLE = theme.colors.primary;
   const PURPLE_DARK = theme.colors.accent;
@@ -1539,6 +1541,10 @@ function createStyles(theme: ResolvedAwaTheme) {
   const GREEN_LIGHT = withAlpha(theme.colors.success, 0.16);
   const BORDER = withAlpha(theme.colors.primary, 0.10);
   const BORDER_ACTIVE = withAlpha(theme.colors.primary, 0.30);
+  // Closest semantic token for the bleeding-intensity widget's "active/
+  // selected" accent (a reddish indicator on a bleeding-related control) —
+  // see dropCircleActive/colorCircleActive/smallCheck/colorSelectedBadge.
+  const DANGER = theme.colors.danger;
 
   return StyleSheet.create({
   // Wraps PostpartumJournalScreenLayout (which fills the screen on its own)
@@ -1685,13 +1691,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderWidth: 1,
 
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: withAlpha(theme.colors.primary, 0.08),
 
     borderRadius: 29,
 
-    backgroundColor: '#FCFAFE',
+    backgroundColor: theme.colors.surface,
 
-    shadowColor: '#5533A8',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -1708,11 +1714,11 @@ function createStyles(theme: ResolvedAwaTheme) {
   dropCircleActive: {
     borderWidth: 2,
 
-    borderColor: '#F09AB2',
+    borderColor: DANGER,
 
-    backgroundColor: '#FFF0F5',
+    backgroundColor: withAlpha(theme.colors.danger, 0.12),
 
-    shadowColor: '#E84D76',
+    shadowColor: DANGER,
 
     shadowOpacity: 0.14,
 
@@ -1737,9 +1743,11 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '800',
   },
 
-  // Bleeding-intensity "selected" badge — kept a frozen literal (not PINK)
-  // alongside dropCircle/dropCircleActive above, part of the same
-  // medical-tracking widget that must never become theme-derived.
+  // Bleeding-intensity "selected" badge — its fill now follows the same
+  // DANGER accent used by dropCircleActive's active/selected state above
+  // (theme-reactive); the white ring stays a deliberate literal "cutout"
+  // separator (same convention as colorSelectedBadge below), and only the
+  // flow-color swatch identity values elsewhere in this widget stay frozen.
   smallCheck: {
     position: 'absolute',
 
@@ -1759,7 +1767,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderRadius: 9,
 
-    backgroundColor: '#DC5278',
+    backgroundColor: DANGER,
   },
 
   /* ========================================================
@@ -1794,19 +1802,19 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderWidth: 1,
 
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: withAlpha(theme.colors.primary, 0.07),
 
     borderRadius: 24,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   colorCircleActive: {
     borderWidth: 2,
 
-    borderColor: '#F19AB1',
+    borderColor: DANGER,
 
-    backgroundColor: '#FFF0F4',
+    backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
 
   colorSwatch: {
@@ -1822,8 +1830,9 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderColor: '#B99AE7',
   },
 
-  // Bleeding-color "selected" badge — kept a frozen literal (not PURPLE),
-  // same reasoning as smallCheck above.
+  // Bleeding-color "selected" badge — its fill now follows the theme's
+  // primary token (theme-reactive); the white ring stays a deliberate
+  // literal "cutout" separator, same reasoning as smallCheck above.
   colorSelectedBadge: {
     position: 'absolute',
 
@@ -1843,7 +1852,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderRadius: 9,
 
-    backgroundColor: '#6D4AE8',
+    backgroundColor: PURPLE,
   },
 
   colorLabel: {

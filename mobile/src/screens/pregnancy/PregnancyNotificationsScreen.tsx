@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   Alert,
   Modal,
@@ -18,8 +18,9 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {homeColors} from '../../components/home/homeTheme';
 import {getBottomPadding, spacing} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   getPregnancyNotificationSettings,
   hydratePregnancyNotificationSettings,
@@ -87,11 +88,23 @@ function formatLongDate(date: Date): string {
    SHARED UI PIECES
 ============================================================ */
 
-function SectionHeader({icon, title, subtitle}: {icon: IconName; title: string; subtitle?: string}): React.JSX.Element {
+function SectionHeader({
+  icon,
+  title,
+  subtitle,
+  theme,
+  styles,
+}: {
+  icon: IconName;
+  title: string;
+  subtitle?: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
+}): React.JSX.Element {
   return (
     <View style={styles.sectionHeader}>
       <View style={styles.sectionIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={21} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={21} />
       </View>
       <View style={styles.sectionCopy}>
         <Text style={styles.sectionTitle}>{title}</Text>
@@ -108,6 +121,8 @@ function ToggleRow({
   value,
   onValueChange,
   children,
+  theme,
+  styles,
 }: {
   icon: IconName;
   title: string;
@@ -115,22 +130,24 @@ function ToggleRow({
   value: boolean;
   onValueChange: (value: boolean) => void;
   children?: React.ReactNode;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.toggleRow}>
       <View style={styles.toggleHeaderRow}>
         <View style={styles.fieldIcon}>
-          <MaterialDesignIcons color={homeColors.primary} name={icon} size={18} />
+          <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
         </View>
         <View style={styles.toggleCopy}>
           <Text style={styles.toggleTitle}>{title}</Text>
           <Text style={styles.toggleDescription}>{description}</Text>
         </View>
         <Switch
-          ios_backgroundColor="#E2D8F0"
+          ios_backgroundColor={theme.colors.primarySoft}
           onValueChange={onValueChange}
-          thumbColor="#FFFFFF"
-          trackColor={{false: '#E2D8F0', true: homeColors.primary}}
+          thumbColor={theme.colors.surface}
+          trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
           value={value}
         />
       </View>
@@ -142,9 +159,11 @@ function ToggleRow({
 function OffsetPicker({
   value,
   onChange,
+  styles,
 }: {
   value: PregnancyReminderOffset;
   onChange: (value: PregnancyReminderOffset) => void;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.chips}>
@@ -170,6 +189,8 @@ function ReminderListRow({
   onToggle,
   onPress,
   onDelete,
+  theme,
+  styles,
 }: {
   icon: IconName;
   title: string;
@@ -178,31 +199,33 @@ function ReminderListRow({
   onToggle: (value: boolean) => void;
   onPress: () => void;
   onDelete: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable accessibilityRole="button" onPress={onPress} style={({pressed}) => [styles.listRow, pressed && styles.pressed]}>
       <View style={styles.rowIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={18} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
       </View>
       <View style={styles.rowCopy}>
         <Text numberOfLines={1} style={styles.rowTitle}>{title}</Text>
         <Text numberOfLines={1} style={styles.rowMeta}>{meta}</Text>
       </View>
       <Switch
-        ios_backgroundColor="#E2D8F0"
+        ios_backgroundColor={theme.colors.primarySoft}
         onValueChange={onToggle}
-        thumbColor="#FFFFFF"
-        trackColor={{false: '#E2D8F0', true: homeColors.primary}}
+        thumbColor={theme.colors.surface}
+        trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
         value={enabled}
       />
       <Pressable accessibilityLabel={`Supprimer ${title}`} hitSlop={8} onPress={onDelete} style={styles.rowDelete}>
-        <MaterialDesignIcons color="#A8505A" name="trash-can-outline" size={17} />
+        <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={17} />
       </Pressable>
     </Pressable>
   );
 }
 
-function EmptyRow({text}: {text: string}): React.JSX.Element {
+function EmptyRow({text, styles}: {text: string; styles: ReturnType<typeof createStyles>}): React.JSX.Element {
   return <Text style={styles.emptyText}>{text}</Text>;
 }
 
@@ -212,12 +235,16 @@ function TextField({
   onChangeText,
   placeholder,
   multiline,
+  theme,
+  styles,
 }: {
   label: string;
   value: string;
   onChangeText: (text: string) => void;
   placeholder: string;
   multiline?: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.textFieldWrap}>
@@ -227,7 +254,7 @@ function TextField({
         multiline={multiline}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#A79BC7"
+        placeholderTextColor={theme.colors.textMuted}
         style={[styles.textInput, multiline && styles.textInputMultiline]}
         value={value}
       />
@@ -235,17 +262,33 @@ function TextField({
   );
 }
 
-function FieldRow({icon, label, value, active, onPress}: {icon: IconName; label: string; value: string; active: boolean; onPress: () => void}): React.JSX.Element {
+function FieldRow({
+  icon,
+  label,
+  value,
+  active,
+  onPress,
+  theme,
+  styles,
+}: {
+  icon: IconName;
+  label: string;
+  value: string;
+  active: boolean;
+  onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
+}): React.JSX.Element {
   return (
     <Pressable accessibilityRole="button" onPress={onPress} style={({pressed}) => [styles.field, active && styles.fieldActive, pressed && styles.pressed]}>
       <View style={styles.fieldIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={18} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
       </View>
       <View style={styles.fieldCopy}>
         <Text style={styles.fieldLabel}>{label}</Text>
         <Text style={styles.fieldValue}>{value}</Text>
       </View>
-      <MaterialDesignIcons color={homeColors.textSecondary} name={active ? 'chevron-up' : 'chevron-down'} size={20} />
+      <MaterialDesignIcons color={theme.colors.textSecondary} name={active ? 'chevron-up' : 'chevron-down'} size={20} />
     </Pressable>
   );
 }
@@ -276,12 +319,16 @@ function HealthReminderModal({
   onSave,
   onDismiss,
   onDelete,
+  theme,
+  styles,
 }: {
   draft: HealthDraft;
   onChange: (draft: HealthDraft) => void;
   onSave: () => void;
   onDismiss: () => void;
   onDelete?: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const [activePicker, setActivePicker] = useState<'time' | 'start' | 'end' | null>(null);
   const isMedication = draft.kind === 'medication';
@@ -297,6 +344,8 @@ function HealthReminderModal({
               label="Nom"
               onChangeText={name => onChange({...draft, name})}
               placeholder={isMedication ? 'Ex. Fer' : 'Ex. Acide folique'}
+              styles={styles}
+              theme={theme}
               value={draft.name}
             />
 
@@ -305,6 +354,8 @@ function HealthReminderModal({
               icon="clock-outline"
               label="Heure"
               onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
+              styles={styles}
+              theme={theme}
               value={formatTimeValue(draft.time)}
             />
             {activePicker === 'time' ? (
@@ -326,6 +377,8 @@ function HealthReminderModal({
                   icon="calendar-start"
                   label="Date de début"
                   onPress={() => setActivePicker(current => (current === 'start' ? null : 'start'))}
+                  styles={styles}
+                  theme={theme}
                   value={formatLongDate(draft.startDate)}
                 />
                 {activePicker === 'start' ? (
@@ -342,6 +395,8 @@ function HealthReminderModal({
                   icon="calendar-end"
                   label="Date de fin (optionnelle)"
                   onPress={() => setActivePicker(current => (current === 'end' ? null : 'end'))}
+                  styles={styles}
+                  theme={theme}
                   value={draft.endDate ? formatLongDate(draft.endDate) : 'Non définie'}
                 />
                 {activePicker === 'end' ? (
@@ -410,12 +465,16 @@ function CustomReminderModal({
   onSave,
   onDismiss,
   onDelete,
+  theme,
+  styles,
 }: {
   draft: CustomDraft;
   onChange: (draft: CustomDraft) => void;
   onSave: () => void;
   onDismiss: () => void;
   onDelete?: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const [activePicker, setActivePicker] = useState<'date' | 'time' | null>(null);
 
@@ -426,12 +485,14 @@ function CustomReminderModal({
           <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
             <Text style={styles.modalTitle}>Rappel personnalisé</Text>
 
-            <TextField label="Titre" onChangeText={title => onChange({...draft, title})} placeholder="Ex. Cours de préparation" value={draft.title} />
+            <TextField label="Titre" onChangeText={title => onChange({...draft, title})} placeholder="Ex. Cours de préparation" styles={styles} theme={theme} value={draft.title} />
             <TextField
               label="Description (optionnelle)"
               multiline
               onChangeText={description => onChange({...draft, description})}
               placeholder="Ajouter un détail…"
+              styles={styles}
+              theme={theme}
               value={draft.description}
             />
 
@@ -440,6 +501,8 @@ function CustomReminderModal({
               icon="calendar-month-outline"
               label="Date"
               onPress={() => setActivePicker(current => (current === 'date' ? null : 'date'))}
+              styles={styles}
+              theme={theme}
               value={formatLongDate(draft.date)}
             />
             {activePicker === 'date' ? (
@@ -456,6 +519,8 @@ function CustomReminderModal({
               icon="clock-outline"
               label="Heure"
               onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
+              styles={styles}
+              theme={theme}
               value={formatTimeValue(draft.time)}
             />
             {activePicker === 'time' ? (
@@ -511,6 +576,8 @@ function CustomReminderModal({
 
 function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [settings, setSettings] = useState<PregnancyNotificationSettings>(getPregnancyNotificationSettings);
   const [healthReminders, setHealthReminders] = useState<HealthReminder[]>([]);
@@ -686,7 +753,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
       <View pointerEvents="none" style={styles.backgroundDecor}>
         <View style={styles.glowTop} />
@@ -703,7 +770,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             styles.backButton,
             pressed && styles.backButtonPressed,
           ]}>
-          <MaterialDesignIcons color={homeColors.primaryDark} name="chevron-left" size={22} />
+          <MaterialDesignIcons color={theme.colors.text} name="chevron-left" size={22} />
         </Pressable>
 
         <View style={styles.headerCopy}>
@@ -727,7 +794,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <View style={styles.introCard}>
           <View style={styles.introIcon}>
-            <MaterialDesignIcons color={homeColors.primary} name="bell-outline" size={20} />
+            <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={20} />
           </View>
           <View style={styles.introCopy}>
             <Text style={styles.introTitle}>Des rappels utiles, à ton rythme</Text>
@@ -739,12 +806,14 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
         {/* ============================= A. GROSSESSE ============================= */}
         <View style={styles.card}>
-          <SectionHeader icon="human-pregnant" title="Grossesse" />
+          <SectionHeader icon="human-pregnant" styles={styles} theme={theme} title="Grossesse" />
 
           <ToggleRow
             description="Recevoir un rappel lorsqu’une nouvelle semaine de grossesse commence."
             icon="calendar-week"
             onValueChange={value => persistSettings({...settings, weeklyUpdateEnabled: value})}
+            styles={styles}
+            theme={theme}
             title="Suivi hebdomadaire"
             value={settings.weeklyUpdateEnabled}
           />
@@ -755,6 +824,8 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             description="Me rappeler de compléter mon suivi du jour."
             icon="notebook-outline"
             onValueChange={value => persistSettings({...settings, dailyJournalEnabled: value})}
+            styles={styles}
+            theme={theme}
             title="Journal quotidien"
             value={settings.dailyJournalEnabled}>
             <FieldRow
@@ -762,6 +833,8 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
               icon="clock-outline"
               label="Heure du rappel"
               onPress={() => setDailyJournalPickerOpen(open => !open)}
+              styles={styles}
+              theme={theme}
               value={settings.dailyJournalTime}
             />
             {dailyJournalPickerOpen ? (
@@ -780,17 +853,20 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
         {/* ===================== B. RENDEZ-VOUS & EXAMENS ===================== */}
         <View style={styles.card}>
-          <SectionHeader icon="calendar-heart" title="Rendez-vous & examens" />
+          <SectionHeader icon="calendar-heart" styles={styles} theme={theme} title="Rendez-vous & examens" />
 
           <ToggleRow
             description="Recevoir un rappel avant tes rendez-vous médicaux."
             icon="calendar-heart"
             onValueChange={value => persistSettings({...settings, appointmentsEnabled: value})}
+            styles={styles}
+            theme={theme}
             title="Rendez-vous médicaux"
             value={settings.appointmentsEnabled}>
             <Text style={styles.toggleHint}>Rappel par défaut</Text>
             <OffsetPicker
               onChange={offset => persistSettings({...settings, defaultAppointmentReminderOffset: offset})}
+              styles={styles}
               value={settings.defaultAppointmentReminderOffset}
             />
           </ToggleRow>
@@ -801,11 +877,14 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             description="Recevoir un rappel avant tes examens."
             icon="clipboard-pulse-outline"
             onValueChange={value => persistSettings({...settings, examsEnabled: value})}
+            styles={styles}
+            theme={theme}
             title="Examens"
             value={settings.examsEnabled}>
             <Text style={styles.toggleHint}>Rappel par défaut</Text>
             <OffsetPicker
               onChange={offset => persistSettings({...settings, defaultExamReminderOffset: offset})}
+              styles={styles}
               value={settings.defaultExamReminderOffset}
             />
           </ToggleRow>
@@ -815,16 +894,16 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
         {/* ============================== C. SANTÉ ============================== */}
         <View style={styles.card}>
-          <SectionHeader icon="pill" title="Santé" />
+          <SectionHeader icon="pill" styles={styles} theme={theme} title="Santé" />
 
           <View style={styles.subsectionHeaderRow}>
             <Text style={styles.subsectionTitle}>Vitamines & compléments</Text>
             <Pressable accessibilityLabel="Ajouter une vitamine" accessibilityRole="button" onPress={() => openNewHealthReminder('vitamin')} style={styles.addChip}>
-              <MaterialDesignIcons color={homeColors.primary} name="plus" size={16} />
+              <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
             </Pressable>
           </View>
           {vitamins.length === 0 ? (
-            <EmptyRow text="Aucune vitamine enregistrée." />
+            <EmptyRow styles={styles} text="Aucune vitamine enregistrée." />
           ) : (
             <View style={styles.list}>
               {vitamins.map(item => (
@@ -836,6 +915,8 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
                   onDelete={() => removeHealthReminder(item)}
                   onPress={() => openEditHealthReminder(item)}
                   onToggle={value => toggleHealthReminder(item, value)}
+                  styles={styles}
+                  theme={theme}
                   title={item.name}
                 />
               ))}
@@ -845,11 +926,11 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           <View style={[styles.subsectionHeaderRow, styles.subsectionSpacing]}>
             <Text style={styles.subsectionTitle}>Médicaments</Text>
             <Pressable accessibilityLabel="Ajouter un médicament" accessibilityRole="button" onPress={() => openNewHealthReminder('medication')} style={styles.addChip}>
-              <MaterialDesignIcons color={homeColors.primary} name="plus" size={16} />
+              <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
             </Pressable>
           </View>
           {medications.length === 0 ? (
-            <EmptyRow text="Aucun médicament enregistré." />
+            <EmptyRow styles={styles} text="Aucun médicament enregistré." />
           ) : (
             <View style={styles.list}>
               {medications.map(item => (
@@ -861,6 +942,8 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
                   onDelete={() => removeHealthReminder(item)}
                   onPress={() => openEditHealthReminder(item)}
                   onToggle={value => toggleHealthReminder(item, value)}
+                  styles={styles}
+                  theme={theme}
                   title={item.name}
                 />
               ))}
@@ -873,14 +956,14 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
         {/* ======================= D. RAPPELS PERSONNALISÉS ======================= */}
         <View style={styles.card}>
           <View style={styles.subsectionHeaderRow}>
-            <SectionHeader icon="bell-plus-outline" title="Rappels personnalisés" />
+            <SectionHeader icon="bell-plus-outline" styles={styles} theme={theme} title="Rappels personnalisés" />
             <Pressable accessibilityLabel="Ajouter un rappel personnalisé" accessibilityRole="button" onPress={openNewCustomReminder} style={styles.addChip}>
-              <MaterialDesignIcons color={homeColors.primary} name="plus" size={16} />
+              <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
             </Pressable>
           </View>
 
           {customReminders.length === 0 ? (
-            <EmptyRow text="Aucun rappel personnalisé enregistré." />
+            <EmptyRow styles={styles} text="Aucun rappel personnalisé enregistré." />
           ) : (
             <View style={styles.list}>
               {customReminders.map(item => (
@@ -892,6 +975,8 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
                   onDelete={() => removeCustomReminder(item)}
                   onPress={() => openEditCustomReminder(item)}
                   onToggle={value => toggleCustomReminder(item, value)}
+                  styles={styles}
+                  theme={theme}
                   title={item.title}
                 />
               ))}
@@ -910,6 +995,8 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           } : undefined}
           onDismiss={() => setHealthDraft(null)}
           onSave={saveHealthDraft}
+          styles={styles}
+          theme={theme}
         />
       ) : null}
 
@@ -923,16 +1010,19 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           } : undefined}
           onDismiss={() => setCustomDraft(null)}
           onSave={saveCustomDraft}
+          styles={styles}
+          theme={theme}
         />
       ) : null}
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FAF8FD',
+    backgroundColor: theme.colors.background,
   },
 
   backgroundDecor: {
@@ -946,7 +1036,7 @@ const styles = StyleSheet.create({
     width: 320,
     height: 320,
     borderRadius: 160,
-    backgroundColor: 'rgba(112,82,200,0.055)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.055),
   },
   glowMiddle: {
     position: 'absolute',
@@ -955,7 +1045,7 @@ const styles = StyleSheet.create({
     width: 280,
     height: 280,
     borderRadius: 140,
-    backgroundColor: 'rgba(163,135,204,0.035)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.035),
   },
 
   header: {
@@ -973,10 +1063,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 13,
-    backgroundColor: 'rgba(255,255,255,0.94)',
-    shadowColor: '#4B396C',
+    backgroundColor: withAlpha(theme.colors.surface, 0.94),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.05,
     shadowRadius: 7,
@@ -995,7 +1085,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     width: '100%',
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 19,
     lineHeight: 24,
@@ -1005,7 +1095,7 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     maxWidth: '100%',
     marginTop: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 14,
     textAlign: 'center',
@@ -1026,9 +1116,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 2,
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.085)',
+    borderColor: withAlpha(theme.colors.primary, 0.085),
     borderRadius: 17,
-    backgroundColor: 'rgba(255,255,255,0.76)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.76),
     paddingHorizontal: 11,
     paddingVertical: 10,
   },
@@ -1040,21 +1130,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 9,
     borderRadius: 13,
-    backgroundColor: '#F1EBFA',
+    backgroundColor: theme.colors.primarySoft,
   },
   introCopy: {
     flex: 1,
     minWidth: 0,
   },
   introTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 13,
     lineHeight: 17,
     fontWeight: '800',
   },
   introText: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -1063,10 +1153,10 @@ const styles = StyleSheet.create({
     marginTop: 10,
     padding: 11,
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.95)',
-    shadowColor: '#493765',
+    backgroundColor: withAlpha(theme.colors.surface, 0.95),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 3},
     shadowOpacity: 0.035,
     shadowRadius: 8,
@@ -1088,14 +1178,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginRight: 8,
     borderRadius: 11,
-    backgroundColor: '#F2EDFA',
+    backgroundColor: theme.colors.primarySoft,
   },
   sectionCopy: {
     flex: 1,
     minWidth: 0,
   },
   sectionTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 15,
     lineHeight: 19,
@@ -1103,7 +1193,7 @@ const styles = StyleSheet.create({
   },
   sectionSubtitle: {
     marginTop: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 14,
   },
@@ -1116,9 +1206,9 @@ const styles = StyleSheet.create({
   toggleRow: {
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.075)',
+    borderColor: withAlpha(theme.colors.primary, 0.075),
     borderRadius: 14,
-    backgroundColor: '#FDFBFE',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 9,
     paddingVertical: 9,
   },
@@ -1133,7 +1223,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#F1EBFA',
+    backgroundColor: theme.colors.primarySoft,
   },
   toggleCopy: {
     flex: 1,
@@ -1141,14 +1231,14 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   toggleTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 13,
     lineHeight: 17,
     fontWeight: '700',
   },
   toggleDescription: {
     marginTop: 2,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 14,
   },
@@ -1158,7 +1248,7 @@ const styles = StyleSheet.create({
   },
   toggleHint: {
     marginBottom: 6,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     fontWeight: '700',
   },
@@ -1170,28 +1260,28 @@ const styles = StyleSheet.create({
   },
   chip: {
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 10,
-    backgroundColor: '#F4F0F9',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 9,
     paddingVertical: 6,
   },
   chipActive: {
-    borderColor: homeColors.primary,
-    backgroundColor: homeColors.primary,
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary,
   },
   chipText: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     fontWeight: '700',
   },
   chipTextActive: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
   },
 
   cardFootnote: {
     marginTop: 9,
-    color: '#8C8498',
+    color: theme.colors.textMuted,
     fontSize: 10,
     lineHeight: 14,
   },
@@ -1205,12 +1295,12 @@ const styles = StyleSheet.create({
     marginTop: 13,
     paddingTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: 'rgba(109,74,232,0.09)',
+    borderTopColor: withAlpha(theme.colors.primary, 0.09),
   },
   subsectionTitle: {
     flex: 1,
     minWidth: 0,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 12.5,
     lineHeight: 16,
     fontWeight: '800',
@@ -1222,14 +1312,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 9,
-    backgroundColor: '#F1EBFA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   emptyText: {
     marginTop: 7,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 14,
   },
@@ -1243,9 +1333,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 7,
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.075)',
+    borderColor: withAlpha(theme.colors.primary, 0.075),
     borderRadius: 13,
-    backgroundColor: '#FDFBFE',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 8,
     paddingVertical: 8,
   },
@@ -1256,21 +1346,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#F1EBFA',
+    backgroundColor: theme.colors.primarySoft,
   },
   rowCopy: {
     flex: 1,
     minWidth: 0,
   },
   rowTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 12,
     lineHeight: 15,
     fontWeight: '700',
   },
   rowMeta: {
     marginTop: 1,
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 12,
   },
@@ -1281,7 +1371,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 9,
-    backgroundColor: '#FCEFF1',
+    backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
 
   pressed: {
@@ -1295,33 +1385,33 @@ const styles = StyleSheet.create({
     minHeight: 47,
     marginTop: 7,
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 13,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 9,
   },
   fieldActive: {
-    borderColor: homeColors.primary,
+    borderColor: theme.colors.primary,
   },
   fieldCopy: {
     flex: 1,
     minWidth: 0,
   },
   fieldLabel: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 10,
     fontWeight: '600',
   },
   fieldValue: {
     marginTop: 1,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: '700',
   },
   staticValue: {
     marginTop: 3,
     marginBottom: 1,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: '700',
   },
@@ -1333,11 +1423,11 @@ const styles = StyleSheet.create({
     minHeight: 45,
     marginTop: 5,
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
     borderRadius: 13,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 11,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 12,
   },
   textInputMultiline: {
@@ -1351,7 +1441,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   clearLinkText: {
-    color: homeColors.primary,
+    color: theme.colors.primary,
     fontSize: 10.5,
     fontWeight: '700',
   },
@@ -1359,18 +1449,18 @@ const styles = StyleSheet.create({
   modalOverlay: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(29,20,45,0.36)',
+    backgroundColor: withAlpha(theme.shadow.shadowColor, 0.36),
   },
   modalCard: {
     maxHeight: '88%',
     padding: 16,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   modalTitle: {
     marginBottom: 3,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 17,
     fontWeight: '800',
@@ -1389,11 +1479,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 13,
     borderWidth: 1,
-    borderColor: '#E9C7CC',
-    backgroundColor: '#FBEEF0',
+    borderColor: withAlpha(theme.colors.danger, 0.3),
+    backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
   deleteButtonText: {
-    color: '#A8505A',
+    color: theme.colors.danger,
     fontSize: 12,
     fontWeight: '700',
   },
@@ -1404,11 +1494,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 13,
     borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.09)',
-    backgroundColor: '#FFFFFF',
+    borderColor: withAlpha(theme.colors.primary, 0.09),
+    backgroundColor: theme.colors.surface,
   },
   cancelButtonText: {
-    color: homeColors.textSecondary,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     fontWeight: '700',
   },
@@ -1418,16 +1508,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
-    backgroundColor: homeColors.primary,
+    backgroundColor: theme.colors.primary,
   },
   saveButtonDisabled: {
     opacity: 0.45,
   },
   saveButtonText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 12,
     fontWeight: '700',
   },
-})
+  });
+}
 
 export default PregnancyNotificationsScreen;

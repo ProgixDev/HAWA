@@ -1076,7 +1076,7 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
       }>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
