@@ -23,7 +23,7 @@ import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import DailyJournalCard, {type Shortcut} from '../home/DailyJournalCard';
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
@@ -754,11 +754,12 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 // CycleHomeScreen.tsx (D1), ContraceptionDashboard.tsx (D2) and
 // IrregularDashboard.tsx (D3). PURPLE/TRACK_COLOR are re-derived here
 // exactly as in the component body above, so every style below keeps
-// working unchanged by name. adviceCard/adviceIcon/adviceTitle/
-// adviceSubtitle/adviceText are the one deliberate exception — see their
-// own comment below.
+// working unchanged by name. adviceCard/adviceIcon/adviceSubtitle keep a
+// fixed rose *identity* accent (ADVICE_ACCENT) in light mode — see their
+// own comment below for how dark mode adapts it.
 function createStyles(theme: ResolvedAwaTheme) {
   const PURPLE = theme.colors.primary;
+  const ADVICE_ACCENT = '#B23F63';
 
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
@@ -1061,20 +1062,25 @@ function createStyles(theme: ResolvedAwaTheme) {
   evolutionTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
   evolutionSubtitle: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
 
-  // Fixed — a self-contained "romantic/nurturing" rose card, deliberately
-  // NOT following the resolved palette (same treatment as Cycle/
-  // Contraception/Irregular's fixed daily-journal rose accent, '#B23F63',
-  // reused verbatim here). Its background never adapts to Dark/True Black,
-  // so every text/icon color drawn on top of it must also stay fixed —
-  // exactly like MotivationCard's "text calibrated against a fixed surface"
-  // precedent (Phase D1) — rather than partially theming a card whose own
-  // surface stays static.
+  // Rose "romantic/nurturing" identity card. LIGHT keeps its own fixed pale
+  // pink surface ('#FBEFF6') independent of the resolved palette, matching
+  // Cycle/Contraception/Irregular's fixed daily-journal rose accent
+  // ('#B23F63', reused verbatim here). DARK never reuses that pale surface
+  // (it would read as a bright light-mode card pasted onto a dark
+  // dashboard) — instead it blends the same rose accent into the theme's
+  // own dark elevated surface, so the card keeps its rose identity while
+  // sitting naturally among the surrounding dark cards. Title/description
+  // always read from theme.colors.text/textSecondary (theme-aware in every
+  // mode, byte-identical to the previous homeColors.textPrimary/
+  // textSecondary literals for AWA Original light) rather than the fixed
+  // literals, since a light-only text color is what made the title
+  // unreadable once the rest of the dashboard went dark.
   adviceCard: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 16,
     borderRadius: homeRadii.card,
-    backgroundColor: '#FBEFF6',
+    backgroundColor: theme.isDark ? interpolateHex(theme.colors.surfaceSecondary, ADVICE_ACCENT, 0.16) : '#FBEFF6',
     padding: 16,
   },
   adviceIcon: {
@@ -1083,13 +1089,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.isDark ? interpolateHex(theme.colors.surface, ADVICE_ACCENT, 0.22) : '#FFFFFF',
   },
   adviceEmoji: {fontSize: 17},
   adviceCopy: {flex: 1, minWidth: 0, marginLeft: 12, marginRight: 8},
-  adviceTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 13.5, fontWeight: '700'},
-  adviceSubtitle: {marginTop: 3, color: '#B23F63', fontSize: 13, fontWeight: '700'},
-  adviceText: {marginTop: 3, color: homeColors.textSecondary, fontSize: 11.5, lineHeight: 16},
+  adviceTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 13.5, fontWeight: '700'},
+  adviceSubtitle: {
+    marginTop: 3,
+    color: theme.isDark ? interpolateHex(ADVICE_ACCENT, '#FFFFFF', 0.35) : ADVICE_ACCENT,
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  adviceText: {marginTop: 3, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
 
   articlesCard: {
     marginTop: 16,

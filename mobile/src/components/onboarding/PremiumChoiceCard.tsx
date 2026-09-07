@@ -17,6 +17,12 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Props = {
   icon: IconName;
   iconTint: string;
+  /** Overrides the icon glyph color (defaults to `theme.colors.primary`).
+   * Lets a caller keep this shared component's own theme-resolution rules
+   * untouched while still supplying a background-appropriate icon color for
+   * an `iconTint` it has itself adapted for a specific surface (e.g. a
+   * dark-mode-tinted chip) — see MenopauseDashboard's "Mon étape" sheet. */
+  iconColor?: string;
   title: string;
   subtitle: string;
   selected: boolean;
@@ -35,6 +41,7 @@ type Props = {
 function PremiumChoiceCard({
   icon,
   iconTint,
+  iconColor,
   title,
   subtitle,
   selected,
@@ -57,7 +64,7 @@ function PremiumChoiceCard({
       ]}>
       <View style={styles.row}>
         <View style={[styles.iconBox, {backgroundColor: iconTint}]}>
-          <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
+          <MaterialDesignIcons color={iconColor ?? theme.colors.primary} name={icon} size={22} />
         </View>
 
         <View style={styles.copy}>
