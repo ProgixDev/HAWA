@@ -24,6 +24,7 @@ import {
   TOP_SPACING_EXTRA,
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
+import {updatePrivacySecuritySettings} from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -50,13 +51,17 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const [infoMessage, setInfoMessage] = useState('');
 
   // TEMP FRONTEND-ONLY AUTH BYPASS:
-  // Replace with real authentication once backend auth is connected. Shared
-  // by "Se connecter" and the dev-mode shortcut below so there is one single
-  // place that enters the main app. emailError/passwordError state (and the
+  // Replace with real authentication once backend auth is connected. The
+  // single place "Se connecter" enters the main app. Also clears
+  // anonymousMode (state/securityPreferences.ts — the same flag
+  // ProfileScreen/AnonymousMode already read/write) so a normal login after
+  // a previous Anonymous Mode session doesn't leave ProfileScreen stuck
+  // showing the anonymous identity. emailError/passwordError state (and the
   // field/JSX that renders them) are left in place, unused for now, so real
   // validation drops back in cleanly once a backend exists — only
   // isValidEmail's import was removed since it became genuinely unused here.
   const enterMainApp = () => {
+    updatePrivacySecuritySettings({anonymousMode: false});
     navigation.replace('MainTabs', {screen: 'CycleHome'});
   };
 
@@ -284,26 +289,6 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                     />
                     <Text style={styles.infoText}>{infoMessage}</Text>
                   </View>
-                ) : null}
-
-                {__DEV__ ? (
-                  <Pressable
-                    accessibilityLabel="Continuer en mode développement — ne pas utiliser en production"
-                    accessibilityRole="button"
-                    onPress={enterMainApp}
-                    style={({pressed}) => [
-                      styles.devBypass,
-                      pressed && styles.pressed,
-                    ]}>
-                    <MaterialDesignIcons
-                      color={theme.colors.textMuted}
-                      name="flask-outline"
-                      size={14}
-                    />
-                    <Text style={styles.devBypassText}>
-                      Continuer en mode développement
-                    </Text>
-                  </Pressable>
                 ) : null}
 
                 <Text style={styles.or}>ou continuer avec</Text>
@@ -597,26 +582,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 15,
-  },
-
-  devBypass: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 6,
-    marginTop: 10,
-    minHeight: 34,
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: theme.colors.border,
-    borderRadius: 12,
-    backgroundColor: 'transparent',
-  },
-
-  devBypassText: {
-    color: theme.colors.textMuted,
-    fontSize: 10.5,
-    fontWeight: '600',
   },
 
   primaryButton: {
