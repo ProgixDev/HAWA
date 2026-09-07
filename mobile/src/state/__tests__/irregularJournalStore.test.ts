@@ -1,9 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   getIrregularJournalEntry,
+  migrateLegacyPlainIrregularNotes,
   saveIrregularFatigueEntry,
+  saveIrregularJournalEntry,
   saveIrregularJournalField,
 } from '../irregularJournalStore';
+
+const STORAGE_KEY = '@hawa/irregular-journal/v1';
 
 // The store keeps an in-memory singleton (`entries`) that persists across
 // tests in this file regardless of AsyncStorage.clear() — same constraint
@@ -104,5 +108,107 @@ describe('irregularJournalStore', () => {
 
   it('a date never saved at all has no entry — never a fabricated default entry', () => {
     expect(getIrregularJournalEntry('2026-06-01')).toBeUndefined();
+  });
+});
+
+// See postpartumJournalStore.test.ts's header comment — same in-memory
+// singleton constraint applies here; tests below share state within this
+// describe block only (each uses its own dates, isolated from the block
+// above), and the migration test runs first since it's the first call to
+// hydrateIrregularJournal() in this file.
+describe('irregularJournalStore — encryption at rest (details[category].note)', () => {
+  it('migrates a legacy plaintext note nested under details[category], preserving content exactly', async () => {
+    await AsyncStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+        '2026-07-01': {
+          date: '2026-07-01',
+          acne: 'Modérée',
+          details: {
+            acne: {note: 'Poussée après le stress du travail', areas: ['Menton']},
+          },
+        },
+      }),
+    );
+
+    await migrateLegacyPlainIrregularNotes();
+
+    const entry = getIrregularJournalEntry('2026-07-01');
+    expect(entry?.details?.acne?.note).toBe('Poussée après le stress du travail');
+    expect(entry?.details?.acne?.areas).toEqual(['Menton']);
+    expect(entry?.acne).toBe('Modérée');
+
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const persisted = JSON.parse(raw!)['2026-07-01'];
+    expect(typeof persisted.details.acne.note).toBe('object');
+    expect(persisted.details.acne.note.ciphertext).toBeDefined();
+    expect(JSON.stringify(persisted)).not.toContain('Poussée après le stress');
+  });
+
+  it('migration is idempotent', async () => {
+    await migrateLegacyPlainIrregularNotes();
+    await migrateLegacyPlainIrregularNotes();
+    expect(getIrregularJournalEntry('2026-07-01')?.details?.acne?.note).toBe(
+      'Poussée après le stress du travail',
+    );
+  });
+
+  it('migration is a no-op when nothing is legacy plaintext', async () => {
+    const before = await AsyncStorage.getItem(STORAGE_KEY);
+    await migrateLegacyPlainIrregularNotes();
+    const after = await AsyncStorage.getItem(STORAGE_KEY);
+    expect(after).toBe(before);
+  });
+
+  it('a fresh save encrypts details[category].note at rest while keeping the in-memory value plaintext', async () => {
+    await saveIrregularJournalEntry('2026-07-02', 'pain', 'Forte', {
+      note: 'Douleur au réveil, atténuée dans la journée',
+      painLevel: 'Forte',
+    });
+
+    expect(getIrregularJournalEntry('2026-07-02')?.details?.pain?.note).toBe(
+      'Douleur au réveil, atténuée dans la journée',
+    );
+
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const persisted = JSON.parse(raw!)['2026-07-02'];
+    expect(typeof persisted.details.pain.note).toBe('object');
+    expect(JSON.stringify(persisted)).not.toContain('Douleur au réveil');
+  });
+
+  it('multiple categories on the same day each get their own note independently encrypted', async () => {
+    await saveIrregularJournalEntry('2026-07-03', 'acne', 'Légère', {note: 'Note acné'});
+    await saveIrregularJournalEntry('2026-07-03', 'mood', 'Bien', {note: 'Note humeur'});
+
+    const entry = getIrregularJournalEntry('2026-07-03');
+    expect(entry?.details?.acne?.note).toBe('Note acné');
+    expect(entry?.details?.mood?.note).toBe('Note humeur');
+
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const persisted = JSON.parse(raw!)['2026-07-03'];
+    expect(typeof persisted.details.acne.note).toBe('object');
+    expect(typeof persisted.details.mood.note).toBe('object');
+  });
+
+  it('an empty note is never persisted as an encrypted blob — the field is simply absent', async () => {
+    await saveIrregularJournalEntry('2026-07-04', 'weight', '65 kg', {note: ''});
+
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const persisted = JSON.parse(raw!)['2026-07-04'];
+    expect(persisted.details.weight.note).toBeUndefined();
+    expect(getIrregularJournalEntry('2026-07-04')?.details?.weight?.note).toBeFalsy();
+  });
+
+  it('structured details fields (areas, symptoms, status, painLevel) remain plaintext at rest', async () => {
+    await saveIrregularJournalEntry('2026-07-05', 'pain', 'Modérée', {
+      note: 'Une autre note',
+      painLevel: 'Modérée',
+      areas: ['Bas du dos'],
+    });
+
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    const persisted = JSON.parse(raw!)['2026-07-05'];
+    expect(persisted.details.pain.painLevel).toBe('Modérée');
+    expect(persisted.details.pain.areas).toEqual(['Bas du dos']);
   });
 });
