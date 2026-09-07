@@ -714,35 +714,38 @@ export function HawaPremiumBottomSheet({
                       styles.benefitCardWide,
                   ]}>
 
-                  <View
-                    style={[
-                      styles.benefitIcon,
-                      {
-                        backgroundColor:
-                          item.tint,
-                      },
-                    ]}>
-                    <MaterialDesignIcons
-                      color={item.iconColor}
-                      name={item.icon}
-                      size={21}
-                    />
-                  </View>
+                  <View style={styles.benefitMainRow}>
+                    <View
+                      style={[
+                        styles.benefitIcon,
+                        {
+                          backgroundColor:
+                            item.tint,
+                        },
+                      ]}>
+                      <MaterialDesignIcons
+                        color={item.iconColor}
+                        name={item.icon}
+                        size={22}
+                      />
+                    </View>
 
-                  <View style={styles.benefitCopy}>
-                    <Text
-                      style={
-                        styles.benefitTitle
-                      }>
-                      {item.title}
-                    </Text>
+                    <View style={styles.benefitCopy}>
+                      <Text
+                        numberOfLines={2}
+                        style={
+                          styles.benefitTitle
+                        }>
+                        {item.title}
+                      </Text>
 
-                    <Text
-                      style={
-                        styles.benefitDescription
-                      }>
-                      {item.description}
-                    </Text>
+                      <Text
+                        style={
+                          styles.benefitDescription
+                        }>
+                        {item.description}
+                      </Text>
+                    </View>
                   </View>
 
                   <View
@@ -752,7 +755,7 @@ export function HawaPremiumBottomSheet({
                     <MaterialDesignIcons
                       color={pickReadableTextColor(theme.colors.success)}
                       name="check"
-                      size={10}
+                      size={11}
                     />
                   </View>
                 </View>
@@ -1516,20 +1519,21 @@ function createStyles(theme: ResolvedAwaTheme) {
   benefits: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    justifyContent: 'space-between',
 
-    gap: 9,
+    columnGap: 10,
+    rowGap: 10,
 
-    marginTop: 15,
+    marginTop: 18,
   },
 
   benefitCard: {
     position: 'relative',
 
-    flexBasis: '47%',
-    flexGrow: 1,
+    width: '48.5%',
+    minHeight: 118,
 
-    minWidth: 140,
-    minHeight: 110,
+    justifyContent: 'center',
 
     borderWidth: 1,
     borderColor: theme.colors.border,
@@ -1538,7 +1542,10 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     backgroundColor: theme.colors.surface,
 
-    padding: 12,
+    paddingTop: 15,
+    paddingRight: 13,
+    paddingBottom: 15,
+    paddingLeft: 13,
 
     shadowColor: '#563892',
 
@@ -1554,31 +1561,34 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
 
   benefitCardCompact: {
-    flexBasis: '100%',
+    width: '100%',
 
-    minHeight: 76,
-
-    flexDirection: 'row',
-    alignItems: 'center',
+    minHeight: 92,
   },
 
   benefitCardWide: {
-    flexBasis: '100%',
+    width: '100%',
 
-    minHeight: 80,
+    minHeight: 92,
+  },
 
+  benefitMainRow: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+
+    paddingRight: 22,
   },
 
   benefitIcon: {
-    width: 42,
-    height: 42,
+    width: 46,
+    height: 46,
 
     flexShrink: 0,
 
     alignItems: 'center',
     justifyContent: 'center',
+
+    marginRight: 11,
 
     borderRadius: 14,
   },
@@ -1586,25 +1596,31 @@ function createStyles(theme: ResolvedAwaTheme) {
   benefitCopy: {
     flex: 1,
     minWidth: 0,
+
+    justifyContent: 'center',
+
+    paddingTop: 1,
   },
 
   benefitTitle: {
-    marginTop: 8,
+    paddingRight: 2,
 
     color: theme.colors.text,
 
-    fontSize: 12,
-    lineHeight: 16,
+    fontSize: 12.5,
+    lineHeight: 16.5,
 
     fontWeight: '900',
   },
 
   benefitDescription: {
-    marginTop: 3,
+    marginTop: 4,
+
+    paddingRight: 2,
 
     color: theme.colors.textSecondary,
 
-    fontSize: 9.8,
+    fontSize: 10,
     lineHeight: 14,
 
     fontWeight: '500',
@@ -1613,16 +1629,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   benefitCheck: {
     position: 'absolute',
 
-    top: 9,
-    right: 9,
+    top: 10,
+    right: 10,
 
-    width: 18,
-    height: 18,
+    width: 20,
+    height: 20,
 
     alignItems: 'center',
     justifyContent: 'center',
 
-    borderRadius: 9,
+    borderRadius: 10,
 
     backgroundColor: theme.colors.success,
   },
