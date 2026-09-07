@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,16 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'exercise-renforcer-perinee';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
-const MUTED = '#777078';
-const BODY = '#4A444B';
-const GREEN = '#789276';
 
 const HERO = require('../../assets/images/library/featured-comfort-hero.png');
 
@@ -113,6 +107,8 @@ type Props = NativeStackScreenProps<
 export default function PerineumStrengtheningArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const [saved, setSaved] = useState(false);
@@ -149,7 +145,7 @@ export default function PerineumStrengtheningArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -201,7 +197,7 @@ export default function PerineumStrengtheningArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -221,7 +217,7 @@ export default function PerineumStrengtheningArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -236,7 +232,7 @@ export default function PerineumStrengtheningArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -274,7 +270,7 @@ export default function PerineumStrengtheningArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color={MUTED}
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -329,7 +325,7 @@ export default function PerineumStrengtheningArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -360,7 +356,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="human-female"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.highlightCopy}>
@@ -396,7 +392,7 @@ export default function PerineumStrengtheningArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={22}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -443,7 +439,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -487,7 +483,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -532,7 +528,7 @@ export default function PerineumStrengtheningArticleScreen({
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
-                  color={ROSE}
+                  color={theme.colors.primary}
                   size={25}
                 />
 
@@ -547,7 +543,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="target"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.highlightCopy}>
@@ -610,7 +606,7 @@ export default function PerineumStrengtheningArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={19}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -625,7 +621,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="calendar-check-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -662,7 +658,7 @@ export default function PerineumStrengtheningArticleScreen({
                 <MaterialDesignIcons
                   name="close-circle-outline"
                   size={18}
-                  color="#B76568"
+                  color={theme.colors.warning}
                 />
 
                 <Text style={styles.warningText}>
@@ -676,7 +672,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -717,7 +713,7 @@ export default function PerineumStrengtheningArticleScreen({
                   <MaterialDesignIcons
                     name="alert-circle-outline"
                     size={21}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -768,7 +764,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="doctor"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.highlightCopy}>
@@ -811,7 +807,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="run-fast"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -847,7 +843,7 @@ export default function PerineumStrengtheningArticleScreen({
               <MaterialDesignIcons
                 name="message-question-outline"
                 size={22}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.questionTitle}>
@@ -878,7 +874,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="doctor"
               size={25}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -920,7 +916,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="progress-check"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.highlightCopy}>
@@ -948,7 +944,7 @@ export default function PerineumStrengtheningArticleScreen({
               <MaterialDesignIcons
                 name="check-decagram-outline"
                 size={25}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.summaryTitle}>
@@ -971,7 +967,7 @@ export default function PerineumStrengtheningArticleScreen({
                 <MaterialDesignIcons
                   name="check"
                   size={18}
-                  color={GREEN}
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.summaryText}>
@@ -987,7 +983,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="heart-outline"
               size={25}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -1010,7 +1006,7 @@ export default function PerineumStrengtheningArticleScreen({
             <MaterialDesignIcons
               name="shield-outline"
               size={19}
-              color="#8A8190"
+              color={theme.colors.textMuted}
             />
 
             <Text style={styles.disclaimerText}>
@@ -1033,10 +1029,11 @@ export default function PerineumStrengtheningArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -1045,7 +1042,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -1074,9 +1071,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -1088,7 +1085,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -1096,12 +1093,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
     letterSpacing: 0.3,
   },
@@ -1111,7 +1108,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 27,
     lineHeight: 32,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -1132,19 +1129,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 9.5,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: BODY,
+    color: theme.colors.textSecondary,
     fontWeight: '600',
   },
 
@@ -1152,13 +1149,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1177,7 +1174,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 25,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 11.5,
     fontWeight: '800',
   },
@@ -1186,7 +1183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.3,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -1194,7 +1191,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -1202,7 +1199,7 @@ const styles = StyleSheet.create({
     marginTop: 21,
     fontSize: 16,
     lineHeight: 22,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1210,7 +1207,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
     fontSize: 14,
     lineHeight: 21.5,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   highlight: {
@@ -1219,9 +1216,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#F0DDE3',
+    borderColor: theme.colors.border,
   },
 
   highlightCopy: {
@@ -1231,7 +1228,7 @@ const styles = StyleSheet.create({
 
   highlightTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1239,7 +1236,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 12,
     lineHeight: 18,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   tip: {
@@ -1248,9 +1245,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EEDDE3',
+    borderColor: theme.colors.border,
   },
 
   tipCopy: {
@@ -1260,7 +1257,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1268,7 +1265,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
 
@@ -1283,9 +1280,9 @@ const styles = StyleSheet.create({
     width: '48.5%',
     padding: 13,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   benefitIcon: {
@@ -1294,14 +1291,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   benefitTitle: {
     marginTop: 9,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1309,7 +1306,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 11,
     lineHeight: 16.5,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   daily: {
@@ -1326,16 +1323,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F0E4E8',
+    borderColor: theme.colors.border,
   },
 
   dailyText: {
     marginTop: 7,
     fontSize: 11,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     textAlign: 'center',
   },
 
@@ -1343,9 +1340,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   dailyTipRow: {
@@ -1360,7 +1357,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   dailyTipText: {
@@ -1368,16 +1365,16 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 12,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   warningList: {
     marginTop: 13,
     padding: 14,
     borderRadius: 12,
-    backgroundColor: '#FCF5F3',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F1DFDB',
+    borderColor: theme.colors.border,
   },
 
   warningRow: {
@@ -1391,7 +1388,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 18,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   alert: {
@@ -1400,9 +1397,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
     borderWidth: 1,
-    borderColor: '#F1DADA',
+    borderColor: theme.colors.border,
   },
 
   consultList: {
@@ -1415,9 +1412,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   consultIcon: {
@@ -1426,7 +1423,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   consultCopy: {
@@ -1437,7 +1434,7 @@ const styles = StyleSheet.create({
   consultTitle: {
     fontSize: 13,
     lineHeight: 18,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1445,16 +1442,16 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   questionCard: {
     marginTop: 15,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE4DE',
+    borderColor: theme.colors.border,
   },
 
   questionHeader: {
@@ -1467,7 +1464,7 @@ const styles = StyleSheet.create({
   questionTitle: {
     flex: 1,
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1483,12 +1480,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   questionNumber: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -1498,7 +1495,7 @@ const styles = StyleSheet.create({
     paddingTop: 2,
     fontSize: 12,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   professionalTip: {
@@ -1507,18 +1504,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F7F0EC',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EEE2DA',
+    borderColor: theme.colors.border,
   },
 
   summaryCard: {
     marginTop: 15,
     padding: 16,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
@@ -1530,7 +1527,7 @@ const styles = StyleSheet.create({
 
   summaryTitle: {
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1545,7 +1542,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 18,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   finalTip: {
@@ -1554,7 +1551,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
@@ -1569,6 +1566,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 10.5,
     lineHeight: 16,
-    color: '#8A8190',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

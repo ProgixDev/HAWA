@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,16 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'breastfeeding-debuter-allaitement';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
-const BODY = '#4A444B';
-const MUTED = '#777078';
-const GREEN = '#789276';
 
 const HERO = require('../../assets/images/library/featured-tracking-hero.png');
 
@@ -142,6 +136,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function BreastfeedingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -175,7 +171,7 @@ export default function BreastfeedingArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -226,7 +222,7 @@ export default function BreastfeedingArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -250,7 +246,7 @@ export default function BreastfeedingArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -265,7 +261,7 @@ export default function BreastfeedingArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -305,7 +301,7 @@ export default function BreastfeedingArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -335,7 +331,7 @@ export default function BreastfeedingArticleScreen({
                 <MaterialDesignIcons
                   name="format-list-bulleted"
                   size={19}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -375,7 +371,7 @@ export default function BreastfeedingArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={18}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -402,7 +398,7 @@ export default function BreastfeedingArticleScreen({
                 <MaterialDesignIcons
                   name="timeline-clock-outline"
                   size={23}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -442,7 +438,7 @@ export default function BreastfeedingArticleScreen({
                     <MaterialDesignIcons
                       name={step.icon as never}
                       size={19}
-                      color={ROSE}
+                      color={theme.colors.primary}
                     />
                   </View>
 
@@ -480,7 +476,7 @@ export default function BreastfeedingArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={21}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -517,7 +513,7 @@ export default function BreastfeedingArticleScreen({
                 <MaterialDesignIcons
                   name="heart-pulse"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -538,7 +534,7 @@ export default function BreastfeedingArticleScreen({
                   <MaterialDesignIcons
                     name="baby-face-outline"
                     size={35}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
               </View>
@@ -569,7 +565,7 @@ export default function BreastfeedingArticleScreen({
                     <MaterialDesignIcons
                       name={item.icon as never}
                       size={19}
-                      color={ROSE}
+                      color={theme.colors.primary}
                     />
                   </View>
 
@@ -610,7 +606,7 @@ export default function BreastfeedingArticleScreen({
                     <MaterialDesignIcons
                       name={item.icon as never}
                       size={21}
-                      color={ROSE}
+                      color={theme.colors.primary}
                     />
                   </View>
 
@@ -641,7 +637,7 @@ export default function BreastfeedingArticleScreen({
               <MaterialDesignIcons
                 name="information-outline"
                 size={21}
-                color={ROSE}
+                color={theme.colors.primary}
               />
             </View>
 
@@ -681,7 +677,7 @@ export default function BreastfeedingArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={19}
-                  color={GREEN}
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.summaryText}>
@@ -696,7 +692,7 @@ export default function BreastfeedingArticleScreen({
             <MaterialDesignIcons
               name="shield-outline"
               size={18}
-              color="#8A8190"
+              color={theme.colors.textMuted}
             />
 
             <Text style={styles.disclaimerText}>
@@ -725,10 +721,11 @@ export default function BreastfeedingArticleScreen({
 /* STYLES                                                                      */
 /* ========================================================================== */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -741,7 +738,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -770,9 +767,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -790,7 +787,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -798,12 +795,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
     letterSpacing: 0.3,
   },
@@ -813,7 +810,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 27,
     lineHeight: 32,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -834,19 +831,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 9.5,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: BODY,
+    color: theme.colors.textSecondary,
     fontWeight: '600',
   },
 
@@ -858,9 +855,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     borderRadius: 15,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEDFE4',
+    borderColor: theme.colors.border,
   },
 
   contentsHeader: {
@@ -875,20 +872,20 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     marginRight: 10,
   },
 
   contentsTitle: {
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   contentsSubtitle: {
     marginTop: 2,
     fontSize: 10,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   contentRow: {
@@ -897,7 +894,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderTopWidth: 1,
-    borderTopColor: '#EEE2E6',
+    borderTopColor: theme.colors.border,
   },
 
   contentLeft: {
@@ -912,13 +909,13 @@ const styles = StyleSheet.create({
     borderRadius: 12.5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     marginRight: 9,
   },
 
   contentNumber: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -926,7 +923,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.3,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -938,7 +935,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -946,7 +943,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
     fontSize: 14,
     lineHeight: 21.5,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -957,9 +954,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 15,
     borderRadius: 16,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE3DE',
+    borderColor: theme.colors.border,
   },
 
   timelineHeader: {
@@ -967,7 +964,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE5E0',
+    borderBottomColor: theme.colors.border,
   },
 
   timelineHeaderIcon: {
@@ -976,7 +973,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   timelineHeaderCopy: {
@@ -986,14 +983,14 @@ const styles = StyleSheet.create({
 
   timelineTitle: {
     fontSize: 13.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   timelineSubtitle: {
     marginTop: 3,
     fontSize: 10,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   timelineItem: {
@@ -1014,15 +1011,15 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
-    borderColor: '#E7D0D8',
+    borderColor: theme.colors.border,
     zIndex: 2,
   },
 
   timelineNumber: {
     fontSize: 9.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '900',
   },
 
@@ -1031,7 +1028,7 @@ const styles = StyleSheet.create({
     top: 49,
     bottom: 0,
     width: 2,
-    backgroundColor: '#E7D9DE',
+    backgroundColor: theme.colors.border,
   },
 
   timelineContent: {
@@ -1050,7 +1047,7 @@ const styles = StyleSheet.create({
   timelineStepTitle: {
     flex: 1,
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1059,7 +1056,7 @@ const styles = StyleSheet.create({
     paddingRight: 5,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1074,14 +1071,14 @@ const styles = StyleSheet.create({
   signalCard: {
     padding: 13,
     borderRadius: 14,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   signalCardLarge: {
-    backgroundColor: '#F9F0F3',
-    borderColor: '#EEDDE3',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    borderColor: theme.colors.border,
   },
 
   signalIcon: {
@@ -1090,13 +1087,13 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   signalTitle: {
     marginTop: 9,
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1104,7 +1101,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1115,9 +1112,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 15,
     borderRadius: 17,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE3DE',
+    borderColor: theme.colors.border,
   },
 
   latchHeader: {
@@ -1131,7 +1128,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   latchHeaderCopy: {
@@ -1141,14 +1138,14 @@ const styles = StyleSheet.create({
 
   latchTitle: {
     fontSize: 13.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   latchSubtitle: {
     marginTop: 3,
     fontSize: 10,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   latchCenter: {
@@ -1157,7 +1154,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   latchCircleOuter: {
@@ -1166,9 +1163,9 @@ const styles = StyleSheet.create({
     borderRadius: 39,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
-    borderColor: '#E7D1D8',
+    borderColor: theme.colors.border,
   },
 
   latchCircleInner: {
@@ -1177,7 +1174,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   latchCenterText: {
@@ -1187,14 +1184,14 @@ const styles = StyleSheet.create({
 
   latchCenterTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   latchCenterSubtitle: {
     marginTop: 2,
     fontSize: 10,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   latchPoints: {
@@ -1213,12 +1210,12 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   latchPointNumberText: {
     fontSize: 9,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '900',
   },
 
@@ -1229,7 +1226,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   latchPointCopy: {
@@ -1239,7 +1236,7 @@ const styles = StyleSheet.create({
 
   latchPointTitle: {
     fontSize: 11.8,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1247,7 +1244,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 10.5,
     lineHeight: 15.5,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1259,9 +1256,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
     paddingVertical: 3,
     borderRadius: 14,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   supportRow: {
@@ -1276,7 +1273,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   supportCopy: {
@@ -1286,7 +1283,7 @@ const styles = StyleSheet.create({
 
   supportTitle: {
     fontSize: 12,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1294,12 +1291,12 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 10.5,
     lineHeight: 15.5,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   supportSeparator: {
     height: 1,
-    backgroundColor: '#EEE6E0',
+    backgroundColor: theme.colors.border,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1312,9 +1309,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 14,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EEDDE3',
+    borderColor: theme.colors.border,
   },
 
   infoIcon: {
@@ -1323,7 +1320,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   infoCopy: {
@@ -1333,7 +1330,7 @@ const styles = StyleSheet.create({
 
   infoTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1341,7 +1338,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1352,9 +1349,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   summaryRow: {
@@ -1368,7 +1365,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ---------------------------------------------------------------------- */
@@ -1387,6 +1384,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 10,
     lineHeight: 15,
-    color: '#8A8190',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

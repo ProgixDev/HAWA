@@ -49,11 +49,11 @@ const FLOW = require('../assets/images/library/featured-flow.png');
 // scrim guarantees a dark backdrop regardless of theme or photo brightness,
 // same reasoning as the sibling "À la une" hero card's photo-legibility
 // treatment in LibraryScreen.tsx.
-const HERO_SCRIM_COLORS = [
+const HERO_SCRIM_COLORS: string[] = [
   'rgba(20,14,26,0.72)',
   'rgba(20,14,26,0.46)',
   'rgba(20,14,26,0)',
-] as const;
+];
 const HERO_TITLE_ON_SCRIM = '#FFFFFF';
 const HERO_SUMMARY_ON_SCRIM = 'rgba(255,255,255,0.88)';
 
@@ -294,7 +294,15 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
 
         <View style={styles.dots}>
           {HERO_SLIDES.map((slide, index) => (
-            <Pressable key={slide.id} hitSlop={8} onPress={() => setHeroIndex(index)} style={index === heroIndex ? styles.dotActive : styles.dot} />
+            <Pressable
+              accessibilityLabel={`Article ${index + 1} sur ${HERO_SLIDES.length}`}
+              accessibilityRole="button"
+              accessibilityState={{selected: index === heroIndex}}
+              key={slide.id}
+              hitSlop={16}
+              onPress={() => setHeroIndex(index)}
+              style={index === heroIndex ? styles.dotActive : styles.dot}
+            />
           ))}
         </View>
 
@@ -302,7 +310,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
           <Text style={styles.headingText}>
             Articles populaires
           </Text>
-          <Pressable hitSlop={10}>
+          <Pressable accessibilityLabel="Voir tout : Articles populaires" accessibilityRole="button" hitSlop={10}>
             <Text style={styles.seeAll}>
               Voir tout
             </Text>
@@ -349,7 +357,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
           <Text style={styles.headingText}>
             Nouveautés
           </Text>
-          <Pressable hitSlop={10}>
+          <Pressable accessibilityLabel="Voir tout : Nouveautés" accessibilityRole="button" hitSlop={10}>
             <Text style={styles.seeAll}>
               Voir tout
             </Text>

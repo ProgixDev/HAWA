@@ -433,6 +433,8 @@ function SectionTitle({
 
       {action ? (
         <Pressable
+          accessibilityLabel={`${action} : ${title}`}
+          accessibilityRole="button"
           hitSlop={10}
           onPress={onPress}>
           <Text style={styles.sectionAction}>
@@ -1378,7 +1380,12 @@ function LibraryScreen({
               </View>
 
               <Pressable
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={
+                  bookmarks.has(article.id)
+                    ? 'Retirer des favoris'
+                    : 'Ajouter aux favoris'
+                }
+                accessibilityRole="button"
                 hitSlop={12}
                 onPress={() =>
                   toggleSaved(
