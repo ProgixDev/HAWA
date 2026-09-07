@@ -224,8 +224,9 @@ describe('AppearanceScreen — Premium gating', () => {
 describe('AppearanceScreen — navigation preserved', () => {
   it('back button calls navigation.goBack', async () => {
     const goBack = jest.fn();
+    let renderer: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
-      ReactTestRenderer.create(
+      renderer = ReactTestRenderer.create(
         <SafeAreaProvider initialMetrics={TEST_METRICS}>
           <AwaThemeProvider>
             <AppearanceScreen navigation={{goBack} as never} route={{key: 'test', name: 'Appearance'}} />
@@ -233,6 +234,19 @@ describe('AppearanceScreen — navigation preserved', () => {
         </SafeAreaProvider>,
       );
     });
+    // Root cause of a stray "AwaThemeProvider ... not wrapped in act(...)"
+    // warning in every later test in this file: this renderer's return value
+    // was previously discarded instead of going through the shared
+    // `activeRenderers` array, so afterEach() never unmounted it — its
+    // AwaThemeProvider (and the usePremium() it calls internally) stayed
+    // subscribed to themePreferences.ts/premiumStore.ts for the rest of the
+    // file, and every subsequent beforeEach()'s setSelectedThemeId/
+    // setAppearanceMode/setTrueBlackEnabled/resetPremiumStateForTests() call
+    // then notified this orphaned instance outside of any act(). Pushing it
+    // into the same activeRenderers array every other render in this file
+    // already uses lets the existing afterEach() unmount (and thus
+    // unsubscribe) it like all the others.
+    activeRenderers.push(renderer!);
     // Rendered without throwing and goBack is wired — exercised via the
     // accessibility-labeled back button.
     expect(typeof goBack).toBe('function');
