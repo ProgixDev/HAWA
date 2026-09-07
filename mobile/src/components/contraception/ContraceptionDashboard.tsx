@@ -1593,11 +1593,6 @@ function ContraceptionDashboard({
                   spiritual.nextWindow
                 }
                 objective="contraception"
-                onManage={() =>
-                  navigation.navigate(
-                    'SpiritualPreferences',
-                  )
-                }
                 prayerError={
                   spiritual.error
                 }

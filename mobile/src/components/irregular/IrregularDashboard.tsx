@@ -358,7 +358,6 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   : undefined
               }
               nextWindow={prayer.nextWindow}
-              onManage={() => navigation.navigate('SpiritualPreferences')}
               onPressPuritySummary={() => navigation.navigate('PrayerTimes')}
               periodEndDateTime={prayer.periodEndDateTime}
               prayerError={prayer.error}

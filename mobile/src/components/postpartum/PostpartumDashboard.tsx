@@ -837,7 +837,6 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                       articleId: NIFAS_EDUCATIONAL_ARTICLE_ID,
                     })
                   }
-                  onManage={() => navigation.navigate('SpiritualPreferences')}
                   prayerError={spiritual.error}
                   prayerLoading={spiritual.loading}
                   timezone={spiritual.schedule?.timezone}

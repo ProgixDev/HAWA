@@ -708,7 +708,6 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
               locationConfigured={Boolean(prayer.selectedLocation)}
               locationName={prayer.selectedLocation ? `${prayer.selectedLocation.city}, ${prayer.selectedLocation.country}` : undefined}
               nextWindow={prayer.nextWindow}
-              onManage={() => navigation.navigate('SpiritualPreferences')}
               onPressPuritySummary={() => navigation.navigate('PrayerTimes')}
               periodEndDateTime={prayer.periodEndDateTime}
               prayerError={prayer.error}

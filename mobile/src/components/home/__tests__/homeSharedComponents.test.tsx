@@ -140,6 +140,61 @@ describe('SpiritualGuidanceCard — structural chrome themed, religious/health m
   });
 });
 
+/* ============================================================
+   "Voir mes repères" removed — it was a dedicated shortcut link inside the
+   card's header, separate from the "Repères spirituels" title and the card
+   itself. This must not regress into removing the whole spiritual section.
+============================================================ */
+
+describe('SpiritualGuidanceCard — "Voir mes repères" removed, card/title/content preserved', () => {
+  it('does not render "Voir mes repères" in any objective mode', async () => {
+    for (const objective of ['cycle', 'pregnancy', 'postpartum', 'miscarriage', 'contraception', 'menopause'] as const) {
+      const renderer = await renderWithProviders(
+        <SpiritualGuidanceCard locationConfigured={false} objective={objective} />,
+      );
+      expect(renderer.root.findAll(node => node.props.children === 'Voir mes repères').length).toBe(0);
+    }
+  });
+
+  it('still renders "Repères spirituels" and its core content (location/prayer/hijri blocks)', async () => {
+    const renderer = await renderWithProviders(
+      <SpiritualGuidanceCard hijriDate="12 Chaabane 1447" locationConfigured={false} />,
+    );
+    expect(renderer.root.findAll(node => node.props.children === 'Repères spirituels').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Prochaine prière').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Date Hijri').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === '12 Chaabane 1447').length).toBeGreaterThan(0);
+  });
+
+  it('a legitimate interaction inside the card (purity summary) still works, unaffected by the removed link', async () => {
+    const onPressPuritySummary = jest.fn();
+    const renderer = await renderWithProviders(
+      <SpiritualGuidanceCard
+        isMenstruating={false}
+        locationConfigured={false}
+        objective="cycle"
+        onPressPuritySummary={onPressPuritySummary}
+        periodEndDateTime={new Date('2026-01-01T10:00:00')}
+        purityResult={{status: 'pure', prayerDue: false}}
+      />,
+    );
+    const summary = renderer.root.findAll(node => typeof node.props.accessibilityLabel === 'string' && node.props.accessibilityLabel.includes('Pureté retrouvée'))[0];
+    expect(summary).toBeTruthy();
+    act(() => {
+      summary.props.onPress();
+    });
+    expect(onPressPuritySummary).toHaveBeenCalledTimes(1);
+  });
+
+  it('no longer accepts an onManage prop (the removed link\'s dedicated callback)', () => {
+    const fs = require('fs');
+    const path = require('path');
+    const source = fs.readFileSync(path.resolve(__dirname, '../SpiritualGuidanceCard.tsx'), 'utf8');
+    expect(source).not.toMatch(/onManage/);
+    expect(source).not.toMatch(/manageLink/);
+  });
+});
+
 describe('ObjectiveArticlesSection — theme reactivity', () => {
   it('generic chrome (see-all link) responds to palette changes, article artwork untouched', async () => {
     const renderer = await renderWithProviders(

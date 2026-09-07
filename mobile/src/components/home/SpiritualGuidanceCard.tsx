@@ -66,7 +66,6 @@ type Props = {
   nifasReminderStatus?: 'none' | 'approaching' | 'reference_reached';
 
   locationConfigured: boolean;
-  onManage?: () => void;
   onPressNifas?: () => void;
   onPressPuritySummary?: () => void;
 };
@@ -133,7 +132,6 @@ function SpiritualGuidanceCard({
   nifasValue,
   nifasReminderStatus = 'none',
   locationConfigured,
-  onManage,
   onPressNifas,
   onPressPuritySummary,
 }: Props): React.JSX.Element {
@@ -253,16 +251,6 @@ function SpiritualGuidanceCard({
         <Text style={styles.title}>
           Repères spirituels
         </Text>
-
-        <Pressable
-          accessibilityRole="button"
-          hitSlop={8}
-          onPress={onManage}
-          style={({pressed}) => pressed && styles.pressed}>
-          <Text style={styles.manageLink}>
-            Voir mes repères
-          </Text>
-        </Pressable>
       </View>
 
       {/* Badges */}
@@ -526,12 +514,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       color: theme.colors.text,
       fontFamily: 'serif',
       fontSize: 17,
-      fontWeight: '700',
-    },
-
-    manageLink: {
-      color: theme.colors.primary,
-      fontSize: 11.5,
       fontWeight: '700',
     },
 

@@ -1255,9 +1255,6 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               }
               nextWindow={spiritual.nextWindow}
               objective="menopause"
-              onManage={() =>
-                navigation.navigate('SpiritualPreferences')
-              }
               prayerError={spiritual.error}
               prayerLoading={spiritual.loading}
               timezone={spiritual.schedule?.timezone}
