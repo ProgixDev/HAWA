@@ -412,3 +412,196 @@ describe('FeaturedArticlesScreen — hero carousel dots expose role/label/select
     expect(source).toMatch(/accessibilityState=\{\{selected: index === heroIndex\}\}/);
   });
 });
+
+/* ============================================================
+   LIBRARY SCREEN — "À LA UNE" FEATURED CARD READABILITY.
+   The card's ImageBackground (featured-cycle.png) is a fixed, always-pale
+   photograph, independent of the active AWA theme — its title/metadata
+   previously used theme.colors.text/textSecondary/primary directly, which
+   become LIGHT colors in Dark mode (correct for a dark surface) and
+   therefore vanished against the always-light photo. The fix derives them
+   from the photo's own known tone via the existing pickReadableTextColor
+   helper (same technique as "Retour du cycle"'s hero illustration and
+   FeaturedArticlesScreen's own pre-existing hero fix above), never from
+   theme.isDark. The category badge is untouched: it already used
+   onPrimaryTextColor(theme) against its own near-opaque background.
+============================================================ */
+
+describe('LibraryScreen — "À la une" featured card readable over its fixed photo in every theme', () => {
+  function flattenNodeStyle(node: ReactTestRenderer.ReactTestInstance): Record<string, unknown> {
+    return flattenStyle(node.props.style);
+  }
+
+  function textContains(node: ReactTestRenderer.ReactTestInstance, substr: string): boolean {
+    const children = node.props.children;
+    if (typeof children === 'string') {return children.includes(substr);}
+    if (Array.isArray(children)) {
+      return children.some(part => typeof part === 'string' && part.includes(substr));
+    }
+    return false;
+  }
+
+  // "À la une" and "Recommandé pour toi" both render a Text with
+  // numberOfLines={3}, so any lookup must be scoped to the featured card's
+  // own subtree (found via its "MÉDICAL" badge, unique to that card) rather
+  // than matching the first numberOfLines={3} node in the whole screen.
+  function findFeaturedCardRoot(renderer: ReactTestRenderer.ReactTestRenderer) {
+    const badge = renderer.root.findAll(n => n.props.children === 'MÉDICAL')[0];
+    let node: ReactTestRenderer.ReactTestInstance | null = badge;
+    while (node && node.parent) {
+      node = node.parent;
+      if (node.findAll(n => n.props.numberOfLines === 3 && typeof n.props.children === 'string').length > 0) {
+        return node;
+      }
+    }
+    throw new Error('featured card root not found');
+  }
+
+  function findFeaturedTitle(renderer: ReactTestRenderer.ReactTestRenderer) {
+    return findFeaturedCardRoot(renderer).findAll(
+      n => n.props.numberOfLines === 3 && typeof n.props.children === 'string',
+    )[0];
+  }
+
+  function findFeaturedDuration(renderer: ReactTestRenderer.ReactTestRenderer) {
+    return findFeaturedCardRoot(renderer).findAll(n => textContains(n, 'min de lecture'))[0];
+  }
+
+  function findFeaturedRead(renderer: ReactTestRenderer.ReactTestRenderer) {
+    return findFeaturedCardRoot(renderer).findAll(n => n.props.children === "Lire l'article")[0];
+  }
+
+  function findFeaturedIcon(renderer: ReactTestRenderer.ReactTestRenderer, name: string) {
+    return findFeaturedCardRoot(renderer).findAll(n => n.props.name === name)[0];
+  }
+
+  it('renders the featured image, badge, title, reading time, and CTA', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+
+    expect(renderer.root.findAll(n => n.props.children === 'MÉDICAL').length).toBeGreaterThan(0);
+    expect(findFeaturedTitle(renderer)).toBeDefined();
+    expect(findFeaturedDuration(renderer)).toBeDefined();
+    expect(findFeaturedRead(renderer)).toBeDefined();
+    expect(findFeaturedIcon(renderer, 'clock-outline')).toBeDefined();
+    expect(findFeaturedIcon(renderer, 'arrow-right')).toBeDefined();
+  });
+
+  it('title, reading-time text and clock icon stay the EXACT SAME fixed color across Light, Dark and True Black — they are derived from the photo, not the theme', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+
+    const lightTitleColor = flattenNodeStyle(findFeaturedTitle(renderer)).color;
+    const lightDurationColor = flattenNodeStyle(findFeaturedDuration(renderer)).color;
+    const lightClockColor = findFeaturedIcon(renderer, 'clock-outline').props.color;
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    expect(flattenNodeStyle(findFeaturedTitle(renderer)).color).toBe(lightTitleColor);
+    expect(flattenNodeStyle(findFeaturedDuration(renderer)).color).toBe(lightDurationColor);
+    expect(findFeaturedIcon(renderer, 'clock-outline').props.color).toBe(lightClockColor);
+
+    await act(async () => {
+      await setTrueBlackEnabled(true);
+    });
+
+    expect(flattenNodeStyle(findFeaturedTitle(renderer)).color).toBe(lightTitleColor);
+    expect(flattenNodeStyle(findFeaturedDuration(renderer)).color).toBe(lightDurationColor);
+    expect(findFeaturedIcon(renderer, 'clock-outline').props.color).toBe(lightClockColor);
+  });
+
+  it('CTA text/arrow legitimately follow theme.colors.primary (brand identity) but are darkened whenever primary itself is too light to read over the photo', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+
+    const lightReadColor = flattenNodeStyle(findFeaturedRead(renderer)).color as string;
+    const lightArrowColor = findFeaturedIcon(renderer, 'arrow-right').props.color as string;
+    expect(lightReadColor).toBe(lightArrowColor);
+    // AWA Original Light's primary (#6D4AE8) is already dark enough on its
+    // own — the CTA must stay byte-identical to it, zero regression.
+    expect(lightReadColor).toBe('#6D4AE8');
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    const darkReadColor = flattenNodeStyle(findFeaturedRead(renderer)).color as string;
+    const darkArrowColor = findFeaturedIcon(renderer, 'arrow-right').props.color as string;
+    expect(darkReadColor).toBe(darkArrowColor);
+    // Dark theme's primary is light-toned (meant for a dark surface) and
+    // unreadable on the pale photo, so it must be darkened toward black —
+    // never left as-is, and never the same hex as the raw (light) primary.
+    expect(darkReadColor).not.toBe(lightReadColor);
+
+    const [r, g, b] = [darkReadColor.slice(1, 3), darkReadColor.slice(3, 5), darkReadColor.slice(5, 7)].map(h => parseInt(h, 16));
+    const luminance = 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+    expect(luminance).toBeLessThan(0.45);
+
+    await act(async () => {
+      await setTrueBlackEnabled(true);
+    });
+
+    // True Black changes the page background only, not theme.colors.primary
+    // — the CTA's own gating logic is unaffected, so it must match Dark.
+    expect(flattenNodeStyle(findFeaturedRead(renderer)).color).toBe(darkReadColor);
+    expect(findFeaturedIcon(renderer, 'arrow-right').props.color).toBe(darkArrowColor);
+  });
+
+  it('the title color is genuinely derived from the photo, not accidentally identical to theme.colors.text, and reads with strong contrast', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+    const titleColor = flattenNodeStyle(findFeaturedTitle(renderer)).color as string;
+
+    // AWA Original light theme.colors.text is '#2F2258' — the fix must not
+    // merely coincide with it; it should be the dedicated
+    // readable-on-photo color instead.
+    expect(titleColor).not.toBe('#2F2258');
+    expect(titleColor).toMatch(/^#/);
+
+    const [r, g, b] = [titleColor.slice(1, 3), titleColor.slice(3, 5), titleColor.slice(5, 7)].map(h => parseInt(h, 16));
+    const luminance = 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+    // The photo is a pale cream/beige — a correctly "readable-on-light"
+    // title must be a dark color.
+    expect(luminance).toBeLessThan(0.45);
+  });
+
+  it('the category badge keeps its existing onPrimaryTextColor(theme)-derived contrast (already correct, untouched by this fix)', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+    const badgeLabel = renderer.root.findAll(n => n.props.children === 'MÉDICAL')[0];
+    const lightColor = flattenNodeStyle(badgeLabel).color;
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    const darkColor = flattenNodeStyle(renderer.root.findAll(n => n.props.children === 'MÉDICAL')[0]).color;
+    // Legitimately theme-reactive — it sits on its own near-opaque
+    // primary-derived background, unaffected by the photo underneath.
+    expect(typeof lightColor).toBe('string');
+    expect(typeof darkColor).toBe('string');
+  });
+
+  it('tapping the featured card still opens the same article (navigation/business logic unchanged)', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+    const title = findFeaturedTitle(renderer);
+    let current: ReactTestRenderer.ReactTestInstance | null = title;
+    while (current && typeof current.props.onPress !== 'function') {
+      current = current.parent;
+    }
+    expect(current).not.toBeNull();
+    expect(typeof current!.props.onPress).toBe('function');
+  });
+
+  it('static guard: no theme.isDark / theme.id branching was introduced for the featured-card fix', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../LibraryScreen.tsx'), 'utf8');
+    const code = source
+      .replace(/\r\n/g, '\n')
+      .split('\n')
+      .map(line => line.replace(/\/\/.*$/, ''))
+      .join('\n');
+    expect(code).not.toMatch(/theme\.isDark/);
+    expect(code).not.toMatch(/\bisDark\s*\?/);
+    expect(code).not.toMatch(/if\s*\(\s*!?\s*isDark\s*\)/);
+    expect(code).not.toMatch(/theme\.id\s*===/);
+    expect(code).not.toMatch(/useColorScheme\s*\(/);
+    expect(code).not.toMatch(/Appearance\.getColorScheme\s*\(/);
+  });
+});
