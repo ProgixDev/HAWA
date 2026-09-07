@@ -954,14 +954,14 @@ function createStyles(theme: ResolvedAwaTheme) {
 
       borderRadius: 33,
 
-      // Was a fixed '#FFFFFF' — always readable in Light (AWA's own
-      // theme.colors.surface IS '#FFFFFF' there, so this is byte-identical)
-      // but nearly-white-on-white in spirit while day/dayLabel below use
+      // Was a fixed pure white, always fine in Light (AWA's own
+      // theme.colors.surface is that exact white there, so this is
+      // byte-identical) but wrong in spirit: day/dayLabel below use
       // theme.colors.accent/textSecondary, which are LIGHT-toned in every
       // Dark variant (designed to sit on theme.colors.surface, a dark
-      // surface there) — pinning this to white broke that pairing. Using
-      // the same surface token they're already paired with everywhere else
-      // in the app fixes Dark/True Black with zero Light-mode change.
+      // surface there) — pinning this circle to white broke that pairing.
+      // Using the same surface token they're already paired with
+      // everywhere else fixes Dark/True Black with zero Light-mode change.
       backgroundColor:
         theme.colors.surface,
     },
