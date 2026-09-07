@@ -74,6 +74,8 @@ import {migrateLegacyPlainPregnancyNotes} from './src/state/pregnancyJournalStor
 import {migrateLegacyPlainPregnancyMedicalEventNotes} from './src/state/pregnancyMedicalEventsStore';
 import {migrateLegacyPlainGeneralHealthNotes} from './src/state/generalHealthStore';
 import {migrateLegacyPlainPersonalInformation} from './src/state/personalInformationStore';
+import {migrateLegacyPlainIrregularNotes} from './src/state/irregularJournalStore';
+import {migrateLegacyPlainMenopauseNotes} from './src/state/menopauseJournalStore';
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
@@ -107,6 +109,8 @@ migrateLegacyPlainPregnancyNotes().catch(() => {});
 migrateLegacyPlainPregnancyMedicalEventNotes().catch(() => {});
 migrateLegacyPlainGeneralHealthNotes().catch(() => {});
 migrateLegacyPlainPersonalInformation().catch(() => {});
+migrateLegacyPlainIrregularNotes().catch(() => {});
+migrateLegacyPlainMenopauseNotes().catch(() => {});
 
 // Pregnancy Tracking reminders are objective-specific: they must only be
 // (re)scheduled while the user's active objective is 'pregnancy', never for
