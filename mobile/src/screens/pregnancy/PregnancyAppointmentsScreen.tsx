@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -19,8 +19,10 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {homeColors, homeRadii, homeShadow} from '../../components/home/homeTheme';
+import {homeRadii} from '../../components/home/homeTheme';
 import {getBottomPadding, spacing} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   deletePregnancyMedicalEvent,
   getPregnancyMedicalEvents,
@@ -88,6 +90,8 @@ function FieldRow({
   active,
   onPress,
   onClear,
+  theme,
+  styles,
 }: {
   icon: IconName;
   label: string;
@@ -95,6 +99,8 @@ function FieldRow({
   active: boolean;
   onPress: () => void;
   onClear?: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -102,7 +108,7 @@ function FieldRow({
       onPress={onPress}
       style={({pressed}) => [styles.field, active && styles.fieldActive, pressed && styles.pressed]}>
       <View style={styles.fieldIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={18} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={18} />
       </View>
       <View style={styles.fieldCopy}>
         <Text style={styles.fieldLabel}>{label}</Text>
@@ -110,10 +116,10 @@ function FieldRow({
       </View>
       {onClear ? (
         <Pressable accessibilityLabel="Effacer l’heure" hitSlop={8} onPress={onClear} style={styles.fieldClear}>
-          <MaterialDesignIcons color={homeColors.textSecondary} name="close-circle-outline" size={18} />
+          <MaterialDesignIcons color={theme.colors.textSecondary} name="close-circle-outline" size={18} />
         </Pressable>
       ) : (
-        <MaterialDesignIcons color={homeColors.textSecondary} name={active ? 'chevron-up' : 'chevron-down'} size={20} />
+        <MaterialDesignIcons color={theme.colors.textSecondary} name={active ? 'chevron-up' : 'chevron-down'} size={20} />
       )}
     </Pressable>
   );
@@ -125,12 +131,16 @@ function TextField({
   onChangeText,
   placeholder,
   multiline,
+  theme,
+  styles,
 }: {
   label: string;
   value: string;
   onChangeText: (text: string) => void;
   placeholder: string;
   multiline?: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.textFieldWrap}>
@@ -140,7 +150,7 @@ function TextField({
         multiline={multiline}
         onChangeText={onChangeText}
         placeholder={placeholder}
-        placeholderTextColor="#A79BC7"
+        placeholderTextColor={theme.colors.textMuted}
         style={[styles.textInput, multiline && styles.textInputMultiline]}
         value={value}
       />
@@ -149,6 +159,8 @@ function TextField({
 }
 
 function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const params = route.params;
   const cameDirectlyToForm = Boolean(params?.eventId || params?.initialType);
@@ -337,11 +349,11 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={styles.header}>
           <Pressable accessibilityLabel="Retour" accessibilityRole="button" hitSlop={10} onPress={handleBack} style={styles.backButton}>
-            <MaterialDesignIcons color={homeColors.primary} name="arrow-left" size={24} />
+            <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
           </Pressable>
           <Text numberOfLines={1} style={styles.headerTitle}>{headerTitle}</Text>
           <View style={styles.headerSpacer} />
@@ -371,6 +383,8 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                 icon="calendar-month-outline"
                 label="Date"
                 onPress={() => setActivePicker(current => (current === 'date' ? null : 'date'))}
+                styles={styles}
+                theme={theme}
                 value={formatLongDate(dateValue)}
               />
               {activePicker === 'date' ? (
@@ -389,6 +403,8 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                 label="Heure (optionnelle)"
                 onClear={hasTime ? () => {setHasTime(false); setActivePicker(null);} : undefined}
                 onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
+                styles={styles}
+                theme={theme}
                 value={hasTime ? formatTimeValue(timeValue) : 'Non définie'}
               />
               {activePicker === 'time' ? (
@@ -405,26 +421,28 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                 label="Titre"
                 onChangeText={text => {setTitle(text); setError('');}}
                 placeholder={TITLE_PLACEHOLDERS[type]}
+                styles={styles}
+                theme={theme}
                 value={title}
               />
-              <TextField label="Praticien (optionnel)" onChangeText={setPractitioner} placeholder="Ex. Dr. Benali" value={practitioner} />
-              <TextField label="Lieu (optionnel)" onChangeText={setLocation} placeholder="Ex. Clinique El Nour" value={location} />
-              <TextField label="Notes (optionnelles)" multiline onChangeText={setNotes} placeholder="Ajouter une note..." value={notes} />
+              <TextField label="Praticien (optionnel)" onChangeText={setPractitioner} placeholder="Ex. Dr. Benali" styles={styles} theme={theme} value={practitioner} />
+              <TextField label="Lieu (optionnel)" onChangeText={setLocation} placeholder="Ex. Clinique El Nour" styles={styles} theme={theme} value={location} />
+              <TextField label="Notes (optionnelles)" multiline onChangeText={setNotes} placeholder="Ajouter une note..." styles={styles} theme={theme} value={notes} />
 
               <View style={styles.reminderCard}>
                 <View style={styles.reminderHeaderRow}>
                   <View style={styles.fieldIcon}>
-                    <MaterialDesignIcons color={homeColors.primary} name="bell-outline" size={18} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={18} />
                   </View>
                   <Text style={styles.reminderLabel}>Rappel</Text>
                   <Switch
-                    ios_backgroundColor="#E2D8F0"
+                    ios_backgroundColor={theme.colors.primarySoft}
                     onValueChange={value => {
                       setReminderEnabled(value);
                       if (!value) {setReminderOffsetOpen(false); if (activePicker === 'reminderTime') {setActivePicker(null);}}
                     }}
-                    thumbColor="#FFFFFF"
-                    trackColor={{false: '#E2D8F0', true: homeColors.primary}}
+                    thumbColor={theme.colors.surface}
+                    trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
                     value={reminderEnabled}
                   />
                 </View>
@@ -437,7 +455,7 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                       <Text style={styles.reminderRowLabel}>Me rappeler</Text>
                       <View style={styles.reminderRowValueWrap}>
                         <Text style={styles.reminderRowValue}>{REMINDER_OFFSET_LABELS[reminderOffset]}</Text>
-                        <MaterialDesignIcons color={homeColors.textSecondary} name={reminderOffsetOpen ? 'chevron-up' : 'chevron-down'} size={18} />
+                        <MaterialDesignIcons color={theme.colors.textSecondary} name={reminderOffsetOpen ? 'chevron-up' : 'chevron-down'} size={18} />
                       </View>
                     </Pressable>
 
@@ -468,7 +486,7 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                           <View style={styles.reminderRowValueWrap}>
                             <Text style={styles.reminderRowValue}>{formatTimeValue(reminderTime)}</Text>
                             <MaterialDesignIcons
-                              color={homeColors.textSecondary}
+                              color={theme.colors.textSecondary}
                               name={activePicker === 'reminderTime' ? 'chevron-up' : 'chevron-down'}
                               size={18}
                             />
@@ -521,14 +539,14 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                 accessibilityRole="button"
                 onPress={() => resetForm('appointment')}
                 style={({pressed}) => [styles.addButton, pressed && styles.pressed]}>
-                <MaterialDesignIcons color="#FFFFFF" name="plus" size={19} />
+                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={19} />
                 <Text style={styles.addButtonText}>Ajouter un événement</Text>
               </Pressable>
 
               {events.length === 0 ? (
                 <View style={styles.empty}>
                   <View style={styles.emptyIcon}>
-                    <MaterialDesignIcons color={homeColors.primary} name="calendar-blank-outline" size={34} />
+                    <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={34} />
                   </View>
                   <Text style={styles.emptyTitle}>Aucun rendez-vous enregistré</Text>
                   <Text style={styles.emptyText}>
@@ -546,7 +564,7 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                       style={({pressed}) => [styles.row, pressed && styles.pressed]}>
                       <View style={styles.rowIcon}>
                         <MaterialDesignIcons
-                          color={homeColors.primary}
+                          color={theme.colors.primary}
                           name={event.type === 'appointment' ? 'calendar-heart' : 'clipboard-pulse-outline'}
                           size={19}
                         />
@@ -565,7 +583,7 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
                         hitSlop={8}
                         onPress={() => removeEvent(event.id, event.type)}
                         style={styles.rowDelete}>
-                        <MaterialDesignIcons color="#A8505A" name="trash-can-outline" size={18} />
+                        <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={18} />
                       </Pressable>
                     </Pressable>
                   ))}
@@ -579,8 +597,9 @@ function PregnancyAppointmentsScreen({navigation, route}: Props): React.JSX.Elem
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: {flex: 1, backgroundColor: '#FCFAFF'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  safeArea: {flex: 1, backgroundColor: theme.colors.background},
   flex: {flex: 1},
   header: {minHeight: 56, flexDirection: 'row', alignItems: 'center', paddingHorizontal: spacing.md, paddingTop: spacing.sm},
   backButton: {
@@ -589,18 +608,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 22,
-    backgroundColor: '#FFFFFF',
-    ...homeShadow,
+    backgroundColor: theme.colors.surface,
+    ...theme.shadow,
   },
-  headerTitle: {flex: 1, marginHorizontal: 10, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textAlign: 'center'},
+  headerTitle: {flex: 1, marginHorizontal: 10, color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', textAlign: 'center'},
   headerSpacer: {width: 44},
   content: {paddingHorizontal: spacing.md, paddingTop: spacing.sm},
 
-  segment: {flexDirection: 'row', gap: 8, padding: 4, borderRadius: homeRadii.button, backgroundColor: homeColors.lightLavender},
+  segment: {flexDirection: 'row', gap: 8, padding: 4, borderRadius: homeRadii.button, backgroundColor: theme.colors.primarySoft},
   segmentOption: {flex: 1, minHeight: 44, alignItems: 'center', justifyContent: 'center', borderRadius: homeRadii.button - 4},
-  segmentOptionActive: {backgroundColor: homeColors.primary, ...homeShadow},
-  segmentText: {color: homeColors.textSecondary, fontSize: 14, fontWeight: '700'},
-  segmentTextActive: {color: '#FFFFFF'},
+  segmentOptionActive: {backgroundColor: theme.colors.primary, ...theme.shadow},
+  segmentText: {color: theme.colors.textSecondary, fontSize: 14, fontWeight: '700'},
+  segmentTextActive: {color: onPrimaryTextColor(theme)},
 
   field: {
     flexDirection: 'row',
@@ -609,16 +628,16 @@ const styles = StyleSheet.create({
     minHeight: 62,
     marginTop: 16,
     borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
+    borderColor: theme.colors.border,
     borderRadius: homeRadii.button,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 13,
   },
-  fieldActive: {borderColor: homeColors.primary},
-  fieldIcon: {width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: homeColors.lightLavender},
+  fieldActive: {borderColor: theme.colors.primary},
+  fieldIcon: {width: 36, height: 36, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: theme.colors.primarySoft},
   fieldCopy: {flex: 1, minWidth: 0},
-  fieldLabel: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '600'},
-  fieldValue: {marginTop: 2, color: homeColors.textPrimary, fontSize: 14.5, fontWeight: '700'},
+  fieldLabel: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '600'},
+  fieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
   fieldClear: {padding: 4},
 
   textFieldWrap: {marginTop: 16},
@@ -626,11 +645,11 @@ const styles = StyleSheet.create({
     minHeight: 52,
     marginTop: 7,
     borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
+    borderColor: theme.colors.border,
     borderRadius: homeRadii.button,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 15,
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
     fontSize: 14.5,
   },
   textInputMultiline: {minHeight: 96, paddingTop: 14, textAlignVertical: 'top'},
@@ -639,13 +658,13 @@ const styles = StyleSheet.create({
     marginTop: 18,
     padding: 15,
     borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
+    borderColor: theme.colors.border,
     borderRadius: homeRadii.card,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
   reminderHeaderRow: {flexDirection: 'row', alignItems: 'center', gap: 11},
-  reminderLabel: {flex: 1, color: homeColors.textPrimary, fontSize: 15, fontWeight: '700'},
-  reminderEmptyText: {marginTop: 10, color: homeColors.textSecondary, fontSize: 12.5},
+  reminderLabel: {flex: 1, color: theme.colors.text, fontSize: 15, fontWeight: '700'},
+  reminderEmptyText: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 12.5},
   reminderBody: {marginTop: 4},
   reminderRow: {
     flexDirection: 'row',
@@ -654,19 +673,19 @@ const styles = StyleSheet.create({
     minHeight: 48,
     marginTop: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: homeColors.cardBorder,
+    borderTopColor: theme.colors.border,
     paddingTop: 10,
   },
-  reminderRowLabel: {color: homeColors.textSecondary, fontSize: 12.5, fontWeight: '600'},
+  reminderRowLabel: {color: theme.colors.textSecondary, fontSize: 12.5, fontWeight: '600'},
   reminderRowValueWrap: {flexDirection: 'row', alignItems: 'center', gap: 4},
-  reminderRowValue: {color: homeColors.textPrimary, fontSize: 13.5, fontWeight: '700'},
+  reminderRowValue: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
   reminderChips: {flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 10},
-  reminderChip: {borderWidth: 1, borderColor: homeColors.cardBorder, borderRadius: 14, backgroundColor: homeColors.lightLavender, paddingHorizontal: 12, paddingVertical: 9},
-  reminderChipActive: {borderColor: homeColors.primary, backgroundColor: homeColors.primary},
-  reminderChipText: {color: homeColors.textSecondary, fontSize: 12, fontWeight: '700'},
-  reminderChipTextActive: {color: '#FFFFFF'},
+  reminderChip: {borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12, paddingVertical: 9},
+  reminderChipActive: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
+  reminderChipText: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '700'},
+  reminderChipTextActive: {color: onPrimaryTextColor(theme)},
 
-  error: {marginTop: 14, color: '#A8505A', fontSize: 12.5, textAlign: 'center'},
+  error: {marginTop: 14, color: theme.colors.danger, fontSize: 12.5, textAlign: 'center'},
 
   actionsRow: {flexDirection: 'row', gap: 10, marginTop: 22},
   saveButton: {
@@ -674,8 +693,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
-    shadowColor: homeColors.primaryDark,
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 6},
     shadowOpacity: 0.22,
     shadowRadius: 12,
@@ -684,7 +703,7 @@ const styles = StyleSheet.create({
   saveButtonFull: {flex: 1},
   saveButtonFlex: {flex: 1},
   saveButtonDisabled: {opacity: 0.45},
-  saveButtonText: {color: '#FFFFFF', fontSize: 16, fontWeight: '700'},
+  saveButtonText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '700'},
   deleteButton: {
     flex: 1,
     minHeight: 54,
@@ -692,10 +711,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: homeRadii.button,
     borderWidth: 1.4,
-    borderColor: '#E9C7CC',
-    backgroundColor: '#FBEEF0',
+    borderColor: withAlpha(theme.colors.danger, 0.3),
+    backgroundColor: withAlpha(theme.colors.danger, 0.1),
   },
-  deleteButtonText: {color: '#A8505A', fontSize: 15, fontWeight: '700'},
+  deleteButtonText: {color: theme.colors.danger, fontSize: 15, fontWeight: '700'},
   pressed: {opacity: 0.85},
 
   addButton: {
@@ -705,15 +724,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
-    ...homeShadow,
+    backgroundColor: theme.colors.primary,
+    ...theme.shadow,
   },
-  addButtonText: {color: '#FFFFFF', fontSize: 14.5, fontWeight: '700'},
+  addButtonText: {color: onPrimaryTextColor(theme), fontSize: 14.5, fontWeight: '700'},
 
   empty: {alignItems: 'center', marginTop: 28, paddingHorizontal: 12},
-  emptyIcon: {width: 68, height: 68, alignItems: 'center', justifyContent: 'center', borderRadius: 24, backgroundColor: homeColors.lightLavender},
-  emptyTitle: {marginTop: 13, color: homeColors.textPrimary, fontSize: 15, fontWeight: '800', textAlign: 'center'},
-  emptyText: {marginTop: 7, color: homeColors.textSecondary, fontSize: 12, lineHeight: 18, textAlign: 'center'},
+  emptyIcon: {width: 68, height: 68, alignItems: 'center', justifyContent: 'center', borderRadius: 24, backgroundColor: theme.colors.primarySoft},
+  emptyTitle: {marginTop: 13, color: theme.colors.text, fontSize: 15, fontWeight: '800', textAlign: 'center'},
+  emptyText: {marginTop: 7, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 18, textAlign: 'center'},
 
   list: {marginTop: 18, gap: 10},
   row: {
@@ -721,17 +740,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     borderWidth: 1,
-    borderColor: homeColors.cardBorder,
+    borderColor: theme.colors.border,
     borderRadius: 18,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 13,
     paddingVertical: 12,
   },
-  rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 19, backgroundColor: homeColors.lightLavender},
+  rowIcon: {width: 38, height: 38, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 19, backgroundColor: theme.colors.primarySoft},
   rowCopy: {flex: 1, minWidth: 0},
-  rowTitle: {color: homeColors.textPrimary, fontSize: 13.5, fontWeight: '700'},
-  rowMeta: {marginTop: 2, color: homeColors.textSecondary, fontSize: 11},
-  rowDelete: {width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: '#FBEEF0'},
-});
+  rowTitle: {color: theme.colors.text, fontSize: 13.5, fontWeight: '700'},
+  rowMeta: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11},
+  rowDelete: {width: 34, height: 34, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 17, backgroundColor: withAlpha(theme.colors.danger, 0.1)},
+  });
+}
 
 export default PregnancyAppointmentsScreen;

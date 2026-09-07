@@ -20,13 +20,15 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {
-  homeColors,
-  homeShadow,
-} from '../../components/home/homeTheme';
-import {
   getBottomPadding,
   spacing,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../../theme/awaThemeTokens';
 import {
   getPregnancyDating,
   hydratePregnancyDating,
@@ -97,14 +99,18 @@ function trimesterLabel(
 
 function EmptyContentNote({
   text,
+  theme,
+  styles,
 }: {
   text: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.emptyContent}>
       <View style={styles.emptyContentIcon}>
         <MaterialDesignIcons
-          color={homeColors.primary}
+          color={theme.colors.primary}
           name="information-outline"
           size={21}
         />
@@ -125,16 +131,20 @@ function InfoRow({
   icon,
   label,
   value,
+  theme,
+  styles,
 }: {
   icon: IconName;
   label: string;
   value: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.infoRow}>
       <View style={styles.infoIcon}>
         <MaterialDesignIcons
-          color={homeColors.primary}
+          color={theme.colors.primary}
           name={icon}
           size={18}
         />
@@ -163,6 +173,8 @@ export default function PregnancyWeekScreen({
   navigation,
 }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [
     activeTab,
@@ -301,7 +313,7 @@ export default function PregnancyWeekScreen({
         style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -320,7 +332,7 @@ export default function PregnancyWeekScreen({
             ]}>
             <MaterialDesignIcons
               color={
-                homeColors.primary
+                theme.colors.primary
               }
               name="arrow-left"
               size={23}
@@ -338,7 +350,7 @@ export default function PregnancyWeekScreen({
             }>
             <MaterialDesignIcons
               color={
-                homeColors.primary
+                theme.colors.primary
               }
               name="human-pregnant"
               size={34}
@@ -394,7 +406,7 @@ export default function PregnancyWeekScreen({
       style={styles.safeArea}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -417,7 +429,7 @@ export default function PregnancyWeekScreen({
           ]}>
           <MaterialDesignIcons
             color={
-              homeColors.primary
+              theme.colors.primary
             }
             name="arrow-left"
             size={23}
@@ -461,7 +473,7 @@ export default function PregnancyWeekScreen({
           disabled={displayedWeek <= MIN_PREGNANCY_WEEK}
           onPress={() => setViewedWeek(current => Math.max(MIN_PREGNANCY_WEEK, (current ?? actualPregnancyWeek) - 1))}
           style={[styles.weekArrow, displayedWeek <= MIN_PREGNANCY_WEEK && styles.weekArrowDisabled]}>
-          <MaterialDesignIcons color={homeColors.primary} name="chevron-left" size={22} />
+          <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={22} />
         </Pressable>
         <View style={styles.weekBrowserCopy}>
           <Text style={styles.weekBrowserTitle}>Semaine {displayedWeek}</Text>
@@ -473,7 +485,7 @@ export default function PregnancyWeekScreen({
           disabled={displayedWeek >= MAX_PREGNANCY_WEEK}
           onPress={() => setViewedWeek(current => Math.min(MAX_PREGNANCY_WEEK, (current ?? actualPregnancyWeek) + 1))}
           style={[styles.weekArrow, displayedWeek >= MAX_PREGNANCY_WEEK && styles.weekArrowDisabled]}>
-          <MaterialDesignIcons color={homeColors.primary} name="chevron-right" size={22} />
+          <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={22} />
         </Pressable>
       </View>
 
@@ -508,8 +520,8 @@ export default function PregnancyWeekScreen({
                 <MaterialDesignIcons
                   color={
                     selected
-                      ? homeColors.primary
-                      : homeColors.textSecondary
+                      ? theme.colors.primary
+                      : theme.colors.textSecondary
                   }
                   name={tab.icon}
                   size={18}
@@ -614,7 +626,7 @@ export default function PregnancyWeekScreen({
                   }>
                   <MaterialDesignIcons
                     color={
-                      homeColors.primary
+                      theme.colors.primary
                     }
                     name="heart-outline"
                     size={14}
@@ -653,7 +665,7 @@ export default function PregnancyWeekScreen({
                       }>
                       <MaterialDesignIcons
                         color={
-                          homeColors.primary
+                          theme.colors.primary
                         }
                         name="baby-face-outline"
                         size={54}
@@ -695,7 +707,7 @@ export default function PregnancyWeekScreen({
                     }>
                     <MaterialDesignIcons
                       color={
-                        homeColors.primary
+                        theme.colors.primary
                       }
                       name="baby-face-outline"
                       size={20}
@@ -713,7 +725,9 @@ export default function PregnancyWeekScreen({
                 </View>
               ) : (
                 <EmptyContentNote
+                  styles={styles}
                   text="Les informations détaillées de cette semaine seront bientôt disponibles."
+                  theme={theme}
                 />
               )}
 
@@ -739,6 +753,8 @@ export default function PregnancyWeekScreen({
                       <InfoRow
                         icon="ruler"
                         label="Taille"
+                        styles={styles}
+                        theme={theme}
                         value={
                           weekData.length
                         }
@@ -749,6 +765,8 @@ export default function PregnancyWeekScreen({
                       <InfoRow
                         icon="weight-kilogram"
                         label="Poids"
+                        styles={styles}
+                        theme={theme}
                         value={
                           weekData.weight
                         }
@@ -759,6 +777,8 @@ export default function PregnancyWeekScreen({
                       <InfoRow
                         icon="shape-outline"
                         label="Comparaison"
+                        styles={styles}
+                        theme={theme}
                         value={
                           weekData.comparison
                         }
@@ -778,7 +798,7 @@ export default function PregnancyWeekScreen({
                   }>
                   <MaterialDesignIcons
                     color={
-                      homeColors.primary
+                      theme.colors.primary
                     }
                     name="shield-check-outline"
                     size={17}
@@ -812,7 +832,7 @@ export default function PregnancyWeekScreen({
                   }>
                   <MaterialDesignIcons
                     color={
-                      homeColors.primary
+                      theme.colors.primary
                     }
                     name="human-female"
                     size={21}
@@ -867,7 +887,7 @@ export default function PregnancyWeekScreen({
                           }>
                           <MaterialDesignIcons
                             color={
-                              homeColors.primary
+                              theme.colors.primary
                             }
                             name="check"
                             size={11}
@@ -886,7 +906,9 @@ export default function PregnancyWeekScreen({
                 </View>
               ) : (
                 <EmptyContentNote
+                  styles={styles}
                   text="Les informations détaillées de cette semaine seront bientôt disponibles."
+                  theme={theme}
                 />
               )}
             </>
@@ -909,7 +931,7 @@ export default function PregnancyWeekScreen({
                   }>
                   <MaterialDesignIcons
                     color={
-                      homeColors.primary
+                      theme.colors.primary
                     }
                     name="lightbulb-outline"
                     size={21}
@@ -964,7 +986,7 @@ export default function PregnancyWeekScreen({
                           }>
                           <MaterialDesignIcons
                             color={
-                              homeColors.primary
+                              theme.colors.primary
                             }
                             name="check"
                             size={11}
@@ -983,7 +1005,9 @@ export default function PregnancyWeekScreen({
                 </View>
               ) : (
                 <EmptyContentNote
+                  styles={styles}
                   text="Les informations de cette semaine seront bientôt disponibles."
+                  theme={theme}
                 />
               )}
             </>
@@ -998,12 +1022,12 @@ export default function PregnancyWeekScreen({
    STYLES
 ============================================================ */
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     safeArea: {
       flex: 1,
       backgroundColor:
-        '#FAF7FD',
+        theme.colors.background,
     },
 
     /* ========================================================
@@ -1026,7 +1050,7 @@ const styles =
     },
 
     backButton: {
-      ...homeShadow,
+      ...theme.shadow,
 
       width: 44,
       height: 44,
@@ -1037,12 +1061,12 @@ const styles =
 
       borderWidth: 1,
       borderColor:
-        'rgba(105,73,190,0.08)',
+        withAlpha(theme.colors.primary, 0.08),
 
       borderRadius: 16,
 
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     headerCopy: {
@@ -1056,7 +1080,7 @@ const styles =
 
     headerTitle: {
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontFamily: 'serif',
       fontSize: 21,
@@ -1067,7 +1091,7 @@ const styles =
       marginTop: 3,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 11.5,
     },
@@ -1085,10 +1109,10 @@ const styles =
       paddingHorizontal: 8,
       paddingVertical: 7,
       borderWidth: 1,
-      borderColor: 'rgba(105,73,190,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 19,
-      backgroundColor: '#FFFFFF',
-      ...homeShadow,
+      backgroundColor: theme.colors.surface,
+      ...theme.shadow,
     },
     weekArrow: {
       width: 42,
@@ -1096,12 +1120,12 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 14,
-      backgroundColor: '#F0E8FB',
+      backgroundColor: theme.colors.primarySoft,
     },
     weekArrowDisabled: {opacity: 0.3},
     weekBrowserCopy: {flex: 1, minWidth: 0, alignItems: 'center'},
-    weekBrowserTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 16, fontWeight: '800'},
-    weekBrowserContext: {marginTop: 2, color: homeColors.primary, fontSize: 10.5, fontWeight: '700'},
+    weekBrowserTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '800'},
+    weekBrowserContext: {marginTop: 2, color: theme.colors.primary, fontSize: 10.5, fontWeight: '700'},
 
     /* ========================================================
        TABS
@@ -1121,12 +1145,12 @@ const styles =
 
       borderWidth: 1,
       borderColor:
-        'rgba(105,73,190,0.08)',
+        withAlpha(theme.colors.primary, 0.08),
 
       borderRadius: 18,
 
       backgroundColor:
-        '#F1EBF8',
+        theme.colors.primarySoft,
     },
 
     tabButton: {
@@ -1145,15 +1169,15 @@ const styles =
     },
 
     tabButtonActive: {
-      ...homeShadow,
+      ...theme.shadow,
 
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     tabText: {
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 12.5,
       fontWeight: '700',
@@ -1161,7 +1185,7 @@ const styles =
 
     tabTextActive: {
       color:
-        homeColors.primary,
+        theme.colors.primary,
 
       fontWeight: '800',
     },
@@ -1192,12 +1216,12 @@ const styles =
 
       borderWidth: 1,
       borderColor:
-        'rgba(105,73,190,0.07)',
+        withAlpha(theme.colors.primary, 0.07),
 
       borderRadius: 28,
 
       backgroundColor:
-        'rgba(255,255,255,0.72)',
+        withAlpha(theme.colors.surface, 0.72),
     },
 
     weekBadge: {
@@ -1214,12 +1238,12 @@ const styles =
       borderRadius: 14,
 
       backgroundColor:
-        '#F0E8FB',
+        theme.colors.primarySoft,
     },
 
     weekBadgeText: {
       color:
-        homeColors.primary,
+        theme.colors.primary,
 
       fontSize: 10.5,
       fontWeight: '800',
@@ -1258,14 +1282,14 @@ const styles =
       borderRadius: 105,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     heroTitle: {
       marginTop: 2,
 
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontFamily: 'serif',
       fontSize: 19,
@@ -1278,7 +1302,7 @@ const styles =
       marginTop: 5,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 11.5,
       fontWeight: '600',
@@ -1291,7 +1315,7 @@ const styles =
     ======================================================== */
 
     descriptionCard: {
-      ...homeShadow,
+      ...theme.shadow,
 
       flexDirection: 'row',
       alignItems: 'flex-start',
@@ -1304,12 +1328,12 @@ const styles =
 
       borderWidth: 1,
       borderColor:
-        homeColors.cardBorder,
+        theme.colors.border,
 
       borderRadius: 20,
 
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     descriptionIcon: {
@@ -1325,14 +1349,14 @@ const styles =
       borderRadius: 13,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     sectionText: {
       flex: 1,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 13,
       lineHeight: 20,
@@ -1343,7 +1367,7 @@ const styles =
     ======================================================== */
 
     infoCard: {
-      ...homeShadow,
+      ...theme.shadow,
 
       marginTop: 13,
 
@@ -1353,19 +1377,19 @@ const styles =
 
       borderWidth: 1,
       borderColor:
-        homeColors.cardBorder,
+        theme.colors.border,
 
       borderRadius: 22,
 
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     cardHeading: {
       marginBottom: 3,
 
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontFamily: 'serif',
       fontSize: 15,
@@ -1386,7 +1410,7 @@ const styles =
         StyleSheet.hairlineWidth,
 
       borderBottomColor:
-        homeColors.cardBorder,
+        theme.colors.border,
     },
 
     infoIcon: {
@@ -1402,7 +1426,7 @@ const styles =
       borderRadius: 12,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     infoCopy: {
@@ -1412,7 +1436,7 @@ const styles =
 
     infoLabel: {
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 10.5,
       fontWeight: '600',
@@ -1422,7 +1446,7 @@ const styles =
       marginTop: 2,
 
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontSize: 13,
       fontWeight: '800',
@@ -1445,7 +1469,7 @@ const styles =
       borderRadius: 18,
 
       backgroundColor:
-        '#F4EFFA',
+        theme.colors.primarySoft,
     },
 
     disclaimerIcon: {
@@ -1461,14 +1485,14 @@ const styles =
       borderRadius: 10,
 
       backgroundColor:
-        '#E9E0F7',
+        withAlpha(theme.colors.primary, 0.18),
     },
 
     disclaimerText: {
       flex: 1,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 10.5,
       lineHeight: 16,
@@ -1499,12 +1523,12 @@ const styles =
       borderRadius: 14,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     sectionTitle: {
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontFamily: 'serif',
       fontSize: 17,
@@ -1515,7 +1539,7 @@ const styles =
       marginTop: 2,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 10.5,
     },
@@ -1537,7 +1561,7 @@ const styles =
       borderRadius: 18,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     emptyContentIcon: {
@@ -1548,7 +1572,7 @@ const styles =
       flex: 1,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 12.5,
       lineHeight: 18,
@@ -1559,7 +1583,7 @@ const styles =
     ======================================================== */
 
     listCard: {
-      ...homeShadow,
+      ...theme.shadow,
 
       marginTop: 12,
 
@@ -1567,12 +1591,12 @@ const styles =
 
       borderWidth: 1,
       borderColor:
-        homeColors.cardBorder,
+        theme.colors.border,
 
       borderRadius: 22,
 
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     listRow: {
@@ -1587,7 +1611,7 @@ const styles =
         StyleSheet.hairlineWidth,
 
       borderBottomColor:
-        homeColors.cardBorder,
+        theme.colors.border,
     },
 
     listRowLast: {
@@ -1609,14 +1633,14 @@ const styles =
       borderRadius: 8,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     listText: {
       flex: 1,
 
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontSize: 13,
       lineHeight: 19,
@@ -1647,14 +1671,14 @@ const styles =
       borderRadius: 36,
 
       backgroundColor:
-        homeColors.lightLavender,
+        theme.colors.primarySoft,
     },
 
     unconfiguredTitle: {
       marginTop: 16,
 
       color:
-        homeColors.textPrimary,
+        theme.colors.text,
 
       fontFamily: 'serif',
       fontSize: 20,
@@ -1669,7 +1693,7 @@ const styles =
       marginTop: 8,
 
       color:
-        homeColors.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 13,
       lineHeight: 19,
@@ -1691,11 +1715,11 @@ const styles =
       borderRadius: 18,
 
       backgroundColor:
-        homeColors.primary,
+        theme.colors.primary,
     },
 
     unconfiguredButtonText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
 
       fontSize: 14,
       fontWeight: '800',
@@ -1705,3 +1729,4 @@ const styles =
       opacity: 0.82,
     },
   });
+}

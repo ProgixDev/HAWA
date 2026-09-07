@@ -24,7 +24,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
-import { homeColors, homeShadow } from '../components/home/homeTheme';
+import { useAwaTheme } from '../theme/AwaThemeProvider';
+import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
 import {
@@ -63,11 +64,7 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
    CONSTANTS
 ============================================================ */
 
-const PURPLE = homeColors.primary;
-const PURPLE_DARK = '#28166F';
 const CYCLE_RETURNED_BACKGROUND = require('../assets/images/postpartum/postpartum-cycle-returned-card.png');
-const PURPLE_SOFT = '#F0E9FA';
-const TEXT_SECONDARY = homeColors.textSecondary;
 
 const FEEDING_LABELS: Record<PostpartumFeedingType, string> = {
   exclusive_breastfeeding: 'Allaitement maternel exclusif',
@@ -114,6 +111,8 @@ function FactorRow({
   description,
   onPress,
   last,
+  theme,
+  styles,
 }: {
   icon: IconName;
   title: string;
@@ -121,11 +120,13 @@ function FactorRow({
   description: string;
   onPress?: () => void;
   last?: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const content = (
     <>
       <View style={styles.factorIcon}>
-        <MaterialDesignIcons color={PURPLE} name={icon} size={19} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} />
       </View>
 
       <View style={styles.flexCopy}>
@@ -142,7 +143,7 @@ function FactorRow({
 
       {onPress ? (
         <View style={styles.factorChevron}>
-          <MaterialDesignIcons color="#9C91B3" name="chevron-right" size={18} />
+          <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
         </View>
       ) : null}
     </>
@@ -178,6 +179,8 @@ function FactorRow({
 
 function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   /*
    * Plus d'espace en haut.
@@ -435,7 +438,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
     <View style={styles.safe}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -461,7 +464,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             pressed && styles.pressed,
           ]}
         >
-          <MaterialDesignIcons color={PURPLE} name="arrow-left" size={22} />
+          <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={22} />
         </Pressable>
 
         <View style={styles.headerCopy}>
@@ -482,7 +485,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
           ]}
         >
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="help-circle-outline"
             size={23}
           />
@@ -532,7 +535,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 ]}
               >
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name={
                     hasReturned
                       ? 'calendar-check-outline'
@@ -570,7 +573,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             ) : (
               <View style={styles.statusBadge}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="check-circle-outline"
                   size={13}
                 />
@@ -582,7 +585,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             {!hasReturned ? (
               <View style={styles.normalPanel}>
                 <View style={styles.normalPanelIcon}>
-                  <MaterialDesignIcons color={PURPLE} name="leaf" size={17} />
+                  <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={17} />
                 </View>
 
                 <View style={styles.flexCopy}>
@@ -607,7 +610,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.sectionHeader}>
               <View style={styles.sectionHeaderIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="water-outline"
                   size={20}
                 />
@@ -625,7 +628,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.periodPanel}>
               <View style={styles.periodDateIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name={hasReturned ? 'calendar-check' : 'calendar-plus'}
                   size={23}
                 />
@@ -661,7 +664,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 </Text>
 
                 <MaterialDesignIcons
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                   name="arrow-right"
                   size={15}
                 />
@@ -679,7 +682,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               ]}
             >
               <View style={styles.lastPeriodIcon}>
-                <MaterialDesignIcons color={PURPLE} name="history" size={17} />
+                <MaterialDesignIcons color={theme.colors.primary} name="history" size={17} />
               </View>
 
               <View style={styles.flexCopy}>
@@ -693,7 +696,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <MaterialDesignIcons
-                color="#968BAA"
+                color={theme.colors.textSecondary}
                 name="chevron-right"
                 size={18}
               />
@@ -708,7 +711,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.sectionHeader}>
               <View style={styles.sectionHeaderIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="chart-timeline-variant"
                   size={20}
                 />
@@ -725,7 +728,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
             <View style={styles.hormonalEducation}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="information-outline"
                 size={17}
               />
@@ -742,6 +745,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
             <View style={styles.factorContainer}>
               <FactorRow
+                styles={styles}
+                theme={theme}
                 description="Peut influencer le moment du retour des règles."
                 icon="baby-face-outline"
                 onPress={() =>
@@ -752,6 +757,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <FactorRow
+                styles={styles}
+                theme={theme}
                 description="Date réelle enregistrée par tes soins."
                 icon="calendar-heart"
                 title="Retour du cycle"
@@ -763,6 +770,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <FactorRow
+                styles={styles}
+                theme={theme}
                 description="Absence de règles depuis l’accouchement."
                 icon="calendar-remove-outline"
                 onPress={showAmenorrheaInfo}
@@ -771,6 +780,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <FactorRow
+                styles={styles}
+                theme={theme}
                 description="Ton repos et ta récupération au quotidien."
                 icon="weather-night"
                 onPress={() =>
@@ -783,6 +794,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <FactorRow
+                styles={styles}
+                theme={theme}
                 description="Ton ressenti émotionnel depuis l’accouchement."
                 icon="flower-outline"
                 onPress={() =>
@@ -795,6 +808,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <FactorRow
+                styles={styles}
+                theme={theme}
                 description="Dernière observation enregistrée dans ton journal."
                 icon="lightning-bolt-outline"
                 last
@@ -817,7 +832,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.sectionHeader}>
               <View style={styles.sectionHeaderIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="timeline-clock-outline"
                   size={20}
                 />
@@ -838,7 +853,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                   <View style={styles.timelineRail}>
                     <View style={styles.timelineDot}>
                       <MaterialDesignIcons
-                        color={PURPLE}
+                        color={theme.colors.primary}
                         name={stage.icon}
                         size={16}
                       />
@@ -862,7 +877,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
             <View style={styles.timelineDisclaimer}>
               <MaterialDesignIcons
-                color="#8D80A3"
+                color={theme.colors.textSecondary}
                 name="information-outline"
                 size={15}
               />
@@ -881,7 +896,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
           <View style={styles.reminderCard}>
             <View style={styles.reminderIcon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="heart-outline"
                 size={20}
               />
@@ -923,7 +938,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.helpModalIconWrap}>
               <View style={styles.helpModalIconHalo}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="help-circle-outline"
                   size={36}
                 />
@@ -940,7 +955,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
             <View style={styles.helpModalInfoBox}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="information-outline"
                 size={18}
               />
@@ -1021,14 +1036,15 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
    STYLES
 ============================================================ */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   /* ==========================================================
      GLOBAL
   ========================================================== */
 
   safe: {
     flex: 1,
-    backgroundColor: '#F9F6FC',
+    backgroundColor: theme.colors.background,
   },
 
   flexCopy: {
@@ -1073,11 +1089,11 @@ const styles = StyleSheet.create({
      */
     paddingBottom: 11,
 
-    backgroundColor: '#F9F6FC',
+    backgroundColor: theme.colors.background,
   },
 
   headerButton: {
-    ...homeShadow,
+    ...theme.shadow,
 
     width: 42,
     height: 42,
@@ -1086,16 +1102,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: theme.colors.border,
 
     borderRadius: 15,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   headerHelpButton: {
     borderRadius: 21,
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   headerCopy: {
@@ -1108,7 +1124,7 @@ const styles = StyleSheet.create({
   },
 
   headerEyebrow: {
-    color: '#927CC6',
+    color: theme.colors.primary,
 
     fontSize: 8,
     fontWeight: '800',
@@ -1119,7 +1135,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     marginTop: 2,
 
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
     fontSize: 19,
@@ -1137,7 +1153,7 @@ const styles = StyleSheet.create({
   ========================================================== */
 
   statusHero: {
-    ...homeShadow,
+    ...theme.shadow,
 
     position: 'relative',
     overflow: 'hidden',
@@ -1145,11 +1161,11 @@ const styles = StyleSheet.create({
     padding: 18,
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: theme.colors.border,
 
     borderRadius: 27,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   returnedBackground: {
@@ -1169,7 +1185,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 85,
 
-    backgroundColor: 'rgba(105,73,190,0.055)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.055),
   },
 
   heroDecorationSmall: {
@@ -1183,7 +1199,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 28,
 
-    backgroundColor: 'rgba(186,161,225,0.15)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.15),
   },
 
   statusHeroTop: {
@@ -1203,11 +1219,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 19,
 
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   statusHeroIconReturned: {
-    backgroundColor: '#EEE8FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   infoButton: {
@@ -1219,11 +1235,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 11,
 
-    backgroundColor: 'rgba(247,243,251,0.9)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.9),
   },
 
   statusEyebrow: {
-    color: '#927CC6',
+    color: theme.colors.primary,
 
     fontSize: 8.5,
     fontWeight: '800',
@@ -1234,7 +1250,7 @@ const styles = StyleSheet.create({
   statusValue: {
     marginTop: 4,
 
-    color: PURPLE_DARK,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
     fontSize: 25,
@@ -1247,7 +1263,7 @@ const styles = StyleSheet.create({
 
     marginTop: 6,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
     lineHeight: 17,
@@ -1268,7 +1284,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
 
-    backgroundColor: '#F1EAFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   statusBadgeDot: {
@@ -1277,11 +1293,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 3,
 
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
   },
 
   statusBadgeText: {
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 9.5,
     fontWeight: '800',
@@ -1299,7 +1315,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 16,
 
-    backgroundColor: '#F8F4FC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   normalPanelIcon: {
@@ -1313,11 +1329,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
 
-    backgroundColor: '#EEE6FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   normalPanelTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontSize: 10.5,
     fontWeight: '800',
@@ -1326,7 +1342,7 @@ const styles = StyleSheet.create({
   normalPanelText: {
     marginTop: 2,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.5,
     lineHeight: 14,
@@ -1337,18 +1353,18 @@ const styles = StyleSheet.create({
   ========================================================== */
 
   sectionCard: {
-    ...homeShadow,
+    ...theme.shadow,
 
     marginTop: 13,
 
     padding: 15,
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: theme.colors.border,
 
     borderRadius: 23,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   sectionHeader: {
@@ -1371,7 +1387,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   sectionHeaderCopy: {
@@ -1380,7 +1396,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
     fontSize: 15.5,
@@ -1390,7 +1406,7 @@ const styles = StyleSheet.create({
   sectionSubtitle: {
     marginTop: 2,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 9,
     lineHeight: 13,
@@ -1410,7 +1426,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: '#F8F4FC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   periodDateIcon: {
@@ -1424,7 +1440,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 14,
 
-    backgroundColor: '#EDE5FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   periodCopy: {
@@ -1435,7 +1451,7 @@ const styles = StyleSheet.create({
   },
 
   periodSmallLabel: {
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 8.5,
   },
@@ -1443,7 +1459,7 @@ const styles = StyleSheet.create({
   periodValue: {
     marginTop: 3,
 
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontSize: 11.5,
     lineHeight: 15,
@@ -1465,9 +1481,9 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
 
-    shadowColor: '#4D2B9F',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -1481,7 +1497,7 @@ const styles = StyleSheet.create({
   },
 
   periodActionText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 9.5,
     fontWeight: '800',
@@ -1509,11 +1525,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 11,
 
-    backgroundColor: '#F2ECFA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   lastPeriodLabel: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontSize: 10.5,
     fontWeight: '700',
@@ -1522,7 +1538,7 @@ const styles = StyleSheet.create({
   lastPeriodValue: {
     marginTop: 2,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.5,
   },
@@ -1538,19 +1554,19 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     padding: 11,
     borderRadius: 15,
-    backgroundColor: '#F3EDFA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   hormonalEducationText: {
     flex: 1,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 14,
   },
 
   trackedContextLabel: {
     marginBottom: 7,
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 8.5,
     fontWeight: '800',
     letterSpacing: 0.7,
@@ -1561,7 +1577,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 17,
 
-    backgroundColor: '#FBF9FD',
+    backgroundColor: theme.colors.surface,
   },
 
   factorRow: {
@@ -1575,7 +1591,7 @@ const styles = StyleSheet.create({
 
     borderBottomWidth: StyleSheet.hairlineWidth,
 
-    borderBottomColor: '#EDE7F2',
+    borderBottomColor: theme.colors.border,
   },
 
   factorRowLast: {
@@ -1595,11 +1611,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: '#EEE7FB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   factorTitle: {
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -1608,7 +1624,7 @@ const styles = StyleSheet.create({
   factorValue: {
     marginTop: 2,
 
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 10.5,
     fontWeight: '700',
@@ -1617,7 +1633,7 @@ const styles = StyleSheet.create({
   factorDescription: {
     marginTop: 2,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 8.5,
     lineHeight: 12,
@@ -1636,7 +1652,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
 
-    backgroundColor: '#F3EEF8',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   /* ==========================================================
@@ -1669,11 +1685,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.08)',
+    borderColor: theme.colors.border,
 
     borderRadius: 13,
 
-    backgroundColor: '#F0E9FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   timelineLine: {
@@ -1685,7 +1701,7 @@ const styles = StyleSheet.create({
 
     borderLeftWidth: 1.3,
     borderStyle: 'dashed',
-    borderLeftColor: 'rgba(105,73,190,0.28)',
+    borderLeftColor: withAlpha(theme.colors.primary, 0.28),
   },
 
   timelineContent: {
@@ -1704,11 +1720,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 9,
 
-    backgroundColor: '#F5F1FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   timelineRange: {
-    color: PURPLE,
+    color: theme.colors.primary,
 
     fontSize: 8.5,
     fontWeight: '800',
@@ -1717,7 +1733,7 @@ const styles = StyleSheet.create({
   timelineText: {
     marginTop: 5,
 
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontSize: 10.5,
     lineHeight: 15,
@@ -1736,18 +1752,21 @@ const styles = StyleSheet.create({
 
     borderRadius: 14,
 
-    backgroundColor: '#F7F3FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   timelineDisclaimerText: {
     flex: 1,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 8.5,
     lineHeight: 13,
   },
 
+  // Fixed — a modal dim/scrim, not a surface; overlay dims stay dark
+  // regardless of the resolved theme so the sheet above it always pops
+  // (same PostpartumDashboard nifasModalOverlay precedent).
   helpModalOverlay: {
     flex: 1,
     alignItems: 'center',
@@ -1760,13 +1779,13 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 390,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.12)',
+    borderColor: theme.colors.border,
     borderRadius: 28,
-    backgroundColor: '#FFFDFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 20,
     paddingTop: 22,
     paddingBottom: 18,
-    shadowColor: '#28166F',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 14 },
     shadowOpacity: 0.24,
     shadowRadius: 24,
@@ -1785,12 +1804,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 37,
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.12)',
-    backgroundColor: '#F1EAFB',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   helpModalTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 22,
     fontWeight: '800',
@@ -1799,7 +1818,7 @@ const styles = StyleSheet.create({
 
   helpModalText: {
     marginTop: 10,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 12.5,
     lineHeight: 19,
     textAlign: 'center',
@@ -1811,14 +1830,14 @@ const styles = StyleSheet.create({
     gap: 9,
     marginTop: 16,
     borderRadius: 16,
-    backgroundColor: '#F6F0FC',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 12,
     paddingVertical: 11,
   },
 
   helpModalInfoText: {
     flex: 1,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -1829,8 +1848,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 18,
     borderRadius: 16,
-    backgroundColor: PURPLE,
-    shadowColor: '#4D2B9F',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -1838,7 +1857,7 @@ const styles = StyleSheet.create({
   },
 
   helpModalButtonText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 13,
     fontWeight: '800',
   },
@@ -1858,11 +1877,11 @@ const styles = StyleSheet.create({
     padding: 14,
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.07)',
+    borderColor: theme.colors.border,
 
     borderRadius: 20,
 
-    backgroundColor: '#F2ECFA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   reminderIcon: {
@@ -1876,11 +1895,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   reminderEyebrow: {
-    color: '#927CC6',
+    color: theme.colors.primary,
 
     fontSize: 7.5,
     fontWeight: '800',
@@ -1891,7 +1910,7 @@ const styles = StyleSheet.create({
   reminderTitle: {
     marginTop: 2,
 
-    color: homeColors.textPrimary,
+    color: theme.colors.text,
 
     fontSize: 11.5,
     fontWeight: '800',
@@ -1900,11 +1919,12 @@ const styles = StyleSheet.create({
   reminderText: {
     marginTop: 3,
 
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.5,
     lineHeight: 14,
   },
-});
+  });
+}
 
 export default PostpartumCycleReturnScreen;

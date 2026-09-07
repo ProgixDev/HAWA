@@ -20,6 +20,8 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { spacing } from '../theme/spacing';
+import { useAwaTheme } from '../theme/AwaThemeProvider';
+import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
 import {
   getAllPostpartumLochiaEntries,
   getPostpartumLochiaEntry,
@@ -39,13 +41,6 @@ import {
 } from '../state/postpartumPreferences';
 import { computePostpartumLochiaSummary } from '../utils/postpartumTrackingUtils';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
-
-const PURPLE = '#6B4BC4';
-const PURPLE_DARK = '#2F1B73';
-const PURPLE_SOFT = '#F3ECFD';
-const PURPLE_BORDER = 'rgba(107,75,196,0.20)';
-const TEXT_SECONDARY = '#6E628D';
-const CARD = 'rgba(255,253,255,0.94)';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
 type Flow = 'Très léger' | 'Léger' | 'Modéré' | 'Abondant';
@@ -83,6 +78,8 @@ const symptomOptions = [
 
 function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const [flow, setFlow] = useState<Flow>('Léger');
   const [color, setColor] = useState<LochiaColor>('Rose');
   const [consistency, setConsistency] = useState<Consistency>('Épais');
@@ -210,7 +207,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
@@ -225,7 +222,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
         <View style={styles.page}>
@@ -237,7 +234,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               style={styles.backButton}
             >
               <MaterialDesignIcons
-                color={PURPLE_DARK}
+                color={theme.colors.text}
                 name="arrow-left"
                 size={24}
               />
@@ -245,7 +242,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
             <Text style={styles.headerTitle}>Lochies</Text>
             <View style={styles.infoButton}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="information-outline"
                 size={20}
               />
@@ -267,7 +264,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
               <View style={styles.calendarIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="calendar-month-outline"
                   size={20}
                 />
@@ -278,7 +275,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.durationHeader}>
                 <View style={styles.durationIcon}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="timeline-clock-outline"
                     size={20}
                   />
@@ -297,14 +294,17 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.durationMetrics}>
                 <DurationMetric
                   label="Début"
+                  styles={styles}
                   value={formatLocalDate(summary.deliveryDate)}
                 />
                 <DurationMetric
                   label="Dernier relevé"
+                  styles={styles}
                   value={formatLocalDate(summary.lastRecordedDate)}
                 />
                 <DurationMetric
                   label="Durée"
+                  styles={styles}
                   value={
                     summary.durationDays ? `${summary.durationDays} jours` : '—'
                   }
@@ -322,7 +322,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 ]}
               >
                 <MaterialDesignIcons
-                  color={summary.status === 'ended' ? PURPLE : '#FFFFFF'}
+                  color={summary.status === 'ended' ? theme.colors.primary : onPrimaryTextColor(theme)}
                   name={
                     summary.status === 'ended'
                       ? 'backup-restore'
@@ -343,7 +343,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </Pressable>
             </View>
 
-            <Section title="Flux">
+            <Section styles={styles} title="Flux">
               <View style={styles.flowRow}>
                 {flowOptions.map(item => {
                   const selected = flow === item.label;
@@ -363,7 +363,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                         ]}
                       >
                         <MaterialDesignIcons
-                          color={selected ? PURPLE : '#85799F'}
+                          color={selected ? theme.colors.primary : theme.colors.textSecondary}
                           name={item.icon as never}
                           size={21}
                         />
@@ -382,7 +382,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section title="Couleur">
+            <Section styles={styles} title="Couleur">
               <View style={styles.colorRow}>
                 {colorOptions.map(item => {
                   const selected = color === item.label;
@@ -420,7 +420,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section title="Consistance">
+            <Section styles={styles} title="Consistance">
               <View style={styles.consistencyRow}>
                 {consistencyOptions.map(item => {
                   const selected = consistency === item;
@@ -447,7 +447,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section title="Symptômes associés">
+            <Section styles={styles} title="Symptômes associés">
               <View style={styles.symptomWrap}>
                 {symptomOptions.map(item => {
                   const selected = symptoms.includes(item);
@@ -474,14 +474,14 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section title="Notes">
+            <Section styles={styles} title="Notes">
               <View style={styles.noteBox}>
                 <TextInput
                   maxLength={300}
                   multiline
                   onChangeText={setNote}
                   placeholder="Ajoute une note si tu le souhaites..."
-                  placeholderTextColor="#A49AB7"
+                  placeholderTextColor={theme.colors.textMuted}
                   style={styles.noteInput}
                   textAlignVertical="top"
                   value={note}
@@ -492,7 +492,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
             <View style={styles.reassurance}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="heart-outline"
                 size={18}
               />
@@ -511,7 +511,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               ]}
             >
               <MaterialDesignIcons
-                color="#FFFFFF"
+                color={onPrimaryTextColor(theme)}
                 name="content-save-outline"
                 size={20}
               />
@@ -538,7 +538,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.confirmIconWrap}>
                 <View style={styles.confirmIconHalo}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="check-circle-outline"
                     size={34}
                   />
@@ -556,7 +556,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.confirmInfoBox}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="information-outline"
                   size={18}
                 />
@@ -586,7 +586,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                     pressed && styles.pressed,
                   ]}
                 >
-                  <MaterialDesignIcons color="#FFFFFF" name="check" size={18} />
+                  <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={18} />
                   <Text style={styles.confirmPrimaryText}>Confirmer</Text>
                 </Pressable>
               </View>
@@ -612,7 +612,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.confirmIconWrap}>
                 <View style={[styles.confirmIconHalo, styles.reopenIconHalo]}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="backup-restore"
                     size={34}
                   />
@@ -628,7 +628,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.confirmInfoBox}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="information-outline"
                   size={18}
                 />
@@ -659,7 +659,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   ]}
                 >
                   <MaterialDesignIcons
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                     name="backup-restore"
                     size={18}
                   />
@@ -700,9 +700,11 @@ const formatLocalDate = (value: string | null): string =>
 function DurationMetric({
   label,
   value,
+  styles,
 }: {
   label: string;
   value: string;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.durationMetric}>
@@ -717,9 +719,11 @@ function DurationMetric({
 function Section({
   title,
   children,
+  styles,
 }: {
   title: string;
   children: React.ReactNode;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View style={styles.sectionCard}>
@@ -729,8 +733,9 @@ function Section({
   );
 }
 
-const styles = StyleSheet.create({
-  background: { flex: 1, backgroundColor: '#F2ECF8' },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  background: { flex: 1, backgroundColor: theme.colors.background },
 
   pageBackgroundDecor: {
     ...StyleSheet.absoluteFillObject,
@@ -744,7 +749,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -754,7 +759,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
 
   pageGlowBottom: {
@@ -764,7 +769,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: { flex: 1, backgroundColor: 'transparent' },
@@ -783,12 +788,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: 'rgba(255,255,255,0.86)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.86),
     borderWidth: 1,
-    borderColor: PURPLE_BORDER,
+    borderColor: theme.colors.border,
   },
   headerTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 21,
     fontWeight: '800',
@@ -807,17 +812,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: PURPLE_BORDER,
-    backgroundColor: CARD,
+    borderColor: theme.colors.border,
+    backgroundColor: withAlpha(theme.colors.surface, 0.94),
     paddingHorizontal: 16,
     marginBottom: 10,
   },
   durationCard: {
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: PURPLE_BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 22,
-    backgroundColor: CARD,
+    backgroundColor: withAlpha(theme.colors.surface, 0.94),
     padding: 14,
   },
   durationHeader: { flexDirection: 'row', alignItems: 'center' },
@@ -827,18 +832,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 14,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   durationCopy: { flex: 1, minWidth: 0, marginLeft: 10 },
   durationTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 15,
     fontWeight: '800',
   },
   durationSubtitle: {
     marginTop: 2,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 13,
   },
@@ -846,7 +851,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 13,
     borderRadius: 15,
-    backgroundColor: '#F8F4FC',
+    backgroundColor: theme.colors.primarySoft,
     paddingVertical: 10,
   },
   durationMetric: {
@@ -856,13 +861,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   durationMetricLabel: {
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 8.5,
     textAlign: 'center',
   },
   durationMetricValue: {
     marginTop: 3,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 10,
     fontWeight: '800',
     textAlign: 'center',
@@ -875,24 +880,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 7,
     borderRadius: 14,
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
   },
   reopenButton: {
     borderWidth: 1,
-    borderColor: PURPLE_BORDER,
-    backgroundColor: '#F7F2FD',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
-  endButtonText: { color: '#FFFFFF', fontSize: 11.5, fontWeight: '800' },
-  reopenButtonText: { color: PURPLE },
+  endButtonText: { color: onPrimaryTextColor(theme), fontSize: 11.5, fontWeight: '800' },
+  reopenButtonText: { color: theme.colors.primary },
   dateEyebrow: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 9,
     fontWeight: '800',
     letterSpacing: 0.7,
   },
   dateText: {
     marginTop: 3,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 12.5,
     fontWeight: '700',
     textTransform: 'capitalize',
@@ -903,21 +908,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: PURPLE_SOFT,
+    backgroundColor: theme.colors.primarySoft,
   },
   sectionCard: {
     marginBottom: 10,
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: PURPLE_BORDER,
-    backgroundColor: CARD,
+    borderColor: theme.colors.border,
+    backgroundColor: withAlpha(theme.colors.surface, 0.94),
     paddingHorizontal: 12,
     paddingTop: 12,
     paddingBottom: 13,
   },
   sectionTitle: {
     marginBottom: 10,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 13.5,
     fontWeight: '800',
   },
@@ -929,8 +934,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(107,75,196,0.12)',
-    backgroundColor: '#FFFDFF',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 4,
   },
   flowIconCircle: {
@@ -939,12 +944,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 17,
-    backgroundColor: '#F2ECFA',
+    backgroundColor: theme.colors.primarySoft,
   },
-  flowIconCircleSelected: { backgroundColor: '#EEE4FF' },
+  flowIconCircleSelected: { backgroundColor: theme.colors.primarySoft },
   flowLabel: {
     marginTop: 6,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '600',
   },
@@ -959,12 +964,12 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: 'transparent',
   },
-  colorOuterSelected: { borderColor: PURPLE, backgroundColor: '#F6F0FF' },
+  colorOuterSelected: { borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft },
   colorDot: { width: 25, height: 25, borderRadius: 13 },
   colorLabel: {
     minHeight: 25,
     marginTop: 5,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 8.5,
     lineHeight: 11,
     textAlign: 'center',
@@ -977,12 +982,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(107,75,196,0.14)',
-    backgroundColor: '#FFFDFF',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 7,
   },
   consistencyText: {
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     fontWeight: '600',
     textAlign: 'center',
@@ -993,19 +998,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: 'rgba(107,75,196,0.14)',
-    backgroundColor: '#FFFDFF',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 13,
   },
-  symptomText: { color: TEXT_SECONDARY, fontSize: 9.8, fontWeight: '600' },
-  selectedBox: { borderColor: PURPLE, backgroundColor: '#F5EEFF' },
-  selectedText: { color: PURPLE_DARK, fontWeight: '800' },
+  symptomText: { color: theme.colors.textSecondary, fontSize: 9.8, fontWeight: '600' },
+  selectedBox: { borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft },
+  selectedText: { color: theme.colors.text, fontWeight: '800' },
   noteBox: {
     minHeight: 104,
     borderRadius: 15,
     borderWidth: 1,
-    borderColor: 'rgba(107,75,196,0.14)',
-    backgroundColor: '#FFFDFF',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 12,
     paddingTop: 10,
     paddingBottom: 25,
@@ -1013,7 +1018,7 @@ const styles = StyleSheet.create({
   noteInput: {
     minHeight: 64,
     padding: 0,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 11,
     lineHeight: 16,
   },
@@ -1021,7 +1026,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 10,
     bottom: 8,
-    color: '#9B90AD',
+    color: theme.colors.textMuted,
     fontSize: 9,
   },
   reassurance: {
@@ -1030,13 +1035,13 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 12,
     borderRadius: 14,
-    backgroundColor: 'rgba(243,236,253,0.92)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.92),
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
   reassuranceText: {
     flex: 1,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 9.5,
     lineHeight: 14,
   },
@@ -1050,15 +1055,18 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     gap: 8,
     borderRadius: 16,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.22,
     shadowRadius: 9,
     elevation: 5,
   },
-  saveText: { color: '#FFFFFF', fontSize: 15, fontWeight: '800' },
+  saveText: { color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800' },
 
+  // Fixed — a modal dim/scrim, not a surface; overlay dims stay dark
+  // regardless of the resolved theme so the sheet above it always pops
+  // (same PostpartumDashboard nifasModalOverlay precedent).
   modalOverlay: {
     flex: 1,
     alignItems: 'center',
@@ -1070,13 +1078,13 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 390,
     borderWidth: 1,
-    borderColor: 'rgba(107,75,196,0.14)',
+    borderColor: theme.colors.border,
     borderRadius: 28,
-    backgroundColor: '#FFFDFF',
+    backgroundColor: theme.colors.surface,
     paddingHorizontal: 20,
     paddingTop: 22,
     paddingBottom: 18,
-    shadowColor: '#2F1B73',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 14 },
     shadowOpacity: 0.24,
     shadowRadius: 24,
@@ -1093,14 +1101,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 36,
     borderWidth: 1,
-    borderColor: 'rgba(107,75,196,0.14)',
-    backgroundColor: '#F2EAFB',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
   reopenIconHalo: {
-    backgroundColor: '#F6F0FF',
+    backgroundColor: theme.colors.primarySoft,
   },
   confirmTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 22,
     fontWeight: '800',
@@ -1108,13 +1116,13 @@ const styles = StyleSheet.create({
   },
   confirmText: {
     marginTop: 9,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 12.5,
     lineHeight: 19,
     textAlign: 'center',
   },
   confirmDate: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontWeight: '800',
     textTransform: 'capitalize',
   },
@@ -1124,13 +1132,13 @@ const styles = StyleSheet.create({
     gap: 9,
     marginTop: 16,
     borderRadius: 16,
-    backgroundColor: '#F6F0FC',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 12,
     paddingVertical: 11,
   },
   confirmInfoText: {
     flex: 1,
-    color: TEXT_SECONDARY,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -1145,12 +1153,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: PURPLE_BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 16,
-    backgroundColor: '#F8F4FC',
+    backgroundColor: theme.colors.primarySoft,
   },
   confirmCancelText: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 13,
     fontWeight: '800',
   },
@@ -1162,20 +1170,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 7,
     borderRadius: 16,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 4,
   },
   confirmPrimaryText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 13,
     fontWeight: '800',
   },
 
   pressed: { opacity: 0.82, transform: [{ scale: 0.99 }] },
-});
+  });
+}
 
 export default PostpartumLochiaScreen;
