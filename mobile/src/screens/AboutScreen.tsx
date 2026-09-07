@@ -23,7 +23,13 @@ import {
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {
+  interpolateHex,
+  onPrimaryTextColor,
+  pickReadableTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
 const LOGO = require('../assets/images/hawa-logo.png');
 
@@ -547,6 +553,20 @@ export default function AboutScreen({
 }
 
 function createStyles(theme: ResolvedAwaTheme) {
+  // The logo PNG is ~95% transparent, with only the gold crest/lettering
+  // opaque — it needs a genuinely dark backdrop to read, regardless of
+  // theme. theme.colors.accent is dark in every LIGHT variant (it's a
+  // heading color drawn on a light surface) but flips to a LIGHT tone in
+  // every DARK variant (a heading color drawn on a dark surface), so using
+  // it as-is only worked in Light. Gated on the accent's OWN resolved
+  // luminance (never theme.isDark): kept unchanged where it's already dark
+  // enough, darkened toward black (preserving its hue family) otherwise —
+  // same technique already used for the Library featured-card CTA.
+  const logoBackgroundIsDarkEnough = pickReadableTextColor(theme.colors.accent) === '#FFFFFF';
+  const logoWrapBackground = logoBackgroundIsDarkEnough
+    ? theme.colors.accent
+    : interpolateHex(theme.colors.accent, '#000000', 0.65);
+
   return StyleSheet.create({
   safe: {
     flex: 1,
@@ -625,11 +645,6 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
   },
 
-  /*
-   * IMPORTANT:
-   * Background made darker so the gold AWA logo
-   * becomes much more visible.
-   */
   logoWrap: {
     flexBasis: '27%',
     aspectRatio: 1,
@@ -639,7 +654,7 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     borderRadius: 22,
 
-    backgroundColor: theme.colors.accent,
+    backgroundColor: logoWrapBackground,
 
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.primary, 0.45),

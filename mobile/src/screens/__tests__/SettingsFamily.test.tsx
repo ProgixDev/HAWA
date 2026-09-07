@@ -143,6 +143,47 @@ describe('HelpSupportScreen — resolved global theme', () => {
   });
 });
 
+describe('HelpSupportScreen — "Comment pouvons-nous t\'aider ?" no longer offers Chat en direct', () => {
+  it('removes Chat en direct entirely (title, CTA value, and helper text)', async () => {
+    const navigation = {goBack: jest.fn(), navigate: jest.fn()};
+    const renderer = await renderStandalone(HelpSupportScreen, navigation);
+    expect(renderer.root.findAll(node => node.props.children === 'Chat en direct').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Discuter maintenant').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Disponible 9h – 18h').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.name === 'chat-processing-outline').length).toBe(0);
+  });
+
+  it('keeps exactly the two remaining contact methods, E-mail and FAQ, evenly balanced (flex: 1 each)', async () => {
+    const navigation = {goBack: jest.fn(), navigate: jest.fn()};
+    const renderer = await renderStandalone(HelpSupportScreen, navigation);
+
+    expect(renderer.root.findAll(node => node.props.children === 'E-mail').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'FAQ').length).toBeGreaterThan(0);
+
+    const methodTitles = renderer.root.findAll(
+      node => node.props.children === 'E-mail' || node.props.children === 'FAQ',
+    );
+    // Both remaining Method cards share the exact same flex:1 sizing rule —
+    // the layout naturally rebalances from 3 -> 2 without a dedicated
+    // "2-card" style variant.
+    for (const titleNode of methodTitles) {
+      let node: ReactTestRenderer.ReactTestInstance | null = titleNode;
+      while (node && !flattenStyle(node.props.style).flex) {
+        node = node.parent;
+      }
+      expect(node).not.toBeNull();
+      expect(flattenStyle(node!.props.style).flex).toBe(1);
+    }
+  });
+
+  it('FAQ list and "Voir tout" remain untouched', async () => {
+    const navigation = {goBack: jest.fn(), navigate: jest.fn()};
+    const renderer = await renderStandalone(HelpSupportScreen, navigation);
+    expect(renderer.root.findAll(node => node.props.children === 'Questions fréquentes').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => typeof node.props.children === 'string' && node.props.children.includes('Voir tout')).length).toBeGreaterThan(0);
+  });
+});
+
 describe('DataManagementScreen / DeleteAccountScreen — resolved global theme, destructive action preserved', () => {
   it('DataManagementScreen renders with resolved theme', async () => {
     const navigation = {goBack: jest.fn()};
