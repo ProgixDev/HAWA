@@ -1,5 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {
+  decryptFieldValue,
+  encryptFieldValue,
+  isEncryptedFieldPayload,
+} from '../services/atRestFieldEncryption';
+
 // Canonical per-day tracking store for the "Cycles irréguliers / SOPK"
 // objective — same module-singleton + AsyncStorage pattern as
 // postpartumJournalStore.ts. Deliberately a NEW, separate store rather than
@@ -62,6 +68,54 @@ type EntriesByDate = Record<string, IrregularJournalEntry>;
 
 const STORAGE_KEY = '@hawa/irregular-journal/v1';
 
+// Encrypts only the free-text `note` nested per-category inside `details`.
+// Every other field (compact summary strings, areas/symptoms selections,
+// status/intensity choices) is structured, non-sensitive selection data and
+// stays plaintext, matching the project's existing encryption scope.
+const ENCRYPTION_SERVICE = 'com.hawa.private.irregular-journal.encryption-key';
+
+async function encryptEntryForStorage(entry: IrregularJournalEntry): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...entry};
+  if (entry.details) {
+    const encryptedDetails: Record<string, unknown> = {};
+    for (const [category, detail] of Object.entries(entry.details)) {
+      if (!detail) {continue;}
+      const detailOutput: Record<string, unknown> = {...detail};
+      if (typeof detail.note === 'string' && detail.note.length > 0) {
+        detailOutput.note = await encryptFieldValue(ENCRYPTION_SERVICE, detail.note);
+      } else {
+        delete detailOutput.note;
+      }
+      encryptedDetails[category] = detailOutput;
+    }
+    output.details = encryptedDetails;
+  }
+  return output;
+}
+
+async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<IrregularJournalEntry> {
+  const output: Record<string, unknown> = {...raw};
+  const rawDetails = raw.details;
+  if (rawDetails && typeof rawDetails === 'object') {
+    const decryptedDetails: Record<string, unknown> = {};
+    for (const [category, detail] of Object.entries(rawDetails as Record<string, unknown>)) {
+      if (!detail || typeof detail !== 'object') {continue;}
+      const detailOutput: Record<string, unknown> = {...(detail as Record<string, unknown>)};
+      const noteValue = (detail as Record<string, unknown>).note;
+      if (isEncryptedFieldPayload(noteValue)) {
+        try {
+          detailOutput.note = await decryptFieldValue<string>(ENCRYPTION_SERVICE, noteValue);
+        } catch {
+          delete detailOutput.note;
+        }
+      }
+      decryptedDetails[category] = detailOutput;
+    }
+    output.details = decryptedDetails;
+  }
+  return output as IrregularJournalEntry;
+}
+
 let entries: EntriesByDate = {};
 const listeners = new Set<() => void>();
 let hydration: Promise<EntriesByDate> | null = null;
@@ -83,7 +137,11 @@ function isValidEntries(value: unknown): value is EntriesByDate {
 }
 
 async function persist(): Promise<void> {
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+  const serializable: Record<string, unknown> = {};
+  for (const [date, entry] of Object.entries(entries)) {
+    serializable[date] = await encryptEntryForStorage(entry);
+  }
+  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
 }
 
 export function getIrregularJournalEntry(date: string): IrregularJournalEntry | undefined {
@@ -154,13 +212,23 @@ export function hydrateIrregularJournal(): Promise<EntriesByDate> {
   }
   if (!hydration) {
     hydration = AsyncStorage.getItem(STORAGE_KEY)
-      .then(raw => {
+      .then(async raw => {
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
-          if (isValidEntries(parsed)) {
-            entries = parsed;
-            notifyListeners();
+          if (parsed && typeof parsed === 'object') {
+            const decrypted: EntriesByDate = {};
+            for (const [date, rawEntry] of Object.entries(parsed as Record<string, unknown>)) {
+              if (!rawEntry || typeof rawEntry !== 'object') {continue;}
+              const decryptedEntry = await decryptEntryFromStorage(rawEntry as Record<string, unknown>);
+              if (isValidEntry(decryptedEntry)) {
+                decrypted[date] = decryptedEntry;
+              }
+            }
+            if (isValidEntries(decrypted)) {
+              entries = decrypted;
+              notifyListeners();
+            }
           }
         }
         return getAllIrregularJournalEntries();
@@ -178,4 +246,29 @@ export function subscribeIrregularJournal(listener: () => void): () => void {
   return () => {
     listeners.delete(listener);
   };
+}
+
+/**
+ * Idempotent boot-time migration: re-saves any entry whose per-category
+ * `details[category].note` is still a plain string, encrypting it via the
+ * same at-rest scheme as every other sensitive journal field. No-ops if no
+ * plaintext note is found (safe to call on every app launch).
+ */
+export async function migrateLegacyPlainIrregularNotes(): Promise<void> {
+  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  if (!raw) {return;}
+  const parsed: unknown = JSON.parse(raw);
+  if (!parsed || typeof parsed !== 'object') {return;}
+  const hasLegacyPlainNote = Object.values(parsed as Record<string, unknown>).some(rawEntry => {
+    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
+    const rawDetails = (rawEntry as Record<string, unknown>).details;
+    if (!rawDetails || typeof rawDetails !== 'object') {return false;}
+    return Object.values(rawDetails as Record<string, unknown>).some(detail => {
+      if (!detail || typeof detail !== 'object') {return false;}
+      return typeof (detail as Record<string, unknown>).note === 'string';
+    });
+  });
+  if (!hasLegacyPlainNote) {return;}
+  await hydrateIrregularJournal();
+  await persist();
 }
