@@ -14,6 +14,18 @@ import ConceiveDashboard from '../ConceiveDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
+import {interpolateHex} from '../../../theme/awaThemeTokens';
+
+// Architecture-hardening pass: the advice card's background is now always
+// interpolateHex(theme.colors.surface, ADVICE_ACCENT, ratio) — a single
+// unconditional formula, never a theme.isDark branch — so AWA Original
+// Light's card is a very close (not byte-identical) approximation of the
+// old fixed '#FBEFF6' literal. The ratio below mirrors ConceiveDashboard.tsx's
+// own private constant so the expected value is derived the same way the
+// source derives it.
+const AWA_ORIGINAL_LIGHT_SURFACE = '#FFFFFF';
+const ADVICE_ACCENT = '#B23F63';
+const ADVICE_CARD_TINT_RATIO = 0.08;
 
 // ConceiveDashboard (via usePrayerPurityStatus/useFocusEffect) needs a real
 // NavigationContainer ancestor — same minimal single-screen stack harness as
@@ -256,7 +268,7 @@ describe('ConceiveDashboard — "Conseils pour aujourd\'hui" advice card readabl
 
     const lightCardBg = flattenStyle(adviceCard.props.style).backgroundColor;
     const lightTitleColor = flattenStyle(titleNode.props.style).color;
-    expect(lightCardBg).toBe('#FBEFF6');
+    expect(lightCardBg).toBe(interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, ADVICE_ACCENT, ADVICE_CARD_TINT_RATIO));
     expect(lightTitleColor).toBe('#2F2258');
 
     await act(async () => {
@@ -268,7 +280,7 @@ describe('ConceiveDashboard — "Conseils pour aujourd\'hui" advice card readabl
     const darkCardBg = flattenStyle(darkAdviceCard.props.style).backgroundColor;
     const darkTitleColor = flattenStyle(darkTitleNode.props.style).color;
 
-    expect(darkCardBg).not.toBe('#FBEFF6');
+    expect(darkCardBg).not.toBe(lightCardBg);
     expect(darkCardBg).not.toBe('#FFFFFF');
     expect(darkTitleColor).not.toBe('#2F2258');
     expect(darkTitleColor).not.toBe(lightTitleColor);
@@ -298,5 +310,19 @@ describe('ConceiveDashboard — no palette-ID / Midnight dependency', () => {
     // reference into this file.
     const source = fs.readFileSync(path.resolve(__dirname, '../ConceiveDashboard.tsx'), 'utf8');
     expect(source).not.toMatch(/midnight/i);
+  });
+});
+
+describe('ConceiveDashboard — architecture guard', () => {
+  it('never introduces theme.isDark / local isDark branching for the advice-card fix (surface-driven color logic only)', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../ConceiveDashboard.tsx'), 'utf8');
+    const code = source
+      .replace(/\r\n/g, '\n')
+      .split('\n')
+      .map(line => line.replace(/\/\/.*$/, ''))
+      .join('\n');
+    expect(code).not.toMatch(/theme\.isDark/);
+    expect(code).not.toMatch(/\bisDark\s*\?/);
+    expect(code).not.toMatch(/if\s*\(\s*!?\s*isDark\s*\)/);
   });
 });
