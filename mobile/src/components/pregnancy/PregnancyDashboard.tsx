@@ -803,8 +803,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                   : ['Aucun examen prévu']
               }
               onPress={() =>
-                navigation.navigate('PregnancyAppointments', {
-                  initialType: 'exam',
+                navigation.navigate('PregnancyExam', {
                   eventId: nextExam?.id,
                 })
               }
@@ -1047,10 +1046,14 @@ function AppointmentCard({
       <View style={styles.appointmentCopy}>
         <Text style={styles.appointmentLabel}>{label}</Text>
 
+        {/* No numberOfLines cap — the empty-state messages ("Aucun
+            rendez-vous prévu"/"Aucun examen prévu") and real event
+            titles/dates must never be ellipsis-truncated on a narrow card;
+            they wrap onto a second line instead. appointmentCard only sets
+            a minHeight, so it grows to fit wrapped text cleanly. */}
         {lines.map((line, index) => (
           <Text
             key={`${line}-${index}`}
-            numberOfLines={1}
             style={[
               styles.appointmentLine,
               index === 0 && styles.appointmentMain,

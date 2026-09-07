@@ -14,6 +14,7 @@ import PregnancyDashboard from '../PregnancyDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import {setPregnancyDating} from '../../../state/pregnancyPreferences';
+import {savePregnancyMedicalEvent} from '../../../state/pregnancyMedicalEventsStore';
 
 // PregnancyDashboard (via usePrayerPurityStatus/useFocusEffect) needs a real
 // NavigationContainer ancestor — same minimal single-screen stack harness as
@@ -229,6 +230,72 @@ describe('PregnancyDashboard — Appointment/Exam navigate independently, no sha
     expect(navigate).not.toHaveBeenCalledWith('PregnancyAppointments', expect.anything());
     const [, params] = navigate.mock.calls[0];
     expect(params).not.toHaveProperty('initialType');
+  });
+});
+
+describe('PregnancyDashboard — empty-state text is fully visible, never ellipsis-truncated', () => {
+  // No appointment/exam is seeded anywhere in this suite's beforeEach, so
+  // both AppointmentCard instances render their empty-state message by
+  // default — exactly the "Aucun rendez-vous prévu"/"Aucun examen prévu"
+  // case this task fixes.
+
+  it('renders the complete "Aucun rendez-vous prévu" string, not a shortened or pre-ellipsized variant', async () => {
+    const renderer = await renderDashboard();
+    const textNode = renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu')[0];
+    expect(textNode).toBeDefined();
+  });
+
+  it('renders the complete "Aucun examen prévu" string, not a shortened or pre-ellipsized variant', async () => {
+    const renderer = await renderDashboard();
+    const textNode = renderer.root.findAll(node => node.props.children === 'Aucun examen prévu')[0];
+    expect(textNode).toBeDefined();
+  });
+
+  it('the empty-state Text elements never set numberOfLines (no 1-line truncation cap)', async () => {
+    const renderer = await renderDashboard();
+
+    const appointmentText = renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu')[0];
+    const examText = renderer.root.findAll(node => node.props.children === 'Aucun examen prévu')[0];
+
+    expect(appointmentText.props.numberOfLines).toBeUndefined();
+    expect(examText.props.numberOfLines).toBeUndefined();
+  });
+
+  it('does not disable font scaling on the empty-state text (allowFontScaling must not be set to false)', async () => {
+    const renderer = await renderDashboard();
+    const appointmentText = renderer.root.findAll(node => node.props.children === 'Aucun rendez-vous prévu')[0];
+    const examText = renderer.root.findAll(node => node.props.children === 'Aucun examen prévu')[0];
+    expect(appointmentText.props.allowFontScaling).not.toBe(false);
+    expect(examText.props.allowFontScaling).not.toBe(false);
+  });
+
+  it('static guard: no numberOfLines={1} is applied to AppointmentCard\'s line Text elements', () => {
+    // Fails loudly if a future edit reintroduces a hard 1-line cap on the
+    // appointment/exam card's date/time/title/empty-state lines.
+    const source = fs.readFileSync(path.resolve(__dirname, '../PregnancyDashboard.tsx'), 'utf8');
+    const appointmentCardFn = source.slice(source.indexOf('function AppointmentCard'));
+    expect(appointmentCardFn).not.toMatch(/numberOfLines=\{1\}/);
+    expect(appointmentCardFn).not.toMatch(/allowFontScaling=\{false\}/);
+  });
+});
+
+describe('PregnancyDashboard — real appointment/exam data still renders without escaping the card', () => {
+  it('a real upcoming appointment title renders alongside the date/time lines, still without a 1-line truncation cap', async () => {
+    await savePregnancyMedicalEvent({
+      id: 'evt-real-appt',
+      type: 'appointment',
+      date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString('en-CA'),
+      title: 'Consultation prénatale de suivi approfondi avec la sage-femme référente',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+
+    const renderer = await renderDashboard();
+    const titleNode = renderer.root.findAll(
+      node => node.props.children === 'Consultation prénatale de suivi approfondi avec la sage-femme référente',
+    )[0];
+    expect(titleNode).toBeDefined();
+    expect(titleNode.props.numberOfLines).toBeUndefined();
   });
 });
 
