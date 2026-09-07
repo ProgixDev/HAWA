@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Easing,
@@ -27,33 +27,13 @@ import {
   type AnonymousAvatarStyleId,
 } from '../state/profileAvatarPreferences';
 
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+
 type Props = NativeStackScreenProps<
   RootStackParamList,
   'AnonymousAvatarCustomizer'
 >;
-
-/* -------------------------------------------------------------------------- */
-/*                                  COLORS                                    */
-/* -------------------------------------------------------------------------- */
-
-const COLORS = {
-  background: '#F9F7FC',
-  white: '#FFFFFF',
-
-  text: '#29213A',
-  textSecondary: '#746C80',
-  textMuted: '#968DA0',
-
-  purple: '#7352B8',
-  purpleDark: '#49307D',
-  purpleDeep: '#37235F',
-
-  lavender: '#EEE8F8',
-  lavenderSoft: '#F5F1FA',
-  lavenderBorder: '#E5DDF0',
-
-  success: '#FFFFFF',
-};
 
 /* -------------------------------------------------------------------------- */
 /*                                ANIMATIONS                                  */
@@ -104,10 +84,12 @@ function ColorSwatch({
   color,
   selected,
   onPress,
+  styles,
 }: {
   color: string;
   selected: boolean;
   onPress: () => void;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const scale = useRef(new Animated.Value(selected ? 1.07 : 1)).current;
 
@@ -170,6 +152,8 @@ function StyleOption({
   styleId,
   onPress,
   compact,
+  theme,
+  styles,
 }: {
   color: string;
   label: string;
@@ -177,6 +161,8 @@ function StyleOption({
   styleId: AnonymousAvatarStyleId;
   onPress: () => void;
   compact: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const scale = useRef(new Animated.Value(selected ? 1.03 : 1)).current;
 
@@ -225,7 +211,7 @@ function StyleOption({
         {selected ? (
           <View style={styles.checkBadge}>
             <MaterialDesignIcons
-              color={COLORS.success}
+              color={onPrimaryTextColor(theme)}
               name="check-bold"
               size={10}
             />
@@ -254,6 +240,8 @@ export default function AnonymousAvatarCustomizerScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
 
@@ -317,7 +305,7 @@ export default function AnonymousAvatarCustomizerScreen({
     <View style={styles.page}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -357,7 +345,7 @@ export default function AnonymousAvatarCustomizerScreen({
               pressed && styles.pressOpacity,
             ]}>
             <MaterialDesignIcons
-              color={COLORS.purpleDark}
+              color={theme.colors.accent}
               name="arrow-left"
               size={21}
             />
@@ -457,7 +445,7 @@ export default function AnonymousAvatarCustomizerScreen({
 
                   <View style={styles.previewSecurityBadge}>
                     <MaterialDesignIcons
-                      color="#FFFFFF"
+                      color={onPrimaryTextColor(theme)}
                       name="shield-check"
                       size={15}
                     />
@@ -467,7 +455,7 @@ export default function AnonymousAvatarCustomizerScreen({
 
               <View style={styles.privateBadge}>
                 <MaterialDesignIcons
-                  color={COLORS.purple}
+                  color={theme.colors.primary}
                   name="lock-outline"
                   size={14}
                 />
@@ -508,6 +496,7 @@ export default function AnonymousAvatarCustomizerScreen({
                       key={color}
                       onPress={() => setDraftColor(color)}
                       selected={draftColor === color}
+                      styles={styles}
                     />
                   ))}
                 </ScrollView>
@@ -543,6 +532,8 @@ export default function AnonymousAvatarCustomizerScreen({
                     onPress={() => setDraftStyle(item.id)}
                     selected={draftStyle === item.id}
                     styleId={item.id}
+                    styles={styles}
+                    theme={theme}
                   />
                 ))}
               </View>
@@ -557,7 +548,7 @@ export default function AnonymousAvatarCustomizerScreen({
             <View style={styles.infoCard}>
               <View style={styles.infoIconContainer}>
                 <MaterialDesignIcons
-                  color={COLORS.purple}
+                  color={theme.colors.primary}
                   name="shield-lock-outline"
                   size={21}
                 />
@@ -597,7 +588,7 @@ export default function AnonymousAvatarCustomizerScreen({
                   </Text>
 
                   <MaterialDesignIcons
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                     name="arrow-right"
                     size={20}
                   />
@@ -634,7 +625,7 @@ export default function AnonymousAvatarCustomizerScreen({
                 </Text>
 
                 <MaterialDesignIcons
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                   name="check"
                   size={20}
                 />
@@ -651,10 +642,11 @@ export default function AnonymousAvatarCustomizerScreen({
 /*                                  STYLES                                    */
 /* -------------------------------------------------------------------------- */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: COLORS.background,
+    backgroundColor: theme.colors.background,
   },
 
   safe: {
@@ -677,7 +669,7 @@ const styles = StyleSheet.create({
     width: 290,
     height: 290,
     borderRadius: 145,
-    backgroundColor: 'rgba(122, 86, 190, 0.09)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.09),
   },
 
   glowLeft: {
@@ -687,7 +679,7 @@ const styles = StyleSheet.create({
     width: 220,
     height: 220,
     borderRadius: 110,
-    backgroundColor: 'rgba(175, 153, 215, 0.08)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   glowBottom: {
@@ -697,7 +689,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(116, 82, 184, 0.055)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.055),
   },
 
   /* ---------------------------------------------------------------------- */
@@ -721,12 +713,12 @@ const styles = StyleSheet.create({
 
     borderRadius: 15,
 
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
 
     borderWidth: 1,
-    borderColor: COLORS.lavenderBorder,
+    borderColor: theme.colors.border,
 
-    shadowColor: '#3B245D',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -750,7 +742,7 @@ const styles = StyleSheet.create({
   headerTitle: {
     width: '100%',
 
-    color: COLORS.text,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 15,
@@ -773,7 +765,7 @@ const styles = StyleSheet.create({
   },
 
   saveText: {
-    color: COLORS.purple,
+    color: theme.colors.primary,
     fontSize: 12.5,
     fontWeight: '800',
   },
@@ -800,7 +792,7 @@ const styles = StyleSheet.create({
   eyebrow: {
     marginBottom: 8,
 
-    color: COLORS.purple,
+    color: theme.colors.primary,
 
     fontSize: 10.5,
     fontWeight: '800',
@@ -812,7 +804,7 @@ const styles = StyleSheet.create({
   title: {
     maxWidth: 330,
 
-    color: COLORS.text,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 24,
@@ -827,7 +819,7 @@ const styles = StyleSheet.create({
 
     marginTop: 9,
 
-    color: COLORS.textSecondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 13,
     lineHeight: 19,
@@ -849,22 +841,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.55),
 
     borderWidth: 1,
-    borderColor: 'rgba(117,82,184,0.13)',
+    borderColor: withAlpha(theme.colors.primary, 0.13),
   },
 
   previewHalo: {
     alignItems: 'center',
     justifyContent: 'center',
 
-    backgroundColor: COLORS.lavender,
+    backgroundColor: theme.colors.primarySoft,
 
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.9)',
+    borderColor: withAlpha(theme.colors.surface, 0.9),
 
-    shadowColor: COLORS.purpleDeep,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 7,
@@ -888,10 +880,10 @@ const styles = StyleSheet.create({
 
     borderRadius: 15,
 
-    backgroundColor: COLORS.purple,
+    backgroundColor: theme.colors.primary,
 
     borderWidth: 3,
-    borderColor: COLORS.background,
+    borderColor: theme.colors.background,
   },
 
   privateBadge: {
@@ -907,14 +899,14 @@ const styles = StyleSheet.create({
 
     borderRadius: 999,
 
-    backgroundColor: COLORS.lavenderSoft,
+    backgroundColor: theme.colors.primarySoft,
 
     borderWidth: 1,
-    borderColor: COLORS.lavenderBorder,
+    borderColor: theme.colors.border,
   },
 
   privateBadgeText: {
-    color: COLORS.purpleDark,
+    color: theme.colors.accent,
     fontSize: 11,
     fontWeight: '700',
   },
@@ -940,7 +932,7 @@ const styles = StyleSheet.create({
   },
 
   sectionTitle: {
-    color: COLORS.text,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 17,
@@ -951,7 +943,7 @@ const styles = StyleSheet.create({
   sectionDescription: {
     marginTop: 3,
 
-    color: COLORS.textMuted,
+    color: theme.colors.textMuted,
 
     fontSize: 11.5,
     lineHeight: 16,
@@ -967,12 +959,12 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
 
-    backgroundColor: 'rgba(255,255,255,0.88)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.88),
 
     borderWidth: 1,
-    borderColor: COLORS.lavenderBorder,
+    borderColor: theme.colors.border,
 
-    shadowColor: COLORS.purpleDeep,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -1013,7 +1005,7 @@ const styles = StyleSheet.create({
   },
 
   colorOuterSelected: {
-    borderColor: COLORS.purple,
+    borderColor: theme.colors.primary,
   },
 
   colorSwatch: {
@@ -1026,9 +1018,9 @@ const styles = StyleSheet.create({
     borderRadius: 19,
 
     borderWidth: 2,
-    borderColor: '#FFFFFF',
+    borderColor: theme.colors.surface,
 
-    shadowColor: '#000000',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 2,
@@ -1064,10 +1056,10 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
 
-    backgroundColor: 'rgba(255,255,255,0.88)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.88),
 
     borderWidth: 1,
-    borderColor: COLORS.lavenderBorder,
+    borderColor: theme.colors.border,
   },
 
   styleOptionCompact: {
@@ -1077,11 +1069,11 @@ const styles = StyleSheet.create({
   },
 
   styleOptionSelected: {
-    borderColor: COLORS.purple,
+    borderColor: theme.colors.primary,
 
-    backgroundColor: '#F7F2FC',
+    backgroundColor: theme.colors.primarySoft,
 
-    shadowColor: COLORS.purpleDeep,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 5,
@@ -1108,11 +1100,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 32,
 
-    backgroundColor: COLORS.lavenderSoft,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   styleAvatarHaloSelected: {
-    backgroundColor: COLORS.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   checkBadge: {
@@ -1128,10 +1120,10 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
 
-    backgroundColor: COLORS.purple,
+    backgroundColor: theme.colors.primary,
 
     borderWidth: 2,
-    borderColor: '#FFFFFF',
+    borderColor: theme.colors.surface,
   },
 
   styleLabel: {
@@ -1139,7 +1131,7 @@ const styles = StyleSheet.create({
 
     marginTop: 7,
 
-    color: COLORS.textSecondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 11,
     lineHeight: 15,
@@ -1148,7 +1140,7 @@ const styles = StyleSheet.create({
   },
 
   styleLabelSelected: {
-    color: COLORS.purpleDark,
+    color: theme.colors.accent,
     fontWeight: '700',
   },
 
@@ -1169,10 +1161,10 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
 
-    backgroundColor: '#F1ECF8',
+    backgroundColor: theme.colors.surfaceSecondary,
 
     borderWidth: 1,
-    borderColor: '#E1D7EF',
+    borderColor: theme.colors.border,
   },
 
   infoIconContainer: {
@@ -1186,7 +1178,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 14,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   infoContent: {
@@ -1195,7 +1187,7 @@ const styles = StyleSheet.create({
   },
 
   infoTitle: {
-    color: COLORS.text,
+    color: theme.colors.text,
 
     fontSize: 13,
     lineHeight: 18,
@@ -1205,7 +1197,7 @@ const styles = StyleSheet.create({
   infoText: {
     marginTop: 4,
 
-    color: '#6F637E',
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
     lineHeight: 17,
@@ -1234,9 +1226,9 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: COLORS.purple,
+    backgroundColor: theme.colors.primary,
 
-    shadowColor: COLORS.purpleDeep,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 6,
@@ -1250,7 +1242,7 @@ const styles = StyleSheet.create({
   continueButtonText: {
     flexShrink: 1,
 
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 15,
     lineHeight: 20,
@@ -1275,7 +1267,7 @@ const styles = StyleSheet.create({
   },
 
   skipText: {
-    color: COLORS.purple,
+    color: theme.colors.primary,
 
     fontSize: 13.5,
     fontWeight: '700',
@@ -1289,4 +1281,5 @@ const styles = StyleSheet.create({
   pressOpacity: {
     opacity: 0.72,
   },
-});
+  });
+}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   Alert,
   Image,
@@ -25,18 +25,17 @@ import {
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
 import {isValidEmail} from '../utils/emailValidation';
-import {AUTH_LIGHT_THEME} from '../theme/authLightTheme';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const APPLE_LOGO = require('../assets/images/auth-apple-logo.png');
 const GOOGLE_LOGO = require('../assets/images/auth-google-logo.png');
 
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_MUTED = '#655A8D';
-
 type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 
 function AuthScreen({navigation}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const {height, width} = useWindowDimensions();
   const insets = useSafeAreaInsets();
 
@@ -86,7 +85,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={[...AUTH_LIGHT_THEME.gradients.pageBackground]}
+      colors={[...theme.gradients.pageBackground]}
       end={{x: 1, y: 1}}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
@@ -95,9 +94,9 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
         edges={['top', 'left', 'right', 'bottom']}
         style={styles.safeArea}>
         <StatusBar
-          translucent={false}
-          backgroundColor="#F8EFFF"
-          barStyle="dark-content"
+          translucent
+          backgroundColor="transparent"
+          barStyle={theme.statusBarStyle}
         />
 
         <View
@@ -193,7 +192,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                 <View
                   style={[styles.field, emailError && styles.fieldError]}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="email-outline"
                     size={20}
                   />
@@ -208,8 +207,9 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       setInfoMessage('');
                     }}
                     placeholder="Adresse e-mail"
-                    placeholderTextColor="#8A7FA6"
+                    placeholderTextColor={theme.colors.textMuted}
                     returnKeyType="next"
+                    selectionColor={theme.colors.primary}
                     style={styles.input}
                     textContentType="emailAddress"
                     value={email}
@@ -222,7 +222,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                 <View
                   style={[styles.field, passwordError && styles.fieldError]}>
                   <MaterialDesignIcons
-                    color={PURPLE}
+                    color={theme.colors.primary}
                     name="lock-outline"
                     size={20}
                   />
@@ -235,9 +235,10 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       setInfoMessage('');
                     }}
                     placeholder="Mot de passe"
-                    placeholderTextColor="#8A7FA6"
+                    placeholderTextColor={theme.colors.textMuted}
                     returnKeyType="done"
                     secureTextEntry={!passwordVisible}
+                    selectionColor={theme.colors.primary}
                     style={styles.input}
                     textContentType="password"
                     value={password}
@@ -254,7 +255,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       setPasswordVisible(current => !current)
                     }>
                     <MaterialDesignIcons
-                      color={PURPLE}
+                      color={theme.colors.primary}
                       name={
                         passwordVisible
                           ? 'eye-outline'
@@ -296,7 +297,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                 {infoMessage ? (
                   <View style={styles.infoCard}>
                     <MaterialDesignIcons
-                      color={PURPLE}
+                      color={theme.colors.primary}
                       name="information-outline"
                       size={16}
                     />
@@ -316,7 +317,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       pressed && styles.pressed,
                     ]}>
                     <MaterialDesignIcons
-                      color="#8A7FA6"
+                      color={theme.colors.textMuted}
                       name="flask-outline"
                       size={14}
                     />
@@ -365,7 +366,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       pressed && styles.pressed,
                     ]}>
                     <MaterialDesignIcons
-                      color={PURPLE}
+                      color={theme.colors.primary}
                       name="email-outline"
                       size={24}
                     />
@@ -383,7 +384,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                     pressed && styles.pressed,
                   ]}>
                   <MaterialDesignIcons
-                    color={PURPLE_DARK}
+                    color={theme.colors.text}
                     name="incognito"
                     size={22}
                   />
@@ -415,10 +416,11 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F8EFFF',
+    backgroundColor: theme.colors.background,
   },
 
   safeArea: {
@@ -454,11 +456,11 @@ const styles = StyleSheet.create({
   },
 
   brand: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 45,
     letterSpacing: 2,
-    textShadowColor: 'rgba(255,255,255,0.85)',
+    textShadowColor: withAlpha(theme.colors.background, 0.85),
     textShadowOffset: {
       width: 0,
       height: 1,
@@ -472,12 +474,12 @@ const styles = StyleSheet.create({
 
   tagline: {
     marginTop: 2,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
     fontWeight: '600',
     textAlign: 'center',
-    textShadowColor: 'rgba(255,255,255,0.85)',
+    textShadowColor: withAlpha(theme.colors.background, 0.85),
     textShadowOffset: {
       width: 0,
       height: 1,
@@ -507,9 +509,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.20)',
+    borderColor: theme.colors.border,
     borderRadius: 15,
-    backgroundColor: 'rgba(255,252,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
   },
 
   tabCompact: {
@@ -517,17 +519,17 @@ const styles = StyleSheet.create({
   },
 
   tabActive: {
-    borderColor: PURPLE,
-    backgroundColor: PURPLE,
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.primary,
   },
 
   tabText: {
-    color: '#5F547C',
+    color: theme.colors.textSecondary,
     fontSize: 12,
   },
 
   tabTextActive: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontWeight: '600',
   },
 
@@ -564,9 +566,9 @@ const styles = StyleSheet.create({
     gap: 10,
     marginBottom: 11,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.20)',
+    borderColor: theme.colors.border,
     borderRadius: 13,
-    backgroundColor: 'rgba(255,252,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
     paddingHorizontal: 13,
   },
 
@@ -574,27 +576,27 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     paddingVertical: 0,
-    color: '#2A2050',
+    color: theme.colors.text,
     fontSize: 13,
   },
 
   forgot: {
     marginTop: -3,
     marginBottom: 10,
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 11,
     textAlign: 'right',
   },
 
   fieldError: {
-    borderColor: '#C95565',
+    borderColor: theme.colors.danger,
   },
 
   fieldErrorText: {
     marginTop: -6,
     marginBottom: 8,
     marginLeft: 4,
-    color: '#B4485A',
+    color: theme.colors.danger,
     fontSize: 10.5,
   },
 
@@ -604,16 +606,16 @@ const styles = StyleSheet.create({
     gap: 8,
     marginTop: 10,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.16)',
+    borderColor: theme.colors.border,
     borderRadius: 14,
-    backgroundColor: '#F1E8FF',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
 
   infoText: {
     flex: 1,
-    color: '#5F547C',
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 15,
   },
@@ -627,13 +629,13 @@ const styles = StyleSheet.create({
     minHeight: 34,
     borderWidth: 1,
     borderStyle: 'dashed',
-    borderColor: 'rgba(138,127,166,0.45)',
+    borderColor: theme.colors.border,
     borderRadius: 12,
     backgroundColor: 'transparent',
   },
 
   devBypassText: {
-    color: '#8A7FA6',
+    color: theme.colors.textMuted,
     fontSize: 10.5,
     fontWeight: '600',
   },
@@ -643,8 +645,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 13,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 5,
@@ -655,14 +657,14 @@ const styles = StyleSheet.create({
   },
 
   primaryText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 15,
     fontWeight: '600',
   },
 
   or: {
     marginVertical: 12,
-    color: '#8A7FA6',
+    color: theme.colors.textMuted,
     fontSize: 11,
     textAlign: 'center',
   },
@@ -679,9 +681,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.20)',
+    borderColor: theme.colors.border,
     borderRadius: 26,
-    backgroundColor: '#FFFCFF',
+    backgroundColor: theme.colors.surface,
   },
 
   socialLogo: {
@@ -698,13 +700,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 15,
     borderRadius: 21,
-    backgroundColor: 'rgba(246,239,255,0.9)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
     paddingHorizontal: 25,
   },
 
   anonymousText: {
     marginLeft: 8,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -721,14 +723,14 @@ const styles = StyleSheet.create({
   },
 
   legal: {
-    color: '#8A7FA6',
+    color: theme.colors.textMuted,
     fontSize: 9,
     textAlign: 'center',
   },
 
   legalStrong: {
     marginTop: 2,
-    color: '#5F547C',
+    color: theme.colors.textSecondary,
     fontSize: 9,
     lineHeight: 13,
     fontWeight: '600',
@@ -738,6 +740,7 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.82,
   },
-});
+  });
+}
 
 export default AuthScreen;
