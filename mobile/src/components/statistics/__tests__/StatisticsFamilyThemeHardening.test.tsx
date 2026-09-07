@@ -395,3 +395,38 @@ describe('Cycle — StatisticsScreen: chart sections expose a single accessible 
     expect(source).toMatch(/accessibilityLabel=\{`\$\{index \+ 1\}\. \$\{item\.name\}/);
   });
 });
+
+/* ============================================================
+   CYCLE STATISTICS — TOP SPACING MATCHES CALENDAR.
+   StatisticsScreen.tsx (the cycle-tracking Statistics screen — the only
+   objective that falls through to it in ObjectiveAwareStatisticsScreen)
+   previously used a flat paddingTop: 8 above its own SafeAreaView(top)-
+   reserved inset, while CalendarScreen.tsx uses the shared TOP_SPACING_EXTRA
+   constant (32) for the exact same purpose — sitting visibly closer to the
+   top than Calendar. Fixed by reusing that same shared constant, not a
+   guessed pixel value.
+============================================================ */
+
+describe('Cycle — StatisticsScreen top spacing matches CalendarScreen', () => {
+  it('both screens import and use the SAME shared TOP_SPACING_EXTRA constant for their top breathing room', () => {
+    const statisticsSource = fs.readFileSync(path.resolve(__dirname, '../../../screens/StatisticsScreen.tsx'), 'utf8');
+    const calendarSource = fs.readFileSync(path.resolve(__dirname, '../../../screens/CalendarScreen.tsx'), 'utf8');
+
+    expect(statisticsSource).toMatch(/from '\.\.\/theme\/spacing'/);
+    expect(statisticsSource).toMatch(/\bTOP_SPACING_EXTRA\b/);
+    expect(calendarSource).toMatch(/\bTOP_SPACING_EXTRA\b/);
+
+    // Neither screen double-applies the top safe-area inset: both reserve
+    // it via a plain SafeAreaView (no manual insets.top/getTopPadding usage
+    // stacked on top of that).
+    expect(statisticsSource).not.toMatch(/getTopPadding\(/);
+    expect(calendarSource).not.toMatch(/getTopPadding\(/);
+  });
+
+  it('the resolved ScrollView contentContainerStyle uses TOP_SPACING_EXTRA as its paddingTop', async () => {
+    const {TOP_SPACING_EXTRA} = require('../../../theme/spacing');
+    const renderer = await renderScreen(() => <StatisticsScreen navigation={{} as any} route={{} as any} />);
+    const scrollView = renderer.root.findByProps({showsVerticalScrollIndicator: false});
+    expect(flattenStyle(scrollView.props.contentContainerStyle).paddingTop).toBe(TOP_SPACING_EXTRA);
+  });
+});
