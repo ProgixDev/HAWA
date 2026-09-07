@@ -58,6 +58,7 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 
 import {
+  interpolateHex,
   onPrimaryTextColor,
   pickReadableTextColor,
   withAlpha,
@@ -95,16 +96,59 @@ const LABELS: Record<
 // AWA theme. `positive` in particular is the single most fertility-relevant
 // color in the whole TTC flow and must never be unified into a generic
 // "success" token. Do not theme-derive any of these.
-const LH_TONE_COLORS = {
-  negative: '#4F8E68',
-  negativeSoft: '#EAF5EE',
+type LhTone = 'negative' | 'positive' | 'invalid';
 
-  positive: '#8C5670',
-  positiveSoft: '#F5EBF0',
-
-  invalid: '#9A7848',
-  invalidSoft: '#F7F0E3',
+const LH_TONE_COLORS: Record<LhTone, {accent: string; soft: string}> = {
+  negative: {accent: '#4F8E68', soft: '#EAF5EE'},
+  positive: {accent: '#8C5670', soft: '#F5EBF0'},
+  invalid: {accent: '#9A7848', soft: '#F7F0E3'},
 };
+
+// The soft pastel backgrounds above (and the near-white card backgrounds
+// below) are tuned for a light card and become an unreadable
+// light-text-on-light-card once the surrounding journal screen is dark —
+// the result card must never simply reuse the light card. In dark mode,
+// the semantic accent is lightened for legibility, and both the icon chip
+// and the big result card blend that same accent into the theme's own dark
+// elevated surface (never a generic gray, never pure black) so all three
+// result states keep their green/rose/amber identity while integrating
+// into the surrounding dark UI.
+const LH_RESULT_CARD_BACKGROUND_LIGHT: Record<LhTone, string> = {
+  negative: '#F8FCFA',
+  positive: '#FCF8FA',
+  invalid: '#FCFAF6',
+};
+
+const LH_RESULT_CARD_BORDER_LIGHT: Record<LhTone, string> = {
+  negative: 'rgba(79,142,104,0.18)',
+  positive: 'rgba(140,86,112,0.20)',
+  invalid: 'rgba(154,120,72,0.20)',
+};
+
+function resolveLhToneVisual(
+  tone: LhTone,
+  theme: ResolvedAwaTheme,
+): {accent: string; iconBackground: string; cardBackground: string; borderColor: string} {
+  const {accent, soft} = LH_TONE_COLORS[tone];
+
+  if (!theme.isDark) {
+    return {
+      accent,
+      iconBackground: soft,
+      cardBackground: LH_RESULT_CARD_BACKGROUND_LIGHT[tone],
+      borderColor: LH_RESULT_CARD_BORDER_LIGHT[tone],
+    };
+  }
+
+  const darkAccent = interpolateHex(accent, '#FFFFFF', 0.45);
+
+  return {
+    accent: darkAccent,
+    iconBackground: interpolateHex(theme.colors.surfaceSecondary, accent, 0.32),
+    cardBackground: interpolateHex(theme.colors.surfaceSecondary, accent, 0.12),
+    borderColor: withAlpha(darkAccent, 0.35),
+  };
+}
 
 // Fixed modal scrim — Category E, left untouched by the theme migration.
 const MODAL_OVERLAY = 'rgba(35, 22, 52, 0.45)';
@@ -262,21 +306,22 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         result ===
         'Positif'
       ) {
+        const visual = resolveLhToneVisual('positive', theme);
         return {
           icon:
             'check-circle-outline' as const,
 
           iconColor:
-            LH_TONE_COLORS.positive,
+            visual.accent,
 
           iconBackground:
-            LH_TONE_COLORS.positiveSoft,
+            visual.iconBackground,
 
           cardBackground:
-            '#FCF8FA',
+            visual.cardBackground,
 
           borderColor:
-            'rgba(140,86,112,0.20)',
+            visual.borderColor,
 
           eyebrow:
             'PIC DE LH POSSIBLE',
@@ -293,21 +338,22 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         result ===
         'Invalide'
       ) {
+        const visual = resolveLhToneVisual('invalid', theme);
         return {
           icon:
             'alert-circle-outline' as const,
 
           iconColor:
-            LH_TONE_COLORS.invalid,
+            visual.accent,
 
           iconBackground:
-            LH_TONE_COLORS.invalidSoft,
+            visual.iconBackground,
 
           cardBackground:
-            '#FCFAF6',
+            visual.cardBackground,
 
           borderColor:
-            'rgba(154,120,72,0.20)',
+            visual.borderColor,
 
           eyebrow:
             'TEST À VÉRIFIER',
@@ -320,21 +366,22 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         };
       }
 
+      const visual = resolveLhToneVisual('negative', theme);
       return {
         icon:
           'minus-circle-outline' as const,
 
         iconColor:
-          LH_TONE_COLORS.negative,
+          visual.accent,
 
         iconBackground:
-          LH_TONE_COLORS.negativeSoft,
+          visual.iconBackground,
 
         cardBackground:
-          '#F8FCFA',
+          visual.cardBackground,
 
         borderColor:
-          'rgba(79,142,104,0.18)',
+          visual.borderColor,
 
         eyebrow:
           'AUCUN PIC DÉTECTÉ',
@@ -345,7 +392,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         helper:
           'Aucun pic de LH n’est détecté avec ce test pour le moment.',
       };
-    }, [result]);
+    }, [result, theme]);
 
   /* ==========================================================
      TIME
@@ -1075,31 +1122,15 @@ function ResultChoice({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const toneConfig =
-    tone === 'positive'
-      ? {
-          background:
-            LH_TONE_COLORS.positiveSoft,
+  const visual = useMemo(
+    () => resolveLhToneVisual(tone, theme),
+    [tone, theme],
+  );
 
-          icon:
-            LH_TONE_COLORS.positive,
-        }
-      : tone ===
-          'invalid'
-        ? {
-            background:
-              LH_TONE_COLORS.invalidSoft,
-
-            icon:
-              LH_TONE_COLORS.invalid,
-          }
-        : {
-            background:
-              LH_TONE_COLORS.negativeSoft,
-
-            icon:
-              LH_TONE_COLORS.negative,
-          };
+  const toneConfig = {
+    background: visual.iconBackground,
+    icon: visual.accent,
+  };
 
   return (
     <Pressable
