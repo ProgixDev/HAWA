@@ -235,3 +235,17 @@ describe('MenopauseDashboard — no palette-ID / Midnight dependency', () => {
     expect(source).not.toMatch(/midnight/i);
   });
 });
+
+describe('MenopauseDashboard — architecture guard', () => {
+  it('never introduces theme.isDark / local isDark branching for the "Mon étape" stage-icon fix (surface-driven color logic only)', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../MenopauseDashboard.tsx'), 'utf8');
+    const code = source
+      .replace(/\r\n/g, '\n')
+      .split('\n')
+      .map(line => line.replace(/\/\/.*$/, ''))
+      .join('\n');
+    expect(code).not.toMatch(/theme\.isDark/);
+    expect(code).not.toMatch(/\bisDark\s*\?/);
+    expect(code).not.toMatch(/if\s*\(\s*!?\s*isDark\s*\)/);
+  });
+});
