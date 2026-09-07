@@ -17,6 +17,7 @@ import {spacing} from '../theme/spacing';
 import {typography} from '../theme/typography';
 import {requiresAppLock} from '../state/securityPreferences';
 import {lockApp} from '../state/appLockStore';
+import {hydrateHasCompletedOnboarding} from '../state/onboardingPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -94,12 +95,30 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
     entrance.start(({finished}) => finished && breathing.start());
     progressAnimation.start();
 
-    const timer = setTimeout(() => {
+    // Kicked off immediately so it has the full 5s splash animation window
+    // to resolve — by the time the timer below fires, this is normally
+    // already settled; awaiting it explicitly (rather than trusting timing)
+    // still guarantees correctness if a slow disk ever makes it run long.
+    const completionHydration = hydrateHasCompletedOnboarding();
+
+    let cancelled = false;
+    const timer = setTimeout(async () => {
+      const completed = await completionHydration;
+      if (cancelled) {return;}
       if (requiresAppLock()) {lockApp();}
-      navigation.replace('Welcome');
+      // A returning user who already finished onboarding once never sees
+      // Welcome/onboarding again — goes straight into the app (App Lock, if
+      // required, still applies on top via requiresAppLock()/lockApp() above,
+      // unchanged ordering/behavior).
+      if (completed) {
+        navigation.replace('MainTabs', {screen: 'CycleHome'});
+      } else {
+        navigation.replace('Welcome');
+      }
     }, 5000);
 
     return () => {
+      cancelled = true;
       clearTimeout(timer);
       entrance.stop();
       progressAnimation.stop();

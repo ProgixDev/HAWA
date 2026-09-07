@@ -29,6 +29,7 @@ import {
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {setHasCompletedOnboarding} from '../state/onboardingPreferences';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -281,6 +282,13 @@ export default function AnonymousAvatarCustomizerScreen({
   }, []);
 
   const enterApp = () => {
+    // THE single real "onboarding completed" boundary — see the section
+    // comment on setHasCompletedOnboarding() in onboardingPreferences.ts.
+    // Fire-and-forget: never blocks entering the app, and a failed write
+    // just means SplashScreen shows Welcome again next cold launch, which is
+    // safe (never loses data, never blocks the app) rather than silently
+    // wrong in the other direction.
+    setHasCompletedOnboarding(true).catch(() => {});
     navigation.replace('MainTabs', {
       screen: 'CycleHome',
     });
