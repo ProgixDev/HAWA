@@ -138,7 +138,17 @@ function resolveStageOptionVisual(
   tint: string,
   theme: ResolvedAwaTheme,
 ): {tint: string; iconColor?: string} {
-  if (!theme.isDark) {
+  // Whether the sheet's own elevated surface is dark enough that the fixed
+  // pale pastel `tint` above would read as a washed-out chip pasted onto a
+  // dark card — decided from the REAL resolved surfaceSecondary token's own
+  // contrast requirement via pickReadableTextColor, never from
+  // theme.isDark. A theme whose surfaceSecondary is itself light (every
+  // current Light variant) never needs the tint touched at all, so the
+  // untouched branch stays byte-identical to the pre-existing behavior;
+  // only a genuinely dark surfaceSecondary blends the tint toward it and
+  // derives a readable icon color from that real resulting color.
+  const surfaceNeedsLightForeground = pickReadableTextColor(theme.colors.surfaceSecondary) === '#FFFFFF';
+  if (!surfaceNeedsLightForeground) {
     return {tint};
   }
   const darkTint = interpolateHex(theme.colors.surfaceSecondary, tint, 0.4);
