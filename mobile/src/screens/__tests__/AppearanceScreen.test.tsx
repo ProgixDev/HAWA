@@ -239,6 +239,47 @@ describe('AppearanceScreen — navigation preserved', () => {
   });
 });
 
+/* ============================================================
+   DISPLAY SECTION — "Interface tablette" removed entirely; French-only
+   application language shown as an informational row (no more choices, so
+   no chevron/action implying a selector exists). Removing the tablet
+   setting is purely a UI simplification — it never had a manual toggle
+   wired to any persisted state.
+============================================================ */
+
+describe('AppearanceScreen — "Affichage" section (Interface tablette removed)', () => {
+  it('does not render "Interface tablette" (label, subtitle, icon, or any dead handler)', async () => {
+    const renderer = await renderScreen();
+    expect(renderer.root.findAllByProps({children: 'Interface tablette'}).length).toBe(0);
+    expect(renderer.root.findAllByProps({name: 'tablet'}).length).toBe(0);
+  });
+
+  it('still renders "Langue de l’application" showing Français, now as a non-interactive row (no chevron)', async () => {
+    const renderer = await renderScreen();
+    const title = renderer.root.findAllByProps({children: 'Langue de l’application'})[0];
+    expect(title).toBeTruthy();
+    expect(renderer.root.findAllByProps({children: 'Français'}).length).toBeGreaterThan(0);
+
+    // Walk up to the actual Pressable and confirm it carries no onPress —
+    // informational only, matching the existing "no onPress -> no chevron"
+    // pattern already used by AppearanceSettingRow.
+    let pressable: ReactTestRenderer.ReactTestInstance | null = title;
+    while (pressable && pressable.props.disabled === undefined) {
+      pressable = pressable.parent;
+    }
+    expect(pressable).toBeTruthy();
+    expect(pressable!.props.disabled).toBe(true);
+    expect(pressable!.props.onPress).toBeUndefined();
+  });
+
+  it('static guard: no dead "Interface tablette" code (handler, icon literal) remains', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../AppearanceScreen.tsx'), 'utf8');
+    expect(source).not.toMatch(/Interface tablette/);
+    expect(source).not.toMatch(/handleInertRow/);
+    expect(source).not.toMatch(/icon="tablet"/);
+  });
+});
+
 describe('AppearanceScreen — palette list content', () => {
   it('never shows Midnight as a selectable palette card', async () => {
     const renderer = await renderScreen();
