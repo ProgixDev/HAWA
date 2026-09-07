@@ -196,6 +196,89 @@ describe.each(CALENDARS)('$name — resolved global theme', ({render}) => {
 });
 
 /* ============================================================
+   READABLE FOREGROUND ON COLORED DAY CELLS — Dark Mode readability fix.
+   Cycle/Conceive/Miscarriage day numbers and Menopause's "Résumé de ce
+   mois" tiles previously defaulted to theme.colors.text/textSecondary/
+   accent on top of FIXED, never-theme-driven pastel fills (period/
+   fertile/miscarriage-event backgrounds, category tint tiles) — those
+   tokens flip to a light color in Dark/Premium themes and became
+   unreadable there. Each now derives its foreground from the cell's own
+   fixed fill via `pickReadableTextColor`, independent of the active
+   theme. MonthCalendarCard's runtime behavior is covered in depth by
+   MonthCalendarCard.test.tsx; this is a static regression guard so the
+   pattern can't silently regress back to a theme-token default in any
+   of the 4 affected files.
+============================================================ */
+
+describe('E3 calendar family — readable foreground on colored day cells (Dark Mode readability fix)', () => {
+  it('MonthCalendarCard (Cycle) derives period/fertile/ovulation text from their own fixed fills via pickReadableTextColor', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../MonthCalendarCard.tsx'), 'utf8');
+    expect(source).toMatch(/import\s*\{[^}]*pickReadableTextColor[^}]*\}\s*from\s*'\.\.\/\.\.\/theme\/awaThemeTokens'/);
+    expect(source).toMatch(/pickReadableTextColor\(PERIOD_FILL_COLOR\)/);
+    expect(source).toMatch(/pickReadableTextColor\(FERTILE_FILL_COLOR\)/);
+    expect(source).toMatch(/pickReadableTextColor\(OVULATION_COLOR\)/);
+  });
+
+  it('ConceiveCalendarContent derives menstruation/fertile day text from their own fixed fills via pickReadableTextColor', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../../conceive/ConceiveCalendarContent.tsx'), 'utf8');
+    expect(source).toMatch(/pickReadableTextColor/);
+    expect(source).toMatch(/pickReadableTextColor\(PERIOD_LIGHT\)/);
+    expect(source).toMatch(/pickReadableTextColor\(FERTILE_LIGHT\)/);
+  });
+
+  it('MiscarriageCalendarContent derives the miscarriage-event day text from its own fixed fill via pickReadableTextColor', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../../miscarriage/MiscarriageCalendarContent.tsx'), 'utf8');
+    expect(source).toMatch(/pickReadableTextColor\(MISCARRIAGE_FILL_COLOR\)/);
+  });
+
+  it('MenopauseCalendarContent derives "Résumé de ce mois" tile text from each tile\'s own fixed tint via pickReadableTextColor', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../../menopause/MenopauseCalendarContent.tsx'), 'utf8');
+    expect(source).toMatch(/pickReadableTextColor\(MENOPAUSE_CATEGORY_VISUALS\.symptoms\.tint\)/);
+    expect(source).toMatch(/pickReadableTextColor\(MENOPAUSE_CATEGORY_VISUALS\.energy\.tint\)/);
+    expect(source).toMatch(/pickReadableTextColor\(MENOPAUSE_CATEGORY_VISUALS\.sleep\.tint\)/);
+  });
+
+  it('none of the 4 files reintroduce local dark-mode branching to solve this (no isDark, no theme.id/name checks)', () => {
+    for (const relativePath of [
+      '../MonthCalendarCard.tsx',
+      '../../conceive/ConceiveCalendarContent.tsx',
+      '../../miscarriage/MiscarriageCalendarContent.tsx',
+      '../../menopause/MenopauseCalendarContent.tsx',
+    ]) {
+      const source = fs.readFileSync(path.resolve(__dirname, relativePath), 'utf8');
+      expect(source).not.toMatch(/\bisDark\b/);
+      expect(source).not.toMatch(/theme\.id\s*===/);
+      expect(source).not.toMatch(/theme\.name\s*===/);
+      expect(source).not.toMatch(/useColorScheme\s*\(/);
+    }
+  });
+});
+
+/* ============================================================
+   ACCESSIBILITY — Phase 3 remediation. Month-navigation Pressables had an
+   accessibilityLabel already but were missing accessibilityRole="button" in
+   5 of the 9 calendar-family files that render one (confirmed via a
+   file-by-file audit before fixing) — a static guard here protects against
+   the role silently regressing on any of the 5 files actually touched.
+============================================================ */
+
+describe('Calendar family — month-navigation buttons expose accessibilityRole="button" (Phase 3 accessibility fix)', () => {
+  const FIXED_FILES: Array<[string, string]> = [
+    ['MonthCalendarCard (Cycle)', '../MonthCalendarCard.tsx'],
+    ['ConceiveCalendarContent', '../../conceive/ConceiveCalendarContent.tsx'],
+    ['MiscarriageCalendarContent', '../../miscarriage/MiscarriageCalendarContent.tsx'],
+    ['PostpartumCalendarContent', '../../postpartum/PostpartumCalendarContent.tsx'],
+    ['PregnancyCalendarContent', '../../pregnancy/PregnancyCalendarContent.tsx'],
+  ];
+
+  it.each(FIXED_FILES)('%s — both "Mois précédent"/"Mois suivant" Pressables are immediately followed by accessibilityRole="button"', (_name, relativePath) => {
+    const source = fs.readFileSync(path.resolve(__dirname, relativePath), 'utf8');
+    expect(source).toMatch(/accessibilityLabel="Mois précédent"[\s\S]{0,40}accessibilityRole="button"/);
+    expect(source).toMatch(/accessibilityLabel="Mois suivant"[\s\S]{0,40}accessibilityRole="button"/);
+  });
+});
+
+/* ============================================================
    MEDICAL / RELIGIOUS SEMANTIC COLOR FREEZE — item 6. Spot-checks
    across the shared Cycle path and 3 objective-specific calendars
    (never every marker in every file — see CLAUDE.md's Category B/C

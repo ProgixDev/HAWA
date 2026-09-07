@@ -491,6 +491,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
             <View style={styles.monthHeader}>
               <Pressable
                 accessibilityLabel="Mois précédent"
+                accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={styles.arrowButton}
               >
@@ -510,6 +511,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
+                accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={styles.arrowButton}
               >

@@ -17,7 +17,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
-import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import {
   loadPersonalInformation,
   type CalendarPreference,
@@ -507,6 +507,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
             <View style={styles.monthHeader}>
               <Pressable
                 accessibilityLabel="Mois précédent"
+                accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={styles.arrowButton}
               >
@@ -528,6 +529,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
+                accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={styles.arrowButton}
               >
@@ -582,6 +584,22 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 // background left to contrast against (see styles.todayDay),
                 // so every category color must render at full, real value.
                 const lightText = selected && !isToday;
+
+                // The day/Hijri NUMBER text needs its own readable-foreground
+                // check, separate from `lightText` above: its default color
+                // (theme.colors.accent) flips to a pale tone in Dark/Premium
+                // themes, which would then sit unreadably on the always-light
+                // menstruation/fertile pastel fills (PERIOD_LIGHT/FERTILE_LIGHT
+                // never change with theme). Derive the correct foreground from
+                // each cell's own fixed fill instead of reusing a theme token.
+                const coloredCellText =
+                  selected && !isToday
+                    ? onPrimaryTextColor(theme)
+                    : isMenstruationDay && !isToday
+                      ? pickReadableTextColor(PERIOD_LIGHT)
+                      : isFertileDay && !isToday
+                        ? pickReadableTextColor(FERTILE_LIGHT)
+                        : null;
 
                 // Visible regardless of displayMode — reuses the exact
                 // canonical per-date Hijri helpers (see MonthCalendarCard.tsx,
@@ -656,7 +674,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                       <Text
                         style={[
                           styles.dayText,
-                          lightText && styles.lightText,
+                          coloredCellText ? {color: coloredCellText} : null,
                           // Today keeps its bold dark-violet treatment even
                           // when also selected — it no longer has a colored
                           // fill to contrast against (see `lightText` above).
@@ -670,7 +688,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                         <Text
                           style={[
                             styles.hijriDay,
-                            lightText && styles.lightText,
+                            coloredCellText ? {color: coloredCellText} : null,
                             isToday && styles.todayHijriText,
                           ]}
                         >

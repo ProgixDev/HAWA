@@ -3,6 +3,7 @@ import ReactTestRenderer, {act} from 'react-test-renderer';
 import {View} from 'react-native';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
+import {pickReadableTextColor} from '../../../theme/awaThemeTokens';
 import MonthCalendarCard from '../MonthCalendarCard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
@@ -132,6 +133,113 @@ describe('MonthCalendarCard — semantic calendar colors are preserved across pa
     // real "kind", which is what actually drives the fixed background.
     expect(dayView).toBeTruthy();
     expect(dayText.parent!.props.accessibilityLabel).toContain('period');
+  });
+});
+
+describe('MonthCalendarCard — readable foreground on colored day cells (Dark Mode readability fix)', () => {
+  // Fixed, never theme-driven (mirrors the file's own SEMANTIC constants).
+  const PERIOD_FILL_COLOR = '#F7D7D6';
+  const FERTILE_FILL_COLOR = '#DCEFE0';
+  const OVULATION_COLOR = '#8B5CF6';
+
+  function dayNumberColor(renderer: ReactTestRenderer.ReactTestRenderer, day: number) {
+    const text = renderer.root.findAll(
+      node => node.props.children === day && typeof node.props.style !== 'undefined',
+    )[0];
+    return flattenStyle(text.props.style).color;
+  }
+
+  // Excludes today (10) and selected (15) so the match reflects that kind's
+  // OWN fill, not the today/selected override which legitimately takes
+  // priority over it.
+  function findDayByKind(renderer: ReactTestRenderer.ReactTestRenderer, kind: string) {
+    const cell = renderer.root.findAll(
+      node =>
+        typeof node.props.accessibilityLabel === 'string' &&
+        node.props.accessibilityLabel.includes(`, ${kind}`) &&
+        !node.props.accessibilityLabel.startsWith('10,') &&
+        !node.props.accessibilityLabel.startsWith('15,'),
+    )[0];
+    return Number(cell.props.accessibilityLabel.split(',')[0]);
+  }
+
+  it('a period day\'s number is readable-dark (derived from the fixed period fill), not theme.colors.text, and stays constant Light -> Dark', async () => {
+    const renderer = await renderCalendar();
+    // Jan 3 is a period day per BASICS (not today=10, not selected=15).
+    const before = dayNumberColor(renderer, 3);
+    expect(before).toBe(pickReadableTextColor(PERIOD_FILL_COLOR));
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    expect(dayNumberColor(renderer, 3)).toBe(before);
+  });
+
+  it('a fertile day\'s number is readable-dark (derived from the fixed fertile fill), not theme.colors.textSecondary, and stays constant Light -> Dark', async () => {
+    const renderer = await renderCalendar();
+    const fertileDay = findDayByKind(renderer, 'fertile');
+    const before = dayNumberColor(renderer, fertileDay);
+    expect(before).toBe(pickReadableTextColor(FERTILE_FILL_COLOR));
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    expect(dayNumberColor(renderer, fertileDay)).toBe(before);
+  });
+
+  it('an ovulation day\'s number is derived from the fixed ovulation fill and stays constant Light -> Dark', async () => {
+    // Day 15 is the only ovulation day for BASICS, but it coincides with the
+    // shared harness's selectedDate — render with a non-conflicting selection
+    // instead, so this exercises ovulation's OWN fill, not the (correctly
+    // theme-adaptive) selected-day override.
+    let renderer: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <AwaThemeProvider>
+          <MonthCalendarCard
+            basics={BASICS}
+            displayMode="gregorian"
+            filters={FILTERS}
+            journalFlagsByDate={{}}
+            onChangeDisplayMode={() => {}}
+            onChangeMonth={() => {}}
+            onSelectDate={() => {}}
+            selectedDate={new Date(2026, 0, 1)}
+            showSelection
+            today={new Date(2026, 0, 20)}
+            visibleMonth={new Date(2026, 0, 1)}
+          />
+        </AwaThemeProvider>,
+      );
+    });
+    activeRenderers.push(renderer!);
+
+    // Day 15 is the sole ovulation day for BASICS (ovulationDayFor(28) = 15);
+    // this render's today=20/selected=Jan1 leave it unaffected by either.
+    const ovulationDay = 15;
+    const before = dayNumberColor(renderer!, ovulationDay);
+    expect(before).toBe(pickReadableTextColor(OVULATION_COLOR));
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    expect(dayNumberColor(renderer!, ovulationDay)).toBe(before);
+  });
+
+  it('a plain (non-colored) day keeps using the theme-reactive default and DOES change Light -> Dark', async () => {
+    const renderer = await renderCalendar();
+    // Jan 20 is well outside the period/fertile/ovulation window for BASICS.
+    const before = dayNumberColor(renderer, 20);
+    expect(before).toBeDefined();
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    expect(dayNumberColor(renderer, 20)).not.toBe(before);
   });
 });
 

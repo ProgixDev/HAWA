@@ -340,3 +340,58 @@ describe('E5 Statistics family — selected period survives a theme switch', () 
     expect(activeLabel()).toBe(before);
   });
 });
+
+/* ============================================================
+   ACCESSIBILITY — Phase 3 remediation. Period filters previously had
+   accessibilityRole="button" but no accessibilityLabel (accessible name
+   fell back to the plain "3 mois" Text, with no indication a locked period
+   requires Premium) and, in StatisticsScreen.tsx's own inline period
+   selector specifically, no accessibilityState either. The shared
+   StatisticsPeriodSelector.tsx component (used by Pregnancy/Postpartum/
+   Miscarriage) already had accessibilityState; StatisticsScreen.tsx's own
+   duplicate implementation did not.
+============================================================ */
+
+describe('E5 Statistics family — period filter accessibility (Phase 3 fix)', () => {
+  it('Cycle — StatisticsScreen: a locked (Premium-only) period exposes a label naming it and its selected state', async () => {
+    const renderer = await renderScreen(SCREENS[0].render);
+    const lockedPressable = renderer.root
+      .findAll(node => typeof node.props.accessibilityLabel === 'string' && node.props.accessibilityLabel.includes('3 mois'))[0];
+
+    expect(lockedPressable).toBeDefined();
+    expect(lockedPressable.props.accessibilityLabel).toContain('Premium');
+    expect(lockedPressable.props.accessibilityRole).toBe('button');
+    expect(lockedPressable.props.accessibilityState).toEqual({selected: false});
+  });
+
+  it('Postpartum — shared StatisticsPeriodSelector: a locked period exposes a label naming it and requiring Premium', async () => {
+    const renderer = await renderScreen(() => <PostpartumStatisticsScreen />);
+    const lockedPressable = renderer.root
+      .findAll(node => typeof node.props.accessibilityLabel === 'string' && node.props.accessibilityLabel.includes('3 mois'))[0];
+
+    expect(lockedPressable).toBeDefined();
+    expect(lockedPressable.props.accessibilityLabel).toContain('Premium');
+    expect(lockedPressable.props.accessibilityRole).toBe('button');
+  });
+
+  it('the free "1 mois" period never claims to require Premium in its label', async () => {
+    const renderer = await renderScreen(SCREENS[0].render);
+    const freePressable = renderer.root
+      .findAll(node => node.props.accessibilityLabel === '1 mois')[0];
+    expect(freePressable).toBeDefined();
+  });
+});
+
+describe('Cycle — StatisticsScreen: chart sections expose a single accessible summary instead of scattering unlabeled fragments (Phase 3 fix)', () => {
+  it('the cycle-duration hero card is grouped into one accessible summary naming the value', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../../../screens/StatisticsScreen.tsx'), 'utf8');
+    expect(source).toMatch(/accessible\s*\n\s*accessibilityLabel=\{`Durée moyenne des cycles/);
+    expect(source).toMatch(/accessibilityRole="summary"/);
+  });
+
+  it('flow-distribution and symptom-frequency rows are each grouped into one accessible summary', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../../../screens/StatisticsScreen.tsx'), 'utf8');
+    expect(source).toMatch(/accessibilityLabel=\{`\$\{FLOW_LABELS\[item\.intensity\]\}/);
+    expect(source).toMatch(/accessibilityLabel=\{`\$\{index \+ 1\}\. \$\{item\.name\}/);
+  });
+});

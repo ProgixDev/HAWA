@@ -48,6 +48,9 @@ function StatisticsPeriodSelector({
 
         return (
           <Pressable
+            accessibilityLabel={
+              locked ? `${STATISTICS_PERIOD_LABELS[item]}, nécessite Premium` : STATISTICS_PERIOD_LABELS[item]
+            }
             accessibilityRole="button"
             accessibilityState={{selected: active}}
             key={item}

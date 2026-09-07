@@ -16,7 +16,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
-import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import {
   loadPersonalInformation,
   type CalendarPreference,
@@ -129,6 +129,10 @@ const CATEGORY_KEYS = Object.keys(
 // never invented locally.
 const RAMADAN_MARKER_COLOR = '#6D4AE8';
 const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
+// SEMANTIC — fixed, never theme-driven (matches the styles.miscarriageDay
+// background below). Unlike `returnedPeriodDay` (theme.colors.primarySoft,
+// already theme-adaptive), this fill never changes with the active theme.
+const MISCARRIAGE_FILL_COLOR = '#F3D9DF';
 
 const CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
   no: 'Pas encore de règles',
@@ -484,6 +488,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
             <View style={styles.monthHeader}>
               <Pressable
                 accessibilityLabel="Mois précédent"
+                accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={styles.arrowButton}
               >
@@ -505,6 +510,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
+                accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={styles.arrowButton}
               >
@@ -551,6 +557,22 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                 // their number must stay dark — forcing white text there
                 // made dates unreadable.
                 const lightText = selected && !isToday;
+
+                // The day/Hijri NUMBER text needs its own readable-foreground
+                // check, separate from `lightText`: its default color
+                // (theme.colors.accent) flips to a pale tone in Dark/Premium
+                // themes, which would then sit unreadably on the always-light
+                // MISCARRIAGE_FILL_COLOR pastel fill (never changes with
+                // theme). `returnedPeriodDay` isn't included here — its
+                // background is theme.colors.primarySoft, already adaptive,
+                // so the default accent-colored text already tracks it
+                // correctly (same pairing as MonthCalendarCard's Today state).
+                const coloredCellText =
+                  selected && !isToday
+                    ? onPrimaryTextColor(theme)
+                    : isMiscarriageDay && !isToday
+                      ? pickReadableTextColor(MISCARRIAGE_FILL_COLOR)
+                      : null;
 
                 // Visible regardless of displayMode — reuses the exact
                 // canonical per-date Hijri helpers (see MonthCalendarCard.tsx,
@@ -608,7 +630,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                       <Text
                         style={[
                           styles.dayText,
-                          lightText && styles.lightText,
+                          coloredCellText ? {color: coloredCellText} : null,
                           // Today keeps its bold dark-violet treatment even
                           // when also selected — see `lightText` above.
                           isToday && styles.todayDayText,
@@ -621,7 +643,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                         <Text
                           style={[
                             styles.hijriDay,
-                            lightText && styles.lightText,
+                            coloredCellText ? {color: coloredCellText} : null,
                             isToday && styles.todayHijriText,
                           ]}
                         >
@@ -1264,7 +1286,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderStyle: 'dashed',
     borderRadius: 13,
   },
-  miscarriageDay: { backgroundColor: '#F3D9DF' },
+  miscarriageDay: { backgroundColor: MISCARRIAGE_FILL_COLOR },
   returnedPeriodDay: { backgroundColor: theme.colors.primarySoft },
   dayText: { color: theme.colors.accent, fontSize: 12, fontWeight: '700' },
   lightText: { color: onPrimaryTextColor(theme) },
