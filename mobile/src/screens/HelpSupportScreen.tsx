@@ -132,8 +132,6 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
           <View style={styles.methods}>
             <Method helper="Réponse sous 24h" icon="email-outline" onPress={() => openEmail()} styles={styles} theme={theme} title="E-mail" value={APP_METADATA.contactEmail ?? 'Indisponible'} />
             <View style={styles.divider} />
-            <Method helper="Disponible 9h – 18h" icon="chat-processing-outline" onPress={() => showToast('Chat bientôt disponible.')} styles={styles} theme={theme} title="Chat en direct" value="Discuter maintenant" />
-            <View style={styles.divider} />
             <Method helper="Questions fréquentes" icon="help-circle-outline" onPress={() => navigation.navigate('FAQ')} styles={styles} theme={theme} title="FAQ" value="Voir les réponses" />
           </View>
         </Animated.View>

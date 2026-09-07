@@ -8,6 +8,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
+import {interpolateHex, pickReadableTextColor, resolveAwaTheme} from '../../theme/awaThemeTokens';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
 
 import PinManagementScreen from '../PinManagementScreen';
@@ -211,5 +212,92 @@ describe.each(SCREENS)('$name — resolved global theme', ({render}) => {
     });
 
     expect(firstBackgroundColor(renderer)).not.toBe(before);
+  });
+});
+
+/* ============================================================
+   ABOUT SCREEN — AWA LOGO READABILITY OVER ITS OWN CONTAINER.
+   The logo PNG is ~95% transparent with only the gold crest/lettering
+   opaque, so it needs a genuinely dark backdrop to read. Its container
+   previously used theme.colors.accent as-is, which is dark in every LIGHT
+   variant (a heading color meant for a light surface) but flips to a LIGHT
+   tone in every DARK variant (a heading color meant for a dark surface) —
+   correct for text, wrong for a background fill behind gold artwork. The
+   fix keeps accent unchanged where it is already dark enough
+   (pickReadableTextColor(accent) === '#FFFFFF') and darkens it toward
+   black otherwise, never branching on theme.isDark.
+============================================================ */
+
+function expectedLogoBackground(theme: ReturnType<typeof resolveAwaTheme>): string {
+  return pickReadableTextColor(theme.colors.accent) === '#FFFFFF'
+    ? theme.colors.accent
+    : interpolateHex(theme.colors.accent, '#000000', 0.65);
+}
+
+function relativeLuminance(hex: string): number {
+  const normalized = hex.replace('#', '');
+  const [r, g, b] = [0, 2, 4].map(i => parseInt(normalized.slice(i, i + 2), 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+describe('AboutScreen — AWA logo container readable in Light, Dark and True Black', () => {
+  function logoContainerBackground(renderer: ReactTestRenderer.ReactTestRenderer): unknown {
+    const logo = renderer.root.findByProps({accessibilityLabel: 'Logo AWA'});
+    let node: ReactTestRenderer.ReactTestInstance | null = logo.parent;
+    while (node && !flattenStyle(node.props.style).backgroundColor) {
+      node = node.parent;
+    }
+    return node ? flattenStyle(node.props.style).backgroundColor : undefined;
+  }
+
+  it('logo remains present with the same asset/dimensions/rounded presentation', async () => {
+    const renderer = await renderScreen(() => <AboutScreen navigation={{} as any} route={{} as any} />);
+    const logo = renderer.root.findByProps({accessibilityLabel: 'Logo AWA'});
+    expect(logo).toBeDefined();
+    expect(logo.props.resizeMode).toBe('contain');
+  });
+
+  it('Light mode: logo background stays byte-identical to theme.colors.accent (zero regression)', async () => {
+    const renderer = await renderScreen(() => <AboutScreen navigation={{} as any} route={{} as any} />);
+    const lightTheme = resolveAwaTheme('awa-original', false, false);
+    expect(logoContainerBackground(renderer)).toBe(lightTheme.colors.accent);
+    expect(logoContainerBackground(renderer)).toBe(expectedLogoBackground(lightTheme));
+  });
+
+  it('Dark mode: logo background is darkened (not the raw light-toned accent) and reads as genuinely dark', async () => {
+    const renderer = await renderScreen(() => <AboutScreen navigation={{} as any} route={{} as any} />);
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    const darkTheme = resolveAwaTheme('awa-original', true, false);
+    const background = logoContainerBackground(renderer) as string;
+    expect(background).toBe(expectedLogoBackground(darkTheme));
+    expect(background).not.toBe(darkTheme.colors.accent);
+    expect(relativeLuminance(background)).toBeLessThan(0.45);
+  });
+
+  it('True Black: logo background matches Dark (accent is unaffected by the True Black background/surface override)', async () => {
+    const renderer = await renderScreen(() => <AboutScreen navigation={{} as any} route={{} as any} />);
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+    const darkBackground = logoContainerBackground(renderer);
+
+    await act(async () => {
+      await setTrueBlackEnabled(true);
+    });
+    expect(logoContainerBackground(renderer)).toBe(darkBackground);
+  });
+
+  it('every other resolvable theme also resolves a dark-enough logo background in its Dark variant', () => {
+    const ids = ['awa-original', 'lavender-night', 'rose-quartz', 'sage-serenity', 'ocean-calm', 'warm-sand'] as const;
+    for (const id of ids) {
+      const dark = resolveAwaTheme(id, true, false);
+      const background = expectedLogoBackground(dark);
+      expect(relativeLuminance(background)).toBeLessThan(0.45);
+    }
   });
 });
