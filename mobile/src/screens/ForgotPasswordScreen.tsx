@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -20,11 +20,8 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {isValidEmail} from '../utils/emailValidation';
-import {AUTH_LIGHT_THEME} from '../theme/authLightTheme';
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const TEXT_MUTED = '#655A8D';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {withAlpha, onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -34,6 +31,8 @@ type Props = NativeStackScreenProps<
 function ForgotPasswordScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {height, width} = useWindowDimensions();
 
@@ -76,7 +75,7 @@ function ForgotPasswordScreen({
 
   return (
     <LinearGradient
-      colors={[...AUTH_LIGHT_THEME.gradients.pageBackground]}
+      colors={[...theme.gradients.pageBackground]}
       end={{x: 1, y: 1}}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
@@ -85,9 +84,9 @@ function ForgotPasswordScreen({
         edges={['top', 'left', 'right', 'bottom']}
         style={styles.safeArea}>
         <StatusBar
-          translucent={false}
-          backgroundColor="#F8EFFF"
-          barStyle="dark-content"
+          translucent
+          backgroundColor="transparent"
+          barStyle={theme.statusBarStyle}
         />
 
         <KeyboardAvoidingView
@@ -123,7 +122,7 @@ function ForgotPasswordScreen({
                   pressed && styles.pressed,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE_DARK}
+                  color={theme.colors.text}
                   name="arrow-left"
                   size={compact ? 22 : 24}
                 />
@@ -162,7 +161,7 @@ function ForgotPasswordScreen({
                   compact && styles.cardIconCompact,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="email-lock"
                   size={compact ? 29 : 34}
                 />
@@ -191,7 +190,7 @@ function ForgotPasswordScreen({
                   emailError && styles.fieldError,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="email-outline"
                   size={20}
                 />
@@ -206,9 +205,10 @@ function ForgotPasswordScreen({
                     setInfoMessage('');
                   }}
                   placeholder="exemple@email.com"
-                  placeholderTextColor="#8A7FA6"
+                  placeholderTextColor={theme.colors.textMuted}
                   returnKeyType="send"
                   onSubmitEditing={sendResetLink}
+                  selectionColor={theme.colors.primary}
                   style={styles.input}
                   textContentType="emailAddress"
                   value={email}
@@ -239,7 +239,7 @@ function ForgotPasswordScreen({
             {infoMessage ? (
               <View style={styles.infoCard}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="information-outline"
                   size={16}
                 />
@@ -263,7 +263,7 @@ function ForgotPasswordScreen({
                   compact && styles.helpIconCompact,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="headset"
                   size={compact ? 20 : 22}
                 />
@@ -289,7 +289,7 @@ function ForgotPasswordScreen({
               </View>
 
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="chevron-right"
                 size={compact ? 20 : 22}
               />
@@ -301,10 +301,11 @@ function ForgotPasswordScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F8EFFF',
+    backgroundColor: theme.colors.background,
   },
 
   safeArea: {
@@ -349,8 +350,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginTop: 8,
     borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.92)',
-    shadowColor: '#6949BE',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 3,
@@ -372,12 +373,12 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 27,
     fontWeight: '700',
     textAlign: 'center',
-    textShadowColor: 'rgba(255,255,255,0.85)',
+    textShadowColor: withAlpha(theme.colors.background, 0.85),
     textShadowOffset: {
       width: 0,
       height: 1,
@@ -391,11 +392,11 @@ const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: 8,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     textAlign: 'center',
-    textShadowColor: 'rgba(255,255,255,0.85)',
+    textShadowColor: withAlpha(theme.colors.background, 0.85),
     textShadowOffset: {
       width: 0,
       height: 1,
@@ -413,9 +414,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 18,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.16)',
+    borderColor: theme.colors.border,
     borderRadius: 24,
-    backgroundColor: 'rgba(255,252,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
     paddingHorizontal: 18,
     paddingVertical: 20,
   },
@@ -438,7 +439,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 39,
-    backgroundColor: '#EEE3FA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   cardIconCompact: {
@@ -449,7 +450,7 @@ const styles = StyleSheet.create({
 
   cardTitle: {
     marginTop: 12,
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 17,
     fontWeight: '700',
   },
@@ -461,7 +462,7 @@ const styles = StyleSheet.create({
 
   cardText: {
     marginTop: 6,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
     textAlign: 'center',
@@ -480,9 +481,9 @@ const styles = StyleSheet.create({
     gap: 10,
     marginTop: 15,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.20)',
+    borderColor: theme.colors.border,
     borderRadius: 14,
-    backgroundColor: 'rgba(255,252,255,0.95)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.95),
     paddingHorizontal: 14,
   },
 
@@ -495,18 +496,18 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     paddingVertical: 0,
-    color: '#2A2050',
+    color: theme.colors.text,
     fontSize: 13.5,
   },
 
   fieldError: {
-    borderColor: '#C95565',
+    borderColor: theme.colors.danger,
   },
 
   fieldErrorText: {
     marginTop: 6,
     marginLeft: 4,
-    color: '#B4485A',
+    color: theme.colors.danger,
     fontSize: 11,
   },
 
@@ -519,16 +520,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 12,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.16)',
+    borderColor: theme.colors.border,
     borderRadius: 14,
-    backgroundColor: '#F1E8FF',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 12,
     paddingVertical: 10,
   },
 
   infoText: {
     flex: 1,
-    color: '#5F547C',
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 16,
   },
@@ -543,8 +544,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingHorizontal: 18,
     borderRadius: 16,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 5,
@@ -561,7 +562,7 @@ const styles = StyleSheet.create({
   },
 
   primaryText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 15,
     fontWeight: '700',
     textAlign: 'center',
@@ -583,7 +584,7 @@ const styles = StyleSheet.create({
     gap: 12,
     marginTop: -6,
     borderRadius: 18,
-    backgroundColor: 'rgba(246,239,255,0.9)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
     paddingHorizontal: 14,
     paddingVertical: 12,
   },
@@ -602,7 +603,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   helpIconCompact: {
@@ -616,7 +617,7 @@ const styles = StyleSheet.create({
   },
 
   helpTitle: {
-    color: PURPLE_DARK,
+    color: theme.colors.text,
     fontSize: 13.5,
     fontWeight: '700',
   },
@@ -627,7 +628,7 @@ const styles = StyleSheet.create({
 
   helpText: {
     marginTop: 2,
-    color: TEXT_MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 15,
   },
@@ -641,6 +642,7 @@ const styles = StyleSheet.create({
     opacity: 0.82,
     transform: [{scale: 0.99}],
   },
-});
+  });
+}
 
 export default ForgotPasswordScreen;

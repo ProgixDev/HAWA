@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Animated, Easing, Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -6,22 +6,12 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {ensureAnonymousAccount, updatePrivacySecuritySettings} from '../state/securityPreferences';
 
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+
 const HERO = require('../assets/images/privacy/anonymous-mode-woman.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'AnonymousModeCreating'>;
-
-// Same design tokens as AnonymousModeScreen.tsx/AnonymousModeLimitationsScreen.tsx
-// — must read as one continuous experience.
-const BACKGROUND = '#F7F5FA';
-const CARD = '#FFFFFF';
-const TEXT_PRIMARY = '#28223A';
-const TEXT_SECONDARY = '#716A7D';
-const PURPLE = '#6547B8';
-const PURPLE_DEEP = '#3D2A79';
-const LAVENDER = '#EEE8F7';
-const BORDER = '#DED7E8';
-const SUCCESS = '#559579';
-const WARNING = '#A16C55';
 
 type CreationStatus = 'loading' | 'error';
 
@@ -71,7 +61,7 @@ function FadeIn({children, delay = 0}: {children: React.ReactNode; delay?: numbe
   return <Animated.View style={{opacity: progress}}>{children}</Animated.View>;
 }
 
-function RotatingLoader(): React.JSX.Element {
+function RotatingLoader({styles}: {styles: ReturnType<typeof createStyles>}): React.JSX.Element {
   const rotation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -92,6 +82,8 @@ function RotatingLoader(): React.JSX.Element {
 }
 
 export default function AnonymousModeCreatingScreen({navigation, route}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const source = route.params?.source;
   const [status, setStatus] = useState<CreationStatus>('loading');
@@ -163,7 +155,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
 
   return (
     <View style={styles.page}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
       <View pointerEvents="none" style={styles.backgroundDecoration}>
         <View style={styles.blobTopRight} />
@@ -180,7 +172,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
               hitSlop={10}
               onPress={navigation.goBack}
               style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={PURPLE} name="arrow-left" size={22} />
+              <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={22} />
             </Pressable>
           ) : (
             // Navigating away mid-activation is intentionally not offered —
@@ -216,7 +208,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
               </View>
 
               <View style={styles.securityBadge}>
-                <MaterialDesignIcons color="#FFFFFF" name={isError ? 'alert-circle-outline' : 'shield-check-outline'} size={16} />
+                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={isError ? 'alert-circle-outline' : 'shield-check-outline'} size={16} />
               </View>
             </View>
           </Animated.View>
@@ -244,7 +236,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
                 accessibilityRole="button"
                 onPress={retry}
                 style={({pressed}) => [styles.primary, pressed && styles.pressed]}>
-                <MaterialDesignIcons color="#FFFFFF" name="reload" size={20} />
+                <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="reload" size={20} />
                 <Text style={styles.primaryText}>Réessayer</Text>
               </Pressable>
 
@@ -261,7 +253,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
             <>
               <FadeIn delay={140}>
                 <View style={styles.loaderBlock}>
-                  <RotatingLoader />
+                  <RotatingLoader styles={styles} />
                   <Text style={styles.loaderLabel}>Veuillez patienter</Text>
                   <Text style={styles.loaderCaption}>Cette opération ne prendra que quelques instants.</Text>
                 </View>
@@ -271,7 +263,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
                 <View style={styles.card}>
                   <View style={styles.cardHeaderRow}>
                     <View style={styles.cardHeaderIcon}>
-                      <MaterialDesignIcons color={PURPLE} name="shield-lock-outline" size={20} />
+                      <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={20} />
                     </View>
                     <View style={styles.cardHeaderCopy}>
                       <Text style={styles.cardHeaderTitle}>Protection de ton identité</Text>
@@ -288,11 +280,11 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
                       return (
                         <View key={label} style={styles.stepRow}>
                           {done ? (
-                            <MaterialDesignIcons color={SUCCESS} name="check-circle" size={18} />
+                            <MaterialDesignIcons color={theme.colors.success} name="check-circle" size={18} />
                           ) : current ? (
-                            <MaterialDesignIcons color={PURPLE} name="circle-slice-6" size={18} />
+                            <MaterialDesignIcons color={theme.colors.primary} name="circle-slice-6" size={18} />
                           ) : (
-                            <MaterialDesignIcons color={TEXT_SECONDARY} name="circle-outline" size={18} />
+                            <MaterialDesignIcons color={theme.colors.textSecondary} name="circle-outline" size={18} />
                           )}
                           <Text style={[styles.stepLabel, (done || current) && styles.stepLabelActive]}>{label}</Text>
                         </View>
@@ -304,7 +296,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
 
               <FadeIn delay={260}>
                 <View style={styles.infoCard}>
-                  <MaterialDesignIcons color={WARNING} name="information-outline" size={19} />
+                  <MaterialDesignIcons color={theme.colors.warning} name="information-outline" size={19} />
                   <Text style={styles.infoText}>Ne ferme pas l’application pendant la préparation de ton espace.</Text>
                 </View>
               </FadeIn>
@@ -316,22 +308,23 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
   );
 }
 
-const styles = StyleSheet.create({
-  page: {flex: 1, backgroundColor: BACKGROUND},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  page: {flex: 1, backgroundColor: theme.colors.background},
   safe: {flex: 1},
 
   backgroundDecoration: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
   blobTopRight: {
     position: 'absolute', top: -70, right: -60, width: 240, height: 240, borderRadius: 120,
-    backgroundColor: 'rgba(107,73,190,0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
   blobLeft: {
     position: 'absolute', top: 230, left: -70, width: 170, height: 170, borderRadius: 85,
-    backgroundColor: 'rgba(103,91,128,0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
   blobBottom: {
     position: 'absolute', bottom: -60, right: -30, width: 200, height: 200, borderRadius: 100,
-    backgroundColor: 'rgba(105,73,190,0.04)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.04),
   },
 
   header: {
@@ -339,80 +332,81 @@ const styles = StyleSheet.create({
   },
   back: {
     width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 16,
-    backgroundColor: CARD, borderWidth: 1, borderColor: BORDER,
-    shadowColor: PURPLE_DEEP, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 4, elevation: 2,
+    backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
+    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 4, elevation: 2,
   },
   headerTitleBlock: {alignItems: 'center'},
-  headerTitle: {color: TEXT_PRIMARY, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+  headerTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
   headerSpace: {width: 42},
 
   content: {flexGrow: 1, paddingHorizontal: 18, paddingTop: 10},
 
   hero: {alignItems: 'center'},
   heroHaloOuter: {
-    width: 160, height: 160, alignItems: 'center', justifyContent: 'center', borderRadius: 80, backgroundColor: 'rgba(107,73,190,0.08)',
+    width: 160, height: 160, alignItems: 'center', justifyContent: 'center', borderRadius: 80, backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
   heroHaloMiddle: {
-    width: 132, height: 132, alignItems: 'center', justifyContent: 'center', borderRadius: 66, backgroundColor: LAVENDER,
+    width: 132, height: 132, alignItems: 'center', justifyContent: 'center', borderRadius: 66, backgroundColor: theme.colors.primarySoft,
   },
   heroHaloInner: {
-    width: 104, height: 104, alignItems: 'center', justifyContent: 'center', borderRadius: 52, backgroundColor: CARD, overflow: 'hidden',
-    shadowColor: PURPLE_DEEP, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
+    width: 104, height: 104, alignItems: 'center', justifyContent: 'center', borderRadius: 52, backgroundColor: theme.colors.surface, overflow: 'hidden',
+    shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.08, shadowRadius: 8, elevation: 3,
   },
   heroImage: {width: 104, height: 104},
   securityBadge: {
     position: 'absolute', bottom: 6, right: 6, width: 32, height: 32, alignItems: 'center', justifyContent: 'center',
-    borderRadius: 16, backgroundColor: PURPLE, borderWidth: 2, borderColor: BACKGROUND,
+    borderRadius: 16, backgroundColor: theme.colors.primary, borderWidth: 2, borderColor: theme.colors.background,
   },
 
   title: {
-    marginTop: 22, color: TEXT_PRIMARY, fontFamily: 'serif', fontSize: 22, lineHeight: 28, fontWeight: '700', textAlign: 'center',
+    marginTop: 22, color: theme.colors.accent, fontFamily: 'serif', fontSize: 22, lineHeight: 28, fontWeight: '700', textAlign: 'center',
   },
   subtitle: {
-    maxWidth: 320, alignSelf: 'center', marginTop: 10, color: TEXT_SECONDARY, fontSize: 14, lineHeight: 20, textAlign: 'center',
+    maxWidth: 320, alignSelf: 'center', marginTop: 10, color: theme.colors.textSecondary, fontSize: 14, lineHeight: 20, textAlign: 'center',
   },
 
   loaderBlock: {alignItems: 'center', marginTop: 26},
   loaderHalo: {
-    width: 84, height: 84, alignItems: 'center', justifyContent: 'center', borderRadius: 42, backgroundColor: LAVENDER,
+    width: 84, height: 84, alignItems: 'center', justifyContent: 'center', borderRadius: 42, backgroundColor: theme.colors.primarySoft,
   },
   loaderRing: {
     width: 54, height: 54, borderRadius: 27, borderWidth: 4,
-    borderColor: 'rgba(101,71,184,0.18)', borderTopColor: PURPLE,
+    borderColor: withAlpha(theme.colors.primary, 0.18), borderTopColor: theme.colors.primary,
   },
-  loaderLabel: {marginTop: 16, color: TEXT_PRIMARY, fontSize: 14.5, fontWeight: '700'},
-  loaderCaption: {marginTop: 4, color: TEXT_SECONDARY, fontSize: 12.5, textAlign: 'center'},
+  loaderLabel: {marginTop: 16, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
+  loaderCaption: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, textAlign: 'center'},
 
   card: {
-    marginTop: 26, borderRadius: 22, backgroundColor: CARD, borderWidth: 1, borderColor: BORDER,
-    padding: 16, shadowColor: PURPLE_DEEP, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
+    marginTop: 26, borderRadius: 22, backgroundColor: theme.colors.surface, borderWidth: 1, borderColor: theme.colors.border,
+    padding: 16, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 4}, shadowOpacity: 0.05, shadowRadius: 10, elevation: 2,
   },
   cardHeaderRow: {flexDirection: 'row', alignItems: 'flex-start'},
   cardHeaderIcon: {
-    width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: LAVENDER,
+    width: 40, height: 40, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft,
   },
   cardHeaderCopy: {flex: 1, minWidth: 0, marginLeft: 12},
-  cardHeaderTitle: {color: TEXT_PRIMARY, fontSize: 15, fontWeight: '700'},
-  cardHeaderSubtitle: {marginTop: 4, color: TEXT_SECONDARY, fontSize: 12.5, lineHeight: 18},
+  cardHeaderTitle: {color: theme.colors.text, fontSize: 15, fontWeight: '700'},
+  cardHeaderSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
 
   stepsGroup: {marginTop: 14, gap: 12},
   stepRow: {flexDirection: 'row', alignItems: 'center', gap: 10},
-  stepLabel: {color: TEXT_SECONDARY, fontSize: 13},
-  stepLabelActive: {color: TEXT_PRIMARY, fontWeight: '600'},
+  stepLabel: {color: theme.colors.textSecondary, fontSize: 13},
+  stepLabelActive: {color: theme.colors.text, fontWeight: '600'},
 
   infoCard: {
     flexDirection: 'row', alignItems: 'flex-start', gap: 10, marginTop: 14, borderRadius: 16, borderWidth: 1,
-    borderColor: BORDER, backgroundColor: '#F1EDF7', paddingHorizontal: 14, paddingVertical: 13,
+    borderColor: theme.colors.border, backgroundColor: theme.colors.surfaceSecondary, paddingHorizontal: 14, paddingVertical: 13,
   },
-  infoText: {flex: 1, minWidth: 0, color: '#66597A', fontSize: 12.5, lineHeight: 18},
+  infoText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
 
   primary: {
     minHeight: 56, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 9, borderRadius: 18,
-    marginTop: 26, backgroundColor: PURPLE, shadowColor: PURPLE_DEEP, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.22, shadowRadius: 9, elevation: 5,
+    marginTop: 26, backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.22, shadowRadius: 9, elevation: 5,
   },
-  primaryText: {color: '#FFFFFF', fontSize: 15.5, fontWeight: '800'},
+  primaryText: {color: onPrimaryTextColor(theme), fontSize: 15.5, fontWeight: '800'},
   cancel: {alignSelf: 'center', minHeight: 44, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 15, marginTop: 4},
-  cancelText: {color: PURPLE, fontSize: 14, fontWeight: '700'},
+  cancelText: {color: theme.colors.primary, fontSize: 14, fontWeight: '700'},
 
   pressed: {opacity: 0.85, transform: [{scale: 0.99}]},
-});
+  });
+}
