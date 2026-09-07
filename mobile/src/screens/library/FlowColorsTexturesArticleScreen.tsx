@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -22,17 +22,17 @@ import {
 } from '../../state/libraryStore';
 import ReadingControls from '../../components/articles/ReadingControls';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'flow-colors-textures';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const BROWN = '#987967';
-const BORDER = '#E9E2DE';
 
 const HERO = require('../../assets/images/library/flow-colors-hero.png');
 const WARNING = require('../../assets/images/library/flow-colors-warning.png');
 
+// fixed: these hex values are real educational flow-color swatches (this
+// article's actual subject matter), not generic UI chrome — they must stay
+// literal regardless of theme so the color example itself is accurate.
 const COLORS = [
   [
     '#C42031',
@@ -89,6 +89,8 @@ const TEXTURES = [
   ],
 ] as const;
 
+// fixed: same reasoning as COLORS above — these dots illustrate the actual
+// flow-color meanings discussed in the text, not decorative UI chrome.
 const MEANINGS = [
   [
     '#B8182D',
@@ -151,6 +153,8 @@ type Props = NativeStackScreenProps<
 export default function FlowColorsTexturesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -185,7 +189,7 @@ export default function FlowColorsTexturesArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -233,7 +237,7 @@ export default function FlowColorsTexturesArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -253,7 +257,7 @@ export default function FlowColorsTexturesArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={BROWN}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -268,7 +272,7 @@ export default function FlowColorsTexturesArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={BROWN}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -295,7 +299,7 @@ export default function FlowColorsTexturesArticleScreen({
                 <MaterialDesignIcons
                   name="clock-outline"
                   size={19}
-                  color="#817A86"
+                  color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
                   4 min de lecture
@@ -308,7 +312,7 @@ export default function FlowColorsTexturesArticleScreen({
                 <MaterialDesignIcons
                   name="book-open-page-variant-outline"
                   size={19}
-                  color="#817A86"
+                  color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
                   Guide
@@ -321,7 +325,7 @@ export default function FlowColorsTexturesArticleScreen({
                 <MaterialDesignIcons
                   name="chart-bar"
                   size={19}
-                  color="#817A86"
+                  color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
                   Débutant
@@ -333,7 +337,7 @@ export default function FlowColorsTexturesArticleScreen({
               <MaterialDesignIcons
                 name="shield-check-outline"
                 size={19}
-                color="#817A86"
+                color={theme.colors.textMuted}
               />
               <Text style={styles.metaText}>
                 Contenu validé
@@ -371,7 +375,7 @@ export default function FlowColorsTexturesArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={BROWN}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -487,7 +491,7 @@ export default function FlowColorsTexturesArticleScreen({
                   <MaterialDesignIcons
                     name="alert-circle-outline"
                     size={22}
-                    color="#9B7463"
+                    color={theme.colors.warning}
                   />
                 </View>
 
@@ -530,7 +534,7 @@ export default function FlowColorsTexturesArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={24}
-                    color="#7B5A4D"
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -557,10 +561,11 @@ export default function FlowColorsTexturesArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -569,7 +574,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 255,
-    backgroundColor: '#E9D3BB',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -599,8 +604,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#E9E1DC',
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    borderColor: theme.colors.border,
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
   },
 
   pressed: {
@@ -612,7 +617,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -620,18 +625,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F1E4DA',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 10.5,
     fontWeight: '800',
-    color: '#674E43',
+    color: theme.colors.primary,
   },
 
   title: {
     marginTop: 12,
-    color: INK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 24,
     lineHeight: 29,
@@ -658,7 +663,7 @@ const styles = StyleSheet.create({
     width: 1,
     height: 20,
     marginHorizontal: 11,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   metaValidatedRow: {
@@ -669,13 +674,13 @@ const styles = StyleSheet.create({
   },
 
   metaText: {
-    color: '#706E77',
+    color: theme.colors.textMuted,
     fontSize: 11,
   },
 
   intro: {
     marginTop: 17,
-    color: '#45404A',
+    color: theme.colors.text,
     fontSize: 13.5,
     lineHeight: 20,
   },
@@ -684,12 +689,12 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#F8F4F0',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 14,
     fontWeight: '800',
   },
@@ -709,14 +714,14 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 23,
-    color: BROWN,
+    color: theme.colors.primary,
     fontSize: 11.5,
     fontWeight: '800',
   },
 
   contentText: {
     flex: 1,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 12,
     lineHeight: 16,
   },
@@ -724,7 +729,7 @@ const styles = StyleSheet.create({
   sectionTitle: {
     marginTop: 24,
     marginBottom: 11,
-    color: INK,
+    color: theme.colors.text,
     fontFamily: 'serif',
     fontSize: 20,
     lineHeight: 25,
@@ -744,8 +749,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 11,
     borderWidth: 1,
-    borderColor: BORDER,
-    backgroundColor: '#FFFDFC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
 
   dropIcon: {
@@ -754,7 +759,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    backgroundColor: '#FAF4F2',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   textureImage: {
@@ -765,7 +770,7 @@ const styles = StyleSheet.create({
 
   cardTitle: {
     marginTop: 8,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 12,
     lineHeight: 16,
     fontWeight: '800',
@@ -774,7 +779,7 @@ const styles = StyleSheet.create({
 
   cardText: {
     marginTop: 6,
-    color: '#4E4750',
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
     textAlign: 'center',
@@ -790,7 +795,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 10,
     borderRadius: 11,
-    backgroundColor: '#FAF7F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   dot: {
@@ -805,14 +810,14 @@ const styles = StyleSheet.create({
   },
 
   meaningName: {
-    color: INK,
+    color: theme.colors.text,
     fontSize: 11.5,
     fontWeight: '800',
   },
 
   meaningText: {
     marginTop: 3,
-    color: '#4D4650',
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -822,8 +827,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E9E1DC',
-    backgroundColor: '#F7F0EA',
+    borderColor: theme.colors.border,
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   warningImage: {
@@ -846,12 +851,12 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EFE3DA',
+    backgroundColor: withAlpha(theme.colors.warning, 0.18),
   },
 
   warningTitle: {
     marginLeft: 10,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 13,
     fontWeight: '800',
   },
@@ -872,12 +877,12 @@ const styles = StyleSheet.create({
     marginTop: 6,
     marginRight: 8,
     borderRadius: 3,
-    backgroundColor: '#9B7463',
+    backgroundColor: theme.colors.warning,
   },
 
   warningText: {
     flex: 1,
-    color: '#4D4650',
+    color: theme.colors.textSecondary,
     fontSize: 10.8,
     lineHeight: 16,
   },
@@ -896,8 +901,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 11,
     borderWidth: 1,
-    borderColor: '#E7E0DC',
-    backgroundColor: '#FFFDFC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
 
   adviceIcon: {
@@ -906,12 +911,12 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F2EAE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   adviceTitle: {
     marginTop: 7,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 11.5,
     lineHeight: 15,
     fontWeight: '800',
@@ -920,10 +925,11 @@ const styles = StyleSheet.create({
 
   adviceText: {
     marginTop: 5,
-    color: '#465069',
+    color: theme.colors.textSecondary,
     fontSize: 10,
     lineHeight: 14,
     textAlign: 'center',
   },
 
-});
+  });
+}

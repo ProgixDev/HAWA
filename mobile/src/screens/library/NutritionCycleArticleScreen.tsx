@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -22,13 +22,14 @@ import {
   toggleBookmark,
 } from '../../state/libraryStore';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../../theme/awaThemeTokens';
 
 const ID = 'nutrition-conception-fertilite';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const PURPLE = '#765C89';
-const BORDER = '#E9E1DE';
 
 const HERO = require('../../assets/images/library/nutrition-hero.png');
 
@@ -126,6 +127,8 @@ type Props = NativeStackScreenProps<
 export default function NutritionCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -160,7 +163,7 @@ export default function NutritionCycleArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -207,7 +210,7 @@ export default function NutritionCycleArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -227,7 +230,7 @@ export default function NutritionCycleArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -242,7 +245,7 @@ export default function NutritionCycleArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -268,7 +271,7 @@ export default function NutritionCycleArticleScreen({
                 <MaterialDesignIcons
                   name="clock-outline"
                   size={19}
-                  color="#817A86"
+                  color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
                   4 min de lecture
@@ -281,7 +284,7 @@ export default function NutritionCycleArticleScreen({
                 <MaterialDesignIcons
                   name="book-open-page-variant-outline"
                   size={19}
-                  color="#817A86"
+                  color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
                   Guide
@@ -294,7 +297,7 @@ export default function NutritionCycleArticleScreen({
                 <MaterialDesignIcons
                   name="chart-bar"
                   size={19}
-                  color="#817A86"
+                  color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
                   Débutant
@@ -306,7 +309,7 @@ export default function NutritionCycleArticleScreen({
               <MaterialDesignIcons
                 name="shield-check-outline"
                 size={19}
-                color="#817A86"
+                color={theme.colors.textMuted}
               />
               <Text style={styles.metaText}>
                 Contenu validé
@@ -347,7 +350,7 @@ export default function NutritionCycleArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -376,7 +379,7 @@ export default function NutritionCycleArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={25}
-                    color={PURPLE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -440,7 +443,7 @@ export default function NutritionCycleArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={26}
-                    color="#B87C99"
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -498,10 +501,11 @@ export default function NutritionCycleArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -538,9 +542,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: '#EAE3DE',
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -552,7 +556,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -560,12 +564,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 11,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#E9DFF0',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 10.5,
-    color: PURPLE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -574,7 +578,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 24, // avant 28
     lineHeight: 29,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -598,7 +602,7 @@ const styles = StyleSheet.create({
     width: 1,
     height: 20,
     marginHorizontal: 11,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   metaValidatedRow: {
@@ -609,7 +613,7 @@ const styles = StyleSheet.create({
   },
 
   metaText: {
-    color: '#777078',
+    color: theme.colors.textMuted,
     fontSize: 11,
   },
 
@@ -617,7 +621,7 @@ const styles = StyleSheet.create({
     marginTop: 17,
     fontSize: 13.5, // avant 15
     lineHeight: 20,
-    color: '#45404A',
+    color: theme.colors.text,
     fontWeight: '600',
   },
 
@@ -625,13 +629,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#F7F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -650,7 +654,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 23,
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 11.5,
     fontWeight: '800',
   },
@@ -659,7 +663,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -667,7 +671,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 20, // avant 22
     lineHeight: 25,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -675,7 +679,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 13, // avant 14
     lineHeight: 20,
-    color: '#4B454C',
+    color: theme.colors.text,
   },
 
   row: {
@@ -690,9 +694,9 @@ const styles = StyleSheet.create({
     padding: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 10,
-    backgroundColor: '#FFFDFC',
+    backgroundColor: theme.colors.surface,
   },
 
   phaseIcon: {
@@ -701,7 +705,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F0EAF3',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   food: {
@@ -709,9 +713,9 @@ const styles = StyleSheet.create({
     minHeight: 195,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 10,
-    backgroundColor: '#FFFDFC',
+    backgroundColor: theme.colors.surface,
   },
 
   foodImage: {
@@ -724,7 +728,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7,
     fontSize: 12, // avant 13
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
     textAlign: 'center',
   },
@@ -732,7 +736,7 @@ const styles = StyleSheet.create({
   days: {
     marginTop: 4,
     fontSize: 9.5,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   cardBody: {
@@ -740,7 +744,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     fontSize: 10.5, // avant 11.5
     lineHeight: 15,
-    color: '#4E4750',
+    color: theme.colors.textSecondary,
     textAlign: 'center',
   },
 
@@ -750,9 +754,9 @@ const styles = StyleSheet.create({
     padding: 11,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 10,
-    backgroundColor: '#FFFDFC',
+    backgroundColor: theme.colors.surface,
   },
 
   limitIcon: {
@@ -761,12 +765,12 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7EEF3',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   limitText: {
     marginTop: 7,
-    color: '#5F575D',
+    color: theme.colors.textSecondary,
     fontSize: 10,
     lineHeight: 14,
     textAlign: 'center',
@@ -777,9 +781,9 @@ const styles = StyleSheet.create({
     minHeight: 195,
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
     borderRadius: 10,
-    backgroundColor: '#FFFDFC',
+    backgroundColor: theme.colors.surface,
   },
 
   mealImage: {
@@ -793,8 +797,8 @@ const styles = StyleSheet.create({
     left: 0,
     paddingHorizontal: 8,
     paddingVertical: 5,
-    backgroundColor: PURPLE,
-    color: '#FFFFFF',
+    backgroundColor: theme.colors.primary,
+    color: onPrimaryTextColor(theme),
     fontSize: 9.5,
     fontWeight: '700',
   },
@@ -802,9 +806,10 @@ const styles = StyleSheet.create({
   mealText: {
     paddingHorizontal: 10,
     paddingVertical: 10,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 10.5,
     lineHeight: 15,
   },
 
-});
+  });
+}

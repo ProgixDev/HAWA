@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'pcos-poids-metabolisme-insuline';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/popular-nutrition.png');
 
@@ -85,6 +82,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function PcosMetabolismArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -118,7 +117,7 @@ export default function PcosMetabolismArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -158,7 +157,7 @@ export default function PcosMetabolismArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -174,7 +173,7 @@ export default function PcosMetabolismArticleScreen({
                 <MaterialDesignIcons
                   name={saved ? 'bookmark' : 'bookmark-outline'}
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -189,7 +188,7 @@ export default function PcosMetabolismArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -218,7 +217,7 @@ export default function PcosMetabolismArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -253,7 +252,7 @@ export default function PcosMetabolismArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -292,7 +291,7 @@ export default function PcosMetabolismArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -316,7 +315,7 @@ export default function PcosMetabolismArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color="#789276"
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.checkText}>{item}</Text>
@@ -341,7 +340,7 @@ export default function PcosMetabolismArticleScreen({
                 <View style={styles.dailyIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color={ROSE}
+                    color={theme.colors.primary}
                     size={24}
                   />
                 </View>
@@ -368,7 +367,7 @@ export default function PcosMetabolismArticleScreen({
                 <MaterialDesignIcons
                   name="stethoscope"
                   size={22}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -423,7 +422,7 @@ export default function PcosMetabolismArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={22}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -438,7 +437,7 @@ export default function PcosMetabolismArticleScreen({
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -459,7 +458,7 @@ export default function PcosMetabolismArticleScreen({
             <MaterialDesignIcons
               name="calendar-heart"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -482,7 +481,7 @@ export default function PcosMetabolismArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -508,10 +507,11 @@ export default function PcosMetabolismArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -520,7 +520,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -549,9 +549,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -563,7 +563,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -571,12 +571,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -585,7 +585,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -606,19 +606,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
 
@@ -626,13 +626,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -651,7 +651,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 24,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -660,7 +660,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -668,7 +668,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -676,7 +676,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
     fontSize: 17,
     lineHeight: 23,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -684,14 +684,14 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     lineHeight: 21,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   checkList: {
     marginTop: 13,
     padding: 13,
     borderRadius: 12,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   checkRow: {
@@ -703,7 +703,7 @@ const styles = StyleSheet.create({
 
   checkText: {
     flex: 1,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
   },
@@ -722,9 +722,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 12,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F1E3E7',
+    borderColor: theme.colors.border,
   },
 
   dailyIcon: {
@@ -733,14 +733,14 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F8E9EE',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   dailyText: {
     marginTop: 8,
     fontSize: 11,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     textAlign: 'center',
   },
 
@@ -748,9 +748,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 16,
     borderRadius: 15,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EFE0E5',
+    borderColor: theme.colors.border,
   },
 
   medicalHeader: {
@@ -764,7 +764,7 @@ const styles = StyleSheet.create({
     borderRadius: 22,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F4E1E6',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   medicalHeaderCopy: {
@@ -775,7 +775,7 @@ const styles = StyleSheet.create({
   medicalTitle: {
     fontSize: 15,
     lineHeight: 20,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -783,21 +783,21 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 11,
     lineHeight: 16,
-    color: '#756C73',
+    color: theme.colors.textMuted,
   },
 
   medicalDescription: {
     marginTop: 13,
     fontSize: 12.5,
     lineHeight: 19,
-    color: '#4F484F',
+    color: theme.colors.textSecondary,
   },
 
   medicalSectionTitle: {
     marginTop: 16,
     marginBottom: 9,
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -817,12 +817,12 @@ const styles = StyleSheet.create({
     borderRadius: 13,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EFDCE2',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   medicalCheckNumberText: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -831,7 +831,7 @@ const styles = StyleSheet.create({
     marginLeft: 9,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   signalGrid: {
@@ -846,9 +846,9 @@ const styles = StyleSheet.create({
     minHeight: 145,
     padding: 12,
     borderRadius: 12,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   signalIcon: {
@@ -857,14 +857,14 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7E7EB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   signalTitle: {
     marginTop: 9,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -872,7 +872,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.5,
     lineHeight: 15,
-    color: '#655D64',
+    color: theme.colors.textMuted,
   },
 
   alert: {
@@ -881,7 +881,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   followUpTip: {
@@ -890,9 +890,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EDDEE3',
+    borderColor: theme.colors.border,
   },
 
   tip: {
@@ -901,7 +901,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
@@ -912,7 +912,7 @@ const styles = StyleSheet.create({
   tipTitle: {
     fontSize: 13,
     lineHeight: 18,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -920,6 +920,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
-});
+  });
+}

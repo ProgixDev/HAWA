@@ -2,7 +2,7 @@ import React, {memo, useRef} from 'react';
 import {Animated, Easing, Pressable, StyleSheet} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
-import {homeColors} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
 
 type Props = {
   active: boolean;
@@ -12,6 +12,7 @@ type Props = {
 };
 
 function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
   const scale = useRef(new Animated.Value(1)).current;
   const dimension = size === 'small' ? 30 : 36;
   const iconSize = size === 'small' ? 15 : 17;
@@ -33,11 +34,14 @@ function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Prop
       style={[
         styles.button,
         {width: dimension, height: dimension, borderRadius: dimension / 2},
-        tone === 'onDark' ? styles.onDark : styles.light,
+        // 'onDark' sits on an arbitrary tinted/hero background (not the app's
+        // global theme surface), so its translucent-white treatment stays a
+        // fixed literal — see the style below.
+        tone === 'onDark' ? styles.onDark : {backgroundColor: theme.colors.primarySoft},
       ]}>
       <Animated.View style={{transform: [{scale}]}}>
         <MaterialDesignIcons
-          color={active ? homeColors.primary : (tone === 'onDark' ? '#FFFFFF' : homeColors.textSecondary)}
+          color={active ? theme.colors.primary : (tone === 'onDark' ? '#FFFFFF' : theme.colors.textSecondary)}
           name={active ? 'bookmark' : 'bookmark-outline'}
           size={iconSize}
         />
@@ -48,7 +52,6 @@ function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Prop
 
 const styles = StyleSheet.create({
   button: {alignItems: 'center', justifyContent: 'center'},
-  light: {backgroundColor: homeColors.lightLavender},
   onDark: {backgroundColor: 'rgba(255,255,255,0.24)'},
 });
 

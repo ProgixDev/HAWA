@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'ring-anneau-vaginal';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/popular-phases.png');
 
@@ -55,6 +52,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function VaginalRingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -88,7 +87,7 @@ export default function VaginalRingArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -127,7 +126,7 @@ export default function VaginalRingArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -143,7 +142,7 @@ export default function VaginalRingArticleScreen({
                 <MaterialDesignIcons
                   name={saved ? 'bookmark' : 'bookmark-outline'}
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -158,7 +157,7 @@ export default function VaginalRingArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -189,7 +188,7 @@ export default function VaginalRingArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -223,7 +222,7 @@ export default function VaginalRingArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -248,7 +247,7 @@ export default function VaginalRingArticleScreen({
                   <MaterialDesignIcons
                     name="circle-outline"
                     size={25}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -262,7 +261,7 @@ export default function VaginalRingArticleScreen({
               <MaterialDesignIcons
                 name="arrow-right"
                 size={20}
-                color="#B9A8AF"
+                color={theme.colors.textMuted}
               />
 
               <View style={styles.flowStep}>
@@ -270,7 +269,7 @@ export default function VaginalRingArticleScreen({
                   <MaterialDesignIcons
                     name="water-outline"
                     size={25}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -284,7 +283,7 @@ export default function VaginalRingArticleScreen({
               <MaterialDesignIcons
                 name="arrow-right"
                 size={20}
-                color="#B9A8AF"
+                color={theme.colors.textMuted}
               />
 
               <View style={styles.flowStep}>
@@ -292,7 +291,7 @@ export default function VaginalRingArticleScreen({
                   <MaterialDesignIcons
                     name="shield-check-outline"
                     size={25}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -355,7 +354,7 @@ export default function VaginalRingArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -384,7 +383,7 @@ export default function VaginalRingArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={23}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -406,7 +405,7 @@ export default function VaginalRingArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color="#789276"
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.checkText}>{item}</Text>
@@ -419,7 +418,7 @@ export default function VaginalRingArticleScreen({
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -443,7 +442,7 @@ export default function VaginalRingArticleScreen({
               <MaterialDesignIcons
                 name="check-decagram-outline"
                 size={25}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.summaryTitle}>
@@ -523,7 +522,7 @@ export default function VaginalRingArticleScreen({
             <MaterialDesignIcons
               name="heart-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -549,10 +548,11 @@ export default function VaginalRingArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -561,7 +561,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -590,9 +590,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -612,12 +612,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -626,7 +626,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -647,19 +647,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
 
@@ -667,13 +667,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -692,7 +692,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 24,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -701,7 +701,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -709,7 +709,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -717,7 +717,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     lineHeight: 21,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   /* FUNCTIONING SCHEMA */
@@ -726,12 +726,12 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   flowTitle: {
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
     marginBottom: 15,
   },
@@ -753,15 +753,15 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFDFC',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: '#EBDCE1',
+    borderColor: theme.colors.border,
   },
 
   flowStepTitle: {
     marginTop: 7,
     fontSize: 11.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
     textAlign: 'center',
   },
@@ -770,7 +770,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 9.5,
     lineHeight: 13,
-    color: '#777078',
+    color: theme.colors.textMuted,
     textAlign: 'center',
   },
 
@@ -780,14 +780,14 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   calendarTitle: {
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
     marginBottom: 14,
   },
@@ -803,9 +803,9 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
-    borderColor: '#EAD0D8',
+    borderColor: theme.colors.border,
   },
 
   weekItemPause: {
@@ -814,21 +814,21 @@ const styles = StyleSheet.create({
     borderRadius: 11,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F1ECE8',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#E3DCD6',
+    borderColor: theme.colors.border,
   },
 
   weekNumber: {
     fontSize: 18,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
   weekLabel: {
     marginTop: 3,
     fontSize: 10,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -844,7 +844,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: ROSE,
+    backgroundColor: theme.colors.primary,
   },
 
   legendDotPause: {
@@ -852,12 +852,12 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#B7ACA5',
+    backgroundColor: theme.colors.textMuted,
   },
 
   legendText: {
     fontSize: 9.5,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   /* TIP */
@@ -868,7 +868,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
@@ -878,7 +878,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -886,7 +886,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* INFORMATION GRID */
@@ -904,9 +904,9 @@ const styles = StyleSheet.create({
     minHeight: 150,
     padding: 13,
     borderRadius: 13,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F0E2E6',
+    borderColor: theme.colors.border,
   },
 
   infoIcon: {
@@ -915,16 +915,16 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#FFFDFC',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: '#EBDCE1',
+    borderColor: theme.colors.border,
   },
 
   infoTitle: {
     marginTop: 10,
     fontSize: 12,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -932,7 +932,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 10.5,
     lineHeight: 15,
-    color: '#625A61',
+    color: theme.colors.textSecondary,
   },
 
   /* CHECKLIST */
@@ -941,15 +941,15 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   checkListTitle: {
     marginBottom: 11,
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -962,7 +962,7 @@ const styles = StyleSheet.create({
 
   checkText: {
     flex: 1,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 17,
   },
@@ -975,7 +975,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /* SUMMARY */
@@ -984,9 +984,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
@@ -999,7 +999,7 @@ const styles = StyleSheet.create({
   summaryTitle: {
     flex: 1,
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1015,12 +1015,12 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   summaryNumberText: {
     fontSize: 11,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -1031,7 +1031,7 @@ const styles = StyleSheet.create({
 
   summaryItemTitle: {
     fontSize: 12,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1039,6 +1039,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 10.5,
     lineHeight: 15,
-    color: '#625A61',
+    color: theme.colors.textSecondary,
   },
-});
+  });
+}

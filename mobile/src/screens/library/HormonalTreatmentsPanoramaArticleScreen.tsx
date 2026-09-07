@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,14 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../../theme/awaThemeTokens';
 
 const ID = 'hormonaltreatments-panorama';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
@@ -102,6 +103,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function HormonalTreatmentsPanoramaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -135,7 +138,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -167,7 +170,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               accessibilityLabel="Retour"
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={INK} />
+              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
             </Pressable>
 
             <View style={styles.actions}>
@@ -182,7 +185,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <MaterialDesignIcons
                   name={saved ? 'bookmark' : 'bookmark-outline'}
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -197,7 +200,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -226,7 +229,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -260,7 +263,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -282,7 +285,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <MaterialDesignIcons
                   name="shield-check-outline"
                   size={22}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -374,7 +377,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <MaterialDesignIcons
                   name="scale-balance"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             </View>
@@ -412,7 +415,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                     <MaterialDesignIcons
                       name={method.icon as never}
                       size={23}
-                      color={ROSE}
+                      color={theme.colors.primary}
                     />
                   </View>
 
@@ -445,7 +448,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               <MaterialDesignIcons
                 name="clock-check-outline"
                 size={23}
-                color={ROSE}
+                color={theme.colors.primary}
               />
             </View>
 
@@ -479,7 +482,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                   <MaterialDesignIcons
                     name={criterion.icon as never}
                     size={21}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -495,7 +498,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               <MaterialDesignIcons
                 name="compass-outline"
                 size={23}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.choiceDiagramTitle}>
@@ -536,7 +539,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -560,7 +563,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
                 <MaterialDesignIcons
                   name="check-decagram-outline"
                   size={24}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -579,7 +582,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               <MaterialDesignIcons
                 name="check-circle-outline"
                 size={19}
-                color="#789276"
+                color={theme.colors.success}
               />
 
               <Text style={styles.summaryText}>
@@ -592,7 +595,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               <MaterialDesignIcons
                 name="check-circle-outline"
                 size={19}
-                color="#789276"
+                color={theme.colors.success}
               />
 
               <Text style={styles.summaryText}>
@@ -606,7 +609,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               <MaterialDesignIcons
                 name="check-circle-outline"
                 size={19}
-                color="#789276"
+                color={theme.colors.success}
               />
 
               <Text style={styles.summaryText}>
@@ -619,7 +622,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               <MaterialDesignIcons
                 name="check-circle-outline"
                 size={19}
-                color="#789276"
+                color={theme.colors.success}
               />
 
               <Text style={styles.summaryText}>
@@ -633,7 +636,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -658,10 +661,11 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -670,7 +674,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -699,9 +703,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -713,7 +717,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -721,12 +725,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -735,7 +739,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 23,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -756,19 +760,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
 
@@ -776,13 +780,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -801,7 +805,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 24,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -810,7 +814,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -818,7 +822,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -826,7 +830,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     lineHeight: 21,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   /*
@@ -837,9 +841,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 16,
     borderRadius: 16,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F0E3E7',
+    borderColor: theme.colors.border,
   },
 
   diagramHeader: {
@@ -853,7 +857,7 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   diagramHeaderCopy: {
@@ -864,7 +868,7 @@ const styles = StyleSheet.create({
   diagramTitle: {
     fontSize: 14,
     lineHeight: 19,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -872,14 +876,14 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 11,
     lineHeight: 16,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   diagramLine: {
     height: 1,
     marginTop: 15,
     marginBottom: 15,
-    backgroundColor: '#E8DCE0',
+    backgroundColor: theme.colors.border,
   },
 
   diagramStep: {
@@ -893,11 +897,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: ROSE,
+    backgroundColor: theme.colors.primary,
   },
 
   stepNumberText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 12,
     fontWeight: '800',
   },
@@ -909,7 +913,7 @@ const styles = StyleSheet.create({
 
   stepTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -917,14 +921,14 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   diagramConnector: {
     width: 1,
     height: 17,
     marginLeft: 14,
-    backgroundColor: '#DCCED3',
+    backgroundColor: theme.colors.border,
   },
 
   /*
@@ -935,9 +939,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 15,
     borderRadius: 17,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   comparisonHeader: {
@@ -948,14 +952,14 @@ const styles = StyleSheet.create({
 
   comparisonTitle: {
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   comparisonSubtitle: {
     marginTop: 3,
     fontSize: 10.5,
-    color: '#817981',
+    color: theme.colors.textMuted,
   },
 
   comparisonIcon: {
@@ -964,7 +968,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   frequencyScale: {
@@ -981,13 +985,13 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: ROSE,
+    backgroundColor: theme.colors.primary,
   },
 
   scaleText: {
     marginTop: 5,
     fontSize: 8.5,
-    color: '#817981',
+    color: theme.colors.textMuted,
     fontWeight: '700',
   },
 
@@ -996,7 +1000,7 @@ const styles = StyleSheet.create({
     height: 1,
     marginHorizontal: 7,
     marginBottom: 14,
-    backgroundColor: '#DCCED3',
+    backgroundColor: theme.colors.border,
   },
 
   methodList: {
@@ -1007,7 +1011,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 13,
     borderBottomWidth: 1,
-    borderBottomColor: '#EDE6E1',
+    borderBottomColor: theme.colors.border,
   },
 
   methodCardLast: {
@@ -1021,7 +1025,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7E9ED',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   methodMain: {
@@ -1039,7 +1043,7 @@ const styles = StyleSheet.create({
   methodTitle: {
     flex: 1,
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1047,19 +1051,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 7,
     paddingVertical: 4,
     borderRadius: 8,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   frequencyBadgeText: {
     fontSize: 8.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
   methodDuration: {
     marginTop: 4,
     fontSize: 10.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '700',
   },
 
@@ -1067,7 +1071,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.5,
     lineHeight: 16,
-    color: '#686068',
+    color: theme.colors.textMuted,
   },
 
   highlightBox: {
@@ -1076,7 +1080,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   highlightIcon: {
@@ -1085,7 +1089,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   highlightCopy: {
@@ -1095,7 +1099,7 @@ const styles = StyleSheet.create({
 
   highlightTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1103,7 +1107,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /*
@@ -1122,9 +1126,9 @@ const styles = StyleSheet.create({
     minHeight: 165,
     padding: 13,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   criteriaIcon: {
@@ -1133,13 +1137,13 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   criteriaTitle: {
     marginTop: 9,
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1147,7 +1151,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 10.5,
     lineHeight: 16,
-    color: '#686068',
+    color: theme.colors.textMuted,
   },
 
   /*
@@ -1158,7 +1162,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 15,
     borderRadius: 15,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   choiceDiagramHeader: {
@@ -1170,7 +1174,7 @@ const styles = StyleSheet.create({
   choiceDiagramTitle: {
     flex: 1,
     fontSize: 13.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1178,7 +1182,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 12,
     lineHeight: 18,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
     fontWeight: '600',
   },
 
@@ -1190,14 +1194,14 @@ const styles = StyleSheet.create({
   choiceOption: {
     padding: 11,
     borderRadius: 10,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: '#EEE4E8',
+    borderColor: theme.colors.border,
   },
 
   choiceOptionTitle: {
     fontSize: 11.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -1205,7 +1209,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 10.5,
     lineHeight: 15,
-    color: '#686068',
+    color: theme.colors.textMuted,
   },
 
   /*
@@ -1218,7 +1222,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /*
@@ -1229,9 +1233,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 15,
     borderRadius: 16,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surface,
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
@@ -1245,7 +1249,7 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   summaryHeaderCopy: {
@@ -1255,20 +1259,20 @@ const styles = StyleSheet.create({
 
   summaryTitle: {
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   summarySubtitle: {
     marginTop: 2,
     fontSize: 10.5,
-    color: '#817981',
+    color: theme.colors.textMuted,
   },
 
   summaryDivider: {
     height: 1,
     marginVertical: 14,
-    backgroundColor: '#E8E0DB',
+    backgroundColor: theme.colors.border,
   },
 
   summaryRow: {
@@ -1282,7 +1286,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /*
@@ -1295,7 +1299,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
@@ -1305,7 +1309,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1313,6 +1317,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
-});
+  });
+}

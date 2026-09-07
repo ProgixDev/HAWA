@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
   Image,
@@ -10,6 +10,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -22,11 +23,12 @@ import {
   toggleBookmark,
 } from '../state/libraryStore';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const PURPLE = '#765C89';
-const BORDER = '#ECE5DF';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
 const HERO = require('../assets/images/library/featured-cycle.png');
 const COMFORT_HERO = require('../assets/images/library/featured-comfort-hero.png');
@@ -38,6 +40,22 @@ const PAIN = require('../assets/images/library/featured-pain.png');
 const TRACKER = require('../assets/images/library/featured-tracker.png');
 const SPM = require('../assets/images/library/featured-spm.png');
 const FLOW = require('../assets/images/library/featured-flow.png');
+
+// Fixed literals on purpose: this scrim sits on top of the rotating hero
+// photographs (HERO_SLIDES), not a theme-driven surface. Title/summary text
+// drawn directly over an arbitrary photo can't rely on theme.colors.text /
+// textSecondary for contrast — those tokens are calibrated against
+// theme.colors.background, not against a bright, unpredictable image. The
+// scrim guarantees a dark backdrop regardless of theme or photo brightness,
+// same reasoning as the sibling "À la une" hero card's photo-legibility
+// treatment in LibraryScreen.tsx.
+const HERO_SCRIM_COLORS = [
+  'rgba(20,14,26,0.72)',
+  'rgba(20,14,26,0.46)',
+  'rgba(20,14,26,0)',
+] as const;
+const HERO_TITLE_ON_SCRIM = '#FFFFFF';
+const HERO_SUMMARY_ON_SCRIM = 'rgba(255,255,255,0.88)';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'FeaturedArticles'>;
 
@@ -96,6 +114,9 @@ const NEW_ARTICLES = [
 ] as const;
 
 function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [heroIndex, setHeroIndex] = useState(0);
@@ -145,7 +166,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
     <View style={styles.screen}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -169,7 +190,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
               pressed && styles.pressed,
             ]}>
             <MaterialDesignIcons
-              color={INK}
+              color={theme.colors.text}
               name="chevron-left"
               size={21}
             />
@@ -194,7 +215,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
               pressed && styles.pressed,
             ]}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name={
                 saved.has(activeHero.id)
                   ? 'bookmark'
@@ -217,6 +238,15 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
             resizeMode="cover"
             imageStyle={styles.heroImage}
             style={styles.heroImageBackground}>
+            <LinearGradient
+              colors={HERO_SCRIM_COLORS}
+              locations={[0, 0.62, 1]}
+              start={{x: 0, y: 0}}
+              end={{x: 1, y: 0}}
+              pointerEvents="none"
+              style={styles.heroScrim}
+            />
+
             <View style={styles.heroCopy}>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
@@ -235,7 +265,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
               <View style={styles.heroFooter}>
                 <View style={styles.timeChip}>
                   <MaterialDesignIcons
-                    color="#5F585D"
+                    color={theme.colors.textSecondary}
                     name="clock-outline"
                     size={14}
                   />
@@ -251,7 +281,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                     Lire l’article
                   </Text>
                   <MaterialDesignIcons
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                     name="arrow-right"
                     size={15}
                   />
@@ -303,7 +333,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
 
               <View style={styles.cardMetaRow}>
                 <MaterialDesignIcons
-                  color="#8B8487"
+                  color={theme.colors.textSecondary}
                   name="clock-outline"
                   size={11}
                 />
@@ -361,7 +391,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                 pressed && styles.pressed,
               ]}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name={
                   saved.has(item.id)
                     ? 'bookmark'
@@ -376,7 +406,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
         <View style={styles.trust}>
           <View style={styles.shield}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="shield-check-outline"
               size={24}
             />
@@ -393,7 +423,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
           </View>
 
           <MaterialDesignIcons
-            color={INK}
+            color={theme.colors.text}
             name="chevron-right"
             size={19}
           />
@@ -403,343 +433,357 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: CREAM,
-  },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
 
-  content: {
-    paddingHorizontal: 17,
-  },
+    content: {
+      paddingHorizontal: 17,
+    },
 
-  header: {
-    minHeight: 58,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+    header: {
+      minHeight: 58,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
 
-  headerCopy: {
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 12,
-  },
+    headerCopy: {
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: 12,
+    },
 
-  headerButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: BORDER,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#4D4148',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-    elevation: 1,
-  },
+    headerButton: {
+      width: 36,
+      height: 36,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 2},
+      shadowOpacity: 0.05,
+      shadowRadius: 5,
+      elevation: 1,
+    },
 
-  headerButtonActive: {
-    borderColor: '#D8CCE0',
-    backgroundColor: '#F5EFF7',
-  },
+    headerButtonActive: {
+      // No dedicated "active border" token exists yet — closest available
+      // token is `primary` softened with alpha, matching the original
+      // literal's mid-tone lavender-gray read.
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  pressed: {
-    opacity: 0.72,
-  },
+    pressed: {
+      opacity: 0.72,
+    },
 
-  pageTitle: {
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 24,
-    lineHeight: 29,
-    fontWeight: '700',
-  },
+    pageTitle: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 24,
+      lineHeight: 29,
+      fontWeight: '700',
+    },
 
-  pageSubtitle: {
-    marginTop: 2,
-    color: '#817A7E',
-    fontSize: 11.5,
-    lineHeight: 15,
-  },
+    pageSubtitle: {
+      marginTop: 2,
+      color: theme.colors.textSecondary,
+      fontSize: 11.5,
+      lineHeight: 15,
+    },
 
-  hero: {
-    height: 244,
-    overflow: 'hidden',
-    borderRadius: 12,
-    backgroundColor: '#EDE5DC',
-  },
+    hero: {
+      height: 244,
+      overflow: 'hidden',
+      borderRadius: 12,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
 
-  heroPressed: {
-    opacity: 0.94,
-  },
+    heroPressed: {
+      opacity: 0.94,
+    },
 
-  heroImageBackground: {
-    flex: 1,
-    justifyContent: 'center',
-  },
+    heroImageBackground: {
+      flex: 1,
+      justifyContent: 'center',
+    },
 
-  heroImage: {
-    borderRadius: 12,
-  },
+    heroImage: {
+      borderRadius: 12,
+    },
 
-  heroCopy: {
-    width: '64%',
-    flex: 1,
-    paddingHorizontal: 18,
-    paddingTop: 16,
-    paddingBottom: 14,
-    justifyContent: 'space-between',
-  },
+    heroScrim: {
+      ...StyleSheet.absoluteFillObject,
+      borderRadius: 12,
+    },
 
-  badge: {
-    alignSelf: 'flex-start',
-    marginTop: 8,
-    borderRadius: 5,
-    backgroundColor: '#E9E0ED',
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-  },
+    heroCopy: {
+      width: '64%',
+      flex: 1,
+      paddingHorizontal: 18,
+      paddingTop: 16,
+      paddingBottom: 14,
+      justifyContent: 'space-between',
+    },
 
-  badgeText: {
-    color: PURPLE,
-    fontSize: 8.5,
-    lineHeight: 10,
-    fontWeight: '800',
-    letterSpacing: 0.2,
-  },
+    badge: {
+      alignSelf: 'flex-start',
+      marginTop: 8,
+      borderRadius: 5,
+      backgroundColor: theme.colors.primarySoft,
+      paddingHorizontal: 8,
+      paddingVertical: 5,
+    },
 
-  heroTitle: {
-    marginTop: 11,
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 25,
-    fontWeight: '700',
-  },
+    badgeText: {
+      color: theme.colors.primary,
+      fontSize: 8.5,
+      lineHeight: 10,
+      fontWeight: '800',
+      letterSpacing: 0.2,
+    },
 
-  heroSummary: {
-    marginTop: 9,
-    color: '#514A50',
-    fontSize: 11,
-    lineHeight: 16,
-  },
+    heroTitle: {
+      marginTop: 11,
+      color: HERO_TITLE_ON_SCRIM,
+      fontFamily: 'serif',
+      fontSize: 21,
+      lineHeight: 25,
+      fontWeight: '700',
+    },
 
-  heroFooter: {
-    marginTop: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    transform: [{translateY: -8}],
-  },
+    heroSummary: {
+      marginTop: 9,
+      color: HERO_SUMMARY_ON_SCRIM,
+      fontSize: 11,
+      lineHeight: 16,
+    },
 
-  timeChip: {
-    minHeight: 32,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    borderRadius: 9,
-    borderWidth: 1,
-    borderColor: 'rgba(110,100,105,0.18)',
-    backgroundColor: 'rgba(255,255,255,0.72)',
-    paddingHorizontal: 9,
-  },
+    heroFooter: {
+      marginTop: 6,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 8,
+      transform: [{translateY: -8}],
+    },
 
-  timeText: {
-    color: '#5F585D',
-    fontSize: 9.5,
-    fontWeight: '600',
-  },
+    timeChip: {
+      minHeight: 32,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+      borderRadius: 9,
+      borderWidth: 1,
+      // Translucent frosted chip drawn on top of the hero photo — sourced
+      // from theme tokens (not new literals) but kept as a soft neutral
+      // overlay, same legibility-over-photo reasoning as the hero title's
+      // text shadow below.
+      borderColor: withAlpha(theme.colors.textSecondary, 0.18),
+      backgroundColor: withAlpha(theme.colors.surface, 0.72),
+      paddingHorizontal: 9,
+    },
 
-  readButton: {
-    minHeight: 32,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5,
-    borderRadius: 9,
-    backgroundColor: PURPLE,
-    paddingHorizontal: 12,
-  },
+    timeText: {
+      color: theme.colors.textSecondary,
+      fontSize: 9.5,
+      fontWeight: '600',
+    },
 
-  readButtonText: {
-    color: '#FFFFFF',
-    fontSize: 9.8,
-    fontWeight: '700',
-  },
+    readButton: {
+      minHeight: 32,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 5,
+      borderRadius: 9,
+      backgroundColor: theme.colors.primary,
+      paddingHorizontal: 12,
+    },
 
-  dots: {
-    height: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5,
-  },
+    readButtonText: {
+      color: onPrimaryTextColor(theme),
+      fontSize: 9.8,
+      fontWeight: '700',
+    },
 
-  dotActive: {
-    width: 12,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: PURPLE,
-  },
+    dots: {
+      height: 24,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 5,
+    },
 
-  dot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#DDD5DF',
-  },
+    dotActive: {
+      width: 12,
+      height: 4,
+      borderRadius: 2,
+      backgroundColor: theme.colors.primary,
+    },
 
-  heading: {
-    marginTop: 9,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+    dot: {
+      width: 4,
+      height: 4,
+      borderRadius: 2,
+      backgroundColor: theme.colors.border,
+    },
 
-  headingText: {
-    color: INK,
-    fontSize: 15,
-    lineHeight: 19,
-    fontWeight: '700',
-  },
+    heading: {
+      marginTop: 9,
+      marginBottom: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
 
-  seeAll: {
-    color: PURPLE,
-    fontSize: 11,
-    fontWeight: '600',
-  },
+    headingText: {
+      color: theme.colors.text,
+      fontSize: 15,
+      lineHeight: 19,
+      fontWeight: '700',
+    },
 
-  cards: {
-    gap: 9,
-    paddingBottom: 4,
-  },
+    seeAll: {
+      color: theme.colors.primary,
+      fontSize: 11,
+      fontWeight: '600',
+    },
 
-  card: {
-    width: 112,
-    minHeight: 182,
-    padding: 7,
-    borderWidth: 1,
-    borderColor: BORDER,
-    borderRadius: 10,
-    backgroundColor: '#FBF7F2',
-  },
+    cards: {
+      gap: 9,
+      paddingBottom: 4,
+    },
 
-  cardPressed: {
-    opacity: 0.84,
-    transform: [{scale: 0.985}],
-  },
+    card: {
+      width: 112,
+      minHeight: 182,
+      padding: 7,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 10,
+      backgroundColor: theme.colors.surface,
+    },
 
-  cardImage: {
-    width: '100%',
-    height: 78,
-    borderRadius: 8,
-  },
+    cardPressed: {
+      opacity: 0.84,
+      transform: [{scale: 0.985}],
+    },
 
-  cardTitle: {
-    marginTop: 8,
-    color: INK,
-    fontSize: 10.7,
-    lineHeight: 14,
-    fontWeight: '700',
-  },
+    cardImage: {
+      width: '100%',
+      height: 78,
+      borderRadius: 8,
+    },
 
-  cardMetaRow: {
-    marginTop: 7,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
+    cardTitle: {
+      marginTop: 8,
+      color: theme.colors.text,
+      fontSize: 10.7,
+      lineHeight: 14,
+      fontWeight: '700',
+    },
 
-  cardMeta: {
-    color: '#8B8487',
-    fontSize: 8.6,
-  },
+    cardMetaRow: {
+      marginTop: 7,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
 
-  articleRow: {
-    minHeight: 78,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: BORDER,
-  },
+    cardMeta: {
+      color: theme.colors.textSecondary,
+      fontSize: 8.6,
+    },
 
-  articleRowPressed: {
-    opacity: 0.78,
-  },
+    articleRow: {
+      minHeight: 78,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.border,
+    },
 
-  thumb: {
-    width: 58,
-    height: 58,
-    borderRadius: 8,
-  },
+    articleRowPressed: {
+      opacity: 0.78,
+    },
 
-  articleCopy: {
-    flex: 1,
-    paddingHorizontal: 11,
-  },
+    thumb: {
+      width: 58,
+      height: 58,
+      borderRadius: 8,
+    },
 
-  articleTitle: {
-    color: INK,
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '700',
-  },
+    articleCopy: {
+      flex: 1,
+      paddingHorizontal: 11,
+    },
 
-  articleMeta: {
-    marginTop: 5,
-    color: '#8B8487',
-    fontSize: 8.8,
-    lineHeight: 12,
-  },
+    articleTitle: {
+      color: theme.colors.text,
+      fontSize: 12,
+      lineHeight: 16,
+      fontWeight: '700',
+    },
 
-  rowBookmark: {
-    width: 30,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    articleMeta: {
+      marginTop: 5,
+      color: theme.colors.textSecondary,
+      fontSize: 8.8,
+      lineHeight: 12,
+    },
 
-  trust: {
-    marginTop: 18,
-    padding: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 11,
-    backgroundColor: '#F5F0ED',
-  },
+    rowBookmark: {
+      width: 30,
+      height: 30,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
 
-  shield: {
-    width: 42,
-    height: 42,
-    borderRadius: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#EEE5F2',
-  },
+    trust: {
+      marginTop: 18,
+      padding: 13,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 11,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
 
-  trustCopy: {
-    flex: 1,
-    paddingHorizontal: 11,
-  },
+    shield: {
+      width: 42,
+      height: 42,
+      borderRadius: 14,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  trustTitle: {
-    color: INK,
-    fontSize: 12,
-    lineHeight: 15,
-    fontWeight: '700',
-  },
+    trustCopy: {
+      flex: 1,
+      paddingHorizontal: 11,
+    },
 
-  trustText: {
-    marginTop: 4,
-    color: '#716A6F',
-    fontSize: 9.5,
-    lineHeight: 14,
-  },
-});
+    trustTitle: {
+      color: theme.colors.text,
+      fontSize: 12,
+      lineHeight: 15,
+      fontWeight: '700',
+    },
+
+    trustText: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 9.5,
+      lineHeight: 14,
+    },
+  });
+}
 
 export default FeaturedArticlesScreen;

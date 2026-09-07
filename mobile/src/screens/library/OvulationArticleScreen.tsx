@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'ovulation-comprendre-ovulation';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/spm-stress.png');
 
@@ -52,6 +49,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function OvulationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -85,7 +84,7 @@ export default function OvulationArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -117,7 +116,7 @@ export default function OvulationArticleScreen({
               accessibilityLabel="Retour"
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
-              <MaterialDesignIcons name="chevron-left" size={23} color={INK} />
+              <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
             </Pressable>
 
             <View style={styles.actions}>
@@ -132,7 +131,7 @@ export default function OvulationArticleScreen({
                 <MaterialDesignIcons
                   name={saved ? 'bookmark' : 'bookmark-outline'}
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -147,7 +146,7 @@ export default function OvulationArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -174,7 +173,7 @@ export default function OvulationArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -206,7 +205,7 @@ export default function OvulationArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -224,7 +223,7 @@ export default function OvulationArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -269,7 +268,7 @@ export default function OvulationArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color="#789276"
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.checkText}>{item}</Text>
@@ -288,7 +287,7 @@ export default function OvulationArticleScreen({
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -308,7 +307,7 @@ export default function OvulationArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -328,10 +327,11 @@ export default function OvulationArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {flex: 1, backgroundColor: CREAM},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  screen: {flex: 1, backgroundColor: theme.colors.background},
   scroll: {paddingBottom: 30},
-  heroWrap: {height: 245, backgroundColor: '#EFE3D5'},
+  heroWrap: {height: 245, backgroundColor: theme.colors.surfaceSecondary},
   hero: {width: '100%', height: '100%'},
   top: {
     position: 'absolute',
@@ -349,9 +349,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
   pressed: {opacity: 0.74},
   article: {
@@ -359,22 +359,22 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
   badge: {
     alignSelf: 'flex-start',
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
-  badgeText: {fontSize: 11, color: ROSE, fontWeight: '800'},
+  badgeText: {fontSize: 11, color: theme.colors.primary, fontWeight: '800'},
   title: {
     marginTop: 12,
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
   metas: {
@@ -385,22 +385,22 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   metaItem: {flexDirection: 'row', alignItems: 'center', gap: 5},
-  metaDivider: {width: 1, height: 20, backgroundColor: '#DDD5DA'},
-  meta: {fontSize: 10, color: '#777078'},
+  metaDivider: {width: 1, height: 20, backgroundColor: theme.colors.border},
+  meta: {fontSize: 10, color: theme.colors.textMuted},
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.text,
     fontWeight: '500',
   },
   contents: {
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
-  contentsTitle: {marginBottom: 7, fontSize: 15, color: INK, fontWeight: '800'},
+  contentsTitle: {marginBottom: 7, fontSize: 15, color: theme.colors.text, fontWeight: '800'},
   contentRow: {
     minHeight: 40,
     flexDirection: 'row',
@@ -408,17 +408,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   contentLeft: {flex: 1, flexDirection: 'row', alignItems: 'center'},
-  contentNumber: {width: 24, color: ROSE, fontSize: 12, fontWeight: '800'},
-  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: INK},
+  contentNumber: {width: 24, color: theme.colors.primary, fontSize: 12, fontWeight: '800'},
+  contentText: {flex: 1, fontSize: 12.5, lineHeight: 17, color: theme.colors.text},
   h2: {
     marginTop: 24,
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
-  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: '#4A444B'},
+  body: {marginTop: 8, fontSize: 14, lineHeight: 21, color: theme.colors.text},
   visualCard: {
     marginTop: 15,
     minHeight: 98,
@@ -427,18 +427,18 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#EDE2E4',
-    backgroundColor: '#FFFDFC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
   visualImage: {width: 72, height: 72, borderRadius: 12},
   visualCopy: {flex: 1, marginLeft: 12},
-  visualTitle: {color: INK, fontSize: 13, lineHeight: 17, fontWeight: '800'},
-  visualText: {marginTop: 4, color: '#585057', fontSize: 11, lineHeight: 16},
+  visualTitle: {color: theme.colors.text, fontSize: 13, lineHeight: 17, fontWeight: '800'},
+  visualText: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 16},
   checkList: {
     marginTop: 13,
     padding: 13,
     borderRadius: 12,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
   checkRow: {
     flexDirection: 'row',
@@ -446,14 +446,14 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 9,
   },
-  checkText: {flex: 1, color: '#4A444B', fontSize: 12, lineHeight: 17},
+  checkText: {flex: 1, color: theme.colors.text, fontSize: 12, lineHeight: 17},
   alert: {
     marginTop: 14,
     padding: 14,
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
   tip: {
     marginTop: 15,
@@ -461,9 +461,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
   tipCopy: {flex: 1, marginLeft: 11},
-  tipTitle: {fontSize: 13, color: INK, fontWeight: '800'},
-  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: '#585057'},
-});
+  tipTitle: {fontSize: 13, color: theme.colors.text, fontWeight: '800'},
+  tipText: {marginTop: 3, fontSize: 11.5, lineHeight: 17, color: theme.colors.textSecondary},
+  });
+}

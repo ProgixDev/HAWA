@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -22,11 +22,10 @@ import {
   toggleBookmark,
 } from '../../state/libraryStore';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'flow-comprendre-flux';
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const PURPLE = '#765C89';
 
 const HERO = require('../../assets/images/library/rules-hero.png');
 const PROCESS = require('../../assets/images/library/rules-process.png');
@@ -109,6 +108,8 @@ type Props = NativeStackScreenProps<
 export default function UnderstandMenstrualFlowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const [saved, setSaved] = useState(false);
@@ -145,7 +146,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -189,7 +190,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
               ]}>
               <MaterialDesignIcons
                 name="chevron-left"
-                color={INK}
+                color={theme.colors.text}
                 size={23}
               />
             </Pressable>
@@ -209,7 +210,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                       ? 'bookmark'
                       : 'bookmark-outline'
                   }
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   size={20}
                 />
               </Pressable>
@@ -224,7 +225,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                 ]}>
                 <MaterialDesignIcons
                   name="share-variant-outline"
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   size={20}
                 />
               </Pressable>
@@ -260,7 +261,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                 style={styles.meta}>
                 <MaterialDesignIcons
                   name={icon as never}
-                  color="#777078"
+                  color={theme.colors.textMuted}
                   size={14}
                 />
 
@@ -303,7 +304,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
                 <MaterialDesignIcons
                   name="chevron-right"
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   size={17}
                 />
               </View>
@@ -332,7 +333,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
           <View style={styles.know}>
             <MaterialDesignIcons
               name="lightbulb-outline"
-              color={PURPLE}
+              color={theme.colors.primary}
               size={23}
             />
 
@@ -378,7 +379,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   <MaterialDesignIcons
                     name={step.icon as never}
                     size={20}
-                    color={PURPLE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -398,7 +399,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={22}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.softInfoCopy}>
@@ -432,7 +433,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={22}
-                    color={PURPLE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -453,7 +454,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                 <MaterialDesignIcons
                   name="alert-circle-outline"
                   size={22}
-                  color="#B45C67"
+                  color={theme.colors.warning}
                 />
               </View>
 
@@ -489,7 +490,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
             <View style={styles.tipsTitleRow}>
               <MaterialDesignIcons
                 name="heart-outline"
-                color={PURPLE}
+                color={theme.colors.primary}
                 size={21}
               />
 
@@ -524,7 +525,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
             <MaterialDesignIcons
               name="spa-outline"
               size={22}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.reliefCopy}>
@@ -551,466 +552,470 @@ export default function UnderstandMenstrualFlowArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: CREAM,
-  },
-
-  scroll: {
-    paddingBottom: 26,
-  },
-
-  heroWrap: {
-    height: 250,
-    backgroundColor: '#EADFD4',
-  },
-
-  hero: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-
-  top: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-
-  actions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-
-  circle: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor:
-      'rgba(255,255,255,0.90)',
-    borderWidth: 1,
-    borderColor: '#EAE3DE',
-  },
-
-  pressed: {
-    opacity: 0.75,
-  },
-
-  article: {
-    marginTop: -14,
-    paddingHorizontal: 20,
-    paddingTop: 23,
-    borderTopLeftRadius: 22,
-    borderTopRightRadius: 22,
-    backgroundColor: CREAM,
-  },
-
-  badge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 11,
-    paddingVertical: 5,
-    borderRadius: 10,
-    backgroundColor: '#E9DFF0',
-  },
-
-  badgeText: {
-    color: PURPLE,
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
-
-  title: {
-    marginTop: 13,
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 24,
-    lineHeight: 29,
-    fontWeight: '700',
-  },
-
-  metas: {
-    marginTop: 14,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 13,
-  },
-
-  meta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
-
-  metaText: {
-    color: '#777078',
-    fontSize: 10,
-  },
-
-  intro: {
-    marginTop: 17,
-    color: '#45404A',
-    fontSize: 13.5,
-    lineHeight: 21,
-  },
-
-  contents: {
-    marginTop: 19,
-    padding: 14,
-    borderRadius: 13,
-    backgroundColor: '#F7F2F4',
-  },
-
-  contentsTitle: {
-    marginBottom: 8,
-    color: INK,
-    fontSize: 14,
-    fontWeight: '800',
-  },
-
-  contentRow: {
-    minHeight: 35,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  contentNumber: {
-    width: 23,
-    color: PURPLE,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
-
-  contentText: {
-    flex: 1,
-    color: INK,
-    fontSize: 12,
-    lineHeight: 16,
-  },
-
-  sectionTitle: {
-    marginTop: 24,
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 20,
-    lineHeight: 25,
-    fontWeight: '700',
-  },
-
-  body: {
-    marginTop: 10,
-    color: '#45404A',
-    fontSize: 13.5,
-    lineHeight: 21,
-  },
-
-  processCard: {
-    marginTop: 17,
-    height: 116,
-    overflow: 'hidden',
-    borderRadius: 12,
-    backgroundColor: '#F9F3F2',
-  },
-
-  process: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-
-  know: {
-    marginTop: 17,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 13,
-    backgroundColor: '#F3EDF6',
-  },
-
-  knowCopy: {
-    flex: 1,
-    marginLeft: 12,
-  },
-
-  knowTitle: {
-    color: INK,
-    fontSize: 13,
-    fontWeight: '800',
-  },
-
-  knowText: {
-    marginTop: 4,
-    color: '#514A53',
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
-
-  timelineCard: {
-    marginTop: 15,
-    paddingHorizontal: 13,
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: '#E9E1E6',
-    backgroundColor: '#FFFDFC',
-  },
-
-  timelineRow: {
-    minHeight: 84,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 12,
-  },
-
-  timelineDivider: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: '#E8E0E2',
-  },
-
-  timelineNumber: {
-    width: 30,
-  },
-
-  timelineNumberText: {
-    color: '#A49BA6',
-    fontSize: 10.5,
-    fontWeight: '800',
-  },
-
-  timelineIcon: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F1EAF5',
-  },
-
-  timelineCopy: {
-    flex: 1,
-    marginLeft: 11,
-  },
-
-  timelineTitle: {
-    color: INK,
-    fontSize: 12.5,
-    lineHeight: 16,
-    fontWeight: '800',
-  },
-
-  timelineText: {
-    marginTop: 4,
-    color: '#585057',
-    fontSize: 11,
-    lineHeight: 16,
-  },
-
-  softInfo: {
-    marginTop: 14,
-    padding: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F5F0F8',
-  },
-
-  softInfoCopy: {
-    flex: 1,
-    marginLeft: 10,
-  },
-
-  softInfoTitle: {
-    color: INK,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
-
-  softInfoText: {
-    marginTop: 3,
-    color: '#585057',
-    fontSize: 11,
-    lineHeight: 16,
-  },
-
-  normalGrid: {
-    marginTop: 14,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-
-  normalCard: {
-    width: '48.7%',
-    minHeight: 122,
-    padding: 11,
-    borderRadius: 11,
-    borderWidth: 1,
-    borderColor: '#EAE2E6',
-    backgroundColor: '#FFFDFC',
-  },
-
-  normalIcon: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F1EAF5',
-  },
-
-  normalTitle: {
-    marginTop: 8,
-    color: INK,
-    fontSize: 12,
-    fontWeight: '800',
-  },
-
-  normalText: {
-    marginTop: 5,
-    color: '#585057',
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
-
-  warningCard: {
-    marginTop: 14,
-    padding: 13,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#F0D9DD',
-    backgroundColor: '#FFF5F6',
-  },
-
-  warningHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  warningIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 11,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FCE7EA',
-  },
-
-  warningTitle: {
-    flex: 1,
-    marginLeft: 10,
-    color: INK,
-    fontSize: 12.5,
-    lineHeight: 16,
-    fontWeight: '800',
-  },
-
-  warningList: {
-    marginTop: 10,
-    gap: 7,
-  },
-
-  warningRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-
-  warningBullet: {
-    width: 5,
-    height: 5,
-    marginTop: 6,
-    marginRight: 8,
-    borderRadius: 3,
-    backgroundColor: '#B45C67',
-  },
-
-  warningText: {
-    flex: 1,
-    color: '#585057',
-    fontSize: 10.8,
-    lineHeight: 16,
-  },
-
-  tipsCard: {
-    marginTop: 15,
-    padding: 14,
-    borderRadius: 14,
-    backgroundColor: '#FBF7F5',
-  },
-
-  tipsTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 9,
-  },
-
-  tipsTitle: {
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 19,
-    lineHeight: 23,
-    fontWeight: '700',
-  },
-
-  tipsRow: {
-    marginTop: 14,
-    flexDirection: 'row',
-  },
-
-  tip: {
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 4,
-  },
-
-  tipBorder: {
-    borderLeftWidth: 1,
-    borderLeftColor: '#E8E0E2',
-  },
-
-  tipImage: {
-    width: 56,
-    height: 56,
-    borderRadius: 28,
-  },
-
-  tipText: {
-    marginTop: 7,
-    color: INK,
-    fontSize: 10,
-    lineHeight: 14,
-    textAlign: 'center',
-  },
-
-  reliefTip: {
-    marginTop: 14,
-    padding: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F5F0F8',
-  },
-
-  reliefCopy: {
-    flex: 1,
-    marginLeft: 10,
-  },
-
-  reliefTitle: {
-    color: INK,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
-
-  reliefText: {
-    marginTop: 3,
-    color: '#585057',
-    fontSize: 11,
-    lineHeight: 16,
-  },
-
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
+
+    scroll: {
+      paddingBottom: 26,
+    },
+
+    heroWrap: {
+      height: 250,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    hero: {
+      width: '100%',
+      height: '100%',
+      resizeMode: 'cover',
+    },
+
+    top: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      paddingHorizontal: 16,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
+
+    actions: {
+      flexDirection: 'row',
+      gap: 8,
+    },
+
+    circle: {
+      width: 38,
+      height: 38,
+      borderRadius: 19,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: withAlpha(theme.colors.surface, 0.90),
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
+
+    pressed: {
+      opacity: 0.75,
+    },
+
+    article: {
+      marginTop: -14,
+      paddingHorizontal: 20,
+      paddingTop: 23,
+      borderTopLeftRadius: 22,
+      borderTopRightRadius: 22,
+      backgroundColor: theme.colors.background,
+    },
+
+    badge: {
+      alignSelf: 'flex-start',
+      paddingHorizontal: 11,
+      paddingVertical: 5,
+      borderRadius: 10,
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    badgeText: {
+      color: theme.colors.primary,
+      fontSize: 10.5,
+      fontWeight: '800',
+    },
+
+    title: {
+      marginTop: 13,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 24,
+      lineHeight: 29,
+      fontWeight: '700',
+    },
+
+    metas: {
+      marginTop: 14,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 13,
+    },
+
+    meta: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+    },
+
+    metaText: {
+      color: theme.colors.textMuted,
+      fontSize: 10,
+    },
+
+    intro: {
+      marginTop: 17,
+      color: theme.colors.text,
+      fontSize: 13.5,
+      lineHeight: 21,
+    },
+
+    contents: {
+      marginTop: 19,
+      padding: 14,
+      borderRadius: 13,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    contentsTitle: {
+      marginBottom: 8,
+      color: theme.colors.text,
+      fontSize: 14,
+      fontWeight: '800',
+    },
+
+    contentRow: {
+      minHeight: 35,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
+    contentNumber: {
+      width: 23,
+      color: theme.colors.primary,
+      fontSize: 11.5,
+      fontWeight: '800',
+    },
+
+    contentText: {
+      flex: 1,
+      color: theme.colors.text,
+      fontSize: 12,
+      lineHeight: 16,
+    },
+
+    sectionTitle: {
+      marginTop: 24,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 20,
+      lineHeight: 25,
+      fontWeight: '700',
+    },
+
+    body: {
+      marginTop: 10,
+      color: theme.colors.text,
+      fontSize: 13.5,
+      lineHeight: 21,
+    },
+
+    processCard: {
+      marginTop: 17,
+      height: 116,
+      overflow: 'hidden',
+      borderRadius: 12,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    process: {
+      width: '100%',
+      height: '100%',
+      resizeMode: 'cover',
+    },
+
+    know: {
+      marginTop: 17,
+      padding: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 13,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    },
+
+    knowCopy: {
+      flex: 1,
+      marginLeft: 12,
+    },
+
+    knowTitle: {
+      color: theme.colors.text,
+      fontSize: 13,
+      fontWeight: '800',
+    },
+
+    knowText: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 11.5,
+      lineHeight: 17,
+    },
+
+    timelineCard: {
+      marginTop: 15,
+      paddingHorizontal: 13,
+      borderRadius: 13,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
+
+    timelineRow: {
+      minHeight: 84,
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingVertical: 12,
+    },
+
+    timelineDivider: {
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.border,
+    },
+
+    timelineNumber: {
+      width: 30,
+    },
+
+    // Kept as textMuted (not the dominant accent): the numbering column was
+    // already a distinct muted gray-purple in the original design, not the
+    // PURPLE accent used for the icon circles.
+    timelineNumberText: {
+      color: theme.colors.textMuted,
+      fontSize: 10.5,
+      fontWeight: '800',
+    },
+
+    timelineIcon: {
+      width: 38,
+      height: 38,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    timelineCopy: {
+      flex: 1,
+      marginLeft: 11,
+    },
+
+    timelineTitle: {
+      color: theme.colors.text,
+      fontSize: 12.5,
+      lineHeight: 16,
+      fontWeight: '800',
+    },
+
+    timelineText: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 11,
+      lineHeight: 16,
+    },
+
+    softInfo: {
+      marginTop: 14,
+      padding: 13,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    },
+
+    softInfoCopy: {
+      flex: 1,
+      marginLeft: 10,
+    },
+
+    softInfoTitle: {
+      color: theme.colors.text,
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
+
+    softInfoText: {
+      marginTop: 3,
+      color: theme.colors.textSecondary,
+      fontSize: 11,
+      lineHeight: 16,
+    },
+
+    normalGrid: {
+      marginTop: 14,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
+
+    normalCard: {
+      width: '48.7%',
+      minHeight: 122,
+      padding: 11,
+      borderRadius: 11,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
+
+    normalIcon: {
+      width: 38,
+      height: 38,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    normalTitle: {
+      marginTop: 8,
+      color: theme.colors.text,
+      fontSize: 12,
+      fontWeight: '800',
+    },
+
+    normalText: {
+      marginTop: 5,
+      color: theme.colors.textSecondary,
+      fontSize: 10.5,
+      lineHeight: 15,
+    },
+
+    warningCard: {
+      marginTop: 14,
+      padding: 13,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.warning, 0.3),
+      backgroundColor: withAlpha(theme.colors.warning, 0.12),
+    },
+
+    warningHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+
+    warningIcon: {
+      width: 34,
+      height: 34,
+      borderRadius: 11,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: withAlpha(theme.colors.warning, 0.18),
+    },
+
+    warningTitle: {
+      flex: 1,
+      marginLeft: 10,
+      color: theme.colors.text,
+      fontSize: 12.5,
+      lineHeight: 16,
+      fontWeight: '800',
+    },
+
+    warningList: {
+      marginTop: 10,
+      gap: 7,
+    },
+
+    warningRow: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+    },
+
+    warningBullet: {
+      width: 5,
+      height: 5,
+      marginTop: 6,
+      marginRight: 8,
+      borderRadius: 3,
+      backgroundColor: theme.colors.warning,
+    },
+
+    warningText: {
+      flex: 1,
+      color: theme.colors.textSecondary,
+      fontSize: 10.8,
+      lineHeight: 16,
+    },
+
+    tipsCard: {
+      marginTop: 15,
+      padding: 14,
+      borderRadius: 14,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    tipsTitleRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 9,
+    },
+
+    tipsTitle: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 19,
+      lineHeight: 23,
+      fontWeight: '700',
+    },
+
+    tipsRow: {
+      marginTop: 14,
+      flexDirection: 'row',
+    },
+
+    tip: {
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: 4,
+    },
+
+    tipBorder: {
+      borderLeftWidth: 1,
+      borderLeftColor: theme.colors.border,
+    },
+
+    tipImage: {
+      width: 56,
+      height: 56,
+      borderRadius: 28,
+    },
+
+    tipText: {
+      marginTop: 7,
+      color: theme.colors.text,
+      fontSize: 10,
+      lineHeight: 14,
+      textAlign: 'center',
+    },
+
+    reliefTip: {
+      marginTop: 14,
+      padding: 13,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    },
+
+    reliefCopy: {
+      flex: 1,
+      marginLeft: 10,
+    },
+
+    reliefTitle: {
+      color: theme.colors.text,
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
+
+    reliefText: {
+      marginTop: 3,
+      color: theme.colors.textSecondary,
+      fontSize: 11,
+      lineHeight: 16,
+    },
+
+  });
+}

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
 Image,
 Pressable,
@@ -26,14 +26,10 @@ getBottomPadding,
 getTopPadding,
 READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'pcos-comprendre-sopk';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
-const MUTED = '#777078';
 
 const HERO = require('../../assets/images/library/featured-comfort-hero.png');
 
@@ -82,6 +78,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function PcosIntroArticleScreen({
 navigation,
 }: Props): React.JSX.Element {
+const {theme} = useAwaTheme();
+const styles = useMemo(() => createStyles(theme), [theme]);
 const insets = useSafeAreaInsets();
 const [saved, setSaved] = useState(false);
 const scrollRef = useRef<ScrollView>(null);
@@ -113,7 +111,7 @@ message: 'Comprendre le SOPK — AWA',
 
 return (
 <View style={styles.screen}>
-<StatusBar translucent backgroundColor="transparent" barStyle="dark-content" />
+<StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} />
 
   <ScrollView
     ref={scrollRef}
@@ -163,7 +161,7 @@ return (
           <MaterialDesignIcons
             name="chevron-left"
             size={23}
-            color={INK}
+            color={theme.colors.text}
           />
         </Pressable>
 
@@ -183,7 +181,7 @@ return (
                   : 'bookmark-outline'
               }
               size={20}
-              color={ROSE}
+              color={theme.colors.primary}
             />
           </Pressable>
 
@@ -198,7 +196,7 @@ return (
             <MaterialDesignIcons
               name="share-variant-outline"
               size={20}
-              color={ROSE}
+              color={theme.colors.primary}
             />
           </Pressable>
         </View>
@@ -232,7 +230,7 @@ return (
             <View style={styles.metaItem}>
               <MaterialDesignIcons
                 name={icon as never}
-                color="#8A8190"
+                color={theme.colors.textMuted}
                 size={17}
               />
 
@@ -298,7 +296,7 @@ return (
             <MaterialDesignIcons
               name="chevron-right"
               size={17}
-              color={ROSE}
+              color={theme.colors.primary}
             />
           </View>
         ))}
@@ -330,7 +328,7 @@ return (
         <MaterialDesignIcons
           name="lightbulb-outline"
           size={24}
-          color={ROSE}
+          color={theme.colors.primary}
         />
 
         <View style={styles.tipCopy}>
@@ -371,7 +369,7 @@ return (
             <MaterialDesignIcons
               name="circle-small"
               size={20}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <Text style={styles.checkText}>
@@ -385,7 +383,7 @@ return (
         <MaterialDesignIcons
           name="information-outline"
           size={22}
-          color="#85727E"
+          color={theme.colors.textMuted}
         />
 
         <Text style={styles.neutralText}>
@@ -416,7 +414,7 @@ return (
             <MaterialDesignIcons
               name="check-circle-outline"
               size={18}
-              color="#789276"
+              color={theme.colors.success}
             />
 
             <Text style={styles.checkText}>
@@ -430,7 +428,7 @@ return (
         <MaterialDesignIcons
           name="alert-outline"
           size={24}
-          color="#B76568"
+          color={theme.colors.warning}
         />
 
         <View style={styles.tipCopy}>
@@ -514,7 +512,7 @@ return (
         <MaterialDesignIcons
           name="calendar-heart"
           size={23}
-          color={ROSE}
+          color={theme.colors.primary}
         />
 
         <View style={styles.highlightCopy}>
@@ -554,7 +552,7 @@ return (
         <MaterialDesignIcons
           name="heart-outline"
           size={24}
-          color={ROSE}
+          color={theme.colors.primary}
         />
 
         <View style={styles.tipCopy}>
@@ -596,7 +594,7 @@ return (
         <MaterialDesignIcons
           name="scale-balance"
           size={22}
-          color="#85727E"
+          color={theme.colors.textMuted}
         />
 
         <Text style={styles.neutralText}>
@@ -635,7 +633,7 @@ return (
             <MaterialDesignIcons
               name="check-circle-outline"
               size={18}
-              color="#789276"
+              color={theme.colors.success}
             />
 
             <Text style={styles.checkText}>
@@ -669,7 +667,7 @@ return (
         <MaterialDesignIcons
           name="heart-pulse"
           size={20}
-          color={ROSE}
+          color={theme.colors.primary}
         />
 
         <Text style={styles.sectionMiniTitleText}>
@@ -685,7 +683,7 @@ return (
             <MaterialDesignIcons
               name="check-circle-outline"
               size={18}
-              color="#789276"
+              color={theme.colors.success}
             />
 
             <Text style={styles.checkText}>
@@ -706,7 +704,7 @@ return (
         <MaterialDesignIcons
           name="doctor"
           size={24}
-          color="#B76568"
+          color={theme.colors.warning}
         />
 
         <View style={styles.tipCopy}>
@@ -736,7 +734,7 @@ return (
             <MaterialDesignIcons
               name="close-circle-outline"
               size={18}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <Text style={styles.checkText}>
@@ -789,7 +787,7 @@ return (
               <MaterialDesignIcons
                 name={icon as never}
                 size={18}
-                color={ROSE}
+                color={theme.colors.primary}
               />
             </View>
 
@@ -810,7 +808,7 @@ return (
           <MaterialDesignIcons
             name="check-decagram-outline"
             size={24}
-            color={ROSE}
+            color={theme.colors.primary}
           />
 
           <Text style={styles.summaryTitle}>
@@ -833,7 +831,7 @@ return (
             <MaterialDesignIcons
               name="check"
               size={17}
-              color="#789276"
+              color={theme.colors.success}
             />
 
             <Text style={styles.summaryText}>
@@ -848,7 +846,7 @@ return (
         <MaterialDesignIcons
           name="shield-check-outline"
           size={23}
-          color="#85727E"
+          color={theme.colors.textMuted}
         />
 
         <View style={styles.finalNoteCopy}>
@@ -879,10 +877,11 @@ return (
 );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+return StyleSheet.create({
 screen: {
 flex: 1,
-backgroundColor: CREAM,
+backgroundColor: theme.colors.background,
 },
 
 scroll: {
@@ -891,7 +890,7 @@ paddingBottom: 30,
 
 heroWrap: {
 height: 245,
-backgroundColor: '#EFE3D5',
+backgroundColor: theme.colors.surfaceSecondary,
 },
 
 hero: {
@@ -920,9 +919,9 @@ height: 40,
 borderRadius: 20,
 alignItems: 'center',
 justifyContent: 'center',
-backgroundColor: 'rgba(255,255,255,0.90)',
+backgroundColor: withAlpha(theme.colors.surface, 0.90),
 borderWidth: 1,
-borderColor: BORDER,
+borderColor: theme.colors.border,
 },
 
 pressed: {
@@ -934,7 +933,7 @@ marginTop: -15,
 padding: 20,
 borderTopLeftRadius: 22,
 borderTopRightRadius: 22,
-backgroundColor: CREAM,
+backgroundColor: theme.colors.background,
 },
 
 badge: {
@@ -942,12 +941,12 @@ alignSelf: 'flex-start',
 paddingHorizontal: 10,
 paddingVertical: 5,
 borderRadius: 10,
-backgroundColor: '#F3DFE5',
+backgroundColor: theme.colors.primarySoft,
 },
 
 badgeText: {
 fontSize: 10,
-color: ROSE,
+color: theme.colors.primary,
 fontWeight: '800',
 letterSpacing: 0.3,
 },
@@ -957,7 +956,7 @@ marginTop: 12,
 fontFamily: 'serif',
 fontSize: 27,
 lineHeight: 32,
-color: INK,
+color: theme.colors.text,
 fontWeight: '700',
 },
 
@@ -978,19 +977,19 @@ gap: 5,
 metaDivider: {
 width: 1,
 height: 20,
-backgroundColor: '#DDD5DA',
+backgroundColor: theme.colors.border,
 },
 
 meta: {
 fontSize: 9.5,
-color: '#777078',
+color: theme.colors.textMuted,
 },
 
 intro: {
 marginTop: 17,
 fontSize: 14,
 lineHeight: 21,
-color: '#49424A',
+color: theme.colors.textSecondary,
 fontWeight: '600',
 },
 
@@ -998,20 +997,20 @@ introSecondary: {
 marginTop: 9,
 fontSize: 13.5,
 lineHeight: 20.5,
-color: MUTED,
+color: theme.colors.textMuted,
 },
 
 contents: {
 marginTop: 20,
 padding: 15,
 borderRadius: 13,
-backgroundColor: '#F8F2F4',
+backgroundColor: theme.colors.surfaceSecondary,
 },
 
 contentsTitle: {
 marginBottom: 7,
 fontSize: 15,
-color: INK,
+color: theme.colors.text,
 fontWeight: '800',
 },
 
@@ -1030,7 +1029,7 @@ alignItems: 'center',
 
 contentNumber: {
 width: 25,
-color: ROSE,
+color: theme.colors.primary,
 fontSize: 11.5,
 fontWeight: '800',
 },
@@ -1039,7 +1038,7 @@ contentText: {
 flex: 1,
 fontSize: 12.3,
 lineHeight: 17,
-color: INK,
+color: theme.colors.text,
 },
 
 h2: {
@@ -1047,7 +1046,7 @@ marginTop: 25,
 fontFamily: 'serif',
 fontSize: 21,
 lineHeight: 27,
-color: INK,
+color: theme.colors.text,
 fontWeight: '700',
 },
 
@@ -1055,7 +1054,7 @@ body: {
 marginTop: 9,
 fontSize: 14,
 lineHeight: 21.5,
-color: '#4A444B',
+color: theme.colors.textSecondary,
 },
 
 tip: {
@@ -1064,7 +1063,7 @@ padding: 14,
 flexDirection: 'row',
 alignItems: 'flex-start',
 borderRadius: 12,
-backgroundColor: '#F5EBEF',
+backgroundColor: withAlpha(theme.colors.primary, 0.08),
 },
 
 tipCopy: {
@@ -1074,7 +1073,7 @@ marginLeft: 11,
 
 tipTitle: {
 fontSize: 13,
-color: INK,
+color: theme.colors.text,
 fontWeight: '800',
 },
 
@@ -1082,14 +1081,14 @@ tipText: {
 marginTop: 4,
 fontSize: 11.5,
 lineHeight: 17,
-color: '#585057',
+color: theme.colors.textSecondary,
 },
 
 checkList: {
 marginTop: 13,
 padding: 13,
 borderRadius: 12,
-backgroundColor: '#FBF8F5',
+backgroundColor: theme.colors.surfaceSecondary,
 },
 
 checkRow: {
@@ -1101,7 +1100,7 @@ marginBottom: 10,
 
 checkText: {
 flex: 1,
-color: '#4A444B',
+color: theme.colors.textSecondary,
 fontSize: 12,
 lineHeight: 17,
 },
@@ -1112,7 +1111,7 @@ padding: 14,
 flexDirection: 'row',
 alignItems: 'flex-start',
 borderRadius: 12,
-backgroundColor: '#F8E8E8',
+backgroundColor: withAlpha(theme.colors.warning, 0.12),
 },
 
 neutralBox: {
@@ -1122,23 +1121,23 @@ flexDirection: 'row',
 alignItems: 'flex-start',
 gap: 9,
 borderRadius: 12,
-backgroundColor: '#F1EDEF',
+backgroundColor: theme.colors.surfaceSecondary,
 },
 
 neutralText: {
 flex: 1,
 fontSize: 11.5,
 lineHeight: 17,
-color: '#5C535B',
+color: theme.colors.textSecondary,
 },
 
 numberedCard: {
 marginTop: 14,
 padding: 14,
 borderRadius: 13,
-backgroundColor: '#FBF8F5',
+backgroundColor: theme.colors.surfaceSecondary,
 borderWidth: 1,
-borderColor: BORDER,
+borderColor: theme.colors.border,
 },
 
 numberedRow: {
@@ -1153,11 +1152,11 @@ height: 27,
 borderRadius: 14,
 alignItems: 'center',
 justifyContent: 'center',
-backgroundColor: '#F3DFE5',
+backgroundColor: theme.colors.primarySoft,
 },
 
 numberCircleText: {
-color: ROSE,
+color: theme.colors.primary,
 fontSize: 11,
 fontWeight: '800',
 },
@@ -1166,7 +1165,7 @@ numberedText: {
 flex: 1,
 marginLeft: 10,
 paddingTop: 3,
-color: '#4A444B',
+color: theme.colors.textSecondary,
 fontSize: 12,
 lineHeight: 17,
 },
@@ -1177,9 +1176,9 @@ padding: 14,
 flexDirection: 'row',
 alignItems: 'flex-start',
 borderRadius: 13,
-backgroundColor: '#F7EFF2',
+backgroundColor: withAlpha(theme.colors.primary, 0.08),
 borderWidth: 1,
-borderColor: '#EADBE0',
+borderColor: theme.colors.border,
 },
 
 highlightCopy: {
@@ -1188,14 +1187,14 @@ marginLeft: 10,
 },
 
 highlightTitle: {
-color: INK,
+color: theme.colors.text,
 fontSize: 13,
 fontWeight: '800',
 },
 
 highlightText: {
 marginTop: 4,
-color: '#5A5158',
+color: theme.colors.textSecondary,
 fontSize: 11.5,
 lineHeight: 17,
 },
@@ -1208,7 +1207,7 @@ gap: 8,
 },
 
 sectionMiniTitleText: {
-color: INK,
+color: theme.colors.text,
 fontSize: 13,
 fontWeight: '800',
 },
@@ -1217,9 +1216,9 @@ consultCard: {
 marginTop: 14,
 padding: 13,
 borderRadius: 13,
-backgroundColor: '#FBF7F4',
+backgroundColor: theme.colors.surfaceSecondary,
 borderWidth: 1,
-borderColor: BORDER,
+borderColor: theme.colors.border,
 },
 
 consultRow: {
@@ -1235,13 +1234,13 @@ height: 34,
 borderRadius: 10,
 alignItems: 'center',
 justifyContent: 'center',
-backgroundColor: '#F4E4E8',
+backgroundColor: theme.colors.primarySoft,
 },
 
 consultText: {
 flex: 1,
 marginLeft: 10,
-color: '#4A444B',
+color: theme.colors.textSecondary,
 fontSize: 12,
 lineHeight: 17,
 },
@@ -1250,9 +1249,9 @@ summaryCard: {
 marginTop: 15,
 padding: 15,
 borderRadius: 14,
-backgroundColor: '#F7EFF2',
+backgroundColor: theme.colors.surfaceSecondary,
 borderWidth: 1,
-borderColor: '#E8DADF',
+borderColor: theme.colors.border,
 },
 
 summaryHeader: {
@@ -1263,7 +1262,7 @@ marginBottom: 12,
 },
 
 summaryTitle: {
-color: INK,
+color: theme.colors.text,
 fontSize: 15,
 fontWeight: '800',
 },
@@ -1277,7 +1276,7 @@ marginBottom: 9,
 
 summaryText: {
 flex: 1,
-color: '#514950',
+color: theme.colors.textSecondary,
 fontSize: 12,
 lineHeight: 17,
 },
@@ -1288,7 +1287,7 @@ padding: 14,
 flexDirection: 'row',
 alignItems: 'flex-start',
 borderRadius: 13,
-backgroundColor: '#F1EDEF',
+backgroundColor: theme.colors.surfaceSecondary,
 },
 
 finalNoteCopy: {
@@ -1297,15 +1296,16 @@ marginLeft: 10,
 },
 
 finalNoteTitle: {
-color: INK,
+color: theme.colors.text,
 fontSize: 13,
 fontWeight: '800',
 },
 
 finalNoteText: {
 marginTop: 4,
-color: '#5C535B',
+color: theme.colors.textSecondary,
 fontSize: 11,
 lineHeight: 16.5,
 },
 });
+}
