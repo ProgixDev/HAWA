@@ -37,16 +37,8 @@ import {
   updateGeneralHealth,
   type GeneralHealthProfile,
 } from '../state/generalHealthStore';
-
-const PURPLE = '#6D4AE8';
-const DARK = '#2F2258';
-const MUTED = '#746D92';
-const LIGHT_MUTED = '#A099B2';
-
-const SUCCESS = '#3E9B63';
-
-const CARD_BORDER = '#ECE5F4';
-const LIGHT_PURPLE = '#F2EBFF';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -143,6 +135,8 @@ function HealthRow({
   onPress,
   last,
   valueNode,
+  theme,
+  styles,
 }: {
   icon: IconName;
   label: string;
@@ -150,6 +144,8 @@ function HealthRow({
   onPress?: () => void;
   last?: boolean;
   valueNode?: React.ReactNode;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -174,7 +170,7 @@ function HealthRow({
           styles.rowIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={20}
         />
@@ -203,7 +199,7 @@ function HealthRow({
 
       {onPress ? (
         <MaterialDesignIcons
-          color="#ACA2BC"
+          color={theme.colors.textMuted}
           name="chevron-right"
           size={24}
         />
@@ -223,6 +219,8 @@ function MedicalRow({
   helper,
   onPress,
   last,
+  theme,
+  styles,
 }: {
   icon: IconName;
   title: string;
@@ -230,6 +228,8 @@ function MedicalRow({
   helper: string;
   onPress: () => void;
   last?: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -248,7 +248,7 @@ function MedicalRow({
           styles.medicalIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={21}
         />
@@ -285,7 +285,7 @@ function MedicalRow({
           styles.medicalChevron
         }>
         <MaterialDesignIcons
-          color="#ACA2BC"
+          color={theme.colors.textMuted}
           name="chevron-right"
           size={23}
         />
@@ -302,10 +302,14 @@ function SectionHeader({
   icon,
   title,
   subtitle,
+  theme,
+  styles,
 }: {
   icon: IconName;
   title: string;
   subtitle: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View
@@ -317,7 +321,7 @@ function SectionHeader({
           styles.sectionIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={18}
         />
@@ -353,10 +357,14 @@ function BloodChoice({
   label,
   selected,
   onPress,
+  theme,
+  styles,
 }: {
   label: string;
   selected: boolean;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -384,7 +392,7 @@ function BloodChoice({
 
       {selected ? (
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name="check"
           size={17}
         />
@@ -401,10 +409,14 @@ function MedicalChoice({
   label,
   selected,
   onPress,
+  theme,
+  styles,
 }: {
   label: string;
   selected: boolean;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -443,7 +455,7 @@ function MedicalChoice({
         ]}>
         {selected ? (
           <MaterialDesignIcons
-            color="#FFFFFF"
+            color={onPrimaryTextColor(theme)}
             name="check"
             size={13}
           />
@@ -461,10 +473,14 @@ function GoalOption({
   label,
   selected,
   onPress,
+  theme,
+  styles,
 }: {
   label: string;
   selected: boolean;
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -491,7 +507,7 @@ function GoalOption({
 
       {selected ? (
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name="check-circle"
           size={21}
         />
@@ -512,8 +528,12 @@ function GoalOption({
 
 function SaveButton({
   onPress,
+  theme,
+  styles,
 }: {
   onPress: () => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <Pressable
@@ -525,7 +545,7 @@ function SaveButton({
           styles.pressed,
       ]}>
       <MaterialDesignIcons
-        color="#FFFFFF"
+        color={onPrimaryTextColor(theme)}
         name="check"
         size={20}
       />
@@ -547,6 +567,9 @@ function SaveButton({
 export default function GeneralHealthScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets =
     useSafeAreaInsets();
 
@@ -866,12 +889,7 @@ export default function GeneralHealthScreen({
 
   return (
     <LinearGradient
-      colors={[
-        '#FCFAFF',
-        '#F8F3FD',
-        '#F2EBFA',
-        '#EEE7F7',
-      ]}
+      colors={[...theme.gradients.pageBackground]}
       locations={[
         0,
         0.34,
@@ -918,7 +936,7 @@ export default function GeneralHealthScreen({
         <StatusBar
           translucent
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
         />
 
         <ScrollView
@@ -966,7 +984,7 @@ export default function GeneralHealthScreen({
                   styles.pressed,
               ]}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="chevron-left"
                 size={27}
               />
@@ -996,7 +1014,7 @@ export default function GeneralHealthScreen({
                 styles.headerIcon
               }>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="heart-pulse"
                 size={24}
               />
@@ -1017,7 +1035,7 @@ export default function GeneralHealthScreen({
                 styles.privacyIcon
               }>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="shield-lock-outline"
                 size={28}
               />
@@ -1047,8 +1065,10 @@ export default function GeneralHealthScreen({
 
           <SectionHeader
             icon="human"
-            title="Informations physiques"
+            styles={styles}
             subtitle="Tes mesures principales"
+            theme={theme}
+            title="Informations physiques"
           />
 
           <Animated.View
@@ -1066,6 +1086,8 @@ export default function GeneralHealthScreen({
                   'height',
                 )
               }
+              styles={styles}
+              theme={theme}
               value={`${profile.heightCm} cm`}
             />
 
@@ -1077,6 +1099,8 @@ export default function GeneralHealthScreen({
                   'weight',
                 )
               }
+              styles={styles}
+              theme={theme}
               value={`${profile.weightKg} kg`}
             />
 
@@ -1090,6 +1114,8 @@ export default function GeneralHealthScreen({
                     : 'height',
                 )
               }
+              styles={styles}
+              theme={theme}
               value={
                 bmi
                   ? bmi.toFixed(
@@ -1136,6 +1162,8 @@ export default function GeneralHealthScreen({
                   'blood',
                 )
               }
+              styles={styles}
+              theme={theme}
               value={
                 profile.bloodType
               }
@@ -1144,10 +1172,12 @@ export default function GeneralHealthScreen({
             <HealthRow
               icon="calendar-month-outline"
               label="Dernière mise à jour"
+              last
+              styles={styles}
+              theme={theme}
               value={formatUpdateDate(
                 profile.updatedAt,
               )}
-              last
             />
           </Animated.View>
 
@@ -1155,8 +1185,10 @@ export default function GeneralHealthScreen({
 
           <SectionHeader
             icon="medical-bag"
-            title="Informations médicales"
+            styles={styles}
             subtitle="Les informations importantes à conserver"
+            theme={theme}
+            title="Informations médicales"
           />
 
           <Animated.View
@@ -1167,64 +1199,72 @@ export default function GeneralHealthScreen({
               styles.medicalCard
             }>
             <MedicalRow
-              icon="heart-plus-outline"
-              title="Maladies chroniques"
-              value={listValue(
-                profile.chronicConditions,
-                'Aucune maladie chronique renseignée',
-              )}
               helper="Appuie pour ajouter ou modifier"
+              icon="heart-plus-outline"
               onPress={() =>
                 open(
                   'conditions',
                 )
               }
+              styles={styles}
+              theme={theme}
+              title="Maladies chroniques"
+              value={listValue(
+                profile.chronicConditions,
+                'Aucune maladie chronique renseignée',
+              )}
             />
 
             <MedicalRow
-              icon="pill"
-              title="Traitements en cours"
-              value={listValue(
-                profile.treatments,
-                'Aucun traitement renseigné',
-              )}
               helper="Nom, dosage ou fréquence"
+              icon="pill"
               onPress={() =>
                 open(
                   'treatments',
                 )
               }
+              styles={styles}
+              theme={theme}
+              title="Traitements en cours"
+              value={listValue(
+                profile.treatments,
+                'Aucun traitement renseigné',
+              )}
             />
 
             <MedicalRow
-              icon="allergy"
-              title="Allergies"
-              value={listValue(
-                profile.allergies,
-                'Aucune allergie renseignée',
-              )}
               helper="Médicaments, aliments ou autres"
+              icon="allergy"
               onPress={() =>
                 open(
                   'allergies',
                 )
               }
+              styles={styles}
+              theme={theme}
+              title="Allergies"
+              value={listValue(
+                profile.allergies,
+                'Aucune allergie renseignée',
+              )}
             />
 
             <MedicalRow
-              icon="clipboard-text-outline"
-              title="Notes médicales"
-              value={
-                profile.medicalNotes ||
-                'Aucune note médicale ajoutée'
-              }
               helper="Tes informations personnelles complémentaires"
+              icon="clipboard-text-outline"
+              last
               onPress={() =>
                 open(
                   'notes',
                 )
               }
-              last
+              styles={styles}
+              theme={theme}
+              title="Notes médicales"
+              value={
+                profile.medicalNotes ||
+                'Aucune note médicale ajoutée'
+              }
             />
           </Animated.View>
 
@@ -1232,8 +1272,10 @@ export default function GeneralHealthScreen({
 
           <SectionHeader
             icon="target"
-            title="Objectifs de santé"
+            styles={styles}
             subtitle="Ton objectif personnel actuel"
+            theme={theme}
+            title="Objectifs de santé"
           />
 
           <Pressable
@@ -1255,7 +1297,7 @@ export default function GeneralHealthScreen({
                 styles.goalIcon
               }>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="target"
                 size={22}
               />
@@ -1319,7 +1361,7 @@ export default function GeneralHealthScreen({
             </View>
 
             <MaterialDesignIcons
-              color="#ACA2BC"
+              color={theme.colors.textMuted}
               name="chevron-right"
               size={23}
             />
@@ -1330,7 +1372,7 @@ export default function GeneralHealthScreen({
               styles.infoCard
             }>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="information-outline"
               size={20}
             />
@@ -1422,13 +1464,15 @@ export default function GeneralHealthScreen({
                           ? 'human-male-height'
                           : 'scale-bathroom'
                       }
+                      styles={styles}
+                      subtitle="Mets à jour cette information."
+                      theme={theme}
                       title={
                         sheet ===
                         'height'
                           ? 'Modifier ma taille'
                           : 'Modifier mon poids'
                       }
-                      subtitle="Mets à jour cette information."
                     />
 
                     <Text
@@ -1491,6 +1535,8 @@ export default function GeneralHealthScreen({
                       onPress={
                         saveMeasure
                       }
+                      styles={styles}
+                      theme={theme}
                     />
                   </>
                 ) : null}
@@ -1502,8 +1548,10 @@ export default function GeneralHealthScreen({
                   <>
                     <SheetHeader
                       icon="water-outline"
-                      title="Groupe sanguin"
+                      styles={styles}
                       subtitle="Sélectionne ton groupe sanguin si tu le connais."
+                      theme={theme}
+                      title="Groupe sanguin"
                     />
 
                     <View
@@ -1519,10 +1567,6 @@ export default function GeneralHealthScreen({
                             label={
                               item
                             }
-                            selected={
-                              profile.bloodType ===
-                              item
-                            }
                             onPress={() =>
                               persist(
                                 {
@@ -1531,6 +1575,12 @@ export default function GeneralHealthScreen({
                                 },
                               )
                             }
+                            selected={
+                              profile.bloodType ===
+                              item
+                            }
+                            styles={styles}
+                            theme={theme}
                           />
                         ),
                       )}
@@ -1552,17 +1602,19 @@ export default function GeneralHealthScreen({
                           ? 'heart-plus-outline'
                           : 'allergy'
                       }
-                      title={
-                        sheet ===
-                        'conditions'
-                          ? 'Maladies chroniques'
-                          : 'Allergies'
-                      }
+                      styles={styles}
                       subtitle={
                         sheet ===
                         'conditions'
                           ? 'Sélectionne les maladies déjà connues. Tu peux choisir plusieurs éléments.'
                           : 'Sélectionne les allergies déjà connues. Tu peux choisir plusieurs éléments.'
+                      }
+                      theme={theme}
+                      title={
+                        sheet ===
+                        'conditions'
+                          ? 'Maladies chroniques'
+                          : 'Allergies'
                       }
                     />
 
@@ -1583,14 +1635,16 @@ export default function GeneralHealthScreen({
                             label={
                               item
                             }
-                            selected={selected.includes(
-                              item,
-                            )}
                             onPress={() =>
                               toggle(
                                 item,
                               )
                             }
+                            selected={selected.includes(
+                              item,
+                            )}
+                            styles={styles}
+                            theme={theme}
                           />
                         ),
                       )}
@@ -1608,7 +1662,7 @@ export default function GeneralHealthScreen({
                         setCustom
                       }
                       placeholder="Ajoute une autre information (optionnel)"
-                      placeholderTextColor="#A39AB5"
+                      placeholderTextColor={theme.colors.textMuted}
                       style={
                         styles.textInput
                       }
@@ -1626,6 +1680,8 @@ export default function GeneralHealthScreen({
                             : 'allergies',
                         )
                       }
+                      styles={styles}
+                      theme={theme}
                     />
                   </>
                 ) : null}
@@ -1637,8 +1693,10 @@ export default function GeneralHealthScreen({
                   <>
                     <SheetHeader
                       icon="pill"
-                      title="Traitements en cours"
+                      styles={styles}
                       subtitle="Ajoute les traitements que tu prends actuellement."
+                      theme={theme}
+                      title="Traitements en cours"
                     />
 
                     <Text
@@ -1662,7 +1720,7 @@ export default function GeneralHealthScreen({
                           );
                         }}
                         placeholder="Ex. Fer 20 mg, chaque matin"
-                        placeholderTextColor="#A39AB5"
+                        placeholderTextColor={theme.colors.textMuted}
                         style={[
                           styles.textInput,
                           styles.flexInput,
@@ -1682,7 +1740,7 @@ export default function GeneralHealthScreen({
                           styles.addButton
                         }>
                         <MaterialDesignIcons
-                          color="#FFFFFF"
+                          color={onPrimaryTextColor(theme)}
                           name="plus"
                           size={22}
                         />
@@ -1738,7 +1796,7 @@ export default function GeneralHealthScreen({
                                 </Text>
 
                                 <MaterialDesignIcons
-                                  color={PURPLE}
+                                  color={theme.colors.primary}
                                   name="close"
                                   size={16}
                                 />
@@ -1753,7 +1811,7 @@ export default function GeneralHealthScreen({
                           styles.emptyState
                         }>
                         <MaterialDesignIcons
-                          color="#A88DDA"
+                          color={theme.colors.primary}
                           name="pill"
                           size={23}
                         />
@@ -1776,6 +1834,8 @@ export default function GeneralHealthScreen({
                           },
                         )
                       }
+                      styles={styles}
+                      theme={theme}
                     />
                   </>
                 ) : null}
@@ -1787,8 +1847,10 @@ export default function GeneralHealthScreen({
                   <>
                     <SheetHeader
                       icon="clipboard-text-outline"
-                      title="Notes médicales"
+                      styles={styles}
                       subtitle="Ajoute uniquement les informations que tu souhaites conserver."
+                      theme={theme}
+                      title="Notes médicales"
                     />
 
                     <TextInput
@@ -1801,7 +1863,7 @@ export default function GeneralHealthScreen({
                         setDraft
                       }
                       placeholder="Ajoute ici tes informations importantes..."
-                      placeholderTextColor="#A39AB5"
+                      placeholderTextColor={theme.colors.textMuted}
                       style={[
                         styles.textInput,
                         styles.notesInput,
@@ -1831,6 +1893,8 @@ export default function GeneralHealthScreen({
                           },
                         )
                       }
+                      styles={styles}
+                      theme={theme}
                     />
                   </>
                 ) : null}
@@ -1842,8 +1906,10 @@ export default function GeneralHealthScreen({
                   <>
                     <SheetHeader
                       icon="target"
-                      title="Mon objectif de santé"
+                      styles={styles}
                       subtitle="Choisis l’objectif qui correspond le mieux à ton suivi actuel."
+                      theme={theme}
+                      title="Mon objectif de santé"
                     />
 
                     {GOALS.map(
@@ -1855,15 +1921,17 @@ export default function GeneralHealthScreen({
                           label={
                             item
                           }
-                          selected={
-                            draft ===
-                            item
-                          }
                           onPress={() =>
                             setDraft(
                               item,
                             )
                           }
+                          selected={
+                            draft ===
+                            item
+                          }
+                          styles={styles}
+                          theme={theme}
                         />
                       ),
                     )}
@@ -1936,6 +2004,8 @@ export default function GeneralHealthScreen({
                           },
                         )
                       }
+                      styles={styles}
+                      theme={theme}
                     />
                   </>
                 ) : null}
@@ -1976,7 +2046,7 @@ export default function GeneralHealthScreen({
               },
             ]}>
             <MaterialDesignIcons
-              color="#FFFFFF"
+              color={onPrimaryTextColor(theme)}
               name="check"
               size={16}
             />
@@ -2002,10 +2072,14 @@ function SheetHeader({
   icon,
   title,
   subtitle,
+  theme,
+  styles,
 }: {
   icon: IconName;
   title: string;
   subtitle: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   return (
     <View
@@ -2017,7 +2091,7 @@ function SheetHeader({
           styles.sheetIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={24}
         />
@@ -2044,8 +2118,8 @@ function SheetHeader({
  * STYLES
  * ============================================================ */
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     background: {
       flex: 1,
     },
@@ -2069,7 +2143,7 @@ const styles =
       height: 300,
       borderRadius: 150,
       backgroundColor:
-        'rgba(109,74,232,0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     glowBottom: {
@@ -2080,7 +2154,7 @@ const styles =
       height: 280,
       borderRadius: 140,
       backgroundColor:
-        'rgba(192,161,237,0.08)',
+        withAlpha(theme.colors.primary, 0.08),
     },
 
     content: {
@@ -2111,10 +2185,10 @@ const styles =
       justifyContent: 'center',
       borderWidth: 1,
       borderColor:
-        CARD_BORDER,
+        theme.colors.border,
       borderRadius: 22,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
       elevation: 2,
     },
 
@@ -2125,7 +2199,7 @@ const styles =
     },
 
     pageTitle: {
-      color: DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 24,
       fontWeight: '800',
@@ -2133,7 +2207,7 @@ const styles =
 
     pageSubtitle: {
       marginTop: 3,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 11,
       lineHeight: 15,
     },
@@ -2145,7 +2219,7 @@ const styles =
       justifyContent: 'center',
       borderRadius: 15,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     /* PRIVACY */
@@ -2157,10 +2231,10 @@ const styles =
       padding: 15,
       borderWidth: 1,
       borderColor:
-        CARD_BORDER,
+        theme.colors.border,
       borderRadius: 24,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
       elevation: 2,
     },
 
@@ -2172,7 +2246,7 @@ const styles =
       flexShrink: 0,
       borderRadius: 18,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     privacyCopy: {
@@ -2182,14 +2256,14 @@ const styles =
     },
 
     privacyTitle: {
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 13.5,
       fontWeight: '800',
     },
 
     privacyText: {
       marginTop: 5,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 10.7,
       lineHeight: 16,
     },
@@ -2211,7 +2285,7 @@ const styles =
       justifyContent: 'center',
       borderRadius: 12,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     sectionCopy: {
@@ -2220,7 +2294,7 @@ const styles =
     },
 
     sectionTitle: {
-      color: DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 18,
       fontWeight: '800',
@@ -2228,7 +2302,7 @@ const styles =
 
     sectionSubtitle: {
       marginTop: 2,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 9.8,
     },
 
@@ -2239,10 +2313,10 @@ const styles =
       paddingHorizontal: 13,
       borderWidth: 1,
       borderColor:
-        CARD_BORDER,
+        theme.colors.border,
       borderRadius: 25,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
       elevation: 2,
     },
 
@@ -2257,7 +2331,7 @@ const styles =
       borderBottomWidth:
         StyleSheet.hairlineWidth,
       borderBottomColor:
-        '#EEE8F3',
+        theme.colors.border,
     },
 
     rowIcon: {
@@ -2268,7 +2342,7 @@ const styles =
       flexShrink: 0,
       borderRadius: 14,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     rowCopy: {
@@ -2278,24 +2352,24 @@ const styles =
     },
 
     rowLabel: {
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 10.7,
       fontWeight: '600',
     },
 
     rowValue: {
       marginTop: 3,
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 13,
       fontWeight: '800',
     },
 
     success: {
-      color: SUCCESS,
+      color: theme.colors.success,
     },
 
     bmiClass: {
-      color: DARK,
+      color: theme.colors.accent,
     },
 
     /* MEDICAL */
@@ -2304,10 +2378,10 @@ const styles =
       overflow: 'hidden',
       borderWidth: 1,
       borderColor:
-        CARD_BORDER,
+        theme.colors.border,
       borderRadius: 25,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
       elevation: 2,
     },
 
@@ -2323,7 +2397,7 @@ const styles =
       borderBottomWidth:
         StyleSheet.hairlineWidth,
       borderBottomColor:
-        '#EEE8F3',
+        theme.colors.border,
     },
 
     medicalIcon: {
@@ -2334,7 +2408,7 @@ const styles =
       flexShrink: 0,
       borderRadius: 15,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     medicalCopy: {
@@ -2345,14 +2419,14 @@ const styles =
     },
 
     medicalTitle: {
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 13,
       fontWeight: '800',
     },
 
     medicalValue: {
       marginTop: 5,
-      color: '#50466B',
+      color: theme.colors.text,
       fontSize: 11.5,
       lineHeight: 17,
       fontWeight: '600',
@@ -2360,7 +2434,7 @@ const styles =
 
     medicalHelper: {
       marginTop: 5,
-      color: LIGHT_MUTED,
+      color: theme.colors.textMuted,
       fontSize: 9.5,
       lineHeight: 13,
     },
@@ -2379,10 +2453,10 @@ const styles =
       padding: 14,
       borderWidth: 1,
       borderColor:
-        CARD_BORDER,
+        theme.colors.border,
       borderRadius: 24,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     goalIcon: {
@@ -2393,7 +2467,7 @@ const styles =
       flexShrink: 0,
       borderRadius: 14,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     goalCopy: {
@@ -2404,7 +2478,7 @@ const styles =
 
     goalValue: {
       marginTop: 4,
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 12.5,
       lineHeight: 17,
       fontWeight: '800',
@@ -2418,7 +2492,7 @@ const styles =
     },
 
     progressPercent: {
-      color: PURPLE,
+      color: theme.colors.primary,
       fontSize: 9.5,
       fontWeight: '800',
     },
@@ -2429,18 +2503,18 @@ const styles =
       overflow: 'hidden',
       borderRadius: 999,
       backgroundColor:
-        '#E7DFF1',
+        theme.colors.surfaceSecondary,
     },
 
     progressFill: {
       height: '100%',
       borderRadius: 999,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
     },
 
     progressStatus: {
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 9,
     },
 
@@ -2451,12 +2525,12 @@ const styles =
       padding: 13,
       borderRadius: 18,
       backgroundColor:
-        '#F2EAFF',
+        theme.colors.primarySoft,
     },
 
     infoText: {
       flex: 1,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
       lineHeight: 15,
     },
@@ -2472,7 +2546,7 @@ const styles =
     backdrop: {
       ...StyleSheet.absoluteFillObject,
       backgroundColor:
-        'rgba(35,21,72,0.42)',
+        withAlpha(theme.colors.accent, 0.42),
     },
 
     sheet: {
@@ -2481,7 +2555,7 @@ const styles =
       borderTopLeftRadius: 32,
       borderTopRightRadius: 32,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
       paddingHorizontal: 20,
       paddingTop: 10,
     },
@@ -2492,7 +2566,7 @@ const styles =
       height: 5,
       borderRadius: 999,
       backgroundColor:
-        '#D9CEE8',
+        theme.colors.border,
     },
 
     sheetContent: {
@@ -2514,11 +2588,11 @@ const styles =
       marginBottom: 9,
       borderRadius: 16,
       backgroundColor:
-        LIGHT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     sheetTitle: {
-      color: DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 23,
       lineHeight: 29,
@@ -2529,7 +2603,7 @@ const styles =
     sheetSubtitle: {
       maxWidth: 340,
       marginTop: 7,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 11.3,
       lineHeight: 16,
       textAlign: 'center',
@@ -2556,20 +2630,20 @@ const styles =
       paddingHorizontal: 5,
       borderWidth: 1,
       borderColor:
-        '#DED5EA',
+        theme.colors.border,
       borderRadius: 16,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     bloodChoiceSelected: {
-      borderColor: PURPLE,
+      borderColor: theme.colors.primary,
       backgroundColor:
-        '#F2EAFF',
+        theme.colors.primarySoft,
     },
 
     bloodChoiceText: {
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 13,
       fontWeight: '700',
       textAlign: 'center',
@@ -2595,16 +2669,16 @@ const styles =
       paddingVertical: 10,
       borderWidth: 1,
       borderColor:
-        '#DED5EA',
+        theme.colors.border,
       borderRadius: 17,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     medicalChoiceSelected: {
-      borderColor: PURPLE,
+      borderColor: theme.colors.primary,
       backgroundColor:
-        '#F2EAFF',
+        theme.colors.primarySoft,
     },
 
     medicalChoiceTextBox: {
@@ -2614,14 +2688,14 @@ const styles =
     },
 
     medicalChoiceText: {
-      color: '#655C78',
+      color: theme.colors.text,
       fontSize: 11.5,
       lineHeight: 15,
       fontWeight: '700',
     },
 
     choiceTextSelected: {
-      color: PURPLE,
+      color: theme.colors.primary,
       fontWeight: '800',
     },
 
@@ -2634,16 +2708,16 @@ const styles =
       marginLeft: 7,
       borderWidth: 1.5,
       borderColor:
-        '#CFC3DF',
+        theme.colors.border,
       borderRadius: 10,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     choiceIndicatorSelected: {
-      borderColor: PURPLE,
+      borderColor: theme.colors.primary,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
     },
 
     /* INPUTS */
@@ -2651,7 +2725,7 @@ const styles =
     inputLabel: {
       marginTop: 18,
       marginBottom: 8,
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 12.5,
       fontWeight: '800',
     },
@@ -2664,23 +2738,23 @@ const styles =
       paddingHorizontal: 16,
       borderWidth: 1,
       borderColor:
-        '#DDD2ED',
+        theme.colors.border,
       borderRadius: 20,
       backgroundColor:
-        '#FCFAFF',
+        theme.colors.surfaceSecondary,
     },
 
     largeInput: {
       flex: 1,
       paddingVertical: 13,
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 30,
       fontWeight: '800',
       textAlign: 'center',
     },
 
     unit: {
-      color: PURPLE,
+      color: theme.colors.primary,
       fontSize: 15,
       fontWeight: '800',
     },
@@ -2691,11 +2765,11 @@ const styles =
       paddingVertical: 12,
       borderWidth: 1,
       borderColor:
-        '#DDD2ED',
+        theme.colors.border,
       borderRadius: 17,
       backgroundColor:
-        '#FCFAFF',
-      color: DARK,
+        theme.colors.surfaceSecondary,
+      color: theme.colors.accent,
       fontSize: 12.5,
     },
 
@@ -2706,14 +2780,14 @@ const styles =
 
     characterCounter: {
       marginTop: 6,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 10,
       textAlign: 'right',
     },
 
     errorText: {
       marginTop: 7,
-      color: '#B4485A',
+      color: theme.colors.danger,
       fontSize: 11,
     },
 
@@ -2736,12 +2810,12 @@ const styles =
       justifyContent: 'center',
       borderRadius: 16,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
     },
 
     selectedTitle: {
       marginTop: 17,
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 12,
       fontWeight: '800',
     },
@@ -2762,12 +2836,12 @@ const styles =
       paddingVertical: 8,
       borderRadius: 14,
       backgroundColor:
-        '#F1E9FF',
+        theme.colors.primarySoft,
     },
 
     selectedTagText: {
       flexShrink: 1,
-      color: PURPLE,
+      color: theme.colors.primary,
       fontSize: 11,
       lineHeight: 15,
       fontWeight: '700',
@@ -2781,12 +2855,12 @@ const styles =
       padding: 13,
       borderRadius: 16,
       backgroundColor:
-        '#F8F5FC',
+        theme.colors.surfaceSecondary,
     },
 
     emptyStateText: {
       flex: 1,
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
     },
 
@@ -2801,21 +2875,21 @@ const styles =
       paddingVertical: 12,
       borderWidth: 1,
       borderColor:
-        '#E2D8ED',
+        theme.colors.border,
       borderRadius: 17,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     goalOptionSelected: {
-      borderColor: PURPLE,
+      borderColor: theme.colors.primary,
       backgroundColor:
-        '#F2EAFF',
+        theme.colors.primarySoft,
     },
 
     goalOptionText: {
       flex: 1,
-      color: DARK,
+      color: theme.colors.accent,
       fontSize: 12,
       lineHeight: 17,
       fontWeight: '600',
@@ -2826,7 +2900,7 @@ const styles =
       height: 20,
       borderWidth: 1.5,
       borderColor:
-        '#C4B6D8',
+        theme.colors.border,
       borderRadius: 10,
     },
 
@@ -2844,20 +2918,20 @@ const styles =
       justifyContent: 'center',
       borderWidth: 1,
       borderColor:
-        '#DED5EA',
+        theme.colors.border,
       borderRadius: 14,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     progressChoiceSelected: {
-      borderColor: PURPLE,
+      borderColor: theme.colors.primary,
       backgroundColor:
-        '#F2EAFF',
+        theme.colors.primarySoft,
     },
 
     progressChoiceText: {
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 11,
       fontWeight: '700',
     },
@@ -2874,12 +2948,12 @@ const styles =
       paddingHorizontal: 18,
       borderRadius: 18,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
       elevation: 3,
     },
 
     saveButtonText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 15.5,
       fontWeight: '800',
     },
@@ -2891,7 +2965,7 @@ const styles =
     },
 
     cancelText: {
-      color: MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 13,
       fontWeight: '600',
     },
@@ -2909,13 +2983,14 @@ const styles =
       padding: 13,
       borderRadius: 18,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
       elevation: 8,
     },
 
     toastText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 12.5,
       fontWeight: '800',
     },
   });
+}
