@@ -912,7 +912,6 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
               }
               nextWindow={spiritual.nextWindow}
               objective="pregnancy"
-              onManage={() => navigation.navigate('SpiritualPreferences')}
               prayerError={spiritual.error}
               prayerLoading={spiritual.loading}
               timezone={spiritual.schedule?.timezone}
