@@ -25,7 +25,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { useAwaTheme } from '../theme/AwaThemeProvider';
-import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
+import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
 import {
@@ -65,6 +65,21 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 ============================================================ */
 
 const CYCLE_RETURNED_BACKGROUND = require('../assets/images/postpartum/postpartum-cycle-returned-card.png');
+
+// The "cycle repris" hero illustration is a fixed pale lavender/pink
+// graphic (see the asset itself) — it never changes with the active AWA
+// theme, so text drawn directly over it (no chip/background of its own)
+// must not use theme.colors.text/textSecondary/primary, which are light
+// colors in Dark mode meant for dark surfaces and disappear against this
+// always-light image. The readable foreground is derived from the actual
+// visual surface via the existing pickReadableTextColor helper, exactly
+// like a fixed semantic swatch elsewhere in the app — never from
+// theme.isDark. Only STATUT ACTUEL / the title / the body sentence need
+// this (see the hero JSX): the status chip and calendar icon already sit on
+// their own opaque theme.colors.primarySoft chip, which is independently
+// theme-correct in every mode.
+const CYCLE_RETURNED_ILLUSTRATION_BASE = '#EDE6F5';
+const HERO_ILLUSTRATION_TEXT = pickReadableTextColor(CYCLE_RETURNED_ILLUSTRATION_BASE);
 
 const FEEDING_LABELS: Record<PostpartumFeedingType, string> = {
   exclusive_breastfeeding: 'Allaitement maternel exclusif',
@@ -547,13 +562,15 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             </View>
 
             <Animated.View style={statusStyle}>
-              <Text style={styles.statusEyebrow}>STATUT ACTUEL</Text>
+              <Text style={[styles.statusEyebrow, hasReturned && styles.statusEyebrowOnIllustration]}>
+                STATUT ACTUEL
+              </Text>
 
-              <Text style={styles.statusValue}>
+              <Text style={[styles.statusValue, hasReturned && styles.statusValueOnIllustration]}>
                 {hasReturned ? 'Cycle repris' : 'Cycle non repris'}
               </Text>
 
-              <Text style={styles.statusDescription}>
+              <Text style={[styles.statusDescription, hasReturned && styles.statusDescriptionOnIllustration]}>
                 {hasReturned && firstPeriodDate
                   ? `Tes premières règles depuis l’accouchement ont commencé le ${formatFullDate(
                       firstPeriodDate,
@@ -1247,6 +1264,13 @@ function createStyles(theme: ResolvedAwaTheme) {
     letterSpacing: 1.3,
   },
 
+  // Applied only while the fixed cycle-returned illustration is showing
+  // behind this text (see the hero JSX's hasReturned check) — the
+  // illustration's own always-light tone, never the active theme.
+  statusEyebrowOnIllustration: {
+    color: HERO_ILLUSTRATION_TEXT,
+  },
+
   statusValue: {
     marginTop: 4,
 
@@ -1258,6 +1282,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '800',
   },
 
+  statusValueOnIllustration: {
+    color: HERO_ILLUSTRATION_TEXT,
+  },
+
   statusDescription: {
     maxWidth: 300,
 
@@ -1267,6 +1295,13 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     fontSize: 11.5,
     lineHeight: 17,
+  },
+
+  // Slightly softened (not faded-out) so the body sentence still reads as
+  // secondary to statusValue while keeping strong contrast against the
+  // illustration (~7:1, still comfortably AAA).
+  statusDescriptionOnIllustration: {
+    color: withAlpha(HERO_ILLUSTRATION_TEXT, 0.75),
   },
 
   statusBadge: {
