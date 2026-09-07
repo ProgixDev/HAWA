@@ -733,12 +733,12 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               compact
               description={SLEEP_QUALITY_COPY[quality]}
               icon={MENOPAUSE_SLEEP_QUALITY_ICONS[quality]}
-              iconColor="#667DB4"
+              iconColor={theme.colors.primary}
               key={quality}
               label={MENOPAUSE_SLEEP_QUALITY_LABELS[quality]}
               onPress={() => setSleepQuality(quality)}
               selected={sleepQuality === quality}
-              tint="#EDF1F8"
+              tint={theme.colors.primarySoft}
             />
           ))}
         </ChoiceGrid>

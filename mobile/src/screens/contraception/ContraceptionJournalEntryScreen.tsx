@@ -189,7 +189,7 @@ function PremiumHero({
   subtitle,
   icon,
   accent,
-  tint = '#F0E7FB',
+  tint,
 }: {
   title: string;
   subtitle: string;
@@ -201,10 +201,11 @@ function PremiumHero({
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const effectiveAccent = accent ?? theme.colors.primary;
+  const effectiveTint = tint ?? theme.colors.primarySoft;
 
   return (
     <LinearGradient
-      colors={[theme.colors.surface, theme.colors.surfaceSecondary, tint]}
+      colors={[theme.colors.surface, theme.colors.surfaceSecondary, effectiveTint]}
       locations={[0, 0.58, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -483,10 +484,10 @@ function FeelingsContent({
   return (
     <>
       <PremiumHero
-        accent="#8B5FC7"
+        accent={theme.colors.primary}
         icon="heart-pulse"
         subtitle="Sélectionne ce que tu as ressenti aujourd’hui — cela reste un suivi personnel, jamais un diagnostic."
-        tint="#F2EAF8"
+        tint={theme.colors.primarySoft}
         title="Comment te sens-tu ?"
       />
 
