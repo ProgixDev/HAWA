@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Animated, {FadeIn, FadeInUp, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {homeColors, homeRadii, homeShadow} from '../components/home/homeTheme';
+import {homeRadii} from '../components/home/homeTheme';
 import HijriMonthGrid from '../components/hijri/HijriMonthGrid';
 import {
   capitalize,
@@ -26,6 +26,8 @@ import {
   previousHijriMonthStart,
 } from '../utils/hijriCalendar';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
@@ -33,18 +35,21 @@ const MOSQUE_BANNER_RATIO = 848 / 1854;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 function ShortcutRow({
-  icon, label, onPress, last,
-}: {icon: IconName; label: string; onPress: () => void; last?: boolean}): React.JSX.Element {
+  icon, label, onPress, last, theme, styles,
+}: {
+  icon: IconName; label: string; onPress: () => void; last?: boolean;
+  theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>;
+}): React.JSX.Element {
   return (
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
       style={({pressed}) => [styles.shortcutRow, !last && styles.shortcutRowBorder, pressed && styles.pressed]}>
       <View style={styles.shortcutIcon}>
-        <MaterialDesignIcons color={homeColors.primary} name={icon} size={17} />
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={17} />
       </View>
       <Text style={styles.shortcutLabel}>{label}</Text>
-      <MaterialDesignIcons color={homeColors.textSecondary} name="chevron-right" size={18} />
+      <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
     </Pressable>
   );
 }
@@ -52,6 +57,8 @@ function ShortcutRow({
 function HijriCalendarScreen(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const today = useMemo(() => startOfDay(new Date()), []);
   const [monthStart, setMonthStart] = useState(() => hijriMonthStart(today));
@@ -118,12 +125,20 @@ function HijriCalendarScreen(): React.JSX.Element {
 
   return (
     <View style={styles.screen}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
       <View style={styles.banner} pointerEvents="none">
         <Image resizeMode="cover" source={MOSQUE_BANNER} style={[styles.bannerImage, {aspectRatio: MOSQUE_BANNER_RATIO}]} />
+        {/* The header title/icon below render directly over this banner (no
+            opaque card behind them), so the scrim must already carry real
+            theme-background opacity at the very top (location 0) — a
+            transparent-at-top fade left the mosque photo fully bright behind
+            that text in every theme, which read fine in Light but made
+            Dark-mode text (theme.colors.text, necessarily light-on-dark)
+            unreadable against the still-bright, undimmed photo. Same fix as
+            PrayerTimesScreen.tsx's identical banner. */}
         <LinearGradient
-          colors={['rgba(248,243,255,0)', 'rgba(248,243,255,0.55)', '#F8F3FF']}
+          colors={[withAlpha(theme.colors.background, 0.6), withAlpha(theme.colors.background, 0.85), theme.colors.background]}
           locations={[0, 0.6, 1]}
           style={styles.bannerFade}
         />
@@ -142,10 +157,10 @@ function HijriCalendarScreen(): React.JSX.Element {
             hitSlop={10}
             onPress={navigation.goBack}
             style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={homeColors.primary} name="chevron-left" size={26} />
+            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
           </Pressable>
           <View style={styles.headerTitleRow}>
-            <MaterialDesignIcons color={homeColors.primary} name="moon-waning-crescent" size={16} />
+            <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={16} />
             <Text adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={1} style={styles.headerTitle}>
               Calendrier Hijri
             </Text>
@@ -156,12 +171,12 @@ function HijriCalendarScreen(): React.JSX.Element {
             hitSlop={10}
             onPress={goToToday}
             style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={homeColors.primary} name="calendar-today" size={20} />
+            <MaterialDesignIcons color={theme.colors.primary} name="calendar-today" size={20} />
           </Pressable>
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(60).duration(450)} style={styles.heroCard}>
-          <MaterialDesignIcons color={homeColors.primary} name="mosque" size={128} style={styles.heroWatermark} />
+          <MaterialDesignIcons color={theme.colors.primary} name="mosque" size={128} style={styles.heroWatermark} />
           <Text style={styles.heroEyebrow}>Aujourd’hui</Text>
           <Text style={styles.heroDay}>{todayHijriDay}</Text>
           <Text style={styles.heroMonth}>{todayHijriMonthYear}</Text>
@@ -206,12 +221,12 @@ function HijriCalendarScreen(): React.JSX.Element {
             monthRefAnimatedStyle,
           ]}>
           {ramadan ? (
-            <MaterialDesignIcons color={homeColors.primary} name="moon-waning-crescent" size={96} style={styles.monthRefWatermark} />
+            <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={96} style={styles.monthRefWatermark} />
           ) : null}
 
           <View style={styles.monthRefHeadingRow}>
             <View style={styles.monthRefIcon}>
-              <MaterialDesignIcons color={homeColors.primary} name="calendar-star" size={16} />
+              <MaterialDesignIcons color={theme.colors.primary} name="calendar-star" size={16} />
             </View>
             <Text style={styles.monthRefEyebrow}>Repères du mois</Text>
           </View>
@@ -253,77 +268,79 @@ function HijriCalendarScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeInUp.delay(300).duration(420)} style={styles.shortcutsCard}>
           <Text style={styles.shortcutsTitle}>Repères spirituels</Text>
-          <ShortcutRow icon="mosque" label="Horaires de prière" onPress={() => navigation.navigate('PrayerTimes')} />
-          <ShortcutRow icon="silverware-fork-knife" label="Jeûnes à rattraper" onPress={() => navigation.navigate('FastingQadaa')} />
-          <ShortcutRow icon="book-open-page-variant-outline" label="Contenus spirituels" last onPress={() => navigation.navigate('Library')} />
+          <ShortcutRow icon="mosque" label="Horaires de prière" onPress={() => navigation.navigate('PrayerTimes')} styles={styles} theme={theme} />
+          <ShortcutRow icon="silverware-fork-knife" label="Jeûnes à rattraper" onPress={() => navigation.navigate('FastingQadaa')} styles={styles} theme={theme} />
+          <ShortcutRow icon="book-open-page-variant-outline" label="Contenus spirituels" last onPress={() => navigation.navigate('Library')} styles={styles} theme={theme} />
         </Animated.View>
       </ScrollView>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {flex: 1, backgroundColor: '#F8F3FF'},
-  banner: {position: 'absolute', left: 0, right: 0, top: 0, height: 260, overflow: 'hidden'},
-  bannerImage: {width: '100%', position: 'absolute', top: 0},
-  bannerFade: {...StyleSheet.absoluteFillObject},
-  content: {paddingHorizontal: 16, gap: 14},
-  header: {flexDirection: 'row', alignItems: 'center', gap: 8},
-  headerButton: {
-    width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21,
-    backgroundColor: '#FFFFFF', elevation: 2,
-    shadowColor: '#4E319A', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.09, shadowRadius: 8,
-  },
-  headerTitleRow: {flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6},
-  headerTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
-  pressed: {opacity: 0.8},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    screen: {flex: 1, backgroundColor: theme.colors.background},
+    banner: {position: 'absolute', left: 0, right: 0, top: 0, height: 260, overflow: 'hidden'},
+    bannerImage: {width: '100%', position: 'absolute', top: 0},
+    bannerFade: {...StyleSheet.absoluteFillObject},
+    content: {paddingHorizontal: 16, gap: 14},
+    header: {flexDirection: 'row', alignItems: 'center', gap: 8},
+    headerButton: {
+      width: 42, height: 42, alignItems: 'center', justifyContent: 'center', borderRadius: 21,
+      backgroundColor: theme.colors.surface, elevation: 2,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.09, shadowRadius: 8,
+    },
+    headerTitleRow: {flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6},
+    headerTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 20, fontWeight: '700'},
+    pressed: {opacity: 0.8},
 
-  heroCard: {
-    overflow: 'hidden',
-    alignItems: 'center', borderRadius: homeRadii.card, backgroundColor: homeColors.lightLavender,
-    paddingVertical: 22, paddingHorizontal: 20, borderWidth: 1, borderColor: 'rgba(109,74,232,0.10)',
-    shadowColor: homeColors.primaryDark, shadowOffset: {width: 0, height: 10}, shadowOpacity: 0.1, shadowRadius: 20, elevation: 4,
-  },
-  heroWatermark: {position: 'absolute', right: -26, bottom: -30, opacity: 0.09},
-  heroEyebrow: {color: homeColors.textSecondary, fontSize: 11.5, fontWeight: '700', letterSpacing: 1.2, textTransform: 'uppercase'},
-  heroDay: {marginTop: 6, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 46, fontWeight: '700', lineHeight: 52},
-  heroMonth: {marginTop: 2, color: homeColors.primary, fontSize: 17, fontWeight: '700'},
-  heroGregorian: {marginTop: 8, color: homeColors.textSecondary, fontSize: 12.5},
+    heroCard: {
+      overflow: 'hidden',
+      alignItems: 'center', borderRadius: homeRadii.card, backgroundColor: theme.colors.primarySoft,
+      paddingVertical: 22, paddingHorizontal: 20, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.10),
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 10}, shadowOpacity: 0.1, shadowRadius: 20, elevation: 4,
+    },
+    heroWatermark: {position: 'absolute', right: -26, bottom: -30, opacity: 0.09},
+    heroEyebrow: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700', letterSpacing: 1.2, textTransform: 'uppercase'},
+    heroDay: {marginTop: 6, color: theme.colors.text, fontFamily: 'serif', fontSize: 46, fontWeight: '700', lineHeight: 52},
+    heroMonth: {marginTop: 2, color: theme.colors.primary, fontSize: 17, fontWeight: '700'},
+    heroGregorian: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 12.5},
 
-  selectedCard: {borderRadius: homeRadii.card, backgroundColor: '#FFFFFF', padding: 16, ...homeShadow},
-  selectedLabel: {color: homeColors.textSecondary, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
-  selectedRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8, gap: 10},
-  selectedCopy: {flex: 1},
-  selectedHijri: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  selectedGregorian: {marginTop: 2, color: homeColors.textSecondary, fontSize: 12.5},
-  todayPill: {borderRadius: 10, backgroundColor: homeColors.greenLight, paddingHorizontal: 9, paddingVertical: 4},
-  todayPillText: {color: homeColors.green, fontSize: 10.5, fontWeight: '700'},
+    selectedCard: {borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
+    selectedLabel: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
+    selectedRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginTop: 8, gap: 10},
+    selectedCopy: {flex: 1},
+    selectedHijri: {color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+    selectedGregorian: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12.5},
+    todayPill: {borderRadius: 10, backgroundColor: withAlpha(theme.colors.success, 0.18), paddingHorizontal: 9, paddingVertical: 4},
+    todayPillText: {color: theme.colors.success, fontSize: 10.5, fontWeight: '700'},
 
-  monthRefCard: {overflow: 'hidden', borderRadius: homeRadii.card, backgroundColor: '#FFFFFF', padding: 16, ...homeShadow},
-  monthRefCardRamadan: {backgroundColor: '#F1E7FC'},
-  monthRefWatermark: {position: 'absolute', right: -20, top: -18, opacity: 0.08},
-  monthRefHeadingRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
-  monthRefIcon: {width: 26, height: 26, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: homeColors.lightLavender},
-  monthRefEyebrow: {color: homeColors.textSecondary, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
-  monthPill: {
-    alignSelf: 'flex-start', marginTop: 10, borderRadius: 10,
-    backgroundColor: '#FBEFD9', paddingHorizontal: 9, paddingVertical: 3,
-  },
-  monthPillText: {color: '#B7791F', fontSize: 10.5, fontWeight: '700'},
-  monthRefTitle: {marginTop: 6, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
-  monthRefText: {marginTop: 8, color: homeColors.textSecondary, fontSize: 12.5, lineHeight: 18},
-  monthRefButton: {
-    alignSelf: 'flex-start', marginTop: 12, minHeight: 40, alignItems: 'center', justifyContent: 'center',
-    borderRadius: homeRadii.button, backgroundColor: homeColors.primary, paddingHorizontal: 16,
-  },
-  monthRefButtonText: {color: '#FFFFFF', fontSize: 12.5, fontWeight: '700'},
+    monthRefCard: {overflow: 'hidden', borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
+    monthRefCardRamadan: {backgroundColor: theme.colors.primarySoft},
+    monthRefWatermark: {position: 'absolute', right: -20, top: -18, opacity: 0.08},
+    monthRefHeadingRow: {flexDirection: 'row', alignItems: 'center', gap: 8},
+    monthRefIcon: {width: 26, height: 26, alignItems: 'center', justifyContent: 'center', borderRadius: 13, backgroundColor: theme.colors.primarySoft},
+    monthRefEyebrow: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.6},
+    monthPill: {
+      alignSelf: 'flex-start', marginTop: 10, borderRadius: 10,
+      backgroundColor: withAlpha(theme.colors.warning, 0.15), paddingHorizontal: 9, paddingVertical: 3,
+    },
+    monthPillText: {color: theme.colors.warning, fontSize: 10.5, fontWeight: '700'},
+    monthRefTitle: {marginTop: 6, color: theme.colors.text, fontFamily: 'serif', fontSize: 17, fontWeight: '700'},
+    monthRefText: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
+    monthRefButton: {
+      alignSelf: 'flex-start', marginTop: 12, minHeight: 40, alignItems: 'center', justifyContent: 'center',
+      borderRadius: homeRadii.button, backgroundColor: theme.colors.primary, paddingHorizontal: 16,
+    },
+    monthRefButtonText: {color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '700'},
 
-  shortcutsCard: {borderRadius: homeRadii.card, backgroundColor: '#FFFFFF', padding: 16, ...homeShadow},
-  shortcutsTitle: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
-  shortcutRow: {flexDirection: 'row', alignItems: 'center', gap: 11, paddingVertical: 10, minHeight: 44},
-  shortcutRowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: homeColors.cardBorder},
-  shortcutIcon: {width: 32, height: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: homeColors.lightLavender},
-  shortcutLabel: {flex: 1, color: homeColors.textPrimary, fontSize: 13.5, fontWeight: '600'},
-});
+    shortcutsCard: {borderRadius: homeRadii.card, backgroundColor: theme.colors.surface, padding: 16, ...theme.shadow},
+    shortcutsTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
+    shortcutRow: {flexDirection: 'row', alignItems: 'center', gap: 11, paddingVertical: 10, minHeight: 44},
+    shortcutRowBorder: {borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
+    shortcutIcon: {width: 32, height: 32, alignItems: 'center', justifyContent: 'center', borderRadius: 16, backgroundColor: theme.colors.primarySoft},
+    shortcutLabel: {flex: 1, color: theme.colors.text, fontSize: 13.5, fontWeight: '600'},
+  });
+}
 
 export default HijriCalendarScreen;

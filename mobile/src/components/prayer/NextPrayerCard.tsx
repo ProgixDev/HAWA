@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {
@@ -10,7 +10,9 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {homeRadii} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PrayerWindow} from '../../services/prayerTimes';
 
 const PRAYER_IMAGE = require('../../assets/images/priere.png');
@@ -42,6 +44,9 @@ const formatCountdown = (targetMs: number, nowMs: number): string => {
 };
 
 function NextPrayerCard({window, timezone, loading, error, now}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   // A very subtle, continuous breathing/floating effect on the
   // illustration only — no JS timer involved, driven entirely on the UI
   // thread — to feel calmly "alive" without distracting from the prayer
@@ -78,7 +83,7 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
           <Text style={styles.time}>{formatTime(window.start, timezone)}</Text>
 
           <View style={styles.countdownPill}>
-            <MaterialDesignIcons color={homeColors.primary} name="clock-time-four-outline" size={13} />
+            <MaterialDesignIcons color={theme.colors.primary} name="clock-time-four-outline" size={13} />
             <Text style={styles.countdownText}>{formatCountdown(window.start.getTime(), now.getTime())}</Text>
           </View>
 
@@ -91,43 +96,45 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
   );
 }
 
-const styles = StyleSheet.create({
-  card: {
-    alignItems: 'center',
-    borderRadius: homeRadii.card,
-    backgroundColor: homeColors.lightLavender,
-    paddingVertical: 26,
-    paddingHorizontal: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(109,74,232,0.10)',
-    shadowColor: homeColors.primaryDark,
-    shadowOffset: {width: 0, height: 10},
-    shadowOpacity: 0.1,
-    shadowRadius: 20,
-    elevation: 4,
-  },
-  prayerImage: {
-    width: 96,
-    height: 96 / PRAYER_IMAGE_RATIO,
-  },
-  eyebrow: {
-    marginTop: 14,
-    color: homeColors.textSecondary,
-    fontSize: 11.5,
-    fontWeight: '700',
-    letterSpacing: 1.4,
-    textTransform: 'uppercase',
-  },
-  name: {marginTop: 6, color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 30, fontWeight: '700'},
-  time: {marginTop: 2, color: homeColors.textPrimary, fontSize: 20, fontWeight: '600'},
-  countdownPill: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    marginTop: 14, borderRadius: 14, backgroundColor: '#FFFFFF',
-    paddingHorizontal: 12, paddingVertical: 6,
-    shadowColor: homeColors.primaryDark, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 5,
-  },
-  countdownText: {color: homeColors.primary, fontSize: 12.5, fontWeight: '700'},
-  endCaption: {marginTop: 12, color: homeColors.textSecondary, fontSize: 11.5},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    card: {
+      alignItems: 'center',
+      borderRadius: homeRadii.card,
+      backgroundColor: theme.colors.primarySoft,
+      paddingVertical: 26,
+      paddingHorizontal: 20,
+      borderWidth: 1,
+      borderColor: withAlpha(theme.colors.primary, 0.10),
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {width: 0, height: 10},
+      shadowOpacity: 0.1,
+      shadowRadius: 20,
+      elevation: 4,
+    },
+    prayerImage: {
+      width: 96,
+      height: 96 / PRAYER_IMAGE_RATIO,
+    },
+    eyebrow: {
+      marginTop: 14,
+      color: theme.colors.textSecondary,
+      fontSize: 11.5,
+      fontWeight: '700',
+      letterSpacing: 1.4,
+      textTransform: 'uppercase',
+    },
+    name: {marginTop: 6, color: theme.colors.text, fontFamily: 'serif', fontSize: 30, fontWeight: '700'},
+    time: {marginTop: 2, color: theme.colors.text, fontSize: 20, fontWeight: '600'},
+    countdownPill: {
+      flexDirection: 'row', alignItems: 'center', gap: 6,
+      marginTop: 14, borderRadius: 14, backgroundColor: theme.colors.surface,
+      paddingHorizontal: 12, paddingVertical: 6,
+      shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 2}, shadowOpacity: 0.06, shadowRadius: 5,
+    },
+    countdownText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
+    endCaption: {marginTop: 12, color: theme.colors.textSecondary, fontSize: 11.5},
+  });
+}
 
 export default memo(NextPrayerCard);

@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef, useState} from 'react';
+import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -15,7 +15,9 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
-import {homeColors, homeRadii} from '../home/homeTheme';
+import {homeRadii} from '../home/homeTheme';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {setPeriodEndDateTime} from '../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
 import {formatFullDate} from '../../utils/cycleMath';
@@ -55,6 +57,8 @@ function PeriodEndBottomSheet({
   onClose,
   onConfirmed,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -157,14 +161,14 @@ function PeriodEndBottomSheet({
               onPress={() => setActivePicker(current => (current === 'date' ? null : 'date'))}
               style={({pressed}) => [styles.field, activePicker === 'date' && styles.fieldActive, pressed && styles.pressed]}>
               <View style={styles.fieldIcon}>
-                <MaterialDesignIcons color={homeColors.primary} name="calendar-outline" size={18} />
+                <MaterialDesignIcons color={theme.colors.primary} name="calendar-outline" size={18} />
               </View>
               <View style={styles.fieldCopy}>
                 <Text style={styles.fieldLabel}>Date de fin</Text>
                 <Text style={styles.fieldValue}>{formatDateLabel(draft)}</Text>
               </View>
               <MaterialDesignIcons
-                color={homeColors.textSecondary}
+                color={theme.colors.textSecondary}
                 name={activePicker === 'date' ? 'chevron-up' : 'chevron-down'}
                 size={20}
               />
@@ -187,14 +191,14 @@ function PeriodEndBottomSheet({
               onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
               style={({pressed}) => [styles.field, activePicker === 'time' && styles.fieldActive, pressed && styles.pressed]}>
               <View style={styles.fieldIcon}>
-                <MaterialDesignIcons color={homeColors.primary} name="clock-outline" size={18} />
+                <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
               </View>
               <View style={styles.fieldCopy}>
                 <Text style={styles.fieldLabel}>Heure de fin</Text>
                 <Text style={styles.fieldValue}>{formatTimeLabel(draft)}</Text>
               </View>
               <MaterialDesignIcons
-                color={homeColors.textSecondary}
+                color={theme.colors.textSecondary}
                 name={activePicker === 'time' ? 'chevron-up' : 'chevron-down'}
                 size={20}
               />
@@ -232,58 +236,63 @@ function PeriodEndBottomSheet({
   );
 }
 
-const styles = StyleSheet.create({
-  modalRoot: {flex: 1, justifyContent: 'flex-end'},
-  overlay: {...StyleSheet.absoluteFillObject, backgroundColor: '#17102F'},
-  sheet: {
-    maxHeight: '88%',
-    borderTopLeftRadius: homeRadii.card,
-    borderTopRightRadius: homeRadii.card,
-    backgroundColor: '#FCFAFF',
-    paddingHorizontal: 18,
-    paddingTop: 10,
-    elevation: 20,
-  },
-  handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: homeColors.cardBorder},
-  scroll: {flexGrow: 0, marginTop: 14},
-  title: {color: homeColors.textPrimary, fontFamily: 'serif', fontSize: 19, fontWeight: '700', lineHeight: 25},
-  description: {marginTop: 8, color: homeColors.textSecondary, fontSize: 13, lineHeight: 19},
-  field: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 11,
-    minHeight: 62,
-    marginTop: 14,
-    borderWidth: 1.4,
-    borderColor: homeColors.cardBorder,
-    borderRadius: homeRadii.button,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 13,
-  },
-  fieldActive: {borderColor: homeColors.primary},
-  fieldIcon: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 18,
-    backgroundColor: homeColors.lightLavender,
-  },
-  fieldCopy: {flex: 1},
-  fieldLabel: {color: homeColors.textSecondary, fontSize: 11.5},
-  fieldValue: {marginTop: 2, color: homeColors.textPrimary, fontSize: 14.5, fontWeight: '700'},
-  confirmButton: {
-    marginTop: 18,
-    minHeight: 52,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: homeRadii.button,
-    backgroundColor: homeColors.primary,
-  },
-  confirmText: {color: '#FFFFFF', fontSize: 15, fontWeight: '700'},
-  cancelButton: {marginTop: 10, minHeight: 44, alignItems: 'center', justifyContent: 'center'},
-  cancelText: {color: homeColors.textSecondary, fontSize: 14, fontWeight: '600'},
-  pressed: {opacity: 0.85},
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    modalRoot: {flex: 1, justifyContent: 'flex-end'},
+    // Solid base color; the Animated.View above already interpolates its own
+    // `opacity` (0 -> 0.35) as the sheet slides in, so no alpha is baked into
+    // this color itself (that would double-apply transparency).
+    overlay: {...StyleSheet.absoluteFillObject, backgroundColor: theme.shadow.shadowColor},
+    sheet: {
+      maxHeight: '88%',
+      borderTopLeftRadius: homeRadii.card,
+      borderTopRightRadius: homeRadii.card,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 18,
+      paddingTop: 10,
+      elevation: 20,
+    },
+    handle: {width: 42, height: 5, alignSelf: 'center', borderRadius: 3, backgroundColor: theme.colors.border},
+    scroll: {flexGrow: 0, marginTop: 14},
+    title: {color: theme.colors.text, fontFamily: 'serif', fontSize: 19, fontWeight: '700', lineHeight: 25},
+    description: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 13, lineHeight: 19},
+    field: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 11,
+      minHeight: 62,
+      marginTop: 14,
+      borderWidth: 1.4,
+      borderColor: theme.colors.border,
+      borderRadius: homeRadii.button,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 13,
+    },
+    fieldActive: {borderColor: theme.colors.primary},
+    fieldIcon: {
+      width: 36,
+      height: 36,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    fieldCopy: {flex: 1},
+    fieldLabel: {color: theme.colors.textSecondary, fontSize: 11.5},
+    fieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 14.5, fontWeight: '700'},
+    confirmButton: {
+      marginTop: 18,
+      minHeight: 52,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: homeRadii.button,
+      backgroundColor: theme.colors.primary,
+    },
+    confirmText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
+    cancelButton: {marginTop: 10, minHeight: 44, alignItems: 'center', justifyContent: 'center'},
+    cancelText: {color: theme.colors.textSecondary, fontSize: 14, fontWeight: '600'},
+    pressed: {opacity: 0.85},
+  });
+}
 
 export default memo(PeriodEndBottomSheet);
