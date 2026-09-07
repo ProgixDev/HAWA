@@ -52,7 +52,9 @@ import {
 } from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {
+  interpolateHex,
   onPrimaryTextColor,
+  pickReadableTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../theme/awaThemeTokens';
@@ -1217,7 +1219,7 @@ function LibraryScreen({
                       styles.durationRow
                     }>
                     <MaterialDesignIcons
-                      color={theme.colors.textSecondary}
+                      color={styles.durationText.color}
                       name="clock-outline"
                       size={13}
                     />
@@ -1244,7 +1246,7 @@ function LibraryScreen({
                     </Text>
 
                     <MaterialDesignIcons
-                      color={theme.colors.primary}
+                      color={styles.readText.color}
                       name="arrow-right"
                       size={16}
                     />
@@ -1449,7 +1451,32 @@ function LibraryScreen({
   );
 }
 
+// The "À la une" featured card's ImageBackground (featured-cycle.png) is a
+// warm, always-pale photograph, independent of the active AWA theme — its
+// title/metadata must never be theme.colors.text/textSecondary, which
+// become LIGHT colors in Dark mode (correct for a dark surface) and vanish
+// against this always-light photo. Derived via the existing
+// pickReadableTextColor helper against a hex representative of the photo's
+// own tone — the same technique already used for "Retour du cycle"'s hero
+// illustration — never from theme.isDark. The category badge and its text
+// are left untouched: badge already uses onPrimaryTextColor(theme) against
+// its OWN near-opaque background, which is already theme-correct.
+const FEATURED_CARD_IMAGE_BASE = '#EDE4D6';
+const FEATURED_CARD_TEXT = pickReadableTextColor(FEATURED_CARD_IMAGE_BASE);
+const FEATURED_CARD_TEXT_SECONDARY = interpolateHex(FEATURED_CARD_TEXT, '#FFFFFF', 0.25);
+
 function createStyles(theme: ResolvedAwaTheme) {
+  // The CTA keeps the app's own brand-accent hue rather than the same
+  // near-black as the title — but theme.colors.primary is only readable
+  // here as-is while it is ALREADY a dark tone on its own (checked via
+  // pickReadableTextColor against theme.colors.primary itself, never
+  // theme.isDark): a Dark-variant primary (light, meant for dark surfaces)
+  // is darkened toward black at a fixed ratio instead, preserving its hue.
+  const primaryIsDarkEnoughForFeaturedCard = pickReadableTextColor(theme.colors.primary) === '#FFFFFF';
+  const featuredCtaColor = primaryIsDarkEnoughForFeaturedCard
+    ? theme.colors.primary
+    : interpolateHex(theme.colors.primary, '#000000', 0.55);
+
   return StyleSheet.create({
     screen: {
       flex: 1,
@@ -1859,15 +1886,17 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     featuredTitle: {
       marginTop: 9,
-      color: theme.colors.text,
+      // Fixed, image-derived literal on purpose: this sits on top of a
+      // fixed photographic ImageBackground (ART.featured), not a
+      // theme-driven surface — see FEATURED_CARD_TEXT above. The white
+      // text-shadow below is a legibility scrim for that specific photo,
+      // same reasoning as any other overlay drawn on top of real image
+      // content, and now correctly softens a genuinely DARK title.
+      color: FEATURED_CARD_TEXT,
       fontFamily: 'serif',
       fontSize: 18,
       lineHeight: 22,
       fontWeight: '700',
-      // Fixed literal on purpose: this sits on top of a fixed photographic
-      // ImageBackground (ART.featured), not a theme-driven surface — it's a
-      // legibility scrim for that specific photo, same reasoning as any
-      // other overlay drawn on top of real image content.
       textShadowColor: 'rgba(255,255,255,0.30)',
       textShadowOffset: {
         width: 0,
@@ -1884,7 +1913,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     durationText: {
-      color: theme.colors.textSecondary,
+      color: FEATURED_CARD_TEXT_SECONDARY,
       fontSize: 9.5,
       fontWeight: '500',
     },
@@ -1897,7 +1926,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
 
     readText: {
-      color: theme.colors.primary,
+      color: featuredCtaColor,
       fontSize: 10.5,
       fontWeight: '700',
     },
