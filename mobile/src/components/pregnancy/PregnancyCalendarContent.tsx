@@ -1560,7 +1560,9 @@ function PregnancyCalendarContent(): React.JSX.Element {
                     }
                     onPress={() =>
                       navigation.navigate(
-                        'PregnancyAppointments',
+                        event.type === 'exam'
+                          ? 'PregnancyExam'
+                          : 'PregnancyAppointment',
                         {eventId: event.id},
                       )
                     }
