@@ -49,7 +49,7 @@ import {
 
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 import {
   formatHijriDate,
@@ -159,6 +159,18 @@ function MenopauseCalendarContent(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
+
+  // The "Résumé de ce mois" rose/amber/blue tiles use MENOPAUSE_COLORS'
+  // fixed *Soft tints (never theme-driven — same category-identity colors
+  // used everywhere else in this file), while `summaryValue`/`summaryLabel`
+  // default to theme.colors.accent/textSecondary. Those tokens flip to a
+  // light tone in Dark/Premium themes and would then sit unreadably on the
+  // always-light tint — derive the correct foreground from each tile's own
+  // fixed background instead. summaryTileNeutral uses theme.colors.
+  // surfaceSecondary (already theme-adaptive), so it keeps the default text.
+  const symptomsTileText = pickReadableTextColor(MENOPAUSE_CATEGORY_VISUALS.symptoms.tint);
+  const energyTileText = pickReadableTextColor(MENOPAUSE_CATEGORY_VISUALS.energy.tint);
+  const sleepTileText = pickReadableTextColor(MENOPAUSE_CATEGORY_VISUALS.sleep.tint);
 
   const today = useMemo(() => new Date(), []);
   const todayKey = useMemo(() => dateKey(today), [today]);
@@ -616,20 +628,20 @@ function MenopauseCalendarContent(): React.JSX.Element {
               <View style={styles.summaryGrid}>
                 <View style={[styles.summaryTile, styles.summaryTileRose]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.symptoms.iconColor} name="clipboard-pulse-outline" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.daysWithSymptoms}</Text>
-                  <Text style={styles.summaryLabel}>Jours avec symptômes</Text>
+                  <Text style={[styles.summaryValue, {color: symptomsTileText}]}>{monthlySummary.daysWithSymptoms}</Text>
+                  <Text style={[styles.summaryLabel, {color: symptomsTileText}]}>Jours avec symptômes</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileAmber]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.energy.iconColor} name="weather-sunny" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.hotFlashDays}</Text>
-                  <Text style={styles.summaryLabel}>Bouffées de chaleur</Text>
+                  <Text style={[styles.summaryValue, {color: energyTileText}]}>{monthlySummary.hotFlashDays}</Text>
+                  <Text style={[styles.summaryLabel, {color: energyTileText}]}>Bouffées de chaleur</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileBlue]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.sleep.iconColor} name="water-outline" size={18} />
-                  <Text style={styles.summaryValue}>{monthlySummary.nightSweatNights}</Text>
-                  <Text style={styles.summaryLabel}>Sueurs nocturnes</Text>
+                  <Text style={[styles.summaryValue, {color: sleepTileText}]}>{monthlySummary.nightSweatNights}</Text>
+                  <Text style={[styles.summaryLabel, {color: sleepTileText}]}>Sueurs nocturnes</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileNeutral]}>

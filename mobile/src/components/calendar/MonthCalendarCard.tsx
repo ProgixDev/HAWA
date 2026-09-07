@@ -4,7 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   type CycleBasics,
   formatHijriDay,
@@ -84,7 +84,9 @@ const backgroundColorStyle = (backgroundColor: string) => ({backgroundColor});
 
 // SEMANTIC — calendar tracking meaning, never theme-driven (see header note).
 const PERIOD_DOT_COLOR = '#DC7B82';
+const PERIOD_FILL_COLOR = '#F7D7D6';
 const FERTILE_COLOR = '#3E8E56';
+const FERTILE_FILL_COLOR = '#DCEFE0';
 const OVULATION_COLOR = '#8B5CF6';
 const MOOD_DOT_COLOR = '#E0A93E';
 const NOTES_COLOR = '#2C8E93';
@@ -152,20 +154,35 @@ function DayCell({
         ? 'dhoulHijja'
         : null;
 
-  // The cell's fill follows a strict priority (matching the `day` style
-  // array below): today > selected > ovulation. Only "selected" sits on a
-  // THEME-DRIVEN background (`theme.colors.primary`), so only that case
-  // needs the dark-mode-aware `onPrimaryTextColor` — ovulation's background
-  // is a fixed, always-dark-enough purple, so plain white always contrasts
-  // regardless of the active palette/mode.
+  const isPeriodDay = kind === 'period' && filters.rules;
+
+  // The cell's fill follows a strict priority matching the `day` style array
+  // below: today > selected > draft-period (while editing) > ovulation/
+  // fertile/period. "Selected" sits on a THEME-DRIVEN background
+  // (`theme.colors.primary`), so it needs the dark-mode-aware
+  // `onPrimaryTextColor`. Period/fertile/ovulation fills are fixed literals
+  // that never change with theme (see file header note) — deriving their
+  // foreground from `theme.colors.text`/`textSecondary` would be wrong,
+  // since those tokens flip to a light color in Dark/Premium themes and
+  // would then sit unreadably on these always-light-or-fixed backgrounds.
+  // `pickReadableTextColor` computes the correct foreground straight from
+  // each cell's own fill, independent of the active theme.
   const onColoredBg =
     isToday
       ? null
       : isSelected
         ? onPrimaryTextColor(theme)
-        : !editingPeriod && kind === 'ovulation'
-          ? '#FFFFFF'
-          : null;
+        : isDraftPeriod
+          ? pickReadableTextColor(PERIOD_FILL_COLOR)
+          : editingPeriod
+            ? null
+            : kind === 'ovulation'
+              ? pickReadableTextColor(OVULATION_COLOR)
+              : kind === 'fertile'
+                ? pickReadableTextColor(FERTILE_FILL_COLOR)
+                : isPeriodDay
+                  ? pickReadableTextColor(PERIOD_FILL_COLOR)
+                  : null;
 
   const spiritualMarkerColor =
     onColoredBg ??
@@ -173,7 +190,6 @@ function DayCell({
   const spiritualMarkerLabel =
     spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : '';
 
-  const isPeriodDay = kind === 'period' && filters.rules;
   const dots: string[] = [];
   if (isPeriodDay) {dots.push(PERIOD_DOT_COLOR);}
   if (kind === 'ovulation') {dots.push(OVULATION_COLOR);}
@@ -303,7 +319,7 @@ function MonthCalendarCard({
   return (
     <View style={styles.card}>
       <View style={styles.monthHeader}>
-        <Pressable accessibilityLabel="Mois précédent" hitSlop={12} onPress={() => onChangeMonth(-1)}>
+        <Pressable accessibilityLabel="Mois précédent" accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(-1)}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
         </Pressable>
 
@@ -316,7 +332,7 @@ function MonthCalendarCard({
           ) : null}
         </View>
 
-        <Pressable accessibilityLabel="Mois suivant" hitSlop={12} onPress={() => onChangeMonth(1)}>
+        <Pressable accessibilityLabel="Mois suivant" accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(1)}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={24} />
         </Pressable>
       </View>
@@ -440,8 +456,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     dayText: {color: theme.colors.text, fontSize: 13, fontWeight: '600'},
     hijriDayText: {color: theme.colors.textSecondary, fontSize: 8.5, marginTop: 1},
     // SEMANTIC backgrounds — never theme-driven, see file header note.
-    periodDay: {backgroundColor: '#F7D7D6'},
-    fertileDay: {backgroundColor: '#DCEFE0'},
+    periodDay: {backgroundColor: PERIOD_FILL_COLOR},
+    fertileDay: {backgroundColor: FERTILE_FILL_COLOR},
     ovulationDay: {backgroundColor: OVULATION_COLOR},
     selectedDay: {backgroundColor: theme.colors.primary},
     todayDayBorder: {

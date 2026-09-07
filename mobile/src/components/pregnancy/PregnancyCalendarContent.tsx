@@ -1008,6 +1008,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               }>
               <Pressable
                 accessibilityLabel="Mois précédent"
+                accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={
                   styles.arrowButton
@@ -1046,6 +1047,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
               <Pressable
                 accessibilityLabel="Mois suivant"
+                accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={
                   styles.arrowButton

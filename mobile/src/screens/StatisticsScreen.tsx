@@ -272,7 +272,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
               return (
                 <Pressable
+                  accessibilityLabel={
+                    locked ? `${PERIOD_LABELS[item]}, nécessite Premium` : PERIOD_LABELS[item]
+                  }
                   accessibilityRole="button"
+                  accessibilityState={{selected: active}}
                   key={item}
                   onPress={() => handleSelectPeriod(item)}
                   style={[styles.filterButton, active && styles.filterButtonActive]}>
@@ -305,7 +309,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           </View>
 
           {averageCycleDuration ? (
-            <View style={styles.cycleHero}>
+            <View
+              accessible
+              accessibilityLabel={`Durée moyenne des cycles : ${averageCycleDuration.averageDays} jours. Basé sur ${averageCycleDuration.cyclesAnalyzed} ${averageCycleDuration.cyclesAnalyzed > 1 ? 'cycles analysés' : 'cycle analysé'} et ${trackedDays} ${trackedDays > 1 ? 'jours renseignés' : 'jour renseigné'} sur ${monthsLabel}.`}
+              accessibilityRole="summary"
+              style={styles.cycleHero}>
               <View style={styles.heroDecorationOne} />
               <View style={styles.heroDecorationTwo} />
 
@@ -363,7 +371,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               monthlyFlowTrend.length > 0 ? (
                 <View style={styles.monthList}>
                   {monthlyFlowTrend.map(month => (
-                    <View key={month.monthKey} style={styles.monthItem}>
+                    <View
+                      accessible
+                      accessibilityLabel={`${month.monthLabel} : ${month.daysWithFlow} ${month.daysWithFlow > 1 ? 'jours de flux' : 'jour de flux'}. ${month.distribution.map(entry => `${FLOW_LABELS[entry.intensity]} ${entry.days} ${entry.days > 1 ? 'jours' : 'jour'}`).join(', ')}`}
+                      key={month.monthKey}
+                      style={styles.monthItem}>
                       <View style={styles.monthTop}>
                         <Text style={styles.monthLabel}>{month.monthLabel}</Text>
                         <Text style={styles.monthMeta}>
@@ -397,7 +409,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                   const percentage = (item.days / maxFlowDays) * 100;
 
                   return (
-                    <View key={item.intensity} style={styles.flowItem}>
+                    <View
+                      accessible
+                      accessibilityLabel={`${FLOW_LABELS[item.intensity]} : ${item.days} ${item.days > 1 ? 'jours' : 'jour'}`}
+                      key={item.intensity}
+                      style={styles.flowItem}>
                       <View style={styles.flowTop}>
                         <View style={styles.flowIcon}>
                           <MaterialDesignIcons
@@ -452,6 +468,8 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
                   return (
                     <View
+                      accessible
+                      accessibilityLabel={`${index + 1}. ${item.name} : ${item.days} ${item.days > 1 ? 'jours' : 'jour'}`}
                       key={item.name}
                       style={[styles.symptomItem, index === array.length - 1 && styles.lastItem]}>
                       <View style={styles.symptomTop}>
@@ -488,7 +506,11 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                 <Text style={styles.monthListTitle}>Évolution par mois</Text>
 
                 {monthlySymptomTrend.map(month => (
-                  <View key={month.monthKey} style={styles.monthItem}>
+                  <View
+                    accessible
+                    accessibilityLabel={`${month.monthLabel} : ${month.topSymptoms.map(symptom => `${symptom.name} ${symptom.days} ${symptom.days > 1 ? 'jours' : 'jour'}`).join(', ')}`}
+                    key={month.monthKey}
+                    style={styles.monthItem}>
                     <View style={styles.monthTop}>
                       <Text style={styles.monthLabel}>{month.monthLabel}</Text>
                     </View>
