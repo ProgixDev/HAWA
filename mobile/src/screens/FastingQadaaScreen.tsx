@@ -32,8 +32,6 @@ import Animated, {
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
-import {homeShadow} from '../components/home/homeTheme';
-
 import {useQadaaStatus} from '../hooks/useQadaaStatus';
 import {useConfirmedPeriodHistory} from '../hooks/useConfirmedPeriodHistory';
 
@@ -49,37 +47,11 @@ import {
   getTopPadding,
 } from '../theme/spacing';
 
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+
 const MOSQUE_IMAGE = require('../assets/images/qadaa-mosque.png');
 const LANTERN_IMAGE = require('../assets/images/qadaa-lantern.png');
-
-const C = {
-  background: '#F8F4FC',
-
-  white: '#FFFFFF',
-
-  ink: '#302440',
-  inkSoft: '#4D4358',
-
-  muted: '#7D7484',
-  mutedLight: '#A098A5',
-
-  purple: '#7458A5',
-  purpleDark: '#4E317A',
-
-  lavender: '#F2ECFA',
-  lavenderLight: '#F7F3FB',
-  lavenderBorder: '#E7DFF0',
-
-  green: '#368E6B',
-  greenDark: '#276F53',
-  greenSoft: '#EAF7F1',
-  greenBorder: '#D6EBE1',
-
-  gold: '#A97928',
-  goldSoft: '#FBF2DE',
-
-  border: '#ECE6EF',
-};
 
 /* -------------------------------------------------------------------------- */
 /*                              HISTORY ENTRY                                 */
@@ -88,9 +60,13 @@ const C = {
 function HistoryEntryCard({
   entry,
   index,
+  theme,
+  styles,
 }: {
   entry: QadaaHistoryEntry;
   index: number;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
   const dayLabel =
     entry.ramadanDays > 1 ? 'jours' : 'jour';
@@ -106,7 +82,7 @@ function HistoryEntryCard({
         <MaterialDesignIcons
           name="check"
           size={18}
-          color={C.green}
+          color={theme.colors.success}
         />
       </View>
 
@@ -133,7 +109,7 @@ function HistoryEntryCard({
           <MaterialDesignIcons
             name="chevron-right"
             size={20}
-            color="#91879C"
+            color={theme.colors.textSecondary}
           />
         </View>
 
@@ -170,6 +146,9 @@ function FastingQadaaScreen(): React.JSX.Element {
     >();
 
   const insets = useSafeAreaInsets();
+
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
   const {
     remainingQadaaDays,
@@ -408,7 +387,7 @@ function FastingQadaaScreen(): React.JSX.Element {
     <View style={styles.screen}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -446,7 +425,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               <MaterialDesignIcons
                 name="chevron-left"
                 size={22}
-                color={C.purple}
+                color={theme.colors.primary}
               />
             </Pressable>
 
@@ -454,7 +433,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               <MaterialDesignIcons
                 name="moon-waning-crescent"
                 size={15}
-                color={C.purple}
+                color={theme.colors.primary}
               />
 
               <Text
@@ -481,7 +460,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               <MaterialDesignIcons
                 name="help-circle-outline"
                 size={20}
-                color={C.purple}
+                color={theme.colors.primary}
               />
             </Pressable>
           </View>
@@ -512,14 +491,14 @@ function FastingQadaaScreen(): React.JSX.Element {
             <MaterialDesignIcons
               name="star-four-points"
               size={9}
-              color={C.purple}
+              color={theme.colors.primary}
               style={styles.starOne}
             />
 
             <MaterialDesignIcons
               name="star-four-points"
               size={7}
-              color={C.purple}
+              color={theme.colors.primary}
               style={styles.starTwo}
             />
 
@@ -560,7 +539,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                     <MaterialDesignIcons
                       name="check-circle"
                       size={12}
-                      color={C.green}
+                      color={theme.colors.success}
                     />
 
                     <Text
@@ -611,7 +590,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                 <MaterialDesignIcons
                   name="bell-outline"
                   size={21}
-                  color={C.purple}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -661,7 +640,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                   <MaterialDesignIcons
                     name="calendar-star"
                     size={16}
-                    color={C.purple}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -685,6 +664,8 @@ function FastingQadaaScreen(): React.JSX.Element {
                     key={entry.id}
                     entry={entry}
                     index={index}
+                    styles={styles}
+                    theme={theme}
                   />
                 ),
               )}
@@ -707,7 +688,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                   <MaterialDesignIcons
                     name="information-outline"
                     size={17}
-                    color={C.purple}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -763,7 +744,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                   <MaterialDesignIcons
                     name="check-circle-outline"
                     size={18}
-                    color={C.purple}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -818,7 +799,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                       : 'check'
                   }
                   size={17}
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                 />
 
                 <Text
@@ -835,7 +816,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                 <MaterialDesignIcons
                   name="information-outline"
                   size={14}
-                  color={C.muted}
+                  color={theme.colors.textSecondary}
                 />
 
                 <Text
@@ -855,7 +836,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                 <MaterialDesignIcons
                   name="check"
                   size={18}
-                  color="#FFFFFF"
+                  color={pickReadableTextColor(theme.colors.success)}
                 />
               </View>
 
@@ -888,7 +869,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               <MaterialDesignIcons
                 name="hands-pray"
                 size={20}
-                color={C.purple}
+                color={theme.colors.primary}
               />
             </View>
 
@@ -903,7 +884,7 @@ function FastingQadaaScreen(): React.JSX.Element {
             <MaterialDesignIcons
               name="heart"
               size={18}
-              color="#9560C7"
+              color={theme.colors.primary}
             />
           </View>
         </Animated.View>
@@ -934,7 +915,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               <MaterialDesignIcons
                 name="moon-waning-crescent"
                 size={21}
-                color={C.purple}
+                color={theme.colors.primary}
               />
             </View>
 
@@ -985,10 +966,11 @@ function FastingQadaaScreen(): React.JSX.Element {
 /*                                   STYLES                                   */
 /* -------------------------------------------------------------------------- */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: C.background,
+    backgroundColor: theme.colors.background,
   },
 
   content: {
@@ -1015,14 +997,14 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
 
-    backgroundColor: C.white,
+    backgroundColor: theme.colors.surface,
 
     borderWidth: 1,
-    borderColor: C.border,
+    borderColor: theme.colors.border,
 
     elevation: 1,
 
-    shadowColor: '#39294B',
+    shadowColor: theme.shadow.shadowColor,
 
     shadowOffset: {
       width: 0,
@@ -1046,7 +1028,7 @@ const styles = StyleSheet.create({
   },
 
   headerTitle: {
-    color: C.ink,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
     fontSize: 20,
@@ -1064,10 +1046,10 @@ const styles = StyleSheet.create({
     borderRadius: 20,
 
     borderWidth: 1,
-    borderColor: C.lavenderBorder,
+    borderColor: theme.colors.border,
 
     backgroundColor:
-      C.lavenderLight,
+      theme.colors.primarySoft,
   },
 
   heroBackground: {
@@ -1080,8 +1062,14 @@ const styles = StyleSheet.create({
   heroOverlay: {
     ...StyleSheet.absoluteFillObject,
 
+    // Theme-driven, not a fixed literal: heroEyebrow/heroNumber/heroLabel
+    // above render directly on this scrim (no opaque card behind them), so
+    // it must carry real theme-background opacity in every mode. A fixed
+    // 10% white wash left the MOSQUE_IMAGE photo essentially undimmed in
+    // Dark Mode, so the resolved light-on-dark text colors had almost no
+    // contrast against the still-bright photo behind them.
     backgroundColor:
-      'rgba(255,255,255,0.10)',
+      withAlpha(theme.colors.background, 0.72),
   },
 
   heroContent: {
@@ -1112,7 +1100,7 @@ const styles = StyleSheet.create({
   },
 
   heroEyebrow: {
-    color: '#756B80',
+    color: theme.colors.textSecondary,
 
     fontSize: 10.5,
     letterSpacing: 1.5,
@@ -1123,7 +1111,7 @@ const styles = StyleSheet.create({
   heroNumber: {
     marginTop: 7,
 
-    color: C.purpleDark,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
 
@@ -1134,7 +1122,7 @@ const styles = StyleSheet.create({
   },
 
   heroLabel: {
-    color: C.ink,
+    color: theme.colors.text,
 
     fontSize: 14,
 
@@ -1149,11 +1137,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 8,
 
-    backgroundColor: C.goldSoft,
+    backgroundColor: withAlpha(theme.colors.warning, 0.15),
   },
 
   yearPillText: {
-    color: C.gold,
+    color: theme.colors.warning,
 
     fontSize: 10.5,
 
@@ -1173,11 +1161,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 8,
 
-    backgroundColor: C.greenSoft,
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
 
   greenPillText: {
-    color: C.green,
+    color: theme.colors.success,
 
     fontSize: 10.5,
 
@@ -1189,7 +1177,7 @@ const styles = StyleSheet.create({
 
     marginTop: 10,
 
-    color: C.inkSoft,
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
     lineHeight: 17,
@@ -1200,7 +1188,7 @@ const styles = StyleSheet.create({
   loadingDash: {
     marginTop: 8,
 
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 38,
   },
@@ -1208,7 +1196,7 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 5,
 
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 11,
   },
@@ -1227,11 +1215,11 @@ const styles = StyleSheet.create({
     borderRadius: 17,
 
     borderWidth: 1,
-    borderColor: C.border,
+    borderColor: theme.colors.border,
 
-    backgroundColor: C.white,
+    backgroundColor: theme.colors.surface,
 
-    ...homeShadow,
+    ...theme.shadow,
   },
 
   reminderIcon: {
@@ -1243,7 +1231,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: C.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   reminderContent: {
@@ -1253,7 +1241,7 @@ const styles = StyleSheet.create({
   },
 
   reminderTitle: {
-    color: C.ink,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -1266,7 +1254,7 @@ const styles = StyleSheet.create({
   reminderText: {
     marginTop: 3,
 
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
     lineHeight: 17,
@@ -1280,11 +1268,11 @@ const styles = StyleSheet.create({
     borderRadius: 17,
 
     borderWidth: 1,
-    borderColor: C.border,
+    borderColor: theme.colors.border,
 
-    backgroundColor: C.white,
+    backgroundColor: theme.colors.surface,
 
-    ...homeShadow,
+    ...theme.shadow,
   },
 
   sectionHeader: {
@@ -1305,13 +1293,13 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
 
-    backgroundColor: C.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   sectionTitle: {
     marginLeft: 9,
 
-    color: C.ink,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -1323,7 +1311,7 @@ const styles = StyleSheet.create({
   sectionDivider: {
     height: StyleSheet.hairlineWidth,
 
-    backgroundColor: C.border,
+    backgroundColor: theme.colors.border,
   },
 
   historyItem: {
@@ -1345,7 +1333,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: C.greenSoft,
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
 
   historyContent: {
@@ -1369,7 +1357,7 @@ const styles = StyleSheet.create({
   },
 
   historyTitle: {
-    color: C.ink,
+    color: theme.colors.text,
 
     fontSize: 12.5,
 
@@ -1379,7 +1367,7 @@ const styles = StyleSheet.create({
   historyDays: {
     marginTop: 2,
 
-    color: C.ink,
+    color: theme.colors.text,
 
     fontSize: 11.5,
 
@@ -1392,11 +1380,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 8,
 
-    backgroundColor: C.greenSoft,
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
 
   historyStatusText: {
-    color: C.green,
+    color: theme.colors.success,
 
     fontSize: 9.5,
 
@@ -1408,7 +1396,7 @@ const styles = StyleSheet.create({
   },
 
   historyPeriodLabel: {
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.5,
 
@@ -1418,7 +1406,7 @@ const styles = StyleSheet.create({
   historyHijri: {
     marginTop: 2,
 
-    color: C.inkSoft,
+    color: theme.colors.textSecondary,
 
     fontSize: 10.8,
     lineHeight: 15,
@@ -1427,7 +1415,7 @@ const styles = StyleSheet.create({
   historyGregorian: {
     marginTop: 1,
 
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 10,
     lineHeight: 14,
@@ -1446,9 +1434,9 @@ const styles = StyleSheet.create({
     borderRadius: 17,
 
     borderWidth: 1,
-    borderColor: C.lavenderBorder,
+    borderColor: theme.colors.border,
 
-    backgroundColor: '#F5EFFB',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   aboutContent: {
@@ -1477,7 +1465,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 10,
 
-    backgroundColor: '#E9DFF5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   aboutTitle: {
@@ -1485,7 +1473,7 @@ const styles = StyleSheet.create({
 
     marginLeft: 8,
 
-    color: C.ink,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -1500,7 +1488,7 @@ const styles = StyleSheet.create({
 
     marginTop: 10,
 
-    color: C.inkSoft,
+    color: theme.colors.textSecondary,
 
     fontSize: 11.2,
     lineHeight: 17,
@@ -1528,11 +1516,11 @@ const styles = StyleSheet.create({
     borderRadius: 17,
 
     borderWidth: 1,
-    borderColor: C.border,
+    borderColor: theme.colors.border,
 
-    backgroundColor: C.white,
+    backgroundColor: theme.colors.surface,
 
-    ...homeShadow,
+    ...theme.shadow,
   },
 
   completionHeader: {
@@ -1549,7 +1537,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
 
-    backgroundColor: C.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   completionHeaderCopy: {
@@ -1559,7 +1547,7 @@ const styles = StyleSheet.create({
   },
 
   completionTitle: {
-    color: C.ink,
+    color: theme.colors.text,
 
     fontSize: 12.8,
 
@@ -1569,7 +1557,7 @@ const styles = StyleSheet.create({
   completionSubtitle: {
     marginTop: 3,
 
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 10.5,
     lineHeight: 15,
@@ -1588,7 +1576,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
 
-    backgroundColor: C.purple,
+    backgroundColor: theme.colors.primary,
   },
 
   completionButtonPressed: {
@@ -1606,7 +1594,7 @@ const styles = StyleSheet.create({
   },
 
   completionButtonText: {
-    color: C.white,
+    color: onPrimaryTextColor(theme),
 
     fontSize: 12,
 
@@ -1624,7 +1612,7 @@ const styles = StyleSheet.create({
   },
 
   remainingHintText: {
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.7,
 
@@ -1644,9 +1632,9 @@ const styles = StyleSheet.create({
     borderRadius: 17,
 
     borderWidth: 1,
-    borderColor: C.greenBorder,
+    borderColor: withAlpha(theme.colors.success, 0.28),
 
-    backgroundColor: C.greenSoft,
+    backgroundColor: withAlpha(theme.colors.success, 0.14),
   },
 
   completedIcon: {
@@ -1658,7 +1646,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
 
-    backgroundColor: C.green,
+    backgroundColor: theme.colors.success,
   },
 
   completedCopy: {
@@ -1668,7 +1656,7 @@ const styles = StyleSheet.create({
   },
 
   completedTitle: {
-    color: C.greenDark,
+    color: theme.colors.success,
 
     fontSize: 12.5,
 
@@ -1678,7 +1666,7 @@ const styles = StyleSheet.create({
   completedText: {
     marginTop: 2,
 
-    color: '#61796D',
+    color: theme.colors.textSecondary,
 
     fontSize: 10.5,
   },
@@ -1696,11 +1684,11 @@ const styles = StyleSheet.create({
     borderRadius: 17,
 
     borderWidth: 1,
-    borderColor: C.border,
+    borderColor: theme.colors.border,
 
-    backgroundColor: C.white,
+    backgroundColor: theme.colors.surface,
 
-    ...homeShadow,
+    ...theme.shadow,
   },
 
   motivationIcon: {
@@ -1712,7 +1700,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
 
-    backgroundColor: C.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   motivationText: {
@@ -1720,7 +1708,7 @@ const styles = StyleSheet.create({
 
     marginHorizontal: 11,
 
-    color: C.inkSoft,
+    color: theme.colors.textSecondary,
 
     fontSize: 12.5,
     lineHeight: 17,
@@ -1737,7 +1725,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
 
     backgroundColor:
-      'rgba(28,20,39,0.42)',
+      withAlpha(theme.shadow.shadowColor, 0.42),
   },
 
   modalCard: {
@@ -1750,7 +1738,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
 
-    backgroundColor: '#FFFDFF',
+    backgroundColor: theme.colors.surface,
 
     elevation: 12,
   },
@@ -1764,13 +1752,13 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: C.lavender,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   modalTitle: {
     marginTop: 11,
 
-    color: C.ink,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -1782,7 +1770,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginTop: 9,
 
-    color: C.muted,
+    color: theme.colors.textSecondary,
 
     fontSize: 11.5,
     lineHeight: 17,
@@ -1801,16 +1789,17 @@ const styles = StyleSheet.create({
 
     borderRadius: 12,
 
-    backgroundColor: C.purple,
+    backgroundColor: theme.colors.primary,
   },
 
   modalButtonText: {
-    color: C.white,
+    color: onPrimaryTextColor(theme),
 
     fontSize: 12.5,
 
     fontWeight: '800',
   },
-});
+  });
+}
 
 export default FastingQadaaScreen;
