@@ -8,6 +8,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
 import {updatePersonalInformation} from '../state/personalInformationStore';
+import {updatePrivacySecuritySettings} from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -47,14 +48,19 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const allRulesValid = rules.every(rule => rule.valid);
 
   // TEMP FRONTEND-ONLY AUTH BYPASS:
-  // Replace with real authentication once backend auth is connected. Shared
-  // by the final "Créer mon compte" CTA and the dev-mode shortcut below so
-  // there is one single place that enters the main app. emailError/
-  // passwordError/confirmationError state (and the Field/JSX that render
-  // them) are left in place, unused for now, so real validation drops back
-  // in cleanly once a backend exists — only isValidEmail's import was
-  // removed since it became genuinely unused here.
+  // Replace with real authentication once backend auth is connected. The
+  // single place the final "Créer mon compte" CTA enters the main app. Also
+  // clears anonymousMode (state/securityPreferences.ts — the same flag
+  // ProfileScreen/AnonymousMode already read/write) so registering a normal
+  // account after a previous Anonymous Mode session (e.g. via "Créer un
+  // compte" on AnonymousModeScreen's own "Désactiver le mode Anonyme" card)
+  // doesn't leave ProfileScreen stuck showing the anonymous identity.
+  // emailError/passwordError/confirmationError state (and the Field/JSX
+  // that render them) are left in place, unused for now, so real validation
+  // drops back in cleanly once a backend exists — only isValidEmail's
+  // import was removed since it became genuinely unused here.
   const enterMainApp = () => {
+    updatePrivacySecuritySettings({anonymousMode: false});
     navigation.replace('MainTabs', {screen: 'CycleHome'});
   };
 
@@ -65,8 +71,8 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
       setSubmitting(true);
       const trimmedFirstName = firstName.trim();
       // Only persists her chosen display name (same canonical store
-      // NameOnboardingScreen/PersonalInformationScreen use) — does NOT flip
-      // anonymousMode, since no real account is actually created here yet.
+      // NameOnboardingScreen/PersonalInformationScreen use) — anonymousMode
+      // itself is cleared by enterMainApp() above, not here.
       if (trimmedFirstName) {await updatePersonalInformation({firstName: trimmedFirstName});}
       enterMainApp();
     } finally {
@@ -107,16 +113,6 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
           <Text style={styles.infoText}>{infoMessage}</Text>
         </View>
       ) : null}
-      {__DEV__ ? (
-        <Pressable
-          accessibilityLabel="Continuer en mode développement — ne pas utiliser en production"
-          accessibilityRole="button"
-          onPress={enterMainApp}
-          style={({pressed}) => [styles.devBypass, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.textMuted} name="flask-outline" size={14} />
-          <Text style={styles.devBypassText}>Continuer en mode développement</Text>
-        </Pressable>
-      ) : null}
       <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>
         <Pressable accessibilityLabel="Continuer avec Google" accessibilityRole="button" onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
         <Pressable accessibilityLabel="Continuer avec Apple" accessibilityRole="button" onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
@@ -156,7 +152,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   primary: {minHeight: 46, alignItems: 'center', justifyContent: 'center', marginTop: 10, marginHorizontal: spacing.lg, borderRadius: 16, backgroundColor: theme.colors.primary, shadowColor: theme.shadow.shadowColor, shadowOffset: {width: 0, height: 5}, shadowOpacity: 0.25, shadowRadius: 9, elevation: 5}, primaryText: {color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '600'},
   disabled: {opacity: 0.55}, pressed: {opacity: 0.85},
   infoCard: {flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 10, marginHorizontal: spacing.lg, borderWidth: 1, borderColor: theme.colors.border, borderRadius: 14, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 12, paddingVertical: 10}, infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
-  devBypass: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 10, marginHorizontal: spacing.lg, minHeight: 34, borderWidth: 1, borderStyle: 'dashed', borderColor: theme.colors.border, borderRadius: 12, backgroundColor: 'transparent'}, devBypassText: {color: theme.colors.textMuted, fontSize: 10.5, fontWeight: '600'},
   or: {marginVertical: 8, color: theme.colors.textMuted, fontSize: 11, textAlign: 'center'}, socialRow: {flexDirection: 'row', justifyContent: 'center', gap: 20}, social: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: theme.colors.border, borderRadius: 22, backgroundColor: theme.colors.surface}, socialLogo: {width: 26, height: 26, resizeMode: 'contain'},
   legalArea: {marginTop: 16}, legal: {color: theme.colors.textMuted, fontSize: 9, textAlign: 'center'}, legalStrong: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 9, fontWeight: '600', textAlign: 'center'},
   });

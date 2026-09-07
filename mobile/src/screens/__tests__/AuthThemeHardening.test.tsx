@@ -10,6 +10,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {getPrivacySecuritySettings, updatePrivacySecuritySettings} from '../../state/securityPreferences';
 
 import AuthScreen from '../AuthScreen';
 import RegistrationScreen from '../RegistrationScreen';
@@ -86,6 +87,9 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // anonymousMode is a module-level singleton (state/securityPreferences.ts)
+  // that otherwise leaks between tests.
+  updatePrivacySecuritySettings({anonymousMode: false});
 });
 
 afterEach(() => {
@@ -378,9 +382,10 @@ describe('RegistrationScreen — accessibility parity with AuthScreen (Phase 3 f
 /* ============================================================
    TEMP FRONTEND-ONLY AUTH BYPASS — the project has no backend
    authentication yet. "Se connecter" and the final registration CTA must
-   enter the main app directly (same existing MainTabs/CycleHome route the
-   pre-existing "Continuer en mode développement" dev shortcut already used),
-   with no blocking validation alert/error, even with empty fields.
+   enter the main app directly (the same existing MainTabs/CycleHome route),
+   with no blocking validation alert/error, even with empty fields. The
+   separate "Continuer en mode développement" dev-only shortcut has been
+   removed from both screens — the normal buttons are now sufficient.
 ============================================================ */
 
 function findPressableAncestor(node: ReactTestRenderer.ReactTestInstance): ReactTestRenderer.ReactTestInstance {
@@ -433,15 +438,49 @@ describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () =
     alertSpy.mockRestore();
   });
 
-  it('"Continuer en mode développement" still works identically on both Login and Registration', async () => {
+  it('"Continuer en mode développement" no longer renders on either screen — the normal buttons are enough', async () => {
     for (const [Screen, routeName] of [[AuthScreen, 'Auth'], [RegistrationScreen, 'Registration']] as const) {
       const renderer = await renderScreen(Screen, routeName);
-      const devButton = renderer.root.findByProps({accessibilityLabel: 'Continuer en mode développement — ne pas utiliser en production'});
-      act(() => {
-        devButton.props.onPress();
-      });
-      expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+      expect(renderer.root.findAllByProps({accessibilityLabel: 'Continuer en mode développement — ne pas utiliser en production'}).length).toBe(0);
+      expect(renderer.root.findAll(node => node.props.children === 'Continuer en mode développement').length).toBe(0);
+      expect(renderer.root.findAll(node => node.props.name === 'flask-outline').length).toBe(0);
     }
+  });
+
+  it('static guard: no dead dev-bypass code (handler, style, icon) remains in either screen', () => {
+    for (const relativePath of ['../AuthScreen.tsx', '../RegistrationScreen.tsx']) {
+      const source = fs.readFileSync(path.resolve(__dirname, relativePath), 'utf8');
+      expect(source).not.toMatch(/devBypass/);
+      expect(source).not.toMatch(/Continuer en mode développement/);
+      expect(source).not.toMatch(/flask-outline/);
+      expect(source).not.toMatch(/__DEV__/);
+    }
+  });
+
+  it('Login: "Se connecter" clears a stale anonymousMode left over from a previous Anonymous Mode session', async () => {
+    updatePrivacySecuritySettings({anonymousMode: true});
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+
+    const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
+    act(() => {
+      findPressableAncestor(submitLabel).props.onPress();
+    });
+
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    expect(getPrivacySecuritySettings().anonymousMode).toBe(false);
+  });
+
+  it('Registration: the final "Créer mon compte" CTA clears a stale anonymousMode left over from a previous Anonymous Mode session', async () => {
+    updatePrivacySecuritySettings({anonymousMode: true});
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+
+    const submitLabel = renderer.root.findAllByProps({children: 'Créer mon compte'})[0];
+    await act(async () => {
+      findPressableAncestor(submitLabel).props.onPress();
+    });
+
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    expect(getPrivacySecuritySettings().anonymousMode).toBe(false);
   });
 
   it('navigation does not loop back to Auth after entering MainTabs (no auth guard re-routes)', async () => {
