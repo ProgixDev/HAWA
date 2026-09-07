@@ -12,6 +12,7 @@ import {getPregnancyMedicalEvents, type PregnancyMedicalEvent} from '../../../st
 import PregnancyAppointmentScreen from '../PregnancyAppointmentScreen';
 import PregnancyExamScreen from '../PregnancyExamScreen';
 import PregnancyAppointmentsScreen from '../PregnancyAppointmentsScreen';
+import PregnancyEventForm from '../../../components/pregnancy/PregnancyEventForm';
 
 // Phase 1 — Pregnancy Appointment/Exam flow separation. The dedicated
 // PregnancyAppointmentScreen/PregnancyExamScreen must never show the
@@ -99,7 +100,20 @@ describe('PregnancyAppointmentScreen — dedicated, no selector', () => {
     const renderer = await renderScreen(() => (
       <PregnancyAppointmentScreen navigation={navigation} route={{params: undefined} as never} />
     ));
-    expect(hasSegmentedSelector(renderer, 'Ajouter un rendez-vous')).toBe(true);
+    // "Ajouter un RDV" — the project's current appointment-specific wording.
+    expect(hasSegmentedSelector(renderer, 'Ajouter un RDV')).toBe(true);
+  });
+
+  it('locks type="appointment" on the shared form BEFORE it ever renders — not a default later switched', async () => {
+    const navigation = {goBack: jest.fn()} as never;
+    const renderer = await renderScreen(() => (
+      <PregnancyAppointmentScreen navigation={navigation} route={{params: undefined} as never} />
+    ));
+    const form = renderer.root.findByType(PregnancyEventForm);
+    expect(form.props.type).toBe('appointment');
+    // No onTypeChange callback is ever wired in — the dedicated screen gives
+    // the form no way to switch type, unlike the legacy combined screen.
+    expect(form.props.onTypeChange).toBeUndefined();
   });
 
   it('saving persists an event with type "appointment"', async () => {
@@ -149,6 +163,36 @@ describe('PregnancyAppointmentScreen — dedicated, no selector', () => {
     const titleInput = renderer.root.findAll(node => node.props.accessibilityLabel === 'Titre')[0];
     expect(titleInput.props.value).toBe('Consultation du 6e mois');
   });
+
+  it('editing and re-saving an existing appointment keeps its type as "appointment" (never flips to exam)', async () => {
+    await seedEvent({
+      id: 'evt-appt-2',
+      type: 'appointment',
+      date: '2026-10-01',
+      title: 'Consultation du 6e mois',
+      createdAt: '2026-09-01T00:00:00.000Z',
+      updatedAt: '2026-09-01T00:00:00.000Z',
+    });
+
+    const goBack = jest.fn();
+    const renderer = await renderScreen(() => (
+      <PregnancyAppointmentScreen navigation={{goBack} as never} route={{params: {eventId: 'evt-appt-2'}} as never} />
+    ));
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    const saveButton = renderer.root.findAll(node => node.props.accessibilityLabel === 'Enregistrer')[0];
+    await act(async () => {
+      await saveButton.props.onPress();
+    });
+
+    const events = await getPregnancyMedicalEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].id).toBe('evt-appt-2');
+    expect(events[0].type).toBe('appointment');
+    expect(goBack).toHaveBeenCalled();
+  });
 });
 
 describe('PregnancyExamScreen — dedicated, no selector', () => {
@@ -167,6 +211,18 @@ describe('PregnancyExamScreen — dedicated, no selector', () => {
       <PregnancyExamScreen navigation={navigation} route={{params: undefined} as never} />
     ));
     expect(hasSegmentedSelector(renderer, 'Ajouter un examen')).toBe(true);
+  });
+
+  it('locks type="exam" on the shared form BEFORE it ever renders — not a default later switched', async () => {
+    const navigation = {goBack: jest.fn()} as never;
+    const renderer = await renderScreen(() => (
+      <PregnancyExamScreen navigation={navigation} route={{params: undefined} as never} />
+    ));
+    const form = renderer.root.findByType(PregnancyEventForm);
+    expect(form.props.type).toBe('exam');
+    // No onTypeChange callback is ever wired in — the dedicated screen gives
+    // the form no way to switch type, unlike the legacy combined screen.
+    expect(form.props.onTypeChange).toBeUndefined();
   });
 
   it('saving persists an event with type "exam"', async () => {
@@ -214,6 +270,36 @@ describe('PregnancyExamScreen — dedicated, no selector', () => {
     expect(hasSegmentedSelector(renderer, 'Modifier l’examen')).toBe(true);
     const titleInput = renderer.root.findAll(node => node.props.accessibilityLabel === 'Titre')[0];
     expect(titleInput.props.value).toBe('Échographie T3');
+  });
+
+  it('editing and re-saving an existing exam keeps its type as "exam" (never flips to appointment)', async () => {
+    await seedEvent({
+      id: 'evt-exam-2',
+      type: 'exam',
+      date: '2026-10-05',
+      title: 'Échographie T3',
+      createdAt: '2026-09-01T00:00:00.000Z',
+      updatedAt: '2026-09-01T00:00:00.000Z',
+    });
+
+    const goBack = jest.fn();
+    const renderer = await renderScreen(() => (
+      <PregnancyExamScreen navigation={{goBack} as never} route={{params: {eventId: 'evt-exam-2'}} as never} />
+    ));
+    await act(async () => {
+      await Promise.resolve();
+    });
+
+    const saveButton = renderer.root.findAll(node => node.props.accessibilityLabel === 'Enregistrer')[0];
+    await act(async () => {
+      await saveButton.props.onPress();
+    });
+
+    const events = await getPregnancyMedicalEvents();
+    expect(events).toHaveLength(1);
+    expect(events[0].id).toBe('evt-exam-2');
+    expect(events[0].type).toBe('exam');
+    expect(goBack).toHaveBeenCalled();
   });
 });
 
