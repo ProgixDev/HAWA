@@ -778,8 +778,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                   : ['Aucun rendez-vous prévu']
               }
               onPress={() =>
-                navigation.navigate('PregnancyAppointments', {
-                  initialType: 'appointment',
+                navigation.navigate('PregnancyAppointment', {
                   eventId: nextAppointment?.id,
                 })
               }
@@ -804,8 +803,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                   : ['Aucun examen prévu']
               }
               onPress={() =>
-                navigation.navigate('PregnancyAppointments', {
-                  initialType: 'exam',
+                navigation.navigate('PregnancyExam', {
                   eventId: nextExam?.id,
                 })
               }

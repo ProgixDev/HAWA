@@ -164,6 +164,74 @@ describe('PregnancyDashboard — Premium fallback', () => {
   });
 });
 
+describe('PregnancyDashboard — Appointment/Exam navigate independently, no shared segmented-selector route', () => {
+  it('"Prochain RDV" navigates to the dedicated PregnancyAppointment route (never the combined PregnancyAppointments form)', async () => {
+    const navigate = jest.fn();
+    let renderer: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <SafeAreaProvider initialMetrics={TEST_METRICS}>
+          <AwaThemeProvider>
+            <JournalSheetProvider>
+              <NavigationContainer ref={navRef}>
+                <Stack.Navigator screenOptions={{headerShown: false}}>
+                  <Stack.Screen name="Test">
+                    {() => <PregnancyDashboard navigation={{navigate} as never} route={{key: 'test', name: 'CycleHome'}} />}
+                  </Stack.Screen>
+                </Stack.Navigator>
+              </NavigationContainer>
+            </JournalSheetProvider>
+          </AwaThemeProvider>
+        </SafeAreaProvider>,
+      );
+    });
+    activeRenderers.push(renderer!);
+
+    const card = renderer!.root.findAll(node => node.props.accessibilityLabel === 'Prochain RDV')[0];
+    await act(async () => {
+      card.props.onPress();
+    });
+
+    expect(navigate).toHaveBeenCalledWith('PregnancyAppointment', expect.objectContaining({}));
+    expect(navigate).not.toHaveBeenCalledWith('PregnancyAppointments', expect.anything());
+    const [, params] = navigate.mock.calls[0];
+    expect(params).not.toHaveProperty('initialType');
+  });
+
+  it('"Prochain examen" navigates to the dedicated PregnancyExam route (never the combined PregnancyAppointments form)', async () => {
+    const navigate = jest.fn();
+    let renderer: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <SafeAreaProvider initialMetrics={TEST_METRICS}>
+          <AwaThemeProvider>
+            <JournalSheetProvider>
+              <NavigationContainer ref={navRef}>
+                <Stack.Navigator screenOptions={{headerShown: false}}>
+                  <Stack.Screen name="Test">
+                    {() => <PregnancyDashboard navigation={{navigate} as never} route={{key: 'test', name: 'CycleHome'}} />}
+                  </Stack.Screen>
+                </Stack.Navigator>
+              </NavigationContainer>
+            </JournalSheetProvider>
+          </AwaThemeProvider>
+        </SafeAreaProvider>,
+      );
+    });
+    activeRenderers.push(renderer!);
+
+    const card = renderer!.root.findAll(node => node.props.accessibilityLabel === 'Prochain examen')[0];
+    await act(async () => {
+      card.props.onPress();
+    });
+
+    expect(navigate).toHaveBeenCalledWith('PregnancyExam', expect.objectContaining({}));
+    expect(navigate).not.toHaveBeenCalledWith('PregnancyAppointments', expect.anything());
+    const [, params] = navigate.mock.calls[0];
+    expect(params).not.toHaveProperty('initialType');
+  });
+});
+
 describe('PregnancyDashboard — no palette-ID / Midnight dependency', () => {
   it('never references midnight anywhere in the module', () => {
     // Static guard: fails loudly if a future edit reintroduces a Midnight

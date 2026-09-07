@@ -124,6 +124,8 @@ import PregnancySymptomsScreen from '../screens/pregnancy/PregnancySymptomsScree
 import PregnancyWeightScreen from '../screens/pregnancy/PregnancyWeightScreen';
 import PregnancyMedicalInformationScreen from '../screens/pregnancy/PregnancyMedicalInformationScreen';
 import PregnancyAppointmentsScreen from '../screens/pregnancy/PregnancyAppointmentsScreen';
+import PregnancyAppointmentScreen from '../screens/pregnancy/PregnancyAppointmentScreen';
+import PregnancyExamScreen from '../screens/pregnancy/PregnancyExamScreen';
 import PregnancyWeekScreen from '../screens/pregnancy/PregnancyWeekScreen';
 import PregnancyDatingSetupScreen from '../screens/pregnancy/PregnancyDatingSetupScreen';
 import PregnancyTrackingPreferencesScreen from '../screens/pregnancy/PregnancyTrackingPreferencesScreen';
@@ -259,6 +261,10 @@ export type RootStackParamList = {
   PregnancyAppointments:
     | { initialType?: PregnancyMedicalEventType; eventId?: string }
     | undefined;
+  /** Dedicated Appointment flow — no type selector, always `type: 'appointment'`. */
+  PregnancyAppointment: { eventId?: string } | undefined;
+  /** Dedicated Exam flow — no type selector, always `type: 'exam'`. */
+  PregnancyExam: { eventId?: string } | undefined;
   PregnancyWeek: undefined;
   PregnancyNotifications: undefined;
   PrivateAccess: { purpose: PrivateAccessPurpose };
@@ -516,6 +522,11 @@ function AppNavigator({
           name="PregnancyAppointments"
           component={PregnancyAppointmentsScreen}
         />
+        <Stack.Screen
+          name="PregnancyAppointment"
+          component={PregnancyAppointmentScreen}
+        />
+        <Stack.Screen name="PregnancyExam" component={PregnancyExamScreen} />
         <Stack.Screen name="PregnancyWeek" component={PregnancyWeekScreen} />
         <Stack.Screen
           name="PregnancyNotifications"
