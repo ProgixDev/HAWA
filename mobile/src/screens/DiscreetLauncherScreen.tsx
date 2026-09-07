@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   ActivityIndicator,
@@ -27,10 +27,13 @@ import {
   setLauncherIdentity,
   type LauncherIdentity,
 } from '../services/discreetLauncher';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
-const PURPLE = '#6D4AE8';
-const DARK = '#2F2258';
-const MUTED = '#746D92';
 const AWA_LOGO = require('../assets/images/hawa-logo.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'DiscreetLauncher'>;
@@ -57,6 +60,9 @@ type PendingSwitch = {target: LauncherIdentity};
 type SupportState = 'unknown' | 'supported' | 'unsupported_vendor';
 
 export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const compact = width < 360 || height < 700;
@@ -131,7 +137,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
-      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <ScrollView
         contentContainerStyle={[
           styles.content,
@@ -145,7 +151,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
             accessibilityRole="button"
             onPress={navigation.goBack}
             style={({pressed}) => [styles.back, pressed && styles.pressed]}>
-            <MaterialDesignIcons color={PURPLE} name="chevron-left" size={28} />
+            <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
           </Pressable>
           <View style={styles.headerCopy}>
             <Text style={styles.title}>Apparence discrète</Text>
@@ -154,7 +160,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
         </View>
 
         <View style={styles.infoCard}>
-          <MaterialDesignIcons color={PURPLE} name="information-outline" size={20} />
+          <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
           <Text style={styles.infoText}>
             Ceci change uniquement le nom et l’icône de l’application sur ton écran d’accueil.
             Tes données et leur protection (code PIN, biométrie, chiffrement) restent exactement
@@ -164,7 +170,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
 
         {!IS_ANDROID ? (
           <View style={styles.infoCard}>
-            <MaterialDesignIcons color={MUTED} name="cellphone-off" size={20} />
+            <MaterialDesignIcons color={theme.colors.textSecondary} name="cellphone-off" size={20} />
             <Text style={styles.infoText}>
               Cette fonctionnalité n’est disponible que sur Android.
             </Text>
@@ -175,7 +181,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
 
             {loadError ? (
               <View style={styles.infoCardWarning}>
-                <MaterialDesignIcons color="#B5732E" name="alert-circle-outline" size={20} />
+                <MaterialDesignIcons color={theme.colors.warning} name="alert-circle-outline" size={20} />
                 <Text style={styles.infoTextWarning}>
                   Impossible de lire l’apparence actuelle pour le moment.
                 </Text>
@@ -189,7 +195,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
               </View>
             ) : identity === null ? (
               <View style={styles.loading}>
-                <ActivityIndicator color={PURPLE} />
+                <ActivityIndicator color={theme.colors.primary} />
               </View>
             ) : (
               <View style={styles.choices}>
@@ -218,21 +224,21 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
 
             {switching ? (
               <View style={styles.switchingRow}>
-                <ActivityIndicator color={PURPLE} size="small" />
+                <ActivityIndicator color={theme.colors.primary} size="small" />
                 <Text style={styles.switchingText}>Changement en cours…</Text>
               </View>
             ) : null}
 
             {supportState === 'unsupported_vendor' ? (
               <View style={styles.infoCardWarning}>
-                <MaterialDesignIcons color="#B5732E" name="cellphone-remove" size={20} />
+                <MaterialDesignIcons color={theme.colors.warning} name="cellphone-remove" size={20} />
                 <Text style={styles.infoTextWarning}>
                   Cette fonctionnalité est limitée par le lanceur de ton téléphone.
                 </Text>
               </View>
             ) : (
               <View style={styles.noteCard}>
-                <MaterialDesignIcons color={MUTED} name="clock-outline" size={17} />
+                <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={17} />
                 <Text style={styles.noteText}>
                   Le nouvel icône peut mettre quelques secondes à s’afficher selon ton launcher
                   Android.
@@ -275,6 +281,9 @@ function IdentityCard({
   disabled: boolean;
   onPress: () => void;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   return (
     <Pressable
       accessibilityLabel={`${title} — ${description}`}
@@ -294,7 +303,7 @@ function IdentityCard({
         <Text style={styles.identityDescription}>{description}</Text>
       </View>
       <View style={[styles.radio, selected && styles.radioSelected]}>
-        {selected ? <MaterialDesignIcons color="#FFFFFF" name="check" size={13} /> : null}
+        {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={13} /> : null}
       </View>
     </Pressable>
   );
@@ -324,6 +333,9 @@ function LauncherSwitchConfirmModal({
   onCancel: () => void;
   onConfirm: () => void;
 }): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const modalStyles = useMemo(() => createModalStyles(theme), [theme]);
+
   const visible = target !== null;
   const entrance = useRef(new Animated.Value(0)).current;
 
@@ -366,7 +378,7 @@ function LauncherSwitchConfirmModal({
           <Animated.View accessibilityRole="alert" style={[modalStyles.card, cardStyle]}>
             <View style={modalStyles.icon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name={target === 'discreet' ? 'calendar-blank-outline' : 'flower-outline'}
                 size={30}
               />
@@ -403,13 +415,16 @@ function LauncherSwitchConfirmModal({
 }
 
 function ErrorModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const modalStyles = useMemo(() => createModalStyles(theme), [theme]);
+
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <View style={modalStyles.overlay}>
         <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
         <View accessibilityRole="alert" style={modalStyles.card}>
           <View style={[modalStyles.icon, modalStyles.iconWarning]}>
-            <MaterialDesignIcons color="#B5732E" name="alert-circle-outline" size={30} />
+            <MaterialDesignIcons color={theme.colors.warning} name="alert-circle-outline" size={30} />
           </View>
           <Text style={modalStyles.title}>Changement impossible</Text>
           <Text style={modalStyles.message}>
@@ -437,13 +452,16 @@ function ErrorModal({visible, onClose}: {visible: boolean; onClose: () => void})
 // manufacturer) since the same honest message applies to any OEM that
 // restricts this standard Android API the same way.
 function UnsupportedVendorModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const modalStyles = useMemo(() => createModalStyles(theme), [theme]);
+
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <View style={modalStyles.overlay}>
         <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
         <View accessibilityRole="alert" style={modalStyles.card}>
           <View style={[modalStyles.icon, modalStyles.iconWarning]}>
-            <MaterialDesignIcons color="#B5732E" name="cellphone-remove" size={30} />
+            <MaterialDesignIcons color={theme.colors.warning} name="cellphone-remove" size={30} />
           </View>
           <Text style={modalStyles.title}>Changement non pris en charge</Text>
           <Text style={modalStyles.message}>
@@ -463,8 +481,9 @@ function UnsupportedVendorModal({visible, onClose}: {visible: boolean; onClose: 
   );
 }
 
-const styles = StyleSheet.create({
-  safe: {flex: 1, backgroundColor: '#FCFAFF'},
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+  safe: {flex: 1, backgroundColor: theme.colors.background},
   content: {flexGrow: 1, gap: 14, paddingHorizontal: 16},
   contentCompact: {paddingHorizontal: 11},
   header: {flexDirection: 'row', alignItems: 'center'},
@@ -472,44 +491,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 999,
-    backgroundColor: '#FFF',
+    backgroundColor: theme.colors.surface,
     padding: 9,
     elevation: 2,
   },
   headerCopy: {flex: 1, minWidth: 0, paddingHorizontal: 9},
-  title: {color: DARK, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
-  subtitle: {marginTop: 4, color: MUTED, fontSize: 12, lineHeight: 16},
-  sectionTitle: {color: DARK, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
+  title: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 21, fontWeight: '700'},
+  subtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 16},
+  sectionTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
   infoCard: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 10,
     borderWidth: 1,
-    borderColor: '#E8DDF5',
+    borderColor: theme.colors.border,
     borderRadius: 18,
-    backgroundColor: '#FAF7FF',
+    backgroundColor: theme.colors.primarySoft,
     padding: 14,
   },
-  infoText: {flex: 1, minWidth: 0, color: MUTED, fontSize: 12, lineHeight: 17},
+  infoText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
   infoCardWarning: {
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
     gap: 10,
     borderWidth: 1,
-    borderColor: '#F0DCC0',
+    borderColor: withAlpha(theme.colors.warning, 0.35),
     borderRadius: 18,
-    backgroundColor: '#FFF7EC',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
     padding: 14,
   },
-  infoTextWarning: {flex: 1, minWidth: 120, color: '#8A5A22', fontSize: 12, lineHeight: 17},
+  infoTextWarning: {flex: 1, minWidth: 120, color: theme.colors.warning, fontSize: 12, lineHeight: 17},
   retryButton: {
     paddingHorizontal: 14,
     paddingVertical: 9,
     borderRadius: 12,
-    backgroundColor: '#B5732E',
+    backgroundColor: theme.colors.warning,
   },
-  retryButtonText: {color: '#FFFFFF', fontSize: 12, fontWeight: '700'},
+  retryButtonText: {color: onPrimaryTextColor(theme), fontSize: 12, fontWeight: '700'},
   choices: {gap: 11},
   loading: {paddingVertical: 30, alignItems: 'center'},
   identityCard: {
@@ -517,18 +536,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     minHeight: 78,
     borderWidth: 1.4,
-    borderColor: 'rgba(111,83,190,0.14)',
+    borderColor: theme.colors.border,
     borderRadius: 18,
-    backgroundColor: 'rgba(255,252,255,0.94)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.94),
     paddingHorizontal: 13,
     paddingVertical: 12,
     elevation: 3,
-    shadowColor: '#4E319A',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.07,
     shadowRadius: 9,
   },
-  identityCardSelected: {borderColor: PURPLE, backgroundColor: '#F5F0FC'},
+  identityCardSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primarySoft},
   identityCardDisabled: {opacity: 0.6},
   identityPreviewWrap: {
     width: 48,
@@ -537,10 +556,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: '#F1EBFA',
+    backgroundColor: theme.colors.primarySoft,
     overflow: 'hidden',
   },
   previewImage: {width: 34, height: 34},
+  // Deliberately NOT theme-derived: this preview mocks up the "Agenda"
+  // disguise identity itself — a neutral, non-AWA-branded calendar-app
+  // look is the entire point of this option, so it must stay a plain
+  // neutral gray regardless of the selected AWA theme/branding.
   previewNeutralIcon: {
     width: 48,
     height: 48,
@@ -550,8 +573,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEF0F3',
   },
   identityCopy: {flex: 1, minWidth: 0, marginHorizontal: 12},
-  identityTitle: {color: DARK, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
-  identityDescription: {marginTop: 2, color: MUTED, fontSize: 11.5, lineHeight: 16},
+  identityTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
+  identityDescription: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
   radio: {
     width: 24,
     height: 24,
@@ -559,37 +582,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
-    borderColor: '#AE9BCF',
+    borderColor: withAlpha(theme.colors.primary, 0.45),
     borderRadius: 12,
   },
-  radioSelected: {borderColor: PURPLE, backgroundColor: PURPLE},
+  radioSelected: {borderColor: theme.colors.primary, backgroundColor: theme.colors.primary},
   switchingRow: {flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8},
-  switchingText: {color: MUTED, fontSize: 12, fontWeight: '600'},
+  switchingText: {color: theme.colors.textSecondary, fontSize: 12, fontWeight: '600'},
   noteCard: {
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 8,
     borderRadius: 16,
-    backgroundColor: '#F1E8FF',
+    backgroundColor: theme.colors.primarySoft,
     padding: 12,
   },
-  noteText: {flex: 1, minWidth: 0, color: MUTED, fontSize: 11, lineHeight: 15},
+  noteText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15},
   pressed: {opacity: 0.78, transform: [{scale: 0.985}]},
-});
+  });
+}
 
-const modalStyles = StyleSheet.create({
+function createModalStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   overlay: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 21},
-  backdrop: {backgroundColor: 'rgba(34,20,69,0.40)'},
+  backdrop: {backgroundColor: withAlpha(theme.shadow.shadowColor, 0.40)},
   card: {
     width: '100%',
     maxWidth: 390,
     alignItems: 'center',
     borderRadius: 28,
     borderWidth: 1,
-    borderColor: '#E4D9F5',
-    backgroundColor: '#FFFDFF',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
     padding: 24,
-    shadowColor: '#24134A',
+    shadowColor: theme.shadow.shadowColor,
     shadowOpacity: 0.25,
     shadowRadius: 22,
     shadowOffset: {width: 0, height: 10},
@@ -601,19 +626,19 @@ const modalStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 33,
-    backgroundColor: '#F0E8FC',
+    backgroundColor: theme.colors.primarySoft,
   },
-  iconWarning: {backgroundColor: '#FFF0DC'},
+  iconWarning: {backgroundColor: withAlpha(theme.colors.warning, 0.15)},
   title: {
     marginTop: 16,
-    color: DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 21,
     fontWeight: '800',
     lineHeight: 27,
     textAlign: 'center',
   },
-  message: {marginTop: 10, color: MUTED, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
+  message: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
   primary: {
     width: '100%',
     minHeight: 52,
@@ -621,8 +646,8 @@ const modalStyles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 18,
-    backgroundColor: PURPLE,
-    shadowColor: '#4E2A9B',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOpacity: 0.22,
     shadowRadius: 9,
     shadowOffset: {width: 0, height: 5},
@@ -630,7 +655,7 @@ const modalStyles = StyleSheet.create({
   },
   primaryPressed: {opacity: 0.9},
   primaryDisabled: {opacity: 0.7},
-  primaryText: {color: '#FFFFFF', fontSize: 15, fontWeight: '800'},
+  primaryText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '800'},
   secondary: {
     width: '100%',
     minHeight: 48,
@@ -638,8 +663,9 @@ const modalStyles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 8,
     borderRadius: 16,
-    backgroundColor: '#F7F3FC',
+    backgroundColor: theme.colors.primarySoft,
   },
   secondaryPressed: {opacity: 0.85},
-  secondaryText: {color: PURPLE, fontSize: 14, fontWeight: '800'},
-});
+  secondaryText: {color: theme.colors.primary, fontSize: 14, fontWeight: '800'},
+  });
+}

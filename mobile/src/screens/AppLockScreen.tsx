@@ -1,5 +1,6 @@
 import React, {
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -35,25 +36,13 @@ import {
 
 import {unlockApp} from '../state/appLockStore';
 
-const COLORS = {
-  primary: '#6949BE',
-  primaryDark: '#321B78',
-  primarySoft: '#EEE5FC',
-
-  text: '#28184F',
-  textSecondary: '#6A5D80',
-
-  white: '#FFFFFF',
-
-  green: '#5DA77F',
-
-  danger: '#C74669',
-  dangerSoft: '#FFF0F4',
-
-  border: 'rgba(105,73,190,0.12)',
-};
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 export default function AppLockScreen(): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets = useSafeAreaInsets();
 
   const {
@@ -244,12 +233,7 @@ export default function AppLockScreen(): React.JSX.Element {
 
   return (
     <LinearGradient
-      colors={[
-        '#FAF8FD',
-        '#F4EFFA',
-        '#EEE7F7',
-        '#E9E1F3',
-      ]}
+      colors={[...theme.gradients.pageBackground]}
       locations={[
         0,
         0.32,
@@ -303,7 +287,7 @@ export default function AppLockScreen(): React.JSX.Element {
         }>
         <StatusBar
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
           translucent
         />
 
@@ -345,7 +329,7 @@ export default function AppLockScreen(): React.JSX.Element {
               ]}>
               <MaterialDesignIcons
                 color={
-                  COLORS.primary
+                  theme.colors.primary
                 }
                 name="shield-lock-outline"
                 size={
@@ -365,7 +349,7 @@ export default function AppLockScreen(): React.JSX.Element {
                     styles.heroBadgeVeryCompact,
                 ]}>
                 <MaterialDesignIcons
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                   name="lock"
                   size={
                     veryCompact
@@ -414,7 +398,7 @@ export default function AppLockScreen(): React.JSX.Element {
               }>
               <MaterialDesignIcons
                 color={
-                  COLORS.danger
+                  theme.colors.danger
                 }
                 name="alert-circle-outline"
                 size={17}
@@ -453,7 +437,7 @@ export default function AppLockScreen(): React.JSX.Element {
                     }>
                     <MaterialDesignIcons
                       color={
-                        COLORS.primary
+                        theme.colors.primary
                       }
                       name="dialpad"
                       size={18}
@@ -481,7 +465,7 @@ export default function AppLockScreen(): React.JSX.Element {
 
                   <MaterialDesignIcons
                     color={
-                      COLORS.green
+                      theme.colors.success
                     }
                     name="shield-check-outline"
                     size={19}
@@ -519,7 +503,7 @@ export default function AppLockScreen(): React.JSX.Element {
                   ]}>
                   <MaterialDesignIcons
                     color={
-                      COLORS.primary
+                      theme.colors.primary
                     }
                     name={
                       biometricIcon
@@ -583,7 +567,7 @@ export default function AppLockScreen(): React.JSX.Element {
                     styles.buttonPressed,
                 ]}>
                 <MaterialDesignIcons
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                   name={
                     biometricIcon
                   }
@@ -600,7 +584,7 @@ export default function AppLockScreen(): React.JSX.Element {
                 </Text>
 
                 <MaterialDesignIcons
-                  color="rgba(255,255,255,0.85)"
+                  color={withAlpha(onPrimaryTextColor(theme), 0.85)}
                   name="arrow-right"
                   size={18}
                 />
@@ -629,7 +613,7 @@ export default function AppLockScreen(): React.JSX.Element {
                 ]}>
                 <MaterialDesignIcons
                   color={
-                    COLORS.primary
+                    theme.colors.primary
                   }
                   name="dialpad"
                   size={18}
@@ -667,7 +651,7 @@ export default function AppLockScreen(): React.JSX.Element {
                 ]}>
                 <MaterialDesignIcons
                   color={
-                    COLORS.primary
+                    theme.colors.primary
                   }
                   name={
                     biometricIcon
@@ -690,8 +674,8 @@ export default function AppLockScreen(): React.JSX.Element {
   );
 }
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     /* ========================================================
        BACKGROUND
     ======================================================== */
@@ -701,7 +685,7 @@ const styles =
       zIndex: 9999,
 
       backgroundColor:
-        '#F8EFFF',
+        theme.colors.background,
     },
 
     pageBackgroundDecor: {
@@ -722,7 +706,7 @@ const styles =
       borderRadius: 165,
 
       backgroundColor:
-        'rgba(111, 82, 170, 0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     pageGlowMiddle: {
@@ -737,7 +721,7 @@ const styles =
       borderRadius: 130,
 
       backgroundColor:
-        'rgba(139, 112, 188, 0.045)',
+        withAlpha(theme.colors.primary, 0.045),
     },
 
     pageGlowBottom: {
@@ -752,7 +736,7 @@ const styles =
       borderRadius: 155,
 
       backgroundColor:
-        'rgba(92, 67, 139, 0.05)',
+        withAlpha(theme.colors.primary, 0.05),
     },
 
     safe: {
@@ -812,15 +796,15 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(105,73,190,0.13)',
+        theme.colors.border,
 
       borderRadius: 41,
 
       backgroundColor:
-        'rgba(255,255,255,0.90)',
+        withAlpha(theme.colors.surface, 0.90),
 
       shadowColor:
-        COLORS.primary,
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -862,12 +846,12 @@ const styles =
       borderWidth: 3,
 
       borderColor:
-        '#F5EFFB',
+        theme.colors.background,
 
       borderRadius: 13,
 
       backgroundColor:
-        COLORS.primary,
+        theme.colors.primary,
     },
 
     heroBadgeVeryCompact: {
@@ -881,7 +865,7 @@ const styles =
       marginTop: 11,
 
       color:
-        COLORS.text,
+        theme.colors.text,
 
       fontFamily: 'serif',
 
@@ -911,7 +895,7 @@ const styles =
       marginTop: 5,
 
       color:
-        COLORS.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 11.5,
       lineHeight: 16,
@@ -946,19 +930,19 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        'rgba(199,70,105,0.13)',
+        withAlpha(theme.colors.danger, 0.13),
 
       borderRadius: 14,
 
       backgroundColor:
-        COLORS.dangerSoft,
+        withAlpha(theme.colors.danger, 0.08),
     },
 
     errorText: {
       flex: 1,
 
       color:
-        '#98394F',
+        theme.colors.danger,
 
       fontSize: 10,
       lineHeight: 14,
@@ -1004,7 +988,7 @@ const styles =
       borderRadius: 11,
 
       backgroundColor:
-        COLORS.primarySoft,
+        theme.colors.primarySoft,
     },
 
     pinHeaderCopy: {
@@ -1015,7 +999,7 @@ const styles =
 
     pinTitle: {
       color:
-        COLORS.text,
+        theme.colors.text,
 
       fontSize: 12,
 
@@ -1026,7 +1010,7 @@ const styles =
       marginTop: 1,
 
       color:
-        COLORS.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 9,
     },
@@ -1062,7 +1046,7 @@ const styles =
       borderRadius: 42,
 
       backgroundColor:
-        COLORS.primarySoft,
+        theme.colors.primarySoft,
     },
 
     biometricIconCircleCompact: {
@@ -1076,7 +1060,7 @@ const styles =
       marginTop: 14,
 
       color:
-        COLORS.text,
+        theme.colors.text,
 
       fontFamily: 'serif',
 
@@ -1093,7 +1077,7 @@ const styles =
       marginTop: 6,
 
       color:
-        COLORS.textSecondary,
+        theme.colors.textSecondary,
 
       fontSize: 10.5,
       lineHeight: 15,
@@ -1129,10 +1113,10 @@ const styles =
       borderRadius: 18,
 
       backgroundColor:
-        COLORS.primary,
+        theme.colors.primary,
 
       shadowColor:
-        COLORS.primaryDark,
+        theme.shadow.shadowColor,
 
       shadowOffset: {
         width: 0,
@@ -1157,7 +1141,7 @@ const styles =
       marginHorizontal: 10,
 
       color:
-        COLORS.white,
+        onPrimaryTextColor(theme),
 
       fontSize: 14,
 
@@ -1193,17 +1177,17 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        COLORS.border,
+        theme.colors.border,
 
       borderRadius: 15,
 
       backgroundColor:
-        'rgba(255,255,255,0.72)',
+        withAlpha(theme.colors.surface, 0.72),
     },
 
     secondaryButtonText: {
       color:
-        COLORS.primary,
+        theme.colors.primary,
 
       fontSize: 11.5,
 
@@ -1214,3 +1198,4 @@ const styles =
       opacity: 0.7,
     },
   });
+}

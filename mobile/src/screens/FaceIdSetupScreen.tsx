@@ -27,6 +27,12 @@ import {
   isBiometricEnabled,
   setBiometricEnabled,
 } from '../state/securityPreferences';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -35,26 +41,13 @@ type Props = NativeStackScreenProps<
 
 type Mode = 'enable' | 'manage' | 'disable';
 
-const COLORS = {
-  primary: '#6949BE',
-  primaryDark: '#321D79',
-  primarySoft: '#EEE5FB',
-  pink: '#D95397',
-  pinkSoft: '#FCEAF3',
-  text: '#26184F',
-  textSecondary: '#675B7F',
-  white: '#FFFFFF',
-  border: 'rgba(105,73,190,0.13)',
-  success: '#5EA77F',
-  successSoft: '#EAF6EF',
-  danger: '#C74669',
-  dangerSoft: '#FFF0F4',
-};
-
 export default function FaceIdSetupScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets = useSafeAreaInsets();
 
   const [action, setAction] = useState<Mode>(
@@ -178,7 +171,7 @@ export default function FaceIdSetupScreen({
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -193,7 +186,7 @@ export default function FaceIdSetupScreen({
         <StatusBar
           translucent
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
         />
 
         {/* TOP BAR — fixed above the scroll area so it's always reachable */}
@@ -214,7 +207,7 @@ export default function FaceIdSetupScreen({
             <MaterialDesignIcons
               name="arrow-left"
               size={24}
-              color={COLORS.primary}
+              color={theme.colors.primary}
             />
           </Pressable>
 
@@ -222,7 +215,7 @@ export default function FaceIdSetupScreen({
             <MaterialDesignIcons
               name="shield-check-outline"
               size={15}
-              color={COLORS.primary}
+              color={theme.colors.primary}
             />
 
             <Text style={styles.securityBadgeText}>
@@ -251,7 +244,7 @@ export default function FaceIdSetupScreen({
                   <MaterialDesignIcons
                     name={biometricIcon}
                     size={52}
-                    color={COLORS.primary}
+                    color={theme.colors.primary}
                   />
                 </View>
               </View>
@@ -261,7 +254,7 @@ export default function FaceIdSetupScreen({
               <MaterialDesignIcons
                 name="lock-outline"
                 size={15}
-                color="#FFFFFF"
+                color={onPrimaryTextColor(theme)}
               />
             </View>
           </View>
@@ -281,7 +274,7 @@ export default function FaceIdSetupScreen({
               <MaterialDesignIcons
                 name="cellphone-lock"
                 size={24}
-                color={COLORS.primary}
+                color={theme.colors.primary}
               />
             </View>
 
@@ -326,8 +319,8 @@ export default function FaceIdSetupScreen({
                   size={18}
                   color={
                     message.type === 'success'
-                      ? COLORS.success
-                      : COLORS.danger
+                      ? theme.colors.success
+                      : theme.colors.danger
                   }
                 />
               </View>
@@ -351,7 +344,7 @@ export default function FaceIdSetupScreen({
           {loading ? (
             <View style={styles.loadingCard}>
               <ActivityIndicator
-                color={COLORS.primary}
+                color={theme.colors.primary}
                 size="large"
               />
 
@@ -374,7 +367,7 @@ export default function FaceIdSetupScreen({
                 <MaterialDesignIcons
                   name={biometricIcon}
                   size={23}
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                 />
 
                 <Text style={styles.primaryText}>
@@ -385,7 +378,7 @@ export default function FaceIdSetupScreen({
                   <MaterialDesignIcons
                     name="arrow-right"
                     size={17}
-                    color="#FFFFFF"
+                    color={onPrimaryTextColor(theme)}
                   />
                 </View>
               </Pressable>
@@ -410,7 +403,7 @@ export default function FaceIdSetupScreen({
                 <MaterialDesignIcons
                   name="lock-off-outline"
                   size={18}
-                  color={COLORS.danger}
+                  color={theme.colors.danger}
                 />
 
                 <Text style={styles.dangerText}>
@@ -425,25 +418,26 @@ export default function FaceIdSetupScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: '#F8EFFF',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
 
   pageGlowTop: {
     position: 'absolute', top: -150, right: -110, width: 330, height: 330,
-    borderRadius: 165, backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    borderRadius: 165, backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
   pageGlowMiddle: {
     position: 'absolute', top: '38%', left: -130, width: 260, height: 260,
-    borderRadius: 130, backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    borderRadius: 130, backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
   pageGlowBottom: {
     position: 'absolute', bottom: -150, right: -100, width: 310, height: 310,
-    borderRadius: 155, backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    borderRadius: 155, backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safe: {
@@ -470,13 +464,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.10)',
+    borderColor: withAlpha(theme.colors.primary, 0.10),
 
     borderRadius: 17,
 
-    backgroundColor: 'rgba(255,255,255,0.94)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.94),
 
-    shadowColor: '#4A2A7D',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -494,18 +488,18 @@ const styles = StyleSheet.create({
     gap: 5,
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.10)',
+    borderColor: withAlpha(theme.colors.primary, 0.10),
 
     borderRadius: 15,
 
-    backgroundColor: 'rgba(246,239,252,0.94)',
+    backgroundColor: theme.colors.primarySoft,
 
     paddingHorizontal: 10,
     paddingVertical: 7,
   },
 
   securityBadgeText: {
-    color: COLORS.primary,
+    color: theme.colors.primary,
 
     fontSize: 10,
     fontWeight: '800',
@@ -534,7 +528,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 73,
 
-    backgroundColor: 'rgba(188,153,236,0.12)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.12),
   },
 
   glowMiddle: {
@@ -546,7 +540,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 61,
 
-    backgroundColor: 'rgba(171,134,229,0.18)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.18),
   },
 
   biometricCircle: {
@@ -557,13 +551,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderWidth: 1,
-    borderColor: 'rgba(105,73,190,0.16)',
+    borderColor: withAlpha(theme.colors.primary, 0.16),
 
     borderRadius: 47,
 
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
 
-    shadowColor: COLORS.primary,
+    shadowColor: theme.colors.primary,
     shadowOffset: {
       width: 0,
       height: 7,
@@ -587,17 +581,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
     borderWidth: 3,
-    borderColor: '#F8EFFF',
+    borderColor: theme.colors.background,
 
     borderRadius: 16,
 
-    backgroundColor: COLORS.primary,
+    backgroundColor: theme.colors.primary,
   },
 
   title: {
     marginTop: 23,
 
-    color: COLORS.text,
+    color: theme.colors.text,
 
     fontFamily: 'serif',
 
@@ -616,7 +610,7 @@ const styles = StyleSheet.create({
 
     marginTop: 9,
 
-    color: COLORS.textSecondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 13,
     lineHeight: 20,
@@ -633,14 +627,14 @@ const styles = StyleSheet.create({
     padding: 14,
 
     borderWidth: 1,
-    borderColor: COLORS.border,
+    borderColor: theme.colors.border,
 
     borderRadius: 20,
 
     backgroundColor:
-      'rgba(255,255,255,0.92)',
+      withAlpha(theme.colors.surface, 0.92),
 
-    shadowColor: '#6C4A9C',
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 4,
@@ -662,7 +656,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 15,
 
-    backgroundColor: COLORS.primarySoft,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   securityCardCopy: {
@@ -674,7 +668,7 @@ const styles = StyleSheet.create({
   },
 
   securityCardTitle: {
-    color: COLORS.text,
+    color: theme.colors.text,
 
     fontSize: 12.5,
     fontWeight: '800',
@@ -683,7 +677,7 @@ const styles = StyleSheet.create({
   securityCardText: {
     marginTop: 4,
 
-    color: COLORS.textSecondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 9.8,
     lineHeight: 14,
@@ -705,16 +699,16 @@ const styles = StyleSheet.create({
 
   successMessage: {
     borderWidth: 1,
-    borderColor: 'rgba(94,167,127,0.17)',
+    borderColor: withAlpha(theme.colors.success, 0.17),
 
-    backgroundColor: COLORS.successSoft,
+    backgroundColor: withAlpha(theme.colors.success, 0.12),
   },
 
   errorMessage: {
     borderWidth: 1,
-    borderColor: 'rgba(199,70,105,0.14)',
+    borderColor: withAlpha(theme.colors.danger, 0.14),
 
-    backgroundColor: COLORS.dangerSoft,
+    backgroundColor: withAlpha(theme.colors.danger, 0.10),
   },
 
   messageIcon: {
@@ -728,11 +722,11 @@ const styles = StyleSheet.create({
   },
 
   successIcon: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   errorIcon: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   messageText: {
@@ -743,11 +737,11 @@ const styles = StyleSheet.create({
   },
 
   successText: {
-    color: '#437A5E',
+    color: theme.colors.success,
   },
 
   errorText: {
-    color: '#9B3854',
+    color: theme.colors.danger,
   },
 
   spacer: {
@@ -763,13 +757,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
 
     backgroundColor:
-      'rgba(255,255,255,0.78)',
+      withAlpha(theme.colors.surface, 0.78),
   },
 
   loadingText: {
     marginTop: 10,
 
-    color: COLORS.textSecondary,
+    color: theme.colors.textSecondary,
 
     fontSize: 11,
   },
@@ -790,9 +784,9 @@ const styles = StyleSheet.create({
 
     borderRadius: 20,
 
-    backgroundColor: COLORS.primary,
+    backgroundColor: theme.colors.primary,
 
-    shadowColor: COLORS.primaryDark,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 7,
@@ -815,7 +809,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
 
     backgroundColor:
-      'rgba(139,99,216,0.65)',
+      withAlpha(theme.colors.primary, 0.65),
   },
 
   primaryGlowRight: {
@@ -830,7 +824,7 @@ const styles = StyleSheet.create({
     borderRadius: 65,
 
     backgroundColor:
-      'rgba(217,83,151,0.40)',
+      withAlpha(theme.colors.secondary, 0.40),
   },
 
   primaryPressed: {
@@ -840,7 +834,7 @@ const styles = StyleSheet.create({
   },
 
   primaryText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 16,
     fontWeight: '800',
@@ -860,7 +854,7 @@ const styles = StyleSheet.create({
     borderRadius: 11,
 
     backgroundColor:
-      'rgba(255,255,255,0.14)',
+      withAlpha(onPrimaryTextColor(theme), 0.14),
   },
 
   footerHint: {
@@ -870,7 +864,7 @@ const styles = StyleSheet.create({
 
     marginTop: 12,
 
-    color: '#7B6C91',
+    color: theme.colors.textSecondary,
 
     fontSize: 9.8,
     lineHeight: 14,
@@ -897,11 +891,11 @@ const styles = StyleSheet.create({
 
     borderRadius: 15,
 
-    backgroundColor: COLORS.dangerSoft,
+    backgroundColor: withAlpha(theme.colors.danger, 0.10),
   },
 
   dangerText: {
-    color: COLORS.danger,
+    color: theme.colors.danger,
 
     fontSize: 12.5,
     fontWeight: '800',
@@ -910,4 +904,5 @@ const styles = StyleSheet.create({
   pressed: {
     opacity: 0.7,
   },
-});
+  });
+}
