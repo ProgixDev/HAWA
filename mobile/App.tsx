@@ -68,6 +68,12 @@ import {isBiometricPromptActive} from './src/services/appSecurityService';
 import {requiresAppLock} from './src/state/securityPreferences';
 import {migrateLegacyPlainNotes} from './src/services/privateNotesEncryption';
 import {initializePremium} from './src/services/purchaseService';
+import {migrateLegacyPlainMiscarriageNotes} from './src/state/miscarriageJournalStore';
+import {migrateLegacyPlainPostpartumMoodNotes} from './src/state/postpartumJournalStore';
+import {migrateLegacyPlainPregnancyNotes} from './src/state/pregnancyJournalStore';
+import {migrateLegacyPlainPregnancyMedicalEventNotes} from './src/state/pregnancyMedicalEventsStore';
+import {migrateLegacyPlainGeneralHealthNotes} from './src/state/generalHealthStore';
+import {migrateLegacyPlainPersonalInformation} from './src/state/personalInformationStore';
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
@@ -90,6 +96,17 @@ initializePremium();
 // personnelles" to AES-256-GCM-at-rest — see privateNotesEncryption.ts.
 // Never blocks app startup; a failed/partial sweep is retried next launch.
 migrateLegacyPlainNotes().catch(() => {});
+// Same one-shot/idempotent/crash-safe encryption-at-rest migration, extended
+// to the other objective stores' sensitive free-text fields (see each
+// store's own migrateLegacyPlain*() doc comment). Each checks the raw
+// persisted JSON first and is a no-op once already migrated, so these are
+// cheap on every boot after the first. Never blocks app startup.
+migrateLegacyPlainMiscarriageNotes().catch(() => {});
+migrateLegacyPlainPostpartumMoodNotes().catch(() => {});
+migrateLegacyPlainPregnancyNotes().catch(() => {});
+migrateLegacyPlainPregnancyMedicalEventNotes().catch(() => {});
+migrateLegacyPlainGeneralHealthNotes().catch(() => {});
+migrateLegacyPlainPersonalInformation().catch(() => {});
 
 // Pregnancy Tracking reminders are objective-specific: they must only be
 // (re)scheduled while the user's active objective is 'pregnancy', never for

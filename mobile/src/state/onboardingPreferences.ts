@@ -175,6 +175,77 @@ export const subscribeActiveObjective = (listener: () => void) => {
 export const setSelectedObjective = setActiveObjective;
 export const getSelectedObjective = getActiveObjective;
 
+/* ============================================================
+   ONBOARDING COMPLETION — a persistent, device-local record that the
+   REQUIRED onboarding journey (Welcome → Objective → objective-specific
+   setup → Auth/Anonymous Mode → entering the app) was genuinely finished at
+   least once. Deliberately separate from `activeObjective` (which a
+   completed user can freely change later from Settings without that ever
+   re-triggering onboarding) and from feature-scoped provenance flags like
+   `hasConfirmedSpiritualMarkersChoice`/`hasConfirmedCycleData` (each of
+   those only proves ONE narrow sub-answer was made deliberately, never that
+   the whole journey was completed). THE only legitimate place to call
+   setHasCompletedOnboarding(true) is AnonymousAvatarCustomizerScreen.tsx's
+   `enterApp()` — the single real convergence point every onboarding path
+   reaches today (Auth/Registration cannot complete it themselves: no
+   backend account/session exists yet, see CLAUDE.md). If a real backend
+   registration/login path is added later, its own successful-completion
+   boundary must call this too — never invent a second, parallel completion
+   concept for it.
+============================================================ */
+
+const ONBOARDING_COMPLETED_STORAGE_KEY = '@hawa/has-completed-onboarding';
+let hasCompletedOnboarding = false;
+let onboardingCompletedHydrated = false;
+let onboardingCompletedHydration: Promise<boolean> | null = null;
+const onboardingCompletedListeners = new Set<() => void>();
+
+/** THE single legitimate way to record that onboarding was genuinely
+ * completed — see the section comment above for the one real call site.
+ * Never call this merely because a screen was opened, an objective was
+ * picked, or a step was skipped/cancelled — only on true, final success. */
+export const setHasCompletedOnboarding = (value: boolean): Promise<void> => {
+  hasCompletedOnboarding = value;
+  onboardingCompletedHydrated = true;
+  onboardingCompletedListeners.forEach(listener => listener());
+  return value
+    ? AsyncStorage.setItem(ONBOARDING_COMPLETED_STORAGE_KEY, 'true').catch(() => {})
+    : AsyncStorage.removeItem(ONBOARDING_COMPLETED_STORAGE_KEY).catch(() => {});
+};
+
+/** Synchronous read of the last-hydrated value — callers that can await
+ * hydration (SplashScreen's startup routing) should prefer
+ * hydrateHasCompletedOnboarding() instead, so a cold launch never reads the
+ * in-memory default before AsyncStorage has actually been checked. */
+export const getHasCompletedOnboarding = (): boolean => hasCompletedOnboarding;
+
+export const hydrateHasCompletedOnboarding = (): Promise<boolean> => {
+  if (onboardingCompletedHydrated) {
+    return Promise.resolve(hasCompletedOnboarding);
+  }
+  if (!onboardingCompletedHydration) {
+    onboardingCompletedHydration = AsyncStorage.getItem(ONBOARDING_COMPLETED_STORAGE_KEY)
+      .then(value => {
+        onboardingCompletedHydrated = true;
+        hasCompletedOnboarding = value === 'true';
+        onboardingCompletedListeners.forEach(listener => listener());
+        return hasCompletedOnboarding;
+      })
+      .catch(() => {
+        onboardingCompletedHydrated = true;
+        return hasCompletedOnboarding;
+      });
+  }
+  return onboardingCompletedHydration;
+};
+
+export const subscribeHasCompletedOnboarding = (listener: () => void) => {
+  onboardingCompletedListeners.add(listener);
+  return () => {
+    onboardingCompletedListeners.delete(listener);
+  };
+};
+
 /** THE single legitimate way to record a real spiritual-markers choice —
  * called by SpiritualPreferencesScreen.tsx (onboarding, only once she's
  * explicitly tapped one of the two options) and ProfileScreen.tsx's Settings
