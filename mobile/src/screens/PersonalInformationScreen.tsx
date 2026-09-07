@@ -33,11 +33,10 @@ import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} fr
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PersonalInformation'>;
 type FieldKey = keyof Pick<PersonalInformation, 'firstName' | 'lastName' | 'email' | 'phone' | 'preferredName'>;
-type SheetType = FieldKey | 'country' | 'language' | 'calendar' | 'timeFormat' | 'avatar' | null;
+type SheetType = FieldKey | 'country' | 'calendar' | 'timeFormat' | 'avatar' | null;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 const COUNTRIES = ['Algérie', 'Maroc', 'Tunisie', 'France', 'Belgique', 'Canada', 'Suisse', 'Sénégal', 'Côte d’Ivoire'];
-const LANGUAGES = ['Français', 'العربية', 'English', 'Español'];
 const CALENDARS = [
   {value: 'gregorian', label: 'Grégorien', detail: '14 mai 2026'},
   {value: 'hijri', label: 'Hijri', detail: '27 Dhul Qi’dah 1447'},
@@ -58,14 +57,14 @@ function formatBirthDate(value: string): string {
 }
 
 function InfoRow({icon, label, value, onPress, last, theme, styles}: {
-  icon: IconName; label: string; value: string; onPress: () => void; last?: boolean;
+  icon: IconName; label: string; value: string; onPress?: () => void; last?: boolean;
   theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>;
 }) {
   return (
-    <Pressable onPress={onPress} style={({pressed}) => [styles.row, !last && styles.rowBorder, pressed && styles.pressed]}>
+    <Pressable disabled={!onPress} onPress={onPress} style={({pressed}) => [styles.row, !last && styles.rowBorder, pressed && onPress && styles.pressed]}>
       <View style={styles.rowIcon}><MaterialDesignIcons color={theme.colors.primary} name={icon} size={19} /></View>
       <View style={styles.rowCopy}><Text style={styles.rowLabel}>{label}</Text><Text numberOfLines={2} style={styles.rowValue}>{value}</Text></View>
-      <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={23} />
+      {onPress ? <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={23} /> : null}
     </Pressable>
   );
 }
@@ -217,7 +216,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
           <InfoRow icon="email-outline" label="Adresse e-mail" value={profile.email} onPress={() => openField('email')} styles={styles} theme={theme} />
           <InfoRow icon="phone-outline" label="Numéro de téléphone" value={profile.phone} onPress={() => openField('phone')} styles={styles} theme={theme} />
           <InfoRow icon="map-marker-outline" label="Pays" value={profile.country} onPress={() => openField('country')} styles={styles} theme={theme} />
-          <InfoRow icon="web" label="Langue" value={profile.language} last onPress={() => openField('language')} styles={styles} theme={theme} />
+          <InfoRow icon="web" label="Langue" value={profile.language} last styles={styles} theme={theme} />
         </Animated.View>
 
         <Text style={styles.sectionTitle}>Préférences personnelles</Text>
@@ -251,7 +250,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
             </> : sheet === 'country' ? <>
               <Text style={styles.sheetTitle}>Choisir le pays</Text><TextInput autoFocus onChangeText={setQuery} placeholder="Rechercher un pays" placeholderTextColor={theme.colors.textMuted} style={styles.input} value={query} />
               <ScrollView style={styles.optionsScroll}>{filteredCountries.map(item => <Option key={item} label={item} selected={profile.country === item} onPress={() => persist({country: item})} styles={styles} theme={theme} />)}</ScrollView>
-            </> : sheet === 'language' ? <><Text style={styles.sheetTitle}>Choisir la langue</Text>{LANGUAGES.map(item => <Option key={item} label={item} selected={profile.language === item} onPress={() => persist({language: item})} styles={styles} theme={theme} />)}</> : sheet === 'calendar' ? <><Text style={styles.sheetTitle}>Calendrier principal</Text>{CALENDARS.map(item => <Option detail={item.detail} key={item.value} label={item.label} selected={profile.calendar === item.value} onPress={() => persist({calendar: item.value})} styles={styles} theme={theme} />)}</> : sheet === 'timeFormat' ? <><Text style={styles.sheetTitle}>Format de l’heure</Text><Option detail="Exemple : 08:30 et 20:30" label="24 heures" selected={profile.timeFormat === '24h'} onPress={() => persist({timeFormat: '24h'})} styles={styles} theme={theme} /><Option detail="Exemple : 8:30 AM et 8:30 PM" label="12 heures" selected={profile.timeFormat === '12h'} onPress={() => persist({timeFormat: '12h'})} styles={styles} theme={theme} /></> : null}
+            </> : sheet === 'calendar' ? <><Text style={styles.sheetTitle}>Calendrier principal</Text>{CALENDARS.map(item => <Option detail={item.detail} key={item.value} label={item.label} selected={profile.calendar === item.value} onPress={() => persist({calendar: item.value})} styles={styles} theme={theme} />)}</> : sheet === 'timeFormat' ? <><Text style={styles.sheetTitle}>Format de l’heure</Text><Option detail="Exemple : 08:30 et 20:30" label="24 heures" selected={profile.timeFormat === '24h'} onPress={() => persist({timeFormat: '24h'})} styles={styles} theme={theme} /><Option detail="Exemple : 8:30 AM et 8:30 PM" label="12 heures" selected={profile.timeFormat === '12h'} onPress={() => persist({timeFormat: '12h'})} styles={styles} theme={theme} /></> : null}
             <Pressable onPress={() => setSheet(null)} style={styles.cancel}><Text style={styles.cancelText}>Annuler</Text></Pressable>
           </View>
         </KeyboardAvoidingView>
