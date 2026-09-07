@@ -12,7 +12,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
-import { homeColors } from '../../components/home/homeTheme';
+import { useAwaTheme } from '../../theme/AwaThemeProvider';
+import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import BookmarkButton from '../../components/library/BookmarkButton';
 import ReadingControls from '../../components/articles/ReadingControls';
 import {
@@ -209,6 +210,8 @@ function GenericArticleReaderScreen({
   navigation,
 }: Props): React.JSX.Element {
   const { articleId } = route.params;
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const article = useMemo(() => getArticleById(articleId), [articleId]);
   const category = article ? getCategoryById(article.categoryId) : undefined;
@@ -265,7 +268,7 @@ function GenericArticleReaderScreen({
     <View style={styles.safeArea}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -331,7 +334,7 @@ function GenericArticleReaderScreen({
             {isReligious && (
               <View style={styles.educationalPill}>
                 <MaterialDesignIcons
-                  color="#B7791F"
+                  color={theme.colors.warning}
                   name="school-outline"
                   size={11}
                 />
@@ -344,7 +347,7 @@ function GenericArticleReaderScreen({
 
           <View style={styles.metaRow}>
             <MaterialDesignIcons
-              color={homeColors.textSecondary}
+              color={theme.colors.textSecondary}
               name="clock-outline"
               size={13}
             />
@@ -362,7 +365,7 @@ function GenericArticleReaderScreen({
           {isReligious && (
             <View style={styles.disclaimer}>
               <MaterialDesignIcons
-                color="#5C4212"
+                color={theme.colors.warning}
                 name="information-outline"
                 size={16}
               />
@@ -393,112 +396,118 @@ function GenericArticleReaderScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: '#FCFAFF' },
-  scroll: { flex: 1 },
-  hero: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 20,
-  },
-  backButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.6)',
-  },
-  heroIconWrap: {
-    position: 'absolute',
-    right: 24,
-    bottom: -10,
-    opacity: 0.5,
-  },
-  body: { paddingHorizontal: 20, paddingTop: 20 },
-  pillRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  categoryPill: {
-    alignSelf: 'flex-start',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-  },
-  categoryPillText: { fontSize: 11, fontWeight: '700' },
-  educationalPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    alignSelf: 'flex-start',
-    borderRadius: 10,
-    backgroundColor: '#FBEFD9',
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-  },
-  educationalPillText: { color: '#B7791F', fontSize: 11, fontWeight: '700' },
-  disclaimer: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 8,
-    borderRadius: 14,
-    backgroundColor: '#FBEFD9',
-    padding: 12,
-  },
-  disclaimerText: { flex: 1, color: '#5C4212', fontSize: 12, lineHeight: 17 },
-  title: {
-    marginTop: 12,
-    color: homeColors.textPrimary,
-    fontFamily: 'serif',
-    fontSize: 23,
-    fontWeight: '700',
-    lineHeight: 29,
-  },
-  metaRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 10,
-  },
-  metaText: { color: homeColors.textSecondary, fontSize: 12 },
-  metaDot: { color: homeColors.textSecondary, fontSize: 12 },
-  summary: {
-    marginTop: 14,
-    color: homeColors.textPrimary,
-    fontSize: 15,
-    fontWeight: '600',
-    lineHeight: 21,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: homeColors.cardBorder,
-    marginTop: 18,
-    marginBottom: 4,
-  },
-  paragraph: {
-    marginTop: 16,
-    color: homeColors.textPrimary,
-    fontSize: 14.5,
-    lineHeight: 23,
-  },
-  pressed: { opacity: 0.85 },
-  missingContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 12,
-    backgroundColor: '#FCFAFF',
-  },
-  missingText: { color: homeColors.textSecondary, fontSize: 14 },
-  missingButton: {
-    minHeight: 44,
-    paddingHorizontal: 20,
-    borderRadius: 22,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: homeColors.primary,
-  },
-  missingButtonText: { color: '#FFFFFF', fontWeight: '700' },
-});
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    safeArea: { flex: 1, backgroundColor: theme.colors.background },
+    scroll: { flex: 1 },
+    hero: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: 16,
+      paddingVertical: 20,
+    },
+    backButton: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      // Sits on top of `tint.bg`, a fixed per-category editorial color
+      // (see LIBRARY_TINTS) that is always a light pastel regardless of the
+      // active theme — this translucent-white overlay is tuned to that
+      // fixed background, not the global theme, so it stays a literal.
+      backgroundColor: 'rgba(255,255,255,0.6)',
+    },
+    heroIconWrap: {
+      position: 'absolute',
+      right: 24,
+      bottom: -10,
+      opacity: 0.5,
+    },
+    body: { paddingHorizontal: 20, paddingTop: 20 },
+    pillRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+    categoryPill: {
+      alignSelf: 'flex-start',
+      borderRadius: 10,
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+    },
+    categoryPillText: { fontSize: 11, fontWeight: '700' },
+    educationalPill: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+      alignSelf: 'flex-start',
+      borderRadius: 10,
+      backgroundColor: withAlpha(theme.colors.warning, 0.15),
+      paddingHorizontal: 10,
+      paddingVertical: 4,
+    },
+    educationalPillText: { color: theme.colors.warning, fontSize: 11, fontWeight: '700' },
+    disclaimer: {
+      flexDirection: 'row',
+      gap: 8,
+      marginBottom: 8,
+      borderRadius: 14,
+      backgroundColor: withAlpha(theme.colors.warning, 0.15),
+      padding: 12,
+    },
+    disclaimerText: { flex: 1, color: theme.colors.warning, fontSize: 12, lineHeight: 17 },
+    title: {
+      marginTop: 12,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 23,
+      fontWeight: '700',
+      lineHeight: 29,
+    },
+    metaRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      marginTop: 10,
+    },
+    metaText: { color: theme.colors.textSecondary, fontSize: 12 },
+    metaDot: { color: theme.colors.textSecondary, fontSize: 12 },
+    summary: {
+      marginTop: 14,
+      color: theme.colors.text,
+      fontSize: 15,
+      fontWeight: '600',
+      lineHeight: 21,
+    },
+    divider: {
+      height: 1,
+      backgroundColor: theme.colors.border,
+      marginTop: 18,
+      marginBottom: 4,
+    },
+    paragraph: {
+      marginTop: 16,
+      color: theme.colors.text,
+      fontSize: 14.5,
+      lineHeight: 23,
+    },
+    pressed: { opacity: 0.85 },
+    missingContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 12,
+      backgroundColor: theme.colors.background,
+    },
+    missingText: { color: theme.colors.textSecondary, fontSize: 14 },
+    missingButton: {
+      minHeight: 44,
+      paddingHorizontal: 20,
+      borderRadius: 22,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primary,
+    },
+    missingButtonText: { color: onPrimaryTextColor(theme), fontWeight: '700' },
+  });
+}
 
 export default ArticleReaderScreen;

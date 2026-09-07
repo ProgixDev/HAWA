@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'pcos-peau-pilosite-symptomes';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
@@ -77,6 +74,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function PcosSkinHairArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -123,7 +122,7 @@ export default function PcosSkinHairArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -158,7 +157,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -174,7 +173,7 @@ export default function PcosSkinHairArticleScreen({
                 <MaterialDesignIcons
                   name={saved ? 'bookmark' : 'bookmark-outline'}
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -189,7 +188,7 @@ export default function PcosSkinHairArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -218,7 +217,7 @@ export default function PcosSkinHairArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -239,7 +238,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={21}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <Text style={styles.infoBannerText}>
@@ -262,7 +261,7 @@ export default function PcosSkinHairArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -291,7 +290,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -328,7 +327,7 @@ export default function PcosSkinHairArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color="#789276"
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.cardText}>{item}</Text>
@@ -359,7 +358,7 @@ export default function PcosSkinHairArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color="#789276"
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.cardText}>{item}</Text>
@@ -371,7 +370,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -404,7 +403,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -430,7 +429,7 @@ export default function PcosSkinHairArticleScreen({
               <View key={label} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
-                  color={ROSE}
+                  color={theme.colors.primary}
                   size={25}
                 />
 
@@ -458,7 +457,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="heart-outline"
                 size={22}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.practicalTitle}>Conseils pratiques</Text>
@@ -493,7 +492,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="face-woman-outline"
                 size={25}
-                color={ROSE}
+                color={theme.colors.primary}
               />
               <Text style={styles.miniTitle}>Peau</Text>
               <Text style={styles.miniText}>
@@ -505,7 +504,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="content-cut"
                 size={25}
-                color={ROSE}
+                color={theme.colors.primary}
               />
               <Text style={styles.miniTitle}>Pilosité</Text>
               <Text style={styles.miniText}>
@@ -517,7 +516,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="hair-dryer-outline"
                 size={25}
-                color={ROSE}
+                color={theme.colors.primary}
               />
               <Text style={styles.miniTitle}>Cheveux</Text>
               <Text style={styles.miniText}>
@@ -529,7 +528,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="account-heart-outline"
                 size={25}
-                color={ROSE}
+                color={theme.colors.primary}
               />
               <Text style={styles.miniTitle}>Bien-être</Text>
               <Text style={styles.miniText}>
@@ -559,7 +558,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="medical-bag"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -580,7 +579,7 @@ export default function PcosSkinHairArticleScreen({
                 <MaterialDesignIcons
                   name="close-circle-outline"
                   size={19}
-                  color="#B76568"
+                  color={theme.colors.warning}
                 />
 
                 <Text style={styles.mythText}>{item}</Text>
@@ -592,7 +591,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="format-quote-open"
               size={28}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <Text style={styles.quoteText}>
@@ -608,7 +607,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="check-decagram-outline"
                 size={24}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.summaryTitle}>L’essentiel</Text>
@@ -618,7 +617,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="check"
                 size={18}
-                color="#789276"
+                color={theme.colors.success}
               />
               <Text style={styles.summaryText}>
                 Le SOPK peut influencer la peau, la pilosité et les cheveux.
@@ -629,7 +628,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="check"
                 size={18}
-                color="#789276"
+                color={theme.colors.success}
               />
               <Text style={styles.summaryText}>
                 Les manifestations sont très variables d’une femme à l’autre.
@@ -640,7 +639,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="check"
                 size={18}
-                color="#789276"
+                color={theme.colors.success}
               />
               <Text style={styles.summaryText}>
                 Un symptôme isolé ne suffit pas à diagnostiquer un SOPK.
@@ -651,7 +650,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="check"
                 size={18}
-                color="#789276"
+                color={theme.colors.success}
               />
               <Text style={styles.summaryText}>
                 Des solutions existent pour améliorer les symptômes.
@@ -662,7 +661,7 @@ export default function PcosSkinHairArticleScreen({
               <MaterialDesignIcons
                 name="check"
                 size={18}
-                color="#789276"
+                color={theme.colors.success}
               />
               <Text style={styles.summaryText}>
                 Un accompagnement médical peut aider à choisir une prise en
@@ -675,7 +674,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={25}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -693,7 +692,7 @@ export default function PcosSkinHairArticleScreen({
             <MaterialDesignIcons
               name="shield-check-outline"
               size={19}
-              color="#8A8190"
+              color={theme.colors.textMuted}
             />
 
             <Text style={styles.disclaimerText}>
@@ -713,10 +712,11 @@ export default function PcosSkinHairArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -725,7 +725,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -754,9 +754,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -768,7 +768,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -776,12 +776,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -790,7 +790,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -811,19 +811,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.textSecondary,
     fontWeight: '500',
   },
 
@@ -834,29 +834,29 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 9,
     borderRadius: 12,
-    backgroundColor: '#F7EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EBDADF',
+    borderColor: theme.colors.border,
   },
 
   infoBannerText: {
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#5A5058',
+    color: theme.colors.textSecondary,
   },
 
   contents: {
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -875,7 +875,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 25,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -884,7 +884,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -892,7 +892,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -900,7 +900,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
     fontSize: 14,
     lineHeight: 21.5,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   tip: {
@@ -909,7 +909,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
@@ -919,7 +919,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -927,22 +927,22 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   sectionCard: {
     marginTop: 14,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   cardTitle: {
     marginBottom: 11,
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -957,7 +957,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 17,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   daily: {
@@ -974,14 +974,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   dailyText: {
     marginTop: 7,
     fontSize: 11,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     textAlign: 'center',
   },
 
@@ -991,16 +991,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   practicalBox: {
     marginTop: 17,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE0E4',
+    borderColor: theme.colors.border,
   },
 
   practicalHeader: {
@@ -1012,7 +1012,7 @@ const styles = StyleSheet.create({
 
   practicalTitle: {
     fontSize: 14,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1028,12 +1028,12 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#EFDDE3',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   practicalNumberText: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -1042,7 +1042,7 @@ const styles = StyleSheet.create({
     marginLeft: 9,
     fontSize: 12,
     lineHeight: 17,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   twoColumn: {
@@ -1057,14 +1057,14 @@ const styles = StyleSheet.create({
     minHeight: 135,
     padding: 13,
     borderRadius: 12,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.surfaceSecondary,
     alignItems: 'center',
   },
 
   miniTitle: {
     marginTop: 8,
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1072,7 +1072,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontSize: 10.5,
     lineHeight: 15,
-    color: '#625A61',
+    color: theme.colors.textSecondary,
     textAlign: 'center',
   },
 
@@ -1080,7 +1080,7 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 13,
     borderRadius: 12,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   mythRow: {
@@ -1094,14 +1094,14 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 17,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   quoteBox: {
     marginTop: 17,
     padding: 17,
     borderRadius: 14,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     alignItems: 'center',
   },
 
@@ -1110,7 +1110,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 16,
     lineHeight: 23,
-    color: INK,
+    color: theme.colors.text,
     textAlign: 'center',
     fontWeight: '600',
   },
@@ -1119,9 +1119,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#F7F2ED',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#E9E0D8',
+    borderColor: theme.colors.border,
   },
 
   summaryHeader: {
@@ -1133,7 +1133,7 @@ const styles = StyleSheet.create({
 
   summaryTitle: {
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1148,7 +1148,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12,
     lineHeight: 17,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   finalTip: {
@@ -1157,7 +1157,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   disclaimer: {
@@ -1167,13 +1167,14 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: 8,
     borderTopWidth: 1,
-    borderTopColor: BORDER,
+    borderTopColor: theme.colors.border,
   },
 
   disclaimerText: {
     flex: 1,
     fontSize: 10.5,
     lineHeight: 15.5,
-    color: '#8A8190',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

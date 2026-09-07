@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'symptoms-reconnaitre';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const PURPLE = '#765C89';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/spm-hero.png');
 const WOMAN = require('../../assets/images/library/spm-woman.png');
@@ -106,6 +103,8 @@ type Props = NativeStackScreenProps<
 export default function PmsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -140,7 +139,7 @@ export default function PmsArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -187,7 +186,7 @@ export default function PmsArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -207,7 +206,7 @@ export default function PmsArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -222,7 +221,7 @@ export default function PmsArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -255,7 +254,7 @@ export default function PmsArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={17}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                   />
 
                   <Text style={styles.meta}>
@@ -296,7 +295,7 @@ export default function PmsArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -338,7 +337,7 @@ export default function PmsArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -367,7 +366,7 @@ export default function PmsArticleScreen({
                 <MaterialDesignIcons
                   name={icon as never}
                   size={25}
-                  color={PURPLE}
+                  color={theme.colors.primary}
                 />
 
                 <Text style={styles.symptomTitle}>
@@ -404,7 +403,7 @@ export default function PmsArticleScreen({
             <MaterialDesignIcons
               name="molecule"
               size={24}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -467,7 +466,7 @@ export default function PmsArticleScreen({
                   <MaterialDesignIcons
                     name="heart-pulse"
                     size={21}
-                    color="#B8793D"
+                    color={theme.colors.warning}
                   />
                 </View>
 
@@ -499,10 +498,11 @@ export default function PmsArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -511,7 +511,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#E9D5BE',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -540,9 +540,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -554,7 +554,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -562,12 +562,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#E9DDFC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: '#594C83',
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -576,7 +576,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -597,19 +597,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.text,
     fontWeight: '500',
   },
 
@@ -617,13 +617,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F7F2FA',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -642,7 +642,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 24,
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -651,7 +651,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -659,7 +659,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -667,7 +667,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     lineHeight: 21,
-    color: '#4A444B',
+    color: theme.colors.text,
   },
 
   visualCard: {
@@ -678,8 +678,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#EDE2E4',
-    backgroundColor: '#FFFDFC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
 
   visualImage: {
@@ -694,7 +694,7 @@ const styles = StyleSheet.create({
   },
 
   visualTitle: {
-    color: INK,
+    color: theme.colors.text,
     fontSize: 13,
     lineHeight: 17,
     fontWeight: '800',
@@ -702,7 +702,7 @@ const styles = StyleSheet.create({
 
   visualText: {
     marginTop: 4,
-    color: '#585057',
+    color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 16,
   },
@@ -713,7 +713,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F2EDF7',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
@@ -723,7 +723,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -731,7 +731,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   symptomGrid: {
@@ -749,13 +749,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#EDE5EF',
-    backgroundColor: '#FBF8FC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   symptomTitle: {
     marginTop: 7,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: '800',
     textAlign: 'center',
@@ -763,7 +763,7 @@ const styles = StyleSheet.create({
 
   symptomText: {
     marginTop: 5,
-    color: '#585057',
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
     textAlign: 'center',
@@ -788,8 +788,8 @@ const styles = StyleSheet.create({
     padding: 9,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#EDE2E4',
-    backgroundColor: '#FFFDFC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
 
   tipImage: {
@@ -800,7 +800,7 @@ const styles = StyleSheet.create({
 
   tipCardTitle: {
     marginTop: 8,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 12,
     lineHeight: 16,
     fontWeight: '800',
@@ -808,7 +808,7 @@ const styles = StyleSheet.create({
 
   tipCardText: {
     marginTop: 5,
-    color: '#574F56',
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
     lineHeight: 15,
   },
@@ -818,8 +818,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 13,
     borderWidth: 1,
-    borderColor: '#EEE4DD',
-    backgroundColor: '#FFF9F2',
+    borderColor: theme.colors.border,
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   consultImage: {
@@ -844,13 +844,13 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F6E9D8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.18),
   },
 
   consultTitle: {
     flex: 1,
     marginLeft: 10,
-    color: INK,
+    color: theme.colors.text,
     fontSize: 13,
     lineHeight: 17,
     fontWeight: '800',
@@ -858,9 +858,10 @@ const styles = StyleSheet.create({
 
   consultText: {
     marginTop: 10,
-    color: '#585057',
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 18,
   },
 
-});
+  });
+}

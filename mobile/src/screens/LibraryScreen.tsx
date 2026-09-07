@@ -50,12 +50,12 @@ import {
   getBottomPadding,
   getTopPadding,
 } from '../theme/spacing';
-
-const CREAM = '#FBF9F6';
-const INK = '#2E2933';
-const MUTED = '#777177';
-const LAVENDER = '#74607F';
-const BORDER = '#E9E4DF';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
 const ART = {
   cycle: require('../assets/images/library/cycle.png'),
@@ -76,6 +76,9 @@ const ART = {
 
   // Image dédiée à la catégorie après une fausse couche
   miscarriage: require('../assets/images/library/apres_fausse.png'),
+
+  // Image dédiée à la catégorie post-partum
+  postpartum: require('../assets/images/library/post_partum.png'),
 
   nutrition: require('../assets/images/library/popular-nutrition.png'),
   flow: require('../assets/images/library/rules-hero.png'),
@@ -142,7 +145,7 @@ const getArticleThumbnail = (
       return ART.sleep;
 
     case 'emotionalHealth':
-      return ART.lifestyle;
+      return ART.postpartum;
 
     case 'pregnancyWeekly':
     case 'babyDevelopment':
@@ -156,6 +159,8 @@ const getArticleThumbnail = (
     case 'lochia':
     case 'nifas':
     case 'breastfeeding':
+      return ART.postpartum;
+
     case 'menopause':
     case 'hotFlashes':
     case 'bones':
@@ -312,7 +317,7 @@ const CATEGORY_DEFINITIONS: Omit<CategoryCard, 'count'>[] = [
   {
     id: 'postpartum',
     label: 'Post-partum',
-    image: ART.lifestyle,
+    image: ART.postpartum,
     articleCategoryIds: [
       'postpartumRecovery',
       'lochia',
@@ -413,10 +418,12 @@ function SectionTitle({
   title,
   action,
   onPress,
+  styles,
 }: {
   title: string;
   action?: string;
   onPress?: () => void;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View style={styles.sectionHeading}>
@@ -440,6 +447,12 @@ function SectionTitle({
 function LibraryScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(
+    () => createStyles(theme),
+    [theme],
+  );
+
   const insets = useSafeAreaInsets();
 
   const scrollRef = useRef<ScrollView>(null);
@@ -772,7 +785,7 @@ function LibraryScreen({
     <View style={styles.screen}>
       <StatusBar
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
         translucent
       />
 
@@ -802,7 +815,7 @@ function LibraryScreen({
             }
             style={styles.backButton}>
             <MaterialDesignIcons
-              color={INK}
+              color={theme.colors.text}
               name="chevron-left"
               size={25}
             />
@@ -827,7 +840,7 @@ function LibraryScreen({
             }
             style={styles.searchButton}>
             <MaterialDesignIcons
-              color={INK}
+              color={theme.colors.text}
               name={
                 searchOpen
                   ? 'close'
@@ -841,7 +854,7 @@ function LibraryScreen({
         {searchOpen ? (
           <View style={styles.searchField}>
             <MaterialDesignIcons
-              color="#958D92"
+              color={theme.colors.textMuted}
               name="magnify"
               size={19}
             />
@@ -850,7 +863,7 @@ function LibraryScreen({
               autoFocus
               onChangeText={setSearch}
               placeholder="Rechercher un article…"
-              placeholderTextColor="#9C9599"
+              placeholderTextColor={theme.colors.textMuted}
               style={styles.searchInput}
               value={search}
             />
@@ -929,8 +942,8 @@ function LibraryScreen({
                   size={14}
                   color={
                     active
-                      ? '#FFFFFF'
-                      : '#746D73'
+                      ? onPrimaryTextColor(theme)
+                      : theme.colors.textSecondary
                   }
                 />
 
@@ -956,6 +969,7 @@ function LibraryScreen({
             setSelectedCategory(null);
             setShowAll(true);
           }}
+          styles={styles}
         />
 
         <Animated.View
@@ -1071,8 +1085,8 @@ function LibraryScreen({
                         size={13}
                         color={
                           selected
-                            ? LAVENDER
-                            : '#A29BA0'
+                            ? theme.colors.primary
+                            : theme.colors.textSecondary
                         }
                       />
                     </View>
@@ -1085,7 +1099,10 @@ function LibraryScreen({
 
         {activeTab !== 'religious' ? (
           <>
-            <SectionTitle title="Recommandé pour toi" />
+            <SectionTitle
+              title="Recommandé pour toi"
+              styles={styles}
+            />
 
             <Text
               style={
@@ -1148,7 +1165,10 @@ function LibraryScreen({
               )}
             </ScrollView>
 
-            <SectionTitle title="À la une" />
+            <SectionTitle
+              title="À la une"
+              styles={styles}
+            />
 
             <Pressable
               onPress={() =>
@@ -1195,7 +1215,7 @@ function LibraryScreen({
                       styles.durationRow
                     }>
                     <MaterialDesignIcons
-                      color="#766E70"
+                      color={theme.colors.textSecondary}
                       name="clock-outline"
                       size={13}
                     />
@@ -1222,7 +1242,7 @@ function LibraryScreen({
                     </Text>
 
                     <MaterialDesignIcons
-                      color={LAVENDER}
+                      color={theme.colors.primary}
                       name="arrow-right"
                       size={16}
                     />
@@ -1247,12 +1267,13 @@ function LibraryScreen({
           onPress={() =>
             setShowAll(true)
           }
+          styles={styles}
         />
 
         {activeTab === 'religious' ? (
           <View style={styles.infoBox}>
             <MaterialDesignIcons
-              color="#856D45"
+              color={theme.colors.warning}
               name="information-outline"
               size={17}
             />
@@ -1342,7 +1363,7 @@ function LibraryScreen({
                     styles.durationRow
                   }>
                   <MaterialDesignIcons
-                    color="#9A9295"
+                    color={theme.colors.textSecondary}
                     name="clock-outline"
                     size={12}
                   />
@@ -1369,8 +1390,8 @@ function LibraryScreen({
                     bookmarks.has(
                       article.id,
                     )
-                      ? LAVENDER
-                      : '#9C9699'
+                      ? theme.colors.primary
+                      : theme.colors.textSecondary
                   }
                   name={
                     bookmarks.has(
@@ -1392,7 +1413,7 @@ function LibraryScreen({
           <View
             style={styles.emptyState}>
             <MaterialDesignIcons
-              color={LAVENDER}
+              color={theme.colors.primary}
               name="book-search-outline"
               size={26}
             />
@@ -1421,521 +1442,527 @@ function LibraryScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: CREAM,
-  },
-
-  content: {
-    paddingHorizontal: 18,
-  },
-
-  headerRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-
-  headerCopy: {
-    flex: 1,
-    marginLeft: 10,
-    paddingTop: 1,
-  },
-
-  backButton: {
-    width: 36,
-    height: 36,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: BORDER,
-    shadowColor: '#352D38',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
     },
-    shadowOpacity: 0.045,
-    shadowRadius: 6,
-    elevation: 1,
-  },
 
-  title: {
-    color: LAVENDER,
-    fontFamily: 'serif',
-    fontSize: 28,
-    lineHeight: 32,
-    fontWeight: '700',
-    letterSpacing: -0.35,
-  },
-
-  subtitle: {
-    marginTop: 5,
-    color: MUTED,
-    fontSize: 11.8,
-    lineHeight: 16.5,
-  },
-
-  searchButton: {
-    width: 38,
-    height: 38,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: BORDER,
-    shadowColor: '#352D38',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    content: {
+      paddingHorizontal: 18,
     },
-    shadowOpacity: 0.045,
-    shadowRadius: 6,
-    elevation: 1,
-  },
 
-  searchField: {
-    height: 43,
-    marginTop: 14,
-    paddingHorizontal: 13,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E7E2DE',
-    backgroundColor: '#FFFFFF',
-  },
-
-  searchInput: {
-    flex: 1,
-    marginLeft: 8,
-    paddingVertical: 0,
-    color: INK,
-    fontSize: 13,
-  },
-
-  tabs: {
-    height: 40,
-    marginTop: 17,
-    padding: 3,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E6E0DB',
-    backgroundColor: '#F6F3F0',
-    overflow: 'hidden',
-  },
-
-  tabIndicator: {
-    position: 'absolute',
-    left: 3,
-    top: 3,
-    bottom: 3,
-    borderRadius: 9,
-    backgroundColor: '#715E7C',
-    shadowColor: '#4A3B52',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    headerRow: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
     },
-    shadowOpacity: 0.12,
-    shadowRadius: 5,
-    elevation: 2,
-  },
 
-  tab: {
-    flex: 1,
-    height: '100%',
-    zIndex: 2,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 4,
-    paddingHorizontal: 4,
-  },
-
-  tabPressed: {
-    opacity: 0.72,
-  },
-
-  tabText: {
-    color: '#746D73',
-    fontSize: 9.8,
-    fontWeight: '600',
-  },
-
-  activeTabText: {
-    color: '#FFFFFF',
-    fontWeight: '700',
-  },
-
-  sectionHeading: {
-    marginTop: 21,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  sectionTitle: {
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 16,
-    lineHeight: 20,
-    fontWeight: '700',
-  },
-
-  sectionAction: {
-    color: LAVENDER,
-    fontSize: 10.3,
-    fontWeight: '700',
-  },
-
-  objectiveLabel: {
-    marginTop: -5,
-    marginBottom: 10,
-    color: MUTED,
-    fontSize: 10.5,
-  },
-
-  recommendedRow: {
-    gap: 9,
-    paddingBottom: 3,
-  },
-
-  recommendedCard: {
-    width: 126,
-    minHeight: 154,
-    overflow: 'hidden',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: BORDER,
-    backgroundColor: '#FFFDFC',
-  },
-
-  recommendedImage: {
-    width: '100%',
-    height: 72,
-  },
-
-  recommendedTitle: {
-    paddingHorizontal: 9,
-    marginTop: 8,
-    color: INK,
-    fontSize: 10.5,
-    lineHeight: 14,
-    fontWeight: '700',
-  },
-
-  recommendedMeta: {
-    paddingHorizontal: 9,
-    marginTop: 5,
-    marginBottom: 8,
-    color: MUTED,
-    fontSize: 8.5,
-  },
-
-  categoryGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-
-  categoryCard: {
-    width: '31.6%',
-    minHeight: 108,
-    overflow: 'hidden',
-    paddingHorizontal: 8,
-    paddingTop: 10,
-    paddingBottom: 8,
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: '#E7E1DC',
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#352D38',
-    shadowOffset: {
-      width: 0,
-      height: 2,
+    headerCopy: {
+      flex: 1,
+      marginLeft: 10,
+      paddingTop: 1,
     },
-    shadowOpacity: 0.03,
-    shadowRadius: 5,
-    elevation: 1,
-  },
 
-  categoryCardActive: {
-    borderColor: '#BBAEC3',
-    backgroundColor: '#FAF7FB',
-    shadowOpacity: 0.055,
-    elevation: 2,
-  },
-
-  categoryCardPressed: {
-    opacity: 0.84,
-    transform: [
-      {
-        scale: 0.985,
+    backButton: {
+      width: 36,
+      height: 36,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 2,
       },
-    ],
-  },
-
-  categoryAccent: {
-    position: 'absolute',
-    top: 0,
-    left: 13,
-    right: 13,
-    height: 2,
-    borderBottomLeftRadius: 2,
-    borderBottomRightRadius: 2,
-    backgroundColor: '#E9E2EC',
-  },
-
-  categoryAccentActive: {
-    backgroundColor: LAVENDER,
-  },
-
-  categoryTopRow: {
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-  },
-
-  categoryImageWrap: {
-    width: 43,
-    height: 43,
-    overflow: 'hidden',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#ECE6E1',
-    backgroundColor: '#F6F2EE',
-  },
-
-  categoryImageWrapActive: {
-    borderColor: '#D7CCDE',
-    backgroundColor: '#F0EAF2',
-  },
-
-  categoryImage: {
-    width: '100%',
-    height: '100%',
-  },
-
-  categoryCountPill: {
-    minWidth: 25,
-    height: 21,
-    paddingHorizontal: 6,
-    borderRadius: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#ECE6E2',
-    backgroundColor: '#F9F7F5',
-  },
-
-  categoryCountPillActive: {
-    borderColor: '#DDD2E3',
-    backgroundColor: '#EEE7F2',
-  },
-
-  categoryCountPillText: {
-    color: '#7F787D',
-    fontSize: 8.3,
-    fontWeight: '800',
-  },
-
-  categoryCountPillTextActive: {
-    color: LAVENDER,
-  },
-
-  categoryTextBlock: {
-    flex: 1,
-    width: '100%',
-    marginTop: 7,
-  },
-
-  categoryLabel: {
-    minHeight: 27,
-    color: INK,
-    fontSize: 9.6,
-    lineHeight: 12.5,
-    fontWeight: '700',
-  },
-
-  categoryLabelActive: {
-    color: '#4B3D53',
-  },
-
-  categoryMetaRow: {
-    marginTop: 3,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  categoryCount: {
-    color: '#918A8E',
-    fontSize: 8,
-    fontWeight: '500',
-  },
-
-  categoryCountActive: {
-    color: '#75667D',
-  },
-
-  featuredCard: {
-    height: 150,
-    overflow: 'hidden',
-    borderRadius: 13,
-    borderWidth: 1,
-    borderColor: '#E5DDD6',
-    backgroundColor: '#E9E0D5',
-  },
-
-  featuredBackground: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-
-  featuredImage: {
-    borderRadius: 13,
-  },
-
-  featuredCopy: {
-    width: '60%',
-    paddingLeft: 16,
-    paddingRight: 8,
-  },
-
-  badge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 5,
-    backgroundColor:
-      'rgba(105,86,116,0.92)',
-  },
-
-  badgeText: {
-    color: '#FFFFFF',
-    fontSize: 7.4,
-    fontWeight: '700',
-    letterSpacing: 0.3,
-  },
-
-  featuredTitle: {
-    marginTop: 9,
-    color: '#241F26',
-    fontFamily: 'serif',
-    fontSize: 18,
-    lineHeight: 22,
-    fontWeight: '700',
-    textShadowColor:
-      'rgba(255,255,255,0.30)',
-    textShadowOffset: {
-      width: 0,
-      height: 1,
+      shadowOpacity: 0.045,
+      shadowRadius: 6,
+      elevation: 1,
     },
-    textShadowRadius: 2,
-  },
 
-  durationRow: {
-    marginTop: 6,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
+    title: {
+      color: theme.colors.primary,
+      fontFamily: 'serif',
+      fontSize: 28,
+      lineHeight: 32,
+      fontWeight: '700',
+      letterSpacing: -0.35,
+    },
 
-  durationText: {
-    color: '#5F585C',
-    fontSize: 9.5,
-    fontWeight: '500',
-  },
+    subtitle: {
+      marginTop: 5,
+      color: theme.colors.textSecondary,
+      fontSize: 11.8,
+      lineHeight: 16.5,
+    },
 
-  readRow: {
-    marginTop: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
+    searchButton: {
+      width: 38,
+      height: 38,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.045,
+      shadowRadius: 6,
+      elevation: 1,
+    },
 
-  readText: {
-    color: LAVENDER,
-    fontSize: 10.5,
-    fontWeight: '700',
-  },
+    searchField: {
+      height: 43,
+      marginTop: 14,
+      paddingHorizontal: 13,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
 
-  articleRow: {
-    minHeight: 70,
-    paddingVertical: 7,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderBottomWidth:
-      StyleSheet.hairlineWidth,
-    borderBottomColor: '#E6E0DC',
-  },
+    searchInput: {
+      flex: 1,
+      marginLeft: 8,
+      paddingVertical: 0,
+      color: theme.colors.text,
+      fontSize: 13,
+    },
 
-  articleThumb: {
-    width: 56,
-    height: 56,
-    borderRadius: 9,
-    backgroundColor: '#EEE7E0',
-  },
+    tabs: {
+      height: 40,
+      marginTop: 17,
+      padding: 3,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surfaceSecondary,
+      overflow: 'hidden',
+    },
 
-  articleCopy: {
-    flex: 1,
-    paddingHorizontal: 12,
-  },
+    tabIndicator: {
+      position: 'absolute',
+      left: 3,
+      top: 3,
+      bottom: 3,
+      borderRadius: 9,
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.12,
+      shadowRadius: 5,
+      elevation: 2,
+    },
 
-  articleTitle: {
-    color: INK,
-    fontSize: 11.7,
-    lineHeight: 15.5,
-    fontWeight: '700',
-  },
+    tab: {
+      flex: 1,
+      height: '100%',
+      zIndex: 2,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 4,
+      paddingHorizontal: 4,
+    },
 
-  articleMeta: {
-    color: '#938C90',
-    fontSize: 8.8,
-  },
+    tabPressed: {
+      opacity: 0.72,
+    },
 
-  infoBox: {
-    marginBottom: 7,
-    padding: 10,
-    flexDirection: 'row',
-    gap: 8,
-    borderRadius: 9,
-    backgroundColor: '#F5EDDE',
-  },
+    tabText: {
+      color: theme.colors.textSecondary,
+      fontSize: 9.8,
+      fontWeight: '600',
+    },
 
-  infoText: {
-    flex: 1,
-    color: '#765F42',
-    fontSize: 9.5,
-    lineHeight: 13.5,
-  },
+    activeTabText: {
+      color: onPrimaryTextColor(theme),
+      fontWeight: '700',
+    },
 
-  emptyState: {
-    paddingVertical: 28,
-    alignItems: 'center',
-  },
+    sectionHeading: {
+      marginTop: 21,
+      marginBottom: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
 
-  emptyTitle: {
-    marginTop: 8,
-    color: INK,
-    fontSize: 13,
-    fontWeight: '700',
-  },
+    sectionTitle: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 16,
+      lineHeight: 20,
+      fontWeight: '700',
+    },
 
-  emptyAction: {
-    marginTop: 8,
-    color: LAVENDER,
-    fontSize: 11,
-    fontWeight: '700',
-  },
-});
+    sectionAction: {
+      color: theme.colors.primary,
+      fontSize: 10.3,
+      fontWeight: '700',
+    },
+
+    objectiveLabel: {
+      marginTop: -5,
+      marginBottom: 10,
+      color: theme.colors.textSecondary,
+      fontSize: 10.5,
+    },
+
+    recommendedRow: {
+      gap: 9,
+      paddingBottom: 3,
+    },
+
+    recommendedCard: {
+      width: 126,
+      minHeight: 154,
+      overflow: 'hidden',
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
+
+    recommendedImage: {
+      width: '100%',
+      height: 72,
+    },
+
+    recommendedTitle: {
+      paddingHorizontal: 9,
+      marginTop: 8,
+      color: theme.colors.text,
+      fontSize: 10.5,
+      lineHeight: 14,
+      fontWeight: '700',
+    },
+
+    recommendedMeta: {
+      paddingHorizontal: 9,
+      marginTop: 5,
+      marginBottom: 8,
+      color: theme.colors.textSecondary,
+      fontSize: 8.5,
+    },
+
+    categoryGrid: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
+
+    categoryCard: {
+      width: '31.6%',
+      minHeight: 108,
+      overflow: 'hidden',
+      paddingHorizontal: 8,
+      paddingTop: 10,
+      paddingBottom: 8,
+      borderRadius: 13,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+      shadowColor: theme.shadow.shadowColor,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.03,
+      shadowRadius: 5,
+      elevation: 1,
+    },
+
+    categoryCardActive: {
+      // No dedicated "active border" token exists yet — closest available
+      // token is `primary` softened with alpha, matching the original
+      // literal's mid-tone lavender-gray read.
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      backgroundColor: theme.colors.primarySoft,
+      shadowOpacity: 0.055,
+      elevation: 2,
+    },
+
+    categoryCardPressed: {
+      opacity: 0.84,
+      transform: [
+        {
+          scale: 0.985,
+        },
+      ],
+    },
+
+    categoryAccent: {
+      position: 'absolute',
+      top: 0,
+      left: 13,
+      right: 13,
+      height: 2,
+      borderBottomLeftRadius: 2,
+      borderBottomRightRadius: 2,
+      backgroundColor: theme.colors.border,
+    },
+
+    categoryAccentActive: {
+      backgroundColor: theme.colors.primary,
+    },
+
+    categoryTopRow: {
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      justifyContent: 'space-between',
+    },
+
+    categoryImageWrap: {
+      width: 43,
+      height: 43,
+      overflow: 'hidden',
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    categoryImageWrapActive: {
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    categoryImage: {
+      width: '100%',
+      height: '100%',
+    },
+
+    categoryCountPill: {
+      minWidth: 25,
+      height: 21,
+      paddingHorizontal: 6,
+      borderRadius: 7,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    categoryCountPillActive: {
+      borderColor: withAlpha(theme.colors.primary, 0.35),
+      backgroundColor: theme.colors.primarySoft,
+    },
+
+    categoryCountPillText: {
+      color: theme.colors.textSecondary,
+      fontSize: 8.3,
+      fontWeight: '800',
+    },
+
+    categoryCountPillTextActive: {
+      color: theme.colors.primary,
+    },
+
+    categoryTextBlock: {
+      flex: 1,
+      width: '100%',
+      marginTop: 7,
+    },
+
+    categoryLabel: {
+      minHeight: 27,
+      color: theme.colors.text,
+      fontSize: 9.6,
+      lineHeight: 12.5,
+      fontWeight: '700',
+    },
+
+    categoryLabelActive: {
+      color: theme.colors.accent,
+    },
+
+    categoryMetaRow: {
+      marginTop: 3,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+
+    categoryCount: {
+      color: theme.colors.textSecondary,
+      fontSize: 8,
+      fontWeight: '500',
+    },
+
+    categoryCountActive: {
+      color: theme.colors.textSecondary,
+    },
+
+    featuredCard: {
+      height: 150,
+      overflow: 'hidden',
+      borderRadius: 13,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    featuredBackground: {
+      flex: 1,
+      justifyContent: 'center',
+    },
+
+    featuredImage: {
+      borderRadius: 13,
+    },
+
+    featuredCopy: {
+      width: '60%',
+      paddingLeft: 16,
+      paddingRight: 8,
+    },
+
+    badge: {
+      alignSelf: 'flex-start',
+      paddingHorizontal: 8,
+      paddingVertical: 3,
+      borderRadius: 5,
+      backgroundColor: withAlpha(theme.colors.primary, 0.92),
+    },
+
+    badgeText: {
+      color: onPrimaryTextColor(theme),
+      fontSize: 7.4,
+      fontWeight: '700',
+      letterSpacing: 0.3,
+    },
+
+    featuredTitle: {
+      marginTop: 9,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 18,
+      lineHeight: 22,
+      fontWeight: '700',
+      // Fixed literal on purpose: this sits on top of a fixed photographic
+      // ImageBackground (ART.featured), not a theme-driven surface — it's a
+      // legibility scrim for that specific photo, same reasoning as any
+      // other overlay drawn on top of real image content.
+      textShadowColor: 'rgba(255,255,255,0.30)',
+      textShadowOffset: {
+        width: 0,
+        height: 1,
+      },
+      textShadowRadius: 2,
+    },
+
+    durationRow: {
+      marginTop: 6,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
+
+    durationText: {
+      color: theme.colors.textSecondary,
+      fontSize: 9.5,
+      fontWeight: '500',
+    },
+
+    readRow: {
+      marginTop: 10,
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+    },
+
+    readText: {
+      color: theme.colors.primary,
+      fontSize: 10.5,
+      fontWeight: '700',
+    },
+
+    articleRow: {
+      minHeight: 70,
+      paddingVertical: 7,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.border,
+    },
+
+    articleThumb: {
+      width: 56,
+      height: 56,
+      borderRadius: 9,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
+
+    articleCopy: {
+      flex: 1,
+      paddingHorizontal: 12,
+    },
+
+    articleTitle: {
+      color: theme.colors.text,
+      fontSize: 11.7,
+      lineHeight: 15.5,
+      fontWeight: '700',
+    },
+
+    articleMeta: {
+      color: theme.colors.textSecondary,
+      fontSize: 8.8,
+    },
+
+    infoBox: {
+      marginBottom: 7,
+      padding: 10,
+      flexDirection: 'row',
+      gap: 8,
+      borderRadius: 9,
+      backgroundColor: withAlpha(theme.colors.warning, 0.15),
+    },
+
+    infoText: {
+      flex: 1,
+      color: theme.colors.warning,
+      fontSize: 9.5,
+      lineHeight: 13.5,
+    },
+
+    emptyState: {
+      paddingVertical: 28,
+      alignItems: 'center',
+    },
+
+    emptyTitle: {
+      marginTop: 8,
+      color: theme.colors.text,
+      fontSize: 13,
+      fontWeight: '700',
+    },
+
+    emptyAction: {
+      marginTop: 8,
+      color: theme.colors.primary,
+      fontSize: 11,
+      fontWeight: '700',
+    },
+  });
+}
 
 export default LibraryScreen;

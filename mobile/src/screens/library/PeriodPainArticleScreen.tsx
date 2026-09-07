@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,12 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'pain-gerer-douleurs';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const PINK = '#B97083';
 
 const HERO = require('../../assets/images/library/pain-hero.png');
 
@@ -90,6 +88,8 @@ type Props = NativeStackScreenProps<
 export default function PeriodPainArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -123,7 +123,7 @@ export default function PeriodPainArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -170,7 +170,7 @@ export default function PeriodPainArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -190,7 +190,7 @@ export default function PeriodPainArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={PINK}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -205,7 +205,7 @@ export default function PeriodPainArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={PINK}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -245,7 +245,7 @@ export default function PeriodPainArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -289,7 +289,7 @@ export default function PeriodPainArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={PINK}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -311,7 +311,7 @@ export default function PeriodPainArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={PINK}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -371,7 +371,7 @@ export default function PeriodPainArticleScreen({
             <MaterialDesignIcons
               name="alert-circle-outline"
               size={24}
-              color="#B45C67"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -398,7 +398,7 @@ export default function PeriodPainArticleScreen({
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
-                  color={PINK}
+                  color={theme.colors.primary}
                   size={25}
                 />
 
@@ -420,10 +420,11 @@ export default function PeriodPainArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -460,9 +461,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: '#EAE3DE',
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -474,7 +475,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -482,12 +483,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: PINK,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -496,7 +497,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 32,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -517,19 +518,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 15,
     lineHeight: 22,
-    color: '#49424A',
+    color: theme.colors.text,
     fontWeight: '600',
   },
 
@@ -537,13 +538,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -562,7 +563,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 24,
-    color: PINK,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -571,7 +572,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   h2: {
@@ -579,7 +580,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 22,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -587,7 +588,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14.5,
     lineHeight: 22,
-    color: '#4A444B',
+    color: theme.colors.text,
   },
 
   tip: {
@@ -596,7 +597,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   alert: {
@@ -605,7 +606,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   tipCopy: {
@@ -615,7 +616,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -623,7 +624,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   solutions: {
@@ -639,8 +640,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#EDE2E4',
-    backgroundColor: '#FFFDFC',
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
   },
 
   solImage: {
@@ -652,7 +653,7 @@ const styles = StyleSheet.create({
   solTitle: {
     marginTop: 8,
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -660,7 +661,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     fontSize: 10.5,
     lineHeight: 15,
-    color: '#574F56',
+    color: theme.colors.textSecondary,
     textAlign: 'center',
   },
 
@@ -678,14 +679,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   dailyText: {
     marginTop: 7,
     fontSize: 11,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     textAlign: 'center',
   },
-});
+  });
+}

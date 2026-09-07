@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -22,16 +22,13 @@ import {
 } from '../../state/libraryStore';
 import ReadingControls from '../../components/articles/ReadingControls';
 import {getBottomPadding, getTopPadding, READING_CONTROLS_SPACE} from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ARTICLE_ID = 'cycle-phases-expliquees';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 const DIAGRAM = require('../../assets/images/library/cycle-phases-diagram.png');
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const PURPLE = '#765C89';
-const BORDER = '#ECE4E4';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -114,6 +111,8 @@ const FAQ = [
 function CyclePhasesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const [bookmarked, setBookmarked] = useState(false);
@@ -150,7 +149,7 @@ function CyclePhasesArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -202,7 +201,7 @@ function CyclePhasesArticleScreen({
                 pressed && styles.pressed,
               ]}>
               <MaterialDesignIcons
-                color={INK}
+                color={theme.colors.text}
                 name="chevron-left"
                 size={23}
               />
@@ -223,7 +222,7 @@ function CyclePhasesArticleScreen({
                   pressed && styles.pressed,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name={
                     bookmarked
                       ? 'bookmark'
@@ -243,7 +242,7 @@ function CyclePhasesArticleScreen({
                   pressed && styles.pressed,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="share-variant-outline"
                   size={20}
                 />
@@ -287,7 +286,7 @@ function CyclePhasesArticleScreen({
                   <MaterialDesignIcons
                     name={icon as never}
                     size={14}
-                    color="#787176"
+                    color={theme.colors.textMuted}
                   />
 
                   <Text style={styles.metaText}>
@@ -332,9 +331,12 @@ function CyclePhasesArticleScreen({
                   </Text>
                 </View>
 
+                {/* Kept as textMuted (not the dominant accent): this chevron
+                    was already a distinct muted gray in the original design,
+                    not the PURPLE accent used for contentsNumber. */}
                 <MaterialDesignIcons
                   name="chevron-right"
-                  color="#82788A"
+                  color={theme.colors.textMuted}
                   size={19}
                 />
               </View>
@@ -423,7 +425,7 @@ function CyclePhasesArticleScreen({
 
           <View style={styles.tip}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="lightbulb-outline"
               size={24}
             />
@@ -462,7 +464,7 @@ function CyclePhasesArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={24}
-                    color={PURPLE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -481,7 +483,7 @@ function CyclePhasesArticleScreen({
             <MaterialDesignIcons
               name="heart-outline"
               size={23}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -524,7 +526,7 @@ function CyclePhasesArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={20}
-                    color={PURPLE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -583,7 +585,7 @@ function CyclePhasesArticleScreen({
                             : 'chevron-down'
                         }
                         size={18}
-                        color={PURPLE}
+                        color={theme.colors.primary}
                       />
                     </View>
                   </View>
@@ -602,7 +604,7 @@ function CyclePhasesArticleScreen({
             <MaterialDesignIcons
               name="calendar-heart"
               size={25}
-              color={PURPLE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.endCopy}>
@@ -629,422 +631,422 @@ function CyclePhasesArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: CREAM,
-  },
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
+    screen: {
+      flex: 1,
+      backgroundColor: theme.colors.background,
+    },
 
-  scroll: {
-    paddingBottom: 30,
-  },
+    scroll: {
+      paddingBottom: 30,
+    },
 
-  heroWrap: {
-    height: 270,
-    backgroundColor: '#E8DED2',
-  },
+    heroWrap: {
+      height: 270,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
 
-  hero: {
-    width: '100%',
-    height: '100%',
-  },
+    hero: {
+      width: '100%',
+      height: '100%',
+    },
 
-  topBar: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    paddingHorizontal: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+    topBar: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      paddingHorizontal: 16,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
 
-  topActions: {
-    flexDirection: 'row',
-    gap: 8,
-  },
+    topActions: {
+      flexDirection: 'row',
+      gap: 8,
+    },
 
-  circleButton: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor:
-      'rgba(255,255,255,0.90)',
-    borderWidth: 1,
-    borderColor:
-      'rgba(233,226,219,0.90)',
-  },
+    circleButton: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: withAlpha(theme.colors.surface, 0.90),
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
 
-  pressed: {
-    opacity: 0.72,
-  },
+    pressed: {
+      opacity: 0.72,
+    },
 
-  article: {
-    marginTop: -14,
-    paddingHorizontal: 19,
-    paddingTop: 20,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    backgroundColor: CREAM,
-  },
+    article: {
+      marginTop: -14,
+      paddingHorizontal: 19,
+      paddingTop: 20,
+      borderTopLeftRadius: 16,
+      borderTopRightRadius: 16,
+      backgroundColor: theme.colors.background,
+    },
 
-  badge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 10,
-    backgroundColor: '#E8DDEF',
-  },
+    badge: {
+      alignSelf: 'flex-start',
+      paddingHorizontal: 10,
+      paddingVertical: 5,
+      borderRadius: 10,
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  badgeText: {
-    color: PURPLE,
-    fontSize: 11,
-    fontWeight: '700',
-  },
+    badgeText: {
+      color: theme.colors.primary,
+      fontSize: 11,
+      fontWeight: '700',
+    },
 
-  title: {
-    marginTop: 12,
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 25,
-    lineHeight: 30,
-    fontWeight: '700',
-  },
+    title: {
+      marginTop: 12,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 25,
+      lineHeight: 30,
+      fontWeight: '700',
+    },
 
-  metaRow: {
-    marginTop: 13,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    gap: 12,
-  },
+    metaRow: {
+      marginTop: 13,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      gap: 12,
+    },
 
-  meta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
+    meta: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
 
-  metaDivider: {
-    width: 1,
-    height: 18,
-    backgroundColor: '#DDD5DA',
-  },
+    metaDivider: {
+      width: 1,
+      height: 18,
+      backgroundColor: theme.colors.border,
+    },
 
-  metaText: {
-    color: '#787176',
-    fontSize: 10,
-  },
+    metaText: {
+      color: theme.colors.textMuted,
+      fontSize: 10,
+    },
 
-  intro: {
-    marginTop: 17,
-    color: '#4C454D',
-    fontSize: 14,
-    lineHeight: 21,
-  },
+    intro: {
+      marginTop: 17,
+      color: theme.colors.text,
+      fontSize: 14,
+      lineHeight: 21,
+    },
 
-  contentsCard: {
-    marginTop: 18,
-    padding: 14,
-    borderRadius: 12,
-    backgroundColor: '#F6F1F5',
-  },
+    contentsCard: {
+      marginTop: 18,
+      padding: 14,
+      borderRadius: 12,
+      backgroundColor: theme.colors.surfaceSecondary,
+    },
 
-  contentsTitle: {
-    marginBottom: 7,
-    color: INK,
-    fontSize: 14,
-    fontWeight: '700',
-  },
+    contentsTitle: {
+      marginBottom: 7,
+      color: theme.colors.text,
+      fontSize: 14,
+      fontWeight: '700',
+    },
 
-  contentsRow: {
-    minHeight: 36,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
+    contentsRow: {
+      minHeight: 36,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
 
-  contentsLeft: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+    contentsLeft: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
 
-  contentsNumber: {
-    width: 23,
-    color: PURPLE,
-    fontSize: 11.5,
-    fontWeight: '800',
-  },
+    contentsNumber: {
+      width: 23,
+      color: theme.colors.primary,
+      fontSize: 11.5,
+      fontWeight: '800',
+    },
 
-  contentsText: {
-    flex: 1,
-    color: '#4E4750',
-    fontSize: 12,
-    lineHeight: 16,
-  },
+    contentsText: {
+      flex: 1,
+      color: theme.colors.text,
+      fontSize: 12,
+      lineHeight: 16,
+    },
 
-  sectionTitle: {
-    marginTop: 24,
-    color: INK,
-    fontFamily: 'serif',
-    fontSize: 21,
-    lineHeight: 27,
-    fontWeight: '700',
-  },
+    sectionTitle: {
+      marginTop: 24,
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 21,
+      lineHeight: 27,
+      fontWeight: '700',
+    },
 
-  body: {
-    marginTop: 9,
-    color: '#4C454D',
-    fontSize: 14,
-    lineHeight: 21,
-  },
+    body: {
+      marginTop: 9,
+      color: theme.colors.text,
+      fontSize: 14,
+      lineHeight: 21,
+    },
 
-  diagramCard: {
-    marginTop: 16,
-    padding: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: BORDER,
-    backgroundColor: '#FFFDFC',
-  },
+    diagramCard: {
+      marginTop: 16,
+      padding: 14,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
 
-  diagram: {
-    alignSelf: 'center',
-    width: 220,
-    height: 220,
-    borderRadius: 110,
-  },
+    diagram: {
+      alignSelf: 'center',
+      width: 220,
+      height: 220,
+      borderRadius: 110,
+    },
 
-  phaseRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
+    phaseRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+    },
 
-  phaseCopy: {
-    width: '46%',
-  },
+    phaseCopy: {
+      width: '46%',
+    },
 
-  phaseName: {
-    color: INK,
-    fontSize: 11,
-    lineHeight: 15,
-    fontWeight: '700',
-  },
+    phaseName: {
+      color: theme.colors.text,
+      fontSize: 11,
+      lineHeight: 15,
+      fontWeight: '700',
+    },
 
-  phaseDays: {
-    marginTop: 3,
-    color: '#81777E',
-    fontSize: 9.5,
-  },
+    phaseDays: {
+      marginTop: 3,
+      color: theme.colors.textMuted,
+      fontSize: 9.5,
+    },
 
-  right: {
-    textAlign: 'right',
-  },
+    right: {
+      textAlign: 'right',
+    },
 
-  tip: {
-    marginTop: 17,
-    padding: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F4EEF7',
-  },
+    tip: {
+      marginTop: 17,
+      padding: 15,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    },
 
-  softTip: {
-    marginTop: 15,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F8F4F9',
-    borderWidth: 1,
-    borderColor: '#ECE3EF',
-  },
+    softTip: {
+      marginTop: 15,
+      padding: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+    },
 
-  tipCopy: {
-    flex: 1,
-    marginLeft: 12,
-  },
+    tipCopy: {
+      flex: 1,
+      marginLeft: 12,
+    },
 
-  tipTitle: {
-    color: PURPLE,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
+    tipTitle: {
+      color: theme.colors.primary,
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
 
-  tipText: {
-    marginTop: 4,
-    color: '#5D555E',
-    fontSize: 11.5,
-    lineHeight: 17,
-  },
+    tipText: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 11.5,
+      lineHeight: 17,
+    },
 
-  changeGrid: {
-    marginTop: 14,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
+    changeGrid: {
+      marginTop: 14,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      gap: 8,
+    },
 
-  changeCard: {
-    width: '48.7%',
-    minHeight: 142,
-    padding: 12,
-    borderRadius: 11,
-    borderWidth: 1,
-    borderColor: '#ECE4E8',
-    backgroundColor: '#FFFDFC',
-  },
+    changeCard: {
+      width: '48.7%',
+      minHeight: 142,
+      padding: 12,
+      borderRadius: 11,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
 
-  changeIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 13,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F0E9F4',
-  },
+    changeIcon: {
+      width: 40,
+      height: 40,
+      borderRadius: 13,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  changeTitle: {
-    marginTop: 9,
-    color: INK,
-    fontSize: 12,
-    lineHeight: 16,
-    fontWeight: '800',
-  },
+    changeTitle: {
+      marginTop: 9,
+      color: theme.colors.text,
+      fontSize: 12,
+      lineHeight: 16,
+      fontWeight: '800',
+    },
 
-  changeText: {
-    marginTop: 5,
-    color: '#5D555E',
-    fontSize: 10.5,
-    lineHeight: 15,
-  },
+    changeText: {
+      marginTop: 5,
+      color: theme.colors.textSecondary,
+      fontSize: 10.5,
+      lineHeight: 15,
+    },
 
-  whyCard: {
-    marginTop: 14,
-    paddingHorizontal: 14,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: BORDER,
-    backgroundColor: '#FFFDFC',
-  },
+    whyCard: {
+      marginTop: 14,
+      paddingHorizontal: 14,
+      borderRadius: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
 
-  whyRow: {
-    minHeight: 58,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+    whyRow: {
+      minHeight: 58,
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
 
-  whyDivider: {
-    borderBottomWidth:
-      StyleSheet.hairlineWidth,
-    borderBottomColor: '#E8E0E2',
-  },
+    whyDivider: {
+      borderBottomWidth:
+        StyleSheet.hairlineWidth,
+      borderBottomColor: theme.colors.border,
+    },
 
-  whyIcon: {
-    width: 36,
-    height: 36,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F1EAF5',
-  },
+    whyIcon: {
+      width: 36,
+      height: 36,
+      borderRadius: 12,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  whyText: {
-    flex: 1,
-    marginLeft: 11,
-    color: INK,
-    fontSize: 11.5,
-    lineHeight: 16,
-    fontWeight: '600',
-  },
+    whyText: {
+      flex: 1,
+      marginLeft: 11,
+      color: theme.colors.text,
+      fontSize: 11.5,
+      lineHeight: 16,
+      fontWeight: '600',
+    },
 
-  faqList: {
-    marginTop: 14,
-    gap: 8,
-  },
+    faqList: {
+      marginTop: 14,
+      gap: 8,
+    },
 
-  faqCard: {
-    paddingHorizontal: 13,
-    paddingVertical: 12,
-    borderRadius: 11,
-    borderWidth: 1,
-    borderColor: '#EAE2E6',
-    backgroundColor: '#FFFDFC',
-  },
+    faqCard: {
+      paddingHorizontal: 13,
+      paddingVertical: 12,
+      borderRadius: 11,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      backgroundColor: theme.colors.surface,
+    },
 
-  faqCardOpen: {
-    borderColor: '#D7C9DF',
-    backgroundColor: '#F9F5FA',
-  },
+    faqCardOpen: {
+      borderColor: theme.colors.primary,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    },
 
-  faqHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+    faqHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
 
-  faqQuestion: {
-    flex: 1,
-    paddingRight: 10,
-    color: INK,
-    fontSize: 11.5,
-    lineHeight: 16,
-    fontWeight: '700',
-  },
+    faqQuestion: {
+      flex: 1,
+      paddingRight: 10,
+      color: theme.colors.text,
+      fontSize: 11.5,
+      lineHeight: 16,
+      fontWeight: '700',
+    },
 
-  faqChevron: {
-    width: 28,
-    height: 28,
-    borderRadius: 9,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F3EDF5',
-  },
+    faqChevron: {
+      width: 28,
+      height: 28,
+      borderRadius: 9,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.primarySoft,
+    },
 
-  faqChevronOpen: {
-    backgroundColor: '#E9DFEE',
-  },
+    faqChevronOpen: {
+      backgroundColor: withAlpha(theme.colors.primary, 0.18),
+    },
 
-  faqAnswer: {
-    marginTop: 10,
-    paddingTop: 10,
-    borderTopWidth:
-      StyleSheet.hairlineWidth,
-    borderTopColor: '#E6DEE8',
-    color: '#5D555E',
-    fontSize: 11,
-    lineHeight: 17,
-  },
+    faqAnswer: {
+      marginTop: 10,
+      paddingTop: 10,
+      borderTopWidth:
+        StyleSheet.hairlineWidth,
+      borderTopColor: theme.colors.border,
+      color: theme.colors.textSecondary,
+      fontSize: 11,
+      lineHeight: 17,
+    },
 
-  endCard: {
-    marginTop: 18,
-    padding: 14,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: 12,
-    backgroundColor: '#F2EBF5',
-  },
+    endCard: {
+      marginTop: 18,
+      padding: 14,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: 12,
+      backgroundColor: withAlpha(theme.colors.primary, 0.08),
+    },
 
-  endCopy: {
-    flex: 1,
-    marginLeft: 12,
-  },
+    endCopy: {
+      flex: 1,
+      marginLeft: 12,
+    },
 
-  endTitle: {
-    color: INK,
-    fontSize: 12.5,
-    fontWeight: '800',
-  },
+    endTitle: {
+      color: theme.colors.text,
+      fontSize: 12.5,
+      fontWeight: '800',
+    },
 
-  endText: {
-    marginTop: 4,
-    color: '#5D555E',
-    fontSize: 11,
-    lineHeight: 16,
-  },
-});
+    endText: {
+      marginTop: 4,
+      color: theme.colors.textSecondary,
+      fontSize: 11,
+      lineHeight: 16,
+    },
+  });
+}
 
 export default CyclePhasesArticleScreen;
