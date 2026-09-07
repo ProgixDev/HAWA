@@ -25,6 +25,14 @@ export type PersonalInformation = {
 
 const STORAGE_KEY = '@hawa/personal-information/v1';
 
+// AWA currently supports only French — the single source of truth every
+// language-displaying screen (PersonalInformationScreen.tsx) reads instead
+// of maintaining its own copy. Any other previously-saved value (an old
+// English/Español/العربية selection, a raw locale code, or a
+// missing/invalid value) is normalized to this on load/save below so the
+// effective application language always resolves to French.
+export const SUPPORTED_LANGUAGE = 'Français';
+
 const DEFAULT_INFORMATION: PersonalInformation = {
   // firstName/preferredName intentionally start empty — a new user's real
   // choice (or explicit skip) from NameOnboardingScreen.tsx is the only
@@ -37,7 +45,7 @@ const DEFAULT_INFORMATION: PersonalInformation = {
   email: 'amina.benali@email.com',
   phone: '+213 6 12 34 56 78',
   country: 'Algérie',
-  language: 'Français',
+  language: SUPPORTED_LANGUAGE,
   preferredName: '',
   calendar: 'double',
   timeFormat: '24h',
@@ -94,7 +102,7 @@ export async function loadPersonalInformation(): Promise<PersonalInformation> {
     const raw = await AsyncStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = await decryptInformationFromStorage(JSON.parse(raw));
-      cachedInformation = {...DEFAULT_INFORMATION, ...parsed};
+      cachedInformation = {...DEFAULT_INFORMATION, ...parsed, language: SUPPORTED_LANGUAGE};
     }
   } catch {}
   setFirstName(cachedInformation.preferredName || cachedInformation.firstName);
@@ -104,7 +112,7 @@ export async function loadPersonalInformation(): Promise<PersonalInformation> {
 export async function updatePersonalInformation(
   patch: Partial<PersonalInformation>,
 ): Promise<PersonalInformation> {
-  cachedInformation = {...cachedInformation, ...patch};
+  cachedInformation = {...cachedInformation, ...patch, language: SUPPORTED_LANGUAGE};
   setFirstName(cachedInformation.preferredName || cachedInformation.firstName);
   try {
     const serializable = await encryptInformationForStorage(cachedInformation);

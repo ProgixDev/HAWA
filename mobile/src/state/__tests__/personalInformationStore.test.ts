@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   loadPersonalInformation,
   migrateLegacyPlainPersonalInformation,
+  SUPPORTED_LANGUAGE,
   updatePersonalInformation,
 } from '../personalInformationStore';
 
@@ -89,5 +90,54 @@ describe('personalInformationStore — encryption at rest', () => {
     const persisted = JSON.parse(raw!);
     expect(persisted.firstName).toBe('Amina');
     expect(persisted.country).toBe('Maroc');
+  });
+});
+
+/* ============================================================
+   FRENCH-ONLY LANGUAGE NORMALIZATION — AWA now supports only French.
+   SUPPORTED_LANGUAGE ('Français') is the single source of truth; any
+   previously-saved value (an old English/Español/العربية selection, a raw
+   locale code, or a missing/invalid value) must resolve to it on load, and
+   the field can never drift away from it again via updatePersonalInformation.
+============================================================ */
+
+describe('personalInformationStore — language always resolves to French', () => {
+  beforeEach(async () => {
+    await AsyncStorage.clear();
+  });
+
+  it.each([
+    ['English', 'English'],
+    ['Español', 'Español'],
+    ['العربية', 'العربية'],
+    ['en', 'en'],
+    ['invalid-locale-code', 'invalid-locale-code'],
+  ])('an old persisted language value (%s) normalizes to French on load', async (_label, storedValue) => {
+    await AsyncStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({firstName: 'Sarah', language: storedValue}),
+    );
+
+    const info = await loadPersonalInformation();
+    expect(info.language).toBe(SUPPORTED_LANGUAGE);
+  });
+
+  it('a missing language field normalizes to French on load', async () => {
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify({firstName: 'Sarah'}));
+    const info = await loadPersonalInformation();
+    expect(info.language).toBe(SUPPORTED_LANGUAGE);
+  });
+
+  it('a fresh install with nothing persisted resolves to French', async () => {
+    const info = await loadPersonalInformation();
+    expect(info.language).toBe(SUPPORTED_LANGUAGE);
+  });
+
+  it('updatePersonalInformation can never set language away from French, even if asked to', async () => {
+    const updated = await updatePersonalInformation({language: 'English'} as never);
+    expect(updated.language).toBe(SUPPORTED_LANGUAGE);
+
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    expect(JSON.parse(raw!).language).toBe(SUPPORTED_LANGUAGE);
   });
 });

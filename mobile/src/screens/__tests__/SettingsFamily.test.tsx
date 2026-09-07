@@ -213,3 +213,43 @@ describe('PersonalInformationScreen — resolved global theme', () => {
     expect(statusBar().props.barStyle).toBe('light-content');
   });
 });
+
+/* ============================================================
+   FRENCH-ONLY LANGUAGE — PersonalInformationScreen's "Langue" row is now
+   informational (personalInformationStore.ts always resolves the field to
+   SUPPORTED_LANGUAGE = 'Français'); English/Español/العربية are no longer
+   offered anywhere in this screen.
+============================================================ */
+
+describe('PersonalInformationScreen — "Langue" is French-only', () => {
+  it('displays "Français" and offers no other language', async () => {
+    const navigation = {goBack: jest.fn()};
+    const renderer = await renderStandalone(PersonalInformationScreen, navigation);
+    expect(renderer.root.findAll(node => node.props.children === 'Français').length).toBeGreaterThan(0);
+    for (const unsupported of ['English', 'Español', 'العربية']) {
+      expect(renderer.root.findAll(node => node.props.children === unsupported).length).toBe(0);
+    }
+  });
+
+  it('the "Langue" row is not pressable (no selector to open — single supported value)', async () => {
+    const navigation = {goBack: jest.fn()};
+    const renderer = await renderStandalone(PersonalInformationScreen, navigation);
+    const label = renderer.root.findAll(node => node.props.children === 'Langue')[0];
+    let pressable: ReactTestRenderer.ReactTestInstance | null = label;
+    while (pressable && pressable.props.disabled === undefined) {
+      pressable = pressable.parent;
+    }
+    expect(pressable).toBeTruthy();
+    expect(pressable!.props.disabled).toBe(true);
+    expect(pressable!.props.onPress).toBeUndefined();
+  });
+
+  it('static guard: no dead English/Spanish/Arabic language-option code remains', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../PersonalInformationScreen.tsx'), 'utf8');
+    expect(source).not.toMatch(/LANGUAGES/);
+    expect(source).not.toMatch(/'English'/);
+    expect(source).not.toMatch(/'Español'/);
+    expect(source).not.toMatch(/العربية/);
+    expect(source).not.toMatch(/Choisir la langue/);
+  });
+});
