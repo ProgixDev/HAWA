@@ -2,6 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import type {MenopauseSymptom} from './menopausePreferences';
 import type {MoodLevel} from '../types/journal';
+import {
+  decryptFieldValue,
+  encryptFieldValue,
+  isEncryptedFieldPayload,
+} from '../services/atRestFieldEncryption';
 
 // Menopause's OWN daily tracking source — deliberately separate from
 // dailyJournalStore.ts (Cycle), pregnancyJournalStore.ts, postpartumJournalStore.ts,
@@ -43,9 +48,8 @@ export type MenopauseJournalEntry = {
   energyLevel?: MenopauseEnergyLevel;
   treatmentStatus?: MenopauseTreatmentStatus;
   /** Free-text tracking note only — never a dose, schedule or
-   * recommendation. Plaintext, consistent with every other
-   * objective-specific journal note field in this codebase today (see
-   * TODO.md §1.19's encryption scope note) — not a new, worse gap. */
+   * recommendation. Encrypted at rest (AES-256-GCM, Keychain-backed key) —
+   * see ENCRYPTION_SERVICE below; always plain in memory. */
   treatmentNote?: string;
   notes?: string;
 };
@@ -129,8 +133,51 @@ const isValidLabResult = (value: unknown): value is MenopauseLabResult => {
   );
 };
 
-const persistEntries = () =>
-  AsyncStorage.setItem(ENTRIES_STORAGE_KEY, JSON.stringify(entries)).catch(() => {});
+// Only the two free-text fields below are sensitive; every other field is a
+// structured selection (symptom enum, mood enum, numeric sleep hours, ...)
+// and stays plaintext, matching the project's existing encryption scope.
+const ENCRYPTION_SERVICE = 'com.hawa.private.menopause-journal.encryption-key';
+const SENSITIVE_FIELDS = ['treatmentNote', 'notes'] as const;
+
+async function encryptEntryForStorage(entry: MenopauseJournalEntry): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...entry};
+  for (const field of SENSITIVE_FIELDS) {
+    const value = entry[field];
+    if (typeof value === 'string' && value.length > 0) {
+      output[field] = await encryptFieldValue(ENCRYPTION_SERVICE, value);
+    } else {
+      delete output[field];
+    }
+  }
+  return output;
+}
+
+async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...raw};
+  for (const field of SENSITIVE_FIELDS) {
+    const value = raw[field];
+    if (isEncryptedFieldPayload(value)) {
+      try {
+        output[field] = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
+      } catch {
+        delete output[field];
+      }
+    }
+  }
+  return output;
+}
+
+const persistEntries = async () => {
+  try {
+    const serializable: Record<string, unknown> = {};
+    for (const [date, entry] of Object.entries(entries)) {
+      serializable[date] = await encryptEntryForStorage(entry);
+    }
+    await AsyncStorage.setItem(ENTRIES_STORAGE_KEY, JSON.stringify(serializable));
+  } catch {
+    // never throw out of a save action
+  }
+};
 
 const persistLabResults = () =>
   AsyncStorage.setItem(LAB_RESULTS_STORAGE_KEY, JSON.stringify(labResults)).catch(() => {});
@@ -218,14 +265,16 @@ export const hydrateMenopauseJournal = (): Promise<void> => {
       AsyncStorage.getItem(ENTRIES_STORAGE_KEY),
       AsyncStorage.getItem(LAB_RESULTS_STORAGE_KEY),
     ])
-      .then(([rawEntries, rawLabResults]) => {
+      .then(async ([rawEntries, rawLabResults]) => {
         hydrated = true;
         if (rawEntries) {
           const parsed: unknown = JSON.parse(rawEntries);
           if (parsed && typeof parsed === 'object') {
             const valid: EntriesByDate = {};
             for (const [key, value] of Object.entries(parsed as Record<string, unknown>)) {
-              if (isValidEntry(value)) {valid[key] = value;}
+              if (!value || typeof value !== 'object') {continue;}
+              const decrypted = await decryptEntryFromStorage(value as Record<string, unknown>);
+              if (isValidEntry(decrypted)) {valid[key] = decrypted;}
             }
             entries = valid;
           }
@@ -249,3 +298,27 @@ export const subscribeMenopauseJournal = (listener: () => void) => {
   listeners.add(listener);
   return () => {listeners.delete(listener);};
 };
+
+/**
+ * Idempotent boot-time migration: re-saves any entry whose `treatmentNote`
+ * or `notes` is still a plain string, encrypting it via the same at-rest
+ * scheme as every other sensitive journal field. Handles the case where one
+ * field is already encrypted and the other is still plaintext — hydrating
+ * decrypts/passes-through each field independently, and persisting
+ * re-encrypts both. No-ops if no plaintext field is found (safe to call on
+ * every app launch). Never touches labResults.
+ */
+export async function migrateLegacyPlainMenopauseNotes(): Promise<void> {
+  const raw = await AsyncStorage.getItem(ENTRIES_STORAGE_KEY);
+  if (!raw) {return;}
+  const parsed: unknown = JSON.parse(raw);
+  if (!parsed || typeof parsed !== 'object') {return;}
+  const hasLegacyPlainField = Object.values(parsed as Record<string, unknown>).some(rawEntry => {
+    if (!rawEntry || typeof rawEntry !== 'object') {return false;}
+    const candidate = rawEntry as Record<string, unknown>;
+    return SENSITIVE_FIELDS.some(field => typeof candidate[field] === 'string');
+  });
+  if (!hasLegacyPlainField) {return;}
+  await hydrateMenopauseJournal();
+  await persistEntries();
+}
