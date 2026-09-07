@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,20 +26,14 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
 /* -------------------------------------------------------------------------- */
 
 const ID = 'lochia-comprendre-lochies';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
-const BODY = '#4A444B';
-const MUTED = '#777078';
-const GREEN = '#789276';
 
 const HERO = require('../../assets/images/library/featured-pain.png');
 
@@ -138,6 +132,8 @@ type Props = NativeStackScreenProps<
 export default function LochiaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -187,7 +183,7 @@ export default function LochiaArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -248,7 +244,7 @@ export default function LochiaArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -275,7 +271,7 @@ export default function LochiaArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -291,7 +287,7 @@ export default function LochiaArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -343,7 +339,7 @@ export default function LochiaArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color={MUTED}
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -400,7 +396,7 @@ export default function LochiaArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -431,7 +427,7 @@ export default function LochiaArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={23}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.infoCopy}>
@@ -470,7 +466,7 @@ export default function LochiaArticleScreen({
                 <MaterialDesignIcons
                   name="timeline-clock-outline"
                   size={22}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -514,7 +510,7 @@ export default function LochiaArticleScreen({
                         <MaterialDesignIcons
                           name={item.icon as never}
                           size={18}
-                          color={ROSE}
+                          color={theme.colors.primary}
                         />
 
                         <Text style={styles.timelineTitle}>
@@ -561,7 +557,7 @@ export default function LochiaArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={20}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -604,7 +600,7 @@ export default function LochiaArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={19}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -643,7 +639,7 @@ export default function LochiaArticleScreen({
                 <MaterialDesignIcons
                   name="water-outline"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -664,7 +660,7 @@ export default function LochiaArticleScreen({
                 <MaterialDesignIcons
                   name="calendar-month-outline"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -700,7 +696,7 @@ export default function LochiaArticleScreen({
               <MaterialDesignIcons
                 name="alert-circle-outline"
                 size={22}
-                color="#B76568"
+                color={theme.colors.warning}
               />
 
               <Text style={styles.warningTitle}>
@@ -717,7 +713,7 @@ export default function LochiaArticleScreen({
                   <MaterialDesignIcons
                     name="alert-circle-outline"
                     size={16}
-                    color="#B76568"
+                    color={theme.colors.warning}
                   />
                 </View>
 
@@ -736,7 +732,7 @@ export default function LochiaArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -770,7 +766,7 @@ export default function LochiaArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color={GREEN}
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.summaryText}>
@@ -788,7 +784,7 @@ export default function LochiaArticleScreen({
             <MaterialDesignIcons
               name="shield-outline"
               size={18}
-              color="#8A8190"
+              color={theme.colors.textMuted}
             />
 
             <Text style={styles.disclaimerText}>
@@ -819,14 +815,15 @@ export default function LochiaArticleScreen({
 /* STYLES                                                                      */
 /* ========================================================================== */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   /* ------------------------------------------------------------------------ */
   /* SCREEN                                                                   */
   /* ------------------------------------------------------------------------ */
 
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -839,7 +836,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -868,9 +865,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -886,7 +883,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -894,12 +891,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
     letterSpacing: 0.3,
   },
@@ -909,7 +906,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 27,
     lineHeight: 32,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -934,12 +931,12 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 9.5,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -950,7 +947,7 @@ const styles = StyleSheet.create({
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: BODY,
+    color: theme.colors.textSecondary,
     fontWeight: '600',
   },
 
@@ -962,15 +959,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -989,7 +986,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 25,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 11.5,
     fontWeight: '800',
   },
@@ -998,11 +995,11 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.3,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   /* ------------------------------------------------------------------------ */
-  /* HEADINGS & BODY                                                          */
+  /* HEADINGS & theme.colors.textSecondary                                                          */
   /* ------------------------------------------------------------------------ */
 
   h2: {
@@ -1010,7 +1007,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -1018,7 +1015,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
     fontSize: 14,
     lineHeight: 21.5,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1031,9 +1028,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#F0DDE3',
+    borderColor: theme.colors.border,
   },
 
   infoCopy: {
@@ -1043,7 +1040,7 @@ const styles = StyleSheet.create({
 
   infoTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1051,7 +1048,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1062,9 +1059,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 15,
     borderRadius: 15,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE3DE',
+    borderColor: theme.colors.border,
   },
 
   evolutionHeader: {
@@ -1072,7 +1069,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 13,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE4DF',
+    borderBottomColor: theme.colors.border,
   },
 
   evolutionHeaderIcon: {
@@ -1081,7 +1078,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   evolutionHeaderCopy: {
@@ -1091,7 +1088,7 @@ const styles = StyleSheet.create({
 
   evolutionTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1099,7 +1096,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 10,
     lineHeight: 14,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   timeline: {
@@ -1124,15 +1121,15 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
-    borderColor: '#E5CCD4',
+    borderColor: theme.colors.border,
     zIndex: 2,
   },
 
   timelineNumber: {
     fontSize: 9,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -1141,7 +1138,7 @@ const styles = StyleSheet.create({
     top: 46,
     bottom: 0,
     width: 1.5,
-    backgroundColor: '#E5D7DC',
+    backgroundColor: theme.colors.border,
   },
 
   timelineContent: {
@@ -1161,14 +1158,14 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13,
     lineHeight: 18,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   timelinePeriod: {
     marginTop: 2,
     fontSize: 9.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '700',
   },
 
@@ -1176,7 +1173,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1191,9 +1188,9 @@ const styles = StyleSheet.create({
   normalCard: {
     padding: 13,
     borderRadius: 12,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   normalIcon: {
@@ -1202,13 +1199,13 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   normalTitle: {
     marginTop: 8,
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1216,7 +1213,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1227,9 +1224,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     paddingHorizontal: 13,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   comfortRow: {
@@ -1240,7 +1237,7 @@ const styles = StyleSheet.create({
 
   comfortRowBorder: {
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE6E0',
+    borderBottomColor: theme.colors.border,
   },
 
   comfortIcon: {
@@ -1249,7 +1246,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   comfortCopy: {
@@ -1259,7 +1256,7 @@ const styles = StyleSheet.create({
 
   comfortTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1267,7 +1264,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1280,9 +1277,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   compareColumn: {
@@ -1295,13 +1292,13 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   compareTitle: {
     marginTop: 8,
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1309,13 +1306,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.5,
     lineHeight: 15.5,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   compareDivider: {
     width: 1,
     marginHorizontal: 12,
-    backgroundColor: '#E8DFDA',
+    backgroundColor: theme.colors.border,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1326,9 +1323,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     padding: 14,
     borderRadius: 12,
-    backgroundColor: '#FCF5F3',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F1DFDB',
+    borderColor: theme.colors.border,
   },
 
   warningHeader: {
@@ -1341,7 +1338,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     fontSize: 12.5,
-    color: '#59464A',
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1359,7 +1356,7 @@ const styles = StyleSheet.create({
   warningText: {
     flex: 1,
     marginLeft: 5,
-    color: BODY,
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 17,
   },
@@ -1374,9 +1371,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EEDDE3',
+    borderColor: theme.colors.border,
   },
 
   tipCopy: {
@@ -1386,7 +1383,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1394,7 +1391,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1405,9 +1402,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   summaryRow: {
@@ -1421,7 +1418,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1440,6 +1437,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 10,
     lineHeight: 15,
-    color: '#8A8190',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,13 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'prayerduringmenstruation-la-priere-suspendue';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
 
 const HERO = require('../../assets/images/library/featured-comfort-hero.png');
 
@@ -55,6 +52,8 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function PrayerDuringMenstruationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState(false);
   const scrollRef = useRef<ScrollView>(null);
@@ -88,7 +87,7 @@ export default function PrayerDuringMenstruationArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -127,7 +126,7 @@ export default function PrayerDuringMenstruationArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -143,7 +142,7 @@ export default function PrayerDuringMenstruationArticleScreen({
                 <MaterialDesignIcons
                   name={saved ? 'bookmark' : 'bookmark-outline'}
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -158,7 +157,7 @@ export default function PrayerDuringMenstruationArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -193,7 +192,7 @@ export default function PrayerDuringMenstruationArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color="#8A8190"
+                    color={theme.colors.textMuted}
                     size={17}
                   />
 
@@ -214,7 +213,7 @@ export default function PrayerDuringMenstruationArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -254,7 +253,7 @@ export default function PrayerDuringMenstruationArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -284,7 +283,7 @@ export default function PrayerDuringMenstruationArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -348,7 +347,7 @@ export default function PrayerDuringMenstruationArticleScreen({
               <View key={label} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
-                  color={ROSE}
+                  color={theme.colors.primary}
                   size={25}
                 />
 
@@ -364,7 +363,7 @@ export default function PrayerDuringMenstruationArticleScreen({
             <MaterialDesignIcons
               name="alert-outline"
               size={24}
-              color="#B76568"
+              color={theme.colors.warning}
             />
 
             <View style={styles.tipCopy}>
@@ -391,7 +390,7 @@ export default function PrayerDuringMenstruationArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -421,10 +420,11 @@ export default function PrayerDuringMenstruationArticleScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -434,7 +434,7 @@ const styles = StyleSheet.create({
   /* HERO */
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -463,9 +463,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.90)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.90),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
     padding: 20,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   /* BADGE */
@@ -487,12 +487,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 11,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -502,7 +502,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 25,
     lineHeight: 31,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -524,12 +524,12 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 20,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 10,
-    color: '#777078',
+    color: theme.colors.textMuted,
   },
 
   /* INTRO */
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: '#49424A',
+    color: theme.colors.text,
     fontWeight: '500',
   },
 
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F8E8E8',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   /* TABLE OF CONTENTS */
@@ -556,13 +556,13 @@ const styles = StyleSheet.create({
     marginTop: 19,
     padding: 15,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -581,7 +581,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 24,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: '800',
   },
@@ -590,7 +590,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.5,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   /* SECTION TITLES */
@@ -599,7 +599,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -608,7 +608,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 14,
     lineHeight: 21,
-    color: '#4A444B',
+    color: theme.colors.textSecondary,
   },
 
   /* WORSHIP GRID */
@@ -626,14 +626,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#FBF5F6',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   dailyText: {
     marginTop: 7,
     fontSize: 11,
     lineHeight: 16,
-    color: INK,
+    color: theme.colors.text,
     textAlign: 'center',
   },
 
@@ -644,7 +644,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: 12,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
   },
 
   tipCopy: {
@@ -654,7 +654,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -662,6 +662,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

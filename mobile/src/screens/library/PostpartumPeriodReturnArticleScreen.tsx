@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,20 +26,14 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 /* -------------------------------------------------------------------------- */
 /* CONSTANTS                                                                  */
 /* -------------------------------------------------------------------------- */
 
 const ID = 'postpartum-retour-de-couches-freemium';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
-const BODY = '#4A444B';
-const MUTED = '#777078';
-const GREEN = '#789276';
 
 const HERO = require('../../assets/images/library/featured-cycle.png');
 
@@ -128,6 +122,8 @@ type Props = NativeStackScreenProps<
 export default function PostpartumPeriodReturnFreemiumArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const [saved, setSaved] = useState(false);
@@ -177,7 +173,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -235,7 +231,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -261,7 +257,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -277,7 +273,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -318,7 +314,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <MaterialDesignIcons
                 name="clock-outline"
                 size={16}
-                color={MUTED}
+                color={theme.colors.textMuted}
               />
 
               <Text style={styles.meta}>
@@ -332,7 +328,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <MaterialDesignIcons
                 name="book-open-page-variant-outline"
                 size={16}
-                color={MUTED}
+                color={theme.colors.textMuted}
               />
 
               <Text style={styles.meta}>
@@ -370,7 +366,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={23}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.highlightCopy}>
@@ -406,7 +402,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <MaterialDesignIcons
                 name="calendar-clock-outline"
                 size={23}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <View style={styles.simpleInfoCopy}>
@@ -426,7 +422,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <MaterialDesignIcons
                 name="baby-bottle-outline"
                 size={23}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <View style={styles.simpleInfoCopy}>
@@ -467,7 +463,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 <MaterialDesignIcons
                   name="chart-timeline-variant"
                   size={23}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -518,7 +514,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                         <MaterialDesignIcons
                           name={stage.icon as never}
                           size={17}
-                          color={ROSE}
+                          color={theme.colors.primary}
                         />
 
                         <Text style={styles.timelineTitle}>
@@ -542,7 +538,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <MaterialDesignIcons
                 name="information-outline"
                 size={18}
-                color={ROSE}
+                color={theme.colors.primary}
               />
 
               <Text style={styles.schemaNoteText}>
@@ -576,7 +572,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 <MaterialDesignIcons
                   name="calendar-alert-outline"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -595,7 +591,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 <MaterialDesignIcons
                   name="water-outline"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -634,7 +630,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={19}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -673,7 +669,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 <MaterialDesignIcons
                   name="alert-circle-outline"
                   size={18}
-                  color="#B76568"
+                  color={theme.colors.warning}
                 />
 
                 <Text style={styles.warningText}>
@@ -700,7 +696,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color={GREEN}
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.summaryText}>
@@ -718,7 +714,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             <MaterialDesignIcons
               name="shield-outline"
               size={18}
-              color="#8A8190"
+              color={theme.colors.textMuted}
             />
 
             <Text style={styles.disclaimerText}>
@@ -747,14 +743,15 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 /* STYLES                                                                      */
 /* ========================================================================== */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   /* ------------------------------------------------------------------------ */
   /* SCREEN                                                                   */
   /* ------------------------------------------------------------------------ */
 
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -767,7 +764,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 235,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -796,9 +793,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -816,7 +813,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -824,12 +821,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 9.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
     letterSpacing: 0.3,
   },
@@ -839,7 +836,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 27,
     lineHeight: 33,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -864,12 +861,12 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 18,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 9.5,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -880,7 +877,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     fontSize: 14,
     lineHeight: 21,
-    color: BODY,
+    color: theme.colors.textSecondary,
     fontWeight: '600',
   },
 
@@ -893,7 +890,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 20,
     lineHeight: 26,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -901,7 +898,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 13.5,
     lineHeight: 21,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -914,9 +911,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 12,
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#F0DDE3',
+    borderColor: theme.colors.border,
   },
 
   highlightCopy: {
@@ -926,7 +923,7 @@ const styles = StyleSheet.create({
 
   highlightTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -934,7 +931,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11.5,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -945,9 +942,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   simpleInfoRow: {
@@ -962,7 +959,7 @@ const styles = StyleSheet.create({
 
   simpleInfoTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -970,13 +967,13 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 11,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   separator: {
     height: 1,
     marginVertical: 13,
-    backgroundColor: '#EEE6E0',
+    backgroundColor: theme.colors.border,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -987,9 +984,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 16,
     borderRadius: 16,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE3DE',
+    borderColor: theme.colors.border,
   },
 
   schemaHeader: {
@@ -997,7 +994,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE4DF',
+    borderBottomColor: theme.colors.border,
   },
 
   schemaHeaderIcon: {
@@ -1006,7 +1003,7 @@ const styles = StyleSheet.create({
     borderRadius: 21,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   schemaHeaderCopy: {
@@ -1016,14 +1013,14 @@ const styles = StyleSheet.create({
 
   schemaTitle: {
     fontSize: 13.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   schemaSubtitle: {
     marginTop: 3,
     fontSize: 10.5,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1052,15 +1049,15 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F3DFE5',
+    backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
-    borderColor: '#E5CCD4',
+    borderColor: theme.colors.border,
     zIndex: 2,
   },
 
   timelineNumber: {
     fontSize: 9.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
   },
 
@@ -1069,7 +1066,7 @@ const styles = StyleSheet.create({
     top: 48,
     bottom: 0,
     width: 1.5,
-    backgroundColor: '#E5D7DC',
+    backgroundColor: theme.colors.border,
   },
 
   timelineContent: {
@@ -1089,7 +1086,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 13,
     lineHeight: 18,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1097,7 +1094,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1110,9 +1107,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 11,
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#F0DDE3',
+    borderColor: theme.colors.border,
   },
 
   schemaNoteText: {
@@ -1120,7 +1117,7 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     fontSize: 10.5,
     lineHeight: 15.5,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1138,9 +1135,9 @@ const styles = StyleSheet.create({
     minHeight: 135,
     padding: 12,
     borderRadius: 12,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   cardIcon: {
@@ -1149,13 +1146,13 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   cardTitle: {
     marginTop: 8,
     fontSize: 12,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1163,7 +1160,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.5,
     lineHeight: 15.5,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1174,9 +1171,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#FBF8F5',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   observationRow: {
@@ -1191,7 +1188,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   observationCopy: {
@@ -1201,7 +1198,7 @@ const styles = StyleSheet.create({
 
   observationTitle: {
     fontSize: 12,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1209,7 +1206,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 10.7,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textMuted,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1220,9 +1217,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     padding: 13,
     borderRadius: 12,
-    backgroundColor: '#FCF5F3',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F1DFDB',
+    borderColor: theme.colors.border,
   },
 
   warningRow: {
@@ -1236,7 +1233,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1247,9 +1244,9 @@ const styles = StyleSheet.create({
     marginTop: 13,
     padding: 14,
     borderRadius: 13,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   summaryRow: {
@@ -1263,7 +1260,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* ------------------------------------------------------------------------ */
@@ -1282,6 +1279,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 10,
     lineHeight: 15,
-    color: '#8A8190',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

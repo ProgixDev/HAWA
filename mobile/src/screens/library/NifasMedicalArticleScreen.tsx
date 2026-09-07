@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
   Pressable,
@@ -26,18 +26,10 @@ import {
   getTopPadding,
   READING_CONTROLS_SPACE,
 } from '../../theme/spacing';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const ID = 'nifas-aspects-medicaux';
-
-const CREAM = '#FCF9F5';
-const INK = '#30283A';
-const ROSE = '#B96778';
-const BORDER = '#ECE5DF';
-const BODY = '#4A444B';
-const MUTED = '#777078';
-const GREEN = '#789276';
-const SOFT_ROSE = '#F3DFE5';
-const CARD = '#FBF8F5';
 
 const HERO = require('../../assets/images/library/featured-spm.png');
 
@@ -80,10 +72,16 @@ const NIFAS_STAGES = [
   },
 ] as const;
 
+// Note: the three stages below are differentiated purely by their text
+// labels/periods ("Rouges" → "Rosées/brunâtres" → "Blanchâtres"), matching
+// the sibling LochiaArticleScreen.tsx timeline exactly — the icons all use
+// the same theme accent color rather than a per-stage swatch (an earlier
+// per-item tint here was decorative, not a genuine medical color legend:
+// it used a green icon for the "blanchâtre"/whitish stage, which does not
+// represent that color at all).
 const LOCHIA_EVOLUTION = [
   {
     icon: 'numeric-1-circle-outline',
-    color: ROSE,
     title: 'Lochies rouges',
     period: 'Premiers jours',
     text:
@@ -91,7 +89,6 @@ const LOCHIA_EVOLUTION = [
   },
   {
     icon: 'numeric-2-circle-outline',
-    color: '#C58A93',
     title: 'Lochies rosées / brunâtres',
     period: 'Après quelques jours',
     text:
@@ -99,7 +96,6 @@ const LOCHIA_EVOLUTION = [
   },
   {
     icon: 'numeric-3-circle-outline',
-    color: GREEN,
     title: 'Lochies blanchâtres',
     period: 'Semaines suivantes',
     text:
@@ -166,6 +162,8 @@ type Props = NativeStackScreenProps<
 export default function NifasMedicalArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
   const [saved, setSaved] = useState(false);
@@ -201,7 +199,7 @@ export default function NifasMedicalArticleScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -255,7 +253,7 @@ export default function NifasMedicalArticleScreen({
               <MaterialDesignIcons
                 name="chevron-left"
                 size={23}
-                color={INK}
+                color={theme.colors.text}
               />
             </Pressable>
 
@@ -276,7 +274,7 @@ export default function NifasMedicalArticleScreen({
                       : 'bookmark-outline'
                   }
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
 
@@ -292,7 +290,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="share-variant-outline"
                   size={20}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </Pressable>
             </View>
@@ -342,7 +340,7 @@ export default function NifasMedicalArticleScreen({
                 <View style={styles.metaItem}>
                   <MaterialDesignIcons
                     name={icon as never}
-                    color={MUTED}
+                    color={theme.colors.textMuted}
                     size={16}
                   />
 
@@ -399,7 +397,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="chevron-right"
                   size={17}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
             ))}
@@ -437,7 +435,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="book-open-variant"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -460,7 +458,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="medical-bag"
                   size={21}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -501,7 +499,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="chart-timeline-variant"
                   size={22}
-                  color={ROSE}
+                  color={theme.colors.primary}
                 />
               </View>
 
@@ -549,7 +547,7 @@ export default function NifasMedicalArticleScreen({
                         <MaterialDesignIcons
                           name={stage.icon as never}
                           size={19}
-                          color={ROSE}
+                          color={theme.colors.primary}
                         />
                       </View>
 
@@ -611,7 +609,7 @@ export default function NifasMedicalArticleScreen({
                     <MaterialDesignIcons
                       name={item.icon as never}
                       size={21}
-                      color={item.color}
+                      color={theme.colors.primary}
                     />
                   </View>
 
@@ -650,7 +648,7 @@ export default function NifasMedicalArticleScreen({
             <MaterialDesignIcons
               name="information-outline"
               size={22}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.infoCopy}>
@@ -691,7 +689,7 @@ export default function NifasMedicalArticleScreen({
                   <MaterialDesignIcons
                     name={item.icon as never}
                     size={22}
-                    color={ROSE}
+                    color={theme.colors.primary}
                   />
                 </View>
 
@@ -727,7 +725,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="alert-outline"
                   size={22}
-                  color="#B76568"
+                  color={theme.colors.warning}
                 />
               </View>
 
@@ -753,7 +751,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="alert-circle-outline"
                   size={18}
-                  color="#B76568"
+                  color={theme.colors.warning}
                 />
 
                 <Text style={styles.warningText}>
@@ -771,7 +769,7 @@ export default function NifasMedicalArticleScreen({
             <MaterialDesignIcons
               name="lightbulb-outline"
               size={24}
-              color={ROSE}
+              color={theme.colors.primary}
             />
 
             <View style={styles.tipCopy}>
@@ -806,7 +804,7 @@ export default function NifasMedicalArticleScreen({
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
-                  color={GREEN}
+                  color={theme.colors.success}
                 />
 
                 <Text style={styles.summaryText}>
@@ -822,7 +820,7 @@ export default function NifasMedicalArticleScreen({
             <MaterialDesignIcons
               name="shield-outline"
               size={18}
-              color="#8A8190"
+              color={theme.colors.textMuted}
             />
 
             <Text style={styles.disclaimerText}>
@@ -851,10 +849,11 @@ export default function NifasMedicalArticleScreen({
 /* STYLES */
 /* -------------------------------------------------------------------------- */
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   scroll: {
@@ -865,7 +864,7 @@ const styles = StyleSheet.create({
 
   heroWrap: {
     height: 245,
-    backgroundColor: '#EFE3D5',
+    backgroundColor: theme.colors.surfaceSecondary,
   },
 
   hero: {
@@ -894,9 +893,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.92)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.92),
     borderWidth: 1,
-    borderColor: BORDER,
+    borderColor: theme.colors.border,
   },
 
   pressed: {
@@ -911,7 +910,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     borderTopLeftRadius: 22,
     borderTopRightRadius: 22,
-    backgroundColor: CREAM,
+    backgroundColor: theme.colors.background,
   },
 
   badge: {
@@ -919,12 +918,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 10,
-    backgroundColor: SOFT_ROSE,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   badgeText: {
     fontSize: 10,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '800',
     letterSpacing: 0.3,
   },
@@ -934,7 +933,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 27,
     lineHeight: 32,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -955,19 +954,19 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     height: 18,
-    backgroundColor: '#DDD5DA',
+    backgroundColor: theme.colors.border,
   },
 
   meta: {
     fontSize: 9.5,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   intro: {
     marginTop: 17,
     fontSize: 14,
     lineHeight: 21,
-    color: BODY,
+    color: theme.colors.textSecondary,
     fontWeight: '600',
   },
 
@@ -977,15 +976,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   contentsTitle: {
     marginBottom: 7,
     fontSize: 15,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1004,7 +1003,7 @@ const styles = StyleSheet.create({
 
   contentNumber: {
     width: 31,
-    color: ROSE,
+    color: theme.colors.primary,
     fontSize: 10.5,
     fontWeight: '800',
   },
@@ -1013,7 +1012,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 12.2,
     lineHeight: 17,
-    color: INK,
+    color: theme.colors.text,
   },
 
   /* HEADINGS */
@@ -1023,7 +1022,7 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     fontSize: 21,
     lineHeight: 27,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '700',
   },
 
@@ -1031,7 +1030,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
     fontSize: 14,
     lineHeight: 21.5,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* DISTINCTION */
@@ -1040,9 +1039,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 14,
     borderRadius: 14,
-    backgroundColor: CARD,
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   distinctionItem: {
@@ -1056,7 +1055,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: SOFT_ROSE,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   distinctionCopy: {
@@ -1066,7 +1065,7 @@ const styles = StyleSheet.create({
 
   distinctionTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1074,13 +1073,13 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#625A61',
+    color: theme.colors.textSecondary,
   },
 
   distinctionDivider: {
     height: 1,
     marginVertical: 13,
-    backgroundColor: '#EEE6E0',
+    backgroundColor: theme.colors.border,
   },
 
   /* SCHEMA */
@@ -1089,9 +1088,9 @@ const styles = StyleSheet.create({
     marginTop: 15,
     padding: 15,
     borderRadius: 16,
-    backgroundColor: CARD,
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EDE3DE',
+    borderColor: theme.colors.border,
   },
 
   schemaHeader: {
@@ -1099,7 +1098,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 14,
     borderBottomWidth: 1,
-    borderBottomColor: '#EEE4DF',
+    borderBottomColor: theme.colors.border,
   },
 
   schemaHeaderIcon: {
@@ -1108,7 +1107,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: SOFT_ROSE,
+    backgroundColor: theme.colors.primarySoft,
   },
 
   schemaHeaderCopy: {
@@ -1118,14 +1117,14 @@ const styles = StyleSheet.create({
 
   schemaTitle: {
     fontSize: 13.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   schemaSubtitle: {
     marginTop: 2,
     fontSize: 10,
-    color: MUTED,
+    color: theme.colors.textMuted,
   },
 
   schemaTimeline: {
@@ -1150,15 +1149,15 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: SOFT_ROSE,
+    backgroundColor: theme.colors.primarySoft,
     borderWidth: 1,
-    borderColor: '#E8D0D7',
+    borderColor: theme.colors.border,
     zIndex: 2,
   },
 
   schemaNodeNumber: {
     fontSize: 9,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '900',
   },
 
@@ -1167,7 +1166,7 @@ const styles = StyleSheet.create({
     top: 48,
     bottom: 0,
     width: 2,
-    backgroundColor: '#E7D9DE',
+    backgroundColor: theme.colors.border,
   },
 
   schemaContent: {
@@ -1188,7 +1187,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F8ECEF',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   schemaStageHeading: {
@@ -1198,14 +1197,14 @@ const styles = StyleSheet.create({
 
   schemaStageTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   schemaStageSubtitle: {
     marginTop: 1,
     fontSize: 9.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '700',
   },
 
@@ -1213,7 +1212,7 @@ const styles = StyleSheet.create({
     marginTop: 7,
     fontSize: 10.7,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* EVOLUTION */
@@ -1222,9 +1221,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 14,
-    backgroundColor: CARD,
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   evolutionItem: {
@@ -1244,7 +1243,7 @@ const styles = StyleSheet.create({
     borderRadius: 17,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7EAED',
+    backgroundColor: theme.colors.primarySoft,
     zIndex: 2,
   },
 
@@ -1253,7 +1252,7 @@ const styles = StyleSheet.create({
     top: 34,
     bottom: 0,
     width: 1.5,
-    backgroundColor: '#E5D7DC',
+    backgroundColor: theme.colors.border,
   },
 
   evolutionCopy: {
@@ -1264,14 +1263,14 @@ const styles = StyleSheet.create({
 
   evolutionTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   evolutionPeriod: {
     marginTop: 2,
     fontSize: 9.5,
-    color: ROSE,
+    color: theme.colors.primary,
     fontWeight: '700',
   },
 
@@ -1279,7 +1278,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* INFO */
@@ -1290,9 +1289,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#F8EEF1',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#F0DDE3',
+    borderColor: theme.colors.border,
   },
 
   infoCopy: {
@@ -1302,7 +1301,7 @@ const styles = StyleSheet.create({
 
   infoTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1310,7 +1309,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontSize: 10.8,
     lineHeight: 16,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* CARE */
@@ -1327,9 +1326,9 @@ const styles = StyleSheet.create({
     minHeight: 135,
     padding: 12,
     borderRadius: 13,
-    backgroundColor: CARD,
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EEE6E0',
+    borderColor: theme.colors.border,
   },
 
   careIcon: {
@@ -1338,13 +1337,13 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F5E8EC',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   careTitle: {
     marginTop: 9,
     fontSize: 12,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1352,7 +1351,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 10.4,
     lineHeight: 15.5,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* WARNING */
@@ -1361,9 +1360,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 14,
-    backgroundColor: '#FCF5F3',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#F1DFDB',
+    borderColor: theme.colors.border,
   },
 
   warningHeader: {
@@ -1372,7 +1371,7 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
     marginBottom: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0DFDB',
+    borderBottomColor: theme.colors.border,
   },
 
   warningHeaderIcon: {
@@ -1381,7 +1380,7 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7E8E5',
+    backgroundColor: withAlpha(theme.colors.warning, 0.12),
   },
 
   warningHeaderCopy: {
@@ -1391,14 +1390,14 @@ const styles = StyleSheet.create({
 
   warningTitle: {
     fontSize: 12.5,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
   warningSubtitle: {
     marginTop: 2,
     fontSize: 9.8,
-    color: '#8A6E6D',
+    color: theme.colors.textMuted,
   },
 
   warningRow: {
@@ -1412,7 +1411,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* TIP */
@@ -1423,9 +1422,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     borderRadius: 13,
-    backgroundColor: '#F5EBEF',
+    backgroundColor: withAlpha(theme.colors.primary, 0.08),
     borderWidth: 1,
-    borderColor: '#EEDDE2',
+    borderColor: theme.colors.border,
   },
 
   tipCopy: {
@@ -1435,7 +1434,7 @@ const styles = StyleSheet.create({
 
   tipTitle: {
     fontSize: 13,
-    color: INK,
+    color: theme.colors.text,
     fontWeight: '800',
   },
 
@@ -1443,7 +1442,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontSize: 11.2,
     lineHeight: 17,
-    color: '#585057',
+    color: theme.colors.textSecondary,
   },
 
   /* SUMMARY */
@@ -1452,9 +1451,9 @@ const styles = StyleSheet.create({
     marginTop: 14,
     padding: 14,
     borderRadius: 14,
-    backgroundColor: '#F8F2F4',
+    backgroundColor: theme.colors.surfaceSecondary,
     borderWidth: 1,
-    borderColor: '#EBDDE2',
+    borderColor: theme.colors.border,
   },
 
   summaryRow: {
@@ -1468,7 +1467,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 11.5,
     lineHeight: 17,
-    color: BODY,
+    color: theme.colors.textSecondary,
   },
 
   /* DISCLAIMER */
@@ -1485,6 +1484,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 10,
     lineHeight: 15,
-    color: '#8A8190',
+    color: theme.colors.textMuted,
   },
-});
+  });
+}

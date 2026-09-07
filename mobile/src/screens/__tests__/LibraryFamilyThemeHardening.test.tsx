@@ -255,6 +255,66 @@ describe('HijriCalendarScreen — banner header readability (Dark Mode regressio
   });
 });
 
+describe('FeaturedArticlesScreen — hero card photo-legibility scrim (Dark Mode readability fix)', () => {
+  it('the hero scrim gradient exists and never starts fully transparent, regardless of theme', async () => {
+    const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    const gradientColorsAt = () => renderer.root.findByType(LinearGradient).props.colors as string[];
+
+    expect(gradientColorsAt()[0]).not.toMatch(/,\s*0\)$/);
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    expect(gradientColorsAt()[0]).not.toMatch(/,\s*0\)$/);
+  });
+
+  it('hero title and summary use a fixed scrim-safe foreground — NOT theme.colors.text/textSecondary — so they stay legible over an arbitrary photo in every theme', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../FeaturedArticlesScreen.tsx'), 'utf8');
+    expect(source).not.toMatch(/heroTitle:\s*\{[^}]*color:\s*theme\.colors\./s);
+    expect(source).not.toMatch(/heroSummary:\s*\{[^}]*color:\s*theme\.colors\./s);
+  });
+
+  it('hero title/summary color stays constant across Light -> Dark -> a Premium palette (fixed literal, not a theme token — intentional for text drawn over the photo)', async () => {
+    const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    const findColor = (text: string) =>
+      flattenStyle(renderer.root.findAll(node => node.props?.children === text)[0].props.style).color;
+
+    const titleBefore = findColor('Les différentes phases du cycle');
+    const summaryBefore = findColor(
+      'Découvre les phases de ton cycle et leur rôle dans ton équilibre hormonal.',
+    );
+    expect(titleBefore).toBeDefined();
+    expect(summaryBefore).toBeDefined();
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+      await setSelectedThemeId('lavender-night');
+    });
+
+    expect(findColor('Les différentes phases du cycle')).toBe(titleBefore);
+    expect(
+      findColor('Découvre les phases de ton cycle et leur rôle dans ton équilibre hormonal.'),
+    ).toBe(summaryBefore);
+  });
+
+  it('badge and CTA stay theme-reactive (they sit on their own opaque theme-derived surfaces, not directly on the photo)', async () => {
+    const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    const findColor = (text: string) =>
+      flattenStyle(renderer.root.findAll(node => node.props?.children === text)[0].props.style).color;
+
+    const badgeBefore = findColor('ARTICLE DU MOMENT');
+    const ctaBefore = findColor('Lire l’article');
+
+    await act(async () => {
+      await setSelectedThemeId('rose-quartz');
+    });
+
+    expect(findColor('ARTICLE DU MOMENT')).not.toBe(badgeBefore);
+    expect(findColor('Lire l’article')).not.toBe(ctaBefore);
+  });
+});
+
 describe('BookmarkButton (shared, standalone) — resolved global theme', () => {
   it('active icon color follows the global theme primary across a palette switch', async () => {
     const renderer = await renderScreen(() => <BookmarkButton active onPress={jest.fn()} />);
@@ -268,5 +328,87 @@ describe('BookmarkButton (shared, standalone) — resolved global theme', () => 
     });
 
     expect(findIconColor()).not.toBe(before);
+  });
+});
+
+/* ============================================================
+   ACCESSIBILITY — Phase 3 remediation.
+   - LibraryScreen's inline bookmark toggle previously had a STATIC
+     accessibilityLabel ("Ajouter aux favoris") even once an article was
+     already bookmarked, and no accessibilityRole. Now computed from the
+     current bookmark state, matching the shared BookmarkButton.tsx pattern.
+   - "Voir tout" links (LibraryScreen's shared SectionTitle,
+     FeaturedArticlesScreen's two inline instances) had no role/label.
+   - FeaturedArticlesScreen's hero-carousel dots are interactive
+     (onPress={() => setHeroIndex(index)}) but previously had no
+     accessibility semantics and only hitSlop={8} on a 4x4 visual dot.
+============================================================ */
+
+describe('LibraryScreen — inline bookmark toggle exposes a dynamic label and a role (Phase 3 fix)', () => {
+  it('the source computes the label from the current bookmark state rather than a fixed string', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../LibraryScreen.tsx'), 'utf8');
+    expect(source).toMatch(/accessibilityLabel=\{\s*\n\s*bookmarks\.has\(article\.id,?\)\s*\n\s*\?\s*'Retirer des favoris'\s*\n\s*:\s*'Ajouter aux favoris'/);
+    expect(source).toMatch(/accessibilityRole="button"/);
+  });
+
+  it('renders with accessibilityRole="button" on at least one bookmark toggle', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+    const bookmarkToggle = renderer.root.findAll(
+      node => node.props.accessibilityLabel === 'Ajouter aux favoris' && node.props.accessibilityRole === 'button',
+    );
+    expect(bookmarkToggle.length).toBeGreaterThan(0);
+  });
+});
+
+describe('"Voir tout" links expose role + a contextual label (Phase 3 fix)', () => {
+  it('LibraryScreen (shared SectionTitle component)', async () => {
+    const renderer = await renderScreen(() => <LibraryScreen navigation={{} as any} route={{} as any} />);
+    const seeAll = renderer.root.findAll(
+      node => node.props.accessibilityRole === 'button' && typeof node.props.accessibilityLabel === 'string' && node.props.accessibilityLabel.startsWith('Voir tout'),
+    );
+    expect(seeAll.length).toBeGreaterThan(0);
+  });
+
+  it('FeaturedArticlesScreen ("Articles populaires" and "Nouveautés")', async () => {
+    const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    expect(
+      renderer.root.findByProps({accessibilityLabel: 'Voir tout : Articles populaires'}).props.accessibilityRole,
+    ).toBe('button');
+    expect(
+      renderer.root.findByProps({accessibilityLabel: 'Voir tout : Nouveautés'}).props.accessibilityRole,
+    ).toBe('button');
+  });
+});
+
+describe('FeaturedArticlesScreen — hero carousel dots expose role/label/selected state and a larger touch target (Phase 3 fix)', () => {
+  it('each dot has accessibilityRole="button", a distinguishing label, and hitSlop bigger than the previous 8', async () => {
+    const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    const dots = renderer.root.findAll(
+      node => typeof node.props.accessibilityLabel === 'string' && /^Article \d+ sur \d+$/.test(node.props.accessibilityLabel),
+    );
+    expect(dots.length).toBeGreaterThanOrEqual(2);
+    dots.forEach(dot => {
+      expect(dot.props.accessibilityRole).toBe('button');
+      expect(dot.props.hitSlop).toBeGreaterThan(8);
+    });
+  });
+
+  it('the accessibilityState prop is wired to the active hero index (present and boolean on every dot)', async () => {
+    // FeaturedArticlesScreen auto-rotates its hero via a real, unmocked
+    // setInterval, which intermittently races a fresh render+immediate
+    // assertion in this Jest environment (reproducible even under fake
+    // timers) — this checks the wiring itself (present, boolean, source
+    // clearly ties it to `index === heroIndex`) rather than a specific
+    // post-render/post-interaction snapshot, avoiding that race entirely.
+    const renderer = await renderScreen(() => <FeaturedArticlesScreen navigation={{} as any} route={{} as any} />);
+    const dots = renderer.root.findAll(
+      node => typeof node.props.accessibilityLabel === 'string' && /^Article \d+ sur \d+$/.test(node.props.accessibilityLabel),
+    );
+    dots.forEach(dot => {
+      expect(typeof dot.props.accessibilityState?.selected).toBe('boolean');
+    });
+
+    const source = fs.readFileSync(path.resolve(__dirname, '../FeaturedArticlesScreen.tsx'), 'utf8');
+    expect(source).toMatch(/accessibilityState=\{\{selected: index === heroIndex\}\}/);
   });
 });
