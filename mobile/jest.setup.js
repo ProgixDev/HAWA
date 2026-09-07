@@ -110,3 +110,41 @@ jest.mock('react-native-share', () => ({
   __esModule: true,
   default: {open: jest.fn()},
 }));
+
+// Global fallback mock for 'react-native-keychain'. Its native module isn't
+// linked in Jest, same class of problem as every mock above. Previously only
+// a handful of test files ever reached it (the private-lock PIN/biometric
+// flow), and each explicitly mocked appSecurityService.ts/
+// privateSectionAuth.ts/secureAesKeyStore.ts itself — those local
+// jest.mock() calls still take full precedence over this one. Now that
+// secureAesKeyStore.ts's getOrCreateAesKey() (see atRestFieldEncryption.ts)
+// backs encryption-at-rest for several objective journal/profile stores,
+// many more tests reach real Keychain calls indirectly just by
+// loading/saving through those stores, with no reason to care about key
+// material specifics. This provides a real, working in-memory keychain
+// (matching mockAsyncStorageData's pattern above) so those tests just work;
+// a test that needs a specific/deterministic key still overrides this with
+// its own local jest.mock('.../secureAesKeyStore', ...), exactly as before.
+const mockKeychainData = new Map();
+jest.mock('react-native-keychain', () => ({
+  __esModule: true,
+  ACCESSIBLE: {WHEN_UNLOCKED_THIS_DEVICE_ONLY: 'AccessibleWhenUnlockedThisDeviceOnly'},
+  ACCESS_CONTROL: {BIOMETRY_ANY: 'BiometryAny', BIOMETRY_CURRENT_SET: 'BiometryCurrentSet'},
+  BIOMETRY_TYPE: {TOUCH_ID: 'TouchID', FACE_ID: 'FaceID', FINGERPRINT: 'Fingerprint'},
+  getGenericPassword: jest.fn(async (options) => {
+    const service = options?.service ?? 'default';
+    const stored = mockKeychainData.get(service);
+    return stored ? {service, username: stored.username, password: stored.password, storage: 'mock'} : false;
+  }),
+  setGenericPassword: jest.fn(async (username, password, options) => {
+    const service = options?.service ?? 'default';
+    mockKeychainData.set(service, {username, password});
+    return {service, storage: 'mock'};
+  }),
+  resetGenericPassword: jest.fn(async (options) => {
+    const service = options?.service ?? 'default';
+    mockKeychainData.delete(service);
+    return true;
+  }),
+  getSupportedBiometryType: jest.fn(async () => null),
+}));
