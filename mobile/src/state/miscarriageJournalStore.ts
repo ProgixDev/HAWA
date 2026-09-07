@@ -1,6 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import type { MiscarriageTryingAgainStatus } from './miscarriagePreferences';
+import {
+  decryptFieldValue,
+  encryptFieldValue,
+  isEncryptedFieldPayload,
+} from '../services/atRestFieldEncryption';
 
 // Miscarriage's OWN daily tracking store — deliberately separate from
 // dailyJournalStore.ts (Cycle/shared mood-sleep-hydration-activity-note
@@ -86,8 +91,68 @@ const isValidEntry = (value: unknown): value is MiscarriageJournalEntry => {
   );
 };
 
-const persist = () =>
-  AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries)).catch(() => {});
+// Encryption at rest — "Notes personnelles" (`personalNotes`) plus the two
+// free-text annotations attached to bleeding/physicalSymptoms are the
+// sensitive fields in this store; `bleeding`/`physicalSymptoms`/`tryingAgain`
+// stay plaintext (structured tracking values, not narrative text). Encrypted
+// ONLY at the AsyncStorage persistence boundary — the in-memory `entries`
+// object and every function above (`getMiscarriageJournalEntry`,
+// `getAllMiscarriageJournalEntries`) always deal in plain decrypted strings,
+// so no screen needs to change. Same AES-256-GCM mechanism as
+// privateNotesEncryption.ts, own Keychain service so a future rotation of
+// one domain never affects another.
+const ENCRYPTION_SERVICE = 'com.hawa.private.miscarriage-journal.encryption-key';
+const SENSITIVE_FIELDS = ['personalNotes', 'bleedingNote', 'physicalSymptomsNote'] as const;
+
+async function encryptEntryForStorage(entry: MiscarriageJournalEntry): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...entry};
+  for (const field of SENSITIVE_FIELDS) {
+    const value = entry[field];
+    if (typeof value === 'string' && value.length > 0) {
+      output[field] = await encryptFieldValue(ENCRYPTION_SERVICE, value);
+    } else {
+      delete output[field];
+    }
+  }
+  return output;
+}
+
+/** Read-time resolution: accepts either an already-encrypted payload or a
+ * legacy plaintext string for each sensitive field (entries saved before
+ * this store adopted encryption-at-rest). A corrupted encrypted payload
+ * resolves to the field being absent — never thrown, never crashes hydration
+ * — matching resolveNoteSection()'s established corrupted-payload handling
+ * in privateNotesEncryption.ts. Never logs field content. */
+async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<MiscarriageJournalEntry> {
+  const output: Record<string, unknown> = {...raw};
+  for (const field of SENSITIVE_FIELDS) {
+    const value = raw[field];
+    if (isEncryptedFieldPayload(value)) {
+      try {
+        output[field] = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
+      } catch {
+        delete output[field];
+      }
+    }
+    // A plain string is legacy plaintext — already the correct in-memory
+    // shape, left as-is; the next persist() call encrypts it.
+  }
+  return output as MiscarriageJournalEntry;
+}
+
+const persist = async () => {
+  try {
+    const serializable: Record<string, unknown> = {};
+    for (const [date, entry] of Object.entries(entries)) {
+      serializable[date] = await encryptEntryForStorage(entry);
+    }
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
+  } catch {
+    // Never throw out of a save action — in-memory state (the source of
+    // truth for the running session) is unaffected either way; the next
+    // successful save naturally retries persisting the current state.
+  }
+};
 
 export const getMiscarriageJournalEntry = (
   date: string,
@@ -148,7 +213,7 @@ export const hydrateMiscarriageJournal = (): Promise<EntriesByDate> => {
   }
   if (!hydration) {
     hydration = AsyncStorage.getItem(STORAGE_KEY)
-      .then(raw => {
+      .then(async raw => {
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
@@ -157,8 +222,10 @@ export const hydrateMiscarriageJournal = (): Promise<EntriesByDate> => {
             for (const [key, value] of Object.entries(
               parsed as Record<string, unknown>,
             )) {
-              if (isValidEntry(value)) {
-                valid[key] = value;
+              if (!value || typeof value !== 'object') {continue;}
+              const decrypted = await decryptEntryFromStorage(value as Record<string, unknown>);
+              if (isValidEntry(decrypted)) {
+                valid[key] = decrypted;
               }
             }
             entries = valid;
@@ -174,6 +241,37 @@ export const hydrateMiscarriageJournal = (): Promise<EntriesByDate> => {
   }
   return hydration;
 };
+
+/** One-shot, idempotent, crash-safe migration for every day's
+ * personalNotes/bleedingNote/physicalSymptomsNote ever saved before
+ * encryption-at-rest existed — called once at app boot (App.tsx), same
+ * spirit as migrateLegacyPlainNotes() in privateNotesEncryption.ts. Checks
+ * the RAW persisted JSON (before hydrateMiscarriageJournal()'s transparent
+ * decrypt) for any plaintext sensitive field so an already-migrated store
+ * skips straight past without re-encrypting/re-writing on every boot.
+ * hydrateMiscarriageJournal() already decrypts-or-reads-legacy into
+ * `entries`, so once real legacy plaintext is detected the only work left is
+ * re-persisting, which always encrypts every sensitive field. A failure here
+ * never touches the on-disk data (persist() only overwrites the storage key
+ * on a successful full serialize) and never crashes app boot. */
+export async function migrateLegacyPlainMiscarriageNotes(): Promise<void> {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    if (!raw) {return;}
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {return;}
+    const hasLegacyPlaintext = Object.values(parsed as Record<string, unknown>).some(entry => {
+      if (!entry || typeof entry !== 'object') {return false;}
+      return SENSITIVE_FIELDS.some(field => typeof (entry as Record<string, unknown>)[field] === 'string');
+    });
+    if (!hasLegacyPlaintext) {return;}
+
+    await hydrateMiscarriageJournal();
+    await persist();
+  } catch {
+    // Never throw out of a boot-time migration — next launch retries.
+  }
+}
 
 export const subscribeMiscarriageJournal = (listener: () => void) => {
   listeners.add(listener);

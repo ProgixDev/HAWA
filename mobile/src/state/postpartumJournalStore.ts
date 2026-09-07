@@ -1,5 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {
+  decryptFieldValue,
+  encryptFieldValue,
+  isEncryptedFieldPayload,
+} from '../services/atRestFieldEncryption';
+
 // Postpartum's OWN daily tracking store — deliberately separate from
 // dailyJournalStore.ts (Cycle/shared mood-sleep-hydration-activity-note
 // entries, which also carry Cycle-specific fields like `flow`/
@@ -63,7 +69,54 @@ const isValidEntry = (value: unknown): value is PostpartumJournalEntry => {
   );
 };
 
-const persist = () => AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(entries)).catch(() => {});
+// Encryption at rest — `moodNote` (the day's free-text mood annotation) is
+// this store's sensitive field; `fatigue`/`sleep`/`mood`/`pain`/
+// `physicalRecovery` stay plaintext (structured tracking values). Encrypted
+// ONLY at the AsyncStorage persistence boundary, same mechanism/reasoning as
+// miscarriageJournalStore.ts — the in-memory `entries` object stays plain
+// decrypted strings, so no screen needs to change.
+const ENCRYPTION_SERVICE = 'com.hawa.private.postpartum-journal.encryption-key';
+const SENSITIVE_FIELDS = ['moodNote'] as const;
+
+async function encryptEntryForStorage(entry: PostpartumJournalEntry): Promise<Record<string, unknown>> {
+  const output: Record<string, unknown> = {...entry};
+  for (const field of SENSITIVE_FIELDS) {
+    const value = entry[field];
+    if (typeof value === 'string' && value.length > 0) {
+      output[field] = await encryptFieldValue(ENCRYPTION_SERVICE, value);
+    } else {
+      delete output[field];
+    }
+  }
+  return output;
+}
+
+async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<PostpartumJournalEntry> {
+  const output: Record<string, unknown> = {...raw};
+  for (const field of SENSITIVE_FIELDS) {
+    const value = raw[field];
+    if (isEncryptedFieldPayload(value)) {
+      try {
+        output[field] = await decryptFieldValue<string>(ENCRYPTION_SERVICE, value);
+      } catch {
+        delete output[field];
+      }
+    }
+  }
+  return output as PostpartumJournalEntry;
+}
+
+const persist = async () => {
+  try {
+    const serializable: Record<string, unknown> = {};
+    for (const [date, entry] of Object.entries(entries)) {
+      serializable[date] = await encryptEntryForStorage(entry);
+    }
+    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
+  } catch {
+    // Never throw out of a save action — in-memory state is unaffected.
+  }
+};
 
 export const getPostpartumJournalEntry = (date: string): PostpartumJournalEntry | undefined =>
   entries[date] ? {...entries[date]} : undefined;
@@ -93,14 +146,16 @@ export const hydratePostpartumJournal = (): Promise<EntriesByDate> => {
   }
   if (!hydration) {
     hydration = AsyncStorage.getItem(STORAGE_KEY)
-      .then(raw => {
+      .then(async raw => {
         hydrated = true;
         if (raw) {
           const parsed: unknown = JSON.parse(raw);
           if (parsed && typeof parsed === 'object') {
             const valid: EntriesByDate = {};
             for (const [key, value] of Object.entries(parsed as Record<string, unknown>)) {
-              if (isValidEntry(value)) {valid[key] = value;}
+              if (!value || typeof value !== 'object') {continue;}
+              const decrypted = await decryptEntryFromStorage(value as Record<string, unknown>);
+              if (isValidEntry(decrypted)) {valid[key] = decrypted;}
             }
             entries = valid;
             notifyListeners();
@@ -120,3 +175,28 @@ export const subscribePostpartumJournal = (listener: () => void) => {
   listeners.add(listener);
   return () => {listeners.delete(listener);};
 };
+
+/** One-shot, idempotent, crash-safe migration for every day's `moodNote`
+ * ever saved before encryption-at-rest existed — called once at app boot
+ * (App.tsx). Checks the RAW persisted JSON for a plaintext `moodNote` so an
+ * already-migrated store skips past without re-encrypting on every boot.
+ * See migrateLegacyPlainMiscarriageNotes() in miscarriageJournalStore.ts for
+ * the identical reasoning. */
+export async function migrateLegacyPlainPostpartumMoodNotes(): Promise<void> {
+  try {
+    const raw = await AsyncStorage.getItem(STORAGE_KEY);
+    if (!raw) {return;}
+    const parsed: unknown = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') {return;}
+    const hasLegacyPlaintext = Object.values(parsed as Record<string, unknown>).some(entry => {
+      if (!entry || typeof entry !== 'object') {return false;}
+      return SENSITIVE_FIELDS.some(field => typeof (entry as Record<string, unknown>)[field] === 'string');
+    });
+    if (!hasLegacyPlaintext) {return;}
+
+    await hydratePostpartumJournal();
+    await persist();
+  } catch {
+    // Never throw out of a boot-time migration — next launch retries.
+  }
+}
