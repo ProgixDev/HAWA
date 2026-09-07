@@ -10,6 +10,7 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -52,6 +53,10 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // Every test starts from the normal (non-anonymous) identity — the
+  // anonymousMode flag lives in a module-level singleton
+  // (state/securityPreferences.ts) that otherwise leaks between tests.
+  updatePrivacySecuritySettings({anonymousMode: false});
 });
 
 afterEach(() => {
@@ -160,5 +165,54 @@ describe('ProfileScreen — content preserved', () => {
     expect(renderer.root.findAll(node => node.props.children === 'Apparence').length).toBeGreaterThan(0);
     expect(renderer.root.findAll(node => node.props.children === 'Confidentialité & Sécurité').length).toBeGreaterThan(0);
     expect(renderer.root.findAll(node => node.props.children === 'Se déconnecter').length).toBeGreaterThan(0);
+  });
+});
+
+/* ============================================================
+   IDENTITY MODE — normal vs anonymous. ProfileScreen already branches its
+   entire identity presentation on securityPreferences.ts's single
+   `anonymousMode` flag (the same one AnonymousModeScreen/
+   AnonymousModeCreatingScreen/PrivacySecurityScreen already read/write) —
+   these tests verify that existing branch, plus that AuthScreen/
+   RegistrationScreen's normal-entry bypass now clears it so a previous
+   Anonymous Mode session doesn't leak into a later normal profile.
+============================================================ */
+
+describe('ProfileScreen — identity mode reacts to securityPreferences.anonymousMode', () => {
+  it('normal mode: does not show "Mode Anonyme" or the anonymous eyebrow/avatar', async () => {
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'MODE PRIVÉ').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'MON PROFIL').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Informations personnelles').length).toBeGreaterThan(0);
+  });
+
+  it('anonymous mode: shows "Mode Anonyme" clearly and hides the normal personal-information entry point', async () => {
+    updatePrivacySecuritySettings({anonymousMode: true});
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'MODE PRIVÉ').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Ton identité réelle reste masquée').length).toBeGreaterThan(0);
+    // The normal "Informations personnelles" entry point (real name/email
+    // editor) must not be reachable from the anonymous identity block —
+    // only its anonymous counterpart, "Informations du compte".
+    expect(renderer.root.findAll(node => node.props.children === 'Informations personnelles').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Informations du compte').length).toBeGreaterThan(0);
+  });
+
+  it('switching anonymousMode while ProfileScreen is mounted flips the presentation live (no remount needed)', async () => {
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
+
+    await act(async () => {
+      updatePrivacySecuritySettings({anonymousMode: true});
+    });
+    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBeGreaterThan(0);
+
+    await act(async () => {
+      updatePrivacySecuritySettings({anonymousMode: false});
+    });
+    expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
+    expect(renderer.root.findAll(node => node.props.children === 'MON PROFIL').length).toBeGreaterThan(0);
   });
 });
