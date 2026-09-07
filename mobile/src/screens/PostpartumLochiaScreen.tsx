@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import {
-  Alert,
   Modal,
   Pressable,
   ScrollView,
@@ -87,6 +86,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   const [note, setNote] = useState('');
   const [finishModalVisible, setFinishModalVisible] = useState(false);
   const [reopenModalVisible, setReopenModalVisible] = useState(false);
+  const [saveConfirmationVisible, setSaveConfirmationVisible] = useState(false);
   const [reopenConsistencyVisible, setReopenConsistencyVisible] =
     useState(false);
   const [deliveryDate, setDeliveryDate] = useState(
@@ -154,7 +154,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
       symptoms,
       note: note.trim() || undefined,
     });
-    Alert.alert('Lochies', 'Tes observations du jour ont été enregistrées.');
+    setSaveConfirmationVisible(true);
   };
 
   const finishTracking = () => {
@@ -229,6 +229,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
           <View style={styles.header}>
             <Pressable
               accessibilityLabel="Retour"
+              accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
               style={styles.backButton}
@@ -349,6 +350,9 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   const selected = flow === item.label;
                   return (
                     <Pressable
+                      accessibilityLabel={item.label}
+                      accessibilityRole="radio"
+                      accessibilityState={{ selected }}
                       key={item.label}
                       onPress={() => setFlow(item.label)}
                       style={[
@@ -388,6 +392,9 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   const selected = color === item.label;
                   return (
                     <Pressable
+                      accessibilityLabel={item.label}
+                      accessibilityRole="radio"
+                      accessibilityState={{ selected }}
                       key={item.label}
                       onPress={() => setColor(item.label)}
                       style={styles.colorOption}
@@ -426,6 +433,9 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   const selected = consistency === item;
                   return (
                     <Pressable
+                      accessibilityLabel={item}
+                      accessibilityRole="radio"
+                      accessibilityState={{ selected }}
                       key={item}
                       onPress={() => setConsistency(item)}
                       style={[
@@ -453,6 +463,9 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   const selected = symptoms.includes(item);
                   return (
                     <Pressable
+                      accessibilityLabel={item}
+                      accessibilityRole="checkbox"
+                      accessibilityState={{ checked: selected }}
                       key={item}
                       onPress={() => toggleSymptom(item)}
                       style={[
@@ -477,11 +490,12 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
             <Section styles={styles} title="Notes">
               <View style={styles.noteBox}>
                 <TextInput
+                  accessibilityLabel="Notes"
                   maxLength={300}
                   multiline
                   onChangeText={setNote}
                   placeholder="Ajoute une note si tu le souhaites..."
-                  placeholderTextColor={theme.colors.textMuted}
+                  placeholderTextColor={theme.colors.textSecondary}
                   style={styles.noteInput}
                   textAlignVertical="top"
                   value={note}
@@ -666,6 +680,53 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   <Text style={styles.confirmPrimaryText}>Reprendre</Text>
                 </Pressable>
               </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setSaveConfirmationVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={saveConfirmationVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              accessibilityLabel="Fermer la confirmation"
+              onPress={() => setSaveConfirmationVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View accessibilityLiveRegion="polite" accessibilityRole="alert" style={styles.confirmModalCard}>
+              <View style={styles.confirmIconWrap}>
+                <View style={styles.confirmIconHalo}>
+                  <MaterialDesignIcons
+                    color={theme.colors.primary}
+                    name="check-circle-outline"
+                    size={34}
+                  />
+                </View>
+              </View>
+
+              <Text style={styles.confirmTitle}>Lochies</Text>
+
+              <Text style={styles.confirmText}>
+                Tes observations du jour ont été enregistrées.
+              </Text>
+
+              <Pressable
+                accessibilityLabel="OK"
+                accessibilityRole="button"
+                onPress={() => setSaveConfirmationVisible(false)}
+                style={({ pressed }) => [
+                  styles.confirmPrimaryButton,
+                  styles.confirmSingleButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <Text style={styles.confirmPrimaryText}>OK</Text>
+              </Pressable>
             </View>
           </View>
         </Modal>
@@ -1026,7 +1087,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     position: 'absolute',
     right: 10,
     bottom: 8,
-    color: theme.colors.textMuted,
+    color: theme.colors.textSecondary,
     fontSize: 9,
   },
   reassurance: {
@@ -1181,6 +1242,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     color: onPrimaryTextColor(theme),
     fontSize: 13,
     fontWeight: '800',
+  },
+  // Used only by the save-confirmation modal, which has a single "OK"
+  // action outside the two-button confirmActions row — overrides
+  // confirmPrimaryButton's flex:1.2 (meant for a row sibling) so the button
+  // stays a normal-height standalone control instead of stretching to fill
+  // the column.
+  confirmSingleButton: {
+    flex: 0,
+    marginTop: 18,
   },
 
   pressed: { opacity: 0.82, transform: [{ scale: 0.99 }] },
