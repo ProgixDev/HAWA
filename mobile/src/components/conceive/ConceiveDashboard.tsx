@@ -25,7 +25,7 @@ import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import DailyJournalCard, {type Shortcut} from '../home/DailyJournalCard';
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../../hooks/useQadaaStatus';
@@ -761,6 +761,26 @@ function createStyles(theme: ResolvedAwaTheme) {
   const PURPLE = theme.colors.primary;
   const ADVICE_ACCENT = '#B23F63';
 
+  // The advice card's surface/icon-chip are always the theme's own
+  // `surface` token blended a small amount toward the fixed rose identity
+  // accent — never a fixed light-only literal and never an `isDark`
+  // branch. That small ratio keeps a light (near-white) surface reading as
+  // essentially the same soft pale pink as before; the SAME formula
+  // naturally produces a tinted dark surface once `surface` itself is
+  // dark, so the card never simply reuses a light card pasted onto a dark
+  // dashboard. The subtitle's rose highlight is then lightened only when
+  // the REAL resulting card background actually needs a light foreground
+  // (checked via pickReadableTextColor on that computed color, never via
+  // theme.isDark) — so it stays byte-identical to the plain accent in
+  // every current Light variant and only adapts where the math says it
+  // truly must.
+  const adviceCardTint = interpolateHex(theme.colors.surface, ADVICE_ACCENT, 0.08);
+  const adviceIconTint = interpolateHex(theme.colors.surface, ADVICE_ACCENT, 0.1);
+  const adviceSubtitleColor =
+    pickReadableTextColor(adviceCardTint) === '#FFFFFF'
+      ? interpolateHex(ADVICE_ACCENT, '#FFFFFF', 0.35)
+      : ADVICE_ACCENT;
+
   return StyleSheet.create({
   background: {flex: 1, backgroundColor: theme.colors.background},
 
@@ -1080,7 +1100,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     marginTop: 16,
     borderRadius: homeRadii.card,
-    backgroundColor: theme.isDark ? interpolateHex(theme.colors.surfaceSecondary, ADVICE_ACCENT, 0.16) : '#FBEFF6',
+    backgroundColor: adviceCardTint,
     padding: 16,
   },
   adviceIcon: {
@@ -1089,14 +1109,14 @@ function createStyles(theme: ResolvedAwaTheme) {
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    backgroundColor: theme.isDark ? interpolateHex(theme.colors.surface, ADVICE_ACCENT, 0.22) : '#FFFFFF',
+    backgroundColor: adviceIconTint,
   },
   adviceEmoji: {fontSize: 17},
   adviceCopy: {flex: 1, minWidth: 0, marginLeft: 12, marginRight: 8},
   adviceTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 13.5, fontWeight: '700'},
   adviceSubtitle: {
     marginTop: 3,
-    color: theme.isDark ? interpolateHex(ADVICE_ACCENT, '#FFFFFF', 0.35) : ADVICE_ACCENT,
+    color: adviceSubtitleColor,
     fontSize: 13,
     fontWeight: '700',
   },
