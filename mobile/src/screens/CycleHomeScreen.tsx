@@ -299,7 +299,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: DAILY_JOURNAL_ACCENT, iconBg: DAILY_JOURNAL_ACCENT_LIGHT, label: 'Journal quotidien', onPress: openJournal},
     {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
     {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
-    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: STATISTICS_ACCENT_LIGHT, label: 'Statistiques'},
+    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: STATISTICS_ACCENT_LIGHT, label: 'Statistiques', onPress: () => navigation.navigate('Statistics')},
   ];
 
   const animatedStyle = {
@@ -391,7 +391,6 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
               locationConfigured={Boolean(prayer.selectedLocation)}
               locationName={prayer.selectedLocation ? `${prayer.selectedLocation.city}, ${prayer.selectedLocation.country}` : undefined}
               nextWindow={prayer.nextWindow}
-              onManage={() => navigation.navigate('SpiritualPreferences')}
               onPressPuritySummary={() => navigation.navigate('PrayerTimes')}
               periodEndDateTime={prayer.periodEndDateTime}
               prayerError={prayer.error}

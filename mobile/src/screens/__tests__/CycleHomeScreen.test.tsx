@@ -157,3 +157,74 @@ describe('CycleHomeScreen — Premium fallback', () => {
     expect(gradientColors()).toEqual(['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']);
   });
 });
+
+/* ============================================================
+   "STATISTIQUES" QUICK ACTION — previously had no onPress at all (silently
+   did nothing on tap). Must navigate to the existing "Statistics" tab route
+   (ObjectiveAwareStatisticsScreen, MainTabNavigator.tsx), the same
+   sibling-tab route every other cycle-tracking quick action already uses
+   for its own destination (PrayerTimes/Library/HijriCalendar/FastingQadaa),
+   without ever touching the active-objective state itself.
+============================================================ */
+
+describe('CycleHomeScreen — "Statistiques" quick action', () => {
+  async function renderCycleHomeWithNavigateSpy() {
+    const navigate = jest.fn();
+    const navigation = {navigate} as never;
+    let renderer: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <SafeAreaProvider initialMetrics={TEST_METRICS}>
+          <AwaThemeProvider>
+            <JournalSheetProvider>
+              <NavigationContainer ref={navRef}>
+                <Stack.Navigator screenOptions={{headerShown: false}}>
+                  <Stack.Screen name="Test">
+                    {() => <CycleHomeScreen navigation={navigation} route={{key: 'test', name: 'CycleHome'}} />}
+                  </Stack.Screen>
+                </Stack.Navigator>
+              </NavigationContainer>
+            </JournalSheetProvider>
+          </AwaThemeProvider>
+        </SafeAreaProvider>,
+      );
+    });
+    activeRenderers.push(renderer!);
+    return {renderer: renderer!, navigate};
+  }
+
+  it('tapping "Statistiques" navigates to the existing "Statistics" tab route', async () => {
+    const {renderer, navigate} = await renderCycleHomeWithNavigateSpy();
+    const label = renderer.root.findAll(node => node.props.children === 'Statistiques')[0];
+    expect(label).toBeTruthy();
+
+    let pressable: ReactTestRenderer.ReactTestInstance | null = label;
+    while (pressable && typeof pressable.props.onPress !== 'function') {
+      pressable = pressable.parent;
+    }
+    expect(pressable).toBeTruthy();
+
+    act(() => {
+      pressable!.props.onPress();
+    });
+
+    expect(navigate).toHaveBeenCalledWith('Statistics');
+  });
+
+  it('does not touch the active-objective state when navigating to Statistics', async () => {
+    const {getActiveObjective} = require('../../state/onboardingPreferences');
+    const before = getActiveObjective();
+
+    const {renderer} = await renderCycleHomeWithNavigateSpy();
+    const label = renderer.root.findAll(node => node.props.children === 'Statistiques')[0];
+    let pressable: ReactTestRenderer.ReactTestInstance | null = label;
+    while (pressable && typeof pressable.props.onPress !== 'function') {
+      pressable = pressable.parent;
+    }
+    act(() => {
+      pressable!.props.onPress();
+    });
+
+    expect(getActiveObjective()).toBe(before);
+  });
+});
