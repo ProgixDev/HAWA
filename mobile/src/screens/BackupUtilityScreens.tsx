@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -39,24 +39,8 @@ import {
   subscribeActiveObjective,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
-
-const PURPLE = '#6F52C8';
-const PURPLE_DARK = '#2E215B';
-
-const TEXT_SECONDARY = '#756D8D';
-
-const BACKGROUND = '#F9F7FC';
-
-
-const BORDER = 'rgba(111,82,200,0.11)';
-const SOFT_PURPLE = '#F1ECFA';
-const VERY_SOFT_PURPLE = '#FBF9FD';
-
-const SUCCESS = '#3E9B63';
-const SUCCESS_BG = '#EAF6ED';
-
-const DANGER = '#D94458';
-const DANGER_BG = '#FFF2F4';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 type Period =
   | 'all'
@@ -83,6 +67,8 @@ function Shell({
   subtitle,
   navigation,
   children,
+  theme,
+  styles,
 }: {
   title: string;
   subtitle: string;
@@ -90,6 +76,8 @@ function Shell({
     goBack: () => void;
   };
   children: React.ReactNode;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   const insets =
     useSafeAreaInsets();
@@ -107,7 +95,7 @@ function Shell({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <View pointerEvents="none" style={styles.backgroundDecor}>
@@ -140,7 +128,7 @@ function Shell({
               styles.pressed,
           ]}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="chevron-left"
             size={27}
           />
@@ -207,23 +195,28 @@ function Shell({
 
 function HeroIcon({
   icon,
-  color = PURPLE,
-  backgroundColor = SOFT_PURPLE,
+  color,
+  backgroundColor,
+  theme,
+  styles: heroStyles,
 }: {
   icon: IconName;
   color?: string;
   backgroundColor?: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View
       style={[
-        styles.heroIcon,
+        heroStyles.heroIcon,
         {
-          backgroundColor,
+          backgroundColor:
+            backgroundColor ?? theme.colors.primarySoft,
         },
       ]}>
       <MaterialDesignIcons
-        color={color}
+        color={color ?? theme.colors.primary}
         name={icon}
         size={31}
       />
@@ -241,6 +234,9 @@ export function RestoreBackupScreen({
   RootStackParamList,
   'RestoreBackup'
 >) {
+  const {theme} = useAwaTheme();
+  const backupStyles = useMemo(() => createStyles(theme), [theme]);
+
   const [snapshot, setSnapshot] =
     useState<BackupSnapshot>();
 
@@ -298,11 +294,13 @@ export function RestoreBackupScreen({
   return (
     <Shell
       navigation={navigation}
-      title="Restaurer"
-      subtitle="Récupère tes données à partir d’une sauvegarde existante.">
+      styles={backupStyles}
+      subtitle="Récupère tes données à partir d’une sauvegarde existante."
+      theme={theme}
+      title="Restaurer">
       <View
         style={
-          styles.heroCard
+          backupStyles.heroCard
         }>
         <HeroIcon
           icon={
@@ -310,11 +308,13 @@ export function RestoreBackupScreen({
               ? 'backup-restore'
               : 'cloud-off-outline'
           }
+          styles={backupStyles}
+          theme={theme}
         />
 
         <Text
           style={
-            styles.heroTitle
+            backupStyles.heroTitle
           }>
           {snapshot
             ? 'Sauvegarde disponible'
@@ -323,7 +323,7 @@ export function RestoreBackupScreen({
 
         <Text
           style={
-            styles.heroDescription
+            backupStyles.heroDescription
           }>
           {snapshot
             ? 'Une copie de tes données est prête à être restaurée.'
@@ -333,11 +333,13 @@ export function RestoreBackupScreen({
         {snapshot ? (
           <View
             style={
-              styles.backupInfo
+              backupStyles.backupInfo
             }>
             <InfoRow
               icon="calendar-outline"
               label="Date"
+              theme={theme}
+              styles={backupStyles}
               value={new Intl.DateTimeFormat(
                 'fr-FR',
                 {
@@ -355,13 +357,15 @@ export function RestoreBackupScreen({
 
             <View
               style={
-                styles.divider
+                backupStyles.divider
               }
             />
 
             <InfoRow
               icon="database-outline"
               label="Taille"
+              theme={theme}
+              styles={backupStyles}
               value={formatBytes(
                 snapshot.sizeBytes,
               )}
@@ -378,24 +382,26 @@ export function RestoreBackupScreen({
           onPress={() =>
             setConfirm(true)
           }
+          styles={backupStyles}
+          theme={theme}
         />
       ) : null}
 
       {confirm ? (
         <View
           style={
-            styles.confirmCard
+            backupStyles.confirmCard
           }>
           <View
             style={
-              styles.confirmHeader
+              backupStyles.confirmHeader
             }>
             <View
               style={
-                styles.warningIcon
+                backupStyles.warningIcon
               }>
               <MaterialDesignIcons
-                color="#B6782F"
+                color={theme.colors.warning}
                 name="alert-outline"
                 size={22}
               />
@@ -403,18 +409,18 @@ export function RestoreBackupScreen({
 
             <View
               style={
-                styles.confirmCopy
+                backupStyles.confirmCopy
               }>
               <Text
                 style={
-                  styles.confirmTitle
+                  backupStyles.confirmTitle
                 }>
                 Confirmer la restauration
               </Text>
 
               <Text
                 style={
-                  styles.confirmDescription
+                  backupStyles.confirmDescription
                 }>
                 Les données actuelles seront remplacées par celles de cette sauvegarde.
               </Text>
@@ -425,31 +431,31 @@ export function RestoreBackupScreen({
             disabled={busy}
             onPress={restore}
             style={({pressed}) => [
-              styles.primaryButton,
-              styles.confirmPrimary,
+              backupStyles.primaryButton,
+              backupStyles.confirmPrimary,
 
               busy &&
-                styles.disabled,
+                backupStyles.disabled,
 
               pressed &&
                 !busy &&
-                styles.pressed,
+                backupStyles.pressed,
             ]}>
             {busy ? (
               <ActivityIndicator
-                color="#FFFFFF"
+                color={onPrimaryTextColor(theme)}
               />
             ) : (
               <>
                 <MaterialDesignIcons
-                  color="#FFFFFF"
+                  color={onPrimaryTextColor(theme)}
                   name="check"
                   size={19}
                 />
 
                 <Text
                   style={
-                    styles.primaryText
+                    backupStyles.primaryText
                   }>
                   Confirmer
                 </Text>
@@ -463,13 +469,13 @@ export function RestoreBackupScreen({
               setConfirm(false)
             }
             style={({pressed}) => [
-              styles.cancelButton,
+              backupStyles.cancelButton,
               pressed &&
-                styles.pressed,
+                backupStyles.pressed,
             ]}>
             <Text
               style={
-                styles.cancelText
+                backupStyles.cancelText
               }>
               Annuler
             </Text>
@@ -480,21 +486,21 @@ export function RestoreBackupScreen({
       {message ? (
         <View
           style={[
-            styles.message,
+            backupStyles.message,
 
             message.includes(
               'succès',
             )
-              ? styles.messageSuccess
-              : styles.messageError,
+              ? backupStyles.messageSuccess
+              : backupStyles.messageError,
           ]}>
           <MaterialDesignIcons
             color={
               message.includes(
                 'succès',
               )
-                ? SUCCESS
-                : DANGER
+                ? theme.colors.success
+                : theme.colors.danger
             }
             name={
               message.includes(
@@ -508,15 +514,15 @@ export function RestoreBackupScreen({
 
           <Text
             style={[
-              styles.messageText,
+              backupStyles.messageText,
 
               {
                 color:
                   message.includes(
                     'succès',
                   )
-                    ? SUCCESS
-                    : DANGER,
+                    ? theme.colors.success
+                    : theme.colors.danger,
               },
             ]}>
             {message}
@@ -537,6 +543,9 @@ export function DataExportScreen({
   RootStackParamList,
   'DataExport'
 >) {
+  const {theme} = useAwaTheme();
+  const backupStyles = useMemo(() => createStyles(theme), [theme]);
+
   const [
     period,
     setPeriod,
@@ -656,18 +665,20 @@ export function DataExportScreen({
   return (
     <Shell
       navigation={navigation}
-      title="Exporter mes données"
-      subtitle="Choisis les informations que tu souhaites récupérer.">
+      styles={backupStyles}
+      subtitle="Choisis les informations que tu souhaites récupérer."
+      theme={theme}
+      title="Exporter mes données">
       <View
         style={
-          styles.exportHero
+          backupStyles.exportHero
         }>
         <View
           style={
-            styles.exportIcon
+            backupStyles.exportIcon
           }>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="tray-arrow-down"
             size={27}
           />
@@ -675,25 +686,25 @@ export function DataExportScreen({
 
         <View
           style={
-            styles.exportCopy
+            backupStyles.exportCopy
           }>
           <Text
             style={
-              styles.exportTitle
+              backupStyles.exportTitle
             }>
             Ton export personnalisé
           </Text>
 
           <Text
             style={
-              styles.exportDescription
+              backupStyles.exportDescription
             }>
             Sélectionne la période, le format et les informations à inclure.
           </Text>
 
           <Text
             style={
-              styles.exportObjectiveLabel
+              backupStyles.exportObjectiveLabel
             }>
             Objectif actif : {exportConfig.label}
           </Text>
@@ -703,99 +714,114 @@ export function DataExportScreen({
       {isPremium ? (
       <>
       <SectionTitle
-        title="Période"
+        styles={backupStyles}
         subtitle="Choisis la durée de l’historique à exporter."
+        title="Période"
       />
 
       <View
         style={
-          styles.choiceGrid
+          backupStyles.choiceGrid
         }>
         <Choice
           icon="history"
           label="Tout l’historique"
-          selected={
-            period === 'all'
-          }
           onPress={() =>
             setPeriod('all')
           }
+          selected={
+            period === 'all'
+          }
+          styles={backupStyles}
+          theme={theme}
         />
 
         <Choice
           icon="calendar-range"
           label="3 mois"
-          selected={
-            period === '3m'
-          }
           onPress={() =>
             setPeriod('3m')
           }
+          selected={
+            period === '3m'
+          }
+          styles={backupStyles}
+          theme={theme}
         />
 
         <Choice
           icon="calendar-range"
           label="6 mois"
-          selected={
-            period === '6m'
-          }
           onPress={() =>
             setPeriod('6m')
           }
+          selected={
+            period === '6m'
+          }
+          styles={backupStyles}
+          theme={theme}
         />
 
         <Choice
           icon="calendar-range"
           label="12 mois"
-          selected={
-            period === '12m'
-          }
           onPress={() =>
             setPeriod('12m')
           }
+          selected={
+            period === '12m'
+          }
+          styles={backupStyles}
+          theme={theme}
         />
       </View>
 
       <SectionTitle
-        title="Format"
+        styles={backupStyles}
         subtitle="CSV et PDF sont générés directement sur ton téléphone."
+        title="Format"
       />
 
       <View
         style={
-          styles.formatRow
+          backupStyles.formatRow
         }>
         <Choice
           icon="file-delimited-outline"
           label="CSV"
-          selected={
-            format === 'csv'
-          }
           onPress={() =>
             setFormat('csv')
           }
+          selected={
+            format === 'csv'
+          }
+          styles={backupStyles}
+          theme={theme}
         />
 
         <Choice
           icon="file-pdf-box"
           label="PDF"
-          selected={
-            format === 'pdf'
-          }
           onPress={() =>
             setFormat('pdf')
           }
+          selected={
+            format === 'pdf'
+          }
+          styles={backupStyles}
+          theme={theme}
         />
       </View>
 
       <SectionTitle
-        title="Catégories"
+        styles={backupStyles}
         subtitle="Les données sensibles ne sont jamais sélectionnées automatiquement."
+        title="Catégories"
       />
 
       <View
         style={
-          styles.categoryCard
+          backupStyles.categoryCard
         }>
         {exportConfig.categories.map(
           (
@@ -825,28 +851,28 @@ export function DataExportScreen({
                 style={({
                   pressed,
                 }) => [
-                  styles.category,
+                  backupStyles.category,
 
                   index !==
                     exportConfig.categories.length -
                       1 &&
-                    styles.categoryBorder,
+                    backupStyles.categoryBorder,
 
                   pressed &&
-                    styles.categoryPressed,
+                    backupStyles.categoryPressed,
                 ]}>
                 <View
                   style={[
-                    styles.categoryIcon,
+                    backupStyles.categoryIcon,
 
                     active &&
-                      styles.categoryIconActive,
+                      backupStyles.categoryIconActive,
                   ]}>
                   <MaterialDesignIcons
                     color={
                       active
-                        ? PURPLE
-                        : '#A99EB7'
+                        ? theme.colors.primary
+                        : theme.colors.textMuted
                     }
                     name={
                       category.icon as IconName
@@ -857,11 +883,11 @@ export function DataExportScreen({
 
                 <View
                   style={
-                    styles.categoryCopy
+                    backupStyles.categoryCopy
                   }>
                   <Text
                     style={
-                      styles.categoryName
+                      backupStyles.categoryName
                     }>
                     {
                       category.label
@@ -873,17 +899,17 @@ export function DataExportScreen({
                   category.sensitive ? (
                     <View
                       style={
-                        styles.sensitiveBadge
+                        backupStyles.sensitiveBadge
                       }>
                       <MaterialDesignIcons
-                        color="#B45A74"
+                        color={theme.colors.danger}
                         name="lock-outline"
                         size={10}
                       />
 
                       <Text
                         style={
-                          styles.sensitiveText
+                          backupStyles.sensitiveText
                         }>
                         Donnée sensible
                       </Text>
@@ -894,8 +920,8 @@ export function DataExportScreen({
                 <MaterialDesignIcons
                   color={
                     active
-                      ? PURPLE
-                      : '#B9AFC6'
+                      ? theme.colors.primary
+                      : theme.colors.textMuted
                   }
                   name={
                     active
@@ -912,17 +938,17 @@ export function DataExportScreen({
 
       <View
         style={
-          styles.selectionInfo
+          backupStyles.selectionInfo
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name="check-all"
           size={18}
         />
 
         <Text
           style={
-            styles.selectionText
+            backupStyles.selectionText
           }>
           {selected.length}{' '}
           catégorie
@@ -944,22 +970,24 @@ export function DataExportScreen({
         label={exporting ? 'Génération en cours…' : 'Exporter mes données'}
         loading={exporting}
         onPress={exportData}
+        styles={backupStyles}
+        theme={theme}
       />
 
       {message ? (
         <View
           style={
-            styles.infoMessage
+            backupStyles.infoMessage
           }>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="information-outline"
             size={20}
           />
 
           <Text
             style={
-              styles.infoMessageText
+              backupStyles.infoMessageText
             }>
             {message}
           </Text>
@@ -967,19 +995,19 @@ export function DataExportScreen({
       ) : null}
       </>
       ) : (
-        <PremiumExportLockedCard onUpgrade={() => setPremiumVisible(true)} />
+        <PremiumExportLockedCard onUpgrade={() => setPremiumVisible(true)} styles={backupStyles} theme={theme} />
       )}
 
       {!isPremium ? (
-        <View style={styles.privacyPriorityCard}>
-          <View style={styles.privacyPriorityIcon}>
-            <MaterialDesignIcons color={PURPLE} name="shield-check-outline" size={23} />
+        <View style={backupStyles.privacyPriorityCard}>
+          <View style={backupStyles.privacyPriorityIcon}>
+            <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={23} />
           </View>
-          <View style={styles.privacyPriorityCopy}>
-            <Text style={styles.privacyPriorityTitle}>Ta confidentialité est notre priorité</Text>
-            <Text style={styles.privacyPriorityDescription}>AWA ne partage jamais tes informations.</Text>
+          <View style={backupStyles.privacyPriorityCopy}>
+            <Text style={backupStyles.privacyPriorityTitle}>Ta confidentialité est notre priorité</Text>
+            <Text style={backupStyles.privacyPriorityDescription}>AWA ne partage jamais tes informations.</Text>
           </View>
-          <MaterialDesignIcons color="#8B7AB8" name="chevron-right" size={25} />
+          <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={25} />
         </View>
       ) : null}
 
@@ -988,74 +1016,82 @@ export function DataExportScreen({
   );
 }
 
-function PremiumExportBenefit({icon, title, description}: {icon: IconName; title: string; description: string}) {
+function PremiumExportBenefit({icon, title, description, theme, styles: benefitStyles}: {icon: IconName; title: string; description: string; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
   return (
-    <View style={styles.premiumBenefitRow}>
-      <View style={styles.premiumBenefitIcon}>
-        <MaterialDesignIcons color={PURPLE} name={icon} size={22} />
+    <View style={benefitStyles.premiumBenefitRow}>
+      <View style={benefitStyles.premiumBenefitIcon}>
+        <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
       </View>
-      <View style={styles.premiumBenefitCopy}>
-        <Text style={styles.premiumBenefitTitle}>{title}</Text>
-        <Text style={styles.premiumBenefitDescription}>{description}</Text>
+      <View style={benefitStyles.premiumBenefitCopy}>
+        <Text style={benefitStyles.premiumBenefitTitle}>{title}</Text>
+        <Text style={benefitStyles.premiumBenefitDescription}>{description}</Text>
       </View>
     </View>
   );
 }
 
-function PremiumExportLockedCard({onUpgrade}: {onUpgrade: () => void}) {
+function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUpgrade: () => void; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
   return (
-    <View style={styles.premiumExportCard}>
-      <View style={styles.premiumLockHalo}>
-        <View style={styles.premiumLockHexagon}>
-          <MaterialDesignIcons color="#FFFFFF" name="lock-outline" size={27} />
+    <View style={lockedStyles.premiumExportCard}>
+      <View style={lockedStyles.premiumLockHalo}>
+        <View style={lockedStyles.premiumLockHexagon}>
+          <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock-outline" size={27} />
         </View>
       </View>
 
-      <View style={styles.premiumPill}>
-        <Text style={styles.premiumPillText}>PREMIUM</Text>
+      <View style={lockedStyles.premiumPill}>
+        <Text style={lockedStyles.premiumPillText}>PREMIUM</Text>
       </View>
 
-      <Text style={styles.premiumExportTitle}>Export CSV &amp; PDF</Text>
-      <Text style={styles.premiumExportDescription}>
+      <Text style={lockedStyles.premiumExportTitle}>Export CSV &amp; PDF</Text>
+      <Text style={lockedStyles.premiumExportDescription}>
         Génère et partage un rapport complet de ton suivi à tout moment.
       </Text>
 
-      <View style={styles.premiumDividerRow}>
-        <View style={styles.premiumDivider} />
-        <MaterialDesignIcons color={PURPLE} name="crown" size={21} />
-        <View style={styles.premiumDivider} />
+      <View style={lockedStyles.premiumDividerRow}>
+        <View style={lockedStyles.premiumDivider} />
+        <MaterialDesignIcons color={theme.colors.primary} name="crown" size={21} />
+        <View style={lockedStyles.premiumDivider} />
       </View>
 
-      <View style={styles.premiumBenefits}>
+      <View style={lockedStyles.premiumBenefits}>
         <PremiumExportBenefit
-          icon="file-document-outline"
-          title="Rapports complets et structurés"
           description="CSV ou PDF prêts à être utilisés ou partagés."
+          icon="file-document-outline"
+          styles={lockedStyles}
+          theme={theme}
+          title="Rapports complets et structurés"
         />
         <PremiumExportBenefit
-          icon="history"
-          title="Historique illimité"
           description="Accède à tout ton historique sans aucune limite."
+          icon="history"
+          styles={lockedStyles}
+          theme={theme}
+          title="Historique illimité"
         />
         <PremiumExportBenefit
-          icon="shield-check-outline"
-          title="Confidentialité assurée"
           description="Tes données restent 100% privées et sécurisées."
+          icon="shield-check-outline"
+          styles={lockedStyles}
+          theme={theme}
+          title="Confidentialité assurée"
         />
         <PremiumExportBenefit
-          icon="chart-box-outline"
-          title="Analyse avancée"
           description="Exploite tes données avec plus de profondeur et de clarté."
+          icon="chart-box-outline"
+          styles={lockedStyles}
+          theme={theme}
+          title="Analyse avancée"
         />
       </View>
 
       <Pressable
         accessibilityRole="button"
         onPress={onUpgrade}
-        style={({pressed}) => [styles.premiumUpgradeButton, pressed && styles.pressed]}>
-        <MaterialDesignIcons color="#FFFFFF" name="crown" size={23} />
-        <Text style={styles.premiumUpgradeText}>Découvrir Premium</Text>
-        <MaterialDesignIcons color="#FFFFFF" name="chevron-right" size={27} />
+        style={({pressed}) => [lockedStyles.premiumUpgradeButton, pressed && lockedStyles.pressed]}>
+        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="crown" size={23} />
+        <Text style={lockedStyles.premiumUpgradeText}>Découvrir Premium</Text>
+        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="chevron-right" size={27} />
       </Pressable>
     </View>
   );
@@ -1071,6 +1107,9 @@ export function DeleteTrackedDataScreen({
   RootStackParamList,
   'DeleteTrackedData'
 >) {
+  const {theme} = useAwaTheme();
+  const backupStyles = useMemo(() => createStyles(theme), [theme]);
+
   const [
     value,
     setValue,
@@ -1109,64 +1148,74 @@ export function DeleteTrackedDataScreen({
   return (
     <Shell
       navigation={navigation}
-      title="Supprimer mes données"
-      subtitle="Gère définitivement tes données de suivi locales.">
+      styles={backupStyles}
+      subtitle="Gère définitivement tes données de suivi locales."
+      theme={theme}
+      title="Supprimer mes données">
       {!done ? (
         <>
           <View
             style={
-              styles.dangerHero
+              backupStyles.dangerHero
             }>
             <HeroIcon
-              backgroundColor="#FFE7EB"
-              color={DANGER}
+              backgroundColor={withAlpha(theme.colors.danger, 0.12)}
+              color={theme.colors.danger}
               icon="delete-alert-outline"
+              styles={backupStyles}
+              theme={theme}
             />
 
             <Text
               style={
-                styles.dangerTitle
+                backupStyles.dangerTitle
               }>
               Action irréversible
             </Text>
 
             <Text
               style={
-                styles.dangerDescription
+                backupStyles.dangerDescription
               }>
               Cette action supprimera définitivement tes données de suivi locales.
             </Text>
 
             <View
               style={
-                styles.dangerItems
+                backupStyles.dangerItems
               }>
               <DangerItem
                 label="Journal quotidien"
+                styles={backupStyles}
+                theme={theme}
               />
 
               <DangerItem
                 label="Historique du cycle"
+                styles={backupStyles}
+                theme={theme}
               />
 
               <DangerItem
                 label="Données de suivi locales"
+                styles={backupStyles}
+                theme={theme}
               />
             </View>
 
             <View
               style={
-                styles.accountNotice
+                backupStyles.accountNotice
               }>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="account-check-outline"
                 size={18}
               />
 
               <Text
                 style={
-                  styles.accountNoticeText
+                  backupStyles.accountNoticeText
                 }>
                 Ton compte AWA ne sera pas supprimé.
               </Text>
@@ -1175,19 +1224,19 @@ export function DeleteTrackedDataScreen({
 
           <View
             style={
-              styles.deleteConfirmCard
+              backupStyles.deleteConfirmCard
             }>
             <View
               style={
-                styles.deleteConfirmHeader
+                backupStyles.deleteConfirmHeader
               }>
               <View
                 style={
-                  styles.stepBadge
+                  backupStyles.stepBadge
                 }>
                 <Text
                   style={
-                    styles.stepText
+                    backupStyles.stepText
                   }>
                   1
                 </Text>
@@ -1195,18 +1244,18 @@ export function DeleteTrackedDataScreen({
 
               <View
                 style={
-                  styles.deleteConfirmCopy
+                  backupStyles.deleteConfirmCopy
                 }>
                 <Text
                   style={
-                    styles.deleteConfirmTitle
+                    backupStyles.deleteConfirmTitle
                   }>
                   Confirme ton choix
                 </Text>
 
                 <Text
                   style={
-                    styles.deleteConfirmSubtitle
+                    backupStyles.deleteConfirmSubtitle
                   }>
                   Écris SUPPRIMER pour continuer.
                 </Text>
@@ -1221,15 +1270,15 @@ export function DeleteTrackedDataScreen({
                 setError('');
               }}
               placeholder="SUPPRIMER"
-              placeholderTextColor="#B0A5BC"
+              placeholderTextColor={theme.colors.textMuted}
               style={[
-                styles.input,
+                backupStyles.input,
 
                 isValid &&
-                  styles.inputValid,
+                  backupStyles.inputValid,
 
                 error &&
-                  styles.inputError,
+                  backupStyles.inputError,
               ]}
               value={value}
             />
@@ -1237,17 +1286,17 @@ export function DeleteTrackedDataScreen({
             {isValid ? (
               <View
                 style={
-                  styles.validRow
+                  backupStyles.validRow
                 }>
                 <MaterialDesignIcons
-                  color={SUCCESS}
+                  color={theme.colors.success}
                   name="check-circle"
                   size={16}
                 />
 
                 <Text
                   style={
-                    styles.validText
+                    backupStyles.validText
                   }>
                   Confirmation correcte
                 </Text>
@@ -1257,17 +1306,17 @@ export function DeleteTrackedDataScreen({
             {error ? (
               <View
                 style={
-                  styles.errorRow
+                  backupStyles.errorRow
                 }>
                 <MaterialDesignIcons
-                  color={DANGER}
+                  color={theme.colors.danger}
                   name="alert-circle-outline"
                   size={16}
                 />
 
                 <Text
                   style={
-                    styles.errorText
+                    backupStyles.errorText
                   }>
                   {error}
                 </Text>
@@ -1280,24 +1329,24 @@ export function DeleteTrackedDataScreen({
             disabled={!isValid}
             onPress={remove}
             style={({pressed}) => [
-              styles.deleteButton,
+              backupStyles.deleteButton,
 
               !isValid &&
-                styles.deleteDisabled,
+                backupStyles.deleteDisabled,
 
               pressed &&
                 isValid &&
-                styles.pressed,
+                backupStyles.pressed,
             ]}>
             <MaterialDesignIcons
-              color="#FFFFFF"
+              color={onPrimaryTextColor(theme)}
               name="delete-forever-outline"
               size={20}
             />
 
             <Text
               style={
-                styles.primaryText
+                backupStyles.primaryText
               }>
               Supprimer définitivement
             </Text>
@@ -1305,7 +1354,7 @@ export function DeleteTrackedDataScreen({
 
           <Text
             style={
-              styles.deleteFootnote
+              backupStyles.deleteFootnote
             }>
             Cette action ne peut pas être annulée.
           </Text>
@@ -1313,33 +1362,33 @@ export function DeleteTrackedDataScreen({
       ) : (
         <View
           style={
-            styles.successCard
+            backupStyles.successCard
           }>
           <HeroIcon
-            backgroundColor={
-              SUCCESS_BG
-            }
-            color={SUCCESS}
+            backgroundColor={withAlpha(theme.colors.success, 0.14)}
+            color={theme.colors.success}
             icon="check-circle-outline"
+            styles={backupStyles}
+            theme={theme}
           />
 
           <Text
             style={
-              styles.successTitle
+              backupStyles.successTitle
             }>
             Données supprimées
           </Text>
 
           <Text
             style={
-              styles.successDescription
+              backupStyles.successDescription
             }>
             Tes données de suivi locales ont été supprimées avec succès.
           </Text>
 
           <View
             style={
-              styles.successSeparator
+              backupStyles.successSeparator
             }
           />
 
@@ -1348,6 +1397,8 @@ export function DeleteTrackedDataScreen({
             onPress={
               navigation.goBack
             }
+            styles={backupStyles}
+            theme={theme}
           />
         </View>
       )}
@@ -1362,22 +1413,24 @@ export function DeleteTrackedDataScreen({
 function SectionTitle({
   title,
   subtitle,
+  styles: sectionStyles,
 }: {
   title: string;
   subtitle: string;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View>
       <Text
         style={
-          styles.sectionTitle
+          sectionStyles.sectionTitle
         }>
         {title}
       </Text>
 
       <Text
         style={
-          styles.sectionSubtitle
+          sectionStyles.sectionSubtitle
         }>
         {subtitle}
       </Text>
@@ -1389,22 +1442,26 @@ function InfoRow({
   icon,
   label,
   value,
+  theme,
+  styles: infoStyles,
 }: {
   icon: IconName;
   label: string;
   value: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View
       style={
-        styles.infoRow
+        infoStyles.infoRow
       }>
       <View
         style={
-          styles.infoIcon
+          infoStyles.infoIcon
         }>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={18}
         />
@@ -1412,18 +1469,18 @@ function InfoRow({
 
       <View
         style={
-          styles.infoCopy
+          infoStyles.infoCopy
         }>
         <Text
           style={
-            styles.infoLabel
+            infoStyles.infoLabel
           }>
           {label}
         </Text>
 
         <Text
           style={
-            styles.infoValue
+            infoStyles.infoValue
           }>
           {value}
         </Text>
@@ -1438,12 +1495,16 @@ function PrimaryButton({
   onPress,
   disabled,
   loading,
+  theme,
+  styles: buttonStyles,
 }: {
   label: string;
   icon?: IconName;
   onPress: () => void;
   disabled?: boolean;
   loading?: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <Pressable
@@ -1452,17 +1513,17 @@ function PrimaryButton({
       disabled={disabled}
       onPress={onPress}
       style={({pressed}) => [
-        styles.primaryButton,
+        buttonStyles.primaryButton,
         pressed &&
-          styles.pressed,
+          buttonStyles.pressed,
         disabled &&
-          styles.primaryButtonDisabled,
+          buttonStyles.primaryButtonDisabled,
       ]}>
       {loading ? (
-        <ActivityIndicator color="#FFFFFF" size="small" />
+        <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" />
       ) : icon ? (
         <MaterialDesignIcons
-          color="#FFFFFF"
+          color={onPrimaryTextColor(theme)}
           name={icon}
           size={20}
         />
@@ -1470,7 +1531,7 @@ function PrimaryButton({
 
       <Text
         style={
-          styles.primaryText
+          buttonStyles.primaryText
         }>
         {label}
       </Text>
@@ -1483,11 +1544,15 @@ function Choice({
   selected,
   onPress,
   icon,
+  theme,
+  styles: choiceStyles,
 }: {
   label: string;
   selected: boolean;
   onPress: () => void;
   icon: IconName;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <Pressable
@@ -1497,26 +1562,26 @@ function Choice({
       }}
       onPress={onPress}
       style={({pressed}) => [
-        styles.choice,
+        choiceStyles.choice,
 
         selected &&
-          styles.choiceSelected,
+          choiceStyles.choiceSelected,
 
         pressed &&
-          styles.choicePressed,
+          choiceStyles.choicePressed,
       ]}>
       <View
         style={[
-          styles.choiceIcon,
+          choiceStyles.choiceIcon,
 
           selected &&
-            styles.choiceIconSelected,
+            choiceStyles.choiceIconSelected,
         ]}>
         <MaterialDesignIcons
           color={
             selected
-              ? PURPLE
-              : TEXT_SECONDARY
+              ? theme.colors.primary
+              : theme.colors.textSecondary
           }
           name={icon}
           size={19}
@@ -1526,25 +1591,25 @@ function Choice({
       <Text
         numberOfLines={2}
         style={[
-          styles.choiceLabel,
+          choiceStyles.choiceLabel,
 
           selected &&
-            styles.choiceLabelSelected,
+            choiceStyles.choiceLabelSelected,
         ]}>
         {label}
       </Text>
 
       <View
         style={[
-          styles.radio,
+          choiceStyles.radio,
 
           selected &&
-            styles.radioSelected,
+            choiceStyles.radioSelected,
         ]}>
         {selected ? (
           <View
             style={
-              styles.radioDot
+              choiceStyles.radioDot
             }
           />
         ) : null}
@@ -1555,20 +1620,24 @@ function Choice({
 
 function DangerItem({
   label,
+  theme,
+  styles: dangerStyles,
 }: {
   label: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 }) {
   return (
     <View
       style={
-        styles.dangerItem
+        dangerStyles.dangerItem
       }>
       <View
         style={
-          styles.dangerBullet
+          dangerStyles.dangerBullet
         }>
         <MaterialDesignIcons
-          color={DANGER}
+          color={theme.colors.danger}
           name="minus"
           size={13}
         />
@@ -1576,7 +1645,7 @@ function DangerItem({
 
       <Text
         style={
-          styles.dangerItemText
+          dangerStyles.dangerItemText
         }>
         {label}
       </Text>
@@ -1588,12 +1657,12 @@ function DangerItem({
    STYLES
 ============================================================ */
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     safe: {
       flex: 1,
       backgroundColor:
-        BACKGROUND,
+        theme.colors.background,
     },
 
     backgroundDecor: {
@@ -1608,7 +1677,7 @@ const styles =
       width: 380,
       height: 380,
       borderRadius: 190,
-      backgroundColor: 'rgba(111,82,200,0.06)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.06),
     },
 
     glowLeft: {
@@ -1618,7 +1687,7 @@ const styles =
       width: 320,
       height: 320,
       borderRadius: 160,
-      backgroundColor: 'rgba(166,139,205,0.045)',
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
     },
 
     glowBottom: {
@@ -1628,7 +1697,7 @@ const styles =
       width: 350,
       height: 350,
       borderRadius: 175,
-      backgroundColor: 'rgba(92,67,139,0.045)',
+      backgroundColor: withAlpha(theme.colors.accent, 0.045),
     },
 
     header: {
@@ -1644,10 +1713,10 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 13,
-      backgroundColor: 'rgba(255,255,255,0.94)',
-      shadowColor: '#49386B',
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.055,
       shadowRadius: 8,
@@ -1663,7 +1732,7 @@ const styles =
 
     headerTitle: {
       width: '100%',
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 18,
       lineHeight: 22,
@@ -1680,7 +1749,7 @@ const styles =
     headerSubtitle: {
       maxWidth: 320,
       marginTop: 2,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 9.5,
       lineHeight: 13,
       textAlign: 'center',
@@ -1708,12 +1777,12 @@ const styles =
       alignItems: 'center',
       overflow: 'hidden',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 22,
-      backgroundColor: 'rgba(255,255,255,0.96)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.96),
       paddingHorizontal: 16,
       paddingVertical: 17,
-      shadowColor: '#4A386C',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 5},
       shadowOpacity: 0.05,
       shadowRadius: 14,
@@ -1726,9 +1795,9 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 1,
-      borderColor: 'rgba(255,255,255,0.92)',
+      borderColor: withAlpha(theme.colors.surface, 0.92),
       borderRadius: 18,
-      shadowColor: '#5A4578',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 4},
       shadowOpacity: 0.07,
       shadowRadius: 9,
@@ -1737,7 +1806,7 @@ const styles =
 
     heroTitle: {
       marginTop: 10,
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 21,
@@ -1749,7 +1818,7 @@ const styles =
     heroDescription: {
       maxWidth: 315,
       marginTop: 6,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 11,
       lineHeight: 16,
       textAlign: 'center',
@@ -1760,9 +1829,9 @@ const styles =
       marginTop: 13,
       overflow: 'hidden',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.09)',
+      borderColor: withAlpha(theme.colors.primary, 0.09),
       borderRadius: 16,
-      backgroundColor: VERY_SOFT_PURPLE,
+      backgroundColor: theme.colors.surfaceSecondary,
       paddingHorizontal: 12,
     },
 
@@ -1784,7 +1853,7 @@ const styles =
       borderRadius: 13,
 
       backgroundColor:
-        SOFT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     infoCopy: {
@@ -1793,14 +1862,14 @@ const styles =
     },
 
     infoLabel: {
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
     },
 
     infoValue: {
       marginTop: 2,
 
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
 
       fontSize: 12,
       fontWeight: '700',
@@ -1813,7 +1882,7 @@ const styles =
       marginLeft: 49,
 
       backgroundColor:
-        BORDER,
+        theme.colors.border,
     },
 
     primaryButton: {
@@ -1823,9 +1892,9 @@ const styles =
       justifyContent: 'center',
       gap: 8,
       borderRadius: 17,
-      backgroundColor: PURPLE,
+      backgroundColor: theme.colors.primary,
       paddingHorizontal: 18,
-      shadowColor: '#51359D',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 6},
       shadowOpacity: 0.18,
       shadowRadius: 11,
@@ -1833,7 +1902,7 @@ const styles =
     },
 
     primaryText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 13.5,
       lineHeight: 17,
       fontWeight: '800',
@@ -1847,12 +1916,12 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        '#F0DFC6',
+        withAlpha(theme.colors.warning, 0.35),
 
       borderRadius: 19,
 
       backgroundColor:
-        '#FFF9F0',
+        withAlpha(theme.colors.warning, 0.08),
 
       padding: 12,
     },
@@ -1874,7 +1943,7 @@ const styles =
       borderRadius: 14,
 
       backgroundColor:
-        '#FFF0D7',
+        withAlpha(theme.colors.warning, 0.18),
     },
 
     confirmCopy: {
@@ -1883,7 +1952,7 @@ const styles =
     },
 
     confirmTitle: {
-      color: '#A66626',
+      color: theme.colors.warning,
 
       fontFamily: 'serif',
 
@@ -1894,7 +1963,7 @@ const styles =
     confirmDescription: {
       marginTop: 4,
 
-      color: '#7C674E',
+      color: theme.colors.textSecondary,
 
       fontSize: 11.5,
       lineHeight: 17,
@@ -1915,7 +1984,7 @@ const styles =
     },
 
     cancelText: {
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
 
       fontSize: 12.5,
       fontWeight: '700',
@@ -1941,18 +2010,18 @@ const styles =
 
     messageSuccess: {
       borderColor:
-        '#CEE5D5',
+        withAlpha(theme.colors.success, 0.3),
 
       backgroundColor:
-        SUCCESS_BG,
+        withAlpha(theme.colors.success, 0.14),
     },
 
     messageError: {
       borderColor:
-        '#F2C8CE',
+        withAlpha(theme.colors.danger, 0.3),
 
       backgroundColor:
-        DANGER_BG,
+        withAlpha(theme.colors.danger, 0.10),
     },
 
     messageText: {
@@ -1967,11 +2036,11 @@ const styles =
       flexDirection: 'row',
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 20,
-      backgroundColor: 'rgba(255,255,255,0.96)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.96),
       padding: 13,
-      shadowColor: '#4A386C',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.035,
       shadowRadius: 8,
@@ -1984,7 +2053,7 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 16,
-      backgroundColor: SOFT_PURPLE,
+      backgroundColor: theme.colors.primarySoft,
     },
 
     exportCopy: {
@@ -1994,7 +2063,7 @@ const styles =
     },
 
     exportTitle: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 15,
       lineHeight: 19,
@@ -2003,7 +2072,7 @@ const styles =
 
     exportDescription: {
       marginTop: 3,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
       lineHeight: 15,
     },
@@ -2011,14 +2080,14 @@ const styles =
     exportObjectiveLabel: {
       marginTop: 6,
 
-      color: PURPLE,
+      color: theme.colors.primary,
 
       fontSize: 11,
       fontWeight: '700',
     },
 
     sectionTitle: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 14.5,
       lineHeight: 18,
@@ -2027,7 +2096,7 @@ const styles =
 
     sectionSubtitle: {
       marginTop: 2,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 10,
       lineHeight: 14,
     },
@@ -2050,17 +2119,17 @@ const styles =
       flexDirection: 'row',
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 15,
-      backgroundColor: 'rgba(255,255,255,0.96)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.96),
       paddingHorizontal: 9,
       paddingVertical: 8,
     },
 
     choiceSelected: {
-      borderColor: PURPLE,
-      backgroundColor: '#F7F3FD',
-      shadowColor: '#5B429C',
+      borderColor: theme.colors.primary,
+      backgroundColor: theme.colors.primarySoft,
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 2},
       shadowOpacity: 0.04,
       shadowRadius: 6,
@@ -2083,24 +2152,24 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 10,
-      backgroundColor: '#F4F0F8',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     choiceIconSelected: {
-      backgroundColor: '#ECE4F8',
+      backgroundColor: theme.colors.primarySoft,
     },
 
     choiceLabel: {
       flex: 1,
       marginHorizontal: 8,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
       lineHeight: 13.5,
       fontWeight: '600',
     },
 
     choiceLabelSelected: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
 
       fontWeight: '700',
     },
@@ -2116,14 +2185,14 @@ const styles =
       borderWidth: 1.5,
 
       borderColor:
-        '#C7BBD6',
+        theme.colors.border,
 
       borderRadius: 9,
     },
 
     radioSelected: {
       borderColor:
-        PURPLE,
+        theme.colors.primary,
     },
 
     radioDot: {
@@ -2133,16 +2202,16 @@ const styles =
       borderRadius: 5,
 
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
     },
 
     categoryCard: {
       overflow: 'hidden',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 19,
-      backgroundColor: 'rgba(255,255,255,0.96)',
-      shadowColor: '#4A386C',
+      backgroundColor: withAlpha(theme.colors.surface, 0.96),
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.03,
       shadowRadius: 8,
@@ -2161,12 +2230,12 @@ const styles =
         StyleSheet.hairlineWidth,
 
       borderBottomColor:
-        BORDER,
+        theme.colors.border,
     },
 
     categoryPressed: {
       backgroundColor:
-        VERY_SOFT_PURPLE,
+        theme.colors.surfaceSecondary,
     },
 
     categoryIcon: {
@@ -2175,12 +2244,12 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 10,
-      backgroundColor: '#F5F1F8',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     categoryIconActive: {
       backgroundColor:
-        SOFT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     categoryCopy: {
@@ -2190,7 +2259,7 @@ const styles =
     },
 
     categoryName: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontSize: 11.5,
       lineHeight: 15,
       fontWeight: '700',
@@ -2211,14 +2280,14 @@ const styles =
       borderRadius: 999,
 
       backgroundColor:
-        '#FCECF1',
+        withAlpha(theme.colors.danger, 0.10),
 
       paddingHorizontal: 7,
       paddingVertical: 3,
     },
 
     sensitiveText: {
-      color: '#B45A74',
+      color: theme.colors.danger,
 
       fontSize: 8.5,
       fontWeight: '700',
@@ -2230,14 +2299,14 @@ const styles =
       alignItems: 'center',
       gap: 8,
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.07)',
+      borderColor: withAlpha(theme.colors.primary, 0.07),
       borderRadius: 14,
-      backgroundColor: SOFT_PURPLE,
+      backgroundColor: theme.colors.primarySoft,
       paddingHorizontal: 11,
     },
 
     selectionText: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
 
       fontSize: 11,
       fontWeight: '700',
@@ -2252,12 +2321,12 @@ const styles =
       borderWidth: 1,
 
       borderColor:
-        '#DFD2F1',
+        withAlpha(theme.colors.primary, 0.20),
 
       borderRadius: 17,
 
       backgroundColor:
-        VERY_SOFT_PURPLE,
+        theme.colors.surfaceSecondary,
 
       padding: 12,
     },
@@ -2265,7 +2334,7 @@ const styles =
     infoMessageText: {
       flex: 1,
 
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
 
       fontSize: 11,
       lineHeight: 16,
@@ -2274,11 +2343,11 @@ const styles =
     dangerHero: {
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: '#F0CDD3',
+      borderColor: withAlpha(theme.colors.danger, 0.25),
       borderRadius: 22,
-      backgroundColor: '#FFF4F6',
+      backgroundColor: withAlpha(theme.colors.danger, 0.06),
       padding: 14,
-      shadowColor: '#8C4A56',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.035,
       shadowRadius: 8,
@@ -2287,7 +2356,7 @@ const styles =
 
     dangerTitle: {
       marginTop: 11,
-      color: DANGER,
+      color: theme.colors.danger,
       fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 21,
@@ -2297,7 +2366,7 @@ const styles =
     dangerDescription: {
       maxWidth: 305,
       marginTop: 6,
-      color: '#826168',
+      color: theme.colors.textSecondary,
       fontSize: 11,
       lineHeight: 16,
       textAlign: 'center',
@@ -2308,9 +2377,9 @@ const styles =
       marginTop: 11,
       gap: 7,
       borderWidth: 1,
-      borderColor: 'rgba(217,68,88,0.07)',
+      borderColor: withAlpha(theme.colors.danger, 0.07),
       borderRadius: 15,
-      backgroundColor: 'rgba(255,255,255,0.82)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.82),
       padding: 11,
     },
 
@@ -2330,13 +2399,13 @@ const styles =
       borderRadius: 8,
 
       backgroundColor:
-        '#FDE5E9',
+        withAlpha(theme.colors.danger, 0.12),
     },
 
     dangerItemText: {
       marginLeft: 8,
 
-      color: '#74575E',
+      color: theme.colors.textSecondary,
 
       fontSize: 11.5,
       fontWeight: '600',
@@ -2355,7 +2424,7 @@ const styles =
       borderRadius: 14,
 
       backgroundColor:
-        VERY_SOFT_PURPLE,
+        theme.colors.surfaceSecondary,
 
       padding: 10,
     },
@@ -2363,7 +2432,7 @@ const styles =
     accountNoticeText: {
       flex: 1,
 
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
 
       fontSize: 10.5,
       lineHeight: 15,
@@ -2371,11 +2440,11 @@ const styles =
 
     deleteConfirmCard: {
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.10)',
+      borderColor: withAlpha(theme.colors.primary, 0.10),
       borderRadius: 19,
-      backgroundColor: 'rgba(255,255,255,0.96)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.96),
       padding: 13,
-      shadowColor: '#4A386C',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.03,
       shadowRadius: 8,
@@ -2398,11 +2467,11 @@ const styles =
       borderRadius: 12,
 
       backgroundColor:
-        SOFT_PURPLE,
+        theme.colors.primarySoft,
     },
 
     stepText: {
-      color: PURPLE,
+      color: theme.colors.primary,
 
       fontSize: 14,
       fontWeight: '800',
@@ -2415,7 +2484,7 @@ const styles =
     },
 
     deleteConfirmTitle: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
 
       fontSize: 13,
       fontWeight: '700',
@@ -2424,7 +2493,7 @@ const styles =
     deleteConfirmSubtitle: {
       marginTop: 2,
 
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
 
       fontSize: 10.5,
       lineHeight: 15,
@@ -2434,11 +2503,11 @@ const styles =
       minHeight: 46,
       marginTop: 10,
       borderWidth: 1,
-      borderColor: '#D8CDEA',
+      borderColor: theme.colors.border,
       borderRadius: 15,
-      backgroundColor: VERY_SOFT_PURPLE,
+      backgroundColor: theme.colors.surfaceSecondary,
       paddingHorizontal: 13,
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontSize: 13,
       fontWeight: '800',
       letterSpacing: 0.5,
@@ -2446,18 +2515,18 @@ const styles =
 
     inputValid: {
       borderColor:
-        SUCCESS,
+        theme.colors.success,
 
       backgroundColor:
-        '#F7FCF8',
+        withAlpha(theme.colors.success, 0.05),
     },
 
     inputError: {
       borderColor:
-        DANGER,
+        theme.colors.danger,
 
       backgroundColor:
-        '#FFF8F9',
+        withAlpha(theme.colors.danger, 0.04),
     },
 
     validRow: {
@@ -2470,7 +2539,7 @@ const styles =
     },
 
     validText: {
-      color: SUCCESS,
+      color: theme.colors.success,
 
       fontSize: 10.5,
       fontWeight: '700',
@@ -2486,7 +2555,7 @@ const styles =
     },
 
     errorText: {
-      color: DANGER,
+      color: theme.colors.danger,
 
       fontSize: 10.5,
       fontWeight: '600',
@@ -2499,8 +2568,8 @@ const styles =
       justifyContent: 'center',
       gap: 8,
       borderRadius: 17,
-      backgroundColor: DANGER,
-      shadowColor: '#B33246',
+      backgroundColor: theme.colors.danger,
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 5},
       shadowOpacity: 0.16,
       shadowRadius: 10,
@@ -2509,7 +2578,7 @@ const styles =
 
     deleteDisabled: {
       backgroundColor:
-        '#D7C9CE',
+        withAlpha(theme.colors.danger, 0.3),
 
       shadowOpacity: 0,
 
@@ -2519,7 +2588,7 @@ const styles =
     deleteFootnote: {
       marginTop: -5,
 
-      color: '#9A8290',
+      color: theme.colors.textMuted,
 
       fontSize: 10,
 
@@ -2529,11 +2598,11 @@ const styles =
     successCard: {
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: '#D2E9D9',
+      borderColor: withAlpha(theme.colors.success, 0.25),
       borderRadius: 22,
-      backgroundColor: '#F7FCF8',
+      backgroundColor: withAlpha(theme.colors.success, 0.05),
       padding: 18,
-      shadowColor: '#477B58',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 3},
       shadowOpacity: 0.03,
       shadowRadius: 8,
@@ -2543,7 +2612,7 @@ const styles =
     successTitle: {
       marginTop: 9,
 
-      color: SUCCESS,
+      color: theme.colors.success,
 
       fontFamily: 'serif',
 
@@ -2556,7 +2625,7 @@ const styles =
 
       marginTop: 7,
 
-      color: '#5F7969',
+      color: theme.colors.textSecondary,
 
       fontSize: 12,
       lineHeight: 18,
@@ -2571,19 +2640,19 @@ const styles =
       marginVertical: 18,
 
       backgroundColor:
-        '#DDEDE2',
+        withAlpha(theme.colors.success, 0.2),
     },
 
     premiumExportCard: {
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.28)',
+      borderColor: withAlpha(theme.colors.primary, 0.28),
       borderRadius: 24,
-      backgroundColor: 'rgba(255,255,255,0.92)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.92),
       paddingHorizontal: 18,
       paddingTop: 20,
       paddingBottom: 18,
-      shadowColor: '#5B3DB1',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 7},
       shadowOpacity: 0.08,
       shadowRadius: 18,
@@ -2597,9 +2666,9 @@ const styles =
       justifyContent: 'center',
       borderWidth: 1.5,
       borderStyle: 'dashed',
-      borderColor: '#BDA7F6',
+      borderColor: withAlpha(theme.colors.primary, 0.45),
       borderRadius: 36,
-      backgroundColor: '#FBF9FF',
+      backgroundColor: theme.colors.surfaceSecondary,
     },
 
     premiumLockHexagon: {
@@ -2608,8 +2677,8 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 17,
-      backgroundColor: '#815AE7',
-      shadowColor: '#6F52C8',
+      backgroundColor: theme.colors.primary,
+      shadowColor: theme.colors.primary,
       shadowOffset: {width: 0, height: 5},
       shadowOpacity: 0.22,
       shadowRadius: 10,
@@ -2619,13 +2688,13 @@ const styles =
     premiumPill: {
       marginTop: 7,
       borderRadius: 999,
-      backgroundColor: '#B89AF0',
+      backgroundColor: withAlpha(theme.colors.primary, 0.55),
       paddingHorizontal: 12,
       paddingVertical: 3,
     },
 
     premiumPillText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 10.5,
       fontWeight: '800',
       letterSpacing: 0.6,
@@ -2633,7 +2702,7 @@ const styles =
 
     premiumExportTitle: {
       marginTop: 8,
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 22,
       lineHeight: 27,
@@ -2644,7 +2713,7 @@ const styles =
     premiumExportDescription: {
       maxWidth: 315,
       marginTop: 6,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 12,
       lineHeight: 18,
       textAlign: 'center',
@@ -2661,7 +2730,7 @@ const styles =
     premiumDivider: {
       flex: 1,
       height: StyleSheet.hairlineWidth,
-      backgroundColor: '#DCCFF5',
+      backgroundColor: withAlpha(theme.colors.primary, 0.25),
     },
 
     premiumBenefits: {
@@ -2680,7 +2749,7 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 16,
-      backgroundColor: '#F1EBFF',
+      backgroundColor: theme.colors.primarySoft,
     },
 
     premiumBenefitCopy: {
@@ -2689,7 +2758,7 @@ const styles =
     },
 
     premiumBenefitTitle: {
-      color: '#271B62',
+      color: theme.colors.accent,
       fontSize: 12.5,
       lineHeight: 16,
       fontWeight: '800',
@@ -2697,7 +2766,7 @@ const styles =
 
     premiumBenefitDescription: {
       marginTop: 2,
-      color: TEXT_SECONDARY,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
       lineHeight: 15,
     },
@@ -2710,9 +2779,9 @@ const styles =
       justifyContent: 'space-between',
       marginTop: 18,
       borderRadius: 16,
-      backgroundColor: '#6D3DE3',
+      backgroundColor: theme.colors.primary,
       paddingHorizontal: 17,
-      shadowColor: '#5C2FC4',
+      shadowColor: theme.shadow.shadowColor,
       shadowOffset: {width: 0, height: 6},
       shadowOpacity: 0.22,
       shadowRadius: 11,
@@ -2722,7 +2791,7 @@ const styles =
     premiumUpgradeText: {
       flex: 1,
       marginHorizontal: 10,
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 15,
       lineHeight: 19,
       fontWeight: '800',
@@ -2733,9 +2802,9 @@ const styles =
       flexDirection: 'row',
       alignItems: 'center',
       borderWidth: 1,
-      borderColor: 'rgba(111,82,200,0.09)',
+      borderColor: withAlpha(theme.colors.primary, 0.09),
       borderRadius: 18,
-      backgroundColor: 'rgba(255,255,255,0.82)',
+      backgroundColor: withAlpha(theme.colors.surface, 0.82),
       paddingHorizontal: 13,
       paddingVertical: 11,
     },
@@ -2746,7 +2815,7 @@ const styles =
       alignItems: 'center',
       justifyContent: 'center',
       borderRadius: 15,
-      backgroundColor: '#EFE8FF',
+      backgroundColor: theme.colors.primarySoft,
     },
 
     privacyPriorityCopy: {
@@ -2755,7 +2824,7 @@ const styles =
     },
 
     privacyPriorityTitle: {
-      color: '#2A1B73',
+      color: theme.colors.accent,
       fontSize: 12,
       lineHeight: 16,
       fontWeight: '800',
@@ -2763,7 +2832,7 @@ const styles =
 
     privacyPriorityDescription: {
       marginTop: 2,
-      color: '#7D70A2',
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
       lineHeight: 15,
     },
@@ -2778,3 +2847,4 @@ const styles =
       ],
     },
   });
+}

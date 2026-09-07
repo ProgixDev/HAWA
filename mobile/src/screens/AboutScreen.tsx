@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   Image,
   Linking,
@@ -22,10 +22,8 @@ import {
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
-
-const PURPLE = '#6D4AE8';
-const DARK = '#2F2258';
-const MUTED = '#746D92';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const LOGO = require('../assets/images/hawa-logo.png');
 
@@ -41,6 +39,8 @@ type AboutRowProps = {
   value: string;
   onPress?: () => void;
   last?: boolean;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 };
 
 function AboutRow({
@@ -49,6 +49,8 @@ function AboutRow({
   value,
   onPress,
   last,
+  theme,
+  styles,
 }: AboutRowProps) {
   return (
     <Pressable
@@ -62,7 +64,7 @@ function AboutRow({
       ]}>
       <View style={styles.rowIcon}>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={20}
         />
@@ -75,7 +77,7 @@ function AboutRow({
 
       {onPress ? (
         <MaterialDesignIcons
-          color="#B5ACC5"
+          color={theme.colors.textMuted}
           name="chevron-right"
           size={23}
         />
@@ -88,18 +90,22 @@ type ValueBlockProps = {
   icon: IconName;
   title: string;
   text: string;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<typeof createStyles>;
 };
 
 function ValueBlock({
   icon,
   title,
   text,
+  theme,
+  styles,
 }: ValueBlockProps) {
   return (
     <View style={styles.valueBlock}>
       <View style={styles.valueIcon}>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={25}
         />
@@ -116,6 +122,9 @@ function ValueBlock({
 export default function AboutScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
 
@@ -176,7 +185,7 @@ export default function AboutScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       <ScrollView
@@ -205,7 +214,7 @@ export default function AboutScreen({
               pressed && styles.pressed,
             ]}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="chevron-left"
               size={28}
             />
@@ -223,13 +232,13 @@ export default function AboutScreen({
 
           <View style={styles.decor}>
             <MaterialDesignIcons
-              color="#B998F0"
+              color={theme.colors.primary}
               name="leaf"
               size={45}
             />
 
             <MaterialDesignIcons
-              color="#9D76E8"
+              color={theme.colors.primary}
               name="star-four-points"
               size={11}
             />
@@ -285,13 +294,17 @@ export default function AboutScreen({
           <AboutRow
             icon="cellphone"
             label="Version"
-            value={`${APP_METADATA.version} (${APP_METADATA.buildNumber})`}
             onPress={() => setModal('version')}
+            styles={styles}
+            theme={theme}
+            value={`${APP_METADATA.version} (${APP_METADATA.buildNumber})`}
           />
 
           <AboutRow
             icon="calendar-month-outline"
             label="Date de publication"
+            styles={styles}
+            theme={theme}
             value={
               APP_METADATA.publicationDate ??
               'Non renseignée'
@@ -301,29 +314,35 @@ export default function AboutScreen({
           <AboutRow
             icon="shield-outline"
             label="Conçue avec"
-            value="💜 par l’équipe AWA"
             onPress={() => setModal('team')}
+            styles={styles}
+            theme={theme}
+            value="💜 par l’équipe AWA"
           />
 
           <AboutRow
             icon="web"
             label="Site web"
+            onPress={() => openLink('website')}
+            styles={styles}
+            theme={theme}
             value={
               APP_METADATA.websiteUrl ??
               'Non configuré'
             }
-            onPress={() => openLink('website')}
           />
 
           <AboutRow
             icon="email-outline"
             label="E-mail"
+            last
+            onPress={() => openLink('email')}
+            styles={styles}
+            theme={theme}
             value={
               APP_METADATA.contactEmail ??
               'Non configurée'
             }
-            onPress={() => openLink('email')}
-            last
           />
         </Animated.View>
 
@@ -338,20 +357,26 @@ export default function AboutScreen({
           style={styles.card}>
           <ValueBlock
             icon="hand-heart-outline"
-            title="Notre mission"
+            styles={styles}
             text="Aider chaque femme à mieux comprendre son corps, son cycle et sa santé pour vivre en harmonie avec elle-même."
+            theme={theme}
+            title="Notre mission"
           />
 
           <ValueBlock
             icon="lock-outline"
-            title="Ta confidentialité"
+            styles={styles}
             text="Ta vie privée est notre priorité absolue. Toutes tes données restent protégées dans l’application."
+            theme={theme}
+            title="Ta confidentialité"
           />
 
           <ValueBlock
             icon="leaf"
-            title="Nos valeurs"
+            styles={styles}
             text="Bienveillance, respect, confidentialité et empowerment féminin sont au cœur de tout ce que nous faisons."
+            theme={theme}
+            title="Nos valeurs"
           />
         </Animated.View>
 
@@ -367,32 +392,36 @@ export default function AboutScreen({
           <AboutRow
             icon="file-document-outline"
             label="Conditions d’utilisation"
-            value="Consulter le document"
             onPress={() =>
               navigation.navigate('TermsOfUse')
             }
+            styles={styles}
+            theme={theme}
+            value="Consulter le document"
           />
 
           <AboutRow
             icon="shield-lock-outline"
             label="Politique de confidentialité"
-            value="Consulter le document"
+            last
             onPress={() =>
               navigation.navigate(
                 'PrivacyPolicy',
               )
             }
-            last
+            styles={styles}
+            theme={theme}
+            value="Consulter le document"
           />
         </Animated.View>
 
         {/* COMMUNITY */}
 
         <LinearGradient
-          colors={['#F4ECFF', '#EEE1FF']}
+          colors={[withAlpha(theme.colors.primary, 0.09), withAlpha(theme.colors.primary, 0.14)]}
           style={styles.community}>
           <MaterialDesignIcons
-            color="#A17CE9"
+            color={theme.colors.primary}
             name="leaf"
             size={34}
           />
@@ -409,7 +438,7 @@ export default function AboutScreen({
           </View>
 
           <MaterialDesignIcons
-            color="#C1A2F0"
+            color={theme.colors.primary}
             name="star-four-points"
             size={14}
           />
@@ -444,7 +473,7 @@ export default function AboutScreen({
             <View style={styles.handle} />
 
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name={
                 modal === 'version'
                   ? 'information-outline'
@@ -503,7 +532,7 @@ export default function AboutScreen({
             },
           ]}>
           <MaterialDesignIcons
-            color="#FFF"
+            color={onPrimaryTextColor(theme)}
             name="information-outline"
             size={17}
           />
@@ -517,10 +546,11 @@ export default function AboutScreen({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   safe: {
     flex: 1,
-    backgroundColor: '#FCFAFF',
+    backgroundColor: theme.colors.background,
   },
 
   content: {
@@ -544,7 +574,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 999,
-    backgroundColor: '#FFF',
+    backgroundColor: theme.colors.surface,
     padding: 9,
     elevation: 2,
   },
@@ -556,7 +586,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 22,
     fontWeight: '700',
@@ -564,7 +594,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: 3,
-    color: MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
   },
 
@@ -579,14 +609,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#EEE7F5',
+    borderColor: theme.colors.border,
     borderRadius: 26,
-    backgroundColor: '#FFF',
+    backgroundColor: theme.colors.surface,
     padding: 16,
 
     elevation: 2,
 
-    shadowColor: PURPLE,
+    shadowColor: theme.shadow.shadowColor,
     shadowOpacity: 0.07,
     shadowRadius: 12,
     shadowOffset: {
@@ -609,16 +639,16 @@ const styles = StyleSheet.create({
 
     borderRadius: 22,
 
-    backgroundColor: '#79219c',
+    backgroundColor: theme.colors.accent,
 
     borderWidth: 1,
-    borderColor: '#AD7FF5',
+    borderColor: withAlpha(theme.colors.primary, 0.45),
 
     padding: 7,
 
     elevation: 3,
 
-    shadowColor: '#6D4AE8',
+    shadowColor: theme.colors.primary,
     shadowOpacity: 0.16,
     shadowRadius: 10,
     shadowOffset: {
@@ -646,7 +676,7 @@ const styles = StyleSheet.create({
   },
 
   appName: {
-    color: DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 24,
     fontWeight: '700',
@@ -654,20 +684,20 @@ const styles = StyleSheet.create({
 
   badge: {
     borderRadius: 12,
-    backgroundColor: '#F0E5FF',
+    backgroundColor: theme.colors.primarySoft,
     paddingHorizontal: 9,
     paddingVertical: 4,
   },
 
   badgeText: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 9.5,
     fontWeight: '700',
   },
 
   description: {
     marginTop: 7,
-    color: MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 12,
     lineHeight: 18,
   },
@@ -676,7 +706,7 @@ const styles = StyleSheet.create({
 
   sectionTitle: {
     marginTop: 2,
-    color: DARK,
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 16,
     fontWeight: '700',
@@ -686,11 +716,11 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
 
     borderWidth: 1,
-    borderColor: '#EEE7F5',
+    borderColor: theme.colors.border,
 
     borderRadius: 24,
 
-    backgroundColor: '#FFF',
+    backgroundColor: theme.colors.surface,
 
     paddingHorizontal: 12,
   },
@@ -707,7 +737,7 @@ const styles = StyleSheet.create({
   rowBorder: {
     borderBottomWidth:
       StyleSheet.hairlineWidth,
-    borderBottomColor: '#EEE8F3',
+    borderBottomColor: theme.colors.border,
   },
 
   rowIcon: {
@@ -716,7 +746,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 13,
 
-    backgroundColor: '#F2EBFF',
+    backgroundColor: theme.colors.primarySoft,
 
     padding: 9,
   },
@@ -728,13 +758,13 @@ const styles = StyleSheet.create({
   },
 
   rowLabel: {
-    color: MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
   },
 
   rowValue: {
     marginTop: 2,
-    color: DARK,
+    color: theme.colors.accent,
     fontSize: 12.5,
     fontWeight: '700',
   },
@@ -753,7 +783,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 999,
 
-    backgroundColor: '#F2EBFF',
+    backgroundColor: theme.colors.primarySoft,
 
     padding: 12,
   },
@@ -764,14 +794,14 @@ const styles = StyleSheet.create({
   },
 
   valueTitle: {
-    color: DARK,
+    color: theme.colors.accent,
     fontSize: 13.5,
     fontWeight: '700',
   },
 
   valueText: {
     marginTop: 4,
-    color: MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 17,
   },
@@ -794,7 +824,7 @@ const styles = StyleSheet.create({
   },
 
   communityTitle: {
-    color: PURPLE,
+    color: theme.colors.primary,
     fontSize: 11.5,
     fontWeight: '700',
     textAlign: 'center',
@@ -802,7 +832,7 @@ const styles = StyleSheet.create({
 
   communityText: {
     marginTop: 5,
-    color: MUTED,
+    color: theme.colors.textSecondary,
     fontSize: 11,
     textAlign: 'center',
   },
@@ -823,14 +853,14 @@ const styles = StyleSheet.create({
 
   backdrop: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(35,21,72,.38)',
+    backgroundColor: withAlpha(theme.colors.accent, 0.38),
   },
 
   sheet: {
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
 
-    backgroundColor: '#FFF',
+    backgroundColor: theme.colors.surface,
 
     paddingHorizontal: 20,
     paddingTop: 10,
@@ -844,7 +874,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 999,
 
-    backgroundColor: '#DDD3EA',
+    backgroundColor: theme.colors.border,
   },
 
   modalIcon: {
@@ -855,7 +885,7 @@ const styles = StyleSheet.create({
   sheetTitle: {
     marginTop: 8,
 
-    color: DARK,
+    color: theme.colors.accent,
 
     fontFamily: 'serif',
     fontSize: 22,
@@ -867,7 +897,7 @@ const styles = StyleSheet.create({
   sheetText: {
     marginTop: 7,
 
-    color: MUTED,
+    color: theme.colors.textSecondary,
 
     fontSize: 13,
 
@@ -877,7 +907,7 @@ const styles = StyleSheet.create({
   teamText: {
     marginTop: 9,
 
-    color: MUTED,
+    color: theme.colors.textSecondary,
 
     fontSize: 13,
     lineHeight: 19,
@@ -892,13 +922,13 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
 
     padding: 14,
   },
 
   doneText: {
-    color: '#FFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 14,
     fontWeight: '700',
@@ -920,7 +950,7 @@ const styles = StyleSheet.create({
 
     borderRadius: 18,
 
-    backgroundColor: PURPLE,
+    backgroundColor: theme.colors.primary,
 
     padding: 13,
 
@@ -930,9 +960,10 @@ const styles = StyleSheet.create({
   toastText: {
     flex: 1,
 
-    color: '#FFF',
+    color: onPrimaryTextColor(theme),
 
     fontSize: 11.5,
     fontWeight: '600',
   },
-});
+  });
+}
