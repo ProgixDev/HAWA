@@ -98,55 +98,46 @@ const LABELS: Record<
 // "success" token. Do not theme-derive any of these.
 type LhTone = 'negative' | 'positive' | 'invalid';
 
-const LH_TONE_COLORS: Record<LhTone, {accent: string; soft: string}> = {
-  negative: {accent: '#4F8E68', soft: '#EAF5EE'},
-  positive: {accent: '#8C5670', soft: '#F5EBF0'},
-  invalid: {accent: '#9A7848', soft: '#F7F0E3'},
+const LH_TONE_COLORS: Record<LhTone, {accent: string}> = {
+  negative: {accent: '#4F8E68'},
+  positive: {accent: '#8C5670'},
+  invalid: {accent: '#9A7848'},
 };
 
-// The soft pastel backgrounds above (and the near-white card backgrounds
-// below) are tuned for a light card and become an unreadable
-// light-text-on-light-card once the surrounding journal screen is dark —
-// the result card must never simply reuse the light card. In dark mode,
-// the semantic accent is lightened for legibility, and both the icon chip
-// and the big result card blend that same accent into the theme's own dark
-// elevated surface (never a generic gray, never pure black) so all three
-// result states keep their green/rose/amber identity while integrating
-// into the surrounding dark UI.
-const LH_RESULT_CARD_BACKGROUND_LIGHT: Record<LhTone, string> = {
-  negative: '#F8FCFA',
-  positive: '#FCF8FA',
-  invalid: '#FCFAF6',
-};
-
-const LH_RESULT_CARD_BORDER_LIGHT: Record<LhTone, string> = {
-  negative: 'rgba(79,142,104,0.18)',
-  positive: 'rgba(140,86,112,0.20)',
-  invalid: 'rgba(154,120,72,0.20)',
-};
+// The result card and its icon chip are always derived from the theme's own
+// `surface` token blended toward the tone's semantic accent — never a fixed
+// light-only literal and never an `isDark` branch. The blend is a small
+// enough ratio that a light (near-white) surface still reads as the same
+// soft near-white pastel as before; the SAME formula naturally produces a
+// tinted dark surface once `surface` itself is dark, so the result card
+// never simply reuses a light card. The eyebrow/glyph/selected-value accent
+// color is then picked by checking the REAL resulting background's own
+// contrast via `pickReadableTextColor` (never `theme.isDark`) — lightened
+// only when that computed background actually needs a light foreground —
+// so all three result states keep their green/rose/amber identity while
+// integrating into the surrounding UI in every theme, including True Black.
+const CARD_TINT_RATIO = 0.1;
+const ICON_TINT_RATIO = 0.18;
 
 function resolveLhToneVisual(
   tone: LhTone,
   theme: ResolvedAwaTheme,
 ): {accent: string; iconBackground: string; cardBackground: string; borderColor: string} {
-  const {accent, soft} = LH_TONE_COLORS[tone];
+  const {accent} = LH_TONE_COLORS[tone];
 
-  if (!theme.isDark) {
-    return {
-      accent,
-      iconBackground: soft,
-      cardBackground: LH_RESULT_CARD_BACKGROUND_LIGHT[tone],
-      borderColor: LH_RESULT_CARD_BORDER_LIGHT[tone],
-    };
-  }
+  const cardBackground = interpolateHex(theme.colors.surface, accent, CARD_TINT_RATIO);
+  const iconBackground = interpolateHex(theme.colors.surface, accent, ICON_TINT_RATIO);
 
-  const darkAccent = interpolateHex(accent, '#FFFFFF', 0.45);
+  const displayAccent =
+    pickReadableTextColor(iconBackground) === '#FFFFFF'
+      ? interpolateHex(accent, '#FFFFFF', 0.5)
+      : accent;
 
   return {
-    accent: darkAccent,
-    iconBackground: interpolateHex(theme.colors.surfaceSecondary, accent, 0.32),
-    cardBackground: interpolateHex(theme.colors.surfaceSecondary, accent, 0.12),
-    borderColor: withAlpha(darkAccent, 0.35),
+    accent: displayAccent,
+    iconBackground,
+    cardBackground,
+    borderColor: withAlpha(displayAccent, 0.2),
   };
 }
 

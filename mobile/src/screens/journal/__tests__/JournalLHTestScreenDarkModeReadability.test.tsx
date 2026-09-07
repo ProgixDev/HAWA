@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
@@ -7,7 +9,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
-import {pickReadableTextColor} from '../../../theme/awaThemeTokens';
+import {interpolateHex, pickReadableTextColor} from '../../../theme/awaThemeTokens';
 
 import JournalLHTestScreen from '../JournalLHTestScreen';
 
@@ -19,6 +21,18 @@ import JournalLHTestScreen from '../JournalLHTestScreen';
 // color meant for dark surfaces) becoming unreadable against it. These
 // tests fail if a future edit reintroduces a fixed light-only card/chip
 // background for the LH result preview or its three selectable choices.
+//
+// Architecture-hardening pass: the card/chip backgrounds are now always
+// `interpolateHex(theme.colors.surface, accent, ratio)` — a single
+// unconditional formula, never a `theme.isDark` branch — so AWA Original
+// Light's card/chip are a very close (not byte-identical) approximation of
+// the old hand-picked pastel literals. The ratios below (CARD_TINT_RATIO/
+// ICON_TINT_RATIO) mirror JournalLHTestScreen.tsx's own private constants
+// so the expected values are derived the exact same way the source derives
+// them, rather than re-guessing a literal.
+const AWA_ORIGINAL_LIGHT_SURFACE = '#FFFFFF';
+const CARD_TINT_RATIO = 0.1;
+const ICON_TINT_RATIO = 0.18;
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -80,17 +94,22 @@ afterEach(() => {
 });
 
 describe('JournalLHTestScreen — "Résultat du test" card readable in dark mode', () => {
-  it('light mode keeps the original near-white per-tone card, chip and title colors (no regression)', async () => {
+  it('light mode keeps a near-white per-tone card/chip (derived from theme.colors.surface, not a fixed literal) and the exact unblended accent color (no regression)', async () => {
     const renderer = await renderScreen();
 
+    const expectedCardBg = interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#4F8E68', CARD_TINT_RATIO);
+    const expectedIconBg = interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#4F8E68', ICON_TINT_RATIO);
+
     const card = findResultPreviewCard(renderer);
-    expect(flattenStyle(card.props.style).backgroundColor).toBe('#F8FCFA');
+    expect(flattenStyle(card.props.style).backgroundColor).toBe(expectedCardBg);
 
     const bigIcon = findIconByNameAndSize(renderer, 'minus-circle-outline', 27);
+    // The glyph/eyebrow accent stays byte-identical to the original light
+    // literal — only the pale backgrounds behind it are formula-derived.
     expect(bigIcon.props.color).toBe('#4F8E68');
 
     const iconBox = bigIcon.parent!;
-    expect(flattenStyle(iconBox.props.style).backgroundColor).toBe('#EAF5EE');
+    expect(flattenStyle(iconBox.props.style).backgroundColor).toBe(expectedIconBg);
 
     const titleNode = renderer.root.findAll(node => node.props.children === 'Ton test est négatif')[0];
     expect(titleNode).toBeDefined();
@@ -148,7 +167,7 @@ describe('JournalLHTestScreen — "Résultat du test" card readable in dark mode
 });
 
 describe('JournalLHTestScreen — Négatif/Positif/Invalide selectable cards readable in dark mode', () => {
-  it('each choice keeps a distinct icon-chip background in light mode (no regression)', async () => {
+  it('each choice keeps a distinct icon-chip background in light mode, derived from theme.colors.surface (no regression)', async () => {
     const renderer = await renderScreen();
 
     const negIcon = findIconByNameAndSize(renderer, 'minus-circle-outline', 22);
@@ -159,10 +178,16 @@ describe('JournalLHTestScreen — Négatif/Positif/Invalide selectable cards rea
     const posBg = flattenStyle(posIcon.parent!.props.style).backgroundColor;
     const invBg = flattenStyle(invIcon.parent!.props.style).backgroundColor;
 
-    expect(negBg).toBe('#EAF5EE');
-    expect(posBg).toBe('#F5EBF0');
-    expect(invBg).toBe('#F7F0E3');
+    expect(negBg).toBe(interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#4F8E68', ICON_TINT_RATIO));
+    expect(posBg).toBe(interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#8C5670', ICON_TINT_RATIO));
+    expect(invBg).toBe(interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#9A7848', ICON_TINT_RATIO));
     expect(new Set([negBg, posBg, invBg]).size).toBe(3);
+
+    // The icon glyphs themselves stay byte-identical to the original
+    // unblended tone accents in light mode.
+    expect(negIcon.props.color).toBe('#4F8E68');
+    expect(posIcon.props.color).toBe('#8C5670');
+    expect(invIcon.props.color).toBe('#9A7848');
   });
 
   it('dark mode gives each choice a dark-integrated, still-distinct chip and a readable icon color derived from it', async () => {
@@ -173,7 +198,11 @@ describe('JournalLHTestScreen — Négatif/Positif/Invalide selectable cards rea
     });
 
     const names = ['minus-circle-outline', 'check-circle-outline', 'alert-circle-outline'];
-    const lightBgs = ['#EAF5EE', '#F5EBF0', '#F7F0E3'];
+    const lightBgs = [
+      interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#4F8E68', ICON_TINT_RATIO),
+      interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#8C5670', ICON_TINT_RATIO),
+      interpolateHex(AWA_ORIGINAL_LIGHT_SURFACE, '#9A7848', ICON_TINT_RATIO),
+    ];
 
     const results = names.map(name => {
       const icon = findIconByNameAndSize(renderer, name, 22);
@@ -207,5 +236,22 @@ describe('JournalLHTestScreen — Négatif/Positif/Invalide selectable cards rea
     const badge = checkIcon.parent!;
     const badgeBg = flattenStyle(badge.props.style).backgroundColor as string;
     expect(checkIcon.props.color).toBe(pickReadableTextColor(badgeBg));
+  });
+});
+
+describe('JournalLHTestScreen — architecture guard', () => {
+  it('never introduces theme.isDark / local isDark branching for the result-card fix (surface-driven color logic only)', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../JournalLHTestScreen.tsx'), 'utf8');
+    // Strip line comments first — the file's own comments document, in
+    // prose, that theme.isDark is no longer used, which would otherwise
+    // false-positive a naive substring/regex check.
+    const code = source
+      .replace(/\r\n/g, '\n')
+      .split('\n')
+      .map(line => line.replace(/\/\/.*$/, ''))
+      .join('\n');
+    expect(code).not.toMatch(/theme\.isDark/);
+    expect(code).not.toMatch(/\bisDark\s*\?/);
+    expect(code).not.toMatch(/if\s*\(\s*!?\s*isDark\s*\)/);
   });
 });
