@@ -76,6 +76,11 @@ import {migrateLegacyPlainGeneralHealthNotes} from './src/state/generalHealthSto
 import {migrateLegacyPlainPersonalInformation} from './src/state/personalInformationStore';
 import {migrateLegacyPlainIrregularNotes} from './src/state/irregularJournalStore';
 import {migrateLegacyPlainMenopauseNotes} from './src/state/menopauseJournalStore';
+import {migrateLegacyPlainDailyJournalNotes} from './src/state/dailyJournalStore';
+import {migrateLegacyPlainContraceptionNotes} from './src/state/contraceptionJournalStore';
+import {migrateLegacyPlainPostpartumLochiaNotes} from './src/state/postpartumLochiaStore';
+import {migrateLegacyPlainPregnancyCustomReminders} from './src/state/pregnancyCustomRemindersStore';
+import {migrateLegacyPlainPregnancyHealthReminders} from './src/state/pregnancyHealthRemindersStore';
 
 // Kick off loading the persisted pin/biometric preferences as early as possible.
 // Screens that decide which unlock options to show await this same promise
@@ -111,6 +116,11 @@ migrateLegacyPlainGeneralHealthNotes().catch(() => {});
 migrateLegacyPlainPersonalInformation().catch(() => {});
 migrateLegacyPlainIrregularNotes().catch(() => {});
 migrateLegacyPlainMenopauseNotes().catch(() => {});
+migrateLegacyPlainDailyJournalNotes().catch(() => {});
+migrateLegacyPlainContraceptionNotes().catch(() => {});
+migrateLegacyPlainPostpartumLochiaNotes().catch(() => {});
+migrateLegacyPlainPregnancyCustomReminders().catch(() => {});
+migrateLegacyPlainPregnancyHealthReminders().catch(() => {});
 
 // Pregnancy Tracking reminders are objective-specific: they must only be
 // (re)scheduled while the user's active objective is 'pregnancy', never for
