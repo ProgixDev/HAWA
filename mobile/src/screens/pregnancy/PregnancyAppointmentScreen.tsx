@@ -39,7 +39,7 @@ function PregnancyAppointmentScreen({navigation, route}: Props): React.JSX.Eleme
     navigation.goBack();
   }, [navigation]);
 
-  const headerTitle = initialEvent ? 'Modifier le rendez-vous' : 'Ajouter un rendez-vous';
+  const headerTitle = initialEvent ? 'Modifier le rendez-vous' : 'Ajouter un RDV';
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>

@@ -803,7 +803,8 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                   : ['Aucun examen prévu']
               }
               onPress={() =>
-                navigation.navigate('PregnancyExam', {
+                navigation.navigate('PregnancyAppointments', {
+                  initialType: 'exam',
                   eventId: nextExam?.id,
                 })
               }
