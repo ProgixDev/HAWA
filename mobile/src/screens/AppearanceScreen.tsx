@@ -1,6 +1,5 @@
 import React, {useMemo, useRef, useState} from 'react';
 import {
-  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -1083,20 +1082,6 @@ export default function AppearanceScreen({
     };
 
   /* ---------------------------------------------------------------------- */
-  /* INERT                                                                  */
-  /* ---------------------------------------------------------------------- */
-
-  const handleInertRow = (
-    title: string,
-  ): void => {
-    Alert.alert(
-      title,
-
-      'Cette fonctionnalité arrive bientôt.',
-    );
-  };
-
-  /* ---------------------------------------------------------------------- */
   /* RENDER                                                                 */
   /* ---------------------------------------------------------------------- */
 
@@ -1525,35 +1510,13 @@ export default function AppearanceScreen({
             <AppearanceSettingRow
               icon="earth"
 
-              onPress={() =>
-                handleInertRow(
-                  'Langue de l’application',
-                )
-              }
+              last
 
               subtitle="Français"
 
               theme={theme}
 
               title="Langue de l’application"
-            />
-
-            <AppearanceSettingRow
-              icon="tablet"
-
-              last
-
-              onPress={() =>
-                handleInertRow(
-                  'Interface tablette',
-                )
-              }
-
-              subtitle="Automatique"
-
-              theme={theme}
-
-              title="Interface tablette"
             />
           </View>
         </Animated.View>
