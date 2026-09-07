@@ -204,6 +204,94 @@ describe('ConceiveDashboard — Premium fallback', () => {
   });
 });
 
+describe('ConceiveDashboard — "Conseils pour aujourd\'hui" advice card readable in dark mode', () => {
+  // Walks the real rendered host-node tree (toJSON(), not the fiber list) so
+  // composite/host duplication of the same text prop can never produce an
+  // ambiguous match — there is exactly one Text host node per rendered
+  // string in this tree shape.
+  type JsonNode = {type: string; props: Record<string, unknown>; children: Array<JsonNode | string> | null};
+
+  type RendererJson = ReactTestRenderer.ReactTestRendererJSON | ReactTestRenderer.ReactTestRendererJSON[] | null;
+
+  function findAllTextAncestries(json: RendererJson, text: string): JsonNode[][] {
+    const matches: JsonNode[][] = [];
+    const walk = (node: JsonNode | string, trail: JsonNode[]) => {
+      if (typeof node === 'string') {
+        if (node === text) {matches.push(trail.slice().reverse());}
+        return;
+      }
+      for (const child of node.children ?? []) {
+        walk(child, [...trail, node]);
+      }
+    };
+    const roots = Array.isArray(json) ? json : json ? [json] : [];
+    roots.forEach(root => walk(root as unknown as JsonNode, []));
+    return matches;
+  }
+
+  // "Conseils pour aujourd'hui" is unique in the tree, so its own ancestry
+  // unambiguously identifies the real adviceCard node object. Some phase
+  // titles (e.g. "Fertilité en hausse") are legitimately rendered twice —
+  // once as the hero section's own title, once mirrored as the advice
+  // card's subtitle — so callers use this same adviceCard reference to pick
+  // out specifically the copy that lives inside the advice card, by object
+  // identity rather than by guessing position/order.
+  function findAdviceCardNode(json: RendererJson): JsonNode {
+    const [[, , adviceCard]] = findAllTextAncestries(json, 'Conseils pour aujourd’hui');
+    return adviceCard;
+  }
+
+  function findTextWithinAdviceCard(json: RendererJson, text: string): JsonNode {
+    const adviceCard = findAdviceCardNode(json);
+    const match = findAllTextAncestries(json, text).find(trail => trail.includes(adviceCard));
+    if (!match) {throw new Error(`"${text}" not found within the advice card`);}
+    return match[0];
+  }
+
+  it('the card never reuses the light pale-pink surface in dark mode, and the title stays theme-aware instead of the fixed light-only literal', async () => {
+    const renderer = await renderDashboard();
+
+    const adviceCard = findAdviceCardNode(renderer.toJSON());
+    const titleNode = findTextWithinAdviceCard(renderer.toJSON(), 'Conseils pour aujourd’hui');
+
+    const lightCardBg = flattenStyle(adviceCard.props.style).backgroundColor;
+    const lightTitleColor = flattenStyle(titleNode.props.style).color;
+    expect(lightCardBg).toBe('#FBEFF6');
+    expect(lightTitleColor).toBe('#2F2258');
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    const darkAdviceCard = findAdviceCardNode(renderer.toJSON());
+    const darkTitleNode = findTextWithinAdviceCard(renderer.toJSON(), 'Conseils pour aujourd’hui');
+    const darkCardBg = flattenStyle(darkAdviceCard.props.style).backgroundColor;
+    const darkTitleColor = flattenStyle(darkTitleNode.props.style).color;
+
+    expect(darkCardBg).not.toBe('#FBEFF6');
+    expect(darkCardBg).not.toBe('#FFFFFF');
+    expect(darkTitleColor).not.toBe('#2F2258');
+    expect(darkTitleColor).not.toBe(lightTitleColor);
+  });
+
+  it('"Fertilité en hausse" keeps its rose highlight identity, lightened (not identical) for dark-mode contrast', async () => {
+    const renderer = await renderDashboard();
+
+    const lightSubtitleNode = findTextWithinAdviceCard(renderer.toJSON(), 'Fertilité en hausse');
+    const lightColor = flattenStyle(lightSubtitleNode.props.style).color;
+    expect(lightColor).toBe('#B23F63');
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+
+    const darkSubtitleNode = findTextWithinAdviceCard(renderer.toJSON(), 'Fertilité en hausse');
+    const darkColor = flattenStyle(darkSubtitleNode.props.style).color;
+    expect(darkColor).not.toBe(lightColor);
+    expect(darkColor).not.toBe('#B23F63');
+  });
+});
+
 describe('ConceiveDashboard — no palette-ID / Midnight dependency', () => {
   it('never references midnight anywhere in the module', () => {
     // Static guard: fails loudly if a future edit reintroduces a Midnight

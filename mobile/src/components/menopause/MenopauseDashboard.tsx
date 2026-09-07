@@ -30,6 +30,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {
   interpolateHex,
   onPrimaryTextColor,
+  pickReadableTextColor,
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
@@ -122,6 +123,27 @@ const STAGE_OPTIONS: Array<{
     tint: '#EFE7F4',
   },
 ];
+
+// The pastel `tint` values above are tuned for a light card and read as
+// washed-out, low-definition chips once the surrounding "Mon étape" sheet is
+// dark — the same fixed-pastel-on-dark problem already fixed for the
+// calendar/LH-test cards. In dark mode, blend each option's own tint hue
+// into the theme's real dark elevated surface (never a generic gray) so the
+// three stage icons keep their distinct identity while integrating into the
+// sheet, and derive the icon glyph color from that same resulting
+// background's actual luminance — never a flat theme.colors.primary, which
+// is a light color designed for dark surfaces and disappears against an
+// equally light pastel chip.
+function resolveStageOptionVisual(
+  tint: string,
+  theme: ResolvedAwaTheme,
+): {tint: string; iconColor?: string} {
+  if (!theme.isDark) {
+    return {tint};
+  }
+  const darkTint = interpolateHex(theme.colors.surfaceSecondary, tint, 0.4);
+  return {tint: darkTint, iconColor: pickReadableTextColor(darkTint)};
+}
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
@@ -1283,21 +1305,25 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               contentContainerStyle={styles.modalScrollContent}
               showsVerticalScrollIndicator={false}>
               <View style={styles.modalOptionsList}>
-                {STAGE_OPTIONS.map(option => (
-                  <PremiumChoiceCard
-                    icon={option.icon}
-                    iconTint={option.tint}
-                    key={option.id}
-                    onPress={() =>
-                      setPendingStage(option.id)
-                    }
-                    selected={
-                      pendingStage === option.id
-                    }
-                    subtitle={option.subtitle}
-                    title={option.title}
-                  />
-                ))}
+                {STAGE_OPTIONS.map(option => {
+                  const visual = resolveStageOptionVisual(option.tint, theme);
+                  return (
+                    <PremiumChoiceCard
+                      icon={option.icon}
+                      iconColor={visual.iconColor}
+                      iconTint={visual.tint}
+                      key={option.id}
+                      onPress={() =>
+                        setPendingStage(option.id)
+                      }
+                      selected={
+                        pendingStage === option.id
+                      }
+                      subtitle={option.subtitle}
+                      title={option.title}
+                    />
+                  );
+                })}
               </View>
             </ScrollView>
 
