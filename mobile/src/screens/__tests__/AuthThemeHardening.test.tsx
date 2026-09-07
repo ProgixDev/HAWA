@@ -2,7 +2,7 @@ import React from 'react';
 import fs from 'fs';
 import path from 'path';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {StatusBar} from 'react-native';
+import {Alert, StatusBar} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -33,10 +33,20 @@ const navRef = createNavigationContainerRef();
 const TEST_METRICS: Metrics = {frame: {x: 0, y: 0, width: 360, height: 740}, insets: {top: 0, left: 0, right: 0, bottom: 0}};
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
+// A lightweight stand-in for the real MainTabNavigator so
+// navigation.replace('MainTabs', {screen: 'CycleHome'}) — the existing
+// "enter the main app" route the TEMP FRONTEND-ONLY AUTH BYPASS reuses —
+// resolves inside this test harness without pulling in the full tab
+// navigator and its own dashboard-store mocks.
+function MainTabsStub(): null {
+  return null;
+}
+
 const ALL_ROUTES: Array<[string, React.ComponentType<any>]> = [
   ['Auth', AuthScreen],
   ['Registration', RegistrationScreen],
   ['ForgotPassword', ForgotPasswordScreen],
+  ['MainTabs', MainTabsStub],
 ];
 
 async function renderScreen(Screen: React.ComponentType<any>, name: string) {
@@ -361,6 +371,100 @@ describe('RegistrationScreen — accessibility parity with AuthScreen (Phase 3 f
     for (const label of ['Continuer avec Google', 'Continuer avec Apple', 'Continuer avec une adresse e-mail']) {
       const button = renderer.root.findByProps({accessibilityLabel: label});
       expect(button.props.accessibilityRole).toBe('button');
+    }
+  });
+});
+
+/* ============================================================
+   TEMP FRONTEND-ONLY AUTH BYPASS — the project has no backend
+   authentication yet. "Se connecter" and the final registration CTA must
+   enter the main app directly (same existing MainTabs/CycleHome route the
+   pre-existing "Continuer en mode développement" dev shortcut already used),
+   with no blocking validation alert/error, even with empty fields.
+============================================================ */
+
+function findPressableAncestor(node: ReactTestRenderer.ReactTestInstance): ReactTestRenderer.ReactTestInstance {
+  let pressable: ReactTestRenderer.ReactTestInstance | null = node;
+  while (pressable && typeof pressable.props.onPress !== 'function') {
+    pressable = pressable.parent;
+  }
+  if (!pressable) {throw new Error('no pressable ancestor found');}
+  return pressable;
+}
+
+describe('Auth family — TEMP FRONTEND-ONLY AUTH BYPASS (no backend yet)', () => {
+  it('Login: pressing "Se connecter" with empty fields enters MainTabs directly, no blocking alert/error', async () => {
+    const alertSpy = jest.spyOn(Alert, 'alert');
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+
+    const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
+    act(() => {
+      findPressableAncestor(submitLabel).props.onPress();
+    });
+
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    expect(alertSpy).not.toHaveBeenCalled();
+    expect(renderer.root.findAllByProps({children: 'Entre ton adresse e-mail.'}).length).toBe(0);
+    expect(renderer.root.findAllByProps({children: 'Entre ton mot de passe.'}).length).toBe(0);
+    alertSpy.mockRestore();
+  });
+
+  it('Login: "Créer un compte" tab still opens the Registration form instead of jumping to MainTabs', async () => {
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+    const tab = renderer.root.findAllByProps({children: 'Créer un compte'})[0];
+    act(() => {
+      findPressableAncestor(tab).props.onPress();
+    });
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('Registration');
+  });
+
+  it('Registration: pressing the final "Créer mon compte" CTA with empty fields enters MainTabs directly, no blocking alert/error', async () => {
+    const alertSpy = jest.spyOn(Alert, 'alert');
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+
+    const submitLabel = renderer.root.findAllByProps({children: 'Créer mon compte'})[0];
+    await act(async () => {
+      findPressableAncestor(submitLabel).props.onPress();
+    });
+
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    expect(alertSpy).not.toHaveBeenCalled();
+    expect(renderer.root.findAllByProps({children: 'Entre ton adresse e-mail.'}).length).toBe(0);
+    alertSpy.mockRestore();
+  });
+
+  it('"Continuer en mode développement" still works identically on both Login and Registration', async () => {
+    for (const [Screen, routeName] of [[AuthScreen, 'Auth'], [RegistrationScreen, 'Registration']] as const) {
+      const renderer = await renderScreen(Screen, routeName);
+      const devButton = renderer.root.findByProps({accessibilityLabel: 'Continuer en mode développement — ne pas utiliser en production'});
+      act(() => {
+        devButton.props.onPress();
+      });
+      expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+    }
+  });
+
+  it('navigation does not loop back to Auth after entering MainTabs (no auth guard re-routes)', async () => {
+    const renderer = await renderScreen(AuthScreen, 'Auth');
+    const submitLabel = renderer.root.findAllByProps({children: 'Se connecter'})[0];
+    act(() => {
+      findPressableAncestor(submitLabel).props.onPress();
+    });
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+
+    // A further render pass (palette switch, same as every other test in
+    // this file) must not trigger any guard bouncing the route back to Auth.
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+    expect((navRef.current?.getCurrentRoute() as {name?: string} | undefined)?.name).toBe('MainTabs');
+  });
+
+  it('static guard: the bypass is isolated behind a single documented comment, not scattered', () => {
+    for (const relativePath of ['../AuthScreen.tsx', '../RegistrationScreen.tsx']) {
+      const source = fs.readFileSync(path.resolve(__dirname, relativePath), 'utf8');
+      expect(source).toMatch(/TEMP FRONTEND-ONLY AUTH BYPASS/);
+      expect((source.match(/TEMP FRONTEND-ONLY AUTH BYPASS/g) ?? []).length).toBe(1);
     }
   });
 });

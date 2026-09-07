@@ -8,7 +8,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
 import {updatePersonalInformation} from '../state/personalInformationStore';
-import {isValidEmail} from '../utils/emailValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, onPrimaryTextColor, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -47,55 +46,29 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const rules = useMemo(() => [{label: '8 caractères minimum', valid: password.length >= 8}, {label: 'Un chiffre', valid: /\d/.test(password)}, {label: 'Une majuscule', valid: /[A-Z]/.test(password)}, {label: 'Un caractère spécial', valid: /[^A-Za-z0-9]/.test(password)}], [password]);
   const allRulesValid = rules.every(rule => rule.valid);
 
+  // TEMP FRONTEND-ONLY AUTH BYPASS:
+  // Replace with real authentication once backend auth is connected. Shared
+  // by the final "Créer mon compte" CTA and the dev-mode shortcut below so
+  // there is one single place that enters the main app. emailError/
+  // passwordError/confirmationError state (and the Field/JSX that render
+  // them) are left in place, unused for now, so real validation drops back
+  // in cleanly once a backend exists — only isValidEmail's import was
+  // removed since it became genuinely unused here.
+  const enterMainApp = () => {
+    navigation.replace('MainTabs', {screen: 'CycleHome'});
+  };
+
   const handleSubmit = async () => {
     if (submitting) {return;}
-
-    const trimmedEmail = email.trim();
-    let hasError = false;
-
-    if (!trimmedEmail) {
-      setEmailError('Entre ton adresse e-mail.');
-      hasError = true;
-    } else if (!isValidEmail(trimmedEmail)) {
-      setEmailError('Entre une adresse e-mail valide.');
-      hasError = true;
-    } else {
-      setEmailError('');
-    }
-
-    if (!allRulesValid) {
-      setPasswordError('Le mot de passe ne respecte pas les critères ci-dessus.');
-      hasError = true;
-    } else {
-      setPasswordError('');
-    }
-
-    if (!confirmation) {
-      setConfirmationError('Confirme ton mot de passe.');
-      hasError = true;
-    } else if (confirmation !== password) {
-      setConfirmationError('Les mots de passe ne correspondent pas.');
-      hasError = true;
-    } else {
-      setConfirmationError('');
-    }
-
-    if (hasError) {
-      setInfoMessage('');
-      return;
-    }
 
     try {
       setSubmitting(true);
       const trimmedFirstName = firstName.trim();
       // Only persists her chosen display name (same canonical store
       // NameOnboardingScreen/PersonalInformationScreen use) — does NOT flip
-      // anonymousMode or navigate, since no real account is actually created
-      // here yet.
+      // anonymousMode, since no real account is actually created here yet.
       if (trimmedFirstName) {await updatePersonalInformation({firstName: trimmedFirstName});}
-      setInfoMessage(
-        'La création de compte sera disponible avec l’activation du service d’authentification.',
-      );
+      enterMainApp();
     } finally {
       setSubmitting(false);
     }
@@ -138,7 +111,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
         <Pressable
           accessibilityLabel="Continuer en mode développement — ne pas utiliser en production"
           accessibilityRole="button"
-          onPress={() => navigation.replace('MainTabs', {screen: 'CycleHome'})}
+          onPress={enterMainApp}
           style={({pressed}) => [styles.devBypass, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.textMuted} name="flask-outline" size={14} />
           <Text style={styles.devBypassText}>Continuer en mode développement</Text>

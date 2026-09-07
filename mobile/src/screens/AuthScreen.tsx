@@ -24,7 +24,6 @@ import {
   TOP_SPACING_EXTRA,
   TOP_SPACING_EXTRA_COMPACT,
 } from '../theme/spacing';
-import {isValidEmail} from '../utils/emailValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -50,37 +49,19 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
   const [passwordError, setPasswordError] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
 
+  // TEMP FRONTEND-ONLY AUTH BYPASS:
+  // Replace with real authentication once backend auth is connected. Shared
+  // by "Se connecter" and the dev-mode shortcut below so there is one single
+  // place that enters the main app. emailError/passwordError state (and the
+  // field/JSX that renders them) are left in place, unused for now, so real
+  // validation drops back in cleanly once a backend exists — only
+  // isValidEmail's import was removed since it became genuinely unused here.
+  const enterMainApp = () => {
+    navigation.replace('MainTabs', {screen: 'CycleHome'});
+  };
+
   const submit = () => {
-    const trimmedEmail = email.trim();
-    let hasError = false;
-
-    if (!trimmedEmail) {
-      setEmailError('Entre ton adresse e-mail.');
-      hasError = true;
-    } else if (!isValidEmail(trimmedEmail)) {
-      setEmailError('Entre une adresse e-mail valide.');
-      hasError = true;
-    } else {
-      setEmailError('');
-    }
-
-    if (!password) {
-      setPasswordError('Entre ton mot de passe.');
-      hasError = true;
-    } else {
-      setPasswordError('');
-    }
-
-    if (hasError) {
-      setInfoMessage('');
-      return;
-    }
-
-    // Frontend validation passing is NOT authentication — no backend exists
-    // yet, so we neither navigate nor claim she's logged in.
-    setInfoMessage(
-      'La connexion sera disponible avec l’activation du service d’authentification.',
-    );
+    enterMainApp();
   };
 
   return (
@@ -309,9 +290,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   <Pressable
                     accessibilityLabel="Continuer en mode développement — ne pas utiliser en production"
                     accessibilityRole="button"
-                    onPress={() =>
-                      navigation.replace('MainTabs', {screen: 'CycleHome'})
-                    }
+                    onPress={enterMainApp}
                     style={({pressed}) => [
                       styles.devBypass,
                       pressed && styles.pressed,
