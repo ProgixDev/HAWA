@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef, useState} from 'react';
+import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
   Animated,
@@ -9,7 +9,8 @@ import {
   View,
 } from 'react-native';
 
-import {colors} from '../../theme/colors';
+import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 export type AnimatedTabItemProps = {
   label: string;
@@ -26,6 +27,8 @@ function AnimatedTabItemComponent({
   onPress,
   accessibilityLabel,
 }: AnimatedTabItemProps): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
   const motion = useRef(new Animated.Value(focused ? 1 : 0)).current;
   const decoration = useRef(new Animated.Value(focused ? 1 : 0)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -123,7 +126,12 @@ function AnimatedTabItemComponent({
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  // This item always renders on top of CustomBottomTabBar's own pill, whose
+  // fill is `theme.colors.accent` — so inactive icon/label read against that
+  // fill via `pickReadableTextColor`, not a fixed light literal.
+  const onPill = pickReadableTextColor(theme.colors.accent);
+  return StyleSheet.create({
   pressable: {
     width: 56,
     minHeight: 48,
@@ -143,8 +151,8 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: colors.cream,
-    shadowColor: '#28166F',
+    backgroundColor: theme.colors.surface,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.18,
     shadowRadius: 6,
@@ -161,17 +169,18 @@ const styles = StyleSheet.create({
   labelPill: {
     ...StyleSheet.absoluteFillObject,
     borderRadius: 7,
-    backgroundColor: colors.cream,
+    backgroundColor: theme.colors.surface,
   },
-  label: {color: '#F3ECFB', fontSize: 8, fontWeight: '500'},
-  labelFocused: {color: '#6949BE', fontWeight: '700'},
+  label: {color: onPill, fontSize: 8, fontWeight: '500'},
+  labelFocused: {color: theme.colors.primary, fontWeight: '700'},
   indicator: {
     width: 13,
     height: 2.5,
     marginTop: 1,
     borderRadius: 2,
-    backgroundColor: colors.accentLight,
+    backgroundColor: theme.colors.primary,
   },
-});
+  });
+}
 
 export const AnimatedTabItem = memo(AnimatedTabItemComponent);

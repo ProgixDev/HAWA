@@ -119,16 +119,17 @@ describe('CustomBottomTabBar — static guard', () => {
     expect(source).not.toContain('#F7F3FF');
   });
 
-  it('introduces no local appearance/theme resolution (the wrapper no longer depends on the theme at all)', () => {
-    expect(source).not.toMatch(/useAwaTheme/);
-    expect(source).not.toMatch(/useColorScheme/);
-    expect(source).not.toMatch(/theme\.colors/);
-    expect(source).not.toMatch(/\bisDark\b/);
+  it('the outer wrapper itself paints no local, theme-independent background (it stays a transparent pass-through)', () => {
+    expect(source).not.toMatch(/bottomBarArea:\s*\{[^}]*useColorScheme/);
+    expect(source).not.toMatch(/\bisDark\s*\?/);
   });
 
-  it('the pill, center button, and tab metadata are unchanged', () => {
-    expect(source).toContain("PURPLE_DARK = '#28166F'");
-    expect(source).toContain("PURPLE = '#6949BE'");
+  it('the pill and center button now resolve their color from the AWA theme (E9 migration — no fixed purple literals)', () => {
+    expect(source).not.toContain('PURPLE_DARK');
+    expect(source).not.toContain("PURPLE = '#6949BE'");
+    expect(source).toMatch(/useAwaTheme\s*\(/);
+    expect(source).toMatch(/backgroundColor:\s*theme\.colors\.accent/);
+    expect(source).toMatch(/backgroundColor:\s*theme\.colors\.primary/);
     expect(source).toMatch(/height:\s*58/);
     expect(source).toMatch(/borderRadius:\s*34/);
     expect(source).toMatch(/marginHorizontal:\s*10/);
@@ -213,18 +214,26 @@ describe('CustomBottomTabBar — floating overlay structure', () => {
 ============================================================ */
 
 describe('CustomBottomTabBar — pill, center button, and navigation stay frozen', () => {
-  it('the purple pill keeps its own fixed background regardless of theme', async () => {
+  it('the pill still renders with a single resolved background sourced from the theme (E9: no longer a fixed literal)', async () => {
     const renderer = await renderTabBar();
+
+    const pill = renderer.root.findAll(node => {
+      if (!node.props?.style) {return false;}
+      const flat = flattenStyle(node.props.style);
+      return flat.borderRadius === 34 && typeof flat.backgroundColor === 'string';
+    });
+    expect(pill.length).toBeGreaterThan(0);
 
     await act(async () => {
       await setAppearanceMode('dark');
     });
 
-    const pill = renderer.root.findAll(node => {
+    const pillAfterDark = renderer.root.findAll(node => {
       if (!node.props?.style) {return false;}
-      return flattenStyle(node.props.style).backgroundColor === '#28166F';
+      const flat = flattenStyle(node.props.style);
+      return flat.borderRadius === 34 && typeof flat.backgroundColor === 'string';
     });
-    expect(pill.length).toBeGreaterThan(0);
+    expect(pillAfterDark.length).toBeGreaterThan(0);
   });
 
   it('the center "+" button is still rendered', async () => {
