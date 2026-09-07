@@ -13,5 +13,5 @@ export const APP_METADATA: AppMetadata = {
   displayName: 'AWA',
   version: '1.0',
   buildNumber: '1',
-  contactEmail: 'support@awa-app.com',
+  contactEmail: 'awa@admin.com',
 };
