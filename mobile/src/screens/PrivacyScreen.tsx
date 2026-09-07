@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -14,8 +14,12 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
-
-const PURPLE = '#6949BE';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -49,11 +53,14 @@ const guarantees: {icon: IconName; title: string; description: string}[] = [
 type Props = NativeStackScreenProps<RootStackParamList, 'Privacy'>;
 
 function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+
   const insets = useSafeAreaInsets();
 
   return (
     <LinearGradient
-      colors={['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']}
+      colors={[...theme.gradients.pageBackground]}
       locations={[0, 0.32, 0.7, 1]}
       start={{x: 0, y: 0}}
       end={{x: 1, y: 1}}
@@ -68,7 +75,7 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
         <StatusBar
           translucent
           backgroundColor="transparent"
-          barStyle="dark-content"
+          barStyle={theme.statusBarStyle}
         />
 
         <ScrollView
@@ -98,7 +105,7 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
                 <View style={styles.guaranteeRow}>
                   <View style={styles.iconContainer}>
                     <MaterialDesignIcons
-                      color={PURPLE}
+                      color={theme.colors.primary}
                       name={item.icon}
                       size={32}
                     />
@@ -126,7 +133,7 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
             <View style={styles.commitmentHeader}>
               <View style={styles.commitmentIcon}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="shield-check-outline"
                   size={26}
                 />
@@ -179,7 +186,7 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
           <View style={styles.preferenceCard}>
             <View style={styles.preferenceIcon}>
               <MaterialDesignIcons
-                color={PURPLE}
+                color={theme.colors.primary}
                 name="account-cog-outline"
                 size={28}
               />
@@ -215,7 +222,7 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
 
             <View style={styles.nextArrowContainer}>
               <MaterialDesignIcons
-                color="#6949BE"
+                color={theme.colors.primary}
                 name="arrow-right"
                 size={20}
               />
@@ -227,10 +234,11 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
   );
 }
 
-const styles = StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
   background: {
     flex: 1,
-    backgroundColor: '#F2ECF8',
+    backgroundColor: theme.colors.background,
   },
 
   pageBackgroundDecor: {
@@ -245,7 +253,7 @@ const styles = StyleSheet.create({
     width: 330,
     height: 330,
     borderRadius: 165,
-    backgroundColor: 'rgba(111, 82, 170, 0.07)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.07),
   },
 
   pageGlowMiddle: {
@@ -255,7 +263,7 @@ const styles = StyleSheet.create({
     width: 260,
     height: 260,
     borderRadius: 130,
-    backgroundColor: 'rgba(139, 112, 188, 0.045)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.045),
   },
 
   pageGlowBottom: {
@@ -265,7 +273,7 @@ const styles = StyleSheet.create({
     width: 310,
     height: 310,
     borderRadius: 155,
-    backgroundColor: 'rgba(92, 67, 139, 0.05)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.05),
   },
 
   safeArea: {
@@ -283,7 +291,7 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    color: '#28166F',
+    color: theme.colors.accent,
     fontFamily: 'serif',
     fontSize: 29,
     fontWeight: '700',
@@ -293,7 +301,7 @@ const styles = StyleSheet.create({
 
   subtitle: {
     marginTop: 10,
-    color: '#655A8D',
+    color: theme.colors.textSecondary,
     fontSize: 13,
     lineHeight: 19,
     textAlign: 'center',
@@ -302,9 +310,9 @@ const styles = StyleSheet.create({
   guaranteesCard: {
     overflow: 'hidden',
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.16)',
+    borderColor: theme.colors.border,
     borderRadius: 24,
-    backgroundColor: 'rgba(255,252,255,0.84)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.84),
     paddingVertical: 4,
   },
 
@@ -323,7 +331,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 21,
-    backgroundColor: 'rgba(246,239,255,0.7)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.7),
   },
 
   guaranteeCopy: {
@@ -334,14 +342,14 @@ const styles = StyleSheet.create({
   },
 
   guaranteeTitle: {
-    color: '#382174',
+    color: theme.colors.accent,
     fontSize: 14,
     fontWeight: '700',
   },
 
   guaranteeDescription: {
     marginTop: 4,
-    color: '#655A8D',
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 16.5,
   },
@@ -349,15 +357,15 @@ const styles = StyleSheet.create({
   rowDivider: {
     height: 1,
     marginHorizontal: 16,
-    backgroundColor: 'rgba(111,83,190,0.10)',
+    backgroundColor: withAlpha(theme.colors.primary, 0.10),
   },
 
   commitmentCard: {
     marginTop: 14,
     borderWidth: 1,
-    borderColor: 'rgba(111,83,190,0.14)',
+    borderColor: theme.colors.border,
     borderRadius: 22,
-    backgroundColor: 'rgba(255,255,255,0.82)',
+    backgroundColor: withAlpha(theme.colors.surface, 0.82),
     padding: 15,
   },
 
@@ -372,7 +380,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 17,
-    backgroundColor: '#F3EAFE',
+    backgroundColor: theme.colors.primarySoft,
   },
 
   commitmentCopy: {
@@ -381,14 +389,14 @@ const styles = StyleSheet.create({
   },
 
   commitmentTitle: {
-    color: '#301A73',
+    color: theme.colors.accent,
     fontSize: 15,
     fontWeight: '800',
   },
 
   commitmentSubtitle: {
     marginTop: 3,
-    color: '#71658F',
+    color: theme.colors.textSecondary,
     fontSize: 10.5,
   },
 
@@ -408,13 +416,13 @@ const styles = StyleSheet.create({
     flexShrink: 0,
     marginTop: 5,
     borderRadius: 4,
-    backgroundColor: '#7654C5',
+    backgroundColor: theme.colors.primary,
   },
 
   commitmentText: {
     flex: 1,
     marginLeft: 9,
-    color: '#5F547C',
+    color: theme.colors.textSecondary,
     fontSize: 11.5,
     lineHeight: 17,
   },
@@ -425,7 +433,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 14,
     borderRadius: 18,
-    backgroundColor: 'rgba(246,239,255,0.9)',
+    backgroundColor: withAlpha(theme.colors.primarySoft, 0.9),
     paddingHorizontal: 10,
     paddingVertical: 8,
   },
@@ -437,7 +445,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 17,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   preferenceCopy: {
@@ -446,14 +454,14 @@ const styles = StyleSheet.create({
   },
 
   preferenceTitle: {
-    color: '#382174',
+    color: theme.colors.accent,
     fontSize: 12.5,
     fontWeight: '700',
   },
 
   preferenceText: {
     marginTop: 3,
-    color: '#5C5078',
+    color: theme.colors.textSecondary,
     fontSize: 10.8,
     lineHeight: 16,
   },
@@ -473,8 +481,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 54,
     borderRadius: 18,
-    backgroundColor: '#6949BE',
-    shadowColor: '#4E319A',
+    backgroundColor: theme.colors.primary,
+    shadowColor: theme.shadow.shadowColor,
     shadowOffset: {
       width: 0,
       height: 5,
@@ -485,7 +493,7 @@ const styles = StyleSheet.create({
   },
 
   nextText: {
-    color: '#FFFFFF',
+    color: onPrimaryTextColor(theme),
     fontSize: 17,
     fontWeight: '700',
     textAlign: 'center',
@@ -499,13 +507,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 11,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: theme.colors.surface,
   },
 
   pressed: {
     opacity: 0.82,
     transform: [{scale: 0.99}],
   },
-});
+  });
+}
 
 export default PrivacyScreen;

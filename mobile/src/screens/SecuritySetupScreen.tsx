@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from 'react';
 import {
@@ -31,6 +32,12 @@ import {
   loadSecurityPreferences,
   updatePrivacySecuritySettings,
 } from '../state/securityPreferences';
+import {useAwaTheme} from '../theme/AwaThemeProvider';
+import {
+  onPrimaryTextColor,
+  withAlpha,
+  type ResolvedAwaTheme,
+} from '../theme/awaThemeTokens';
 
 type Props =
   NativeStackScreenProps<
@@ -52,20 +59,11 @@ type OptionProps = {
   onValueChange: (
     value: boolean,
   ) => void;
+  theme: ResolvedAwaTheme;
+  styles: ReturnType<
+    typeof createStyles
+  >;
 };
-
-const PURPLE = '#6949BE';
-const PURPLE_DARK = '#28166F';
-const PURPLE_SOFT = '#F0E8FC';
-
-const TEXT = '#2A2050';
-const TEXT_MUTED = '#756A90';
-
-const BORDER =
-  'rgba(111,83,190,0.14)';
-
-const CARD =
-  'rgba(255,252,255,0.94)';
 
 function SecurityOption({
   compact,
@@ -74,6 +72,8 @@ function SecurityOption({
   description,
   value,
   onValueChange,
+  theme,
+  styles,
 }: OptionProps): React.JSX.Element {
   return (
     <View
@@ -91,7 +91,7 @@ function SecurityOption({
             styles.iconBoxCompact,
         ]}>
         <MaterialDesignIcons
-          color={PURPLE}
+          color={theme.colors.primary}
           name={icon}
           size={compact ? 23 : 26}
         />
@@ -120,7 +120,7 @@ function SecurityOption({
                 styles.activeBadge
               }>
               <MaterialDesignIcons
-                color="#3F9B65"
+                color={theme.colors.success}
                 name="check"
                 size={12}
               />
@@ -146,14 +146,14 @@ function SecurityOption({
       </View>
 
       <Switch
-        ios_backgroundColor="#D9CDEC"
+        ios_backgroundColor={theme.colors.primarySoft}
         onValueChange={
           onValueChange
         }
-        thumbColor="#FFFFFF"
+        thumbColor={theme.colors.surface}
         trackColor={{
-          false: '#D9CDEC',
-          true: PURPLE,
+          false: theme.colors.primarySoft,
+          true: theme.colors.primary,
         }}
         value={value}
       />
@@ -165,6 +165,13 @@ function SecuritySetupScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {theme} = useAwaTheme();
+
+  const styles = useMemo(
+    () => createStyles(theme),
+    [theme],
+  );
+
   const insets =
     useSafeAreaInsets();
 
@@ -236,10 +243,7 @@ function SecuritySetupScreen({
   return (
     <LinearGradient
       colors={[
-        '#FAF8FD',
-        '#F4EFFA',
-        '#EEE7F7',
-        '#E9E1F3',
+        ...theme.gradients.pageBackground,
       ]}
       locations={[
         0,
@@ -287,7 +291,7 @@ function SecuritySetupScreen({
       <StatusBar
         translucent
         backgroundColor="transparent"
-        barStyle="dark-content"
+        barStyle={theme.statusBarStyle}
       />
 
       {/* BACK BUTTON */}
@@ -319,7 +323,7 @@ function SecuritySetupScreen({
               styles.pressed,
           ]}>
           <MaterialDesignIcons
-            color={PURPLE}
+            color={theme.colors.primary}
             name="arrow-left"
             size={
               compact
@@ -376,7 +380,7 @@ function SecuritySetupScreen({
                     styles.heroInnerCompact,
                 ]}>
                 <MaterialDesignIcons
-                  color={PURPLE}
+                  color={theme.colors.primary}
                   name="shield-lock-outline"
                   size={
                     compact
@@ -392,7 +396,7 @@ function SecuritySetupScreen({
                 styles.heroBadge
               }>
               <MaterialDesignIcons
-                color="#FFFFFF"
+                color={onPrimaryTextColor(theme)}
                 name="lock"
                 size={13}
               />
@@ -404,7 +408,7 @@ function SecuritySetupScreen({
               styles.awaBadge
             }>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="star-four-points"
               size={9}
             />
@@ -451,7 +455,7 @@ function SecuritySetupScreen({
               styles.statusIcon
             }>
             <MaterialDesignIcons
-              color="#3F9B65"
+              color={theme.colors.success}
               name="shield-check-outline"
               size={21}
             />
@@ -530,7 +534,7 @@ function SecuritySetupScreen({
               styles.sectionIcon
             }>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="lock-check-outline"
               size={19}
             />
@@ -560,6 +564,8 @@ function SecuritySetupScreen({
                 },
               )
             }
+            styles={styles}
+            theme={theme}
             title="Code PIN"
             value={pin}
           />
@@ -578,6 +584,8 @@ function SecuritySetupScreen({
                 },
               )
             }
+            styles={styles}
+            theme={theme}
             title="Biométrie"
             value={biometric}
           />
@@ -601,6 +609,8 @@ function SecuritySetupScreen({
                 },
               );
             }}
+            styles={styles}
+            theme={theme}
             title="Notifications discrètes"
             value={notifications}
           />
@@ -623,7 +633,7 @@ function SecuritySetupScreen({
                 styles.infoIconBoxCompact,
             ]}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="shield-check-outline"
               size={
                 compact
@@ -715,7 +725,7 @@ function SecuritySetupScreen({
                 styles.continueIconCompact,
             ]}>
             <MaterialDesignIcons
-              color={PURPLE}
+              color={theme.colors.primary}
               name="arrow-right"
               size={
                 compact
@@ -730,8 +740,8 @@ function SecuritySetupScreen({
   );
 }
 
-const styles =
-  StyleSheet.create({
+function createStyles(theme: ResolvedAwaTheme) {
+  return StyleSheet.create({
     /* ==============================================
        SAME BACKGROUND
     ============================================== */
@@ -739,7 +749,7 @@ const styles =
     page: {
       flex: 1,
       backgroundColor:
-        '#F0E3F9',
+        theme.colors.background,
     },
 
     pageBackgroundDecor: {
@@ -755,7 +765,7 @@ const styles =
       height: 330,
       borderRadius: 165,
       backgroundColor:
-        'rgba(111,82,170,0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     pageGlowMiddle: {
@@ -766,7 +776,7 @@ const styles =
       height: 260,
       borderRadius: 130,
       backgroundColor:
-        'rgba(139,112,188,0.045)',
+        withAlpha(theme.colors.primary, 0.045),
     },
 
     pageGlowBottom: {
@@ -777,7 +787,7 @@ const styles =
       height: 310,
       borderRadius: 155,
       backgroundColor:
-        'rgba(92,67,139,0.05)',
+        withAlpha(theme.colors.primary, 0.05),
     },
 
     /* ==============================================
@@ -796,12 +806,12 @@ const styles =
       justifyContent: 'center',
       borderWidth: 1,
       borderColor:
-        'rgba(105,73,190,0.08)',
+        withAlpha(theme.colors.primary, 0.08),
       borderRadius: 22,
       backgroundColor:
-        'rgba(255,255,255,0.93)',
+        withAlpha(theme.colors.surface, 0.93),
       shadowColor:
-        '#4E319A',
+        theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 3,
@@ -853,7 +863,7 @@ const styles =
       justifyContent: 'center',
       borderRadius: 54,
       backgroundColor:
-        'rgba(105,73,190,0.07)',
+        withAlpha(theme.colors.primary, 0.07),
     },
 
     heroOuterCompact: {
@@ -869,7 +879,7 @@ const styles =
       justifyContent: 'center',
       borderRadius: 43,
       backgroundColor:
-        'rgba(105,73,190,0.10)',
+        withAlpha(theme.colors.primary, 0.10),
     },
 
     heroMiddleCompact: {
@@ -885,11 +895,11 @@ const styles =
       justifyContent: 'center',
       borderWidth: 1,
       borderColor:
-        'rgba(105,73,190,0.13)',
+        withAlpha(theme.colors.primary, 0.13),
       borderRadius: 34,
       backgroundColor:
-        '#FFFFFF',
-      shadowColor: PURPLE,
+        theme.colors.surface,
+      shadowColor: theme.colors.primary,
       shadowOffset: {
         width: 0,
         height: 5,
@@ -915,10 +925,10 @@ const styles =
       justifyContent: 'center',
       borderWidth: 3,
       borderColor:
-        '#F4EFFA',
+        theme.colors.background,
       borderRadius: 15,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
     },
 
     awaBadge: {
@@ -930,11 +940,11 @@ const styles =
       paddingVertical: 4,
       borderRadius: 999,
       backgroundColor:
-        'rgba(255,255,255,0.62)',
+        withAlpha(theme.colors.surface, 0.62),
     },
 
     awaText: {
-      color: PURPLE,
+      color: theme.colors.primary,
       fontFamily: 'serif',
       fontSize: 10.5,
       fontWeight: '800',
@@ -943,7 +953,7 @@ const styles =
 
     title: {
       marginTop: 12,
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 30,
       lineHeight: 36,
@@ -960,7 +970,7 @@ const styles =
       maxWidth: 340,
       marginTop: 8,
       color:
-        '#655A8D',
+        theme.colors.textSecondary,
       fontSize: 12.5,
       lineHeight: 18,
       textAlign: 'center',
@@ -987,10 +997,10 @@ const styles =
       paddingVertical: 11,
       borderWidth: 1,
       borderColor:
-        'rgba(63,155,101,0.12)',
+        withAlpha(theme.colors.success, 0.12),
       borderRadius: 20,
       backgroundColor:
-        'rgba(249,255,251,0.90)',
+        withAlpha(theme.colors.success, 0.06),
     },
 
     statusCardCompact: {
@@ -1007,7 +1017,7 @@ const styles =
       flexShrink: 0,
       borderRadius: 13,
       backgroundColor:
-        '#EAF7EF',
+        withAlpha(theme.colors.success, 0.14),
     },
 
     statusCopy: {
@@ -1016,14 +1026,14 @@ const styles =
     },
 
     statusTitle: {
-      color: TEXT,
+      color: theme.colors.text,
       fontSize: 11.5,
       fontWeight: '800',
     },
 
     statusText: {
       marginTop: 2,
-      color: TEXT_MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 9.5,
       lineHeight: 13,
     },
@@ -1036,11 +1046,11 @@ const styles =
       paddingHorizontal: 8,
       borderRadius: 11,
       backgroundColor:
-        '#F0E8FC',
+        theme.colors.primarySoft,
     },
 
     statusCounterText: {
-      color: PURPLE,
+      color: theme.colors.primary,
       fontSize: 11,
       fontWeight: '900',
     },
@@ -1059,7 +1069,7 @@ const styles =
     },
 
     sectionTitle: {
-      color: PURPLE_DARK,
+      color: theme.colors.accent,
       fontFamily: 'serif',
       fontSize: 18,
       fontWeight: '800',
@@ -1067,7 +1077,7 @@ const styles =
 
     sectionSubtitle: {
       marginTop: 2,
-      color: TEXT_MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 9.5,
     },
 
@@ -1078,7 +1088,7 @@ const styles =
       justifyContent: 'center',
       borderRadius: 12,
       backgroundColor:
-        PURPLE_SOFT,
+        theme.colors.primarySoft,
     },
 
     /* ==============================================
@@ -1100,11 +1110,11 @@ const styles =
       paddingHorizontal: 13,
       paddingVertical: 11,
       borderWidth: 1,
-      borderColor: BORDER,
+      borderColor: theme.colors.border,
       borderRadius: 22,
-      backgroundColor: CARD,
+      backgroundColor: withAlpha(theme.colors.surface, 0.94),
       shadowColor:
-        '#51398A',
+        theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 4,
@@ -1129,15 +1139,15 @@ const styles =
       flexShrink: 0,
       borderRadius: 17,
       backgroundColor:
-        PURPLE_SOFT,
+        theme.colors.primarySoft,
     },
 
     iconBoxActive: {
       borderWidth: 1,
       borderColor:
-        'rgba(105,73,190,0.12)',
+        withAlpha(theme.colors.primary, 0.12),
       backgroundColor:
-        '#EEE3FF',
+        withAlpha(theme.colors.primary, 0.16),
     },
 
     iconBoxCompact: {
@@ -1160,7 +1170,7 @@ const styles =
     },
 
     optionTitle: {
-      color: TEXT,
+      color: theme.colors.text,
       fontFamily: 'serif',
       fontSize: 17,
       lineHeight: 21,
@@ -1175,7 +1185,7 @@ const styles =
     optionDescription: {
       marginTop: 4,
       color:
-        TEXT_MUTED,
+        theme.colors.textSecondary,
       fontSize: 11,
       lineHeight: 16,
     },
@@ -1194,11 +1204,11 @@ const styles =
       paddingVertical: 3,
       borderRadius: 999,
       backgroundColor:
-        '#EAF7EF',
+        withAlpha(theme.colors.success, 0.14),
     },
 
     activeBadgeText: {
-      color: '#3F9B65',
+      color: theme.colors.success,
       fontSize: 8.5,
       fontWeight: '800',
     },
@@ -1216,10 +1226,10 @@ const styles =
       paddingHorizontal: 12,
       paddingVertical: 11,
       borderWidth: 1,
-      borderColor: BORDER,
+      borderColor: theme.colors.border,
       borderRadius: 20,
       backgroundColor:
-        'rgba(255,252,255,0.80)',
+        withAlpha(theme.colors.surface, 0.80),
     },
 
     infoCompact: {
@@ -1237,7 +1247,7 @@ const styles =
       flexShrink: 0,
       borderRadius: 14,
       backgroundColor:
-        PURPLE_SOFT,
+        theme.colors.primarySoft,
     },
 
     infoIconBoxCompact: {
@@ -1252,7 +1262,7 @@ const styles =
     },
 
     infoTitle: {
-      color: '#4B328E',
+      color: theme.colors.accent,
       fontSize: 12.5,
       fontWeight: '800',
     },
@@ -1263,7 +1273,7 @@ const styles =
 
     infoText: {
       marginTop: 3,
-      color: TEXT_MUTED,
+      color: theme.colors.textSecondary,
       fontSize: 10.5,
       lineHeight: 15,
     },
@@ -1293,9 +1303,9 @@ const styles =
       marginTop: 20,
       borderRadius: 20,
       backgroundColor:
-        PURPLE,
+        theme.colors.primary,
       shadowColor:
-        '#4E319A',
+        theme.shadow.shadowColor,
       shadowOffset: {
         width: 0,
         height: 6,
@@ -1319,7 +1329,7 @@ const styles =
       height: 150,
       borderRadius: 75,
       backgroundColor:
-        'rgba(139,99,216,0.42)',
+        withAlpha(theme.colors.primary, 0.42),
     },
 
     buttonGlowRight: {
@@ -1330,11 +1340,11 @@ const styles =
       height: 150,
       borderRadius: 75,
       backgroundColor:
-        'rgba(211,122,185,0.20)',
+        withAlpha(theme.colors.secondary, 0.20),
     },
 
     continueText: {
-      color: '#FFFFFF',
+      color: onPrimaryTextColor(theme),
       fontSize: 16.5,
       fontWeight: '800',
       textAlign: 'center',
@@ -1353,7 +1363,7 @@ const styles =
       justifyContent: 'center',
       borderRadius: 12,
       backgroundColor:
-        '#FFFFFF',
+        theme.colors.surface,
     },
 
     continueIconCompact: {
@@ -1371,5 +1381,6 @@ const styles =
       ],
     },
   });
+}
 
 export default SecuritySetupScreen;
