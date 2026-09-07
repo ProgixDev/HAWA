@@ -25,7 +25,7 @@ function Field({icon, label, placeholder, value, onChangeText, secure, visible, 
     <View style={[styles.field, error ? styles.fieldError : null]}>
       <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
       <View style={styles.fieldCopy}><Text style={styles.fieldLabel}>{label}</Text><TextInput autoCapitalize={keyboardType === 'email-address' ? 'none' : 'words'} keyboardType={keyboardType} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor={theme.colors.textMuted} secureTextEntry={secure && !visible} selectionColor={theme.colors.primary} style={styles.input} textContentType={keyboardType === 'email-address' ? 'emailAddress' : secure ? 'password' : 'none'} value={value} /></View>
-      {secure && <Pressable hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={theme.colors.primary} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
+      {secure && <Pressable accessibilityLabel={`${visible ? 'Masquer' : 'Afficher'} : ${label}`} accessibilityRole="button" hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={theme.colors.primary} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
     </View>
     {error ? <Text style={styles.fieldErrorText}>{error}</Text> : null}
   </View>;
@@ -109,10 +109,10 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
 
     <View style={styles.formArea}>
       <View style={styles.tabs}>
-        <Pressable onPress={() => navigation.navigate('Auth')} style={styles.tab}>
+        <Pressable accessibilityRole="tab" accessibilityState={{selected: false}} onPress={() => navigation.navigate('Auth')} style={styles.tab}>
           <Text style={styles.tabText}>Connexion</Text>
         </Pressable>
-        <View style={[styles.tab, styles.tabActive]}>
+        <View accessibilityRole="tab" accessibilityState={{selected: true}} style={[styles.tab, styles.tabActive]}>
           <Text style={[styles.tabText, styles.tabTextActive]}>Créer un compte</Text>
         </View>
       </View>
@@ -127,7 +127,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
         <MaterialDesignIcons color={allRulesValid ? theme.colors.primary : theme.colors.textMuted} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />
         <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>8 caractères min., une majuscule, un chiffre et un caractère spécial</Text>
       </View>
-      <Pressable disabled={submitting} onPress={handleSubmit} style={({pressed}) => [styles.primary, submitting && styles.disabled, pressed && !submitting && styles.pressed]}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityState={{disabled: submitting}} disabled={submitting} onPress={handleSubmit} style={({pressed}) => [styles.primary, submitting && styles.disabled, pressed && !submitting && styles.pressed]}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
       {infoMessage ? (
         <View style={styles.infoCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={16} />
@@ -145,9 +145,9 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
         </Pressable>
       ) : null}
       <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>
-        <Pressable onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
-        <Pressable onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
-        <Pressable onPress={() => Alert.alert('E-mail')} style={styles.social}><MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={24} /></Pressable>
+        <Pressable accessibilityLabel="Continuer avec Google" accessibilityRole="button" onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
+        <Pressable accessibilityLabel="Continuer avec Apple" accessibilityRole="button" onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
+        <Pressable accessibilityLabel="Continuer avec une adresse e-mail" accessibilityRole="button" onPress={() => Alert.alert('E-mail')} style={styles.social}><MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={24} /></Pressable>
       </View>
     </View>
 

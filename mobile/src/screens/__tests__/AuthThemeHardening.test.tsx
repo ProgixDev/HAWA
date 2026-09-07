@@ -281,3 +281,86 @@ describe('Auth family — form/behavior untouched', () => {
     expect(findFieldBg()).not.toBe(before);
   });
 });
+
+/* ============================================================
+   ACCESSIBILITY — Phase 3 remediation. RegistrationScreen previously had
+   materially less accessibility coverage than AuthScreen for equivalent
+   controls: the password-visibility toggle and the confirm-password toggle
+   had no accessibilityLabel/Role at all, the login/register tabs had no
+   role/state, the submit button had no role/disabled state, and the 3
+   social-auth buttons had zero accessibility props (icon/logo-only,
+   unreadable to a screen reader). Fixed to match AuthScreen's existing
+   conventions exactly (same French wording for the social buttons).
+============================================================ */
+
+describe('RegistrationScreen — accessibility parity with AuthScreen (Phase 3 fix)', () => {
+  it('password and confirm-password visibility toggles each expose a distinguishing accessibilityLabel and role', async () => {
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+    const passwordToggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Mot de passe'});
+    expect(passwordToggle.props.accessibilityRole).toBe('button');
+
+    const confirmToggle = renderer.root.findByProps({accessibilityLabel: 'Afficher : Confirmer le mot de passe'});
+    expect(confirmToggle.props.accessibilityRole).toBe('button');
+  });
+
+  it('tapping a visibility toggle flips its label between Afficher/Masquer', async () => {
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+    const before = renderer.root.findByProps({accessibilityLabel: 'Afficher : Mot de passe'});
+
+    act(() => {
+      before.props.onPress();
+    });
+
+    expect(renderer.root.findByProps({accessibilityLabel: 'Masquer : Mot de passe'})).toBeTruthy();
+  });
+
+  it('login/register tabs expose accessibilityRole="tab" and the correct selected state', async () => {
+    // Rendered in isolation (not the shared multi-route harness above): that
+    // harness mounts Auth/Registration/ForgotPassword simultaneously in this
+    // test renderer, and AuthScreen's own login/register tabs use the exact
+    // same role + "Connexion"/"Créer un compte" text as Registration's —
+    // querying by role+text across all 3 mounted screens at once would
+    // conflate the two screens' independent tab pairs.
+    let renderer: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <SafeAreaProvider initialMetrics={TEST_METRICS}>
+          <AwaThemeProvider>
+            <NavigationContainer>
+              <Stack.Navigator screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Registration">{props => <RegistrationScreen {...(props as any)} />}</Stack.Screen>
+              </Stack.Navigator>
+            </NavigationContainer>
+          </AwaThemeProvider>
+        </SafeAreaProvider>,
+      );
+    });
+    activeRenderers.push(renderer!);
+
+    // findAll matches every fiber layer a prop is forwarded through (e.g.
+    // Pressable's own composite instance plus the host View it renders), not
+    // one match per JSX element — so this counts distinct accessibleLabel-
+    // less tab TEXTS instead of raw node count, which is what actually
+    // distinguishes the 2 real tabs.
+    const tabs = renderer!.root.findAll(node => node.props.accessibilityRole === 'tab');
+    const distinctSelectedStates = new Set(tabs.map(tab => tab.props.accessibilityState?.selected));
+    expect(distinctSelectedStates).toEqual(new Set([false, true]));
+  });
+
+  it('the submit button exposes accessibilityRole="button" and reflects the submitting/disabled state', async () => {
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+    const submit = renderer.root
+      .findAll(node => node.props.accessibilityRole === 'button' && node.props.accessibilityState !== undefined)
+      .find(node => typeof node.props.disabled === 'boolean');
+    expect(submit).toBeTruthy();
+    expect(submit!.props.accessibilityState).toEqual({disabled: false});
+  });
+
+  it('the 3 social-auth buttons each expose a matching accessibilityLabel + role (same wording as AuthScreen)', async () => {
+    const renderer = await renderScreen(RegistrationScreen, 'Registration');
+    for (const label of ['Continuer avec Google', 'Continuer avec Apple', 'Continuer avec une adresse e-mail']) {
+      const button = renderer.root.findByProps({accessibilityLabel: label});
+      expect(button.props.accessibilityRole).toBe('button');
+    }
+  });
+});
