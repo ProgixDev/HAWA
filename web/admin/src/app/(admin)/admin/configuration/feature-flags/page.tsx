@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import FeatureFlagsContent from '@/components/admin/configuration/FeatureFlagsContent';
 
 export default function FeatureFlagsPage() {
-  return <AdminRouteNotice section="Configuration" title="Feature Flags" />;
+  return <FeatureFlagsContent />;
 }

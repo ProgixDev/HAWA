@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import GlobalSettingsContent from '@/components/admin/configuration/GlobalSettingsContent';
 
 export default function GlobalSettingsPage() {
-  return <AdminRouteNotice section="Configuration" title="Paramètres globaux" />;
+  return <GlobalSettingsContent />;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import ObjectivesContent from '@/components/admin/configuration/ObjectivesContent';
 
 export default function ObjectivesPage() {
-  return <AdminRouteNotice section="Configuration" title="Objectifs" />;
+  return <ObjectivesContent />;
 }
