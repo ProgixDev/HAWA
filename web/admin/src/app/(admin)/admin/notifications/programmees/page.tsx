@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import ScheduledNotificationsContent from '@/components/admin/notifications/ScheduledNotificationsContent';
 
 export default function ScheduledNotificationsPage() {
-  return <AdminRouteNotice section="Notifications" title="Programmées" />;
+  return <ScheduledNotificationsContent />;
 }
