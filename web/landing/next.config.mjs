@@ -9,7 +9,8 @@ const nextConfig = {
   },
   images: {
     remotePatterns: imageHosts,
-    minimumCacheTTL: 60,
+    // Optimized copies of the (static) screenshots are cached for 30 days instead of re-validated every minute.
+    minimumCacheTTL: 2592000,
     qualities: [75, 85, 100],
   },
 };

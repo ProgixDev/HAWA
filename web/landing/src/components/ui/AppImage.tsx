@@ -44,8 +44,9 @@ const AppImage = memo(function AppImage({
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
-    const isExternalUrl = useMemo(() => typeof imageSrc === 'string' && imageSrc.startsWith('http'), [imageSrc]);
-    const resolvedUnoptimized = unoptimized || isExternalUrl;
+    // Remote images from hosts allow-listed in image-hosts.config.mjs are resized/re-encoded by the
+    // Next.js optimizer too; forcing them unoptimized shipped 1.2-1.4 MB PNG avatars at 128px.
+    const resolvedUnoptimized = unoptimized;
 
     const handleError = useCallback(() => {
         if (!hasError && imageSrc !== fallbackSrc) {
