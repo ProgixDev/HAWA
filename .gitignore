@@ -102,3 +102,13 @@ replay_pid*.log
 .vscode/
 .claude/
 .audit_tmp.json
+
+
+# Environment files
+**/.env
+**/.env.local
+**/.env.production
+**/.env.development
+
+# Keep environment templates
+!**/.env.example
