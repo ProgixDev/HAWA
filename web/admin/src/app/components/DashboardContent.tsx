@@ -1,7 +1,7 @@
 'use client';
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useMemo, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import DashboardHeader from './DashboardHeader';
 import KpiCard from '@/components/dashboard/KpiCard';
@@ -9,11 +9,12 @@ import ActivityFeed from '@/components/dashboard/ActivityFeed';
 import AlertsPanel from '@/components/dashboard/AlertsPanel';
 import QuickActions from '@/components/dashboard/QuickActions';
 import CountryDistribution from '@/components/dashboard/CountryDistribution';
+import { Modal } from '@/app/content/components/ContentUI';
 import {
-  mockKpis,
-  mockUserGrowthData,
   mockRecentActivity,
   mockAlerts,
+  getDashboardSnapshot,
+  type DashboardRangeId,
 } from '@/data/mock/dashboard';
 
 // Recharts components isolated as client-only to prevent SSR mismatch
@@ -36,10 +37,33 @@ const PremiumConversionChart = dynamic(
 );
 
 export default function DashboardContent() {
+  const [selectedRange, setSelectedRange] = useState<DashboardRangeId>('30d');
+  const [refreshing, setRefreshing] = useState(false);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState(() => new Date());
+  const [activityDialogOpen, setActivityDialogOpen] = useState(false);
+  const snapshot = useMemo(() => getDashboardSnapshot(selectedRange), [selectedRange]);
+
+  const handleRefresh = () => {
+    if (refreshing) return;
+    setRefreshing(true);
+    window.setTimeout(() => {
+      setLastUpdatedAt(new Date());
+      setRefreshing(false);
+    }, 600);
+  };
+
+  const activityColumnSize = Math.ceil(snapshot.activity.length / 3) || 1;
+
   return (
     <div className="space-y-8">
       {/* Header */}
-      <DashboardHeader />
+      <DashboardHeader
+        selectedRange={selectedRange}
+        onRangeChange={setSelectedRange}
+        onRefresh={handleRefresh}
+        refreshing={refreshing}
+        lastUpdatedAt={lastUpdatedAt}
+      />
 
       {/* KPI Bento Grid — 6 cards: row1 hero(2col)+2, row2: 3 */}
       {/* grid-cols-3 md → xl: 6 cols for flexibility */}
@@ -51,22 +75,22 @@ export default function DashboardContent() {
       >
         {/* Hero card — spans 2 cols */}
         <div className="xl:col-span-2">
-          <KpiCard metric={mockKpis?.[0]} index={0} />
+          <KpiCard metric={snapshot.kpis?.[0]} index={0} />
         </div>
         <div className="xl:col-span-2">
-          <KpiCard metric={mockKpis?.[1]} index={1} />
+          <KpiCard metric={snapshot.kpis?.[1]} index={1} />
         </div>
         <div className="xl:col-span-2">
-          <KpiCard metric={mockKpis?.[2]} index={2} />
+          <KpiCard metric={snapshot.kpis?.[2]} index={2} />
         </div>
         <div className="xl:col-span-2">
-          <KpiCard metric={mockKpis?.[3]} index={3} />
+          <KpiCard metric={snapshot.kpis?.[3]} index={3} />
         </div>
         <div className="xl:col-span-2">
-          <KpiCard metric={mockKpis?.[4]} index={4} />
+          <KpiCard metric={snapshot.kpis?.[4]} index={4} />
         </div>
         <div className="xl:col-span-2">
-          <KpiCard metric={mockKpis?.[5]} index={5} />
+          <KpiCard metric={snapshot.kpis?.[5]} index={5} />
         </div>
       </motion.div>
 
@@ -85,15 +109,22 @@ export default function DashboardContent() {
                 Croissance des utilisatrices
               </h2>
               <p className="text-xs text-muted-foreground mt-0.5">
-                Utilisatrices totales vs abonnées Premium — 30 derniers jours
+                Utilisatrices totales vs abonnées Premium — {snapshot.rangeLabel}
               </p>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="status-dot-active" />
-              <span className="text-xs text-muted-foreground">Temps réel</span>
+              <div
+                className={refreshing ? 'status-dot-active' : 'h-1.5 w-1.5 rounded-full bg-success'}
+              />
+              <span className="text-xs text-muted-foreground">
+                Mis à jour à{' '}
+                {new Intl.DateTimeFormat('fr-FR', { hour: '2-digit', minute: '2-digit' }).format(
+                  lastUpdatedAt
+                )}
+              </span>
             </div>
           </div>
-          <UserGrowthChart data={mockUserGrowthData} />
+          <UserGrowthChart data={snapshot.userGrowth} />
         </motion.div>
 
         {/* Objective Distribution */}
@@ -108,10 +139,11 @@ export default function DashboardContent() {
               Répartition par objectif
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Distribution des 24 846 utilisatrices
+              Distribution des {snapshot.totalUsers.toLocaleString('fr-FR')} utilisatrices —{' '}
+              {snapshot.rangeLabel}
             </p>
           </div>
-          <ObjectiveChart />
+          <ObjectiveChart data={snapshot.objectiveDistribution} />
         </motion.div>
       </div>
 
@@ -195,10 +227,14 @@ export default function DashboardContent() {
               Activité récente
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Événements plateforme des dernières 24h
+              Événements plateforme — {snapshot.rangeLabel}
             </p>
           </div>
-          <button className="text-xs font-semibold text-primary hover:text-primary-light transition-colors">
+          <button
+            type="button"
+            onClick={() => setActivityDialogOpen(true)}
+            className="text-xs font-semibold text-primary hover:text-primary-light transition-colors"
+          >
             Voir tout
           </button>
         </div>
@@ -206,16 +242,33 @@ export default function DashboardContent() {
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-x-8">
           {/* Split into 3 columns on large screens */}
           <div className="lg:col-span-1">
-            <ActivityFeed items={mockRecentActivity?.slice(0, 3)} />
+            <ActivityFeed items={snapshot.activity?.slice(0, activityColumnSize)} />
           </div>
           <div className="hidden lg:block">
-            <ActivityFeed items={mockRecentActivity?.slice(3, 6)} />
+            <ActivityFeed
+              items={snapshot.activity?.slice(activityColumnSize, activityColumnSize * 2)}
+            />
           </div>
           <div className="hidden xl:block">
-            <ActivityFeed items={mockRecentActivity?.slice(6)} />
+            <ActivityFeed items={snapshot.activity?.slice(activityColumnSize * 2)} />
           </div>
         </div>
       </motion.div>
+
+      <AnimatePresence>
+        {activityDialogOpen && (
+          <Modal
+            title="Toutes les activités récentes"
+            subtitle="Journal complet des événements plateforme (données agrégées)"
+            onClose={() => setActivityDialogOpen(false)}
+            wide
+          >
+            <div className="max-h-[65vh] overflow-y-auto p-5 sm:p-6">
+              <ActivityFeed items={mockRecentActivity} />
+            </div>
+          </Modal>
+        )}
+      </AnimatePresence>
 
       {/* Privacy Notice */}
       <motion.div
