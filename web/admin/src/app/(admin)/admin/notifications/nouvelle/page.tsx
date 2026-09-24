@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import NewNotificationContent from '@/components/admin/notifications/NewNotificationContent';
 
 export default function NewNotificationPage() {
-  return <AdminRouteNotice section="Notifications" title="Nouvelle notification" />;
+  return <NewNotificationContent />;
 }

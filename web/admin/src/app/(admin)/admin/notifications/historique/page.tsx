@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import NotificationHistoryContent from '@/components/admin/notifications/NotificationHistoryContent';
 
 export default function NotificationHistoryPage() {
-  return <AdminRouteNotice section="Notifications" title="Historique" />;
+  return <NotificationHistoryContent />;
 }
