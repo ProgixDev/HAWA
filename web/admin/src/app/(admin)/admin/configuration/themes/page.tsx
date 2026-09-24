@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import ThemesContent from '@/components/admin/configuration/ThemesContent';
 
 export default function ThemesPage() {
-  return <AdminRouteNotice section="Configuration" title="Thèmes" />;
+  return <ThemesContent />;
 }
