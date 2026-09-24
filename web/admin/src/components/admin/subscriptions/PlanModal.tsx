@@ -1,14 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import type { SubscriptionPlan } from '@/types/subscriptions';
+import { Controller, useForm } from 'react-hook-form';
+import type { PremiumEntitlementKey, SubscriptionPlan } from '@/types/subscriptions';
+import { PREMIUM_ENTITLEMENT_LABELS } from '@/types/subscriptions';
 import {
   FieldLabel,
   Modal,
   inputClassName,
   textareaClassName,
 } from '@/app/content/components/ContentUI';
+
+const ENTITLEMENT_KEYS = Object.keys(PREMIUM_ENTITLEMENT_LABELS) as PremiumEntitlementKey[];
 
 export interface PlanFormValues {
   name: string;
@@ -20,6 +23,7 @@ export interface PlanFormValues {
   billingPeriod: 'monthly' | 'yearly';
   discountPercent?: number;
   featuresText: string;
+  entitlements: PremiumEntitlementKey[];
   active: boolean;
   badge?: string;
   displayOrder: number;
@@ -38,12 +42,14 @@ export default function PlanModal({
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<PlanFormValues>({
     defaultValues: plan
       ? {
           ...plan,
           featuresText: plan.features.join('\n'),
+          entitlements: plan.entitlements,
         }
       : {
           name: '',
@@ -55,6 +61,7 @@ export default function PlanModal({
           billingPeriod: 'monthly',
           discountPercent: 0,
           featuresText: '',
+          entitlements: [],
           active: true,
           badge: '',
           displayOrder: 4,
@@ -65,8 +72,12 @@ export default function PlanModal({
     setServerError('');
     try {
       await onSave(values);
-    } catch {
-      setServerError('Impossible d’enregistrer le plan. Veuillez réessayer.');
+    } catch (error) {
+      setServerError(
+        error instanceof Error
+          ? error.message
+          : 'Impossible d’enregistrer le plan. Veuillez réessayer.'
+      );
     }
   });
 
@@ -199,6 +210,48 @@ export default function PlanModal({
             <p className="mt-1 text-xs text-danger">{errors.featuresText.message}</p>
           )}
         </label>
+        <div>
+          <FieldLabel>Fonctionnalités incluses (accès réel)</FieldLabel>
+          <p className="mb-2 -mt-1 text-[11px] leading-4 text-muted-foreground">
+            Contrôle structuré des fonctionnalités Premium réellement débloquées côté mobile —
+            distinct du texte marketing ci-dessus.
+          </p>
+          <Controller
+            control={control}
+            name="entitlements"
+            render={({ field }) => (
+              <div className="grid gap-2 rounded-xl border border-border bg-white p-3.5 sm:grid-cols-2">
+                {ENTITLEMENT_KEYS.map((key) => {
+                  const checked = field.value?.includes(key) ?? false;
+                  return (
+                    <label
+                      key={key}
+                      className="flex cursor-pointer items-center gap-2 text-[13px] font-medium text-foreground"
+                    >
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() => {
+                          const current = field.value ?? [];
+                          field.onChange(
+                            checked ? current.filter((item) => item !== key) : [...current, key]
+                          );
+                        }}
+                        className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
+                      />
+                      {PREMIUM_ENTITLEMENT_LABELS[key]}
+                    </label>
+                  );
+                })}
+                <p className="col-span-full mt-1 text-[10px] text-muted-foreground">
+                  {(field.value ?? []).length} fonctionnalité
+                  {(field.value ?? []).length > 1 ? 's' : ''} sélectionnée
+                  {(field.value ?? []).length > 1 ? 's' : ''}
+                </p>
+              </div>
+            )}
+          />
+        </div>
         <label className="flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 text-sm font-medium text-foreground">
           <input
             type="checkbox"

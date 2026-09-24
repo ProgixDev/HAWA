@@ -20,6 +20,26 @@ export type SubscriptionHistoryType =
   | 'reactivation';
 export type SubscriptionHistoryStatus = 'success' | 'info' | 'failure' | 'pending' | 'refunded';
 
+// Structured entitlement mapping — kept separate from the free-text marketing
+// `features` bullets above. These four keys are the real gates that exist in
+// the mobile app today (mobile/src/state/premiumStore.ts consumers): advanced
+// Statistics screens (all 8 objectives), medical CSV/PDF export, the 30-day
+// free history window, and Premium-only visual themes. Article-level gating
+// ("Contenus éducatifs approfondis") is intentionally NOT listed here because
+// it is not yet enforced client-side — it stays marketing copy only until it is.
+export type PremiumEntitlementKey =
+  | 'advancedStatistics'
+  | 'medicalExport'
+  | 'unlimitedHistory'
+  | 'premiumThemes';
+
+export const PREMIUM_ENTITLEMENT_LABELS: Record<PremiumEntitlementKey, string> = {
+  advancedStatistics: 'Statistiques avancées',
+  medicalExport: 'Exports santé',
+  unlimitedHistory: 'Historique illimité',
+  premiumThemes: 'Thèmes Premium',
+};
+
 export interface SubscriptionPlan {
   id: string;
   name: string;
@@ -32,6 +52,7 @@ export interface SubscriptionPlan {
   discountPercent?: number;
   originalPrice?: number;
   features: string[];
+  entitlements: PremiumEntitlementKey[];
   active: boolean;
   badge?: string;
   displayOrder: number;

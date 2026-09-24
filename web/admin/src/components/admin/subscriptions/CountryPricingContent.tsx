@@ -198,6 +198,9 @@ export default function CountryPricingContent({
       <AnimatePresence>
         {dialog && (
           <CountryPricingModal
+            key={
+              dialog.type === 'edit' || dialog.type === 'duplicate' ? dialog.pricing.id : 'create'
+            }
             pricing={
               dialog.type === 'edit' || dialog.type === 'duplicate' ? dialog.pricing : undefined
             }
