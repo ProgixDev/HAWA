@@ -48,7 +48,10 @@ export type Country = 'FR' | 'DZ' | 'MA' | 'TN' | 'BE' | 'CA' | 'CH' | 'other';
 
 export type Madhhab = 'neutral' | 'maliki' | 'hanafi' | 'shafii' | 'hanbali' | 'other';
 
-export type ContentType = 'medical' | 'educational' | 'religious';
+// Matches mobile/src/data/libraryContent.ts's real LibraryContentType exactly
+// (medical | religious) — no third "educational" lens exists in the mobile
+// Library, so the Admin taxonomy must not invent one either.
+export type ContentType = 'medical' | 'religious';
 
 export type FeatureFlagEnvironment = 'development' | 'staging' | 'production';
 
