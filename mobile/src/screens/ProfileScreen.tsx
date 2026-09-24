@@ -93,6 +93,7 @@ import {
 import {
   computeConfirmedPeriodDurationDays,
   findLatestConfirmedPeriod,
+  parsePeriodStart,
 } from '../utils/irregularDailyTrackingMath';
 import {
   computeCyclePredictionStatus,
@@ -317,11 +318,33 @@ const SPIRITUAL_FEATURES = [
  * HELPERS
  * ============================================================ */
 
-const formatShortDate = (date: Date) =>
-  new Intl.DateTimeFormat('fr-FR', {
-    day: 'numeric',
-    month: 'long',
-  }).format(date);
+// Defensive against an Invalid Date (e.g. built from a missing/malformed
+// legacy AsyncStorage value) — Intl.DateTimeFormat.format() throws
+// "RangeError: Invalid time value" on an invalid Date, which used to crash
+// ProfileScreen. Returns null instead so each call site can show its own
+// contextual fallback text.
+const formatShortDate = (date: Date): string | null =>
+  Number.isNaN(date.getTime())
+    ? null
+    : new Intl.DateTimeFormat('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+      }).format(date);
+
+// Defensive parser for date-only values (YYYY-MM-DD) persisted by AWA's
+// preference stores (contraception/postpartum/miscarriage) — same
+// local-noon anchor as PersonalInformationScreen.tsx's formatBirthDate, so
+// a stored calendar date never shifts by a day from a UTC rollover. Returns
+// null — never an Invalid Date — for a missing, empty or malformed value,
+// so callers can show their existing "Non renseigné(e)" fallback instead of
+// crashing.
+const parseStoredDateOnly = (value: string | null | undefined): Date | null => {
+  if (!value) {
+    return null;
+  }
+  const parsed = new Date(`${value}T12:00:00`);
+  return Number.isNaN(parsed.getTime()) ? null : parsed;
+};
 
 /* ============================================================
  * STAT CARD
@@ -1141,9 +1164,9 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
       computeCyclePredictionStatus(
         cycle,
         cycle.regularity,
-        getPeriodHistory().map(
-          record => new Date(`${record.startDate}T12:00:00`),
-        ),
+        getPeriodHistory()
+          .map(record => new Date(`${record.startDate}T12:00:00`))
+          .filter(date => !Number.isNaN(date.getTime())),
         getCycleObservationStartedAt(),
         canonicalStartOfDay(new Date()),
       ),
@@ -1152,7 +1175,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
   const nextPeriodValue = (() => {
     if (nextPeriodStatus.mode === 'exact') {
-      return formatShortDate(nextPeriodStatus.date);
+      return formatShortDate(nextPeriodStatus.date) ?? 'Non renseignée';
     }
     if (nextPeriodStatus.mode === 'window') {
       return nextPeriodStatus.isLate
@@ -1204,9 +1227,25 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     return days ? `${days} ${days > 1 ? 'jours' : 'jour'}` : 'Non renseignée';
   })();
 
-  const irregularLastPeriodValue = latestConfirmedPeriod
-    ? formatShortDate(new Date(`${latestConfirmedPeriod.periodStart}T12:00:00`))
-    : 'Non renseignées';
+  // latestConfirmedPeriod.periodStart is stored as a FULL ISO datetime (see
+  // confirmedPeriodHistoryStore.ts's recordConfirmedPeriodEnd — periodStart.
+  // toISOString()), not a bare date-only string. Appending "T12:00:00" to it
+  // (as this used to) built a malformed double-suffix string
+  // ("...T00:00:00.000ZT12:00:00"), which the Date constructor turns into an
+  // Invalid Date — crashing formatShortDate's Intl.DateTimeFormat().format()
+  // call with "RangeError: Invalid time value" for every user with at least
+  // one confirmed period. parsePeriodStart (shared with
+  // computeConfirmedPeriodDurationDays) handles both that format and a bare
+  // date-only string safely.
+  const irregularLastPeriodValue = (() => {
+    if (!latestConfirmedPeriod) {
+      return 'Non renseignées';
+    }
+    const parsed = parsePeriodStart(latestConfirmedPeriod.periodStart);
+    return Number.isNaN(parsed.getTime())
+      ? 'Non renseignées'
+      : formatShortDate(parsed) ?? 'Non renseignées';
+  })();
 
   const [hijriToday, setHijriToday] = useState(() => formatHijriDate(new Date()));
   useFocusEffect(
@@ -1577,13 +1616,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <StatCard
                 icon="calendar-check-outline"
                 label="Début du suivi"
-                value={
-                  contraception.methodStartDate
-                    ? formatFullDate(
-                        new Date(`${contraception.methodStartDate}T12:00:00`),
-                      )
-                    : 'Non renseigné'
-                }
+                value={(() => {
+                  const parsed = parseStoredDateOnly(contraception.methodStartDate);
+                  return parsed ? formatFullDate(parsed) : 'Non renseigné';
+                })()}
               />
 
               <StatCard
@@ -1609,13 +1645,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <StatCard
                 icon="calendar-month-outline"
                 label="Accouchement"
-                value={
-                  postpartum.deliveryDate
-                    ? formatFullDate(
-                        new Date(`${postpartum.deliveryDate}T12:00:00`),
-                      )
-                    : 'Non renseigné'
-                }
+                value={(() => {
+                  const parsed = parseStoredDateOnly(postpartum.deliveryDate);
+                  return parsed ? formatFullDate(parsed) : 'Non renseigné';
+                })()}
               />
 
               <StatCard
@@ -1650,13 +1683,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <StatCard
                 icon="calendar-heart"
                 label="Date de l’événement"
-                value={
-                  miscarriage.miscarriageDate
-                    ? formatFullDate(
-                        new Date(`${miscarriage.miscarriageDate}T12:00:00`),
-                      )
-                    : 'Non renseignée'
-                }
+                value={(() => {
+                  const parsed = parseStoredDateOnly(miscarriage.miscarriageDate);
+                  return parsed ? formatFullDate(parsed) : 'Non renseignée';
+                })()}
               />
 
               <StatCard
@@ -1681,16 +1711,21 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 }
               />
 
-              {miscarriage.cycleReturnStatus === 'yes' &&
-              miscarriage.firstReturnedPeriodDate ? (
-                <StatCard
-                  icon="calendar-check-outline"
-                  label="Date du retour des règles"
-                  value={formatFullDate(
-                    new Date(`${miscarriage.firstReturnedPeriodDate}T12:00:00`),
-                  )}
-                />
-              ) : null}
+              {(() => {
+                if (miscarriage.cycleReturnStatus !== 'yes') {
+                  return null;
+                }
+                const parsed = parseStoredDateOnly(
+                  miscarriage.firstReturnedPeriodDate,
+                );
+                return parsed ? (
+                  <StatCard
+                    icon="calendar-check-outline"
+                    label="Date du retour des règles"
+                    value={formatFullDate(parsed)}
+                  />
+                ) : null;
+              })()}
 
               <StatCard
                 icon="heart-outline"
@@ -2578,9 +2613,18 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <View style={styles.accountInfoRow}>
                   <Text style={styles.accountInfoLabel}>Créé le</Text>
                   <Text style={styles.accountInfoValue}>
-                    {anonymousAccount
-                      ? formatFullDate(new Date(anonymousAccount.createdAt))
-                      : '—'}
+                    {(() => {
+                      if (!anonymousAccount) {
+                        return '—';
+                      }
+                      // createdAt is a full ISO timestamp (see
+                      // securityPreferences.ts) — a plain validity check is
+                      // enough, no date-only noon anchor needed here.
+                      const created = new Date(anonymousAccount.createdAt);
+                      return Number.isNaN(created.getTime())
+                        ? '—'
+                        : formatFullDate(created);
+                    })()}
                   </Text>
                 </View>
 

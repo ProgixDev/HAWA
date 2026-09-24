@@ -11,6 +11,11 @@ import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
 import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
+import {setSelectedObjective} from '../../state/onboardingPreferences';
+import {
+  recordConfirmedPeriodEnd,
+  removeConfirmedPeriodOccurrence,
+} from '../../state/confirmedPeriodHistoryStore';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -214,5 +219,64 @@ describe('ProfileScreen — identity mode reacts to securityPreferences.anonymou
     });
     expect(renderer.root.findAll(node => node.props.children === 'Mode Anonyme').length).toBe(0);
     expect(renderer.root.findAll(node => node.props.children === 'MON PROFIL').length).toBeGreaterThan(0);
+  });
+});
+
+/* ============================================================
+   REGRESSION — "Invalid time value" crash on the SOPK ("Cycles
+   irréguliers") objective's "Dernières règles" stat. Root cause:
+   confirmedPeriodHistoryStore.ts persists periodStart as a FULL ISO
+   datetime (periodStart.toISOString()), but ProfileScreen used to append
+   another "T12:00:00" to it before parsing, building an unparsable
+   double-suffix string -> Invalid Date -> Intl.DateTimeFormat().format()
+   throwing RangeError: Invalid time value for every user with at least one
+   confirmed period. This reproduces the exact real-world data shape (not
+   the bare YYYY-MM-DD fixtures irregularDailyTrackingMath.test.ts uses) to
+   prove the fix.
+============================================================ */
+
+describe('ProfileScreen — SOPK confirmed-period date rendering (regression)', () => {
+  it('renders "Dernières règles" from a real confirmed period without throwing "Invalid time value"', async () => {
+    const periodStart = new Date(2026, 7, 19); // 19 August 2026
+    const periodEnd = new Date(2026, 7, 24);
+
+    await act(async () => {
+      await setSelectedObjective('irregular');
+      await recordConfirmedPeriodEnd(periodStart, periodEnd);
+    });
+
+    // If formatShortDate/parsePeriodStart regressed, this throws
+    // "RangeError: Invalid time value" instead of resolving.
+    const renderer = await renderScreen();
+
+    expect(
+      renderer.root.findAll(node => node.props.children === 'Dernières règles').length,
+    ).toBeGreaterThan(0);
+    expect(
+      renderer.root.findAll(
+        node => typeof node.props.children === 'string' && node.props.children.includes('19 août'),
+      ).length,
+    ).toBeGreaterThan(0);
+
+    await act(async () => {
+      await removeConfirmedPeriodOccurrence(periodStart);
+      await setSelectedObjective('cycle');
+    });
+  });
+
+  it('falls back to "Non renseignées" — never a crash — when the stored record is missing entirely', async () => {
+    await act(async () => {
+      await setSelectedObjective('irregular');
+    });
+
+    const renderer = await renderScreen();
+
+    expect(
+      renderer.root.findAll(node => node.props.children === 'Non renseignées').length,
+    ).toBeGreaterThan(0);
+
+    await act(async () => {
+      await setSelectedObjective('cycle');
+    });
   });
 });

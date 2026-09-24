@@ -145,6 +145,11 @@ describe('computeConfirmedPeriodDurationDays', () => {
     const corrupted = occurrence('a', '2026-08-19', '2026-08-10T18:00:00.000Z');
     expect(computeConfirmedPeriodDurationDays(corrupted)).toBeNull();
   });
+
+  it('handles a periodStart stored as a full ISO datetime — the real format recordConfirmedPeriodEnd persists, not the bare YYYY-MM-DD used above — without producing an Invalid Date', () => {
+    const period = occurrence('a', '2026-08-19T00:00:00.000Z', '2026-08-25T18:00:00.000Z');
+    expect(computeConfirmedPeriodDurationDays(period)).toBe(7);
+  });
 });
 
 describe('prioritizeIrregularCategories', () => {
