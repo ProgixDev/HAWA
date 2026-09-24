@@ -9,7 +9,6 @@ import {
   ArrowRight,
   BarChart3,
   Check,
-  ChevronDown,
   Copy,
   Crown,
   Eye,
@@ -160,15 +159,13 @@ export default function AdminLoginContent() {
       </motion.section>
 
       <section className="relative flex min-h-[100dvh] w-full min-w-0 flex-1 overflow-y-auto bg-[#faf8f4] px-5 py-6 sm:px-8 md:h-[100dvh] md:min-h-0 md:w-auto md:px-7 lg:px-10 lg:py-7 xl:px-14">
-        <button
-          type="button"
-          className="absolute right-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-[#e5ded4] bg-white/60 px-3 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#655f68] transition-colors hover:border-[#cabca9] hover:text-[#4a3f55] sm:right-8 sm:top-7 xl:right-10"
-          aria-label="Langue : français"
+        <span
+          className="absolute right-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-[#e5ded4] bg-white/60 px-3 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#655f68] sm:right-8 sm:top-7 xl:right-10"
+          title="AWA Admin est disponible en français uniquement"
         >
           <Globe2 size={14} strokeWidth={1.7} />
           FR
-          <ChevronDown size={12} strokeWidth={1.7} />
-        </button>
+        </span>
 
         <motion.div
           initial={{ opacity: 0, y: 18 }}
@@ -265,7 +262,9 @@ export default function AdminLoginContent() {
                 </label>
                 <button
                   type="button"
-                  className="text-[11px] font-semibold text-[#75618c] transition-colors hover:text-[#554465]"
+                  disabled
+                  title="Disponible après connexion du service d’authentification"
+                  className="cursor-not-allowed text-[11px] font-semibold text-[#a39da8]"
                 >
                   Mot de passe oublié ?
                 </button>

@@ -1,14 +1,12 @@
 'use client';
 
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  AlertTriangle,
   ArrowDown,
   ArrowUp,
   ArrowUpDown,
-  Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -16,7 +14,6 @@ import {
   Download,
   Eye,
   Filter,
-  KeyRound,
   MoreHorizontal,
   Pencil,
   RotateCcw,
@@ -25,7 +22,6 @@ import {
   Trash2,
   UserRoundX,
   UsersRound,
-  X,
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { mockUsers } from '@/data/mock/users';
@@ -35,12 +31,6 @@ type SortKey = 'name' | 'createdAt' | 'accountType' | 'lastActiveAt';
 type SortDirection = 'asc' | 'desc';
 type PremiumFilter = 'all' | 'active' | 'expired' | 'none';
 type AccountFilter = 'all' | 'registered' | 'anonymous';
-type ConfirmAction = 'toggle' | 'suspend' | 'delete';
-
-type ModalState =
-  | { type: 'details' | 'edit' | 'subscription' | 'reset'; userId: string }
-  | { type: 'confirm'; userId: string; action: ConfirmAction }
-  | null;
 
 interface Filters {
   search: string;
@@ -426,216 +416,6 @@ function SortableHeader({
   );
 }
 
-function ModalShell({
-  title,
-  subtitle,
-  onClose,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  onClose: () => void;
-  children: React.ReactNode;
-}) {
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    closeButtonRef.current?.focus();
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-[#2b2232]/45 p-4 backdrop-blur-[2px]"
-      onMouseDown={(event) => {
-        if (event.target === event.currentTarget) onClose();
-      }}
-    >
-      <motion.section
-        initial={{ opacity: 0, y: 14, scale: 0.985 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        exit={{ opacity: 0, y: 8, scale: 0.99 }}
-        transition={{ duration: 0.18 }}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="user-modal-title"
-        className="max-h-[90vh] w-full max-w-[560px] overflow-y-auto rounded-[20px] border border-border bg-[#fcfaf7] shadow-modal"
-      >
-        <header className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6">
-          <div>
-            <h2
-              id="user-modal-title"
-              className="font-display text-lg font-semibold text-foreground"
-            >
-              {title}
-            </h2>
-            {subtitle && <p className="mt-1 text-xs text-muted-foreground">{subtitle}</p>}
-          </div>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            onClick={onClose}
-            className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/25"
-            aria-label="Fermer"
-          >
-            <X size={17} />
-          </button>
-        </header>
-        {children}
-      </motion.section>
-    </motion.div>
-  );
-}
-
-function UserDetails({ user }: { user: ManagedUser }) {
-  const details = [
-    ['E-mail', user.email ?? '—'],
-    ['Identifiant', user.displayId],
-    ['Pays', `${COUNTRY_META[user.country].flag} ${COUNTRY_META[user.country].label}`],
-    ['Inscription', formatDate(user.createdAt)],
-    ['Statut', STATUS_META[user.status].label],
-    ['Type de compte', getAccountType(user).label],
-    ['Objectif actuel', OBJECTIVE_META[user.objective].label],
-    ['Repères spirituels', user.spiritualMode ? 'Activés' : 'Désactivés'],
-    ['Dernière activité', formatDate(user.lastActiveAt)],
-    ['Échéance premium', formatDate(user.premiumExpiresAt)],
-    ['Suivi', user.notificationOptIn ? 'Actif' : 'Inactif'],
-  ];
-
-  return (
-    <div className="p-5 sm:p-6">
-      <div className="mb-5 flex items-center gap-3 rounded-2xl border border-border bg-white p-4">
-        <div
-          className={`flex h-12 w-12 items-center justify-center rounded-full text-sm font-bold ${AVATAR_COLORS[user.name.length % AVATAR_COLORS.length]}`}
-        >
-          {getInitials(user.name)}
-        </div>
-        <div className="min-w-0">
-          <p className="truncate font-display text-base font-semibold text-foreground">
-            {user.name}
-          </p>
-          <p className="truncate text-xs text-muted-foreground">{user.email}</p>
-        </div>
-      </div>
-      <dl className="grid gap-3 sm:grid-cols-2">
-        {details.map(([label, value]) => (
-          <div key={label} className="rounded-xl bg-[#f5f2f5] px-3.5 py-3">
-            <dt className="text-[9px] font-semibold uppercase tracking-[0.09em] text-muted-foreground">
-              {label}
-            </dt>
-            <dd className="mt-1 break-words text-xs font-medium text-foreground">{value}</dd>
-          </div>
-        ))}
-      </dl>
-    </div>
-  );
-}
-
-function EditUserForm({
-  user,
-  onCancel,
-  onSave,
-}: {
-  user: ManagedUser;
-  onCancel: () => void;
-  onSave: (
-    values: Pick<ManagedUser, 'name' | 'status' | 'objective' | 'plan' | 'billingCycle'>
-  ) => void;
-}) {
-  const [name, setName] = useState(user.name);
-  const [status, setStatus] = useState<UserStatus>(user.status);
-  const [objective, setObjective] = useState<UserObjective>(user.objective);
-  const [plan, setPlan] = useState(user.plan);
-  const [billingCycle, setBillingCycle] = useState<'monthly' | 'annual'>(
-    user.billingCycle ?? 'monthly'
-  );
-
-  return (
-    <form
-      className="space-y-4 p-5 sm:p-6"
-      onSubmit={(event) => {
-        event.preventDefault();
-        onSave({
-          name: name.trim(),
-          status,
-          objective,
-          plan,
-          billingCycle: plan === 'PREMIUM' ? billingCycle : undefined,
-        });
-      }}
-    >
-      <div className="rounded-xl border border-[#e6dfd0] bg-[#fbf6eb] px-3.5 py-3 text-[11px] leading-relaxed text-[#806b48]">
-        Aucun service de modification des comptes n’est connecté. Les champs sont consultables, mais
-        aucune mise à jour ne sera simulée localement.
-      </div>
-      <label className="block">
-        <span className="mb-1.5 block text-xs font-semibold text-foreground">Nom complet</span>
-        <input
-          required
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          className="h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
-        />
-      </label>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <FilterSelect
-          label="Statut"
-          value={status}
-          onChange={(value) => setStatus(value as UserStatus)}
-        >
-          {Object.entries(STATUS_META).map(([value, meta]) => (
-            <option key={value} value={value}>
-              {meta.label}
-            </option>
-          ))}
-        </FilterSelect>
-        <FilterSelect
-          label="Objectif actuel"
-          value={objective}
-          onChange={(value) => setObjective(value as UserObjective)}
-        >
-          {Object.entries(OBJECTIVE_META).map(([value, meta]) => (
-            <option key={value} value={value}>
-              {meta.label}
-            </option>
-          ))}
-        </FilterSelect>
-        <FilterSelect
-          label="Type de compte"
-          value={plan}
-          onChange={(value) => setPlan(value as ManagedUser['plan'])}
-        >
-          <option value="FREE">Gratuit</option>
-          <option value="PREMIUM">Premium</option>
-        </FilterSelect>
-        <FilterSelect
-          label="Facturation"
-          value={billingCycle}
-          onChange={(value) => setBillingCycle(value as 'monthly' | 'annual')}
-        >
-          <option value="monthly">Mensuelle</option>
-          <option value="annual">Annuelle</option>
-        </FilterSelect>
-      </div>
-      <div className="flex justify-end gap-2 border-t border-border pt-4">
-        <button type="button" onClick={onCancel} className="btn-secondary h-10">
-          Annuler
-        </button>
-        <button type="submit" className="btn-primary h-10">
-          Enregistrer localement
-        </button>
-      </div>
-    </form>
-  );
-}
-
 export default function UsersContent() {
   const router = useRouter();
   const [users] = useState<ManagedUser[]>(() => mockUsers.map((user) => ({ ...user })));
@@ -646,7 +426,6 @@ export default function UsersContent() {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [actionMenu, setActionMenu] = useState<ActionMenuState | null>(null);
-  const [modal, setModal] = useState<ModalState>(null);
 
   useEffect(() => {
     if (!actionMenu) return;
@@ -720,7 +499,6 @@ export default function UsersContent() {
   const safePage = Math.min(page, totalPages);
   const pageStart = (safePage - 1) * rowsPerPage;
   const visibleUsers = sortedUsers.slice(pageStart, pageStart + rowsPerPage);
-  const selectedUser = modal ? users.find((user) => user.id === modal.userId) : undefined;
   const hasActiveFilters = Object.entries(filters).some(([key, value]) =>
     key === 'search' ? Boolean(value) : value !== 'all'
   );
@@ -799,24 +577,6 @@ export default function UsersContent() {
     toast.success(
       `${filteredUsers.length} utilisatrice${filteredUsers.length > 1 ? 's' : ''} exportée${filteredUsers.length > 1 ? 's' : ''}`
     );
-  };
-
-  const applyConfirmation = (_user: ManagedUser, _action: ConfirmAction) => {
-    toast.error(
-      'Aucun service de gestion des comptes n’est connecté. Aucune modification n’a été appliquée.'
-    );
-    setModal(null);
-    setActionMenu(null);
-  };
-
-  const saveUser = (
-    values: Pick<ManagedUser, 'name' | 'status' | 'objective' | 'plan' | 'billingCycle'>
-  ) => {
-    void values;
-    toast.error(
-      'Aucun service de gestion des comptes n’est connecté. Aucune modification n’a été appliquée.'
-    );
-    setModal(null);
   };
 
   const actionUser = actionMenu ? users.find((user) => user.id === actionMenu.userId) : undefined;
@@ -1271,147 +1031,6 @@ export default function UsersContent() {
               Supprimer
             </button>
           </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {modal && selectedUser && modal.type === 'details' && (
-          <ModalShell
-            title="Profil de l’utilisatrice"
-            subtitle="Informations générales du compte"
-            onClose={() => setModal(null)}
-          >
-            <UserDetails user={selectedUser} />
-          </ModalShell>
-        )}
-        {modal && selectedUser && modal.type === 'edit' && (
-          <ModalShell
-            title="Modifier l’utilisatrice"
-            subtitle={selectedUser.email}
-            onClose={() => setModal(null)}
-          >
-            <EditUserForm
-              key={selectedUser.id}
-              user={selectedUser}
-              onCancel={() => setModal(null)}
-              onSave={saveUser}
-            />
-          </ModalShell>
-        )}
-        {modal && selectedUser && modal.type === 'subscription' && (
-          <ModalShell
-            title="Abonnement"
-            subtitle={selectedUser.name}
-            onClose={() => setModal(null)}
-          >
-            <div className="space-y-3 p-5 sm:p-6">
-              <div className="flex items-center gap-3 rounded-2xl border border-border bg-white p-4">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-ghost text-primary">
-                  <CreditCard size={18} />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-foreground">
-                    {getAccountType(selectedUser).label}
-                  </p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    {getPremiumState(selectedUser) === 'none'
-                      ? 'Aucun abonnement premium'
-                      : `Échéance : ${formatDate(selectedUser.premiumExpiresAt)}`}
-                  </p>
-                </div>
-              </div>
-              <dl className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-xl bg-[#f5f2f5] p-3">
-                  <dt className="text-[9px] uppercase tracking-wider text-muted-foreground">
-                    Statut
-                  </dt>
-                  <dd className="mt-1 text-xs font-semibold text-foreground">
-                    {getPremiumState(selectedUser) === 'active'
-                      ? 'Actif'
-                      : getPremiumState(selectedUser) === 'expired'
-                        ? 'Expiré'
-                        : 'Aucun'}
-                  </dd>
-                </div>
-                <div className="rounded-xl bg-[#f5f2f5] p-3">
-                  <dt className="text-[9px] uppercase tracking-wider text-muted-foreground">
-                    Fournisseur
-                  </dt>
-                  <dd className="mt-1 text-xs font-semibold capitalize text-foreground">
-                    {selectedUser.subscriptionProvider ?? '—'}
-                  </dd>
-                </div>
-              </dl>
-            </div>
-          </ModalShell>
-        )}
-        {modal && selectedUser && modal.type === 'reset' && (
-          <ModalShell
-            title="Réinitialiser le mot de passe"
-            subtitle={selectedUser.email}
-            onClose={() => setModal(null)}
-          >
-            <div className="p-5 sm:p-6">
-              <div className="flex items-start gap-3 rounded-xl border border-[#e6dfd0] bg-[#fbf6eb] p-4">
-                <KeyRound size={18} className="mt-0.5 flex-shrink-0 text-[#9a7b49]" />
-                <div>
-                  <p className="text-xs font-semibold text-[#6f5d40]">Connexion backend requise</p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-[#806f55]">
-                    Aucun service d’authentification utilisateur n’est configuré dans ce projet.
-                    Aucune réinitialisation n’a été envoyée.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-5 flex justify-end">
-                <button type="button" onClick={() => setModal(null)} className="btn-secondary h-10">
-                  Fermer
-                </button>
-              </div>
-            </div>
-          </ModalShell>
-        )}
-        {modal && selectedUser && modal.type === 'confirm' && (
-          <ModalShell
-            title={
-              modal.action === 'delete'
-                ? 'Supprimer l’utilisatrice ?'
-                : modal.action === 'suspend'
-                  ? 'Suspendre le compte ?'
-                  : selectedUser.status === 'active'
-                    ? 'Désactiver le compte ?'
-                    : 'Activer le compte ?'
-            }
-            subtitle={selectedUser.name}
-            onClose={() => setModal(null)}
-          >
-            <div className="p-5 sm:p-6">
-              <div className="flex items-start gap-3 rounded-xl border border-[#efddd8] bg-[#fbefec] p-4">
-                <AlertTriangle size={18} className="mt-0.5 flex-shrink-0 text-[#b46b60]" />
-                <div>
-                  <p className="text-xs font-semibold text-[#84554e]">Confirmation requise</p>
-                  <p className="mt-1 text-[11px] leading-relaxed text-[#8d6761]">
-                    {modal.action === 'delete'
-                      ? 'La suppression nécessite un service backend sécurisé.'
-                      : 'La modification du statut nécessite une confirmation serveur.'}{' '}
-                    Aucun backend n’est configuré : aucune action ne sera simulée localement.
-                  </p>
-                </div>
-              </div>
-              <div className="mt-5 flex justify-end gap-2">
-                <button type="button" onClick={() => setModal(null)} className="btn-secondary h-10">
-                  Annuler
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyConfirmation(selectedUser, modal.action)}
-                  className={`inline-flex h-10 items-center justify-center gap-2 rounded-xl px-4 text-xs font-semibold text-white ${modal.action === 'delete' || modal.action === 'suspend' ? 'bg-[#a65f58] hover:bg-[#92514b]' : 'bg-primary hover:bg-primary-light'}`}
-                >
-                  {modal.action === 'delete' ? <Trash2 size={14} /> : <Check size={14} />}
-                  {modal.action === 'delete' ? 'Confirmer la suppression' : 'Confirmer'}
-                </button>
-              </div>
-            </div>
-          </ModalShell>
         )}
       </AnimatePresence>
     </motion.div>

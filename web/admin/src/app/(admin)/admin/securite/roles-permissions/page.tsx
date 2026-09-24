@@ -1,6 +1,6 @@
 import React from 'react';
-import AdminRouteNotice from '@/components/admin/AdminRouteNotice';
+import RolesPermissionsContent from '@/components/admin/security/RolesPermissionsContent';
 
 export default function RolesPermissionsPage() {
-  return <AdminRouteNotice section="Sécurité" title="Rôles & permissions" />;
+  return <RolesPermissionsContent />;
 }
