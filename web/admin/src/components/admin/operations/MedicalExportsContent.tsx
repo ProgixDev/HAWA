@@ -2,7 +2,16 @@
 
 import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Eye, Plus, RefreshCw, RotateCcw, ShieldCheck, Trash2, XCircle } from 'lucide-react';
+import {
+  Download,
+  Eye,
+  Plus,
+  RefreshCw,
+  RotateCcw,
+  ShieldCheck,
+  Trash2,
+  XCircle,
+} from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import type { ManagedUser } from '@/types';
@@ -265,7 +274,7 @@ export default function MedicalExportsContent({
 
   const filteredRequests = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase('fr-FR');
-    const referenceTime = new Date('2026-09-06T23:59:59Z').getTime();
+    const referenceTime = Date.now();
     const dayLimits: Record<Exclude<DateFilter, 'all'>, number> = { '7d': 7, '30d': 30, '90d': 90 };
     const items = requests.filter((request) => {
       const searchable =
@@ -554,6 +563,17 @@ export default function MedicalExportsContent({
                           <ActionButton onClick={() => setDetails(request)}>
                             <Eye size={14} /> Voir les détails
                           </ActionButton>
+                          {request.status === 'completed' && (
+                            <ActionButton
+                              onClick={() =>
+                                toast.info(
+                                  'Le fichier sera disponible lorsque le service d’export sera connecté.'
+                                )
+                              }
+                            >
+                              <Download size={14} /> Télécharger
+                            </ActionButton>
+                          )}
                           {request.status === 'failed' && (
                             <ActionButton
                               onClick={() => {

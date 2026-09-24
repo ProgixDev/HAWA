@@ -380,7 +380,7 @@ export default function SupportContent({
 
   const filteredTickets = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase('fr-FR');
-    const referenceTime = new Date('2026-09-06T23:59:59Z').getTime();
+    const referenceTime = Date.now();
     const dayLimits: Record<Exclude<DateFilter, 'all'>, number> = { '7d': 7, '30d': 30, '90d': 90 };
     return tickets
       .filter((ticket) => {
