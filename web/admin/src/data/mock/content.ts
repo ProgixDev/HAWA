@@ -1,5 +1,8 @@
 import type { Article, ContentCategory, MediaAsset, PremiumContentItem } from '@/types';
 
+// `contentType` is restricted to 'medical' | 'religious' (mobile's real
+// LibraryContentType) — articles previously mocked as a third 'educational'
+// type are classified 'medical' here, matching mobile's own taxonomy.
 export const contentCategories: ContentCategory[] = [
   {
     id: 'cat-cycle',
@@ -54,6 +57,21 @@ export const contentCategories: ContentCategory[] = [
     order: 8,
     icon: 'Flower2',
     color: '#9a806a',
+    active: true,
+  },
+  {
+    // Mirrors mobile's real "Après une fausse couche" objective/library area
+    // (mobile/src/screens/ObjectiveScreen.tsx label; mobile/src/data/libraryContent.ts's
+    // physicalRecoveryLoss/emotionalRecoveryLoss/fertilityAfterLoss categories,
+    // all contentType: 'medical') — previously missing from the Admin taxonomy.
+    id: 'cat-fausse-couche',
+    name: 'Après une fausse couche',
+    slug: 'apres-une-fausse-couche',
+    description: 'Récupération physique, émotionnelle et retour de la fertilité.',
+    domain: 'medical',
+    order: 9,
+    icon: 'Leaf',
+    color: '#9a7a8a',
     active: true,
   },
   {
@@ -120,7 +138,7 @@ const articleSeeds: Array<
     category: 'Cycle menstruel',
     objective: 'cycle_menstruel',
     plan: 'FREE',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'published',
     featured: true,
   },
@@ -165,7 +183,7 @@ const articleSeeds: Array<
     category: 'Post-partum',
     objective: 'post_partum',
     plan: 'PREMIUM',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'draft',
     featured: false,
   },
@@ -192,7 +210,7 @@ const articleSeeds: Array<
     category: 'Premières règles',
     objective: 'cycle_menstruel',
     plan: 'FREE',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'published',
     featured: false,
   },
@@ -210,7 +228,7 @@ const articleSeeds: Array<
     category: 'SOPK',
     objective: 'sopk',
     plan: 'PREMIUM',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'published',
     featured: true,
     isProgram: true,
@@ -230,7 +248,7 @@ const articleSeeds: Array<
     category: 'Cycle menstruel',
     objective: 'cycle_menstruel',
     plan: 'FREE',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'archived',
     featured: false,
   },
@@ -248,7 +266,7 @@ const articleSeeds: Array<
     category: 'Post-partum',
     objective: 'post_partum',
     plan: 'PREMIUM',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'review',
     featured: false,
   },
@@ -257,7 +275,7 @@ const articleSeeds: Array<
     category: 'Grossesse',
     objective: 'grossesse',
     plan: 'PREMIUM',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'draft',
     featured: false,
   },
@@ -275,7 +293,7 @@ const articleSeeds: Array<
     category: 'Périménopause & Ménopause',
     objective: 'menopause',
     plan: 'PREMIUM',
-    contentType: 'educational',
+    contentType: 'medical',
     status: 'archived',
     featured: false,
   },

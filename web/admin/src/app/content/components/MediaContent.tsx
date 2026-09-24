@@ -12,7 +12,6 @@ import {
   FileText,
   FileVideo,
   Filter,
-  Link2,
   Pencil,
   RefreshCw,
   Trash2,
@@ -387,7 +386,10 @@ export default function MediaContent() {
                     compact
                     label="Utilisation"
                     value={usage}
-                    onChange={(value) => setUsage(value as typeof usage)}
+                    onChange={(value) => {
+                      setUsage(value as typeof usage);
+                      setPage(1);
+                    }}
                   >
                     <option value="all">Toutes les utilisations</option>
                     <option value="used">Utilisés</option>
@@ -472,9 +474,6 @@ export default function MediaContent() {
                       </ActionButton>
                       <ActionButton onClick={() => setModal({ type: 'replace', item })}>
                         <RefreshCw size={14} /> Remplacer
-                      </ActionButton>
-                      <ActionButton onClick={() => setModal({ type: 'view', item })}>
-                        <Link2 size={14} /> Voir les utilisations
                       </ActionButton>
                       <ActionButton danger onClick={() => setModal({ type: 'delete', item })}>
                         <Trash2 size={14} /> Supprimer

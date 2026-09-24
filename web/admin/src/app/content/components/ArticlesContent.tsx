@@ -11,11 +11,14 @@ import {
   Pencil,
   RotateCcw,
   Send,
+  Smartphone,
   Star,
   Trash2,
+  X,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { contentArticles, contentCategories } from '@/data/mock/content';
+import { contentCategories } from '@/data/mock/content';
+import { useArticlesSession, setArticlesSession } from '@/stores/contentArticlesSessionStore';
 import type { Article, ArticleStatus, ContentType, UserObjective, UserPlan } from '@/types';
 import {
   AccessBadge,
@@ -47,8 +50,9 @@ type ArticleTab = 'all' | 'draft' | 'featured' | 'programs' | 'published' | 'arc
 type ArticleSort = 'title' | 'publishedAt' | 'views' | 'status';
 type ArticleModal =
   | { type: 'create' }
-  | { type: 'edit' | 'view'; article: Article }
+  | { type: 'edit' | 'view' | 'preview'; article: Article }
   | { type: 'delete' | 'archive'; article: Article }
+  | { type: 'bulk-delete'; ids: string[] }
   | null;
 
 const articleTabs: Array<{ value: ArticleTab; label: string }> = [
@@ -67,17 +71,29 @@ function normalize(value: string) {
     .toLocaleLowerCase('fr');
 }
 
+function generateUniqueSlug(baseSlug: string, existingSlugs: string[]) {
+  if (!existingSlugs.includes(baseSlug)) return baseSlug;
+  let attempt = 2;
+  while (existingSlugs.includes(`${baseSlug}-${attempt}`)) {
+    attempt += 1;
+  }
+  return `${baseSlug}-${attempt}`;
+}
+
 function ArticleForm({
   article,
+  existingSlugs,
   onCancel,
   onSave,
 }: {
   article?: Article;
+  existingSlugs: string[];
   onCancel: () => void;
   onSave: (article: Article) => void;
 }) {
   const [title, setTitle] = useState(article?.title ?? '');
   const [slug, setSlug] = useState(article?.slug ?? '');
+  const [slugError, setSlugError] = useState('');
   const [shortDescription, setShortDescription] = useState(article?.shortDescription ?? '');
   const [content, setContent] = useState(article?.content ?? '');
   const [coverImage, setCoverImage] = useState(article?.coverImage ?? '');
@@ -85,9 +101,7 @@ function ArticleForm({
   const [objective, setObjective] = useState<UserObjective>(
     article?.objective ?? 'cycle_menstruel'
   );
-  const [contentType, setContentType] = useState<ContentType>(
-    article?.contentType ?? 'educational'
-  );
+  const [contentType, setContentType] = useState<ContentType>(article?.contentType ?? 'medical');
   const [plan, setPlan] = useState<UserPlan>(article?.plan ?? 'FREE');
   const [status, setStatus] = useState<ArticleStatus>(article?.status ?? 'draft');
   const [featured, setFeatured] = useState(article?.featured ?? false);
@@ -100,11 +114,20 @@ function ArticleForm({
       className="space-y-5 p-5 sm:p-6"
       onSubmit={(event) => {
         event.preventDefault();
+        const finalSlug = slug.trim() || makeSlug(title);
+        const isDuplicate = existingSlugs.some(
+          (item) => item === finalSlug && item !== article?.slug
+        );
+        if (isDuplicate) {
+          setSlugError('Ce slug est déjà utilisé par un autre article.');
+          return;
+        }
+        setSlugError('');
         const now = new Date().toISOString();
         onSave({
           id: article?.id ?? `article-session-${Date.now()}`,
           title: title.trim(),
-          slug: slug.trim() || makeSlug(title),
+          slug: finalSlug,
           shortDescription: shortDescription.trim(),
           content: content.trim(),
           coverImage: coverImage.trim() || undefined,
@@ -147,9 +170,17 @@ function ArticleForm({
           <input
             required
             value={slug}
-            onChange={(event) => setSlug(event.target.value)}
+            onChange={(event) => {
+              setSlug(event.target.value);
+              setSlugError('');
+            }}
             className={inputClassName}
           />
+          {slugError && (
+            <p role="alert" className="mt-1 text-xs text-danger">
+              {slugError}
+            </p>
+          )}
         </label>
         <label>
           <FieldLabel>Auteur</FieldLabel>
@@ -280,8 +311,78 @@ function ArticleForm({
   );
 }
 
+function ArticlePreviewFrame({ article }: { article: Article }) {
+  const paragraphs = (article.content ?? '')
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+
+  return (
+    <div className="flex justify-center bg-[#f3eef6] p-5 sm:p-8">
+      <div className="w-full max-w-[300px] rounded-[36px] border-[6px] border-[#2b2232] bg-white shadow-modal">
+        <div className="mx-auto mt-2.5 h-1 w-14 rounded-full bg-[#2b2232]/70" />
+        <div className="max-h-[520px] overflow-y-auto px-4 pb-6 pt-3">
+          <div className="flex h-36 w-full items-center justify-center overflow-hidden rounded-[18px] bg-gradient-to-br from-primary-pale to-[#eee8f3] text-primary/60">
+            {article.coverImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={article.coverImage}
+                alt=""
+                className="h-full w-full object-cover"
+                onError={(event) => {
+                  event.currentTarget.style.display = 'none';
+                }}
+              />
+            ) : (
+              <FileText size={30} aria-hidden="true" />
+            )}
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+            <span className="rounded-full bg-[#f1edf3] px-2 py-0.5 text-[9px] font-semibold text-[#6c587c]">
+              {article.category}
+            </span>
+            <AccessBadge plan={article.plan} />
+          </div>
+          <h3 className="mt-2.5 font-display text-base font-semibold leading-snug text-foreground">
+            {article.title}
+          </h3>
+          <p className="mt-1.5 text-[11px] leading-5 text-muted-foreground">
+            {article.shortDescription}
+          </p>
+          <div className="mt-3 space-y-2.5 border-t border-border pt-3">
+            {paragraphs.length ? (
+              paragraphs.map((paragraph, index) => (
+                <p key={index} className="text-[11px] leading-5 text-foreground/80">
+                  {paragraph}
+                </p>
+              ))
+            ) : (
+              <p className="text-[11px] italic leading-5 text-muted-foreground">
+                Aucun contenu rédigé pour le moment.
+              </p>
+            )}
+          </div>
+          {article.tags.length > 0 && (
+            <div className="mt-4 flex flex-wrap gap-1.5">
+              {article.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-[#f8f6f8] px-2 py-0.5 text-[9px] font-medium text-muted-foreground"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ArticlesContent() {
-  const [articles, setArticles] = useState(contentArticles);
+  const articles = useArticlesSession();
+  const setArticles = setArticlesSession;
   const [tab, setTab] = useState<ArticleTab>('all');
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
@@ -295,6 +396,7 @@ export default function ArticlesContent() {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [modal, setModal] = useState<ArticleModal>(null);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const filtered = useMemo(() => {
     const query = normalize(search.trim());
@@ -380,6 +482,56 @@ export default function ArticlesContent() {
       )
     );
     toast.info(message);
+  };
+
+  const toggleSelected = (id: string) => {
+    setSelected((current) => {
+      const next = new Set(current);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+  const allVisibleSelected =
+    visible.length > 0 && visible.every((article) => selected.has(article.id));
+  const toggleSelectPage = () => {
+    setSelected((current) => {
+      const next = new Set(current);
+      if (allVisibleSelected) {
+        visible.forEach((article) => next.delete(article.id));
+      } else {
+        visible.forEach((article) => next.add(article.id));
+      }
+      return next;
+    });
+  };
+  const clearSelection = () => setSelected(new Set());
+  const bulkUpdateStatus = (status: ArticleStatus, message: string) => {
+    const ids = new Set(selected);
+    setArticles((current) =>
+      current.map((article) =>
+        ids.has(article.id)
+          ? {
+              ...article,
+              status,
+              publishedAt: status === 'published' ? new Date().toISOString() : article.publishedAt,
+              updatedAt: new Date().toISOString(),
+            }
+          : article
+      )
+    );
+    toast.info(message);
+    clearSelection();
+  };
+  const bulkDelete = (ids: string[]) => {
+    setArticles((current) => current.filter((article) => !ids.includes(article.id)));
+    toast.info(
+      ids.length > 1
+        ? `${ids.length} articles supprimés de cette session.`
+        : 'Article supprimé de cette session.'
+    );
+    clearSelection();
+    setModal(null);
   };
 
   return (
@@ -526,11 +678,76 @@ export default function ArticlesContent() {
         </AnimatePresence>
       </section>
 
+      <AnimatePresence>
+        {selected.size > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            className="flex flex-wrap items-center gap-3 rounded-[16px] border border-primary/20 bg-primary-ghost px-4 py-3"
+          >
+            <span className="text-xs font-semibold text-primary">
+              {selected.size} article{selected.size > 1 ? 's' : ''} sélectionné
+              {selected.size > 1 ? 's' : ''}
+            </span>
+            <div className="ml-auto flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={() =>
+                  bulkUpdateStatus('published', 'Articles publiés dans cette session.')
+                }
+                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-[11px] font-semibold text-foreground hover:bg-muted"
+              >
+                <Send size={13} /> Publier
+              </button>
+              <button
+                type="button"
+                onClick={() => bulkUpdateStatus('draft', 'Articles dépubliés.')}
+                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-[11px] font-semibold text-foreground hover:bg-muted"
+              >
+                <RotateCcw size={13} /> Dépublier
+              </button>
+              <button
+                type="button"
+                onClick={() => bulkUpdateStatus('archived', 'Articles archivés.')}
+                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-[11px] font-semibold text-foreground hover:bg-muted"
+              >
+                <Archive size={13} /> Archiver
+              </button>
+              <button
+                type="button"
+                onClick={() => setModal({ type: 'bulk-delete', ids: Array.from(selected) })}
+                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-danger/25 bg-white px-3 text-[11px] font-semibold text-danger hover:bg-danger-bg"
+              >
+                <Trash2 size={13} /> Supprimer
+              </button>
+              <button
+                type="button"
+                onClick={clearSelection}
+                className="inline-flex h-9 items-center gap-1 rounded-lg px-2 text-[11px] font-semibold text-muted-foreground hover:text-foreground"
+                aria-label="Annuler la sélection"
+              >
+                <X size={13} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <section className="min-w-0 rounded-[18px] border border-border bg-white shadow-card">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1180px] border-collapse text-left">
             <thead>
               <tr className="border-b border-border bg-[#faf8fa] text-[9px] font-semibold uppercase tracking-[0.07em] text-muted-foreground">
+                <th className="w-10 px-4 py-3.5">
+                  <input
+                    type="checkbox"
+                    aria-label="Sélectionner tous les articles de la page"
+                    checked={allVisibleSelected}
+                    onChange={toggleSelectPage}
+                    className="rounded border-border text-primary focus:ring-primary/20"
+                  />
+                </th>
                 <th className="w-[290px] px-4 py-3.5">
                   <SortButton
                     label="Article"
@@ -576,7 +793,19 @@ export default function ArticlesContent() {
             </thead>
             <tbody className="divide-y divide-border/80">
               {visible.map((article) => (
-                <tr key={article.id} className="hover:bg-[#fbf9fb]">
+                <tr
+                  key={article.id}
+                  className={`hover:bg-[#fbf9fb] ${selected.has(article.id) ? 'bg-primary-ghost/40' : ''}`}
+                >
+                  <td className="px-4 py-3.5">
+                    <input
+                      type="checkbox"
+                      aria-label={`Sélectionner ${article.title}`}
+                      checked={selected.has(article.id)}
+                      onChange={() => toggleSelected(article.id)}
+                      className="rounded border-border text-primary focus:ring-primary/20"
+                    />
+                  </td>
                   <td className="px-4 py-3.5">
                     <div className="flex items-center gap-3">
                       <div className="flex h-11 w-14 shrink-0 items-center justify-center rounded-xl bg-[#eee8f3] text-primary">
@@ -619,16 +848,20 @@ export default function ArticlesContent() {
                       <ActionButton onClick={() => setModal({ type: 'view', article })}>
                         <Eye size={14} /> Voir
                       </ActionButton>
+                      <ActionButton onClick={() => setModal({ type: 'preview', article })}>
+                        <Smartphone size={14} /> Aperçu
+                      </ActionButton>
                       <ActionButton onClick={() => setModal({ type: 'edit', article })}>
                         <Pencil size={14} /> Modifier
                       </ActionButton>
                       <ActionButton
                         onClick={() => {
+                          const existingSlugs = articles.map((item) => item.slug);
                           const duplicate = {
                             ...article,
                             id: `article-session-${Date.now()}`,
                             title: `${article.title} — copie`,
-                            slug: `${article.slug}-copie`,
+                            slug: generateUniqueSlug(`${article.slug}-copie`, existingSlugs),
                             status: 'draft' as ArticleStatus,
                             publishedAt: undefined,
                             views: 0,
@@ -714,7 +947,11 @@ export default function ArticlesContent() {
             subtitle="Créer un contenu éditorial"
             onClose={() => setModal(null)}
           >
-            <ArticleForm onCancel={() => setModal(null)} onSave={saveArticle} />
+            <ArticleForm
+              existingSlugs={articles.map((item) => item.slug)}
+              onCancel={() => setModal(null)}
+              onSave={saveArticle}
+            />
           </Modal>
         )}
         {modal?.type === 'edit' && (
@@ -727,6 +964,7 @@ export default function ArticlesContent() {
             <ArticleForm
               key={modal.article.id}
               article={modal.article}
+              existingSlugs={articles.map((item) => item.slug)}
               onCancel={() => setModal(null)}
               onSave={saveArticle}
             />
@@ -734,7 +972,7 @@ export default function ArticlesContent() {
         )}
         {modal?.type === 'view' && (
           <Modal
-            title="Aperçu de l’article"
+            title="Détails de l’article"
             subtitle={modal.article.category}
             onClose={() => setModal(null)}
           >
@@ -769,6 +1007,15 @@ export default function ArticlesContent() {
             </div>
           </Modal>
         )}
+        {modal?.type === 'preview' && (
+          <Modal
+            title="Aperçu mobile"
+            subtitle="Rendu approximatif tel qu’il apparaît dans l’application AWA"
+            onClose={() => setModal(null)}
+          >
+            <ArticlePreviewFrame article={modal.article} />
+          </Modal>
+        )}
         {modal?.type === 'archive' && (
           <ConfirmDialog
             title="Archiver l’article ?"
@@ -794,6 +1041,15 @@ export default function ArticlesContent() {
               toast.info('Article supprimé de cette session.');
               setModal(null);
             }}
+          />
+        )}
+        {modal?.type === 'bulk-delete' && (
+          <ConfirmDialog
+            title="Supprimer ces articles ?"
+            message={`${modal.ids.length} article${modal.ids.length > 1 ? 's seront supprimés' : ' sera supprimé'} de cette session de démonstration.`}
+            confirmLabel="Supprimer"
+            onCancel={() => setModal(null)}
+            onConfirm={() => bulkDelete(modal.ids)}
           />
         )}
       </AnimatePresence>
