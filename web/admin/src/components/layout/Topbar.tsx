@@ -1,9 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Search, Bell, HelpCircle, ChevronRight, Command, Menu } from 'lucide-react';
+import { Search, Bell, ChevronRight, Menu } from 'lucide-react';
 import { CURRENT_ADMIN } from '@/config/admin';
 import { ADMIN_ROUTES } from '@/config/adminRoutes';
 
@@ -52,7 +53,6 @@ export default function Topbar({
   onMobileMenuToggle,
 }: TopbarProps) {
   const pathname = usePathname();
-  const [searchFocused, setSearchFocused] = useState(false);
   const [notifOpen, setNotifOpen] = useState(false);
 
   const crumbs =
@@ -118,30 +118,21 @@ export default function Topbar({
         ))}
       </nav>
 
-      {/* Search */}
+      {/* Search — no global admin search exists yet; shown as a clearly non-interactive placeholder rather than a dead-looking active field. */}
       <div className="relative hidden md:flex items-center">
-        <motion.div
-          animate={{ width: searchFocused ? 280 : 220 }}
-          transition={{ duration: 0.2, ease: 'easeOut' }}
-          className="relative"
-        >
+        <div className="relative w-[220px]">
           <Search
             size={15}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none"
           />
           <input
             type="search"
-            placeholder="Rechercher..."
-            onFocus={() => setSearchFocused(true)}
-            onBlur={() => setSearchFocused(false)}
-            className="w-full h-9 pl-9 pr-10 rounded-xl border border-border bg-input text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+            disabled
+            placeholder="Recherche bientôt disponible"
+            title="La recherche globale n’est pas encore disponible"
+            className="w-full h-9 pl-9 pr-3 rounded-xl border border-border bg-muted/40 text-sm text-muted-foreground placeholder:text-muted-foreground/70 cursor-not-allowed"
           />
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-0.5 pointer-events-none">
-            <kbd className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-xs border border-border bg-muted text-muted-foreground font-sans">
-              <Command size={10} />K
-            </kbd>
-          </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Actions */}
@@ -196,22 +187,18 @@ export default function Topbar({
                   ))}
                 </div>
                 <div className="p-3 border-t border-border">
-                  <button className="w-full text-center text-xs font-semibold text-primary hover:text-primary-light transition-colors">
+                  <Link
+                    href={ADMIN_ROUTES.notifications.history}
+                    onClick={() => setNotifOpen(false)}
+                    className="block w-full text-center text-xs font-semibold text-primary hover:text-primary-light transition-colors"
+                  >
                     Voir toutes les notifications
-                  </button>
+                  </Link>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
-
-        <button
-          className="p-2 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
-          title="Aide"
-          aria-label="Aide"
-        >
-          <HelpCircle size={18} />
-        </button>
 
         {/* Avatar */}
         <div className="flex items-center gap-2.5 ml-1 pl-3 border-l border-border">
