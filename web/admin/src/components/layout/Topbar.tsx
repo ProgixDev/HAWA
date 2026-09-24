@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Search, Bell, ChevronRight, Menu } from 'lucide-react';
+import { Bell, ChevronRight, Menu } from 'lucide-react';
 import { CURRENT_ADMIN } from '@/config/admin';
 import { ADMIN_ROUTES } from '@/config/adminRoutes';
+import GlobalSearch from './GlobalSearch';
 
 const routeLabels: Record<string, string[]> = {
   [ADMIN_ROUTES.dashboard]: ["Vue d'ensemble"],
@@ -118,22 +119,8 @@ export default function Topbar({
         ))}
       </nav>
 
-      {/* Search — no global admin search exists yet; shown as a clearly non-interactive placeholder rather than a dead-looking active field. */}
-      <div className="relative hidden md:flex items-center">
-        <div className="relative w-[220px]">
-          <Search
-            size={15}
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none"
-          />
-          <input
-            type="search"
-            disabled
-            placeholder="Recherche bientôt disponible"
-            title="La recherche globale n’est pas encore disponible"
-            className="w-full h-9 pl-9 pr-3 rounded-xl border border-border bg-muted/40 text-sm text-muted-foreground placeholder:text-muted-foreground/70 cursor-not-allowed"
-          />
-        </div>
-      </div>
+      {/* Global search over the admin's existing mock/session data — see GlobalSearch.tsx. */}
+      <GlobalSearch />
 
       {/* Actions */}
       <div className="flex items-center gap-1 flex-shrink-0">
