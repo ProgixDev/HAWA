@@ -213,6 +213,71 @@ export const mockAlerts: AlertItem[] = [
   },
 ];
 
+// Period selector support — deterministic scaling, no randomness. Mirrors the
+// same "factor as of period" approach already used by the Analytics page
+// (src/data/mock/adminOperations.ts) so both dashboards behave consistently.
+export type DashboardRangeId = 'today' | '7d' | '30d' | '3m' | '12m';
+
+export const DASHBOARD_RANGES: Array<{ id: DashboardRangeId; label: string }> = [
+  { id: 'today', label: "Aujourd'hui" },
+  { id: '7d', label: '7 jours' },
+  { id: '30d', label: '30 jours' },
+  { id: '3m', label: '3 mois' },
+  { id: '12m', label: '12 mois' },
+];
+
+const dashboardRangeConfig: Record<
+  DashboardRangeId,
+  { label: string; factor: number; trendScale: number; activityCount: number }
+> = {
+  today: { label: "aujourd'hui", factor: 0.018, trendScale: 0.35, activityCount: 3 },
+  '7d': { label: '7 derniers jours', factor: 0.12, trendScale: 0.6, activityCount: 5 },
+  '30d': { label: '30 derniers jours', factor: 1, trendScale: 1, activityCount: 7 },
+  '3m': { label: '3 derniers mois', factor: 2.7, trendScale: 1.4, activityCount: 7 },
+  '12m': { label: '12 derniers mois', factor: 8.6, trendScale: 2.1, activityCount: 7 },
+};
+
+function scaleDashboardValue(value: number, factor: number) {
+  return Math.max(0, Math.round(value * factor));
+}
+
+export function getDashboardSnapshot(range: DashboardRangeId) {
+  const config = dashboardRangeConfig[range];
+  const kpis: KpiMetric[] = mockKpis.map((kpi) => {
+    const change = Number(((kpi.change ?? 0) * config.trendScale).toFixed(1));
+    if (kpi.format === 'percent') {
+      return { ...kpi, change };
+    }
+    const numericValue = typeof kpi.value === 'number' ? kpi.value : Number(kpi.value);
+    return { ...kpi, value: scaleDashboardValue(numericValue, config.factor), change };
+  });
+
+  const userGrowth: ChartDataPoint[] = mockUserGrowthData.map((point) => ({
+    ...point,
+    value: scaleDashboardValue(point.value, config.factor),
+    secondary:
+      point.secondary !== undefined
+        ? scaleDashboardValue(point.secondary, config.factor)
+        : undefined,
+  }));
+
+  const totalUsers = scaleDashboardValue(24846, config.factor);
+  const activity = mockRecentActivity.slice(0, config.activityCount);
+  const objectiveDistribution = mockObjectiveDistribution.map((item) => ({
+    ...item,
+    value: scaleDashboardValue(item.value, config.factor),
+  }));
+
+  return {
+    rangeLabel: config.label,
+    objectiveDistribution,
+    totalUsers,
+    kpis,
+    userGrowth,
+    activity,
+  };
+}
+
 export const mockPremiumConversionData = [
   { month: 'Avr', free: 19840, premium: 3410 },
   { month: 'Mai', free: 20360, premium: 3620 },

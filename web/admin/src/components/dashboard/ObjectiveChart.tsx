@@ -3,7 +3,13 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
-const objectiveData = [
+export interface ObjectiveChartDatum {
+  name: string;
+  value: number;
+  color: string;
+}
+
+const defaultObjectiveData: ObjectiveChartDatum[] = [
   { name: 'Cycle menstruel', value: 8240, color: '#6F5A8A' },
   { name: 'Essayer de concevoir', value: 4180, color: '#8D79A8' },
   { name: 'Contraception', value: 3960, color: '#B8A6CB' },
@@ -14,18 +20,18 @@ const objectiveData = [
   { name: 'Périménopause', value: 706, color: '#6A6270' },
 ];
 
-const total = objectiveData.reduce((s, d) => s + d.value, 0);
-
 function CustomTooltip({
   active,
   payload,
+  total,
 }: {
   active?: boolean;
   payload?: Array<{ name: string; value: number; payload: { color: string } }>;
+  total: number;
 }) {
   if (!active || !payload || !payload.length) return null;
   const d = payload[0];
-  const pct = ((d.value / total) * 100).toFixed(1);
+  const pct = total ? ((d.value / total) * 100).toFixed(1) : '0.0';
   return (
     <div className="bg-card border border-border rounded-xl shadow-dropdown p-3 min-w-[160px]">
       <div className="flex items-center gap-2 mb-1.5">
@@ -43,8 +49,13 @@ function CustomTooltip({
   );
 }
 
-export default function ObjectiveChart() {
+export default function ObjectiveChart({
+  data = defaultObjectiveData,
+}: {
+  data?: ObjectiveChartDatum[];
+}) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const total = data.reduce((sum, item) => sum + item.value, 0);
 
   return (
     <div className="flex flex-col gap-4">
@@ -52,7 +63,7 @@ export default function ObjectiveChart() {
         <ResponsiveContainer width="100%" height={200}>
           <PieChart>
             <Pie
-              data={objectiveData}
+              data={data}
               cx="50%"
               cy="50%"
               innerRadius={55}
@@ -62,7 +73,7 @@ export default function ObjectiveChart() {
               onMouseEnter={(_, index) => setActiveIndex(index)}
               onMouseLeave={() => setActiveIndex(null)}
             >
-              {objectiveData.map((entry, index) => (
+              {data.map((entry, index) => (
                 <Cell
                   key={`cell-obj-${entry.name}`}
                   fill={entry.color}
@@ -71,13 +82,13 @@ export default function ObjectiveChart() {
                 />
               ))}
             </Pie>
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip total={total} />} />
           </PieChart>
         </ResponsiveContainer>
       </div>
 
       <div className="space-y-2">
-        {objectiveData.map((d, idx) => (
+        {data.map((d, idx) => (
           <div
             key={`obj-legend-${d.name}`}
             className="flex items-center gap-2.5 group cursor-default"
@@ -92,7 +103,7 @@ export default function ObjectiveChart() {
               {d.name}
             </span>
             <span className="text-xs font-semibold text-foreground tabular-nums">
-              {((d.value / total) * 100).toFixed(0)}%
+              {(total ? (d.value / total) * 100 : 0).toFixed(0)}%
             </span>
           </div>
         ))}
