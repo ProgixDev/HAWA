@@ -20,6 +20,7 @@ import {
 import AppImage from '@/components/ui/AppImage';
 import AnimatedBackground from './AnimatedBackground';
 import { cn } from '@/lib/utils';
+import { useInViewport } from '@/lib/useInViewport';
 
 const heroScreenshots = [
   {
@@ -131,17 +132,32 @@ const heroFloatingCards = [
 export default function HeroSection() {
   const [currentScreen, setCurrentScreen] = useState(0);
   const phoneRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInViewport(sectionRef);
   const rotateX = useMotionValue(0);
   const rotateY = useMotionValue(0);
   const springX = useSpring(rotateX, { stiffness: 80, damping: 20 });
   const springY = useSpring(rotateY, { stiffness: 80, damping: 20 });
 
+  // Slides are mounted lazily (active + the next one, then kept) so the four screenshots that are
+  // not on screen do not all download and decode during the initial load.
+  const [mountedSlides, setMountedSlides] = useState(() => new Set([0, 1]));
   useEffect(() => {
+    setMountedSlides((prev) => {
+      const upcoming = (currentScreen + 1) % heroScreenshots.length;
+      if (prev.has(currentScreen) && prev.has(upcoming)) return prev;
+      return new Set(prev).add(currentScreen).add(upcoming);
+    });
+  }, [currentScreen]);
+
+  // No timer (and no re-render every 3.5s) while the hero is scrolled out of view.
+  useEffect(() => {
+    if (!inView) return;
     const interval = setInterval(() => {
       setCurrentScreen((prev) => (prev + 1) % heroScreenshots.length);
     }, 3500);
     return () => clearInterval(interval);
-  }, []);
+  }, [inView]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!phoneRef.current || window.innerWidth < 768) return;
@@ -162,6 +178,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
+      ref={sectionRef}
       className="relative flex min-h-screen flex-col justify-center overflow-hidden lg:min-h-[900px]"
       aria-label="Section principale"
     >
@@ -259,106 +276,106 @@ export default function HeroSection() {
             className="relative flex justify-center items-center h-[540px] lg:h-auto"
             style={{ perspective: 1200 }}
           >
-            <motion.div
-              style={{ rotateX: springX, rotateY: springY }}
-              animate={{ y: [0, -16, 0] }}
-              transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-              className="relative"
-            >
-              {/* Main phone */}
+            <motion.div style={{ rotateX: springX, rotateY: springY }} className="relative">
               <div
-                className="relative w-[260px] h-[520px] rounded-[2.5rem] overflow-hidden shadow-2xl phone-glow"
-                style={{
-                  background: '#0a0a0a',
-                  border: '3px solid rgba(255,255,255,0.15)',
-                  boxShadow:
-                    '0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)',
-                }}
+                className="float-loop float-loop-mobile relative"
+                style={{ ['--float-y' as string]: '-16px' }}
               >
-                {/* Notch */}
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-10" />
+                {/* Main phone */}
+                <div
+                  className="relative w-[260px] h-[520px] rounded-[2.5rem] overflow-hidden shadow-2xl phone-glow"
+                  style={{
+                    background: '#0a0a0a',
+                    border: '3px solid rgba(255,255,255,0.15)',
+                    boxShadow:
+                      '0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.12)',
+                  }}
+                >
+                  {/* Notch */}
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-20 h-5 bg-black rounded-full z-10" />
 
-                {/* Screen content */}
-                <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden">
-                  {heroScreenshots.map((screen, i) => (
-                    <motion.div
-                      key={i}
-                      className="absolute inset-0"
-                      animate={{
-                        opacity: i === currentScreen ? 1 : 0,
-                        scale: i === currentScreen ? 1 : 1.05,
+                  {/* Screen content */}
+                  <div className="absolute inset-0 rounded-[2.5rem] overflow-hidden">
+                    {heroScreenshots.map((screen, i) =>
+                      mountedSlides.has(i) ? (
+                        <motion.div
+                          key={i}
+                          className="absolute inset-0"
+                          animate={{
+                            opacity: i === currentScreen ? 1 : 0,
+                            scale: i === currentScreen ? 1 : 1.05,
+                          }}
+                          transition={{ duration: 0.8, ease: 'easeInOut' }}
+                        >
+                          <AppImage
+                            src={screen.src}
+                            alt={screen.alt}
+                            fill
+                            className="object-cover"
+                            priority={i === 0}
+                            sizes="260px"
+                          />
+                        </motion.div>
+                      ) : null
+                    )}
+                    {/* Screen overlay */}
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background:
+                          'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, transparent 50%)',
                       }}
-                      transition={{ duration: 0.8, ease: 'easeInOut' }}
-                    >
-                      <AppImage
-                        src={screen.src}
-                        alt={screen.alt}
-                        fill
-                        className="object-cover"
-                        priority={i === 0}
-                        sizes="260px"
-                      />
-                    </motion.div>
-                  ))}
-                  {/* Screen overlay */}
-                  <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{
-                      background:
-                        'linear-gradient(145deg, rgba(255,255,255,0.04) 0%, transparent 50%)',
-                    }}
-                  />
+                    />
+                  </div>
+
+                  {/* Side buttons */}
+                  <div className="absolute right-[-4px] top-24 w-1 h-12 bg-gray-700 rounded-l-sm" />
+                  <div className="absolute left-[-4px] top-20 w-1 h-8 bg-gray-700 rounded-r-sm" />
+                  <div className="absolute left-[-4px] top-32 w-1 h-8 bg-gray-700 rounded-r-sm" />
                 </div>
 
-                {/* Side buttons */}
-                <div className="absolute right-[-4px] top-24 w-1 h-12 bg-gray-700 rounded-l-sm" />
-                <div className="absolute left-[-4px] top-20 w-1 h-8 bg-gray-700 rounded-r-sm" />
-                <div className="absolute left-[-4px] top-32 w-1 h-8 bg-gray-700 rounded-r-sm" />
+                {/* Screen dots */}
+                <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {heroScreenshots.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentScreen(i)}
+                      className={cn(
+                        'h-1.5 rounded-full transition-all duration-300',
+                        i === currentScreen ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
+                      )}
+                      aria-label={`Afficher la capture ${i + 1}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Floating cards around the phone */}
+                {heroFloatingCards.map((card, index) => {
+                  const FloatingIcon = card.icon;
+
+                  return (
+                    <div
+                      key={card.label}
+                      style={{
+                        ['--float-y' as string]: `${-7 - (index % 3) * 2}px`,
+                        ['--float-dur' as string]: `${4.6 + index * 0.35}s`,
+                        ['--float-delay' as string]: `${card.delay}s`,
+                      }}
+                      className={cn(
+                        'float-loop absolute z-20 hidden w-[195px] items-center gap-3.5 rounded-[1.35rem] border border-white/20 bg-gradient-to-br from-white/[0.18] to-[#F06BC8]/[0.16] px-4 py-3.5 text-white shadow-[0_16px_38px_rgba(31,5,69,0.22),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-xl xl:flex',
+                        card.position
+                      )}
+                    >
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.12] text-[#FFD2EE] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]">
+                        <FloatingIcon size={22} strokeWidth={2.35} aria-hidden="true" />
+                      </span>
+                      <span className="text-[12px] font-bold leading-[1.3] text-white/95">
+                        {card.label}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
-
-              {/* Screen dots */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1.5">
-                {heroScreenshots.map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setCurrentScreen(i)}
-                    className={cn(
-                      'h-1.5 rounded-full transition-all duration-300',
-                      i === currentScreen ? 'w-6 bg-white' : 'w-1.5 bg-white/40'
-                    )}
-                    aria-label={`Afficher la capture ${i + 1}`}
-                  />
-                ))}
-              </div>
-
-              {/* Floating cards around the phone */}
-              {heroFloatingCards.map((card, index) => {
-                const FloatingIcon = card.icon;
-
-                return (
-                  <motion.div
-                    key={card.label}
-                    animate={{ y: [0, -7 - (index % 3) * 2, 0] }}
-                    transition={{
-                      duration: 4.6 + index * 0.35,
-                      ease: 'easeInOut',
-                      repeat: Infinity,
-                      delay: card.delay,
-                    }}
-                    className={cn(
-                      'absolute z-20 hidden w-[195px] items-center gap-3.5 rounded-[1.35rem] border border-white/20 bg-gradient-to-br from-white/[0.18] to-[#F06BC8]/[0.16] px-4 py-3.5 text-white shadow-[0_16px_38px_rgba(31,5,69,0.22),inset_0_1px_0_rgba(255,255,255,0.14)] backdrop-blur-xl xl:flex',
-                      card.position
-                    )}
-                  >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/[0.12] text-[#FFD2EE] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]">
-                      <FloatingIcon size={22} strokeWidth={2.35} aria-hidden="true" />
-                    </span>
-                    <span className="text-[12px] font-bold leading-[1.3] text-white/95">
-                      {card.label}
-                    </span>
-                  </motion.div>
-                );
-              })}
             </motion.div>
           </motion.div>
         </div>
