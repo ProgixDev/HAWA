@@ -23,6 +23,7 @@ import {
 import AppImage from '@/components/ui/AppImage';
 import SectionHeading from './SectionHeading';
 import { cn } from '@/lib/utils';
+import { useInViewport } from '@/lib/useInViewport';
 
 // Real APK screenshots from public/assets/images — the first three follow a
 // fixed onboarding-story order (splash/welcome/objective), then every real
@@ -267,6 +268,8 @@ const SLOT_DEPTH: Record<SlotOffset, string> = {
 
 export default function ScreenshotCarousel() {
   const [current, setCurrent] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInViewport(sectionRef);
   const dragStartX = useRef(0);
   const autoplayRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const total = slides.length;
@@ -282,10 +285,13 @@ export default function ScreenshotCarousel() {
     }, AUTOPLAY_MS);
   }, [total]);
 
+  // Autoplay only while the gallery is on screen: no timer, re-render or image swap while the
+  // user is reading another part of the page.
   useEffect(() => {
+    if (!inView) return;
     startAutoplay();
     return stopAutoplay;
-  }, [startAutoplay, stopAutoplay]);
+  }, [inView, startAutoplay, stopAutoplay]);
 
   // Manual navigation restarts the autoplay timer instead of stacking a
   // second interval, so playback always continues afterwards.
@@ -303,7 +309,8 @@ export default function ScreenshotCarousel() {
   return (
     <section
       id="screenshots"
-      className="relative overflow-hidden bg-gradient-to-b from-[#FBFAFE] via-white to-[#F8F3FC] py-24 md:py-32"
+      ref={sectionRef}
+      className="cv-auto [--cv-h-m:859px] [--cv-h-t:878px] [--cv-h-d:995px] relative overflow-hidden bg-gradient-to-b from-[#FBFAFE] via-white to-[#F8F3FC] py-24 md:py-32"
       aria-label="Captures d’écran de l’application"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
