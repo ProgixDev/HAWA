@@ -1,15 +1,25 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
+import { useInViewport } from '@/lib/useInViewport';
 
 interface AnimatedBackgroundProps {
   variant?: 'hero' | 'gradient' | 'subtle';
 }
 
 export default function AnimatedBackground({ variant = 'hero' }: AnimatedBackgroundProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const inView = useInViewport(rootRef, '200px');
+  const paused = inView ? undefined : 'true';
+
   if (variant === 'hero') {
     return (
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <div
+        ref={rootRef}
+        data-paused={paused}
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        aria-hidden="true"
+      >
         {/* Main gradient */}
         <div
           className="absolute inset-0 animate-gradient-shift"
@@ -53,7 +63,12 @@ export default function AnimatedBackground({ variant = 'hero' }: AnimatedBackgro
 
   if (variant === 'gradient') {
     return (
-      <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      <div
+        ref={rootRef}
+        data-paused={paused}
+        className="absolute inset-0 pointer-events-none overflow-hidden"
+        aria-hidden="true"
+      >
         <div
           className="absolute inset-0 animate-gradient-shift"
           style={{
@@ -80,9 +95,15 @@ export default function AnimatedBackground({ variant = 'hero' }: AnimatedBackgro
   }
 
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-      <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5 blob-purple" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full opacity-5 blob-magenta" />
+    <div
+      ref={rootRef}
+      data-paused={paused}
+      className="absolute inset-0 pointer-events-none overflow-hidden"
+      aria-hidden="true"
+    >
+      {/* 5% opacity: imperceptible on phones, so they are not rendered there at all. */}
+      <div className="absolute top-0 right-0 hidden h-96 w-96 rounded-full opacity-5 blob-purple md:block" />
+      <div className="absolute bottom-0 left-0 hidden h-80 w-80 rounded-full opacity-5 blob-magenta md:block" />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -19,24 +19,59 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const handleScroll = useCallback(() => {
-    setScrolled(window.scrollY > 70);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
-    const sections = navLinks.map((l) => l.href.replace('#', ''));
-    let current = 'home';
-    for (const id of sections) {
-      const el = document.getElementById(id);
-      if (el && window.scrollY >= el.offsetTop - 120) {
-        current = id;
-      }
-    }
-    setActiveSection(current);
+  // Scrolled state: an observer on a 1px sentinel 70px below the top of the page replaces a
+  // scroll listener, so nothing runs per scroll frame.
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    if (!sentinel || typeof IntersectionObserver === 'undefined') return;
+    const observer = new IntersectionObserver(([entry]) => setScrolled(!entry.isIntersecting));
+    observer.observe(sentinel);
+    return () => observer.disconnect();
   }, []);
 
+  // Active link: observe a 1px probe line 120px below the viewport top. Whichever page section
+  // crosses it, the highlighted link is the last nav section at or above it in page order (same
+  // rule as the old scroll handler, e.g. "Aperçu" stays active through Personnalisation and
+  // Statistiques), with no layout reads while scrolling.
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+    if (typeof IntersectionObserver === 'undefined') return;
+    const ids = navLinks.map((l) => l.href.replace('#', ''));
+    const sections = Array.from(
+      document.querySelectorAll<HTMLElement>('main > section, main > footer')
+    );
+    const owner = new Map<Element, string>();
+    let lastNav = 'home';
+    sections.forEach((el) => {
+      if (ids.includes(el.id)) lastNav = el.id;
+      owner.set(el, lastNav);
+    });
+    const crossing = new Map<Element, boolean>();
+    let observer: IntersectionObserver | undefined;
+
+    const connect = () => {
+      observer?.disconnect();
+      const bottomInset = Math.max(0, window.innerHeight - 121);
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => crossing.set(entry.target, entry.isIntersecting));
+          let current: string | undefined;
+          for (const el of sections) if (crossing.get(el)) current = owner.get(el);
+          if (current) setActiveSection(current);
+        },
+        { rootMargin: `-120px 0px -${bottomInset}px 0px` }
+      );
+      sections.forEach((el) => observer?.observe(el));
+    };
+
+    connect();
+    window.addEventListener('resize', connect, { passive: true });
+    return () => {
+      window.removeEventListener('resize', connect);
+      observer?.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -56,6 +91,11 @@ export default function Navbar() {
 
   return (
     <>
+      <div
+        ref={sentinelRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 top-[70px] h-px w-px"
+      />
       <motion.nav
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -66,9 +106,9 @@ export default function Navbar() {
       >
         <div
           className={cn(
-            'mx-auto flex max-w-[1400px] items-center justify-between rounded-[1.6rem] border px-5 py-3.5 backdrop-blur-2xl transition-all duration-500 sm:px-8',
+            'mx-auto flex max-w-[1400px] items-center justify-between rounded-[1.6rem] border px-5 py-3.5 backdrop-blur-2xl transition-[background-color,border-color,box-shadow] duration-500 sm:px-8',
             scrolled
-              ? 'border-white/70 bg-white/[0.88] shadow-[0_12px_40px_rgba(54,19,88,0.14)]'
+              ? 'border-white/70 bg-white/[0.88] max-md:bg-white shadow-[0_12px_40px_rgba(54,19,88,0.14)]'
               : 'border-white/20 bg-[#4B076F]/20 shadow-[0_12px_45px_rgba(35,0,61,0.2),inset_0_1px_0_rgba(255,255,255,0.12)]'
           )}
         >
