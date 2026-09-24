@@ -6,6 +6,7 @@ import { CheckCircle2, ChevronLeft, ChevronRight, Quote, Star } from 'lucide-rea
 import AppImage from '@/components/ui/AppImage';
 import SectionHeading from './SectionHeading';
 import { cn } from '@/lib/utils';
+import { useInViewport } from '@/lib/useInViewport';
 
 /* Demo testimonials — replace with verified customer reviews before publication */
 const testimonials = [
@@ -63,6 +64,8 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   const [current, setCurrent] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInViewport(sectionRef);
   const autoRef = useRef<ReturnType<typeof setInterval>>(undefined);
   const dragStartX = useRef(0);
 
@@ -78,9 +81,10 @@ export default function TestimonialsSection() {
   }, []);
 
   useEffect(() => {
+    if (!inView) return;
     startAuto();
     return stopAuto;
-  }, [startAuto, stopAuto]);
+  }, [inView, startAuto, stopAuto]);
 
   const goTo = (index: number) => {
     stopAuto();
@@ -94,7 +98,8 @@ export default function TestimonialsSection() {
 
   return (
     <section
-      className="relative isolate overflow-hidden bg-gradient-to-br from-[#36108F] via-[#7217BC] to-[#D71991] py-24 md:py-32"
+      ref={sectionRef}
+      className="cv-auto [--cv-h-m:1090px] [--cv-h-t:691px] [--cv-h-d:737px] relative isolate overflow-hidden bg-gradient-to-br from-[#36108F] via-[#7217BC] to-[#D71991] py-24 md:py-32"
       aria-label="Témoignages d’utilisatrices"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
