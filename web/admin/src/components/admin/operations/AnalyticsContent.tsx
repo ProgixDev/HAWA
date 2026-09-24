@@ -2,10 +2,13 @@
 
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
-import { CalendarRange, ChevronDown, TrendingUp } from 'lucide-react';
+import { CalendarRange, ChevronDown, Download, TrendingUp } from 'lucide-react';
+import { toast } from 'sonner';
+import { buildCustomAnalyticsDataset } from '@/data/mock/adminOperations';
 import type { AnalyticsDatasets, AnalyticsPeriod } from '@/types/adminOperations';
 import CountryFlag from '@/components/users/CountryFlag';
 import { SortButton } from '@/app/content/components/ContentUI';
+import { downloadCsv } from '@/components/admin/subscriptions/SubscriptionUI';
 import {
   AcquisitionChart,
   AnalyticsUserGrowthChart,
@@ -35,7 +38,16 @@ export default function AnalyticsContent({ datasets }: { datasets: AnalyticsData
   const [customEnd, setCustomEnd] = useState('2026-09-06');
   const [contentSort, setContentSort] = useState<'views' | 'completion'>('views');
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
-  const data = datasets[period];
+  const customRangeValid = customStart <= customEnd;
+  const customData = useMemo(
+    () =>
+      buildCustomAnalyticsDataset(
+        customRangeValid ? customStart : customEnd,
+        customRangeValid ? customEnd : customStart
+      ),
+    [customEnd, customRangeValid, customStart]
+  );
+  const data = period === 'custom' ? customData : datasets[period];
   const sortedContent = useMemo(
     () =>
       [...data.content].sort((left, right) => {
@@ -76,28 +88,58 @@ export default function AnalyticsContent({ datasets }: { datasets: AnalyticsData
             Analysez la performance et l’engagement de votre plateforme
           </p>
         </div>
-        <label className="relative w-full sm:w-[220px]">
-          <span className="sr-only">Période d’analyse</span>
-          <CalendarRange
-            size={16}
-            className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
-          />
-          <select
-            value={period}
-            onChange={(event) => setPeriod(event.target.value as AnalyticsPeriod)}
-            className="h-11 w-full appearance-none rounded-xl border border-border bg-white pl-10 pr-9 text-[13px] font-semibold text-foreground shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+        <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <label className="relative w-full sm:w-[220px]">
+            <span className="sr-only">Période d’analyse</span>
+            <CalendarRange
+              size={16}
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+            />
+            <select
+              value={period}
+              onChange={(event) => setPeriod(event.target.value as AnalyticsPeriod)}
+              className="h-11 w-full appearance-none rounded-xl border border-border bg-white pl-10 pr-9 text-[13px] font-semibold text-foreground shadow-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
+            >
+              {periodOptions.map((item) => (
+                <option key={item.value} value={item.value}>
+                  {item.label}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              size={14}
+              className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+            />
+          </label>
+          <button
+            type="button"
+            onClick={() => {
+              const now = new Date();
+              const stamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+              const rows: Array<Array<string | number>> = [
+                ...data.kpis.map((kpi) => [
+                  kpi.label,
+                  formatMetric(kpi.value, kpi.format),
+                  data.periodLabel,
+                ]),
+                ...data.content.map((item) => [
+                  `Article — ${item.title}`,
+                  `${item.views.toLocaleString('fr-FR')} vues`,
+                  data.periodLabel,
+                ]),
+              ];
+              downloadCsv(
+                `awa-analytics-${period}-${stamp}.csv`,
+                ['Métrique', 'Valeur', 'Période'],
+                rows
+              );
+              toast.success('Export analytics téléchargé.');
+            }}
+            className="btn-secondary h-11 shrink-0 px-4 text-xs"
           >
-            {periodOptions.map((item) => (
-              <option key={item.value} value={item.value}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-          <ChevronDown
-            size={14}
-            className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
-          />
-        </label>
+            <Download size={15} /> Exporter
+          </button>
+        </div>
       </header>
 
       {period === 'custom' && (
@@ -126,10 +168,17 @@ export default function AnalyticsContent({ datasets }: { datasets: AnalyticsData
               className="h-10 rounded-xl border border-border bg-white px-3 text-xs text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/15"
             />
           </label>
-          <p className="pb-2 text-xs text-muted-foreground">
-            Analyse agrégée du {new Date(`${customStart}T12:00:00`).toLocaleDateString('fr-FR')} au{' '}
-            {new Date(`${customEnd}T12:00:00`).toLocaleDateString('fr-FR')}
-          </p>
+          {customRangeValid ? (
+            <p className="pb-2 text-xs text-muted-foreground">
+              Analyse agrégée du {new Date(`${customStart}T12:00:00`).toLocaleDateString('fr-FR')}{' '}
+              au {new Date(`${customEnd}T12:00:00`).toLocaleDateString('fr-FR')} —{' '}
+              {data.periodLabel}
+            </p>
+          ) : (
+            <p role="alert" className="pb-2 text-xs font-semibold text-danger">
+              La date de début doit être antérieure ou égale à la date de fin.
+            </p>
+          )}
         </div>
       )}
 

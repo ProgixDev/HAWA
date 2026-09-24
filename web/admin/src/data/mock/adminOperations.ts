@@ -308,8 +308,10 @@ function scale(value: number, factor: number) {
   return Math.round(value * factor);
 }
 
-function buildAnalyticsDataset(period: AnalyticsPeriod): AnalyticsDataset {
-  const config = periodConfig[period];
+function buildAnalyticsDataset(
+  period: AnalyticsPeriod,
+  config: { label: string; factor: number; trend: number; labels: string[] } = periodConfig[period]
+): AnalyticsDataset {
   const total = scale(24846, config.factor);
   const active = scale(15920, config.factor);
   const premium = scale(4280, config.factor);
@@ -450,6 +452,29 @@ function buildAnalyticsDataset(period: AnalyticsPeriod): AnalyticsDataset {
       conversion,
     })),
   };
+}
+
+// Deterministic derivation for a custom date range: the scale factor/trend
+// come from the real number of selected days (no randomness, no backend
+// query), reusing the exact same dataset-shaping logic as every fixed period.
+export function buildCustomAnalyticsDataset(startDate: string, endDate: string): AnalyticsDataset {
+  const start = new Date(`${startDate}T00:00:00`);
+  const end = new Date(`${endDate}T00:00:00`);
+  const dayCount = Math.max(1, Math.round((end.getTime() - start.getTime()) / 86_400_000) + 1);
+  const factor = Math.min(1.05, Math.max(0.12, dayCount / 30));
+  const trend = Math.min(2.3, Math.max(0.35, dayCount / 30));
+  const formatShort = (date: Date) =>
+    new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short' }).format(date);
+  const labels = Array.from({ length: 7 }, (_, index) => {
+    const offset = Math.round((dayCount - 1) * (index / 6));
+    return formatShort(new Date(start.getTime() + offset * 86_400_000));
+  });
+  return buildAnalyticsDataset('custom', {
+    label: `Du ${formatShort(start)} au ${formatShort(end)} (${dayCount} j.)`,
+    factor,
+    trend,
+    labels,
+  });
 }
 
 export const analyticsDatasets = Object.fromEntries(
