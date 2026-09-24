@@ -6,6 +6,10 @@ import { ArrowRight, Heart, Mail, ShieldCheck } from 'lucide-react';
 import AnimatedBackground from './AnimatedBackground';
 import { fadeUp, viewportConfig } from '@/lib/animations';
 
+const adminLoginUrl = `${(
+  process.env.NEXT_PUBLIC_ADMIN_URL || 'https://awa-women-admin.vercel.app'
+).replace(/\/+$/, '')}/admin-login`;
+
 const footerLinks = [
   { label: 'Fonctionnalités', href: '#features' },
   { label: 'Confidentialité', href: '#' },
@@ -267,7 +271,7 @@ export default function Footer() {
 
           <div>
             <a
-              href="http://localhost:4028/admin-login"
+              href={adminLoginUrl}
               className="group mx-auto flex min-h-16 max-w-[290px] items-center justify-between gap-4 rounded-full border border-white/35 bg-white/[0.08] px-6 text-sm font-bold text-white shadow-[0_12px_28px_rgba(40,7,75,0.15)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-0.5 hover:border-white/55 hover:bg-white/15 lg:ml-auto lg:mr-0"
             >
               <span className="flex items-center gap-3">
