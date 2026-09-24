@@ -88,6 +88,8 @@ export default function SubscriptionHistoryContent({
     });
   }, [events, filters, search]);
 
+  const dateRangeValid = !draft.from || !draft.to || draft.from <= draft.to;
+
   useEffect(() => setPage(1), [filters, pageSize, search]);
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
   const countries = Array.from(new Set(events.map((event) => event.country)));
@@ -196,6 +198,7 @@ export default function SubscriptionHistoryContent({
               <input
                 type="date"
                 value={draft.from}
+                max={draft.to || undefined}
                 onChange={(event) =>
                   setDraft((current) => ({ ...current, from: event.target.value }))
                 }
@@ -207,19 +210,30 @@ export default function SubscriptionHistoryContent({
               <input
                 type="date"
                 value={draft.to}
+                min={draft.from || undefined}
                 onChange={(event) =>
                   setDraft((current) => ({ ...current, to: event.target.value }))
                 }
                 className={inputClassName}
               />
             </label>
-            <button type="button" onClick={() => setFilters(draft)} className="btn-primary h-11">
+            <button
+              type="button"
+              onClick={() => dateRangeValid && setFilters(draft)}
+              disabled={!dateRangeValid}
+              className="btn-primary h-11 disabled:cursor-not-allowed disabled:opacity-50"
+            >
               <Filter size={14} /> Filtrer
             </button>
             <button type="button" onClick={clearFilters} className="btn-ghost h-11">
               <RotateCcw size={14} /> Effacer
             </button>
           </div>
+          {!dateRangeValid && (
+            <p role="alert" className="text-xs font-semibold text-danger">
+              La date de début doit être antérieure ou égale à la date de fin.
+            </p>
+          )}
         </div>
 
         <div className="overflow-x-auto">

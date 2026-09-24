@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Check, Copy, Eye, Pencil, Power, Users } from 'lucide-react';
 import { toast } from 'sonner';
 import type { SubscriptionPlan } from '@/types/subscriptions';
+import { PREMIUM_ENTITLEMENT_LABELS } from '@/types/subscriptions';
 import {
   ActionButton,
   ConfirmDialog,
@@ -38,6 +39,7 @@ function valuesToPlan(values: PlanFormValues, current?: SubscriptionPlan): Subsc
       .split('\n')
       .map((item) => item.trim())
       .filter(Boolean),
+    entitlements: values.entitlements ?? [],
     active: values.active,
     badge: values.badge?.trim() || undefined,
     displayOrder: Number(values.displayOrder),
@@ -66,6 +68,12 @@ export default function PlansContent({ initialPlans }: { initialPlans: Subscript
   const handleSave = async (values: PlanFormValues) => {
     const current = dialog?.type === 'edit' ? dialog.plan : undefined;
     const nextPlan = valuesToPlan(values, current);
+    const duplicateCode = plans.some(
+      (item) => item.code === nextPlan.code && item.id !== nextPlan.id
+    );
+    if (duplicateCode) {
+      throw new Error('Un plan utilise déjà ce code interne.');
+    }
     if (current && current.subscriberCount > 0 && current.price !== nextPlan.price) {
       setPendingPriceUpdate(nextPlan);
       setDialog(null);
@@ -74,12 +82,22 @@ export default function PlansContent({ initialPlans }: { initialPlans: Subscript
     await persistPlan(nextPlan);
   };
 
+  const generateUniquePlanCode = (baseCode: string) => {
+    const existingCodes = plans.map((item) => item.code);
+    if (!existingCodes.includes(baseCode)) return baseCode;
+    let attempt = 2;
+    while (existingCodes.includes(`${baseCode}_${attempt}`)) {
+      attempt += 1;
+    }
+    return `${baseCode}_${attempt}`;
+  };
+
   const duplicatePlan = (plan: SubscriptionPlan) => {
     const copy: SubscriptionPlan = {
       ...plan,
       id: `plan-${Date.now()}`,
       name: `${plan.name} — copie`,
-      code: `${plan.code}_COPY_${plans.length + 1}`,
+      code: generateUniquePlanCode(`${plan.code}_COPY`),
       badge: undefined,
       active: false,
       subscriberCount: 0,
@@ -191,6 +209,7 @@ export default function PlansContent({ initialPlans }: { initialPlans: Subscript
       <AnimatePresence>
         {(dialog?.type === 'create' || dialog?.type === 'edit') && (
           <PlanModal
+            key={dialog.type === 'edit' ? dialog.plan.id : 'create'}
             plan={dialog.type === 'edit' ? dialog.plan : undefined}
             onClose={() => setDialog(null)}
             onSave={handleSave}
@@ -229,6 +248,28 @@ export default function PlansContent({ initialPlans }: { initialPlans: Subscript
                       <dd className="mt-1 font-medium">{dialog.plan.displayOrder}</dd>
                     </div>
                   </dl>
+                  <div>
+                    <p className="mb-2 text-xs font-semibold text-foreground">
+                      Fonctionnalités réellement débloquées ({dialog.plan.entitlements.length}/
+                      {Object.keys(PREMIUM_ENTITLEMENT_LABELS).length})
+                    </p>
+                    {dialog.plan.entitlements.length ? (
+                      <div className="flex flex-wrap gap-1.5">
+                        {dialog.plan.entitlements.map((key) => (
+                          <span
+                            key={key}
+                            className="rounded-full bg-success-bg px-2.5 py-1 text-[10px] font-semibold text-success"
+                          >
+                            {PREMIUM_ENTITLEMENT_LABELS[key]}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-muted-foreground">
+                        Aucune fonctionnalité Premium débloquée (plan gratuit).
+                      </p>
+                    )}
+                  </div>
                 </>
               ) : (
                 <div className="rounded-xl border border-border bg-white p-5 text-center">

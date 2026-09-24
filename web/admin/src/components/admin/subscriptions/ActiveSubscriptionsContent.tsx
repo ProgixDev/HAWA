@@ -91,6 +91,14 @@ export default function ActiveSubscriptionsContent({
   useEffect(() => setPage(1), [country, planFilter, search, status, tab, pageSize]);
 
   const pageRows = filtered.slice((page - 1) * pageSize, page * pageSize);
+  const tabCounts = useMemo(
+    () => ({
+      all: subscriptions.length,
+      monthly: subscriptions.filter((item) => item.billingPeriod === 'monthly').length,
+      yearly: subscriptions.filter((item) => item.billingPeriod === 'yearly').length,
+    }),
+    [subscriptions]
+  );
   const premiumPlans = plans.filter((plan) => plan.type === 'premium');
   const countries = Array.from(new Set(subscriptions.map((item) => item.country)));
 
@@ -148,9 +156,9 @@ export default function ActiveSubscriptionsContent({
           onChange={setTab}
           comfortable
           items={[
-            { value: 'all', label: 'Tous', count: 4280 },
-            { value: 'monthly', label: 'Mensuel', count: 3438 },
-            { value: 'yearly', label: 'Annuel', count: 842 },
+            { value: 'all', label: 'Tous', count: tabCounts.all },
+            { value: 'monthly', label: 'Mensuel', count: tabCounts.monthly },
+            { value: 'yearly', label: 'Annuel', count: tabCounts.yearly },
           ]}
         />
         <div className="flex flex-col gap-3 border-b border-border p-4 xl:flex-row xl:items-center">
@@ -321,6 +329,7 @@ export default function ActiveSubscriptionsContent({
         )}
         {dialog?.type === 'edit' && (
           <EditSubscriptionModal
+            key={dialog.subscription.id}
             subscription={dialog.subscription}
             plans={plans}
             onClose={() => setDialog(null)}
@@ -346,6 +355,7 @@ export default function ActiveSubscriptionsContent({
         )}
         {dialog?.type === 'cancel' && (
           <CancelSubscriptionModal
+            key={dialog.subscription.id}
             subscription={dialog.subscription}
             onClose={() => setDialog(null)}
             onConfirm={(reason) => {
