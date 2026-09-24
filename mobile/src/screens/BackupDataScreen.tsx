@@ -81,9 +81,15 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
     await Share.share({title: 'Mes données AWA', message: JSON.stringify(data, null, 2)});
   };
 
-  const backupDate = snapshot
-    ? new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(new Date(snapshot.createdAt))
-    : 'Aucune copie';
+  // snapshot is parsed straight from AsyncStorage JSON (getBackupSnapshot) —
+  // an older/differently-shaped backup blob could carry a missing or
+  // malformed createdAt, which used to crash this screen via
+  // Intl.DateTimeFormat().format() on an Invalid Date.
+  const snapshotCreatedAt = snapshot ? new Date(snapshot.createdAt) : null;
+  const backupDate =
+    snapshotCreatedAt && !Number.isNaN(snapshotCreatedAt.getTime())
+      ? new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(snapshotCreatedAt)
+      : 'Aucune copie';
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>

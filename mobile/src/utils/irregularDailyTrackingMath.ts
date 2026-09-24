@@ -39,11 +39,23 @@ export function findLatestConfirmedPeriod(
   );
 }
 
+// occurrence.periodStart may be a bare date-only string (YYYY-MM-DD) or a
+// full ISO datetime — confirmedPeriodHistoryStore.ts's
+// recordConfirmedPeriodEnd actually persists it via periodStart.
+// toISOString(), a full timestamp. Anchoring a bare date to local noon
+// avoids a UTC-rollover shifting the intended calendar day; a full
+// timestamp already carries its own time/zone and must be parsed as-is —
+// appending another "T12:00:00" to it built a malformed, unparsable string
+// (Invalid Date) for every real confirmed period.
+export const parsePeriodStart = (value: string): Date =>
+  value.includes('T') ? new Date(value) : new Date(`${value}T12:00:00`);
+
 /** Real recorded duration (in days, inclusive of both the start and end
  * day) of one confirmed period occurrence — or `null` if the stored dates
- * are inconsistent (end before start), never a fabricated "0 jour". */
+ * are inconsistent (end before start) or unparseable, never a fabricated
+ * "0 jour". */
 export function computeConfirmedPeriodDurationDays(occurrence: ConfirmedPeriodOccurrence): number | null {
-  const start = new Date(`${occurrence.periodStart}T12:00:00`);
+  const start = parsePeriodStart(occurrence.periodStart);
   const end = new Date(occurrence.periodEndDateTime);
   const days = diffDays(end, start) + 1;
   return days > 0 ? days : null;
