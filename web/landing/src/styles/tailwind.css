@@ -331,6 +331,47 @@
   100% { stroke-dashoffset: 0; opacity: 0; }
 }
 
+/* Compositor-only replacement for the old JS (framer-motion) infinite float loops.
+   Tunable per element through --float-y / --float-rot / --float-dur / --float-delay. */
+@keyframes float-loop {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(0, var(--float-y, -12px), 0) rotate(var(--float-rot, 0deg));
+  }
+}
+
+.float-loop {
+  animation: float-loop var(--float-dur, 6s) ease-in-out var(--float-delay, 0s) infinite;
+}
+
+/* Decorative backgrounds flag themselves off-screen (IntersectionObserver) so nothing keeps animating unseen. */
+[data-paused='true'],
+[data-paused='true'] * {
+  animation-play-state: paused !important;
+}
+
+/* Below-the-fold sections: skip layout/paint until near the viewport. `auto` remembers the real
+   height after the first render, so the placeholder size only matters once. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto var(--cv-h-m, 900px);
+}
+
+@media (min-width: 768px) {
+  .cv-auto {
+    contain-intrinsic-size: auto var(--cv-h-t, var(--cv-h-d, 900px));
+  }
+}
+
+@media (min-width: 1024px) {
+  .cv-auto {
+    contain-intrinsic-size: auto var(--cv-h-d, 900px);
+  }
+}
+
 .animate-float-y {
   animation: float-y 6s ease-in-out infinite;
 }
@@ -386,5 +427,63 @@
   .section-padding {
     padding-top: 72px;
     padding-bottom: 72px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Phones: same design, but drop the effects that force the GPU/main thread to
+   re-render while scrolling. Desktop/tablet keep the full effects.
+--------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+  /* Full-screen fixed overlay (feTurbulence noise at 2.5% opacity): invisible, but a fixed
+     layer blended over the whole viewport on every scroll frame. */
+  .noise-overlay {
+    display: none;
+  }
+
+  /* backdrop-filter re-samples and blurs everything behind the element every frame. The
+     translucent backgrounds stay, so the glass cards keep their look over the gradients. */
+  .backdrop-blur,
+  .backdrop-blur-sm,
+  .backdrop-blur-md,
+  .backdrop-blur-lg,
+  .backdrop-blur-xl,
+  .backdrop-blur-2xl,
+  .backdrop-blur-3xl,
+  .glass-card {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* Big blurred blobs (blur radius 40-64px on 30rem+ boxes) are expensive to rasterise every
+     time a new tile scrolls in. A radial mask gives the same soft falloff with no filter. */
+  .blur-2xl,
+  .blur-3xl {
+    filter: none !important;
+    -webkit-mask-image: radial-gradient(closest-side, #000 25%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 25%, transparent 100%);
+  }
+
+  .blob-purple,
+  .blob-magenta,
+  .blob-violet,
+  .phone-glow {
+    filter: none;
+  }
+
+  /* Freeze decorative loops at their first keyframe (identical to the resting look). */
+  .animate-float-y,
+  .animate-float-slow,
+  .animate-rotate-slow,
+  .animate-pulse-scale,
+  .animate-drift-x,
+  .animate-gradient-shift,
+  .animate-shimmer,
+  .float-loop:not(.float-loop-mobile) {
+    animation: none;
+  }
+
+  .animate-pulse-scale {
+    opacity: 0.6;
   }
 }
