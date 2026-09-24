@@ -47,7 +47,7 @@ export default function CustomizeSection() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#FCFBFF] pb-20 pt-24 md:pb-24 md:pt-32"
+      className="cv-auto [--cv-h-m:1439px] [--cv-h-t:1314px] [--cv-h-d:681px] relative overflow-hidden bg-[#FCFBFF] pb-20 pt-24 md:pb-24 md:pt-32"
       aria-label="Personnalisation"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
@@ -142,11 +142,13 @@ export default function CustomizeSection() {
           >
             <div className="pointer-events-none absolute inset-x-[8%] bottom-[4%] h-32 rounded-full bg-[#8B45D0]/25 blur-3xl" />
 
-            <motion.div
-              animate={{ y: [0, -12, 0] }}
-              transition={{ duration: 6.2, ease: 'easeInOut', repeat: Infinity }}
-              className="absolute left-[5%] top-[5%] z-20"
-              style={{ rotate: -5 }}
+            <div
+              className="float-loop absolute left-[5%] top-[5%] z-20"
+              style={{
+                rotate: '-5deg',
+                ['--float-y' as string]: '-12px',
+                ['--float-dur' as string]: '6.2s',
+              }}
             >
               <div className="relative h-[550px] w-[275px] overflow-hidden rounded-[3rem] border-[4px] border-[#28232D] bg-white shadow-[0_35px_85px_rgba(61,35,94,0.28)] lg:h-[610px] lg:w-[305px]">
                 <div className="absolute left-1/2 top-4 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
@@ -159,13 +161,16 @@ export default function CustomizeSection() {
                 />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-[#6D1BC6]/5" />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              animate={{ y: [0, -9, 0] }}
-              transition={{ duration: 7, ease: 'easeInOut', repeat: Infinity, delay: 0.9 }}
-              className="absolute right-[3%] top-[8%] z-10"
-              style={{ rotate: 6 }}
+            <div
+              className="float-loop absolute right-[3%] top-[8%] z-10"
+              style={{
+                rotate: '6deg',
+                ['--float-y' as string]: '-9px',
+                ['--float-dur' as string]: '7s',
+                ['--float-delay' as string]: '0.9s',
+              }}
             >
               <div className="relative h-[520px] w-[260px] overflow-hidden rounded-[2.85rem] border-[4px] border-[#211C29] bg-[#17121F] shadow-[0_30px_75px_rgba(43,24,68,0.3)] lg:h-[575px] lg:w-[288px]">
                 <div className="absolute left-1/2 top-4 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-black" />
@@ -179,16 +184,19 @@ export default function CustomizeSection() {
                 <div className="pointer-events-none absolute inset-0 bg-[#171121]/20 mix-blend-multiply" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.04] via-transparent to-black/20" />
               </div>
-            </motion.div>
+            </div>
 
-            <motion.div
-              animate={{ y: [0, -6, 0], rotate: [0, 2, 0] }}
-              transition={{ duration: 5, ease: 'easeInOut', repeat: Infinity }}
-              className="absolute right-0 top-[30%] hidden max-w-[150px] text-center font-serif text-lg italic leading-snug text-[#8E55D2] xl:block"
+            <div
+              className="float-loop absolute right-0 top-[30%] hidden max-w-[150px] text-center font-serif text-lg italic leading-snug text-[#8E55D2] xl:block"
+              style={{
+                ['--float-y' as string]: '-6px',
+                ['--float-rot' as string]: '2deg',
+                ['--float-dur' as string]: '5s',
+              }}
             >
               Un thème pour chaque humeur
               <span className="mx-auto mt-2 block h-px w-14 bg-[#A96ADC]" />
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>

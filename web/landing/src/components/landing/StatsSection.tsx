@@ -119,7 +119,7 @@ export default function StatsSection() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-gradient-to-b from-[#FCFAFF] via-[#F7F3FC] to-[#FCFAFF] py-20 md:py-24"
+      className="cv-auto [--cv-h-m:1238px] [--cv-h-t:674px] [--cv-h-d:435px] relative overflow-hidden bg-gradient-to-b from-[#FCFAFF] via-[#F7F3FC] to-[#FCFAFF] py-20 md:py-24"
       aria-label="Statistiques"
     >
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">

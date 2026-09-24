@@ -84,7 +84,7 @@ export default function PricingSection() {
   return (
     <section
       id="pricing"
-      className="relative overflow-hidden bg-gradient-to-b from-white via-[#FCF9FF] to-[#F8F3FD] py-24 md:py-32"
+      className="cv-auto [--cv-h-m:2341px] [--cv-h-t:1119px] [--cv-h-d:984px] relative overflow-hidden bg-gradient-to-b from-white via-[#FCF9FF] to-[#F8F3FD] py-24 md:py-32"
       aria-label="Tarifs"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

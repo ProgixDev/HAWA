@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import SectionHeading from './SectionHeading';
 import { cn } from '@/lib/utils';
+import { useInViewport } from '@/lib/useInViewport';
 
 const features = [
   {
@@ -150,6 +151,8 @@ export default function FeaturesSection() {
   const [manualPaused, setManualPaused] = useState(false);
   const [hoverPaused, setHoverPaused] = useState(false);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const inView = useInViewport(sectionRef);
   const dragStartX = useRef(0);
   const prefersReducedMotion = useReducedMotion();
 
@@ -188,22 +191,23 @@ export default function FeaturesSection() {
   }, []);
 
   useEffect(() => {
-    if (isPaused || maxStart === 0) return;
+    if (isPaused || !inView || maxStart === 0) return;
 
     const interval = window.setInterval(next, 3600);
     return () => window.clearInterval(interval);
-  }, [isPaused, maxStart, next]);
+  }, [isPaused, inView, maxStart, next]);
 
   return (
     <section
       id="features"
-      className="relative overflow-hidden bg-secondary pb-24 pt-16 md:pb-32 md:pt-20"
+      ref={sectionRef}
+      className="cv-auto [--cv-h-m:842px] [--cv-h-t:658px] [--cv-h-d:670px] relative overflow-hidden bg-secondary pb-24 pt-16 md:pb-32 md:pt-20"
       aria-label="Fonctionnalités"
     >
       {/* Background decorations */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full opacity-5 blob-purple" />
-        <div className="absolute -bottom-20 -left-20 w-96 h-96 rounded-full opacity-5 blob-magenta" />
+        <div className="absolute -top-20 -right-20 hidden h-80 w-80 rounded-full opacity-5 blob-purple md:block" />
+        <div className="absolute -bottom-20 -left-20 hidden h-96 w-96 rounded-full opacity-5 blob-magenta md:block" />
         {[...Array(5)]?.map((_, i) => (
           <div
             key={i}

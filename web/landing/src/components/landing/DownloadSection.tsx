@@ -41,18 +41,21 @@ interface PhoneMockupProps {
 
 function PhoneMockup({ src, alt, className, rotate, delay = 0 }: PhoneMockupProps) {
   return (
-    <motion.div
-      animate={{ y: [0, -13, 0] }}
-      transition={{ duration: 6.5 + delay, delay, ease: 'easeInOut', repeat: Infinity }}
-      style={{ rotate }}
-      className={cn('absolute', className)}
+    <div
+      style={{
+        rotate: `${rotate}deg`,
+        ['--float-y' as string]: '-13px',
+        ['--float-dur' as string]: `${6.5 + delay}s`,
+        ['--float-delay' as string]: `${delay}s`,
+      }}
+      className={cn('float-loop absolute', className)}
     >
       <div className="relative h-full w-full overflow-hidden rounded-[2.8rem] border-[5px] border-[#211D29] bg-[#17131D] shadow-[0_32px_75px_rgba(23,8,45,0.42)]">
         <AppImage src={src} alt={alt} fill className="object-cover object-center" sizes="310px" />
         <div className="absolute left-1/2 top-4 z-20 h-6 w-24 -translate-x-1/2 rounded-full bg-black shadow-sm" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/20" />
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -60,7 +63,7 @@ export default function DownloadSection() {
   return (
     <section
       id="download"
-      className="overflow-hidden bg-white py-20 md:py-28"
+      className="cv-auto [--cv-h-m:1196px] [--cv-h-t:997px] [--cv-h-d:715px] overflow-hidden bg-white py-20 md:py-28"
       aria-label="Télécharger AWA"
     >
       <div className="mx-auto max-w-[1500px] px-4 sm:px-6 lg:px-8">
@@ -166,13 +169,12 @@ export default function DownloadSection() {
                 delay={1.35}
               />
 
-              <motion.div
-                animate={{ y: [0, -6, 0] }}
-                transition={{ duration: 4.8, ease: 'easeInOut', repeat: Infinity }}
-                className="absolute bottom-8 left-[8%] z-40 rounded-2xl border border-white/20 bg-white/12 px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(36,8,66,0.25)] backdrop-blur-xl lg:bottom-14 lg:left-[18%]"
+              <div
+                style={{ ['--float-y' as string]: '-6px', ['--float-dur' as string]: '4.8s' }}
+                className="float-loop absolute bottom-8 left-[8%] z-40 rounded-2xl border border-white/20 bg-white/12 px-5 py-3 text-sm font-semibold text-white shadow-[0_14px_34px_rgba(36,8,66,0.25)] backdrop-blur-xl lg:bottom-14 lg:left-[18%]"
               >
                 Privée · Intuitive · À votre rythme
-              </motion.div>
+              </div>
             </motion.div>
           </div>
         </div>

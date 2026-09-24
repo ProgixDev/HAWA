@@ -75,7 +75,7 @@ export default function FAQSection() {
   return (
     <section
       id="faq"
-      className="relative overflow-hidden bg-gradient-to-b from-white via-[#FBF8FE] to-[#F6F0FC] py-24 md:py-32"
+      className="cv-auto [--cv-h-m:2044px] [--cv-h-t:1896px] [--cv-h-d:1208px] relative overflow-hidden bg-gradient-to-b from-white via-[#FBF8FE] to-[#F6F0FC] py-24 md:py-32"
       aria-label="FAQ et contact"
     >
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
