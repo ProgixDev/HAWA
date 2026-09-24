@@ -90,7 +90,10 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative isolate overflow-hidden text-white" aria-label="Pied de page">
+    <footer
+      className="cv-auto [--cv-h-m:901px] [--cv-h-t:767px] [--cv-h-d:729px] relative isolate overflow-hidden text-white"
+      aria-label="Pied de page"
+    >
       <AnimatedBackground variant="hero" />
 
       <div
@@ -218,17 +221,19 @@ export default function Footer() {
 
           <div className="mt-9 flex items-center justify-center gap-3">
             {socialLinks.map((social, index) => (
-              <motion.a
+              <a
                 key={social.label}
                 href="#"
                 onClick={(event) => event.preventDefault()}
                 aria-label={social.label}
-                animate={{ y: [0, index % 2 === 0 ? -5 : -3, 0] }}
-                transition={{ duration: 4 + index * 0.35, repeat: Infinity, ease: 'easeInOut' }}
-                className="flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/[0.08] text-white/82 shadow-[0_10px_24px_rgba(27,6,61,0.14)] backdrop-blur-md transition-colors hover:bg-white/18 hover:text-white"
+                style={{
+                  ['--float-y' as string]: index % 2 === 0 ? '-5px' : '-3px',
+                  ['--float-dur' as string]: `${4 + index * 0.35}s`,
+                }}
+                className="float-loop flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/[0.08] text-white/82 shadow-[0_10px_24px_rgba(27,6,61,0.14)] backdrop-blur-md transition-colors hover:bg-white/18 hover:text-white"
               >
                 {social.icon}
-              </motion.a>
+              </a>
             ))}
           </div>
         </motion.div>

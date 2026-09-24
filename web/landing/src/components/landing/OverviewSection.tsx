@@ -189,7 +189,7 @@ export default function OverviewSection() {
   return (
     <section
       id="overview"
-      className="relative overflow-hidden pb-36 pt-20 md:pb-44 md:pt-24"
+      className="cv-auto [--cv-h-m:1560px] [--cv-h-t:1420px] [--cv-h-d:957px] relative overflow-hidden pb-36 pt-20 md:pb-44 md:pt-24"
       aria-label="Aperçu : pourquoi AWA"
     >
       <AnimatedBackground variant="gradient" />
@@ -278,11 +278,7 @@ export default function OverviewSection() {
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                   className="relative z-10"
                 >
-                  <motion.div
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ duration: 6, ease: 'easeInOut', repeat: Infinity }}
-                    className="relative"
-                  >
+                  <div className="float-loop relative">
                     <div
                       className="w-[240px] h-[480px] rounded-[2.5rem] overflow-hidden shadow-2xl"
                       style={{
@@ -316,7 +312,7 @@ export default function OverviewSection() {
                           'radial-gradient(ellipse, rgba(250,0,118,0.4) 0%, transparent 70%)',
                       }}
                     />
-                  </motion.div>
+                  </div>
                 </motion.div>
               </AnimatePresence>
             </div>
