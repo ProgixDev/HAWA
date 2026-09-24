@@ -38,7 +38,6 @@ export const STATUS_LABELS: Partial<Record<ArticleStatus, string>> = {
 
 export const CONTENT_TYPE_LABELS = {
   medical: 'Médical',
-  educational: 'Éducatif',
   religious: 'Religieux',
 } as const;
 

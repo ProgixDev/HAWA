@@ -23,7 +23,8 @@ import {
   Trash2,
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { contentArticles, contentCategories } from '@/data/mock/content';
+import { contentCategories } from '@/data/mock/content';
+import { useArticlesSession } from '@/stores/contentArticlesSessionStore';
 import type { ContentCategory } from '@/types';
 import {
   ActionButton,
@@ -417,6 +418,7 @@ function CategorySection({
 }
 
 export default function CategoriesContent() {
+  const articles = useArticlesSession();
   const [categories, setCategories] = useState(contentCategories);
   const [reorderDomain, setReorderDomain] = useState<CategoryDomain | null>(null);
   const [modal, setModal] = useState<CategoryModal>(null);
@@ -434,7 +436,7 @@ export default function CategoriesContent() {
   );
 
   const articleCount = (name: string) =>
-    contentArticles.filter((article) => article.category === name).length;
+    articles.filter((article) => article.category === name).length;
 
   const saveCategory = (category: ContentCategory) => {
     const exists = categories.some((item) => item.id === category.id);
@@ -559,7 +561,7 @@ export default function CategoriesContent() {
             onClose={() => setModal(null)}
           >
             <div className="space-y-2 p-5 sm:p-6">
-              {contentArticles
+              {articles
                 .filter((article) => article.category === modal.category.name)
                 .map((article) => (
                   <div
