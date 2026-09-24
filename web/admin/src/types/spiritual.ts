@@ -32,6 +32,15 @@ export interface SpiritualArticle {
   scheduledAt?: string;
 }
 
+export interface SpiritualValidationHistoryEntry {
+  id: string;
+  previousStatus: SpiritualValidationStatus;
+  newStatus: SpiritualValidationStatus;
+  reviewer: string;
+  comment: string;
+  date: string;
+}
+
 export interface SpiritualValidationRecord {
   id: string;
   articleId: string;
@@ -47,6 +56,7 @@ export interface SpiritualValidationRecord {
   reviewerComments?: string;
   internalNotes?: string;
   requestedCorrections?: string;
+  history?: SpiritualValidationHistoryEntry[];
 }
 
 export interface SpiritualFeatureConfiguration {
