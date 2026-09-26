@@ -4,6 +4,7 @@ import {buildMedicalExport} from '../medicalExportOrchestrator';
 import {getExportConfigurationForObjective} from '../../config/objectiveExportConfig';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {saveIrregularFatigueEntry, saveIrregularJournalEntry} from '../../state/irregularJournalStore';
+import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
 
 // medicalExportReaders.ts imports privateNotesEncryption.ts/
 // privateJournalEncryption.ts at module scope (react-native-keychain-backed);
@@ -210,7 +211,13 @@ describe('buildMedicalExport — SOPK dispatch', () => {
     if (without.kind !== 'csv') {throw new Error('expected a csv result');}
     expect(without.content).not.toContain('NOTE SENSIBLE 42');
 
+    // Sensitive categories need the private-section unlock (M44).
+    lockIntimacy();
+    expect((await buildMedicalExport('irregular', 'all', 'csv', ['notes'], now)).kind).toBe('locked');
+    unlockIntimacy();
+
     const withNotes = await buildMedicalExport('irregular', 'all', 'csv', ['notes'], now);
+    lockIntimacy();
     if (withNotes.kind !== 'csv') {throw new Error('expected a csv result');}
     expect(withNotes.content).toContain('NOTE SENSIBLE 42');
   });

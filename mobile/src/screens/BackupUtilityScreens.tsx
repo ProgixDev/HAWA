@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   ActivityIndicator,
   Pressable,
@@ -27,10 +27,11 @@ import {
   type BackupSnapshot,
 } from '../services/backupService';
 
-import {getExportConfigurationForObjective} from '../config/objectiveExportConfig';
+import {exportRequiresPrivateUnlock, getExportConfigurationForObjective} from '../config/objectiveExportConfig';
+import {isIntimacyUnlocked} from '../state/privateSectionAuthStore';
 import {buildMedicalExport} from '../services/medicalExportOrchestrator';
 import {generateMedicalExportPdfBase64} from '../services/medicalExportPdf';
-import {buildExportFilename, shareExportFile} from '../services/medicalExportShare';
+import {buildExportFilename, purgeMedicalExportCache, shareExportFile} from '../services/medicalExportShare';
 import {usePremium} from '../hooks/usePremium';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {
@@ -539,6 +540,7 @@ export function RestoreBackupScreen({
 
 export function DataExportScreen({
   navigation,
+  route,
 }: NativeStackScreenProps<
   RootStackParamList,
   'DataExport'
@@ -608,6 +610,14 @@ export function DataExportScreen({
     setExporting,
   ] = useState(false);
 
+  // The export file is the user's own UNENCRYPTED copy (see
+  // purgeMedicalExportCache) — never leave a previous one lying in the cache.
+  useEffect(() => {
+    purgeMedicalExportCache().catch(() => {});
+  }, []);
+
+  const sensitiveSelected = exportRequiresPrivateUnlock(objective, selected);
+
   const toggle = (
     value: string,
   ) => {
@@ -624,7 +634,7 @@ export function DataExportScreen({
     );
   };
 
-  const exportData = async () => {
+  const runExport = async () => {
     if (exporting) {return;}
     setMessage('');
 
@@ -641,6 +651,11 @@ export function DataExportScreen({
         format,
         selected,
       );
+
+      if (result.kind === 'locked') {
+        setMessage('Déverrouille ton espace privé pour exporter des données sensibles.');
+        return;
+      }
 
       if (result.kind === 'empty') {
         setMessage('Aucune donnée disponible pour cette période et ces catégories.');
@@ -661,6 +676,37 @@ export function DataExportScreen({
       setExporting(false);
     }
   };
+
+  // M44: an export that includes a sensitive (decrypted) category must first be
+  // authorised by the EXISTING private-section unlock (PIN / biometrics — the
+  // same screens/store as "Vie intime", never a second system). When the
+  // private section is still locked we hand over to that flow; cancelling it (or
+  // failing the PIN) simply returns here with nothing read or exported. On
+  // success the flow pops back to THIS screen with `sensitiveUnlockToken`, and
+  // the effect below resumes the export the user asked for.
+  const exportData = async () => {
+    if (exporting) {return;}
+    if (selected.length && sensitiveSelected && !isIntimacyUnlocked()) {
+      setMessage('');
+      navigation.navigate('PrivateIntimacyUnlock', {target: 'export'});
+      return;
+    }
+    await runExport();
+  };
+
+  const runExportRef = useRef(runExport);
+  useEffect(() => {
+    runExportRef.current = runExport;
+  });
+
+  const sensitiveUnlockToken = route.params?.sensitiveUnlockToken;
+  useEffect(() => {
+    if (sensitiveUnlockToken === undefined) {return;}
+    navigation.setParams({sensitiveUnlockToken: undefined});
+    if (isPremium && isIntimacyUnlocked()) {
+      runExportRef.current().catch(() => {});
+    }
+  }, [sensitiveUnlockToken, navigation, isPremium]);
 
   return (
     <Shell
@@ -963,6 +1009,26 @@ export function DataExportScreen({
             : ''}
         </Text>
       </View>
+
+      {sensitiveSelected ? (
+        <View
+          style={
+            backupStyles.infoMessage
+          }>
+          <MaterialDesignIcons
+            color={theme.colors.danger}
+            name="shield-lock-outline"
+            size={20}
+          />
+
+          <Text
+            style={
+              backupStyles.infoMessageText
+            }>
+            Les catégories sensibles sont déchiffrées le temps de l’export, et le fichier créé n’est pas chiffré : ne le partage qu’avec des personnes de confiance. Ton code privé (ou ta biométrie) te sera demandé.
+          </Text>
+        </View>
+      ) : null}
 
       <PrimaryButton
         disabled={exporting}

@@ -6,7 +6,7 @@ import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {backupNow, formatBytes, getBackupSnapshot, loadBackupSettings, readAwaStorage, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
+import {backupNow, buildPortableDataJson, formatBytes, getBackupSnapshot, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -77,8 +77,7 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
     await saveBackupSettings(next);
   };
   const download = async () => {
-    const data = await readAwaStorage();
-    await Share.share({title: 'Mes données AWA', message: JSON.stringify(data, null, 2)});
+    await Share.share({title: 'Mes données AWA', message: await buildPortableDataJson()});
   };
 
   // snapshot is parsed straight from AsyncStorage JSON (getBackupSnapshot) —

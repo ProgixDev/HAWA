@@ -1,5 +1,6 @@
 import type {ObjectiveId} from '../state/onboardingPreferences';
-import {getExportConfigurationForObjective} from '../config/objectiveExportConfig';
+import {exportRequiresPrivateUnlock, getExportConfigurationForObjective} from '../config/objectiveExportConfig';
+import {isIntimacyUnlocked} from '../state/privateSectionAuthStore';
 import {
   buildCycleExportDays,
   buildConceiveExportDays,
@@ -29,6 +30,9 @@ import {getAllJournalEntries} from '../state/dailyJournalStore';
 
 export type MedicalExportResult =
   | {kind: 'empty'}
+  /** A sensitive category was requested but the private section is not
+   * unlocked — nothing was read or decrypted. */
+  | {kind: 'locked'}
   | {kind: 'csv'; content: string; fromKey: string; toKey: string}
   | {kind: 'pdf'; model: ExportReportModel; fromKey: string; toKey: string};
 
@@ -77,6 +81,15 @@ export async function buildMedicalExport(
   // category value through to a reader.
   const categories = selectedCategories.filter(category => validValues.has(category));
   if (!categories.length) {return {kind: 'empty'};}
+
+  // Defense in depth for M44: sensitive categories carry DECRYPTED private
+  // content, so no reader runs (nothing is decrypted) until the existing
+  // private-section unlock (PIN / biometrics — privateSectionAuthStore) has
+  // succeeded. DataExportScreen runs that unlock flow BEFORE calling this; this
+  // check only guarantees a UI bug can never skip it.
+  if (exportRequiresPrivateUnlock(objective, categories) && !isIntimacyUnlocked()) {
+    return {kind: 'locked'};
+  }
 
   const reader = READERS[objective];
   const {days, notices} = await reader(categories, period, now);

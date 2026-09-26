@@ -4,7 +4,10 @@ import {resolveNoteSection} from './privateNotesEncryption';
 import {resolveIntimacySection} from './privateJournalEncryption';
 import {
   formatCategoryValue,
+  formatEnumOrRaw,
   formatFlowIntensityLabel,
+  formatProtectionLabel,
+  formatSectionNoteLines,
   filterEntriesByPeriod,
   type ExportCategoryValue,
   type ExportDayEntry,
@@ -52,7 +55,15 @@ import {
   getMenopauseLabResults,
   hydrateMenopauseJournal,
 } from '../state/menopauseJournalStore';
-import {getMenopausePreferences, hydrateMenopausePreferences} from '../state/menopausePreferences';
+import {
+  MENOPAUSE_ENERGY_LABELS,
+  MENOPAUSE_INTENSITY_LABELS,
+  MENOPAUSE_LAB_TYPE_LABELS,
+  MENOPAUSE_MOOD_LABELS,
+  MENOPAUSE_SLEEP_QUALITY_LABELS,
+  MENOPAUSE_SYMPTOM_OPTIONS,
+  MENOPAUSE_TREATMENT_STATUS_LABELS,
+} from '../config/menopauseJournalConfig';
 
 import {getAllIrregularJournalEntries, hydrateIrregularJournal} from '../state/irregularJournalStore';
 import {classifyIrregularPeriodDay, getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
@@ -105,7 +116,13 @@ async function buildDailyJournalCategories(
 
       if (category === 'notes') {
         const {data} = await resolveNoteSection(entry);
-        return {category, label, lines: data?.text ? [data.text] : []};
+        // The day's "Notes personnelles" text, then every per-section free-text
+        // note (symptoms / mood / flow / sleep / activity / temperature ...) of
+        // the sections THIS objective offers — all of them encrypted at rest, so
+        // all of them live under this sensitive category (M43), never inside the
+        // plain symptoms / mood / ... categories.
+        const sectionNotes = formatSectionNoteLines(entry, Object.keys(labels));
+        return {category, label, lines: [...(data?.text ? [data.text] : []), ...sectionNotes]};
       }
 
       if (category === 'intimacy') {
@@ -115,7 +132,7 @@ async function buildDailyJournalCategories(
         const answerLabel = data.answer === 'yes' ? 'Oui' : data.answer === 'no' ? 'Non' : 'Préfère ne pas répondre';
         lines.push(`Rapport : ${answerLabel}`);
         if (data.time) {lines.push(`Heure : ${data.time}`);}
-        if (data.protection) {lines.push(`Protection : ${data.protection}`);}
+        if (data.protection) {lines.push(`Protection : ${formatProtectionLabel(data.protection)}`);}
         if (data.libido) {lines.push(`Libido : ${data.libido}`);}
         if (data.discomfort) {lines.push(`Inconfort : ${data.discomfort}`);}
         if (data.note) {lines.push(`Note : ${data.note}`);}
@@ -460,14 +477,28 @@ export async function buildPregnancyExportDays(
     if (!byDate.has(date)) {byDate.set(date, []);}
     return byDate.get(date)!;
   };
+  // Every ENCRYPTED free-text note of this objective (symptom notes, appointment
+  // / exam notes, the daily journal's per-section mood / sleep notes) is filed
+  // under ONE sensitive 'notes' category per day (M43) — never inside the plain
+  // symptoms / appointments / mood / sleep categories.
+  const notesByDate = new Map<string, string[]>();
+  const addNote = (date: string, line: string) => {
+    notesByDate.set(date, [...(notesByDate.get(date) ?? []), line]);
+  };
+  const wantsNotes = selectedCategories.includes('notes');
 
   if (selectedCategories.includes('symptoms')) {
     journal.symptoms.forEach(entry => {
       ensureDay(entry.date).push({
         category: 'symptoms',
         label: 'Symptômes',
-        lines: entry.symptoms.length ? [entry.symptoms.join(', ')].concat(entry.note ? [`Note : ${entry.note}`] : []) : [],
+        lines: entry.symptoms.length ? [entry.symptoms.join(', ')] : [],
       });
+    });
+  }
+  if (wantsNotes) {
+    journal.symptoms.forEach(entry => {
+      if (entry.note) {addNote(entry.date, `Symptômes : ${entry.note}`);}
     });
   }
   if (selectedCategories.includes('weight')) {
@@ -484,9 +515,15 @@ export async function buildPregnancyExportDays(
   if (selectedCategories.includes('appointments')) {
     events.forEach(event => {
       const typeLabel = event.type === 'appointment' ? 'Rendez-vous' : 'Examen';
-      const lines = [event.title, event.practitioner ? `Praticien·ne : ${event.practitioner}` : '', event.notes ? `Note : ${event.notes}` : '']
-        .filter(Boolean);
+      const lines = [event.title, event.practitioner ? `Praticien·ne : ${event.practitioner}` : ''].filter(Boolean);
       ensureDay(event.date).push({category: 'appointments', label: `${typeLabel} / Examens`, lines});
+    });
+  }
+  if (wantsNotes) {
+    events.forEach(event => {
+      if (event.notes) {
+        addNote(event.date, `${event.type === 'appointment' ? 'Rendez-vous' : 'Examen'} (${event.title}) : ${event.notes}`);
+      }
     });
   }
   if (selectedCategories.includes('mood') || selectedCategories.includes('sleep')) {
@@ -500,6 +537,14 @@ export async function buildPregnancyExportDays(
       });
     });
   }
+  if (wantsNotes) {
+    dailyEntries.forEach(entry => {
+      formatSectionNoteLines(entry, ['mood', 'sleep']).forEach(line => addNote(entry.date, line));
+    });
+  }
+  notesByDate.forEach((lines, date) => {
+    ensureDay(date).push({category: 'notes', label: 'Notes personnelles', lines});
+  });
 
   const days: ExportDayEntry[] = Array.from(byDate.entries())
     .filter(([date]) => {
@@ -635,10 +680,14 @@ export async function buildPostpartumExportDays(
       const value = entry[category];
       if (!value) {return;}
       const lines = [String(value)];
-      if (category === 'mood' && entry.moodNote) {lines.push(`Note : ${entry.moodNote}`);}
       if (category === 'sleep' && entry.sleepDuration !== undefined) {lines.push(`Durée : ${entry.sleepDuration} h`);}
       ensureDay(entry.date).push({category, label: POSTPARTUM_FIELD_LABELS[category], lines});
     });
+    // The mood free-text note is ENCRYPTED at rest (postpartumJournalStore) — it
+    // belongs to the sensitive 'notes' category, not to the plain 'mood' one (M43).
+    if (selectedCategories.includes('notes') && entry.moodNote) {
+      ensureDay(entry.date).push({category: 'notes', label: 'Notes personnelles', lines: [`Humeur : ${entry.moodNote}`]});
+    }
   });
 
   if (selectedCategories.includes('lochia')) {
@@ -689,16 +738,21 @@ export async function buildMiscarriageExportDays(
     if (selectedCategories.includes('bleeding') && entry.bleeding) {
       const lines = [entry.bleeding];
       if (entry.bleedingColor) {lines.push(`Couleur : ${entry.bleedingColor}`);}
-      if (entry.bleedingNote) {lines.push(`Note : ${entry.bleedingNote}`);}
       categories.push({category: 'bleeding', label: 'Saignements', lines});
     }
     if (selectedCategories.includes('symptoms') && entry.physicalSymptoms?.length) {
-      const lines = [entry.physicalSymptoms.join(', ')];
-      if (entry.physicalSymptomsNote) {lines.push(`Note : ${entry.physicalSymptomsNote}`);}
-      categories.push({category: 'symptoms', label: 'Symptômes physiques', lines});
+      categories.push({category: 'symptoms', label: 'Symptômes physiques', lines: [entry.physicalSymptoms.join(', ')]});
     }
-    if (selectedCategories.includes('notes') && entry.personalNotes) {
-      categories.push({category: 'notes', label: 'Notes personnelles', lines: [entry.personalNotes]});
+    // personalNotes AND the two free-text annotations attached to bleeding /
+    // symptoms are all ENCRYPTED at rest (miscarriageJournalStore
+    // SENSITIVE_FIELDS) — they all live under the sensitive 'notes' category (M43).
+    if (selectedCategories.includes('notes')) {
+      const lines = [
+        ...(entry.personalNotes ? [entry.personalNotes] : []),
+        ...(entry.bleedingNote ? [`Saignements : ${entry.bleedingNote}`] : []),
+        ...(entry.physicalSymptomsNote ? [`Symptômes physiques : ${entry.physicalSymptomsNote}`] : []),
+      ];
+      if (lines.length) {categories.push({category: 'notes', label: 'Notes personnelles', lines});}
     }
     return {date: entry.date, categories};
   });
@@ -710,21 +764,21 @@ export async function buildMiscarriageExportDays(
  * MENOPAUSE
  * ============================================================ */
 
-const MENOPAUSE_SYMPTOM_LABELS: Record<string, string> = {
-  hot_flashes: 'Bouffées de chaleur',
-  night_sweats: 'Sueurs nocturnes',
-  sleep_disturbances: 'Troubles du sommeil',
-  fatigue: 'Fatigue',
-  mood_changes: 'Variations d’humeur',
-  brain_fog: 'Brouillard mental',
-};
+// Single source: the same option list the Menopause journal itself renders.
+const MENOPAUSE_SYMPTOM_LABELS: Record<string, string> = Object.fromEntries(
+  MENOPAUSE_SYMPTOM_OPTIONS.map(option => [option.id, option.label]),
+);
 
 export async function buildMenopauseExportDays(
   selectedCategories: string[],
   period: ExportPeriod,
   now: Date,
 ): Promise<ObjectiveExportData> {
-  await Promise.all([hydrateMenopauseJournal(), hydrateMenopausePreferences()]);
+  // Deliberately NOT reading menopausePreferences: the CURRENT tracking
+  // preference only steers what the journal offers today, it never decides
+  // whether a treatment / lab result that was genuinely RECORDED in the
+  // selected range is exported (M27: current preference != historical data).
+  await hydrateMenopauseJournal();
 
   const byDate = new Map<string, ExportCategoryValue[]>();
   const ensureDay = (date: string) => {
@@ -732,30 +786,40 @@ export async function buildMenopauseExportDays(
     return byDate.get(date)!;
   };
 
-  const hormonalTreatmentTracked = getMenopausePreferences().hormonalTreatmentStatus === 'track';
-
   Object.values(getAllMenopauseJournalEntries()).forEach(entry => {
     if (selectedCategories.includes('symptoms') && entry.symptoms?.length) {
       const lines = [entry.symptoms.map(symptom => MENOPAUSE_SYMPTOM_LABELS[symptom] ?? symptom).join(', ')];
-      if (entry.symptomIntensity) {lines.push(`Intensité : ${entry.symptomIntensity}`);}
+      if (entry.symptomIntensity) {
+        lines.push(`Intensité : ${formatEnumOrRaw(entry.symptomIntensity, MENOPAUSE_INTENSITY_LABELS)}`);
+      }
       ensureDay(entry.date).push({category: 'symptoms', label: 'Symptômes', lines});
     }
     if (selectedCategories.includes('mood') && entry.mood) {
-      ensureDay(entry.date).push({category: 'mood', label: 'Humeur', lines: [entry.mood]});
+      ensureDay(entry.date).push({
+        category: 'mood',
+        label: 'Humeur',
+        lines: [formatEnumOrRaw(entry.mood, MENOPAUSE_MOOD_LABELS) as string],
+      });
     }
     if (selectedCategories.includes('sleep') && (entry.sleepDurationHours !== undefined || entry.sleepQuality)) {
       const lines: string[] = [];
       if (entry.sleepDurationHours !== undefined) {lines.push(`Durée : ${entry.sleepDurationHours} h`);}
-      if (entry.sleepQuality) {lines.push(`Qualité : ${entry.sleepQuality}`);}
+      if (entry.sleepQuality) {
+        lines.push(`Qualité : ${formatEnumOrRaw(entry.sleepQuality, MENOPAUSE_SLEEP_QUALITY_LABELS)}`);
+      }
       ensureDay(entry.date).push({category: 'sleep', label: 'Sommeil', lines});
     }
     if (selectedCategories.includes('energy') && entry.energyLevel) {
-      ensureDay(entry.date).push({category: 'energy', label: 'Énergie', lines: [entry.energyLevel]});
+      ensureDay(entry.date).push({
+        category: 'energy',
+        label: 'Énergie',
+        lines: [formatEnumOrRaw(entry.energyLevel, MENOPAUSE_ENERGY_LABELS) as string],
+      });
     }
-    // Only surfaced if hormonal-treatment tracking is actually enabled —
-    // never presents a treatment field as relevant when the user opted out.
-    if (selectedCategories.includes('treatment') && hormonalTreatmentTracked && entry.treatmentStatus) {
-      const lines = [entry.treatmentStatus === 'taken' ? 'Traitement pris' : 'Traitement non pris'];
+    // Exported whenever a treatment status was genuinely recorded on that day,
+    // regardless of the CURRENT hormonal-treatment tracking preference (M27).
+    if (selectedCategories.includes('treatment') && entry.treatmentStatus) {
+      const lines = [formatEnumOrRaw(entry.treatmentStatus, MENOPAUSE_TREATMENT_STATUS_LABELS) as string];
       if (entry.treatmentNote) {lines.push(`Note : ${entry.treatmentNote}`);}
       ensureDay(entry.date).push({category: 'treatment', label: 'Traitement hormonal', lines});
     }
@@ -766,7 +830,7 @@ export async function buildMenopauseExportDays(
 
   if (selectedCategories.includes('labResults')) {
     getMenopauseLabResults().forEach(result => {
-      const typeLabel = result.type === 'fsh' ? 'FSH' : 'Estradiol';
+      const typeLabel = formatEnumOrRaw(result.type, MENOPAUSE_LAB_TYPE_LABELS);
       // Value only, never an interpretation — no "normal"/"anormal" judgment.
       ensureDay(result.date).push({
         category: 'labResults',

@@ -53,7 +53,7 @@ export const UTF8_BOM = '﻿';
  * deleting immediately after Share.open() would risk truncating the
  * attachment the user just sent; the cache directory is already app-private,
  * non-public, and OS-reclaimable, so leaving one file there briefly is safe. */
-async function clearPreviousExports(): Promise<void> {
+export async function clearPreviousExports(): Promise<void> {
   try {
     if (!(await exists(EXPORT_DIR))) {return;}
     const entries = await readDir(EXPORT_DIR);
@@ -63,6 +63,14 @@ async function clearPreviousExports(): Promise<void> {
     // current export over.
   }
 }
+
+/** Removes any export file left in the app cache by a previous export. The
+ * file is the user's own, intentionally UNENCRYPTED export (it may contain
+ * decrypted sensitive content when a sensitive category was selected), so
+ * DataExportScreen calls this every time it opens: a stale export never lingers
+ * in the cache for longer than "until the user next visits the export screen".
+ * Best-effort, never throws. */
+export const purgeMedicalExportCache = clearPreviousExports;
 
 /** Writes the export to the app's cache directory (never public/shared
  * storage — no broad storage permission is needed), opens the native Share
