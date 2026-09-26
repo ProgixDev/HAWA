@@ -11,7 +11,6 @@ import {
   subscribePrivacySecuritySettings,
 } from './src/state/securityPreferences';
 import {
-  getActiveObjective,
   hydrateActiveObjective,
   hydrateCyclePreferences,
   hydrateHijriAdjustmentDays,
@@ -21,7 +20,7 @@ import {
   subscribeHijriAdjustmentDays,
   subscribeSpiritualMarkersEnabled,
 } from './src/state/onboardingPreferences';
-import { resyncAllPregnancyNotifications } from './src/utils/pregnancyReminderScheduling';
+import { syncPregnancyNotificationsForActiveObjective } from './src/utils/pregnancyReminderScheduling';
 import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
 import { syncPostpartumDailyTrackingReminder } from './src/utils/postpartumReminderScheduling';
 import { syncMiscarriageDailyTrackingReminder } from './src/utils/miscarriageReminderScheduling';
@@ -68,6 +67,7 @@ import {isBiometricPromptActive} from './src/services/appSecurityService';
 import {requiresAppLock} from './src/state/securityPreferences';
 import {migrateLegacyPlainNotes} from './src/services/privateNotesEncryption';
 import {initializePremium} from './src/services/purchaseService';
+import {restorePendingObjectiveSetupOnStartup} from './src/services/objectiveSwitch';
 import {migrateLegacyPlainMiscarriageNotes} from './src/state/miscarriageJournalStore';
 import {migrateLegacyPlainPostpartumMoodNotes} from './src/state/postpartumJournalStore';
 import {migrateLegacyPlainPregnancyNotes} from './src/state/pregnancyJournalStore';
@@ -122,22 +122,28 @@ migrateLegacyPlainPostpartumLochiaNotes().catch(() => {});
 migrateLegacyPlainPregnancyCustomReminders().catch(() => {});
 migrateLegacyPlainPregnancyHealthReminders().catch(() => {});
 
-// Pregnancy Tracking reminders are objective-specific: they must only be
-// (re)scheduled while the user's active objective is 'pregnancy', never for
-// 'cycle' or any other objective. Re-derives and reschedules every Pregnancy
-// Tracking reminder from persisted state so they survive an app restart, not
-// just a screen revisit — and re-runs whenever the active objective changes
-// so switching back into Suivi de grossesse mid-session resyncs them again.
-// Switching away never cancels or clears anything — just stops scheduling
-// new ones, so nothing is lost if the user switches back later.
+// Pregnancy Tracking reminders are objective-specific, like every other
+// objective's: they are scheduled from the saved state while the active
+// objective is 'pregnancy' (survives an app restart, and a switch back into
+// Suivi de grossesse resyncs them), and their SCHEDULED notifications are
+// cancelled whenever another objective is active (delivery → Post-partum, a
+// switch to Loss / Cycle / …). Saved settings and reminder definitions are
+// never deleted, so nothing is lost when the user switches back.
 function resyncPregnancyNotificationsIfActive(): void {
-  if (getActiveObjective() === 'pregnancy') {
-    resyncAllPregnancyNotifications();
-  }
+  syncPregnancyNotificationsForActiveObjective().catch(() => {});
 }
 
 hydrateActiveObjective().then(resyncPregnancyNotificationsIfActive);
 subscribeActiveObjective(resyncPregnancyNotificationsIfActive);
+
+// An in-app "configure another objective" flow (services/objectiveSwitch.ts)
+// interrupted by a process kill leaves a persisted pending record: if the
+// target objective is still not fully configured, the previous objective is
+// made active again so she is never parked on a half-configured one (a fully
+// configured target just clears the flag). Runs long before the 5s splash
+// hands over to the app; the subscribeActiveObjective() listeners below resync
+// every objective-gated reminder if the active objective changes. Failure-safe.
+restorePendingObjectiveSetupOnStartup().catch(() => {});
 
 function syncNifasReminders(): void {
   syncPostpartumNifasReminders();

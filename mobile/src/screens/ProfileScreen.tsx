@@ -1,3 +1,5 @@
+import {getContraceptionReminderIndicator} from '../utils/contraceptionReminderScheduling';
+import {useToday} from '../hooks/useToday';
 import React, {
   useCallback,
   useEffect,
@@ -35,14 +37,14 @@ import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomShe
 import {
   getCycleObservationStartedAt,
   getCyclePreferences,
-  getPeriodHistory,
+  getHasConfirmedCycleData,
+  getRecordedPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
   getFirstName,
   getSelectedObjective,
   getSpiritualMarkersEnabled,
   hydrateActiveObjective,
-  setSelectedObjective,
   subscribeActiveObjective,
   setSpiritualMarkersEnabled,
   subscribeHijriAdjustmentDays,
@@ -77,6 +79,7 @@ import {
   hydrateMenopausePreferences,
   subscribeMenopausePreferences,
   type MenopauseHormonalTreatmentStatus,
+  type MenopauseLabTracking,
   type MenopauseStage,
 } from '../state/menopausePreferences';
 import {
@@ -85,27 +88,22 @@ import {
   subscribeIrregularPreferences,
   type IrregularCyclePattern,
 } from '../state/irregularPreferences';
+import {useIrregularPeriodSources} from '../hooks/useIrregularPeriodSources';
 import {
-  getConfirmedPeriodHistory,
-  hydrateConfirmedPeriodHistory,
-  subscribeConfirmedPeriodHistory,
-} from '../state/confirmedPeriodHistoryStore';
-import {
-  computeConfirmedPeriodDurationDays,
-  findLatestConfirmedPeriod,
-  parsePeriodStart,
-} from '../utils/irregularDailyTrackingMath';
+  resolveLatestIrregularPeriodDuration,
+  resolveLatestIrregularPeriodStart,
+} from '../utils/irregularJournalSelectors';
 import {
   computeCyclePredictionStatus,
+  describeAverageCycle,
   formatDateRange as formatCanonicalDateRange,
   formatFullDate,
   formatHijriDate,
-  IRREGULAR_WINDOW_MAX_DAYS,
-  IRREGULAR_WINDOW_MIN_DAYS,
   startOfDay as canonicalStartOfDay,
 } from '../utils/cycleMath';
 
 import { lockIntimacy } from '../state/privateSectionAuthStore';
+import { switchToObjective } from '../services/objectiveSwitch';
 import {
   ensureAnonymousAccount,
   getAnonymousAccount,
@@ -168,6 +166,13 @@ const MENOPAUSE_STAGE_LABELS: Record<MenopauseStage, string> = {
   perimenopause: 'Périménopause',
   menopause: 'Ménopause',
   unsure: 'Non précisée',
+};
+
+const MENOPAUSE_LAB_TRACKING_LABELS: Record<MenopauseLabTracking, string> = {
+  fsh: 'FSH',
+  estradiol: 'Estradiol',
+  both: 'FSH et Estradiol',
+  none: 'Pas pour le moment',
 };
 
 const MENOPAUSE_HORMONAL_TREATMENT_LABELS: Record<MenopauseHormonalTreatmentStatus, string> = {
@@ -941,26 +946,6 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
-  const [confirmedPeriodHistory, setConfirmedPeriodHistory] = useState(getConfirmedPeriodHistory);
-
-  useEffect(() => {
-    let active = true;
-    hydrateConfirmedPeriodHistory().then(value => {
-      if (active) {
-        setConfirmedPeriodHistory(value);
-      }
-    });
-    const unsubscribe = subscribeConfirmedPeriodHistory(() => {
-      if (active) {
-        setConfirmedPeriodHistory(getConfirmedPeriodHistory());
-      }
-    });
-    return () => {
-      active = false;
-      unsubscribe();
-    };
-  }, []);
-
   const [miscarriage, setMiscarriage] = useState(getMiscarriagePreferences);
 
   useEffect(() => {
@@ -1159,18 +1144,27 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   // Regularity-aware — same computeCyclePredictionStatus() Dashboard/Calendar
   // use, so an irregular/observing user never sees a falsely-exact date here
   // while seeing a window everywhere else.
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const { today, todayKey } = useToday();
+  // Never "Activés" for ring / patch — see getContraceptionReminderIndicator.
+  const contraceptionReminderIndicator = getContraceptionReminderIndicator(
+    contraception.method,
+    contraception.remindersEnabled,
+  );
   const nextPeriodStatus = useMemo(
     () =>
       computeCyclePredictionStatus(
         cycle,
         cycle.regularity,
-        getPeriodHistory()
+        getRecordedPeriodHistory()
           .map(record => new Date(`${record.startDate}T12:00:00`))
           .filter(date => !Number.isNaN(date.getTime())),
         getCycleObservationStartedAt(),
         canonicalStartOfDay(new Date()),
       ),
-    [cycle],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
+    [cycle, todayKey],
   );
 
   const nextPeriodValue = (() => {
@@ -1188,23 +1182,11 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     return `Mois ${nextPeriodStatus.monthsElapsed} sur ${nextPeriodStatus.totalMonths}`;
   })();
 
-  // Same rule as Dashboard/Calendar: don't present a single precise average
-  // once the pattern is irregular/variable — see computeCyclePredictionStatus.
-  const averageCycleTile = (() => {
-    if (nextPeriodStatus.mode === 'exact') {
-      return {
-        label: 'Cycle moyen',
-        value: `${nextPeriodStatus.averageCycleLength} jours`,
-      };
-    }
-    if (nextPeriodStatus.mode === 'window') {
-      return {
-        label: 'Cycle variable',
-        value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
-      };
-    }
-    return { label: 'Cycle moyen', value: `${cycle.cycleDuration} jours` };
-  })();
+  // Same rule as Dashboard/Calendar (describeAverageCycle in cycleMath.ts): a
+  // number is only called an average when it was observed from the user's own
+  // recorded cycles; a declared length is worded as such, and an irregular /
+  // variable cycle never gets one precise figure.
+  const averageCycleTile = describeAverageCycle(nextPeriodStatus, cycle, getHasConfirmedCycleData());
 
   // SOPK's own Profile summary — deliberately independent of
   // computeCyclePredictionStatus()/nextPeriodStatus above (no "Prochaines
@@ -1216,56 +1198,63 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     ? IRREGULAR_CYCLE_PATTERN_LABELS[irregularPrefs.cyclePattern]
     : 'Non renseigné';
 
-  const latestConfirmedPeriod = useMemo(
-    () => findLatestConfirmedPeriod(confirmedPeriodHistory),
-    [confirmedPeriodHistory],
-  );
+  // Real period data for the SOPK tiles: the periods the user actually
+  // recorded (journal period days), cycle-confirmed occurrences and the
+  // onboarding answer — see utils/irregularJournalSelectors.ts. Reading the
+  // confirmed history alone left these tiles at "Non renseignée(s)" for a
+  // user who records periods through the SOPK journal.
+  const irregularPeriodSources = useIrregularPeriodSources(objective === 'irregular');
 
   const irregularPeriodDurationValue = (() => {
-    if (!latestConfirmedPeriod) {return 'Non renseignée';}
-    const days = computeConfirmedPeriodDurationDays(latestConfirmedPeriod);
+    const days = resolveLatestIrregularPeriodDuration(irregularPeriodSources, todayKey);
     return days ? `${days} ${days > 1 ? 'jours' : 'jour'}` : 'Non renseignée';
   })();
 
-  // latestConfirmedPeriod.periodStart is stored as a FULL ISO datetime (see
-  // confirmedPeriodHistoryStore.ts's recordConfirmedPeriodEnd — periodStart.
-  // toISOString()), not a bare date-only string. Appending "T12:00:00" to it
-  // (as this used to) built a malformed double-suffix string
-  // ("...T00:00:00.000ZT12:00:00"), which the Date constructor turns into an
-  // Invalid Date — crashing formatShortDate's Intl.DateTimeFormat().format()
-  // call with "RangeError: Invalid time value" for every user with at least
-  // one confirmed period. parsePeriodStart (shared with
-  // computeConfirmedPeriodDurationDays) handles both that format and a bare
-  // date-only string safely.
   const irregularLastPeriodValue = (() => {
-    if (!latestConfirmedPeriod) {
+    const start = resolveLatestIrregularPeriodStart(irregularPeriodSources, todayKey);
+    if (!start) {
       return 'Non renseignées';
     }
-    const parsed = parsePeriodStart(latestConfirmedPeriod.periodStart);
+    const parsed = new Date(`${start}T12:00:00`);
     return Number.isNaN(parsed.getTime())
       ? 'Non renseignées'
       : formatShortDate(parsed) ?? 'Non renseignées';
   })();
 
-  const [hijriToday, setHijriToday] = useState(() => formatHijriDate(new Date()));
+  // Follows the shared current day (see useToday above) AND the Hijri
+  // adjustment: re-evaluated when the day changes, on focus, and whenever the
+  // adjustment changes.
+  const [hijriToday, setHijriToday] = useState(() => formatHijriDate(today));
   useFocusEffect(
     useCallback(() => {
-      setHijriToday(formatHijriDate(new Date()));
-      const unsubscribe = subscribeHijriAdjustmentDays(() => setHijriToday(formatHijriDate(new Date())));
+      setHijriToday(formatHijriDate(today));
+      const unsubscribe = subscribeHijriAdjustmentDays(() => setHijriToday(formatHijriDate(today)));
       return unsubscribe;
-    }, []),
+    }, [today]),
   );
 
   /* ========================================================
    * CHANGER OBJECTIF
    * ======================================================== */
 
+  // Already-configured objective → activated, its data untouched, dashboard
+  // opened. Never-configured objective → its own onboarding chain starts and
+  // the dashboard opens when that chain is finished (backing out restores the
+  // previous objective, see AppNavigator's state listener). Nothing is ever
+  // deleted — see services/objectiveSwitch.ts.
   const changeObjective = async (nextObjective: ObjectiveId) => {
-    await setSelectedObjective(nextObjective);
-
-    setObjective(nextObjective);
-
     setObjectiveModalVisible(false);
+
+    const result = await switchToObjective({
+      from: objective,
+      to: nextObjective,
+      openHome: () => navigation.navigate('CycleHome'),
+      openSetup: route => navigation.navigate(route),
+    });
+
+    if (result !== 'unchanged') {
+      setObjective(nextObjective);
+    }
   };
 
   /* ========================================================
@@ -1561,9 +1550,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               "Règles en retard" — forbidden for SOPK, see
               IrregularDashboard.tsx's own header comment on this rule).
               "Durée des règles"/"Dernières règles" describe only the most
-              recently CONFIRMED real period (confirmedPeriodHistoryStore.ts —
-              the same canonical history qadaa/exports already read), never a
-              predicted or averaged value. "Type de cycle" reflects the SOPK
+              recent REAL period (recorded period days, a cycle-confirmed
+              occurrence, or the onboarding answer — irregularJournalSelectors.ts),
+              never a predicted or averaged value; the duration stays "Non
+              renseignée" while that period is still ongoing. "Type de cycle" reflects the SOPK
               onboarding's real saved answer (irregularPreferences.ts), never
               a hardcoded "Cycles irréguliers". */}
           {objective === 'irregular' ? (
@@ -1623,9 +1613,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <StatCard
-                icon={contraception.remindersEnabled ? 'bell-check-outline' : 'bell-off-outline'}
+                icon={contraceptionReminderIndicator === 'enabled' ? 'bell-check-outline' : 'bell-off-outline'}
                 label="Rappels"
-                value={contraception.remindersEnabled ? 'Activés' : 'Désactivés'}
+                value={
+                  contraceptionReminderIndicator === 'enabled'
+                    ? 'Activés'
+                    : contraceptionReminderIndicator === 'unavailable'
+                      ? 'Non disponibles'
+                      : 'Désactivés'
+                }
               />
 
               <StatCard
@@ -1790,6 +1786,142 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               tone="health"
             />
 
+            {/* Post-onboarding configuration rows (M11). Each one opens the SAME
+                screen the onboarding chain uses, in {mode:'edit'}: prefilled from
+                the current store, saves only its own group, then goBack() —
+                never continues the chain. Shown only for the matching objective. */}
+            {objective === 'cycle' ? (
+              <>
+                <MenuRow
+                  icon="sync"
+                  onPress={() => navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})}
+                  subtitle={getHasConfirmedCycleData() ? `${cycle.cycleDuration} jours` : 'Non renseignée'}
+                  title="Durée du cycle"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="water-outline"
+                  onPress={() => navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})}
+                  subtitle={getHasConfirmedCycleData() ? `${cycle.periodDuration} jours` : 'Non renseignée'}
+                  title="Durée des règles"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="chart-timeline-variant"
+                  onPress={() => navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})}
+                  subtitle={
+                    !getHasConfirmedCycleData()
+                      ? 'Non renseignée'
+                      : cycle.regularity === 'yes'
+                        ? 'Plutôt régulier'
+                        : cycle.regularity === 'no'
+                          ? 'Irrégulier'
+                          : 'Je ne sais pas encore'
+                  }
+                  title="Régularité du cycle"
+                  tone="default"
+                />
+              </>
+            ) : null}
+
+            {objective === 'conceive' ? (
+              <>
+                <MenuRow
+                  icon="calendar-clock"
+                  onPress={() => navigation.navigate('ConceptionTryingDuration', {mode: 'edit'})}
+                  subtitle="Depuis combien de temps j’essaie de concevoir"
+                  title="Durée des essais"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="target"
+                  onPress={() => navigation.navigate('ConceptionOvulationAwareness', {mode: 'edit'})}
+                  subtitle="Arriver à repérer mon ovulation"
+                  title="Repérage de l’ovulation"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="chart-timeline-variant"
+                  onPress={() => navigation.navigate('ConceptionIndicators', {mode: 'edit'})}
+                  subtitle="Température, glaire, tests LH, rapports"
+                  title="Indicateurs suivis"
+                  tone="default"
+                />
+              </>
+            ) : null}
+
+            {objective === 'irregular' ? (
+              <>
+                <MenuRow
+                  icon="calendar-edit"
+                  onPress={() => navigation.navigate('IrregularLastPeriod', {mode: 'edit'})}
+                  subtitle="Renseigner ou corriger la date"
+                  title="Dernières règles"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="clipboard-pulse-outline"
+                  onPress={() => navigation.navigate('IrregularTrackedItems', {mode: 'edit'})}
+                  subtitle={
+                    irregularPrefs.trackedItems.length > 0
+                      ? `${irregularPrefs.trackedItems.length} élément${irregularPrefs.trackedItems.length > 1 ? 's' : ''} suivi${irregularPrefs.trackedItems.length > 1 ? 's' : ''}`
+                      : 'Aucun élément suivi'
+                  }
+                  title="Éléments suivis"
+                  tone="default"
+                />
+              </>
+            ) : null}
+
+            {objective === 'contraception' ? (
+              <>
+                <MenuRow
+                  icon="calendar-check-outline"
+                  onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
+                  subtitle={(() => {
+                    const parsed = parseStoredDateOnly(contraception.methodStartDate);
+                    return parsed ? formatFullDate(parsed) : 'Non renseigné';
+                  })()}
+                  title="Début du traitement"
+                  tone="default"
+                />
+                {contraception.method === 'pill' ? (
+                  <MenuRow
+                    icon="clock-outline"
+                    onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
+                    subtitle={
+                      contraception.hasTreatmentBreak === null
+                        ? 'Non renseignée'
+                        : contraception.hasTreatmentBreak
+                          ? 'Avec une pause'
+                          : 'Sans pause'
+                    }
+                    title="Pause de traitement"
+                    tone="default"
+                  />
+                ) : null}
+              </>
+            ) : null}
+
+            {objective === 'pregnancy' ? (
+              <>
+                <MenuRow
+                  icon="calendar-heart"
+                  onPress={() => navigation.navigate('PregnancyDatingSetup', {mode: 'edit'})}
+                  subtitle="Date de début, terme prévu ou conception"
+                  title="Datation de ma grossesse"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="clipboard-pulse-outline"
+                  onPress={() => navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})}
+                  subtitle="Choisir les catégories de mon suivi quotidien"
+                  title="Préférences de suivi"
+                  tone="default"
+                />
+              </>
+            ) : null}
+
             {objective === 'pregnancy' ? (
               <MenuRow
                 icon="bell-outline"
@@ -1831,6 +1963,49 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             ) : null}
 
             {objective === 'menopause' ? (
+              <>
+                <MenuRow
+                  icon="flower-outline"
+                  onPress={() => navigation.navigate('MenopauseStage', {mode: 'edit'})}
+                  subtitle={menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : 'Non renseignée'}
+                  title="Étape actuelle"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="clipboard-pulse-outline"
+                  onPress={() => navigation.navigate('MenopauseSymptoms', {mode: 'edit'})}
+                  subtitle={
+                    menopause.trackedSymptoms.length > 0
+                      ? `${menopause.trackedSymptoms.length} symptôme${menopause.trackedSymptoms.length > 1 ? 's' : ''} suivi${menopause.trackedSymptoms.length > 1 ? 's' : ''}`
+                      : 'Aucun symptôme suivi'
+                  }
+                  title="Symptômes suivis"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="pill"
+                  onPress={() => navigation.navigate('MenopauseHormonalTreatment', {mode: 'edit'})}
+                  subtitle={
+                    menopause.hormonalTreatmentStatus
+                      ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus]
+                      : 'Non renseigné'
+                  }
+                  title="Traitement hormonal"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="flask-outline"
+                  onPress={() => navigation.navigate('MenopauseLabTracking', {mode: 'edit'})}
+                  subtitle={
+                    menopause.labTracking ? MENOPAUSE_LAB_TRACKING_LABELS[menopause.labTracking] : 'Non renseigné'
+                  }
+                  title="Analyses suivies"
+                  tone="default"
+                />
+              </>
+            ) : null}
+
+            {objective === 'menopause' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('MenopauseReminders', {mode: 'edit'})}
@@ -1838,6 +2013,39 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 title="Notifications & rappels"
                 tone="default"
               />
+            ) : null}
+
+            {objective === 'postpartum' ? (
+              <>
+                <MenuRow
+                  icon="calendar-heart"
+                  onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
+                  subtitle="Corriger la date de mon accouchement"
+                  title="Date d’accouchement"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="medical-bag"
+                  onPress={() => navigation.navigate('PostpartumDeliveryType', {mode: 'edit'})}
+                  subtitle="Type d’accouchement"
+                  title="Mon accouchement"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="baby-bottle-outline"
+                  onPress={() => navigation.navigate('PostpartumFeeding', {mode: 'edit'})}
+                  subtitle="Allaitement et alimentation de bébé"
+                  title="Alimentation de bébé"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="sync"
+                  onPress={() => navigation.navigate('PostpartumCycleReturn')}
+                  subtitle="Ajouter, modifier ou effacer la date des premières règles"
+                  title="Retour du cycle"
+                  tone="default"
+                />
+              </>
             ) : null}
 
             {objective === 'postpartum' ? (
@@ -1858,6 +2066,54 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 title="Notifications & rappels"
                 tone="default"
               />
+            ) : null}
+
+            {objective === 'loss' ? (
+              <MenuRow
+                icon="calendar-edit"
+                onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
+                subtitle="Renseigner ou corriger la date"
+                title="Date de la fausse couche"
+                tone="default"
+              />
+            ) : null}
+
+            {objective === 'loss' ? (
+              <>
+                <MenuRow
+                  icon="water-outline"
+                  onPress={() => navigation.navigate('MiscarriageBleeding', {mode: 'edit'})}
+                  subtitle={
+                    miscarriage.bleedingStatus
+                      ? `Actuellement : ${BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus]}`
+                      : 'Non renseigné'
+                  }
+                  title="Saignements actuels"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="sync-circle"
+                  onPress={() => navigation.navigate('MiscarriageCycleReturn', {mode: 'edit'})}
+                  subtitle={
+                    miscarriage.cycleReturnStatus
+                      ? `Actuellement : ${MISCARRIAGE_CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus]}`
+                      : 'Non renseigné'
+                  }
+                  title="Retour du cycle"
+                  tone="default"
+                />
+                <MenuRow
+                  icon="heart-outline"
+                  onPress={() => navigation.navigate('MiscarriageTryingAgain', {mode: 'edit'})}
+                  subtitle={
+                    miscarriage.tryingAgainStatus
+                      ? `Actuellement : ${MISCARRIAGE_TRYING_AGAIN_LABELS[miscarriage.tryingAgainStatus]}`
+                      : 'Non renseigné'
+                  }
+                  title="Reprise des essais"
+                  tone="default"
+                />
+              </>
             ) : null}
 
             {objective === 'loss' ? (
