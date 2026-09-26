@@ -22,7 +22,6 @@ const defaultPreferences: ConceptionPreferences = {
   reminders: {fertile_window: false, estimated_ovulation: false, temperature: false, lh_test: false, daily_journal: false},
 };
 let preferences: ConceptionPreferences = {...defaultPreferences, reminders: {...defaultPreferences.reminders}};
-let hydration: Promise<ConceptionPreferences> | null = null;
 const listeners = new Set<() => void>();
 const notifyListeners = () => listeners.forEach(listener => listener());
 
@@ -58,10 +57,19 @@ export const subscribeConceptionPreferences = (listener: () => void) => {
   };
 };
 
+let hydrated = false;
+let hydration: Promise<void> | null = null;
+
+/** Loads the persisted preferences once (memoized), then ALWAYS resolves with
+ * the CURRENT in-memory value. The memoized promise used to resolve with the
+ * snapshot taken when the FIRST hydration settled, so every later caller
+ * (each Conception edit screen re-hydrating on open) got that boot-time
+ * snapshot back — silently reverting anything saved since. */
 export const hydrateConceptionPreferences = (): Promise<ConceptionPreferences> => {
   if (!hydration) {
     hydration = AsyncStorage.getItem(STORAGE_KEY).then(raw => {
-      if (!raw) {return getConceptionPreferences();}
+      hydrated = true;
+      if (!raw) {return;}
       const value: unknown = JSON.parse(raw);
       if (isObject(value)) {
         preferences = {
@@ -72,13 +80,21 @@ export const hydrateConceptionPreferences = (): Promise<ConceptionPreferences> =
         } as ConceptionPreferences;
       }
       notifyListeners();
-      return getConceptionPreferences();
-    }).catch(() => getConceptionPreferences());
+    }).catch(() => {
+      hydrated = true;
+    });
   }
-  return hydration;
+  return hydration.then(() => getConceptionPreferences());
 };
 
+/** Merges `next` onto the LIVE in-memory preferences — callers pass only the
+ * fields they own (never a spread of an older snapshot). Waits for the
+ * initial load first if it has not finished, so a very early save can neither
+ * be overwritten by, nor overwrite, the persisted values. */
 export const setConceptionPreferences = async (next: Partial<ConceptionPreferences>): Promise<void> => {
+  if (!hydrated) {
+    await hydrateConceptionPreferences();
+  }
   preferences = {...preferences, ...next, indicators: next.indicators ? [...next.indicators] : preferences.indicators, reminders: next.reminders ? {...next.reminders} : preferences.reminders};
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
   notifyListeners();

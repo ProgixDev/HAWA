@@ -1,3 +1,4 @@
+import {getContraceptionReminderIndicator} from '../../utils/contraceptionReminderScheduling';
 import React, {
   useCallback,
   useEffect,
@@ -89,8 +90,9 @@ import {
   isContraceptionIntakeRecordForMethod,
 } from '../../config/contraceptionLabels';
 
-import {getPillPackDay} from '../../utils/contraceptionMath';
+import {getPillPackDay, isPillBreakDay} from '../../utils/contraceptionMath';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {filterRecordsForHistoryAccess} from '../../utils/historyAccess';
 
@@ -151,9 +153,6 @@ type HistoryDay = {
   record: ContraceptionIntakeRecord | undefined;
 };
 
-const todayKey = (): string =>
-  new Date().toLocaleDateString('en-CA');
-
 const formatRecordTime = (
   recordedAt: string,
 ): string => {
@@ -196,11 +195,15 @@ const formatRecordDate = (
 function PillPackProgressRing({
   day,
   totalDays,
+  isBreakDay = false,
   statusColor,
   statusIcon,
   statusText,
 }: {
   day: number | null;
+  /** True on a break (arrêt) day of a cyclic schedule — the footnote then
+   * says so instead of describing an active pill-taking pack day. */
+  isBreakDay?: boolean;
   /** Real total pack length from the user's own PillScheduleScreen answer
    * — never a hardcoded 28. `day` is only ever non-null when this is also
    * non-null (see pillPackDay's computation), but the type stays separate
@@ -221,7 +224,7 @@ function PillPackProgressRing({
       centerCaption="Jour"
       centerDetail={isConfigured ? `sur ${totalDays}` : undefined}
       centerValue={day ?? undefined}
-      footnote={isConfigured ? 'Plaquette en cours' : 'Suivi en cours'}
+      footnote={isConfigured ? (isBreakDay ? 'Période d’arrêt' : 'Plaquette en cours') : 'Suivi en cours'}
       isConfigured={isConfigured}
       progress={progress}
       statusColor={statusColor}
@@ -377,10 +380,9 @@ function ContraceptionDashboard({
    * ============================================================
    */
 
-  const today = useMemo(
-    () => todayKey(),
-    [],
-  );
+  // Local 'YYYY-MM-DD' of the current day, re-evaluated when the day changes /
+  // the app returns to the foreground — see src/hooks/useToday.ts.
+  const {todayKey: today} = useToday();
 
   const [
     rawTodayRecord,
@@ -760,6 +762,10 @@ function ContraceptionDashboard({
 
   const isPill = method === 'pill';
 
+  // Never "activés" for a method with no reminder to schedule (ring / patch),
+  // whatever the stored flag says — see getContraceptionReminderIndicator.
+  const reminderIndicator = getContraceptionReminderIndicator(method, remindersEnabled);
+
   // Real total pack length, ONLY when the user actually entered a cyclic
   // schedule (PillScheduleScreen) — never a hardcoded 28. `null` for
   // continuous/unknown/not-yet-configured, which the progress ring below
@@ -867,8 +873,24 @@ function ContraceptionDashboard({
     ? CONTRACEPTION_INTAKE_ACTION_LABEL[method]
     : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL;
 
+  const pillPackDay = useMemo(
+    () =>
+      isPill && pillScheduleTotalDays !== null
+        ? getPillPackDay(methodStartDate, today, pillScheduleTotalDays)
+        : null,
+    [isPill, methodStartDate, today, pillScheduleTotalDays],
+  );
+
+  // A BREAK day of a CYCLIC pill schedule (see isPillBreakDay) with nothing
+  // recorded for today: the normal "take your pill" state would be
+  // misleading, so the hero / ring / daily row say it is a break day instead.
+  // A status the user actually recorded for today always wins (never hidden).
+  const showBreakDayState = isPill && isPillBreakDay(pillPackDay, activeDays) && !todayRecord;
+
   const intakeStateLabel =
-    todayRecord?.status === 'taken'
+    showBreakDayState
+      ? 'Jour d’arrêt'
+      : todayRecord?.status === 'taken'
       ? 'Enregistré'
       : todayRecord?.status === 'late'
         ? 'En retard'
@@ -884,14 +906,6 @@ function ContraceptionDashboard({
       : 'À renseigner';
 
   const hasNotesToday = Boolean(todayJournalEntry?.notes?.trim());
-
-  const pillPackDay = useMemo(
-    () =>
-      isPill && pillScheduleTotalDays !== null
-        ? getPillPackDay(methodStartDate, today, pillScheduleTotalDays)
-        : null,
-    [isPill, methodStartDate, today, pillScheduleTotalDays],
-  );
 
   // Real schedule only — never a fabricated 21+7. `pillScheduleType` is set
   // exclusively via PillScheduleScreen (a real user answer), never guessed.
@@ -993,7 +1007,9 @@ function ContraceptionDashboard({
         : todayRecord?.status ===
             'missed'
           ? 'Oubli enregistré'
-          : 'Pilule à prendre'
+          : showBreakDayState
+            ? 'Jour d’arrêt'
+            : 'Pilule à prendre'
     : methodLabel;
 
   const heroSubtitle = isPill
@@ -1005,10 +1021,14 @@ function ContraceptionDashboard({
         : todayRecord?.status ===
             'missed'
           ? 'Ton oubli du jour est enregistré.'
-          : 'N’oublie pas d’enregistrer ta prise aujourd’hui.'
-    : remindersEnabled
+          : showBreakDayState
+            ? 'Période d’arrêt renseignée dans ton schéma.'
+            : 'N’oublie pas d’enregistrer ta prise aujourd’hui.'
+    : reminderIndicator === 'enabled'
       ? 'Tes rappels sont activés.'
-      : 'Tes rappels sont désactivés.';
+      : reminderIndicator === 'unavailable'
+        ? 'Les rappels ne sont pas encore disponibles pour cette méthode.'
+        : 'Tes rappels sont désactivés.';
 
   const circleStatusText = isEventMethod
     ? currentMethodTodayEvents.length > 0
@@ -1022,7 +1042,9 @@ function ContraceptionDashboard({
         : todayRecord?.status ===
             'missed'
           ? 'Oubli'
-          : 'À faire';
+          : showBreakDayState
+            ? 'Arrêt'
+            : 'À faire';
 
   const circleStatusIcon = isEventMethod
     ? currentMethodTodayEvents.length > 0
@@ -1036,7 +1058,9 @@ function ContraceptionDashboard({
         : todayRecord?.status ===
             'missed'
           ? 'alert-outline'
-          : methodIcon;
+          : showBreakDayState
+            ? 'pause-circle-outline'
+            : methodIcon;
 
   const circleStatusColor = isEventMethod
     ? PURPLE
@@ -1302,7 +1326,7 @@ function ContraceptionDashboard({
                   <MaterialDesignIcons
                     color={PURPLE}
                     name={
-                      remindersEnabled
+                      reminderIndicator === 'enabled'
                         ? 'bell-check-outline'
                         : 'bell-off-outline'
                     }
@@ -1313,9 +1337,11 @@ function ContraceptionDashboard({
                     style={
                       styles.todayMetaText
                     }>
-                    {remindersEnabled
+                    {reminderIndicator === 'enabled'
                       ? 'Rappels activés'
-                      : 'Rappels désactivés'}
+                      : reminderIndicator === 'unavailable'
+                        ? 'Rappels non disponibles'
+                        : 'Rappels désactivés'}
                   </Text>
                 </View>
 
@@ -1329,6 +1355,7 @@ function ContraceptionDashboard({
 
               <PillPackProgressRing
                 day={pillPackDay}
+                isBreakDay={showBreakDayState}
                 statusColor={circleStatusColor}
                 statusIcon={circleStatusIcon}
                 statusText={circleStatusText}
@@ -1336,7 +1363,7 @@ function ContraceptionDashboard({
               />
             </View>
 
-            {isIntakeMethod ? (
+            {isIntakeMethod && !showBreakDayState ? (
               compact ? (
                 <View style={styles.heroActionsColumn}>
                   <View style={styles.heroActionsRowNested}>

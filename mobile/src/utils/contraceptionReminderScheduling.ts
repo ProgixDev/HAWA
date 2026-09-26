@@ -37,6 +37,27 @@ export function contraceptionMethodSupportsDailyReminder(
   return method !== null && DAILY_REMINDER_METHODS.has(method);
 }
 
+export type ContraceptionReminderIndicator = 'enabled' | 'disabled' | 'unavailable';
+
+/** What every "Rappels" indicator (Dashboard, Calendar, Statistics, Profile,
+ * Summary) may truthfully show. `remindersEnabled` is ONE stored flag shared
+ * by every method, so after e.g. Pill → Ring it can still be true from the
+ * Pill even though nothing is (or can be) scheduled for a ring/patch. Those
+ * methods are 'unavailable' — never "enabled" — whatever the stored flag is
+ * (the flag itself is left untouched, so switching back to a pill shows the
+ * user's earlier choice again). Uses the SAME predicate as the scheduling gate
+ * above, so the UI can never promise a reminder this file wouldn't schedule.
+ * An unset method (not configured yet) keeps showing the flag as before. */
+export function getContraceptionReminderIndicator(
+  method: ContraceptionMethod | null,
+  remindersEnabled: boolean,
+): ContraceptionReminderIndicator {
+  if (method !== null && !contraceptionMethodSupportsDailyReminder(method)) {
+    return 'unavailable';
+  }
+  return remindersEnabled ? 'enabled' : 'disabled';
+}
+
 const CONTRACEPTION_REMINDER_ID = 'contraception-daily-reminder';
 
 // Tag carried in the notification's `data` payload so

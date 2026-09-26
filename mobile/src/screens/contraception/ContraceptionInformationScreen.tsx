@@ -96,16 +96,21 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
 
   // "Non" (false) is a real, valid answer and must never be treated the
   // same as "not yet answered" (null) — check !== null, never `!value`.
-  const canContinue = startDate !== null && hasTreatmentBreak !== null;
+  // The pause question only drives the pill schedule. When editing from
+  // Profile for a ring/patch/other method it doesn't apply, so it is neither
+  // asked nor rewritten (onboarding still asks it for every method, as before).
+  const askTreatmentBreak = !(isEdit && method !== null && method !== 'pill');
+  const canContinue = startDate !== null && (!askTreatmentBreak || hasTreatmentBreak !== null);
 
   const handleNext = async () => {
     if (!canContinue || saving) {return;}
     setSaving(true);
     try {
-      await setContraceptionPreferences({
-        methodStartDate: localDateKey(startDate as Date),
-        hasTreatmentBreak,
-      });
+      await setContraceptionPreferences(
+        askTreatmentBreak
+          ? {methodStartDate: localDateKey(startDate as Date), hasTreatmentBreak}
+          : {methodStartDate: localDateKey(startDate as Date)},
+      );
 
       if (method === 'pill') {
         if (isEdit && hasTreatmentBreak !== initialHasTreatmentBreak) {
@@ -210,6 +215,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
             </Pressable>
           </View>
 
+          {askTreatmentBreak ? (
           <View style={[styles.card, styles.cardSpaced]}>
             <View style={styles.fieldLabelRow}>
               <View style={styles.fieldIcon}>
@@ -243,6 +249,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
               })}
             </View>
           </View>
+          ) : null}
 
           <View style={styles.spacer} />
 

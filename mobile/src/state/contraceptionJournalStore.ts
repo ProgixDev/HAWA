@@ -111,6 +111,39 @@ export async function saveContraceptionJournalField<
   await persist();
 }
 
+/** THE single canonical way to REMOVE a Contraception daily-tracking answer
+ * (correcting an accidental "Effets ressentis" / clearing a note) — the
+ * counterpart of saveContraceptionJournalField, used by
+ * ContraceptionJournalEntryScreen (and nowhere else). Removes just that
+ * field; when the day is left with neither feelings nor a note the whole
+ * entry is dropped, so nothing is left behind. The persisted copy is rebuilt
+ * from the in-memory map by persist(), which never writes an absent note, so
+ * the ENCRYPTED note value is removed from storage too. No-op when there is
+ * nothing to remove. The existing at-rest encryption is unchanged. */
+export async function clearContraceptionJournalField(
+  date: string,
+  category: Exclude<keyof ContraceptionJournalEntry, 'date'>,
+): Promise<void> {
+  const current = entries[date];
+  if (!current || current[category] === undefined) {
+    return;
+  }
+
+  const next: ContraceptionJournalEntry = {...current};
+  delete next[category];
+
+  const remaining = {...entries};
+  if ((next.feelings?.length ?? 0) > 0 || Boolean(next.notes)) {
+    remaining[date] = next;
+  } else {
+    delete remaining[date];
+  }
+  entries = remaining;
+
+  notifyListeners();
+  await persist();
+}
+
 export const hydrateContraceptionJournal = (): Promise<EntriesByDate> => {
   if (hydrated) {
     return Promise.resolve({...entries});

@@ -1,4 +1,5 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import {getContraceptionReminderIndicator} from '../../utils/contraceptionReminderScheduling';
+import React, {useCallback, useMemo, useState, useEffect, useRef} from 'react';
 import {
   Modal,
   Pressable,
@@ -10,13 +11,17 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 
@@ -69,14 +74,15 @@ import {
   formatHijriDay,
   formatHijriMonthYear,
   sameDay,
-  startOfDay,
   WEEK_DAYS,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {
   computeContraceptionEventCounts,
   computeContraceptionMonthlySummary,
+  getCyclicPillSchedule,
   getPillPackDay,
+  isPillBreakDay,
 } from '../../utils/contraceptionMath';
 
 // SUCCESS/WARNING/DANGER (health-status semantics) stay fixed module
@@ -141,14 +147,28 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const today = useMemo(() => startOfDay(new Date()), []);
-  const todayKey = useMemo(() => localDateKey(today), [today]);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
   const [selectedDate, setSelectedDate] = useState(today);
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
 
@@ -237,6 +257,8 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   );
 
   const {method, methodStartDate, pillScheduleType, activeDays, breakDays, remindersEnabled} = contraception;
+  // Never "Activés" for ring / patch — see getContraceptionReminderIndicator.
+  const reminderIndicator = getContraceptionReminderIndicator(method, remindersEnabled);
   const isPill = method === 'pill';
 
   // Real total pack length from the user's own PillScheduleScreen answer —
@@ -305,11 +327,21 @@ function ContraceptionCalendarContent(): React.JSX.Element {
     [isPill, methodStartDate, selectedDateKey, pillScheduleTotalDays],
   );
 
+  // Break (arrêt) day of a CYCLIC schedule — a day with nothing to take, so
+  // it is never presented as "Non enregistrée" (see isPillBreakDay).
+  const selectedIsBreakDay = isPill && isPillBreakDay(selectedPillPackDay, activeDays);
+
   const selectedHijriDate = useMemo(() => formatHijriDate(selectedDate), [selectedDate]);
 
+  // Break days of a cyclic pill schedule are not expected intakes in the monthly summary either.
+  const pillSchedule = useMemo(
+    () => getCyclicPillSchedule({method, pillScheduleType, activeDays, breakDays}),
+    [method, pillScheduleType, activeDays, breakDays],
+  );
+
   const monthlySummary = useMemo(
-    () => computeContraceptionMonthlySummary(currentMethodRecordsByDate, visibleMonth, todayKey, methodStartDate),
-    [currentMethodRecordsByDate, visibleMonth, todayKey, methodStartDate],
+    () => computeContraceptionMonthlySummary(currentMethodRecordsByDate, visibleMonth, todayKey, methodStartDate, pillSchedule),
+    [currentMethodRecordsByDate, visibleMonth, todayKey, methodStartDate, pillSchedule],
   );
 
   const monthStartKey = useMemo(
@@ -382,7 +414,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
     if (selectedRecord?.status === 'missed') {
       return 'Oubliée';
     }
-    return 'Non enregistrée';
+    return selectedIsBreakDay ? 'Jour d’arrêt' : 'Non enregistrée';
   })();
 
   return (
@@ -470,6 +502,12 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 const isExpectedTracked =
                   Boolean(methodStartDate) && dateKey >= (methodStartDate as string) && dateKey <= todayKey;
 
+                // A break day has nothing to record — no "not recorded" outline.
+                const isBreakDayCell =
+                  isPill &&
+                  pillScheduleTotalDays !== null &&
+                  isPillBreakDay(getPillPackDay(methodStartDate, dateKey, pillScheduleTotalDays), activeDays);
+
                 // Classification is computed exactly as before, unconditionally —
                 // filters only affect whether the resulting marker is DISPLAYED
                 // below, never the underlying isRamadan/isDhoulHijja result.
@@ -520,7 +558,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                         !isToday && showLateMarker && styles.dayLate,
                         !isToday && showMissedMarker && styles.dayMissed,
                         !isToday && showEventMarker && styles.dayHasEvent,
-                        !isToday && !isEventMethod && !record && isExpectedTracked && styles.dayNotRecorded,
+                        !isToday && !isEventMethod && !record && isExpectedTracked && !isBreakDayCell && styles.dayNotRecorded,
                         isSelected && !isToday && styles.daySelected,
                         isToday && styles.dayToday,
                         pressed && styles.pressed,
@@ -742,17 +780,17 @@ function ContraceptionCalendarContent(): React.JSX.Element {
             </View>
 
             <View style={styles.selectedRow}>
-              <View style={[styles.selectedRowIcon, remindersEnabled ? styles.selectedRowIconGreen : styles.selectedRowIconMuted]}>
+              <View style={[styles.selectedRowIcon, reminderIndicator === 'enabled' ? styles.selectedRowIconGreen : styles.selectedRowIconMuted]}>
                 <MaterialDesignIcons
-                  color={remindersEnabled ? SUCCESS : theme.colors.textSecondary}
-                  name={remindersEnabled ? 'bell-check-outline' : 'bell-off-outline'}
+                  color={reminderIndicator === 'enabled' ? SUCCESS : theme.colors.textSecondary}
+                  name={reminderIndicator === 'enabled' ? 'bell-check-outline' : 'bell-off-outline'}
                   size={17}
                 />
               </View>
               <View style={styles.selectedRowTextGroup}>
                 <Text style={styles.selectedRowLabel}>Rappels</Text>
                 <Text style={styles.selectedRowValue}>
-                  {remindersEnabled ? 'Activés' : 'Désactivés'}
+                  {reminderIndicator === 'enabled' ? 'Activés' : reminderIndicator === 'unavailable' ? 'Non disponibles' : 'Désactivés'}
                 </Text>
               </View>
             </View>
@@ -764,6 +802,27 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 onPress={openJournal}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
                 <Text style={styles.editRowText}>Modifier</Text>
+                <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
+              </Pressable>
+            ) : null}
+
+            {/* Effets ressentis are general tracking data: a PAST day can be filled
+                in or corrected. Intake / ring-patch events / notes stay today-only. */}
+            {selectedDateKey < todayKey ? (
+              <Pressable
+                accessibilityLabel={
+                  selectedFeelingsCount > 0
+                    ? 'Modifier les effets ressentis de ce jour'
+                    : 'Renseigner les effets ressentis de ce jour'
+                }
+                accessibilityRole="button"
+                onPress={() => navigation.navigate('ContraceptionJournalEntry', {category: 'feelings', date: selectedDateKey})}
+                style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
+                <Text style={styles.editRowText}>
+                  {selectedFeelingsCount > 0
+                    ? 'Modifier les effets ressentis de ce jour'
+                    : 'Renseigner les effets ressentis de ce jour'}
+                </Text>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
             ) : null}

@@ -1,8 +1,15 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
 import {nextDailyFireDate, parseHHmm} from './pregnancyReminderScheduling';
-import {ovulationDayFor, startOfDay, upcomingDateForCycleDay} from './cycleMath';
-import {getActiveObjective, getCyclePreferences, getHasConfirmedCycleData} from '../state/onboardingPreferences';
+import {computeCyclePredictionStatus, ovulationDayFor, startOfDay, upcomingDateForCycleDay} from './cycleMath';
+import {
+  getActiveObjective,
+  getCycleObservationStartedAt,
+  getCyclePreferences,
+  getHasConfirmedCycleData,
+  getRecordedPeriodHistory,
+} from '../state/onboardingPreferences';
 import {getConceptionPreferences, type ConceptionReminderKey} from '../state/conceptionPreferences';
+import {resolveConceptionCycleBasics} from './conceptionStatisticsMath';
 
 // Scheduling for "Essayer de concevoir"'s 5 onboarding "Rappels
 // personnalisés" toggles (conceptionPreferences.ts's `reminders`). Reuses
@@ -32,6 +39,21 @@ import {getConceptionPreferences, type ConceptionReminderKey} from '../state/con
 //    changes, and on TTC Dashboard focus) keeps each one-time reminder
 //    pointed at the correct upcoming date every cycle — no separate
 //    occurrence-id bookkeeping needed, unlike Nifas's one-time-ever reminder.
+//
+// Prediction mode: the TTC Dashboard/Calendar/Statistics always present the
+// fertile window / ovulation from the cycle length (J{n} timeline, painted
+// calendar days) — only the next-PERIOD tile is mode-aware. These reminders
+// therefore follow exactly what those screens show: computeCyclePredictionStatus
+// (same inputs as ConceiveDashboard) decides which cycle length is used — the
+// OBSERVED average in 'exact' mode (a regular-looking 'unknown' pattern), the
+// declared cycleDuration otherwise — so a reminder can never point at a
+// different day than the Dashboard.
+// PRODUCT DECISION REQUIRED: for an irregular ('window') cycle the TTC
+// screens still show a fixed fertile window/ovulation day. Whether TTC should
+// instead show "Non estimable" there (as the Cycle Dashboard does via
+// estimateFertilityDates → null) — and therefore suppress these precise
+// reminders — is a product choice that needs UI changes on the TTC screens;
+// until decided, reminders stay consistent with what those screens display.
 //
 // Every scheduled notification carries `data.hawaNotificationKind:
 // 'conception-reminder'` + `data.conceptionReminderType` — this is what lets
@@ -187,16 +209,26 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
     return;
   }
 
-  const cyclePrefs = getCyclePreferences();
-  const ovulationDay = ovulationDayFor(cyclePrefs.cycleDuration);
-  const {dayOffset, time} = CYCLE_DAY_OFFSETS[key] as {dayOffset: number; time: string};
-  const targetCycleDay = Math.max(1, ovulationDay + dayOffset);
   // Must be midnight, not the current wall-clock time — upcomingDateForCycleDay
   // compares against always-midnight candidate dates, so a same-day target
   // would otherwise look "already past" until midnight and get pushed a full
   // cycle forward. Same normalization ConceiveStatisticsScreen.tsx/
   // CalendarScreen.tsx/CycleHomeScreen.tsx already apply before calling it.
   const today = startOfDay(new Date());
+  const declared = getCyclePreferences();
+  // Same status ConceiveDashboard builds (recorded == raw history here, since
+  // the getHasConfirmedCycleData() guard above already passed).
+  const prediction = computeCyclePredictionStatus(
+    declared,
+    declared.regularity,
+    getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`)),
+    getCycleObservationStartedAt(),
+    today,
+  );
+  const cyclePrefs = resolveConceptionCycleBasics(declared, prediction);
+  const ovulationDay = ovulationDayFor(cyclePrefs.cycleDuration);
+  const {dayOffset, time} = CYCLE_DAY_OFFSETS[key] as {dayOffset: number; time: string};
+  const targetCycleDay = Math.max(1, ovulationDay + dayOffset);
   const nextDate = upcomingDateForCycleDay(cyclePrefs, targetCycleDay, today);
   const {hours, minutes} = parseHHmm(time);
   const fireDate = new Date(nextDate.getFullYear(), nextDate.getMonth(), nextDate.getDate(), hours, minutes, 0, 0);

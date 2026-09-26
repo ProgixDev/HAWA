@@ -1,3 +1,4 @@
+import {getContraceptionReminderIndicator} from '../../utils/contraceptionReminderScheduling';
 import React, {
   useCallback,
   useMemo,
@@ -22,6 +23,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 import {getFloatingTabBarClearance} from '../../theme/spacing';
 
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 
 import {
@@ -55,6 +57,7 @@ import {
 
 import {
   computeContraceptionBestStreak,
+  getCyclicPillSchedule,
   computeContraceptionEventCounts,
   computeContraceptionMonthlyBreakdown,
   computeContraceptionRangeSummary,
@@ -63,8 +66,8 @@ import {
 } from '../../utils/contraceptionMath';
 
 import {
+  diffDays,
   formatFullDate,
-  startOfDay,
 } from '../../utils/cycleMath';
 
 // PHASE E5 — PURPLE/PURPLE_DARK/PURPLE_SOFT/MUTED/BORDER used to be fixed
@@ -166,23 +169,9 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
   const PURPLE = theme.colors.primary;
   const MUTED = theme.colors.textMuted;
 
-  const today =
-    useMemo(
-      () =>
-        startOfDay(
-          new Date(),
-        ),
-      [],
-    );
-
-  const todayKey =
-    useMemo(
-      () =>
-        localDateKey(
-          today,
-        ),
-      [today],
-    );
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const {isPremium} =
     usePremium();
@@ -342,6 +331,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
   } =
     contraception;
 
+  // Never "Activés" for ring / patch — see getContraceptionReminderIndicator.
+  const reminderIndicator = getContraceptionReminderIndicator(method, remindersEnabled);
+
+  // Break days of a CYCLIC pill schedule are not expected intakes: adherence,
+  // "non enregistrée" and the streak all skip them (null for any other schedule
+  // or method, which keep their previous behavior).
+  const pillSchedule = useMemo(() => getCyclicPillSchedule(contraception), [contraception]);
+
   // pill and other are both tracked via the single daily
   // taken/late/missed status (contraceptionIntakeHistoryStore.ts) and get
   // the full statistics below; ring/patch are tracked via discrete events
@@ -420,12 +417,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
           rangeStartKey,
           todayKey,
           methodStartDate,
+          pillSchedule,
         ),
       [
         currentMethodRecordsByDate,
         rangeStartKey,
         todayKey,
         methodStartDate,
+        pillSchedule,
       ],
     );
 
@@ -457,11 +456,15 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
           currentMethodRecordsByDate,
           rangeStartKey,
           todayKey,
+          methodStartDate,
+          pillSchedule,
         ),
       [
         currentMethodRecordsByDate,
         rangeStartKey,
         todayKey,
+        methodStartDate,
+        pillSchedule,
       ],
     );
 
@@ -486,12 +489,8 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
         return null;
       }
 
-      const elapsed =
-        Math.floor(
-          (today.getTime() -
-            start.getTime()) /
-            86_400_000,
-        );
+      // calendar-day difference (DST-safe), not raw-millisecond flooring
+      const elapsed = diffDays(today, start);
 
       return elapsed >=
         0
@@ -1327,18 +1326,18 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                 style={[
                   styles.selectedRowIcon,
 
-                  remindersEnabled
+                  reminderIndicator === 'enabled'
                     ? styles.selectedRowIconGreen
                     : styles.selectedRowIconMuted,
                 ]}>
                 <MaterialDesignIcons
                   color={
-                    remindersEnabled
+                    reminderIndicator === 'enabled'
                       ? SUCCESS
                       : MUTED
                   }
                   name={
-                    remindersEnabled
+                    reminderIndicator === 'enabled'
                       ? 'bell-check-outline'
                       : 'bell-off-outline'
                   }
@@ -1363,9 +1362,11 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.selectedRowValue
                   }>
-                  {remindersEnabled
+                  {reminderIndicator === 'enabled'
                     ? 'Activés'
-                    : 'Désactivés'}
+                    : reminderIndicator === 'unavailable'
+                      ? 'Non disponibles'
+                      : 'Désactivés'}
                 </Text>
               </View>
             </View>

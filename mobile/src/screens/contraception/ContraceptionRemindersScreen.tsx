@@ -1,3 +1,4 @@
+import {continueAfterObjectiveSetup} from '../../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
 import {
   Pressable,
@@ -91,7 +92,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
       if (isEdit) {
         navigation.goBack();
       } else {
-        navigation.navigate('SecuritySetup');
+        continueAfterObjectiveSetup(navigation);
       }
       return;
     }
@@ -110,7 +111,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
       if (isEdit) {
         navigation.goBack();
       } else {
-        navigation.navigate('SecuritySetup');
+        continueAfterObjectiveSetup(navigation);
       }
     } finally {
       setSaving(false);

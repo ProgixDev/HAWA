@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useState} from 'react';
 import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {
@@ -39,6 +40,7 @@ import {
 import {
   getContraceptionPreferences,
 } from '../../state/contraceptionPreferences';
+import {getCyclicPillSchedule, isPillBreakDateKey} from '../../utils/contraceptionMath';
 
 import {
   getContraceptionIntakeRecord,
@@ -58,6 +60,7 @@ import {
 import {
   getContraceptionJournalEntry,
   hydrateContraceptionJournal,
+  clearContraceptionJournalField,
   saveContraceptionJournalField,
 } from '../../state/contraceptionJournalStore';
 
@@ -86,12 +89,12 @@ const DANGER = '#D96176';
 
 type Props = RouteProp<RootStackParamList, 'ContraceptionJournalEntry'>;
 
-function formatToday(): string {
+function formatToday(date: Date): string {
   return new Intl.DateTimeFormat('fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  }).format(new Date());
+  }).format(date);
 }
 
 /* ============================================================
@@ -473,9 +476,11 @@ function EventTypeContent({
 function FeelingsContent({
   selected,
   toggle,
+  dayWord,
 }: {
   selected: string[];
   toggle: (option: string) => void;
+  dayWord: string;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -486,7 +491,7 @@ function FeelingsContent({
       <PremiumHero
         accent={theme.colors.primary}
         icon="heart-pulse"
-        subtitle="Sélectionne ce que tu as ressenti aujourd’hui — cela reste un suivi personnel, jamais un diagnostic."
+        subtitle={`Sélectionne ce que tu as ressenti ${dayWord} — cela reste un suivi personnel, jamais un diagnostic.`}
         tint={theme.colors.primarySoft}
         title="Comment te sens-tu ?"
       />
@@ -596,21 +601,48 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const route = useRoute<Props>();
   const {category} = route.params;
+  const requestedDate = route.params.date;
 
   const item = CONTRACEPTION_JOURNAL_ITEMS.find(entry => entry.key === category);
 
-  const [method] = useState(() => getContraceptionPreferences().method);
+  const [contraceptionPrefs] = useState(getContraceptionPreferences);
+  const method = contraceptionPrefs.method;
   const isEventMethod = method === 'ring' || method === 'patch';
   const eventTypes = method ? CONTRACEPTION_METHOD_EVENT_TYPES[method] ?? [] : [];
 
-  const todayKey = React.useMemo(() => new Date().toLocaleDateString('en-CA'), []);
-  const todaySubtitle = React.useMemo(() => `Aujourd’hui  •  ${formatToday()}`, []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
+
+  // M21 — ONLY "Effets ressentis" (general tracking data, no effect on any
+  // schedule or adherence figure) can be written to an explicit PAST day, when
+  // opened from the Calendar's selected day. Intake (taken/late/missed pill,
+  // ring/patch events) stays strictly today-only and "Notes du jour" too (its
+  // PIN-unlock redirect does not carry a date). A future date is never
+  // accepted.
+  const entryDateKey =
+    category === 'feelings' && requestedDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate)
+      ? requestedDate
+      : todayKey;
+  const isFutureEntryDate = entryDateKey > todayKey;
+  const isPastEntryDate = entryDateKey < todayKey;
+  const dayWord = isPastEntryDate ? 'ce jour-là' : 'aujourd’hui';
+
+  const todaySubtitle = React.useMemo(
+    () =>
+      entryDateKey === todayKey
+        ? `Aujourd’hui  •  ${formatToday(today)}`
+        : formatToday(new Date(`${entryDateKey}T12:00:00`)),
+    [entryDateKey, todayKey, today],
+  );
 
   const intakeActionLabel = method
     ? CONTRACEPTION_INTAKE_ACTION_LABEL[method]
     : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL;
 
   const [status, setStatus] = useState<ContraceptionIntakeStatus | undefined>(undefined);
+  const [intakeLoaded, setIntakeLoaded] = useState(false);
   const [eventType, setEventType] = useState<ContraceptionEventType | undefined>(undefined);
   const [todayEvents, setTodayEvents] = useState<ContraceptionEvent[]>([]);
   const [feelings, setFeelings] = useState<string[]>([]);
@@ -656,6 +688,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
       hydrateContraceptionIntakeHistory().then(() => {
         if (active) {
           setStatus(getContraceptionIntakeRecord(todayKey)?.status);
+          setIntakeLoaded(true);
         }
       });
       return () => {active = false;};
@@ -663,7 +696,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
 
     hydrateContraceptionJournal().then(() => {
       if (!active) {return;}
-      const entry = getContraceptionJournalEntry(todayKey);
+      const entry = getContraceptionJournalEntry(entryDateKey);
       setFeelings(entry?.feelings ?? []);
       // Never load the real note text into state while the private section
       // is locked — notesUnlocked was already computed once at mount, so
@@ -675,7 +708,17 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
     });
 
     return () => {active = false;};
-  }, [category, isEventMethod, method, todayKey, notesUnlocked]);
+  }, [category, isEventMethod, method, todayKey, entryDateKey, notesUnlocked]);
+
+  // A BREAK day of a CYCLIC pill schedule (same predicate as the Dashboard,
+  // Calendar and Statistics): nothing is expected, so the normal
+  // taken / late / missed choice is NEVER offered (also while the intake
+  // history is still hydrating, and also when a status already exists — that
+  // earlier record stays visible as read-only information, no new intake
+  // action is proposed and nothing is written from here).
+  const isPillBreakDayToday =
+    method === 'pill' &&
+    isPillBreakDateKey(todayKey, contraceptionPrefs.methodStartDate, getCyclicPillSchedule(contraceptionPrefs));
 
   const toggleFeeling = (option: string) => {
     setFeelings(current =>
@@ -704,6 +747,12 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
     }
 
     if (category === 'intake') {
+      if (isPillBreakDayToday) {
+        // Defensive: the break-day panel has no intake action, but never
+        // write a taken/late/missed record for a day nothing is expected.
+        navigation.goBack();
+        return;
+      }
       if (!status) {
         setError('Choisis une réponse avant d’enregistrer.');
         return;
@@ -723,13 +772,25 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
     }
 
     if (category === 'feelings') {
-      if (feelings.length === 0) {
+      // Emptying a selection that was already saved CLEARS it (the user is
+      // correcting an accidental entry); an empty selection with nothing
+      // saved has nothing to save.
+      if (isFutureEntryDate) {
+        setError('Tu ne peux pas enregistrer un suivi pour une date à venir.');
+        return;
+      }
+      const hasSavedFeelings = (getContraceptionJournalEntry(entryDateKey)?.feelings?.length ?? 0) > 0;
+      if (feelings.length === 0 && !hasSavedFeelings) {
         setError('Choisis au moins un élément avant d’enregistrer.');
         return;
       }
       setSaving(true);
       try {
-        await saveContraceptionJournalField(todayKey, 'feelings', feelings);
+        if (feelings.length === 0) {
+          await clearContraceptionJournalField(entryDateKey, 'feelings');
+        } else {
+          await saveContraceptionJournalField(entryDateKey, 'feelings', feelings);
+        }
         navigation.goBack();
       } finally {
         setSaving(false);
@@ -737,13 +798,19 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
       return;
     }
 
-    if (!notes.trim()) {
+    // Same for the (encrypted) note: emptying a saved note deletes it.
+    const hasSavedNote = Boolean(getContraceptionJournalEntry(todayKey)?.notes);
+    if (!notes.trim() && !hasSavedNote) {
       setError('Ajoute une note avant d’enregistrer.');
       return;
     }
     setSaving(true);
     try {
-      await saveContraceptionJournalField(todayKey, 'notes', notes.trim());
+      if (!notes.trim()) {
+        await clearContraceptionJournalField(todayKey, 'notes');
+      } else {
+        await saveContraceptionJournalField(todayKey, 'notes', notes.trim());
+      }
       navigation.goBack();
     } finally {
       setSaving(false);
@@ -761,7 +828,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         subtitle={todaySubtitle}
         tint="#F1E8F5"
         title="Effets ressentis">
-        <FeelingsContent selected={feelings} toggle={toggleFeeling} />
+        <FeelingsContent dayWord={dayWord} selected={feelings} toggle={toggleFeeling} />
       </PostpartumJournalScreenLayout>
     );
   }
@@ -804,6 +871,33 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
           selected={eventType}
           todayEvents={todayEvents}
         />
+      </PostpartumJournalScreenLayout>
+    );
+  }
+
+  if (isPillBreakDayToday) {
+    return (
+      <PostpartumJournalScreenLayout
+        compact
+        error={error}
+        icon="pause-circle-outline"
+        onSave={navigation.goBack}
+        saving={false}
+        subtitle={todaySubtitle}
+        tint={GREEN_LIGHT}
+        title="Jour d’arrêt">
+        <PostpartumInfoPanel
+          icon="information-outline"
+          text="Aucune prise n’est attendue aujourd’hui selon ton schéma. Tu peux tout de même noter tes effets ressentis ou une note."
+          title="Jour d’arrêt"
+        />
+        {intakeLoaded && status !== undefined ? (
+          <PostpartumInfoPanel
+            icon="check-circle-outline"
+            text={`Un statut a déjà été enregistré pour aujourd’hui : ${CONTRACEPTION_INTAKE_STATUS_LABELS[status]}.`}
+            title="Enregistré"
+          />
+        ) : null}
       </PostpartumJournalScreenLayout>
     );
   }
