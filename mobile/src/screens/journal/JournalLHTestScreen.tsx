@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 import DateTimePicker, {
-  type DateTimePickerEvent,
+  type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
 
 import {
@@ -415,22 +415,16 @@ export default function JournalLHTestScreen(): React.JSX.Element {
       );
     };
 
-  const handleAndroidTimeChange =
+  // Android native clock: the picker always closes; a picked time is applied,
+  // a dismissal changes nothing.
+  const handleAndroidTimeValueChange =
     (
-      event: DateTimePickerEvent,
-      selectedDate?: Date,
+      _event: DateTimePickerChangeEvent,
+      selectedDate: Date,
     ) => {
       setTimePickerVisible(
         false,
       );
-
-      if (
-        event.type ===
-          'dismissed' ||
-        !selectedDate
-      ) {
-        return;
-      }
 
       setPickerDate(
         selectedDate,
@@ -440,6 +434,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         formatTime(
           selectedDate,
         ),
+      );
+    };
+
+  const handleAndroidTimeDismiss =
+    () => {
+      setTimePickerVisible(
+        false,
       );
     };
 
@@ -940,8 +941,11 @@ export default function JournalLHTestScreen(): React.JSX.Element {
           display="clock"
           is24Hour
           mode="time"
-          onChange={
-            handleAndroidTimeChange
+          onDismiss={
+            handleAndroidTimeDismiss
+          }
+          onValueChange={
+            handleAndroidTimeValueChange
           }
           value={
             pickerDate
@@ -1066,17 +1070,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                   is24Hour
                   locale="fr-FR"
                   mode="time"
-                  onChange={(
+                  onValueChange={(
                     _event,
                     selectedDate,
                   ) => {
-                    if (
-                      selectedDate
-                    ) {
-                      setPickerDate(
-                        selectedDate,
-                      );
-                    }
+                    setPickerDate(
+                      selectedDate,
+                    );
                   }}
                   value={
                     pickerDate
