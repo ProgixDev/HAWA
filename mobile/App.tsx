@@ -32,7 +32,7 @@ import {
   hydrateConfirmedPeriodHistory,
   subscribeConfirmedPeriodHistory,
 } from './src/state/confirmedPeriodHistoryStore';
-import { hydrateQadaaProgress, subscribeQadaaProgress } from './src/state/qadaaProgressStore';
+import { hydrateQadaaLedger, subscribeQadaaLedger } from './src/state/qadaaLedgerStore';
 import {
   hydratePostpartumPreferences,
   subscribePostpartumPreferences,
@@ -194,19 +194,19 @@ subscribeMiscarriagePreferences(syncMiscarriageDailyTrackingReminder);
 // reactive card (FastingQadaaScreen.tsx's shouldShowQadaaReminder()) with a
 // real scheduled notification so it can appear while AWA is closed. Not
 // objective-gated (mirrors the in-app card, which has none either) but
-// depends on confirmed period history and completed-days progress — both
+// depends on confirmed period history and the Qadaa ledger (manual entries and completions) — both
 // of which can change independently of Ramadan/spiritual-markers state, so
 // both are resynced here too, matching Nifas's "resync on every relevant
 // store change" pattern above.
 Promise.all([
   hydrateSpiritualMarkersEnabled(),
   hydrateConfirmedPeriodHistory(),
-  hydrateQadaaProgress(),
+  hydrateQadaaLedger(),
   hydrateHijriAdjustmentDays(),
 ]).then(syncQadaaReminderNotification);
 subscribeSpiritualMarkersEnabled(syncQadaaReminderNotification);
 subscribeConfirmedPeriodHistory(syncQadaaReminderNotification);
-subscribeQadaaProgress(syncQadaaReminderNotification);
+subscribeQadaaLedger(syncQadaaReminderNotification);
 // A changed Hijri adjustment can flip whether today is still classified as
 // Ramadan (e.g. a boundary day moves across the Ramadan/Shawwal line) —
 // re-evaluate the reminder immediately rather than waiting for one of the

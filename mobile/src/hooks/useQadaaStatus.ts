@@ -1,5 +1,5 @@
 import {useToday} from './useToday';
-import {useCallback, useState} from 'react';
+import {useCallback, useRef, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 
 import {getCyclePreferences, hydratePeriodEndDateTime} from '../state/onboardingPreferences';
@@ -17,29 +17,42 @@ import {
   subscribeRemainingQadaaDays,
 } from '../state/qadaaStore';
 import {
-  getQadaaCompletedDays,
-  hydrateQadaaProgress,
-  markOneQadaaDayCompleted as persistOneQadaaDayCompleted,
-  subscribeQadaaProgress,
-} from '../state/qadaaProgressStore';
+  getQadaaLedger,
+  hydrateQadaaLedger,
+  recordQadaaCompletion,
+  subscribeQadaaLedger,
+  type QadaaCompletionEntry,
+  type QadaaLedger,
+  type QadaaManualEntry,
+} from '../state/qadaaLedgerStore';
 import {isRamadan} from '../utils/hijriCalendar';
 import {computeQadaaFromHistory, shouldShowQadaaReminder} from '../utils/qadaaLogic';
+import {computeQadaaBalance, type QadaaBalance} from '../utils/qadaaBalance';
 
 export type QadaaStatus = {
-  /** totalQadaaDays - completedQadaaDays, floored at 0. null only until the
-   * very first hydration/computation resolves. */
+  /** The authoritative remaining balance (see utils/qadaaBalance.ts). null only
+   * until the very first hydration/computation resolves. */
   remainingQadaaDays: number | null;
-  /** Confirmed Ramadan days ever detected (immutable historical truth —
-   * never decreases as completions are recorded). */
+  /** automatic + manual owed days — never decreases as completions are recorded. */
   totalQadaaDays: number | null;
-  /** Persisted count of qadaa days the user has marked as made up. */
+  /** Completed days counted against the current total (never above it). */
   completedQadaaDays: number | null;
+  /** Days derived from CONFIRMED menstruation during Ramadan (read-only here). */
+  automaticQadaaDays: number | null;
+  /** Days the user declared herself (manual / historical entries). */
+  manualQadaaDays: number | null;
+  /** Completions beyond the current total (e.g. after a period correction). */
+  surplusCompletedDays: number | null;
+  /** The full balance, or null until first computed. */
+  balance: QadaaBalance | null;
+  manualEntries: readonly QadaaManualEntry[];
+  completions: readonly QadaaCompletionEntry[];
   hijriYear: number | undefined;
   loading: boolean;
   ramadanActive: boolean;
   showReminder: boolean;
-  /** Marks exactly one qadaa day as completed. No-ops once remainingQadaaDays
-   * is already 0. Safe to call concurrently — see qadaaProgressStore.ts. */
+  /** Records ONE made-up day. No-ops once remainingQadaaDays is 0 and while a
+   * previous call is still in flight (double-tap safe). */
   markOneQadaaDayCompleted: () => Promise<void>;
 };
 
@@ -49,43 +62,45 @@ const toOccurrenceDates = (occurrence: ConfirmedPeriodOccurrence) => ({
 });
 
 /**
- * Single source of truth for "how many Ramadan fasting days are still owed
- * because of confirmed menstruation" — consumed identically by
- * FastingQadaaScreen, CycleHomeScreen's SpiritualGuidanceCard summary, and
- * (via navigation only) the Hijri Calendar shortcut.
+ * Single source of truth for "how many Ramadan fasting days are still owed" —
+ * consumed identically by FastingQadaaScreen, the dashboards' spiritual card
+ * summary, and (through the same computeQadaaBalance) the reminder scheduler.
  *
- * totalQadaaDays is derived ONLY from confirmed period history
- * (src/state/confirmedPeriodHistoryStore.ts via src/utils/qadaaLogic.ts) —
- * never the current, predictive `cyclePreferences` — so a later change to
- * the current cycle's averages can never rewrite an already-confirmed
- * Ramadan obligation (see the qadaa sync investigation).
- *
- * completedQadaaDays is a SEPARATE persisted counter
- * (src/state/qadaaProgressStore.ts). Marking days complete never mutates
- * confirmedPeriodHistoryStore — history stays the immutable record of what
- * was originally missed; only remainingQadaaDays (total − completed) moves.
+ * Three independent inputs, combined ONLY by utils/qadaaBalance.ts:
+ *  - AUTOMATIC: derived from confirmed period history
+ *    (confirmedPeriodHistoryStore + utils/qadaaLogic.ts) — never the predictive
+ *    `cyclePreferences`, never copied into the ledger, so editing the menstrual
+ *    history keeps recalculating it.
+ *  - MANUAL: the user's own entries (qadaaLedgerStore.manualEntries).
+ *  - COMPLETIONS: the user's made-up-day records (qadaaLedgerStore.completions).
+ * Marking days complete never mutates the menstrual history.
  */
 export function useQadaaStatus(): QadaaStatus {
   const [remainingQadaaDays, setLocalRemaining] = useState<number | null>(getRemainingQadaaDays());
-  const [totalQadaaDays, setTotalQadaaDays] = useState<number | null>(null);
-  const [completedQadaaDays, setCompletedQadaaDays] = useState<number | null>(null);
+  const [balance, setBalance] = useState<QadaaBalance | null>(null);
+  const [ledgerView, setLedgerView] = useState<Pick<QadaaLedger, 'manualEntries' | 'completions'>>({
+    manualEntries: [],
+    completions: [],
+  });
   const [hijriYear, setHijriYear] = useState<number | undefined>(undefined);
   const [loading, setLoading] = useState(remainingQadaaDays === null);
+  // Latest balance, readable synchronously by the completion handler.
+  const balanceRef = useRef<QadaaBalance | null>(null);
+  const markingRef = useRef(false);
 
   useFocusEffect(
     useCallback(() => {
       let active = true;
-      // Both must be known before the first authoritative recompute runs —
-      // this is what keeps `loading` true until history AND persisted
-      // completion progress have both hydrated (avoids a "3 then 2" flash).
+      // History AND the ledger must both be known before the first authoritative
+      // recompute runs — keeps `loading` true until both hydrated (avoids a
+      // "3 then 2" flash).
       let latestHistory: ConfirmedPeriodOccurrence[] | null = null;
-      let latestCompletedDays: number | null = null;
+      let latestLedger: QadaaLedger | null = null;
 
-      // Cached, previously-persisted REMAINING value first — avoids a
-      // "À jour" flash before the fresh computation below resolves (see
-      // qadaaStore.ts). This cache already reflects completion, since
-      // recompute() below always persists total-minus-completed, not the
-      // raw total.
+      // Cached, previously-persisted REMAINING value first — avoids a "À jour"
+      // flash before the fresh computation below resolves (see qadaaStore.ts).
+      // It is only a display cache: recompute() below always overwrites it with
+      // the authoritative balance.
       hydrateRemainingQadaaDays().then(cached => {
         if (active && cached !== null) {setLocalRemaining(cached);}
       });
@@ -94,17 +109,16 @@ export function useQadaaStatus(): QadaaStatus {
       });
 
       const recompute = () => {
-        if (latestHistory === null || latestCompletedDays === null) {return;}
-        const result = computeQadaaFromHistory(latestHistory.map(toOccurrenceDates));
-        const total = result.remainingDays;
-        const completed = Math.min(total, latestCompletedDays);
-        const remaining = Math.max(0, total - completed);
+        if (latestHistory === null || latestLedger === null) {return;}
+        const automatic = computeQadaaFromHistory(latestHistory.map(toOccurrenceDates));
+        const next = computeQadaaBalance(automatic.remainingDays, latestLedger.manualEntries, latestLedger.completions);
+        balanceRef.current = next;
 
-        setRemainingQadaaDays(remaining);
+        setRemainingQadaaDays(next.remainingDays);
         if (active) {
-          setTotalQadaaDays(total);
-          setCompletedQadaaDays(completed);
-          setHijriYear(result.hijriYear);
+          setBalance(next);
+          setLedgerView({manualEntries: latestLedger.manualEntries, completions: latestLedger.completions});
+          setHijriYear(automatic.hijriYear);
           setLoading(false);
         }
       };
@@ -132,8 +146,8 @@ export function useQadaaStatus(): QadaaStatus {
       };
       bootstrapHistory();
 
-      hydrateQadaaProgress().then(progress => {
-        latestCompletedDays = progress.completedDays;
+      hydrateQadaaLedger().then(ledger => {
+        latestLedger = ledger;
         recompute();
       });
 
@@ -141,8 +155,8 @@ export function useQadaaStatus(): QadaaStatus {
         latestHistory = getConfirmedPeriodHistory();
         recompute();
       });
-      const unsubscribeProgress = subscribeQadaaProgress(() => {
-        latestCompletedDays = getQadaaCompletedDays();
+      const unsubscribeLedger = subscribeQadaaLedger(() => {
+        latestLedger = getQadaaLedger();
         recompute();
       });
 
@@ -150,7 +164,7 @@ export function useQadaaStatus(): QadaaStatus {
         active = false;
         unsubscribeQadaa();
         unsubscribeHistory();
-        unsubscribeProgress();
+        unsubscribeLedger();
       };
     }, []),
   );
@@ -162,19 +176,31 @@ export function useQadaaStatus(): QadaaStatus {
   const showReminder = remainingQadaaDays !== null && shouldShowQadaaReminder(remainingQadaaDays, today);
 
   const markOneQadaaDayCompleted = useCallback(async () => {
-    if (totalQadaaDays === null || remainingQadaaDays === null || remainingQadaaDays <= 0) {
-      return;
+    // The ref is set synchronously, so a second tap before the first has
+    // finished (or before React re-rendered a disabled button) is ignored.
+    if (markingRef.current) {return;}
+    const remaining = balanceRef.current?.remainingDays ?? 0;
+    if (remaining <= 0) {return;}
+    markingRef.current = true;
+    try {
+      await recordQadaaCompletion({quantity: 1, maxQuantity: remaining});
+    } finally {
+      markingRef.current = false;
     }
-    const progress = await persistOneQadaaDayCompleted(totalQadaaDays);
-    const remaining = Math.max(0, totalQadaaDays - progress.completedDays);
-    setRemainingQadaaDays(remaining);
-    setCompletedQadaaDays(progress.completedDays);
-  }, [totalQadaaDays, remainingQadaaDays]);
+  }, []);
 
   return {
-    remainingQadaaDays,
-    totalQadaaDays,
-    completedQadaaDays,
+    // The authoritative balance wins as soon as it exists; the persisted cache
+    // (qadaaStore) is only what is shown until then.
+    remainingQadaaDays: balance ? balance.remainingDays : remainingQadaaDays,
+    totalQadaaDays: balance?.totalDays ?? null,
+    completedQadaaDays: balance?.completedDays ?? null,
+    automaticQadaaDays: balance?.automaticDays ?? null,
+    manualQadaaDays: balance?.manualDays ?? null,
+    surplusCompletedDays: balance?.surplusCompletedDays ?? null,
+    balance,
+    manualEntries: ledgerView.manualEntries,
+    completions: ledgerView.completions,
     hijriYear,
     loading,
     ramadanActive,

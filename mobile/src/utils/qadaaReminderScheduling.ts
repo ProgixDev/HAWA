@@ -7,7 +7,8 @@ import {
   hydrateConfirmedPeriodHistory,
   type ConfirmedPeriodOccurrence,
 } from '../state/confirmedPeriodHistoryStore';
-import {hydrateQadaaProgress} from '../state/qadaaProgressStore';
+import {hydrateQadaaLedger} from '../state/qadaaLedgerStore';
+import {computeQadaaBalance} from './qadaaBalance';
 import {
   DEFAULT_QADAA_REMINDER_NOTIFICATION_STATE,
   hydrateQadaaReminderNotificationState,
@@ -66,8 +67,8 @@ async function clearQadaaReminder(): Promise<void> {
 
 /**
  * Recomputes remainingQadaaDays the exact same way useQadaaStatus.ts does —
- * same computeQadaaFromHistory() + qadaaProgressStore combination, not a
- * second calculation. A module-level sync (called from App.tsx) has no
+ * same computeQadaaFromHistory() + qadaaLedgerStore (manual entries and
+ * completions) combined by computeQadaaBalance(), not a second calculation. A module-level sync (called from App.tsx) has no
  * React hook context to reuse the hook itself; reading qadaaStore.ts's
  * cached value instead was considered but rejected, since that cache is
  * only as fresh as the last time some Qadaa screen happened to be opened —
@@ -75,13 +76,12 @@ async function clearQadaaReminder(): Promise<void> {
  * she hasn't opened Fasting/Qadaa at all this Ramadan.
  */
 async function computeCurrentRemainingQadaaDays(): Promise<number> {
-  const [history, progress] = await Promise.all([
+  const [history, ledger] = await Promise.all([
     hydrateConfirmedPeriodHistory(),
-    hydrateQadaaProgress(),
+    hydrateQadaaLedger(),
   ]);
   const result = computeQadaaFromHistory(history.map(toOccurrenceDates));
-  const completed = Math.min(result.remainingDays, progress.completedDays);
-  return Math.max(0, result.remainingDays - completed);
+  return computeQadaaBalance(result.remainingDays, ledger.manualEntries, ledger.completions).remainingDays;
 }
 
 /**
