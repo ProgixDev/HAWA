@@ -47,6 +47,8 @@ type Props = {
   error?: string;
   saving?: boolean;
   onSave: () => void;
+  /** Optional: shown only when there is a saved answer to clear (M25). */
+  onClear?: () => void;
 };
 
 export function PostpartumWellnessRatingLayout({
@@ -64,6 +66,7 @@ export function PostpartumWellnessRatingLayout({
   error,
   saving,
   onSave,
+  onClear,
 }: Props): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {theme} = useAwaTheme();
@@ -319,6 +322,18 @@ export function PostpartumWellnessRatingLayout({
               {saving ? 'Enregistrement…' : 'Enregistrer mon suivi'}
             </Text>
           </Pressable>
+
+          {onClear ? (
+            <Pressable
+              accessibilityLabel="Effacer ma réponse"
+              accessibilityRole="button"
+              disabled={saving}
+              onPress={onClear}
+              style={({ pressed }) => [styles.clearButton, pressed && styles.pressed]}
+            >
+              <Text style={styles.clearText}>Effacer ma réponse</Text>
+            </Pressable>
+          ) : null}
         </View>
       </KeyboardAvoidingView>
     </View>
@@ -530,6 +545,8 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   saveButtonPressed: { opacity: 0.8, transform: [{ scale: 0.99 }] },
   saveText: { color: onPrimaryTextColor(theme), fontSize: 16, fontWeight: '800' },
+  clearButton: { minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 4 },
+  clearText: { color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline' },
   pressed: { opacity: 0.78, transform: [{ scale: 0.99 }] },
   });
 }

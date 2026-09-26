@@ -1,3 +1,4 @@
+import {useToday} from '../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
@@ -17,7 +18,9 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
-import {confirmDelivery, getPostpartumPreferences} from '../state/postpartumPreferences';
+import {confirmDelivery, getPostpartumPreferences, setDeliveryDate} from '../state/postpartumPreferences';
+import {getPostpartumLochiaTracking, hydratePostpartumLochia} from '../state/postpartumLochiaStore';
+import {validateDeliveryDate} from '../utils/postpartumLossDateValidation';
 import {diffDays, startOfDay} from '../utils/cycleMath';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -43,7 +46,9 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
   const cardEntrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today} = useToday();
 
   // Preselect an already-confirmed delivery date if one exists (see
   // src/state/postpartumPreferences.ts, reused as-is — no new store),
@@ -59,6 +64,10 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
     () => new Date(initialDate.getFullYear(), initialDate.getMonth(), 1),
   );
   const [saving, setSaving] = useState(false);
+  // Coherence feedback (future date, or a date after already-recorded
+  // first-period / lochia-end dates) — nothing is saved until it passes.
+  const [dateError, setDateError] = useState('');
+  const isEdit = route.params?.mode === 'edit';
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(value => {reduceMotion.current = value;});
@@ -102,6 +111,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
     const candidate = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
     if (diffDays(candidate, today) > 0) {return;}
     setSelectedDate(candidate);
+    setDateError('');
   };
 
   const scrollToCalendar = () => {
@@ -111,11 +121,26 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
   const handleNext = async () => {
     if (saving) {return;}
     setSaving(true);
-    await confirmDelivery(selectedDate);
-    if (route.params?.mode === 'edit') {
+    await hydratePostpartumLochia();
+    const validation = validateDeliveryDate({
+      date: selectedDate,
+      now: new Date(),
+      firstPostpartumPeriodDate: getPostpartumPreferences().firstPostpartumPeriodDate,
+      lochiaEndedDate: getPostpartumLochiaTracking().endedDate,
+    });
+    if (!validation.valid) {
+      setDateError(validation.message);
+      setSaving(false);
+      return;
+    }
+    setDateError('');
+    if (isEdit) {
+      // Correction of an existing profile: only the delivery date changes.
+      await setDeliveryDate(selectedDate);
       navigation.goBack();
       return;
     }
+    await confirmDelivery(selectedDate);
     navigation.navigate('PostpartumDeliveryType');
   };
 
@@ -238,12 +263,18 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
 
           <View style={styles.spacer} />
 
+          {dateError ? (
+            <Text accessibilityRole="alert" style={styles.dateError}>
+              {dateError}
+            </Text>
+          ) : null}
+
           <Pressable
             accessibilityRole="button"
             disabled={saving}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}</Text>
           </Pressable>
         </ScrollView>
       </View>
@@ -378,6 +409,15 @@ function createStyles(theme: ResolvedAwaTheme) {
     selectedValue: {marginTop: 2, color: theme.colors.text, fontSize: 15, fontWeight: '700'},
     modifyText: {color: theme.colors.primary, fontSize: 13, fontWeight: '700'},
     spacer: {flex: 1, minHeight: spacing.lg},
+    dateError: {
+      marginBottom: 12,
+      color: theme.colors.danger,
+      fontSize: 13,
+      fontWeight: '600',
+      lineHeight: 18,
+      textAlign: 'center',
+    },
+
     nextButton: {
       minHeight: 52,
       alignItems: 'center',

@@ -165,7 +165,9 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
               !selected && styles.nextButtonDisabled,
               (pressed || saving) && selected && styles.pressed,
             ]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>
+              {saving ? 'Enregistrement…' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+            </Text>
           </Pressable>
         </ScrollView>
       </View>

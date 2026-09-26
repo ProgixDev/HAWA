@@ -1,3 +1,4 @@
+import { useToday } from '../../hooks/useToday';
 import React, {
   useEffect,
   useMemo,
@@ -782,6 +783,18 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
   ] =
     useState(false);
 
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const { todayKey } = useToday();
+
+  // Latest `date` for the day-rollover check below (read inside an effect
+  // that must not re-run whenever the user edits the date).
+  const dateRef = useRef(date);
+  dateRef.current = date;
+
+  // The day the form was last loaded for (null = first load).
+  const loadedForDayRef = useRef<string | null>(null);
+
   const [
     error,
     setError,
@@ -836,12 +849,25 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
     // how the sibling Daily Journal categories (symptoms/mood/sleep) always
     // reopen to today — rather than whichever note happens to be the most
     // recently saved one overall.
-    const todayKey = toDateKey(
-      new Date(),
-    );
+    const previousDayKey =
+      loadedForDayRef.current;
+
+    loadedForDayRef.current =
+      todayKey;
 
     getPregnancyJournalState().then(
       state => {
+        // Day rollover while this screen is open: only a form that was
+        // FOLLOWING today moves to the new day. A reference date the user
+        // picked (a historical entry she is working on) is never replaced.
+        if (
+          previousDayKey !== null &&
+          dateRef.current !==
+            previousDayKey
+        ) {
+          return;
+        }
+
         const todaysEntry =
           state.medicalInformationHistory.find(
             entry =>
@@ -859,7 +885,7 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
         );
       },
     );
-  }, []);
+  }, [todayKey]);
 
   /* ==========================================================
      ENTRANCE

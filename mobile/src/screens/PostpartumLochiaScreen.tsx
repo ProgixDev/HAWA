@@ -1,3 +1,4 @@
+import {useToday} from '../hooks/useToday';
 import React, { useEffect, useMemo, useState } from 'react';
 import {
   Modal,
@@ -39,9 +40,15 @@ import {
   subscribePostpartumPreferences,
 } from '../state/postpartumPreferences';
 import { computePostpartumLochiaSummary } from '../utils/postpartumTrackingUtils';
+import { validateLochiaEndDate } from '../utils/postpartumLossDateValidation';
+import { startOfDay } from '../utils/cycleMath';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
+import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
+
+// Existing Bibliothèque article (data/libraryContent.ts → LochiaArticleScreen).
+const LOCHIA_ARTICLE_ID = 'lochia-comprendre-lochies';
 type Flow = 'Très léger' | 'Léger' | 'Modéré' | 'Abondant';
 type LochiaColor = 'Rouge vif' | 'Rouge' | 'Rose' | 'Brun' | 'Jaune / blanc';
 type Consistency = 'Liquide' | 'Épais' | 'Avec petits caillots';
@@ -89,6 +96,12 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   const [saveConfirmationVisible, setSaveConfirmationVisible] = useState(false);
   const [reopenConsistencyVisible, setReopenConsistencyVisible] =
     useState(false);
+  // End-date selection: the day chosen when marking the lochia as ended
+  // (defaults to today), the picker shared by "mark ended" and "edit the end
+  // date", and the message of a refused date.
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [endPicker, setEndPicker] = useState<null | 'finish' | 'edit'>(null);
+  const [endDateError, setEndDateError] = useState<string | null>(null);
   const [deliveryDate, setDeliveryDate] = useState(
     getPostpartumPreferences().deliveryDate,
   );
@@ -98,7 +111,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   const [tracking, setTracking] = useState<PostpartumLochiaTracking>(
     getPostpartumLochiaTracking,
   );
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
 
   useEffect(() => {
     let active = true;
@@ -158,12 +174,65 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   };
 
   const finishTracking = () => {
+    setEndDate(today);
     setFinishModalVisible(true);
+  };
+
+  // Single writer for a chosen end date: order rules first (never in the
+  // future, never before delivery, never after an already recorded first
+  // period — that date is never moved or deleted here), then the existing
+  // markPostpartumLochiaEnded(date).
+  const applyEndDate = async (date: Date): Promise<boolean> => {
+    await hydratePostpartumPreferences();
+    const preferences = getPostpartumPreferences();
+    const check = validateLochiaEndDate({
+      date,
+      now: today,
+      deliveryDate: preferences.deliveryDate,
+      firstPostpartumPeriodDate: preferences.firstPostpartumPeriodDate,
+    });
+    if (!check.valid) {
+      setEndDateError(check.message);
+      return false;
+    }
+    await markPostpartumLochiaEnded(date.toLocaleDateString('en-CA'));
+    return true;
   };
 
   const confirmFinishTracking = async () => {
     setFinishModalVisible(false);
-    await markPostpartumLochiaEnded(todayKey);
+    await applyEndDate(endDate ?? today);
+  };
+
+  const openEditEndDate = () => {
+    setEndPicker('edit');
+  };
+
+  const handleEndDatePicked = (date: Date) => {
+    const day = startOfDay(date);
+    if (endPicker === 'edit') {
+      applyEndDate(day);
+      return;
+    }
+    setEndDate(day);
+  };
+
+  const closeEndPicker = () => {
+    // Coming from the "mark as ended" confirmation: show it again with the
+    // (possibly new) date.
+    if (endPicker === 'finish') {
+      setFinishModalVisible(true);
+    }
+    setEndPicker(null);
+  };
+
+  const retryEndDate = () => {
+    setEndDateError(null);
+    if (summary.status === 'ended') {
+      setEndPicker('edit');
+      return;
+    }
+    setFinishModalVisible(true);
   };
 
   const reopenTracking = async () => {
@@ -187,8 +256,29 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
-      }).format(new Date()),
-    [],
+      }).format(today),
+    [today],
+  );
+  const endDateLabel = useMemo(
+    () =>
+      new Intl.DateTimeFormat('fr-FR', {
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      }).format(endDate ?? today),
+    [endDate, today],
+  );
+  const deliveryDay = useMemo(
+    () => (deliveryDate ? startOfDay(new Date(`${deliveryDate}T12:00:00`)) : null),
+    [deliveryDate],
+  );
+  const endedDay = useMemo(
+    () =>
+      summary.endedDate
+        ? startOfDay(new Date(`${summary.endedDate}T12:00:00`))
+        : null,
+    [summary.endedDate],
   );
 
   const toggleSymptom = (value: string) => {
@@ -241,13 +331,25 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               />
             </Pressable>
             <Text style={styles.headerTitle}>Lochies</Text>
-            <View style={styles.infoButton}>
+            {/* Opens the existing Bibliothèque article on the lochia — the only
+                educational content there is for this topic (no new content). */}
+            <Pressable
+              accessibilityLabel="En savoir plus sur les lochies"
+              accessibilityRole="button"
+              hitSlop={8}
+              onPress={() =>
+                navigation.navigate('ArticleReader', {
+                  articleId: LOCHIA_ARTICLE_ID,
+                })
+              }
+              style={styles.infoButton}
+            >
               <MaterialDesignIcons
                 color={theme.colors.primary}
                 name="information-outline"
                 size={20}
               />
-            </View>
+            </Pressable>
           </View>
 
           <ScrollView
@@ -311,6 +413,26 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   }
                 />
               </View>
+              {summary.status === 'ended' ? (
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={openEditEndDate}
+                  style={({ pressed }) => [
+                    styles.endButton,
+                    styles.reopenButton,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <MaterialDesignIcons
+                    color={theme.colors.primary}
+                    name="calendar-edit"
+                    size={18}
+                  />
+                  <Text style={[styles.endButtonText, styles.reopenButtonText]}>
+                    Modifier la date de fin
+                  </Text>
+                </Pressable>
+              ) : null}
               <Pressable
                 accessibilityRole="button"
                 onPress={
@@ -338,7 +460,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   ]}
                 >
                   {summary.status === 'ended'
-                    ? 'Corriger et reprendre le suivi'
+                    ? 'Reprendre le suivi'
                     : 'Mes lochies sont terminées'}
                 </Text>
               </Pressable>
@@ -564,9 +686,31 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </Text>
 
               <Text style={styles.confirmText}>
-                Le <Text style={styles.confirmDate}>{todayLabel}</Text> sera
+                Le <Text style={styles.confirmDate}>{endDateLabel}</Text> sera
                 enregistré comme date de fin.
               </Text>
+
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => {
+                  setFinishModalVisible(false);
+                  setEndPicker('finish');
+                }}
+                style={({ pressed }) => [
+                  styles.endButton,
+                  styles.reopenButton,
+                  pressed && styles.pressed,
+                ]}
+              >
+                <MaterialDesignIcons
+                  color={theme.colors.primary}
+                  name="calendar-edit"
+                  size={18}
+                />
+                <Text style={[styles.endButtonText, styles.reopenButtonText]}>
+                  Modifier la date
+                </Text>
+              </Pressable>
 
               <View style={styles.confirmInfoBox}>
                 <MaterialDesignIcons
@@ -575,8 +719,8 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   size={18}
                 />
                 <Text style={styles.confirmInfoText}>
-                  Tu pourras corriger ce choix plus tard et reprendre le suivi
-                  si nécessaire.
+                  Tu pourras modifier cette date plus tard ou reprendre le
+                  suivi si nécessaire.
                 </Text>
               </View>
 
@@ -743,6 +887,28 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
           }}
           onSecondary={() => setReopenConsistencyVisible(false)}
           onRequestClose={() => setReopenConsistencyVisible(false)}
+        />
+
+        <InlineCalendarPickerModal
+          maximumDate={today}
+          minimumDate={deliveryDay ?? undefined}
+          onClose={closeEndPicker}
+          onSelect={handleEndDatePicked}
+          subtitle="Indique le dernier jour de tes lochies."
+          title="Date de fin des lochies"
+          value={endPicker === 'edit' ? endedDay ?? today : endDate ?? today}
+          visible={endPicker !== null}
+        />
+
+        <PostpartumConsistencyModal
+          visible={endDateError !== null}
+          title="Date à vérifier"
+          message={endDateError ?? ''}
+          infoText="La date de fin doit se situer entre ton accouchement et aujourd’hui, sans dépasser la reprise de tes règles si elle est déjà enregistrée."
+          primaryLabel="Modifier la date"
+          onPrimary={retryEndDate}
+          onSecondary={() => setEndDateError(null)}
+          onRequestClose={() => setEndDateError(null)}
         />
       </SafeAreaView>
     </LinearGradient>

@@ -1,5 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {
+  validateCycleReturnDate,
+  validateLossDateChange,
+  type LossDateValidation,
+} from '../utils/lossDateValidation';
+
 // Canonical onboarding/tracking data for the "Après une fausse couche"
 // objective (ObjectiveId === 'loss'). Deliberately isolated from
 // onboardingPreferences.ts (Cycle), pregnancyPreferences.ts and
@@ -84,6 +90,10 @@ const isValidPreferences = (value: unknown): value is Partial<MiscarriagePrefere
 
 export const getMiscarriagePreferences = (): MiscarriagePreferences => ({...miscarriagePreferences});
 
+/** Raw writer — stores the value AS GIVEN. It performs NO chronology check on
+ * purpose (it must never rewrite or reject legacy data); every user-facing
+ * writer of a dated field goes through the named setters below, which validate
+ * a NEW value (see utils/lossDateValidation.ts). */
 export const setMiscarriagePreferences = async (value: MiscarriagePreferences): Promise<void> => {
   miscarriagePreferences = {...value};
   notifyListeners();
@@ -92,12 +102,34 @@ export const setMiscarriagePreferences = async (value: MiscarriagePreferences): 
 
 /** THE single canonical way to record the miscarriage date — used by
  * MiscarriageDateScreen (and nowhere else; do not duplicate this call).
- * Deliberately never written to onboardingPreferences.ts (Cycle). */
-export const setMiscarriageDate = async (date: Date): Promise<void> => {
+ * Deliberately never written to onboardingPreferences.ts (Cycle).
+ *
+ * The NEW date is validated against the Loss chronology (utils/
+ * lossDateValidation.ts): never in the future, and never AFTER dated data
+ * already recorded — the cycle-return date (read here) and the journal days
+ * with real content (`journalDates`, supplied by the caller because they live
+ * in miscarriageJournalStore). A contradicting date is REJECTED: nothing is
+ * written, no dependent value is moved or deleted, and the French message
+ * naming the conflict is returned (never thrown). */
+export const setMiscarriageDate = async (
+  date: Date,
+  options?: {journalDates?: string[]},
+): Promise<LossDateValidation> => {
+  const validation = validateLossDateChange({
+    date,
+    now: new Date(),
+    cycleReturnStatus: miscarriagePreferences.cycleReturnStatus,
+    cycleReturnDate: miscarriagePreferences.firstReturnedPeriodDate,
+    journalDates: options?.journalDates ?? [],
+  });
+  if (!validation.valid) {
+    return validation;
+  }
   await setMiscarriagePreferences({
     ...miscarriagePreferences,
     miscarriageDate: date.toLocaleDateString('en-CA'),
   });
+  return {valid: true};
 };
 
 /** THE single canonical way to record the current-bleeding answer — used by
@@ -115,11 +147,29 @@ export const setMiscarriageBleedingStatus = async (status: MiscarriageBleedingSt
  * changed answer. This deliberately never touches onboardingPreferences.ts
  * (Cycle) — a returned period here must NOT silently start classic cycle/
  * fertility tracking (see MiscarriageTryingAgainScreen for the same
- * boundary on the "trying again" answer). */
+ * boundary on the "trying again" answer).
+ *
+ * A NEW date is validated with the canonical Loss rule (valid, not in the
+ * future, not before the loss date — utils/lossDateValidation.ts) so no UI
+ * path can bypass it: an invalid one is REJECTED (nothing is written, the
+ * stored values are left exactly as they were) and the validation result is
+ * returned instead of throwing. Legacy invalid values already stored are never
+ * touched by this module — they are only ever replaced by an explicit, valid
+ * correction here. */
 export const setMiscarriageCycleReturnStatus = async (
   status: MiscarriageCycleReturnStatus,
   firstReturnedPeriodDate?: Date | null,
-): Promise<void> => {
+): Promise<LossDateValidation> => {
+  if (status === 'yes' && firstReturnedPeriodDate) {
+    const validation = validateCycleReturnDate({
+      date: firstReturnedPeriodDate,
+      now: new Date(),
+      lossDate: miscarriagePreferences.miscarriageDate,
+    });
+    if (!validation.valid) {
+      return validation;
+    }
+  }
   await setMiscarriagePreferences({
     ...miscarriagePreferences,
     cycleReturnStatus: status,
@@ -127,6 +177,7 @@ export const setMiscarriageCycleReturnStatus = async (
       ? firstReturnedPeriodDate.toLocaleDateString('en-CA')
       : null,
   });
+  return {valid: true};
 };
 
 /** THE single canonical way to record the "reprise des essais" answer —

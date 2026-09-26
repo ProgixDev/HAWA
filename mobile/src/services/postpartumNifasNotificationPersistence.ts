@@ -1,6 +1,10 @@
 import type { Notification } from '@notifee/react-native';
 
-import { NIFAS_EDUCATIONAL_ARTICLE_ID } from '../config/nifasReminderConfig';
+import {
+  NIFAS_EDUCATIONAL_ARTICLE_ID,
+  NIFAS_REFERENCE_APPROACHING_HEADLINE,
+  NIFAS_REFERENCE_REACHED_HEADLINE,
+} from '../config/nifasReminderConfig';
 import {
   addInAppNotification,
   markInAppNotificationAsRead,
@@ -50,8 +54,8 @@ export async function persistPostpartumNifasNotification(
     message:
       getNotificationDataString(notification, 'inAppMessage') ??
       (reached
-        ? 'Le repère présenté par AWA a été atteint.'
-        : 'Le repère présenté par AWA approche.'),
+        ? `${NIFAS_REFERENCE_REACHED_HEADLINE}.`
+        : `${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`),
     receivedAt: new Date().toISOString(),
     read,
     route: 'ArticleReader',

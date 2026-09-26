@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
@@ -23,7 +24,12 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {homeColors} from '../../components/home/homeTheme';
 import {getTopPadding, spacing} from '../../theme/spacing';
-import {getPregnancyJournalState, savePregnancyWeight, type PregnancyWeightEntry} from '../../state/pregnancyJournalStore';
+import {
+  deletePregnancyWeight,
+  getPregnancyJournalState,
+  savePregnancyWeight,
+  type PregnancyWeightEntry,
+} from '../../state/pregnancyJournalStore';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -275,10 +281,13 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const compact = width < 370 || height < 720;
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
   const todayLabel = useMemo(
-    () => new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(new Date()),
-    [],
+    () => new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(today),
+    [today],
   );
 
   const [todayEntry, setTodayEntry] = useState<PregnancyWeightEntry | undefined>(undefined);
@@ -339,6 +348,20 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       setTodayEntry(entry);
       setSheetVisible(false);
       saveToast.show('Poids enregistré', 'Ton suivi de poids a bien été mis à jour.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Removes today's measurement back to "Aucune mesure enregistrée" — other
+  // days' weights (and so the "évolution" basis) are untouched.
+  const handleClear = async () => {
+    setError('');
+    setSaving(true);
+    try {
+      await deletePregnancyWeight(todayKey);
+      setTodayEntry(undefined);
+      saveToast.show('Poids effacé', 'Ton suivi de poids a bien été mis à jour.');
     } finally {
       setSaving(false);
     }
@@ -418,6 +441,15 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
                   </View>
                 </View>
               ) : null}
+
+              <Pressable
+                accessibilityLabel="Effacer la mesure du jour"
+                accessibilityRole="button"
+                disabled={saving}
+                onPress={handleClear}
+                style={({pressed}) => [styles.clearButton, pressed && styles.pressed]}>
+                <Text style={styles.clearText}>Effacer la mesure du jour</Text>
+              </Pressable>
             </View>
           )}
         </Animated.View>
@@ -810,5 +842,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     },
     saveButtonPressed: {opacity: 0.88, transform: [{scale: 0.99}]},
     saveText: {color: onPrimaryTextColor(theme), fontSize: 14.5, fontWeight: '700'},
+    clearButton: {minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 8},
+    clearText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline'},
   });
 }

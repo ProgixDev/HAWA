@@ -120,9 +120,22 @@ export const setPostpartumPreferences = async (value: PostpartumPreferences): Pr
  * deliberately does NOT switch activeObjective itself, so callers stay in
  * control of that separate, explicit step (same separation Cycle keeps
  * between period-history data and the objective selector). */
-export const confirmDelivery = async (deliveryDate: Date): Promise<void> => {
+export const confirmDelivery = async (
+  deliveryDate: Date,
+  options?: {startsNewJourney?: boolean},
+): Promise<void> => {
   await setPostpartumPreferences({
     ...postpartumPreferences,
+    // Only the Pregnancy -> Postpartum transition passes this, when a delivery
+    // left over from an EARLIER journey is being replaced by this pregnancy's
+    // own. The single-slot answers that described that earlier delivery/baby
+    // (type, feeding, first period since delivery) must not be carried over
+    // as if they were this one's: they go back to "not answered" and stay
+    // editable from Profile ("Mon accouchement", "Alimentation de bébé").
+    // Reminder settings, journals, lochia and Nifas state are never touched.
+    ...(options?.startsNewJourney
+      ? {deliveryType: null, feedingType: null, firstPostpartumPeriodDate: null}
+      : {}),
     deliveryDate: deliveryDate.toLocaleDateString('en-CA'),
     startedAt: new Date().toISOString(),
   });
@@ -153,6 +166,23 @@ export const recordFirstPostpartumPeriod = async (date: Date): Promise<void> => 
     ...postpartumPreferences,
     firstPostpartumPeriodDate: date.toLocaleDateString('en-CA'),
   });
+};
+
+/** Corrects the delivery date of an ALREADY-configured postpartum profile
+ * (PostpartumDeliveryDateScreen in edit mode). Unlike confirmDelivery it keeps
+ * `startedAt` (when tracking was first activated) and never touches any
+ * journal / lochia data — recorded entries keep the dates they were recorded on. */
+export const setDeliveryDate = async (deliveryDate: Date): Promise<void> => {
+  await setPostpartumPreferences({
+    ...postpartumPreferences,
+    deliveryDate: deliveryDate.toLocaleDateString('en-CA'),
+  });
+};
+
+/** Clears a mistakenly entered first-period date ("le cycle n'a pas repris").
+ * Only the user-entered date is removed — never derived from anything else. */
+export const clearFirstPostpartumPeriod = async (): Promise<void> => {
+  await setPostpartumPreferences({...postpartumPreferences, firstPostpartumPeriodDate: null});
 };
 
 /** THE single canonical way to record the optional "Suivi quotidien" reminder

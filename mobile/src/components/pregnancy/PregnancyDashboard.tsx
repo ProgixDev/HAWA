@@ -45,10 +45,14 @@ import {
   subscribePregnancyDating,
   type PregnancyTrackingPreference,
 } from '../../state/pregnancyPreferences';
+import {usePregnancyTrackingPreferences} from '../../hooks/usePregnancyTrackingPreferences';
 import {
   computePregnancyStatus,
+  formatPregnancyTrimester,
+  isDeliveryOfCurrentPregnancy,
   isLatePregnancy,
   isPregnancyTrackingCategoryCompleted,
+  pregnancyLmpFromDating,
 } from '../../utils/pregnancyTrackingUtils';
 import {
   getPostpartumPreferences,
@@ -58,6 +62,7 @@ import {
 import DeliveryDateSheet from './DeliveryDateSheet';
 import PostpartumCongratsCard from './PostpartumCongratsCard';
 import { usePregnancySpiritualStatus } from '../../hooks/usePrayerPurityStatus';
+import { useToday } from '../../hooks/useToday';
 import { formatHijriDate } from '../../utils/cycleMath';
 import { getJournalEntry } from '../../state/dailyJournalStore';
 import {
@@ -99,12 +104,12 @@ type Route =
   | 'PregnancySymptoms'
   | 'PregnancyMedicalInformation';
 
-// The exact same 5 categories as the Pregnancy Daily Journal (see
-// PREGNANCY_JOURNAL_ITEMS in MainTabNavigator.tsx) — deliberately NOT
-// filtered by the user's tracking-preferences (Hydratation/Activité/Notes/
-// RDV are separate, opt-in reminder categories configured in
-// PregnancyTrackingPreferencesScreen.tsx; they were never part of the
-// Journal quotidien and must not appear in "Suivi du jour").
+// The same 5 categories as the Pregnancy Daily Journal (see
+// PREGNANCY_JOURNAL_ITEMS in MainTabNavigator.tsx). "Suivi du jour" offers the
+// ones the user chose in her tracking preferences (Hydratation/Activité/
+// Notes/RDV were never part of the Journal quotidien and never appear here),
+// plus any category that already has an entry today, so recorded data is
+// never hidden by a later preference change. History is untouched either way.
 const DAILY_ITEMS: Array<{
   label: string;
   icon: IconName;
@@ -209,6 +214,9 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const { todayKey } = useToday();
   const status = useMemo(
     () =>
       computePregnancyStatus(
@@ -216,7 +224,8 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
         dating.date ? new Date(dating.date) : null,
         new Date(),
       ),
-    [dating],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
+    [dating, todayKey],
   );
 
   // Centralized rule (src/utils/pregnancyTrackingUtils.ts) — gestational
@@ -226,17 +235,27 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   // already delivered, so the normal late-pregnancy gate no longer applies
   // — but its label/action change: it re-opens the congratulations card
   // directly instead of asking for the date again.
-  const hasConfirmedDelivery = Boolean(postpartum.deliveryDate);
+  // "Confirmed" means confirmed for THIS pregnancy: a delivery date left over
+  // from an earlier postpartum journey (dated before this pregnancy started)
+  // must not hide the late-pregnancy gate nor skip the delivery-date step.
+  const hasConfirmedDelivery = isDeliveryOfCurrentPregnancy(postpartum.deliveryDate, dating);
+  const pregnancyStart = useMemo(
+    () =>
+      dating.method !== 'later' && dating.date && !Number.isNaN(new Date(dating.date).getTime())
+        ? pregnancyLmpFromDating(dating.method, new Date(dating.date))
+        : null,
+    [dating],
+  );
   const showDeliveryCta = hasConfirmedDelivery || isLatePregnancy(status);
   const deliveryCtaLabel = hasConfirmedDelivery
     ? 'Démarrer mon suivi post-partum'
     : 'J’ai accouché';
   const deliveryDateForCard = useMemo(
     () =>
-      postpartum.deliveryDate
+      postpartum.deliveryDate && hasConfirmedDelivery
         ? new Date(`${postpartum.deliveryDate}T12:00:00`)
         : null,
-    [postpartum.deliveryDate],
+    [postpartum.deliveryDate, hasConfirmedDelivery],
   );
 
   const handleDeliveryCtaPress = () => {
@@ -258,8 +277,6 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const [medicalEvents, setMedicalEvents] = useState<PregnancyMedicalEvent[]>(
     [],
   );
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
-
   useFocusEffect(
     useCallback(() => {
       let active = true;
@@ -280,27 +297,46 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
     }, [todayKey]),
   );
 
-  const completedTodayCount = useMemo(
-    () =>
-      DAILY_ITEMS.filter(item =>
-        isPregnancyTrackingCategoryCompleted(
-          item.preferenceKey,
-          todayKey,
-          todayEntry,
-          pregnancyJournal,
-          medicalEvents,
-        ),
-      ).length,
+  const trackingPreferences = usePregnancyTrackingPreferences();
+
+  const isCategoryDoneToday = useCallback(
+    (category: PregnancyTrackingPreference) =>
+      isPregnancyTrackingCategoryCompleted(
+        category,
+        todayKey,
+        todayEntry,
+        pregnancyJournal,
+        medicalEvents,
+      ),
     [todayKey, todayEntry, pregnancyJournal, medicalEvents],
+  );
+
+  // What "Suivi du jour" offers NOW: the tracked categories, plus any that
+  // already hold an entry for today.
+  const dailyItems = useMemo(
+    () =>
+      DAILY_ITEMS.filter(
+        item =>
+          trackingPreferences.has(item.preferenceKey) ||
+          isCategoryDoneToday(item.preferenceKey),
+      ),
+    [trackingPreferences, isCategoryDoneToday],
+  );
+
+  const completedTodayCount = useMemo(
+    () => dailyItems.filter(item => isCategoryDoneToday(item.preferenceKey)).length,
+    [dailyItems, isCategoryDoneToday],
   );
 
   const nextAppointment = useMemo(
     () => getNextUpcomingEvent(medicalEvents, 'appointment', new Date()),
-    [medicalEvents],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
+    [medicalEvents, todayKey],
   );
   const nextExam = useMemo(
     () => getNextUpcomingEvent(medicalEvents, 'exam', new Date()),
-    [medicalEvents],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
+    [medicalEvents, todayKey],
   );
 
   // Week-specific baby reference content — see src/data/pregnancyWeekData.ts.
@@ -552,7 +588,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     />
 
                     <Text style={styles.trimesterText}>
-                      {status.trimester}e trimestre
+                      {formatPregnancyTrimester(status.trimester)}
                     </Text>
                   </View>
                 </View>
@@ -744,7 +780,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
             </>
           ) : (
             <UnconfiguredPregnancyCard
-              onConfigure={() => navigation.navigate('PregnancyDatingSetup')}
+              onConfigure={() => navigation.navigate('PregnancyDatingSetup', {mode: 'edit'})}
               styles={styles}
               theme={theme}
             />
@@ -828,7 +864,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
 
               <Text style={styles.dailyProgress}>
                 <Text style={styles.dailyProgressStrong}>
-                  {completedTodayCount} / {DAILY_ITEMS.length}
+                  {completedTodayCount} / {dailyItems.length}
                 </Text>{' '}
                 complété
               </Text>
@@ -839,16 +875,39 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 style={[
                   styles.progressFill,
                   {
-                    width: `${Math.round(
-                      (completedTodayCount / DAILY_ITEMS.length) * 100,
-                    )}%`,
+                    width: `${
+                      dailyItems.length > 0
+                        ? Math.round((completedTodayCount / dailyItems.length) * 100)
+                        : 0
+                    }%`,
                   },
                 ]}
               />
             </View>
 
+            {dailyItems.length === 0 ? (
+              <View>
+                <Text style={styles.dailySubtitle}>
+                  Aucune catégorie de suivi n’est sélectionnée pour le moment.
+                </Text>
+                <Pressable
+                  accessibilityLabel="Choisir mes suivis"
+                  accessibilityRole="button"
+                  onPress={() =>
+                    navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})
+                  }
+                  style={({ pressed }) => [
+                    styles.unconfiguredButton,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  <Text style={styles.unconfiguredButtonText}>Choisir mes suivis</Text>
+                </Pressable>
+              </View>
+            ) : null}
+
             <View style={styles.dailyGrid}>
-              {DAILY_ITEMS.map(item => (
+              {dailyItems.map(item => (
                 <Pressable
                   accessibilityLabel={item.label}
                   accessibilityRole="button"
@@ -935,6 +994,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
           }
         }}
         onConfirmed={() => setAwaitingCongrats(true)}
+        pregnancyStart={pregnancyStart}
         visible={deliverySheetVisible}
       />
 

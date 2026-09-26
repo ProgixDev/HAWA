@@ -8,7 +8,8 @@ import {
 import {getHealthReminders, type HealthReminder} from '../state/pregnancyHealthRemindersStore';
 import {getCustomReminders, type CustomReminder} from '../state/pregnancyCustomRemindersStore';
 import {getPregnancyMedicalEvents} from '../state/pregnancyMedicalEventsStore';
-import {syncEventReminder} from './pregnancyEventReminders';
+import {cancelEventReminder, syncEventReminder} from './pregnancyEventReminders';
+import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
 
 // Scheduling for every recurring/one-off Pregnancy Tracking reminder that
 // ISN'T a per-appointment/exam reminder (those live in
@@ -150,6 +151,29 @@ export async function syncHealthReminder(reminder: HealthReminder): Promise<void
   });
 }
 
+/** Next occurrence, at `start`'s time of day, on the same weekday as `start` (local time). */
+export function nextWeeklyFireDate(start: Date, now = new Date()): Date {
+  const candidate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), start.getHours(), start.getMinutes(), 0, 0);
+  candidate.setDate(candidate.getDate() + ((start.getDay() - candidate.getDay() + 7) % 7));
+  if (candidate.getTime() <= now.getTime()) {candidate.setDate(candidate.getDate() + 7);}
+  return candidate;
+}
+
+/** First fire date to hand to the scheduler for a custom reminder. The
+ * scheduler skips any date in the past, so a repeating (daily/weekly)
+ * reminder whose saved start date/time has passed is moved to its NEXT future
+ * occurrence (same time; same weekday for weekly) — otherwise it would end up
+ * with no notification at all. A start still in the future is kept as is; a
+ * 'once' reminder always keeps its own date/time (past = simply not scheduled).
+ * The saved reminder itself is never modified. */
+export function customReminderFireDate(reminder: CustomReminder, now = new Date()): Date {
+  const {hours, minutes} = parseHHmm(reminder.time);
+  const [year, month, day] = reminder.date.split('-').map(Number);
+  const start = new Date(year, month - 1, day, hours, minutes, 0, 0);
+  if (reminder.repeat === 'once' || start.getTime() > now.getTime()) {return start;}
+  return reminder.repeat === 'weekly' ? nextWeeklyFireDate(start, now) : nextDailyFireDate(reminder.time, now);
+}
+
 export async function syncCustomReminder(reminder: CustomReminder): Promise<void> {
   const id = customReminderNotificationId(reminder);
 
@@ -158,9 +182,7 @@ export async function syncCustomReminder(reminder: CustomReminder): Promise<void
     return;
   }
 
-  const {hours, minutes} = parseHHmm(reminder.time);
-  const [year, month, day] = reminder.date.split('-').map(Number);
-  const fireDate = new Date(year, month - 1, day, hours, minutes, 0, 0);
+  const fireDate = customReminderFireDate(reminder);
 
   const body = reminder.description?.trim() || 'Rappel personnalisé';
 
@@ -186,6 +208,45 @@ export async function cancelHealthReminderNotification(reminder: HealthReminder)
 
 export async function cancelCustomReminderNotification(reminder: CustomReminder): Promise<void> {
   await cancelLocalNotification(customReminderNotificationId(reminder));
+}
+
+/** Cancels every SCHEDULED Pregnancy notification instance — weekly update,
+ * daily journal, appointment/exam reminders, vitamins/medications and custom
+ * reminders — exactly the ids resyncAllPregnancyNotifications() schedules.
+ * Only the scheduled notifications are cancelled: every saved setting, event
+ * and reminder definition stays in its store, so switching back to Pregnancy
+ * reschedules them from that saved state. Safe to call any number of times. */
+export async function cancelAllPregnancyNotifications(): Promise<void> {
+  await Promise.all([
+    cancelLocalNotification(WEEKLY_UPDATE_ID),
+    cancelLocalNotification(DAILY_JOURNAL_ID),
+    (async () => {
+      const events = await getPregnancyMedicalEvents();
+      await Promise.all(events.map(event => cancelEventReminder(event.id)));
+    })(),
+    (async () => {
+      const reminders = await getHealthReminders();
+      await Promise.all(reminders.map(reminder => cancelLocalNotification(healthReminderNotificationId(reminder))));
+    })(),
+    (async () => {
+      const reminders = await getCustomReminders();
+      await Promise.all(reminders.map(reminder => cancelLocalNotification(customReminderNotificationId(reminder))));
+    })(),
+  ]);
+}
+
+/** The objective lifecycle for Pregnancy notifications, like every other
+ * objective's sync: they exist only while the active objective is
+ * 'pregnancy' — scheduled (from the saved state) when it is, cancelled when it
+ * is not (after delivery → Post-partum, or a switch to Loss / Cycle / …).
+ * Called at startup, on every active-objective change and on foreground. */
+export async function syncPregnancyNotificationsForActiveObjective(): Promise<void> {
+  await hydrateActiveObjective();
+  if (getActiveObjective() === 'pregnancy') {
+    await resyncAllPregnancyNotifications();
+    return;
+  }
+  await cancelAllPregnancyNotifications();
 }
 
 /** Re-derives and reschedules every Pregnancy Tracking notification from

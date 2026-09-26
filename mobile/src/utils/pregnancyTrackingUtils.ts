@@ -26,14 +26,40 @@ export type PregnancyStatus = {
 // Standard obstetric convention (40 weeks / 280 days), applied uniformly
 // regardless of which dating method the user picked â€” this is what keeps
 // the three methods from ever producing conflicting results.
-const PREGNANCY_TOTAL_DAYS = 280;
+export const PREGNANCY_TOTAL_DAYS = 280;
+/** 40 weeks â€” the same timeline expressed in weeks. */
+export const PREGNANCY_TOTAL_WEEKS = PREGNANCY_TOTAL_DAYS / 7;
 // Standard offset from estimated conception back to the equivalent LMP
 // (last menstrual period) date, same convention obstetric due-date
 // calculators use. Deliberately NOT the same computation as Cycle's
 // ovulation prediction (ovulationDayFor) â€” this project's Cycle ovulation
 // logic estimates a FUTURE ovulation from average cycle length, whereas
 // this is a fixed backward offset from an already-known conception date.
-const CONCEPTION_TO_LMP_OFFSET_DAYS = 14;
+export const CONCEPTION_TO_LMP_OFFSET_DAYS = 14;
+
+/** The equivalent LMP (start of the 280-day timeline) for a dating value â€”
+ * the ONE place each dating method is normalized, shared by
+ * computePregnancyStatus and the dating validation
+ * (pregnancyDatingValidation.ts) so they can never disagree. */
+export function pregnancyLmpFromDating(
+  datingMethod: Exclude<PregnancyDatingMethod, 'later'>,
+  datingDate: Date,
+): Date {
+  const day = startOfDay(datingDate);
+  if (datingMethod === 'lastPeriod') {
+    return day;
+  }
+  if (datingMethod === 'conceptionDate') {
+    return addDays(day, -CONCEPTION_TO_LMP_OFFSET_DAYS);
+  }
+  // dueDate
+  return addDays(day, -PREGNANCY_TOTAL_DAYS);
+}
+
+/** French label for a trimester â€” the single wording used by every Pregnancy
+ * screen ("1er trimestre", "2e trimestre", "3e trimestre"). */
+export const formatPregnancyTrimester = (trimester: 1 | 2 | 3): string =>
+  trimester === 1 ? '1er trimestre' : `${trimester}e trimestre`;
 
 const UNCONFIGURED_STATUS: PregnancyStatus = {
   configured: false,
@@ -69,15 +95,7 @@ export function computePregnancyStatus(
 
   const today = startOfDay(now);
 
-  let lmpDate: Date;
-  if (datingMethod === 'lastPeriod') {
-    lmpDate = startOfDay(datingDate);
-  } else if (datingMethod === 'conceptionDate') {
-    lmpDate = addDays(startOfDay(datingDate), -CONCEPTION_TO_LMP_OFFSET_DAYS);
-  } else {
-    // dueDate
-    lmpDate = addDays(startOfDay(datingDate), -PREGNANCY_TOTAL_DAYS);
-  }
+  const lmpDate = pregnancyLmpFromDating(datingMethod, datingDate);
 
   const elapsedDays = diffDays(today, lmpDate);
   const clampedElapsed = Math.max(0, Math.min(PREGNANCY_TOTAL_DAYS, elapsedDays));
@@ -104,6 +122,44 @@ export function computePregnancyStatus(
     remainingWeeks,
     remainingDaysRemainder,
   };
+}
+
+/** Label for the "Semaine N sur 40" progress line. `status.week` is 1-indexed
+ * (day 0 of gestation = week 1), so at the exact 280-day boundary
+ * (40 SA + 0 jours) it is 41 — the post-term week the reference data
+ * (data/pregnancyWeekData.ts) already contains. "Semaine 41 sur 40" contradicts
+ * itself, so from that point the line reads "Terme atteint" (wording already
+ * used by the week-40 reference content). Nothing else about the dating
+ * semantics changes: week, SA + jours, % and remaining weeks are untouched.
+ * PRODUCT DECISION REQUIRED (not decided here): how AWA should present
+ * progress AFTER the 40-week boundary — computePregnancyStatus clamps elapsed
+ * days at 280, so every later day still reads 40 SA + 0 jours / week 41. */
+export const formatPregnancyProgressLabel = (status: PregnancyStatus): string =>
+  status.week > PREGNANCY_TOTAL_WEEKS
+    ? 'Terme atteint'
+    : `Semaine ${status.week} sur ${PREGNANCY_TOTAL_WEEKS}`;
+
+/** Whether a stored postpartum delivery date ('YYYY-MM-DD') belongs to the
+ * CURRENT pregnancy, as opposed to being left over from an earlier journey.
+ * A new pregnancy can only start after the previous delivery, so a delivery
+ * dated BEFORE the current pregnancy's (equivalent) start is history of a
+ * previous journey and must not make this pregnancy look already delivered
+ * (that would hide "J'ai accouché" and skip the delivery-date step). Only a
+ * chronological comparison against the existing dating — no invented
+ * identifier. DATA-MODEL DECISION REQUIRED (behaviour kept): while the current
+ * pregnancy has no dating yet ('later') nothing dates it, so a stored delivery
+ * date cannot be attributed to a journey and is still taken as confirmed. */
+export function isDeliveryOfCurrentPregnancy(
+  deliveryDate: string | null | undefined,
+  dating: {method: PregnancyDatingMethod; date: string | null},
+): boolean {
+  if (!deliveryDate) {return false;}
+  const delivery = new Date(`${deliveryDate}T12:00:00`);
+  if (Number.isNaN(delivery.getTime())) {return false;}
+  if (dating.method === 'later' || !dating.date) {return true;}
+  const datingDate = new Date(dating.date);
+  if (Number.isNaN(datingDate.getTime())) {return true;}
+  return diffDays(startOfDay(delivery), pregnancyLmpFromDating(dating.method, datingDate)) >= 0;
 }
 
 // Business rule: from this gestational week onward, pregnancy is considered

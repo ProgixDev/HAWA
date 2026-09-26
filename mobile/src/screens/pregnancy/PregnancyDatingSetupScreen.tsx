@@ -25,6 +25,11 @@ import {
   setPregnancyDating,
   type PregnancyDatingMethod,
 } from '../../state/pregnancyPreferences';
+import {
+  getPregnancyDatingRange,
+  validatePregnancyDatingDate,
+} from '../../utils/pregnancyDatingValidation';
+import {syncPregnancyNotificationsForActiveObjective} from '../../utils/pregnancyReminderScheduling';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -204,6 +209,11 @@ function PregnancyDatingSetupScreen({
     setPickerVisible,
   ] = useState(false);
 
+  // Validation feedback for an incoherent date (see
+  // utils/pregnancyDatingValidation.ts) — nothing is saved until it passes.
+  const [dateError, setDateError] =
+    useState('');
+
   const headerAnim = useRef(
     new Animated.Value(0),
   ).current;
@@ -251,11 +261,18 @@ function PregnancyDatingSetupScreen({
     }
 
     setMethod(id);
+    setDateError('');
 
     if (id === 'later') {
       setDate(null);
     }
   };
+
+  // The picker bounds come from the same range the save-time validation uses.
+  const datingRange = getPregnancyDatingRange(
+    method,
+    new Date(),
+  );
 
   const canContinue =
     method === 'later' ||
@@ -266,12 +283,32 @@ function PregnancyDatingSetupScreen({
       return;
     }
 
+    // Validate on save too — correctness must not depend on the picker UI.
+    const validation = validatePregnancyDatingDate(
+      method,
+      date,
+      new Date(),
+    );
+
+    if (!validation.valid) {
+      setDateError(validation.message);
+      return;
+    }
+
+    setDateError('');
+
     await setPregnancyDating({
       method,
       date: date
         ? date.toISOString()
         : null,
     });
+
+    // The weekly "Nouvelle semaine de grossesse" reminder is derived from the
+    // dating: re-derive it from the NEW dating now (same id, so the obsolete
+    // schedule is replaced), gated by the active objective like every other
+    // Pregnancy notification. This screen is the only writer of the dating.
+    syncPregnancyNotificationsForActiveObjective().catch(() => {});
 
     if (route.params?.mode === 'edit') {
       navigation.goBack();
@@ -594,6 +631,14 @@ function PregnancyDatingSetupScreen({
             )}
           </View>
 
+          {dateError ? (
+            <Text
+              accessibilityRole="alert"
+              style={styles.dateError}>
+              {dateError}
+            </Text>
+          ) : null}
+
           {/* ====================================================
               NEXT BUTTON
           ===================================================== */}
@@ -626,7 +671,7 @@ function PregnancyDatingSetupScreen({
               style={
                 styles.nextText
               }>
-              Suivant
+              {route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
             </Text>
 
             <MaterialDesignIcons
@@ -647,9 +692,19 @@ function PregnancyDatingSetupScreen({
               false,
             )
           }
-          onSelect={setDate}
+          maximumDate={
+            datingRange?.max
+          }
+          minimumDate={
+            datingRange?.min
+          }
+          onSelect={picked => {
+            setDate(picked);
+            setDateError('');
+          }}
           value={
             date ??
+            datingRange?.max ??
             new Date()
           }
           visible={
@@ -1108,6 +1163,16 @@ function createStyles(theme: ResolvedAwaTheme) {
   /* ==========================================================
      NEXT
   ========================================================== */
+
+  dateError: {
+    marginTop: 12,
+    marginHorizontal: 4,
+    color: theme.colors.danger,
+    fontSize: 13,
+    fontWeight: '600',
+    lineHeight: 18,
+    textAlign: 'center',
+  },
 
   nextButton: {
     minHeight: 54,

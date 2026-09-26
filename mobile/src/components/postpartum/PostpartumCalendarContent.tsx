@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
   Modal,
   Pressable,
@@ -45,6 +45,8 @@ import {
 } from '../../state/postpartumPreferences';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import { usePremium } from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
 import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
@@ -185,7 +187,9 @@ function PostpartumCalendarContent(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const { open: openPostpartumJournal } = useJournalSheet();
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today} = useToday();
 
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
@@ -210,6 +214,18 @@ function PostpartumCalendarContent(): React.JSX.Element {
   }, []);
 
   const [selectedDate, setSelectedDate] = useState(today);
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
   const [visibleFilters, setVisibleFilters] = useState<

@@ -1,3 +1,4 @@
+import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
 import {
   Pressable,
@@ -71,7 +72,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
     if (isEdit) {
       navigation.goBack();
     } else {
-      navigation.navigate('SecuritySetup');
+      continueAfterObjectiveSetup(navigation);
     }
   };
 

@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
@@ -20,7 +21,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getTopPadding, spacing} from '../../theme/spacing';
-import {getPregnancyJournalState, savePregnancySymptoms} from '../../state/pregnancyJournalStore';
+import {deletePregnancySymptoms, getPregnancyJournalState, savePregnancySymptoms} from '../../state/pregnancyJournalStore';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -72,12 +73,17 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {todayKey} = useToday();
 
   const [selected, setSelected] = useState<string[]>([]);
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  // Whether today already has a saved entry — only then is "Effacer" offered (M25).
+  const [hasSavedEntry, setHasSavedEntry] = useState(false);
 
   const saveToast = useJournalSaveToast();
 
@@ -104,6 +110,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
     getPregnancyJournalState().then(state => {
       if (!active) {return;}
       const entry = state.symptoms.find(item => item.date === todayKey);
+      setHasSavedEntry(Boolean(entry));
       if (entry) {
         setSelected(entry.symptoms);
         setNote(entry.note ?? '');
@@ -127,7 +134,24 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
         note: note.trim() || undefined,
         updatedAt: new Date().toISOString(),
       });
+      setHasSavedEntry(true);
       saveToast.show('Symptômes enregistrés', 'Ton suivi de grossesse a bien été mis à jour.', navigation.goBack);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Removes today's symptoms (and their note) back to "nothing recorded" —
+  // other days and the other Pregnancy journals are untouched.
+  const clearEntry = async () => {
+    setError('');
+    setSaving(true);
+    try {
+      await deletePregnancySymptoms(todayKey);
+      setSelected([]);
+      setNote('');
+      setHasSavedEntry(false);
+      saveToast.show('Symptômes effacés', 'Ton suivi de grossesse a bien été mis à jour.', navigation.goBack);
     } finally {
       setSaving(false);
     }
@@ -255,6 +279,17 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
               <Text style={styles.saveText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
             </Pressable>
+
+            {hasSavedEntry ? (
+              <Pressable
+                accessibilityLabel="Effacer les symptômes du jour"
+                accessibilityRole="button"
+                disabled={saving}
+                onPress={clearEntry}
+                style={({pressed}) => [styles.clearButton, pressed && styles.pressedRow]}>
+                <Text style={styles.clearText}>Effacer les symptômes du jour</Text>
+              </Pressable>
+            ) : null}
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -383,5 +418,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       elevation: 5,
     },
     saveText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
+    clearButton: {minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 4},
+    clearText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline'},
   });
 }

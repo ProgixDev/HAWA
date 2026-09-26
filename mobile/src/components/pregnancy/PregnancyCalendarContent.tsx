@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState, useRef} from 'react';
 import {
   Modal,
   Pressable,
@@ -31,7 +31,6 @@ import {
   formatHijriDay,
   formatHijriMonthYear,
   sameDay,
-  startOfDay,
   WEEK_DAYS,
 } from '../../utils/cycleMath';
 
@@ -48,10 +47,12 @@ import {
   subscribePregnancyDating,
 } from '../../state/pregnancyPreferences';
 
-import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
+import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/pregnancyTrackingUtils';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 
@@ -94,10 +95,13 @@ const MODES: Array<{
    EVENT TYPES
 ============================================================ */
 
+// Exactly the markers the month grid can render: medical events
+// (appointment / exam, from pregnancyMedicalEventsStore) and the daily-tracking
+// "note" dot. There is no reminder marker — custom reminders are not
+// calendar-linked — so no "Rappel" legend entry exists either.
 type EventType =
   | 'appointment'
   | 'exam'
-  | 'reminder'
   | 'note';
 
 const EVENT_META: Record<
@@ -125,16 +129,12 @@ const EVENT_META: Record<
     icon: 'clipboard-pulse-outline',
   },
 
-  reminder: {
-    label: 'Rappel',
-    empty: 'Aucun rappel',
-    color: '#F0AD17',
-    icon: 'bell-outline',
-  },
-
+  // Key stays 'note' (internal, persisted nowhere). The dot means "a daily
+  // tracking entry exists that day" (symptoms, weight, mood, sleep or medical
+  // information) — NOT a free-text note, which is why it is labelled "Suivi".
   note: {
-    label: 'Note',
-    empty: 'Aucune note',
+    label: 'Suivi',
+    empty: 'Aucun suivi',
     color: '#2AA7A1',
     icon: 'note-text-outline',
   },
@@ -465,11 +465,11 @@ function isEventVisible(
     );
   }
 
-  // 'reminder'/'note' event types are declared in EventType/EVENT_META for
-  // the Legend sheet, but PregnancyMedicalEventType (the real persisted
-  // shape, see pregnancyMedicalEventsStore.ts) only ever produces
-  // 'appointment'/'exam' — this default keeps both harmlessly always-visible
-  // rather than gating them on the removed Daily Journal 'note' filter.
+  // 'note' is declared in EventType/EVENT_META for the Legend sheet, but
+  // PregnancyMedicalEventType (the real persisted shape, see
+  // pregnancyMedicalEventsStore.ts) only ever produces 'appointment'/'exam' —
+  // this default keeps anything else harmlessly always-visible rather than
+  // gating it on the removed Daily Journal 'note' filter.
   return true;
 }
 
@@ -485,13 +485,9 @@ function PregnancyCalendarContent(): React.JSX.Element {
   const insets =
     useSafeAreaInsets();
 
-  const today = useMemo(
-    () =>
-      startOfDay(
-        new Date(),
-      ),
-    [],
-  );
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today} = useToday();
 
   const initialDate = today;
 
@@ -535,6 +531,18 @@ function PregnancyCalendarContent(): React.JSX.Element {
   ] = useState(
     initialDate,
   );
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
 
   const [
     displayMode,
@@ -1156,7 +1164,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                   // (already loaded in full, no extra fetch needed); mood/
                   // sleep come from `monthDailyEntries` (the shared
                   // dailyJournalStore, fetched for the whole visible month).
-                  // Reuses the existing "Note" teal (EVENT_META.note.color)
+                  // Reuses the existing "Suivi" teal (EVENT_META.note.color)
                   // rather than inventing a new color, matching how Cycle's
                   // own calendar groups its non-phase categories into one
                   // shared dot color.
@@ -1435,7 +1443,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
               <PregnancyInfo
                 label="Trimestre"
-                value={pregnancyStatus.configured ? `${pregnancyStatus.trimester}e trimestre` : 'Non configurée'}
+                value={pregnancyStatus.configured ? formatPregnancyTrimester(pregnancyStatus.trimester) : 'Non configurée'}
                 wide
               />
             </View>
@@ -1818,9 +1826,6 @@ function PregnancyCalendarSheet({
 
     exam:
       'Examens médicaux ou échographies prévus.',
-
-    reminder:
-      'Prises de médicaments, vitamines ou autres rappels importants.',
 
     note:
       'Suivi quotidien enregistré ce jour-là (symptômes, poids, humeur, sommeil ou informations médicales).',

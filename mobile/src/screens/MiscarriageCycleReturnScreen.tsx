@@ -27,7 +27,8 @@ import {
   setMiscarriageCycleReturnStatus,
   type MiscarriageCycleReturnStatus,
 } from '../state/miscarriagePreferences';
-import {diffDays, startOfDay} from '../utils/cycleMath';
+import {startOfDay} from '../utils/cycleMath';
+import {validateCycleReturnDate} from '../utils/lossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -95,25 +96,52 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
     }).start();
   }, [entrance]);
 
+  // The ONE canonical rule for a cycle-return date (utils/lossDateValidation):
+  // a valid date, never in the future, never before the loss date — the same
+  // check the store setter applies, so no path can bypass it.
+  const validateReturned = (date: Date) =>
+    validateCycleReturnDate({
+      date,
+      now: new Date(),
+      lossDate: miscarriageDate ? miscarriageDate.toLocaleDateString('en-CA') : null,
+    });
+
   const chooseReturnedDate = (date: Date) => {
     const candidate = startOfDay(date);
-    // A return-of-period date can never precede the miscarriage date
-    // (spec section 13).
-    if (miscarriageDate && diffDays(candidate, miscarriageDate) < 0) {
-      Alert.alert(
-        'Date invalide',
-        'La date de tes premières règles revenues ne peut pas précéder la date de ta fausse couche.',
-      );
+    const validation = validateReturned(candidate);
+    if (!validation.valid) {
+      Alert.alert('Date invalide', validation.message);
       return;
     }
     setReturnedDate(candidate);
   };
 
+  // A date ALREADY stored (legacy: future, or before the loss) is never
+  // silently corrected or dropped — it is shown as "à vérifier" and the user
+  // must pick a valid date (or remove it) before saving.
+  const returnedDateProblem =
+    selected === 'yes' && returnedDate ? validateReturned(returnedDate) : null;
+
   const handleNext = async () => {
     if (saving || !selected) {return;}
+    // Same guards as the picker, re-checked at save time so a stale/legacy
+    // stored date can never be re-saved silently. The date only matters
+    // when the answer is 'yes' (any other answer clears it in the store).
+    if (selected === 'yes' && returnedDate) {
+      const validation = validateReturned(returnedDate);
+      if (!validation.valid) {
+        Alert.alert('Date invalide', validation.message);
+        return;
+      }
+    }
     setSaving(true);
     try {
-      await setMiscarriageCycleReturnStatus(selected, selected === 'yes' ? returnedDate : null);
+      const result = await setMiscarriageCycleReturnStatus(selected, selected === 'yes' ? returnedDate : null);
+      if (!result.valid) {
+        // Rejected by the store's own guard: nothing was written.
+        Alert.alert('Date invalide', result.message);
+        return;
+      }
       if (route.params?.mode === 'edit') {
         navigation.goBack();
         return;
@@ -196,6 +224,22 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                         <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
                       </Pressable>
                     ) : null}
+                    {option.id === 'yes' && returnedDate ? (
+                      <>
+                        {returnedDateProblem && !returnedDateProblem.valid ? (
+                          <Text accessibilityRole="alert" style={styles.dateWarning}>
+                            Date à vérifier : {returnedDateProblem.message} Choisis une date valide ou retire-la pour enregistrer.
+                          </Text>
+                        ) : null}
+                        <Pressable
+                          accessibilityLabel="Retirer la date"
+                          accessibilityRole="button"
+                          onPress={() => setReturnedDate(null)}
+                          style={({pressed}) => [styles.clearDate, pressed && styles.pressed]}>
+                          <Text style={styles.clearDateText}>Retirer la date</Text>
+                        </Pressable>
+                      </>
+                    ) : null}
                   </PremiumChoiceCard>
                 ))}
               </View>
@@ -211,17 +255,21 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
               !selected && styles.nextButtonDisabled,
               (pressed || saving) && selected && styles.pressed,
             ]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>
+              {saving ? 'Enregistrement…' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+            </Text>
           </Pressable>
         </ScrollView>
       </View>
 
       <InlineCalendarPickerModal
+        maximumDate={startOfDay(new Date())}
+        minimumDate={miscarriageDate ?? undefined}
         onClose={() => setPickerVisible(false)}
         onSelect={chooseReturnedDate}
         subtitle="Indique le premier jour de tes règles revenues depuis ta fausse couche."
         title="Retour de tes règles"
-        value={returnedDate ?? miscarriageDate ?? new Date()}
+        value={returnedDate && !(returnedDateProblem && !returnedDateProblem.valid) ? returnedDate : miscarriageDate ?? new Date()}
         visible={pickerVisible}
       />
     </LinearGradient>
@@ -314,6 +362,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   dateFieldOptional: {fontStyle: 'italic'},
   dateFieldValue: {marginTop: 2, color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
   dateFieldPlaceholder: {color: theme.colors.textMuted, fontWeight: '500'},
+  dateWarning: {marginTop: 8, color: theme.colors.danger, fontSize: 11, lineHeight: 15},
+  clearDate: {alignSelf: 'flex-start', marginTop: 6, paddingVertical: 6, paddingHorizontal: 4},
+  clearDateText: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '700'},
   nextButton: {
     minHeight: 54,
     alignItems: 'center',

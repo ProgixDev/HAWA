@@ -312,7 +312,7 @@ function PostpartumDeliveryTypeScreen({
               (pressed || saving) && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement...' : 'Suivant'}
+              {saving ? 'Enregistrement...' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
             </Text>
           </Pressable>
 

@@ -1,4 +1,4 @@
-import {formatMonthLabel} from './cycleStatisticsMath';
+import {endOfStatisticsDay, formatMonthLabel} from './cycleStatisticsMath';
 
 // Pure calculation layer for Postpartum's Statistics screen
 // (PostpartumStatisticsScreen.tsx). `withinPeriod`/`groupByMonth`/
@@ -14,7 +14,7 @@ import {formatMonthLabel} from './cycleStatisticsMath';
  * the selected period's real lookback window. */
 export function withinPeriod(date: string, cutoff: Date, now: Date): boolean {
   const time = new Date(`${date}T12:00:00`).getTime();
-  return time >= cutoff.getTime() && time <= now.getTime();
+  return time >= cutoff.getTime() && time <= endOfStatisticsDay(now).getTime();
 }
 
 /** Groups entries by their real calendar month (from `entry.date`,

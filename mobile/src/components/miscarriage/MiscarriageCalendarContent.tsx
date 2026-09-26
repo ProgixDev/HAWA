@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
   Modal,
   Pressable,
@@ -9,11 +9,13 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
@@ -46,9 +48,15 @@ import {
   type MiscarriageJournalEntry,
 } from '../../state/miscarriageJournalStore';
 import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingAgainDisplay';
+import {
+  classifyStoredCycleReturnDate,
+  validateLossJournalDate,
+} from '../../utils/lossDateValidation';
 import { TOP_SPACING_EXTRA, getFloatingTabBarClearance } from '../../theme/spacing';
 import { getSpiritualMarkersEnabled } from '../../state/onboardingPreferences';
 import { usePremium } from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
 import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 import { isDhoulHijja, isRamadan } from '../../utils/hijriCalendar';
@@ -113,7 +121,7 @@ const CATEGORY_META: Record<
   },
   tryingAgain: {
     label: 'Reprise des essais',
-    description: 'Ton ressenti sur la reprise des essais de conception.',
+    description: 'Ta réponse « Reprise des essais » enregistrée dans ton journal ce jour-là.',
     empty: 'Non renseigné',
     icon: 'heart-outline',
     color: '#E08CB0',
@@ -157,9 +165,6 @@ type DailyInfoItem = {
 
 function buildDailyItems(
   entry: MiscarriageJournalEntry | undefined,
-  tryingAgainStatus: ReturnType<
-    typeof getMiscarriagePreferences
-  >['tryingAgainStatus'],
 ): DailyInfoItem[] {
   const items: DailyInfoItem[] = [];
 
@@ -194,11 +199,15 @@ function buildDailyItems(
     });
   }
 
-  if (tryingAgainStatus) {
+  // DATED value only: the answer saved in THIS day's journal entry. The
+  // global, undated miscarriagePreferences.tryingAgainStatus is a current
+  // status, not a day event — it lives on the Dashboard / Profile / Summary /
+  // Statistics and is never attached to arbitrary calendar days here.
+  if (entry?.tryingAgain) {
     items.push({
       key: 'tryingAgain',
       label: CATEGORY_META.tryingAgain.label,
-      value: getMiscarriageTryingAgainDisplay(tryingAgainStatus).label,
+      value: getMiscarriageTryingAgainDisplay(entry.tryingAgain).label,
       icon: CATEGORY_META.tryingAgain.icon,
     });
   }
@@ -232,8 +241,11 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const { open: openMiscarriageJournal } = useJournalSheet();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today} = useToday();
 
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
@@ -258,6 +270,18 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   }, []);
 
   const [selectedDate, setSelectedDate] = useState(today);
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
   const [visibleFilters, setVisibleFilters] = useState<
@@ -333,14 +357,26 @@ function MiscarriageCalendarContent(): React.JSX.Element {
         : null,
     [miscarriage.miscarriageDate],
   );
+  // A recorded cycle-return date is only a calendar EVENT when it already
+  // happened and is coherent with the loss date. A legacy value that is in the
+  // future / before the loss / unparsable is never marked as an event — it is
+  // left untouched in the store and flagged "Date à vérifier" below.
+  const cycleReturnDateState = classifyStoredCycleReturnDate({
+    cycleReturnStatus: miscarriage.cycleReturnStatus,
+    cycleReturnDate: miscarriage.firstReturnedPeriodDate,
+    now: today,
+    lossDate: miscarriage.miscarriageDate,
+  });
+  const cycleReturnDateNeedsCheck =
+    cycleReturnDateState !== 'none' && cycleReturnDateState !== 'ok';
   const firstReturnedPeriodDate = useMemo(
     () =>
-      miscarriage.firstReturnedPeriodDate
+      cycleReturnDateState === 'ok' && miscarriage.firstReturnedPeriodDate
         ? startOfDay(
             new Date(`${miscarriage.firstReturnedPeriodDate}T12:00:00`),
           )
         : null,
-    [miscarriage.firstReturnedPeriodDate],
+    [cycleReturnDateState, miscarriage.firstReturnedPeriodDate],
   );
 
   const days = useMemo(() => {
@@ -400,13 +436,26 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   // "Aucune information enregistrée" message is never shown incorrectly
   // while filters are narrowed.
   const allDailyItems = useMemo(
-    () => buildDailyItems(selectedEntry, miscarriage.tryingAgainStatus),
-    [selectedEntry, miscarriage.tryingAgainStatus],
+    () => buildDailyItems(selectedEntry),
+    [selectedEntry],
   );
   const dailyItems = useMemo(
     () => allDailyItems.filter(item => visibleFilters.has(item.key)),
     [allDailyItems, visibleFilters],
   );
+
+  // M21 — a PAST day (not before the loss date, never a future day) can be
+  // completed/corrected from here for the general-tracking categories only:
+  // Saignements and Symptômes physiques. Notes personnelles (private-section
+  // unlock drops the day) and Reprise des essais (also rewrites the global
+  // current status) stay today-only — see MiscarriageJournalEntryScreen.
+  const canEditPastDay =
+    !isTodaySelected &&
+    validateLossJournalDate({
+      dateKey: selectedKey,
+      now: today,
+      lossDate: miscarriage.miscarriageDate,
+    }).valid;
 
   const hasAnyDataSelectedDay =
     allDailyItems.length > 0 ||
@@ -748,6 +797,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                   {miscarriage.cycleReturnStatus
                     ? CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus]
                     : 'Non renseigné'}
+                  {cycleReturnDateNeedsCheck ? ' · date à vérifier' : ''}
                 </Text>
               </View>
             </View>
@@ -831,6 +881,41 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                     <Text style={styles.addButtonText}>Ajouter au journal</Text>
                   </Pressable>
                 ) : null}
+              </View>
+            ) : null}
+
+            {canEditPastDay ? (
+              <View style={styles.pastEntryRow}>
+                {(['bleeding', 'physicalSymptoms'] as const).map(category => {
+                  const filled = Boolean(selectedEntry?.[category]?.length);
+                  const label = CATEGORY_META[category].label;
+                  return (
+                    <Pressable
+                      accessibilityLabel={`${filled ? 'Modifier' : 'Ajouter'} : ${label} de cette journée`}
+                      accessibilityRole="button"
+                      key={category}
+                      onPress={() =>
+                        navigation.navigate('MiscarriageJournalEntry', {
+                          category,
+                          date: selectedKey,
+                        })
+                      }
+                      style={({ pressed }) => [
+                        styles.pastEntryButton,
+                        pressed && styles.pressed,
+                      ]}
+                    >
+                      <MaterialDesignIcons
+                        color={theme.colors.primary}
+                        name={filled ? 'pencil-outline' : 'plus'}
+                        size={15}
+                      />
+                      <Text style={styles.pastEntryButtonText}>
+                        {filled ? 'Modifier' : 'Ajouter'} · {label}
+                      </Text>
+                    </Pressable>
+                  );
+                })}
               </View>
             ) : null}
           </View>
@@ -1476,6 +1561,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primary,
   },
   addButtonText: { color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '800' },
+  pastEntryRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginTop: 12 },
+  pastEntryButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    minHeight: 40,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.24),
+    borderRadius: 14,
+    backgroundColor: theme.colors.primarySoft,
+  },
+  pastEntryButtonText: { color: theme.colors.primary, fontSize: 11.5, fontWeight: '800' },
 
   /* MODAL */
   modalRoot: { flex: 1, justifyContent: 'flex-end' },

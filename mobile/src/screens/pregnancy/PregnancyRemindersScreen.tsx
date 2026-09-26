@@ -1,3 +1,4 @@
+import {continueAfterObjectiveSetup} from '../../state/objectiveSetupFlow';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Animated,
@@ -274,9 +275,7 @@ function PregnancyRemindersScreen({
       return;
     }
 
-    navigation.navigate(
-      'SecuritySetup',
-    );
+    continueAfterObjectiveSetup(navigation);
   };
 
   const headerStyle = {

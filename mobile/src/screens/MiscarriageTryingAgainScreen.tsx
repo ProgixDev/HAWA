@@ -170,7 +170,9 @@ function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Ele
               !selected && styles.nextButtonDisabled,
               (pressed || saving) && selected && styles.pressed,
             ]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : 'Terminer'}</Text>
+            <Text style={styles.nextText}>
+              {saving ? 'Enregistrement…' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Terminer'}
+            </Text>
           </Pressable>
         </ScrollView>
       </View>

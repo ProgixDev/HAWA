@@ -1,3 +1,4 @@
+import {useToday} from '../hooks/useToday';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import {
@@ -24,6 +25,8 @@ import { useAwaTheme } from '../theme/AwaThemeProvider';
 import { withAlpha, type ResolvedAwaTheme } from '../theme/awaThemeTokens';
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import {
+  clearPostpartumJournalCategory,
+  clearPostpartumMoodNote,
   getPostpartumJournalEntry,
   hydratePostpartumJournal,
   savePostpartumJournalField,
@@ -199,7 +202,10 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
 
   const item = POSTPARTUM_JOURNAL_ITEMS.find(entry => entry.key === category);
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
 
   const [fatigue, setFatigue] = useState<string | undefined>(undefined);
 
@@ -218,6 +224,9 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  // Whether today already has a saved answer for THIS category — only then is
+  // "Effacer ma réponse" offered (M25).
+  const [hasSavedAnswer, setHasSavedAnswer] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -226,6 +235,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         return;
       }
       const entry = getPostpartumJournalEntry(todayKey);
+      setHasSavedAnswer(Boolean(entry?.[category]));
 
       setFatigue(entry?.fatigue);
       setMood(entry?.mood);
@@ -238,7 +248,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     return () => {
       active = false;
     };
-  }, [todayKey]);
+  }, [todayKey, category]);
 
   const adjustSleepDuration = (delta: number) => {
     setSleepDuration(current => {
@@ -290,6 +300,9 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
             'moodNote',
             moodNote.trim(),
           );
+        } else {
+          // An emptied note field must clear the previously saved note.
+          await clearPostpartumMoodNote(todayKey);
         }
         complete('Humeur enregistrée');
       } finally {
@@ -352,6 +365,35 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     }
   };
 
+  // Clears today's saved answer for this category (mood also drops its note,
+  // sleep its duration) back to "not answered"; other categories and other
+  // days are untouched. Reopening the screen shows the empty state.
+  const clearAnswer = async () => {
+    if (saving) {
+      return;
+    }
+    setSaving(true);
+    try {
+      await clearPostpartumJournalCategory(todayKey, category);
+      setFatigue(undefined);
+      setMood(undefined);
+      setMoodNote('');
+      setSleepQuality(undefined);
+      setSleepDuration(null);
+      setPain(undefined);
+      setPhysicalRecovery(undefined);
+      setHasSavedAnswer(false);
+      showPostpartumSuccessToast({
+        title: 'Réponse effacée',
+        message: 'Ton suivi du jour est à jour.',
+      });
+      navigation.navigate('MainTabs', { screen: 'CycleHome' });
+    } finally {
+      setSaving(false);
+    }
+  };
+  const onClear = hasSavedAnswer ? clearAnswer : undefined;
+
   // Postpartum-derived date subtitle ("lundi 14 août · Jour X post-partum")
   // — the same visual slot Cycle's own Sleep/Mood screens use for
   // "· Jour X du cycle", but computed purely from Postpartum's own
@@ -374,19 +416,19 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     [postpartumPrefs.deliveryDate],
   );
   const postpartumStatus = useMemo(
-    () => computePostpartumStatus(deliveryDate, new Date()),
-    [deliveryDate],
+    () => computePostpartumStatus(deliveryDate, today),
+    [deliveryDate, today],
   );
   const dateLabel = useMemo(() => {
     const base = new Intl.DateTimeFormat('fr-FR', {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
-    }).format(new Date());
+    }).format(today);
     return postpartumStatus.configured
       ? `${base} · Jour ${postpartumStatus.postpartumDay} post-partum`
       : base;
-  }, [postpartumStatus]);
+  }, [postpartumStatus, today]);
 
   if (category === 'mood') {
     return (
@@ -398,6 +440,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         heroText="Prends un moment pour reconnaître ce que tu ressens."
         heroTitle="Comment te sens-tu aujourd’hui ?"
         onSave={save}
+        onClear={onClear}
         saving={saving}
         title="Humeur"
       >
@@ -421,6 +464,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         heroText="Un bon repos soutient ta récupération et ton énergie."
         heroTitle="Prends soin de ton repos"
         onSave={save}
+        onClear={onClear}
         saving={saving}
         title="Sommeil"
       >
@@ -446,6 +490,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         heroText="Ton corps traverse beaucoup de changements. Prends le temps de l’écouter."
         heroTitle="Comment est ton énergie ?"
         onSave={save}
+        onClear={onClear}
         onSelect={setFatigue}
         options={FATIGUE_RATINGS}
         saving={saving}
@@ -467,6 +512,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         heroText="Noter ton confort aide à mieux comprendre tes besoins au fil des jours."
         heroTitle={'Comment te sens-tu\ndans ton corps ?'}
         onSave={save}
+        onClear={onClear}
         onSelect={setPain}
         options={PAIN_RATINGS}
         saving={saving}
@@ -488,6 +534,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         heroText="Ton bien-être se construit un jour après l’autre, sans pression."
         heroTitle="Comment évolue ta récupération ?"
         onSave={save}
+        onClear={onClear}
         onSelect={setPhysicalRecovery}
         options={RECOVERY_RATINGS}
         saving={saving}
