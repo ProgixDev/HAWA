@@ -131,6 +131,8 @@ import {
 import AnonymousAvatar from '../components/profile/AnonymousAvatar';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
+import {getDemoPartnerState} from '../state/awaADeuxDemoStore';
+import {awaADeuxEntryRoute} from './awaADeux/awaADeuxNavigation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -680,6 +682,8 @@ type MenuRowProps = {
   icon: IconName;
   title: string;
   subtitle: string;
+  /** Optional third line (e.g. "Non configuré") under the subtitle. */
+  status?: string;
   onPress?: () => void;
   tone?: MenuTone;
 };
@@ -749,6 +753,7 @@ function MenuRow({
   icon,
   title,
   subtitle,
+  status,
   onPress,
   tone = 'default',
 }: MenuRowProps): React.JSX.Element {
@@ -781,6 +786,7 @@ function MenuRow({
       <View style={styles.menuCopy}>
         <Text style={styles.menuTitle}>{title}</Text>
         <Text style={styles.menuSubtitle}>{subtitle}</Text>
+        {status ? <Text style={styles.menuStatus}>{status}</Text> : null}
       </View>
 
       <View style={styles.menuChevron}>
@@ -797,7 +803,7 @@ function SectionHeader({
 }: {
   icon: IconName;
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -811,7 +817,7 @@ function SectionHeader({
         <Text style={styles.sectionTitle}>{title}</Text>
       </View>
 
-      <Text style={styles.sectionSubtitle}>{subtitle}</Text>
+      {subtitle ? <Text style={styles.sectionSubtitle}>{subtitle}</Text> : null}
     </View>
   );
 }
@@ -2164,6 +2170,22 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               subtitle="Sauvegarde cloud et restauration de tes données"
               title="Sauvegarde"
               tone="backup"
+            />
+          </View>
+
+          {/* AWA À DEUX — opens the introduction screen only; the partner feature
+              itself (pairing, sharing, permissions) is not implemented. */}
+
+          <SectionHeader icon="heart-multiple-outline" title="AWA À DEUX" />
+
+          <View style={styles.menuCard}>
+            <MenuRow
+              icon="heart-multiple-outline"
+              onPress={() => navigation.navigate(awaADeuxEntryRoute(getDemoPartnerState().partnerConnected))}
+              status="Non configuré"
+              subtitle="Partagez certains repères avec votre partenaire"
+              title="AWA à deux"
+              tone="default"
             />
           </View>
 
@@ -3693,6 +3715,14 @@ pageGlowBottom: {
     color: theme.colors.textSecondary,
     fontSize: 11,
     lineHeight: 15.5,
+  },
+
+  menuStatus: {
+    marginTop: 3,
+    color: theme.colors.primary,
+    fontSize: 10.5,
+    lineHeight: 14,
+    fontWeight: '700',
   },
 
   menuChevron: {

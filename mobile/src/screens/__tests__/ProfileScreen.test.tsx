@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {StatusBar} from 'react-native';
+import {StatusBar, Text} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
+import {resolveAwaTheme} from '../../theme/awaThemeTokens';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
@@ -278,5 +279,104 @@ describe('ProfileScreen — SOPK confirmed-period date rendering (regression)', 
     await act(async () => {
       await setSelectedObjective('cycle');
     });
+  });
+});
+
+describe('ProfileScreen — "AWA à deux" entry (UI only)', () => {
+  const navigate = jest.fn();
+
+  async function renderWithNavigation() {
+    let renderer!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <SafeAreaProvider initialMetrics={TEST_METRICS}>
+          <AwaThemeProvider>
+            <NavigationContainer ref={navRef}>
+              <Stack.Navigator screenOptions={{headerShown: false}}>
+                <Stack.Screen name="Profile">
+                  {() => <ProfileScreen navigation={{navigate} as never} route={{key: 'test', name: 'Profile'}} />}
+                </Stack.Screen>
+              </Stack.Navigator>
+            </NavigationContainer>
+          </AwaThemeProvider>
+        </SafeAreaProvider>,
+      );
+    });
+    activeRenderers.push(renderer);
+    return renderer;
+  }
+
+  const textOf = (node: ReactTestRenderer.ReactTestInstance): string => [node.props.children].flat(Infinity).join('');
+  const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer) => renderer.root.findAllByType(Text).map(textOf);
+  const row = (renderer: ReactTestRenderer.ReactTestRenderer) =>
+    renderer.root.findAll(node => node.props.accessibilityLabel === 'AWA à deux' && node.props.accessibilityRole === 'button')[0];
+
+  beforeEach(() => {
+    navigate.mockClear();
+  });
+
+  it('shows the section title, the row, its subtitle and its status', async () => {
+    const renderer = await renderWithNavigation();
+    const texts = textsOf(renderer);
+    expect(texts).toContain('AWA À DEUX');
+    expect(texts).toContain('AWA à deux');
+    expect(texts).toContain('Partagez certains repères avec votre partenaire');
+    expect(texts).toContain('Non configuré');
+  });
+
+  it('sits directly below the backup row and before the Spiritual markers card', async () => {
+    const renderer = await renderWithNavigation();
+    const texts = textsOf(renderer);
+    const backup = texts.indexOf('Sauvegarde');
+    const section = texts.indexOf('AWA À DEUX');
+    const spiritual = texts.findIndex(text => text.includes('Repères spirituels'));
+    expect(backup).toBeGreaterThan(-1);
+    expect(section).toBeGreaterThan(backup);
+    expect(spiritual).toBeGreaterThan(section);
+    // Nothing else sits between the backup row and the new section.
+    // (icon glyphs are rendered as one-character texts: ignored)
+    const between = texts.slice(backup + 1, section).filter(text => text.length > 2);
+    expect(between).toEqual(['Sauvegarde cloud et restauration de tes données']);
+  });
+
+  it('uses the heart icon of the icon library AWA already uses, on a button row with the shared chevron', async () => {
+    const renderer = await renderWithNavigation();
+    const iconNames = renderer.root.findAll(node => typeof node.props.name === 'string').map(node => node.props.name);
+    expect(iconNames.filter(name => name === 'heart-multiple-outline').length).toBeGreaterThanOrEqual(2); // header + row
+    const rowNode = row(renderer);
+    expect(rowNode.props.accessibilityRole).toBe('button');
+    const chevrons = rowNode.findAll(node => node.props.name === 'chevron-right');
+    expect(chevrons.length).toBeGreaterThan(0);
+  });
+
+  it('tapping it opens the AWA à deux introduction screen — and only that', async () => {
+    const renderer = await renderWithNavigation();
+    const rowNode = row(renderer);
+    await act(async () => {
+      rowNode.props.onPress?.();
+    });
+    expect(navigate).toHaveBeenCalledTimes(1);
+    expect(navigate).toHaveBeenCalledWith('AwaADeuxIntro');
+  });
+
+  it('the status uses the theme (Light and Dark) — no fixed colour', async () => {
+    const renderer = await renderWithNavigation();
+    const statusColor = () => {
+      const node = renderer.root.findAllByType(Text).find(item => textOf(item) === 'Non configuré')!;
+      return flattenStyle(node.props.style).color;
+    };
+    expect(statusColor()).toBe(resolveAwaTheme('awa-original', false, false).colors.primary);
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+    expect(statusColor()).toBe(resolveAwaTheme('awa-original', true, false).colors.primary);
+  });
+
+  it('the existing Profile rows are still there', async () => {
+    const renderer = await renderWithNavigation();
+    const texts = textsOf(renderer);
+    for (const label of ['Apparence', 'Confidentialité & Sécurité', 'Sauvegarde']) {
+      expect(texts).toContain(label);
+    }
   });
 });
