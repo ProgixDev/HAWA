@@ -21,6 +21,7 @@ import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import { getTopPadding, getFloatingTabBarClearance, spacing } from '../../theme/spacing';
 import { usePremium } from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector, {
   STATISTICS_PERIOD_LABELS,
@@ -411,9 +412,12 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
       prefs.deliveryDate ? new Date(`${prefs.deliveryDate}T12:00:00`) : null,
     [prefs.deliveryDate],
   );
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today: now} = useToday();
   const status = useMemo(
-    () => computePostpartumStatus(deliveryDate, new Date()),
-    [deliveryDate],
+    () => computePostpartumStatus(deliveryDate, now),
+    [deliveryDate, now],
   );
 
   /* ==========================================================
@@ -423,7 +427,6 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
      selected window, instead of ever implying more history exists.
   ========================================================== */
 
-  const now = useMemo(() => new Date(), []);
   const periodCutoff = useMemo(
     () => cutoffDateForPeriod(period, now),
     [period, now],

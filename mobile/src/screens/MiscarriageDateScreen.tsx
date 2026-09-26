@@ -1,3 +1,4 @@
+import {useToday} from '../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
@@ -23,7 +24,10 @@ import {
   hydrateMiscarriagePreferences,
   setMiscarriageDate,
 } from '../state/miscarriagePreferences';
+import {getAllMiscarriageJournalEntries, hydrateMiscarriageJournal} from '../state/miscarriageJournalStore';
+import {journalDatesWithContent} from '../utils/lossDateValidation';
 import {diffDays, startOfDay} from '../utils/cycleMath';
+import {validateLossDate} from '../utils/postpartumLossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -48,30 +52,38 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
   const cardEntrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today} = useToday();
+  // First-pass default only: never re-applied when the day changes, so a date
+  // the user already picked is not moved.
+  const initialToday = useRef(today).current;
 
   // Preselect an already-saved miscarriage date if one exists (going back
   // and forward must never lose a prior selection — see section 34 of the
   // spec), otherwise default to today.
   const [initialized, setInitialized] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(today);
+  const [selectedDate, setSelectedDate] = useState(initialToday);
   const [visibleMonth, setVisibleMonth] = useState(
-    () => new Date(today.getFullYear(), today.getMonth(), 1),
+    () => new Date(initialToday.getFullYear(), initialToday.getMonth(), 1),
   );
   const [saving, setSaving] = useState(false);
+  // Save-time guard mirroring the disabled future days of the calendar.
+  const [dateError, setDateError] = useState('');
+  const isEdit = route.params?.mode === 'edit';
 
   useEffect(() => {
     let active = true;
     hydrateMiscarriagePreferences().then(() => {
       if (!active) {return;}
       const existing = getMiscarriagePreferences().miscarriageDate;
-      const restored = existing ? startOfDay(new Date(`${existing}T12:00:00`)) : today;
+      const restored = existing ? startOfDay(new Date(`${existing}T12:00:00`)) : initialToday;
       setSelectedDate(restored);
       setVisibleMonth(new Date(restored.getFullYear(), restored.getMonth(), 1));
       setInitialized(true);
     });
     return () => {active = false;};
-  }, [today]);
+  }, [initialToday]);
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(value => {reduceMotion.current = value;});
@@ -116,6 +128,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
     const candidate = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
     if (diffDays(candidate, today) > 0) {return;}
     setSelectedDate(candidate);
+    setDateError('');
   };
 
   const scrollToCalendar = () => {
@@ -124,11 +137,28 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
 
   const handleNext = async () => {
     if (saving) {return;}
+    const validation = validateLossDate(selectedDate, new Date());
+    if (!validation.valid) {
+      setDateError(validation.message);
+      return;
+    }
+    setDateError('');
     setSaving(true);
     try {
+      // Dated data already recorded (journal days with real content) can make
+      // a corrected loss date contradictory. The store setter validates the
+      // new date against it AND the recorded cycle-return date; a conflict is
+      // REJECTED (nothing written, nothing moved or deleted) and explained
+      // here so the user can correct that other data separately.
+      await hydrateMiscarriageJournal();
+      const journalDates = journalDatesWithContent(getAllMiscarriageJournalEntries());
       // Timezone-safe 'YYYY-MM-DD' persistence — see setMiscarriageDate().
-      await setMiscarriageDate(selectedDate);
-      if (route.params?.mode === 'edit') {
+      const result = await setMiscarriageDate(selectedDate, {journalDates});
+      if (!result.valid) {
+        setDateError(result.message);
+        return;
+      }
+      if (isEdit) {
         navigation.goBack();
         return;
       }
@@ -273,12 +303,18 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
 
           <View style={styles.spacer} />
 
+          {dateError ? (
+            <Text accessibilityRole="alert" style={styles.dateError}>
+              {dateError}
+            </Text>
+          ) : null}
+
           <Pressable
             accessibilityRole="button"
             disabled={saving}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}</Text>
           </Pressable>
         </ScrollView>
       </View>
@@ -456,6 +492,15 @@ function createStyles(theme: ResolvedAwaTheme) {
   },
   infoText: {flex: 1, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
   spacer: {flex: 1, minHeight: spacing.lg},
+  dateError: {
+    marginBottom: 12,
+    color: theme.colors.danger,
+    fontSize: 13,
+    fontWeight: '600',
+    lineHeight: 18,
+    textAlign: 'center',
+  },
+
   nextButton: {
     minHeight: 52,
     alignItems: 'center',

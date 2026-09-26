@@ -150,6 +150,22 @@ export async function savePregnancyWeight(entry: PregnancyWeightEntry): Promise<
   await writeState(state);
 }
 
+/** Removes the day's symptoms entry (its note included) — the "nothing
+ * recorded that day" state every reader already handles (no entry). Other days
+ * and the other journal lists are untouched. */
+export async function deletePregnancySymptoms(date: string): Promise<void> {
+  const state = await readState();
+  state.symptoms = state.symptoms.filter(item => item.date !== date);
+  await writeState(state);
+}
+
+/** Removes the day's weight entry — the "no measurement" state. */
+export async function deletePregnancyWeight(date: string): Promise<void> {
+  const state = await readState();
+  state.weights = state.weights.filter(item => item.date !== date);
+  await writeState(state);
+}
+
 export async function savePregnancyMedicalInformation(entry: PregnancyMedicalEntry): Promise<void> {
   const state = await readState();
   // Upsert by date, same as symptoms/weights above: saving again for the

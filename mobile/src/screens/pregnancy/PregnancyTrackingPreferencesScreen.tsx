@@ -464,7 +464,7 @@ function PregnancyTrackingPreferencesScreen({
               ]}>
               <Text
                 style={styles.nextText}>
-                Suivant
+                {route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
               </Text>
             </Pressable>
           </Animated.View>

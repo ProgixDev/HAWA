@@ -44,7 +44,6 @@ import {
   getSelectedLocation,
   getSpiritualMarkersEnabled,
   hydrateSelectedLocation,
-  setSelectedObjective,
   subscribeSelectedLocation,
 } from '../../state/onboardingPreferences';
 
@@ -54,6 +53,7 @@ import {
   subscribeMiscarriagePreferences,
   type MiscarriageCycleReturnStatus,
 } from '../../state/miscarriagePreferences';
+import { classifyStoredCycleReturnDate } from '../../utils/lossDateValidation';
 
 import {
   getMiscarriageJournalEntry,
@@ -65,6 +65,8 @@ import {
 import { MISCARRIAGE_JOURNAL_ITEMS } from '../../config/miscarriageJournalConfig';
 
 import { useMiscarriageSpiritualStatus } from '../../hooks/usePrayerPurityStatus';
+import { useToday } from '../../hooks/useToday';
+import { switchToObjective } from '../../services/objectiveSwitch';
 
 import {
   diffDays,
@@ -428,7 +430,9 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
     [miscarriage.miscarriageDate],
   );
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const { today, todayKey } = useToday();
 
   const daysSince = miscarriageDate
     ? Math.max(0, diffDays(today, miscarriageDate))
@@ -441,8 +445,6 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
         : null,
     [miscarriage.firstReturnedPeriodDate],
   );
-
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
 
   const [todayEntry, setTodayEntry] = useState(() =>
     getMiscarriageJournalEntry(todayKey),
@@ -522,9 +524,11 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
   // ever reachable when the user has already told us she feels ready
   // (tryingAgainStatus === 'ready'), and only ever fires on an explicit tap
   // + confirmation, never automatically from that stored preference. Reuses
-  // the exact same canonical setSelectedObjective('conceive') Profile's
-  // "Mon objectif" switcher already uses — no second objective-switch
-  // mechanism, no store reset: Miscarriage's own data is never touched here.
+  // the exact same switchToObjective() Profile's "Mon objectif" switcher uses
+  // — no second objective-switch mechanism, no store reset: Miscarriage's own
+  // data is never touched here. A Conception profile that was never set up
+  // starts Conception's own configuration chain instead of opening an
+  // unconfigured dashboard.
   const [conceiveTransitionVisible, setConceiveTransitionVisible] = useState(false);
   const [confirmingConceiveTransition, setConfirmingConceiveTransition] = useState(false);
 
@@ -548,8 +552,15 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       return;
     }
     setConfirmingConceiveTransition(true);
-    setSelectedObjective('conceive');
     setConceiveTransitionVisible(false);
+    switchToObjective({
+      from: 'loss',
+      to: 'conceive',
+      openHome: () => navigation.navigate('CycleHome'),
+      openSetup: route => navigation.navigate(route),
+    }).catch(() => {
+      setConfirmingConceiveTransition(false);
+    });
   };
 
   useEffect(() => {
@@ -636,10 +647,22 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
     ? CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus]
     : 'Non renseigné';
 
+  // A legacy stored date that is in the future / before the loss is never
+  // shown as "Depuis le ..." (it is not an event that already happened); it is
+  // kept untouched and flagged so the user corrects it on the edit screen.
+  const cycleReturnDateState = classifyStoredCycleReturnDate({
+    cycleReturnStatus: miscarriage.cycleReturnStatus,
+    cycleReturnDate: miscarriage.firstReturnedPeriodDate,
+    now: today,
+    lossDate: miscarriage.miscarriageDate,
+  });
+
   const cycleReturnSubvalue =
-    miscarriage.cycleReturnStatus === 'yes' && firstReturnedPeriodDate
+    cycleReturnDateState === 'ok' && firstReturnedPeriodDate
       ? `Depuis le ${formatFullDate(firstReturnedPeriodDate)}`
-      : null;
+      : cycleReturnDateState === 'none' || cycleReturnDateState === 'ok'
+      ? null
+      : 'Date à vérifier';
 
   const daysSinceLabel =
     daysSince === null
@@ -747,7 +770,16 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         unlike a real semantic marker would. Same finding as
                         Postpartum D6's lochia icon and Conceive D4's hero
                         badge. */}
-                    <View style={styles.heroStatCard}>
+                    <Pressable
+                      accessibilityHint="Modifier le retour de mon cycle"
+                      accessibilityLabel="Retour du cycle"
+                      accessibilityRole="button"
+                      onPress={() =>
+                        navigation.navigate('MiscarriageCycleReturn', {
+                          mode: 'edit',
+                        })
+                      }
+                      style={styles.heroStatCard}>
                       <View style={styles.heroStatIconPink}>
                         <MaterialDesignIcons
                           color={theme.colors.secondary}
@@ -767,7 +799,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                           {cycleReturnSubvalue}
                         </Text>
                       ) : null}
-                    </View>
+                    </Pressable>
                   </View>
 
                   <Image
@@ -820,7 +852,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                 <Pressable
                   accessibilityLabel="Indiquer la date"
                   accessibilityRole="button"
-                  onPress={() => navigation.navigate('MiscarriageDate')}
+                  onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
                   style={({ pressed }) => [
                     styles.unconfiguredButton,
                     pressed && styles.pressed,

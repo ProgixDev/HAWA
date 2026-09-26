@@ -59,18 +59,21 @@ import { diffDays, startOfDay } from '../../utils/cycleMath';
 import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingAgainDisplay';
 
 import { usePremium } from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector, {
   STATISTICS_PERIOD_LABELS,
 } from '../../components/statistics/StatisticsPeriodSelector';
 import {
   cutoffDateForPeriod,
+  endOfStatisticsDay,
   formatMonthLabel,
   coverageMonthsForAnchor,
   describeMonthsCoverage,
   type StatisticsPeriod,
 } from '../../utils/cycleStatisticsMath';
 import {resolveCycleReturnEventInPeriod} from '../../utils/miscarriageStatisticsMath';
+import {classifyStoredCycleReturnDate} from '../../utils/lossDateValidation';
 
 /* ============================================================
    THEME
@@ -739,6 +742,13 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   const [period, setPeriod] = useState<StatisticsPeriod>('1');
 
   const [now, setNow] = useState<Date>(() => new Date());
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. Same Date (no re-render) when the
+  // day is unchanged.
+  const {todayKey} = useToday();
+  useEffect(() => {
+    setNow(current => (current.toLocaleDateString('en-CA') === todayKey ? current : new Date()));
+  }, [todayKey]);
 
   const tabAnimation = useRef(new Animated.Value(1)).current;
 
@@ -799,17 +809,26 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
   const daysSinceEvent = useMemo(
     () =>
       miscarriageDate
-        ? Math.max(0, diffDays(startOfDay(new Date()), miscarriageDate))
+        ? Math.max(0, diffDays(startOfDay(now), miscarriageDate))
         : null,
-    [miscarriageDate],
+    [miscarriageDate, now],
   );
 
+  // Only a cycle-return date that already happened AND is coherent with the
+  // loss date is a statistics event: a legacy stored value in the future /
+  // before the loss is left untouched in the store but never shown or counted
+  // here (the Dashboard / Calendar / edit screen flag it "à vérifier").
   const firstReturnedPeriodDate = useMemo(
     () =>
-      prefs.firstReturnedPeriodDate
+      classifyStoredCycleReturnDate({
+        cycleReturnStatus: prefs.cycleReturnStatus,
+        cycleReturnDate: prefs.firstReturnedPeriodDate,
+        now,
+        lossDate: prefs.miscarriageDate,
+      }) === 'ok' && prefs.firstReturnedPeriodDate
         ? new Date(`${prefs.firstReturnedPeriodDate}T12:00:00`)
         : null,
-    [prefs.firstReturnedPeriodDate],
+    [prefs.cycleReturnStatus, prefs.firstReturnedPeriodDate, prefs.miscarriageDate, now],
   );
 
   /* ==========================================================
@@ -834,13 +853,14 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
      window. */
   const periodJournalDays = useMemo(() => {
     const cutoff = cutoffDateForPeriod(period, now);
+    const end = endOfStatisticsDay(now);
 
     return journalDays.filter(entry => {
       const entryDate = new Date(`${entry.date}T12:00:00`);
 
       return (
         entryDate.getTime() >= cutoff.getTime() &&
-        entryDate.getTime() <= now.getTime()
+        entryDate.getTime() <= end.getTime()
       );
     });
   }, [journalDays, period, now]);

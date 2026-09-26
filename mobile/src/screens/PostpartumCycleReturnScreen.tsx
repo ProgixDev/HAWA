@@ -36,6 +36,7 @@ import {
 import {
   getPostpartumPreferences,
   hydratePostpartumPreferences,
+  clearFirstPostpartumPeriod,
   recordFirstPostpartumPeriod,
   subscribePostpartumPreferences,
   type PostpartumFeedingType,
@@ -336,6 +337,16 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
   /* ==========================================================
      SAVE PERIOD
   ========================================================== */
+
+  // A first period cannot be in the future; the picker greys those days too.
+  const clearPeriodDate = async () => {
+    setSaving(true);
+    try {
+      await clearFirstPostpartumPeriod();
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const confirmPeriodDate = async (date: Date) => {
     if (deliveryDate && diffDays(startOfDay(date), deliveryDate) < 0) {
@@ -688,6 +699,24 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </Pressable>
             </View>
 
+            {hasReturned ? (
+              <Pressable
+                accessibilityLabel="Effacer la date des premières règles"
+                accessibilityRole="button"
+                disabled={saving}
+                hitSlop={8}
+                onPress={clearPeriodDate}
+                style={({ pressed }) => [
+                  styles.periodClear,
+                  (pressed || saving) && styles.pressed,
+                ]}
+              >
+                <Text style={styles.periodClearText}>
+                  Effacer cette date (le cycle n’a pas repris)
+                </Text>
+              </Pressable>
+            ) : null}
+
             <Pressable
               accessibilityLabel="Date des dernières règles"
               accessibilityRole="button"
@@ -1005,6 +1034,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
         }}
         subtitle="Indique le premier jour de tes premières règles depuis ton accouchement."
         title="Date de reprise des règles"
+        maximumDate={startOfDay(new Date())}
         value={firstPeriodDate ?? deliveryDate ?? new Date()}
         visible={pickerVisible}
       />
@@ -1499,6 +1529,19 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontSize: 11.5,
     lineHeight: 15,
     fontWeight: '800',
+  },
+
+  periodClear: {
+    alignSelf: 'flex-start',
+    marginTop: 8,
+    paddingVertical: 4,
+  },
+
+  periodClearText: {
+    color: theme.colors.textSecondary,
+    fontSize: 12,
+    fontWeight: '700',
+    textDecorationLine: 'underline',
   },
 
   periodAction: {

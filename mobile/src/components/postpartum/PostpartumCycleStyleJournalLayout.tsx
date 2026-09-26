@@ -46,6 +46,8 @@ type Props = {
   saving?: boolean;
   error?: string;
   onSave: () => void;
+  /** Optional: shown only when there is a saved answer to clear (M25). */
+  onClear?: () => void;
   children: React.ReactNode;
 };
 
@@ -59,6 +61,7 @@ export function PostpartumCycleStyleJournalLayout({
   saving,
   error,
   onSave,
+  onClear,
   children,
 }: Props): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -150,6 +153,17 @@ export function PostpartumCycleStyleJournalLayout({
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
               <Text style={styles.saveText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
             </Pressable>
+
+            {onClear ? (
+              <Pressable
+                accessibilityLabel="Effacer ma réponse"
+                accessibilityRole="button"
+                disabled={saving}
+                onPress={onClear}
+                style={({pressed}) => [styles.clearButton, pressed && styles.pressed]}>
+                <Text style={styles.clearText}>Effacer ma réponse</Text>
+              </Pressable>
+            ) : null}
           </Animated.View>
         </ScrollView>
       </KeyboardAvoidingView>
@@ -255,6 +269,8 @@ function createStyles(theme: ResolvedAwaTheme) {
     elevation: 4,
   },
   saveText: {color: onPrimaryTextColor(theme), fontSize: 15, fontWeight: '700'},
+  clearButton: {minHeight: 44, alignSelf: 'center', alignItems: 'center', justifyContent: 'center', paddingHorizontal: 16, marginTop: 4},
+  clearText: {color: theme.colors.textSecondary, fontSize: 13, fontWeight: '600', textDecorationLine: 'underline'},
   });
 }
 

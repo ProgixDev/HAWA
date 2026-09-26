@@ -15,8 +15,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {homeColors, homeRadii} from '../home/homeTheme';
 import InlineCalendarPickerModal from '../onboarding/InlineCalendarPickerModal';
-import {confirmDelivery} from '../../state/postpartumPreferences';
-import {diffDays, startOfDay} from '../../utils/cycleMath';
+import {confirmDelivery, getPostpartumPreferences} from '../../state/postpartumPreferences';
+import {startOfDay} from '../../utils/cycleMath';
+import {validateDeliveryDate} from '../../utils/postpartumLossDateValidation';
 import {getBottomPadding} from '../../theme/spacing';
 
 // STEP 1 of the Pregnancy → Postpartum transition — opened from
@@ -35,9 +36,12 @@ type Props = {
    * own closing animation finishes) — the caller decides what happens next
    * (opening the congratulations card) once onClose fires. */
   onConfirmed: (deliveryDate: Date) => void;
+  /** Start of the CURRENT pregnancy (its equivalent LMP) — the lower bound of
+   * the delivery date. Optional: without it only "not in the future" applies. */
+  pregnancyStart?: Date | null;
 };
 
-function DeliveryDateSheet({visible, onClose, onConfirmed}: Props): React.JSX.Element {
+function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -68,12 +72,23 @@ function DeliveryDateSheet({visible, onClose, onConfirmed}: Props): React.JSX.El
   const commit = async (date: Date) => {
     if (saving) {return;}
     const value = startOfDay(date);
-    if (diffDays(value, startOfDay(new Date())) > 0) {
-      Alert.alert('Date invalide', 'La date d’accouchement ne peut pas être dans le futur.');
+    // This sheet only opens while NO delivery is confirmed for the current
+    // pregnancy, so any postpartum date still stored (and the first period /
+    // lochia end recorded against it) belongs to an earlier journey: it is
+    // neither a bound for this delivery nor kept as this one's answers.
+    const validation = validateDeliveryDate({
+      date: value,
+      now: new Date(),
+      firstPostpartumPeriodDate: null,
+      lochiaEndedDate: null,
+      pregnancyStartDate: pregnancyStart ?? null,
+    });
+    if (!validation.valid) {
+      Alert.alert('Date invalide', validation.message);
       return;
     }
     setSaving(true);
-    await confirmDelivery(value);
+    await confirmDelivery(value, {startsNewJourney: Boolean(getPostpartumPreferences().deliveryDate)});
     onConfirmed(value);
     close();
   };
@@ -128,6 +143,8 @@ function DeliveryDateSheet({visible, onClose, onConfirmed}: Props): React.JSX.El
 
         <InlineCalendarPickerModal
           onClose={() => setPickerOpen(false)}
+          maximumDate={startOfDay(new Date())}
+          minimumDate={pregnancyStart ? startOfDay(pregnancyStart) : undefined}
           onSelect={date => commit(date)}
           value={new Date()}
           visible={pickerOpen}

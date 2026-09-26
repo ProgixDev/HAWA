@@ -1,3 +1,4 @@
+import {useToday} from '../hooks/useToday';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   AccessibilityInfo,
@@ -54,9 +55,13 @@ import {
 } from '../config/miscarriageJournalConfig';
 
 import {
+  getMiscarriagePreferences,
+  hydrateMiscarriagePreferences,
   setMiscarriageTryingAgainStatus,
   type MiscarriageTryingAgainStatus,
 } from '../state/miscarriagePreferences';
+
+import { parseLossDateKey, validateLossJournalDate } from '../utils/lossDateValidation';
 
 type Props = RouteProp<RootStackParamList, 'MiscarriageJournalEntry'>;
 
@@ -127,12 +132,12 @@ const SYMPTOM_VISUALS: Record<
    DATE
 ============================================================ */
 
-function formatToday(): string {
+function formatToday(date: Date): string {
   return new Intl.DateTimeFormat('fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-  }).format(new Date());
+  }).format(date);
 }
 
 /* ============================================================
@@ -235,9 +240,46 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     }
   }, [category, navigation]);
 
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
 
-  const todaySubtitle = useMemo(() => `Aujourd’hui  •  ${formatToday()}`, []);
+  // The day this entry is written to — today by default, or an explicit PAST
+  // day when opened from the Loss Calendar's selected day (M21). Only the
+  // general-tracking categories (bleeding, physicalSymptoms) support a past
+  // day: "Notes personnelles" goes through the private-section unlock, which
+  // drops the day, and "Reprise des essais" also rewrites the global current
+  // status — both stay today-only (any other requested day is refused at save).
+  const requestedDate = route.params.date;
+  const entryDateKey =
+    requestedDate && parseLossDateKey(requestedDate) ? requestedDate : todayKey;
+  const isPastEntry = entryDateKey < todayKey;
+  const supportsPastDay = category === 'bleeding' || category === 'physicalSymptoms';
+
+  const dateProblem = useMemo(() => {
+    if (requestedDate && !parseLossDateKey(requestedDate)) {
+      return 'Cette date n’est pas valide.';
+    }
+    if (entryDateKey === todayKey) {return null;}
+    if (!supportsPastDay) {
+      return 'Cette rubrique ne peut être renseignée que pour aujourd’hui.';
+    }
+    const validation = validateLossJournalDate({
+      dateKey: entryDateKey,
+      now: today,
+      lossDate: getMiscarriagePreferences().miscarriageDate,
+    });
+    return validation.valid ? null : validation.message;
+  }, [requestedDate, entryDateKey, todayKey, supportsPastDay, today]);
+
+  const todaySubtitle = useMemo(
+    () =>
+      isPastEntry
+        ? `Journée du ${formatToday(new Date(`${entryDateKey}T12:00:00`))}`
+        : `Aujourd’hui  •  ${formatToday(today)}`,
+    [isPastEntry, entryDateKey, today],
+  );
 
   /* ==========================================================
      STATE
@@ -247,7 +289,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
   const [bleedingColor, setBleedingColor] = useState('Rouge clair');
 
-  const [bleedingStartDate, setBleedingStartDate] = useState(todayKey);
+  const [bleedingStartDate, setBleedingStartDate] = useState(entryDateKey);
 
   const [bleedingNote, setBleedingNote] = useState('');
 
@@ -261,6 +303,12 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     MiscarriageTryingAgainStatus | undefined
   >(undefined);
 
+  // M25 — whether a value is ALREADY saved for this day, so that emptying the
+  // field and saving is a real "clear" (persists the canonical empty value)
+  // instead of being refused as "nothing to save".
+  const [hadSavedSymptoms, setHadSavedSymptoms] = useState(false);
+  const [hadSavedNote, setHadSavedNote] = useState(false);
+
   const [saving, setSaving] = useState(false);
 
   const [error, setError] = useState('');
@@ -272,18 +320,18 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
   useEffect(() => {
     let active = true;
 
-    hydrateMiscarriageJournal().then(() => {
+    Promise.all([hydrateMiscarriageJournal(), hydrateMiscarriagePreferences()]).then(() => {
       if (!active) {
         return;
       }
 
-      const entry = getMiscarriageJournalEntry(todayKey);
+      const entry = getMiscarriageJournalEntry(entryDateKey);
 
       setBleeding(entry?.bleeding);
 
       setBleedingColor(entry?.bleedingColor ?? 'Rouge clair');
 
-      setBleedingStartDate(entry?.bleedingStartDate ?? todayKey);
+      setBleedingStartDate(entry?.bleedingStartDate ?? entryDateKey);
 
       setBleedingNote(entry?.bleedingNote ?? '');
 
@@ -291,12 +339,18 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
       setSymptomsNote(entry?.physicalSymptomsNote ?? '');
 
+      setHadSavedSymptoms(
+        Boolean(entry?.physicalSymptoms?.length) ||
+          Boolean(entry?.physicalSymptomsNote?.trim()),
+      );
+
       // Never load the real note text into state while the private section
       // is locked — notesUnlocked was already computed once at mount, so
       // this stays consistent for the lifetime of a locked screen (which
       // redirects away before the user could act on it anyway).
       if (notesUnlocked) {
         setPersonalNotes(entry?.personalNotes ?? '');
+        setHadSavedNote(Boolean(entry?.personalNotes?.trim()));
       }
 
       setTryingAgain(entry?.tryingAgain);
@@ -305,7 +359,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     return () => {
       active = false;
     };
-  }, [todayKey, notesUnlocked]);
+  }, [entryDateKey, notesUnlocked]);
 
   /* ==========================================================
      SYMPTOM TOGGLE
@@ -326,6 +380,12 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
   const save = async () => {
     setError('');
 
+    if (dateProblem) {
+      setError(dateProblem);
+
+      return;
+    }
+
     /* ================= SAIGNEMENTS ================= */
 
     if (category === 'bleeding') {
@@ -338,22 +398,22 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
       setSaving(true);
 
       try {
-        await saveMiscarriageJournalField(todayKey, 'bleeding', bleeding);
+        await saveMiscarriageJournalField(entryDateKey, 'bleeding', bleeding);
 
         await saveMiscarriageJournalField(
-          todayKey,
+          entryDateKey,
           'bleedingColor',
           bleedingColor,
         );
 
         await saveMiscarriageJournalField(
-          todayKey,
+          entryDateKey,
           'bleedingStartDate',
           bleedingStartDate,
         );
 
         await saveMiscarriageJournalField(
-          todayKey,
+          entryDateKey,
           'bleedingNote',
           bleedingNote.trim(),
         );
@@ -369,7 +429,12 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     /* ================= SYMPTÔMES ================= */
 
     if (category === 'physicalSymptoms') {
-      if (symptoms.length === 0) {
+      // Nothing selected AND nothing saved yet: nothing to record. Nothing
+      // selected while a value IS saved: an explicit "clear" — the canonical
+      // empty state (empty list / empty note) is persisted.
+      const clearing = symptoms.length === 0 && hadSavedSymptoms;
+
+      if (symptoms.length === 0 && !hadSavedSymptoms) {
         setError('Choisis au moins un symptôme avant d’enregistrer.');
 
         return;
@@ -379,20 +444,26 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
       try {
         await saveMiscarriageJournalField(
-          todayKey,
+          entryDateKey,
           'physicalSymptoms',
           symptoms,
         );
 
-        if (symptomsNote.trim()) {
+        // An emptied note replaces the previous one (empty text is the
+        // canonical "no note"; it is never written when there was none).
+        if (symptomsNote.trim() || hadSavedSymptoms) {
           await saveMiscarriageJournalField(
-            todayKey,
+            entryDateKey,
             'physicalSymptomsNote',
             symptomsNote.trim(),
           );
         }
 
-        saveToast.show('Symptômes enregistrés', 'Ton suivi a bien été mis à jour.', navigation.goBack);
+        saveToast.show(
+          clearing ? 'Symptômes effacés' : 'Symptômes enregistrés',
+          'Ton suivi a bien été mis à jour.',
+          navigation.goBack,
+        );
       } finally {
         setSaving(false);
       }
@@ -403,7 +474,11 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     /* ================= NOTES ================= */
 
     if (category === 'personalNotes') {
-      if (!personalNotes.trim()) {
+      // An emptied note is only refused when nothing was saved yet; when a
+      // note exists, saving it empty clears it (empty text = no note).
+      const clearingNote = !personalNotes.trim() && hadSavedNote;
+
+      if (!personalNotes.trim() && !hadSavedNote) {
         setError('Ajoute une note avant d’enregistrer.');
 
         return;
@@ -413,12 +488,18 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
       try {
         await saveMiscarriageJournalField(
-          todayKey,
+          entryDateKey,
           'personalNotes',
           personalNotes.trim(),
         );
 
-        saveToast.show('Note enregistrée', 'Ta note personnelle a bien été enregistrée.', navigation.goBack);
+        saveToast.show(
+          clearingNote ? 'Note effacée' : 'Note enregistrée',
+          clearingNote
+            ? 'Ta note personnelle a bien été effacée.'
+            : 'Ta note personnelle a bien été enregistrée.',
+          navigation.goBack,
+        );
       } finally {
         setSaving(false);
       }
@@ -437,7 +518,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     setSaving(true);
 
     try {
-      await saveMiscarriageJournalField(todayKey, 'tryingAgain', tryingAgain);
+      await saveMiscarriageJournalField(entryDateKey, 'tryingAgain', tryingAgain);
 
       await setMiscarriageTryingAgainStatus(tryingAgain);
 

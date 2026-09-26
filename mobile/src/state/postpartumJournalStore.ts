@@ -140,6 +140,44 @@ export async function savePostpartumJournalField<K extends Exclude<keyof Postpar
   await persist();
 }
 
+/** Clears one Postpartum daily-tracking answer (and the secondary field that
+ * only makes sense with it: the mood note with the mood, the sleep duration
+ * with the sleep quality), back to the "not answered" state every reader
+ * already handles (field absent). The day's entry is removed once nothing
+ * tracked remains; other days and other categories are untouched. */
+export async function clearPostpartumJournalCategory(
+  date: string,
+  category: PostpartumJournalCategory,
+): Promise<void> {
+  const current = entries[date];
+  if (!current) {return;}
+  const next: PostpartumJournalEntry = {...current};
+  delete next[category];
+  if (category === 'mood') {delete next.moodNote;}
+  if (category === 'sleep') {delete next.sleepDuration;}
+  const remaining = {...entries};
+  if (Object.keys(next).every(field => field === 'date')) {
+    delete remaining[date];
+  } else {
+    remaining[date] = next;
+  }
+  entries = remaining;
+  notifyListeners();
+  await persist();
+}
+
+/** Clears only the optional mood note of a day (the mood itself is kept) —
+ * used when the note field is saved empty. */
+export async function clearPostpartumMoodNote(date: string): Promise<void> {
+  const current = entries[date];
+  if (!current || current.moodNote === undefined) {return;}
+  const next = {...current};
+  delete next.moodNote;
+  entries = {...entries, [date]: next};
+  notifyListeners();
+  await persist();
+}
+
 export const hydratePostpartumJournal = (): Promise<EntriesByDate> => {
   if (hydrated) {
     return Promise.resolve({...entries});

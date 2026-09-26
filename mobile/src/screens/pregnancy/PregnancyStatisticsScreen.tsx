@@ -44,17 +44,23 @@ import type {
   DailyJournalEntry,
   MoodLevel,
 } from '../../types/journal';
-import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
+import {
+  PREGNANCY_TOTAL_DAYS,
+  computePregnancyStatus,
+  formatPregnancyProgressLabel,
+  formatPregnancyTrimester,
+} from '../../utils/pregnancyTrackingUtils';
 import {addDays} from '../../utils/cycleMath';
 import {
   coverageMonthsForAnchor,
-  cutoffDateForPeriod,
+  isDateKeyWithinPeriod,
   describeMonthsCoverage,
   formatMonthLabel,
 } from '../../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
 import {getFloatingTabBarClearance, spacing} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
 
@@ -68,14 +74,6 @@ import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeri
 // and are read fresh inside every component/createStyles() below instead of
 // being frozen at module scope.
 
-const PREGNANCY_TOTAL_WEEKS = 40;
-// Standard obstetric convention (40 weeks = 280 days) — same total this
-// screen already displays via "Semaine X sur 40" in the hero card. Reused
-// below to derive the real LMP-equivalent tracking-start anchor from
-// computePregnancyStatus's own estimatedDueDate, instead of duplicating the
-// PREGNANCY_TOTAL_DAYS/CONCEPTION_TO_LMP_OFFSET_DAYS constants that already
-// live (privately) inside pregnancyTrackingUtils.ts.
-const PREGNANCY_TOTAL_DAYS = PREGNANCY_TOTAL_WEEKS * 7;
 
 /** One real calendar month's aggregate for the Premium longitudinal
  * ("Évolution mensuelle") view — counts/dates only, never medical-event
@@ -167,21 +165,7 @@ const withinPeriod = (
   period: StatisticsPeriod,
   now: Date,
 ): boolean => {
-  const cutoff = cutoffDateForPeriod(
-    period,
-    now,
-  );
-
-  const target = new Date(
-    `${date}T12:00:00`,
-  );
-
-  return (
-    target.getTime() >=
-      cutoff.getTime() &&
-    target.getTime() <=
-      now.getTime()
-  );
+  return isDateKeyWithinPeriod(date, period, now);
 };
 
 /** Groups any Pregnancy-specific `{date}` record set by real calendar month
@@ -644,13 +628,10 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
     setPremiumVisible,
   ] = useState(false);
 
-  // Frozen once per mount (not recomputed per render) so every period-filter
-  // memo below shares the exact same "now" boundary — same convention as
-  // Conceive/Cycle Statistics screens.
-  const now = useMemo(
-    () => new Date(),
-    [],
-  );
+  // One shared "now" boundary for every period-filter memo below (not
+  // recomputed per render) — it only moves when the local day changes / the
+  // app returns to the foreground, see src/hooks/useToday.ts.
+  const {today: now} = useToday();
 
   /* ==========================================================
      LOAD JOURNAL
@@ -745,10 +726,10 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               )
             : null,
 
-          new Date(),
+          now,
         ),
 
-      [dating],
+      [dating, now],
     );
 
   /* ==========================================================
@@ -1863,14 +1844,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.heroProgressLabel
                   }>
-                  Semaine{' '}
-                  {
-                    pregnancyStatus.week
-                  }{' '}
-                  sur{' '}
-                  {
-                    PREGNANCY_TOTAL_WEEKS
-                  }
+                  {formatPregnancyProgressLabel(pregnancyStatus)}
                 </Text>
 
                 <Text
@@ -1878,11 +1852,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     styles.heroProgressRight
                   }>
                   {
-                    Math.max(
-                      0,
-                      PREGNANCY_TOTAL_WEEKS -
-                        pregnancyStatus.week,
-                    )
+                    pregnancyStatus.remainingWeeks
                   }{' '}
                   sem. restantes
                 </Text>
@@ -1945,14 +1915,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.heroMetaValue
                       }>
-                      {
-                        pregnancyStatus.trimester
-                      }
-                      {pregnancyStatus.trimester ===
-                      1
-                        ? 'er'
-                        : 'e'}{' '}
-                      trimestre
+                      {formatPregnancyTrimester(
+                        pregnancyStatus.trimester,
+                      )}
                     </Text>
                   </View>
                 </View>

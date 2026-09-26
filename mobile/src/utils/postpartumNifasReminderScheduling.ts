@@ -6,7 +6,9 @@ import {
 import {
   NIFAS_EDUCATIONAL_ARTICLE_ID,
   NIFAS_REFERENCE_CONFIG_VERSION,
+  NIFAS_REFERENCE_APPROACHING_HEADLINE,
   NIFAS_REFERENCE_DAYS,
+  NIFAS_REFERENCE_REACHED_HEADLINE,
   NIFAS_WARNING_DAYS,
 } from '../config/nifasReminderConfig';
 
@@ -182,11 +184,10 @@ const internalContent = (
   type === 'warning'
     ? {
         title: 'Repère du nifâs à venir',
-        message:
-          'Le repère des 40 jours retenu par AWA approche.',
+        message: `${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`,
       }
     : {
-        title: 'Le repère des 40 jours retenu par AWA est atteint',
+        title: NIFAS_REFERENCE_REACHED_HEADLINE,
         message:
           'Selon ce repère, tu peux reprendre tes prières même si des saignements persistent.',
       };
@@ -207,7 +208,7 @@ const notificationTitle = (
   type: ReminderType,
 ): string =>
   type === 'reference'
-    ? 'Le repère des 40 jours retenu par AWA est atteint'
+    ? NIFAS_REFERENCE_REACHED_HEADLINE
     : internalContent(type).title;
 
 /**

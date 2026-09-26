@@ -69,7 +69,6 @@ import {
   computePostpartumStatus,
   getNifasReminderStatus,
   getPostpartumNifasStatus,
-  hasReligiousNifasEnded,
 } from '../../utils/postpartumTrackingUtils';
 import {
   hydratePostpartumNifasReminderState,
@@ -77,8 +76,12 @@ import {
   setPostpartumNifasCompletionAcknowledged,
 } from '../../state/postpartumNifasReminderStore';
 import { usePostpartumSpiritualStatus } from '../../hooks/usePrayerPurityStatus';
+import { useToday } from '../../hooks/useToday';
 import { formatFullDate, formatHijriDate } from '../../utils/cycleMath';
-import { NIFAS_EDUCATIONAL_ARTICLE_ID } from '../../config/nifasReminderConfig';
+import {
+  NIFAS_EDUCATIONAL_ARTICLE_ID,
+  NIFAS_REFERENCE_REACHED_HEADLINE,
+} from '../../config/nifasReminderConfig';
 
 const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartum-mother-baby.png');
 
@@ -148,7 +151,9 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
         : null,
     [postpartum.deliveryDate],
   );
-  const today = useMemo(() => new Date(), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const { today, todayKey } = useToday();
   const status = useMemo(
     () => computePostpartumStatus(deliveryDate, today),
     [deliveryDate, today],
@@ -158,7 +163,6 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
   // never the shared Cycle dailyJournalStore, which also carries
   // Cycle-specific fields (flow/temperature/intimacy) that must never leak
   // into Postpartum.
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
   const [todayEntry, setTodayEntry] = useState(() =>
     getPostpartumJournalEntry(todayKey),
   );
@@ -223,6 +227,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
         if (active) {
           setLochiaEntries(getAllPostpartumLochiaEntries());
           setLochiaTracking(getPostpartumLochiaTracking());
+          setLochiaHydrated(true);
         }
       });
       const unsubscribe = subscribePostpartumLochia(() => {
@@ -267,18 +272,22 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
   // count for it, never a purity verdict.
   const spiritual = usePostpartumSpiritualStatus(spiritualMarkersEnabled);
 
-  // Religious Nifas has a hard NIFAS_REFERENCE_DAYS-day maximum (AWA product
-  // decision, independent from the unbounded general Postpartum tracking
-  // above). Once that reference day is reached and the user hasn't
-  // acknowledged it yet for this deliveryDate, show the small completion
-  // popup right on top of this same Dashboard (no navigation) — this
-  // re-checks on every focus (not just app launch), so returning to the
-  // Dashboard on any later day (e.g. closing the app on J38, reopening on
-  // J43) still catches it exactly once. `nifasCompletionAcknowledged` also
-  // silences the old "reference reached" banner below once true, so it
-  // never persists forever after the user has already been told.
+  // The Nifas reference banner (SpiritualGuidanceCard) and the completion
+  // popup below are two presentations of ONE state: getNifasReminderStatus()
+  // (utils/postpartumTrackingUtils.ts) — the same helper the Nifas
+  // notifications' eligibility mirrors (no reminder once the lochia are
+  // marked ended). The popup opens only while that state is
+  // 'reference_reached' and has not been acknowledged for this deliveryDate,
+  // so the two can never contradict each other (previously the popup only
+  // looked at the day count and could describe "persisting" bleeding for a
+  // profile whose lochia are recorded as ended, while the banner was
+  // hidden). It re-evaluates on every focus and whenever the lochia change,
+  // so returning on a later day (J38 → J43) still catches it exactly once.
+  // `nifasCompletionAcknowledged` also silences the banner once true.
   const [nifasCompletionAcknowledged, setNifasCompletionAcknowledged] =
     useState(false);
+  const [nifasStateHydrated, setNifasStateHydrated] = useState(false);
+  const [lochiaHydrated, setLochiaHydrated] = useState(false);
   const [nifasCompletionModalVisible, setNifasCompletionModalVisible] =
     useState(false);
   useFocusEffect(
@@ -296,13 +305,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           ? isPostpartumNifasCompletionAcknowledged(preferences.deliveryDate)
           : false;
         setNifasCompletionAcknowledged(acknowledged);
-        if (!preferences.deliveryDate || !getSpiritualMarkersEnabled() || acknowledged) {
-          return;
-        }
-        const deliveryDateValue = new Date(`${preferences.deliveryDate}T12:00:00`);
-        if (hasReligiousNifasEnded(deliveryDateValue, new Date())) {
-          setNifasCompletionModalVisible(true);
-        }
+        setNifasStateHydrated(true);
       })();
       return () => {
         active = false;
@@ -479,6 +482,24 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
     ],
   );
 
+  // Open the completion popup from the SAME status as the banner — only once
+  // the lochia state and the acknowledgement have both been loaded, so a
+  // profile whose lochia are recorded as ended never sees it flash.
+  useEffect(() => {
+    if (
+      nifasReminderStatus === 'reference_reached' &&
+      spiritualMarkersEnabled &&
+      nifasStateHydrated &&
+      lochiaHydrated
+    ) {
+      setNifasCompletionModalVisible(true);
+    }
+  }, [nifasReminderStatus, spiritualMarkersEnabled, nifasStateHydrated, lochiaHydrated]);
+
+  // …and it can never stay open once that state is no longer 'reference_reached'.
+  const showNifasCompletionModal =
+    nifasCompletionModalVisible && nifasReminderStatus === 'reference_reached';
+
   return (
     <>
     <LinearGradient
@@ -596,7 +617,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 <Pressable
                   accessibilityLabel="Indique ta date d’accouchement"
                   accessibilityRole="button"
-                  onPress={() => navigation.navigate('PostpartumDeliveryDate')}
+                  onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
                   style={({ pressed }) => [
                     styles.unconfiguredButton,
                     pressed && styles.pressed,
@@ -858,7 +879,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       animationType="fade"
       onRequestClose={() => setNifasCompletionModalVisible(false)}
       transparent
-      visible={nifasCompletionModalVisible}
+      visible={showNifasCompletionModal}
     >
       <View style={styles.nifasModalOverlay}>
         <View style={styles.nifasModalCard}>
@@ -871,7 +892,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           </View>
 
           <Text style={styles.nifasModalTitle}>
-            Le repère des 40 jours retenu par AWA est atteint
+            {NIFAS_REFERENCE_REACHED_HEADLINE}
           </Text>
 
           <Text style={styles.nifasModalBody}>

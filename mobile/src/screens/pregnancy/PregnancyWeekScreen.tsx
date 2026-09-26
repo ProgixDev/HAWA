@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {
   useEffect,
   useMemo,
@@ -34,7 +35,7 @@ import {
   hydratePregnancyDating,
   subscribePregnancyDating,
 } from '../../state/pregnancyPreferences';
-import {computePregnancyStatus} from '../../utils/pregnancyTrackingUtils';
+import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/pregnancyTrackingUtils';
 import {getPregnancyWeekData} from '../../data/pregnancyWeekData';
 import BabyDevelopmentImage from '../../components/pregnancy/BabyDevelopmentImage';
 
@@ -84,14 +85,6 @@ const TABS: Array<{
 /* ============================================================
    HELPERS
 ============================================================ */
-
-function trimesterLabel(
-  trimester: 1 | 2 | 3,
-): string {
-  return trimester === 1
-    ? '1er trimestre'
-    : `${trimester}e trimestre`;
-}
 
 /* ============================================================
    EMPTY STATE
@@ -222,6 +215,9 @@ export default function PregnancyWeekScreen({
     };
   }, []);
 
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {todayKey} = useToday();
   const status = useMemo(
     () =>
       computePregnancyStatus(
@@ -231,7 +227,8 @@ export default function PregnancyWeekScreen({
           : null,
         new Date(),
       ),
-    [dating],
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
+    [dating, todayKey],
   );
 
   const actualPregnancyWeek = status.week;
@@ -377,6 +374,7 @@ export default function PregnancyWeekScreen({
             onPress={() =>
               navigation.navigate(
                 'PregnancyDatingSetup',
+                {mode: 'edit'},
               )
             }
             style={({pressed}) => [
@@ -454,7 +452,7 @@ export default function PregnancyWeekScreen({
               styles.headerSubtitle
             }>
             {displayedWeek === actualPregnancyWeek
-              ? `${status.gestationalWeeks} SA + ${status.gestationalDays} jours · ${trimesterLabel(status.trimester)}`
+              ? `${status.gestationalWeeks} SA + ${status.gestationalDays} jours · ${formatPregnancyTrimester(status.trimester)}`
               : `${viewedWeekContext} éducatif · grossesse actuelle : semaine ${actualPregnancyWeek}`}
           </Text>
         </View>

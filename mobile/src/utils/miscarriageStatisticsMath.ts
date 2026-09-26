@@ -1,4 +1,5 @@
 import type {MiscarriageCycleReturnStatus} from '../state/miscarriagePreferences';
+import {endOfStatisticsDay} from './cycleStatisticsMath';
 
 // Pure calculation layer for the "Après une fausse couche" Statistics
 // screen's "Retour du cycle" evolution section (MiscarriageStatisticsScreen.tsx).
@@ -33,6 +34,6 @@ export function resolveCycleReturnEventInPeriod(
   }
   const withinSelectedPeriod =
     firstReturnedPeriodDate.getTime() >= cutoff.getTime() &&
-    firstReturnedPeriodDate.getTime() <= now.getTime();
+    firstReturnedPeriodDate.getTime() <= endOfStatisticsDay(now).getTime();
   return withinSelectedPeriod ? firstReturnedPeriodDate : null;
 }
