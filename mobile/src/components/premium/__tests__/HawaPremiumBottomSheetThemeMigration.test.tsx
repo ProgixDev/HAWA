@@ -199,11 +199,17 @@ describe('HawaPremiumBottomSheet — follows the resolved theme', () => {
 });
 
 describe('HawaPremiumBottomSheet — behavior unchanged', () => {
-  it('renders all 5 benefits and both plan options', async () => {
+  it('renders the benefits and both plan options; no purchase CTA while no provider exists (M39)', async () => {
     const renderer = await renderSheet();
     expect(renderer.root.findAllByProps({children: 'Statistiques avancées'}).length).toBeGreaterThan(0);
     expect(renderer.root.findAllByProps({children: 'Plus de personnalisation'}).length).toBeGreaterThan(0);
-    expect(renderer.root.findAllByProps({children: 'S’abonner maintenant'}).length).toBeGreaterThan(0);
+    // "Guides approfondis" is only advertised once a guide is really Premium
+    // (M38) — none is today. The purchase CTA is replaced by an unavailable
+    // notice while PURCHASE_PROVIDER_AVAILABLE is false (M39); the available
+    // state is covered by HawaPremiumBottomSheetProviderAvailable.test.tsx.
+    expect(renderer.root.findAllByProps({children: 'Guides approfondis'})).toHaveLength(0);
+    expect(renderer.root.findAllByProps({children: 'S’abonner maintenant'})).toHaveLength(0);
+    expect(renderer.root.findAllByProps({children: 'Abonnement bientôt disponible'}).length).toBeGreaterThan(0);
   });
 
   it('the close button still calls onClose', async () => {
