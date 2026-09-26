@@ -152,3 +152,24 @@ describe('MotivationCard — theme reactivity, fixed text over fixed image', () 
     expect(flattenStyle(title.props.style).color).toBe('#2F2258');
   });
 });
+
+describe('CycleOverviewCard — "Voir plus" is never a dead link', () => {
+  const items: OverviewItem[] = [
+    {key: 'next-period', icon: 'water', iconColor: '#DC7B82', iconBg: '#F7D7D6', label: 'Prochaines règles', value: '12 mars', subtitle: 'Dans 3 jours'},
+  ];
+
+  it('is rendered and pressable when a destination is supplied', async () => {
+    const onPressMore = jest.fn();
+    const renderer = await renderWithTheme(<CycleOverviewCard items={items} onPressMore={onPressMore} />);
+    const more = renderer.root.findAll(node => node.props.children === 'Voir plus');
+    expect(more.length).toBeGreaterThan(0);
+    const pressable = renderer.root.findAll(node => node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];
+    act(() => pressable.props.onPress());
+    expect(onPressMore).toHaveBeenCalledTimes(1);
+  });
+
+  it('is not rendered at all when there is nowhere to go', async () => {
+    const renderer = await renderWithTheme(<CycleOverviewCard items={items} />);
+    expect(renderer.root.findAll(node => node.props.children === 'Voir plus')).toHaveLength(0);
+  });
+});

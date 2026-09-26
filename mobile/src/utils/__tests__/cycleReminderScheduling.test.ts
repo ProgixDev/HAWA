@@ -1,6 +1,6 @@
 import {syncCycleReminders} from '../cycleReminderScheduling';
 import {scheduleLocalNotification, cancelLocalNotification} from '../../services/pregnancyNotifications';
-import {getActiveObjective, getCyclePreferences, getCycleObservationStartedAt, getPeriodHistory} from '../../state/onboardingPreferences';
+import {getActiveObjective, getCyclePreferences, getCycleObservationStartedAt, getRecordedPeriodHistory} from '../../state/onboardingPreferences';
 import {getCycleReminderPreferences} from '../../state/cycleReminderPreferences';
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
@@ -15,7 +15,7 @@ jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
   getCyclePreferences: jest.fn(),
   getCycleObservationStartedAt: jest.fn(),
-  getPeriodHistory: jest.fn(),
+  getRecordedPeriodHistory: jest.fn(),
 }));
 jest.mock('../../state/cycleReminderPreferences', () => ({
   getCycleReminderPreferences: jest.fn(),
@@ -26,7 +26,7 @@ const mockCancelLocalNotification = cancelLocalNotification as jest.Mock;
 const mockGetActiveObjective = getActiveObjective as jest.Mock;
 const mockGetCyclePreferences = getCyclePreferences as jest.Mock;
 const mockGetCycleObservationStartedAt = getCycleObservationStartedAt as jest.Mock;
-const mockGetPeriodHistory = getPeriodHistory as jest.Mock;
+const mockGetRecordedPeriodHistory = getRecordedPeriodHistory as jest.Mock;
 const mockGetCycleReminderPreferences = getCycleReminderPreferences as jest.Mock;
 
 const DEFAULT_PREFS = {
@@ -57,7 +57,7 @@ beforeEach(() => {
   mockCancelLocalNotification.mockResolvedValue(undefined);
   mockGetActiveObjective.mockReturnValue('cycle');
   mockGetCycleObservationStartedAt.mockReturnValue(null);
-  mockGetPeriodHistory.mockReturnValue([]);
+  mockGetRecordedPeriodHistory.mockReturnValue([]);
   mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS});
 });
 

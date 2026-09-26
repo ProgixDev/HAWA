@@ -11,6 +11,8 @@ import {
   countTrackedDays,
   coverageMonthsForAnchor,
   describeMonthsCoverage,
+  countRecordedStartsForPeriod,
+  describeMissingAverageCycleData,
 } from '../cycleStatisticsMath';
 import type {DailyJournalEntry} from '../../types/journal';
 import type {ConfirmedPeriodOccurrence} from '../../state/confirmedPeriodHistoryStore';
@@ -213,5 +215,37 @@ describe('describeMonthsCoverage', () => {
 
   it('returns null for zero coverage — a screen should show its own empty state instead', () => {
     expect(describeMonthsCoverage('12', 0)).toBeNull();
+  });
+});
+
+describe('average cycle length with INSUFFICIENT confirmed history', () => {
+  const confirmedOccurrence = (periodStart: string): ConfirmedPeriodOccurrence => ({
+    id: periodStart,
+    periodStart,
+    periodEndDateTime: periodStart,
+    capturedAt: periodStart,
+  });
+
+  it('never invents an average: zero or one confirmed start gives null', () => {
+    expect(calculateAverageCycleDuration([])).toBeNull();
+    const starts = filterPeriodStartsForPeriod([confirmedOccurrence('2026-08-03T00:00:00.000Z')], '3', NOW);
+    expect(calculateAverageCycleDuration(starts)).toBeNull();
+  });
+
+  it('counts recorded period STARTS inside the selected period only', () => {
+    const recorded = [{startDate: '2026-03-01'}, {startDate: '2026-07-06'}, {startDate: '2026-08-03'}];
+    expect(countRecordedStartsForPeriod(recorded, '1', NOW)).toBe(1);
+    expect(countRecordedStartsForPeriod(recorded, '3', NOW)).toBe(2);
+    expect(countRecordedStartsForPeriod(recorded, '12', NOW)).toBe(3);
+  });
+
+  it('explains WHY when starts are recorded but their end was never confirmed', () => {
+    expect(describeMissingAverageCycleData(0, 3)).toMatch(/fin n’a pas encore été confirmée/);
+    expect(describeMissingAverageCycleData(1, 2)).toMatch(/Confirme la fin de tes règles/);
+  });
+
+  it('keeps the generic wording when there is genuinely nothing recorded', () => {
+    expect(describeMissingAverageCycleData(0, 0)).toBe('Continue à renseigner tes règles pour voir apparaître ta durée moyenne.');
+    expect(describeMissingAverageCycleData(0, 1)).toBe('Continue à renseigner tes règles pour voir apparaître ta durée moyenne.');
   });
 });
