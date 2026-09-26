@@ -5,6 +5,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {ObjectiveId} from '../../state/onboardingPreferences';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {LIBRARY_ARTICLES, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
+import {ArticlePremiumBadge} from '../library/ArticlePremiumBadge';
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -116,6 +117,7 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
             style={({pressed}) => [styles.articleTile, pressed && styles.pressed]}>
             <Image resizeMode="cover" source={CATEGORY_IMAGES[article.categoryId] ?? FALLBACK_IMAGE} style={styles.articleImage} />
             <Text numberOfLines={2} style={styles.articleTileTitle}>{article.title}</Text>
+            <ArticlePremiumBadge article={article} />
             <View style={styles.articleTileMetaRow}>
               <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
               <Text style={styles.articleTileMeta}>{article.durationMinutes} min de lecture</Text>

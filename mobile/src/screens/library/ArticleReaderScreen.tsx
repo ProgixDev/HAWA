@@ -11,14 +11,18 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { usePremium } from '../../hooks/usePremium';
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import BookmarkButton from '../../components/library/BookmarkButton';
+import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
+import { PremiumLockedCard } from '../../components/premium/PremiumLockedCard';
 import ReadingControls from '../../components/articles/ReadingControls';
 import {
   getArticleById,
   getCategoryById,
+  isPremiumArticle,
   LIBRARY_TINTS,
   RELIGIOUS_DISCLAIMER,
 } from '../../data/libraryContent';
@@ -198,11 +202,62 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 function ArticleReaderScreen(props: Props): React.JSX.Element {
   const { route } = props;
   const { articleId } = route.params;
+  const { isPremium } = usePremium();
+  // THE single Premium gate for every guide. Every entry path (Library cards
+  // and lists, objective dashboards, notifications, deep links, direct
+  // navigation.navigate('ArticleReader', ...)) lands here, so a Premium-flagged
+  // article can never be read by a Free user regardless of how it was
+  // reached. Checked BEFORE the bespoke/generic dispatch so bespoke layouts
+  // (e.g. LochiaArticleScreen) are covered too, and nothing (scroll progress,
+  // bookmarks) is recorded for content that is not shown.
+  if (isPremiumArticle(getArticleById(articleId)) && !isPremium) {
+    return <PremiumArticleGate {...props} />;
+  }
   const BespokeScreen = BESPOKE_ARTICLE_SCREENS[articleId];
   if (BespokeScreen) {
     return <BespokeScreen {...props} />;
   }
   return <GenericArticleReaderScreen {...props} />;
+}
+
+function PremiumArticleGate({ route, navigation }: Props): React.JSX.Element {
+  const { theme } = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  const insets = useSafeAreaInsets();
+  const article = getArticleById(route.params.articleId);
+  const [premiumVisible, setPremiumVisible] = useState(false);
+
+  return (
+    <View
+      style={[
+        styles.missingContainer,
+        {
+          paddingTop: getTopPadding(insets.top, true),
+          paddingBottom: getBottomPadding(insets.bottom),
+        },
+      ]}
+    >
+      <View style={styles.gateContent}>
+        <PremiumLockedCard
+          description="Ce guide fait partie des contenus AWA Premium."
+          onUpgrade={() => setPremiumVisible(true)}
+          title={article?.title ?? 'Guide Premium'}
+        />
+        <Pressable
+          accessibilityLabel="Retour"
+          accessibilityRole="button"
+          onPress={navigation.goBack}
+          style={styles.missingButton}
+        >
+          <Text style={styles.missingButtonText}>Retour</Text>
+        </Pressable>
+      </View>
+      <HawaPremiumBottomSheet
+        onClose={() => setPremiumVisible(false)}
+        visible={premiumVisible}
+      />
+    </View>
+  );
 }
 
 function GenericArticleReaderScreen({
@@ -498,6 +553,7 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.background,
     },
     missingText: { color: theme.colors.textSecondary, fontSize: 14 },
+    gateContent: { width: '100%', paddingHorizontal: 20, gap: 16, alignItems: 'center' },
     missingButton: {
       minHeight: 44,
       paddingHorizontal: 20,
