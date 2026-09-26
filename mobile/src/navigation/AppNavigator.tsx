@@ -230,9 +230,9 @@ export type RootStackParamList = {
   NoteEntry: undefined;
   IntimacyEntry: undefined;
   JournalConceptionReports: undefined;
-  PrivateIntimacyUnlock: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes'} | undefined;
-  PrivateIntimacyPin: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes'} | undefined;
-  PrivateIntimacyFaceId: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes'} | undefined;
+  PrivateIntimacyUnlock: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes' | 'export'} | undefined;
+  PrivateIntimacyPin: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes' | 'export'} | undefined;
+  PrivateIntimacyFaceId: {target?: 'cycle' | 'conception' | 'photos' | 'contraceptionNotes' | 'cycleNotes' | 'miscarriageNotes' | 'menopauseNotes' | 'export'} | undefined;
   PrivatePhotoEntry: undefined;
   PersonalInformation: undefined;
   GeneralHealth: undefined;
@@ -250,7 +250,9 @@ export type RootStackParamList = {
   DeleteAccount: undefined;
   BackupData: undefined;
   RestoreBackup: undefined;
-  DataExport: undefined;
+  // sensitiveUnlockToken: set (once) by the private-section unlock flow when it
+  // pops back here after a successful unlock — see replaceWithIntimacyDestination.
+  DataExport: {sensitiveUnlockToken?: number} | undefined;
   DeleteTrackedData: undefined;
   Library: undefined;
   FeaturedArticles: undefined;

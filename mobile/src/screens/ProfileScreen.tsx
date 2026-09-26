@@ -1,5 +1,6 @@
 import {getContraceptionReminderIndicator} from '../utils/contraceptionReminderScheduling';
 import {useToday} from '../hooks/useToday';
+import {CYCLE_RETURN_DATE_TO_CHECK, classifyStoredCycleReturnDate} from '../utils/lossDateValidation';
 import React, {
   useCallback,
   useEffect,
@@ -33,6 +34,7 @@ import type { RootStackParamList } from '../navigation/AppNavigator';
 import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
 import { getFloatingTabBarClearance, getTopPadding } from '../theme/spacing';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
+import {hasPremiumArticles} from '../data/libraryContent';
 
 import {
   getCycleObservationStartedAt,
@@ -613,7 +615,9 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
             'Statistiques avancées',
             'Export PDF & CSV',
             'Historique illimité',
-            'contenus éducatifs approfondis',
+            // Only advertised while at least one guide is really Premium-gated
+            // (see hasPremiumArticles) — same rule as the Premium sheet.
+            ...(hasPremiumArticles() ? ['contenus éducatifs approfondis'] : []),
             'thèmes visuels supplémentaires'
           ].map(item => (
             <View key={item} style={styles.premiumFeature}>
@@ -1714,13 +1718,25 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 const parsed = parseStoredDateOnly(
                   miscarriage.firstReturnedPeriodDate,
                 );
-                return parsed ? (
+                // A legacy stored date that is in the future / before the loss
+                // (or unparsable) is never shown as an event: same canonical
+                // check and wording as the Dashboard. The stored value is kept.
+                const dateState = classifyStoredCycleReturnDate({
+                  cycleReturnStatus: miscarriage.cycleReturnStatus,
+                  cycleReturnDate: miscarriage.firstReturnedPeriodDate,
+                  now: new Date(),
+                  lossDate: miscarriage.miscarriageDate,
+                });
+                if (dateState === 'none') {
+                  return null;
+                }
+                return (
                   <StatCard
                     icon="calendar-check-outline"
                     label="Date du retour des règles"
-                    value={formatFullDate(parsed)}
+                    value={dateState === 'ok' && parsed ? formatFullDate(parsed) : CYCLE_RETURN_DATE_TO_CHECK}
                   />
-                ) : null;
+                );
               })()}
 
               <StatCard

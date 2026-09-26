@@ -1,4 +1,5 @@
 import {getContraceptionReminderIndicator} from '../utils/contraceptionReminderScheduling';
+import {CYCLE_RETURN_DATE_TO_CHECK, classifyStoredCycleReturnDate} from '../utils/lossDateValidation';
 import React, {useCallback, useMemo, useReducer} from 'react';
 import {
   Image,
@@ -589,11 +590,20 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
     // Only shown once a real date exists — never a fake reference date when
     // the "yes" answer was given without a date (spec section 22.7).
-    if (miscarriage.cycleReturnStatus === 'yes' && firstReturnedPeriodDate) {
+    // A legacy stored date that is in the future / before the loss (or
+    // unparsable) is flagged instead of shown as a date (canonical check shared
+    // with the Dashboard); the stored value itself is never rewritten.
+    const cycleReturnDateState = classifyStoredCycleReturnDate({
+      cycleReturnStatus: miscarriage.cycleReturnStatus,
+      cycleReturnDate: miscarriage.firstReturnedPeriodDate,
+      now: new Date(),
+      lossDate: miscarriage.miscarriageDate,
+    });
+    if (cycleReturnDateState !== 'none') {
       rows.push({
         icon: 'calendar-check-outline',
         label: 'Premières règles revenues',
-        value: formatSummaryDate(firstReturnedPeriodDate),
+        value: cycleReturnDateState === 'ok' && firstReturnedPeriodDate ? formatSummaryDate(firstReturnedPeriodDate) : CYCLE_RETURN_DATE_TO_CHECK,
         route: 'MiscarriageCycleReturn',
         tone: 'green',
       });
