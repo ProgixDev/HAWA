@@ -20,8 +20,15 @@ describe('objectiveExportConfig', () => {
     });
   });
 
-  it('gives "irregular" (SOPK, no dedicated store) the exact same categories as "cycle"', () => {
-    expect(OBJECTIVE_EXPORT_CONFIG.irregular.categories).toEqual(OBJECTIVE_EXPORT_CONFIG.cycle.categories);
+  it('gives "irregular" (SOPK) its own real-data categories, none of the Cycle-only ones it never writes', () => {
+    const values = OBJECTIVE_EXPORT_CONFIG.irregular.categories.map(category => category.value);
+    expect(values).toEqual(['period', 'acne', 'hairGrowth', 'pain', 'fatigue', 'mood', 'weight', 'notes']);
+    ['cycle', 'flow', 'sleep', 'activity', 'hydration', 'temperature', 'intimacy', 'symptoms'].forEach(cycleOnly =>
+      expect(values).not.toContain(cycleOnly),
+    );
+    expect(OBJECTIVE_EXPORT_CONFIG.irregular.categories.filter(category => category.sensitive).map(c => c.value)).toEqual([
+      'notes',
+    ]);
   });
 
   it('never lets one objective-specific category leak into an unrelated objective', () => {

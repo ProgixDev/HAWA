@@ -4,6 +4,7 @@ import {
   buildCycleExportDays,
   buildConceiveExportDays,
   buildContraceptionExportDays,
+  buildIrregularExportDays,
   buildMenopauseExportDays,
   buildMiscarriageExportDays,
   buildPostpartumExportDays,
@@ -43,8 +44,9 @@ const READERS: Record<
   (selectedCategories: string[], period: ExportPeriod, now: Date) => Promise<ObjectiveExportData>
 > = {
   cycle: buildCycleExportDays,
-  // Same real backing stores as Cycle — no dedicated SOPK store exists.
-  irregular: buildCycleExportDays,
+  // SOPK reads its own irregularJournalStore (+ the shared `flow` section for
+  // the period answer) — never the Cycle-only categories.
+  irregular: buildIrregularExportDays,
   conceive: buildConceiveExportDays,
   pregnancy: buildPregnancyExportDays,
   contraception: buildContraceptionExportDays,
@@ -83,12 +85,16 @@ export async function buildMedicalExport(
   if (!hasAnyData) {return {kind: 'empty'};}
 
   // Filenames stay based on the shared dailyJournalStore's date range for
-  // objectives that use it (cycle/irregular/conceive), and on the actually
-  // exported days for objectives with their own dedicated store(s) — always
-  // real dates, never a placeholder.
-  const filenameSource = objective === 'cycle' || objective === 'irregular' || objective === 'conceive'
-    ? await getAllJournalEntries()
-    : days;
+  // objectives that use it (cycle/conceive), and on the actually exported
+  // days for objectives with their own dedicated store(s) (incl. SOPK) —
+  // always real dates, never a placeholder.
+  // Cycle also files its period start dates under their own day, which may
+  // predate every journal entry — include them in the 'all' date range.
+  const filenameSource = objective === 'cycle'
+    ? [...(await getAllJournalEntries()), ...days]
+    : objective === 'conceive'
+      ? await getAllJournalEntries()
+      : days;
   const {fromKey, toKey} = computeExportFilenameDates(filenameSource, period, now);
 
   if (format === 'csv') {
