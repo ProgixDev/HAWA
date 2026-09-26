@@ -279,3 +279,62 @@ describe('MonthCalendarCard — Premium fallback', () => {
     expect(chevron().props.color).toBe('#6D4AE8'); // awa-original primary
   });
 });
+
+// M47 — Hijri day labels / month range follow the spiritual-markers toggle AND
+// the separate Grégorien/Hijri/Double display preference.
+describe('MonthCalendarCard — Hijri labels vs spiritual toggle and display mode', () => {
+  const {setSpiritualMarkersEnabled} = require('../../../state/onboardingPreferences');
+
+  async function renderWith(displayMode: 'gregorian' | 'hijri' | 'double') {
+    let renderer: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <AwaThemeProvider>
+          <MonthCalendarCard
+            basics={BASICS}
+            displayMode={displayMode}
+            filters={FILTERS}
+            journalFlagsByDate={{}}
+            onChangeDisplayMode={() => {}}
+            onChangeMonth={() => {}}
+            onSelectDate={() => {}}
+            selectedDate={new Date(2026, 0, 15)}
+            showSelection
+            today={new Date(2026, 0, 10)}
+            visibleMonth={new Date(2026, 0, 1)}
+          />
+        </AwaThemeProvider>,
+      );
+    });
+    activeRenderers.push(renderer!);
+    return renderer!;
+  }
+  // January 2026 spans Rajab / Sha'ban 1447 — the Hijri year is the marker.
+  const showsHijri = (renderer: ReactTestRenderer.ReactTestRenderer) => /\b14[3-9]\d\b/.test(JSON.stringify(renderer.toJSON()));
+  const hasModeSelector = (renderer: ReactTestRenderer.ReactTestRenderer) =>
+    renderer.root.findAll(node => node.props.children === 'Grégorien').length > 0;
+
+  afterEach(() => {
+    setSpiritualMarkersEnabled(true);
+  });
+
+  it('ON + Double: Hijri labels and the display-mode selector are shown', async () => {
+    const renderer = await renderWith('double');
+    expect(showsHijri(renderer)).toBe(true);
+    expect(hasModeSelector(renderer)).toBe(true);
+  });
+
+  it('ON + Grégorien: no Hijri label (display preference respected)', async () => {
+    const renderer = await renderWith('gregorian');
+    expect(showsHijri(renderer)).toBe(false);
+  });
+
+  it('OFF + Double/Hijri: no Hijri label and no dead display-mode selector', async () => {
+    setSpiritualMarkersEnabled(false);
+    for (const mode of ['double', 'hijri'] as const) {
+      const renderer = await renderWith(mode);
+      expect(showsHijri(renderer)).toBe(false);
+      expect(hasModeSelector(renderer)).toBe(false);
+    }
+  });
+});

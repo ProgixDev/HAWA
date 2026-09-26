@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {StatusBar} from 'react-native';
@@ -226,5 +228,58 @@ describe('CycleHomeScreen — "Statistiques" quick action', () => {
     });
 
     expect(getActiveObjective()).toBe(before);
+  });
+});
+
+
+// M46 — the spiritual quick actions (Horaires de prière / Calendrier Hijri /
+// Jeûnes à rattraper) must follow the canonical spiritual-markers preference;
+// QuickActionsGrid applies the ONE shared filter (state/quickActionsPreferences).
+describe('CycleHomeScreen — spiritual quick actions follow the spiritual-markers toggle', () => {
+  const {setSpiritualMarkersEnabled} = require('../../state/onboardingPreferences');
+
+  const tileLabels = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
+    renderer.root
+      .findAll(node => node.props.accessibilityRole === 'button' && typeof node.props.accessibilityLabel === 'string')
+      .map(node => node.props.accessibilityLabel as string);
+  const hasPrayer = (labels: string[]) => labels.some(label => /^Horaires/.test(label));
+  const hasHijri = (labels: string[]) => labels.includes('Calendrier Hijri');
+  const hasQadaa = (labels: string[]) => labels.some(label => /^Jeûnes? à rattraper$/.test(label));
+
+  afterEach(async () => {
+    await act(async () => {
+      setSpiritualMarkersEnabled(true);
+    });
+  });
+
+  it('shows the three spiritual entries when ON, hides them when OFF, restores them when back ON', async () => {
+    const renderer = await renderCycleHome();
+
+    let labels = tileLabels(renderer);
+    expect(hasPrayer(labels) && hasHijri(labels) && hasQadaa(labels)).toBe(true);
+
+    await act(async () => {
+      setSpiritualMarkersEnabled(false);
+    });
+    labels = tileLabels(renderer);
+    expect(hasPrayer(labels)).toBe(false);
+    expect(hasHijri(labels)).toBe(false);
+    expect(hasQadaa(labels)).toBe(false);
+    // Non-spiritual entries are untouched.
+    expect(labels).toContain('Bibliothèque');
+    expect(labels).toContain('Statistiques');
+
+    await act(async () => {
+      setSpiritualMarkersEnabled(true);
+    });
+    labels = tileLabels(renderer);
+    expect(hasPrayer(labels) && hasHijri(labels) && hasQadaa(labels)).toBe(true);
+  });
+
+  it('guard: the dashboard hands the FULL item list to QuickActionsGrid (no local spiritual filter)', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../CycleHomeScreen.tsx'), 'utf8');
+    expect(source).toMatch(/<QuickActionsGrid/);
+    expect(source).not.toMatch(/item\.key\s*!==\s*'(prayer-times|hijri-calendar|qadaa)'/);
+    expect(source).not.toMatch(/quickActionItems\s*\.\s*filter\(/);
   });
 });

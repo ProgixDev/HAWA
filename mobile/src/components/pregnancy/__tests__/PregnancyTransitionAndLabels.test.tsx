@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Alert, Text, View} from 'react-native';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
@@ -229,7 +230,7 @@ describe('M34 - Pregnancy -> Postpartum delivery sheet', () => {
     });
   });
 
-  it('valid date replacing an EARLIER journey: the old baby’s answers are not carried over, reminders and the rest are untouched', async () => {
+  it('valid date replacing an EARLIER journey: the old answers are NOT erased (kept in storage) and are not presented as the new baby’s', async () => {
     await setPostpartumPreferences(PREVIOUS_JOURNEY);
     const {renderer, onConfirmed} = await renderSheet();
     await act(async () => {
@@ -248,6 +249,24 @@ describe('M34 - Pregnancy -> Postpartum delivery sheet', () => {
       dailyTrackingReminderEnabled: true,
       dailyTrackingReminderTime: '20:00',
     });
+    // Nothing was deleted: the earlier journey's answers are still stored.
+    const raw = JSON.parse((await AsyncStorage.getItem('@hawa/postpartum-preferences/v1')) as string);
+    expect(raw.deliveryType).toBe(PREVIOUS_JOURNEY.deliveryType);
+    expect(raw.feedingType).toBe(PREVIOUS_JOURNEY.feedingType);
+    expect(raw.firstPostpartumPeriodDate).toBe(PREVIOUS_JOURNEY.firstPostpartumPeriodDate);
+  });
+
+  it('cancelling the transition (Annuler) changes nothing in storage', async () => {
+    await setPostpartumPreferences(PREVIOUS_JOURNEY);
+    const before = await AsyncStorage.getItem('@hawa/postpartum-preferences/v1');
+    const {renderer, onConfirmed} = await renderSheet();
+    await act(async () => {
+      renderer.root
+        .findAll(node => typeof node.props.onPress === 'function' && node.findAllByType(Text).some(text => textOf(text) === 'Annuler'))[0]
+        .props.onPress();
+    });
+    expect(onConfirmed).not.toHaveBeenCalled();
+    expect(await AsyncStorage.getItem('@hawa/postpartum-preferences/v1')).toBe(before);
   });
 });
 

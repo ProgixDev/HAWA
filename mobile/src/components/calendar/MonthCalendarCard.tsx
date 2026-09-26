@@ -306,13 +306,19 @@ function MonthCalendarCard({
     );
   }, [visibleMonth]);
 
-  const showHijri = displayMode !== 'gregorian';
   // Read once per render rather than per cell — cheap, already-hydrated
   // global preference (same objective-agnostic flag every other religious
   // surface in the app gates on), not a live subscription: this component
   // re-renders on every navigation/filter/focus change already, which is
   // frequent enough for this flag to never stay visibly stale in practice.
   const spiritualMarkersEnabled = getSpiritualMarkersEnabled();
+  // Hijri day labels / Hijri month range / Hijri selected-day text are part of
+  // the "Calendrier hijri" feature the spiritual-markers toggle controls
+  // (SpiritualPreferencesScreen: "Calendrier hijri, prières, jeûne, état de
+  // pureté…"; Profile shows "Date hijri: Désactivé" when off). They therefore
+  // require BOTH the toggle AND the separate Grégorien/Hijri/Double display
+  // preference (which is only hidden — never reset — while the toggle is off).
+  const showHijri = spiritualMarkersEnabled && displayMode !== 'gregorian';
 
   const hijriRangeLabel = useMemo(() => {
     if (!showHijri) {return undefined;}
@@ -346,6 +352,7 @@ function MonthCalendarCard({
         </Pressable>
       </View>
 
+      {spiritualMarkersEnabled ? (
       <View style={styles.modeRow}>
         {MODES.map(mode => {
           const active = mode.key === displayMode;
@@ -360,6 +367,7 @@ function MonthCalendarCard({
           );
         })}
       </View>
+      ) : null}
 
       <View style={styles.weekRow}>
         {WEEK_DAYS.map(day => (

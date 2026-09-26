@@ -1159,16 +1159,9 @@ function ContraceptionDashboard({
       },
     ];
 
-  const visibleQuickActions =
-    quickActionItems.filter(
-      item =>
-        spiritualMarkersEnabled ||
-        (item.key !==
-          'prayer-times' &&
-          item.key !==
-            'hijri-calendar' &&
-          item.key !== 'qadaa'),
-    );
+  // Spiritual quick actions (prayer-times / hijri-calendar / qadaa) are hidden
+  // by QuickActionsGrid itself from the canonical spiritual-markers preference
+  // (state/quickActionsPreferences.ts) — no per-dashboard filter.
 
   /*
    * ============================================================
@@ -1589,7 +1582,7 @@ function ContraceptionDashboard({
             }>
             <QuickActionsGrid
               items={
-                visibleQuickActions
+                quickActionItems
               }
             />
           </View>

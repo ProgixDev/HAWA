@@ -476,6 +476,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
             phase={selectedPhase}
             editingPeriod={editingPeriod}
             phaseUnavailableSubtitle={selectedIsRetroactive ? 'Aucune règle enregistrée ce jour-là' : undefined}
+            showHijriDate={spiritualMarkersEnabled}
             onDeclarePeriodStart={canDeclarePeriodStart ? () => setPeriodStartSheetVisible(true) : undefined}
             onEditPeriod={editingPeriod ? cancelPeriodEditing : startPeriodEditing}
           />

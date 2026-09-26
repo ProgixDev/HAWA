@@ -771,14 +771,9 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
     },
   ];
 
-  const visibleQuickActions =
-    quickActionItems.filter(
-      item =>
-        spiritualMarkersEnabled ||
-        (item.key !== 'prayer-times' &&
-          item.key !== 'hijri-calendar' &&
-          item.key !== 'qadaa'),
-    );
+  // Spiritual quick actions (prayer-times / hijri-calendar / qadaa) are hidden
+  // by QuickActionsGrid itself from the canonical spiritual-markers preference
+  // (state/quickActionsPreferences.ts) — no per-dashboard filter.
 
   /* ================================================================
    * STAGE SWITCH
@@ -1238,7 +1233,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               DESIGN NON MODIFIÉ
           ====================================================== */}
 
-          <QuickActionsGrid items={visibleQuickActions} />
+          <QuickActionsGrid items={quickActionItems} />
 
           {/* =====================================================
               REPÈRE SPIRITUEL

@@ -736,7 +736,14 @@ function PregnancyCalendarContent(): React.JSX.Element {
       ),
     );
 
+  // Hijri day labels / Hijri month range / Hijri selected-day text are part of
+  // the "Calendrier hijri" feature the spiritual-markers toggle controls
+  // (SpiritualPreferencesScreen: "Calendrier hijri, prières, jeûne, état de
+  // pureté…"; Profile shows "Date hijri: Désactivé" when off). They therefore
+  // require BOTH the toggle AND the separate Grégorien/Hijri/Double display
+  // preference (which is only hidden — never reset — while the toggle is off).
   const showHijri =
+    spiritualMarkersEnabled &&
     displayMode !==
     'gregorian';
 
@@ -969,6 +976,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
             }>
             {/* MODE */}
 
+            {spiritualMarkersEnabled ? (
             <View
               style={
                 styles.modeRow
@@ -1007,6 +1015,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 ),
               )}
             </View>
+            ) : null}
 
             {/* MONTH */}
 
