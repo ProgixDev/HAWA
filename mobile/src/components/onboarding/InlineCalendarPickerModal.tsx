@@ -22,9 +22,11 @@ type Props = {
    * unpressable) instead of being silently correctable after the fact.
    * Omitted by existing callers, so their behavior is unchanged. */
   maximumDate?: Date;
+  /** Optional lower bound — days before this date render disabled too. */
+  minimumDate?: Date;
 };
 
-function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle, maximumDate}: Props): React.JSX.Element {
+function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle, maximumDate, minimumDate}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(value.getFullYear(), value.getMonth(), 1));
@@ -50,9 +52,12 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
   };
 
   const isDisabledDay = (day: number) => {
-    if (!maximumDate) {return false;}
+    if (!maximumDate && !minimumDate) {return false;}
     const candidate = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
-    return candidate.getTime() > maximumDate.getTime();
+    return (
+      (maximumDate !== undefined && candidate.getTime() > maximumDate.getTime()) ||
+      (minimumDate !== undefined && candidate.getTime() < minimumDate.getTime())
+    );
   };
 
   const chooseDay = (day: number) => {
