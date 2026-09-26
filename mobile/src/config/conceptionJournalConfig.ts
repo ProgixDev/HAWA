@@ -1,6 +1,7 @@
 import type {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {JournalSection} from '../types/journal';
 import type {JournalRoute} from '../components/journal/DailyJournalSheet';
+import type {FertilityIndicator} from '../state/conceptionPreferences';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -69,3 +70,41 @@ export const CONCEPTION_JOURNAL_ITEMS: Array<{
     tint: '#F9DCE8',
   },
 ];
+
+// M17 — "Indicateurs suivis" (conceptionPreferences.indicators) drives which
+// daily-tracking entry points are OFFERED. This is the ONE shared filter used
+// by both ConceiveDashboard's "Suivi du jour" card and the TTC "Journal
+// quotidien" sheet, so the two can never drift. It only hides entry points:
+// nothing recorded is ever deleted, and Calendar / Statistics keep showing
+// every stored value (historical data stays available).
+const INDICATOR_FOR_SECTION: Partial<Record<JournalSection, FertilityIndicator>> = {
+  temperature: 'temperature',
+  cervicalMucus: 'cervical_mucus',
+  lhTest: 'lh_tests',
+  intimacy: 'intercourse',
+};
+
+/** Returns the daily-tracking items matching the followed indicators. An
+ * empty selection (legacy user who never chose — a configured Conceive
+ * objective requires a non-empty one, see objectiveSwitch.ts) shows ALL
+ * items rather than hiding everything. */
+export const getConceptionJournalItems = (
+  indicators: readonly FertilityIndicator[],
+): typeof CONCEPTION_JOURNAL_ITEMS => {
+  if (indicators.length === 0) {
+    return CONCEPTION_JOURNAL_ITEMS;
+  }
+  const filtered = CONCEPTION_JOURNAL_ITEMS.filter(item => {
+    const indicator = INDICATOR_FOR_SECTION[item.section];
+    return indicator === undefined || indicators.includes(indicator);
+  });
+  return filtered.length > 0 ? filtered : CONCEPTION_JOURNAL_ITEMS;
+};
+
+// PRODUCT DECISION - INFORMATIONAL ONLY (M17):
+// - conceptionPreferences.tryingDuration ("Depuis combien de temps essaies-tu")
+//   is shown in Summary/Profile and gates onboarding completeness only. No
+//   prediction, reminder or medical advice is derived from it.
+// - conceptionPreferences.ovulationAwareness ("Repères-tu ton ovulation")
+//   likewise: display + onboarding completeness only; fertility maths are
+//   unchanged because no current product spec defines a behaviour for it.

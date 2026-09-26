@@ -37,32 +37,43 @@ import { withResolvedIntimacyForDisplayMany } from '../../services/privateJourna
 import type { CervicalMucusType, DailyJournalEntry } from '../../types/journal';
 
 import {
+  getCycleObservationStartedAt,
   getCyclePreferences,
   getHasConfirmedCycleData,
-  getPeriodHistory,
+  getRecordedPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
 } from '../../state/onboardingPreferences';
 
 import {
+  computeCyclePredictionStatus,
   cycleDayFor,
+  describeAverageCycle,
   diffDays,
   formatShortDate,
-  ovulationDayFor,
   startOfDay,
-  upcomingDateForCycleDay,
+  upcomingFertileWindow,
 } from '../../utils/cycleMath';
 
 import {
   cutoffDateForPeriod,
+  endOfStatisticsDay,
   filterEntriesForPeriod,
   isPeriodFree,
   STATISTICS_PERIODS,
   type StatisticsPeriod,
 } from '../../utils/cycleStatisticsMath';
-import {calculateLhMonthlyTrend, buildMucusTimeline} from '../../utils/conceptionStatisticsMath';
+import {
+  buildMucusTimeline,
+  resolveConceptionCycleBasics,
+  buildTemperatureStats,
+  calculateLhMonthlyTrend,
+  formatTemperature,
+  type TemperatureUnit,
+} from '../../utils/conceptionStatisticsMath';
 
 import { usePremium } from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import { HawaPremiumBottomSheet } from '../../components/premium/HawaPremiumBottomSheet';
 
 // Trying-to-Conceive Statistics — structurally modeled after
@@ -119,6 +130,8 @@ const BLUE_SOFT = '#EAF3F7';
 const BLUE = '#4B8996';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+
+type AverageCycleTile = {label: string; value: string; caption: string};
 
 type TabKey = 'summary' | 'temperature' | 'fertility' | 'cycle';
 
@@ -342,11 +355,14 @@ function KpiCard({
   icon,
   value,
   label,
+  caption,
   accent = 'purple',
 }: {
   icon: IconName;
   value: string;
   label: string;
+  /** Optional one-line provenance under the label (e.g. "Renseignée par toi"). */
+  caption?: string;
   accent?: 'purple' | 'pink' | 'green' | 'blue';
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
@@ -372,6 +388,11 @@ function KpiCard({
       <Text numberOfLines={2} style={styles.kpiLabel}>
         {label}
       </Text>
+      {caption ? (
+        <Text numberOfLines={2} style={styles.kpiCaption}>
+          {caption}
+        </Text>
+      ) : null}
     </View>
   );
 }
@@ -517,6 +538,12 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const [tab, setTab] = useState<TabKey>('summary');
   const [cyclePrefs, setCyclePrefs] = useState(getCyclePreferences);
   const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
+  // The recorded period history + observation anchor are part of the same
+  // store snapshot as cyclePrefs: they are re-read by EVERY store
+  // notification (below) and are explicit memo dependencies, so a changed
+  // cycle length / recorded period can never leave a derived statistic stale.
+  const [recordedHistory, setRecordedHistory] = useState(getRecordedPeriodHistory);
+  const [observationStartedAt, setObservationStartedAt] = useState(getCycleObservationStartedAt);
   const [allEntries, setAllEntries] = useState<DailyJournalEntry[]>([]);
   const tabAnimation = useRef(new Animated.Value(1)).current;
 
@@ -524,7 +551,9 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   const [period, setPeriod] = useState<StatisticsPeriod>('1');
   const [premiumVisible, setPremiumVisible] = useState(false);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today} = useToday();
   const showLongitudinalView = period !== '1';
 
   /* ==========================================================
@@ -537,12 +566,16 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
       if (active) {
         setCyclePrefs(value);
         setHasConfirmedCycleData(getHasConfirmedCycleData());
+        setRecordedHistory(getRecordedPeriodHistory());
+        setObservationStartedAt(getCycleObservationStartedAt());
       }
     });
     const unsubscribe = subscribeCyclePreferences(() => {
       if (active) {
         setCyclePrefs(getCyclePreferences());
         setHasConfirmedCycleData(getHasConfirmedCycleData());
+        setRecordedHistory(getRecordedPeriodHistory());
+        setObservationStartedAt(getCycleObservationStartedAt());
       }
     });
     return () => {
@@ -572,11 +605,42 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
      logic ConceiveDashboard.tsx already uses)
   ========================================================== */
 
-  const ovulationDay = ovulationDayFor(cyclePrefs.cycleDuration);
-  const currentCycleDay = cycleDayFor(today, cyclePrefs);
-  const fertileStartDate = upcomingDateForCycleDay(cyclePrefs, ovulationDay - 5, today);
-  const fertileEndDate = upcomingDateForCycleDay(cyclePrefs, ovulationDay + 1, today);
-  const ovulationDate = upcomingDateForCycleDay(cyclePrefs, ovulationDay, today);
+  // Recorded period starts + the canonical prediction status (same inputs
+  // Dashboard/Calendar/Profile use) — feeds the effective cycle length below
+  // and describeAverageCycle's fallback wording further down.
+  const recordedPeriodStarts = useMemo(
+    () =>
+      recordedHistory
+        .map(record => startOfDay(new Date(`${record.startDate}T12:00:00`)))
+        .sort((a, b) => a.getTime() - b.getTime()),
+    [recordedHistory],
+  );
+
+  const predictionStatus = useMemo(
+    () =>
+      computeCyclePredictionStatus(
+        cyclePrefs,
+        cyclePrefs.regularity,
+        recordedPeriodStarts,
+        observationStartedAt,
+        today,
+      ),
+    [cyclePrefs, recordedPeriodStarts, observationStartedAt, today],
+  );
+  // M18: SAME effective cycle length as Dashboard/Calendar/reminders (observed
+  // average in 'exact' mode, declared otherwise).
+  const conceptionBasics = useMemo(
+    () => resolveConceptionCycleBasics(cyclePrefs, predictionStatus),
+    [cyclePrefs, predictionStatus],
+  );
+
+  const currentCycleDay = cycleDayFor(today, conceptionBasics);
+  // ONE coherent fertile window (start <= ovulation <= end) — see
+  // upcomingFertileWindow in cycleMath.ts.
+  const fertileWindow = upcomingFertileWindow(conceptionBasics, today);
+  const fertileStartDate = fertileWindow.start;
+  const fertileEndDate = fertileWindow.end;
+  const ovulationDate = fertileWindow.ovulation;
 
   /* ==========================================================
      JOURNAL DATA
@@ -600,40 +664,35 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
     [periodEntries],
   );
 
-  const temperatureTrend = useMemo(
-    () => temperatureEntries.slice(-TREND_DISPLAY_CAP).map(entry => ({ date: entry.date, value: entry.temperature.value })),
+  // ONE display unit for every temperature on this screen (chart scale,
+  // latest/average/min/max, trend text) — see buildTemperatureStats().
+  const temperatureStats = useMemo(
+    () => buildTemperatureStats(temperatureEntries, TREND_DISPLAY_CAP),
     [temperatureEntries],
   );
+  const temperatureUnit = temperatureStats.unit;
 
   const temperatureTrendScaled = useMemo(() => {
-    if (temperatureTrend.length === 0) {
+    const trend = temperatureStats.trend;
+    if (trend.length === 0) {
       return [];
     }
-    const values = temperatureTrend.map(item => item.value);
+    const values = trend.map(item => item.value);
     const min = Math.min(...values);
     const max = Math.max(...values);
-    const span = Math.max(max - min, 0.1);
-    return temperatureTrend.map(item => ({
+    // Minimum span of 0.1 °C (0.18 °F) so a flat series doesn't divide by 0.
+    const span = Math.max(max - min, temperatureUnit === 'F' ? 0.18 : 0.1);
+    return trend.map(item => ({
       date: item.date,
-      display: `${item.value.toFixed(1)}°`,
+      display: formatTemperature(item.value, temperatureUnit),
       scaled: 1 + Math.round(((item.value - min) / span) * 9),
     }));
-  }, [temperatureTrend]);
+  }, [temperatureStats, temperatureUnit]);
 
-  const latestTemperature = temperatureEntries[temperatureEntries.length - 1];
-  const averageTemperature = useMemo(() => {
-    if (temperatureEntries.length === 0) {
-      return null;
-    }
-    const sum = temperatureEntries.reduce((total, entry) => total + entry.temperature.value, 0);
-    return sum / temperatureEntries.length;
-  }, [temperatureEntries]);
-  const minTemperature = temperatureEntries.length > 0
-    ? Math.min(...temperatureEntries.map(entry => entry.temperature.value))
-    : null;
-  const maxTemperature = temperatureEntries.length > 0
-    ? Math.max(...temperatureEntries.map(entry => entry.temperature.value))
-    : null;
+  const latestTemperature = temperatureStats.latest;
+  const averageTemperature = temperatureStats.average;
+  const minTemperature = temperatureStats.min;
+  const maxTemperature = temperatureStats.max;
 
   const mucusEntries = useMemo(
     () => periodEntries.filter((entry): entry is DailyJournalEntry & { cervicalMucus: NonNullable<DailyJournalEntry['cervicalMucus']> } => Boolean(entry.cervicalMucus)),
@@ -674,7 +733,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
     () =>
       intercourseEntries.filter(entry => {
         const entryDate = new Date(`${entry.date}T12:00:00`);
-        return entryDate >= cyclePrefs.lastPeriodStart && entryDate <= today;
+        return entryDate >= cyclePrefs.lastPeriodStart && entryDate <= endOfStatisticsDay(today);
       }).length,
     [intercourseEntries, cyclePrefs.lastPeriodStart, today],
   );
@@ -690,42 +749,56 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   // surfaces more of this same real history instead of an arbitrary
   // "last 10" cap.
   const allCycleLengths = useMemo(() => {
-    const starts = getPeriodHistory()
-      .map(record => startOfDay(new Date(`${record.startDate}T12:00:00`)))
-      .sort((a, b) => a.getTime() - b.getTime());
     const lengths: Array<{ date: string; value: number }> = [];
-    for (let index = 1; index < starts.length; index += 1) {
-      const length = diffDays(starts[index], starts[index - 1]);
+    for (let index = 1; index < recordedPeriodStarts.length; index += 1) {
+      const length = diffDays(recordedPeriodStarts[index], recordedPeriodStarts[index - 1]);
       if (length > 0) {
-        lengths.push({ date: starts[index].toLocaleDateString('en-CA'), value: length });
+        lengths.push({ date: recordedPeriodStarts[index].toLocaleDateString('en-CA'), value: length });
       }
     }
     return lengths;
-  }, []);
+  }, [recordedPeriodStarts]);
 
-  const cycleLengthTrend = useMemo(() => {
+  // Every MEASURED cycle inside the selected period — the average / shortest /
+  // longest below come from this full set; only the chart is display-capped.
+  const periodCycleLengths = useMemo(() => {
     const cutoff = cutoffDateForPeriod(period, today);
-    return allCycleLengths
-      .filter(item => {
-        const date = new Date(`${item.date}T12:00:00`);
-        return date.getTime() >= cutoff.getTime() && date.getTime() <= today.getTime();
-      })
-      .slice(-TREND_DISPLAY_CAP);
+    const end = endOfStatisticsDay(today);
+    return allCycleLengths.filter(item => {
+      const date = new Date(`${item.date}T12:00:00`);
+      return date.getTime() >= cutoff.getTime() && date.getTime() <= end.getTime();
+    });
   }, [allCycleLengths, period, today]);
 
-  const averageCycleLength = useMemo(() => {
-    if (cycleLengthTrend.length === 0) {
-      return cyclePrefs.cycleDuration;
-    }
-    const sum = cycleLengthTrend.reduce((total, item) => total + item.value, 0);
-    return Math.round(sum / cycleLengthTrend.length);
-  }, [cycleLengthTrend, cyclePrefs.cycleDuration]);
+  const cycleLengthTrend = useMemo(
+    () => periodCycleLengths.slice(-TREND_DISPLAY_CAP),
+    [periodCycleLengths],
+  );
 
-  const shortestCycle = cycleLengthTrend.length > 0
-    ? Math.min(...cycleLengthTrend.map(item => item.value))
+  // "Durée moyenne" is only ever an average the user's own recorded cycles
+  // produced. With no measured cycle in the selected period the tile falls
+  // back to cycleMath.describeAverageCycle's precedent wording ("Durée
+  // habituelle" + "Renseignée par toi" for the configured length, "Non
+  // renseignée" until cycle data is confirmed) instead of presenting the
+  // declared cycleDuration as a calculated average.
+  const averageCycleTile = useMemo(() => {
+    if (periodCycleLengths.length > 0) {
+      const sum = periodCycleLengths.reduce((total, item) => total + item.value, 0);
+      return {
+        label: 'Durée moyenne du cycle',
+        value: `${Math.round(sum / periodCycleLengths.length)} j`,
+        caption: 'Basée sur tes cycles enregistrés',
+      };
+    }
+    const described = describeAverageCycle(predictionStatus, cyclePrefs, hasConfirmedCycleData);
+    return {label: described.label, value: described.value, caption: described.subtitle};
+  }, [periodCycleLengths, predictionStatus, cyclePrefs, hasConfirmedCycleData]);
+
+  const shortestCycle = periodCycleLengths.length > 0
+    ? Math.min(...periodCycleLengths.map(item => item.value))
     : null;
-  const longestCycle = cycleLengthTrend.length > 0
-    ? Math.max(...cycleLengthTrend.map(item => item.value))
+  const longestCycle = periodCycleLengths.length > 0
+    ? Math.max(...periodCycleLengths.map(item => item.value))
     : null;
 
   /* ==========================================================
@@ -929,7 +1002,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
         >
           {tab === 'summary' ? (
             <SummaryTab
-              averageCycleLength={averageCycleLength}
+              averageCycleTile={averageCycleTile}
               currentCycleDay={currentCycleDay}
               fertileRange={`${formatShortDate(fertileStartDate)} – ${formatShortDate(fertileEndDate)}`}
               hasConfirmedCycleData={hasConfirmedCycleData}
@@ -946,11 +1019,13 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
             <TemperatureTab
               average={averageTemperature}
               count={temperatureEntries.length}
-              latest={latestTemperature?.temperature.value ?? null}
+              hasConvertedReadings={temperatureStats.hasConvertedReadings}
+              latest={latestTemperature?.value ?? null}
               latestDate={latestTemperature?.date}
               max={maxTemperature}
               min={minTemperature}
               trend={temperatureTrendScaled}
+              unit={temperatureUnit}
             />
           ) : null}
 
@@ -974,8 +1049,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
 
           {tab === 'cycle' ? (
             <CycleTab
-              averageLength={averageCycleLength}
-              hasConfirmedCycleData={hasConfirmedCycleData}
+              averageTile={averageCycleTile}
               intercourseThisCycle={intercourseThisCycle}
               longest={longestCycle}
               shortest={shortestCycle}
@@ -998,7 +1072,7 @@ function SummaryTab({
   currentCycleDay,
   fertileRange,
   ovulationDate,
-  averageCycleLength,
+  averageCycleTile,
   temperatureCount,
   positiveLhCount,
   intercourseThisCycle,
@@ -1009,7 +1083,7 @@ function SummaryTab({
   currentCycleDay: number;
   fertileRange: string;
   ovulationDate: string;
-  averageCycleLength: number;
+  averageCycleTile: AverageCycleTile;
   temperatureCount: number;
   positiveLhCount: number;
   intercourseThisCycle: number;
@@ -1037,7 +1111,7 @@ function SummaryTab({
               <KpiCard accent="purple" icon="calendar-blank-outline" label="Jour du cycle" value={`Jour ${currentCycleDay}`} />
               <KpiCard accent="green" icon="leaf" label="Fenêtre fertile" value={fertileRange} />
               <KpiCard accent="blue" icon="egg-outline" label="Ovulation estimée" value={ovulationDate} />
-              <KpiCard accent="purple" icon="calendar-month-outline" label="Durée moyenne du cycle" value={`${averageCycleLength} j`} />
+              <KpiCard accent="purple" caption={averageCycleTile.caption} icon="calendar-month-outline" label={averageCycleTile.label} value={averageCycleTile.value} />
               <KpiCard accent="pink" icon="thermometer" label="Températures enregistrées" value={String(temperatureCount)} />
               <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
             </View>
@@ -1160,6 +1234,8 @@ function TemperatureTab({
   max,
   trend,
   count,
+  unit,
+  hasConvertedReadings,
 }: {
   latest: number | null;
   latestDate: string | undefined;
@@ -1167,6 +1243,9 @@ function TemperatureTab({
   min: number | null;
   max: number | null;
   trend: Array<{ date: string; display: string; scaled: number }>;
+  /** The single display unit (see buildTemperatureStats). */
+  unit: TemperatureUnit;
+  hasConvertedReadings: boolean;
   // True total of recorded measurements within the selected period — NOT
   // `trend.length`, which the chart above caps at TREND_DISPLAY_CAP purely
   // for readability (same convention as the Summary tab's own
@@ -1193,10 +1272,10 @@ function TemperatureTab({
     <>
       <AnimatedSection>
         <View style={styles.kpiGrid}>
-          <KpiCard accent="pink" icon="thermometer" label="Dernière température" value={latest !== null ? `${latest.toFixed(1)}°` : '—'} />
+          <KpiCard accent="pink" icon="thermometer" label="Dernière température" value={latest !== null ? formatTemperature(latest, unit) : '—'} />
           <KpiCard accent="purple" icon="calendar-check-outline" label="Relevés enregistrés" value={String(count)} />
-          <KpiCard accent="blue" icon="chart-line" label="Moyenne" value={average !== null ? `${average.toFixed(1)}°` : '—'} />
-          <KpiCard accent="green" icon="arrow-collapse-vertical" label="Min / Max" value={min !== null && max !== null ? `${min.toFixed(1)}° / ${max.toFixed(1)}°` : '—'} />
+          <KpiCard accent="blue" icon="chart-line" label="Moyenne" value={average !== null ? formatTemperature(average, unit) : '—'} />
+          <KpiCard accent="green" icon="arrow-collapse-vertical" label="Min / Max" value={min !== null && max !== null ? `${formatTemperature(min, unit)} / ${formatTemperature(max, unit)}` : '—'} />
         </View>
       </AnimatedSection>
 
@@ -1230,7 +1309,10 @@ function TemperatureTab({
           <Text style={styles.softInfoText}>
             L’échelle du graphique est ajustée à tes propres relevés pour
             mieux voir les variations — les valeurs exactes restent
-            affichées au-dessus.
+            affichées au-dessus, en °{unit}.
+            {hasConvertedReadings
+              ? ` Les relevés saisis dans l’autre unité sont convertis pour l’affichage (tes données ne sont pas modifiées).`
+              : ''}
           </Text>
         </View>
       </AnimatedSection>
@@ -1460,18 +1542,16 @@ function FertilityTab({
 
 function CycleTab({
   trend,
-  averageLength,
+  averageTile,
   shortest,
   longest,
   intercourseThisCycle,
-  hasConfirmedCycleData,
 }: {
   trend: Array<{ date: string; value: number }>;
-  averageLength: number;
+  averageTile: AverageCycleTile;
   shortest: number | null;
   longest: number | null;
   intercourseThisCycle: number;
-  hasConfirmedCycleData: boolean;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -1481,11 +1561,11 @@ function CycleTab({
     <>
       <AnimatedSection>
         <View style={styles.kpiGrid}>
-          {/* Without real history (trend.length === 0, always true until
-              cycle data is confirmed), averageLength silently falls back to
-              the internal cyclePreferences default — show "—" instead of
-              presenting that constant as a personalized average. */}
-          <KpiCard accent="purple" icon="calendar-month-outline" label="Durée moyenne" value={hasConfirmedCycleData ? `${averageLength} j` : '—'} />
+          {/* "Durée moyenne" only for cycles actually measured from the
+              user's recorded periods; a configured length is worded as such
+              and an unconfirmed placeholder is never shown as data (see
+              averageCycleTile in ConceiveStatisticsScreen). */}
+          <KpiCard accent="purple" caption={averageTile.caption} icon="calendar-month-outline" label={averageTile.label} value={averageTile.value} />
           <KpiCard accent="blue" icon="arrow-collapse-vertical" label="Plus court / plus long" value={shortest !== null && longest !== null ? `${shortest} / ${longest} j` : '—'} />
           <KpiCard accent="pink" icon="heart-outline" label="Rapports ce cycle" value={String(intercourseThisCycle)} />
         </View>
@@ -1829,6 +1909,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   kpiDot: { width: 6, height: 6, borderRadius: 3, opacity: 0.5 },
   kpiValue: { marginTop: 11, color: theme.colors.accent, fontSize: 20, fontWeight: '800' },
   kpiLabel: { marginTop: 3, color: theme.colors.textSecondary, fontSize: 9.7, lineHeight: 13 },
+  kpiCaption: { marginTop: 1, color: theme.colors.textMuted, fontSize: 9, lineHeight: 12 },
 
   chart: { height: 155, marginTop: 16, flexDirection: 'row', alignItems: 'flex-end', gap: 5 },
   barColumn: { flex: 1, minWidth: 0, height: '100%', alignItems: 'center' },

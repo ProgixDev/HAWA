@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react';
 import {
   Modal,
   Pressable,
@@ -28,6 +28,7 @@ import {
   formatHijriDate,
   formatHijriDay,
   formatHijriMonthYear,
+  computeCyclePredictionStatus,
   cycleDayFor,
   phaseFor,
   sameDay,
@@ -35,12 +36,17 @@ import {
   WEEK_DAYS,
 } from '../../utils/cycleMath';
 import {
+  getCycleObservationStartedAt,
   getCyclePreferences,
   getHasConfirmedCycleData,
+  getRecordedPeriodHistory,
   getSpiritualMarkersEnabled,
   hydrateCyclePreferences,
+  isDateWithinConfirmedPeriod,
   subscribeCyclePreferences,
 } from '../../state/onboardingPreferences';
+import PeriodStartBottomSheet from '../calendar/PeriodStartBottomSheet';
+import {resolveConceptionCycleBasics} from '../../utils/conceptionStatisticsMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import { getAllJournalEntries } from '../../state/dailyJournalStore';
 import { withResolvedIntimacyForDisplayMany } from '../../services/privateJournalEncryption';
@@ -48,6 +54,8 @@ import type { DailyJournalEntry } from '../../types/journal';
 import { TOP_SPACING_EXTRA, getFloatingTabBarClearance } from '../../theme/spacing';
 import type { CyclePhase } from '../home/CycleStatusCard';
 import { usePremium } from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
 import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 
@@ -104,6 +112,17 @@ const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
 type PhaseCategory = 'menstruation' | 'fertile' | 'ovulation';
 type JournalCategory = 'temperature' | 'cervicalMucus' | 'lhTest' | 'intimacy';
+
+// M21 - selected-day rows that can open their journal for THAT day (today or a
+// past day; the journal screens take an optional `date` param). 'Rapports'
+// (intimacy) is deliberately absent: its private PIN/biometric gate
+// (PrivateIntimacyUnlock -> destination) does not carry a date, so opening it
+// from a past day would silently land on today's entry; it stays today-only.
+const DAY_ENTRY_ROUTES: Partial<Record<JournalCategory, 'TemperatureEntry' | 'CervicalMucusEntry' | 'LHTestEntry'>> = {
+  temperature: 'TemperatureEntry',
+  cervicalMucus: 'CervicalMucusEntry',
+  lhTest: 'LHTestEntry',
+};
 type ConceiveCategory = PhaseCategory | JournalCategory;
 
 const CATEGORY_META: Record<
@@ -223,13 +242,16 @@ function ConceiveCalendarContent(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { open: openJournal } = useJournalSheet();
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today} = useToday();
 
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
   const { isPremium } = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
+  const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
 
   // "Historique illimité" — going backward is the only direction that can
   // leave the FREE history window; forward navigation is never restricted.
@@ -250,6 +272,18 @@ function ConceiveCalendarContent(): React.JSX.Element {
     setVisibleMonth(current => new Date(current.getFullYear(), current.getMonth() + 1, 1));
   }, []);
   const [selectedDate, setSelectedDate] = useState(today);
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
   const [displayMode, setDisplayMode] = useState<CalendarPreference>('double');
   const [sheet, setSheet] = useState<'filters' | 'legend' | null>(null);
   const [visibleFilters, setVisibleFilters] = useState<Set<ConceiveCategory>>(
@@ -322,9 +356,25 @@ function ConceiveCalendarContent(): React.JSX.Element {
     }, []),
   );
 
+  // M18: painted fertile/ovulation days use the SAME effective cycle length
+  // as the Dashboard, Statistics and reminders (observed average in 'exact'
+  // mode, declared otherwise) - see resolveConceptionCycleBasics(). Period
+  // history/observation anchor are re-read whenever cyclePrefs changes (every
+  // store notification replaces it) and when the day rolls over.
+  const conceptionBasics = useMemo(() => {
+    const status = computeCyclePredictionStatus(
+      cyclePrefs,
+      cyclePrefs.regularity,
+      getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`)),
+      getCycleObservationStartedAt(),
+      startOfDay(today),
+    );
+    return resolveConceptionCycleBasics(cyclePrefs, status);
+  }, [cyclePrefs, today]);
+
   const phaseForDate = useCallback(
-    (date: Date): CyclePhase => phaseFor(date, cyclePrefs),
-    [cyclePrefs],
+    (date: Date): CyclePhase => phaseFor(date, conceptionBasics),
+    [conceptionBasics],
   );
 
   const days = useMemo(() => {
@@ -358,7 +408,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
   const selectedEntry = entriesByDate[selectedKey];
   const isTodaySelected = sameDay(selectedDate, today);
   const selectedPhase = phaseForDate(selectedDate);
-  const selectedCycleDay = cycleDayFor(selectedDate, cyclePrefs);
+  const selectedCycleDay = cycleDayFor(selectedDate, conceptionBasics);
 
   const toggleFilter = (key: ConceiveCategory) => {
     setVisibleFilters(current => {
@@ -832,23 +882,50 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 gated only by their filter. */}
             {detailRows.length > 0 ? (
               <View style={styles.dailyInfoGrid}>
-                {detailRows.map(item => (
-                  <View key={item.key} style={styles.dailyInfoItem}>
-                    <View style={styles.dailyInfoIcon}>
-                      <MaterialDesignIcons
-                        color={theme.colors.primary}
-                        name={item.icon}
-                        size={19}
-                      />
+                {detailRows.map(item => {
+                  const entryRoute = DAY_ENTRY_ROUTES[item.key];
+                  const canEditDay = entryRoute !== undefined && startOfDay(selectedDate).getTime() <= startOfDay(today).getTime();
+                  const content = (
+                    <>
+                      <View style={styles.dailyInfoIcon}>
+                        <MaterialDesignIcons
+                          color={theme.colors.primary}
+                          name={item.icon}
+                          size={19}
+                        />
+                      </View>
+                      <View style={styles.flexCopy}>
+                        <Text style={styles.dailyInfoLabel}>{item.label}</Text>
+                        <Text numberOfLines={2} style={styles.dailyInfoValue}>
+                          {item.value}
+                        </Text>
+                      </View>
+                      {canEditDay ? (
+                        <MaterialDesignIcons
+                          color={theme.colors.primary}
+                          name="chevron-right"
+                          size={20}
+                        />
+                      ) : null}
+                    </>
+                  );
+                  return canEditDay ? (
+                    <Pressable
+                      accessibilityHint="Ouvre le journal de ce jour"
+                      accessibilityLabel={`${item.label}, ${item.value}`}
+                      accessibilityRole="button"
+                      key={item.key}
+                      onPress={() => navigation.navigate(entryRoute, { date: selectedKey })}
+                      style={({ pressed }) => [styles.dailyInfoItem, pressed && styles.pressed]}
+                    >
+                      {content}
+                    </Pressable>
+                  ) : (
+                    <View key={item.key} style={styles.dailyInfoItem}>
+                      {content}
                     </View>
-                    <View style={styles.flexCopy}>
-                      <Text style={styles.dailyInfoLabel}>{item.label}</Text>
-                      <Text numberOfLines={2} style={styles.dailyInfoValue}>
-                        {item.value}
-                      </Text>
-                    </View>
-                  </View>
-                ))}
+                  );
+                })}
               </View>
             ) : (
               <View style={styles.emptyBox}>
@@ -863,6 +940,22 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 </Text>
               </View>
             )}
+
+            {/* Record / correct a period for the selected day — same shared
+                PeriodStartBottomSheet + confirmPeriodStart() as Cycle's
+                Calendar. Not offered for a future day, nor for a day already
+                inside a real confirmed period. */}
+            {startOfDay(selectedDate).getTime() <= startOfDay(today).getTime() && !isDateWithinConfirmedPeriod(selectedDate) ? (
+              <Pressable
+                accessibilityLabel="Mes règles ont commencé ce jour"
+                accessibilityRole="button"
+                onPress={() => setPeriodStartSheetVisible(true)}
+                style={({ pressed }) => [styles.periodStartButton, pressed && styles.pressed]}
+              >
+                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
+                <Text style={styles.periodStartButtonText}>Mes règles ont commencé</Text>
+              </Pressable>
+            ) : null}
 
             {isTodaySelected ? (
               <Pressable
@@ -890,6 +983,13 @@ function ConceiveCalendarContent(): React.JSX.Element {
           showSpiritualMarkers={spiritualMarkersEnabled}
           today={today}
           visibleFilters={visibleFilters}
+        />
+
+        <PeriodStartBottomSheet
+          initialDate={selectedDate}
+          onClose={() => setPeriodStartSheetVisible(false)}
+          onConfirmed={() => {}}
+          visible={periodStartSheetVisible}
         />
 
         <HawaPremiumBottomSheet onClose={() => setPremiumVisible(false)} visible={premiumVisible} />
@@ -1495,6 +1595,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.primary,
   },
   addButtonText: { color: onPrimaryTextColor(theme), fontSize: 12.5, fontWeight: '800' },
+  // SEMANTIC (period-pink family, same as Cycle's CTA) — never theme-driven.
+  periodStartButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
+    marginTop: 12,
+    minHeight: 42,
+    paddingHorizontal: 16,
+    borderRadius: 15,
+    borderWidth: 1.2,
+    borderColor: 'rgba(220,123,130,0.35)',
+    backgroundColor: '#FCEEEF',
+  },
+  periodStartButtonText: { color: PERIOD, fontSize: 12.5, fontWeight: '800' },
 
   /* MODAL */
   modalRoot: { flex: 1, justifyContent: 'flex-end' },

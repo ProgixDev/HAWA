@@ -1,4 +1,5 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -22,6 +24,8 @@ import {
   getConceptionPreferences,
   hydrateConceptionPreferences,
   setConceptionPreferences,
+  subscribeConceptionPreferences,
+  type ConceptionPreferences,
   type ConceptionReminderKey,
   type ConceptionTryingDuration,
   type FertilityIndicator,
@@ -220,11 +224,48 @@ const reminderOptions: Array<{
 ];
 
 /* ============================================================
+ * CURRENT PREFERENCES (never a mount-time / boot-time snapshot)
+ * ============================================================ */
+
+/** The live conception preferences, re-read every time the screen gains focus
+ * and whenever the store changes. Each screen keeps only its OWN unsaved edits
+ * on top of this base (see `draft` state below) and saves only the field(s) it
+ * owns — so opening editor B after editing A in the same session can never
+ * write A's older value back. */
+function useCurrentConceptionPreferences(): ConceptionPreferences {
+  const [current, setCurrent] = useState<ConceptionPreferences>(getConceptionPreferences);
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      setCurrent(getConceptionPreferences());
+      hydrateConceptionPreferences().then(value => {
+        if (active) {
+          setCurrent(value);
+        }
+      });
+      const unsubscribe = subscribeConceptionPreferences(() => {
+        if (active) {
+          setCurrent(getConceptionPreferences());
+        }
+      });
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }, []),
+  );
+
+  return current;
+}
+
+/* ============================================================
  * SHARED ONBOARDING SHELL
  * ============================================================ */
 
 function Shell({
   navigation,
+  route,
   step,
   title,
   subtitle,
@@ -244,6 +285,7 @@ function Shell({
   styles: ReturnType<typeof createStyles>;
 }) {
   const insets = useSafeAreaInsets();
+  const isEdit = route.params?.mode === 'edit';
 
   const body = (
     <>
@@ -297,7 +339,7 @@ function Shell({
               pressed && !nextDisabled && styles.primaryPressed,
             ]}>
             <Text style={styles.primaryText}>
-              {step === 4 ? 'Continuer' : 'Suivant'}
+              {isEdit ? 'Enregistrer' : step === 4 ? 'Continuer' : 'Suivant'}
             </Text>
 
             <MaterialDesignIcons
@@ -339,16 +381,11 @@ export function ConceptionTryingDurationScreen({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const [selected, setSelected] =
-    useState<ConceptionTryingDuration | null>(
-      () => getConceptionPreferences().tryingDuration,
-    );
-
-  useEffect(() => {
-    hydrateConceptionPreferences().then(value => {
-      setSelected(value.tryingDuration);
-    });
-  }, []);
+  const current = useCurrentConceptionPreferences();
+  // `undefined` = untouched: the CURRENT stored value is shown until she picks.
+  const [draft, setDraft] = useState<ConceptionTryingDuration | undefined>(undefined);
+  const selected = draft !== undefined ? draft : current.tryingDuration;
+  const setSelected = setDraft;
 
   return (
     <Shell
@@ -412,18 +449,10 @@ export function ConceptionOvulationAwarenessScreen({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const [selected, setSelected] =
-    useState<OvulationAwareness | null>(
-      () =>
-        getConceptionPreferences()
-          .ovulationAwareness,
-    );
-
-  useEffect(() => {
-    hydrateConceptionPreferences().then(value => {
-      setSelected(value.ovulationAwareness);
-    });
-  }, []);
+  const current = useCurrentConceptionPreferences();
+  const [draft, setDraft] = useState<OvulationAwareness | undefined>(undefined);
+  const selected = draft !== undefined ? draft : current.ovulationAwareness;
+  const setSelected = setDraft;
 
   return (
     <Shell
@@ -488,28 +517,23 @@ export function ConceptionIndicatorsScreen({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const [selected, setSelected] = useState<
-    Set<FertilityIndicator>
-  >(
-    () =>
-      new Set(
-        getConceptionPreferences().indicators,
-      ),
+  const current = useCurrentConceptionPreferences();
+  // null = untouched: the CURRENT stored indicators are shown until she edits.
+  const [draft, setSelected] = useState<
+    Set<FertilityIndicator> | null
+  >(null);
+  const selected = useMemo(
+    () => draft ?? new Set(current.indicators),
+    [draft, current.indicators],
   );
 
   const all = indicatorOptions.every(item =>
     selected.has(item.id),
   );
 
-  useEffect(() => {
-    hydrateConceptionPreferences().then(value => {
-      setSelected(new Set(value.indicators));
-    });
-  }, []);
-
   const toggle = (id: FertilityIndicator) => {
-    setSelected(current => {
-      const next = new Set(current);
+    setSelected(() => {
+      const next = new Set(selected);
 
       if (next.has(id)) {
         next.delete(id);
@@ -615,23 +639,22 @@ export function ConceptionRemindersScreen({
   const isEdit = mode === 'edit';
   const insets = useSafeAreaInsets();
 
-  const [values, setValues] = useState(
-    () => getConceptionPreferences().reminders,
+  const current = useCurrentConceptionPreferences();
+  // Only the toggles she actually flips are kept here; every other reminder
+  // shows (and is saved as) the CURRENT stored value, never a mount snapshot.
+  const [edits, setEdits] = useState<Partial<Record<ConceptionReminderKey, boolean>>>({});
+  const values = useMemo(
+    () => ({...current.reminders, ...edits}),
+    [current.reminders, edits],
   );
   const [saving, setSaving] = useState(false);
-
-  useEffect(() => {
-    hydrateConceptionPreferences().then(value => {
-      setValues(value.reminders);
-    });
-  }, []);
 
   const toggleReminder = (
     id: ConceptionReminderKey,
     value: boolean,
   ) => {
-    setValues(current => ({
-      ...current,
+    setEdits(previous => ({
+      ...previous,
       [id]: value,
     }));
   };
@@ -645,14 +668,15 @@ export function ConceptionRemindersScreen({
     if (saving) {return;}
     setSaving(true);
     try {
+      // Rebuilt from the store's value AT SAVE TIME + her own edits.
       await setConceptionPreferences({
-        reminders: values,
+        reminders: {...getConceptionPreferences().reminders, ...edits},
       });
 
       if (isEdit) {
         navigation.goBack();
       } else {
-        navigation.navigate('SecuritySetup');
+        continueAfterObjectiveSetup(navigation);
       }
     } finally {
       setSaving(false);

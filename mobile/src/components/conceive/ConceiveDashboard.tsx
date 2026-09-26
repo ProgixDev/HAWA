@@ -23,18 +23,22 @@ import HomeHeader from '../home/HomeHeader';
 import QuickActionsGrid, {type QuickActionItem} from '../home/QuickActionsGrid';
 import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import DailyJournalCard, {type Shortcut} from '../home/DailyJournalCard';
+import PeriodStartBottomSheet from '../calendar/PeriodStartBottomSheet';
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../../hooks/useQadaaStatus';
+import {useToday} from '../../hooks/useToday';
 import {
   getCyclePreferences,
   getCycleObservationStartedAt,
   getHasConfirmedCycleData,
   getPeriodHistory,
+  getRecordedPeriodHistory,
   hydrateCyclePreferences,
+  isDateWithinConfirmedPeriod,
   subscribeCyclePreferences,
   getFirstName,
   getSpiritualMarkersEnabled,
@@ -43,21 +47,21 @@ import {getJournalEntry} from '../../state/dailyJournalStore';
 import {withResolvedIntimacyForDisplay} from '../../services/privateJournalEncryption';
 import type {DailyJournalEntry} from '../../types/journal';
 import {loadPersonalInformation} from '../../state/personalInformationStore';
-import {CONCEPTION_JOURNAL_ITEMS} from '../../config/conceptionJournalConfig';
+import {resolveConceptionCurrentPhase, resolveConceptionCycleBasics} from '../../utils/conceptionStatisticsMath';
+import {getConceptionJournalItems} from '../../config/conceptionJournalConfig';
+import {getConceptionPreferences, hydrateConceptionPreferences, subscribeConceptionPreferences} from '../../state/conceptionPreferences';
 import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {LIBRARY_ARTICLES, type LibraryArticle} from '../../data/libraryContent';
 import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../../theme/spacing';
 import {
   computeCyclePredictionStatus,
-  cycleDayFor,
+  currentPeriodLength,
   diffDays,
   formatDateRange,
   formatHijriDate,
   formatShortDate,
   ovulationDayFor,
-  phaseFor,
-  startOfDay,
 } from '../../utils/cycleMath';
 
 // "Essayer de concevoir" Dashboard, redesigned to match an approved visual
@@ -116,16 +120,18 @@ const ADVICE_BY_PHASE: Record<CyclePhase, string> = {
 
 // "Suivi du jour" — same DailyJournalCard component/design CycleHomeScreen
 // uses (progress bar, completed/total counter, checkmark-when-done icon
-// grid), fed from CONCEPTION_JOURNAL_ITEMS — the SAME config the TTC
-// "Journal quotidien" sheet uses (see MainTabNavigator's JournalSheetHost),
-// so the two entry points can never drift onto different category sets.
-const CONCEIVE_SHORTCUTS: Shortcut[] = CONCEPTION_JOURNAL_ITEMS.map(item => ({
-  section: item.section,
-  route: item.route,
-  icon: item.icon,
-  label: item.label,
-  subtitle: item.subtitle,
-}));
+// grid), fed from getConceptionJournalItems() — the SAME filtered config the
+// TTC "Journal quotidien" sheet uses (see MainTabNavigator's
+// JournalSheetHost), so the two entry points can never drift onto different
+// category sets. Filtered by the followed "Indicateurs suivis" (M17).
+const toShortcuts = (items: ReturnType<typeof getConceptionJournalItems>): Shortcut[] =>
+  items.map(item => ({
+    section: item.section,
+    route: item.route,
+    icon: item.icon,
+    label: item.label,
+    subtitle: item.subtitle,
+  }));
 
 const RING_SIZE = 128;
 const RING_STROKE = 12;
@@ -345,7 +351,22 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const [initial, setCyclePreferencesState] = useState(getCyclePreferences);
   const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
+  // M17: followed fertility indicators (live — edits in "Indicateurs suivis"
+  // reflect here without remounting). Empty selection shows every item.
+  const [followedIndicators, setFollowedIndicators] = useState(() => getConceptionPreferences().indicators);
+  useEffect(() => {
+    let mounted = true;
+    hydrateConceptionPreferences().then(value => {
+      if (mounted) {setFollowedIndicators(value.indicators);}
+    });
+    const unsubscribe = subscribeConceptionPreferences(() => {
+      if (mounted) {setFollowedIndicators(getConceptionPreferences().indicators);}
+    });
+    return () => {mounted = false; unsubscribe();};
+  }, []);
+  const conceiveShortcuts = useMemo(() => toShortcuts(getConceptionJournalItems(followedIndicators)), [followedIndicators]);
   const {open: openJournal} = useJournalSheet();
+  const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
 
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -365,7 +386,9 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
   const entrance = useRef(new Animated.Value(0)).current;
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const prayer = usePrayerPurityStatus(spiritualMarkersEnabled);
   const qadaa = useQadaaStatus();
@@ -402,7 +425,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
       loadPersonalInformation().then(() => {
         if (mounted) {setProfileRevision(current => current + 1);}
       });
-      getJournalEntry(new Date().toLocaleDateString('en-CA'))
+      getJournalEntry(todayKey)
         .then(withResolvedIntimacyForDisplay)
         .then(entry => {
           if (mounted) {setJournalEntry(entry);}
@@ -414,7 +437,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
       // syncs already wired in App.tsx.
       syncConceptionReminders();
       return () => {mounted = false;};
-    }, []),
+    }, [todayKey]),
   );
 
   useFocusEffect(
@@ -423,24 +446,19 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
     }, []),
   );
 
-  const ovulationDay = ovulationDayFor(initial.cycleDuration);
-
   const periodStartDates = getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
   const predictionStatus = computeCyclePredictionStatus(initial, initial.regularity, periodStartDates, getCycleObservationStartedAt(), today);
+  // M18: the fertile window/timeline uses the SAME effective cycle length as
+  // the hero phase below, Calendar, Statistics and the reminders.
+  const conceptionBasics = resolveConceptionCycleBasics(initial, predictionStatus);
+  const ovulationDay = ovulationDayFor(conceptionBasics.cycleDuration);
 
-  const rawCycleDay = diffDays(today, initial.lastPeriodStart) + 1;
-  const isReliablyMenstruating = rawCycleDay <= initial.periodDuration;
-  const currentCycleDay = predictionStatus.mode === 'exact'
-    ? cycleDayFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength})
-    : rawCycleDay;
-  const currentPhase: CyclePhase = (() => {
-    if (predictionStatus.mode === 'exact') {
-      return phaseFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength});
-    }
-    if (isReliablyMenstruating) {return 'menstruation';}
-    const wrappedPhase = phaseFor(today, initial);
-    return wrappedPhase === 'menstruation' ? 'follicular' : wrappedPhase;
-  })();
+  // Same rule as the Cycle Dashboard: the CURRENT period's real length (edited
+  // range / confirmed end) wins over the habitual periodDuration, which stays
+  // only as the fallback when no recorded range exists for it.
+  const phaseBasics = {...initial, periodDuration: currentPeriodLength(initial, getRecordedPeriodHistory())};
+  // Shared with the "Évolution du cycle" screen (M19) so both always agree.
+  const {cycleDay: currentCycleDay, phase: currentPhase} = resolveConceptionCurrentPhase(initial, predictionStatus, getRecordedPeriodHistory(), today);
 
   const nextPeriodTile = (() => {
     if (predictionStatus.mode === 'exact') {
@@ -467,8 +485,8 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   // Proportional timeline segments (real day counts, not stylized equal
   // widths) — menstruation / an unlabeled follicular gap / fertile
   // (ovulation day falls inside it) / luteal.
-  const cycleLength = Math.max(initial.cycleDuration, fertileEndDay + 1);
-  const follicularGapDays = Math.max(0, fertileStartDay - initial.periodDuration - 1);
+  const cycleLength = Math.max(conceptionBasics.cycleDuration, fertileEndDay + 1);
+  const follicularGapDays = Math.max(0, fertileStartDay - phaseBasics.periodDuration - 1);
   const lutealDays = Math.max(1, cycleLength - fertileEndDay);
   const ringProgress = currentCycleDay / Math.max(cycleLength, 1);
   const puckLeft: `${number}%` = `${Math.min(96, Math.max(2, ringProgress * 100))}%`;
@@ -482,7 +500,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   //
   // Deliberately NOT included here: Température basale/Glaire cervicale/
   // Test LH/Rapports. Those four keep working exactly as before — they live
-  // in "Suivi du jour" (CONCEIVE_SHORTCUTS below) and are reachable via
+  // in "Suivi du jour" (below) and are reachable via
   // "Journal quotidien" here, same as every other objective's full tracking
   // set is reached through its own journal entry point rather than
   // duplicated as separate quick-action cards. "Évolution du cycle" is
@@ -578,7 +596,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
                 <View style={styles.timelineWrap}>
                   <View style={styles.timelineTrack}>
-                    <View style={[styles.timelineSegment, {flex: initial.periodDuration, backgroundColor: PERIOD}]} />
+                    <View style={[styles.timelineSegment, {flex: phaseBasics.periodDuration, backgroundColor: PERIOD}]} />
                     {follicularGapDays > 0 ? (
                       <View style={[styles.timelineSegment, {flex: follicularGapDays, backgroundColor: TRACK_COLOR}]} />
                     ) : null}
@@ -591,7 +609,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: PERIOD}]} />
                       <Text style={styles.timelineLegendLabel}>Règles</Text>
-                      <Text style={styles.timelineLegendValue}>J1-{initial.periodDuration}</Text>
+                      <Text style={styles.timelineLegendValue}>J1-{phaseBasics.periodDuration}</Text>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: FERTILE_COLOR}]} />
@@ -655,6 +673,23 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             )}
           </View>
 
+          {/* Record / correct a period from the Conceive objective — the SAME
+              PeriodStartBottomSheet + confirmPeriodStart() path Cycle uses (one
+              shared period history, no Conceive-specific copy). Only offered
+              when today is not already inside a real confirmed period. */}
+          {!isDateWithinConfirmedPeriod(today) ? (
+            <View style={styles.periodStartCtaWrap}>
+              <Pressable
+                accessibilityLabel="Mes règles ont commencé"
+                accessibilityRole="button"
+                onPress={() => setPeriodStartSheetVisible(true)}
+                style={({pressed}) => [styles.periodStartCta, pressed && styles.pressed]}>
+                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
+                <Text style={styles.periodStartCtaText}>Mes règles ont commencé</Text>
+              </Pressable>
+            </View>
+          ) : null}
+
           <QuickActionsGrid items={quickActionItems} />
 
           {/* "Évolution du cycle" is calculated/read-only (cycle day, phase,
@@ -683,7 +718,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
           <DailyJournalCard
             entry={journalEntry}
             onNavigate={route => navigation.navigate(route)}
-            shortcuts={CONCEIVE_SHORTCUTS}
+            shortcuts={conceiveShortcuts}
             title="Suivi du jour"
           />
 
@@ -697,7 +732,9 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                 <Text style={styles.adviceSubtitle}>{heroStatus.title}</Text>
                 <Text style={styles.adviceText}>{advice}</Text>
               </View>
-              <MaterialDesignIcons color={PURPLE} name="chevron-right" size={20} />
+              {/* No chevron: this card is informational (one static sentence per
+                  cycle phase) and has no destination — nothing that looks
+                  tappable may do nothing. */}
             </View>
           ) : null}
 
@@ -745,6 +782,13 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
           </View>
         </ScrollView>
       </SafeAreaView>
+
+      <PeriodStartBottomSheet
+        initialDate={today}
+        onClose={() => setPeriodStartSheetVisible(false)}
+        onConfirmed={() => {}}
+        visible={periodStartSheetVisible}
+      />
     </LinearGradient>
   );
 }
@@ -1059,6 +1103,22 @@ function createStyles(theme: ResolvedAwaTheme) {
     paddingHorizontal: 20,
   },
   insufficientDataCtaText: {color: onPrimaryTextColor(theme), fontSize: 13, fontWeight: '700'},
+
+  periodStartCtaWrap: {marginTop: 10, alignItems: 'center'},
+  // SEMANTIC (period-pink family, same as Cycle's CTA) — never theme-driven.
+  periodStartCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    minHeight: 40,
+    borderWidth: 1.2,
+    borderColor: 'rgba(220,123,130,0.35)',
+    borderRadius: 20,
+    backgroundColor: '#FCEEEF',
+    paddingHorizontal: 16,
+    paddingVertical: 9,
+  },
+  periodStartCtaText: {color: PERIOD, fontSize: 12.5, fontWeight: '700'},
 
   evolutionCard: {
     flexDirection: 'row',
