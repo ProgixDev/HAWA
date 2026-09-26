@@ -86,8 +86,9 @@ let cycleHydrated = false;
 let cycleHydration: Promise<CyclePreferences> | null = null;
 let periodHistory: PeriodHistoryRecord[] = [];
 // Provenance flag: true only once the user has gone through a legitimate
-// cycle-confirmation flow (CycleInformationScreen, confirmPeriodStart(), or
-// updateCurrentPeriodRange() — the only 3 call sites that ever set it).
+// cycle-confirmation flow (CycleInformationScreen/setCyclePreferences(),
+// addPeriodOccurrence()/confirmPeriodStart(), or correctPeriodOccurrence()/
+// updateCurrentPeriodRange() — the only call sites that ever set it).
 // Never inferred by comparing lastPeriodStart/periodDuration/cycleDuration
 // against the fallback constants below, since a real user can legitimately
 // land on those exact values. Used by TTC (and only TTC today) to decide
@@ -119,6 +120,19 @@ const cycleSnapshot = () => ({
     : null,
   hasConfirmedCycleData,
 });
+
+// hydrateCyclePreferences() seeds `periodHistory` from the still-unconfirmed
+// FALLBACK cyclePreferences (today − 5 days, 5-day period) so that in-memory
+// consumers always have one record to read. That record is a placeholder, not
+// something the user recorded — it must never be kept as real history once
+// she confirms her first real period, or it would be persisted next to it and
+// keep feeding predictions, the month strip and "is today inside a period?".
+// A no-op once real cycle data has been confirmed.
+const discardUnconfirmedPeriodSeed = (): void => {
+  if (!hasConfirmedCycleData) {
+    periodHistory = [];
+  }
+};
 
 const notifyCycleListeners = () =>
   cycleListeners.forEach(listener => listener());
@@ -437,9 +451,89 @@ export const setFirstName = (value: string) => {
 
 export const getFirstName = () => firstName;
 
+/* ============================================================
+   PERIOD DATA MODEL (single source: this file + confirmedPeriodHistoryStore)
+
+   - cyclePreferences.periodDuration / cycleDuration / regularity are HABITUAL
+     settings. They change ONLY through their configuration flow
+     (setCyclePreferences() from CycleInformationScreen) — never as a side
+     effect of recording, correcting or ending an actual period.
+   - periodHistory is the list of RECORDED periods (one record per real
+     occurrence: {startDate, endDate}). endDate is the projected end
+     (start + periodDuration - 1) until the user edits the range or confirms
+     the actual end, after which it is the real end.
+   - cyclePreferences.lastPeriodStart is ALWAYS the latest real period start
+     (the max start of periodHistory once cycle data is confirmed).
+   - confirmedPeriodHistoryStore holds ACTUAL start/end pairs (qadaa source);
+     periodEndDateTime is the exact confirmed end of the CURRENT period
+     (purity / prayer). Each confirmed end is mirrored into the matching
+     periodHistory record (see the subscription at the bottom of this file).
+
+   Writers: addPeriodOccurrence (new period / historical backfill),
+   correctPeriodOccurrence (explicit correction of one occurrence),
+   setCyclePreferences (habitual settings + declared latest start).
+============================================================ */
+
+/** Two period starts closer than this cannot be two real periods — same lower
+ * bound the app already uses for a plausible cycle length. */
+const MIN_PLAUSIBLE_CYCLE_GAP_DAYS = 15;
+
+const keyToDate = (key: string): Date => {
+  const [year, month, day] = key.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+const keyPlusDays = (key: string, days: number): string => {
+  const base = keyToDate(key);
+  return cycleDateKey(new Date(base.getFullYear(), base.getMonth(), base.getDate() + days));
+};
+const keyDiffDays = (later: string, earlier: string): number =>
+  Math.round((keyToDate(later).getTime() - keyToDate(earlier).getTime()) / 86_400_000);
+const projectedEndKey = (startKey: string, duration: number): string =>
+  keyPlusDays(startKey, Math.max(1, duration) - 1);
+const sortHistory = (records: PeriodHistoryRecord[]): PeriodHistoryRecord[] =>
+  [...records].sort((a, b) => a.startDate.localeCompare(b.startDate));
+
+/** The recorded periods that are real (never the unconfirmed placeholder). */
+const realHistory = (): PeriodHistoryRecord[] => (hasConfirmedCycleData ? periodHistory : []);
+
+/** Latest real period start key, or null when nothing real is recorded yet.
+ * Considers both the history and lastPeriodStart so a legacy blob where the
+ * two disagree still resolves to the true latest start. */
+const latestRealStartKey = (): string | null => {
+  if (!hasConfirmedCycleData) {return null;}
+  return periodHistory.reduce(
+    (latest, record) => (record.startDate > latest ? record.startDate : latest),
+    cycleDateKey(cyclePreferences.lastPeriodStart),
+  );
+};
+
+/** True when this record's end is only the projection from the habitual
+ * duration (never edited, never confirmed) — so it may follow a change of
+ * that duration; a user-set / confirmed end must never be overwritten. */
+const hasProjectedEnd = (record: PeriodHistoryRecord, duration: number): boolean =>
+  record.endDate === projectedEndKey(record.startDate, duration) &&
+  !getConfirmedPeriodHistory().some(occurrence => occurrence.id === record.id);
+
+/** A confirmed periodEndDateTime that predates the (new) latest start belongs
+ * to an earlier period and would be wrongly paired with this one. */
+const clearStalePeriodEnd = (previousLastPeriodStart: Date): void => {
+  const currentPeriodEnd = getPeriodEndDateTime();
+  if (
+    currentPeriodEnd &&
+    cyclePreferences.lastPeriodStart.getTime() !== previousLastPeriodStart.getTime() &&
+    currentPeriodEnd.getTime() < cyclePreferences.lastPeriodStart.getTime()
+  ) {
+    setPeriodEndDateTime(null);
+  }
+};
+
 export const setCyclePreferences = (value: CyclePreferences) => {
   const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
+  const previousDuration = cyclePreferences.periodDuration;
   const previousRegularity = cyclePreferences.regularity;
+  const latestKey = latestRealStartKey();
+  const previousRecords = realHistory();
+  discardUnconfirmedPeriodSeed();
   cyclePreferences = {
     ...value,
     lastPeriodStart: new Date(value.lastPeriodStart),
@@ -457,21 +551,35 @@ export const setCyclePreferences = (value: CyclePreferences) => {
     cycleObservationStartedAt = new Date(cyclePreferences.lastPeriodStart);
   }
 
-  const start = new Date(cyclePreferences.lastPeriodStart);
-  const end = new Date(
-    start.getFullYear(),
-    start.getMonth(),
-    start.getDate() + cyclePreferences.periodDuration - 1,
-  );
-  const record = {
-    id: cycleDateKey(start),
-    startDate: cycleDateKey(start),
-    endDate: cycleDateKey(end),
-  };
-  periodHistory = [
-    ...periodHistory.filter(item => item.id !== record.id),
-    record,
-  ].sort((a, b) => a.startDate.localeCompare(b.startDate));
+  // The declared latest period start. NEW period vs CORRECTION of the latest
+  // one (M4): a start later than the latest by at least a plausible cycle gap
+  // is a new period; anything else (same start, an earlier one, or one just a
+  // few days later) restates the latest period and REPLACES it — the old start
+  // must not linger in the history next to the corrected one.
+  const declaredKey = cycleDateKey(cyclePreferences.lastPeriodStart);
+  const defaultEnd = projectedEndKey(declaredKey, cyclePreferences.periodDuration);
+  const newRecord: PeriodHistoryRecord = {id: declaredKey, startDate: declaredKey, endDate: defaultEnd};
+  const latestRecord = latestKey ? previousRecords.find(record => record.id === latestKey) : undefined;
+  const isNewPeriod =
+    latestKey === null || (declaredKey > latestKey && keyDiffDays(declaredKey, latestKey) >= MIN_PLAUSIBLE_CYCLE_GAP_DAYS);
+
+  if (isNewPeriod || !latestRecord) {
+    periodHistory = sortHistory([...previousRecords.filter(item => item.id !== declaredKey), newRecord]);
+  } else if (declaredKey === latestKey) {
+    // Same period: keep its (possibly user-set / confirmed) end. Only a
+    // still-projected end follows a change of the habitual duration.
+    const end = hasProjectedEnd(latestRecord, previousDuration) ? defaultEnd : latestRecord.endDate;
+    periodHistory = sortHistory([...previousRecords.filter(item => item.id !== latestKey), {...latestRecord, endDate: end}]);
+  } else {
+    const others = previousRecords.filter(item => item.id !== latestKey);
+    const end = hasProjectedEnd(latestRecord, previousDuration)
+      ? defaultEnd
+      : keyPlusDays(declaredKey, keyDiffDays(latestRecord.endDate, latestRecord.startDate));
+    const overlaps = others.some(item => declaredKey <= item.endDate && end >= item.startDate);
+    periodHistory = overlaps
+      ? sortHistory([...previousRecords.filter(item => item.id !== declaredKey), newRecord])
+      : sortHistory([...others, {id: declaredKey, startDate: declaredKey, endDate: end}]);
+  }
   notifyCycleListeners();
   persistCycle().catch(() => {});
 
@@ -482,29 +590,58 @@ export const setCyclePreferences = (value: CyclePreferences) => {
   // qadaa sync investigation). Only clear when the start actually moved
   // forward past the old confirmed end, so editing the *same* period's
   // start (e.g. correcting a typo) doesn't wipe a same-period confirmation.
-  const currentPeriodEnd = getPeriodEndDateTime();
-  if (
-    currentPeriodEnd &&
-    cyclePreferences.lastPeriodStart.getTime() !==
-      previousLastPeriodStart.getTime() &&
-    currentPeriodEnd.getTime() < cyclePreferences.lastPeriodStart.getTime()
-  ) {
-    setPeriodEndDateTime(null);
-  }
+  clearStalePeriodEnd(previousLastPeriodStart);
 };
 
-/** THE single canonical way to record "my period really started on this
- * date" — used by the Dashboard/Calendar period-start confirmation CTA (and
- * nowhere else; do not duplicate this call). Delegates entirely to
- * setCyclePreferences(), so it inherits the exact same history-preserving
- * persistence, observation-window anchoring, and stale periodEndDateTime
- * cleanup — only `lastPeriodStart` changes, periodDuration/cycleDuration/
- * regularity are left exactly as the user configured them. Any date/late
- * status/irregular window derived from `lastPeriodStart` recomputes
- * automatically the next time it's read — nothing here needs to reset a
- * "late" flag or a stale prediction, because none is ever cached. */
+/** Records a period start the user declares: a NEW period, or a HISTORICAL
+ * BACKFILL of an older one. Never a correction (see correctPeriodOccurrence).
+ * - lastPeriodStart becomes max(existing latest, this start): backfilling an
+ *   old period adds it to the history without moving lastPeriodStart back (M16);
+ *   a genuinely newer start becomes the latest as before.
+ * - A start already covered by a recorded period is a no-op (no duplicate, the
+ *   existing — possibly confirmed — end is kept).
+ * - The new record's end is the habitual projection, clamped so it can never
+ *   run into the next recorded period. No confirmed end is invented.
+ * periodDuration/cycleDuration/regularity are left exactly as configured. */
+export const addPeriodOccurrence = (date: Date): void => {
+  const startKey = cycleDateKey(date);
+  const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
+  const latestKey = latestRealStartKey();
+  const base = realHistory();
+  if (base.some(record => record.startDate <= startKey && startKey <= record.endDate)) {
+    return;
+  }
+  const next = base.filter(record => record.startDate > startKey).sort((a, b) => a.startDate.localeCompare(b.startDate))[0];
+  let endKey = projectedEndKey(startKey, cyclePreferences.periodDuration);
+  if (next && endKey >= next.startDate) {
+    endKey = keyPlusDays(next.startDate, -1);
+  }
+  discardUnconfirmedPeriodSeed();
+  hasConfirmedCycleData = true;
+  periodHistory = sortHistory([
+    ...base.filter(record => record.id !== startKey),
+    {id: startKey, startDate: startKey, endDate: endKey},
+  ]);
+  if (latestKey === null || startKey > latestKey) {
+    cyclePreferences = {...cyclePreferences, lastPeriodStart: keyToDate(startKey)};
+  } else if (latestKey !== cycleDateKey(cyclePreferences.lastPeriodStart)) {
+    // Legacy state where lastPeriodStart lagged behind the history: heal it.
+    cyclePreferences = {...cyclePreferences, lastPeriodStart: keyToDate(latestKey)};
+  }
+  notifyCycleListeners();
+  persistCycle().catch(() => {});
+  clearStalePeriodEnd(previousLastPeriodStart);
+};
+
+/** THE canonical way to record "my period really started on this date" — used
+ * by the Dashboard/Calendar/Conceive period-start confirmation sheet
+ * (PeriodStartBottomSheet). Delegates to addPeriodOccurrence(): a newer start
+ * becomes lastPeriodStart, a past date is backfilled without moving it back.
+ * Any date/late status/irregular window derived from `lastPeriodStart`
+ * recomputes automatically the next time it's read — nothing here needs to
+ * reset a "late" flag or a stale prediction, because none is ever cached. */
 export const confirmPeriodStart = (date: Date): void => {
-  setCyclePreferences({ ...cyclePreferences, lastPeriodStart: new Date(date) });
+  addPeriodOccurrence(date);
 };
 
 export const getCyclePreferences = (): CyclePreferences => ({
@@ -522,6 +659,14 @@ export const getHasConfirmedCycleData = (): boolean => hasConfirmedCycleData;
 export const getPeriodHistory = (): PeriodHistoryRecord[] =>
   periodHistory.map(item => ({ ...item }));
 
+/** The periods the user actually recorded — an empty list until real cycle
+ * data has been confirmed (see `hasConfirmedCycleData`), so the placeholder
+ * record hydrateCyclePreferences() seeds from the fallback defaults is never
+ * treated as observed history. Cycle Dashboard/Calendar/Profile read this;
+ * getPeriodHistory() keeps its original raw behavior for every other caller. */
+export const getRecordedPeriodHistory = (): PeriodHistoryRecord[] =>
+  hasConfirmedCycleData ? getPeriodHistory() : [];
+
 /** True only when `date` falls within a REAL confirmed period record
  * (inclusive start/end) — never a predicted/estimated window. Compares
  * calendar days only (via the same 'YYYY-MM-DD' key every periodHistory
@@ -529,6 +674,7 @@ export const getPeriodHistory = (): PeriodHistoryRecord[] =>
  * This is the one place that answers "is today inside an active confirmed
  * period?" — reuse it instead of re-deriving from phase/prediction state. */
 export const isDateWithinConfirmedPeriod = (date: Date): boolean => {
+  if (!hasConfirmedCycleData) {return false;}
   const key = cycleDateKey(date);
   return periodHistory.some(
     record => record.startDate <= key && key <= record.endDate,
@@ -633,69 +779,84 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
   return cycleHydration;
 };
 
+/** EXPLICIT CORRECTION of one recorded period (M4/M16): the occurrence that
+ * starts on `oldStart` becomes `newStart`..`newEnd` — it is REPLACED, never
+ * duplicated, and every other period is preserved. When `newEnd` is omitted the
+ * occurrence keeps its length. lastPeriodStart is re-derived as the latest
+ * start of the history, so correcting the latest period can move it backwards,
+ * while correcting an older one leaves it untouched. Habitual
+ * periodDuration/cycleDuration are NEVER touched (M8): an edited actual period
+ * is not a new habit. An actual/confirmed end recorded for the old occurrence
+ * is dropped when the corrected range no longer matches it. If `oldStart` is
+ * not recorded, the range is simply added.
+ * Throws INVALID_RANGE (end before start) / OVERLAPPING_RANGE. */
+export const correctPeriodOccurrence = async (
+  oldStart: Date,
+  newStart: Date,
+  newEnd?: Date,
+): Promise<CyclePreferences> => {
+  const oldKey = cycleDateKey(oldStart);
+  const newKey = cycleDateKey(newStart);
+  if (newEnd && cycleDateKey(newEnd) < newKey) {
+    throw new Error('INVALID_RANGE');
+  }
+  const previousLastPeriodStart = cyclePreferences.lastPeriodStart;
+  const base = realHistory();
+  const old = base.find(item => item.id === oldKey);
+  const endKey = newEnd
+    ? cycleDateKey(newEnd)
+    : old
+      ? keyPlusDays(newKey, keyDiffDays(old.endDate, old.startDate))
+      : projectedEndKey(newKey, cyclePreferences.periodDuration);
+  const others = base.filter(item => item.id !== oldKey);
+  if (others.some(item => newKey <= item.endDate && endKey >= item.startDate)) {
+    throw new Error('OVERLAPPING_RANGE');
+  }
+  hasConfirmedCycleData = true;
+  periodHistory = sortHistory([...others, {id: newKey, startDate: newKey, endDate: endKey}]);
+  const latestKey = periodHistory[periodHistory.length - 1].startDate;
+  if (latestKey !== cycleDateKey(cyclePreferences.lastPeriodStart)) {
+    cyclePreferences = {...cyclePreferences, lastPeriodStart: keyToDate(latestKey)};
+  }
+  notifyCycleListeners();
+  clearStalePeriodEnd(previousLastPeriodStart);
+  // The scalar confirmed end (purity/prayer) describes the CURRENT period. When
+  // that very period's range is corrected and the corrected end no longer
+  // matches it, the old value would contradict the recorded range: drop it (no
+  // end time is invented — an end can be re-confirmed through the usual flow).
+  const scalarEnd = getPeriodEndDateTime();
+  if (
+    scalarEnd &&
+    cycleDateKey(previousLastPeriodStart) === oldKey &&
+    cycleDateKey(scalarEnd) !== endKey
+  ) {
+    await setPeriodEndDateTime(null);
+  }
+  await persistCycle();
+
+  // The confirmed (qadaa) occurrence recorded for the OLD range no longer
+  // describes this period once its start moved or its end changed.
+  const staleConfirmed = getConfirmedPeriodHistory().find(occurrence => occurrence.id === oldKey);
+  if (staleConfirmed && (oldKey !== newKey || cycleDateKey(new Date(staleConfirmed.periodEndDateTime)) !== endKey)) {
+    await removeConfirmedPeriodOccurrence(oldStart);
+  }
+  return getCyclePreferences();
+};
+
+/** Edits the CURRENT (latest) recorded period's range. Correction semantics
+ * (see correctPeriodOccurrence): it never redefines the habitual
+ * periodDuration/cycleDuration — those change only through their own
+ * configuration flow. */
 export const updateCurrentPeriodRange = async (
   start: Date,
   end: Date,
 ): Promise<CyclePreferences> => {
-  const normalizedStart = new Date(
-    start.getFullYear(),
-    start.getMonth(),
-    start.getDate(),
+  const latestKey = latestRealStartKey();
+  return correctPeriodOccurrence(
+    latestKey ? keyToDate(latestKey) : cyclePreferences.lastPeriodStart,
+    start,
+    end,
   );
-  const normalizedEnd = new Date(
-    end.getFullYear(),
-    end.getMonth(),
-    end.getDate(),
-  );
-  if (normalizedEnd < normalizedStart) {
-    throw new Error('INVALID_RANGE');
-  }
-  const duration =
-    Math.round(
-      (normalizedEnd.getTime() - normalizedStart.getTime()) / 86_400_000,
-    ) + 1;
-  const previousId = cycleDateKey(cyclePreferences.lastPeriodStart);
-  const record = {
-    id: cycleDateKey(normalizedStart),
-    startDate: cycleDateKey(normalizedStart),
-    endDate: cycleDateKey(normalizedEnd),
-  };
-  const otherRecords = periodHistory.filter(item => item.id !== previousId);
-  const overlaps = otherRecords.some(
-    item =>
-      record.startDate <= item.endDate && record.endDate >= item.startDate,
-  );
-  if (overlaps) {
-    throw new Error('OVERLAPPING_RANGE');
-  }
-  periodHistory = [...otherRecords, record].sort((a, b) =>
-    a.startDate.localeCompare(b.startDate),
-  );
-  const starts = periodHistory.map(
-    item => new Date(`${item.startDate}T12:00:00`),
-  );
-  const lengths = starts
-    .slice(1)
-    .map((date, index) =>
-      Math.round((date.getTime() - starts[index].getTime()) / 86_400_000),
-    )
-    .filter(value => value >= 15 && value <= 90);
-  const cycleDuration =
-    lengths.length > 0
-      ? Math.round(
-          lengths.reduce((sum, value) => sum + value, 0) / lengths.length,
-        )
-      : cyclePreferences.cycleDuration;
-  cyclePreferences = {
-    ...cyclePreferences,
-    lastPeriodStart: normalizedStart,
-    periodDuration: duration,
-    cycleDuration,
-  };
-  hasConfirmedCycleData = true;
-  notifyCycleListeners();
-  await persistCycle();
-  return getCyclePreferences();
 };
 
 // Exact end-of-period datetime the user confirmed (single source of truth for
@@ -771,3 +932,32 @@ export const subscribePeriodEndDateTime = (listener: () => void) => {
 };
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  getConfirmedPeriodHistory,
+  removeConfirmedPeriodOccurrence,
+  subscribeConfirmedPeriodEndRecorded,
+} from './confirmedPeriodHistoryStore';
+
+// Confirming the actual end of a period (PeriodEndBottomSheet, the Cycle
+// information screen, the Calendar range editor…) must update the RECORDED
+// period too (M7), otherwise periodHistory keeps the projected end while the
+// confirmed history / periodEndDateTime say something else. Mirrored here, on
+// every confirmed-end write, so every writer stays coherent; a period that was
+// never confirmed keeps its projected end (nothing is invented) and hydrating
+// older data never overrides a recorded range.
+subscribeConfirmedPeriodEndRecorded(occurrence => {
+  if (!hasConfirmedCycleData) {return;}
+  const record = periodHistory.find(item => item.id === occurrence.id);
+  const confirmedEnd = new Date(occurrence.periodEndDateTime);
+  if (!record || Number.isNaN(confirmedEnd.getTime())) {return;}
+  let endKey = cycleDateKey(confirmedEnd);
+  if (endKey < record.startDate) {return;}
+  const next = sortHistory(periodHistory).find(item => item.startDate > record.startDate);
+  if (next && endKey >= next.startDate) {
+    endKey = keyPlusDays(next.startDate, -1);
+  }
+  if (record.endDate === endKey) {return;}
+  periodHistory = periodHistory.map(item => (item.id === record.id ? {...item, endDate: endKey} : item));
+  notifyCycleListeners();
+  persistCycle().catch(() => {});
+});

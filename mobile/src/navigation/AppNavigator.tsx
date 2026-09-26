@@ -134,6 +134,7 @@ import PregnancyNotificationsScreen from '../screens/pregnancy/PregnancyNotifica
 import PrivateAccessScreen from '../screens/PrivateAccessScreen';
 import type { PrivateAccessPurpose } from './privateAccess';
 import { navigationRef } from './navigationRef';
+import { cancelPendingObjectiveSetup, getPendingObjectiveSetup } from '../state/objectiveSetupFlow';
 
 // Where the Anonymous Mode flow was entered from — lets the shared screens
 // (AnonymousMode → …Limitations → …Creating → …Success → AnonymousAvatarCustomizer)
@@ -160,7 +161,9 @@ export type RootStackParamList = {
   IrregularLastPeriod: {mode?: 'onboarding' | 'edit'} | undefined;
   IrregularTrackedItems: {mode?: 'onboarding' | 'edit'} | undefined;
   IrregularReminders: {mode?: 'onboarding' | 'edit'} | undefined;
-  IrregularJournalEntry: {category: IrregularJournalRouteCategory};
+  // `date` (local 'YYYY-MM-DD', today or past) records the entry for that day
+  // instead of today — used by the SOPK Calendar's selected day.
+  IrregularJournalEntry: {category: IrregularJournalRouteCategory; date?: string};
   IrregularJournalOverview: undefined;
   ContraceptionMethod: {mode?: 'onboarding' | 'edit'} | undefined;
   ContraceptionInformation: {mode?: 'onboarding' | 'edit'} | undefined;
@@ -170,7 +173,7 @@ export type RootStackParamList = {
   // ton cycle" prompt (e.g. TTC Dashboard/Calendar/Statistics) rather than
   // from the onboarding stack — every existing onboarding call site passes
   // no params, so this is additive and doesn't change their behavior.
-  CycleInformation: {fromDashboardCTA?: boolean; mode?: 'onboarding' | 'edit'} | undefined;
+  CycleInformation: {fromDashboardCTA?: boolean; mode?: 'onboarding' | 'edit'; section?: 'habits'} | undefined;
   PostpartumDeliveryDate: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumDeliveryType: {mode?: 'onboarding' | 'edit'} | undefined;
   PostpartumFeeding: {mode?: 'onboarding' | 'edit'} | undefined;
@@ -189,9 +192,9 @@ export type RootStackParamList = {
   MenopauseLabTracking: {mode?: 'onboarding' | 'edit'} | undefined;
   MenopauseReminders: {mode?: 'onboarding' | 'edit'} | undefined;
   CycleReminders: {mode?: 'onboarding' | 'edit'} | undefined;
-  MiscarriageJournalEntry: { category: MiscarriageJournalCategory };
-  ContraceptionJournalEntry: { category: ContraceptionJournalCategory };
-  MenopauseJournalEntry: { category: MenopauseJournalCategory };
+  MiscarriageJournalEntry: { category: MiscarriageJournalCategory; date?: string };
+  ContraceptionJournalEntry: { category: ContraceptionJournalCategory; date?: string };
+  MenopauseJournalEntry: { category: MenopauseJournalCategory; date?: string };
   PregnancyDatingSetup: {mode?: 'onboarding' | 'edit'} | undefined;
   PregnancyTrackingPreferences: {mode?: 'onboarding' | 'edit'} | undefined;
   PregnancyReminders: {mode?: 'onboarding' | 'edit'} | undefined;
@@ -215,9 +218,9 @@ export type RootStackParamList = {
   SymptomEntry: undefined;
   MoodEntry: undefined;
   FlowEntry: undefined;
-  TemperatureEntry: undefined;
-  CervicalMucusEntry: undefined;
-  LHTestEntry: undefined;
+  TemperatureEntry: {date?: string} | undefined;
+  CervicalMucusEntry: {date?: string} | undefined;
+  LHTestEntry: {date?: string} | undefined;
   CycleEvolutionEntry: undefined;
   SleepEntry: undefined;
   ActivityEntry: undefined;
@@ -272,6 +275,20 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
+// An in-app "configure this objective" chain (Profile → change objective, see
+// services/objectiveSwitch.ts) that the user leaves through Back lands the
+// root stack on the tabs again WITHOUT having finished — restore the objective
+// she came from instead of leaving her on a half-configured one. Finishing the
+// chain clears the pending state BEFORE it navigates back to the tabs, so this
+// only ever fires for an abandoned chain.
+const restoreObjectiveIfSetupAbandoned = (): void => {
+  if (!getPendingObjectiveSetup()) {return;}
+  const rootState = navigationRef.getRootState();
+  if (rootState?.routes[rootState.index]?.name === 'MainTabs') {
+    cancelPendingObjectiveSetup().catch(() => {});
+  }
+};
+
 function AppNavigator({
   onReady,
 }: {
@@ -281,7 +298,7 @@ function AppNavigator({
   const navigationTheme = useMemo(() => toReactNavigationTheme(theme), [theme]);
 
   return (
-    <NavigationContainer onReady={onReady} ref={navigationRef} theme={navigationTheme}>
+    <NavigationContainer onReady={onReady} onStateChange={restoreObjectiveIfSetupAbandoned} ref={navigationRef} theme={navigationTheme}>
       <Stack.Navigator
         initialRouteName="Splash"
         screenOptions={{ headerShown: false, animation: 'fade' }}

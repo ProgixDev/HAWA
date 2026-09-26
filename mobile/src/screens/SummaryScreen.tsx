@@ -1,3 +1,4 @@
+import {getContraceptionReminderIndicator} from '../utils/contraceptionReminderScheduling';
 import React, {useCallback, useMemo, useReducer} from 'react';
 import {
   Image,
@@ -516,7 +517,10 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       rows.push({
         icon: 'bell-ring-outline',
         label: 'Rappels',
-        value: contraception.remindersEnabled ? 'Activés' : 'Désactivés',
+        value: (() => {
+          const indicator = getContraceptionReminderIndicator(contraception.method, contraception.remindersEnabled);
+          return indicator === 'enabled' ? 'Activés' : indicator === 'unavailable' ? 'Non disponibles' : 'Désactivés';
+        })(),
         route: 'ContraceptionReminders',
         tone: 'blue',
       });

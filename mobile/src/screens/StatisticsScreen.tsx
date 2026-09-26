@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useEffect} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -21,8 +21,10 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {usePremium} from '../hooks/usePremium';
+import {useToday} from '../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
+import {getRecordedPeriodHistory} from '../state/onboardingPreferences';
 import type {DailyJournalEntry, FlowIntensity} from '../types/journal';
 import {
   getConfirmedPeriodHistory,
@@ -36,6 +38,8 @@ import {
   filterEntriesForPeriod,
   filterPeriodStartsForPeriod,
   calculateAverageCycleDuration,
+  countRecordedStartsForPeriod,
+  describeMissingAverageCycleData,
   calculateFlowDistribution,
   calculateSymptomFrequency,
   calculateMonthlyFlowTrend,
@@ -159,6 +163,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
     () => getConfirmedPeriodHistory(),
   );
   const [now, setNow] = useState<Date>(() => new Date());
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. Same Date (no re-render) when the
+  // day is unchanged.
+  const {todayKey} = useToday();
+  useEffect(() => {
+    setNow(current => (current.toLocaleDateString('en-CA') === todayKey ? current : new Date()));
+  }, [todayKey]);
 
   useFocusEffect(
     useCallback(() => {
@@ -206,6 +217,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   const averageCycleDuration = useMemo(
     () => calculateAverageCycleDuration(filteredPeriodStarts),
     [filteredPeriodStarts],
+  );
+
+  // Only used to word the empty state (see describeMissingAverageCycleData) —
+  // the average above stays strictly on confirmed history.
+  const missingAverageDetail = describeMissingAverageCycleData(
+    filteredPeriodStarts.length,
+    countRecordedStartsForPeriod(getRecordedPeriodHistory(), period, now),
   );
 
   const flowDistribution = useMemo(() => calculateFlowDistribution(filteredEntries), [filteredEntries]);
@@ -346,7 +364,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             </View>
           ) : (
             <DataNotice
-              detail="Continue à renseigner tes règles pour voir apparaître ta durée moyenne."
+              detail={missingAverageDetail}
               icon="calendar-clock-outline"
               title="Pas encore assez de cycles enregistrés"
             />
@@ -497,7 +515,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               <DataNotice
                 detail="Renseigne tes symptômes dans le Journal quotidien pour voir apparaître cette statistique."
                 icon="heart-outline"
-                title="Aucun symptôme enregistré ce mois-ci"
+                title={showLongitudinalView ? 'Aucun symptôme enregistré sur cette période' : 'Aucun symptôme enregistré ce mois-ci'}
               />
             )}
 
