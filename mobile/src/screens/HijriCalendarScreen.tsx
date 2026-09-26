@@ -1,4 +1,6 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import {rollSelectedDate} from '../utils/dayRollover';
+import {useToday} from '../hooks/useToday';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Image, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -16,7 +18,6 @@ import {
   formatHijriDay,
   formatHijriMonthYear,
   sameDay,
-  startOfDay,
 } from '../utils/cycleMath';
 import {
   hijriMonthStart,
@@ -60,10 +61,27 @@ function HijriCalendarScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today} = useToday();
   const [monthStart, setMonthStart] = useState(() => hijriMonthStart(today));
   const [selectedDate, setSelectedDate] = useState(today);
   const [direction, setDirection] = useState<1 | -1>(1);
+
+  // A new day began: a selection / viewed Hijri month that was FOLLOWING today
+  // moves to the new day; a date or month the user navigated to is never moved.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setMonthStart(current => {
+      const wasViewingTodaysMonth = current.getTime() === hijriMonthStart(previousToday).getTime();
+      const next = hijriMonthStart(today);
+      return wasViewingTodaysMonth && next.getTime() !== current.getTime() ? next : current;
+    });
+  }, [today]);
 
   // Subtle scale + fade whenever the selected day changes — reset via
   // shared values (not a remount) for a reliable, calm acknowledgement.
@@ -256,7 +274,7 @@ function HijriCalendarScreen(): React.JSX.Element {
               <Text style={styles.monthRefText}>Mois important du calendrier hijri.</Text>
               <Pressable
                 accessibilityRole="button"
-                onPress={() => navigation.navigate('SpiritualPreferences')}
+                onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
                 style={({pressed}) => [styles.monthRefButton, pressed && styles.pressed]}>
                 <Text style={styles.monthRefButtonText}>Découvrir les repères spirituels</Text>
               </Pressable>

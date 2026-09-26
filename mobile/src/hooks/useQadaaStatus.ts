@@ -1,4 +1,5 @@
-import {useCallback, useMemo, useState} from 'react';
+import {useToday} from './useToday';
+import {useCallback, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 
 import {getCyclePreferences, hydratePeriodEndDateTime} from '../state/onboardingPreferences';
@@ -21,7 +22,6 @@ import {
   markOneQadaaDayCompleted as persistOneQadaaDayCompleted,
   subscribeQadaaProgress,
 } from '../state/qadaaProgressStore';
-import {startOfDay} from '../utils/cycleMath';
 import {isRamadan} from '../utils/hijriCalendar';
 import {computeQadaaFromHistory, shouldShowQadaaReminder} from '../utils/qadaaLogic';
 
@@ -155,7 +155,9 @@ export function useQadaaStatus(): QadaaStatus {
     }, []),
   );
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today} = useToday();
   const ramadanActive = isRamadan(today);
   const showReminder = remainingQadaaDays !== null && shouldShowQadaaReminder(remainingQadaaDays, today);
 

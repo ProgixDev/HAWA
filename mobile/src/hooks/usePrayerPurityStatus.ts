@@ -1,3 +1,4 @@
+import {useToday} from './useToday';
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -17,7 +18,7 @@ import {
   type OnboardingLocation,
   type SchoolId,
 } from '../state/onboardingPreferences';
-import {isMenstruatingNow} from '../utils/cycleMath';
+import {isCurrentlyMenstruating} from '../utils/menstruationStatus';
 import {getPrayerDueAfterPurity, type PurityPrayerResult} from '../utils/purityPrayerLogic';
 
 type PrayerScheduleStatus = {
@@ -43,6 +44,9 @@ function usePrayerSchedule(enabled: boolean): PrayerScheduleStatus {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [now, setNow] = useState(() => new Date());
+  // The schedule is for one calendar day; when the day changes (or the app
+  // returns the next day) it must be fetched again — see src/hooks/useToday.ts.
+  const {todayKey} = useToday();
 
   useFocusEffect(
     useCallback(() => {
@@ -80,7 +84,7 @@ function usePrayerSchedule(enabled: boolean): PrayerScheduleStatus {
   useEffect(() => {
     setLoading(true);
     loadSchedule().finally(() => setLoading(false));
-  }, [loadSchedule]);
+  }, [loadSchedule, todayKey]);
 
   const nextWindow = useMemo(() => {
     if (!schedule) {return undefined;}
@@ -151,7 +155,7 @@ export function usePrayerPurityStatus(enabled = true): PrayerPurityStatus {
   );
 
   const isMenstruating = useMemo(
-    () => isMenstruatingNow(schedule.now, cyclePreferences, periodEndDateTime),
+    () => isCurrentlyMenstruating(schedule.now, cyclePreferences, periodEndDateTime),
     [schedule.now, cyclePreferences, periodEndDateTime],
   );
 
