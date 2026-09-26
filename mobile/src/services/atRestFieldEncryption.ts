@@ -1,5 +1,6 @@
 import {gcm} from '@noble/ciphers/aes.js';
-import {bytesToHex, hexToBytes, randomBytes, utf8ToBytes, bytesToUtf8} from '@noble/ciphers/utils.js';
+import {bytesToHex, hexToBytes, randomBytes, utf8ToBytes} from '@noble/ciphers/utils.js';
+import {decodeUtf8} from '../utils/utf8';
 import {getOrCreateAesKey} from './secureAesKeyStore';
 
 // Generalizes the exact AES-256-GCM cipher plumbing already proven by
@@ -43,7 +44,7 @@ export async function decryptFieldValue<T>(service: string, payload: EncryptedFi
   const nonce = hexToBytes(payload.iv);
   const ciphertext = hexToBytes(payload.ciphertext);
   const plaintext = gcm(key, nonce).decrypt(ciphertext);
-  return JSON.parse(bytesToUtf8(plaintext)) as T;
+  return JSON.parse(decodeUtf8(plaintext)) as T;
 }
 
 /** Distinguishes an already-encrypted envelope (produced by
