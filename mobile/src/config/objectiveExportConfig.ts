@@ -29,7 +29,13 @@ export type ExportCategoryDef = {
   label: string;
   icon: string;
   /** Sensitive categories are never part of the default selection — the
-   * user must explicitly opt in every time (see DataExportScreen). */
+   * user must explicitly opt in every time (see DataExportScreen). They are
+   * also the categories that carry DECRYPTED private content (free-text notes,
+   * intimacy, medical information...): exporting any of them requires the
+   * existing private-section unlock first (see exportRequiresPrivateUnlock and
+   * medicalExportOrchestrator.ts). Every ENCRYPTED-at-rest free-text field an
+   * objective can export must land in a category flagged here — never inside a
+   * plain, default-on category. */
   sensitive?: boolean;
 };
 
@@ -93,6 +99,10 @@ export const OBJECTIVE_EXPORT_CONFIG: Record<ObjectiveId, ObjectiveExportConfig>
       {value: 'sleep', label: 'Sommeil', icon: 'weather-night'},
       {value: 'appointments', label: 'Rendez-vous / Examens', icon: 'calendar-clock-outline'},
       {value: 'medicalInfo', label: 'Informations médicales', icon: 'shield-lock-outline', sensitive: true},
+      // Encrypted free text (symptom notes, appointment/exam notes, journal
+      // mood/sleep notes) — see buildPregnancyExportDays. Category name is a
+      // PRODUCT DECISION (M43): "Notes personnelles" mirrors the other objectives.
+      {value: 'notes', label: 'Notes personnelles', icon: 'notebook-edit-outline', sensitive: true},
     ],
   },
 
@@ -116,6 +126,9 @@ export const OBJECTIVE_EXPORT_CONFIG: Record<ObjectiveId, ObjectiveExportConfig>
       {value: 'pain', label: 'Douleurs', icon: 'heat-wave'},
       {value: 'physicalRecovery', label: 'Récupération physique', icon: 'heart-pulse'},
       {value: 'lochia', label: 'Lochies', icon: 'water-outline', sensitive: true},
+      // Encrypted mood note — see buildPostpartumExportDays. Category name is a
+      // PRODUCT DECISION (M43): "Notes personnelles" mirrors the other objectives.
+      {value: 'notes', label: 'Notes personnelles', icon: 'notebook-edit-outline', sensitive: true},
     ],
   },
 
@@ -146,4 +159,22 @@ export const OBJECTIVE_EXPORT_CONFIG: Record<ObjectiveId, ObjectiveExportConfig>
 
 export function getExportConfigurationForObjective(objective: ObjectiveId): ObjectiveExportConfig {
   return OBJECTIVE_EXPORT_CONFIG[objective];
+}
+
+/** The subset of `selected` that is flagged `sensitive` for this objective
+ * (values that are not valid categories for the objective are ignored). */
+export function getSensitiveExportCategories(objective: ObjectiveId, selected: readonly string[]): string[] {
+  const sensitiveValues = new Set(
+    getExportConfigurationForObjective(objective)
+      .categories.filter(category => category.sensitive)
+      .map(category => category.value),
+  );
+  return selected.filter(value => sensitiveValues.has(value));
+}
+
+/** True when the selection includes at least one sensitive category — i.e. the
+ * export would decrypt private content and must first be authorised by the
+ * existing private-section unlock (PIN / biometrics). */
+export function exportRequiresPrivateUnlock(objective: ObjectiveId, selected: readonly string[]): boolean {
+  return getSensitiveExportCategories(objective, selected).length > 0;
 }

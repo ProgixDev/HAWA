@@ -1,6 +1,6 @@
 import {CachesDirectoryPath, exists, mkdir, readDir, unlink, writeFile} from '@dr.pogodin/react-native-fs';
 import Share from 'react-native-share';
-import {UTF8_BOM, buildExportFilename, shareExportFile} from '../medicalExportShare';
+import {UTF8_BOM, buildExportFilename, purgeMedicalExportCache, shareExportFile} from '../medicalExportShare';
 
 // Explicit factories — @dr.pogodin/react-native-fs and react-native-share are
 // native modules unavailable in the Jest environment.
@@ -73,5 +73,24 @@ describe('buildExportFilename', () => {
   it('never reveals a category/objective name in the filename', () => {
     const filename = buildExportFilename('csv', '2026-08-01', '2026-08-25');
     expect(filename).toBe('AWA_suivi_2026-08-01_2026-08-25.csv');
+  });
+});
+
+describe('purgeMedicalExportCache — no stale (possibly decrypted) export lingers in the cache', () => {
+  it('unlinks every file left by a previous export', async () => {
+    mockExists.mockResolvedValue(true);
+    mockReadDir.mockResolvedValue([{path: '/cache/medical-export/a.csv'}, {path: '/cache/medical-export/b.pdf'}]);
+    await purgeMedicalExportCache();
+    expect(mockUnlink).toHaveBeenCalledWith('/cache/medical-export/a.csv');
+    expect(mockUnlink).toHaveBeenCalledWith('/cache/medical-export/b.pdf');
+  });
+
+  it('is a no-op without an export folder and never throws on a filesystem error', async () => {
+    mockExists.mockResolvedValue(false);
+    await expect(purgeMedicalExportCache()).resolves.toBeUndefined();
+    expect(mockUnlink).not.toHaveBeenCalled();
+
+    mockExists.mockRejectedValue(new Error('fs down'));
+    await expect(purgeMedicalExportCache()).resolves.toBeUndefined();
   });
 });

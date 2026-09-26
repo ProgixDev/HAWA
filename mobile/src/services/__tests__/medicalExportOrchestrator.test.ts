@@ -2,6 +2,7 @@ import {buildMedicalExport} from '../medicalExportOrchestrator';
 import {getAllJournalEntries} from '../../state/dailyJournalStore';
 import {resolveNoteSection} from '../privateNotesEncryption';
 import {resolveIntimacySection} from '../privateJournalEncryption';
+import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
 
 // Explicit factories — privateNotesEncryption.ts/privateJournalEncryption.ts
 // transitively import react-native-keychain, a native module unavailable in
@@ -22,6 +23,10 @@ const mockResolveNoteSection = resolveNoteSection as jest.Mock;
 const mockResolveIntimacySection = resolveIntimacySection as jest.Mock;
 
 const now = new Date('2026-08-25T12:00:00');
+
+afterEach(() => {
+  lockIntimacy();
+});
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -56,6 +61,7 @@ describe('buildMedicalExport — privacy boundary', () => {
       corrupted: false,
     });
 
+    unlockIntimacy(); // sensitive categories need the private-section unlock (M44)
     const result = await buildMedicalExport('cycle', 'all', 'csv', ['notes'], now);
 
     expect(mockResolveNoteSection).toHaveBeenCalledTimes(1);

@@ -1,4 +1,10 @@
-import type {DailyJournalEntry, FlowIntensity, MoodLevel} from '../types/journal';
+import type {
+  CervicalMucusType,
+  DailyJournalEntry,
+  FlowIntensity,
+  MoodLevel,
+  SymptomSeverity,
+} from '../types/journal';
 import {formatFullDate} from '../utils/cycleMath';
 
 // Pure data-shaping/serialization logic for the Medical Export feature
@@ -60,6 +66,32 @@ const FLOW_LABELS: Record<FlowIntensity, string> = {
   veryHeavy: 'Très abondant',
 };
 
+// 'severe' is what the symptom screen persists for BOTH its "Forte" and "Très
+// forte" choices (see INTENSITIES in JournalSymptomsScreen.tsx) — the stored
+// value cannot tell them apart, so the export says exactly that instead of
+// guessing one.
+const SEVERITY_LABELS: Record<SymptomSeverity, string> = {
+  mild: 'Légère',
+  moderate: 'Modérée',
+  severe: 'Forte / très forte',
+};
+
+// Same wording the TTC Calendar/Statistics show for each cervical-mucus type.
+const CERVICAL_MUCUS_LABELS: Record<CervicalMucusType, string> = {
+  dry: 'Sèche',
+  sticky: 'Collante',
+  creamy: 'Crémeuse',
+  watery: 'Aqueuse',
+  eggWhite: 'Claire et élastique',
+};
+
+// Same wording as the "Protection utilisée ?" choices of the intimacy screens.
+const PROTECTION_LABELS: Record<'yes' | 'no' | 'unknown', string> = {
+  yes: 'Oui',
+  no: 'Non',
+  unknown: 'Non renseigné',
+};
+
 /** Filters real dailyJournalStore entries down to the selected lookback
  * window. `now` is an explicit parameter (never `new Date()` internally) so
  * this stays deterministic and testable. 'all' returns every entry
@@ -110,18 +142,65 @@ export function formatFlowIntensityLabel(intensity: FlowIntensity): string {
   return FLOW_LABELS[intensity] ?? intensity;
 }
 
-function formatEnumOrRaw<T extends string>(value: T | undefined, labels: Record<T, string>): string | undefined {
+/** Human-readable label for an internal enum value, using a label map that
+ * already exists in the app. An UNKNOWN value (never seen before, legacy, or
+ * corrupted) falls back to the raw stored value unchanged — never an invented
+ * translation, never "undefined". Own-property lookup so a value such as
+ * "constructor" can never resolve to an inherited function. */
+export function formatEnumOrRaw(
+  value: string | undefined,
+  labels: Readonly<Record<string, string>>,
+): string | undefined {
   if (!value) {return undefined;}
-  return labels[value] ?? value;
+  return Object.prototype.hasOwnProperty.call(labels, value) ? labels[value] : value;
+}
+
+/** Label of the intimacy "protection" answer ('yes' | 'no' | 'unknown'). */
+export function formatProtectionLabel(protection: string): string {
+  return formatEnumOrRaw(protection, PROTECTION_LABELS) ?? protection;
+}
+
+// Daily-journal sections whose free-text `note` is encrypted at rest
+// (dailyJournalStore.ts encrypts EVERY `<section>.note`), with the label each
+// note is filed under in the sensitive "notes" category.
+const SECTION_NOTE_LABELS = {
+  symptoms: 'Symptômes',
+  mood: 'Humeur',
+  flow: 'Flux menstruel',
+  sleep: 'Sommeil',
+  activity: 'Activité',
+  temperature: 'Température basale',
+  weight: 'Poids',
+  cervicalMucus: 'Glaire cervicale',
+  lhTest: 'Tests d’ovulation (LH)',
+} as const;
+
+type NoteSection = keyof typeof SECTION_NOTE_LABELS;
+
+/** One "Section : note" line per requested daily-journal section that carries
+ * a free-text note. These notes are ENCRYPTED at rest, so they belong to the
+ * sensitive "notes" export category (explicit opt-in + private unlock) — never
+ * inside the plain symptoms / mood / flow / sleep... categories, whose
+ * default-on selection would otherwise export decrypted free text under a
+ * non-sensitive label. `sections` is filtered to the ones the caller's
+ * objective actually offers, in the order given. */
+export function formatSectionNoteLines(entry: DailyJournalEntry, sections: readonly string[]): string[] {
+  const lines: string[] = [];
+  sections.forEach(section => {
+    if (!(section in SECTION_NOTE_LABELS)) {return;}
+    const note = (entry[section as NoteSection] as {note?: string} | undefined)?.note;
+    if (note) {lines.push(`${SECTION_NOTE_LABELS[section as NoteSection]} : ${note}`);}
+  });
+  return lines;
 }
 
 /** Turns one non-encrypted journal field into readable lines — never a raw
  * `JSON.stringify()` dump. Object-shaped fields become one "Champ : valeur"
- * line per populated sub-field (its own `note` sub-field included, since
- * that free-text note belongs to THIS category, not the separate top-level
- * "Notes privées" category). Returns an empty array when the day has nothing
- * recorded for this category — the caller drops it rather than showing an
- * empty section. */
+ * line per populated sub-field. The per-section free-text `note` sub-field is
+ * deliberately NOT emitted here: it is encrypted at rest, so it is exported
+ * only through formatSectionNoteLines() under the sensitive "notes" category.
+ * Returns an empty array when the day has nothing recorded for this category —
+ * the caller drops it rather than showing an empty section. */
 export function formatCategoryValue(category: string, entry: DailyJournalEntry): string[] {
   switch (category) {
     case 'cycle':
@@ -139,18 +218,17 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (flow.periodStart) {lines.push('Début des règles');}
       if (flow.periodEnd) {lines.push('Fin des règles');}
       if (flow.pain) {lines.push(`Douleur : ${flow.pain}`);}
-      if (flow.note) {lines.push(`Note : ${flow.note}`);}
       return lines;
     }
 
     case 'symptoms': {
       const symptoms = entry.symptoms;
-      if (!symptoms || (!symptoms.names?.length && !symptoms.note)) {return [];}
+      if (!symptoms?.names?.length) {return [];}
       const lines: string[] = [];
-      if (symptoms.names?.length) {lines.push(`Symptômes : ${symptoms.names.join(', ')}`);}
-      if (symptoms.severity) {lines.push(`Intensité : ${symptoms.severity}`);}
+      lines.push(`Symptômes : ${symptoms.names.join(', ')}`);
+      const severity = formatEnumOrRaw(symptoms.severity, SEVERITY_LABELS);
+      if (severity) {lines.push(`Intensité : ${severity}`);}
       if (symptoms.painLocation) {lines.push(`Localisation : ${symptoms.painLocation}`);}
-      if (symptoms.note) {lines.push(`Note : ${symptoms.note}`);}
       return lines;
     }
 
@@ -164,7 +242,6 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (mood.stress !== undefined) {lines.push(`Stress : ${mood.stress}/5`);}
       if (mood.irritability !== undefined) {lines.push(`Irritabilité : ${mood.irritability}/5`);}
       if (mood.motivation !== undefined) {lines.push(`Motivation : ${mood.motivation}/5`);}
-      if (mood.note) {lines.push(`Note : ${mood.note}`);}
       return lines;
     }
 
@@ -178,7 +255,6 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (sleep.quality) {lines.push(`Qualité : ${sleep.quality}`);}
       if (sleep.awakenings !== undefined) {lines.push(`Réveils nocturnes : ${sleep.awakenings}`);}
       if (sleep.wakeFeeling) {lines.push(`Ressenti au réveil : ${sleep.wakeFeeling}`);}
-      if (sleep.note) {lines.push(`Note : ${sleep.note}`);}
       return lines;
     }
 
@@ -190,7 +266,6 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (activity.durationMinutes !== undefined) {lines.push(`Durée : ${activity.durationMinutes} min`);}
       if (activity.intensity) {lines.push(`Intensité : ${activity.intensity}`);}
       if (activity.feeling) {lines.push(`Ressenti : ${activity.feeling}`);}
-      if (activity.note) {lines.push(`Note : ${activity.note}`);}
       return lines;
     }
 
@@ -208,7 +283,6 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const lines: string[] = [`Température : ${temperature.value}°${temperature.unit}`];
       if (temperature.time) {lines.push(`Heure de prise : ${temperature.time}`);}
       if (temperature.method) {lines.push(`Méthode : ${temperature.method}`);}
-      if (temperature.note) {lines.push(`Note : ${temperature.note}`);}
       return lines;
     }
 
@@ -217,16 +291,13 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (!weight?.value) {return [];}
       const lines: string[] = [`Poids : ${weight.value} ${weight.unit}`];
       if (weight.moment) {lines.push(`Moment : ${weight.moment}`);}
-      if (weight.note) {lines.push(`Note : ${weight.note}`);}
       return lines;
     }
 
     case 'cervicalMucus': {
       const cervicalMucus = entry.cervicalMucus;
       if (!cervicalMucus) {return [];}
-      const lines: string[] = [`Glaire cervicale : ${cervicalMucus.type}`];
-      if (cervicalMucus.note) {lines.push(`Note : ${cervicalMucus.note}`);}
-      return lines;
+      return [`Glaire cervicale : ${formatEnumOrRaw(cervicalMucus.type, CERVICAL_MUCUS_LABELS) ?? cervicalMucus.type}`];
     }
 
     case 'lhTest': {
@@ -235,7 +306,6 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const resultLabel = lhTest.result === 'positive' ? 'Positif' : lhTest.result === 'negative' ? 'Négatif' : 'Non valide';
       const lines: string[] = [`Test d’ovulation (LH) : ${resultLabel}`];
       if (lhTest.time) {lines.push(`Heure : ${lhTest.time}`);}
-      if (lhTest.note) {lines.push(`Note : ${lhTest.note}`);}
       return lines;
     }
 
