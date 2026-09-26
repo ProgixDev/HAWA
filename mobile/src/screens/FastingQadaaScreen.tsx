@@ -36,6 +36,7 @@ import {useQadaaStatus} from '../hooks/useQadaaStatus';
 import {useConfirmedPeriodHistory} from '../hooks/useConfirmedPeriodHistory';
 
 import QadaaLedgerSections from '../components/qadaa/QadaaLedgerSections';
+import QadaaDeleteConfirmModal from '../components/qadaa/QadaaDeleteConfirmModal';
 import QadaaManualEntryModal from '../components/qadaa/QadaaManualEntryModal';
 import {JournalSaveToast, useJournalSaveToast} from '../components/journal/JournalSaveToast';
 
@@ -48,7 +49,6 @@ import {
 import {
   formatQadaaCompletionTitle,
   formatQadaaDayCount,
-  formatQadaaManualTitle,
 } from '../utils/qadaaManualEntryForm';
 
 import {
@@ -106,6 +106,7 @@ function FastingQadaaScreen(): React.JSX.Element {
 
   // null entry = "add"; an entry = "edit" (MANUAL entries only).
   const [manualModal, setManualModal] = useState<{entry: QadaaManualEntry | null} | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<QadaaManualEntry | null>(null);
   const toast = useJournalSaveToast();
 
   /* ------------------------------------------------------------------------ */
@@ -324,25 +325,19 @@ function FastingQadaaScreen(): React.JSX.Element {
   /*                     MANUAL ENTRIES / COMPLETION UNDO                     */
   /* ------------------------------------------------------------------------ */
 
-  const confirmDeleteManual = (entry: QadaaManualEntry) => {
-    Alert.alert(
-      entry.quantity === 1
-        ? 'Supprimer ce jour ajouté manuellement ?'
-        : `Supprimer ces ${entry.quantity} jours ajoutés manuellement ?`,
-      `${formatQadaaManualTitle(entry)} : seuls ces jours ajoutés par toi seront retirés. Les jours détectés automatiquement ne sont pas touchés.`,
-      [
-        {text: 'Annuler', style: 'cancel'},
-        {
-          text: 'Supprimer',
-          style: 'destructive',
-          onPress: () => {
-            removeManualQadaaEntry(entry.id)
-              .then(() => toast.show('Jours supprimés', 'Ton solde a été mis à jour.'))
-              .catch(error => console.warn('[FastingQadaaScreen] Unable to remove manual qadaa entry:', error));
-          },
-        },
-      ],
-    );
+  // Deleting a MANUAL entry: the dialog (QadaaDeleteConfirmModal) asks first; only
+  // its "Supprimer" reaches removeManualQadaaEntry, the one existing deletion.
+  const requestDeleteManual = (entry: QadaaManualEntry) => setDeleteTarget(entry);
+
+  const deleteManualEntry = async (entry: QadaaManualEntry) => {
+    try {
+      await removeManualQadaaEntry(entry.id);
+    } catch (error) {
+      console.warn('[FastingQadaaScreen] Unable to remove manual qadaa entry:', error);
+      throw error;
+    }
+    setDeleteTarget(null);
+    toast.show('Entrée supprimée', 'Ton solde a été mis à jour.');
   };
 
   const confirmUndoCompletion = (entry: QadaaCompletionEntry) => {
@@ -612,7 +607,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               completions={completions}
               manualEntries={manualEntries}
               onAdd={() => setManualModal({entry: null})}
-              onDeleteManual={confirmDeleteManual}
+              onDeleteManual={requestDeleteManual}
               onEditManual={entry => setManualModal({entry})}
               onUndoCompletion={confirmUndoCompletion}
             />
@@ -846,6 +841,12 @@ function FastingQadaaScreen(): React.JSX.Element {
           )
         }
         visible={manualModal !== null}
+      />
+
+      <QadaaDeleteConfirmModal
+        entry={deleteTarget}
+        onCancel={() => setDeleteTarget(null)}
+        onConfirm={deleteManualEntry}
       />
 
       <JournalSaveToast
