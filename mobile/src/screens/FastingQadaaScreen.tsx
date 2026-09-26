@@ -5,6 +5,7 @@ import React, {
 } from 'react';
 
 import {
+  Alert,
   Image,
   Modal,
   Pressable,
@@ -24,7 +25,6 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import Animated, {
-  FadeInUp,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -35,9 +35,23 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useQadaaStatus} from '../hooks/useQadaaStatus';
 import {useConfirmedPeriodHistory} from '../hooks/useConfirmedPeriodHistory';
 
+import QadaaLedgerSections from '../components/qadaa/QadaaLedgerSections';
+import QadaaManualEntryModal from '../components/qadaa/QadaaManualEntryModal';
+import {JournalSaveToast, useJournalSaveToast} from '../components/journal/JournalSaveToast';
+
 import {
-  formatQadaaHistoryGregorianRange,
-  formatQadaaHistoryHijriRange,
+  removeManualQadaaEntry,
+  undoQadaaCompletion,
+  type QadaaCompletionEntry,
+  type QadaaManualEntry,
+} from '../state/qadaaLedgerStore';
+import {
+  formatQadaaCompletionTitle,
+  formatQadaaDayCount,
+  formatQadaaManualTitle,
+} from '../utils/qadaaManualEntryForm';
+
+import {
   summarizeQadaaHistoryEntry,
   type QadaaHistoryEntry,
 } from '../utils/qadaaHistoryPresentation';
@@ -52,88 +66,6 @@ import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTh
 
 const MOSQUE_IMAGE = require('../assets/images/qadaa-mosque.png');
 const LANTERN_IMAGE = require('../assets/images/qadaa-lantern.png');
-
-/* -------------------------------------------------------------------------- */
-/*                              HISTORY ENTRY                                 */
-/* -------------------------------------------------------------------------- */
-
-function HistoryEntryCard({
-  entry,
-  index,
-  theme,
-  styles,
-}: {
-  entry: QadaaHistoryEntry;
-  index: number;
-  theme: ResolvedAwaTheme;
-  styles: ReturnType<typeof createStyles>;
-}): React.JSX.Element {
-  const dayLabel =
-    entry.ramadanDays > 1 ? 'jours' : 'jour';
-
-  return (
-    <Animated.View
-      entering={FadeInUp.delay(
-        60 * index,
-      ).duration(300)}
-      style={styles.historyItem}>
-
-      <View style={styles.historyCheck}>
-        <MaterialDesignIcons
-          name="check"
-          size={18}
-          color={theme.colors.success}
-        />
-      </View>
-
-      <View style={styles.historyContent}>
-        <View style={styles.historyTop}>
-          <View style={styles.historyTitleBlock}>
-            <Text
-              numberOfLines={1}
-              style={styles.historyTitle}>
-              Ramadan {entry.hijriYear} AH
-            </Text>
-
-            <Text style={styles.historyDays}>
-              {entry.ramadanDays} {dayLabel}
-            </Text>
-          </View>
-
-          <View style={styles.historyStatus}>
-            <Text style={styles.historyStatusText}>
-              À jour
-            </Text>
-          </View>
-
-          <MaterialDesignIcons
-            name="chevron-right"
-            size={20}
-            color={theme.colors.textSecondary}
-          />
-        </View>
-
-        <View style={styles.historyPeriod}>
-          <Text style={styles.historyPeriodLabel}>
-            Période des règles
-          </Text>
-
-          <Text style={styles.historyHijri}>
-            {formatQadaaHistoryHijriRange(entry)}
-          </Text>
-
-          <Text style={styles.historyGregorian}>
-            (
-            {formatQadaaHistoryGregorianRange(
-              entry,
-            )}
-            )
-          </Text>
-        </View>
-      </View>
-    </Animated.View>
-  );
-}
 
 /* -------------------------------------------------------------------------- */
 /*                                   SCREEN                                   */
@@ -155,6 +87,9 @@ function FastingQadaaScreen(): React.JSX.Element {
     hijriYear,
     loading,
     showReminder,
+    balance,
+    manualEntries,
+    completions,
     markOneQadaaDayCompleted,
   } = useQadaaStatus();
 
@@ -168,6 +103,10 @@ function FastingQadaaScreen(): React.JSX.Element {
     markingCompleted,
     setMarkingCompleted,
   ] = useState(false);
+
+  // null entry = "add"; an entry = "edit" (MANUAL entries only).
+  const [manualModal, setManualModal] = useState<{entry: QadaaManualEntry | null} | null>(null);
+  const toast = useJournalSaveToast();
 
   /* ------------------------------------------------------------------------ */
   /*                                  HISTORY                                 */
@@ -380,6 +319,50 @@ function FastingQadaaScreen(): React.JSX.Element {
         setMarkingCompleted(false);
       }
     };
+
+  /* ------------------------------------------------------------------------ */
+  /*                     MANUAL ENTRIES / COMPLETION UNDO                     */
+  /* ------------------------------------------------------------------------ */
+
+  const confirmDeleteManual = (entry: QadaaManualEntry) => {
+    Alert.alert(
+      entry.quantity === 1
+        ? 'Supprimer ce jour ajouté manuellement ?'
+        : `Supprimer ces ${entry.quantity} jours ajoutés manuellement ?`,
+      `${formatQadaaManualTitle(entry)} : seuls ces jours ajoutés par toi seront retirés. Les jours détectés automatiquement ne sont pas touchés.`,
+      [
+        {text: 'Annuler', style: 'cancel'},
+        {
+          text: 'Supprimer',
+          style: 'destructive',
+          onPress: () => {
+            removeManualQadaaEntry(entry.id)
+              .then(() => toast.show('Jours supprimés', 'Ton solde a été mis à jour.'))
+              .catch(error => console.warn('[FastingQadaaScreen] Unable to remove manual qadaa entry:', error));
+          },
+        },
+      ],
+    );
+  };
+
+  const confirmUndoCompletion = (entry: QadaaCompletionEntry) => {
+    Alert.alert(
+      'Annuler ce rattrapage ?',
+      `${formatQadaaCompletionTitle(entry)} : ${formatQadaaDayCount(entry.quantity)} rattrapé${entry.quantity === 1 ? '' : 's'} ${entry.quantity === 1 ? 'sera remis' : 'seront remis'} dans ton solde.`,
+      [
+        {text: 'Garder', style: 'cancel'},
+        {
+          text: 'Annuler le rattrapage',
+          style: 'destructive',
+          onPress: () => {
+            undoQadaaCompletion(entry.id)
+              .then(() => toast.show('Rattrapage annulé', 'Ton solde a été mis à jour.'))
+              .catch(error => console.warn('[FastingQadaaScreen] Unable to undo qadaa completion:', error));
+          },
+        },
+      ],
+    );
+  };
 
   /* ------------------------------------------------------------------------ */
 
@@ -620,56 +603,19 @@ function FastingQadaaScreen(): React.JSX.Element {
             </Animated.View>
           ) : null}
 
-          {/* HISTORY */}
+          {/* BALANCE + HISTORY */}
 
-          {historyEntries.length > 0 ? (
-            <View
-              style={
-                styles.historySection
-              }>
-
-              <View
-                style={
-                  styles.sectionHeader
-                }>
-
-                <View
-                  style={
-                    styles.sectionIcon
-                  }>
-                  <MaterialDesignIcons
-                    name="calendar-star"
-                    size={16}
-                    color={theme.colors.primary}
-                  />
-                </View>
-
-                <Text
-                  style={
-                    styles.sectionTitle
-                  }>
-                  Historique
-                </Text>
-              </View>
-
-              <View
-                style={
-                  styles.sectionDivider
-                }
-              />
-
-              {historyEntries.map(
-                (entry, index) => (
-                  <HistoryEntryCard
-                    key={entry.id}
-                    entry={entry}
-                    index={index}
-                    styles={styles}
-                    theme={theme}
-                  />
-                ),
-              )}
-            </View>
+          {!loading && balance ? (
+            <QadaaLedgerSections
+              automaticEntries={historyEntries}
+              balance={balance}
+              completions={completions}
+              manualEntries={manualEntries}
+              onAdd={() => setManualModal({entry: null})}
+              onDeleteManual={confirmDeleteManual}
+              onEditManual={entry => setManualModal({entry})}
+              onUndoCompletion={confirmUndoCompletion}
+            />
           ) : null}
 
           {/* ABOUT */}
@@ -890,6 +836,27 @@ function FastingQadaaScreen(): React.JSX.Element {
         </Animated.View>
       </ScrollView>
 
+      <QadaaManualEntryModal
+        entry={manualModal?.entry ?? null}
+        onClose={() => setManualModal(null)}
+        onSaved={mode =>
+          toast.show(
+            mode === 'added' ? 'Jours ajoutés' : 'Jours modifiés',
+            'Ton solde a été mis à jour.',
+          )
+        }
+        visible={manualModal !== null}
+      />
+
+      <JournalSaveToast
+        animation={toast.animation}
+        bottom={getBottomPadding(insets.bottom) + 12}
+        message={toast.message}
+        onDismiss={toast.hide}
+        title={toast.title}
+        visible={toast.visible}
+      />
+
       {/* HELP MODAL */}
 
       <Modal
@@ -931,9 +898,11 @@ function FastingQadaaScreen(): React.JSX.Element {
             </Text>
 
             <Text style={styles.modalText}>
-              Lorsque tu rattrapes un jour,
-              marque-le comme accompli afin
-              que ton nombre de jours restants
+              Les jours détectés automatiquement viennent de
+              ton suivi des règles pendant Ramadan. Tu peux
+              aussi ajouter toi-même des jours, même anciens.
+              Lorsque tu rattrapes un jour, marque-le comme
+              accompli afin que ton nombre de jours restants
               reste à jour.
             </Text>
 
@@ -1258,167 +1227,6 @@ function createStyles(theme: ResolvedAwaTheme) {
 
     fontSize: 11.5,
     lineHeight: 17,
-  },
-
-  historySection: {
-    marginTop: 12,
-
-    overflow: 'hidden',
-
-    borderRadius: 17,
-
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-
-    backgroundColor: theme.colors.surface,
-
-    ...theme.shadow,
-  },
-
-  sectionHeader: {
-    minHeight: 57,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    paddingHorizontal: 14,
-  },
-
-  sectionIcon: {
-    width: 32,
-    height: 32,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 10,
-
-    backgroundColor: theme.colors.primarySoft,
-  },
-
-  sectionTitle: {
-    marginLeft: 9,
-
-    color: theme.colors.text,
-
-    fontFamily: 'serif',
-
-    fontSize: 17,
-
-    fontWeight: '700',
-  },
-
-  sectionDivider: {
-    height: StyleSheet.hairlineWidth,
-
-    backgroundColor: theme.colors.border,
-  },
-
-  historyItem: {
-    minHeight: 118,
-
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    paddingHorizontal: 14,
-    paddingVertical: 13,
-  },
-
-  historyCheck: {
-    width: 40,
-    height: 40,
-
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    borderRadius: 13,
-
-    backgroundColor: withAlpha(theme.colors.success, 0.14),
-  },
-
-  historyContent: {
-    flex: 1,
-
-    minWidth: 0,
-
-    marginLeft: 11,
-  },
-
-  historyTop: {
-    flexDirection: 'row',
-    alignItems: 'center',
-
-    gap: 5,
-  },
-
-  historyTitleBlock: {
-    flex: 1,
-    minWidth: 0,
-  },
-
-  historyTitle: {
-    color: theme.colors.text,
-
-    fontSize: 12.5,
-
-    fontWeight: '800',
-  },
-
-  historyDays: {
-    marginTop: 2,
-
-    color: theme.colors.text,
-
-    fontSize: 11.5,
-
-    fontWeight: '700',
-  },
-
-  historyStatus: {
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-
-    borderRadius: 8,
-
-    backgroundColor: withAlpha(theme.colors.success, 0.14),
-  },
-
-  historyStatusText: {
-    color: theme.colors.success,
-
-    fontSize: 9.5,
-
-    fontWeight: '800',
-  },
-
-  historyPeriod: {
-    marginTop: 7,
-  },
-
-  historyPeriodLabel: {
-    color: theme.colors.textSecondary,
-
-    fontSize: 9.5,
-
-    fontWeight: '600',
-  },
-
-  historyHijri: {
-    marginTop: 2,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 10.8,
-    lineHeight: 15,
-  },
-
-  historyGregorian: {
-    marginTop: 1,
-
-    color: theme.colors.textSecondary,
-
-    fontSize: 10,
-    lineHeight: 14,
   },
 
   aboutCard: {
