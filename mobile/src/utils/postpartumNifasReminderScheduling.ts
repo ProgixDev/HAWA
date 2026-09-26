@@ -335,13 +335,32 @@ export async function reconcilePostpartumNifasInAppNotifications(): Promise<void
  * CLEAR
  * ============================================================ */
 
+/**
+ * Cancels the J35/J40 notifications and clears the SCHEDULE snapshot only.
+ *
+ * It deliberately KEEPS `deliveryDate` and `completionAcknowledged`: the
+ * "Compris" acknowledgement of the Nifas reference popup is keyed to its
+ * delivery date (see postpartumNifasReminderStore.ts), not to whether
+ * reminders are currently scheduled. This function runs for reasons unrelated
+ * to that acknowledgement — switching to another objective, turning the
+ * spiritual markers OFF, closing the lochia — and wiping it there made an
+ * already-acknowledged informational popup/banner reappear on return. A
+ * different delivery date still never inherits it (the match is on the date,
+ * and syncPostpartumNifasReminders() resets the flag when the date changes).
+ */
 async function clearNifasReminders(): Promise<void> {
   await cancelLocalNotifications(
     NIFAS_NOTIFICATION_IDS,
   );
 
+  // Read AFTER the awaited cancel so an acknowledgement recorded in the
+  // meantime is never overwritten with a stale snapshot.
+  const current =
+    getPostpartumNifasReminderState();
+
   await setPostpartumNifasReminderState({
-    deliveryDate: null,
+    deliveryDate:
+      current.deliveryDate,
 
     configVersion:
       NIFAS_REFERENCE_CONFIG_VERSION,
@@ -350,7 +369,8 @@ async function clearNifasReminders(): Promise<void> {
 
     referenceScheduled: false,
 
-    completionAcknowledged: false,
+    completionAcknowledged:
+      current.completionAcknowledged,
 
     warningFireAt: null,
 
@@ -674,10 +694,12 @@ export async function syncPostpartumNifasReminders(): Promise<void> {
 
     referenceScheduled,
 
+    // Re-read at write time (not the `previous` snapshot taken before the
+    // awaited scheduling calls) so an acknowledgement given meanwhile is kept.
     completionAcknowledged:
-      previous.deliveryDate ===
+      getPostpartumNifasReminderState().deliveryDate ===
         preferences.deliveryDate &&
-      previous.completionAcknowledged,
+      getPostpartumNifasReminderState().completionAcknowledged,
 
     warningFireAt:
       warningDate.toISOString(),

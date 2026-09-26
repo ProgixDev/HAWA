@@ -20,7 +20,7 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {confirmDelivery, getPostpartumPreferences, setDeliveryDate} from '../state/postpartumPreferences';
 import {getPostpartumLochiaTracking, hydratePostpartumLochia} from '../state/postpartumLochiaStore';
-import {validateDeliveryDate} from '../utils/postpartumLossDateValidation';
+import {belongsToCurrentDelivery, validateDeliveryDate} from '../utils/postpartumLossDateValidation';
 import {diffDays, startOfDay} from '../utils/cycleMath';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -122,11 +122,17 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
     if (saving) {return;}
     setSaving(true);
     await hydratePostpartumLochia();
+    // Only values of the CURRENT journey (dated on/after the delivery being
+    // edited) constrain the date; a first period / lochia end left over from an
+    // EARLIER journey precedes it and is ignored here (kept in storage).
+    const currentDelivery = getPostpartumPreferences().deliveryDate;
+    const firstPeriod = getPostpartumPreferences().firstPostpartumPeriodDate;
+    const lochiaEnded = getPostpartumLochiaTracking().endedDate;
     const validation = validateDeliveryDate({
       date: selectedDate,
       now: new Date(),
-      firstPostpartumPeriodDate: getPostpartumPreferences().firstPostpartumPeriodDate,
-      lochiaEndedDate: getPostpartumLochiaTracking().endedDate,
+      firstPostpartumPeriodDate: belongsToCurrentDelivery(firstPeriod, currentDelivery) ? firstPeriod : null,
+      lochiaEndedDate: belongsToCurrentDelivery(lochiaEnded, currentDelivery) ? lochiaEnded : null,
     });
     if (!validation.valid) {
       setDateError(validation.message);

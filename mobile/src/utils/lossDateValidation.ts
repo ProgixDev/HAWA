@@ -66,6 +66,10 @@ export function validateCycleReturnDate(params: {
   return {valid: true};
 }
 
+/** Wording shown wherever a stored (legacy) invalid cycle-return date would
+ * otherwise be displayed as a date (Dashboard, Profile, Summary). */
+export const CYCLE_RETURN_DATE_TO_CHECK = 'Date à vérifier';
+
 export type StoredCycleReturnDateState =
   | 'none' // nothing recorded
   | 'ok' // a real event that already happened, after the loss

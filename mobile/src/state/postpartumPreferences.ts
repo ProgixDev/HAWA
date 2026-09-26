@@ -46,6 +46,15 @@ export type PostpartumPreferences = {
    * lochia bleeding or any other signal — only an explicit user action sets
    * this. */
   firstPostpartumPeriodDate: string | null;
+  /** Journey bookkeeping (additive, optional - absent on data persisted before
+   * it existed, which then counts as belonging to the current delivery).
+   * `deliveryType` / `feedingType` are single-value answers with no date of
+   * their own, so each remembers the delivery date it was given for. When a NEW
+   * delivery replaces an earlier journey, the earlier answers are KEPT in
+   * storage (never cleared) and simply stop being reported as this journey
+   * answers - see getPostpartumPreferences(). */
+  deliveryTypeForDelivery?: string | null;
+  feedingTypeForDelivery?: string | null;
   /** Optional "Suivi quotidien" reminder onboarding (PostpartumRemindersScreen)
    * — a separate, user-configurable, recurring health-tracking reminder,
    * deliberately independent from the automatic religious Nifas J35/J40
@@ -99,6 +108,8 @@ const isValidPreferences = (value: unknown): value is Partial<PostpartumPreferen
       candidate.firstPostpartumPeriodDate === null ||
       typeof candidate.firstPostpartumPeriodDate === 'string') &&
     // Absent on data persisted before these fields existed.
+    (candidate.deliveryTypeForDelivery === undefined || candidate.deliveryTypeForDelivery === null || typeof candidate.deliveryTypeForDelivery === 'string') &&
+    (candidate.feedingTypeForDelivery === undefined || candidate.feedingTypeForDelivery === null || typeof candidate.feedingTypeForDelivery === 'string') &&
     (candidate.dailyTrackingReminderEnabled === undefined || typeof candidate.dailyTrackingReminderEnabled === 'boolean') &&
     (candidate.dailyTrackingReminderTime === undefined ||
       candidate.dailyTrackingReminderTime === null ||
@@ -106,7 +117,45 @@ const isValidPreferences = (value: unknown): value is Partial<PostpartumPreferen
   );
 };
 
-export const getPostpartumPreferences = (): PostpartumPreferences => ({...postpartumPreferences});
+/** True when a single-value answer given under `answeredFor` (a delivery date)
+ * still describes the CURRENT delivery. No marker (data from before the marker
+ * existed) counts as current. */
+const isCurrentJourneyAnswer = (answeredFor: string | null | undefined, currentDelivery: string | null): boolean =>
+  answeredFor === undefined || answeredFor === null || answeredFor === currentDelivery;
+
+/** The postpartum state of the CURRENT journey. Storage keeps every value ever
+ * saved (writers below always spread the raw stored object, never this view),
+ * but values that belong to an EARLIER delivery are reported as not answered:
+ * - deliveryType / feedingType given for another delivery date;
+ * - a first postpartum period dated BEFORE the current delivery (a period that
+ *   precedes the delivery cannot be this journey: valid recordings are always
+ *   on/after it).
+ * Nothing is deleted or rewritten; the old values stay in storage. Limitation:
+ * a single stored slot per answer cannot hold two journeys at once -
+ * DATA-MODEL DECISION REQUIRED - MULTI-JOURNEY POSTPARTUM HISTORY. */
+export const getPostpartumPreferences = (): PostpartumPreferences => {
+  const stored = postpartumPreferences;
+  const current = stored.deliveryDate;
+  return {
+    ...stored,
+    deliveryType: isCurrentJourneyAnswer(stored.deliveryTypeForDelivery, current) ? stored.deliveryType : null,
+    feedingType: isCurrentJourneyAnswer(stored.feedingTypeForDelivery, current) ? stored.feedingType : null,
+    firstPostpartumPeriodDate:
+      stored.firstPostpartumPeriodDate && current && stored.firstPostpartumPeriodDate < current
+        ? null
+        : stored.firstPostpartumPeriodDate,
+  };
+};
+
+/** Follows a CORRECTION of the current delivery date: answers that were given
+ * for the old date now belong to the corrected one. */
+const movedAnswerMarkers = (
+  stored: PostpartumPreferences,
+  newDelivery: string,
+): Pick<PostpartumPreferences, 'deliveryTypeForDelivery' | 'feedingTypeForDelivery'> => ({
+  deliveryTypeForDelivery: stored.deliveryTypeForDelivery === stored.deliveryDate ? newDelivery : stored.deliveryTypeForDelivery,
+  feedingTypeForDelivery: stored.feedingTypeForDelivery === stored.deliveryDate ? newDelivery : stored.feedingTypeForDelivery,
+});
 
 export const setPostpartumPreferences = async (value: PostpartumPreferences): Promise<void> => {
   postpartumPreferences = {...value};
@@ -124,19 +173,30 @@ export const confirmDelivery = async (
   deliveryDate: Date,
   options?: {startsNewJourney?: boolean},
 ): Promise<void> => {
+  const newKey = deliveryDate.toLocaleDateString('en-CA');
+  const stored = postpartumPreferences;
+  // Only the Pregnancy -> Postpartum transition passes `startsNewJourney`, when
+  // a delivery left over from an EARLIER journey is being replaced by this
+  // pregnancy's own. Nothing is cleared: the earlier answers (type, feeding,
+  // first period) stay in storage. The answers that carry no date of their own
+  // are stamped with the OLD delivery date so they are recognised as belonging
+  // to that earlier journey and are no longer reported as this one's (see
+  // getPostpartumPreferences); they stay editable from Profile ("Mon
+  // accouchement", "Alimentation de bébé"). Reminder settings, journals,
+  // lochia and Nifas state are never touched.
+  const markers =
+    options?.startsNewJourney && stored.deliveryDate
+      ? {
+          deliveryTypeForDelivery: stored.deliveryType ? stored.deliveryTypeForDelivery ?? stored.deliveryDate : stored.deliveryTypeForDelivery,
+          feedingTypeForDelivery: stored.feedingType ? stored.feedingTypeForDelivery ?? stored.deliveryDate : stored.feedingTypeForDelivery,
+        }
+      : stored.deliveryDate
+        ? movedAnswerMarkers(stored, newKey)
+        : {};
   await setPostpartumPreferences({
-    ...postpartumPreferences,
-    // Only the Pregnancy -> Postpartum transition passes this, when a delivery
-    // left over from an EARLIER journey is being replaced by this pregnancy's
-    // own. The single-slot answers that described that earlier delivery/baby
-    // (type, feeding, first period since delivery) must not be carried over
-    // as if they were this one's: they go back to "not answered" and stay
-    // editable from Profile ("Mon accouchement", "Alimentation de bébé").
-    // Reminder settings, journals, lochia and Nifas state are never touched.
-    ...(options?.startsNewJourney
-      ? {deliveryType: null, feedingType: null, firstPostpartumPeriodDate: null}
-      : {}),
-    deliveryDate: deliveryDate.toLocaleDateString('en-CA'),
+    ...stored,
+    ...markers,
+    deliveryDate: newKey,
     startedAt: new Date().toISOString(),
   });
 };
@@ -145,7 +205,11 @@ export const confirmDelivery = async (
  * PostpartumDeliveryTypeScreen (and nowhere else; do not duplicate this
  * call). Product context only, never a medical record. */
 export const setDeliveryType = async (deliveryType: PostpartumDeliveryType): Promise<void> => {
-  await setPostpartumPreferences({...postpartumPreferences, deliveryType});
+  await setPostpartumPreferences({
+    ...postpartumPreferences,
+    deliveryType,
+    deliveryTypeForDelivery: postpartumPreferences.deliveryDate,
+  });
 };
 
 /** THE single canonical way to record the feeding choice — used by
@@ -153,7 +217,11 @@ export const setDeliveryType = async (deliveryType: PostpartumDeliveryType): Pro
  * Product context only, never a medical record; no prediction logic reads
  * this value yet. */
 export const setFeedingType = async (feedingType: PostpartumFeedingType): Promise<void> => {
-  await setPostpartumPreferences({...postpartumPreferences, feedingType});
+  await setPostpartumPreferences({
+    ...postpartumPreferences,
+    feedingType,
+    feedingTypeForDelivery: postpartumPreferences.deliveryDate,
+  });
 };
 
 /** THE single canonical way to record "the real first menstrual period
@@ -173,9 +241,11 @@ export const recordFirstPostpartumPeriod = async (date: Date): Promise<void> => 
  * `startedAt` (when tracking was first activated) and never touches any
  * journal / lochia data — recorded entries keep the dates they were recorded on. */
 export const setDeliveryDate = async (deliveryDate: Date): Promise<void> => {
+  const newKey = deliveryDate.toLocaleDateString('en-CA');
   await setPostpartumPreferences({
     ...postpartumPreferences,
-    deliveryDate: deliveryDate.toLocaleDateString('en-CA'),
+    ...(postpartumPreferences.deliveryDate ? movedAnswerMarkers(postpartumPreferences, newKey) : {}),
+    deliveryDate: newKey,
   });
 };
 
