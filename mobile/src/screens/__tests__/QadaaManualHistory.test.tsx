@@ -485,19 +485,13 @@ describe('FastingQadaaScreen — manual history, corrections and truthful status
     await confirmRamadanPeriod(4);
     await addManualQadaaEntry({quantity: 2, year: 2020, yearSystem: 'gregorian'});
     await addManualQadaaEntry({quantity: 3, year: 2018, yearSystem: 'gregorian'});
-    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
     const renderer = await render(<FastingQadaaScreen />);
 
     await press(renderer, 'Supprimer Ramadan 2020');
-    expect(alert).toHaveBeenCalledTimes(1);
-    expect(alert.mock.calls[0][0]).toBe('Supprimer ces 2 jours ajoutés manuellement ?');
+    expect(allTexts(renderer)).toContain('Supprimer ces jours ?');
     expect(getQadaaLedger().manualEntries).toHaveLength(2); // nothing removed before confirming
 
-    const confirm = alert.mock.calls[0][2]!.find(button => button.style === 'destructive')!;
-    await act(async () => {
-      confirm.onPress?.();
-    });
-    await flush();
+    await press(renderer, 'Confirmer la suppression');
 
     expect(getQadaaLedger().manualEntries.map(entry => entry.year)).toEqual([2018]);
     expect(getConfirmedPeriodHistory()).toHaveLength(1);
@@ -506,13 +500,9 @@ describe('FastingQadaaScreen — manual history, corrections and truthful status
 
   it('cancelling the confirmation deletes nothing', async () => {
     await addManualQadaaEntry({quantity: 2});
-    const alert = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
     const renderer = await render(<FastingQadaaScreen />);
     await press(renderer, 'Supprimer Ancien solde');
-    const cancel = alert.mock.calls[0][2]!.find(button => button.style === 'cancel')!;
-    await act(async () => {
-      cancel.onPress?.();
-    });
+    await press(renderer, 'Annuler la suppression');
     expect(getQadaaLedger().manualEntries).toHaveLength(1);
   });
 
