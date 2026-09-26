@@ -6,6 +6,7 @@ import {
   sanitizeTextForPdf,
 } from '../medicalExportPdf';
 import {buildExportCsv, buildExportReportModel, type ExportDayEntry} from '../medicalExportFormatting';
+import {extractDrawnText} from '../../testUtils/pdfExtract';
 
 describe('generateMedicalExportPdfBase64', () => {
   it('produces a real, parseable PDF file containing only the selected data', async () => {
@@ -101,18 +102,22 @@ describe('generateMedicalExportPdfBase64 — Unicode behaviour (M45)', () => {
     expect(reopened.getPageCount()).toBeGreaterThanOrEqual(1);
   });
 
-  it('Arabic is NOT rendered (no glyphs, no shaping, no RTL) but is marked explicitly - never as question marks - with a visible notice', async () => {
-    const text = await extractPdfText(await generateMedicalExportPdfBase64(modelWith(['مرحبا بالعالم'])));
-    expect(text).toContain(`• ${M} ${M}`);
-    expect(text).toContain(PDF_UNSUPPORTED_NOTICE);
-    expect(text).not.toContain('?');
-    expect(text).not.toMatch(/[؀-ۿ]/);
+  it('Arabic IS rendered (embedded Arabic font) - never marked, never question marks, no notice (full checks: medicalExportPdfArabic.test.ts)', async () => {
+    const drawn = await extractDrawnText(await generateMedicalExportPdfBase64(modelWith(['مرحبا بالعالم'])));
+    expect(drawn.some(piece => piece.kind === 'arabic' && piece.glyphIds.length > 0)).toBe(true);
+    const latin = drawn.filter(piece => piece.kind === 'latin').map(piece => piece.text).join(' ');
+    expect(latin).not.toContain(M);
+    expect(latin).not.toContain(PDF_UNSUPPORTED_NOTICE);
+    expect(latin).not.toContain('?');
   });
 
-  it('mixed Arabic + French keeps the French part verbatim and marks the Arabic runs', async () => {
-    const text = await extractPdfText(await generateMedicalExportPdfBase64(modelWith(['Note : اليوم كنت متعبة, fatiguée'])));
-    expect(text).toContain(`Note : ${M} ${M} ${M}, fatiguée`);
-    expect(text).toContain(PDF_UNSUPPORTED_NOTICE);
+  it('mixed Arabic + French keeps the French part verbatim and draws the Arabic part', async () => {
+    const drawn = await extractDrawnText(await generateMedicalExportPdfBase64(modelWith(['Note : اليوم كنت متعبة, fatiguée'])));
+    const latin = drawn.filter(piece => piece.kind === 'latin').map(piece => piece.text).join(' ');
+    expect(latin).toContain('Note :');
+    expect(latin).toContain('fatiguée');
+    expect(latin).not.toContain(M);
+    expect(drawn.some(piece => piece.kind === 'arabic')).toBe(true);
   });
 
   it('emoji, ZWJ sequences and other non-WinAnsi scripts do not throw and are marked', async () => {
@@ -136,7 +141,7 @@ describe('generateMedicalExportPdfBase64 — Unicode behaviour (M45)', () => {
     expect(sanitizeTextForPdf('aمرحباb😊c', support)).toEqual({text: `a${M}b${M}c`, replaced: true});
   });
 
-  it('the CSV export path stays lossless for Arabic/emoji (the documented fallback for the PDF limitation)', () => {
+  it('the CSV export path stays lossless for Arabic/emoji (the PDF draws them too, except emoji)', () => {
     const csv = buildExportCsv([
       {date: '2026-08-24', categories: [{category: 'notes', label: 'Notes du jour', lines: ['مرحبا 😊']}]},
     ]);
