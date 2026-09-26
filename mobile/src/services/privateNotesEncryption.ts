@@ -1,5 +1,6 @@
 import {gcm} from '@noble/ciphers/aes.js';
-import {bytesToHex, hexToBytes, randomBytes, utf8ToBytes, bytesToUtf8} from '@noble/ciphers/utils.js';
+import {bytesToHex, hexToBytes, randomBytes, utf8ToBytes} from '@noble/ciphers/utils.js';
+import {decodeUtf8} from '../utils/utf8';
 import {getOrCreateAesKey} from './secureAesKeyStore';
 import {
   deleteJournalSection,
@@ -53,7 +54,7 @@ export async function decryptNoteSection(payload: EncryptedNotePayload): Promise
   const nonce = hexToBytes(payload.iv);
   const ciphertext = hexToBytes(payload.ciphertext);
   const plaintext = gcm(key, nonce).decrypt(ciphertext);
-  return JSON.parse(bytesToUtf8(plaintext)) as NoteSection;
+  return JSON.parse(decodeUtf8(plaintext)) as NoteSection;
 }
 
 export type ResolvedNoteSection = {data: NoteSection | undefined; corrupted: boolean};
