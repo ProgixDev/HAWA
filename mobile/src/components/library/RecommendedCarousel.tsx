@@ -14,6 +14,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
 import {getCategoryById, LIBRARY_TINTS, type LibraryArticle} from '../../data/libraryContent';
+import {ArticlePremiumBadge} from './ArticlePremiumBadge';
 import BookmarkButton from './BookmarkButton';
 
 type Props = {
@@ -65,6 +66,7 @@ function RecommendedCard({
         ) : null}
 
         <Text numberOfLines={2} style={styles.title}>{article.title}</Text>
+        <ArticlePremiumBadge article={article} />
 
         <View style={styles.metaRow}>
           <MaterialDesignIcons color={homeColors.textSecondary} name="clock-outline" size={13} />

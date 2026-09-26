@@ -4,6 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import {homeColors, homeRadii} from '../home/homeTheme';
 import {getCategoryById, LIBRARY_TINTS, type LibraryArticle} from '../../data/libraryContent';
+import {ArticlePremiumBadge} from './ArticlePremiumBadge';
 import BookmarkButton from './BookmarkButton';
 
 const TYPE_LABEL: Record<LibraryArticle['type'], string> = {
@@ -38,6 +39,7 @@ function ArticleRow({article, progress, bookmarked, onPress, onToggleBookmark}: 
           <Text numberOfLines={1} style={[styles.category, {color: tint.fg}]}>{category.label}</Text>
         ) : null}
         <Text numberOfLines={2} style={styles.title}>{article.title}</Text>
+        <ArticlePremiumBadge article={article} />
         <View style={styles.metaRow}>
           <MaterialDesignIcons color={homeColors.textSecondary} name="clock-outline" size={12} />
           <Text style={styles.metaText}>{article.durationMinutes} min</Text>

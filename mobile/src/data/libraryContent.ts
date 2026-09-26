@@ -577,6 +577,15 @@ export type LibraryArticle = {
   phases?: ComputedCyclePhase[];
   summary: string;
   content: string[];
+  /** Premium-only guide. When `true` the article MUST be gated by the
+   * canonical Premium state (usePremium / premiumStore): the reader screen
+   * (ArticleReaderScreen) refuses to render it for a Free user no matter how
+   * it was reached (card, list, dashboard, notification, deep link), and every
+   * card/list surface shows the same lock affordance. No article is flagged
+   * Premium today (PRODUCT DECISION REQUIRED — which guides, if any, are
+   * Premium is undecided), so the Premium sheet only advertises "Guides
+   * approfondis" once at least one article carries this flag. */
+  premium?: boolean;
 };
 
 export const LIBRARY_ARTICLES: LibraryArticle[] = [
@@ -1797,3 +1806,13 @@ export const LIBRARY_ARTICLES: LibraryArticle[] = [
 
 export const getArticleById = (id: string): LibraryArticle | undefined =>
   LIBRARY_ARTICLES.find(article => article.id === id);
+
+/** THE definition of "presented as Premium" for a library article — cards,
+ * lists and the reader all go through this so they can never disagree. */
+export const isPremiumArticle = (article: Pick<LibraryArticle, 'premium'> | undefined): boolean =>
+  article?.premium === true;
+
+/** True when at least one guide is actually Premium-gated — the marketing
+ * bullet "Guides approfondis" is only shown while this holds, so the paywall
+ * never advertises exclusive content that does not exist. */
+export const hasPremiumArticles = (): boolean => LIBRARY_ARTICLES.some(isPremiumArticle);

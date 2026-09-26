@@ -5,7 +5,18 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {loadQuickActionsOrder, saveQuickActionsOrder} from '../../state/quickActionsPreferences';
+import {
+  applyVisibleOrderToFullOrder,
+  filterQuickActionsForSpiritualMarkers,
+  loadQuickActionsOrder,
+  resolveQuickActionsOrder,
+  saveQuickActionsOrder,
+} from '../../state/quickActionsPreferences';
+import {
+  getSpiritualMarkersEnabled,
+  hydrateSpiritualMarkersEnabled,
+  subscribeSpiritualMarkersEnabled,
+} from '../../state/onboardingPreferences';
 
 // PHASE C — `item.iconColor`/`item.iconBg` are supplied by the CALLING
 // objective dashboard, one pair per action, encoding that action's own
@@ -24,6 +35,11 @@ export type QuickActionItem = {
   onPress?: () => void;
 };
 
+// `items` is ALWAYS the objective's full list. Spiritual entries (prayer
+// times, Hijri calendar, Qadaa — see SPIRITUAL_QUICK_ACTION_KEYS) are hidden
+// HERE, from the canonical spiritual-markers preference, so no dashboard
+// keeps its own copy of that filter. Hidden entries keep their slot in the
+// persisted order (turning the markers back ON restores the arrangement).
 type Props = {items: QuickActionItem[]};
 
 type TileProps = {
@@ -107,51 +123,80 @@ function QuickActionsGrid({items}: Props): React.JSX.Element {
   const compact = width < 380;
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  // FULL order (visible + hidden spiritual keys) — the persisted value.
   const [order, setOrder] = useState<string[]>(() => items.map(item => item.key));
   const [armedKey, setArmedKey] = useState<string | null>(null);
   const [reorderMode, setReorderMode] = useState(false);
+  const [spiritualMarkersEnabled, setSpiritualMarkersEnabledState] = useState(getSpiritualMarkersEnabled);
+
+  useEffect(() => {
+    let active = true;
+    hydrateSpiritualMarkersEnabled().then(() => {
+      if (active) {setSpiritualMarkersEnabledState(getSpiritualMarkersEnabled());}
+    });
+    const unsubscribe = subscribeSpiritualMarkersEnabled(() => {
+      if (active) {setSpiritualMarkersEnabledState(getSpiritualMarkersEnabled());}
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
 
   useEffect(() => {
     let mounted = true;
     loadQuickActionsOrder().then(saved => {
       if (!mounted || !saved) {return;}
-      const knownKeys = items.map(item => item.key);
-      const isValid = saved.length === knownKeys.length && saved.every(key => knownKeys.includes(key));
-      if (isValid) {setOrder(saved);}
+      // Validated against the objective's FULL key set (visible + hidden), so
+      // an order saved while spiritual actions were hidden is never discarded.
+      setOrder(resolveQuickActionsOrder(saved, items.map(item => item.key)));
     });
     return () => {mounted = false;};
     // Only re-validate against a saved order once, on mount.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const visibleItems = filterQuickActionsForSpiritualMarkers(items, spiritualMarkersEnabled);
+  const visibleKeySet = new Set(visibleItems.map(item => item.key));
+  // Keys present in `items` but absent from the persisted order (an item added
+  // later) are appended rather than silently dropped.
+  const fullOrder = [
+    ...order.filter(key => items.some(item => item.key === key)),
+    ...items.map(item => item.key).filter(key => !order.includes(key)),
+  ];
+  const visibleOrder = fullOrder.filter(key => visibleKeySet.has(key));
+  // An armed tile that just became hidden (toggle switched OFF) is disarmed.
+  const effectiveArmedKey = armedKey && visibleKeySet.has(armedKey) ? armedKey : null;
+
   const arm = (key: string) => {
-    setArmedKey(current => {
-      if (current === key) {return null;}
-      if (current) {
-        setOrder(previous => {
-          const next = [...previous];
-          const from = next.indexOf(current);
-          const to = next.indexOf(key);
-          [next[from], next[to]] = [next[to], next[from]];
-          saveQuickActionsOrder(next);
-          return next;
-        });
-        return null;
-      }
-      return key;
-    });
+    if (effectiveArmedKey === key) {
+      setArmedKey(null);
+      return;
+    }
+    if (effectiveArmedKey) {
+      const nextVisible = [...visibleOrder];
+      const from = nextVisible.indexOf(effectiveArmedKey);
+      const to = nextVisible.indexOf(key);
+      [nextVisible[from], nextVisible[to]] = [nextVisible[to], nextVisible[from]];
+      const nextFull = applyVisibleOrderToFullOrder(fullOrder, nextVisible);
+      setOrder(nextFull);
+      saveQuickActionsOrder(nextFull);
+      setArmedKey(null);
+      return;
+    }
+    setArmedKey(key);
   };
 
   const handleTap = (item: QuickActionItem) => {
-    if (armedKey) {
+    if (effectiveArmedKey) {
       arm(item.key);
       return;
     }
     item.onPress?.();
   };
 
-  const byKey = new Map(items.map(item => [item.key, item]));
-  const ordered = order.map(key => byKey.get(key)).filter((item): item is QuickActionItem => Boolean(item));
+  const byKey = new Map(visibleItems.map(item => [item.key, item]));
+  const ordered = visibleOrder.map(key => byKey.get(key)).filter((item): item is QuickActionItem => Boolean(item));
 
   return (
     <View style={styles.card}>
@@ -182,7 +227,7 @@ function QuickActionsGrid({items}: Props): React.JSX.Element {
       <View style={styles.grid}>
         {ordered.map(item => (
           <QuickActionTile
-            armed={armedKey === item.key}
+            armed={effectiveArmedKey === item.key}
             compact={compact}
             item={item}
             key={item.key}
