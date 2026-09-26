@@ -28,6 +28,7 @@ export const UNIFIED_PURPOSE_COPY: Record<string, string> = {
   menopauseNotes: 'Tes notes du jour restent entièrement privées.',
   photos: 'Tes photos restent entièrement privées.',
   miscarriageNotes: 'Tes notes personnelles restent entièrement privées.',
+  export: 'Confirme ton identité avant d’exporter des données sensibles.',
 };
 
 export default function PrivateIntimacyUnlockScreen({navigation, route}: Props): React.JSX.Element {

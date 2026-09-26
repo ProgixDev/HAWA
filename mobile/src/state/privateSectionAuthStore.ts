@@ -18,6 +18,10 @@ export type IntimacyTarget =
   | 'cycleNotes'
   | 'miscarriageNotes'
   | 'menopauseNotes'
+  // Medical Export of sensitive (decrypted) categories — DataExportScreen. The
+  // unlock flow returns to the EXISTING DataExport screen (popTo) instead of
+  // opening a new one, so the user's period/format/category choices survive.
+  | 'export'
   | undefined;
 
 /** Single source for "where does the private-section flow go once unlocked" —
@@ -33,6 +37,10 @@ export const replaceWithIntimacyDestination = (
   navigation: NativeStackNavigationProp<RootStackParamList>,
   target: IntimacyTarget,
 ): void => {
+  if (target === 'export') {
+    navigation.popTo('DataExport', {sensitiveUnlockToken: Date.now()}, {merge: true});
+    return;
+  }
   if (target === 'conception') {navigation.replace('JournalConceptionReports'); return;}
   if (target === 'photos') {navigation.replace('PrivatePhotoEntry'); return;}
   if (target === 'contraceptionNotes') {navigation.replace('ContraceptionJournalEntry', {category: 'notes'}); return;}

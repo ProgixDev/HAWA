@@ -28,6 +28,7 @@ import PeriodEndBottomSheet from '../components/prayer/PeriodEndBottomSheet';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {capitalize, formatFullDate, formatHijriDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
+import {objectiveShowsMenstrualPurity} from '../utils/spiritualObjectiveScope';
 import {
   getActiveObjective,
   getHijriAdjustmentDays,
@@ -58,12 +59,15 @@ function PrayerTimesScreen(): React.JSX.Element {
     setHijriAdjustmentDays(value);
   };
 
-  // Shared screen for all three objectives. Pregnancy and Postpartum keep
-  // the general prayer schedule/location/Hijri info below, but must never
-  // surface normal menstrual purity status — see PurityStatusCard/
-  // spiritual-advice/PeriodEndBottomSheet below. Cycle's own behavior is
-  // entirely unchanged; menstrual purity only ever applies there.
-  const shouldShowMenstrualPurity = getActiveObjective() === 'cycle';
+  // Shared screen for every objective. Pregnancy, Postpartum, Loss,
+  // Contraception and Menopause keep the general prayer schedule/location/
+  // Hijri info below, but must never surface normal menstrual purity status —
+  // see PurityStatusCard/spiritual-advice/PeriodEndBottomSheet below. The
+  // period-based objectives (Cycle, Conceive, SOPK) show it: their dashboards'
+  // SpiritualGuidanceCard already displays the same usePrayerPurityStatus()
+  // state and links here, so this screen must not hide it (see
+  // utils/spiritualObjectiveScope.ts).
+  const shouldShowMenstrualPurity = objectiveShowsMenstrualPurity(getActiveObjective());
 
   const {
     cyclePreferences,
