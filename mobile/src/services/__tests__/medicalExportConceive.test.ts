@@ -46,4 +46,21 @@ describe('buildConceiveExportDays — estimate labeling', () => {
     expect(notices.join(' ')).toMatch(/Ovulation estimée/);
     expect(notices.join(' ')).toMatch(/fenêtre de fertilité estimée/i);
   });
+
+  it('the fertile-window notice is ONE coherent window even when "now" is already inside it', async () => {
+    mockGetHasConfirmedCycleData.mockReturnValue(true);
+    // last period Sept 1, 28-day cycle → ovulation Sept 15, window Sept 10 → 16.
+    mockGetCyclePreferences.mockReturnValue({lastPeriodStart: new Date(2026, 8, 1), cycleDuration: 28, periodDuration: 5, regularity: 'yes'});
+
+    const inside = await buildConceiveExportDays(['temperature'], 'all', new Date(2026, 8, 12, 12, 0, 0));
+    expect(inside.notices.join(' ')).toMatch(/du 10 septembre 2026 au 16 septembre 2026/);
+    expect(inside.notices.join(' ')).toMatch(/15 septembre 2026/);
+
+    // The last fertile day, at noon (the old code had already skipped it).
+    const lastDay = await buildConceiveExportDays(['temperature'], 'all', new Date(2026, 8, 16, 12, 0, 0));
+    expect(lastDay.notices.join(' ')).toMatch(/du 10 septembre 2026 au 16 septembre 2026/);
+
+    const after = await buildConceiveExportDays(['temperature'], 'all', new Date(2026, 8, 17, 12, 0, 0));
+    expect(after.notices.join(' ')).toMatch(/du 8 octobre 2026 au 14 octobre 2026/);
+  });
 });

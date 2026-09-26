@@ -64,11 +64,11 @@ const FLOW_LABELS: Record<FlowIntensity, string> = {
  * window. `now` is an explicit parameter (never `new Date()` internally) so
  * this stays deterministic and testable. 'all' returns every entry
  * unfiltered, matching the pre-existing DataExportScreen behavior. */
-export function filterEntriesByPeriod(
-  entries: DailyJournalEntry[],
+export function filterEntriesByPeriod<T extends {date: string}>(
+  entries: T[],
   period: ExportPeriod,
   now: Date,
-): DailyJournalEntry[] {
+): T[] {
   if (period === 'all') {return entries;}
   const months = Number(period.replace('m', ''));
   const cutoff = new Date(now);
@@ -101,6 +101,13 @@ export function computeExportFilenameDates(
   }
   const sortedDates = entries.map(entry => entry.date).sort();
   return {fromKey: sortedDates[0] ?? toKey, toKey};
+}
+
+/** French label of a shared flow intensity ('light' -> 'Léger'). Raw value if
+ * unknown. Exposed so dedicated readers (SOPK) print the same wording as the
+ * generic 'flow' category. */
+export function formatFlowIntensityLabel(intensity: FlowIntensity): string {
+  return FLOW_LABELS[intensity] ?? intensity;
 }
 
 function formatEnumOrRaw<T extends string>(value: T | undefined, labels: Record<T, string>): string | undefined {

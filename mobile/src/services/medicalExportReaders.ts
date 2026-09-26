@@ -4,6 +4,7 @@ import {resolveNoteSection} from './privateNotesEncryption';
 import {resolveIntimacySection} from './privateJournalEncryption';
 import {
   formatCategoryValue,
+  formatFlowIntensityLabel,
   filterEntriesByPeriod,
   type ExportCategoryValue,
   type ExportDayEntry,
@@ -13,9 +14,11 @@ import {
 import {
   getCyclePreferences,
   getHasConfirmedCycleData,
+  getRecordedPeriodHistory,
   hydrateCyclePreferences,
 } from '../state/onboardingPreferences';
-import {ovulationDayFor, upcomingDateForCycleDay, formatFullDate} from '../utils/cycleMath';
+import {getConfirmedPeriodHistory, hydrateConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
+import {upcomingFertileWindow, formatFullDate} from '../utils/cycleMath';
 
 import {getPregnancyJournalState, type PregnancyMedicalEntry} from '../state/pregnancyJournalStore';
 import {getPregnancyMedicalEvents} from '../state/pregnancyMedicalEventsStore';
@@ -51,6 +54,9 @@ import {
 } from '../state/menopauseJournalStore';
 import {getMenopausePreferences, hydrateMenopausePreferences} from '../state/menopausePreferences';
 
+import {getAllIrregularJournalEntries, hydrateIrregularJournal} from '../state/irregularJournalStore';
+import {classifyIrregularPeriodDay, getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
+
 // One reader per objective — the ONLY place that reads each objective's real
 // canonical store(s) for the Medical Export feature. Every reader returns
 // the SAME plain {days, notices} shape so medicalExportOrchestrator.ts / the
@@ -59,7 +65,7 @@ import {getMenopausePreferences, hydrateMenopausePreferences} from '../state/men
 // displays on its own Dashboard/Calendar/Statistics (see
 // objectiveExportConfig.ts's per-objective comment trail) — never another
 // objective's store, so cross-objective leakage is structurally impossible:
-// there is no shared "give me everything" function, only these 7 narrow
+// there is no shared "give me everything" function, only these narrow
 // ones, each hand-written against one objective's real data.
 
 export type ObjectiveExportData = {days: ExportDayEntry[]; notices: string[]};
@@ -69,20 +75,22 @@ function sortByDate(days: ExportDayEntry[]): ExportDayEntry[] {
 }
 
 /* ============================================================
- * CYCLE / IRREGULAR (SOPK) — shared dailyJournalStore
+ * CYCLE — shared dailyJournalStore
  * ============================================================ */
 
+// Exactly the categories objectiveExportConfig.ts offers for 'cycle' — the
+// ones Cycle can really record. 'periods' comes from the period histories,
+// the rest from the shared dailyJournalStore. (No temperature / weight /
+// journal cycleDay: Cycle has no writer for them.)
 const CYCLE_CATEGORY_LABELS: Record<string, string> = {
-  cycle: 'Cycle',
+  periods: 'Dates des règles',
   flow: 'Flux menstruel',
   symptoms: 'Symptômes',
   mood: 'Humeur',
   sleep: 'Sommeil',
   activity: 'Activité',
   hydration: 'Hydratation',
-  temperature: 'Température',
   notes: 'Notes privées',
-  weight: 'Poids',
   intimacy: 'Vie intime',
 };
 
@@ -119,23 +127,257 @@ async function buildDailyJournalCategories(
   );
 }
 
-/** 'cycle' and 'irregular' (SOPK, no dedicated store — see
- * objectiveExportConfig.ts) both read the shared dailyJournalStore. */
+export type CyclePeriodExportRecord = {
+  /** Local 'YYYY-MM-DD' start of the recorded period (the export day it is filed under). */
+  startDate: string;
+  /** Local 'YYYY-MM-DD' end the user CONFIRMED ("Mes règles sont terminées",
+   * Calendar / Cycle-information edit) — null when no end was ever confirmed. */
+  confirmedEndDate: string | null;
+  /** The end stored in the recorded period history when it is NOT confirmed
+   * (derived from the configured period length / still running) — reported as
+   * an estimate, never as a fact. Null when a confirmed end exists. */
+  estimatedEndDate: string | null;
+};
+
+const localDateKey = (date: Date): string => date.toLocaleDateString('en-CA');
+
+/** Merges the two real period sources — read-only, nothing is derived:
+ * the recorded period history (start of each period the user recorded) and
+ * the confirmed-end history (start + the end the user confirmed). A confirmed
+ * end always wins; a recorded period without one keeps its stored end only as
+ * an explicitly-labelled estimate. A confirmed occurrence with no recorded
+ * counterpart is still exported. */
+export function buildCyclePeriodRecords(
+  recorded: readonly {startDate: string; endDate: string}[],
+  confirmed: readonly {id: string; periodEndDateTime: string}[],
+): CyclePeriodExportRecord[] {
+  const confirmedEndByStart = new Map<string, string>();
+  confirmed.forEach(occurrence => {
+    const end = new Date(occurrence.periodEndDateTime);
+    if (!Number.isNaN(end.getTime())) {
+      confirmedEndByStart.set(occurrence.id, localDateKey(end));
+    }
+  });
+
+  const byStart = new Map<string, CyclePeriodExportRecord>();
+  recorded.forEach(record => {
+    const confirmedEndDate = confirmedEndByStart.get(record.startDate) ?? null;
+    byStart.set(record.startDate, {
+      startDate: record.startDate,
+      confirmedEndDate,
+      estimatedEndDate: !confirmedEndDate && record.endDate >= record.startDate ? record.endDate : null,
+    });
+  });
+  confirmedEndByStart.forEach((confirmedEndDate, startDate) => {
+    if (!byStart.has(startDate)) {
+      byStart.set(startDate, {startDate, confirmedEndDate, estimatedEndDate: null});
+    }
+  });
+  return Array.from(byStart.values()).sort((a, b) => a.startDate.localeCompare(b.startDate));
+}
+
+function formatCyclePeriodLines(record: CyclePeriodExportRecord): string[] {
+  const lines = ['Début des règles'];
+  if (record.confirmedEndDate) {
+    lines.push(`Fin des règles (confirmée) : ${formatFullDate(new Date(`${record.confirmedEndDate}T12:00:00`))}`);
+  } else {
+    lines.push('Fin des règles : non confirmée');
+    if (record.estimatedEndDate) {
+      lines.push(
+        `Fin estimée d’après la durée renseignée (non confirmée) : ${formatFullDate(new Date(`${record.estimatedEndDate}T12:00:00`))}`,
+      );
+    }
+  }
+  return lines;
+}
+
+/** 'cycle' = the period dates (recorded + confirmed histories) plus the
+ * shared dailyJournalStore categories Cycle's journal can save. ('irregular'
+ * / SOPK has its own dedicated reader below — buildIrregularExportDays.) A
+ * category Cycle cannot record (e.g. a stale 'weight' / 'temperature'
+ * selection) is ignored, never read. */
 export async function buildCycleExportDays(
   selectedCategories: string[],
   period: ExportPeriod,
   now: Date,
 ): Promise<ObjectiveExportData> {
+  const categories = selectedCategories.filter(category => category in CYCLE_CATEGORY_LABELS);
+  const journalCategories = categories.filter(category => category !== 'periods');
+
   const allEntries = await getAllJournalEntries();
   const filtered = filterEntriesByPeriod(allEntries, period, now);
   const sorted = [...filtered].sort((a, b) => a.date.localeCompare(b.date));
-  const days = await Promise.all(
+  const journalDays = await Promise.all(
     sorted.map(async entry => ({
       date: entry.date,
-      categories: await buildDailyJournalCategories(entry, selectedCategories, CYCLE_CATEGORY_LABELS),
+      categories: await buildDailyJournalCategories(entry, journalCategories, CYCLE_CATEGORY_LABELS),
     })),
   );
-  return {days, notices: []};
+
+  if (!categories.includes('periods')) {
+    return {days: journalDays, notices: []};
+  }
+
+  await Promise.all([hydrateCyclePreferences(), hydrateConfirmedPeriodHistory()]);
+  const periodRecords = filterEntriesByPeriod(
+    buildCyclePeriodRecords(getRecordedPeriodHistory(), getConfirmedPeriodHistory()).map(record => ({
+      ...record,
+      date: record.startDate,
+    })),
+    period,
+    now,
+  );
+
+  // The period entry leads its day (config order), then that day's journal
+  // categories; a period start with no journal entry still gets its own day.
+  const daysByDate = new Map<string, ExportDayEntry>(journalDays.map(day => [day.date, day]));
+  periodRecords.forEach(record => {
+    const periodCategory: ExportCategoryValue = {
+      category: 'periods',
+      label: CYCLE_CATEGORY_LABELS.periods,
+      lines: formatCyclePeriodLines(record),
+    };
+    const existing = daysByDate.get(record.date);
+    daysByDate.set(record.date, {
+      date: record.date,
+      categories: existing ? [periodCategory, ...existing.categories] : [periodCategory],
+    });
+  });
+
+  return {days: sortByDate(Array.from(daysByDate.values())), notices: []};
+}
+
+/* ============================================================
+ * IRREGULAR (SOPK) — irregularJournalStore + shared `flow` section
+ * ============================================================ */
+
+const IRREGULAR_CATEGORY_LABELS = {
+  period: 'Règles',
+  acne: 'Acné',
+  hairGrowth: 'Pilosité',
+  pain: 'Douleurs',
+  fatigue: 'Fatigue & symptômes',
+  mood: 'Humeur',
+  weight: 'Poids',
+  notes: 'Notes du jour',
+} as const;
+
+// Per-category free-text notes (details[category].note), in display order.
+const IRREGULAR_NOTE_SOURCES = [
+  ['period', 'Règles'],
+  ['acne', 'Acné'],
+  ['hairGrowth', 'Pilosité'],
+  ['pain', 'Douleurs'],
+  ['mood', 'Humeur'],
+  ['fatigue', 'Fatigue'],
+  ['weight', 'Poids'],
+] as const;
+
+/** SOPK reader. The real data lives in irregularJournalStore (acne, hair
+ * growth, weight, pain, mood, fatigue + per-category details/notes), except
+ * the "Règles" answer whose flow is mirrored into the shared dailyJournalStore
+ * `flow` section. The period line is classified with the canonical
+ * classifyIrregularPeriodDay helper, so "Non" (no bleeding), "Spotting" and a
+ * real period flow are never confused — the shared `flow.intensity` is 'none'
+ * for both "Non" and "Spotting" and must not be read alone. Nothing is
+ * derived or invented: only fields that were actually saved are exported. */
+export async function buildIrregularExportDays(
+  selectedCategories: string[],
+  period: ExportPeriod,
+  now: Date,
+): Promise<ObjectiveExportData> {
+  await hydrateIrregularJournal();
+  const irregularByDate = getAllIrregularJournalEntries();
+  const flowByDate = new Map<string, DailyJournalEntry['flow']>();
+  (await getAllJournalEntries()).forEach(entry => flowByDate.set(entry.date, entry.flow));
+
+  const dates = Array.from(new Set([...Object.keys(irregularByDate), ...flowByDate.keys()])).map(date => ({date}));
+  const inPeriod = filterEntriesByPeriod(dates, period, now);
+
+  const wants = (category: keyof typeof IRREGULAR_CATEGORY_LABELS) => selectedCategories.includes(category);
+
+  const days: ExportDayEntry[] = [];
+  inPeriod.forEach(({date}) => {
+    const entry = irregularByDate[date];
+    const flow = flowByDate.get(date);
+    const details = entry?.details;
+    const categories: ExportCategoryValue[] = [];
+    const push = (category: keyof typeof IRREGULAR_CATEGORY_LABELS, lines: string[]) => {
+      if (lines.length) {categories.push({category, label: IRREGULAR_CATEGORY_LABELS[category], lines});}
+    };
+
+    if (wants('period')) {
+      const kind = classifyIrregularPeriodDay(flow, entry);
+      if (kind) {
+        const lines: string[] = [];
+        if (kind === 'period') {
+          const intensity = flow?.intensity && flow.intensity !== 'none'
+            ? formatFlowIntensityLabel(flow.intensity)
+            : details?.period?.flowIntensity; // SOPK's own French label when no shared flow exists
+          lines.push(intensity ? `Flux : ${intensity}` : 'Oui');
+        } else if (kind === 'spotting') {
+          lines.push('Spotting');
+        } else {
+          lines.push('Pas de règles');
+        }
+        const painLevel = details?.period?.painLevel ?? flow?.pain;
+        if (painLevel) {lines.push(`Douleur : ${painLevel}`);}
+        push('period', lines);
+      }
+    }
+
+    if (wants('acne') && entry?.acne) {
+      const lines = [entry.acne];
+      if (details?.acne?.areas?.length) {lines.push(`Zones : ${details.acne.areas.join(', ')}`);}
+      push('acne', lines);
+    }
+
+    if (wants('hairGrowth') && entry?.hairGrowth) {
+      const lines = [entry.hairGrowth];
+      if (details?.hairGrowth?.areas?.length) {lines.push(`Zones : ${details.hairGrowth.areas.join(', ')}`);}
+      push('hairGrowth', lines);
+    }
+
+    if (wants('pain') && entry?.pain) {
+      const lines = [entry.pain];
+      // In the SOPK pain form `areas` holds the pain TYPES and `symptoms` the
+      // body ZONES (see IrregularJournalEntryScreen.tsx).
+      if (details?.pain?.areas?.length) {lines.push(`Types : ${details.pain.areas.join(', ')}`);}
+      if (details?.pain?.symptoms?.length) {lines.push(`Zones : ${details.pain.symptoms.join(', ')}`);}
+      push('pain', lines);
+    }
+
+    if (wants('fatigue') && entry) {
+      const associated = getIrregularFatigueSymptoms(entry);
+      const lines: string[] = [];
+      if (entry.fatigue) {lines.push(entry.fatigue);}
+      if (associated.length) {lines.push(`Symptômes associés : ${associated.join(', ')}`);}
+      push('fatigue', lines);
+    }
+
+    if (wants('mood') && entry?.mood) {push('mood', [entry.mood]);}
+
+    if (wants('weight') && entry?.weight) {
+      const lines = [entry.weight];
+      if (details?.weight?.weightFeeling) {lines.push(`Ressenti : ${details.weight.weightFeeling}`);}
+      push('weight', lines);
+    }
+
+    if (wants('notes')) {
+      const lines: string[] = [];
+      IRREGULAR_NOTE_SOURCES.forEach(([key, label]) => {
+        // The period note is mirrored into the shared flow.note; prefer the
+        // SOPK copy and only fall back to flow.note when it is absent.
+        const note = details?.[key]?.note || (key === 'period' ? flow?.note : undefined);
+        if (note) {lines.push(`${label} : ${note}`);}
+      });
+      push('notes', lines);
+    }
+
+    if (categories.length) {days.push({date, categories});}
+  });
+
+  return {days: sortByDate(days), notices: []};
 }
 
 /* ============================================================
@@ -181,12 +423,9 @@ export async function buildConceiveExportDays(
       cycleDuration: preferences.cycleDuration,
       periodDuration: preferences.periodDuration,
     };
-    const ovulationDay = ovulationDayFor(basics.cycleDuration);
-    const fertileStartDay = Math.max(1, ovulationDay - 5);
-    const fertileEndDay = ovulationDay + 1;
-    const ovulationDate = upcomingDateForCycleDay(basics, ovulationDay, now);
-    const fertileStart = upcomingDateForCycleDay(basics, fertileStartDay, now);
-    const fertileEnd = upcomingDateForCycleDay(basics, fertileEndDay, now);
+    // One coherent window (start <= ovulation <= end) — see
+    // upcomingFertileWindow in cycleMath.ts.
+    const {start: fertileStart, end: fertileEnd, ovulation: ovulationDate} = upcomingFertileWindow(basics, now);
     notices.push(`Ovulation estimée (estimation, non un fait confirmé) : ${formatFullDate(ovulationDate)}.`);
     notices.push(
       `Fenêtre de fertilité estimée (estimation) : du ${formatFullDate(fertileStart)} au ${formatFullDate(fertileEnd)}.`,

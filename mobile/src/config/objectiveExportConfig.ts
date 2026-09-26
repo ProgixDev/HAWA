@@ -8,11 +8,22 @@ import type {ObjectiveId} from '../state/onboardingPreferences';
 // (see medicalExportReaders.ts for exactly which store/field each one
 // reads) — nothing here is invented or copied from another objective.
 //
-// 'irregular' (SOPK) has no dedicated store anywhere in the app — per the
-// documented architecture (HomeScreen.tsx/ObjectiveAwareCalendarScreen.tsx/
-// ObjectiveAwareStatisticsScreen.tsx all fall through to the generic Cycle
-// screens for 'irregular'), its export reuses the exact same categories and
-// reader as 'cycle'.
+// 'irregular' (SOPK) has its own daily-tracking store (irregularJournalStore.ts)
+// plus the shared dailyJournalStore `flow` section for the period answer, so
+// its export offers ONLY the categories the SOPK journal actually writes (see
+// buildIrregularExportDays in medicalExportReaders.ts) — never Cycle-only
+// fields (sleep, hydration, temperature, intimacy...) it would always leave
+// empty.
+//
+// 'cycle' offers ONLY what the Cycle objective can actually record: the
+// period dates (onboardingPreferences recorded period history + the
+// confirmed-end history) and the categories saved by Cycle's own "Journal
+// quotidien" (CYCLE_JOURNAL_ITEMS: symptoms, mood, activity, sleep,
+// hydration, flow, intimacy, note). Temperature and weight have no Cycle
+// writer (their entry screens belong to Conceive / Pregnancy / SOPK — the
+// Cycle Calendar already dropped them, see calendarFilters.ts) and the old
+// "Cycle" (journal cycleDay) category was never written by anything, so none
+// of the three is offered: a checkbox that can never produce data is misleading.
 export type ExportCategoryDef = {
   value: string;
   label: string;
@@ -32,23 +43,31 @@ export type ObjectiveExportConfig = {
 };
 
 const CYCLE_CATEGORIES: ExportCategoryDef[] = [
-  {value: 'cycle', label: 'Cycle', icon: 'calendar-heart'},
+  {value: 'periods', label: 'Dates des règles', icon: 'calendar-heart'},
   {value: 'flow', label: 'Flux menstruel', icon: 'water-outline'},
   {value: 'symptoms', label: 'Symptômes', icon: 'heart-pulse'},
   {value: 'mood', label: 'Humeur', icon: 'emoticon-happy-outline'},
   {value: 'sleep', label: 'Sommeil', icon: 'weather-night'},
   {value: 'activity', label: 'Activité', icon: 'walk'},
   {value: 'hydration', label: 'Hydratation', icon: 'cup-water'},
-  {value: 'temperature', label: 'Température', icon: 'thermometer'},
-  {value: 'weight', label: 'Poids', icon: 'scale-bathroom'},
   {value: 'notes', label: 'Notes privées', icon: 'notebook-edit-outline', sensitive: true},
   {value: 'intimacy', label: 'Vie intime', icon: 'heart-outline', sensitive: true},
 ];
 
+const IRREGULAR_CATEGORIES: ExportCategoryDef[] = [
+  {value: 'period', label: 'Règles (flux, spotting)', icon: 'water-outline'},
+  {value: 'acne', label: 'Acné', icon: 'face-woman-shimmer-outline'},
+  {value: 'hairGrowth', label: 'Pilosité', icon: 'content-cut'},
+  {value: 'pain', label: 'Douleurs', icon: 'heat-wave'},
+  {value: 'fatigue', label: 'Fatigue & symptômes associés', icon: 'lightning-bolt-outline'},
+  {value: 'mood', label: 'Humeur', icon: 'emoticon-happy-outline'},
+  {value: 'weight', label: 'Poids', icon: 'scale-bathroom'},
+  {value: 'notes', label: 'Notes du jour', icon: 'notebook-edit-outline', sensitive: true},
+];
+
 export const OBJECTIVE_EXPORT_CONFIG: Record<ObjectiveId, ObjectiveExportConfig> = {
   cycle: {objective: 'cycle', label: 'Suivre mon cycle', categories: CYCLE_CATEGORIES},
-  // Same real backing stores as Cycle — no dedicated SOPK store exists.
-  irregular: {objective: 'irregular', label: 'Cycles irréguliers (SOPK)', categories: CYCLE_CATEGORIES},
+  irregular: {objective: 'irregular', label: 'Cycles irréguliers (SOPK)', categories: IRREGULAR_CATEGORIES},
 
   conceive: {
     objective: 'conceive',
