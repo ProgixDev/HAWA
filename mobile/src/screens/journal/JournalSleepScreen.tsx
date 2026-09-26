@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -28,8 +29,9 @@ import {
 } from '@react-navigation/native';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -132,6 +134,10 @@ export default function JournalSleepScreen(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation =
     useNavigation<NavigationProp<RootStackParamList>>();
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
 
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -164,6 +170,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
   const [feeling, setFeeling] = useState('Reposée');
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
+  // M25: true only while a saved sleep entry exists for today (shows "Effacer").
+  const [hasSaved, setHasSaved] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
@@ -177,22 +185,15 @@ export default function JournalSleepScreen(): React.JSX.Element {
     [bedtime, wakeTime],
   );
 
-  const cycleDay = useMemo(() => {
-    const start = getCyclePreferences().lastPeriodStart;
-
-    return Math.max(
-      1,
-      Math.floor(
-        (Date.now() - start.getTime()) / 86400000,
-      ) + 1,
-    );
-  }, []);
+  // Null (no "Jour N du cycle" in the header) when this objective/state has
+  // no valid menstrual cycle day - see journalCycleDayFor().
+  const cycleDay = useJournalCycleDay(today);
 
   const dateLabel = new Intl.DateTimeFormat('fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
-  }).format(new Date());
+  }).format(today);
 
   const openTimePicker = (field: TimeField) => {
     setActiveTimeField(field);
@@ -228,6 +229,40 @@ export default function JournalSleepScreen(): React.JSX.Element {
       }
     };
   }, []);
+
+  // Reopening today's sleep shows what was already saved instead of the
+  // defaults, so pressing Save without editing rewrites the same values.
+  // `duration` is derived from bedtime/wakeTime, so it needs no state of its
+  // own. The note is already decrypted by getJournalEntry().
+  useEffect(() => {
+    let mounted = true;
+    getJournalEntry(todayKey).then(entry => {
+      const saved = entry?.sleep;
+      if (!mounted || !saved) {
+        return;
+      }
+      setHasSaved(true);
+      if (saved.bedtime) {
+        setBedtime(saved.bedtime);
+      }
+      if (saved.wakeTime) {
+        setWakeTime(saved.wakeTime);
+      }
+      if (saved.quality) {
+        setQuality(saved.quality);
+      }
+      if (typeof saved.awakenings === 'number') {
+        setAwakenings(saved.awakenings);
+      }
+      if (saved.wakeFeeling) {
+        setFeeling(saved.wakeFeeling);
+      }
+      setNote(saved.note ?? '');
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [todayKey]);
 
   const showSuccessToast = () => {
     if (successToastTimeout.current) {
@@ -282,6 +317,14 @@ export default function JournalSleepScreen(): React.JSX.Element {
     });
   };
 
+  // M25: removes the saved sleep for today (section absent = the canonical
+  // empty state); reopening shows the untouched defaults again.
+  const clearEntry = async () => {
+    await deleteJournalSection(todayKey, 'sleep');
+    setHasSaved(false);
+    navigation.goBack();
+  };
+
   const save = async () => {
     if (saving) {
       return;
@@ -299,7 +342,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
       setSaving(true);
 
       await saveJournalSection(
-        new Date().toLocaleDateString('en-CA'),
+        todayKey,
         'sleep',
         {
           bedtime,
@@ -380,7 +423,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 styles.date,
                 isSmallScreen && styles.dateSmall,
               ]}>
-              {dateLabel} · Jour {cycleDay} du cycle
+              {cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}
             </Text>
           </View>
 
@@ -558,6 +601,9 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
+                    accessibilityLabel={`Qualité du sommeil : ${item.label}`}
+                    accessibilityRole="radio"
+                    accessibilityState={{checked: active}}
                     key={item.label}
                     onPress={() =>
                       setQuality(item.label)
@@ -665,6 +711,9 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                   return (
                     <Pressable
+                      accessibilityLabel={`Sensation au réveil : ${item.label}`}
+                      accessibilityRole="radio"
+                      accessibilityState={{checked: active}}
                       key={item.label}
                       onPress={() =>
                         setFeeling(item.label)
@@ -762,6 +811,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 : 'Enregistrer'}
             </Text>
           </Pressable>
+
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ce sommeil" /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 

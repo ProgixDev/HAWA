@@ -26,6 +26,10 @@ const HISTORY_STORAGE_KEY = '@hawa/confirmed-period-history';
 
 let history: ConfirmedPeriodOccurrence[] = [];
 const listeners = new Set<() => void>();
+// Fired ONLY when an actual period end is written (recordConfirmedPeriodEnd),
+// never on hydration or removal — lets the recorded period history mirror a
+// freshly confirmed end without re-applying older persisted data.
+const endRecordedListeners = new Set<(occurrence: ConfirmedPeriodOccurrence) => void>();
 let hydration: Promise<ConfirmedPeriodOccurrence[]> | null = null;
 let hydrated = false;
 
@@ -78,6 +82,7 @@ export const recordConfirmedPeriodEnd = async (
       : [...history, record];
 
   notifyListeners();
+  endRecordedListeners.forEach(listener => listener(record));
   await AsyncStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
   return getConfirmedPeriodHistory();
 };
@@ -128,6 +133,13 @@ export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurren
       });
   }
   return hydration;
+};
+
+export const subscribeConfirmedPeriodEndRecorded = (
+  listener: (occurrence: ConfirmedPeriodOccurrence) => void,
+) => {
+  endRecordedListeners.add(listener);
+  return () => {endRecordedListeners.delete(listener);};
 };
 
 export const subscribeConfirmedPeriodHistory = (listener: () => void) => {

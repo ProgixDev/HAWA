@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -29,7 +30,8 @@ import {
 } from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {saveJournalSection} from '../../state/dailyJournalStore';
+import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -181,6 +183,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
   const navigation =
     useNavigation<NavigationProp<RootStackParamList>>();
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {todayKey} = useToday();
 
   const insets = useSafeAreaInsets();
 
@@ -216,6 +222,8 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
   const [note, setNote] = useState('');
 
   const [saving, setSaving] = useState(false);
+  // M25: true only while saved symptoms exist for today (shows "Effacer").
+  const [hasSaved, setHasSaved] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
@@ -406,6 +414,40 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
     };
   }, []);
 
+  // Reopening today's symptoms shows what was already saved instead of the
+  // defaults, so pressing Save without editing rewrites the same values. The
+  // note is already decrypted by getJournalEntry(). Names the chips list does
+  // not know (saved elsewhere) stay in `selected` and are written back as-is.
+  // Both "Forte" and "Très forte" persist as 'severe' (see INTENSITIES), so a
+  // saved 'severe' reopens on "Forte" and re-saves as the same 'severe'.
+  useEffect(() => {
+    let mounted = true;
+    getJournalEntry(todayKey).then(entry => {
+      const saved = entry?.symptoms;
+      if (!mounted || !saved) {
+        return;
+      }
+      setHasSaved(true);
+      if (Array.isArray(saved.names)) {
+        setSelected(saved.names);
+      }
+      const savedIntensityIndex = INTENSITIES.findIndex(
+        option => option.value === saved.severity,
+      );
+      if (savedIntensityIndex >= 0) {
+        setIntensityIndex(savedIntensityIndex);
+      }
+      if (saved.painLocation && LOCATIONS.includes(saved.painLocation)) {
+        setLocation(saved.painLocation);
+        setDisplayedLocation(saved.painLocation);
+      }
+      setNote(saved.note ?? '');
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [todayKey]);
+
   const showSuccessToast = () => {
     if (successToastTimeout.current) {
       clearTimeout(successToastTimeout.current);
@@ -460,6 +502,14 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
     });
   };
 
+  // M25: removes the saved symptoms for today (section absent = the canonical
+  // empty state); reopening shows the untouched defaults again.
+  const clearEntry = async () => {
+    await deleteJournalSection(todayKey, 'symptoms');
+    setHasSaved(false);
+    navigation.goBack();
+  };
+
   const save = async () => {
     if (saving) {
       return;
@@ -469,7 +519,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
       setSaving(true);
 
       await saveJournalSection(
-        new Date().toLocaleDateString('en-CA'),
+        todayKey,
         'symptoms',
         {
           names: selected,
@@ -1109,6 +1159,8 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
               </>
             )}
           </Pressable>
+
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ces symptômes" /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 

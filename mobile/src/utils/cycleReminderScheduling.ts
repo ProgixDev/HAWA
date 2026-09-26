@@ -3,17 +3,17 @@ import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {
   addDays,
   computeCyclePredictionStatus,
-  ovulationDayFor,
+  estimateFertilityDates,
   startOfDay,
-  upcomingDateForCycleDay,
   type CycleBasics,
+  type CycleFertilityEstimate,
   type CyclePredictionStatus,
 } from './cycleMath';
 import {
   getActiveObjective,
   getCyclePreferences,
   getCycleObservationStartedAt,
-  getPeriodHistory,
+  getRecordedPeriodHistory,
 } from '../state/onboardingPreferences';
 import {getCycleReminderPreferences, type CycleReminderPreferences} from '../state/cycleReminderPreferences';
 
@@ -25,6 +25,21 @@ import {getCycleReminderPreferences, type CycleReminderPreferences} from '../sta
 // entry point (computeCyclePredictionStatus) the Cycle Dashboard/Calendar
 // use, so a scheduled notification can never disagree with what's shown on
 // screen. No independent date math is implemented here.
+//
+// PREDICTION MODE → REMINDER BEHAVIOUR (same status the Cycle Dashboard shows):
+//  - 'exact'     → upcoming-period / period-start-check from the exact
+//                  predicted date; fertile-window / ovulation from the
+//                  estimated dates (estimateFertilityDates).
+//  - 'window'    → NO precise date exists (Dashboard: "Non estimable" fertile
+//                  window / ovulation, next period = a 26–32 day window), so
+//                  all four date-based reminders are cancelled — never
+//                  scheduled from a date the UI treats as uncertain.
+//  - 'observing' → the Dashboard still shows an estimated fertile window /
+//                  ovulation, so those two stay scheduled; no single
+//                  next-period date exists, so the two period reminders are
+//                  cancelled.
+// A mode change (e.g. exact → window after the user switches to irregular)
+// re-runs this sync, which cancels the notification ids that no longer apply.
 
 const UPCOMING_PERIOD_ID = 'cycle-upcoming-period-reminder';
 const PERIOD_START_CHECK_ID = 'cycle-period-start-check-reminder';
@@ -65,6 +80,12 @@ async function syncUpcomingPeriodReminder(
   // Only meaningful when a single concrete predicted date exists — an
   // irregular 'window' or still-'observing' cycle has no one date to count
   // days back from, so no reminder is invented for those cases.
+  // PRODUCT DECISION REQUIRED: in 'window' mode the Dashboard shows the
+  // window start–end (and a "Règles en retard" state once it has passed).
+  // Whether a reminder such as "ta fenêtre de règles estimée commence
+  // bientôt" (from windowStart) should exist is a product choice that is not
+  // defined anywhere in the code or tests — the existing, documented
+  // behaviour (cancel) is kept until it is decided.
   if (!active || !prefs.upcomingPeriodEnabled || prediction.mode !== 'exact') {
     await cancelLocalNotification(UPCOMING_PERIOD_ID);
     return;
@@ -92,6 +113,9 @@ async function syncPeriodStartCheckReminder(
   prefs: CycleReminderPreferences,
   prediction: CyclePredictionStatus,
 ): Promise<void> {
+  // PRODUCT DECISION REQUIRED: same open question as the upcoming-period
+  // reminder above (a "have your periods started?" check in 'window' mode,
+  // e.g. from windowEnd / when isLate) — kept as the existing safe cancel.
   if (!active || !prefs.periodStartCheckEnabled || prediction.mode !== 'exact') {
     await cancelLocalNotification(PERIOD_START_CHECK_ID);
     return;
@@ -138,32 +162,49 @@ async function syncDailyJournalReminder(active: boolean, prefs: CycleReminderPre
   });
 }
 
-/** Same ovulationDay/upcomingDateForCycleDay combination the Cycle Dashboard
- * (CycleHomeScreen.tsx) already uses for its own fertile-window/ovulation
- * tiles — always computable regardless of prediction mode (unlike period-start
- * prediction), since it walks forward from lastPeriodStart using the
- * configured cycleDuration rather than requiring a single-date-confidence
- * regularity classification. */
-function computeFertilityDates(basics: CycleBasics, today: Date): {fertileStart: Date; ovulation: Date} {
-  const ovulationDay = ovulationDayFor(basics.cycleDuration);
+/** First occurrence of `date` (a date of the current/next cycle) that is not
+ * already past — steps whole cycles forward. Reminders are one-time
+ * triggers, so once this cycle's fertile start/ovulation has passed the
+ * reminder points at the NEXT cycle's date (same "next occurrence" behaviour
+ * as before; only the source of the dates is now the shared estimate). */
+function nextOccurrence(date: Date, cycleLength: number, today: Date): Date {
+  let result = date;
+  while (result < today) {
+    result = addDays(result, cycleLength);
+  }
+  return result;
+}
+
+/** The estimated dates the Cycle Dashboard shows (estimateFertilityDates) —
+ * null in 'window' mode, where NO precise fertile/ovulation date may be
+ * shown or notified — plus the cycle length that estimate is built on. */
+function fertilityForReminders(
+  basics: CycleBasics,
+  prediction: CyclePredictionStatus,
+  today: Date,
+): {estimate: CycleFertilityEstimate; cycleLength: number} | null {
+  const estimate = estimateFertilityDates(basics, prediction, today);
+  if (!estimate) {
+    return null;
+  }
   return {
-    fertileStart: upcomingDateForCycleDay(basics, ovulationDay - 5, today),
-    ovulation: upcomingDateForCycleDay(basics, ovulationDay, today),
+    estimate,
+    cycleLength: prediction.mode === 'exact' ? prediction.averageCycleLength : basics.cycleDuration,
   };
 }
 
 async function syncFertileWindowReminder(
   active: boolean,
   prefs: CycleReminderPreferences,
-  basics: CycleBasics,
+  fertility: ReturnType<typeof fertilityForReminders>,
   today: Date,
 ): Promise<void> {
-  if (!active || !prefs.fertileWindowEnabled) {
+  if (!active || !prefs.fertileWindowEnabled || !fertility) {
     await cancelLocalNotification(FERTILE_WINDOW_ID);
     return;
   }
 
-  const {fertileStart} = computeFertilityDates(basics, today);
+  const fertileStart = nextOccurrence(fertility.estimate.fertileStart, fertility.cycleLength, today);
   await scheduleLocalNotification({
     id: FERTILE_WINDOW_ID,
     title: 'Ta fenêtre fertile estimée approche',
@@ -183,15 +224,15 @@ async function syncFertileWindowReminder(
 async function syncOvulationReminder(
   active: boolean,
   prefs: CycleReminderPreferences,
-  basics: CycleBasics,
+  fertility: ReturnType<typeof fertilityForReminders>,
   today: Date,
 ): Promise<void> {
-  if (!active || !prefs.ovulationEnabled) {
+  if (!active || !prefs.ovulationEnabled || !fertility) {
     await cancelLocalNotification(OVULATION_ID);
     return;
   }
 
-  const {ovulation} = computeFertilityDates(basics, today);
+  const ovulation = nextOccurrence(fertility.estimate.ovulation, fertility.cycleLength, today);
   await scheduleLocalNotification({
     id: OVULATION_ID,
     title: 'Ovulation estimée 🌸',
@@ -218,7 +259,9 @@ export async function syncCycleReminders(): Promise<void> {
   const prefs = getCycleReminderPreferences();
   const basics = getCyclePreferences();
   const today = startOfDay(new Date());
-  const periodStartDates = getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
+  // Recorded periods only — the SAME input CycleHomeScreen feeds the status
+  // (never the placeholder record seeded from unconfirmed defaults).
+  const periodStartDates = getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
   const prediction = computeCyclePredictionStatus(
     basics,
     basics.regularity,
@@ -227,11 +270,13 @@ export async function syncCycleReminders(): Promise<void> {
     today,
   );
 
+  const fertility = fertilityForReminders(basics, prediction, today);
+
   await Promise.all([
     syncUpcomingPeriodReminder(active, prefs, prediction),
     syncPeriodStartCheckReminder(active, prefs, prediction),
     syncDailyJournalReminder(active, prefs),
-    syncFertileWindowReminder(active, prefs, basics, today),
-    syncOvulationReminder(active, prefs, basics, today),
+    syncFertileWindowReminder(active, prefs, fertility, today),
+    syncOvulationReminder(active, prefs, fertility, today),
   ]);
 }

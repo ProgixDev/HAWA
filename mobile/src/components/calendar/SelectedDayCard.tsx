@@ -13,19 +13,30 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Props = {
   date: Date;
-  cycleDay: number;
-  phase: ComputedCyclePhase;
+  /** Undefined when no reliable cycle day can be derived (irregular /
+   * variable cycle: no single cycle length to count against). */
+  cycleDay?: number;
+  /** Undefined when the phase cannot be estimated (same situation) — a
+   * neutral "not estimated" row is shown instead of an invented phase. */
+  phase?: ComputedCyclePhase;
   entry?: DailyJournalEntry;
   filters: CalendarFilters;
   periodStartDate: Date;
   periodEndDate: Date;
   periodDuration: number;
+  /** True for a day of a PAST cycle in which no period was ever recorded: the
+   * Début / Fin / Durée block would only be a projection presented as a
+   * historical fact, so it is replaced by an honest "nothing recorded" line. */
+  periodUnrecorded?: boolean;
   onEditPeriod: () => void;
   editingPeriod?: boolean;
   /** Opens the same period-start confirmation sheet the Dashboard uses,
    * pre-filled with `date`. Omit to hide the CTA entirely (e.g. while
    * editing). */
   onDeclarePeriodStart?: () => void;
+  /** Overrides the "not estimated" row's subtitle (default: the
+   * variable-cycle wording) — e.g. for a past day with no recorded period. */
+  phaseUnavailableSubtitle?: string;
 };
 
 // SEMANTIC — cycle-phase tracking meaning, never theme-driven (same
@@ -45,6 +56,12 @@ const PHASE_META: Record<ComputedCyclePhase, {label: string; subtitle: string; c
   fertile: {label: 'Fenêtre fertile', subtitle: 'Fertilité élevée', color: FERTILE_COLOR, icon: 'leaf'},
   ovulation: {label: 'Phase ovulatoire', subtitle: 'Fertilité élevée', color: OVULATION_COLOR, icon: 'egg-outline'},
   luteal: {label: 'Phase lutéale', subtitle: 'Fertilité faible', color: LUTEAL_COLOR, icon: 'moon-waning-crescent'},
+};
+
+const PHASE_UNAVAILABLE_META = {
+  label: 'Phase non estimée',
+  subtitle: 'Cycle variable : pas de prévision précise',
+  icon: 'help-circle-outline' as IconName,
 };
 
 const FLOW_LABELS: Record<string, string> = {
@@ -137,13 +154,21 @@ function SelectedDayCard({
   periodStartDate,
   periodEndDate,
   periodDuration,
+  periodUnrecorded = false,
   onEditPeriod,
   editingPeriod = false,
   onDeclarePeriodStart,
+  phaseUnavailableSubtitle,
 }: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const meta = PHASE_META[phase];
+  const meta = phase
+    ? PHASE_META[phase]
+    : {
+        ...PHASE_UNAVAILABLE_META,
+        subtitle: phaseUnavailableSubtitle ?? PHASE_UNAVAILABLE_META.subtitle,
+        color: theme.colors.textSecondary,
+      };
   const hijriDate = formatHijriDate(date);
   const rows = buildHealthRows(entry).filter(row => filters[row.key]);
 
@@ -154,9 +179,11 @@ function SelectedDayCard({
           <Text numberOfLines={2} style={styles.gregorianDate}>{formatFullDate(date)}</Text>
           {hijriDate ? <Text numberOfLines={2} style={styles.hijriDate}>{hijriDate}</Text> : null}
         </View>
-        <View style={styles.cycleDayBadge}>
-          <Text numberOfLines={1} style={styles.cycleDayText}>Jour {cycleDay} du cycle</Text>
-        </View>
+        {cycleDay !== undefined ? (
+          <View style={styles.cycleDayBadge}>
+            <Text numberOfLines={1} style={styles.cycleDayText}>Jour {cycleDay} du cycle</Text>
+          </View>
+        ) : null}
       </View>
 
       <View style={styles.phaseRow}>
@@ -182,6 +209,9 @@ function SelectedDayCard({
       </View>
 
       <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>Période menstruelle</Text><Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? 'Modification' : 'Modifier'}</Text></Pressable></View>
+      {periodUnrecorded ? (
+        <Text style={styles.periodUnrecordedText}>Aucune règle enregistrée pour ce cycle</Text>
+      ) : (
       <View style={styles.periodRow}>
         <View style={styles.periodBox}>
           <Text numberOfLines={2} style={styles.periodLabel}>Début des règles</Text>
@@ -196,6 +226,7 @@ function SelectedDayCard({
           <Text style={styles.periodValue}>{periodDuration} jours</Text>
         </View>
       </View>
+      )}
 
       {onDeclarePeriodStart && !editingPeriod ? (
         <Pressable
@@ -237,6 +268,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     healthLabel: {color: theme.colors.textSecondary, fontSize: 10.5},
     healthValue: {marginTop: 1, color: theme.colors.text, fontSize: 12.5, fontWeight: '700'},
     periodRow: {flexDirection: 'row', flexWrap: 'wrap', marginTop: 16, gap: 10},
+    periodUnrecordedText: {marginTop: 14, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
     periodSectionHeader: {marginTop: 18, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: 10},
     periodSectionTitle: {flex: 1, color: theme.colors.text, fontFamily: 'serif', fontSize: 15, fontWeight: '700'},
     editPeriodButton: {flexDirection: 'row', alignItems: 'center', gap: 5, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 11, backgroundColor: withAlpha(theme.colors.surface, 0.97), paddingHorizontal: 10, paddingVertical: 7},

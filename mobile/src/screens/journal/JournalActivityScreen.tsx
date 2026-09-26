@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -20,8 +21,9 @@ import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {
   TOP_SPACING_EXTRA,
   TOP_SPACING_EXTRA_COMPACT,
@@ -122,6 +124,10 @@ const INTENSITIES: Array<{
 export default function JournalActivityScreen(): React.JSX.Element {
   const navigation =
     useNavigation<NavigationProp<RootStackParamList>>();
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
 
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -138,6 +144,8 @@ export default function JournalActivityScreen(): React.JSX.Element {
   const [feeling, setFeeling] = useState('Très bien');
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
+  // M25: true only while a saved activity exists for today (shows "Effacer").
+  const [hasSaved, setHasSaved] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
 
   const successToastAnimation =
@@ -146,22 +154,15 @@ export default function JournalActivityScreen(): React.JSX.Element {
   const successToastTimeout =
     useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const cycleDay = useMemo(() => {
-    const start = getCyclePreferences().lastPeriodStart;
-
-    return Math.max(
-      1,
-      Math.floor(
-        (Date.now() - start.getTime()) / 86400000,
-      ) + 1,
-    );
-  }, []);
+  // Null (no "Jour N du cycle" in the header) when this objective/state has
+  // no valid menstrual cycle day - see journalCycleDayFor().
+  const cycleDay = useJournalCycleDay(today);
 
   const dateLabel = new Intl.DateTimeFormat('fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'short',
-  }).format(new Date());
+  }).format(today);
 
   useEffect(() => {
     return () => {
@@ -170,6 +171,36 @@ export default function JournalActivityScreen(): React.JSX.Element {
       }
     };
   }, []);
+
+  // Reopening today's activity shows what was already saved instead of the
+  // defaults, so pressing Save without editing rewrites the same values. The
+  // note is already decrypted by getJournalEntry().
+  useEffect(() => {
+    let mounted = true;
+    getJournalEntry(todayKey).then(entry => {
+      const saved = entry?.activity;
+      if (!mounted || !saved) {
+        return;
+      }
+      setHasSaved(true);
+      if (saved.type) {
+        setActivity(saved.type);
+      }
+      if (typeof saved.durationMinutes === 'number') {
+        setDuration(saved.durationMinutes);
+      }
+      if (saved.intensity) {
+        setIntensity(saved.intensity);
+      }
+      if (saved.feeling) {
+        setFeeling(saved.feeling);
+      }
+      setNote(saved.note ?? '');
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [todayKey]);
 
   const showSuccessToast = () => {
     if (successToastTimeout.current) {
@@ -222,6 +253,14 @@ export default function JournalActivityScreen(): React.JSX.Element {
     });
   };
 
+  // M25: removes the saved activity for today (section absent = the canonical
+  // empty state); reopening shows the untouched defaults again.
+  const clearEntry = async () => {
+    await deleteJournalSection(todayKey, 'activity');
+    setHasSaved(false);
+    navigation.goBack();
+  };
+
   const save = async () => {
     if (saving) {
       return;
@@ -231,7 +270,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
       setSaving(true);
 
       await saveJournalSection(
-        new Date().toLocaleDateString('en-CA'),
+        todayKey,
         'activity',
         {
           none: false,
@@ -333,7 +372,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 styles.date,
                 isSmallScreen && styles.dateSmall,
               ]}>
-              {dateLabel} · Jour {cycleDay} du cycle
+              {cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}
             </Text>
 
           </View>
@@ -769,6 +808,9 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
+                    accessibilityLabel={`Ressenti après l'activité : ${item.label}`}
+                    accessibilityRole="radio"
+                    accessibilityState={{checked: active}}
                     key={item.label}
                     onPress={() =>
                       setFeeling(item.label)
@@ -912,6 +954,8 @@ export default function JournalActivityScreen(): React.JSX.Element {
             </Text>
 
           </Pressable>
+
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette activité" /> : null}
 
         </ScrollView>
 

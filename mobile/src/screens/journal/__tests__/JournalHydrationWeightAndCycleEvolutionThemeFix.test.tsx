@@ -9,6 +9,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 
 // Dark Mode audit PARTIAL remediation: these two screens previously had zero
 // useAwaTheme() usage — their quick-add UI (Hydration) and phase/progress
@@ -64,6 +65,16 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // M19: the Cycle Evolution circle/markers only render for CONFIRMED real
+  // cycle data (otherwise an honest empty state), so the theme scenarios
+  // below declare a real period first.
+  setCyclePreferences({
+    ...getCyclePreferences(),
+    lastPeriodStart: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),
+    periodDuration: 5,
+    cycleDuration: 28,
+    regularity: 'yes',
+  });
 });
 
 afterEach(() => {

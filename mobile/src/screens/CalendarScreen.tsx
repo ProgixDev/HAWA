@@ -17,8 +17,8 @@ import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomShee
 import {homeColors} from '../components/home/homeTheme';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {getCycleObservationStartedAt, getCyclePreferences, getPeriodHistory, getSpiritualMarkersEnabled, hydrateCyclePreferences, isDateWithinConfirmedPeriod, subscribeCyclePreferences, updateCurrentPeriodRange} from '../state/onboardingPreferences';
-import {recordConfirmedPeriodEnd, removeConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
+import {getCycleObservationStartedAt, getCyclePreferences, getHasConfirmedCycleData, getRecordedPeriodHistory, getSpiritualMarkersEnabled, correctPeriodOccurrence, hydrateCyclePreferences, isDateWithinConfirmedPeriod, setPeriodEndDateTime, subscribeCyclePreferences} from '../state/onboardingPreferences';
+import {recordConfirmedPeriodEnd} from '../state/confirmedPeriodHistoryStore';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
 import {withResolvedIntimacyForDisplay, withResolvedIntimacyForDisplayMany} from '../services/privateJournalEncryption';
 import {
@@ -31,22 +31,26 @@ import {
 import type {DailyJournalEntry} from '../types/journal';
 import {
   addDays,
+  calendarDayKindFor,
   computeCyclePredictionStatus,
   cycleDayFor,
+  describeAverageCycle,
   diffDays,
+  estimateFertilityDates,
   formatDateRange,
   formatShortDate,
-  IRREGULAR_WINDOW_MAX_DAYS,
-  IRREGULAR_WINDOW_MIN_DAYS,
-  ovulationDayFor,
+  isBeforeCurrentProjectedCycle,
+  isWithinRecordedPeriod,
   periodStartForCycleContaining,
   phaseFor,
+  recordedPeriodFor,
+  recordedPeriodInCycleOf,
   startOfDay,
-  upcomingDateForCycleDay,
 } from '../utils/cycleMath';
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
 import {usePremium} from '../hooks/usePremium';
+import {useToday} from '../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../components/premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../utils/historyAccess';
 
@@ -57,7 +61,9 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const [basics, setBasics] = useState(getCyclePreferences);
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today} = useToday();
 
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
@@ -77,8 +83,24 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const [selectedEntry, setSelectedEntry] = useState<DailyJournalEntry | undefined>(undefined);
   const [editingPeriod, setEditingPeriod] = useState(false);
   const [draftPeriodDays, setDraftPeriodDays] = useState<Set<string>>(new Set());
+  // Start of the recorded period the range editor is correcting — fixed when
+  // editing begins (the selected day keeps changing while days are toggled).
+  const [editingOccurrenceStart, setEditingOccurrenceStart] = useState<Date | null>(null);
   const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled);
+
+  // The default "selected day" is only a stand-in for today (see
+  // hasUserSelectedDate above) — keep it on the current day when the day
+  // rolls over. A date the user deliberately tapped is never moved.
+  useEffect(() => {
+    if (hasUserSelectedDate) {return;}
+    setSelectedDate(current => (current.getTime() === today.getTime() ? current : today));
+    setVisibleMonth(current =>
+      current.getFullYear() === today.getFullYear() && current.getMonth() === today.getMonth()
+        ? current
+        : new Date(today.getFullYear(), today.getMonth(), 1),
+    );
+  }, [today, hasUserSelectedDate]);
 
   const localDateKey = (date: Date) => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
   const dateFromKey = (key: string) => {const [year, month, day] = key.split('-').map(Number); return new Date(year, month - 1, day);};
@@ -181,15 +203,25 @@ function CalendarScreen(_: Props): React.JSX.Element {
     }
   };
 
+  // "Modifier" corrects ONE recorded occurrence: the period containing the
+  // selected day when there is one, else the latest recorded period. Its range
+  // is what was really recorded (edited / confirmed end) — the habitual
+  // periodDuration is only the fallback when nothing is recorded yet.
   const startPeriodEditing = () => {
+    const recorded = getRecordedPeriodHistory();
+    const target = recorded.find(record => isWithinRecordedPeriod(selectedDate, [record]))
+      ?? recorded.find(record => record.startDate === localDateKey(basics.lastPeriodStart));
+    const targetStart = target ? dateFromKey(target.startDate) : basics.lastPeriodStart;
+    const length = target ? diffDays(dateFromKey(target.endDate), targetStart) + 1 : basics.periodDuration;
     const days = new Set<string>();
-    for (let index = 0; index < basics.periodDuration; index += 1) {days.add(localDateKey(addDays(basics.lastPeriodStart, index)));}
+    for (let index = 0; index < length; index += 1) {days.add(localDateKey(addDays(targetStart, index)));}
+    setEditingOccurrenceStart(targetStart);
     setDraftPeriodDays(days);
-    setVisibleMonth(new Date(basics.lastPeriodStart.getFullYear(), basics.lastPeriodStart.getMonth(), 1));
+    setVisibleMonth(new Date(targetStart.getFullYear(), targetStart.getMonth(), 1));
     setEditingPeriod(true);
   };
 
-  const cancelPeriodEditing = () => {setDraftPeriodDays(new Set()); setEditingPeriod(false);};
+  const cancelPeriodEditing = () => {setDraftPeriodDays(new Set()); setEditingOccurrenceStart(null); setEditingPeriod(false);};
 
   const savePeriodEditing = async () => {
     const dates = [...draftPeriodDays].sort().map(dateFromKey);
@@ -197,10 +229,13 @@ function CalendarScreen(_: Props): React.JSX.Element {
     const continuous = dates.every((date, index) => index === 0 || diffDays(date, dates[index - 1]) === 1);
     if (!continuous) {Alert.alert('Sélection non continue', 'Les jours de règles doivent former une période continue.'); return;}
     try {
-      const previousPeriodStart = basics.lastPeriodStart;
       const rangeStart = dates[0];
       const rangeEnd = dates[dates.length - 1];
-      await updateCurrentPeriodRange(rangeStart, rangeEnd);
+      // Correction semantics: the edited occurrence is REPLACED (no second
+      // start left behind), other periods are kept, and the habitual
+      // periodDuration/cycleDuration are not redefined by this edit. A stale
+      // confirmed (Qadaa) occurrence for the old range is dropped by the store.
+      await correctPeriodOccurrence(editingOccurrenceStart ?? basics.lastPeriodStart, rangeStart, rangeEnd);
 
       // A range the user explicitly marks as fully in the past is a real
       // completed historical period — make it available to Qadaa's
@@ -213,13 +248,17 @@ function CalendarScreen(_: Props): React.JSX.Element {
       // path for an ongoing period.
       if (rangeEnd.getTime() < startOfDay(new Date()).getTime()) {
         await recordConfirmedPeriodEnd(rangeStart, rangeEnd);
-        if (localDateKey(previousPeriodStart) !== localDateKey(rangeStart)) {
-          await removeConfirmedPeriodOccurrence(previousPeriodStart);
+        // The scalar end used by purity/prayer follows the confirmed end of the
+        // CURRENT (latest) period - the same two-call sequence as
+        // PeriodEndBottomSheet - so it never disagrees with the corrected range.
+        if (localDateKey(getCyclePreferences().lastPeriodStart) === localDateKey(rangeStart)) {
+          await setPeriodEndDateTime(rangeEnd);
         }
       }
 
       setSelectedDate(dates[0]);
       setEditingPeriod(false);
+      setEditingOccurrenceStart(null);
       setDraftPeriodDays(new Set());
     } catch (error) {
       Alert.alert('Modification impossible', error instanceof Error && error.message === 'OVERLAPPING_RANGE' ? 'Cette période chevauche une période déjà enregistrée.' : 'Vérifie les dates sélectionnées.');
@@ -227,18 +266,85 @@ function CalendarScreen(_: Props): React.JSX.Element {
   };
 
   const sortedDraftDates = [...draftPeriodDays].sort().map(dateFromKey);
-  const displayedBasics = editingPeriod && sortedDraftDates.length ? {...basics, lastPeriodStart: sortedDraftDates[0], periodDuration: sortedDraftDates.length} : basics;
-  const selectedCycleDay = cycleDayFor(selectedDate, displayedBasics);
-  const selectedPhase = phaseFor(selectedDate, displayedBasics);
-  const selectedPeriodStart = editingPeriod && sortedDraftDates.length ? sortedDraftDates[0] : periodStartForCycleContaining(selectedDate, basics);
-  const selectedPeriodEnd = editingPeriod && sortedDraftDates.length ? sortedDraftDates[sortedDraftDates.length - 1] : addDays(selectedPeriodStart, basics.periodDuration - 1);
-  const displayedPeriodDuration = editingPeriod ? sortedDraftDates.length : basics.periodDuration;
 
   // Regularity-aware next-period prediction — see computeCyclePredictionStatus
   // in cycleMath.ts, the one place this logic lives (shared with
-  // CycleHomeScreen so Dashboard and Calendar can never disagree).
-  const periodStartDates = getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
+  // CycleHomeScreen so Dashboard and Calendar can never disagree). Only the
+  // periods the user actually recorded feed it — never the placeholder record
+  // seeded from the unconfirmed fallback defaults.
+  const recordedPeriods = getRecordedPeriodHistory();
+  const periodStartDates = recordedPeriods.map(record => new Date(`${record.startDate}T12:00:00`));
   const predictionStatus = computeCyclePredictionStatus(basics, basics.regularity, periodStartDates, getCycleObservationStartedAt(), today);
+
+  // 'window' (declared irregular / observed variable): the Dashboard says
+  // "26–32 days", so the Calendar must not paint one projected cycle as if it
+  // were certain — it shows only the periods that were really recorded.
+  const recordedOnly = predictionStatus.mode === 'window';
+  // 'exact' wraps by the SAME cycle length the prediction uses (the observed
+  // average for a regular-looking 'unknown' pattern); identical to `basics`
+  // for a declared-regular cycle.
+  const projectionBasics = predictionStatus.mode === 'exact' ? {...basics, cycleDuration: predictionStatus.averageCycleLength} : basics;
+  // `today` switches on the prediction-overlay rule: projections paint the
+  // current/future cycle only, old months show what was really recorded.
+  const resolveKind = (date: Date) => calendarDayKindFor(date, basics, predictionStatus, recordedPeriods, today);
+
+  const displayedBasics = editingPeriod && sortedDraftDates.length ? {...projectionBasics, lastPeriodStart: sortedDraftDates[0], periodDuration: sortedDraftDates.length} : projectionBasics;
+  const useRecordedPeriods = recordedOnly && !editingPeriod;
+  const selectedRecordedPeriod = recordedPeriodFor(selectedDate, recordedPeriods);
+  const selectedWithinRecordedPeriod = isWithinRecordedPeriod(selectedDate, recordedPeriods);
+
+  // Recorded-only mode has no single cycle length to count against: the day
+  // is the raw count since the latest recorded start, and only a recorded
+  // period day has a phase (menstruation) — nothing else is invented.
+  // A day before the projected cycle containing today is history: it shows a
+  // phase only if a period was recorded there (same rule as the painted cells).
+  const selectedIsRetroactive = !useRecordedPeriods && !editingPeriod && isBeforeCurrentProjectedCycle(selectedDate, projectionBasics, today);
+  const selectedIsPeriodCell = !editingPeriod && resolveKind(selectedDate) === 'period';
+  const selectedCycleDay = useRecordedPeriods
+    ? (selectedRecordedPeriod ? diffDays(selectedDate, dateFromKey(selectedRecordedPeriod.startDate)) + 1 : undefined)
+    : selectedIsRetroactive
+      ? (selectedRecordedPeriod && selectedWithinRecordedPeriod ? diffDays(selectedDate, dateFromKey(selectedRecordedPeriod.startDate)) + 1 : undefined)
+      : cycleDayFor(selectedDate, displayedBasics);
+  // The phase must agree with the painted cell: a recorded period day (even
+  // one longer than the habitual duration) is menstruation, and a projected
+  // period day that the recorded (shorter) period no longer covers is not.
+  const projectedSelectedPhase = phaseFor(selectedDate, displayedBasics);
+  const selectedPhase = useRecordedPeriods || selectedIsRetroactive
+    ? (selectedWithinRecordedPeriod ? ('menstruation' as const) : undefined)
+    : editingPeriod
+      ? projectedSelectedPhase
+      : selectedIsPeriodCell
+        ? ('menstruation' as const)
+        : projectedSelectedPhase === 'menstruation' ? ('follicular' as const) : projectedSelectedPhase;
+  // The recorded period this day belongs to — its real range, not a range
+  // re-derived from the habitual periodDuration.
+  const selectedPeriodRecord = editingPeriod
+    ? null
+    : useRecordedPeriods
+      ? selectedRecordedPeriod
+      : recordedPeriodInCycleOf(selectedDate, recordedPeriods, projectionBasics.cycleDuration);
+  const selectedPeriodStart = editingPeriod && sortedDraftDates.length
+    ? sortedDraftDates[0]
+    : selectedPeriodRecord
+      ? dateFromKey(selectedPeriodRecord.startDate)
+      : periodStartForCycleContaining(selectedDate, projectionBasics);
+  const selectedPeriodEnd = editingPeriod && sortedDraftDates.length
+    ? sortedDraftDates[sortedDraftDates.length - 1]
+    : selectedPeriodRecord
+      ? dateFromKey(selectedPeriodRecord.endDate)
+      : addDays(selectedPeriodStart, basics.periodDuration - 1);
+  // A past cycle with no recorded period: its Début / Fin / Durée would be a
+  // projection presented as history — the card shows "nothing recorded" instead.
+  const selectedPeriodUnrecorded = !editingPeriod && !selectedPeriodRecord && selectedIsRetroactive;
+  const displayedPeriodDuration = editingPeriod
+    ? sortedDraftDates.length
+    : selectedPeriodRecord
+      ? diffDays(selectedPeriodEnd, selectedPeriodStart) + 1
+      : basics.periodDuration;
+
+  // The CTA acts on the SELECTED day: never on a future day (a period start is
+  // a real event, not a prediction) and never inside a period already recorded.
+  const canDeclarePeriodStart = startOfDay(selectedDate).getTime() <= startOfDay(today).getTime() && !isDateWithinConfirmedPeriod(selectedDate);
 
   const nextPeriodLabel = predictionStatus.mode === 'window' && predictionStatus.isLate ? 'Règles en retard' : 'Prochaines règles (est.)';
   const nextPeriodValue = (() => {
@@ -260,33 +366,18 @@ function CalendarScreen(_: Props): React.JSX.Element {
     return predictionStatus.complete ? 'Données à compléter' : 'AWA observe tes cycles';
   })();
 
-  const ovulationDay = ovulationDayFor(basics.cycleDuration);
-  const fertileStart = upcomingDateForCycleDay(basics, ovulationDay - 5, today);
-  const fertileEnd = upcomingDateForCycleDay(basics, ovulationDay + 1, today);
-  const ovulationDate = upcomingDateForCycleDay(basics, ovulationDay, today);
-
-  // Same rule as CycleHomeScreen: match whatever computeCyclePredictionStatus
-  // actually derived instead of always presenting a single configured number
-  // — a learned observed average ('exact'), an honest 26–32 day window when
-  // the pattern is irregular/variable ('window'), or the still-provisional
-  // configured estimate while observation is incomplete ('observing').
-  const averageTile = (() => {
-    if (predictionStatus.mode === 'exact') {
-      return {
-        label: 'Durée moyenne',
-        value: `${predictionStatus.averageCycleLength} jours`,
-        subtitle: predictionStatus.observedPattern === 'regular-looking' ? 'Basée sur tes cycles enregistrés' : 'Basée sur ton cycle',
-      };
-    }
-    if (predictionStatus.mode === 'window') {
-      return {
-        label: 'Cycle variable',
-        value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
-        subtitle: 'Fenêtre estimée',
-      };
-    }
-    return {label: 'Durée moyenne', value: `${basics.cycleDuration} jours`, subtitle: 'Estimation provisoire'};
-  })();
+  // Same rule as CycleHomeScreen (shared helpers in cycleMath.ts): fertile
+  // window / ovulation are only estimable when a single cycle length can be
+  // trusted; an irregular/variable cycle shows no precise date.
+  const fertility = estimateFertilityDates(basics, predictionStatus, today);
+  const averageTile = describeAverageCycle(predictionStatus, basics, getHasConfirmedCycleData());
+  const NOT_ESTIMABLE = {value: 'Non estimable', subtitle: 'Cycle variable'};
+  const fertileTile = fertility
+    ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: `Dans ${Math.max(0, diffDays(fertility.fertileStart, today))} jours`}
+    : NOT_ESTIMABLE;
+  const ovulationTile = fertility
+    ? {value: formatShortDate(fertility.ovulation), subtitle: `Dans ${Math.max(0, diffDays(fertility.ovulation, today))} jours`}
+    : NOT_ESTIMABLE;
 
   const predictionItems = [
     {
@@ -307,26 +398,29 @@ function CalendarScreen(_: Props): React.JSX.Element {
       key: 'fertile',
       icon: 'leaf' as const,
       label: 'Fenêtre fertile (est.)',
-      value: formatDateRange(fertileStart, fertileEnd),
-      subtitle: `Dans ${Math.max(0, diffDays(fertileStart, today))} jours`,
+      value: fertileTile.value,
+      subtitle: fertileTile.subtitle,
     },
     {
       key: 'ovulation',
       icon: 'egg-outline' as const,
       label: 'Ovulation (est.)',
-      value: formatShortDate(ovulationDate),
-      subtitle: `Dans ${Math.max(0, diffDays(ovulationDate, today))} jours`,
+      value: ovulationTile.value,
+      subtitle: ovulationTile.subtitle,
     },
   ];
 
-  const todayPeriodStart = periodStartForCycleContaining(today, basics);
-  const todayPeriodEnd = addDays(todayPeriodStart, basics.periodDuration - 1);
+  const todayRecordedPeriod = recordedOnly
+    ? recordedPeriodFor(today, recordedPeriods)
+    : recordedPeriodInCycleOf(today, recordedPeriods, projectionBasics.cycleDuration);
+  const todayPeriodStart = todayRecordedPeriod ? dateFromKey(todayRecordedPeriod.startDate) : periodStartForCycleContaining(today, projectionBasics);
+  const todayPeriodEnd = todayRecordedPeriod ? dateFromKey(todayRecordedPeriod.endDate) : addDays(todayPeriodStart, basics.periodDuration - 1);
 
   const timelineSteps: TimelineStep[] = [
     {key: 'start', icon: 'water', label: 'Début des règles', date: formatShortDate(todayPeriodStart), color: homeColors.pink},
     {key: 'end', icon: 'water-off-outline', label: 'Fin des règles', date: formatShortDate(todayPeriodEnd), color: homeColors.pink},
-    {key: 'fertile', icon: 'leaf', label: 'Fenêtre fertile', date: formatShortDate(fertileStart), color: '#3E8E56'},
-    {key: 'ovulation', icon: 'egg-outline', label: 'Ovulation', date: formatShortDate(ovulationDate), color: '#8B5CF6'},
+    {key: 'fertile', icon: 'leaf', label: 'Fenêtre fertile', date: fertility ? formatShortDate(fertility.fertileStart) : NOT_ESTIMABLE.value, color: '#3E8E56'},
+    {key: 'ovulation', icon: 'egg-outline', label: 'Ovulation', date: fertility ? formatShortDate(fertility.ovulation) : NOT_ESTIMABLE.value, color: '#8B5CF6'},
     {key: 'next', icon: 'calendar-month-outline', label: nextPeriodLabel, date: nextPeriodValue, color: theme.colors.primary},
   ];
 
@@ -363,6 +457,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
             onChangeDisplayMode={setDisplayMode}
             onChangeMonth={changeMonth}
             onSelectDate={handleSelectDate}
+            resolveKind={resolveKind}
             selectedDate={selectedDate}
             showSelection={hasUserSelectedDate}
             today={today}
@@ -377,9 +472,11 @@ function CalendarScreen(_: Props): React.JSX.Element {
             periodDuration={displayedPeriodDuration}
             periodEndDate={selectedPeriodEnd}
             periodStartDate={selectedPeriodStart}
+            periodUnrecorded={selectedPeriodUnrecorded}
             phase={selectedPhase}
             editingPeriod={editingPeriod}
-            onDeclarePeriodStart={isDateWithinConfirmedPeriod(selectedDate) ? undefined : () => setPeriodStartSheetVisible(true)}
+            phaseUnavailableSubtitle={selectedIsRetroactive ? 'Aucune règle enregistrée ce jour-là' : undefined}
+            onDeclarePeriodStart={canDeclarePeriodStart ? () => setPeriodStartSheetVisible(true) : undefined}
             onEditPeriod={editingPeriod ? cancelPeriodEditing : startPeriodEditing}
           />
 
@@ -387,7 +484,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
 
           <CycleTimelineCard steps={timelineSteps} />
 
-          <MonthHistoryStrip onSelectMonth={handleSelectHistoryMonth} periodHistory={getPeriodHistory()} visibleMonth={visibleMonth} />
+          <MonthHistoryStrip onSelectMonth={handleSelectHistoryMonth} periodHistory={recordedPeriods} visibleMonth={visibleMonth} />
         </ScrollView>
 
         <FiltersSheet

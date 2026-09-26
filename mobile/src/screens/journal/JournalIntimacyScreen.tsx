@@ -1,11 +1,14 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Alert, Animated, Easing, ImageBackground, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, TextInput, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
+import type {IntimacySection} from '../../types/journal';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthStore';
 import {encryptIntimacySection, resolveIntimacySection} from '../../services/privateJournalEncryption';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
@@ -31,6 +34,10 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // loads and saves the CURRENT day, never the day the screen opened.
+  const {today, todayKey} = useToday();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const isSmallScreen = width < 380 || height < 720;
@@ -44,33 +51,54 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   const [saving, setSaving] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
   // Whether today's entry still has the old plaintext `intimacy` field (and
-  // no `encryptedIntimacy` yet) — this screen doesn't prefill its form from
-  // existing data (a pre-existing, unrelated behavior), but Save still needs
-  // to know this to safely migrate: the legacy field is only ever deleted
-  // AFTER the new encrypted write succeeds, never before.
+  // no `encryptedIntimacy` yet) — Save needs to know this to safely migrate:
+  // the legacy field is only ever deleted AFTER the new encrypted write
+  // succeeds, never before.
   const [hadLegacyPlaintextIntimacy, setHadLegacyPlaintextIntimacy] = useState(false);
+  // Fields of the shared encrypted `IntimacySection` this screen has no
+  // control for (`protection`, written by the Conceive "Rapports" screen) or
+  // only sometimes wants to write (`time`: kept when it was already saved or
+  // when the user picks one) — carried through Save so it never erases them.
+  const savedExtras = useRef<{time?: string; protection?: IntimacySection['protection']}>({});
+  const timeChosen = useRef(false);
   // Set when an encrypted payload exists for today but can't be decrypted
   // (corrupted/tampered) — an honest failure state, matching the same
   // "Impossible de lire ces données privées." message already shown by the
   // sibling JournalConceptionReportsScreen.tsx. Never auto-cleared except by
   // an explicit new Save, which overwrites it.
   const [corrupted, setCorrupted] = useState(false);
+  // M25: true while ANY intimacy record (encrypted, legacy or unreadable)
+  // exists for today - shows "Effacer". "Non" is a recorded answer; this is
+  // the way back to "nothing recorded".
+  const [hasSaved, setHasSaved] = useState(false);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
   const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cycleDay = useMemo(() => {
-    const start = getCyclePreferences().lastPeriodStart;
-    return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
-  }, []);
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday:'long', day:'numeric', month:'long'}).format(new Date());
+  // Null (no "Jour N du cycle" in the header) when this objective/state has
+  // no valid menstrual cycle day - see journalCycleDayFor().
+  const cycleDay = useJournalCycleDay(today);
+  const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday:'long', day:'numeric', month:'long'}).format(today);
   useEffect(() => {
     if (!isIntimacyUnlocked()) {navigation.navigate('PrivateIntimacyUnlock'); return;}
-    getJournalEntry(new Date().toLocaleDateString('en-CA')).then(async entry => {
+    getJournalEntry(todayKey).then(async entry => {
       setHadLegacyPlaintextIntimacy(Boolean(entry?.intimacy) && !entry?.encryptedIntimacy);
-      const {corrupted: isCorrupted} = await resolveIntimacySection(entry);
+      setHasSaved(Boolean(entry?.intimacy || entry?.encryptedIntimacy));
+      const {data: saved, corrupted: isCorrupted} = await resolveIntimacySection(entry);
       setCorrupted(isCorrupted);
+      if (!saved) {return;}
+      // Prefill from today's decrypted entry (same resolver as the sibling
+      // Conceive "Rapports" screen) so Save never replaces it with defaults.
+      setHasReport(saved.answer === 'yes');
+      if (saved.time) {
+        setTime(saved.time);
+        timeChosen.current = true;
+      }
+      savedExtras.current = {time: saved.time, protection: saved.protection};
+      if (saved.libido && LIBIDOS.includes(saved.libido)) {setLibido(saved.libido);}
+      setSymptoms(saved.discomfort ? saved.discomfort.split(', ').filter(Boolean) : []);
+      setNote(saved.note ?? '');
     });
-  }, [navigation]);
+  }, [navigation, todayKey]);
 
   const openPicker = (picker: PickerType) => {
     if (!hasReport) {
@@ -87,6 +115,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   const selectPickerValue = (value: string) => {
     if (activePicker === 'time') {
       setTime(value);
+      timeChosen.current = true;
     }
 
     closePicker();
@@ -158,6 +187,18 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
     });
   };
 
+  // M25: deletes today's intimacy record (encrypted payload + any legacy
+  // plaintext copy). Section absent = the canonical empty state; reopening
+  // shows the untouched defaults.
+  const clearEntry = async () => {
+    await deleteJournalSection(todayKey, 'encryptedIntimacy');
+    await deleteJournalSection(todayKey, 'intimacy');
+    setHadLegacyPlaintextIntimacy(false);
+    setCorrupted(false);
+    setHasSaved(false);
+    navigation.goBack();
+  };
+
   const save = async () => {
     if (saving) {
       return;
@@ -167,9 +208,11 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
       setSaving(true);
       if (__DEV__) {console.log('[INTIMACY_SAVE][CYCLE] start');}
 
-      const date = new Date().toLocaleDateString('en-CA');
+      const date = todayKey;
       const encrypted = await encryptIntimacySection({
         answer: hasReport ? 'yes' : 'no',
+        time: hasReport && timeChosen.current ? time : undefined,
+        protection: hasReport ? savedExtras.current.protection : undefined,
         libido: hasReport ? libido : undefined,
         discomfort: hasReport ? symptoms.join(', ') : undefined,
         note: note.trim(),
@@ -213,7 +256,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           isVerySmallScreen && styles.headerVerySmall,
         ]}>
         <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.headerButton}><MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={27} /></Pressable>
-        <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>Vie intime</Text><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><Text style={styles.date}>{dateLabel} · Jour {cycleDay} du cycle</Text></View>
+        <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>Vie intime</Text><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><Text style={styles.date}>{cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}</Text></View>
         <Pressable accessibilityLabel="Masquer et verrouiller les informations" accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={theme.colors.primary} name="eye-off-outline" size={18} /><Text style={styles.hideText}>Masquer</Text></Pressable>
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
@@ -294,7 +337,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           </Card>
 
           <Card><Heading icon="fire" title="Libido" subtitle="Comment évalues-tu ton désir sexuel aujourd’hui ?" />
-            <View style={styles.libidoRow}>{LIBIDOS.map((item,index) => {const active = libido === item; return <Pressable disabled={!hasReport} key={item} onPress={() => setLibido(item)} style={[styles.libido, active && styles.selected, !hasReport && styles.disabled]}><MaterialDesignIcons color={active ? theme.colors.primary : withAlpha(theme.colors.primary, 0.22 + index * 0.16)} name={index === 0 ? 'heart-outline' : 'heart'} size={27} /><Text style={styles.choiceLabel}>{item}</Text></Pressable>;})}</View>
+            <View style={styles.libidoRow}>{LIBIDOS.map((item,index) => {const active = libido === item; return <Pressable accessibilityRole="radio" accessibilityState={{checked: active, disabled: !hasReport}} disabled={!hasReport} key={item} onPress={() => setLibido(item)} style={[styles.libido, active && styles.selected, !hasReport && styles.disabled]}><MaterialDesignIcons color={active ? theme.colors.primary : withAlpha(theme.colors.primary, 0.22 + index * 0.16)} name={index === 0 ? 'heart-outline' : 'heart'} size={27} /><Text style={styles.choiceLabel}>{item}</Text></Pressable>;})}</View>
           </Card>
 
           <Card>
@@ -374,6 +417,8 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
             {saving ? 'Enregistrement…' : 'Enregistrer'}
           </Text>
         </Pressable>
+
+        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ces informations" /> : null}
       </ScrollView>
     </KeyboardAvoidingView>
 

@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {
   useEffect,
   useMemo,
@@ -25,9 +26,12 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {
+  deleteJournalSection,
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
+import {FUTURE_ENTRY_MESSAGE, useJournalEntryDate} from '../../hooks/useJournalEntryDate';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {
   ChoiceChips,
   JournalScreenLayout,
@@ -41,9 +45,6 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
-
-const DATE_KEY = () =>
-  new Date().toLocaleDateString('en-CA');
 
 // Fixed modal scrim — never themed, same precedent as every migrated screen.
 const OVERLAY_COLOR = 'rgba(25, 15, 39, 0.48)';
@@ -86,13 +87,24 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     new Animated.Value(0),
   ).current;
 
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // loads and saves the CURRENT day, never the day the screen opened.
+  const {todayKey} = useToday();
+  // M21: today by default, or the past day passed by the Calendar (`date`).
+  const {entryDateKey, isFutureEntryDate, dateLabel} = useJournalEntryDate(todayKey);
+  // M25: true only while a saved value exists for that day (shows "Effacer").
+  const [hasSaved, setHasSaved] = useState(false);
+
   useEffect(() => {
-    getJournalEntry(DATE_KEY()).then(entry => {
+    getJournalEntry(entryDateKey).then(entry => {
       const current = entry?.temperature;
 
       if (!current) {
         return;
       }
+
+      setHasSaved(true);
 
       setValue(
         String(current.value).replace('.', ','),
@@ -115,7 +127,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
         }
       }
     });
-  }, []);
+  }, [entryDateKey]);
 
   const updateValue = (next: string) => {
     setValue(next);
@@ -183,6 +195,11 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
   const save = async () => {
     setError('');
 
+    if (isFutureEntryDate) {
+      setError(FUTURE_ENTRY_MESSAGE);
+      return;
+    }
+
     const number = Number(
       value.replace(',', '.'),
     );
@@ -209,7 +226,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     }
 
     await saveJournalSection(
-      DATE_KEY(),
+      entryDateKey,
       'temperature',
       {
         value: number,
@@ -220,11 +237,27 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
       },
     );
 
+    setHasSaved(true);
+
     saveToast.show(
       'Température enregistrée',
       'Ta température basale a bien été ajoutée au journal.',
       navigation.goBack,
     );
+  };
+
+  // M25: removes the saved temperature for this day (section absent = the
+  // canonical empty state) and resets the form; reopening shows it cleared.
+  const clearEntry = async () => {
+    await deleteJournalSection(entryDateKey, 'temperature');
+    setHasSaved(false);
+    setValue('');
+    setUnit('C');
+    setTime('');
+    setMethod('Orale');
+    setNote('');
+    setError('');
+    saveToast.show('Saisie effacée', 'Ta température de ce jour a été supprimée.', navigation.goBack);
   };
 
   const temperatureHelper = useMemo(() => {
@@ -250,6 +283,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
         heroLabel="Ta mesure du matin"
         heroSource={require('../../assets/images/conception-journal/basal-temperature.png')}
         hideJournalHeader
+        dateLabel={dateLabel}
         icon="thermometer"
         onSave={save}
         title="Température basale"
@@ -485,6 +519,8 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
             </Text>
           </View>
         </View>
+
+        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette température" /> : null}
       </JournalScreenLayout>
 
       {/* =======================================================

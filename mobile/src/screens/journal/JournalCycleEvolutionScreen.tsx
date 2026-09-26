@@ -1,7 +1,9 @@
+import {useToday} from '../../hooks/useToday';
 import React, {
   useEffect,
   useMemo,
   useRef,
+  useState,
 } from 'react';
 
 import {
@@ -22,18 +24,27 @@ import {
 } from '../../components/journal/JournalScreenLayout';
 
 import {
+  type CyclePreferences,
+  getCycleObservationStartedAt,
   getCyclePreferences,
+  getHasConfirmedCycleData,
+  getRecordedPeriodHistory,
+  hydrateCyclePreferences,
+  subscribeCyclePreferences,
 } from '../../state/onboardingPreferences';
 
 import {
-  addDays,
-  computeNextPeriod,
-  cycleDayFor,
+  computeCyclePredictionStatus,
+  formatDateRange,
   formatShortDate,
-  ovulationDayFor,
-  phaseFor,
-  periodStartForCycleContaining,
+  startOfDay,
+  upcomingFertileWindow,
 } from '../../utils/cycleMath';
+
+import {
+  resolveConceptionCurrentPhase,
+  resolveConceptionCycleBasics,
+} from '../../utils/conceptionStatisticsMath';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -67,62 +78,121 @@ const MARKER_COLORS = {
    SCREEN
 ============================================================ */
 
+// M19 - "Évolution du cycle" is a CURRENT-CYCLE snapshot (today's cycle day,
+// phase and the estimated fertile window / next period), not a trend over a
+// selectable period, so it has no 1/3/6/12-month selector (that lives on the
+// Statistics screens); its window is always "the cycle in progress today".
+// It only ever shows values derived from the user's own recorded periods and
+// confirmed cycle settings: with no confirmed cycle data it shows an honest
+// empty state instead of the onboarding fallback defaults (28-day cycle,
+// "today minus 5 days" period start) dressed up as her data. The day/phase and
+// the fertile window come from the SAME helpers as ConceiveDashboard /
+// ConceiveStatisticsScreen / the reminders (M18), and the next-period row
+// follows the prediction mode (exact date / estimated window / observing) like
+// the Dashboard's tile instead of always claiming a single certain date.
+// (Reachable from the Conceive dashboard's "Évolution du cycle" card.)
 export default function JournalCycleEvolutionScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const basics =
-    getCyclePreferences();
+  // Live cycle data: re-read on every cycle-store notification so an edit
+  // made elsewhere can never leave this screen stale.
+  const [basics, setBasics] = useState(getCyclePreferences);
+  const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
+  useEffect(() => {
+    let active = true;
+    hydrateCyclePreferences().then(value => {
+      if (active) {
+        setBasics(value);
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
+      }
+    });
+    const unsubscribe = subscribeCyclePreferences(() => {
+      if (active) {
+        setBasics(getCyclePreferences());
+        setHasConfirmedCycleData(getHasConfirmedCycleData());
+      }
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
 
-  const today =
-    new Date();
-
-  const day =
-    cycleDayFor(
-      today,
-      basics,
+  if (!hasConfirmedCycleData) {
+    return (
+      <JournalScreenLayout
+        heroLabel="Ton cycle aujourd’hui"
+        heroSource={require('../../assets/images/conception-journal/cycle-evolution.png')}
+        hideJournalHeader
+        icon="chart-donut"
+        title="Évolution du cycle">
+        <SectionCard title="Phase actuelle">
+          <View style={styles.info}>
+            <View style={styles.infoIcon}>
+              <MaterialDesignIcons color={theme.colors.primary} name="calendar-question" size={20} />
+            </View>
+            <View style={styles.infoCopy}>
+              <Text style={styles.infoTitle}>Pas encore assez de données</Text>
+              <Text style={styles.infoText}>
+                Renseigne le début de tes dernières règles pour voir l’évolution de ton cycle.
+              </Text>
+            </View>
+          </View>
+        </SectionCard>
+      </JournalScreenLayout>
     );
+  }
 
-  const phase =
-    phaseFor(
-      today,
-      basics,
-    );
+  return <CycleEvolutionContent basics={basics} />;
+}
 
-  const ovulationDay =
-    ovulationDayFor(
-      basics.cycleDuration,
-    );
+function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const cycleStart =
-    periodStartForCycleContaining(
-      today,
-      basics,
-    );
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // shows the CURRENT day, never the day the screen opened.
+  const {today} = useToday();
 
-  const ovulation =
-    addDays(
-      cycleStart,
-      ovulationDay - 1,
-    );
+  const recordedPeriods = getRecordedPeriodHistory();
+  const predictionStatus = computeCyclePredictionStatus(
+    basics,
+    basics.regularity,
+    recordedPeriods.map(record => new Date(`${record.startDate}T12:00:00`)),
+    getCycleObservationStartedAt(),
+    startOfDay(today),
+  );
+  // ONE effective cycle length (observed average in 'exact' mode) - see
+  // resolveConceptionCycleBasics().
+  const effectiveBasics = resolveConceptionCycleBasics(basics, predictionStatus);
+  const cycleLength = effectiveBasics.cycleDuration;
 
-  const fertileStart =
-    addDays(
-      ovulation,
-      -5,
-    );
+  const {cycleDay: day, phase} = resolveConceptionCurrentPhase(
+    basics,
+    predictionStatus,
+    recordedPeriods,
+    startOfDay(today),
+  );
 
-  const fertileEnd =
-    addDays(
-      ovulation,
-      1,
-    );
+  // ONE coherent fertile window (start <= ovulation <= end), same helper as
+  // ConceiveStatisticsScreen. PRODUCT DECISION REQUIRED (see M18 note in
+  // conceptionStatisticsMath.ts): for an irregular cycle this still shows a
+  // single conception-oriented estimate, like Dashboard/Calendar/Statistics.
+  const {start: fertileStart, end: fertileEnd, ovulation} = upcomingFertileWindow(effectiveBasics, startOfDay(today));
 
-  const nextPeriod =
-    computeNextPeriod(
-      basics,
-      today,
-    );
+  const nextPeriodValue = (() => {
+    if (predictionStatus.mode === 'exact') {
+      return formatShortDate(predictionStatus.date);
+    }
+    if (predictionStatus.mode === 'window') {
+      return predictionStatus.isLate
+        ? 'Règles en retard'
+        : formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd);
+    }
+    return 'Observation en cours';
+  })();
 
   /* ==========================================================
      ANIMATIONS
@@ -157,7 +227,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
     const cycleProgress =
       Math.min(
         day /
-          basics.cycleDuration,
+          cycleLength,
         1,
       );
 
@@ -300,7 +370,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
       glowLoop.stop();
     };
   }, [
-    basics.cycleDuration,
+    cycleLength,
     circleEntrance,
     contentEntrance,
     day,
@@ -564,8 +634,9 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
               style={
                 styles.meta
               }>
-              Jour {day} sur{' '}
-              {basics.cycleDuration}
+              {day <= cycleLength
+                ? `Jour ${day} sur ${cycleLength}`
+                : `Jour ${day} · au-delà de ${cycleLength} jours`}
             </Text>
 
             <Text
@@ -598,7 +669,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
                 {Math.round(
                   Math.min(
                     day /
-                      basics.cycleDuration,
+                      cycleLength,
                     1,
                   ) * 100,
                 )}
@@ -666,9 +737,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
         <Marker
           icon="calendar-heart"
           label="Prochaines règles estimées"
-          value={formatShortDate(
-            nextPeriod,
-          )}
+          value={nextPeriodValue}
           variant="period"
           last
         />
@@ -713,7 +782,7 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
             style={
               styles.infoText
             }>
-            Ces repères sont calculés à partir de tes informations de cycle et restent des estimations.
+            Ces repères sont calculés à partir de tes règles enregistrées et restent des estimations.
           </Text>
         </View>
       </View>

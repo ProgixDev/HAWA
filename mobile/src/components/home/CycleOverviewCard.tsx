@@ -59,13 +59,17 @@ function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.title}>Aperçu de ton cycle</Text>
-        <Pressable
-          accessibilityRole="button"
-          hitSlop={8}
-          onPress={onPressMore}
-          style={({pressed}) => pressed && styles.pressed}>
-          <Text style={styles.more}>Voir plus</Text>
-        </Pressable>
+        {/* Only rendered when there is somewhere to go — never a link that
+            looks tappable but does nothing. */}
+        {onPressMore ? (
+          <Pressable
+            accessibilityRole="button"
+            hitSlop={8}
+            onPress={onPressMore}
+            style={({pressed}) => pressed && styles.pressed}>
+            <Text style={styles.more}>Voir plus</Text>
+          </Pressable>
+        ) : null}
       </View>
 
       <View style={styles.row}>

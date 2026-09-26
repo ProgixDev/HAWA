@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -33,7 +34,9 @@ import PeriodEndBottomSheet from '../../components/prayer/PeriodEndBottomSheet';
 import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences, getPeriodEndDateTime, hydratePeriodEndDateTime} from '../../state/onboardingPreferences';
 import type {FlowIntensity} from '../../types/journal';
-import {cycleDayFor, formatFullDate, isMenstruatingNow} from '../../utils/cycleMath';
+import {formatFullDate} from '../../utils/cycleMath';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
+import {isCurrentlyMenstruating} from '../../utils/menstruationStatus';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -154,11 +157,12 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const compact = width < 360 || height < 700;
-  const selectedDate = useMemo(() => new Date(), []);
-  const cycleDay = useMemo(
-    () => cycleDayFor(selectedDate, getCyclePreferences()),
-    [selectedDate],
-  );
+  // This screen is always TODAY's flow entry; the value follows the current
+  // day — see src/hooks/useToday.ts.
+  const {today: selectedDate, todayKey} = useToday();
+  // Null (no "Jour N du cycle" in the header) when this state has no valid
+  // menstrual cycle day - see journalCycleDayFor().
+  const cycleDay = useJournalCycleDay(selectedDate);
 
   const [periodEndRevision, setPeriodEndRevision] = useState(0);
   const [periodEndSheetVisible, setPeriodEndSheetVisible] = useState(false);
@@ -172,8 +176,9 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
     [periodEndRevision],
   );
   const isMenstruating = useMemo(
-    () => isMenstruatingNow(new Date(), cyclePreferences, periodEndDateTime),
-    [cyclePreferences, periodEndDateTime],
+    () => isCurrentlyMenstruating(new Date(), cyclePreferences, periodEndDateTime),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- day-change trigger
+    [cyclePreferences, periodEndDateTime, todayKey],
   );
   const periodStartLabel = useMemo(() => {
     const start = cyclePreferences.lastPeriodStart;
@@ -352,7 +357,9 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
             <Text adjustsFontSizeToFit minimumFontScale={0.86} style={styles.title}>
               Flux menstruel
             </Text>
-            <Text style={styles.subtitle}>Aujourd’hui • Jour {cycleDay} du cycle</Text>
+            <Text style={styles.subtitle}>
+              {cycleDay !== null ? `Aujourd’hui • Jour ${cycleDay} du cycle` : 'Aujourd’hui'}
+            </Text>
           </View>
           <View style={styles.headerSpacer} />
         </Animated.View>

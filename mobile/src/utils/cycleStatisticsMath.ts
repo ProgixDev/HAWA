@@ -1,6 +1,6 @@
 import type {DailyJournalEntry, FlowIntensity} from '../types/journal';
 import type {ConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
-import {capitalize} from './cycleMath';
+import {capitalize, startOfDay} from './cycleMath';
 
 // Pure calculation layer for Cycle Tracking's Statistics screen
 // (StatisticsScreen.tsx). Deliberately free of React/native imports so it
@@ -58,7 +58,26 @@ const DAY_MS = 86_400_000;
 export function cutoffDateForPeriod(period: StatisticsPeriod, now: Date): Date {
   const cutoff = new Date(now);
   cutoff.setMonth(cutoff.getMonth() - monthsForPeriod(period));
-  return cutoff;
+  // Calendar-day boundary: the first day of the window counts from 00:00.
+  return startOfDay(cutoff);
+}
+
+/** Inclusive upper bound of every statistics window: the END of `now`'s
+ * calendar day. Journal / period entries are anchored at local noon
+ * (`YYYY-MM-DDT12:00:00`), so comparing them to a time-of-day `now` (or to a
+ * start-of-day `today`) dropped today's own entry for part — or all — of the
+ * day. Comparing calendar days instead makes "today" always part of the
+ * window, at any hour, while tomorrow stays out. */
+export function endOfStatisticsDay(now: Date): Date {
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+}
+
+/** True when a local 'YYYY-MM-DD' record date falls inside the selected
+ * period, comparing CALENDAR days (today inclusive at any hour, tomorrow
+ * excluded). Shared by every objective whose records are date-keyed. */
+export function isDateKeyWithinPeriod(dateKey: string, period: StatisticsPeriod, now: Date): boolean {
+  const target = new Date(`${dateKey}T12:00:00`).getTime();
+  return target >= cutoffDateForPeriod(period, now).getTime() && target <= endOfStatisticsDay(now).getTime();
 }
 
 /** Keeps only the real entries whose date falls inside [cutoff, now] for the
@@ -75,9 +94,10 @@ export function filterEntriesForPeriod<T extends {date: string}>(
   now: Date,
 ): T[] {
   const cutoff = cutoffDateForPeriod(period, now);
+  const end = endOfStatisticsDay(now);
   return entries.filter(entry => {
     const date = new Date(`${entry.date}T12:00:00`);
-    return date.getTime() >= cutoff.getTime() && date.getTime() <= now.getTime();
+    return date.getTime() >= cutoff.getTime() && date.getTime() <= end.getTime();
   });
 }
 
@@ -91,9 +111,23 @@ export function filterPeriodStartsForPeriod(
   now: Date,
 ): Date[] {
   const cutoff = cutoffDateForPeriod(period, now);
+  const end = endOfStatisticsDay(now);
   return history
     .map(occurrence => new Date(occurrence.periodStart))
-    .filter(date => !Number.isNaN(date.getTime()) && date.getTime() >= cutoff.getTime() && date.getTime() <= now.getTime())
+    .filter(date => !Number.isNaN(date.getTime()) && date.getTime() >= cutoff.getTime() && date.getTime() <= end.getTime())
+    .sort((a, b) => a.getTime() - b.getTime());
+}
+
+/** Same window as filterPeriodStartsForPeriod, for period starts already
+ * expressed as local YYYY-MM-DD keys (e.g. the SOPK objective's merged real
+ * starts — see irregularJournalSelectors.ts). Returned as local-noon Dates,
+ * sorted chronologically. */
+export function filterStartKeysForPeriod(keys: readonly string[], period: StatisticsPeriod, now: Date): Date[] {
+  const cutoff = cutoffDateForPeriod(period, now);
+  const end = endOfStatisticsDay(now);
+  return keys
+    .map(key => new Date(`${key}T12:00:00`))
+    .filter(date => !Number.isNaN(date.getTime()) && date.getTime() >= cutoff.getTime() && date.getTime() <= end.getTime())
     .sort((a, b) => a.getTime() - b.getTime());
 }
 
@@ -115,6 +149,36 @@ export function calculateAverageCycleDuration(periodStarts: readonly Date[]): Av
   if (!durations.length) {return null;}
   const averageDays = Math.round(durations.reduce((sum, value) => sum + value, 0) / durations.length);
   return {averageDays, cyclesAnalyzed: durations.length};
+}
+
+/** How many period STARTS the user has recorded (cyclePreferences'
+ * `periodHistory` — a start is recorded the moment she taps "Mes règles ont
+ * commencé") inside the selected period. Used only to explain WHY the average
+ * cycle length is still empty; it never feeds the average itself, which stays
+ * strictly on confirmed history. */
+export function countRecordedStartsForPeriod(
+  records: readonly {startDate: string}[],
+  period: StatisticsPeriod,
+  now: Date,
+): number {
+  const cutoff = cutoffDateForPeriod(period, now);
+  const end = endOfStatisticsDay(now);
+  return records.filter(record => {
+    const date = new Date(`${record.startDate}T12:00:00`);
+    return !Number.isNaN(date.getTime()) && date.getTime() >= cutoff.getTime() && date.getTime() <= end.getTime();
+  }).length;
+}
+
+/** The explanatory line under "Pas encore assez de cycles enregistrés".
+ * Two stores are involved: recorded period STARTS (predictions) and CONFIRMED
+ * periods (a start AND an explicit end — what statistics and Qadaa rely on).
+ * When the user has recorded several starts but never confirmed the end, say
+ * so instead of implying she has not recorded anything. */
+export function describeMissingAverageCycleData(confirmedStarts: number, recordedStarts: number): string {
+  if (confirmedStarts < 2 && recordedStarts >= 2) {
+    return 'Tes débuts de règles sont enregistrés, mais leur fin n’a pas encore été confirmée. Confirme la fin de tes règles pour les inclure dans cette statistique.';
+  }
+  return 'Continue à renseigner tes règles pour voir apparaître ta durée moyenne.';
 }
 
 export type FlowDistributionEntry = {intensity: FlowIntensity; days: number};
