@@ -20,7 +20,7 @@ import {
 } from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import DateTimePicker, {
-  type DateTimePickerEvent,
+  type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
@@ -173,22 +173,18 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     setTimePickerVisible(false);
   };
 
-  const onAndroidTimeChange = (
-    event: DateTimePickerEvent,
-    selectedDate?: Date,
+  // Android native clock: a picked time is applied and the picker closes; a
+  // dismissal only closes it (nothing is changed).
+  const onAndroidTimeValueChange = (
+    _event: DateTimePickerChangeEvent,
+    selectedDate: Date,
   ) => {
-    if (event.type === 'dismissed') {
-      setTimePickerVisible(false);
-      return;
-    }
-
-    if (!selectedDate) {
-      setTimePickerVisible(false);
-      return;
-    }
-
     setTimePickerDate(selectedDate);
     setTime(formatTime(selectedDate));
+    setTimePickerVisible(false);
+  };
+
+  const onAndroidTimeDismiss = () => {
     setTimePickerVisible(false);
   };
 
@@ -603,15 +599,13 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
                   display="spinner"
                   locale="fr-FR"
                   mode="time"
-                  onChange={(
+                  onValueChange={(
                     _event,
                     selectedDate,
                   ) => {
-                    if (selectedDate) {
-                      setTimePickerDate(
-                        selectedDate,
-                      );
-                    }
+                    setTimePickerDate(
+                      selectedDate,
+                    );
                   }}
                   value={timePickerDate}
                 />
@@ -655,7 +649,8 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
           display="clock"
           is24Hour
           mode="time"
-          onChange={onAndroidTimeChange}
+          onDismiss={onAndroidTimeDismiss}
+          onValueChange={onAndroidTimeValueChange}
           value={timePickerDate}
         />
       ) : null}
