@@ -127,9 +127,13 @@ export function calculateMoodMonthlyTrend(entries: readonly MenopauseJournalEntr
 export function filterLabResultsForPeriod(
   results: readonly MenopauseLabResult[],
   cutoff: Date,
+  end?: Date,
 ): MenopauseLabResult[] {
   return results
-    .filter(result => new Date(`${result.date}T12:00:00`) >= cutoff)
+    .filter(result => {
+      const time = new Date(`${result.date}T12:00:00`).getTime();
+      return time >= cutoff.getTime() && (end === undefined || time <= end.getTime());
+    })
     .sort((a, b) => a.date.localeCompare(b.date));
 }
 

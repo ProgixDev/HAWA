@@ -1,6 +1,8 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useToday} from '../../hooks/useToday';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   AccessibilityInfo,
+  Alert,
   Animated,
   Easing,
   KeyboardAvoidingView,
@@ -17,6 +19,9 @@ import {
   type ViewStyle,
 } from 'react-native';
 import {useNavigation, useRoute, type RouteProp} from '@react-navigation/native';
+import DateTimePicker, {
+  type DateTimePickerChangeEvent,
+} from '@react-native-community/datetimepicker';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
@@ -42,21 +47,31 @@ import {
   MENOPAUSE_MOOD_TINTS,
   MENOPAUSE_SLEEP_QUALITY_ICONS,
   MENOPAUSE_SLEEP_QUALITY_LABELS,
-  MENOPAUSE_SYMPTOM_OPTIONS,
   MENOPAUSE_TREATMENT_STATUS_ICONS,
   MENOPAUSE_TREATMENT_STATUS_LABELS,
+  getVisibleMenopauseSymptomOptions,
 } from '../../config/menopauseJournalConfig';
-import {getMenopausePreferences} from '../../state/menopausePreferences';
+import {
+  getMenopausePreferences,
+  hydrateMenopausePreferences,
+  subscribeMenopausePreferences,
+} from '../../state/menopausePreferences';
 import type {MenopauseSymptom} from '../../state/menopausePreferences';
 import {
+  MENOPAUSE_CATEGORY_FIELDS,
   addMenopauseLabResult,
+  clearMenopauseJournalFields,
+  deleteMenopauseLabResult,
   getMenopauseJournalEntry,
   getMenopauseLabResults,
   hydrateMenopauseJournal,
   saveMenopauseJournalField,
+  updateMenopauseLabResult,
   type MenopauseEnergyLevel,
   type MenopauseIntensity,
   type MenopauseJournalCategory,
+  type MenopauseJournalEntry,
+  type MenopauseLabResult,
   type MenopauseLabType,
   type MenopauseSleepQuality,
   type MenopauseTreatmentStatus,
@@ -125,8 +140,6 @@ const SLEEP_QUALITY_COPY: Record<MenopauseSleepQuality, string> = {
   poor: 'Sommeil léger ou réveils fréquents.',
 };
 
-const todayKey = (): string => new Date().toLocaleDateString('en-CA');
-
 function formatResultDate(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00`);
   if (Number.isNaN(parsed.getTime())) {
@@ -146,6 +159,8 @@ function todayLabel(): string {
     year: 'numeric',
   }).format(new Date());
 }
+
+const LAB_FUTURE_DATE_MESSAGE = 'La date du prélèvement ne peut pas être dans le futur.';
 
 function selectionLabel(count: number, singular = 'sélectionnée'): string {
   return `${count} ${count === 1 ? singular : `${singular}s`}`;
@@ -394,18 +409,52 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   const compact = width < 380 || height < 720;
   const insets = useSafeAreaInsets();
   const toast = useJournalSaveToast();
-  const today = useMemo(() => todayKey(), []);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {todayKey: today} = useToday();
+  // The day this journal writes to: today by default, or an explicit PAST day
+  // when opened from the Calendar's selected day (same optional `date` route
+  // param pattern as IrregularJournalEntryScreen). A future day is never
+  // accepted. Lab results are NOT day entries: they carry their own sample
+  // date (see labDateKey) and ignore this.
+  const requestedDate = params.date;
+  const entryDate =
+    requestedDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate) ? requestedDate : today;
+  const isFutureEntryDate = entryDate > today;
+  const isPastEntryDate = entryDate < today && category !== 'labResults';
   const item = MENOPAUSE_JOURNAL_ITEMS.find(candidate => candidate.key === category)!;
-  const preferences = useMemo(() => getMenopausePreferences(), []);
+  // Live preferences (not a mount snapshot): the symptoms screen can send the
+  // user to edit her tracked symptoms and must reflect the change on return.
+  const [preferences, setPreferences] = useState(getMenopausePreferences);
+  useEffect(() => {
+    let active = true;
+    hydrateMenopausePreferences().then(value => {
+      if (active) {setPreferences(value);}
+    });
+    const unsubscribe = subscribeMenopausePreferences(() => {
+      if (active) {setPreferences(getMenopausePreferences());}
+    });
+    return () => {
+      active = false;
+      unsubscribe();
+    };
+  }, []);
 
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+  const scrollRef = useRef<ScrollView>(null);
+  // What is currently persisted for the day being edited: drives the
+  // "Effacer" action and the save-time clearing of optional sub-fields.
+  const [savedEntry, setSavedEntry] = useState<MenopauseJournalEntry | undefined>(undefined);
 
   // The existing narrow PIN / biometrics gate remains the only access gate
   // for daily notes. The other six categories are never gated.
   const [notesUnlocked] = useState(() => category !== 'notes' || isIntimacyUnlocked());
 
   const [symptoms, setSymptoms] = useState<MenopauseSymptom[]>([]);
+  // What is already saved for today - kept offered even if no longer tracked.
+  const [savedSymptoms, setSavedSymptoms] = useState<MenopauseSymptom[]>([]);
   const [intensity, setIntensity] = useState<MenopauseIntensity | null>(null);
   const [mood, setMood] = useState<MoodLevel | null>(null);
   const [sleepDuration, setSleepDuration] = useState('');
@@ -423,6 +472,15 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   );
   const [labValue, setLabValue] = useState('');
   const [labUnit, setLabUnit] = useState('');
+  // Sample ("prélèvement") date. null = follow today (moves with useToday when the day
+  // changes); a picked date is kept as chosen. The stored result's `date` IS
+  // this sample date; `recordedAt` (set by the store) stays the moment it was
+  // entered in AWA.
+  const [labDateKey, setLabDateKey] = useState<string | null>(null);
+  const [showLabDatePicker, setShowLabDatePicker] = useState(false);
+  const [showAllLabResults, setShowAllLabResults] = useState(false);
+  // Id of the existing lab result being edited (null = the form adds a new one).
+  const [editingLabId, setEditingLabId] = useState<string | null>(null);
   const [labResultsHistory, setLabResultsHistory] = useState(() =>
     getMenopauseLabResults(labType ?? undefined),
   );
@@ -433,36 +491,136 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     }
   }, [category, navigation]);
 
+  const applyEntryToForm = (entry: MenopauseJournalEntry | undefined) => {
+    setSavedEntry(entry);
+    setSymptoms(entry?.symptoms ?? []);
+    setSavedSymptoms(entry?.symptoms ?? []);
+    setIntensity(entry?.symptomIntensity ?? null);
+    setMood(entry?.mood ?? null);
+    setSleepDuration(entry?.sleepDurationHours !== undefined ? String(entry.sleepDurationHours) : '');
+    setSleepQuality(entry?.sleepQuality ?? null);
+    setEnergyLevel(entry?.energyLevel ?? null);
+    setTreatmentStatus(entry?.treatmentStatus ?? null);
+    setTreatmentNote(entry?.treatmentNote ?? '');
+    if (notesUnlocked) {
+      setNotes(entry?.notes ?? '');
+    }
+  };
+
   useEffect(() => {
     let active = true;
     hydrateMenopauseJournal().then(() => {
       if (!active) {
         return;
       }
-      const entry = getMenopauseJournalEntry(today);
-      setSymptoms(entry?.symptoms ?? []);
-      setIntensity(entry?.symptomIntensity ?? null);
-      setMood(entry?.mood ?? null);
-      setSleepDuration(entry?.sleepDurationHours !== undefined ? String(entry.sleepDurationHours) : '');
-      setSleepQuality(entry?.sleepQuality ?? null);
-      setEnergyLevel(entry?.energyLevel ?? null);
-      setTreatmentStatus(entry?.treatmentStatus ?? null);
-      setTreatmentNote(entry?.treatmentNote ?? '');
-      if (notesUnlocked) {
-        setNotes(entry?.notes ?? '');
-      }
+      applyEntryToForm(getMenopauseJournalEntry(entryDate));
       setLabResultsHistory(getMenopauseLabResults(labType ?? undefined));
     });
     return () => {
       active = false;
     };
-    // Hydration is deliberately run once for this draft screen.
+    // Hydration runs once per entry day for this draft screen (the form
+    // represents TODAY's entry unless a past `date` was requested; see useToday).
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [entryDate]);
 
   useEffect(() => {
     setLabResultsHistory(getMenopauseLabResults(labType ?? undefined));
   }, [labType]);
+
+  const visibleSymptomOptions = useMemo(
+    () => getVisibleMenopauseSymptomOptions(preferences.trackedSymptoms, savedSymptoms),
+    [preferences.trackedSymptoms, savedSymptoms],
+  );
+
+  const editTrackedSymptoms = useCallback(() => {
+    navigation.navigate('MenopauseSymptoms', {mode: 'edit'});
+  }, [navigation]);
+
+  const effectiveLabDateKey = labDateKey ?? today;
+  const onLabDateChange = (_event: DateTimePickerChangeEvent, date?: Date) => {
+    if (Platform.OS === 'android') {
+      setShowLabDatePicker(false);
+    }
+    if (!date) {
+      return;
+    }
+    const picked = date.toLocaleDateString('en-CA');
+    // A sample cannot have been taken in the future: reject, keep the date.
+    if (picked > today) {
+      setError(LAB_FUTURE_DATE_MESSAGE);
+      return;
+    }
+    setError('');
+    setLabDateKey(picked === today ? null : picked);
+  };
+
+  const resetLabForm = () => {
+    setEditingLabId(null);
+    setLabValue('');
+    setLabUnit('');
+    setLabDateKey(null);
+    setShowLabDatePicker(false);
+    setError('');
+  };
+
+  const startEditLab = (result: MenopauseLabResult) => {
+    setEditingLabId(result.id);
+    setLabType(result.type);
+    setLabValue(String(result.value));
+    setLabUnit(result.unit ?? '');
+    setLabDateKey(result.date >= today ? null : result.date);
+    setShowLabDatePicker(false);
+    setError('');
+    scrollRef.current?.scrollTo?.({y: 0, animated: true});
+  };
+
+  const requestDeleteLab = (result: MenopauseLabResult) => {
+    Alert.alert(
+      'Supprimer ce résultat ?',
+      `${MENOPAUSE_LAB_TYPE_LABELS[result.type]} : ${result.value}${result.unit ? ` ${result.unit}` : ''} · ${formatResultDate(result.date)}. Cette action est définitive.`,
+      [
+        {text: 'Annuler', style: 'cancel'},
+        {
+          text: 'Supprimer',
+          style: 'destructive',
+          onPress: async () => {
+            await deleteMenopauseLabResult(result.id);
+            if (editingLabId === result.id) {
+              resetLabForm();
+            }
+            setLabResultsHistory(getMenopauseLabResults(labType ?? undefined));
+          },
+        },
+      ],
+    );
+  };
+
+  // Fields this category owns that currently hold a saved value for the day.
+  const clearableFields = MENOPAUSE_CATEGORY_FIELDS[category].filter(field => {
+    const value = savedEntry?.[field];
+    return Array.isArray(value) ? value.length > 0 : value !== undefined;
+  });
+
+  const requestClearCategory = () => {
+    Alert.alert(
+      'Effacer ce suivi ?',
+      isPastEntryDate
+        ? `Les informations enregistrées pour le ${formatResultDate(entryDate)} seront supprimées.`
+        : 'Les informations enregistrées aujourd’hui seront supprimées.',
+      [
+        {text: 'Annuler', style: 'cancel'},
+        {
+          text: 'Effacer',
+          style: 'destructive',
+          onPress: async () => {
+            await clearMenopauseJournalFields(entryDate, MENOPAUSE_CATEGORY_FIELDS[category]);
+            applyEntryToForm(getMenopauseJournalEntry(entryDate));
+          },
+        },
+      ],
+    );
+  };
 
   const toggleSymptom = (id: MenopauseSymptom) => {
     setSymptoms(current =>
@@ -483,14 +641,26 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
   const handleSave = async () => {
     setError('');
+    if (isFutureEntryDate && category !== 'labResults') {
+      setError('Tu ne peux pas enregistrer un suivi pour une date à venir.');
+      return;
+    }
     setSaving(true);
 
     try {
       switch (category) {
         case 'symptoms':
-          await saveMenopauseJournalField(today, 'symptoms', symptoms);
+          if (visibleSymptomOptions.length === 0) {
+            setError('Choisis d’abord les symptômes que tu souhaites suivre.');
+            setSaving(false);
+            return;
+          }
+          await saveMenopauseJournalField(entryDate, 'symptoms', symptoms);
           if (intensity) {
-            await saveMenopauseJournalField(today, 'symptomIntensity', intensity);
+            await saveMenopauseJournalField(entryDate, 'symptomIntensity', intensity);
+          } else if (savedEntry?.symptomIntensity) {
+            // The user deselected the optional intensity: persist that.
+            await clearMenopauseJournalFields(entryDate, ['symptomIntensity']);
           }
           break;
         case 'mood':
@@ -499,7 +669,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             setSaving(false);
             return;
           }
-          await saveMenopauseJournalField(today, 'mood', mood);
+          await saveMenopauseJournalField(entryDate, 'mood', mood);
           break;
         case 'sleep': {
           const parsedDuration = sleepDuration.trim()
@@ -514,10 +684,13 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             return;
           }
           if (parsedDuration !== undefined) {
-            await saveMenopauseJournalField(today, 'sleepDurationHours', parsedDuration);
+            await saveMenopauseJournalField(entryDate, 'sleepDurationHours', parsedDuration);
+          } else if (savedEntry?.sleepDurationHours !== undefined) {
+            // The duration field was emptied: persist that instead of silently keeping the old value.
+            await clearMenopauseJournalFields(entryDate, ['sleepDurationHours']);
           }
           if (sleepQuality) {
-            await saveMenopauseJournalField(today, 'sleepQuality', sleepQuality);
+            await saveMenopauseJournalField(entryDate, 'sleepQuality', sleepQuality);
           }
           break;
         }
@@ -527,17 +700,23 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             setSaving(false);
             return;
           }
-          await saveMenopauseJournalField(today, 'energyLevel', energyLevel);
+          await saveMenopauseJournalField(entryDate, 'energyLevel', energyLevel);
           break;
         case 'treatment':
           if (!treatmentStatus) {
-            setError('Indique si tu as pris ton traitement aujourd’hui.');
+            setError(
+              isPastEntryDate
+                ? 'Indique si tu as pris ton traitement ce jour-là.'
+                : 'Indique si tu as pris ton traitement aujourd’hui.',
+            );
             setSaving(false);
             return;
           }
-          await saveMenopauseJournalField(today, 'treatmentStatus', treatmentStatus);
+          await saveMenopauseJournalField(entryDate, 'treatmentStatus', treatmentStatus);
           if (treatmentNote.trim()) {
-            await saveMenopauseJournalField(today, 'treatmentNote', treatmentNote.trim());
+            await saveMenopauseJournalField(entryDate, 'treatmentNote', treatmentNote.trim());
+          } else if (savedEntry?.treatmentNote) {
+            await clearMenopauseJournalFields(entryDate, ['treatmentNote']);
           }
           break;
         case 'labResults': {
@@ -552,19 +731,39 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             setSaving(false);
             return;
           }
-          await addMenopauseLabResult({
-            type: labType,
-            value: parsedValue,
-            unit: labUnit.trim() || undefined,
-            date: today,
-          });
-          setLabValue('');
-          setLabUnit('');
+          if (effectiveLabDateKey > today) {
+            setError(LAB_FUTURE_DATE_MESSAGE);
+            setSaving(false);
+            return;
+          }
+          if (editingLabId) {
+            // Edit an existing result in place (same id / recordedAt).
+            const updated = await updateMenopauseLabResult(editingLabId, {
+              value: parsedValue,
+              unit: labUnit.trim() || undefined,
+              date: effectiveLabDateKey,
+            });
+            if (!updated) {
+              resetLabForm();
+              setError('Ce résultat n’existe plus.');
+              setLabResultsHistory(getMenopauseLabResults(labType));
+              setSaving(false);
+              return;
+            }
+          } else {
+            await addMenopauseLabResult({
+              type: labType,
+              value: parsedValue,
+              unit: labUnit.trim() || undefined,
+              date: effectiveLabDateKey,
+            });
+          }
+          resetLabForm();
           setLabResultsHistory(getMenopauseLabResults(labType));
           break;
         }
         case 'notes':
-          await saveMenopauseJournalField(today, 'notes', notes.trim());
+          await saveMenopauseJournalField(entryDate, 'notes', notes.trim());
           break;
         default:
           break;
@@ -578,7 +777,11 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       // branch above already `return`s before this line, so a toast/return
       // never fires on invalid input, and this line is only reached after
       // the real menopauseJournalStore writes above have completed.
-      toast.show('Enregistré', item.journalSubtitle, () => navigation.goBack());
+      toast.show(
+        'Enregistré',
+        isPastEntryDate ? `Suivi du ${formatResultDate(entryDate)}` : item.journalSubtitle,
+        () => navigation.goBack(),
+      );
     } finally {
       setSaving(false);
     }
@@ -596,21 +799,47 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           icon="heart-pulse"
           title="Symptômes ressentis"
         />
-        <ChoiceGrid third>
-          {MENOPAUSE_SYMPTOM_OPTIONS.map(option => (
-            <SelectableIconCard
-              compact
-              icon={option.icon}
-              iconColor={option.iconColor}
-              key={option.id}
-              label={option.label}
-              multi
-              onPress={() => toggleSymptom(option.id)}
-              selected={symptoms.includes(option.id)}
-              tint={option.tint}
+        {visibleSymptomOptions.length > 0 ? (
+          <>
+            <ChoiceGrid third>
+              {visibleSymptomOptions.map(option => (
+                <SelectableIconCard
+                  compact
+                  icon={option.icon}
+                  iconColor={option.iconColor}
+                  key={option.id}
+                  label={option.label}
+                  multi
+                  onPress={() => toggleSymptom(option.id)}
+                  selected={symptoms.includes(option.id)}
+                  tint={option.tint}
+                />
+              ))}
+            </ChoiceGrid>
+            <Pressable
+              accessibilityLabel="Modifier les symptômes suivis"
+              accessibilityRole="button"
+              onPress={editTrackedSymptoms}
+              style={({pressed}) => [styles.historyBadge, styles.editSymptomsLink, pressed && styles.pressed]}>
+              <Text style={styles.historyBadgeText}>Modifier les symptômes suivis</Text>
+            </Pressable>
+          </>
+        ) : (
+          <View>
+            <InformativePanel
+              icon="information-outline"
+              text="Tu n’as choisi aucun symptôme à suivre pour le moment. Choisis ceux qui te concernent pour les retrouver ici."
+              title="Aucun symptôme suivi"
             />
-          ))}
-        </ChoiceGrid>
+            <Pressable
+              accessibilityLabel="Choisir mes symptômes"
+              accessibilityRole="button"
+              onPress={editTrackedSymptoms}
+              style={({pressed}) => [styles.saveButton, styles.editSymptomsCta, pressed && styles.pressed]}>
+              <Text style={styles.saveButtonText}>Choisir mes symptômes</Text>
+            </Pressable>
+          </View>
+        )}
       </JournalCard>
 
       <JournalCard>
@@ -628,7 +857,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               iconColor={MENOPAUSE_INTENSITY_COLORS[level]}
               key={level}
               label={MENOPAUSE_INTENSITY_LABELS[level]}
-              onPress={() => setIntensity(level)}
+              onPress={() => setIntensity(current => (current === level ? null : level))}
               selected={intensity === level}
               tint={MENOPAUSE_INTENSITY_TINTS[level]}
             />
@@ -748,7 +977,10 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
   const renderEnergy = () => (
     <JournalCard>
-      <CardHeading icon="lightning-bolt-outline" title="Ton niveau d’énergie aujourd’hui" />
+      <CardHeading
+        icon="lightning-bolt-outline"
+        title={isPastEntryDate ? 'Ton niveau d’énergie ce jour-là' : 'Ton niveau d’énergie aujourd’hui'}
+      />
       <ChoiceGrid third>
         {(Object.keys(MENOPAUSE_ENERGY_LABELS) as MenopauseEnergyLevel[]).map(level => (
           <SelectableIconCard
@@ -782,9 +1014,13 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     <>
       <JournalCard>
         <CardHeading
-          badge="Aujourd’hui"
+          badge={isPastEntryDate ? formatResultDate(entryDate) : 'Aujourd’hui'}
           icon="calendar-outline"
-          subtitle="As-tu pris ton traitement hormonal aujourd’hui ?"
+          subtitle={
+            isPastEntryDate
+              ? 'As-tu pris ton traitement hormonal ce jour-là ?'
+              : 'As-tu pris ton traitement hormonal aujourd’hui ?'
+          }
           title="Statut du jour"
         />
         <ChoiceGrid>
@@ -793,7 +1029,9 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               description={
                 status === 'taken'
                   ? 'J’ai pris mon traitement comme prévu.'
-                  : 'Je n’ai pas pris mon traitement aujourd’hui.'
+                  : isPastEntryDate
+                    ? 'Je n’ai pas pris mon traitement ce jour-là.'
+                    : 'Je n’ai pas pris mon traitement aujourd’hui.'
               }
               icon={MENOPAUSE_TREATMENT_STATUS_ICONS[status]}
               iconColor={status === 'taken' ? '#56866B' : '#D45D7B'}
@@ -836,7 +1074,14 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   const renderLabResults = () => (
     <>
       <JournalCard>
-        {preferences.labTracking === 'both' ? (
+        {editingLabId ? (
+          <InformativePanel
+            icon="pencil-outline"
+            text={`Tu modifies un résultat ${labType ? MENOPAUSE_LAB_TYPE_LABELS[labType] : ''} déjà enregistré.`}
+            title="Modification d’un résultat"
+          />
+        ) : null}
+        {preferences.labTracking === 'both' && !editingLabId ? (
           <>
             <CardHeading icon="flask-outline" title="1. Type d’analyse" />
             <ChoiceGrid>
@@ -855,8 +1100,11 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           </>
         ) : null}
 
-        <View style={preferences.labTracking === 'both' ? styles.subsection : undefined}>
-          <CardHeading icon="flask-outline" title={preferences.labTracking === 'both' ? '2. Résultat' : 'Résultat'} />
+        <View style={preferences.labTracking === 'both' && !editingLabId ? styles.subsection : undefined}>
+          <CardHeading
+            icon="flask-outline"
+            title={preferences.labTracking === 'both' && !editingLabId ? '2. Résultat' : 'Résultat'}
+          />
           <View style={styles.labInputRow}>
             <View style={[styles.labField, styles.labValueField]}>
               <Text style={styles.fieldLabel}>Valeur</Text>
@@ -891,14 +1139,26 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
         <View style={styles.subsection}>
           <CardHeading icon="calendar-outline" title="Date du prélèvement" />
-          <View accessibilityLabel={`Date du prélèvement : ${todayLabel()}`} style={styles.dateField}>
+          <Pressable
+            accessibilityLabel={`Date du prélèvement : ${formatResultDate(effectiveLabDateKey)}. Modifier`}
+            accessibilityRole="button"
+            onPress={() => setShowLabDatePicker(current => !current)}
+            style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
             <IconCircle icon="calendar-outline" size={38} />
             <View style={styles.dateFieldCopy}>
-              <Text style={styles.dateFieldTitle}>Aujourd’hui</Text>
-              <Text style={styles.dateFieldText}>{todayLabel()}</Text>
+              <Text style={styles.dateFieldTitle}>{effectiveLabDateKey === today ? 'Aujourd’hui' : 'Date choisie'}</Text>
+              <Text style={styles.dateFieldText}>{formatResultDate(effectiveLabDateKey)}</Text>
             </View>
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-down" size={20} />
-          </View>
+          </Pressable>
+          {showLabDatePicker ? (
+            <DateTimePicker
+              maximumDate={new Date(`${today}T12:00:00`)}
+              mode="date"
+              onValueChange={onLabDateChange}
+              value={new Date(`${effectiveLabDateKey}T12:00:00`)}
+            />
+          ) : null}
         </View>
       </JournalCard>
 
@@ -906,10 +1166,18 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         <JournalCard>
           <View style={styles.historyHeader}>
             <Text style={styles.historyTitle}>Mes derniers résultats</Text>
-            <View style={styles.historyBadge}><Text style={styles.historyBadgeText}>Voir tout</Text></View>
+            {labResultsHistory.length > 5 ? (
+              <Pressable
+                accessibilityLabel={showAllLabResults ? 'Réduire la liste des résultats' : 'Voir tous les résultats'}
+                accessibilityRole="button"
+                onPress={() => setShowAllLabResults(current => !current)}
+                style={({pressed}) => [styles.historyBadge, pressed && styles.pressed]}>
+                <Text style={styles.historyBadgeText}>{showAllLabResults ? 'Réduire' : 'Voir tout'}</Text>
+              </Pressable>
+            ) : null}
           </View>
           <View style={styles.recordsList}>
-            {labResultsHistory.slice(0, 5).map(result => (
+            {(showAllLabResults ? labResultsHistory : labResultsHistory.slice(0, 5)).map(result => (
               <View key={result.id} style={styles.recordRow}>
                 <IconCircle
                   color={result.type === 'fsh' ? '#6D4AE8' : '#D45D7B'}
@@ -923,7 +1191,24 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                     {result.value}{result.unit ? ` ${result.unit}` : ''} · {formatResultDate(result.date)}
                   </Text>
                 </View>
-                <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
+                <View style={styles.recordActions}>
+                  <Pressable
+                    accessibilityLabel={`Modifier le résultat ${MENOPAUSE_LAB_TYPE_LABELS[result.type]} du ${formatResultDate(result.date)}`}
+                    accessibilityRole="button"
+                    hitSlop={6}
+                    onPress={() => startEditLab(result)}
+                    style={({pressed}) => [styles.historyBadge, editingLabId === result.id && styles.recordActionActive, pressed && styles.pressed]}>
+                    <Text style={styles.recordActionText}>Modifier</Text>
+                  </Pressable>
+                  <Pressable
+                    accessibilityLabel={`Supprimer le résultat ${MENOPAUSE_LAB_TYPE_LABELS[result.type]} du ${formatResultDate(result.date)}`}
+                    accessibilityRole="button"
+                    hitSlop={6}
+                    onPress={() => requestDeleteLab(result)}
+                    style={({pressed}) => [styles.historyBadge, styles.recordActionDanger, pressed && styles.pressed]}>
+                    <Text style={[styles.recordActionText, styles.recordActionDangerText]}>Supprimer</Text>
+                  </Pressable>
+                </View>
               </View>
             ))}
           </View>
@@ -1042,6 +1327,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         </View>
 
         <ScrollView
+          ref={scrollRef}
           contentContainerStyle={[
             styles.content,
             compact && styles.contentCompact,
@@ -1066,7 +1352,11 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               </View>
               <Text style={[styles.heroTitle, compact && styles.heroTitleCompact]}>{item.label}</Text>
               {!compact ? <Text style={styles.heroEyebrow}>PÉRIMÉNOPAUSE / MÉNOPAUSE</Text> : null}
-              <Text style={[styles.heroDescription, compact && styles.heroDescriptionCompact]}>{copy.description}</Text>
+              <Text style={[styles.heroDescription, compact && styles.heroDescriptionCompact]}>
+                {isPastEntryDate
+                  ? `Suivi du ${formatResultDate(entryDate)}. Renseigne ce que tu as ressenti ce jour-là.`
+                  : copy.description}
+              </Text>
             </View>
 
             <View style={styles.body}>{renderCategory()}</View>
@@ -1078,8 +1368,18 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               </View>
             ) : null}
 
+            {category === 'labResults' && editingLabId ? (
+              <Pressable
+                accessibilityLabel="Annuler la modification"
+                accessibilityRole="button"
+                onPress={resetLabForm}
+                style={({pressed}) => [styles.secondaryAction, pressed && styles.pressed]}>
+                <Text style={styles.secondaryActionText}>Annuler la modification</Text>
+              </Pressable>
+            ) : null}
+
             <Pressable
-              accessibilityLabel={copy.saveLabel}
+              accessibilityLabel={category === 'labResults' && editingLabId ? 'Enregistrer les modifications' : copy.saveLabel}
               accessibilityRole="button"
               accessibilityState={{disabled: saving}}
               disabled={saving}
@@ -1090,8 +1390,20 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                 saving && styles.saveButtonDisabled,
               ]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'lock-outline'} size={22} />
-              <Text style={styles.saveButtonText}>{saving ? 'Enregistrement…' : copy.saveLabel}</Text>
+              <Text style={styles.saveButtonText}>
+                {saving ? 'Enregistrement…' : category === 'labResults' && editingLabId ? 'Enregistrer les modifications' : copy.saveLabel}
+              </Text>
             </Pressable>
+
+            {clearableFields.length > 0 ? (
+              <Pressable
+                accessibilityLabel="Effacer ce suivi"
+                accessibilityRole="button"
+                onPress={requestClearCategory}
+                style={({pressed}) => [styles.secondaryAction, pressed && styles.pressed]}>
+                <Text style={[styles.secondaryActionText, styles.recordActionDangerText]}>Effacer ce suivi</Text>
+              </Pressable>
+            ) : null}
 
           </FadeIn>
         </ScrollView>
@@ -1693,8 +2005,55 @@ function createStyles(theme: ResolvedAwaTheme) {
     fontWeight: '800',
   },
 
+  editSymptomsLink: {
+    alignSelf: 'flex-start',
+    marginTop: 10,
+  },
+
+  editSymptomsCta: {
+    marginTop: 12,
+  },
+
   recordsList: {
     gap: 1,
+  },
+
+  recordActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginLeft: 6,
+  },
+
+  recordActionText: {
+    color: theme.colors.primary,
+    fontSize: 10.5,
+    fontWeight: '800',
+  },
+
+  recordActionActive: {
+    backgroundColor: withAlpha(theme.colors.primary, 0.18),
+  },
+
+  recordActionDanger: {
+    backgroundColor: withAlpha(theme.colors.danger, 0.1),
+  },
+
+  recordActionDangerText: {
+    color: theme.colors.danger,
+  },
+
+  secondaryAction: {
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 10,
+  },
+
+  secondaryActionText: {
+    color: theme.colors.primary,
+    fontSize: 13,
+    fontWeight: '800',
   },
 
   recordRow: {

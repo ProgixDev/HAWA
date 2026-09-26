@@ -186,6 +186,21 @@ export const MENOPAUSE_SYMPTOM_OPTIONS: Array<{
   },
 ];
 
+/** The symptoms the CURRENT symptom-tracking UI offers: the ones the user chose
+ * to track (menopausePreferences.trackedSymptoms — the single preference
+ * source) plus any already recorded on the day being edited, so an entry saved
+ * before a symptom was un-tracked stays visible and editable instead of being
+ * silently carried along. Preferences only steer what is offered NOW — they
+ * never touch stored history (Calendar / Statistics keep every recorded
+ * symptom). An empty result is a legitimate state (the user may track none). */
+export function getVisibleMenopauseSymptomOptions(
+  trackedSymptoms: readonly MenopauseSymptom[],
+  recordedForDay: readonly MenopauseSymptom[] = [],
+): typeof MENOPAUSE_SYMPTOM_OPTIONS {
+  const visible = new Set<MenopauseSymptom>([...trackedSymptoms, ...recordedForDay]);
+  return MENOPAUSE_SYMPTOM_OPTIONS.filter(option => visible.has(option.id));
+}
+
 /* ============================================================
  * INTENSITÉ
  * ============================================================ */

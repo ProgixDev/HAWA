@@ -201,6 +201,52 @@ export async function saveMenopauseJournalField<K extends Exclude<keyof Menopaus
   await persistEntries();
 }
 
+type MenopauseEntryField = Exclude<keyof MenopauseJournalEntry, 'date'>;
+
+/** The day-entry fields each journal category owns — the ONE mapping used to
+ * clear a category. `labResults` owns none: lab results live in their own list
+ * (see deleteMenopauseLabResult), never in the day entry. Every field is
+ * optional in MenopauseJournalEntry, so "absent" is the canonical empty state. */
+export const MENOPAUSE_CATEGORY_FIELDS: Record<MenopauseJournalCategory, readonly MenopauseEntryField[]> = {
+  symptoms: ['symptoms', 'symptomIntensity'],
+  mood: ['mood'],
+  sleep: ['sleepDurationHours', 'sleepQuality'],
+  energy: ['energyLevel'],
+  treatment: ['treatmentStatus', 'treatmentNote'],
+  labResults: [],
+  notes: ['notes'],
+};
+
+/** Clears (removes) the given fields of ONE day's entry and leaves every other
+ * field of that day untouched. A day left with no data at all is dropped so it
+ * is not counted as a tracked day. No-op when nothing is stored for those
+ * fields. */
+export async function clearMenopauseJournalFields(
+  date: string,
+  fields: readonly MenopauseEntryField[],
+): Promise<void> {
+  const current = entries[date];
+  if (!current || !fields.some(field => current[field] !== undefined)) {
+    return;
+  }
+  const next: MenopauseJournalEntry = {...current};
+  fields.forEach(field => {
+    delete next[field];
+  });
+  const nextEntries = {...entries};
+  if (Object.keys(next).every(key => key === 'date')) {
+    delete nextEntries[date];
+  } else {
+    nextEntries[date] = next;
+  }
+  entries = nextEntries;
+  notifyListeners();
+  await persistEntries();
+}
+
+export const clearMenopauseJournalCategory = (date: string, category: MenopauseJournalCategory): Promise<void> =>
+  clearMenopauseJournalFields(date, MENOPAUSE_CATEGORY_FIELDS[category]);
+
 /** Whether a given day's entry has real data for a category — the ONE place
  * this is decided, so "Suivi du jour"/Calendar markers/Statistics can never
  * drift from what the journal actually persisted. */
@@ -249,6 +295,34 @@ export const getMenopauseLabResults = (type?: MenopauseLabType): MenopauseLabRes
 
 export const getLatestMenopauseLabResult = (type: MenopauseLabType): MenopauseLabResult | undefined =>
   getMenopauseLabResults(type)[0];
+
+/** Edits an existing result IN PLACE by id (same id and same `recordedAt` — it
+ * is still the result that was entered then; only the reported value / unit /
+ * sample date change). No other result is touched. Returns false when the id is
+ * unknown. Never invents a storage model: same list, same key. */
+export async function updateMenopauseLabResult(
+  id: string,
+  patch: {value: number; unit?: string; date: string},
+): Promise<boolean> {
+  if (!labResults.some(result => result.id === id)) {
+    return false;
+  }
+  labResults = labResults.map(result =>
+    result.id === id
+      ? {
+          id: result.id,
+          type: result.type,
+          recordedAt: result.recordedAt,
+          value: patch.value,
+          ...(patch.unit ? {unit: patch.unit} : {}),
+          date: patch.date,
+        }
+      : result,
+  );
+  notifyListeners();
+  await persistLabResults();
+  return true;
+}
 
 export const deleteMenopauseLabResult = async (id: string): Promise<void> => {
   labResults = labResults.filter(result => result.id !== id);
