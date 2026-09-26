@@ -26,6 +26,9 @@ import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import {AnimatedProgressRing} from '../home/AnimatedProgressRing';
 import {usePrayerPurityStatus} from '../../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../../hooks/useQadaaStatus';
+import {useToday} from '../../hooks/useToday';
+import {useIrregularPeriodSources} from '../../hooks/useIrregularPeriodSources';
+import {resolveLatestIrregularPeriodStart} from '../../utils/irregularJournalSelectors';
 import {
   getFirstName,
   getSpiritualMarkersEnabled,
@@ -78,7 +81,9 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
-  const todayKey = useMemo(() => new Date().toLocaleDateString('en-CA'), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabledState] = useState(getSpiritualMarkersEnabled);
   const [irregularPrefs, setIrregularPrefs] = useState(getIrregularPreferences);
@@ -150,21 +155,24 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
     }, [todayKey]),
   );
 
-  // Real elapsed-day count from SOPK's OWN onboarding answer
-  // (irregularPreferences.lastPeriodDate — "Quand ont commencé tes
-  // dernières règles ?") — deliberately NOT the shared
-  // onboardingPreferences.cyclePreferences/hasConfirmedCycleData the
-  // standard Cycle objective uses, since that store is only ever populated
-  // by CycleInformationScreen.tsx/PeriodStartBottomSheet.tsx, neither of
-  // which a pure-SOPK user ever visits — reading it here left this ring
-  // permanently stuck on "Cycle à renseigner" even after the user answered
-  // the onboarding question and kept recording her periods. Never a
-  // fabricated day 1, and never a "late" classification for a long real gap
-  // (see this file's own header comment and irregularDailyTrackingMath.ts).
-  const irregularLastPeriodStart = irregularPrefs.lastPeriodDate
-    ? new Date(`${irregularPrefs.lastPeriodDate}T12:00:00`)
-    : null;
-  const cycleDay = computeIrregularCycleDay(irregularLastPeriodStart, new Date());
+  // Real elapsed-day count since the MOST RECENT real period start — the
+  // later of SOPK's own onboarding answer (irregularPreferences.lastPeriodDate,
+  // "Quand ont commencé tes dernières règles ?") and any period the user has
+  // since recorded (actual period days in the journal, or a cycle-confirmed
+  // occurrence) — see resolveLatestIrregularPeriodStart. Recording a new
+  // period therefore restarts the count at "jour 1"; "Non" / "Spotting" answers
+  // never do. Deliberately NOT the shared cyclePreferences/hasConfirmedCycleData
+  // the standard Cycle objective uses (a pure-SOPK user never visits the screens
+  // that populate it — reading it left this ring stuck on "Cycle à renseigner").
+  // Never a fabricated day 1, and never a "late" classification for a long real
+  // gap (see this file's own header comment and irregularDailyTrackingMath.ts).
+  // `today` comes from useToday(), so the count moves when the day changes.
+  const periodSources = useIrregularPeriodSources();
+  const latestPeriodStartKey = resolveLatestIrregularPeriodStart(periodSources, todayKey);
+  const cycleDay = computeIrregularCycleDay(
+    latestPeriodStartKey ? new Date(`${latestPeriodStartKey}T12:00:00`) : null,
+    today,
+  );
 
   const dailyCategoryKeys = useMemo(
     () => prioritizeIrregularCategories(IRREGULAR_JOURNAL_ITEMS.map(item => item.key), irregularPrefs.trackedItems),
@@ -323,18 +331,20 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               </View>
             </View>
 
-            <Pressable
-              accessibilityRole="button"
-              onPress={() => navigation.navigate('IrregularCyclePattern')}
-              style={({pressed}) => [styles.calloutCard, pressed && styles.calloutPressed]}>
+            {/* Purely informational: it used to be a button that opened
+                IrregularCyclePattern WITHOUT edit mode, which replayed the whole
+                SOPK onboarding chain (and the global SecuritySetup tail) for an
+                already-onboarded user, and whose destination had nothing to do with
+                this text. No destination matches this message, so it no longer
+                looks (or acts) tappable. */}
+            <View style={styles.calloutCard}>
               <View style={styles.calloutIcon}>
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="information-outline" size={16} />
               </View>
               <Text style={styles.calloutText}>
                 Dans le mode SOPK, un cycle long n’est pas considéré automatiquement comme un retard.
               </Text>
-              <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={20} />
-            </Pressable>
+            </View>
           </View>
 
           {/* ==================================================
@@ -537,7 +547,6 @@ function createStyles(theme: ResolvedAwaTheme) {
   ringWrap: {flexShrink: 0, marginLeft: 6},
 
   calloutCard: {minHeight: 58, flexDirection: 'row', alignItems: 'center', gap: 9, marginTop: 12, borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.08), borderRadius: 18, backgroundColor: theme.colors.primarySoft, paddingHorizontal: 11, paddingVertical: 10},
-  calloutPressed: {opacity: 0.84, transform: [{scale: 0.992}]},
   calloutIcon: {width: 31, height: 31, flexShrink: 0, alignItems: 'center', justifyContent: 'center', borderRadius: 11, backgroundColor: theme.colors.primary},
   calloutText: {flex: 1, minWidth: 0, color: theme.colors.textSecondary, fontSize: 10.2, lineHeight: 14.5},
 

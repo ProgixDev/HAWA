@@ -1,3 +1,4 @@
+import {useToday} from '../hooks/useToday';
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   KeyboardAvoidingView,
@@ -25,6 +26,7 @@ import {
   useJournalSaveToast,
 } from '../components/journal/JournalSaveToast';
 import type {RootStackParamList} from '../navigation/AppNavigator';
+import {formatFullDate} from '../utils/cycleMath';
 import {getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {
@@ -48,6 +50,7 @@ import {
 import {saveJournalSection} from '../state/dailyJournalStore';
 import type {FlowIntensity} from '../types/journal';
 import {computeWeightVariation} from '../utils/irregularDailyTrackingMath';
+import {getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
 
 type IconName = React.ComponentProps<
   typeof MaterialDesignIcons
@@ -510,14 +513,27 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
   const route = useRoute<Props>();
   const {category} = route.params;
+  const requestedDate = route.params.date;
 
   const insets = useSafeAreaInsets();
   const meta = CATEGORY_META[category];
 
-  const todayKey = useMemo(
-    () => new Date().toLocaleDateString('en-CA'),
-    [],
-  );
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {todayKey} = useToday();
+
+  // The day this entry is written to — today by default, or an explicit PAST
+  // (or today's) day when opened from the Calendar's selected day so a period
+  // can be recorded/corrected retroactively. A future day is never accepted.
+  const entryDateKey =
+    requestedDate && /^\d{4}-\d{2}-\d{2}$/.test(requestedDate)
+      ? requestedDate
+      : todayKey;
+  const isFutureEntryDate = entryDateKey > todayKey;
+  const isPastEntryDate = entryDateKey < todayKey;
+  // Wording only: a past day is never described as "aujourd’hui".
+  const dayWord = isPastEntryDate ? 'ce jour-là' : 'aujourd’hui';
 
   const [value, setValue] = useState('');
   const [secondary, setSecondary] = useState('');
@@ -550,7 +566,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
       }
 
       const entry =
-        getIrregularJournalEntry(todayKey);
+        getIrregularJournalEntry(entryDateKey);
 
       const detail =
         entry?.details?.[category];
@@ -575,13 +591,16 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
       setAreas(detail?.areas ?? []);
 
+      // Fatigue's associated symptoms live at the entry's top level (with a
+      // fallback for entries saved under details.fatigue.symptoms); the pain
+      // types are the pain category's own details.symptoms. The two must
+      // never read each other's data.
       setSymptoms(
-        category === 'fatigue' ||
-        category === 'pain'
-          ? detail?.symptoms ??
-              entry?.symptoms ??
-              []
-          : [],
+        category === 'fatigue'
+          ? getIrregularFatigueSymptoms(entry)
+          : category === 'pain'
+            ? detail?.symptoms ?? []
+            : [],
       );
 
       setNote(detail?.note ?? '');
@@ -592,7 +611,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
         )
           .filter(
             date =>
-              date < todayKey &&
+              date < entryDateKey &&
               Boolean(
                 getIrregularJournalEntry(date)
                   ?.weight,
@@ -614,7 +633,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
     return () => {
       active = false;
     };
-  }, [category, todayKey]);
+  }, [category, entryDateKey]);
 
   const toggle = (
     setter: React.Dispatch<
@@ -648,12 +667,21 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
       return;
     }
 
+    if (isFutureEntryDate) {
+      setError(
+        'Tu ne peux pas enregistrer un suivi pour une date à venir.',
+      );
+      return;
+    }
+
     if (
       category === 'period' &&
       !periodStatus
     ) {
       setError(
-        'Choisis si tu as tes règles aujourd’hui avant d’enregistrer.',
+        isPastEntryDate
+          ? 'Choisis si tu avais tes règles ce jour-là avant d’enregistrer.'
+          : 'Choisis si tu as tes règles aujourd’hui avant d’enregistrer.',
       );
       return;
     }
@@ -729,13 +757,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
     setSaving(true);
 
     try {
-      await saveIrregularJournalEntry(
-        todayKey,
-        category,
-        summary,
-        details,
-      );
-
+      // Period: the shared flow record is written FIRST so that, when the
+      // SOPK store notifies its subscribers, Dashboard / Calendar already
+      // find both halves of the answer (flow + the No/Spotting/Oui status).
       if (category === 'period') {
         const intensity =
           periodStatus === 'no' ||
@@ -745,7 +769,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               'moderate';
 
         await saveJournalSection(
-          todayKey,
+          entryDateKey,
           'flow',
           {
             intensity,
@@ -756,6 +780,13 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
           },
         );
       }
+
+      await saveIrregularJournalEntry(
+        entryDateKey,
+        category,
+        summary,
+        details,
+      );
 
       saveToast.show(
         `${meta.title} enregistré${
@@ -893,7 +924,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               </View>
 
               <Text style={styles.heroTitle}>{meta.title}</Text>
-              <Text style={styles.heroPrompt}>{meta.prompt}</Text>
+              <Text style={styles.heroPrompt}>
+                {isPastEntryDate ? meta.prompt.replace('aujourd’hui', dayWord) : meta.prompt}
+              </Text>
+              {isPastEntryDate || isFutureEntryDate ? (
+                <Text style={styles.heroPrompt}>
+                  {formatFullDate(new Date(`${entryDateKey}T12:00:00`))}
+                </Text>
+              ) : null}
             </View>
           </LinearGradient>
 
@@ -902,8 +940,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  As-tu tes règles
-                  aujourd’hui ?
+                  {isPastEntryDate
+                    ? 'As-tu eu tes règles ce jour-là ?'
+                    : 'As-tu tes règles aujourd’hui ?'}
                 </Text>
 
                 <View
@@ -1031,8 +1070,8 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  État de ta peau
-                  aujourd’hui
+                  État de ta peau{' '}
+                  {dayWord}
                 </Text>
 
                 <View
@@ -1100,7 +1139,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  Niveau aujourd’hui
+                  Niveau {dayWord}
                 </Text>
 
                 <View
@@ -1191,7 +1230,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  Ton poids aujourd’hui
+                  {isPastEntryDate ? 'Ton poids ce jour-là' : 'Ton poids aujourd’hui'}
                 </Text>
 
                 <View
@@ -1394,8 +1433,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
             <View style={styles.card}>
               <Text
                 style={styles.cardTitle}>
-                Comment te sens-tu
-                aujourd’hui ?
+                {isPastEntryDate ? 'Comment te sentais-tu ce jour-là ?' : 'Comment te sens-tu aujourd’hui ?'}
               </Text>
 
               <View
@@ -1489,8 +1527,9 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  Ton niveau de fatigue
-                  aujourd’hui
+                  {isPastEntryDate
+                    ? 'Ton niveau de fatigue ce jour-là'
+                    : 'Ton niveau de fatigue aujourd’hui'}
                 </Text>
 
                 <View
@@ -1563,7 +1602,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     styles.sectionDescription
                   }>
                   Sélectionne tout ce qui
-                  s’applique aujourd’hui.
+                  s’applique {dayWord}.
                 </Text>
 
                 <Chips

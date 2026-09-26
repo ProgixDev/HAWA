@@ -155,3 +155,55 @@ describe('IrregularDashboard — Premium fallback', () => {
     expect(gradientColors()).toEqual(['#FAF8FD', '#F4EFFA', '#EEE7F7', '#E9E1F3']);
   });
 });
+
+// H2 - the "cycle long" callout is INFORMATION only: it used to look tappable
+// (chevron) but navigated to IrregularCyclePattern without edit mode, replaying
+// SOPK onboarding. No interactive affordance now, and nothing to navigate to.
+describe('IrregularDashboard - non-late callout is informational, not a button', () => {
+  const COPY = 'Dans le mode SOPK, un cycle long n’est pas considéré automatiquement comme un retard.';
+
+  it('is not inside any pressable and never navigates', async () => {
+    const navigate = jest.fn();
+    let renderer!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      renderer = ReactTestRenderer.create(
+        <SafeAreaProvider initialMetrics={TEST_METRICS}>
+          <AwaThemeProvider>
+            <JournalSheetProvider>
+              <NavigationContainer ref={navRef}>
+                <Stack.Navigator screenOptions={{headerShown: false}}>
+                  <Stack.Screen name="Test">
+                    {() => <IrregularDashboard navigation={{navigate} as never} route={{key: 'test', name: 'CycleHome'}} />}
+                  </Stack.Screen>
+                </Stack.Navigator>
+              </NavigationContainer>
+            </JournalSheetProvider>
+          </AwaThemeProvider>
+        </SafeAreaProvider>,
+      );
+    });
+    activeRenderers.push(renderer);
+
+    const copyNode = renderer.root.findAll(node => node.props.children === COPY)[0];
+    expect(copyNode).toBeTruthy();
+
+    let ancestor: ReactTestRenderer.ReactTestInstance | null = copyNode.parent;
+    while (ancestor) {
+      expect(typeof ancestor.props.onPress).not.toBe('function');
+      ancestor = ancestor.parent;
+    }
+    // No control anywhere on the dashboard leads to the onboarding pattern screen.
+    renderer.root
+      .findAll(node => typeof node.props.onPress === 'function')
+      .forEach(node => {
+        act(() => {
+          try {
+            node.props.onPress();
+          } catch {
+            // some controls need an event; irrelevant here
+          }
+        });
+      });
+    expect(navigate.mock.calls.filter(call => call[0] === 'IrregularCyclePattern')).toEqual([]);
+  });
+});
