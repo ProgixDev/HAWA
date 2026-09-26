@@ -90,6 +90,9 @@ export const isPostpartumNifasCompletionAcknowledged = (
 export const setPostpartumNifasCompletionAcknowledged = async (
   deliveryDate: string,
 ): Promise<void> => {
+  // Never spread onto the un-hydrated default: persisted schedule fields
+  // (occurrence ids, fire dates) would otherwise be overwritten by defaults.
+  await hydratePostpartumNifasReminderState();
   state = { ...state, deliveryDate, completionAcknowledged: true };
   await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(state));
 };

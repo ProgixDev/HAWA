@@ -52,6 +52,16 @@ export function validateLochiaEndDate(params: {
   return {valid: true};
 }
 
+/** True when a stored postpartum date (first period, lochia end) can belong to
+ * the journey whose delivery is `currentDeliveryKey`: valid recordings are
+ * always on/after their own delivery, so a value dated BEFORE it comes from an
+ * earlier journey and must not constrain edits of this delivery. With no
+ * current delivery nothing can belong to it. Read-only: never deletes. */
+export const belongsToCurrentDelivery = (
+  valueKey: string | null | undefined,
+  currentDeliveryKey: string | null | undefined,
+): boolean => Boolean(valueKey && currentDeliveryKey && valueKey >= currentDeliveryKey);
+
 /** A postpartum delivery date: never in the future, and never AFTER dates
  * already recorded relative to it (the first period since delivery, the end of
  * the lochia) — the same ordering the cycle-return screen already enforces the
