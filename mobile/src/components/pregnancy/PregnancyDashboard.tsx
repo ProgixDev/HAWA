@@ -34,7 +34,7 @@ import SpiritualGuidanceCard from '../home/SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../home/ObjectiveArticlesSection';
 import { getFloatingTabBarClearance } from '../../theme/spacing';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
-import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import {
   getFirstName,
   getSpiritualMarkersEnabled,
@@ -907,10 +907,16 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
             ) : null}
 
             <View style={styles.dailyGrid}>
-              {dailyItems.map(item => (
+              {dailyItems.map(item => {
+                // Each category derives its OWN completion from the persisted data
+                // of today (isCategoryDoneToday → isPregnancyTrackingCategoryCompleted),
+                // never from the X / N counter.
+                const done = isCategoryDoneToday(item.preferenceKey);
+                return (
                 <Pressable
                   accessibilityLabel={item.label}
                   accessibilityRole="button"
+                  accessibilityValue={done ? { text: 'complété' } : undefined}
                   key={item.label}
                   onPress={() => {
                     if (item.route === 'PregnancyMedicalInformation') {
@@ -927,19 +933,31 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     pressed && styles.pressed,
                   ]}
                 >
-                  <View style={styles.dailyIcon}>
+                  {/* Completed state = the shared AWA pattern (Cycle DailyJournalCard,
+                      Postpartum, Loss, SOPK): solid primary icon + success check badge. */}
+                  <View style={[styles.dailyIcon, done && styles.dailyIconDone]}>
                     <MaterialDesignIcons
-                      color={theme.colors.primary}
+                      color={done ? onPrimaryTextColor(theme) : theme.colors.primary}
                       name={item.icon}
                       size={22}
                     />
+                    {done ? (
+                      <View style={styles.doneBadge}>
+                        <MaterialDesignIcons
+                          color={pickReadableTextColor(theme.colors.success)}
+                          name="check"
+                          size={9}
+                        />
+                      </View>
+                    ) : null}
                   </View>
 
                   <Text numberOfLines={2} style={styles.dailyLabel}>
                     {item.label}
                   </Text>
                 </Pressable>
-              ))}
+                );
+              })}
             </View>
           </View>
 
@@ -1852,6 +1870,30 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderRadius: 18,
 
     backgroundColor: theme.colors.primarySoft,
+  },
+
+  dailyIconDone: {
+    backgroundColor: theme.colors.primary,
+  },
+
+  // Generic "logged today" completion badge — success token (same as
+  // DailyJournalCard / Postpartum / Loss / SOPK), not a value color.
+  doneBadge: {
+    position: 'absolute',
+    right: -3,
+    bottom: -3,
+
+    width: 16,
+    height: 16,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: theme.colors.surface,
+
+    backgroundColor: theme.colors.success,
   },
 
   dailyLabel: {

@@ -1,99 +1,61 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import {
+  JournalSaveToast,
+  useJournalSaveToast,
+} from '../journal/JournalSaveToast';
+import { getFloatingTabBarClearance } from '../../theme/spacing';
 import {
   clearPostpartumSuccessToast,
   getPostpartumSuccessToast,
   subscribePostpartumSuccessToast,
 } from '../../state/postpartumSuccessToastStore';
+
+// Postpartum save confirmations ("Fatigue enregistrée", "Sommeil enregistré"...)
+// are requested through postpartumSuccessToastStore by
+// PostpartumJournalEntryScreen and shown here, on the Postpartum Home, once the
+// user is back on the dashboard. The toast itself is AWA's shared save toast
+// (JournalSaveToast — the same component every other objective uses): it resolves
+// its colors from the selected theme (Light / Dark, live) and is positioned at the
+// BOTTOM, above the floating tab bar and the device's bottom inset
+// (getFloatingTabBarClearance, the helper every main-tab screen already uses to
+// clear that bar). Nothing here decides WHEN a toast is shown or what it says.
 export function PostpartumSuccessToast(): React.JSX.Element | null {
   const insets = useSafeAreaInsets();
-  const [toast, setToast] = useState(getPostpartumSuccessToast);
-  const a = useRef(new Animated.Value(0)).current;
+  const [request, setRequest] = useState(getPostpartumSuccessToast);
+  const toast = useJournalSaveToast();
+  // `show` is recreated every render; the effect below must only react to a NEW request.
+  const showRef = useRef(toast.show);
+  showRef.current = toast.show;
+
   useEffect(
     () =>
       subscribePostpartumSuccessToast(() =>
-        setToast(getPostpartumSuccessToast()),
+        setRequest(getPostpartumSuccessToast()),
       ),
     [],
   );
+
   useEffect(() => {
-    if (!toast) return;
-    Animated.timing(a, {
-      toValue: 1,
-      duration: 240,
-      useNativeDriver: true,
-    }).start();
-    const t = setTimeout(
-      () =>
-        Animated.timing(a, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }).start(() => clearPostpartumSuccessToast()),
-      1900,
+    if (!request) {
+      return;
+    }
+    showRef.current(request.title, request.message, () =>
+      clearPostpartumSuccessToast(),
     );
-    return () => clearTimeout(t);
-  }, [a, toast]);
-  if (!toast) return null;
+  }, [request]);
+
   return (
-    <Animated.View
-      pointerEvents="none"
-      style={[
-        styles.toast,
-        {
-          top: insets.top + 10,
-          opacity: a,
-          transform: [
-            {
-              translateY: a.interpolate({
-                inputRange: [0, 1],
-                outputRange: [-12, 0],
-              }),
-            },
-          ],
-        },
-      ]}
-    >
-      <View style={styles.icon}>
-        <MaterialDesignIcons name="check-circle" size={22} color="#6B4BC4" />
-      </View>
-      <View>
-        <Text style={styles.title}>{toast.title}</Text>
-        <Text style={styles.text}>{toast.message}</Text>
-      </View>
-    </Animated.View>
+    <JournalSaveToast
+      animation={toast.animation}
+      bottom={getFloatingTabBarClearance(insets.bottom, 8)}
+      message={toast.message}
+      onDismiss={() => {
+        toast.hide();
+        clearPostpartumSuccessToast();
+      }}
+      title={toast.title}
+      visible={toast.visible}
+    />
   );
 }
-const styles = StyleSheet.create({
-  toast: {
-    position: 'absolute',
-    zIndex: 99,
-    left: 16,
-    right: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(107,75,196,.14)',
-    borderRadius: 19,
-    backgroundColor: '#FFFDFF',
-    padding: 12,
-    shadowColor: '#342060',
-    shadowOpacity: 0.16,
-    shadowRadius: 14,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 8,
-  },
-  icon: {
-    width: 38,
-    height: 38,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 19,
-    backgroundColor: '#F0E8FC',
-  },
-  title: { color: '#2F2450', fontSize: 14, fontWeight: '800' },
-  text: { marginTop: 2, color: '#756C87', fontSize: 12 },
-});
