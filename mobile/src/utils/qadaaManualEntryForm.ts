@@ -91,6 +91,42 @@ export function formatQadaaManualSummary(entry: Pick<QadaaManualEntry, 'quantity
   return `${formatQadaaDayCount(entry.quantity)} ajouté${entry.quantity === 1 ? '' : 's'} manuellement`;
 }
 
+export type QadaaManualEntryDeleteSummary = {
+  /** "2 jours" / "1 jour". */
+  quantityLabel: string;
+  /** "Ramadan 2023 (1444 AH)" / "Ramadan 2020" / "Ancien solde". */
+  yearLabel: string;
+  /** "Année non renseignée" for an unknown-year entry, else null. */
+  yearHint: string | null;
+  note: string | null;
+};
+
+/**
+ * What the delete-confirmation dialog shows about the selected MANUAL entry. A
+ * Hijri year is shown with its Gregorian year when AWA's own Hijri utilities can
+ * derive it ("Ramadan 2023 (1444 AH)"), else on its own ("Ramadan 1444 AH").
+ */
+export function describeQadaaManualEntryForDelete(
+  entry: Pick<QadaaManualEntry, 'quantity' | 'year' | 'yearSystem' | 'note'>,
+  today: Date = new Date(),
+): QadaaManualEntryDeleteSummary {
+  const quantityLabel = formatQadaaDayCount(entry.quantity);
+  const note = entry.note?.trim() || null;
+  if (entry.year === null || entry.yearSystem === null) {
+    return {quantityLabel, yearLabel: 'Ancien solde', yearHint: 'Année non renseignée', note};
+  }
+  if (entry.yearSystem === 'gregorian') {
+    return {quantityLabel, yearLabel: `Ramadan ${entry.year}`, yearHint: null, note};
+  }
+  const match = buildQadaaRamadanYearOptions(today).find(option => option.year === entry.year);
+  return {
+    quantityLabel,
+    yearLabel: match?.gregorianYear ? `Ramadan ${match.gregorianYear} (${entry.year} AH)` : `Ramadan ${entry.year} AH`,
+    yearHint: null,
+    note,
+  };
+}
+
 /** Values to pre-fill the form when editing an existing manual entry. */
 export function manualEntryToFormValues(entry: QadaaManualEntry): QadaaManualFormValues {
   return {
