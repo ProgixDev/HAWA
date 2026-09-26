@@ -37,6 +37,10 @@ type Props = {
   /** Overrides the "not estimated" row's subtitle (default: the
    * variable-cycle wording) — e.g. for a past day with no recorded period. */
   phaseUnavailableSubtitle?: string;
+  /** Hijri date line under the Gregorian date. Defaults to shown; CalendarScreen
+   * passes the spiritual-markers preference ("Calendrier hijri" is one of the
+   * features that toggle controls). */
+  showHijriDate?: boolean;
 };
 
 // SEMANTIC — cycle-phase tracking meaning, never theme-driven (same
@@ -159,6 +163,7 @@ function SelectedDayCard({
   editingPeriod = false,
   onDeclarePeriodStart,
   phaseUnavailableSubtitle,
+  showHijriDate = true,
 }: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -169,7 +174,7 @@ function SelectedDayCard({
         subtitle: phaseUnavailableSubtitle ?? PHASE_UNAVAILABLE_META.subtitle,
         color: theme.colors.textSecondary,
       };
-  const hijriDate = formatHijriDate(date);
+  const hijriDate = showHijriDate ? formatHijriDate(date) : undefined;
   const rows = buildHealthRows(entry).filter(row => filters[row.key]);
 
   return (

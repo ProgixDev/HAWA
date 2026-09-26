@@ -398,7 +398,13 @@ function MiscarriageCalendarContent(): React.JSX.Element {
       visibleMonth,
     ),
   );
-  const showHijri = displayMode !== 'gregorian';
+  // Hijri day labels / Hijri month range / Hijri selected-day text are part of
+  // the "Calendrier hijri" feature the spiritual-markers toggle controls
+  // (SpiritualPreferencesScreen: "Calendrier hijri, prières, jeûne, état de
+  // pureté…"; Profile shows "Date hijri: Désactivé" when off). They therefore
+  // require BOTH the toggle AND the separate Grégorien/Hijri/Double display
+  // preference (which is only hidden — never reset — while the toggle is off).
+  const showHijri = spiritualMarkersEnabled && displayMode !== 'gregorian';
   const selectedTitle = capitalize(
     new Intl.DateTimeFormat('fr-FR', {
       weekday: 'long',
@@ -511,6 +517,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
 
           {/* CALENDAR CARD */}
           <View style={styles.calendarCard}>
+            {spiritualMarkersEnabled ? (
             <View style={styles.modeRow}>
               {MODES.map(mode => (
                 <Pressable
@@ -533,6 +540,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                 </Pressable>
               ))}
             </View>
+            ) : null}
 
             <View style={styles.monthHeader}>
               <Pressable

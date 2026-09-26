@@ -53,7 +53,7 @@ import {
   subscribeMiscarriagePreferences,
   type MiscarriageCycleReturnStatus,
 } from '../../state/miscarriagePreferences';
-import { classifyStoredCycleReturnDate } from '../../utils/lossDateValidation';
+import { CYCLE_RETURN_DATE_TO_CHECK, classifyStoredCycleReturnDate } from '../../utils/lossDateValidation';
 
 import {
   getMiscarriageJournalEntry,
@@ -662,7 +662,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       ? `Depuis le ${formatFullDate(firstReturnedPeriodDate)}`
       : cycleReturnDateState === 'none' || cycleReturnDateState === 'ok'
       ? null
-      : 'Date à vérifier';
+      : CYCLE_RETURN_DATE_TO_CHECK;
 
   const daysSinceLabel =
     daysSince === null
@@ -914,15 +914,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
         
 
             <View style={styles.quickActionsWrapper}>
-              <QuickActionsGrid
-                items={quickActionItems.filter(
-                  item =>
-                    spiritualMarkersEnabled ||
-                    (item.key !== 'prayer-times' &&
-                      item.key !== 'hijri-calendar' &&
-                      item.key !== 'qadaa'),
-                )}
-              />
+              <QuickActionsGrid items={quickActionItems} />
             </View>
 
             {spiritualMarkersEnabled ? (

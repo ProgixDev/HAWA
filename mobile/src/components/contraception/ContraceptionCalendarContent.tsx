@@ -331,7 +331,12 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   // it is never presented as "Non enregistrée" (see isPillBreakDay).
   const selectedIsBreakDay = isPill && isPillBreakDay(selectedPillPackDay, activeDays);
 
-  const selectedHijriDate = useMemo(() => formatHijriDate(selectedDate), [selectedDate]);
+  // Hijri text follows the spiritual-markers toggle (same rule as the
+  // Irregular/Menopause calendars) — see the note in the other calendars.
+  const selectedHijriDate = useMemo(
+    () => (spiritualMarkersEnabled ? formatHijriDate(selectedDate) : undefined),
+    [selectedDate, spiritualMarkersEnabled],
+  );
 
   // Break days of a cyclic pill schedule are not expected intakes in the monthly summary either.
   const pillSchedule = useMemo(
@@ -378,6 +383,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   );
 
   const hijriRangeLabel = useMemo(() => {
+    if (!spiritualMarkersEnabled) {return undefined;}
     const first = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), 1);
     const last = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth() + 1, 0);
     const firstLabel = formatHijriMonthYear(first);
@@ -385,7 +391,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
     if (!firstLabel) {return undefined;}
     if (!lastLabel || lastLabel === firstLabel) {return firstLabel;}
     return `${firstLabel} – ${lastLabel}`;
-  }, [visibleMonth]);
+  }, [visibleMonth, spiritualMarkersEnabled]);
 
   const calendarDays = useMemo(() => {
     const year = visibleMonth.getFullYear();
@@ -497,7 +503,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                   : [];
                 const isToday = sameDay(date, today);
                 const isSelected = sameDay(date, selectedDate);
-                const hijriDay = formatHijriDay(date);
+                const hijriDay = spiritualMarkersEnabled ? formatHijriDay(date) : undefined;
 
                 const isExpectedTracked =
                   Boolean(methodStartDate) && dateKey >= (methodStartDate as string) && dateKey <= todayKey;
