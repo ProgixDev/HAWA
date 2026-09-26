@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {ActivityIndicator, Alert, Animated, Image, KeyboardAvoidingView, Modal, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
@@ -21,7 +22,6 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivatePhotoEntry'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const DATE_KEY = () => new Date().toLocaleDateString('en-CA');
 const MAX_PRIVATE_PHOTOS_PER_DAY = 5;
 
 // Same timestamp+random idiom already used elsewhere in this codebase
@@ -121,7 +121,11 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
     setFailedIds(current => new Set(current).add(id));
   };
 
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date());
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // loads and saves the CURRENT day, never the day the screen opened.
+  const {today, todayKey} = useToday();
+  const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(today);
   const canAddMore = draftPhotos.length < MAX_PRIVATE_PHOTOS_PER_DAY;
   const selectedPhoto = draftPhotos.find(photo => photo.id === selectedPhotoId) ?? null;
   const selectedPhotoFailed = selectedPhoto ? failedIds.has(selectedPhoto.id) : false;
@@ -132,14 +136,14 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
 
   useEffect(() => {
     if (!isIntimacyUnlocked()) {navigation.replace('PrivateIntimacyUnlock', {target: 'photos'}); return;}
-    getJournalEntry(DATE_KEY()).then(entry => {
+    getJournalEntry(todayKey).then(entry => {
       const resolved = resolvePrivatePhotos(entry);
       setDraftPhotos(resolved);
       originalUrisRef.current = new Map(resolved.map(photo => [photo.id, photo.uri]));
       setHadLegacyPhoto(Boolean(entry?.privatePhoto?.uri) && !entry?.privatePhotos);
     });
     Animated.timing(entrance, {toValue: 1, duration: 320, useNativeDriver: true}).start();
-  }, [entrance, navigation]);
+  }, [entrance, navigation, todayKey]);
 
   const mask = () => {
     lockIntimacy();
@@ -209,7 +213,7 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
     if (saving) {return;}
     try {
       setSaving(true);
-      const date = DATE_KEY();
+      const date = todayKey;
 
       // Durable-storage encrypt+copy happens here, at Save — never at pick
       // time — so cancelling without saving never creates a file to clean

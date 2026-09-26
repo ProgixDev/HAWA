@@ -1,3 +1,4 @@
+import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
 import {
   Pressable,
@@ -87,7 +88,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
     if (isEdit) {
       navigation.goBack();
     } else {
-      navigation.navigate('SecuritySetup');
+      continueAfterObjectiveSetup(navigation);
     }
   };
 

@@ -1,3 +1,4 @@
+import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
@@ -13,7 +14,9 @@ import {
 import {spacing, getTopPadding} from '../theme/spacing';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
+  correctPeriodOccurrence,
   getCyclePreferences,
+  getHasConfirmedCycleData,
   getPeriodEndDateTime,
   getSelectedObjective,
   setCyclePreferences,
@@ -55,6 +58,12 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const isEdit = route.params?.mode === 'edit';
+  // Profile -> "Durée du cycle" / "Durée des règles" / "Régularité": edits
+  // ONLY the habitual cycle length, period length and regularity. The last
+  // period start/end (and the confirmed period history / Qadaa data hanging
+  // off them) are neither shown nor rewritten in this mode.
+  const habitsOnly = isEdit && route.params?.section === 'habits';
 
   // Prefill from the real, previously-saved values so revisiting this screen
   // (Back from a later onboarding step, or the TTC "Configure ton cycle"
@@ -149,6 +158,17 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
   const handleNext = async () => {
     if (submitting) {return;}
 
+    if (habitsOnly) {
+      // Same setter as the full save below, fed the CURRENT lastPeriodStart
+      // (read at save time, exactly like confirmPeriodStart does) so the
+      // period start, period history and journal data stay untouched;
+      // everything derived (predictions, statistics) recomputes from the
+      // existing store subscriptions.
+      setCyclePreferences({...getCyclePreferences(), periodDuration, cycleDuration, regularity});
+      navigation.goBack();
+      return;
+    }
+
     const today = startOfDay(new Date());
     const nextErrors: {start?: string; end?: string} = {};
     if (startOfDay(actualPeriodStart).getTime() > today.getTime()) {
@@ -177,7 +197,29 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
       // editor. periodDuration/cycleDuration/regularity stay exactly what
       // they've always been: habitual/predictive, unrelated to Qadaa.
       const previousActualStart = getCyclePreferences().lastPeriodStart;
-      setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity});
+      // Editing an existing, confirmed latest period from Profile/Summary is a
+      // CORRECTION of that occurrence (the old start must not linger in
+      // periodHistory), never a new period: habitual settings are saved with
+      // the unchanged start, then the occurrence is moved explicitly. Anything
+      // else (onboarding, first-time setup, a new period) keeps the original
+      // single setCyclePreferences write.
+      const isStartCorrection =
+        route.params?.mode === 'edit' &&
+        getHasConfirmedCycleData() &&
+        localDateKey(previousActualStart) !== localDateKey(actualPeriodStart);
+      let corrected = false;
+      if (isStartCorrection) {
+        setCyclePreferences({lastPeriodStart: previousActualStart, periodDuration, cycleDuration, regularity});
+        try {
+          await correctPeriodOccurrence(previousActualStart, actualPeriodStart);
+          corrected = true;
+        } catch {
+          // Overlaps another recorded period: fall back to the plain save.
+        }
+      }
+      if (!corrected) {
+        setCyclePreferences({lastPeriodStart: actualPeriodStart, periodDuration, cycleDuration, regularity});
+      }
 
       if (periodTerminated === 'yes' && actualPeriodEnd) {
         // An explicit "Oui" + a validated end date is the same trust signal
@@ -241,7 +283,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
         navigation.navigate('CycleReminders');
         return;
       }
-      navigation.navigate('SecuritySetup');
+      continueAfterObjectiveSetup(navigation);
     } finally {
       setSubmitting(false);
     }
@@ -277,13 +319,17 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}>{'Informations\nde ton cycle'}</Text>
+            <Text style={styles.title}>{habitsOnly ? 'Habitudes\nde ton cycle' : 'Informations\nde ton cycle'}</Text>
             <Text style={styles.subtitle}>
-              {'Ces informations nous aident à mieux\nte comprendre et t’accompagner.'}
+              {habitsOnly
+                ? 'Durée du cycle, durée des règles et régularité. Tes dernières règles et ton historique ne changent pas.'
+                : 'Ces informations nous aident à mieux\nte comprendre et t’accompagner.'}
             </Text>
           </View>
 
           <View style={styles.form}>
+            {habitsOnly ? null : (
+            <>
             <Text style={styles.label}>Date de début de tes dernières règles</Text>
             <Pressable
               accessibilityLabel="Choisir la date de début de tes dernières règles"
@@ -367,6 +413,8 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                 {errors.end ? <Text style={styles.fieldErrorText}>{errors.end}</Text> : null}
               </>
             ) : null}
+            </>
+            )}
 
             <Text style={styles.label}>Durée habituelle de tes règles</Text>
             <Pressable
@@ -433,7 +481,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
             disabled={submitting}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || submitting) && styles.pressed]}>
-            <Text style={styles.nextText}>{submitting ? 'Enregistrement…' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{submitting ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}</Text>
           </Pressable>
         </ScrollView>
       </View>

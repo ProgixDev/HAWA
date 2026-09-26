@@ -11,6 +11,7 @@ import {
   formatHijriMonthYear,
   kindFor,
   sameDay,
+  type DayKind,
   WEEK_DAYS,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
@@ -75,6 +76,11 @@ type Props = {
   filters: CalendarFilters;
   editingPeriod?: boolean;
   draftPeriodDays?: ReadonlySet<string>;
+  /** What each cell represents. Defaults to projecting `basics` (the original
+   * behavior). CalendarScreen supplies a resolver derived from the SAME
+   * prediction status the Dashboard shows, so an irregular cycle's window is
+   * never painted as one certain projected cycle. */
+  resolveKind?: (date: Date) => DayKind;
 };
 
 const dateKey = (date: Date) =>
@@ -111,6 +117,7 @@ function DayCell({
   filters,
   editingPeriod = false,
   draftPeriodDays,
+  resolveKind,
   spiritualMarkersEnabled,
   theme,
   styles,
@@ -126,6 +133,7 @@ function DayCell({
   filters: CalendarFilters;
   editingPeriod?: boolean;
   draftPeriodDays?: ReadonlySet<string>;
+  resolveKind?: (date: Date) => DayKind;
   spiritualMarkersEnabled: boolean;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
@@ -134,7 +142,7 @@ function DayCell({
     return <View style={styles.dayCell} />;
   }
 
-  const kind = kindFor(date, basics);
+  const kind = resolveKind ? resolveKind(date) : kindFor(date, basics);
   const isDraftPeriod = editingPeriod && Boolean(draftPeriodDays?.has(dateKey(date)));
   const isSelected = showSelection && sameDay(date, selectedDate);
   const isToday = sameDay(date, today);
@@ -283,6 +291,7 @@ function MonthCalendarCard({
   filters,
   editingPeriod,
   draftPeriodDays,
+  resolveKind,
 }: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -369,6 +378,7 @@ function MonthCalendarCard({
             flags={date ? journalFlagsByDate[dateKey(date)] : undefined}
             key={date ? date.toISOString() : `empty-${index}`}
             onSelectDate={onSelectDate}
+            resolveKind={resolveKind}
             selectedDate={selectedDate}
             showHijri={showHijri}
             showSelection={showSelection}

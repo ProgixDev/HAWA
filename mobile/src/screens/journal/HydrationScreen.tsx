@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Image,
@@ -29,23 +30,26 @@ import Animated, {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
-import {cycleDayFor} from '../../utils/cycleMath';
+import {deleteJournalSection, getAllJournalEntries, saveJournalSection} from '../../state/dailyJournalStore';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
+import {addDays} from '../../utils/cycleMath';
+import type {DailyJournalEntry} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const HYDRATION_ILLUSTRATION = require('../../assets/images/hydration-bottle.png');
 
 const DEFAULT_GOAL = 8;
-const DEFAULT_INTAKE = 5;
 const GLASS_ML = 250;
 const GOAL_OPTIONS = [6, 7, 8, 9, 10] as const;
 const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'] as const;
 
 type WeeklyHydrationDatum = {
   day: (typeof DAY_LABELS)[number];
-  glasses: number;
+  /** Glasses really recorded that day — null when nothing was recorded (no
+   * bar is drawn: a missing day is never turned into a made-up value). */
+  glasses: number | null;
 };
 
 type HydrationState = {
@@ -53,8 +57,21 @@ type HydrationState = {
   currentIntake: number;
   weeklyHistory: WeeklyHydrationDatum[];
   selectedDate: Date;
-  cycleDay: number;
+  cycleDay: number | null;
 };
+
+/** Glasses stored for a day, or null when the day has no hydration record. */
+function storedGlasses(hydration: DailyJournalEntry['hydration']): number | null {
+  if (!hydration) {return null;}
+  const glasses = hydration.glasses ?? Math.round(hydration.milliliters / GLASS_ML);
+  return Number.isFinite(glasses) ? Math.max(0, glasses) : null;
+}
+
+/** Local 'YYYY-MM-DD' keys of the Monday-first week containing `date`. */
+function weekDateKeys(date: Date): string[] {
+  const mondayOffset = (date.getDay() + 6) % 7;
+  return DAY_LABELS.map((_, index) => addDays(date, index - mondayOffset).toLocaleDateString('en-CA'));
+}
 
 type WaterDropProps = {
   active: boolean;
@@ -106,6 +123,9 @@ type HistoryBarProps = {
   max: number;
 };
 
+const hasBar = (datum: WeeklyHydrationDatum): datum is WeeklyHydrationDatum & {glasses: number} =>
+  datum.glasses !== null && datum.glasses > 0;
+
 function HistoryBar({datum, current, index, max}: HistoryBarProps): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -124,16 +144,24 @@ function HistoryBar({datum, current, index, max}: HistoryBarProps): React.JSX.El
   }));
 
   return (
-    <View style={styles.barColumn}>
+    <View
+      accessibilityLabel={
+        datum.glasses === null
+          ? `${datum.day} : aucun relevé`
+          : `${datum.day} : ${datum.glasses} ${datum.glasses > 1 ? 'verres' : 'verre'}`
+      }
+      style={styles.barColumn}>
       <View style={styles.barTrack}>
-        <Animated.View
-          style={[
-            styles.bar,
-            current && styles.barCurrent,
-            {height: `${Math.max(14, (datum.glasses / max) * 100)}%`},
-            animatedStyle,
-          ]}
-        />
+        {hasBar(datum) ? (
+          <Animated.View
+            style={[
+              styles.bar,
+              current && styles.barCurrent,
+              {height: `${Math.max(14, (datum.glasses / max) * 100)}%`},
+              animatedStyle,
+            ]}
+          />
+        ) : null}
       </View>
       <Text style={[styles.dayLabel, current && styles.dayLabelCurrent]}>{datum.day}</Text>
     </View>
@@ -147,20 +175,30 @@ export default function HydrationScreen(): React.JSX.Element {
   const compact = width < 360 || height < 700;
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const selectedDate = useMemo(() => new Date(), []);
+  // This screen is always TODAY's hydration (the header says so); the value
+  // follows the current day — see src/hooks/useToday.ts.
+  const {today: selectedDate} = useToday();
   const todayIndex = (selectedDate.getDay() + 6) % 7;
-  const cycleDay = useMemo(
-    () => cycleDayFor(selectedDate, getCyclePreferences()),
-    [selectedDate],
-  );
+  // Null (no "Jour N du cycle") when this objective/state has no confirmed
+  // cycle day — never a value derived from onboarding fallback defaults.
+  const cycleDay = useJournalCycleDay(selectedDate);
 
   const [dailyGoal, setDailyGoal] = useState(DEFAULT_GOAL);
-  const [currentIntake, setCurrentIntake] = useState(DEFAULT_INTAKE);
-  const [weeklyHistory, setWeeklyHistory] = useState<WeeklyHydrationDatum[]>(() =>
-    DAY_LABELS.map((day, index) => ({
-      day,
-      glasses: [7, 6, 8, 7, 5, 7, 6][index],
-    })),
+  // Nothing recorded yet => 0 glasses (real state), never a seeded value.
+  const [currentIntake, setCurrentIntake] = useState(0);
+  // Glasses recorded for each day of the current week (Mon..Sun), read from
+  // the shared daily journal — null = nothing recorded that day.
+  const [storedWeek, setStoredWeek] = useState<Array<number | null>>(() => DAY_LABELS.map(() => null));
+  const weeklyHistory = useMemo<WeeklyHydrationDatum[]>(
+    () =>
+      DAY_LABELS.map((day, index) => {
+        if (index !== todayIndex) {
+          return {day, glasses: storedWeek[index]};
+        }
+        // Today follows the live counter; an untouched 0 stays "no data".
+        return {day, glasses: currentIntake > 0 ? currentIntake : storedWeek[index]};
+      }),
+    [currentIntake, storedWeek, todayIndex],
   );
   const [goalSheetVisible, setGoalSheetVisible] = useState(false);
   const [pendingGoal, setPendingGoal] = useState(DEFAULT_GOAL);
@@ -185,8 +223,18 @@ export default function HydrationScreen(): React.JSX.Element {
 
   useEffect(() => {
     let mounted = true;
-    getJournalEntry(selectedDate.toLocaleDateString('en-CA')).then(entry => {
-      if (!mounted || !entry?.hydration) {return;}
+    const todayKey = selectedDate.toLocaleDateString('en-CA');
+    const weekKeys = weekDateKeys(selectedDate);
+    getAllJournalEntries().then(entries => {
+      if (!mounted) {return;}
+      const byDate = new Map(entries.map(item => [item.date, item]));
+      setStoredWeek(weekKeys.map(key => storedGlasses(byDate.get(key)?.hydration)));
+      const entry = byDate.get(todayKey);
+      if (!entry?.hydration) {
+        // A new day (or nothing saved yet) starts at 0 — never yesterday's count.
+        setCurrentIntake(0);
+        return;
+      }
       const storedGoal = entry.hydration.goalGlasses ??
         (entry.hydration.dailyGoal
           ? entry.hydration.dailyGoal <= 20
@@ -202,12 +250,6 @@ export default function HydrationScreen(): React.JSX.Element {
     return () => {mounted = false;};
   }, [selectedDate]);
 
-  useEffect(() => {
-    setWeeklyHistory(history => history.map((item, index) =>
-      index === todayIndex ? {...item, glasses: currentIntake} : item,
-    ));
-  }, [currentIntake, todayIndex]);
-
   const persistHydration = useCallback(async (intake: number, goal: number) => {
     await saveJournalSection(
       selectedDate.toLocaleDateString('en-CA'),
@@ -220,6 +262,19 @@ export default function HydrationScreen(): React.JSX.Element {
       },
     );
   }, [selectedDate]);
+
+  // M25: glasses can only be added one by one, so a wrong count could never be
+  // removed. Clearing deletes today's hydration section (absent = the canonical
+  // "nothing recorded" state, same as a fresh day) - today's goal, stored in the
+  // same section, returns to the default like on any new day.
+  const clearHydration = async () => {
+    await deleteJournalSection(selectedDate.toLocaleDateString('en-CA'), 'hydration');
+    setCurrentIntake(0);
+    setDailyGoal(DEFAULT_GOAL);
+    setPendingGoal(DEFAULT_GOAL);
+    setSuccessVisible(false);
+    setStoredWeek(current => current.map((value, index) => (index === todayIndex ? null : value)));
+  };
 
   const addGlass = () => {
     if (currentIntake >= dailyGoal) {
@@ -264,7 +319,9 @@ export default function HydrationScreen(): React.JSX.Element {
     transform: [{scale: illustrationScale.value}],
   }));
 
-  const chartMax = Math.max(10, ...hydrationState.weeklyHistory.map(item => item.glasses));
+  const chartMax = Math.max(10, ...hydrationState.weeklyHistory.map(item => item.glasses ?? 0));
+  const axisValues = [1, 0.8, 0.6, 0.4, 0.2, 0].map(fraction => Math.round(chartMax * fraction));
+  const hasWeeklyData = hydrationState.weeklyHistory.some(hasBar);
 
   return (
     <View style={styles.screen}>
@@ -291,7 +348,11 @@ export default function HydrationScreen(): React.JSX.Element {
 
           <View style={styles.headerCopy}>
             <Text adjustsFontSizeToFit minimumFontScale={0.86} style={styles.title}>Hydratation</Text>
-            <Text style={styles.subtitle}>Aujourd’hui • Jour {hydrationState.cycleDay} du cycle</Text>
+            <Text style={styles.subtitle}>
+              {hydrationState.cycleDay !== null
+                ? `Aujourd’hui • Jour ${hydrationState.cycleDay} du cycle`
+                : 'Aujourd’hui'}
+            </Text>
           </View>
 
           <Pressable
@@ -369,6 +430,8 @@ export default function HydrationScreen(): React.JSX.Element {
               <Animated.View pointerEvents="none" style={[styles.feedbackFlash, feedbackAnimatedStyle]} />
             </Pressable>
           </Animated.View>
+
+          {currentIntake > 0 ? <ClearEntryButton onConfirm={clearHydration} subject="l’hydratation" /> : null}
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(280).duration(430)} style={styles.historyCard}>
@@ -380,7 +443,7 @@ export default function HydrationScreen(): React.JSX.Element {
           </View>
           <View style={styles.chartArea}>
             <View style={styles.axisLabels}>
-              {[10, 8, 6, 4, 2, 0].map(value => <Text key={value} style={styles.axisText}>{value}</Text>)}
+              {axisValues.map((value, index) => <Text key={index} style={styles.axisText}>{value}</Text>)}
             </View>
             <View style={styles.barsRow}>
               {hydrationState.weeklyHistory.map((datum, index) => (
@@ -394,6 +457,11 @@ export default function HydrationScreen(): React.JSX.Element {
               ))}
             </View>
           </View>
+          {!hasWeeklyData ? (
+            <Text style={styles.emptyHistoryText}>
+              Aucun verre enregistré cette semaine pour l’instant.
+            </Text>
+          ) : null}
         </Animated.View>
 
         <Animated.View entering={FadeIn.delay(520).duration(400)} style={styles.adviceCard}>
@@ -531,6 +599,7 @@ function createStyles(theme: ResolvedAwaTheme) {
   chartArea: {flexDirection: 'row', width: '100%', aspectRatio: 2.35, marginTop: 14},
   axisLabels: {justifyContent: 'space-between', paddingBottom: 18, paddingRight: 7},
   axisText: {color: theme.colors.textMuted, fontSize: 8.5},
+  emptyHistoryText: {marginTop: 10, color: theme.colors.textMuted, fontSize: 11, lineHeight: 16, textAlign: 'center'},
   barsRow: {flex: 1, flexDirection: 'row', alignItems: 'stretch', borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: theme.colors.border},
   barColumn: {flex: 1, alignItems: 'center'},
   barTrack: {flex: 1, width: '48%', justifyContent: 'flex-end'},

@@ -31,10 +31,12 @@ import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomShee
 import {useJournalSheet} from '../navigation/JournalSheetContext';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {useQadaaStatus} from '../hooks/useQadaaStatus';
+import {useToday} from '../hooks/useToday';
 import {
   getCyclePreferences,
   getCycleObservationStartedAt,
-  getPeriodHistory,
+  getHasConfirmedCycleData,
+  getRecordedPeriodHistory,
   hydrateCyclePreferences,
   isDateWithinConfirmedPeriod,
   subscribeCyclePreferences,
@@ -49,17 +51,15 @@ import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../theme/spacing';
 import {loadPersonalInformation} from '../state/personalInformationStore';
 import {
   computeCyclePredictionStatus,
+  currentPeriodLength,
   cycleDayFor,
+  describeAverageCycle,
   diffDays,
+  estimateFertilityDates,
   formatDateRange,
   formatHijriDate,
   formatShortDate,
-  IRREGULAR_WINDOW_MAX_DAYS,
-  IRREGULAR_WINDOW_MIN_DAYS,
-  ovulationDayFor,
   phaseFor,
-  startOfDay,
-  upcomingDateForCycleDay,
 } from '../utils/cycleMath';
 
 // SEMANTIC — real cycle-tracking meaning, never theme-driven (see the
@@ -101,7 +101,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
   const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
 
-  const today = useMemo(() => startOfDay(new Date()), []);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   // Single source of truth for menstruation/purity/prayer-due, shared with
   // PrayerTimesScreen — see src/hooks/usePrayerPurityStatus.ts. Disabled
@@ -144,14 +146,14 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       loadPersonalInformation().then(() => {
         if (mounted) {setProfileRevision(current => current + 1);}
       });
-      getJournalEntry(new Date().toLocaleDateString('en-CA'))
+      getJournalEntry(todayKey)
         .then(withResolvedIntimacyForDisplay)
         .then(withResolvedNoteForDisplay)
         .then(entry => {
           if (mounted) {setJournalEntry(entry);}
         });
       return () => {mounted = false;};
-    }, []),
+    }, [todayKey]),
   );
 
   useFocusEffect(
@@ -159,8 +161,6 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       setSpiritualMarkersEnabled(getSpiritualMarkersEnabled());
     }, []),
   );
-
-  const ovulationDay = ovulationDayFor(initial.cycleDuration);
 
   // "Mes règles ont commencé" only makes sense when today ISN'T already
   // covered by a real confirmed period — phaseFor() alone can't tell that
@@ -173,7 +173,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // single certain date, and 'unknown' stays in observation mode until
   // enough real periods have been recorded. See computeCyclePredictionStatus
   // in cycleMath.ts — the one place this logic lives.
-  const periodStartDates = getPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
+  // Recorded periods only — never the placeholder record seeded from the
+  // unconfirmed fallback defaults (see getRecordedPeriodHistory()).
+  const periodStartDates = getRecordedPeriodHistory().map(record => new Date(`${record.startDate}T12:00:00`));
   const predictionStatus = computeCyclePredictionStatus(initial, initial.regularity, periodStartDates, getCycleObservationStartedAt(), today);
 
   // cycleDayFor()/phaseFor() wrap the elapsed day count modulo cycleDuration,
@@ -189,16 +191,20 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // ever shown when that raw count actually falls within the real bleeding
   // window, never because the wrap happened to land there by coincidence.
   const rawCycleDay = diffDays(today, initial.lastPeriodStart) + 1;
-  const isReliablyMenstruating = rawCycleDay <= initial.periodDuration;
+  // The CURRENT period's real length (edited range / confirmed end), not the
+  // habitual periodDuration setting — editing one actual period no longer
+  // redefines that habit, so the phase must read the recorded range.
+  const phaseBasics = {...initial, periodDuration: currentPeriodLength(initial, getRecordedPeriodHistory())};
+  const isReliablyMenstruating = rawCycleDay <= phaseBasics.periodDuration;
   const currentCycleDay = predictionStatus.mode === 'exact'
     ? cycleDayFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength})
     : rawCycleDay;
   const currentPhase: CyclePhase = (() => {
     if (predictionStatus.mode === 'exact') {
-      return phaseFor(today, {...initial, cycleDuration: predictionStatus.averageCycleLength});
+      return phaseFor(today, {...phaseBasics, cycleDuration: predictionStatus.averageCycleLength});
     }
     if (isReliablyMenstruating) {return 'menstruation';}
-    const wrappedPhase = phaseFor(today, initial);
+    const wrappedPhase = phaseFor(today, phaseBasics);
     return wrappedPhase === 'menstruation' ? 'follicular' : wrappedPhase;
   })();
   const nextPeriodTile = (() => {
@@ -222,37 +228,22 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   })();
 
   // The 4th overview tile must match whatever computeCyclePredictionStatus
-  // actually derived instead of always presenting a single configured
-  // number: a learned observed average ('exact'), an honest 26–32 day
-  // window when the pattern is irregular/variable ('window' — same wording
-  // for a declared-irregular cycle and an observed-variable one, since both
-  // already share the identical window), or the still-provisional
-  // configured estimate while observation is incomplete ('observing').
-  const averageTile = (() => {
-    if (predictionStatus.mode === 'exact') {
-      return {
-        label: 'Durée moyenne',
-        value: `${predictionStatus.averageCycleLength} jours`,
-        subtitle: predictionStatus.observedPattern === 'regular-looking' ? 'Basée sur tes cycles enregistrés' : 'Basée sur ton cycle',
-      };
-    }
-    if (predictionStatus.mode === 'window') {
-      return {
-        label: 'Cycle variable',
-        value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
-        subtitle: 'Fenêtre estimée',
-      };
-    }
-    return {
-      label: 'Durée moyenne',
-      value: `${initial.cycleDuration} jours`,
-      subtitle: 'Estimation provisoire',
-    };
-  })();
+  // actually derived: a measured average is only ever called an average when
+  // it comes from the user's own recorded cycles; a declared/configured
+  // length is worded as such (see describeAverageCycle in cycleMath.ts,
+  // shared with Calendar and Profile).
+  const averageTile = describeAverageCycle(predictionStatus, initial, getHasConfirmedCycleData());
 
-  const fertileStartDate = upcomingDateForCycleDay(initial, ovulationDay - 5, today);
-  const fertileEndDate = upcomingDateForCycleDay(initial, ovulationDay + 1, today);
-  const ovulationDate = upcomingDateForCycleDay(initial, ovulationDay, today);
+  // Fertile window / ovulation: only estimable when a single cycle length can
+  // be trusted. For an irregular/variable cycle the next period is already a
+  // 26–32 day window above, so no single ovulation date may be shown either.
+  const fertility = estimateFertilityDates(initial, predictionStatus, today);
+  const fertileTile = fertility
+    ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: `Dans ${Math.max(0, diffDays(fertility.fertileStart, today))} jours`}
+    : {value: 'Non estimable', subtitle: 'Cycle variable'};
+  const ovulationTile = fertility
+    ? {value: formatShortDate(fertility.ovulation), subtitle: `Dans ${Math.max(0, diffDays(fertility.ovulation, today))} jours`}
+    : {value: 'Non estimable', subtitle: 'Cycle variable'};
 
   const overviewItems: OverviewItem[] = [
     {
@@ -270,8 +261,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       iconColor: FERTILE,
       iconBg: FERTILE_LIGHT,
       label: 'Fenêtre fertile',
-      value: formatDateRange(fertileStartDate, fertileEndDate),
-      subtitle: `Dans ${Math.max(0, diffDays(fertileStartDate, today))} jours`,
+      value: fertileTile.value,
+      subtitle: fertileTile.subtitle,
     },
     {
       key: 'ovulation',
@@ -279,8 +270,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       iconColor: OVULATION,
       iconBg: OVULATION_LIGHT,
       label: 'Ovulation prévue',
-      value: formatShortDate(ovulationDate),
-      subtitle: `Dans ${Math.max(0, diffDays(ovulationDate, today))} jours`,
+      value: ovulationTile.value,
+      subtitle: ovulationTile.subtitle,
     },
     {
       key: 'average-length',
@@ -347,13 +338,16 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           <View style={styles.heroSpacer}>
             <HeroCycleCard
               currentDay={currentCycleDay}
-              cycleLength={initial.cycleDuration}
+              cycleLength={predictionStatus.mode === 'exact' ? predictionStatus.averageCycleLength : initial.cycleDuration}
               moodEntry={journalEntry?.mood}
               phase={currentPhase}
             />
           </View>
 
-          <CycleOverviewCard items={overviewItems} />
+          {/* "Voir plus" opens the Calendar tab, which already hosts the
+              detailed predictions (PredictionsCard) and cycle timeline this
+              overview summarises — no new screen. */}
+          <CycleOverviewCard items={overviewItems} onPressMore={() => navigation.navigate('Calendar')} />
 
           {!hasActiveConfirmedPeriod ? (
             <Animated.View

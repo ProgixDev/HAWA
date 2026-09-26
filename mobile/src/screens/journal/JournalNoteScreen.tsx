@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -21,8 +22,9 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
-import {encryptNoteSection} from '../../services/privateNotesEncryption';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
+import {encryptNoteSection, resolveNoteSection} from '../../services/privateNotesEncryption';
 import {resolvePrivatePhotos} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
@@ -55,13 +57,18 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
   const [text, setText] = useState('');
   const [hidden, setHidden] = useState(false);
   const [saving, setSaving] = useState(false);
+  // M25: true while a saved note exists for today (shows "Effacer").
+  const [hasSavedNote, setHasSavedNote] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
   const [photoCount, setPhotoCount] = useState(0);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
   const successToastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey: storageDate} = useToday();
   const now = new Date();
-  const storageDate = now.toLocaleDateString('en-CA');
   const longDate = new Intl.DateTimeFormat('fr-FR', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   }).format(now);
@@ -71,10 +78,36 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
   const time = new Intl.DateTimeFormat('fr-FR', {
     hour: '2-digit', minute: '2-digit',
   }).format(now);
-  const cycleDay = useMemo(() => {
-    const start = getCyclePreferences().lastPeriodStart;
-    return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
-  }, []);
+  // Null (no "Jour N du cycle" shown) when this objective/state has no valid
+  // menstrual cycle day - see journalCycleDayFor().
+  const cycleDay = useJournalCycleDay(today);
+
+  // Today's already-saved note, decrypted through the same resolver every
+  // other reader uses (encrypted shape first, legacy plaintext fallback), so
+  // reopening shows it instead of an empty box and Save can't silently
+  // replace it with nothing. Only after the private-section gate is open —
+  // a locked screen never decrypts anything. `savedNote` remembers the
+  // loaded text/updatedAt so an unchanged Save keeps the original timestamp.
+  const savedNote = useRef<{text: string; updatedAt: string} | null>(null);
+  useEffect(() => {
+    if (!unlocked) {
+      return undefined;
+    }
+    let active = true;
+    getJournalEntry(storageDate)
+      .then(resolveNoteSection)
+      .then(({data}) => {
+        if (!active || !data) {
+          return;
+        }
+        savedNote.current = {text: data.text, updatedAt: data.updatedAt};
+        setHasSavedNote(true);
+        setText(data.text);
+      });
+    return () => {
+      active = false;
+    };
+  }, [storageDate, unlocked]);
 
   useEffect(() => {
     return () => {
@@ -168,13 +201,18 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
     try {
       setSaving(true);
 
-      const updatedAt = new Date().toISOString();
+      // Saving an untouched note is idempotent: same text, same timestamp.
+      const updatedAt = savedNote.current && savedNote.current.text.trim() === text.trim()
+        ? savedNote.current.updatedAt
+        : new Date().toISOString();
       const encrypted = await encryptNoteSection({text: text.trim(), updatedAt});
+      savedNote.current = {text: text.trim(), updatedAt};
       await saveJournalSection(storageDate, 'encryptedNote', encrypted);
       // A fresh encrypted note supersedes any legacy plaintext note for the
       // same day — safe to drop now that the encrypted write above has
       // already succeeded (never the other way around).
       await deleteJournalSection(storageDate, 'note');
+      setHasSavedNote(true);
 
       showSuccessToast();
     } catch {
@@ -185,6 +223,18 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
     } finally {
       setSaving(false);
     }
+  };
+
+  // M25: an empty note is refused on Save, so a saved note could never be
+  // removed. Deletes today's encrypted note (and any legacy plaintext copy):
+  // section absent = the canonical empty state; reopening shows an empty box.
+  const clearNote = async () => {
+    await deleteJournalSection(storageDate, 'encryptedNote');
+    await deleteJournalSection(storageDate, 'note');
+    savedNote.current = null;
+    setHasSavedNote(false);
+    setText('');
+    navigation.goBack();
   };
 
   if (!unlocked) {
@@ -245,7 +295,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
                 styles.date,
                 isSmallScreen && styles.dateSmall,
               ]}>
-              {shortDate} · Jour {cycleDay} du cycle
+              {cycleDay !== null ? `${shortDate} · Jour ${cycleDay} du cycle` : shortDate}
             </Text>
           </View>
 
@@ -364,8 +414,12 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
             <Info icon="calendar-month-outline" label="Date" value={longDate} />
             <View style={styles.divider} />
             <Info icon="clock-outline" label="Heure" value={time} />
-            <View style={styles.divider} />
-            <Info icon="flower-outline" label="Jour du cycle" value={`Jour ${cycleDay}`} />
+            {cycleDay !== null ? (
+              <>
+                <View style={styles.divider} />
+                <Info icon="flower-outline" label="Jour du cycle" value={`Jour ${cycleDay}`} />
+              </>
+            ) : null}
           </View>
 
           <Pressable
@@ -387,6 +441,8 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               {saving ? 'Enregistrement…' : 'Enregistrer ma note'}
             </Text>
           </Pressable>
+
+          {hasSavedNote ? <ClearEntryButton onConfirm={clearNote} subject="cette note" /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 

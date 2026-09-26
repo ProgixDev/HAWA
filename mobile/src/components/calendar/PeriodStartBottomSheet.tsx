@@ -16,7 +16,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {homeRadii} from '../home/homeTheme';
 import {confirmPeriodStart} from '../../state/onboardingPreferences';
-import {formatFullDate, startOfDay} from '../../utils/cycleMath';
+import {formatFullDate, formatShortDate, startOfDay} from '../../utils/cycleMath';
 import {getBottomPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -28,8 +28,10 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 
 type Props = {
   visible: boolean;
-  /** Pre-fills the date field — today when opened from the Dashboard, or the
-   * selected calendar day when opened from the Calendar's day detail. */
+  /** The date that will be recorded — today when opened from the Dashboard,
+   * or the selected calendar day when opened from the Calendar's day detail.
+   * The primary button confirms exactly THIS date (worded "aujourd'hui" only
+   * when it really is today); it is never silently replaced by today. */
   initialDate: Date;
   onClose: () => void;
   /** Called after the value has been persisted via confirmPeriodStart(). */
@@ -65,6 +67,10 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Pr
     Animated.spring(progress, {toValue: 1, damping: 22, stiffness: 170, mass: 0.8, useNativeDriver: true}).start();
   }, [visible, initialDate, progress]);
 
+  const isToday = sameDay(draft, new Date());
+  // A period start is a real event: it can never be recorded in the future.
+  const isFuture = startOfDay(draft).getTime() > startOfDay(new Date()).getTime();
+
   const close = () => {
     Animated.timing(progress, {
       toValue: 0,
@@ -75,7 +81,7 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Pr
   };
 
   const commit = (date: Date) => {
-    if (saving) {return;}
+    if (saving || startOfDay(date).getTime() > startOfDay(new Date()).getTime()) {return;}
     setSaving(true);
     const value = startOfDay(date);
     confirmPeriodStart(value);
@@ -111,8 +117,14 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Pr
           ]}>
           <View style={styles.handle} />
 
-          <Text style={styles.title}>Tes règles ont commencé ?</Text>
-          <Text style={styles.description}>Confirme la date de début de tes nouvelles règles.</Text>
+          <Text style={styles.title}>
+            {isToday ? 'Tes règles ont commencé ?' : `Tes règles ont commencé le ${formatShortDate(draft)} ?`}
+          </Text>
+          <Text style={styles.description}>
+            {isToday
+              ? 'Confirme la date de début de tes nouvelles règles.'
+              : 'Confirme cette date comme début de tes règles, ou choisis-en une autre.'}
+          </Text>
 
           <View style={styles.field}>
             <View style={styles.fieldIcon}>
@@ -126,10 +138,12 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Pr
 
           <Pressable
             accessibilityRole="button"
-            disabled={saving}
-            onPress={() => commit(new Date())}
-            style={({pressed}) => [styles.confirmButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.confirmText}>{saving ? 'Enregistrement…' : 'Oui, aujourd’hui'}</Text>
+            disabled={saving || isFuture}
+            onPress={() => commit(isToday ? new Date() : draft)}
+            style={({pressed}) => [styles.confirmButton, (pressed || saving || isFuture) && styles.pressed]}>
+            <Text style={styles.confirmText}>
+              {saving ? 'Enregistrement…' : isToday ? 'Oui, aujourd’hui' : `Oui, le ${formatShortDate(draft)}`}
+            </Text>
           </Pressable>
 
           <Pressable

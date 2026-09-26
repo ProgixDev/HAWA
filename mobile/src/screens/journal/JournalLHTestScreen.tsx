@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {
   useEffect,
   useMemo,
@@ -37,9 +38,12 @@ import type {
 } from '../../types/journal';
 
 import {
+  deleteJournalSection,
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
+import {FUTURE_ENTRY_MESSAGE, useJournalEntryDate} from '../../hooks/useJournalEntryDate';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 
 import {
   JournalScreenLayout,
@@ -68,9 +72,6 @@ import {
 /* ============================================================
    CONSTANTS
 ============================================================ */
-
-const DATE_KEY = () =>
-  new Date().toLocaleDateString('en-CA');
 
 const RESULTS: Record<
   string,
@@ -250,13 +251,25 @@ export default function JournalLHTestScreen(): React.JSX.Element {
      LOAD
   ========================================================== */
 
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // loads and saves the CURRENT day, never the day the screen opened.
+  const {todayKey} = useToday();
+  // M21: today by default, or the past day passed by the Calendar (`date`).
+  const {entryDateKey, isFutureEntryDate, dateLabel} = useJournalEntryDate(todayKey);
+  // M25: true only while a saved value exists for that day (shows "Effacer").
+  const [hasSaved, setHasSaved] = useState(false);
+  const [error, setError] = useState('');
+
   useEffect(() => {
     getJournalEntry(
-      DATE_KEY(),
+      entryDateKey,
     ).then(entry => {
       if (!entry?.lhTest) {
         return;
       }
+
+      setHasSaved(true);
 
       setResult(
         LABELS[
@@ -285,7 +298,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         '',
       );
     });
-  }, []);
+  }, [entryDateKey]);
 
   /* ==========================================================
      RESULT CONFIG
@@ -449,8 +462,15 @@ export default function JournalLHTestScreen(): React.JSX.Element {
 
   const save =
     async () => {
+      if (isFutureEntryDate) {
+        setError(FUTURE_ENTRY_MESSAGE);
+        return;
+      }
+
+      setError('');
+
       await saveJournalSection(
-        DATE_KEY(),
+        entryDateKey,
         'lhTest',
         {
           result:
@@ -463,11 +483,26 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         },
       );
 
+      setHasSaved(true);
+
       saveToast.show(
         'Test LH enregistré',
         'Ton résultat a bien été ajouté au journal.',
         navigation.goBack,
       );
+    };
+
+  // M25: removes the saved test for this day (section absent = the canonical
+  // empty state) and resets the form; reopening shows it cleared.
+  const clearEntry =
+    async () => {
+      await deleteJournalSection(entryDateKey, 'lhTest');
+      setHasSaved(false);
+      setResult('Négatif');
+      setTime('');
+      setNote('');
+      setError('');
+      saveToast.show('Saisie effacée', 'Ton test LH de ce jour a été supprimé.', navigation.goBack);
     };
 
   /* ==========================================================
@@ -477,6 +512,8 @@ export default function JournalLHTestScreen(): React.JSX.Element {
   return (
     <>
       <JournalScreenLayout
+        dateLabel={dateLabel}
+        error={error}
         heroLabel={
           'Repère ton pic de LH\nau bon moment'
         }
@@ -888,6 +925,8 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             </Text>
           </View>
         </View>
+
+        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ce test" /> : null}
       </JournalScreenLayout>
 
       {/* =====================================================

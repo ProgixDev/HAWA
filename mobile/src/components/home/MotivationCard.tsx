@@ -28,7 +28,7 @@ function MotivationCard(): React.JSX.Element {
       style={styles.card}>
       <View style={styles.spacer} />
       <View style={styles.copy}>
-        <Text style={styles.title}>Prends soin de toi, tu es précieuse ✨</Text>
+        <Text style={styles.title}>Prends soin de toi,{`\n`} tu es précieuse ✨</Text>
         <Text style={styles.subtitle}>Chaque petit pas compte.</Text>
       </View>
     </ImageBackground>
@@ -50,8 +50,21 @@ function createStyles(theme: ResolvedAwaTheme) {
     spacer: {flex: 0.85},
     copy: {flex: 1.15, paddingVertical: 16, paddingRight: 18},
     // Fixed — see file header note (calibrated against the fixed photo).
-    title: {color: '#2F2258', fontFamily: 'serif', fontSize: 15.5, fontWeight: '700', lineHeight: 21},
-    subtitle: {marginTop: 5, color: '#746D92', fontSize: 12},
+    title: {
+  marginLeft: -14,
+  color: '#2F2258',
+  fontFamily: 'serif',
+  fontSize: 15.5,
+  fontWeight: '700',
+  lineHeight: 21,
+},
+
+subtitle: {
+  marginTop: 5,
+  marginLeft: -14,
+  color: '#746D92',
+  fontSize: 12,
+},
   });
 }
 

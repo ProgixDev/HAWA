@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Alert,
@@ -19,8 +20,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {saveJournalSection} from '../../state/dailyJournalStore';
-import {getCyclePreferences} from '../../state/onboardingPreferences';
+import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
+import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
+import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import type {MoodLevel} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -76,19 +78,22 @@ export default function JournalMoodScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
+  // always saves to the CURRENT day, never to the day the screen opened.
+  const {today, todayKey} = useToday();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const isSmallScreen = width < 370 || height < 720;
   const isVerySmallScreen = width < 340 || height < 640;
-  const cycleDay = useMemo(() => {
-    const start = getCyclePreferences().lastPeriodStart;
-    return Math.max(1, Math.floor((Date.now() - start.getTime()) / 86400000) + 1);
-  }, []);
+  // Null (no "Jour N du cycle" in the header) when this objective/state has
+  // no valid menstrual cycle day - see journalCycleDayFor().
+  const cycleDay = useJournalCycleDay(today);
   const dateLabel = new Intl.DateTimeFormat('fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'short',
-  }).format(new Date());
+  }).format(today);
   const [mood, setMood] = useState<MoodLevel>('veryGood');
   const [energy, setEnergy] = useState(4);
   const [stress, setStress] = useState(3);
@@ -96,6 +101,8 @@ export default function JournalMoodScreen(): React.JSX.Element {
   const [motivation, setMotivation] = useState(4);
   const [note, setNote] = useState('');
   const [saving, setSaving] = useState(false);
+  // M25: true only while a saved mood exists for today (shows "Effacer").
+  const [hasSaved, setHasSaved] = useState(false);
   const [successVisible, setSuccessVisible] = useState(false);
 
   const successToastAnimation = useRef(new Animated.Value(0)).current;
@@ -110,6 +117,30 @@ export default function JournalMoodScreen(): React.JSX.Element {
       }
     };
   }, []);
+
+  // Reopening today's mood shows what was already saved instead of the
+  // defaults, so pressing Save without editing rewrites the same values
+  // (never overwrites the day with the defaults above). The note is already
+  // decrypted by getJournalEntry() (see dailyJournalStore.ts).
+  useEffect(() => {
+    let mounted = true;
+    getJournalEntry(todayKey).then(entry => {
+      const saved = entry?.mood;
+      if (!mounted || !saved) {
+        return;
+      }
+      setHasSaved(true);
+      setMood(saved.level);
+      setEnergy(saved.energy);
+      setStress(saved.stress);
+      setIrritability(saved.irritability);
+      setMotivation(saved.motivation);
+      setNote(saved.note ?? '');
+    });
+    return () => {
+      mounted = false;
+    };
+  }, [todayKey]);
 
   const showSuccessToast = () => {
     if (successToastTimeout.current) {
@@ -164,6 +195,14 @@ export default function JournalMoodScreen(): React.JSX.Element {
     });
   };
 
+  // M25: removes the saved mood for today (section absent = the canonical
+  // empty state); reopening shows the untouched defaults again.
+  const clearEntry = async () => {
+    await deleteJournalSection(todayKey, 'mood');
+    setHasSaved(false);
+    navigation.goBack();
+  };
+
   const save = async () => {
     if (saving) {
       return;
@@ -173,7 +212,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
       setSaving(true);
 
       await saveJournalSection(
-        new Date().toLocaleDateString('en-CA'),
+        todayKey,
         'mood',
         {
           level: mood,
@@ -214,7 +253,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
               Humeur
             </Text>
             <Text numberOfLines={1} style={[styles.date, isSmallScreen && styles.dateSmall]}>
-              {dateLabel} · Jour {cycleDay} du cycle
+              {cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}
             </Text>
           </View>
           <Pressable
@@ -326,6 +365,8 @@ export default function JournalMoodScreen(): React.JSX.Element {
               {saving ? 'Enregistrement…' : 'Enregistrer'}
             </Text>
           </Pressable>
+
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette humeur" /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 

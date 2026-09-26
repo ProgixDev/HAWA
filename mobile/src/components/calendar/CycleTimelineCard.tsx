@@ -26,9 +26,13 @@ function CycleTimelineCard({steps, onPressSeeAll}: Props): React.JSX.Element {
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.title}>Timeline de ton cycle</Text>
-        <Pressable accessibilityRole="button" hitSlop={8} onPress={onPressSeeAll} style={({pressed}) => pressed && styles.pressed}>
-          <Text style={styles.seeAll}>Voir tout</Text>
-        </Pressable>
+        {/* Only rendered when a destination is supplied — never a link that
+            looks tappable but does nothing. */}
+        {onPressSeeAll ? (
+          <Pressable accessibilityRole="button" hitSlop={8} onPress={onPressSeeAll} style={({pressed}) => pressed && styles.pressed}>
+            <Text style={styles.seeAll}>Voir tout</Text>
+          </Pressable>
+        ) : null}
       </View>
 
       <ScrollView

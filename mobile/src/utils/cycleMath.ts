@@ -150,6 +150,34 @@ export const upcomingDateForCycleDay = (basics: CycleBasics, dayNumber: number, 
   return date;
 };
 
+export type UpcomingFertileWindow = {start: Date; end: Date; ovulation: Date};
+
+/** ONE coherent fertile window of the repeating cycle — the occurrence whose
+ * LAST fertile day is today or later: the window that contains today, or
+ * else the next one. Same project formula as everywhere else (ovulation on
+ * `ovulationDayFor(cycleDuration)`, fertile from 5 days before to 1 day
+ * after it), only the date range is now anchored to a SINGLE occurrence.
+ *
+ * Why: calling upcomingDateForCycleDay() separately for the start and the
+ * end returns "the first occurrence on/after today" for each — so once today
+ * is inside the window the start has already passed and jumps to the NEXT
+ * cycle while the end is still in the current one (start > end). Here only
+ * the end is resolved against today; start and ovulation are derived from
+ * it by the fixed in-cycle offsets, so start <= ovulation <= end always
+ * holds. `today` is normalised to the start of its day so the last fertile
+ * day still counts as "today or later" at any time of day. */
+export const upcomingFertileWindow = (basics: CycleBasics, today: Date): UpcomingFertileWindow => {
+  const ovulationDay = ovulationDayFor(basics.cycleDuration);
+  const startDay = Math.max(1, ovulationDay - 5);
+  const endDay = ovulationDay + 1;
+  const end = upcomingDateForCycleDay(basics, endDay, startOfDay(today));
+  return {
+    start: addDays(end, -(endDay - startDay)),
+    end,
+    ovulation: addDays(end, -(endDay - ovulationDay)),
+  };
+};
+
 // phaseFor only estimates menstruation from the cycle length/period-duration
 // averages. If the user has explicitly confirmed her period ended (via
 // MenstrualFlowScreen) at a datetime within the current period, that
@@ -161,14 +189,44 @@ export const isMenstruatingNow = (
   periodEndDateTime: Date | null,
 ): boolean => {
   if (phaseFor(now, basics) !== 'menstruation') {return false;}
-  if (
-    periodEndDateTime &&
-    periodEndDateTime.getTime() <= now.getTime() &&
-    periodEndDateTime.getTime() >= basics.lastPeriodStart.getTime()
-  ) {
-    return false;
+  return !isPeriodEndConfirmedWithin(now, basics, periodEndDateTime);
+};
+
+const isPeriodEndConfirmedWithin = (
+  now: Date,
+  basics: CycleBasics,
+  periodEndDateTime: Date | null,
+): boolean =>
+  !!periodEndDateTime &&
+  periodEndDateTime.getTime() <= now.getTime() &&
+  periodEndDateTime.getTime() >= basics.lastPeriodStart.getTime();
+
+/** Prediction-aware "is she menstruating now?" — the SAME guard the Cycle
+ * Dashboard applies to its displayed phase (CycleHomeScreen's
+ * `isReliablyMenstruating`), so purity / prayer state can never treat a
+ * merely PROJECTED period as a real one.
+ * - 'exact' (declared regular, or an observed regular-looking pattern): the
+ *   projection wrapped by the SAME cycle length the prediction uses — unchanged
+ *   behaviour for a regular cycle.
+ * - 'window' (declared irregular / observed variable) and 'observing'
+ *   (unknown, still learning): no single cycle length can be trusted, so a
+ *   wrapped projection is NEVER menstruation — only the days elapsed since the
+ *   latest recorded period start count, and only within the bleeding duration.
+ *   A late irregular period therefore stays "not menstruating" until she
+ *   records the start.
+ * A confirmed period end (MenstrualFlowScreen) still overrides in every mode. */
+export const isMenstruatingWithPrediction = (
+  now: Date,
+  basics: CycleBasics,
+  status: CyclePredictionStatus,
+  periodEndDateTime: Date | null,
+): boolean => {
+  if (status.mode === 'exact') {
+    return isMenstruatingNow(now, {...basics, cycleDuration: status.averageCycleLength}, periodEndDateTime);
   }
-  return true;
+  const elapsedDay = diffDays(now, basics.lastPeriodStart) + 1;
+  if (elapsedDay < 1 || elapsedDay > basics.periodDuration) {return false;}
+  return !isPeriodEndConfirmedWithin(now, basics, periodEndDateTime);
 };
 
 // ===========================================================================
@@ -328,4 +386,182 @@ export const computeCyclePredictionStatus = (
     totalMonths: UNKNOWN_OBSERVATION_MONTHS,
     complete: isObservationWindowComplete(anchor, today),
   };
+};
+
+// ===========================================================================
+// DASHBOARD ⇄ CALENDAR ⇄ PROFILE CONSISTENCY
+// ===========================================================================
+// Everything below only PRESENTS what computeCyclePredictionStatus() already
+// derived — there is no second prediction algorithm here. Its purpose is that
+// CycleHomeScreen, CalendarScreen and ProfileScreen can never disagree: a
+// prediction communicated as a window/observation is never painted or worded
+// as one certain date somewhere else.
+
+/** One recorded period (same shape as PeriodHistoryRecord, dates are local
+ * 'YYYY-MM-DD' keys). Kept structural so this file stays free of a runtime
+ * dependency on the store that owns the list. */
+export type RecordedPeriod = {startDate: string; endDate: string};
+
+const dayKeyOf = (date: Date): string =>
+  `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+
+/** True when `date` falls inside one of the recorded periods (inclusive). */
+export const isWithinRecordedPeriod = (date: Date, periods: readonly RecordedPeriod[]): boolean => {
+  const key = dayKeyOf(date);
+  return periods.some(period => period.startDate <= key && key <= period.endDate);
+};
+
+/** The recorded period `date` belongs to — or, when it falls between two
+ * periods, the most recent one that started on/before it. Null when the date
+ * precedes every recorded period. */
+export const recordedPeriodFor = (date: Date, periods: readonly RecordedPeriod[]): RecordedPeriod | null => {
+  const key = dayKeyOf(date);
+  let found: RecordedPeriod | null = null;
+  periods.forEach(period => {
+    if (period.startDate <= key && (!found || period.startDate > found.startDate)) {
+      found = period;
+    }
+  });
+  return found;
+};
+
+const dateOfDayKey = (key: string): Date => {
+  const [year, month, day] = key.split('-').map(Number);
+  return new Date(year, month - 1, day);
+};
+
+/** The recorded period `date` belongs to as a CYCLE day: the one returned by
+ * recordedPeriodFor() only when `date` still falls within `cycleLength` days of
+ * its start (a date many cycles later is not part of that period's cycle). */
+export const recordedPeriodInCycleOf = (
+  date: Date,
+  periods: readonly RecordedPeriod[],
+  cycleLength: number,
+): RecordedPeriod | null => {
+  const found = recordedPeriodFor(date, periods);
+  return found && diffDays(date, dateOfDayKey(found.startDate)) < cycleLength ? found : null;
+};
+
+/** Length in days of the period that starts on `basics.lastPeriodStart`: what
+ * was really RECORDED for it (edited range / confirmed end), falling back to
+ * the habitual `periodDuration` only when no such record exists. The habitual
+ * duration is a setting; it is not what an edited or ended actual period
+ * lasted (M7/M8). */
+export const currentPeriodLength = (
+  basics: CycleBasics,
+  recordedPeriods: readonly RecordedPeriod[],
+): number => {
+  const startKey = dayKeyOf(basics.lastPeriodStart);
+  const record = recordedPeriods.find(period => period.startDate === startKey);
+  return record
+    ? diffDays(dateOfDayKey(record.endDate), dateOfDayKey(record.startDate)) + 1
+    : basics.periodDuration;
+};
+
+/** True for a day BEFORE the projected cycle that contains `today` — the
+ * range in which the modulo projection is only a retroactive guess (old
+ * months), as opposed to the current/future cycle it is meant to show. */
+export const isBeforeCurrentProjectedCycle = (
+  date: Date,
+  basics: CycleBasics,
+  today: Date,
+): boolean => diffDays(date, periodStartForCycleContaining(today, basics)) < 0;
+
+/** What a Calendar cell represents, given the SAME prediction status the
+ * Dashboard shows:
+ * - 'exact'   → the projected cycle, wrapped by the SAME cycle length the
+ *               prediction uses (declared length, or the observed average for
+ *               a regular-looking 'unknown' pattern) — unchanged for a
+ *               declared-regular cycle.
+ * - 'window'  → a single projected cycle would present an estimate as a
+ *               certainty (the Dashboard says "26–32 days"), so only the
+ *               periods the user actually RECORDED are painted.
+ * - 'observing' → existing observation behavior is preserved as-is.
+ *
+ * Passing `today` switches on the prediction-overlay rule (M9): a projection
+ * describes the CURRENT and FUTURE cycles, so it is never painted
+ * retroactively into old months — a day before the projected cycle containing
+ * today is a period only if it was RECORDED. Recorded periods always win (they
+ * are the truthful source, including a period edited longer than the habitual
+ * duration); and once a recorded period was ended earlier than the habitual
+ * duration, its remaining projected days are no longer painted. Without
+ * `today` the original projection is returned unchanged. */
+export const calendarDayKindFor = (
+  date: Date,
+  basics: CycleBasics,
+  status: CyclePredictionStatus,
+  recordedPeriods: readonly RecordedPeriod[],
+  today?: Date,
+): DayKind => {
+  if (status.mode === 'window') {
+    return isWithinRecordedPeriod(date, recordedPeriods) ? 'period' : 'normal';
+  }
+  const effective = status.mode === 'exact' ? {...basics, cycleDuration: status.averageCycleLength} : basics;
+  if (!today) {
+    return kindFor(date, effective);
+  }
+  if (isWithinRecordedPeriod(date, recordedPeriods)) {
+    return 'period';
+  }
+  if (isBeforeCurrentProjectedCycle(date, effective, today)) {
+    return 'normal';
+  }
+  const kind = kindFor(date, effective);
+  if (kind === 'period') {
+    const record = recordedPeriodFor(date, recordedPeriods);
+    if (record && dayKeyOf(periodStartForCycleContaining(date, effective)) === record.startDate) {
+      return 'normal';
+    }
+  }
+  return kind;
+};
+
+export type CycleFertilityEstimate = {fertileStart: Date; fertileEnd: Date; ovulation: Date};
+
+/** Upcoming fertile window + ovulation date — or null when no single cycle
+ * length can be trusted ('window': declared irregular / observed variable),
+ * in which case NO precise date may be shown. */
+export const estimateFertilityDates = (
+  basics: CycleBasics,
+  status: CyclePredictionStatus,
+  today: Date,
+): CycleFertilityEstimate | null => {
+  if (status.mode === 'window') {return null;}
+  const effective = status.mode === 'exact' ? {...basics, cycleDuration: status.averageCycleLength} : basics;
+  // ONE occurrence of the repeating cycle (see upcomingFertileWindow): looking
+  // the three dates up independently made the start jump to the NEXT cycle
+  // once today was inside the window (start > end).
+  const {start, end, ovulation} = upcomingFertileWindow(effective, today);
+  return {fertileStart: start, fertileEnd: end, ovulation};
+};
+
+export type AverageCycleDisplay = {label: string; value: string; subtitle: string};
+
+/** The "average cycle length" tile shown by Dashboard, Calendar and Profile.
+ * A number is only called an AVERAGE when it was actually observed from the
+ * user's own recorded cycles; a declared/configured length is worded as such,
+ * and an unconfirmed fallback (onboarding placeholder values) is never shown
+ * as if it were the user's data. */
+export const describeAverageCycle = (
+  status: CyclePredictionStatus,
+  basics: CycleBasics,
+  hasConfirmedCycleData: boolean,
+): AverageCycleDisplay => {
+  if (status.mode === 'window') {
+    return {
+      label: 'Cycle variable',
+      value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
+      subtitle: 'Fenêtre estimée',
+    };
+  }
+  if (status.mode === 'exact' && status.observedPattern === 'regular-looking') {
+    return {label: 'Durée moyenne', value: `${status.averageCycleLength} jours`, subtitle: 'Basée sur tes cycles enregistrés'};
+  }
+  if (!hasConfirmedCycleData) {
+    return {label: 'Durée habituelle', value: 'Non renseignée', subtitle: 'Complète ton cycle'};
+  }
+  if (status.mode === 'exact') {
+    return {label: 'Durée habituelle', value: `${status.averageCycleLength} jours`, subtitle: 'Renseignée par toi'};
+  }
+  return {label: 'Durée habituelle', value: `${basics.cycleDuration} jours`, subtitle: 'Estimation provisoire'};
 };
