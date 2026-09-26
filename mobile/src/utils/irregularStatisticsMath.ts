@@ -1,5 +1,10 @@
 import type {IrregularJournalCategory, IrregularJournalEntry} from '../state/irregularJournalStore';
 import {groupEntriesByMonth, formatMonthLabel} from './cycleStatisticsMath';
+import {
+  getIrregularFatigueSymptoms,
+  hasIrregularCategoryOccurrence,
+  isIrregularSymptomAnswer,
+} from './irregularJournalSelectors';
 
 // Pure calculation layer for the SOPK / Cycles irréguliers Statistics screen
 // (IrregularStatisticsScreen.tsx). Reads exclusively from
@@ -19,7 +24,7 @@ import {groupEntriesByMonth, formatMonthLabel} from './cycleStatisticsMath';
  * "day with at least one symptom" counting — deliberately excludes `mood`
  * (an emotional state, not a physical symptom) and `weight` (a measurement,
  * tracked separately). */
-const SYMPTOM_CATEGORIES: IrregularJournalCategory[] = ['acne', 'hairGrowth', 'pain', 'fatigue'];
+const SYMPTOM_CATEGORIES = ['acne', 'hairGrowth', 'pain', 'fatigue'] as const;
 
 export type CategoryDistributionEntry = {value: string; days: number};
 
@@ -43,9 +48,11 @@ export function calculateCategoryDistribution(
     .sort((a, b) => b.days - a.days || a.value.localeCompare(b.value, 'fr'));
 }
 
-/** Distinct days a category was actually recorded — never a fabricated
- * total, and a day with no entry never counts as "no symptom" (it's simply
- * absent from the count, not evidence of the category's absence). */
+/** Distinct days a category was actually ANSWERED (including an explicit
+ * "Aucune") — never a fabricated total, and a day with no entry never counts
+ * as "no symptom" (it's simply absent from the count, not evidence of the
+ * category's absence). This is a tracking/answer count, NOT a symptom count —
+ * see countCategorySymptomDays for that. */
 export function countCategoryDays(
   entries: readonly IrregularJournalEntry[],
   category: IrregularJournalCategory,
@@ -53,12 +60,24 @@ export function countCategoryDays(
   return entries.filter(entry => Boolean(entry[category])).length;
 }
 
+/** Distinct days a category holds a POSITIVE symptom occurrence: an answer
+ * other than the explicit "Aucune" (which is answered, but symptom-free). */
+export function countCategorySymptomDays(
+  entries: readonly IrregularJournalEntry[],
+  category: IrregularJournalCategory,
+): number {
+  return entries.filter(entry => isIrregularSymptomAnswer(entry[category])).length;
+}
+
 /** Days where at least one real physical symptom (acné, pilosité, douleurs,
  * fatigue) was recorded — mood and weight excluded (see SYMPTOM_CATEGORIES).
- * A day with zero entries anywhere is simply absent, never counted as
- * symptom-free. */
+ * An explicit "Aucune" answer is NOT a symptom (a fatigue day with a real
+ * associated symptom is). A day with zero entries anywhere is simply absent,
+ * never counted as symptom-free. */
 export function countDaysWithAnySymptom(entries: readonly IrregularJournalEntry[]): number {
-  return entries.filter(entry => SYMPTOM_CATEGORIES.some(category => Boolean(entry[category]))).length;
+  return entries.filter(entry =>
+    SYMPTOM_CATEGORIES.some(category => hasIrregularCategoryOccurrence(entry, category)),
+  ).length;
 }
 
 export type MonthlyCategoryTrendEntry = {
@@ -88,7 +107,7 @@ export function calculateMonthlyCategoryTrend(
 export type SymptomFrequencyEntry = {name: string; days: number};
 
 /** Real recorded frequency of each "symptôme associé" multi-selected on the
- * combined "Fatigue & symptômes" screen (IrregularJournalEntry.symptoms) —
+ * combined "Fatigue & symptômes" screen (read through getIrregularFatigueSymptoms) —
  * a day where nothing was multi-selected (or the category wasn't saved at
  * all) never counts toward any symptom. Sorted most-frequent first (ties
  * broken alphabetically). Distinct from countCategoryDays/
@@ -99,7 +118,9 @@ export function calculateAssociatedSymptomFrequency(
 ): SymptomFrequencyEntry[] {
   const counts = new Map<string, number>();
   entries.forEach(entry => {
-    entry.symptoms?.forEach(name => {
+    getIrregularFatigueSymptoms(entry).forEach(name => {
+      // An explicit "Aucune" is never a symptom occurrence.
+      if (!isIrregularSymptomAnswer(name)) {return;}
       counts.set(name, (counts.get(name) ?? 0) + 1);
     });
   });

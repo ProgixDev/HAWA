@@ -1,3 +1,4 @@
+import {continueAfterObjectiveSetup} from '../../state/objectiveSetupFlow';
 import React, {useEffect, useMemo, useState} from 'react';
 import {
   Pressable,
@@ -134,6 +135,7 @@ const trackedItemOptions: Array<{
 
 function Shell({
   navigation,
+  route,
   step,
   title,
   subtitle,
@@ -155,6 +157,8 @@ function Shell({
   styles: ReturnType<typeof createStyles>;
 }) {
   const insets = useSafeAreaInsets();
+  // Profile / Summary edit mode: the same screen ends with a plain save.
+  const isEdit = route.params?.mode === 'edit';
 
   return (
     <LinearGradient
@@ -206,7 +210,7 @@ function Shell({
               nextDisabled && styles.disabled,
               pressed && !nextDisabled && styles.primaryPressed,
             ]}>
-            <Text style={styles.primaryText}>{nextLabel ?? (step === 4 ? 'Continuer' : 'Suivant')}</Text>
+            <Text style={styles.primaryText}>{nextLabel ?? (isEdit ? 'Enregistrer' : step === 4 ? 'Continuer' : 'Suivant')}</Text>
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={18} />
           </Pressable>
         </View>
@@ -495,7 +499,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
     if (isEdit) {
       navigation.goBack();
     } else {
-      navigation.navigate('SecuritySetup');
+      continueAfterObjectiveSetup(navigation);
     }
   };
 

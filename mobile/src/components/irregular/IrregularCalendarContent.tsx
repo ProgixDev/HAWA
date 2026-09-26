@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useEffect, useRef} from 'react';
 import {
   Modal,
   Pressable,
@@ -10,13 +10,16 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 
@@ -46,6 +49,12 @@ import {
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {computeIrregularMonthlySummary, computeVisibleDayMarkers} from '../../utils/irregularCalendarMath';
+import {
+  classifyIrregularPeriodDay,
+  getIrregularFatigueSymptoms,
+  hasIrregularCategoryOccurrence,
+  isActualPeriodDay,
+} from '../../utils/irregularJournalSelectors';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -207,14 +216,28 @@ function IrregularCalendarContent(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
-  const today = useMemo(() => new Date(), []);
-  const todayKey = useMemo(() => dateKey(today), [today]);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
   const [selectedDate, setSelectedDate] = useState(today);
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
 
@@ -284,11 +307,16 @@ function IrregularCalendarContent(): React.JSX.Element {
   const selectedDateKey = useMemo(() => dateKey(selectedDate), [selectedDate]);
   const isSelectedToday = selectedDateKey === todayKey;
   const selectedEntry = entriesByDate[selectedDateKey];
-  const selectedFlowIntensity = journalEntriesByDate[selectedDateKey]?.flow?.intensity;
+  // "Règles" state of the selected day — see classifyIrregularPeriodDay: a real
+  // flow is a period day; "Non" and "Spotting" (both stored as intensity
+  // 'none') are NOT.
+  const selectedFlow = journalEntriesByDate[selectedDateKey]?.flow;
+  const selectedPeriodKind = classifyIrregularPeriodDay(selectedFlow, selectedEntry);
+  const selectedSymptoms = getIrregularFatigueSymptoms(selectedEntry);
   const selectedHijriDate = spiritualMarkersEnabled ? formatHijriDate(selectedDate) : undefined;
 
   const hasAnySelectedData = Boolean(
-    selectedFlowIntensity ||
+    selectedPeriodKind ||
       selectedEntry?.acne ||
       selectedEntry?.hairGrowth ||
       selectedEntry?.weight ||
@@ -404,7 +432,7 @@ function IrregularCalendarContent(): React.JSX.Element {
 
                 const key = dateKey(date);
                 const entry = entriesByDate[key];
-                const flowIntensity = journalEntriesByDate[key]?.flow?.intensity;
+                const isPeriodDay = isActualPeriodDay(journalEntriesByDate[key]?.flow, entry);
                 const isToday = sameDay(date, today);
                 const isSelected = sameDay(date, selectedDate);
                 const lightText = isSelected && !isToday;
@@ -429,8 +457,10 @@ function IrregularCalendarContent(): React.JSX.Element {
 
                 const activeCategories = ALL_CALENDAR_CATEGORIES.filter(category => {
                   if (!filters[category]) {return false;}
-                  if (category === 'period') {return Boolean(flowIntensity);}
-                  return Boolean(entry?.[category]);
+                  if (category === 'period') {return isPeriodDay;}
+                  // An explicit "Aucune" answer is a recorded answer (still shown
+                  // in the selected-day card) but never a symptom marker.
+                  return hasIrregularCategoryOccurrence(entry, category);
                 });
 
                 const hasOverflow = activeCategories.length > MAX_DAY_MARKERS;
@@ -526,13 +556,21 @@ function IrregularCalendarContent(): React.JSX.Element {
 
             {hasAnySelectedData ? (
               <>
-                {selectedFlowIntensity ? (
+                {selectedPeriodKind ? (
                   <SelectedRow
                     icon={CATEGORY_ICON.period}
                     iconColor={CATEGORY_COLOR.period}
                     iconTint="#FBEAF0"
                     label="Règles"
-                    value={FLOW_LABELS[selectedFlowIntensity]}
+                    value={
+                      selectedPeriodKind === 'period'
+                        ? selectedFlow && selectedFlow.intensity !== 'none'
+                          ? FLOW_LABELS[selectedFlow.intensity]
+                          : 'Oui'
+                        : selectedPeriodKind === 'spotting'
+                          ? 'Spotting'
+                          : 'Non'
+                    }
                   />
                 ) : null}
                 {selectedEntry?.acne ? (
@@ -587,8 +625,8 @@ function IrregularCalendarContent(): React.JSX.Element {
                     iconTint="#EEE7FC"
                     label="Fatigue & symptômes"
                     value={
-                      selectedEntry.symptoms?.length
-                        ? `${selectedEntry.fatigue} · ${selectedEntry.symptoms.length} symptôme${selectedEntry.symptoms.length > 1 ? 's' : ''} associé${selectedEntry.symptoms.length > 1 ? 's' : ''}`
+                      selectedSymptoms.length
+                        ? `${selectedEntry.fatigue} · ${selectedSymptoms.length} symptôme${selectedSymptoms.length > 1 ? 's' : ''} associé${selectedSymptoms.length > 1 ? 's' : ''}`
                         : selectedEntry.fatigue
                     }
                   />
@@ -603,6 +641,58 @@ function IrregularCalendarContent(): React.JSX.Element {
                 <Text style={styles.emptyText}>Rien n’a encore été enregistré pour cette date.</Text>
               </View>
             )}
+
+            {/* Record / correct the period of a PAST day (today is edited from
+                the journal sheet below; a future day is never offered). The
+                entry screen writes the same flow + SOPK records as today's. */}
+            {selectedDateKey < todayKey ? (
+              <Pressable
+                accessibilityLabel={selectedPeriodKind ? 'Modifier les règles de ce jour' : 'Renseigner les règles de ce jour'}
+                accessibilityRole="button"
+                onPress={() => navigation.navigate('IrregularJournalEntry', {category: 'period', date: selectedDateKey})}
+                style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
+                <Text style={styles.editRowText}>
+                  {selectedPeriodKind ? 'Modifier les règles de ce jour' : 'Renseigner les règles de ce jour'}
+                </Text>
+                <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
+              </Pressable>
+            ) : null}
+
+            {/* Same for the other SOPK tracking categories (acné, pilosité, poids,
+                douleurs, humeur, fatigue): general tracking data with no effect on
+                any period/cycle derivation, so a past day can be filled in or
+                corrected through the entry screen's `date` route param. */}
+            {selectedDateKey < todayKey ? (
+              <View style={styles.pastCategoryBlock}>
+                <Text style={styles.pastCategoryTitle}>Suivi de ce jour</Text>
+                <View style={styles.pastCategoryRow}>
+                  {IRREGULAR_JOURNAL_ITEMS.map(item => {
+                    const recorded = Boolean(selectedEntry?.[item.key]);
+                    return (
+                      <Pressable
+                        accessibilityLabel={`${recorded ? 'Modifier' : 'Renseigner'} ${item.label} de ce jour`}
+                        accessibilityRole="button"
+                        key={item.key}
+                        onPress={() =>
+                          navigation.navigate('IrregularJournalEntry', {category: item.key, date: selectedDateKey})
+                        }
+                        style={({pressed}) => [
+                          styles.pastCategoryChip,
+                          recorded && styles.pastCategoryChipRecorded,
+                          pressed && styles.pressed,
+                        ]}>
+                        <MaterialDesignIcons
+                          color={theme.colors.primary}
+                          name={recorded ? 'check' : 'plus'}
+                          size={13}
+                        />
+                        <Text style={styles.pastCategoryChipText}>{item.label}</Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            ) : null}
 
             {isSelectedToday ? (
               <Pressable
@@ -1118,6 +1208,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surfaceSecondary,
   },
   editRowText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '800'},
+  pastCategoryBlock: {marginTop: 12},
+  pastCategoryTitle: {color: theme.colors.textSecondary, fontSize: 11.5, fontWeight: '700', marginBottom: 8},
+  pastCategoryRow: {flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  pastCategoryChip: {
+    flexDirection: 'row', alignItems: 'center', gap: 5, paddingHorizontal: 11, paddingVertical: 8,
+    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 14,
+    backgroundColor: theme.colors.surfaceSecondary,
+  },
+  pastCategoryChipRecorded: {backgroundColor: theme.colors.primarySoft},
+  pastCategoryChipText: {color: theme.colors.primary, fontSize: 11.5, fontWeight: '800'},
 
   summaryTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '800', marginBottom: 12},
   summaryGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},

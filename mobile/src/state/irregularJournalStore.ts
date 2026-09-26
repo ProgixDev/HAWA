@@ -51,7 +51,10 @@ export type IrregularJournalEntry = {
    * separate IrregularJournalCategory, since both are saved together from
    * one screen/one CTA (see saveIrregularFatigueEntry below). May be an
    * empty array — that still means "explicitly saved, nothing else to
-   * report", never "not recorded". */
+   * report", never "not recorded". This is the ONE canonical location —
+   * read it through getIrregularFatigueSymptoms() (utils/
+   * irregularJournalSelectors.ts), which also understands entries an
+   * earlier journal-screen version stored under `details.fatigue.symptoms`. */
   symptoms?: string[];
   /**
    * Optional UI detail retained alongside the compact canonical summary
@@ -178,12 +181,28 @@ export async function saveIrregularJournalEntry(
   details: IrregularJournalDetails,
 ): Promise<void> {
   const current = entries[date] ?? {date};
+
+  // The associated symptoms of "Fatigue & symptômes" have ONE canonical home:
+  // the entry's top-level `symptoms` (what Calendar / Statistics read and what
+  // saveIrregularFatigueEntry writes). The journal screen hands them over
+  // inside its `details`, so they are lifted out here — never stored a second
+  // time under `details.fatigue.symptoms`. (Other categories keep their own
+  // `details.symptoms`, e.g. the pain types, untouched.)
+  let storedDetails = details;
+  let symptoms = current.symptoms;
+  if (category === 'fatigue') {
+    const {symptoms: selectedSymptoms, ...rest} = details;
+    storedDetails = rest;
+    symptoms = selectedSymptoms ?? symptoms;
+  }
+
   entries = {
     ...entries,
     [date]: {
       ...current,
       [category]: value,
-      details: {...current.details, [category]: details},
+      ...(symptoms !== undefined ? {symptoms} : {}),
+      details: {...current.details, [category]: storedDetails},
     },
   };
   notifyListeners();

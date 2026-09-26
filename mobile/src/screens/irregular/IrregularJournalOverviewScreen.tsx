@@ -1,3 +1,4 @@
+import {useToday} from '../../hooks/useToday';
 import React, {useCallback, useMemo, useState} from 'react';
 import {
   Pressable,
@@ -24,7 +25,7 @@ import {
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
 import {capitalize} from '../../utils/cycleMath';
-import type {FlowIntensity} from '../../types/journal';
+import type {DailyJournalEntry, FlowIntensity} from '../../types/journal';
 import {getJournalEntry} from '../../state/dailyJournalStore';
 import {
   getIrregularJournalEntry,
@@ -34,6 +35,7 @@ import {
 } from '../../state/irregularJournalStore';
 import {IRREGULAR_JOURNAL_ITEMS} from '../../config/irregularJournalConfig';
 import {computeIrregularDailyProgress} from '../../utils/irregularDailyTrackingMath';
+import {classifyIrregularPeriodDay} from '../../utils/irregularJournalSelectors';
 
 // The SOPK Daily Journal's full-screen overview — reached from
 // IrregularDashboard.tsx's "Suivi du jour" card (tapping the card header or
@@ -55,7 +57,21 @@ const FLOW_LABELS: Record<FlowIntensity, string> = {
   none: 'Pas de règles',
 };
 
-const dateKey = (date: Date): string => date.toLocaleDateString('en-CA');
+/** "Règles" row wording, from the ONE canonical classifier (H10 / Calendar /
+ * Statistics): a real flow shows its intensity, "Spotting" is shown as
+ * Spotting (it is stored with flow intensity 'none' too, so the flow alone can
+ * never tell it apart from "Non" / "Pas de règles"), and only a genuine "Non"
+ * reads "Pas de règles". null = nothing recorded. */
+function periodRowValue(
+  flow: DailyJournalEntry['flow'] | undefined,
+  irregularEntry: IrregularJournalEntry | undefined,
+): string | null {
+  const kind = classifyIrregularPeriodDay(flow, irregularEntry);
+  if (kind === null) {return null;}
+  if (kind === 'spotting') {return 'Spotting';}
+  if (kind === 'no-bleeding') {return FLOW_LABELS.none;}
+  return flow && flow.intensity !== 'none' ? FLOW_LABELS[flow.intensity] : 'Oui';
+}
 
 function IrregularJournalOverviewScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
@@ -64,13 +80,14 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
 
-  const today = useMemo(() => new Date(), []);
-  const todayKey = useMemo(() => dateKey(today), [today]);
+  // Re-evaluated when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const [todayEntry, setTodayEntry] = useState<IrregularJournalEntry | undefined>(() =>
     getIrregularJournalEntry(todayKey),
   );
-  const [periodIntensity, setPeriodIntensity] = useState<FlowIntensity | undefined>(undefined);
+  const [periodFlow, setPeriodFlow] = useState<DailyJournalEntry['flow'] | undefined>(undefined);
 
   useFocusEffect(
     useCallback(() => {
@@ -84,7 +101,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
       });
 
       getJournalEntry(todayKey).then(entry => {
-        if (active) {setPeriodIntensity(entry?.flow?.intensity);}
+        if (active) {setPeriodFlow(entry?.flow);}
       });
 
       return () => {
@@ -94,7 +111,8 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
     }, [todayKey]),
   );
 
-  const periodDoneToday = periodIntensity !== undefined;
+  const periodValue = periodRowValue(periodFlow, todayEntry);
+  const periodDoneToday = periodValue !== null;
 
   const progress = useMemo(
     () => computeIrregularDailyProgress(periodDoneToday, todayEntry, IRREGULAR_JOURNAL_ITEMS.map(item => item.key)),
@@ -182,7 +200,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
               isFirst
               label="Règles"
               onPress={() => navigation.navigate('IrregularJournalEntry', {category: 'period'})}
-              value={periodIntensity ? FLOW_LABELS[periodIntensity] : 'Renseigne le début de tes règles'}
+              value={periodValue ?? 'Renseigne le début de tes règles'}
             />
 
             {IRREGULAR_JOURNAL_ITEMS.map(item => {

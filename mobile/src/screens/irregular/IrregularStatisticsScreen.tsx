@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useEffect} from 'react';
 import {
   Pressable,
   ScrollView,
@@ -20,6 +20,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getFloatingTabBarClearance} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import {
   getAllIrregularJournalEntries,
@@ -28,17 +29,13 @@ import {
   type IrregularJournalCategory,
   type IrregularJournalEntry,
 } from '../../state/irregularJournalStore';
-import {
-  getConfirmedPeriodHistory,
-  hydrateConfirmedPeriodHistory,
-  subscribeConfirmedPeriodHistory,
-} from '../../state/confirmedPeriodHistoryStore';
-import type {ConfirmedPeriodOccurrence} from '../../state/confirmedPeriodHistoryStore';
+import {useIrregularPeriodSources} from '../../hooks/useIrregularPeriodSources';
+import {resolveIrregularPeriodStarts} from '../../utils/irregularJournalSelectors';
 import {
   STATISTICS_PERIODS,
   isPeriodFree,
   filterEntriesForPeriod,
-  filterPeriodStartsForPeriod,
+  filterStartKeysForPeriod,
   calculateAverageCycleDuration,
   coverageMonthsForAnchor,
   describeMonthsCoverage,
@@ -282,10 +279,14 @@ function IrregularStatisticsScreen(): React.JSX.Element {
   const [entriesByDate, setEntriesByDate] = useState<Record<string, IrregularJournalEntry>>(
     getAllIrregularJournalEntries,
   );
-  const [periodHistory, setPeriodHistory] = useState<ConfirmedPeriodOccurrence[]>(
-    () => getConfirmedPeriodHistory(),
-  );
   const [now, setNow] = useState<Date>(() => new Date());
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts. Same Date (no re-render) when the
+  // day is unchanged.
+  const {todayKey} = useToday();
+  useEffect(() => {
+    setNow(current => (current.toLocaleDateString('en-CA') === todayKey ? current : new Date()));
+  }, [todayKey]);
 
   useFocusEffect(
     useCallback(() => {
@@ -300,17 +301,9 @@ function IrregularStatisticsScreen(): React.JSX.Element {
         if (active) {setEntriesByDate(getAllIrregularJournalEntries());}
       });
 
-      hydrateConfirmedPeriodHistory().then(history => {
-        if (active) {setPeriodHistory(history);}
-      });
-      const unsubscribeHistory = subscribeConfirmedPeriodHistory(() => {
-        setPeriodHistory(getConfirmedPeriodHistory());
-      });
-
       return () => {
         active = false;
         unsubscribeIrregular();
-        unsubscribeHistory();
       };
     }, []),
   );
@@ -330,9 +323,22 @@ function IrregularStatisticsScreen(): React.JSX.Element {
     [allEntries, period, now],
   );
 
+  // Real period starts from every source that knows one (recorded period days,
+  // cycle-confirmed occurrences, the onboarding answer) — see
+  // resolveIrregularPeriodStarts. Reading confirmedPeriodHistory alone left
+  // this screen empty for a SOPK user who records periods in the journal (a
+  // "confirmed" occurrence needs an explicit end confirmation this objective
+  // never asks for). A cycle length is the gap between two consecutive starts,
+  // so it needs no end date. Nothing is written to confirmedPeriodHistory.
+  const periodSources = useIrregularPeriodSources();
+  const periodStartKeys = useMemo(
+    () => resolveIrregularPeriodStarts(periodSources),
+    [periodSources],
+  );
+
   const filteredPeriodStarts = useMemo(
-    () => filterPeriodStartsForPeriod(periodHistory, period, now),
-    [periodHistory, period, now],
+    () => filterStartKeysForPeriod(periodStartKeys, period, now),
+    [periodStartKeys, period, now],
   );
 
   const observedCycleDuration = useMemo(
@@ -345,13 +351,10 @@ function IrregularStatisticsScreen(): React.JSX.Element {
   // history exists than what was actually recorded (same convention as
   // Pregnancy/Postpartum/Loss's own dating/delivery/loss anchors).
   const anchorDate = useMemo(() => {
-    const dates = [
-      ...Object.keys(entriesByDate),
-      ...periodHistory.map(occurrence => occurrence.periodStart),
-    ];
+    const dates = [...Object.keys(entriesByDate), ...periodStartKeys];
     if (!dates.length) {return null;}
     return new Date(`${dates.sort()[0]}T12:00:00`);
-  }, [entriesByDate, periodHistory]);
+  }, [entriesByDate, periodStartKeys]);
 
   const coverageMonths = useMemo(
     () => coverageMonthsForAnchor(period, anchorDate, now),

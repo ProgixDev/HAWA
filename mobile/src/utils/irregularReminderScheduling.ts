@@ -5,6 +5,17 @@ import {calculateAverageCycleDuration} from './cycleStatisticsMath';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getIrregularPreferences, type IrregularPreferences} from '../state/irregularPreferences';
 import {getConfirmedPeriodHistory} from '../state/confirmedPeriodHistoryStore';
+import {getAllJournalEntries} from '../state/dailyJournalStore';
+import {
+  getAllIrregularJournalEntries,
+  hydrateIrregularJournal,
+  subscribeIrregularJournal,
+} from '../state/irregularJournalStore';
+import {
+  collectActualPeriodDayKeys,
+  resolveLatestIrregularPeriodStart,
+  type IrregularPeriodSources,
+} from './irregularJournalSelectors';
 
 // SOPK's 2 optional reminders — reuses the exact same chokepoint
 // (scheduleLocalNotification/cancelLocalNotification in
@@ -45,20 +56,49 @@ function atReminderHour(date: Date): Date {
   return result;
 }
 
-/** Real confirmed period history only (confirmedPeriodHistoryStore.ts — the
- * same source Cycle/qadaa/Statistics already treat as authoritative). Returns
- * `null` — never a fabricated date — when there isn't enough real history to
- * compute a neutral average cycle length from. */
-export function computeUnrecordedPeriodReminderDate(now: Date): Date | null {
-  const starts = getConfirmedPeriodHistory()
+/** The SAME real-period inputs the SOPK screens use (see
+ * hooks/useIrregularPeriodSources.ts), read non-reactively: actual period days
+ * from the shared journal + the SOPK journal (Spotting / "Non" are already
+ * excluded by collectActualPeriodDayKeys), the confirmed history, and the
+ * onboarding answer. Read-only — nothing is written back. */
+export async function loadIrregularPeriodSources(): Promise<IrregularPeriodSources> {
+  await hydrateIrregularJournal();
+  const journalEntries = await getAllJournalEntries();
+  return {
+    periodDayKeys: collectActualPeriodDayKeys(journalEntries, getAllIrregularJournalEntries()),
+    confirmedHistory: getConfirmedPeriodHistory(),
+    declaredLastPeriodDate: getIrregularPreferences().lastPeriodDate,
+  };
+}
+
+/** The reminder is anchored on the LATEST REAL period start (the same
+ * resolveLatestIrregularPeriodStart() Dashboard/Calendar/Statistics use), so a
+ * period recorded through the journal after the last confirmed one is never
+ * ignored. The neutral average cycle length itself (and therefore the
+ * "at least 2 confirmed periods" requirement and the 7-day buffer) is
+ * unchanged: it still comes from real confirmed period history only
+ * (confirmedPeriodHistoryStore.ts — the source Cycle/qadaa/Statistics treat as
+ * authoritative). Returns `null` — never a fabricated date — when there isn't
+ * enough real history to compute that average from, or when the date has
+ * already passed. */
+export async function computeUnrecordedPeriodReminderDate(
+  now: Date,
+  sources?: IrregularPeriodSources,
+): Promise<Date | null> {
+  const resolvedSources = sources ?? (await loadIrregularPeriodSources());
+
+  const confirmedStarts = resolvedSources.confirmedHistory
     .map(occurrence => new Date(occurrence.periodStart))
     .sort((a, b) => a.getTime() - b.getTime());
 
-  const average = calculateAverageCycleDuration(starts);
+  const average = calculateAverageCycleDuration(confirmedStarts);
   if (!average) {return null;}
 
-  const lastStart = starts[starts.length - 1];
-  const reminderDate = atReminderHour(addDays(lastStart, average.averageDays + UNRECORDED_PERIOD_BUFFER_DAYS));
+  const latestStartKey = resolveLatestIrregularPeriodStart(resolvedSources, now.toLocaleDateString('en-CA'));
+  if (!latestStartKey) {return null;}
+
+  const latestStart = new Date(`${latestStartKey}T12:00:00`);
+  const reminderDate = atReminderHour(addDays(latestStart, average.averageDays + UNRECORDED_PERIOD_BUFFER_DAYS));
   return reminderDate.getTime() > now.getTime() ? reminderDate : null;
 }
 
@@ -89,7 +129,7 @@ async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPre
     return;
   }
 
-  const fireDate = computeUnrecordedPeriodReminderDate(now);
+  const fireDate = await computeUnrecordedPeriodReminderDate(now);
   if (!fireDate) {
     await cancelLocalNotification(UNRECORDED_PERIOD_ID);
     return;
@@ -111,7 +151,8 @@ async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPre
 }
 
 /** Re-derives and (re)schedules — or explicitly cancels — both SOPK
- * reminders from real persisted preferences + real confirmed period history.
+ * reminders from real persisted preferences + real period data (journal,
+ * confirmed history, onboarding answer).
  * Safe to call any number of times (scheduleLocalNotification always
  * cancels-then-reschedules by id). Never schedules while a different
  * objective is active, so switching away from SOPK cleanly clears both. */
@@ -124,3 +165,13 @@ export async function syncIrregularReminders(now: Date = new Date()): Promise<vo
     syncUnrecordedPeriodReminder(active, prefs, now),
   ]);
 }
+
+// A period recorded through the SOPK journal must move (or clear) the
+// unrecorded-period reminder immediately, not only at the next app start or
+// confirmed-history change: the journal's "Règles" save writes the shared flow
+// first and the SOPK entry last, and this store notifies after the latter.
+// Idempotent (scheduleLocalNotification cancels-then-reschedules by id) and a
+// no-op away from the SOPK objective (everything is cancelled there).
+subscribeIrregularJournal(() => {
+  syncIrregularReminders().catch(() => {});
+});
