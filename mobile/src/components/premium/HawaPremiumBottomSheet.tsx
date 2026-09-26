@@ -25,6 +25,8 @@ import {
   PREMIUM_PRICING,
   type PremiumPlan,
 } from '../../config/premiumPricing';
+import {PURCHASE_PROVIDER_AVAILABLE} from '../../config/purchaseProvider';
+import {hasPremiumArticles} from '../../data/libraryContent';
 import {usePremium} from '../../hooks/usePremium';
 import {purchasePremium, restorePurchases} from '../../services/purchaseService';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -44,6 +46,10 @@ type Benefit = {
   description: string;
   tint: string;
   iconColor: string;
+  /** Only advertised while at least one guide is genuinely Premium-gated
+   * (see hasPremiumArticles) — the paywall never claims exclusive content
+   * that does not exist. */
+  requiresPremiumGuides?: boolean;
 };
 
 // Category E — fixed Premium brand identity (the hero banner, its crown/
@@ -89,6 +95,7 @@ const BENEFITS: Benefit[] = [
     description: 'Accède à des contenus éducatifs exclusifs.',
     tint: '#FCECF3',
     iconColor: '#C26193',
+    requiresPremiumGuides: true,
   },
   {
     icon: 'palette-outline',
@@ -200,8 +207,13 @@ export function HawaPremiumBottomSheet({
         duration: reduceMotion ? 0 : 230,
         easing: Easing.in(Easing.cubic),
         useNativeDriver: true,
-      }).start(() => {
-        setMounted(false);
+      }).start(({finished}) => {
+        // An interrupted close (the sheet was re-opened mid-animation, or the
+        // initial hidden->hidden animation superseded by an open) must not
+        // unmount a sheet that is now visible.
+        if (finished) {
+          setMounted(false);
+        }
       });
     }
   }, [progress, reduceMotion, visible]);
@@ -273,6 +285,17 @@ export function HawaPremiumBottomSheet({
   const selectedPricing = useMemo(
     () => PREMIUM_PRICING[plan],
     [plan],
+  );
+
+  // While no real purchase provider exists the sheet is a truthful preview:
+  // no actionable purchase/restore control, no price, no claim that a payment
+  // will happen. The plan data (PREMIUM_PRICING) is preserved so integrating a
+  // provider is a flag flip (config/purchaseProvider.ts), not a UI rewrite.
+  const purchaseAvailable = PURCHASE_PROVIDER_AVAILABLE;
+
+  const benefits = useMemo(
+    () => BENEFITS.filter(item => !item.requiresPremiumGuides || hasPremiumArticles()),
+    [],
   );
 
   /*
@@ -680,8 +703,9 @@ export function HawaPremiumBottomSheet({
               </Text>
 
               <Text style={styles.sectionSubtitle}>
-                Débloque les outils qui enrichissent
-                ton suivi au quotidien.
+                {purchaseAvailable
+                  ? 'Débloque les outils qui enrichissent ton suivi au quotidien.'
+                  : 'Découvre les outils prévus pour enrichir ton suivi au quotidien.'}
               </Text>
             </View>
 
@@ -699,9 +723,11 @@ export function HawaPremiumBottomSheet({
           ================================================== */}
 
           <View style={styles.benefits}>
-            {BENEFITS.map((item, index) => {
+            {benefits.map((item, index) => {
+              // The last card spans the full width only when it would
+              // otherwise sit alone in its row (odd position in the 2-col grid).
               const isLast =
-                index === BENEFITS.length - 1;
+                index === benefits.length - 1 && index % 2 === 0;
 
               return (
                 <View
@@ -773,7 +799,7 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.planHeadingCopy}>
               <Text style={styles.eyebrow}>
-                TON ABONNEMENT
+                {purchaseAvailable ? 'TON ABONNEMENT' : 'BIENTÔT DISPONIBLE'}
               </Text>
 
               <Text
@@ -782,31 +808,36 @@ export function HawaPremiumBottomSheet({
                   isCompact &&
                     styles.sectionTitleCompact,
                 ]}>
-                Choisis la formule qui te convient
+                {purchaseAvailable
+                  ? 'Choisis la formule qui te convient'
+                  : 'Les abonnements arrivent bientôt'}
               </Text>
 
               <Text style={styles.sectionSubtitle}>
-                Modifie ton choix librement avant
-                de continuer.
+                {purchaseAvailable
+                  ? 'Modifie ton choix librement avant de continuer.'
+                  : 'Les formules ci-dessous sont présentées à titre indicatif : aucun achat n’est possible pour le moment.'}
               </Text>
             </View>
 
-            <View style={styles.secureBadge}>
-              <MaterialDesignIcons
-                color={theme.colors.success}
-                name="shield-check-outline"
-                size={15}
-              />
+            {purchaseAvailable ? (
+              <View style={styles.secureBadge}>
+                <MaterialDesignIcons
+                  color={theme.colors.success}
+                  name="shield-check-outline"
+                  size={15}
+                />
 
-              {!isVeryCompact ? (
-                <Text
-                  style={
-                    styles.secureBadgeText
-                  }>
-                  Sécurisé
-                </Text>
-              ) : null}
-            </View>
+                {!isVeryCompact ? (
+                  <Text
+                    style={
+                      styles.secureBadgeText
+                    }>
+                    Sécurisé
+                  </Text>
+                ) : null}
+              </View>
+            ) : null}
           </View>
 
           {/* ==================================================
@@ -818,6 +849,7 @@ export function HawaPremiumBottomSheet({
             detail={PREMIUM_PRICING.annual.detail}
             label={PREMIUM_PRICING.annual.label}
             onPress={() => setPlan('annual')}
+            preview={!purchaseAvailable}
             price={PREMIUM_PRICING.annual.price}
             recommended
           />
@@ -831,6 +863,7 @@ export function HawaPremiumBottomSheet({
             detail={PREMIUM_PRICING.monthly.detail}
             label={PREMIUM_PRICING.monthly.label}
             onPress={() => setPlan('monthly')}
+            preview={!purchaseAvailable}
             price={PREMIUM_PRICING.monthly.price}
           />
 
@@ -850,20 +883,23 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.securityCopy}>
               <Text style={styles.securityTitle}>
-                Paiement via la plateforme
+                {purchaseAvailable ? 'Paiement via la plateforme' : 'Aucun paiement pour le moment'}
               </Text>
 
               <Text style={styles.securityText}>
-                Tes achats et abonnements seront
-                gérés par Google Play ou l’App Store.
+                {purchaseAvailable
+                  ? 'Tes achats et abonnements seront gérés par Google Play ou l’App Store.'
+                  : 'Aucun paiement n’est demandé tant que les abonnements ne sont pas disponibles.'}
               </Text>
             </View>
 
-            <MaterialDesignIcons
-              color={theme.colors.textMuted}
-              name="chevron-right"
-              size={20}
-            />
+            {purchaseAvailable ? (
+              <MaterialDesignIcons
+                color={theme.colors.textMuted}
+                name="chevron-right"
+                size={20}
+              />
+            ) : null}
           </View>
 
           {/* ==================================================
@@ -880,6 +916,16 @@ export function HawaPremiumBottomSheet({
               <View style={styles.ctaCopy}>
                 <Text style={styles.activeStatusTitle}>Abonnement actif</Text>
                 <Text style={styles.activeStatusSubtitle}>Merci de soutenir AWA — profite de tous les avantages Premium.</Text>
+              </View>
+            </View>
+          ) : !purchaseAvailable ? (
+            <View accessibilityRole="alert" style={styles.unavailableCard}>
+              <View style={styles.activeStatusIconCircle}>
+                <MaterialDesignIcons color={theme.colors.textMuted} name="clock-outline" size={22} />
+              </View>
+              <View style={styles.ctaCopy}>
+                <Text style={styles.activeStatusTitle}>Abonnement bientôt disponible</Text>
+                <Text style={styles.activeStatusSubtitle}>AWA Premium n’est pas encore disponible à l’achat.</Text>
               </View>
             </View>
           ) : (
@@ -970,7 +1016,7 @@ export function HawaPremiumBottomSheet({
               RESTORE
           ================================================== */}
 
-          {!isPremium ? (
+          {!isPremium && purchaseAvailable ? (
             <Pressable
               accessibilityLabel="Restaurer mes achats"
               accessibilityRole="button"
@@ -1010,10 +1056,10 @@ export function HawaPremiumBottomSheet({
             </View>
           ) : null}
 
-          {!isPremium ? (
+          {!isPremium && !purchaseAvailable ? (
             <Text style={styles.footerText}>
-              Aucun achat ne sera activé tant que le
-              système de paiement n’est pas connecté.
+              Aucun achat n’est possible pour le moment et
+              aucun paiement ne sera demandé.
             </Text>
           ) : null}
         </ScrollView>
@@ -1031,6 +1077,7 @@ function PlanCard({
   detail,
   label,
   onPress,
+  preview = false,
   price,
   recommended = false,
 }: {
@@ -1038,11 +1085,30 @@ function PlanCard({
   detail: string;
   label: string;
   onPress: () => void;
+  /** Provider unavailable: a non-interactive, indicative presentation — no
+   * radio, no price, no "recommended" sales cues, nothing to select. */
+  preview?: boolean;
   price: string;
   recommended?: boolean;
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  if (preview) {
+    return (
+      <View
+        accessibilityLabel={`${label}, bientôt disponible`}
+        style={[styles.planCard, styles.planCardPreview]}>
+        <View style={styles.planMain}>
+          <Text style={styles.planTitle}>{label}</Text>
+          <Text style={styles.planDescription}>{detail}</Text>
+        </View>
+        <View style={styles.planPriceArea}>
+          <Text style={styles.planPreviewLabel}>Bientôt</Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <Pressable
@@ -1733,6 +1799,20 @@ function createStyles(theme: ResolvedAwaTheme) {
     elevation: 3,
   },
 
+  planCardPreview: {
+    opacity: 0.85,
+    paddingLeft: 17,
+  },
+
+  planPreviewLabel: {
+    color: theme.colors.textMuted,
+
+    fontSize: 12,
+    fontWeight: '800',
+
+    textAlign: 'right',
+  },
+
   planPressed: {
     opacity: 0.9,
 
@@ -2110,6 +2190,18 @@ function createStyles(theme: ResolvedAwaTheme) {
     borderWidth: 1,
     borderColor: withAlpha(theme.colors.success, 0.14),
     backgroundColor: withAlpha(theme.colors.success, 0.14),
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+  },
+  unavailableCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 18,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surfaceSecondary,
     paddingHorizontal: 16,
     paddingVertical: 14,
   },

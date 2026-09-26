@@ -1,4 +1,5 @@
 import type {PremiumPlan} from '../config/premiumPricing';
+import {PURCHASE_PROVIDER_AVAILABLE} from '../config/purchaseProvider';
 import {getPremiumState, updatePremiumState} from '../state/premiumStore';
 
 // The ONLY file that is allowed to know about a native purchase provider
@@ -21,12 +22,10 @@ export type PurchaseOutcome = 'success' | 'cancelled' | 'error' | 'unavailable';
 const NO_PROVIDER_ERROR =
   'AWA Premium n’est pas encore disponible sur cet appareil. Réessaie plus tard.';
 
-/** True once a real purchase provider is wired into this file. Kept as one
- * explicit flag (rather than scattering `false` literals through every
- * function below) so the day a real SDK is added, flipping this one
- * constant — plus implementing the 3 functions' TODO branches — is the
- * entire integration surface. */
-const PURCHASE_PROVIDER_AVAILABLE = false;
+// The availability flag now lives in config/purchaseProvider.ts so the
+// Premium UI can read the very same value (see that file). Flipping it —
+// plus implementing the 3 functions' TODO branches — is still the entire
+// integration surface.
 
 /** Resolves real entitlement status. Called once at app startup
  * (App.tsx) and safe to call again (e.g. pull-to-refresh on the Premium
