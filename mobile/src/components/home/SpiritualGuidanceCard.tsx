@@ -14,6 +14,10 @@ import {homeColors, homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PrayerWindow} from '../../services/prayerTimes';
+import {
+  NIFAS_REFERENCE_APPROACHING_HEADLINE,
+  NIFAS_REFERENCE_REACHED_HEADLINE,
+} from '../../config/nifasReminderConfig';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 
 // ============================================================================
@@ -459,8 +463,8 @@ function SpiritualGuidanceCard({
 
             <Text style={styles.nifasReminderText}>
               {nifasReminderStatus === 'reference_reached'
-                ? 'Le repère présenté par AWA a été atteint.'
-                : 'Le repère présenté par AWA approche.'}
+                ? `${NIFAS_REFERENCE_REACHED_HEADLINE}.`
+                : `${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`}
             </Text>
           </View>
 

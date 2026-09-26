@@ -254,7 +254,7 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
               pressed && enabled !== null && styles.pressed,
             ]}
           >
-            <Text style={styles.nextText}>Suivant</Text>
+            <Text style={styles.nextText}>{route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>

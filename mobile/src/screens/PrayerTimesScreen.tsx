@@ -131,7 +131,7 @@ function PrayerTimesScreen(): React.JSX.Element {
             accessibilityLabel="Réglages des horaires de prière"
             accessibilityRole="button"
             hitSlop={10}
-            onPress={() => navigation.navigate('SpiritualPreferences')}
+            onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
             style={({pressed}) => [styles.headerButton, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="cog-outline" size={22} />
           </Pressable>
@@ -195,7 +195,7 @@ function PrayerTimesScreen(): React.JSX.Element {
         <Animated.View entering={FadeInUp.delay(320).duration(420)}>
           <Pressable
             accessibilityRole="button"
-            onPress={() => navigation.navigate('SpiritualPreferences')}
+            onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
             style={({pressed}) => [styles.guidanceCard, pressed && styles.pressed]}>
             <View style={styles.guidanceIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="book-open-page-variant-outline" size={18} />

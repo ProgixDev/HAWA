@@ -6,6 +6,17 @@
 export const NIFAS_REFERENCE_DAYS = 40;
 export const NIFAS_WARNING_DAYS = 35;
 
+/**
+ * The ONE headline wording of the two Nifas reference states, shared by the
+ * Dashboard banner, the completion popup, the local notification and the
+ * in-app notification history, so the same underlying state (see
+ * getNifasReminderStatus in utils/postpartumTrackingUtils.ts) is always
+ * phrased the same way. Wording only — no rule lives here; the detailed
+ * body texts are unchanged and stay under religious-content review.
+ */
+export const NIFAS_REFERENCE_REACHED_HEADLINE = `Le repère des ${NIFAS_REFERENCE_DAYS} jours retenu par AWA est atteint`;
+export const NIFAS_REFERENCE_APPROACHING_HEADLINE = `Le repère des ${NIFAS_REFERENCE_DAYS} jours retenu par AWA approche`;
+
 
 
 // Bumped so already-scheduled J35/J40 reminders get cancelled and
