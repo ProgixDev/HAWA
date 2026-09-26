@@ -341,7 +341,9 @@ function MenopauseStageScreen({
                 <Text style={styles.nextText}>
                   {saving
                     ? 'Enregistrement…'
-                    : 'Continuer'}
+                    : route.params?.mode === 'edit'
+                      ? 'Enregistrer'
+                      : 'Continuer'}
                 </Text>
 
                 {!saving && (

@@ -77,6 +77,7 @@ import {
 } from '../../config/menopauseJournalConfig';
 
 import {useMenopauseSpiritualStatus} from '../../hooks/usePrayerPurityStatus';
+import {useToday} from '../../hooks/useToday';
 import {formatHijriDate} from '../../utils/cycleMath';
 
 const RING_SIZE = 126;
@@ -85,8 +86,6 @@ const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
 const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-
-const todayKey = (): string => new Date().toLocaleDateString('en-CA');
 
 const STAGE_LABELS = {
   perimenopause: 'Périménopause',
@@ -443,7 +442,9 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const toast = useJournalSaveToast();
 
-  const today = useMemo(() => todayKey(), []);
+  // Local 'YYYY-MM-DD' of the current day, re-evaluated when the day changes /
+  // the app returns to the foreground — see src/hooks/useToday.ts.
+  const {todayKey: today} = useToday();
 
   const entranceAnimation = useRef(new Animated.Value(0)).current;
   const decorativeAnimation = useRef(new Animated.Value(0)).current;

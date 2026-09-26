@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState, useEffect, useRef} from 'react';
 import {
   Modal,
   Pressable,
@@ -10,13 +10,16 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 
@@ -154,11 +157,18 @@ const DEFAULT_CALENDAR_FILTERS: MenopauseCalendarFilters = {
 
 type CalendarSheetMode = 'filters' | 'legend' | null;
 
+// Categories that can be filled in for a PAST day from the selected-day card
+// (MenopauseJournalEntry route param `date`). Plain self-reported tracking
+// data; lab results already carry their own sample date, and the private note
+// is behind the PIN/biometric gate, so neither is offered here.
+const PAST_ENTRY_CATEGORIES: MenopauseJournalCategory[] = ['symptoms', 'mood', 'sleep', 'energy', 'treatment'];
+
 function MenopauseCalendarContent(): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   // The "Résumé de ce mois" rose/amber/blue tiles use MENOPAUSE_COLORS'
   // fixed *Soft tints (never theme-driven — same category-identity colors
@@ -172,13 +182,26 @@ function MenopauseCalendarContent(): React.JSX.Element {
   const energyTileText = pickReadableTextColor(MENOPAUSE_CATEGORY_VISUALS.energy.tint);
   const sleepTileText = pickReadableTextColor(MENOPAUSE_CATEGORY_VISUALS.sleep.tint);
 
-  const today = useMemo(() => new Date(), []);
-  const todayKey = useMemo(() => dateKey(today), [today]);
+  // Re-evaluated when the day changes / the app returns to the foreground —
+  // see src/hooks/useToday.ts.
+  const {today, todayKey} = useToday();
 
   const [visibleMonth, setVisibleMonth] = useState(
     () => new Date(today.getFullYear(), today.getMonth(), 1),
   );
   const [selectedDate, setSelectedDate] = useState(today);
+
+  // A new day began (see src/hooks/useToday.ts): a selection / visible month
+  // that was FOLLOWING today moves to the new day; a date the user pointed at
+  // is never moved. Rule lives in utils/dayRollover.ts.
+  const previousTodayRef = useRef(today);
+  useEffect(() => {
+    const previousToday = previousTodayRef.current;
+    if (previousToday.getTime() === today.getTime()) {return;}
+    previousTodayRef.current = today;
+    setSelectedDate(current => rollSelectedDate(current, previousToday, today));
+    setVisibleMonth(current => rollVisibleMonth(current, previousToday, today));
+  }, [today]);
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
 
@@ -248,8 +271,17 @@ function MenopauseCalendarContent(): React.JSX.Element {
     }, []),
   );
 
-  const showTreatment = preferences.hormonalTreatmentStatus === 'track';
-  const showLab = preferences.labTracking !== null && preferences.labTracking !== 'none';
+  // Preferences say what is offered for NEW tracking; they never hide what was
+  // genuinely recorded. Treatment / lab history therefore stays represented
+  // (markers, legend, selected day) even after the user stops tracking them.
+  const trackingTreatment = preferences.hormonalTreatmentStatus === 'track';
+  const hasTreatmentHistory = useMemo(
+    () => Object.values(entriesByDate).some(entry => Boolean(entry.treatmentStatus)),
+    [entriesByDate],
+  );
+  const hasLabHistory = labResults.length > 0;
+  const showTreatment = trackingTreatment || hasTreatmentHistory;
+  const showLab = (preferences.labTracking !== null && preferences.labTracking !== 'none') || hasLabHistory;
 
   const visibleCategories = useMemo(
     () =>
@@ -263,6 +295,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
 
   const selectedDateKey = useMemo(() => dateKey(selectedDate), [selectedDate]);
   const isSelectedToday = selectedDateKey === todayKey;
+  const isSelectedPast = selectedDateKey < todayKey;
   const selectedEntry = entriesByDate[selectedDateKey];
   const selectedLabResults = useMemo(
     () => labResults.filter(result => result.date === selectedDateKey),
@@ -607,6 +640,28 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 <Text style={styles.emptyText}>Rien n’a encore été enregistré pour cette date.</Text>
               </View>
             )}
+
+            {isSelectedPast ? (
+              <View style={styles.pastEntryBlock}>
+                <Text style={styles.pastEntryTitle}>Renseigner ou modifier ce jour</Text>
+                <View style={styles.pastEntryChips}>
+                  {PAST_ENTRY_CATEGORIES.filter(category => category !== 'treatment' || trackingTreatment).map(category => {
+                    const label = MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category;
+                    return (
+                      <Pressable
+                        accessibilityLabel={`${label} : renseigner ce jour`}
+                        accessibilityRole="button"
+                        key={category}
+                        onPress={() => navigation.navigate('MenopauseJournalEntry', {category, date: selectedDateKey})}
+                        style={({pressed}) => [styles.pastEntryChip, pressed && styles.pressed]}>
+                        <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS[category].iconColor} name={MENOPAUSE_CATEGORY_VISUALS[category].icon} size={14} />
+                        <Text style={styles.pastEntryChipText}>{label}</Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+              </View>
+            ) : null}
 
             {isSelectedToday ? (
               <Pressable
@@ -1131,6 +1186,16 @@ function createStyles(theme: ResolvedAwaTheme) {
     backgroundColor: theme.colors.surfaceSecondary,
   },
   editRowText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '800'},
+
+  pastEntryBlock: {marginTop: 10},
+  pastEntryTitle: {color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '700', marginBottom: 6},
+  pastEntryChips: {flexDirection: 'row', flexWrap: 'wrap', gap: 8},
+  pastEntryChip: {
+    flexDirection: 'row', alignItems: 'center', gap: 6, minHeight: 40, paddingHorizontal: 12,
+    borderWidth: 1, borderColor: withAlpha(theme.colors.primary, 0.14), borderRadius: 14,
+    backgroundColor: theme.colors.surfaceSecondary,
+  },
+  pastEntryChipText: {color: theme.colors.accent, fontSize: 12, fontWeight: '700'},
 
   summaryTitle: {color: theme.colors.accent, fontFamily: 'serif', fontSize: 16, fontWeight: '800', marginBottom: 12},
   summaryGrid: {flexDirection: 'row', flexWrap: 'wrap', gap: 10},

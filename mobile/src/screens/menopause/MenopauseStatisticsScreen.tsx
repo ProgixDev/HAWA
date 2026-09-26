@@ -1,6 +1,7 @@
-import React, {useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -9,6 +10,8 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 import {
   getAllMenopauseJournalEntries,
   getMenopauseLabResults,
+  hydrateMenopauseJournal,
+  subscribeMenopauseJournal,
   type MenopauseJournalEntry,
 } from '../../state/menopauseJournalStore';
 import {
@@ -20,10 +23,17 @@ import {
   MENOPAUSE_MOOD_LABELS,
   MENOPAUSE_SYMPTOM_OPTIONS,
 } from '../../config/menopauseJournalConfig';
-import {getMenopausePreferences} from '../../state/menopausePreferences';
+import {
+  getMenopausePreferences,
+  hydrateMenopausePreferences,
+  subscribeMenopausePreferences,
+} from '../../state/menopausePreferences';
 import {getFloatingTabBarClearance, getTopPadding, spacing} from '../../theme/spacing';
 import type {MoodLevel} from '../../types/journal';
 import {usePremium} from '../../hooks/usePremium';
+import {useToday} from '../../hooks/useToday';
+import {endOfStatisticsDay} from '../../utils/cycleStatisticsMath';
+import {startOfDay} from '../../utils/cycleMath';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import {
   buildLabChartPoints,
@@ -131,7 +141,45 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
   const [period, setPeriod] = useState<PeriodOption>(PERIODS[0]);
-  const preferences = useMemo(() => getMenopausePreferences(), []);
+  const [preferences, setPreferences] = useState(getMenopausePreferences);
+  // Snapshots of the journal stores. This screen stays mounted in the tab
+  // navigator, so a mount-time read went stale as soon as the user recorded
+  // something elsewhere. They are refreshed on focus AND on every store change
+  // (same useFocusEffect + hydrate + subscribe combo as the Menopause
+  // Dashboard/Calendar) — a pure re-read, nothing is written, and the selected
+  // period / Premium sheet / scroll position are untouched. This is separate
+  // from the local-day trigger (useToday) below.
+  const [entriesByDate, setEntriesByDate] = useState(getAllMenopauseJournalEntries);
+  const [labResults, setLabResults] = useState(() => getMenopauseLabResults());
+
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      const reload = () => {
+        if (!active) {return;}
+        setEntriesByDate(getAllMenopauseJournalEntries());
+        setLabResults(getMenopauseLabResults());
+      };
+
+      hydrateMenopauseJournal().then(reload);
+      hydrateMenopausePreferences().then(value => {
+        if (active) {setPreferences(value);}
+      });
+      const unsubscribeJournal = subscribeMenopauseJournal(reload);
+      const unsubscribePreferences = subscribeMenopausePreferences(() => {
+        if (active) {setPreferences(getMenopausePreferences());}
+      });
+      // Refresh once on focus too: hydrate resolves immediately when the store
+      // is already hydrated, but the snapshot above may predate later saves.
+      reload();
+
+      return () => {
+        active = false;
+        unsubscribeJournal();
+        unsubscribePreferences();
+      };
+    }, []),
+  );
 
   const handleSelectPeriod = (target: PeriodOption): void => {
     if (!isPeriodFree(target) && !isPremium) {
@@ -144,16 +192,31 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
   // Extracted so the NEW lab-result filtering below shares the exact same
   // cutoff as every existing journal-entry stat — the period now genuinely
   // governs the whole screen, not just the journal-derived cards.
+  // Recomputed when the local day changes / the app returns to the
+  // foreground — see src/hooks/useToday.ts.
+  const {todayKey} = useToday();
+  // Calendar-day window (same rule as every other objective's statistics, see
+  // cycleStatisticsMath.endOfStatisticsDay): the first day counts from 00:00
+  // and today is included at any hour.
   const periodCutoff = useMemo(() => {
     const cutoff = new Date();
     cutoff.setMonth(cutoff.getMonth() - period.months);
-    return cutoff;
-  }, [period]);
+    return startOfDay(cutoff);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- todayKey is the day-change trigger
+  }, [period, todayKey]);
+  const periodEnd = useMemo(
+    () => endOfStatisticsDay(new Date()),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- todayKey is the day-change trigger
+    [todayKey],
+  );
 
   const entriesInPeriod = useMemo(() => {
-    const allEntries = Object.values(getAllMenopauseJournalEntries());
-    return allEntries.filter((entry: MenopauseJournalEntry) => new Date(`${entry.date}T12:00:00`) >= periodCutoff);
-  }, [periodCutoff]);
+    const allEntries = Object.values(entriesByDate);
+    return allEntries.filter((entry: MenopauseJournalEntry) => {
+      const time = new Date(`${entry.date}T12:00:00`).getTime();
+      return time >= periodCutoff.getTime() && time <= periodEnd.getTime();
+    });
+  }, [entriesByDate, periodCutoff, periodEnd]);
 
   const showLongitudinalView = period.key !== '1m';
 
@@ -231,11 +294,11 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
      govern the whole screen — never silently mixed with older results.
   ========================================================== */
 
-  const allFshResults = getMenopauseLabResults('fsh');
-  const allEstradiolResults = getMenopauseLabResults('estradiol');
+  const allFshResults = useMemo(() => labResults.filter(result => result.type === 'fsh'), [labResults]);
+  const allEstradiolResults = useMemo(() => labResults.filter(result => result.type === 'estradiol'), [labResults]);
 
-  const fshResults = useMemo(() => filterLabResultsForPeriod(allFshResults, periodCutoff), [allFshResults, periodCutoff]);
-  const estradiolResults = useMemo(() => filterLabResultsForPeriod(allEstradiolResults, periodCutoff), [allEstradiolResults, periodCutoff]);
+  const fshResults = useMemo(() => filterLabResultsForPeriod(allFshResults, periodCutoff, periodEnd), [allFshResults, periodCutoff, periodEnd]);
+  const estradiolResults = useMemo(() => filterLabResultsForPeriod(allEstradiolResults, periodCutoff, periodEnd), [allEstradiolResults, periodCutoff, periodEnd]);
 
   const fshChartPoints = useMemo(
     () => buildLabChartPoints(fshResults).map(point => ({...point, label: formatResultDate(point.label)})),
@@ -246,9 +309,20 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
     [estradiolResults],
   );
 
-  const showTreatment = preferences.hormonalTreatmentStatus === 'track';
-  const showLab = preferences.labTracking !== null && preferences.labTracking !== 'none';
-  const hasAnyData = daysTracked > 0;
+  // Preferences describe what is offered for NEW tracking. They never hide what
+  // was genuinely recorded in the selected period: treatment / lab history keeps
+  // being represented after the user stops tracking them (symptoms, mood, sleep
+  // and energy are never preference-filtered here).
+  const trackingLabFsh = preferences.labTracking === 'fsh' || preferences.labTracking === 'both';
+  const trackingLabEstradiol = preferences.labTracking === 'estradiol' || preferences.labTracking === 'both';
+  const showTreatment = preferences.hormonalTreatmentStatus === 'track' || treatmentEntries.length > 0;
+  const showFshBlock = trackingLabFsh || fshResults.length > 0;
+  const showEstradiolBlock = trackingLabEstradiol || estradiolResults.length > 0;
+  const showLab = showFshBlock || showEstradiolBlock;
+  // A period with only lab results (no daily journal entry) is NOT empty.
+  const hasJournalData = daysTracked > 0;
+  const hasLabData = fshResults.length + estradiolResults.length > 0;
+  const hasAnyData = hasJournalData || hasLabData;
 
   return (
     <View style={styles.background}>
@@ -285,6 +359,17 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
           </View>
         ) : (
           <>
+            {!hasJournalData ? (
+              <View style={styles.card}>
+                <EmptyCardState
+                  text="Seuls des résultats d’analyses sont enregistrés sur cette période ; ils sont affichés ci-dessous."
+                  title="Aucun suivi quotidien sur cette période"
+                />
+              </View>
+            ) : null}
+
+            {hasJournalData ? (
+            <>
             <View style={styles.card}>
               <Text style={styles.cardTitle}>Aperçu</Text>
               <View style={styles.overviewGrid}>
@@ -449,11 +534,14 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
               </View>
             ) : null}
 
+            </>
+            ) : null}
+
             {showLab ? (
               <View style={styles.card}>
                 <Text style={styles.cardTitle}>Historique des analyses</Text>
                 <Text style={styles.trendHint}>Résultats de {period.label} · "Dernier résultat" = le plus récent sur cette période.</Text>
-                {(preferences.labTracking === 'fsh' || preferences.labTracking === 'both') ? (
+                {showFshBlock ? (
                   <View style={styles.labBlock}>
                     <View style={styles.labBlockHeader}>
                       <MaterialDesignIcons color="#4D8791" name={MENOPAUSE_LAB_TYPE_ICONS.fsh} size={15} />
@@ -480,7 +568,7 @@ function MenopauseStatisticsScreen(): React.JSX.Element {
                     )}
                   </View>
                 ) : null}
-                {(preferences.labTracking === 'estradiol' || preferences.labTracking === 'both') ? (
+                {showEstradiolBlock ? (
                   <View style={styles.labBlock}>
                     <View style={styles.labBlockHeader}>
                       <MaterialDesignIcons color="#4D8791" name={MENOPAUSE_LAB_TYPE_ICONS.estradiol} size={15} />

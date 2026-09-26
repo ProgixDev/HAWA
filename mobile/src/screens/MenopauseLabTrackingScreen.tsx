@@ -355,7 +355,9 @@ function MenopauseLabTrackingScreen({
                 <Text style={styles.nextText}>
                   {saving
                     ? 'Enregistrement…'
-                    : 'Commencer mon suivi'}
+                    : route.params?.mode === 'edit'
+                      ? 'Enregistrer'
+                      : 'Commencer mon suivi'}
                 </Text>
 
                 {!saving && (
