@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Modal, Switch, Text} from 'react-native';
+import {Switch, Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -10,6 +10,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
+import {PartnerPreviewModal} from '../AwaADeuxDialogs';
 import {SHARING_SECTIONS, SUPPORT_CONTENT} from '../awaADeuxDemo';
 import {
   AWA_A_DEUX_SHARING_STORAGE_KEY,
@@ -71,22 +72,29 @@ const flip = async (renderer: ReactTestRenderer.ReactTestRenderer, key: SharingK
   });
   await settle();
 };
-const openPreview = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
-  const open = renderer.root.find(node => node.props.accessibilityLabel === 'Voir un aperçu du côté partenaire' && typeof node.props.onPress === 'function');
+// The preview button/entry point was intentionally removed from THIS screen
+// ("Choisissez ce que vous souhaitez partager") — see AwaADeuxSharingScreen.tsx's header
+// comment. `PartnerPreviewModal` itself (AwaADeuxDialogs.tsx) is untouched and still used
+// elsewhere (AwaADeuxPartnerConnectedScreen.tsx's own "Voir l’aperçu partenaire"), so its
+// reactivity to the SAME saved sharing choices is exercised here by rendering it directly
+// — always visible, reacting live to setSharingToggle()/setSelectedObjective() through its
+// own useAwaADeuxSharing() subscription, exactly as it does wherever it is actually opened.
+async function renderPreview() {
+  let renderer!: ReactTestRenderer.ReactTestRenderer;
   await act(async () => {
-    open.props.onPress();
+    renderer = ReactTestRenderer.create(
+      <SafeAreaProvider initialMetrics={TEST_METRICS}>
+        <AwaThemeProvider>
+          <PartnerPreviewModal onClose={() => {}} visible />
+        </AwaThemeProvider>
+      </SafeAreaProvider>,
+    );
   });
+  activeRenderers.push(renderer);
   await settle();
-  return renderer.root.findAllByType(Modal).find(modal => modal.props.visible === true)!;
-};
-const closePreview = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
-  const close = renderer.root.findAll(node => node.props.accessibilityLabel === 'Fermer' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function').pop()!;
-  await act(async () => {
-    close.props.onPress();
-  });
-  await settle();
-};
-const previewTexts = (modal: ReactTestRenderer.ReactTestInstance) => modal.findAllByType(Text).map(textOf);
+  return renderer;
+}
+const previewTexts = (renderer: ReactTestRenderer.ReactTestRenderer) => renderer.root.findAllByType(Text).map(textOf);
 
 // What the preview shows for each choice (the label of its block).
 const PREVIEW_LABEL: Record<SharingKey, string> = {
@@ -319,15 +327,14 @@ describe('every switch', () => {
   });
 });
 
-describe('the partner preview follows the choices', () => {
+describe('the partner preview follows the choices (rendered directly — see renderPreview()’s comment)', () => {
   it('shows a block only when its switch is ON — checked for each of the eleven choices', async () => {
     await setSelectedObjective('pregnancy');
     for (const key of SHARING_KEYS) {
       await allOff();
       await setSharingToggle(key, true);
-      const renderer = await renderScreen();
-      const modal = await openPreview(renderer);
-      const texts = previewTexts(modal);
+      const renderer = await renderPreview();
+      const texts = previewTexts(renderer);
       expect(texts).toContain(PREVIEW_LABEL[key]);
       SHARING_KEYS.filter(other => other !== key && PREVIEW_LABEL[other] !== PREVIEW_LABEL[key]).forEach(other => {
         expect(texts).not.toContain(PREVIEW_LABEL[other]);
@@ -337,22 +344,20 @@ describe('the partner preview follows the choices', () => {
     }
   });
 
-  it('"Fenêtre fertile" OFF → it does not appear; ON → it appears; changing it and reopening updates the preview', async () => {
-    const renderer = await renderScreen();
-    let modal = await openPreview(renderer);
-    expect(previewTexts(modal)).not.toContain('Fenêtre fertile');
-    await closePreview(renderer);
+  it('"Fenêtre fertile" OFF → it does not appear; ON → it appears; turning it back off removes it again', async () => {
+    await setSharingToggle('fertileWindow', false);
+    const renderer = await renderPreview();
+    expect(previewTexts(renderer)).not.toContain('Fenêtre fertile');
 
-    await flip(renderer, 'fertileWindow', true);
-    modal = await openPreview(renderer);
-    expect(previewTexts(modal)).toContain('Fenêtre fertile');
-    expect(previewTexts(modal)).toContain('Dans 3 jours');
-    await closePreview(renderer);
+    await setSharingToggle('fertileWindow', true);
+    await settle();
+    expect(previewTexts(renderer)).toContain('Fenêtre fertile');
+    expect(previewTexts(renderer)).toContain('Dans 3 jours');
 
-    await flip(renderer, 'fertileWindow', false);
-    modal = await openPreview(renderer);
-    expect(previewTexts(modal)).not.toContain('Fenêtre fertile');
-    expect(previewTexts(modal)).not.toContain('Dans 3 jours');
+    await setSharingToggle('fertileWindow', false);
+    await settle();
+    expect(previewTexts(renderer)).not.toContain('Fenêtre fertile');
+    expect(previewTexts(renderer)).not.toContain('Dans 3 jours');
   });
 
   it('the documented example: cycle day, next period and mood only', async () => {
@@ -360,37 +365,35 @@ describe('the partner preview follows the choices', () => {
     await setSharingToggle('cycleDay', true);
     await setSharingToggle('nextPeriod', true);
     await setSharingToggle('mood', true);
-    const renderer = await renderScreen();
-    const texts = previewTexts(await openPreview(renderer));
+    const renderer = await renderPreview();
+    const texts = previewTexts(renderer);
     ['Jour du cycle', 'Prochaines règles', 'Humeur'].forEach(label => expect(texts).toContain(label));
     ['Règles', 'Fenêtre fertile', 'Ovulation estimée', 'Fertilité', 'Grossesse', 'Accouchement prévu', 'Développement de bébé', 'Conseil du jour'].forEach(label => expect(texts).not.toContain(label));
   });
 
   it('pregnancy items saved as ON never reach the preview outside pregnancy mode (and come back in pregnancy mode)', async () => {
     for (const key of PREGNANCY_KEYS) {await setSharingToggle(key, true);}
-    const renderer = await renderScreen();
-    let texts = previewTexts(await openPreview(renderer));
-    ['Grossesse', 'Accouchement prévu', 'Développement de bébé', 'Semaine 12'].forEach(label => expect(texts).not.toContain(label));
-    await closePreview(renderer);
+    const renderer = await renderPreview();
+    expect(previewTexts(renderer)).not.toEqual(
+      expect.arrayContaining(['Grossesse', 'Accouchement prévu', 'Développement de bébé']),
+    );
 
     await act(async () => {
       await setSelectedObjective('pregnancy');
     });
     await settle();
-    expect(toggle(renderer, 'pregnancyWeek').props.value).toBe(true); // the choice was kept, only hidden
-    texts = previewTexts(await openPreview(renderer));
-    ['Grossesse', 'Accouchement prévu', 'Développement de bébé'].forEach(label => expect(texts).toContain(label));
+    ['Grossesse', 'Accouchement prévu', 'Développement de bébé'].forEach(label => expect(previewTexts(renderer)).toContain(label));
   });
 
   it('the support tips are always in the preview; the recommendation is general unless the cycle day / phase is shared', async () => {
-    const renderer = await renderScreen();
-    let texts = previewTexts(await openPreview(renderer));
+    const renderer = await renderPreview();
+    let texts = previewTexts(renderer);
     expect(texts).toContain('Pour la soutenir');
     expect(texts).toContain('Phase actuelle : privilégiez le repos et la douceur.');
-    await closePreview(renderer);
 
-    await flip(renderer, 'cycleDay', false);
-    texts = previewTexts(await openPreview(renderer));
+    await setSharingToggle('cycleDay', false);
+    await settle();
+    texts = previewTexts(renderer);
     expect(texts).toContain('Pour la soutenir');
     expect(texts).toContain('Restez à l’écoute et proposez votre aide.');
     expect(texts).not.toContain('Phase actuelle : privilégiez le repos et la douceur.');
@@ -400,10 +403,23 @@ describe('the partner preview follows the choices', () => {
 
   it('with everything off the preview says nothing personal is shared (support content aside)', async () => {
     await allOff();
-    const renderer = await renderScreen();
-    const texts = previewTexts(await openPreview(renderer));
+    const renderer = await renderPreview();
+    const texts = previewTexts(renderer);
     ['Jour du cycle', 'Prochaines règles', 'Humeur', 'Conseil du jour'].forEach(label => expect(texts).not.toContain(label));
     expect(texts).toContain('Pour la soutenir');
+  });
+});
+
+describe('the sharing screen no longer offers its own preview entry point', () => {
+  it('does not render "Voir un aperçu du côté partenaire" (the preview stays reachable elsewhere, e.g. AwaADeuxPartnerConnectedScreen)', async () => {
+    const renderer = await renderScreen();
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Voir un aperçu du côté partenaire')).toHaveLength(0);
+    expect(textsOf(renderer)).not.toContain('Voir un aperçu du côté partenaire');
+  });
+
+  it('no unused import/handler for the removed button remains in source', () => {
+    const source = fs.readFileSync(path.resolve(__dirname, '../AwaADeuxSharingScreen.tsx'), 'utf8');
+    expect(source).not.toMatch(/PartnerPreviewModal|previewOpen|setPreviewOpen/);
   });
 });
 
