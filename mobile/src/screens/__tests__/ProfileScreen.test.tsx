@@ -175,6 +175,119 @@ describe('ProfileScreen — content preserved', () => {
 });
 
 /* ============================================================
+   "Se déconnecter" confirmation — a premium AWA dialog replacing the
+   previous Alert.alert(), the EXISTING logout behavior unchanged. A
+   dedicated render helper is used here (never touching the shared
+   renderScreen() other tests rely on) so the navigation mock can expose a
+   getParent().reset() spy without changing renderScreen()'s return shape.
+============================================================ */
+
+async function renderScreenForLogout() {
+  const resetSpy = jest.fn();
+  const navigation = {
+    navigate: jest.fn(),
+    getParent: () => ({reset: resetSpy}),
+  } as never;
+  let renderer!: ReactTestRenderer.ReactTestRenderer;
+  await act(async () => {
+    renderer = ReactTestRenderer.create(
+      <SafeAreaProvider initialMetrics={TEST_METRICS}>
+        <AwaThemeProvider>
+          <NavigationContainer ref={navRef}>
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen name="Profile">
+                {() => <ProfileScreen navigation={navigation} route={{key: 'test', name: 'Profile'}} />}
+              </Stack.Screen>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </AwaThemeProvider>
+      </SafeAreaProvider>,
+    );
+  });
+  activeRenderers.push(renderer);
+  return {renderer, resetSpy};
+}
+
+const pressButton = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
+  const matches = renderer.root.findAll(node => node.props.accessibilityLabel === label && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function');
+  expect(matches.length).toBeGreaterThan(0);
+  await act(async () => {
+    matches[matches.length - 1].props.onPress();
+  });
+};
+
+describe('ProfileScreen — "Se déconnecter" confirmation dialog', () => {
+  it('is closed by default; tapping "Se déconnecter" opens the AWA-styled dialog (never a system Alert) with the exact title/description/reassurance', async () => {
+    const {Alert} = require('react-native');
+    const alertSpy = jest.spyOn(Alert, 'alert');
+    const {renderer} = await renderScreenForLogout();
+    expect(renderer.root.findAll(node => node.props.children === 'Se déconnecter ?')).toHaveLength(0);
+
+    await pressButton(renderer, 'Se déconnecter');
+    expect(alertSpy).not.toHaveBeenCalled();
+    const texts = renderer.root.findAllByType(Text).map(node => [node.props.children].flat(Infinity).join(''));
+    expect(texts).toContain('Se déconnecter ?');
+    expect(texts).toContain('Voulez-vous vraiment vous déconnecter de votre compte AWA ?');
+    expect(texts).toContain('Vous pourrez vous reconnecter à tout moment.');
+  });
+
+  it('"Annuler" closes the dialog without executing logout', async () => {
+    const {renderer, resetSpy} = await renderScreenForLogout();
+    await pressButton(renderer, 'Se déconnecter');
+    expect(renderer.root.findAll(node => node.props.children === 'Se déconnecter ?').length).toBeGreaterThan(0);
+
+    await pressButton(renderer, 'Annuler');
+    expect(renderer.root.findAll(node => node.props.children === 'Se déconnecter ?')).toHaveLength(0);
+    expect(resetSpy).not.toHaveBeenCalled();
+  });
+
+  it('"Confirmer la déconnexion" executes the existing logout behavior exactly once, even on rapid double taps', async () => {
+    const {renderer, resetSpy} = await renderScreenForLogout();
+    await pressButton(renderer, 'Se déconnecter');
+    await act(async () => {
+      const confirm = renderer.root.findAll(node => node.props.accessibilityLabel === 'Confirmer la déconnexion' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function');
+      confirm[confirm.length - 1].props.onPress();
+      confirm[confirm.length - 1].props.onPress();
+    });
+    expect(resetSpy).toHaveBeenCalledTimes(1);
+    expect(resetSpy).toHaveBeenCalledWith({index: 0, routes: [{name: 'Auth'}]});
+    expect(renderer.root.findAll(node => node.props.children === 'Se déconnecter ?')).toHaveLength(0);
+  });
+
+  it('can be opened again after being cancelled', async () => {
+    const {renderer} = await renderScreenForLogout();
+    await pressButton(renderer, 'Se déconnecter');
+    await pressButton(renderer, 'Annuler');
+    await pressButton(renderer, 'Se déconnecter');
+    expect(renderer.root.findAll(node => node.props.children === 'Se déconnecter ?').length).toBeGreaterThan(0);
+  });
+
+  it('works in both light and dark mode (theme-driven colors, nothing hardcoded)', async () => {
+    const {renderer} = await renderScreenForLogout();
+    await pressButton(renderer, 'Se déconnecter');
+    const light = resolveAwaTheme('awa-original', false, false);
+    const iconCircle = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderRadius === 28 && flattenStyle(node.props?.style).width === 56)[0];
+    expect(flattenStyle(iconCircle().props.style).backgroundColor).not.toBe(flattenStyle(iconCircle().props.style).borderColor);
+
+    const cardOf = () => renderer.root.findAll(node => typeof node.type === 'string' && flattenStyle(node.props?.style).borderRadius === 26 && flattenStyle(node.props?.style).maxWidth === 400)[0];
+    expect(flattenStyle(cardOf().props.style).backgroundColor).toBe(light.colors.surface);
+
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+    const dark = resolveAwaTheme('awa-original', true, false);
+    expect(flattenStyle(cardOf().props.style).backgroundColor).toBe(dark.colors.surface);
+    expect(flattenStyle(cardOf().props.style).backgroundColor).not.toBe(light.colors.surface);
+  });
+
+  it('does not modify any unrelated ProfileScreen section (Apparence / Confidentialité & Sécurité rows still render)', async () => {
+    const {renderer} = await renderScreenForLogout();
+    expect(renderer.root.findAll(node => node.props.children === 'Apparence').length).toBeGreaterThan(0);
+    expect(renderer.root.findAll(node => node.props.children === 'Confidentialité & Sécurité').length).toBeGreaterThan(0);
+  });
+});
+
+/* ============================================================
    IDENTITY MODE — normal vs anonymous. ProfileScreen already branches its
    entire identity presentation on securityPreferences.ts's single
    `anonymousMode` flag (the same one AnonymousModeScreen/

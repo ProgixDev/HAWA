@@ -796,6 +796,69 @@ function MenuRow({
   );
 }
 
+/**
+ * "Se déconnecter ?" confirmation — replaces the previous Alert.alert() with a dialog
+ * that visually belongs to this screen (same radius/shadow/typography scale as its own
+ * cards and sheets). Executes the EXISTING logout callback unchanged via `onConfirm` —
+ * no authentication/session/navigation logic lives in this component.
+ */
+function LogoutConfirmModal({
+  visible,
+  onCancel,
+  onConfirm,
+}: {
+  visible: boolean;
+  onCancel: () => void;
+  onConfirm: () => void;
+}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  // A rapid double tap confirms once — same guard convention as the app's other
+  // destructive confirmations (e.g. QadaaDeleteConfirmModal.tsx).
+  const confirmingRef = useRef(false);
+  useEffect(() => {
+    if (visible) {confirmingRef.current = false;}
+  }, [visible]);
+  const confirm = () => {
+    if (confirmingRef.current) {return;}
+    confirmingRef.current = true;
+    onConfirm();
+  };
+  return (
+    <Modal animationType="fade" onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
+      <View style={styles.logoutDialogRoot}>
+        <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onCancel} style={styles.logoutDialogBackdrop} />
+        <View accessibilityViewIsModal style={styles.logoutDialogCard}>
+          <View importantForAccessibility="no-hide-descendants" style={styles.logoutDialogIconCircle}>
+            <MaterialDesignIcons color={theme.colors.danger} name="logout" size={26} />
+          </View>
+
+          <Text accessibilityRole="header" style={styles.logoutDialogTitle}>Se déconnecter ?</Text>
+          <Text style={styles.logoutDialogBody}>Voulez-vous vraiment vous déconnecter de votre compte AWA ?</Text>
+          <Text style={styles.logoutDialogReassurance}>Vous pourrez vous reconnecter à tout moment.</Text>
+
+          <View style={styles.logoutDialogActions}>
+            <Pressable
+              accessibilityLabel="Annuler"
+              accessibilityRole="button"
+              onPress={onCancel}
+              style={({pressed}) => [styles.logoutDialogButton, styles.logoutDialogCancelButton, pressed && styles.logoutDialogPressed]}>
+              <Text style={styles.logoutDialogCancelText}>Annuler</Text>
+            </Pressable>
+            <Pressable
+              accessibilityLabel="Confirmer la déconnexion"
+              accessibilityRole="button"
+              onPress={confirm}
+              style={({pressed}) => [styles.logoutDialogButton, styles.logoutDialogDestructiveButton, pressed && styles.logoutDialogPressed]}>
+              <Text style={[styles.logoutDialogDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>Se déconnecter</Text>
+            </Pressable>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
 function SectionHeader({
   icon,
   title,
@@ -831,6 +894,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const [premiumVisible, setPremiumVisible] = useState(false);
+  const [logoutDialogVisible, setLogoutDialogVisible] = useState(false);
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
 
@@ -1277,36 +1341,25 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     setSpiritualEnabled(enabled);
   };
 
-  const confirmSignOut = () =>
-    Alert.alert(
-      'Se déconnecter ?',
-      'Tu devras te reconnecter pour retrouver ton profil.',
-      [
-        {
-          text: 'Annuler',
-          style: 'cancel',
-        },
-        {
-          text: 'Se déconnecter',
-          style: 'destructive',
+  const confirmSignOut = () => setLogoutDialogVisible(true);
 
-          onPress: () => {
-            lockIntimacy();
+  // Existing logout behavior, unchanged — only how it is confirmed changed (a premium
+  // AWA-styled dialog instead of a generic system Alert).
+  const executeSignOut = () => {
+    setLogoutDialogVisible(false);
+    lockIntimacy();
 
-            navigation
-              .getParent<NativeStackNavigationProp<RootStackParamList>>()
-              ?.reset({
-                index: 0,
-                routes: [
-                  {
-                    name: 'Auth',
-                  },
-                ],
-              });
+    navigation
+      .getParent<NativeStackNavigationProp<RootStackParamList>>()
+      ?.reset({
+        index: 0,
+        routes: [
+          {
+            name: 'Auth',
           },
-        },
-      ],
-    );
+        ],
+      });
+  };
 
   return (
     <LinearGradient
@@ -2421,6 +2474,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           )}
         </ScrollView>
         <HawaPremiumBottomSheet visible={premiumVisible} onClose={() => setPremiumVisible(false)} />
+
+        <LogoutConfirmModal
+          onCancel={() => setLogoutDialogVisible(false)}
+          onConfirm={executeSignOut}
+          visible={logoutDialogVisible}
+        />
 
         {/* =====================================================
             OBJECTIVE MODAL
@@ -3979,6 +4038,62 @@ pageGlowBottom: {
     lineHeight: 19,
     fontWeight: '700',
   },
+
+  // "Se déconnecter ?" confirmation — same destructive-confirmation visual pattern
+  // already established elsewhere in AWA (QadaaDeleteConfirmModal.tsx / the AWA à deux
+  // partner profile's own logout dialog): fade-in transparent Modal, dismiss-on-backdrop-
+  // tap, danger-tinted icon circle, serif title, centered body, bordered "cancel" + solid
+  // destructive button. Nothing here is hardcoded — every color comes from `theme`.
+  logoutDialogRoot: {flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 20},
+  logoutDialogBackdrop: {...StyleSheet.absoluteFillObject, backgroundColor: withAlpha(theme.shadow.shadowColor, 0.5)},
+  logoutDialogCard: {
+    width: '100%',
+    maxWidth: 400,
+    alignItems: 'center',
+    borderRadius: 26,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.surface,
+    paddingHorizontal: 20,
+    paddingTop: 24,
+    paddingBottom: 20,
+    elevation: 12,
+  },
+  logoutDialogIconCircle: {
+    width: 56,
+    height: 56,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 28,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.danger, 0.3),
+    backgroundColor: withAlpha(theme.colors.danger, 0.12),
+  },
+  logoutDialogTitle: {
+    marginTop: 14,
+    color: theme.colors.text,
+    fontFamily: 'serif',
+    fontSize: 21,
+    fontWeight: '700',
+    lineHeight: 27,
+    textAlign: 'center',
+  },
+  logoutDialogBody: {marginTop: 10, color: theme.colors.textSecondary, fontSize: 13.5, lineHeight: 20, textAlign: 'center'},
+  logoutDialogReassurance: {marginTop: 6, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18, textAlign: 'center'},
+  logoutDialogActions: {marginTop: 20, flexDirection: 'row', gap: 10, alignSelf: 'stretch'},
+  logoutDialogButton: {
+    flex: 1,
+    minHeight: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 18,
+    paddingHorizontal: 10,
+  },
+  logoutDialogCancelButton: {borderWidth: 1.4, borderColor: theme.colors.primary, backgroundColor: theme.colors.surface},
+  logoutDialogCancelText: {color: theme.colors.primary, fontSize: 15, fontWeight: '700'},
+  logoutDialogDestructiveButton: {backgroundColor: theme.colors.danger},
+  logoutDialogDestructiveText: {fontSize: 15, fontWeight: '700'},
+  logoutDialogPressed: {opacity: 0.85},
 
   anonymousExit: {
     borderColor: withAlpha(theme.colors.primary, 0.28),
