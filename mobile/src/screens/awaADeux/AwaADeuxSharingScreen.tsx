@@ -1,5 +1,5 @@
-import React, {useMemo, useState} from 'react';
-import {Pressable, StyleSheet, Switch, Text, View} from 'react-native';
+import React, {useMemo} from 'react';
+import {StyleSheet, Switch, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
@@ -10,7 +10,6 @@ import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
-import {PartnerPreviewModal} from './AwaADeuxDialogs';
 import {SHARING_SECTIONS, SUPPORT_CONTENT} from './awaADeuxDemo';
 
 // "AWA à deux" — step 3: what she chooses to share, in four categories.
@@ -39,7 +38,6 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
   //  - "manage": opened from "Partenaire associé" → the choices are saved as they change, so
   //    the button simply goes back there.
   const managing = route.params?.mode === 'manage';
-  const [previewOpen, setPreviewOpen] = useState(false);
 
   const sections = SHARING_SECTIONS.filter(section => !section.pregnancyOnly || isPregnant);
 
@@ -89,20 +87,6 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
           </View>
         </Reveal>
       ))}
-
-      <Reveal index={sections.length}>
-        <Pressable
-          accessibilityLabel="Voir un aperçu du côté partenaire"
-          accessibilityRole="button"
-          onPress={() => setPreviewOpen(true)}
-          style={({pressed}) => [styles.previewButton, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="eye-outline" size={20} />
-          <Text maxFontSizeMultiplier={1.2} style={styles.previewText}>Voir un aperçu du côté partenaire</Text>
-        </Pressable>
-      </Reveal>
-
-      {/* The same preview as the partner screen (one implementation), built from the CURRENT choices. */}
-      <PartnerPreviewModal onClose={() => setPreviewOpen(false)} visible={previewOpen} />
     </AwaADeuxStepLayout>
   );
 }
@@ -139,19 +123,5 @@ function createStyles(theme: ResolvedAwaTheme) {
     rowCopy: {flex: 1, minWidth: 0},
     rowLabel: {flex: 1, minWidth: 0, color: theme.colors.text, fontSize: 14.5, lineHeight: 20, fontWeight: '600'},
     rowNote: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
-    previewButton: {
-      minHeight: 54,
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 10,
-      borderWidth: 1.2,
-      borderColor: withAlpha(theme.colors.primary, 0.4),
-      borderRadius: 20,
-      backgroundColor: theme.colors.primarySoft,
-      paddingHorizontal: 16,
-    },
-    previewText: {color: theme.colors.primary, fontSize: 14.5, fontWeight: '700'},
-    pressed: {opacity: 0.85},
   });
 }
