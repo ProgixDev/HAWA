@@ -4,7 +4,7 @@ import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
 import {Modal, Switch, Text, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
+import {CommonActions, NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
@@ -16,11 +16,13 @@ import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import AwaADeuxBenefitsScreen from '../AwaADeuxBenefitsScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
+import AwaADeuxPendingScreen from '../AwaADeuxPendingScreen';
 import AwaADeuxPartnerConnectedScreen from '../AwaADeuxPartnerConnectedScreen';
+import {PartnerPreviewModal} from '../AwaADeuxDialogs';
 import {awaADeuxEntryRoute} from '../awaADeuxNavigation';
 import {getDemoPartnerState, simulatePartnerConnected, stopDemoSharing} from '../../../state/awaADeuxDemoStore';
 import {DEFAULT_SHARING_TOGGLES, SHARING_KEYS, setSharingToggle} from '../../../state/awaADeuxSharingStore';
-import {clearAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
+import {clearAwaADeuxPartnerName, setAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {updatePrivacySecuritySettings} from '../../../state/securityPreferences';
@@ -73,6 +75,7 @@ async function renderApp() {
               <Stack.Screen component={AwaADeuxBenefitsScreen as never} name="AwaADeuxBenefits" />
               <Stack.Screen component={AwaADeuxSharingScreen as never} name="AwaADeuxSharing" />
               <Stack.Screen component={AwaADeuxPairingScreen as never} name="AwaADeuxPairing" />
+              <Stack.Screen component={AwaADeuxPendingScreen as never} name="AwaADeuxPending" />
               <Stack.Screen component={AwaADeuxPartnerConnectedScreen as never} name="AwaADeuxPartnerConnected" />
             </Stack.Navigator>
           </NavigationContainer>
@@ -86,6 +89,30 @@ async function renderApp() {
       await new Promise(resolve => setTimeout(resolve, 25));
     });
   }
+  await settle();
+  return renderer;
+}
+
+// "Voir l’aperçu partenaire" was removed from AwaADeuxPartnerConnectedScreen.tsx by
+// design — PartnerPreviewModal.tsx itself is untouched, so its reactivity to the SAME
+// sharing choices is exercised here by rendering it directly, in a tiny stateful harness
+// so "Fermer"/Android Back can still be verified to actually close it.
+function PartnerPreviewHarness(): React.JSX.Element {
+  const [visible, setVisible] = React.useState(true);
+  return <PartnerPreviewModal onClose={() => setVisible(false)} visible={visible} />;
+}
+async function renderPreview() {
+  let renderer!: ReactTestRenderer.ReactTestRenderer;
+  await act(async () => {
+    renderer = ReactTestRenderer.create(
+      <SafeAreaProvider initialMetrics={TEST_METRICS}>
+        <AwaThemeProvider>
+          <PartnerPreviewHarness />
+        </AwaThemeProvider>
+      </SafeAreaProvider>,
+    );
+  });
+  activeRenderers.push(renderer);
   await settle();
   return renderer;
 }
@@ -129,6 +156,19 @@ const walkToAssociation = async (renderer: ReactTestRenderer.ReactTestRenderer) 
   await press(renderer, 'Continuer');
   await press(renderer, 'Continuer');
   await press(renderer, 'Continuer');
+};
+
+// Jumps straight to "Partenaire associé" without going through the demo invitation /
+// pending / partner-acceptance mechanics (which have their own dedicated tests) — used by
+// tests whose actual focus is the CONNECTED screen's own behavior. Reproduces exactly the
+// stack the real app builds when Profile's "AWA à deux" row opens it while connected
+// (awaADeuxEntryRoute), so it stays a faithful shortcut, not a parallel mechanism.
+const jumpToConnected = async () => {
+  simulatePartnerConnected();
+  await act(async () => {
+    navRef.dispatch(CommonActions.reset({index: 1, routes: [{name: 'Profile'}, {name: 'AwaADeuxPartnerConnected'}]}));
+  });
+  await settle();
 };
 
 beforeEach(async () => {
@@ -212,7 +252,7 @@ describe('ONE linear onboarding path', () => {
     expect(defining('<Switch')).toEqual(['AwaADeuxSharingScreen.tsx']); // the only place permissions are edited
     expect(defining('export function PartnerPreviewModal')).toEqual(['AwaADeuxDialogs.tsx']); // one partner preview
     const nav = fs.readFileSync(path.resolve(__dirname, '../../../navigation/AppNavigator.tsx'), 'utf8');
-    expect((nav.match(/name="AwaADeux\w+"/g) ?? []).length).toBe(7);
+    expect((nav.match(/name="AwaADeux\w+"/g) ?? []).length).toBe(10);
   });
 });
 
@@ -263,13 +303,36 @@ describe('Association subflows are branches, not steps', () => {
   });
 });
 
-describe('Partenaire associé', () => {
-  it('"Continuer" replaces the whole onboarding history: one connected screen, and Back leaves the feature (Profile)', async () => {
+describe('Reaching "Invitation envoyée" (Pending)', () => {
+  it('"Continuer" on the association screen pushes Pending exactly once, even on rapid double taps, and uses the dynamic partner name', async () => {
     const renderer = await renderApp();
     await walkToAssociation(renderer);
     await press(renderer, 'Continuer', 3); // rapid taps
+    expect(stack()).toEqual([...ONBOARDING, 'AwaADeuxPending']);
+    expect(getDemoPartnerState().connectionStatus).toBe('pending');
+    expect(textsOf(renderer)).toContain('Invitation envoyée\nà Amine');
+  });
+
+  it('Retour and the Android hardware Back leave Pending the same way any other step is left (back to the association screen)', async () => {
+    const renderer = await renderApp();
+    await walkToAssociation(renderer);
+    await press(renderer, 'Continuer');
+    expect(stack().slice(-1)[0]).toBe('AwaADeuxPending');
+    await press(renderer, 'Retour');
+    expect(stack()).toEqual(ONBOARDING);
+
+    await press(renderer, 'Continuer');
+    await androidBack();
+    expect(stack()).toEqual(ONBOARDING);
+  });
+});
+
+describe('Partenaire associé', () => {
+  it('is reached the same way every time AWA à deux opens while connected, and Back leaves the feature (Profile)', async () => {
+    const renderer = await renderApp();
+    await jumpToConnected();
     expect(stack()).toEqual(['Profile', 'AwaADeuxPartnerConnected']);
-    expect(getDemoPartnerState()).toEqual({partnerConnected: true});
+    expect(getDemoPartnerState().connectionStatus).toBe('connected');
     expect(textsOf(renderer)).toContain('Partenaire associé 💜');
 
     await press(renderer, 'Retour');
@@ -277,21 +340,21 @@ describe('Partenaire associé', () => {
   });
 
   it('the Android hardware Back from "Partenaire associé" behaves the same', async () => {
-    const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await renderApp();
+    await jumpToConnected();
     await androidBack();
     expect(stack()).toEqual(['Profile']);
   });
 
-  it('contains only the illustration, Amine, the status, the card and the three actions — no "Voir toutes les informations", no DEV', async () => {
+  it('contains only the illustration, Amine, the status, the card and the two remaining actions — no "Voir toutes les informations", no preview button, no DEV', async () => {
+    setAwaADeuxPartnerName('Amine');
     const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await jumpToConnected();
     const texts = textsOf(renderer).filter(text => text.length > 2);
     expect(texts).not.toContain('Voir toutes les informations');
+    expect(texts).not.toContain('Voir l’aperçu partenaire'); // removed by design from this screen
     expect(texts.join(' | ')).not.toMatch(/\bDEV\b|Simuler/);
-    for (const text of ['Partenaire associé 💜', 'Amine', 'Connecté depuis aujourd’hui', 'Informations partagées', 'Gérer les informations partagées', 'Voir l’aperçu partenaire', 'Arrêter le partage']) {
+    for (const text of ['Partenaire associé 💜', 'Amine', 'Connecté depuis aujourd’hui', 'Informations partagées', 'Gérer les informations partagées', 'Arrêter le partage']) {
       expect(texts).toContain(text);
     }
     const all = fs.readdirSync(path.resolve(__dirname, '..')).filter(name => /\.tsx?$/.test(name));
@@ -302,8 +365,7 @@ describe('Partenaire associé', () => {
 describe('Manage shared information (the SAME permissions screen, in "manage" mode)', () => {
   it('opens the permissions screen with its button "Terminé"; saving returns to "Partenaire associé" without re-entering the association screen', async () => {
     const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await jumpToConnected();
 
     await press(renderer, 'Gérer les informations partagées', 2);
     expect(stack()).toEqual(['Profile', 'AwaADeuxPartnerConnected', 'AwaADeuxSharing']);
@@ -322,8 +384,7 @@ describe('Manage shared information (the SAME permissions screen, in "manage" mo
 
   it('Retour and Android Back also return to "Partenaire associé"', async () => {
     const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await jumpToConnected();
     await press(renderer, 'Gérer les informations partagées');
     await press(renderer, 'Retour');
     expect(stack()).toEqual(['Profile', 'AwaADeuxPartnerConnected']);
@@ -357,17 +418,18 @@ describe('Permission state: one source of truth', () => {
       toggle(renderer, 'Conseil du jour').props.onValueChange(false);
     });
     await settle();
-    await press(renderer, 'Continuer');
-    await press(renderer, 'Continuer');
+    await press(renderer, 'Continuer'); // Sharing → Pairing, with the new choices saved
+    await jumpToConnected(); // reaches "Partenaire associé" directly (its own transition is tested above)
     const card = textsOf(renderer);
     expect(card).toContain('Fenêtre fertile');
     expect(card).not.toContain('Conseil du jour');
 
-    await press(renderer, 'Voir l’aperçu partenaire');
-    const preview = textsOf(openModal(renderer)!);
+    // The preview is no longer opened FROM this screen (removed by design) — its own
+    // reactivity to the SAME saved choices is verified by rendering it directly.
+    const previewRenderer = await renderPreview();
+    const preview = textsOf(previewRenderer);
     expect(preview).toContain('Fenêtre fertile');
     expect(preview).not.toContain('Conseil du jour');
-    await press(openModal(renderer)!, 'Fermer');
 
     await act(async () => {
       await setSharingToggle('fertileWindow', false);
@@ -377,50 +439,44 @@ describe('Permission state: one source of truth', () => {
   });
 });
 
-describe('Partner preview', () => {
-  it('opens "Aperçu du côté partenaire", closes with X / Android Back back to "Partenaire associé", and is not the onboarding step 1', async () => {
-    const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
-    const before = stack();
-
-    await press(renderer, 'Voir l’aperçu partenaire');
-    const texts = textsOf(openModal(renderer)!);
+describe('Partner preview (no button-based entry point anywhere anymore — removed by design from both AwaADeuxSharingScreen.tsx and AwaADeuxPartnerConnectedScreen.tsx; PartnerPreviewModal.tsx itself is untouched, rendered directly here)', () => {
+  it('shows "Aperçu du côté partenaire" and is not the onboarding step 1; "Fermer" / Android Back both close it', async () => {
+    const renderer = await renderPreview();
+    const texts = textsOf(renderer);
     expect(texts).toContain('Aperçu du côté partenaire');
     expect(texts).not.toContain('Ce qu’Amine\nvoit');
     expect(texts).not.toContain('Ce que votre\npartenaire voit');
-    expect(stack()).toEqual(before);
-    await press(openModal(renderer)!, 'Fermer');
+    await press(renderer, 'Fermer');
     expect(openModal(renderer)).toBeUndefined();
 
-    await press(renderer, 'Voir l’aperçu partenaire');
+    const again = await renderPreview();
     await act(async () => {
-      openModal(renderer)!.props.onRequestClose();
+      openModal(again)!.props.onRequestClose();
     });
-    expect(openModal(renderer)).toBeUndefined();
-    expect(stack()).toEqual(before);
-    expect(textsOf(renderer)).toContain('Partenaire associé 💜');
+    expect(openModal(again)).toBeUndefined();
   });
 
-  it('the permissions screen offers the SAME preview component', async () => {
+  it('neither the permissions screen ("Choisissez ce que vous souhaitez partager") nor "Partenaire associé" offer a preview button anymore', async () => {
     const renderer = await renderApp();
     await press(renderer, 'AWA à deux');
     await press(renderer, 'Découvrir AWA à deux');
     await enterName(renderer);
     await press(renderer, 'Continuer');
     await press(renderer, 'Continuer');
-    await press(renderer, 'Voir un aperçu du côté partenaire');
-    expect(textsOf(openModal(renderer)!)).toContain('Aperçu du côté partenaire');
-    await press(openModal(renderer)!, 'Fermer');
     expect(stack()).toEqual([...INTRO, 'AwaADeuxPartnerName', 'AwaADeuxPartnerView', 'AwaADeuxBenefits', 'AwaADeuxSharing']);
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Voir un aperçu du côté partenaire')).toHaveLength(0);
+    expect(openModal(renderer)).toBeUndefined();
+
+    await jumpToConnected();
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Voir l’aperçu partenaire')).toHaveLength(0);
+    expect(openModal(renderer)).toBeUndefined();
   });
 });
 
 describe('Stop sharing', () => {
   it('Annuler (and Android Back) keep "Partenaire associé"', async () => {
     const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await jumpToConnected();
     await press(renderer, 'Arrêter le partage');
     expect(getDemoPartnerState().partnerConnected).toBe(true);
     await press(openModal(renderer)!, 'Annuler');
@@ -436,8 +492,7 @@ describe('Stop sharing', () => {
 
   it('Confirmer disconnects (frontend only) and returns to "Associer votre partenaire" with the onboarding stack rebuilt (no repeat of the steps, no duplicate)', async () => {
     const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await jumpToConnected();
     await press(renderer, 'Arrêter le partage');
     const confirm = openModal(renderer)!.findAll(node => node.props.accessibilityLabel === 'Arrêter le partage' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];
     await act(async () => {
@@ -457,12 +512,14 @@ describe('Stop sharing', () => {
 
   it('after stopping, Profile → AWA à deux opens the introduction again (not connected)', async () => {
     const renderer = await renderApp();
-    await walkToAssociation(renderer);
-    await press(renderer, 'Continuer');
+    await jumpToConnected();
     await press(renderer, 'Arrêter le partage');
-    await press(openModal(renderer)!.findAll(node => node.props.accessibilityLabel === 'Arrêter le partage' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0] as never, 'Arrêter le partage').catch(() => undefined);
-    stopDemoSharing();
-    for (let index = 0; index < 8; index += 1) {await androidBack();}
+    const confirm = openModal(renderer)!.findAll(node => node.props.accessibilityLabel === 'Arrêter le partage' && node.props.accessibilityRole === 'button' && typeof node.props.onPress === 'function')[0];
+    await act(async () => {
+      confirm.props.onPress();
+    });
+    await settle();
+    for (let index = 0; index < 8 && stack().length > 1; index += 1) {await androidBack();}
     expect(stack()).toEqual(['Profile']);
     await press(renderer, 'AWA à deux');
     expect(stack()).toEqual(INTRO);
