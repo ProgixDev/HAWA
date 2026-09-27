@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 
+import CycleProgressRing from './CycleProgressRing';
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -45,7 +46,7 @@ type PhaseInsight = {
 // primary` would make phase identity arbitrarily inconsistent (2 of 7
 // phases shifting hue with the palette, 5 staying fixed). All seven are
 // therefore fixed literals, never theme-driven.
-const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
+export const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   menstruation: {
     label: 'Phase menstruelle',
     ringColor: '#DC7B82',
@@ -104,7 +105,15 @@ const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   },
 };
 
-const MOOD_LABELS: Record<MoodLevel, string> = {
+/** Same phase identity (label + SEMANTIC ring color) the ring itself uses — exported so
+ * other read-only consumers of the same cycle data (e.g. PartnerHomeScreen) can draw an
+ * IDENTICAL ring without duplicating this map. */
+export function getCyclePhaseIdentity(phase: CyclePhase): {label: string; ringColor: string} {
+  const insight = PHASE_INSIGHTS[phase];
+  return {label: insight.label, ringColor: insight.ringColor};
+}
+
+export const MOOD_LABELS: Record<MoodLevel, string> = {
   veryGood: 'Très bien',
   good: 'Bien',
   neutral: 'Neutre',
@@ -128,16 +137,13 @@ const MOOD_TIPS: Record<MoodLevel, string> = {
   motivated: 'Passe à l’action',
 };
 
-const ENERGY_LABELS: Record<number, string> = {
+export const ENERGY_LABELS: Record<number, string> = {
   1: 'Très faible',
   2: 'Faible',
   3: 'Moyenne',
   4: 'Élevée',
   5: 'Très élevée',
 };
-
-const SEGMENT_COUNT = 60;
-const RING_SIZE = 116;
 
 function Chip({
   icon,
@@ -165,7 +171,6 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
-  const progressAnimation = useRef(new Animated.Value(0)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
 
   const phaseInsight = PHASE_INSIGHTS[phase];
@@ -177,8 +182,6 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
         tip: MOOD_TIPS[moodEntry.level],
       }
     : phaseInsight;
-  const safeCycleLength = Math.max(cycleLength, 1);
-  const progress = Math.min(Math.max(currentDay / safeCycleLength, 0), 1);
 
   useEffect(() => {
     let mounted = true;
@@ -190,30 +193,17 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
 
   useEffect(() => {
     entrance.setValue(reduceMotion ? 1 : 0);
-    progressAnimation.setValue(reduceMotion ? progress : 0);
-
     if (reduceMotion) {return;}
 
-    const animation = Animated.parallel([
-      Animated.timing(entrance, {
-        duration: 600,
-        easing: Easing.out(Easing.cubic),
-        toValue: 1,
-        useNativeDriver: true,
-      }),
-      Animated.timing(progressAnimation, {
-        delay: 150,
-        duration: 700,
-        easing: Easing.out(Easing.cubic),
-        toValue: progress,
-        useNativeDriver: true,
-      }),
-    ]);
+    const animation = Animated.timing(entrance, {
+      duration: 600,
+      easing: Easing.out(Easing.cubic),
+      toValue: 1,
+      useNativeDriver: true,
+    });
     animation.start();
     return () => animation.stop();
-  }, [entrance, progress, progressAnimation, reduceMotion]);
-
-  const segments = useMemo(() => Array.from({length: SEGMENT_COUNT}, (_, index) => index), []);
+  }, [entrance, reduceMotion]);
 
   return (
     <Animated.View
@@ -227,32 +217,7 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
       <Image accessibilityIgnoresInvertColors source={FLOWER} style={styles.flower} />
 
       <View style={styles.topRow}>
-        <View style={styles.ring}>
-          {segments.map(index => {
-            const start = index / SEGMENT_COUNT;
-            const end = Math.min((index + 0.85) / SEGMENT_COUNT, 1);
-            const opacity = progressAnimation.interpolate({
-              inputRange: index === 0 ? [0, end] : [start - 0.001, start, end],
-              outputRange: index === 0 ? [0, 1] : [0, 0.12, 1],
-              extrapolate: 'clamp',
-            });
-
-            return (
-              <View
-                key={index}
-                style={[styles.segmentOrbit, {transform: [{rotate: `${index * (360 / SEGMENT_COUNT)}deg`}]}]}>
-                <View style={styles.trackSegment} />
-                <Animated.View style={[styles.activeSegment, {backgroundColor: insight.ringColor, opacity}]} />
-              </View>
-            );
-          })}
-
-          <View style={styles.ringCenter}>
-            <Text style={styles.ringEyebrow}>Jour du cycle</Text>
-            <Text style={styles.ringNumber}>{currentDay}</Text>
-            <Text numberOfLines={2} style={[styles.ringPhase, {color: insight.ringColor}]}>{insight.label}</Text>
-          </View>
-        </View>
+        <CycleProgressRing currentDay={currentDay} cycleLength={cycleLength} phaseLabel={insight.label} ringColor={insight.ringColor} />
 
         <View style={styles.todayColumn}>
           <View style={styles.todayHeader}>
@@ -295,52 +260,6 @@ function createStyles(theme: ResolvedAwaTheme) {
       transform: [{rotate: '8deg'}],
     },
     topRow: {flexDirection: 'row', alignItems: 'center'},
-    ring: {
-      width: RING_SIZE,
-      height: RING_SIZE,
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    segmentOrbit: {
-      position: 'absolute',
-      width: RING_SIZE,
-      height: RING_SIZE,
-      alignItems: 'center',
-    },
-    // TRACK — decorative, themeable (Step 11's terminology, though this is
-    // the hero card's own bespoke ring, not AnimatedProgressRing itself).
-    trackSegment: {
-      position: 'absolute',
-      top: 0,
-      width: 3,
-      height: 8,
-      borderRadius: 2,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    // ACTIVE segment color comes from `insight.ringColor` at the JSX call
-    // site (SEMANTIC per-phase color, see PHASE_INSIGHTS above) — this
-    // style intentionally carries no color of its own.
-    activeSegment: {
-      position: 'absolute',
-      top: 0,
-      width: 3,
-      height: 8,
-      borderRadius: 2,
-    },
-    ringCenter: {
-      width: 82,
-      height: 82,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 41,
-      backgroundColor: theme.colors.primarySoft,
-    },
-    ringEyebrow: {color: theme.colors.textSecondary, fontSize: 9.5, fontWeight: '600'},
-    ringNumber: {marginTop: 1, color: theme.colors.text, fontFamily: 'serif', fontSize: 30, fontWeight: '700', lineHeight: 34},
-    // ringPhase's `color` is set per-render from `insight.ringColor`
-    // (SEMANTIC) at the JSX call site — no color here.
-    ringPhase: {marginTop: 1, fontSize: 9.5, fontWeight: '700', textAlign: 'center', paddingHorizontal: 6},
     todayColumn: {flex: 1, marginLeft: 14},
     todayHeader: {flexDirection: 'row', alignItems: 'center', gap: 6, paddingRight: 44},
     todayTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 16, fontWeight: '700'},
