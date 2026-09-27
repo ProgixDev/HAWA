@@ -16,8 +16,10 @@ import AwaADeuxPartnerNameScreen from '../AwaADeuxPartnerNameScreen';
 import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import AwaADeuxBenefitsScreen from '../AwaADeuxBenefitsScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
+import AwaADeuxPendingScreen from '../AwaADeuxPendingScreen';
 import AwaADeuxPartnerConnectedScreen from '../AwaADeuxPartnerConnectedScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
+import {PartnerPreviewModal} from '../AwaADeuxDialogs';
 import {DEMO_PAIRING_CODE} from '../awaADeuxDemo';
 import {EMAIL_BODY, buildEmailBody, EMAIL_SUBJECT, INVITATION_MESSAGE, buildMailtoUrl} from '../awaADeuxInvitation';
 import {getDemoPartnerState, simulatePartnerConnected, stopDemoSharing} from '../../../state/awaADeuxDemoStore';
@@ -47,7 +49,7 @@ const settle = async () => {
   }
 };
 
-async function renderFlow(initial: 'AwaADeuxPairing' | 'AwaADeuxPartnerConnected' = 'AwaADeuxPairing') {
+async function renderFlow(initial: 'AwaADeuxPairing' | 'AwaADeuxPending' | 'AwaADeuxPartnerConnected' = 'AwaADeuxPairing') {
   let renderer!: ReactTestRenderer.ReactTestRenderer;
   await act(async () => {
     renderer = ReactTestRenderer.create(
@@ -62,6 +64,7 @@ async function renderFlow(initial: 'AwaADeuxPairing' | 'AwaADeuxPartnerConnected
               <Stack.Screen component={AwaADeuxBenefitsScreen as never} name="AwaADeuxBenefits" />
               <Stack.Screen component={AwaADeuxSharingScreen as never} name="AwaADeuxSharing" />
               <Stack.Screen component={AwaADeuxPairingScreen as never} name="AwaADeuxPairing" />
+              <Stack.Screen component={AwaADeuxPendingScreen as never} name="AwaADeuxPending" />
               <Stack.Screen component={AwaADeuxPartnerConnectedScreen as never} name="AwaADeuxPartnerConnected" />
             </Stack.Navigator>
           </NavigationContainer>
@@ -74,6 +77,30 @@ async function renderFlow(initial: 'AwaADeuxPairing' | 'AwaADeuxPartnerConnected
   await act(async () => {
     (navRef as unknown as {navigate: (name: string) => void}).navigate(initial);
   });
+  await settle();
+  return renderer;
+}
+
+// "Voir l’aperçu partenaire" was removed from AwaADeuxPartnerConnectedScreen.tsx by
+// design (a separate task) — PartnerPreviewModal.tsx itself is untouched, so its own
+// reactivity to the SAME sharing choices is exercised here by rendering it directly,
+// wrapped in a tiny stateful harness so "Fermer" can still be verified to actually close it.
+function PartnerPreviewHarness(): React.JSX.Element {
+  const [visible, setVisible] = React.useState(true);
+  return <PartnerPreviewModal onClose={() => setVisible(false)} visible={visible} />;
+}
+async function renderPreview() {
+  let renderer!: ReactTestRenderer.ReactTestRenderer;
+  await act(async () => {
+    renderer = ReactTestRenderer.create(
+      <SafeAreaProvider initialMetrics={TEST_METRICS}>
+        <AwaThemeProvider>
+          <PartnerPreviewHarness />
+        </AwaThemeProvider>
+      </SafeAreaProvider>,
+    );
+  });
+  activeRenderers.push(renderer);
   await settle();
   return renderer;
 }
@@ -255,16 +282,15 @@ describe('"Continuer" (frontend demo progression) — no DEV button', () => {
     expect(buttons(renderer, 'Continuer').length).toBeGreaterThan(0);
   });
 
-  it('"Continuer" opens "Partenaire associé 💜" with the demo partner Amine: in-memory state, nothing is written', async () => {
+  it('"Continuer" opens "Invitation envoyée à Amine" (Pending): in-memory state, nothing is written', async () => {
     const setItem = AsyncStorage.setItem as jest.Mock;
     setItem.mockClear();
     const renderer = await renderFlow();
-    expect(getDemoPartnerState().partnerConnected).toBe(false);
+    expect(getDemoPartnerState().connectionStatus).toBe('not_invited');
     await press(renderer, 'Continuer');
-    expect(getDemoPartnerState()).toEqual({partnerConnected: true});
-    expect(currentRoute()).toBe('AwaADeuxPartnerConnected');
-    expect(textsOf(renderer)).toContain('Partenaire associé 💜');
-    expect(textsOf(renderer)).toContain('Amine');
+    expect(getDemoPartnerState().connectionStatus).toBe('pending');
+    expect(currentRoute()).toBe('AwaADeuxPending');
+    expect(textsOf(renderer)).toContain('Invitation envoyée\nà Amine');
     expect(setItem).not.toHaveBeenCalled();
   });
 
@@ -314,9 +340,10 @@ describe('Partner connected screen', () => {
     simulatePartnerConnected();
     const renderer = await renderFlow('AwaADeuxPartnerConnected');
     const texts = textsOf(renderer);
-    for (const text of ['Partenaire associé 💜', 'Amine', 'Connecté depuis aujourd’hui', 'Informations partagées', 'Jour du cycle et phase actuelle', 'Prochaines règles estimées', 'Conseil du jour', 'Gérer les informations partagées', 'Voir l’aperçu partenaire', 'Arrêter le partage']) {
+    for (const text of ['Partenaire associé 💜', 'Amine', 'Connecté depuis aujourd’hui', 'Informations partagées', 'Jour du cycle et phase actuelle', 'Prochaines règles estimées', 'Conseil du jour', 'Gérer les informations partagées', 'Arrêter le partage']) {
       expect(texts).toContain(text);
     }
+    expect(texts).not.toContain('Voir l’aperçu partenaire'); // removed by design
     for (const hidden of ['Fenêtre fertile', 'Ovulation estimée', 'Humeur']) {expect(texts).not.toContain(hidden);}
   });
 
@@ -372,11 +399,12 @@ describe('Partner connected screen', () => {
     expect(source).not.toContain('Voir toutes les informations');
   });
 
-  it('final hierarchy: title, illustration + check, Amine, status, card, then Manage, Preview, Stop — in that order', async () => {
+  it('final hierarchy: title, illustration + check, Amine, status, card, then Manage, Stop — in that order (no Preview action anymore)', async () => {
     simulatePartnerConnected();
     const renderer = await renderFlow('AwaADeuxPartnerConnected');
     const texts = textsOf(renderer).filter(text => text.length > 2);
-    const order = ['Partenaire associé 💜', 'Amine', 'Connecté depuis aujourd’hui', 'Informations partagées', 'Gérer les informations partagées', 'Voir l’aperçu partenaire', 'Arrêter le partage'];
+    expect(texts).not.toContain('Voir l’aperçu partenaire');
+    const order = ['Partenaire associé 💜', 'Amine', 'Connecté depuis aujourd’hui', 'Informations partagées', 'Gérer les informations partagées', 'Arrêter le partage'];
     const positions = order.map(text => texts.indexOf(text));
     positions.forEach(position => expect(position).toBeGreaterThan(-1));
     expect([...positions].sort((a, b) => a - b)).toEqual(positions);
@@ -407,7 +435,7 @@ describe('Partner connected screen', () => {
     expect(shared()).toEqual(['Jour du cycle et phase actuelle', 'Conseil du jour']);
   });
 
-  it('the three actions share one structure; Stop uses the theme danger color; press feedback is a tiny scale', async () => {
+  it('the two remaining actions share one structure; Stop uses the theme danger color; press feedback is a tiny scale', async () => {
     simulatePartnerConnected();
     const renderer = await renderFlow('AwaADeuxPartnerConnected');
     const styleOf = (label: string) => {
@@ -415,17 +443,15 @@ describe('Partner connected screen', () => {
       return flat(typeof node.props.style === 'function' ? node.props.style({pressed: false}) : node.props.style);
     };
     const manage = styleOf('Gérer les informations partagées');
-    const preview = styleOf('Voir l’aperçu partenaire');
     const stop = styleOf('Arrêter le partage');
     for (const key of ['minHeight', 'borderRadius', 'paddingHorizontal', 'flexDirection', 'gap']) {
-      expect(preview[key]).toBe(manage[key]);
       expect(stop[key]).toBe(manage[key]);
     }
     const danger = resolveAwaTheme('awa-original', false, false).colors.danger;
     expect(stop.borderColor).not.toBe(manage.borderColor);
     const stopText = renderer.root.findAllByType(Text).find(node => textOf(node) === 'Arrêter le partage')!;
     expect(flat(stopText.props.style).color).toBe(danger);
-    const pressed = flat(buttons(renderer, 'Voir l’aperçu partenaire')[0].props.style({pressed: true}));
+    const pressed = flat(buttons(renderer, 'Gérer les informations partagées')[0].props.style({pressed: true}));
     expect(pressed.transform[0].scale).toBeGreaterThan(0.95);
     expect(pressed.transform[0].scale).toBeLessThan(1);
   });
@@ -443,20 +469,19 @@ describe('Partner connected screen', () => {
   });
 
   it('Retour from the partner screen goes back to where the feature was entered (Profile), not to the association screen', async () => {
-    const renderer = await renderFlow();
-    await press(renderer, 'Continuer');
+    simulatePartnerConnected();
+    const renderer = await renderFlow('AwaADeuxPartnerConnected');
     expect(currentRoute()).toBe('AwaADeuxPartnerConnected');
     await press(renderer, 'Retour');
     expect(currentRoute()).toBe('Profile');
   });
 });
 
-describe('Partner preview', () => {
+describe('Partner preview (rendered directly — see renderPreview()’s comment)', () => {
   it('opens with the demo content, the note and X; a block whose switch is OFF is not there', async () => {
     simulatePartnerConnected();
-    const renderer = await renderFlow('AwaADeuxPartnerConnected');
-    await press(renderer, 'Voir l’aperçu partenaire');
-    const texts = textsOf(openModal(renderer)!);
+    const renderer = await renderPreview();
+    const texts = textsOf(renderer);
     for (const text of ['Aperçu du côté partenaire', 'Bonjour Amine 💜', 'Voici quelques repères pour mieux t’accompagner aujourd’hui.', 'Jour du cycle', '16', 'Après une fausse couche', 'Prochaines règles', 'Pas encore', 'Phase actuelle', 'Récupération', 'Conseil du jour', 'Soutenez-la avec de petites attentions au quotidien.', 'Ceci est un aperçu. Amine verra uniquement les informations que vous avez activées.']) {
       expect(texts).toContain(text);
     }
@@ -467,14 +492,13 @@ describe('Partner preview', () => {
 
   it('follows the choices: turning Jour du cycle off removes it, turning Fenêtre fertile on adds it', async () => {
     simulatePartnerConnected();
-    const renderer = await renderFlow('AwaADeuxPartnerConnected');
     await act(async () => {
       await setSharingToggle('cycleDay', false);
       await setSharingToggle('fertileWindow', true);
     });
     await settle();
-    await press(renderer, 'Voir l’aperçu partenaire');
-    const texts = textsOf(openModal(renderer)!);
+    const renderer = await renderPreview();
+    const texts = textsOf(renderer);
     expect(texts).not.toContain('Jour du cycle');
     expect(texts).not.toContain('Phase actuelle');
     expect(texts).toContain('Fenêtre fertile');
@@ -519,7 +543,7 @@ describe('Stop sharing', () => {
       confirm.props.onPress();
     });
     await settle();
-    expect(getDemoPartnerState()).toEqual({partnerConnected: false});
+    expect(getDemoPartnerState()).toEqual({connectionStatus: 'not_invited', partnerConnected: false});
     expect(currentRoute()).toBe('AwaADeuxPairing');
     expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
   });
@@ -548,21 +572,30 @@ describe('Theme', () => {
     }
   });
 
-  it('dialogs and the partner screen follow Light, Dark and another palette live', async () => {
+  it('the partner connected screen follows Light, Dark and another palette live', async () => {
     simulatePartnerConnected();
     const renderer = await renderFlow('AwaADeuxPartnerConnected');
     const light = resolveAwaTheme('awa-original', false, false);
     const dark = resolveAwaTheme('awa-original', true, false);
     renderer.root.findAllByType(LinearGradient).forEach(gradient => expect(gradient.props.colors).toEqual([...light.gradients.pageBackground]));
 
-    await press(renderer, 'Voir l’aperçu partenaire');
+    await act(async () => {
+      await setAppearanceMode('dark');
+    });
+    renderer.root.findAllByType(LinearGradient).forEach(gradient => expect(gradient.props.colors).toEqual([...dark.gradients.pageBackground]));
+  });
+
+  it('the partner preview dialog (rendered directly — no longer opened from this screen) follows Light, Dark and another palette live', async () => {
+    simulatePartnerConnected();
+    const light = resolveAwaTheme('awa-original', false, false);
+    const dark = resolveAwaTheme('awa-original', true, false);
+    const renderer = await renderPreview();
     expect(flat(cardOf(openModal(renderer)!).props.style).backgroundColor).toBe(light.colors.background);
     await act(async () => {
       await setAppearanceMode('dark');
     });
     expect(flat(cardOf(openModal(renderer)!).props.style).backgroundColor).toBe(dark.colors.background);
     expect(flat(cardOf(openModal(renderer)!).props.style).borderColor).toBe(dark.colors.border);
-    renderer.root.findAllByType(LinearGradient).forEach(gradient => expect(gradient.props.colors).toEqual([...dark.gradients.pageBackground]));
 
     await act(async () => {
       await setAppearanceMode('light');
