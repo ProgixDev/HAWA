@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import ReactTestRenderer, {act} from 'react-test-renderer';
-import {Modal, StatusBar, Switch, Text, TextInput} from 'react-native';
+import {StatusBar, Switch, Text, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NavigationContainer, createNavigationContainerRef} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -167,15 +167,15 @@ describe('Navigation: the four steps in order, with Back', () => {
     }
   });
 
-  it('step 4 ends the prototype flow: its "Continuer" is only the demo progression to the partner screen', async () => {
+  it('step 4 ends the onboarding: its "Continuer" is only the demo progression to the pending/waiting screen', async () => {
     const renderer = await renderFlow();
     await goTo(renderer, 4);
     expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
     const source = fs.readFileSync(path.resolve(__dirname, '../AwaADeuxPairingScreen.tsx'), 'utf8');
     expect(source).toContain('ctaLabel="Continuer"');
-    // No direct `navigate` (it would push a duplicate): the helper replaces the whole onboarding stack.
+    // No direct `navigate` (it would push a duplicate): the helper guards against a double push.
     expect(source).not.toMatch(/navigation\.navigate\(/);
-    expect(source).toContain('replaceOnboardingWithConnected(navigation)');
+    expect(source).toContain('advanceToPending(navigation)');
   });
 
   it('routes are registered and typed in the root stack', () => {
@@ -248,25 +248,10 @@ describe('Step 3 — Choisissez ce que vous souhaitez partager', () => {
     expect(labels).toHaveLength(11); // the eleven choices — nothing else is ever offered
   });
 
-  it('"Voir un aperçu du côté partenaire" opens a preview that follows the switches, and closes', async () => {
+  it('no longer offers its own "Voir un aperçu du côté partenaire" entry point (removed by design; the SAME preview reactivity to the switches is covered in AwaADeuxSharing.test.tsx and, for the still-real entry point, AwaADeuxAssociation.test.tsx)', async () => {
     const renderer = await renderFlow();
     await goTo(renderer, 3);
-    await act(async () => {
-      toggle(renderer, 'Humeur').props.onValueChange(true);
-      toggle(renderer, 'Jour du cycle et phase actuelle').props.onValueChange(false);
-    });
-    await press(renderer, 'Voir un aperçu du côté partenaire');
-    const modal = renderer.root.findAllByType(Modal).find(node => node.props.visible === true)!;
-    expect(modal).toBeDefined();
-    const previewTexts = modal.findAllByType(Text).map(textOf);
-    expect(previewTexts).toContain('Aperçu du côté partenaire');
-    expect(previewTexts).toContain('Humeur'); // switched on
-    expect(previewTexts).toContain('Plutôt sereine');
-    expect(previewTexts).not.toContain('Jour du cycle'); // switched off
-    expect(previewTexts).not.toContain('Phase actuelle');
-    expect(previewTexts).toContain('Conseil du jour'); // still on
-    await press(renderer, 'Fermer');
-    expect(renderer.root.findAllByType(Modal).some(node => node.props.visible === true)).toBe(false);
+    expect(renderer.root.findAll(node => node.props.accessibilityLabel === 'Voir un aperçu du côté partenaire')).toHaveLength(0);
   });
 });
 
