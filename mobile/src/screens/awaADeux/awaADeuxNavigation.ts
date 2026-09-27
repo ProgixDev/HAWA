@@ -6,15 +6,18 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 //
 // Onboarding is ONE linear stack:
 //   Intro → PartnerName → PartnerView → Benefits → Sharing (mode "onboarding") → Pairing
-// and the connected state is the end of it. Two moves must not simply `navigate`,
-// because in React Navigation 7 `navigate` to a screen that is already deeper in the
-// stack PUSHES a second copy instead of going back to it:
-//   - "Continuer" on the association screen  → the connected screen REPLACES the whole
-//     onboarding history (Back from it goes to where the user entered the feature);
-//   - "Arrêter le partage" (confirmed)        → the onboarding stack is REBUILT up to the
-//     association screen (Back walks the steps in order), so nobody repeats the
-//     onboarding after simply stopping the sharing.
-// Both are idempotent, so a rapid double tap cannot leave duplicate screens.
+// "Continuer" on the association screen then pushes ONE demo step further, Pending
+// (awaADeuxDemoStore's connectionStatus becomes 'pending') — the owner side stops there;
+// the (simulated) partner accepting is a SEPARATE, partner-side demo journey
+// (AwaADeuxInvitation → AwaADeuxAcceptInvitation → PartnerMainTabs) that never pushes
+// anything onto the owner's stack. Once accepted, connectionStatus is 'connected' and the
+// owner reaches "Partenaire associé" the same way she always reaches AWA à deux — through
+// Profile (awaADeuxEntryRoute) — not through a reset of the onboarding history.
+//
+// "Arrêter le partage" (confirmed) still REBUILDS the onboarding stack up to the
+// association screen (Back walks the steps in order), so nobody repeats the onboarding
+// after simply stopping the sharing. This reset is idempotent, so a rapid double tap
+// cannot leave duplicate screens; the Pending push below is guarded the same way.
 
 type Nav = Pick<NavigationProp<RootStackParamList>, 'dispatch' | 'getState'>;
 type ResetState = Parameters<typeof CommonActions.reset>[0];
@@ -39,14 +42,15 @@ const routesBeforeFeature = (navigation: Nav) => {
 export const awaADeuxEntryRoute = (partnerConnected: boolean): 'AwaADeuxPartnerConnected' | 'AwaADeuxIntro' =>
   partnerConnected ? 'AwaADeuxPartnerConnected' : 'AwaADeuxIntro';
 
-/** Frontend demo progression: shows "Partenaire associé" in place of the whole onboarding stack. */
-export function replaceOnboardingWithConnected(navigation: Nav): void {
+/**
+ * "Continuer" on the association screen: pushes the Pending step exactly once, even on a
+ * rapid double tap (a plain `navigation.navigate` would push a second copy since Pending
+ * isn't yet on the stack the first time either — the guard below covers both cases).
+ */
+export function advanceToPending(navigation: Nav): void {
   const routes = navigation.getState().routes;
-  if (routes[routes.length - 1]?.name === 'AwaADeuxPartnerConnected') {return;}
-  const kept = routesBeforeFeature(navigation);
-  navigation.dispatch(
-    CommonActions.reset({index: kept.length, routes: [...kept, {name: 'AwaADeuxPartnerConnected'}]} as ResetState),
-  );
+  if (routes[routes.length - 1]?.name === 'AwaADeuxPending') {return;}
+  navigation.dispatch(CommonActions.navigate('AwaADeuxPending'));
 }
 
 /** After "Arrêter le partage": the onboarding stack rebuilt up to "Associer votre partenaire". */
