@@ -4,8 +4,8 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {simulatePartnerConnected} from '../../state/awaADeuxDemoStore';
-import {replaceOnboardingWithConnected} from './awaADeuxNavigation';
+import {simulateInvitationSent} from '../../state/awaADeuxDemoStore';
+import {advanceToPending} from './awaADeuxNavigation';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
@@ -26,10 +26,10 @@ import {INVITATION_MESSAGE} from './awaADeuxInvitation';
 //   - "Partager": the "Partager l'invitation" bottom sheet (app shortcuts, copy, more options);
 //   - "Afficher le QR code": a dialog with a visual PLACEHOLDER (no QR encoder available);
 //   - "Envoyer par email": an e-mail form that opens the phone's mail app (mailto:);
-//   - "Continuer": FRONTEND DEMO PROGRESSION only. It does NOT mean a server verified the
-//     code, a partner accepted, an account exists or the invitation was redeemed: it just
-//     lets the connected-partner screens be shown, with the in-memory demo partner. Sharing
-//     the invitation (any of the actions above) never connects anyone.
+//   - "Continuer": FRONTEND DEMO PROGRESSION only. It does NOT mean a server sent or
+//     verified anything: it only moves the in-memory demo connection status to 'pending'
+//     (AwaADeuxPendingScreen) and pushes that screen once, even on a rapid double tap.
+//     Sharing the invitation (any of the actions above) never touches that status.
 type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxPairing'>;
 
 export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.Element {
@@ -42,8 +42,8 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
 
   // Demo progression (see the header comment): no verification, nothing stored or sent.
   const continueDemo = () => {
-    simulatePartnerConnected();
-    replaceOnboardingWithConnected(navigation);
+    simulateInvitationSent();
+    advanceToPending(navigation);
   };
 
   const copyOrShare = async () => {
