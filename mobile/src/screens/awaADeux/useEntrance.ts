@@ -1,4 +1,5 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
+import {Animated, Easing as RNEasing} from 'react-native';
 import {
   Easing,
   cancelAnimation,
@@ -47,4 +48,33 @@ export function useEntrance(
       {scale: scaleFrom + (1 - scaleFrom) * progress.value},
     ],
   }));
+}
+
+/**
+ * Entrance of a small hero illustration (e.g. the invitation envelope on
+ * AwaADeuxPendingScreen / AwaADeuxInvitationScreen): fade + a small upward move + a
+ * slight scale-in, using plain React Native `Animated` (not reanimated) so it can run
+ * before/independently of the surrounding <Reveal> stagger. Unlike useEntrance() above,
+ * it deliberately starts at 0.65 opacity, never 0 — the illustration must stay visible
+ * even if the animation is delayed or fails to run on a physical device.
+ */
+export function useHeroEntrance() {
+  const progress = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const animation = Animated.timing(progress, {
+      toValue: 1,
+      duration: 550,
+      easing: RNEasing.out(RNEasing.cubic),
+      useNativeDriver: true,
+    });
+    animation.start();
+    return () => animation.stop();
+  }, [progress]);
+  return {
+    opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0.65, 1]}),
+    transform: [
+      {translateY: progress.interpolate({inputRange: [0, 1], outputRange: [8, 0]})},
+      {scale: progress.interpolate({inputRange: [0, 1], outputRange: [0.94, 1]})},
+    ],
+  };
 }

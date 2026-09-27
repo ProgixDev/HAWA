@@ -11,7 +11,7 @@ import Animated, {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {useEntrance} from './useEntrance';
 
 // Shared frame of the "AWA à deux" onboarding screens (after the introduction):
@@ -56,6 +56,20 @@ type Props = {
   onBack: () => void;
   fit?: StepFit;
   compact?: StepCompact;
+  /**
+   * Optional visual (e.g. a small illustration) shown ABOVE the title, between the back
+   * button and the title/description/content. Additive and opt-in: omitted by every
+   * existing screen, so their layout and appearance are unaffected.
+   */
+  hero?: React.ReactNode;
+  /**
+   * Opt-in, additive: renders the SAME diagonal-gradient + 3-glow decoration every AWA
+   * dashboard uses (PregnancyDashboard.tsx, CycleHomeScreen.tsx, …) instead of the plain
+   * gradient every existing AWA à deux step already had. Off by default, so every current
+   * screen's background is byte-identical; only screens that opt in (e.g. the partner
+   * invitation screens) get it.
+   */
+  decor?: boolean;
   children: React.ReactNode;
 };
 
@@ -79,6 +93,8 @@ export default function AwaADeuxStepLayout({
   onBack,
   fit,
   compact,
+  hero,
+  decor,
   children,
 }: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
@@ -128,8 +144,19 @@ export default function AwaADeuxStepLayout({
   );
 
   return (
-    <LinearGradient colors={[...theme.gradients.pageBackground]} style={styles.screen}>
+    <LinearGradient
+      colors={[...theme.gradients.pageBackground]}
+      {...(decor ? {locations: [0, 0.32, 0.7, 1], start: {x: 0, y: 0}, end: {x: 1, y: 1}} : null)}
+      style={styles.screen}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
+
+      {decor ? (
+        <View pointerEvents="none" style={styles.decor}>
+          <View style={styles.glowTop} />
+          <View style={styles.glowMiddle} />
+          <View style={styles.glowBottom} />
+        </View>
+      ) : null}
 
       <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
         <Pressable
@@ -141,6 +168,8 @@ export default function AwaADeuxStepLayout({
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
         </Pressable>
       </View>
+
+      {hero ? <View style={styles.hero}>{hero}</View> : null}
 
       {fit ? (
         <View style={[styles.content, styles.fitContent]}>{heading}</View>
@@ -191,6 +220,37 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: theme.colors.surface,
       padding: 9,
       elevation: 2,
+    },
+    hero: {alignItems: 'center', paddingHorizontal: 20},
+    // Same 3-glow decoration as every AWA dashboard (see PartnerScreenBackground.tsx /
+    // PregnancyDashboard.tsx) — only rendered when `decor` is on.
+    decor: {...StyleSheet.absoluteFillObject, overflow: 'hidden'},
+    glowTop: {
+      position: 'absolute',
+      top: -150,
+      right: -110,
+      width: 330,
+      height: 330,
+      borderRadius: 165,
+      backgroundColor: withAlpha(theme.colors.primary, 0.07),
+    },
+    glowMiddle: {
+      position: 'absolute',
+      top: '38%',
+      left: -130,
+      width: 260,
+      height: 260,
+      borderRadius: 130,
+      backgroundColor: withAlpha(theme.colors.primary, 0.045),
+    },
+    glowBottom: {
+      position: 'absolute',
+      bottom: -150,
+      right: -100,
+      width: 310,
+      height: 310,
+      borderRadius: 155,
+      backgroundColor: withAlpha(theme.colors.primary, 0.05),
     },
     content: {flexGrow: 1, paddingHorizontal: 20, paddingTop: 8, paddingBottom: 20},
     title: {
