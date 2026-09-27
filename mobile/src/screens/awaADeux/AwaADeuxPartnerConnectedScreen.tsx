@@ -20,7 +20,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
-import {PartnerPreviewModal, StopSharingModal} from './AwaADeuxDialogs';
+import {StopSharingModal} from './AwaADeuxDialogs';
 import {SHARING_SECTIONS} from './awaADeuxDemo';
 import {rebuildStackToAssociation} from './awaADeuxNavigation';
 import {useEntrance} from './useEntrance';
@@ -56,7 +56,6 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
   const {toggles, isPregnant} = useAwaADeuxSharing();
   const visibility = computePartnerVisibility(toggles, {isPregnant});
 
-  const [previewOpen, setPreviewOpen] = useState(false);
   const [stopOpen, setStopOpen] = useState(false);
 
   // Only what is ON, in the order of the sharing screen.
@@ -135,18 +134,6 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
 
       <Reveal index={4}>
         <Pressable
-          accessibilityLabel="Voir l’aperçu partenaire"
-          accessibilityRole="button"
-          onPress={() => setPreviewOpen(true)}
-          style={({pressed}) => [styles.action, pressed && styles.pressed]}>
-          <MaterialDesignIcons color={theme.colors.primary} name="eye-outline" size={20} />
-          <Text maxFontSizeMultiplier={1.2} style={styles.actionText}>Voir l’aperçu partenaire</Text>
-          <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
-        </Pressable>
-      </Reveal>
-
-      <Reveal index={5}>
-        <Pressable
           accessibilityLabel="Arrêter le partage"
           accessibilityRole="button"
           onPress={() => setStopOpen(true)}
@@ -155,7 +142,6 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
           <Text maxFontSizeMultiplier={1.2} style={[styles.actionText, styles.stopText]}>Arrêter le partage</Text>
         </Pressable>
 
-        <PartnerPreviewModal onClose={() => setPreviewOpen(false)} visible={previewOpen} />
         <StopSharingModal
           onCancel={() => setStopOpen(false)}
           onConfirm={confirmStop}
