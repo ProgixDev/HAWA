@@ -115,7 +115,11 @@ import AwaADeuxPartnerViewScreen from '../screens/awaADeux/AwaADeuxPartnerViewSc
 import AwaADeuxBenefitsScreen from '../screens/awaADeux/AwaADeuxBenefitsScreen';
 import AwaADeuxSharingScreen from '../screens/awaADeux/AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../screens/awaADeux/AwaADeuxPairingScreen';
+import AwaADeuxPendingScreen from '../screens/awaADeux/AwaADeuxPendingScreen';
 import AwaADeuxPartnerConnectedScreen from '../screens/awaADeux/AwaADeuxPartnerConnectedScreen';
+import AwaADeuxInvitationScreen from '../screens/awaADeux/partner/AwaADeuxInvitationScreen';
+import AwaADeuxAcceptInvitationScreen from '../screens/awaADeux/partner/AwaADeuxAcceptInvitationScreen';
+import PartnerMainTabNavigator, {type PartnerMainTabParamList} from './PartnerMainTabNavigator';
 import {
   DataExportScreen,
   DeleteTrackedDataScreen,
@@ -263,7 +267,11 @@ export type RootStackParamList = {
   /** "onboarding" (default): step 3 of the flow, its button continues to the association screen. "manage": opened from the connected screen, its button returns there. */
   AwaADeuxSharing: {mode?: 'onboarding' | 'manage'} | undefined;
   AwaADeuxPairing: undefined;
+  AwaADeuxPending: undefined;
   AwaADeuxPartnerConnected: undefined;
+  AwaADeuxInvitation: undefined;
+  AwaADeuxAcceptInvitation: undefined;
+  PartnerMainTabs: NavigatorScreenParams<PartnerMainTabParamList> | undefined;
   RestoreBackup: undefined;
   // sensitiveUnlockToken: set (once) by the private-section unlock flow when it
   // pops back here after a successful unlock — see replaceWithIntimacyDestination.
@@ -531,7 +539,11 @@ function AppNavigator({
         <Stack.Screen name="AwaADeuxBenefits" component={AwaADeuxBenefitsScreen} />
         <Stack.Screen name="AwaADeuxSharing" component={AwaADeuxSharingScreen} />
         <Stack.Screen name="AwaADeuxPairing" component={AwaADeuxPairingScreen} />
+        <Stack.Screen name="AwaADeuxPending" component={AwaADeuxPendingScreen} />
         <Stack.Screen name="AwaADeuxPartnerConnected" component={AwaADeuxPartnerConnectedScreen} />
+        <Stack.Screen name="AwaADeuxInvitation" component={AwaADeuxInvitationScreen} />
+        <Stack.Screen name="AwaADeuxAcceptInvitation" component={AwaADeuxAcceptInvitationScreen} />
+        <Stack.Screen name="PartnerMainTabs" component={PartnerMainTabNavigator} />
         <Stack.Screen name="RestoreBackup" component={RestoreBackupScreen} />
         <Stack.Screen name="DataExport" component={DataExportScreen} />
         <Stack.Screen
