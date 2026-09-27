@@ -15,6 +15,7 @@ import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import AwaADeuxBenefitsScreen from '../AwaADeuxBenefitsScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
+import AwaADeuxPendingScreen from '../AwaADeuxPendingScreen';
 import AwaADeuxPartnerConnectedScreen from '../AwaADeuxPartnerConnectedScreen';
 import {buildEmailBody} from '../awaADeuxInvitation';
 import {partnerLabel, partnerSubject, queBeforePartner} from '../../../utils/awaADeuxPartnerWording';
@@ -63,6 +64,7 @@ async function renderFlow(initial: string = 'AwaADeuxIntro') {
               <Stack.Screen component={AwaADeuxBenefitsScreen as never} name="AwaADeuxBenefits" />
               <Stack.Screen component={AwaADeuxSharingScreen as never} name="AwaADeuxSharing" />
               <Stack.Screen component={AwaADeuxPairingScreen as never} name="AwaADeuxPairing" />
+              <Stack.Screen component={AwaADeuxPendingScreen as never} name="AwaADeuxPending" />
               <Stack.Screen component={AwaADeuxPartnerConnectedScreen as never} name="AwaADeuxPartnerConnected" />
             </Stack.Navigator>
           </NavigationContainer>
@@ -154,9 +156,9 @@ describe('The name entered drives every following screen', () => {
     await press(renderer, 'Continuer');
     expect(route()).toBe('AwaADeuxSharing');
     expect(textsOf(renderer)).toContain('Amine verra uniquement les informations que vous activez.');
-    await press(renderer, 'Voir un aperçu du côté partenaire');
-    expect(textsOf(openModal(renderer))).toEqual(expect.arrayContaining(['Bonjour Amine 💜', 'Ceci est un aperçu. Amine verra uniquement les informations que vous avez activées.']));
-    await press(openModal(renderer), 'Fermer');
+    // The sharing screen no longer offers its own preview entry point (removed by
+    // design — see AwaADeuxSharingScreen.tsx); the SAME preview's name-interpolation is
+    // still covered via AwaADeuxAssociation.test.tsx's AwaADeuxPartnerConnectedScreen tests.
 
     // 4 — invitation
     await press(renderer, 'Continuer');
@@ -174,9 +176,16 @@ describe('The name entered drives every following screen', () => {
     expect(body.startsWith('Bonjour Amine !')).toBe(true);
     await press(openModal(renderer), 'Fermer');
 
-    // Partner screen and the stop dialog
+    // Pending — the last demo step actually reachable from the UI — also uses the dynamic name
     await press(renderer, 'Continuer');
-    expect(route()).toBe('AwaADeuxPartnerConnected');
+    expect(route()).toBe('AwaADeuxPending');
+    expect(textsOf(renderer)).toContain('Invitation envoyée\nà Amine');
+
+    // The connected screen and its stop dialog (reached directly, like elsewhere in this file)
+    await act(async () => {
+      navRef.navigate('AwaADeuxPartnerConnected' as never);
+    });
+    await settle();
     expect(textsOf(renderer)).toContain('Amine');
     await press(renderer, 'Arrêter le partage');
     expect(textsOf(openModal(renderer))).toContain('Amine ne pourra plus accéder aux informations que vous avez choisi de partager.');
@@ -192,7 +201,8 @@ describe('The name entered drives every following screen', () => {
     await press(renderer, 'Continuer');
     expect(textsOf(renderer)).toContain('Partagez ce code avec Mohamed pour l’inviter à se connecter.');
     await press(renderer, 'Continuer');
-    expect(textsOf(renderer)).toContain('Mohamed');
+    expect(route()).toBe('AwaADeuxPending');
+    expect(textsOf(renderer)).toContain('Invitation envoyée\nà Mohamed');
     for (const forbidden of ['Amine', 'Sami', 'Yacine']) {
       expect(visibleTexts(renderer)).not.toContain(forbidden);
     }
@@ -254,9 +264,9 @@ describe('No configured partner: neutral wording, never a made-up name', () => {
     });
     await settle();
     expect(textsOf(renderer)).toContain('Votre partenaire verra uniquement les informations que vous activez.');
-    await press(renderer, 'Voir un aperçu du côté partenaire');
-    expect(textsOf(openModal(renderer))).toContain('Ceci est un aperçu. Votre partenaire verra uniquement les informations que vous avez activées.');
-    await press(openModal(renderer), 'Fermer');
+    // The sharing screen no longer offers its own preview entry point (removed by
+    // design — see AwaADeuxSharingScreen.tsx); the SAME preview's neutral wording is
+    // still covered via AwaADeuxAssociation.test.tsx's AwaADeuxPartnerConnectedScreen tests.
 
     await act(async () => {
       navRef.navigate('AwaADeuxPairing' as never);
