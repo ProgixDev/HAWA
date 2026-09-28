@@ -40,9 +40,11 @@ import {
   getCycleObservationStartedAt,
   getCyclePreferences,
   getHasConfirmedCycleData,
+  getHasConfirmedCycleDuration,
   getRecordedPeriodHistory,
   hydrateCyclePreferences,
   subscribeCyclePreferences,
+  setCyclePreferences,
   getFirstName,
   getSelectedObjective,
   getSpiritualMarkersEnabled,
@@ -50,6 +52,7 @@ import {
   subscribeActiveObjective,
   setSpiritualMarkersEnabled,
   subscribeHijriAdjustmentDays,
+  type CyclePreferences,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
 import {
@@ -133,8 +136,33 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 
 import {getDemoPartnerState} from '../state/awaADeuxDemoStore';
 import {awaADeuxEntryRoute} from './awaADeux/awaADeuxNavigation';
+import {
+  consumeReopenManageProfilesSheetRequest,
+  deleteManagedProfile,
+  getManagedProfiles,
+  hydrateManagedProfiles,
+  subscribeManagedProfiles,
+  type ManagedProfile,
+} from '../state/managedProfilesStore';
+import {startManagedProfileDraft} from '../state/managedProfileDraftStore';
+import {
+  OWNER_PROFILE_ID,
+  getActiveProfileId,
+  hydrateActiveProfileId,
+  setActiveProfileId,
+  subscribeActiveProfileId,
+} from '../state/activeProfileStore';
+import {seedManagedProfileCycleIfNeeded} from '../state/managedProfileCycleSeed';
+import {formatAgeInYears} from '../utils/age';
+import ManagedProfileSwipeRow from '../components/profile/ManagedProfileSwipeRow';
+import ManagedProfileDeleteConfirmModal from '../components/profile/ManagedProfileDeleteConfirmModal';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+
+// Default illustration for a managed (daughter) profile row in "Gérer les profils"
+// when she has no custom photo yet — same asset as the managed-profile creation flow
+// (see src/screens/managedProfile/).
+const MANAGED_PROFILE_DAUGHTER_ILLUSTRATION = require('../assets/images/fille.png');
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -885,6 +913,63 @@ function SectionHeader({
   );
 }
 
+/**
+ * [-] N jours [+] stepper — same widget pattern already used by the
+ * managed-profile creation flow's own cycle-setup screen
+ * (ManagedProfileCycleSetupScreen.tsx's DurationStepper) and
+ * QadaaManualEntryModal.tsx before it. Kept as its own small local
+ * component here (rather than importing the creation-flow's version)
+ * so this screen never depends on — and can never accidentally affect —
+ * that already-tested onboarding-adjacent file.
+ */
+function DurationStepper({
+  value,
+  min,
+  max,
+  unit,
+  onChange,
+}: {
+  value: number;
+  min: number;
+  max: number;
+  unit: string;
+  onChange: (value: number) => void;
+}): React.JSX.Element {
+  const {theme} = useAwaTheme();
+  const styles = useMemo(() => createStyles(theme), [theme]);
+  const canDecrease = value > min;
+  const canIncrease = value < max;
+  return (
+    <View style={styles.stepperCard}>
+      <Pressable
+        accessibilityLabel="Diminuer"
+        accessibilityRole="button"
+        accessibilityState={{disabled: !canDecrease}}
+        disabled={!canDecrease}
+        hitSlop={4}
+        onPress={() => onChange(Math.max(min, value - 1))}
+        style={({pressed}) => [styles.stepperButton, !canDecrease && styles.stepperButtonDisabled, pressed && styles.pressed]}
+      >
+        <MaterialDesignIcons color={theme.colors.primary} name="minus" size={20} />
+      </Pressable>
+      <View style={styles.stepperValueBox}>
+        <Text style={styles.stepperValue}>{value} {unit}</Text>
+      </View>
+      <Pressable
+        accessibilityLabel="Augmenter"
+        accessibilityRole="button"
+        accessibilityState={{disabled: !canIncrease}}
+        disabled={!canIncrease}
+        hitSlop={4}
+        onPress={() => onChange(Math.min(max, value + 1))}
+        style={({pressed}) => [styles.stepperButton, !canIncrease && styles.stepperButtonDisabled, pressed && styles.pressed]}
+      >
+        <MaterialDesignIcons color={theme.colors.primary} name="plus" size={20} />
+      </Pressable>
+    </View>
+  );
+}
+
 /* ============================================================
  * PROFILE SCREEN
  * ============================================================ */
@@ -895,6 +980,89 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
   const [premiumVisible, setPremiumVisible] = useState(false);
   const [logoutDialogVisible, setLogoutDialogVisible] = useState(false);
+  const [manageProfilesVisible, setManageProfilesVisible] = useState(false);
+  const [managedProfiles, setManagedProfiles] = useState<ManagedProfile[]>(() => getManagedProfiles());
+
+  // Hydrates + subscribes to managedProfilesStore (the mother's daughter profiles,
+  // completely separate from AWA à deux — see the store's own header comment), and
+  // reopens "Gérer les profils" if ManagedProfileSuccessScreen's "Accéder au profil
+  // de {firstName}" left that one-shot request (no daughter dashboard exists yet).
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      hydrateManagedProfiles().then(value => {
+        if (active) {setManagedProfiles(value);}
+      });
+      if (consumeReopenManageProfilesSheetRequest()) {
+        setManageProfilesVisible(true);
+      }
+      const unsubscribe = subscribeManagedProfiles(() => setManagedProfiles(getManagedProfiles()));
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }, []),
+  );
+
+  // Which profile — the mother, or one of the rows above — is currently active
+  // across CycleHome/Calendar/Statistics/Journal (see activeProfileStore.ts). Kept
+  // in sync here so "Gérer les profils"' checkmark and this screen's own identity
+  // area (see the IDENTITY CARD below) always reflect it immediately after a switch.
+  const [activeProfileIdValue, setActiveProfileIdValue] = useState<string>(() => getActiveProfileId());
+  useFocusEffect(
+    useCallback(() => {
+      let active = true;
+      hydrateActiveProfileId().then(value => {
+        if (active) {setActiveProfileIdValue(value);}
+      });
+      const unsubscribe = subscribeActiveProfileId(() => setActiveProfileIdValue(getActiveProfileId()));
+      return () => {
+        active = false;
+        unsubscribe();
+      };
+    }, []),
+  );
+  const activeManagedProfile = activeProfileIdValue === OWNER_PROFILE_ID
+    ? null
+    : managedProfiles.find(profile => profile.id === activeProfileIdValue) ?? null;
+  const isManagedProfileActive = activeManagedProfile !== null;
+
+  const switchToProfile = (id: string) => {
+    setActiveProfileId(id)
+      // First-time-only seed of a daughter's own cycle context from what was
+      // declared during her creation (see managedProfileCycleSeed.ts) — a no-op
+      // once she already has real data, and a no-op for the owner (id === owner).
+      .then(() => (id === OWNER_PROFILE_ID ? undefined : seedManagedProfileCycleIfNeeded(id)))
+      .catch(() => undefined);
+  };
+
+  // Starts the daughter-profile creation flow (5-screen flow on the root stack —
+  // this screen lives inside MainTabs, hence the same getParent() escalation
+  // executeSignOut below uses to reach a root-stack screen).
+  const handleAddProfile = () => {
+    setManageProfilesVisible(false);
+    startManagedProfileDraft();
+    navigation
+      .getParent<NativeStackNavigationProp<RootStackParamList>>()
+      ?.navigate('ManagedProfileType');
+  };
+
+  // Swipe-to-delete for managed (daughter) profiles only — the mother's own row is
+  // never wrapped in ManagedProfileSwipeRow, so it structurally can never reach here.
+  const [openSwipeProfileId, setOpenSwipeProfileId] = useState<string | null>(null);
+  const [profileToDelete, setProfileToDelete] = useState<ManagedProfile | null>(null);
+
+  const confirmDeleteManagedProfile = async (profile: ManagedProfile) => {
+    // Never leave activeProfileId pointing at a profile that's about to stop
+    // existing — switch back to the mother FIRST, then delete.
+    if (getActiveProfileId() === profile.id) {
+      await setActiveProfileId(OWNER_PROFILE_ID);
+    }
+    await deleteManagedProfile(profile.id);
+    setManagedProfiles(getManagedProfiles());
+    setOpenSwipeProfileId(null);
+    setProfileToDelete(null);
+  };
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
 
@@ -928,6 +1096,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
     };
   }, []);
 
+  // A managed (daughter) profile only ever has ONE objective — "Suivre mon
+  // cycle" — regardless of the mother's own real, globally-stored objective
+  // (see CLAUDE.md §4/objective isolation and the same effectiveObjective
+  // pattern already used by HomeScreen/ObjectiveAwareCalendarScreen/
+  // ObjectiveAwareStatisticsScreen/JournalSheetHost). Every objective-driven
+  // section of THIS screen below (stats grid, "Mes informations" rows,
+  // notifications row) must read this, never the raw `objective` state.
+  const effectiveObjective: ObjectiveId = isManagedProfileActive ? 'cycle' : objective;
+
   const [objectiveModalVisible, setObjectiveModalVisible] = useState(false);
 
   /* ========================================================
@@ -959,6 +1136,61 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
       unsubscribe();
     };
   }, []);
+
+  /* ========================================================
+   * MANAGED DAUGHTER PROFILE — "Durée du cycle" / "Durée des règles" /
+   * "Régularité du cycle" editors.
+   *
+   * The mother's own equivalent rows keep navigating to CycleInformation's
+   * {mode:'edit'} (her onboarding screen reused in edit mode) EXACTLY as
+   * before — untouched. For a managed daughter, tapping these rows must
+   * NEVER reach that screen (it belongs to the mother's own onboarding/
+   * profile state); instead they open one of these three small AWA-styled
+   * bottom-sheet editors. Both paths ultimately call the SAME
+   * setCyclePreferences() — already profile-scoped (see
+   * onboardingPreferences.ts) — so saving here only ever touches whichever
+   * profile is currently active, never the mother's data. No new
+   * prediction/calculation logic is introduced: existing cycleMath.ts
+   * functions already read from this same profile-scoped store.
+   * ======================================================== */
+
+  const CYCLE_DURATION_MIN = 20;
+  const CYCLE_DURATION_MAX = 40;
+  const PERIOD_DURATION_MIN = 2;
+  const PERIOD_DURATION_MAX = 10;
+
+  const [cycleDurationEditorVisible, setCycleDurationEditorVisible] = useState(false);
+  const [draftCycleDuration, setDraftCycleDuration] = useState(cycle.cycleDuration);
+  const openCycleDurationEditor = () => {
+    setDraftCycleDuration(cycle.cycleDuration);
+    setCycleDurationEditorVisible(true);
+  };
+  const saveCycleDuration = () => {
+    setCyclePreferences({...cycle, cycleDuration: draftCycleDuration});
+    setCycleDurationEditorVisible(false);
+  };
+
+  const [periodDurationEditorVisible, setPeriodDurationEditorVisible] = useState(false);
+  const [draftPeriodDuration, setDraftPeriodDuration] = useState(cycle.periodDuration);
+  const openPeriodDurationEditor = () => {
+    setDraftPeriodDuration(cycle.periodDuration);
+    setPeriodDurationEditorVisible(true);
+  };
+  const savePeriodDuration = () => {
+    setCyclePreferences({...cycle, periodDuration: draftPeriodDuration});
+    setPeriodDurationEditorVisible(false);
+  };
+
+  const [regularityEditorVisible, setRegularityEditorVisible] = useState(false);
+  const [draftRegularity, setDraftRegularity] = useState(cycle.regularity);
+  const openRegularityEditor = () => {
+    setDraftRegularity(cycle.regularity);
+    setRegularityEditorVisible(true);
+  };
+  const saveRegularity = () => {
+    setCyclePreferences({...cycle, regularity: draftRegularity});
+    setRegularityEditorVisible(false);
+  };
 
   const [postpartum, setPostpartum] = useState(getPostpartumPreferences);
 
@@ -1082,6 +1314,11 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   const [anonymousAccount, setAnonymousAccount] =
     useState<AnonymousAccountInfo | null>(getAnonymousAccount);
   const [accountInfoModalVisible, setAccountInfoModalVisible] =
+    useState(false);
+  // Read-only "Informations personnelles" for a managed (daughter) profile —
+  // resolves ONLY activeManagedProfile's own firstName/birthDate/photo, never
+  // the mother's PersonalInformationScreen (which is her own name/email/DOB).
+  const [managedProfileInfoModalVisible, setManagedProfileInfoModalVisible] =
     useState(false);
 
   const refreshSecurity = useCallback(() => {
@@ -1260,7 +1497,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   // number is only called an average when it was observed from the user's own
   // recorded cycles; a declared length is worded as such, and an irregular /
   // variable cycle never gets one precise figure.
-  const averageCycleTile = describeAverageCycle(nextPeriodStatus, cycle, getHasConfirmedCycleData());
+  const averageCycleTile = describeAverageCycle(nextPeriodStatus, cycle, getHasConfirmedCycleDuration());
 
   // SOPK's own Profile summary — deliberately independent of
   // computeCyclePredictionStatus()/nextPeriodStatus above (no "Prochaines
@@ -1277,7 +1514,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   // onboarding answer — see utils/irregularJournalSelectors.ts. Reading the
   // confirmed history alone left these tiles at "Non renseignée(s)" for a
   // user who records periods through the SOPK journal.
-  const irregularPeriodSources = useIrregularPeriodSources(objective === 'irregular');
+  const irregularPeriodSources = useIrregularPeriodSources(effectiveObjective === 'irregular');
 
   const irregularPeriodDurationValue = (() => {
     const days = resolveLatestIrregularPeriodDuration(irregularPeriodSources, todayKey);
@@ -1402,6 +1639,23 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 Gère tes informations et préférences
               </Text>
             </View>
+
+            <Pressable
+              accessibilityLabel="Gérer les profils"
+              accessibilityRole="button"
+              hitSlop={8}
+              onPress={() => setManageProfilesVisible(true)}
+              style={({ pressed }) => [
+                styles.manageProfilesButton,
+                pressed && styles.pressed,
+              ]}
+            >
+              <MaterialDesignIcons
+                color={theme.colors.primary}
+                name="account-multiple-plus-outline"
+                size={20}
+              />
+            </Pressable>
           </View>
 
           {/* =================================================
@@ -1425,7 +1679,18 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.identityTopRow}>
               <View style={styles.avatarOuterRing}>
                 <View style={styles.avatarWrap}>
-                  {anonymousMode ? (
+                  {isManagedProfileActive ? (
+                    <Image
+                      accessibilityIgnoresInvertColors
+                      resizeMode={activeManagedProfile?.profileImageUri ? 'cover' : 'contain'}
+                      source={
+                        activeManagedProfile?.profileImageUri
+                          ? {uri: activeManagedProfile.profileImageUri}
+                          : MANAGED_PROFILE_DAUGHTER_ILLUSTRATION
+                      }
+                      style={styles.avatar}
+                    />
+                  ) : anonymousMode ? (
                     <AnonymousAvatar
                       color={anonymousAvatarColor}
                       size={64}
@@ -1446,28 +1711,33 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     </View>
                   )}
 
-                  <Pressable
-                    accessibilityLabel={
-                      anonymousMode
-                        ? 'Personnaliser mon avatar anonyme'
-                        : 'Changer la photo de profil'
-                    }
-                    hitSlop={8}
-                    onPress={() =>
-                      anonymousMode
-                        ? navigation.navigate('AnonymousAvatarCustomizer')
-                        : setPhotoSheetVisible(true)
-                    }
-                    style={({pressed}) => [
-                      styles.avatarBadge,
-                      pressed && styles.pressed,
-                    ]}>
-                    <MaterialDesignIcons
-                      color={onPrimaryTextColor(theme)}
-                      name={anonymousMode ? 'pencil-outline' : 'camera-outline'}
-                      size={12}
-                    />
-                  </Pressable>
+                  {/* No photo-edit badge for a managed profile — her photo is only ever
+                      set from the daughter-creation flow / a future edit screen, never
+                      from here (this pressable edits the MOTHER's own avatarUri). */}
+                  {isManagedProfileActive ? null : (
+                    <Pressable
+                      accessibilityLabel={
+                        anonymousMode
+                          ? 'Personnaliser mon avatar anonyme'
+                          : 'Changer la photo de profil'
+                      }
+                      hitSlop={8}
+                      onPress={() =>
+                        anonymousMode
+                          ? navigation.navigate('AnonymousAvatarCustomizer')
+                          : setPhotoSheetVisible(true)
+                      }
+                      style={({pressed}) => [
+                        styles.avatarBadge,
+                        pressed && styles.pressed,
+                      ]}>
+                      <MaterialDesignIcons
+                        color={onPrimaryTextColor(theme)}
+                        name={anonymousMode ? 'pencil-outline' : 'camera-outline'}
+                        size={12}
+                      />
+                    </Pressable>
+                  )}
                 </View>
               </View>
 
@@ -1475,15 +1745,22 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <View style={styles.identityEyebrowRow}>
                   <MaterialDesignIcons
                     color={theme.colors.primary}
-                    name={anonymousMode ? 'incognito' : 'account-outline'}
+                    name={isManagedProfileActive ? 'account-child-outline' : anonymousMode ? 'incognito' : 'account-outline'}
                     size={13}
                   />
                   <Text style={styles.identityEyebrow}>
-                    {anonymousMode ? 'MODE PRIVÉ' : 'MON PROFIL'}
+                    {isManagedProfileActive ? 'PROFIL GÉRÉ' : anonymousMode ? 'MODE PRIVÉ' : 'MON PROFIL'}
                   </Text>
                 </View>
 
-                {anonymousMode ? (
+                {isManagedProfileActive ? (
+                  <>
+                    <View style={styles.nameRow}>
+                      <Text style={styles.name}>{activeManagedProfile?.firstName}</Text>
+                    </View>
+                    <Text style={styles.identitySubtitle}>Ma fille</Text>
+                  </>
+                ) : anonymousMode ? (
                   <>
                     <View style={styles.identityMainLine}>
                       <Text style={styles.identityTitle}>Mode Anonyme</Text>
@@ -1537,12 +1814,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           {/* STATS */}
 
-          {objective !== 'pregnancy' &&
-          objective !== 'postpartum' &&
-          objective !== 'loss' &&
-          objective !== 'contraception' &&
-          objective !== 'menopause' &&
-          objective !== 'irregular' ? (
+          {effectiveObjective !== 'pregnancy' &&
+          effectiveObjective !== 'postpartum' &&
+          effectiveObjective !== 'loss' &&
+          effectiveObjective !== 'contraception' &&
+          effectiveObjective !== 'menopause' &&
+          effectiveObjective !== 'irregular' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-range"
@@ -1553,7 +1830,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <StatCard
                 icon="water-outline"
                 label="Durée règles"
-                value={`${cycle.periodDuration} jours`}
+                value={getHasConfirmedCycleDuration() ? `${cycle.periodDuration} jours` : 'Non renseignée'}
               />
 
               <StatCard
@@ -1581,7 +1858,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               copy. "Date hijri" is intentionally omitted here since it isn't
               a Menopause-specific datum (it belongs to the shared spiritual
               markers feature, already surfaced elsewhere in Profile). */}
-          {objective === 'menopause' ? (
+          {effectiveObjective === 'menopause' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="flower-outline"
@@ -1619,7 +1896,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               renseignée" while that period is still ongoing. "Type de cycle" reflects the SOPK
               onboarding's real saved answer (irregularPreferences.ts), never
               a hardcoded "Cycles irréguliers". */}
-          {objective === 'irregular' ? (
+          {effectiveObjective === 'irregular' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="sync"
@@ -1654,7 +1931,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               store the Contraception Dashboard/Calendar/Statistics already
               read/write, and the same CONTRACEPTION_METHOD_LABELS/ICONS —
               never a hardcoded method or a Profile-specific copy. */}
-          {objective === 'contraception' ? (
+          {effectiveObjective === 'contraception' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon={contraception.method ? CONTRACEPTION_METHOD_ICONS[contraception.method] : 'pill'}
@@ -1699,7 +1976,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               period/cycle duration/regularity belong to the Cycle
               objective only). Sourced directly from the same canonical
               postpartumPreferences store the onboarding flow wrote to. */}
-          {objective === 'postpartum' ? (
+          {effectiveObjective === 'postpartum' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-month-outline"
@@ -1737,7 +2014,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               fertile belong to the Cycle objective only). Sourced directly
               from the same canonical miscarriagePreferences store the
               onboarding flow/Dashboard/Calendar/Statistics already read. */}
-          {objective === 'loss' ? (
+          {effectiveObjective === 'loss' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-heart"
@@ -1812,7 +2089,11 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             </View>
           ) : null}
 
-          <PremiumProfileCard onPress={() => setPremiumVisible(true)} />
+          {/* Premium is an account-level, owner-only concept (never per-daughter —
+              see CLAUDE.md §4/§18) — the promotional card is hidden entirely for a
+              managed profile so "Mes informations" moves up with no empty gap;
+              Premium entitlement/state/screens themselves are completely untouched. */}
+          {!isManagedProfileActive ? <PremiumProfileCard onPress={() => setPremiumVisible(true)} /> : null}
 
           {/* MES INFORMATIONS */}
 
@@ -1826,16 +2107,24 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <MenuRow
               icon="account-outline"
               onPress={() =>
-                anonymousMode
-                  ? setAccountInfoModalVisible(true)
-                  : navigation.navigate('PersonalInformation')
+                isManagedProfileActive
+                  ? setManagedProfileInfoModalVisible(true)
+                  : anonymousMode
+                    ? setAccountInfoModalVisible(true)
+                    : navigation.navigate('PersonalInformation')
               }
-              subtitle={anonymousMode ? 'Compte protégé et anonyme' : 'Nom, email, date de naissance…'}
-              title={anonymousMode ? 'Informations du compte' : 'Informations personnelles'}
+              subtitle={
+                isManagedProfileActive
+                  ? 'Prénom, date de naissance…'
+                  : anonymousMode
+                    ? 'Compte protégé et anonyme'
+                    : 'Nom, email, date de naissance…'
+              }
+              title={anonymousMode && !isManagedProfileActive ? 'Informations du compte' : 'Informations personnelles'}
               tone="personal"
             />
 
-            {anonymousMode ? (
+            {anonymousMode && !isManagedProfileActive ? (
               <MenuRow
                 icon="incognito"
                 onPress={() => navigation.navigate('AnonymousMode')}
@@ -1847,8 +2136,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
             <MenuRow
               icon="target"
-              onPress={() => setObjectiveModalVisible(true)}
-              subtitle={OBJECTIVE_LABELS[objective]}
+              onPress={isManagedProfileActive ? undefined : () => setObjectiveModalVisible(true)}
+              subtitle={OBJECTIVE_LABELS[effectiveObjective]}
               title="Mon objectif"
               tone="objective"
             />
@@ -1865,25 +2154,37 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 screen the onboarding chain uses, in {mode:'edit'}: prefilled from
                 the current store, saves only its own group, then goBack() —
                 never continues the chain. Shown only for the matching objective. */}
-            {objective === 'cycle' ? (
+            {effectiveObjective === 'cycle' ? (
               <>
                 <MenuRow
                   icon="sync"
-                  onPress={() => navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})}
-                  subtitle={getHasConfirmedCycleData() ? `${cycle.cycleDuration} jours` : 'Non renseignée'}
+                  onPress={() =>
+                    isManagedProfileActive
+                      ? openCycleDurationEditor()
+                      : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
+                  }
+                  subtitle={getHasConfirmedCycleDuration() ? `${cycle.cycleDuration} jours` : 'Non renseignée'}
                   title="Durée du cycle"
                   tone="default"
                 />
                 <MenuRow
                   icon="water-outline"
-                  onPress={() => navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})}
-                  subtitle={getHasConfirmedCycleData() ? `${cycle.periodDuration} jours` : 'Non renseignée'}
+                  onPress={() =>
+                    isManagedProfileActive
+                      ? openPeriodDurationEditor()
+                      : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
+                  }
+                  subtitle={getHasConfirmedCycleDuration() ? `${cycle.periodDuration} jours` : 'Non renseignée'}
                   title="Durée des règles"
                   tone="default"
                 />
                 <MenuRow
                   icon="chart-timeline-variant"
-                  onPress={() => navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})}
+                  onPress={() =>
+                    isManagedProfileActive
+                      ? openRegularityEditor()
+                      : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
+                  }
                   subtitle={
                     !getHasConfirmedCycleData()
                       ? 'Non renseignée'
@@ -1891,7 +2192,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                         ? 'Plutôt régulier'
                         : cycle.regularity === 'no'
                           ? 'Irrégulier'
-                          : 'Je ne sais pas encore'
+                          // Regularity is never asked during daughter creation — for a
+                          // managed profile, 'unknown' means "not yet provided", worded
+                          // as such, rather than the mother's own "Je ne sais pas encore"
+                          // (a real answer she gave during her onboarding).
+                          : isManagedProfileActive
+                            ? 'Non renseignée'
+                            : 'Je ne sais pas encore'
                   }
                   title="Régularité du cycle"
                   tone="default"
@@ -1899,7 +2206,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'conceive' ? (
+            {effectiveObjective === 'conceive' ? (
               <>
                 <MenuRow
                   icon="calendar-clock"
@@ -1925,7 +2232,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'irregular' ? (
+            {effectiveObjective === 'irregular' ? (
               <>
                 <MenuRow
                   icon="calendar-edit"
@@ -1948,7 +2255,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'contraception' ? (
+            {effectiveObjective === 'contraception' ? (
               <>
                 <MenuRow
                   icon="calendar-check-outline"
@@ -1978,7 +2285,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'pregnancy' ? (
+            {effectiveObjective === 'pregnancy' ? (
               <>
                 <MenuRow
                   icon="calendar-heart"
@@ -1997,7 +2304,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'pregnancy' ? (
+            {effectiveObjective === 'pregnancy' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('PregnancyNotifications')}
@@ -2007,7 +2314,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'contraception' ? (
+            {effectiveObjective === 'contraception' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('ContraceptionReminders', {mode: 'edit'})}
@@ -2017,7 +2324,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'cycle' ? (
+            {effectiveObjective === 'cycle' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('CycleReminders', {mode: 'edit'})}
@@ -2027,7 +2334,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'conceive' ? (
+            {effectiveObjective === 'conceive' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('ConceptionReminders', {mode: 'edit'})}
@@ -2037,7 +2344,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'menopause' ? (
+            {effectiveObjective === 'menopause' ? (
               <>
                 <MenuRow
                   icon="flower-outline"
@@ -2080,7 +2387,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'menopause' ? (
+            {effectiveObjective === 'menopause' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('MenopauseReminders', {mode: 'edit'})}
@@ -2090,7 +2397,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'postpartum' ? (
+            {effectiveObjective === 'postpartum' ? (
               <>
                 <MenuRow
                   icon="calendar-heart"
@@ -2123,7 +2430,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'postpartum' ? (
+            {effectiveObjective === 'postpartum' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('PostpartumReminders', {mode: 'edit'})}
@@ -2133,7 +2440,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'irregular' ? (
+            {effectiveObjective === 'irregular' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('IrregularReminders', {mode: 'edit'})}
@@ -2143,7 +2450,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'loss' ? (
+            {effectiveObjective === 'loss' ? (
               <MenuRow
                 icon="calendar-edit"
                 onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
@@ -2153,7 +2460,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             ) : null}
 
-            {objective === 'loss' ? (
+            {effectiveObjective === 'loss' ? (
               <>
                 <MenuRow
                   icon="water-outline"
@@ -2191,7 +2498,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               </>
             ) : null}
 
-            {objective === 'loss' ? (
+            {effectiveObjective === 'loss' ? (
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('MiscarriageReminders', {mode: 'edit'})}
@@ -2209,13 +2516,21 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               tone="default"
             />
 
-            <MenuRow
-              icon="shield-lock-outline"
-              onPress={() => navigation.navigate('PrivacySecurity')}
-              subtitle="Code, biométrie, mode discret et protection des données"
-              title="Confidentialité & Sécurité"
-              tone="security"
-            />
+            {/* Account-level, owner-only (PIN/biométrie/mode discret/mode anonyme/
+                suppression de compte all belong to the mother's authenticated AWA
+                account/device — a managed daughter is not an independent account,
+                see CLAUDE.md §4). Hidden entirely (not disabled) for a managed
+                profile so "Sauvegarde" moves up with no empty gap; the screen and
+                the mother's own settings are completely untouched. */}
+            {!isManagedProfileActive ? (
+              <MenuRow
+                icon="shield-lock-outline"
+                onPress={() => navigation.navigate('PrivacySecurity')}
+                subtitle="Code, biométrie, mode discret et protection des données"
+                title="Confidentialité & Sécurité"
+                tone="security"
+              />
+            ) : null}
 
             <MenuRow
               icon="cloud-outline"
@@ -2227,20 +2542,29 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           </View>
 
           {/* AWA À DEUX — opens the introduction screen only; the partner feature
-              itself (pairing, sharing, permissions) is not implemented. */}
+              itself (pairing, sharing, permissions) is not implemented.
+              Account-level, owner-only (CLAUDE.md §18's classification: AWA à deux
+              belongs to the mother's own account, never a managed profile's identity)
+              — hidden while a daughter is active so her cycle data can never be read
+              by AWA à deux's partner-cycle-info computation, which resolves from
+              onboardingPreferences.ts's shared (profile-scoped) cycle preferences. */}
 
-          <SectionHeader icon="heart-multiple-outline" title="AWA À DEUX" />
+          {!isManagedProfileActive ? (
+            <>
+              <SectionHeader icon="heart-multiple-outline" title="AWA À DEUX" />
 
-          <View style={styles.menuCard}>
-            <MenuRow
-              icon="heart-multiple-outline"
-              onPress={() => navigation.navigate(awaADeuxEntryRoute(getDemoPartnerState().partnerConnected))}
-              status="Non configuré"
-              subtitle="Partagez certains repères avec votre partenaire"
-              title="AWA à deux"
-              tone="default"
-            />
-          </View>
+              <View style={styles.menuCard}>
+                <MenuRow
+                  icon="heart-multiple-outline"
+                  onPress={() => navigation.navigate(awaADeuxEntryRoute(getDemoPartnerState().partnerConnected))}
+                  status="Non configuré"
+                  subtitle="Partagez certains repères avec votre partenaire"
+                  title="AWA à deux"
+                  tone="default"
+                />
+              </View>
+            </>
+          ) : null}
 
           {/* Only shown while anonymous AND genuinely unprotected — once
               PIN/biométrie is on, this card disappears rather than nag. */}
@@ -2277,9 +2601,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           ) : null}
 
           {/* =================================================
-              REPÈRES SPIRITUELS
+              REPÈRES SPIRITUELS — not part of a managed daughter profile's
+              simplified cycle-tracking experience (CLAUDE.md §4 objective
+              isolation); hidden entirely (not just disabled) so "Plus"
+              moves up with no empty card. Stores/business logic untouched;
+              the mother's own experience is byte-identical when she is
+              active again.
           ================================================= */}
 
+          {!isManagedProfileActive ? (
           <View
             style={[
               styles.spiritualCard,
@@ -2404,6 +2734,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
             </Pressable>
           </View>
+          ) : null}
 
           {/* PLUS */}
 
@@ -2479,6 +2810,202 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
           onCancel={() => setLogoutDialogVisible(false)}
           onConfirm={executeSignOut}
           visible={logoutDialogVisible}
+        />
+
+        {/* =====================================================
+            GÉRER LES PROFILS — first UI step of the future multi-profile
+            feature. Only the current user's own real profile exists today
+            (no daughter-profile creation/switching yet — see the header
+            comment on handleAddProfile). Same Modal/backdrop/bottom-sheet
+            shell as the OBJECTIVE MODAL just below, reused verbatim.
+        ===================================================== */}
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setManageProfilesVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={manageProfilesVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setManageProfilesVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.manageProfilesSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Gérer les profils</Text>
+
+                  <Text style={styles.sheetSubtitle}>
+                    Suivez votre cycle ou celui d’un profil que vous gérez.
+                  </Text>
+                </View>
+
+                <Pressable
+                  accessibilityLabel="Fermer"
+                  onPress={() => setManageProfilesVisible(false)}
+                  style={styles.sheetClose}
+                >
+                  <MaterialDesignIcons
+                    color={theme.colors.accent}
+                    name="close"
+                    size={21}
+                  />
+                </Pressable>
+              </View>
+
+              <ScrollView
+                contentContainerStyle={[
+                  styles.manageProfilesList,
+                  { paddingBottom: Math.max(insets.bottom, 14) + 14 },
+                ]}
+                showsVerticalScrollIndicator={false}
+              >
+                {/* Tapping either row makes it the active profile across CycleHome/
+                    Calendar/Statistics/Journal (activeProfileStore.ts) — the checkmark
+                    reflects whichever one that currently is, never just the mother. */}
+                <Pressable
+                  accessibilityLabel="Mon profil"
+                  accessibilityRole="radio"
+                  accessibilityState={{ checked: !isManagedProfileActive }}
+                  onPress={() => switchToProfile(OWNER_PROFILE_ID)}
+                  style={[styles.objectiveOption, !isManagedProfileActive && styles.objectiveOptionActive]}
+                >
+                  <View style={styles.profileRowAvatarWrap}>
+                    {anonymousMode ? (
+                      <AnonymousAvatar
+                        color={anonymousAvatarColor}
+                        size={44}
+                        style={anonymousAvatarStyle}
+                      />
+                    ) : photoUri ? (
+                      <Image
+                        accessibilityIgnoresInvertColors
+                        resizeMode="cover"
+                        source={{ uri: photoUri }}
+                        style={styles.profileRowAvatar}
+                      />
+                    ) : (
+                      <View style={styles.profileRowAvatarFallback}>
+                        <Text style={styles.profileRowAvatarFallbackText}>
+                          {firstNameInitial}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+
+                  <View style={styles.objectiveOptionCopy}>
+                    <Text
+                      style={[
+                        styles.objectiveOptionTitle,
+                        !isManagedProfileActive && styles.objectiveOptionTitleActive,
+                      ]}
+                    >
+                      {anonymousMode ? 'Mode Anonyme' : firstName || 'Non renseigné'}
+                    </Text>
+
+                    <Text style={styles.objectiveOptionSubtitle}>Mon profil</Text>
+                  </View>
+
+                  {!isManagedProfileActive ? (
+                    <View style={[styles.objectiveRadio, styles.objectiveRadioActive]}>
+                      <MaterialDesignIcons
+                        color={onPrimaryTextColor(theme)}
+                        name="check"
+                        size={15}
+                      />
+                    </View>
+                  ) : (
+                    <View style={styles.objectiveRadio} />
+                  )}
+                </Pressable>
+
+                {/* Managed (daughter) profiles — tappable to switch (same as the mother's
+                    row above), and swipeable right-to-left to reveal "Supprimer". Custom
+                    photo when she chose one; otherwise the default fille.png illustration
+                    (never the mother's own initials fallback). */}
+                {managedProfiles.map(profile => {
+                  const checked = activeManagedProfile?.id === profile.id;
+                  return (
+                    <ManagedProfileSwipeRow
+                      deleteAccessibilityLabel={`Supprimer le profil de ${profile.firstName}`}
+                      forceClosed={openSwipeProfileId !== null && openSwipeProfileId !== profile.id}
+                      key={profile.id}
+                      onDeletePress={() => setProfileToDelete(profile)}
+                      onSwipeOpen={() => setOpenSwipeProfileId(profile.id)}
+                    >
+                      <Pressable
+                        accessibilityLabel={`Profil de ${profile.firstName}`}
+                        accessibilityRole="radio"
+                        accessibilityState={{ checked }}
+                        onPress={() => switchToProfile(profile.id)}
+                        style={[styles.objectiveOption, checked && styles.objectiveOptionActive]}
+                      >
+                        <Image
+                          accessibilityIgnoresInvertColors
+                          resizeMode={profile.profileImageUri ? 'cover' : 'contain'}
+                          source={
+                            profile.profileImageUri
+                              ? {uri: profile.profileImageUri}
+                              : MANAGED_PROFILE_DAUGHTER_ILLUSTRATION
+                          }
+                          style={styles.profileRowAvatar}
+                        />
+
+                        <View style={styles.objectiveOptionCopy}>
+                          <Text style={[styles.objectiveOptionTitle, checked && styles.objectiveOptionTitleActive]}>
+                            {profile.firstName}
+                          </Text>
+                          <Text style={styles.objectiveOptionSubtitle}>Ma fille</Text>
+                        </View>
+
+                        {checked ? (
+                          <View style={[styles.objectiveRadio, styles.objectiveRadioActive]}>
+                            <MaterialDesignIcons
+                              color={onPrimaryTextColor(theme)}
+                              name="check"
+                              size={15}
+                            />
+                          </View>
+                        ) : (
+                          <View style={styles.objectiveRadio} />
+                        )}
+                      </Pressable>
+                    </ManagedProfileSwipeRow>
+                  );
+                })}
+
+                <Pressable
+                  accessibilityLabel="Ajouter un profil"
+                  accessibilityRole="button"
+                  onPress={handleAddProfile}
+                  style={({ pressed }) => [
+                    styles.simpleAccountButton,
+                    styles.addProfileButton,
+                    pressed && styles.simpleAccountButtonPressed,
+                  ]}
+                >
+                  <MaterialDesignIcons
+                    color={theme.colors.primary}
+                    name="plus"
+                    size={18}
+                  />
+
+                  <Text style={styles.addProfileButtonText}>Ajouter le profil de ma fille</Text>
+                </Pressable>
+              </ScrollView>
+            </View>
+          </View>
+        </Modal>
+
+        <ManagedProfileDeleteConfirmModal
+          onCancel={() => setProfileToDelete(null)}
+          onConfirm={confirmDeleteManagedProfile}
+          profile={profileToDelete}
         />
 
         {/* =====================================================
@@ -3010,6 +3537,305 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         </Modal>
 
         {/* =====================================================
+            DAUGHTER CYCLE-SETTINGS EDITORS — "Durée du cycle" /
+            "Durée des règles" / "Régularité du cycle" for a managed
+            profile. Reuses the SAME sheet chrome as every other modal
+            in this screen (objectiveSheet/sheetHandle/sheetHeader).
+            Saving calls setCyclePreferences() — already profile-scoped
+            — so it only ever touches whichever profile is active.
+        ===================================================== */}
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setCycleDurationEditorVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={cycleDurationEditorVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setCycleDurationEditorVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Durée du cycle</Text>
+                  <Text style={styles.sheetSubtitle}>Combien de jours dure généralement son cycle ?</Text>
+                </View>
+                <Pressable onPress={() => setCycleDurationEditorVisible(false)} style={styles.sheetClose}>
+                  <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
+                </Pressable>
+              </View>
+
+              <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
+                <DurationStepper
+                  max={CYCLE_DURATION_MAX}
+                  min={CYCLE_DURATION_MIN}
+                  onChange={setDraftCycleDuration}
+                  unit="jours"
+                  value={draftCycleDuration}
+                />
+
+                <View style={styles.editorActions}>
+                  <Pressable
+                    accessibilityLabel="Annuler"
+                    accessibilityRole="button"
+                    onPress={() => setCycleDurationEditorVisible(false)}
+                    style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.editorCancelText}>Annuler</Text>
+                  </Pressable>
+                  <Pressable
+                    accessibilityLabel="Enregistrer"
+                    accessibilityRole="button"
+                    onPress={saveCycleDuration}
+                    style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
+                  >
+                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>Enregistrer</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setPeriodDurationEditorVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={periodDurationEditorVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setPeriodDurationEditorVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Durée des règles</Text>
+                  <Text style={styles.sheetSubtitle}>Combien de jours durent généralement ses règles ?</Text>
+                </View>
+                <Pressable onPress={() => setPeriodDurationEditorVisible(false)} style={styles.sheetClose}>
+                  <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
+                </Pressable>
+              </View>
+
+              <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
+                <DurationStepper
+                  max={PERIOD_DURATION_MAX}
+                  min={PERIOD_DURATION_MIN}
+                  onChange={setDraftPeriodDuration}
+                  unit="jours"
+                  value={draftPeriodDuration}
+                />
+
+                <View style={styles.editorActions}>
+                  <Pressable
+                    accessibilityLabel="Annuler"
+                    accessibilityRole="button"
+                    onPress={() => setPeriodDurationEditorVisible(false)}
+                    style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.editorCancelText}>Annuler</Text>
+                  </Pressable>
+                  <Pressable
+                    accessibilityLabel="Enregistrer"
+                    accessibilityRole="button"
+                    onPress={savePeriodDuration}
+                    style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
+                  >
+                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>Enregistrer</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setRegularityEditorVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={regularityEditorVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setRegularityEditorVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Régularité du cycle</Text>
+                  <Text style={styles.sheetSubtitle}>Son cycle est-il généralement régulier ?</Text>
+                </View>
+                <Pressable onPress={() => setRegularityEditorVisible(false)} style={styles.sheetClose}>
+                  <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
+                </Pressable>
+              </View>
+
+              <View style={{paddingBottom: Math.max(insets.bottom, 14) + 14}}>
+                {/* Same 3 values AWA's own cycle onboarding already defines
+                    (CycleInformationScreen.tsx) — never a new terminology. */}
+                {(
+                  [
+                    {id: 'yes', label: 'Oui'},
+                    {id: 'no', label: 'Non'},
+                    {id: 'unknown', label: 'Je ne sais pas'},
+                  ] as Array<{id: CyclePreferences['regularity']; label: string}>
+                ).map(option => (
+                  <Pressable
+                    accessibilityLabel={option.label}
+                    accessibilityRole="radio"
+                    accessibilityState={{checked: draftRegularity === option.id}}
+                    key={option.id}
+                    onPress={() => setDraftRegularity(option.id)}
+                    style={({pressed}) => [
+                      styles.regularityChoice,
+                      draftRegularity === option.id && styles.regularityChoiceSelected,
+                      pressed && styles.pressed,
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.regularityChoiceText,
+                        draftRegularity === option.id && styles.regularityChoiceTextSelected,
+                      ]}
+                    >
+                      {option.label}
+                    </Text>
+                    <View style={[styles.objectiveRadio, draftRegularity === option.id && styles.objectiveRadioActive]}>
+                      {draftRegularity === option.id ? (
+                        <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={15} />
+                      ) : null}
+                    </View>
+                  </Pressable>
+                ))}
+
+                <View style={styles.editorActions}>
+                  <Pressable
+                    accessibilityLabel="Annuler"
+                    accessibilityRole="button"
+                    onPress={() => setRegularityEditorVisible(false)}
+                    style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
+                  >
+                    <Text style={styles.editorCancelText}>Annuler</Text>
+                  </Pressable>
+                  <Pressable
+                    accessibilityLabel="Enregistrer"
+                    accessibilityRole="button"
+                    onPress={saveRegularity}
+                    style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
+                  >
+                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>Enregistrer</Text>
+                  </Pressable>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* =====================================================
+            MANAGED PROFILE INFO MODAL — read-only "Informations
+            personnelles" for a daughter, resolved from HER OWN
+            ManagedProfile record only (firstName/birthDate/photo),
+            never the mother's account name/email/date of naissance.
+        ===================================================== */}
+
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setManagedProfileInfoModalVisible(false)}
+          statusBarTranslucent
+          transparent
+          visible={managedProfileInfoModalVisible}
+        >
+          <View style={styles.modalOverlay}>
+            <Pressable
+              onPress={() => setManagedProfileInfoModalVisible(false)}
+              style={StyleSheet.absoluteFill}
+            />
+
+            <View style={styles.objectiveSheet}>
+              <View style={styles.sheetHandle} />
+
+              <View style={styles.sheetHeader}>
+                <View style={styles.sheetHeaderCopy}>
+                  <Text style={styles.sheetTitle}>Informations personnelles</Text>
+
+                  <Text style={styles.sheetSubtitle}>
+                    Les informations de {activeManagedProfile?.firstName ?? 'ce profil'}.
+                  </Text>
+                </View>
+
+                <Pressable
+                  onPress={() => setManagedProfileInfoModalVisible(false)}
+                  style={styles.sheetClose}
+                >
+                  <MaterialDesignIcons
+                    color={theme.colors.accent}
+                    name="close"
+                    size={21}
+                  />
+                </Pressable>
+              </View>
+
+              <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
+                <View style={styles.accountInfoRow}>
+                  <Text style={styles.accountInfoLabel}>Prénom</Text>
+                  <Text style={styles.accountInfoValue}>{activeManagedProfile?.firstName ?? '—'}</Text>
+                </View>
+
+                <View style={styles.accountInfoRow}>
+                  <Text style={styles.accountInfoLabel}>Date de naissance</Text>
+                  <Text style={styles.accountInfoValue}>
+                    {(() => {
+                      const parsed = parseStoredDateOnly(activeManagedProfile?.birthDate);
+                      return parsed ? formatFullDate(parsed) : 'Non renseignée';
+                    })()}
+                  </Text>
+                </View>
+
+                <View style={[styles.accountInfoRow, styles.accountInfoRowLast]}>
+                  <Text style={styles.accountInfoLabel}>Âge</Text>
+                  <Text style={styles.accountInfoValue}>
+                    {(() => {
+                      const parsed = parseStoredDateOnly(activeManagedProfile?.birthDate);
+                      return parsed ? formatAgeInYears(parsed) : 'Non renseigné';
+                    })()}
+                  </Text>
+                </View>
+
+                <View style={styles.spiritualInfoBox}>
+                  <MaterialDesignIcons
+                    color={theme.colors.primary}
+                    name="information-outline"
+                    size={19}
+                  />
+
+                  <Text style={styles.spiritualInfoText}>
+                    Ce profil géré n’a pas son propre compte AWA — ses informations restent
+                    liées au tien et peuvent être modifiées depuis "Gérer les profils".
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* =====================================================
             PHOTO MODAL (Normal Mode)
         ===================================================== */}
 
@@ -3332,7 +4158,9 @@ pageGlowBottom: {
     fontSize: 13,
   },
 
-  notification: {
+  // Compact header icon button — same chrome already used for this exact purpose
+  // elsewhere in the header row (44px, subtle border + soft surface).
+  manageProfilesButton: {
     width: 44,
     height: 44,
     alignItems: 'center',
@@ -4137,6 +4965,24 @@ pageGlowBottom: {
     paddingTop: 10,
   },
 
+  // "Gérer les profils" — same bottom-sheet shell as objectiveSheet/spiritualSheet
+  // above (SAME radius/surface/padding), kept intentionally shorter/more compact since
+  // it only ever holds the current profile row + "Ajouter un profil" today.
+  manageProfilesSheet: {
+    maxHeight: '70%',
+    overflow: 'hidden',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    backgroundColor: theme.colors.surface,
+    paddingHorizontal: 16,
+    paddingTop: 10,
+  },
+
+  manageProfilesList: {
+    gap: 12,
+    paddingTop: 2,
+  },
+
   sheetHandle: {
     width: 46,
     height: 5,
@@ -4217,6 +5063,71 @@ pageGlowBottom: {
     fontWeight: '700',
   },
 
+  /* DAUGHTER CYCLE-SETTINGS EDITORS — stepper + Annuler/Enregistrer actions,
+     same visual language as ManagedProfileCycleSetupScreen.tsx's own
+     stepper/helper cards, and the regularity radio choice reuses
+     objectiveOption/objectiveRadio(Active) above. */
+  stepperCard: {
+    minHeight: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 16,
+    borderWidth: 1.4,
+    borderColor: theme.colors.border,
+    backgroundColor: theme.colors.background,
+    paddingHorizontal: 6,
+    marginTop: 4,
+  },
+  stepperButton: {width: 44, height: 44, alignItems: 'center', justifyContent: 'center'},
+  stepperButtonDisabled: {opacity: 0.35},
+  stepperValueBox: {flex: 1, alignItems: 'center'},
+  stepperValue: {color: theme.colors.text, fontSize: 16, fontWeight: '700'},
+
+  regularityChoice: {
+    minHeight: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.14),
+    borderRadius: 16,
+    backgroundColor: theme.colors.surface,
+    paddingHorizontal: 14,
+    marginTop: 8,
+  },
+  regularityChoiceSelected: {
+    borderColor: theme.colors.primary,
+    backgroundColor: theme.colors.primarySoft,
+  },
+  regularityChoiceText: {color: theme.colors.text, fontSize: 13.5, fontWeight: '600'},
+  regularityChoiceTextSelected: {color: theme.colors.accent, fontWeight: '700'},
+
+  editorActions: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 18,
+  },
+  editorCancelButton: {
+    flex: 1,
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: withAlpha(theme.colors.primary, 0.2),
+  },
+  editorCancelText: {color: theme.colors.textSecondary, fontSize: 13.5, fontWeight: '700'},
+  editorSaveButton: {
+    flex: 1,
+    minHeight: 48,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 16,
+    backgroundColor: theme.colors.primary,
+  },
+  editorSaveText: {fontSize: 13.5, fontWeight: '700'},
+
   objectiveOption: {
     minHeight: 72,
     flexDirection: 'row',
@@ -4290,6 +5201,50 @@ pageGlowBottom: {
   objectiveRadioActive: {
     borderColor: theme.colors.primary,
     backgroundColor: theme.colors.primary,
+  },
+
+  /* "GÉRER LES PROFILS" — the current-profile row reuses objectiveOption/
+     objectiveOptionActive/objectiveOptionCopy/objectiveRadio(Active) above (same
+     selectable-row shell already used for "Modifier mon objectif"); only the avatar and
+     the "Ajouter un profil" action are specific to this sheet. Proportioned like the
+     identity card's own avatar (64/24 → scaled to 44/17 here). */
+  profileRowAvatarWrap: {width: 44, height: 44, flexShrink: 0},
+  profileRowAvatar: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    borderWidth: 2,
+    borderColor: theme.colors.surface,
+  },
+  profileRowAvatarFallback: {
+    width: 44,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 22,
+    borderWidth: 2,
+    borderColor: theme.colors.surface,
+    backgroundColor: theme.colors.primarySoft,
+  },
+  profileRowAvatarFallbackText: {
+    color: theme.colors.primary,
+    fontFamily: 'serif',
+    fontSize: 17,
+    fontWeight: '700',
+  },
+
+  // Same pill-button skeleton as signOut/anonymousExit (simpleAccountButton +
+  // simpleAccountButtonPressed), only the color variant is new — a soft primary/lilac
+  // action, never a hardcoded color.
+  addProfileButton: {
+    borderColor: withAlpha(theme.colors.primary, 0.35),
+    backgroundColor: theme.colors.primarySoft,
+  },
+  addProfileButtonText: {
+    color: theme.colors.primary,
+    fontSize: 14,
+    lineHeight: 19,
+    fontWeight: '700',
   },
 
   /* SPIRITUAL SHEET */
