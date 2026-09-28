@@ -39,6 +39,7 @@ import {
 } from '../state/generalHealthStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -634,6 +635,25 @@ export default function GeneralHealthScreen({
     setToast,
   ] =
     useState(false);
+
+  // "Objectifs de santé" is not part of a managed daughter profile's
+  // functional objective (already fixed to "Suivre mon cycle" — see
+  // CLAUDE.md §4 objective isolation); hidden for her only, conditional UI,
+  // never deleting the mother's own goal data/store.
+  const [
+    isManagedProfileActive,
+    setIsManagedProfileActive,
+  ] =
+    useState(
+      () => getActiveProfileIdentity().isManagedProfile,
+    );
+
+  useEffect(() => {
+    const unsubscribe = subscribeActiveProfileId(
+      () => setIsManagedProfileActive(getActiveProfileIdentity().isManagedProfile),
+    );
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     loadGeneralHealth().then(
@@ -1268,8 +1288,11 @@ export default function GeneralHealthScreen({
             />
           </Animated.View>
 
-          {/* GOAL */}
+          {/* GOAL — hidden entirely for a managed daughter profile (not just
+              disabled), so no empty section/card is left behind. */}
 
+          {!isManagedProfileActive ? (
+          <>
           <SectionHeader
             icon="target"
             styles={styles}
@@ -1366,6 +1389,8 @@ export default function GeneralHealthScreen({
               size={23}
             />
           </Pressable>
+          </>
+          ) : null}
 
           <View
             style={

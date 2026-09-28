@@ -840,6 +840,32 @@ export const PRIVACY_FAQ_ITEMS = FAQ_ITEMS.filter(
   item => item.category === 'Données & confidentialité',
 );
 
+// A managed daughter profile's functional objective is always "Suivre mon
+// cycle" (see CLAUDE.md §4 objective isolation) — her "Aide & support" is
+// limited to this menstrual-cycle-tracking topic set: every FAQ item whose
+// `objective` is 'cycle', plus the one general journal item explaining what
+// the daily journal can track (she keeps the full journal, minus Vie
+// intime). Every other objective/feature-specific topic (pregnancy, AWA à
+// deux, spiritual markers, premium marketing, etc.) is excluded — never
+// deleted from FAQ_ITEMS itself, only filtered out of what she's offered.
+// 'journal-what-can-track's shared subtitle/answer mentions "vie intime" —
+// accurate for the mother (who keeps that feature) but never true for a
+// managed daughter profile (Vie intime is hidden for her — see
+// DailyJournalCard.tsx's hideIntimacy prop). Rather than editing the shared
+// FAQ_ITEMS entry (which would also change the mother's own Help wording),
+// this is a daughter-only override of that one item's display copy — same
+// id/icon/category/question, real available features only.
+const JOURNAL_FAQ_FOR_DAUGHTER: FaqItem = {
+  ...(FAQ_ITEMS.find(item => item.id === 'journal-what-can-track') as FaqItem),
+  subtitle: 'Symptômes, humeur, sommeil, activité, hydratation, flux menstruel et notes.',
+  answer:
+    'Le Journal quotidien te permet de suivre les symptômes physiques, l’humeur, le sommeil, l’activité physique, l’hydratation, le flux menstruel ainsi que des notes personnelles.',
+};
+
+export const CYCLE_TRACKING_FAQ_ITEMS = FAQ_ITEMS.filter(item => item.objective === 'cycle').concat(
+  JOURNAL_FAQ_FOR_DAUGHTER,
+);
+
 export const getFaqById = (
   id: FaqId,
 ): FaqItem | undefined =>
