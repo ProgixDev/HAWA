@@ -519,14 +519,33 @@ export const calendarDayKindFor = (
 export type CycleFertilityEstimate = {fertileStart: Date; fertileEnd: Date; ovulation: Date};
 
 /** Upcoming fertile window + ovulation date — or null when no single cycle
- * length can be trusted ('window': declared irregular / observed variable),
- * in which case NO precise date may be shown. */
+ * length can be trusted, in which case NO precise date may be shown:
+ * - 'window' (declared irregular / observed variable): never.
+ * - 'observing' (regularity 'unknown', not enough real history yet) AND
+ *   `hasConfirmedCycleDuration` is false: `basics.cycleDuration` would be an
+ *   internal computation placeholder nobody actually confirmed (see
+ *   onboardingPreferences.ts's `hasConfirmedCycleDuration` field comment —
+ *   exactly the case of a managed daughter who just recorded her very first
+ *   period), so it may not be used as if it were a real habitual length
+ *   either. 'exact' mode is always trustworthy regardless of this flag: it is
+ *   reached either with a genuinely declared/confirmed duration (regularity
+ *   'yes', which only exists together with a confirmed duration) or with a
+ *   REAL observed average from recorded history (regularity 'unknown' +
+ *   regular-looking pattern) — never the unconfirmed placeholder.
+ *
+ * `hasConfirmedCycleDuration` defaults to `true` (the previous, unconditional
+ * behavior) so every existing caller that doesn't pass it is unaffected —
+ * pass getHasConfirmedCycleDuration() explicitly wherever an 'observing'-mode
+ * estimate must not be shown/scheduled for an unconfirmed duration
+ * (Dashboard, Calendar, cycle reminder scheduling). */
 export const estimateFertilityDates = (
   basics: CycleBasics,
   status: CyclePredictionStatus,
   today: Date,
+  hasConfirmedCycleDuration: boolean = true,
 ): CycleFertilityEstimate | null => {
   if (status.mode === 'window') {return null;}
+  if (status.mode !== 'exact' && !hasConfirmedCycleDuration) {return null;}
   const effective = status.mode === 'exact' ? {...basics, cycleDuration: status.averageCycleLength} : basics;
   // ONE occurrence of the repeating cycle (see upcomingFertileWindow): looking
   // the three dates up independently made the start jump to the NEXT cycle
@@ -541,11 +560,18 @@ export type AverageCycleDisplay = {label: string; value: string; subtitle: strin
  * A number is only called an AVERAGE when it was actually observed from the
  * user's own recorded cycles; a declared/configured length is worded as such,
  * and an unconfirmed fallback (onboarding placeholder values) is never shown
- * as if it were the user's data. */
+ * as if it were the user's data.
+ *
+ * `hasConfirmedCycleDuration` — pass getHasConfirmedCycleDuration(), NEVER
+ * getHasConfirmedCycleData(): a real recorded period (hasConfirmedCycleData)
+ * does not by itself mean basics.cycleDuration is a value anyone actually
+ * provided — see onboardingPreferences.ts's own field comment (a managed
+ * daughter recording her very first period is the exact case these two
+ * diverge for). */
 export const describeAverageCycle = (
   status: CyclePredictionStatus,
   basics: CycleBasics,
-  hasConfirmedCycleData: boolean,
+  hasConfirmedCycleDuration: boolean,
 ): AverageCycleDisplay => {
   if (status.mode === 'window') {
     return {
@@ -557,7 +583,7 @@ export const describeAverageCycle = (
   if (status.mode === 'exact' && status.observedPattern === 'regular-looking') {
     return {label: 'Durée moyenne', value: `${status.averageCycleLength} jours`, subtitle: 'Basée sur tes cycles enregistrés'};
   }
-  if (!hasConfirmedCycleData) {
+  if (!hasConfirmedCycleDuration) {
     return {label: 'Durée habituelle', value: 'Non renseignée', subtitle: 'Complète ton cycle'};
   }
   if (status.mode === 'exact') {

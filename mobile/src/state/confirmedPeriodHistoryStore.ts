@@ -1,5 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
+import {profileScopedKey} from './profileScopedStorage';
+
 // Confirmed menstrual occurrences — kept strictly separate from
 // cyclePreferences (predictive: lastPeriodStart/averagePeriodLength/
 // cycleDuration). Each entry pairs an ACTUAL confirmed period start with
@@ -22,7 +25,13 @@ export type ConfirmedPeriodOccurrence = {
   capturedAt: string;
 };
 
-const HISTORY_STORAGE_KEY = '@hawa/confirmed-period-history';
+const HISTORY_STORAGE_KEY_BASE = '@hawa/confirmed-period-history';
+
+// Profile-scoped (see profileScopedStorage.ts): the mother's data lives under the
+// original, unsuffixed key exactly as before (no migration needed); a managed
+// (daughter) profile's confirmed periods live under their own suffixed key, and are
+// never mixed with the mother's or with another managed profile's.
+const currentStorageKey = () => profileScopedKey(HISTORY_STORAGE_KEY_BASE, getActiveProfileId());
 
 let history: ConfirmedPeriodOccurrence[] = [];
 const listeners = new Set<() => void>();
@@ -32,6 +41,9 @@ const listeners = new Set<() => void>();
 const endRecordedListeners = new Set<(occurrence: ConfirmedPeriodOccurrence) => void>();
 let hydration: Promise<ConfirmedPeriodOccurrence[]> | null = null;
 let hydrated = false;
+// WHICH profile the in-memory `history` above currently reflects — switching the
+// active profile invalidates this so the next hydrate re-reads the new profile's own key.
+let hydratedForProfileId: string | null = null;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -83,7 +95,7 @@ export const recordConfirmedPeriodEnd = async (
 
   notifyListeners();
   endRecordedListeners.forEach(listener => listener(record));
-  await AsyncStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
+  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(history));
   return getConfirmedPeriodHistory();
 };
 
@@ -102,38 +114,49 @@ export const removeConfirmedPeriodOccurrence = async (
   }
   history = history.filter(occurrence => occurrence.id !== id);
   notifyListeners();
-  await AsyncStorage.setItem(HISTORY_STORAGE_KEY, JSON.stringify(history));
+  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(history));
   return getConfirmedPeriodHistory();
 };
 
 export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurrence[]> => {
+  const profileId = getActiveProfileId();
   // Same reasoning as onboardingPreferences' hydrate* functions: once the
   // first real AsyncStorage read resolves, the in-memory list is
   // authoritative — re-returning the cached first-read promise on every
-  // later call would clobber a just-recorded occurrence.
-  if (hydrated) {
+  // later call would clobber a just-recorded occurrence. That guard is now
+  // per-profile: switching the active profile forces a fresh read.
+  if (hydrated && hydratedForProfileId === profileId) {
     return Promise.resolve(getConfirmedPeriodHistory());
   }
-  if (!hydration) {
-    hydration = AsyncStorage.getItem(HISTORY_STORAGE_KEY)
-      .then(raw => {
-        hydrated = true;
-        if (raw) {
-          const parsed: unknown = JSON.parse(raw);
-          if (Array.isArray(parsed) && parsed.every(isValidOccurrence)) {
-            history = parsed;
-            notifyListeners();
-          }
+  hydration = AsyncStorage.getItem(currentStorageKey())
+    .then(raw => {
+      hydrated = true;
+      hydratedForProfileId = profileId;
+      history = [];
+      if (raw) {
+        const parsed: unknown = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.every(isValidOccurrence)) {
+          history = parsed;
         }
-        return getConfirmedPeriodHistory();
-      })
-      .catch(() => {
-        hydrated = true;
-        return getConfirmedPeriodHistory();
-      });
-  }
+      }
+      notifyListeners();
+      return getConfirmedPeriodHistory();
+    })
+    .catch(() => {
+      hydrated = true;
+      hydratedForProfileId = profileId;
+      return getConfirmedPeriodHistory();
+    });
   return hydration;
 };
+
+// Re-reads (and re-notifies) from the newly active profile's own key whenever the
+// active profile changes — this is what keeps the dashboard/calendar/statistics from
+// ever showing a stale profile's data for even one render after switching.
+subscribeActiveProfileId(() => {
+  hydrated = false;
+  hydrateConfirmedPeriodHistory().catch(() => undefined);
+});
 
 export const subscribeConfirmedPeriodEndRecorded = (
   listener: (occurrence: ConfirmedPeriodOccurrence) => void,
