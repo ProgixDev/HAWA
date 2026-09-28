@@ -70,6 +70,25 @@ type Props = {
    * invitation screens) get it.
    */
   decor?: boolean;
+  /**
+   * Optional content rendered in the SAME header row as the back button, aligned to
+   * its right (e.g. a segmented step-progress indicator — see
+   * src/screens/managedProfile/ManagedProfileProgress.tsx). Additive and opt-in:
+   * omitted by every existing AWA à deux screen, so their header layout is
+   * byte-identical; only a caller that passes it gets the row-with-trailing-content
+   * header instead of the plain back-button-only one.
+   */
+  headerAccessory?: React.ReactNode;
+  /**
+   * Opt-in, additive: makes `children` a flex container that vertically centers its
+   * content in the remaining space between the description and the sticky CTA,
+   * instead of the default top-stacked layout. Off by default, so every existing
+   * screen's layout is unaffected. Currently unused (the managed-profile flow's old
+   * type-selection screen used it to center its two cards as a group; that screen was
+   * replaced by an intro screen that no longer needs it) — kept available for the next
+   * screen that needs to center a small, self-contained group of content.
+   */
+  centerBody?: boolean;
   children: React.ReactNode;
 };
 
@@ -95,6 +114,8 @@ export default function AwaADeuxStepLayout({
   compact,
   hero,
   decor,
+  headerAccessory,
+  centerBody,
   children,
 }: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
@@ -137,6 +158,7 @@ export default function AwaADeuxStepLayout({
           styles.body,
           fit ? [styles.bodyFit, {marginTop: fit.bodyMarginTop, gap: fit.bodyGap}] : null,
           !fit && compact ? {marginTop: compact.bodyMarginTop, gap: compact.bodyGap} : null,
+          centerBody && styles.bodyCenter,
         ]}>
         {children}
       </View>
@@ -158,7 +180,7 @@ export default function AwaADeuxStepLayout({
         </View>
       ) : null}
 
-      <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
+      <View style={[styles.header, headerAccessory ? styles.headerWithAccessory : null, {paddingTop: Math.max(insets.top, 18) + 8}]}>
         <Pressable
           accessibilityLabel="Retour"
           accessibilityRole="button"
@@ -167,6 +189,8 @@ export default function AwaADeuxStepLayout({
           style={({pressed}) => [styles.back, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
         </Pressable>
+
+        {headerAccessory}
       </View>
 
       {hero ? <View style={styles.hero}>{hero}</View> : null}
@@ -212,6 +236,9 @@ function createStyles(theme: ResolvedAwaTheme) {
   return StyleSheet.create({
     screen: {flex: 1, backgroundColor: theme.colors.background},
     header: {paddingHorizontal: 20, paddingBottom: 4},
+    // Only applied when `headerAccessory` is actually passed — every existing
+    // caller keeps the original back-button-only header layout untouched.
+    headerWithAccessory: {flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'},
     back: {
       alignSelf: 'flex-start',
       alignItems: 'center',
@@ -272,6 +299,10 @@ function createStyles(theme: ResolvedAwaTheme) {
     fitContent: {flex: 1, flexGrow: 1, minHeight: 0},
     body: {marginTop: 22, gap: 12},
     bodyFit: {flex: 1, justifyContent: 'center'},
+    // Opt-in only (centerBody) — same "grow to fill, then center" shape as bodyFit
+    // above, kept as its own style rather than reusing bodyFit directly since the two
+    // are conceptually independent opt-ins (fit-on-one-screen vs. center-this-group).
+    bodyCenter: {flex: 1, justifyContent: 'center'},
     footer: {paddingHorizontal: 20, paddingTop: 10},
     cta: {
       minHeight: 54,
