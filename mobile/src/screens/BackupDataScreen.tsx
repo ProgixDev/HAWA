@@ -6,7 +6,8 @@ import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {backupNow, buildPortableDataJson, formatBytes, getBackupSnapshot, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
+import {backupNow, backupNowForProfile, buildPortableDataJson, buildPortableDataJsonForProfile, formatBytes, getBackupSnapshot, getBackupSnapshotForProfile, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
+import {getActiveProfileIdentity} from '../state/activeProfileStore';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -44,6 +45,16 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const compact = width < 360 || height < 700;
+  // A managed daughter profile is NOT an independent account (CLAUDE.md
+  // §4) — every action on this screen stays visible for her, but each now
+  // operates ONLY on her own profile-scoped data (see backupService.ts's
+  // profile-scoped variants — each writes to/reads from HER OWN dedicated
+  // storage key, never the owner's), and copy is adapted with her real
+  // firstName. The owner's own path (backupNow/getBackupSnapshot) is
+  // completely untouched — same functions, same BACKUP_KEY, same behavior
+  // as before this feature existed.
+  const activeIdentity = useMemo(() => getActiveProfileIdentity(), []);
+  const daughterFirstName = activeIdentity.managedProfile?.firstName ?? '';
   const [snapshot, setSnapshot] = useState<BackupSnapshot>();
   const [settings, setSettings] = useState<BackupSettings>({enabled: true, wifiOnly: true, frequency: 'daily'});
   const [backingUp, setBackingUp] = useState(false);
@@ -51,9 +62,9 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
   const [toast, setToast] = useState('');
 
   useEffect(() => {
-    getBackupSnapshot().then(setSnapshot);
+    (activeIdentity.isManagedProfile ? getBackupSnapshotForProfile(activeIdentity.id) : getBackupSnapshot()).then(setSnapshot);
     loadBackupSettings().then(setSettings);
-  }, []);
+  }, [activeIdentity.id, activeIdentity.isManagedProfile]);
 
   const notify = (value: string) => {
     setToast(value);
@@ -63,8 +74,8 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
     if (backingUp) {return;}
     setBackingUp(true);
     try {
-      setSnapshot(await backupNow());
-      notify('Sauvegarde locale terminée ✓');
+      setSnapshot(activeIdentity.isManagedProfile ? await backupNowForProfile(activeIdentity.id) : await backupNow());
+      notify(activeIdentity.isManagedProfile ? `Sauvegarde de ${daughterFirstName} terminée ✓` : 'Sauvegarde locale terminée ✓');
     } catch {
       notify('Impossible d’effectuer la sauvegarde.');
     } finally {
@@ -77,7 +88,13 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
     await saveBackupSettings(next);
   };
   const download = async () => {
-    await Share.share({title: 'Mes données AWA', message: await buildPortableDataJson()});
+    const message = activeIdentity.isManagedProfile
+      ? await buildPortableDataJsonForProfile(activeIdentity.id)
+      : await buildPortableDataJson();
+    await Share.share({
+      title: activeIdentity.isManagedProfile ? `Données de ${daughterFirstName} — AWA` : 'Mes données AWA',
+      message,
+    });
   };
 
   // snapshot is parsed straight from AsyncStorage JSON (getBackupSnapshot) —
@@ -106,7 +123,9 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           </Pressable>
           <View style={styles.headerCopy}>
             <Text style={styles.title}>Sauvegarde</Text>
-            <Text style={styles.subtitle}>Tes données, toujours en sécurité 💜</Text>
+            <Text style={styles.subtitle}>
+              {activeIdentity.isManagedProfile ? `Les données de ${daughterFirstName}, toujours en sécurité 💜` : 'Tes données, toujours en sécurité 💜'}
+            </Text>
           </View>
           <View style={styles.decor}>
             <MaterialDesignIcons color={theme.colors.primary} name="cloud-upload-outline" size={41} />
@@ -146,8 +165,12 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           <View style={styles.backupAction}>
             <MaterialDesignIcons color={theme.colors.primary} name="sync" size={23} />
             <View style={styles.actionCopy}>
-              <Text style={styles.actionTitle}>Sauvegarder maintenant</Text>
-              <Text style={styles.actionText}>Créer une nouvelle copie de tes données</Text>
+              <Text style={styles.actionTitle}>
+                {activeIdentity.isManagedProfile ? `Sauvegarder les données de ${daughterFirstName}` : 'Sauvegarder maintenant'}
+              </Text>
+              <Text style={styles.actionText}>
+                {activeIdentity.isManagedProfile ? `Créer une nouvelle copie des données de ${daughterFirstName}` : 'Créer une nouvelle copie de tes données'}
+              </Text>
             </View>
             <Pressable disabled={backingUp} onPress={runBackup} style={[styles.saveButton, backingUp && styles.disabled]}>
               {backingUp ? <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" /> : <Text style={styles.saveText}>Sauvegarder</Text>}
@@ -158,19 +181,30 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
         <Text style={styles.sectionTitle}>Restaurer</Text>
         <DataRow
           icon="backup-restore" onPress={() => navigation.navigate('RestoreBackup')} styles={styles} theme={theme}
-          subtitle="Remettre tes données comme lors de la copie précédente" title="Restaurer une sauvegarde"
+          subtitle={
+            activeIdentity.isManagedProfile
+              ? `Remettre les données de ${daughterFirstName} comme lors de la copie précédente`
+              : 'Remettre tes données comme lors de la copie précédente'
+          }
+          title={activeIdentity.isManagedProfile ? `Restaurer les données de ${daughterFirstName}` : 'Restaurer une sauvegarde'}
         />
 
-        <Text style={styles.sectionTitle}>Gérer mes données</Text>
+        <Text style={styles.sectionTitle}>{activeIdentity.isManagedProfile ? `Gérer les données de ${daughterFirstName}` : 'Gérer mes données'}</Text>
         <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
-          <DataRow icon="download-outline" onPress={download} styles={styles} theme={theme} subtitle="Recevoir une copie de toutes tes données" title="Télécharger mes données" />
+          <DataRow
+            icon="download-outline" onPress={download} styles={styles} theme={theme}
+            subtitle={activeIdentity.isManagedProfile ? `Recevoir une copie des données de ${daughterFirstName}` : 'Recevoir une copie de toutes tes données'}
+            title={activeIdentity.isManagedProfile ? `Télécharger les données de ${daughterFirstName}` : 'Télécharger mes données'}
+          />
           <DataRow
             badge="PDF / CSV" icon="file-export-outline" onPress={() => navigation.navigate('DataExport')} styles={styles} theme={theme}
-            subtitle="Exporter ton historique et tes données" title="Exporter mes données"
+            subtitle={activeIdentity.isManagedProfile ? `Exporter l’historique et les données de ${daughterFirstName}` : 'Exporter ton historique et tes données'}
+            title={activeIdentity.isManagedProfile ? `Exporter les données de ${daughterFirstName}` : 'Exporter mes données'}
           />
           <DataRow
             danger last icon="delete-outline" onPress={() => navigation.navigate('DeleteTrackedData')} styles={styles} theme={theme}
-            subtitle="Supprimer définitivement tes données de suivi" title="Supprimer mes données"
+            subtitle={activeIdentity.isManagedProfile ? `Supprimer définitivement les données de suivi de ${daughterFirstName}` : 'Supprimer définitivement tes données de suivi'}
+            title={activeIdentity.isManagedProfile ? `Supprimer les données de ${daughterFirstName}` : 'Supprimer mes données'}
           />
         </Animated.View>
 
