@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {hydrateQadaaProgress, type QadaaProgressState} from './qadaaProgressStore';
+import {getActiveProfileId, isOwnerActive, subscribeActiveProfileId} from './activeProfileStore';
+import {profileScopedKey} from './profileScopedStorage';
 
 // Persistent Qadaa ledger: everything the USER declares about her Qadaa
 // ("Jeûnes à rattraper"), kept strictly apart from the AUTOMATIC part.
@@ -77,6 +79,11 @@ export type QadaaManualEntryInput = {
 };
 
 export const QADAA_LEDGER_STORAGE_KEY = 'awa:qadaa:ledger:v1';
+// Profile-scoped (see profileScopedStorage.ts) — the mother's ledger stays under the
+// exact key above, unsuffixed; a managed (daughter) profile gets her own suffixed
+// key, and (see hydrateQadaaLedger below) never runs the legacy-counter migration,
+// since that legacy counter is the MOTHER's own pre-ledger data, never a daughter's.
+const currentLedgerStorageKey = () => profileScopedKey(QADAA_LEDGER_STORAGE_KEY, getActiveProfileId());
 export const QADAA_LEGACY_COMPLETION_ID = 'qadaa-completion-legacy-progress';
 export const QADAA_MAX_DAYS_PER_ENTRY = 999;
 export const QADAA_MAX_NOTE_LENGTH = 80;
@@ -92,6 +99,7 @@ let ledger: QadaaLedger = {...EMPTY_LEDGER};
 const listeners = new Set<() => void>();
 let hydration: Promise<QadaaLedger> | null = null;
 let hydrated = false;
+let hydratedForProfileId: string | null = null;
 let writeChain: Promise<void> = Promise.resolve();
 
 const notifyListeners = () => {
@@ -177,7 +185,7 @@ const persist = (): Promise<void> => {
   const snapshot = JSON.stringify(ledger);
   writeChain = writeChain
     .catch(() => undefined)
-    .then(() => AsyncStorage.setItem(QADAA_LEDGER_STORAGE_KEY, snapshot));
+    .then(() => AsyncStorage.setItem(currentLedgerStorageKey(), snapshot));
   return writeChain;
 };
 
@@ -206,58 +214,71 @@ export const subscribeQadaaLedger = (listener: () => void) => {
  * ledger can never be overwritten by an empty one.
  */
 export const hydrateQadaaLedger = (): Promise<QadaaLedger> => {
-  if (hydrated) {return Promise.resolve(ledger);}
-  if (!hydration) {
-    hydration = (async () => {
-      let raw: string | null;
+  const profileId = getActiveProfileId();
+  if (hydrated && hydratedForProfileId === profileId) {return Promise.resolve(ledger);}
+  hydration = (async () => {
+    let raw: string | null;
+    try {
+      raw = await AsyncStorage.getItem(currentLedgerStorageKey());
+    } catch {
+      hydration = null;
+      return ledger;
+    }
+
+    let next = parseLedger(raw) ?? {...EMPTY_LEDGER, manualEntries: [], completions: []};
+    let changed = raw === null;
+
+    // The legacy pre-ledger counter (qadaaProgressStore.ts) is the MOTHER's own
+    // historical data — a managed (daughter) profile never had it, so her ledger
+    // is simply marked already-migrated instead of ever reading/folding it in.
+    if (!next.legacyProgressMigrated && isOwnerActive()) {
+      let legacy: QadaaProgressState;
       try {
-        raw = await AsyncStorage.getItem(QADAA_LEDGER_STORAGE_KEY);
+        legacy = await hydrateQadaaProgress();
       } catch {
+        // The old counter could not be read: stay un-hydrated (retry later)
+        // rather than record "0 completed" and lose it for good.
         hydration = null;
         return ledger;
       }
-
-      let next = parseLedger(raw) ?? {...EMPTY_LEDGER, manualEntries: [], completions: []};
-      let changed = raw === null;
-
-      if (!next.legacyProgressMigrated) {
-        let legacy: QadaaProgressState;
-        try {
-          legacy = await hydrateQadaaProgress();
-        } catch {
-          // The old counter could not be read: stay un-hydrated (retry later)
-          // rather than record "0 completed" and lose it for good.
-          hydration = null;
-          return ledger;
-        }
-        const legacyQuantity = Math.floor(legacy.completedDays);
-        if (isPositiveInteger(legacyQuantity) && !next.completions.some(item => item.id === QADAA_LEGACY_COMPLETION_ID)) {
-          const at = legacy.updatedAt > 0 ? new Date(legacy.updatedAt) : new Date();
-          const migrated: QadaaCompletionEntry = {
-            id: QADAA_LEGACY_COMPLETION_ID,
-            quantity: legacyQuantity,
-            completedAt: at.toISOString(),
-            completedOn: localDateKey(at),
-            createdAt: new Date().toISOString(),
-            origin: 'MIGRATED',
-          };
-          next = {...next, completions: [...next.completions, migrated]};
-        }
-        next = {...next, legacyProgressMigrated: true};
-        changed = true;
+      const legacyQuantity = Math.floor(legacy.completedDays);
+      if (isPositiveInteger(legacyQuantity) && !next.completions.some(item => item.id === QADAA_LEGACY_COMPLETION_ID)) {
+        const at = legacy.updatedAt > 0 ? new Date(legacy.updatedAt) : new Date();
+        const migrated: QadaaCompletionEntry = {
+          id: QADAA_LEGACY_COMPLETION_ID,
+          quantity: legacyQuantity,
+          completedAt: at.toISOString(),
+          completedOn: localDateKey(at),
+          createdAt: new Date().toISOString(),
+          origin: 'MIGRATED',
+        };
+        next = {...next, completions: [...next.completions, migrated]};
       }
+      next = {...next, legacyProgressMigrated: true};
+      changed = true;
+    } else if (!next.legacyProgressMigrated) {
+      next = {...next, legacyProgressMigrated: true};
+      changed = true;
+    }
 
-      ledger = next;
-      hydrated = true;
-      if (changed) {
-        persist().catch(() => undefined);
-      }
-      notifyListeners();
-      return ledger;
-    })();
-  }
+    ledger = next;
+    hydrated = true;
+    hydratedForProfileId = profileId;
+    if (changed) {
+      persist().catch(() => undefined);
+    }
+    notifyListeners();
+    return ledger;
+  })();
   return hydration;
 };
+
+// Re-reads (and re-notifies) from the newly active profile's own key whenever the
+// active profile changes.
+subscribeActiveProfileId(() => {
+  hydrated = false;
+  hydrateQadaaLedger().catch(() => undefined);
+});
 
 const ensureWritable = async (): Promise<void> => {
   await hydrateQadaaLedger();

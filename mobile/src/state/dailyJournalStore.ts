@@ -5,8 +5,15 @@ import {
   encryptFieldValue,
   isEncryptedFieldPayload,
 } from '../services/atRestFieldEncryption';
+import {getActiveProfileId} from './activeProfileStore';
+import {profileScopedKey} from './profileScopedStorage';
 
-const STORAGE_KEY = '@hawa/daily-journal/v1';
+const STORAGE_KEY_BASE = '@hawa/daily-journal/v1';
+// Profile-scoped (see profileScopedStorage.ts) — the mother's journal stays under
+// the exact key above (no migration needed); every read/write below resolves the
+// key FRESH from the CURRENT active profile, so this store needs no separate
+// cache-invalidation-on-switch step (it never caches in memory — see readEntries()).
+const currentStorageKey = () => profileScopedKey(STORAGE_KEY_BASE, getActiveProfileId());
 
 // Only these 9 nested per-category free-text `note` fields are sensitive
 // narrative content — every other DailyJournalEntry field (severity/level/
@@ -67,7 +74,7 @@ async function decryptEntryFromStorage(raw: Record<string, unknown>): Promise<Da
 }
 
 const readEntries = async (): Promise<DailyJournalEntry[]> => {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  const raw = await AsyncStorage.getItem(currentStorageKey());
   if (!raw) {return [];}
   try {
     const parsed = JSON.parse(raw) as Record<string, unknown>[];
@@ -77,7 +84,7 @@ const readEntries = async (): Promise<DailyJournalEntry[]> => {
 
 const writeEntries = async (entries: DailyJournalEntry[]): Promise<void> => {
   const serializable = await Promise.all(entries.map(entry => encryptEntryForStorage(entry)));
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(serializable));
+  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(serializable));
 };
 
 export async function saveJournalSection<K extends JournalSection>(
@@ -134,7 +141,7 @@ export async function deleteJournalSection(date: string, section: JournalSection
  * migrated by their own dedicated services.
  */
 export async function migrateLegacyPlainDailyJournalNotes(): Promise<void> {
-  const raw = await AsyncStorage.getItem(STORAGE_KEY);
+  const raw = await AsyncStorage.getItem(currentStorageKey());
   if (!raw) {return;}
   let parsed: unknown;
   try {parsed = JSON.parse(raw);} catch {return;}

@@ -80,9 +80,14 @@ let cyclePreferences: CyclePreferences = {
   cycleDuration: 28,
   regularity: 'yes',
 };
-const CYCLE_STORAGE_KEY = '@hawa/cycle-preferences';
+const CYCLE_STORAGE_KEY_BASE = '@hawa/cycle-preferences';
+// Profile-scoped (see profileScopedStorage.ts) — the mother's cycle data stays
+// under the exact key above (no migration needed); a managed (daughter) profile's
+// habitual settings + real recorded periods live under their own suffixed key.
+const currentCycleStorageKey = () => profileScopedKey(CYCLE_STORAGE_KEY_BASE, getActiveProfileId());
 const cycleListeners = new Set<() => void>();
 let cycleHydrated = false;
+let cycleHydratedForProfileId: string | null = null;
 let cycleHydration: Promise<CyclePreferences> | null = null;
 let periodHistory: PeriodHistoryRecord[] = [];
 // Provenance flag: true only once the user has gone through a legitimate
@@ -95,6 +100,25 @@ let periodHistory: PeriodHistoryRecord[] = [];
 // whether it's safe to present cycle-derived predictions as personalized
 // fact, or must show an honest "configure ton cycle" state instead.
 let hasConfirmedCycleData = false;
+// Separate from hasConfirmedCycleData above: true only once periodDuration/
+// cycleDuration THEMSELVES represent a real value someone actually provided
+// (set exclusively by setCyclePreferences() — CycleInformationScreen, the
+// managed-daughter "Oui" cycle-setup seed, ProfileScreen's duration editors).
+// addPeriodOccurrence()/confirmPeriodStart()/correctPeriodOccurrence() never
+// touch periodDuration/cycleDuration (see their own comments) and so never
+// set this either — recording a period start tells us nothing new about her
+// habitual duration. The two flags stay equal on every EXISTING path (both
+// always flip together via setCyclePreferences); they diverge only for
+// recordFirstEverPeriod() below, where a real period date is known but
+// duration/regularity are not — periodDuration/cycleDuration there stay an
+// internal computation placeholder (so cycleDayFor/phaseFor/predictions have
+// something to divide by while in 'observing' mode), never surfaced to the
+// mother as if she confirmed them. Consult this — never
+// getHasConfirmedCycleData() — before displaying/exporting a periodDuration/
+// cycleDuration NUMBER as a confirmed personal value (ProfileScreen.tsx's
+// "Durée du cycle"/"Durée des règles" rows, describeAverageCycle() in
+// cycleMath.ts).
+let hasConfirmedCycleDuration = false;
 // Anchor date for the 'unknown' regularity observation window (see
 // computeCyclePredictionStatus() in cycleMath.ts). Deliberately NOT a fresh
 // "now" timestamp — it's derived from the same lastPeriodStart every other
@@ -119,6 +143,7 @@ const cycleSnapshot = () => ({
     ? cycleObservationStartedAt.toISOString()
     : null,
   hasConfirmedCycleData,
+  hasConfirmedCycleDuration,
 });
 
 // hydrateCyclePreferences() seeds `periodHistory` from the still-unconfirmed
@@ -137,7 +162,7 @@ const discardUnconfirmedPeriodSeed = (): void => {
 const notifyCycleListeners = () =>
   cycleListeners.forEach(listener => listener());
 const persistCycle = () =>
-  AsyncStorage.setItem(CYCLE_STORAGE_KEY, JSON.stringify(cycleSnapshot()));
+  AsyncStorage.setItem(currentCycleStorageKey(), JSON.stringify(cycleSnapshot()));
 
 const isObjectiveId = (value: unknown): value is ObjectiveId =>
   typeof value === 'string' && OBJECTIVE_IDS.includes(value as ObjectiveId);
@@ -539,6 +564,7 @@ export const setCyclePreferences = (value: CyclePreferences) => {
     lastPeriodStart: new Date(value.lastPeriodStart),
   };
   hasConfirmedCycleData = true;
+  hasConfirmedCycleDuration = true;
 
   // Entering 'unknown' (freshly, or again after having left it) starts a new
   // observation window anchored to the real period start just declared;
@@ -644,6 +670,32 @@ export const confirmPeriodStart = (date: Date): void => {
   addPeriodOccurrence(date);
 };
 
+/** Records a REAL first-ever period start together with an explicit
+ * regularity, WITHOUT marking periodDuration/cycleDuration as user-confirmed
+ * (see the `hasConfirmedCycleDuration` field comment above). Used exactly
+ * once: a managed daughter recording her very first period from the
+ * dashboard/calendar (managedProfileCycleSeed.ts's
+ * recordManagedProfileFirstPeriod) — only the date is actually known at that
+ * moment; her habitual period/cycle duration is not. periodDuration/
+ * cycleDuration are left exactly as they already are (the untouched neutral
+ * defaults, for a daughter who was never seeded — see
+ * seedManagedProfileCycleIfNeeded's own no-op for hasHadFirstPeriod===false)
+ * — an internal computation basis only (cycleDayFor/phaseFor need SOMETHING
+ * to divide by while regularity stays 'unknown'/'observing'), never surfaced
+ * to the mother as if she confirmed them. */
+export const recordFirstEverPeriod = (date: Date, regularity: CycleRegularity): void => {
+  const previousRegularity = cyclePreferences.regularity;
+  addPeriodOccurrence(date);
+  cyclePreferences = {...cyclePreferences, regularity};
+  // Same anchor logic as setCyclePreferences() above — entering 'unknown'
+  // starts a new observation window anchored to the real period just declared.
+  if (regularity === 'unknown' && previousRegularity !== 'unknown') {
+    cycleObservationStartedAt = new Date(cyclePreferences.lastPeriodStart);
+  }
+  notifyCycleListeners();
+  persistCycle().catch(() => {});
+};
+
 export const getCyclePreferences = (): CyclePreferences => ({
   ...cyclePreferences,
   lastPeriodStart: new Date(cyclePreferences.lastPeriodStart),
@@ -655,6 +707,12 @@ export const getCyclePreferences = (): CyclePreferences => ({
  * 28/5/"today minus 5 days" — before treating cyclePreferences as
  * personalized fact. */
 export const getHasConfirmedCycleData = (): boolean => hasConfirmedCycleData;
+
+/** True only once periodDuration/cycleDuration THEMSELVES represent a real
+ * value someone actually provided (see the `hasConfirmedCycleDuration` field
+ * comment above). Consult this — never getHasConfirmedCycleData() — before
+ * displaying/exporting a periodDuration/cycleDuration NUMBER as confirmed. */
+export const getHasConfirmedCycleDuration = (): boolean => hasConfirmedCycleDuration;
 
 export const getPeriodHistory = (): PeriodHistoryRecord[] =>
   periodHistory.map(item => ({ ...item }));
@@ -695,14 +753,29 @@ export const subscribeCyclePreferences = (listener: () => void) => {
 };
 
 export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
-  if (cycleHydrated) {
+  const profileId = getActiveProfileId();
+  if (cycleHydrated && cycleHydratedForProfileId === profileId) {
     return Promise.resolve(getCyclePreferences());
   }
-  if (!cycleHydration) {
-    cycleHydration = AsyncStorage.getItem(CYCLE_STORAGE_KEY)
-      .then(raw => {
-        cycleHydrated = true;
-        let migratedFromUnflaggedRecord = false;
+  cycleHydration = AsyncStorage.getItem(currentCycleStorageKey())
+    .then(raw => {
+      cycleHydrated = true;
+      cycleHydratedForProfileId = profileId;
+      let migratedFromUnflaggedRecord = false;
+        // A clean slate before applying anything found under this profile's own
+        // key — otherwise a profile with no persisted data yet (e.g. a freshly
+        // switched-to daughter) would keep showing whichever profile's cycle
+        // data happened to be in memory just before the switch.
+        cyclePreferences = {
+          lastPeriodStart: new Date(new Date().getFullYear(), new Date().getMonth(), Math.max(1, new Date().getDate() - 5)),
+          periodDuration: 5,
+          cycleDuration: 28,
+          regularity: 'yes',
+        };
+        periodHistory = [];
+        hasConfirmedCycleData = false;
+        hasConfirmedCycleDuration = false;
+        cycleObservationStartedAt = null;
         if (raw) {
           const parsed = JSON.parse(raw) as {
             preferences?: Partial<CyclePreferences> & {
@@ -711,6 +784,7 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
             periodHistory?: PeriodHistoryRecord[];
             observationStartedAt?: string | null;
             hasConfirmedCycleData?: boolean;
+            hasConfirmedCycleDuration?: boolean;
           };
           const start = parsed.preferences?.lastPeriodStart
             ? new Date(parsed.preferences.lastPeriodStart)
@@ -749,6 +823,16 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
             hasConfirmedCycleData = true;
             migratedFromUnflaggedRecord = true;
           }
+          // Same migration idea as hasConfirmedCycleData above: every blob
+          // written before this flag existed came exclusively through
+          // setCyclePreferences() (the only pre-existing writer of
+          // periodDuration/cycleDuration), so duration WAS genuinely
+          // confirmed together with the rest of the data — default to
+          // hasConfirmedCycleData's own resolved value rather than false,
+          // so no existing user's already-confirmed "28 jours"/"5 jours"
+          // silently regresses to "Non renseignée".
+          hasConfirmedCycleDuration =
+            typeof parsed.hasConfirmedCycleDuration === 'boolean' ? parsed.hasConfirmedCycleDuration : hasConfirmedCycleData;
         }
         if (periodHistory.length === 0) {
           const start = cyclePreferences.lastPeriodStart;
@@ -773,11 +857,20 @@ export const hydrateCyclePreferences = (): Promise<CyclePreferences> => {
       })
       .catch(() => {
         cycleHydrated = true;
+        cycleHydratedForProfileId = profileId;
         return getCyclePreferences();
       });
-  }
   return cycleHydration;
 };
+
+// Re-reads (and re-notifies) from the newly active profile's own cycle data
+// whenever the active profile changes — the reset-to-defaults at the top of
+// hydrateCyclePreferences()'s .then() above guarantees no stale profile's cycle
+// data lingers in memory for even one render after switching.
+subscribeActiveProfileId(() => {
+  cycleHydrated = false;
+  hydrateCyclePreferences().catch(() => {});
+});
 
 /** EXPLICIT CORRECTION of one recorded period (M4/M16): the occurrence that
  * starts on `oldStart` becomes `newStart`..`newEnd` — it is REPLACED, never
@@ -864,10 +957,13 @@ export const updateCurrentPeriodRange = async (
 // it survives app restarts and both MenstrualFlowScreen and PrayerTimesScreen
 // read/write this one value instead of keeping their own copies.
 let periodEndDateTime: Date | null = null;
-const PERIOD_END_STORAGE_KEY = '@hawa/period-end-datetime';
+const PERIOD_END_STORAGE_KEY_BASE = '@hawa/period-end-datetime';
+// Profile-scoped (see profileScopedStorage.ts) — same strategy as cyclePreferences above.
+const currentPeriodEndStorageKey = () => profileScopedKey(PERIOD_END_STORAGE_KEY_BASE, getActiveProfileId());
 const periodEndListeners = new Set<() => void>();
 let periodEndHydration: Promise<Date | null> | null = null;
 let periodEndHydrated = false;
+let periodEndHydratedForProfileId: string | null = null;
 
 const notifyPeriodEndListeners = () => {
   periodEndListeners.forEach(listener => listener());
@@ -880,11 +976,11 @@ export const setPeriodEndDateTime = async (
   notifyPeriodEndListeners();
   if (periodEndDateTime) {
     await AsyncStorage.setItem(
-      PERIOD_END_STORAGE_KEY,
+      currentPeriodEndStorageKey(),
       periodEndDateTime.toISOString(),
     );
   } else {
-    await AsyncStorage.removeItem(PERIOD_END_STORAGE_KEY);
+    await AsyncStorage.removeItem(currentPeriodEndStorageKey());
   }
 };
 
@@ -899,30 +995,42 @@ export const hydratePeriodEndDateTime = (): Promise<Date | null> => {
   // would clobber a just-confirmed period end with the stale snapshot from
   // whenever the app first hydrated, making the UI fall back to "still
   // menstruating" even though the user already confirmed it ended.
-  if (periodEndHydrated) {
+  const profileId = getActiveProfileId();
+  if (periodEndHydrated && periodEndHydratedForProfileId === profileId) {
     return Promise.resolve(getPeriodEndDateTime());
   }
-  if (!periodEndHydration) {
-    periodEndHydration = AsyncStorage.getItem(PERIOD_END_STORAGE_KEY)
-      .then(raw => {
-        periodEndHydrated = true;
-        if (!raw) {
-          return getPeriodEndDateTime();
-        }
-        const parsed = new Date(raw);
-        if (!Number.isNaN(parsed.getTime())) {
-          periodEndDateTime = parsed;
-          notifyPeriodEndListeners();
-        }
+  periodEndHydration = AsyncStorage.getItem(currentPeriodEndStorageKey())
+    .then(raw => {
+      periodEndHydrated = true;
+      periodEndHydratedForProfileId = profileId;
+      // A profile with no persisted end time yet must never keep showing a
+      // different profile's — reset before applying whatever's found (if any).
+      periodEndDateTime = null;
+      if (!raw) {
+        notifyPeriodEndListeners();
         return getPeriodEndDateTime();
-      })
-      .catch(() => {
-        periodEndHydrated = true;
-        return getPeriodEndDateTime();
-      });
-  }
+      }
+      const parsed = new Date(raw);
+      if (!Number.isNaN(parsed.getTime())) {
+        periodEndDateTime = parsed;
+      }
+      notifyPeriodEndListeners();
+      return getPeriodEndDateTime();
+    })
+    .catch(() => {
+      periodEndHydrated = true;
+      periodEndHydratedForProfileId = profileId;
+      return getPeriodEndDateTime();
+    });
   return periodEndHydration;
 };
+
+// Re-reads (and re-notifies) from the newly active profile's own confirmed end
+// time whenever the active profile changes.
+subscribeActiveProfileId(() => {
+  periodEndHydrated = false;
+  hydratePeriodEndDateTime().catch(() => {});
+});
 
 export const subscribePeriodEndDateTime = (listener: () => void) => {
   periodEndListeners.add(listener);
@@ -937,6 +1045,8 @@ import {
   removeConfirmedPeriodOccurrence,
   subscribeConfirmedPeriodEndRecorded,
 } from './confirmedPeriodHistoryStore';
+import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
+import {profileScopedKey} from './profileScopedStorage';
 
 // Confirming the actual end of a period (PeriodEndBottomSheet, the Cycle
 // information screen, the Calendar range editor…) must update the RECORDED
