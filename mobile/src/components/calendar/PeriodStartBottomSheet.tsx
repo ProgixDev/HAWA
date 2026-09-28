@@ -34,8 +34,23 @@ type Props = {
    * when it really is today); it is never silently replaced by today. */
   initialDate: Date;
   onClose: () => void;
-  /** Called after the value has been persisted via confirmPeriodStart(). */
+  /** Called after the value has been persisted via confirmPeriodStart() (or
+   * `onConfirm` below, when provided). */
   onConfirmed: (date: Date) => void;
+  /** Optional override of the save action — called INSTEAD of the default
+   * confirmPeriodStart(value) when provided. Additive/opt-in: every existing
+   * caller (CycleHomeScreen's/CalendarScreen's own "Mes règles ont commencé",
+   * Conceive's period recording) omits this and keeps its exact current
+   * behavior unchanged. Used by the managed-daughter "first period" action,
+   * whose save logic differs (see managedProfileCycleSeed.ts's
+   * recordManagedProfileFirstPeriod) — same sheet, same date picker, same
+   * future-date rejection, different persistence. */
+  onConfirm?: (date: Date) => void;
+  /** Optional title/description override — same additive/opt-in rule as
+   * `onConfirm` above; every existing caller keeps the current isToday-aware
+   * copy. */
+  title?: string;
+  description?: string;
 };
 
 const sameDay = (a: Date, b: Date) =>
@@ -44,7 +59,7 @@ const sameDay = (a: Date, b: Date) =>
 const formatDateLabel = (date: Date): string =>
   sameDay(date, new Date()) ? `Aujourd’hui, ${formatFullDate(date)}` : formatFullDate(date);
 
-function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Props): React.JSX.Element {
+function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onConfirm, title, description}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -84,7 +99,11 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Pr
     if (saving || startOfDay(date).getTime() > startOfDay(new Date()).getTime()) {return;}
     setSaving(true);
     const value = startOfDay(date);
-    confirmPeriodStart(value);
+    if (onConfirm) {
+      onConfirm(value);
+    } else {
+      confirmPeriodStart(value);
+    }
     onConfirmed(value);
     close();
   };
@@ -118,12 +137,13 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed}: Pr
           <View style={styles.handle} />
 
           <Text style={styles.title}>
-            {isToday ? 'Tes règles ont commencé ?' : `Tes règles ont commencé le ${formatShortDate(draft)} ?`}
+            {title ?? (isToday ? 'Tes règles ont commencé ?' : `Tes règles ont commencé le ${formatShortDate(draft)} ?`)}
           </Text>
           <Text style={styles.description}>
-            {isToday
-              ? 'Confirme la date de début de tes nouvelles règles.'
-              : 'Confirme cette date comme début de tes règles, ou choisis-en une autre.'}
+            {description ??
+              (isToday
+                ? 'Confirme la date de début de tes nouvelles règles.'
+                : 'Confirme cette date comme début de tes règles, ou choisis-en une autre.')}
           </Text>
 
           <View style={styles.field}>
