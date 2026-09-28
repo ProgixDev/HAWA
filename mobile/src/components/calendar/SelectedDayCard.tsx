@@ -41,6 +41,12 @@ type Props = {
    * passes the spiritual-markers preference ("Calendrier hijri" is one of the
    * features that toggle controls). */
   showHijriDate?: boolean;
+  /** True while a managed (daughter) profile is active — "Vie intime" is not
+   * part of a managed profile's cycle-tracking experience (see CLAUDE.md §4
+   * objective isolation). The feature itself is untouched for the mother;
+   * only hidden from this row list for the affected profile. Defaults to
+   * false so every existing caller is unaffected. */
+  hideIntimacy?: boolean;
 };
 
 // SEMANTIC — cycle-phase tracking meaning, never theme-driven (same
@@ -164,6 +170,7 @@ function SelectedDayCard({
   onDeclarePeriodStart,
   phaseUnavailableSubtitle,
   showHijriDate = true,
+  hideIntimacy = false,
 }: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -175,7 +182,7 @@ function SelectedDayCard({
         color: theme.colors.textSecondary,
       };
   const hijriDate = showHijriDate ? formatHijriDate(date) : undefined;
-  const rows = buildHealthRows(entry).filter(row => filters[row.key]);
+  const rows = buildHealthRows(entry).filter(row => filters[row.key] && !(hideIntimacy && row.key === 'intimacy'));
 
   return (
     <View style={styles.card}>

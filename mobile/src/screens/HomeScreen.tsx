@@ -16,11 +16,13 @@ import {
   subscribeActiveObjective,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
+import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
 function HomeScreen(props: Props): React.JSX.Element {
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+  const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
 
   useEffect(() => {
     let active = true;
@@ -34,17 +36,27 @@ function HomeScreen(props: Props): React.JSX.Element {
         setObjective(getActiveObjective());
       }
     });
+    // A managed (daughter) profile only ever has the "Suivre mon cycle"
+    // experience today (her creation flow never asks about pregnancy/
+    // menopause/etc.) — so whichever objective the MOTHER happens to have
+    // globally selected must never leak into her dashboard.
+    const unsubscribeProfile = subscribeActiveProfileId(() => {
+      if (active) {setOwnerActive(isOwnerActive());}
+    });
     return () => {
       active = false;
       unsubscribe();
+      unsubscribeProfile();
     };
   }, []);
 
-  if (objective === 'pregnancy') {
+  const effectiveObjective: ObjectiveId = ownerActive ? objective : 'cycle';
+
+  if (effectiveObjective === 'pregnancy') {
     return <PregnancyDashboard {...props} />;
   }
 
-  if (objective === 'postpartum') {
+  if (effectiveObjective === 'postpartum') {
     return (
       <>
         <PostpartumDashboard {...props} />
@@ -53,23 +65,23 @@ function HomeScreen(props: Props): React.JSX.Element {
     );
   }
 
-  if (objective === 'loss') {
+  if (effectiveObjective === 'loss') {
     return <MiscarriageDashboard {...props} />;
   }
 
-  if (objective === 'conceive') {
+  if (effectiveObjective === 'conceive') {
     return <ConceiveDashboard {...props} />;
   }
 
-  if (objective === 'contraception') {
+  if (effectiveObjective === 'contraception') {
     return <ContraceptionDashboard {...props} />;
   }
 
-  if (objective === 'menopause') {
+  if (effectiveObjective === 'menopause') {
     return <MenopauseDashboard {...props} />;
   }
 
-  if (objective === 'irregular') {
+  if (effectiveObjective === 'irregular') {
     return <IrregularDashboard {...props} />;
   }
 

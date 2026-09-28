@@ -17,9 +17,11 @@ import PeriodStartBottomSheet from '../components/calendar/PeriodStartBottomShee
 import {homeColors} from '../components/home/homeTheme';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {getCycleObservationStartedAt, getCyclePreferences, getHasConfirmedCycleData, getRecordedPeriodHistory, getSpiritualMarkersEnabled, correctPeriodOccurrence, hydrateCyclePreferences, isDateWithinConfirmedPeriod, setPeriodEndDateTime, subscribeCyclePreferences} from '../state/onboardingPreferences';
+import {getCycleObservationStartedAt, getCyclePreferences, getHasConfirmedCycleData, getHasConfirmedCycleDuration, getRecordedPeriodHistory, getSpiritualMarkersEnabled, correctPeriodOccurrence, hydrateCyclePreferences, isDateWithinConfirmedPeriod, setPeriodEndDateTime, subscribeCyclePreferences} from '../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../state/confirmedPeriodHistoryStore';
 import {getJournalEntriesForMonth, getJournalEntry} from '../state/dailyJournalStore';
+import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
+import {recordManagedProfileFirstPeriod} from '../state/managedProfileCycleSeed';
 import {withResolvedIntimacyForDisplay, withResolvedIntimacyForDisplayMany} from '../services/privateJournalEncryption';
 import {
   DEFAULT_CALENDAR_FILTERS,
@@ -88,6 +90,15 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const [editingOccurrenceStart, setEditingOccurrenceStart] = useState<Date | null>(null);
   const [periodStartSheetVisible, setPeriodStartSheetVisible] = useState(false);
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(getSpiritualMarkersEnabled);
+  // Identity only — the actual cycle/period/journal DATA above already
+  // resolves from whichever profile is active (see each store's own header
+  // comment); this only drives which UI rows (e.g. "Vie intime") are shown —
+  // same pattern as CycleHomeScreen.tsx's own activeIdentity.
+  const [activeIdentity, setActiveIdentity] = useState(getActiveProfileIdentity);
+  useEffect(() => {
+    const unsubscribe = subscribeActiveProfileId(() => setActiveIdentity(getActiveProfileIdentity()));
+    return unsubscribe;
+  }, []);
 
   // The default "selected day" is only a stand-in for today (see
   // hasUserSelectedDate above) — keep it on the current day when the day
@@ -276,10 +287,21 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const periodStartDates = recordedPeriods.map(record => new Date(`${record.startDate}T12:00:00`));
   const predictionStatus = computeCyclePredictionStatus(basics, basics.regularity, periodStartDates, getCycleObservationStartedAt(), today);
 
+  // A managed daughter who has never had (or never recorded) her first
+  // period: `basics` is still the neutral, unconfirmed placeholder for her
+  // (see onboardingPreferences.ts) — never a real cycle to project from. The
+  // mother's own empty-history state is unaffected (requires isManagedProfile
+  // too), same gate as CycleHomeScreen.tsx's own isPreFirstPeriodDaughter.
+  const isPreFirstPeriodDaughter = activeIdentity.isManagedProfile && !getHasConfirmedCycleData();
+  const daughterProfileId = activeIdentity.managedProfile?.id;
+
   // 'window' (declared irregular / observed variable): the Dashboard says
   // "26–32 days", so the Calendar must not paint one projected cycle as if it
-  // were certain — it shows only the periods that were really recorded.
-  const recordedOnly = predictionStatus.mode === 'window';
+  // were certain — it shows only the periods that were really recorded. A
+  // pre-first-period daughter has no recorded periods at all yet, so the same
+  // "recorded only" mode (with an empty list) keeps the month grid a plain
+  // Gregorian calendar instead of painting a fake projected cycle.
+  const recordedOnly = isPreFirstPeriodDaughter || predictionStatus.mode === 'window';
   // 'exact' wraps by the SAME cycle length the prediction uses (the observed
   // average for a regular-looking 'unknown' pattern); identical to `basics`
   // for a declared-regular cycle.
@@ -369,8 +391,8 @@ function CalendarScreen(_: Props): React.JSX.Element {
   // Same rule as CycleHomeScreen (shared helpers in cycleMath.ts): fertile
   // window / ovulation are only estimable when a single cycle length can be
   // trusted; an irregular/variable cycle shows no precise date.
-  const fertility = estimateFertilityDates(basics, predictionStatus, today);
-  const averageTile = describeAverageCycle(predictionStatus, basics, getHasConfirmedCycleData());
+  const fertility = estimateFertilityDates(basics, predictionStatus, today, getHasConfirmedCycleDuration());
+  const averageTile = describeAverageCycle(predictionStatus, basics, getHasConfirmedCycleDuration());
   const NOT_ESTIMABLE = {value: 'Non estimable', subtitle: 'Cycle variable'};
   const fertileTile = fertility
     ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: `Dans ${Math.max(0, diffDays(fertility.fertileStart, today))} jours`}
@@ -465,31 +487,44 @@ function CalendarScreen(_: Props): React.JSX.Element {
           />
 
           <SelectedDayCard
-            cycleDay={selectedCycleDay}
+            cycleDay={isPreFirstPeriodDaughter ? undefined : selectedCycleDay}
             date={selectedDate}
             entry={selectedEntry}
             filters={filters}
-            periodDuration={displayedPeriodDuration}
-            periodEndDate={selectedPeriodEnd}
-            periodStartDate={selectedPeriodStart}
-            periodUnrecorded={selectedPeriodUnrecorded}
-            phase={selectedPhase}
+            hideIntimacy={activeIdentity.isManagedProfile}
+            periodDuration={isPreFirstPeriodDaughter ? 0 : displayedPeriodDuration}
+            periodEndDate={isPreFirstPeriodDaughter ? selectedDate : selectedPeriodEnd}
+            periodStartDate={isPreFirstPeriodDaughter ? selectedDate : selectedPeriodStart}
+            periodUnrecorded={isPreFirstPeriodDaughter ? true : selectedPeriodUnrecorded}
+            phase={isPreFirstPeriodDaughter ? undefined : selectedPhase}
             editingPeriod={editingPeriod}
-            phaseUnavailableSubtitle={selectedIsRetroactive ? 'Aucune règle enregistrée ce jour-là' : undefined}
+            phaseUnavailableSubtitle={
+              isPreFirstPeriodDaughter
+                ? 'Pas encore de règles enregistrées'
+                : selectedIsRetroactive ? 'Aucune règle enregistrée ce jour-là' : undefined
+            }
             showHijriDate={spiritualMarkersEnabled}
             onDeclarePeriodStart={canDeclarePeriodStart ? () => setPeriodStartSheetVisible(true) : undefined}
             onEditPeriod={editingPeriod ? cancelPeriodEditing : startPeriodEditing}
           />
 
-          <PredictionsCard items={predictionItems} regularity={basics.regularity} />
+          {/* Hidden entirely for a pre-first-period daughter — both cards are
+              100% derived from cycle predictions, and there is no real cycle
+              data yet to predict from (CLAUDE.md §5: never fabricate one). */}
+          {!isPreFirstPeriodDaughter ? (
+            <>
+              <PredictionsCard items={predictionItems} regularity={basics.regularity} />
 
-          <CycleTimelineCard steps={timelineSteps} />
+              <CycleTimelineCard steps={timelineSteps} />
+            </>
+          ) : null}
 
           <MonthHistoryStrip onSelectMonth={handleSelectHistoryMonth} periodHistory={recordedPeriods} visibleMonth={visibleMonth} />
         </ScrollView>
 
         <FiltersSheet
           filters={filters}
+          hideIntimacy={activeIdentity.isManagedProfile}
           onClose={() => setFiltersVisible(false)}
           onToggle={toggleFilter}
           visible={filtersVisible}
@@ -499,9 +534,16 @@ function CalendarScreen(_: Props): React.JSX.Element {
         {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>Modifier mes règles</Text><Text style={styles.editBarSubtitle}>{draftPeriodDays.size} {draftPeriodDays.size > 1 ? 'jours sélectionnés' : 'jour sélectionné'}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>Annuler</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>Enregistrer</Text></Pressable></View></View> : null}
 
         <PeriodStartBottomSheet
+          description={isPreFirstPeriodDaughter ? 'Quand ses premières règles ont-elles commencé ?' : undefined}
           initialDate={selectedDate}
           onClose={() => setPeriodStartSheetVisible(false)}
+          onConfirm={
+            isPreFirstPeriodDaughter && daughterProfileId
+              ? date => {recordManagedProfileFirstPeriod(daughterProfileId, date).catch(() => {});}
+              : undefined
+          }
           onConfirmed={() => {}}
+          title={isPreFirstPeriodDaughter ? 'Ses premières règles ont commencé' : undefined}
           visible={periodStartSheetVisible}
         />
 

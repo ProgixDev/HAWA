@@ -15,11 +15,13 @@ import {
   subscribeActiveObjective,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
+import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
 
 type Props = MainTabScreenProps<'Calendar'>;
 
 function ObjectiveAwareCalendarScreen(props: Props): React.JSX.Element {
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+  const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
 
   useEffect(() => {
     let active = true;
@@ -29,37 +31,45 @@ function ObjectiveAwareCalendarScreen(props: Props): React.JSX.Element {
     const unsubscribe = subscribeActiveObjective(() => {
       if (active) {setObjective(getActiveObjective());}
     });
+    // See HomeScreen.tsx's identical comment — a managed profile only ever
+    // gets the "Suivre mon cycle" calendar today.
+    const unsubscribeProfile = subscribeActiveProfileId(() => {
+      if (active) {setOwnerActive(isOwnerActive());}
+    });
     return () => {
       active = false;
       unsubscribe();
+      unsubscribeProfile();
     };
   }, []);
 
-  if (objective === 'pregnancy') {
+  const effectiveObjective: ObjectiveId = ownerActive ? objective : 'cycle';
+
+  if (effectiveObjective === 'pregnancy') {
     return <PregnancyCalendarContent />;
   }
 
-  if (objective === 'postpartum') {
+  if (effectiveObjective === 'postpartum') {
     return <PostpartumCalendarContent />;
   }
 
-  if (objective === 'loss') {
+  if (effectiveObjective === 'loss') {
     return <MiscarriageCalendarContent />;
   }
 
-  if (objective === 'conceive') {
+  if (effectiveObjective === 'conceive') {
     return <ConceiveCalendarContent />;
   }
 
-  if (objective === 'contraception') {
+  if (effectiveObjective === 'contraception') {
     return <ContraceptionCalendarContent />;
   }
 
-  if (objective === 'menopause') {
+  if (effectiveObjective === 'menopause') {
     return <MenopauseCalendarContent />;
   }
 
-  if (objective === 'irregular') {
+  if (effectiveObjective === 'irregular') {
     return <IrregularCalendarContent />;
   }
 

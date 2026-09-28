@@ -15,11 +15,13 @@ import {
   subscribeActiveObjective,
   type ObjectiveId,
 } from '../state/onboardingPreferences';
+import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
 
 type Props = MainTabScreenProps<'Statistics'>;
 
 function ObjectiveAwareStatisticsScreen(props: Props): React.JSX.Element {
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+  const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
 
   useEffect(() => {
     let active = true;
@@ -27,34 +29,41 @@ function ObjectiveAwareStatisticsScreen(props: Props): React.JSX.Element {
     const unsubscribe = subscribeActiveObjective(() => {
       if (active) {setObjective(getActiveObjective());}
     });
-    return () => {active = false; unsubscribe();};
+    // See HomeScreen.tsx's identical comment — a managed profile only ever
+    // gets the "Suivre mon cycle" statistics today.
+    const unsubscribeProfile = subscribeActiveProfileId(() => {
+      if (active) {setOwnerActive(isOwnerActive());}
+    });
+    return () => {active = false; unsubscribe(); unsubscribeProfile();};
   }, []);
 
-  if (objective === 'pregnancy') {
+  const effectiveObjective: ObjectiveId = ownerActive ? objective : 'cycle';
+
+  if (effectiveObjective === 'pregnancy') {
     return <PregnancyStatisticsScreen />;
   }
 
-  if (objective === 'postpartum') {
+  if (effectiveObjective === 'postpartum') {
     return <PostpartumStatisticsScreen />;
   }
 
-  if (objective === 'loss') {
+  if (effectiveObjective === 'loss') {
     return <MiscarriageStatisticsScreen />;
   }
 
-  if (objective === 'conceive') {
+  if (effectiveObjective === 'conceive') {
     return <ConceiveStatisticsScreen />;
   }
 
-  if (objective === 'contraception') {
+  if (effectiveObjective === 'contraception') {
     return <ContraceptionStatisticsScreen />;
   }
 
-  if (objective === 'menopause') {
+  if (effectiveObjective === 'menopause') {
     return <MenopauseStatisticsScreen />;
   }
 
-  if (objective === 'irregular') {
+  if (effectiveObjective === 'irregular') {
     return <IrregularStatisticsScreen />;
   }
 
