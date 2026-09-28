@@ -16,6 +16,7 @@ import ObjectiveAwareCalendarScreen from '../screens/ObjectiveAwareCalendarScree
 import ObjectiveAwareStatisticsScreen from '../screens/ObjectiveAwareStatisticsScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from '../state/onboardingPreferences';
+import {isOwnerActive, subscribeActiveProfileId} from '../state/activeProfileStore';
 import {POSTPARTUM_JOURNAL_ITEMS} from '../config/postpartumJournalConfig';
 import {MISCARRIAGE_JOURNAL_ITEMS} from '../config/miscarriageJournalConfig';
 import {IRREGULAR_JOURNAL_ITEMS} from '../config/irregularJournalConfig';
@@ -83,21 +84,28 @@ function renderTabBar(props: BottomTabBarProps): React.JSX.Element {
 function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.Element {
   const {visible, close} = useJournalSheet();
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+  const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
   const pregnancyTracking = usePregnancyTrackingPreferences();
 
   useEffect(() => {
     let active = true;
     hydrateActiveObjective().then(value => {if (active) {setObjective(value);}});
     const unsubscribe = subscribeActiveObjective(() => {if (active) {setObjective(getActiveObjective());}});
-    return () => {active = false; unsubscribe();};
+    // See HomeScreen.tsx's identical comment — a managed profile only ever
+    // gets the "Suivre mon cycle" journal categories today, and every entry
+    // saved from here is written under HER active profile id (dailyJournalStore.ts).
+    const unsubscribeProfile = subscribeActiveProfileId(() => {if (active) {setOwnerActive(isOwnerActive());}});
+    return () => {active = false; unsubscribe(); unsubscribeProfile();};
   }, []);
+
+  const effectiveObjective: ObjectiveId = ownerActive ? objective : 'cycle';
 
   // Same shared sheet chrome (drag-to-dismiss, header image, staggered card
   // entrance) for all three objectives — only title/subtitle/actions differ.
   // See DailyJournalSheet.tsx's JournalSheetAction type: each action carries
   // its own ready-made onPress (close + navigate), so this is the only place
   // that needs to know about route params per objective.
-  if (objective === 'pregnancy') {
+  if (effectiveObjective === 'pregnancy') {
     // Only the categories the user chose to track (tracking preferences) are
     // offered NOW; recorded history is never affected. Nothing selected → one
     // action that opens the preference screen in edit mode.
@@ -141,7 +149,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  if (objective === 'postpartum') {
+  if (effectiveObjective === 'postpartum') {
     const postpartumActions: JournalSheetAction[] = POSTPARTUM_JOURNAL_ITEMS.map(item => ({
       key: item.key,
       icon: item.icon,
@@ -161,7 +169,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  if (objective === 'loss') {
+  if (effectiveObjective === 'loss') {
     const miscarriageActions: JournalSheetAction[] = MISCARRIAGE_JOURNAL_ITEMS.map(item => ({
       key: item.key,
       icon: item.icon,
@@ -191,7 +199,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  if (objective === 'irregular') {
+  if (effectiveObjective === 'irregular') {
     // The SOPK period form mirrors its confirmed flow to dailyJournalStore so
     // Calendar/Statistics retain their canonical period record. It remains a
     // separate action because it has SOPK-specific questions and design.
@@ -224,7 +232,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  if (objective === 'conceive') {
+  if (effectiveObjective === 'conceive') {
     // Filtered by the followed fertility indicators (M17) — same shared
     // helper ConceiveDashboard's "Suivi du jour" card uses.
     const conceiveActions: JournalSheetAction[] = getConceptionJournalItems(getConceptionPreferences().indicators).map(item => ({
@@ -246,7 +254,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  if (objective === 'contraception') {
+  if (effectiveObjective === 'contraception') {
     const contraceptionMethod = getContraceptionPreferences().method;
     const contraceptionActions: JournalSheetAction[] = CONTRACEPTION_JOURNAL_ITEMS.map(item => ({
       key: item.key,
@@ -271,7 +279,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  if (objective === 'menopause') {
+  if (effectiveObjective === 'menopause') {
     const menopausePreferences = getMenopausePreferences();
     const menopauseActions: JournalSheetAction[] = MENOPAUSE_JOURNAL_ITEMS
       // "Traitement hormonal"/"Résultats d'analyses" only appear once the
@@ -301,7 +309,13 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     );
   }
 
-  const cycleActions: JournalSheetAction[] = CYCLE_JOURNAL_ITEMS.map(item => ({
+  // "Vie intime" is not part of a managed daughter profile's cycle-tracking
+  // experience (CLAUDE.md §4 objective isolation) — the feature itself is
+  // untouched for the mother; only hidden from HER daughter's own "+" sheet.
+  const cycleJournalItems = ownerActive
+    ? CYCLE_JOURNAL_ITEMS
+    : CYCLE_JOURNAL_ITEMS.filter(item => item.route !== 'PrivateIntimacyUnlock');
+  const cycleActions: JournalSheetAction[] = cycleJournalItems.map(item => ({
     key: item.route,
     icon: item.icon,
     title: item.title,

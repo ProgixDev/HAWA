@@ -144,6 +144,11 @@ import PregnancyRemindersScreen from '../screens/pregnancy/PregnancyRemindersScr
 import PregnancyNotificationsScreen from '../screens/pregnancy/PregnancyNotificationsScreen';
 import PrivateAccessScreen from '../screens/PrivateAccessScreen';
 import type { PrivateAccessPurpose } from './privateAccess';
+import ManagedProfileTypeScreen from '../screens/managedProfile/ManagedProfileTypeScreen';
+import ManagedProfileDaughterInfoScreen from '../screens/managedProfile/ManagedProfileDaughterInfoScreen';
+import ManagedProfileFirstPeriodScreen from '../screens/managedProfile/ManagedProfileFirstPeriodScreen';
+import ManagedProfileCycleSetupScreen from '../screens/managedProfile/ManagedProfileCycleSetupScreen';
+import ManagedProfileSuccessScreen from '../screens/managedProfile/ManagedProfileSuccessScreen';
 import { navigationRef } from './navigationRef';
 import { cancelPendingObjectiveSetup, getPendingObjectiveSetup } from '../state/objectiveSetupFlow';
 
@@ -296,6 +301,14 @@ export type RootStackParamList = {
   PregnancyWeek: undefined;
   PregnancyNotifications: undefined;
   PrivateAccess: { purpose: PrivateAccessPurpose };
+  // Managed-profile (daughter) creation flow — see CLAUDE.md-tracked scope: UI-only,
+  // no profile-scoped cycle data/switching yet. Draft state travels via
+  // managedProfileDraftStore (in-memory), not via route params.
+  ManagedProfileType: undefined;
+  ManagedProfileDaughterInfo: undefined;
+  ManagedProfileFirstPeriod: undefined;
+  ManagedProfileCycleSetup: undefined;
+  ManagedProfileSuccess: { firstName: string; profileId: string };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -586,6 +599,11 @@ function AppNavigator({
           component={PregnancyNotificationsScreen}
         />
         <Stack.Screen name="PrivateAccess" component={PrivateAccessScreen} />
+        <Stack.Screen name="ManagedProfileType" component={ManagedProfileTypeScreen} />
+        <Stack.Screen name="ManagedProfileDaughterInfo" component={ManagedProfileDaughterInfoScreen} />
+        <Stack.Screen name="ManagedProfileFirstPeriod" component={ManagedProfileFirstPeriodScreen} />
+        <Stack.Screen name="ManagedProfileCycleSetup" component={ManagedProfileCycleSetupScreen} />
+        <Stack.Screen name="ManagedProfileSuccess" component={ManagedProfileSuccessScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
