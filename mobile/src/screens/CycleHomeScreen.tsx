@@ -36,6 +36,7 @@ import {
   getCyclePreferences,
   getCycleObservationStartedAt,
   getHasConfirmedCycleData,
+  getHasConfirmedCycleDuration,
   getRecordedPeriodHistory,
   hydrateCyclePreferences,
   isDateWithinConfirmedPeriod,
@@ -44,6 +45,8 @@ import {
   getSpiritualMarkersEnabled,
 } from '../state/onboardingPreferences';
 import {getJournalEntry} from '../state/dailyJournalStore';
+import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
+import {recordManagedProfileFirstPeriod} from '../state/managedProfileCycleSeed';
 import {withResolvedIntimacyForDisplay} from '../services/privateJournalEncryption';
 import {withResolvedNoteForDisplay} from '../services/privateNotesEncryption';
 import type {DailyJournalEntry} from '../types/journal';
@@ -92,6 +95,18 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
 
   const [journalEntry, setJournalEntry] = useState<DailyJournalEntry | undefined>(undefined);
   const [, setProfileRevision] = useState(0);
+
+  // Identity only — the actual cycle/period/journal DATA above already resolves
+  // from whichever profile is active (see each store's own header comment); this
+  // is just what the header greeting shows (CLAUDE.md-style "same design, only
+  // dynamic identity/data changes" — see activeProfileStore.ts).
+  const [activeIdentity, setActiveIdentity] = useState(getActiveProfileIdentity);
+  useEffect(() => {
+    const unsubscribe = subscribeActiveProfileId(() => setActiveIdentity(getActiveProfileIdentity()));
+    return unsubscribe;
+  }, []);
+  const headerFirstName = activeIdentity.isManagedProfile ? activeIdentity.managedProfile?.firstName ?? '' : getFirstName();
+  const headerSubtitle = activeIdentity.isManagedProfile ? 'Profil de ma fille' : 'Ton corps, ton rythme, ta foi ✨';
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
     getSpiritualMarkersEnabled(),
   );
@@ -168,6 +183,19 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // confirmed period history instead.
   const hasActiveConfirmedPeriod = isDateWithinConfirmedPeriod(today);
 
+  // A managed daughter who has never had (or never recorded) her first period:
+  // NONE of the cycle-derived content below (ring/day/phase, next period,
+  // fertile window, ovulation) may be shown — cyclePreferences is still at its
+  // neutral, unconfirmed placeholder for her (see onboardingPreferences.ts),
+  // and getHasConfirmedCycleData() is the ONLY honest signal for that (never a
+  // comparison against the 28/5-day fallback constants). The mother's own
+  // empty-history state is completely unaffected — this branch requires
+  // activeIdentity.isManagedProfile too, so isOwnerActive() always short-
+  // circuits it to false, exactly like cycleReminderScheduling.ts's own
+  // dateBasedActive guard already does for reminders.
+  const isPreFirstPeriodDaughter = activeIdentity.isManagedProfile && !getHasConfirmedCycleData();
+  const daughterProfileId = activeIdentity.managedProfile?.id;
+
   // Regularity-aware next-period prediction — 'yes' behaves exactly as
   // before, 'no'/observed-variable produce a 26–32 day window instead of a
   // single certain date, and 'unknown' stays in observation mode until
@@ -232,12 +260,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // it comes from the user's own recorded cycles; a declared/configured
   // length is worded as such (see describeAverageCycle in cycleMath.ts,
   // shared with Calendar and Profile).
-  const averageTile = describeAverageCycle(predictionStatus, initial, getHasConfirmedCycleData());
+  const averageTile = describeAverageCycle(predictionStatus, initial, getHasConfirmedCycleDuration());
 
   // Fertile window / ovulation: only estimable when a single cycle length can
   // be trusted. For an irregular/variable cycle the next period is already a
   // 26–32 day window above, so no single ovulation date may be shown either.
-  const fertility = estimateFertilityDates(initial, predictionStatus, today);
+  const fertility = estimateFertilityDates(initial, predictionStatus, today, getHasConfirmedCycleDuration());
   const fertileTile = fertility
     ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: `Dans ${Math.max(0, diffDays(fertility.fertileStart, today))} jours`}
     : {value: 'Non estimable', subtitle: 'Cycle variable'};
@@ -284,6 +312,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     },
   ];
 
+  // The whole "Actions rapides" section (title/subtitle/"Personnaliser"/cards
+  // — all owned by QuickActionsGrid itself) is not rendered at all for a
+  // managed daughter profile (see the section's conditional render below),
+  // so this list only needs to stay the mother's normal, full list; the
+  // spiritual entries within it are already filtered by QuickActionsGrid's
+  // own existing spiritualMarkersEnabled-aware logic, unrelated to profiles.
   const quickActionItems: QuickActionItem[] = [
     {key: 'prayer-times', icon: 'mosque', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
     {key: 'library', icon: 'book-open-page-variant-outline', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
@@ -329,27 +363,67 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           <Animated.View style={animatedStyle}>
             <HomeHeader
-              firstName={getFirstName()}
+              firstName={headerFirstName}
               onPressProfile={() => navigation.navigate('Profile')}
-              subtitle="Ton corps, ton rythme, ta foi ✨"
+              subtitle={headerSubtitle}
             />
           </Animated.View>
 
           <View style={styles.heroSpacer}>
-            <HeroCycleCard
-              currentDay={currentCycleDay}
-              cycleLength={predictionStatus.mode === 'exact' ? predictionStatus.averageCycleLength : initial.cycleDuration}
-              moodEntry={journalEntry?.mood}
-              phase={currentPhase}
-            />
+            {isPreFirstPeriodDaughter ? (
+              <View style={styles.preFirstPeriodCard}>
+                <View style={styles.preFirstPeriodIconBadge}>
+                  <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
+                </View>
+                <Text style={styles.preFirstPeriodTitle}>Pas encore de règles enregistrées</Text>
+                <Text style={styles.preFirstPeriodSubtitle}>Son suivi commencera lorsqu’elle aura ses premières règles.</Text>
+              </View>
+            ) : (
+              <HeroCycleCard
+                currentDay={currentCycleDay}
+                cycleLength={predictionStatus.mode === 'exact' ? predictionStatus.averageCycleLength : initial.cycleDuration}
+                moodEntry={journalEntry?.mood}
+                phase={currentPhase}
+              />
+            )}
           </View>
 
           {/* "Voir plus" opens the Calendar tab, which already hosts the
               detailed predictions (PredictionsCard) and cycle timeline this
-              overview summarises — no new screen. */}
-          <CycleOverviewCard items={overviewItems} onPressMore={() => navigation.navigate('Calendar')} />
+              overview summarises — no new screen. Hidden entirely for a
+              pre-first-period daughter: every tile here (next period, fertile
+              window, ovulation, average length) is cycle-derived, and there is
+              no real cycle data yet to summarise. */}
+          {!isPreFirstPeriodDaughter ? (
+            <CycleOverviewCard items={overviewItems} onPressMore={() => navigation.navigate('Calendar')} />
+          ) : null}
 
-          {!hasActiveConfirmedPeriod ? (
+          {isPreFirstPeriodDaughter ? (
+            <Animated.View
+              style={[
+                styles.periodStartCtaWrap,
+                {
+                  opacity: ctaEntrance,
+                  transform: [
+                    {
+                      translateY: ctaEntrance.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [6, 0],
+                      }),
+                    },
+                  ],
+                },
+              ]}>
+              <Pressable
+                accessibilityLabel="Ses premières règles ont commencé"
+                accessibilityRole="button"
+                onPress={() => setPeriodStartSheetVisible(true)}
+                style={({pressed}) => [styles.periodStartCta, pressed && styles.periodStartCtaPressed]}>
+                <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
+                <Text style={styles.periodStartCtaText}>Ses premières règles ont commencé</Text>
+              </Pressable>
+            </Animated.View>
+          ) : !hasActiveConfirmedPeriod ? (
             <Animated.View
               style={[
                 styles.periodStartCtaWrap,
@@ -376,9 +450,15 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             </Animated.View>
           ) : null}
 
-          <QuickActionsGrid items={quickActionItems} />
+          {/* Entire "Actions rapides" section (title/subtitle/"Personnaliser"/cards —
+              all internal to QuickActionsGrid) is not part of a managed daughter
+              profile's simplified cycle-tracking dashboard. Conditionally rendering
+              the component itself (not just clearing its items) avoids any empty
+              wrapper/spacing — see CLAUDE.md §4 objective isolation. Unaffected for
+              the owner. */}
+          {!activeIdentity.isManagedProfile ? <QuickActionsGrid items={quickActionItems} /> : null}
 
-          {spiritualMarkersEnabled ? (
+          {spiritualMarkersEnabled && !activeIdentity.isManagedProfile ? (
             <SpiritualGuidanceCard
               hijriDate={formatHijriDate(today)}
               isMenstruating={prayer.isMenstruating}
@@ -395,22 +475,60 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             />
           ) : null}
 
-          <DailyJournalCard entry={journalEntry} onNavigate={route => navigation.navigate(route)} />
+          <DailyJournalCard
+            entry={journalEntry}
+            hideIntimacy={activeIdentity.isManagedProfile}
+            onNavigate={route => navigation.navigate(route)}
+          />
+
+          {/* Informational only, daughter-appropriate — not a recommended-
+              articles section (that one, ObjectiveArticlesSection/"Pour
+              t'accompagner", stays hidden for a managed profile below). */}
+          {isPreFirstPeriodDaughter ? (
+            <View style={styles.educationCard}>
+              <View style={styles.educationIconBadge}>
+                <MaterialDesignIcons color={theme.colors.primary} name="school-outline" size={18} />
+              </View>
+              <View style={styles.educationCopy}>
+                <Text style={styles.educationTitle}>Se préparer aux premières règles</Text>
+                <Text style={styles.educationBody}>
+                  Les premières règles peuvent arriver à des moments différents pour chaque fille. AWA permet de commencer le suivi dès qu’elles apparaissent.
+                </Text>
+              </View>
+            </View>
+          ) : null}
 
           <MotivationCard />
 
-          <ObjectiveArticlesSection
-            objective="cycle"
-            onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
-            onSeeAll={() => navigation.navigate('Library')}
-          />
+          {/* "Pour t'accompagner" (recommended articles) is not part of a
+              managed daughter profile's simplified cycle-tracking dashboard
+              (CLAUDE.md §4 objective isolation, same pattern as Actions
+              rapides/Repères spirituels being hidden for her elsewhere).
+              Not rendering the component at all (rather than feeding it an
+              empty list) avoids any leftover title/card/spacing for its own
+              section. The article data/component/navigation are completely
+              untouched — the owner's dashboard is unaffected. */}
+          {!activeIdentity.isManagedProfile ? (
+            <ObjectiveArticlesSection
+              objective="cycle"
+              onOpenArticle={articleId => navigation.navigate('ArticleReader', {articleId})}
+              onSeeAll={() => navigation.navigate('Library')}
+            />
+          ) : null}
         </ScrollView>
       </SafeAreaView>
 
       <PeriodStartBottomSheet
+        description={isPreFirstPeriodDaughter ? 'Quand ses premières règles ont-elles commencé ?' : undefined}
         initialDate={today}
         onClose={() => setPeriodStartSheetVisible(false)}
+        onConfirm={
+          isPreFirstPeriodDaughter && daughterProfileId
+            ? date => {recordManagedProfileFirstPeriod(daughterProfileId, date).catch(() => {});}
+            : undefined
+        }
         onConfirmed={() => {}}
+        title={isPreFirstPeriodDaughter ? 'Ses premières règles ont commencé' : undefined}
         visible={periodStartSheetVisible}
       />
     </LinearGradient>
@@ -505,6 +623,70 @@ function createStyles(theme: ResolvedAwaTheme) {
       fontSize: 12.5,
       fontWeight: '700',
     },
+
+    // Pre-first-period daughter state — replaces HeroCycleCard when there is
+    // no real cycle data to show yet (CLAUDE.md §5: never fabricate one).
+    preFirstPeriodCard: {
+      alignItems: 'center',
+      gap: 10,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 26,
+      backgroundColor: theme.colors.surface,
+      paddingVertical: 28,
+      paddingHorizontal: 20,
+      ...theme.shadow,
+    },
+    preFirstPeriodIconBadge: {
+      width: 56,
+      height: 56,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 28,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    preFirstPeriodTitle: {
+      color: theme.colors.text,
+      fontFamily: 'serif',
+      fontSize: 17,
+      fontWeight: '700',
+      textAlign: 'center',
+    },
+    preFirstPeriodSubtitle: {
+      color: theme.colors.textSecondary,
+      fontSize: 13,
+      lineHeight: 19,
+      textAlign: 'center',
+      paddingHorizontal: 8,
+    },
+
+    // "Se préparer aux premières règles" — informational only, same row-card
+    // shape as AwaADeuxInvitationScreen.tsx's own icon+text card.
+    educationCard: {
+      marginTop: 14,
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      gap: 12,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
+      borderRadius: 22,
+      backgroundColor: theme.colors.surface,
+      paddingHorizontal: 16,
+      paddingVertical: 14,
+      ...theme.shadow,
+    },
+    educationIconBadge: {
+      width: 36,
+      height: 36,
+      flexShrink: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 18,
+      backgroundColor: theme.colors.primarySoft,
+    },
+    educationCopy: {flex: 1, minWidth: 0},
+    educationTitle: {color: theme.colors.text, fontSize: 14.5, fontWeight: '700', lineHeight: 19},
+    educationBody: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12.5, lineHeight: 18},
   });
 }
 

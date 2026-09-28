@@ -50,14 +50,22 @@ type Props = {
   shortcuts?: Shortcut[];
   /** Defaults to the original hardcoded title, same reasoning as above. */
   title?: string;
+  /** True while a managed (daughter) profile is active — "Vie intime" is not
+   * part of a managed profile's cycle-tracking experience (it stays a normal
+   * part of the mother's own "Suivre mon cycle"/"Essayer de concevoir"
+   * journal; the feature itself is never removed, only hidden from this
+   * card's shortcut row for the affected profile). Defaults to false so
+   * every existing caller is unaffected. */
+  hideIntimacy?: boolean;
 };
 
-function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Journal du jour'}: Props): React.JSX.Element {
+function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Journal du jour', hideIntimacy = false}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const progress = useRef(new Animated.Value(0)).current;
-  const completed = shortcuts.filter(shortcut => Boolean(entry?.[shortcut.section])).length;
-  const ratio = completed / shortcuts.length;
+  const visibleShortcuts = hideIntimacy ? shortcuts.filter(shortcut => shortcut.section !== 'intimacy') : shortcuts;
+  const completed = visibleShortcuts.filter(shortcut => Boolean(entry?.[shortcut.section])).length;
+  const ratio = completed / visibleShortcuts.length;
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(reduceMotion => {
@@ -74,7 +82,7 @@ function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Jo
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.progressLabel}>{completed} / {shortcuts.length} complété</Text>
+        <Text style={styles.progressLabel}>{completed} / {visibleShortcuts.length} complété</Text>
       </View>
 
       <View style={styles.track}>
@@ -87,7 +95,7 @@ function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Jo
       </View>
 
       <View style={styles.row}>
-        {shortcuts.map(shortcut => {
+        {visibleShortcuts.map(shortcut => {
           const done = Boolean(entry?.[shortcut.section]);
           return (
             <Pressable

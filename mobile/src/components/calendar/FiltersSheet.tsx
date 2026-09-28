@@ -39,12 +39,19 @@ type Props = {
   filters: CalendarFilters;
   onToggle: (key: CalendarFilterKey) => void;
   onClose: () => void;
+  /** True while a managed (daughter) profile is active — "Vie intime" is not
+   * part of a managed profile's cycle-tracking experience (see CLAUDE.md §4
+   * objective isolation): offering a toggle for a row that's already forced
+   * hidden would be confusing. Defaults to false so every existing caller
+   * (the mother's own Calendar) is unaffected. */
+  hideIntimacy?: boolean;
 };
 
-function FiltersSheet({visible, filters, onToggle, onClose}: Props): React.JSX.Element {
+function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const options = hideIntimacy ? OPTIONS.filter(option => option.key !== 'intimacy') : OPTIONS;
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
 
@@ -90,7 +97,7 @@ function FiltersSheet({visible, filters, onToggle, onClose}: Props): React.JSX.E
           <Text style={styles.subtitle}>Choisis les informations affichées sur le calendrier.</Text>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
-            {OPTIONS.map(option => (
+            {options.map(option => (
               <View key={option.key} style={styles.row}>
                 <View style={styles.rowIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name={option.icon} size={19} />

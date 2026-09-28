@@ -7,6 +7,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import CalendarScreen from '../CalendarScreen';
 import {setCyclePreferences} from '../../state/onboardingPreferences';
+import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
+import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -114,5 +116,29 @@ describe('CalendarScreen — day rollover', () => {
     const texts = textsOf(renderer);
     expect(texts).toContain('1 octobre 2026');
     expect(texts).not.toContain('30 septembre 2026');
+  });
+});
+
+describe('CalendarScreen — managed daughter profile: "Vie intime" hidden, everything else kept', () => {
+  beforeEach(async () => {
+    await resetManagedProfilesForTests();
+    await resetActiveProfileForTests();
+  });
+
+  it('"Vie intime" never appears in the day-details card for a managed profile (filters all default ON), but stays for the owner', async () => {
+    jest.setSystemTime(new Date(2026, 8, 3, 10, 0, 0));
+    confirmedCycle('yes');
+    const lina = await addManagedProfile({type: 'daughter', firstName: 'Lina', birthDate: '2016-05-10', hasHadFirstPeriod: false});
+
+    await setActiveProfileId(lina.id);
+    const daughterRenderer = await renderCalendar();
+    expect(textsOf(daughterRenderer)).not.toContain('Vie intime');
+    // Everything else the daughter keeps is still there.
+    expect(textsOf(daughterRenderer)).toContain('Symptômes');
+    expect(textsOf(daughterRenderer)).toContain('Humeur');
+
+    await setActiveProfileId(OWNER_PROFILE_ID);
+    const ownerRenderer = await renderCalendar();
+    expect(textsOf(ownerRenderer)).toContain('Vie intime');
   });
 });

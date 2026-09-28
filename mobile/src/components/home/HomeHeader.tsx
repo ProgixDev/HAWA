@@ -7,10 +7,11 @@ import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import InAppNotificationCenter from './InAppNotificationCenter';
 import {
-  getUnreadInAppNotificationCount,
+  getUnreadInAppNotificationCountForActiveProfile,
   hydrateInAppNotifications,
   subscribeInAppNotifications,
 } from '../../state/inAppNotificationStore';
+import { subscribeActiveProfileId } from '../../state/activeProfileStore';
 import { reconcileInAppNotifications } from '../../services/inAppNotificationReconciliation';
 
 // PHASE C — the unread-count badge below is a fixed semantic "unread" red,
@@ -34,25 +35,37 @@ function HomeHeader({
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [panelVisible, setPanelVisible] = useState(false);
+  // Scoped to whichever profile is CURRENTLY active — the mother and each
+  // managed daughter profile see only their own unread count, never mixed
+  // together (CLAUDE.md §4 objective isolation).
   const [storedUnreadCount, setStoredUnreadCount] = useState(
-    getUnreadInAppNotificationCount,
+    getUnreadInAppNotificationCountForActiveProfile,
   );
 
   useEffect(() => {
     let active = true;
     hydrateInAppNotifications().then(() => {
       if (active) {
-        setStoredUnreadCount(getUnreadInAppNotificationCount());
+        setStoredUnreadCount(getUnreadInAppNotificationCountForActiveProfile());
       }
     });
     const unsubscribe = subscribeInAppNotifications(() => {
       if (active) {
-        setStoredUnreadCount(getUnreadInAppNotificationCount());
+        setStoredUnreadCount(getUnreadInAppNotificationCountForActiveProfile());
+      }
+    });
+    // A profile switch alone (no new notification) must also immediately
+    // recompute the badge — e.g. mother 2 unread → Haifa active → badge
+    // becomes Haifa's own 1 unread, with no restart/reopen required.
+    const unsubscribeProfile = subscribeActiveProfileId(() => {
+      if (active) {
+        setStoredUnreadCount(getUnreadInAppNotificationCountForActiveProfile());
       }
     });
     return () => {
       active = false;
       unsubscribe();
+      unsubscribeProfile();
     };
   }, []);
 
