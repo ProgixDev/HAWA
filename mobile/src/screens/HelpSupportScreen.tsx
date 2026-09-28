@@ -7,7 +7,8 @@ import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
-import {FAQ_ITEMS} from '../utils/supportContent';
+import {CYCLE_TRACKING_FAQ_ITEMS, FAQ_ITEMS} from '../utils/supportContent';
+import {getActiveProfileIdentity} from '../state/activeProfileStore';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -64,6 +65,11 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
   const [email, setEmail] = useState('');
   const [steps, setSteps] = useState('');
   const [error, setError] = useState('');
+  // A managed daughter profile's "Aide & support" is limited to cycle-tracking
+  // topics (CLAUDE.md §4 objective isolation) — see CYCLE_TRACKING_FAQ_ITEMS'
+  // own header comment. FAQ_ITEMS itself is never filtered/deleted globally.
+  const isManagedProfile = getActiveProfileIdentity().isManagedProfile;
+  const faqItems = isManagedProfile ? CYCLE_TRACKING_FAQ_ITEMS : FAQ_ITEMS;
 
   const showToast = (value: string) => {
     setToast(value);
@@ -141,30 +147,39 @@ export default function HelpSupportScreen({navigation}: Props): React.JSX.Elemen
           <Pressable onPress={() => navigation.navigate('FAQ')}><Text style={styles.seeAll}>Voir tout  ›</Text></Pressable>
         </View>
         <Animated.View entering={FadeInUp.delay(150).duration(420)} style={styles.card}>
-          {FAQ_ITEMS.map((item, index) => (
+          {faqItems.map((item, index) => (
             <HelpRow
-              icon={item.icon as never} key={item.id} last={index === FAQ_ITEMS.length - 1}
+              icon={item.icon as never} key={item.id} last={index === faqItems.length - 1}
               onPress={() => navigation.navigate('FAQDetail', {id: item.id})} styles={styles} theme={theme}
               subtitle={item.subtitle} title={item.question}
             />
           ))}
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Autres sujets d’aide</Text>
-        <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
-          <HelpRow icon="school-outline" onPress={() => navigation.navigate('Guides')} styles={styles} theme={theme} subtitle="Découvre nos guides pour bien utiliser AWA." title="Guides & tutoriels" />
-          <HelpRow icon="star-outline" onPress={() => navigation.navigate('WhatsNew')} styles={styles} theme={theme} subtitle="Voir les dernières fonctionnalités et améliorations." title="Nouveautés" />
-          <HelpRow icon="lightbulb-outline" onPress={() => openForm('feedback')} styles={styles} theme={theme} subtitle="Partage tes idées pour améliorer l’application." title="Envoyer un commentaire" />
-          <HelpRow last icon="alert-outline" onPress={() => openForm('bug')} styles={styles} theme={theme} subtitle="Signale un bug ou un comportement inattendu." title="Signaler un problème" />
-        </Animated.View>
+        {/* "Autres sujets d'aide" (Guides/Nouveautés/feedback/bug report) and its
+            footer banner are account/app-level, not menstrual-cycle-tracking
+            topics — not part of a managed daughter profile's Help (CLAUDE.md §4
+            objective isolation). Hidden entirely (not just emptied) for her so
+            no orphan title/card/banner is left; the owner's Help is unchanged. */}
+        {!isManagedProfile ? (
+          <>
+            <Text style={styles.sectionTitle}>Autres sujets d’aide</Text>
+            <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
+              <HelpRow icon="school-outline" onPress={() => navigation.navigate('Guides')} styles={styles} theme={theme} subtitle="Découvre nos guides pour bien utiliser AWA." title="Guides & tutoriels" />
+              <HelpRow icon="star-outline" onPress={() => navigation.navigate('WhatsNew')} styles={styles} theme={theme} subtitle="Voir les dernières fonctionnalités et améliorations." title="Nouveautés" />
+              <HelpRow icon="lightbulb-outline" onPress={() => openForm('feedback')} styles={styles} theme={theme} subtitle="Partage tes idées pour améliorer l’application." title="Envoyer un commentaire" />
+              <HelpRow last icon="alert-outline" onPress={() => openForm('bug')} styles={styles} theme={theme} subtitle="Signale un bug ou un comportement inattendu." title="Signaler un problème" />
+            </Animated.View>
 
-        <View style={styles.banner}>
-          <MaterialDesignIcons color={theme.colors.secondary} name="email-newsletter" size={34} />
-          <View style={styles.bannerCopy}>
-            <Text style={styles.bannerTitle}>Ton expérience nous aide à améliorer AWA</Text>
-            <Text style={styles.bannerText}>Merci de prendre le temps de nous écrire.</Text>
-          </View>
-        </View>
+            <View style={styles.banner}>
+              <MaterialDesignIcons color={theme.colors.secondary} name="email-newsletter" size={34} />
+              <View style={styles.bannerCopy}>
+                <Text style={styles.bannerTitle}>Ton expérience nous aide à améliorer AWA</Text>
+                <Text style={styles.bannerText}>Merci de prendre le temps de nous écrire.</Text>
+              </View>
+            </View>
+          </>
+        ) : null}
       </ScrollView>
 
       <Modal animationType="slide" onRequestClose={() => setForm(null)} statusBarTranslucent transparent visible={form !== null}>
