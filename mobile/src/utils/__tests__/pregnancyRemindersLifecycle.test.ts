@@ -32,6 +32,7 @@ jest.mock('@notifee/react-native', () => ({
     cancelTriggerNotification: jest.fn().mockResolvedValue(undefined),
     cancelNotification: jest.fn().mockResolvedValue(undefined),
   },
+  AlarmType: {SET: 0, SET_AND_ALLOW_WHILE_IDLE: 1, SET_EXACT: 2, SET_EXACT_AND_ALLOW_WHILE_IDLE: 3, SET_ALARM_CLOCK: 4},
   AndroidImportance: {HIGH: 4},
   AndroidVisibility: {PRIVATE: 1},
   AuthorizationStatus: {NOT_DETERMINED: -1, DENIED: 0, AUTHORIZED: 1},

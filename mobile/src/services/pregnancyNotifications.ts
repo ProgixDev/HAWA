@@ -1,4 +1,5 @@
 import notifee, {
+  AlarmType,
   AndroidImportance,
   AndroidVisibility,
   AuthorizationStatus,
@@ -127,6 +128,21 @@ export async function scheduleLocalNotification({
     ...(repeatFrequency
       ? { repeatFrequency: REPEAT_FREQUENCY[repeatFrequency] }
       : {}),
+    // ROOT CAUSE of "no notifications arrive" on a real device: notifee v9
+    // schedules a TimestampTrigger via Android's WorkManager by default
+    // (see @notifee/react-native's own TimestampTrigger.alarmManager doc
+    // comment) — WorkManager is explicitly best-effort and gets deferred or
+    // dropped by Android's Doze/App-Standby battery optimizations once the
+    // app is backgrounded/idle, which is exactly when a reminder needs to
+    // fire. SET_AND_ALLOW_WHILE_IDLE routes through AlarmManager instead,
+    // which is designed to survive Doze — and, unlike the *_EXACT alarm
+    // types, needs no SCHEDULE_EXACT_ALARM/USE_EXACT_ALARM manifest
+    // permission (none is declared, and this app has no "exact alarm"
+    // product justification for the Play Store policy that permission
+    // requires). A reminder firing within a short window of its target
+    // time is perfectly acceptable for AWA's use case (period/journal/
+    // fertility reminders, never a time-critical alarm).
+    alarmManager: {type: AlarmType.SET_AND_ALLOW_WHILE_IDLE},
   };
 
   await notifee.createTriggerNotification(

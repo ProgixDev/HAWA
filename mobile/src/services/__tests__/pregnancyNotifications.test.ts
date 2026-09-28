@@ -22,6 +22,7 @@ jest.mock('@notifee/react-native', () => ({
     cancelTriggerNotification: jest.fn().mockResolvedValue(undefined),
     cancelNotification: jest.fn().mockResolvedValue(undefined),
   },
+  AlarmType: {SET: 0, SET_AND_ALLOW_WHILE_IDLE: 1, SET_EXACT: 2, SET_EXACT_AND_ALLOW_WHILE_IDLE: 3, SET_ALARM_CLOCK: 4},
   AndroidImportance: {HIGH: 4},
   AndroidVisibility: {PRIVATE: 1},
   AuthorizationStatus: {NOT_DETERMINED: -1, DENIED: 0, AUTHORIZED: 1},
@@ -62,6 +63,10 @@ function baseInput(overrides: Partial<Parameters<typeof scheduleLocalNotificatio
 
 function lastNotificationPayload() {
   return mockCreateTrigger.mock.calls[mockCreateTrigger.mock.calls.length - 1][0];
+}
+
+function lastTrigger() {
+  return mockCreateTrigger.mock.calls[mockCreateTrigger.mock.calls.length - 1][1];
 }
 
 beforeEach(() => {
@@ -201,6 +206,21 @@ describe('scheduleLocalNotification — privacy redaction', () => {
   it('never schedules for a fireDate already in the past', async () => {
     await scheduleLocalNotification(baseInput({fireDate: new Date(Date.now() - 1000)}));
     expect(mockCreateTrigger).not.toHaveBeenCalled();
+  });
+
+  it('schedules through AlarmManager (SET_AND_ALLOW_WHILE_IDLE), never notifee\'s WorkManager default — this is THE fix for reminders not arriving on a real, backgrounded/idle Android device', async () => {
+    await scheduleLocalNotification(baseInput());
+    const trigger = lastTrigger();
+    expect(trigger.alarmManager).toBeDefined();
+    expect(trigger.alarmManager.type).toBe(1); // AlarmType.SET_AND_ALLOW_WHILE_IDLE
+  });
+
+  it('the AlarmManager routing applies to a repeating (daily) reminder too', async () => {
+    await scheduleLocalNotification(baseInput({repeatFrequency: 'daily'}));
+    const trigger = lastTrigger();
+    expect(trigger.alarmManager).toBeDefined();
+    expect(trigger.alarmManager.type).toBe(1);
+    expect(trigger.repeatFrequency).toBe(1); // RepeatFrequency.DAILY
   });
 
   it('never schedules when notification permission is denied', async () => {
