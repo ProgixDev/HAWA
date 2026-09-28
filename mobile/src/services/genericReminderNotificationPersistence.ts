@@ -93,6 +93,12 @@ export async function persistGenericReminderNotification(
   }
   const kind = getNotificationDataString(notification, 'hawaNotificationKind')!;
   const occurrenceId = getGenericReminderOccurrenceId(notification);
+  // Which profile this notification concerns — read from the payload
+  // stamped at SCHEDULING time (cycleReminderScheduling.ts), never from
+  // whichever profile happens to be active right now: this can fire in the
+  // background, possibly days later and with a different profile active.
+  // undefined for every non-profile-specific reminder kind, unchanged.
+  const profileId = getNotificationDataString(notification, 'profileId');
 
   await addInAppNotification({
     id: occurrenceId,
@@ -104,6 +110,7 @@ export async function persistGenericReminderNotification(
     receivedAt: new Date().toISOString(),
     read,
     route: routeForKind(kind),
+    ...(profileId ? {profileId} : {}),
   });
   if (read) {
     await markInAppNotificationAsRead(occurrenceId);

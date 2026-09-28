@@ -25,6 +25,8 @@ jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
   getCyclePreferences: jest.fn(),
   getCycleObservationStartedAt: jest.fn(),
+  getHasConfirmedCycleData: jest.fn(() => true),
+  getHasConfirmedCycleDuration: jest.fn(() => true),
   getRecordedPeriodHistory: jest.fn(),
 }));
 jest.mock('../../state/cycleReminderPreferences', () => ({
@@ -39,11 +41,13 @@ const mockObservationStart = getCycleObservationStartedAt as jest.Mock;
 const mockHistory = getRecordedPeriodHistory as jest.Mock;
 const mockPrefs = getCycleReminderPreferences as jest.Mock;
 
+// Notification ids are now profile-namespaced (see cycleReminderScheduling.ts's
+// idFor()) — these tests run as the owner (module default), so ':owner'.
 const IDS = {
-  upcoming: 'cycle-upcoming-period-reminder',
-  check: 'cycle-period-start-check-reminder',
-  fertile: 'cycle-fertile-window-reminder',
-  ovulation: 'cycle-ovulation-reminder',
+  upcoming: 'cycle-upcoming-period-reminder:owner',
+  check: 'cycle-period-start-check-reminder:owner',
+  fertile: 'cycle-fertile-window-reminder:owner',
+  ovulation: 'cycle-ovulation-reminder:owner',
 };
 const ALL_ON = {
   upcomingPeriodEnabled: true,

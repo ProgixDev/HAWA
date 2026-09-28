@@ -1,5 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {getActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
+import {profileScopedKey} from './profileScopedStorage';
+
 // Canonical reminder preferences for the "Suivi du cycle" objective —
 // deliberately isolated from cyclePreferences/CyclePreferences in
 // onboardingPreferences.ts (which holds real cycle DATA: lastPeriodStart,
@@ -8,6 +11,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 // schedule. Same module-singleton + AsyncStorage pattern as
 // menopausePreferences.ts / contraceptionPreferences.ts. All 5 reminders
 // are opt-in and independent — enabling one never implies another.
+//
+// PROFILE-SCOPED (same pattern as qadaaStore.ts/confirmedPeriodHistoryStore.ts):
+// the mother and each managed daughter profile keep their own, completely
+// independent reminder choices — turning Haifa's "Règles à venir" on/off
+// must never read or write the mother's (or another daughter's) preferences.
+// The owner's key stays unsuffixed (backward compatible with data written
+// before managed profiles existed); a managed profile gets its own
+// `:profile:<id>`-suffixed key — see profileScopedStorage.ts.
 export type UpcomingPeriodDaysBefore = 1 | 2 | 3;
 
 export type CycleReminderPreferences = {
@@ -27,7 +38,8 @@ export type CycleReminderPreferences = {
   ovulationEnabled: boolean;
 };
 
-const STORAGE_KEY = '@hawa/cycle-reminder-preferences/v1';
+const STORAGE_KEY_BASE = '@hawa/cycle-reminder-preferences/v1';
+const currentStorageKey = () => profileScopedKey(STORAGE_KEY_BASE, getActiveProfileId());
 
 const DEFAULT_PREFERENCES: CycleReminderPreferences = {
   upcomingPeriodEnabled: false,
@@ -43,6 +55,7 @@ let preferences: CycleReminderPreferences = {...DEFAULT_PREFERENCES};
 const listeners = new Set<() => void>();
 let hydration: Promise<CycleReminderPreferences> | null = null;
 let hydrated = false;
+let hydratedForProfileId: string | null = null;
 
 const notifyListeners = () => {
   listeners.forEach(listener => listener());
@@ -74,41 +87,67 @@ export const getCycleReminderPreferences = (): CycleReminderPreferences => ({...
  * the Cycle "Notifications & rappels" screen (and nowhere else; do not
  * duplicate this call). Accepts a full object (same convention as
  * menopausePreferences.ts's setMenopauseReminderPreferences) so a caller
- * never has to guess which fields survive a partial merge. */
+ * never has to guess which fields survive a partial merge. Always writes to
+ * whichever profile is CURRENTLY active — never the mother's key while a
+ * daughter is active, or vice versa. */
 export const setCycleReminderPreferences = async (value: CycleReminderPreferences): Promise<void> => {
   preferences = {...value};
   notifyListeners();
-  await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(preferences));
+  await AsyncStorage.setItem(currentStorageKey(), JSON.stringify(preferences));
 };
 
 export const hydrateCycleReminderPreferences = (): Promise<CycleReminderPreferences> => {
-  if (hydrated) {
+  const profileId = getActiveProfileId();
+  if (hydrated && hydratedForProfileId === profileId) {
     return Promise.resolve(getCycleReminderPreferences());
   }
-  if (!hydration) {
-    hydration = AsyncStorage.getItem(STORAGE_KEY)
-      .then(raw => {
-        hydrated = true;
-        if (raw) {
-          const parsed: unknown = JSON.parse(raw);
-          if (isValidPreferences(parsed)) {
-            preferences = {...DEFAULT_PREFERENCES, ...parsed};
-            notifyListeners();
-          }
+  hydration = AsyncStorage.getItem(currentStorageKey())
+    .then(raw => {
+      hydrated = true;
+      hydratedForProfileId = profileId;
+      // A clean slate before applying whatever this profile's own key holds —
+      // otherwise a profile with no persisted reminders yet (e.g. a freshly
+      // switched-to daughter) would keep showing whichever profile's choices
+      // happened to be in memory just before the switch.
+      preferences = {...DEFAULT_PREFERENCES};
+      if (raw) {
+        const parsed: unknown = JSON.parse(raw);
+        if (isValidPreferences(parsed)) {
+          preferences = {...DEFAULT_PREFERENCES, ...parsed};
         }
-        return getCycleReminderPreferences();
-      })
-      .catch(() => {
-        hydrated = true;
-        return getCycleReminderPreferences();
-      });
-  }
+      }
+      notifyListeners();
+      return getCycleReminderPreferences();
+    })
+    .catch(() => {
+      hydrated = true;
+      hydratedForProfileId = profileId;
+      return getCycleReminderPreferences();
+    });
   return hydration;
 };
+
+// Re-reads (and re-notifies) from the newly active profile's own reminder
+// preferences whenever the active profile changes — same pattern as every
+// other profile-scoped store (see qadaaStore.ts/confirmedPeriodHistoryStore.ts).
+subscribeActiveProfileId(() => {
+  hydrated = false;
+  hydrateCycleReminderPreferences().catch(() => undefined);
+});
 
 export const subscribeCycleReminderPreferences = (listener: () => void) => {
   listeners.add(listener);
   return () => {
     listeners.delete(listener);
   };
+};
+
+/** Test-only: resets the in-memory cache so the next hydrate re-reads from
+ * AsyncStorage — simulates a fresh app start (same convention as
+ * resetActiveProfileForTests()/resetManagedProfilesForTests()). */
+export const resetCycleReminderPreferencesForTests = (): void => {
+  preferences = {...DEFAULT_PREFERENCES};
+  hydrated = false;
+  hydratedForProfileId = null;
+  hydration = null;
 };

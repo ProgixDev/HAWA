@@ -15,15 +15,16 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { navigationRef } from '../../navigation/navigationRef';
 import {
-  clearAllInAppNotifications,
+  clearAllInAppNotificationsForActiveProfile,
   clearInAppNotification,
-  getInAppNotifications,
+  getInAppNotificationsForActiveProfile,
   hydrateInAppNotifications,
-  markAllInAppNotificationsAsRead,
+  markAllInAppNotificationsAsReadForActiveProfile,
   markInAppNotificationAsRead,
   subscribeInAppNotifications,
   type InAppNotification,
 } from '../../state/inAppNotificationStore';
+import { subscribeActiveProfileId } from '../../state/activeProfileStore';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 
@@ -173,23 +174,34 @@ function InAppNotificationCenter({
   const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
   const [overflowVisible, setOverflowVisible] = useState(false);
-  const [notifications, setNotifications] = useState(getInAppNotifications);
+  // Scoped to whichever profile is CURRENTLY active (CLAUDE.md §4) — see
+  // getInAppNotificationsForActiveProfile()'s own header comment.
+  const [notifications, setNotifications] = useState(getInAppNotificationsForActiveProfile);
 
   useEffect(() => {
     let active = true;
-    hydrateInAppNotifications().then(value => {
+    hydrateInAppNotifications().then(() => {
       if (active) {
-        setNotifications(value);
+        setNotifications(getInAppNotificationsForActiveProfile());
       }
     });
     const unsubscribe = subscribeInAppNotifications(() => {
       if (active) {
-        setNotifications(getInAppNotifications());
+        setNotifications(getInAppNotificationsForActiveProfile());
+      }
+    });
+    // Switching profile alone (no new notification) must also immediately
+    // swap the visible list — mother's history disappears, Haifa's own
+    // appears, with no restart/reopen required.
+    const unsubscribeProfile = subscribeActiveProfileId(() => {
+      if (active) {
+        setNotifications(getInAppNotificationsForActiveProfile());
       }
     });
     return () => {
       active = false;
       unsubscribe();
+      unsubscribeProfile();
     };
   }, []);
 
@@ -279,7 +291,7 @@ function InAppNotificationCenter({
         {
           text: 'Tout effacer',
           style: 'destructive',
-          onPress: () => clearAllInAppNotifications().catch(() => {}),
+          onPress: () => clearAllInAppNotificationsForActiveProfile().catch(() => {}),
         },
       ],
     );
@@ -323,7 +335,7 @@ function InAppNotificationCenter({
                 <Pressable
                   accessibilityRole="button"
                   onPress={() =>
-                    markAllInAppNotificationsAsRead().catch(() => {})
+                    markAllInAppNotificationsAsReadForActiveProfile().catch(() => {})
                   }
                   style={styles.readAllButton}
                 >
