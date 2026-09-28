@@ -21,11 +21,15 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {
   deleteTrackedData,
+  deleteTrackedDataForProfile,
   formatBytes,
   getBackupSnapshot,
+  getBackupSnapshotForProfile,
   restoreBackup,
+  restoreBackupForProfile,
   type BackupSnapshot,
 } from '../services/backupService';
+import {getActiveProfileIdentity} from '../state/activeProfileStore';
 
 import {exportRequiresPrivateUnlock, getExportConfigurationForObjective} from '../config/objectiveExportConfig';
 import {isIntimacyUnlocked} from '../state/privateSectionAuthStore';
@@ -238,6 +242,15 @@ export function RestoreBackupScreen({
   const {theme} = useAwaTheme();
   const backupStyles = useMemo(() => createStyles(theme), [theme]);
 
+  // A managed daughter profile is NOT an independent account (CLAUDE.md §4)
+  // — restoring while she's active reads from and writes back to HER OWN
+  // dedicated backup slot only (backupService.ts's profile-scoped variants),
+  // which by construction can only ever contain her own profile-scoped
+  // keys — it can never overwrite the mother's or another daughter's data.
+  // The owner's own path (getBackupSnapshot/restoreBackup) is unchanged.
+  const activeIdentity = useMemo(() => getActiveProfileIdentity(), []);
+  const daughterFirstName = activeIdentity.managedProfile?.firstName ?? '';
+
   const [snapshot, setSnapshot] =
     useState<BackupSnapshot>();
 
@@ -257,10 +270,11 @@ export function RestoreBackupScreen({
   ] = useState('');
 
   useEffect(() => {
-    getBackupSnapshot().then(
-      setSnapshot,
-    );
-  }, []);
+    (activeIdentity.isManagedProfile
+      ? getBackupSnapshotForProfile(activeIdentity.id)
+      : getBackupSnapshot()
+    ).then(setSnapshot);
+  }, [activeIdentity.id, activeIdentity.isManagedProfile]);
 
   const restore = async () => {
     if (
@@ -274,9 +288,11 @@ export function RestoreBackupScreen({
     setMessage('');
 
     try {
-      await restoreBackup(
-        snapshot,
-      );
+      if (activeIdentity.isManagedProfile) {
+        await restoreBackupForProfile(snapshot, activeIdentity.id);
+      } else {
+        await restoreBackup(snapshot);
+      }
 
       setMessage(
         'Restauration terminée avec succès ✨',
@@ -296,9 +312,13 @@ export function RestoreBackupScreen({
     <Shell
       navigation={navigation}
       styles={backupStyles}
-      subtitle="Récupère tes données à partir d’une sauvegarde existante."
+      subtitle={
+        activeIdentity.isManagedProfile
+          ? `Récupère les données de ${daughterFirstName} à partir d’une sauvegarde existante.`
+          : 'Récupère tes données à partir d’une sauvegarde existante.'
+      }
       theme={theme}
-      title="Restaurer">
+      title={activeIdentity.isManagedProfile ? `Restaurer les données de ${daughterFirstName}` : 'Restaurer'}>
       <View
         style={
           backupStyles.heroCard
@@ -327,7 +347,9 @@ export function RestoreBackupScreen({
             backupStyles.heroDescription
           }>
           {snapshot
-            ? 'Une copie de tes données est prête à être restaurée.'
+            ? activeIdentity.isManagedProfile
+              ? `Une copie des données de ${daughterFirstName} est prête à être restaurée.`
+              : 'Une copie de tes données est prête à être restaurée.'
             : 'Crée d’abord une copie depuis la section Sauvegarde.'}
         </Text>
 
@@ -423,7 +445,9 @@ export function RestoreBackupScreen({
                 style={
                   backupStyles.confirmDescription
                 }>
-                Les données actuelles seront remplacées par celles de cette sauvegarde.
+                {activeIdentity.isManagedProfile
+                  ? `Les données actuelles de ${daughterFirstName} seront remplacées par celles de cette sauvegarde.`
+                  : 'Les données actuelles seront remplacées par celles de cette sauvegarde.'}
               </Text>
             </View>
           </View>
@@ -562,18 +586,42 @@ export function DataExportScreen({
     'csv',
   );
 
+  // A managed daughter profile's objective is ALWAYS "Suivre mon cycle",
+  // regardless of the mother's own real, globally-stored objective — same
+  // effectiveObjective pattern as HomeScreen/CalendarScreen/JournalSheetHost/
+  // cycleReminderScheduling.ts (CLAUDE.md §4). Reading getActiveObjective()
+  // directly here would export the MOTHER's own objective's categories
+  // (e.g. Grossesse) while a daughter is active — the underlying readers
+  // (medicalExportReaders.ts) already resolve every store to whichever
+  // profile is active, so forcing this one selector is the ONLY change
+  // needed to make the whole export pipeline correctly profile-scoped.
+  const activeIdentity = useMemo(() => getActiveProfileIdentity(), []);
+  const daughterFirstName = activeIdentity.managedProfile?.firstName ?? '';
+
   // Objective-aware: every category shown/exported below comes from the
   // ACTIVE objective's own configuration (objectiveExportConfig.ts), never a
   // fixed global list — so Grossesse never shows Ménopause categories, and
   // vice versa. App.tsx already hydrates onboardingPreferences.ts at boot.
-  const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
+  const [objective, setObjective] = useState<ObjectiveId>(
+    () => (activeIdentity.isManagedProfile ? 'cycle' : getActiveObjective()),
+  );
 
   useEffect(() => {
+    if (activeIdentity.isManagedProfile) {return;}
     hydrateActiveObjective().then(setObjective);
     return subscribeActiveObjective(() => setObjective(getActiveObjective()));
-  }, []);
+  }, [activeIdentity.isManagedProfile]);
 
   const exportConfig = getExportConfigurationForObjective(objective);
+  // "Vie intime" is not part of a managed daughter profile's experience
+  // (CLAUDE.md §4/§6 — hidden from her journal, her Help, everywhere else)
+  // — it must never appear as a selectable/exportable category for her
+  // either, even though it's a normal 'cycle' category for the owner.
+  // Filtered here, at the single source every render/selection reads from,
+  // rather than re-checked at each of the 3 usage sites below.
+  const visibleCategories = activeIdentity.isManagedProfile
+    ? exportConfig.categories.filter(category => category.value !== 'intimacy')
+    : exportConfig.categories;
 
   // Export (CSV & PDF) is a marketed Premium benefit — see the "Exports
   // santé" line in HawaPremiumBottomSheet.tsx's own BENEFITS list and the
@@ -587,8 +635,8 @@ export function DataExportScreen({
     selected,
     setSelected,
   ] = useState<string[]>(() =>
-    getExportConfigurationForObjective(getActiveObjective())
-      .categories.filter(category => !category.sensitive)
+    visibleCategories
+      .filter(category => !category.sensitive)
       .map(category => category.value),
   );
 
@@ -596,7 +644,7 @@ export function DataExportScreen({
   // to that objective's own defaults — never keeps a category value that
   // belongs to the previous objective's configuration.
   useEffect(() => {
-    setSelected(exportConfig.categories.filter(category => !category.sensitive).map(category => category.value));
+    setSelected(visibleCategories.filter(category => !category.sensitive).map(category => category.value));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [objective]);
 
@@ -712,9 +760,13 @@ export function DataExportScreen({
     <Shell
       navigation={navigation}
       styles={backupStyles}
-      subtitle="Choisis les informations que tu souhaites récupérer."
+      subtitle={
+        activeIdentity.isManagedProfile
+          ? `Choisis les informations de ${daughterFirstName} à récupérer.`
+          : 'Choisis les informations que tu souhaites récupérer.'
+      }
       theme={theme}
-      title="Exporter mes données">
+      title={activeIdentity.isManagedProfile ? `Exporter les données de ${daughterFirstName}` : 'Exporter mes données'}>
       <View
         style={
           backupStyles.exportHero
@@ -869,7 +921,7 @@ export function DataExportScreen({
         style={
           backupStyles.categoryCard
         }>
-        {exportConfig.categories.map(
+        {visibleCategories.map(
           (
             category,
             index,
@@ -900,7 +952,7 @@ export function DataExportScreen({
                   backupStyles.category,
 
                   index !==
-                    exportConfig.categories.length -
+                    visibleCategories.length -
                       1 &&
                     backupStyles.categoryBorder,
 
@@ -1176,6 +1228,18 @@ export function DeleteTrackedDataScreen({
   const {theme} = useAwaTheme();
   const backupStyles = useMemo(() => createStyles(theme), [theme]);
 
+  // A managed daughter profile is NOT an independent account (CLAUDE.md
+  // §4) — "Supprimer les données de suivi de Haifa" must clear ONLY her own
+  // profile-scoped tracking data (deleteTrackedDataForProfile), never the
+  // mother's data, never another daughter's, and — critically — never the
+  // managed-profile RECORD itself (she stays a valid profile, just with an
+  // empty tracking history; deleting the profile itself remains "Gérer les
+  // profils" → swipe → Supprimer, a separate, unaffected operation). The
+  // owner's own existing behavior (deleteTrackedData(), unscoped) is
+  // completely unchanged.
+  const activeIdentity = useMemo(() => getActiveProfileIdentity(), []);
+  const daughterFirstName = activeIdentity.managedProfile?.firstName ?? '';
+
   const [
     value,
     setValue,
@@ -1206,7 +1270,11 @@ export function DeleteTrackedDataScreen({
       return;
     }
 
-    await deleteTrackedData();
+    if (activeIdentity.isManagedProfile) {
+      await deleteTrackedDataForProfile(activeIdentity.id);
+    } else {
+      await deleteTrackedData();
+    }
 
     setDone(true);
   };
@@ -1215,9 +1283,13 @@ export function DeleteTrackedDataScreen({
     <Shell
       navigation={navigation}
       styles={backupStyles}
-      subtitle="Gère définitivement tes données de suivi locales."
+      subtitle={
+        activeIdentity.isManagedProfile
+          ? `Gère définitivement les données de suivi locales de ${daughterFirstName}.`
+          : 'Gère définitivement tes données de suivi locales.'
+      }
       theme={theme}
-      title="Supprimer mes données">
+      title={activeIdentity.isManagedProfile ? `Supprimer les données de ${daughterFirstName}` : 'Supprimer mes données'}>
       {!done ? (
         <>
           <View
@@ -1243,7 +1315,9 @@ export function DeleteTrackedDataScreen({
               style={
                 backupStyles.dangerDescription
               }>
-              Cette action supprimera définitivement tes données de suivi locales.
+              {activeIdentity.isManagedProfile
+                ? `Cette action supprimera définitivement les données de suivi locales de ${daughterFirstName}.`
+                : 'Cette action supprimera définitivement tes données de suivi locales.'}
             </Text>
 
             <View
@@ -1283,7 +1357,9 @@ export function DeleteTrackedDataScreen({
                 style={
                   backupStyles.accountNoticeText
                 }>
-                Ton compte AWA ne sera pas supprimé.
+                {activeIdentity.isManagedProfile
+                  ? `Le profil de ${daughterFirstName} ne sera pas supprimé — seules ses données de suivi le seront.`
+                  : 'Ton compte AWA ne sera pas supprimé.'}
               </Text>
             </View>
           </View>
@@ -1449,7 +1525,9 @@ export function DeleteTrackedDataScreen({
             style={
               backupStyles.successDescription
             }>
-            Tes données de suivi locales ont été supprimées avec succès.
+            {activeIdentity.isManagedProfile
+              ? `Les données de suivi locales de ${daughterFirstName} ont été supprimées avec succès.`
+              : 'Tes données de suivi locales ont été supprimées avec succès.'}
           </Text>
 
           <View
