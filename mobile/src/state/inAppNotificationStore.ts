@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {getActiveProfileId, isOwnerActive} from './activeProfileStore';
+
 export type InAppNotification = {
   /** Stable domain/Notifee id. This is also the AsyncStorage key suffix and
    * the de-duplication key. */
@@ -11,6 +13,16 @@ export type InAppNotification = {
   read: boolean;
   route?: string;
   data?: Record<string, string>;
+  /** WHICH profile this notification concerns (the mother, or one of her
+   * managed daughter profiles) — read from the scheduled notification's own
+   * `data.profileId` at the moment it is PERSISTED (see
+   * genericReminderNotificationPersistence.ts), never from whichever profile
+   * happens to be active when it later fires, which can differ from the one
+   * it was scheduled for. Optional/undefined for every notification kind
+   * that predates this field, or that isn't profile-specific (pregnancy/
+   * contraception/menopause/etc reminders, all owner-only objectives) — see
+   * getInAppNotificationsForActiveProfile()'s own fallback rule below. */
+  profileId?: string;
 };
 
 // Storage model: ONE AsyncStorage key per notification (keyed by its stable
@@ -163,6 +175,28 @@ export const getInAppNotifications = (): InAppNotification[] => [
 export const getUnreadInAppNotificationCount = (): number =>
   notifications.filter(notification => !notification.read).length;
 
+/** True when `notification` belongs to the CURRENTLY active profile — a
+ * notification carrying no `profileId` (every non-Cycle reminder kind, and
+ * any Cycle reminder persisted before this field existed) is treated as the
+ * owner's own, matching today's behavior exactly for her; it never shows
+ * while a managed daughter is active, since none of those notification
+ * kinds can ever concern a daughter profile (CLAUDE.md §4 objective
+ * isolation — a managed daughter's objective is always "Suivre mon cycle"). */
+const belongsToActiveProfile = (notification: InAppNotification): boolean =>
+  notification.profileId
+    ? notification.profileId === getActiveProfileId()
+    : isOwnerActive();
+
+/** THE notification-bell/center's own reads — never the raw, unfiltered
+ * getInAppNotifications()/getUnreadInAppNotificationCount() above, which
+ * mix every profile's history together. Mother and Haifa (and any other
+ * managed profile) each see ONLY their own notifications and badge count. */
+export const getInAppNotificationsForActiveProfile = (): InAppNotification[] =>
+  notifications.filter(belongsToActiveProfile);
+
+export const getUnreadInAppNotificationCountForActiveProfile = (): number =>
+  notifications.filter(notification => !notification.read && belongsToActiveProfile(notification)).length;
+
 export const hydrateInAppNotifications = (): Promise<InAppNotification[]> => {
   if (!hydration) {
     hydration = readPersistedNotifications().then(value => {
@@ -259,6 +293,29 @@ export const markAllInAppNotificationsAsRead = (): Promise<void> =>
     emit();
   });
 
+/** Same as markAllInAppNotificationsAsRead(), but scoped to ONLY the
+ * currently active profile's own notifications — the notification bell/
+ * center's own "mark all as read" must never also mark the mother's (or
+ * another daughter's) unrelated notifications as read. */
+export const markAllInAppNotificationsAsReadForActiveProfile = (): Promise<void> =>
+  enqueue(async () => {
+    const items = await readPersistedNotifications();
+    const unread = items.filter(item => !item.read && belongsToActiveProfile(item));
+    if (unread.length === 0) {
+      return;
+    }
+    await AsyncStorage.setMany(
+      Object.fromEntries(
+        unread.map(item => [
+          keyFor(item.id),
+          JSON.stringify({ ...item, read: true }),
+        ]),
+      ),
+    );
+    notifications = await readPersistedNotifications();
+    emit();
+  });
+
 export const clearInAppNotification = (id: string): Promise<void> =>
   enqueue(async () => {
     await AsyncStorage.removeItem(keyFor(id));
@@ -275,6 +332,21 @@ export const clearAllInAppNotifications = (): Promise<void> =>
       await AsyncStorage.removeMany(keys);
     }
     notifications = [];
+    emit();
+  });
+
+/** Same as clearAllInAppNotifications(), but scoped to ONLY the currently
+ * active profile's own notifications — "Effacer tout" from the notification
+ * bell/center must never also delete the mother's (or another daughter's)
+ * unrelated notification history. */
+export const clearAllInAppNotificationsForActiveProfile = (): Promise<void> =>
+  enqueue(async () => {
+    const items = await readPersistedNotifications();
+    const own = items.filter(belongsToActiveProfile);
+    if (own.length > 0) {
+      await AsyncStorage.removeMany(own.map(item => keyFor(item.id)));
+    }
+    notifications = await readPersistedNotifications();
     emit();
   });
 

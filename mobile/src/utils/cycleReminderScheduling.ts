@@ -13,9 +13,12 @@ import {
   getActiveObjective,
   getCyclePreferences,
   getCycleObservationStartedAt,
+  getHasConfirmedCycleData,
+  getHasConfirmedCycleDuration,
   getRecordedPeriodHistory,
 } from '../state/onboardingPreferences';
 import {getCycleReminderPreferences, type CycleReminderPreferences} from '../state/cycleReminderPreferences';
+import {getActiveProfileId, getActiveProfileIdentity, isOwnerActive} from '../state/activeProfileStore';
 
 // Cycle's 5 optional reminders — reuses the exact same chokepoint
 // (scheduleLocalNotification/cancelLocalNotification in
@@ -46,6 +49,29 @@ const PERIOD_START_CHECK_ID = 'cycle-period-start-check-reminder';
 const DAILY_JOURNAL_ID = 'cycle-daily-journal-reminder';
 const FERTILE_WINDOW_ID = 'cycle-fertile-window-reminder';
 const OVULATION_ID = 'cycle-ovulation-reminder';
+const LEGACY_IDS = [UPCOMING_PERIOD_ID, PERIOD_START_CHECK_ID, DAILY_JOURNAL_ID, FERTILE_WINDOW_ID, OVULATION_ID];
+
+// PROFILE-SCOPED notification ids — the mother and each managed daughter
+// profile schedule their own, independently cancellable set of Cycle
+// reminders (CLAUDE.md §4 objective isolation: turning Haifa's reminder on/
+// off must never touch the mother's, or another daughter's, scheduled
+// notification). scheduleLocalNotification() upserts BY ID (cancel-then-
+// reschedule), so two profiles reusing the same bare id would silently
+// overwrite one another — this namespaces every id by the active profile.
+const idFor = (base: string): string => `${base}:${getActiveProfileId()}`;
+
+/** Returns the mother's own EXISTING wording, byte-identical, while she's
+ * active; while a managed daughter is active, builds profile-aware wording
+ * from her real firstName instead (never hardcoded, never speaking as if
+ * her cycle belonged to the phone owner — CLAUDE.md §4/§16 of this task). */
+function ownerOrDaughterCopy(
+  ownerCopy: {title: string; body: string},
+  daughterCopy: (firstName: string) => {title: string; body: string},
+): {title: string; body: string} {
+  if (isOwnerActive()) {return ownerCopy;}
+  const firstName = getActiveProfileIdentity().managedProfile?.firstName || 'elle';
+  return daughterCopy(firstName);
+}
 
 // Tag carried in the notification's `data` payload so
 // genericReminderNotificationPersistence.ts can recognize and record every
@@ -86,15 +112,24 @@ async function syncUpcomingPeriodReminder(
   // bientôt" (from windowStart) should exist is a product choice that is not
   // defined anywhere in the code or tests — the existing, documented
   // behaviour (cancel) is kept until it is decided.
+  const id = idFor(UPCOMING_PERIOD_ID);
   if (!active || !prefs.upcomingPeriodEnabled || prediction.mode !== 'exact') {
-    await cancelLocalNotification(UPCOMING_PERIOD_ID);
+    await cancelLocalNotification(id);
     return;
   }
 
+  // The phone belongs to the mother — a daughter's reminder must not speak
+  // as if her cycle were the phone owner's own (CLAUDE.md §4). Her own
+  // wording is unaffected: byte-identical to before.
+  const {title, body} = ownerOrDaughterCopy(
+    {title: 'Tes règles sont prévues bientôt 🌸', body: 'Pense à garder ce dont tu as besoin à portée de main.'},
+    firstName => ({title: `Suivi de ${firstName}`, body: `Ses prochaines règles sont estimées dans quelques jours.`}),
+  );
+
   await scheduleLocalNotification({
-    id: UPCOMING_PERIOD_ID,
-    title: 'Tes règles sont prévues bientôt 🌸',
-    body: 'Pense à garder ce dont tu as besoin à portée de main.',
+    id,
+    title,
+    body,
     // addDays() reconstructs the Date from year/month/day only (it zeroes
     // the time-of-day), so the day offset must be applied BEFORE
     // atReminderHour() sets the hour — not after, or the hour is lost.
@@ -102,8 +137,9 @@ async function syncUpcomingPeriodReminder(
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'upcoming-period',
-      inAppTitle: 'Tes règles sont prévues bientôt 🌸',
-      inAppMessage: 'Pense à garder ce dont tu as besoin à portée de main.',
+      profileId: getActiveProfileId(),
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -116,10 +152,16 @@ async function syncPeriodStartCheckReminder(
   // PRODUCT DECISION REQUIRED: same open question as the upcoming-period
   // reminder above (a "have your periods started?" check in 'window' mode,
   // e.g. from windowEnd / when isLate) — kept as the existing safe cancel.
+  const id = idFor(PERIOD_START_CHECK_ID);
   if (!active || !prefs.periodStartCheckEnabled || prediction.mode !== 'exact') {
-    await cancelLocalNotification(PERIOD_START_CHECK_ID);
+    await cancelLocalNotification(id);
     return;
   }
+
+  const {title, body} = ownerOrDaughterCopy(
+    {title: 'Tes règles ont peut-être commencé ?', body: 'Pense à renseigner leur début pour garder ton suivi à jour.'},
+    firstName => ({title: `Cycle de ${firstName}`, body: `Tu peux vérifier si ses règles ont commencé.`}),
+  );
 
   // A single, one-time check on the predicted day itself — never recurring,
   // so this can never turn into a daily nag. If she records her period
@@ -128,36 +170,44 @@ async function syncPeriodStartCheckReminder(
   // recomputes `prediction.date` as the following cycle's date — upserting
   // this same id cancels the now-obsolete trigger automatically.
   await scheduleLocalNotification({
-    id: PERIOD_START_CHECK_ID,
-    title: 'Tes règles ont peut-être commencé ?',
-    body: 'Pense à renseigner leur début pour garder ton suivi à jour.',
+    id,
+    title,
+    body,
     fireDate: atReminderHour(prediction.date),
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'period-start-check',
-      inAppTitle: 'Tes règles ont peut-être commencé ?',
-      inAppMessage: 'Pense à renseigner leur début pour garder ton suivi à jour.',
+      profileId: getActiveProfileId(),
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
 
 async function syncDailyJournalReminder(active: boolean, prefs: CycleReminderPreferences): Promise<void> {
+  const id = idFor(DAILY_JOURNAL_ID);
   if (!active || !prefs.dailyJournalEnabled || !prefs.dailyJournalTime) {
-    await cancelLocalNotification(DAILY_JOURNAL_ID);
+    await cancelLocalNotification(id);
     return;
   }
 
+  const {title, body} = ownerOrDaughterCopy(
+    {title: 'Comment te sens-tu aujourd’hui ?', body: 'Prends un moment pour mettre ton suivi à jour.'},
+    firstName => ({title: `Journal de ${firstName}`, body: `Pense à compléter son journal du jour.`}),
+  );
+
   await scheduleLocalNotification({
-    id: DAILY_JOURNAL_ID,
-    title: 'Comment te sens-tu aujourd’hui ?',
-    body: 'Prends un moment pour mettre ton suivi à jour.',
+    id,
+    title,
+    body,
     fireDate: nextDailyFireDate(prefs.dailyJournalTime),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'daily-journal',
-      inAppTitle: 'Comment te sens-tu aujourd’hui ?',
-      inAppMessage: 'Prends un moment pour mettre ton suivi à jour.',
+      profileId: getActiveProfileId(),
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -176,14 +226,17 @@ function nextOccurrence(date: Date, cycleLength: number, today: Date): Date {
 }
 
 /** The estimated dates the Cycle Dashboard shows (estimateFertilityDates) —
- * null in 'window' mode, where NO precise fertile/ovulation date may be
- * shown or notified — plus the cycle length that estimate is built on. */
+ * null in 'window' mode, or in 'observing' mode with an unconfirmed duration
+ * (see estimateFertilityDates's own doc comment — a managed daughter who just
+ * recorded her first-ever period is exactly this case: NO precise fertile/
+ * ovulation date may be shown OR notified) — plus the cycle length that
+ * estimate is built on. */
 function fertilityForReminders(
   basics: CycleBasics,
   prediction: CyclePredictionStatus,
   today: Date,
 ): {estimate: CycleFertilityEstimate; cycleLength: number} | null {
-  const estimate = estimateFertilityDates(basics, prediction, today);
+  const estimate = estimateFertilityDates(basics, prediction, today, getHasConfirmedCycleDuration());
   if (!estimate) {
     return null;
   }
@@ -199,24 +252,31 @@ async function syncFertileWindowReminder(
   fertility: ReturnType<typeof fertilityForReminders>,
   today: Date,
 ): Promise<void> {
+  const id = idFor(FERTILE_WINDOW_ID);
   if (!active || !prefs.fertileWindowEnabled || !fertility) {
-    await cancelLocalNotification(FERTILE_WINDOW_ID);
+    await cancelLocalNotification(id);
     return;
   }
 
+  const {title, body} = ownerOrDaughterCopy(
+    {title: 'Ta fenêtre fertile estimée approche', body: 'Selon les données de ton cycle, ta période fertile estimée commence bientôt.'},
+    firstName => ({title: `Cycle de ${firstName}`, body: `Sa fenêtre fertile estimée approche.`}),
+  );
+
   const fertileStart = nextOccurrence(fertility.estimate.fertileStart, fertility.cycleLength, today);
   await scheduleLocalNotification({
-    id: FERTILE_WINDOW_ID,
-    title: 'Ta fenêtre fertile estimée approche',
-    body: 'Selon les données de ton cycle, ta période fertile estimée commence bientôt.',
+    id,
+    title,
+    body,
     // Same addDays()-before-atReminderHour() ordering as the upcoming-period
     // reminder above — addDays() would otherwise zero the hour it sets.
     fireDate: atReminderHour(addDays(fertileStart, -FERTILE_WINDOW_LEAD_DAYS)),
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'fertile-window',
-      inAppTitle: 'Ta fenêtre fertile estimée approche',
-      inAppMessage: 'Selon les données de ton cycle, ta période fertile estimée commence bientôt.',
+      profileId: getActiveProfileId(),
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -227,22 +287,29 @@ async function syncOvulationReminder(
   fertility: ReturnType<typeof fertilityForReminders>,
   today: Date,
 ): Promise<void> {
+  const id = idFor(OVULATION_ID);
   if (!active || !prefs.ovulationEnabled || !fertility) {
-    await cancelLocalNotification(OVULATION_ID);
+    await cancelLocalNotification(id);
     return;
   }
 
+  const {title, body} = ownerOrDaughterCopy(
+    {title: 'Ovulation estimée 🌸', body: 'Selon ton suivi, ton ovulation est estimée prochainement.'},
+    firstName => ({title: `Cycle de ${firstName}`, body: `Son ovulation est estimée prochainement.`}),
+  );
+
   const ovulation = nextOccurrence(fertility.estimate.ovulation, fertility.cycleLength, today);
   await scheduleLocalNotification({
-    id: OVULATION_ID,
-    title: 'Ovulation estimée 🌸',
-    body: 'Selon ton suivi, ton ovulation est estimée prochainement.',
+    id,
+    title,
+    body,
     fireDate: atReminderHour(ovulation),
     data: {
       hawaNotificationKind: CYCLE_REMINDER_NOTIFICATION_KIND,
       cycleReminderType: 'ovulation',
-      inAppTitle: 'Ovulation estimée 🌸',
-      inAppMessage: 'Selon ton suivi, ton ovulation est estimée prochainement.',
+      profileId: getActiveProfileId(),
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -255,7 +322,13 @@ async function syncOvulationReminder(
  * schedules while a different objective is active, so switching away from
  * Cycle cleanly clears all 5. */
 export async function syncCycleReminders(): Promise<void> {
-  const active = getActiveObjective() === 'cycle';
+  // A managed daughter's objective is ALWAYS forced to "Suivre mon cycle"
+  // regardless of the mother's own real, globally-stored objective (same
+  // effectiveObjective pattern as HomeScreen/CalendarScreen/JournalSheetHost
+  // — see CLAUDE.md §4). getActiveObjective() alone would wrongly cancel
+  // every one of a daughter's reminders whenever the mother's own objective
+  // happens to be something else (e.g. 'pregnancy').
+  const active = isOwnerActive() ? getActiveObjective() === 'cycle' : true;
   const prefs = getCycleReminderPreferences();
   const basics = getCyclePreferences();
   const today = startOfDay(new Date());
@@ -272,11 +345,24 @@ export async function syncCycleReminders(): Promise<void> {
 
   const fertility = fertilityForReminders(basics, prediction, today);
 
+  // A managed daughter who has no real, confirmed cycle data yet (never had
+  // her first period, or it was never recorded) must never get a fabricated
+  // next-period/fertile-window/ovulation reminder derived from the neutral
+  // placeholder defaults — the daily journal reminder is unaffected, it
+  // never depends on cycle predictions. The mother's own existing behaviour
+  // is untouched either way (isOwnerActive() short-circuits to true).
+  const dateBasedActive = active && (isOwnerActive() || getHasConfirmedCycleData());
+
+  // One-time cleanup of the pre-profile-scoping bare ids (harmless no-op if
+  // nothing is scheduled under them) so a stray duplicate can never linger
+  // for the mother after this upgrade — see idFor()'s own header comment.
+  await Promise.all(LEGACY_IDS.map(cancelLocalNotification));
+
   await Promise.all([
-    syncUpcomingPeriodReminder(active, prefs, prediction),
-    syncPeriodStartCheckReminder(active, prefs, prediction),
+    syncUpcomingPeriodReminder(dateBasedActive, prefs, prediction),
+    syncPeriodStartCheckReminder(dateBasedActive, prefs, prediction),
     syncDailyJournalReminder(active, prefs),
-    syncFertileWindowReminder(active, prefs, fertility, today),
-    syncOvulationReminder(active, prefs, fertility, today),
+    syncFertileWindowReminder(dateBasedActive, prefs, fertility, today),
+    syncOvulationReminder(dateBasedActive, prefs, fertility, today),
   ]);
 }

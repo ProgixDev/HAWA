@@ -17,12 +17,15 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
+import notifee from '@notifee/react-native';
 import {ensureNotificationPermission} from '../services/pregnancyNotifications';
 import {
   getCycleReminderPreferences,
   setCycleReminderPreferences,
   type UpcomingPeriodDaysBefore,
 } from '../state/cycleReminderPreferences';
+import {getHasConfirmedCycleData} from '../state/onboardingPreferences';
+import {getActiveProfileIdentity} from '../state/activeProfileStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -58,6 +61,16 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
   // this onboarding step (e.g. re-running onboarding), those real values
   // are what's shown here — never onboarding-specific defaults.
   const initial = getCycleReminderPreferences();
+
+  // A managed daughter who has never had (or never recorded) her first
+  // period has no valid cycle data to derive a next-period/period-start/
+  // fertile-window/ovulation reminder from — these 4 must never be
+  // schedulable from a fabricated default (CLAUDE.md §5 real data only;
+  // see cycleReminderScheduling.ts's own dateBasedActive guard, which this
+  // UI must agree with). "Journal quotidien" is unaffected — it never
+  // depends on cycle predictions. The owner is never gated (always true).
+  const activeIdentity = useMemo(() => getActiveProfileIdentity(), []);
+  const cycleDataUnavailable = activeIdentity.isManagedProfile && !getHasConfirmedCycleData();
 
   const [upcomingPeriodEnabled, setUpcomingPeriodEnabled] = useState(initial.upcomingPeriodEnabled);
   const [upcomingPeriodDaysBefore, setUpcomingPeriodDaysBefore] = useState(initial.upcomingPeriodDaysBefore);
@@ -102,13 +115,13 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
     setSaving(true);
     try {
       await setCycleReminderPreferences({
-        upcomingPeriodEnabled,
+        upcomingPeriodEnabled: cycleDataUnavailable ? false : upcomingPeriodEnabled,
         upcomingPeriodDaysBefore,
-        periodStartCheckEnabled,
+        periodStartCheckEnabled: cycleDataUnavailable ? false : periodStartCheckEnabled,
         dailyJournalEnabled,
         dailyJournalTime,
-        fertileWindowEnabled,
-        ovulationEnabled,
+        fertileWindowEnabled: cycleDataUnavailable ? false : fertileWindowEnabled,
+        ovulationEnabled: cycleDataUnavailable ? false : ovulationEnabled,
       });
 
       // Only ever requested here — when a reminder is actually being
@@ -202,6 +215,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 </Text>
               </View>
               <Switch
+                disabled={cycleDataUnavailable}
                 ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setUpcomingPeriodEnabled(value);
@@ -212,6 +226,10 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 value={upcomingPeriodEnabled}
               />
             </View>
+
+            {cycleDataUnavailable ? (
+              <Text style={styles.unavailableNote}>Disponible après l’enregistrement de ses premières règles.</Text>
+            ) : null}
 
             {upcomingPeriodEnabled ? (
               <View style={styles.daysBeforeRow}>
@@ -252,6 +270,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 </Text>
               </View>
               <Switch
+                disabled={cycleDataUnavailable}
                 ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setPeriodStartCheckEnabled(value);
@@ -262,6 +281,10 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 value={periodStartCheckEnabled}
               />
             </View>
+
+            {cycleDataUnavailable ? (
+              <Text style={styles.unavailableNote}>Disponible après l’enregistrement de ses premières règles.</Text>
+            ) : null}
           </View>
 
           {/* JOURNAL QUOTIDIEN */}
@@ -317,6 +340,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 <Text style={styles.cardDescription}>Reçois des rappels basés sur les estimations de ton cycle.</Text>
               </View>
               <Switch
+                disabled={cycleDataUnavailable}
                 ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={toggleFertility}
                 thumbColor={theme.colors.surface}
@@ -324,6 +348,10 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 value={fertilityEnabled}
               />
             </View>
+
+            {cycleDataUnavailable ? (
+              <Text style={styles.unavailableNote}>Disponible après l’enregistrement de ses premières règles.</Text>
+            ) : null}
 
             {fertilityEnabled ? (
               <View style={styles.checkboxList}>
@@ -383,9 +411,18 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           {permissionNotice ? (
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
-              <Text style={styles.errorText}>
-                Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
-              </Text>
+              <View style={styles.permissionNoticeCopy}>
+                <Text style={styles.errorText}>
+                  Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                </Text>
+                <Pressable
+                  accessibilityLabel="Ouvrir les réglages de notifications"
+                  accessibilityRole="button"
+                  onPress={() => notifee.openNotificationSettings().catch(() => {})}
+                  style={({pressed}) => [styles.permissionSettingsButton, pressed && styles.pressed]}>
+                  <Text style={styles.permissionSettingsButtonText}>Ouvrir les réglages</Text>
+                </Pressable>
+              </View>
             </View>
           ) : null}
 
@@ -489,6 +526,7 @@ function createStyles(theme: ResolvedAwaTheme) {
     cardCopy: {flex: 1, minWidth: 0},
     cardTitle: {color: theme.colors.text, fontFamily: 'serif', fontSize: 15.5, lineHeight: 20, fontWeight: '700'},
     cardDescription: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    unavailableNote: {marginTop: 10, color: theme.colors.textMuted, fontSize: 10.5, lineHeight: 15, fontStyle: 'italic'},
 
     daysBeforeRow: {flexDirection: 'row', gap: 8, marginTop: 12},
     daysBeforeChip: {
@@ -528,6 +566,13 @@ function createStyles(theme: ResolvedAwaTheme) {
       backgroundColor: withAlpha(theme.colors.danger, 0.1), borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.15),
     },
     errorText: {flex: 1, color: theme.colors.danger, fontSize: 11.5, lineHeight: 16},
+    permissionNoticeCopy: {flex: 1, minWidth: 0},
+    permissionSettingsButton: {
+      alignSelf: 'flex-start', marginTop: 8, borderRadius: 12,
+      borderWidth: 1, borderColor: withAlpha(theme.colors.danger, 0.3),
+      paddingHorizontal: 12, paddingVertical: 7,
+    },
+    permissionSettingsButtonText: {color: theme.colors.danger, fontSize: 11, fontWeight: '700'},
 
     info: {
       flexDirection: 'row', alignItems: 'center', gap: 10, marginTop: 16,

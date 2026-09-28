@@ -1,6 +1,6 @@
 import {syncCycleReminders} from '../cycleReminderScheduling';
 import {scheduleLocalNotification, cancelLocalNotification} from '../../services/pregnancyNotifications';
-import {getActiveObjective, getCyclePreferences, getCycleObservationStartedAt, getRecordedPeriodHistory} from '../../state/onboardingPreferences';
+import {getActiveObjective, getCyclePreferences, getCycleObservationStartedAt, getHasConfirmedCycleDuration, getRecordedPeriodHistory} from '../../state/onboardingPreferences';
 import {getCycleReminderPreferences} from '../../state/cycleReminderPreferences';
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
@@ -15,6 +15,8 @@ jest.mock('../../state/onboardingPreferences', () => ({
   getActiveObjective: jest.fn(),
   getCyclePreferences: jest.fn(),
   getCycleObservationStartedAt: jest.fn(),
+  getHasConfirmedCycleData: jest.fn(() => true),
+  getHasConfirmedCycleDuration: jest.fn(() => true),
   getRecordedPeriodHistory: jest.fn(),
 }));
 jest.mock('../../state/cycleReminderPreferences', () => ({
@@ -26,6 +28,7 @@ const mockCancelLocalNotification = cancelLocalNotification as jest.Mock;
 const mockGetActiveObjective = getActiveObjective as jest.Mock;
 const mockGetCyclePreferences = getCyclePreferences as jest.Mock;
 const mockGetCycleObservationStartedAt = getCycleObservationStartedAt as jest.Mock;
+const mockGetHasConfirmedCycleDuration = getHasConfirmedCycleDuration as jest.Mock;
 const mockGetRecordedPeriodHistory = getRecordedPeriodHistory as jest.Mock;
 const mockGetCycleReminderPreferences = getCycleReminderPreferences as jest.Mock;
 
@@ -73,7 +76,7 @@ describe('syncCycleReminders — upcoming period reminder', () => {
 
     await syncCycleReminders();
 
-    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder');
+    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner');
     expect(call).toBeDefined();
     const fireDate: Date = call![0].fireDate;
     expect(fireDate.getFullYear()).toBe(2026);
@@ -86,8 +89,8 @@ describe('syncCycleReminders — upcoming period reminder', () => {
   it('does not schedule when disabled', async () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     await syncCycleReminders();
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-upcoming-period-reminder')).toBe(false);
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-upcoming-period-reminder');
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner')).toBe(false);
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-upcoming-period-reminder:owner');
   });
 
   it('does not invent a date when the cycle has no single predicted date (irregular)', async () => {
@@ -101,15 +104,15 @@ describe('syncCycleReminders — upcoming period reminder', () => {
 
     await syncCycleReminders();
 
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-upcoming-period-reminder')).toBe(false);
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-upcoming-period-reminder');
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner')).toBe(false);
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-upcoming-period-reminder:owner');
   });
 
   it('B: a prediction change reschedules to the new date (same id upserts)', async () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13')); // predicts 2026-09-10
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, upcomingPeriodEnabled: true, upcomingPeriodDaysBefore: 2});
     await syncCycleReminders();
-    const first = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder')![0].fireDate;
+    const first = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner')![0].fireDate;
     expect(first.getDate()).toBe(8);
 
     jest.clearAllMocks();
@@ -117,9 +120,9 @@ describe('syncCycleReminders — upcoming period reminder', () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-15')); // predicts 2026-09-12
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, upcomingPeriodEnabled: true, upcomingPeriodDaysBefore: 2});
     await syncCycleReminders();
-    const second = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder')![0];
+    const second = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner')![0];
     expect(second.fireDate.getDate()).toBe(10);
-    expect(second.id).toBe('cycle-upcoming-period-reminder');
+    expect(second.id).toBe('cycle-upcoming-period-reminder:owner');
   });
 });
 
@@ -130,7 +133,7 @@ describe('syncCycleReminders — period start check', () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, periodStartCheckEnabled: true});
     await syncCycleReminders();
-    const before = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-period-start-check-reminder')![0];
+    const before = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-period-start-check-reminder:owner')![0];
     expect(before.fireDate.getDate()).toBe(10);
 
     jest.clearAllMocks();
@@ -138,7 +141,7 @@ describe('syncCycleReminders — period start check', () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-09-10'));
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, periodStartCheckEnabled: true});
     await syncCycleReminders();
-    const after = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-period-start-check-reminder')![0];
+    const after = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-period-start-check-reminder:owner')![0];
     expect(after.fireDate.getDate()).not.toBe(10);
     expect(after.title).toBe('Tes règles ont peut-être commencé ?');
   });
@@ -147,7 +150,7 @@ describe('syncCycleReminders — period start check', () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, periodStartCheckEnabled: true});
     await syncCycleReminders();
-    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-period-start-check-reminder')![0];
+    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-period-start-check-reminder:owner')![0];
     expect(call.repeatFrequency).toBeUndefined();
   });
 });
@@ -157,7 +160,7 @@ describe('syncCycleReminders — daily journal', () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, dailyJournalEnabled: true, dailyJournalTime: '20:00'});
     await syncCycleReminders();
-    let call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-daily-journal-reminder')![0];
+    let call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-daily-journal-reminder:owner')![0];
     expect(call.repeatFrequency).toBe('daily');
     expect(call.fireDate.getHours()).toBe(20);
 
@@ -165,15 +168,15 @@ describe('syncCycleReminders — daily journal', () => {
     mockScheduleLocalNotification.mockResolvedValue(true);
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, dailyJournalEnabled: true, dailyJournalTime: '21:30'});
     await syncCycleReminders();
-    call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-daily-journal-reminder')![0];
+    call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-daily-journal-reminder:owner')![0];
     expect(call.fireDate.getHours()).toBe(21);
     expect(call.fireDate.getMinutes()).toBe(30);
 
     jest.clearAllMocks();
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, dailyJournalEnabled: false, dailyJournalTime: '21:30'});
     await syncCycleReminders();
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-daily-journal-reminder');
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-daily-journal-reminder')).toBe(false);
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-daily-journal-reminder:owner');
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-daily-journal-reminder:owner')).toBe(false);
   });
 });
 
@@ -181,17 +184,17 @@ describe('syncCycleReminders — fertility', () => {
   it('E: schedules neither fertile-window nor ovulation when the category is off', async () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     await syncCycleReminders();
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder')).toBe(false);
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder')).toBe(false);
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder:owner')).toBe(false);
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder:owner')).toBe(false);
   });
 
   it('F: fertile-window only', async () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, fertileWindowEnabled: true});
     await syncCycleReminders();
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder')).toBe(true);
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder')).toBe(false);
-    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-fertile-window-reminder')![0];
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder:owner')).toBe(true);
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder:owner')).toBe(false);
+    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-fertile-window-reminder:owner')![0];
     expect(call.title).toBe('Ta fenêtre fertile estimée approche');
   });
 
@@ -199,10 +202,19 @@ describe('syncCycleReminders — fertility', () => {
     mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
     mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, ovulationEnabled: true});
     await syncCycleReminders();
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder')).toBe(true);
-    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder')).toBe(false);
-    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-ovulation-reminder')![0];
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder:owner')).toBe(true);
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder:owner')).toBe(false);
+    const call = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-ovulation-reminder:owner')![0];
     expect(call.title).toBe('Ovulation estimée 🌸');
+  });
+
+  it('H: an unconfirmed duration in "observing" mode (regularity unknown, not enough real history) schedules neither fertile-window nor ovulation — never a fake estimate from the internal 28-day placeholder (the managed-daughter first-period case)', async () => {
+    mockGetCyclePreferences.mockReturnValue({lastPeriodStart: new Date('2026-08-13T12:00:00'), cycleDuration: 28, periodDuration: 5, regularity: 'unknown'});
+    mockGetHasConfirmedCycleDuration.mockReturnValue(false);
+    mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS, fertileWindowEnabled: true, ovulationEnabled: true});
+    await syncCycleReminders();
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-fertile-window-reminder:owner')).toBe(false);
+    expect(mockScheduleLocalNotification.mock.calls.some(([arg]) => arg.id === 'cycle-ovulation-reminder:owner')).toBe(false);
   });
 });
 
@@ -223,10 +235,10 @@ describe('syncCycleReminders — objective gating', () => {
     await syncCycleReminders();
 
     expect(mockScheduleLocalNotification).not.toHaveBeenCalled();
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-upcoming-period-reminder');
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-period-start-check-reminder');
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-daily-journal-reminder');
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-fertile-window-reminder');
-    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-ovulation-reminder');
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-upcoming-period-reminder:owner');
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-period-start-check-reminder:owner');
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-daily-journal-reminder:owner');
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-fertile-window-reminder:owner');
+    expect(mockCancelLocalNotification).toHaveBeenCalledWith('cycle-ovulation-reminder:owner');
   });
 });
