@@ -87,6 +87,26 @@ export function getTrueBlackEnabled(): boolean {
   return trueBlackEnabled;
 }
 
+// App-wide UI language ("Langue de l'application", Appearance → Affichage).
+// Deliberately NOT profile-scoped (see onboardingPreferences.ts's profile-
+// scoped cyclePreferences for contrast) — one global preference for the whole
+// app/device, unaffected by owner/managed-daughter profile switching. Only
+// selects a language for now; the actual string translation is a separate,
+// later i18n migration (this store/UI does not translate anything yet).
+export type AwaAppLanguage = 'fr' | 'en';
+
+const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
+const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'fr';
+
+const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
+  value === 'fr' || value === 'en';
+
+let appLanguage: AwaAppLanguage = DEFAULT_APP_LANGUAGE;
+
+export function getAppLanguage(): AwaAppLanguage {
+  return appLanguage;
+}
+
 export function hydrateAppearancePreferences(): Promise<void> {
   if (appearanceHydrated) {
     return Promise.resolve();
@@ -95,13 +115,20 @@ export function hydrateAppearancePreferences(): Promise<void> {
     appearanceHydration = Promise.all([
       AsyncStorage.getItem(MODE_STORAGE_KEY),
       AsyncStorage.getItem(TRUE_BLACK_STORAGE_KEY),
+      AsyncStorage.getItem(LANGUAGE_STORAGE_KEY),
     ])
-      .then(([storedMode, storedTrueBlack]) => {
+      .then(([storedMode, storedTrueBlack, storedLanguage]) => {
         appearanceHydrated = true;
         if (isValidAppearanceMode(storedMode)) {
           appearanceMode = storedMode;
         }
         trueBlackEnabled = storedTrueBlack === 'true';
+        // No stored value (existing installs predating this preference) —
+        // keeps the module default ('fr'), never triggers onboarding or any
+        // migration prompt.
+        if (isValidAppLanguage(storedLanguage)) {
+          appLanguage = storedLanguage;
+        }
         notify();
       })
       .catch(() => {
@@ -121,4 +148,18 @@ export async function setTrueBlackEnabled(enabled: boolean): Promise<void> {
   trueBlackEnabled = enabled;
   notify();
   await AsyncStorage.setItem(TRUE_BLACK_STORAGE_KEY, enabled ? 'true' : 'false').catch(() => {});
+}
+
+export async function setAppLanguage(language: AwaAppLanguage): Promise<void> {
+  appLanguage = language;
+  notify();
+  await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language).catch(() => {});
+}
+
+/** Test-only reset — mirrors the reset helpers other AsyncStorage-backed
+ * stores in this codebase expose for test isolation. */
+export async function resetAppLanguageForTests(): Promise<void> {
+  appLanguage = DEFAULT_APP_LANGUAGE;
+  notify();
+  await AsyncStorage.removeItem(LANGUAGE_STORAGE_KEY).catch(() => {});
 }
