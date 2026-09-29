@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -49,6 +50,7 @@ import {
 } from '../state/postpartumJournalStore';
 
 import { diffDays, formatFullDate, startOfDay } from '../utils/cycleMath';
+import '../i18n';
 
 /* ============================================================
    TYPES
@@ -82,37 +84,42 @@ const CYCLE_RETURNED_BACKGROUND = require('../assets/images/postpartum/postpartu
 const CYCLE_RETURNED_ILLUSTRATION_BASE = '#EDE6F5';
 const HERO_ILLUSTRATION_TEXT = pickReadableTextColor(CYCLE_RETURNED_ILLUSTRATION_BASE);
 
-const FEEDING_LABELS: Record<PostpartumFeedingType, string> = {
-  exclusive_breastfeeding: 'Allaitement maternel exclusif',
-  mixed: 'Allaitement mixte',
-  exclusive_bottle: 'Biberon exclusivement',
-  unknown: 'Je ne sais pas encore',
+// setFeedingType() persists the PostpartumFeedingType enum key (see
+// src/state/postpartumPreferences.ts), never this label text — these are a
+// display-only lookup, distinct wording from PostpartumFeedingScreen's own
+// options (this one is a single-line summary, shown in a numberOfLines={2}
+// FactorRow value), so they get their own keys rather than sharing one.
+const FEEDING_LABEL_KEYS: Record<PostpartumFeedingType, string> = {
+  exclusive_breastfeeding: 'postpartumCycleReturn.feedingLabels.exclusiveBreastfeeding',
+  mixed: 'postpartumCycleReturn.feedingLabels.mixed',
+  exclusive_bottle: 'postpartumCycleReturn.feedingLabels.exclusiveBottle',
+  unknown: 'postpartumCycleReturn.feedingLabels.unknown',
 };
 
-const EVOLUTION_STAGES: Array<{
+const EVOLUTION_STAGE_KEYS: Array<{
   icon: IconName;
-  range: string;
-  label: string;
+  rangeKey: string;
+  labelKey: string;
 }> = [
   {
     icon: 'heart-pulse',
-    range: '0-6 semaines',
-    label: 'Récupération post-accouchement',
+    rangeKey: 'postpartumCycleReturn.evolutionStages.recovery.range',
+    labelKey: 'postpartumCycleReturn.evolutionStages.recovery.label',
   },
   {
     icon: 'flower-outline',
-    range: '6-12 semaines',
-    label: 'Adaptation progressive',
+    rangeKey: 'postpartumCycleReturn.evolutionStages.adaptation.range',
+    labelKey: 'postpartumCycleReturn.evolutionStages.adaptation.label',
   },
   {
     icon: 'sync',
-    range: '3-6 mois',
-    label: 'Évolution du post-partum',
+    rangeKey: 'postpartumCycleReturn.evolutionStages.evolution.range',
+    labelKey: 'postpartumCycleReturn.evolutionStages.evolution.label',
   },
   {
     icon: 'calendar-heart',
-    range: '6-12 mois+',
-    label: 'Le cycle peut reprendre progressivement',
+    rangeKey: 'postpartumCycleReturn.evolutionStages.gradualReturn.range',
+    labelKey: 'postpartumCycleReturn.evolutionStages.gradualReturn.label',
   },
 ];
 
@@ -194,6 +201,7 @@ function FactorRow({
 ============================================================ */
 
 function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -417,8 +425,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
   );
 
   const feedingLabel = postpartum.feedingType
-    ? FEEDING_LABELS[postpartum.feedingType]
-    : 'Non renseigné';
+    ? t(FEEDING_LABEL_KEYS[postpartum.feedingType])
+    : t('postpartumCycleReturn.notProvided');
 
   /* ==========================================================
      INFO
@@ -481,7 +489,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
         ]}
       >
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
@@ -494,13 +502,13 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
         </Pressable>
 
         <View style={styles.headerCopy}>
-          <Text style={styles.headerEyebrow}>POST-PARTUM</Text>
+          <Text style={styles.headerEyebrow}>{t('postpartumCycleReturn.header.eyebrow')}</Text>
 
-          <Text style={styles.headerTitle}>Retour du cycle</Text>
+          <Text style={styles.headerTitle}>{t('postpartumCycleReturn.header.title')}</Text>
         </View>
 
         <Pressable
-          accessibilityLabel="Aide sur le retour du cycle"
+          accessibilityLabel={t('postpartumCycleReturn.header.helpAccessibilityLabel')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={showAmenorrheaInfo}
@@ -540,7 +548,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             {hasReturned ? (
               <Image
                 accessibilityIgnoresInvertColors
-                accessibilityLabel="Illustration du retour du cycle"
+                accessibilityLabel={t('postpartumCycleReturn.hero.illustrationAccessibilityLabel')}
                 resizeMode="cover"
                 source={CYCLE_RETURNED_BACKGROUND}
                 style={styles.returnedBackground}
@@ -574,19 +582,17 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
             <Animated.View style={statusStyle}>
               <Text style={[styles.statusEyebrow, hasReturned && styles.statusEyebrowOnIllustration]}>
-                STATUT ACTUEL
+                {t('postpartumCycleReturn.hero.statusLabel')}
               </Text>
 
               <Text style={[styles.statusValue, hasReturned && styles.statusValueOnIllustration]}>
-                {hasReturned ? 'Cycle repris' : 'Cycle non repris'}
+                {hasReturned ? t('postpartumCycleReturn.hero.returned') : t('postpartumCycleReturn.hero.notReturned')}
               </Text>
 
               <Text style={[styles.statusDescription, hasReturned && styles.statusDescriptionOnIllustration]}>
                 {hasReturned && firstPeriodDate
-                  ? `Tes premières règles depuis l’accouchement ont commencé le ${formatFullDate(
-                      firstPeriodDate,
-                    )}.`
-                  : 'Tu n’as pas encore eu de règles depuis l’accouchement.'}
+                  ? t('postpartumCycleReturn.hero.returnedDescription', {date: formatFullDate(firstPeriodDate)})
+                  : t('postpartumCycleReturn.hero.notReturnedDescription')}
               </Text>
             </Animated.View>
 
@@ -595,7 +601,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 <View style={styles.statusBadgeDot} />
 
                 <Text style={styles.statusBadgeText}>
-                  Aménorrhée post-partum
+                  {t('postpartumCycleReturn.hero.amenorrheaBadge')}
                 </Text>
               </View>
             ) : (
@@ -606,7 +612,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                   size={13}
                 />
 
-                <Text style={styles.statusBadgeText}>Retour enregistré</Text>
+                <Text style={styles.statusBadgeText}>{t('postpartumCycleReturn.hero.returnedBadge')}</Text>
               </View>
             )}
 
@@ -618,12 +624,11 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
                 <View style={styles.flexCopy}>
                   <Text style={styles.normalPanelTitle}>
-                    Chaque corps évolue à son rythme
+                    {t('postpartumCycleReturn.hero.normalPanelTitle')}
                   </Text>
 
                   <Text style={styles.normalPanelText}>
-                    La reprise des règles peut prendre du temps, notamment
-                    pendant l’allaitement.
+                    {t('postpartumCycleReturn.hero.normalPanelText')}
                   </Text>
                 </View>
               </View>
@@ -645,10 +650,10 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.sectionHeaderCopy}>
-                <Text style={styles.sectionTitle}>Reprise des règles</Text>
+                <Text style={styles.sectionTitle}>{t('postpartumCycleReturn.period.sectionTitle')}</Text>
 
                 <Text style={styles.sectionSubtitle}>
-                  Indique le premier jour de tes règles après l’accouchement
+                  {t('postpartumCycleReturn.period.sectionSubtitle')}
                 </Text>
               </View>
             </View>
@@ -663,20 +668,20 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.periodCopy}>
-                <Text style={styles.periodSmallLabel}>Première période</Text>
+                <Text style={styles.periodSmallLabel}>{t('postpartumCycleReturn.period.label')}</Text>
 
                 <Text numberOfLines={2} style={styles.periodValue}>
                   {hasReturned && firstPeriodDate
                     ? formatFullDate(firstPeriodDate)
-                    : 'Pas encore enregistrée'}
+                    : t('postpartumCycleReturn.period.valueNotRecorded')}
                 </Text>
               </View>
 
               <Pressable
                 accessibilityLabel={
                   hasReturned
-                    ? 'Modifier la date des premières règles'
-                    : 'Enregistrer la date des premières règles'
+                    ? t('postpartumCycleReturn.period.editAccessibilityLabel')
+                    : t('postpartumCycleReturn.period.addAccessibilityLabel')
                 }
                 accessibilityRole="button"
                 disabled={saving}
@@ -688,7 +693,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 ]}
               >
                 <Text style={styles.periodActionText}>
-                  {hasReturned ? 'Modifier' : 'Ajouter'}
+                  {hasReturned ? t('postpartumCycleReturn.period.edit') : t('common.add')}
                 </Text>
 
                 <MaterialDesignIcons
@@ -701,7 +706,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
             {hasReturned ? (
               <Pressable
-                accessibilityLabel="Effacer la date des premières règles"
+                accessibilityLabel={t('postpartumCycleReturn.period.clearAccessibilityLabel')}
                 accessibilityRole="button"
                 disabled={saving}
                 hitSlop={8}
@@ -712,13 +717,13 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 ]}
               >
                 <Text style={styles.periodClearText}>
-                  Effacer cette date (le cycle n’a pas repris)
+                  {t('postpartumCycleReturn.period.clearLabel')}
                 </Text>
               </Pressable>
             ) : null}
 
             <Pressable
-              accessibilityLabel="Date des dernières règles"
+              accessibilityLabel={t('postpartumCycleReturn.period.recordedRowAccessibilityLabel')}
               accessibilityRole="button"
               onPress={() => setPickerVisible(true)}
               style={({ pressed }) => [
@@ -732,12 +737,12 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.flexCopy}>
-                <Text style={styles.lastPeriodLabel}>Date enregistrée</Text>
+                <Text style={styles.lastPeriodLabel}>{t('postpartumCycleReturn.period.recordedLabel')}</Text>
 
                 <Text numberOfLines={1} style={styles.lastPeriodValue}>
                   {hasReturned && firstPeriodDate
                     ? formatFullDate(firstPeriodDate)
-                    : 'Aucune date'}
+                    : t('postpartumCycleReturn.period.noDate')}
                 </Text>
               </View>
 
@@ -764,10 +769,10 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.sectionHeaderCopy}>
-                <Text style={styles.sectionTitle}>Évolution hormonale</Text>
+                <Text style={styles.sectionTitle}>{t('postpartumCycleReturn.factors.sectionTitle')}</Text>
 
                 <Text style={styles.sectionSubtitle}>
-                  Contexte fondé sur les informations que tu as enregistrées
+                  {t('postpartumCycleReturn.factors.sectionSubtitle')}
                 </Text>
               </View>
             </View>
@@ -779,84 +784,80 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 size={17}
               />
               <Text style={styles.hormonalEducationText}>
-                Ton corps s’adapte progressivement après l’accouchement. Les
-                changements hormonaux peuvent accompagner l’allaitement, le
-                retour du cycle, l’humeur, le sommeil ou la sécheresse vaginale.
-                Ces repères ne mesurent pas tes hormones et ne constituent pas
-                un diagnostic.
+                {t('postpartumCycleReturn.factors.educationText')}
               </Text>
             </View>
 
-            <Text style={styles.trackedContextLabel}>TON CONTEXTE SUIVI</Text>
+            <Text style={styles.trackedContextLabel}>{t('postpartumCycleReturn.factors.trackedContextLabel')}</Text>
 
             <View style={styles.factorContainer}>
               <FactorRow
                 styles={styles}
                 theme={theme}
-                description="Peut influencer le moment du retour des règles."
+                description={t('postpartumCycleReturn.factors.feeding.description')}
                 icon="baby-face-outline"
                 onPress={() =>
                   navigation.navigate('PostpartumFeeding', {mode: 'edit'})
                 }
-                title="Allaitement"
+                title={t('postpartumCycleReturn.factors.feeding.title')}
                 value={feedingLabel}
               />
 
               <FactorRow
                 styles={styles}
                 theme={theme}
-                description="Date réelle enregistrée par tes soins."
+                description={t('postpartumCycleReturn.factors.cycleReturn.description')}
                 icon="calendar-heart"
-                title="Retour du cycle"
+                title={t('postpartumCycleReturn.factors.cycleReturn.title')}
                 value={
                   hasReturned && firstPeriodDate
                     ? formatFullDate(firstPeriodDate)
-                    : 'Pas encore repris'
+                    : t('postpartumCycleReturn.factors.cycleReturn.notReturned')
                 }
               />
 
               <FactorRow
                 styles={styles}
                 theme={theme}
-                description="Absence de règles depuis l’accouchement."
+                description={t('postpartumCycleReturn.factors.amenorrhea.description')}
                 icon="calendar-remove-outline"
                 onPress={showAmenorrheaInfo}
-                title="Aménorrhée post-partum"
-                value={hasReturned ? 'Terminée' : 'En cours'}
+                title={t('postpartumCycleReturn.factors.amenorrhea.title')}
+                value={hasReturned ? t('postpartumCycleReturn.factors.amenorrhea.finished') : t('postpartumCycleReturn.factors.amenorrhea.ongoing')}
               />
 
               <FactorRow
                 styles={styles}
                 theme={theme}
-                description="Ton repos et ta récupération au quotidien."
+                description={t('postpartumCycleReturn.factors.sleep.description')}
                 icon="weather-night"
                 onPress={() =>
                   navigation.navigate('PostpartumJournalEntry', {
                     category: 'sleep',
                   })
                 }
-                title="Sommeil et repos"
-                value={latestSleep ?? 'Non renseigné'}
+                title={t('postpartumCycleReturn.factors.sleep.title')}
+                value={latestSleep ?? t('postpartumCycleReturn.notProvided')}
               />
 
               <FactorRow
                 styles={styles}
                 theme={theme}
-                description="Ton ressenti émotionnel depuis l’accouchement."
+                description={t('postpartumCycleReturn.factors.mood.description')}
                 icon="flower-outline"
                 onPress={() =>
                   navigation.navigate('PostpartumJournalEntry', {
                     category: 'mood',
                   })
                 }
-                title="Bien-être émotionnel"
-                value={latestMood ?? 'Non renseigné'}
+                title={t('postpartumCycleReturn.factors.mood.title')}
+                value={latestMood ?? t('postpartumCycleReturn.notProvided')}
               />
 
               <FactorRow
                 styles={styles}
                 theme={theme}
-                description="Dernière observation enregistrée dans ton journal."
+                description={t('postpartumCycleReturn.factors.fatigue.description')}
                 icon="lightning-bolt-outline"
                 last
                 onPress={() =>
@@ -864,8 +865,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                     category: 'fatigue',
                   })
                 }
-                title="Fatigue"
-                value={latestFatigue ?? 'Non renseigné'}
+                title={t('postpartumCycleReturn.factors.fatigue.title')}
+                value={latestFatigue ?? t('postpartumCycleReturn.notProvided')}
               />
             </View>
           </View>
@@ -885,17 +886,17 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.sectionHeaderCopy}>
-                <Text style={styles.sectionTitle}>Évolution post-partum</Text>
+                <Text style={styles.sectionTitle}>{t('postpartumCycleReturn.timeline.sectionTitle')}</Text>
 
                 <Text style={styles.sectionSubtitle}>
-                  Des repères généraux pour mieux visualiser cette période
+                  {t('postpartumCycleReturn.timeline.sectionSubtitle')}
                 </Text>
               </View>
             </View>
 
             <View style={styles.timelineList}>
-              {EVOLUTION_STAGES.map((stage, index) => (
-                <View key={stage.range} style={styles.timelineItem}>
+              {EVOLUTION_STAGE_KEYS.map((stage, index) => (
+                <View key={stage.rangeKey} style={styles.timelineItem}>
                   <View style={styles.timelineRail}>
                     <View style={styles.timelineDot}>
                       <MaterialDesignIcons
@@ -905,17 +906,17 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                       />
                     </View>
 
-                    {index < EVOLUTION_STAGES.length - 1 ? (
+                    {index < EVOLUTION_STAGE_KEYS.length - 1 ? (
                       <View style={styles.timelineLine} />
                     ) : null}
                   </View>
 
                   <View style={styles.timelineContent}>
                     <View style={styles.timelineRangeBadge}>
-                      <Text style={styles.timelineRange}>{stage.range}</Text>
+                      <Text style={styles.timelineRange}>{t(stage.rangeKey)}</Text>
                     </View>
 
-                    <Text style={styles.timelineText}>{stage.label}</Text>
+                    <Text style={styles.timelineText}>{t(stage.labelKey)}</Text>
                   </View>
                 </View>
               ))}
@@ -929,8 +930,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <Text style={styles.timelineDisclaimerText}>
-                Ces repères sont indicatifs : la reprise du cycle varie d’une
-                personne à l’autre.
+                {t('postpartumCycleReturn.timeline.disclaimer')}
               </Text>
             </View>
           </View>
@@ -949,13 +949,12 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
             </View>
 
             <View style={styles.flexCopy}>
-              <Text style={styles.reminderEyebrow}>À RETENIR</Text>
+              <Text style={styles.reminderEyebrow}>{t('postpartumCycleReturn.reminder.eyebrow')}</Text>
 
-              <Text style={styles.reminderTitle}>Ton rythme est unique</Text>
+              <Text style={styles.reminderTitle}>{t('postpartumCycleReturn.reminder.title')}</Text>
 
               <Text style={styles.reminderText}>
-                Chaque corps évolue différemment après l’accouchement.
-                L’allaitement peut notamment influencer la reprise du cycle.
+                {t('postpartumCycleReturn.reminder.text')}
               </Text>
             </View>
           </View>
@@ -975,7 +974,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
       >
         <View style={styles.helpModalOverlay}>
           <Pressable
-            accessibilityLabel="Fermer l’aide"
+            accessibilityLabel={t('postpartumCycleReturn.helpModal.closeAccessibilityLabel')}
             onPress={() => setHelpModalVisible(false)}
             style={StyleSheet.absoluteFill}
           />
@@ -991,12 +990,10 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </View>
 
-            <Text style={styles.helpModalTitle}>Aménorrhée post-partum</Text>
+            <Text style={styles.helpModalTitle}>{t('postpartumCycleReturn.factors.amenorrhea.title')}</Text>
 
             <Text style={styles.helpModalText}>
-              Après l’accouchement, l’absence de règles est fréquente et peut
-              durer plusieurs semaines à plusieurs mois, notamment en cas
-              d’allaitement.
+              {t('postpartumCycleReturn.helpModal.text')}
             </Text>
 
             <View style={styles.helpModalInfoBox}>
@@ -1006,8 +1003,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 size={18}
               />
               <Text style={styles.helpModalInfoText}>
-                Ce repère est informatif. Il ne constitue ni un diagnostic ni
-                une indication médicale personnalisée.
+                {t('postpartumCycleReturn.helpModal.infoText')}
               </Text>
             </View>
 
@@ -1019,7 +1015,7 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
                 pressed && styles.pressed,
               ]}
             >
-              <Text style={styles.helpModalButtonText}>J’ai compris</Text>
+              <Text style={styles.helpModalButtonText}>{t('postpartumCycleReturn.helpModal.button')}</Text>
             </Pressable>
           </View>
         </View>
@@ -1032,8 +1028,8 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
 
           confirmPeriodDate(date);
         }}
-        subtitle="Indique le premier jour de tes premières règles depuis ton accouchement."
-        title="Date de reprise des règles"
+        subtitle={t('postpartumCycleReturn.picker.subtitle')}
+        title={t('postpartumCycleReturn.picker.title')}
         maximumDate={startOfDay(new Date())}
         value={firstPeriodDate ?? deliveryDate ?? new Date()}
         visible={pickerVisible}
@@ -1042,27 +1038,27 @@ function PostpartumCycleReturnScreen({ navigation }: Props): React.JSX.Element {
         visible={consistencyWarning !== null}
         title={
           consistencyWarning === 'lochia-active'
-            ? 'Vérifie ton suivi'
-            : 'Date à vérifier'
+            ? t('postpartumCycleReturn.consistency.lochiaActiveTitle')
+            : t('postpartumCycleReturn.consistency.dateCheckTitle')
         }
         message={
           consistencyWarning === 'before-delivery'
-            ? 'Tes premières règles depuis l’accouchement ne peuvent pas précéder ta date d’accouchement.'
+            ? t('postpartumCycleReturn.consistency.beforeDeliveryMessage')
             : consistencyWarning === 'date-order'
-            ? 'La date de reprise du cycle est antérieure à la date de fin enregistrée des lochies.'
-            : 'Tes lochies sont encore indiquées comme en cours, mais tu souhaites enregistrer une reprise du cycle.'
+            ? t('postpartumCycleReturn.consistency.dateOrderMessage')
+            : t('postpartumCycleReturn.consistency.lochiaActiveMessage')
         }
         infoText={
           consistencyWarning === 'before-delivery'
-            ? 'Choisis une date postérieure ou égale à la date d’accouchement.'
+            ? t('postpartumCycleReturn.consistency.beforeDeliveryInfo')
             : consistencyWarning === 'date-order'
-            ? 'Vérifie les deux dates pour garder un suivi cohérent.'
-            : 'Pour garder un suivi cohérent, vérifie d’abord la fin de tes lochies ou corrige la date de reprise du cycle.'
+            ? t('postpartumCycleReturn.consistency.dateOrderInfo')
+            : t('postpartumCycleReturn.consistency.lochiaActiveInfo')
         }
         primaryLabel={
           consistencyWarning === 'before-delivery'
-            ? 'Modifier la date'
-            : 'Voir les lochies'
+            ? t('postpartumCycleReturn.consistency.editDate')
+            : t('postpartumCycleReturn.consistency.viewLochia')
         }
         onPrimary={() => {
           setConsistencyWarning(null);

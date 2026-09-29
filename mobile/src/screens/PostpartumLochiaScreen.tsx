@@ -1,5 +1,6 @@
 import {useToday} from '../hooks/useToday';
 import React, { useEffect, useMemo, useState } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Modal,
   Pressable,
@@ -44,6 +45,8 @@ import { validateLochiaEndDate } from '../utils/postpartumLossDateValidation';
 import { startOfDay } from '../utils/cycleMath';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
+import i18n from '../i18n';
+import { getAppLanguage } from '../state/themePreferences';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
 
@@ -53,6 +56,15 @@ type Flow = 'Très léger' | 'Léger' | 'Modéré' | 'Abondant';
 type LochiaColor = 'Rouge vif' | 'Rouge' | 'Rose' | 'Brun' | 'Jaune / blanc';
 type Consistency = 'Liquide' | 'Épais' | 'Avec petits caillots';
 
+// DATA-BEARING — NOT display-only text. flow/color/consistency/symptoms are
+// persisted as the raw label string(s) themselves via
+// savePostpartumLochiaEntry() (see src/state/postpartumLochiaStore.ts's
+// LochiaFlow/LochiaColor/LochiaConsistency string-literal union types and
+// FLOWS/COLORS/CONSISTENCIES validation arrays — there is no separate
+// stable enum). Translating these options would silently change/corrupt
+// every already-saved entry, so they stay French (same rule as
+// contraceptionJournalConfig.ts's CONTRACEPTION_FEELINGS_OPTIONS and
+// irregularJournalConfig.ts's IRREGULAR_SYMPTOM_OPTIONS).
 const flowOptions: Array<{ label: Flow; icon: string }> = [
   { label: 'Très léger', icon: 'water-outline' },
   { label: 'Léger', icon: 'water' },
@@ -83,6 +95,7 @@ const symptomOptions = [
 ] as const;
 
 function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -251,7 +264,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
   const todayLabel = useMemo(
     () =>
-      new Intl.DateTimeFormat('fr-FR', {
+      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
         weekday: 'long',
         day: 'numeric',
         month: 'long',
@@ -261,7 +274,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   );
   const endDateLabel = useMemo(
     () =>
-      new Intl.DateTimeFormat('fr-FR', {
+      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
         weekday: 'long',
         day: 'numeric',
         month: 'long',
@@ -318,7 +331,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
         <View style={styles.page}>
           <View style={styles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -330,11 +343,11 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 size={24}
               />
             </Pressable>
-            <Text style={styles.headerTitle}>Lochies</Text>
+            <Text style={styles.headerTitle}>{t('postpartumLochia.header.title')}</Text>
             {/* Opens the existing Bibliothèque article on the lochia — the only
                 educational content there is for this topic (no new content). */}
             <Pressable
-              accessibilityLabel="En savoir plus sur les lochies"
+              accessibilityLabel={t('postpartumLochia.header.infoAccessibilityLabel')}
               accessibilityRole="button"
               hitSlop={8}
               onPress={() =>
@@ -362,7 +375,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
           >
             <View style={styles.dateCard}>
               <View>
-                <Text style={styles.dateEyebrow}>AUJOURD'HUI</Text>
+                <Text style={styles.dateEyebrow}>{t('postpartumLochia.date.eyebrow')}</Text>
                 <Text style={styles.dateText}>{todayLabel}</Text>
               </View>
               <View style={styles.calendarIcon}>
@@ -384,32 +397,32 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   />
                 </View>
                 <View style={styles.durationCopy}>
-                  <Text style={styles.durationTitle}>Durée des lochies</Text>
+                  <Text style={styles.durationTitle}>{t('postpartumLochia.duration.title')}</Text>
                   <Text style={styles.durationSubtitle}>
                     {summary.status === 'no_data'
-                      ? 'Aucune observation enregistrée pour le moment.'
+                      ? t('postpartumLochia.duration.subtitleNoData')
                       : summary.status === 'ended'
-                      ? `Terminées le ${formatLocalDate(summary.endedDate)}`
-                      : 'Suivi médical en cours'}
+                      ? t('postpartumLochia.duration.subtitleEnded', {date: formatLocalDate(summary.endedDate)})
+                      : t('postpartumLochia.duration.subtitleOngoing')}
                   </Text>
                 </View>
               </View>
               <View style={styles.durationMetrics}>
                 <DurationMetric
-                  label="Début"
+                  label={t('postpartumLochia.duration.metrics.start')}
                   styles={styles}
                   value={formatLocalDate(summary.deliveryDate)}
                 />
                 <DurationMetric
-                  label="Dernier relevé"
+                  label={t('postpartumLochia.duration.metrics.lastRecorded')}
                   styles={styles}
                   value={formatLocalDate(summary.lastRecordedDate)}
                 />
                 <DurationMetric
-                  label="Durée"
+                  label={t('postpartumLochia.duration.metrics.duration')}
                   styles={styles}
                   value={
-                    summary.durationDays ? `${summary.durationDays} jours` : '—'
+                    summary.durationDays ? t('postpartumLochia.duration.metrics.daysValue', {days: summary.durationDays}) : '—'
                   }
                 />
               </View>
@@ -429,7 +442,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                     size={18}
                   />
                   <Text style={[styles.endButtonText, styles.reopenButtonText]}>
-                    Modifier la date de fin
+                    {t('postpartumLochia.duration.editEndDate')}
                   </Text>
                 </Pressable>
               ) : null}
@@ -460,13 +473,13 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   ]}
                 >
                   {summary.status === 'ended'
-                    ? 'Reprendre le suivi'
-                    : 'Mes lochies sont terminées'}
+                    ? t('postpartumLochia.duration.resumeTracking')
+                    : t('postpartumLochia.duration.finishedTracking')}
                 </Text>
               </Pressable>
             </View>
 
-            <Section styles={styles} title="Flux">
+            <Section styles={styles} title={t('postpartumLochia.sections.flow')}>
               <View style={styles.flowRow}>
                 {flowOptions.map(item => {
                   const selected = flow === item.label;
@@ -508,7 +521,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section styles={styles} title="Couleur">
+            <Section styles={styles} title={t('postpartumLochia.sections.color')}>
               <View style={styles.colorRow}>
                 {colorOptions.map(item => {
                   const selected = color === item.label;
@@ -549,7 +562,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section styles={styles} title="Consistance">
+            <Section styles={styles} title={t('postpartumLochia.sections.consistency')}>
               <View style={styles.consistencyRow}>
                 {consistencyOptions.map(item => {
                   const selected = consistency === item;
@@ -579,7 +592,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section styles={styles} title="Symptômes associés">
+            <Section styles={styles} title={t('postpartumLochia.sections.symptoms')}>
               <View style={styles.symptomWrap}>
                 {symptomOptions.map(item => {
                   const selected = symptoms.includes(item);
@@ -609,14 +622,14 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
             </Section>
 
-            <Section styles={styles} title="Notes">
+            <Section styles={styles} title={t('postpartumLochia.sections.notes')}>
               <View style={styles.noteBox}>
                 <TextInput
-                  accessibilityLabel="Notes"
+                  accessibilityLabel={t('postpartumLochia.sections.notes')}
                   maxLength={300}
                   multiline
                   onChangeText={setNote}
-                  placeholder="Ajoute une note si tu le souhaites..."
+                  placeholder={t('postpartumLochia.notes.placeholder')}
                   placeholderTextColor={theme.colors.textSecondary}
                   style={styles.noteInput}
                   textAlignVertical="top"
@@ -633,8 +646,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 size={18}
               />
               <Text style={styles.reassuranceText}>
-                Observe simplement l’évolution jour après jour. Chaque corps
-                récupère à son propre rythme.
+                {t('postpartumLochia.reassuranceText')}
               </Text>
             </View>
 
@@ -651,7 +663,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 name="content-save-outline"
                 size={20}
               />
-              <Text style={styles.saveText}>Enregistrer</Text>
+              <Text style={styles.saveText}>{t('common.save')}</Text>
             </Pressable>
           </ScrollView>
         </View>
@@ -665,7 +677,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
         >
           <View style={styles.modalOverlay}>
             <Pressable
-              accessibilityLabel="Fermer la confirmation"
+              accessibilityLabel={t('postpartumLochia.modals.closeConfirmationAccessibilityLabel')}
               onPress={() => setFinishModalVisible(false)}
               style={StyleSheet.absoluteFill}
             />
@@ -682,12 +694,11 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               </View>
 
               <Text style={styles.confirmTitle}>
-                Terminer le suivi des lochies ?
+                {t('postpartumLochia.finishModal.title')}
               </Text>
 
               <Text style={styles.confirmText}>
-                Le <Text style={styles.confirmDate}>{endDateLabel}</Text> sera
-                enregistré comme date de fin.
+                {t('postpartumLochia.finishModal.textBefore')} <Text style={styles.confirmDate}>{endDateLabel}</Text> {t('postpartumLochia.finishModal.textAfter')}
               </Text>
 
               <Pressable
@@ -708,7 +719,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   size={18}
                 />
                 <Text style={[styles.endButtonText, styles.reopenButtonText]}>
-                  Modifier la date
+                  {t('postpartumLochia.finishModal.editDate')}
                 </Text>
               </Pressable>
 
@@ -719,8 +730,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   size={18}
                 />
                 <Text style={styles.confirmInfoText}>
-                  Tu pourras modifier cette date plus tard ou reprendre le
-                  suivi si nécessaire.
+                  {t('postpartumLochia.finishModal.infoText')}
                 </Text>
               </View>
 
@@ -733,7 +743,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                     pressed && styles.pressed,
                   ]}
                 >
-                  <Text style={styles.confirmCancelText}>Annuler</Text>
+                  <Text style={styles.confirmCancelText}>{t('common.cancel')}</Text>
                 </Pressable>
 
                 <Pressable
@@ -745,7 +755,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   ]}
                 >
                   <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={18} />
-                  <Text style={styles.confirmPrimaryText}>Confirmer</Text>
+                  <Text style={styles.confirmPrimaryText}>{t('postpartumLochia.finishModal.confirm')}</Text>
                 </Pressable>
               </View>
             </View>
@@ -761,7 +771,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
         >
           <View style={styles.modalOverlay}>
             <Pressable
-              accessibilityLabel="Fermer la confirmation"
+              accessibilityLabel={t('postpartumLochia.modals.closeConfirmationAccessibilityLabel')}
               onPress={() => setReopenModalVisible(false)}
               style={StyleSheet.absoluteFill}
             />
@@ -777,11 +787,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.confirmTitle}>Reprendre le suivi ?</Text>
+              <Text style={styles.confirmTitle}>{t('postpartumLochia.reopenModal.title')}</Text>
 
               <Text style={styles.confirmText}>
-                La date de fin des lochies sera retirée et le suivi redeviendra
-                actif.
+                {t('postpartumLochia.reopenModal.text')}
               </Text>
 
               <View style={styles.confirmInfoBox}>
@@ -791,8 +800,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                   size={18}
                 />
                 <Text style={styles.confirmInfoText}>
-                  Tes observations déjà enregistrées seront conservées. Tu
-                  pourras continuer ton suivi à partir d’aujourd’hui.
+                  {t('postpartumLochia.reopenModal.infoText')}
                 </Text>
               </View>
 
@@ -805,7 +813,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                     pressed && styles.pressed,
                   ]}
                 >
-                  <Text style={styles.confirmCancelText}>Annuler</Text>
+                  <Text style={styles.confirmCancelText}>{t('common.cancel')}</Text>
                 </Pressable>
 
                 <Pressable
@@ -821,7 +829,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                     name="backup-restore"
                     size={18}
                   />
-                  <Text style={styles.confirmPrimaryText}>Reprendre</Text>
+                  <Text style={styles.confirmPrimaryText}>{t('postpartumLochia.reopenModal.confirm')}</Text>
                 </Pressable>
               </View>
             </View>
@@ -837,7 +845,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
         >
           <View style={styles.modalOverlay}>
             <Pressable
-              accessibilityLabel="Fermer la confirmation"
+              accessibilityLabel={t('postpartumLochia.modals.closeConfirmationAccessibilityLabel')}
               onPress={() => setSaveConfirmationVisible(false)}
               style={StyleSheet.absoluteFill}
             />
@@ -853,10 +861,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.confirmTitle}>Lochies</Text>
+              <Text style={styles.confirmTitle}>{t('postpartumLochia.header.title')}</Text>
 
               <Text style={styles.confirmText}>
-                Tes observations du jour ont été enregistrées.
+                {t('postpartumLochia.saveConfirmation.text')}
               </Text>
 
               <Pressable
@@ -877,10 +885,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
         <PostpartumConsistencyModal
           visible={reopenConsistencyVisible}
-          title="Vérifie ton suivi"
-          message="Une reprise du cycle est déjà enregistrée alors que tu souhaites reprendre le suivi des lochies."
-          infoText="Ces deux informations peuvent devenir incohérentes. Vérifie ton suivi avant de continuer."
-          primaryLabel="Voir le retour du cycle"
+          title={t('postpartumLochia.reopenConsistency.title')}
+          message={t('postpartumLochia.reopenConsistency.message')}
+          infoText={t('postpartumLochia.reopenConsistency.infoText')}
+          primaryLabel={t('postpartumLochia.reopenConsistency.primaryLabel')}
           onPrimary={() => {
             setReopenConsistencyVisible(false);
             navigation.navigate('PostpartumCycleReturn');
@@ -894,18 +902,18 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
           minimumDate={deliveryDay ?? undefined}
           onClose={closeEndPicker}
           onSelect={handleEndDatePicked}
-          subtitle="Indique le dernier jour de tes lochies."
-          title="Date de fin des lochies"
+          subtitle={t('postpartumLochia.picker.subtitle')}
+          title={t('postpartumLochia.picker.title')}
           value={endPicker === 'edit' ? endedDay ?? today : endDate ?? today}
           visible={endPicker !== null}
         />
 
         <PostpartumConsistencyModal
           visible={endDateError !== null}
-          title="Date à vérifier"
+          title={t('postpartumLochia.endDateError.title')}
           message={endDateError ?? ''}
-          infoText="La date de fin doit se situer entre ton accouchement et aujourd’hui, sans dépasser la reprise de tes règles si elle est déjà enregistrée."
-          primaryLabel="Modifier la date"
+          infoText={t('postpartumLochia.endDateError.infoText')}
+          primaryLabel={t('postpartumLochia.endDateError.primaryLabel')}
           onPrimary={retryEndDate}
           onSecondary={() => setEndDateError(null)}
           onRequestClose={() => setEndDateError(null)}
@@ -917,12 +925,12 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
 const formatLocalDate = (value: string | null): string =>
   value
-    ? new Intl.DateTimeFormat('fr-FR', {
+    ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
       }).format(new Date(`${value}T12:00:00`))
-    : 'Non renseigné';
+    : i18n.t('postpartumLochia.notProvided');
 
 function DurationMetric({
   label,
