@@ -13,25 +13,27 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import type {CalendarFilterKey, CalendarFilters} from '../../state/calendarFilters';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-type FilterOption = {key: CalendarFilterKey; icon: IconName; label: string};
+type FilterOption = {key: CalendarFilterKey; icon: IconName; labelKey: string};
 
 const OPTIONS: FilterOption[] = [
-  {key: 'rules', icon: 'water', label: 'Règles'},
-  {key: 'symptoms', icon: 'heart-outline', label: 'Symptômes'},
-  {key: 'mood', icon: 'emoticon-happy-outline', label: 'Humeur'},
-  {key: 'notes', icon: 'notebook-edit-outline', label: 'Notes'},
-  {key: 'activity', icon: 'run', label: 'Activité'},
-  {key: 'sleep', icon: 'weather-night', label: 'Sommeil'},
-  {key: 'hydration', icon: 'cup-water', label: 'Hydratation'},
-  {key: 'intimacy', icon: 'shield-lock-outline', label: 'Vie intime'},
+  {key: 'rules', icon: 'water', labelKey: 'calendar.legendPeriod'},
+  {key: 'symptoms', icon: 'heart-outline', labelKey: 'dailyJournal.symptoms'},
+  {key: 'mood', icon: 'emoticon-happy-outline', labelKey: 'dailyJournal.mood'},
+  {key: 'notes', icon: 'notebook-edit-outline', labelKey: 'dailyJournal.notes'},
+  {key: 'activity', icon: 'run', labelKey: 'dailyJournal.activity'},
+  {key: 'sleep', icon: 'weather-night', labelKey: 'dailyJournal.sleep'},
+  {key: 'hydration', icon: 'cup-water', labelKey: 'dailyJournal.hydration'},
+  {key: 'intimacy', icon: 'shield-lock-outline', labelKey: 'dailyJournal.intimacy'},
 ];
 
 type Props = {
@@ -48,6 +50,7 @@ type Props = {
 };
 
 function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -80,7 +83,7 @@ function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
         <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
-          <Pressable accessibilityLabel="Fermer les filtres" onPress={close} style={StyleSheet.absoluteFill} />
+          <Pressable accessibilityLabel={t('calendar.closeFilters')} onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
         <Animated.View
@@ -93,8 +96,8 @@ function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false
             },
           ]}>
           <View style={styles.handle} />
-          <Text style={styles.title}>Filtres du calendrier</Text>
-          <Text style={styles.subtitle}>Choisis les informations affichées sur le calendrier.</Text>
+          <Text style={styles.title}>{t('calendar.filtersTitle')}</Text>
+          <Text style={styles.subtitle}>{t('calendar.filtersSubtitle')}</Text>
 
           <ScrollView contentContainerStyle={styles.list} showsVerticalScrollIndicator={false}>
             {options.map(option => (
@@ -102,7 +105,7 @@ function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false
                 <View style={styles.rowIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name={option.icon} size={19} />
                 </View>
-                <Text numberOfLines={1} style={styles.rowLabel}>{option.label}</Text>
+                <Text numberOfLines={1} style={styles.rowLabel}>{t(option.labelKey)}</Text>
                 <Switch
                   ios_backgroundColor={withAlpha(theme.colors.primary, 0.14)}
                   onValueChange={() => onToggle(option.key)}
@@ -115,7 +118,7 @@ function FiltersSheet({visible, filters, onToggle, onClose, hideIntimacy = false
           </ScrollView>
 
           <Pressable accessibilityRole="button" onPress={close} style={({pressed}) => [styles.doneButton, pressed && styles.pressed]}>
-            <Text style={styles.doneText}>Terminé</Text>
+            <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
           </Pressable>
         </Animated.View>
       </View>

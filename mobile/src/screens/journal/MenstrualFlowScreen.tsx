@@ -28,6 +28,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import PeriodEndBottomSheet from '../../components/prayer/PeriodEndBottomSheet';
@@ -38,7 +39,9 @@ import {formatFullDate} from '../../utils/cycleMath';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {isCurrentlyMenstruating} from '../../utils/menstruationStatus';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // SEMANTIC — cycle-tracking "period in progress" identity color, same exact
 // values as CycleHomeScreen's own PERIOD/PERIOD_LIGHT constants — never
@@ -59,36 +62,36 @@ const FLOW_MODERATE_COLOR = '#6D4AE8';
 const FLOW_HERO_TITLE_COLOR = '#2F2258';
 
 type IntensityOption = {
-  label: string;
+  labelKey: string;
   value: FlowIntensity;
   color: string;
   icon: 'water-outline' | 'water';
 };
 
-type ChoiceOption = {label: string; value: string; icon?: string};
+type ChoiceOption = {labelKey: string; value: string; icon?: string};
 
 const INTENSITIES: IntensityOption[] = [
-  {label: 'Spotting', value: 'none', color: '#C9B5F5', icon: 'water-outline'},
-  {label: 'Léger', value: 'light', color: '#A987EB', icon: 'water-outline'},
-  {label: 'Moyen', value: 'moderate', color: FLOW_MODERATE_COLOR, icon: 'water'},
-  {label: 'Abondant', value: 'heavy', color: '#C44758', icon: 'water'},
-  {label: 'Très\nabondant', value: 'veryHeavy', color: '#A92135', icon: 'water'},
+  {labelKey: 'journalMenstrualFlow.intensity.spotting', value: 'none', color: '#C9B5F5', icon: 'water-outline'},
+  {labelKey: 'journalMenstrualFlow.intensity.light', value: 'light', color: '#A987EB', icon: 'water-outline'},
+  {labelKey: 'journalMenstrualFlow.intensity.moderate', value: 'moderate', color: FLOW_MODERATE_COLOR, icon: 'water'},
+  {labelKey: 'journalMenstrualFlow.intensity.heavy', value: 'heavy', color: '#C44758', icon: 'water'},
+  {labelKey: 'journalMenstrualFlow.intensity.veryHeavy', value: 'veryHeavy', color: '#A92135', icon: 'water'},
 ];
 
 const FLOW_COLORS = ['#FF9CBC', '#F26679', '#D92D42', '#9E4B5E', '#71322F', '#4C2428'];
 
 const CLOTS: ChoiceOption[] = [
-  {label: 'Aucun', value: 'none', icon: 'water'},
-  {label: 'Petits', value: 'small', icon: 'circle-multiple-outline'},
-  {label: 'Moyens', value: 'medium', icon: 'dots-circle'},
-  {label: 'Gros', value: 'large', icon: 'circle-outline'},
+  {labelKey: 'journalMenstrualFlow.clots.none', value: 'none', icon: 'water'},
+  {labelKey: 'journalMenstrualFlow.clots.small', value: 'small', icon: 'circle-multiple-outline'},
+  {labelKey: 'journalMenstrualFlow.clots.medium', value: 'medium', icon: 'dots-circle'},
+  {labelKey: 'journalMenstrualFlow.clots.large', value: 'large', icon: 'circle-outline'},
 ];
 
 const PROTECTIONS: ChoiceOption[] = [
-  {label: 'Serviette', value: 'pad', icon: 'paper-roll-outline'},
-  {label: 'Tampon', value: 'tampon', icon: 'microphone-outline'},
-  {label: 'Cup', value: 'cup', icon: 'cup-outline'},
-  {label: 'Culotte', value: 'underwear', icon: 'lingerie'},
+  {labelKey: 'journalMenstrualFlow.protection.pad', value: 'pad', icon: 'paper-roll-outline'},
+  {labelKey: 'journalMenstrualFlow.protection.tampon', value: 'tampon', icon: 'microphone-outline'},
+  {labelKey: 'journalMenstrualFlow.protection.cup', value: 'cup', icon: 'cup-outline'},
+  {labelKey: 'journalMenstrualFlow.protection.underwear', value: 'underwear', icon: 'lingerie'},
 ];
 
 type SelectableProps = {
@@ -151,6 +154,7 @@ function Selectable({
 }
 
 export default function MenstrualFlowScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -183,9 +187,9 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
   const periodStartLabel = useMemo(() => {
     const start = cyclePreferences.lastPeriodStart;
     const hasTime = start.getHours() !== 0 || start.getMinutes() !== 0;
-    const timeLabel = new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(start);
-    return hasTime ? `${formatFullDate(start)} à ${timeLabel}` : formatFullDate(start);
-  }, [cyclePreferences]);
+    const timeLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(start);
+    return hasTime ? t('journalMenstrualFlow.dateAtTime', {date: formatFullDate(start), time: timeLabel}) : formatFullDate(start);
+  }, [cyclePreferences, t]);
 
   useEffect(() => {
     let mounted = true;
@@ -307,8 +311,8 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
       showSuccessToastThenGoBack();
     } catch {
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer ton flux pour le moment.",
+        t('journalMenstrualFlow.errorTitle'),
+        t('journalMenstrualFlow.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -346,7 +350,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(320)} style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -355,10 +359,10 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           </Pressable>
           <View style={styles.headerCopy}>
             <Text adjustsFontSizeToFit minimumFontScale={0.86} style={styles.title}>
-              Flux menstruel
+              {t('dailyJournalSheet.items.menstrualFlow.title')}
             </Text>
             <Text style={styles.subtitle}>
-              {cycleDay !== null ? `Aujourd’hui • Jour ${cycleDay} du cycle` : 'Aujourd’hui'}
+              {cycleDay !== null ? t('journalMenstrualFlow.todayWithCycleDay', {day: cycleDay}) : t('journalMenstrualFlow.today')}
             </Text>
           </View>
           <View style={styles.headerSpacer} />
@@ -368,16 +372,16 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           <Animated.View entering={FadeInUp.delay(40).duration(400)} style={styles.periodStatusCard}>
             <View style={styles.periodStatusHeading}>
               <View style={styles.periodStatusDot} />
-              <Text style={styles.periodStatusTitle}>Règles en cours</Text>
+              <Text style={styles.periodStatusTitle}>{t('journalMenstrualFlow.periodInProgress')}</Text>
             </View>
-            <Text style={styles.periodStatusSubtitle}>Depuis le {periodStartLabel}</Text>
+            <Text style={styles.periodStatusSubtitle}>{t('journalMenstrualFlow.since', {date: periodStartLabel})}</Text>
             <Pressable
-              accessibilityLabel="Mes règles sont terminées"
+              accessibilityLabel={t('journalMenstrualFlow.periodEnded')}
               accessibilityRole="button"
               onPress={() => setPeriodEndSheetVisible(true)}
               style={({pressed}) => [styles.periodEndButton, pressed && styles.pressed]}>
               <MaterialDesignIcons color={PERIOD_PINK} name="check-circle-outline" size={17} />
-              <Text style={styles.periodEndButtonText}>Mes règles sont terminées</Text>
+              <Text style={styles.periodEndButtonText}>{t('journalMenstrualFlow.periodEnded')}</Text>
             </Pressable>
           </Animated.View>
         ) : null}
@@ -389,7 +393,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
             start={{x: 0, y: 0}}
             style={styles.heroCard}>
             <View style={styles.heroCopy}>
-              <Text style={styles.heroTitle}>Comment est ton flux aujourd’hui ?</Text>
+              <Text style={styles.heroTitle}>{t('journalMenstrualFlow.heroTitle')}</Text>
               <View style={styles.heroSparkles}>
                 <MaterialDesignIcons color="#A17CE9" name="star-four-points" size={13} />
                 <MaterialDesignIcons color="#C49DEB" name="star-four-points" size={8} />
@@ -407,20 +411,21 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(170).duration(430)} style={styles.card}>
-          <Text style={styles.sectionTitle}>Intensité du flux</Text>
+          <Text style={styles.sectionTitle}>{t('journalMenstrualFlow.intensitySectionTitle')}</Text>
           <View style={styles.fiveColumnRow}>
             {INTENSITIES.map(option => {
               const selected = selectedIntensity === option.value;
+              const label = t(option.labelKey);
               return (
                 <Selectable
-                  accessibilityLabel={`Intensité ${option.label.replace('\n', ' ')}`}
+                  accessibilityLabel={t('journalMenstrualFlow.intensityAccessibility', {label: label.replace('\n', ' ')})}
                   key={option.value}
                   onPress={() => setSelectedIntensity(option.value)}
                   selected={selected}
                   style={styles.intensityOption}>
                   <MaterialDesignIcons color={option.color} name={option.icon} size={24} />
                   <Text numberOfLines={2} style={[styles.smallChoiceLabel, selected && styles.selectedLabel]}>
-                    {option.label}
+                    {label}
                   </Text>
                 </Selectable>
               );
@@ -429,13 +434,13 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(250).duration(430)} style={styles.card}>
-          <Text style={styles.sectionTitle}>Couleur du flux</Text>
+          <Text style={styles.sectionTitle}>{t('journalMenstrualFlow.colorSectionTitle')}</Text>
           <View style={styles.colorRow}>
             {FLOW_COLORS.map(flowColor => {
               const selected = selectedColor === flowColor;
               return (
                 <Pressable
-                  accessibilityLabel={`Couleur du flux ${flowColor}`}
+                  accessibilityLabel={t('journalMenstrualFlow.colorAccessibility', {color: flowColor})}
                   accessibilityRole="radio"
                   accessibilityState={{checked: selected}}
                   key={flowColor}
@@ -453,13 +458,13 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(320).duration(430)} style={styles.card}>
-          <Text style={styles.sectionTitle}>Caillots</Text>
+          <Text style={styles.sectionTitle}>{t('journalMenstrualFlow.clotsSectionTitle')}</Text>
           <View style={styles.fourColumnRow}>
             {CLOTS.map(option => {
               const selected = selectedClotSize === option.value;
               return (
                 <Selectable
-                  accessibilityLabel={`Caillots ${option.label}`}
+                  accessibilityLabel={t('journalMenstrualFlow.clotsAccessibility', {label: t(option.labelKey)})}
                   key={option.value}
                   onPress={() => setSelectedClotSize(option.value)}
                   selected={selected}
@@ -469,20 +474,20 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
                     name={option.icon as never}
                     size={23}
                   />
-                  <Text style={[styles.choiceLabel, selected && styles.selectedLabel]}>{option.label}</Text>
+                  <Text style={[styles.choiceLabel, selected && styles.selectedLabel]}>{t(option.labelKey)}</Text>
                 </Selectable>
               );
             })}
           </View>
 
           <View style={styles.sectionDivider} />
-          <Text style={styles.sectionTitle}>Protection utilisée</Text>
+          <Text style={styles.sectionTitle}>{t('journalMenstrualFlow.protectionSectionTitle')}</Text>
           <View style={styles.fourColumnRow}>
             {PROTECTIONS.map(option => {
               const selected = selectedProtections.includes(option.value);
               return (
                 <Selectable
-                  accessibilityLabel={`Protection ${option.label}`}
+                  accessibilityLabel={t('journalMenstrualFlow.protectionAccessibility', {label: t(option.labelKey)})}
                   key={option.value}
                   onPress={() => toggleProtection(option.value)}
                   selected={selected}
@@ -500,7 +505,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
                     ) : null}
                   </View>
                   <Text numberOfLines={2} style={[styles.choiceLabel, selected && styles.selectedLabel]}>
-                    {option.label}
+                    {t(option.labelKey)}
                   </Text>
                 </Selectable>
               );
@@ -510,17 +515,17 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeInUp.delay(390).duration(430)} style={styles.card}>
           <Text style={styles.sectionTitle}>
-            Commentaire <Text style={styles.optional}>(optionnel)</Text>
+            {t('journalMenstrualFlow.commentSectionTitle')} <Text style={styles.optional}>{t('journalMood.optional')}</Text>
           </Text>
           <Animated.View style={[styles.inputWrap, inputAnimatedStyle]}>
             <TextInput
-              accessibilityLabel="Commentaire optionnel"
+              accessibilityLabel={t('journalMenstrualFlow.commentAccessibility')}
               maxLength={200}
               multiline
               onBlur={() => setInputFocused(false)}
               onChangeText={setComment}
               onFocus={() => setInputFocused(true)}
-              placeholder="Écris ici ce que tu souhaites noter..."
+              placeholder={t('journalMenstrualFlow.commentPlaceholder')}
               placeholderTextColor={theme.colors.textMuted}
               style={styles.input}
               textAlignVertical="top"
@@ -533,7 +538,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
         <Animated.View entering={FadeIn.delay(530).duration(400)}>
           <Animated.View style={saveAnimatedStyle}>
             <Pressable
-              accessibilityLabel="Enregistrer le flux menstruel"
+              accessibilityLabel={t('journalMenstrualFlow.saveFlow')}
               accessibilityRole="button"
               disabled={saving}
               onPress={save}
@@ -558,7 +563,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
                 start={{x: 0, y: 0}}
                 style={styles.saveGradient}>
                 <Text style={styles.saveText}>
-                  {saving ? 'Enregistrement…' : 'Enregistrer'}
+                  {saving ? t('periodStartSheet.saving') : t('common.save')}
                 </Text>
               </LinearGradient>
             </Pressable>
@@ -573,8 +578,8 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           <View style={styles.toastIcon}>
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
           </View>
-          <Text style={styles.toastText}>Flux enregistré avec succès ✨</Text>
-          <Pressable accessibilityLabel="Fermer" hitSlop={10} onPress={() => setSuccessVisible(false)}>
+          <Text style={styles.toastText}>{t('journalMenstrualFlow.flowSavedToast')}</Text>
+          <Pressable accessibilityLabel={t('common.close')} hitSlop={10} onPress={() => setSuccessVisible(false)}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={17} />
           </Pressable>
         </Animated.View>
@@ -587,8 +592,8 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
           <View style={styles.toastIcon}>
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
           </View>
-          <Text style={styles.toastText}>Fin des règles enregistrée ✨</Text>
-          <Pressable accessibilityLabel="Fermer" hitSlop={10} onPress={() => setPeriodEndToastVisible(false)}>
+          <Text style={styles.toastText}>{t('journalMenstrualFlow.periodEndSavedToast')}</Text>
+          <Pressable accessibilityLabel={t('common.close')} hitSlop={10} onPress={() => setPeriodEndToastVisible(false)}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="close" size={17} />
           </Pressable>
         </Animated.View>

@@ -5,6 +5,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {launchCamera, launchImageLibrary, type ErrorCode} from 'react-native-image-picker';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {resolvePrivatePhotos, type PrivatePhoto} from '../../types/journal';
@@ -13,7 +14,9 @@ import {copyPrivatePhotoToAppStorage, deletePrivatePhotoFile, isAppOwnedPrivateP
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import i18n from '../../i18n';
 
 /* ============================================================
    TYPES
@@ -29,11 +32,14 @@ const MAX_PRIVATE_PHOTOS_PER_DAY = 5;
 // no uuid dependency needed for a locally-unique, non-persisted-elsewhere id.
 const newPhotoId = (): string => `photo-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
 
-const PICKER_ERROR_MESSAGE: Record<ErrorCode, string> = {
-  camera_unavailable: 'La caméra n’est pas disponible sur cet appareil.',
-  permission: 'Autorise l’accès à la caméra ou à la galerie dans les réglages pour ajouter une photo.',
-  others: 'Impossible d’ouvrir la sélection de photo pour le moment.',
-};
+function pickerErrorMessage(code: ErrorCode): string {
+  const messages: Record<ErrorCode, string> = {
+    camera_unavailable: i18n.t('journalPrivatePhotos.cameraUnavailable'),
+    permission: i18n.t('journalPrivatePhotos.permissionDenied'),
+    others: i18n.t('journalPrivatePhotos.genericPickerError'),
+  };
+  return messages[code];
+}
 
 // Which picker call is in flight: adding a new photo, or replacing an
 // existing one (its id). Also doubles as the "choose source" sheet's
@@ -84,6 +90,7 @@ function useDecryptedPhotoUri(uri: string | null, onFailure: () => void): {uri: 
 }
 
 export default function JournalPrivatePhotosScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
   const compact = width < 380 || height < 720;
@@ -125,7 +132,7 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
   // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
   // loads and saves the CURRENT day, never the day the screen opened.
   const {today, todayKey} = useToday();
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(today);
+  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(today);
   const canAddMore = draftPhotos.length < MAX_PRIVATE_PHOTOS_PER_DAY;
   const selectedPhoto = draftPhotos.find(photo => photo.id === selectedPhotoId) ?? null;
   const selectedPhotoFailed = selectedPhoto ? failedIds.has(selectedPhoto.id) : false;
@@ -160,10 +167,10 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
         ? await launchCamera({mediaType: 'photo', quality: 0.8})
         : await launchImageLibrary({mediaType: 'photo', quality: 0.8, selectionLimit: 1});
       if (result.didCancel) {return;}
-      if (result.errorCode) {setPickerError(PICKER_ERROR_MESSAGE[result.errorCode]); return;}
+      if (result.errorCode) {setPickerError(pickerErrorMessage(result.errorCode)); return;}
       const asset = result.assets?.[0];
       const uri = asset?.uri;
-      if (!uri) {setPickerError(PICKER_ERROR_MESSAGE.others); return;}
+      if (!uri) {setPickerError(pickerErrorMessage('others')); return;}
 
       const addedAt = new Date().toISOString();
       if (replaceId) {
@@ -181,7 +188,7 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
         assetHintsRef.current[id] = {mimeType: asset.type, fileName: asset.fileName};
       }
     } catch {
-      setPickerError(PICKER_ERROR_MESSAGE.others);
+      setPickerError(pickerErrorMessage('others'));
     } finally {
       setBusy(false);
     }
@@ -281,14 +288,14 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
       assetHintsRef.current = {};
 
       saveToast.show(
-        'Photos enregistrées',
+        t('journalPrivatePhotos.savedTitle'),
         hadCopyFailure
-          ? 'Enregistré, mais certaines photos n’ont pas pu être stockées de façon durable — réessaie si besoin.'
-          : 'Tes photos ont bien été mises à jour dans le journal.',
+          ? t('journalPrivatePhotos.savedWithCopyFailure')
+          : t('journalPrivatePhotos.savedSuccessfully'),
         navigation.goBack,
       );
     } catch {
-      Alert.alert('Erreur', 'Impossible d’enregistrer pour le moment.');
+      Alert.alert(t('journalPrivatePhotos.errorTitle'), t('journalPrivatePhotos.errorMessage'));
     } finally {
       setSaving(false);
     }
@@ -299,22 +306,22 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
       <StatusBar backgroundColor={theme.colors.background} barStyle={theme.statusBarStyle} />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.flex}>
         <View style={[styles.header, {paddingTop: veryCompact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]}>
-          <Pressable accessibilityLabel="Retour" accessibilityRole="button" onPress={navigation.goBack} style={styles.headerButton}>
+          <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" onPress={navigation.goBack} style={styles.headerButton}>
             <MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={27} />
           </Pressable>
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>Photos privées</Text>
+            <Text style={styles.title}>{t('journalNote.privatePhotosTitle')}</Text>
             <Text style={styles.date}>{dateLabel}</Text>
           </View>
-          <Pressable accessibilityLabel="Masquer" accessibilityRole="button" onPress={mask} style={styles.mask}>
+          <Pressable accessibilityLabel={t('journalPrivatePhotos.hide')} accessibilityRole="button" onPress={mask} style={styles.mask}>
             <MaterialDesignIcons color={theme.colors.primary} name="eye-off-outline" size={17} />
-            <Text style={styles.maskText}>Masquer</Text>
+            <Text style={styles.maskText}>{t('journalPrivatePhotos.hide')}</Text>
           </Pressable>
         </View>
 
         <Animated.View style={[styles.flex, {opacity: entrance, transform: [{translateY: entrance.interpolate({inputRange: [0, 1], outputRange: [10, 0]})}]}]}>
           <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 22}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-            <Text style={styles.subtitle}>Suis ton évolution visuelle en toute discrétion — acné, pilosité, symptômes cutanés.</Text>
+            <Text style={styles.subtitle}>{t('journalPrivatePhotos.subtitle')}</Text>
 
             <View style={styles.photoCard}>
               <View style={styles.photoCardHeader}>
@@ -322,11 +329,11 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
                   <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={19} />
                 </View>
                 <View style={styles.photoCardHeaderCopy}>
-                  <Text style={styles.photoCardEyebrow}>ESPACE PRIVÉ</Text>
-                  <Text style={styles.photoCardTitle}>Mes photos</Text>
+                  <Text style={styles.photoCardEyebrow}>{t('journalPrivatePhotos.privateSpaceEyebrow')}</Text>
+                  <Text style={styles.photoCardTitle}>{t('journalPrivatePhotos.myPhotos')}</Text>
                 </View>
                 <View style={styles.counterPill}>
-                  <Text style={styles.counterPillText}>{draftPhotos.length} / {MAX_PRIVATE_PHOTOS_PER_DAY} photos</Text>
+                  <Text style={styles.counterPillText}>{t('journalPrivatePhotos.photoCount', {count: draftPhotos.length, max: MAX_PRIVATE_PHOTOS_PER_DAY})}</Text>
                 </View>
               </View>
 
@@ -341,18 +348,18 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
                         <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={11} />
                       </View>
                     </View>
-                    <Text style={styles.emptyTitle}>Ajoute une photo privée</Text>
-                    <Text style={styles.emptyText}>Choisis une photo existante ou prends-en une nouvelle pour suivre ton évolution.</Text>
+                    <Text style={styles.emptyTitle}>{t('journalPrivatePhotos.addAPrivatePhoto')}</Text>
+                    <Text style={styles.emptyText}>{t('journalPrivatePhotos.emptyStateText')}</Text>
                   </View>
 
                   <View style={styles.choiceDivider}>
                     <View style={styles.choiceDividerLine} />
-                    <Text style={styles.choiceDividerText}>CHOISIR UNE SOURCE</Text>
+                    <Text style={styles.choiceDividerText}>{t('journalPrivatePhotos.chooseASource')}</Text>
                     <View style={styles.choiceDividerLine} />
                   </View>
 
-                  <SourceCard disabled={busy} icon="image-multiple-outline" label="Galerie" onPress={() => pick(false)} subtitle="Choisir depuis la galerie" tone="purple" />
-                  <SourceCard disabled={busy} icon="camera-outline" label="Appareil photo" onPress={() => pick(true)} subtitle="Prendre une nouvelle photo" tone="neutral" />
+                  <SourceCard disabled={busy} icon="image-multiple-outline" label={t('journalPrivatePhotos.gallery')} onPress={() => pick(false)} subtitle={t('journalPrivatePhotos.chooseFromGallery')} tone="purple" />
+                  <SourceCard disabled={busy} icon="camera-outline" label={t('journalPrivatePhotos.camera')} onPress={() => pick(true)} subtitle={t('journalPrivatePhotos.takeANewPhoto')} tone="neutral" />
                 </>
               ) : (
                 <View style={styles.grid}>
@@ -360,9 +367,9 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
                     <PhotoGridCell failed={failedIds.has(photo.id)} key={photo.id} onError={() => markFailed(photo.id)} onPress={() => setSelectedPhotoId(photo.id)} photo={photo} />
                   ))}
                   {canAddMore ? (
-                    <Pressable accessibilityLabel="Ajouter une photo" accessibilityRole="button" disabled={busy} onPress={openAddSheet} style={({pressed}) => [styles.gridCell, styles.addCell, pressed && styles.sourceCardPressed, busy && styles.disabled]}>
+                    <Pressable accessibilityLabel={t('journalPrivatePhotos.addAPhoto')} accessibilityRole="button" disabled={busy} onPress={openAddSheet} style={({pressed}) => [styles.gridCell, styles.addCell, pressed && styles.sourceCardPressed, busy && styles.disabled]}>
                       <MaterialDesignIcons color={theme.colors.primary} name="plus" size={26} />
-                      <Text style={styles.addCellText}>Ajouter</Text>
+                      <Text style={styles.addCellText}>{t('common.add')}</Text>
                     </Pressable>
                   ) : null}
                 </View>
@@ -382,12 +389,12 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
               <View style={styles.securityIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
               </View>
-              <Text style={styles.securityText}>Tes photos sont enregistrées localement dans l’espace privé de l’application.</Text>
+              <Text style={styles.securityText}>{t('journalPrivatePhotos.securityText')}</Text>
             </View>
 
-            <Pressable accessibilityLabel="Enregistrer" accessibilityRole="button" disabled={saving} onPress={save} style={({pressed}) => [styles.save, pressed && styles.pressed, saving && styles.disabled]}>
+            <Pressable accessibilityLabel={t('common.save')} accessibilityRole="button" disabled={saving} onPress={save} style={({pressed}) => [styles.save, pressed && styles.pressed, saving && styles.disabled]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
-              <Text style={styles.saveText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+              <Text style={styles.saveText}>{saving ? t('periodStartSheet.saving') : t('common.save')}</Text>
             </Pressable>
           </ScrollView>
         </Animated.View>
@@ -411,12 +418,12 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
             ) : (
               <View style={[styles.detailUnavailable, compact && styles.detailUnavailableCompact]}>
                 <MaterialDesignIcons color={theme.colors.primary} name="image-off-outline" size={34} />
-                <Text style={styles.detailUnavailableText}>Cette photo n’est plus accessible sur cet appareil.</Text>
+                <Text style={styles.detailUnavailableText}>{t('journalPrivatePhotos.photoNoLongerAvailable')}</Text>
               </View>
             )}
             <View style={styles.detailActionsRow}>
-              <PhotoActionCard icon="image-refresh-outline" label="Remplacer" onPress={() => selectedPhoto && openReplaceSheet(selectedPhoto.id)} subtitle="Choisir une autre photo" tone="purple" />
-              <PhotoActionCard icon="trash-can-outline" label="Supprimer" onPress={() => selectedPhoto && removePhoto(selectedPhoto.id)} subtitle="Retirer du journal" tone="danger" />
+              <PhotoActionCard icon="image-refresh-outline" label={t('journalPrivatePhotos.replace')} onPress={() => selectedPhoto && openReplaceSheet(selectedPhoto.id)} subtitle={t('journalPrivatePhotos.chooseAnotherPhoto')} tone="purple" />
+              <PhotoActionCard icon="trash-can-outline" label={t('journalPrivatePhotos.delete')} onPress={() => selectedPhoto && removePhoto(selectedPhoto.id)} subtitle={t('journalPrivatePhotos.removeFromJournal')} tone="danger" />
             </View>
           </View>
         </View>
@@ -429,9 +436,9 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
           <Pressable onPress={() => setPendingPick(null)} style={StyleSheet.absoluteFill} />
           <View style={[styles.sourceSheet, {paddingBottom: Math.max(insets.bottom, 16)}]}>
             <View style={styles.handle} />
-            <Text style={styles.sourceSheetTitle}>Choisir une source</Text>
-            <SourceCard disabled={busy} icon="image-multiple-outline" label="Galerie" onPress={() => chooseSource(false)} subtitle="Choisir depuis la galerie" tone="purple" />
-            <SourceCard disabled={busy} icon="camera-outline" label="Appareil photo" onPress={() => chooseSource(true)} subtitle="Prendre une nouvelle photo" tone="neutral" />
+            <Text style={styles.sourceSheetTitle}>{t('journalPrivatePhotos.chooseASourceTitle')}</Text>
+            <SourceCard disabled={busy} icon="image-multiple-outline" label={t('journalPrivatePhotos.gallery')} onPress={() => chooseSource(false)} subtitle={t('journalPrivatePhotos.chooseFromGallery')} tone="purple" />
+            <SourceCard disabled={busy} icon="camera-outline" label={t('journalPrivatePhotos.camera')} onPress={() => chooseSource(true)} subtitle={t('journalPrivatePhotos.takeANewPhoto')} tone="neutral" />
           </View>
         </View>
       </Modal>
@@ -446,11 +453,12 @@ export default function JournalPrivatePhotosScreen({navigation}: Props): React.J
 ============================================================ */
 
 function PhotoGridCell({photo, failed, onPress, onError}: {photo: PrivatePhoto; failed: boolean; onPress: () => void; onError: () => void}): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const display = useDecryptedPhotoUri(failed ? null : photo.uri, onError);
   return (
-    <Pressable accessibilityLabel={failed ? 'Photo indisponible' : 'Voir la photo'} accessibilityRole="button" onPress={onPress} style={styles.gridCell}>
+    <Pressable accessibilityLabel={failed ? t('journalPrivatePhotos.photoUnavailable') : t('journalPrivatePhotos.viewPhoto')} accessibilityRole="button" onPress={onPress} style={styles.gridCell}>
       {failed ? (
         <View style={styles.gridCellUnavailable}>
           <MaterialDesignIcons color={theme.colors.textMuted} name="image-off-outline" size={24} />

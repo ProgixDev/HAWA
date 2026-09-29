@@ -13,6 +13,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../../i18n';
 
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
@@ -22,6 +25,7 @@ import {useToday} from '../../hooks/useToday';
 import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
+import {getAppLanguage} from '../../state/themePreferences';
 
 import {getAllJournalEntries} from '../../state/dailyJournalStore';
 import type {DailyJournalEntry, FlowIntensity} from '../../types/journal';
@@ -75,13 +79,20 @@ const PERIOD_COLOR = '#DC7B82';
 // colors above so a category's identity color never drifts with the palette.
 const CATEGORY_MARKER_PURPLE = '#6D4AE8';
 
-const FLOW_LABELS: Record<FlowIntensity, string> = {
-  light: 'Léger',
-  moderate: 'Moyen',
-  heavy: 'Abondant',
-  veryHeavy: 'Très abondant',
-  none: 'Aucun',
-};
+// Display-only labels for the FlowIntensity enum (the enum key itself is
+// what's persisted — see types/journal.ts — so these are safe to translate,
+// unlike IRREGULAR_INTENSITY_OPTIONS/IRREGULAR_MOOD_OPTIONS/
+// IRREGULAR_SYMPTOM_OPTIONS in irregularJournalConfig.ts, which are saved
+// verbatim and must stay French).
+function flowLabelsFor(t: TFunction): Record<FlowIntensity, string> {
+  return {
+    light: t('irregularCalendar.flow.light'),
+    moderate: t('irregularCalendar.flow.moderate'),
+    heavy: t('irregularCalendar.flow.heavy'),
+    veryHeavy: t('irregularCalendar.flow.veryHeavy'),
+    none: t('irregularCalendar.flow.none'),
+  };
+}
 
 // A suggested, non-mandatory color grouping — deliberately reusing the SAME
 // tint pairing IRREGULAR_JOURNAL_ITEMS already uses for the Dashboard/Journal
@@ -118,15 +129,17 @@ const ALL_CALENDAR_CATEGORIES: CalendarCategory[] = [
   'fatigue',
 ];
 
-const CATEGORY_LABEL: Record<CalendarCategory, string> = {
-  period: 'Règles',
-  acne: 'Acné',
-  hairGrowth: 'Pilosité',
-  weight: 'Poids',
-  pain: 'Douleurs',
-  mood: 'Humeur',
-  fatigue: 'Fatigue & symptômes',
-};
+function categoryLabelFor(t: TFunction): Record<CalendarCategory, string> {
+  return {
+    period: t('irregularCalendar.categories.period'),
+    acne: t('irregularCalendar.categories.acne'),
+    hairGrowth: t('irregularCalendar.categories.hairGrowth'),
+    weight: t('irregularCalendar.categories.weight'),
+    pain: t('irregularCalendar.categories.pain'),
+    mood: t('irregularCalendar.categories.mood'),
+    fatigue: t('irregularCalendar.categories.fatigue'),
+  };
+}
 
 const CATEGORY_ICON: Record<CalendarCategory, IconName> = {
   period: 'water',
@@ -148,36 +161,40 @@ const CATEGORY_COLOR: Record<CalendarCategory, string> = {
   fatigue: iconColorForCategory('fatigue'),
 };
 
-const CATEGORY_COPY: Record<CalendarCategory, {filterDescription: string; legendDescription: string}> = {
-  period: {
-    filterDescription: 'Afficher les jours de règles enregistrés',
-    legendDescription: 'Un jour de règles a été enregistré (Journal des règles).',
-  },
-  acne: {
-    filterDescription: 'Afficher les jours où l’acné a été notée',
-    legendDescription: 'Un suivi de l’acné a été enregistré ce jour-là.',
-  },
-  hairGrowth: {
-    filterDescription: 'Afficher les jours où la pilosité a été notée',
-    legendDescription: 'Un suivi de la pilosité a été enregistré ce jour-là.',
-  },
-  weight: {
-    filterDescription: 'Afficher les jours où le poids a été renseigné',
-    legendDescription: 'Un poids a été enregistré ce jour-là.',
-  },
-  pain: {
-    filterDescription: 'Afficher les jours où des douleurs ont été notées',
-    legendDescription: 'Des douleurs ou inconforts ont été enregistrés ce jour-là.',
-  },
-  mood: {
-    filterDescription: 'Afficher les jours où une humeur a été renseignée',
-    legendDescription: 'Une humeur a été renseignée pour cette date.',
-  },
-  fatigue: {
-    filterDescription: 'Afficher les jours où la fatigue a été notée',
-    legendDescription: 'Un suivi de la fatigue a été enregistré ce jour-là.',
-  },
-};
+function categoryCopyFor(
+  t: TFunction,
+): Record<CalendarCategory, {filterDescription: string; legendDescription: string}> {
+  return {
+    period: {
+      filterDescription: t('irregularCalendar.filterRows.periodDescription'),
+      legendDescription: t('irregularCalendar.legendRows.periodDescription'),
+    },
+    acne: {
+      filterDescription: t('irregularCalendar.filterRows.acneDescription'),
+      legendDescription: t('irregularCalendar.legendRows.acneDescription'),
+    },
+    hairGrowth: {
+      filterDescription: t('irregularCalendar.filterRows.hairGrowthDescription'),
+      legendDescription: t('irregularCalendar.legendRows.hairGrowthDescription'),
+    },
+    weight: {
+      filterDescription: t('irregularCalendar.filterRows.weightDescription'),
+      legendDescription: t('irregularCalendar.legendRows.weightDescription'),
+    },
+    pain: {
+      filterDescription: t('irregularCalendar.filterRows.painDescription'),
+      legendDescription: t('irregularCalendar.legendRows.painDescription'),
+    },
+    mood: {
+      filterDescription: t('irregularCalendar.filterRows.moodDescription'),
+      legendDescription: t('irregularCalendar.legendRows.moodDescription'),
+    },
+    fatigue: {
+      filterDescription: t('irregularCalendar.filterRows.fatigueDescription'),
+      legendDescription: t('irregularCalendar.legendRows.fatigueDescription'),
+    },
+  };
+}
 
 // Display-only marker filters — never affect entries/monthly summary or the
 // selected-day card, all of which keep reading real unfiltered data. Same
@@ -212,11 +229,16 @@ const MAX_DAY_MARKERS_WITH_OVERFLOW = 3;
 type CalendarSheetMode = 'filters' | 'legend' | null;
 
 function IrregularCalendarContent(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const locale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+
+  const flowLabels = useMemo(() => flowLabelsFor(t), [t]);
+  const categoryLabel = useMemo(() => categoryLabelFor(t), [t]);
 
   // Re-evaluated when the day changes / the app returns to the foreground —
   // see src/hooks/useToday.ts.
@@ -381,19 +403,19 @@ function IrregularCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Calendrier</Text>
-              <Text style={styles.subtitle}>Ton suivi SOPK au fil du temps</Text>
+              <Text style={styles.title}>{t('irregularCalendar.title')}</Text>
+              <Text style={styles.subtitle}>{t('irregularCalendar.subtitle')}</Text>
             </View>
 
-            <HeaderAction icon="tune-variant" label="Filtres" onPress={() => setSheet('filters')} />
-            <HeaderAction icon="format-list-bulleted" label="Légende" onPress={() => setSheet('legend')} />
+            <HeaderAction icon="tune-variant" label={t('irregularCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
+            <HeaderAction icon="format-list-bulleted" label={t('irregularCalendar.legendLabel')} onPress={() => setSheet('legend')} />
           </View>
 
           {/* MONTH CARD */}
           <View style={styles.card}>
             <View style={styles.monthHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('irregularCalendar.prevMonthAccessibility')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={goToPreviousMonth}>
@@ -402,7 +424,7 @@ function IrregularCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {new Intl.DateTimeFormat(locale, {month: 'long', year: 'numeric'}).format(visibleMonth)}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -410,7 +432,7 @@ function IrregularCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('irregularCalendar.nextMonthAccessibility')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={goToNextMonth}>
@@ -475,10 +497,23 @@ function IrregularCalendarContent(): React.JSX.Element {
 
                 const hasAnyMarker = dayMarkers.length > 0;
 
+                const trackingSuffix = hasAnyMarker
+                  ? t('irregularCalendar.dayAccessibility.trackingRecorded') +
+                    (overflowCount > 0
+                      ? t('irregularCalendar.dayAccessibility.categoriesCount', {count: activeCategories.length})
+                      : '')
+                  : '';
+                const spiritualSuffix =
+                  spiritualMonth === 'ramadan'
+                    ? t('irregularCalendar.dayAccessibility.ramadan')
+                    : spiritualMonth === 'dhoulHijja'
+                      ? t('irregularCalendar.dayAccessibility.dhoulHijja')
+                      : '';
+
                 return (
                   <View key={key} style={styles.dayCell}>
                     <Pressable
-                      accessibilityLabel={`${date.getDate()}${hasAnyMarker ? `, suivi enregistré${overflowCount > 0 ? ` (${activeCategories.length} catégories)` : ''}` : ''}${spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : ''}`}
+                      accessibilityLabel={`${date.getDate()}${trackingSuffix}${spiritualSuffix}`}
                       accessibilityRole="button"
                       onPress={() => setSelectedDate(date)}
                       style={({pressed}) => [
@@ -531,13 +566,13 @@ function IrregularCalendarContent(): React.JSX.Element {
             {/* COMPACT LEGEND — one item per real marker family */}
             <View style={styles.legendRow}>
               {ALL_CALENDAR_CATEGORIES.map(category => (
-                <LegendItem color={CATEGORY_COLOR[category]} key={category} label={CATEGORY_LABEL[category]} />
+                <LegendItem color={CATEGORY_COLOR[category]} key={category} label={categoryLabel[category]} />
               ))}
-              <LegendItem color={theme.colors.text} dashedOutline label="Aujourd’hui" />
+              <LegendItem color={theme.colors.text} dashedOutline label={t('irregularCalendar.todayLabel')} />
               {spiritualMarkersEnabled ? (
                 <>
-                  <LegendItem color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" />
-                  <LegendItem color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" />
+                  <LegendItem color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label={t('irregularCalendar.ramadanLabel')} />
+                  <LegendItem color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label={t('irregularCalendar.dhoulHijjaLabel')} />
                 </>
               ) : null}
             </View>
@@ -547,7 +582,7 @@ function IrregularCalendarContent(): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.selectedHeader}>
               <Text style={styles.selectedDateText}>
-                {new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
+                {new Intl.DateTimeFormat(locale, {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
               </Text>
               {selectedHijriDate ? (
                 <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>
@@ -561,24 +596,30 @@ function IrregularCalendarContent(): React.JSX.Element {
                     icon={CATEGORY_ICON.period}
                     iconColor={CATEGORY_COLOR.period}
                     iconTint="#FBEAF0"
-                    label="Règles"
+                    label={categoryLabel.period}
                     value={
                       selectedPeriodKind === 'period'
                         ? selectedFlow && selectedFlow.intensity !== 'none'
-                          ? FLOW_LABELS[selectedFlow.intensity]
-                          : 'Oui'
+                          ? flowLabels[selectedFlow.intensity]
+                          : t('irregularCalendar.selected.yes')
                         : selectedPeriodKind === 'spotting'
-                          ? 'Spotting'
-                          : 'Non'
+                          ? t('irregularCalendar.selected.spotting')
+                          : t('irregularCalendar.selected.no')
                     }
                   />
                 ) : null}
+                {/* selectedEntry.acne/hairGrowth/weight/pain/mood/fatigue below are
+                    raw values from irregularJournalConfig.ts's DATA-BEARING option
+                    lists (IRREGULAR_INTENSITY_OPTIONS/IRREGULAR_MOOD_OPTIONS), saved
+                    verbatim in French — never wrapped in t(), same rule as that
+                    config file's own comments. Only the row LABELS below (categoryLabel)
+                    are translated display text. */}
                 {selectedEntry?.acne ? (
                   <SelectedRow
                     icon={CATEGORY_ICON.acne}
                     iconColor={CATEGORY_COLOR.acne}
                     iconTint="#FBEAF0"
-                    label="Acné"
+                    label={categoryLabel.acne}
                     value={selectedEntry.acne}
                   />
                 ) : null}
@@ -587,7 +628,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     icon={CATEGORY_ICON.hairGrowth}
                     iconColor={CATEGORY_COLOR.hairGrowth}
                     iconTint="#EEE7FC"
-                    label="Pilosité"
+                    label={categoryLabel.hairGrowth}
                     value={selectedEntry.hairGrowth}
                   />
                 ) : null}
@@ -596,7 +637,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     icon={CATEGORY_ICON.weight}
                     iconColor={CATEGORY_COLOR.weight}
                     iconTint="#E7F0F8"
-                    label="Poids"
+                    label={categoryLabel.weight}
                     value={selectedEntry.weight}
                   />
                 ) : null}
@@ -605,7 +646,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     icon={CATEGORY_ICON.pain}
                     iconColor={CATEGORY_COLOR.pain}
                     iconTint="#FBEAF0"
-                    label="Douleurs"
+                    label={categoryLabel.pain}
                     value={selectedEntry.pain}
                   />
                 ) : null}
@@ -614,7 +655,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     icon={CATEGORY_ICON.mood}
                     iconColor={CATEGORY_COLOR.mood}
                     iconTint="#F1E8F5"
-                    label="Humeur"
+                    label={categoryLabel.mood}
                     value={selectedEntry.mood}
                   />
                 ) : null}
@@ -623,10 +664,13 @@ function IrregularCalendarContent(): React.JSX.Element {
                     icon={CATEGORY_ICON.fatigue}
                     iconColor={CATEGORY_COLOR.fatigue}
                     iconTint="#EEE7FC"
-                    label="Fatigue & symptômes"
+                    label={categoryLabel.fatigue}
                     value={
                       selectedSymptoms.length
-                        ? `${selectedEntry.fatigue} · ${selectedSymptoms.length} symptôme${selectedSymptoms.length > 1 ? 's' : ''} associé${selectedSymptoms.length > 1 ? 's' : ''}`
+                        ? t('irregularCalendar.selected.fatigueWithSymptoms', {
+                            value: selectedEntry.fatigue,
+                            count: selectedSymptoms.length,
+                          })
                         : selectedEntry.fatigue
                     }
                   />
@@ -637,8 +681,8 @@ function IrregularCalendarContent(): React.JSX.Element {
                 <View style={styles.emptyIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={22} />
                 </View>
-                <Text style={styles.emptyTitle}>Aucun suivi pour ce jour</Text>
-                <Text style={styles.emptyText}>Rien n’a encore été enregistré pour cette date.</Text>
+                <Text style={styles.emptyTitle}>{t('irregularCalendar.emptyState.title')}</Text>
+                <Text style={styles.emptyText}>{t('irregularCalendar.emptyState.text')}</Text>
               </View>
             )}
 
@@ -647,12 +691,18 @@ function IrregularCalendarContent(): React.JSX.Element {
                 entry screen writes the same flow + SOPK records as today's. */}
             {selectedDateKey < todayKey ? (
               <Pressable
-                accessibilityLabel={selectedPeriodKind ? 'Modifier les règles de ce jour' : 'Renseigner les règles de ce jour'}
+                accessibilityLabel={
+                  selectedPeriodKind
+                    ? t('irregularCalendar.selected.editPeriod')
+                    : t('irregularCalendar.selected.fillPeriod')
+                }
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('IrregularJournalEntry', {category: 'period', date: selectedDateKey})}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
                 <Text style={styles.editRowText}>
-                  {selectedPeriodKind ? 'Modifier les règles de ce jour' : 'Renseigner les règles de ce jour'}
+                  {selectedPeriodKind
+                    ? t('irregularCalendar.selected.editPeriod')
+                    : t('irregularCalendar.selected.fillPeriod')}
                 </Text>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
@@ -661,16 +711,24 @@ function IrregularCalendarContent(): React.JSX.Element {
             {/* Same for the other SOPK tracking categories (acné, pilosité, poids,
                 douleurs, humeur, fatigue): general tracking data with no effect on
                 any period/cycle derivation, so a past day can be filled in or
-                corrected through the entry screen's `date` route param. */}
+                corrected through the entry screen's `date` route param. item.label
+                comes from irregularJournalConfig.ts, already translated there — only
+                the surrounding "Modifier .../Renseigner ... de ce jour" phrasing is
+                translated here. */}
             {selectedDateKey < todayKey ? (
               <View style={styles.pastCategoryBlock}>
-                <Text style={styles.pastCategoryTitle}>Suivi de ce jour</Text>
+                <Text style={styles.pastCategoryTitle}>{t('irregularCalendar.pastCategory.title')}</Text>
                 <View style={styles.pastCategoryRow}>
                   {IRREGULAR_JOURNAL_ITEMS.map(item => {
                     const recorded = Boolean(selectedEntry?.[item.key]);
                     return (
                       <Pressable
-                        accessibilityLabel={`${recorded ? 'Modifier' : 'Renseigner'} ${item.label} de ce jour`}
+                        accessibilityLabel={t(
+                          recorded
+                            ? 'irregularCalendar.pastCategory.editAccessibility'
+                            : 'irregularCalendar.pastCategory.fillAccessibility',
+                          {label: item.label},
+                        )}
                         accessibilityRole="button"
                         key={item.key}
                         onPress={() =>
@@ -696,11 +754,11 @@ function IrregularCalendarContent(): React.JSX.Element {
 
             {isSelectedToday ? (
               <Pressable
-                accessibilityLabel="Modifier le suivi d’aujourd’hui"
+                accessibilityLabel={t('irregularCalendar.selected.editTodayAccessibility')}
                 accessibilityRole="button"
                 onPress={openJournal}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
-                <Text style={styles.editRowText}>Modifier</Text>
+                <Text style={styles.editRowText}>{t('irregularCalendar.selected.editToday')}</Text>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
             ) : null}
@@ -708,36 +766,36 @@ function IrregularCalendarContent(): React.JSX.Element {
 
           {/* MONTHLY SUMMARY */}
           <View style={styles.card}>
-            <Text style={styles.summaryTitle}>Résumé de ce mois</Text>
+            <Text style={styles.summaryTitle}>{t('irregularCalendar.summary.title')}</Text>
 
             {hasAnyDataAtAll ? (
               <View style={styles.summaryGrid}>
                 <View style={[styles.summaryTile, styles.summaryTileRose]}>
                   <MaterialDesignIcons color={CATEGORY_COLOR.period} name={CATEGORY_ICON.period} size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.periodDays}</Text>
-                  <Text style={styles.summaryLabel}>Jours de règles</Text>
+                  <Text style={styles.summaryLabel}>{t('irregularCalendar.summary.periodDays')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileRose]}>
                   <MaterialDesignIcons color={CATEGORY_COLOR.acne} name={CATEGORY_ICON.acne} size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.acneDays}</Text>
-                  <Text style={styles.summaryLabel}>Jours avec acné</Text>
+                  <Text style={styles.summaryLabel}>{t('irregularCalendar.summary.acneDays')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileNeutral]}>
                   <MaterialDesignIcons color={CATEGORY_COLOR.pain} name={CATEGORY_ICON.pain} size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.painDays}</Text>
-                  <Text style={styles.summaryLabel}>Jours avec douleurs</Text>
+                  <Text style={styles.summaryLabel}>{t('irregularCalendar.summary.painDays')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileNeutral]}>
                   <MaterialDesignIcons color={CATEGORY_COLOR.fatigue} name={CATEGORY_ICON.fatigue} size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.fatigueDays}</Text>
-                  <Text style={styles.summaryLabel}>Jours de fatigue</Text>
+                  <Text style={styles.summaryLabel}>{t('irregularCalendar.summary.fatigueDays')}</Text>
                 </View>
               </View>
             ) : (
-              <Text style={styles.emptySummaryText}>Pas encore assez de données pour ce mois-ci.</Text>
+              <Text style={styles.emptySummaryText}>{t('irregularCalendar.summary.empty')}</Text>
             )}
           </View>
         </ScrollView>
@@ -857,17 +915,21 @@ function IrregularCalendarSheet({
   filters: IrregularCalendarFilters;
   spiritualMarkersEnabled: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const sheetStyles = useMemo(() => createSheetStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
 
+  const categoryLabel = useMemo(() => categoryLabelFor(t), [t]);
+  const categoryCopy = useMemo(() => categoryCopyFor(t), [t]);
+
   const trackingFilterRows = ALL_CALENDAR_CATEGORIES.map(category => ({
     key: category,
     icon: CATEGORY_ICON[category],
     color: CATEGORY_COLOR[category],
-    title: CATEGORY_LABEL[category],
-    description: CATEGORY_COPY[category].filterDescription,
+    title: categoryLabel[category],
+    description: categoryCopy[category].filterDescription,
   }));
 
   const spiritualFilterRows: Array<{
@@ -881,41 +943,41 @@ function IrregularCalendarSheet({
       key: 'ramadan',
       icon: 'moon-waning-crescent',
       color: RAMADAN_MARKER_COLOR,
-      title: 'Ramadan',
-      description: 'Afficher le repère du mois de Ramadan',
+      title: t('irregularCalendar.ramadanLabel'),
+      description: t('irregularCalendar.filterRows.ramadanDescription'),
     },
     {
       key: 'dhulHijja',
       icon: 'moon-waning-crescent',
       color: DHOUL_HIJJA_MARKER_COLOR,
-      title: 'Dhou al-Hijja',
-      description: 'Afficher le repère du mois de Dhou al-Hijja',
+      title: t('irregularCalendar.dhoulHijjaLabel'),
+      description: t('irregularCalendar.filterRows.dhoulHijjaDescription'),
     },
   ];
 
   const legendRows = ALL_CALENDAR_CATEGORIES.map(category => ({
     icon: CATEGORY_ICON[category],
     color: CATEGORY_COLOR[category],
-    title: CATEGORY_LABEL[category],
-    description: CATEGORY_COPY[category].legendDescription,
+    title: categoryLabel[category],
+    description: categoryCopy[category].legendDescription,
   }));
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={mode !== null}>
       <View style={sheetStyles.modalRoot}>
-        <Pressable accessibilityLabel="Fermer" onPress={onClose} style={sheetStyles.backdrop} />
+        <Pressable accessibilityLabel={t('irregularCalendar.sheet.closeAccessibility')} onPress={onClose} style={sheetStyles.backdrop} />
 
         {mode === 'filters' ? (
           <View style={[sheetStyles.sheet, sheetStyles.filterSheet, {paddingBottom: Math.max(insets.bottom, 10)}]}>
             <View style={sheetStyles.handle} />
 
             <View style={sheetStyles.sheetHeader}>
-              <Text style={sheetStyles.sheetTitle}>Filtres</Text>
-              <Text style={sheetStyles.sheetSubtitle}>Choisis les repères à afficher sur ton calendrier.</Text>
+              <Text style={sheetStyles.sheetTitle}>{t('irregularCalendar.sheet.filtersTitle')}</Text>
+              <Text style={sheetStyles.sheetSubtitle}>{t('irregularCalendar.sheet.filtersSubtitle')}</Text>
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>Suivi SOPK</Text>
+              <Text style={sheetStyles.groupTitle}>{t('irregularCalendar.sheet.trackingGroupTitle')}</Text>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -928,7 +990,7 @@ function IrregularCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>Repères spirituels</Text>
+                  <Text style={sheetStyles.groupTitle}>{t('irregularCalendar.sheet.spiritualGroupTitle')}</Text>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}
@@ -947,7 +1009,7 @@ function IrregularCalendarSheet({
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>Terminé</Text>
+                <Text style={sheetStyles.doneText}>{t('irregularCalendar.sheet.done')}</Text>
               </Pressable>
             </View>
           </View>
@@ -957,8 +1019,8 @@ function IrregularCalendarSheet({
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.legendScrollContent} showsVerticalScrollIndicator={false} style={sheetStyles.legendScroll}>
               <View style={sheetStyles.sheetHeader}>
-                <Text style={sheetStyles.sheetTitle}>Légende</Text>
-                <Text style={sheetStyles.sheetSubtitle}>Comprendre les repères de ton calendrier.</Text>
+                <Text style={sheetStyles.sheetTitle}>{t('irregularCalendar.sheet.legendTitle')}</Text>
+                <Text style={sheetStyles.sheetSubtitle}>{t('irregularCalendar.sheet.legendSubtitle')}</Text>
               </View>
 
               <View style={sheetStyles.legendRowsGroup}>
@@ -984,8 +1046,8 @@ function IrregularCalendarSheet({
                     <View style={sheetStyles.legendTodayPreview} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>Aujourd’hui</Text>
-                    <Text style={sheetStyles.legendRowText}>Le contour violet en pointillés indique la date d’aujourd’hui.</Text>
+                    <Text style={sheetStyles.legendRowTitle}>{t('irregularCalendar.sheet.todayTitle')}</Text>
+                    <Text style={sheetStyles.legendRowText}>{t('irregularCalendar.sheet.todayDescription')}</Text>
                   </View>
                 </View>
 
@@ -996,8 +1058,8 @@ function IrregularCalendarSheet({
                         <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>Ramadan</Text>
-                        <Text style={sheetStyles.legendRowText}>Repère du mois de Ramadan.</Text>
+                        <Text style={sheetStyles.legendRowTitle}>{t('irregularCalendar.sheet.ramadanTitle')}</Text>
+                        <Text style={sheetStyles.legendRowText}>{t('irregularCalendar.sheet.ramadanDescription')}</Text>
                       </View>
                     </View>
                     <View style={[sheetStyles.legendRow, sheetStyles.legendRowLast]}>
@@ -1005,8 +1067,8 @@ function IrregularCalendarSheet({
                         <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>Dhou al-Hijja</Text>
-                        <Text style={sheetStyles.legendRowText}>Repère des jours de Dhou al-Hijja.</Text>
+                        <Text style={sheetStyles.legendRowTitle}>{t('irregularCalendar.sheet.dhoulHijjaTitle')}</Text>
+                        <Text style={sheetStyles.legendRowText}>{t('irregularCalendar.sheet.dhoulHijjaDescription')}</Text>
                       </View>
                     </View>
                   </>
@@ -1016,11 +1078,11 @@ function IrregularCalendarSheet({
 
             <View style={sheetStyles.footer}>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('irregularCalendar.sheet.closeLegendAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>Fermer</Text>
+                <Text style={sheetStyles.doneText}>{t('irregularCalendar.sheet.close')}</Text>
               </Pressable>
             </View>
           </View>

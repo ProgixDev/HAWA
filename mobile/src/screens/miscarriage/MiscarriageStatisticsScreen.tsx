@@ -26,6 +26,10 @@ import {
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../../i18n';
+import {getAppLanguage} from '../../state/themePreferences';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 
@@ -116,61 +120,71 @@ type TabKey = 'summary' | 'bleeding' | 'symptoms' | 'tracking';
    TABS
 ============================================================ */
 
-const TABS: Array<{
+function tabsFor(t: TFunction): Array<{
   key: TabKey;
   label: string;
   icon: IconName;
-}> = [
-  {
-    key: 'summary',
-    label: 'Résumé',
-    icon: 'chart-box-outline',
-  },
-  {
-    key: 'bleeding',
-    label: 'Saignements',
-    icon: 'water-outline',
-  },
-  {
-    key: 'symptoms',
-    label: 'Symptômes',
-    icon: 'heart-pulse',
-  },
-  {
-    key: 'tracking',
-    label: 'Suivi',
-    icon: 'notebook-heart-outline',
-  },
-];
+}> {
+  return [
+    {
+      key: 'summary',
+      label: t('miscarriageStatistics.tabs.summary'),
+      icon: 'chart-box-outline',
+    },
+    {
+      key: 'bleeding',
+      label: t('miscarriageStatistics.tabs.bleeding'),
+      icon: 'water-outline',
+    },
+    {
+      key: 'symptoms',
+      label: t('miscarriageStatistics.tabs.symptoms'),
+      icon: 'heart-pulse',
+    },
+    {
+      key: 'tracking',
+      label: t('miscarriageStatistics.tabs.tracking'),
+      icon: 'notebook-heart-outline',
+    },
+  ];
+}
 
 /* ============================================================
    LABELS
 ============================================================ */
 
-const CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
-  no: 'Pas encore revenu',
-  yes: 'Revenu',
-  unknown: 'Je ne sais pas encore',
-};
+function cycleReturnLabelsFor(
+  t: TFunction,
+): Record<MiscarriageCycleReturnStatus, string> {
+  return {
+    no: t('miscarriageStatistics.cycleReturn.labels.no'),
+    yes: t('miscarriageStatistics.cycleReturn.labels.yes'),
+    unknown: t('miscarriageStatistics.cycleReturn.labels.unknown'),
+  };
+}
 
-const TRYING_AGAIN_LABELS: Record<MiscarriageTryingAgainStatus, string> = {
-  not_now: 'Pas maintenant',
-  soon: 'Bientôt',
-  ready: 'Prête à reprendre',
-};
+function tryingAgainLabelsFor(
+  t: TFunction,
+): Record<MiscarriageTryingAgainStatus, string> {
+  return {
+    not_now: t('miscarriageStatistics.tryingAgain.labels.not_now'),
+    soon: t('miscarriageStatistics.tryingAgain.labels.soon'),
+    ready: t('miscarriageStatistics.tryingAgain.labels.ready'),
+  };
+}
 
 /* ============================================================
    FORMATTERS
 ============================================================ */
 
 const dateLabel = (date: string): string =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'short',
   }).format(new Date(`${date}T12:00:00`));
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -373,6 +387,7 @@ function EmptyState({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const anim = useEntranceAnimation(80);
 
@@ -397,7 +412,7 @@ function EmptyState({
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={27} />
       </View>
 
-      <Text style={styles.emptyTitle}>Pas encore de données</Text>
+      <Text style={styles.emptyTitle}>{t('miscarriageStatistics.emptyTitle')}</Text>
 
       <Text style={styles.emptyText}>{text}</Text>
     </Animated.View>
@@ -560,6 +575,7 @@ function DistributionRow({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const progress = useRef(new Animated.Value(0)).current;
 
@@ -613,7 +629,7 @@ function DistributionRow({
 
         <View style={styles.distributionBadge}>
           <Text style={styles.distributionCount}>
-            {count} {count > 1 ? 'jours' : 'jour'}
+            {t('miscarriageStatistics.daysCount', {count})}
           </Text>
         </View>
       </View>
@@ -717,6 +733,11 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
 
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+
+  const TABS = useMemo(() => tabsFor(t), [t]);
+  const CYCLE_RETURN_LABELS = useMemo(() => cycleReturnLabelsFor(t), [t]);
+  const TRYING_AGAIN_LABELS = useMemo(() => tryingAgainLabelsFor(t), [t]);
 
   // Decorative accents referenced directly in this component's own JSX
   // (below) — same PHASE E5 derivation as every other component in this
@@ -978,7 +999,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
 
         count: item.count,
       })),
-    [tryingAgainEntries],
+    [tryingAgainEntries, TRYING_AGAIN_LABELS],
   );
 
   const maxTryingAgainCount = Math.max(
@@ -1079,7 +1100,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
         ]}
       >
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
@@ -1096,9 +1117,9 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
         </Pressable>
 
         <View style={styles.headerCopy}>
-          <Text style={styles.headerTitle}>Statistiques</Text>
+          <Text style={styles.headerTitle}>{t('miscarriageStatistics.header.title')}</Text>
 
-          <Text style={styles.headerSubtitle}>Ton évolution, à ton rythme</Text>
+          <Text style={styles.headerSubtitle}>{t('miscarriageStatistics.header.subtitle')}</Text>
         </View>
 
         <View style={styles.headerBadgeIcon}>
@@ -1123,9 +1144,9 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
           </View>
 
           <View style={styles.objectiveCopy}>
-            <Text style={styles.objectiveLabel}>OBJECTIF ACTUEL</Text>
+            <Text style={styles.objectiveLabel}>{t('miscarriageStatistics.objectiveLabel')}</Text>
 
-            <Text style={styles.objectiveValue}>Après une fausse couche</Text>
+            <Text style={styles.objectiveValue}>{t('objectives.loss')}</Text>
           </View>
 
           <View style={styles.objectiveDot} />
@@ -1234,7 +1255,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
               cycleReturnLabel={
                 prefs.cycleReturnStatus
                   ? CYCLE_RETURN_LABELS[prefs.cycleReturnStatus]
-                  : 'Non renseigné'
+                  : t('miscarriageStatistics.notProvided')
               }
               daysSinceEvent={daysSinceEvent}
               firstReturnedPeriodDate={firstReturnedPeriodDate}
@@ -1276,7 +1297,7 @@ function MiscarriageStatisticsScreen(): React.JSX.Element {
               cycleReturnLabel={
                 prefs.cycleReturnStatus
                   ? CYCLE_RETURN_LABELS[prefs.cycleReturnStatus]
-                  : 'Non renseigné'
+                  : t('miscarriageStatistics.notProvided')
               }
               firstReturnedPeriodDate={firstReturnedPeriodDate}
               maxTryingAgainCount={maxTryingAgainCount}
@@ -1344,6 +1365,7 @@ function SummaryTab({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const PURPLE = theme.colors.primary;
   const PINK = theme.colors.secondary;
@@ -1358,43 +1380,43 @@ function SummaryTab({
 
           <SectionHeader
             icon="chart-box-outline"
-            subtitle="Depuis l’événement"
-            title="Aperçu"
+            subtitle={t('miscarriageStatistics.summary.overviewSubtitle')}
+            title={t('miscarriageStatistics.summary.overviewTitle')}
           />
 
           <View style={styles.kpiGrid}>
             <KpiCard
               accent="purple"
               icon="calendar-heart"
-              label="Jours depuis l’événement"
+              label={t('miscarriageStatistics.summary.kpi.daysSinceEvent')}
               value={daysSinceEvent === null ? '—' : String(daysSinceEvent)}
             />
 
             <KpiCard
               accent="blue"
               icon="notebook-outline"
-              label="Jours de suivi"
+              label={t('miscarriageStatistics.summary.kpi.trackedDays')}
               value={String(trackedDays)}
             />
 
             <KpiCard
               accent="green"
               icon="check-decagram-outline"
-              label="Journées complètes"
+              label={t('miscarriageStatistics.summary.kpi.completeDays')}
               value={String(completeDays)}
             />
 
             <KpiCard
               accent="pink"
               icon="water-outline"
-              label="Jours avec saignements"
+              label={t('miscarriageStatistics.summary.kpi.bleedingDays')}
               value={String(bleedingCount)}
             />
 
             <KpiCard
               accent="purple"
               icon="heart-pulse"
-              label="Jours avec symptômes"
+              label={t('miscarriageStatistics.daysWithSymptomsLabel')}
               value={String(symptomsCount)}
             />
           </View>
@@ -1408,17 +1430,17 @@ function SummaryTab({
             icon="chart-bar"
             subtitle={
               showMonthlyView
-                ? 'Intensité moyenne, par mois'
-                : 'Intensité enregistrée au fil des jours'
+                ? t('miscarriageStatistics.summary.bleedingEvolutionSubtitleMonthly')
+                : t('miscarriageStatistics.summary.bleedingEvolutionSubtitleDaily')
             }
-            title="Évolution des saignements"
+            title={t('miscarriageStatistics.summary.bleedingEvolutionTitle')}
           />
 
           {showMonthlyView ? (
             bleedingMonthlyTrend.length === 0 ? (
               <EmptyState
                 icon="water-outline"
-                text="Pas encore assez de données pour un historique mensuel."
+                text={t('miscarriageStatistics.monthlyEmptyText')}
               />
             ) : (
               <ScrollView
@@ -1443,7 +1465,7 @@ function SummaryTab({
           ) : bleedingTrend.length === 0 ? (
             <EmptyState
               icon="water-outline"
-              text="Enregistre tes saignements dans ton journal pour voir leur évolution."
+              text={t('miscarriageStatistics.summary.bleedingEmptyText')}
             />
           ) : (
             <View style={styles.chart}>
@@ -1472,7 +1494,7 @@ function SummaryTab({
               />
             </View>
 
-            <Text style={styles.statusLabel}>Retour du cycle</Text>
+            <Text style={styles.statusLabel}>{t('miscarriageStatistics.cycleReturnLabel')}</Text>
 
             <Text numberOfLines={2} style={styles.statusValue}>
               {cycleReturnLabel}
@@ -1494,7 +1516,7 @@ function SummaryTab({
               />
             </View>
 
-            <Text style={styles.statusLabel}>Reprise des essais</Text>
+            <Text style={styles.statusLabel}>{t('miscarriageStatistics.tryingAgainLabel')}</Text>
 
             <Text numberOfLines={2} style={styles.statusValue}>
               {tryingAgainLabel}
@@ -1512,10 +1534,10 @@ function SummaryTab({
           </View>
 
           <View style={styles.adviceCopy}>
-            <Text style={styles.adviceTitle}>À ton rythme</Text>
+            <Text style={styles.adviceTitle}>{t('miscarriageStatistics.summary.adviceTitle')}</Text>
 
             <Text style={styles.adviceText}>
-              Prends soin de toi, à ton rythme. Chaque étape compte.
+              {t('miscarriageStatistics.summary.adviceText')}
             </Text>
           </View>
         </View>
@@ -1563,6 +1585,7 @@ function BleedingTab({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const PINK = theme.colors.secondary;
 
@@ -1573,12 +1596,12 @@ function BleedingTab({
           <SectionHeader
             accent="pink"
             icon="water-outline"
-            title="Saignements"
+            title={t('miscarriageStatistics.bleeding.title')}
           />
 
           <EmptyState
             icon="water-outline"
-            text="Enregistre tes saignements dans ton journal quotidien pour voir leur évolution ici."
+            text={t('miscarriageStatistics.bleeding.emptyText')}
           />
         </View>
       </AnimatedSection>
@@ -1592,14 +1615,14 @@ function BleedingTab({
           <KpiCard
             accent="pink"
             icon="water-outline"
-            label="Intensité la plus fréquente"
+            label={t('miscarriageStatistics.bleeding.kpi.mostFrequentIntensity')}
             value={mostFrequent ?? '—'}
           />
 
           <KpiCard
             accent="purple"
             icon="calendar-check-outline"
-            label="Jours renseignés"
+            label={t('miscarriageStatistics.bleeding.kpi.recordedDays')}
             value={String(entriesCount)}
           />
         </View>
@@ -1612,17 +1635,17 @@ function BleedingTab({
             icon="chart-bar"
             subtitle={
               showMonthlyView
-                ? 'Évolution mensuelle, sur la période sélectionnée'
-                : 'Séquence enregistrée'
+                ? t('miscarriageStatistics.monthlySubtitle')
+                : t('miscarriageStatistics.bleeding.evolutionSubtitleDaily')
             }
-            title="Évolution du flux"
+            title={t('miscarriageStatistics.bleeding.evolutionTitle')}
           />
 
           {showMonthlyView ? (
             monthlyTrend.length === 0 ? (
               <EmptyState
                 icon="water-outline"
-                text="Pas encore assez de données pour un historique mensuel."
+                text={t('miscarriageStatistics.monthlyEmptyText')}
               />
             ) : (
               <ScrollView
@@ -1665,8 +1688,8 @@ function BleedingTab({
           <SectionHeader
             accent="pink"
             icon="chart-donut"
-            subtitle="Selon tes entrées"
-            title="Répartition de l’intensité"
+            subtitle={t('miscarriageStatistics.bleeding.distributionSubtitle')}
+            title={t('miscarriageStatistics.bleeding.distributionTitle')}
           />
 
           <View style={styles.distributionList}>
@@ -1691,8 +1714,7 @@ function BleedingTab({
           </View>
 
           <Text style={styles.softInfoText}>
-            Ce suivi est un repère personnel. L’évolution peut être différente
-            d’une femme à l’autre.
+            {t('miscarriageStatistics.bleeding.infoText')}
           </Text>
         </View>
       </AnimatedSection>
@@ -1734,16 +1756,17 @@ function SymptomsTab({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   if (entriesCount === 0) {
     return (
       <AnimatedSection>
         <View style={styles.card}>
-          <SectionHeader icon="heart-pulse" title="Symptômes physiques" />
+          <SectionHeader icon="heart-pulse" title={t('miscarriageStatistics.symptoms.title')} />
 
           <EmptyState
             icon="heart-pulse"
-            text="Enregistre tes symptômes dans ton journal quotidien pour suivre leur fréquence."
+            text={t('miscarriageStatistics.symptoms.emptyText')}
           />
         </View>
       </AnimatedSection>
@@ -1757,14 +1780,14 @@ function SymptomsTab({
           <KpiCard
             accent="purple"
             icon="heart-pulse"
-            label="Symptôme le plus fréquent"
+            label={t('miscarriageStatistics.symptoms.kpi.mostFrequentSymptom')}
             value={mostFrequent ?? '—'}
           />
 
           <KpiCard
             accent="blue"
             icon="calendar-check-outline"
-            label="Jours avec symptômes"
+            label={t('miscarriageStatistics.daysWithSymptomsLabel')}
             value={String(entriesCount)}
           />
         </View>
@@ -1776,10 +1799,10 @@ function SymptomsTab({
             icon="chart-donut"
             subtitle={
               showMonthlyView
-                ? 'Évolution mensuelle, sur la période sélectionnée'
-                : 'Selon tes journées enregistrées'
+                ? t('miscarriageStatistics.monthlySubtitle')
+                : t('miscarriageStatistics.symptoms.frequencySubtitleDaily')
             }
-            title="Fréquence des symptômes"
+            title={t('miscarriageStatistics.symptoms.frequencyTitle')}
           />
 
           <View style={styles.distributionList}>
@@ -1798,7 +1821,7 @@ function SymptomsTab({
             monthlyHistory.length === 0 ? (
               <EmptyState
                 icon="heart-pulse"
-                text="Pas encore assez de données pour un historique mensuel."
+                text={t('miscarriageStatistics.monthlyEmptyText')}
               />
             ) : (
               <View style={styles.monthlyList}>
@@ -1813,8 +1836,7 @@ function SymptomsTab({
                     <Text style={styles.monthlyRowLabel}>{item.label}</Text>
 
                     <Text style={styles.monthlyRowMeta}>
-                      {item.daysCount}{' '}
-                      {item.daysCount > 1 ? 'jours' : 'jour'}
+                      {t('miscarriageStatistics.daysCount', {count: item.daysCount})}
                       {item.mostFrequent ? ` · ${item.mostFrequent}` : ''}
                     </Text>
                   </View>
@@ -1869,6 +1891,7 @@ function TrackingTab({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const PURPLE = theme.colors.primary;
 
@@ -1886,10 +1909,10 @@ function TrackingTab({
             </View>
 
             <View style={styles.trackingCopy}>
-              <Text style={styles.trackingTitle}>Notes personnelles</Text>
+              <Text style={styles.trackingTitle}>{t('miscarriageStatistics.tracking.notesTitle')}</Text>
 
               <Text style={styles.trackingSubtitle}>
-                Espace personnel et privé
+                {t('miscarriageStatistics.tracking.notesSubtitle')}
               </Text>
             </View>
 
@@ -1904,9 +1927,7 @@ function TrackingTab({
             <Text style={styles.trackingBigValue}>{notesCount}</Text>
 
             <Text style={styles.trackingValueLabel}>
-              note
-              {notesCount !== 1 ? 's' : ''} enregistrée
-              {notesCount !== 1 ? 's' : ''}
+              {t('miscarriageStatistics.tracking.notesCount', {count: notesCount})}
             </Text>
           </View>
         </View>
@@ -1917,12 +1938,12 @@ function TrackingTab({
           <SectionHeader
             accent="pink"
             icon="heart-outline"
-            subtitle="Selon ton propre rythme"
-            title="Reprise des essais"
+            subtitle={t('miscarriageStatistics.tracking.tryingAgainSubtitle')}
+            title={t('miscarriageStatistics.tryingAgainLabel')}
           />
 
           <View style={styles.currentStatusBox}>
-            <Text style={styles.currentStatusLabel}>État actuel</Text>
+            <Text style={styles.currentStatusLabel}>{t('miscarriageStatistics.tracking.currentStatusLabel')}</Text>
 
             <Text style={styles.currentStatusValue}>{tryingAgainLabel}</Text>
           </View>
@@ -1956,9 +1977,9 @@ function TrackingTab({
             </View>
 
             <View style={styles.trackingCopy}>
-              <Text style={styles.trackingTitle}>Retour du cycle</Text>
+              <Text style={styles.trackingTitle}>{t('miscarriageStatistics.cycleReturnLabel')}</Text>
 
-              <Text style={styles.trackingSubtitle}>Repère dans ton suivi</Text>
+              <Text style={styles.trackingSubtitle}>{t('miscarriageStatistics.tracking.cycleReturnSubtitle')}</Text>
             </View>
           </View>
 
@@ -1973,7 +1994,9 @@ function TrackingTab({
               />
 
               <Text style={styles.datePillText}>
-                Retour des règles : {formatFullDate(firstReturnedPeriodDate)}
+                {t('miscarriageStatistics.tracking.datePillText', {
+                  date: formatFullDate(firstReturnedPeriodDate),
+                })}
               </Text>
             </View>
           ) : null}
@@ -1983,31 +2006,36 @@ function TrackingTab({
       {showMonthlyView ? (
         <AnimatedSection delay={140}>
           <View
-            accessibilityLabel={`Repères de retour du cycle enregistrés sur ${periodLabel}`}
+            accessibilityLabel={t('miscarriageStatistics.tracking.coverageAccessibility', {
+              period: periodLabel,
+            })}
             style={styles.card}
           >
             <SectionHeader
               accent="purple"
               icon="calendar-heart"
-              subtitle="Repères enregistrés au fil du temps"
-              title="Retour du cycle"
+              subtitle={t('miscarriageStatistics.tracking.coverageSubtitle')}
+              title={t('miscarriageStatistics.cycleReturnLabel')}
             />
 
             {cycleReturnEventInPeriod ? (
               <View style={styles.currentStatusBox}>
                 <Text style={styles.currentStatusLabel}>
-                  Retour du cycle confirmé
+                  {t('miscarriageStatistics.tracking.confirmedLabel')}
                 </Text>
 
                 <Text style={styles.currentStatusValue}>
-                  Tu as indiqué le retour de tes règles le{' '}
-                  {formatFullDate(cycleReturnEventInPeriod)}.
+                  {t('miscarriageStatistics.tracking.confirmedText', {
+                    date: formatFullDate(cycleReturnEventInPeriod),
+                  })}
                 </Text>
               </View>
             ) : (
               <EmptyState
                 icon="calendar-heart"
-                text={`Aucun retour de cycle confirmé sur ${periodLabel}.`}
+                text={t('miscarriageStatistics.tracking.noCycleReturnText', {
+                  period: periodLabel,
+                })}
               />
             )}
           </View>
@@ -2025,8 +2053,7 @@ function TrackingTab({
           </View>
 
           <Text style={styles.softInfoText}>
-            Le retour de tes règles ne change pas automatiquement ton
-            accompagnement actuel.
+            {t('miscarriageStatistics.tracking.infoText')}
           </Text>
         </View>
       </AnimatedSection>

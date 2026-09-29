@@ -71,17 +71,17 @@ const kindOfDay = (renderer: ReactTestRenderer.ReactTestRenderer, dayOfMonth: nu
 describe('Calendar cells follow the same prediction the Dashboard shows', () => {
   it('REGULAR cycle: the precise projection is painted (period, fertile window, ovulation)', async () => {
     const renderer = await renderMonth('yes');
-    expect(kindOfDay(renderer, 2)).toBe('period');
+    expect(kindOfDay(renderer, 2)).toBe('règles');
     expect(kindOfDay(renderer, 12)).toBe('fertile');
     expect(kindOfDay(renderer, 15)).toBe('ovulation');
   });
 
   it('IRREGULAR cycle: only the recorded period is painted — no projected fertile window / ovulation as if certain', async () => {
     const renderer = await renderMonth('no');
-    expect(kindOfDay(renderer, 2)).toBe('period'); // recorded
-    expect(kindOfDay(renderer, 12)).toBe('normal');
-    expect(kindOfDay(renderer, 15)).toBe('normal');
-    expect(kindOfDay(renderer, 29)).toBe('normal'); // the modulo projection's "next period"
+    expect(kindOfDay(renderer, 2)).toBe('règles'); // recorded
+    expect(kindOfDay(renderer, 12)).toBe('jour normal');
+    expect(kindOfDay(renderer, 15)).toBe('jour normal');
+    expect(kindOfDay(renderer, 29)).toBe('jour normal'); // the modulo projection's "next period"
   });
 });
 

@@ -4,6 +4,7 @@ import {Alert, Animated, Easing, ImageBackground, KeyboardAvoidingView, Modal, P
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import type {IntimacySection} from '../../types/journal';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
@@ -13,8 +14,20 @@ import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthSt
 import {encryptIntimacySection, resolveIntimacySection} from '../../services/privateJournalEncryption';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
+// LIBIDOS/SYMPTOMS labels are DATA here, not just display text — persisted
+// verbatim into dailyJournalStore's encrypted `libido`/`discomfort` fields
+// (see `save()` below), and `toggleSymptom()` even compares against the
+// literal French 'Aucun' label as its "none selected" sentinel. Translating
+// them would change what's actually saved/already saved and would break that
+// comparison. Left in French — same pattern as JournalSymptomsScreen.tsx/
+// JournalActivityScreen.tsx/JournalSleepScreen.tsx (see their own notes;
+// CLAUDE.md §0/§10/§11). "Oui"/"Non" below are different: they only drive
+// the separate boolean `hasReport`, which persists as the semantic
+// 'yes'/'no' `answer` field — safe, pure display text, and localized.
 const LIBIDOS = ['Très faible', 'Faible', 'Modérée', 'Élevée', 'Très élevée'];
 const SYMPTOMS = ['Douleur pendant le rapport', 'Sécheresse vaginale', 'Saignement après rapport', 'Fatigue', 'Douleurs pelviennes', 'Irritation', 'Aucun', 'Autre'];
 
@@ -31,6 +44,7 @@ const TIME_OPTIONS = Array.from({length: 96}, (_, index) => {
 
 
 export default function JournalIntimacyScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -77,7 +91,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
   // Null (no "Jour N du cycle" in the header) when this objective/state has
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {weekday:'long', day:'numeric', month:'long'}).format(today);
+  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday:'long', day:'numeric', month:'long'}).format(today);
   useEffect(() => {
     if (!isIntimacyUnlocked()) {navigation.navigate('PrivateIntimacyUnlock'); return;}
     getJournalEntry(todayKey).then(async entry => {
@@ -238,8 +252,8 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         console.log('[INTIMACY_SAVE][CYCLE] FAILED:', safe);
       }
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer ces informations pour le moment.",
+        t('journalIntimacy.errorTitle'),
+        t('journalIntimacy.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -255,20 +269,20 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           isSmallScreen && styles.headerSmall,
           isVerySmallScreen && styles.headerVerySmall,
         ]}>
-        <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.headerButton}><MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={27} /></Pressable>
-        <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>Vie intime</Text><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><Text style={styles.date}>{cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}</Text></View>
-        <Pressable accessibilityLabel="Masquer et verrouiller les informations" accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={theme.colors.primary} name="eye-off-outline" size={18} /><Text style={styles.hideText}>Masquer</Text></Pressable>
+        <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.headerButton}><MaterialDesignIcons color={theme.colors.accent} name="chevron-left" size={27} /></Pressable>
+        <View style={styles.headerCopy}><View style={styles.titleRow}><Text style={styles.title}>{t('journalIntimacy.title')}</Text><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} /></View><Text style={styles.date}>{cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}</Text></View>
+        <Pressable accessibilityLabel={t('journalIntimacy.hideAndLock')} accessibilityRole="button" onPress={() => {lockIntimacy(); navigation.reset({index:1,routes:[{name:'MainTabs',params:{screen:'CycleHome'}},{name:'PrivateIntimacyUnlock'}]});}} style={styles.hide}><MaterialDesignIcons color={theme.colors.primary} name="eye-off-outline" size={18} /><Text style={styles.hideText}>{t('journalPrivatePhotos.hide')}</Text></Pressable>
       </View>
       <ScrollView contentContainerStyle={[styles.content, {paddingBottom:Math.max(insets.bottom, 16) + 16}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/intimacy-header-woman.png')} style={styles.hero}>
-          <View style={styles.heroCopy}><Text style={styles.heroTitle}>Ton intimité, ton espace ♡</Text><Text style={styles.heroText}>Note ce que tu ressens en toute confiance.{`\n`}Cette section est privée et protégée.</Text><View style={styles.learn}><Text style={styles.learnText}>En savoir plus</Text><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} /></View></View>
+          <View style={styles.heroCopy}><Text style={styles.heroTitle}>{t('journalIntimacy.heroTitle')}</Text><Text style={styles.heroText}>{t('journalIntimacy.heroText')}</Text><View style={styles.learn}><Text style={styles.learnText}>{t('journalIntimacy.learnMore')}</Text><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} /></View></View>
         </ImageBackground>
 
         <View style={styles.privateArea}>
           {corrupted ? (
             <View style={styles.noReportMessage}>
               <MaterialDesignIcons color={theme.colors.textMuted} name="alert-circle-outline" size={18} />
-              <Text style={styles.noReportText}>Impossible de lire ces données privées.</Text>
+              <Text style={styles.noReportText}>{t('journalIntimacy.cannotReadPrivateData')}</Text>
             </View>
           ) : null}
 
@@ -276,8 +290,8 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
             <View style={styles.reportTitleRow}>
               <Heading
                 icon="heart-outline"
-                title="Rapport aujourd’hui"
-                subtitle="As-tu eu un rapport aujourd’hui ?"
+                title={t('journalIntimacy.reportTodayTitle')}
+                subtitle={t('journalIntimacy.reportTodaySubtitle')}
               />
 
               <View style={styles.reportPrivacyBadge}>
@@ -286,7 +300,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
                   name="lock-outline"
                   size={14}
                 />
-                <Text style={styles.reportPrivacyText}>Privé</Text>
+                <Text style={styles.reportPrivacyText}>{t('journalIntimacy.privateBadge')}</Text>
               </View>
             </View>
 
@@ -294,13 +308,13 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
               <Choice
                 active={hasReport}
                 icon="check-circle-outline"
-                label="Oui"
+                label={t('journalIntimacy.yes')}
                 onPress={() => setHasReport(true)}
               />
               <Choice
                 active={!hasReport}
                 icon="close-circle-outline"
-                label="Non"
+                label={t('journalIntimacy.no')}
                 onPress={() => setHasReport(false)}
               />
             </View>
@@ -316,7 +330,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
                   ]}>
                   <SelectField
                     icon="calendar-clock"
-                    label="Heure"
+                    label={t('journalIntimacy.timeLabel')}
                     onPress={() => openPicker('time')}
                     value={time}
                   />
@@ -330,21 +344,21 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
                   size={18}
                 />
                 <Text style={styles.noReportText}>
-                  Les détails du rapport sont masqués.
+                  {t('journalIntimacy.detailsHidden')}
                 </Text>
               </View>
             )}
           </Card>
 
-          <Card><Heading icon="fire" title="Libido" subtitle="Comment évalues-tu ton désir sexuel aujourd’hui ?" />
+          <Card><Heading icon="fire" title={t('journalIntimacy.libidoTitle')} subtitle={t('journalIntimacy.libidoSubtitle')} />
             <View style={styles.libidoRow}>{LIBIDOS.map((item,index) => {const active = libido === item; return <Pressable accessibilityRole="radio" accessibilityState={{checked: active, disabled: !hasReport}} disabled={!hasReport} key={item} onPress={() => setLibido(item)} style={[styles.libido, active && styles.selected, !hasReport && styles.disabled]}><MaterialDesignIcons color={active ? theme.colors.primary : withAlpha(theme.colors.primary, 0.22 + index * 0.16)} name={index === 0 ? 'heart-outline' : 'heart'} size={27} /><Text style={styles.choiceLabel}>{item}</Text></Pressable>;})}</View>
           </Card>
 
           <Card>
             <Heading
               icon="flower-outline"
-              title="Symptômes associés"
-              subtitle="Plusieurs choix possibles."
+              title={t('journalIntimacy.relatedSymptomsTitle')}
+              subtitle={t('journalIntimacy.multipleChoicesPossible')}
               optional
             />
 
@@ -392,14 +406,14 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
             </View>
           </Card>
 
-          <Card><Heading icon="pencil-outline" title="Commentaire" subtitle="Écris ici ce que tu souhaites noter." optional />
-            <View style={styles.noteBox}><TextInput maxLength={300} multiline onChangeText={setNote} placeholder="Écris ton commentaire ici..." placeholderTextColor={theme.colors.textSecondary} style={styles.note} textAlignVertical="top" value={note} /><Text style={styles.counter}>{note.length} / 300</Text><MaterialDesignIcons color={theme.colors.primary} name="sprout" size={36} style={styles.leaf} /></View>
+          <Card><Heading icon="pencil-outline" title={t('journalMood.commentSectionTitle')} subtitle={t('journalIntimacy.commentSubtitle')} optional />
+            <View style={styles.noteBox}><TextInput maxLength={300} multiline onChangeText={setNote} placeholder={t('journalIntimacy.notePlaceholder')} placeholderTextColor={theme.colors.textSecondary} style={styles.note} textAlignVertical="top" value={note} /><Text style={styles.counter}>{note.length} / 300</Text><MaterialDesignIcons color={theme.colors.primary} name="sprout" size={36} style={styles.leaf} /></View>
           </Card>
         </View>
 
-        <View style={styles.security}><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={22} /><Text style={styles.securityText}>Cette section est protégée par un code ou Face ID séparé.{`\n`}Personne d’autre n’y a accès.</Text><MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.5)} name="shield-lock-outline" size={26} /></View>
+        <View style={styles.security}><MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={22} /><Text style={styles.securityText}>{t('journalIntimacy.securityText')}</Text><MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.5)} name="shield-lock-outline" size={26} /></View>
         <Pressable
-          accessibilityLabel="Enregistrer les informations de vie intime"
+          accessibilityLabel={t('journalIntimacy.saveIntimacy')}
           accessibilityRole="button"
           disabled={saving}
           onPress={save}
@@ -414,11 +428,11 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
             size={20}
           />
           <Text style={styles.saveText}>
-            {saving ? 'Enregistrement…' : 'Enregistrer'}
+            {saving ? t('periodStartSheet.saving') : t('common.save')}
           </Text>
         </Pressable>
 
-        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ces informations" /> : null}
+        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalIntimacy.clearSubject')} /> : null}
       </ScrollView>
     </KeyboardAvoidingView>
 
@@ -454,11 +468,11 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
         </View>
 
         <Text style={styles.toastText}>
-          Vie intime enregistrée avec succès ✨
+          {t('journalIntimacy.savedToast')}
         </Text>
 
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={hideSuccessToast}
@@ -482,7 +496,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
       visible={activePicker !== null}>
       <View style={styles.modalOverlay}>
         <Pressable
-          accessibilityLabel="Fermer la liste"
+          accessibilityLabel={t('journalIntimacy.closeList')}
           onPress={closePicker}
           style={StyleSheet.absoluteFill}
         />
@@ -505,15 +519,15 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
 
             <View style={styles.sheetHeaderCopy}>
               <Text style={styles.sheetTitle}>
-                Choisir une heure
+                {t('journalIntimacy.chooseATime')}
               </Text>
               <Text style={styles.sheetSubtitle}>
-                Sélectionne l’heure souhaitée
+                {t('journalIntimacy.selectDesiredTime')}
               </Text>
             </View>
 
             <Pressable
-              accessibilityLabel="Fermer"
+              accessibilityLabel={t('common.close')}
               hitSlop={8}
               onPress={closePicker}
               style={styles.sheetClose}>
@@ -595,6 +609,7 @@ function Heading({
   subtitle: string;
   optional?: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
@@ -611,7 +626,7 @@ function Heading({
         <Text style={styles.headingTitle}>
           {title}
           {optional ? (
-            <Text style={styles.optional}> (optionnel)</Text>
+            <Text style={styles.optional}> {t('journalMood.optional')}</Text>
           ) : null}
         </Text>
 

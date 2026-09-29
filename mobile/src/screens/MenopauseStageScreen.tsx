@@ -14,6 +14,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -26,46 +27,53 @@ import {
   setMenopauseStage,
   type MenopauseStage,
 } from '../state/menopausePreferences';
+import '../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MenopauseStage'>;
 
-const OPTIONS: Array<{
+// Display-only labels for the persisted MenopauseStage enum (the semantic
+// value itself, never the label, is what's saved — see setMenopauseStage()).
+function buildOptions(t: (key: string) => string): Array<{
   id: MenopauseStage;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {
-    id: 'perimenopause',
-    title: 'Périménopause',
-    subtitle: 'Je remarque des changements depuis quelque temps',
-    icon: 'weather-sunset',
-    tint: '#FCEADB',
-  },
-  {
-    id: 'menopause',
-    title: 'Ménopause',
-    subtitle: 'Mes règles se sont arrêtées',
-    icon: 'flower-outline',
-    tint: '#E7F2EA',
-  },
-  {
-    id: 'unsure',
-    title: 'Je ne sais pas encore',
-    subtitle: 'Je préfère simplement observer ce que je ressens',
-    icon: 'help-circle-outline',
-    tint: '#EEE8F8',
-  },
-];
+}> {
+  return [
+    {
+      id: 'perimenopause',
+      title: t('menopauseStage.options.perimenopause.title'),
+      subtitle: t('menopauseStage.options.perimenopause.subtitle'),
+      icon: 'weather-sunset',
+      tint: '#FCEADB',
+    },
+    {
+      id: 'menopause',
+      title: t('menopauseStage.options.menopause.title'),
+      subtitle: t('menopauseStage.options.menopause.subtitle'),
+      icon: 'flower-outline',
+      tint: '#E7F2EA',
+    },
+    {
+      id: 'unsure',
+      title: t('menopauseStage.options.unsure.title'),
+      subtitle: t('menopauseStage.options.unsure.subtitle'),
+      icon: 'help-circle-outline',
+      tint: '#EEE8F8',
+    },
+  ];
+}
 
 function MenopauseStageScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
   const floatAnimation = useRef(new Animated.Value(0)).current;
@@ -259,18 +267,15 @@ function MenopauseStageScreen({
               </Animated.View>
 
               <Text style={styles.eyebrow}>
-                TON BIEN-ÊTRE ÉVOLUE
+                {t('menopauseStage.eyebrow')}
               </Text>
 
               <Text style={styles.title}>
-                Où en es-tu dans
-                {'\n'}
-                cette étape ?
+                {t('menopauseStage.title')}
               </Text>
 
               <Text style={styles.subtitle}>
-                Choisis simplement la situation qui te ressemble le plus aujourd’hui.
-                Tu pourras toujours la modifier plus tard.
+                {t('menopauseStage.subtitle')}
               </Text>
 
             </View>
@@ -280,7 +285,7 @@ function MenopauseStageScreen({
               <View style={styles.optionsIntroRow}>
 
                 <Text style={styles.optionsTitle}>
-                  Ce qui me correspond
+                  {t('menopauseStage.optionsTitle')}
                 </Text>
 
                 <View style={styles.optionsLine} />
@@ -310,7 +315,7 @@ function MenopauseStageScreen({
           <View style={styles.bottomSection}>
 
             <Text style={styles.helperText}>
-              Il n’y a pas de mauvaise réponse.
+              {t('menopauseStage.helperText')}
             </Text>
 
             <Pressable
@@ -340,10 +345,10 @@ function MenopauseStageScreen({
 
                 <Text style={styles.nextText}>
                   {saving
-                    ? 'Enregistrement…'
+                    ? t('menopauseStage.saving')
                     : route.params?.mode === 'edit'
-                      ? 'Enregistrer'
-                      : 'Continuer'}
+                      ? t('common.save')
+                      : t('common.continue')}
                 </Text>
 
                 {!saving && (

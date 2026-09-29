@@ -3,29 +3,36 @@ import {AccessibilityInfo, Animated, Easing, Pressable, StatusBar, StyleSheet, T
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
-import {authenticateWithBiometry, getBiometryIcon, getBiometryLabel, getBiometryType} from '../../services/privateSectionAuth';
+import {authenticateWithBiometry, getBiometryDeviceName, getBiometryIcon, getBiometryLabel, getBiometryType} from '../../services/privateSectionAuth';
 import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 import type * as Keychain from 'react-native-keychain';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyFaceId'>;
 
-function getBiometrySubtitle(type: Keychain.BIOMETRY_TYPE | null): string {
-  if (type === 'FaceID' || type === 'Face') {return 'Regarde ton téléphone pour déverrouiller\ncet espace privé.';}
-  if (type === 'Fingerprint' || type === 'TouchID') {return 'Pose ton doigt sur le capteur pour déverrouiller\ncet espace privé.';}
-  if (type === 'Iris' || type === 'OpticID') {return 'Regarde ton téléphone pour déverrouiller\ncet espace privé.';}
-  return 'Utilise ta biométrie pour déverrouiller\ncet espace privé.';
+function useBiometrySubtitle() {
+  const {t} = useTranslation();
+  return (type: Keychain.BIOMETRY_TYPE | null): string => {
+    if (type === 'FaceID' || type === 'Face') {return t('privateIntimacyFaceId.lookAtPhone');}
+    if (type === 'Fingerprint' || type === 'TouchID') {return t('privateIntimacyFaceId.placeFinger');}
+    if (type === 'Iris' || type === 'OpticID') {return t('privateIntimacyFaceId.lookAtPhone');}
+    return t('privateIntimacyFaceId.useBiometrics');
+  };
 }
 
 export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
+  const getBiometrySubtitle = useBiometrySubtitle();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   // Unified, theme-aware lock presentation (see PrivateIntimacyUnlockScreen.tsx's
-  // UNIFIED_PURPOSE_COPY) — now applies to every IntimacyTarget value. The
+  // unifiedPurposeCopy) — now applies to every IntimacyTarget value. The
   // legacy padlock-artwork PNG background has been fully retired from this
   // file.
   const entrance = useRef(new Animated.Value(0)).current;
@@ -33,21 +40,21 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
   const attempted = useRef(false);
 
   const [title, setTitle] = useState('Face ID');
-  const [subtitle, setSubtitle] = useState('Regarde ton téléphone pour déverrouiller\ncet espace privé.');
+  const [subtitle, setSubtitle] = useState(t('privateIntimacyFaceId.lookAtPhone'));
   const [icon, setIcon] = useState<IconName>('face-recognition');
-  const [buttonLabel, setButtonLabel] = useState('Utiliser Face ID');
+  const [buttonLabel, setButtonLabel] = useState(() => t('privateSectionAuth.useBiometryLabel', {device: 'Face ID'}));
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
 
   useEffect(() => {
     AccessibilityInfo.isReduceMotionEnabled().then(reduce => Animated.timing(entrance, {toValue: 1, duration: reduce ? 0 : 420, easing: Easing.out(Easing.cubic), useNativeDriver: true}).start());
     getBiometryType().then(type => {
-      const label = getBiometryLabel(type);
-      setButtonLabel(label);
-      setTitle(label.replace(/^Utiliser /, ''));
+      setButtonLabel(getBiometryLabel(type));
+      setTitle(getBiometryDeviceName(type));
       setIcon(getBiometryIcon(type) as IconName);
       setSubtitle(getBiometrySubtitle(type));
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [entrance]);
 
   const fail = (message: string) => {
@@ -61,9 +68,9 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
       setBusy(true);
       setError('');
       if (await authenticateWithBiometry()) {unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target); return;}
-      fail('Authentification non reconnue. Réessaie.');
+      fail(t('privateIntimacyFaceId.authNotRecognized'));
     } catch {
-      fail('Authentification non reconnue. Réessaie.');
+      fail(t('privateIntimacyFaceId.authNotRecognized'));
     } finally {
       setBusy(false);
     }
@@ -81,7 +88,7 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <View style={[styles.content, {paddingBottom: Math.max(insets.bottom, 14)}]}>
-          <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.back}>
+          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}>
             <MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={27} />
           </Pressable>
 
@@ -112,11 +119,11 @@ export default function PrivateIntimacyFaceIdScreen({navigation, route}: Props):
             onPress={attempt}
             style={({pressed}) => [styles.primary, pressed && styles.pressed, busy && styles.disabled]}>
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={icon} size={22} />
-            <Text style={styles.primaryText}>{busy ? 'Vérification…' : buttonLabel}</Text>
+            <Text style={styles.primaryText}>{busy ? t('privateIntimacyFaceId.verifying') : buttonLabel}</Text>
           </Pressable>
 
-          <Pressable accessibilityLabel="Utiliser le code privé" hitSlop={10} onPress={() => navigation.replace('PrivateIntimacyPin', {target: route.params?.target})}>
-            <Text style={styles.link}>Utiliser le code privé à la place</Text>
+          <Pressable accessibilityLabel={t('privateIntimacyFaceId.usePinCode')} hitSlop={10} onPress={() => navigation.replace('PrivateIntimacyPin', {target: route.params?.target})}>
+            <Text style={styles.link}>{t('privateIntimacyFaceId.usePinCodeInstead')}</Text>
           </Pressable>
         </View>
       </SafeAreaView>

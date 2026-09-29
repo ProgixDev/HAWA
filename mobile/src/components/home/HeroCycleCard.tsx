@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import CycleProgressRing from './CycleProgressRing';
 import {homeRadii} from './homeTheme';
@@ -16,6 +17,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {CyclePhase} from './CycleStatusCard';
 import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
+import '../../i18n';
 
 const FLOWER = require('../../assets/images/flower.png');
 
@@ -46,6 +48,16 @@ type PhaseInsight = {
 // primary` would make phase identity arbitrarily inconsistent (2 of 7
 // phases shifting hue with the palette, 5 staying fixed). All seven are
 // therefore fixed literals, never theme-driven.
+// These exported maps (PHASE_INSIGHTS, MOOD_LABELS, ENERGY_LABELS,
+// getCyclePhaseIdentity) are deliberately kept as-is, in French — they are
+// shared with several consumers still out of this localization phase's scope
+// (PartnerHomeScreen/AWA à deux, medicalExportReaders.ts/
+// medicalExportFormatting.ts's PDF/CSV export, other objectives' own
+// dashboards). This component's own JSX below reads TRANSLATED copy for
+// DISPLAY (cyclePhase.*/cycleHome.phase.*/mood.*/moodTip.*/energyLevel.* —
+// see src/i18n/locales/) computed straight from the semantic phase/mood/
+// energy values, never from these French strings — so localizing the
+// dashboard never touches what the other, still-French consumers render.
 export const PHASE_INSIGHTS: Record<CyclePhase, PhaseInsight> = {
   menstruation: {
     label: 'Phase menstruelle',
@@ -125,18 +137,6 @@ export const MOOD_LABELS: Record<MoodLevel, string> = {
   motivated: 'Motivée',
 };
 
-const MOOD_TIPS: Record<MoodLevel, string> = {
-  veryGood: 'Profite de cet élan',
-  good: 'Cultive ce bien-être',
-  neutral: 'Écoute tes besoins',
-  stressed: 'Respire & ralentis',
-  irritable: 'Calme & douceur',
-  anxious: 'Ancre-toi doucement',
-  sad: 'Réconfort & soutien',
-  tired: 'Repos & hydratation',
-  motivated: 'Passe à l’action',
-};
-
 export const ENERGY_LABELS: Record<number, string> = {
   1: 'Très faible',
   2: 'Faible',
@@ -168,20 +168,23 @@ function Chip({
 }
 
 function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const entrance = useRef(new Animated.Value(0)).current;
   const [reduceMotion, setReduceMotion] = useState(false);
 
-  const phaseInsight = PHASE_INSIGHTS[phase];
-  const insight = moodEntry
-    ? {
-        ...phaseInsight,
-        energy: ENERGY_LABELS[Math.min(5, Math.max(1, Math.round(moodEntry.energy)))] ?? phaseInsight.energy,
-        mood: MOOD_LABELS[moodEntry.level],
-        tip: MOOD_TIPS[moodEntry.level],
-      }
-    : phaseInsight;
+  // ringColor is the only thing still read from the (deliberately French,
+  // shared-elsewhere) PHASE_INSIGHTS map — it's a color, not text.
+  const ringColor = PHASE_INSIGHTS[phase].ringColor;
+  const clampedEnergyLevel = moodEntry ? String(Math.min(5, Math.max(1, Math.round(moodEntry.energy)))) : null;
+  const insight = {
+    label: t(`cyclePhase.${phase}`),
+    message: t(`cycleHome.phase.${phase}.message`),
+    energy: clampedEnergyLevel ? t(`cycleHome.energyLevel.${clampedEnergyLevel}`) : t(`cycleHome.phase.${phase}.energy`),
+    mood: moodEntry ? t(`cycleHome.mood.${moodEntry.level}`) : t(`cycleHome.phase.${phase}.mood`),
+    tip: moodEntry ? t(`cycleHome.moodTip.${moodEntry.level}`) : t(`cycleHome.phase.${phase}.tip`),
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -217,11 +220,11 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
       <Image accessibilityIgnoresInvertColors source={FLOWER} style={styles.flower} />
 
       <View style={styles.topRow}>
-        <CycleProgressRing currentDay={currentDay} cycleLength={cycleLength} phaseLabel={insight.label} ringColor={insight.ringColor} />
+        <CycleProgressRing currentDay={currentDay} cycleLength={cycleLength} phaseLabel={insight.label} ringColor={ringColor} />
 
         <View style={styles.todayColumn}>
           <View style={styles.todayHeader}>
-            <Text style={styles.todayTitle}>Aujourd’hui</Text>
+            <Text style={styles.todayTitle}>{t('cycleHome.todayLabel')}</Text>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={16} />
           </View>
           <Text style={styles.todayMessage}>{insight.message}</Text>
@@ -229,11 +232,11 @@ function HeroCycleCard({currentDay, cycleLength, moodEntry, phase}: Props): Reac
       </View>
 
       <View style={styles.chipsRow}>
-        <Chip icon="lightning-bolt-outline" label="Énergie" styles={styles} theme={theme} value={insight.energy} />
+        <Chip icon="lightning-bolt-outline" label={t('cycleHome.energyChipLabel')} styles={styles} theme={theme} value={insight.energy} />
         <View style={styles.chipDivider} />
-        <Chip icon="emoticon-outline" label="Humeur" styles={styles} theme={theme} value={insight.mood} />
+        <Chip icon="emoticon-outline" label={t('cycleHome.moodChipLabel')} styles={styles} theme={theme} value={insight.mood} />
         <View style={styles.chipDivider} />
-        <Chip icon="heart-outline" label="Conseil du jour" styles={styles} theme={theme} value={insight.tip} />
+        <Chip icon="heart-outline" label={t('cycleHome.tipChipLabel')} styles={styles} theme={theme} value={insight.tip} />
       </View>
     </Animated.View>
   );

@@ -1,6 +1,8 @@
 import type {DailyJournalEntry, FlowIntensity} from '../types/journal';
 import type {ConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
 import {capitalize, startOfDay} from './cycleMath';
+import {getAppLanguage} from '../state/themePreferences';
+import i18n from '../i18n';
 
 // Pure calculation layer for Cycle Tracking's Statistics screen
 // (StatisticsScreen.tsx). Deliberately free of React/native imports so it
@@ -176,9 +178,9 @@ export function countRecordedStartsForPeriod(
  * so instead of implying she has not recorded anything. */
 export function describeMissingAverageCycleData(confirmedStarts: number, recordedStarts: number): string {
   if (confirmedStarts < 2 && recordedStarts >= 2) {
-    return 'Tes débuts de règles sont enregistrés, mais leur fin n’a pas encore été confirmée. Confirme la fin de tes règles pour les inclure dans cette statistique.';
+    return i18n.t('statistics.missingAverageCycleData.unconfirmedEnds');
   }
-  return 'Continue à renseigner tes règles pour voir apparaître ta durée moyenne.';
+  return i18n.t('statistics.missingAverageCycleData.keepLogging');
 }
 
 export type FlowDistributionEntry = {intensity: FlowIntensity; days: number};
@@ -227,7 +229,7 @@ export function calculateSymptomFrequency(entries: readonly DailyJournalEntry[])
  * duplicating it, per CLAUDE.md's REUSE→EXTEND→CREATE rule. */
 export function formatMonthLabel(monthKey: string): string {
   const [year, month] = monthKey.split('-').map(Number);
-  return capitalize(new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(new Date(year, month - 1, 1)));
+  return capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(new Date(year, month - 1, 1)));
 }
 
 /** Groups journal entries by real calendar month ('YYYY-MM'). Exported for

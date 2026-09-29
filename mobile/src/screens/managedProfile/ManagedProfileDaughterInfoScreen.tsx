@@ -4,15 +4,18 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import BirthDatePickerModal from '../../components/onboarding/BirthDatePickerModal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {formatAgeInYears} from '../../utils/age';
+import {calculateAgeInYears} from '../../utils/age';
 import {getManagedProfileDraft, updateManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {MANAGED_PROFILE_FIRST_NAME_MAX_LENGTH} from '../../state/managedProfilesStore';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 
 // Step 1/4 — "Informations sur votre fille" (reached right after the intro screen,
 // ManagedProfileType). Reads/writes the same in-memory draft
@@ -37,9 +40,14 @@ const DEFAULT_BIRTH_DATE = (() => {
 })();
 
 export default function ManagedProfileDaughterInfoScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  // Date FORMAT only (locale swap) — never the underlying calculation, per
+  // CLAUDE.md's real-data-only rule and this task's own "locale formatting
+  // only" scope.
+  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
 
   const draft = getManagedProfileDraft();
   const [firstName, setFirstName] = useState(draft.firstName);
@@ -70,13 +78,13 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
           : await launchImageLibrary({mediaType: 'photo', quality: 0.8, selectionLimit: 1});
       if (result.didCancel) {return;}
       if (result.errorCode) {
-        Alert.alert('Photo de profil', 'Impossible d’accéder à la caméra ou à la galerie pour le moment.');
+        Alert.alert(t('managedProfile.daughterInfo.photoErrorTitle'), t('managedProfile.daughterInfo.photoErrorAccess'));
         return;
       }
       const uri = result.assets?.[0]?.uri;
       if (uri) {setProfileImageUri(uri);}
     } catch {
-      Alert.alert('Photo de profil', 'Une erreur est survenue. Réessaie.');
+      Alert.alert(t('managedProfile.daughterInfo.photoErrorTitle'), t('managedProfile.daughterInfo.photoErrorGeneric'));
     } finally {
       setPhotoSheetVisible(false);
     }
@@ -84,15 +92,15 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel="Continuer"
-      description="Ces informations nous aident à personnaliser son espace."
+      ctaLabel={t('common.continue')}
+      description={t('managedProfile.daughterInfo.description')}
       onBack={navigation.goBack}
       onContinue={canContinue ? onContinue : undefined}
-      title="Informations sur votre fille">
+      title={t('managedProfile.daughterInfo.title')}>
       <Reveal index={0}>
         <View style={styles.avatarZone}>
           <Pressable
-            accessibilityLabel="Modifier la photo du profil"
+            accessibilityLabel={t('managedProfile.daughterInfo.editPhoto')}
             accessibilityRole="button"
             onPress={() => setPhotoSheetVisible(true)}
             style={({pressed}) => [styles.avatarWrap, pressed && styles.pressed]}>
@@ -123,9 +131,9 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
 
       <Reveal index={1}>
         <View style={styles.fieldCard}>
-          <Text style={styles.label}>Prénom</Text>
+          <Text style={styles.label}>{t('managedProfile.daughterInfo.firstNameLabel')}</Text>
           <TextInput
-            accessibilityLabel="Prénom de votre fille"
+            accessibilityLabel={t('managedProfile.daughterInfo.firstNameAccessibilityLabel')}
             autoCapitalize="words"
             autoComplete="off"
             autoCorrect={false}
@@ -133,7 +141,7 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
             onBlur={() => setFocused(false)}
             onChangeText={setFirstName}
             onFocus={() => setFocused(true)}
-            placeholder="Ex : Lina"
+            placeholder={t('managedProfile.daughterInfo.firstNamePlaceholder')}
             placeholderTextColor={theme.colors.textMuted}
             returnKeyType="done"
             selectionColor={theme.colors.primary}
@@ -146,17 +154,17 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
 
       <Reveal index={2}>
         <Pressable
-          accessibilityLabel="Date de naissance"
+          accessibilityLabel={t('managedProfile.daughterInfo.birthDateLabel')}
           accessibilityRole="button"
           onPress={() => setDatePickerVisible(true)}
           style={({pressed}) => [styles.fieldCard, pressed && styles.pressed]}>
-          <Text style={styles.label}>Date de naissance</Text>
+          <Text style={styles.label}>{t('managedProfile.daughterInfo.birthDateLabel')}</Text>
           <View style={styles.dateRow}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={18} />
             <Text style={[styles.dateText, !birthDate && styles.datePlaceholder]}>
               {birthDate
-                ? new Intl.DateTimeFormat('fr-FR', {day: '2-digit', month: 'long', year: 'numeric'}).format(birthDate)
-                : 'Sélectionner une date'}
+                ? new Intl.DateTimeFormat(dateLocale, {day: '2-digit', month: 'long', year: 'numeric'}).format(birthDate)
+                : t('managedProfile.daughterInfo.birthDatePlaceholder')}
             </Text>
           </View>
         </Pressable>
@@ -166,7 +174,7 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
         <Reveal index={3}>
           <View style={styles.ageCard}>
             <MaterialDesignIcons color={theme.colors.primary} name="cake-variant-outline" size={18} />
-            <Text style={styles.ageText}>Âge : {formatAgeInYears(birthDate)}</Text>
+            <Text style={styles.ageText}>{t('managedProfile.daughterInfo.age', {count: calculateAgeInYears(birthDate)})}</Text>
           </View>
         </Reveal>
       ) : null}
@@ -175,7 +183,7 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
         maximumDate={new Date()}
         onClose={() => setDatePickerVisible(false)}
         onSelect={setBirthDate}
-        title="Date de naissance"
+        title={t('managedProfile.daughterInfo.birthDateLabel')}
         value={birthDate ?? DEFAULT_BIRTH_DATE}
         visible={datePickerVisible}
       />
@@ -190,39 +198,39 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
         visible={photoSheetVisible}>
         <View style={styles.sheetRoot}>
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             onPress={() => setPhotoSheetVisible(false)}
             style={styles.sheetBackdrop}
           />
           <View style={[styles.photoSheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.sheetHandle} />
-            <Text style={styles.sheetTitle}>Photo de profil</Text>
-            <Text style={styles.sheetSubtitle}>Choisissez une photo pour son profil.</Text>
+            <Text style={styles.sheetTitle}>{t('managedProfile.daughterInfo.photoSheetTitle')}</Text>
+            <Text style={styles.sheetSubtitle}>{t('managedProfile.daughterInfo.photoSheetSubtitle')}</Text>
 
             <Pressable
-              accessibilityLabel="Prendre une photo"
+              accessibilityLabel={t('managedProfile.daughterInfo.takePhoto')}
               accessibilityRole="button"
               onPress={() => choosePhoto('camera')}
               style={({pressed}) => [styles.sheetAction, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="camera-outline" size={22} />
-              <Text style={styles.sheetActionText}>Prendre une photo</Text>
+              <Text style={styles.sheetActionText}>{t('managedProfile.daughterInfo.takePhoto')}</Text>
             </Pressable>
 
             <Pressable
-              accessibilityLabel="Choisir dans la galerie"
+              accessibilityLabel={t('managedProfile.daughterInfo.chooseFromGallery')}
               accessibilityRole="button"
               onPress={() => choosePhoto('gallery')}
               style={({pressed}) => [styles.sheetAction, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="image-outline" size={22} />
-              <Text style={styles.sheetActionText}>Choisir dans la galerie</Text>
+              <Text style={styles.sheetActionText}>{t('managedProfile.daughterInfo.chooseFromGallery')}</Text>
             </Pressable>
 
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('common.cancel')}
               accessibilityRole="button"
               onPress={() => setPhotoSheetVisible(false)}
               style={({pressed}) => [styles.sheetCancel, pressed && styles.pressed]}>
-              <Text style={styles.sheetCancelText}>Annuler</Text>
+              <Text style={styles.sheetCancelText}>{t('common.cancel')}</Text>
             </Pressable>
           </View>
         </View>

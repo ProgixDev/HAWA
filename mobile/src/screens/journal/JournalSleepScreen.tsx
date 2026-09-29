@@ -27,13 +27,16 @@ import {
   useNavigation,
   type NavigationProp,
 } from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // Category E — fixed visual island: this hero uses a real illustration
 // (sleep-header-woman.png) with overlay text hand-calibrated for contrast
@@ -46,6 +49,13 @@ const SLEEP_HERO_TEXT_COLOR = '#30205E';
 // Category B — sleep-quality semantic colors (QUALITIES below): each value
 // MUST stay exactly as-is, they represent the tracked sleep-quality category
 // itself, never theme-driven.
+// QUALITIES/FEELINGS labels, and the computed `duration.label` string below,
+// are DATA here (persisted verbatim into dailyJournalStore's `quality`/
+// `wakeFeeling`/`duration` fields — see `save()`), not just display text.
+// Translating them would change what's actually saved/already saved. Left in
+// French — same pattern/reasoning as JournalSymptomsScreen.tsx and
+// JournalActivityScreen.tsx (see their own notes; CLAUDE.md §0/§10/§11).
+// Only this screen's surrounding chrome is localized.
 const QUALITIES = [
   {
     label: 'Très mauvaise',
@@ -130,6 +140,7 @@ function durationBetween(
 }
 
 export default function JournalSleepScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation =
@@ -189,7 +200,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
 
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {
+  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -332,8 +343,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
     if (!duration) {
       Alert.alert(
-        'Horaires incorrects',
-        'Utilise le format HH:MM, par exemple 22:45.',
+        t('journalSleep.invalidTimesTitle'),
+        t('journalSleep.invalidTimesMessage'),
       );
       return;
     }
@@ -358,8 +369,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
       showSuccessToast();
     } catch {
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer ton sommeil pour le moment.",
+        t('journalSleep.errorTitle'),
+        t('journalSleep.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -394,7 +405,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
             },
           ]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             onPress={navigation.goBack}
             style={[
@@ -414,7 +425,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 styles.title,
                 isSmallScreen && styles.titleSmall,
               ]}>
-              Sommeil
+              {t('dailyJournalSheet.items.sleep.title')}
             </Text>
 
             <Text
@@ -423,12 +434,12 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 styles.date,
                 isSmallScreen && styles.dateSmall,
               ]}>
-              {cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}
+              {cycleDay !== null ? t('journalSleep.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer"
+            accessibilityLabel={t('common.save')}
             accessibilityRole="button"
             disabled={saving}
             onPress={save}
@@ -485,8 +496,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                   isSmallScreen &&
                     styles.heroTitleSmall,
                 ]}>
-                Prends soin de ton repos, ton corps te
-                remercie. ♡
+                {t('journalSleep.heroTitle')}
               </Text>
 
               <Text
@@ -495,8 +505,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                   isSmallScreen &&
                     styles.heroTextSmall,
                 ]}>
-                Un bon sommeil soutient ton énergie,
-                ton humeur et ton équilibre hormonal.
+                {t('journalSleep.heroText')}
               </Text>
             </View>
           </ImageBackground>
@@ -504,7 +513,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
           <Card>
             <Heading
               icon="weather-night"
-              title="Heures de sommeil"
+              title={t('journalSleep.sleepHoursTitle')}
             />
 
             <View
@@ -515,7 +524,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
               ]}>
               <TimeInput
                 icon="weather-night"
-                label="Heure du coucher"
+                label={t('journalSleep.bedtimeLabel')}
                 compact={isSmallScreen}
                 onOpen={() =>
                   openTimePicker('bedtime')
@@ -540,7 +549,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
               <TimeInput
                 icon="weather-sunset-up"
-                label="Heure du réveil"
+                label={t('journalSleep.wakeTimeLabel')}
                 compact={isSmallScreen}
                 onOpen={() =>
                   openTimePicker('wakeTime')
@@ -559,12 +568,12 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                 <View>
                   <Text style={styles.smallLabel}>
-                    Durée totale
+                    {t('journalSleep.totalDuration')}
                   </Text>
 
                   <Text style={styles.durationValue}>
                     {duration?.label ??
-                      '-- h -- min'}
+                      t('journalSleep.durationPlaceholder')}
                   </Text>
                 </View>
               </View>
@@ -573,11 +582,11 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
               <View style={styles.goal}>
                 <Text style={styles.smallLabel}>
-                  Objectif recommandé
+                  {t('journalSleep.recommendedGoal')}
                 </Text>
 
                 <Text style={styles.goalValue}>
-                  7 - 9 h ⓘ
+                  {t('journalSleep.recommendedGoalValue')}
                 </Text>
               </View>
             </View>
@@ -586,7 +595,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
           <Card>
             <Heading
               icon="star-outline"
-              title="Qualité du sommeil"
+              title={t('journalSleep.qualityTitle')}
             />
 
             <View
@@ -601,7 +610,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
-                    accessibilityLabel={`Qualité du sommeil : ${item.label}`}
+                    accessibilityLabel={t('journalSleep.qualityAccessibility', {label: item.label})}
                     accessibilityRole="radio"
                     accessibilityState={{checked: active}}
                     key={item.label}
@@ -644,13 +653,13 @@ export default function JournalSleepScreen(): React.JSX.Element {
             <Card style={styles.halfCard}>
               <Heading
                 icon="alarm"
-                title="Réveils nocturnes"
-                subtitle="Combien de fois t’es-tu réveillée ?"
+                title={t('journalSleep.awakeningsTitle')}
+                subtitle={t('journalSleep.awakeningsSubtitle')}
               />
 
               <View style={styles.counterRow}>
                 <Pressable
-                  accessibilityLabel="Diminuer le nombre de réveils"
+                  accessibilityLabel={t('journalSleep.decreaseAwakenings')}
                   onPress={() =>
                     setAwakenings(value =>
                       Math.max(0, value - 1),
@@ -666,12 +675,12 @@ export default function JournalSleepScreen(): React.JSX.Element {
                   </Text>
 
                   <Text style={styles.countLabel}>
-                    fois cette nuit
+                    {t('journalSleep.timesThisNight')}
                   </Text>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Augmenter le nombre de réveils"
+                  accessibilityLabel={t('journalSleep.increaseAwakenings')}
                   onPress={() =>
                     setAwakenings(value =>
                       Math.min(20, value + 1),
@@ -690,9 +699,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 />
 
                 <Text style={styles.tipText}>
-                  C’est normal d’avoir quelques
-                  réveils.{'\n'}
-                  Ton corps se régule progressivement.
+                  {t('journalSleep.awakeningsTip')}
                 </Text>
               </View>
             </Card>
@@ -700,8 +707,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
             <Card style={styles.halfCard}>
               <Heading
                 icon="weather-sunset-up"
-                title="Sensation au réveil"
-                subtitle="Comment te sens-tu au réveil ?"
+                title={t('journalSleep.wakeFeelingTitle')}
+                subtitle={t('journalSleep.wakeFeelingSubtitle')}
               />
 
               <View style={styles.feelingRow}>
@@ -711,7 +718,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                   return (
                     <Pressable
-                      accessibilityLabel={`Sensation au réveil : ${item.label}`}
+                      accessibilityLabel={t('journalSleep.wakeFeelingAccessibility', {label: item.label})}
                       accessibilityRole="radio"
                       accessibilityState={{checked: active}}
                       key={item.label}
@@ -750,10 +757,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 />
 
                 <Text style={styles.tipText}>
-                  Écoute ton corps et accorde-toi
-                  {'\n'}
-                  du repos si tu en ressens le
-                  besoin.
+                  {t('journalSleep.wakeFeelingTip')}
                 </Text>
               </View>
             </Card>
@@ -762,8 +766,8 @@ export default function JournalSleepScreen(): React.JSX.Element {
           <Card>
             <Heading
               icon="pencil-outline"
-              title="Commentaire"
-              subtitle="Ajoute un commentaire si tu le souhaites."
+              title={t('journalMood.commentSectionTitle')}
+              subtitle={t('journalActivity.commentHint')}
               optional
             />
 
@@ -772,7 +776,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                 maxLength={300}
                 multiline
                 onChangeText={setNote}
-                placeholder="Écris ici ce que tu souhaites noter..."
+                placeholder={t('journalSleep.notePlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={styles.note}
                 textAlignVertical="top"
@@ -807,12 +811,12 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
             <Text style={styles.saveText}>
               {saving
-                ? 'Enregistrement…'
-                : 'Enregistrer'}
+                ? t('periodStartSheet.saving')
+                : t('common.save')}
             </Text>
           </Pressable>
 
-          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ce sommeil" /> : null}
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalSleep.clearSubject')} /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -848,11 +852,11 @@ export default function JournalSleepScreen(): React.JSX.Element {
           </View>
 
           <Text style={styles.toastText}>
-            Sommeil enregistré avec succès ✨
+            {t('journalSleep.savedToast')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={hideSuccessToast}
@@ -876,7 +880,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
         visible={activeTimeField !== null}>
         <View style={styles.modalOverlay}>
           <Pressable
-            accessibilityLabel="Fermer la liste des heures"
+            accessibilityLabel={t('journalSleep.closeTimeList')}
             onPress={closeTimePicker}
             style={StyleSheet.absoluteFill}
           />
@@ -905,17 +909,17 @@ export default function JournalSleepScreen(): React.JSX.Element {
               <View style={styles.sheetHeaderCopy}>
                 <Text style={styles.sheetTitle}>
                   {activeTimeField === 'bedtime'
-                    ? 'Heure du coucher'
-                    : 'Heure du réveil'}
+                    ? t('journalSleep.bedtimeLabel')
+                    : t('journalSleep.wakeTimeLabel')}
                 </Text>
 
                 <Text style={styles.sheetSubtitle}>
-                  Sélectionne une heure
+                  {t('journalSleep.selectATime')}
                 </Text>
               </View>
 
               <Pressable
-                accessibilityLabel="Fermer"
+                accessibilityLabel={t('common.close')}
                 hitSlop={8}
                 onPress={closeTimePicker}
                 style={styles.sheetClose}>
@@ -1028,6 +1032,7 @@ function Heading({
   subtitle?: string;
   optional?: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
@@ -1047,7 +1052,7 @@ function Heading({
           {optional ? (
             <Text style={styles.optional}>
               {' '}
-              (optionnel)
+              {t('journalMood.optional')}
             </Text>
           ) : null}
         </Text>

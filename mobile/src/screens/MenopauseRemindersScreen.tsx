@@ -1,5 +1,6 @@
 import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   ScrollView,
@@ -20,16 +21,18 @@ import {spacing, getTopPadding} from '../theme/spacing';
 import {ensureNotificationPermission} from '../services/pregnancyNotifications';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAppLanguage} from '../state/themePreferences';
 import {
   getMenopausePreferences,
   setMenopauseReminderPreferences,
 } from '../state/menopausePreferences';
+import '../i18n';
 
 // Same 'HH:mm' formatting/parsing convention as
 // ContraceptionRemindersScreen.tsx's/PregnancyNotificationsScreen.tsx's own
 // un-exported helpers — kept local since it's pure UI display formatting.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);
@@ -43,6 +46,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'MenopauseReminders'>;
 type TimePickerTarget = 'daily' | 'treatment' | null;
 
 function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const editStyles = useMemo(() => createEditStyles(theme), [theme]);
@@ -115,11 +119,11 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
     // Never persist "enabled" without a real, user-chosen time — no
     // fallback hour is invented here; she must explicitly pick one.
     if (dailyEnabled && !dailyTime) {
-      setError('Choisis une heure pour ton rappel de suivi quotidien.');
+      setError(t('menopauseReminders.dailyTracking.missingTimeError'));
       return;
     }
     if (showTreatmentCard && treatmentEnabled && !treatmentTime) {
-      setError('Choisis une heure pour ton rappel de traitement.');
+      setError(t('menopauseReminders.treatment.missingTimeError'));
       return;
     }
     setError('');
@@ -140,14 +144,14 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
 
   const renderTimeRow = (target: Exclude<TimePickerTarget, null>, time: string | null) => (
     <Pressable
-      accessibilityLabel={time ? `Heure du rappel, ${time}` : 'Choisir une heure de rappel'}
+      accessibilityLabel={time ? t('menopauseReminders.timeAccessibility', {time}) : t('menopauseReminders.chooseTimeAccessibility')}
       accessibilityRole="button"
       onPress={() => setTimePickerTarget(target)}
       style={({pressed}) => [editStyles.timeRow, pressed && editStyles.pressed]}>
-      <Text style={editStyles.timeRowLabel}>Heure</Text>
+      <Text style={editStyles.timeRowLabel}>{t('menopauseReminders.timeRowLabel')}</Text>
       <View style={editStyles.timeRowValueGroup}>
         <Text style={time ? editStyles.timeValue : editStyles.timeValuePlaceholder}>
-          {time ?? 'Choisir'}
+          {time ?? t('menopauseReminders.choosePlaceholderShort')}
         </Text>
         <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={18} />
       </View>
@@ -174,7 +178,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
           showsVerticalScrollIndicator={false}>
           <View style={editStyles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -182,11 +186,11 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
               <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
             </Pressable>
             <View style={editStyles.headerCopy}>
-              <Text style={editStyles.title}>Notifications &amp; rappels</Text>
+              <Text style={editStyles.title}>{t('profile.notificationsAndReminders')}</Text>
               <Text style={editStyles.subtitle}>
                 {showTreatmentCard
-                  ? 'Gère ton rappel de suivi quotidien et ton rappel de traitement.'
-                  : 'Gère ton rappel de suivi quotidien.'}
+                  ? t('menopauseReminders.editSubtitleWithTreatment')
+                  : t('menopauseReminders.editSubtitleDailyOnly')}
               </Text>
             </View>
           </View>
@@ -198,11 +202,11 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                   <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={18} />
                 </View>
                 <View style={editStyles.rowCopy}>
-                  <Text style={editStyles.rowTitle}>Suivi quotidien</Text>
-                  <Text style={editStyles.rowSubtitle}>Un rappel pour compléter ton suivi du jour.</Text>
+                  <Text style={editStyles.rowTitle}>{t('menopauseReminders.dailyTracking.editRowTitle')}</Text>
+                  <Text style={editStyles.rowSubtitle}>{t('menopauseReminders.dailyTracking.editRowSubtitle')}</Text>
                 </View>
                 <Switch
-                  accessibilityLabel="Suivi quotidien"
+                  accessibilityLabel={t('menopauseReminders.dailyTracking.editRowTitle')}
                   ios_backgroundColor={theme.colors.primarySoft}
                   onValueChange={value => {
                     setDailyEnabled(value);
@@ -223,11 +227,11 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                     <MaterialDesignIcons color={theme.colors.primary} name="pill" size={18} />
                   </View>
                   <View style={editStyles.rowCopy}>
-                    <Text style={editStyles.rowTitle}>Traitement hormonal</Text>
-                    <Text style={editStyles.rowSubtitle}>Un rappel pour ne pas oublier ton traitement.</Text>
+                    <Text style={editStyles.rowTitle}>{t('profile.menopause.hormonalTreatmentLabel')}</Text>
+                    <Text style={editStyles.rowSubtitle}>{t('menopauseReminders.treatment.editRowSubtitle')}</Text>
                   </View>
                   <Switch
-                    accessibilityLabel="Traitement hormonal"
+                    accessibilityLabel={t('profile.menopause.hormonalTreatmentLabel')}
                     ios_backgroundColor={theme.colors.primarySoft}
                     onValueChange={value => {
                       setTreatmentEnabled(value);
@@ -278,7 +282,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             <View accessibilityRole="alert" style={editStyles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={editStyles.errorText}>
-                Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                {t('menopauseReminders.permissionNotice')}
               </Text>
             </View>
           ) : null}
@@ -288,7 +292,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             disabled={saving}
             onPress={handleContinue}
             style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
-            <Text style={editStyles.saveButtonText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+            <Text style={editStyles.saveButtonText}>{saving ? t('periodStartSheet.saving') : t('common.save')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -319,7 +323,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -341,9 +345,9 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>Rester régulière dans mon suivi</Text>
+            <Text style={styles.title}>{t('menopauseReminders.title')}</Text>
             <Text style={styles.subtitle}>
-              Active seulement les rappels qui te sont utiles. Tu pourras les modifier plus tard.
+              {t('menopauseReminders.subtitle')}
             </Text>
           </View>
 
@@ -353,8 +357,8 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                 <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>Rappel du suivi quotidien</Text>
-                <Text style={styles.cardDescription}>Un petit rappel pour compléter ton suivi du jour.</Text>
+                <Text style={styles.cardTitle}>{t('menopauseReminders.dailyTracking.cardTitle')}</Text>
+                <Text style={styles.cardDescription}>{t('menopauseReminders.dailyTracking.cardDescription')}</Text>
               </View>
               <Switch
                 ios_backgroundColor={theme.colors.primarySoft}
@@ -370,7 +374,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
 
             {dailyEnabled ? (
               <Pressable
-                accessibilityLabel={dailyTime ? `Heure du rappel, ${dailyTime}` : 'Choisir une heure de rappel'}
+                accessibilityLabel={dailyTime ? t('menopauseReminders.timeAccessibility', {time: dailyTime}) : t('menopauseReminders.chooseTimeAccessibility')}
                 accessibilityRole="button"
                 onPress={() => setTimePickerTarget('daily')}
                 style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
@@ -378,9 +382,9 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                   <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
-                  <Text style={styles.timeLabel}>À quelle heure souhaites-tu être rappelée ?</Text>
+                  <Text style={styles.timeLabel}>{t('menopauseReminders.timeQuestionLabel')}</Text>
                   <Text style={dailyTime ? styles.timeValue : styles.timeValuePlaceholder}>
-                    {dailyTime ?? 'Choisir une heure'}
+                    {dailyTime ?? t('menopauseReminders.chooseTimePlaceholder')}
                   </Text>
                 </View>
                 <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
@@ -395,8 +399,8 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                   <MaterialDesignIcons color={theme.colors.primary} name="pill" size={22} />
                 </View>
                 <View style={styles.cardCopy}>
-                  <Text style={styles.cardTitle}>Rappel de traitement</Text>
-                  <Text style={styles.cardDescription}>Si tu le souhaites, AWA peut te rappeler ton traitement.</Text>
+                  <Text style={styles.cardTitle}>{t('menopauseReminders.treatment.cardTitle')}</Text>
+                  <Text style={styles.cardDescription}>{t('menopauseReminders.treatment.cardDescription')}</Text>
                 </View>
                 <Switch
                   ios_backgroundColor={theme.colors.primarySoft}
@@ -412,7 +416,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
 
               {treatmentEnabled ? (
                 <Pressable
-                  accessibilityLabel={treatmentTime ? `Heure du rappel, ${treatmentTime}` : 'Choisir une heure de rappel'}
+                  accessibilityLabel={treatmentTime ? t('menopauseReminders.timeAccessibility', {time: treatmentTime}) : t('menopauseReminders.chooseTimeAccessibility')}
                   accessibilityRole="button"
                   onPress={() => setTimePickerTarget('treatment')}
                   style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
@@ -420,9 +424,9 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
                     <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.timeCopy}>
-                    <Text style={styles.timeLabel}>À quelle heure souhaites-tu être rappelée ?</Text>
+                    <Text style={styles.timeLabel}>{t('menopauseReminders.timeQuestionLabel')}</Text>
                     <Text style={treatmentTime ? styles.timeValue : styles.timeValuePlaceholder}>
-                      {treatmentTime ?? 'Choisir une heure'}
+                      {treatmentTime ?? t('menopauseReminders.chooseTimePlaceholder')}
                     </Text>
                   </View>
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
@@ -466,7 +470,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={styles.errorText}>
-                Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                {t('menopauseReminders.permissionNotice')}
               </Text>
             </View>
           ) : null}
@@ -476,7 +480,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
               <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
             </View>
             <Text style={styles.infoText}>
-              Tu pourras modifier ces réglages à tout moment dans tes préférences.
+              {t('menopauseReminders.infoText')}
             </Text>
           </View>
 
@@ -488,7 +492,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
             onPress={handleContinue}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Continuer'}
+              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
             </Text>
           </Pressable>
 
@@ -498,7 +502,7 @@ function MenopauseRemindersScreen({navigation, route}: Props): React.JSX.Element
               disabled={saving}
               onPress={handleSkip}
               style={({pressed}) => [styles.skipButton, pressed && styles.pressed]}>
-              <Text style={styles.skipText}>Pas maintenant</Text>
+              <Text style={styles.skipText}>{t('menopauseReminders.skip')}</Text>
             </Pressable>
           ) : null}
         </ScrollView>

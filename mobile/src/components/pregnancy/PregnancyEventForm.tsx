@@ -1,11 +1,13 @@
 import React, {useMemo, useState} from 'react';
 import {Alert, Platform, Pressable, StyleSheet, Switch, Text, TextInput, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 import {
   deletePregnancyMedicalEvent,
   savePregnancyMedicalEvent,
@@ -15,6 +17,7 @@ import {
 } from '../../state/pregnancyMedicalEventsStore';
 import {REMINDER_OFFSETS, REMINDER_OFFSET_LABELS, cancelEventReminder, syncEventReminder} from '../../utils/pregnancyEventReminders';
 import {getPregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
+import '../../i18n';
 
 // Shared Appointment/Exam form — extracted so PregnancyAppointmentScreen.tsx
 // and PregnancyExamScreen.tsx (each locked to one `type`, no selector) and
@@ -28,11 +31,28 @@ import {getPregnancyNotificationSettings} from '../../state/pregnancyNotificatio
 export type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type ActivePicker = 'date' | 'time' | 'reminderTime' | null;
 
+// Frozen, non-translated fallback — still consumed as a plain Record (not a
+// factory) by the legacy combined PregnancyAppointmentsScreen.tsx (confirmed
+// dead code, out of scope for this localization pass; see that file's own
+// header comment). Left untouched so that file keeps compiling. The live
+// dedicated Appointment/Exam form below uses `eventTypeLabels(t)` instead.
 export const TYPE_LABELS: Record<PregnancyMedicalEventType, string> = {appointment: 'Rendez-vous', exam: 'Examen'};
-const TITLE_PLACEHOLDERS: Record<PregnancyMedicalEventType, string> = {
-  appointment: 'Ex. Consultation prénatale',
-  exam: 'Ex. Échographie T2',
-};
+
+// Display-only labels for the persisted PregnancyMedicalEventType enum (the
+// semantic value itself, never the label, is what's saved).
+function eventTypeLabels(t: (key: string) => string): Record<PregnancyMedicalEventType, string> {
+  return {
+    appointment: t('pregnancyEvent.types.appointment'),
+    exam: t('pregnancyEvent.types.exam'),
+  };
+}
+
+function titlePlaceholders(t: (key: string) => string): Record<PregnancyMedicalEventType, string> {
+  return {
+    appointment: t('pregnancyEvent.form.titlePlaceholderAppointment'),
+    exam: t('pregnancyEvent.form.titlePlaceholderExam'),
+  };
+}
 
 export function toISODate(date: Date): string {
   return date.toLocaleDateString('en-CA');
@@ -43,12 +63,16 @@ export function fromISODate(iso: string): Date {
   return new Date(year, month - 1, day);
 }
 
+function dateFormatLocale(): string {
+  return getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+}
+
 function formatLongDate(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 }
 
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 
 function parseTimeToDate(hhmm: string): Date {
@@ -88,6 +112,7 @@ function FieldRow({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <Pressable
       accessibilityRole="button"
@@ -101,7 +126,7 @@ function FieldRow({
         <Text style={styles.fieldValue}>{value}</Text>
       </View>
       {onClear ? (
-        <Pressable accessibilityLabel="Effacer l’heure" hitSlop={8} onPress={onClear} style={styles.fieldClear}>
+        <Pressable accessibilityLabel={t('pregnancyEvent.form.clearTime')} hitSlop={8} onPress={onClear} style={styles.fieldClear}>
           <MaterialDesignIcons color={theme.colors.textSecondary} name="close-circle-outline" size={18} />
         </Pressable>
       ) : (
@@ -168,8 +193,11 @@ function PregnancyEventForm({
   onSaved,
   onDeleted,
 }: PregnancyEventFormProps): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const typeLabels = eventTypeLabels(t);
+  const placeholders = titlePlaceholders(t);
 
   const [dateValue, setDateValue] = useState<Date>(() => (initialEvent ? fromISODate(initialEvent.date) : new Date()));
   const [hasTime, setHasTime] = useState(() => Boolean(initialEvent?.time));
@@ -210,7 +238,7 @@ function PregnancyEventForm({
   };
 
   const save = async () => {
-    if (!title.trim()) {setError('Indique un intitulé.'); return;}
+    if (!title.trim()) {setError(t('pregnancyEvent.form.titleRequired')); return;}
     const now = new Date().toISOString();
     const event: PregnancyMedicalEvent = {
       id: initialEvent?.id ?? `pregnancy-event-${Date.now()}`,
@@ -236,12 +264,12 @@ function PregnancyEventForm({
     if (!initialEvent) {return;}
     const eventId = initialEvent.id;
     Alert.alert(
-      type === 'exam' ? 'Supprimer cet examen ?' : 'Supprimer ce rendez-vous ?',
-      'Cette action supprimera également le rappel associé.',
+      type === 'exam' ? t('pregnancyEvent.form.deleteExamTitle') : t('pregnancyEvent.form.deleteAppointmentTitle'),
+      t('pregnancyEvent.form.deleteMessage'),
       [
-        {text: 'Annuler', style: 'cancel'},
+        {text: t('common.cancel'), style: 'cancel'},
         {
-          text: 'Supprimer',
+          text: t('pregnancyEvent.form.delete'),
           style: 'destructive',
           onPress: async () => {
             const next = await deletePregnancyMedicalEvent(eventId);
@@ -266,7 +294,7 @@ function PregnancyEventForm({
               key={option}
               onPress={() => onTypeChange(option)}
               style={[styles.segmentOption, type === option && styles.segmentOptionActive]}>
-              <Text style={[styles.segmentText, type === option && styles.segmentTextActive]}>{TYPE_LABELS[option]}</Text>
+              <Text style={[styles.segmentText, type === option && styles.segmentTextActive]}>{typeLabels[option]}</Text>
             </Pressable>
           ))}
         </View>
@@ -275,7 +303,7 @@ function PregnancyEventForm({
       <FieldRow
         active={activePicker === 'date'}
         icon="calendar-month-outline"
-        label="Date"
+        label={t('pregnancyEvent.form.dateLabel')}
         onPress={() => setActivePicker(current => (current === 'date' ? null : 'date'))}
         styles={styles}
         theme={theme}
@@ -294,12 +322,12 @@ function PregnancyEventForm({
       <FieldRow
         active={activePicker === 'time'}
         icon="clock-outline"
-        label="Heure (optionnelle)"
+        label={t('pregnancyEvent.form.timeLabel')}
         onClear={hasTime ? () => {setHasTime(false); setActivePicker(null);} : undefined}
         onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
         styles={styles}
         theme={theme}
-        value={hasTime ? formatTimeValue(timeValue) : 'Non définie'}
+        value={hasTime ? formatTimeValue(timeValue) : t('pregnancyEvent.form.timeNotSet')}
       />
       {activePicker === 'time' ? (
         <DateTimePicker
@@ -312,25 +340,47 @@ function PregnancyEventForm({
       ) : null}
 
       <TextField
-        label="Titre"
+        label={t('pregnancyEvent.form.titleLabel')}
         onChangeText={text => {setTitle(text); setError('');}}
-        placeholder={TITLE_PLACEHOLDERS[type]}
+        placeholder={placeholders[type]}
         styles={styles}
         theme={theme}
         value={title}
       />
-      <TextField label="Praticien (optionnel)" onChangeText={setPractitioner} placeholder="Ex. Dr. Benali" styles={styles} theme={theme} value={practitioner} />
-      <TextField label="Lieu (optionnel)" onChangeText={setLocation} placeholder="Ex. Clinique El Nour" styles={styles} theme={theme} value={location} />
-      <TextField label="Notes (optionnelles)" multiline onChangeText={setNotes} placeholder="Ajouter une note..." styles={styles} theme={theme} value={notes} />
+      <TextField
+        label={t('pregnancyEvent.form.practitionerLabel')}
+        onChangeText={setPractitioner}
+        placeholder={t('pregnancyEvent.form.practitionerPlaceholder')}
+        styles={styles}
+        theme={theme}
+        value={practitioner}
+      />
+      <TextField
+        label={t('pregnancyEvent.form.locationLabel')}
+        onChangeText={setLocation}
+        placeholder={t('pregnancyEvent.form.locationPlaceholder')}
+        styles={styles}
+        theme={theme}
+        value={location}
+      />
+      <TextField
+        label={t('pregnancyEvent.form.notesLabel')}
+        multiline
+        onChangeText={setNotes}
+        placeholder={t('pregnancyEvent.form.notesPlaceholder')}
+        styles={styles}
+        theme={theme}
+        value={notes}
+      />
 
       <View style={styles.reminderCard}>
         <View style={styles.reminderHeaderRow}>
           <View style={styles.fieldIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={18} />
           </View>
-          <Text style={styles.reminderLabel}>Rappel</Text>
+          <Text style={styles.reminderLabel}>{t('pregnancyEvent.form.reminderLabel')}</Text>
           <Switch
-            accessibilityLabel="Rappel"
+            accessibilityLabel={t('pregnancyEvent.form.reminderLabel')}
             accessibilityRole="switch"
             accessibilityState={{checked: reminderEnabled}}
             ios_backgroundColor={theme.colors.primarySoft}
@@ -345,11 +395,11 @@ function PregnancyEventForm({
         </View>
 
         {!reminderEnabled ? (
-          <Text style={styles.reminderEmptyText}>Aucun rappel</Text>
+          <Text style={styles.reminderEmptyText}>{t('pregnancyEvent.form.noReminder')}</Text>
         ) : (
           <View style={styles.reminderBody}>
             <Pressable accessibilityRole="button" onPress={() => setReminderOffsetOpen(open => !open)} style={styles.reminderRow}>
-              <Text style={styles.reminderRowLabel}>Me rappeler</Text>
+              <Text style={styles.reminderRowLabel}>{t('pregnancyEvent.form.remindMe')}</Text>
               <View style={styles.reminderRowValueWrap}>
                 <Text style={styles.reminderRowValue}>{REMINDER_OFFSET_LABELS[reminderOffset]}</Text>
                 <MaterialDesignIcons color={theme.colors.textSecondary} name={reminderOffsetOpen ? 'chevron-up' : 'chevron-down'} size={18} />
@@ -379,7 +429,7 @@ function PregnancyEventForm({
                   accessibilityRole="button"
                   onPress={() => setActivePicker(current => (current === 'reminderTime' ? null : 'reminderTime'))}
                   style={styles.reminderRow}>
-                  <Text style={styles.reminderRowLabel}>Heure du rappel</Text>
+                  <Text style={styles.reminderRowLabel}>{t('pregnancyEvent.form.reminderTimeLabel')}</Text>
                   <View style={styles.reminderRowValueWrap}>
                     <Text style={styles.reminderRowValue}>{formatTimeValue(reminderTime)}</Text>
                     <MaterialDesignIcons
@@ -409,16 +459,16 @@ function PregnancyEventForm({
       <View style={styles.actionsRow}>
         {initialEvent ? (
           <Pressable
-            accessibilityLabel={type === 'exam' ? 'Supprimer cet examen' : 'Supprimer ce rendez-vous'}
+            accessibilityLabel={type === 'exam' ? t('pregnancyEvent.form.deleteExamAccessibility') : t('pregnancyEvent.form.deleteAppointmentAccessibility')}
             accessibilityRole="button"
             onPress={requestDelete}
             style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-            <Text style={styles.deleteButtonText}>Supprimer</Text>
+            <Text style={styles.deleteButtonText}>{t('pregnancyEvent.form.delete')}</Text>
           </Pressable>
         ) : null}
 
         <Pressable
-          accessibilityLabel="Enregistrer"
+          accessibilityLabel={t('common.save')}
           accessibilityRole="button"
           accessibilityState={{disabled: !canSave}}
           disabled={!canSave}
@@ -429,7 +479,7 @@ function PregnancyEventForm({
             !canSave && styles.saveButtonDisabled,
             pressed && canSave && styles.pressed,
           ]}>
-          <Text style={styles.saveButtonText}>Enregistrer</Text>
+          <Text style={styles.saveButtonText}>{t('common.save')}</Text>
         </Pressable>
       </View>
     </>

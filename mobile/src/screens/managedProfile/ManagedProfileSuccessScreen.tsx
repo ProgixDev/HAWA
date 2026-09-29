@@ -16,8 +16,10 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
+import '../../i18n';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {
   onPrimaryTextColor,
@@ -158,6 +160,7 @@ export default function ManagedProfileSuccessScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
 
   const styles = useMemo(
@@ -459,7 +462,7 @@ export default function ManagedProfileSuccessScreen({
               />
 
               <Text style={styles.successPillText}>
-                PROFIL CRÉÉ
+                {t('managedProfile.success.pill')}
               </Text>
             </View>
           </AnimatedEntrance>
@@ -469,7 +472,7 @@ export default function ManagedProfileSuccessScreen({
             delay={560}
             distance={14}>
             <Text style={styles.title}>
-              Profil de {firstName} créé avec succès !
+              {t('managedProfile.success.title', {firstName})}
             </Text>
           </AnimatedEntrance>
 
@@ -478,7 +481,7 @@ export default function ManagedProfileSuccessScreen({
             delay={680}
             distance={12}>
             <Text style={styles.subtitle}>
-              Vous pouvez maintenant accéder à son espace et enregistrer ses informations.
+              {t('managedProfile.success.subtitle')}
             </Text>
           </AnimatedEntrance>
 
@@ -498,7 +501,7 @@ export default function ManagedProfileSuccessScreen({
             distance={18}>
 
             <Pressable
-              accessibilityLabel={`Accéder au profil de ${firstName}`}
+              accessibilityLabel={t('managedProfile.success.goToProfile', {firstName})}
               accessibilityRole="button"
               onPress={goToProfile}
               style={({pressed}) => [
@@ -511,7 +514,7 @@ export default function ManagedProfileSuccessScreen({
                 <Text
                   numberOfLines={1}
                   style={styles.primaryText}>
-                  Accéder au profil de {firstName}
+                  {t('managedProfile.success.goToProfile', {firstName})}
                 </Text>
 
                 <View style={styles.primaryIcon}>
@@ -533,7 +536,7 @@ export default function ManagedProfileSuccessScreen({
             distance={12}>
 
             <Pressable
-              accessibilityLabel="Rester sur mon profil"
+              accessibilityLabel={t('managedProfile.success.stayOnMyProfile')}
               accessibilityRole="button"
               onPress={stayOnMyProfile}
               style={({pressed}) => [
@@ -548,7 +551,7 @@ export default function ManagedProfileSuccessScreen({
               />
 
               <Text style={styles.secondaryText}>
-                Rester sur mon profil
+                {t('managedProfile.success.stayOnMyProfile')}
               </Text>
 
             </Pressable>

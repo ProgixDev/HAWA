@@ -1,5 +1,7 @@
 import type {CycleRegularity} from '../state/onboardingPreferences';
 import {getHijriAdjustmentDays} from '../state/onboardingPreferences';
+import {getAppLanguage} from '../state/themePreferences';
+import i18n from '../i18n';
 
 export type DayKind = 'period' | 'fertile' | 'ovulation' | 'normal';
 
@@ -35,14 +37,23 @@ export const sameDay = (a: Date, b: Date): boolean =>
 export const capitalize = (value: string): string =>
   value.length > 0 ? value.charAt(0).toUpperCase() + value.slice(1) : value;
 
+// Locale FORMAT only (never the date calculation itself, per CLAUDE.md's
+// real-data-only rule and this feature's own "locale formatting only"
+// scope) — driven by the same app-wide "Langue de l'application" preference
+// every other localized screen reads (themePreferences.ts's
+// getAppLanguage()). Callers never pass a locale explicitly, so every one of
+// this function's many existing call sites across the app is already
+// correctly localized without needing its own change.
+const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
+
 export const formatShortDate = (date: Date): string =>
   capitalize(
-    new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long'}).format(date),
+    new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long'}).format(date),
   );
 
 export const formatFullDate = (date: Date): string =>
   capitalize(
-    new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date),
+    new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date),
   );
 
 export const formatDateRange = (start: Date, end: Date): string => {
@@ -62,7 +73,7 @@ const withHijriAdjustment = (date: Date): Date => addDays(date, getHijriAdjustme
 export const formatHijriDate = (date: Date): string | undefined => {
   try {
     return capitalize(
-      new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {
+      new Intl.DateTimeFormat(`${dateFormatLocale()}-u-ca-islamic`, {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
@@ -75,7 +86,7 @@ export const formatHijriDate = (date: Date): string | undefined => {
 
 export const formatHijriDay = (date: Date): string | undefined => {
   try {
-    return new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {day: 'numeric'}).format(withHijriAdjustment(date));
+    return new Intl.DateTimeFormat(`${dateFormatLocale()}-u-ca-islamic`, {day: 'numeric'}).format(withHijriAdjustment(date));
   } catch {
     return undefined;
   }
@@ -84,7 +95,7 @@ export const formatHijriDay = (date: Date): string | undefined => {
 export const formatHijriMonthYear = (date: Date): string | undefined => {
   try {
     return capitalize(
-      new Intl.DateTimeFormat('fr-FR-u-ca-islamic', {month: 'long', year: 'numeric'}).format(withHijriAdjustment(date)),
+      new Intl.DateTimeFormat(`${dateFormatLocale()}-u-ca-islamic`, {month: 'long', year: 'numeric'}).format(withHijriAdjustment(date)),
     );
   } catch {
     return undefined;
@@ -575,19 +586,31 @@ export const describeAverageCycle = (
 ): AverageCycleDisplay => {
   if (status.mode === 'window') {
     return {
-      label: 'Cycle variable',
-      value: `${IRREGULAR_WINDOW_MIN_DAYS}–${IRREGULAR_WINDOW_MAX_DAYS} jours`,
-      subtitle: 'Fenêtre estimée',
+      label: i18n.t('averageCycle.variableLabel'),
+      value: i18n.t('averageCycle.variableValue', {min: IRREGULAR_WINDOW_MIN_DAYS, max: IRREGULAR_WINDOW_MAX_DAYS}),
+      subtitle: i18n.t('averageCycle.variableSubtitle'),
     };
   }
   if (status.mode === 'exact' && status.observedPattern === 'regular-looking') {
-    return {label: 'Durée moyenne', value: `${status.averageCycleLength} jours`, subtitle: 'Basée sur tes cycles enregistrés'};
+    return {
+      label: i18n.t('averageCycle.measuredLabel'),
+      value: i18n.t('averageCycle.days', {count: status.averageCycleLength}),
+      subtitle: i18n.t('averageCycle.measuredSubtitle'),
+    };
   }
   if (!hasConfirmedCycleDuration) {
-    return {label: 'Durée habituelle', value: 'Non renseignée', subtitle: 'Complète ton cycle'};
+    return {label: i18n.t('averageCycle.usualLabel'), value: i18n.t('averageCycle.notProvided'), subtitle: i18n.t('averageCycle.notProvidedSubtitle')};
   }
   if (status.mode === 'exact') {
-    return {label: 'Durée habituelle', value: `${status.averageCycleLength} jours`, subtitle: 'Renseignée par toi'};
+    return {
+      label: i18n.t('averageCycle.usualLabel'),
+      value: i18n.t('averageCycle.days', {count: status.averageCycleLength}),
+      subtitle: i18n.t('averageCycle.declaredSubtitle'),
+    };
   }
-  return {label: 'Durée habituelle', value: `${basics.cycleDuration} jours`, subtitle: 'Estimation provisoire'};
+  return {
+    label: i18n.t('averageCycle.usualLabel'),
+    value: i18n.t('averageCycle.days', {count: basics.cycleDuration}),
+    subtitle: i18n.t('averageCycle.estimatedSubtitle'),
+  };
 };

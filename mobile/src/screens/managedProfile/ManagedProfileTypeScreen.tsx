@@ -2,8 +2,10 @@ import React, {useMemo} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
+import '../../i18n';
 import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -32,15 +34,16 @@ const DAUGHTER_ILLUSTRATION = require('../../assets/images/fille.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'ManagedProfileType'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const BENEFITS: Array<{icon: IconName; title: string; subtitle: string}> = [
-  {icon: 'shield-check-outline', title: 'Un espace privé et sécurisé', subtitle: 'Ses données sont séparées\nde votre profil.'},
-  {icon: 'chart-line', title: 'Suivi complet du cycle', subtitle: 'Règles, symptômes, humeur\net plus encore.'},
-  {icon: 'heart-outline', title: 'Une expérience adaptée', subtitle: 'Contenu et fonctionnalités\nspécialement conçus pour elle.'},
-];
-
 export default function ManagedProfileTypeScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const BENEFITS: Array<{icon: IconName; title: string; subtitle: string}> = [
+    {icon: 'shield-check-outline', title: t('managedProfile.intro.benefitPrivacyTitle'), subtitle: t('managedProfile.intro.benefitPrivacySubtitle')},
+    {icon: 'chart-line', title: t('managedProfile.intro.benefitTrackingTitle'), subtitle: t('managedProfile.intro.benefitTrackingSubtitle')},
+    {icon: 'heart-outline', title: t('managedProfile.intro.benefitAdaptedTitle'), subtitle: t('managedProfile.intro.benefitAdaptedSubtitle')},
+  ];
 
   const onContinue = () => {
     // Fresh draft — a previous abandoned attempt (e.g. Back all the way out) can never
@@ -54,8 +57,8 @@ export default function ManagedProfileTypeScreen({navigation}: Props): React.JSX
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel="Continuer"
-      description={'Suivez le cycle de votre fille dans\nun espace sûr et adapté à son âge.'}
+      ctaLabel={t('common.continue')}
+      description={t('managedProfile.intro.description')}
       hero={
         <View style={styles.hero}>
           <Image
@@ -68,7 +71,7 @@ export default function ManagedProfileTypeScreen({navigation}: Props): React.JSX
       }
       onBack={navigation.goBack}
       onContinue={onContinue}
-      title={'Ajouter le profil\nde ma fille'}>
+      title={t('managedProfile.intro.title')}>
       <Reveal index={0}>
         <View style={styles.benefitsCard}>
           {BENEFITS.map((benefit, index) => (

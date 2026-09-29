@@ -1,5 +1,6 @@
 import {useToday} from '../hooks/useToday';
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   KeyboardAvoidingView,
   Platform,
@@ -51,6 +52,7 @@ import {saveJournalSection} from '../state/dailyJournalStore';
 import type {FlowIntensity} from '../types/journal';
 import {computeWeightVariation} from '../utils/irregularDailyTrackingMath';
 import {getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
+import '../i18n';
 
 type IconName = React.ComponentProps<
   typeof MaterialDesignIcons
@@ -75,98 +77,110 @@ const ROSE = '#EA5A8B';
 const ORANGE = '#F29A52';
 const GREEN = '#41A77A';
 
-const CATEGORY_META: Record<
-  IrregularJournalRouteCategory,
-  {
-    title: string;
-    icon: IconName;
-    tint: string;
-    prompt: string;
-    saveLabel: string;
-  }
-> = {
-  period: {
-    title: 'Règles',
-    icon: 'water',
-    tint: '#FFE9F0',
-    prompt:
-      'Renseigne ton flux et les sensations ressenties aujourd’hui.',
-    saveLabel: 'Enregistrer mes règles',
-  },
-
-  acne: {
-    title: 'Acné',
-    icon: 'face-woman-outline',
-    tint: '#FFF0E9',
-    prompt:
-      'Observe simplement l’état de ta peau aujourd’hui.',
-    saveLabel: 'Enregistrer mon suivi',
-  },
-
-  hairGrowth: {
-    title: 'Pilosité',
-    icon: 'human',
-    tint: '#EEE7FC',
-    prompt:
-      'Note les changements que tu souhaites suivre, à ton rythme.',
-    saveLabel: 'Enregistrer mon suivi',
-  },
-
-  weight: {
-    title: 'Poids',
-    icon: 'scale-bathroom',
-    tint: '#EAF4F0',
-    prompt:
-      'Enregistre ta mesure du jour, sans jugement.',
-    saveLabel: 'Enregistrer mon poids',
-  },
-
-  pain: {
-    title: 'Douleurs',
-    icon: 'lightning-bolt-outline',
-    tint: '#FFEDEA',
-    prompt:
-      'Note ce que tu ressens aujourd’hui.',
-    saveLabel: 'Enregistrer mes douleurs',
-  },
-
-  mood: {
-    title: 'Humeur',
-    icon: 'emoticon-outline',
-    tint: '#F2EAFF',
-    prompt:
-      'Comment te sens-tu aujourd’hui ?',
-    saveLabel: 'Enregistrer mon humeur',
-  },
-
-  fatigue: {
-    title: 'Fatigue & symptômes',
-    icon: 'battery-medium',
-    tint: '#EEF0FF',
-    prompt:
-      'Prends un moment pour faire le point sur ta journée.',
-    saveLabel: 'Enregistrer mon suivi',
-  },
+type CategoryMeta = {
+  title: string;
+  icon: IconName;
+  tint: string;
+  saveLabel: string;
+  toastTitle: string;
 };
 
-const PERIOD_STATUS = [
-  {
-    value: 'yes',
-    label: 'Oui',
-    icon: 'check-circle-outline',
-  },
-  {
-    value: 'no',
-    label: 'Non',
-    icon: 'close-circle-outline',
-  },
-  {
-    value: 'spotting',
-    label: 'Spotting',
-    icon: 'water-outline',
-  },
+// Display-only copy for each SOPK journal category. Built from `t()` so it
+// tracks the active language — same `xLabels(t)`/`xMeta(t)` factory pattern
+// as JournalCervicalMucusScreen.tsx's `mucusLabels(t)`. The category "prompt"
+// (hero subtitle) is intentionally NOT here — it carries a `{{day}}`
+// placeholder that must be interpolated in the same `t()` call as the
+// translation lookup (see `categoryPrompt` in the screen body below), never
+// filled in afterwards with a runtime `.replace()` on the translated prose,
+// since the French substring being replaced no longer exists once the
+// string is in English.
+function categoryMeta(t: (key: string) => string): Record<IrregularJournalRouteCategory, CategoryMeta> {
+  return {
+    period: {
+      title: t('irregularJournalEntry.categories.period.title'),
+      icon: 'water',
+      tint: '#FFE9F0',
+      saveLabel: t('irregularJournalEntry.categories.period.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.period.toastTitle'),
+    },
+
+    acne: {
+      title: t('irregularJournalEntry.categories.acne.title'),
+      icon: 'face-woman-outline',
+      tint: '#FFF0E9',
+      saveLabel: t('irregularJournalEntry.categories.acne.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.acne.toastTitle'),
+    },
+
+    hairGrowth: {
+      title: t('irregularJournalEntry.categories.hairGrowth.title'),
+      icon: 'human',
+      tint: '#EEE7FC',
+      saveLabel: t('irregularJournalEntry.categories.hairGrowth.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.hairGrowth.toastTitle'),
+    },
+
+    weight: {
+      title: t('irregularJournalEntry.categories.weight.title'),
+      icon: 'scale-bathroom',
+      tint: '#EAF4F0',
+      saveLabel: t('irregularJournalEntry.categories.weight.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.weight.toastTitle'),
+    },
+
+    pain: {
+      title: t('irregularJournalEntry.categories.pain.title'),
+      icon: 'lightning-bolt-outline',
+      tint: '#FFEDEA',
+      saveLabel: t('irregularJournalEntry.categories.pain.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.pain.toastTitle'),
+    },
+
+    mood: {
+      title: t('irregularJournalEntry.categories.mood.title'),
+      icon: 'emoticon-outline',
+      tint: '#F2EAFF',
+      saveLabel: t('irregularJournalEntry.categories.mood.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.mood.toastTitle'),
+    },
+
+    fatigue: {
+      title: t('irregularJournalEntry.categories.fatigue.title'),
+      icon: 'battery-medium',
+      tint: '#EEF0FF',
+      saveLabel: t('irregularJournalEntry.categories.fatigue.saveLabel'),
+      toastTitle: t('irregularJournalEntry.categories.fatigue.toastTitle'),
+    },
+  };
+}
+
+// `value` is the persisted `status` enum ('yes'/'no'/'spotting', saved
+// verbatim by `save()` below) — never translated. `label` is display-only
+// and comes from `t()` at call sites via `periodStatusOptions(t)`.
+const PERIOD_STATUS_VALUES = [
+  {value: 'yes', icon: 'check-circle-outline'},
+  {value: 'no', icon: 'close-circle-outline'},
+  {value: 'spotting', icon: 'water-outline'},
 ] as const;
 
+function periodStatusOptions(
+  t: (key: string) => string,
+): {value: 'yes' | 'no' | 'spotting'; icon: IconName; label: string}[] {
+  return PERIOD_STATUS_VALUES.map(option => ({
+    ...option,
+    label: t(`irregularJournalEntry.period.status.${option.value}`),
+  }));
+}
+
+// DATA-BEARING — NOT display-only text. `save()` below persists this raw
+// French label string verbatim into `entries[date].acne` (via
+// `summary = value.trim()`), and `irregularJournalSelectors.ts`'s
+// `IRREGULAR_NO_SYMPTOM_ANSWER = 'Aucune'` compares stored category answers
+// against this exact French word to decide whether a day has a positive
+// occurrence. Translating these options would silently corrupt every
+// already-saved entry AND break that "Aucune" comparison, so they stay
+// French — same rule as IRREGULAR_SYMPTOM_OPTIONS/IRREGULAR_INTENSITY_OPTIONS/
+// IRREGULAR_MOOD_OPTIONS in irregularJournalConfig.ts.
 const ACNE_OPTIONS = [
   'Aucune',
   'Légère',
@@ -175,6 +189,9 @@ const ACNE_OPTIONS = [
   'Très marquée',
 ];
 
+// DATA-BEARING — same reasoning as ACNE_OPTIONS above: persisted verbatim
+// into `entries[date].hairGrowth`, and 'Aucune' is compared by
+// isIrregularSymptomAnswer(). Stays French.
 const HAIR_OPTIONS = [
   'Aucune',
   'Légère',
@@ -183,6 +200,13 @@ const HAIR_OPTIONS = [
   'Très importante',
 ];
 
+// DATA-BEARING — persisted verbatim into `details.areas` (via
+// `toggle(setAreas, option)` below), restored on reopen by comparing against
+// these exact strings. Not read by the "Aucune" occurrence logic, but still
+// raw data written to AsyncStorage — translating it would leave a mix of
+// French and English area names across entries saved before/after a language
+// switch. Stays French, same conservative rule as the other local option
+// arrays in this file.
 const PAIN_TYPES = [
   'Crampes',
   'Bas-ventre',
@@ -191,12 +215,16 @@ const PAIN_TYPES = [
   'Autre',
 ];
 
+// DATA-BEARING — persisted verbatim into `details.weightFeeling`. Stays
+// French, same reasoning as PAIN_TYPES above.
 const WEIGHT_FEELINGS = [
   'Bien',
   'Neutre',
   'Préoccupée',
 ];
 
+// DATA-BEARING — persisted verbatim into `details.areas`. Stays French, same
+// reasoning as PAIN_TYPES above.
 const ACNE_AREAS = [
   'Visage',
   'Dos',
@@ -204,6 +232,8 @@ const ACNE_AREAS = [
   'Autre',
 ];
 
+// DATA-BEARING — persisted verbatim into `details.areas`. Stays French, same
+// reasoning as PAIN_TYPES above.
 const HAIR_AREAS = [
   'Visage',
   'Menton',
@@ -213,6 +243,9 @@ const HAIR_AREAS = [
   'Autre',
 ];
 
+// DATA-BEARING — persisted verbatim into `details.symptoms` (the pain
+// category's own "Zones concernées", distinct from `entry.symptoms` used by
+// Fatigue). Stays French, same reasoning as PAIN_TYPES above.
 const PAIN_AREAS = [
   'Bas-ventre',
   'Dos',
@@ -221,6 +254,12 @@ const PAIN_AREAS = [
   'Autre',
 ];
 
+// Lookup only, never rendered as UI copy — maps the raw French flow-intensity
+// value (IRREGULAR_INTENSITY_OPTIONS[1..4], itself DATA-BEARING and never
+// translated) to the stable FlowIntensity enum mirrored into the shared
+// dailyJournalStore. Left untouched: as long as IRREGULAR_INTENSITY_OPTIONS's
+// values stay French, this mapping keeps working correctly regardless of the
+// app's display language.
 const FLOW_MAP: Record<string, FlowIntensity> = {
   Légère: 'light',
   Modérée: 'moderate',
@@ -452,6 +491,7 @@ function NotesField({
   value: string;
   onChangeText: (text: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -468,22 +508,22 @@ function NotesField({
 
         <View style={styles.sectionCopy}>
           <Text style={styles.sectionTitle}>
-            Notes
+            {t('irregularJournalEntry.notes.title')}
           </Text>
 
           <Text style={styles.optional}>
-            Optionnel
+            {t('irregularJournalEntry.optional')}
           </Text>
         </View>
       </View>
 
       <View style={styles.noteContainer}>
         <TextInput
-          accessibilityLabel="Note personnelle"
+          accessibilityLabel={t('irregularJournalEntry.notes.accessibilityLabel')}
           maxLength={300}
           multiline
           onChangeText={onChangeText}
-          placeholder="Ajouter une note…"
+          placeholder={t('irregularJournalEntry.notes.placeholder')}
           placeholderTextColor={theme.colors.textMuted}
           style={styles.noteInput}
           textAlignVertical="top"
@@ -503,6 +543,7 @@ function NotesField({
  * ========================================================== */
 
 export default function IrregularJournalEntryScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -516,7 +557,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
   const requestedDate = route.params.date;
 
   const insets = useSafeAreaInsets();
-  const meta = CATEGORY_META[category];
+  const meta = useMemo(() => categoryMeta(t)[category], [t, category]);
 
   // Re-evaluated when the local day changes / the app returns to the
   // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
@@ -532,8 +573,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
       : todayKey;
   const isFutureEntryDate = entryDateKey > todayKey;
   const isPastEntryDate = entryDateKey < todayKey;
-  // Wording only: a past day is never described as "aujourd’hui".
-  const dayWord = isPastEntryDate ? 'ce jour-là' : 'aujourd’hui';
+  // Wording only: a past day is never described as "today".
+  const dayWord = isPastEntryDate
+    ? t('irregularJournalEntry.dayWord.past')
+    : t('irregularJournalEntry.dayWord.today');
+  // The hero prompt's `{{day}}` placeholder is interpolated here, in the
+  // same t() call as the lookup — never via a runtime `.replace()` on the
+  // already-translated string (see the comment on `categoryMeta` above).
+  const categoryPrompt = t(`irregularJournalEntry.categories.${category}.prompt`, {day: dayWord});
 
   const [value, setValue] = useState('');
   const [secondary, setSecondary] = useState('');
@@ -669,7 +716,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
     if (isFutureEntryDate) {
       setError(
-        'Tu ne peux pas enregistrer un suivi pour une date à venir.',
+        t('irregularJournalEntry.errors.futureDate'),
       );
       return;
     }
@@ -680,8 +727,8 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
     ) {
       setError(
         isPastEntryDate
-          ? 'Choisis si tu avais tes règles ce jour-là avant d’enregistrer.'
-          : 'Choisis si tu as tes règles aujourd’hui avant d’enregistrer.',
+          ? t('irregularJournalEntry.errors.periodStatusPast')
+          : t('irregularJournalEntry.errors.periodStatusToday'),
       );
       return;
     }
@@ -692,7 +739,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
       !value
     ) {
       setError(
-        'Choisis l’intensité du flux avant d’enregistrer.',
+        t('irregularJournalEntry.errors.periodFlow'),
       );
       return;
     }
@@ -702,7 +749,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
       !value.trim()
     ) {
       setError(
-        'Choisis une réponse avant d’enregistrer.',
+        t('irregularJournalEntry.errors.chooseAnswer'),
       );
       return;
     }
@@ -739,6 +786,13 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
           : undefined,
     };
 
+    // DATA-BEARING — NOT display-only text. This compact summary is
+    // persisted verbatim into `entries[date].period` (see
+    // saveIrregularJournalEntry below, `summary` param) — it is a stored
+    // record, not the on-screen PERIOD_STATUS radio labels (those ARE
+    // translated via periodStatusOptions(t) above). Stays French, same
+    // reasoning as ACNE_OPTIONS/HAIR_OPTIONS above and the imported
+    // IRREGULAR_INTENSITY_OPTIONS (also embedded here via `value`).
     const periodSummary =
       periodStatus === 'no'
         ? 'Non'
@@ -789,12 +843,8 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
       );
 
       saveToast.show(
-        `${meta.title} enregistré${
-          category === 'period'
-            ? 'es'
-            : ''
-        }`,
-        'Ton suivi du jour a bien été mis à jour.',
+        meta.toastTitle,
+        t('irregularJournalEntry.toastMessage'),
         navigation.goBack,
       );
     } finally {
@@ -852,7 +902,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
 
           <View style={styles.topBar}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -872,7 +922,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                 {meta.title}
               </Text>
               <Text numberOfLines={1} style={styles.topBarSubtitle}>
-                Suivi du jour
+                {t('irregularJournalEntry.todaySubtitle')}
               </Text>
             </View>
 
@@ -919,13 +969,13 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     styles.heroEyebrow,
                     {color: category === 'period' ? ROSE : ACCENT},
                   ]}>
-                  SUIVI SOPK
+                  {t('irregularJournalEntry.todayEyebrow')}
                 </Text>
               </View>
 
               <Text style={styles.heroTitle}>{meta.title}</Text>
               <Text style={styles.heroPrompt}>
-                {isPastEntryDate ? meta.prompt.replace('aujourd’hui', dayWord) : meta.prompt}
+                {categoryPrompt}
               </Text>
               {isPastEntryDate || isFutureEntryDate ? (
                 <Text style={styles.heroPrompt}>
@@ -941,13 +991,13 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                 <Text
                   style={styles.cardTitle}>
                   {isPastEntryDate
-                    ? 'As-tu eu tes règles ce jour-là ?'
-                    : 'As-tu tes règles aujourd’hui ?'}
+                    ? t('irregularJournalEntry.period.questionPast')
+                    : t('irregularJournalEntry.period.questionToday')}
                 </Text>
 
                 <View
                   style={styles.stack}>
-                  {PERIOD_STATUS.map(
+                  {periodStatusOptions(t).map(
                     option => (
                       <ChoiceRow
                         icon={option.icon}
@@ -981,7 +1031,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.cardTitle
                     }>
-                    Intensité du flux
+                    {t('irregularJournalEntry.period.flowIntensityTitle')}
                   </Text>
 
                   <View
@@ -1023,9 +1073,12 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       styles.cardTitle,
                       styles.subsectionTitle,
                     ]}>
-                    Douleurs associées ?
+                    {t('irregularJournalEntry.period.associatedPainTitle')}
                   </Text>
 
+                  {/* DATA-BEARING — persisted verbatim into
+                      details.painLevel. Stays French, same reasoning as
+                      ACNE_OPTIONS above. */}
                   <View
                     style={
                       styles.fourGrid
@@ -1070,8 +1123,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  État de ta peau{' '}
-                  {dayWord}
+                  {t('irregularJournalEntry.acne.skinStateTitle', {day: dayWord})}
                 </Text>
 
                 <View
@@ -1105,14 +1157,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.cardTitle
                     }>
-                    Zones concernées
+                    {t('irregularJournalEntry.areasTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.optionalBadge
                     }>
-                    Optionnel
+                    {t('irregularJournalEntry.optional')}
                   </Text>
                 </View>
 
@@ -1139,7 +1191,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  Niveau {dayWord}
+                  {t('irregularJournalEntry.hairGrowth.levelTitle', {day: dayWord})}
                 </Text>
 
                 <View
@@ -1172,14 +1224,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.cardTitle
                     }>
-                    Zones concernées
+                    {t('irregularJournalEntry.areasTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.optionalBadge
                     }>
-                    Optionnel
+                    {t('irregularJournalEntry.optional')}
                   </Text>
                 </View>
 
@@ -1202,9 +1254,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.helperText
                     }>
-                    Sélectionne les zones
-                    que tu souhaites
-                    suivre.
+                    {t('irregularJournalEntry.hairGrowth.helperText')}
                   </Text>
                 </View>
 
@@ -1230,7 +1280,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  {isPastEntryDate ? 'Ton poids ce jour-là' : 'Ton poids aujourd’hui'}
+                  {isPastEntryDate ? t('irregularJournalEntry.weight.titlePast') : t('irregularJournalEntry.weight.titleToday')}
                 </Text>
 
                 <View
@@ -1249,12 +1299,12 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   </View>
 
                   <TextInput
-                    accessibilityLabel="Poids du jour"
+                    accessibilityLabel={t('irregularJournalEntry.weight.accessibilityLabel')}
                     keyboardType="decimal-pad"
                     onChangeText={
                       setValue
                     }
-                    placeholder="Ex. 64,2 kg"
+                    placeholder={t('irregularJournalEntry.weight.placeholder')}
                     placeholderTextColor={theme.colors.textMuted}
                     style={
                       styles.weightInput
@@ -1278,8 +1328,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       style={
                         styles.variationText
                       }>
-                      Variation depuis
-                      la dernière mesure :{' '}
+                      {t('irregularJournalEntry.weight.variationLabel')}{' '}
                       <Text
                         style={
                           styles.variationStrong
@@ -1294,8 +1343,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  Comment te sens-tu par
-                  rapport à ton poids ?
+                  {t('irregularJournalEntry.weight.feelingTitle')}
                 </Text>
 
                 <View
@@ -1346,8 +1394,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
               <View style={styles.card}>
                 <Text
                   style={styles.cardTitle}>
-                  Quelles douleurs
-                  ressens-tu ?
+                  {t('irregularJournalEntry.pain.whichPainTitle')}
                 </Text>
 
                 <Chips
@@ -1367,7 +1414,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     styles.cardTitle,
                     styles.subsectionTitle,
                   ]}>
-                  Intensité
+                  {t('irregularJournalEntry.pain.intensityTitle')}
                 </Text>
 
                 <View
@@ -1401,14 +1448,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.cardTitle
                     }>
-                    Zones concernées
+                    {t('irregularJournalEntry.areasTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.optionalBadge
                     }>
-                    Optionnel
+                    {t('irregularJournalEntry.optional')}
                   </Text>
                 </View>
 
@@ -1433,7 +1480,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
             <View style={styles.card}>
               <Text
                 style={styles.cardTitle}>
-                {isPastEntryDate ? 'Comment te sentais-tu ce jour-là ?' : 'Comment te sens-tu aujourd’hui ?'}
+                {isPastEntryDate ? t('irregularJournalEntry.mood.questionPast') : t('irregularJournalEntry.mood.questionToday')}
               </Text>
 
               <View
@@ -1504,16 +1551,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.kindnessTitle
                     }>
-                    Chaque émotion est
-                    normale
+                    {t('irregularJournalEntry.mood.kindnessTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.kindnessText
                     }>
-                    Prends soin de toi,
-                    à ton rythme.
+                    {t('irregularJournalEntry.mood.kindnessText')}
                   </Text>
                 </View>
               </View>
@@ -1528,10 +1573,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                 <Text
                   style={styles.cardTitle}>
                   {isPastEntryDate
-                    ? 'Ton niveau de fatigue ce jour-là'
-                    : 'Ton niveau de fatigue aujourd’hui'}
+                    ? t('irregularJournalEntry.fatigue.levelTitlePast')
+                    : t('irregularJournalEntry.fatigue.levelTitleToday')}
                 </Text>
 
+                {/* DATA-BEARING — persisted verbatim into
+                    entries[date].fatigue, and 'Aucune' is compared by
+                    isIrregularSymptomAnswer(). Stays French, same reasoning
+                    as ACNE_OPTIONS above. */}
                 <View
                   style={
                     styles.fourGrid
@@ -1586,14 +1635,14 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     style={
                       styles.cardTitle
                     }>
-                    Symptômes associés
+                    {t('irregularJournalEntry.fatigue.symptomsTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.optionalBadge
                     }>
-                    Optionnel
+                    {t('irregularJournalEntry.optional')}
                   </Text>
                 </View>
 
@@ -1601,8 +1650,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                   style={
                     styles.sectionDescription
                   }>
-                  Sélectionne tout ce qui
-                  s’applique {dayWord}.
+                  {t('irregularJournalEntry.fatigue.symptomsDescription', {day: dayWord})}
                 </Text>
 
                 <Chips
@@ -1677,7 +1725,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
             <Text
               style={styles.saveText}>
               {saving
-                ? 'Enregistrement…'
+                ? t('periodStartSheet.saving')
                 : meta.saveLabel}
             </Text>
           </Pressable>

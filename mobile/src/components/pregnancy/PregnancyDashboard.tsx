@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -39,6 +40,7 @@ import {
   getFirstName,
   getSpiritualMarkersEnabled,
 } from '../../state/onboardingPreferences';
+import { getAppLanguage } from '../../state/themePreferences';
 import {
   getPregnancyDating,
   hydratePregnancyDating,
@@ -77,6 +79,7 @@ import {
 import { getPregnancyWeekData } from '../../data/pregnancyWeekData';
 import type { DailyJournalEntry } from '../../types/journal';
 import BabyDevelopmentImage from './BabyDevelopmentImage';
+import '../../i18n';
 
 const WOMAN = require('../../assets/images/pregnancy/pregnancy-woman-week18.png');
 // No week-specific, medically-validated fetal illustration exists yet (see
@@ -110,53 +113,68 @@ type Route =
 // Notes/RDV were never part of the Journal quotidien and never appear here),
 // plus any category that already has an entry today, so recorded data is
 // never hidden by a later preference change. History is untouched either way.
+type DailyItemPreferenceKey = 'symptoms' | 'weight' | 'mood' | 'sleep' | 'medicalInfo';
+
 const DAILY_ITEMS: Array<{
-  label: string;
   icon: IconName;
   route: Route;
-  preferenceKey: PregnancyTrackingPreference;
+  preferenceKey: DailyItemPreferenceKey;
 }> = [
   {
-    label: 'Symptômes',
     icon: 'clipboard-pulse-outline',
     route: 'PregnancySymptoms',
     preferenceKey: 'symptoms',
   },
   {
-    label: 'Poids',
     icon: 'scale-bathroom',
     route: 'PregnancyWeight',
     preferenceKey: 'weight',
   },
   {
-    label: 'Humeur',
     icon: 'heart-outline',
     route: 'MoodEntry',
     preferenceKey: 'mood',
   },
   {
-    label: 'Sommeil',
     icon: 'weather-night',
     route: 'SleepEntry',
     preferenceKey: 'sleep',
   },
   {
-    label: 'Infos médicales',
     icon: 'shield-lock-outline',
     route: 'PregnancyMedicalInformation',
     preferenceKey: 'medicalInfo',
   },
 ];
 
+// Display-only labels for "Suivi du jour"'s items — DAILY_ITEMS only ever
+// uses these 5 of the 9 PregnancyTrackingPreference values (Hydratation/
+// Activité/Notes/RDV are never part of this card, see the comment above), so
+// only those 5 get a key here; same enum-keyed label-map factory pattern as
+// JournalCervicalMucusScreen's mucusLabels(t).
+function pregnancyDailyItemLabels(
+  t: (key: string) => string,
+): Record<DailyItemPreferenceKey, string> {
+  return {
+    symptoms: t('pregnancyDashboard.dailyItems.symptoms'),
+    weight: t('pregnancyDashboard.dailyItems.weight'),
+    mood: t('pregnancyDashboard.dailyItems.mood'),
+    sleep: t('pregnancyDashboard.dailyItems.sleep'),
+    medicalInfo: t('pregnancyDashboard.dailyItems.medicalInfo'),
+  };
+}
+
 function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
+  const { t } = useTranslation();
 
   const compact = width < 370;
   const veryCompact = width < 345;
 
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const dailyItemLabels = useMemo(() => pregnancyDailyItemLabels(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
   const float = useRef(new Animated.Value(0)).current;
@@ -248,8 +266,8 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   );
   const showDeliveryCta = hasConfirmedDelivery || isLatePregnancy(status);
   const deliveryCtaLabel = hasConfirmedDelivery
-    ? 'Démarrer mon suivi post-partum'
-    : 'J’ai accouché';
+    ? t('pregnancyDashboard.deliveryCta.startPostpartum')
+    : t('pregnancyDashboard.deliveryCta.iGaveBirth');
   const deliveryDateForCard = useMemo(
     () =>
       postpartum.deliveryDate && hasConfirmedDelivery
@@ -363,7 +381,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'mosque',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Horaires\nde prière',
+      label: t('cycleHome.quickActions.prayerTimes'),
       onPress: () => navigation.navigate('PrayerTimes'),
     },
     {
@@ -371,7 +389,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'book-open-page-variant-outline',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Bibliothèque',
+      label: t('cycleHome.quickActions.library'),
       onPress: () => navigation.navigate('Library'),
     },
     // Category E (fixed action-identity accent, same as Cycle D1,
@@ -381,7 +399,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'notebook-edit-outline',
       iconColor: '#B23F63',
       iconBg: '#F9DCE8',
-      label: 'Journal quotidien',
+      label: t('cycleHome.quickActions.dailyJournal'),
       onPress: openPregnancyJournal,
     },
     {
@@ -389,7 +407,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'moon-waning-crescent',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Calendrier Hijri',
+      label: t('cycleHome.quickActions.hijriCalendar'),
       onPress: () => navigation.navigate('HijriCalendar'),
     },
     {
@@ -397,7 +415,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'silverware-fork-knife',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Jeûne à rattraper',
+      label: t('cycleHome.quickActions.qadaa'),
       onPress: () => navigation.navigate('FastingQadaa'),
     },
     // Category E (fixed action-identity accent, same as Cycle D1,
@@ -407,7 +425,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'chart-donut',
       iconColor: '#2C8E93',
       iconBg: '#DDF0F1',
-      label: 'Statistiques',
+      label: t('cycleHome.quickActions.statistics'),
       onPress: () => navigation.navigate('Statistics'),
     },
   ];
@@ -548,7 +566,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                       />
                     </View>
 
-                    <Text style={styles.weekLabel}>Semaine actuelle</Text>
+                    <Text style={styles.weekLabel}>{t('pregnancyDashboard.hero.weekLabel')}</Text>
                   </View>
 
                   <View
@@ -574,8 +592,8 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     adjustsFontSizeToFit
                     style={[styles.age, compact && styles.ageCompact]}
                   >
-                    {status.gestationalWeeks} SA + {status.gestationalDays}{' '}
-                    jours
+                    {status.gestationalWeeks} {t('pregnancyDashboard.hero.weeksUnit')} +{' '}
+                    {t('pregnancyDashboard.hero.daysCount', {count: status.gestationalDays})}
                   </Text>
 
                   <View style={styles.weekDivider} />
@@ -596,7 +614,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 {/* FEMME */}
 
                 <Image
-                  accessibilityLabel="Illustration d’une femme enceinte"
+                  accessibilityLabel={t('pregnancyDashboard.hero.womanIllustrationAccessibility')}
                   resizeMode="contain"
                   source={WOMAN}
                   style={[
@@ -622,7 +640,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                       />
                     </View>
 
-                    <Text style={styles.muted}>DPA</Text>
+                    <Text style={styles.muted}>{t('pregnancyDashboard.due.dueDateLabel')}</Text>
                   </View>
 
                   <Text
@@ -631,7 +649,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     style={styles.dueValue}
                   >
                     {status.estimatedDueDate
-                      ? new Intl.DateTimeFormat('fr-FR', {
+                      ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
                           day: 'numeric',
                           month: 'long',
                           year: 'numeric',
@@ -652,7 +670,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                       />
                     </View>
 
-                    <Text style={styles.muted}>Temps restant</Text>
+                    <Text style={styles.muted}>{t('pregnancyDashboard.due.remainingTimeLabel')}</Text>
                   </View>
 
                   <Text
@@ -660,13 +678,13 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     adjustsFontSizeToFit
                     style={styles.remainingValue}
                   >
-                    {status.remainingWeeks} semaines
+                    {t('pregnancyDashboard.due.remainingWeeksCount', {count: status.remainingWeeks})}
                     {status.remainingDaysRemainder > 0
-                      ? ` + ${status.remainingDaysRemainder} jours`
+                      ? ` ${t('pregnancyDashboard.due.remainingDaysSuffix', {count: status.remainingDaysRemainder})}`
                       : ''}
                   </Text>
 
-                  <Text style={styles.remainingSub}>restantes</Text>
+                  <Text style={styles.remainingSub}>{t('pregnancyDashboard.due.remainingSubLabel')}</Text>
                 </View>
               </View>
 
@@ -709,7 +727,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Voir les informations de cette semaine"
+                accessibilityLabel={t('pregnancyDashboard.baby.viewWeekAccessibility')}
                 onPress={() => navigation.navigate('PregnancyWeek')}
                 style={({ pressed }) => [
                   styles.babyCard,
@@ -718,32 +736,32 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 ]}
               >
                 <View style={styles.babyCopy}>
-                  <Text style={styles.cardTitle}>Cette semaine</Text>
+                  <Text style={styles.cardTitle}>{t('pregnancyDashboard.baby.title')}</Text>
 
-                  <Text style={styles.babyEyebrow}>Ton bébé</Text>
+                  <Text style={styles.babyEyebrow}>{t('pregnancyDashboard.baby.eyebrow')}</Text>
 
                   <Text style={styles.babyLine}>
                     {weekData?.babyDescription ??
-                      'Les informations détaillées de cette semaine seront bientôt disponibles.'}
+                      t('pregnancyDashboard.baby.detailsUnavailable')}
                   </Text>
 
                   {weekData?.weight ? (
                     <Text style={styles.babyLine}>
-                      Pèse environ{' '}
+                      {t('pregnancyDashboard.baby.weighsAbout')}{' '}
                       <Text style={styles.strong}>{weekData.weight}</Text>
                     </Text>
                   ) : null}
 
                   {weekData?.length ? (
                     <Text style={styles.babyLine}>
-                      Mesure environ{' '}
+                      {t('pregnancyDashboard.baby.measuresAbout')}{' '}
                       <Text style={styles.strong}>{weekData.length}</Text>
                     </Text>
                   ) : null}
 
                   <View style={styles.weekLink}>
                     <Text style={styles.weekLinkText}>
-                      Découvrir la semaine
+                      {t('pregnancyDashboard.baby.discoverWeekLink')}
                     </Text>
 
                     <MaterialDesignIcons
@@ -756,13 +774,13 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
 
                 {weekData?.babyImage != null ? (
                   <BabyDevelopmentImage
-                    accessibilityLabel={`Illustration du bébé à la semaine ${status.week}`}
+                    accessibilityLabel={t('pregnancyDashboard.baby.babyIllustrationAccessibility', {week: status.week})}
                     source={weekData.babyImage}
                     style={[styles.baby, compact && styles.babyCompact]}
                   />
                 ) : (
                   <View
-                    accessibilityLabel="Illustration non disponible pour cette semaine"
+                    accessibilityLabel={t('pregnancyDashboard.baby.illustrationUnavailableAccessibility')}
                     style={[
                       styles.baby,
                       compact && styles.babyCompact,
@@ -782,6 +800,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
             <UnconfiguredPregnancyCard
               onConfigure={() => navigation.navigate('PregnancyDatingSetup', {mode: 'edit'})}
               styles={styles}
+              t={t}
               theme={theme}
             />
           )}
@@ -798,11 +817,11 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
           >
             <AppointmentCard
               icon="calendar-month-outline"
-              label="Prochain RDV"
+              label={t('pregnancyDashboard.appointments.nextAppointmentLabel')}
               lines={
                 nextAppointment
                   ? [
-                      new Intl.DateTimeFormat('fr-FR', {
+                      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
@@ -811,7 +830,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                       nextAppointment.title,
                       nextAppointment.practitioner ?? '',
                     ].filter(Boolean)
-                  : ['Aucun rendez-vous prévu']
+                  : [t('pregnancyDashboard.appointments.noAppointmentScheduled')]
               }
               onPress={() =>
                 navigation.navigate('PregnancyAppointment', {
@@ -824,11 +843,11 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
 
             <AppointmentCard
               icon="medical-bag"
-              label="Prochain examen"
+              label={t('pregnancyDashboard.appointments.nextExamLabel')}
               lines={
                 nextExam
                   ? [
-                      new Intl.DateTimeFormat('fr-FR', {
+                      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
@@ -836,7 +855,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                       nextExam.time ?? '',
                       nextExam.title,
                     ].filter(Boolean)
-                  : ['Aucun examen prévu']
+                  : [t('pregnancyDashboard.appointments.noExamScheduled')]
               }
               onPress={() =>
                 navigation.navigate('PregnancyExam', {
@@ -855,10 +874,10 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
           <View style={styles.dailyCard}>
             <View style={styles.dailyHeader}>
               <View>
-                <Text style={styles.cardTitle}>Suivi du jour</Text>
+                <Text style={styles.cardTitle}>{t('pregnancyDashboard.daily.title')}</Text>
 
                 <Text style={styles.dailySubtitle}>
-                  Prends un instant pour toi
+                  {t('pregnancyDashboard.daily.subtitle')}
                 </Text>
               </View>
 
@@ -866,7 +885,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 <Text style={styles.dailyProgressStrong}>
                   {completedTodayCount} / {dailyItems.length}
                 </Text>{' '}
-                complété
+                {t('pregnancyDashboard.daily.completedLabel')}
               </Text>
             </View>
 
@@ -888,10 +907,10 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
             {dailyItems.length === 0 ? (
               <View>
                 <Text style={styles.dailySubtitle}>
-                  Aucune catégorie de suivi n’est sélectionnée pour le moment.
+                  {t('pregnancyDashboard.daily.noCategoriesSelected')}
                 </Text>
                 <Pressable
-                  accessibilityLabel="Choisir mes suivis"
+                  accessibilityLabel={t('pregnancyDashboard.daily.chooseTrackingCta')}
                   accessibilityRole="button"
                   onPress={() =>
                     navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})
@@ -901,7 +920,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     pressed && styles.pressed,
                   ]}
                 >
-                  <Text style={styles.unconfiguredButtonText}>Choisir mes suivis</Text>
+                  <Text style={styles.unconfiguredButtonText}>{t('pregnancyDashboard.daily.chooseTrackingCta')}</Text>
                 </Pressable>
               </View>
             ) : null}
@@ -912,12 +931,13 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                 // of today (isCategoryDoneToday → isPregnancyTrackingCategoryCompleted),
                 // never from the X / N counter.
                 const done = isCategoryDoneToday(item.preferenceKey);
+                const itemLabel = dailyItemLabels[item.preferenceKey];
                 return (
                 <Pressable
-                  accessibilityLabel={item.label}
+                  accessibilityLabel={itemLabel}
                   accessibilityRole="button"
-                  accessibilityValue={done ? { text: 'complété' } : undefined}
-                  key={item.label}
+                  accessibilityValue={done ? { text: t('pregnancyDashboard.daily.completedLabel') } : undefined}
+                  key={item.preferenceKey}
                   onPress={() => {
                     if (item.route === 'PregnancyMedicalInformation') {
                       requirePrivateAccess(
@@ -953,7 +973,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                   </View>
 
                   <Text numberOfLines={2} style={styles.dailyLabel}>
-                    {item.label}
+                    {itemLabel}
                   </Text>
                 </Pressable>
                 );
@@ -1037,10 +1057,12 @@ function UnconfiguredPregnancyCard({
   onConfigure,
   theme,
   styles,
+  t,
 }: {
   onConfigure: () => void;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
+  t: (key: string) => string;
 }): React.JSX.Element {
   return (
     <View style={styles.unconfiguredCard}>
@@ -1051,13 +1073,12 @@ function UnconfiguredPregnancyCard({
           size={30}
         />
       </View>
-      <Text style={styles.unconfiguredTitle}>Configurer ma grossesse</Text>
+      <Text style={styles.unconfiguredTitle}>{t('pregnancyDashboard.unconfigured.title')}</Text>
       <Text style={styles.unconfiguredText}>
-        Indique le début de ta grossesse pour voir ta semaine, ta date prévue
-        d’accouchement et ta progression.
+        {t('pregnancyDashboard.unconfigured.description')}
       </Text>
       <Pressable
-        accessibilityLabel="Configurer ma grossesse"
+        accessibilityLabel={t('pregnancyDashboard.unconfigured.title')}
         accessibilityRole="button"
         onPress={onConfigure}
         style={({ pressed }) => [
@@ -1066,7 +1087,7 @@ function UnconfiguredPregnancyCard({
         ]}
       >
         <Text style={styles.unconfiguredButtonText}>
-          Configurer ma grossesse
+          {t('pregnancyDashboard.unconfigured.title')}
         </Text>
       </Pressable>
     </View>

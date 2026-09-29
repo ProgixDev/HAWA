@@ -15,6 +15,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -47,6 +48,7 @@ import {
   countTrackedDays,
 } from '../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../utils/cycleStatisticsMath';
+import '../i18n';
 
 /* ============================================================
    TYPES
@@ -58,20 +60,27 @@ type IconName = React.ComponentProps<
   typeof MaterialDesignIcons
 >['name'];
 
-const PERIOD_LABELS: Record<StatisticsPeriod, string> = {
-  '1': '1 mois',
-  '3': '3 mois',
-  '6': '6 mois',
-  '12': '12 mois',
-};
+// FLOW_LABELS here are pure DISPLAY text (unlike the same-shaped map in
+// JournalSymptomsScreen.tsx's sibling screens) — Statistics is read-only, it
+// never persists anything, so these are safe to translate.
+function periodLabels(t: (key: string, options?: Record<string, unknown>) => string): Record<StatisticsPeriod, string> {
+  return {
+    '1': t('statistics.periods.months', {count: 1}),
+    '3': t('statistics.periods.months', {count: 3}),
+    '6': t('statistics.periods.months', {count: 6}),
+    '12': t('statistics.periods.months', {count: 12}),
+  };
+}
 
-const FLOW_LABELS: Record<FlowIntensity, string> = {
-  light: 'Léger',
-  moderate: 'Moyen',
-  heavy: 'Abondant',
-  veryHeavy: 'Très abondant',
-  none: 'Aucun',
-};
+function flowLabels(t: (key: string) => string): Record<FlowIntensity, string> {
+  return {
+    light: t('statistics.flowLabels.light'),
+    moderate: t('statistics.flowLabels.moderate'),
+    heavy: t('statistics.flowLabels.heavy'),
+    veryHeavy: t('statistics.flowLabels.veryHeavy'),
+    none: t('statistics.flowLabels.none'),
+  };
+}
 
 const FLOW_ICONS: Record<FlowIntensity, IconName> = {
   light: 'water-outline',
@@ -148,6 +157,7 @@ function DataNotice({
 
 function StatisticsScreen(_props: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
   const {width} = useWindowDimensions();
   const compact = width < 370;
 
@@ -235,7 +245,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
   const showLongitudinalView = period !== '1';
   const maxFlowDays = Math.max(...flowDistribution.map(item => item.days), 1);
   const maxSymptomDays = Math.max(...symptomFrequency.map(item => item.days), 1);
-  const monthsLabel = PERIOD_LABELS[period];
+  const periodLabelsMap = periodLabels(t);
+  const flowLabelsMap = flowLabels(t);
+  const monthsLabel = periodLabelsMap[period];
 
   return (
     <LinearGradient
@@ -266,8 +278,8 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Statistiques</Text>
-              <Text style={styles.subtitle}>Comprends ton corps grâce à tes tendances</Text>
+              <Text style={styles.title}>{t('navigation.statistics')}</Text>
+              <Text style={styles.subtitle}>{t('statistics.headerSubtitle')}</Text>
             </View>
 
             <View style={styles.headerIcon}>
@@ -291,7 +303,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               return (
                 <Pressable
                   accessibilityLabel={
-                    locked ? `${PERIOD_LABELS[item]}, nécessite Premium` : PERIOD_LABELS[item]
+                    locked ? t('statistics.periodRequiresPremium', {period: periodLabelsMap[item]}) : periodLabelsMap[item]
                   }
                   accessibilityRole="button"
                   accessibilityState={{selected: active}}
@@ -305,7 +317,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                         active && styles.filterTextActive,
                         locked && styles.filterTextLocked,
                       ]}>
-                      {PERIOD_LABELS[item]}
+                      {periodLabelsMap[item]}
                     </Text>
 
                     {locked ? (
@@ -322,14 +334,19 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
           =================================================== */}
 
           <View style={styles.sectionHeading}>
-            <Text style={styles.sectionTitle}>Aperçu du cycle</Text>
-            <Text style={styles.sectionDescription}>Résumé sur {monthsLabel}</Text>
+            <Text style={styles.sectionTitle}>{t('statistics.cycleOverviewTitle')}</Text>
+            <Text style={styles.sectionDescription}>{t('statistics.summaryOver', {period: monthsLabel})}</Text>
           </View>
 
           {averageCycleDuration ? (
             <View
               accessible
-              accessibilityLabel={`Durée moyenne des cycles : ${averageCycleDuration.averageDays} jours. Basé sur ${averageCycleDuration.cyclesAnalyzed} ${averageCycleDuration.cyclesAnalyzed > 1 ? 'cycles analysés' : 'cycle analysé'} et ${trackedDays} ${trackedDays > 1 ? 'jours renseignés' : 'jour renseigné'} sur ${monthsLabel}.`}
+              accessibilityLabel={t('statistics.averageCycleDurationAccessibility', {
+                days: averageCycleDuration.averageDays,
+                cyclesAnalyzed: t('statistics.cyclesAnalyzed', {count: averageCycleDuration.cyclesAnalyzed}),
+                trackedDays: t('statistics.daysLogged', {count: trackedDays}),
+                period: monthsLabel,
+              })}
               accessibilityRole="summary"
               style={styles.cycleHero}>
               <View style={styles.heroDecorationOne} />
@@ -337,13 +354,13 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
               <View style={styles.heroTop}>
                 <View style={styles.heroMain}>
-                  <Text style={styles.heroEyebrow}>DURÉE MOYENNE DES CYCLES</Text>
+                  <Text style={styles.heroEyebrow}>{t('statistics.averageCycleDurationEyebrow')}</Text>
 
                   <View style={styles.heroCycleRow}>
                     <Text style={styles.heroNumber}>{averageCycleDuration.averageDays}</Text>
 
                     <View style={styles.heroNumberCopy}>
-                      <Text style={styles.heroUnit}>jours</Text>
+                      <Text style={styles.heroUnit}>{t('statistics.days')}</Text>
                     </View>
                   </View>
                 </View>
@@ -357,16 +374,18 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               <View style={styles.heroDivider} />
 
               <Text style={styles.heroFootnote}>
-                Basé sur {averageCycleDuration.cyclesAnalyzed}{' '}
-                {averageCycleDuration.cyclesAnalyzed > 1 ? 'cycles analysés' : 'cycle analysé'} et {trackedDays}{' '}
-                {trackedDays > 1 ? 'jours renseignés' : 'jour renseigné'} sur {monthsLabel}.
+                {t('statistics.basedOnCyclesAndDays', {
+                  cyclesAnalyzed: t('statistics.cyclesAnalyzed', {count: averageCycleDuration.cyclesAnalyzed}),
+                  trackedDays: t('statistics.daysLogged', {count: trackedDays}),
+                  period: monthsLabel,
+                })}
               </Text>
             </View>
           ) : (
             <DataNotice
               detail={missingAverageDetail}
               icon="calendar-clock-outline"
-              title="Pas encore assez de cycles enregistrés"
+              title={t('statistics.notEnoughCyclesTitle')}
             />
           )}
 
@@ -379,10 +398,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               icon="water-outline"
               subtitle={
                 showLongitudinalView
-                  ? `Répartition mois par mois sur ${monthsLabel}`
-                  : 'Répartition des intensités enregistrées'
+                  ? t('statistics.monthByMonthOver', {period: monthsLabel})
+                  : t('statistics.recordedIntensityBreakdown')
               }
-              title="Évolution du flux"
+              title={t('statistics.flowEvolutionTitle')}
             />
 
             {showLongitudinalView ? (
@@ -391,13 +410,17 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                   {monthlyFlowTrend.map(month => (
                     <View
                       accessible
-                      accessibilityLabel={`${month.monthLabel} : ${month.daysWithFlow} ${month.daysWithFlow > 1 ? 'jours de flux' : 'jour de flux'}. ${month.distribution.map(entry => `${FLOW_LABELS[entry.intensity]} ${entry.days} ${entry.days > 1 ? 'jours' : 'jour'}`).join(', ')}`}
+                      accessibilityLabel={t('statistics.monthFlowAccessibility', {
+                        month: month.monthLabel,
+                        daysWithFlow: t('statistics.daysWithFlow', {count: month.daysWithFlow}),
+                        distribution: month.distribution.map(entry => t('statistics.flowLabelDays', {label: flowLabelsMap[entry.intensity], count: entry.days})).join(', '),
+                      })}
                       key={month.monthKey}
                       style={styles.monthItem}>
                       <View style={styles.monthTop}>
                         <Text style={styles.monthLabel}>{month.monthLabel}</Text>
                         <Text style={styles.monthMeta}>
-                          {month.daysWithFlow} {month.daysWithFlow > 1 ? 'jours de flux' : 'jour de flux'}
+                          {t('statistics.daysWithFlow', {count: month.daysWithFlow})}
                         </Text>
                       </View>
 
@@ -405,8 +428,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                         {month.distribution.map(entry => (
                           <View key={entry.intensity} style={styles.chip}>
                             <Text style={styles.chipText}>
-                              {FLOW_LABELS[entry.intensity]} · {entry.days}{' '}
-                              {entry.days > 1 ? 'j' : 'j'}
+                              {flowLabelsMap[entry.intensity]} · {t('statistics.daysAbbreviated', {count: entry.days})}
                             </Text>
                           </View>
                         ))}
@@ -416,9 +438,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                 </View>
               ) : (
                 <DataNotice
-                  detail="Aucun flux enregistré n'a encore été trouvé sur cette période."
+                  detail={t('statistics.noFlowThisPeriod')}
                   icon="water-off-outline"
-                  title="Pas encore de données de flux"
+                  title={t('statistics.noFlowDataYetTitle')}
                 />
               )
             ) : flowDistribution.length > 0 ? (
@@ -429,7 +451,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                   return (
                     <View
                       accessible
-                      accessibilityLabel={`${FLOW_LABELS[item.intensity]} : ${item.days} ${item.days > 1 ? 'jours' : 'jour'}`}
+                      accessibilityLabel={t('statistics.flowLabelDaysColon', {label: flowLabelsMap[item.intensity], count: item.days})}
                       key={item.intensity}
                       style={styles.flowItem}>
                       <View style={styles.flowTop}>
@@ -441,10 +463,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                           />
                         </View>
 
-                        <Text style={styles.flowLabel}>{FLOW_LABELS[item.intensity]}</Text>
+                        <Text style={styles.flowLabel}>{flowLabelsMap[item.intensity]}</Text>
 
                         <Text style={styles.flowValue}>
-                          {item.days} {item.days > 1 ? 'jours' : 'jour'}
+                          {t('statistics.daysPlural', {count: item.days})}
                         </Text>
                       </View>
 
@@ -457,9 +479,9 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               </View>
             ) : (
               <DataNotice
-                detail="Renseigne ton flux dans le Journal quotidien pour voir apparaître cette statistique."
+                detail={t('statistics.logFlowToSeeStatistic')}
                 icon="water-off-outline"
-                title="Aucun flux enregistré ce mois-ci"
+                title={t('statistics.noFlowThisMonthTitle')}
               />
             )}
           </View>
@@ -473,10 +495,10 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               icon="heart-pulse"
               subtitle={
                 showLongitudinalView
-                  ? `Fréquence et évolution sur ${monthsLabel}`
-                  : 'Les symptômes les plus enregistrés'
+                  ? t('statistics.frequencyAndEvolutionOver', {period: monthsLabel})
+                  : t('statistics.mostRecordedSymptoms')
               }
-              title="Symptômes les plus fréquents"
+              title={t('statistics.mostFrequentSymptomsTitle')}
             />
 
             {symptomFrequency.length > 0 ? (
@@ -487,7 +509,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                   return (
                     <View
                       accessible
-                      accessibilityLabel={`${index + 1}. ${item.name} : ${item.days} ${item.days > 1 ? 'jours' : 'jour'}`}
+                      accessibilityLabel={t('statistics.rankedSymptomAccessibility', {rank: index + 1, name: item.name, days: t('statistics.daysPlural', {count: item.days})})}
                       key={item.name}
                       style={[styles.symptomItem, index === array.length - 1 && styles.lastItem]}>
                       <View style={styles.symptomTop}>
@@ -499,7 +521,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
 
                         <View style={styles.symptomBadge}>
                           <Text style={styles.symptomDays}>
-                            {item.days} {item.days > 1 ? 'jours' : 'jour'}
+                            {t('statistics.daysPlural', {count: item.days})}
                           </Text>
                         </View>
                       </View>
@@ -513,20 +535,23 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
               </View>
             ) : (
               <DataNotice
-                detail="Renseigne tes symptômes dans le Journal quotidien pour voir apparaître cette statistique."
+                detail={t('statistics.logSymptomsToSeeStatistic')}
                 icon="heart-outline"
-                title={showLongitudinalView ? 'Aucun symptôme enregistré sur cette période' : 'Aucun symptôme enregistré ce mois-ci'}
+                title={showLongitudinalView ? t('statistics.noSymptomsThisPeriodTitle') : t('statistics.noSymptomsThisMonthTitle')}
               />
             )}
 
             {showLongitudinalView && monthlySymptomTrend.length > 0 ? (
               <View style={styles.monthList}>
-                <Text style={styles.monthListTitle}>Évolution par mois</Text>
+                <Text style={styles.monthListTitle}>{t('statistics.monthByMonthEvolution')}</Text>
 
                 {monthlySymptomTrend.map(month => (
                   <View
                     accessible
-                    accessibilityLabel={`${month.monthLabel} : ${month.topSymptoms.map(symptom => `${symptom.name} ${symptom.days} ${symptom.days > 1 ? 'jours' : 'jour'}`).join(', ')}`}
+                    accessibilityLabel={t('statistics.monthSymptomAccessibility', {
+                      month: month.monthLabel,
+                      symptoms: month.topSymptoms.map(symptom => t('statistics.symptomDays', {name: symptom.name, days: t('statistics.daysPlural', {count: symptom.days})})).join(', '),
+                    })}
                     key={month.monthKey}
                     style={styles.monthItem}>
                     <View style={styles.monthTop}>
@@ -537,7 +562,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                       {month.topSymptoms.map(symptom => (
                         <View key={symptom.name} style={styles.chip}>
                           <Text style={styles.chipText}>
-                            {symptom.name} · {symptom.days} {symptom.days > 1 ? 'j' : 'j'}
+                            {symptom.name} · {t('statistics.daysAbbreviated', {count: symptom.days})}
                           </Text>
                         </View>
                       ))}
@@ -556,8 +581,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
 
             <Text style={styles.medicalHintText}>
-              Ces tendances, basées sur tes données réelles, peuvent t’aider à mieux décrire ton historique lors
-              d’un rendez-vous médical. Elles ne remplacent pas un avis médical.
+              {t('statistics.medicalHint')}
             </Text>
           </View>
         </ScrollView>

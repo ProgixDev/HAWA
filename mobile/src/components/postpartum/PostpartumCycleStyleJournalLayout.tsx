@@ -16,11 +16,13 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getTopPadding, spacing} from '../../theme/spacing';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -65,6 +67,7 @@ export function PostpartumCycleStyleJournalLayout({
   children,
 }: Props): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -95,7 +98,7 @@ export function PostpartumCycleStyleJournalLayout({
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={[styles.topBar, {paddingTop: getTopPadding(insets.top, true)}]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -109,7 +112,7 @@ export function PostpartumCycleStyleJournalLayout({
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer"
+            accessibilityLabel={t('common.save')}
             accessibilityRole="button"
             accessibilityState={{disabled: Boolean(saving)}}
             disabled={saving}
@@ -144,24 +147,24 @@ export function PostpartumCycleStyleJournalLayout({
             {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
 
             <Pressable
-              accessibilityLabel="Enregistrer"
+              accessibilityLabel={t('common.save')}
               accessibilityRole="button"
               accessibilityState={{disabled: Boolean(saving)}}
               disabled={saving}
               onPress={onSave}
               style={({pressed}) => [styles.saveButton, (pressed || saving) && styles.pressed]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
-              <Text style={styles.saveText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+              <Text style={styles.saveText}>{saving ? t('postpartumCycleStyleJournalLayout.saving') : t('common.save')}</Text>
             </Pressable>
 
             {onClear ? (
               <Pressable
-                accessibilityLabel="Effacer ma réponse"
+                accessibilityLabel={t('postpartumCycleStyleJournalLayout.clearAnswer')}
                 accessibilityRole="button"
                 disabled={saving}
                 onPress={onClear}
                 style={({pressed}) => [styles.clearButton, pressed && styles.pressed]}>
-                <Text style={styles.clearText}>Effacer ma réponse</Text>
+                <Text style={styles.clearText}>{t('postpartumCycleStyleJournalLayout.clearAnswer')}</Text>
               </Pressable>
             ) : null}
           </Animated.View>
@@ -190,6 +193,7 @@ export function PostpartumJournalCard({
   badge?: string;
   children: React.ReactNode;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const cardStyles = useMemo(() => createCardStyles(theme), [theme]);
   return (
@@ -201,7 +205,7 @@ export function PostpartumJournalCard({
         <View style={cardStyles.headingCopy}>
           <Text style={cardStyles.title}>
             {title}
-            {optional ? <Text style={cardStyles.optional}> (optionnel)</Text> : null}
+            {optional ? <Text style={cardStyles.optional}> {t('postpartumCycleStyleJournalLayout.optionalSuffix')}</Text> : null}
           </Text>
           {subtitle ? <Text style={cardStyles.subtitle}>{subtitle}</Text> : null}
         </View>

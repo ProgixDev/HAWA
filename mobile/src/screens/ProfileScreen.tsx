@@ -29,6 +29,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import type { MainTabScreenProps } from '../navigation/MainTabNavigator';
@@ -77,7 +78,7 @@ import {
 } from '../state/contraceptionPreferences';
 import {
   CONTRACEPTION_METHOD_ICONS,
-  CONTRACEPTION_METHOD_LABELS,
+  contraceptionMethodLabels,
 } from '../config/contraceptionLabels';
 import {
   getMenopausePreferences,
@@ -158,6 +159,8 @@ import ManagedProfileSwipeRow from '../components/profile/ManagedProfileSwipeRow
 import ManagedProfileDeleteConfirmModal from '../components/profile/ManagedProfileDeleteConfirmModal';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAppLanguage} from '../state/themePreferences';
+import '../i18n';
 
 // Default illustration for a managed (daughter) profile row in "Gérer les profils"
 // when she has no custom photo yet — same asset as the managed-profile creation flow
@@ -172,184 +175,211 @@ type Props = MainTabScreenProps<'Profile'>;
  * OBJECTIFS
  * ============================================================ */
 
-const OBJECTIVE_LABELS: Record<ObjectiveId, string> = {
-  cycle: 'Suivre mon cycle',
-  conceive: 'Essayer de concevoir',
-  contraception: 'Contraception',
-  irregular: 'Cycles irréguliers (SOPK)',
-  menopause: 'Périménopause / Ménopause',
-  pregnancy: 'Suivi de grossesse',
-  postpartum: 'Suivi post-partum',
-  loss: 'Après une fausse couche',
-};
+// Reuses the canonical objective labels already in src/i18n/locales/ (see
+// objectives.* — copied verbatim from objectiveExportConfig.ts in Phase 1),
+// never a second, duplicated translation of the same 8 labels.
+function objectiveLabels(t: (key: string) => string): Record<ObjectiveId, string> {
+  return {
+    cycle: t('objectives.cycle'),
+    conceive: t('objectives.conceive'),
+    contraception: t('objectives.contraception'),
+    irregular: t('objectives.irregular'),
+    menopause: t('objectives.menopause'),
+    pregnancy: t('objectives.pregnancy'),
+    postpartum: t('objectives.postpartum'),
+    loss: t('objectives.loss'),
+  };
+}
 
-const DELIVERY_TYPE_LABELS: Record<PostpartumDeliveryType, string> = {
-  vaginal: 'Accouchement vaginal',
-  planned_csection: 'Césarienne programmée',
-  emergency_csection: 'Césarienne en urgence',
-  prefer_not_to_say: 'Je préfère ne pas préciser',
-};
+// These Record<Enum, string> maps are all pure DISPLAY text: the underlying
+// semantic value (PostpartumDeliveryType, MenopauseStage, ...) is persisted
+// elsewhere by each objective's own onboarding screens — Profile only ever
+// reads and displays it, so translating these labels is safe (unlike the
+// data-bearing symptom/activity picklists in the Journal entry screens; see
+// those files' own header comments for that different, unsafe case).
+function deliveryTypeLabels(t: (key: string) => string): Record<PostpartumDeliveryType, string> {
+  return {
+    vaginal: t('profile.postpartum.deliveryType.vaginal'),
+    planned_csection: t('profile.postpartum.deliveryType.plannedCsection'),
+    emergency_csection: t('profile.postpartum.deliveryType.emergencyCsection'),
+    prefer_not_to_say: t('profile.postpartum.deliveryType.preferNotToSay'),
+  };
+}
 
 // Same wording as SummaryScreen.tsx's own local MENOPAUSE_STAGE_LABELS/
 // MENOPAUSE_HORMONAL_TREATMENT_LABELS — kept as Profile's own local display
 // copy, same "duplicate small static label maps per screen" convention
 // already used above for DELIVERY_TYPE_LABELS/FEEDING_TYPE_LABELS.
-const MENOPAUSE_STAGE_LABELS: Record<MenopauseStage, string> = {
-  perimenopause: 'Périménopause',
-  menopause: 'Ménopause',
-  unsure: 'Non précisée',
-};
+function menopauseStageLabels(t: (key: string) => string): Record<MenopauseStage, string> {
+  return {
+    perimenopause: t('profile.menopause.stage.perimenopause'),
+    menopause: t('profile.menopause.stage.menopause'),
+    unsure: t('profile.menopause.stage.unsure'),
+  };
+}
 
-const MENOPAUSE_LAB_TRACKING_LABELS: Record<MenopauseLabTracking, string> = {
-  fsh: 'FSH',
-  estradiol: 'Estradiol',
-  both: 'FSH et Estradiol',
-  none: 'Pas pour le moment',
-};
+function menopauseLabTrackingLabels(t: (key: string) => string): Record<MenopauseLabTracking, string> {
+  return {
+    fsh: 'FSH',
+    estradiol: t('profile.menopause.labTracking.estradiol'),
+    both: t('profile.menopause.labTracking.both'),
+    none: t('profile.menopause.labTracking.none'),
+  };
+}
 
-const MENOPAUSE_HORMONAL_TREATMENT_LABELS: Record<MenopauseHormonalTreatmentStatus, string> = {
-  track: 'Suivi activé',
-  no: 'Non suivi',
-  not_now: 'Pas pour le moment',
-};
+function menopauseHormonalTreatmentLabels(t: (key: string) => string): Record<MenopauseHormonalTreatmentStatus, string> {
+  return {
+    track: t('profile.menopause.hormonalTreatment.track'),
+    no: t('profile.menopause.hormonalTreatment.no'),
+    not_now: t('profile.menopause.hormonalTreatment.notNow'),
+  };
+}
 
 // Same exact wording as the SOPK onboarding's own (private, screen-local)
 // cyclePatternOptions in IrregularOnboardingScreens.tsx — displays the
 // user's real saved answer instead of a hardcoded "Cycles irréguliers".
-const IRREGULAR_CYCLE_PATTERN_LABELS: Record<IrregularCyclePattern, string> = {
-  regular: 'Plutôt réguliers',
-  irregular: 'Irréguliers',
-  very_variable: 'Très variables',
-  unknown: 'Je ne sais pas encore',
-};
+function irregularCyclePatternLabels(t: (key: string) => string): Record<IrregularCyclePattern, string> {
+  return {
+    regular: t('profile.irregular.cyclePattern.regular'),
+    irregular: t('profile.irregular.cyclePattern.irregular'),
+    very_variable: t('profile.irregular.cyclePattern.veryVariable'),
+    unknown: t('profile.irregular.cyclePattern.unknown'),
+  };
+}
 
-const FEEDING_TYPE_LABELS: Record<PostpartumFeedingType, string> = {
-  exclusive_breastfeeding: 'Allaitement maternel exclusif',
-  mixed: 'Allaitement mixte (sein + biberon)',
-  exclusive_bottle: 'Biberon exclusivement',
-  unknown: 'Je ne sais pas encore',
-};
+function feedingTypeLabels(t: (key: string) => string): Record<PostpartumFeedingType, string> {
+  return {
+    exclusive_breastfeeding: t('profile.postpartum.feedingType.exclusiveBreastfeeding'),
+    mixed: t('profile.postpartum.feedingType.mixed'),
+    exclusive_bottle: t('profile.postpartum.feedingType.exclusiveBottle'),
+    unknown: t('profile.postpartum.feedingType.unknown'),
+  };
+}
 
 // Same wording as MiscarriageBleedingScreen/MiscarriageCycleReturnScreen/
 // MiscarriageTryingAgainScreen.
-const BLEEDING_STATUS_LABELS: Record<MiscarriageBleedingStatus, string> = {
-  yes: 'Oui',
-  no: 'Non',
-  variable: 'Variable',
-};
+function bleedingStatusLabels(t: (key: string) => string): Record<MiscarriageBleedingStatus, string> {
+  return {
+    yes: t('journalIntimacy.yes'),
+    no: t('journalIntimacy.no'),
+    variable: t('profile.miscarriage.bleedingStatus.variable'),
+  };
+}
 
-const MISCARRIAGE_CYCLE_RETURN_LABELS: Record<
-  MiscarriageCycleReturnStatus,
-  string
-> = {
-  no: 'Pas encore',
-  yes: 'Oui',
-  unknown: 'Je ne sais pas',
-};
+function miscarriageCycleReturnLabels(t: (key: string) => string): Record<MiscarriageCycleReturnStatus, string> {
+  return {
+    no: t('profile.miscarriage.cycleReturn.notYet'),
+    yes: t('journalIntimacy.yes'),
+    unknown: t('profile.miscarriage.cycleReturn.unknown'),
+  };
+}
 
-const MISCARRIAGE_TRYING_AGAIN_LABELS: Record<
-  MiscarriageTryingAgainStatus,
-  string
-> = {
-  not_now: 'Pas maintenant',
-  soon: 'Bientôt',
-  ready: 'Oui, je me sens prête',
-};
+function miscarriageTryingAgainLabels(t: (key: string) => string): Record<MiscarriageTryingAgainStatus, string> {
+  return {
+    not_now: t('profile.miscarriage.tryingAgain.notNow'),
+    soon: t('profile.miscarriage.tryingAgain.soon'),
+    ready: t('profile.miscarriage.tryingAgain.ready'),
+  };
+}
 
 // PHASE E2 — each objective's `tint` stays a fixed literal (Category E,
 // same reasoning as MENU_TONES below): a decorative identity badge for one
 // of 8 self-selected life-tracking objectives, not a themed role.
-const OBJECTIVES: Array<{
+function objectivesList(t: (key: string) => string): Array<{
   id: ObjectiveId;
   icon: string;
   label: string;
   subtitle: string;
   tint: string;
-}> = [
+}> {
+  return [
   {
     id: 'cycle',
     icon: '🗓️',
-    label: 'Suivre mon cycle',
-    subtitle: 'Suivre mes règles et comprendre mon cycle',
+    label: t('objectives.cycle'),
+    subtitle: t('profile.objectivePicker.subtitles.cycle'),
     tint: '#E7F0E8',
   },
   {
     id: 'conceive',
     icon: '💗',
-    label: 'Essayer de concevoir',
-    subtitle: 'Suivre ma fertilité et mon ovulation',
+    label: t('objectives.conceive'),
+    subtitle: t('profile.objectivePicker.subtitles.conceive'),
     tint: '#FBE8E8',
   },
   {
     id: 'contraception',
     icon: '💊',
-    label: 'Contraception',
-    subtitle: 'Suivre mon cycle avec une contraception',
+    label: t('objectives.contraception'),
+    subtitle: t('profile.objectivePicker.subtitles.contraception'),
     tint: '#F1E8F5',
   },
   {
     id: 'irregular',
     icon: '🪷',
-    label: 'Cycles irréguliers (SOPK)',
-    subtitle: 'Mieux comprendre mes cycles irréguliers',
+    label: t('objectives.irregular'),
+    subtitle: t('profile.objectivePicker.subtitles.irregular'),
     tint: '#FBE9E7',
   },
   {
     id: 'menopause',
     icon: '👤',
-    label: 'Périménopause / Ménopause',
-    subtitle: 'Suivre mon bien-être pendant cette période',
+    label: t('objectives.menopause'),
+    subtitle: t('profile.objectivePicker.subtitles.menopause'),
     tint: '#EFE7F4',
   },
   {
     id: 'pregnancy',
     icon: '🤰',
-    label: 'Suivi de grossesse',
-    subtitle: 'Accompagner les différentes étapes de ma grossesse',
+    label: t('objectives.pregnancy'),
+    subtitle: t('profile.objectivePicker.subtitles.pregnancy'),
     tint: '#FBE9EB',
   },
   {
     id: 'postpartum',
     icon: '🍼',
-    label: 'Post-partum',
-    subtitle: 'Suivre ma récupération après la naissance',
+    label: t('objectives.postpartum'),
+    subtitle: t('profile.objectivePicker.subtitles.postpartum'),
     tint: '#E8F1E9',
   },
   {
     id: 'loss',
     icon: '☁️',
-    label: 'Après une fausse couche',
-    subtitle: 'Suivre mon corps et ma récupération',
+    label: t('objectives.loss'),
+    subtitle: t('profile.objectivePicker.subtitles.loss'),
     tint: '#EDF2E9',
   },
-];
+  ];
+}
 
 /* ============================================================
  * REPÈRES SPIRITUELS
  * ============================================================ */
 
-const SPIRITUAL_FEATURES = [
-  {
-    icon: '🗓️',
-    label: 'Calendrier hijri',
-    description: 'Dates et événements du calendrier islamique',
-  },
-  {
-    icon: '🤲',
-    label: 'Prières & statut de pureté',
-    description: 'Suivi des prières et du statut de pureté',
-  },
-  {
-    icon: '🌙',
-    label: 'Jeûne (Ramadan, rattrapages)',
-    description: 'Ramadan et jours de jeûne à rattraper',
-  },
-  {
-    icon: '🔔',
-    label: 'Rappels de la prière',
-    description: 'Recevoir des rappels liés aux prières',
-  },
-];
+function spiritualFeatures(t: (key: string) => string) {
+  return [
+    {
+      icon: '🗓️',
+      label: t('profile.spiritualMarkers.hijriCalendar.label'),
+      description: t('profile.spiritualMarkers.hijriCalendar.description'),
+    },
+    {
+      icon: '🤲',
+      label: t('profile.spiritualMarkers.prayersPurity.label'),
+      description: t('profile.spiritualMarkers.prayersPurity.description'),
+    },
+    {
+      icon: '🌙',
+      label: t('profile.spiritualMarkers.fasting.label'),
+      description: t('profile.spiritualMarkers.fasting.description'),
+    },
+    {
+      icon: '🔔',
+      label: t('profile.spiritualMarkers.prayerReminders.label'),
+      description: t('profile.spiritualMarkers.prayerReminders.description'),
+    },
+  ];
+}
 
 /* ============================================================
  * HELPERS
@@ -363,7 +393,7 @@ const SPIRITUAL_FEATURES = [
 const formatShortDate = (date: Date): string | null =>
   Number.isNaN(date.getTime())
     ? null
-    : new Intl.DateTimeFormat('fr-FR', {
+    : new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
         day: 'numeric',
         month: 'long',
       }).format(date);
@@ -420,6 +450,7 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
   // isPremium snapshot; reactive via usePremium(), so an activation/restore
   // elsewhere in the app updates this card immediately without navigating
   // away and back.
+  const {t} = useTranslation();
   const {isPremium} = usePremium();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -571,8 +602,8 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
         ],
       }}>
       <Pressable
-        accessibilityHint="Ouvre la présentation des avantages Premium"
-        accessibilityLabel="Découvrir AWA Premium"
+        accessibilityHint={t('profile.premiumCard.accessibilityHint')}
+        accessibilityLabel={t('profile.premiumCard.accessibilityLabel')}
         accessibilityRole="button"
         onPress={onPress}
         onPressIn={handlePressIn}
@@ -616,8 +647,8 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
             <Text style={styles.premiumTitle}>AWA Premium</Text>
             <Text style={styles.premiumSubtitle}>
               {isPremium
-                ? 'Merci de soutenir AWA — ton abonnement est actif.'
-                : 'Débloque des outils avancés pour aller plus loin dans ton suivi.'}
+                ? t('profile.premiumCard.activeSubtitle')
+                : t('profile.premiumCard.inactiveSubtitle')}
             </Text>
           </View>
 
@@ -642,13 +673,13 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
 
         <View style={styles.premiumFeaturesGrid}>
           {[
-            'Statistiques avancées',
-            'Export PDF & CSV',
-            'Historique illimité',
+            t('profile.premiumCard.features.advancedStatistics'),
+            t('profile.premiumCard.features.pdfCsvExport'),
+            t('profile.premiumCard.features.unlimitedHistory'),
             // Only advertised while at least one guide is really Premium-gated
             // (see hasPremiumArticles) — same rule as the Premium sheet.
-            ...(hasPremiumArticles() ? ['contenus éducatifs approfondis'] : []),
-            'thèmes visuels supplémentaires'
+            ...(hasPremiumArticles() ? [t('profile.premiumCard.features.inDepthEducationalContent')] : []),
+            t('profile.premiumCard.features.additionalThemes')
           ].map(item => (
             <View key={item} style={styles.premiumFeature}>
               <View style={styles.premiumCheckCircle}>
@@ -668,7 +699,7 @@ function PremiumProfileCard({onPress}: {onPress: () => void}): React.JSX.Element
     />
 
     <Text style={styles.premiumButtonText}>
-      {isPremium ? 'Abonnement actif' : 'Découvrir Premium'}
+      {isPremium ? t('profile.premiumCard.activeSubscription') : t('profile.premiumCard.discoverPremium')}
     </Text>
   </View>
 
@@ -839,6 +870,7 @@ function LogoutConfirmModal({
   onCancel: () => void;
   onConfirm: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   // A rapid double tap confirms once — same guard convention as the app's other
@@ -855,30 +887,30 @@ function LogoutConfirmModal({
   return (
     <Modal animationType="fade" onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
       <View style={styles.logoutDialogRoot}>
-        <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onCancel} style={styles.logoutDialogBackdrop} />
+        <Pressable accessibilityLabel={t('common.close')} accessibilityRole="button" onPress={onCancel} style={styles.logoutDialogBackdrop} />
         <View accessibilityViewIsModal style={styles.logoutDialogCard}>
           <View importantForAccessibility="no-hide-descendants" style={styles.logoutDialogIconCircle}>
             <MaterialDesignIcons color={theme.colors.danger} name="logout" size={26} />
           </View>
 
-          <Text accessibilityRole="header" style={styles.logoutDialogTitle}>Se déconnecter ?</Text>
-          <Text style={styles.logoutDialogBody}>Voulez-vous vraiment vous déconnecter de votre compte AWA ?</Text>
-          <Text style={styles.logoutDialogReassurance}>Vous pourrez vous reconnecter à tout moment.</Text>
+          <Text accessibilityRole="header" style={styles.logoutDialogTitle}>{t('profile.logoutDialog.title')}</Text>
+          <Text style={styles.logoutDialogBody}>{t('profile.logoutDialog.body')}</Text>
+          <Text style={styles.logoutDialogReassurance}>{t('profile.logoutDialog.reassurance')}</Text>
 
           <View style={styles.logoutDialogActions}>
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('common.cancel')}
               accessibilityRole="button"
               onPress={onCancel}
               style={({pressed}) => [styles.logoutDialogButton, styles.logoutDialogCancelButton, pressed && styles.logoutDialogPressed]}>
-              <Text style={styles.logoutDialogCancelText}>Annuler</Text>
+              <Text style={styles.logoutDialogCancelText}>{t('common.cancel')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Confirmer la déconnexion"
+              accessibilityLabel={t('profile.logoutDialog.confirmAccessibilityLabel')}
               accessibilityRole="button"
               onPress={confirm}
               style={({pressed}) => [styles.logoutDialogButton, styles.logoutDialogDestructiveButton, pressed && styles.logoutDialogPressed]}>
-              <Text style={[styles.logoutDialogDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>Se déconnecter</Text>
+              <Text style={[styles.logoutDialogDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>{t('profile.signOut')}</Text>
             </Pressable>
           </View>
         </View>
@@ -935,6 +967,7 @@ function DurationStepper({
   unit: string;
   onChange: (value: number) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const canDecrease = value > min;
@@ -942,7 +975,7 @@ function DurationStepper({
   return (
     <View style={styles.stepperCard}>
       <Pressable
-        accessibilityLabel="Diminuer"
+        accessibilityLabel={t('profile.durationStepper.decrease')}
         accessibilityRole="button"
         accessibilityState={{disabled: !canDecrease}}
         disabled={!canDecrease}
@@ -956,7 +989,7 @@ function DurationStepper({
         <Text style={styles.stepperValue}>{value} {unit}</Text>
       </View>
       <Pressable
-        accessibilityLabel="Augmenter"
+        accessibilityLabel={t('profile.durationStepper.increase')}
         accessibilityRole="button"
         accessibilityState={{disabled: !canIncrease}}
         disabled={!canIncrease}
@@ -975,6 +1008,17 @@ function DurationStepper({
  * ============================================================ */
 
 function ProfileScreen({ navigation }: Props): React.JSX.Element {
+  const {t} = useTranslation();
+  const objectiveLabelsMap = objectiveLabels(t);
+  const deliveryTypeLabelsMap = deliveryTypeLabels(t);
+  const menopauseStageLabelsMap = menopauseStageLabels(t);
+  const menopauseLabTrackingLabelsMap = menopauseLabTrackingLabels(t);
+  const menopauseHormonalTreatmentLabelsMap = menopauseHormonalTreatmentLabels(t);
+  const irregularCyclePatternLabelsMap = irregularCyclePatternLabels(t);
+  const feedingTypeLabelsMap = feedingTypeLabels(t);
+  const bleedingStatusLabelsMap = bleedingStatusLabels(t);
+  const miscarriageCycleReturnLabelsMap = miscarriageCycleReturnLabels(t);
+  const miscarriageTryingAgainLabelsMap = miscarriageTryingAgainLabels(t);
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -1429,7 +1473,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         return;
       }
       if (result.errorCode) {
-        Alert.alert('Photo de profil', 'Impossible d’accéder à la caméra ou à la galerie pour le moment.');
+        Alert.alert(t('profile.photoModal.title'), t('profile.photoModal.cameraGalleryError'));
         return;
       }
       const uri = result.assets?.[0]?.uri;
@@ -1438,7 +1482,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
         setPhotoUri(updated.avatarUri ?? null);
       }
     } catch {
-      Alert.alert('Photo de profil', 'Une erreur est survenue. Réessaie.');
+      Alert.alert(t('profile.photoModal.title'), t('profile.photoModal.genericError'));
     } finally {
       setPhotoSheetVisible(false);
     }
@@ -1480,17 +1524,17 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
   const nextPeriodValue = (() => {
     if (nextPeriodStatus.mode === 'exact') {
-      return formatShortDate(nextPeriodStatus.date) ?? 'Non renseignée';
+      return formatShortDate(nextPeriodStatus.date) ?? t('profile.notProvidedFeminine');
     }
     if (nextPeriodStatus.mode === 'window') {
       return nextPeriodStatus.isLate
-        ? 'Règles en retard'
+        ? t('calendar.periodLate')
         : formatCanonicalDateRange(
             nextPeriodStatus.windowStart,
             nextPeriodStatus.windowEnd,
           );
     }
-    return `Mois ${nextPeriodStatus.monthsElapsed} sur ${nextPeriodStatus.totalMonths}`;
+    return t('cycleHome.monthOfTotal', {month: nextPeriodStatus.monthsElapsed, total: nextPeriodStatus.totalMonths});
   })();
 
   // Same rule as Dashboard/Calendar (describeAverageCycle in cycleMath.ts): a
@@ -1506,8 +1550,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
   // Sourced from the real onboarding answer and the real confirmed period
   // history only — never a fabricated default.
   const irregularCycleTypeValue = irregularPrefs.cyclePattern
-    ? IRREGULAR_CYCLE_PATTERN_LABELS[irregularPrefs.cyclePattern]
-    : 'Non renseigné';
+    ? irregularCyclePatternLabelsMap[irregularPrefs.cyclePattern]
+    : t('profile.notProvided');
 
   // Real period data for the SOPK tiles: the periods the user actually
   // recorded (journal period days), cycle-confirmed occurrences and the
@@ -1518,18 +1562,18 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
   const irregularPeriodDurationValue = (() => {
     const days = resolveLatestIrregularPeriodDuration(irregularPeriodSources, todayKey);
-    return days ? `${days} ${days > 1 ? 'jours' : 'jour'}` : 'Non renseignée';
+    return days ? t('averageCycle.days', {count: days}) : t('profile.notProvidedFeminine');
   })();
 
   const irregularLastPeriodValue = (() => {
     const start = resolveLatestIrregularPeriodStart(irregularPeriodSources, todayKey);
     if (!start) {
-      return 'Non renseignées';
+      return t('profile.notProvidedPlural');
     }
     const parsed = new Date(`${start}T12:00:00`);
     return Number.isNaN(parsed.getTime())
-      ? 'Non renseignées'
-      : formatShortDate(parsed) ?? 'Non renseignées';
+      ? t('profile.notProvidedPlural')
+      : formatShortDate(parsed) ?? t('profile.notProvidedPlural');
   })();
 
   // Follows the shared current day (see useToday above) AND the Hijri
@@ -1633,15 +1677,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.headerTitle}>Profil</Text>
+              <Text style={styles.headerTitle}>{t('navigation.profile')}</Text>
 
               <Text style={styles.headerSubtitle}>
-                Gère tes informations et préférences
+                {t('profile.headerSubtitle')}
               </Text>
             </View>
 
             <Pressable
-              accessibilityLabel="Gérer les profils"
+              accessibilityLabel={t('profile.managedProfiles.sheetTitle')}
               accessibilityRole="button"
               hitSlop={8}
               onPress={() => setManageProfilesVisible(true)}
@@ -1749,7 +1793,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     size={13}
                   />
                   <Text style={styles.identityEyebrow}>
-                    {isManagedProfileActive ? 'PROFIL GÉRÉ' : anonymousMode ? 'MODE PRIVÉ' : 'MON PROFIL'}
+                    {isManagedProfileActive ? t('profile.managedProfileEyebrow') : anonymousMode ? t('profile.privateModeEyebrow') : t('profile.myProfileEyebrow')}
                   </Text>
                 </View>
 
@@ -1758,28 +1802,28 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     <View style={styles.nameRow}>
                       <Text style={styles.name}>{activeManagedProfile?.firstName}</Text>
                     </View>
-                    <Text style={styles.identitySubtitle}>Ma fille</Text>
+                    <Text style={styles.identitySubtitle}>{t('profile.managedProfiles.myDaughter')}</Text>
                   </>
                 ) : anonymousMode ? (
                   <>
                     <View style={styles.identityMainLine}>
-                      <Text style={styles.identityTitle}>Mode Anonyme</Text>
+                      <Text style={styles.identityTitle}>{t('profile.anonymousMode.title')}</Text>
                       <View style={styles.activeBadge}>
                         <View style={styles.activeDot} />
-                        <Text style={styles.activeBadgeText}>Actif</Text>
+                        <Text style={styles.activeBadgeText}>{t('profile.spiritualMarkers.active')}</Text>
                       </View>
                     </View>
                     <Text style={styles.identitySubtitle}>
-                      Ton identité réelle reste masquée
+                      {t('profile.anonymousMode.identityHiddenSubtitle')}
                     </Text>
                   </>
                 ) : (
                   <>
                     <View style={styles.nameRow}>
-                      <Text style={styles.name}>{firstName || 'Non renseigné'}</Text>
+                      <Text style={styles.name}>{firstName || t('profile.notProvided')}</Text>
 
                       <Pressable
-                        accessibilityLabel="Modifier le profil"
+                        accessibilityLabel={t('profile.editProfile')}
                         hitSlop={10}
                         onPress={() => navigation.navigate('PersonalInformation')}
                         style={({pressed}) => [
@@ -1795,7 +1839,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     </View>
 
                     <Text style={styles.identitySubtitle}>
-                      Informations et préférences du profil
+                      {t('profile.identitySubtitle')}
                     </Text>
                   </>
                 )}
@@ -1806,7 +1850,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     name="shield-check-outline"
                     size={13}
                   />
-                  <Text style={styles.identityPrivacyText}>Données protégées</Text>
+                  <Text style={styles.identityPrivacyText}>{t('profile.dataProtected')}</Text>
                 </View>
               </View>
             </View>
@@ -1829,20 +1873,20 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <StatCard
                 icon="water-outline"
-                label="Durée règles"
-                value={getHasConfirmedCycleDuration() ? `${cycle.periodDuration} jours` : 'Non renseignée'}
+                label={t('profile.periodLengthShortLabel')}
+                value={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.periodDuration}) : t('profile.notProvidedFeminine')}
               />
 
               <StatCard
                 icon="calendar-month-outline"
-                label="Prochaines règles"
+                label={t('cycleHome.nextPeriodLabel')}
                 value={nextPeriodValue}
               />
 
               <StatCard
                 icon="weather-night"
-                label="Date hijri"
-                value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
+                label={t('profile.hijriDateLabel')}
+                value={spiritualEnabled ? hijriToday ?? '—' : t('profile.disabledSingular')}
               />
             </View>
           ) : null}
@@ -1862,23 +1906,23 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.statsGrid}>
               <StatCard
                 icon="flower-outline"
-                label="Étape actuelle"
-                value={menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : 'Non renseignée'}
+                label={t('profile.menopause.currentStageLabel')}
+                value={menopause.stage ? menopauseStageLabelsMap[menopause.stage] : t('profile.notProvidedFeminine')}
               />
 
               <StatCard
                 icon="clipboard-pulse-outline"
-                label="Symptômes suivis"
-                value={menopause.trackedSymptoms.length > 0 ? `${menopause.trackedSymptoms.length}` : 'Aucun'}
+                label={t('profile.menopause.trackedSymptomsLabel')}
+                value={menopause.trackedSymptoms.length > 0 ? `${menopause.trackedSymptoms.length}` : t('profile.none')}
               />
 
               <StatCard
                 icon="pill"
-                label="Traitement hormonal"
+                label={t('profile.menopause.hormonalTreatmentLabel')}
                 value={
                   menopause.hormonalTreatmentStatus
-                    ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus]
-                    : 'Non renseigné'
+                    ? menopauseHormonalTreatmentLabelsMap[menopause.hormonalTreatmentStatus]
+                    : t('profile.notProvided')
                 }
               />
             </View>
@@ -1900,26 +1944,26 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.statsGrid}>
               <StatCard
                 icon="sync"
-                label="Type de cycle"
+                label={t('profile.irregular.cycleTypeLabel')}
                 value={irregularCycleTypeValue}
               />
 
               <StatCard
                 icon="water-outline"
-                label="Durée des règles"
+                label={t('profile.periodLengthLabel')}
                 value={irregularPeriodDurationValue}
               />
 
               <StatCard
                 icon="calendar-month-outline"
-                label="Dernières règles"
+                label={t('profile.lastPeriodLabel')}
                 value={irregularLastPeriodValue}
               />
 
               <StatCard
                 icon="weather-night"
-                label="Date hijri"
-                value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
+                label={t('profile.hijriDateLabel')}
+                value={spiritualEnabled ? hijriToday ?? '—' : t('profile.disabledSingular')}
               />
             </View>
           ) : null}
@@ -1929,45 +1973,46 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               Cycle objective only, and must not leak here). Sourced
               directly from the same canonical contraceptionPreferences
               store the Contraception Dashboard/Calendar/Statistics already
-              read/write, and the same CONTRACEPTION_METHOD_LABELS/ICONS —
-              never a hardcoded method or a Profile-specific copy. */}
+              read/write, and the same contraceptionMethodLabels(t)/
+              CONTRACEPTION_METHOD_ICONS — never a hardcoded method or a
+              Profile-specific copy. */}
           {effectiveObjective === 'contraception' ? (
             <View style={styles.statsGrid}>
               <StatCard
                 icon={contraception.method ? CONTRACEPTION_METHOD_ICONS[contraception.method] : 'pill'}
-                label="Méthode actuelle"
+                label={t('profile.contraception.currentMethodLabel')}
                 value={
                   contraception.method
-                    ? CONTRACEPTION_METHOD_LABELS[contraception.method]
-                    : 'Non renseignée'
+                    ? contraceptionMethodLabels(t)[contraception.method]
+                    : t('profile.notProvidedFeminine')
                 }
               />
 
               <StatCard
                 icon="calendar-check-outline"
-                label="Début du suivi"
+                label={t('profile.contraception.trackingStartLabel')}
                 value={(() => {
                   const parsed = parseStoredDateOnly(contraception.methodStartDate);
-                  return parsed ? formatFullDate(parsed) : 'Non renseigné';
+                  return parsed ? formatFullDate(parsed) : t('profile.notProvided');
                 })()}
               />
 
               <StatCard
                 icon={contraceptionReminderIndicator === 'enabled' ? 'bell-check-outline' : 'bell-off-outline'}
-                label="Rappels"
+                label={t('profile.contraception.remindersLabel')}
                 value={
                   contraceptionReminderIndicator === 'enabled'
-                    ? 'Activés'
+                    ? t('profile.contraception.remindersEnabled')
                     : contraceptionReminderIndicator === 'unavailable'
-                      ? 'Non disponibles'
-                      : 'Désactivés'
+                      ? t('profile.contraception.remindersUnavailable')
+                      : t('profile.contraception.remindersDisabled')
                 }
               />
 
               <StatCard
                 icon="weather-night"
-                label="Date hijri"
-                value={spiritualEnabled ? hijriToday ?? '—' : 'Désactivé'}
+                label={t('profile.hijriDateLabel')}
+                value={spiritualEnabled ? hijriToday ?? '—' : t('profile.disabledSingular')}
               />
             </View>
           ) : null}
@@ -1980,30 +2025,30 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-month-outline"
-                label="Accouchement"
+                label={t('profile.postpartum.deliveryLabel')}
                 value={(() => {
                   const parsed = parseStoredDateOnly(postpartum.deliveryDate);
-                  return parsed ? formatFullDate(parsed) : 'Non renseigné';
+                  return parsed ? formatFullDate(parsed) : t('profile.notProvided');
                 })()}
               />
 
               <StatCard
                 icon="baby-face-outline"
-                label="Type d’accouchement"
+                label={t('profile.postpartum.deliveryTypeLabel')}
                 value={
                   postpartum.deliveryType
-                    ? DELIVERY_TYPE_LABELS[postpartum.deliveryType]
-                    : 'Non renseigné'
+                    ? deliveryTypeLabelsMap[postpartum.deliveryType]
+                    : t('profile.notProvided')
                 }
               />
 
               <StatCard
                 icon="baby-bottle-outline"
-                label="Allaitement"
+                label={t('profile.postpartum.feedingLabel')}
                 value={
                   postpartum.feedingType
-                    ? FEEDING_TYPE_LABELS[postpartum.feedingType]
-                    : 'Non renseigné'
+                    ? feedingTypeLabelsMap[postpartum.feedingType]
+                    : t('profile.notProvided')
                 }
               />
             </View>
@@ -2018,32 +2063,32 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <View style={styles.statsGrid}>
               <StatCard
                 icon="calendar-heart"
-                label="Date de l’événement"
+                label={t('profile.miscarriage.eventDateLabel')}
                 value={(() => {
                   const parsed = parseStoredDateOnly(miscarriage.miscarriageDate);
-                  return parsed ? formatFullDate(parsed) : 'Non renseignée';
+                  return parsed ? formatFullDate(parsed) : t('profile.notProvidedFeminine');
                 })()}
               />
 
               <StatCard
                 icon="water-outline"
-                label="Saignements actuels"
+                label={t('profile.miscarriage.currentBleedingLabel')}
                 value={
                   miscarriage.bleedingStatus
-                    ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus]
-                    : 'Non renseigné'
+                    ? bleedingStatusLabelsMap[miscarriage.bleedingStatus]
+                    : t('profile.notProvided')
                 }
               />
 
               <StatCard
                 icon="sync-circle"
-                label="Retour du cycle"
+                label={t('profile.miscarriage.cycleReturnLabel')}
                 value={
                   miscarriage.cycleReturnStatus
-                    ? MISCARRIAGE_CYCLE_RETURN_LABELS[
+                    ? miscarriageCycleReturnLabelsMap[
                         miscarriage.cycleReturnStatus
                       ]
-                    : 'Non renseigné'
+                    : t('profile.notProvided')
                 }
               />
 
@@ -2069,7 +2114,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 return (
                   <StatCard
                     icon="calendar-check-outline"
-                    label="Date du retour des règles"
+                    label={t('profile.miscarriage.periodReturnDateLabel')}
                     value={dateState === 'ok' && parsed ? formatFullDate(parsed) : CYCLE_RETURN_DATE_TO_CHECK}
                   />
                 );
@@ -2077,13 +2122,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <StatCard
                 icon="heart-outline"
-                label="Reprise des essais"
+                label={t('profile.miscarriage.tryingAgainLabel')}
                 value={
                   miscarriage.tryingAgainStatus
-                    ? MISCARRIAGE_TRYING_AGAIN_LABELS[
+                    ? miscarriageTryingAgainLabelsMap[
                         miscarriage.tryingAgainStatus
                       ]
-                    : 'Non renseigné'
+                    : t('profile.notProvided')
                 }
               />
             </View>
@@ -2099,8 +2144,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           <SectionHeader
             icon="account-cog-outline"
-            title="Mes informations"
-            subtitle="Toutes tes informations importantes, organisées simplement."
+            title={t('profile.myInformationTitle')}
+            subtitle={t('profile.myInformationSubtitle')}
           />
 
           <View style={styles.menuCard}>
@@ -2115,12 +2160,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               }
               subtitle={
                 isManagedProfileActive
-                  ? 'Prénom, date de naissance…'
+                  ? t('profile.personalInfo.daughterSubtitle')
                   : anonymousMode
-                    ? 'Compte protégé et anonyme'
-                    : 'Nom, email, date de naissance…'
+                    ? t('profile.personalInfo.anonymousSubtitle')
+                    : t('profile.personalInfo.ownerSubtitle')
               }
-              title={anonymousMode && !isManagedProfileActive ? 'Informations du compte' : 'Informations personnelles'}
+              title={anonymousMode && !isManagedProfileActive ? t('profile.personalInfo.accountInfoTitle') : t('profile.personalInfo.title')}
               tone="personal"
             />
 
@@ -2128,8 +2173,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="incognito"
                 onPress={() => navigation.navigate('AnonymousMode')}
-                subtitle="Gérer ton identité privée et tes options anonymes"
-                title="Mode Anonyme"
+                subtitle={t('profile.anonymousMode.manageSubtitle')}
+                title={t('profile.anonymousMode.title')}
                 tone="anonymous"
               />
             ) : null}
@@ -2137,16 +2182,16 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <MenuRow
               icon="target"
               onPress={isManagedProfileActive ? undefined : () => setObjectiveModalVisible(true)}
-              subtitle={OBJECTIVE_LABELS[effectiveObjective]}
-              title="Mon objectif"
+              subtitle={objectiveLabelsMap[effectiveObjective]}
+              title={t('profile.myObjective')}
               tone="objective"
             />
 
             <MenuRow
               icon="heart-pulse"
               onPress={() => navigation.navigate('GeneralHealth')}
-              subtitle="Poids, taille, groupe sanguin, maladies…"
-              title="Santé générale"
+              subtitle={t('profile.generalHealthSubtitle')}
+              title={t('profile.generalHealthTitle')}
               tone="health"
             />
 
@@ -2163,8 +2208,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                       ? openCycleDurationEditor()
                       : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
                   }
-                  subtitle={getHasConfirmedCycleDuration() ? `${cycle.cycleDuration} jours` : 'Non renseignée'}
-                  title="Durée du cycle"
+                  subtitle={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.cycleDuration}) : t('profile.notProvidedFeminine')}
+                  title={t('profile.cycleLengthLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2174,8 +2219,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                       ? openPeriodDurationEditor()
                       : navigation.navigate('CycleInformation', {mode: 'edit', section: 'habits'})
                   }
-                  subtitle={getHasConfirmedCycleDuration() ? `${cycle.periodDuration} jours` : 'Non renseignée'}
-                  title="Durée des règles"
+                  subtitle={getHasConfirmedCycleDuration() ? t('averageCycle.days', {count: cycle.periodDuration}) : t('profile.notProvidedFeminine')}
+                  title={t('profile.periodLengthLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2187,20 +2232,20 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   }
                   subtitle={
                     !getHasConfirmedCycleData()
-                      ? 'Non renseignée'
+                      ? t('profile.notProvidedFeminine')
                       : cycle.regularity === 'yes'
-                        ? 'Plutôt régulier'
+                        ? t('profile.regularity.ratherRegular')
                         : cycle.regularity === 'no'
-                          ? 'Irrégulier'
+                          ? t('profile.regularity.irregular')
                           // Regularity is never asked during daughter creation — for a
                           // managed profile, 'unknown' means "not yet provided", worded
                           // as such, rather than the mother's own "Je ne sais pas encore"
                           // (a real answer she gave during her onboarding).
                           : isManagedProfileActive
-                            ? 'Non renseignée'
-                            : 'Je ne sais pas encore'
+                            ? t('profile.notProvidedFeminine')
+                            : t('profile.regularity.dontKnowYet')
                   }
-                  title="Régularité du cycle"
+                  title={t('profile.cycleRegularityLabel')}
                   tone="default"
                 />
               </>
@@ -2211,22 +2256,22 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="calendar-clock"
                   onPress={() => navigation.navigate('ConceptionTryingDuration', {mode: 'edit'})}
-                  subtitle="Depuis combien de temps j’essaie de concevoir"
-                  title="Durée des essais"
+                  subtitle={t('profile.conceive.tryingDurationSubtitle')}
+                  title={t('profile.conceive.tryingDurationTitle')}
                   tone="default"
                 />
                 <MenuRow
                   icon="target"
                   onPress={() => navigation.navigate('ConceptionOvulationAwareness', {mode: 'edit'})}
-                  subtitle="Arriver à repérer mon ovulation"
-                  title="Repérage de l’ovulation"
+                  subtitle={t('profile.conceive.ovulationAwarenessSubtitle')}
+                  title={t('profile.conceive.ovulationAwarenessTitle')}
                   tone="default"
                 />
                 <MenuRow
                   icon="chart-timeline-variant"
                   onPress={() => navigation.navigate('ConceptionIndicators', {mode: 'edit'})}
-                  subtitle="Température, glaire, tests LH, rapports"
-                  title="Indicateurs suivis"
+                  subtitle={t('profile.conceive.indicatorsSubtitle')}
+                  title={t('profile.conceive.indicatorsTitle')}
                   tone="default"
                 />
               </>
@@ -2237,8 +2282,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="calendar-edit"
                   onPress={() => navigation.navigate('IrregularLastPeriod', {mode: 'edit'})}
-                  subtitle="Renseigner ou corriger la date"
-                  title="Dernières règles"
+                  subtitle={t('profile.miscarriage.provideOrCorrectDate')}
+                  title={t('profile.lastPeriodLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2246,10 +2291,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('IrregularTrackedItems', {mode: 'edit'})}
                   subtitle={
                     irregularPrefs.trackedItems.length > 0
-                      ? `${irregularPrefs.trackedItems.length} élément${irregularPrefs.trackedItems.length > 1 ? 's' : ''} suivi${irregularPrefs.trackedItems.length > 1 ? 's' : ''}`
-                      : 'Aucun élément suivi'
+                      ? t('profile.irregular.trackedItemsCount', {count: irregularPrefs.trackedItems.length})
+                      : t('profile.irregular.noTrackedItems')
                   }
-                  title="Éléments suivis"
+                  title={t('profile.irregular.trackedItemsLabel')}
                   tone="default"
                 />
               </>
@@ -2262,9 +2307,9 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
                   subtitle={(() => {
                     const parsed = parseStoredDateOnly(contraception.methodStartDate);
-                    return parsed ? formatFullDate(parsed) : 'Non renseigné';
+                    return parsed ? formatFullDate(parsed) : t('profile.notProvided');
                   })()}
-                  title="Début du traitement"
+                  title={t('profile.contraception.treatmentStartLabel')}
                   tone="default"
                 />
                 {contraception.method === 'pill' ? (
@@ -2273,12 +2318,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     onPress={() => navigation.navigate('ContraceptionInformation', {mode: 'edit'})}
                     subtitle={
                       contraception.hasTreatmentBreak === null
-                        ? 'Non renseignée'
+                        ? t('profile.notProvidedFeminine')
                         : contraception.hasTreatmentBreak
-                          ? 'Avec une pause'
-                          : 'Sans pause'
+                          ? t('profile.contraception.withBreak')
+                          : t('profile.contraception.withoutBreak')
                     }
-                    title="Pause de traitement"
+                    title={t('profile.contraception.treatmentBreakLabel')}
                     tone="default"
                   />
                 ) : null}
@@ -2290,15 +2335,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="calendar-heart"
                   onPress={() => navigation.navigate('PregnancyDatingSetup', {mode: 'edit'})}
-                  subtitle="Date de début, terme prévu ou conception"
-                  title="Datation de ma grossesse"
+                  subtitle={t('profile.pregnancy.datingSubtitle')}
+                  title={t('profile.pregnancy.datingTitle')}
                   tone="default"
                 />
                 <MenuRow
                   icon="clipboard-pulse-outline"
                   onPress={() => navigation.navigate('PregnancyTrackingPreferences', {mode: 'edit'})}
-                  subtitle="Choisir les catégories de mon suivi quotidien"
-                  title="Préférences de suivi"
+                  subtitle={t('profile.pregnancy.trackingPreferencesSubtitle')}
+                  title={t('profile.pregnancy.trackingPreferencesTitle')}
                   tone="default"
                 />
               </>
@@ -2308,8 +2353,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('PregnancyNotifications')}
-                subtitle="Grossesse, rendez-vous, examens et rappels personnalisés"
-                title="Notifications & rappels"
+                subtitle={t('profile.pregnancy.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2318,8 +2363,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('ContraceptionReminders', {mode: 'edit'})}
-                subtitle="Rappels liés à ta méthode de contraception"
-                title="Notifications & rappels"
+                subtitle={t('profile.contraception.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2328,8 +2373,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('CycleReminders', {mode: 'edit'})}
-                subtitle="Règles, journal quotidien, ovulation et fenêtre fertile"
-                title="Notifications & rappels"
+                subtitle={t('profile.cycle.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2338,8 +2383,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('ConceptionReminders', {mode: 'edit'})}
-                subtitle="Gérer mes rappels de conception"
-                title="Notifications & rappels"
+                subtitle={t('profile.conceive.manageReminders')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2349,8 +2394,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="flower-outline"
                   onPress={() => navigation.navigate('MenopauseStage', {mode: 'edit'})}
-                  subtitle={menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : 'Non renseignée'}
-                  title="Étape actuelle"
+                  subtitle={menopause.stage ? menopauseStageLabelsMap[menopause.stage] : t('profile.notProvidedFeminine')}
+                  title={t('profile.menopause.currentStageLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2358,10 +2403,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('MenopauseSymptoms', {mode: 'edit'})}
                   subtitle={
                     menopause.trackedSymptoms.length > 0
-                      ? `${menopause.trackedSymptoms.length} symptôme${menopause.trackedSymptoms.length > 1 ? 's' : ''} suivi${menopause.trackedSymptoms.length > 1 ? 's' : ''}`
-                      : 'Aucun symptôme suivi'
+                      ? t('profile.menopause.symptomsTrackedCount', {count: menopause.trackedSymptoms.length})
+                      : t('profile.menopause.noSymptomsTracked')
                   }
-                  title="Symptômes suivis"
+                  title={t('profile.menopause.trackedSymptomsLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2369,19 +2414,19 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('MenopauseHormonalTreatment', {mode: 'edit'})}
                   subtitle={
                     menopause.hormonalTreatmentStatus
-                      ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus]
-                      : 'Non renseigné'
+                      ? menopauseHormonalTreatmentLabelsMap[menopause.hormonalTreatmentStatus]
+                      : t('profile.notProvided')
                   }
-                  title="Traitement hormonal"
+                  title={t('profile.menopause.hormonalTreatmentLabel')}
                   tone="default"
                 />
                 <MenuRow
                   icon="flask-outline"
                   onPress={() => navigation.navigate('MenopauseLabTracking', {mode: 'edit'})}
                   subtitle={
-                    menopause.labTracking ? MENOPAUSE_LAB_TRACKING_LABELS[menopause.labTracking] : 'Non renseigné'
+                    menopause.labTracking ? menopauseLabTrackingLabelsMap[menopause.labTracking] : t('profile.notProvided')
                   }
-                  title="Analyses suivies"
+                  title={t('profile.menopause.labTrackingLabel')}
                   tone="default"
                 />
               </>
@@ -2391,8 +2436,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('MenopauseReminders', {mode: 'edit'})}
-                subtitle="Suivi quotidien et rappel de traitement"
-                title="Notifications & rappels"
+                subtitle={t('profile.menopause.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2402,29 +2447,29 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="calendar-heart"
                   onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
-                  subtitle="Corriger la date de mon accouchement"
-                  title="Date d’accouchement"
+                  subtitle={t('profile.postpartum.correctDeliveryDate')}
+                  title={t('profile.postpartum.deliveryDateLabel')}
                   tone="default"
                 />
                 <MenuRow
                   icon="medical-bag"
                   onPress={() => navigation.navigate('PostpartumDeliveryType', {mode: 'edit'})}
-                  subtitle="Type d’accouchement"
-                  title="Mon accouchement"
+                  subtitle={t('profile.postpartum.deliveryTypeLabel')}
+                  title={t('profile.postpartum.myDeliveryLabel')}
                   tone="default"
                 />
                 <MenuRow
                   icon="baby-bottle-outline"
                   onPress={() => navigation.navigate('PostpartumFeeding', {mode: 'edit'})}
-                  subtitle="Allaitement et alimentation de bébé"
-                  title="Alimentation de bébé"
+                  subtitle={t('profile.postpartum.feedingSubtitle')}
+                  title={t('profile.postpartum.babyFeedingLabel')}
                   tone="default"
                 />
                 <MenuRow
                   icon="sync"
                   onPress={() => navigation.navigate('PostpartumCycleReturn')}
-                  subtitle="Ajouter, modifier ou effacer la date des premières règles"
-                  title="Retour du cycle"
+                  subtitle={t('profile.postpartum.cycleReturnSubtitle')}
+                  title={t('profile.miscarriage.cycleReturnLabel')}
                   tone="default"
                 />
               </>
@@ -2434,8 +2479,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('PostpartumReminders', {mode: 'edit'})}
-                subtitle="Gérer mon rappel de suivi quotidien"
-                title="Notifications & rappels"
+                subtitle={t('profile.postpartum.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2444,8 +2489,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('IrregularReminders', {mode: 'edit'})}
-                subtitle="Journal quotidien et règles non renseignées"
-                title="Notifications & rappels"
+                subtitle={t('profile.irregular.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2454,8 +2499,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="calendar-edit"
                 onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
-                subtitle="Renseigner ou corriger la date"
-                title="Date de la fausse couche"
+                subtitle={t('profile.miscarriage.provideOrCorrectDate')}
+                title={t('profile.miscarriage.dateLabel')}
                 tone="default"
               />
             ) : null}
@@ -2467,10 +2512,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('MiscarriageBleeding', {mode: 'edit'})}
                   subtitle={
                     miscarriage.bleedingStatus
-                      ? `Actuellement : ${BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus]}`
-                      : 'Non renseigné'
+                      ? t('profile.currentlyValue', {value: bleedingStatusLabelsMap[miscarriage.bleedingStatus]})
+                      : t('profile.notProvided')
                   }
-                  title="Saignements actuels"
+                  title={t('profile.miscarriage.currentBleedingLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2478,10 +2523,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('MiscarriageCycleReturn', {mode: 'edit'})}
                   subtitle={
                     miscarriage.cycleReturnStatus
-                      ? `Actuellement : ${MISCARRIAGE_CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus]}`
-                      : 'Non renseigné'
+                      ? t('profile.currentlyValue', {value: miscarriageCycleReturnLabelsMap[miscarriage.cycleReturnStatus]})
+                      : t('profile.notProvided')
                   }
-                  title="Retour du cycle"
+                  title={t('profile.miscarriage.cycleReturnLabel')}
                   tone="default"
                 />
                 <MenuRow
@@ -2489,10 +2534,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   onPress={() => navigation.navigate('MiscarriageTryingAgain', {mode: 'edit'})}
                   subtitle={
                     miscarriage.tryingAgainStatus
-                      ? `Actuellement : ${MISCARRIAGE_TRYING_AGAIN_LABELS[miscarriage.tryingAgainStatus]}`
-                      : 'Non renseigné'
+                      ? t('profile.currentlyValue', {value: miscarriageTryingAgainLabelsMap[miscarriage.tryingAgainStatus]})
+                      : t('profile.notProvided')
                   }
-                  title="Reprise des essais"
+                  title={t('profile.miscarriage.tryingAgainLabel')}
                   tone="default"
                 />
               </>
@@ -2502,8 +2547,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="bell-outline"
                 onPress={() => navigation.navigate('MiscarriageReminders', {mode: 'edit'})}
-                subtitle="Un rappel doux pour prendre un moment pour ton suivi"
-                title="Notifications & rappels"
+                subtitle={t('profile.miscarriage.remindersSubtitle')}
+                title={t('profile.notificationsAndReminders')}
                 tone="default"
               />
             ) : null}
@@ -2511,8 +2556,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <MenuRow
               icon="palette"
               onPress={() => navigation.navigate('Appearance')}
-              subtitle="Thèmes, couleurs et affichage"
-              title="Apparence"
+              subtitle={t('profile.appearanceSubtitle')}
+              title={t('appearance.headerTitle')}
               tone="default"
             />
 
@@ -2526,8 +2571,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               <MenuRow
                 icon="shield-lock-outline"
                 onPress={() => navigation.navigate('PrivacySecurity')}
-                subtitle="Code, biométrie, mode discret et protection des données"
-                title="Confidentialité & Sécurité"
+                subtitle={t('profile.privacySecuritySubtitle')}
+                title={t('profile.privacySecurityTitle')}
                 tone="security"
               />
             ) : null}
@@ -2535,8 +2580,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
             <MenuRow
               icon="cloud-outline"
               onPress={() => navigation.navigate('BackupData')}
-              subtitle="Sauvegarde cloud et restauration de tes données"
-              title="Sauvegarde"
+              subtitle={t('profile.backupSubtitle')}
+              title={t('profile.backupTitle')}
               tone="backup"
             />
           </View>
@@ -2551,15 +2596,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           {!isManagedProfileActive ? (
             <>
-              <SectionHeader icon="heart-multiple-outline" title="AWA À DEUX" />
+              <SectionHeader icon="heart-multiple-outline" title={t('profile.awaADeuxSectionTitle')} />
 
               <View style={styles.menuCard}>
                 <MenuRow
                   icon="heart-multiple-outline"
                   onPress={() => navigation.navigate(awaADeuxEntryRoute(getDemoPartnerState().partnerConnected))}
-                  status="Non configuré"
-                  subtitle="Partagez certains repères avec votre partenaire"
-                  title="AWA à deux"
+                  status={t('profile.notConfigured')}
+                  subtitle={t('profile.awaADeuxSubtitle')}
+                  title={t('profile.awaADeuxTitle')}
                   tone="default"
                 />
               </View>
@@ -2587,15 +2632,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.securityRecommendationCopy}>
                 <Text style={styles.securityRecommendationTitle}>
-                  Verrouillage recommandé
+                  {t('profile.security.lockRecommendedTitle')}
                 </Text>
                 <Text style={styles.securityRecommendationText}>
-                  Protège ton accès avec un PIN ou la biométrie.
+                  {t('profile.security.lockRecommendedText')}
                 </Text>
               </View>
 
               <View style={styles.securityRecommendationCta}>
-                <Text style={styles.securityRecommendationCtaText}>Configurer</Text>
+                <Text style={styles.securityRecommendationCtaText}>{t('profile.security.configure')}</Text>
               </View>
             </Pressable>
           ) : null}
@@ -2645,7 +2690,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                       !spiritualEnabled && styles.spiritualTitleDisabled,
                     ]}
                   >
-                    Repères spirituels
+                    {t('profile.spiritualMarkers.sectionTitle')}
                   </Text>
 
                   <View
@@ -2666,7 +2711,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                           : styles.statusBadgeTextInactive,
                       ]}
                     >
-                      {spiritualEnabled ? 'Actif' : 'Inactif'}
+                      {spiritualEnabled ? t('profile.spiritualMarkers.active') : t('profile.spiritualMarkers.inactive')}
                     </Text>
                   </View>
                 </View>
@@ -2678,13 +2723,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     !spiritualEnabled && styles.spiritualTextDisabled,
                   ]}
                 >
-                  Calendrier hijri, prières, pureté, jeûne et rappels.
+                  {t('profile.spiritualMarkers.summaryText')}
                 </Text>
               </View>
             </View>
 
             <View style={styles.spiritualMiniFeatures}>
-              {SPIRITUAL_FEATURES.map(feature => (
+              {spiritualFeatures(t).map(feature => (
                 <View
                   key={feature.label}
                   style={[
@@ -2725,7 +2770,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 pressed && styles.pressed,
               ]}
             >
-              <Text style={styles.manageButtonText}>Gérer les repères</Text>
+              <Text style={styles.manageButtonText}>{t('profile.spiritualMarkers.manageMarkers')}</Text>
 
               <MaterialDesignIcons
                 color={onPrimaryTextColor(theme)}
@@ -2740,31 +2785,31 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
           <SectionHeader
             icon="dots-horizontal-circle-outline"
-            title="Plus"
-            subtitle="Aide, informations sur AWA et gestion de ta session."
+            title={t('profile.moreSectionTitle')}
+            subtitle={t('profile.moreSectionSubtitle')}
           />
 
           <View style={[styles.menuCard, styles.moreMenuCard]}>
             <MenuRow
               icon="information-outline"
               onPress={() => navigation.navigate('About')}
-              subtitle="Version, mentions, confidentialité et valeurs de l’application"
-              title="À propos de AWA"
+              subtitle={t('profile.aboutAwaSubtitle')}
+              title={t('profile.aboutAwaTitle')}
               tone="about"
             />
 
             <MenuRow
               icon="lifebuoy"
               onPress={() => navigation.navigate('HelpSupport')}
-              subtitle="Questions fréquentes, signalement et contact"
-              title="Aide & support"
+              subtitle={t('profile.helpSupportSubtitle')}
+              title={t('profile.helpSupportTitle')}
               tone="support"
             />
           </View>
 
           {anonymousMode ? (
             <Pressable
-              accessibilityLabel="Quitter le mode anonyme"
+              accessibilityLabel={t('profile.anonymousMode.exit')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('AnonymousMode')}
               style={({pressed}) => [
@@ -2779,12 +2824,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <Text style={styles.anonymousExitText}>
-                Quitter le mode anonyme
+                {t('profile.anonymousMode.exit')}
               </Text>
             </Pressable>
           ) : (
             <Pressable
-              accessibilityLabel="Se déconnecter"
+              accessibilityLabel={t('profile.signOut')}
               accessibilityRole="button"
               onPress={confirmSignOut}
               style={({pressed}) => [
@@ -2799,7 +2844,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
               />
 
               <Text style={styles.signOutText}>
-                Se déconnecter
+                {t('profile.signOut')}
               </Text>
             </Pressable>
           )}
@@ -2838,15 +2883,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Gérer les profils</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.managedProfiles.sheetTitle')}</Text>
 
                   <Text style={styles.sheetSubtitle}>
-                    Suivez votre cycle ou celui d’un profil que vous gérez.
+                    {t('profile.managedProfiles.sheetSubtitle')}
                   </Text>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Fermer"
+                  accessibilityLabel={t('common.close')}
                   onPress={() => setManageProfilesVisible(false)}
                   style={styles.sheetClose}
                 >
@@ -2869,7 +2914,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     Calendar/Statistics/Journal (activeProfileStore.ts) — the checkmark
                     reflects whichever one that currently is, never just the mother. */}
                 <Pressable
-                  accessibilityLabel="Mon profil"
+                  accessibilityLabel={t('profile.managedProfiles.myProfile')}
                   accessibilityRole="radio"
                   accessibilityState={{ checked: !isManagedProfileActive }}
                   onPress={() => switchToProfile(OWNER_PROFILE_ID)}
@@ -2905,10 +2950,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                         !isManagedProfileActive && styles.objectiveOptionTitleActive,
                       ]}
                     >
-                      {anonymousMode ? 'Mode Anonyme' : firstName || 'Non renseigné'}
+                      {anonymousMode ? t('profile.anonymousMode.title') : firstName || t('profile.notProvided')}
                     </Text>
 
-                    <Text style={styles.objectiveOptionSubtitle}>Mon profil</Text>
+                    <Text style={styles.objectiveOptionSubtitle}>{t('profile.managedProfiles.myProfile')}</Text>
                   </View>
 
                   {!isManagedProfileActive ? (
@@ -2932,14 +2977,14 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   const checked = activeManagedProfile?.id === profile.id;
                   return (
                     <ManagedProfileSwipeRow
-                      deleteAccessibilityLabel={`Supprimer le profil de ${profile.firstName}`}
+                      deleteAccessibilityLabel={t('profile.managedProfiles.deleteProfileOf', {name: profile.firstName})}
                       forceClosed={openSwipeProfileId !== null && openSwipeProfileId !== profile.id}
                       key={profile.id}
                       onDeletePress={() => setProfileToDelete(profile)}
                       onSwipeOpen={() => setOpenSwipeProfileId(profile.id)}
                     >
                       <Pressable
-                        accessibilityLabel={`Profil de ${profile.firstName}`}
+                        accessibilityLabel={t('profile.managedProfiles.profileOf', {name: profile.firstName})}
                         accessibilityRole="radio"
                         accessibilityState={{ checked }}
                         onPress={() => switchToProfile(profile.id)}
@@ -2960,7 +3005,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                           <Text style={[styles.objectiveOptionTitle, checked && styles.objectiveOptionTitleActive]}>
                             {profile.firstName}
                           </Text>
-                          <Text style={styles.objectiveOptionSubtitle}>Ma fille</Text>
+                          <Text style={styles.objectiveOptionSubtitle}>{t('profile.managedProfiles.myDaughter')}</Text>
                         </View>
 
                         {checked ? (
@@ -2980,7 +3025,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 })}
 
                 <Pressable
-                  accessibilityLabel="Ajouter un profil"
+                  accessibilityLabel={t('profile.managedProfiles.addProfile')}
                   accessibilityRole="button"
                   onPress={handleAddProfile}
                   style={({ pressed }) => [
@@ -2995,7 +3040,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     size={18}
                   />
 
-                  <Text style={styles.addProfileButtonText}>Ajouter le profil de ma fille</Text>
+                  <Text style={styles.addProfileButtonText}>{t('profile.managedProfiles.addDaughterProfile')}</Text>
                 </Pressable>
               </ScrollView>
             </View>
@@ -3030,10 +3075,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Modifier mon objectif</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.objectivePicker.title')}</Text>
 
                   <Text style={styles.sheetSubtitle}>
-                    Choisis l’objectif qui correspond le mieux à ta situation.
+                    {t('profile.objectivePicker.subtitle')}
                   </Text>
                 </View>
 
@@ -3059,7 +3104,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 ]}
                 showsVerticalScrollIndicator={false}
               >
-                {OBJECTIVES.map(item => {
+                {objectivesList(t).map(item => {
                   const active = objective === item.id;
 
                   return (
@@ -3155,10 +3200,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Repères spirituels</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.spiritualMarkers.sectionTitle')}</Text>
 
                   <Text style={styles.sheetSubtitle}>
-                    Active ou désactive les fonctionnalités spirituelles de AWA.
+                    {t('profile.spiritualMarkers.modalSubtitle')}
                   </Text>
                 </View>
 
@@ -3184,7 +3229,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 ]}
                 showsVerticalScrollIndicator={false}
               >
-                <Text style={styles.activationLabel}>État des repères</Text>
+                <Text style={styles.activationLabel}>{t('profile.spiritualMarkers.markersStateLabel')}</Text>
 
                 <View style={styles.activationChoices}>
                   <Pressable
@@ -3221,7 +3266,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                           spiritualEnabled && styles.activationTitleActive,
                         ]}
                       >
-                        Oui, activer
+                        {t('profile.spiritualMarkers.yesActivate')}
                       </Text>
 
                       <Text
@@ -3232,7 +3277,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                             styles.activationDescriptionActive,
                         ]}
                       >
-                        Afficher les fonctionnalités spirituelles
+                        {t('profile.spiritualMarkers.showFeatures')}
                       </Text>
                     </View>
 
@@ -3281,7 +3326,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                           !spiritualEnabled && styles.activationTitleActive,
                         ]}
                       >
-                        Non, désactiver
+                        {t('profile.spiritualMarkers.noDeactivate')}
                       </Text>
 
                       <Text
@@ -3292,7 +3337,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                             styles.activationDescriptionActive,
                         ]}
                       >
-                        Masquer les fonctionnalités spirituelles
+                        {t('profile.spiritualMarkers.hideFeatures')}
                       </Text>
                     </View>
 
@@ -3310,7 +3355,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
                 <View style={styles.featuresHeader}>
                   <Text style={styles.featuresTitle}>
-                    Fonctionnalités concernées
+                    {t('profile.spiritualMarkers.relatedFeaturesTitle')}
                   </Text>
 
                   <View
@@ -3331,13 +3376,13 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                           : styles.featuresStatusTextDisabled,
                       ]}
                     >
-                      {spiritualEnabled ? 'Activées' : 'Désactivées'}
+                      {spiritualEnabled ? t('profile.spiritualMarkers.enabledPlural') : t('profile.spiritualMarkers.disabledPlural')}
                     </Text>
                   </View>
                 </View>
 
                 <View style={styles.spiritualFeatures}>
-                  {SPIRITUAL_FEATURES.map(feature => (
+                  {spiritualFeatures(t).map(feature => (
                     <View
                       key={feature.label}
                       style={[
@@ -3417,7 +3462,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   />
 
                   <Text style={styles.spiritualInfoText}>
-                    Tu peux modifier ce choix à tout moment depuis ton profil.
+                    {t('profile.spiritualMarkers.canChangeAnytime')}
                   </Text>
                 </View>
 
@@ -3431,7 +3476,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 >
                   <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={19} />
 
-                  <Text style={styles.doneButtonText}>Terminé</Text>
+                  <Text style={styles.doneButtonText}>{t('cycleHome.quickActions.done')}</Text>
                 </Pressable>
               </ScrollView>
             </View>
@@ -3460,10 +3505,10 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Informations du compte</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.accountInfoModal.title')}</Text>
 
                   <Text style={styles.sheetSubtitle}>
-                    Ton profil anonyme ne contient aucune information permettant de t’identifier.
+                    {t('profile.accountInfoModal.subtitle')}
                   </Text>
                 </View>
 
@@ -3481,17 +3526,17 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
                 <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>Mode anonyme</Text>
-                  <Text style={styles.accountInfoValue}>Activé</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.anonymousMode')}</Text>
+                  <Text style={styles.accountInfoValue}>{t('profile.accountInfoModal.enabledValue')}</Text>
                 </View>
 
                 <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>Identifiant anonyme</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.anonymousId')}</Text>
                   <Text style={styles.accountInfoValue}>{anonymousAccount?.id ?? '—'}</Text>
                 </View>
 
                 <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>Créé le</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.createdOn')}</Text>
                   <Text style={styles.accountInfoValue}>
                     {(() => {
                       if (!anonymousAccount) {
@@ -3509,15 +3554,15 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>Sécurité</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.security')}</Text>
                   <Text style={styles.accountInfoValue}>
-                    {securityLocked ? 'PIN / Biométrie' : 'Non configurée'}
+                    {securityLocked ? t('profile.accountInfoModal.pinBiometry') : t('profile.accountInfoModal.notConfigured')}
                   </Text>
                 </View>
 
                 <View style={[styles.accountInfoRow, styles.accountInfoRowLast]}>
-                  <Text style={styles.accountInfoLabel}>Synchronisation</Text>
-                  <Text style={styles.accountInfoValue}>Locale uniquement</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.accountInfoModal.sync')}</Text>
+                  <Text style={styles.accountInfoValue}>{t('profile.accountInfoModal.localOnly')}</Text>
                 </View>
 
                 <View style={styles.spiritualInfoBox}>
@@ -3528,7 +3573,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   />
 
                   <Text style={styles.spiritualInfoText}>
-                    Tes données restent privées sur cet appareil et ne sont pas synchronisées sur d’autres appareils.
+                    {t('profile.accountInfoModal.dataPrivateInfo')}
                   </Text>
                 </View>
               </View>
@@ -3563,8 +3608,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Durée du cycle</Text>
-                  <Text style={styles.sheetSubtitle}>Combien de jours dure généralement son cycle ?</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.cycleDurationEditor.title')}</Text>
+                  <Text style={styles.sheetSubtitle}>{t('profile.cycleDurationEditor.subtitle')}</Text>
                 </View>
                 <Pressable onPress={() => setCycleDurationEditorVisible(false)} style={styles.sheetClose}>
                   <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
@@ -3576,26 +3621,26 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   max={CYCLE_DURATION_MAX}
                   min={CYCLE_DURATION_MIN}
                   onChange={setDraftCycleDuration}
-                  unit="jours"
+                  unit={t('profile.durationStepper.unit')}
                   value={draftCycleDuration}
                 />
 
                 <View style={styles.editorActions}>
                   <Pressable
-                    accessibilityLabel="Annuler"
+                    accessibilityLabel={t('common.cancel')}
                     accessibilityRole="button"
                     onPress={() => setCycleDurationEditorVisible(false)}
                     style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
                   >
-                    <Text style={styles.editorCancelText}>Annuler</Text>
+                    <Text style={styles.editorCancelText}>{t('common.cancel')}</Text>
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="Enregistrer"
+                    accessibilityLabel={t('common.save')}
                     accessibilityRole="button"
                     onPress={saveCycleDuration}
                     style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
                   >
-                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>Enregistrer</Text>
+                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>{t('common.save')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -3621,8 +3666,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Durée des règles</Text>
-                  <Text style={styles.sheetSubtitle}>Combien de jours durent généralement ses règles ?</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.periodDurationEditor.title')}</Text>
+                  <Text style={styles.sheetSubtitle}>{t('profile.periodDurationEditor.subtitle')}</Text>
                 </View>
                 <Pressable onPress={() => setPeriodDurationEditorVisible(false)} style={styles.sheetClose}>
                   <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
@@ -3634,26 +3679,26 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   max={PERIOD_DURATION_MAX}
                   min={PERIOD_DURATION_MIN}
                   onChange={setDraftPeriodDuration}
-                  unit="jours"
+                  unit={t('profile.durationStepper.unit')}
                   value={draftPeriodDuration}
                 />
 
                 <View style={styles.editorActions}>
                   <Pressable
-                    accessibilityLabel="Annuler"
+                    accessibilityLabel={t('common.cancel')}
                     accessibilityRole="button"
                     onPress={() => setPeriodDurationEditorVisible(false)}
                     style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
                   >
-                    <Text style={styles.editorCancelText}>Annuler</Text>
+                    <Text style={styles.editorCancelText}>{t('common.cancel')}</Text>
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="Enregistrer"
+                    accessibilityLabel={t('common.save')}
                     accessibilityRole="button"
                     onPress={savePeriodDuration}
                     style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
                   >
-                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>Enregistrer</Text>
+                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>{t('common.save')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -3679,8 +3724,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Régularité du cycle</Text>
-                  <Text style={styles.sheetSubtitle}>Son cycle est-il généralement régulier ?</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.regularityEditor.title')}</Text>
+                  <Text style={styles.sheetSubtitle}>{t('profile.regularityEditor.subtitle')}</Text>
                 </View>
                 <Pressable onPress={() => setRegularityEditorVisible(false)} style={styles.sheetClose}>
                   <MaterialDesignIcons color={theme.colors.accent} name="close" size={21} />
@@ -3692,9 +3737,9 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     (CycleInformationScreen.tsx) — never a new terminology. */}
                 {(
                   [
-                    {id: 'yes', label: 'Oui'},
-                    {id: 'no', label: 'Non'},
-                    {id: 'unknown', label: 'Je ne sais pas'},
+                    {id: 'yes', label: t('journalIntimacy.yes')},
+                    {id: 'no', label: t('journalIntimacy.no')},
+                    {id: 'unknown', label: t('managedProfile.cycleSetup.unknown')},
                   ] as Array<{id: CyclePreferences['regularity']; label: string}>
                 ).map(option => (
                   <Pressable
@@ -3727,20 +3772,20 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
                 <View style={styles.editorActions}>
                   <Pressable
-                    accessibilityLabel="Annuler"
+                    accessibilityLabel={t('common.cancel')}
                     accessibilityRole="button"
                     onPress={() => setRegularityEditorVisible(false)}
                     style={({pressed}) => [styles.editorCancelButton, pressed && styles.pressed]}
                   >
-                    <Text style={styles.editorCancelText}>Annuler</Text>
+                    <Text style={styles.editorCancelText}>{t('common.cancel')}</Text>
                   </Pressable>
                   <Pressable
-                    accessibilityLabel="Enregistrer"
+                    accessibilityLabel={t('common.save')}
                     accessibilityRole="button"
                     onPress={saveRegularity}
                     style={({pressed}) => [styles.editorSaveButton, pressed && styles.pressed]}
                   >
-                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>Enregistrer</Text>
+                    <Text style={[styles.editorSaveText, {color: onPrimaryTextColor(theme)}]}>{t('common.save')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -3773,10 +3818,12 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Informations personnelles</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.personalInfo.title')}</Text>
 
                   <Text style={styles.sheetSubtitle}>
-                    Les informations de {activeManagedProfile?.firstName ?? 'ce profil'}.
+                    {t('profile.managedProfileInfoModal.subtitle', {
+                      name: activeManagedProfile?.firstName ?? t('profile.managedProfileInfoModal.thisProfile'),
+                    })}
                   </Text>
                 </View>
 
@@ -3794,26 +3841,26 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={[styles.accountInfoList, {paddingBottom: Math.max(insets.bottom, 14) + 14}]}>
                 <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>Prénom</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.managedProfileInfoModal.firstNameLabel')}</Text>
                   <Text style={styles.accountInfoValue}>{activeManagedProfile?.firstName ?? '—'}</Text>
                 </View>
 
                 <View style={styles.accountInfoRow}>
-                  <Text style={styles.accountInfoLabel}>Date de naissance</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.managedProfileInfoModal.birthDateLabel')}</Text>
                   <Text style={styles.accountInfoValue}>
                     {(() => {
                       const parsed = parseStoredDateOnly(activeManagedProfile?.birthDate);
-                      return parsed ? formatFullDate(parsed) : 'Non renseignée';
+                      return parsed ? formatFullDate(parsed) : t('profile.notProvidedFeminine');
                     })()}
                   </Text>
                 </View>
 
                 <View style={[styles.accountInfoRow, styles.accountInfoRowLast]}>
-                  <Text style={styles.accountInfoLabel}>Âge</Text>
+                  <Text style={styles.accountInfoLabel}>{t('profile.managedProfileInfoModal.ageLabel')}</Text>
                   <Text style={styles.accountInfoValue}>
                     {(() => {
                       const parsed = parseStoredDateOnly(activeManagedProfile?.birthDate);
-                      return parsed ? formatAgeInYears(parsed) : 'Non renseigné';
+                      return parsed ? formatAgeInYears(parsed) : t('profile.notProvided');
                     })()}
                   </Text>
                 </View>
@@ -3826,8 +3873,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                   />
 
                   <Text style={styles.spiritualInfoText}>
-                    Ce profil géré n’a pas son propre compte AWA — ses informations restent
-                    liées au tien et peuvent être modifiées depuis "Gérer les profils".
+                    {t('profile.managedProfileInfoModal.linkedAccountInfo')}
                   </Text>
                 </View>
               </View>
@@ -3857,7 +3903,7 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
 
               <View style={styles.sheetHeader}>
                 <View style={styles.sheetHeaderCopy}>
-                  <Text style={styles.sheetTitle}>Modifier la photo</Text>
+                  <Text style={styles.sheetTitle}>{t('profile.photoModal.editTitle')}</Text>
                 </View>
 
                 <Pressable
@@ -3876,8 +3922,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="camera-outline"
                   onPress={() => choosePhoto(true)}
-                  subtitle="Utiliser l’appareil photo"
-                  title="Prendre une photo"
+                  subtitle={t('profile.photoModal.useCameraSubtitle')}
+                  title={t('profile.photoModal.takePhoto')}
                 />
 
                 <View style={styles.menuDivider} />
@@ -3885,8 +3931,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                 <MenuRow
                   icon="image-outline"
                   onPress={() => choosePhoto(false)}
-                  subtitle="Sélectionner une image existante"
-                  title="Choisir depuis la galerie"
+                  subtitle={t('profile.photoModal.selectExistingSubtitle')}
+                  title={t('profile.photoModal.chooseFromGallery')}
                 />
 
                 {photoUri ? (
@@ -3896,8 +3942,8 @@ function ProfileScreen({ navigation }: Props): React.JSX.Element {
                     <MenuRow
                       icon="delete-outline"
                       onPress={removePhoto}
-                      subtitle="Revenir à l’avatar par défaut"
-                      title="Supprimer la photo"
+                      subtitle={t('profile.photoModal.revertToDefaultSubtitle')}
+                      title={t('profile.photoModal.removePhoto')}
                     />
                   </>
                 ) : null}

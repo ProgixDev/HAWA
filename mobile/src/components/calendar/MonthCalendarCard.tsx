@@ -1,10 +1,12 @@
 import React, {memo, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 import {
   type CycleBasics,
   formatHijriDay,
@@ -12,11 +14,21 @@ import {
   kindFor,
   sameDay,
   type DayKind,
-  WEEK_DAYS,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import type {CalendarFilters} from '../../state/calendarFilters';
+import '../../i18n';
+
+// A localized, in-scope-only copy of weekday abbreviations for this card —
+// cycleMath.ts's own exported WEEK_DAYS stays French/untouched, since it is
+// shared with several out-of-this-phase's-scope per-objective calendars
+// (Pregnancy, Postpartum, Miscarriage, Conceive, Contraception, Irregular,
+// Menopause) that this phase must not silently alter (CLAUDE.md §9 change-
+// scope discipline).
+const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const localizedWeekDays = () => (getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR);
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -99,10 +111,10 @@ const NOTES_COLOR = '#2C8E93';
 const RAMADAN_MARKER_COLOR = '#6D4AE8';
 const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
-const MODES: {key: CalendarDisplayMode; label: string}[] = [
-  {key: 'gregorian', label: 'Grégorien'},
-  {key: 'hijri', label: 'Hijri'},
-  {key: 'double', label: 'Double'},
+const MODE_KEYS: {key: CalendarDisplayMode; labelKey: string}[] = [
+  {key: 'gregorian', labelKey: 'calendar.modeGregorian'},
+  {key: 'hijri', labelKey: 'calendar.modeHijri'},
+  {key: 'double', labelKey: 'calendar.modeDouble'},
 ];
 
 function DayCell({
@@ -121,6 +133,7 @@ function DayCell({
   spiritualMarkersEnabled,
   theme,
   styles,
+  t,
 }: {
   date: Date | null;
   basics: CycleBasics;
@@ -137,6 +150,7 @@ function DayCell({
   spiritualMarkersEnabled: boolean;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
+  t: (key: string, options?: Record<string, unknown>) => string;
 }) {
   if (!date) {
     return <View style={styles.dayCell} />;
@@ -196,7 +210,7 @@ function DayCell({
     onColoredBg ??
     (spiritualMonth === 'ramadan' ? RAMADAN_MARKER_COLOR : DHOUL_HIJJA_MARKER_COLOR);
   const spiritualMarkerLabel =
-    spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : '';
+    spiritualMonth === 'ramadan' ? `, ${t('calendar.legendRamadan')}` : spiritualMonth === 'dhoulHijja' ? `, ${t('calendar.legendDhoulHijja')}` : '';
 
   const dots: string[] = [];
   if (isPeriodDay) {dots.push(PERIOD_DOT_COLOR);}
@@ -215,7 +229,7 @@ function DayCell({
   return (
     <View style={styles.dayCell}>
       <Pressable
-        accessibilityLabel={`${date.getDate()}, ${kind}${spiritualMarkerLabel}`}
+        accessibilityLabel={`${date.getDate()}, ${t(`calendar.dayKind.${kind}`)}${spiritualMarkerLabel}`}
         accessibilityRole="button"
         onPress={() => onSelectDate(date)}
         style={({pressed}) => [
@@ -293,6 +307,7 @@ function MonthCalendarCard({
   draftPeriodDays,
   resolveKind,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -334,27 +349,27 @@ function MonthCalendarCard({
   return (
     <View style={styles.card}>
       <View style={styles.monthHeader}>
-        <Pressable accessibilityLabel="Mois précédent" accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(-1)}>
+        <Pressable accessibilityLabel={t('calendar.previousMonth')} accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(-1)}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
         </Pressable>
 
         <View style={styles.monthTitleBlock}>
           <Text numberOfLines={1} style={styles.monthTitle}>
-            {new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+            {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
           </Text>
           {hijriRangeLabel ? (
             <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
           ) : null}
         </View>
 
-        <Pressable accessibilityLabel="Mois suivant" accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(1)}>
+        <Pressable accessibilityLabel={t('calendar.nextMonth')} accessibilityRole="button" hitSlop={12} onPress={() => onChangeMonth(1)}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={24} />
         </Pressable>
       </View>
 
       {spiritualMarkersEnabled ? (
       <View style={styles.modeRow}>
-        {MODES.map(mode => {
+        {MODE_KEYS.map(mode => {
           const active = mode.key === displayMode;
           return (
             <Pressable
@@ -362,7 +377,7 @@ function MonthCalendarCard({
               key={mode.key}
               onPress={() => onChangeDisplayMode(mode.key)}
               style={({pressed}) => [styles.modeButton, active && styles.modeButtonActive, pressed && styles.pressed]}>
-              <Text numberOfLines={1} style={[styles.modeText, active && styles.modeTextActive]}>{mode.label}</Text>
+              <Text numberOfLines={1} style={[styles.modeText, active && styles.modeTextActive]}>{t(mode.labelKey)}</Text>
             </Pressable>
           );
         })}
@@ -370,7 +385,7 @@ function MonthCalendarCard({
       ) : null}
 
       <View style={styles.weekRow}>
-        {WEEK_DAYS.map(day => (
+        {localizedWeekDays().map(day => (
           <Text key={day} numberOfLines={1} style={styles.weekDay}>{day}</Text>
         ))}
       </View>
@@ -392,6 +407,7 @@ function MonthCalendarCard({
             showSelection={showSelection}
             spiritualMarkersEnabled={spiritualMarkersEnabled}
             styles={styles}
+            t={t}
             theme={theme}
             today={today}
           />
@@ -399,16 +415,16 @@ function MonthCalendarCard({
       </View>
 
       <View style={styles.legendRow}>
-        <LegendDot color={PERIOD_DOT_COLOR} label="Règles" styles={styles} />
-        <LegendDot color={FERTILE_COLOR} label="Fertile" styles={styles} />
-        <LegendDot color={OVULATION_COLOR} label="Ovulation" styles={styles} />
-        <LegendDot color={MOOD_DOT_COLOR} label="Humeur" styles={styles} />
-        <LegendDot color={NOTES_COLOR} label="Notes" styles={styles} />
-        <LegendDot color={theme.colors.text} label="Aujourd’hui" outline styles={styles} />
+        <LegendDot color={PERIOD_DOT_COLOR} label={t('calendar.legendPeriod')} styles={styles} />
+        <LegendDot color={FERTILE_COLOR} label={t('calendar.legendFertile')} styles={styles} />
+        <LegendDot color={OVULATION_COLOR} label={t('cyclePhase.ovulation')} styles={styles} />
+        <LegendDot color={MOOD_DOT_COLOR} label={t('dailyJournal.mood')} styles={styles} />
+        <LegendDot color={NOTES_COLOR} label={t('dailyJournal.notes')} styles={styles} />
+        <LegendDot color={theme.colors.text} label={t('cycleHome.todayLabel')} outline styles={styles} />
         {spiritualMarkersEnabled ? (
           <>
-            <LegendDot color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" styles={styles} />
-            <LegendDot color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" styles={styles} />
+            <LegendDot color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label={t('calendar.legendRamadan')} styles={styles} />
+            <LegendDot color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label={t('calendar.legendDhoulHijja')} styles={styles} />
           </>
         ) : null}
       </View>

@@ -13,6 +13,7 @@ import {
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {confirmPeriodStart} from '../../state/onboardingPreferences';
@@ -20,6 +21,7 @@ import {formatFullDate, formatShortDate, startOfDay} from '../../utils/cycleMath
 import {getBottomPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // The ONE confirmation sheet for "my period really started on this date" —
 // opened from both CycleHomeScreen and CalendarScreen's selected-day card.
@@ -56,10 +58,8 @@ type Props = {
 const sameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
-const formatDateLabel = (date: Date): string =>
-  sameDay(date, new Date()) ? `Aujourd’hui, ${formatFullDate(date)}` : formatFullDate(date);
-
 function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onConfirm, title, description}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -85,6 +85,8 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
   const isToday = sameDay(draft, new Date());
   // A period start is a real event: it can never be recorded in the future.
   const isFuture = startOfDay(draft).getTime() > startOfDay(new Date()).getTime();
+  const formatDateLabel = (date: Date): string =>
+    sameDay(date, new Date()) ? t('periodStartSheet.todayLabel', {date: formatFullDate(date)}) : formatFullDate(date);
 
   const close = () => {
     Animated.timing(progress, {
@@ -122,7 +124,7 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
         <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
-          <Pressable accessibilityLabel="Fermer" onPress={close} style={StyleSheet.absoluteFill} />
+          <Pressable accessibilityLabel={t('common.close')} onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
         <Animated.View
@@ -137,13 +139,11 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
           <View style={styles.handle} />
 
           <Text style={styles.title}>
-            {title ?? (isToday ? 'Tes règles ont commencé ?' : `Tes règles ont commencé le ${formatShortDate(draft)} ?`)}
+            {title ?? (isToday ? t('periodStartSheet.titleToday') : t('periodStartSheet.titleOther', {date: formatShortDate(draft)}))}
           </Text>
           <Text style={styles.description}>
             {description ??
-              (isToday
-                ? 'Confirme la date de début de tes nouvelles règles.'
-                : 'Confirme cette date comme début de tes règles, ou choisis-en une autre.')}
+              (isToday ? t('periodStartSheet.descriptionToday') : t('periodStartSheet.descriptionOther'))}
           </Text>
 
           <View style={styles.field}>
@@ -151,7 +151,7 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
               <MaterialDesignIcons color={theme.colors.primary} name="water" size={18} />
             </View>
             <View style={styles.fieldCopy}>
-              <Text style={styles.fieldLabel}>Date de début</Text>
+              <Text style={styles.fieldLabel}>{t('periodStartSheet.fieldLabel')}</Text>
               <Text style={styles.fieldValue}>{formatDateLabel(draft)}</Text>
             </View>
           </View>
@@ -162,7 +162,11 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
             onPress={() => commit(isToday ? new Date() : draft)}
             style={({pressed}) => [styles.confirmButton, (pressed || saving || isFuture) && styles.pressed]}>
             <Text style={styles.confirmText}>
-              {saving ? 'Enregistrement…' : isToday ? 'Oui, aujourd’hui' : `Oui, le ${formatShortDate(draft)}`}
+              {saving
+                ? t('periodStartSheet.saving')
+                : isToday
+                  ? t('periodStartSheet.confirmToday')
+                  : t('periodStartSheet.confirmOther', {date: formatShortDate(draft)})}
             </Text>
           </Pressable>
 
@@ -172,7 +176,7 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
             onPress={() => setPickerOpen(current => !current)}
             style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={17} />
-            <Text style={styles.secondaryText}>Choisir une autre date</Text>
+            <Text style={styles.secondaryText}>{t('periodStartSheet.chooseAnotherDate')}</Text>
           </Pressable>
 
           {pickerOpen ? (
@@ -191,7 +195,7 @@ function PeriodStartBottomSheet({visible, initialDate, onClose, onConfirmed, onC
             disabled={saving}
             onPress={close}
             style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>Annuler</Text>
+            <Text style={styles.cancelText}>{t('periodStartSheet.cancel')}</Text>
           </Pressable>
         </Animated.View>
       </View>

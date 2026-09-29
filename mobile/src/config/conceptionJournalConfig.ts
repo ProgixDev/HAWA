@@ -2,8 +2,22 @@ import type {MaterialDesignIcons} from '@react-native-vector-icons/material-desi
 import type {JournalSection} from '../types/journal';
 import type {JournalRoute} from '../components/journal/DailyJournalSheet';
 import type {FertilityIndicator} from '../state/conceptionPreferences';
+import i18n from '../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+
+type ConceptionJournalItem = {
+  section: JournalSection;
+  route: JournalRoute;
+  icon: IconName;
+  /** Suivi du jour grid tile — narrow, so a manual line break keeps the
+   * 2-line wrap tidy. */
+  label: string;
+  /** Journal quotidien sheet row — full width, single natural line. */
+  title: string;
+  subtitle: string;
+  tint: string;
+};
 
 // Single source of truth for "Essayer de concevoir"'s 4 fixed daily
 // USER-ENTERED tracking categories — shared by ConceiveDashboard's "Suivi du
@@ -21,55 +35,72 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 // 'CycleEvolutionEntry'), not something the user enters — so it has its own
 // dedicated dashboard card in ConceiveDashboard.tsx instead of appearing
 // here as a daily-tracking item.
-export const CONCEPTION_JOURNAL_ITEMS: Array<{
-  section: JournalSection;
-  route: JournalRoute;
-  icon: IconName;
-  /** Suivi du jour grid tile — narrow, so a manual line break keeps the
-   * 2-line wrap tidy. */
-  label: string;
-  /** Journal quotidien sheet row — full width, single natural line. */
-  title: string;
-  subtitle: string;
-  tint: string;
-}> = [
-  {
-    section: 'temperature',
-    route: 'TemperatureEntry',
-    icon: 'thermometer',
-    label: 'Température\nbasale',
-    title: 'Température basale',
-    subtitle: 'Enregistre ta température du matin',
-    tint: '#EEE3FA',
-  },
-  {
-    section: 'cervicalMucus',
-    route: 'CervicalMucusEntry',
-    icon: 'water-outline',
-    label: 'Glaire\ncervicale',
-    title: 'Glaire cervicale',
-    subtitle: 'Observe et note son évolution',
-    tint: '#E4F3E7',
-  },
-  {
-    section: 'lhTest',
-    route: 'LHTestEntry',
-    icon: 'test-tube',
-    label: 'Test LH',
-    title: 'Test LH',
-    subtitle: 'Résultat de ton test d’ovulation',
-    tint: '#FBE9F4',
-  },
-  {
-    section: 'intimacy',
-    route: 'JournalConceptionReports',
-    icon: 'heart-outline',
-    label: 'Rapports',
-    title: 'Rapports',
-    subtitle: 'Rapports, protection et ressenti',
-    tint: '#F9DCE8',
-  },
-];
+//
+// i18n (Phase 3): this is a plain data/config file, not a component, so it
+// cannot call `useTranslation()`. Labels are built with the i18n singleton
+// (`i18n.t()`, same pattern as cycleStatisticsMath.ts's
+// `describeMissingAverageCycleData()`) inside `buildConceptionJournalItems()`
+// below. `title` reuses the canonical journalTemperature.title /
+// journalCervicalMucus.title / journalLHTest.title /
+// journalConceptionReports.title keys instead of duplicating the same French/
+// English word under a second key.
+function buildConceptionJournalItems(): ConceptionJournalItem[] {
+  return [
+    {
+      section: 'temperature',
+      route: 'TemperatureEntry',
+      icon: 'thermometer',
+      label: i18n.t('conceptionJournalConfig.temperature.label'),
+      title: i18n.t('journalTemperature.title'),
+      subtitle: i18n.t('conceptionJournalConfig.temperature.subtitle'),
+      tint: '#EEE3FA',
+    },
+    {
+      section: 'cervicalMucus',
+      route: 'CervicalMucusEntry',
+      icon: 'water-outline',
+      label: i18n.t('conceptionJournalConfig.cervicalMucus.label'),
+      title: i18n.t('journalCervicalMucus.title'),
+      subtitle: i18n.t('conceptionJournalConfig.cervicalMucus.subtitle'),
+      tint: '#E4F3E7',
+    },
+    {
+      section: 'lhTest',
+      route: 'LHTestEntry',
+      icon: 'test-tube',
+      label: i18n.t('journalLHTest.title'),
+      title: i18n.t('journalLHTest.title'),
+      subtitle: i18n.t('conceptionJournalConfig.lhTest.subtitle'),
+      tint: '#FBE9F4',
+    },
+    {
+      section: 'intimacy',
+      route: 'JournalConceptionReports',
+      icon: 'heart-outline',
+      label: i18n.t('journalConceptionReports.title'),
+      title: i18n.t('journalConceptionReports.title'),
+      subtitle: i18n.t('conceptionJournalConfig.intimacy.subtitle'),
+      tint: '#F9DCE8',
+    },
+  ];
+}
+
+export const CONCEPTION_JOURNAL_ITEMS: ConceptionJournalItem[] = buildConceptionJournalItems();
+
+// Keeps CONCEPTION_JOURNAL_ITEMS's labels in sync with the active language
+// WITHOUT ever changing the array's identity: getConceptionJournalItems([])
+// (an empty/legacy indicator selection) returns this exact array reference,
+// and both known call sites (ConceiveDashboard.tsx, MainTabNavigator's
+// JournalSheetHost 'conceive' branch) plus
+// ConceiveTrackedIndicators.test.tsx's `.toBe(CONCEPTION_JOURNAL_ITEMS)`
+// assertion rely on that. A language change therefore mutates this array's
+// elements IN PLACE instead of replacing it.
+i18n.on('languageChanged', () => {
+  const refreshed = buildConceptionJournalItems();
+  refreshed.forEach((item, index) => {
+    CONCEPTION_JOURNAL_ITEMS[index] = item;
+  });
+});
 
 // M17 — "Indicateurs suivis" (conceptionPreferences.indicators) drives which
 // daily-tracking entry points are OFFERED. This is the ONE shared filter used

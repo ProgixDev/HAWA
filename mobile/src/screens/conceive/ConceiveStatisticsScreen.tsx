@@ -24,8 +24,12 @@ import {
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -139,42 +143,43 @@ type TabKey = 'summary' | 'temperature' | 'fertility' | 'cycle';
    TABS
 ============================================================ */
 
-const TABS: Array<{
+function tabsFor(t: TFunction): Array<{
   key: TabKey;
   label: string;
   icon: IconName;
-}> = [
-  { key: 'summary', label: 'Résumé', icon: 'chart-box-outline' },
-  { key: 'temperature', label: 'Température', icon: 'thermometer' },
-  { key: 'fertility', label: 'Fertilité', icon: 'egg-outline' },
-  { key: 'cycle', label: 'Cycle', icon: 'calendar-month-outline' },
-];
+}> {
+  return [
+    { key: 'summary', label: t('conceiveStatistics.tabs.summary'), icon: 'chart-box-outline' },
+    { key: 'temperature', label: t('conceiveStatistics.tabs.temperature'), icon: 'thermometer' },
+    { key: 'fertility', label: t('conceiveStatistics.tabs.fertility'), icon: 'egg-outline' },
+    { key: 'cycle', label: t('conceiveStatistics.tabs.cycle'), icon: 'calendar-month-outline' },
+  ];
+}
 
 /* ============================================================
-   LABELS
+   LABELS — display-only labels for persisted enums. Shared with
+   ConceiveCalendarContent.tsx's own identical mucus/LH enum labels, reused
+   here under the same conceiveCalendar.mucusLabel / conceiveCalendar.lhLabel
+   keys instead of a second duplicate translation.
 ============================================================ */
 
-const MUCUS_LABEL: Record<string, string> = {
-  dry: 'Sèche',
-  sticky: 'Collante',
-  creamy: 'Crémeuse',
-  watery: 'Aqueuse',
-  eggWhite: 'Claire et élastique',
-};
+function mucusLabelsFor(t: TFunction): Record<string, string> {
+  return {
+    dry: t('conceiveCalendar.mucusLabel.dry'),
+    sticky: t('conceiveCalendar.mucusLabel.sticky'),
+    creamy: t('conceiveCalendar.mucusLabel.creamy'),
+    watery: t('conceiveCalendar.mucusLabel.watery'),
+    eggWhite: t('conceiveCalendar.mucusLabel.eggWhite'),
+  };
+}
 
-const LH_LABEL: Record<string, string> = {
-  negative: 'Négatif',
-  positive: 'Positif',
-  invalid: 'Non valide',
-};
-
-
-const PERIOD_LABELS: Record<StatisticsPeriod, string> = {
-  '1': '1 mois',
-  '3': '3 mois',
-  '6': '6 mois',
-  '12': '12 mois',
-};
+function lhLabelsFor(t: TFunction): Record<string, string> {
+  return {
+    negative: t('conceiveCalendar.lhLabel.negative'),
+    positive: t('conceiveCalendar.lhLabel.positive'),
+    invalid: t('conceiveCalendar.lhLabel.invalid'),
+  };
+}
 
 /** Chart readability cap only — the underlying stats/counts below are
  * always computed from the full real period-filtered set, never from this
@@ -187,7 +192,7 @@ const TREND_DISPLAY_CAP = 20;
 ============================================================ */
 
 const dateLabel = (date: string): string =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'short',
   }).format(new Date(`${date}T12:00:00`));
@@ -281,6 +286,7 @@ function EmptyState({
   text: string;
   icon?: IconName;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const anim = useEntranceAnimation(80);
@@ -304,7 +310,7 @@ function EmptyState({
       <View style={styles.emptyIcon}>
         <MaterialDesignIcons color={theme.colors.primary} name={icon} size={27} />
       </View>
-      <Text style={styles.emptyTitle}>Pas encore de données</Text>
+      <Text style={styles.emptyTitle}>{t('conceiveStatistics.emptyTitle')}</Text>
       <Text style={styles.emptyText}>{text}</Text>
     </Animated.View>
   );
@@ -530,10 +536,14 @@ function TrendBar({
 ============================================================ */
 
 function ConceiveStatisticsScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
+  const TABS = useMemo(() => tabsFor(t), [t]);
+  const MUCUS_LABEL = useMemo(() => mucusLabelsFor(t), [t]);
+  const LH_LABEL = useMemo(() => lhLabelsFor(t), [t]);
 
   const [tab, setTab] = useState<TabKey>('summary');
   const [cyclePrefs, setCyclePrefs] = useState(getCyclePreferences);
@@ -700,7 +710,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   );
   const mucusCounts = useMemo(
     () => countByLabel(mucusEntries.map(entry => entry.cervicalMucus.type), MUCUS_LABEL),
-    [mucusEntries],
+    [mucusEntries, MUCUS_LABEL],
   );
   const maxMucusCount = Math.max(...mucusCounts.map(item => item.count), 1);
   const latestMucus = mucusEntries[mucusEntries.length - 1];
@@ -715,7 +725,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
   );
   const lhCounts = useMemo(
     () => countByLabel(lhEntries.map(entry => entry.lhTest.result), LH_LABEL),
-    [lhEntries],
+    [lhEntries, LH_LABEL],
   );
   const maxLhCount = Math.max(...lhCounts.map(item => item.count), 1);
   const positiveLhCount = lhEntries.filter(entry => entry.lhTest.result === 'positive').length;
@@ -785,14 +795,14 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
     if (periodCycleLengths.length > 0) {
       const sum = periodCycleLengths.reduce((total, item) => total + item.value, 0);
       return {
-        label: 'Durée moyenne du cycle',
-        value: `${Math.round(sum / periodCycleLengths.length)} j`,
-        caption: 'Basée sur tes cycles enregistrés',
+        label: t('conceiveStatistics.cycle.averageCycleDurationLabel'),
+        value: t('statistics.daysAbbreviated', {count: Math.round(sum / periodCycleLengths.length)}),
+        caption: t('averageCycle.measuredSubtitle'),
       };
     }
     const described = describeAverageCycle(predictionStatus, cyclePrefs, hasConfirmedCycleData);
     return {label: described.label, value: described.value, caption: described.subtitle};
-  }, [periodCycleLengths, predictionStatus, cyclePrefs, hasConfirmedCycleData]);
+  }, [periodCycleLengths, predictionStatus, cyclePrefs, hasConfirmedCycleData, t]);
 
   const shortestCycle = periodCycleLengths.length > 0
     ? Math.min(...periodCycleLengths.map(item => item.value))
@@ -863,7 +873,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
         style={[styles.header, { paddingTop: getTopPadding(insets.top, true) }]}
       >
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
@@ -873,8 +883,8 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
         </Pressable>
 
         <View style={styles.headerCopy}>
-          <Text style={styles.headerTitle}>Statistiques</Text>
-          <Text style={styles.headerSubtitle}>Ton cycle et ta fertilité</Text>
+          <Text style={styles.headerTitle}>{t('navigation.statistics')}</Text>
+          <Text style={styles.headerSubtitle}>{t('conceiveStatistics.headerSubtitle')}</Text>
         </View>
 
         <View style={styles.headerBadgeIcon}>
@@ -893,8 +903,8 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
             <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={20} />
           </View>
           <View style={styles.objectiveCopy}>
-            <Text style={styles.objectiveLabel}>OBJECTIF ACTUEL</Text>
-            <Text style={styles.objectiveValue}>Essayer de concevoir</Text>
+            <Text style={styles.objectiveLabel}>{t('conceiveStatistics.objectiveLabel')}</Text>
+            <Text style={styles.objectiveValue}>{t('objectives.conceive')}</Text>
           </View>
           <View style={styles.objectiveDot} />
         </View>
@@ -926,7 +936,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
                       active && styles.periodFilterTextActive,
                     ]}
                   >
-                    {PERIOD_LABELS[item]}
+                    {t('statistics.periods.months', {count: Number(item)})}
                   </Text>
                   {locked ? (
                     <MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={10} />
@@ -1041,7 +1051,7 @@ function ConceiveStatisticsScreen(): React.JSX.Element {
               maxMucusCount={maxMucusCount}
               mucusCounts={mucusCounts}
               mucusTimeline={mucusTimeline}
-              periodLabel={PERIOD_LABELS[period]}
+              periodLabel={t('statistics.periods.months', {count: Number(period)})}
               positiveLhCount={positiveLhCount}
               showLongitudinalView={showLongitudinalView}
             />
@@ -1091,6 +1101,7 @@ function SummaryTab({
   hasConfirmedCycleData: boolean;
   onConfigureCycle: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
@@ -1102,18 +1113,18 @@ function SummaryTab({
 
           <SectionHeader
             icon="chart-box-outline"
-            subtitle="Ce cycle, en un coup d’œil"
-            title="Aperçu"
+            subtitle={t('conceiveStatistics.summary.overviewSubtitle')}
+            title={t('conceiveStatistics.summary.overviewTitle')}
           />
 
           {hasConfirmedCycleData ? (
             <View style={styles.kpiGrid}>
-              <KpiCard accent="purple" icon="calendar-blank-outline" label="Jour du cycle" value={`Jour ${currentCycleDay}`} />
-              <KpiCard accent="green" icon="leaf" label="Fenêtre fertile" value={fertileRange} />
-              <KpiCard accent="blue" icon="egg-outline" label="Ovulation estimée" value={ovulationDate} />
+              <KpiCard accent="purple" icon="calendar-blank-outline" label={t('journalNote.cycleDayLabel')} value={t('journalNote.cycleDayValue', {day: currentCycleDay})} />
+              <KpiCard accent="green" icon="leaf" label={t('cyclePhase.fertile')} value={fertileRange} />
+              <KpiCard accent="blue" icon="egg-outline" label={t('journalCycleEvolution.phase.ovulation')} value={ovulationDate} />
               <KpiCard accent="purple" caption={averageCycleTile.caption} icon="calendar-month-outline" label={averageCycleTile.label} value={averageCycleTile.value} />
-              <KpiCard accent="pink" icon="thermometer" label="Températures enregistrées" value={String(temperatureCount)} />
-              <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
+              <KpiCard accent="pink" icon="thermometer" label={t('conceiveStatistics.summary.temperaturesRecorded')} value={String(temperatureCount)} />
+              <KpiCard accent="pink" icon="test-tube" label={t('conceiveStatistics.summary.positiveLhTests')} value={String(positiveLhCount)} />
             </View>
           ) : (
             // Cycle day/fertile window/ovulation/average length all derive
@@ -1124,22 +1135,22 @@ function SummaryTab({
               <View style={styles.insufficientDataIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="calendar-alert-outline" size={22} />
               </View>
-              <Text style={styles.insufficientDataTitle}>Configure ton cycle</Text>
+              <Text style={styles.insufficientDataTitle}>{t('conceiveDashboard.insufficientData.title')}</Text>
               <Text style={styles.insufficientDataText}>
-                Quelques informations sont nécessaires pour estimer ta fenêtre fertile.
+                {t('conceiveDashboard.insufficientData.text')}
               </Text>
               <Pressable
-                accessibilityLabel="Configurer mon cycle"
+                accessibilityLabel={t('conceiveDashboard.insufficientData.cta')}
                 accessibilityRole="button"
                 onPress={onConfigureCycle}
                 style={({ pressed }) => [styles.insufficientDataCta, pressed && { opacity: 0.85 }]}
               >
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
-                <Text style={styles.insufficientDataCtaText}>Configurer mon cycle</Text>
+                <Text style={styles.insufficientDataCtaText}>{t('conceiveDashboard.insufficientData.cta')}</Text>
               </Pressable>
               <View style={styles.kpiGrid}>
-                <KpiCard accent="pink" icon="thermometer" label="Températures enregistrées" value={String(temperatureCount)} />
-                <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
+                <KpiCard accent="pink" icon="thermometer" label={t('conceiveStatistics.summary.temperaturesRecorded')} value={String(temperatureCount)} />
+                <KpiCard accent="pink" icon="test-tube" label={t('conceiveStatistics.summary.positiveLhTests')} value={String(positiveLhCount)} />
               </View>
             </View>
           )}
@@ -1151,14 +1162,14 @@ function SummaryTab({
           <SectionHeader
             accent="pink"
             icon="chart-bar"
-            subtitle="Tes derniers relevés"
-            title="Évolution de la température"
+            subtitle={t('conceiveStatistics.summary.temperatureEvolutionSubtitle')}
+            title={t('conceiveStatistics.summary.temperatureEvolutionTitle')}
           />
 
           {temperatureTrend.length === 0 ? (
             <EmptyState
               icon="thermometer"
-              text="Enregistre ta température basale dans ton journal pour voir son évolution."
+              text={t('conceiveStatistics.summary.temperatureEmptyText')}
             />
           ) : (
             <View style={styles.chart}>
@@ -1182,7 +1193,7 @@ function SummaryTab({
             <View style={styles.statusIconPurple}>
               <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={23} />
             </View>
-            <Text style={styles.statusLabel}>Rapports ce cycle</Text>
+            <Text style={styles.statusLabel}>{t('conceiveStatistics.summary.intercourseThisCycle')}</Text>
             <Text numberOfLines={2} style={styles.statusValue}>
               {intercourseThisCycle}
             </Text>
@@ -1193,7 +1204,7 @@ function SummaryTab({
               <View style={styles.statusIconPink}>
                 <MaterialDesignIcons color={theme.colors.secondary} name="egg-outline" size={23} />
               </View>
-              <Text style={styles.statusLabel}>Ovulation estimée</Text>
+              <Text style={styles.statusLabel}>{t('journalCycleEvolution.phase.ovulation')}</Text>
               <Text numberOfLines={2} style={styles.statusValue}>
                 {ovulationDate}
               </Text>
@@ -1209,11 +1220,9 @@ function SummaryTab({
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={22} />
           </View>
           <View style={styles.adviceCopy}>
-            <Text style={styles.adviceTitle}>Un repère, pas un diagnostic</Text>
+            <Text style={styles.adviceTitle}>{t('conceiveStatistics.summary.adviceTitle')}</Text>
             <Text style={styles.adviceText}>
-              Ces estimations sont un repère personnel basé sur ton suivi. Elles
-              ne garantissent pas une grossesse et ne remplacent pas un avis
-              médical.
+              {t('conceiveStatistics.summary.adviceText')}
             </Text>
           </View>
         </View>
@@ -1252,16 +1261,17 @@ function TemperatureTab({
   // "Températures enregistrées" KPI).
   count: number;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   if (trend.length === 0) {
     return (
       <AnimatedSection>
         <View style={styles.card}>
-          <SectionHeader icon="thermometer" title="Température basale" />
+          <SectionHeader icon="thermometer" title={t('journalTemperature.title')} />
           <EmptyState
             icon="thermometer"
-            text="Enregistre ta température basale chaque matin pour suivre son évolution."
+            text={t('conceiveStatistics.temperature.emptyText')}
           />
         </View>
       </AnimatedSection>
@@ -1272,10 +1282,10 @@ function TemperatureTab({
     <>
       <AnimatedSection>
         <View style={styles.kpiGrid}>
-          <KpiCard accent="pink" icon="thermometer" label="Dernière température" value={latest !== null ? formatTemperature(latest, unit) : '—'} />
-          <KpiCard accent="purple" icon="calendar-check-outline" label="Relevés enregistrés" value={String(count)} />
-          <KpiCard accent="blue" icon="chart-line" label="Moyenne" value={average !== null ? formatTemperature(average, unit) : '—'} />
-          <KpiCard accent="green" icon="arrow-collapse-vertical" label="Min / Max" value={min !== null && max !== null ? `${formatTemperature(min, unit)} / ${formatTemperature(max, unit)}` : '—'} />
+          <KpiCard accent="pink" icon="thermometer" label={t('conceiveStatistics.temperature.latest')} value={latest !== null ? formatTemperature(latest, unit) : '—'} />
+          <KpiCard accent="purple" icon="calendar-check-outline" label={t('conceiveStatistics.temperature.recordedReadings')} value={String(count)} />
+          <KpiCard accent="blue" icon="chart-line" label={t('conceiveStatistics.temperature.average')} value={average !== null ? formatTemperature(average, unit) : '—'} />
+          <KpiCard accent="green" icon="arrow-collapse-vertical" label={t('conceiveStatistics.temperature.minMax')} value={min !== null && max !== null ? `${formatTemperature(min, unit)} / ${formatTemperature(max, unit)}` : '—'} />
         </View>
       </AnimatedSection>
 
@@ -1284,8 +1294,8 @@ function TemperatureTab({
           <SectionHeader
             accent="pink"
             icon="chart-bar"
-            subtitle={latestDate ? `Dernier relevé : ${dateLabel(latestDate)}` : undefined}
-            title="Évolution de la température"
+            subtitle={latestDate ? t('conceiveStatistics.temperature.lastReading', {date: dateLabel(latestDate)}) : undefined}
+            title={t('conceiveStatistics.temperature.evolutionTitle')}
           />
           <View style={styles.chart}>
             {trend.map((item, index) => (
@@ -1307,11 +1317,9 @@ function TemperatureTab({
             <MaterialDesignIcons color={theme.colors.secondary} name="information-outline" size={18} />
           </View>
           <Text style={styles.softInfoText}>
-            L’échelle du graphique est ajustée à tes propres relevés pour
-            mieux voir les variations — les valeurs exactes restent
-            affichées au-dessus, en °{unit}.
+            {t('conceiveStatistics.temperature.infoText', {unit})}
             {hasConvertedReadings
-              ? ` Les relevés saisis dans l’autre unité sont convertis pour l’affichage (tes données ne sont pas modifiées).`
+              ? t('conceiveStatistics.temperature.infoConvertedSuffix')
               : ''}
           </Text>
         </View>
@@ -1353,18 +1361,20 @@ function FertilityTab({
   showLongitudinalView: boolean;
   periodLabel: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const MUCUS_LABEL = useMemo(() => mucusLabelsFor(t), [t]);
   const hasAnyData = lhCounts.length > 0 || mucusCounts.length > 0;
 
   if (!hasAnyData) {
     return (
       <AnimatedSection>
         <View style={styles.card}>
-          <SectionHeader icon="egg-outline" title="Fertilité" />
+          <SectionHeader icon="egg-outline" title={t('conceiveStatistics.fertility.sectionTitle')} />
           <EmptyState
             icon="egg-outline"
-            text="Enregistre tes tests d’ovulation et tes observations de glaire cervicale pour voir tes tendances ici."
+            text={t('conceiveStatistics.fertility.emptyText')}
           />
         </View>
       </AnimatedSection>
@@ -1375,8 +1385,8 @@ function FertilityTab({
     <>
       <AnimatedSection>
         <View style={styles.kpiGrid}>
-          <KpiCard accent="pink" icon="test-tube" label="Tests LH positifs" value={String(positiveLhCount)} />
-          <KpiCard accent="purple" icon="calendar-check-outline" label="Dernier test LH" value={latestLhLabel ?? '—'} />
+          <KpiCard accent="pink" icon="test-tube" label={t('conceiveStatistics.summary.positiveLhTests')} value={String(positiveLhCount)} />
+          <KpiCard accent="purple" icon="calendar-check-outline" label={t('conceiveStatistics.fertility.lastLhTest')} value={latestLhLabel ?? '—'} />
         </View>
       </AnimatedSection>
 
@@ -1385,11 +1395,11 @@ function FertilityTab({
           <SectionHeader
             accent="pink"
             icon="chart-donut"
-            subtitle={latestLhDate ? `Dernier test : ${dateLabel(latestLhDate)}` : 'Selon tes entrées'}
-            title="Résultats des tests LH"
+            subtitle={latestLhDate ? t('conceiveStatistics.fertility.lastTest', {date: dateLabel(latestLhDate)}) : t('conceiveStatistics.fertility.accordingToEntries')}
+            title={t('conceiveStatistics.fertility.lhResultsTitle')}
           />
           {lhCounts.length === 0 ? (
-            <EmptyState icon="test-tube" text="Enregistre tes tests d’ovulation pour voir leur répartition." />
+            <EmptyState icon="test-tube" text={t('conceiveStatistics.fertility.lhEmptyText')} />
           ) : (
             <View style={styles.distributionList}>
               {lhCounts.map((item, index) => (
@@ -1410,14 +1420,14 @@ function FertilityTab({
       {showLongitudinalView ? (
         <AnimatedSection delay={80}>
           <View
-            accessibilityLabel={`Évolution des tests LH sur ${periodLabel}`}
+            accessibilityLabel={t('conceiveStatistics.fertility.lhEvolutionAccessibility', {period: periodLabel})}
             style={styles.card}
           >
             <SectionHeader
               accent="pink"
               icon="chart-timeline-variant"
-              subtitle="Tes résultats enregistrés au fil du temps."
-              title="Évolution des tests LH"
+              subtitle={t('conceiveStatistics.fertility.lhEvolutionSubtitle')}
+              title={t('conceiveStatistics.fertility.lhEvolutionTitle')}
             />
             {(() => {
               const totalLhTests = lhMonthlyTrend.reduce((total, month) => total + month.totalCount, 0);
@@ -1425,7 +1435,7 @@ function FertilityTab({
                 return (
                   <EmptyState
                     icon="test-tube"
-                    text="Pas encore assez de données pour afficher une évolution des tests LH."
+                    text={t('conceiveStatistics.fertility.lhEvolutionEmptyText')}
                   />
                 );
               }
@@ -1443,8 +1453,7 @@ function FertilityTab({
                     ))}
                   </View>
                   <Text style={styles.softInfoText}>
-                    Hauteur des barres = nombre de tests LH positifs enregistrés
-                    ce mois-ci, sur {totalLhTests} test{totalLhTests > 1 ? 's' : ''} au total sur {periodLabel}.
+                    {t('conceiveStatistics.fertility.lhEvolutionInfo', {count: totalLhTests, period: periodLabel})}
                   </Text>
                 </>
               );
@@ -1458,11 +1467,11 @@ function FertilityTab({
           <SectionHeader
             accent="green"
             icon="water-outline"
-            subtitle={latestMucusDate ? `Dernière observation : ${dateLabel(latestMucusDate)} · ${latestMucusLabel ?? ''}` : 'Selon tes entrées'}
-            title="Glaire cervicale"
+            subtitle={latestMucusDate ? t('conceiveStatistics.fertility.lastObservation', {date: dateLabel(latestMucusDate), label: latestMucusLabel ?? ''}) : t('conceiveStatistics.fertility.accordingToEntries')}
+            title={t('journalCervicalMucus.title')}
           />
           {mucusCounts.length === 0 ? (
-            <EmptyState icon="water-outline" text="Enregistre tes observations de glaire cervicale pour voir leur répartition." />
+            <EmptyState icon="water-outline" text={t('conceiveStatistics.fertility.mucusEmptyText')} />
           ) : (
             <View style={styles.distributionList}>
               {mucusCounts.map((item, index) => (
@@ -1483,19 +1492,19 @@ function FertilityTab({
       {showLongitudinalView ? (
         <AnimatedSection delay={120}>
           <View
-            accessibilityLabel={`Évolution de la glaire cervicale sur ${periodLabel}`}
+            accessibilityLabel={t('conceiveStatistics.fertility.mucusEvolutionAccessibility', {period: periodLabel})}
             style={styles.card}
           >
             <SectionHeader
               accent="green"
               icon="chart-timeline-variant"
-              subtitle="Tes observations enregistrées au fil du temps."
-              title="Évolution de la glaire cervicale"
+              subtitle={t('conceiveStatistics.fertility.mucusEvolutionSubtitle')}
+              title={t('conceiveStatistics.fertility.mucusEvolutionTitle')}
             />
             {mucusTimeline.length < 2 ? (
               <EmptyState
                 icon="water-outline"
-                text="Pas encore assez de données pour afficher une évolution de la glaire cervicale."
+                text={t('conceiveStatistics.fertility.mucusEvolutionEmptyText')}
               />
             ) : (
               <>
@@ -1511,9 +1520,13 @@ function FertilityTab({
                   ))}
                 </View>
                 <Text style={styles.softInfoText}>
-                  Repère visuel : plus la barre est haute, plus l’observation
-                  se rapproche du type "{MUCUS_LABEL.eggWhite}" — de gauche à
-                  droite : {MUCUS_LABEL.dry}, {MUCUS_LABEL.sticky}, {MUCUS_LABEL.creamy}, {MUCUS_LABEL.watery}, {MUCUS_LABEL.eggWhite}.
+                  {t('conceiveStatistics.fertility.mucusEvolutionInfo', {
+                    dry: MUCUS_LABEL.dry,
+                    sticky: MUCUS_LABEL.sticky,
+                    creamy: MUCUS_LABEL.creamy,
+                    watery: MUCUS_LABEL.watery,
+                    eggWhite: MUCUS_LABEL.eggWhite,
+                  })}
                 </Text>
               </>
             )}
@@ -1527,8 +1540,7 @@ function FertilityTab({
             <MaterialDesignIcons color={theme.colors.secondary} name="heart-outline" size={18} />
           </View>
           <Text style={styles.softInfoText}>
-            Ce suivi est un repère personnel. Un test positif n’est pas une
-            garantie de conception.
+            {t('conceiveStatistics.fertility.disclaimer')}
           </Text>
         </View>
       </AnimatedSection>
@@ -1553,6 +1565,7 @@ function CycleTab({
   longest: number | null;
   intercourseThisCycle: number;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const maxLength = Math.max(...trend.map(item => item.value), 1);
@@ -1566,8 +1579,8 @@ function CycleTab({
               and an unconfirmed placeholder is never shown as data (see
               averageCycleTile in ConceiveStatisticsScreen). */}
           <KpiCard accent="purple" caption={averageTile.caption} icon="calendar-month-outline" label={averageTile.label} value={averageTile.value} />
-          <KpiCard accent="blue" icon="arrow-collapse-vertical" label="Plus court / plus long" value={shortest !== null && longest !== null ? `${shortest} / ${longest} j` : '—'} />
-          <KpiCard accent="pink" icon="heart-outline" label="Rapports ce cycle" value={String(intercourseThisCycle)} />
+          <KpiCard accent="blue" icon="arrow-collapse-vertical" label={t('conceiveStatistics.cycle.shortestLongest')} value={shortest !== null && longest !== null ? t('conceiveStatistics.cycle.shortestLongestValue', {shortest, longest}) : '—'} />
+          <KpiCard accent="pink" icon="heart-outline" label={t('conceiveStatistics.summary.intercourseThisCycle')} value={String(intercourseThisCycle)} />
         </View>
       </AnimatedSection>
 
@@ -1576,13 +1589,13 @@ function CycleTab({
           <SectionHeader
             accent="blue"
             icon="chart-bar"
-            subtitle="Durée de tes derniers cycles"
-            title="Évolution du cycle"
+            subtitle={t('conceiveStatistics.cycle.evolutionSubtitle')}
+            title={t('journalCycleEvolution.title')}
           />
           {trend.length === 0 ? (
             <EmptyState
               icon="calendar-month-outline"
-              text="Enregistre le début de tes règles pour voir l’évolution de la durée de ton cycle."
+              text={t('conceiveStatistics.cycle.evolutionEmptyText')}
             />
           ) : (
             <View style={styles.chart}>
@@ -1606,8 +1619,7 @@ function CycleTab({
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
           </View>
           <Text style={styles.softInfoText}>
-            La durée de ton cycle peut varier naturellement d’un mois à
-            l’autre — ce suivi t’aide à observer tes propres tendances.
+            {t('conceiveStatistics.cycle.infoText')}
           </Text>
         </View>
       </AnimatedSection>

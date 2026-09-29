@@ -2,10 +2,12 @@ import React, {useMemo, useState} from 'react';
 import {ActivityIndicator, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import '../../i18n';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getManagedProfileDraft, updateManagedProfileDraft, clearManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {addManagedProfile} from '../../state/managedProfilesStore';
@@ -26,6 +28,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ManagedProfileFirstPeri
 type Answer = 'yes' | 'no';
 
 export default function ManagedProfileFirstPeriodScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const draft = getManagedProfileDraft();
@@ -62,11 +65,11 @@ export default function ManagedProfileFirstPeriodScreen({navigation}: Props): Re
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel={creating ? 'Création…' : 'Continuer'}
-      description="Cela nous permet d'adapter son expérience."
+      ctaLabel={creating ? t('managedProfile.firstPeriod.creating') : t('common.continue')}
+      description={t('managedProfile.firstPeriod.description')}
       onBack={navigation.goBack}
       onContinue={answer && !creating ? onContinue : undefined}
-      title="A-t-elle déjà eu ses premières règles ?">
+      title={t('managedProfile.firstPeriod.title')}>
       <Reveal index={0}>
         <View style={styles.illustrationZone}>
           <Image
@@ -80,7 +83,7 @@ export default function ManagedProfileFirstPeriodScreen({navigation}: Props): Re
 
       <Reveal index={1}>
         <Pressable
-          accessibilityLabel="Oui"
+          accessibilityLabel={t('managedProfile.firstPeriod.yes')}
           accessibilityRole="radio"
           accessibilityState={{checked: answer === 'yes'}}
           onPress={() => setAnswer('yes')}
@@ -89,8 +92,8 @@ export default function ManagedProfileFirstPeriodScreen({navigation}: Props): Re
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={22} />
           </View>
           <View style={styles.copy}>
-            <Text style={styles.title}>Oui</Text>
-            <Text style={styles.subtitle}>Elle a déjà eu ses premières règles.</Text>
+            <Text style={styles.title}>{t('managedProfile.firstPeriod.yes')}</Text>
+            <Text style={styles.subtitle}>{t('managedProfile.firstPeriod.yesSubtitle')}</Text>
           </View>
           <View style={[styles.radio, answer === 'yes' && styles.radioSelected]}>
             {answer === 'yes' ? <View style={styles.radioDot} /> : null}
@@ -100,7 +103,7 @@ export default function ManagedProfileFirstPeriodScreen({navigation}: Props): Re
 
       <Reveal index={2}>
         <Pressable
-          accessibilityLabel="Non"
+          accessibilityLabel={t('managedProfile.firstPeriod.no')}
           accessibilityRole="radio"
           accessibilityState={{checked: answer === 'no'}}
           onPress={() => setAnswer('no')}
@@ -109,8 +112,8 @@ export default function ManagedProfileFirstPeriodScreen({navigation}: Props): Re
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-remove-outline" size={22} />
           </View>
           <View style={styles.copy}>
-            <Text style={styles.title}>Non</Text>
-            <Text style={styles.subtitle}>Elle n'a pas encore eu ses premières règles.</Text>
+            <Text style={styles.title}>{t('managedProfile.firstPeriod.no')}</Text>
+            <Text style={styles.subtitle}>{t('managedProfile.firstPeriod.noSubtitle')}</Text>
           </View>
           <View style={[styles.radio, answer === 'no' && styles.radioSelected]}>
             {answer === 'no' ? <View style={styles.radioDot} /> : null}

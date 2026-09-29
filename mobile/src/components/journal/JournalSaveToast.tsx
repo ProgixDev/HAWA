@@ -1,8 +1,10 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {Animated, Easing, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // The one shared "premium save toast" for journal entry screens. This exact
 // spring-in / timed fade-out card (icon circle + text + close button) was
@@ -91,6 +93,7 @@ type Props = {
 };
 
 export function JournalSaveToast({visible, title, message, animation, onDismiss, bottom}: Props): React.JSX.Element | null {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   if (!visible) {
@@ -120,7 +123,7 @@ export function JournalSaveToast({visible, title, message, animation, onDismiss,
       </View>
 
       <Pressable
-        accessibilityLabel="Fermer"
+        accessibilityLabel={t('common.close')}
         accessibilityRole="button"
         hitSlop={10}
         onPress={onDismiss}

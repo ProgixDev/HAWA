@@ -9,16 +9,25 @@ import {
   View,
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeColors, homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 import type {PrayerWindow} from '../../services/prayerTimes';
 import {
   NIFAS_REFERENCE_APPROACHING_HEADLINE,
   NIFAS_REFERENCE_REACHED_HEADLINE,
 } from '../../config/nifasReminderConfig';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
+import '../../i18n';
+
+// NIFAS_REFERENCE_APPROACHING_HEADLINE/NIFAS_REFERENCE_REACHED_HEADLINE (used
+// below in the Nifas reminder block) are reminder-copy strings from
+// nifasReminderConfig.ts — full notification/reminder copy is explicitly out
+// of this localization phase's scope, so they are left as-is, in French, for
+// now. Every other string in this file is migrated.
 
 // ============================================================================
 // PHASE C — SEMANTIC vs THEMEABLE COLORS IN THIS FILE
@@ -75,7 +84,7 @@ type Props = {
 };
 
 const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     ...(timezone ? {timeZone: timezone} : {}),
     hour: '2-digit',
     minute: '2-digit',
@@ -139,6 +148,7 @@ function SpiritualGuidanceCard({
   onPressNifas,
   onPressPuritySummary,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const isCycle = objective === 'cycle';
@@ -160,14 +170,14 @@ function SpiritualGuidanceCard({
   const prayerAvailable = Boolean(nextWindow);
 
   const prayerValue = !locationConfigured
-    ? 'Localisation requise'
+    ? t('spiritualGuidance.locationRequired')
     : prayerLoading
-      ? 'Calcul en cours…'
+      ? t('spiritualGuidance.calculating')
       : prayerError
-        ? 'Horaires momentanément indisponibles'
+        ? t('spiritualGuidance.prayerTimesUnavailable')
         : prayerAvailable && nextWindow
           ? `${nextWindow.name} · ${formatTime(nextWindow.start, timezone)}`
-          : 'Indisponible';
+          : t('spiritualGuidance.unavailable');
 
   const showPuritySummary =
     isCycle &&
@@ -186,16 +196,17 @@ function SpiritualGuidanceCard({
    *   où la pureté a été retrouvée.
    */
   const purityPrimaryLine = periodEndDateTime
-    ? `Pureté retrouvée à ${formatTime(periodEndDateTime, timezone)}`
+    ? t('spiritualGuidance.purityRestoredAt', {time: formatTime(periodEndDateTime, timezone)})
     : '';
 
   const nextPrayerAfterPurityLine =
     purityResult?.prayerDue && purityResult.prayerName
-      ? `${purityResult.prayerName} est due`
+      ? t('spiritualGuidance.prayerDue', {prayerName: purityResult.prayerName})
       : purityResult?.nextPrayerName && purityResult.nextPrayerTime
-        ? `1re prière après la pureté : ${
-            purityResult.nextPrayerName
-          } · ${formatTime(purityResult.nextPrayerTime, timezone)}`
+        ? t('spiritualGuidance.firstPrayerAfterPurity', {
+            prayerName: purityResult.nextPrayerName,
+            time: formatTime(purityResult.nextPrayerTime, timezone),
+          })
         : '';
 
   const puritySummaryAccessibilityLabel = [
@@ -206,10 +217,10 @@ function SpiritualGuidanceCard({
     .join('. ');
 
   const cardAccessibilityLabel = isCycle
-    ? `Repères spirituels. Statut ${
-        isMenstruating ? 'Menstrues' : 'Pureté'
-      }.`
-    : 'Repères spirituels.';
+    ? t('spiritualGuidance.accessibilityCycle', {
+        status: isMenstruating ? t('spiritualGuidance.menstruating') : t('spiritualGuidance.pure'),
+      })
+    : t('spiritualGuidance.accessibilityOther');
 
   return (
     <Animated.View
@@ -253,7 +264,7 @@ function SpiritualGuidanceCard({
         </View>
 
         <Text style={styles.title}>
-          Repères spirituels
+          {t('spiritualGuidance.title')}
         </Text>
       </View>
 
@@ -261,7 +272,7 @@ function SpiritualGuidanceCard({
       <View style={styles.badgeRow}>
         <View style={[styles.badge, styles.activeBadge]}>
           <Text style={styles.activeBadgeText}>
-            Actif
+            {t('spiritualGuidance.active')}
           </Text>
         </View>
 
@@ -294,7 +305,7 @@ function SpiritualGuidanceCard({
                   ? styles.periodText
                   : styles.purityText,
               ]}>
-              {isMenstruating ? 'Menstrues' : 'Pureté'}
+              {isMenstruating ? t('spiritualGuidance.menstruating') : t('spiritualGuidance.pure')}
             </Text>
           </View>
         ) : null}
@@ -309,8 +320,7 @@ function SpiritualGuidanceCard({
         />
 
         <Text style={styles.locationText}>
-          {locationName ??
-            'Configure ta localisation pour des horaires précis'}
+          {locationName ?? t('spiritualGuidance.locationPlaceholder')}
         </Text>
       </View>
 
@@ -318,7 +328,7 @@ function SpiritualGuidanceCard({
       <View style={styles.body}>
         <InfoBlock
           icon="alarm"
-          label="Prochaine prière"
+          label={t('spiritualGuidance.nextPrayerLabel')}
           styles={styles}
           theme={theme}
           value={prayerValue}
@@ -328,10 +338,10 @@ function SpiritualGuidanceCard({
 
         <InfoBlock
           icon="calendar-month-outline"
-          label="Date Hijri"
+          label={t('spiritualGuidance.hijriDateLabel')}
           styles={styles}
           theme={theme}
-          value={hijriDate ?? 'Indisponible'}
+          value={hijriDate ?? t('spiritualGuidance.unavailable')}
         />
 
         {isCycle ? (
@@ -340,10 +350,10 @@ function SpiritualGuidanceCard({
 
             <InfoBlock
               icon="silverware-fork-knife"
-              label="Jeûnes à rattraper"
+              label={t('cycleHome.quickActions.qadaa')}
               styles={styles}
               theme={theme}
-              value={qadaaDays > 0 ? `${qadaaDays} jours` : 'À jour'}
+              value={qadaaDays > 0 ? t('spiritualGuidance.daysCount', {count: qadaaDays}) : t('spiritualGuidance.upToDate')}
             />
           </>
         ) : null}
@@ -354,7 +364,7 @@ function SpiritualGuidanceCard({
 
             <InfoBlock
               icon="flower-outline"
-              label="Nifas"
+              label={t('spiritualGuidance.nifasLabel')}
               styles={styles}
               theme={theme}
               value={nifasValue}
@@ -422,11 +432,11 @@ function SpiritualGuidanceCard({
 
           <View style={styles.nifasEducationCopy}>
             <Text style={styles.nifasEducationTitle}>
-              Comprendre le nifas
+              {t('spiritualGuidance.understandNifas')}
             </Text>
 
             <Text style={styles.nifasEducationText}>
-              Les références juridiques peuvent varier selon les écoles.
+              {t('spiritualGuidance.nifasDisclaimer')}
             </Text>
           </View>
 
@@ -441,7 +451,7 @@ function SpiritualGuidanceCard({
       {/* Rappel Nifas */}
       {isPostpartum && nifasReminderStatus !== 'none' ? (
         <Pressable
-          accessibilityLabel="Consulter le repère du nifas"
+          accessibilityLabel={t('spiritualGuidance.nifasReminderAccessibility')}
           accessibilityRole="button"
           onPress={onPressNifas}
           style={({pressed}) => [
@@ -458,9 +468,12 @@ function SpiritualGuidanceCard({
 
           <View style={styles.nifasReminderCopy}>
             <Text style={styles.nifasReminderTitle}>
-              Repère du nifas
+              {t('spiritualGuidance.nifasReminderTitle')}
             </Text>
 
+            {/* NIFAS_REFERENCE_REACHED_HEADLINE/APPROACHING_HEADLINE are
+                reminder-copy strings (nifasReminderConfig.ts) — out of this
+                phase's scope, still French, see the file-header note above. */}
             <Text style={styles.nifasReminderText}>
               {nifasReminderStatus === 'reference_reached'
                 ? `${NIFAS_REFERENCE_REACHED_HEADLINE}.`
@@ -470,8 +483,8 @@ function SpiritualGuidanceCard({
 
           <Text style={styles.nifasReminderLink}>
             {nifasReminderStatus === 'reference_reached'
-              ? 'Consulter'
-              : 'En savoir plus'}
+              ? t('spiritualGuidance.consult')
+              : t('spiritualGuidance.learnMore')}
           </Text>
         </Pressable>
       ) : null}

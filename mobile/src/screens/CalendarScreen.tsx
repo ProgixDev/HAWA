@@ -3,8 +3,10 @@ import {Alert, Pressable, SafeAreaView, ScrollView, StatusBar, StyleSheet, Text,
 import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
+import '../i18n';
 import CalendarHeader from '../components/calendar/CalendarHeader';
 import MonthCalendarCard, {type CalendarDisplayMode, type DayJournalFlags} from '../components/calendar/MonthCalendarCard';
 import SelectedDayCard from '../components/calendar/SelectedDayCard';
@@ -59,6 +61,7 @@ import {isMonthWithinHistoryAccess} from '../utils/historyAccess';
 type Props = MainTabScreenProps<'Calendar'>;
 
 function CalendarScreen(_: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -236,9 +239,9 @@ function CalendarScreen(_: Props): React.JSX.Element {
 
   const savePeriodEditing = async () => {
     const dates = [...draftPeriodDays].sort().map(dateFromKey);
-    if (dates.length === 0) {Alert.alert('Période menstruelle', 'Sélectionne au moins un jour de règles.'); return;}
+    if (dates.length === 0) {Alert.alert(t('calendar.periodAlertTitle'), t('calendar.periodAlertSelectDay')); return;}
     const continuous = dates.every((date, index) => index === 0 || diffDays(date, dates[index - 1]) === 1);
-    if (!continuous) {Alert.alert('Sélection non continue', 'Les jours de règles doivent former une période continue.'); return;}
+    if (!continuous) {Alert.alert(t('calendar.nonContinuousTitle'), t('calendar.nonContinuousMessage')); return;}
     try {
       const rangeStart = dates[0];
       const rangeEnd = dates[dates.length - 1];
@@ -272,7 +275,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
       setEditingOccurrenceStart(null);
       setDraftPeriodDays(new Set());
     } catch (error) {
-      Alert.alert('Modification impossible', error instanceof Error && error.message === 'OVERLAPPING_RANGE' ? 'Cette période chevauche une période déjà enregistrée.' : 'Vérifie les dates sélectionnées.');
+      Alert.alert(t('calendar.editErrorTitle'), error instanceof Error && error.message === 'OVERLAPPING_RANGE' ? t('calendar.editErrorOverlap') : t('calendar.editErrorGeneric'));
     }
   };
 
@@ -368,24 +371,24 @@ function CalendarScreen(_: Props): React.JSX.Element {
   // a real event, not a prediction) and never inside a period already recorded.
   const canDeclarePeriodStart = startOfDay(selectedDate).getTime() <= startOfDay(today).getTime() && !isDateWithinConfirmedPeriod(selectedDate);
 
-  const nextPeriodLabel = predictionStatus.mode === 'window' && predictionStatus.isLate ? 'Règles en retard' : 'Prochaines règles (est.)';
+  const nextPeriodLabel = predictionStatus.mode === 'window' && predictionStatus.isLate ? t('calendar.periodLate') : t('calendar.nextPeriodEstimated');
   const nextPeriodValue = (() => {
     if (predictionStatus.mode === 'exact') {return formatShortDate(predictionStatus.date);}
     if (predictionStatus.mode === 'window') {
       return predictionStatus.isLate
-        ? `Fenêtre dépassée depuis le ${formatShortDate(predictionStatus.windowEnd)}`
+        ? t('calendar.windowPassedSince', {date: formatShortDate(predictionStatus.windowEnd)})
         : formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd);
     }
-    return `Mois ${predictionStatus.monthsElapsed} sur ${predictionStatus.totalMonths}`;
+    return t('cycleHome.monthOfTotal', {month: predictionStatus.monthsElapsed, total: predictionStatus.totalMonths});
   })();
   const nextPeriodSubtitle = (() => {
-    if (predictionStatus.mode === 'exact') {return `Dans ${Math.max(0, diffDays(predictionStatus.date, today))} jours`;}
+    if (predictionStatus.mode === 'exact') {return t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(predictionStatus.date, today))});}
     if (predictionStatus.mode === 'window') {
-      if (predictionStatus.isLate) {return 'Aucune nouvelle période enregistrée';}
+      if (predictionStatus.isLate) {return t('calendar.noNewPeriodRecorded');}
       const daysUntilStart = diffDays(predictionStatus.windowStart, today);
-      return daysUntilStart > 0 ? `Dans ${daysUntilStart} jours` : 'Fenêtre estimée en cours';
+      return daysUntilStart > 0 ? t('cycleHome.nextPeriod.inDays', {count: daysUntilStart}) : t('cycleHome.nextPeriod.windowInProgress');
     }
-    return predictionStatus.complete ? 'Données à compléter' : 'AWA observe tes cycles';
+    return predictionStatus.complete ? t('cycleHome.dataToComplete') : t('calendar.observingCycles');
   })();
 
   // Same rule as CycleHomeScreen (shared helpers in cycleMath.ts): fertile
@@ -393,12 +396,12 @@ function CalendarScreen(_: Props): React.JSX.Element {
   // trusted; an irregular/variable cycle shows no precise date.
   const fertility = estimateFertilityDates(basics, predictionStatus, today, getHasConfirmedCycleDuration());
   const averageTile = describeAverageCycle(predictionStatus, basics, getHasConfirmedCycleDuration());
-  const NOT_ESTIMABLE = {value: 'Non estimable', subtitle: 'Cycle variable'};
+  const NOT_ESTIMABLE = {value: t('cycleHome.notEstimable'), subtitle: t('cycleHome.variableCycle')};
   const fertileTile = fertility
-    ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: `Dans ${Math.max(0, diffDays(fertility.fertileStart, today))} jours`}
+    ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.fertileStart, today))})}
     : NOT_ESTIMABLE;
   const ovulationTile = fertility
-    ? {value: formatShortDate(fertility.ovulation), subtitle: `Dans ${Math.max(0, diffDays(fertility.ovulation, today))} jours`}
+    ? {value: formatShortDate(fertility.ovulation), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.ovulation, today))})}
     : NOT_ESTIMABLE;
 
   const predictionItems = [
@@ -419,14 +422,14 @@ function CalendarScreen(_: Props): React.JSX.Element {
     {
       key: 'fertile',
       icon: 'leaf' as const,
-      label: 'Fenêtre fertile (est.)',
+      label: t('calendar.fertileWindowEstimated'),
       value: fertileTile.value,
       subtitle: fertileTile.subtitle,
     },
     {
       key: 'ovulation',
       icon: 'egg-outline' as const,
-      label: 'Ovulation (est.)',
+      label: t('calendar.ovulationEstimated'),
       value: ovulationTile.value,
       subtitle: ovulationTile.subtitle,
     },
@@ -439,10 +442,10 @@ function CalendarScreen(_: Props): React.JSX.Element {
   const todayPeriodEnd = todayRecordedPeriod ? dateFromKey(todayRecordedPeriod.endDate) : addDays(todayPeriodStart, basics.periodDuration - 1);
 
   const timelineSteps: TimelineStep[] = [
-    {key: 'start', icon: 'water', label: 'Début des règles', date: formatShortDate(todayPeriodStart), color: homeColors.pink},
-    {key: 'end', icon: 'water-off-outline', label: 'Fin des règles', date: formatShortDate(todayPeriodEnd), color: homeColors.pink},
-    {key: 'fertile', icon: 'leaf', label: 'Fenêtre fertile', date: fertility ? formatShortDate(fertility.fertileStart) : NOT_ESTIMABLE.value, color: '#3E8E56'},
-    {key: 'ovulation', icon: 'egg-outline', label: 'Ovulation', date: fertility ? formatShortDate(fertility.ovulation) : NOT_ESTIMABLE.value, color: '#8B5CF6'},
+    {key: 'start', icon: 'water', label: t('calendar.periodStart'), date: formatShortDate(todayPeriodStart), color: homeColors.pink},
+    {key: 'end', icon: 'water-off-outline', label: t('calendar.periodEnd'), date: formatShortDate(todayPeriodEnd), color: homeColors.pink},
+    {key: 'fertile', icon: 'leaf', label: t('cycleHome.fertileWindowLabel'), date: fertility ? formatShortDate(fertility.fertileStart) : NOT_ESTIMABLE.value, color: '#3E8E56'},
+    {key: 'ovulation', icon: 'egg-outline', label: t('cyclePhase.ovulation'), date: fertility ? formatShortDate(fertility.ovulation) : NOT_ESTIMABLE.value, color: '#8B5CF6'},
     {key: 'next', icon: 'calendar-month-outline', label: nextPeriodLabel, date: nextPeriodValue, color: theme.colors.primary},
   ];
 
@@ -500,8 +503,8 @@ function CalendarScreen(_: Props): React.JSX.Element {
             editingPeriod={editingPeriod}
             phaseUnavailableSubtitle={
               isPreFirstPeriodDaughter
-                ? 'Pas encore de règles enregistrées'
-                : selectedIsRetroactive ? 'Aucune règle enregistrée ce jour-là' : undefined
+                ? t('cycleHome.preFirstPeriod.title')
+                : selectedIsRetroactive ? t('calendar.noPeriodThisDay') : undefined
             }
             showHijriDate={spiritualMarkersEnabled}
             onDeclarePeriodStart={canDeclarePeriodStart ? () => setPeriodStartSheetVisible(true) : undefined}
@@ -531,10 +534,10 @@ function CalendarScreen(_: Props): React.JSX.Element {
         />
 
         <LegendSheet onClose={() => setLegendVisible(false)} showSpiritualMarkers={spiritualMarkersEnabled} visible={legendVisible} />
-        {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>Modifier mes règles</Text><Text style={styles.editBarSubtitle}>{draftPeriodDays.size} {draftPeriodDays.size > 1 ? 'jours sélectionnés' : 'jour sélectionné'}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>Annuler</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>Enregistrer</Text></Pressable></View></View> : null}
+        {editingPeriod ? <View style={[styles.editBar, {bottom: Math.max(insets.bottom, 8)}]}><View style={styles.editBarCopy}><Text style={styles.editBarTitle}>{t('calendar.editPeriodTitle')}</Text><Text style={styles.editBarSubtitle}>{t('calendar.daysSelected', {count: draftPeriodDays.size})}</Text></View><View style={styles.editActions}><Pressable onPress={cancelPeriodEditing} style={styles.cancelButton}><Text style={styles.cancelText}>{t('common.cancel')}</Text></Pressable><Pressable onPress={savePeriodEditing} style={styles.saveButton}><Text style={styles.saveText}>{t('common.save')}</Text></Pressable></View></View> : null}
 
         <PeriodStartBottomSheet
-          description={isPreFirstPeriodDaughter ? 'Quand ses premières règles ont-elles commencé ?' : undefined}
+          description={isPreFirstPeriodDaughter ? t('cycleHome.preFirstPeriod.question') : undefined}
           initialDate={selectedDate}
           onClose={() => setPeriodStartSheetVisible(false)}
           onConfirm={
@@ -543,7 +546,7 @@ function CalendarScreen(_: Props): React.JSX.Element {
               : undefined
           }
           onConfirmed={() => {}}
-          title={isPreFirstPeriodDaughter ? 'Ses premières règles ont commencé' : undefined}
+          title={isPreFirstPeriodDaughter ? t('cycleHome.herPeriodStartedCta') : undefined}
           visible={periodStartSheetVisible}
         />
 

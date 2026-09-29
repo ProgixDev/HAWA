@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   SafeAreaView,
@@ -47,13 +48,14 @@ import {
 } from '../../state/contraceptionEventStore';
 
 import {
-  CONTRACEPTION_EVENT_LABELS,
+  contraceptionEventLabels,
   CONTRACEPTION_METHOD_EVENT_TYPES,
   CONTRACEPTION_METHOD_ICONS,
-  CONTRACEPTION_METHOD_LABELS,
+  contraceptionMethodLabels,
   isContraceptionEventForMethod,
   isContraceptionIntakeRecordForMethod,
 } from '../../config/contraceptionLabels';
+import '../../i18n';
 
 import {
   computeContraceptionBestStreak,
@@ -101,35 +103,22 @@ type PeriodMonths =
 // Ring/Patch's event section keeps its own original 1/3/6 selector
 // untouched (no Premium gating, no 12-month option) — only the
 // intake-method (Pill/Other) selector below gets the 12-month option and
-// Premium gating, via INTAKE_PERIOD_OPTIONS.
-const PERIOD_OPTIONS: {
-  value: PeriodMonths;
-  label: string;
-}[] = [
-  {
-    value: 1,
-    label: '1 mois',
-  },
-  {
-    value: 3,
-    label: '3 mois',
-  },
-  {
-    value: 6,
-    label: '6 mois',
-  },
-];
+// Premium gating, via buildIntakePeriodOptions(t) (built inside the
+// component, below, since these labels need `t`).
+function buildPeriodOptions(t: (key: string) => string): {value: PeriodMonths; label: string}[] {
+  return [
+    {value: 1, label: t('contraceptionStatistics.periods.oneMonth')},
+    {value: 3, label: t('contraceptionStatistics.periods.threeMonths')},
+    {value: 6, label: t('contraceptionStatistics.periods.sixMonths')},
+  ];
+}
 
-const INTAKE_PERIOD_OPTIONS: {
-  value: PeriodMonths;
-  label: string;
-}[] = [
-  ...PERIOD_OPTIONS,
-  {
-    value: 12,
-    label: '12 mois',
-  },
-];
+function buildIntakePeriodOptions(t: (key: string) => string): {value: PeriodMonths; label: string}[] {
+  return [
+    ...buildPeriodOptions(t),
+    {value: 12, label: t('contraceptionStatistics.periods.twelveMonths')},
+  ];
+}
 
 // FREE tier = 1 month only; 3/6/12 months are Premium-gated, same
 // FREE/PREMIUM split pattern as StatisticsScreen.tsx's isPeriodFree().
@@ -156,8 +145,10 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
   const insets =
     useSafeAreaInsets();
 
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const intakePeriodOptions = useMemo(() => buildIntakePeriodOptions(t), [t]);
 
   // PHASE E5 — decorative-brand-purple identifiers, now theme-derived (see
   // the module-level comment above where these used to be homeColors-derived
@@ -356,10 +347,10 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
 
   const methodLabel =
     method
-      ? CONTRACEPTION_METHOD_LABELS[
+      ? contraceptionMethodLabels(t)[
           method
         ]
-      : 'Non renseignée';
+      : t('profile.notProvidedFeminine');
 
   const methodIcon =
     method
@@ -648,14 +639,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
               style={
                 styles.title
               }>
-              Statistiques
+              {t('contraceptionStatistics.header.title')}
             </Text>
 
             <Text
               style={
                 styles.subtitle
               }>
-              Observe tes habitudes de suivi dans le temps.
+              {t('contraceptionStatistics.header.subtitle')}
             </Text>
           </View>
 
@@ -667,7 +658,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.periodRow
                 }>
-                {INTAKE_PERIOD_OPTIONS.map(
+                {intakePeriodOptions.map(
                   option => {
                     const active =
                       option.value ===
@@ -766,14 +757,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     style={
                       styles.emptyTitle
                     }>
-                    Tes statistiques vont apparaître ici
+                    {t('contraceptionStatistics.empty.title')}
                   </Text>
 
                   <Text
                     style={
                       styles.emptyText
                     }>
-                    Enregistre tes prises et oublis pendant quelques jours pour découvrir tes tendances.
+                    {t('contraceptionStatistics.empty.text')}
                   </Text>
                 </View>
               ) : (
@@ -788,7 +779,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.heroEyebrow
                       }>
-                      Ton suivi
+                      {t('contraceptionStatistics.hero.eyebrow')}
                     </Text>
 
                     {summary.regularityPercent !==
@@ -808,7 +799,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           style={
                             styles.heroPercentLabel
                           }>
-                          Régularité
+                          {t('contraceptionStatistics.hero.regularityLabel')}
                         </Text>
                       </>
                     ) : (
@@ -816,13 +807,13 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                         style={
                           styles.heroNeutral
                         }>
-                        Pas encore assez de données
+                        {t('contraceptionStatistics.hero.neutral')}
                       </Text>
                     )}
 
                     {summary.regularityPercent !== null ? (
                       <Text style={styles.regularityDisclaimer}>
-                        Basé sur tes propres enregistrements.
+                        {t('contraceptionStatistics.hero.disclaimer')}
                       </Text>
                     ) : null}
 
@@ -848,19 +839,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           style={
                             styles.heroCountText
                           }>
-                          {
-                            summary.taken
-                          }{' '}
-                          prise
-                          {summary.taken >
-                          1
-                            ? 's'
-                            : ''}{' '}
-                          effectuée
-                          {summary.taken >
-                          1
-                            ? 's'
-                            : ''}
+                          {t('contraceptionStatistics.hero.takenCount', {count: summary.taken})}
                         </Text>
                       </View>
 
@@ -868,7 +847,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                         <View style={[styles.heroCountDot, {backgroundColor: WARNING}]} />
 
                         <Text style={styles.heroCountText}>
-                          {summary.late} retard{summary.late > 1 ? 's' : ''}
+                          {t('contraceptionStatistics.hero.lateCount', {count: summary.late})}
                         </Text>
                       </View>
 
@@ -890,14 +869,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           style={
                             styles.heroCountText
                           }>
-                          {
-                            summary.missed
-                          }{' '}
-                          oubli
-                          {summary.missed >
-                          1
-                            ? 's'
-                            : ''}
+                          {t('contraceptionStatistics.hero.missedCount', {count: summary.missed})}
                         </Text>
                       </View>
                     </View>
@@ -912,7 +884,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                         style={
                           styles.emptyText
                         }>
-                        Aucune donnée enregistrée pour cette période. Essaie une période plus longue.
+                        {t('contraceptionStatistics.noDataInPeriod')}
                       </Text>
                     </View>
                   ) : (
@@ -927,14 +899,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           style={
                             styles.sectionTitle
                           }>
-                          Répartition
+                          {t('contraceptionStatistics.distribution.title')}
                         </Text>
 
                         <DistributionBar
                           color={
                             SUCCESS
                           }
-                          label="Prises effectuées"
+                          label={t('contraceptionStatistics.distribution.takenLabel')}
                           maxValue={
                             maxDistribution
                           }
@@ -945,7 +917,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
 
                         <DistributionBar
                           color={WARNING}
-                          label="Retards"
+                          label={t('contraceptionStatistics.distribution.lateLabel')}
                           maxValue={maxDistribution}
                           value={summary.late}
                         />
@@ -954,7 +926,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           color={
                             DANGER
                           }
-                          label="Oublis"
+                          label={t('contraceptionStatistics.distribution.missedLabel')}
                           maxValue={
                             maxDistribution
                           }
@@ -976,7 +948,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                             style={
                               styles.sectionTitle
                             }>
-                            Évolution
+                            {t('contraceptionStatistics.evolution.title')}
                           </Text>
 
                           <Text
@@ -985,8 +957,8 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                             }>
                             {periodMonths ===
                             1
-                              ? 'Par semaine'
-                              : 'Par mois'}
+                              ? t('contraceptionStatistics.evolution.byWeek')
+                              : t('contraceptionStatistics.evolution.byMonth')}
                           </Text>
 
                           <View
@@ -1018,16 +990,16 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                               color={
                                 SUCCESS
                               }
-                              label="Effectuées"
+                              label={t('contraceptionStatistics.evolution.takenLegend')}
                             />
 
-                            <LegendDot color={WARNING} label="Retards" />
+                            <LegendDot color={WARNING} label={t('contraceptionStatistics.evolution.lateLegend')} />
 
                             <LegendDot
                               color={
                                 DANGER
                               }
-                              label="Oublis"
+                              label={t('contraceptionStatistics.evolution.missedLegend')}
                             />
                           </View>
                         </View>
@@ -1068,22 +1040,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                                 style={
                                   styles.streakLabel
                                 }>
-                                Meilleure série
+                                {t('contraceptionStatistics.streak.label')}
                               </Text>
 
                               <Text
                                 style={
                                   styles.streakValue
                                 }>
-                                {
-                                  bestStreak
-                                }{' '}
-                                jour
-                                {bestStreak >
-                                1
-                                  ? 's'
-                                  : ''}{' '}
-                                consécutifs
+                                {t('contraceptionStatistics.streak.value', {count: bestStreak})}
                               </Text>
                             </View>
                           </View>
@@ -1106,7 +1070,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.sectionTitle
                   }>
-                  Suivi
+                  {t('contraceptionStatistics.tracking.title')}
                 </Text>
 
                 <View
@@ -1137,7 +1101,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.selectedRowLabel
                       }>
-                      Durée du suivi
+                      {t('contraceptionStatistics.tracking.durationLabel')}
                     </Text>
 
                     <Text
@@ -1146,8 +1110,8 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                       }>
                       {trackingDurationDays !==
                       null
-                        ? `${trackingDurationDays} jour${trackingDurationDays > 1 ? 's' : ''}`
-                        : 'Non renseignée'}
+                        ? t('contraceptionStatistics.tracking.durationValue', {count: trackingDurationDays})
+                        : t('contraceptionStatistics.tracking.durationNotProvided')}
                     </Text>
                   </View>
                 </View>
@@ -1158,7 +1122,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   {/* PERIOD SELECTOR */}
 
                   <View style={styles.periodRow}>
-                    {INTAKE_PERIOD_OPTIONS.map(option => {
+                    {intakePeriodOptions.map(option => {
                       const active = option.value === periodMonths;
                       const locked = !isIntakePeriodFree(option.value) && !isPremium;
                       return (
@@ -1188,7 +1152,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
 
                   {hasAnyEventInPeriod ? (
                     <View style={styles.card}>
-                      <Text style={styles.sectionTitle}>Événements enregistrés</Text>
+                      <Text style={styles.sectionTitle}>{t('contraceptionStatistics.events.title')}</Text>
 
                       {methodEventTypes.map(type => {
                         const count = eventCounts[type] ?? 0;
@@ -1196,8 +1160,8 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                           <DistributionBar
                             color={PURPLE}
                             key={type}
-                            label={CONTRACEPTION_EVENT_LABELS[type]}
-                            maxValue={Math.max(1, ...methodEventTypes.map(t => eventCounts[t] ?? 0))}
+                            label={contraceptionEventLabels(t)[type]}
+                            maxValue={Math.max(1, ...methodEventTypes.map(eventType => eventCounts[eventType] ?? 0))}
                             value={count}
                           />
                         ) : null;
@@ -1209,10 +1173,12 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                         <MaterialDesignIcons color={PURPLE} name="chart-donut" size={26} />
                       </View>
 
-                      <Text style={styles.emptyTitle}>Aucun événement enregistré</Text>
+                      <Text style={styles.emptyTitle}>{t('contraceptionStatistics.events.emptyTitle')}</Text>
 
                       <Text style={styles.emptyText}>
-                        Enregistre tes événements ({methodEventTypes.map(type => CONTRACEPTION_EVENT_LABELS[type].toLowerCase()).join(', ')}) pour découvrir tes statistiques ici.
+                        {t('contraceptionStatistics.events.emptyText', {
+                          types: methodEventTypes.map(type => contraceptionEventLabels(t)[type].toLowerCase()).join(', '),
+                        })}
                       </Text>
                     </View>
                   )}
@@ -1241,14 +1207,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     style={
                       styles.emptyTitle
                     }>
-                    Suivi détaillé à venir
+                    {t('contraceptionStatistics.noMethod.title')}
                   </Text>
 
                   <Text
                     style={
                       styles.emptyText
                     }>
-                    Le suivi détaillé sera disponible une fois ta méthode de contraception choisie.
+                    {t('contraceptionStatistics.noMethod.text')}
                   </Text>
                 </View>
               )}
@@ -1265,7 +1231,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
               style={
                 styles.sectionTitle
               }>
-              Ma méthode
+              {t('contraceptionStatistics.method.title')}
             </Text>
 
             <View
@@ -1308,12 +1274,14 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     styles.selectedRowLabel
                   }>
                   {methodStartDate
-                    ? `Depuis le ${formatFullDate(
-                        new Date(
-                          `${methodStartDate}T12:00:00`,
+                    ? t('contraceptionStatistics.method.sinceLabel', {
+                        date: formatFullDate(
+                          new Date(
+                            `${methodStartDate}T12:00:00`,
+                          ),
                         ),
-                      )}`
-                    : 'Date de début non renseignée'}
+                      })
+                    : t('contraceptionStatistics.method.startNotProvided')}
                 </Text>
               </View>
             </View>
@@ -1355,7 +1323,7 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.selectedRowLabel
                   }>
-                  Rappels
+                  {t('contraceptionStatistics.method.remindersLabel')}
                 </Text>
 
                 <Text
@@ -1363,10 +1331,10 @@ function ContraceptionStatisticsScreen(): React.JSX.Element {
                     styles.selectedRowValue
                   }>
                   {reminderIndicator === 'enabled'
-                    ? 'Activés'
+                    ? t('contraceptionStatistics.method.remindersEnabled')
                     : reminderIndicator === 'unavailable'
-                      ? 'Non disponibles'
-                      : 'Désactivés'}
+                      ? t('contraceptionStatistics.method.remindersUnavailable')
+                      : t('contraceptionStatistics.method.remindersDisabled')}
                 </Text>
               </View>
             </View>

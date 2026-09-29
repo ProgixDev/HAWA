@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   ScrollView,
@@ -16,6 +17,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {
   getContraceptionPreferences,
@@ -23,21 +25,15 @@ import {
   setContraceptionPreferences,
   type ContraceptionMethod,
 } from '../../state/contraceptionPreferences';
+import '../../i18n';
 
 type MaterialDesignIconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 const TREATMENT_BREAK_ICON: MaterialDesignIconName = 'clock-outline';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ContraceptionInformation'>;
 
-const START_DATE_QUESTIONS: Record<ContraceptionMethod, string> = {
-  pill: 'Depuis quand prends-tu la pilule ?',
-  ring: 'Depuis quand utilises-tu l’anneau vaginal ?',
-  patch: 'Depuis quand utilises-tu le patch contraceptif ?',
-  other: 'Depuis quand suis-tu ce traitement ?',
-};
-
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 // Local yyyy-mm-dd — never toISOString(), which is UTC-based and can shift
 // the calendar day near midnight (see CLAUDE.md's date-key convention).
@@ -46,8 +42,16 @@ const localDateKey = (date: Date): string =>
 
 function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const START_DATE_QUESTIONS: Record<ContraceptionMethod, string> = {
+    pill: t('contraceptionInformation.startDateQuestions.pill'),
+    ring: t('contraceptionInformation.startDateQuestions.ring'),
+    patch: t('contraceptionInformation.startDateQuestions.patch'),
+    other: t('contraceptionInformation.startDateQuestions.other'),
+  };
 
   const mode = route.params?.mode ?? 'onboarding';
   const isEdit = mode === 'edit';
@@ -92,7 +96,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
     });
   }, []);
 
-  const question = method ? START_DATE_QUESTIONS[method] : 'Depuis quand utilises-tu cette méthode ?';
+  const question = method ? START_DATE_QUESTIONS[method] : t('contraceptionInformation.startDateQuestions.default');
 
   // "Non" (false) is a real, valid answer and must never be treated the
   // same as "not yet answered" (null) — check !== null, never `!value`.
@@ -167,7 +171,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -189,9 +193,9 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>{'Quelques informations\nsur ta contraception'}</Text>
+            <Text style={styles.title}>{t('contraceptionInformation.title')}</Text>
             <Text style={styles.subtitle}>
-              Tes réponses restent privées et nous aident à personnaliser ton suivi.
+              {t('contraceptionInformation.subtitle')}
             </Text>
           </View>
 
@@ -204,12 +208,12 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
             </View>
 
             <Pressable
-              accessibilityLabel={`${question}, ${startDate ? formatFullDate(startDate) : 'non renseignée'}`}
+              accessibilityLabel={`${question}, ${startDate ? formatFullDate(startDate) : t('contraceptionInformation.dateNotProvidedAccessibility')}`}
               accessibilityRole="button"
               onPress={() => setPickerVisible(true)}
               style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
               <Text style={startDate ? styles.dateFieldValue : styles.dateFieldPlaceholder}>
-                {startDate ? formatFullDate(startDate) : 'Sélectionner une date'}
+                {startDate ? formatFullDate(startDate) : t('contraceptionInformation.datePlaceholder')}
               </Text>
               <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
             </Pressable>
@@ -222,7 +226,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
                 <MaterialDesignIcons color={theme.colors.primary} name={TREATMENT_BREAK_ICON} size={16} />
               </View>
               <Text style={styles.fieldLabel}>
-                {'As-tu une pause ou une période\nd’arrêt dans ton traitement ?'}
+                {t('contraceptionInformation.treatmentBreakQuestion')}
               </Text>
             </View>
 
@@ -232,7 +236,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
                 return (
                   <Pressable
                     key={String(choiceValue)}
-                    accessibilityLabel={choiceValue ? 'Oui' : 'Non'}
+                    accessibilityLabel={choiceValue ? t('journalIntimacy.yes') : t('journalIntimacy.no')}
                     accessibilityRole="radio"
                     accessibilityState={{checked: selected}}
                     onPress={() => setHasTreatmentBreak(choiceValue)}
@@ -242,7 +246,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
                       pressed && styles.pressed,
                     ]}>
                     <Text style={[styles.choiceText, selected && styles.choiceTextSelected]}>
-                      {choiceValue ? 'Oui' : 'Non'}
+                      {choiceValue ? t('journalIntimacy.yes') : t('journalIntimacy.no')}
                     </Text>
                   </Pressable>
                 );
@@ -264,7 +268,7 @@ function ContraceptionInformationScreen({navigation, route}: Props): React.JSX.E
               pressed && canContinue && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Continuer'}
+              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
             </Text>
           </Pressable>
         </ScrollView>

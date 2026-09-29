@@ -1,5 +1,6 @@
 import {getContraceptionReminderIndicator} from '../../utils/contraceptionReminderScheduling';
 import React, {useCallback, useMemo, useState, useEffect, useRef} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Modal,
   Pressable,
@@ -53,13 +54,13 @@ import {
 } from '../../state/contraceptionJournalStore';
 
 import {
-  CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL,
+  contraceptionDefaultIntakeActionLabel,
   CONTRACEPTION_EVENT_ICONS,
-  CONTRACEPTION_EVENT_LABELS,
-  CONTRACEPTION_INTAKE_ACTION_LABEL,
+  contraceptionEventLabels,
+  contraceptionIntakeActionLabels,
   CONTRACEPTION_METHOD_EVENT_TYPES,
   CONTRACEPTION_METHOD_ICONS,
-  CONTRACEPTION_METHOD_LABELS,
+  contraceptionMethodLabels,
   isContraceptionEventForMethod,
   isContraceptionIntakeRecordForMethod,
 } from '../../config/contraceptionLabels';
@@ -67,6 +68,7 @@ import {
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 
 import {
   formatFullDate,
@@ -84,6 +86,7 @@ import {
   getPillPackDay,
   isPillBreakDay,
 } from '../../utils/contraceptionMath';
+import '../../i18n';
 
 // SUCCESS/WARNING/DANGER (health-status semantics) stay fixed module
 // literals, exactly the pre-existing values this file already used (via
@@ -143,6 +146,7 @@ const DEFAULT_CALENDAR_FILTERS: ContraceptionCalendarFilters = {
 type CalendarSheetMode = 'filters' | 'legend' | null;
 
 function ContraceptionCalendarContent(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -274,11 +278,11 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   // equivalents instead.
   const isEventMethod = method === 'ring' || method === 'patch';
   const methodEventTypes = method ? CONTRACEPTION_METHOD_EVENT_TYPES[method] ?? [] : [];
-  const methodLabel = method ? CONTRACEPTION_METHOD_LABELS[method] : 'Non renseignée';
+  const methodLabel = method ? contraceptionMethodLabels(t)[method] : t('profile.notProvidedFeminine');
   const methodIcon = method ? CONTRACEPTION_METHOD_ICONS[method] : 'pill';
   const intakeActionLabel = method
-    ? CONTRACEPTION_INTAKE_ACTION_LABEL[method]
-    : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL;
+    ? contraceptionIntakeActionLabels(t)[method]
+    : contraceptionDefaultIntakeActionLabel(t);
 
   // Method-isolation: pill and other share the exact same
   // contraceptionIntakeHistoryStore.ts shape/store (a single daily
@@ -406,21 +410,21 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   const formatRecordTime = (recordedAt: string): string | null => {
     const parsed = new Date(recordedAt);
     if (Number.isNaN(parsed.getTime())) {return null;}
-    return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(parsed);
+    return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(parsed);
   };
 
   const intakeStatusLine = (() => {
     if (selectedRecord?.status === 'taken') {
       const time = formatRecordTime(selectedRecord.recordedAt);
-      return time ? `Effectuée à ${time}` : 'Effectuée';
+      return time ? t('contraceptionCalendar.selected.takenAt', {time}) : t('contraceptionCalendar.selected.taken');
     }
     if (selectedRecord?.status === 'late') {
-      return 'En retard';
+      return t('contraceptionCalendar.selected.late');
     }
     if (selectedRecord?.status === 'missed') {
-      return 'Oubliée';
+      return t('contraceptionCalendar.selected.missed');
     }
-    return selectedIsBreakDay ? 'Jour d’arrêt' : 'Non enregistrée';
+    return selectedIsBreakDay ? t('contraceptionCalendar.selected.breakDay') : t('contraceptionCalendar.selected.notRecorded');
   })();
 
   return (
@@ -445,19 +449,19 @@ function ContraceptionCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Calendrier</Text>
-              <Text style={styles.subtitle}>Suis ta contraception, jour après jour</Text>
+              <Text style={styles.title}>{t('contraceptionCalendar.title')}</Text>
+              <Text style={styles.subtitle}>{t('contraceptionCalendar.subtitle')}</Text>
             </View>
 
-            <HeaderAction icon="tune-variant" label="Filtres" onPress={() => setSheet('filters')} />
-            <HeaderAction icon="format-list-bulleted" label="Légende" onPress={() => setSheet('legend')} />
+            <HeaderAction icon="tune-variant" label={t('contraceptionCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
+            <HeaderAction icon="format-list-bulleted" label={t('contraceptionCalendar.legendLabel')} onPress={() => setSheet('legend')} />
           </View>
 
           {/* MONTH CARD */}
           <View style={styles.card}>
             <View style={styles.monthHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('contraceptionCalendar.prevMonthAccessibility')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={goToPreviousMonth}>
@@ -466,7 +470,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -474,7 +478,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('contraceptionCalendar.nextMonthAccessibility')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={goToNextMonth}>
@@ -549,13 +553,13 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 const lightText = isSelected && !isToday;
 
                 const eventAccessibilityLabel = dayEvents.length > 0
-                  ? `, ${dayEvents.map(event => CONTRACEPTION_EVENT_LABELS[event.type]).join(', ')}`
+                  ? `, ${dayEvents.map(event => contraceptionEventLabels(t)[event.type]).join(', ')}`
                   : '';
 
                 return (
                   <View key={dateKey} style={styles.dayCell}>
                     <Pressable
-                      accessibilityLabel={`${date.getDate()} ${showTakenMarker ? ', effectuée' : showLateMarker ? ', en retard' : showMissedMarker ? ', oubliée' : ''}${eventAccessibilityLabel}${spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : ''}`}
+                      accessibilityLabel={`${date.getDate()} ${showTakenMarker ? t('contraceptionCalendar.dayAccessibility.taken') : showLateMarker ? t('contraceptionCalendar.dayAccessibility.late') : showMissedMarker ? t('contraceptionCalendar.dayAccessibility.missed') : ''}${eventAccessibilityLabel}${spiritualMonth === 'ramadan' ? t('contraceptionCalendar.dayAccessibility.ramadan') : spiritualMonth === 'dhoulHijja' ? t('contraceptionCalendar.dayAccessibility.dhoulHijja') : ''}`}
                       accessibilityRole="button"
                       onPress={() => setSelectedDate(date)}
                       style={({pressed}) => [
@@ -636,22 +640,22 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                     color={theme.colors.primary}
                     icon={CONTRACEPTION_EVENT_ICONS[type]}
                     key={type}
-                    label={CONTRACEPTION_EVENT_LABELS[type]}
+                    label={contraceptionEventLabels(t)[type]}
                   />
                 ))
               ) : (
                 <>
-                  <LegendItem color={SUCCESS} label="Effectuée" />
-                  <LegendItem color={WARNING} label="En retard" />
-                  <LegendItem color={DANGER} label="Oubliée" />
-                  <LegendItem label="Non enregistrée" outline />
+                  <LegendItem color={SUCCESS} label={t('contraceptionCalendar.legend.taken')} />
+                  <LegendItem color={WARNING} label={t('contraceptionCalendar.legend.late')} />
+                  <LegendItem color={DANGER} label={t('contraceptionCalendar.legend.missed')} />
+                  <LegendItem label={t('contraceptionCalendar.legend.notRecorded')} outline />
                 </>
               )}
-              <LegendItem color={theme.colors.text} label="Aujourd’hui" dashedOutline />
+              <LegendItem color={theme.colors.text} label={t('contraceptionCalendar.legend.today')} dashedOutline />
               {spiritualMarkersEnabled ? (
                 <>
-                  <LegendItem color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" />
-                  <LegendItem color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" />
+                  <LegendItem color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label={t('contraceptionCalendar.legend.ramadan')} />
+                  <LegendItem color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label={t('contraceptionCalendar.legend.dhoulHijja')} />
                 </>
               ) : null}
             </View>
@@ -671,12 +675,14 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name={methodIcon} size={17} />
               </View>
               <View style={styles.selectedRowTextGroup}>
-                <Text style={styles.selectedRowLabel}>Méthode</Text>
+                <Text style={styles.selectedRowLabel}>{t('contraceptionCalendar.selected.method')}</Text>
                 <Text numberOfLines={1} style={styles.selectedRowValue}>{methodLabel}</Text>
               </View>
               {selectedPillPackDay !== null ? (
                 <View style={styles.packBadge}>
-                  <Text style={styles.packBadgeText}>Jour {selectedPillPackDay}/{pillScheduleTotalDays}</Text>
+                  <Text style={styles.packBadgeText}>
+                    {t('contraceptionCalendar.selected.packBadge', {day: selectedPillPackDay, total: pillScheduleTotalDays})}
+                  </Text>
                 </View>
               ) : null}
             </View>
@@ -696,10 +702,10 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                       </View>
                       <View style={styles.selectedRowTextGroup}>
                         <Text numberOfLines={1} style={styles.selectedRowLabel}>
-                          {CONTRACEPTION_EVENT_LABELS[event.type]}
+                          {contraceptionEventLabels(t)[event.type]}
                         </Text>
                         <Text numberOfLines={1} style={styles.selectedRowValue}>
-                          {time ? `Enregistré à ${time}` : 'Enregistré'}
+                          {time ? t('contraceptionCalendar.selected.recordedAt', {time}) : t('contraceptionCalendar.selected.recorded')}
                         </Text>
                       </View>
                     </View>
@@ -712,7 +718,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                   </View>
                   <View style={styles.selectedRowTextGroup}>
                     <Text numberOfLines={1} style={styles.selectedRowLabel}>{intakeActionLabel}</Text>
-                    <Text numberOfLines={1} style={styles.selectedRowValue}>Aucun événement enregistré</Text>
+                    <Text numberOfLines={1} style={styles.selectedRowValue}>{t('contraceptionCalendar.selected.noEvent')}</Text>
                   </View>
                 </View>
               )
@@ -776,11 +782,11 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 />
               </View>
               <View style={styles.selectedRowTextGroup}>
-                <Text style={styles.selectedRowLabel}>Effets ressentis</Text>
+                <Text style={styles.selectedRowLabel}>{t('contraceptionCalendar.selected.feelingsLabel')}</Text>
                 <Text style={styles.selectedRowValue}>
                   {selectedFeelingsCount > 0
-                    ? `${selectedFeelingsCount} élément${selectedFeelingsCount > 1 ? 's' : ''}`
-                    : 'Non renseigné'}
+                    ? t('contraceptionCalendar.selected.feelingsCount', {count: selectedFeelingsCount})
+                    : t('contraceptionCalendar.selected.notProvided')}
                 </Text>
               </View>
             </View>
@@ -794,20 +800,24 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 />
               </View>
               <View style={styles.selectedRowTextGroup}>
-                <Text style={styles.selectedRowLabel}>Rappels</Text>
+                <Text style={styles.selectedRowLabel}>{t('contraceptionCalendar.selected.remindersLabel')}</Text>
                 <Text style={styles.selectedRowValue}>
-                  {reminderIndicator === 'enabled' ? 'Activés' : reminderIndicator === 'unavailable' ? 'Non disponibles' : 'Désactivés'}
+                  {reminderIndicator === 'enabled'
+                    ? t('contraceptionCalendar.selected.remindersEnabled')
+                    : reminderIndicator === 'unavailable'
+                      ? t('contraceptionCalendar.selected.remindersUnavailable')
+                      : t('contraceptionCalendar.selected.remindersDisabled')}
                 </Text>
               </View>
             </View>
 
             {isSelectedToday ? (
               <Pressable
-                accessibilityLabel="Modifier le suivi d’aujourd’hui"
+                accessibilityLabel={t('contraceptionCalendar.selected.editAccessibility')}
                 accessibilityRole="button"
                 onPress={openJournal}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
-                <Text style={styles.editRowText}>Modifier</Text>
+                <Text style={styles.editRowText}>{t('contraceptionCalendar.selected.edit')}</Text>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
             ) : null}
@@ -818,16 +828,16 @@ function ContraceptionCalendarContent(): React.JSX.Element {
               <Pressable
                 accessibilityLabel={
                   selectedFeelingsCount > 0
-                    ? 'Modifier les effets ressentis de ce jour'
-                    : 'Renseigner les effets ressentis de ce jour'
+                    ? t('contraceptionCalendar.selected.editFeelingsAccessibility')
+                    : t('contraceptionCalendar.selected.fillFeelingsAccessibility')
                 }
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('ContraceptionJournalEntry', {category: 'feelings', date: selectedDateKey})}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
                 <Text style={styles.editRowText}>
                   {selectedFeelingsCount > 0
-                    ? 'Modifier les effets ressentis de ce jour'
-                    : 'Renseigner les effets ressentis de ce jour'}
+                    ? t('contraceptionCalendar.selected.editFeelings')
+                    : t('contraceptionCalendar.selected.fillFeelings')}
                 </Text>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
@@ -836,11 +846,11 @@ function ContraceptionCalendarContent(): React.JSX.Element {
 
           {/* MONTHLY SUMMARY */}
           <View style={styles.card}>
-            <Text style={styles.summaryTitle}>Résumé de ce mois</Text>
+            <Text style={styles.summaryTitle}>{t('contraceptionCalendar.summary.title')}</Text>
 
             {isEventMethod ? (
               methodEventTypes.every(type => !monthlyEventCounts[type]) ? (
-                <Text style={styles.emptySummaryText}>Aucun événement enregistré ce mois-ci.</Text>
+                <Text style={styles.emptySummaryText}>{t('contraceptionCalendar.summary.emptyEvents')}</Text>
               ) : (
                 <View style={styles.summaryGrid}>
                   {methodEventTypes.map(type =>
@@ -848,7 +858,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                       <View key={type} style={[styles.summaryTile, styles.summaryTilePurple]}>
                         <MaterialDesignIcons color={theme.colors.primary} name={CONTRACEPTION_EVENT_ICONS[type]} size={18} />
                         <Text style={styles.summaryValue}>{monthlyEventCounts[type]}</Text>
-                        <Text style={styles.summaryLabel}>{CONTRACEPTION_EVENT_LABELS[type]}</Text>
+                        <Text style={styles.summaryLabel}>{contraceptionEventLabels(t)[type]}</Text>
                       </View>
                     ) : null,
                   )}
@@ -859,26 +869,26 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                 <View style={[styles.summaryTile, styles.summaryTileGreen]}>
                   <MaterialDesignIcons color={SUCCESS} name="check-circle-outline" size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.taken}</Text>
-                  <Text style={styles.summaryLabel}>Effectuées</Text>
+                  <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.taken')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileAmber]}>
                   <MaterialDesignIcons color={WARNING} name="clock-alert-outline" size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.late}</Text>
-                  <Text style={styles.summaryLabel}>En retard</Text>
+                  <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.late')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileRed]}>
                   <MaterialDesignIcons color={DANGER} name="alert-circle-outline" size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.missed}</Text>
-                  <Text style={styles.summaryLabel}>Oublis</Text>
+                  <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.missed')}</Text>
                 </View>
 
                 {monthlySummary.notRecorded !== null ? (
                   <View style={[styles.summaryTile, styles.summaryTileMuted]}>
                     <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={18} />
                     <Text style={styles.summaryValue}>{monthlySummary.notRecorded}</Text>
-                    <Text style={styles.summaryLabel}>Non enregistrées</Text>
+                    <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.notRecorded')}</Text>
                   </View>
                 ) : null}
 
@@ -886,7 +896,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
                   <View style={[styles.summaryTile, styles.summaryTilePurple]}>
                     <MaterialDesignIcons color={theme.colors.primary} name="chart-line" size={18} />
                     <Text style={styles.summaryValue}>{monthlySummary.regularityPercent}%</Text>
-                    <Text style={styles.summaryLabel}>Régularité</Text>
+                    <Text style={styles.summaryLabel}>{t('contraceptionCalendar.summary.regularity')}</Text>
                   </View>
                 ) : null}
               </View>
@@ -894,7 +904,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
 
             {!isEventMethod && monthlySummary.regularityPercent !== null ? (
               <Text style={styles.regularityDisclaimer}>
-                Basé sur tes propres enregistrements.
+                {t('contraceptionCalendar.summary.disclaimer')}
               </Text>
             ) : null}
           </View>
@@ -995,6 +1005,7 @@ function ContraceptionCalendarSheet({
   isEventMethod: boolean;
   methodEventTypes: ContraceptionEventType[];
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const sheetStyles = useMemo(() => createSheetStyles(theme), [theme]);
@@ -1011,30 +1022,30 @@ function ContraceptionCalendarSheet({
         key: type,
         icon: CONTRACEPTION_EVENT_ICONS[type],
         color: theme.colors.primary,
-        title: CONTRACEPTION_EVENT_LABELS[type],
-        description: `Afficher les jours où « ${CONTRACEPTION_EVENT_LABELS[type].toLowerCase()} » a été enregistré`,
+        title: contraceptionEventLabels(t)[type],
+        description: t('contraceptionCalendar.filterRows.eventDescription', {label: contraceptionEventLabels(t)[type].toLowerCase()}),
       }))
     : [
         {
           key: 'taken',
           icon: 'check-circle-outline',
           color: SUCCESS,
-          title: 'Prises effectuées',
-          description: 'Afficher les jours où ta prise a été enregistrée',
+          title: t('contraceptionCalendar.filterRows.takenTitle'),
+          description: t('contraceptionCalendar.filterRows.takenDescription'),
         },
         {
           key: 'late',
           icon: 'clock-alert-outline',
           color: WARNING,
-          title: 'Retards',
-          description: 'Afficher les jours où un retard a été signalé',
+          title: t('contraceptionCalendar.filterRows.lateTitle'),
+          description: t('contraceptionCalendar.filterRows.lateDescription'),
         },
         {
           key: 'missed',
           icon: 'alert-outline',
           color: DANGER,
-          title: 'Oublis',
-          description: 'Afficher les jours où un oubli a été signalé',
+          title: t('contraceptionCalendar.filterRows.missedTitle'),
+          description: t('contraceptionCalendar.filterRows.missedDescription'),
         },
       ];
 
@@ -1049,15 +1060,15 @@ function ContraceptionCalendarSheet({
       key: 'ramadan',
       icon: 'moon-waning-crescent',
       color: RAMADAN_MARKER_COLOR,
-      title: 'Ramadan',
-      description: 'Afficher le repère du mois de Ramadan',
+      title: t('contraceptionCalendar.filterRows.ramadanTitle'),
+      description: t('contraceptionCalendar.filterRows.ramadanDescription'),
     },
     {
       key: 'dhulHijja',
       icon: 'moon-waning-crescent',
       color: DHOUL_HIJJA_MARKER_COLOR,
-      title: 'Dhou al-Hijja',
-      description: 'Afficher le repère du mois de Dhou al-Hijja',
+      title: t('contraceptionCalendar.filterRows.dhoulHijjaTitle'),
+      description: t('contraceptionCalendar.filterRows.dhoulHijjaDescription'),
     },
   ];
 
@@ -1065,31 +1076,31 @@ function ContraceptionCalendarSheet({
     ? methodEventTypes.map(type => ({
         icon: CONTRACEPTION_EVENT_ICONS[type],
         color: theme.colors.primary,
-        title: CONTRACEPTION_EVENT_LABELS[type],
-        description: `« ${CONTRACEPTION_EVENT_LABELS[type]} » a été enregistré ce jour-là.`,
+        title: contraceptionEventLabels(t)[type],
+        description: t('contraceptionCalendar.legendRows.eventDescription', {label: contraceptionEventLabels(t)[type]}),
       }))
     : [
-        {icon: 'check-circle' as const, color: SUCCESS, title: 'Prise effectuée', description: 'Une prise a été enregistrée ce jour-là.'},
-        {icon: 'clock-alert' as const, color: WARNING, title: 'En retard', description: 'Un retard a été signalé ce jour-là.'},
-        {icon: 'alert-circle' as const, color: DANGER, title: 'Oubli', description: 'Un oubli a été signalé ce jour-là.'},
+        {icon: 'check-circle' as const, color: SUCCESS, title: t('contraceptionCalendar.legendRows.takenTitle'), description: t('contraceptionCalendar.legendRows.takenDescription')},
+        {icon: 'clock-alert' as const, color: WARNING, title: t('contraceptionCalendar.legendRows.lateTitle'), description: t('contraceptionCalendar.legendRows.lateDescription')},
+        {icon: 'alert-circle' as const, color: DANGER, title: t('contraceptionCalendar.legendRows.missedTitle'), description: t('contraceptionCalendar.legendRows.missedDescription')},
       ];
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={mode !== null}>
       <View style={sheetStyles.modalRoot}>
-        <Pressable accessibilityLabel="Fermer" onPress={onClose} style={sheetStyles.backdrop} />
+        <Pressable accessibilityLabel={t('contraceptionCalendar.sheet.close')} onPress={onClose} style={sheetStyles.backdrop} />
 
         {mode === 'filters' ? (
           <View style={[sheetStyles.sheet, sheetStyles.filterSheet, {paddingBottom: Math.max(insets.bottom, 10)}]}>
             <View style={sheetStyles.handle} />
 
             <View style={sheetStyles.sheetHeader}>
-              <Text style={sheetStyles.sheetTitle}>Filtres</Text>
-              <Text style={sheetStyles.sheetSubtitle}>Choisis les repères à afficher sur ton calendrier.</Text>
+              <Text style={sheetStyles.sheetTitle}>{t('contraceptionCalendar.sheet.filtersTitle')}</Text>
+              <Text style={sheetStyles.sheetSubtitle}>{t('contraceptionCalendar.sheet.filtersSubtitle')}</Text>
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>Suivi contraception</Text>
+              <Text style={sheetStyles.groupTitle}>{t('contraceptionCalendar.sheet.trackingGroupTitle')}</Text>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -1102,7 +1113,7 @@ function ContraceptionCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>Repères spirituels</Text>
+                  <Text style={sheetStyles.groupTitle}>{t('contraceptionCalendar.sheet.spiritualGroupTitle')}</Text>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}
@@ -1121,7 +1132,7 @@ function ContraceptionCalendarSheet({
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>Terminé</Text>
+                <Text style={sheetStyles.doneText}>{t('contraceptionCalendar.sheet.done')}</Text>
               </Pressable>
             </View>
           </View>
@@ -1131,8 +1142,8 @@ function ContraceptionCalendarSheet({
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.legendScrollContent} showsVerticalScrollIndicator={false} style={sheetStyles.legendScroll}>
               <View style={sheetStyles.sheetHeader}>
-                <Text style={sheetStyles.sheetTitle}>Légende</Text>
-                <Text style={sheetStyles.sheetSubtitle}>Comprendre les repères de ton calendrier.</Text>
+                <Text style={sheetStyles.sheetTitle}>{t('contraceptionCalendar.sheet.legendTitle')}</Text>
+                <Text style={sheetStyles.sheetSubtitle}>{t('contraceptionCalendar.sheet.legendSubtitle')}</Text>
               </View>
 
               <View style={sheetStyles.legendRowsGroup}>
@@ -1153,8 +1164,8 @@ function ContraceptionCalendarSheet({
                     <View style={sheetStyles.legendTodayPreview} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>Aujourd’hui</Text>
-                    <Text style={sheetStyles.legendRowText}>Le contour violet en pointillés indique la date d’aujourd’hui.</Text>
+                    <Text style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.sheet.todayTitle')}</Text>
+                    <Text style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.todayDescription')}</Text>
                   </View>
                 </View>
 
@@ -1165,8 +1176,8 @@ function ContraceptionCalendarSheet({
                         <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>Ramadan</Text>
-                        <Text style={sheetStyles.legendRowText}>Ce jour se situe dans le mois du Ramadan.</Text>
+                        <Text style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.legend.ramadan')}</Text>
+                        <Text style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.ramadanDescription')}</Text>
                       </View>
                     </View>
                     <View style={[sheetStyles.legendRow, sheetStyles.legendRowLast]}>
@@ -1174,8 +1185,8 @@ function ContraceptionCalendarSheet({
                         <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>Dhou al-Hijja</Text>
-                        <Text style={sheetStyles.legendRowText}>Ce jour se situe dans le mois de Dhou al-Hijja.</Text>
+                        <Text style={sheetStyles.legendRowTitle}>{t('contraceptionCalendar.legend.dhoulHijja')}</Text>
+                        <Text style={sheetStyles.legendRowText}>{t('contraceptionCalendar.sheet.dhoulHijjaDescription')}</Text>
                       </View>
                     </View>
                   </>
@@ -1185,11 +1196,11 @@ function ContraceptionCalendarSheet({
 
             <View style={sheetStyles.footer}>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('conceiveCalendar.legendSheet.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>Fermer</Text>
+                <Text style={sheetStyles.doneText}>{t('contraceptionCalendar.sheet.close')}</Text>
               </Pressable>
             </View>
           </View>

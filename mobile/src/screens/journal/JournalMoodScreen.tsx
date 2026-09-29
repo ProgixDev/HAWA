@@ -19,6 +19,7 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
@@ -26,9 +27,11 @@ import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import type {MoodLevel} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
-type MoodOption = {label: string; emoji: string; value: MoodLevel; tint: string};
+type MoodOption = {labelKey: string; emoji: string; value: MoodLevel; tint: string};
 type LevelRowProps = {
   label: string;
   value: number;
@@ -37,19 +40,22 @@ type LevelRowProps = {
   onChange: (value: number) => void;
 };
 
+// Labels reuse the same cycleHome.mood.* glossary entries HeroCycleCard reads
+// for these exact 9 mood levels — never a second, duplicated translation.
 const MOODS: MoodOption[] = [
-  {label: 'Très bien', emoji: '😊', value: 'veryGood', tint: '#DCEFE4'},
-  {label: 'Bien', emoji: '🙂', value: 'good', tint: '#E5EED6'},
-  {label: 'Neutre', emoji: '😐', value: 'neutral', tint: '#F7E4C4'},
-  {label: 'Stressée', emoji: '😟', value: 'stressed', tint: '#F8DDE0'},
-  {label: 'Irritable', emoji: '😠', value: 'irritable', tint: '#F6D0C3'},
-  {label: 'Anxieuse', emoji: '😰', value: 'anxious', tint: '#DEE0F5'},
-  {label: 'Triste', emoji: '😢', value: 'sad', tint: '#DCEAF4'},
-  {label: 'Fatiguée', emoji: '😴', value: 'tired', tint: '#E5E1F6'},
-  {label: 'Motivée', emoji: '🤩', value: 'motivated', tint: '#FFF0CB'},
+  {labelKey: 'cycleHome.mood.veryGood', emoji: '😊', value: 'veryGood', tint: '#DCEFE4'},
+  {labelKey: 'cycleHome.mood.good', emoji: '🙂', value: 'good', tint: '#E5EED6'},
+  {labelKey: 'cycleHome.mood.neutral', emoji: '😐', value: 'neutral', tint: '#F7E4C4'},
+  {labelKey: 'cycleHome.mood.stressed', emoji: '😟', value: 'stressed', tint: '#F8DDE0'},
+  {labelKey: 'cycleHome.mood.irritable', emoji: '😠', value: 'irritable', tint: '#F6D0C3'},
+  {labelKey: 'cycleHome.mood.anxious', emoji: '😰', value: 'anxious', tint: '#DEE0F5'},
+  {labelKey: 'cycleHome.mood.sad', emoji: '😢', value: 'sad', tint: '#DCEAF4'},
+  {labelKey: 'cycleHome.mood.tired', emoji: '😴', value: 'tired', tint: '#E5E1F6'},
+  {labelKey: 'cycleHome.mood.motivated', emoji: '🤩', value: 'motivated', tint: '#FFF0CB'},
 ];
 
 function LevelRow({label, value, color, paleColor, onChange}: LevelRowProps) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -62,7 +68,7 @@ function LevelRow({label, value, color, paleColor, onChange}: LevelRowProps) {
         {[1, 2, 3, 4, 5].map(level => (
           <Pressable
             key={level}
-            accessibilityLabel={`${label} ${level} sur 5`}
+            accessibilityLabel={t('journalMood.levelOutOfFive', {label, level})}
             accessibilityRole="button"
             onPress={() => onChange(level)}
             style={styles.scaleStep} />
@@ -75,6 +81,7 @@ function LevelRow({label, value, color, paleColor, onChange}: LevelRowProps) {
 }
 
 export default function JournalMoodScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -89,7 +96,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
   // Null (no "Jour N du cycle" in the header) when this objective/state has
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {
+  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'short',
@@ -227,8 +234,8 @@ export default function JournalMoodScreen(): React.JSX.Element {
       showSuccessToast();
     } catch {
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer ton humeur pour le moment.",
+        t('journalMood.errorTitle'),
+        t('journalMood.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -245,19 +252,19 @@ export default function JournalMoodScreen(): React.JSX.Element {
             isSmallScreen && styles.topBarSmall,
             isVerySmallScreen && styles.topBarVerySmall,
           ]}>
-          <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.roundButton}>
+          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.roundButton}>
             <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={25} />
           </Pressable>
           <View style={styles.headerCopy}>
             <Text style={[styles.pageTitle, isSmallScreen && styles.pageTitleSmall]}>
-              Humeur
+              {t('dailyJournalSheet.items.mood.title')}
             </Text>
             <Text numberOfLines={1} style={[styles.date, isSmallScreen && styles.dateSmall]}>
-              {cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}
+              {cycleDay !== null ? t('journalMood.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
             </Text>
           </View>
           <Pressable
-            accessibilityLabel="Enregistrer l'humeur"
+            accessibilityLabel={t('journalMood.saveMood')}
             accessibilityRole="button"
             disabled={saving}
             onPress={save}
@@ -277,15 +284,15 @@ export default function JournalMoodScreen(): React.JSX.Element {
         <ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 24}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
           <ImageBackground imageStyle={styles.heroImage} source={require('../../assets/images/mood-header-woman.png')} style={styles.hero}>
             <View style={styles.heroCopy}>
-              <Text style={styles.heroTitle}>Comment te sens-tu{`\n`}aujourd’hui ?</Text>
-              <Text style={styles.heroSubtitle}>Prends un moment pour reconnaître{`\n`}ce que tu ressens.</Text>
+              <Text style={styles.heroTitle}>{t('journalMood.heroTitle')}</Text>
+              <Text style={styles.heroSubtitle}>{t('journalMood.heroSubtitle')}</Text>
             </View>
           </ImageBackground>
 
           <View style={styles.card}>
             <View style={styles.sectionHeading}>
               <View style={styles.headingIcon}><Text style={styles.headingEmoji}>☺</Text></View>
-              <Text style={styles.sectionTitle}>Humeur principale</Text>
+              <Text style={styles.sectionTitle}>{t('journalMood.mainMoodSectionTitle')}</Text>
             </View>
             <View style={styles.moodGrid}>
               {MOODS.map(option => {
@@ -298,7 +305,7 @@ export default function JournalMoodScreen(): React.JSX.Element {
                     onPress={() => setMood(option.value)}
                     style={({pressed}) => [styles.moodCard, selected && styles.moodCardSelected, pressed && styles.pressed]}>
                     <View style={[styles.emojiCircle, {backgroundColor: option.tint}]}><Text style={styles.emoji}>{option.emoji}</Text></View>
-                    <Text numberOfLines={1} style={[styles.moodLabel, selected && styles.moodLabelSelected]}>{option.label}</Text>
+                    <Text numberOfLines={1} style={[styles.moodLabel, selected && styles.moodLabelSelected]}>{t(option.labelKey)}</Text>
                   </Pressable>
                 );
               })}
@@ -308,26 +315,26 @@ export default function JournalMoodScreen(): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.sectionHeading}>
               <View style={styles.headingIcon}><MaterialDesignIcons color={theme.colors.primary} name="chart-bar" size={18} /></View>
-              <Text style={styles.sectionTitle}>Niveaux du jour</Text>
+              <Text style={styles.sectionTitle}>{t('journalMood.levelsSectionTitle')}</Text>
             </View>
-            <LevelRow color="#2B7656" label="Énergie" onChange={setEnergy} paleColor="#DAE9DD" value={energy} />
-            <LevelRow color="#EA788A" label="Stress" onChange={setStress} paleColor="#F9E0E5" value={stress} />
-            <LevelRow color="#EF984D" label="Irritabilité" onChange={setIrritability} paleColor="#FAE5D1" value={irritability} />
-            <LevelRow color="#A480C0" label="Motivation" onChange={setMotivation} paleColor="#EDE4F3" value={motivation} />
+            <LevelRow color="#2B7656" label={t('cycleHome.energyChipLabel')} onChange={setEnergy} paleColor="#DAE9DD" value={energy} />
+            <LevelRow color="#EA788A" label={t('journalMood.stressLabel')} onChange={setStress} paleColor="#F9E0E5" value={stress} />
+            <LevelRow color="#EF984D" label={t('journalMood.irritabilityLabel')} onChange={setIrritability} paleColor="#FAE5D1" value={irritability} />
+            <LevelRow color="#A480C0" label={t('journalMood.motivationLabel')} onChange={setMotivation} paleColor="#EDE4F3" value={motivation} />
           </View>
 
           <View style={styles.card}>
             <View style={styles.sectionHeading}>
               <View style={styles.headingIcon}><MaterialDesignIcons color={theme.colors.primary} name="pencil-outline" size={17} /></View>
-              <Text style={styles.sectionTitle}>Commentaire <Text style={styles.optional}>(optionnel)</Text></Text>
+              <Text style={styles.sectionTitle}>{t('journalMood.commentSectionTitle')} <Text style={styles.optional}>{t('journalMood.optional')}</Text></Text>
             </View>
             <View style={styles.noteBox}>
               <TextInput
-                accessibilityLabel="Commentaire sur ton humeur"
+                accessibilityLabel={t('journalMood.commentAccessibility')}
                 maxLength={300}
                 multiline
                 onChangeText={setNote}
-                placeholder="Écris ici ce que tu ressens ou ce que tu souhaites noter..."
+                placeholder={t('journalMood.commentPlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={styles.noteInput}
                 textAlignVertical="top"
@@ -338,15 +345,15 @@ export default function JournalMoodScreen(): React.JSX.Element {
             <View style={styles.kindnessBox}>
               <View style={styles.kindnessIcon}><Text style={styles.kindnessEmoji}>💚</Text></View>
               <View style={styles.kindnessCopy}>
-                <Text style={styles.kindnessTitle}>Chaque émotion compte.</Text>
-                <Text style={styles.kindnessText}>Écoute-toi avec bienveillance.</Text>
+                <Text style={styles.kindnessTitle}>{t('journalMood.kindnessTitle')}</Text>
+                <Text style={styles.kindnessText}>{t('journalMood.kindnessText')}</Text>
               </View>
               <MaterialDesignIcons color={withAlpha(theme.colors.primary, 0.45)} name="sprout" size={34} />
             </View>
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer l'humeur"
+            accessibilityLabel={t('journalMood.saveMood')}
             accessibilityRole="button"
             disabled={saving}
             onPress={save}
@@ -362,11 +369,11 @@ export default function JournalMoodScreen(): React.JSX.Element {
             />
 
             <Text style={styles.saveText}>
-              {saving ? 'Enregistrement…' : 'Enregistrer'}
+              {saving ? t('periodStartSheet.saving') : t('common.save')}
             </Text>
           </Pressable>
 
-          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette humeur" /> : null}
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalMood.clearSubject')} /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -402,11 +409,11 @@ export default function JournalMoodScreen(): React.JSX.Element {
           </View>
 
           <Text style={styles.toastText}>
-            Humeur enregistrée avec succès ✨
+            {t('journalMood.savedToast')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={hideSuccessToast}

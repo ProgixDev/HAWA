@@ -16,11 +16,13 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getBottomPadding, spacing} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 import {
   getPregnancyNotificationSettings,
   hydratePregnancyNotificationSettings,
@@ -50,15 +52,35 @@ import {
   syncHealthReminder,
 } from '../../utils/pregnancyReminderScheduling';
 import type {PregnancyReminderOffset} from '../../state/pregnancyMedicalEventsStore';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PregnancyNotifications'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+// Local alias for react-i18next's `t` — avoids depending on a named
+// `TFunction` export (not provided by the app's current react-i18next
+// version); matches the shape actually used here (key + optional
+// interpolation values).
+type TFn = (key: string, options?: Record<string, unknown>) => string;
 
-const CUSTOM_REPEAT_OPTIONS: {key: CustomReminderRepeat; label: string}[] = [
-  {key: 'once', label: 'Une fois'},
-  {key: 'daily', label: 'Tous les jours'},
-  {key: 'weekly', label: 'Chaque semaine'},
-];
+// Display-only labels for the persisted CustomReminderRepeat enum (the
+// semantic value itself, never the label, is what's saved) — same
+// enum-keyed-factory pattern as JournalCervicalMucusScreen.tsx's mucusLabels.
+function repeatLabels(t: TFn): Record<CustomReminderRepeat, string> {
+  return {
+    once: t('pregnancyNotifications.repeat.once'),
+    daily: t('pregnancyNotifications.repeat.daily'),
+    weekly: t('pregnancyNotifications.repeat.weekly'),
+  };
+}
+
+function customRepeatOptions(t: TFn): {key: CustomReminderRepeat; label: string}[] {
+  const labels = repeatLabels(t);
+  return [
+    {key: 'once', label: labels.once},
+    {key: 'daily', label: labels.daily},
+    {key: 'weekly', label: labels.weekly},
+  ];
+}
 
 function toISODate(date: Date): string {
   return date.toLocaleDateString('en-CA');
@@ -70,7 +92,7 @@ function fromISODate(iso: string): Date {
 }
 
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 
 function parseTimeToDate(hhmm: string): Date {
@@ -81,7 +103,7 @@ function parseTimeToDate(hhmm: string): Date {
 }
 
 function formatLongDate(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 }
 
 /* ============================================================
@@ -202,6 +224,7 @@ function ReminderListRow({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <Pressable accessibilityRole="button" onPress={onPress} style={({pressed}) => [styles.listRow, pressed && styles.pressed]}>
       <View style={styles.rowIcon}>
@@ -218,7 +241,7 @@ function ReminderListRow({
         trackColor={{false: theme.colors.primarySoft, true: theme.colors.primary}}
         value={enabled}
       />
-      <Pressable accessibilityLabel={`Supprimer ${title}`} hitSlop={8} onPress={onDelete} style={styles.rowDelete}>
+      <Pressable accessibilityLabel={t('pregnancyNotifications.deleteReminderAccessibility', {title})} hitSlop={8} onPress={onDelete} style={styles.rowDelete}>
         <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={17} />
       </Pressable>
     </Pressable>
@@ -330,6 +353,7 @@ function HealthReminderModal({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const [activePicker, setActivePicker] = useState<'time' | 'start' | 'end' | null>(null);
   const isMedication = draft.kind === 'medication';
 
@@ -338,12 +362,12 @@ function HealthReminderModal({
       <View style={styles.modalOverlay}>
         <View style={styles.modalCard}>
           <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-            <Text style={styles.modalTitle}>{isMedication ? 'Rappel de médicament' : 'Rappel de vitamine'}</Text>
+            <Text style={styles.modalTitle}>{isMedication ? t('pregnancyNotifications.healthModal.medicationTitle') : t('pregnancyNotifications.healthModal.vitaminTitle')}</Text>
 
             <TextField
-              label="Nom"
+              label={t('pregnancyNotifications.healthModal.nameLabel')}
               onChangeText={name => onChange({...draft, name})}
-              placeholder={isMedication ? 'Ex. Fer' : 'Ex. Acide folique'}
+              placeholder={isMedication ? t('pregnancyNotifications.healthModal.medicationNamePlaceholder') : t('pregnancyNotifications.healthModal.vitaminNamePlaceholder')}
               styles={styles}
               theme={theme}
               value={draft.name}
@@ -352,7 +376,7 @@ function HealthReminderModal({
             <FieldRow
               active={activePicker === 'time'}
               icon="clock-outline"
-              label="Heure"
+              label={t('pregnancyNotifications.timeLabel')}
               onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
               styles={styles}
               theme={theme}
@@ -367,15 +391,15 @@ function HealthReminderModal({
               />
             ) : null}
 
-            <Text style={styles.fieldLabel}>Répétition</Text>
-            <Text style={styles.staticValue}>Tous les jours</Text>
+            <Text style={styles.fieldLabel}>{t('pregnancyNotifications.repeatLabel')}</Text>
+            <Text style={styles.staticValue}>{t('pregnancyNotifications.repeat.daily')}</Text>
 
             {isMedication ? (
               <>
                 <FieldRow
                   active={activePicker === 'start'}
                   icon="calendar-start"
-                  label="Date de début"
+                  label={t('pregnancyNotifications.healthModal.startDateLabel')}
                   onPress={() => setActivePicker(current => (current === 'start' ? null : 'start'))}
                   styles={styles}
                   theme={theme}
@@ -393,11 +417,11 @@ function HealthReminderModal({
                 <FieldRow
                   active={activePicker === 'end'}
                   icon="calendar-end"
-                  label="Date de fin (optionnelle)"
+                  label={t('pregnancyNotifications.healthModal.endDateLabel')}
                   onPress={() => setActivePicker(current => (current === 'end' ? null : 'end'))}
                   styles={styles}
                   theme={theme}
-                  value={draft.endDate ? formatLongDate(draft.endDate) : 'Non définie'}
+                  value={draft.endDate ? formatLongDate(draft.endDate) : t('pregnancyNotifications.healthModal.noEndDateValue')}
                 />
                 {activePicker === 'end' ? (
                   <DateTimePicker
@@ -409,7 +433,7 @@ function HealthReminderModal({
                 ) : null}
                 {draft.endDate ? (
                   <Pressable accessibilityRole="button" onPress={() => onChange({...draft, endDate: null})} style={styles.clearLink}>
-                    <Text style={styles.clearLinkText}>Retirer la date de fin</Text>
+                    <Text style={styles.clearLinkText}>{t('pregnancyNotifications.healthModal.removeEndDate')}</Text>
                   </Pressable>
                 ) : null}
               </>
@@ -418,18 +442,18 @@ function HealthReminderModal({
             <View style={styles.modalActionsRow}>
               {onDelete ? (
                 <Pressable accessibilityRole="button" onPress={onDelete} style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-                  <Text style={styles.deleteButtonText}>Supprimer</Text>
+                  <Text style={styles.deleteButtonText}>{t('pregnancyNotifications.delete')}</Text>
                 </Pressable>
               ) : null}
               <Pressable accessibilityRole="button" onPress={onDismiss} style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-                <Text style={styles.cancelButtonText}>Annuler</Text>
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </Pressable>
               <Pressable
                 accessibilityRole="button"
                 disabled={!draft.name.trim()}
                 onPress={onSave}
                 style={({pressed}) => [styles.saveButton, !draft.name.trim() && styles.saveButtonDisabled, pressed && styles.pressed]}>
-                <Text style={styles.saveButtonText}>Enregistrer</Text>
+                <Text style={styles.saveButtonText}>{t('common.save')}</Text>
               </Pressable>
             </View>
           </ScrollView>
@@ -476,21 +500,23 @@ function CustomReminderModal({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const [activePicker, setActivePicker] = useState<'date' | 'time' | null>(null);
+  const repeatOptions = customRepeatOptions(t);
 
   return (
     <Modal animationType="slide" onRequestClose={onDismiss} transparent visible>
       <View style={styles.modalOverlay}>
         <View style={styles.modalCard}>
           <ScrollView keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
-            <Text style={styles.modalTitle}>Rappel personnalisé</Text>
+            <Text style={styles.modalTitle}>{t('pregnancyNotifications.customModal.title')}</Text>
 
-            <TextField label="Titre" onChangeText={title => onChange({...draft, title})} placeholder="Ex. Cours de préparation" styles={styles} theme={theme} value={draft.title} />
+            <TextField label={t('pregnancyNotifications.customModal.titleLabel')} onChangeText={title => onChange({...draft, title})} placeholder={t('pregnancyNotifications.customModal.titlePlaceholder')} styles={styles} theme={theme} value={draft.title} />
             <TextField
-              label="Description (optionnelle)"
+              label={t('pregnancyNotifications.customModal.descriptionLabel')}
               multiline
               onChangeText={description => onChange({...draft, description})}
-              placeholder="Ajouter un détail…"
+              placeholder={t('pregnancyNotifications.customModal.descriptionPlaceholder')}
               styles={styles}
               theme={theme}
               value={draft.description}
@@ -499,7 +525,7 @@ function CustomReminderModal({
             <FieldRow
               active={activePicker === 'date'}
               icon="calendar-month-outline"
-              label="Date"
+              label={t('pregnancyNotifications.customModal.dateLabel')}
               onPress={() => setActivePicker(current => (current === 'date' ? null : 'date'))}
               styles={styles}
               theme={theme}
@@ -517,7 +543,7 @@ function CustomReminderModal({
             <FieldRow
               active={activePicker === 'time'}
               icon="clock-outline"
-              label="Heure"
+              label={t('pregnancyNotifications.timeLabel')}
               onPress={() => setActivePicker(current => (current === 'time' ? null : 'time'))}
               styles={styles}
               theme={theme}
@@ -532,9 +558,9 @@ function CustomReminderModal({
               />
             ) : null}
 
-            <Text style={styles.fieldLabel}>Répétition</Text>
+            <Text style={styles.fieldLabel}>{t('pregnancyNotifications.repeatLabel')}</Text>
             <View style={styles.chips}>
-              {CUSTOM_REPEAT_OPTIONS.map(option => (
+              {repeatOptions.map(option => (
                 <Pressable
                   accessibilityRole="button"
                   accessibilityState={{selected: draft.repeat === option.key}}
@@ -549,18 +575,18 @@ function CustomReminderModal({
             <View style={styles.modalActionsRow}>
               {onDelete ? (
                 <Pressable accessibilityRole="button" onPress={onDelete} style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
-                  <Text style={styles.deleteButtonText}>Supprimer</Text>
+                  <Text style={styles.deleteButtonText}>{t('pregnancyNotifications.delete')}</Text>
                 </Pressable>
               ) : null}
               <Pressable accessibilityRole="button" onPress={onDismiss} style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-                <Text style={styles.cancelButtonText}>Annuler</Text>
+                <Text style={styles.cancelButtonText}>{t('common.cancel')}</Text>
               </Pressable>
               <Pressable
                 accessibilityRole="button"
                 disabled={!draft.title.trim()}
                 onPress={onSave}
                 style={({pressed}) => [styles.saveButton, !draft.title.trim() && styles.saveButtonDisabled, pressed && styles.pressed]}>
-                <Text style={styles.saveButtonText}>Enregistrer</Text>
+                <Text style={styles.saveButtonText}>{t('common.save')}</Text>
               </Pressable>
             </View>
           </ScrollView>
@@ -575,6 +601,7 @@ function CustomReminderModal({
 ============================================================ */
 
 function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -657,12 +684,12 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
   const removeHealthReminder = (reminder: HealthReminder) => {
     Alert.alert(
-      reminder.kind === 'medication' ? 'Supprimer ce médicament ?' : 'Supprimer cette vitamine ?',
-      'Cette action supprimera également le rappel associé.',
+      reminder.kind === 'medication' ? t('pregnancyNotifications.deleteMedicationConfirmTitle') : t('pregnancyNotifications.deleteVitaminConfirmTitle'),
+      t('pregnancyNotifications.deleteConfirmMessage'),
       [
-        {text: 'Annuler', style: 'cancel'},
+        {text: t('common.cancel'), style: 'cancel'},
         {
-          text: 'Supprimer',
+          text: t('pregnancyNotifications.delete'),
           style: 'destructive',
           onPress: async () => {
             const next = await deleteHealthReminder(reminder.id);
@@ -722,10 +749,10 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
   };
 
   const removeCustomReminder = (reminder: CustomReminder) => {
-    Alert.alert('Supprimer ce rappel ?', 'Cette action supprimera également le rappel associé.', [
-      {text: 'Annuler', style: 'cancel'},
+    Alert.alert(t('pregnancyNotifications.deleteCustomReminderConfirmTitle'), t('pregnancyNotifications.deleteConfirmMessage'), [
+      {text: t('common.cancel'), style: 'cancel'},
       {
-        text: 'Supprimer',
+        text: t('pregnancyNotifications.delete'),
         style: 'destructive',
         onPress: async () => {
           const next = await deleteCustomReminder(reminder.id);
@@ -741,13 +768,16 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
   const medications = healthReminders.filter(item => item.kind === 'medication');
 
   const healthReminderMeta = (reminder: HealthReminder): string => {
-    if (reminder.kind === 'vitamin') {return `Tous les jours · ${reminder.time}`;}
-    const range = reminder.endDate ? `jusqu’au ${formatLongDate(fromISODate(reminder.endDate))}` : 'sans date de fin';
-    return `Tous les jours · ${reminder.time} · ${range}`;
+    const daily = t('pregnancyNotifications.repeat.daily');
+    if (reminder.kind === 'vitamin') {return `${daily} · ${reminder.time}`;}
+    const range = reminder.endDate
+      ? t('pregnancyNotifications.untilDate', {date: formatLongDate(fromISODate(reminder.endDate))})
+      : t('pregnancyNotifications.noEndDateRange');
+    return `${daily} · ${reminder.time} · ${range}`;
   };
 
   const customReminderMeta = (reminder: CustomReminder): string => {
-    const repeatLabel = CUSTOM_REPEAT_OPTIONS.find(option => option.key === reminder.repeat)?.label ?? '';
+    const repeatLabel = repeatLabels(t)[reminder.repeat] ?? '';
     return `${formatLongDate(fromISODate(reminder.date))} · ${reminder.time} · ${repeatLabel}`;
   };
 
@@ -762,7 +792,7 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
       <View style={styles.header}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
@@ -779,10 +809,10 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             minimumFontScale={0.78}
             numberOfLines={2}
             style={styles.headerTitle}>
-            Notifications & rappels
+            {t('pregnancyNotifications.headerTitle')}
           </Text>
           <Text numberOfLines={1} style={styles.headerSubtitle}>
-            Personnalise ce que tu souhaites recevoir
+            {t('pregnancyNotifications.headerSubtitle')}
           </Text>
         </View>
 
@@ -797,41 +827,41 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             <MaterialDesignIcons color={theme.colors.primary} name="bell-outline" size={20} />
           </View>
           <View style={styles.introCopy}>
-            <Text style={styles.introTitle}>Des rappels utiles, à ton rythme</Text>
+            <Text style={styles.introTitle}>{t('pregnancyNotifications.introTitle')}</Text>
             <Text style={styles.introText}>
-              Active uniquement les notifications qui t’accompagnent vraiment au quotidien.
+              {t('pregnancyNotifications.introText')}
             </Text>
           </View>
         </View>
 
         {/* ============================= A. GROSSESSE ============================= */}
         <View style={styles.card}>
-          <SectionHeader icon="human-pregnant" styles={styles} theme={theme} title="Grossesse" />
+          <SectionHeader icon="human-pregnant" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.pregnancy.title')} />
 
           <ToggleRow
-            description="Recevoir un rappel lorsqu’une nouvelle semaine de grossesse commence."
+            description={t('pregnancyNotifications.sections.pregnancy.weeklyUpdate.description')}
             icon="calendar-week"
             onValueChange={value => persistSettings({...settings, weeklyUpdateEnabled: value})}
             styles={styles}
             theme={theme}
-            title="Suivi hebdomadaire"
+            title={t('pregnancyNotifications.sections.pregnancy.weeklyUpdate.title')}
             value={settings.weeklyUpdateEnabled}
           />
 
           <View style={styles.divider} />
 
           <ToggleRow
-            description="Me rappeler de compléter mon suivi du jour."
+            description={t('pregnancyNotifications.sections.pregnancy.dailyJournal.description')}
             icon="notebook-outline"
             onValueChange={value => persistSettings({...settings, dailyJournalEnabled: value})}
             styles={styles}
             theme={theme}
-            title="Journal quotidien"
+            title={t('pregnancyNotifications.sections.pregnancy.dailyJournal.title')}
             value={settings.dailyJournalEnabled}>
             <FieldRow
               active={dailyJournalPickerOpen}
               icon="clock-outline"
-              label="Heure du rappel"
+              label={t('pregnancyNotifications.sections.pregnancy.dailyJournal.reminderTimeLabel')}
               onPress={() => setDailyJournalPickerOpen(open => !open)}
               styles={styles}
               theme={theme}
@@ -853,17 +883,17 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
 
         {/* ===================== B. RENDEZ-VOUS & EXAMENS ===================== */}
         <View style={styles.card}>
-          <SectionHeader icon="calendar-heart" styles={styles} theme={theme} title="Rendez-vous & examens" />
+          <SectionHeader icon="calendar-heart" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.appointmentsExams.title')} />
 
           <ToggleRow
-            description="Recevoir un rappel avant tes rendez-vous médicaux."
+            description={t('pregnancyNotifications.sections.appointmentsExams.appointments.description')}
             icon="calendar-heart"
             onValueChange={value => persistSettings({...settings, appointmentsEnabled: value})}
             styles={styles}
             theme={theme}
-            title="Rendez-vous médicaux"
+            title={t('pregnancyNotifications.sections.appointmentsExams.appointments.title')}
             value={settings.appointmentsEnabled}>
-            <Text style={styles.toggleHint}>Rappel par défaut</Text>
+            <Text style={styles.toggleHint}>{t('pregnancyNotifications.sections.appointmentsExams.defaultReminderHint')}</Text>
             <OffsetPicker
               onChange={offset => persistSettings({...settings, defaultAppointmentReminderOffset: offset})}
               styles={styles}
@@ -874,14 +904,14 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           <View style={styles.divider} />
 
           <ToggleRow
-            description="Recevoir un rappel avant tes examens."
+            description={t('pregnancyNotifications.sections.appointmentsExams.exams.description')}
             icon="clipboard-pulse-outline"
             onValueChange={value => persistSettings({...settings, examsEnabled: value})}
             styles={styles}
             theme={theme}
-            title="Examens"
+            title={t('pregnancyNotifications.sections.appointmentsExams.exams.title')}
             value={settings.examsEnabled}>
-            <Text style={styles.toggleHint}>Rappel par défaut</Text>
+            <Text style={styles.toggleHint}>{t('pregnancyNotifications.sections.appointmentsExams.defaultReminderHint')}</Text>
             <OffsetPicker
               onChange={offset => persistSettings({...settings, defaultExamReminderOffset: offset})}
               styles={styles}
@@ -889,21 +919,21 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             />
           </ToggleRow>
 
-          <Text style={styles.cardFootnote}>Chaque rendez-vous ou examen peut définir son propre rappel depuis sa fiche.</Text>
+          <Text style={styles.cardFootnote}>{t('pregnancyNotifications.sections.appointmentsExams.footnote')}</Text>
         </View>
 
         {/* ============================== C. SANTÉ ============================== */}
         <View style={styles.card}>
-          <SectionHeader icon="pill" styles={styles} theme={theme} title="Santé" />
+          <SectionHeader icon="pill" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.health.title')} />
 
           <View style={styles.subsectionHeaderRow}>
-            <Text style={styles.subsectionTitle}>Vitamines & compléments</Text>
-            <Pressable accessibilityLabel="Ajouter une vitamine" accessibilityRole="button" onPress={() => openNewHealthReminder('vitamin')} style={styles.addChip}>
+            <Text style={styles.subsectionTitle}>{t('pregnancyNotifications.sections.health.vitaminsSubsectionTitle')}</Text>
+            <Pressable accessibilityLabel={t('pregnancyNotifications.sections.health.addVitaminAccessibility')} accessibilityRole="button" onPress={() => openNewHealthReminder('vitamin')} style={styles.addChip}>
               <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
             </Pressable>
           </View>
           {vitamins.length === 0 ? (
-            <EmptyRow styles={styles} text="Aucune vitamine enregistrée." />
+            <EmptyRow styles={styles} text={t('pregnancyNotifications.sections.health.noVitaminsText')} />
           ) : (
             <View style={styles.list}>
               {vitamins.map(item => (
@@ -924,13 +954,13 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
           )}
 
           <View style={[styles.subsectionHeaderRow, styles.subsectionSpacing]}>
-            <Text style={styles.subsectionTitle}>Médicaments</Text>
-            <Pressable accessibilityLabel="Ajouter un médicament" accessibilityRole="button" onPress={() => openNewHealthReminder('medication')} style={styles.addChip}>
+            <Text style={styles.subsectionTitle}>{t('pregnancyNotifications.sections.health.medicationsSubsectionTitle')}</Text>
+            <Pressable accessibilityLabel={t('pregnancyNotifications.sections.health.addMedicationAccessibility')} accessibilityRole="button" onPress={() => openNewHealthReminder('medication')} style={styles.addChip}>
               <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
             </Pressable>
           </View>
           {medications.length === 0 ? (
-            <EmptyRow styles={styles} text="Aucun médicament enregistré." />
+            <EmptyRow styles={styles} text={t('pregnancyNotifications.sections.health.noMedicationsText')} />
           ) : (
             <View style={styles.list}>
               {medications.map(item => (
@@ -950,20 +980,20 @@ function PregnancyNotificationsScreen({navigation}: Props): React.JSX.Element {
             </View>
           )}
 
-          <Text style={styles.cardFootnote}>L’application se contente de te rappeler ce que tu as toi-même renseigné — aucun dosage ni conseil médical n’est fourni.</Text>
+          <Text style={styles.cardFootnote}>{t('pregnancyNotifications.sections.health.footnote')}</Text>
         </View>
 
         {/* ======================= D. RAPPELS PERSONNALISÉS ======================= */}
         <View style={styles.card}>
           <View style={styles.subsectionHeaderRow}>
-            <SectionHeader icon="bell-plus-outline" styles={styles} theme={theme} title="Rappels personnalisés" />
-            <Pressable accessibilityLabel="Ajouter un rappel personnalisé" accessibilityRole="button" onPress={openNewCustomReminder} style={styles.addChip}>
+            <SectionHeader icon="bell-plus-outline" styles={styles} theme={theme} title={t('pregnancyNotifications.sections.custom.title')} />
+            <Pressable accessibilityLabel={t('pregnancyNotifications.sections.custom.addAccessibility')} accessibilityRole="button" onPress={openNewCustomReminder} style={styles.addChip}>
               <MaterialDesignIcons color={theme.colors.primary} name="plus" size={16} />
             </Pressable>
           </View>
 
           {customReminders.length === 0 ? (
-            <EmptyRow styles={styles} text="Aucun rappel personnalisé enregistré." />
+            <EmptyRow styles={styles} text={t('pregnancyNotifications.sections.custom.noRemindersText')} />
           ) : (
             <View style={styles.list}>
               {customReminders.map(item => (

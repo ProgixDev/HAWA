@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Alert,
   Image,
@@ -74,17 +75,17 @@ import {
 } from '../../state/contraceptionEventStore';
 
 import {
-  CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL,
-  CONTRACEPTION_DEFAULT_REMINDER_CONTENT,
+  contraceptionDefaultIntakeActionLabel,
+  contraceptionDefaultReminderContent,
   CONTRACEPTION_EVENT_ICONS,
-  CONTRACEPTION_EVENT_LABELS,
-  CONTRACEPTION_HERO_ACTION_LABELS,
-  CONTRACEPTION_INTAKE_ACTION_LABEL,
-  CONTRACEPTION_INTAKE_STATUS_LABELS,
+  contraceptionEventLabels,
+  contraceptionHeroActionLabels,
+  contraceptionIntakeActionLabels,
+  contraceptionIntakeStatusLabels,
   CONTRACEPTION_METHOD_EVENT_TYPES,
   CONTRACEPTION_METHOD_ICONS,
-  CONTRACEPTION_METHOD_LABELS,
-  CONTRACEPTION_REMINDER_CONTENT,
+  contraceptionMethodLabels,
+  contraceptionReminderContent,
   getContraceptionEventSummaryLabel,
   isContraceptionEventForMethod,
   isContraceptionIntakeRecordForMethod,
@@ -93,6 +94,7 @@ import {
 import {getPillPackDay, isPillBreakDay} from '../../utils/contraceptionMath';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
+import {getAppLanguage} from '../../state/themePreferences';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {filterRecordsForHistoryAccess} from '../../utils/historyAccess';
 
@@ -108,6 +110,7 @@ import {
   formatFullDate,
   formatHijriDate,
 } from '../../utils/cycleMath';
+import '../../i18n';
 
 // PHASE D2 — PURPLE/PURPLE_DARK/PURPLE_SOFT/BORDER_STRONG/MUTED/CARD_BACKGROUND
 // used to be fixed literals here; they are now derived from useAwaTheme() at
@@ -162,7 +165,7 @@ const formatRecordTime = (
     return '—';
   }
 
-  return new Intl.DateTimeFormat('fr-FR', {
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
@@ -213,18 +216,27 @@ function PillPackProgressRing({
   statusIcon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   statusText: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const isConfigured = day !== null && totalDays !== null;
   const progress = isConfigured ? day / totalDays : 0;
 
   return (
     <AnimatedProgressRing
       accessibilityLabel={
-        isConfigured ? `Jour ${day} sur ${totalDays}, plaquette en cours` : `${statusText}, suivi en cours`
+        isConfigured
+          ? t('contraceptionDashboard.ring.packAccessibility', {day, total: totalDays})
+          : t('contraceptionDashboard.ring.trackingAccessibility', {status: statusText})
       }
-      centerCaption="Jour"
-      centerDetail={isConfigured ? `sur ${totalDays}` : undefined}
+      centerCaption={t('contraceptionDashboard.ring.dayCaption')}
+      centerDetail={isConfigured ? t('contraceptionDashboard.ring.dayDetail', {total: totalDays}) : undefined}
       centerValue={day ?? undefined}
-      footnote={isConfigured ? (isBreakDay ? 'Période d’arrêt' : 'Plaquette en cours') : 'Suivi en cours'}
+      footnote={
+        isConfigured
+          ? isBreakDay
+            ? t('contraceptionDashboard.ring.breakFootnote')
+            : t('contraceptionDashboard.ring.packFootnote')
+          : t('contraceptionDashboard.ring.trackingFootnote')
+      }
       isConfigured={isConfigured}
       progress={progress}
       statusColor={statusColor}
@@ -306,6 +318,7 @@ const sortEventsDesc = (
 function ContraceptionDashboard({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
 
   const {width, height} =
@@ -461,12 +474,12 @@ function ContraceptionDashboard({
     if (!recordActionTarget) {return;}
     const target = recordActionTarget;
     Alert.alert(
-      'Supprimer cet enregistrement ?',
-      `${formatRecordDate(target.date)} — cette action ne peut pas être annulée.`,
+      t('contraceptionDashboard.deleteRecordConfirm.title'),
+      t('contraceptionDashboard.deleteRecordConfirm.message', {date: formatRecordDate(target.date)}),
       [
-        {text: 'Annuler', style: 'cancel'},
+        {text: t('common.cancel'), style: 'cancel'},
         {
-          text: 'Supprimer',
+          text: t('contraceptionDashboard.deleteButton'),
           style: 'destructive',
           onPress: () => {
             deleteContraceptionIntakeRecord(target.date);
@@ -475,22 +488,25 @@ function ContraceptionDashboard({
         },
       ],
     );
-  }, [recordActionTarget, closeRecordAction]);
+  }, [recordActionTarget, closeRecordAction, t]);
 
   const confirmDeleteEvent = useCallback((event: ContraceptionEvent) => {
     Alert.alert(
-      'Supprimer cet événement ?',
-      `${CONTRACEPTION_EVENT_LABELS[event.type]} — ${formatRecordDate(event.date)} — cette action ne peut pas être annulée.`,
+      t('contraceptionDashboard.deleteEventConfirm.title'),
+      t('contraceptionDashboard.deleteEventConfirm.message', {
+        label: contraceptionEventLabels(t)[event.type],
+        date: formatRecordDate(event.date),
+      }),
       [
-        {text: 'Annuler', style: 'cancel'},
+        {text: t('common.cancel'), style: 'cancel'},
         {
-          text: 'Supprimer',
+          text: t('contraceptionDashboard.deleteButton'),
           style: 'destructive',
           onPress: () => deleteContraceptionEvent(event.id),
         },
       ],
     );
-  }, []);
+  }, [t]);
 
   const refreshIntakeHistory =
     useCallback(() => {
@@ -840,10 +856,10 @@ function ContraceptionDashboard({
   );
 
   const methodLabel = method
-    ? CONTRACEPTION_METHOD_LABELS[
+    ? contraceptionMethodLabels(t)[
         method
       ]
-    : 'Non renseignée';
+    : t('profile.notProvidedFeminine');
 
   const methodIcon = method
     ? CONTRACEPTION_METHOD_ICONS[
@@ -858,10 +874,10 @@ function ContraceptionDashboard({
     : null;
 
   const reminderContent = method
-    ? CONTRACEPTION_REMINDER_CONTENT[
+    ? contraceptionReminderContent(t)[
         method
       ]
-    : CONTRACEPTION_DEFAULT_REMINDER_CONTENT;
+    : contraceptionDefaultReminderContent(t);
 
   /*
    * ============================================================
@@ -870,8 +886,8 @@ function ContraceptionDashboard({
    */
 
   const intakeActionLabel = method
-    ? CONTRACEPTION_INTAKE_ACTION_LABEL[method]
-    : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL;
+    ? contraceptionIntakeActionLabels(t)[method]
+    : contraceptionDefaultIntakeActionLabel(t);
 
   const pillPackDay = useMemo(
     () =>
@@ -889,21 +905,21 @@ function ContraceptionDashboard({
 
   const intakeStateLabel =
     showBreakDayState
-      ? 'Jour d’arrêt'
+      ? t('contraceptionDashboard.daily.intakeState.breakDay')
       : todayRecord?.status === 'taken'
-      ? 'Enregistré'
+      ? t('contraceptionDashboard.daily.intakeState.recorded')
       : todayRecord?.status === 'late'
-        ? 'En retard'
+        ? t('contraceptionDashboard.daily.intakeState.late')
         : todayRecord?.status === 'missed'
-          ? 'Oubli signalé'
-          : 'À renseigner';
+          ? t('contraceptionDashboard.daily.intakeState.missed')
+          : t('contraceptionDashboard.daily.intakeState.toProvide');
 
   const feelingsCount = todayJournalEntry?.feelings?.length ?? 0;
 
   const feelingsStateLabel =
     feelingsCount > 0
-      ? `${feelingsCount} élément${feelingsCount > 1 ? 's' : ''}`
-      : 'À renseigner';
+      ? t('contraceptionDashboard.daily.feelingsCount', {count: feelingsCount})
+      : t('contraceptionDashboard.daily.feelingsToProvide');
 
   const hasNotesToday = Boolean(todayJournalEntry?.notes?.trim());
 
@@ -911,10 +927,10 @@ function ContraceptionDashboard({
   // exclusively via PillScheduleScreen (a real user answer), never guessed.
   const methodScheduleLabel = isPill
     ? pillScheduleType === 'cyclic' && activeDays !== null && breakDays !== null
-      ? `${activeDays} jours de pilule + ${breakDays} jours d’arrêt`
+      ? t('contraceptionDashboard.method.scheduleCyclicSummary', {active: activeDays, breakDays})
       : pillScheduleType === 'continuous'
-        ? 'Prise continue, sans arrêt programmé'
-        : 'Schéma de pilule non renseigné'
+        ? t('contraceptionDashboard.method.scheduleContinuousSummary')
+        : t('contraceptionDashboard.method.scheduleUnknownSummary')
     : reminderContent.cardDescription;
 
   const sevenDayHistory = useMemo<HistoryDay[]>(() => {
@@ -933,7 +949,7 @@ function ContraceptionDashboard({
 
       return {
         dateKey,
-        weekday: new Intl.DateTimeFormat('fr-FR', {
+        weekday: new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
           weekday: 'short',
         })
           .format(date)
@@ -987,10 +1003,10 @@ function ContraceptionDashboard({
   // Method-adaptive hero button wording — pill keeps its existing colloquial
   // phrasing ("Prise effectuée"/"J'ai oublié"); every other intake-tracked
   // method (currently just 'other') falls back to the shared, method-neutral
-  // CONTRACEPTION_INTAKE_STATUS_LABELS. Never hardcode pill wording here.
+  // contraceptionIntakeStatusLabels(t). Never hardcode pill wording here.
   const heroActionLabel = (status: ContraceptionIntakeStatus): string =>
-    (method ? CONTRACEPTION_HERO_ACTION_LABELS[method]?.[status] : undefined) ??
-    CONTRACEPTION_INTAKE_STATUS_LABELS[status];
+    (method ? contraceptionHeroActionLabels(t)[method]?.[status] : undefined) ??
+    contraceptionIntakeStatusLabels(t)[status];
 
   /*
    * ============================================================
@@ -1001,50 +1017,50 @@ function ContraceptionDashboard({
   const heroTitle = isPill
     ? todayRecord?.status ===
       'taken'
-      ? 'Pilule \nenregistrée'
+      ? t('contraceptionDashboard.hero.title.taken')
       : todayRecord?.status === 'late'
-        ? 'Retard enregistré'
+        ? t('contraceptionDashboard.hero.title.late')
         : todayRecord?.status ===
             'missed'
-          ? 'Oubli enregistré'
+          ? t('contraceptionDashboard.hero.title.missed')
           : showBreakDayState
-            ? 'Jour d’arrêt'
-            : 'Pilule à prendre'
+            ? t('contraceptionDashboard.hero.title.breakDay')
+            : t('contraceptionDashboard.hero.title.toTake')
     : methodLabel;
 
   const heroSubtitle = isPill
     ? todayRecord?.status ===
       'taken'
-      ? 'Ta prise du jour est enregistrée.'
+      ? t('contraceptionDashboard.hero.subtitle.taken')
       : todayRecord?.status === 'late'
-        ? 'Ton retard du jour est enregistré.'
+        ? t('contraceptionDashboard.hero.subtitle.late')
         : todayRecord?.status ===
             'missed'
-          ? 'Ton oubli du jour est enregistré.'
+          ? t('contraceptionDashboard.hero.subtitle.missed')
           : showBreakDayState
-            ? 'Période d’arrêt renseignée dans ton schéma.'
-            : 'N’oublie pas d’enregistrer ta prise aujourd’hui.'
+            ? t('contraceptionDashboard.hero.subtitle.breakDay')
+            : t('contraceptionDashboard.hero.subtitle.toTake')
     : reminderIndicator === 'enabled'
-      ? 'Tes rappels sont activés.'
+      ? t('contraceptionDashboard.hero.subtitle.remindersEnabled')
       : reminderIndicator === 'unavailable'
-        ? 'Les rappels ne sont pas encore disponibles pour cette méthode.'
-        : 'Tes rappels sont désactivés.';
+        ? t('contraceptionDashboard.hero.subtitle.remindersUnavailable')
+        : t('contraceptionDashboard.hero.subtitle.remindersDisabled');
 
   const circleStatusText = isEventMethod
     ? currentMethodTodayEvents.length > 0
-      ? 'Enregistré'
-      : 'À faire'
+      ? t('contraceptionDashboard.circleStatus.recorded')
+      : t('contraceptionDashboard.circleStatus.todo')
     : todayRecord?.status ===
       'taken'
-      ? 'Pris'
+      ? t('contraceptionDashboard.circleStatus.taken')
       : todayRecord?.status === 'late'
-        ? 'Retard'
+        ? t('contraceptionDashboard.circleStatus.late')
         : todayRecord?.status ===
             'missed'
-          ? 'Oubli'
+          ? t('contraceptionDashboard.circleStatus.missed')
           : showBreakDayState
-            ? 'Arrêt'
-            : 'À faire';
+            ? t('contraceptionDashboard.circleStatus.breakDay')
+            : t('contraceptionDashboard.circleStatus.todo');
 
   const circleStatusIcon = isEventMethod
     ? currentMethodTodayEvents.length > 0
@@ -1088,7 +1104,7 @@ function ContraceptionDashboard({
         iconColor: PURPLE,
         iconBg: PURPLE_SOFT,
         label:
-          'Horaires\nde prière',
+          t('cycleHome.quickActions.prayerTimes'),
         onPress: () =>
           navigation.navigate(
             'PrayerTimes',
@@ -1101,7 +1117,7 @@ function ContraceptionDashboard({
           'book-open-page-variant-outline',
         iconColor: PURPLE,
         iconBg: PURPLE_SOFT,
-        label: 'Bibliothèque',
+        label: t('cycleHome.quickActions.library'),
         onPress: () =>
           navigation.navigate(
             'Library',
@@ -1114,7 +1130,7 @@ function ContraceptionDashboard({
           'notebook-edit-outline',
         iconColor: '#B23F63',
         iconBg: '#F9DCE8',
-        label: 'Journal quotidien',
+        label: t('cycleHome.quickActions.dailyJournal'),
         onPress: openJournal,
       },
 
@@ -1125,7 +1141,7 @@ function ContraceptionDashboard({
         iconColor: PURPLE,
         iconBg: PURPLE_SOFT,
         label:
-          'Calendrier Hijri',
+          t('cycleHome.quickActions.hijriCalendar'),
         onPress: () =>
           navigation.navigate(
             'HijriCalendar',
@@ -1139,7 +1155,7 @@ function ContraceptionDashboard({
         iconColor: PURPLE,
         iconBg: PURPLE_SOFT,
         label:
-          'Jeûne à rattraper',
+          t('cycleHome.quickActions.qadaa'),
         onPress: () =>
           navigation.navigate(
             'FastingQadaa',
@@ -1151,7 +1167,7 @@ function ContraceptionDashboard({
         icon: 'chart-donut',
         iconColor: '#328C92',
         iconBg: '#E3F2F3',
-        label: 'Statistiques',
+        label: t('cycleHome.quickActions.statistics'),
         onPress: () =>
           navigation.navigate(
             'Statistics',
@@ -1236,7 +1252,7 @@ function ContraceptionDashboard({
                 'Profile',
               )
             }
-            subtitle="Ton suivi, en toute discrétion."
+            subtitle={t('contraceptionDashboard.headerSubtitle')}
           />
 
           {/* ===========================
@@ -1269,7 +1285,7 @@ function ContraceptionDashboard({
                 style={
                   styles.todayBadgeText
                 }>
-                AUJOURD’HUI
+                {t('contraceptionDashboard.todayBadge')}
               </Text>
             </View>
 
@@ -1331,10 +1347,10 @@ function ContraceptionDashboard({
                       styles.todayMetaText
                     }>
                     {reminderIndicator === 'enabled'
-                      ? 'Rappels activés'
+                      ? t('contraceptionDashboard.reminders.enabled')
                       : reminderIndicator === 'unavailable'
-                        ? 'Rappels non disponibles'
-                        : 'Rappels désactivés'}
+                        ? t('contraceptionDashboard.reminders.unavailable')
+                        : t('contraceptionDashboard.reminders.disabled')}
                   </Text>
                 </View>
 
@@ -1445,11 +1461,11 @@ function ContraceptionDashboard({
                 style={
                   styles.methodCardEyebrow
                 }>
-                Ma méthode
+                {t('contraceptionDashboard.method.eyebrow')}
               </Text>
 
               <Pressable
-                accessibilityLabel="Modifier ma contraception"
+                accessibilityLabel={t('contraceptionDashboard.method.editAccessibility')}
                 accessibilityRole="button"
                 hitSlop={8}
                 onPress={() =>
@@ -1474,7 +1490,7 @@ function ContraceptionDashboard({
                     style={
                       styles.methodEditText
                     }>
-                    Modifier ma méthode
+                    {t('contraceptionDashboard.method.editLabel')}
                   </Text>
 
                   <MaterialDesignIcons
@@ -1528,18 +1544,18 @@ function ContraceptionDashboard({
 
                 <View style={styles.methodStartCopy}>
                   <Text style={styles.methodStartLabel}>
-                    {isPill ? 'Début de plaquette' : 'Début du suivi'}
+                    {isPill ? t('contraceptionDashboard.method.packStartLabel') : t('contraceptionDashboard.method.trackingStartLabel')}
                   </Text>
 
                   <Text style={styles.methodStartValue}>
-                    {startDate ? formatFullDate(startDate) : 'Non renseigné'}
+                    {startDate ? formatFullDate(startDate) : t('profile.notProvided')}
                   </Text>
                 </View>
               </View>
 
               {isPill ? (
                 <Pressable
-                  accessibilityLabel="Schéma de pilule"
+                  accessibilityLabel={t('contraceptionDashboard.method.scheduleAccessibility')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('PillSchedule', {mode: 'edit'})}
                   style={({pressed}) => [styles.methodStartBox, styles.methodScheduleBox, pressed && styles.pressed]}>
@@ -1548,19 +1564,19 @@ function ContraceptionDashboard({
                   </View>
 
                   <View style={styles.methodStartCopy}>
-                    <Text style={styles.methodStartLabel}>Schéma de pilule</Text>
+                    <Text style={styles.methodStartLabel}>{t('contraceptionDashboard.method.scheduleLabel')}</Text>
                     <Text style={styles.methodStartValue}>
                       {pillScheduleType === 'cyclic' && activeDays !== null && breakDays !== null
-                        ? `${activeDays} j. de prise + ${breakDays} j. d’arrêt`
+                        ? t('contraceptionDashboard.method.scheduleCyclicValue', {active: activeDays, breakDays})
                         : pillScheduleType === 'continuous'
-                          ? 'Prise continue'
-                          : 'Non renseigné'}
+                          ? t('contraceptionDashboard.method.scheduleContinuousValue')
+                          : t('profile.notProvided')}
                     </Text>
                   </View>
 
                   {pillScheduleType === null || pillScheduleType === 'unknown' ? (
                     <View style={styles.methodConfigureBadge}>
-                      <Text style={styles.methodConfigureText}>Configurer</Text>
+                      <Text style={styles.methodConfigureText}>{t('contraceptionDashboard.method.configureBadge')}</Text>
                     </View>
                   ) : (
                     <MaterialDesignIcons color={MUTED} name="chevron-right" size={18} />
@@ -1644,11 +1660,11 @@ function ContraceptionDashboard({
 
                 <View style={styles.flexOne}>
                   <Text style={styles.dailyTitle}>
-                    Suivi du jour
+                    {t('conceiveDashboard.dailyJournalTitle')}
                   </Text>
 
                   <Text style={styles.dailySubtitle}>
-                    Ton journal de contraception aujourd’hui
+                    {t('contraceptionDashboard.daily.subtitle')}
                   </Text>
                 </View>
               </View>
@@ -1727,7 +1743,7 @@ function ContraceptionDashboard({
                               : styles.dailyValueMuted,
                     ]}>
                     {isEventMethod
-                      ? getContraceptionEventSummaryLabel(currentMethodTodayEvents)
+                      ? getContraceptionEventSummaryLabel(t, currentMethodTodayEvents)
                       : intakeStateLabel}
                   </Text>
                 </View>
@@ -1739,7 +1755,7 @@ function ContraceptionDashboard({
 
               {/* LIGNE 2 — EFFETS RESSENTIS */}
               <Pressable
-                accessibilityLabel="Effets ressentis"
+                accessibilityLabel={t('contraceptionJournalConfig.feelings.label')}
                 accessibilityRole="button"
                 onPress={() =>
                   navigation.navigate('ContraceptionJournalEntry', {category: 'feelings'})
@@ -1759,7 +1775,7 @@ function ContraceptionDashboard({
 
                 <View style={styles.dailyStatTextGroup}>
                   <Text numberOfLines={1} style={styles.dailyStatLabel}>
-                    Effets ressentis
+                    {t('contraceptionJournalConfig.feelings.label')}
                   </Text>
 
                   <Text
@@ -1779,7 +1795,7 @@ function ContraceptionDashboard({
 
               {/* LIGNE 3 — NOTES DU JOUR */}
               <Pressable
-                accessibilityLabel="Notes du jour"
+                accessibilityLabel={t('contraceptionJournalConfig.notes.label')}
                 accessibilityRole="button"
                 onPress={() =>
                   navigation.navigate('ContraceptionJournalEntry', {category: 'notes'})
@@ -1799,7 +1815,7 @@ function ContraceptionDashboard({
 
                 <View style={styles.dailyStatTextGroup}>
                   <Text numberOfLines={1} style={styles.dailyStatLabel}>
-                    Notes du jour
+                    {t('contraceptionJournalConfig.notes.label')}
                   </Text>
 
                   <Text
@@ -1808,7 +1824,7 @@ function ContraceptionDashboard({
                       styles.dailyStatValue,
                       hasNotesToday ? undefined : styles.dailyValueMuted,
                     ]}>
-                    {hasNotesToday ? 'Note ajoutée' : 'Ajouter une note'}
+                    {hasNotesToday ? t('contraceptionDashboard.daily.noteAdded') : t('contraceptionDashboard.daily.addNote')}
                   </Text>
                 </View>
 
@@ -1832,14 +1848,14 @@ function ContraceptionDashboard({
                   </View>
 
                   <View style={styles.historyHeaderCopy}>
-                    <Text style={styles.historyTitle}>Historique</Text>
-                    <Text style={styles.historySubtitle}>Événements les plus récents</Text>
+                    <Text style={styles.historyTitle}>{t('contraceptionDashboard.history.title')}</Text>
+                    <Text style={styles.historySubtitle}>{t('contraceptionDashboard.history.subtitle')}</Text>
                   </View>
                 </View>
               </View>
 
               {currentMethodRecentEvents.length === 0 ? (
-                <Text style={styles.emptySummaryText}>Aucun événement enregistré pour le moment.</Text>
+                <Text style={styles.emptySummaryText}>{t('contraceptionDashboard.history.empty')}</Text>
               ) : (
                 <View style={styles.recentEventsList}>
                   {currentMethodRecentEvents.map(event => (
@@ -1849,7 +1865,7 @@ function ContraceptionDashboard({
                       </View>
                       <View style={styles.dailyStatTextGroup}>
                         <Text numberOfLines={1} style={styles.dailyStatLabel}>
-                          {CONTRACEPTION_EVENT_LABELS[event.type]}
+                          {contraceptionEventLabels(t)[event.type]}
                         </Text>
                         <Text numberOfLines={1} style={styles.dailyValueMuted}>
                           {formatRecordDate(event.date)}
@@ -1861,14 +1877,14 @@ function ContraceptionDashboard({
               )}
 
               <Pressable
-                accessibilityLabel="Voir tout l’historique"
+                accessibilityLabel={t('contraceptionDashboard.history.viewAll')}
                 accessibilityRole="button"
                 onPress={() => setHistoryVisible(true)}
                 style={({pressed}) => [
                   styles.historyViewAllButton,
                   pressed && styles.historyViewAllButtonPressed,
                 ]}>
-                <Text style={styles.historyViewAllText}>Voir tout l’historique</Text>
+                <Text style={styles.historyViewAllText}>{t('contraceptionDashboard.history.viewAll')}</Text>
 
                 <View style={styles.historyViewAllIcon}>
                   <MaterialDesignIcons color={PURPLE} name="chevron-right" size={19} />
@@ -1889,11 +1905,11 @@ function ContraceptionDashboard({
 
                   <View style={styles.historyHeaderCopy}>
                     <Text style={styles.historyTitle}>
-                      Historique des prises
+                      {t('contraceptionDashboard.history.intakeTitle')}
                     </Text>
 
                     <Text style={styles.historySubtitle}>
-                      Les 7 derniers jours
+                      {t('contraceptionDashboard.history.intakeSubtitle')}
                     </Text>
                   </View>
                 </View>
@@ -1966,12 +1982,12 @@ function ContraceptionDashboard({
                                 : styles.historyDayStatusEmpty,
                         ]}>
                         {status === 'taken'
-                          ? 'Prise'
+                          ? t('contraceptionDashboard.history.dayStatus.taken')
                           : status === 'late'
-                            ? 'Retard'
+                            ? t('contraceptionDashboard.history.dayStatus.late')
                             : status === 'missed'
-                              ? 'Oubli'
-                              : '—'}
+                              ? t('contraceptionDashboard.history.dayStatus.missed')
+                              : t('contraceptionDashboard.history.dayStatus.none')}
                       </Text>
                     </View>
                   );
@@ -1979,7 +1995,7 @@ function ContraceptionDashboard({
               </View>
 
               <Pressable
-                accessibilityLabel="Voir tout l’historique"
+                accessibilityLabel={t('contraceptionDashboard.history.viewAll')}
                 accessibilityRole="button"
                 onPress={() => setHistoryVisible(true)}
                 style={({pressed}) => [
@@ -1987,7 +2003,7 @@ function ContraceptionDashboard({
                   pressed && styles.historyViewAllButtonPressed,
                 ]}>
                 <Text style={styles.historyViewAllText}>
-                  Voir tout l’historique
+                  {t('contraceptionDashboard.history.viewAll')}
                 </Text>
 
                 <View style={styles.historyViewAllIcon}>
@@ -2016,7 +2032,7 @@ function ContraceptionDashboard({
           visible={historyVisible}>
           <View style={styles.historyModalBackdrop}>
             <Pressable
-              accessibilityLabel="Fermer l’historique"
+              accessibilityLabel={t('contraceptionDashboard.historyModal.closeAccessibility')}
               onPress={() => setHistoryVisible(false)}
               style={styles.historyModalOutside}
             />
@@ -2042,17 +2058,17 @@ function ContraceptionDashboard({
 
                   <View style={styles.historyModalHeaderCopy}>
                     <Text style={styles.historyModalTitle}>
-                      {isEventMethod ? 'Historique des événements' : 'Historique des prises'}
+                      {isEventMethod ? t('contraceptionDashboard.historyModal.eventsTitle') : t('contraceptionDashboard.historyModal.intakeTitle')}
                     </Text>
 
                     <Text style={styles.historyModalSubtitle}>
-                      {isEventMethod ? 'Tous tes événements enregistrés' : 'Toutes tes prises enregistrées'}
+                      {isEventMethod ? t('contraceptionDashboard.historyModal.eventsSubtitle') : t('contraceptionDashboard.historyModal.intakeSubtitle')}
                     </Text>
                   </View>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Fermer"
+                  accessibilityLabel={t('contraceptionDashboard.historyModal.closeAccessibilityShort')}
                   accessibilityRole="button"
                   hitSlop={8}
                   onPress={() => setHistoryVisible(false)}
@@ -2076,7 +2092,7 @@ function ContraceptionDashboard({
                       const active = historyEventFilters[type];
                       return (
                         <Pressable
-                          accessibilityLabel={CONTRACEPTION_EVENT_LABELS[type]}
+                          accessibilityLabel={contraceptionEventLabels(t)[type]}
                           accessibilityRole="checkbox"
                           accessibilityState={{checked: active}}
                           key={type}
@@ -2093,7 +2109,7 @@ function ContraceptionDashboard({
                               styles.historyFilterChipText,
                               active && styles.historyFilterChipTextActive,
                             ]}>
-                            {CONTRACEPTION_EVENT_LABELS[type]}
+                            {contraceptionEventLabels(t)[type]}
                           </Text>
                         </Pressable>
                       );
@@ -2102,7 +2118,7 @@ function ContraceptionDashboard({
                       const active = historyIntakeFilters[status];
                       return (
                         <Pressable
-                          accessibilityLabel={CONTRACEPTION_INTAKE_STATUS_LABELS[status]}
+                          accessibilityLabel={contraceptionIntakeStatusLabels(t)[status]}
                           accessibilityRole="checkbox"
                           accessibilityState={{checked: active}}
                           key={status}
@@ -2119,7 +2135,7 @@ function ContraceptionDashboard({
                               styles.historyFilterChipText,
                               active && styles.historyFilterChipTextActive,
                             ]}>
-                            {CONTRACEPTION_INTAKE_STATUS_LABELS[status]}
+                            {contraceptionIntakeStatusLabels(t)[status]}
                           </Text>
                         </Pressable>
                       );
@@ -2139,17 +2155,17 @@ function ContraceptionDashboard({
                         <MaterialDesignIcons color={PURPLE} name="calendar-blank-outline" size={25} />
                       </View>
 
-                      <Text style={styles.historyModalEmptyTitle}>Aucun historique</Text>
+                      <Text style={styles.historyModalEmptyTitle}>{t('contraceptionDashboard.historyModal.emptyTitle')}</Text>
 
                       <Text style={styles.historyModalEmptyText}>
-                        Tes événements apparaîtront ici après leur enregistrement.
+                        {t('contraceptionDashboard.historyModal.emptyEventsText')}
                       </Text>
                     </View>
                   ) : (
                     currentMethodAllHistoryEvents.filter(event => historyEventFilters[event.type]).map(event => (
                       <Pressable
-                        accessibilityHint="Ouvre les options de suppression"
-                        accessibilityLabel={`${CONTRACEPTION_EVENT_LABELS[event.type]}, ${formatRecordDate(event.date)}`}
+                        accessibilityHint={t('contraceptionDashboard.historyModal.deleteHint')}
+                        accessibilityLabel={`${contraceptionEventLabels(t)[event.type]}, ${formatRecordDate(event.date)}`}
                         accessibilityRole="button"
                         key={event.id}
                         onPress={() => confirmDeleteEvent(event)}
@@ -2161,7 +2177,7 @@ function ContraceptionDashboard({
                         <View style={styles.historyModalMainCopy}>
                           <Text style={styles.historyModalDate}>{formatRecordDate(event.date)}</Text>
                           <Text style={[styles.historyModalStatus, styles.historyModalStatusPurple]}>
-                            {CONTRACEPTION_EVENT_LABELS[event.type]}
+                            {contraceptionEventLabels(t)[event.type]}
                           </Text>
                         </View>
 
@@ -2183,11 +2199,11 @@ function ContraceptionDashboard({
                     </View>
 
                     <Text style={styles.historyModalEmptyTitle}>
-                      Aucun historique
+                      {t('contraceptionDashboard.historyModal.emptyTitle')}
                     </Text>
 
                     <Text style={styles.historyModalEmptyText}>
-                      Tes prises et oublis apparaîtront ici après leur enregistrement.
+                      {t('contraceptionDashboard.historyModal.emptyIntakeText')}
                     </Text>
                   </View>
                 ) : (
@@ -2197,8 +2213,14 @@ function ContraceptionDashboard({
 
                     return (
                       <Pressable
-                        accessibilityHint="Ouvre les options de modification et de suppression"
-                        accessibilityLabel={`${taken ? 'Prise effectuée' : late ? 'Retard enregistré' : 'Oubli enregistré'}, ${formatRecordDate(record.date)}`}
+                        accessibilityHint={t('contraceptionDashboard.historyModal.editDeleteHint')}
+                        accessibilityLabel={`${
+                          taken
+                            ? t('contraceptionDashboard.recordStatus.taken')
+                            : late
+                              ? t('contraceptionDashboard.recordStatus.late')
+                              : t('contraceptionDashboard.recordStatus.missed')
+                        }, ${formatRecordDate(record.date)}`}
                         accessibilityRole="button"
                         key={record.date}
                         onPress={() => setRecordActionTarget(record)}
@@ -2234,10 +2256,10 @@ function ContraceptionDashboard({
                                   : styles.historyModalStatusMissed,
                             ]}>
                             {taken
-                              ? 'Prise effectuée'
+                              ? t('contraceptionDashboard.recordStatus.taken')
                               : late
-                                ? 'Retard enregistré'
-                                : 'Oubli enregistré'}
+                                ? t('contraceptionDashboard.recordStatus.late')
+                                : t('contraceptionDashboard.recordStatus.missed')}
                           </Text>
                         </View>
 
@@ -2259,7 +2281,7 @@ function ContraceptionDashboard({
 
                 {!isPremium ? (
                   <Pressable
-                    accessibilityLabel="Débloquer tout l’historique avec Premium"
+                    accessibilityLabel={t('contraceptionDashboard.historyModal.premiumUnlockAccessibility')}
                     accessibilityRole="button"
                     onPress={() => setHistoryPremiumVisible(true)}
                     style={({pressed}) => [
@@ -2269,7 +2291,7 @@ function ContraceptionDashboard({
                     <MaterialDesignIcons color={PURPLE} name="infinity" size={16} />
 
                     <Text style={styles.historyPremiumHintText}>
-                      Avec Premium, retrouve tout ton historique sans limite de 30 jours.
+                      {t('contraceptionDashboard.historyModal.premiumHint')}
                     </Text>
 
                     <MaterialDesignIcons color={PURPLE} name="chevron-right" size={16} />
@@ -2293,7 +2315,7 @@ function ContraceptionDashboard({
           visible={recordActionTarget !== null}>
           <View style={styles.historyModalBackdrop}>
             <Pressable
-              accessibilityLabel="Fermer"
+              accessibilityLabel={t('contraceptionDashboard.historyModal.closeAccessibilityShort')}
               onPress={closeRecordAction}
               style={styles.historyModalOutside}
             />
@@ -2304,13 +2326,13 @@ function ContraceptionDashboard({
               <Text style={styles.recordActionTitle}>
                 {recordActionTarget ? formatRecordDate(recordActionTarget.date) : ''}
               </Text>
-              <Text style={styles.recordActionSubtitle}>Modifier ou supprimer cet enregistrement</Text>
+              <Text style={styles.recordActionSubtitle}>{t('contraceptionDashboard.recordAction.subtitle')}</Text>
 
               {(['taken', 'late', 'missed'] as ContraceptionIntakeStatus[]).map(status => {
                 const active = recordActionTarget?.status === status;
                 return (
                   <Pressable
-                    accessibilityLabel={CONTRACEPTION_INTAKE_STATUS_LABELS[status]}
+                    accessibilityLabel={contraceptionIntakeStatusLabels(t)[status]}
                     accessibilityRole="radio"
                     accessibilityState={{checked: active}}
                     key={status}
@@ -2334,7 +2356,7 @@ function ContraceptionDashboard({
                       size={18}
                     />
                     <Text style={styles.recordActionRowText}>
-                      {CONTRACEPTION_INTAKE_STATUS_LABELS[status]}
+                      {contraceptionIntakeStatusLabels(t)[status]}
                     </Text>
                     {active ? (
                       <MaterialDesignIcons color={PURPLE} name="check" size={16} />
@@ -2344,13 +2366,13 @@ function ContraceptionDashboard({
               })}
 
               <Pressable
-                accessibilityLabel="Supprimer cet enregistrement"
+                accessibilityLabel={t('contraceptionDashboard.recordAction.deleteLabel')}
                 accessibilityRole="button"
                 onPress={confirmDeleteRecord}
                 style={({pressed}) => [styles.recordActionRow, pressed && styles.pressed]}>
                 <MaterialDesignIcons color={DANGER} name="trash-can-outline" size={18} />
                 <Text style={[styles.recordActionRowText, styles.recordActionDeleteText]}>
-                  Supprimer cet enregistrement
+                  {t('contraceptionDashboard.recordAction.deleteLabel')}
                 </Text>
               </Pressable>
             </View>

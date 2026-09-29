@@ -132,7 +132,7 @@ describe('MonthCalendarCard — semantic calendar colors are preserved across pa
     // — assert indirectly: the rendered day's accessibilityLabel encodes the
     // real "kind", which is what actually drives the fixed background.
     expect(dayView).toBeTruthy();
-    expect(dayText.parent!.props.accessibilityLabel).toContain('period');
+    expect(dayText.parent!.props.accessibilityLabel).toContain('règles');
   });
 });
 

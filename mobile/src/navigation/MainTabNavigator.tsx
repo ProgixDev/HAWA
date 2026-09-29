@@ -6,11 +6,12 @@ import {
 } from '@react-navigation/bottom-tabs';
 import type {CompositeScreenProps} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from './AppNavigator';
 import {JournalSheetProvider, useJournalSheet} from './JournalSheetContext';
 import CustomBottomTabBar from '../components/navigation/CustomBottomTabBar';
-import DailyJournalSheet, {CYCLE_JOURNAL_ITEMS, type JournalSheetAction} from '../components/journal/DailyJournalSheet';
+import DailyJournalSheet, {getCycleJournalItems, type JournalSheetAction} from '../components/journal/DailyJournalSheet';
 import HomeScreen from '../screens/HomeScreen';
 import ObjectiveAwareCalendarScreen from '../screens/ObjectiveAwareCalendarScreen';
 import ObjectiveAwareStatisticsScreen from '../screens/ObjectiveAwareStatisticsScreen';
@@ -22,13 +23,14 @@ import {MISCARRIAGE_JOURNAL_ITEMS} from '../config/miscarriageJournalConfig';
 import {IRREGULAR_JOURNAL_ITEMS} from '../config/irregularJournalConfig';
 import {getConceptionJournalItems} from '../config/conceptionJournalConfig';
 import {CONTRACEPTION_JOURNAL_ITEMS} from '../config/contraceptionJournalConfig';
-import {CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL, CONTRACEPTION_INTAKE_ACTION_LABEL} from '../config/contraceptionLabels';
+import {contraceptionDefaultIntakeActionLabel, contraceptionIntakeActionLabels} from '../config/contraceptionLabels';
 import {getContraceptionPreferences} from '../state/contraceptionPreferences';
 import {getConceptionPreferences} from '../state/conceptionPreferences';
 import {MENOPAUSE_JOURNAL_ITEMS} from '../config/menopauseJournalConfig';
 import {getMenopausePreferences} from '../state/menopausePreferences';
 import {requirePrivateAccess} from './privateAccess';
 import {usePregnancyTrackingPreferences} from '../hooks/usePregnancyTrackingPreferences';
+import '../i18n';
 import type {PregnancyTrackingPreference} from '../state/pregnancyPreferences';
 
 // Pregnancy's own "Journal quotidien" content — same shared sheet chrome as
@@ -82,6 +84,7 @@ function renderTabBar(props: BottomTabBarProps): React.JSX.Element {
 }
 
 function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.Element {
+  const {t} = useTranslation();
   const {visible, close} = useJournalSheet();
   const [objective, setObjective] = useState<ObjectiveId>(getActiveObjective);
   const [ownerActive, setOwnerActive] = useState<boolean>(isOwnerActive);
@@ -207,8 +210,8 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       {
         key: 'periodStart',
         icon: 'water-outline',
-        title: 'Règles',
-        subtitle: 'Renseigne le début de tes règles',
+        title: t('dailyJournalSheet.periodActionTitle'),
+        subtitle: t('dailyJournalSheet.periodActionSubtitle'),
         tint: '#FBEAF0',
         onPress: () => {close(); navigation.navigate('IrregularJournalEntry', {category: 'period'});},
       },
@@ -225,8 +228,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={irregularActions}
         onClose={close}
-        subtitle="Ton suivi, à ton rythme."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.irregularSubtitle')}
         visible={visible}
       />
     );
@@ -262,7 +264,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       // "Prise / utilisation du jour" adapts to the real persisted method so
       // the wording never assumes every user takes a pill.
       title: item.key === 'intake'
-        ? (contraceptionMethod ? CONTRACEPTION_INTAKE_ACTION_LABEL[contraceptionMethod] : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL)
+        ? (contraceptionMethod ? contraceptionIntakeActionLabels(t)[contraceptionMethod] : contraceptionDefaultIntakeActionLabel(t))
         : item.label,
       subtitle: item.journalSubtitle,
       tint: item.tint,
@@ -272,8 +274,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={contraceptionActions}
         onClose={close}
-        subtitle="Ton suivi de contraception, un jour à la fois."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.contraceptionSubtitle')}
         visible={visible}
       />
     );
@@ -302,8 +303,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={menopauseActions}
         onClose={close}
-        subtitle="Ton suivi périménopause / ménopause, un jour à la fois."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.menopauseSubtitle')}
         visible={visible}
       />
     );
@@ -312,9 +312,10 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
   // "Vie intime" is not part of a managed daughter profile's cycle-tracking
   // experience (CLAUDE.md §4 objective isolation) — the feature itself is
   // untouched for the mother; only hidden from HER daughter's own "+" sheet.
+  const allCycleJournalItems = getCycleJournalItems();
   const cycleJournalItems = ownerActive
-    ? CYCLE_JOURNAL_ITEMS
-    : CYCLE_JOURNAL_ITEMS.filter(item => item.route !== 'PrivateIntimacyUnlock');
+    ? allCycleJournalItems
+    : allCycleJournalItems.filter(item => item.route !== 'PrivateIntimacyUnlock');
   const cycleActions: JournalSheetAction[] = cycleJournalItems.map(item => ({
     key: item.route,
     icon: item.icon,

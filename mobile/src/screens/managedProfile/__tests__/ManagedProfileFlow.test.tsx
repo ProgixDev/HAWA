@@ -20,7 +20,7 @@ import {getManagedProfiles, resetManagedProfilesForTests} from '../../../state/m
 import {OWNER_PROFILE_ID, getActiveProfileId, resetActiveProfileForTests} from '../../../state/activeProfileStore';
 import {getCyclePreferences, getHasConfirmedCycleDuration} from '../../../state/onboardingPreferences';
 import {clearManagedProfileDraft, startManagedProfileDraft} from '../../../state/managedProfileDraftStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppLanguage, setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 
 // Reduced motion: content renders at its final state immediately (same convention as
@@ -192,6 +192,7 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  await setAppLanguage('fr');
   (launchCamera as jest.Mock).mockClear().mockResolvedValue({didCancel: true});
   (launchImageLibrary as jest.Mock).mockClear().mockResolvedValue({didCancel: true});
 });
@@ -1132,5 +1133,42 @@ describe('ManagedProfile flow — isolation guards (static source scan)', () => 
     for (const identifier of AWA_A_DEUX_IDENTIFIERS) {
       expect(source).not.toContain(identifier);
     }
+  });
+});
+
+describe('ManagedProfile flow — localization (English)', () => {
+  it('the whole flow (intro, daughter info, first period, cycle setup, success) renders in English when the app language is English', async () => {
+    await setAppLanguage('en');
+    const renderer = await renderFlow();
+
+    expect(textsOf(renderer)).toContain('Add your daughter’s\nprofile');
+    expect(textsOf(renderer)).toContain('Complete cycle tracking');
+    expect(textsOf(renderer)).not.toContain('Ajouter le profil\nde ma fille');
+
+    await press(renderer, 'Continue');
+    expect(textsOf(renderer)).toContain('About your daughter');
+    expect(textsOf(renderer)).toContain('First name');
+    await typeInto(renderer, 'Your daughter’s first name', 'Lina');
+    await press(renderer, 'Date of birth');
+    await pickBirthDate(renderer, tenYearsAgo());
+    expect(textsOf(renderer).some(text => text.includes('Age: 10 year'))).toBe(true);
+    await press(renderer, 'Continue');
+
+    expect(textsOf(renderer)).toContain('Has she already had her first period?');
+    await selectRadio(renderer, 'Yes');
+    await press(renderer, 'Continue');
+
+    expect(textsOf(renderer)).toContain('About her cycle');
+    expect(textsOf(renderer)).toContain('Cycle regularity');
+    await press(renderer, 'Last period start date');
+    await pickCalendarDay(renderer, new Date());
+    await selectRadio(renderer, 'Regular');
+    await press(renderer, 'Create profile');
+
+    expect(textsOf(renderer)).toContain('Lina’s profile has been created!');
+    expect(textsOf(renderer)).toContain('Go to Lina’s profile');
+    expect(textsOf(renderer)).toContain('Stay on my profile');
+
+    await setAppLanguage('fr');
   });
 });

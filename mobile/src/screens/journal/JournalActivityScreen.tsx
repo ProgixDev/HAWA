@@ -19,6 +19,7 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
@@ -29,8 +30,17 @@ import {
   TOP_SPACING_EXTRA_COMPACT,
 } from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
+// ACTIVITIES/FEELINGS/INTENSITIES labels are DATA here, not just display
+// text: `save()` below persists `type`/`intensity`/`feeling` as the raw
+// selected `.label` string directly into dailyJournalStore (no separate
+// semantic value, unlike JournalSymptomsScreen's INTENSITIES). Translating
+// them would change what's actually saved. Left in French — see the same
+// note in JournalSymptomsScreen.tsx and CLAUDE.md §0/§10/§11. Only this
+// screen's surrounding chrome is localized.
 const ACTIVITIES: Array<{
   label: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -122,6 +132,7 @@ const INTENSITIES: Array<{
   },
 ];
 export default function JournalActivityScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const navigation =
     useNavigation<NavigationProp<RootStackParamList>>();
   // Re-evaluated when the local day changes / the app returns to the
@@ -158,7 +169,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
 
-  const dateLabel = new Intl.DateTimeFormat('fr-FR', {
+  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     weekday: 'long',
     day: 'numeric',
     month: 'short',
@@ -285,8 +296,8 @@ export default function JournalActivityScreen(): React.JSX.Element {
       showSuccessToast();
     } catch {
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer ton activité pour le moment.",
+        t('journalActivity.errorTitle'),
+        t('journalActivity.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -336,7 +347,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
           ]}>
 
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() => navigation.goBack()}
@@ -363,7 +374,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 styles.title,
                 isSmallScreen && styles.titleSmall,
               ]}>
-              Activité physique
+              {t('dailyJournalSheet.items.activity.title')}
             </Text>
 
             <Text
@@ -372,13 +383,13 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 styles.date,
                 isSmallScreen && styles.dateSmall,
               ]}>
-              {cycleDay !== null ? `${dateLabel} · Jour ${cycleDay} du cycle` : dateLabel}
+              {cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: dateLabel, day: cycleDay}) : dateLabel}
             </Text>
 
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer"
+            accessibilityLabel={t('common.save')}
             accessibilityRole="button"
             disabled={saving}
             hitSlop={10}
@@ -425,13 +436,11 @@ export default function JournalActivityScreen(): React.JSX.Element {
             <View style={styles.heroCopy}>
 
               <Text style={styles.heroTitle}>
-                Bouge pour ton bien-être ✦
+                {t('journalActivity.heroTitle')}
               </Text>
 
               <Text style={styles.heroText}>
-                L’activité physique aide à réduire
-                le stress, améliorer l’humeur et
-                soulager les symptômes.
+                {t('journalActivity.heroText')}
               </Text>
 
             </View>
@@ -453,11 +462,11 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
               <View style={styles.sectionHeaderCopy}>
                 <Text style={styles.sectionTitle}>
-                  Type d’activité
+                  {t('journalActivity.typeSectionTitle')}
                 </Text>
 
                 <Text style={styles.hint}>
-                  Sélectionne l’activité que tu as pratiquée
+                  {t('journalActivity.typeSectionHint')}
                 </Text>
               </View>
 
@@ -550,11 +559,11 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
               <View style={styles.sectionHeaderCopy}>
                 <Text style={styles.sectionTitle}>
-                  Durée
+                  {t('journalActivity.durationSectionTitle')}
                 </Text>
 
                 <Text style={styles.hint}>
-                  Combien de temps as-tu bougé ?
+                  {t('journalActivity.durationSectionHint')}
                 </Text>
               </View>
 
@@ -563,7 +572,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
             <View style={styles.durationPremiumBox}>
 
               <Pressable
-                accessibilityLabel="Réduire la durée"
+                accessibilityLabel={t('journalActivity.decreaseDuration')}
                 accessibilityRole="button"
                 onPress={() => changeDuration(-10)}
                 style={({pressed}) => [
@@ -587,13 +596,13 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 </Text>
 
                 <Text style={styles.durationUnit}>
-                  minutes
+                  {t('journalActivity.minutes')}
                 </Text>
 
               </View>
 
               <Pressable
-                accessibilityLabel="Augmenter la durée"
+                accessibilityLabel={t('journalActivity.increaseDuration')}
                 accessibilityRole="button"
                 onPress={() => changeDuration(10)}
                 style={({pressed}) => [
@@ -687,11 +696,11 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
               <View style={styles.sectionHeaderCopy}>
                 <Text style={styles.sectionTitle}>
-                  Intensité
+                  {t('journalActivity.intensitySectionTitle')}
                 </Text>
 
                 <Text style={styles.hint}>
-                  Quel était ton niveau d’effort ?
+                  {t('journalActivity.intensitySectionHint')}
                 </Text>
               </View>
 
@@ -794,7 +803,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
               <View style={styles.sectionHeaderCopy}>
                 <Text style={styles.sectionTitle}>
-                  Comment te sens-tu après ton activité ?
+                  {t('journalActivity.feelingSectionTitle')}
                 </Text>
               </View>
 
@@ -808,7 +817,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
-                    accessibilityLabel={`Ressenti après l'activité : ${item.label}`}
+                    accessibilityLabel={t('journalActivity.feelingAccessibility', {label: item.label})}
                     accessibilityRole="radio"
                     accessibilityState={{checked: active}}
                     key={item.label}
@@ -858,14 +867,14 @@ export default function JournalActivityScreen(): React.JSX.Element {
               <View style={styles.sectionHeaderCopy}>
 
                 <Text style={styles.sectionTitle}>
-                  Commentaire{' '}
+                  {t('journalMood.commentSectionTitle')}{' '}
                   <Text style={styles.optional}>
-                    (optionnel)
+                    {t('journalMood.optional')}
                   </Text>
                 </Text>
 
                 <Text style={styles.hint}>
-                  Ajoute un commentaire si tu le souhaites.
+                  {t('journalActivity.commentHint')}
                 </Text>
 
               </View>
@@ -878,7 +887,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                 maxLength={200}
                 multiline
                 onChangeText={setNote}
-                placeholder="Écris ici..."
+                placeholder={t('journalSymptoms.notesPlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={styles.note}
                 textAlignVertical="top"
@@ -920,14 +929,13 @@ export default function JournalActivityScreen(): React.JSX.Element {
             </View>
 
             <Text style={styles.kindnessText}>
-              Chaque pas compte. Félicite-toi pour avoir
-              pris soin de toi aujourd’hui ! 💜
+              {t('journalActivity.kindnessText')}
             </Text>
 
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer l'activité"
+            accessibilityLabel={t('journalActivity.saveActivity')}
             accessibilityRole="button"
             disabled={saving}
             onPress={save}
@@ -949,13 +957,13 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
             <Text style={styles.saveText}>
               {saving
-                ? 'Enregistrement…'
-                : 'Enregistrer'}
+                ? t('periodStartSheet.saving')
+                : t('common.save')}
             </Text>
 
           </Pressable>
 
-          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette activité" /> : null}
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalActivity.clearSubject')} /> : null}
 
         </ScrollView>
 
@@ -1003,11 +1011,11 @@ export default function JournalActivityScreen(): React.JSX.Element {
           </View>
 
           <Text style={styles.toastText}>
-            Activité enregistrée avec succès ✨
+            {t('journalActivity.savedToast')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={hideSuccessToast}

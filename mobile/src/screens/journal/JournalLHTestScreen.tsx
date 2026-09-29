@@ -18,6 +18,8 @@ import DateTimePicker, {
   type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
 
+import {useTranslation} from 'react-i18next';
+
 import {
   useNavigation,
   type NavigationProp,
@@ -69,27 +71,22 @@ import {
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
 
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
+
 /* ============================================================
    CONSTANTS
 ============================================================ */
 
-const RESULTS: Record<
-  string,
-  LHTestResult
-> = {
-  Négatif: 'negative',
-  Positif: 'positive',
-  Invalide: 'invalid',
-};
-
-const LABELS: Record<
-  LHTestResult,
-  string
-> = {
-  negative: 'Négatif',
-  positive: 'Positif',
-  invalid: 'Invalide',
-};
+// Display-only labels for the persisted LHTestResult enum (the semantic
+// value itself, never the label, is what's saved — see `save()` below).
+function resultLabels(t: (key: string) => string): Record<LHTestResult, string> {
+  return {
+    negative: t('journalLHTest.results.negative'),
+    positive: t('journalLHTest.results.positive'),
+    invalid: t('journalLHTest.results.invalid'),
+  };
+}
 
 // LH ovulation-test RESULT category colors — Phase E4 visual-only migration
 // rule: these are TTC-specific tracking-category identity, not decorative
@@ -210,16 +207,18 @@ export default function JournalLHTestScreen(): React.JSX.Element {
       NavigationProp<RootStackParamList>
     >();
 
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const saveToast = useJournalSaveToast();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const labels = resultLabels(t);
 
   const [
     result,
     setResult,
   ] =
-    useState('Négatif');
+    useState<LHTestResult>('negative');
 
   const [
     time,
@@ -272,9 +271,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
       setHasSaved(true);
 
       setResult(
-        LABELS[
-          entry.lhTest.result
-        ],
+        entry.lhTest.result,
       );
 
       const savedTime =
@@ -308,7 +305,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
     useMemo(() => {
       if (
         result ===
-        'Positif'
+        'positive'
       ) {
         const visual = resolveLhToneVisual('positive', theme);
         return {
@@ -328,19 +325,19 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             visual.borderColor,
 
           eyebrow:
-            'PIC DE LH POSSIBLE',
+            t('journalLHTest.states.positive.eyebrow'),
 
           message:
-            'Ton test est positif',
+            t('journalLHTest.states.positive.message'),
 
           helper:
-            'Ce résultat peut correspondre à une hausse du taux de LH.',
+            t('journalLHTest.states.positive.helper'),
         };
       }
 
       if (
         result ===
-        'Invalide'
+        'invalid'
       ) {
         const visual = resolveLhToneVisual('invalid', theme);
         return {
@@ -360,13 +357,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             visual.borderColor,
 
           eyebrow:
-            'TEST À VÉRIFIER',
+            t('journalLHTest.states.invalid.eyebrow'),
 
           message:
-            'Le résultat est invalide',
+            t('journalLHTest.states.invalid.message'),
 
           helper:
-            'Tu peux refaire le test en suivant les instructions du fabricant.',
+            t('journalLHTest.states.invalid.helper'),
         };
       }
 
@@ -388,15 +385,15 @@ export default function JournalLHTestScreen(): React.JSX.Element {
           visual.borderColor,
 
         eyebrow:
-          'AUCUN PIC DÉTECTÉ',
+          t('journalLHTest.states.negative.eyebrow'),
 
         message:
-          'Ton test est négatif',
+          t('journalLHTest.states.negative.message'),
 
         helper:
-          'Aucun pic de LH n’est détecté avec ce test pour le moment.',
+          t('journalLHTest.states.negative.helper'),
       };
-    }, [result, theme]);
+    }, [result, t, theme]);
 
   /* ==========================================================
      TIME
@@ -474,8 +471,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         entryDateKey,
         'lhTest',
         {
-          result:
-            RESULTS[result],
+          result,
 
           time,
 
@@ -487,8 +483,8 @@ export default function JournalLHTestScreen(): React.JSX.Element {
       setHasSaved(true);
 
       saveToast.show(
-        'Test LH enregistré',
-        'Ton résultat a bien été ajouté au journal.',
+        t('journalLHTest.saveToastTitle'),
+        t('journalLHTest.saveToastMessage'),
         navigation.goBack,
       );
     };
@@ -499,11 +495,11 @@ export default function JournalLHTestScreen(): React.JSX.Element {
     async () => {
       await deleteJournalSection(entryDateKey, 'lhTest');
       setHasSaved(false);
-      setResult('Négatif');
+      setResult('negative');
       setTime('');
       setNote('');
       setError('');
-      saveToast.show('Saisie effacée', 'Ton test LH de ce jour a été supprimé.', navigation.goBack);
+      saveToast.show(t('journalLHTest.clearToastTitle'), t('journalLHTest.clearToastMessage'), navigation.goBack);
     };
 
   /* ==========================================================
@@ -516,14 +512,14 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         dateLabel={dateLabel}
         error={error}
         heroLabel={
-          'Repère ton pic de LH\nau bon moment'
+          t('journalLHTest.heroLabel')
         }
         heroLabelBesideIcon
         heroSource={require('../../assets/images/conception-journal/lh-test.png')}
         hideJournalHeader
         icon="test-tube"
         onSave={save}
-        title="Test LH"
+        title={t('journalLHTest.title')}
         toast={
           <JournalSaveToast
             animation={saveToast.animation}
@@ -540,7 +536,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         =================================================== */}
 
         <SectionCard
-          title="Résultat du test">
+          title={t('journalLHTest.resultSectionTitle')}>
 
           <View
             style={[
@@ -605,13 +601,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                 style={
                   styles.resultMessage
                 }>
-                Résultat sélectionné :{' '}
+                {t('journalLHTest.resultSelectedPrefix')}{' '}
 
                 <Text
                   style={
                     styles.resultMessageStrong
                   }>
-                  {result}
+                  {labels[result]}
                 </Text>
               </Text>
             </View>
@@ -628,14 +624,14 @@ export default function JournalLHTestScreen(): React.JSX.Element {
               style={
                 styles.choiceTitle
               }>
-              Quel résultat vois-tu ?
+              {t('journalLHTest.resultQuestionTitle')}
             </Text>
 
             <Text
               style={
                 styles.choiceSubtitle
               }>
-              Sélectionne le résultat affiché sur ton test LH.
+              {t('journalLHTest.resultQuestionSubtitle')}
             </Text>
           </View>
 
@@ -647,13 +643,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             <ResultChoice
               active={
                 result ===
-                'Négatif'
+                'negative'
               }
               icon="minus-circle-outline"
-              label="Négatif"
+              label={labels.negative}
               onPress={() =>
                 setResult(
-                  'Négatif',
+                  'negative',
                 )
               }
               tone="negative"
@@ -662,13 +658,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             <ResultChoice
               active={
                 result ===
-                'Positif'
+                'positive'
               }
               icon="check-circle-outline"
-              label="Positif"
+              label={labels.positive}
               onPress={() =>
                 setResult(
-                  'Positif',
+                  'positive',
                 )
               }
               tone="positive"
@@ -677,13 +673,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             <ResultChoice
               active={
                 result ===
-                'Invalide'
+                'invalid'
               }
               icon="alert-circle-outline"
-              label="Invalide"
+              label={labels.invalid}
               onPress={() =>
                 setResult(
-                  'Invalide',
+                  'invalid',
                 )
               }
               tone="invalid"
@@ -731,7 +727,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
         =================================================== */}
 
         <SectionCard
-          title="Détails du test">
+          title={t('journalLHTest.detailsSectionTitle')}>
 
           <View
             style={
@@ -761,14 +757,14 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                 style={
                   styles.detailHeadingTitle
                 }>
-                Quand as-tu fait le test ?
+                {t('journalLHTest.detailQuestionTitle')}
               </Text>
 
               <Text
                 style={
                   styles.detailHeadingText
                 }>
-                Choisis l’heure à laquelle tu as effectué ton test.
+                {t('journalLHTest.detailQuestionSubtitle')}
               </Text>
             </View>
           </View>
@@ -781,11 +777,11 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             style={
               styles.timeFieldLabel
             }>
-            Heure du test
+            {t('journalLHTest.timeFieldLabel')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Choisir l’heure du test"
+            accessibilityLabel={t('journalLHTest.timeSelectorAccessibility')}
             accessibilityRole="button"
             onPress={
               openTimePicker
@@ -824,8 +820,8 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                   styles.timeSelectorCaption
                 }>
                 {time
-                  ? 'Heure sélectionnée'
-                  : 'Sélectionner une heure'}
+                  ? t('journalLHTest.timeSelectedCaption')
+                  : t('journalLHTest.timeSelectCaption')}
               </Text>
 
               <Text
@@ -836,7 +832,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                     styles.timePlaceholder,
                 ]}>
                 {time ||
-                  'Appuie pour choisir'}
+                  t('journalLHTest.timeValuePlaceholder')}
               </Text>
             </View>
 
@@ -863,13 +859,13 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             }>
 
             <LabeledInput
-              label="Commentaire (optionnel)"
+              label={t('journalLHTest.noteLabel')}
               maxLength={300}
               multiline
               onChangeText={
                 setNote
               }
-              placeholder="Ajoute une note…"
+              placeholder={t('journalLHTest.notePlaceholder')}
               value={note}
             />
           </View>
@@ -907,27 +903,26 @@ export default function JournalLHTestScreen(): React.JSX.Element {
               style={
                 styles.tipEyebrow
               }>
-              BON À SAVOIR
+              {t('common.goodToKnow')}
             </Text>
 
             <Text
               style={
                 styles.tipTitle
               }>
-              Comprendre ton résultat
+              {t('journalLHTest.tipTitle')}
             </Text>
 
             <Text
               style={
                 styles.tipText
               }>
-              Un résultat positif peut indiquer un pic de LH.
-              Il ne constitue pas un diagnostic médical.
+              {t('journalLHTest.tipText')}
             </Text>
           </View>
         </View>
 
-        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ce test" /> : null}
+        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalLHTest.clearSubject')} /> : null}
       </JournalScreenLayout>
 
       {/* =====================================================
@@ -977,7 +972,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
             }>
 
             <Pressable
-              accessibilityLabel="Fermer"
+              accessibilityLabel={t('common.close')}
               onPress={() =>
                 setTimePickerVisible(
                   false,
@@ -1027,19 +1022,19 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                     style={
                       styles.sheetEyebrow
                     }>
-                    HEURE DU TEST
+                    {t('journalLHTest.timeSheetEyebrow')}
                   </Text>
 
                   <Text
                     style={
                       styles.sheetTitle
                     }>
-                    Choisis une heure
+                    {t('journalLHTest.timeSheetTitle')}
                   </Text>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Fermer"
+                  accessibilityLabel={t('common.close')}
                   accessibilityRole="button"
                   onPress={() =>
                     setTimePickerVisible(
@@ -1068,7 +1063,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                 <DateTimePicker
                   display="spinner"
                   is24Hour
-                  locale="fr-FR"
+                  locale={getAppLanguage() === 'en' ? 'en-US' : 'fr-FR'}
                   mode="time"
                   onValueChange={(
                     _event,
@@ -1096,7 +1091,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
               </Text>
 
               <Pressable
-                accessibilityLabel="Confirmer l’heure"
+                accessibilityLabel={t('journalLHTest.confirmTime')}
                 accessibilityRole="button"
                 onPress={
                   confirmIosTime
@@ -1118,7 +1113,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
                   style={
                     styles.confirmButtonText
                   }>
-                  Confirmer l’heure
+                  {t('journalLHTest.confirmTime')}
                 </Text>
               </Pressable>
             </View>
@@ -1149,6 +1144,7 @@ function ResultChoice({
     | 'positive'
     | 'invalid';
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -1164,7 +1160,7 @@ function ResultChoice({
 
   return (
     <Pressable
-      accessibilityLabel={`Résultat ${label}`}
+      accessibilityLabel={t('journalLHTest.resultAccessibility', {label})}
       accessibilityRole="radio"
       accessibilityState={{
         checked: active,

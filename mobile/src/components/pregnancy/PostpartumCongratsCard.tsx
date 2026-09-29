@@ -1,4 +1,5 @@
 import React, {memo, useEffect, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -15,6 +16,8 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {homeColors, homeRadii} from '../home/homeTheme';
 import {setActiveObjective} from '../../state/onboardingPreferences';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 
 // Reusing the existing flower illustration (already used by HeroCycleCard)
 // instead of adding a new asset, per the "reuse existing assets" guidance.
@@ -40,6 +43,7 @@ type Props = {
 };
 
 function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const opacity = useRef(new Animated.Value(0)).current;
   const scale = useRef(new Animated.Value(0.94)).current;
@@ -98,7 +102,7 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
           styles.root,
           {paddingTop: Math.max(insets.top, 20), paddingBottom: Math.max(insets.bottom, 20)},
         ]}>
-        <Pressable accessibilityLabel="Fermer" onPress={handleLater} style={styles.backdrop} />
+        <Pressable accessibilityLabel={t('common.close')} onPress={handleLater} style={styles.backdrop} />
 
         <Animated.View style={[styles.card, {opacity, transform: [{scale}, {translateY}]}]}>
           <Image accessibilityIgnoresInvertColors resizeMode="contain" source={FLOWER} style={styles.flower} />
@@ -107,14 +111,14 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
             <MaterialDesignIcons color={homeColors.primary} name="heart-outline" size={26} />
           </View>
 
-          <Text style={styles.title}>Félicitations 💜</Text>
-          <Text style={styles.subtitle}>Une nouvelle étape commence.</Text>
-          <Text style={styles.message}>Souhaites-tu démarrer ton suivi post-partum ?</Text>
+          <Text style={styles.title}>{t('pregnancyPostpartumCongrats.title')}</Text>
+          <Text style={styles.subtitle}>{t('pregnancyPostpartumCongrats.subtitle')}</Text>
+          <Text style={styles.message}>{t('pregnancyPostpartumCongrats.message')}</Text>
 
           {deliveryDate ? (
             <Text style={styles.deliveryLine}>
-              Accouchement enregistré le{' '}
-              {new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(deliveryDate)}
+              {t('pregnancyPostpartumCongrats.deliveryRecordedOn')}{' '}
+              {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(deliveryDate)}
             </Text>
           ) : null}
 
@@ -123,7 +127,7 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
             disabled={starting}
             onPress={handleStart}
             style={({pressed}) => [styles.primaryButton, (pressed || starting) && styles.pressed]}>
-            <Text style={styles.primaryText}>{starting ? 'Préparation…' : 'Démarrer mon suivi post-partum'}</Text>
+            <Text style={styles.primaryText}>{starting ? t('pregnancyPostpartumCongrats.preparing') : t('pregnancyPostpartumCongrats.startPostpartumTracking')}</Text>
           </Pressable>
 
           <Pressable
@@ -131,7 +135,7 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
             disabled={starting}
             onPress={handleLater}
             style={({pressed}) => [styles.laterButton, pressed && styles.pressed]}>
-            <Text style={styles.laterText}>Plus tard</Text>
+            <Text style={styles.laterText}>{t('pregnancyPostpartumCongrats.later')}</Text>
           </Pressable>
         </Animated.View>
       </View>

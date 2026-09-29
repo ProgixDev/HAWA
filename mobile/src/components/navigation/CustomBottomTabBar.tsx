@@ -3,6 +3,12 @@ import {Animated, Pressable, StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+
+// Ensures i18next is initialized even when this component is rendered
+// directly (e.g. in isolated tests) — see AppearanceScreen.tsx's identical
+// import for the full rationale.
+import '../../i18n';
 
 import {AnimatedTabItem} from './AnimatedTabItem';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
@@ -12,14 +18,25 @@ import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const TAB_META: Record<keyof MainTabParamList, {icon: IconName; label: string}> = {
-  CycleHome: {icon: 'home-variant', label: 'Accueil'},
-  Calendar: {icon: 'calendar-month-outline', label: 'Calendrier'},
-  Statistics: {icon: 'chart-donut', label: 'Statistiques'},
-  Profile: {icon: 'account-outline', label: 'Profil'},
+const TAB_ICONS: Record<keyof MainTabParamList, IconName> = {
+  CycleHome: 'home-variant',
+  Calendar: 'calendar-month-outline',
+  Statistics: 'chart-donut',
+  Profile: 'account-outline',
 };
 
+function useTabMeta(): Record<keyof MainTabParamList, {icon: IconName; label: string}> {
+  const {t} = useTranslation();
+  return {
+    CycleHome: {icon: TAB_ICONS.CycleHome, label: t('navigation.home')},
+    Calendar: {icon: TAB_ICONS.Calendar, label: t('navigation.calendar')},
+    Statistics: {icon: TAB_ICONS.Statistics, label: t('navigation.statistics')},
+    Profile: {icon: TAB_ICONS.Profile, label: t('navigation.profile')},
+  };
+}
+
 function CentralAddButton({theme, styles}: {theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}): React.JSX.Element {
+  const {t} = useTranslation();
   const {visible, open} = useJournalSheet();
   const plusMotion = useRef(new Animated.Value(0)).current;
   const plusScale = useRef(new Animated.Value(1)).current;
@@ -43,7 +60,7 @@ function CentralAddButton({theme, styles}: {theme: ResolvedAwaTheme; styles: Ret
 
   return (
     <Pressable
-      accessibilityLabel="Ajouter"
+      accessibilityLabel={t('common.add')}
       accessibilityRole="button"
       hitSlop={10}
       onPress={handlePress}
@@ -65,6 +82,7 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const tabMeta = useTabMeta();
   // The pill's fill is theme.colors.accent (see createStyles) — inactive
   // icons sit directly on it, so their color must read against THAT fill,
   // not a fixed light literal.
@@ -72,7 +90,7 @@ function CustomBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.E
 
   const renderTab = (routeIndex: number) => {
     const route = state.routes[routeIndex];
-    const meta = TAB_META[route.name as keyof MainTabParamList];
+    const meta = tabMeta[route.name as keyof MainTabParamList];
     const isFocused = state.index === routeIndex;
 
     const onPress = () => {

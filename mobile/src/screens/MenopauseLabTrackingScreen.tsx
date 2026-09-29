@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -26,53 +27,63 @@ import {
   setMenopauseLabTracking,
   type MenopauseLabTracking,
 } from '../state/menopausePreferences';
+import '../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
   'MenopauseLabTracking'
 >;
 
-const OPTIONS: Array<{
+// Titles/subtitles are pure display copy translated via the
+// menopauseLabTracking.options.* namespace below — `id` stays the stable
+// MenopauseLabTracking enum value persisted by setMenopauseLabTracking(),
+// never the translated label (CLAUDE.md §5/§6 real, non-fabricated data).
+function useOptions(): Array<{
   id: MenopauseLabTracking;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {
-    id: 'fsh',
-    title: 'FSH',
-    subtitle: 'Hormone folliculo-stimulante',
-    icon: 'flask-outline',
-    tint: '#E7F0F5',
-  },
-  {
-    id: 'estradiol',
-    title: 'Estradiol',
-    subtitle: 'Suivre l’évolution de tes résultats',
-    icon: 'test-tube',
-    tint: '#F3E9F7',
-  },
-  {
-    id: 'both',
-    title: 'Les deux',
-    subtitle: 'FSH et Estradiol',
-    icon: 'clipboard-check-outline',
-    tint: '#E7F0E8',
-  },
-  {
-    id: 'none',
-    title: 'Pas pour le moment',
-    subtitle: 'Je préfère en décider plus tard',
-    icon: 'clock-outline',
-    tint: '#EFE7F4',
-  },
-];
+}> {
+  const {t} = useTranslation();
+  return [
+    {
+      id: 'fsh',
+      title: t('menopauseLabTracking.options.fsh.title'),
+      subtitle: t('menopauseLabTracking.options.fsh.subtitle'),
+      icon: 'flask-outline',
+      tint: '#E7F0F5',
+    },
+    {
+      id: 'estradiol',
+      title: t('menopauseLabTracking.options.estradiol.title'),
+      subtitle: t('menopauseLabTracking.options.estradiol.subtitle'),
+      icon: 'test-tube',
+      tint: '#F3E9F7',
+    },
+    {
+      id: 'both',
+      title: t('menopauseLabTracking.options.both.title'),
+      subtitle: t('menopauseLabTracking.options.both.subtitle'),
+      icon: 'clipboard-check-outline',
+      tint: '#E7F0E8',
+    },
+    {
+      id: 'none',
+      title: t('menopauseLabTracking.options.none.title'),
+      subtitle: t('menopauseLabTracking.options.none.subtitle'),
+      icon: 'clock-outline',
+      tint: '#EFE7F4',
+    },
+  ];
+}
 
 function MenopauseLabTrackingScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
+  const OPTIONS = useOptions();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -267,18 +278,15 @@ function MenopauseLabTrackingScreen({
               </Animated.View>
 
               <Text style={styles.eyebrow}>
-                TES DONNÉES, À TON RYTHME
+                {t('menopauseLabTracking.eyebrow')}
               </Text>
 
               <Text style={styles.title}>
-                Souhaites-tu suivre
-                {'\n'}
-                tes analyses ?
+                {t('menopauseLabTracking.title')}
               </Text>
 
               <Text style={styles.subtitle}>
-                AWA peut t’aider à conserver l’évolution des résultats
-                que tu renseignes, sans les interpréter à ta place.
+                {t('menopauseLabTracking.subtitle')}
               </Text>
 
             </View>
@@ -287,7 +295,7 @@ function MenopauseLabTrackingScreen({
 
               <View style={styles.optionsIntroRow}>
                 <Text style={styles.optionsTitle}>
-                  Ce que je souhaite suivre
+                  {t('menopauseLabTracking.optionsTitle')}
                 </Text>
 
                 <View style={styles.optionsLine} />
@@ -323,7 +331,7 @@ function MenopauseLabTrackingScreen({
               </View>
 
               <Text style={styles.helperText}>
-                Tu pourras modifier ce choix plus tard dans tes préférences.
+                {t('menopauseLabTracking.helperText')}
               </Text>
             </View>
 
@@ -354,10 +362,10 @@ function MenopauseLabTrackingScreen({
 
                 <Text style={styles.nextText}>
                   {saving
-                    ? 'Enregistrement…'
+                    ? t('periodStartSheet.saving')
                     : route.params?.mode === 'edit'
-                      ? 'Enregistrer'
-                      : 'Commencer mon suivi'}
+                      ? t('common.save')
+                      : t('menopauseLabTracking.startButton')}
                 </Text>
 
                 {!saving && (

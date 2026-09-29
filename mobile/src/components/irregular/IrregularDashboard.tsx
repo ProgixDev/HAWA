@@ -14,6 +14,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -55,6 +56,7 @@ import {
 } from '../../utils/irregularDailyTrackingMath';
 import {formatHijriDate} from '../../utils/cycleMath';
 import {useJournalSheet} from '../../navigation/JournalSheetContext';
+import '../../i18n';
 
 // SOPK ("Cycles irréguliers") Dashboard — a COMPOSITION of the exact same
 // shared components every other objective Dashboard already uses
@@ -78,6 +80,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
   const {width, height} = useWindowDimensions();
   const compact = width < 380 || height < 720;
 
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -199,7 +202,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       icon: 'mosque',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Horaires\nde prière',
+      label: t('cycleHome.quickActions.prayerTimes'),
       onPress: () => navigation.navigate('PrayerTimes'),
     },
     {
@@ -207,7 +210,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       icon: 'book-open-page-variant-outline',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Bibliothèque',
+      label: t('cycleHome.quickActions.library'),
       onPress: () => navigation.navigate('Library'),
     },
     {
@@ -217,7 +220,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       icon: 'notebook-edit-outline',
       iconColor: '#B23F63',
       iconBg: '#F9DCE8',
-      label: 'Journal quotidien',
+      label: t('cycleHome.quickActions.dailyJournal'),
       onPress: openJournal,
     },
     {
@@ -225,7 +228,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       icon: 'moon-waning-crescent',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Calendrier Hijri',
+      label: t('cycleHome.quickActions.hijriCalendar'),
       onPress: () => navigation.navigate('HijriCalendar'),
     },
     {
@@ -233,7 +236,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       icon: 'silverware-fork-knife',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Jeûnes à rattraper',
+      label: t('cycleHome.quickActions.qadaa'),
       onPress: () => navigation.navigate('FastingQadaa'),
     },
     {
@@ -243,7 +246,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
       icon: 'chart-donut',
       iconColor: '#2C8E93',
       iconBg: '#DDF0F1',
-      label: 'Statistiques',
+      label: t('cycleHome.quickActions.statistics'),
       onPress: () => navigation.navigate('Statistics'),
     },
   ];
@@ -276,7 +279,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
           <HomeHeader
             firstName={getFirstName()}
             onPressProfile={() => navigation.navigate('Profile')}
-            subtitle="Ton suivi, en toute discrétion."
+            subtitle={t('irregularDashboard.headerSubtitle')}
           />
 
           {/* ==================================================
@@ -288,20 +291,20 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               <View style={styles.mainCopy}>
                 <View style={styles.badge}>
                   <MaterialDesignIcons color={theme.colors.primary} name="flower-outline" size={13} />
-                  <Text style={styles.badgeText}>MODE SOPK</Text>
+                  <Text style={styles.badgeText}>{t('irregularDashboard.badge')}</Text>
                 </View>
 
-                <Text style={styles.mainTitle}>Cycles irréguliers</Text>
+                <Text style={styles.mainTitle}>{t('irregularDashboard.title')}</Text>
 
                 <View style={styles.profileLine}>
                   <View style={styles.profileInfoIcon}>
                     <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={15} />
                   </View>
-                  <Text style={styles.mainSubtitle}>Suivi adapté à ton profil</Text>
+                  <Text style={styles.mainSubtitle}>{t('irregularDashboard.subtitle')}</Text>
                 </View>
 
                 <Text style={styles.mainDescription}>
-                  AWA t’accompagne pour suivre tes symptômes et mieux comprendre ton corps.
+                  {t('irregularDashboard.description')}
                 </Text>
               </View>
 
@@ -309,13 +312,13 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                 <AnimatedProgressRing
                   accessibilityLabel={
                     cycleDay !== null
-                      ? `Jour ${cycleDay} de ton cycle, suivi en cours`
-                      : 'Cycle à renseigner, suivi en cours'
+                      ? t('irregularDashboard.ring.dayAccessibility', {day: cycleDay})
+                      : t('irregularDashboard.ring.unsetAccessibility')
                   }
-                  centerCaption="Jour"
-                  centerDetail="de ton cycle"
+                  centerCaption={t('irregularDashboard.ring.dayCaption')}
+                  centerDetail={t('irregularDashboard.ring.dayDetail')}
                   centerValue={cycleDay ?? undefined}
-                  footnote={cycleDay !== null ? 'Suivi en cours' : 'Suivi en cours'}
+                  footnote={t('irregularDashboard.ring.footnote')}
                   isConfigured={cycleDay !== null}
                   // No valid fixed-length denominator exists for an irregular
                   // SOPK cycle (never currentDay / 28) — the arc is a purely
@@ -326,7 +329,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   progress={cycleDay !== null ? 1 : 0}
                   statusColor={theme.colors.primary}
                   statusIcon="calendar-clock-outline"
-                  statusText="Cycle à renseigner"
+                  statusText={t('irregularDashboard.ring.statusUnset')}
                 />
               </View>
             </View>
@@ -342,7 +345,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="information-outline" size={16} />
               </View>
               <Text style={styles.calloutText}>
-                Dans le mode SOPK, un cycle long n’est pas considéré automatiquement comme un retard.
+                {t('irregularDashboard.callout')}
               </Text>
             </View>
           </View>
@@ -384,7 +387,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
 
           <Animated.View style={[styles.dailyCard, compact && styles.dailyCardCompact, dailyEntranceStyle]}>
             <Pressable
-              accessibilityLabel="Ouvrir le journal du jour"
+              accessibilityLabel={t('irregularDashboard.daily.openAccessibility')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('IrregularJournalOverview')}
               style={({pressed}) => [styles.dailyHeader, pressed && styles.pressed]}>
@@ -393,14 +396,14 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={theme.colors.primary} name="notebook-check-outline" size={20} />
                 </View>
                 <View style={styles.dailyHeaderCopy}>
-                  <Text style={styles.dailyTitle}>Suivi du jour</Text>
-                  <Text style={styles.dailySubtitle}>Note ce qui compte aujourd’hui, à ton rythme.</Text>
+                  <Text style={styles.dailyTitle}>{t('irregularDashboard.daily.title')}</Text>
+                  <Text style={styles.dailySubtitle}>{t('irregularDashboard.daily.subtitle')}</Text>
                 </View>
               </View>
 
               <View style={styles.progressBadge}>
                 <Text style={styles.progressBadgeValue}>{progress.completed}/{progress.total}</Text>
-                <Text style={styles.progressBadgeLabel}>complété</Text>
+                <Text style={styles.progressBadgeLabel}>{t('irregularDashboard.daily.completedLabel')}</Text>
               </View>
             </Pressable>
 
@@ -408,11 +411,11 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               <View style={[styles.progressFill, {width: `${Math.round(progressRatio * 100)}%`}]} />
             </View>
 
-            <Text style={styles.dailySectionLabel}>MES SUIVIS</Text>
+            <Text style={styles.dailySectionLabel}>{t('irregularDashboard.daily.sectionLabel')}</Text>
 
             <View style={styles.dailyGrid}>
               <Pressable
-                accessibilityLabel="Règles"
+                accessibilityLabel={t('irregularDashboard.daily.period.label')}
                 onPress={() => navigation.navigate('IrregularJournalEntry', {category: 'period'})}
                 style={({pressed}) => [
                   styles.dailyItem,
@@ -423,8 +426,8 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={periodDoneToday ? onPrimaryTextColor(theme) : theme.colors.primary} name="water-outline" size={20} />
                 </View>
                 <View style={styles.dailyItemCopy}>
-                  <Text style={styles.dailyLabel}>Règles</Text>
-                  <Text style={styles.dailyItemSubtitle}>Renseigne le début de tes règles</Text>
+                  <Text style={styles.dailyLabel}>{t('irregularDashboard.daily.period.label')}</Text>
+                  <Text style={styles.dailyItemSubtitle}>{t('irregularDashboard.daily.period.subtitle')}</Text>
                 </View>
                 <View style={[styles.dailyStateIndicator, periodDoneToday && styles.dailyStateIndicatorDone]}>
                   {periodDoneToday ? (
@@ -467,7 +470,7 @@ function IrregularDashboard({navigation}: Props): React.JSX.Element {
               onPress={() => navigation.navigate('IrregularJournalOverview')}
               style={({pressed}) => [styles.completeJournalButton, pressed && styles.completeJournalButtonPressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="plus-circle-outline" size={17} />
-              <Text style={styles.completeJournalText}>Compléter mon journal</Text>
+              <Text style={styles.completeJournalText}>{t('irregularDashboard.daily.completeButton')}</Text>
               <MaterialDesignIcons color={theme.colors.primary} name="arrow-right" size={16} />
             </Pressable>
           </Animated.View>

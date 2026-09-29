@@ -3,12 +3,14 @@ import {AccessibilityInfo, Animated, Easing, Pressable, StatusBar, StyleSheet, T
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {isBiometricEnabled, loadSecurityPreferences} from '../../state/securityPreferences';
 import {isIntimacyUnlocked, replaceWithIntimacyDestination} from '../../state/privateSectionAuthStore';
 import {getBiometryLabel, getBiometryType, hasPrivatePin} from '../../services/privateSectionAuth';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyUnlock'>;
 
@@ -20,25 +22,31 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyUnlock'>
 // target param). Covers every IntimacyTarget value — `photos` and
 // `miscarriageNotes` were the last two still on the legacy padlock-artwork
 // PNG background; this file no longer renders that PNG for any target.
-export const UNIFIED_PURPOSE_COPY: Record<string, string> = {
-  cycle: 'Ta vie intime reste entièrement privée.',
-  conception: 'Tes rapports restent entièrement privés.',
-  cycleNotes: 'Tes notes personnelles restent entièrement privées.',
-  contraceptionNotes: 'Tes notes du jour restent entièrement privées.',
-  menopauseNotes: 'Tes notes du jour restent entièrement privées.',
-  photos: 'Tes photos restent entièrement privées.',
-  miscarriageNotes: 'Tes notes personnelles restent entièrement privées.',
-  export: 'Confirme ton identité avant d’exporter des données sensibles.',
-};
+// This screen is ONE shared gate reused by every objective (not duplicated
+// per-objective), so — unlike the out-of-scope per-objective dashboards —
+// translating it benefits every caller uniformly and is in scope.
+export function unifiedPurposeCopy(t: (key: string) => string): Record<string, string> {
+  return {
+    cycle: t('privateIntimacyUnlock.purpose.cycle'),
+    conception: t('privateIntimacyUnlock.purpose.conception'),
+    cycleNotes: t('privateIntimacyUnlock.purpose.cycleNotes'),
+    contraceptionNotes: t('privateIntimacyUnlock.purpose.contraceptionNotes'),
+    menopauseNotes: t('privateIntimacyUnlock.purpose.menopauseNotes'),
+    photos: t('privateIntimacyUnlock.purpose.photos'),
+    miscarriageNotes: t('privateIntimacyUnlock.purpose.miscarriageNotes'),
+    export: t('privateIntimacyUnlock.purpose.export'),
+  };
+}
 
 export default function PrivateIntimacyUnlockScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
   const compact = height < 700;
   const progress = useRef(new Animated.Value(0)).current;
-  const [biometryLabel, setBiometryLabel] = useState('Utiliser la biométrie');
+  const [biometryLabel, setBiometryLabel] = useState(t('privateIntimacyUnlock.useBiometrics'));
   const [biometryAvailable, setBiometryAvailable] = useState(false);
   const [pinConfigured, setPinConfigured] = useState(false);
   const target = route.params?.target;
@@ -48,7 +56,8 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
   // every IntimacyTarget value. `photos` and `miscarriageNotes` were the
   // last two still on the legacy padlock-artwork PNG background; that
   // branch has been fully retired from this file.
-  const purposeLine = UNIFIED_PURPOSE_COPY[target ?? 'cycle'] ?? UNIFIED_PURPOSE_COPY.cycle;
+  const purposeCopy = unifiedPurposeCopy(t);
+  const purposeLine = purposeCopy[target ?? 'cycle'] ?? purposeCopy.cycle;
 
   useEffect(() => {
     if (isIntimacyUnlocked()) {replaceWithIntimacyDestination(navigation, target); return;}
@@ -68,9 +77,9 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
   const hero = (
     <Animated.View style={[styles.main,styles.mainUnified,heroAnimatedStyle]}>
       <View style={styles.lockBadge}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={30}/></View>
-      <Text style={[styles.title,compact&&styles.titleCompact]}>Espace privé</Text>
+      <Text style={[styles.title,compact&&styles.titleCompact]}>{t('privateIntimacyUnlock.title')}</Text>
       <Text style={styles.purposeLine}>{purposeLine}</Text>
-      <Text style={styles.subtitle}>Déverrouille avec ton code privé{`\n`}ou ta biométrie.</Text>
+      <Text style={styles.subtitle}>{t('privateIntimacyUnlock.subtitle')}</Text>
     </Animated.View>
   );
 
@@ -78,13 +87,13 @@ export default function PrivateIntimacyUnlockScreen({navigation, route}: Props):
     <SafeAreaView edges={['top','bottom']} style={styles.flex}>
     <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
     <View style={[styles.content,{paddingBottom:Math.max(insets.bottom,14)}]}>
-      <Pressable accessibilityLabel="Retour au journal" accessibilityRole="button" hitSlop={10} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={26}/></Pressable>
+      <Pressable accessibilityLabel={t('privateIntimacyUnlock.backToJournal')} accessibilityRole="button" hitSlop={10} onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={26}/></Pressable>
       {hero}
 
       <View style={[styles.actionsCard,compact&&styles.actionsCardCompact]}>
-        {biometryAvailable && <Pressable accessibilityHint="Ouvre l'écran de déverrouillage Face ID" accessibilityLabel={biometryLabel} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyFaceId', {target: route.params?.target})} style={({pressed})=>[styles.primary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.primaryIcon}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="face-recognition" size={30}/></View><View style={styles.buttonCopy}><Text style={styles.primaryTitle}>{biometryLabel}</Text><Text style={styles.primarySubtitle}>Déverrouiller avec biométrie</Text></View><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="chevron-right" size={28}/></Pressable>}
-        <Pressable accessibilityHint="Ouvre le clavier du code privé" accessibilityLabel={pinConfigured?'Saisir le code privé':'Configurer un code privé'} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyPin', {target: route.params?.target})} style={({pressed})=>[styles.secondary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.secondaryIcon}><MaterialDesignIcons color={theme.colors.accent} name="lock-outline" size={28}/></View><View style={styles.buttonCopy}><Text style={styles.secondaryTitle}>{pinConfigured?'Saisir le code privé':'Configurer un code privé'}</Text><Text style={styles.secondarySubtitle}>{pinConfigured?'Utiliser ton code à 6 chiffres':'Créer un code sécurisé à 6 chiffres'}</Text></View><MaterialDesignIcons color={theme.colors.accent} name="chevron-right" size={28}/></Pressable>
-        <View style={[styles.privacy,compact&&styles.privacyCompact]}><View style={styles.privacyIcon}><MaterialDesignIcons color={theme.colors.primary} name="shield-lock" size={25}/></View><View style={styles.privacyCopy}><Text style={styles.privacyTitle}>Ta confidentialité est notre priorité</Text><Text style={styles.privacyText}>Tes données restent privées et ne sont accessibles que par toi.</Text></View></View>
+        {biometryAvailable && <Pressable accessibilityHint={t('privateIntimacyUnlock.biometricHint')} accessibilityLabel={biometryLabel} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyFaceId', {target: route.params?.target})} style={({pressed})=>[styles.primary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.primaryIcon}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="face-recognition" size={30}/></View><View style={styles.buttonCopy}><Text style={styles.primaryTitle}>{biometryLabel}</Text><Text style={styles.primarySubtitle}>{t('privateIntimacyUnlock.unlockWithBiometrics')}</Text></View><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="chevron-right" size={28}/></Pressable>}
+        <Pressable accessibilityHint={t('privateIntimacyUnlock.pinHint')} accessibilityLabel={pinConfigured?t('privateIntimacyUnlock.enterPin'):t('privateIntimacyUnlock.setUpPin')} accessibilityRole="button" onPress={()=>navigation.navigate('PrivateIntimacyPin', {target: route.params?.target})} style={({pressed})=>[styles.secondary,compact&&styles.buttonCompact,pressed&&styles.pressed]}><View style={styles.secondaryIcon}><MaterialDesignIcons color={theme.colors.accent} name="lock-outline" size={28}/></View><View style={styles.buttonCopy}><Text style={styles.secondaryTitle}>{pinConfigured?t('privateIntimacyUnlock.enterPin'):t('privateIntimacyUnlock.setUpPin')}</Text><Text style={styles.secondarySubtitle}>{pinConfigured?t('privateIntimacyUnlock.usePinSubtitle'):t('privateIntimacyUnlock.createPinSubtitle')}</Text></View><MaterialDesignIcons color={theme.colors.accent} name="chevron-right" size={28}/></Pressable>
+        <View style={[styles.privacy,compact&&styles.privacyCompact]}><View style={styles.privacyIcon}><MaterialDesignIcons color={theme.colors.primary} name="shield-lock" size={25}/></View><View style={styles.privacyCopy}><Text style={styles.privacyTitle}>{t('privateIntimacyUnlock.privacyTitle')}</Text><Text style={styles.privacyText}>{t('privateIntimacyUnlock.privacyText')}</Text></View></View>
       </View>
     </View>
     </SafeAreaView>

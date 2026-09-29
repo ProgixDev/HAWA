@@ -5,6 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Animated,
   Easing,
@@ -38,6 +39,7 @@ import {
 import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/pregnancyTrackingUtils';
 import {getPregnancyWeekData} from '../../data/pregnancyWeekData';
 import BabyDevelopmentImage from '../../components/pregnancy/BabyDevelopmentImage';
+import '../../i18n';
 
 /* ============================================================
    TYPES
@@ -60,27 +62,29 @@ type IconName = React.ComponentProps<
 const MIN_PREGNANCY_WEEK = 1;
 const MAX_PREGNANCY_WEEK = 41;
 
-const TABS: Array<{
+function useTabs(t: (key: string) => string): Array<{
   key: Tab;
   label: string;
   icon: IconName;
-}> = [
-  {
-    key: 'baby',
-    label: 'Bébé',
-    icon: 'baby-face-outline',
-  },
-  {
-    key: 'body',
-    label: 'Ton corps',
-    icon: 'human-female',
-  },
-  {
-    key: 'toKnow',
-    label: 'À savoir',
-    icon: 'lightbulb-outline',
-  },
-];
+}> {
+  return [
+    {
+      key: 'baby',
+      label: t('pregnancyWeekScreen.tabs.baby'),
+      icon: 'baby-face-outline',
+    },
+    {
+      key: 'body',
+      label: t('pregnancyWeekScreen.tabs.body'),
+      icon: 'human-female',
+    },
+    {
+      key: 'toKnow',
+      label: t('pregnancyWeekScreen.tabs.toKnow'),
+      icon: 'lightbulb-outline',
+    },
+  ];
+}
 
 /* ============================================================
    HELPERS
@@ -165,9 +169,11 @@ function InfoRow({
 export default function PregnancyWeekScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const TABS = useTabs(t);
 
   const [
     activeTab,
@@ -249,10 +255,10 @@ export default function PregnancyWeekScreen({
       : undefined;
 
   const viewedWeekContext = displayedWeek === actualPregnancyWeek
-    ? 'Semaine actuelle'
+    ? t('pregnancyWeekScreen.context.current')
     : displayedWeek < actualPregnancyWeek
-      ? 'Semaine passée'
-      : 'Aperçu';
+      ? t('pregnancyWeekScreen.context.past')
+      : t('pregnancyWeekScreen.context.preview');
 
   const hasBabyMeasurements =
     Boolean(
@@ -316,7 +322,7 @@ export default function PregnancyWeekScreen({
 
         <View style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={
@@ -358,15 +364,14 @@ export default function PregnancyWeekScreen({
             style={
               styles.unconfiguredTitle
             }>
-            Grossesse non configurée
+            {t('pregnancyWeekScreen.unconfigured.title')}
           </Text>
 
           <Text
             style={
               styles.unconfiguredText
             }>
-            Configure les informations de ta grossesse
-            pour suivre son évolution semaine après semaine.
+            {t('pregnancyWeekScreen.unconfigured.text')}
           </Text>
 
           <Pressable
@@ -386,7 +391,7 @@ export default function PregnancyWeekScreen({
               style={
                 styles.unconfiguredButtonText
               }>
-              Configurer ma grossesse
+              {t('pregnancyWeekScreen.unconfigured.button')}
             </Text>
           </Pressable>
         </View>
@@ -414,7 +419,7 @@ export default function PregnancyWeekScreen({
 
       <View style={styles.header}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={
@@ -443,7 +448,7 @@ export default function PregnancyWeekScreen({
             style={
               styles.headerTitle
             }>
-            Semaine {displayedWeek}
+            {t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}
           </Text>
 
           <Text
@@ -452,8 +457,15 @@ export default function PregnancyWeekScreen({
               styles.headerSubtitle
             }>
             {displayedWeek === actualPregnancyWeek
-              ? `${status.gestationalWeeks} SA + ${status.gestationalDays} jours · ${formatPregnancyTrimester(status.trimester)}`
-              : `${viewedWeekContext} éducatif · grossesse actuelle : semaine ${actualPregnancyWeek}`}
+              ? t('pregnancyWeekScreen.header.gestationalAge', {
+                  weeks: status.gestationalWeeks,
+                  days: status.gestationalDays,
+                  trimester: formatPregnancyTrimester(status.trimester),
+                })
+              : t('pregnancyWeekScreen.header.educationalContext', {
+                  context: viewedWeekContext,
+                  week: actualPregnancyWeek,
+                })}
           </Text>
         </View>
 
@@ -466,7 +478,7 @@ export default function PregnancyWeekScreen({
 
       <View style={styles.weekBrowser}>
         <Pressable
-          accessibilityLabel="Semaine précédente"
+          accessibilityLabel={t('pregnancyWeekScreen.header.previousWeek')}
           accessibilityRole="button"
           disabled={displayedWeek <= MIN_PREGNANCY_WEEK}
           onPress={() => setViewedWeek(current => Math.max(MIN_PREGNANCY_WEEK, (current ?? actualPregnancyWeek) - 1))}
@@ -474,11 +486,11 @@ export default function PregnancyWeekScreen({
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={22} />
         </Pressable>
         <View style={styles.weekBrowserCopy}>
-          <Text style={styles.weekBrowserTitle}>Semaine {displayedWeek}</Text>
+          <Text style={styles.weekBrowserTitle}>{t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}</Text>
           <Text style={styles.weekBrowserContext}>{viewedWeekContext}</Text>
         </View>
         <Pressable
-          accessibilityLabel="Semaine suivante"
+          accessibilityLabel={t('pregnancyWeekScreen.header.nextWeek')}
           accessibilityRole="button"
           disabled={displayedWeek >= MAX_PREGNANCY_WEEK}
           onPress={() => setViewedWeek(current => Math.min(MAX_PREGNANCY_WEEK, (current ?? actualPregnancyWeek) + 1))}
@@ -634,8 +646,7 @@ export default function PregnancyWeekScreen({
                     style={
                       styles.weekBadgeText
                     }>
-                    Semaine{' '}
-                    {displayedWeek}
+                    {t('pregnancyWeekScreen.header.weekTitle', {week: displayedWeek})}
                   </Text>
                 </View>
 
@@ -647,7 +658,7 @@ export default function PregnancyWeekScreen({
                   }>
                   {weekData?.babyImage != null ? (
                     <BabyDevelopmentImage
-                      accessibilityLabel={`Illustration de grossesse — semaine ${displayedWeek}`}
+                      accessibilityLabel={t('pregnancyWeekScreen.baby.illustrationAccessibility', {week: displayedWeek})}
                       idle
                       source={
                         weekData.babyImage
@@ -676,7 +687,7 @@ export default function PregnancyWeekScreen({
                   style={
                     styles.heroTitle
                   }>
-                  Ton bébé cette semaine
+                  {t('pregnancyWeekScreen.baby.heroTitle')}
                 </Text>
 
                 {weekData?.comparison ? (
@@ -684,10 +695,7 @@ export default function PregnancyWeekScreen({
                     style={
                       styles.heroSubtitle
                     }>
-                    Environ{' '}
-                    {
-                      weekData.comparison
-                    }
+                    {t('pregnancyWeekScreen.baby.comparisonPrefix', {comparison: weekData.comparison})}
                   </Text>
                 ) : null}
               </Animated.View>
@@ -724,7 +732,7 @@ export default function PregnancyWeekScreen({
               ) : (
                 <EmptyContentNote
                   styles={styles}
-                  text="Les informations détaillées de cette semaine seront bientôt disponibles."
+                  text={t('pregnancyWeekScreen.baby.detailsUnavailable')}
                   theme={theme}
                 />
               )}
@@ -740,7 +748,7 @@ export default function PregnancyWeekScreen({
                     style={
                       styles.cardHeading
                     }>
-                    Développement
+                    {t('pregnancyWeekScreen.baby.developmentHeading')}
                   </Text>
 
                   <View
@@ -750,7 +758,7 @@ export default function PregnancyWeekScreen({
                     {weekData?.length ? (
                       <InfoRow
                         icon="ruler"
-                        label="Taille"
+                        label={t('pregnancyWeekScreen.baby.lengthLabel')}
                         styles={styles}
                         theme={theme}
                         value={
@@ -762,7 +770,7 @@ export default function PregnancyWeekScreen({
                     {weekData?.weight ? (
                       <InfoRow
                         icon="weight-kilogram"
-                        label="Poids"
+                        label={t('pregnancyWeekScreen.baby.weightLabel')}
                         styles={styles}
                         theme={theme}
                         value={
@@ -774,7 +782,7 @@ export default function PregnancyWeekScreen({
                     {weekData?.comparison ? (
                       <InfoRow
                         icon="shape-outline"
-                        label="Comparaison"
+                        label={t('pregnancyWeekScreen.baby.comparisonLabel')}
                         styles={styles}
                         theme={theme}
                         value={
@@ -807,7 +815,7 @@ export default function PregnancyWeekScreen({
                   style={
                     styles.disclaimerText
                   }>
-                  Ces informations sont des estimations générales du développement fœtal. La croissance peut varier d’une grossesse à l’autre.
+                  {t('pregnancyWeekScreen.baby.disclaimer')}
                 </Text>
               </View>
             </>
@@ -842,14 +850,14 @@ export default function PregnancyWeekScreen({
                     style={
                       styles.sectionTitle
                     }>
-                    Ton corps cette semaine
+                    {t('pregnancyWeekScreen.body.title')}
                   </Text>
 
                   <Text
                     style={
                       styles.sectionSubtitle
                     }>
-                    Les changements que tu peux ressentir
+                    {t('pregnancyWeekScreen.body.subtitle')}
                   </Text>
                 </View>
               </View>
@@ -905,7 +913,7 @@ export default function PregnancyWeekScreen({
               ) : (
                 <EmptyContentNote
                   styles={styles}
-                  text="Les informations détaillées de cette semaine seront bientôt disponibles."
+                  text={t('pregnancyWeekScreen.body.detailsUnavailable')}
                   theme={theme}
                 />
               )}
@@ -941,14 +949,14 @@ export default function PregnancyWeekScreen({
                     style={
                       styles.sectionTitle
                     }>
-                    À savoir cette semaine
+                    {t('pregnancyWeekScreen.toKnow.title')}
                   </Text>
 
                   <Text
                     style={
                       styles.sectionSubtitle
                     }>
-                    Quelques repères utiles pour cette étape
+                    {t('pregnancyWeekScreen.toKnow.subtitle')}
                   </Text>
                 </View>
               </View>
@@ -1004,7 +1012,7 @@ export default function PregnancyWeekScreen({
               ) : (
                 <EmptyContentNote
                   styles={styles}
-                  text="Les informations de cette semaine seront bientôt disponibles."
+                  text={t('pregnancyWeekScreen.toKnow.detailsUnavailable')}
                   theme={theme}
                 />
               )}

@@ -1,8 +1,10 @@
 import React, {useMemo} from 'react';
 import {Alert, Pressable, StyleSheet, Text} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // M25 - shared "Effacer cette saisie" action for journal entry screens whose
 // saved value could not be removed once written. It only asks for a
@@ -20,28 +22,29 @@ type Props = {
 };
 
 export function ClearEntryButton({onConfirm, subject}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   const ask = () => {
     Alert.alert(
-      'Effacer cette saisie ?',
-      `Tu vas supprimer ${subject} enregistrée pour ce jour. Cette action est définitive.`,
+      t('clearEntryButton.confirmTitle'),
+      t('clearEntryButton.confirmMessage', {subject}),
       [
-        {text: 'Annuler', style: 'cancel'},
-        {text: 'Effacer', style: 'destructive', onPress: () => {onConfirm();}},
+        {text: t('common.cancel'), style: 'cancel'},
+        {text: t('clearEntryButton.clear'), style: 'destructive', onPress: () => {onConfirm();}},
       ],
     );
   };
 
   return (
     <Pressable
-      accessibilityLabel="Effacer cette saisie"
+      accessibilityLabel={t('clearEntryButton.clearThisEntry')}
       accessibilityRole="button"
       onPress={ask}
       style={({pressed}) => [styles.button, pressed && styles.pressed]}>
       <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={18} />
-      <Text style={styles.text}>Effacer cette saisie</Text>
+      <Text style={styles.text}>{t('clearEntryButton.clearThisEntry')}</Text>
     </Pressable>
   );
 }

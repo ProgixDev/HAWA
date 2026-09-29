@@ -3,6 +3,7 @@ import React, {
   useMemo,
   useRef,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -27,6 +28,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getTopPadding, spacing} from '../../theme/spacing';
+import '../../i18n';
 
 type IconName =
   React.ComponentProps<
@@ -61,6 +63,7 @@ export function PostpartumJournalScreenLayout({
       NavigationProp<RootStackParamList>
     >();
 
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -160,7 +163,7 @@ export function PostpartumJournalScreenLayout({
           {/* BACK BUTTON */}
 
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={
@@ -334,7 +337,7 @@ export function PostpartumJournalScreenLayout({
             ================================================= */}
 
             <Pressable
-              accessibilityLabel="Enregistrer"
+              accessibilityLabel={t('common.save')}
               accessibilityRole="button"
               accessibilityState={{
                 disabled:
@@ -374,8 +377,8 @@ export function PostpartumJournalScreenLayout({
                   styles.saveText
                 }>
                 {saving
-                  ? 'Enregistrement…'
-                  : 'Enregistrer'}
+                  ? t('postpartumJournalScreenLayout.saving')
+                  : t('common.save')}
               </Text>
             </Pressable>
           </Animated.View>

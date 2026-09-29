@@ -1,5 +1,6 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {KeyboardAvoidingView, Platform, Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -10,6 +11,7 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import PregnancyEventForm from '../../components/pregnancy/PregnancyEventForm';
 import {getPregnancyMedicalEvents, type PregnancyMedicalEvent} from '../../state/pregnancyMedicalEventsStore';
+import '../../i18n';
 
 // Dedicated Exam flow — see PregnancyAppointmentScreen.tsx for its
 // Appointment counterpart; both share PregnancyEventForm.tsx and are locked
@@ -17,6 +19,7 @@ import {getPregnancyMedicalEvents, type PregnancyMedicalEvent} from '../../state
 type Props = NativeStackScreenProps<RootStackParamList, 'PregnancyExam'>;
 
 function PregnancyExamScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -35,14 +38,16 @@ function PregnancyExamScreen({navigation, route}: Props): React.JSX.Element {
     navigation.goBack();
   }, [navigation]);
 
-  const headerTitle = initialEvent ? 'Modifier l’examen' : 'Ajouter un examen';
+  const headerTitle = initialEvent
+    ? t('pregnancyEvent.examScreen.editTitle')
+    : t('pregnancyEvent.examScreen.addTitle');
 
   return (
     <SafeAreaView edges={['top', 'left', 'right']} style={styles.safeArea}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={styles.header}>
-          <Pressable accessibilityLabel="Retour" accessibilityRole="button" hitSlop={10} onPress={() => navigation.goBack()} style={styles.backButton}>
+          <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" hitSlop={10} onPress={() => navigation.goBack()} style={styles.backButton}>
             <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
           </Pressable>
           <Text numberOfLines={1} style={styles.headerTitle}>{headerTitle}</Text>

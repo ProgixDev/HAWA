@@ -13,6 +13,10 @@ import { NavigationProp, useFocusEffect, useNavigation } from '@react-navigation
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../../i18n';
+import {getAppLanguage} from '../../state/themePreferences';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -72,11 +76,13 @@ import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const MODES: Array<{ key: CalendarPreference; label: string }> = [
-  { key: 'gregorian', label: 'Grégorien' },
-  { key: 'hijri', label: 'Hijri' },
-  { key: 'double', label: 'Double' },
-];
+function modesFor(t: TFunction): Array<{ key: CalendarPreference; label: string }> {
+  return [
+    { key: 'gregorian', label: t('calendar.modeGregorian') },
+    { key: 'hijri', label: t('calendar.modeHijri') },
+    { key: 'double', label: t('calendar.modeDouble') },
+  ];
+}
 
 // SEMANTIC — TTC-specific category identity colors, fixed and never
 // theme-driven (same reasoning as every sibling calendar's period/fertile/
@@ -125,55 +131,71 @@ const DAY_ENTRY_ROUTES: Partial<Record<JournalCategory, 'TemperatureEntry' | 'Ce
 };
 type ConceiveCategory = PhaseCategory | JournalCategory;
 
-const CATEGORY_META: Record<
+// Labels: menstruation is its own local `conceiveCalendar.categories.*.label`;
+// fertile/ovulation/temperature/cervicalMucus/lhTest/intimacy reuse the
+// canonical cyclePhase.fertile / journalCycleEvolution.phase.ovulation /
+// journalTemperature.title / journalCervicalMucus.title / journalLHTest.title
+// / journalConceptionReports.title keys instead of duplicating the same word
+// under a second key (see fr.ts's conceiveCalendar.categories comment).
+function categoryMetaFor(t: TFunction): Record<
   ConceiveCategory,
   { label: string; description: string; icon: IconName; color: string }
-> = {
-  menstruation: {
-    label: 'Règles',
-    description: 'Jours de règles, calculés à partir de ton cycle.',
-    icon: 'water',
-    color: PERIOD,
-  },
-  fertile: {
-    label: 'Fenêtre fertile',
-    description: 'Période la plus propice à la conception.',
-    icon: 'leaf',
-    color: FERTILE_COLOR,
-  },
-  ovulation: {
-    label: 'Ovulation estimée',
-    description: 'Jour d’ovulation estimé pour ce cycle.',
-    icon: 'egg-outline',
-    color: OVULATION,
-  },
-  temperature: {
-    label: 'Température basale',
-    description: 'Température enregistrée dans ton journal.',
-    icon: 'thermometer',
-    color: PURPLE,
-  },
-  cervicalMucus: {
-    label: 'Glaire cervicale',
-    description: 'Observation de ta glaire cervicale.',
-    icon: 'water-outline',
-    color: '#3E8E56',
-  },
-  lhTest: {
-    label: 'Test LH',
-    description: 'Un repère « LH+ » apparaît sur le calendrier pour un test positif. Tous tes résultats restent visibles dans le détail du jour.',
-    icon: 'test-tube',
-    color: '#B23F63',
-  },
-  intimacy: {
-    label: 'Rapports',
-    description: 'Rapport enregistré dans ton journal, de façon privée.',
-    icon: 'heart-outline',
-    color: '#B23F63',
-  },
-};
+> {
+  return {
+    menstruation: {
+      label: t('conceiveCalendar.categories.menstruation.label'),
+      description: t('conceiveCalendar.categories.menstruation.description'),
+      icon: 'water',
+      color: PERIOD,
+    },
+    fertile: {
+      label: t('cyclePhase.fertile'),
+      description: t('conceiveCalendar.categories.fertile.description'),
+      icon: 'leaf',
+      color: FERTILE_COLOR,
+    },
+    ovulation: {
+      label: t('journalCycleEvolution.phase.ovulation'),
+      description: t('conceiveCalendar.categories.ovulation.description'),
+      icon: 'egg-outline',
+      color: OVULATION,
+    },
+    temperature: {
+      label: t('journalTemperature.title'),
+      description: t('conceiveCalendar.categories.temperature.description'),
+      icon: 'thermometer',
+      color: PURPLE,
+    },
+    cervicalMucus: {
+      label: t('journalCervicalMucus.title'),
+      description: t('conceiveCalendar.categories.cervicalMucus.description'),
+      icon: 'water-outline',
+      color: '#3E8E56',
+    },
+    lhTest: {
+      label: t('journalLHTest.title'),
+      description: t('conceiveCalendar.categories.lhTest.description'),
+      icon: 'test-tube',
+      color: '#B23F63',
+    },
+    intimacy: {
+      label: t('journalConceptionReports.title'),
+      description: t('conceiveCalendar.categories.intimacy.description'),
+      icon: 'heart-outline',
+      color: '#B23F63',
+    },
+  };
+}
 
-const CATEGORY_KEYS = Object.keys(CATEGORY_META) as ConceiveCategory[];
+const CATEGORY_KEYS: ConceiveCategory[] = [
+  'menstruation',
+  'fertile',
+  'ovulation',
+  'temperature',
+  'cervicalMucus',
+  'lhTest',
+  'intimacy',
+];
 const JOURNAL_CATEGORY_KEYS: JournalCategory[] = [
   'temperature',
   'cervicalMucus',
@@ -181,29 +203,35 @@ const JOURNAL_CATEGORY_KEYS: JournalCategory[] = [
   'intimacy',
 ];
 
-const PHASE_LABEL: Record<CyclePhase, string> = {
-  menstruation: 'Règles',
-  follicular: 'Phase folliculaire',
-  fertile: 'Fenêtre fertile',
-  ovulation: 'Ovulation',
-  luteal: 'Phase lutéale',
-  pregnancy: 'Grossesse',
-  postpartum: 'Post-partum',
-};
+function phaseLabelFor(t: TFunction): Record<CyclePhase, string> {
+  return {
+    menstruation: t('conceiveCalendar.phaseLabel.menstruation'),
+    follicular: t('conceiveCalendar.phaseLabel.follicular'),
+    fertile: t('conceiveCalendar.phaseLabel.fertile'),
+    ovulation: t('conceiveCalendar.phaseLabel.ovulation'),
+    luteal: t('conceiveCalendar.phaseLabel.luteal'),
+    pregnancy: t('conceiveCalendar.phaseLabel.pregnancy'),
+    postpartum: t('conceiveCalendar.phaseLabel.postpartum'),
+  };
+}
 
-const MUCUS_LABEL: Record<string, string> = {
-  dry: 'Sèche',
-  sticky: 'Collante',
-  creamy: 'Crémeuse',
-  watery: 'Aqueuse',
-  eggWhite: 'Claire et élastique',
-};
+function mucusLabelFor(t: TFunction): Record<string, string> {
+  return {
+    dry: t('conceiveCalendar.mucusLabel.dry'),
+    sticky: t('conceiveCalendar.mucusLabel.sticky'),
+    creamy: t('conceiveCalendar.mucusLabel.creamy'),
+    watery: t('conceiveCalendar.mucusLabel.watery'),
+    eggWhite: t('conceiveCalendar.mucusLabel.eggWhite'),
+  };
+}
 
-const LH_LABEL: Record<string, string> = {
-  negative: 'Négatif',
-  positive: 'Positif',
-  invalid: 'Non valide',
-};
+function lhLabelFor(t: TFunction): Record<string, string> {
+  return {
+    negative: t('conceiveCalendar.lhLabel.negative'),
+    positive: t('conceiveCalendar.lhLabel.positive'),
+    invalid: t('conceiveCalendar.lhLabel.invalid'),
+  };
+}
 
 const dateKey = (date: Date): string => date.toLocaleDateString('en-CA');
 const backgroundColorStyle = (backgroundColor: string) => ({ backgroundColor });
@@ -236,11 +264,17 @@ function journalMarkersPresent(entry: DailyJournalEntry | undefined): JournalCat
 ============================================================ */
 
 function ConceiveCalendarContent(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const { open: openJournal } = useJournalSheet();
+  const MODES = useMemo(() => modesFor(t), [t]);
+  const CATEGORY_META = useMemo(() => categoryMetaFor(t), [t]);
+  const PHASE_LABEL = useMemo(() => phaseLabelFor(t), [t]);
+  const MUCUS_LABEL = useMemo(() => mucusLabelFor(t), [t]);
+  const LH_LABEL = useMemo(() => lhLabelFor(t), [t]);
 
   // Re-evaluated when the day changes / the app returns to the foreground —
   // see src/hooks/useToday.ts.
@@ -391,8 +425,9 @@ function ConceiveCalendarContent(): React.JSX.Element {
     ];
   }, [visibleMonth]);
 
+  const locale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
   const monthTitle = capitalize(
-    new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(
+    new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(
       visibleMonth,
     ),
   );
@@ -404,7 +439,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
   // preference (which is only hidden — never reset — while the toggle is off).
   const showHijri = spiritualMarkersEnabled && displayMode !== 'gregorian';
   const selectedTitle = capitalize(
-    new Intl.DateTimeFormat('fr-FR', {
+    new Intl.DateTimeFormat(locale, {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -445,7 +480,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
           ? selectedEntry.temperature.time
             ? `${selectedEntry.temperature.value}°${selectedEntry.temperature.unit} · ${selectedEntry.temperature.time}`
             : `${selectedEntry.temperature.value}°${selectedEntry.temperature.unit}`
-          : 'Non renseigné',
+          : t('profile.notProvided'),
       });
     }
     if (visibleFilters.has('cervicalMucus')) {
@@ -455,7 +490,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
         label: CATEGORY_META.cervicalMucus.label,
         value: selectedEntry?.cervicalMucus
           ? MUCUS_LABEL[selectedEntry.cervicalMucus.type] ?? selectedEntry.cervicalMucus.type
-          : 'Non renseignée',
+          : t('profile.notProvidedFeminine'),
       });
     }
     if (visibleFilters.has('lhTest')) {
@@ -465,7 +500,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
         label: CATEGORY_META.lhTest.label,
         value: selectedEntry?.lhTest
           ? LH_LABEL[selectedEntry.lhTest.result] ?? selectedEntry.lhTest.result
-          : 'Non renseigné',
+          : t('profile.notProvided'),
       });
     }
     if (visibleFilters.has('intimacy')) {
@@ -476,11 +511,11 @@ function ConceiveCalendarContent(): React.JSX.Element {
         // Presence only — never the protection/libido/discomfort detail,
         // respecting the same private-content boundary the rest of the app
         // already uses for intimacy data.
-        value: selectedEntry?.intimacy?.answer === 'yes' ? 'Enregistré' : 'Non renseigné',
+        value: selectedEntry?.intimacy?.answer === 'yes' ? t('conceiveCalendar.intimacyRecorded') : t('profile.notProvided'),
       });
     }
     return fields;
-  }, [selectedEntry, visibleFilters]);
+  }, [selectedEntry, visibleFilters, t, CATEGORY_META, MUCUS_LABEL, LH_LABEL]);
 
   // "Évolution du cycle" has no marker/row of its own here — it's
   // represented by the always-visible "Jour du cycle"/"Statut de
@@ -517,20 +552,20 @@ function ConceiveCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Calendrier</Text>
+              <Text style={styles.title}>{t('calendar.title')}</Text>
               <Text style={styles.subtitle}>
-                Ton cycle et ta fertilité, en un coup d’œil
+                {t('conceiveCalendar.subtitle')}
               </Text>
             </View>
 
             <HeaderAction
               icon="tune-variant"
-              label="Filtres"
+              label={t('calendar.filters')}
               onPress={() => setSheet('filters')}
             />
             <HeaderAction
               icon="format-list-bulleted"
-              label="Légende"
+              label={t('calendar.legend')}
               onPress={() => setSheet('legend')}
             />
           </View>
@@ -564,7 +599,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
 
             <View style={styles.monthHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('calendar.previousMonth')}
                 accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={styles.arrowButton}
@@ -586,7 +621,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('calendar.nextMonth')}
                 accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={styles.arrowButton}
@@ -677,18 +712,18 @@ function ConceiveCalendarContent(): React.JSX.Element {
                     : DHOUL_HIJJA_MARKER_COLOR;
                 const spiritualMarkerLabel =
                   spiritualMonth === 'ramadan'
-                    ? ', Ramadan'
+                    ? t('conceiveCalendar.dayAccessibility.ramadan')
                     : spiritualMonth === 'dhoulHijja'
-                      ? ', Dhou al-Hijja'
+                      ? t('conceiveCalendar.dayAccessibility.dhoulHijja')
                       : '';
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
                     <Pressable
                       accessibilityLabel={`${date.getDate()} ${monthTitle}${
-                        isMenstruationDay ? ', règles' : ''
-                      }${isFertileDay ? ', fenêtre fertile' : ''}${
-                        isOvulationDay ? ', ovulation estimée' : ''
+                        isMenstruationDay ? t('conceiveCalendar.dayAccessibility.menstruation') : ''
+                      }${isFertileDay ? t('conceiveCalendar.dayAccessibility.fertile') : ''}${
+                        isOvulationDay ? t('conceiveCalendar.dayAccessibility.ovulation') : ''
                       }${spiritualMarkerLabel}`}
                       onPress={() => setSelectedDate(date)}
                       style={[
@@ -807,17 +842,17 @@ function ConceiveCalendarContent(): React.JSX.Element {
               ))}
               <View style={styles.inlineLegendItem}>
                 <View style={styles.inlineTodayIndicator} />
-                <Text style={styles.inlineLegendText}>Aujourd’hui</Text>
+                <Text style={styles.inlineLegendText}>{t('conceiveCalendar.todayLegend')}</Text>
               </View>
               {spiritualMarkersEnabled ? (
                 <>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Ramadan</Text>
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendRamadan')}</Text>
                   </View>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Dhou al-Hijja</Text>
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendDhoulHijja')}</Text>
                   </View>
                 </>
               ) : null}
@@ -851,13 +886,13 @@ function ConceiveCalendarContent(): React.JSX.Element {
             {hasConfirmedCycleData ? (
               <View style={styles.statusGrid}>
                 <View style={styles.statusInfo}>
-                  <Text style={styles.statusInfoLabel}>Jour du cycle</Text>
+                  <Text style={styles.statusInfoLabel}>{t('journalNote.cycleDayLabel')}</Text>
                   <Text style={styles.statusInfoValue}>
-                    Jour {selectedCycleDay}
+                    {t('journalNote.cycleDayValue', {day: selectedCycleDay})}
                   </Text>
                 </View>
                 <View style={styles.statusInfo}>
-                  <Text style={styles.statusInfoLabel}>Statut de fertilité</Text>
+                  <Text style={styles.statusInfoLabel}>{t('conceiveCalendar.selectedStatus.fertilityStatus')}</Text>
                   <Text style={styles.statusInfoValue}>
                     {PHASE_LABEL[selectedPhase]}
                   </Text>
@@ -871,16 +906,16 @@ function ConceiveCalendarContent(): React.JSX.Element {
                   size={19}
                 />
                 <Text style={styles.emptyText}>
-                  Configure ton cycle pour voir ton jour du cycle et ta fenêtre fertile.
+                  {t('conceiveCalendar.emptyState.configureCycle')}
                 </Text>
                 <Pressable
-                  accessibilityLabel="Configurer mon cycle"
+                  accessibilityLabel={t('conceiveCalendar.configureCycleCta')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('CycleInformation', { fromDashboardCTA: true })}
                   style={({ pressed }) => [styles.addButton, pressed && styles.pressed]}
                 >
                   <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
-                  <Text style={styles.addButtonText}>Configurer mon cycle</Text>
+                  <Text style={styles.addButtonText}>{t('conceiveCalendar.configureCycleCta')}</Text>
                 </Pressable>
               </View>
             )}
@@ -919,7 +954,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                   );
                   return canEditDay ? (
                     <Pressable
-                      accessibilityHint="Ouvre le journal de ce jour"
+                      accessibilityHint={t('conceiveCalendar.openJournalDayHint')}
                       accessibilityLabel={`${item.label}, ${item.value}`}
                       accessibilityRole="button"
                       key={item.key}
@@ -943,8 +978,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                   size={19}
                 />
                 <Text style={styles.emptyText}>
-                  Active au moins un filtre pour voir le suivi de cette
-                  journée.
+                  {t('conceiveCalendar.emptyState.noFilters')}
                 </Text>
               </View>
             )}
@@ -955,19 +989,19 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 inside a real confirmed period. */}
             {startOfDay(selectedDate).getTime() <= startOfDay(today).getTime() && !isDateWithinConfirmedPeriod(selectedDate) ? (
               <Pressable
-                accessibilityLabel="Mes règles ont commencé ce jour"
+                accessibilityLabel={t('calendar.dayCard.declareCta')}
                 accessibilityRole="button"
                 onPress={() => setPeriodStartSheetVisible(true)}
                 style={({ pressed }) => [styles.periodStartButton, pressed && styles.pressed]}
               >
                 <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartButtonText}>Mes règles ont commencé</Text>
+                <Text style={styles.periodStartButtonText}>{t('cycleHome.myPeriodStartedCta')}</Text>
               </Pressable>
             ) : null}
 
             {isTodaySelected ? (
               <Pressable
-                accessibilityLabel="Ajouter au journal"
+                accessibilityLabel={t('conceiveCalendar.addToJournal')}
                 accessibilityRole="button"
                 onPress={openJournal}
                 style={({ pressed }) => [
@@ -976,7 +1010,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
                 ]}
               >
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={16} />
-                <Text style={styles.addButtonText}>Ajouter au journal</Text>
+                <Text style={styles.addButtonText}>{t('conceiveCalendar.addToJournal')}</Text>
               </Pressable>
             ) : null}
           </View>
@@ -1058,9 +1092,11 @@ function ConceiveCalendarSheet({
   showHijri: boolean;
   showSpiritualMarkers: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const CATEGORY_META = useMemo(() => categoryMetaFor(t), [t]);
 
   return (
     <Modal
@@ -1072,7 +1108,7 @@ function ConceiveCalendarSheet({
     >
       <View style={styles.modalRoot}>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           onPress={onClose}
           style={styles.backdrop}
         />
@@ -1095,10 +1131,10 @@ function ConceiveCalendarSheet({
             >
               <View style={styles.legendSheetHeader}>
                 <Text style={styles.legendSheetTitle}>
-                  Légende du calendrier
+                  {t('conceiveCalendar.legendSheet.title')}
                 </Text>
                 <Text style={styles.legendSheetSubtitle}>
-                  Comprendre les couleurs et repères utilisés.
+                  {t('conceiveCalendar.legendSheet.subtitle')}
                 </Text>
               </View>
 
@@ -1145,8 +1181,8 @@ function ConceiveCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(RAMADAN_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Ramadan</Text>
-                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois du Ramadan (jeûne).</Text>
+                        <Text style={styles.legendRowTitle}>{t('calendar.legendRamadan')}</Text>
+                        <Text style={styles.legendRowText}>{t('conceiveCalendar.legendSheet.ramadanDescription')}</Text>
                       </View>
                     </View>
                     <View style={[styles.legendRow, styles.legendRowLast]}>
@@ -1155,8 +1191,8 @@ function ConceiveCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Dhou al-Hijja</Text>
-                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois de Dhou al-Hijja.</Text>
+                        <Text style={styles.legendRowTitle}>{t('calendar.legendDhoulHijja')}</Text>
+                        <Text style={styles.legendRowText}>{t('conceiveCalendar.legendSheet.dhoulHijjaDescription')}</Text>
                       </View>
                     </View>
                   </>
@@ -1173,9 +1209,9 @@ function ConceiveCalendarSheet({
                   ) : null}
                 </View>
                 <View style={styles.todayCopy}>
-                  <Text style={styles.todayTitle}>Aujourd’hui</Text>
+                  <Text style={styles.todayTitle}>{t('conceiveCalendar.legendSheet.todayTitle')}</Text>
                   <Text style={styles.todayText}>
-                    Le contour noir en pointillés indique la date d’aujourd’hui.
+                    {t('conceiveCalendar.legendSheet.todayDescription')}
                   </Text>
                 </View>
               </View>
@@ -1183,7 +1219,7 @@ function ConceiveCalendarSheet({
 
             <View style={styles.legendFooter}>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('conceiveCalendar.legendSheet.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({ pressed }) => [
@@ -1191,7 +1227,7 @@ function ConceiveCalendarSheet({
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={styles.closeLegendText}>Fermer</Text>
+                <Text style={styles.closeLegendText}>{t('common.close')}</Text>
               </Pressable>
             </View>
           </View>
@@ -1206,9 +1242,9 @@ function ConceiveCalendarSheet({
             <View style={styles.handle} />
 
             <View style={styles.filterSheetHeader}>
-              <Text style={styles.filterSheetTitle}>Filtres du calendrier</Text>
+              <Text style={styles.filterSheetTitle}>{t('conceiveCalendar.filtersSheet.title')}</Text>
               <Text style={styles.filterSheetSubtitle}>
-                Choisis les informations à afficher sur ton calendrier.
+                {t('conceiveCalendar.filtersSheet.subtitle')}
               </Text>
             </View>
 
@@ -1273,7 +1309,7 @@ function ConceiveCalendarSheet({
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={styles.doneText}>Terminé</Text>
+                <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
               </Pressable>
             </View>
           </View>

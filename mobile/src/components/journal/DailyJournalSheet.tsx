@@ -15,9 +15,11 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import i18n from '../../i18n';
 
 const JOURNAL_HEADER = require('../../assets/images/daily-journal-header.png');
 
@@ -67,75 +69,81 @@ type Props = {
 // reusable. Kept here (not in MainTabNavigator) since it's this screen's
 // original, still-canonical content; PregnancyDashboard/PostpartumDashboard's
 // lists live alongside JournalSheetHost instead.
-export const CYCLE_JOURNAL_ITEMS: Array<{
+// A function (not a static array) so its title/subtitle stay in sync with the
+// active app language — every consumer (MainTabNavigator's cycle/daughter
+// journal, this file's own default actions, tests) calls it fresh rather than
+// reading a French-only module-level constant.
+export function getCycleJournalItems(): Array<{
   route: JournalRoute;
   icon: string;
   title: string;
   subtitle: string;
   tint: string;
-}> = [
-  {
-    route: 'SymptomEntry',
-    icon: 'heart-pulse',
-    title: 'Symptôme',
-    subtitle: 'Ajoute tes symptômes physiques',
-    tint: '#E9DFFF',
-  },
-  {
-    route: 'MoodEntry',
-    icon: 'emoticon-happy-outline',
-    title: 'Humeur',
-    subtitle: 'Comment te sens-tu aujourd’hui ?',
-    tint: '#F9DDE8',
-  },
-  {
-    route: 'ActivityEntry',
-    icon: 'walk',
-    title: 'Activité physique',
-    subtitle: 'Mouvement et activité du jour',
-    tint: '#DFF0F1',
-  },
-  {
-    route: 'SleepEntry',
-    icon: 'weather-night',
-    title: 'Sommeil',
-    subtitle: 'Durée et qualité de ton sommeil',
-    tint: '#E8DDF8',
-  },
-  {
-    route: 'HydrationScreen',
-    icon: 'cup-water',
-    title: 'Hydratation',
-    subtitle: 'Suis ta consommation d’eau',
-    tint: '#DDEEFF',
-  },
-  {
-    route: 'MenstrualFlowScreen',
-    icon: 'water',
-    title: 'Flux menstruel',
-    subtitle: 'Intensité et caractéristiques du flux',
-    tint: '#F9DDE8',
-  },
-  {
-    route: 'PrivateIntimacyUnlock',
-    icon: 'heart-outline',
-    title: 'Vie intime',
-    subtitle: 'Rapport, protection et ressenti',
-    tint: '#F9DCE8',
-  },
-  {
-    route: 'NoteEntry',
-    icon: 'notebook-edit-outline',
-    title: 'Note personnelle',
-    subtitle: 'Écris tes observations et ajoute des photos privées',
-    tint: '#E9DFF7',
-  },
-];
+}> {
+  return [
+    {
+      route: 'SymptomEntry',
+      icon: 'heart-pulse',
+      title: i18n.t('dailyJournalSheet.items.symptom.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.symptom.subtitle'),
+      tint: '#E9DFFF',
+    },
+    {
+      route: 'MoodEntry',
+      icon: 'emoticon-happy-outline',
+      title: i18n.t('dailyJournalSheet.items.mood.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.mood.subtitle'),
+      tint: '#F9DDE8',
+    },
+    {
+      route: 'ActivityEntry',
+      icon: 'walk',
+      title: i18n.t('dailyJournalSheet.items.activity.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.activity.subtitle'),
+      tint: '#DFF0F1',
+    },
+    {
+      route: 'SleepEntry',
+      icon: 'weather-night',
+      title: i18n.t('dailyJournalSheet.items.sleep.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.sleep.subtitle'),
+      tint: '#E8DDF8',
+    },
+    {
+      route: 'HydrationScreen',
+      icon: 'cup-water',
+      title: i18n.t('dailyJournalSheet.items.hydration.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.hydration.subtitle'),
+      tint: '#DDEEFF',
+    },
+    {
+      route: 'MenstrualFlowScreen',
+      icon: 'water',
+      title: i18n.t('dailyJournalSheet.items.menstrualFlow.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.menstrualFlow.subtitle'),
+      tint: '#F9DDE8',
+    },
+    {
+      route: 'PrivateIntimacyUnlock',
+      icon: 'heart-outline',
+      title: i18n.t('dailyJournalSheet.items.intimacy.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.intimacy.subtitle'),
+      tint: '#F9DCE8',
+    },
+    {
+      route: 'NoteEntry',
+      icon: 'notebook-edit-outline',
+      title: i18n.t('dailyJournalSheet.items.note.title'),
+      subtitle: i18n.t('dailyJournalSheet.items.note.subtitle'),
+      tint: '#E9DFF7',
+    },
+  ];
+}
 
-const DEFAULT_TITLE = 'Journal quotidien';
-const DEFAULT_SUBTITLE = 'Comment te sens-tu aujourd’hui ?';
-
-function DailyJournalSheet({visible, onClose, title = DEFAULT_TITLE, subtitle = DEFAULT_SUBTITLE, actions}: Props): React.JSX.Element {
+function DailyJournalSheet({visible, onClose, title, subtitle, actions}: Props): React.JSX.Element {
+  const {t} = useTranslation();
+  const resolvedTitle = title ?? t('dailyJournalSheet.defaultTitle');
+  const resolvedSubtitle = subtitle ?? t('dailyJournalSheet.defaultSubtitle');
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {height} = useWindowDimensions();
@@ -192,19 +200,19 @@ function DailyJournalSheet({visible, onClose, title = DEFAULT_TITLE, subtitle = 
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
         <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
-          <Pressable accessibilityLabel="Fermer le journal" onPress={close} style={StyleSheet.absoluteFill} />
+          <Pressable accessibilityLabel={t('dailyJournalSheet.closeJournal')} onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
         <Animated.View
           {...panResponder.panHandlers}
           style={[styles.sheet, {opacity: progress, transform: [{translateY: sheetTranslateY}]}]}>
           <View style={styles.handle} />
-          <Pressable accessibilityLabel="Fermer" accessibilityRole="button" hitSlop={10} onPress={close} style={styles.closeButton}>
+          <Pressable accessibilityLabel={t('common.close')} accessibilityRole="button" hitSlop={10} onPress={close} style={styles.closeButton}>
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="close" size={20} />
           </Pressable>
           <ScrollView contentContainerStyle={[styles.scrollContent, {paddingBottom: Math.max(insets.bottom, 16) + 20}]} showsVerticalScrollIndicator={false}>
             <Image accessibilityIgnoresInvertColors resizeMode="cover" source={JOURNAL_HEADER} style={styles.headerImage} />
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
+            <Text style={styles.title}>{resolvedTitle}</Text>
+            <Text style={styles.subtitle}>{resolvedSubtitle}</Text>
             <View style={styles.cards}>
               {actions.map((action, index) => {
                 const start = 0.34 + index * 0.055;
@@ -214,7 +222,7 @@ function DailyJournalSheet({visible, onClose, title = DEFAULT_TITLE, subtitle = 
                 return (
                   <Animated.View key={action.key} style={{opacity: cardOpacity, transform: [{translateY: cardTranslateY}]}}>
                     <Pressable
-                      accessibilityHint={`Ouvre la saisie ${action.title.toLowerCase()}`}
+                      accessibilityHint={t('dailyJournalSheet.openEntryHint', {category: action.title.toLowerCase()})}
                       accessibilityLabel={action.title}
                       accessibilityRole="button"
                       android_ripple={{color: withAlpha(theme.colors.primary, 0.10)}}

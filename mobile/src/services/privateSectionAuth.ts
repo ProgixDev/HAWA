@@ -1,5 +1,6 @@
 import * as Keychain from 'react-native-keychain';
 import {sha256} from 'js-sha256';
+import i18n from '../i18n';
 
 const PIN_SERVICE = 'com.hawa.private.intimacy.pin';
 const BIOMETRIC_SERVICE = 'com.hawa.private.intimacy.biometric';
@@ -33,10 +34,19 @@ export async function getBiometryType(): Promise<Keychain.BIOMETRY_TYPE | null> 
   return Keychain.getSupportedBiometryType();
 }
 
+// The device-type name alone (no "Use "/"Utiliser " prefix) — the one place
+// that name is produced, so PrivateIntimacyFaceIdScreen's page title never
+// needs to fragile-parse it back out of the full button label (which used to
+// regex-strip a French-only "Utiliser " prefix — broken for any other
+// language).
+export function getBiometryDeviceName(type: Keychain.BIOMETRY_TYPE | null): string {
+  if (type === Keychain.BIOMETRY_TYPE.FACE || type === Keychain.BIOMETRY_TYPE.FACE_ID) {return 'Face ID';}
+  if (type === Keychain.BIOMETRY_TYPE.FINGERPRINT || type === Keychain.BIOMETRY_TYPE.TOUCH_ID) {return i18n.t('privateSectionAuth.fingerprint');}
+  return i18n.t('privateSectionAuth.biometrics');
+}
+
 export function getBiometryLabel(type: Keychain.BIOMETRY_TYPE | null): string {
-  if (type === Keychain.BIOMETRY_TYPE.FACE || type === Keychain.BIOMETRY_TYPE.FACE_ID) {return 'Utiliser Face ID';}
-  if (type === Keychain.BIOMETRY_TYPE.FINGERPRINT || type === Keychain.BIOMETRY_TYPE.TOUCH_ID) {return 'Utiliser l’empreinte';}
-  return 'Utiliser la biométrie';
+  return i18n.t('privateSectionAuth.useBiometryLabel', {device: getBiometryDeviceName(type)});
 }
 
 export function getBiometryIcon(type: Keychain.BIOMETRY_TYPE | null): string {

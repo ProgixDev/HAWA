@@ -17,6 +17,7 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -33,6 +34,8 @@ import {
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 
 const WEIGHT_ILLUSTRATION = require('../../assets/images/pregnancy/pregnancy-weight-scale.png');
 
@@ -57,13 +60,14 @@ const WEIGHT_ILLUSTRATION = require('../../assets/images/pregnancy/pregnancy-wei
 // <Image source={require('../../assets/images/pregnancy/pregnancy-weight-scale.png')} resizeMode="contain" .../>.
 
 function ScaleIllustration(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <View style={styles.illustrationWrap}>
       <Image
         accessibilityIgnoresInvertColors
-        accessibilityLabel="Balance pèse-personne"
+        accessibilityLabel={t('pregnancyWeight.scaleAccessibility')}
         resizeMode="contain"
         source={WEIGHT_ILLUSTRATION}
         style={styles.weightIllustration}
@@ -91,6 +95,7 @@ function WeightEntrySheet({
   saving: boolean;
   error: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -145,7 +150,7 @@ function WeightEntrySheet({
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={styles.sheetOverlay}>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           accessibilityRole="button"
           onPress={onClose}
           style={StyleSheet.absoluteFill}
@@ -169,16 +174,16 @@ function WeightEntrySheet({
 
             <View style={styles.sheetHeaderCopy}>
               <Text style={styles.sheetTitle}>
-                {initialValue ? 'Modifier ton poids' : 'Ajouter ton poids'}
+                {initialValue ? t('pregnancyWeight.sheet.editTitle') : t('pregnancyWeight.sheet.addTitle')}
               </Text>
               <Text style={styles.sheetSubtitle}>
-                Saisis directement la mesure du jour
+                {t('pregnancyWeight.sheet.subtitle')}
               </Text>
             </View>
           </View>
 
           <View style={styles.weightInputCard}>
-            <Text style={styles.weightInputLabel}>Poids actuel</Text>
+            <Text style={styles.weightInputLabel}>{t('pregnancyWeight.sheet.inputLabel')}</Text>
 
             <View
               style={[
@@ -186,13 +191,13 @@ function WeightEntrySheet({
                 draft.length > 0 && styles.weightInputRowActive,
               ]}>
               <TextInput
-                accessibilityLabel="Poids en kilogrammes"
+                accessibilityLabel={t('pregnancyWeight.sheet.inputAccessibility')}
                 autoFocus
                 keyboardType="decimal-pad"
                 maxLength={5}
                 onChangeText={handleChange}
                 onSubmitEditing={handleSubmit}
-                placeholder="Ex. 64,5"
+                placeholder={t('pregnancyWeight.sheet.placeholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 returnKeyType="done"
                 selectTextOnFocus
@@ -212,7 +217,7 @@ function WeightEntrySheet({
                 size={14}
               />
               <Text style={styles.inputSupportText}>
-                Entre une valeur entre 30 et 300 kg.
+                {t('pregnancyWeight.sheet.supportText')}
               </Text>
             </View>
           </View>
@@ -228,7 +233,7 @@ function WeightEntrySheet({
               </View>
               <View style={styles.previousValueCopy}>
                 <Text style={styles.previousValueLabel}>
-                  Valeur enregistrée aujourd’hui
+                  {t('pregnancyWeight.sheet.previousValueLabel')}
                 </Text>
                 <Text style={styles.previousValueText}>
                   {formatKg(initialValue)} kg
@@ -249,7 +254,7 @@ function WeightEntrySheet({
           ) : null}
 
           <Pressable
-            accessibilityLabel="Enregistrer le poids"
+            accessibilityLabel={t('pregnancyWeight.sheet.saveAccessibility')}
             accessibilityRole="button"
             accessibilityState={{disabled: saving || !isValid}}
             disabled={saving || !isValid}
@@ -265,7 +270,7 @@ function WeightEntrySheet({
               size={19}
             />
             <Text style={styles.saveText}>
-              {saving ? 'Enregistrement…' : 'Enregistrer ce poids'}
+              {saving ? t('periodStartSheet.saving') : t('pregnancyWeight.sheet.save')}
             </Text>
           </Pressable>
         </View>
@@ -275,6 +280,7 @@ function WeightEntrySheet({
 }
 
 export default function PregnancyWeightScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -286,7 +292,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
   // always saves to the CURRENT day, never to the day the screen opened.
   const {today, todayKey} = useToday();
   const todayLabel = useMemo(
-    () => new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(today),
+    () => new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(today),
     [today],
   );
 
@@ -337,7 +343,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
 
   const handleSave = async (value: number) => {
     if (!Number.isFinite(value) || value <= 0 || value > 300) {
-      setError('Saisis un poids valide en kg.');
+      setError(t('pregnancyWeight.errors.invalidWeight'));
       return;
     }
     setError('');
@@ -347,7 +353,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       await savePregnancyWeight(entry);
       setTodayEntry(entry);
       setSheetVisible(false);
-      saveToast.show('Poids enregistré', 'Ton suivi de poids a bien été mis à jour.');
+      saveToast.show(t('pregnancyWeight.saveToast.savedTitle'), t('pregnancyWeight.saveToast.savedMessage'));
     } finally {
       setSaving(false);
     }
@@ -361,7 +367,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
     try {
       await deletePregnancyWeight(todayKey);
       setTodayEntry(undefined);
-      saveToast.show('Poids effacé', 'Ton suivi de poids a bien été mis à jour.');
+      saveToast.show(t('pregnancyWeight.saveToast.clearedTitle'), t('pregnancyWeight.saveToast.clearedMessage'));
     } finally {
       setSaving(false);
     }
@@ -377,7 +383,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <View style={[styles.header, {paddingTop: getTopPadding(insets.top, true)}]}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
@@ -385,8 +391,8 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
         </Pressable>
         <View style={styles.headerCopy}>
-          <Text style={styles.title}>Poids</Text>
-          <Text style={styles.subtitle}>Aujourd’hui • {todayLabel}</Text>
+          <Text style={styles.title}>{t('pregnancyWeight.header.title')}</Text>
+          <Text style={styles.subtitle}>{t('pregnancyWeight.header.subtitle', {date: todayLabel})}</Text>
         </View>
         <View style={styles.headerSpacer} />
       </View>
@@ -407,19 +413,19 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
               name="calendar-today-outline"
               size={13}
             />
-            <Text style={styles.sectionBadgeText}>MESURE DU JOUR</Text>
+            <Text style={styles.sectionBadgeText}>{t('pregnancyWeight.todayMeasurementBadge')}</Text>
           </View>
 
           {!todayEntry ? (
             <View style={styles.emptyBlock}>
-              <Text style={styles.emptyTitle}>Aucune mesure enregistrée</Text>
-              <Text style={styles.emptyText}>Ajoute ton poids pour suivre{'\n'}son évolution au fil du temps.</Text>
+              <Text style={styles.emptyTitle}>{t('pregnancyWeight.empty.title')}</Text>
+              <Text style={styles.emptyText}>{t('pregnancyWeight.empty.text')}</Text>
             </View>
           ) : (
             <View style={styles.recordedBlock}>
-              <Text style={styles.recordedLabel}>Poids enregistré</Text>
+              <Text style={styles.recordedLabel}>{t('pregnancyWeight.recorded.label')}</Text>
               <Text style={styles.recordedValue}>{formatKg(todayEntry.valueKg)} kg</Text>
-              <Text style={styles.recordedDate}>Aujourd’hui</Text>
+              <Text style={styles.recordedDate}>{t('pregnancyWeight.recorded.today')}</Text>
 
               {evolutionKg !== undefined ? (
                 <View style={styles.evolutionCard}>
@@ -434,21 +440,21 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
                     size={18}
                   />
                   <View style={styles.evolutionCopy}>
-                    <Text style={styles.evolutionTitle}>Évolution</Text>
+                    <Text style={styles.evolutionTitle}>{t('pregnancyWeight.evolution.title')}</Text>
                     <Text style={styles.evolutionText}>
-                      {evolutionKg >= 0 ? '+' : '−'}{formatKg(Math.abs(evolutionKg))} kg depuis la dernière mesure
+                      {evolutionKg >= 0 ? '+' : '−'}{formatKg(Math.abs(evolutionKg))} kg {t('pregnancyWeight.evolution.sinceLastMeasurement')}
                     </Text>
                   </View>
                 </View>
               ) : null}
 
               <Pressable
-                accessibilityLabel="Effacer la mesure du jour"
+                accessibilityLabel={t('pregnancyWeight.clearToday')}
                 accessibilityRole="button"
                 disabled={saving}
                 onPress={handleClear}
                 style={({pressed}) => [styles.clearButton, pressed && styles.pressed]}>
-                <Text style={styles.clearText}>Effacer la mesure du jour</Text>
+                <Text style={styles.clearText}>{t('pregnancyWeight.clearToday')}</Text>
               </Pressable>
             </View>
           )}
@@ -457,11 +463,11 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
 
       <Animated.View style={[styles.ctaWrap, {paddingBottom: Math.max(insets.bottom, 16)}, entranceStyle]}>
         <Pressable
-          accessibilityLabel={todayEntry ? 'Modifier mon poids' : 'Ajouter mon poids'}
+          accessibilityLabel={todayEntry ? t('pregnancyWeight.cta.editAccessibility') : t('pregnancyWeight.cta.addAccessibility')}
           accessibilityRole="button"
           onPress={openSheet}
           style={({pressed}) => [styles.cta, pressed && styles.pressed]}>
-          <Text style={styles.ctaText}>{todayEntry ? 'Modifier' : 'Ajouter mon poids'}</Text>
+          <Text style={styles.ctaText}>{todayEntry ? t('pregnancyWeight.cta.edit') : t('pregnancyWeight.cta.add')}</Text>
         </Pressable>
       </Animated.View>
 

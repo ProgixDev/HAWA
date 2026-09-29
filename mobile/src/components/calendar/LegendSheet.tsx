@@ -12,17 +12,19 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type LegendEntry = {
   color: string;
-  label: string;
-  description: string;
+  labelKey: string;
+  descriptionKey: string;
   outline?: boolean;
   icon?: IconName;
 };
@@ -45,14 +47,14 @@ const NOTES_COLOR = '#2C8E93';
 const SPIRITUAL_ENTRIES: LegendEntry[] = [
   {
     color: RAMADAN_MARKER_COLOR,
-    label: 'Ramadan',
-    description: 'Ce jour se situe dans le mois du Ramadan (jeûne).',
+    labelKey: 'calendar.legendRamadan',
+    descriptionKey: 'calendar.legendSheet.ramadanDescription',
     icon: 'moon-waning-crescent',
   },
   {
     color: DHOUL_HIJJA_MARKER_COLOR,
-    label: 'Dhou al-Hijja',
-    description: 'Ce jour se situe dans le mois de Dhou al-Hijja.',
+    labelKey: 'calendar.legendDhoulHijja',
+    descriptionKey: 'calendar.legendSheet.dhoulHijjaDescription',
     icon: 'moon-waning-crescent',
   },
 ];
@@ -61,38 +63,35 @@ function createEntries(theme: ResolvedAwaTheme): LegendEntry[] {
   return [
     {
       color: PERIOD_COLOR,
-      label: 'Règles',
-      description: 'Jours enregistrés comme période de menstruation.',
+      labelKey: 'calendar.legendPeriod',
+      descriptionKey: 'calendar.legendSheet.periodDescription',
     },
     {
       color: FERTILE_COLOR,
-      label: 'Fenêtre fertile',
-      description:
-        'Période où la probabilité de conception est la plus élevée.',
+      labelKey: 'cycleHome.fertileWindowLabel',
+      descriptionKey: 'calendar.legendSheet.fertileDescription',
     },
     {
       color: OVULATION_COLOR,
-      label: 'Ovulation',
-      description: 'Jour estimé de l’ovulation dans ton cycle.',
+      labelKey: 'cyclePhase.ovulation',
+      descriptionKey: 'calendar.legendSheet.ovulationDescription',
     },
     {
       color: MOOD_COLOR,
-      label: 'Humeur',
-      description: 'Une humeur a été enregistrée pour ce jour.',
+      labelKey: 'dailyJournal.mood',
+      descriptionKey: 'calendar.legendSheet.moodDescription',
     },
     {
       color: NOTES_COLOR,
-      label: 'Notes / Symptômes',
-      description:
-        'Une note, un symptôme, ou un autre suivi quotidien (activité, sommeil, hydratation, vie intime) a été enregistré pour ce jour.',
+      labelKey: 'calendar.legendSheet.notesSymptomsLabel',
+      descriptionKey: 'calendar.legendSheet.notesSymptomsDescription',
     },
     {
       // Decorative-only (not medical) — follows the resolved theme, matching
       // MonthCalendarCard's own Today treatment exactly.
       color: theme.colors.text,
-      label: 'Aujourd’hui',
-      description:
-        'Repère l’entourage du jour actuel dans le calendrier.',
+      labelKey: 'cycleHome.todayLabel',
+      descriptionKey: 'calendar.legendSheet.todayDescription',
       outline: true,
     },
   ];
@@ -112,6 +111,7 @@ function LegendSheet({
   onClose,
   showSpiritualMarkers = false,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -185,7 +185,7 @@ function LegendSheet({
             },
           ]}>
           <Pressable
-            accessibilityLabel="Fermer la légende"
+            accessibilityLabel={t('calendar.closeLegend')}
             onPress={close}
             style={StyleSheet.absoluteFill}
           />
@@ -217,11 +217,11 @@ function LegendSheet({
           <View style={styles.handle} />
 
           <Text style={styles.title}>
-            Légende du calendrier
+            {t('calendar.legendSheet.title')}
           </Text>
 
           <Text style={styles.subtitle}>
-            Ce que signifient les couleurs et repères affichés.
+            {t('calendar.legendSheet.subtitle')}
           </Text>
 
           <ScrollView
@@ -233,7 +233,7 @@ function LegendSheet({
             }>
             {entries.map(entry => (
               <View
-                key={entry.label}
+                key={entry.labelKey}
                 style={styles.row}>
                 {entry.icon ? (
                   <MaterialDesignIcons
@@ -270,14 +270,14 @@ function LegendSheet({
                   <Text
                     numberOfLines={1}
                     style={styles.label}>
-                    {entry.label}
+                    {t(entry.labelKey)}
                   </Text>
 
                   <Text
                     style={
                       styles.description
                     }>
-                    {entry.description}
+                    {t(entry.descriptionKey)}
                   </Text>
                 </View>
               </View>
@@ -294,7 +294,7 @@ function LegendSheet({
             ]}>
             <Text
               style={styles.doneText}>
-              Fermer
+              {t('common.close')}
             </Text>
           </Pressable>
         </Animated.View>

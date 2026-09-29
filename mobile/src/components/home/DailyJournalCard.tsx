@@ -1,8 +1,10 @@
 import React, {memo, useEffect, useMemo, useRef} from 'react';
 import {AccessibilityInfo, Animated, Easing, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from './homeTheme';
+import '../../i18n';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {JournalRoute} from '../journal/DailyJournalSheet';
@@ -23,23 +25,6 @@ export type Shortcut = {
   subtitle?: string;
 };
 
-const SHORTCUTS: Shortcut[] = [
-  {section: 'symptoms', route: 'SymptomEntry', icon: 'heart-outline', label: 'Symptômes'},
-  {section: 'mood', route: 'MoodEntry', icon: 'emoticon-happy-outline', label: 'Humeur'},
-  {section: 'activity', route: 'ActivityEntry', icon: 'run', label: 'Activité'},
-  {section: 'sleep', route: 'SleepEntry', icon: 'weather-night', label: 'Sommeil'},
-  {section: 'hydration', route: 'HydrationScreen', icon: 'cup-water', label: 'Hydratation'},
-  {section: 'flow', route: 'MenstrualFlowScreen', icon: 'water', label: 'Flux menstruel'},
-  {
-    section: 'intimacy',
-    route: 'PrivateIntimacyUnlock',
-    icon: 'shield-lock-outline',
-    label: 'Vie intime',
-    subtitle: 'Rapports, protection et ressenti',
-  },
-  {section: 'note', route: 'NoteEntry', icon: 'notebook-edit-outline', label: 'Notes'},
-];
-
 type Props = {
   entry?: DailyJournalEntry;
   onNavigate: (route: JournalRoute) => void;
@@ -59,11 +44,38 @@ type Props = {
   hideIntimacy?: boolean;
 };
 
-function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Journal du jour', hideIntimacy = false}: Props): React.JSX.Element {
+function DailyJournalCard({entry, onNavigate, shortcuts, title, hideIntimacy = false}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const progress = useRef(new Animated.Value(0)).current;
-  const visibleShortcuts = hideIntimacy ? shortcuts.filter(shortcut => shortcut.section !== 'intimacy') : shortcuts;
+  // Defaults computed here (not a module-level constant) so the original
+  // generic 8-item list/title stay localized — every existing caller that
+  // omits these props (CycleHomeScreen) is otherwise unaffected; a caller
+  // passing its OWN shortcuts/title (e.g. an objective with different daily
+  // items) keeps full control of that copy, untouched.
+  const defaultShortcuts: Shortcut[] = useMemo(
+    () => [
+      {section: 'symptoms', route: 'SymptomEntry', icon: 'heart-outline', label: t('dailyJournal.symptoms')},
+      {section: 'mood', route: 'MoodEntry', icon: 'emoticon-happy-outline', label: t('dailyJournal.mood')},
+      {section: 'activity', route: 'ActivityEntry', icon: 'run', label: t('dailyJournal.activity')},
+      {section: 'sleep', route: 'SleepEntry', icon: 'weather-night', label: t('dailyJournal.sleep')},
+      {section: 'hydration', route: 'HydrationScreen', icon: 'cup-water', label: t('dailyJournal.hydration')},
+      {section: 'flow', route: 'MenstrualFlowScreen', icon: 'water', label: t('dailyJournal.menstrualFlow')},
+      {
+        section: 'intimacy',
+        route: 'PrivateIntimacyUnlock',
+        icon: 'shield-lock-outline',
+        label: t('dailyJournal.intimacy'),
+        subtitle: t('dailyJournal.intimacySubtitle'),
+      },
+      {section: 'note', route: 'NoteEntry', icon: 'notebook-edit-outline', label: t('dailyJournal.notes')},
+    ],
+    [t],
+  );
+  const resolvedShortcuts = shortcuts ?? defaultShortcuts;
+  const resolvedTitle = title ?? t('dailyJournal.title');
+  const visibleShortcuts = hideIntimacy ? resolvedShortcuts.filter(shortcut => shortcut.section !== 'intimacy') : resolvedShortcuts;
   const completed = visibleShortcuts.filter(shortcut => Boolean(entry?.[shortcut.section])).length;
   const ratio = completed / visibleShortcuts.length;
 
@@ -81,8 +93,8 @@ function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Jo
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.progressLabel}>{completed} / {visibleShortcuts.length} complété</Text>
+        <Text style={styles.title}>{resolvedTitle}</Text>
+        <Text style={styles.progressLabel}>{t('dailyJournal.completedOf', {completed, total: visibleShortcuts.length})}</Text>
       </View>
 
       <View style={styles.track}>
@@ -100,7 +112,7 @@ function DailyJournalCard({entry, onNavigate, shortcuts = SHORTCUTS, title = 'Jo
           return (
             <Pressable
               accessibilityHint={shortcut.subtitle}
-              accessibilityLabel={`${shortcut.label}${done ? ', complété' : ''}`}
+              accessibilityLabel={`${shortcut.label}${done ? t('dailyJournal.completedSuffix') : ''}`}
               accessibilityRole="button"
               key={shortcut.section}
               onPress={() => onNavigate(shortcut.route)}

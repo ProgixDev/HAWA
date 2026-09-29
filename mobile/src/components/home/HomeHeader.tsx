@@ -2,8 +2,10 @@ import React, { memo, useEffect, useMemo, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
+import '../../i18n';
 import { withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import InAppNotificationCenter from './InAppNotificationCenter';
 import {
@@ -31,6 +33,7 @@ function HomeHeader({
   subtitle,
   onPressProfile,
 }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -83,7 +86,7 @@ function HomeHeader({
       ]}
     >
       <View style={styles.greetingCopy}>
-        <Text style={styles.greeting}>As-salamu ‘alaykum,</Text>
+        <Text style={styles.greeting}>{t('cycleHome.greeting')}</Text>
 
         {firstName.trim().length > 0 && (
           <Text numberOfLines={2} style={styles.name}>
@@ -98,8 +101,8 @@ function HomeHeader({
         <Pressable
           accessibilityLabel={
             unreadCount > 0
-              ? `Notifications, ${unreadCount} non lues`
-              : 'Notifications'
+              ? t('homeHeader.notificationsUnread', { count: unreadCount })
+              : t('homeHeader.notifications')
           }
           accessibilityRole="button"
           hitSlop={8}
@@ -128,7 +131,7 @@ function HomeHeader({
         </Pressable>
 
         <Pressable
-          accessibilityLabel="Ouvrir mon profil"
+          accessibilityLabel={t('homeHeader.openProfile')}
           accessibilityRole="button"
           hitSlop={8}
           onPress={onPressProfile}

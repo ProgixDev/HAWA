@@ -72,23 +72,23 @@ const kindOfDay = (renderer: ReactTestRenderer.ReactTestRenderer, dayOfMonth: nu
 describe('Calendar past months', () => {
   it('August (past): the recorded period is painted, the projected fertile window / ovulation are not', async () => {
     const renderer = await renderMonth(new Date(2026, 7, 1));
-    expect(kindOfDay(renderer, 5)).toBe('period');
-    expect(kindOfDay(renderer, 14)).toBe('normal');
-    expect(kindOfDay(renderer, 18)).toBe('normal');
+    expect(kindOfDay(renderer, 5)).toBe('règles');
+    expect(kindOfDay(renderer, 14)).toBe('jour normal');
+    expect(kindOfDay(renderer, 18)).toBe('jour normal');
   });
 
   it('July (older, never recorded): nothing is painted retroactively', async () => {
     const renderer = await renderMonth(new Date(2026, 6, 1));
     for (let dayOfMonth = 1; dayOfMonth <= 31; dayOfMonth += 1) {
-      expect(kindOfDay(renderer, dayOfMonth)).toBe('normal');
+      expect(kindOfDay(renderer, dayOfMonth)).toBe('jour normal');
     }
   });
 
   it('September (current): unchanged — recorded period, fertile window, ovulation, then the next projected period', async () => {
     const renderer = await renderMonth(new Date(2026, 8, 1));
-    expect(kindOfDay(renderer, 2)).toBe('period');
+    expect(kindOfDay(renderer, 2)).toBe('règles');
     expect(kindOfDay(renderer, 12)).toBe('fertile');
     expect(kindOfDay(renderer, 15)).toBe('ovulation');
-    expect(kindOfDay(renderer, 29)).toBe('period');
+    expect(kindOfDay(renderer, 29)).toBe('règles');
   });
 });

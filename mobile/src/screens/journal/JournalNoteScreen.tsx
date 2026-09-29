@@ -20,6 +20,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
@@ -29,11 +30,14 @@ import {resolvePrivatePhotos} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 const MAX = 1000;
 
 export default function JournalNoteScreen(): React.JSX.Element | null {
+  const {t} = useTranslation();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -69,13 +73,14 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
   // always saves to the CURRENT day, never to the day the screen opened.
   const {today, todayKey: storageDate} = useToday();
   const now = new Date();
-  const longDate = new Intl.DateTimeFormat('fr-FR', {
+  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const longDate = new Intl.DateTimeFormat(dateLocale, {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   }).format(now);
-  const shortDate = new Intl.DateTimeFormat('fr-FR', {
+  const shortDate = new Intl.DateTimeFormat(dateLocale, {
     weekday: 'long', day: 'numeric', month: 'long',
   }).format(now);
-  const time = new Intl.DateTimeFormat('fr-FR', {
+  const time = new Intl.DateTimeFormat(dateLocale, {
     hour: '2-digit', minute: '2-digit',
   }).format(now);
   // Null (no "Jour N du cycle" shown) when this objective/state has no valid
@@ -192,8 +197,8 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
 
     if (!text.trim()) {
       Alert.alert(
-        'Note personnelle',
-        'Écris quelques mots avant d’enregistrer.',
+        t('journalNote.personalNoteTitle'),
+        t('journalNote.writeAFewWords'),
       );
       return;
     }
@@ -217,8 +222,8 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
       showSuccessToast();
     } catch {
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer ta note pour le moment.",
+        t('journalNote.errorTitle'),
+        t('journalNote.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -255,7 +260,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
             isVerySmallScreen && styles.headerVerySmall,
           ]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -279,7 +284,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
                   styles.title,
                   isSmallScreen && styles.titleSmall,
                 ]}>
-                Notes personnelles
+                {t('journalNote.personalNotesTitle')}
               </Text>
 
               <MaterialDesignIcons
@@ -295,12 +300,12 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
                 styles.date,
                 isSmallScreen && styles.dateSmall,
               ]}>
-              {cycleDay !== null ? `${shortDate} · Jour ${cycleDay} du cycle` : shortDate}
+              {cycleDay !== null ? t('journalActivity.dateWithCycleDay', {date: shortDate, day: cycleDay}) : shortDate}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel={hidden ? 'Afficher la note' : 'Masquer la note'}
+            accessibilityLabel={hidden ? t('journalNote.showNote') : t('journalNote.hideNote')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={() => setHidden(value => !value)}
@@ -321,7 +326,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
                   styles.hideText,
                   isSmallScreen && styles.hideTextSmall,
                 ]}>
-                {hidden ? 'Afficher' : 'Masquer'}
+                {hidden ? t('journalNote.show') : t('journalNote.hide')}
               </Text>
             ) : null}
           </Pressable>
@@ -349,11 +354,11 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
                 styles.heroCopy,
                 isSmallScreen && styles.heroCopySmall,
               ]}>
-              <Text style={styles.heroTitle}>Ton espace rien qu’à toi ♡</Text>
-              <Text style={styles.heroText}>Écris ce que tu souhaites retenir aujourd’hui : tes ressentis, observations, évolution de ta peau, pilosité ou tout autre symptôme.</Text>
+              <Text style={styles.heroTitle}>{t('journalNote.heroTitle')}</Text>
+              <Text style={styles.heroText}>{t('journalNote.heroText')}</Text>
               <View style={styles.privateBadge}>
                 <MaterialDesignIcons color={theme.colors.primary} name="lock" size={15} />
-                <Text style={styles.privateBadgeText}>100% privé et sécurisé</Text>
+                <Text style={styles.privateBadgeText}>{t('journalNote.privateBadge')}</Text>
               </View>
             </View>
           </ImageBackground>
@@ -361,7 +366,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
           <View style={styles.card}>
             <View style={styles.sectionHeader}>
               <View style={styles.sectionIcon}><MaterialDesignIcons color={theme.colors.primary} name="pencil-outline" size={23} /></View>
-              <Text style={styles.sectionTitle}>Ta note du jour</Text>
+              <Text style={styles.sectionTitle}>{t('journalNote.todaysNoteTitle')}</Text>
             </View>
             <View style={styles.noteBox}>
               <TextInput
@@ -369,13 +374,13 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
                 maxLength={MAX}
                 multiline
                 onChangeText={setText}
-                placeholder="Écris ici ce que tu souhaites noter..."
+                placeholder={t('journalSleep.notePlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={[styles.noteInput, hidden && styles.hiddenInput]}
                 textAlignVertical="top"
                 value={text}
               />
-              {hidden && <View pointerEvents="none" style={styles.hiddenOverlay}><MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={24} /><Text style={styles.hiddenText}>Note masquée</Text></View>}
+              {hidden && <View pointerEvents="none" style={styles.hiddenOverlay}><MaterialDesignIcons color={theme.colors.textMuted} name="lock-outline" size={24} /><Text style={styles.hiddenText}>{t('journalNote.noteHidden')}</Text></View>}
               <Text style={styles.counter}>{text.length} / {MAX}</Text>
               <MaterialDesignIcons color={theme.colors.secondary} name="sprout" size={34} style={styles.noteLeaf} />
             </View>
@@ -385,45 +390,45 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
             <View style={styles.photoHeader}>
               <View style={styles.sectionHeaderNoMargin}>
                 <View style={styles.sectionIcon}><MaterialDesignIcons color={theme.colors.primary} name="camera-outline" size={23} /></View>
-                <View><Text style={styles.sectionTitle}>Photos privées <Text style={styles.optional}>(optionnel)</Text></Text><Text style={styles.photoHint}>Suis l’évolution de ta peau, de ta pilosité ou d’un symptôme.</Text></View>
+                <View><Text style={styles.sectionTitle}>{t('journalNote.privatePhotosTitle')} <Text style={styles.optional}>{t('journalMood.optional')}</Text></Text><Text style={styles.photoHint}>{t('journalNote.privatePhotosHint')}</Text></View>
               </View>
-              
+
             </View>
             {photoCount > 0 ? (
               <Pressable onPress={() => navigation.navigate('PrivatePhotoEntry')} style={[styles.photoEmpty, styles.photoAdded]}>
                 <View style={[styles.photoPlus, styles.photoAddedIcon]}><MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="check" size={24} /></View>
-                <Text style={styles.photoEmptyTitle}>{photoCount === 1 ? '1 photo ajoutée' : `${photoCount} photos ajoutées`}</Text>
-                <Text style={styles.photoEmptyText}>Touche pour voir, remplacer ou supprimer.</Text>
+                <Text style={styles.photoEmptyTitle}>{t('journalNote.photosAddedCount', {count: photoCount})}</Text>
+                <Text style={styles.photoEmptyText}>{t('journalNote.tapToViewReplaceDelete')}</Text>
               </Pressable>
             ) : (
               <Pressable onPress={() => navigation.navigate('PrivatePhotoEntry')} style={styles.photoEmpty}>
                 <View style={styles.photoPlus}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={29} /></View>
-                <Text style={styles.photoEmptyTitle}>Ajouter des photos privées</Text>
-                <Text style={styles.photoEmptyText}>Tes photos restent uniquement sur ton appareil.</Text>
+                <Text style={styles.photoEmptyTitle}>{t('journalNote.addPrivatePhotos')}</Text>
+                <Text style={styles.photoEmptyText}>{t('journalNote.photosStayOnDevice')}</Text>
               </Pressable>
             )}
 
             <View style={styles.protection}>
               <View style={styles.protectionIcon}><MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={27} /></View>
-              <View style={styles.protectionCopy}><Text style={styles.protectionTitle}>Tes données sont protégées</Text><Text style={styles.protectionText}>Toutes tes notes et photos sont stockées uniquement sur ton appareil. Personne d’autre n’y a accès.</Text></View>
+              <View style={styles.protectionCopy}><Text style={styles.protectionTitle}>{t('journalNote.dataProtectedTitle')}</Text><Text style={styles.protectionText}>{t('journalNote.dataProtectedText')}</Text></View>
               <MaterialDesignIcons color={theme.colors.secondary} name="folder-lock-outline" size={39} />
             </View>
           </View>
 
           <View style={styles.infoCard}>
-            <Info icon="calendar-month-outline" label="Date" value={longDate} />
+            <Info icon="calendar-month-outline" label={t('journalNote.dateLabel')} value={longDate} />
             <View style={styles.divider} />
-            <Info icon="clock-outline" label="Heure" value={time} />
+            <Info icon="clock-outline" label={t('journalNote.timeLabel')} value={time} />
             {cycleDay !== null ? (
               <>
                 <View style={styles.divider} />
-                <Info icon="flower-outline" label="Jour du cycle" value={`Jour ${cycleDay}`} />
+                <Info icon="flower-outline" label={t('journalNote.cycleDayLabel')} value={t('journalNote.cycleDayValue', {day: cycleDay})} />
               </>
             ) : null}
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer ma note"
+            accessibilityLabel={t('journalNote.saveMyNote')}
             accessibilityRole="button"
             disabled={saving}
             onPress={save}
@@ -438,11 +443,11 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
               size={22}
             />
             <Text style={styles.saveText}>
-              {saving ? 'Enregistrement…' : 'Enregistrer ma note'}
+              {saving ? t('periodStartSheet.saving') : t('journalNote.saveMyNote')}
             </Text>
           </Pressable>
 
-          {hasSavedNote ? <ClearEntryButton onConfirm={clearNote} subject="cette note" /> : null}
+          {hasSavedNote ? <ClearEntryButton onConfirm={clearNote} subject={t('journalNote.clearSubject')} /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -478,11 +483,11 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
           </View>
 
           <Text style={styles.toastText}>
-            Note enregistrée avec succès ✨
+            {t('journalNote.savedToast')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={hideSuccessToast}
