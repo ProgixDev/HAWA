@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -25,34 +26,38 @@ import {
 } from '../state/postpartumPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import '../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumFeeding'>;
 
 type FeedingOption = {
   id: PostpartumFeedingType;
-  label: string;
+  labelKey: string;
   image: number;
 };
 
+// setFeedingType() persists `option.id` (a stable PostpartumFeedingType
+// enum value — see src/state/postpartumPreferences.ts), never the label
+// text, so these labels are purely for display and safe to translate.
 const OPTIONS: FeedingOption[] = [
   {
     id: 'exclusive_breastfeeding',
-    label: 'Allaitement maternel exclusif',
+    labelKey: 'postpartumFeeding.options.exclusiveBreastfeeding',
     image: require('../assets/images/postpartum/feeding/feeding-breastfeeding.png'),
   },
   {
     id: 'mixed',
-    label: 'Allaitement mixte\n(sein + biberon)',
+    labelKey: 'postpartumFeeding.options.mixed',
     image: require('../assets/images/postpartum/feeding/feeding-mixed.png'),
   },
   {
     id: 'exclusive_bottle',
-    label: 'Biberon exclusivement',
+    labelKey: 'postpartumFeeding.options.exclusiveBottle',
     image: require('../assets/images/postpartum/feeding/feeding-bottle.png'),
   },
   {
     id: 'unknown',
-    label: 'Je ne sais pas encore',
+    labelKey: 'postpartumFeeding.options.unknown',
     image: require('../assets/images/postpartum/feeding/feeding-unknown.png'),
   },
 ];
@@ -66,9 +71,11 @@ type OptionCardProps = {
 // Identical card behavior/animation to PostpartumDeliveryTypeScreen's
 // OptionCard — same subtle scale pulse on selection.
 function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const scale = useRef(new Animated.Value(1)).current;
+  const label = t(option.labelKey);
 
   useEffect(() => {
     if (!selected) {return;}
@@ -81,7 +88,7 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
   return (
     <Animated.View style={[styles.optionWrapper, {transform: [{scale}]}]}>
       <Pressable
-        accessibilityLabel={option.label.replace('\n', ' ')}
+        accessibilityLabel={label.replace('\n', ' ')}
         accessibilityRole="radio"
         accessibilityState={{checked: selected}}
         onPress={onPress}
@@ -90,7 +97,7 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
           <Image accessibilityIgnoresInvertColors resizeMode="contain" source={option.image} style={styles.optionImage} />
         </View>
 
-        <Text style={styles.optionLabel}>{option.label}</Text>
+        <Text style={styles.optionLabel}>{label}</Text>
 
         <View style={[styles.checkBadge, selected && styles.checkBadgeSelected]}>
           {selected ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} /> : null}
@@ -101,6 +108,7 @@ function OptionCard({option, selected, onPress}: OptionCardProps): React.JSX.Ele
 }
 
 function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -192,7 +200,7 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
             <View style={styles.header}>
               {isEdit ? (
                 <Pressable
-                  accessibilityLabel="Retour"
+                  accessibilityLabel={t('common.back')}
                   accessibilityRole="button"
                   hitSlop={10}
                   onPress={navigation.goBack}
@@ -200,8 +208,8 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
                   <MaterialDesignIcons color={theme.colors.text} name="arrow-left" size={22} />
                 </Pressable>
               ) : null}
-              <Text style={styles.title}>Allaitement</Text>
-              <Text style={styles.subtitle}>Ton choix nous aide à personnaliser ton suivi et nos conseils.</Text>
+              <Text style={styles.title}>{t('postpartumFeeding.title')}</Text>
+              <Text style={styles.subtitle}>{t('postpartumFeeding.subtitle')}</Text>
             </View>
 
             <View style={styles.optionsCenterContainer}>
@@ -224,7 +232,7 @@ function PostpartumFeedingScreen({navigation, route}: Props): React.JSX.Element 
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}
+              {saving ? t('postpartumFeeding.saving') : isEdit ? t('common.save') : t('postpartumFeeding.next')}
             </Text>
           </Pressable>
         </ScrollView>

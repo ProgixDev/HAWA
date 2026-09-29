@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -25,6 +26,7 @@ import {
 } from '../state/postpartumPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import '../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -33,29 +35,32 @@ type Props = NativeStackScreenProps<
 
 type DeliveryTypeOption = {
   id: PostpartumDeliveryType;
-  label: string;
+  labelKey: string;
   image: number;
 };
 
+// setDeliveryType() persists `option.id` (a stable PostpartumDeliveryType
+// enum value — see src/state/postpartumPreferences.ts), never the label
+// text, so these labels are purely for display and safe to translate.
 const OPTIONS: DeliveryTypeOption[] = [
   {
     id: 'vaginal',
-    label: 'Accouchement vaginal',
+    labelKey: 'postpartumDeliveryType.options.vaginal',
     image: require('../assets/images/postpartum/delivery-types/delivery-vaginal.png'),
   },
   {
     id: 'planned_csection',
-    label: 'Césarienne programmée',
+    labelKey: 'postpartumDeliveryType.options.plannedCSection',
     image: require('../assets/images/postpartum/delivery-types/delivery-cesarean-planned.png'),
   },
   {
     id: 'emergency_csection',
-    label: 'Césarienne en urgence',
+    labelKey: 'postpartumDeliveryType.options.emergencyCSection',
     image: require('../assets/images/postpartum/delivery-types/delivery-cesarean-emergency.png'),
   },
   {
     id: 'prefer_not_to_say',
-    label: 'Je préfère ne pas préciser',
+    labelKey: 'postpartumDeliveryType.options.preferNotToSay',
     image: require('../assets/images/postpartum/delivery-types/delivery-private.png'),
   },
 ];
@@ -71,9 +76,11 @@ function OptionCard({
   selected,
   onPress,
 }: OptionCardProps): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const scale = useRef(new Animated.Value(1)).current;
+  const label = t(option.labelKey);
 
   useEffect(() => {
     if (!selected) {
@@ -104,7 +111,7 @@ function OptionCard({
         },
       ]}>
       <Pressable
-        accessibilityLabel={option.label}
+        accessibilityLabel={label}
         accessibilityRole="radio"
         accessibilityState={{checked: selected}}
         onPress={onPress}
@@ -123,7 +130,7 @@ function OptionCard({
         </View>
 
         <Text style={styles.optionLabel}>
-          {option.label}
+          {label}
         </Text>
 
         <View
@@ -148,6 +155,7 @@ function PostpartumDeliveryTypeScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -257,12 +265,11 @@ function PostpartumDeliveryTypeScreen({
 
             <View style={styles.header}>
               <Text style={styles.title}>
-                Type d’accouchement
+                {t('postpartumDeliveryType.title')}
               </Text>
 
               <Text style={styles.subtitle}>
-                Cette information reste privée et nous aide à mieux
-                t’accompagner.
+                {t('postpartumDeliveryType.subtitle')}
               </Text>
             </View>
 
@@ -292,8 +299,7 @@ function PostpartumDeliveryTypeScreen({
                 />
 
                 <Text style={styles.infoText}>
-                  Tu pourras modifier ce choix plus tard dans les
-                  réglages.
+                  {t('postpartumDeliveryType.infoText')}
                 </Text>
               </View>
             </View>
@@ -312,7 +318,7 @@ function PostpartumDeliveryTypeScreen({
               (pressed || saving) && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement...' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+              {saving ? t('postpartumDeliveryType.saving') : route.params?.mode === 'edit' ? t('common.save') : t('postpartumDeliveryType.next')}
             </Text>
           </Pressable>
 

@@ -1,5 +1,6 @@
 import {useToday} from '../hooks/useToday';
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -24,20 +25,24 @@ import {belongsToCurrentDelivery, validateDeliveryDate} from '../utils/postpartu
 import {diffDays, startOfDay} from '../utils/cycleMath';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAppLanguage} from '../state/themePreferences';
+import '../i18n';
 
-const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumDeliveryDate'>;
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 const formatMonthYear = (date: Date): string => {
-  const label = new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(date);
+  const label = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(date);
   return label.charAt(0).toUpperCase() + label.slice(1);
 };
 
 function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -187,15 +192,15 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
           showsVerticalScrollIndicator={false}>
           <Animated.View style={entranceStyle}>
             <View style={styles.header}>
-              <Text style={styles.title}>Date de ton{'\n'}accouchement</Text>
-              <Text style={styles.subtitle}>Cette date nous permet de calculer ton jour post-partum.</Text>
+              <Text style={styles.title}>{t('postpartumDeliveryDate.title')}</Text>
+              <Text style={styles.subtitle}>{t('postpartumDeliveryDate.subtitle')}</Text>
             </View>
           </Animated.View>
 
           <Animated.View style={[styles.calendarCard, cardStyle]}>
             <View style={styles.calendarHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('postpartumDeliveryDate.previousMonth')}
                 hitSlop={8}
                 onPress={() => changeMonth(-1)}
                 style={({pressed}) => [styles.calendarArrowButton, pressed && styles.pressed]}>
@@ -205,7 +210,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
               <Text style={styles.calendarTitle}>{formatMonthYear(visibleMonth)}</Text>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('postpartumDeliveryDate.nextMonth')}
                 disabled={isCurrentOrFutureMonth}
                 hitSlop={8}
                 onPress={() => changeMonth(1)}
@@ -219,7 +224,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
             </View>
 
             <View style={styles.weekRow}>
-              {WEEK_DAYS.map((day, index) => (
+              {(getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR).map((day, index) => (
                 <Text key={`${day}-${index}`} style={styles.weekDay}>{day}</Text>
               ))}
             </View>
@@ -259,11 +264,11 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-heart" size={20} />
             </View>
             <View style={styles.selectedCopy}>
-              <Text style={styles.selectedLabel}>Date sélectionnée</Text>
+              <Text style={styles.selectedLabel}>{t('postpartumDeliveryDate.selectedDate')}</Text>
               <Text style={styles.selectedValue}>{formatFullDate(selectedDate)}</Text>
             </View>
             <Pressable accessibilityRole="button" hitSlop={8} onPress={scrollToCalendar}>
-              <Text style={styles.modifyText}>Modifier</Text>
+              <Text style={styles.modifyText}>{t('postpartumDeliveryDate.modify')}</Text>
             </Pressable>
           </Animated.View>
 
@@ -280,7 +285,7 @@ function PostpartumDeliveryDateScreen({navigation, route}: Props): React.JSX.Ele
             disabled={saving}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{saving ? t('postpartumDeliveryDate.saving') : isEdit ? t('common.save') : t('postpartumDeliveryDate.next')}</Text>
           </Pressable>
         </ScrollView>
       </View>
