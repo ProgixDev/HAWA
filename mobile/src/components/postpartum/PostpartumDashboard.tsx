@@ -23,6 +23,7 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import { useFocusEffect } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -82,6 +83,7 @@ import {
   NIFAS_EDUCATIONAL_ARTICLE_ID,
   NIFAS_REFERENCE_REACHED_HEADLINE,
 } from '../../config/nifasReminderConfig';
+import '../../i18n';
 
 const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartum-mother-baby.png');
 
@@ -100,13 +102,6 @@ const POSTPARTUM_MOTHER_BABY = require('../../assets/images/postpartum/postpartu
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
-const FEEDING_SHORT_LABELS: Record<PostpartumFeedingType, string> = {
-  exclusive_breastfeeding: 'Oui (exclusif)',
-  mixed: 'Mixte (sein + biberon)',
-  exclusive_bottle: 'Biberon',
-  unknown: 'Non précisé',
-};
-
 // Shared with the "Journal quotidien" sheet + PostpartumJournalEntryScreen —
 // see src/config/postpartumJournalConfig.ts, the single source of truth for
 // these 5 fixed categories (Fatigue/Sommeil/Humeur/Douleurs/Récupération
@@ -114,11 +109,23 @@ const FEEDING_SHORT_LABELS: Record<PostpartumFeedingType, string> = {
 const DAILY_ITEMS = POSTPARTUM_JOURNAL_ITEMS;
 
 function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
 
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  // Moved from a module-level const to inside the component so the short
+  // feeding-type labels can be sourced from i18n — the persisted value is
+  // still the stable PostpartumFeedingType enum (postpartumPreferences.ts),
+  // never this display text.
+  const FEEDING_SHORT_LABELS: Record<PostpartumFeedingType, string> = {
+    exclusive_breastfeeding: t('postpartumDashboard.feeding.exclusiveBreastfeeding'),
+    mixed: t('postpartumDashboard.feeding.mixed'),
+    exclusive_bottle: t('postpartumDashboard.feeding.exclusiveBottle'),
+    unknown: t('postpartumDashboard.feeding.unknown'),
+  };
 
   // Canonical postpartum onboarding data (src/state/postpartumPreferences.ts)
   // — the same source SummaryScreen/ProfileScreen read. Postpartum day/week
@@ -360,7 +367,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'mosque',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Horaires\nde prière',
+      label: t('cycleHome.quickActions.prayerTimes'),
       onPress: () => navigation.navigate('PrayerTimes'),
     },
     {
@@ -368,7 +375,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'book-open-page-variant-outline',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Bibliothèque',
+      label: t('cycleHome.quickActions.library'),
       onPress: () => navigation.navigate('Library'),
     },
     // Category E (fixed action-identity accent, same as every prior
@@ -378,7 +385,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'notebook-edit-outline',
       iconColor: '#B23F63',
       iconBg: '#F9DCE8',
-      label: 'Journal quotidien',
+      label: t('cycleHome.quickActions.dailyJournal'),
       onPress: openPostpartumJournal,
     },
     {
@@ -386,7 +393,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'moon-waning-crescent',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Calendrier Hijri',
+      label: t('cycleHome.quickActions.hijriCalendar'),
       onPress: () => navigation.navigate('HijriCalendar'),
     },
     {
@@ -394,7 +401,11 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'silverware-fork-knife',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Jeûne à rattraper',
+      // Reuses the same shared key every other dashboard (Cycle/Contraception/
+      // Irregular/Conceive/Menopause/Pregnancy) already uses — this aligns
+      // Postpartum's previously-inconsistent singular "Jeûne à rattraper"
+      // with the app-wide plural wording ("Jeûnes à rattraper").
+      label: t('cycleHome.quickActions.qadaa'),
       onPress: () => navigation.navigate('FastingQadaa'),
     },
     {
@@ -402,7 +413,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'chart-donut',
       iconColor: '#2C8E93',
       iconBg: '#DDF0F1',
-      label: 'Statistiques',
+      label: t('cycleHome.quickActions.statistics'),
       onPress: () => navigation.navigate('Statistics'),
     },
   ];
@@ -448,24 +459,29 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
     [postpartum.firstPostpartumPeriodDate],
   );
   const cycleReturnValue = firstPeriodDate
-    ? 'Cycle repris'
-    : 'Cycle non repris';
+    ? t('postpartumDashboard.cycleReturn.resumed')
+    : t('postpartumDashboard.cycleReturn.notResumed');
   const cycleReturnSubvalue = firstPeriodDate
-    ? `Depuis le ${formatFullDate(firstPeriodDate)}`
+    ? t('postpartumDashboard.cycleReturn.since', {date: formatFullDate(firstPeriodDate)})
     : null;
   const todayLochia = lochiaEntries[todayKey];
+  // DATA-BEARING: todayLochia.flow/.color are raw French strings persisted
+  // as-is by postpartumLochiaStore (LochiaFlow/LochiaColor are string enums
+  // with French label text, no separate stable id) — never translated here,
+  // same established trade-off as POSTPARTUM_MOOD_OPTIONS etc. (see
+  // postpartumJournalConfig.ts).
   const lochiaDashboardValue = todayLochia
     ? `${todayLochia.flow} · ${todayLochia.color}`
     : lochiaSummary.status === 'ended'
-    ? `Terminées · ${lochiaSummary.durationDays ?? '—'} jours`
-    : 'Aucune information enregistrée aujourd’hui';
+    ? t('postpartumDashboard.lochia.endedSummary', {days: lochiaSummary.durationDays ?? '—'})
+    : t('postpartumDashboard.lochia.noneRecordedToday');
   const nifasValue =
     nifasStatus.status === 'losses_ended'
-      ? 'Pertes terminées'
+      ? t('postpartumDashboard.nifas.lossesEnded')
       : nifasStatus.status === 'losses_ongoing'
-      ? `Jour ${nifasStatus.postpartumDay} · Pertes en cours`
+      ? t('postpartumDashboard.nifas.lossesOngoing', {day: nifasStatus.postpartumDay})
       : nifasStatus.postpartumDay > 0
-      ? `Jour ${nifasStatus.postpartumDay} · Suivi non renseigné`
+      ? t('postpartumDashboard.nifas.notTracked', {day: nifasStatus.postpartumDay})
       : undefined;
   const nifasReminderStatus = useMemo(
     () =>
@@ -534,7 +550,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           <HomeHeader
             firstName={getFirstName()}
             onPressProfile={() => navigation.navigate('Profile')}
-            subtitle="Prends soin de toi, un jour à la fois 💜"
+            subtitle={t('postpartumDashboard.headerSubtitle')}
           />
 
           <Animated.View style={entranceStyle}>
@@ -550,20 +566,25 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                       name="heart-circle-outline"
                       size={15}
                     />
-                    <Text style={styles.heroBadgeText}>POST-PARTUM</Text>
+                    <Text style={styles.heroBadgeText}>{t('postpartumDashboard.hero.badge')}</Text>
                   </View>
 
-                  <Text style={styles.heroTitle}>Ton post-partum</Text>
+                  <Text style={styles.heroTitle}>{t('postpartumDashboard.hero.title')}</Text>
 
                   <View style={styles.heroDayRow}>
+                    {/* The "Jour " prefix is stored WITH its trailing space
+                        (postpartumDashboard.hero.dayPrefix) so this stays two
+                        Text children — ["Jour ", <number>] — exactly like the
+                        original JSX text+expression split, which
+                        PostpartumDashboard.test.tsx asserts on directly. */}
                     <Text style={styles.heroDay}>
-                      Jour {status.postpartumDay}
+                      {t('postpartumDashboard.hero.dayPrefix')}{status.postpartumDay}
                     </Text>
                     <View style={styles.heroDayDot} />
                   </View>
 
                   <Text style={styles.heroSubLabel}>
-                    Une étape à la fois, avec douceur.
+                    {t('postpartumDashboard.hero.subLabel')}
                   </Text>
 
                   <View style={styles.heroDateBlock}>
@@ -574,7 +595,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                     />
                     <View style={styles.heroDateCopy}>
                       <Text style={styles.heroDeliveryLabel}>
-                        Accouchement le
+                        {t('postpartumDashboard.hero.deliveryLabel')}
                       </Text>
                       <Text style={styles.heroDelivery}>
                         {formatFullDate(deliveryDate as Date)}
@@ -587,7 +608,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   <View style={styles.heroHalo} />
                   <Image
                     accessibilityIgnoresInvertColors
-                    accessibilityLabel="Maman avec son nouveau-né"
+                    accessibilityLabel={t('postpartumDashboard.hero.illustrationAccessibility')}
                     resizeMode="contain"
                     source={POSTPARTUM_MOTHER_BABY}
                     style={styles.heroImage}
@@ -606,16 +627,16 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   </View>
                   <View style={styles.unconfiguredCopy}>
                     <Text style={styles.unconfiguredTitle}>
-                      Indique ta date d’accouchement
+                      {t('postpartumDashboard.unconfigured.title')}
                     </Text>
                     <Text style={styles.unconfiguredText}>
-                      Nous personnaliserons ensuite ton suivi jour après jour.
+                      {t('postpartumDashboard.unconfigured.text')}
                     </Text>
                   </View>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Indique ta date d’accouchement"
+                  accessibilityLabel={t('postpartumDashboard.unconfigured.title')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('PostpartumDeliveryDate', {mode: 'edit'})}
                   style={({ pressed }) => [
@@ -624,7 +645,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   ]}
                 >
                   <Text style={styles.unconfiguredButtonText}>
-                    Renseigner la date
+                    {t('postpartumDashboard.unconfigured.button')}
                   </Text>
                   <MaterialDesignIcons
                     color={onPrimaryTextColor(theme)}
@@ -637,9 +658,9 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
 
             <View style={styles.sectionHeadingRow}>
               <View>
-                <Text style={styles.sectionHeading}>Aujourd’hui</Text>
+                <Text style={styles.sectionHeading}>{t('postpartumDashboard.today.sectionTitle')}</Text>
                 <Text style={styles.sectionHeadingSub}>
-                  Ton suivi essentiel en un coup d’œil
+                  {t('postpartumDashboard.today.sectionSubtitle')}
                 </Text>
               </View>
 
@@ -649,7 +670,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   name="calendar-today-outline"
                   size={15}
                 />
-                <Text style={styles.todayBadgeText}>Aujourd’hui</Text>
+                <Text style={styles.todayBadgeText}>{t('postpartumDashboard.today.badge')}</Text>
               </View>
             </View>
 
@@ -661,7 +682,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 consistent with Conceive D4's identical "phase-invariant
                 pink badge" finding. */}
             <Pressable
-              accessibilityLabel="Lochies aujourd’hui"
+              accessibilityLabel={t('postpartumDashboard.lochia.title')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('PostpartumLochia')}
               style={({ pressed }) => [
@@ -678,8 +699,8 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.featureCopy}>
-                <Text style={styles.featureEyebrow}>SUIVI QUOTIDIEN</Text>
-                <Text style={styles.featureTitle}>Lochies aujourd’hui</Text>
+                <Text style={styles.featureEyebrow}>{t('postpartumDashboard.lochia.eyebrow')}</Text>
+                <Text style={styles.featureTitle}>{t('postpartumDashboard.lochia.title')}</Text>
                 <Text style={styles.featureValue}>{lochiaDashboardValue}</Text>
               </View>
 
@@ -693,7 +714,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
             </Pressable>
 
             <Pressable
-              accessibilityLabel="Retour du cycle"
+              accessibilityLabel={t('postpartumDashboard.cycleReturn.title')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('PostpartumCycleReturn')}
               style={({ pressed }) => [
@@ -710,8 +731,8 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
               </View>
 
               <View style={styles.featureCopy}>
-                <Text style={styles.featureEyebrow}>ÉVOLUTION</Text>
-                <Text style={styles.featureTitle}>Retour du cycle</Text>
+                <Text style={styles.featureEyebrow}>{t('postpartumDashboard.cycleReturn.eyebrow')}</Text>
+                <Text style={styles.featureTitle}>{t('postpartumDashboard.cycleReturn.title')}</Text>
                 <Text style={styles.featureValue}>{cycleReturnValue}</Text>
                 {cycleReturnSubvalue ? (
                   <Text style={styles.featureValue}>{cycleReturnSubvalue}</Text>
@@ -725,7 +746,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                       size={13}
                     />
                     <Text style={styles.miniTagText}>
-                      Allaitement : {feedingLabel}
+                      {t('postpartumDashboard.cycleReturn.feedingLabel', {feeding: feedingLabel})}
                     </Text>
                   </View>
                 ) : null}
@@ -743,9 +764,9 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
             <View style={styles.dailyCard}>
               <View style={styles.dailyHeader}>
                 <View style={styles.dailyHeaderCopy}>
-                  <Text style={styles.cardTitle}>Suivi du jour</Text>
+                  <Text style={styles.cardTitle}>{t('postpartumDashboard.dailyCard.title')}</Text>
                   <Text style={styles.dailySubtitle}>
-                    Prends un instant pour toi
+                    {t('postpartumDashboard.dailyCard.subtitle')}
                   </Text>
                 </View>
 
@@ -753,7 +774,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                   <Text style={styles.dailyProgressStrong}>
                     {completedTodayCount}/{DAILY_ITEMS.length}
                   </Text>
-                  <Text style={styles.progressBadgeText}>complété</Text>
+                  <Text style={styles.progressBadgeText}>{t('postpartumDashboard.dailyCard.completed')}</Text>
                 </View>
               </View>
 
@@ -825,10 +846,10 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
                 <View style={styles.sectionHeadingRow}>
                   <View>
                     <Text style={styles.sectionHeading}>
-                      Repères spirituels
+                      {t('postpartumDashboard.spiritual.sectionTitle')}
                     </Text>
                     <Text style={styles.sectionHeadingSub}>
-                      Tes repères du jour, avec sérénité
+                      {t('postpartumDashboard.spiritual.sectionSubtitle')}
                     </Text>
                   </View>
 
@@ -896,17 +917,15 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           </Text>
 
           <Text style={styles.nifasModalBody}>
-            Selon ce repère, tu peux reprendre tes prières à partir
-            d’aujourd’hui, même si les lochies ou les saignements
-            persistent. Suis la référence religieuse que tu as choisie.
+            {t('postpartumDashboard.nifasModal.body')}
           </Text>
 
           <Text style={styles.nifasModalNote}>
-            Tu peux continuer ton suivi post-partum dans AWA.
+            {t('postpartumDashboard.nifasModal.note')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Compris"
+            accessibilityLabel={t('postpartumDashboard.nifasModal.continue')}
             accessibilityRole="button"
             onPress={handleNifasCompletionContinue}
             style={({pressed}) => [
@@ -914,11 +933,11 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
               pressed && styles.pressed,
             ]}
           >
-            <Text style={styles.nifasModalPrimaryText}>Compris</Text>
+            <Text style={styles.nifasModalPrimaryText}>{t('postpartumDashboard.nifasModal.continue')}</Text>
           </Pressable>
 
           <Pressable
-            accessibilityLabel="Choisir un autre suivi"
+            accessibilityLabel={t('postpartumDashboard.nifasModal.chooseAnother')}
             accessibilityRole="button"
             onPress={handleNifasCompletionChooseAnother}
             style={({pressed}) => [
@@ -927,7 +946,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
             ]}
           >
             <Text style={styles.nifasModalSecondaryText}>
-              Choisir un autre suivi
+              {t('postpartumDashboard.nifasModal.chooseAnother')}
             </Text>
           </Pressable>
         </View>
