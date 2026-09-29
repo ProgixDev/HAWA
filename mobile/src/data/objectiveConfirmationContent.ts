@@ -14,54 +14,62 @@ export type ObjectiveConfirmationContent = {
 };
 
 // ONE shared config for the ONE confirmation screen
-// (CycleObjectiveConfirmationScreen.tsx) — no per-objective screens.
-export const OBJECTIVE_CONFIRMATION_CONTENT: Record<ObjectiveId, ObjectiveConfirmationContent> = {
-  cycle: {
-    title: 'Parfait ! 🎉',
-    description: 'Tu as choisi le suivi classique du cycle.',
-    nextStep: 'Tu pourras personnaliser ton suivi et ajouter tes premières informations\nà l’étape suivante.',
-    buttonLabel: 'Commencer mon suivi',
-  },
-  conceive: {
-    title: 'Parfait ! 🎉',
-    description: 'Tu as choisi un suivi pour t’accompagner dans ton projet de conception.',
-    nextStep: 'Nous allons personnaliser ton suivi de fertilité,d’ovulation et de cycle selon tes besoins.',
-    buttonLabel: 'Configurer mon suivi',
-  },
-  contraception: {
-    title: 'Parfait ! 🎉',
-    description: 'Tu as choisi un suivi adapté à ta contraception.',
-    nextStep: 'Tu pourras renseigner ton type de contraception et personnaliser le \nsuivi de ton cycle.',
-    buttonLabel: 'Configurer mon suivi',
-  },
-  irregular: {
-    title: 'Parfait ! 🎉',
-    description: 'Tu as choisi un suivi pour mieux comprendre tes cycles irréguliers.',
-    nextStep: 'Nous allons adapter ton suivi pour observer tes cycles, symptômes et tendances dans le temps.',
-    buttonLabel: 'Configurer mon suivi',
-  },
-  menopause: {
-    title: 'Parfait ! 🎉',
-    description: 'Tu as choisi un suivi adapté à la ménopause.',
-    nextStep: 'Tu pourras suivre ton bien-être, tes symptômes et les changements que \ntu observes au quotidien.',
-    buttonLabel: 'Commencer mon suivi',
-  },
-  pregnancy: {
-    title: 'Parfait ! 🎉',
-    description: 'Tu as choisi le suivi de grossesse.',
-    nextStep: 'Nous allons personnaliser ton accompagnement pour suivre ta grossesse semaine après semaine.',
-    buttonLabel: 'Commencer mon suivi',
-  },
-  postpartum: {
-    title: 'Parfait ! 💜',
-    description: 'Tu as choisi un accompagnement post-partum.',
-    nextStep: 'AWA t’accompagnera dans ta récupération,le suivi des lochies, ton bien-être quotidien et le retour progressif de ton cycle.',
-    buttonLabel: 'Commencer mon suivi',
-  },
-  loss: {
-    title: 'Ton suivi est prêt',
-    description: 'Tu as choisi un suivi après une fausse couche.',
-    nextStep: 'Nous allons adapter ton espace de suivi à ta récupération et à ton bien-être.',
-    buttonLabel: 'Commencer mon suivi',
-  },
-};
+// (CycleObjectiveConfirmationScreen.tsx) — no per-objective screens. Built
+// from `t` at render time (single consumer, computed via useMemo there) so
+// display text is localized without needing the module-level
+// i18n-singleton/languageChanged pattern used by config files held by
+// reference across multiple consumers.
+export function buildObjectiveConfirmationContent(
+  t: (key: string) => string,
+): Record<ObjectiveId, ObjectiveConfirmationContent> {
+  return {
+    cycle: {
+      title: t('objectiveConfirmation.cycle.title'),
+      description: t('objectiveConfirmation.cycle.description'),
+      nextStep: t('objectiveConfirmation.cycle.nextStep'),
+      buttonLabel: t('objectiveConfirmation.cycle.buttonLabel'),
+    },
+    conceive: {
+      title: t('objectiveConfirmation.conceive.title'),
+      description: t('objectiveConfirmation.conceive.description'),
+      nextStep: t('objectiveConfirmation.conceive.nextStep'),
+      buttonLabel: t('objectiveConfirmation.conceive.buttonLabel'),
+    },
+    contraception: {
+      title: t('objectiveConfirmation.contraception.title'),
+      description: t('objectiveConfirmation.contraception.description'),
+      nextStep: t('objectiveConfirmation.contraception.nextStep'),
+      buttonLabel: t('objectiveConfirmation.contraception.buttonLabel'),
+    },
+    irregular: {
+      title: t('objectiveConfirmation.irregular.title'),
+      description: t('objectiveConfirmation.irregular.description'),
+      nextStep: t('objectiveConfirmation.irregular.nextStep'),
+      buttonLabel: t('objectiveConfirmation.irregular.buttonLabel'),
+    },
+    menopause: {
+      title: t('objectiveConfirmation.menopause.title'),
+      description: t('objectiveConfirmation.menopause.description'),
+      nextStep: t('objectiveConfirmation.menopause.nextStep'),
+      buttonLabel: t('objectiveConfirmation.menopause.buttonLabel'),
+    },
+    pregnancy: {
+      title: t('objectiveConfirmation.pregnancy.title'),
+      description: t('objectiveConfirmation.pregnancy.description'),
+      nextStep: t('objectiveConfirmation.pregnancy.nextStep'),
+      buttonLabel: t('objectiveConfirmation.pregnancy.buttonLabel'),
+    },
+    postpartum: {
+      title: t('objectiveConfirmation.postpartum.title'),
+      description: t('objectiveConfirmation.postpartum.description'),
+      nextStep: t('objectiveConfirmation.postpartum.nextStep'),
+      buttonLabel: t('objectiveConfirmation.postpartum.buttonLabel'),
+    },
+    loss: {
+      title: t('objectiveConfirmation.loss.title'),
+      description: t('objectiveConfirmation.loss.description'),
+      nextStep: t('objectiveConfirmation.loss.nextStep'),
+      buttonLabel: t('objectiveConfirmation.loss.buttonLabel'),
+    },
+  };
+}

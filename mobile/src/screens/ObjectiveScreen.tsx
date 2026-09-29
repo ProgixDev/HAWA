@@ -10,7 +10,9 @@ import {
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
+import '../i18n';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {setSelectedObjective, type ObjectiveId} from '../state/onboardingPreferences';
@@ -20,7 +22,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 type Objective = {
   id: ObjectiveId;
   icon: string;
-  label: string;
+  labelKey: string;
   tint: string;
 };
 
@@ -28,14 +30,14 @@ type Objective = {
 // fixed pastel identity color (category accents, not a theme-structural
 // color) and is deliberately left untouched by the theme migration.
 const objectives: Objective[] = [
-  {id: 'cycle', icon: '🗓️', label: 'Suivre mon cycle', tint: '#E7F0E8'},
-  {id: 'conceive', icon: '💗', label: 'Essayer de concevoir', tint: '#FBE8E8'},
-  {id: 'contraception', icon: '💊', label: 'Contraception', tint: '#F1E8F5'},
-  {id: 'irregular', icon: '🪷', label: 'Cycles irréguliers (SOPK)', tint: '#FBE9E7'},
-  {id: 'menopause', icon: '👤', label: 'périménopause / Ménopause', tint: '#EFE7F4'},
-  {id: 'pregnancy', icon: '🤰', label: 'Suivi de grossesse', tint: '#FBE9EB'},
-  {id: 'postpartum', icon: '🍼', label: 'Post-partum', tint: '#E8F1E9'},
-  {id: 'loss', icon: '☁️', label: 'Après une fausse couche', tint: '#EDF2E9'},
+  {id: 'cycle', icon: '🗓️', labelKey: 'objectives.cycle', tint: '#E7F0E8'},
+  {id: 'conceive', icon: '💗', labelKey: 'objectives.conceive', tint: '#FBE8E8'},
+  {id: 'contraception', icon: '💊', labelKey: 'objectives.contraception', tint: '#F1E8F5'},
+  {id: 'irregular', icon: '🪷', labelKey: 'objectives.irregular', tint: '#FBE9E7'},
+  {id: 'menopause', icon: '👤', labelKey: 'objectiveScreen.menopauseLabel', tint: '#EFE7F4'},
+  {id: 'pregnancy', icon: '🤰', labelKey: 'objectives.pregnancy', tint: '#FBE9EB'},
+  {id: 'postpartum', icon: '🍼', labelKey: 'objectiveScreen.postpartumLabel', tint: '#E8F1E9'},
+  {id: 'loss', icon: '☁️', labelKey: 'objectives.loss', tint: '#EDF2E9'},
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Objective'>;
@@ -44,6 +46,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
   const [selectedId, setSelectedId] = useState('cycle');
 
   const handleNext = async () => {
@@ -72,7 +75,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
           translucent
         />
         <ScrollView contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: Math.max(insets.bottom, 16) + spacing.sm}]} showsVerticalScrollIndicator={false}>
-          <Text style={styles.title}>{'Quel est ton\nobjectif principal ?'}</Text>
+          <Text style={styles.title}>{t('objectiveScreen.title')}</Text>
 
           <View style={styles.list}>
             {objectives.map(objective => {
@@ -95,7 +98,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
                   <View style={[styles.iconBox, {backgroundColor: objective.tint}]}>
                     <Text style={styles.icon}>{objective.icon}</Text>
                   </View>
-                  <Text style={styles.optionLabel}>{objective.label}</Text>
+                  <Text style={styles.optionLabel}>{t(objective.labelKey)}</Text>
                 </Pressable>
               );
             })}
@@ -108,7 +111,7 @@ function ObjectiveScreen({navigation}: Props): React.JSX.Element {
               styles.nextButton,
               pressed && styles.nextButtonPressed,
             ]}>
-            <Text style={styles.nextButtonText}>Suivant</Text>
+            <Text style={styles.nextButtonText}>{t('objectiveScreen.next')}</Text>
           </Pressable>
         </ScrollView>
       </View>

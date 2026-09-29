@@ -19,11 +19,13 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
+import '../i18n';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getTopPadding} from '../theme/spacing';
 import {getSelectedObjective} from '../state/onboardingPreferences';
-import {OBJECTIVE_CONFIRMATION_CONTENT} from '../data/objectiveConfirmationContent';
+import {buildObjectiveConfirmationContent} from '../data/objectiveConfirmationContent';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
@@ -38,11 +40,14 @@ function CycleObjectiveConfirmationScreen({
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const [objective] = useState(getSelectedObjective);
 
-  const content =
-    OBJECTIVE_CONFIRMATION_CONTENT[objective];
+  const content = useMemo(
+    () => buildObjectiveConfirmationContent(t)[objective],
+    [t, objective],
+  );
 
   /*
    * The "loss" objective uses a calmer animation:
