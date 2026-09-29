@@ -15,6 +15,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -30,21 +33,29 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageTryingAgain'>;
 
-const OPTIONS: Array<{
+// `id` is the persisted enum (MiscarriageTryingAgainStatus) — title/subtitle
+// reuse the exact same `miscarriageTryingAgain.options.*` keys as
+// miscarriageJournalConfig.ts's own MISCARRIAGE_TRYING_AGAIN_OPTIONS
+// (identical French wording there), rather than duplicating the copy.
+function optionsFor(t: TFunction): Array<{
   id: MiscarriageTryingAgainStatus;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {id: 'not_now', title: 'Pas maintenant', subtitle: 'Je préfère prendre du temps pour moi', icon: 'clock-outline', tint: '#EFE7F4'},
-  {id: 'soon', title: 'Bientôt', subtitle: 'Je commence à y penser sérieusement', icon: 'sprout-outline', tint: '#E7F0E8'},
-  {id: 'ready', title: 'Oui, je me sens prête', subtitle: 'Je souhaite reprendre les essais', icon: 'heart-outline', tint: '#FBE8E8'},
-];
+}> {
+  return [
+    {id: 'not_now', title: t('miscarriageTryingAgain.options.not_now.label'), subtitle: t('miscarriageTryingAgain.options.not_now.subtitle'), icon: 'clock-outline', tint: '#EFE7F4'},
+    {id: 'soon', title: t('miscarriageTryingAgain.options.soon.label'), subtitle: t('miscarriageTryingAgain.options.soon.subtitle'), icon: 'sprout-outline', tint: '#E7F0E8'},
+    {id: 'ready', title: t('miscarriageTryingAgain.options.ready.label'), subtitle: t('miscarriageTryingAgain.options.ready.subtitle'), icon: 'heart-outline', tint: '#FBE8E8'},
+  ];
+}
 
 function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const OPTIONS = useMemo(() => optionsFor(t), [t]);
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -123,7 +134,7 @@ function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Ele
             <View style={styles.illustration}>
               <Image
                 accessibilityIgnoresInvertColors
-                accessibilityLabel="Femme dans une posture sereine"
+                accessibilityLabel={t('miscarriageTryingAgain.illustrationAccessibility')}
                 resizeMode="contain"
                 source={require('../assets/images/miscarriage/miscarriage-trying-again-woman.png')}
                 style={styles.illustrationImage}
@@ -131,9 +142,9 @@ function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Ele
             </View>
 
             <View style={styles.header}>
-              <Text style={styles.title}>Souhaites-tu reprendre{'\n'}les essais de conception ?</Text>
+              <Text style={styles.title}>{t('miscarriageTryingAgain.title')}</Text>
               <Text style={styles.subtitle}>
-                Ce choix nous aide à personnaliser ton accompagnement. Tu restes libre d’avancer à ton rythme.
+                {t('miscarriageTryingAgain.subtitle')}
               </Text>
             </View>
 
@@ -155,7 +166,7 @@ function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Ele
               <View style={styles.reassuranceCard}>
                 <MaterialDesignIcons color={theme.colors.primary} name="flower-outline" size={17} />
                 <Text style={styles.reassuranceText}>
-                  Tu n’es pas seule 💜 Nous sommes là pour t’accompagner à chaque étape.
+                  {t('miscarriageTryingAgain.reassurance')}
                 </Text>
               </View>
             </View>
@@ -171,7 +182,7 @@ function MiscarriageTryingAgainScreen({navigation, route}: Props): React.JSX.Ele
               (pressed || saving) && selected && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Terminer'}
+              {saving ? t('miscarriageTryingAgain.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageTryingAgain.finish')}
             </Text>
           </Pressable>
         </ScrollView>

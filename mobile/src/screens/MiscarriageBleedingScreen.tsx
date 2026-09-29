@@ -15,6 +15,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -30,21 +33,27 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageBleeding'>;
 
-const OPTIONS: Array<{
+// `id` is the persisted enum (MiscarriageBleedingStatus) — title/subtitle
+// are pure display text, safe to translate.
+function optionsFor(t: TFunction): Array<{
   id: MiscarriageBleedingStatus;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {id: 'yes', title: 'Oui', subtitle: 'J’ai encore des saignements', icon: 'water', tint: '#FBE8E8'},
-  {id: 'no', title: 'Non', subtitle: 'Je n’ai plus de saignements', icon: 'leaf', tint: '#E7F0E8'},
-  {id: 'variable', title: 'Je ne sais pas / cela varie', subtitle: 'C’est irrégulier', icon: 'help-circle-outline', tint: '#F1E8F5'},
-];
+}> {
+  return [
+    {id: 'yes', title: t('miscarriageBleeding.options.yes.title'), subtitle: t('miscarriageBleeding.options.yes.subtitle'), icon: 'water', tint: '#FBE8E8'},
+    {id: 'no', title: t('miscarriageBleeding.options.no.title'), subtitle: t('miscarriageBleeding.options.no.subtitle'), icon: 'leaf', tint: '#E7F0E8'},
+    {id: 'variable', title: t('miscarriageBleeding.options.variable.title'), subtitle: t('miscarriageBleeding.options.variable.subtitle'), icon: 'help-circle-outline', tint: '#F1E8F5'},
+  ];
+}
 
 function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const OPTIONS = useMemo(() => optionsFor(t), [t]);
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -123,13 +132,13 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
             <View style={styles.header}>
               <Image
                 accessibilityIgnoresInvertColors
-                accessibilityLabel="Goutte symbolisant les saignements"
+                accessibilityLabel={t('miscarriageBleeding.illustrationAccessibility')}
                 resizeMode="contain"
                 source={require('../assets/images/miscarriage/miscarriage-bleeding.png')}
                 style={styles.headerImage}
               />
-              <Text style={styles.title}>As-tu encore{'\n'}des saignements ?</Text>
-              <Text style={styles.subtitle}>Cela nous aide à mieux t’accompagner dans cette période.</Text>
+              <Text style={styles.title}>{t('miscarriageBleeding.title')}</Text>
+              <Text style={styles.subtitle}>{t('miscarriageBleeding.subtitle')}</Text>
             </View>
 
             <View style={styles.optionsCenterContainer}>
@@ -150,7 +159,7 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
               <View style={styles.infoRow}>
                 <MaterialDesignIcons color={theme.colors.primary} name="notebook-outline" size={17} />
                 <Text style={styles.infoText}>
-                  Tu pourras noter les détails (intensité, couleur, durée…) dans ton journal quotidien.
+                  {t('miscarriageBleeding.infoText')}
                 </Text>
               </View>
             </View>
@@ -166,7 +175,7 @@ function MiscarriageBleedingScreen({navigation, route}: Props): React.JSX.Elemen
               (pressed || saving) && selected && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+              {saving ? t('miscarriageBleeding.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageBleeding.next')}
             </Text>
           </Pressable>
         </ScrollView>

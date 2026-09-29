@@ -16,6 +16,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import '../i18n';
+import {getAppLanguage} from '../state/themePreferences';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -31,21 +34,27 @@ import {validateLossDate} from '../utils/postpartumLossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
-const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+// Local weekday abbreviations — never the shared cycleMath.ts WEEK_DAYS
+// export (used by 15+ unrelated files), same pattern as
+// MonthCalendarCard.tsx's own WEEK_DAYS_FR/WEEK_DAYS_EN consts.
+const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageDate'>;
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 const formatMonthYear = (date: Date): string => {
-  const label = new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(date);
+  const label = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(date);
   return label.charAt(0).toUpperCase() + label.slice(1);
 };
 
 function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const WEEK_DAYS = getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR;
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const entrance = useRef(new Animated.Value(0)).current;
@@ -207,7 +216,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
             <View style={styles.illustration}>
               <Image
                 accessibilityIgnoresInvertColors
-                accessibilityLabel="Calendrier avec un cœur"
+                accessibilityLabel={t('miscarriageDate.illustrationAccessibility')}
                 resizeMode="contain"
                 source={require('../assets/images/miscarriage/miscarriage-calendar.png')}
                 style={styles.illustrationImage}
@@ -215,15 +224,15 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
             </View>
 
             <View style={styles.header}>
-              <Text style={styles.title}>Quand a eu lieu{'\n'}ta fausse couche ?</Text>
-              <Text style={styles.subtitle}>Cette date nous aide à suivre ton évolution depuis cet événement.</Text>
+              <Text style={styles.title}>{t('miscarriageDate.title')}</Text>
+              <Text style={styles.subtitle}>{t('miscarriageDate.subtitle')}</Text>
             </View>
           </Animated.View>
 
           <Animated.View style={[styles.calendarCard, cardStyle]}>
             <View style={styles.calendarHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('calendar.previousMonth')}
                 hitSlop={8}
                 onPress={() => changeMonth(-1)}
                 style={({pressed}) => [styles.calendarArrowButton, pressed && styles.pressed]}>
@@ -233,7 +242,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
               <Text style={styles.calendarTitle}>{formatMonthYear(visibleMonth)}</Text>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('calendar.nextMonth')}
                 disabled={isCurrentOrFutureMonth}
                 hitSlop={8}
                 onPress={() => changeMonth(1)}
@@ -288,17 +297,17 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-heart" size={20} />
             </View>
             <View style={styles.selectedCopy}>
-              <Text style={styles.selectedLabel}>Date sélectionnée</Text>
+              <Text style={styles.selectedLabel}>{t('miscarriageDate.selectedLabel')}</Text>
               <Text style={styles.selectedValue}>{formatFullDate(selectedDate)}</Text>
             </View>
             <Pressable accessibilityRole="button" hitSlop={8} onPress={scrollToCalendar}>
-              <Text style={styles.modifyText}>Modifier</Text>
+              <Text style={styles.modifyText}>{t('miscarriageDate.modify')}</Text>
             </Pressable>
           </Animated.View>
 
           <Animated.View style={[styles.infoCard, cardStyle]}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
-            <Text style={styles.infoText}>Tu pourras toujours modifier cette date plus tard.</Text>
+            <Text style={styles.infoText}>{t('miscarriageDate.infoText')}</Text>
           </Animated.View>
 
           <View style={styles.spacer} />
@@ -314,7 +323,9 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
             disabled={saving}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.nextText}>{saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>
+              {saving ? t('miscarriageDate.saving') : isEdit ? t('common.save') : t('miscarriageDate.next')}
+            </Text>
           </Pressable>
         </ScrollView>
       </View>
