@@ -1,9 +1,11 @@
 import React, {memo, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import '../../i18n';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 // PHASE D1 — `item.iconColor`/`item.iconBg` are supplied by CycleHomeScreen
@@ -50,6 +52,7 @@ function OverviewColumn({
 }
 
 function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {width} = useWindowDimensions();
   const compact = width < 380;
   const {theme} = useAwaTheme();
@@ -58,7 +61,7 @@ function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>Aperçu de ton cycle</Text>
+        <Text style={styles.title}>{t('cycleHome.overview.title')}</Text>
         {/* Only rendered when there is somewhere to go — never a link that
             looks tappable but does nothing. */}
         {onPressMore ? (
@@ -67,7 +70,7 @@ function CycleOverviewCard({items, onPressMore}: Props): React.JSX.Element {
             hitSlop={8}
             onPress={onPressMore}
             style={({pressed}) => pressed && styles.pressed}>
-            <Text style={styles.more}>Voir plus</Text>
+            <Text style={styles.more}>{t('cycleHome.overview.seeMore')}</Text>
           </Pressable>
         ) : null}
       </View>

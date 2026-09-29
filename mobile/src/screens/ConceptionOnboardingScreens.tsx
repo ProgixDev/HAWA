@@ -14,11 +14,13 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import '../i18n';
 
 import {
   getConceptionPreferences,
@@ -58,93 +60,99 @@ type IconName = React.ComponentProps<
  * OPTIONS
  * ============================================================ */
 
-const durationOptions: Array<{
+function durationOptionsFor(t: (key: string) => string): Array<{
   id: ConceptionTryingDuration;
   label: string;
-}> = [
-  {
-    id: 'under_3_months',
-    label: 'Moins de 3 mois',
-  },
-  {
-    id: '3_to_6_months',
-    label: '3 à 6 mois',
-  },
-  {
-    id: '6_to_12_months',
-    label: '6 à 12 mois',
-  },
-  {
-    id: 'over_1_year',
-    label: 'Plus d’un an',
-  },
-  {
-    id: 'starting_now',
-    label: 'Je commence maintenant',
-  },
-];
+}> {
+  return [
+    {
+      id: 'under_3_months',
+      label: t('conceptionOnboarding.tryingDuration.options.underThreeMonths'),
+    },
+    {
+      id: '3_to_6_months',
+      label: t('conceptionOnboarding.tryingDuration.options.threeToSixMonths'),
+    },
+    {
+      id: '6_to_12_months',
+      label: t('conceptionOnboarding.tryingDuration.options.sixToTwelveMonths'),
+    },
+    {
+      id: 'over_1_year',
+      label: t('conceptionOnboarding.tryingDuration.options.overOneYear'),
+    },
+    {
+      id: 'starting_now',
+      label: t('conceptionOnboarding.tryingDuration.options.startingNow'),
+    },
+  ];
+}
 
-const awarenessOptions: Array<{
+function awarenessOptionsFor(t: (key: string) => string): Array<{
   id: OvulationAwareness;
   label: string;
   description: string;
   icon: IconName;
-}> = [
-  {
-    id: 'often',
-    label: 'Oui, souvent',
-    description: 'Je repère assez bien mes signes d’ovulation.',
-    icon: 'target',
-  },
-  {
-    id: 'sometimes',
-    label: 'Parfois',
-    description:
-      'Je ne suis pas toujours sûre, mais j’ai quelques indices.',
-    icon: 'eye-outline',
-  },
-  {
-    id: 'not_really',
-    label: 'Non, pas vraiment',
-    description: 'Je ne sais pas reconnaître mon ovulation.',
-    icon: 'help',
-  },
-];
+}> {
+  return [
+    {
+      id: 'often',
+      label: t('conceptionOnboarding.ovulationAwareness.options.often.label'),
+      description: t('conceptionOnboarding.ovulationAwareness.options.often.description'),
+      icon: 'target',
+    },
+    {
+      id: 'sometimes',
+      label: t('conceptionOnboarding.ovulationAwareness.options.sometimes.label'),
+      description: t('conceptionOnboarding.ovulationAwareness.options.sometimes.description'),
+      icon: 'eye-outline',
+    },
+    {
+      id: 'not_really',
+      label: t('conceptionOnboarding.ovulationAwareness.options.notReally.label'),
+      description: t('conceptionOnboarding.ovulationAwareness.options.notReally.description'),
+      icon: 'help',
+    },
+  ];
+}
 
-const indicatorOptions: Array<{
+// temperature/cervicalMucus/intercourse labels reuse the canonical
+// journalTemperature.title / journalCervicalMucus.title /
+// journalConceptionReports.title keys instead of duplicating the same word
+// under a second key (lhTests keeps its own onboarding-specific wording).
+function indicatorOptionsFor(t: (key: string) => string): Array<{
   id: FertilityIndicator;
   label: string;
   description: string;
   icon: IconName;
-}> = [
-  {
-    id: 'temperature',
-    label: 'Température basale',
-    description:
-      'Prends ta température chaque matin pour suivre son évolution.',
-    icon: 'thermometer',
-  },
-  {
-    id: 'cervical_mucus',
-    label: 'Glaire cervicale',
-    description: 'Observe son évolution au cours du cycle.',
-    icon: 'water-outline',
-  },
-  {
-    id: 'lh_tests',
-    label: 'Tests d’ovulation (LH)',
-    description:
-      'Enregistre tes tests LH pour suivre ton pic d’ovulation.',
-    icon: 'test-tube',
-  },
-  {
-    id: 'intercourse',
-    label: 'Rapports',
-    description:
-      'Enregistre cette information de façon privée et discrète.',
-    icon: 'heart-outline',
-  },
-];
+}> {
+  return [
+    {
+      id: 'temperature',
+      label: t('journalTemperature.title'),
+      description: t('conceptionOnboarding.indicators.options.temperature.description'),
+      icon: 'thermometer',
+    },
+    {
+      id: 'cervical_mucus',
+      label: t('journalCervicalMucus.title'),
+      description: t('conceptionOnboarding.indicators.options.cervicalMucus.description'),
+      icon: 'water-outline',
+    },
+    {
+      id: 'lh_tests',
+      label: t('conceptionOnboarding.indicators.options.lhTests.label'),
+      description: t('conceptionOnboarding.indicators.options.lhTests.description'),
+      icon: 'test-tube',
+    },
+    {
+      id: 'intercourse',
+      label: t('journalConceptionReports.title'),
+      description: t('conceptionOnboarding.indicators.options.intercourse.description'),
+      icon: 'heart-outline',
+    },
+  ];
+}
 
 // All 5 ConceptionReminderKey values get their own toggle + notification
 // here (see conceptionReminderScheduling.ts), each off by default — opt-in
@@ -157,7 +165,12 @@ const indicatorOptions: Array<{
 // per-item DECORATIVE icon-tint palette (category-identity accents) — left
 // as fixed literals verbatim per the theme-migration rules, never mapped to
 // theme tokens.
-const reminderOptions: Array<{
+// fertileWindow/estimatedOvulation/dailyJournal/temperature/lhTest labels
+// reuse the canonical cyclePhase.fertile / journalCycleEvolution.phase.ovulation
+// / cycleHome.quickActions.dailyJournal / journalTemperature.title /
+// journalLHTest.title keys instead of duplicating the same word under a
+// second key.
+function reminderOptionsFor(t: (key: string) => string): Array<{
   id: ConceptionReminderKey;
   label: string;
   description: string;
@@ -165,63 +178,55 @@ const reminderOptions: Array<{
   icon: IconName;
   accent: string;
   background: string;
-}> = [
-  {
-    id: 'fertile_window',
-    label: 'Fenêtre fertile',
-    description:
-      'Informe lorsque ta fenêtre fertile approche ou commence.',
-    detail:
-      'Tu recevras un rappel lorsque ta période fertile approche.',
-    icon: 'sprout',
-    accent: '#D94D91',
-    background: '#FCE8F2',
-  },
-  {
-    id: 'estimated_ovulation',
-    label: 'Ovulation estimée',
-    description:
-      'Informe autour du jour où ton ovulation est estimée.',
-    detail:
-      'Un repère simple autour de ton jour d’ovulation estimé.',
-    icon: 'target',
-    accent: '#C94A93',
-    background: '#FBE9F4',
-  },
-  {
-    id: 'daily_journal',
-    label: 'Journal quotidien',
-    description:
-      'Un seul rappel par jour pour compléter ton suivi.',
-    detail:
-      'Température basale, glaire cervicale, test LH, rapports et autres observations.',
-    icon: 'notebook-outline',
-    accent: '#6949BE',
-    background: '#EFE7FB',
-  },
-  {
-    id: 'temperature',
-    label: 'Température basale',
-    description:
-      'Un rappel chaque matin pour prendre ta température.',
-    detail:
-      'Idéal pour ne pas oublier ta mesure au réveil, avant de te lever.',
-    icon: 'thermometer',
-    accent: '#8B6FD1',
-    background: '#EEE7FA',
-  },
-  {
-    id: 'lh_test',
-    label: 'Test LH',
-    description:
-      'Un rappel pendant ta fenêtre fertile pour ton test d’ovulation.',
-    detail:
-      'Un repère pour penser à faire ton test LH au bon moment.',
-    icon: 'test-tube',
-    accent: '#8C5A9E',
-    background: '#F3E9F7',
-  },
-];
+}> {
+  return [
+    {
+      id: 'fertile_window',
+      label: t('cyclePhase.fertile'),
+      description: t('conceptionOnboarding.reminders.options.fertileWindow.description'),
+      detail: t('conceptionOnboarding.reminders.options.fertileWindow.detail'),
+      icon: 'sprout',
+      accent: '#D94D91',
+      background: '#FCE8F2',
+    },
+    {
+      id: 'estimated_ovulation',
+      label: t('journalCycleEvolution.phase.ovulation'),
+      description: t('conceptionOnboarding.reminders.options.estimatedOvulation.description'),
+      detail: t('conceptionOnboarding.reminders.options.estimatedOvulation.detail'),
+      icon: 'target',
+      accent: '#C94A93',
+      background: '#FBE9F4',
+    },
+    {
+      id: 'daily_journal',
+      label: t('cycleHome.quickActions.dailyJournal'),
+      description: t('conceptionOnboarding.reminders.options.dailyJournal.description'),
+      detail: t('conceptionOnboarding.reminders.options.dailyJournal.detail'),
+      icon: 'notebook-outline',
+      accent: '#6949BE',
+      background: '#EFE7FB',
+    },
+    {
+      id: 'temperature',
+      label: t('journalTemperature.title'),
+      description: t('conceptionOnboarding.reminders.options.temperature.description'),
+      detail: t('conceptionOnboarding.reminders.options.temperature.detail'),
+      icon: 'thermometer',
+      accent: '#8B6FD1',
+      background: '#EEE7FA',
+    },
+    {
+      id: 'lh_test',
+      label: t('journalLHTest.title'),
+      description: t('conceptionOnboarding.reminders.options.lhTest.description'),
+      detail: t('conceptionOnboarding.reminders.options.lhTest.detail'),
+      icon: 'test-tube',
+      accent: '#8C5A9E',
+      background: '#F3E9F7',
+    },
+  ];
+}
 
 /* ============================================================
  * CURRENT PREFERENCES (never a mount-time / boot-time snapshot)
@@ -284,6 +289,7 @@ function Shell({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }) {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const isEdit = route.params?.mode === 'edit';
 
@@ -306,7 +312,7 @@ function Shell({
         showsVerticalScrollIndicator={false}>
         <View style={styles.progressRow}>
           <Pressable
-            accessibilityLabel="Revenir à l’étape précédente"
+            accessibilityLabel={t('conceptionOnboarding.shell.backAccessibility')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={navigation.goBack}
@@ -339,7 +345,7 @@ function Shell({
               pressed && !nextDisabled && styles.primaryPressed,
             ]}>
             <Text style={styles.primaryText}>
-              {isEdit ? 'Enregistrer' : step === 4 ? 'Continuer' : 'Suivant'}
+              {isEdit ? t('common.save') : step === 4 ? t('common.continue') : t('conceptionOnboarding.shell.next')}
             </Text>
 
             <MaterialDesignIcons
@@ -378,8 +384,10 @@ export function ConceptionTryingDurationScreen({
   navigation,
   route,
 }: Props) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const durationOptions = useMemo(() => durationOptionsFor(t), [t]);
 
   const current = useCurrentConceptionPreferences();
   // `undefined` = untouched: the CURRENT stored value is shown until she picks.
@@ -411,9 +419,9 @@ export function ConceptionTryingDurationScreen({
       route={route}
       step={1}
       styles={styles}
-      subtitle="Choisissez la durée qui vous correspond."
+      subtitle={t('conceptionOnboarding.tryingDuration.subtitle')}
       theme={theme}
-      title="Depuis combien de temps essayez-vous de concevoir ?"
+      title={t('conceptionOnboarding.tryingDuration.title')}
       nextDisabled={!selected}>
 
       <View style={[styles.list, styles.listTop]}>
@@ -431,7 +439,7 @@ export function ConceptionTryingDurationScreen({
 
       <Info
         styles={styles}
-        text="Chaque parcours est unique. AWA est là pour t’accompagner à chaque étape."
+        text={t('conceptionOnboarding.tryingDuration.info')}
         theme={theme}
       />
     </Shell>
@@ -446,8 +454,10 @@ export function ConceptionOvulationAwarenessScreen({
   navigation,
   route,
 }: Props) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const awarenessOptions = useMemo(() => awarenessOptionsFor(t), [t]);
 
   const current = useCurrentConceptionPreferences();
   const [draft, setDraft] = useState<OvulationAwareness | undefined>(undefined);
@@ -478,9 +488,9 @@ export function ConceptionOvulationAwarenessScreen({
       route={route}
       step={2}
       styles={styles}
-      subtitle="Cela nous aide à te proposer le meilleur suivi."
+      subtitle={t('conceptionOnboarding.ovulationAwareness.subtitle')}
       theme={theme}
-      title="Arrives-tu généralement à repérer ton ovulation ?"
+      title={t('conceptionOnboarding.ovulationAwareness.title')}
       nextDisabled={!selected}>
 
       <View style={[styles.list, styles.listTop]}>
@@ -499,7 +509,7 @@ export function ConceptionOvulationAwarenessScreen({
       <Info
         icon="lightbulb-outline"
         styles={styles}
-        text="Pas de souci si tu ne sais pas encore. AWA t’aidera à observer ton cycle progressivement."
+        text={t('conceptionOnboarding.ovulationAwareness.info')}
         theme={theme}
       />
     </Shell>
@@ -514,8 +524,10 @@ export function ConceptionIndicatorsScreen({
   navigation,
   route,
 }: Props) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const indicatorOptions = useMemo(() => indicatorOptionsFor(t), [t]);
 
   const current = useCurrentConceptionPreferences();
   // null = untouched: the CURRENT stored indicators are shown until she edits.
@@ -565,9 +577,9 @@ export function ConceptionIndicatorsScreen({
       route={route}
       step={3}
       styles={styles}
-      subtitle="Sélectionne ce qui t’aide le plus à comprendre ta fertilité."
+      subtitle={t('conceptionOnboarding.indicators.subtitle')}
       theme={theme}
-      title="Quels indicateurs souhaites-tu suivre ?"
+      title={t('conceptionOnboarding.indicators.title')}
       nextDisabled={selected.size === 0}>
       <View style={[styles.list, styles.listTop]}>
         {indicatorOptions.map(item => (
@@ -584,9 +596,9 @@ export function ConceptionIndicatorsScreen({
 
         <Choice
           checkbox
-          description="Je souhaite un suivi complet et détaillé."
+          description={t('conceptionOnboarding.indicators.trackAll.description')}
           icon="creation"
-          label="Suivre tous les indicateurs"
+          label={t('conceptionOnboarding.indicators.trackAll.label')}
           onPress={() =>
             setSelected(
               all
@@ -607,7 +619,7 @@ export function ConceptionIndicatorsScreen({
       <Info
         icon="shield-lock-outline"
         styles={styles}
-        text="Les informations liées à ta vie intime restent privées et peuvent être protégées par tes réglages de confidentialité."
+        text={t('conceptionOnboarding.indicators.info')}
         theme={theme}
       />
     </Shell>
@@ -624,9 +636,11 @@ export function ConceptionRemindersScreen({
   navigation,
   route,
 }: RemindersProps) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const editStyles = useMemo(() => createEditStyles(theme), [theme]);
+  const reminderOptions = useMemo(() => reminderOptionsFor(t), [t]);
 
   // Same canonical conceptionPreferences.ts store regardless of mode — this
   // is what makes onboarding and Profile → Notifications & rappels literally
@@ -700,7 +714,7 @@ export function ConceptionRemindersScreen({
           showsVerticalScrollIndicator={false}>
           <View style={editStyles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -708,9 +722,9 @@ export function ConceptionRemindersScreen({
               <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
             </Pressable>
             <View style={editStyles.headerCopy}>
-              <Text style={editStyles.title}>Notifications &amp; rappels</Text>
+              <Text style={editStyles.title}>{t('profile.notificationsAndReminders')}</Text>
               <Text style={editStyles.subtitle}>
-                Choisis les rappels qui t’accompagnent dans ton projet de conception.
+                {t('conceptionOnboarding.reminders.editSubtitle')}
               </Text>
             </View>
           </View>
@@ -744,7 +758,7 @@ export function ConceptionRemindersScreen({
             disabled={saving}
             onPress={handleSave}
             style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
-            <Text style={editStyles.saveButtonText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+            <Text style={editStyles.saveButtonText}>{saving ? t('conceptionOnboarding.reminders.saving') : t('common.save')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -758,9 +772,9 @@ export function ConceptionRemindersScreen({
       route={route}
       step={4}
       styles={styles}
-      subtitle="Choisis seulement les rappels qui te sont vraiment utiles."
+      subtitle={t('conceptionOnboarding.reminders.subtitle')}
       theme={theme}
-      title="Rappels personnalisés">
+      title={t('conceptionOnboarding.reminders.title')}>
       {/* REMINDER CARDS */}
 
       <View style={styles.reminderList}>
@@ -874,11 +888,7 @@ export function ConceptionRemindersScreen({
                     style={
                       styles.journalIncludedText
                     }>
-                    Ton journal peut regrouper la
-                    température basale, la glaire
-                    cervicale, les tests LH, les
-                    rapports et tes autres
-                    observations.
+                    {t('conceptionOnboarding.reminders.journalIncludedText')}
                   </Text>
                 </View>
               ) : null}
@@ -902,13 +912,12 @@ export function ConceptionRemindersScreen({
         <View style={styles.privacyReminderCopy}>
           <Text
             style={styles.privacyReminderTitle}>
-            Des rappels discrets
+            {t('conceptionOnboarding.reminders.privacyTitle')}
           </Text>
 
           <Text
             style={styles.privacyReminderText}>
-            Le contenu sensible peut rester masqué
-            selon tes réglages de confidentialité.
+            {t('conceptionOnboarding.reminders.privacyText')}
           </Text>
         </View>
 
@@ -929,8 +938,7 @@ export function ConceptionRemindersScreen({
         />
 
         <Text style={styles.settingsNoticeText}>
-          Tu pourras modifier ces préférences à tout
-          moment dans les paramètres.
+          {t('conceptionOnboarding.reminders.settingsNotice')}
         </Text>
       </View>
     </Shell>

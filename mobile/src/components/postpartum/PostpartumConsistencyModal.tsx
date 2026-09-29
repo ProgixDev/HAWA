@@ -1,9 +1,11 @@
 import React, { useMemo } from 'react';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useTranslation } from 'react-i18next';
 
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // Shared warning/confirmation dialog for Postpartum's date-consistency
 // checks — "Date à vérifier" (Retour du cycle) and "Vérifie ton suivi"
@@ -32,13 +34,15 @@ export function PostpartumConsistencyModal({
   message,
   infoText,
   primaryLabel,
-  secondaryLabel = 'Annuler',
+  secondaryLabel,
   onPrimary,
   onSecondary,
   onRequestClose,
 }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const resolvedSecondaryLabel = secondaryLabel ?? t('common.cancel');
 
   return (
     <Modal
@@ -50,7 +54,7 @@ export function PostpartumConsistencyModal({
     >
       <View style={styles.overlay}>
         <Pressable
-          accessibilityLabel="Fermer l’avertissement"
+          accessibilityLabel={t('postpartumConsistencyModal.closeBackdropLabel')}
           onPress={onRequestClose}
           style={StyleSheet.absoluteFill}
         />
@@ -82,12 +86,12 @@ export function PostpartumConsistencyModal({
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={18} />
           </Pressable>
           <Pressable
-            accessibilityLabel={secondaryLabel}
+            accessibilityLabel={resolvedSecondaryLabel}
             accessibilityRole="button"
             onPress={onSecondary}
             style={({ pressed }) => [styles.secondary, pressed && styles.pressed]}
           >
-            <Text style={styles.secondaryText}>{secondaryLabel}</Text>
+            <Text style={styles.secondaryText}>{resolvedSecondaryLabel}</Text>
           </Pressable>
         </View>
       </View>

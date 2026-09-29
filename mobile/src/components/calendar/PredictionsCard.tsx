@@ -1,11 +1,13 @@
 import React, {memo, useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {CycleRegularity} from '../../state/onboardingPreferences';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -16,23 +18,24 @@ type Props = {
   regularity: CycleRegularity;
 };
 
-function createConfidence(theme: ResolvedAwaTheme): Record<CycleRegularity, {label: string; color: string; bg: string}> {
+function createConfidence(theme: ResolvedAwaTheme, t: (key: string) => string): Record<CycleRegularity, {label: string; color: string; bg: string}> {
   return {
-    yes: {label: 'Fiabilité élevée', color: theme.colors.success, bg: withAlpha(theme.colors.success, 0.16)},
-    no: {label: 'Fiabilité modérée', color: theme.colors.warning, bg: withAlpha(theme.colors.warning, 0.16)},
-    unknown: {label: 'Fiabilité limitée', color: theme.colors.textSecondary, bg: theme.colors.primarySoft},
+    yes: {label: t('calendar.confidenceHigh'), color: theme.colors.success, bg: withAlpha(theme.colors.success, 0.16)},
+    no: {label: t('calendar.confidenceModerate'), color: theme.colors.warning, bg: withAlpha(theme.colors.warning, 0.16)},
+    unknown: {label: t('calendar.confidenceLimited'), color: theme.colors.textSecondary, bg: theme.colors.primarySoft},
   };
 }
 
 function PredictionsCard({items, regularity}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const confidence = useMemo(() => createConfidence(theme), [theme])[regularity];
+  const confidence = useMemo(() => createConfidence(theme, t), [theme, t])[regularity];
 
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>Prédictions personnalisées</Text>
+        <Text style={styles.title}>{t('calendar.predictionsTitle')}</Text>
         <View style={[styles.confidenceBadge, {backgroundColor: confidence.bg}]}>
           <Text numberOfLines={1} style={[styles.confidenceText, {color: confidence.color}]}>{confidence.label}</Text>
         </View>
@@ -53,7 +56,7 @@ function PredictionsCard({items, regularity}: Props): React.JSX.Element {
 
       <View style={styles.captionRow}>
         <MaterialDesignIcons color={theme.colors.textSecondary} name="information-outline" size={14} />
-        <Text style={styles.caption}>Prédictions calculées à partir de tes cycles enregistrés.</Text>
+        <Text style={styles.caption}>{t('calendar.predictionsCaption')}</Text>
       </View>
     </View>
   );

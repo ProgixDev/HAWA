@@ -1,5 +1,6 @@
 import {useToday} from '../../hooks/useToday';
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
 import {
   useNavigation,
@@ -28,11 +29,11 @@ import {
 } from '../../config/contraceptionJournalConfig';
 
 import {
-  CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL,
+  contraceptionDefaultIntakeActionLabel,
   CONTRACEPTION_EVENT_ICONS,
-  CONTRACEPTION_EVENT_LABELS,
-  CONTRACEPTION_INTAKE_ACTION_LABEL,
-  CONTRACEPTION_INTAKE_STATUS_LABELS,
+  contraceptionEventLabels,
+  contraceptionIntakeActionLabels,
+  contraceptionIntakeStatusLabels,
   CONTRACEPTION_METHOD_EVENT_TYPES,
   isContraceptionEventForMethod,
 } from '../../config/contraceptionLabels';
@@ -40,6 +41,8 @@ import {
 import {
   getContraceptionPreferences,
 } from '../../state/contraceptionPreferences';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 import {getCyclicPillSchedule, isPillBreakDateKey} from '../../utils/contraceptionMath';
 
 import {
@@ -90,7 +93,7 @@ const DANGER = '#D96176';
 type Props = RouteProp<RootStackParamList, 'ContraceptionJournalEntry'>;
 
 function formatToday(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -151,6 +154,7 @@ function PremiumTextArea({
   maxLength: number;
   large?: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [focused, setFocused] = useState(false);
@@ -173,7 +177,7 @@ function PremiumTextArea({
       <View style={styles.noteFooter}>
         <View style={styles.privatePill}>
           <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={11} />
-          <Text style={styles.privatePillText}>Privé</Text>
+          <Text style={styles.privatePillText}>{t('contraceptionJournalEntry.private')}</Text>
         </View>
 
         <Text style={styles.noteCounter}>{value.length}/{maxLength}</Text>
@@ -200,6 +204,7 @@ function PremiumHero({
   accent?: string;
   tint?: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -225,7 +230,7 @@ function PremiumHero({
       <View style={styles.heroCopy}>
         <View style={styles.heroEyebrowRow}>
           <View style={[styles.heroEyebrowDot, {backgroundColor: effectiveAccent}]} />
-          <Text style={[styles.heroEyebrow, {color: effectiveAccent}]}>SUIVI DU JOUR</Text>
+          <Text style={[styles.heroEyebrow, {color: effectiveAccent}]}>{t('contraceptionJournalEntry.todayEyebrow')}</Text>
         </View>
 
         <Text style={styles.heroTitle}>{title}</Text>
@@ -252,8 +257,10 @@ function IntakeStatusContent({
   status: ContraceptionIntakeStatus | undefined;
   onSelect: (value: ContraceptionIntakeStatus) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const intakeStatusLabels = contraceptionIntakeStatusLabels(t);
 
   return (
     <>
@@ -266,13 +273,13 @@ function IntakeStatusContent({
       <View style={styles.card}>
         <SectionHeader
           icon="calendar-today"
-          subtitle="Choisis ce qui correspond le mieux à ta journée"
-          title="Aujourd’hui"
+          subtitle={t('contraceptionJournalEntry.today.subtitle')}
+          title={t('contraceptionJournalEntry.today.title')}
         />
 
         <View style={styles.statusChoiceList}>
           <Pressable
-            accessibilityLabel={CONTRACEPTION_INTAKE_STATUS_LABELS.taken}
+            accessibilityLabel={intakeStatusLabels.taken}
             accessibilityRole="radio"
             accessibilityState={{checked: status === 'taken'}}
             onPress={() => onSelect('taken')}
@@ -291,9 +298,9 @@ function IntakeStatusContent({
 
             <View style={styles.statusChoiceCopy}>
               <Text style={[styles.statusChoiceText, status === 'taken' && styles.statusChoiceTextActive]}>
-                {CONTRACEPTION_INTAKE_STATUS_LABELS.taken}
+                {intakeStatusLabels.taken}
               </Text>
-              <Text style={styles.statusChoiceSubtitle}>Enregistre l’utilisation comme effectuée aujourd’hui</Text>
+              <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.takenSubtitle')}</Text>
             </View>
 
             <View style={[styles.radioOuter, status === 'taken' && styles.radioOuterActive]}>
@@ -302,7 +309,7 @@ function IntakeStatusContent({
           </Pressable>
 
           <Pressable
-            accessibilityLabel={CONTRACEPTION_INTAKE_STATUS_LABELS.late}
+            accessibilityLabel={intakeStatusLabels.late}
             accessibilityRole="radio"
             accessibilityState={{checked: status === 'late'}}
             onPress={() => onSelect('late')}
@@ -321,9 +328,9 @@ function IntakeStatusContent({
 
             <View style={styles.statusChoiceCopy}>
               <Text style={[styles.statusChoiceText, status === 'late' && styles.statusChoiceTextActive]}>
-                {CONTRACEPTION_INTAKE_STATUS_LABELS.late}
+                {intakeStatusLabels.late}
               </Text>
-              <Text style={styles.statusChoiceSubtitle}>Garde une trace d’un retard dans ton suivi</Text>
+              <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.lateSubtitle')}</Text>
             </View>
 
             <View style={[styles.radioOuter, status === 'late' && styles.radioOuterActive]}>
@@ -332,7 +339,7 @@ function IntakeStatusContent({
           </Pressable>
 
           <Pressable
-            accessibilityLabel={CONTRACEPTION_INTAKE_STATUS_LABELS.missed}
+            accessibilityLabel={intakeStatusLabels.missed}
             accessibilityRole="radio"
             accessibilityState={{checked: status === 'missed'}}
             onPress={() => onSelect('missed')}
@@ -351,9 +358,9 @@ function IntakeStatusContent({
 
             <View style={styles.statusChoiceCopy}>
               <Text style={[styles.statusChoiceText, status === 'missed' && styles.statusChoiceTextActive]}>
-                {CONTRACEPTION_INTAKE_STATUS_LABELS.missed}
+                {intakeStatusLabels.missed}
               </Text>
-              <Text style={styles.statusChoiceSubtitle}>Signale simplement un oubli pour aujourd’hui</Text>
+              <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.intake.missedSubtitle')}</Text>
             </View>
 
             <View style={[styles.radioOuter, status === 'missed' && styles.radioOuterActive]}>
@@ -365,8 +372,8 @@ function IntakeStatusContent({
 
       <PostpartumInfoPanel
         icon="information-outline"
-        text="Ce suivi t’aide à garder une trace claire, jour après jour."
-        title="Ton suivi"
+        text={t('contraceptionJournalEntry.intake.infoText')}
+        title={t('contraceptionJournalEntry.intake.infoTitle')}
       />
     </>
   );
@@ -392,8 +399,10 @@ function EventTypeContent({
   onSelect: (value: ContraceptionEventType) => void;
   todayEvents: ContraceptionEvent[];
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const eventLabels = contraceptionEventLabels(t);
 
   return (
     <>
@@ -406,8 +415,8 @@ function EventTypeContent({
       <View style={styles.card}>
         <SectionHeader
           icon="calendar-today"
-          subtitle="Choisis ce qui correspond le mieux à ta journée"
-          title="Aujourd’hui"
+          subtitle={t('contraceptionJournalEntry.today.subtitle')}
+          title={t('contraceptionJournalEntry.today.title')}
         />
 
         <View style={styles.statusChoiceList}>
@@ -415,7 +424,7 @@ function EventTypeContent({
             const active = selected === type;
             return (
               <Pressable
-                accessibilityLabel={CONTRACEPTION_EVENT_LABELS[type]}
+                accessibilityLabel={eventLabels[type]}
                 accessibilityRole="radio"
                 accessibilityState={{checked: active}}
                 key={type}
@@ -435,9 +444,9 @@ function EventTypeContent({
 
                 <View style={styles.statusChoiceCopy}>
                   <Text style={[styles.statusChoiceText, active && styles.statusChoiceTextActive]}>
-                    {CONTRACEPTION_EVENT_LABELS[type]}
+                    {eventLabels[type]}
                   </Text>
-                  <Text style={styles.statusChoiceSubtitle}>Ajouter cet événement à ton suivi du jour</Text>
+                  <Text style={styles.statusChoiceSubtitle}>{t('contraceptionJournalEntry.event.optionSubtitle')}</Text>
                 </View>
 
                 <View style={[styles.radioOuter, active && styles.radioOuterActive]}>
@@ -455,15 +464,17 @@ function EventTypeContent({
             <MaterialDesignIcons color={GREEN} name="check" size={12} />
           </View>
           <Text style={styles.selectedSummaryText}>
-            Déjà enregistré aujourd’hui : {todayEvents.map(event => CONTRACEPTION_EVENT_LABELS[event.type]).join(', ')}
+            {t('contraceptionJournalEntry.event.alreadyRecorded', {
+              list: todayEvents.map(event => eventLabels[event.type]).join(', '),
+            })}
           </Text>
         </View>
       ) : null}
 
       <PostpartumInfoPanel
         icon="information-outline"
-        text="Ce suivi t’aide à garder une trace claire, jour après jour."
-        title="Ton suivi"
+        text={t('contraceptionJournalEntry.intake.infoText')}
+        title={t('contraceptionJournalEntry.intake.infoTitle')}
       />
     </>
   );
@@ -482,6 +493,7 @@ function FeelingsContent({
   toggle: (option: string) => void;
   dayWord: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const chipCheckIconColor = onPrimaryTextColor(theme);
@@ -491,16 +503,16 @@ function FeelingsContent({
       <PremiumHero
         accent={theme.colors.primary}
         icon="heart-pulse"
-        subtitle={`Sélectionne ce que tu as ressenti ${dayWord} — cela reste un suivi personnel, jamais un diagnostic.`}
+        subtitle={t('contraceptionJournalEntry.feelings.heroSubtitle', {dayWord})}
         tint={theme.colors.primarySoft}
-        title="Comment te sens-tu ?"
+        title={t('contraceptionJournalEntry.feelings.heroTitle')}
       />
 
       <View style={styles.card}>
         <SectionHeader
           icon="clipboard-pulse-outline"
-          subtitle="Tu peux en sélectionner plusieurs"
-          title="Effets ressentis"
+          subtitle={t('contraceptionJournalEntry.feelings.sectionSubtitle')}
+          title={t('contraceptionJournalEntry.feelings.sectionTitle')}
         />
 
         <View style={styles.chipsWrap}>
@@ -535,7 +547,7 @@ function FeelingsContent({
               <MaterialDesignIcons color={GREEN} name="check" size={12} />
             </View>
             <Text style={styles.selectedSummaryText}>
-              {selected.length} élément{selected.length > 1 ? 's' : ''} sélectionné{selected.length > 1 ? 's' : ''}
+              {t('contraceptionJournalEntry.feelings.selectedCount', {count: selected.length})}
             </Text>
           </View>
         ) : null}
@@ -543,8 +555,8 @@ function FeelingsContent({
 
       <PostpartumInfoPanel
         icon="shield-check-outline"
-        text="Ce suivi t’appartient — il n’émet aucune interprétation médicale."
-        title="Suivi personnel"
+        text={t('contraceptionJournalEntry.feelings.infoText')}
+        title={t('contraceptionJournalEntry.feelings.infoTitle')}
       />
     </>
   );
@@ -561,6 +573,7 @@ function NotesContent({
   note: string;
   setNote: (value: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -569,23 +582,23 @@ function NotesContent({
       <PremiumHero
         accent="#7C5AC7"
         icon="notebook-edit-outline"
-        subtitle="Un endroit privé pour ce que tu souhaites garder."
+        subtitle={t('contraceptionJournalEntry.notes.heroSubtitle')}
         tint="#EEE7FA"
-        title="Ton espace personnel"
+        title={t('contraceptionJournalEntry.notes.heroTitle')}
       />
 
       <View style={styles.card}>
         <SectionHeader
           icon="notebook-edit-outline"
-          subtitle="Écris librement, à ton rythme"
-          title="Ce que je souhaite noter"
+          subtitle={t('contraceptionJournalEntry.notes.sectionSubtitle')}
+          title={t('contraceptionJournalEntry.notes.sectionTitle')}
         />
 
         <PremiumTextArea
           large
           maxLength={1000}
           onChangeText={setNote}
-          placeholder="Ajoute une information personnelle sur ta journée…"
+          placeholder={t('contraceptionJournalEntry.notes.placeholder')}
           value={note}
         />
       </View>
@@ -599,6 +612,7 @@ function NotesContent({
 
 export default function ContraceptionJournalEntryScreen(): React.JSX.Element | null {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const {t} = useTranslation();
   const route = useRoute<Props>();
   const {category} = route.params;
   const requestedDate = route.params.date;
@@ -627,19 +641,21 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
       : todayKey;
   const isFutureEntryDate = entryDateKey > todayKey;
   const isPastEntryDate = entryDateKey < todayKey;
-  const dayWord = isPastEntryDate ? 'ce jour-là' : 'aujourd’hui';
+  const dayWord = isPastEntryDate
+    ? t('contraceptionJournalEntry.feelings.dayWordPast')
+    : t('contraceptionJournalEntry.feelings.dayWordToday');
 
   const todaySubtitle = React.useMemo(
     () =>
       entryDateKey === todayKey
-        ? `Aujourd’hui  •  ${formatToday(today)}`
+        ? t('contraceptionJournalEntry.todayLabel', {date: formatToday(today)})
         : formatToday(new Date(`${entryDateKey}T12:00:00`)),
-    [entryDateKey, todayKey, today],
+    [entryDateKey, todayKey, today, t],
   );
 
   const intakeActionLabel = method
-    ? CONTRACEPTION_INTAKE_ACTION_LABEL[method]
-    : CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL;
+    ? contraceptionIntakeActionLabels(t)[method]
+    : contraceptionDefaultIntakeActionLabel(t);
 
   const [status, setStatus] = useState<ContraceptionIntakeStatus | undefined>(undefined);
   const [intakeLoaded, setIntakeLoaded] = useState(false);
@@ -733,7 +749,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
 
     if (category === 'intake' && isEventMethod) {
       if (!eventType) {
-        setError('Choisis une réponse avant d’enregistrer.');
+        setError(t('contraceptionJournalEntry.errors.chooseBeforeSaving'));
         return;
       }
       setSaving(true);
@@ -754,7 +770,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         return;
       }
       if (!status) {
-        setError('Choisis une réponse avant d’enregistrer.');
+        setError(t('contraceptionJournalEntry.errors.chooseBeforeSaving'));
         return;
       }
       setSaving(true);
@@ -776,12 +792,12 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
       // correcting an accidental entry); an empty selection with nothing
       // saved has nothing to save.
       if (isFutureEntryDate) {
-        setError('Tu ne peux pas enregistrer un suivi pour une date à venir.');
+        setError(t('contraceptionJournalEntry.errors.futureDate'));
         return;
       }
       const hasSavedFeelings = (getContraceptionJournalEntry(entryDateKey)?.feelings?.length ?? 0) > 0;
       if (feelings.length === 0 && !hasSavedFeelings) {
-        setError('Choisis au moins un élément avant d’enregistrer.');
+        setError(t('contraceptionJournalEntry.errors.chooseAtLeastOne'));
         return;
       }
       setSaving(true);
@@ -801,7 +817,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
     // Same for the (encrypted) note: emptying a saved note deletes it.
     const hasSavedNote = Boolean(getContraceptionJournalEntry(todayKey)?.notes);
     if (!notes.trim() && !hasSavedNote) {
-      setError('Ajoute une note avant d’enregistrer.');
+      setError(t('contraceptionJournalEntry.errors.addNoteBeforeSaving'));
       return;
     }
     setSaving(true);
@@ -827,7 +843,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         saving={saving}
         subtitle={todaySubtitle}
         tint="#F1E8F5"
-        title="Effets ressentis">
+        title={t('contraceptionJournalConfig.feelings.label')}>
         <FeelingsContent dayWord={dayWord} selected={feelings} toggle={toggleFeeling} />
       </PostpartumJournalScreenLayout>
     );
@@ -846,7 +862,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         saving={saving}
         subtitle={todaySubtitle}
         tint="#E8DDF8"
-        title="Notes du jour">
+        title={t('contraceptionJournalConfig.notes.label')}>
         <NotesContent note={notes} setNote={setNotes} />
       </PostpartumJournalScreenLayout>
     );
@@ -865,7 +881,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         title={intakeActionLabel}>
         <EventTypeContent
           eventTypes={eventTypes}
-          heroSubtitle="Enregistre ton suivi d’aujourd’hui."
+          heroSubtitle={t('contraceptionJournalEntry.intake.statusSubtitle')}
           heroTitle={intakeActionLabel}
           onSelect={setEventType}
           selected={eventType}
@@ -885,17 +901,17 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
         saving={false}
         subtitle={todaySubtitle}
         tint={GREEN_LIGHT}
-        title="Jour d’arrêt">
+        title={t('contraceptionJournalEntry.breakDay.title')}>
         <PostpartumInfoPanel
           icon="information-outline"
-          text="Aucune prise n’est attendue aujourd’hui selon ton schéma. Tu peux tout de même noter tes effets ressentis ou une note."
-          title="Jour d’arrêt"
+          text={t('contraceptionJournalEntry.breakDay.infoText')}
+          title={t('contraceptionJournalEntry.breakDay.title')}
         />
         {intakeLoaded && status !== undefined ? (
           <PostpartumInfoPanel
             icon="check-circle-outline"
-            text={`Un statut a déjà été enregistré pour aujourd’hui : ${CONTRACEPTION_INTAKE_STATUS_LABELS[status]}.`}
-            title="Enregistré"
+            text={t('contraceptionJournalEntry.breakDay.alreadyRecorded', {status: contraceptionIntakeStatusLabels(t)[status]})}
+            title={t('contraceptionJournalEntry.breakDay.alreadyRecordedTitle')}
           />
         ) : null}
       </PostpartumJournalScreenLayout>
@@ -913,7 +929,7 @@ export default function ContraceptionJournalEntryScreen(): React.JSX.Element | n
       tint={GREEN_LIGHT}
       title={intakeActionLabel}>
       <IntakeStatusContent
-        heroSubtitle="Enregistre ton suivi d’aujourd’hui."
+        heroSubtitle={t('contraceptionJournalEntry.intake.statusSubtitle')}
         heroTitle={intakeActionLabel}
         onSelect={setStatus}
         status={status}

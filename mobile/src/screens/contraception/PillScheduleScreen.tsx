@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Animated,
@@ -25,6 +26,7 @@ import {
   setContraceptionPreferences,
   type PillScheduleType,
 } from '../../state/contraceptionPreferences';
+import '../../i18n';
 
 const ACTIVE_DAYS_MIN = 1;
 const ACTIVE_DAYS_MAX = 90;
@@ -40,6 +42,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PillSchedule'>;
 
 function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -193,7 +196,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -217,8 +220,8 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
           </Animated.View>
 
           <Animated.View style={fadeUp(titleEntrance)}>
-            <Text style={styles.title}>Ton schéma de pilule</Text>
-            <Text style={styles.subtitle}>Personnalise ton suivi selon ton traitement.</Text>
+            <Text style={styles.title}>{t('pillSchedule.title')}</Text>
+            <Text style={styles.subtitle}>{t('pillSchedule.subtitle')}</Text>
           </Animated.View>
 
           {isCyclic ? (
@@ -229,14 +232,14 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     <MaterialDesignIcons color={theme.colors.primary} name="pill" size={18} />
                   </View>
                   <View style={styles.cardCopy}>
-                    <Text style={styles.cardTitle}>Jours de prise</Text>
-                    <Text style={styles.cardSubtitle}>Nombre de jours où tu prends la pilule</Text>
+                    <Text style={styles.cardTitle}>{t('pillSchedule.activeDays.title')}</Text>
+                    <Text style={styles.cardSubtitle}>{t('pillSchedule.activeDays.subtitle')}</Text>
                   </View>
                 </View>
 
                 <View style={styles.stepperRow}>
                   <Pressable
-                    accessibilityLabel="Diminuer d’un jour"
+                    accessibilityLabel={t('pillSchedule.decreaseAccessibility')}
                     accessibilityRole="button"
                     disabled={unknown}
                     onPress={() => adjustActiveDays(-1)}
@@ -246,11 +249,11 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
 
                   <View style={styles.stepperValueBlock}>
                     <Text style={styles.stepperValue}>{activeDays}</Text>
-                    <Text style={styles.stepperUnit}>jours</Text>
+                    <Text style={styles.stepperUnit}>{t('profile.durationStepper.unit')}</Text>
                   </View>
 
                   <Pressable
-                    accessibilityLabel="Augmenter d’un jour"
+                    accessibilityLabel={t('pillSchedule.increaseAccessibility')}
                     accessibilityRole="button"
                     disabled={unknown}
                     onPress={() => adjustActiveDays(1)}
@@ -266,14 +269,14 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                     <MaterialDesignIcons color={theme.colors.warning} name="pause-circle-outline" size={18} />
                   </View>
                   <View style={styles.cardCopy}>
-                    <Text style={styles.cardTitle}>Jours d’arrêt</Text>
-                    <Text style={styles.cardSubtitle}>Nombre de jours de pause</Text>
+                    <Text style={styles.cardTitle}>{t('pillSchedule.breakDays.title')}</Text>
+                    <Text style={styles.cardSubtitle}>{t('pillSchedule.breakDays.subtitle')}</Text>
                   </View>
                 </View>
 
                 <View style={styles.stepperRow}>
                   <Pressable
-                    accessibilityLabel="Diminuer d’un jour"
+                    accessibilityLabel={t('pillSchedule.decreaseAccessibility')}
                     accessibilityRole="button"
                     disabled={unknown}
                     onPress={() => adjustBreakDays(-1)}
@@ -283,11 +286,11 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
 
                   <View style={styles.stepperValueBlock}>
                     <Text style={styles.stepperValue}>{breakDays}</Text>
-                    <Text style={styles.stepperUnit}>jours</Text>
+                    <Text style={styles.stepperUnit}>{t('profile.durationStepper.unit')}</Text>
                   </View>
 
                   <Pressable
-                    accessibilityLabel="Augmenter d’un jour"
+                    accessibilityLabel={t('pillSchedule.increaseAccessibility')}
                     accessibilityRole="button"
                     disabled={unknown}
                     onPress={() => adjustBreakDays(1)}
@@ -296,37 +299,37 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                   </Pressable>
                 </View>
 
-                <Text style={styles.cardFootnote}>Période d’arrêt renseignée dans ton schéma.</Text>
+                <Text style={styles.cardFootnote}>{t('pillSchedule.breakDays.footnote')}</Text>
               </Animated.View>
 
               {!unknown ? (
                 <Animated.View style={[styles.summaryCard, fadeUp(summaryEntrance)]}>
                   <View style={styles.summaryHeaderRow}>
                     <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={16} />
-                    <Text style={styles.summaryTitle}>Ton schéma</Text>
+                    <Text style={styles.summaryTitle}>{t('pillSchedule.summary.title')}</Text>
                   </View>
 
                   <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>Prise</Text>
-                    <Text style={styles.summaryValue}>{activeDays} jours</Text>
+                    <Text style={styles.summaryLabel}>{t('pillSchedule.summary.intakeLabel')}</Text>
+                    <Text style={styles.summaryValue}>{t('pillSchedule.summary.daysValue', {count: activeDays})}</Text>
                   </View>
                   <View style={styles.summaryRow}>
-                    <Text style={styles.summaryLabel}>Arrêt</Text>
-                    <Text style={styles.summaryValue}>{breakDays} jours</Text>
+                    <Text style={styles.summaryLabel}>{t('pillSchedule.summary.breakLabel')}</Text>
+                    <Text style={styles.summaryValue}>{t('pillSchedule.summary.daysValue', {count: breakDays})}</Text>
                   </View>
 
                   <View style={styles.summaryDivider} />
 
                   <View style={styles.summaryRow}>
-                    <Text style={styles.summaryTotalLabel}>Cycle total</Text>
-                    <Text style={styles.summaryTotalValue}>{totalDays} jours</Text>
+                    <Text style={styles.summaryTotalLabel}>{t('pillSchedule.summary.totalLabel')}</Text>
+                    <Text style={styles.summaryTotalValue}>{t('pillSchedule.summary.daysValue', {count: totalDays})}</Text>
                   </View>
                 </Animated.View>
               ) : null}
 
               <Animated.View style={fadeUp(summaryEntrance)}>
                 <Pressable
-                  accessibilityLabel="Je ne connais pas encore mon schéma"
+                  accessibilityLabel={t('pillSchedule.unknown.accessibility')}
                   accessibilityRole="checkbox"
                   accessibilityState={{checked: unknown}}
                   onPress={() => setUnknown(current => !current)}
@@ -338,9 +341,9 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                   />
                   <View style={styles.unknownCopy}>
                     <Text style={[styles.unknownText, unknown && styles.unknownTextActive]}>
-                      Je ne connais pas encore mon schéma
+                      {t('pillSchedule.unknown.text')}
                     </Text>
-                    <Text style={styles.unknownSubtext}>Tu pourras le renseigner plus tard.</Text>
+                    <Text style={styles.unknownSubtext}>{t('pillSchedule.unknown.subtext')}</Text>
                   </View>
                 </Pressable>
               </Animated.View>
@@ -352,16 +355,15 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={theme.colors.primary} name="infinity" size={18} />
                 </View>
                 <View style={styles.cardCopy}>
-                  <Text style={styles.cardTitle}>Prise continue</Text>
+                  <Text style={styles.cardTitle}>{t('pillSchedule.continuous.title')}</Text>
                   <Text style={styles.cardSubtitle}>
-                    Tu prends la pilule sans période d’arrêt, d’après ta réponse précédente.
+                    {t('pillSchedule.continuous.subtitle')}
                   </Text>
                 </View>
               </View>
 
               <Text style={styles.cardFootnote}>
-                AWA suit ta prise sans compte à rebours de plaquette, puisqu’il n’y a pas de longueur de
-                cycle fixe pour ce schéma.
+                {t('pillSchedule.continuous.footnote')}
               </Text>
             </Animated.View>
           )}
@@ -375,7 +377,7 @@ function PillScheduleScreen({navigation, route}: Props): React.JSX.Element {
               onPress={handleContinue}
               style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
               <Text style={styles.nextText}>
-                {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Continuer'}
+                {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
               </Text>
             </Pressable>
           </Animated.View>

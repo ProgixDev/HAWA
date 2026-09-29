@@ -17,7 +17,7 @@ import JournalLHTestScreen from '../../../screens/journal/JournalLHTestScreen';
 import PregnancySymptomsScreen from '../../../screens/pregnancy/PregnancySymptomsScreen';
 import PregnancyWeightScreen from '../../../screens/pregnancy/PregnancyWeightScreen';
 
-import DailyJournalSheet, {CYCLE_JOURNAL_ITEMS} from '../DailyJournalSheet';
+import DailyJournalSheet, {getCycleJournalItems} from '../DailyJournalSheet';
 import {JournalScreenLayout, SectionCard, ChoiceChips} from '../JournalScreenLayout';
 
 // Phase E4 — Journal family theme hardening. Compact, data-driven harness
@@ -276,7 +276,7 @@ describe.each(SCREENS)('$name — resolved global theme', ({render}) => {
 ============================================================ */
 
 describe('DailyJournalSheet (shared, all 8 objectives) — resolved global theme', () => {
-  const actions = CYCLE_JOURNAL_ITEMS.slice(0, 2).map(item => ({
+  const actions = getCycleJournalItems().slice(0, 2).map(item => ({
     key: item.route,
     icon: item.icon,
     title: item.title,

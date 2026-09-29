@@ -9,7 +9,16 @@ import AppearanceScreen from '../AppearanceScreen';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {
+  getAppLanguage,
+  resetAppLanguageForTests,
+  setAppearanceMode,
+  setAppLanguage,
+  setSelectedThemeId,
+  setTrueBlackEnabled,
+} from '../../state/themePreferences';
+import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
+import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
 
 // Only the specific internal module backing RN's useColorScheme() is
 // mocked — same narrow technique as AwaThemeProvider.test.tsx. This lets
@@ -54,6 +63,7 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  await resetAppLanguageForTests();
 });
 
 afterEach(() => {
@@ -101,7 +111,7 @@ describe('AppearanceScreen — resolved global theme', () => {
     expect(title).toBeTruthy();
 
     const subtitle = renderer.root.findAll(
-      node => Array.isArray(node.props.children) && node.props.children[0] === 'Personnalisez l’apparence de votre application AWA',
+      node => typeof node.props.children === 'string' && node.props.children.startsWith('Personnalisez l’apparence de votre application AWA'),
     )[0];
     expect(subtitle).toBeTruthy();
 
@@ -254,11 +264,10 @@ describe('AppearanceScreen — navigation preserved', () => {
 });
 
 /* ============================================================
-   DISPLAY SECTION — "Interface tablette" removed entirely; French-only
-   application language shown as an informational row (no more choices, so
-   no chevron/action implying a selector exists). Removing the tablet
-   setting is purely a UI simplification — it never had a manual toggle
-   wired to any persisted state.
+   DISPLAY SECTION — "Interface tablette" removed entirely (a UI
+   simplification, never wired to persisted state). "Langue de l'application"
+   is a real, pressable row that opens the language bottom sheet — see the
+   dedicated describe block below for that sheet's own behavior.
 ============================================================ */
 
 describe('AppearanceScreen — "Affichage" section (Interface tablette removed)', () => {
@@ -268,22 +277,17 @@ describe('AppearanceScreen — "Affichage" section (Interface tablette removed)'
     expect(renderer.root.findAllByProps({name: 'tablet'}).length).toBe(0);
   });
 
-  it('still renders "Langue de l’application" showing Français, now as a non-interactive row (no chevron)', async () => {
+  it('renders "Langue de l’application" showing the current saved language, as a pressable row (opens the language sheet)', async () => {
     const renderer = await renderScreen();
     const title = renderer.root.findAllByProps({children: 'Langue de l’application'})[0];
     expect(title).toBeTruthy();
     expect(renderer.root.findAllByProps({children: 'Français'}).length).toBeGreaterThan(0);
 
-    // Walk up to the actual Pressable and confirm it carries no onPress —
-    // informational only, matching the existing "no onPress -> no chevron"
-    // pattern already used by AppearanceSettingRow.
-    let pressable: ReactTestRenderer.ReactTestInstance | null = title;
-    while (pressable && pressable.props.disabled === undefined) {
-      pressable = pressable.parent;
-    }
-    expect(pressable).toBeTruthy();
-    expect(pressable!.props.disabled).toBe(true);
-    expect(pressable!.props.onPress).toBeUndefined();
+    const row = renderer.root.findAll(
+      node => node.props.accessibilityLabel === 'Langue de l’application' && node.props.accessibilityRole === 'button',
+    )[0];
+    expect(row).toBeTruthy();
+    expect(typeof row.props.onPress).toBe('function');
   });
 
   it('static guard: no dead "Interface tablette" code (handler, icon literal) remains', () => {
@@ -291,6 +295,169 @@ describe('AppearanceScreen — "Affichage" section (Interface tablette removed)'
     expect(source).not.toMatch(/Interface tablette/);
     expect(source).not.toMatch(/handleInertRow/);
     expect(source).not.toMatch(/icon="tablet"/);
+  });
+});
+
+/* ============================================================
+   LANGUAGE BOTTOM SHEET — UI-only for this task (no string translation
+   yet). App-wide preference (themePreferences.ts), never profile-scoped.
+============================================================ */
+
+describe('AppearanceScreen — "Langue de l’application" bottom sheet', () => {
+  const openSheet = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
+    const row = renderer.root.findAll(
+      node => node.props.accessibilityLabel === 'Langue de l’application' && node.props.accessibilityRole === 'button',
+    )[0];
+    await act(async () => {
+      row.props.onPress();
+    });
+  };
+  const radios = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
+    renderer.root.findAll(node => node.props.accessibilityLabel === label && node.props.accessibilityRole === 'radio');
+  const selectLanguage = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
+    await act(async () => {
+      radios(renderer, label)[0].props.onPress();
+    });
+  };
+  const pressApply = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
+    const apply = renderer.root.findAll(
+      node => node.props.accessibilityLabel === 'Appliquer' && node.props.accessibilityRole === 'button',
+    )[0];
+    await act(async () => {
+      apply.props.onPress();
+    });
+  };
+  const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
+    renderer.root
+      .findAllByType(Text)
+      .map(node => (Array.isArray(node.props.children) ? node.props.children.join('') : String(node.props.children)));
+
+  it('pressing the row opens the sheet, with French selected by default', async () => {
+    const renderer = await renderScreen();
+    expect(textsOf(renderer)).not.toContain('Choisissez la langue utilisée dans AWA.');
+
+    await openSheet(renderer);
+    expect(textsOf(renderer)).toContain('Choisissez la langue utilisée dans AWA.');
+    expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: false});
+  });
+
+  it('English can be selected — only one language is selected at a time', async () => {
+    const renderer = await renderScreen();
+    await openSheet(renderer);
+    await selectLanguage(renderer, 'English');
+
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: false});
+  });
+
+  it('selecting English without pressing "Appliquer" does not persist it — the saved preference stays untouched', async () => {
+    const renderer = await renderScreen();
+    await openSheet(renderer);
+    await selectLanguage(renderer, 'English');
+
+    expect(getAppLanguage()).toBe('fr');
+  });
+
+  it('dismissing the sheet (backdrop) restores the currently saved language next time it opens', async () => {
+    const renderer = await renderScreen();
+    await openSheet(renderer);
+    await selectLanguage(renderer, 'English');
+
+    const backdrop = renderer.root.findAll(node => node.props.accessibilityLabel === 'Fermer')[0];
+    await act(async () => {
+      backdrop.props.onPress();
+    });
+
+    await openSheet(renderer);
+    expect(radios(renderer, 'Français')[0].props.accessibilityState).toEqual({checked: true});
+    expect(radios(renderer, 'English')[0].props.accessibilityState).toEqual({checked: false});
+  });
+
+  it('"Appliquer" persists English, closes the sheet, and updates the Appearance row subtitle', async () => {
+    const renderer = await renderScreen();
+    await openSheet(renderer);
+    await selectLanguage(renderer, 'English');
+    await pressApply(renderer);
+
+    expect(getAppLanguage()).toBe('en');
+    expect(textsOf(renderer)).not.toContain('Choisissez la langue utilisée dans AWA.'); // sheet closed
+    expect(renderer.root.findAllByProps({children: 'English'}).length).toBeGreaterThan(0);
+    expect(renderer.root.findAllByProps({children: 'Français'}).length).toBe(0);
+  });
+
+  it('the preference survives a fresh hydration (simulated app restart)', async () => {
+    await setAppLanguage('en');
+    await resetActiveProfileForTests(); // unrelated store reset, proves no cross-contamination
+    expect(getAppLanguage()).toBe('en');
+  });
+
+  it('stays global when switching profiles — never resets on owner/daughter switch', async () => {
+    await resetManagedProfilesForTests();
+    await resetActiveProfileForTests();
+    await setAppLanguage('en');
+
+    const hanane = await addManagedProfile({type: 'daughter', firstName: 'Hanane', birthDate: '2013-01-01', hasHadFirstPeriod: false});
+    await setActiveProfileId(hanane.id);
+    expect(getAppLanguage()).toBe('en');
+
+    await setActiveProfileId(OWNER_PROFILE_ID);
+    expect(getAppLanguage()).toBe('en');
+  });
+
+  it('applying English actually switches the rendered UI (not just the row subtitle) — and back to French restores it', async () => {
+    // The row's own accessibilityLabel is itself the translated title, so it
+    // changes language too — look it up by either known label rather than
+    // reusing the (French-only) shared `openSheet` helper above.
+    const openLanguageSheetRegardlessOfLocale = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
+      const row = renderer.root.findAll(
+        node =>
+          (node.props.accessibilityLabel === 'Langue de l’application' || node.props.accessibilityLabel === 'App language') &&
+          node.props.accessibilityRole === 'button',
+      )[0];
+      await act(async () => {
+        row.props.onPress();
+      });
+    };
+    const pressApplyRegardlessOfLocale = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
+      const apply = renderer.root.findAll(
+        node =>
+          (node.props.accessibilityLabel === 'Appliquer' || node.props.accessibilityLabel === 'Apply') &&
+          node.props.accessibilityRole === 'button',
+      )[0];
+      await act(async () => {
+        apply.props.onPress();
+      });
+    };
+
+    const renderer = await renderScreen();
+    expect(textsOf(renderer)).toContain('Apparence');
+    expect(textsOf(renderer)).toContain('Thème');
+    expect(textsOf(renderer)).not.toContain('Appearance');
+
+    await openLanguageSheetRegardlessOfLocale(renderer);
+    await selectLanguage(renderer, 'English');
+    await pressApplyRegardlessOfLocale(renderer);
+
+    expect(textsOf(renderer)).toContain('Appearance');
+    expect(textsOf(renderer)).toContain('Theme');
+    expect(textsOf(renderer)).not.toContain('Apparence');
+
+    await openLanguageSheetRegardlessOfLocale(renderer);
+    await selectLanguage(renderer, 'Français');
+    await pressApplyRegardlessOfLocale(renderer);
+
+    expect(textsOf(renderer)).toContain('Apparence');
+    expect(textsOf(renderer)).not.toContain('Appearance');
+  });
+
+  it('existing installs with no saved preference default to French — no onboarding, no migration popup', async () => {
+    // resetAppLanguageForTests() in beforeEach already simulates "no saved
+    // value" (removes the AsyncStorage key) — this just asserts the honest
+    // default rather than re-deriving it.
+    expect(getAppLanguage()).toBe('fr');
+    const renderer = await renderScreen();
+    expect(renderer.root.findAllByProps({children: 'Français'}).length).toBeGreaterThan(0);
   });
 });
 

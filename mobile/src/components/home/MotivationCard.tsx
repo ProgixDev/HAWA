@@ -1,8 +1,10 @@
 import React, {memo, useMemo} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import '../../i18n';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
 const WOMEN = require('../../assets/images/women.png');
@@ -16,6 +18,7 @@ const WOMEN = require('../../assets/images/women.png');
 // theming every color. Only the card's own fallback/edge background (never
 // under the text) is migrated.
 function MotivationCard(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -28,8 +31,8 @@ function MotivationCard(): React.JSX.Element {
       style={styles.card}>
       <View style={styles.spacer} />
       <View style={styles.copy}>
-        <Text style={styles.title}>Prends soin de toi,{`\n`} tu es précieuse ✨</Text>
-        <Text style={styles.subtitle}>Chaque petit pas compte.</Text>
+        <Text style={styles.title}>{t('motivationCard.title')}</Text>
+        <Text style={styles.subtitle}>{t('motivationCard.subtitle')}</Text>
       </View>
     </ImageBackground>
   );

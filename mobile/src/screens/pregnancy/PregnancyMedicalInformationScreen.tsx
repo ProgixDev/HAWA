@@ -27,6 +27,7 @@ import {
   type NavigationProp,
 } from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {
@@ -44,6 +45,8 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 /* ============================================================
    CONSTANTS
@@ -53,7 +56,10 @@ const HERO = require(
   '../../assets/images/pregnancy/pregnancy-medical-information-hero.png',
 );
 
-const WEEK_DAYS = [
+// Single-letter weekday abbreviations aren't sentence content, so — like
+// CycleInformationScreen.tsx's WEEK_DAYS_FR/WEEK_DAYS_EN — they live as local
+// consts picked via getAppLanguage() rather than as i18n keys.
+const WEEK_DAYS_FR = [
   'L',
   'M',
   'M',
@@ -61,6 +67,16 @@ const WEEK_DAYS = [
   'V',
   'S',
   'D',
+] as const;
+
+const WEEK_DAYS_EN = [
+  'M',
+  'T',
+  'W',
+  'T',
+  'F',
+  'S',
+  'S',
 ] as const;
 
 /* ============================================================
@@ -167,11 +183,15 @@ function formatDisplayDate(
     parseStoredDate(value);
 
   if (!date) {
-    return 'Choisir une date';
+    return i18n.t(
+      'pregnancyMedicalInformation.calendar.chooseDate',
+    );
   }
 
   return new Intl.DateTimeFormat(
-    'fr-FR',
+    getAppLanguage() === 'en'
+      ? 'en-US'
+      : 'fr-FR',
     {
       day: 'numeric',
       month: 'long',
@@ -280,6 +300,8 @@ function PremiumDatePickerModal({
     [theme],
   );
 
+  const {t} = useTranslation();
+
   const insets =
     useSafeAreaInsets();
 
@@ -334,9 +356,14 @@ function PremiumDatePickerModal({
       [visibleMonth],
     );
 
+  const dateLocale =
+    getAppLanguage() === 'en'
+      ? 'en-US'
+      : 'fr-FR';
+
   const monthTitle =
     new Intl.DateTimeFormat(
-      'fr-FR',
+      dateLocale,
       {
         month: 'long',
         year: 'numeric',
@@ -347,7 +374,7 @@ function PremiumDatePickerModal({
 
   const selectedLabel =
     new Intl.DateTimeFormat(
-      'fr-FR',
+      dateLocale,
       {
         weekday: 'long',
         day: 'numeric',
@@ -357,6 +384,11 @@ function PremiumDatePickerModal({
     ).format(
       selectedDate,
     );
+
+  const weekDays =
+    getAppLanguage() === 'en'
+      ? WEEK_DAYS_EN
+      : WEEK_DAYS_FR;
 
   const today =
     new Date();
@@ -377,7 +409,9 @@ function PremiumDatePickerModal({
           styles.modalRoot
         }>
         <Pressable
-          accessibilityLabel="Fermer le calendrier"
+          accessibilityLabel={t(
+            'pregnancyMedicalInformation.calendar.closeCalendarAccessibilityLabel',
+          )}
           onPress={
             onClose
           }
@@ -424,7 +458,9 @@ function PremiumDatePickerModal({
                 style={
                   styles.calendarModalTitle
                 }>
-                Choisir une date
+                {t(
+                  'pregnancyMedicalInformation.calendar.chooseDate',
+                )}
               </Text>
 
               <Text
@@ -441,7 +477,9 @@ function PremiumDatePickerModal({
             </View>
 
             <Pressable
-              accessibilityLabel="Fermer"
+              accessibilityLabel={t(
+                'common.close',
+              )}
               onPress={
                 onClose
               }
@@ -463,7 +501,9 @@ function PremiumDatePickerModal({
               styles.monthNavigation
             }>
             <Pressable
-              accessibilityLabel="Mois précédent"
+              accessibilityLabel={t(
+                'pregnancyMedicalInformation.calendar.previousMonth',
+              )}
               onPress={() =>
                 setVisibleMonth(
                   current =>
@@ -495,7 +535,9 @@ function PremiumDatePickerModal({
             </Text>
 
             <Pressable
-              accessibilityLabel="Mois suivant"
+              accessibilityLabel={t(
+                'pregnancyMedicalInformation.calendar.nextMonth',
+              )}
               onPress={() =>
                 setVisibleMonth(
                   current =>
@@ -526,7 +568,7 @@ function PremiumDatePickerModal({
             style={
               styles.weekRow
             }>
-            {WEEK_DAYS.map(
+            {weekDays.map(
               (
                 day,
                 index,
@@ -661,7 +703,9 @@ function PremiumDatePickerModal({
               style={
                 styles.todayButtonText
               }>
-              Aujourd’hui
+              {t(
+                'pregnancyMedicalInformation.calendar.today',
+              )}
             </Text>
           </Pressable>
 
@@ -684,7 +728,9 @@ function PremiumDatePickerModal({
                 style={
                   styles.clearButtonText
                 }>
-                Effacer
+                {t(
+                  'pregnancyMedicalInformation.calendar.clear',
+                )}
               </Text>
             </Pressable>
 
@@ -704,7 +750,9 @@ function PremiumDatePickerModal({
                   style={
                     styles.cancelButtonText
                   }>
-                  Annuler
+                  {t(
+                    'common.cancel',
+                  )}
                 </Text>
               </Pressable>
 
@@ -728,7 +776,9 @@ function PremiumDatePickerModal({
                   style={
                     styles.confirmDateText
                   }>
-                  Choisir
+                  {t(
+                    'pregnancyMedicalInformation.calendar.choose',
+                  )}
                 </Text>
               </Pressable>
             </View>
@@ -749,6 +799,8 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
     () => createStyles(theme),
     [theme],
   );
+
+  const {t} = useTranslation();
 
   const navigation =
     useNavigation<
@@ -1032,7 +1084,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
         !note.trim()
       ) {
         setError(
-          'Ajoute une information avant d’enregistrer.',
+          t(
+            'pregnancyMedicalInformation.errors.emptyNote',
+          ),
         );
 
         return;
@@ -1149,7 +1203,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
               },
             ]}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t(
+                'common.back',
+              )}
               accessibilityRole="button"
               hitSlop={10}
               onPress={
@@ -1180,14 +1236,18 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                 style={
                   styles.title
                 }>
-                Informations médicales
+                {t(
+                  'pregnancyMedicalInformation.header.title',
+                )}
               </Text>
 
               <Text
                 style={
                   styles.subtitle
                 }>
-                Note ici les informations importantes que tu souhaites conserver.
+                {t(
+                  'pregnancyMedicalInformation.header.subtitle',
+                )}
               </Text>
             </View>
           </View>
@@ -1200,7 +1260,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
 
             <Image
               accessibilityIgnoresInvertColors
-              accessibilityLabel="Carnet médical et stéthoscope"
+              accessibilityLabel={t(
+                'pregnancyMedicalInformation.hero.accessibilityLabel',
+              )}
               resizeMode="cover"
               source={
                 HERO
@@ -1235,14 +1297,18 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                   style={
                     styles.privacyTitle
                   }>
-                  Espace personnel et privé
+                  {t(
+                    'pregnancyMedicalInformation.privacy.title',
+                  )}
                 </Text>
 
                 <Text
                   style={
                     styles.privacyText
                   }>
-                  Ces informations restent uniquement sur cet appareil.
+                  {t(
+                    'pregnancyMedicalInformation.privacy.text',
+                  )}
                 </Text>
               </View>
             </View>
@@ -1253,11 +1319,15 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
               style={
                 styles.fieldLabel
               }>
-              Date optionnelle
+              {t(
+                'pregnancyMedicalInformation.date.fieldLabel',
+              )}
             </Text>
 
             <Pressable
-              accessibilityLabel="Choisir la date de l’information"
+              accessibilityLabel={t(
+                'pregnancyMedicalInformation.date.pickerAccessibilityLabel',
+              )}
               accessibilityRole="button"
               onPress={() =>
                 setCalendarVisible(
@@ -1298,7 +1368,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                   style={
                     styles.dateSmallLabel
                   }>
-                  Date de l’information
+                  {t(
+                    'pregnancyMedicalInformation.date.smallLabel',
+                  )}
                 </Text>
 
                 <Text
@@ -1321,7 +1393,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
 
               {date ? (
                 <Pressable
-                  accessibilityLabel="Effacer la date"
+                  accessibilityLabel={t(
+                    'pregnancyMedicalInformation.date.clearAccessibilityLabel',
+                  )}
                   hitSlop={8}
                   onPress={
                     event => {
@@ -1360,7 +1434,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
               style={
                 styles.helper
               }>
-              Indique la date de l’information si tu souhaites la conserver.
+              {t(
+                'pregnancyMedicalInformation.date.helper',
+              )}
             </Text>
 
             {/* NOTE */}
@@ -1369,7 +1445,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
               style={
                 styles.fieldLabel
               }>
-              Note médicale personnelle
+              {t(
+                'pregnancyMedicalInformation.note.fieldLabel',
+              )}
             </Text>
 
             <View
@@ -1394,7 +1472,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                 </View>
 
                 <TextInput
-                  accessibilityLabel="Note médicale personnelle"
+                  accessibilityLabel={t(
+                    'pregnancyMedicalInformation.note.fieldLabel',
+                  )}
                   maxLength={
                     500
                   }
@@ -1410,7 +1490,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                       );
                     }
                   }
-                  placeholder="Écris uniquement les informations que tu souhaites conserver."
+                  placeholder={t(
+                    'pregnancyMedicalInformation.note.placeholder',
+                  )}
                   placeholderTextColor={theme.colors.textMuted}
                   style={
                     styles.noteInput
@@ -1436,7 +1518,14 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                   style={
                     styles.counter
                   }>
-                  {note.length}/500
+                  {t(
+                    'pregnancyMedicalInformation.note.counter',
+                    {
+                      count:
+                        note.length,
+                      max: 500,
+                    },
+                  )}
                 </Text>
               </View>
             </View>
@@ -1445,7 +1534,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
               style={
                 styles.helper
               }>
-              Ajoute ici tes traitements, allergies, examens ou autres informations importantes.
+              {t(
+                'pregnancyMedicalInformation.note.helper',
+              )}
             </Text>
 
             {error ? (
@@ -1461,7 +1552,9 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
             {/* SAVE */}
 
             <Pressable
-              accessibilityLabel="Enregistrer"
+              accessibilityLabel={t(
+                'common.save',
+              )}
               accessibilityRole="button"
               accessibilityState={{
                 disabled:
@@ -1497,8 +1590,12 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
                   styles.saveText
                 }>
                 {saving
-                  ? 'Enregistrement…'
-                  : 'Enregistrer'}
+                  ? t(
+                      'pregnancyMedicalInformation.save.saving',
+                    )
+                  : t(
+                      'common.save',
+                    )}
               </Text>
             </Pressable>
           </Animated.View>
@@ -1604,11 +1701,15 @@ export default function PregnancyMedicalInformationScreen(): React.JSX.Element {
             style={
               styles.toastText
             }>
-            Informations médicales enregistrées avec succès ✨
+            {t(
+              'pregnancyMedicalInformation.toast.success',
+            )}
           </Text>
 
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t(
+              'common.close',
+            )}
             accessibilityRole="button"
             hitSlop={10}
             onPress={

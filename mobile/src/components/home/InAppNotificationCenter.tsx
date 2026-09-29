@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 import { navigationRef } from '../../navigation/navigationRef';
 import {
@@ -27,6 +28,8 @@ import {
 import { subscribeActiveProfileId } from '../../state/activeProfileStore';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
+import { getAppLanguage } from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // PHASE C — every color here is decorative chrome (no health/tracking
 // meaning); the one exception is the "Tout effacer" destructive action,
@@ -37,50 +40,72 @@ import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 
 type Props = { visible: boolean; onClose: () => void };
 
+// Module-level (no hook context) — uses the i18n singleton directly, same
+// convention as cycleStatisticsMath.ts's own locale-aware formatters.
 const formatReceivedAt = (isoDate: string): string => {
   const date = new Date(isoDate);
   if (Number.isNaN(date.getTime())) {
     return '';
   }
+  const locale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const yesterday = new Date(today);
   yesterday.setDate(today.getDate() - 1);
   const day = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-  const time = new Intl.DateTimeFormat('fr-FR', {
+  const time = new Intl.DateTimeFormat(locale, {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
   }).format(date);
   if (day.getTime() === today.getTime()) {
-    return `Aujourd’hui · ${time}`;
+    return i18n.t('inAppNotifications.today', {time});
   }
   if (day.getTime() === yesterday.getTime()) {
-    return `Hier · ${time}`;
+    return i18n.t('inAppNotifications.yesterday', {time});
   }
-  return `${new Intl.DateTimeFormat('fr-FR', {
+  return `${new Intl.DateTimeFormat(locale, {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   }).format(date)} · ${time}`;
 };
 
-// French display label for the "objective/category" this notification came
-// from, shown next to its date. Purely cosmetic — never used for routing or
+// The recognized notification.type values that get a category label/icon —
+// kept as a plain untranslated set so iconForType() can check membership
+// without needing a `t` function.
+const CATEGORY_TYPES = new Set([
+  'postpartum-nifas',
+  'conception-reminder',
+  'cycle-reminder',
+  'irregular-reminder',
+  'contraception-reminder',
+  'pregnancy-reminder',
+  'postpartum-daily-tracking-reminder',
+  'menopause-daily-tracking-reminder',
+  'menopause-treatment-reminder',
+  'qadaa-post-ramadan',
+  'miscarriage-daily-tracking-reminder',
+]);
+
+// Display label for the "objective/category" this notification came from,
+// shown next to its date. Purely cosmetic — never used for routing or
 // persistence, so a missing/unrecognized type only ever omits the label.
-const CATEGORY_LABELS: Record<string, string> = {
-  'postpartum-nifas': 'Nifas',
-  'conception-reminder': 'Essayer de concevoir',
-  'cycle-reminder': 'Cycle menstruel',
-  'irregular-reminder': 'SOPK',
-  'contraception-reminder': 'Contraception',
-  'pregnancy-reminder': 'Grossesse',
-  'postpartum-daily-tracking-reminder': 'Post-partum',
-  'menopause-daily-tracking-reminder': 'Ménopause',
-  'menopause-treatment-reminder': 'Ménopause',
-  'qadaa-post-ramadan': 'Jeûne (Qadaa)',
-  'miscarriage-daily-tracking-reminder': 'Après une fausse couche',
-};
+function categoryLabels(t: (key: string) => string): Record<string, string> {
+  return {
+    'postpartum-nifas': t('inAppNotifications.category.nifas'),
+    'conception-reminder': t('objectives.conceive'),
+    'cycle-reminder': t('inAppNotifications.category.cycleReminder'),
+    'irregular-reminder': t('inAppNotifications.category.irregular'),
+    'contraception-reminder': t('objectives.contraception'),
+    'pregnancy-reminder': t('inAppNotifications.category.pregnancy'),
+    'postpartum-daily-tracking-reminder': t('inAppNotifications.category.postpartum'),
+    'menopause-daily-tracking-reminder': t('inAppNotifications.category.menopause'),
+    'menopause-treatment-reminder': t('inAppNotifications.category.menopause'),
+    'qadaa-post-ramadan': t('inAppNotifications.category.qadaa'),
+    'miscarriage-daily-tracking-reminder': t('objectives.loss'),
+  };
+}
 
 function iconForType(type: string): string {
   if (type === 'postpartum-nifas') {
@@ -89,7 +114,7 @@ function iconForType(type: string): string {
   if (type === 'conception-reminder') {
     return 'bell-outline';
   }
-  if (type in CATEGORY_LABELS) {
+  if (CATEGORY_TYPES.has(type)) {
     return 'calendar-clock-outline';
   }
   return 'bell-outline';
@@ -108,7 +133,8 @@ function NotificationItem({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
-  const categoryLabel = CATEGORY_LABELS[notification.type];
+  const { t } = useTranslation();
+  const categoryLabel = categoryLabels(t)[notification.type];
 
   return (
     <Pressable
@@ -150,7 +176,7 @@ function NotificationItem({
         </Text>
       </View>
       <Pressable
-        accessibilityLabel="Supprimer cette notification"
+        accessibilityLabel={t('inAppNotifications.deleteNotification')}
         accessibilityRole="button"
         hitSlop={8}
         onPress={event => {
@@ -169,6 +195,7 @@ function InAppNotificationCenter({
   visible,
   onClose,
 }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -284,12 +311,12 @@ function InAppNotificationCenter({
   const confirmClearAll = (): void => {
     setOverflowVisible(false);
     Alert.alert(
-      'Effacer les notifications ?',
-      'Cette action efface uniquement l’historique dans AWA.',
+      t('inAppNotifications.clearAllTitle'),
+      t('inAppNotifications.clearAllMessage'),
       [
-        { text: 'Annuler', style: 'cancel' },
+        { text: t('common.cancel'), style: 'cancel' },
         {
-          text: 'Tout effacer',
+          text: t('inAppNotifications.clearAll'),
           style: 'destructive',
           onPress: () => clearAllInAppNotificationsForActiveProfile().catch(() => {}),
         },
@@ -307,7 +334,7 @@ function InAppNotificationCenter({
     >
       <View style={styles.modalRoot}>
         <Pressable
-          accessibilityLabel="Fermer les notifications"
+          accessibilityLabel={t('inAppNotifications.closeNotifications')}
           onPress={onClose}
           style={styles.backdrop}
         />
@@ -329,7 +356,7 @@ function InAppNotificationCenter({
           ]}
         >
           <View style={styles.header}>
-            <Text style={styles.title}>Notifications</Text>
+            <Text style={styles.title}>{t('inAppNotifications.title')}</Text>
             <View style={styles.headerActions}>
               {unreadCount > 0 ? (
                 <Pressable
@@ -339,12 +366,12 @@ function InAppNotificationCenter({
                   }
                   style={styles.readAllButton}
                 >
-                  <Text style={styles.readAllText}>Tout lire</Text>
+                  <Text style={styles.readAllText}>{t('inAppNotifications.readAll')}</Text>
                 </Pressable>
               ) : null}
               {notifications.length > 0 ? (
                 <Pressable
-                  accessibilityLabel="Plus d’actions"
+                  accessibilityLabel={t('inAppNotifications.moreActions')}
                   accessibilityRole="button"
                   hitSlop={8}
                   onPress={() => setOverflowVisible(value => !value)}
@@ -369,9 +396,9 @@ function InAppNotificationCenter({
                   size={27}
                 />
               </View>
-              <Text style={styles.emptyTitle}>Aucune notification</Text>
+              <Text style={styles.emptyTitle}>{t('inAppNotifications.emptyTitle')}</Text>
               <Text style={styles.emptyText}>
-                Tes rappels importants apparaîtront ici.
+                {t('inAppNotifications.emptyText')}
               </Text>
             </View>
           ) : (
@@ -406,7 +433,7 @@ function InAppNotificationCenter({
                 name="trash-can-outline"
                 size={15}
               />
-              <Text style={styles.overflowText}>Tout effacer</Text>
+              <Text style={styles.overflowText}>{t('inAppNotifications.clearAll')}</Text>
             </Pressable>
           ) : null}
         </Animated.View>

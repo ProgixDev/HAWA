@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -51,6 +53,7 @@ import {
 } from '../../config/menopauseJournalConfig';
 
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
+import {getAppLanguage} from '../../state/themePreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -63,6 +66,8 @@ import {
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {computeMenopauseMonthlySummary} from '../../utils/menopauseCalendarMath';
+
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -98,39 +103,62 @@ const ALL_CALENDAR_CATEGORIES: MenopauseJournalCategory[] = [
   'notes',
 ];
 
-const CALENDAR_CATEGORY_COPY: Record<
-  MenopauseJournalCategory,
-  {filterDescription: string; legendDescription: string}
-> = {
-  symptoms: {
-    filterDescription: 'Afficher les jours où un ou plusieurs symptômes ont été notés',
-    legendDescription: 'Un ou plusieurs symptômes ont été enregistrés.',
-  },
-  mood: {
-    filterDescription: 'Afficher les jours où une humeur a été renseignée',
-    legendDescription: 'Une humeur a été renseignée pour cette date.',
-  },
-  sleep: {
-    filterDescription: 'Afficher les jours où le sommeil a été renseigné',
-    legendDescription: 'Des informations de sommeil ont été enregistrées.',
-  },
-  energy: {
-    filterDescription: 'Afficher les jours où le niveau d’énergie a été renseigné',
-    legendDescription: 'Le niveau d’énergie a été renseigné.',
-  },
-  treatment: {
-    filterDescription: 'Afficher les jours où le traitement a été suivi',
-    legendDescription: 'Un suivi de traitement a été enregistré.',
-  },
-  labResults: {
-    filterDescription: 'Afficher les jours avec un résultat d’analyse',
-    legendDescription: 'Un résultat FSH ou Estradiol a été enregistré.',
-  },
-  notes: {
-    filterDescription: 'Afficher les jours avec une note personnelle',
-    legendDescription: 'Une note personnelle a été enregistrée ce jour-là.',
-  },
-};
+// i18n (Phase 3): this needs the live `t` from useTranslation(), so it's now
+// a factory called from inside the component (same `xxxFor(t)` pattern as
+// IrregularCalendarContent.tsx's own categoryLabelFor()).
+function calendarCategoryCopyFor(
+  t: TFunction,
+): Record<MenopauseJournalCategory, {filterDescription: string; legendDescription: string}> {
+  return {
+    symptoms: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.symptoms'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.symptoms'),
+    },
+    mood: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.mood'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.mood'),
+    },
+    sleep: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.sleep'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.sleep'),
+    },
+    energy: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.energy'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.energy'),
+    },
+    treatment: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.treatment'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.treatment'),
+    },
+    labResults: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.labResults'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.labResults'),
+    },
+    notes: {
+      filterDescription: t('menopauseCalendar.categories.filterDescription.notes'),
+      legendDescription: t('menopauseCalendar.categories.legendDescription.notes'),
+    },
+  };
+}
+
+// Selected-day card row labels — kept as their own local strings (not reused
+// from MENOPAUSE_JOURNAL_ITEMS's labels) because this file's own "Analyses"
+// wording for labResults already differs from menopauseJournalConfig.ts's
+// longer "Résultats d’analyses" (a pre-existing distinction between this
+// short selected-day label and the fuller category name used in the
+// legend/filters sheet below — preserved as-is, not something this i18n pass
+// changes).
+function selectedRowLabelsFor(t: TFunction): Record<MenopauseJournalCategory, string> {
+  return {
+    symptoms: t('menopauseCalendar.selected.labels.symptoms'),
+    mood: t('menopauseCalendar.selected.labels.mood'),
+    sleep: t('menopauseCalendar.selected.labels.sleep'),
+    energy: t('menopauseCalendar.selected.labels.energy'),
+    treatment: t('menopauseCalendar.selected.labels.treatment'),
+    labResults: t('menopauseCalendar.selected.labels.labResults'),
+    notes: t('menopauseCalendar.selected.labels.notes'),
+  };
+}
 
 // Display-only marker filters — never affect entries/labResults/monthSummary
 // or the selected-day card, all of which keep reading real unfiltered data.
@@ -164,11 +192,14 @@ type CalendarSheetMode = 'filters' | 'legend' | null;
 const PAST_ENTRY_CATEGORIES: MenopauseJournalCategory[] = ['symptoms', 'mood', 'sleep', 'energy', 'treatment'];
 
 function MenopauseCalendarContent(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const selectedRowLabels = useMemo(() => selectedRowLabelsFor(t), [t]);
 
   // The "Résumé de ce mois" rose/amber/blue tiles use MENOPAUSE_COLORS'
   // fixed *Soft tints (never theme-driven — same category-identity colors
@@ -364,19 +395,19 @@ function MenopauseCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Calendrier</Text>
-              <Text style={styles.subtitle}>Ton suivi périménopause / ménopause au fil du temps</Text>
+              <Text style={styles.title}>{t('menopauseCalendar.title')}</Text>
+              <Text style={styles.subtitle}>{t('menopauseCalendar.subtitle')}</Text>
             </View>
 
-            <HeaderAction icon="tune-variant" label="Filtres" onPress={() => setSheet('filters')} />
-            <HeaderAction icon="format-list-bulleted" label="Légende" onPress={() => setSheet('legend')} />
+            <HeaderAction icon="tune-variant" label={t('menopauseCalendar.filtersLabel')} onPress={() => setSheet('filters')} />
+            <HeaderAction icon="format-list-bulleted" label={t('menopauseCalendar.legendLabel')} onPress={() => setSheet('legend')} />
           </View>
 
           {/* MONTH CARD */}
           <View style={styles.card}>
             <View style={styles.monthHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('menopauseCalendar.prevMonthAccessibility')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={goToPreviousMonth}>
@@ -385,7 +416,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -393,7 +424,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('menopauseCalendar.nextMonthAccessibility')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={goToNextMonth}>
@@ -482,7 +513,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 return (
                   <View key={key} style={styles.dayCell}>
                     <Pressable
-                      accessibilityLabel={`${date.getDate()}${hasAnyMarker ? ', suivi enregistré' : ''}${spiritualMonth === 'ramadan' ? ', Ramadan' : spiritualMonth === 'dhoulHijja' ? ', Dhou al-Hijja' : ''}`}
+                      accessibilityLabel={`${date.getDate()}${hasAnyMarker ? t('menopauseCalendar.dayAccessibility.trackingRecorded') : ''}${spiritualMonth === 'ramadan' ? t('menopauseCalendar.dayAccessibility.ramadan') : spiritualMonth === 'dhoulHijja' ? t('menopauseCalendar.dayAccessibility.dhoulHijja') : ''}`}
                       accessibilityRole="button"
                       onPress={() => setSelectedDate(date)}
                       style={({pressed}) => [
@@ -536,11 +567,11 @@ function MenopauseCalendarContent(): React.JSX.Element {
                   label={MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category}
                 />
               ))}
-              <LegendItem color={theme.colors.text} dashedOutline label="Aujourd’hui" />
+              <LegendItem color={theme.colors.text} dashedOutline label={t('menopauseCalendar.todayLabel')} />
               {spiritualMarkersEnabled ? (
                 <>
-                  <LegendItem color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label="Ramadan" />
-                  <LegendItem color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label="Dhou al-Hijja" />
+                  <LegendItem color={RAMADAN_MARKER_COLOR} icon="moon-waning-crescent" label={t('menopauseCalendar.ramadanLabel')} />
+                  <LegendItem color={DHOUL_HIJJA_MARKER_COLOR} icon="moon-waning-crescent" label={t('menopauseCalendar.dhoulHijjaLabel')} />
                 </>
               ) : null}
             </View>
@@ -550,7 +581,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.selectedHeader}>
               <Text style={styles.selectedDateText}>
-                {new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
+                {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
               </Text>
               {selectedHijriDate ? (
                 <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>
@@ -564,8 +595,8 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.symptoms.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.symptoms.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.symptoms.tint}
-                    label="Symptômes"
-                    value={`${selectedEntry.symptoms.length} enregistré${selectedEntry.symptoms.length > 1 ? 's' : ''}`}
+                    label={selectedRowLabels.symptoms}
+                    value={t('menopauseCalendar.selected.symptomsRecorded', {count: selectedEntry.symptoms.length})}
                   />
                 ) : null}
                 {selectedEntry?.mood ? (
@@ -573,7 +604,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.mood.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.mood.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.mood.tint}
-                    label="Humeur"
+                    label={selectedRowLabels.mood}
                     value={MENOPAUSE_MOOD_LABELS[selectedEntry.mood]}
                   />
                 ) : null}
@@ -582,7 +613,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.sleep.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.sleep.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.sleep.tint}
-                    label="Sommeil"
+                    label={selectedRowLabels.sleep}
                     value={
                       selectedEntry?.sleepDurationHours !== undefined
                         ? `${selectedEntry.sleepDurationHours} h${selectedEntry.sleepQuality ? ` · ${MENOPAUSE_SLEEP_QUALITY_LABELS[selectedEntry.sleepQuality]}` : ''}`
@@ -597,7 +628,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.energy.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.energy.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.energy.tint}
-                    label="Énergie / Fatigue"
+                    label={selectedRowLabels.energy}
                     value={MENOPAUSE_ENERGY_LABELS[selectedEntry.energyLevel]}
                   />
                 ) : null}
@@ -606,7 +637,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.treatment.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.treatment.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.treatment.tint}
-                    label="Traitement hormonal"
+                    label={selectedRowLabels.treatment}
                     value={MENOPAUSE_TREATMENT_STATUS_LABELS[selectedEntry.treatmentStatus]}
                   />
                 ) : null}
@@ -615,7 +646,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.labResults.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.labResults.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.labResults.tint}
-                    label="Analyses"
+                    label={selectedRowLabels.labResults}
                     value={selectedLabResults
                       .map(result => `${MENOPAUSE_LAB_TYPE_LABELS[result.type]} : ${result.value}${result.unit ? ` ${result.unit}` : ''}`)
                       .join(' · ')}
@@ -626,8 +657,8 @@ function MenopauseCalendarContent(): React.JSX.Element {
                     icon={MENOPAUSE_CATEGORY_VISUALS.notes.icon}
                     iconColor={MENOPAUSE_CATEGORY_VISUALS.notes.iconColor}
                     iconTint={MENOPAUSE_CATEGORY_VISUALS.notes.tint}
-                    label="Notes du jour"
-                    value="Note enregistrée"
+                    label={selectedRowLabels.notes}
+                    value={t('menopauseCalendar.selected.notesRecorded')}
                   />
                 ) : null}
               </>
@@ -636,20 +667,20 @@ function MenopauseCalendarContent(): React.JSX.Element {
                 <View style={styles.emptyIcon}>
                   <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={22} />
                 </View>
-                <Text style={styles.emptyTitle}>Aucun suivi pour ce jour</Text>
-                <Text style={styles.emptyText}>Rien n’a encore été enregistré pour cette date.</Text>
+                <Text style={styles.emptyTitle}>{t('menopauseCalendar.emptyState.title')}</Text>
+                <Text style={styles.emptyText}>{t('menopauseCalendar.emptyState.text')}</Text>
               </View>
             )}
 
             {isSelectedPast ? (
               <View style={styles.pastEntryBlock}>
-                <Text style={styles.pastEntryTitle}>Renseigner ou modifier ce jour</Text>
+                <Text style={styles.pastEntryTitle}>{t('menopauseCalendar.pastEntry.title')}</Text>
                 <View style={styles.pastEntryChips}>
                   {PAST_ENTRY_CATEGORIES.filter(category => category !== 'treatment' || trackingTreatment).map(category => {
                     const label = MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category;
                     return (
                       <Pressable
-                        accessibilityLabel={`${label} : renseigner ce jour`}
+                        accessibilityLabel={t('menopauseCalendar.pastEntry.fillAccessibility', {label})}
                         accessibilityRole="button"
                         key={category}
                         onPress={() => navigation.navigate('MenopauseJournalEntry', {category, date: selectedDateKey})}
@@ -665,11 +696,11 @@ function MenopauseCalendarContent(): React.JSX.Element {
 
             {isSelectedToday ? (
               <Pressable
-                accessibilityLabel="Modifier le suivi d’aujourd’hui"
+                accessibilityLabel={t('menopauseCalendar.selected.editTodayAccessibility')}
                 accessibilityRole="button"
                 onPress={openJournal}
                 style={({pressed}) => [styles.editRow, pressed && styles.pressed]}>
-                <Text style={styles.editRowText}>Modifier</Text>
+                <Text style={styles.editRowText}>{t('menopauseCalendar.selected.editToday')}</Text>
                 <MaterialDesignIcons color={theme.colors.primary} name="chevron-right" size={18} />
               </Pressable>
             ) : null}
@@ -677,36 +708,36 @@ function MenopauseCalendarContent(): React.JSX.Element {
 
           {/* MONTHLY SUMMARY */}
           <View style={styles.card}>
-            <Text style={styles.summaryTitle}>Résumé de ce mois</Text>
+            <Text style={styles.summaryTitle}>{t('menopauseCalendar.summary.title')}</Text>
 
             {hasAnyDataAtAll ? (
               <View style={styles.summaryGrid}>
                 <View style={[styles.summaryTile, styles.summaryTileRose]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.symptoms.iconColor} name="clipboard-pulse-outline" size={18} />
                   <Text style={[styles.summaryValue, {color: symptomsTileText}]}>{monthlySummary.daysWithSymptoms}</Text>
-                  <Text style={[styles.summaryLabel, {color: symptomsTileText}]}>Jours avec symptômes</Text>
+                  <Text style={[styles.summaryLabel, {color: symptomsTileText}]}>{t('menopauseCalendar.summary.daysWithSymptoms')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileAmber]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.energy.iconColor} name="weather-sunny" size={18} />
                   <Text style={[styles.summaryValue, {color: energyTileText}]}>{monthlySummary.hotFlashDays}</Text>
-                  <Text style={[styles.summaryLabel, {color: energyTileText}]}>Bouffées de chaleur</Text>
+                  <Text style={[styles.summaryLabel, {color: energyTileText}]}>{t('menopauseCalendar.summary.hotFlashDays')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileBlue]}>
                   <MaterialDesignIcons color={MENOPAUSE_CATEGORY_VISUALS.sleep.iconColor} name="water-outline" size={18} />
                   <Text style={[styles.summaryValue, {color: sleepTileText}]}>{monthlySummary.nightSweatNights}</Text>
-                  <Text style={[styles.summaryLabel, {color: sleepTileText}]}>Sueurs nocturnes</Text>
+                  <Text style={[styles.summaryLabel, {color: sleepTileText}]}>{t('menopauseCalendar.summary.nightSweatNights')}</Text>
                 </View>
 
                 <View style={[styles.summaryTile, styles.summaryTileNeutral]}>
                   <MaterialDesignIcons color={theme.colors.textSecondary} name="battery-low" size={18} />
                   <Text style={styles.summaryValue}>{monthlySummary.fatigueDays}</Text>
-                  <Text style={styles.summaryLabel}>Jours de fatigue</Text>
+                  <Text style={styles.summaryLabel}>{t('menopauseCalendar.summary.fatigueDays')}</Text>
                 </View>
               </View>
             ) : (
-              <Text style={styles.emptySummaryText}>Pas encore assez de données pour ce mois-ci.</Text>
+              <Text style={styles.emptySummaryText}>{t('menopauseCalendar.summary.empty')}</Text>
             )}
           </View>
         </ScrollView>
@@ -809,7 +840,7 @@ function SelectedRow({
    ContraceptionCalendarContent.tsx (backdrop/handle/title/scroll
    behavior/row spacing/icon containers/footer button/safe-area bottom
    padding all reused verbatim); content is Menopause-specific and derives
-   from ALL_CALENDAR_CATEGORIES/CALENDAR_CATEGORY_COPY/MENOPAUSE_CATEGORY_VISUALS
+   from ALL_CALENDAR_CATEGORIES/calendarCategoryCopyFor()/MENOPAUSE_CATEGORY_VISUALS
    above so the compact legend, this sheet, and the Filtres sheet can never
    describe three different marker sets.
 ============================================================ */
@@ -829,17 +860,19 @@ function MenopauseCalendarSheet({
   spiritualMarkersEnabled: boolean;
   visibleCategories: MenopauseJournalCategory[];
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const sheetStyles = useMemo(() => createSheetStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const categoryCopy = useMemo(() => calendarCategoryCopyFor(t), [t]);
 
   const trackingFilterRows = visibleCategories.map(category => ({
     key: category,
     icon: MENOPAUSE_CATEGORY_VISUALS[category].icon,
     color: MENOPAUSE_CATEGORY_VISUALS[category].iconColor,
     title: MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category,
-    description: CALENDAR_CATEGORY_COPY[category].filterDescription,
+    description: categoryCopy[category].filterDescription,
   }));
 
   const spiritualFilterRows: Array<{
@@ -853,15 +886,15 @@ function MenopauseCalendarSheet({
       key: 'ramadan',
       icon: 'moon-waning-crescent',
       color: RAMADAN_MARKER_COLOR,
-      title: 'Ramadan',
-      description: 'Afficher le repère du mois de Ramadan',
+      title: t('menopauseCalendar.ramadanLabel'),
+      description: t('menopauseCalendar.sheet.spiritualFilter.ramadanDescription'),
     },
     {
       key: 'dhulHijja',
       icon: 'moon-waning-crescent',
       color: DHOUL_HIJJA_MARKER_COLOR,
-      title: 'Dhou al-Hijja',
-      description: 'Afficher le repère du mois de Dhou al-Hijja',
+      title: t('menopauseCalendar.dhoulHijjaLabel'),
+      description: t('menopauseCalendar.sheet.spiritualFilter.dhoulHijjaDescription'),
     },
   ];
 
@@ -869,25 +902,25 @@ function MenopauseCalendarSheet({
     icon: MENOPAUSE_CATEGORY_VISUALS[category].icon,
     color: MENOPAUSE_CATEGORY_VISUALS[category].iconColor,
     title: MENOPAUSE_JOURNAL_ITEMS.find(item => item.key === category)?.label ?? category,
-    description: CALENDAR_CATEGORY_COPY[category].legendDescription,
+    description: categoryCopy[category].legendDescription,
   }));
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={mode !== null}>
       <View style={sheetStyles.modalRoot}>
-        <Pressable accessibilityLabel="Fermer" onPress={onClose} style={sheetStyles.backdrop} />
+        <Pressable accessibilityLabel={t('menopauseCalendar.sheet.closeAccessibility')} onPress={onClose} style={sheetStyles.backdrop} />
 
         {mode === 'filters' ? (
           <View style={[sheetStyles.sheet, sheetStyles.filterSheet, {paddingBottom: Math.max(insets.bottom, 10)}]}>
             <View style={sheetStyles.handle} />
 
             <View style={sheetStyles.sheetHeader}>
-              <Text style={sheetStyles.sheetTitle}>Filtres</Text>
-              <Text style={sheetStyles.sheetSubtitle}>Choisis les repères à afficher sur ton calendrier.</Text>
+              <Text style={sheetStyles.sheetTitle}>{t('menopauseCalendar.sheet.filters.title')}</Text>
+              <Text style={sheetStyles.sheetSubtitle}>{t('menopauseCalendar.sheet.filters.subtitle')}</Text>
             </View>
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.filterRows} showsVerticalScrollIndicator={false} style={sheetStyles.filterScroll}>
-              <Text style={sheetStyles.groupTitle}>Suivi périménopause / ménopause</Text>
+              <Text style={sheetStyles.groupTitle}>{t('menopauseCalendar.sheet.filters.trackingGroupTitle')}</Text>
               {trackingFilterRows.map((row, index) => (
                 <FilterRow
                   active={filters[row.key]}
@@ -900,7 +933,7 @@ function MenopauseCalendarSheet({
 
               {spiritualMarkersEnabled ? (
                 <>
-                  <Text style={sheetStyles.groupTitle}>Repères spirituels</Text>
+                  <Text style={sheetStyles.groupTitle}>{t('menopauseCalendar.sheet.filters.spiritualGroupTitle')}</Text>
                   {spiritualFilterRows.map((row, index) => (
                     <FilterRow
                       active={filters[row.key]}
@@ -919,7 +952,7 @@ function MenopauseCalendarSheet({
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>Terminé</Text>
+                <Text style={sheetStyles.doneText}>{t('menopauseCalendar.sheet.filters.doneLabel')}</Text>
               </Pressable>
             </View>
           </View>
@@ -929,8 +962,8 @@ function MenopauseCalendarSheet({
 
             <ScrollView bounces={false} contentContainerStyle={sheetStyles.legendScrollContent} showsVerticalScrollIndicator={false} style={sheetStyles.legendScroll}>
               <View style={sheetStyles.sheetHeader}>
-                <Text style={sheetStyles.sheetTitle}>Légende</Text>
-                <Text style={sheetStyles.sheetSubtitle}>Comprendre les repères de ton calendrier.</Text>
+                <Text style={sheetStyles.sheetTitle}>{t('menopauseCalendar.sheet.legend.title')}</Text>
+                <Text style={sheetStyles.sheetSubtitle}>{t('menopauseCalendar.sheet.legend.subtitle')}</Text>
               </View>
 
               <View style={sheetStyles.legendRowsGroup}>
@@ -951,9 +984,9 @@ function MenopauseCalendarSheet({
                     <MaterialDesignIcons color={theme.colors.primary} name={WELLBEING_MARKER_ICON} size={22} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>Bien-être (sur le calendrier)</Text>
+                    <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.wellbeing.legendTitle')}</Text>
                     <Text style={sheetStyles.legendRowText}>
-                      Ce repère regroupe l’humeur, le sommeil et l’énergie : au moins un de ces suivis a été renseigné ce jour-là.
+                      {t('menopauseCalendar.wellbeing.legendDescription')}
                     </Text>
                   </View>
                 </View>
@@ -963,8 +996,8 @@ function MenopauseCalendarSheet({
                     <View style={sheetStyles.legendTodayPreview} />
                   </View>
                   <View style={sheetStyles.legendRowCopy}>
-                    <Text style={sheetStyles.legendRowTitle}>Aujourd’hui</Text>
-                    <Text style={sheetStyles.legendRowText}>Le contour violet en pointillés indique la date d’aujourd’hui.</Text>
+                    <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.todayLabel')}</Text>
+                    <Text style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.todayDescription')}</Text>
                   </View>
                 </View>
 
@@ -975,8 +1008,8 @@ function MenopauseCalendarSheet({
                         <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>Ramadan</Text>
-                        <Text style={sheetStyles.legendRowText}>Repère du mois de Ramadan.</Text>
+                        <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.ramadanLabel')}</Text>
+                        <Text style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.ramadanDescription')}</Text>
                       </View>
                     </View>
                     <View style={[sheetStyles.legendRow, sheetStyles.legendRowLast]}>
@@ -984,8 +1017,8 @@ function MenopauseCalendarSheet({
                         <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={22} />
                       </View>
                       <View style={sheetStyles.legendRowCopy}>
-                        <Text style={sheetStyles.legendRowTitle}>Dhou al-Hijja</Text>
-                        <Text style={sheetStyles.legendRowText}>Repère des jours de Dhou al-Hijja.</Text>
+                        <Text style={sheetStyles.legendRowTitle}>{t('menopauseCalendar.dhoulHijjaLabel')}</Text>
+                        <Text style={sheetStyles.legendRowText}>{t('menopauseCalendar.sheet.legend.dhoulHijjaDescription')}</Text>
                       </View>
                     </View>
                   </>
@@ -995,11 +1028,11 @@ function MenopauseCalendarSheet({
 
             <View style={sheetStyles.footer}>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('menopauseCalendar.sheet.legend.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({pressed}) => [sheetStyles.doneButton, pressed && styles.pressed]}>
-                <Text style={sheetStyles.doneText}>Fermer</Text>
+                <Text style={sheetStyles.doneText}>{t('menopauseCalendar.sheet.legend.closeLabel')}</Text>
               </Pressable>
             </View>
           </View>

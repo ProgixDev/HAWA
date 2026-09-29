@@ -7,9 +7,11 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type Props = {
   onPressFilters: () => void;
@@ -20,6 +22,7 @@ function CalendarHeader({
   onPressFilters,
   onPressLegend,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -36,19 +39,19 @@ function CalendarHeader({
       ]}>
       <View style={styles.titleBlock}>
         <Text style={styles.title}>
-          Calendrier
+          {t('calendar.title')}
         </Text>
 
         <Text
           numberOfLines={3}
           style={styles.subtitle}>
-          Suis ton cycle en toute simplicité ✨
+          {t('calendar.subtitle')}
         </Text>
       </View>
 
       <View style={styles.actions}>
         <Pressable
-          accessibilityLabel="Filtres"
+          accessibilityLabel={t('calendar.filters')}
           accessibilityRole="button"
           onPress={onPressFilters}
           style={({pressed}) => [
@@ -64,12 +67,12 @@ function CalendarHeader({
           <Text
             numberOfLines={1}
             style={styles.actionLabel}>
-            Filtres
+            {t('calendar.filters')}
           </Text>
         </Pressable>
 
         <Pressable
-          accessibilityLabel="Légende"
+          accessibilityLabel={t('calendar.legend')}
           accessibilityRole="button"
           onPress={onPressLegend}
           style={({pressed}) => [
@@ -85,7 +88,7 @@ function CalendarHeader({
           <Text
             numberOfLines={1}
             style={styles.actionLabel}>
-            Légende
+            {t('calendar.legend')}
           </Text>
         </Pressable>
       </View>

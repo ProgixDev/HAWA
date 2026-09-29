@@ -17,11 +17,13 @@ import {
 import { useNavigation, type NavigationProp } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useTranslation } from 'react-i18next';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import { onPrimaryTextColor, withAlpha, type ResolvedAwaTheme } from '../../theme/awaThemeTokens';
 import { getTopPadding } from '../../theme/spacing';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -69,6 +71,7 @@ export function PostpartumWellnessRatingLayout({
   onClear,
 }: Props): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -130,7 +133,7 @@ export function PostpartumWellnessRatingLayout({
           ]}
         >
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -186,7 +189,7 @@ export function PostpartumWellnessRatingLayout({
                   name="heart-pulse"
                   size={15}
                 />
-                <Text style={styles.heroKickerText}>SUIVI POST-PARTUM</Text>
+                <Text style={styles.heroKickerText}>{t('postpartumWellnessRatingLayout.kicker')}</Text>
               </View>
               <Text style={styles.heroTitle}>{heroTitle}</Text>
               <Text style={styles.heroText}>{heroText}</Text>
@@ -200,11 +203,10 @@ export function PostpartumWellnessRatingLayout({
           </Animated.View>
 
           <Text style={styles.sectionTitle}>
-            Choisis ce qui te ressemble le plus
+            {t('postpartumWellnessRatingLayout.sectionTitle')}
           </Text>
           <Text style={styles.sectionText}>
-            Il n’y a pas de bonne ou de mauvaise réponse : observe-toi avec
-            douceur.
+            {t('postpartumWellnessRatingLayout.sectionText')}
           </Text>
 
           <View style={styles.options}>
@@ -304,7 +306,7 @@ export function PostpartumWellnessRatingLayout({
           ]}
         >
           <Pressable
-            accessibilityLabel="Enregistrer"
+            accessibilityLabel={t('common.save')}
             accessibilityRole="button"
             disabled={saving}
             onPress={onSave}
@@ -319,19 +321,19 @@ export function PostpartumWellnessRatingLayout({
               size={21}
             />
             <Text style={styles.saveText}>
-              {saving ? 'Enregistrement…' : 'Enregistrer mon suivi'}
+              {saving ? t('postpartumWellnessRatingLayout.saving') : t('postpartumWellnessRatingLayout.saveButtonLabel')}
             </Text>
           </Pressable>
 
           {onClear ? (
             <Pressable
-              accessibilityLabel="Effacer ma réponse"
+              accessibilityLabel={t('postpartumWellnessRatingLayout.clearAnswer')}
               accessibilityRole="button"
               disabled={saving}
               onPress={onClear}
               style={({ pressed }) => [styles.clearButton, pressed && styles.pressed]}
             >
-              <Text style={styles.clearText}>Effacer ma réponse</Text>
+              <Text style={styles.clearText}>{t('postpartumWellnessRatingLayout.clearAnswer')}</Text>
             </Pressable>
           ) : null}
         </View>

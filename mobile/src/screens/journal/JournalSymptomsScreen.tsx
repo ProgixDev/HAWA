@@ -28,6 +28,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
@@ -35,6 +36,7 @@ import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type SymptomOption = {
   label: string;
@@ -43,13 +45,25 @@ type SymptomOption = {
 };
 
 type IntensityOption = {
-  label: string;
-  description: string;
+  labelKey: string;
+  descriptionKey: string;
   icon: string;
   level: number;
   value: SymptomSeverity;
 };
 
+// SYMPTOMS[].label and LOCATIONS[] are DATA, not just display text — they are
+// persisted verbatim as `symptoms.names`/`symptoms.painLocation` in
+// dailyJournalStore (see `save()` below) and read back elsewhere (e.g.
+// SelectedDayCard's `symptomNames.join(', ')`). Translating them would either
+// silently change already-saved user data's meaning across a language switch,
+// or require a genuine semantic-key migration (separate id vs. display label)
+// that is out of this phase's UI-only scope — see CLAUDE.md §0 (report
+// conflicts rather than silently picking one) and Phase 2 §10/§11 (never
+// translate user data or rename internal identifiers). Left in French,
+// flagged as a known Phase 2 gap. INTENSITIES is different: its persisted
+// value is the separate semantic `value` field ('mild'/'moderate'/'severe'),
+// so its `label`/`description` are safe, pure DISPLAY text and are localized.
 const SYMPTOMS: SymptomOption[] = [
   {
     label: 'Douleurs menstruelles',
@@ -121,29 +135,29 @@ const SYMPTOMS: SymptomOption[] = [
 
 const INTENSITIES: IntensityOption[] = [
   {
-    label: 'Légère',
-    description: 'Présente, mais facile à supporter',
+    labelKey: 'journalSymptoms.intensity.mild.label',
+    descriptionKey: 'journalSymptoms.intensity.mild.description',
     icon: 'weather-sunny',
     level: 1,
     value: 'mild',
   },
   {
-    label: 'Modérée',
-    description: 'Gênante dans certaines activités',
+    labelKey: 'journalSymptoms.intensity.moderate.label',
+    descriptionKey: 'journalSymptoms.intensity.moderate.description',
     icon: 'weather-partly-cloudy',
     level: 2,
     value: 'moderate',
   },
   {
-    label: 'Forte',
-    description: 'Difficile à ignorer au quotidien',
+    labelKey: 'journalSymptoms.intensity.strong.label',
+    descriptionKey: 'journalSymptoms.intensity.strong.description',
     icon: 'weather-lightning',
     level: 3,
     value: 'severe',
   },
   {
-    label: 'Très forte',
-    description: 'Très douloureuse ou invalidante',
+    labelKey: 'journalSymptoms.intensity.veryStrong.label',
+    descriptionKey: 'journalSymptoms.intensity.veryStrong.description',
     icon: 'alert-circle-outline',
     level: 4,
     value: 'severe',
@@ -175,6 +189,7 @@ const LOCATION_IMAGES: Record<string, ImageSourcePropType> = {
 };
 
 export default function JournalSymptomsScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {width} = useWindowDimensions();
@@ -533,8 +548,8 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
       showSuccessToast();
     } catch {
       Alert.alert(
-        'Erreur',
-        "Impossible d'enregistrer tes symptômes pour le moment.",
+        t('journalSymptoms.errorTitle'),
+        t('journalSymptoms.errorMessage'),
       );
     } finally {
       setSaving(false);
@@ -567,7 +582,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           ]}>
           {/* RETOUR */}
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() =>
@@ -587,12 +602,12 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
           {/* TITRE */}
           <Text style={styles.pageTitle}>
-            Symptômes
+            {t('dailyJournal.symptoms')}
           </Text>
 
           {/* CHECK */}
           <Pressable
-            accessibilityLabel="Enregistrer les symptômes"
+            accessibilityLabel={t('journalSymptoms.saveSymptoms')}
             accessibilityRole="button"
             disabled={saving}
             hitSlop={10}
@@ -632,13 +647,11 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
             style={styles.hero}>
             <View style={styles.heroCopy}>
               <Text style={styles.heroTitle}>
-                Écoute ton corps
+                {t('journalSymptoms.heroTitle')}
               </Text>
 
               <Text style={styles.heroSubtitle}>
-                Sélectionne les symptômes que
-                {'\n'}
-                tu ressens aujourd’hui.
+                {t('journalSymptoms.heroSubtitle')}
               </Text>
             </View>
           </ImageBackground>
@@ -657,11 +670,11 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
                 <View style={styles.headingCopy}>
                   <Text style={styles.sectionTitle}>
-                    Symptômes ressentis
+                    {t('journalSymptoms.symptomsFeltTitle')}
                   </Text>
 
                   <Text style={styles.sectionSubtitle}>
-                    Sélectionne tous les symptômes que tu ressens aujourd’hui.
+                    {t('journalSymptoms.symptomsFeltSubtitle')}
                   </Text>
                 </View>
               </View>
@@ -673,7 +686,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   size={15}
                 />
                 <Text style={styles.symptomCountText}>
-                  {selected.length} sélectionné{selected.length > 1 ? 's' : ''}
+                  {t('journalSymptoms.selectedCount', {count: selected.length})}
                 </Text>
               </View>
             </View>
@@ -731,7 +744,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                           styles.symptomHelperText,
                           active && styles.symptomHelperTextActive,
                         ]}>
-                        {active ? 'Ajouté à ton journal' : 'Appuie pour sélectionner'}
+                        {active ? t('journalSymptoms.addedToJournal') : t('journalSymptoms.tapToSelect')}
                       </Text>
                     </View>
 
@@ -785,15 +798,14 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   style={
                     styles.sectionTitleStandalone
                   }>
-                  Intensité
+                  {t('journalSymptoms.intensitySectionTitle')}
                 </Text>
 
                 <Text
                   style={
                     styles.sectionSubtitle
                   }>
-                  Choisis le niveau qui décrit
-                  le mieux ce que tu ressens.
+                  {t('journalSymptoms.intensitySectionSubtitle')}
                 </Text>
               </View>
             </View>
@@ -806,11 +818,13 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 (item, index) => {
                   const active =
                     intensityIndex === index;
+                  const label = t(item.labelKey);
+                  const description = t(item.descriptionKey);
 
                   return (
                     <Pressable
-                      key={item.label}
-                      accessibilityLabel={`Intensité ${item.label}. ${item.description}`}
+                      key={item.labelKey}
+                      accessibilityLabel={t('journalSymptoms.intensityAccessibility', {label, description})}
                       accessibilityRole="radio"
                       accessibilityState={{
                         checked: active,
@@ -864,7 +878,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                               active &&
                                 styles.intensityLabelActive,
                             ]}>
-                            {item.label}
+                            {label}
                           </Text>
 
                           <View
@@ -903,7 +917,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                               styles.intensityDescriptionActive,
                           ]}>
                           {
-                            item.description
+                            description
                           }
                         </Text>
                       </View>
@@ -935,16 +949,14 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           {/* LOCALISATION */}
           <View style={styles.card}>
             <Text style={styles.sectionTitleStandalone}>
-              Localisation{' '}
+              {t('journalSymptoms.locationSectionTitle')}{' '}
               <Text style={styles.optional}>
-                (optionnel)
+                {t('journalMood.optional')}
               </Text>
             </Text>
 
             <Text style={styles.sectionSubtitle}>
-              Où ressens-tu principalement
-              {'\n'}
-              ces symptômes ?
+              {t('journalSymptoms.locationSectionSubtitle')}
             </Text>
 
             <View style={styles.locationPanel}>
@@ -987,7 +999,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                     size={15}
                   />
                   <Text style={styles.locationVisualTopBadgeText}>
-                    Zone du corps
+                    {t('journalSymptoms.bodyZone')}
                   </Text>
                 </View>
               </View>
@@ -1007,7 +1019,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
                 <View style={styles.selectedLocationCopy}>
                   <Text style={styles.selectedLocationEyebrow}>
-                    Zone sélectionnée
+                    {t('journalSymptoms.selectedZone')}
                   </Text>
                   <Text style={styles.selectedLocationText}>
                     {location}
@@ -1086,10 +1098,10 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
               style={
                 styles.sectionTitleStandalone
               }>
-              Notes supplémentaires{' '}
+              {t('journalSymptoms.additionalNotesTitle')}{' '}
               <Text
                 style={styles.optional}>
-                (optionnel)
+                {t('journalMood.optional')}
               </Text>
             </Text>
 
@@ -1097,17 +1109,16 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
               style={
                 styles.sectionSubtitle
               }>
-              Ajoute un commentaire si tu le
-              souhaites.
+              {t('journalSymptoms.additionalNotesSubtitle')}
             </Text>
 
             <View style={styles.noteBox}>
               <TextInput
-                accessibilityLabel="Notes supplémentaires"
+                accessibilityLabel={t('journalSymptoms.additionalNotesTitle')}
                 maxLength={300}
                 multiline
                 onChangeText={setNote}
-                placeholder="Écris ici..."
+                placeholder={t('journalSymptoms.notesPlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={styles.noteInput}
                 textAlignVertical="top"
@@ -1122,7 +1133,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
 
           {/* BOUTON ENREGISTRER */}
           <Pressable
-            accessibilityLabel="Enregistrer mes symptômes"
+            accessibilityLabel={t('journalSymptoms.saveMySymptoms')}
             accessibilityRole="button"
             disabled={saving}
             onPress={save}
@@ -1140,7 +1151,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 style={
                   styles.saveText
                 }>
-                Enregistrement…
+                {t('periodStartSheet.saving')}
               </Text>
             ) : (
               <>
@@ -1154,13 +1165,13 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   style={
                     styles.saveText
                   }>
-                  Enregistrer
+                  {t('common.save')}
                 </Text>
               </>
             )}
           </Pressable>
 
-          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="ces symptômes" /> : null}
+          {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalSymptoms.clearSubject')} /> : null}
         </ScrollView>
       </KeyboardAvoidingView>
 
@@ -1196,11 +1207,11 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
           </View>
 
           <Text style={styles.toastText}>
-            Symptômes enregistrés avec succès ✨
+            {t('journalSymptoms.savedToast')}
           </Text>
 
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={hideSuccessToast}

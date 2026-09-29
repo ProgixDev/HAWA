@@ -1,4 +1,5 @@
 import React, {memo, useEffect, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   AccessibilityInfo,
   Alert,
@@ -19,6 +20,7 @@ import {confirmDelivery, getPostpartumPreferences} from '../../state/postpartumP
 import {startOfDay} from '../../utils/cycleMath';
 import {validateDeliveryDate} from '../../utils/postpartumLossDateValidation';
 import {getBottomPadding} from '../../theme/spacing';
+import '../../i18n';
 
 // STEP 1 of the Pregnancy → Postpartum transition — opened from
 // PregnancyDashboard's "J'ai accouché" CTA. This sheet is focused ONLY on
@@ -42,6 +44,7 @@ type Props = {
 };
 
 function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const progress = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -84,7 +87,10 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
       pregnancyStartDate: pregnancyStart ?? null,
     });
     if (!validation.valid) {
-      Alert.alert('Date invalide', validation.message);
+      // validation.message is produced by postpartumLossDateValidation.ts
+      // (out of this task's scope — see PHASE 3 task notes) and is not yet
+      // localized; only the Alert title is translated here.
+      Alert.alert(t('pregnancyDeliveryDateSheet.invalidDateTitle'), validation.message);
       return;
     }
     setSaving(true);
@@ -97,7 +103,7 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
         <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
-          <Pressable accessibilityLabel="Fermer" onPress={close} style={StyleSheet.absoluteFill} />
+          <Pressable accessibilityLabel={t('common.close')} onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
         <Animated.View
@@ -111,8 +117,8 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
           ]}>
           <View style={styles.handle} />
 
-          <Text style={styles.title}>Ton bébé est arrivé 💜</Text>
-          <Text style={styles.description}>Indique la date de ton accouchement pour démarrer ton suivi post-partum.</Text>
+          <Text style={styles.title}>{t('pregnancyDeliveryDateSheet.title')}</Text>
+          <Text style={styles.description}>{t('pregnancyDeliveryDateSheet.description')}</Text>
 
           <Pressable
             accessibilityRole="button"
@@ -120,7 +126,7 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
             onPress={() => commit(new Date())}
             style={({pressed}) => [styles.confirmButton, (pressed || saving) && styles.pressed]}>
             <MaterialDesignIcons color="#FFFFFF" name="heart-outline" size={17} />
-            <Text style={styles.confirmText}>{saving ? 'Enregistrement…' : 'J’ai accouché aujourd’hui'}</Text>
+            <Text style={styles.confirmText}>{saving ? t('periodStartSheet.saving') : t('pregnancyDeliveryDateSheet.confirmToday')}</Text>
           </Pressable>
 
           <Pressable
@@ -129,7 +135,7 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
             onPress={() => setPickerOpen(true)}
             style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
             <MaterialDesignIcons color={homeColors.primary} name="calendar-month-outline" size={17} />
-            <Text style={styles.secondaryText}>Choisir une autre date</Text>
+            <Text style={styles.secondaryText}>{t('pregnancyDeliveryDateSheet.chooseAnotherDate')}</Text>
           </Pressable>
 
           <Pressable
@@ -137,7 +143,7 @@ function DeliveryDateSheet({visible, onClose, onConfirmed, pregnancyStart}: Prop
             disabled={saving}
             onPress={close}
             style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>Annuler</Text>
+            <Text style={styles.cancelText}>{t('common.cancel')}</Text>
           </Pressable>
         </Animated.View>
 

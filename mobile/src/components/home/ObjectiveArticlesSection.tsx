@@ -1,8 +1,10 @@
 import React, {useMemo} from 'react';
 import {Image, Pressable, ScrollView, StyleSheet, Text, View, type ImageSourcePropType} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import type {ObjectiveId} from '../../state/onboardingPreferences';
+import '../../i18n';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
 import {LIBRARY_ARTICLES, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
 import {ArticlePremiumBadge} from '../library/ArticlePremiumBadge';
@@ -84,6 +86,7 @@ type Props = {
 };
 
 function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): React.JSX.Element | null {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -102,9 +105,9 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
   return (
     <View style={styles.articlesCard}>
       <View style={styles.articlesHeader}>
-        <Text style={styles.articlesTitle}>Pour t’accompagner</Text>
+        <Text style={styles.articlesTitle}>{t('objectiveArticles.title')}</Text>
         <Pressable accessibilityRole="button" hitSlop={8} onPress={onSeeAll}>
-          <Text style={styles.articlesSeeAll}>Voir tout</Text>
+          <Text style={styles.articlesSeeAll}>{t('objectiveArticles.seeAll')}</Text>
         </Pressable>
       </View>
       <ScrollView contentContainerStyle={styles.articlesRow} horizontal showsHorizontalScrollIndicator={false}>
@@ -120,7 +123,7 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
             <ArticlePremiumBadge article={article} />
             <View style={styles.articleTileMetaRow}>
               <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
-              <Text style={styles.articleTileMeta}>{article.durationMinutes} min de lecture</Text>
+              <Text style={styles.articleTileMeta}>{t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}</Text>
             </View>
           </Pressable>
         ))}

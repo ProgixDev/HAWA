@@ -1,5 +1,6 @@
 import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   ScrollView,
@@ -28,12 +29,14 @@ import {getHasConfirmedCycleData} from '../state/onboardingPreferences';
 import {getActiveProfileIdentity} from '../state/activeProfileStore';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAppLanguage} from '../state/themePreferences';
+import '../i18n';
 
 // Same 'HH:mm' formatting/parsing convention as
 // MenopauseRemindersScreen.tsx's/ContraceptionRemindersScreen.tsx's own
 // un-exported helpers — kept local since it's pure UI display formatting.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);
@@ -47,6 +50,7 @@ const DAYS_BEFORE_OPTIONS: UpcomingPeriodDaysBefore[] = [1, 2, 3];
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleReminders'>;
 
 function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -108,7 +112,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
   const handleSave = async () => {
     if (saving) {return;}
     if (dailyJournalEnabled && !dailyJournalTime) {
-      setError('Choisis une heure pour ton rappel de journal quotidien.');
+      setError(t('cycleReminders.dailyJournalTimeError'));
       return;
     }
     setError('');
@@ -172,7 +176,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -194,11 +198,11 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>Tes rappels</Text>
+            <Text style={styles.title}>{t('cycleReminders.title')}</Text>
             <Text style={styles.subtitle}>
               {isEdit
-                ? 'Choisis les rappels qui t’accompagnent dans ton suivi.'
-                : 'Choisis les rappels qui peuvent t’accompagner dans ton suivi. Tu pourras les modifier à tout moment depuis ton profil.'}
+                ? t('cycleReminders.subtitleEdit')
+                : t('cycleReminders.subtitleOnboarding')}
             </Text>
           </View>
 
@@ -209,9 +213,9 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name="water-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>Règles à venir</Text>
+                <Text style={styles.cardTitle}>{t('cycleReminders.upcomingPeriodTitle')}</Text>
                 <Text style={styles.cardDescription}>
-                  Reçois un rappel avant la date estimée de tes prochaines règles.
+                  {t('cycleReminders.upcomingPeriodDescription')}
                 </Text>
               </View>
               <Switch
@@ -228,7 +232,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
             </View>
 
             {cycleDataUnavailable ? (
-              <Text style={styles.unavailableNote}>Disponible après l’enregistrement de ses premières règles.</Text>
+              <Text style={styles.unavailableNote}>{t('cycleReminders.unavailableNote')}</Text>
             ) : null}
 
             {upcomingPeriodEnabled ? (
@@ -237,7 +241,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                   const selected = upcomingPeriodDaysBefore === days;
                   return (
                     <Pressable
-                      accessibilityLabel={`${days} jour${days > 1 ? 's' : ''} avant`}
+                      accessibilityLabel={t('cycleReminders.daysBefore', {count: days})}
                       accessibilityRole="radio"
                       accessibilityState={{checked: selected}}
                       key={days}
@@ -248,7 +252,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                         pressed && styles.pressed,
                       ]}>
                       <Text style={[styles.daysBeforeChipText, selected && styles.daysBeforeChipTextSelected]}>
-                        {days} jour{days > 1 ? 's' : ''} avant
+                        {t('cycleReminders.daysBefore', {count: days})}
                       </Text>
                     </Pressable>
                   );
@@ -264,9 +268,9 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>Saisie du début des règles</Text>
+                <Text style={styles.cardTitle}>{t('cycleReminders.periodStartCheckTitle')}</Text>
                 <Text style={styles.cardDescription}>
-                  Un rappel doux si la date prévue arrive sans qu’un début de règles ait été enregistré.
+                  {t('cycleReminders.periodStartCheckDescription')}
                 </Text>
               </View>
               <Switch
@@ -283,7 +287,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
             </View>
 
             {cycleDataUnavailable ? (
-              <Text style={styles.unavailableNote}>Disponible après l’enregistrement de ses premières règles.</Text>
+              <Text style={styles.unavailableNote}>{t('cycleReminders.unavailableNote')}</Text>
             ) : null}
           </View>
 
@@ -294,8 +298,8 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>Journal quotidien</Text>
-                <Text style={styles.cardDescription}>Un petit rappel pour compléter ton suivi du jour.</Text>
+                <Text style={styles.cardTitle}>{t('dailyJournalSheet.defaultTitle')}</Text>
+                <Text style={styles.cardDescription}>{t('cycleReminders.dailyJournalDescription')}</Text>
               </View>
               <Switch
                 ios_backgroundColor={theme.colors.primarySoft}
@@ -311,7 +315,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
 
             {dailyJournalEnabled ? (
               <Pressable
-                accessibilityLabel={dailyJournalTime ? `Heure du rappel, ${dailyJournalTime}` : 'Choisir une heure de rappel'}
+                accessibilityLabel={dailyJournalTime ? t('cycleReminders.reminderTimeAccessibility', {time: dailyJournalTime}) : t('cycleReminders.chooseReminderTime')}
                 accessibilityRole="button"
                 onPress={() => setTimePickerVisible(true)}
                 style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
@@ -319,9 +323,9 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                   <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
-                  <Text style={styles.timeLabel}>Heure</Text>
+                  <Text style={styles.timeLabel}>{t('journalIntimacy.timeLabel')}</Text>
                   <Text style={dailyJournalTime ? styles.timeValue : styles.timeValuePlaceholder}>
-                    {dailyJournalTime ?? 'Choisir une heure'}
+                    {dailyJournalTime ?? t('journalTemperature.chooseATime')}
                   </Text>
                 </View>
                 <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
@@ -336,8 +340,8 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name="egg-outline" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                <Text style={styles.cardTitle}>Ovulation &amp; fenêtre fertile</Text>
-                <Text style={styles.cardDescription}>Reçois des rappels basés sur les estimations de ton cycle.</Text>
+                <Text style={styles.cardTitle}>{t('cycleReminders.fertilityTitle')}</Text>
+                <Text style={styles.cardDescription}>{t('cycleReminders.fertilityDescription')}</Text>
               </View>
               <Switch
                 disabled={cycleDataUnavailable}
@@ -350,13 +354,13 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
             </View>
 
             {cycleDataUnavailable ? (
-              <Text style={styles.unavailableNote}>Disponible après l’enregistrement de ses premières règles.</Text>
+              <Text style={styles.unavailableNote}>{t('cycleReminders.unavailableNote')}</Text>
             ) : null}
 
             {fertilityEnabled ? (
               <View style={styles.checkboxList}>
                 <Pressable
-                  accessibilityLabel="Début estimé de la fenêtre fertile"
+                  accessibilityLabel={t('journalCycleEvolution.estimatedFertileWindow')}
                   accessibilityRole="checkbox"
                   accessibilityState={{checked: fertileWindowEnabled}}
                   onPress={() => setFertileWindowEnabled(current => !current)}
@@ -366,11 +370,11 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                       <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
                     ) : null}
                   </View>
-                  <Text style={styles.checkboxLabel}>Début estimé de la fenêtre fertile</Text>
+                  <Text style={styles.checkboxLabel}>{t('journalCycleEvolution.estimatedFertileWindow')}</Text>
                 </Pressable>
 
                 <Pressable
-                  accessibilityLabel="Ovulation estimée"
+                  accessibilityLabel={t('journalCycleEvolution.phase.ovulation')}
                   accessibilityRole="checkbox"
                   accessibilityState={{checked: ovulationEnabled}}
                   onPress={() => setOvulationEnabled(current => !current)}
@@ -380,7 +384,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
                       <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={14} />
                     ) : null}
                   </View>
-                  <Text style={styles.checkboxLabel}>Ovulation estimée</Text>
+                  <Text style={styles.checkboxLabel}>{t('journalCycleEvolution.phase.ovulation')}</Text>
                 </Pressable>
               </View>
             ) : null}
@@ -413,14 +417,14 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <View style={styles.permissionNoticeCopy}>
                 <Text style={styles.errorText}>
-                  Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                  {t('cycleReminders.permissionNoticeText')}
                 </Text>
                 <Pressable
-                  accessibilityLabel="Ouvrir les réglages de notifications"
+                  accessibilityLabel={t('cycleReminders.openNotificationSettings')}
                   accessibilityRole="button"
                   onPress={() => notifee.openNotificationSettings().catch(() => {})}
                   style={({pressed}) => [styles.permissionSettingsButton, pressed && styles.pressed]}>
-                  <Text style={styles.permissionSettingsButtonText}>Ouvrir les réglages</Text>
+                  <Text style={styles.permissionSettingsButtonText}>{t('cycleReminders.openSettings')}</Text>
                 </Pressable>
               </View>
             </View>
@@ -431,8 +435,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
             </View>
             <Text style={styles.infoText}>
-              Les dates de règles, de fenêtre fertile et d’ovulation sont des estimations basées sur les
-              informations enregistrées dans AWA.
+              {t('cycleReminders.infoText')}
             </Text>
           </View>
 
@@ -442,7 +445,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
             onPress={handleSave}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Continuer'}
+              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
             </Text>
           </Pressable>
 
@@ -452,7 +455,7 @@ function CycleRemindersScreen({navigation, route}: Props): React.JSX.Element {
               disabled={saving}
               onPress={handleSkip}
               style={({pressed}) => [styles.skipButton, pressed && styles.pressed]}>
-              <Text style={styles.skipText}>Passer</Text>
+              <Text style={styles.skipText}>{t('cycleReminders.skip')}</Text>
             </Pressable>
           ) : null}
         </ScrollView>

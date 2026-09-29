@@ -17,6 +17,7 @@ import {
 import {
   MaterialDesignIcons,
 } from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {
   JournalScreenLayout,
@@ -48,18 +49,21 @@ import {
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 /* ============================================================
    CONSTANTS
 ============================================================ */
 
-const PHASE_LABEL = {
-  menstruation: 'Règles',
-  follicular: 'Phase folliculaire',
-  fertile: 'Fenêtre fertile',
-  ovulation: 'Ovulation estimée',
-  luteal: 'Phase lutéale',
-} as const;
+function phaseLabels(t: (key: string) => string) {
+  return {
+    menstruation: t('journalCycleEvolution.phase.menstruation'),
+    follicular: t('journalCycleEvolution.phase.follicular'),
+    fertile: t('journalCycleEvolution.phase.fertile'),
+    ovulation: t('journalCycleEvolution.phase.ovulation'),
+    luteal: t('journalCycleEvolution.phase.luteal'),
+  } as const;
+}
 
 // SEMANTIC — per-marker category accent (fertile window / ovulation / next
 // period), matching the same "differentiated per-item accent" convention
@@ -92,6 +96,7 @@ const MARKER_COLORS = {
 // the Dashboard's tile instead of always claiming a single certain date.
 // (Reachable from the Conceive dashboard's "Évolution du cycle" card.)
 export default function JournalCycleEvolutionScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -122,20 +127,20 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
   if (!hasConfirmedCycleData) {
     return (
       <JournalScreenLayout
-        heroLabel="Ton cycle aujourd’hui"
+        heroLabel={t('journalCycleEvolution.heroLabel')}
         heroSource={require('../../assets/images/conception-journal/cycle-evolution.png')}
         hideJournalHeader
         icon="chart-donut"
-        title="Évolution du cycle">
-        <SectionCard title="Phase actuelle">
+        title={t('journalCycleEvolution.title')}>
+        <SectionCard title={t('journalCycleEvolution.currentPhaseTitle')}>
           <View style={styles.info}>
             <View style={styles.infoIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-question" size={20} />
             </View>
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Pas encore assez de données</Text>
+              <Text style={styles.infoTitle}>{t('journalCycleEvolution.notEnoughDataTitle')}</Text>
               <Text style={styles.infoText}>
-                Renseigne le début de tes dernières règles pour voir l’évolution de ton cycle.
+                {t('journalCycleEvolution.notEnoughDataText')}
               </Text>
             </View>
           </View>
@@ -148,8 +153,10 @@ export default function JournalCycleEvolutionScreen(): React.JSX.Element {
 }
 
 function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const labels = phaseLabels(t);
 
   // Re-evaluated when the local day changes / the app returns to the
   // foreground — see src/hooks/useToday.ts. "Today's journal" therefore
@@ -188,10 +195,10 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
     }
     if (predictionStatus.mode === 'window') {
       return predictionStatus.isLate
-        ? 'Règles en retard'
+        ? t('calendar.periodLate')
         : formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd);
     }
-    return 'Observation en cours';
+    return t('journalCycleEvolution.observationInProgress');
   })();
 
   /* ==========================================================
@@ -453,24 +460,24 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
     useMemo(() => {
       switch (phase) {
         case 'menstruation':
-          return 'Ton cycle est actuellement dans la phase des règles.';
+          return t('journalCycleEvolution.phaseDescription.menstruation');
 
         case 'follicular':
-          return 'Ton corps se prépare progressivement à l’ovulation.';
+          return t('journalCycleEvolution.phaseDescription.follicular');
 
         case 'fertile':
-          return 'Tu es dans ta fenêtre fertile estimée.';
+          return t('journalCycleEvolution.phaseDescription.fertile');
 
         case 'ovulation':
-          return 'L’ovulation est estimée autour de cette période.';
+          return t('journalCycleEvolution.phaseDescription.ovulation');
 
         case 'luteal':
-          return 'Ton cycle est dans sa phase après ovulation.';
+          return t('journalCycleEvolution.phaseDescription.luteal');
 
         default:
           return '';
       }
-    }, [phase]);
+    }, [phase, t]);
 
   /* ==========================================================
      UI
@@ -478,17 +485,17 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
 
   return (
     <JournalScreenLayout
-      heroLabel="Ton cycle aujourd’hui"
+      heroLabel={t('journalCycleEvolution.heroLabel')}
       heroSource={require('../../assets/images/conception-journal/cycle-evolution.png')}
       hideJournalHeader
       icon="chart-donut"
-      title="Évolution du cycle">
+      title={t('journalCycleEvolution.title')}>
 
       {/* =====================================================
           CURRENT PHASE
       ===================================================== */}
 
-      <SectionCard title="Phase actuelle">
+      <SectionCard title={t('journalCycleEvolution.currentPhaseTitle')}>
 
         <View
           style={
@@ -572,7 +579,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                     style={
                       styles.dayLabel
                     }>
-                    jour
+                    {t('journalCycleEvolution.dayUnit')}
                   </Text>
                 </View>
               </Animated.View>
@@ -623,7 +630,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                   styles.phase
                 }>
                 {
-                  PHASE_LABEL[
+                  labels[
                     phase
                   ]
                 }
@@ -635,8 +642,8 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                 styles.meta
               }>
               {day <= cycleLength
-                ? `Jour ${day} sur ${cycleLength}`
-                : `Jour ${day} · au-delà de ${cycleLength} jours`}
+                ? t('journalCycleEvolution.dayOfTotal', {day, total: cycleLength})
+                : t('journalCycleEvolution.dayBeyondTotal', {day, total: cycleLength})}
             </Text>
 
             <Text
@@ -659,7 +666,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
                 style={
                   styles.progressLabel
                 }>
-                Progression du cycle
+                {t('journalCycleEvolution.cycleProgressLabel')}
               </Text>
 
               <Text
@@ -712,11 +719,11 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
           CYCLE MARKERS
       ===================================================== */}
 
-      <SectionCard title="Repères du cycle">
+      <SectionCard title={t('journalCycleEvolution.markersTitle')}>
 
         <Marker
           icon="flower-pollen-outline"
-          label="Fenêtre fertile estimée"
+          label={t('journalCycleEvolution.estimatedFertileWindow')}
           value={`${formatShortDate(
             fertileStart,
           )} – ${formatShortDate(
@@ -727,7 +734,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
 
         <Marker
           icon="circle-double"
-          label="Ovulation estimée"
+          label={t('journalCycleEvolution.phase.ovulation')}
           value={formatShortDate(
             ovulation,
           )}
@@ -736,7 +743,7 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
 
         <Marker
           icon="calendar-heart"
-          label="Prochaines règles estimées"
+          label={t('journalCycleEvolution.estimatedNextPeriod')}
           value={nextPeriodValue}
           variant="period"
           last
@@ -775,14 +782,14 @@ function CycleEvolutionContent({basics}: {basics: CyclePreferences}): React.JSX.
             style={
               styles.infoTitle
             }>
-            À propos des estimations
+            {t('journalCycleEvolution.aboutEstimatesTitle')}
           </Text>
 
           <Text
             style={
               styles.infoText
             }>
-            Ces repères sont calculés à partir de tes règles enregistrées et restent des estimations.
+            {t('journalCycleEvolution.aboutEstimatesText')}
           </Text>
         </View>
       </View>

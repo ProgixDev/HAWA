@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -23,6 +24,7 @@ import {
   setPregnancyTrackingPreferences,
   type PregnancyTrackingPreference,
 } from '../../state/pregnancyPreferences';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -48,33 +50,39 @@ type OptionConfig = {
  *
  * Aucun autre élément n'est proposé sur cet écran.
  */
-const OPTIONS: OptionConfig[] = [
-  {
-    id: 'symptoms',
-    icon: 'heart-pulse',
-    label: 'Symptômes ressentis',
-  },
-  {
-    id: 'weight',
-    icon: 'scale-bathroom',
-    label: 'Poids',
-  },
-  {
-    id: 'mood',
-    icon: 'emoticon-happy-outline',
-    label: 'Humeur',
-  },
-  {
-    id: 'sleep',
-    icon: 'weather-night',
-    label: 'Sommeil',
-  },
-  {
-    id: 'medicalInfo',
-    icon: 'shield-lock-outline',
-    label: 'Informations médicales personnelles',
-  },
-];
+// Built from `t()` inside the component (see `useMemo(buildOptions, ...)`
+// below) rather than as a module-level constant, since the labels must
+// react to the active app language. Only `id` is ever persisted (see
+// setPregnancyTrackingPreferences below) — `label` is pure display text.
+function buildOptions(t: (key: string) => string): OptionConfig[] {
+  return [
+    {
+      id: 'symptoms',
+      icon: 'heart-pulse',
+      label: t('pregnancyTrackingPreferences.options.symptoms'),
+    },
+    {
+      id: 'weight',
+      icon: 'scale-bathroom',
+      label: t('pregnancyTrackingPreferences.options.weight'),
+    },
+    {
+      id: 'mood',
+      icon: 'emoticon-happy-outline',
+      label: t('pregnancyTrackingPreferences.options.mood'),
+    },
+    {
+      id: 'sleep',
+      icon: 'weather-night',
+      label: t('pregnancyTrackingPreferences.options.sleep'),
+    },
+    {
+      id: 'medicalInfo',
+      icon: 'shield-lock-outline',
+      label: t('pregnancyTrackingPreferences.options.medicalInfo'),
+    },
+  ];
+}
 
 type TrackingRowProps = {
   option: OptionConfig;
@@ -209,9 +217,11 @@ function PregnancyTrackingPreferencesScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const [selected, setSelected] = useState<
     Set<PregnancyTrackingPreference>
@@ -379,7 +389,7 @@ function PregnancyTrackingPreferencesScreen({
           }>
           {/* BACK */}
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             hitSlop={12}
             onPress={
               navigation.goBack
@@ -398,14 +408,14 @@ function PregnancyTrackingPreferencesScreen({
             <View style={styles.header}>
               <Text style={styles.title}>
                 {
-                  'Que souhaitez-vous\nsuivre pendant votre\ngrossesse ?'
+                  t('pregnancyTrackingPreferences.title')
                 }
               </Text>
 
               <Text
                 style={styles.subtitle}>
                 {
-                  'Sélectionnez les éléments que vous\nsouhaitez suivre au quotidien.'
+                  t('pregnancyTrackingPreferences.subtitle')
                 }
               </Text>
             </View>
@@ -464,7 +474,7 @@ function PregnancyTrackingPreferencesScreen({
               ]}>
               <Text
                 style={styles.nextText}>
-                {route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+                {route.params?.mode === 'edit' ? t('common.save') : t('pregnancyTrackingPreferences.next')}
               </Text>
             </Pressable>
           </Animated.View>

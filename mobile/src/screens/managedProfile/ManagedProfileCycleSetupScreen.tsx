@@ -2,6 +2,7 @@ import React, {useMemo, useState} from 'react';
 import {ActivityIndicator, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import AwaADeuxStepLayout, {Reveal} from '../awaADeux/AwaADeuxStepLayout';
@@ -11,6 +12,8 @@ import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getManagedProfileDraft, updateManagedProfileDraft, clearManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {addManagedProfile} from '../../state/managedProfilesStore';
 import type {CycleRegularity} from '../../state/onboardingPreferences';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 
 // Step 3/4 — "Informations sur son cycle" (ONLY reached when "Oui" was answered on
 // the previous step). Duration RANGES are the same ones the mother's own cycle
@@ -36,9 +39,11 @@ const DEFAULT_PERIOD_LENGTH = 5;
 const DEFAULT_CYCLE_LENGTH = 28;
 
 export default function ManagedProfileCycleSetupScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const draft = getManagedProfileDraft();
+  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
 
   const [lastPeriodDate, setLastPeriodDate] = useState<Date | null>(draft.lastPeriodDate);
   const [periodLength, setPeriodLength] = useState(draft.periodLength ?? DEFAULT_PERIOD_LENGTH);
@@ -74,24 +79,24 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel={creating ? 'Création…' : 'Créer le profil'}
-      description="Vous pourrez les modifier plus tard à tout moment."
+      ctaLabel={creating ? t('managedProfile.cycleSetup.creating') : t('managedProfile.cycleSetup.createProfile')}
+      description={t('managedProfile.cycleSetup.description')}
       onBack={navigation.goBack}
       onContinue={canContinue && !creating ? onCreate : undefined}
-      title="Informations sur son cycle">
+      title={t('managedProfile.cycleSetup.title')}>
       <Reveal index={0}>
         <Pressable
-          accessibilityLabel="Date des dernières règles"
+          accessibilityLabel={t('managedProfile.cycleSetup.lastPeriodLabel')}
           accessibilityRole="button"
           onPress={() => setDatePickerVisible(true)}
           style={({pressed}) => [styles.fieldCard, pressed && styles.pressed]}>
-          <Text style={styles.label}>Date des dernières règles</Text>
+          <Text style={styles.label}>{t('managedProfile.cycleSetup.lastPeriodLabel')}</Text>
           <View style={styles.dateRow}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={18} />
             <Text style={[styles.dateText, !lastPeriodDate && styles.datePlaceholder]}>
               {lastPeriodDate
-                ? new Intl.DateTimeFormat('fr-FR', {day: '2-digit', month: 'long', year: 'numeric'}).format(lastPeriodDate)
-                : 'Sélectionner une date'}
+                ? new Intl.DateTimeFormat(dateLocale, {day: '2-digit', month: 'long', year: 'numeric'}).format(lastPeriodDate)
+                : t('managedProfile.cycleSetup.lastPeriodPlaceholder')}
             </Text>
           </View>
         </Pressable>
@@ -99,14 +104,13 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
 
       <Reveal index={1}>
         <View style={styles.fieldCard}>
-          <Text style={styles.label}>Durée habituelle des règles</Text>
+          <Text style={styles.label}>{t('managedProfile.cycleSetup.periodLengthLabel')}</Text>
           <DurationStepper
             max={PERIOD_LENGTH_MAX}
             min={PERIOD_LENGTH_MIN}
             onChange={setPeriodLength}
             styles={styles}
             theme={theme}
-            unit="jours"
             value={periodLength}
           />
         </View>
@@ -114,14 +118,13 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
 
       <Reveal index={2}>
         <View style={styles.fieldCard}>
-          <Text style={styles.label}>Durée habituelle du cycle</Text>
+          <Text style={styles.label}>{t('managedProfile.cycleSetup.cycleLengthLabel')}</Text>
           <DurationStepper
             max={CYCLE_LENGTH_MAX}
             min={CYCLE_LENGTH_MIN}
             onChange={setCycleLength}
             styles={styles}
             theme={theme}
-            unit="jours"
             value={cycleLength}
           />
         </View>
@@ -129,13 +132,13 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
 
       <Reveal index={3}>
         <View style={styles.fieldCard}>
-          <Text style={styles.label}>Régularité du cycle</Text>
+          <Text style={styles.label}>{t('managedProfile.cycleSetup.regularityLabel')}</Text>
           <View accessibilityRole="radiogroup" style={styles.regularityRow}>
             {(
               [
-                {id: 'yes' as const, label: 'Régulier'},
-                {id: 'no' as const, label: 'Irrégulier'},
-                {id: 'unknown' as const, label: 'Je ne sais pas'},
+                {id: 'yes' as const, label: t('managedProfile.cycleSetup.regular')},
+                {id: 'no' as const, label: t('managedProfile.cycleSetup.irregular')},
+                {id: 'unknown' as const, label: t('managedProfile.cycleSetup.unknown')},
               ]
             ).map(option => {
               const selected = regularity === option.id;
@@ -160,7 +163,7 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
       <Reveal index={4}>
         <View style={styles.helperCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
-          <Text style={styles.helperText}>Ces informations pourront être modifiées plus tard.</Text>
+          <Text style={styles.helperText}>{t('managedProfile.cycleSetup.helperText')}</Text>
         </View>
       </Reveal>
 
@@ -175,8 +178,8 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
         minimumDate={draft.birthDate ?? undefined}
         onClose={() => setDatePickerVisible(false)}
         onSelect={setLastPeriodDate}
-        subtitle="Cette date ne peut pas être dans le futur."
-        title="Date des dernières règles"
+        subtitle={t('managedProfile.cycleSetup.futureDateWarning')}
+        title={t('managedProfile.cycleSetup.lastPeriodLabel')}
         value={lastPeriodDate ?? new Date()}
         visible={datePickerVisible}
       />
@@ -188,7 +191,6 @@ function DurationStepper({
   value,
   min,
   max,
-  unit,
   onChange,
   styles,
   theme,
@@ -196,17 +198,17 @@ function DurationStepper({
   value: number;
   min: number;
   max: number;
-  unit: string;
   onChange: (value: number) => void;
   styles: ReturnType<typeof createStyles>;
   theme: ResolvedAwaTheme;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const canDecrease = value > min;
   const canIncrease = value < max;
   return (
     <View style={styles.stepper}>
       <Pressable
-        accessibilityLabel="Diminuer"
+        accessibilityLabel={t('managedProfile.cycleSetup.decrease')}
         accessibilityRole="button"
         accessibilityState={{disabled: !canDecrease}}
         disabled={!canDecrease}
@@ -216,10 +218,10 @@ function DurationStepper({
         <MaterialDesignIcons color={theme.colors.primary} name="minus" size={20} />
       </Pressable>
       <View style={styles.stepperValueBox}>
-        <Text style={styles.stepperValue}>{value} {unit}</Text>
+        <Text style={styles.stepperValue}>{t('managedProfile.cycleSetup.days', {count: value})}</Text>
       </View>
       <Pressable
-        accessibilityLabel="Augmenter"
+        accessibilityLabel={t('managedProfile.cycleSetup.increase')}
         accessibilityRole="button"
         accessibilityState={{disabled: !canIncrease}}
         disabled={!canIncrease}

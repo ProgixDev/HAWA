@@ -14,8 +14,10 @@ import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {MainTabScreenProps} from '../navigation/MainTabNavigator';
+import '../i18n';
 import type {CyclePhase} from '../components/home/CycleStatusCard';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -87,6 +89,7 @@ const STATISTICS_ACCENT_LIGHT = '#DDF0F1';
 type Props = MainTabScreenProps<'CycleHome'>;
 
 function CycleHomeScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -106,7 +109,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
     return unsubscribe;
   }, []);
   const headerFirstName = activeIdentity.isManagedProfile ? activeIdentity.managedProfile?.firstName ?? '' : getFirstName();
-  const headerSubtitle = activeIdentity.isManagedProfile ? 'Profil de ma fille' : 'Ton corps, ton rythme, ta foi ✨';
+  const headerSubtitle = activeIdentity.isManagedProfile ? t('cycleHome.subtitleDaughter') : t('cycleHome.subtitleOwner');
   const [spiritualMarkersEnabled, setSpiritualMarkersEnabled] = useState(
     getSpiritualMarkersEnabled(),
   );
@@ -238,21 +241,27 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   const nextPeriodTile = (() => {
     if (predictionStatus.mode === 'exact') {
       const daysUntil = Math.max(0, diffDays(predictionStatus.date, today));
-      return {value: formatShortDate(predictionStatus.date), subtitle: `Dans ${daysUntil} jours`};
+      return {value: formatShortDate(predictionStatus.date), subtitle: t('cycleHome.nextPeriod.inDays', {count: daysUntil})};
     }
     if (predictionStatus.mode === 'window') {
       if (predictionStatus.isLate) {
-        return {value: 'Règles en retard', subtitle: `Fenêtre : ${formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd)}`};
+        return {
+          value: t('cycleHome.nextPeriod.late'),
+          subtitle: t('cycleHome.nextPeriod.window', {range: formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd)}),
+        };
       }
       const daysUntilStart = diffDays(predictionStatus.windowStart, today);
       return {
         value: formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd),
-        subtitle: daysUntilStart > 0 ? `Dans ${daysUntilStart} jours` : 'Fenêtre estimée en cours',
+        subtitle: daysUntilStart > 0 ? t('cycleHome.nextPeriod.inDays', {count: daysUntilStart}) : t('cycleHome.nextPeriod.windowInProgress'),
       };
     }
     return predictionStatus.complete
-      ? {value: 'Observation en cours', subtitle: 'Données à compléter'}
-      : {value: `Mois ${predictionStatus.monthsElapsed} sur ${predictionStatus.totalMonths}`, subtitle: 'Observation du cycle'};
+      ? {value: t('cycleHome.observationInProgress'), subtitle: t('cycleHome.dataToComplete')}
+      : {
+          value: t('cycleHome.monthOfTotal', {month: predictionStatus.monthsElapsed, total: predictionStatus.totalMonths}),
+          subtitle: t('cycleHome.cycleObservation'),
+        };
   })();
 
   // The 4th overview tile must match whatever computeCyclePredictionStatus
@@ -267,11 +276,11 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // 26–32 day window above, so no single ovulation date may be shown either.
   const fertility = estimateFertilityDates(initial, predictionStatus, today, getHasConfirmedCycleDuration());
   const fertileTile = fertility
-    ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: `Dans ${Math.max(0, diffDays(fertility.fertileStart, today))} jours`}
-    : {value: 'Non estimable', subtitle: 'Cycle variable'};
+    ? {value: formatDateRange(fertility.fertileStart, fertility.fertileEnd), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.fertileStart, today))})}
+    : {value: t('cycleHome.notEstimable'), subtitle: t('cycleHome.variableCycle')};
   const ovulationTile = fertility
-    ? {value: formatShortDate(fertility.ovulation), subtitle: `Dans ${Math.max(0, diffDays(fertility.ovulation, today))} jours`}
-    : {value: 'Non estimable', subtitle: 'Cycle variable'};
+    ? {value: formatShortDate(fertility.ovulation), subtitle: t('cycleHome.nextPeriod.inDays', {count: Math.max(0, diffDays(fertility.ovulation, today))})}
+    : {value: t('cycleHome.notEstimable'), subtitle: t('cycleHome.variableCycle')};
 
   const overviewItems: OverviewItem[] = [
     {
@@ -279,7 +288,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       icon: 'water',
       iconColor: PERIOD,
       iconBg: PERIOD_LIGHT,
-      label: 'Prochaines règles',
+      label: t('cycleHome.nextPeriodLabel'),
       value: nextPeriodTile.value,
       subtitle: nextPeriodTile.subtitle,
     },
@@ -288,7 +297,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       icon: 'leaf',
       iconColor: FERTILE,
       iconBg: FERTILE_LIGHT,
-      label: 'Fenêtre fertile',
+      label: t('cycleHome.fertileWindowLabel'),
       value: fertileTile.value,
       subtitle: fertileTile.subtitle,
     },
@@ -297,7 +306,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       icon: 'egg-outline',
       iconColor: OVULATION,
       iconBg: OVULATION_LIGHT,
-      label: 'Ovulation prévue',
+      label: t('cycleHome.ovulationLabel'),
       value: ovulationTile.value,
       subtitle: ovulationTile.subtitle,
     },
@@ -319,12 +328,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
   // spiritual entries within it are already filtered by QuickActionsGrid's
   // own existing spiritualMarkersEnabled-aware logic, unrelated to profiles.
   const quickActionItems: QuickActionItem[] = [
-    {key: 'prayer-times', icon: 'mosque', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
-    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
-    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: DAILY_JOURNAL_ACCENT, iconBg: DAILY_JOURNAL_ACCENT_LIGHT, label: 'Journal quotidien', onPress: openJournal},
-    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
-    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
-    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: STATISTICS_ACCENT_LIGHT, label: 'Statistiques', onPress: () => navigation.navigate('Statistics')},
+    {key: 'prayer-times', icon: 'mosque', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.prayerTimes'), onPress: () => navigation.navigate('PrayerTimes')},
+    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.library'), onPress: () => navigation.navigate('Library')},
+    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: DAILY_JOURNAL_ACCENT, iconBg: DAILY_JOURNAL_ACCENT_LIGHT, label: t('cycleHome.quickActions.dailyJournal'), onPress: openJournal},
+    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.hijriCalendar'), onPress: () => navigation.navigate('HijriCalendar')},
+    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: theme.colors.primary, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.qadaa'), onPress: () => navigation.navigate('FastingQadaa')},
+    {key: 'statistics', icon: 'chart-donut', iconColor: STATISTICS_ACCENT, iconBg: STATISTICS_ACCENT_LIGHT, label: t('cycleHome.quickActions.statistics'), onPress: () => navigation.navigate('Statistics')},
   ];
 
   const animatedStyle = {
@@ -375,8 +384,8 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 <View style={styles.preFirstPeriodIconBadge}>
                   <MaterialDesignIcons color={theme.colors.primary} name="flower-tulip-outline" size={26} />
                 </View>
-                <Text style={styles.preFirstPeriodTitle}>Pas encore de règles enregistrées</Text>
-                <Text style={styles.preFirstPeriodSubtitle}>Son suivi commencera lorsqu’elle aura ses premières règles.</Text>
+                <Text style={styles.preFirstPeriodTitle}>{t('cycleHome.preFirstPeriod.title')}</Text>
+                <Text style={styles.preFirstPeriodSubtitle}>{t('cycleHome.preFirstPeriod.subtitle')}</Text>
               </View>
             ) : (
               <HeroCycleCard
@@ -415,12 +424,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 },
               ]}>
               <Pressable
-                accessibilityLabel="Ses premières règles ont commencé"
+                accessibilityLabel={t('cycleHome.herPeriodStartedCta')}
                 accessibilityRole="button"
                 onPress={() => setPeriodStartSheetVisible(true)}
                 style={({pressed}) => [styles.periodStartCta, pressed && styles.periodStartCtaPressed]}>
                 <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartCtaText}>Ses premières règles ont commencé</Text>
+                <Text style={styles.periodStartCtaText}>{t('cycleHome.herPeriodStartedCta')}</Text>
               </Pressable>
             </Animated.View>
           ) : !hasActiveConfirmedPeriod ? (
@@ -440,12 +449,12 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 },
               ]}>
               <Pressable
-                accessibilityLabel="Mes règles ont commencé"
+                accessibilityLabel={t('cycleHome.myPeriodStartedCta')}
                 accessibilityRole="button"
                 onPress={() => setPeriodStartSheetVisible(true)}
                 style={({pressed}) => [styles.periodStartCta, pressed && styles.periodStartCtaPressed]}>
                 <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartCtaText}>Mes règles ont commencé</Text>
+                <Text style={styles.periodStartCtaText}>{t('cycleHome.myPeriodStartedCta')}</Text>
               </Pressable>
             </Animated.View>
           ) : null}
@@ -490,9 +499,9 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
                 <MaterialDesignIcons color={theme.colors.primary} name="school-outline" size={18} />
               </View>
               <View style={styles.educationCopy}>
-                <Text style={styles.educationTitle}>Se préparer aux premières règles</Text>
+                <Text style={styles.educationTitle}>{t('cycleHome.education.title')}</Text>
                 <Text style={styles.educationBody}>
-                  Les premières règles peuvent arriver à des moments différents pour chaque fille. AWA permet de commencer le suivi dès qu’elles apparaissent.
+                  {t('cycleHome.education.body')}
                 </Text>
               </View>
             </View>
@@ -519,7 +528,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
       </SafeAreaView>
 
       <PeriodStartBottomSheet
-        description={isPreFirstPeriodDaughter ? 'Quand ses premières règles ont-elles commencé ?' : undefined}
+        description={isPreFirstPeriodDaughter ? t('cycleHome.preFirstPeriod.question') : undefined}
         initialDate={today}
         onClose={() => setPeriodStartSheetVisible(false)}
         onConfirm={
@@ -528,7 +537,7 @@ function CycleHomeScreen({navigation}: Props): React.JSX.Element {
             : undefined
         }
         onConfirmed={() => {}}
-        title={isPreFirstPeriodDaughter ? 'Ses premières règles ont commencé' : undefined}
+        title={isPreFirstPeriodDaughter ? t('cycleHome.herPeriodStartedCta') : undefined}
         visible={periodStartSheetVisible}
       />
     </LinearGradient>

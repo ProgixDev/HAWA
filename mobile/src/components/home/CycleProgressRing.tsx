@@ -1,8 +1,10 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {AccessibilityInfo, Animated, Easing, StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 const SEGMENT_COUNT = 60;
 const DEFAULT_SIZE = 116;
@@ -38,6 +40,7 @@ export default function CycleProgressRing({
   size = DEFAULT_SIZE,
   accessibilityLabel,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme, size), [theme, size]);
   const progressAnimation = useRef(new Animated.Value(0)).current;
@@ -96,7 +99,7 @@ export default function CycleProgressRing({
       })}
 
       <View style={styles.ringCenter}>
-        <Text style={styles.ringEyebrow}>Jour du cycle</Text>
+        <Text style={styles.ringEyebrow}>{t('journalNote.cycleDayLabel')}</Text>
         <Text style={styles.ringNumber}>{currentDay === null ? '—' : String(currentDay)}</Text>
         {phaseLabel ? <Text numberOfLines={2} style={[styles.ringPhase, {color: ringColor}]}>{phaseLabel}</Text> : null}
       </View>

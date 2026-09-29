@@ -1,6 +1,8 @@
 import React, {memo, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
+import i18n from '../../i18n';
 
 import {homeRadii} from '../home/homeTheme';
 import {formatFullDate, formatHijriDate, formatShortDate, type ComputedCyclePhase} from '../../utils/cycleMath';
@@ -60,97 +62,102 @@ const FERTILE_COLOR = '#3E8E56';
 const OVULATION_COLOR = '#8B5CF6';
 const LUTEAL_COLOR = '#D8B05A';
 
-const PHASE_META: Record<ComputedCyclePhase, {label: string; subtitle: string; color: string; icon: IconName}> = {
-  menstruation: {label: 'Phase menstruelle', subtitle: 'Fertilité faible', color: PERIOD_COLOR, icon: 'flower-outline'},
-  follicular: {label: 'Phase folliculaire', subtitle: 'Fertilité en hausse', color: FOLLICULAR_COLOR, icon: 'leaf'},
-  fertile: {label: 'Fenêtre fertile', subtitle: 'Fertilité élevée', color: FERTILE_COLOR, icon: 'leaf'},
-  ovulation: {label: 'Phase ovulatoire', subtitle: 'Fertilité élevée', color: OVULATION_COLOR, icon: 'egg-outline'},
-  luteal: {label: 'Phase lutéale', subtitle: 'Fertilité faible', color: LUTEAL_COLOR, icon: 'moon-waning-crescent'},
-};
+// Text is resolved from the shared i18n singleton (module-level, like
+// cycleMath.ts's own presentation helpers) rather than useTranslation(),
+// since these maps/functions live outside the component.
+function phaseMeta(): Record<ComputedCyclePhase, {label: string; subtitle: string; color: string; icon: IconName}> {
+  return {
+    menstruation: {label: i18n.t('calendar.dayCard.phase.menstruation.label'), subtitle: i18n.t('calendar.dayCard.phase.menstruation.subtitle'), color: PERIOD_COLOR, icon: 'flower-outline'},
+    follicular: {label: i18n.t('calendar.dayCard.phase.follicular.label'), subtitle: i18n.t('calendar.dayCard.phase.follicular.subtitle'), color: FOLLICULAR_COLOR, icon: 'leaf'},
+    fertile: {label: i18n.t('calendar.dayCard.phase.fertile.label'), subtitle: i18n.t('calendar.dayCard.phase.fertile.subtitle'), color: FERTILE_COLOR, icon: 'leaf'},
+    ovulation: {label: i18n.t('calendar.dayCard.phase.ovulation.label'), subtitle: i18n.t('calendar.dayCard.phase.ovulation.subtitle'), color: OVULATION_COLOR, icon: 'egg-outline'},
+    luteal: {label: i18n.t('calendar.dayCard.phase.luteal.label'), subtitle: i18n.t('calendar.dayCard.phase.luteal.subtitle'), color: LUTEAL_COLOR, icon: 'moon-waning-crescent'},
+  };
+}
 
-const PHASE_UNAVAILABLE_META = {
-  label: 'Phase non estimée',
-  subtitle: 'Cycle variable : pas de prévision précise',
-  icon: 'help-circle-outline' as IconName,
-};
+function phaseUnavailableMeta() {
+  return {
+    label: i18n.t('calendar.dayCard.phaseUnavailable.label'),
+    subtitle: i18n.t('calendar.dayCard.phaseUnavailable.subtitle'),
+    icon: 'help-circle-outline' as IconName,
+  };
+}
 
-const FLOW_LABELS: Record<string, string> = {
-  none: 'Aucun',
-  light: 'Léger',
-  moderate: 'Modéré',
-  heavy: 'Abondant',
-  veryHeavy: 'Très abondant',
-};
+function flowLabel(intensity: string): string {
+  const known: Record<string, string> = {
+    none: i18n.t('calendar.dayCard.flow.none'),
+    light: i18n.t('calendar.dayCard.flow.light'),
+    moderate: i18n.t('calendar.dayCard.flow.moderate'),
+    heavy: i18n.t('calendar.dayCard.flow.heavy'),
+    veryHeavy: i18n.t('calendar.dayCard.flow.veryHeavy'),
+  };
+  return known[intensity] ?? intensity;
+}
 
-const MOOD_LABELS: Record<MoodLevel, string> = {
-  veryGood: 'Très bien',
-  good: 'Bien',
-  neutral: 'Neutre',
-  stressed: 'Stressée',
-  irritable: 'Irritable',
-  anxious: 'Anxieuse',
-  sad: 'Triste',
-  tired: 'Fatiguée',
-  motivated: 'Motivée',
-};
+function moodLabel(level: MoodLevel): string {
+  return i18n.t(`cycleHome.mood.${level}`);
+}
 
 type HealthRow = {key: keyof CalendarFilters; icon: IconName; label: string; value: string};
 
 function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
   const symptomNames = entry?.symptoms?.names ?? [];
+  const notProvided = i18n.t('calendar.dayCard.notProvided');
 
   return [
     {
       key: 'rules',
       icon: 'water',
-      label: 'Intensité du flux',
-      value: entry?.flow ? (FLOW_LABELS[entry.flow.intensity] ?? entry.flow.intensity) : 'Non renseigné',
+      label: i18n.t('calendar.dayCard.rows.flowLabel'),
+      value: entry?.flow ? flowLabel(entry.flow.intensity) : notProvided,
     },
     {
       key: 'symptoms',
       icon: 'heart-outline',
-      label: 'Symptômes',
-      value: symptomNames.length > 0 ? symptomNames.join(', ') : 'Aucun',
+      label: i18n.t('dailyJournal.symptoms'),
+      value: symptomNames.length > 0 ? symptomNames.join(', ') : i18n.t('calendar.dayCard.rows.symptomsNone'),
     },
     {
       key: 'mood',
       icon: 'emoticon-happy-outline',
-      label: 'Humeur',
-      value: entry?.mood ? (MOOD_LABELS[entry.mood.level] ?? entry.mood.level) : 'Non renseigné',
+      label: i18n.t('dailyJournal.mood'),
+      value: entry?.mood ? moodLabel(entry.mood.level) : notProvided,
     },
     {
       key: 'sleep',
       icon: 'weather-night',
-      label: 'Sommeil',
-      value: entry?.sleep?.duration ?? 'Non renseigné',
+      label: i18n.t('dailyJournal.sleep'),
+      value: entry?.sleep?.duration ?? notProvided,
     },
     {
       key: 'activity',
       icon: 'run',
-      label: 'Activité',
+      label: i18n.t('dailyJournal.activity'),
       value: entry?.activity?.none
-        ? 'Aucune'
+        ? i18n.t('calendar.dayCard.rows.activityNone')
         : entry?.activity?.type
           ? `${entry.activity.type}${entry.activity.durationMinutes ? ` · ${entry.activity.durationMinutes} min` : ''}`
-          : 'Non renseigné',
+          : notProvided,
     },
     {
       key: 'hydration',
       icon: 'cup-water',
-      label: 'Hydratation',
-      value: entry?.hydration ? `${(entry.hydration.milliliters / 1000).toFixed(1).replace('.', ',')} L` : 'Non renseignée',
+      label: i18n.t('dailyJournal.hydration'),
+      value: entry?.hydration ? `${(entry.hydration.milliliters / 1000).toFixed(1).replace('.', ',')} L` : notProvided,
     },
     {
       key: 'intimacy',
       icon: 'shield-lock-outline',
-      label: 'Vie intime',
-      value: entry?.intimacy ? (entry.intimacy.answer === 'yes' ? 'Oui' : entry.intimacy.answer === 'no' ? 'Non' : 'Préfère ne pas dire') : 'Non renseigné',
+      label: i18n.t('dailyJournal.intimacy'),
+      value: entry?.intimacy
+        ? (entry.intimacy.answer === 'yes' ? i18n.t('calendar.dayCard.rows.intimacyYes') : entry.intimacy.answer === 'no' ? i18n.t('calendar.dayCard.rows.intimacyNo') : i18n.t('calendar.dayCard.rows.intimacyPreferNotToSay'))
+        : notProvided,
     },
     {
       key: 'notes',
       icon: 'notebook-edit-outline',
-      label: 'Notes',
-      value: entry?.note?.text || entry?.encryptedNote ? 'Voir la note' : 'Aucune note',
+      label: i18n.t('dailyJournal.notes'),
+      value: entry?.note?.text || entry?.encryptedNote ? i18n.t('calendar.dayCard.rows.viewNote') : i18n.t('calendar.dayCard.rows.noNote'),
     },
   ];
 }
@@ -172,13 +179,15 @@ function SelectedDayCard({
   showHijriDate = true,
   hideIntimacy = false,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const unavailableMeta = phaseUnavailableMeta();
   const meta = phase
-    ? PHASE_META[phase]
+    ? phaseMeta()[phase]
     : {
-        ...PHASE_UNAVAILABLE_META,
-        subtitle: phaseUnavailableSubtitle ?? PHASE_UNAVAILABLE_META.subtitle,
+        ...unavailableMeta,
+        subtitle: phaseUnavailableSubtitle ?? unavailableMeta.subtitle,
         color: theme.colors.textSecondary,
       };
   const hijriDate = showHijriDate ? formatHijriDate(date) : undefined;
@@ -193,7 +202,7 @@ function SelectedDayCard({
         </View>
         {cycleDay !== undefined ? (
           <View style={styles.cycleDayBadge}>
-            <Text numberOfLines={1} style={styles.cycleDayText}>Jour {cycleDay} du cycle</Text>
+            <Text numberOfLines={1} style={styles.cycleDayText}>{t('calendar.dayCard.cycleDayBadge', {day: cycleDay})}</Text>
           </View>
         ) : null}
       </View>
@@ -220,34 +229,34 @@ function SelectedDayCard({
         ))}
       </View>
 
-      <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>Période menstruelle</Text><Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? 'Modification' : 'Modifier'}</Text></Pressable></View>
+      <View style={styles.periodSectionHeader}><Text style={styles.periodSectionTitle}>{t('calendar.dayCard.periodSectionTitle')}</Text><Pressable accessibilityRole="button" onPress={onEditPeriod} style={({pressed}) => [styles.editPeriodButton, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name={editingPeriod ? 'pencil-off-outline' : 'pencil-outline'} size={15} /><Text style={styles.editPeriodText}>{editingPeriod ? t('calendar.dayCard.editing') : t('calendar.dayCard.edit')}</Text></Pressable></View>
       {periodUnrecorded ? (
-        <Text style={styles.periodUnrecordedText}>Aucune règle enregistrée pour ce cycle</Text>
+        <Text style={styles.periodUnrecordedText}>{t('calendar.dayCard.periodUnrecorded')}</Text>
       ) : (
       <View style={styles.periodRow}>
         <View style={styles.periodBox}>
-          <Text numberOfLines={2} style={styles.periodLabel}>Début des règles</Text>
+          <Text numberOfLines={2} style={styles.periodLabel}>{t('calendar.periodStart')}</Text>
           <Text style={styles.periodValue}>{formatShortDate(periodStartDate)}</Text>
         </View>
         <View style={styles.periodBox}>
-          <Text numberOfLines={2} style={styles.periodLabel}>Fin des règles</Text>
+          <Text numberOfLines={2} style={styles.periodLabel}>{t('calendar.periodEnd')}</Text>
           <Text style={styles.periodValue}>{formatShortDate(periodEndDate)}</Text>
         </View>
         <View style={styles.periodBox}>
-          <Text numberOfLines={2} style={styles.periodLabel}>Durée des règles</Text>
-          <Text style={styles.periodValue}>{periodDuration} jours</Text>
+          <Text numberOfLines={2} style={styles.periodLabel}>{t('calendar.dayCard.periodDurationLabel')}</Text>
+          <Text style={styles.periodValue}>{t('averageCycle.days', {count: periodDuration})}</Text>
         </View>
       </View>
       )}
 
       {onDeclarePeriodStart && !editingPeriod ? (
         <Pressable
-          accessibilityLabel="Mes règles ont commencé ce jour"
+          accessibilityLabel={t('calendar.dayCard.declareCta')}
           accessibilityRole="button"
           onPress={onDeclarePeriodStart}
           style={({pressed}) => [styles.declareButton, pressed && styles.pressed]}>
           <MaterialDesignIcons color={PERIOD_COLOR} name="water-plus-outline" size={15} />
-          <Text style={styles.declareText}>Mes règles ont commencé ce jour</Text>
+          <Text style={styles.declareText}>{t('calendar.dayCard.declareCta')}</Text>
         </Pressable>
       ) : null}
     </View>

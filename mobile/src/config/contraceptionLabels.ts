@@ -4,6 +4,20 @@ import type {ContraceptionMethod} from '../state/contraceptionPreferences';
 import type {ContraceptionIntakeStatus} from '../state/contraceptionIntakeHistoryStore';
 import type {ContraceptionEvent, ContraceptionEventType} from '../state/contraceptionEventStore';
 
+// i18n (Phase 3): this is a plain data/config file, not a component, so its
+// exports can't call useTranslation() themselves. Every map/function below
+// (except CONTRACEPTION_REMINDER_NOTIFICATION_TITLE/
+// CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE, which stay French — see
+// their own comment) is now a `function xxxLabels(t) {...}` factory that a
+// component calls with its own `t` from useTranslation(), same pattern as
+// JournalCervicalMucusScreen.tsx's mucusLabels(t). CONTRACEPTION_METHOD_LABELS
+// itself stays ALSO exported as a plain (French-only) object, purely for
+// SummaryScreen.tsx's own direct `CONTRACEPTION_METHOD_LABELS[method]`
+// indexing — SummaryScreen.tsx is a separate onboarding recap screen that is
+// out of scope for this pass; keeping this one backward-compatible export
+// avoids touching it at all.
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
 // Single shared source for contraception method/reminder copy — consumed by
 // SummaryScreen, ContraceptionRemindersScreen and ContraceptionDashboard so
 // they can never drift into describing the same persisted preference
@@ -16,10 +30,20 @@ export const CONTRACEPTION_METHOD_LABELS: Record<ContraceptionMethod, string> = 
   other: 'Autre traitement hormonal',
 };
 
+export function contraceptionMethodLabels(t: TranslateFn): Record<ContraceptionMethod, string> {
+  return {
+    pill: t('contraceptionLabels.method.pill'),
+    ring: t('contraceptionLabels.method.ring'),
+    patch: t('contraceptionLabels.method.patch'),
+    other: t('contraceptionLabels.method.other'),
+  };
+}
+
 type MaterialDesignIconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 // Same per-method icons as ContraceptionMethodScreen's OPTIONS — reused
 // (not invented) wherever a method needs a neutral, content-accurate icon.
+// Icon identifiers, not user-facing text — never translated.
 export const CONTRACEPTION_METHOD_ICONS: Record<ContraceptionMethod, MaterialDesignIconName> = {
   pill: 'pill',
   ring: 'circle-outline',
@@ -33,54 +57,64 @@ export type ContraceptionReminderContent = {
   cardDescription: string;
 };
 
-export const CONTRACEPTION_REMINDER_CONTENT: Record<ContraceptionMethod, ContraceptionReminderContent> = {
-  pill: {
-    subtitle: 'Choisis si tu souhaites recevoir des rappels pour ta prise de pilule.',
-    cardTitle: 'Rappels quotidiens\nde prise de pilule',
-    cardDescription: 'Reçois une notification chaque jour pour ne pas oublier ta pilule.',
-  },
-  ring: {
-    subtitle: 'Choisis si tu souhaites recevoir des rappels pour ton anneau vaginal.',
-    cardTitle: 'Rappels pour ton\nanneau vaginal',
-    cardDescription: 'Active les rappels liés à l’utilisation de ton anneau.',
-  },
-  patch: {
-    subtitle: 'Choisis si tu souhaites recevoir des rappels pour ton patch contraceptif.',
-    cardTitle: 'Rappels pour ton\npatch contraceptif',
-    cardDescription: 'Active les rappels liés au changement de ton patch.',
-  },
-  other: {
-    subtitle: 'Choisis si tu souhaites recevoir des rappels pour ton traitement.',
-    cardTitle: 'Rappels pour\nton traitement',
-    cardDescription: 'Active les rappels liés à ton traitement hormonal.',
-  },
-};
+export function contraceptionReminderContent(t: TranslateFn): Record<ContraceptionMethod, ContraceptionReminderContent> {
+  return {
+    pill: {
+      subtitle: t('contraceptionLabels.reminderContent.pill.subtitle'),
+      cardTitle: t('contraceptionLabels.reminderContent.pill.cardTitle'),
+      cardDescription: t('contraceptionLabels.reminderContent.pill.cardDescription'),
+    },
+    ring: {
+      subtitle: t('contraceptionLabels.reminderContent.ring.subtitle'),
+      cardTitle: t('contraceptionLabels.reminderContent.ring.cardTitle'),
+      cardDescription: t('contraceptionLabels.reminderContent.ring.cardDescription'),
+    },
+    patch: {
+      subtitle: t('contraceptionLabels.reminderContent.patch.subtitle'),
+      cardTitle: t('contraceptionLabels.reminderContent.patch.cardTitle'),
+      cardDescription: t('contraceptionLabels.reminderContent.patch.cardDescription'),
+    },
+    other: {
+      subtitle: t('contraceptionLabels.reminderContent.other.subtitle'),
+      cardTitle: t('contraceptionLabels.reminderContent.other.cardTitle'),
+      cardDescription: t('contraceptionLabels.reminderContent.other.cardDescription'),
+    },
+  };
+}
 
-export const CONTRACEPTION_DEFAULT_REMINDER_CONTENT: ContraceptionReminderContent = {
-  subtitle: 'Choisis si tu souhaites recevoir des rappels pour ta méthode de contraception.',
-  cardTitle: 'Rappels liés à\nta méthode',
-  cardDescription: 'Active les rappels liés à ta méthode de contraception.',
-};
+export function contraceptionDefaultReminderContent(t: TranslateFn): ContraceptionReminderContent {
+  return {
+    subtitle: t('contraceptionLabels.reminderContent.default.subtitle'),
+    cardTitle: t('contraceptionLabels.reminderContent.default.cardTitle'),
+    cardDescription: t('contraceptionLabels.reminderContent.default.cardDescription'),
+  };
+}
 
 // Method-adaptive title for the "Prise / utilisation du jour" Journal
 // quotidien category and Dashboard "Suivi du jour" row — consumed by
 // ContraceptionDashboard, the JournalSheetHost's contraception branch, and
 // ContraceptionJournalEntryScreen, so all three always agree on the same
 // wording instead of assuming every user takes a pill.
-export const CONTRACEPTION_INTAKE_ACTION_LABEL: Record<ContraceptionMethod, string> = {
-  pill: 'Prise du jour',
-  ring: 'Utilisation de l’anneau',
-  patch: 'Utilisation du patch',
-  other: 'Utilisation du traitement',
-};
+export function contraceptionIntakeActionLabels(t: TranslateFn): Record<ContraceptionMethod, string> {
+  return {
+    pill: t('contraceptionLabels.intakeActionLabel.pill'),
+    ring: t('contraceptionLabels.intakeActionLabel.ring'),
+    patch: t('contraceptionLabels.intakeActionLabel.patch'),
+    other: t('contraceptionLabels.intakeActionLabel.other'),
+  };
+}
 
-export const CONTRACEPTION_DEFAULT_INTAKE_ACTION_LABEL = 'Prise / utilisation du jour';
+export function contraceptionDefaultIntakeActionLabel(t: TranslateFn): string {
+  return t('contraceptionLabels.defaultIntakeActionLabel');
+}
 
 // Short, notification-length title per method (distinct from
 // CONTRACEPTION_REMINDER_CONTENT.cardTitle above, which is longer, multi-line
 // UI copy) — the exact string passed to scheduleLocalNotification's `title`.
 // Single source so contraceptionReminderScheduling.ts and any settings UI
 // showing "what the notification will say" never disagree.
+// OUT OF SCOPE for Phase 3 (notification title/body copy is Phase 4+) — stays
+// French/untouched, never converted to a factory. Do not translate.
 export const CONTRACEPTION_REMINDER_NOTIFICATION_TITLE: Record<ContraceptionMethod, string> = {
   pill: 'Rappel de prise',
   ring: 'Rappel lié à ton anneau',
@@ -95,29 +129,33 @@ export const CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE = 'Rappel de cont
 // place so "En retard" (the new, additive 'late' status) reads identically
 // everywhere it appears, and so existing "Effectuée"/"Oubliée" copy doesn't
 // silently drift between screens as they're migrated to read from here.
-export const CONTRACEPTION_INTAKE_STATUS_LABELS: Record<ContraceptionIntakeStatus, string> = {
-  taken: 'Effectuée',
-  missed: 'Oubliée',
-  late: 'En retard',
-};
+export function contraceptionIntakeStatusLabels(t: TranslateFn): Record<ContraceptionIntakeStatus, string> {
+  return {
+    taken: t('contraceptionLabels.intakeStatusLabels.taken'),
+    missed: t('contraceptionLabels.intakeStatusLabels.missed'),
+    late: t('contraceptionLabels.intakeStatusLabels.late'),
+  };
+}
 
 // Dashboard hero quick-action button wording — deliberately more colloquial
-// than CONTRACEPTION_INTAKE_STATUS_LABELS above ("Prise effectuée"/"J'ai
+// than contraceptionIntakeStatusLabels above ("Prise effectuée"/"J'ai
 // oublié" read more naturally as a tappable button label than the neutral
 // "Effectuée"/"Oubliée" do, but only for pill, whose wording this already
 // was before the 3-button hero existed). Only 'pill' is overridden here;
 // every other intake-tracked method (currently just 'other') falls back to
-// the shared, method-neutral CONTRACEPTION_INTAKE_STATUS_LABELS — never
+// the shared, method-neutral contraceptionIntakeStatusLabels — never
 // hardcode pill-specific wording ("prise") for a non-pill method.
-export const CONTRACEPTION_HERO_ACTION_LABELS: Partial<
-  Record<ContraceptionMethod, Record<ContraceptionIntakeStatus, string>>
-> = {
-  pill: {
-    taken: 'Prise effectuée',
-    late: 'En retard',
-    missed: 'J’ai oublié',
-  },
-};
+export function contraceptionHeroActionLabels(
+  t: TranslateFn,
+): Partial<Record<ContraceptionMethod, Record<ContraceptionIntakeStatus, string>>> {
+  return {
+    pill: {
+      taken: t('contraceptionLabels.heroActionLabels.pill.taken'),
+      late: t('contraceptionLabels.heroActionLabels.pill.late'),
+      missed: t('contraceptionLabels.heroActionLabels.pill.missed'),
+    },
+  };
+}
 
 // Event-type wording/icons for ring/patch (tracked via
 // contraceptionEventStore.ts) — reused by the Daily Journal, Calendar,
@@ -126,15 +164,18 @@ export const CONTRACEPTION_HERO_ACTION_LABELS: Partial<
 // another, and replacement (a corrective/renewal action) gets its own —
 // deliberately generic MaterialDesignIcons already used elsewhere in AWA,
 // no new icon family introduced.
-export const CONTRACEPTION_EVENT_LABELS: Record<ContraceptionEventType, string> = {
-  ring_insertion: 'Anneau inséré',
-  ring_removal: 'Anneau retiré',
-  ring_replacement: 'Anneau remplacé',
-  patch_application: 'Patch posé',
-  patch_removal: 'Patch retiré',
-  patch_replacement: 'Patch remplacé',
-};
+export function contraceptionEventLabels(t: TranslateFn): Record<ContraceptionEventType, string> {
+  return {
+    ring_insertion: t('contraceptionLabels.eventLabels.ring_insertion'),
+    ring_removal: t('contraceptionLabels.eventLabels.ring_removal'),
+    ring_replacement: t('contraceptionLabels.eventLabels.ring_replacement'),
+    patch_application: t('contraceptionLabels.eventLabels.patch_application'),
+    patch_removal: t('contraceptionLabels.eventLabels.patch_removal'),
+    patch_replacement: t('contraceptionLabels.eventLabels.patch_replacement'),
+  };
+}
 
+// Icon identifiers, not user-facing text — never translated.
 export const CONTRACEPTION_EVENT_ICONS: Record<ContraceptionEventType, MaterialDesignIconName> = {
   ring_insertion: 'plus-circle-outline',
   ring_removal: 'minus-circle-outline',
@@ -146,7 +187,8 @@ export const CONTRACEPTION_EVENT_ICONS: Record<ContraceptionEventType, MaterialD
 
 // The 3 event types offered for each non-pill, event-based method — single
 // source for the Daily Journal's event picker so the offered choices can
-// never drift from the labels/icons above.
+// never drift from the labels/icons above. Enum values, not text — never
+// translated.
 export const CONTRACEPTION_METHOD_EVENT_TYPES: Partial<Record<ContraceptionMethod, ContraceptionEventType[]>> = {
   ring: ['ring_insertion', 'ring_removal', 'ring_replacement'],
   patch: ['patch_application', 'patch_removal', 'patch_replacement'],
@@ -197,13 +239,14 @@ export const isContraceptionIntakeRecordForMethod = (
  * from an append-only event log with no schedule model, so this only ever
  * describes what was actually recorded, never what it might imply. */
 export const getContraceptionEventSummaryLabel = (
+  t: TranslateFn,
   events: ContraceptionEvent[],
 ): string => {
   if (events.length === 0) {
-    return 'À renseigner';
+    return t('contraceptionLabels.eventSummary.empty');
   }
   if (events.length === 1) {
-    return CONTRACEPTION_EVENT_LABELS[events[0].type];
+    return contraceptionEventLabels(t)[events[0].type];
   }
-  return `${events.length} événements enregistrés`;
+  return t('contraceptionLabels.eventSummary.count', {count: events.length});
 };

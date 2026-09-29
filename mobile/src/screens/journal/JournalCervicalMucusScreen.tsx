@@ -4,6 +4,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import {useTranslation} from 'react-i18next';
 
 import {
   Pressable,
@@ -60,36 +61,23 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 /* ============================================================
    CONSTANTS
 ============================================================ */
 
-const TYPES: Record<
-  string,
-  CervicalMucusType
-> = {
-  Sèche: 'dry',
-  Collante: 'sticky',
-  Crémeuse: 'creamy',
-  Aqueuse: 'watery',
-  Élastique: 'eggWhite',
-};
-
-const LABELS =
-  Object.fromEntries(
-    Object.entries(
-      TYPES,
-    ).map(
-      ([label, key]) => [
-        key,
-        label,
-      ],
-    ),
-  ) as Record<
-    CervicalMucusType,
-    string
-  >;
+// Display-only labels for the persisted CervicalMucusType enum (the semantic
+// value itself, never the label, is what's saved — see `save()` below).
+function mucusLabels(t: (key: string) => string): Record<CervicalMucusType, string> {
+  return {
+    dry: t('journalCervicalMucus.types.dry'),
+    sticky: t('journalCervicalMucus.types.sticky'),
+    creamy: t('journalCervicalMucus.types.creamy'),
+    watery: t('journalCervicalMucus.types.watery'),
+    eggWhite: t('journalCervicalMucus.types.eggWhite'),
+  };
+}
 
 // PHASE E4 — MEDICAL/TRACKING SEMANTIC (Category B/D): each cervical-mucus
 // TYPE has its own distinguishing color used only inside `currentConfig`
@@ -118,17 +106,19 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
       NavigationProp<RootStackParamList>
     >();
 
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const saveToast = useJournalSaveToast();
 
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const labels = mucusLabels(t);
 
   const [
     type,
     setType,
   ] =
-    useState('Crémeuse');
+    useState<CervicalMucusType>('creamy');
 
   const [
     note,
@@ -163,11 +153,9 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
       setHasSaved(true);
 
       setType(
-        LABELS[
-          entry
-            .cervicalMucus
-            .type
-        ],
+        entry
+          .cervicalMucus
+          .type,
       );
 
       setNote(
@@ -185,7 +173,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
   const currentConfig =
     useMemo(() => {
       switch (type) {
-        case 'Sèche':
+        case 'dry':
           return {
             icon:
               'weather-sunny' as const,
@@ -197,13 +185,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               MUCUS_TYPE_COLORS.dry.background,
 
             title:
-              'Sensation plutôt sèche',
+              t('journalCervicalMucus.observations.dry.title'),
 
             description:
-              'Peu ou pas de glaire observable aujourd’hui.',
+              t('journalCervicalMucus.observations.dry.description'),
           };
 
-        case 'Collante':
+        case 'sticky':
           return {
             icon:
               'water-opacity' as const,
@@ -215,13 +203,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               MUCUS_TYPE_COLORS.sticky.background,
 
             title:
-              'Texture collante',
+              t('journalCervicalMucus.observations.sticky.title'),
 
             description:
-              'Une texture plus épaisse et collante a été observée.',
+              t('journalCervicalMucus.observations.sticky.description'),
           };
 
-        case 'Aqueuse':
+        case 'watery':
           return {
             icon:
               'water-outline' as const,
@@ -233,13 +221,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               MUCUS_TYPE_COLORS.watery.background,
 
             title:
-              'Texture aqueuse',
+              t('journalCervicalMucus.observations.watery.title'),
 
             description:
-              'Une texture plus fluide et humide a été observée.',
+              t('journalCervicalMucus.observations.watery.description'),
           };
 
-        case 'Élastique':
+        case 'eggWhite':
           return {
             icon:
               'water-plus-outline' as const,
@@ -251,10 +239,10 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               MUCUS_TYPE_COLORS.eggWhite.background,
 
             title:
-              'Texture élastique',
+              t('journalCervicalMucus.observations.eggWhite.title'),
 
             description:
-              'Une glaire plus extensible et transparente a été observée.',
+              t('journalCervicalMucus.observations.eggWhite.description'),
           };
 
         default:
@@ -269,13 +257,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               MUCUS_TYPE_COLORS.creamy.background,
 
             title:
-              'Texture crémeuse',
+              t('journalCervicalMucus.observations.creamy.title'),
 
             description:
-              'Une texture douce, opaque et crémeuse a été observée.',
+              t('journalCervicalMucus.observations.creamy.description'),
           };
       }
-    }, [type]);
+    }, [t, type]);
 
   /* ==========================================================
      SAVE
@@ -294,8 +282,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
         entryDateKey,
         'cervicalMucus',
         {
-          type:
-            TYPES[type],
+          type,
 
           note:
             note.trim(),
@@ -305,8 +292,8 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
       setHasSaved(true);
 
       saveToast.show(
-        'Observation enregistrée',
-        'Ton observation de glaire cervicale a bien été ajoutée au journal.',
+        t('journalCervicalMucus.saveToastTitle'),
+        t('journalCervicalMucus.saveToastMessage'),
         navigation.goBack,
       );
     };
@@ -317,10 +304,10 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
     async () => {
       await deleteJournalSection(entryDateKey, 'cervicalMucus');
       setHasSaved(false);
-      setType('Crémeuse');
+      setType('creamy');
       setNote('');
       setError('');
-      saveToast.show('Saisie effacée', 'Ton observation de ce jour a été supprimée.', navigation.goBack);
+      saveToast.show(t('journalCervicalMucus.clearToastTitle'), t('journalCervicalMucus.clearToastMessage'), navigation.goBack);
     };
 
   /* ==========================================================
@@ -332,13 +319,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
       dateLabel={dateLabel}
       error={error}
       heroLabel={
-        'Observe les changements\nau fil de ton cycle'
+        t('journalCervicalMucus.heroLabel')
       }
       heroSource={require('../../assets/images/conception-journal/cervical-mucus.png')}
       hideJournalHeader
       icon="water-outline"
       onSave={save}
-      title="Glaire cervicale"
+      title={t('journalCervicalMucus.title')}
       toast={
         <JournalSaveToast
           animation={saveToast.animation}
@@ -355,7 +342,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
       ===================================================== */}
 
       <SectionCard
-        title="Aspect observé">
+        title={t('journalCervicalMucus.sectionTitle')}>
 
         {/* CURRENT OBSERVATION */}
 
@@ -394,7 +381,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               style={
                 styles.currentEyebrow
               }>
-              OBSERVATION DU JOUR
+              {t('journalCervicalMucus.observationOfTheDay')}
             </Text>
 
             <Text
@@ -428,14 +415,14 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
             style={
               styles.choiceTitle
             }>
-            Quel aspect observes-tu ?
+            {t('journalCervicalMucus.chooseAspectTitle')}
           </Text>
 
           <Text
             style={
               styles.choiceSubtitle
             }>
-            Choisis l’option qui ressemble le plus à ton observation.
+            {t('journalCervicalMucus.chooseAspectSubtitle')}
           </Text>
         </View>
 
@@ -447,13 +434,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
           <MucusChoice
             active={
               type ===
-              'Sèche'
+              'dry'
             }
             icon="weather-sunny"
-            label="Sèche"
+            label={labels.dry}
             onPress={() =>
               setType(
-                'Sèche',
+                'dry',
               )
             }
           />
@@ -461,13 +448,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
           <MucusChoice
             active={
               type ===
-              'Collante'
+              'sticky'
             }
             icon="water-opacity"
-            label="Collante"
+            label={labels.sticky}
             onPress={() =>
               setType(
-                'Collante',
+                'sticky',
               )
             }
           />
@@ -475,13 +462,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
           <MucusChoice
             active={
               type ===
-              'Crémeuse'
+              'creamy'
             }
             icon="water-circle"
-            label="Crémeuse"
+            label={labels.creamy}
             onPress={() =>
               setType(
-                'Crémeuse',
+                'creamy',
               )
             }
           />
@@ -489,13 +476,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
           <MucusChoice
             active={
               type ===
-              'Aqueuse'
+              'watery'
             }
             icon="water-outline"
-            label="Aqueuse"
+            label={labels.watery}
             onPress={() =>
               setType(
-                'Aqueuse',
+                'watery',
               )
             }
           />
@@ -503,13 +490,13 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
           <MucusChoice
             active={
               type ===
-              'Élastique'
+              'eggWhite'
             }
             icon="water-plus-outline"
-            label="Élastique"
+            label={labels.eggWhite}
             onPress={() =>
               setType(
-                'Élastique',
+                'eggWhite',
               )
             }
           />
@@ -534,7 +521,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
             style={
               styles.selectionInfoText
             }>
-            Cette observation peut évoluer au cours du cycle.
+            {t('journalCervicalMucus.evolvesInfo')}
           </Text>
         </View>
       </SectionCard>
@@ -544,7 +531,7 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
       ===================================================== */}
 
       <SectionCard
-        title="Commentaire">
+        title={t('journalCervicalMucus.commentSectionTitle')}>
 
         <View
           style={
@@ -574,26 +561,26 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
               style={
                 styles.commentTitle
               }>
-              Ajoute un détail si tu le souhaites
+              {t('journalCervicalMucus.addDetailTitle')}
             </Text>
 
             <Text
               style={
                 styles.commentSubtitle
               }>
-              Tu peux noter une sensation, une couleur ou tout autre détail utile.
+              {t('journalCervicalMucus.addDetailSubtitle')}
             </Text>
           </View>
         </View>
 
         <LabeledInput
-          label="Note (optionnelle)"
+          label={t('journalCervicalMucus.noteLabel')}
           maxLength={300}
           multiline
           onChangeText={
             setNote
           }
-          placeholder="Ajoute une note…"
+          placeholder={t('journalCervicalMucus.notePlaceholder')}
           value={note}
         />
       </SectionCard>
@@ -630,26 +617,26 @@ export default function JournalCervicalMucusScreen(): React.JSX.Element {
             style={
               styles.tipEyebrow
             }>
-            BON À SAVOIR
+            {t('common.goodToKnow')}
           </Text>
 
           <Text
             style={
               styles.tipTitle
             }>
-            Observe surtout les changements
+            {t('journalCervicalMucus.tipTitle')}
           </Text>
 
           <Text
             style={
               styles.tipText
             }>
-            La glaire cervicale peut changer d’aspect au fil du cycle. Ces observations restent personnelles et ne constituent pas un diagnostic médical.
+            {t('journalCervicalMucus.tipText')}
           </Text>
         </View>
       </View>
 
-      {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette observation" /> : null}
+      {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalCervicalMucus.clearSubject')} /> : null}
     </JournalScreenLayout>
   );
 }
@@ -669,12 +656,13 @@ function MucusChoice({
   label: string;
   onPress: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <Pressable
-      accessibilityLabel={`Aspect ${label}`}
+      accessibilityLabel={t('journalCervicalMucus.aspectAccessibility', {label})}
       accessibilityRole="radio"
       accessibilityState={{
         checked:

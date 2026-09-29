@@ -15,6 +15,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
@@ -26,6 +27,7 @@ import {
   setPregnancyNotificationSettings,
 } from '../../state/pregnancyNotificationSettingsStore';
 import {resyncAllPregnancyNotifications} from '../../utils/pregnancyReminderScheduling';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -50,26 +52,34 @@ type OptionConfig = {
   description: string;
 };
 
-const OPTIONS: OptionConfig[] = [
-  {
-    id: 'appointmentsEnabled',
-    icon: 'calendar-month-outline',
-    label: 'Rendez-vous médicaux',
-    description: 'Rappels pour vos rendez-vous médicaux.',
-  },
-  {
-    id: 'examsEnabled',
-    icon: 'clipboard-pulse-outline',
-    label: 'Examens',
-    description: 'Rappels pour vos examens à réaliser.',
-  },
-  {
-    id: 'dailyJournalEnabled',
-    icon: 'notebook-edit-outline',
-    label: 'Journal quotidien',
-    description: 'Rappel pour compléter votre suivi du jour.',
-  },
-];
+// Local alias for react-i18next's `t` — avoids depending on a named
+// `TFunction` export (not provided by the app's current react-i18next
+// version); matches the shape actually used here (key only, no
+// interpolation on this screen).
+type TFn = (key: string) => string;
+
+function buildOptions(t: TFn): OptionConfig[] {
+  return [
+    {
+      id: 'appointmentsEnabled',
+      icon: 'calendar-month-outline',
+      label: t('pregnancyReminders.options.appointments.label'),
+      description: t('pregnancyReminders.options.appointments.description'),
+    },
+    {
+      id: 'examsEnabled',
+      icon: 'clipboard-pulse-outline',
+      label: t('pregnancyReminders.options.exams.label'),
+      description: t('pregnancyReminders.options.exams.description'),
+    },
+    {
+      id: 'dailyJournalEnabled',
+      icon: 'notebook-edit-outline',
+      label: t('pregnancyReminders.options.dailyJournal.label'),
+      description: t('pregnancyReminders.options.dailyJournal.description'),
+    },
+  ];
+}
 
 type ReminderRowProps = {
   option: OptionConfig;
@@ -166,9 +176,11 @@ function PregnancyRemindersScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   // Reads the REAL canonical Pregnancy notification settings — same store
   // PregnancyNotificationsScreen.tsx and pregnancyReminderScheduling.ts
@@ -361,7 +373,7 @@ function PregnancyRemindersScreen({
           }>
           {/* BACK */}
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             hitSlop={12}
             onPress={
               navigation.goBack
@@ -388,18 +400,18 @@ function PregnancyRemindersScreen({
               </View>
 
               <Text style={styles.title}>
-                Tes rappels
+                {t('pregnancyReminders.title')}
               </Text>
 
               <Text
                 style={styles.subtitle}>
-                Quels rappels souhaitez-vous recevoir ?
+                {t('pregnancyReminders.subtitle')}
               </Text>
 
               <Text
                 style={styles.description}>
                 {
-                  'Nous vous enverrons des rappels adaptés\nà vos préférences.'
+                  t('pregnancyReminders.description')
                 }
               </Text>
             </View>
@@ -443,7 +455,7 @@ function PregnancyRemindersScreen({
                 the same "Notifications & rappels" screen
                 PregnancyNotificationsScreen.tsx already provides. */}
             <Pressable
-              accessibilityLabel="Rappels personnalisés"
+              accessibilityLabel={t('pregnancyReminders.customReminders.accessibility')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('PregnancyNotifications')}
               style={({pressed}) => [styles.row, pressed && styles.pressed]}>
@@ -451,9 +463,9 @@ function PregnancyRemindersScreen({
                 <MaterialDesignIcons color={theme.colors.primary} name="bell-plus-outline" size={19} />
               </View>
               <View style={styles.rowCopy}>
-                <Text style={styles.rowLabel}>Rappels personnalisés</Text>
+                <Text style={styles.rowLabel}>{t('pregnancyReminders.customReminders.label')}</Text>
                 <Text style={styles.rowDescription}>
-                  Créez vos propres rappels dans Notifications &amp; rappels.
+                  {t('pregnancyReminders.customReminders.description')}
                 </Text>
               </View>
               <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
@@ -474,9 +486,7 @@ function PregnancyRemindersScreen({
 
             <Text
               style={styles.infoText}>
-              Vous pourrez modifier vos préférences
-              {'\n'}
-              de rappels à tout moment dans les paramètres.
+              {t('pregnancyReminders.infoText')}
             </Text>
           </Animated.View>
 
@@ -484,7 +494,7 @@ function PregnancyRemindersScreen({
           <Animated.View
             style={buttonStyle}>
             <Pressable
-              accessibilityLabel="Commencer mon suivi"
+              accessibilityLabel={t('pregnancyReminders.finishButton')}
               accessibilityRole="button"
               onPress={handleFinish}
               style={({pressed}) => [
@@ -494,7 +504,7 @@ function PregnancyRemindersScreen({
               ]}>
               <Text
                 style={styles.nextText}>
-                Commencer mon suivi
+                {t('pregnancyReminders.finishButton')}
               </Text>
             </Pressable>
           </Animated.View>

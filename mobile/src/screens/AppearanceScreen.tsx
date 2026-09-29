@@ -1,6 +1,7 @@
-import React, {useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   Image,
+  Modal,
   Pressable,
   ScrollView,
   StatusBar,
@@ -15,6 +16,13 @@ import {
 } from 'react-native';
 
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
+
+// Ensures i18next is initialized even when this screen is rendered directly
+// (e.g. in isolated tests) without App.tsx's own top-level `import
+// './src/i18n'` having run first — ES module imports are cached, so this is
+// a no-op everywhere App.tsx already ran it.
+import '../i18n';
 
 import Animated, {
   FadeIn,
@@ -49,15 +57,20 @@ import {
 } from '../config/awaThemes';
 
 import {
+  getAppLanguage,
+  setAppLanguage,
   setAppearanceMode,
   setSelectedThemeId,
   setTrueBlackEnabled,
+  subscribeThemePreferences,
+  type AwaAppLanguage,
   type AwaAppearanceMode,
 } from '../state/themePreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
-import {onPrimaryTextColor} from '../theme/awaThemeTokens';
+import {onPrimaryTextColor, withAlpha} from '../theme/awaThemeTokens';
 import type {ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getBottomPadding} from '../theme/spacing';
 
 /* -------------------------------------------------------------------------- */
 /*                                   TYPES                                    */
@@ -114,27 +127,11 @@ const THEME_IMAGES: Record<string, ImageSourcePropType> = {
 /*                              MODE SELECTOR                                 */
 /* -------------------------------------------------------------------------- */
 
-const MODE_OPTIONS: Array<{
-  id: AwaAppearanceMode;
-  label: string;
-  icon: IconName;
-}> = [
-  {
-    id: 'system',
-    label: 'Système',
-    icon: 'monitor',
-  },
-  {
-    id: 'light',
-    label: 'Clair',
-    icon: 'white-balance-sunny',
-  },
-  {
-    id: 'dark',
-    label: 'Sombre',
-    icon: 'weather-night',
-  },
-];
+const MODE_ICONS: Record<AwaAppearanceMode, IconName> = {
+  system: 'monitor',
+  light: 'white-balance-sunny',
+  dark: 'weather-night',
+};
 
 function AppearanceModeSelector({
   mode,
@@ -145,7 +142,13 @@ function AppearanceModeSelector({
   onChange: (mode: AwaAppearanceMode) => void;
   theme: ResolvedAwaTheme;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const onPrimary = onPrimaryTextColor(theme);
+  const MODE_OPTIONS: Array<{id: AwaAppearanceMode; label: string; icon: IconName}> = [
+    {id: 'system', label: t('appearance.modeSystem'), icon: MODE_ICONS.system},
+    {id: 'light', label: t('appearance.modeLight'), icon: MODE_ICONS.light},
+    {id: 'dark', label: t('appearance.modeDark'), icon: MODE_ICONS.dark},
+  ];
 
   return (
     <View
@@ -398,21 +401,22 @@ function accessibilityLabelFor(
   theme: AwaTheme,
   isSelected: boolean,
   isLocked: boolean,
+  t: (key: string, options?: Record<string, unknown>) => string,
 ): string {
   const parts = [
-    `Thème ${theme.name}`,
+    t('appearance.themeAccessibility', {name: theme.name}),
   ];
 
   if (theme.isPremium) {
     parts.push(
       isLocked
-        ? 'Premium verrouillé'
-        : 'Premium',
+        ? t('appearance.premiumLocked')
+        : t('appearance.premium'),
     );
   }
 
   if (isSelected) {
-    parts.push('sélectionné');
+    parts.push(t('appearance.selected'));
   }
 
   return parts.join(', ');
@@ -437,12 +441,14 @@ function ThemePaletteCard({
   cardWidth: number;
   onPress: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <Pressable
       accessibilityLabel={accessibilityLabelFor(
         theme,
         isSelected,
         isLocked,
+        t,
       )}
       accessibilityRole="button"
       accessibilityState={{
@@ -732,6 +738,7 @@ function AppearanceInfoCard({
 }: {
   theme: ResolvedAwaTheme;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <View
       style={[
@@ -757,7 +764,7 @@ function AppearanceInfoCard({
               theme.colors.textSecondary,
           },
         ]}>
-        L’apparence peut être modifiée à tout moment dans les paramètres.
+        {t('appearance.infoText')}
       </Text>
 
       <MaterialDesignIcons
@@ -773,12 +780,145 @@ function AppearanceInfoCard({
 }
 
 /* -------------------------------------------------------------------------- */
+/*                          LANGUAGE BOTTOM SHEET                             */
+/* -------------------------------------------------------------------------- */
+
+// "Langue de l'application" — UI-only for this task: selecting a language
+// changes the app-wide preference (themePreferences.ts's getAppLanguage/
+// setAppLanguage) and the Appearance row's own subtitle; it does NOT
+// translate any string in the app yet (a later i18n migration). Same Modal/
+// backdrop/rounded-top-sheet/handle shell as every other AWA bottom sheet
+// (e.g. ManagedProfileDaughterInfoScreen.tsx's photo sheet) — reused, not
+// reinvented — and the same large selectable-card shape (icon + title +
+// subtitle + trailing radio) as ManagedProfileFirstPeriodScreen.tsx's
+// Oui/Non cards.
+type LanguageOption = {
+  id: AwaAppLanguage;
+  flag: string;
+  label: string;
+  subtitle: string;
+};
+
+function LanguageBottomSheet({
+  visible,
+  currentLanguage,
+  onClose,
+  onApply,
+  theme,
+}: {
+  visible: boolean;
+  currentLanguage: AwaAppLanguage;
+  onClose: () => void;
+  onApply: (language: AwaAppLanguage) => void;
+  theme: ResolvedAwaTheme;
+}): React.JSX.Element {
+  const {t} = useTranslation();
+  const insets = useSafeAreaInsets();
+  // Language NAMES are endonyms — "Français"/"English" are shown as-is
+  // regardless of which language is currently active (see fr.ts/en.ts's own
+  // header comment), only their SUBTITLE varies by locale.
+  const LANGUAGE_OPTIONS: LanguageOption[] = [
+    {id: 'fr', flag: '🇫🇷', label: t('appearance.language.frenchName'), subtitle: t('appearance.language.frenchSubtitle')},
+    {id: 'en', flag: '🇬🇧', label: t('appearance.language.englishName'), subtitle: t('appearance.language.englishSubtitle')},
+  ];
+  // Temporary selection only — never committed until "Appliquer" is pressed
+  // (see onApply below). Re-synced to the real saved value every time the
+  // sheet opens, so a dismissal without applying never leaks a stale draft
+  // into the next time it's opened.
+  const [draft, setDraft] = useState<AwaAppLanguage>(currentLanguage);
+  useEffect(() => {
+    if (visible) {
+      setDraft(currentLanguage);
+    }
+  }, [visible, currentLanguage]);
+
+  return (
+    <Modal animationType="slide" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
+      <View style={styles.langSheetRoot}>
+        <Pressable accessibilityLabel={t('common.close')} onPress={onClose} style={styles.langSheetBackdrop} />
+
+        <View
+          style={[
+            styles.langSheet,
+            {
+              backgroundColor: theme.colors.surface,
+              borderColor: theme.colors.border,
+              paddingBottom: getBottomPadding(insets.bottom, 14),
+            },
+          ]}>
+          <View style={[styles.langSheetHandle, {backgroundColor: withAlpha(theme.colors.primary, 0.22)}]} />
+
+          <View style={[styles.langIconBadge, {backgroundColor: theme.colors.primarySoft}]}>
+            <MaterialDesignIcons color={theme.colors.primary} name="earth" size={26} />
+          </View>
+
+          <Text accessibilityRole="header" style={[styles.langSheetTitle, {color: theme.colors.accent}]}>
+            {t('appearance.language.title')}
+          </Text>
+          <Text style={[styles.langSheetSubtitle, {color: theme.colors.textSecondary}]}>
+            {t('appearance.language.description')}
+          </Text>
+
+          <View accessibilityRole="radiogroup" style={styles.langOptionsList}>
+            {LANGUAGE_OPTIONS.map(option => {
+              const selected = draft === option.id;
+              return (
+                <Pressable
+                  accessibilityLabel={option.label}
+                  accessibilityRole="radio"
+                  accessibilityState={{checked: selected}}
+                  key={option.id}
+                  onPress={() => setDraft(option.id)}
+                  style={({pressed}) => [
+                    styles.langOption,
+                    {
+                      borderColor: selected ? theme.colors.primary : theme.colors.border,
+                      backgroundColor: selected ? theme.colors.primarySoft : theme.colors.surface,
+                      shadowColor: theme.shadow.shadowColor,
+                    },
+                    selected && styles.langOptionSelected,
+                    pressed && styles.pressedSubtle,
+                  ]}>
+                  <Text style={styles.langFlag}>{option.flag}</Text>
+
+                  <View style={styles.langCopy}>
+                    <Text style={[styles.langLabel, {color: theme.colors.text}]}>{option.label}</Text>
+                    <Text style={[styles.langOptionSubtitle, {color: theme.colors.textSecondary}]}>{option.subtitle}</Text>
+                  </View>
+
+                  <View
+                    style={[
+                      styles.langRadio,
+                      {borderColor: selected ? theme.colors.primary : withAlpha(theme.colors.primary, 0.35)},
+                    ]}>
+                    {selected ? <View style={[styles.langRadioDot, {backgroundColor: theme.colors.primary}]} /> : null}
+                  </View>
+                </Pressable>
+              );
+            })}
+          </View>
+
+          <Pressable
+            accessibilityLabel={t('common.apply')}
+            accessibilityRole="button"
+            onPress={() => onApply(draft)}
+            style={({pressed}) => [styles.langApplyButton, {backgroundColor: theme.colors.primary}, pressed && styles.pressedSubtle]}>
+            <Text style={[styles.langApplyText, {color: onPrimaryTextColor(theme)}]}>{t('common.apply')}</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
+  );
+}
+
+/* -------------------------------------------------------------------------- */
 /*                                  SCREEN                                    */
 /* -------------------------------------------------------------------------- */
 
 export default function AppearanceScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets =
     useSafeAreaInsets();
 
@@ -809,6 +949,26 @@ export default function AppearanceScreen({
     setPremiumVisible,
   ] =
     useState(false);
+
+  // "Langue de l'application" — app-wide, not exposed by useAwaTheme() (it
+  // doesn't drive any theming), so read/subscribed directly from
+  // themePreferences.ts, the same module appearanceMode/trueBlackEnabled
+  // already live in — already hydrated by AwaThemeProvider's own
+  // hydrateAppearancePreferences() call before this screen can mount.
+  const [appLanguage, setAppLanguageState] = useState<AwaAppLanguage>(getAppLanguage);
+  const [languageSheetVisible, setLanguageSheetVisible] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = subscribeThemePreferences(() => {
+      setAppLanguageState(getAppLanguage());
+    });
+    return unsubscribe;
+  }, []);
+
+  const handleApplyLanguage = (language: AwaAppLanguage): void => {
+    setAppLanguage(language).catch(() => {});
+    setLanguageSheetVisible(false);
+  };
 
   /*
    * IMPORTANT :
@@ -1144,7 +1304,7 @@ export default function AppearanceScreen({
             styles.header
           }>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={
@@ -1174,7 +1334,7 @@ export default function AppearanceScreen({
                   theme.colors.text,
               },
             ]}>
-            Apparence
+            {t('appearance.headerTitle')}
           </Text>
 
           <View
@@ -1205,8 +1365,7 @@ export default function AppearanceScreen({
                   theme.colors.textSecondary,
               },
             ]}>
-            Personnalisez l’apparence de votre application AWA{'\n'}
-            selon vos préférences.
+            {t('appearance.subtitle')}
           </Text>
         </Animated.View>
 
@@ -1228,7 +1387,7 @@ export default function AppearanceScreen({
           <SectionHeader
             icon="palette-outline"
             theme={theme}
-            title="Thème"
+            title={t('appearance.themeSection')}
           />
 
           <AppearanceModeSelector
@@ -1259,7 +1418,7 @@ export default function AppearanceScreen({
             icon="palette-swatch-outline"
             right={
               <Pressable
-                accessibilityLabel="Voir tous les thèmes"
+                accessibilityLabel={t('appearance.seeAllPalettes')}
                 accessibilityRole="button"
                 hitSlop={6}
                 onPress={
@@ -1280,7 +1439,7 @@ export default function AppearanceScreen({
                         theme.colors.primary,
                     },
                   ]}>
-                  Voir tout
+                  {t('common.seeAll')}
                 </Text>
 
                 <MaterialDesignIcons
@@ -1293,7 +1452,7 @@ export default function AppearanceScreen({
               </Pressable>
             }
             theme={theme}
-            title="Palettes de couleurs"
+            title={t('appearance.palettesSection')}
           />
 
           <ScrollView
@@ -1465,11 +1624,11 @@ export default function AppearanceScreen({
 
               last
 
-              subtitle="Véritable noir pour plus de confort"
+              subtitle={t('appearance.trueBlackSubtitle')}
 
               theme={theme}
 
-              title="Mode noir profond"
+              title={t('appearance.trueBlackTitle')}
             />
           </View>
         </Animated.View>
@@ -1492,7 +1651,7 @@ export default function AppearanceScreen({
           <SectionHeader
             icon="cellphone-cog"
             theme={theme}
-            title="Affichage"
+            title={t('appearance.displaySection')}
           />
 
           <View
@@ -1512,11 +1671,19 @@ export default function AppearanceScreen({
 
               last
 
-              subtitle="Français"
+              onPress={() =>
+                setLanguageSheetVisible(true)
+              }
+
+              subtitle={
+                appLanguage === 'en'
+                  ? t('appearance.language.englishName')
+                  : t('appearance.language.frenchName')
+              }
 
               theme={theme}
 
-              title="Langue de l’application"
+              title={t('appearance.languageRowTitle')}
             />
           </View>
         </Animated.View>
@@ -1548,6 +1715,14 @@ export default function AppearanceScreen({
         visible={
           premiumVisible
         }
+      />
+
+      <LanguageBottomSheet
+        currentLanguage={appLanguage}
+        onApply={handleApplyLanguage}
+        onClose={() => setLanguageSheetVisible(false)}
+        theme={theme}
+        visible={languageSheetVisible}
       />
     </SafeAreaView>
   );
@@ -2183,5 +2358,88 @@ const styles = StyleSheet.create({
       },
     ],
   },
+
+  /* ---------------------------------------------------------------------- */
+  /* LANGUAGE BOTTOM SHEET                                                  */
+  /* ---------------------------------------------------------------------- */
+
+  langSheetRoot: {flex: 1, justifyContent: 'flex-end'},
+  // Fixed modal scrim — never themed, same precedent as every migrated sheet
+  // (e.g. ManagedProfileDaughterInfoScreen.tsx's own photo sheet).
+  langSheetBackdrop: {...StyleSheet.absoluteFillObject, backgroundColor: 'rgba(35,21,72,.38)'},
+  langSheet: {
+    borderTopLeftRadius: homeRadii.card,
+    borderTopRightRadius: homeRadii.card,
+    borderWidth: 1,
+    borderBottomWidth: 0,
+    paddingHorizontal: 20,
+    paddingTop: 10,
+  },
+  langSheetHandle: {
+    alignSelf: 'center',
+    width: 42,
+    height: 5,
+    borderRadius: 3,
+  },
+  langIconBadge: {
+    alignSelf: 'center',
+    marginTop: 18,
+    width: 56,
+    height: 56,
+    borderRadius: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  langSheetTitle: {
+    marginTop: 14,
+    fontFamily: 'serif',
+    fontSize: 19,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  langSheetSubtitle: {
+    marginTop: 6,
+    marginBottom: 18,
+    fontSize: 13,
+    lineHeight: 19,
+    textAlign: 'center',
+  },
+  langOptionsList: {gap: 12},
+  langOption: {
+    minHeight: 74,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1.4,
+    borderRadius: 18,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.06,
+    shadowRadius: 10,
+    elevation: 2,
+  },
+  langOptionSelected: {borderWidth: 1.6},
+  langFlag: {fontSize: 28, marginRight: 12},
+  langCopy: {flex: 1, minWidth: 0},
+  langLabel: {fontSize: 15, fontWeight: '700'},
+  langOptionSubtitle: {marginTop: 2, fontSize: 12, lineHeight: 16},
+  langRadio: {
+    width: 22,
+    height: 22,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderRadius: 11,
+  },
+  langRadioDot: {width: 10, height: 10, borderRadius: 5},
+  langApplyButton: {
+    marginTop: 20,
+    minHeight: 54,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 27,
+  },
+  langApplyText: {fontSize: 16, fontWeight: '700'},
 });
 

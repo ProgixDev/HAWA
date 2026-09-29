@@ -14,6 +14,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -26,49 +27,57 @@ import {
   setMenopauseHormonalTreatmentStatus,
   type MenopauseHormonalTreatmentStatus,
 } from '../state/menopausePreferences';
+import '../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
   'MenopauseHormonalTreatment'
 >;
 
-const OPTIONS: Array<{
+// Display-only labels for the persisted MenopauseHormonalTreatmentStatus
+// enum (the semantic value itself, never the label, is what's saved — see
+// setMenopauseHormonalTreatmentStatus()).
+function buildOptions(t: (key: string) => string): Array<{
   id: MenopauseHormonalTreatmentStatus;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {
-    id: 'track',
-    title: 'Oui, je souhaite le suivre dans AWA',
-    subtitle: 'Tu pourras configurer les détails plus tard',
-    icon: 'checkbox-marked-circle-outline',
-    tint: '#E7F0E8',
-  },
-  {
-    id: 'no',
-    title: 'Non',
-    subtitle: 'Je ne suis pas de traitement hormonal',
-    icon: 'close-circle-outline',
-    tint: '#EFE7F4',
-  },
-  {
-    id: 'not_now',
-    title: 'Pas pour le moment',
-    subtitle: 'Je préfère en décider plus tard',
-    icon: 'clock-outline',
-    tint: '#F4EEE3',
-  },
-];
+}> {
+  return [
+    {
+      id: 'track',
+      title: t('menopauseHormonalTreatment.options.track.title'),
+      subtitle: t('menopauseHormonalTreatment.options.track.subtitle'),
+      icon: 'checkbox-marked-circle-outline',
+      tint: '#E7F0E8',
+    },
+    {
+      id: 'no',
+      title: t('menopauseHormonalTreatment.options.no.title'),
+      subtitle: t('menopauseHormonalTreatment.options.no.subtitle'),
+      icon: 'close-circle-outline',
+      tint: '#EFE7F4',
+    },
+    {
+      id: 'not_now',
+      title: t('menopauseHormonalTreatment.options.not_now.title'),
+      subtitle: t('menopauseHormonalTreatment.options.not_now.subtitle'),
+      icon: 'clock-outline',
+      tint: '#F4EEE3',
+    },
+  ];
+}
 
 function MenopauseHormonalTreatmentScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
   const floatAnimation = useRef(new Animated.Value(0)).current;
@@ -262,18 +271,15 @@ function MenopauseHormonalTreatmentScreen({
               </Animated.View>
 
               <Text style={styles.eyebrow}>
-                TON SUIVI PERSONNALISÉ
+                {t('menopauseHormonalTreatment.eyebrow')}
               </Text>
 
               <Text style={styles.title}>
-                Suis-tu un
-                {'\n'}
-                traitement hormonal ?
+                {t('menopauseHormonalTreatment.title')}
               </Text>
 
               <Text style={styles.subtitle}>
-                Si tu le souhaites, AWA pourra intégrer ce suivi
-                dans ton expérience et l’adapter à tes besoins.
+                {t('menopauseHormonalTreatment.subtitle')}
               </Text>
 
             </View>
@@ -282,7 +288,7 @@ function MenopauseHormonalTreatmentScreen({
 
               <View style={styles.optionsIntroRow}>
                 <Text style={styles.optionsTitle}>
-                  Mon choix
+                  {t('menopauseHormonalTreatment.optionsTitle')}
                 </Text>
 
                 <View style={styles.optionsLine} />
@@ -309,7 +315,7 @@ function MenopauseHormonalTreatmentScreen({
           <View style={styles.bottomSection}>
 
             <Text style={styles.helperText}>
-              Tu pourras modifier ce choix plus tard.
+              {t('menopauseHormonalTreatment.helperText')}
             </Text>
 
             <Pressable
@@ -339,10 +345,10 @@ function MenopauseHormonalTreatmentScreen({
 
                 <Text style={styles.nextText}>
                   {saving
-                    ? 'Enregistrement…'
+                    ? t('menopauseHormonalTreatment.saving')
                     : route.params?.mode === 'edit'
-                      ? 'Enregistrer'
-                      : 'Continuer'}
+                      ? t('common.save')
+                      : t('common.continue')}
                 </Text>
 
                 {!saving && (

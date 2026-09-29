@@ -23,8 +23,11 @@ import DateTimePicker, {
   type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
 import {
   deleteJournalSection,
   getJournalEntry,
@@ -54,6 +57,7 @@ type TemperatureUnit = 'C' | 'F';
 export default function JournalTemperatureScreen(): React.JSX.Element {
   const navigation =
     useNavigation<NavigationProp<RootStackParamList>>();
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const saveToast = useJournalSaveToast();
 
@@ -75,6 +79,11 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
   const [timePickerVisible, setTimePickerVisible] =
     useState(false);
 
+  // `method` is DATA — `temperature.method` is a free `string` field (see
+  // types/journal.ts), and this raw French label is persisted verbatim by
+  // `save()` below, not a separate enum. Translating these ChoiceChips
+  // options would silently change/corrupt every already-saved entry, so
+  // they stay French (same rule as JournalSymptomsScreen.tsx's SYMPTOMS).
   const [method, setMethod] = useState('Orale');
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
@@ -216,7 +225,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
       number > max
     ) {
       setError(
-        `Saisis une température entre ${min} et ${max} °${unit}.`,
+        t('journalTemperature.rangeError', {min, max, unit}),
       );
       return;
     }
@@ -236,8 +245,8 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     setHasSaved(true);
 
     saveToast.show(
-      'Température enregistrée',
-      'Ta température basale a bien été ajoutée au journal.',
+      t('journalTemperature.saveToastTitle'),
+      t('journalTemperature.saveToastMessage'),
       navigation.goBack,
     );
   };
@@ -253,12 +262,12 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     setMethod('Orale');
     setNote('');
     setError('');
-    saveToast.show('Saisie effacée', 'Ta température de ce jour a été supprimée.', navigation.goBack);
+    saveToast.show(t('journalTemperature.clearToastTitle'), t('journalTemperature.clearToastMessage'), navigation.goBack);
   };
 
   const temperatureHelper = useMemo(() => {
     if (!value) {
-      return 'Ajoute ta mesure du matin';
+      return t('journalTemperature.addMorningReading');
     }
 
     const number = Number(
@@ -266,23 +275,23 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     );
 
     if (!Number.isFinite(number)) {
-      return 'Vérifie la valeur saisie';
+      return t('journalTemperature.checkValue');
     }
 
-    return 'Mesure prête à être enregistrée';
-  }, [value]);
+    return t('journalTemperature.readyToSave');
+  }, [t, value]);
 
   return (
     <>
       <JournalScreenLayout
         error={error}
-        heroLabel="Ta mesure du matin"
+        heroLabel={t('journalTemperature.heroLabel')}
         heroSource={require('../../assets/images/conception-journal/basal-temperature.png')}
         hideJournalHeader
         dateLabel={dateLabel}
         icon="thermometer"
         onSave={save}
-        title="Température basale"
+        title={t('journalTemperature.title')}
         toast={
           <JournalSaveToast
             animation={saveToast.animation}
@@ -298,7 +307,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
             TEMPÉRATURE
         ===================================================== */}
 
-        <SectionCard title="Ma température">
+        <SectionCard title={t('journalTemperature.sectionTitle')}>
           <View style={styles.temperatureHero}>
             <View style={styles.temperatureDecorationOne} />
             <View style={styles.temperatureDecorationTwo} />
@@ -314,7 +323,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
               <View style={styles.temperatureTopCopy}>
                 <Text style={styles.temperatureEyebrow}>
-                  MESURE DU JOUR
+                  {t('journalTemperature.measurementOfTheDay')}
                 </Text>
 
                 <Text style={styles.temperatureHelper}>
@@ -331,7 +340,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
                   />
 
                   <Text style={styles.readyText}>
-                    Ajoutée
+                    {t('journalTemperature.added')}
                   </Text>
                 </View>
               ) : null}
@@ -357,12 +366,12 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
           <View style={styles.fieldSpacing}>
             <LabeledInput
               keyboardType="decimal-pad"
-              label="Température"
+              label={t('journalTemperature.temperatureLabel')}
               onChangeText={updateValue}
               placeholder={
                 unit === 'C'
-                  ? '36,50'
-                  : '97,70'
+                  ? t('journalTemperature.placeholderCelsius')
+                  : t('journalTemperature.placeholderFahrenheit')
               }
               value={value}
             />
@@ -370,7 +379,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
           <View style={styles.unitSection}>
             <Text style={styles.smallLabel}>
-              Unité
+              {t('journalTemperature.unitLabel')}
             </Text>
 
             <ChoiceChips
@@ -392,11 +401,11 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
           <View style={styles.timeSection}>
             <Text style={styles.smallLabel}>
-              Heure de mesure
+              {t('journalTemperature.timeOfMeasurementLabel')}
             </Text>
 
             <Pressable
-              accessibilityLabel="Choisir l’heure de mesure"
+              accessibilityLabel={t('journalTemperature.chooseMeasurementTime')}
               accessibilityRole="button"
               onPress={openTimePicker}
               style={({pressed}) => [
@@ -417,8 +426,8 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
               <View style={styles.timeCopy}>
                 <Text style={styles.timeLabel}>
                   {time
-                    ? 'Mesurée à'
-                    : 'Choisir une heure'}
+                    ? t('journalTemperature.measuredAt')
+                    : t('journalTemperature.chooseATime')}
                 </Text>
 
                 <Text
@@ -427,7 +436,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
                     !time &&
                       styles.timePlaceholder,
                   ]}>
-                  {time || 'Appuie pour sélectionner'}
+                  {time || t('journalTemperature.tapToSelect')}
                 </Text>
               </View>
 
@@ -446,7 +455,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
             METHOD
         ===================================================== */}
 
-        <SectionCard title="Méthode et commentaire">
+        <SectionCard title={t('journalTemperature.methodSectionTitle')}>
           <View style={styles.methodHeading}>
             <View style={styles.methodIcon}>
               <MaterialDesignIcons
@@ -458,15 +467,17 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
             <View style={styles.methodCopy}>
               <Text style={styles.methodTitle}>
-                Méthode de mesure
+                {t('journalTemperature.methodTitle')}
               </Text>
 
               <Text style={styles.methodSubtitle}>
-                Choisis la méthode utilisée ce matin.
+                {t('journalTemperature.methodSubtitle')}
               </Text>
             </View>
           </View>
 
+          {/* DATA-BEARING — see the `method` state comment above; these
+              option labels are persisted verbatim and must stay French. */}
           <ChoiceChips
             onChange={setMethod}
             options={[
@@ -480,11 +491,11 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
           <View style={styles.noteSpacing}>
             <LabeledInput
-              label="Commentaire (optionnel)"
+              label={t('journalTemperature.commentLabel')}
               maxLength={300}
               multiline
               onChangeText={setNote}
-              placeholder="Ajoute une note…"
+              placeholder={t('journalTemperature.notePlaceholder')}
               value={note}
             />
           </View>
@@ -505,18 +516,16 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
           <View style={styles.tipCopy}>
             <Text style={styles.tipTitle}>
-              Conseil
+              {t('journalTemperature.tipTitle')}
             </Text>
 
             <Text style={styles.tipText}>
-              Prends ta température au réveil,
-              avant de te lever, idéalement à la
-              même heure.
+              {t('journalTemperature.tipText')}
             </Text>
           </View>
         </View>
 
-        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject="cette température" /> : null}
+        {hasSaved ? <ClearEntryButton onConfirm={clearEntry} subject={t('journalTemperature.clearSubject')} /> : null}
       </JournalScreenLayout>
 
       {/* =======================================================
@@ -533,7 +542,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
           visible={timePickerVisible}>
           <View style={styles.modalRoot}>
             <Pressable
-              accessibilityLabel="Fermer le sélecteur d’heure"
+              accessibilityLabel={t('journalTemperature.closeTimePicker')}
               onPress={() =>
                 setTimePickerVisible(false)
               }
@@ -554,16 +563,16 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
                 <View style={styles.sheetHeaderCopy}>
                   <Text style={styles.sheetEyebrow}>
-                    HEURE DE MESURE
+                    {t('journalTemperature.timeOfMeasurementEyebrow')}
                   </Text>
 
                   <Text style={styles.sheetTitle}>
-                    À quelle heure ?
+                    {t('journalTemperature.whatTimeQuestion')}
                   </Text>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Fermer"
+                  accessibilityLabel={t('common.close')}
                   accessibilityRole="button"
                   hitSlop={8}
                   onPress={() =>
@@ -590,14 +599,14 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
                 />
 
                 <Text style={styles.pickerHighlightText}>
-                  Ta mesure du matin
+                  {t('journalTemperature.heroLabel')}
                 </Text>
               </View>
 
               <View style={styles.pickerContainer}>
                 <DateTimePicker
                   display="spinner"
-                  locale="fr-FR"
+                  locale={getAppLanguage() === 'en' ? 'en-US' : 'fr-FR'}
                   mode="time"
                   onValueChange={(
                     _event,
@@ -616,7 +625,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
               </Text>
 
               <Pressable
-                accessibilityLabel="Confirmer l’heure"
+                accessibilityLabel={t('journalTemperature.confirmTime')}
                 accessibilityRole="button"
                 onPress={confirmTime}
                 style={({pressed}) => [
@@ -631,7 +640,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
                 />
 
                 <Text style={styles.confirmButtonText}>
-                  Confirmer l’heure
+                  {t('journalTemperature.confirmTime')}
                 </Text>
               </Pressable>
             </View>
@@ -664,7 +673,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
 function formatTime(date: Date): string {
   return new Intl.DateTimeFormat(
-    'fr-FR',
+    getAppLanguage() === 'en' ? 'en-US' : 'fr-FR',
     {
       hour: '2-digit',
       minute: '2-digit',

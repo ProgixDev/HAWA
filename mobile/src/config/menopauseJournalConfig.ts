@@ -3,8 +3,28 @@ import type {MaterialDesignIcons} from '@react-native-vector-icons/material-desi
 import type {MenopauseSymptom} from '../state/menopausePreferences';
 import type {MenopauseJournalCategory} from '../state/menopauseJournalStore';
 import type {MoodLevel} from '../types/journal';
+import i18n from '../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
+
+// i18n (Phase 3): this is a plain data/config file, not a component, so it
+// cannot call `useTranslation()`. Every label below is built with the i18n
+// singleton (`i18n.t()`, same pattern as irregularJournalConfig.ts's own
+// buildIrregularJournalItems() / conceptionJournalConfig.ts's own
+// buildConceptionJournalItems()). Every symptom/status/mood value persisted
+// by menopauseJournalStore.ts is a stable enum id (see its own JSDoc) — never
+// raw label text — so every label/map here is safe to translate; nothing in
+// this file is data-bearing. Arrays keep their reference and are mutated IN
+// PLACE on languageChanged (MENOPAUSE_JOURNAL_ITEMS/MENOPAUSE_SYMPTOM_OPTIONS
+// are held onto by MenopauseDashboard.tsx, MenopauseCalendarContent.tsx and
+// MenopauseJournalEntryScreen.tsx). The plain enum-keyed label maps
+// (MENOPAUSE_INTENSITY_LABELS etc.) keep their existing `Record<K, string>`
+// shape and are also refreshed IN PLACE (each key's value reassigned) rather
+// than converted to `xxxLabels(t)` factories, because MenopauseStatisticsScreen.tsx,
+// MenopauseJournalEntryScreen.tsx, MainTabNavigator.tsx and
+// medicalExportReaders.ts already index them directly
+// (`MENOPAUSE_MOOD_LABELS[mood]`) — changing their shape would force changes
+// in files outside this pass's scope.
 
 /* ============================================================
  * PREMIUM AWA MENOPAUSE PALETTE
@@ -49,77 +69,96 @@ const MENOPAUSE_COLORS = {
  * JOURNAL QUOTIDIEN
  * ============================================================ */
 
-export const MENOPAUSE_JOURNAL_ITEMS: Array<{
+type MenopauseJournalItem = {
   key: MenopauseJournalCategory;
   label: string;
   icon: IconName;
   journalSubtitle: string;
   tint: string;
   iconColor: string;
-}> = [
-  {
-    key: 'symptoms',
-    label: 'Symptômes',
-    icon: 'heart-pulse',
-    journalSubtitle: 'Note les sensations et changements ressentis aujourd’hui',
-    tint: MENOPAUSE_COLORS.roseSoft,
-    iconColor: MENOPAUSE_COLORS.rose,
-  },
+};
 
-  {
-    key: 'mood',
-    label: 'Humeur',
-    icon: 'emoticon-outline',
-    journalSubtitle: 'Prends un instant pour noter comment tu te sens',
-    tint: MENOPAUSE_COLORS.purpleSoft,
-    iconColor: MENOPAUSE_COLORS.purple,
-  },
+function buildMenopauseJournalItems(): MenopauseJournalItem[] {
+  return [
+    {
+      key: 'symptoms',
+      label: i18n.t('menopauseJournalConfig.items.symptoms.label'),
+      icon: 'heart-pulse',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.symptoms.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.roseSoft,
+      iconColor: MENOPAUSE_COLORS.rose,
+    },
 
-  {
-    key: 'sleep',
-    label: 'Sommeil',
-    icon: 'weather-night',
-    journalSubtitle: 'Note la durée et la qualité de ta nuit',
-    tint: MENOPAUSE_COLORS.blueSoft,
-    iconColor: MENOPAUSE_COLORS.blue,
-  },
+    {
+      key: 'mood',
+      label: i18n.t('menopauseJournalConfig.items.mood.label'),
+      icon: 'emoticon-outline',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.mood.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.purpleSoft,
+      iconColor: MENOPAUSE_COLORS.purple,
+    },
 
-  {
-    key: 'energy',
-    label: 'Énergie / Fatigue',
-    icon: 'lightning-bolt-outline',
-    journalSubtitle: 'Indique ton niveau d’énergie ressenti aujourd’hui',
-    tint: MENOPAUSE_COLORS.amberSoft,
-    iconColor: MENOPAUSE_COLORS.amber,
-  },
+    {
+      key: 'sleep',
+      label: i18n.t('menopauseJournalConfig.items.sleep.label'),
+      icon: 'weather-night',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.sleep.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.blueSoft,
+      iconColor: MENOPAUSE_COLORS.blue,
+    },
 
-  {
-    key: 'treatment',
-    label: 'Traitement hormonal',
-    icon: 'pill',
-    journalSubtitle: 'Garde une trace de ton traitement aujourd’hui',
-    tint: MENOPAUSE_COLORS.greenSoft,
-    iconColor: MENOPAUSE_COLORS.green,
-  },
+    {
+      key: 'energy',
+      label: i18n.t('menopauseJournalConfig.items.energy.label'),
+      icon: 'lightning-bolt-outline',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.energy.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.amberSoft,
+      iconColor: MENOPAUSE_COLORS.amber,
+    },
 
-  {
-    key: 'labResults',
-    label: 'Résultats d’analyses',
-    icon: 'flask-outline',
-    journalSubtitle: 'Ajoute un résultat FSH ou Estradiol',
-    tint: MENOPAUSE_COLORS.tealSoft,
-    iconColor: MENOPAUSE_COLORS.teal,
-  },
+    {
+      key: 'treatment',
+      label: i18n.t('menopauseJournalConfig.items.treatment.label'),
+      icon: 'pill',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.treatment.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.greenSoft,
+      iconColor: MENOPAUSE_COLORS.green,
+    },
 
-  {
-    key: 'notes',
-    label: 'Notes du jour',
-    icon: 'notebook-outline',
-    journalSubtitle: 'Ajoute une information personnelle à ton suivi',
-    tint: MENOPAUSE_COLORS.purpleSoft,
-    iconColor: MENOPAUSE_COLORS.purple,
-  },
-];
+    {
+      key: 'labResults',
+      label: i18n.t('menopauseJournalConfig.items.labResults.label'),
+      icon: 'flask-outline',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.labResults.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.tealSoft,
+      iconColor: MENOPAUSE_COLORS.teal,
+    },
+
+    {
+      key: 'notes',
+      label: i18n.t('menopauseJournalConfig.items.notes.label'),
+      icon: 'notebook-outline',
+      journalSubtitle: i18n.t('menopauseJournalConfig.items.notes.journalSubtitle'),
+      tint: MENOPAUSE_COLORS.purpleSoft,
+      iconColor: MENOPAUSE_COLORS.purple,
+    },
+  ];
+}
+
+export const MENOPAUSE_JOURNAL_ITEMS: MenopauseJournalItem[] = buildMenopauseJournalItems();
+
+// Keeps MENOPAUSE_JOURNAL_ITEMS's labels in sync with the active language
+// WITHOUT ever changing the array's identity — same pattern as
+// irregularJournalConfig.ts's IRREGULAR_JOURNAL_ITEMS subscriber.
+// MenopauseDashboard.tsx, MenopauseCalendarContent.tsx and
+// MenopauseJournalEntryScreen.tsx all hold onto this exact array reference,
+// so a language change mutates its elements IN PLACE instead of replacing it.
+i18n.on('languageChanged', () => {
+  const refreshed = buildMenopauseJournalItems();
+  refreshed.forEach((item, index) => {
+    MENOPAUSE_JOURNAL_ITEMS[index] = item;
+  });
+});
 
 /* ============================================================
  * SYMPTÔMES
@@ -130,61 +169,75 @@ export const MENOPAUSE_JOURNAL_ITEMS: Array<{
  * Icons are deliberately restrained and visually consistent.
  */
 
-export const MENOPAUSE_SYMPTOM_OPTIONS: Array<{
+type MenopauseSymptomOption = {
   id: MenopauseSymptom;
   label: string;
   icon: IconName;
   tint: string;
   iconColor: string;
-}> = [
-  {
-    id: 'hot_flashes',
-    label: 'Bouffées de chaleur',
-    icon: 'weather-sunny',
-    tint: MENOPAUSE_COLORS.roseSoft,
-    iconColor: MENOPAUSE_COLORS.rose,
-  },
+};
 
-  {
-    id: 'night_sweats',
-    label: 'Sueurs nocturnes',
-    icon: 'water-outline',
-    tint: MENOPAUSE_COLORS.blueSoft,
-    iconColor: MENOPAUSE_COLORS.blue,
-  },
+function buildMenopauseSymptomOptions(): MenopauseSymptomOption[] {
+  return [
+    {
+      id: 'hot_flashes',
+      label: i18n.t('menopauseJournalConfig.symptomOptions.hot_flashes.label'),
+      icon: 'weather-sunny',
+      tint: MENOPAUSE_COLORS.roseSoft,
+      iconColor: MENOPAUSE_COLORS.rose,
+    },
 
-  {
-    id: 'sleep_disturbances',
-    label: 'Troubles du sommeil',
-    icon: 'moon-waning-crescent',
-    tint: MENOPAUSE_COLORS.blueSoft,
-    iconColor: MENOPAUSE_COLORS.blue,
-  },
+    {
+      id: 'night_sweats',
+      label: i18n.t('menopauseJournalConfig.symptomOptions.night_sweats.label'),
+      icon: 'water-outline',
+      tint: MENOPAUSE_COLORS.blueSoft,
+      iconColor: MENOPAUSE_COLORS.blue,
+    },
 
-  {
-    id: 'fatigue',
-    label: 'Fatigue',
-    icon: 'battery-low',
-    tint: MENOPAUSE_COLORS.amberSoft,
-    iconColor: MENOPAUSE_COLORS.amber,
-  },
+    {
+      id: 'sleep_disturbances',
+      label: i18n.t('menopauseJournalConfig.symptomOptions.sleep_disturbances.label'),
+      icon: 'moon-waning-crescent',
+      tint: MENOPAUSE_COLORS.blueSoft,
+      iconColor: MENOPAUSE_COLORS.blue,
+    },
 
-  {
-    id: 'mood_changes',
-    label: 'Variations d’humeur',
-    icon: 'heart-outline',
-    tint: MENOPAUSE_COLORS.roseSoft,
-    iconColor: MENOPAUSE_COLORS.rose,
-  },
+    {
+      id: 'fatigue',
+      label: i18n.t('menopauseJournalConfig.symptomOptions.fatigue.label'),
+      icon: 'battery-low',
+      tint: MENOPAUSE_COLORS.amberSoft,
+      iconColor: MENOPAUSE_COLORS.amber,
+    },
 
-  {
-    id: 'brain_fog',
-    label: 'Brouillard mental',
-    icon: 'head-outline',
-    tint: MENOPAUSE_COLORS.purpleSoft,
-    iconColor: MENOPAUSE_COLORS.purple,
-  },
-];
+    {
+      id: 'mood_changes',
+      label: i18n.t('menopauseJournalConfig.symptomOptions.mood_changes.label'),
+      icon: 'heart-outline',
+      tint: MENOPAUSE_COLORS.roseSoft,
+      iconColor: MENOPAUSE_COLORS.rose,
+    },
+
+    {
+      id: 'brain_fog',
+      label: i18n.t('menopauseJournalConfig.symptomOptions.brain_fog.label'),
+      icon: 'head-outline',
+      tint: MENOPAUSE_COLORS.purpleSoft,
+      iconColor: MENOPAUSE_COLORS.purple,
+    },
+  ];
+}
+
+export const MENOPAUSE_SYMPTOM_OPTIONS: MenopauseSymptomOption[] = buildMenopauseSymptomOptions();
+
+// Same in-place refresh as MENOPAUSE_JOURNAL_ITEMS above.
+i18n.on('languageChanged', () => {
+  const refreshed = buildMenopauseSymptomOptions();
+  refreshed.forEach((option, index) => {
+    MENOPAUSE_SYMPTOM_OPTIONS[index] = option;
+  });
+});
 
 /** The symptoms the CURRENT symptom-tracking UI offers: the ones the user chose
  * to track (menopausePreferences.trackedSymptoms — the single preference
@@ -205,11 +258,21 @@ export function getVisibleMenopauseSymptomOptions(
  * INTENSITÉ
  * ============================================================ */
 
-export const MENOPAUSE_INTENSITY_LABELS = {
-  mild: 'Léger',
-  moderate: 'Modéré',
-  severe: 'Sévère',
-} as const;
+function buildMenopauseIntensityLabels(): Record<'mild' | 'moderate' | 'severe', string> {
+  return {
+    mild: i18n.t('menopauseJournalConfig.intensity.mild'),
+    moderate: i18n.t('menopauseJournalConfig.intensity.moderate'),
+    severe: i18n.t('menopauseJournalConfig.intensity.severe'),
+  };
+}
+
+// Kept as a plain Record (not an `xxxLabels(t)` factory) and refreshed IN
+// PLACE on languageChanged — see the file-level i18n comment above.
+export const MENOPAUSE_INTENSITY_LABELS = buildMenopauseIntensityLabels();
+
+i18n.on('languageChanged', () => {
+  Object.assign(MENOPAUSE_INTENSITY_LABELS, buildMenopauseIntensityLabels());
+});
 
 export const MENOPAUSE_INTENSITY_COLORS = {
   mild: '#7DAB91',
@@ -227,11 +290,19 @@ export const MENOPAUSE_INTENSITY_TINTS = {
  * SOMMEIL
  * ============================================================ */
 
-export const MENOPAUSE_SLEEP_QUALITY_LABELS = {
-  good: 'Bonne',
-  average: 'Moyenne',
-  poor: 'Mauvaise',
-} as const;
+function buildMenopauseSleepQualityLabels(): Record<'good' | 'average' | 'poor', string> {
+  return {
+    good: i18n.t('menopauseJournalConfig.sleepQuality.good'),
+    average: i18n.t('menopauseJournalConfig.sleepQuality.average'),
+    poor: i18n.t('menopauseJournalConfig.sleepQuality.poor'),
+  };
+}
+
+export const MENOPAUSE_SLEEP_QUALITY_LABELS = buildMenopauseSleepQualityLabels();
+
+i18n.on('languageChanged', () => {
+  Object.assign(MENOPAUSE_SLEEP_QUALITY_LABELS, buildMenopauseSleepQualityLabels());
+});
 
 export const MENOPAUSE_SLEEP_QUALITY_ICONS = {
   good: 'weather-night',
@@ -246,11 +317,19 @@ export const MENOPAUSE_SLEEP_QUALITY_ICONS = {
  * ÉNERGIE
  * ============================================================ */
 
-export const MENOPAUSE_ENERGY_LABELS = {
-  low: 'Faible',
-  medium: 'Moyenne',
-  high: 'Élevée',
-} as const;
+function buildMenopauseEnergyLabels(): Record<'low' | 'medium' | 'high', string> {
+  return {
+    low: i18n.t('menopauseJournalConfig.energy.low'),
+    medium: i18n.t('menopauseJournalConfig.energy.medium'),
+    high: i18n.t('menopauseJournalConfig.energy.high'),
+  };
+}
+
+export const MENOPAUSE_ENERGY_LABELS = buildMenopauseEnergyLabels();
+
+i18n.on('languageChanged', () => {
+  Object.assign(MENOPAUSE_ENERGY_LABELS, buildMenopauseEnergyLabels());
+});
 
 export const MENOPAUSE_ENERGY_ICONS = {
   low: 'battery-low',
@@ -265,10 +344,18 @@ export const MENOPAUSE_ENERGY_ICONS = {
  * TRAITEMENT HORMONAL
  * ============================================================ */
 
-export const MENOPAUSE_TREATMENT_STATUS_LABELS = {
-  taken: 'Pris aujourd’hui',
-  not_taken: 'Non pris aujourd’hui',
-} as const;
+function buildMenopauseTreatmentStatusLabels(): Record<'taken' | 'not_taken', string> {
+  return {
+    taken: i18n.t('menopauseJournalConfig.treatmentStatus.taken'),
+    not_taken: i18n.t('menopauseJournalConfig.treatmentStatus.not_taken'),
+  };
+}
+
+export const MENOPAUSE_TREATMENT_STATUS_LABELS = buildMenopauseTreatmentStatusLabels();
+
+i18n.on('languageChanged', () => {
+  Object.assign(MENOPAUSE_TREATMENT_STATUS_LABELS, buildMenopauseTreatmentStatusLabels());
+});
 
 export const MENOPAUSE_TREATMENT_STATUS_ICONS = {
   taken: 'check-circle-outline',
@@ -282,10 +369,18 @@ export const MENOPAUSE_TREATMENT_STATUS_ICONS = {
  * ANALYSES
  * ============================================================ */
 
-export const MENOPAUSE_LAB_TYPE_LABELS = {
-  fsh: 'FSH',
-  estradiol: 'Estradiol',
-} as const;
+function buildMenopauseLabTypeLabels(): Record<'fsh' | 'estradiol', string> {
+  return {
+    fsh: i18n.t('menopauseJournalConfig.labType.fsh'),
+    estradiol: i18n.t('menopauseJournalConfig.labType.estradiol'),
+  };
+}
+
+export const MENOPAUSE_LAB_TYPE_LABELS = buildMenopauseLabTypeLabels();
+
+i18n.on('languageChanged', () => {
+  Object.assign(MENOPAUSE_LAB_TYPE_LABELS, buildMenopauseLabTypeLabels());
+});
 
 export const MENOPAUSE_LAB_TYPE_ICONS = {
   fsh: 'flask-outline',
@@ -305,17 +400,25 @@ export const MENOPAUSE_LAB_TYPE_ICONS = {
  * Only the presentation is refined.
  */
 
-export const MENOPAUSE_MOOD_LABELS: Record<MoodLevel, string> = {
-  veryGood: 'Très bien',
-  good: 'Bien',
-  neutral: 'Neutre',
-  stressed: 'Stressée',
-  irritable: 'Irritable',
-  anxious: 'Anxieuse',
-  sad: 'Triste',
-  tired: 'Fatiguée',
-  motivated: 'Motivée',
-};
+function buildMenopauseMoodLabels(): Record<MoodLevel, string> {
+  return {
+    veryGood: i18n.t('menopauseJournalConfig.mood.veryGood'),
+    good: i18n.t('menopauseJournalConfig.mood.good'),
+    neutral: i18n.t('menopauseJournalConfig.mood.neutral'),
+    stressed: i18n.t('menopauseJournalConfig.mood.stressed'),
+    irritable: i18n.t('menopauseJournalConfig.mood.irritable'),
+    anxious: i18n.t('menopauseJournalConfig.mood.anxious'),
+    sad: i18n.t('menopauseJournalConfig.mood.sad'),
+    tired: i18n.t('menopauseJournalConfig.mood.tired'),
+    motivated: i18n.t('menopauseJournalConfig.mood.motivated'),
+  };
+}
+
+export const MENOPAUSE_MOOD_LABELS: Record<MoodLevel, string> = buildMenopauseMoodLabels();
+
+i18n.on('languageChanged', () => {
+  Object.assign(MENOPAUSE_MOOD_LABELS, buildMenopauseMoodLabels());
+});
 
 export const MENOPAUSE_MOOD_ICONS: Record<MoodLevel, IconName> = {
   veryGood: 'emoticon-happy-outline',

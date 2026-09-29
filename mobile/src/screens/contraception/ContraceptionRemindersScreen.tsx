@@ -1,5 +1,6 @@
 import {continueAfterObjectiveSetup} from '../../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   ScrollView,
@@ -19,23 +20,25 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 import {
   getContraceptionPreferences,
   setContraceptionPreferences,
 } from '../../state/contraceptionPreferences';
 import {
-  CONTRACEPTION_DEFAULT_REMINDER_CONTENT,
+  contraceptionDefaultReminderContent,
   CONTRACEPTION_METHOD_ICONS,
-  CONTRACEPTION_REMINDER_CONTENT,
+  contraceptionReminderContent,
 } from '../../config/contraceptionLabels';
 import {contraceptionMethodSupportsDailyReminder} from '../../utils/contraceptionReminderScheduling';
+import '../../i18n';
 
 // Same 'HH:mm' formatting/parsing convention as
 // PregnancyNotificationsScreen.tsx's dailyJournalTime field — kept local
 // (not exported) since it's pure UI display formatting, exactly like that
 // screen's own un-exported helpers.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);
@@ -48,6 +51,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ContraceptionReminders'
 
 function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -74,8 +78,8 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
   const [error, setError] = useState('');
 
   const content = method
-    ? CONTRACEPTION_REMINDER_CONTENT[method]
-    : CONTRACEPTION_DEFAULT_REMINDER_CONTENT;
+    ? contraceptionReminderContent(t)[method]
+    : contraceptionDefaultReminderContent(t);
   const illustrationIcon = method ? CONTRACEPTION_METHOD_ICONS[method] : 'pill';
 
   // 'ring'/'patch' have no daily action to remind about — see
@@ -99,7 +103,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
     // Never persist "enabled" without a real, user-chosen time — no
     // fallback hour is invented here; she must explicitly pick one.
     if (enabled && !reminderTime) {
-      setError('Choisis une heure pour activer les rappels.');
+      setError(t('contraceptionReminders.errorChooseTime'));
       return;
     }
     setError('');
@@ -142,7 +146,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -164,7 +168,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>Tes rappels</Text>
+            <Text style={styles.title}>{t('contraceptionReminders.title')}</Text>
             <Text style={styles.subtitle}>{content.subtitle}</Text>
           </View>
 
@@ -182,7 +186,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
           {supportsDailyReminder ? (
             <>
               <View style={styles.toggleRow}>
-                <Text style={styles.toggleLabel}>Activer les rappels</Text>
+                <Text style={styles.toggleLabel}>{t('contraceptionReminders.toggleLabel')}</Text>
                 <Switch
                   ios_backgroundColor={theme.colors.surfaceSecondary}
                   onValueChange={value => {
@@ -197,7 +201,11 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
 
               {enabled ? (
                 <Pressable
-                  accessibilityLabel={reminderTime ? `Heure du rappel, ${reminderTime}` : 'Choisir une heure de rappel'}
+                  accessibilityLabel={
+                    reminderTime
+                      ? t('contraceptionReminders.timeAccessibility.withValue', {time: reminderTime})
+                      : t('contraceptionReminders.timeAccessibility.empty')
+                  }
                   accessibilityRole="button"
                   onPress={() => setTimePickerVisible(true)}
                   style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
@@ -205,9 +213,9 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
                     <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.timeCopy}>
-                    <Text style={styles.timeLabel}>Heure du rappel</Text>
+                    <Text style={styles.timeLabel}>{t('contraceptionReminders.timeLabel')}</Text>
                     <Text style={reminderTime ? styles.timeValue : styles.timeValuePlaceholder}>
-                      {reminderTime ?? 'Choisir une heure'}
+                      {reminderTime ?? t('contraceptionReminders.chooseTime')}
                     </Text>
                   </View>
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
@@ -246,8 +254,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
                 <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
               </View>
               <Text style={styles.infoText}>
-                Les rappels programmés ne sont pas encore disponibles pour cette méthode. Tu peux
-                enregistrer tes utilisations directement depuis le tableau de bord.
+                {t('contraceptionReminders.unavailableInfo')}
               </Text>
             </View>
           )}
@@ -258,7 +265,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
                 <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
               </View>
               <Text style={styles.infoText}>
-                Tu pourras modifier ce réglage à tout moment dans les paramètres.
+                {t('contraceptionReminders.settingsInfo')}
               </Text>
             </View>
           ) : null}
@@ -280,7 +287,7 @@ function ContraceptionRemindersScreen({navigation, route}: Props): React.JSX.Ele
             onPress={handleFinish}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Terminer'}
+              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('contraceptionReminders.finish')}
             </Text>
           </Pressable>
         </ScrollView>

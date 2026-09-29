@@ -14,6 +14,7 @@ import {
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -22,6 +23,8 @@ import {setPeriodEndDateTime} from '../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
 import {formatFullDate} from '../../utils/cycleMath';
 import {getBottomPadding} from '../../theme/spacing';
+import {getAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 type Props = {
   visible: boolean;
@@ -38,10 +41,10 @@ const sameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
 const formatDateLabel = (date: Date): string =>
-  sameDay(date, new Date()) ? `Aujourd’hui, ${formatFullDate(date)}` : formatFullDate(date);
+  sameDay(date, new Date()) ? i18n.t('periodStartSheet.todayLabel', {date: formatFullDate(date)}) : formatFullDate(date);
 
 const formatTimeLabel = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 
 const clampDateTime = (value: Date, minDateTime: Date): Date => {
   const now = new Date();
@@ -57,6 +60,7 @@ function PeriodEndBottomSheet({
   onClose,
   onConfirmed,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -136,7 +140,7 @@ function PeriodEndBottomSheet({
     <Modal animationType="none" onRequestClose={close} statusBarTranslucent transparent visible={visible}>
       <View style={styles.modalRoot}>
         <Animated.View style={[styles.overlay, {opacity: progress.interpolate({inputRange: [0, 1], outputRange: [0, 0.35]})}]}>
-          <Pressable accessibilityLabel="Fermer" onPress={close} style={StyleSheet.absoluteFill} />
+          <Pressable accessibilityLabel={t('common.close')} onPress={close} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
         <Animated.View
@@ -151,9 +155,9 @@ function PeriodEndBottomSheet({
           <View style={styles.handle} />
 
           <ScrollView showsVerticalScrollIndicator={false} style={styles.scroll}>
-            <Text style={styles.title}>Quand tes règles se sont-elles terminées ?</Text>
+            <Text style={styles.title}>{t('periodEndBottomSheet.title')}</Text>
             <Text style={styles.description}>
-              Cette information permet d’actualiser ton cycle et tes repères de prière.
+              {t('periodEndBottomSheet.description')}
             </Text>
 
             <Pressable
@@ -164,7 +168,7 @@ function PeriodEndBottomSheet({
                 <MaterialDesignIcons color={theme.colors.primary} name="calendar-outline" size={18} />
               </View>
               <View style={styles.fieldCopy}>
-                <Text style={styles.fieldLabel}>Date de fin</Text>
+                <Text style={styles.fieldLabel}>{t('periodEndBottomSheet.endDateLabel')}</Text>
                 <Text style={styles.fieldValue}>{formatDateLabel(draft)}</Text>
               </View>
               <MaterialDesignIcons
@@ -194,7 +198,7 @@ function PeriodEndBottomSheet({
                 <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
               </View>
               <View style={styles.fieldCopy}>
-                <Text style={styles.fieldLabel}>Heure de fin</Text>
+                <Text style={styles.fieldLabel}>{t('periodEndBottomSheet.endTimeLabel')}</Text>
                 <Text style={styles.fieldValue}>{formatTimeLabel(draft)}</Text>
               </View>
               <MaterialDesignIcons
@@ -220,7 +224,7 @@ function PeriodEndBottomSheet({
             disabled={saving}
             onPress={confirm}
             style={({pressed}) => [styles.confirmButton, (pressed || saving) && styles.pressed]}>
-            <Text style={styles.confirmText}>{saving ? 'Enregistrement…' : 'Confirmer la fin des règles'}</Text>
+            <Text style={styles.confirmText}>{saving ? t('periodStartSheet.saving') : t('periodEndBottomSheet.confirmEnd')}</Text>
           </Pressable>
 
           <Pressable
@@ -228,7 +232,7 @@ function PeriodEndBottomSheet({
             disabled={saving}
             onPress={close}
             style={({pressed}) => [styles.cancelButton, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>Annuler</Text>
+            <Text style={styles.cancelText}>{t('common.cancel')}</Text>
           </Pressable>
         </Animated.View>
       </View>

@@ -15,6 +15,7 @@ import {
 import {useFocusEffect} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -63,6 +64,7 @@ import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
+import i18n from '../../i18n';
 
 /* ============================================================
    ASSETS / CONSTANTS
@@ -106,20 +108,22 @@ const EMPTY: PregnancyJournalState = {
   medicalInformationHistory: [],
 };
 
-const MOOD_LABELS: Record<
-  MoodLevel,
-  string
-> = {
-  veryGood: 'Très bien',
-  good: 'Bien',
-  neutral: 'Neutre',
-  stressed: 'Stressée',
-  irritable: 'Irritable',
-  anxious: 'Anxieuse',
-  sad: 'Triste',
-  tired: 'Fatiguée',
-  motivated: 'Motivée',
-};
+// Display-only labels for the persisted MoodLevel enum (the semantic value
+// itself, never the label, is what's saved) — factory pattern matching
+// mucusLabels() in JournalCervicalMucusScreen.tsx.
+function moodLabels(t: (key: string) => string): Record<MoodLevel, string> {
+  return {
+    veryGood: t('pregnancyStatistics.moodLabels.veryGood'),
+    good: t('pregnancyStatistics.moodLabels.good'),
+    neutral: t('pregnancyStatistics.moodLabels.neutral'),
+    stressed: t('pregnancyStatistics.moodLabels.stressed'),
+    irritable: t('pregnancyStatistics.moodLabels.irritable'),
+    anxious: t('pregnancyStatistics.moodLabels.anxious'),
+    sad: t('pregnancyStatistics.moodLabels.sad'),
+    tired: t('pregnancyStatistics.moodLabels.tired'),
+    motivated: t('pregnancyStatistics.moodLabels.motivated'),
+  };
+}
 
 const MOOD_ICONS: Record<
   MoodLevel,
@@ -140,11 +144,18 @@ const MOOD_ICONS: Record<
    HELPERS
 ============================================================ */
 
+/** Locale for every `Intl.DateTimeFormat`/`toLocaleString` call in this
+ * screen — mirrors the current app language (driven by AWA's own "Langue
+ * de l'application" preference, see src/i18n/index.ts) instead of a
+ * hardcoded 'fr-FR'. */
+const appLocale = (): string =>
+  i18n.language === 'en' ? 'en-US' : 'fr-FR';
+
 const dateLabel = (
   date: string,
 ): string =>
   new Intl.DateTimeFormat(
-    'fr-FR',
+    appLocale(),
     {
       day: 'numeric',
       month: 'short',
@@ -220,17 +231,19 @@ function parseSleepDurationMinutes(
 
 function formatDurationMinutes(
   minutes: number,
+  t: (key: string, options?: Record<string, unknown>) => string,
 ): string {
-  return `${Math.floor(
-    minutes / 60,
-  )} h ${String(
-    Math.round(
-      minutes % 60,
+  return t('pregnancyStatistics.durationFormat', {
+    hours: Math.floor(minutes / 60),
+    minutes: String(
+      Math.round(
+        minutes % 60,
+      ),
+    ).padStart(
+      2,
+      '0',
     ),
-  ).padStart(
-    2,
-    '0',
-  )}`;
+  });
 }
 
 /** Counts/dates-only summary for a trimester's medical follow-up — never
@@ -239,6 +252,7 @@ function formatDurationMinutes(
 function formatMedicalSummary(
   appointmentCount: number,
   examCount: number,
+  t: (key: string, options?: Record<string, unknown>) => string,
 ): string {
   const parts: string[] =
     [];
@@ -247,22 +261,13 @@ function formatMedicalSummary(
     appointmentCount > 0
   ) {
     parts.push(
-      `${appointmentCount} rendez-vous ${
-        appointmentCount >
-        1
-          ? 'suivis'
-          : 'suivi'
-      }`,
+      t('pregnancyStatistics.medicalSummary.appointments', {count: appointmentCount}),
     );
   }
 
   if (examCount > 0) {
     parts.push(
-      `${examCount} examen${
-        examCount > 1
-          ? 's'
-          : ''
-      }`,
+      t('pregnancyStatistics.medicalSummary.exams', {count: examCount}),
     );
   }
 
@@ -536,7 +541,7 @@ function WeightBar({
           styles.barValue
         }>
         {entry.valueKg.toLocaleString(
-          'fr-FR',
+          appLocale(),
         )}
       </Text>
 
@@ -580,6 +585,8 @@ function WeightBar({
 function PregnancyStatisticsScreen(): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const moodLabelsMap = useMemo(() => moodLabels(t), [t]);
 
   const insets =
     useSafeAreaInsets();
@@ -1701,14 +1708,14 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.title
                 }>
-                Statistiques
+                {t('pregnancyStatistics.header.title')}
               </Text>
 
               <Text
                 style={
                   styles.subtitle
                 }>
-                Tes tendances et ton évolution pendant la grossesse
+                {t('pregnancyStatistics.header.subtitle')}
               </Text>
             </View>
 
@@ -1737,7 +1744,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               }>
               <EmptyState
                 icon="human-pregnant"
-                text="Configure la date de ta grossesse pour voir ta semaine, ton trimestre et ta date prévue d’accouchement."
+                text={t('pregnancyStatistics.hero.emptyText')}
               />
             </View>
           ) : (
@@ -1769,7 +1776,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     style={
                       styles.heroEyebrow
                     }>
-                    TA GROSSESSE
+                    {t('pregnancyStatistics.hero.eyebrow')}
                   </Text>
 
                   <View
@@ -1793,21 +1800,17 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                         style={
                           styles.heroWeekLabel
                         }>
-                        semaine
+                        {t('pregnancyStatistics.hero.weekLabel')}
                       </Text>
 
                       <Text
                         style={
                           styles.heroGestationalAge
                         }>
-                        {
-                          pregnancyStatus.gestationalWeeks
-                        }{' '}
-                        SA +{' '}
-                        {
-                          pregnancyStatus.gestationalDays
-                        }{' '}
-                        jours
+                        {t('pregnancyStatistics.hero.gestationalAge', {
+                          weeks: pregnancyStatus.gestationalWeeks,
+                          days: pregnancyStatus.gestationalDays,
+                        })}
                       </Text>
                     </View>
                   </View>
@@ -1831,7 +1834,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     style={
                       styles.heroPercentLabel
                     }>
-                    effectué
+                    {t('pregnancyStatistics.hero.percentCompleteLabel')}
                   </Text>
                 </View>
               </View>
@@ -1851,10 +1854,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.heroProgressRight
                   }>
-                  {
-                    pregnancyStatus.remainingWeeks
-                  }{' '}
-                  sem. restantes
+                  {t('pregnancyStatistics.hero.progressRemaining', {
+                    count: pregnancyStatus.remainingWeeks,
+                  })}
                 </Text>
               </View>
 
@@ -1908,7 +1910,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.heroMetaLabel
                       }>
-                      Trimestre
+                      {t('pregnancyStatistics.hero.trimesterLabel')}
                     </Text>
 
                     <Text
@@ -1953,7 +1955,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.heroMetaLabel
                       }>
-                      DPA
+                      {t('pregnancyStatistics.hero.dueDateLabel')}
                     </Text>
 
                     <Text
@@ -1965,7 +1967,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       }>
                       {pregnancyStatus.estimatedDueDate
                         ? new Intl.DateTimeFormat(
-                            'fr-FR',
+                            appLocale(),
                             {
                               day: 'numeric',
                               month:
@@ -2048,14 +2050,14 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.sectionTitle
                 }>
-                Vue d’ensemble
+                {t('pregnancyStatistics.overview.sectionTitle')}
               </Text>
 
               <Text
                 style={
                   styles.sectionDescription
                 }>
-                Résumé de la période sélectionnée
+                {t('pregnancyStatistics.overview.sectionDescription')}
               </Text>
             </View>
           </View>
@@ -2066,7 +2068,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             }>
             <KpiCard
               icon="calendar-check-outline"
-              label="Jours suivis"
+              label={t('pregnancyStatistics.overview.daysTracked')}
               value={
                 trackedDays >
                 0
@@ -2079,7 +2081,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
             <KpiCard
               icon="calendar-star"
-              label="Journées complètes"
+              label={t('pregnancyStatistics.overview.completeDays')}
               value={
                 completeDays >
                 0
@@ -2092,11 +2094,11 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
             <KpiCard
               icon="scale-bathroom"
-              label="Dernier poids"
+              label={t('pregnancyStatistics.overview.lastWeight')}
               value={
                 latestWeight
                   ? `${latestWeight.valueKg.toLocaleString(
-                      'fr-FR',
+                      appLocale(),
                     )} kg`
                   : '—'
               }
@@ -2104,10 +2106,10 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
             <KpiCard
               icon="heart-pulse"
-              label="Symptôme le plus fréquent"
+              label={t('pregnancyStatistics.overview.topSymptom')}
               value={
                 mostFrequentSymptom?.name ??
-                'Aucune donnée'
+                t('pregnancyStatistics.overview.noData')
               }
               wide
             />
@@ -2123,14 +2125,14 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
             }>
             <SectionHeader
               icon="scale-bathroom"
-              subtitle="Visualise l’évolution de tes mesures"
-              title="Évolution du poids"
+              subtitle={t('pregnancyStatistics.weight.sectionSubtitle')}
+              title={t('pregnancyStatistics.weight.sectionTitle')}
             />
 
             {!latestWeight ? (
               <EmptyState
                 icon="scale-bathroom"
-                text="Pas encore de mesure enregistrée."
+                text={t('pregnancyStatistics.weight.emptyText')}
               />
             ) : (
               <>
@@ -2146,7 +2148,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.metricLabel
                       }>
-                      Dernière mesure
+                      {t('pregnancyStatistics.weight.lastMeasurementLabel')}
                     </Text>
 
                     <Text
@@ -2154,7 +2156,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                         styles.metricValue
                       }>
                       {latestWeight.valueKg.toLocaleString(
-                        'fr-FR',
+                        appLocale(),
                       )}{' '}
                       kg
                     </Text>
@@ -2224,7 +2226,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                             }${Math.abs(
                               weightDelta,
                             ).toLocaleString(
-                              'fr-FR',
+                              appLocale(),
                             )} kg`}
                       </Text>
 
@@ -2232,7 +2234,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                         style={
                           styles.deltaLabel
                         }>
-                        depuis la précédente
+                        {t('pregnancyStatistics.weight.sincePrevious')}
                       </Text>
                     </View>
                   </View>
@@ -2256,7 +2258,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                       style={
                         styles.hint
                       }>
-                      Ajoute une autre mesure pour voir ton évolution.
+                      {t('pregnancyStatistics.weight.addAnotherHint')}
                     </Text>
                   </View>
                 ) : (
@@ -2269,20 +2271,19 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                         style={
                           styles.chartTitle
                         }>
-                        Dernières mesures
+                        {t('pregnancyStatistics.weight.recentMeasurements')}
                       </Text>
 
                       <Text
                         style={
                           styles.chartHint
                         }>
-                        {
-                          Math.min(
+                        {t('pregnancyStatistics.weight.valuesCount', {
+                          count: Math.min(
                             weights.length,
                             8,
-                          )
-                        }{' '}
-                        valeurs
+                          ),
+                        })}
                       </Text>
                     </View>
 
@@ -2318,7 +2319,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                         style={
                           styles.historyTitle
                         }>
-                        Historique
+                        {t('pregnancyStatistics.weight.history')}
                       </Text>
 
                       <View
@@ -2329,10 +2330,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                           style={
                             styles.historyCountText
                           }>
-                          {
-                            weights.length
-                          }{' '}
-                          mesures
+                          {t('pregnancyStatistics.weight.measurementsCount', {
+                            count: weights.length,
+                          })}
                         </Text>
                       </View>
                     </View>
@@ -2388,7 +2388,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 styles.weightHistoryValue
                               }>
                               {entry.valueKg.toLocaleString(
-                                'fr-FR',
+                                appLocale(),
                               )}{' '}
                               kg
                             </Text>
@@ -2410,7 +2410,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 {Math.abs(
                                   delta,
                                 ).toLocaleString(
-                                  'fr-FR',
+                                  appLocale(),
                                 )}
                               </Text>
                             ) : null}
@@ -2437,7 +2437,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.monthListTitle
                   }>
-                  Évolution par mois
+                  {t('pregnancyStatistics.monthlyEvolutionTitle')}
                 </Text>
 
                 {monthlyBreakdown
@@ -2471,18 +2471,16 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                           style={
                             styles.monthMeta
                           }>
-                          {
-                            month.weightCount
-                          }{' '}
-                          {month.weightCount >
-                          1
-                            ? 'mesures'
-                            : 'mesure'}
+                          {t('pregnancyStatistics.weight.measurementsCount', {
+                            count: month.weightCount,
+                          })}
                           {month.latestWeightKg !==
                           undefined
-                            ? ` · dernière ${month.latestWeightKg.toLocaleString(
-                                'fr-FR',
-                              )} kg`
+                            ? t('pregnancyStatistics.weight.monthlyLatestSuffix', {
+                                value: month.latestWeightKg.toLocaleString(
+                                  appLocale(),
+                                ),
+                              })
                             : ''}
                         </Text>
                       </View>
@@ -2504,17 +2502,17 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               icon="heart-pulse"
               subtitle={
                 showLongitudinalView
-                  ? 'Fréquence et évolution sur la période sélectionnée'
-                  : 'Les symptômes que tu as le plus enregistrés'
+                  ? t('pregnancyStatistics.symptoms.subtitleLongitudinal')
+                  : t('pregnancyStatistics.symptoms.subtitleDefault')
               }
-              title="Symptômes fréquents"
+              title={t('pregnancyStatistics.symptoms.sectionTitle')}
             />
 
             {symptomCounts.length ===
             0 ? (
               <EmptyState
                 icon="heart-pulse"
-                text="Ajoute des symptômes dans ton Journal grossesse pour voir leur fréquence ici."
+                text={t('pregnancyStatistics.symptoms.emptyText')}
               />
             ) : (
               <View
@@ -2587,13 +2585,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 style={
                                   styles.symptomCount
                                 }>
-                                {
-                                  item.count
-                                }{' '}
-                                {item.count >
-                                1
-                                  ? 'jours'
-                                  : 'jour'}
+                                {t('pregnancyStatistics.symptoms.dayCount', {
+                                  count: item.count,
+                                })}
                               </Text>
                             </View>
                           </View>
@@ -2637,7 +2631,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   style={
                     styles.monthListTitle
                   }>
-                  Évolution par mois
+                  {t('pregnancyStatistics.monthlyEvolutionTitle')}
                 </Text>
 
                 {monthlyBreakdown
@@ -2686,14 +2680,10 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 style={
                                   styles.chipText
                                 }>
-                                {
-                                  symptom.name
-                                }{' '}
-                                ·{' '}
-                                {
-                                  symptom.count
-                                }{' '}
-                                j
+                                {t('pregnancyStatistics.symptoms.monthChip', {
+                                  name: symptom.name,
+                                  count: symptom.count,
+                                })}
                               </Text>
                             </View>
                           ),
@@ -2718,7 +2708,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                 style={
                   styles.sectionTitle
                 }>
-                Bien-être
+                {t('pregnancyStatistics.wellness.sectionTitle')}
               </Text>
 
               <Text
@@ -2726,8 +2716,8 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                   styles.sectionDescription
                 }>
                 {showLongitudinalView
-                  ? 'Ton évolution sur la période sélectionnée'
-                  : 'Tes tendances quotidiennes'}
+                  ? t('pregnancyStatistics.wellness.subtitleLongitudinal')
+                  : t('pregnancyStatistics.wellness.subtitleDefault')}
               </Text>
             </View>
           </View>
@@ -2744,21 +2734,18 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     ]
                   : 'emoticon-outline'
               }
-              label="Humeur"
+              label={t('pregnancyStatistics.wellness.moodLabel')}
               supporting={
                 moodEntries.length >
                 0
-                  ? `${moodEntries.length} ${
-                      moodEntries.length >
-                      1
-                        ? 'entrées'
-                        : 'entrée'
-                    }`
-                  : 'Aucune donnée'
+                  ? t('pregnancyStatistics.wellness.moodEntries', {
+                      count: moodEntries.length,
+                    })
+                  : t('pregnancyStatistics.overview.noData')
               }
               value={
                 mostFrequentMood
-                  ? MOOD_LABELS[
+                  ? moodLabelsMap[
                       mostFrequentMood
                     ]
                   : '—'
@@ -2767,23 +2754,21 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
 
             <WellnessCard
               icon="weather-night"
-              label="Sommeil"
+              label={t('pregnancyStatistics.wellness.sleepLabel')}
               supporting={
                 sleepEntries.length >
                 0
-                  ? `${sleepEntries.length} ${
-                      sleepEntries.length >
-                      1
-                        ? 'nuits suivies'
-                        : 'nuit suivie'
-                    }`
-                  : 'Aucune donnée'
+                  ? t('pregnancyStatistics.wellness.sleepTracked', {
+                      count: sleepEntries.length,
+                    })
+                  : t('pregnancyStatistics.overview.noData')
               }
               value={
                 averageSleepMinutes !==
                 undefined
                   ? formatDurationMinutes(
                       averageSleepMinutes,
+                      t,
                     )
                   : '—'
               }
@@ -2804,8 +2789,8 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               }>
               <SectionHeader
                 icon="chart-box-outline"
-                subtitle="Ton humeur et ton sommeil, mois par mois"
-                title="Évolution du bien-être"
+                subtitle={t('pregnancyStatistics.wellness.monthlySubtitle')}
+                title={t('pregnancyStatistics.wellness.monthlyTitle')}
               />
 
               <View
@@ -2866,13 +2851,13 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 style={
                                   styles.chipText
                                 }>
-                                Humeur ·{' '}
-                                {
-                                  MOOD_LABELS[
-                                    month
-                                      .mostFrequentMood
-                                  ]
-                                }
+                                {t('pregnancyStatistics.wellness.moodChip', {
+                                  label:
+                                    moodLabelsMap[
+                                      month
+                                        .mostFrequentMood
+                                    ],
+                                })}
                               </Text>
                             </View>
                           ) : null}
@@ -2887,15 +2872,17 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 style={
                                   styles.chipText
                                 }>
-                                Sommeil ·{' '}
                                 {month.averageSleepMinutes !==
                                 undefined
-                                  ? formatDurationMinutes(
-                                      month.averageSleepMinutes,
-                                    )
-                                  : `${
-                                      month.sleepCount
-                                    } nuits`}
+                                  ? t('pregnancyStatistics.wellness.sleepChipDuration', {
+                                      value: formatDurationMinutes(
+                                        month.averageSleepMinutes,
+                                        t,
+                                      ),
+                                    })
+                                  : t('pregnancyStatistics.wellness.sleepChipCount', {
+                                      count: month.sleepCount,
+                                    })}
                               </Text>
                             </View>
                           ) : null}
@@ -2921,25 +2908,30 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               }>
               <SectionHeader
                 icon="chart-box-outline"
-                subtitle="Quelques repères sur la période sélectionnée"
-                title="Détails du suivi"
+                subtitle={t('pregnancyStatistics.details.sectionSubtitle')}
+                title={t('pregnancyStatistics.details.sectionTitle')}
               />
 
               {sleepEntries.length >
               0 ? (
                 <DetailRow
                   icon="weather-night"
-                  label="Sommeil"
+                  label={t('pregnancyStatistics.details.sleepLabel')}
                   last={
                     isSleepRowLast
                   }
                   value={
                     averageSleepMinutes !==
                     undefined
-                      ? `Moyenne ${formatDurationMinutes(
-                          averageSleepMinutes,
-                        )}`
-                      : `${sleepEntries.length} nuits suivies`
+                      ? t('pregnancyStatistics.details.sleepAverage', {
+                          duration: formatDurationMinutes(
+                            averageSleepMinutes,
+                            t,
+                          ),
+                        })
+                      : t('pregnancyStatistics.wellness.sleepTracked', {
+                          count: sleepEntries.length,
+                        })
                   }
                 />
               ) : null}
@@ -2947,17 +2939,21 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               {hasMedicalInfoInPeriod ? (
                 <DetailRow
                   icon="clipboard-pulse-outline"
-                  label="Informations médicales"
+                  label={t('pregnancyStatistics.details.medicalInfoLabel')}
                   last={
                     isMedicalInfoRowLast
                   }
                   value={
                     medicalInfoDatesInPeriod.length ===
                     1
-                      ? `Renseignées · ${dateLabel(
-                          medicalInfoDatesInPeriod[0],
-                        )}`
-                      : `${medicalInfoDatesInPeriod.length} jours renseignés`
+                      ? t('pregnancyStatistics.details.medicalInfoLogged', {
+                          date: dateLabel(
+                            medicalInfoDatesInPeriod[0],
+                          ),
+                        })
+                      : t('pregnancyStatistics.details.medicalInfoDaysLogged', {
+                          count: medicalInfoDatesInPeriod.length,
+                        })
                   }
                 />
               ) : null}
@@ -2965,11 +2961,12 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               {hasAppointmentsInPeriod ? (
                 <DetailRow
                   icon="calendar-check-outline"
-                  label="Suivi médical"
+                  label={t('pregnancyStatistics.details.medicalFollowUpLabel')}
                   last
                   value={formatMedicalSummary(
                     appointmentCount,
                     examCount,
+                    t,
                   )}
                 />
               ) : null}
@@ -2989,7 +2986,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                     style={
                       styles.monthListTitle
                     }>
-                    Évolution par mois
+                    {t('pregnancyStatistics.monthlyEvolutionTitle')}
                   </Text>
 
                   {monthlyBreakdown
@@ -3027,6 +3024,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                             {formatMedicalSummary(
                               month.appointmentCount,
                               month.examCount,
+                              t,
                             )}
                           </Text>
                         </View>

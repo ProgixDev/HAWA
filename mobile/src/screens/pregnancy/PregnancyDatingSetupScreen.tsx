@@ -9,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -30,6 +31,7 @@ import {
   validatePregnancyDatingDate,
 } from '../../utils/pregnancyDatingValidation';
 import {syncPregnancyNotificationsForActiveObjective} from '../../utils/pregnancyReminderScheduling';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -46,43 +48,40 @@ type OptionConfig = {
   dateFieldLabel?: string;
 };
 
-const OPTIONS: OptionConfig[] = [
-  {
-    id: 'lastPeriod',
-    icon: 'calendar-outline',
-    label: 'Premier jour de mes dernières règles',
-    description:
-      'Utilisé pour estimer la date d’accouchement.',
-    dateFieldLabel:
-      'Date de début des dernières règles',
-  },
-  {
-    id: 'dueDate',
-    icon: 'calendar-check-outline',
-    label: 'Date prévue d’accouchement',
-    description:
-      'Utilisé pour estimer la semaine de grossesse.',
-    dateFieldLabel:
-      'Date prévue d’accouchement',
-  },
-  {
-    id: 'conceptionDate',
-    icon: 'heart-outline',
-    label: 'Date estimée de conception',
-    description:
-      'Utilisé pour estimer la date d’accouchement.',
-    dateFieldLabel:
-      'Date estimée de conception',
-  },
-  {
-    id: 'later',
-    icon: 'clock-outline',
-    label:
-      'Je renseignerai ces informations plus tard',
-    description:
-      'Tu pourras compléter ces informations plus tard.',
-  },
-];
+// Built from `t()` inside the component (see `useMemo(buildOptions, ...)`
+// below) rather than as a module-level constant, since the labels/
+// descriptions must react to the active app language.
+function buildOptions(t: (key: string) => string): OptionConfig[] {
+  return [
+    {
+      id: 'lastPeriod',
+      icon: 'calendar-outline',
+      label: t('pregnancyDatingSetup.options.lastPeriod.label'),
+      description: t('pregnancyDatingSetup.options.lastPeriod.description'),
+      dateFieldLabel: t('pregnancyDatingSetup.options.lastPeriod.dateFieldLabel'),
+    },
+    {
+      id: 'dueDate',
+      icon: 'calendar-check-outline',
+      label: t('pregnancyDatingSetup.options.dueDate.label'),
+      description: t('pregnancyDatingSetup.options.dueDate.description'),
+      dateFieldLabel: t('pregnancyDatingSetup.options.dueDate.dateFieldLabel'),
+    },
+    {
+      id: 'conceptionDate',
+      icon: 'heart-outline',
+      label: t('pregnancyDatingSetup.options.conceptionDate.label'),
+      description: t('pregnancyDatingSetup.options.conceptionDate.description'),
+      dateFieldLabel: t('pregnancyDatingSetup.options.conceptionDate.dateFieldLabel'),
+    },
+    {
+      id: 'later',
+      icon: 'clock-outline',
+      label: t('pregnancyDatingSetup.options.later.label'),
+      description: t('pregnancyDatingSetup.options.later.description'),
+    },
+  ];
+}
 
 /* ============================================================
    DATE FIELD
@@ -101,6 +100,7 @@ function DateField({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const fieldAnim = useRef(
     new Animated.Value(0),
   ).current;
@@ -140,11 +140,10 @@ function DateField({
       </Text>
 
       <Pressable
-        accessibilityLabel={`${label}, ${
-          date
-            ? formatFullDate(date)
-            : 'non renseignée'
-        }`}
+        accessibilityLabel={t('pregnancyDatingSetup.dateFieldAccessibility', {
+          label,
+          value: date ? formatFullDate(date) : t('pregnancyDatingSetup.dateNotSet'),
+        })}
         accessibilityRole="button"
         onPress={onPress}
         style={({pressed}) => [
@@ -162,7 +161,7 @@ function DateField({
         <Text style={styles.dateFieldValue}>
           {date
             ? formatFullDate(date)
-            : 'Choisir une date'}
+            : t('pregnancyDatingSetup.chooseADate')}
         </Text>
 
         <View style={styles.dateChevron}>
@@ -185,9 +184,11 @@ function PregnancyDatingSetupScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const [method, setMethod] =
     useState<PregnancyDatingMethod>(
@@ -379,7 +380,7 @@ function PregnancyDatingSetupScreen({
           ===================================================== */}
 
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             hitSlop={12}
             onPress={
               navigation.goBack
@@ -433,13 +434,13 @@ function PregnancyDatingSetupScreen({
                   name="heart-pulse"
                   size={13}
                 />
-                <Text style={styles.eyebrow}>MA GROSSESSE</Text>
+                <Text style={styles.eyebrow}>{t('pregnancyDatingSetup.eyebrow')}</Text>
               </View>
 
-              <Text style={styles.title}>Configurer ma grossesse</Text>
+              <Text style={styles.title}>{t('pregnancyDatingSetup.title')}</Text>
 
               <Text style={styles.subtitle}>
-                Choisis la méthode qui te convient pour estimer le début de ta grossesse.
+                {t('pregnancyDatingSetup.subtitle')}
               </Text>
             </View>
           </Animated.View>
@@ -671,7 +672,7 @@ function PregnancyDatingSetupScreen({
               style={
                 styles.nextText
               }>
-              {route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+              {route.params?.mode === 'edit' ? t('common.save') : t('pregnancyDatingSetup.next')}
             </Text>
 
             <MaterialDesignIcons

@@ -26,6 +26,7 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
@@ -77,44 +78,51 @@ import {
   type MenopauseTreatmentStatus,
 } from '../../state/menopauseJournalStore';
 import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
+import {getAppLanguage} from '../../state/themePreferences';
 import type {MoodLevel} from '../../types/journal';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 type RouteProps = RouteProp<RootStackParamList, 'MenopauseJournalEntry'>;
 
-const CATEGORY_COPY: Record<
+// Built inside the component (via useMemo, keyed on `t`) so the copy follows
+// the app language — same buildXxx(t) pattern as
+// ContraceptionStatisticsScreen.tsx's buildPeriodOptions(t).
+function buildCategoryCopy(t: (key: string) => string): Record<
   MenopauseJournalCategory,
   {description: string; saveLabel: string}
-> = {
-  symptoms: {
-    description: 'Sélectionne les symptômes que tu ressens aujourd’hui. Tu peux en choisir plusieurs.',
-    saveLabel: 'Enregistrer le suivi',
-  },
-  mood: {
-    description: 'Comment te sens-tu aujourd’hui ? Choisis l’humeur qui te correspond le mieux.',
-    saveLabel: 'Enregistrer l’humeur',
-  },
-  sleep: {
-    description: 'Note la durée et la qualité de ton sommeil cette nuit.',
-    saveLabel: 'Enregistrer mon sommeil',
-  },
-  energy: {
-    description: 'Comment te sens-tu niveau énergie aujourd’hui ? Choisis l’option qui te correspond.',
-    saveLabel: 'Enregistrer mon énergie',
-  },
-  treatment: {
-    description: 'Indique si tu as pris ton traitement aujourd’hui. C’est un suivi personnel, sans jugement.',
-    saveLabel: 'Enregistrer le suivi',
-  },
-  labResults: {
-    description: 'Ajoute tes résultats d’analyses pour suivre leur évolution au fil du temps.',
-    saveLabel: 'Enregistrer le résultat',
-  },
-  notes: {
-    description: 'Un espace privé pour noter tes pensées, émotions ou tout ce qui compte pour toi.',
-    saveLabel: 'Enregistrer ma note',
-  },
-};
+> {
+  return {
+    symptoms: {
+      description: t('menopauseJournalEntry.categories.symptoms.description'),
+      saveLabel: t('menopauseJournalEntry.categories.symptoms.saveLabel'),
+    },
+    mood: {
+      description: t('menopauseJournalEntry.categories.mood.description'),
+      saveLabel: t('menopauseJournalEntry.categories.mood.saveLabel'),
+    },
+    sleep: {
+      description: t('menopauseJournalEntry.categories.sleep.description'),
+      saveLabel: t('menopauseJournalEntry.categories.sleep.saveLabel'),
+    },
+    energy: {
+      description: t('menopauseJournalEntry.categories.energy.description'),
+      saveLabel: t('menopauseJournalEntry.categories.energy.saveLabel'),
+    },
+    treatment: {
+      description: t('menopauseJournalEntry.categories.treatment.description'),
+      saveLabel: t('menopauseJournalEntry.categories.treatment.saveLabel'),
+    },
+    labResults: {
+      description: t('menopauseJournalEntry.categories.labResults.description'),
+      saveLabel: t('menopauseJournalEntry.categories.labResults.saveLabel'),
+    },
+    notes: {
+      description: t('menopauseJournalEntry.categories.notes.description'),
+      saveLabel: t('menopauseJournalEntry.categories.notes.saveLabel'),
+    },
+  };
+}
 
 const INTENSITY_ICONS: Record<MenopauseIntensity, IconName> = {
   mild: 'sprout-outline',
@@ -134,18 +142,20 @@ const ENERGY_TINTS: Record<MenopauseEnergyLevel, string> = {
   high: '#EBF6EF',
 };
 
-const SLEEP_QUALITY_COPY: Record<MenopauseSleepQuality, string> = {
-  good: 'Nuit réparatrice, je me sens reposée.',
-  average: 'Quelques réveils, repos moyen.',
-  poor: 'Sommeil léger ou réveils fréquents.',
-};
+function buildSleepQualityCopy(t: (key: string) => string): Record<MenopauseSleepQuality, string> {
+  return {
+    good: t('menopauseJournalEntry.sleep.qualityDescriptions.good'),
+    average: t('menopauseJournalEntry.sleep.qualityDescriptions.average'),
+    poor: t('menopauseJournalEntry.sleep.qualityDescriptions.poor'),
+  };
+}
 
 function formatResultDate(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00`);
   if (Number.isNaN(parsed.getTime())) {
     return dateKey;
   }
-  return new Intl.DateTimeFormat('fr-FR', {
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -153,17 +163,11 @@ function formatResultDate(dateKey: string): string {
 }
 
 function todayLabel(): string {
-  return new Intl.DateTimeFormat('fr-FR', {
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   }).format(new Date());
-}
-
-const LAB_FUTURE_DATE_MESSAGE = 'La date du prélèvement ne peut pas être dans le futur.';
-
-function selectionLabel(count: number, singular = 'sélectionnée'): string {
-  return `${count} ${count === 1 ? singular : `${singular}s`}`;
 }
 
 function IconCircle({
@@ -222,13 +226,14 @@ function CardHeading({
 }): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
   return (
     <View style={styles.cardHeading}>
       <IconCircle icon={icon} size={40} />
       <View style={styles.cardHeadingCopy}>
         <Text style={styles.cardHeadingTitle}>
           {title}
-          {optional ? <Text style={styles.optionalText}> (optionnel)</Text> : null}
+          {optional ? <Text style={styles.optionalText}> {t('menopauseJournalEntry.common.optionalLabel')}</Text> : null}
         </Text>
         {subtitle ? <Text style={styles.cardHeadingSubtitle}>{subtitle}</Text> : null}
       </View>
@@ -402,6 +407,10 @@ function FadeIn({children}: {children: React.ReactNode}): React.JSX.Element {
 function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const categoryCopy = useMemo(() => buildCategoryCopy(t), [t]);
+  const sleepQualityCopy = useMemo(() => buildSleepQualityCopy(t), [t]);
+  const labFutureDateMessage = t('menopauseJournalEntry.errors.labFutureDate');
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const {params} = useRoute<RouteProps>();
   const {category} = params;
@@ -548,7 +557,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     const picked = date.toLocaleDateString('en-CA');
     // A sample cannot have been taken in the future: reject, keep the date.
     if (picked > today) {
-      setError(LAB_FUTURE_DATE_MESSAGE);
+      setError(labFutureDateMessage);
       return;
     }
     setError('');
@@ -577,12 +586,17 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
   const requestDeleteLab = (result: MenopauseLabResult) => {
     Alert.alert(
-      'Supprimer ce résultat ?',
-      `${MENOPAUSE_LAB_TYPE_LABELS[result.type]} : ${result.value}${result.unit ? ` ${result.unit}` : ''} · ${formatResultDate(result.date)}. Cette action est définitive.`,
+      t('menopauseJournalEntry.alerts.deleteLabTitle'),
+      t('menopauseJournalEntry.alerts.deleteLabMessage', {
+        type: MENOPAUSE_LAB_TYPE_LABELS[result.type],
+        value: result.value,
+        unit: result.unit ? ` ${result.unit}` : '',
+        date: formatResultDate(result.date),
+      }),
       [
-        {text: 'Annuler', style: 'cancel'},
+        {text: t('menopauseJournalEntry.common.cancel'), style: 'cancel'},
         {
-          text: 'Supprimer',
+          text: t('menopauseJournalEntry.common.delete'),
           style: 'destructive',
           onPress: async () => {
             await deleteMenopauseLabResult(result.id);
@@ -604,14 +618,14 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
   const requestClearCategory = () => {
     Alert.alert(
-      'Effacer ce suivi ?',
+      t('menopauseJournalEntry.alerts.clearTitle'),
       isPastEntryDate
-        ? `Les informations enregistrées pour le ${formatResultDate(entryDate)} seront supprimées.`
-        : 'Les informations enregistrées aujourd’hui seront supprimées.',
+        ? t('menopauseJournalEntry.alerts.clearMessagePast', {date: formatResultDate(entryDate)})
+        : t('menopauseJournalEntry.alerts.clearMessageToday'),
       [
-        {text: 'Annuler', style: 'cancel'},
+        {text: t('menopauseJournalEntry.common.cancel'), style: 'cancel'},
         {
-          text: 'Effacer',
+          text: t('menopauseJournalEntry.common.clear'),
           style: 'destructive',
           onPress: async () => {
             await clearMenopauseJournalFields(entryDate, MENOPAUSE_CATEGORY_FIELDS[category]);
@@ -642,7 +656,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   const handleSave = async () => {
     setError('');
     if (isFutureEntryDate && category !== 'labResults') {
-      setError('Tu ne peux pas enregistrer un suivi pour une date à venir.');
+      setError(t('menopauseJournalEntry.errors.futureDate'));
       return;
     }
     setSaving(true);
@@ -651,7 +665,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       switch (category) {
         case 'symptoms':
           if (visibleSymptomOptions.length === 0) {
-            setError('Choisis d’abord les symptômes que tu souhaites suivre.');
+            setError(t('menopauseJournalEntry.errors.chooseSymptomsFirst'));
             setSaving(false);
             return;
           }
@@ -665,7 +679,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           break;
         case 'mood':
           if (!mood) {
-            setError('Sélectionne ton humeur.');
+            setError(t('menopauseJournalEntry.errors.selectMood'));
             setSaving(false);
             return;
           }
@@ -679,7 +693,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             parsedDuration !== undefined &&
             (Number.isNaN(parsedDuration) || parsedDuration < 0 || parsedDuration > 24)
           ) {
-            setError('Indique une durée de sommeil valide, entre 0 et 24 heures.');
+            setError(t('menopauseJournalEntry.errors.invalidSleepDuration'));
             setSaving(false);
             return;
           }
@@ -696,7 +710,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         }
         case 'energy':
           if (!energyLevel) {
-            setError('Sélectionne ton niveau d’énergie.');
+            setError(t('menopauseJournalEntry.errors.selectEnergyLevel'));
             setSaving(false);
             return;
           }
@@ -706,8 +720,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           if (!treatmentStatus) {
             setError(
               isPastEntryDate
-                ? 'Indique si tu as pris ton traitement ce jour-là.'
-                : 'Indique si tu as pris ton traitement aujourd’hui.',
+                ? t('menopauseJournalEntry.errors.treatmentRequiredPast')
+                : t('menopauseJournalEntry.errors.treatmentRequiredToday'),
             );
             setSaving(false);
             return;
@@ -721,18 +735,18 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           break;
         case 'labResults': {
           if (!labType) {
-            setError('Sélectionne un type d’analyse.');
+            setError(t('menopauseJournalEntry.errors.selectLabType'));
             setSaving(false);
             return;
           }
           const parsedValue = Number(labValue.replace(',', '.'));
           if (!labValue.trim() || Number.isNaN(parsedValue)) {
-            setError('Indique une valeur numérique pour ce résultat.');
+            setError(t('menopauseJournalEntry.errors.invalidLabValue'));
             setSaving(false);
             return;
           }
           if (effectiveLabDateKey > today) {
-            setError(LAB_FUTURE_DATE_MESSAGE);
+            setError(labFutureDateMessage);
             setSaving(false);
             return;
           }
@@ -745,7 +759,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             });
             if (!updated) {
               resetLabForm();
-              setError('Ce résultat n’existe plus.');
+              setError(t('menopauseJournalEntry.errors.labResultGone'));
               setLabResultsHistory(getMenopauseLabResults(labType));
               setSaving(false);
               return;
@@ -778,8 +792,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       // never fires on invalid input, and this line is only reached after
       // the real menopauseJournalStore writes above have completed.
       toast.show(
-        'Enregistré',
-        isPastEntryDate ? `Suivi du ${formatResultDate(entryDate)}` : item.journalSubtitle,
+        t('menopauseJournalEntry.common.savedToastTitle'),
+        isPastEntryDate ? t('menopauseJournalEntry.common.savedToastPast', {date: formatResultDate(entryDate)}) : item.journalSubtitle,
         () => navigation.goBack(),
       );
     } finally {
@@ -795,9 +809,9 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     <>
       <JournalCard>
         <CardHeading
-          badge={selectionLabel(symptoms.length)}
+          badge={t('menopauseJournalEntry.common.selectedCount', {count: symptoms.length})}
           icon="heart-pulse"
-          title="Symptômes ressentis"
+          title={t('menopauseJournalEntry.symptoms.sectionTitle')}
         />
         {visibleSymptomOptions.length > 0 ? (
           <>
@@ -817,26 +831,26 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               ))}
             </ChoiceGrid>
             <Pressable
-              accessibilityLabel="Modifier les symptômes suivis"
+              accessibilityLabel={t('menopauseJournalEntry.symptoms.editTrackedLink')}
               accessibilityRole="button"
               onPress={editTrackedSymptoms}
               style={({pressed}) => [styles.historyBadge, styles.editSymptomsLink, pressed && styles.pressed]}>
-              <Text style={styles.historyBadgeText}>Modifier les symptômes suivis</Text>
+              <Text style={styles.historyBadgeText}>{t('menopauseJournalEntry.symptoms.editTrackedLink')}</Text>
             </Pressable>
           </>
         ) : (
           <View>
             <InformativePanel
               icon="information-outline"
-              text="Tu n’as choisi aucun symptôme à suivre pour le moment. Choisis ceux qui te concernent pour les retrouver ici."
-              title="Aucun symptôme suivi"
+              text={t('menopauseJournalEntry.symptoms.noneTrackedText')}
+              title={t('menopauseJournalEntry.symptoms.noneTrackedTitle')}
             />
             <Pressable
-              accessibilityLabel="Choisir mes symptômes"
+              accessibilityLabel={t('menopauseJournalEntry.symptoms.chooseCta')}
               accessibilityRole="button"
               onPress={editTrackedSymptoms}
               style={({pressed}) => [styles.saveButton, styles.editSymptomsCta, pressed && styles.pressed]}>
-              <Text style={styles.saveButtonText}>Choisir mes symptômes</Text>
+              <Text style={styles.saveButtonText}>{t('menopauseJournalEntry.symptoms.chooseCta')}</Text>
             </Pressable>
           </View>
         )}
@@ -846,8 +860,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         <CardHeading
           icon="chart-bell-curve"
           optional
-          subtitle="Comment évalues-tu l’intensité globale aujourd’hui ?"
-          title="Intensité générale"
+          subtitle={t('menopauseJournalEntry.symptoms.intensitySubtitle')}
+          title={t('menopauseJournalEntry.symptoms.intensityTitle')}
         />
         <ChoiceGrid third>
           {(Object.keys(MENOPAUSE_INTENSITY_LABELS) as MenopauseIntensity[]).map(level => (
@@ -870,9 +884,9 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   const renderMood = () => (
     <JournalCard>
       <CardHeading
-        badge={mood ? selectionLabel(1) : 'À choisir'}
+        badge={mood ? t('menopauseJournalEntry.common.selectedCount', {count: 1}) : t('menopauseJournalEntry.common.toChoose')}
         icon="emoticon-outline"
-        title="Comment te sens-tu ?"
+        title={t('menopauseJournalEntry.mood.title')}
       />
       <ChoiceGrid third>
         {(Object.keys(MENOPAUSE_MOOD_LABELS) as MoodLevel[]).map(level => (
@@ -890,8 +904,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       </ChoiceGrid>
       <InformativePanel
         icon="star-four-points-outline"
-        text="Il est tout à fait normal d’avoir des hauts et des bas. Prends soin de toi, à ton rythme."
-        title="Chaque émotion est normale"
+        text={t('menopauseJournalEntry.mood.kindnessText')}
+        title={t('menopauseJournalEntry.mood.kindnessTitle')}
       />
     </JournalCard>
   );
@@ -899,10 +913,10 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
   const renderSleep = () => (
     <>
       <JournalCard>
-        <CardHeading icon="clock-outline" title="Durée de sommeil" />
+        <CardHeading icon="clock-outline" title={t('menopauseJournalEntry.sleep.durationTitle')} />
         <View style={styles.durationRow}>
           <Pressable
-            accessibilityLabel="Diminuer la durée de sommeil"
+            accessibilityLabel={t('menopauseJournalEntry.sleep.decreaseAccessibility')}
             accessibilityRole="button"
             onPress={() => adjustSleep(-0.5)}
             style={({pressed}) => [styles.stepButton, pressed && styles.pressed]}>
@@ -910,7 +924,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           </Pressable>
           <View style={styles.durationInputWrap}>
             <TextInput
-              accessibilityLabel="Durée du sommeil en heures"
+              accessibilityLabel={t('menopauseJournalEntry.sleep.durationInputAccessibility')}
               keyboardType="decimal-pad"
               onChangeText={setSleepDuration}
               placeholder="7"
@@ -922,27 +936,29 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
             <Text style={styles.durationSuffix}>h</Text>
           </View>
           <Pressable
-            accessibilityLabel="Augmenter la durée de sommeil"
+            accessibilityLabel={t('menopauseJournalEntry.sleep.increaseAccessibility')}
             accessibilityRole="button"
             onPress={() => adjustSleep(0.5)}
             style={({pressed}) => [styles.stepButton, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="plus" size={25} />
           </Pressable>
         </View>
-        <Text style={styles.durationHint}>Heures passées à dormir, approximativement</Text>
+        <Text style={styles.durationHint}>{t('menopauseJournalEntry.sleep.durationHint')}</Text>
         <View style={styles.sleepPresetRow}>
           {[4, 5, 6, 7, 8, 9].map(hours => {
             const selected = Number(sleepDuration.replace(',', '.')) === hours;
             return (
               <Pressable
-                accessibilityLabel={`${hours} heures`}
+                accessibilityLabel={t('menopauseJournalEntry.sleep.hoursAccessibility', {hours})}
                 accessibilityRole="radio"
                 accessibilityState={{checked: selected}}
                 key={hours}
                 onPress={() => setSleepPreset(hours)}
                 style={({pressed}) => [styles.sleepPreset, selected && styles.sleepPresetSelected, pressed && styles.pressed]}>
                 <Text style={[styles.sleepPresetText, selected && styles.sleepPresetTextSelected]}>
-                  {hours === 9 ? '+9 h' : `${hours} h`}
+                  {hours === 9
+                    ? t('menopauseJournalEntry.sleep.presetPlusLabel', {hours})
+                    : t('menopauseJournalEntry.sleep.presetLabel', {hours})}
                 </Text>
               </Pressable>
             );
@@ -953,14 +969,14 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       <JournalCard>
         <CardHeading
           icon="star-outline"
-          subtitle="Comment qualifierais-tu la qualité de ta nuit ?"
-          title="Qualité du sommeil"
+          subtitle={t('menopauseJournalEntry.sleep.qualitySubtitle')}
+          title={t('menopauseJournalEntry.sleep.qualityTitle')}
         />
         <ChoiceGrid third>
           {(Object.keys(MENOPAUSE_SLEEP_QUALITY_LABELS) as MenopauseSleepQuality[]).map(quality => (
             <SelectableIconCard
               compact
-              description={SLEEP_QUALITY_COPY[quality]}
+              description={sleepQualityCopy[quality]}
               icon={MENOPAUSE_SLEEP_QUALITY_ICONS[quality]}
               iconColor={theme.colors.primary}
               key={quality}
@@ -979,19 +995,13 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     <JournalCard>
       <CardHeading
         icon="lightning-bolt-outline"
-        title={isPastEntryDate ? 'Ton niveau d’énergie ce jour-là' : 'Ton niveau d’énergie aujourd’hui'}
+        title={isPastEntryDate ? t('menopauseJournalEntry.energy.titlePast') : t('menopauseJournalEntry.energy.titleToday')}
       />
       <ChoiceGrid third>
         {(Object.keys(MENOPAUSE_ENERGY_LABELS) as MenopauseEnergyLevel[]).map(level => (
           <SelectableIconCard
             compact
-            description={
-              level === 'low'
-                ? 'Je me sens épuisée, sans énergie.'
-                : level === 'medium'
-                  ? 'J’ai un niveau d’énergie correct.'
-                  : 'Je me sens en forme et pleine d’énergie.'
-            }
+            description={t(`menopauseJournalEntry.energy.descriptions.${level}`)}
             icon={MENOPAUSE_ENERGY_ICONS[level]}
             iconColor={ENERGY_COLORS[level]}
             key={level}
@@ -1004,8 +1014,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       </ChoiceGrid>
       <InformativePanel
         icon="star-four-points-outline"
-        text="Ton niveau d’énergie peut varier selon ton sommeil, ton humeur ou ton activité."
-        title="Chaque jour est différent"
+        text={t('menopauseJournalEntry.energy.varyText')}
+        title={t('menopauseJournalEntry.energy.varyTitle')}
       />
     </JournalCard>
   );
@@ -1014,24 +1024,24 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     <>
       <JournalCard>
         <CardHeading
-          badge={isPastEntryDate ? formatResultDate(entryDate) : 'Aujourd’hui'}
+          badge={isPastEntryDate ? formatResultDate(entryDate) : t('menopauseJournalEntry.common.today')}
           icon="calendar-outline"
           subtitle={
             isPastEntryDate
-              ? 'As-tu pris ton traitement hormonal ce jour-là ?'
-              : 'As-tu pris ton traitement hormonal aujourd’hui ?'
+              ? t('menopauseJournalEntry.treatment.subtitlePast')
+              : t('menopauseJournalEntry.treatment.subtitleToday')
           }
-          title="Statut du jour"
+          title={t('menopauseJournalEntry.treatment.statusTitle')}
         />
         <ChoiceGrid>
           {(Object.keys(MENOPAUSE_TREATMENT_STATUS_LABELS) as MenopauseTreatmentStatus[]).map(status => (
             <SelectableIconCard
               description={
                 status === 'taken'
-                  ? 'J’ai pris mon traitement comme prévu.'
+                  ? t('menopauseJournalEntry.treatment.descriptions.taken')
                   : isPastEntryDate
-                    ? 'Je n’ai pas pris mon traitement ce jour-là.'
-                    : 'Je n’ai pas pris mon traitement aujourd’hui.'
+                    ? t('menopauseJournalEntry.treatment.descriptions.notTakenPast')
+                    : t('menopauseJournalEntry.treatment.descriptions.notTakenToday')
               }
               icon={MENOPAUSE_TREATMENT_STATUS_ICONS[status]}
               iconColor={status === 'taken' ? '#56866B' : '#D45D7B'}
@@ -1049,14 +1059,14 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         <CardHeading
           icon="notebook-edit-outline"
           optional
-          subtitle="Ajoute une note si tu veux préciser quelque chose."
-          title="Notes sur le traitement"
+          subtitle={t('menopauseJournalEntry.treatment.notesSubtitle')}
+          title={t('menopauseJournalEntry.treatment.notesTitle')}
         />
         <PremiumTextArea
-          accessibilityLabel="Notes sur le traitement"
+          accessibilityLabel={t('menopauseJournalEntry.treatment.notesAccessibility')}
           maxLength={300}
           onChangeText={setTreatmentNote}
-          placeholder="Écris ici…"
+          placeholder={t('menopauseJournalEntry.common.writeHerePlaceholder')}
           value={treatmentNote}
         />
       </JournalCard>
@@ -1064,8 +1074,8 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       <InformativePanel
         accent={theme.colors.primary}
         icon="shield-lock-outline"
-        text="AWA ne propose ni dose, ni horaire, ni recommandation. Tu gardes le contrôle sur ton suivi."
-        title="Ton suivi t’appartient"
+        text={t('menopauseJournalEntry.treatment.ownershipText')}
+        title={t('menopauseJournalEntry.treatment.ownershipTitle')}
         tint={theme.colors.primarySoft}
       />
     </>
@@ -1077,13 +1087,13 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         {editingLabId ? (
           <InformativePanel
             icon="pencil-outline"
-            text={`Tu modifies un résultat ${labType ? MENOPAUSE_LAB_TYPE_LABELS[labType] : ''} déjà enregistré.`}
-            title="Modification d’un résultat"
+            text={t('menopauseJournalEntry.lab.editingText', {type: labType ? MENOPAUSE_LAB_TYPE_LABELS[labType] : ''})}
+            title={t('menopauseJournalEntry.lab.editingTitle')}
           />
         ) : null}
         {preferences.labTracking === 'both' && !editingLabId ? (
           <>
-            <CardHeading icon="flask-outline" title="1. Type d’analyse" />
+            <CardHeading icon="flask-outline" title={t('menopauseJournalEntry.lab.typeStepTitle')} />
             <ChoiceGrid>
               {(Object.keys(MENOPAUSE_LAB_TYPE_LABELS) as MenopauseLabType[]).map(type => (
                 <SelectableIconCard
@@ -1103,25 +1113,25 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         <View style={preferences.labTracking === 'both' && !editingLabId ? styles.subsection : undefined}>
           <CardHeading
             icon="flask-outline"
-            title={preferences.labTracking === 'both' && !editingLabId ? '2. Résultat' : 'Résultat'}
+            title={preferences.labTracking === 'both' && !editingLabId ? t('menopauseJournalEntry.lab.resultStepTitle2') : t('menopauseJournalEntry.lab.resultStepTitle')}
           />
           <View style={styles.labInputRow}>
             <View style={[styles.labField, styles.labValueField]}>
-              <Text style={styles.fieldLabel}>Valeur</Text>
+              <Text style={styles.fieldLabel}>{t('menopauseJournalEntry.lab.valueFieldLabel')}</Text>
               <TextInput
-                accessibilityLabel="Valeur de l’analyse"
+                accessibilityLabel={t('menopauseJournalEntry.lab.valueAccessibility')}
                 keyboardType="decimal-pad"
                 onChangeText={setLabValue}
-                placeholder="12,6"
+                placeholder={t('menopauseJournalEntry.lab.valuePlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 style={styles.labValueInput}
                 value={labValue}
               />
             </View>
             <View style={styles.labField}>
-              <Text style={styles.fieldLabel}>Unité <Text style={styles.fieldOptional}>(optionnel)</Text></Text>
+              <Text style={styles.fieldLabel}>{t('menopauseJournalEntry.lab.unitFieldLabel')} <Text style={styles.fieldOptional}>{t('menopauseJournalEntry.common.optionalLabel')}</Text></Text>
               <TextInput
-                accessibilityLabel="Unité de l’analyse"
+                accessibilityLabel={t('menopauseJournalEntry.lab.unitAccessibility')}
                 onChangeText={setLabUnit}
                 placeholder="UI/L"
                 placeholderTextColor={theme.colors.textMuted}
@@ -1132,21 +1142,21 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
           </View>
           <InformativePanel
             icon="information-outline"
-            text="Saisis la valeur exactement comme indiquée sur ton résultat."
-            title="Information"
+            text={t('menopauseJournalEntry.lab.infoText')}
+            title={t('menopauseJournalEntry.lab.infoTitle')}
           />
         </View>
 
         <View style={styles.subsection}>
-          <CardHeading icon="calendar-outline" title="Date du prélèvement" />
+          <CardHeading icon="calendar-outline" title={t('menopauseJournalEntry.lab.sampleDateTitle')} />
           <Pressable
-            accessibilityLabel={`Date du prélèvement : ${formatResultDate(effectiveLabDateKey)}. Modifier`}
+            accessibilityLabel={t('menopauseJournalEntry.lab.sampleDateAccessibility', {date: formatResultDate(effectiveLabDateKey)})}
             accessibilityRole="button"
             onPress={() => setShowLabDatePicker(current => !current)}
             style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
             <IconCircle icon="calendar-outline" size={38} />
             <View style={styles.dateFieldCopy}>
-              <Text style={styles.dateFieldTitle}>{effectiveLabDateKey === today ? 'Aujourd’hui' : 'Date choisie'}</Text>
+              <Text style={styles.dateFieldTitle}>{effectiveLabDateKey === today ? t('menopauseJournalEntry.common.today') : t('menopauseJournalEntry.lab.dateChosenLabel')}</Text>
               <Text style={styles.dateFieldText}>{formatResultDate(effectiveLabDateKey)}</Text>
             </View>
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-down" size={20} />
@@ -1165,14 +1175,14 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
       {labResultsHistory.length > 0 ? (
         <JournalCard>
           <View style={styles.historyHeader}>
-            <Text style={styles.historyTitle}>Mes derniers résultats</Text>
+            <Text style={styles.historyTitle}>{t('menopauseJournalEntry.lab.historyTitle')}</Text>
             {labResultsHistory.length > 5 ? (
               <Pressable
-                accessibilityLabel={showAllLabResults ? 'Réduire la liste des résultats' : 'Voir tous les résultats'}
+                accessibilityLabel={showAllLabResults ? t('menopauseJournalEntry.lab.collapseAccessibility') : t('menopauseJournalEntry.lab.expandAccessibility')}
                 accessibilityRole="button"
                 onPress={() => setShowAllLabResults(current => !current)}
                 style={({pressed}) => [styles.historyBadge, pressed && styles.pressed]}>
-                <Text style={styles.historyBadgeText}>{showAllLabResults ? 'Réduire' : 'Voir tout'}</Text>
+                <Text style={styles.historyBadgeText}>{showAllLabResults ? t('menopauseJournalEntry.lab.collapseLabel') : t('menopauseJournalEntry.lab.expandLabel')}</Text>
               </Pressable>
             ) : null}
           </View>
@@ -1193,20 +1203,20 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                 </View>
                 <View style={styles.recordActions}>
                   <Pressable
-                    accessibilityLabel={`Modifier le résultat ${MENOPAUSE_LAB_TYPE_LABELS[result.type]} du ${formatResultDate(result.date)}`}
+                    accessibilityLabel={t('menopauseJournalEntry.lab.editResultAccessibility', {type: MENOPAUSE_LAB_TYPE_LABELS[result.type], date: formatResultDate(result.date)})}
                     accessibilityRole="button"
                     hitSlop={6}
                     onPress={() => startEditLab(result)}
                     style={({pressed}) => [styles.historyBadge, editingLabId === result.id && styles.recordActionActive, pressed && styles.pressed]}>
-                    <Text style={styles.recordActionText}>Modifier</Text>
+                    <Text style={styles.recordActionText}>{t('menopauseJournalEntry.lab.editLabel')}</Text>
                   </Pressable>
                   <Pressable
-                    accessibilityLabel={`Supprimer le résultat ${MENOPAUSE_LAB_TYPE_LABELS[result.type]} du ${formatResultDate(result.date)}`}
+                    accessibilityLabel={t('menopauseJournalEntry.lab.deleteResultAccessibility', {type: MENOPAUSE_LAB_TYPE_LABELS[result.type], date: formatResultDate(result.date)})}
                     accessibilityRole="button"
                     hitSlop={6}
                     onPress={() => requestDeleteLab(result)}
                     style={({pressed}) => [styles.historyBadge, styles.recordActionDanger, pressed && styles.pressed]}>
-                    <Text style={[styles.recordActionText, styles.recordActionDangerText]}>Supprimer</Text>
+                    <Text style={[styles.recordActionText, styles.recordActionDangerText]}>{t('menopauseJournalEntry.lab.deleteLabel')}</Text>
                   </Pressable>
                 </View>
               </View>
@@ -1221,54 +1231,59 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     <>
       <InformativePanel
         icon="lock-outline"
-        text="Elles restent sur cet appareil. L’accès à cette section utilise ton code ou ta biométrie, si tu les as configurés."
-        title="Tes notes sont privées"
+        text={t('menopauseJournalEntry.notes.privateText')}
+        title={t('menopauseJournalEntry.notes.privateTitle')}
       />
       <JournalCard>
         <View style={styles.notesHeadingRow}>
-          <Text style={styles.notesCardTitle}>Ta note d’aujourd’hui</Text>
+          <Text style={styles.notesCardTitle}>{t('menopauseJournalEntry.notes.todayTitle')}</Text>
           <View style={styles.datePill}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-outline" size={15} />
             <Text style={styles.datePillText}>{todayLabel()}</Text>
           </View>
         </View>
         <PremiumTextArea
-          accessibilityLabel="Notes du jour"
+          accessibilityLabel={t('menopauseJournalEntry.notes.notesAccessibility')}
           maxLength={500}
           minHeight={compact ? 170 : 220}
           onChangeText={setNotes}
-          placeholder="Écris ici…"
+          placeholder={t('menopauseJournalEntry.common.writeHerePlaceholder')}
           value={notes}
         />
         <InformativePanel
           icon="heart-outline"
-          text="Il n’y a pas de bonne ou mauvaise façon d’écrire. Écris librement, à ton rythme."
-          title="Un espace à toi"
+          text={t('menopauseJournalEntry.notes.freedomText')}
+          title={t('menopauseJournalEntry.notes.freedomTitle')}
         />
       </JournalCard>
 
       <JournalCard>
-        <Text style={styles.inspirationTitle}>Besoin d’inspiration ?</Text>
-        <Text style={styles.inspirationSubtitle}>Choisis un sujet pour commencer si tu le souhaites.</Text>
+        <Text style={styles.inspirationTitle}>{t('menopauseJournalEntry.notes.inspirationTitle')}</Text>
+        <Text style={styles.inspirationSubtitle}>{t('menopauseJournalEntry.notes.inspirationSubtitle')}</Text>
         <View style={styles.inspirationGrid}>
-          {[
-            ['heart-outline', 'Ce pour quoi je suis reconnaissante'],
-            ['weather-night', 'Ma journée en quelques mots'],
-            ['flower-outline', 'Ce que j’ai envie de lâcher'],
-            ['star-outline', 'Ce qui m’a apporté de la joie'],
-            ['lightbulb-outline', 'Mes intentions pour demain'],
-            ['pencil-outline', 'Écrire librement'],
-          ].map(([icon, label]) => (
-            <Pressable
-              accessibilityLabel={label}
-              accessibilityRole="button"
-              key={label}
-              onPress={() => setNotes(current => current || `${label} : `)}
-              style={({pressed}) => [styles.inspirationChip, pressed && styles.pressed]}>
-              <MaterialDesignIcons color={theme.colors.primary} name={icon as IconName} size={18} />
-              <Text numberOfLines={2} style={styles.inspirationChipText}>{label}</Text>
-            </Pressable>
-          ))}
+          {(
+            [
+              ['heart-outline', 'gratitude'],
+              ['weather-night', 'day'],
+              ['flower-outline', 'letGo'],
+              ['star-outline', 'joy'],
+              ['lightbulb-outline', 'intentions'],
+              ['pencil-outline', 'freeWriting'],
+            ] as const
+          ).map(([icon, key]) => {
+            const label = t(`menopauseJournalEntry.notes.inspirationChips.${key}`);
+            return (
+              <Pressable
+                accessibilityLabel={label}
+                accessibilityRole="button"
+                key={key}
+                onPress={() => setNotes(current => current || `${label} : `)}
+                style={({pressed}) => [styles.inspirationChip, pressed && styles.pressed]}>
+                <MaterialDesignIcons color={theme.colors.primary} name={icon as IconName} size={18} />
+                <Text numberOfLines={2} style={styles.inspirationChipText}>{label}</Text>
+              </Pressable>
+            );
+          })}
         </View>
       </JournalCard>
     </>
@@ -1295,7 +1310,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
     }
   };
 
-  const copy = CATEGORY_COPY[category];
+  const copy = categoryCopy[category];
 
   return (
     <LinearGradient
@@ -1317,7 +1332,7 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
         style={styles.flex}>
         <View style={[styles.topBar, {paddingTop: getTopPadding(insets.top, true)}]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('menopauseJournalEntry.common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -1351,10 +1366,10 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
                 <MaterialDesignIcons color={item.iconColor} name={item.icon} size={compact ? 24 : 32} />
               </View>
               <Text style={[styles.heroTitle, compact && styles.heroTitleCompact]}>{item.label}</Text>
-              {!compact ? <Text style={styles.heroEyebrow}>PÉRIMÉNOPAUSE / MÉNOPAUSE</Text> : null}
+              {!compact ? <Text style={styles.heroEyebrow}>{t('menopauseJournalEntry.hero.eyebrow')}</Text> : null}
               <Text style={[styles.heroDescription, compact && styles.heroDescriptionCompact]}>
                 {isPastEntryDate
-                  ? `Suivi du ${formatResultDate(entryDate)}. Renseigne ce que tu as ressenti ce jour-là.`
+                  ? t('menopauseJournalEntry.hero.pastDescription', {date: formatResultDate(entryDate)})
                   : copy.description}
               </Text>
             </View>
@@ -1370,16 +1385,16 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
 
             {category === 'labResults' && editingLabId ? (
               <Pressable
-                accessibilityLabel="Annuler la modification"
+                accessibilityLabel={t('menopauseJournalEntry.lab.cancelEdit')}
                 accessibilityRole="button"
                 onPress={resetLabForm}
                 style={({pressed}) => [styles.secondaryAction, pressed && styles.pressed]}>
-                <Text style={styles.secondaryActionText}>Annuler la modification</Text>
+                <Text style={styles.secondaryActionText}>{t('menopauseJournalEntry.lab.cancelEdit')}</Text>
               </Pressable>
             ) : null}
 
             <Pressable
-              accessibilityLabel={category === 'labResults' && editingLabId ? 'Enregistrer les modifications' : copy.saveLabel}
+              accessibilityLabel={category === 'labResults' && editingLabId ? t('menopauseJournalEntry.lab.saveEditLabel') : copy.saveLabel}
               accessibilityRole="button"
               accessibilityState={{disabled: saving}}
               disabled={saving}
@@ -1391,17 +1406,21 @@ function MenopauseJournalEntryScreen(): React.JSX.Element | null {
               ]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'lock-outline'} size={22} />
               <Text style={styles.saveButtonText}>
-                {saving ? 'Enregistrement…' : category === 'labResults' && editingLabId ? 'Enregistrer les modifications' : copy.saveLabel}
+                {saving
+                  ? t('menopauseJournalEntry.common.saving')
+                  : category === 'labResults' && editingLabId
+                    ? t('menopauseJournalEntry.lab.saveEditLabel')
+                    : copy.saveLabel}
               </Text>
             </Pressable>
 
             {clearableFields.length > 0 ? (
               <Pressable
-                accessibilityLabel="Effacer ce suivi"
+                accessibilityLabel={t('menopauseJournalEntry.actions.clearThisTracking')}
                 accessibilityRole="button"
                 onPress={requestClearCategory}
                 style={({pressed}) => [styles.secondaryAction, pressed && styles.pressed]}>
-                <Text style={[styles.secondaryActionText, styles.recordActionDangerText]}>Effacer ce suivi</Text>
+                <Text style={[styles.secondaryActionText, styles.recordActionDangerText]}>{t('menopauseJournalEntry.actions.clearThisTracking')}</Text>
               </Pressable>
             ) : null}
 

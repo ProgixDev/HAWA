@@ -1,10 +1,12 @@
 import React, {memo, useMemo} from 'react';
 import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -19,18 +21,19 @@ type Props = {
 };
 
 function CycleTimelineCard({steps, onPressSeeAll}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.title}>Timeline de ton cycle</Text>
+        <Text style={styles.title}>{t('calendar.timelineTitle')}</Text>
         {/* Only rendered when a destination is supplied — never a link that
             looks tappable but does nothing. */}
         {onPressSeeAll ? (
           <Pressable accessibilityRole="button" hitSlop={8} onPress={onPressSeeAll} style={({pressed}) => pressed && styles.pressed}>
-            <Text style={styles.seeAll}>Voir tout</Text>
+            <Text style={styles.seeAll}>{t('objectiveArticles.seeAll')}</Text>
           </Pressable>
         ) : null}
       </View>

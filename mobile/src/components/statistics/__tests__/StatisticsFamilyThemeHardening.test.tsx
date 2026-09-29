@@ -385,14 +385,14 @@ describe('E5 Statistics family — period filter accessibility (Phase 3 fix)', (
 describe('Cycle — StatisticsScreen: chart sections expose a single accessible summary instead of scattering unlabeled fragments (Phase 3 fix)', () => {
   it('the cycle-duration hero card is grouped into one accessible summary naming the value', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../../../screens/StatisticsScreen.tsx'), 'utf8');
-    expect(source).toMatch(/accessible\s*\n\s*accessibilityLabel=\{`Durée moyenne des cycles/);
+    expect(source).toMatch(/accessible\s*\n\s*accessibilityLabel=\{t\('statistics\.averageCycleDurationAccessibility'/);
     expect(source).toMatch(/accessibilityRole="summary"/);
   });
 
   it('flow-distribution and symptom-frequency rows are each grouped into one accessible summary', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../../../screens/StatisticsScreen.tsx'), 'utf8');
-    expect(source).toMatch(/accessibilityLabel=\{`\$\{FLOW_LABELS\[item\.intensity\]\}/);
-    expect(source).toMatch(/accessibilityLabel=\{`\$\{index \+ 1\}\. \$\{item\.name\}/);
+    expect(source).toMatch(/accessibilityLabel=\{t\('statistics\.flowLabelDaysColon'/);
+    expect(source).toMatch(/accessibilityLabel=\{t\('statistics\.rankedSymptomAccessibility'/);
   });
 });
 

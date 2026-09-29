@@ -8,6 +8,7 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {useFocusEffect} from '@react-navigation/native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {
@@ -51,6 +52,7 @@ import {
   type CategoryDistributionEntry,
   type MonthlyCategoryTrendEntry,
 } from '../../utils/irregularStatisticsMath';
+import '../../i18n';
 
 /* ============================================================
    TYPES
@@ -58,25 +60,31 @@ import {
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const PERIOD_LABELS: Record<StatisticsPeriod, string> = {
-  '1': '1 mois',
-  '3': '3 mois',
-  '6': '6 mois',
-  '12': '12 mois',
-};
+function periodLabels(t: (key: string) => string): Record<StatisticsPeriod, string> {
+  return {
+    '1': t('irregularStatistics.periods.oneMonth'),
+    '3': t('irregularStatistics.periods.threeMonths'),
+    '6': t('irregularStatistics.periods.sixMonths'),
+    '12': t('irregularStatistics.periods.twelveMonths'),
+  };
+}
 
 // Same convention as IrregularCalendarContent.tsx's CATEGORY_LABEL/ICON —
 // deliberately excludes 'weight' (rendered as its own dedicated POIDS
 // section below, since a measurement list reads better than a value
 // distribution) and 'period'/"Règles" (that belongs to the shared Cycle
 // Statistics data model, not SOPK's own store).
-const SYMPTOM_CATEGORY_META: Array<{key: IrregularJournalCategory; label: string; icon: IconName}> = [
-  {key: 'acne', label: 'Acné', icon: 'face-woman-outline'},
-  {key: 'hairGrowth', label: 'Pilosité', icon: 'human'},
-  {key: 'pain', label: 'Douleurs', icon: 'lightning-bolt-outline'},
-  {key: 'mood', label: 'Humeur', icon: 'emoticon-outline'},
-  {key: 'fatigue', label: 'Fatigue & symptômes', icon: 'battery-medium'},
-];
+function symptomCategoryMeta(
+  t: (key: string) => string,
+): Array<{key: IrregularJournalCategory; label: string; icon: IconName}> {
+  return [
+    {key: 'acne', label: t('irregularStatistics.categories.acne'), icon: 'face-woman-outline'},
+    {key: 'hairGrowth', label: t('irregularStatistics.categories.hairGrowth'), icon: 'human'},
+    {key: 'pain', label: t('irregularStatistics.categories.pain'), icon: 'lightning-bolt-outline'},
+    {key: 'mood', label: t('irregularStatistics.categories.mood'), icon: 'emoticon-outline'},
+    {key: 'fatigue', label: t('irregularStatistics.categories.fatigue'), icon: 'battery-medium'},
+  ];
+}
 
 /* ============================================================
    SECTION HEADER
@@ -155,6 +163,7 @@ function CategoryCard({
   showLongitudinalView: boolean;
   monthsLabel: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const totalRecordedDays = distribution.reduce((sum, item) => sum + item.days, 0);
@@ -166,8 +175,8 @@ function CategoryCard({
         icon={icon}
         subtitle={
           showLongitudinalView
-            ? `Répartition par mois sur ${monthsLabel}`
-            : 'Visualisation de ce mois'
+            ? t('irregularStatistics.category.subtitleLongitudinal', {months: monthsLabel})
+            : t('irregularStatistics.category.subtitleMonth')
         }
         title={title}
       />
@@ -178,10 +187,10 @@ function CategoryCard({
             <View style={styles.monthVisualization}>
               <View style={styles.monthVisualizationTop}>
                 <View>
-                  <Text style={styles.monthVisualizationEyebrow}>CE MOIS</Text>
+                  <Text style={styles.monthVisualizationEyebrow}>{t('irregularStatistics.common.thisMonth')}</Text>
                   <Text style={styles.monthVisualizationNumber}>{totalRecordedDays}</Text>
                   <Text style={styles.monthVisualizationUnit}>
-                    {totalRecordedDays > 1 ? 'jours renseignés' : 'jour renseigné'}
+                    {t('irregularStatistics.common.trackedDaysLabel', {count: totalRecordedDays})}
                   </Text>
                 </View>
 
@@ -201,7 +210,7 @@ function CategoryCard({
                           {item.value}
                         </Text>
                         <Text style={styles.distributionValue}>
-                          {item.days} {item.days > 1 ? 'jours' : 'jour'}
+                          {t('irregularStatistics.common.daysCount', {count: item.days})}
                         </Text>
                       </View>
 
@@ -218,7 +227,7 @@ function CategoryCard({
               {distribution.map(item => (
                 <View key={item.value} style={styles.chip}>
                   <Text style={styles.chipText}>
-                    {item.value} · {item.days} {item.days > 1 ? 'jours' : 'jour'}
+                    {`${item.value} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
                   </Text>
                 </View>
               ))}
@@ -227,15 +236,15 @@ function CategoryCard({
         </>
       ) : (
         <DataNotice
-          detail="Renseigne cette observation dans le Journal quotidien pour voir apparaître cette statistique."
+          detail={t('irregularStatistics.category.emptyDetail')}
           icon="calendar-blank-outline"
-          title="Aucune donnée enregistrée ce mois-ci"
+          title={t('irregularStatistics.category.emptyTitle')}
         />
       )}
 
       {showLongitudinalView && monthlyTrend.length > 0 ? (
         <View style={styles.monthList}>
-          <Text style={styles.monthListTitle}>Évolution par mois</Text>
+          <Text style={styles.monthListTitle}>{t('irregularStatistics.category.evolutionTitle')}</Text>
 
           {monthlyTrend.map(month => (
             <View key={month.monthKey} style={styles.monthItem}>
@@ -247,7 +256,7 @@ function CategoryCard({
                 {month.distribution.map(item => (
                   <View key={item.value} style={styles.chip}>
                     <Text style={styles.chipText}>
-                      {item.value} · {item.days} j
+                      {`${item.value} · ${t('irregularStatistics.common.daysAbbrev', {count: item.days})}`}
                     </Text>
                   </View>
                 ))}
@@ -265,12 +274,16 @@ function CategoryCard({
 ============================================================ */
 
 function IrregularStatisticsScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {width} = useWindowDimensions();
   const compact = width < 370;
 
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const PERIOD_LABELS = useMemo(() => periodLabels(t), [t]);
+  const SYMPTOM_CATEGORY_META = useMemo(() => symptomCategoryMeta(t), [t]);
 
   const {isPremium} = usePremium();
   const [premiumVisible, setPremiumVisible] = useState(false);
@@ -375,7 +388,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
         distribution: calculateCategoryDistribution(filteredEntries, meta.key),
         monthlyTrend: calculateMonthlyCategoryTrend(filteredEntries, meta.key),
       })),
-    [filteredEntries],
+    [filteredEntries, SYMPTOM_CATEGORY_META],
   );
 
   const associatedSymptomFrequency = useMemo(
@@ -419,8 +432,8 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Statistiques</Text>
-              <Text style={styles.subtitle}>Suis l’évolution de ton cycle et de tes observations</Text>
+              <Text style={styles.title}>{t('irregularStatistics.header.title')}</Text>
+              <Text style={styles.subtitle}>{t('irregularStatistics.header.subtitle')}</Text>
             </View>
 
             <View style={styles.headerIcon}>
@@ -466,8 +479,10 @@ function IrregularStatisticsScreen(): React.JSX.Element {
           =================================================== */}
 
           <View style={styles.sectionHeading}>
-            <Text style={styles.sectionTitle}>Aperçu du cycle</Text>
-            <Text style={styles.sectionDescription}>Résumé sur {monthsLabel}</Text>
+            <Text style={styles.sectionTitle}>{t('irregularStatistics.cycleOverview.sectionTitle')}</Text>
+            <Text style={styles.sectionDescription}>
+              {t('irregularStatistics.cycleOverview.summaryOver', {months: monthsLabel})}
+            </Text>
           </View>
 
           {observedCycleDuration ? (
@@ -477,12 +492,12 @@ function IrregularStatisticsScreen(): React.JSX.Element {
 
               <View style={styles.heroTop}>
                 <View style={styles.heroMain}>
-                  <Text style={styles.heroEyebrow}>DURÉE OBSERVÉE DE TES CYCLES</Text>
+                  <Text style={styles.heroEyebrow}>{t('irregularStatistics.cycleOverview.hero.eyebrow')}</Text>
 
                   <View style={styles.heroCycleRow}>
                     <Text style={styles.heroNumber}>{observedCycleDuration.averageDays}</Text>
                     <View style={styles.heroNumberCopy}>
-                      <Text style={styles.heroUnit}>jours</Text>
+                      <Text style={styles.heroUnit}>{t('irregularStatistics.cycleOverview.hero.unit')}</Text>
                     </View>
                   </View>
                 </View>
@@ -496,10 +511,13 @@ function IrregularStatisticsScreen(): React.JSX.Element {
               <View style={styles.heroDivider} />
 
               <Text style={styles.heroFootnote}>
-                Basé sur {observedCycleDuration.cyclesAnalyzed}{' '}
-                {observedCycleDuration.cyclesAnalyzed > 1 ? 'cycles enregistrés' : 'cycle enregistré'} et {trackedDays}{' '}
-                {trackedDays > 1 ? 'jours renseignés' : 'jour renseigné'} sur {monthsLabel}. Tes cycles peuvent
-                varier — ce repère décrit ce qui a été observé, sans jugement.
+                {t('irregularStatistics.cycleOverview.hero.footnote', {
+                  cycles: t('irregularStatistics.common.cyclesCount', {
+                    count: observedCycleDuration.cyclesAnalyzed,
+                  }),
+                  days: t('irregularStatistics.common.trackedDaysCount', {count: trackedDays}),
+                  months: monthsLabel,
+                })}
               </Text>
 
               {coverageMessage ? <Text style={styles.coverageText}>{coverageMessage}</Text> : null}
@@ -519,16 +537,14 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 </View>
               </View>
 
-              <Text style={styles.emptyCycleEyebrow}>APERÇU DU CYCLE</Text>
+              <Text style={styles.emptyCycleEyebrow}>{t('irregularStatistics.cycleOverview.empty.eyebrow')}</Text>
 
               <Text style={styles.emptyCycleTitle}>
-                Pas encore assez de cycles enregistrés
+                {t('irregularStatistics.cycleOverview.empty.title')}
               </Text>
 
               <Text style={styles.emptyCycleText}>
-                Continue à renseigner tes règles. AWA affichera ici une durée
-                moyenne observée dès que suffisamment de cycles auront été
-                enregistrés.
+                {t('irregularStatistics.cycleOverview.empty.text')}
               </Text>
 
               <View style={styles.emptyCyclePill}>
@@ -538,7 +554,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                   size={15}
                 />
                 <Text style={styles.emptyCyclePillText}>
-                  Ton historique se construit progressivement
+                  {t('irregularStatistics.cycleOverview.empty.pill')}
                 </Text>
               </View>
 
@@ -549,7 +565,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                   size={14}
                 />
                 <Text style={styles.emptyCycleHintText}>
-                  Un cycle long n’est jamais automatiquement considéré comme un retard.
+                  {t('irregularStatistics.cycleOverview.empty.hint')}
                 </Text>
               </View>
             </View>
@@ -564,18 +580,19 @@ function IrregularStatisticsScreen(): React.JSX.Element {
               icon="heart-pulse"
               subtitle={
                 showLongitudinalView
-                  ? `Vue d’ensemble sur ${monthsLabel}`
-                  : 'Ton aperçu visuel de ce mois'
+                  ? t('irregularStatistics.symptoms.subtitleLongitudinal', {months: monthsLabel})
+                  : t('irregularStatistics.symptoms.subtitleMonth')
               }
-              title="Symptômes"
+              title={t('irregularStatistics.symptoms.title')}
             />
 
             {trackedDays > 0 ? (
               showLongitudinalView ? (
                 <Text style={styles.overviewText}>
-                  {daysWithAnySymptom} {daysWithAnySymptom > 1 ? 'jours' : 'jour'} avec au moins une observation
-                  (acné, pilosité, douleurs ou fatigue) sur {trackedDays}{' '}
-                  {trackedDays > 1 ? 'jours renseignés' : 'jour renseigné'}.
+                  {t('irregularStatistics.symptoms.overview', {
+                    withSymptom: t('irregularStatistics.common.daysCount', {count: daysWithAnySymptom}),
+                    tracked: t('irregularStatistics.common.trackedDaysCount', {count: trackedDays}),
+                  })}
                 </Text>
               ) : (
                 <View style={styles.monthSnapshot}>
@@ -584,7 +601,9 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                       <MaterialDesignIcons color={theme.colors.primary} name="calendar-check-outline" size={19} />
                     </View>
                     <Text style={styles.snapshotMetricValue}>{trackedDays}</Text>
-                    <Text style={styles.snapshotMetricLabel}>Jours renseignés</Text>
+                    <Text style={styles.snapshotMetricLabel}>
+                      {t('irregularStatistics.symptoms.snapshot.trackedLabel')}
+                    </Text>
                   </View>
 
                   <View style={styles.snapshotDivider} />
@@ -594,7 +613,9 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                       <MaterialDesignIcons color={theme.colors.primary} name="heart-pulse" size={19} />
                     </View>
                     <Text style={styles.snapshotMetricValue}>{daysWithAnySymptom}</Text>
-                    <Text style={styles.snapshotMetricLabel}>Jours avec observation</Text>
+                    <Text style={styles.snapshotMetricLabel}>
+                      {t('irregularStatistics.symptoms.snapshot.withObservationLabel')}
+                    </Text>
                   </View>
 
                   <View style={styles.snapshotDivider} />
@@ -606,15 +627,17 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                     <Text style={styles.snapshotMetricValue}>
                       {trackedDays > 0 ? Math.round((daysWithAnySymptom / trackedDays) * 100) : 0}%
                     </Text>
-                    <Text style={styles.snapshotMetricLabel}>Couverture du suivi</Text>
+                    <Text style={styles.snapshotMetricLabel}>
+                      {t('irregularStatistics.symptoms.snapshot.coverageLabel')}
+                    </Text>
                   </View>
                 </View>
               )
             ) : (
               <DataNotice
-                detail="Renseigne ton suivi quotidien pour voir apparaître cette statistique."
+                detail={t('irregularStatistics.symptoms.emptyDetail')}
                 icon="heart-outline"
-                title="Aucune observation enregistrée ce mois-ci"
+                title={t('irregularStatistics.symptoms.emptyTitle')}
               />
             )}
           </View>
@@ -644,15 +667,15 @@ function IrregularStatisticsScreen(): React.JSX.Element {
             <View style={styles.card}>
               <SectionHeader
                 icon="format-list-checks"
-                subtitle="Sélections les plus fréquentes du journal Fatigue & symptômes"
-                title="Symptômes associés"
+                subtitle={t('irregularStatistics.associated.subtitle')}
+                title={t('irregularStatistics.associated.title')}
               />
 
               <View style={styles.chipRow}>
                 {associatedSymptomFrequency.map(item => (
                   <View key={item.name} style={styles.chip}>
                     <Text style={styles.chipText}>
-                      {item.name} · {item.days} {item.days > 1 ? 'jours' : 'jour'}
+                      {`${item.name} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
                     </Text>
                   </View>
                 ))}
@@ -670,10 +693,10 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 icon="scale-bathroom"
                 subtitle={
                   showLongitudinalView
-                    ? `Mesures enregistrées par mois sur ${monthsLabel}`
-                    : 'Mesures enregistrées ce mois-ci'
+                    ? t('irregularStatistics.weight.subtitleLongitudinal', {months: monthsLabel})
+                    : t('irregularStatistics.weight.subtitleMonth')
                 }
-                title="Poids"
+                title={t('irregularStatistics.weight.title')}
               />
 
               {showLongitudinalView ? (
@@ -683,7 +706,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                       <View style={styles.monthTop}>
                         <Text style={styles.monthLabel}>{month.monthLabel}</Text>
                         <Text style={styles.monthMeta}>
-                          {month.entries.length} {month.entries.length > 1 ? 'mesures' : 'mesure'}
+                          {t('irregularStatistics.weight.measurementsCount', {count: month.entries.length})}
                         </Text>
                       </View>
 
@@ -701,10 +724,10 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 <View style={styles.weightMonthPanel}>
                   <View style={styles.weightMonthTop}>
                     <View>
-                      <Text style={styles.monthVisualizationEyebrow}>CE MOIS</Text>
+                      <Text style={styles.monthVisualizationEyebrow}>{t('irregularStatistics.common.thisMonth')}</Text>
                       <Text style={styles.weightMonthCount}>{weightEntries.length}</Text>
                       <Text style={styles.weightMonthLabel}>
-                        {weightEntries.length > 1 ? 'mesures enregistrées' : 'mesure enregistrée'}
+                        {t('irregularStatistics.weight.recordedLabel', {count: weightEntries.length})}
                       </Text>
                     </View>
 
@@ -739,8 +762,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
           <View style={styles.medicalHint}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={17} />
             <Text style={styles.medicalHintText}>
-              Ces repères, basés sur tes données réelles, peuvent t’aider à décrire ton historique lors d’un
-              rendez-vous médical. Ils ne posent aucun diagnostic et ne remplacent pas un avis médical.
+              {t('irregularStatistics.medicalHint')}
             </Text>
           </View>
         </ScrollView>

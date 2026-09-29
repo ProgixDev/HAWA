@@ -16,6 +16,9 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import Svg, {Circle, Defs, LinearGradient as SvgGradient, Stop} from 'react-native-svg';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../../i18n';
 
 import type {MainTabScreenProps} from '../../navigation/MainTabNavigator';
 import type {CyclePhase} from '../home/CycleStatusCard';
@@ -98,25 +101,25 @@ const LUTEAL_COLOR = '#D8CDEE';
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
-const HERO_STATUS: Record<CyclePhase, {badge: string; title: string; description: string}> = {
-  menstruation: {badge: 'RÈGLES', title: 'Cycle en cours', description: 'Un temps pour te reposer avant la suite de ton cycle.'},
-  follicular: {badge: 'PHASE FOLLICULAIRE', title: 'Fertilité en hausse', description: 'Ton corps se prépare, continue ton suivi quotidien.'},
-  fertile: {badge: 'FENÊTRE FERTILE', title: 'Fertilité élevée', description: 'Aujourd’hui tu es dans ta période la plus fertile.'},
-  ovulation: {badge: 'OVULATION', title: 'Ovulation aujourd’hui', description: 'Ton ovulation est estimée aujourd’hui.'},
-  luteal: {badge: 'APRÈS OVULATION', title: 'Phase lutéale', description: 'Ta fenêtre fertile est passée pour ce cycle.'},
-  pregnancy: {badge: '', title: '', description: ''},
-  postpartum: {badge: '', title: '', description: ''},
-};
+// Phase 3 — badge/title/description built from `conceiveDashboard.hero.*`;
+// pregnancy/postpartum stay empty (TTC never reaches those phases).
+function heroStatusFor(t: TFunction, phase: CyclePhase): {badge: string; title: string; description: string} {
+  if (phase === 'pregnancy' || phase === 'postpartum') {
+    return {badge: '', title: '', description: ''};
+  }
+  return {
+    badge: t(`conceiveDashboard.hero.badge.${phase}`),
+    title: t(`conceiveDashboard.hero.title.${phase}`),
+    description: t(`conceiveDashboard.hero.description.${phase}`),
+  };
+}
 
-const ADVICE_BY_PHASE: Record<CyclePhase, string> = {
-  menstruation: 'Profite de ce moment pour prendre soin de toi avant la suite de ton cycle.',
-  follicular: 'Continue ton suivi quotidien, ta fenêtre fertile approche.',
-  fertile: 'C’est le bon moment pour maximiser tes chances, prends soin de toi et reste à l’écoute de ton corps.',
-  ovulation: 'Un test LH aujourd’hui peut t’aider à confirmer ce pic.',
-  luteal: 'En attendant tes prochaines règles, prends soin de toi.',
-  pregnancy: '',
-  postpartum: '',
-};
+function adviceFor(t: TFunction, phase: CyclePhase): string {
+  if (phase === 'pregnancy' || phase === 'postpartum') {
+    return '';
+  }
+  return t(`conceiveDashboard.advice.${phase}`);
+}
 
 // "Suivi du jour" — same DailyJournalCard component/design CycleHomeScreen
 // uses (progress bar, completed/total counter, checkmark-when-done icon
@@ -151,6 +154,7 @@ function FertilityRing({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }) {
+  const {t} = useTranslation();
   const progressAnim = useRef(new Animated.Value(0)).current;
   const breatheAnim = useRef(new Animated.Value(0)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -329,10 +333,10 @@ function FertilityRing({
             transform: [{scale: centerScale}],
           },
         ]}>
-        <Text style={styles.ringEyebrow}>Jour</Text>
+        <Text style={styles.ringEyebrow}>{t('conceiveDashboard.ring.dayEyebrow')}</Text>
         <Text style={styles.ringDay}>{day}</Text>
         <View style={styles.ringCyclePill}>
-          <Text style={styles.ringSubtitle}>Cycle {cycleLength} jours</Text>
+          <Text style={styles.ringSubtitle}>{t('conceiveDashboard.ring.cycleDays', {count: cycleLength})}</Text>
         </View>
       </Animated.View>
     </View>
@@ -348,6 +352,7 @@ const ARTICLE_IMAGES: Record<string, ReturnType<typeof require>> = {
 };
 
 function ConceiveDashboard({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const [initial, setCyclePreferencesState] = useState(getCyclePreferences);
   const [hasConfirmedCycleData, setHasConfirmedCycleData] = useState(getHasConfirmedCycleData);
@@ -463,21 +468,21 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   const nextPeriodTile = (() => {
     if (predictionStatus.mode === 'exact') {
       const daysUntil = Math.max(0, diffDays(predictionStatus.date, today));
-      return {value: formatShortDate(predictionStatus.date), subtitle: `Dans ${daysUntil} jours`};
+      return {value: formatShortDate(predictionStatus.date), subtitle: t('cycleHome.nextPeriod.inDays', {count: daysUntil})};
     }
     if (predictionStatus.mode === 'window') {
       if (predictionStatus.isLate) {
-        return {value: 'Règles en retard', subtitle: `Fenêtre : ${formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd)}`};
+        return {value: t('calendar.periodLate'), subtitle: t('cycleHome.nextPeriod.window', {range: formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd)})};
       }
       const daysUntilStart = diffDays(predictionStatus.windowStart, today);
       return {
         value: formatDateRange(predictionStatus.windowStart, predictionStatus.windowEnd),
-        subtitle: daysUntilStart > 0 ? `Dans ${daysUntilStart} jours` : 'Fenêtre estimée en cours',
+        subtitle: daysUntilStart > 0 ? t('cycleHome.nextPeriod.inDays', {count: daysUntilStart}) : t('cycleHome.nextPeriod.windowInProgress'),
       };
     }
     return predictionStatus.complete
-      ? {value: 'Observation en cours', subtitle: 'Données à compléter'}
-      : {value: `Mois ${predictionStatus.monthsElapsed} sur ${predictionStatus.totalMonths}`, subtitle: 'Observation du cycle'};
+      ? {value: t('cycleHome.observationInProgress'), subtitle: t('cycleHome.dataToComplete')}
+      : {value: t('cycleHome.monthOfTotal', {month: predictionStatus.monthsElapsed, total: predictionStatus.totalMonths}), subtitle: t('cycleHome.cycleObservation')};
   })();
 
   const fertileStartDay = Math.max(1, ovulationDay - 5);
@@ -508,16 +513,16 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   // either list — it has its own dedicated card (see below, just above
   // "Suivi du jour").
   const quickActionItems: QuickActionItem[] = [
-    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Horaires\nde prière', onPress: () => navigation.navigate('PrayerTimes')},
-    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Bibliothèque', onPress: () => navigation.navigate('Library')},
+    {key: 'prayer-times', icon: 'mosque', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.prayerTimes'), onPress: () => navigation.navigate('PrayerTimes')},
+    {key: 'library', icon: 'book-open-page-variant-outline', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.library'), onPress: () => navigation.navigate('Library')},
     // Category E (fixed action-identity accent, same as Cycle D1,
     // Contraception D2, Irregular D3 — never theme-driven).
-    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: '#B23F63', iconBg: '#F9DCE8', label: 'Journal\nquotidien', onPress: openJournal},
-    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Calendrier Hijri', onPress: () => navigation.navigate('HijriCalendar')},
-    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: 'Jeûnes à rattraper', onPress: () => navigation.navigate('FastingQadaa')},
+    {key: 'daily-journal', icon: 'notebook-edit-outline', iconColor: '#B23F63', iconBg: '#F9DCE8', label: t('cycleHome.quickActions.dailyJournal'), onPress: openJournal},
+    {key: 'hijri-calendar', icon: 'moon-waning-crescent', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.hijriCalendar'), onPress: () => navigation.navigate('HijriCalendar')},
+    {key: 'qadaa', icon: 'silverware-fork-knife', iconColor: PURPLE, iconBg: theme.colors.primarySoft, label: t('cycleHome.quickActions.qadaa'), onPress: () => navigation.navigate('FastingQadaa')},
     // Category E (fixed action-identity accent, same as Cycle D1,
     // Contraception D2, Irregular D3 — never theme-driven).
-    {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: 'Statistiques', onPress: () => navigation.navigate('Statistics')},
+    {key: 'statistics', icon: 'chart-donut', iconColor: '#2C8E93', iconBg: '#DDF0F1', label: t('cycleHome.quickActions.statistics'), onPress: () => navigation.navigate('Statistics')},
   ];
 
   // Real, existing library articles for the 'conceive' objective — same
@@ -542,8 +547,8 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
     ],
   };
 
-  const heroStatus = HERO_STATUS[currentPhase];
-  const advice = ADVICE_BY_PHASE[currentPhase];
+  const heroStatus = heroStatusFor(t, currentPhase);
+  const advice = adviceFor(t, currentPhase);
 
   return (
     <LinearGradient
@@ -571,7 +576,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             <HomeHeader
               firstName={getFirstName()}
               onPressProfile={() => navigation.navigate('Profile')}
-              subtitle="En chemin vers ton rêve ✨"
+              subtitle={t('conceiveDashboard.headerSubtitle')}
             />
           </Animated.View>
 
@@ -608,22 +613,22 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                   <View style={styles.timelineLegend}>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: PERIOD}]} />
-                      <Text style={styles.timelineLegendLabel}>Règles</Text>
+                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.period')}</Text>
                       <Text style={styles.timelineLegendValue}>J1-{phaseBasics.periodDuration}</Text>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: FERTILE_COLOR}]} />
-                      <Text style={styles.timelineLegendLabel}>Fertile</Text>
+                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.fertile')}</Text>
                       <Text style={styles.timelineLegendValue}>J{fertileStartDay}-{fertileEndDay}</Text>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: OVULATION}]} />
-                      <Text style={styles.timelineLegendLabel}>Ovulation</Text>
+                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.ovulation')}</Text>
                       <Text style={styles.timelineLegendValue}>J{ovulationDay}</Text>
                     </View>
                     <View style={styles.timelineLegendItem}>
                       <View style={[styles.timelineDot, {backgroundColor: LUTEAL_COLOR}]} />
-                      <Text style={styles.timelineLegendLabel}>Lutéale</Text>
+                      <Text style={styles.timelineLegendLabel}>{t('conceiveDashboard.timelineLegend.luteal')}</Text>
                       <Text style={styles.timelineLegendValue}>J{fertileEndDay + 1}-{cycleLength}</Text>
                     </View>
                   </View>
@@ -633,17 +638,17 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
                 <View style={styles.heroFooterRow}>
                   <View style={styles.heroFooterCopy}>
-                    <Text style={styles.heroFooterLabel}>Prochaines règles prévues</Text>
+                    <Text style={styles.heroFooterLabel}>{t('conceiveDashboard.nextPeriodLabel')}</Text>
                     <Text style={styles.heroFooterValue}>{nextPeriodTile.value}</Text>
                     <Text style={styles.heroFooterSubtitle}>{nextPeriodTile.subtitle}</Text>
                   </View>
                   <Pressable
-                    accessibilityLabel="Voir le calendrier"
+                    accessibilityLabel={t('conceiveDashboard.viewCalendar')}
                     accessibilityRole="button"
                     onPress={() => navigation.navigate('Calendar')}
                     style={({pressed}) => [styles.calendarCta, pressed && styles.calendarCtaPressed]}>
                     <MaterialDesignIcons color={PURPLE} name="calendar-month-outline" size={16} />
-                    <Text style={styles.calendarCtaText}>Voir le calendrier</Text>
+                    <Text style={styles.calendarCtaText}>{t('conceiveDashboard.viewCalendar')}</Text>
                   </Pressable>
                 </View>
               </>
@@ -657,17 +662,17 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                 <View style={styles.insufficientDataIcon}>
                   <MaterialDesignIcons color={PURPLE} name="calendar-alert-outline" size={24} />
                 </View>
-                <Text style={styles.insufficientDataTitle}>Configure ton cycle</Text>
+                <Text style={styles.insufficientDataTitle}>{t('conceiveDashboard.insufficientData.title')}</Text>
                 <Text style={styles.insufficientDataText}>
-                  Quelques informations sont nécessaires pour estimer ta fenêtre fertile.
+                  {t('conceiveDashboard.insufficientData.text')}
                 </Text>
                 <Pressable
-                  accessibilityLabel="Configurer mon cycle"
+                  accessibilityLabel={t('conceiveDashboard.insufficientData.cta')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('CycleInformation', {fromDashboardCTA: true})}
                   style={({pressed}) => [styles.insufficientDataCta, pressed && styles.calendarCtaPressed]}>
                   <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="calendar-edit" size={16} />
-                  <Text style={styles.insufficientDataCtaText}>Configurer mon cycle</Text>
+                  <Text style={styles.insufficientDataCtaText}>{t('conceiveDashboard.insufficientData.cta')}</Text>
                 </Pressable>
               </View>
             )}
@@ -680,12 +685,12 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
           {!isDateWithinConfirmedPeriod(today) ? (
             <View style={styles.periodStartCtaWrap}>
               <Pressable
-                accessibilityLabel="Mes règles ont commencé"
+                accessibilityLabel={t('cycleHome.myPeriodStartedCta')}
                 accessibilityRole="button"
                 onPress={() => setPeriodStartSheetVisible(true)}
                 style={({pressed}) => [styles.periodStartCta, pressed && styles.pressed]}>
                 <MaterialDesignIcons color={PERIOD} name="water-plus-outline" size={16} />
-                <Text style={styles.periodStartCtaText}>Mes règles ont commencé</Text>
+                <Text style={styles.periodStartCtaText}>{t('cycleHome.myPeriodStartedCta')}</Text>
               </Pressable>
             </View>
           ) : null}
@@ -699,7 +704,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
               here instead of living inside "Suivi du jour" alongside the
               4 real daily-tracking items. */}
           <Pressable
-            accessibilityLabel="Voir l’évolution du cycle"
+            accessibilityLabel={t('conceiveDashboard.evolutionCard.accessibilityLabel')}
             accessibilityRole="button"
             onPress={() => navigation.navigate('CycleEvolutionEntry')}
             style={({pressed}) => [styles.evolutionCard, pressed && styles.pressed]}>
@@ -707,9 +712,9 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
               <MaterialDesignIcons color={PURPLE} name="chart-donut" size={22} />
             </View>
             <View style={styles.evolutionCopy}>
-              <Text style={styles.evolutionTitle}>Évolution du cycle</Text>
+              <Text style={styles.evolutionTitle}>{t('journalCycleEvolution.title')}</Text>
               <Text style={styles.evolutionSubtitle}>
-                {hasConfirmedCycleData ? `Jour ${currentCycleDay} · ${heroStatus.title}` : 'Configure ton cycle pour la voir'}
+                {hasConfirmedCycleData ? t('conceiveDashboard.evolutionCard.subtitleWithStatus', {day: currentCycleDay, status: heroStatus.title}) : t('conceiveDashboard.evolutionCard.subtitleConfigure')}
               </Text>
             </View>
             <MaterialDesignIcons color={PURPLE} name="chevron-right" size={20} />
@@ -719,7 +724,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
             entry={journalEntry}
             onNavigate={route => navigation.navigate(route)}
             shortcuts={conceiveShortcuts}
-            title="Suivi du jour"
+            title={t('conceiveDashboard.dailyJournalTitle')}
           />
 
           {advice && hasConfirmedCycleData ? (
@@ -728,7 +733,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                 <Text style={styles.adviceEmoji}>🌸</Text>
               </View>
               <View style={styles.adviceCopy}>
-                <Text style={styles.adviceTitle}>Conseils pour aujourd’hui</Text>
+                <Text style={styles.adviceTitle}>{t('conceiveDashboard.adviceCard.title')}</Text>
                 <Text style={styles.adviceSubtitle}>{heroStatus.title}</Text>
                 <Text style={styles.adviceText}>{advice}</Text>
               </View>
@@ -757,9 +762,9 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
 
           <View style={styles.articlesCard}>
             <View style={styles.articlesHeader}>
-              <Text style={styles.articlesTitle}>Pour t’accompagner</Text>
+              <Text style={styles.articlesTitle}>{t('objectiveArticles.title')}</Text>
               <Pressable accessibilityRole="button" hitSlop={8} onPress={() => navigation.navigate('Library')}>
-                <Text style={styles.articlesSeeAll}>Voir tout</Text>
+                <Text style={styles.articlesSeeAll}>{t('objectiveArticles.seeAll')}</Text>
               </Pressable>
             </View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.articlesRow}>
@@ -774,7 +779,7 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
                   <Text numberOfLines={2} style={styles.articleTileTitle}>{article.title}</Text>
                   <View style={styles.articleTileMetaRow}>
                     <MaterialDesignIcons color={theme.colors.textSecondary} name="book-outline" size={12} />
-                    <Text style={styles.articleTileMeta}>{article.durationMinutes} min de lecture</Text>
+                    <Text style={styles.articleTileMeta}>{t('objectiveArticles.readingMinutes', {count: article.durationMinutes})}</Text>
                   </View>
                 </Pressable>
               ))}

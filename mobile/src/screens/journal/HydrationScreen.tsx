@@ -28,25 +28,33 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getAllJournalEntries, saveJournalSection} from '../../state/dailyJournalStore';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {addDays} from '../../utils/cycleMath';
+import {getAppLanguage} from '../../state/themePreferences';
 import type {DailyJournalEntry} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 const HYDRATION_ILLUSTRATION = require('../../assets/images/hydration-bottle.png');
 
 const DEFAULT_GOAL = 8;
 const GLASS_ML = 250;
 const GOAL_OPTIONS = [6, 7, 8, 9, 10] as const;
+// DAY_LABELS stays the internal index-order reference (Monday-first, 7
+// entries) — never rendered directly; localizedDayLabels() below supplies the
+// DISPLAY text for the same 7 positions, in the active app language.
 const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'] as const;
+const DAY_LABELS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
+const localizedDayLabels = () => (getAppLanguage() === 'en' ? DAY_LABELS_EN : DAY_LABELS);
 
 type WeeklyHydrationDatum = {
-  day: (typeof DAY_LABELS)[number];
+  day: string;
   /** Glasses really recorded that day — null when nothing was recorded (no
    * bar is drawn: a missing day is never turned into a made-up value). */
   glasses: number | null;
@@ -127,6 +135,7 @@ const hasBar = (datum: WeeklyHydrationDatum): datum is WeeklyHydrationDatum & {g
   datum.glasses !== null && datum.glasses > 0;
 
 function HistoryBar({datum, current, index, max}: HistoryBarProps): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const progress = useSharedValue(0);
@@ -147,8 +156,8 @@ function HistoryBar({datum, current, index, max}: HistoryBarProps): React.JSX.El
     <View
       accessibilityLabel={
         datum.glasses === null
-          ? `${datum.day} : aucun relevé`
-          : `${datum.day} : ${datum.glasses} ${datum.glasses > 1 ? 'verres' : 'verre'}`
+          ? t('journalHydration.dayNoRecord', {day: datum.day})
+          : t('journalHydration.dayGlasses', {day: datum.day, count: datum.glasses})
       }
       style={styles.barColumn}>
       <View style={styles.barTrack}>
@@ -169,6 +178,7 @@ function HistoryBar({datum, current, index, max}: HistoryBarProps): React.JSX.El
 }
 
 export default function HydrationScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -191,7 +201,7 @@ export default function HydrationScreen(): React.JSX.Element {
   const [storedWeek, setStoredWeek] = useState<Array<number | null>>(() => DAY_LABELS.map(() => null));
   const weeklyHistory = useMemo<WeeklyHydrationDatum[]>(
     () =>
-      DAY_LABELS.map((day, index) => {
+      localizedDayLabels().map((day, index) => {
         if (index !== todayIndex) {
           return {day, glasses: storedWeek[index]};
         }
@@ -338,7 +348,7 @@ export default function HydrationScreen(): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(320)} style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -347,16 +357,16 @@ export default function HydrationScreen(): React.JSX.Element {
           </Pressable>
 
           <View style={styles.headerCopy}>
-            <Text adjustsFontSizeToFit minimumFontScale={0.86} style={styles.title}>Hydratation</Text>
+            <Text adjustsFontSizeToFit minimumFontScale={0.86} style={styles.title}>{t('dailyJournalSheet.items.hydration.title')}</Text>
             <Text style={styles.subtitle}>
               {hydrationState.cycleDay !== null
-                ? `Aujourd’hui • Jour ${hydrationState.cycleDay} du cycle`
-                : 'Aujourd’hui'}
+                ? t('journalHydration.todayWithCycleDay', {day: hydrationState.cycleDay})
+                : t('journalHydration.today')}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel="Personnaliser l’objectif"
+            accessibilityLabel={t('journalHydration.customizeGoal')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() => setGoalSheetVisible(true)}
@@ -368,31 +378,31 @@ export default function HydrationScreen(): React.JSX.Element {
         <Animated.View entering={FadeInUp.delay(90).duration(430)} style={styles.goalCard}>
           <View style={styles.cardHeader}>
             <View style={styles.flexCopy}>
-              <Text style={styles.cardTitle}>Objectif quotidien</Text>
+              <Text style={styles.cardTitle}>{t('journalHydration.dailyGoalTitle')}</Text>
               <Text adjustsFontSizeToFit minimumFontScale={0.82} style={styles.goalValue}>
-                {hydrationState.dailyGoal} verres
+                {t('journalHydration.glassesCount', {count: hydrationState.dailyGoal})}
               </Text>
             </View>
             <Pressable
-              accessibilityLabel="Personnaliser l’objectif quotidien"
+              accessibilityLabel={t('journalHydration.customizeGoalDaily')}
               accessibilityRole="button"
               onPress={() => setGoalSheetVisible(true)}
               style={({pressed}) => [styles.personalizeButton, pressed && styles.pressed]}>
-              <Text style={styles.personalizeText}>Personnaliser</Text>
+              <Text style={styles.personalizeText}>{t('journalHydration.personalize')}</Text>
             </Pressable>
           </View>
 
           <Animated.View style={[styles.illustrationWrap, illustrationAnimatedStyle]}>
             <Image
               accessibilityIgnoresInvertColors
-              accessibilityLabel="Bouteille et verre d’eau"
+              accessibilityLabel={t('journalHydration.bottleGlassAlt')}
               resizeMode="contain"
               source={HYDRATION_ILLUSTRATION}
               style={styles.illustration}
             />
           </Animated.View>
 
-          <View accessibilityLabel={`${currentIntake} verres sur ${dailyGoal}`} style={styles.dropsRow}>
+          <View accessibilityLabel={t('journalHydration.glassesOutOf', {current: currentIntake, goal: dailyGoal})} style={styles.dropsRow}>
             {Array.from({length: hydrationState.dailyGoal}, (_, index) => (
               <WaterDrop active={index < hydrationState.currentIntake} index={index} key={index} />
             ))}
@@ -402,18 +412,18 @@ export default function HydrationScreen(): React.JSX.Element {
             entering={FadeIn.duration(180)}
             key={`${currentIntake}-${dailyGoal}`}
             style={styles.counter}>
-            {hydrationState.currentIntake} / {hydrationState.dailyGoal} verres
+            {t('journalHydration.counterFraction', {current: hydrationState.currentIntake, goal: hydrationState.dailyGoal})}
           </Animated.Text>
 
           {successVisible && currentIntake >= dailyGoal ? (
             <Animated.Text entering={FadeInUp.duration(260)} style={styles.success}>
-              Objectif atteint ✨
+              {t('journalHydration.goalReached')}
             </Animated.Text>
           ) : null}
 
           <Animated.View style={[styles.addButtonWrap, buttonAnimatedStyle]}>
             <Pressable
-              accessibilityLabel="Ajouter un verre"
+              accessibilityLabel={t('journalHydration.addGlass')}
               accessibilityRole="button"
               onPress={addGlass}
               onPressIn={() => {buttonScale.value = withTiming(0.985, {duration: 70});}}
@@ -425,20 +435,20 @@ export default function HydrationScreen(): React.JSX.Element {
                 start={{x: 0, y: 0}}
                 style={styles.addGradient}>
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="plus" size={22} />
-                <Text style={styles.addText}>Ajouter 1 verre</Text>
+                <Text style={styles.addText}>{t('journalHydration.addOneGlass')}</Text>
               </LinearGradient>
               <Animated.View pointerEvents="none" style={[styles.feedbackFlash, feedbackAnimatedStyle]} />
             </Pressable>
           </Animated.View>
 
-          {currentIntake > 0 ? <ClearEntryButton onConfirm={clearHydration} subject="l’hydratation" /> : null}
+          {currentIntake > 0 ? <ClearEntryButton onConfirm={clearHydration} subject={t('journalHydration.clearSubject')} /> : null}
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(280).duration(430)} style={styles.historyCard}>
           <View style={styles.cardHeader}>
-            <Text style={styles.cardTitle}>Historique</Text>
+            <Text style={styles.cardTitle}>{t('journalHydration.historyTitle')}</Text>
             <Pressable accessibilityRole="button" hitSlop={8} style={({pressed}) => pressed && styles.pressed}>
-              <Text style={styles.moreText}>Voir plus</Text>
+              <Text style={styles.moreText}>{t('cycleHome.overview.seeMore')}</Text>
             </Pressable>
           </View>
           <View style={styles.chartArea}>
@@ -459,16 +469,16 @@ export default function HydrationScreen(): React.JSX.Element {
           </View>
           {!hasWeeklyData ? (
             <Text style={styles.emptyHistoryText}>
-              Aucun verre enregistré cette semaine pour l’instant.
+              {t('journalHydration.noRecordThisWeek')}
             </Text>
           ) : null}
         </Animated.View>
 
         <Animated.View entering={FadeIn.delay(520).duration(400)} style={styles.adviceCard}>
           <View style={styles.adviceCopy}>
-            <Text style={styles.adviceTitle}>Conseils du jour</Text>
+            <Text style={styles.adviceTitle}>{t('journalHydration.adviceTitle')}</Text>
             <Text style={styles.adviceText}>
-              Boire suffisamment d’eau aide à réduire les ballonnements et à améliorer ton énergie.
+              {t('journalHydration.adviceText')}
             </Text>
           </View>
           <View style={styles.adviceIcon}>
@@ -489,8 +499,8 @@ export default function HydrationScreen(): React.JSX.Element {
           <Pressable style={styles.backdrop} onPress={() => setGoalSheetVisible(false)} />
           <Animated.View entering={FadeInUp.springify().damping(18)} style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.sheetHandle} />
-            <Text style={styles.sheetTitle}>Objectif quotidien</Text>
-            <Text style={styles.sheetSubtitle}>Choisis le nombre de verres à boire chaque jour.</Text>
+            <Text style={styles.sheetTitle}>{t('journalHydration.dailyGoalTitle')}</Text>
+            <Text style={styles.sheetSubtitle}>{t('journalHydration.goalSheetSubtitle')}</Text>
 
             <View style={styles.goalOptions}>
               {GOAL_OPTIONS.map(goal => {
@@ -502,26 +512,26 @@ export default function HydrationScreen(): React.JSX.Element {
                     key={goal}
                     onPress={() => {setPendingGoal(goal); setCustomGoal('');}}
                     style={({pressed}) => [styles.goalOption, selected && styles.goalOptionSelected, pressed && styles.pressed]}>
-                    <Text style={[styles.goalOptionText, selected && styles.goalOptionTextSelected]}>{goal} verres</Text>
+                    <Text style={[styles.goalOptionText, selected && styles.goalOptionTextSelected]}>{t('journalHydration.glassesCount', {count: goal})}</Text>
                   </Pressable>
                 );
               })}
             </View>
 
-            <Text style={styles.customLabel}>Valeur personnalisée</Text>
+            <Text style={styles.customLabel}>{t('journalHydration.customValueLabel')}</Text>
             <TextInput
-              accessibilityLabel="Nombre de verres personnalisé"
+              accessibilityLabel={t('journalHydration.customGlassesAccessibility')}
               keyboardType="number-pad"
               maxLength={2}
               onChangeText={setCustomGoal}
-              placeholder="Ex. 12"
+              placeholder={t('journalHydration.customPlaceholderExample')}
               placeholderTextColor={theme.colors.textMuted}
               style={styles.customInput}
               value={customGoal}
             />
 
             <Pressable accessibilityRole="button" onPress={saveGoal} style={({pressed}) => [styles.sheetSave, pressed && styles.pressed]}>
-              <Text style={styles.sheetSaveText}>Enregistrer l’objectif</Text>
+              <Text style={styles.sheetSaveText}>{t('journalHydration.saveGoalButton')}</Text>
             </Pressable>
           </Animated.View>
         </KeyboardAvoidingView>

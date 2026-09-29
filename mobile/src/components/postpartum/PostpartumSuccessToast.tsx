@@ -10,6 +10,13 @@ import {
   getPostpartumSuccessToast,
   subscribePostpartumSuccessToast,
 } from '../../state/postpartumSuccessToastStore';
+// i18n (Phase 3): this component renders no hardcoded French text of its
+// own — `title`/`message` are plain string PROPS supplied by whichever
+// caller requests the toast (PostpartumJournalEntryScreen, via
+// showPostpartumSuccessToast(...)), so the actual translated copy lives
+// there (postpartumJournalEntry namespace), not here. Kept as a defensive
+// side-effect import for consistency with the rest of this i18n pass.
+import '../../i18n';
 
 // Postpartum save confirmations ("Fatigue enregistrée", "Sommeil enregistré"...)
 // are requested through postpartumSuccessToastStore by

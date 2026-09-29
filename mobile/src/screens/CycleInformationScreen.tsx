@@ -1,5 +1,6 @@
 import {continueAfterObjectiveSetup} from '../state/objectiveSetupFlow';
 import React, {useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   Image,
@@ -31,10 +32,17 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAppLanguage} from '../state/themePreferences';
+import '../i18n';
 
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
-const WEEK_DAYS = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+// Single-letter weekday abbreviations — kept local to this screen, same
+// precedent as MonthCalendarCard.tsx's own localizedWeekDays() (the shared
+// cycleMath.ts WEEK_DAYS export stays French, used by 15+ out-of-scope
+// calendars).
+const WEEK_DAYS_FR = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+const WEEK_DAYS_EN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);
 const CYCLE_DURATIONS = Array.from({length: 21}, (_, index) => index + 20);
 
@@ -45,7 +53,7 @@ type DatePickerTarget = 'start' | 'end' | null;
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleInformation'>;
 
 const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -55,6 +63,7 @@ const localDateKey = (date: Date) =>
   `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 
 function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -172,15 +181,15 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
     const today = startOfDay(new Date());
     const nextErrors: {start?: string; end?: string} = {};
     if (startOfDay(actualPeriodStart).getTime() > today.getTime()) {
-      nextErrors.start = 'Cette date ne peut pas être dans le futur.';
+      nextErrors.start = t('cycleInformation.futureDateError');
     }
     if (periodTerminated === 'yes') {
       if (!actualPeriodEnd) {
-        nextErrors.end = 'Indique la date de fin de tes dernières règles.';
+        nextErrors.end = t('cycleInformation.missingEndDateError');
       } else if (startOfDay(actualPeriodEnd).getTime() > today.getTime()) {
-        nextErrors.end = 'Cette date ne peut pas être dans le futur.';
+        nextErrors.end = t('cycleInformation.futureDateError');
       } else if (startOfDay(actualPeriodEnd).getTime() < startOfDay(actualPeriodStart).getTime()) {
-        nextErrors.end = 'La date de fin doit être après la date de début.';
+        nextErrors.end = t('cycleInformation.endBeforeStartError');
       }
     }
     if (nextErrors.start || nextErrors.end) {
@@ -319,20 +328,20 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
-            <Text style={styles.title}>{habitsOnly ? 'Habitudes\nde ton cycle' : 'Informations\nde ton cycle'}</Text>
+            <Text style={styles.title}>{habitsOnly ? t('cycleInformation.habitsTitle') : t('cycleInformation.title')}</Text>
             <Text style={styles.subtitle}>
               {habitsOnly
-                ? 'Durée du cycle, durée des règles et régularité. Tes dernières règles et ton historique ne changent pas.'
-                : 'Ces informations nous aident à mieux\nte comprendre et t’accompagner.'}
+                ? t('cycleInformation.habitsSubtitle')
+                : t('cycleInformation.subtitle')}
             </Text>
           </View>
 
           <View style={styles.form}>
             {habitsOnly ? null : (
             <>
-            <Text style={styles.label}>Date de début de tes dernières règles</Text>
+            <Text style={styles.label}>{t('cycleInformation.periodStartDateLabel')}</Text>
             <Pressable
-              accessibilityLabel="Choisir la date de début de tes dernières règles"
+              accessibilityLabel={t('cycleInformation.choosePeriodStartDate')}
               accessibilityRole="button"
               onPress={() => openDatePicker('start')}
               style={({pressed}) => [
@@ -354,11 +363,11 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
             </Pressable>
             {errors.start ? <Text style={styles.fieldErrorText}>{errors.start}</Text> : null}
 
-            <Text style={styles.label}>Tes dernières règles sont-elles terminées ?</Text>
+            <Text style={styles.label}>{t('cycleInformation.periodEndedQuestion')}</Text>
             <View accessibilityRole="radiogroup" style={styles.regularityRow}>
               {[
-                {id: 'yes' as const, label: 'Oui'},
-                {id: 'no' as const, label: 'Non'},
+                {id: 'yes' as const, label: t('journalIntimacy.yes')},
+                {id: 'no' as const, label: t('journalIntimacy.no')},
               ].map(option => {
                 const selected = periodTerminated === option.id;
                 return (
@@ -386,9 +395,9 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
 
             {periodTerminated === 'yes' ? (
               <>
-                <Text style={styles.label}>Date de fin de tes dernières règles</Text>
+                <Text style={styles.label}>{t('cycleInformation.periodEndDateLabel')}</Text>
                 <Pressable
-                  accessibilityLabel="Choisir la date de fin de tes dernières règles"
+                  accessibilityLabel={t('cycleInformation.choosePeriodEndDate')}
                   accessibilityRole="button"
                   onPress={() => openDatePicker('end')}
                   style={({pressed}) => [
@@ -402,7 +411,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                     style={styles.calendarFieldIcon}
                   />
                   <Text style={actualPeriodEnd ? styles.fieldText : styles.fieldPlaceholder}>
-                    {actualPeriodEnd ? formatDate(actualPeriodEnd) : 'Sélectionner une date'}
+                    {actualPeriodEnd ? formatDate(actualPeriodEnd) : t('managedProfile.cycleSetup.lastPeriodPlaceholder')}
                   </Text>
                   <Image
                     accessibilityIgnoresInvertColors
@@ -416,26 +425,26 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
             </>
             )}
 
-            <Text style={styles.label}>Durée habituelle de tes règles</Text>
+            <Text style={styles.label}>{t('cycleInformation.usualPeriodDurationLabel')}</Text>
             <Pressable
               accessibilityRole="button"
               onPress={() => setDurationPicker('period')}
               style={({pressed}) => [styles.field, pressed && styles.pressed]}>
-              <Text style={styles.fieldText}>{periodDuration} jours</Text>
+              <Text style={styles.fieldText}>{t('averageCycle.days', {count: periodDuration})}</Text>
               <Image
                 accessibilityIgnoresInvertColors
                 source={CHEVRON_ICON}
                 style={styles.chevronIcon}
               />
             </Pressable>
-            <Text style={styles.helperText}>Utilisée pour estimer tes prochaines règles.</Text>
+            <Text style={styles.helperText}>{t('cycleInformation.usedToEstimateNextPeriod')}</Text>
 
-            <Text style={styles.label}>Durée habituelle de ton cycle</Text>
+            <Text style={styles.label}>{t('cycleInformation.usualCycleDurationLabel')}</Text>
             <Pressable
               accessibilityRole="button"
               onPress={() => setDurationPicker('cycle')}
               style={({pressed}) => [styles.field, pressed && styles.pressed]}>
-              <Text style={styles.fieldText}>{cycleDuration} jours</Text>
+              <Text style={styles.fieldText}>{t('averageCycle.days', {count: cycleDuration})}</Text>
               <Image
                 accessibilityIgnoresInvertColors
                 source={CHEVRON_ICON}
@@ -443,12 +452,12 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
               />
             </Pressable>
 
-            <Text style={styles.label}>Ton cycle est-il généralement régulier ?</Text>
+            <Text style={styles.label}>{t('cycleInformation.cycleRegularQuestion')}</Text>
             <View accessibilityRole="radiogroup" style={styles.regularityRow}>
               {[
-                {id: 'yes' as const, label: 'Oui'},
-                {id: 'no' as const, label: 'Non'},
-                {id: 'unknown' as const, label: 'Je ne sais pas'},
+                {id: 'yes' as const, label: t('journalIntimacy.yes')},
+                {id: 'no' as const, label: t('journalIntimacy.no')},
+                {id: 'unknown' as const, label: t('managedProfile.cycleSetup.unknown')},
               ].map(option => {
                 const selected = regularity === option.id;
                 return (
@@ -481,7 +490,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
             disabled={submitting}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, (pressed || submitting) && styles.pressed]}>
-            <Text style={styles.nextText}>{submitting ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{submitting ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('cycleInformation.next')}</Text>
           </Pressable>
         </ScrollView>
       </View>
@@ -495,20 +504,20 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           <Pressable style={styles.calendarCard} onPress={() => {}}>
             <View style={styles.calendarHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('calendar.previousMonth')}
                 hitSlop={8}
                 onPress={() => changeMonth(-1)}
                 style={styles.calendarArrowButton}>
                 <Text style={styles.calendarArrowText}>{'<'}</Text>
               </Pressable>
               <Text style={styles.calendarTitle}>
-                {new Intl.DateTimeFormat('fr-FR', {
+                {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
                   month: 'long',
                   year: 'numeric',
                 }).format(visibleMonth)}
               </Text>
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('calendar.nextMonth')}
                 hitSlop={8}
                 onPress={() => changeMonth(1)}
                 style={styles.calendarArrowButton}>
@@ -516,7 +525,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
               </Pressable>
             </View>
             <View style={styles.weekRow}>
-              {WEEK_DAYS.map((day, index) => (
+              {(getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR).map((day, index) => (
                 <Text key={`${day}-${index}`} style={styles.weekDay}>{day}</Text>
               ))}
             </View>
@@ -554,8 +563,8 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
           <Pressable style={styles.durationCard} onPress={() => {}}>
             <Text style={styles.durationTitle}>
               {durationPicker === 'period'
-                ? 'Durée des règles'
-                : 'Durée du cycle'}
+                ? t('profile.periodLengthLabel')
+                : t('profile.cycleLengthLabel')}
             </Text>
             <View style={styles.durationGrid}>
               {durationOptions.map(duration => (
@@ -566,7 +575,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                     styles.durationOption,
                     pressed && styles.pressed,
                   ]}>
-                  <Text style={styles.durationOptionText}>{duration} jours</Text>
+                  <Text style={styles.durationOptionText}>{t('averageCycle.days', {count: duration})}</Text>
                 </Pressable>
               ))}
             </View>

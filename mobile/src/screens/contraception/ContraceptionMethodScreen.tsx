@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   ScrollView,
@@ -22,7 +23,8 @@ import {
   setContraceptionPreferences,
   type ContraceptionMethod,
 } from '../../state/contraceptionPreferences';
-import {CONTRACEPTION_METHOD_LABELS} from '../../config/contraceptionLabels';
+import {contraceptionMethodLabels} from '../../config/contraceptionLabels';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ContraceptionMethod'>;
 
@@ -33,37 +35,39 @@ type MethodOption = {
   description: string;
 };
 
-const OPTIONS: MethodOption[] = [
-  {
-    id: 'pill',
-    icon: 'pill',
-    label: CONTRACEPTION_METHOD_LABELS.pill,
-    description: 'Suivi quotidien de la prise',
-  },
-  {
-    id: 'ring',
-    icon: 'circle-outline',
-    label: CONTRACEPTION_METHOD_LABELS.ring,
-    description: 'Rappel d’insertion et retrait',
-  },
-  {
-    id: 'patch',
-    icon: 'bandage',
-    label: CONTRACEPTION_METHOD_LABELS.patch,
-    description: 'Changement de patch',
-  },
-  {
-    id: 'other',
-    icon: 'needle',
-    label: CONTRACEPTION_METHOD_LABELS.other,
-    description: 'Autre méthode hormonale',
-  },
-];
-
 function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+
+  const methodLabels = contraceptionMethodLabels(t);
+  const options: MethodOption[] = [
+    {
+      id: 'pill',
+      icon: 'pill',
+      label: methodLabels.pill,
+      description: t('contraceptionMethod.options.pillDescription'),
+    },
+    {
+      id: 'ring',
+      icon: 'circle-outline',
+      label: methodLabels.ring,
+      description: t('contraceptionMethod.options.ringDescription'),
+    },
+    {
+      id: 'patch',
+      icon: 'bandage',
+      label: methodLabels.patch,
+      description: t('contraceptionMethod.options.patchDescription'),
+    },
+    {
+      id: 'other',
+      icon: 'needle',
+      label: methodLabels.other,
+      description: t('contraceptionMethod.options.otherDescription'),
+    },
+  ];
 
   const mode = route.params?.mode ?? 'onboarding';
   const isEdit = mode === 'edit';
@@ -158,7 +162,7 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
           showsVerticalScrollIndicator={false}>
           {isEdit ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={navigation.goBack}
@@ -180,14 +184,14 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>Quelle contraception utilises-tu ?</Text>
+            <Text style={styles.title}>{t('contraceptionMethod.title')}</Text>
             <Text style={styles.subtitle}>
-              Choisis la méthode qui correspond le mieux à ton suivi actuel.
+              {t('contraceptionMethod.subtitle')}
             </Text>
           </View>
 
           <View style={styles.list}>
-            {OPTIONS.map(option => {
+            {options.map(option => {
               const selected = option.id === method;
               return (
                 <Pressable
@@ -239,7 +243,7 @@ function ContraceptionMethodScreen({navigation, route}: Props): React.JSX.Elemen
               pressed && method && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Continuer'}
+              {saving ? t('periodStartSheet.saving') : isEdit ? t('common.save') : t('common.continue')}
             </Text>
           </Pressable>
         </ScrollView>

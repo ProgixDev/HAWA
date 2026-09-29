@@ -12,6 +12,7 @@ import {getJournalEntry} from '../../state/dailyJournalStore';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
 import {seedManagedProfileCycleIfNeeded} from '../../state/managedProfileCycleSeed';
+import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
 
 jest.mock('../../state/dailyJournalStore', () => ({
   ...jest.requireActual('../../state/dailyJournalStore'),
@@ -67,10 +68,11 @@ const confirmedCycle = (regularity: 'yes' | 'no' | 'unknown') =>
     regularity,
   });
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
   mockGetJournalEntry.mockClear();
   confirmedCycle('yes');
+  await resetAppLanguageForTests();
 });
 
 afterEach(() => {
@@ -290,5 +292,82 @@ describe('CycleHomeScreen — managed daughter profile: "Suivre mon cycle" only,
     await setActiveProfileId(hanane.id);
     const {renderer: daughterAgain} = await renderCycleHome();
     expect(textsOf(daughterAgain)).not.toContain('Pour t’accompagner');
+  });
+});
+
+describe('CycleHomeScreen — localization (English)', () => {
+  beforeEach(async () => {
+    // The previous describe block ("managed daughter profile") can leave a
+    // managed daughter active — reset to the owner so this block's
+    // assertions (e.g. QuickActionsGrid, hidden for a managed profile) are
+    // not accidentally run against the wrong active profile.
+    await resetActiveProfileForTests();
+  });
+
+  it('renders the migrated static dashboard chrome in English when the app language is English', async () => {
+    await setAppLanguage('en');
+    const {renderer} = await renderCycleHome();
+    const texts = textsOf(renderer);
+    expect(texts).toContain('Today’s journal');
+    expect(texts).toContain('Symptoms');
+    expect(texts).toContain('Sleep');
+    expect(texts).toContain('Menstrual flow');
+    expect(texts).toContain('Next period');
+    expect(texts).toContain('Fertile window');
+    expect(texts).toContain('Estimated ovulation');
+    expect(texts).toContain('My period started');
+    // HeroCycleCard — now migrated (Phase 2, Section 1).
+    expect(texts).toContain('Today');
+    expect(texts).toContain('Energy');
+    expect(texts).toContain('Mood'); // shared by both DailyJournalCard's shortcut chip and HeroCycleCard's chip
+    expect(texts).toContain('Tip of the day');
+    // CycleOverviewCard.
+    expect(texts).toContain('Your cycle overview');
+    expect(texts).toContain('See more');
+    // QuickActionsGrid.
+    expect(texts).toContain('Quick actions');
+    expect(texts).toContain('Press and hold to customize');
+    expect(texts).toContain('Library');
+    expect(texts).toContain('Hijri calendar');
+    expect(texts).toContain('Fasts to make up');
+    expect(texts).toContain('Statistics');
+    expect(texts.some(text => text.includes('Prayer') && text.includes('times'))).toBe(true);
+    expect(texts).not.toContain('Journal du jour');
+    expect(texts).not.toContain('Symptômes');
+    expect(texts).not.toContain('Mes règles ont commencé');
+    expect(texts).not.toContain('Aperçu de ton cycle');
+    expect(texts).not.toContain('Actions rapides');
+    expect(texts).not.toContain('Énergie');
+    expect(texts).not.toContain('Humeur');
+  });
+
+  it('renders the migrated dynamic prediction tiles in English, pluralized correctly', async () => {
+    jest.setSystemTime(new Date(2026, 8, 3, 10, 0, 0));
+    await setAppLanguage('en');
+    confirmedCycle('yes');
+    const {renderer} = await renderCycleHome();
+    const texts = textsOf(renderer);
+    expect(texts).not.toContain('Non estimable');
+    expect(texts.some(text => /^In \d+ days?$/.test(text))).toBe(true);
+    expect(texts).toContain('Usual length');
+    expect(texts).toContain('28 days');
+
+    confirmedCycle('no');
+    const {renderer: irregularRenderer} = await renderCycleHome();
+    const irregularTexts = textsOf(irregularRenderer);
+    expect(irregularTexts.filter(text => text === 'Not estimable')).toHaveLength(2);
+    expect(irregularTexts).toContain('26–32 days');
+  });
+
+  it('renders the pre-first-period daughter state in English too', async () => {
+    await setAppLanguage('en');
+    const hanane = await addManagedProfile({type: 'daughter', firstName: 'Hanane', birthDate: '2013-01-01', hasHadFirstPeriod: false});
+    await setActiveProfileId(hanane.id);
+    const {renderer} = await renderCycleHome();
+    const texts = textsOf(renderer);
+    expect(texts).toContain('No periods recorded yet');
+    expect(texts).toContain('Her first period has started');
+    expect(texts).toContain('Preparing for her first period');
+    expect(texts).not.toContain('Pas encore de règles enregistrées');
   });
 });

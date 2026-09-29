@@ -1,5 +1,6 @@
 import {continueAfterObjectiveSetup} from '../../state/objectiveSetupFlow';
 import React, {useEffect, useMemo, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Pressable,
   ScrollView,
@@ -19,6 +20,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getTopPadding} from '../../theme/spacing';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {ensureNotificationPermission} from '../../services/pregnancyNotifications';
+import {getAppLanguage} from '../../state/themePreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -29,6 +31,7 @@ import {
   type IrregularCyclePattern,
   type IrregularTrackedItem,
 } from '../../state/irregularPreferences';
+import '../../i18n';
 
 // Onboarding for "Cycles irréguliers / SOPK" (ObjectiveId 'irregular') — the
 // SAME 4-screen Shell/Choice/Info pattern already established by
@@ -56,76 +59,86 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
  * OPTIONS
  * ============================================================ */
 
-const cyclePatternOptions: Array<{id: IrregularCyclePattern; label: string; description: string; icon: IconName}> = [
-  {
-    id: 'regular',
-    label: 'Plutôt réguliers',
-    description: 'Mes cycles reviennent à peu près à la même fréquence.',
-    icon: 'sync',
-  },
-  {
-    id: 'irregular',
-    label: 'Irréguliers',
-    description: 'La durée de mes cycles varie sensiblement d’un mois à l’autre.',
-    icon: 'chart-timeline-variant',
-  },
-  {
-    id: 'very_variable',
-    label: 'Très variables',
-    description: 'Mes cycles peuvent être très courts ou très longs, sans schéma clair.',
-    icon: 'chart-bell-curve-cumulative',
-  },
-  {
-    id: 'unknown',
-    label: 'Je ne sais pas encore',
-    description: 'Je préfère observer avec AWA avant de me prononcer.',
-    icon: 'help-circle-outline',
-  },
-];
+// Display-only label/description text, keyed by `t()` from the shared
+// irregularOnboarding.* namespace — the persisted `id` values themselves
+// (IrregularCyclePattern / IrregularTrackedItem) are a stable enum, never
+// translated (see irregularPreferences.ts's own header comment).
+function getCyclePatternOptions(
+  t: (key: string) => string,
+): Array<{id: IrregularCyclePattern; label: string; description: string; icon: IconName}> {
+  return [
+    {
+      id: 'regular',
+      label: t('irregularOnboarding.cyclePattern.options.regular.label'),
+      description: t('irregularOnboarding.cyclePattern.options.regular.description'),
+      icon: 'sync',
+    },
+    {
+      id: 'irregular',
+      label: t('irregularOnboarding.cyclePattern.options.irregular.label'),
+      description: t('irregularOnboarding.cyclePattern.options.irregular.description'),
+      icon: 'chart-timeline-variant',
+    },
+    {
+      id: 'very_variable',
+      label: t('irregularOnboarding.cyclePattern.options.veryVariable.label'),
+      description: t('irregularOnboarding.cyclePattern.options.veryVariable.description'),
+      icon: 'chart-bell-curve-cumulative',
+    },
+    {
+      id: 'unknown',
+      label: t('irregularOnboarding.cyclePattern.options.unknown.label'),
+      description: t('irregularOnboarding.cyclePattern.options.unknown.description'),
+      icon: 'help-circle-outline',
+    },
+  ];
+}
 
-const trackedItemOptions: Array<{
+function getTrackedItemOptions(t: (key: string) => string): Array<{
   id: IrregularTrackedItem;
   label: string;
   description?: string;
   icon: IconName;
-}> = [
-  {
-    id: 'acne',
-    label: 'Acné',
-    icon: 'face-woman-outline',
-  },
-  {
-    id: 'hairGrowth',
-    label: 'Pilosité',
-    icon: 'human-male',
-  },
-  {
-    id: 'weight',
-    label: 'Poids',
-    icon: 'scale-bathroom',
-  },
-  {
-    id: 'pain',
-    label: 'Douleurs',
-    icon: 'lightning-bolt-outline',
-  },
-  {
-    id: 'mood',
-    label: 'Humeur',
-    icon: 'emoticon-happy-outline',
-  },
-  {
-    id: 'fatigue',
-    label: 'Fatigue',
-    icon: 'battery-medium',
-  },
-  {
-    id: 'otherSymptoms',
-    label: 'Autres symptômes',
-    description: 'Nausées, douleurs mammaires, ballonnements, etc.',
-    icon: 'dots-horizontal',
-  },
-];
+}> {
+  return [
+    {
+      id: 'acne',
+      label: t('irregularOnboarding.trackedItems.options.acne'),
+      icon: 'face-woman-outline',
+    },
+    {
+      id: 'hairGrowth',
+      label: t('irregularOnboarding.trackedItems.options.hairGrowth'),
+      icon: 'human-male',
+    },
+    {
+      id: 'weight',
+      label: t('irregularOnboarding.trackedItems.options.weight'),
+      icon: 'scale-bathroom',
+    },
+    {
+      id: 'pain',
+      label: t('irregularOnboarding.trackedItems.options.pain'),
+      icon: 'lightning-bolt-outline',
+    },
+    {
+      id: 'mood',
+      label: t('irregularOnboarding.trackedItems.options.mood'),
+      icon: 'emoticon-happy-outline',
+    },
+    {
+      id: 'fatigue',
+      label: t('irregularOnboarding.trackedItems.options.fatigue'),
+      icon: 'battery-medium',
+    },
+    {
+      id: 'otherSymptoms',
+      label: t('irregularOnboarding.trackedItems.options.otherSymptoms.label'),
+      description: t('irregularOnboarding.trackedItems.options.otherSymptoms.description'),
+      icon: 'dots-horizontal',
+    },
+  ];
+}
 
 /* ============================================================
  * SHARED ONBOARDING SHELL — same structure as ConceptionOnboardingScreens.tsx's
@@ -156,6 +169,7 @@ function Shell({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }) {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   // Profile / Summary edit mode: the same screen ends with a plain save.
   const isEdit = route.params?.mode === 'edit';
@@ -186,7 +200,7 @@ function Shell({
         showsVerticalScrollIndicator={false}>
         <View style={styles.progressRow}>
           <Pressable
-            accessibilityLabel="Revenir à l’étape précédente"
+            accessibilityLabel={t('irregularOnboarding.shell.backAccessibility')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={navigation.goBack}
@@ -210,7 +224,9 @@ function Shell({
               nextDisabled && styles.disabled,
               pressed && !nextDisabled && styles.primaryPressed,
             ]}>
-            <Text style={styles.primaryText}>{nextLabel ?? (isEdit ? 'Enregistrer' : step === 4 ? 'Continuer' : 'Suivant')}</Text>
+            <Text style={styles.primaryText}>
+              {nextLabel ?? (isEdit ? t('common.save') : step === 4 ? t('common.continue') : t('irregularOnboarding.shell.next'))}
+            </Text>
             <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={18} />
           </Pressable>
         </View>
@@ -224,8 +240,10 @@ function Shell({
  * ============================================================ */
 
 export function IrregularCyclePatternScreen({navigation, route}: Props) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const cyclePatternOptions = useMemo(() => getCyclePatternOptions(t), [t]);
 
   const [selected, setSelected] = useState<IrregularCyclePattern | null>(
     () => getIrregularPreferences().cyclePattern,
@@ -251,9 +269,9 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
       route={route}
       step={1}
       styles={styles}
-      subtitle="Cela nous aide à adapter ton suivi, sans jamais poser de diagnostic."
+      subtitle={t('irregularOnboarding.cyclePattern.subtitle')}
       theme={theme}
-      title="Comment sont généralement tes cycles ?">
+      title={t('irregularOnboarding.cyclePattern.title')}>
       <View style={[styles.list, styles.listTop]}>
         {cyclePatternOptions.map(item => (
           <Choice
@@ -271,7 +289,7 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
 
       <Info
         styles={styles}
-        text="Chaque cycle est différent. AWA t’accompagne pour mieux comprendre le tien, à ton rythme."
+        text={t('irregularOnboarding.cyclePattern.info')}
         theme={theme}
       />
     </Shell>
@@ -283,6 +301,7 @@ export function IrregularCyclePatternScreen({navigation, route}: Props) {
  * ============================================================ */
 
 export function IrregularLastPeriodScreen({navigation, route}: Props) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -300,7 +319,7 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
   }, []);
 
   const formattedDate = selectedDate
-    ? new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)
+    ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)
     : null;
 
   return (
@@ -320,12 +339,16 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
       route={route}
       step={2}
       styles={styles}
-      subtitle="Cette information reste indicative — elle ne détermine jamais un retard."
+      subtitle={t('irregularOnboarding.lastPeriod.subtitle')}
       theme={theme}
-      title="Quand ont commencé tes dernières règles ?">
+      title={t('irregularOnboarding.lastPeriod.title')}>
       <View style={[styles.list, styles.listTop]}>
         <Pressable
-          accessibilityLabel={formattedDate ? `Date sélectionnée : ${formattedDate}` : 'Choisir une date'}
+          accessibilityLabel={
+            formattedDate
+              ? t('irregularOnboarding.lastPeriod.dateSelectedAccessibility', {date: formattedDate})
+              : t('irregularOnboarding.lastPeriod.dateFieldLabel')
+          }
           accessibilityRole="button"
           onPress={() => {
             setSkipped(false);
@@ -340,16 +363,16 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={22} />
           </View>
           <View style={styles.copy}>
-            <Text style={styles.label}>Choisir une date</Text>
-            <Text style={styles.description}>{formattedDate ?? 'JJ / MM / AAAA'}</Text>
+            <Text style={styles.label}>{t('irregularOnboarding.lastPeriod.dateFieldLabel')}</Text>
+            <Text style={styles.description}>{formattedDate ?? t('irregularOnboarding.lastPeriod.datePlaceholder')}</Text>
           </View>
         </Pressable>
 
         <Choice
           checkbox
-          description="Je préfère renseigner cette information plus tard, depuis mon Journal."
+          description={t('irregularOnboarding.lastPeriod.skipDescription')}
           icon="calendar-remove-outline"
-          label="Je ne sais pas / Je préfère renseigner plus tard"
+          label={t('irregularOnboarding.lastPeriod.skipLabel')}
           onPress={() => setSkipped(true)}
           selected={skipped || !selectedDate}
           styles={styles}
@@ -357,7 +380,7 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
         />
       </View>
 
-      <Info icon="lightbulb-outline" styles={styles} text="Pas de souci si tu ne sais pas encore. Tu pourras toujours l’ajouter plus tard." theme={theme} />
+      <Info icon="lightbulb-outline" styles={styles} text={t('irregularOnboarding.lastPeriod.info')} theme={theme} />
 
       <InlineCalendarPickerModal
         maximumDate={new Date()}
@@ -367,8 +390,8 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
           setSkipped(false);
           setPickerVisible(false);
         }}
-        subtitle="Sélectionne le premier jour de tes dernières règles."
-        title="Dernières règles"
+        subtitle={t('irregularOnboarding.lastPeriod.pickerSubtitle')}
+        title={t('irregularOnboarding.lastPeriod.pickerTitle')}
         value={selectedDate ?? new Date()}
         visible={pickerVisible}
       />
@@ -381,8 +404,10 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
  * ============================================================ */
 
 export function IrregularTrackedItemsScreen({navigation, route}: Props) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const trackedItemOptions = useMemo(() => getTrackedItemOptions(t), [t]);
 
   const [selected, setSelected] = useState<Set<IrregularTrackedItem>>(
     () => new Set(getIrregularPreferences().trackedItems),
@@ -419,9 +444,9 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
       route={route}
       step={3}
       styles={styles}
-      subtitle="Sélectionne ceux qui sont importants pour toi. Tu pourras les modifier à tout moment."
+      subtitle={t('irregularOnboarding.trackedItems.subtitle')}
       theme={theme}
-      title="Quels éléments souhaites-tu suivre ?">
+      title={t('irregularOnboarding.trackedItems.title')}>
       <View style={[styles.list, styles.listTop, styles.trackedItemsList]}>
         {trackedItemOptions.map(item => (
           <Choice
@@ -439,7 +464,7 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
         ))}
       </View>
 
-      <Info icon="notebook-outline" styles={styles} text="Tu retrouveras toujours l’ensemble de ton Journal quotidien, quels que soient tes choix ici." theme={theme} />
+      <Info icon="notebook-outline" styles={styles} text={t('irregularOnboarding.trackedItems.info')} theme={theme} />
     </Shell>
   );
 }
@@ -452,7 +477,7 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
 // MenopauseRemindersScreen.tsx's own un-exported helpers — kept local since
 // it's pure UI display formatting.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);
@@ -464,6 +489,7 @@ function parseTimeToDate(hhmm: string): Date {
 type RemindersProps = NativeStackScreenProps<RootStackParamList, 'IrregularReminders'>;
 
 export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -506,7 +532,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
   const handleSave = async () => {
     if (saving) {return;}
     if (dailyJournalEnabled && !dailyJournalTime) {
-      setError('Choisis une heure pour ton rappel de journal quotidien.');
+      setError(t('irregularOnboarding.reminders.errorMissingTime'));
       return;
     }
     setError('');
@@ -558,7 +584,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
           <View style={styles.progressRow}>
             {isEdit ? (
               <Pressable
-                accessibilityLabel="Retour"
+                accessibilityLabel={t('common.back')}
                 accessibilityRole="button"
                 hitSlop={8}
                 onPress={navigation.goBack}
@@ -568,11 +594,11 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
             ) : null}
           </View>
 
-          <Text style={styles.title}>Quels rappels souhaites-tu recevoir ?</Text>
+          <Text style={styles.title}>{t('irregularOnboarding.reminders.title')}</Text>
           <Text style={styles.subtitle}>
             {isEdit
-              ? 'Choisis les rappels qui t’accompagnent dans ton suivi.'
-              : 'Choisis seulement les rappels qui te sont vraiment utiles. Tu pourras les modifier à tout moment depuis ton profil.'}
+              ? t('irregularOnboarding.reminders.subtitleEdit')
+              : t('irregularOnboarding.reminders.subtitleOnboarding')}
           </Text>
 
           <View style={[styles.list, styles.listTop]}>
@@ -582,9 +608,9 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                   <MaterialDesignIcons color={theme.colors.primary} name="notebook-edit-outline" size={22} />
                 </View>
                 <View style={styles.copy}>
-                  <Text style={styles.label}>Journal quotidien</Text>
+                  <Text style={styles.label}>{t('irregularOnboarding.reminders.dailyJournal.label')}</Text>
                   <Text style={styles.description}>
-                    Comment te sens-tu aujourd’hui ? Pense à mettre ton suivi à jour.
+                    {t('irregularOnboarding.reminders.dailyJournal.description')}
                   </Text>
                 </View>
                 <Switch
@@ -602,7 +628,11 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
 
               {dailyJournalEnabled ? (
                 <Pressable
-                  accessibilityLabel={dailyJournalTime ? `Heure du rappel, ${dailyJournalTime}` : 'Choisir une heure de rappel'}
+                  accessibilityLabel={
+                    dailyJournalTime
+                      ? t('irregularOnboarding.reminders.dailyJournal.timeSelectedAccessibility', {time: dailyJournalTime})
+                      : t('irregularOnboarding.reminders.dailyJournal.chooseTimeAccessibility')
+                  }
                   accessibilityRole="button"
                   onPress={() => setTimePickerVisible(true)}
                   style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
@@ -610,9 +640,9 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                     <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                   </View>
                   <View style={styles.copy}>
-                    <Text style={styles.timeLabel}>Heure du rappel</Text>
+                    <Text style={styles.timeLabel}>{t('irregularOnboarding.reminders.dailyJournal.timeLabel')}</Text>
                     <Text style={dailyJournalTime ? styles.timeValue : styles.description}>
-                      {dailyJournalTime ?? 'Choisir une heure'}
+                      {dailyJournalTime ?? t('irregularOnboarding.reminders.dailyJournal.choosePlaceholder')}
                     </Text>
                   </View>
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={20} />
@@ -626,10 +656,9 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
                   <MaterialDesignIcons color={theme.colors.primary} name="calendar-alert-outline" size={22} />
                 </View>
                 <View style={styles.copy}>
-                  <Text style={styles.label}>Règles non renseignées</Text>
+                  <Text style={styles.label}>{t('irregularOnboarding.reminders.unrecordedPeriod.label')}</Text>
                   <Text style={styles.description}>
-                    Tu n’as pas encore renseigné de nouvelles règles. Pense à mettre ton suivi à jour si elles ont
-                    commencé.
+                    {t('irregularOnboarding.reminders.unrecordedPeriod.description')}
                   </Text>
                 </View>
                 <Switch
@@ -673,7 +702,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={styles.errorText}>
-                Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                {t('irregularOnboarding.reminders.permissionNotice')}
               </Text>
             </View>
           ) : null}
@@ -685,7 +714,7 @@ export function IrregularRemindersScreen({navigation, route}: RemindersProps) {
               onPress={handleSave}
               style={({pressed}) => [styles.primary, (pressed || saving) && styles.primaryPressed]}>
               <Text style={styles.primaryText}>
-                {saving ? 'Enregistrement…' : isEdit ? 'Enregistrer' : 'Continuer'}
+                {saving ? t('irregularOnboarding.reminders.saving') : isEdit ? t('common.save') : t('common.continue')}
               </Text>
             </Pressable>
           </View>

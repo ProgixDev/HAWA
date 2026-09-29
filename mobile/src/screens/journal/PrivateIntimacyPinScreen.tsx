@@ -3,16 +3,19 @@ import {Animated, Easing, Pressable, StatusBar, StyleSheet, Text, useWindowDimen
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {hasPrivatePin, savePrivatePin, verifyPrivatePin} from '../../services/privateSectionAuth';
 import {replaceWithIntimacyDestination, unlockIntimacy} from '../../state/privateSectionAuthStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PrivateIntimacyPin'>;
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'empty', '0', 'delete'] as const;
 
 export default function PrivateIntimacyPinScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {height} = useWindowDimensions();
@@ -41,15 +44,15 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
     try {
       if (configured) {
         if (await verifyPrivatePin(value)) {unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target);}
-        else {fail('Code incorrect. Réessaie.');}
+        else {fail(t('privateIntimacyPin.incorrectCode'));}
         return;
       }
-      if (!first) {setFirst(value); setPin(''); setError('Confirme ton nouveau code.'); return;}
-      if (first !== value) {setFirst(''); fail('Les codes ne correspondent pas. Recommence.'); return;}
+      if (!first) {setFirst(value); setPin(''); setError(t('privateIntimacyPin.confirmNewCode')); return;}
+      if (first !== value) {setFirst(''); fail(t('privateIntimacyPin.codesDontMatch')); return;}
       await savePrivatePin(value); unlockIntimacy(); replaceWithIntimacyDestination(navigation, route.params?.target);
     } catch (err) {
       console.error('[PrivateIntimacyPin] verify/save failed', err);
-      fail('Une erreur est survenue. Réessaie.');
+      fail(t('privateIntimacyPin.genericError'));
     }
   };
 
@@ -67,7 +70,7 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
         <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
 
         <View style={styles.content}>
-          <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={styles.back}>
+          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}>
             <MaterialDesignIcons color={theme.colors.accent} name="arrow-left" size={27} />
           </Pressable>
 
@@ -78,15 +81,15 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="lock" size={26} />
             </View>
             <Text style={[styles.title, compact && styles.titleCompact]}>
-              {configured ? 'Saisis ton code privé' : first ? 'Confirme ton code' : 'Crée ton code privé'}
+              {configured ? t('privateIntimacyPin.enterYourCode') : first ? t('privateIntimacyPin.confirmYourCode') : t('privateIntimacyPin.createYourCode')}
             </Text>
-            <Text style={styles.subtitle}>Code sécurisé à 6 chiffres</Text>
+            <Text style={styles.subtitle}>{t('privateIntimacyPin.secureCodeSubtitle')}</Text>
           </View>
 
           <View style={styles.gapSmall} />
 
           <View style={styles.dotsBlock}>
-            <Animated.View accessibilityLabel={`${pin.length} chiffres saisis`} style={[styles.dots, {transform: [{translateX: shake}]}]}>
+            <Animated.View accessibilityLabel={t('privateIntimacyPin.digitsEntered', {count: pin.length})} style={[styles.dots, {transform: [{translateX: shake}]}]}>
               {[0, 1, 2, 3, 4, 5].map(index => <View key={index} style={[styles.dot, index < pin.length && styles.dotFilled]} />)}
             </Animated.View>
             <Text accessibilityLiveRegion="polite" style={styles.error}>{error || ' '}</Text>
@@ -99,7 +102,7 @@ export default function PrivateIntimacyPinScreen({navigation, route}: Props): Re
               <View key={key} style={styles.key} />
             ) : (
               <Pressable
-                accessibilityLabel={key === 'delete' ? 'Effacer' : key}
+                accessibilityLabel={key === 'delete' ? t('privateIntimacyPin.deleteKey') : key}
                 accessibilityRole="button"
                 key={`${key}-${index}`}
                 onPress={() => enter(key)}

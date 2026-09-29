@@ -1,9 +1,11 @@
 import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
 import {Animated, Easing, Pressable, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
+import '../../i18n';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {
   applyVisibleOrderToFullOrder,
@@ -54,6 +56,7 @@ type TileProps = {
 };
 
 function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap, theme, styles}: TileProps) {
+  const {t} = useTranslation();
   const scale = useRef(new Animated.Value(1)).current;
   const glow = useRef(new Animated.Value(0)).current;
 
@@ -93,7 +96,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
         ]}
       />
       <Pressable
-        accessibilityHint={reorderMode ? 'Touche une autre carte pour l’échanger de place' : undefined}
+        accessibilityHint={reorderMode ? t('cycleHome.quickActions.reorderHint') : undefined}
         accessibilityLabel={item.label}
         accessibilityRole="button"
         delayLongPress={320}
@@ -101,7 +104,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
         onPress={onTap}
         style={({pressed}) => [styles.tile, armed && styles.tileArmed, pressed && !armed && styles.pressed]}>
         <Pressable
-          accessibilityLabel={`Options pour ${item.label}`}
+          accessibilityLabel={t('cycleHome.quickActions.optionsFor', {label: item.label})}
           hitSlop={8}
           onPress={onLongPress}
           style={styles.menuDot}>
@@ -119,6 +122,7 @@ function QuickActionTile({item, armed, reorderMode, compact, onLongPress, onTap,
 }
 
 function QuickActionsGrid({items}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {width} = useWindowDimensions();
   const compact = width < 380;
   const {theme} = useAwaTheme();
@@ -202,8 +206,8 @@ function QuickActionsGrid({items}: Props): React.JSX.Element {
     <View style={styles.card}>
       <View style={styles.header}>
         <View style={styles.headerCopy}>
-          <Text style={styles.title}>Actions rapides</Text>
-          <Text style={styles.subtitle}>Appuie longuement pour personnaliser</Text>
+          <Text style={styles.title}>{t('cycleHome.quickActions.title')}</Text>
+          <Text style={styles.subtitle}>{t('cycleHome.quickActions.subtitle')}</Text>
         </View>
 
         <Pressable
@@ -219,7 +223,7 @@ function QuickActionsGrid({items}: Props): React.JSX.Element {
             size={14}
           />
           <Text style={[styles.customizeText, reorderMode && styles.customizeTextActive]}>
-            {reorderMode ? 'Terminé' : 'Personnaliser'}
+            {reorderMode ? t('cycleHome.quickActions.done') : t('cycleHome.quickActions.customize')}
           </Text>
         </Pressable>
       </View>

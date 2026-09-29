@@ -7,7 +7,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider, useAwaTheme} from '../../../theme/AwaThemeProvider';
 
-import PrivateIntimacyUnlockScreen, {UNIFIED_PURPOSE_COPY} from '../PrivateIntimacyUnlockScreen';
+import i18n from '../../../i18n';
+import PrivateIntimacyUnlockScreen, {unifiedPurposeCopy} from '../PrivateIntimacyUnlockScreen';
 import PrivateIntimacyPinScreen from '../PrivateIntimacyPinScreen';
 import PrivateIntimacyFaceIdScreen from '../PrivateIntimacyFaceIdScreen';
 
@@ -27,6 +28,7 @@ jest.mock('../../../services/privateSectionAuth', () => ({
   savePrivatePin: jest.fn().mockResolvedValue(undefined),
   getBiometryType: jest.fn().mockResolvedValue(null),
   getBiometryLabel: jest.fn().mockReturnValue('Utiliser la biométrie'),
+  getBiometryDeviceName: jest.fn().mockReturnValue('la biométrie'),
   getBiometryIcon: jest.fn().mockReturnValue('face-recognition'),
   authenticateWithBiometry: jest.fn().mockResolvedValue(false),
 }));
@@ -134,7 +136,8 @@ describe.each(SCREENS)('%s — unified lock design background', (_name, Screen) 
 describe('PrivateIntimacyUnlockScreen — unified lock badge and purpose copy', () => {
   it.each(ALL_TARGETS)('target=%s shows the purpose-specific privacy line', async target => {
     const renderer = await renderScreen(PrivateIntimacyUnlockScreen as React.ComponentType<any>, target);
-    const expectedLine = UNIFIED_PURPOSE_COPY[target ?? 'cycle'] ?? UNIFIED_PURPOSE_COPY.cycle;
+    const copy = unifiedPurposeCopy(i18n.t.bind(i18n));
+    const expectedLine = copy[target ?? 'cycle'] ?? copy.cycle;
     const matches = renderer.root.findAll(node => node.type === Text && node.props.children === expectedLine);
     expect(matches.length).toBeGreaterThan(0);
   });

@@ -14,6 +14,8 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useFocusEffect} from '@react-navigation/native';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Svg, {
   Circle,
@@ -80,6 +82,8 @@ import {useMenopauseSpiritualStatus} from '../../hooks/usePrayerPurityStatus';
 import {useToday} from '../../hooks/useToday';
 import {formatHijriDate} from '../../utils/cycleMath';
 
+import '../../i18n';
+
 const RING_SIZE = 126;
 const RING_STROKE = 10;
 const RING_RADIUS = (RING_SIZE - RING_STROKE) / 2;
@@ -87,41 +91,51 @@ const RING_CIRCUMFERENCE = 2 * Math.PI * RING_RADIUS;
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-const STAGE_LABELS = {
-  perimenopause: 'Périménopause',
-  menopause: 'Ménopause',
-  unsure: 'En observation',
-} as const;
+// i18n (Phase 3): STAGE_LABELS/STAGE_OPTIONS were module-level constants but
+// need the live `t` from useTranslation(), so they're now small factory
+// functions called from inside the component (same
+// `xxxFor(t)`/`xxxLabels(t)` pattern as IrregularCalendarContent.tsx's own
+// categoryLabelFor()/flowLabelsFor()). MenopauseStage's values
+// (perimenopause/menopause/unsure) are the persisted enum — display text only.
+function stageLabels(t: TFunction): Record<MenopauseStage, string> {
+  return {
+    perimenopause: t('menopauseDashboard.stageLabels.perimenopause'),
+    menopause: t('menopauseDashboard.stageLabels.menopause'),
+    unsure: t('menopauseDashboard.stageLabels.unsure'),
+  };
+}
 
-const STAGE_OPTIONS: Array<{
+function stageOptions(t: TFunction): Array<{
   id: MenopauseStage;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {
-    id: 'perimenopause',
-    title: 'Périménopause',
-    subtitle: 'Je remarque des changements depuis quelque temps',
-    icon: 'weather-sunset',
-    tint: '#FDF0E4',
-  },
-  {
-    id: 'menopause',
-    title: 'Ménopause',
-    subtitle: 'Mes règles se sont arrêtées',
-    icon: 'flower-outline',
-    tint: '#E7F0E8',
-  },
-  {
-    id: 'unsure',
-    title: 'Je ne sais pas encore',
-    subtitle: 'Et c’est tout à fait normal',
-    icon: 'help-circle-outline',
-    tint: '#EFE7F4',
-  },
-];
+}> {
+  return [
+    {
+      id: 'perimenopause',
+      title: t('menopauseDashboard.stageOptions.perimenopause.title'),
+      subtitle: t('menopauseDashboard.stageOptions.perimenopause.subtitle'),
+      icon: 'weather-sunset',
+      tint: '#FDF0E4',
+    },
+    {
+      id: 'menopause',
+      title: t('menopauseDashboard.stageOptions.menopause.title'),
+      subtitle: t('menopauseDashboard.stageOptions.menopause.subtitle'),
+      icon: 'flower-outline',
+      tint: '#E7F0E8',
+    },
+    {
+      id: 'unsure',
+      title: t('menopauseDashboard.stageOptions.unsure.title'),
+      subtitle: t('menopauseDashboard.stageOptions.unsure.subtitle'),
+      icon: 'help-circle-outline',
+      tint: '#EFE7F4',
+    },
+  ];
+}
 
 // The pastel `tint` values above are tuned for a light card and read as
 // washed-out, low-definition chips once the surrounding "Mon étape" sheet is
@@ -173,6 +187,7 @@ function PremiumProgressRing({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const ringAnimation = useRef(new Animated.Value(0)).current;
   const pulseAnimation = useRef(new Animated.Value(0)).current;
   const glowAnimation = useRef(new Animated.Value(0)).current;
@@ -349,7 +364,7 @@ function PremiumProgressRing({
             </Text>
 
             <Text style={styles.ringCaption}>
-              {progress >= 1 ? 'Complet' : 'Aujourd’hui'}
+              {progress >= 1 ? t('menopauseDashboard.ring.complete') : t('menopauseDashboard.ring.today')}
             </Text>
           </View>
         </View>
@@ -432,6 +447,7 @@ function DailyRow({
  * ================================================================ */
 
 function MenopauseDashboard({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -654,21 +670,21 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
 
   const heroStatusText =
     completedCount === 0
-      ? 'Prends soin de toi aujourd’hui'
+      ? t('menopauseDashboard.hero.status.empty')
       : completedCount === dailySections.length
-        ? 'Ton suivi du jour est complet'
-        : 'Ton suivi avance à ton rythme';
+        ? t('menopauseDashboard.hero.status.complete')
+        : t('menopauseDashboard.hero.status.partial');
 
   const heroSupportingText =
     completedCount === 0
-      ? 'Quelques instants suffisent pour écouter ce que ton corps te raconte.'
+      ? t('menopauseDashboard.hero.supporting.empty')
       : completedCount === dailySections.length
-        ? 'Tout est renseigné pour aujourd’hui. Tu peux revenir quand tu le souhaites.'
-        : `${completedCount} suivi${completedCount > 1 ? 's' : ''} renseigné${completedCount > 1 ? 's' : ''} aujourd’hui.`;
+        ? t('menopauseDashboard.hero.supporting.complete')
+        : t('menopauseDashboard.hero.supporting.partial', {count: completedCount});
 
   const stageLabel = preferences.stage
-    ? STAGE_LABELS[preferences.stage]
-    : 'Périménopause / Ménopause';
+    ? stageLabels(t)[preferences.stage]
+    : t('menopauseDashboard.stageDefaultBadge');
 
   /* ================================================================
    * JOURNAL VALUES
@@ -676,14 +692,16 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
 
   const symptomsCount = entry?.symptoms?.length ?? 0;
 
+  const toFillLabel = t('menopauseDashboard.daily.toFill');
+
   const symptomsValue =
     symptomsCount > 0
-      ? `${symptomsCount} symptôme${symptomsCount > 1 ? 's' : ''} enregistré${symptomsCount > 1 ? 's' : ''}`
-      : 'À renseigner';
+      ? t('menopauseDashboard.daily.symptomsRecorded', {count: symptomsCount})
+      : toFillLabel;
 
   const moodValue = entry?.mood
     ? MENOPAUSE_MOOD_LABELS[entry.mood]
-    : 'À renseigner';
+    : toFillLabel;
 
   const sleepValue =
     entry?.sleepDurationHours !== undefined
@@ -694,15 +712,15 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
         }`
       : entry?.sleepQuality
         ? MENOPAUSE_SLEEP_QUALITY_LABELS[entry.sleepQuality]
-        : 'À renseigner';
+        : toFillLabel;
 
   const energyValue = entry?.energyLevel
     ? MENOPAUSE_ENERGY_LABELS[entry.energyLevel]
-    : 'À renseigner';
+    : toFillLabel;
 
   const treatmentValue = entry?.treatmentStatus
     ? MENOPAUSE_TREATMENT_STATUS_LABELS[entry.treatmentStatus]
-    : 'À renseigner';
+    : toFillLabel;
 
   const hasNotesToday = Boolean(entry?.notes?.trim());
 
@@ -721,7 +739,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       icon: 'mosque',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Horaires\nde prière',
+      label: t('cycleHome.quickActions.prayerTimes'),
       onPress: () => navigation.navigate('PrayerTimes'),
     },
     {
@@ -729,7 +747,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       icon: 'book-open-page-variant-outline',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Bibliothèque',
+      label: t('cycleHome.quickActions.library'),
       onPress: () => navigation.navigate('Library'),
     },
     {
@@ -740,7 +758,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       icon: 'notebook-edit-outline',
       iconColor: '#B23F63',
       iconBg: '#F9DCE8',
-      label: 'Journal quotidien',
+      label: t('cycleHome.quickActions.dailyJournal'),
       onPress: openJournal,
     },
     {
@@ -748,7 +766,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       icon: 'moon-waning-crescent',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Calendrier Hijri',
+      label: t('cycleHome.quickActions.hijriCalendar'),
       onPress: () => navigation.navigate('HijriCalendar'),
     },
     {
@@ -756,7 +774,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       icon: 'silverware-fork-knife',
       iconColor: theme.colors.primary,
       iconBg: theme.colors.primarySoft,
-      label: 'Jeûne à rattraper',
+      label: t('cycleHome.quickActions.qadaa'),
       onPress: () => navigation.navigate('FastingQadaa'),
     },
     {
@@ -766,7 +784,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       icon: 'chart-donut',
       iconColor: '#328C92',
       iconBg: '#E3F2F3',
-      label: 'Statistiques',
+      label: t('cycleHome.quickActions.statistics'),
       onPress: () => navigation.navigate('Statistics'),
     },
   ];
@@ -778,6 +796,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
   /* ================================================================
    * STAGE SWITCH
    * ================================================================ */
+
+  const resolvedStageOptions = stageOptions(t);
 
   const openStageModal = () => {
     setPendingStage(preferences.stage);
@@ -805,8 +825,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
       setStageModalVisible(false);
 
       toast.show(
-        'Étape mise à jour',
-        STAGE_OPTIONS.find(option => option.id === pendingStage)
+        t('menopauseDashboard.stageToast.title'),
+        resolvedStageOptions.find(option => option.id === pendingStage)
           ?.title ?? '',
       );
     } finally {
@@ -815,16 +835,16 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
   };
 
   const currentStage =
-    STAGE_OPTIONS.find(
+    resolvedStageOptions.find(
       option => option.id === preferences.stage,
     ) ?? null;
 
   const currentStageLabel =
-    currentStage?.title ?? 'Non renseignée';
+    currentStage?.title ?? t('menopauseDashboard.stageCard.unknownValue');
 
   const currentStageSubtitle =
     currentStage?.subtitle ??
-    'Adapte ton suivi à ton étape actuelle.';
+    t('menopauseDashboard.stageCard.defaultHint');
 
   const currentStageIcon =
     currentStage?.icon ?? 'flower-outline';
@@ -865,7 +885,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
           <HomeHeader
             firstName={getFirstName()}
             onPressProfile={() => navigation.navigate('Profile')}
-            subtitle="Ton suivi, en toute discrétion."
+            subtitle={t('menopauseDashboard.headerSubtitle')}
           />
 
           {/* =====================================================
@@ -928,7 +948,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                 <View style={styles.heroTodayBadge}>
                   <View style={styles.heroTodayDot} />
                   <Text style={styles.heroTodayText}>
-                    Aujourd’hui
+                    {t('menopauseDashboard.hero.todayBadge')}
                   </Text>
                 </View>
               </View>
@@ -957,7 +977,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                     </View>
 
                     <Text style={styles.heroMiniStatusText}>
-                      Un suivi doux et personnel
+                      {t('menopauseDashboard.hero.miniStatus')}
                     </Text>
                   </View>
                 </View>
@@ -996,16 +1016,16 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               <View style={styles.stageHeader}>
                 <View>
                   <Text style={styles.stageEyebrow}>
-                    MON ÉTAPE
+                    {t('menopauseDashboard.stageCard.eyebrow')}
                   </Text>
 
                   <Text style={styles.stageSectionTitle}>
-                    Mon parcours
+                    {t('menopauseDashboard.stageCard.title')}
                   </Text>
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Modifier mon étape"
+                  accessibilityLabel={t('menopauseDashboard.stageCard.editAccessibility')}
                   accessibilityRole="button"
                   onPress={openStageModal}
                   style={({pressed}) => [
@@ -1019,7 +1039,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                   />
 
                   <Text style={styles.stageEditText}>
-                    Modifier
+                    {t('menopauseDashboard.stageCard.editLabel')}
                   </Text>
                 </Pressable>
               </View>
@@ -1027,7 +1047,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               <View style={styles.stageDivider} />
 
               <Pressable
-                accessibilityLabel={`Étape actuelle : ${currentStageLabel}`}
+                accessibilityLabel={t('menopauseDashboard.stageCard.currentAccessibility', {stage: currentStageLabel})}
                 accessibilityRole="button"
                 onPress={openStageModal}
                 style={({pressed}) => [
@@ -1052,7 +1072,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
 
                 <View style={styles.flexOne}>
                   <Text style={styles.stageCurrentLabel}>
-                    Étape actuelle
+                    {t('menopauseDashboard.stageCard.currentLabel')}
                   </Text>
 
                   <Text style={styles.stageValue}>
@@ -1092,11 +1112,11 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
 
               <View style={styles.flexOne}>
                 <Text style={styles.dailyTitle}>
-                  Suivi du jour
+                  {t('menopauseDashboard.daily.title')}
                 </Text>
 
                 <Text style={styles.dailySubtitle}>
-                  Ton suivi périménopause / ménopause aujourd’hui
+                  {t('menopauseDashboard.daily.subtitle')}
                 </Text>
               </View>
             </View>
@@ -1105,7 +1125,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               <DailyRow
                 completed={symptomsCount > 0}
                 icon="clipboard-pulse-outline"
-                label="Symptômes"
+                label={t('menopauseDashboard.daily.labels.symptoms')}
                 onPress={() =>
                   navigation.navigate(
                     'MenopauseJournalEntry',
@@ -1120,7 +1140,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               <DailyRow
                 completed={Boolean(entry?.mood)}
                 icon="heart-outline"
-                label="Humeur"
+                label={t('menopauseDashboard.daily.labels.mood')}
                 onPress={() =>
                   navigation.navigate(
                     'MenopauseJournalEntry',
@@ -1138,7 +1158,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                   'sleep',
                 )}
                 icon="weather-night"
-                label="Sommeil"
+                label={t('menopauseDashboard.daily.labels.sleep')}
                 onPress={() =>
                   navigation.navigate(
                     'MenopauseJournalEntry',
@@ -1153,7 +1173,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               <DailyRow
                 completed={Boolean(entry?.energyLevel)}
                 icon="lightning-bolt-outline"
-                label="Énergie / Fatigue"
+                label={t('menopauseDashboard.daily.labels.energy')}
                 onPress={() =>
                   navigation.navigate(
                     'MenopauseJournalEntry',
@@ -1171,7 +1191,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                     entry?.treatmentStatus,
                   )}
                   icon="pill"
-                  label="Traitement hormonal"
+                  label={t('menopauseDashboard.daily.labels.treatment')}
                   onPress={() =>
                     navigation.navigate(
                       'MenopauseJournalEntry',
@@ -1190,7 +1210,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                     latestFsh || latestEstradiol,
                   )}
                   icon="flask-outline"
-                  label="Analyses"
+                  label={t('menopauseDashboard.daily.labels.labResults')}
                   onPress={() =>
                     navigation.navigate(
                       'MenopauseJournalEntry',
@@ -1201,8 +1221,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                   theme={theme}
                   value={
                     latestFsh || latestEstradiol
-                      ? 'Résultats enregistrés'
-                      : 'À renseigner'
+                      ? t('menopauseDashboard.daily.labRecorded')
+                      : toFillLabel
                   }
                 />
               ) : null}
@@ -1210,7 +1230,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               <DailyRow
                 completed={hasNotesToday}
                 icon="notebook-edit-outline"
-                label="Notes du jour"
+                label={t('menopauseDashboard.daily.labels.notes')}
                 onPress={() =>
                   navigation.navigate(
                     'MenopauseJournalEntry',
@@ -1221,8 +1241,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
                 theme={theme}
                 value={
                   hasNotesToday
-                    ? 'Note ajoutée'
-                    : 'Ajouter une note'
+                    ? t('menopauseDashboard.daily.noteAdded')
+                    : t('menopauseDashboard.daily.addNote')
                 }
               />
             </View>
@@ -1280,7 +1300,7 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
         transparent
         visible={stageModalVisible}>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('menopauseDashboard.stageModal.closeAccessibility')}
           onPress={closeStageModal}
           style={styles.modalBackdrop}>
           <Pressable
@@ -1297,18 +1317,18 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
             </View>
 
             <Text style={styles.modalTitle}>
-              Mon étape
+              {t('menopauseDashboard.stageModal.title')}
             </Text>
 
             <Text style={styles.modalSubtitle}>
-              Choisis la situation qui te correspond le plus aujourd’hui.
+              {t('menopauseDashboard.stageModal.subtitle')}
             </Text>
 
             <ScrollView
               contentContainerStyle={styles.modalScrollContent}
               showsVerticalScrollIndicator={false}>
               <View style={styles.modalOptionsList}>
-                {STAGE_OPTIONS.map(option => {
+                {resolvedStageOptions.map(option => {
                   const visual = resolveStageOptionVisual(option.tint, theme);
                   return (
                     <PremiumChoiceCard
@@ -1350,8 +1370,8 @@ function MenopauseDashboard({navigation}: Props): React.JSX.Element {
               ]}>
               <Text style={styles.modalConfirmText}>
                 {savingStage
-                  ? 'Enregistrement…'
-                  : 'Confirmer'}
+                  ? t('menopauseDashboard.stageModal.saving')
+                  : t('menopauseDashboard.stageModal.confirm')}
               </Text>
             </Pressable>
           </Pressable>

@@ -9,6 +9,7 @@ import CalendarScreen from '../CalendarScreen';
 import {setCyclePreferences} from '../../state/onboardingPreferences';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
+import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -54,8 +55,9 @@ const confirmedCycle = (regularity: 'yes' | 'no' | 'unknown') =>
     regularity,
   });
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
+  await resetAppLanguageForTests();
 });
 
 afterEach(() => {
@@ -140,5 +142,49 @@ describe('CalendarScreen — managed daughter profile: "Vie intime" hidden, ever
     await setActiveProfileId(OWNER_PROFILE_ID);
     const ownerRenderer = await renderCalendar();
     expect(textsOf(ownerRenderer)).toContain('Vie intime');
+  });
+});
+
+describe('CalendarScreen — localization (English)', () => {
+  beforeEach(async () => {
+    // Reset in case a previous describe block left a managed daughter active.
+    await resetActiveProfileForTests();
+  });
+
+  it('renders the migrated static chrome and dates in English when the app language is English', async () => {
+    jest.setSystemTime(new Date(2026, 8, 3, 10, 0, 0));
+    await setAppLanguage('en');
+    confirmedCycle('yes');
+    const renderer = await renderCalendar();
+    const texts = textsOf(renderer);
+    // CalendarHeader.
+    expect(texts).toContain('Calendar');
+    expect(texts).toContain('Filters');
+    expect(texts).toContain('Legend');
+    // PredictionsCard / CycleTimelineCard / MonthHistoryStrip.
+    expect(texts).toContain('Personalized predictions');
+    expect(texts).toContain('Your cycle timeline');
+    expect(texts).toContain('Month history');
+    expect(texts).toContain('High confidence');
+    // SelectedDayCard — date formatting respects the active locale.
+    expect(texts).toContain('September 3, 2026');
+    expect(texts).not.toContain('3 septembre 2026');
+    expect(texts).toContain('Menstrual period');
+    expect(texts).toContain('Period start');
+    expect(texts).toContain('Period end');
+    expect(texts).not.toContain('Calendrier');
+    expect(texts).not.toContain('Filtres');
+    expect(texts).not.toContain('Fiabilité élevée');
+  });
+
+  it('renders the pre-first-period daughter state in English too, with no fabricated cycle data', async () => {
+    await setAppLanguage('en');
+    const hanane = await addManagedProfile({type: 'daughter', firstName: 'Hanane', birthDate: '2013-01-01', hasHadFirstPeriod: false});
+    await setActiveProfileId(hanane.id);
+    const renderer = await renderCalendar();
+    const texts = textsOf(renderer);
+    expect(texts).toContain('No periods recorded yet');
+    expect(texts).toContain('No period recorded for this cycle');
+    expect(texts).not.toContain('Pas encore de règles enregistrées');
   });
 });

@@ -13,6 +13,8 @@ import {useFocusEffect, useNavigation, type NavigationProp} from '@react-navigat
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 
@@ -50,6 +52,7 @@ import {
 import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/pregnancyTrackingUtils';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
+import {getAppLanguage} from '../../state/themePreferences';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
@@ -68,28 +71,34 @@ import type {
 } from '../../types/journal';
 
 import {TOP_SPACING_EXTRA, getFloatingTabBarClearance} from '../../theme/spacing';
+import '../../i18n';
 
 /* ============================================================
    CALENDAR MODES
 ============================================================ */
 
-const MODES: Array<{
+// Reuses the shared `calendar.mode*` keys already used by every other
+// CalendarPreference picker in the app (Cycle, Conceive…) instead of
+// re-translating "Grégorien"/"Hijri"/"Double" a second time.
+function modesFor(t: TFunction): Array<{
   key: CalendarPreference;
   label: string;
-}> = [
-  {
-    key: 'gregorian',
-    label: 'Grégorien',
-  },
-  {
-    key: 'hijri',
-    label: 'Hijri',
-  },
-  {
-    key: 'double',
-    label: 'Double',
-  },
-];
+}> {
+  return [
+    {
+      key: 'gregorian',
+      label: t('calendar.modeGregorian'),
+    },
+    {
+      key: 'hijri',
+      label: t('calendar.modeHijri'),
+    },
+    {
+      key: 'double',
+      label: t('calendar.modeDouble'),
+    },
+  ];
+}
 
 /* ============================================================
    EVENT TYPES
@@ -104,44 +113,47 @@ type EventType =
   | 'exam'
   | 'note';
 
-const EVENT_META: Record<
-  EventType,
-  {
-    label: string;
-    empty: string;
-    color: string;
-    icon: React.ComponentProps<
-      typeof MaterialDesignIcons
-    >['name'];
-  }
-> = {
-  appointment: {
-    label: 'Rendez-vous',
-    empty: 'Aucun rendez-vous',
-    color: '#6D4AE8',
-    icon: 'calendar-heart',
-  },
-
-  exam: {
-    label: 'Examen',
-    empty: 'Aucun examen',
-    color: '#A68BE8',
-    icon: 'clipboard-pulse-outline',
-  },
-
-  // Key stays 'note' (internal, persisted nowhere). The dot means "a daily
-  // tracking entry exists that day" (symptoms, weight, mood, sleep or medical
-  // information) — NOT a free-text note, which is why it is labelled "Suivi".
-  note: {
-    label: 'Suivi',
-    empty: 'Aucun suivi',
-    color: '#2AA7A1',
-    icon: 'note-text-outline',
-  },
+type EventMeta = {
+  label: string;
+  empty: string;
+  color: string;
+  icon: React.ComponentProps<
+    typeof MaterialDesignIcons
+  >['name'];
 };
 
-const EVENT_TYPES =
-  Object.keys(EVENT_META) as EventType[];
+// i18n (Phase 3): needs the live `t` from useTranslation(), so it's a factory
+// called from inside each component that needs it (same `xxxFor(t)` pattern
+// used by every other already-migrated calendar-family screen).
+function eventMetaFor(t: TFunction): Record<EventType, EventMeta> {
+  return {
+    appointment: {
+      label: t('pregnancyCalendar.eventTypes.appointment.label'),
+      empty: t('pregnancyCalendar.eventTypes.appointment.empty'),
+      color: '#6D4AE8',
+      icon: 'calendar-heart',
+    },
+
+    exam: {
+      label: t('pregnancyCalendar.eventTypes.exam.label'),
+      empty: t('pregnancyCalendar.eventTypes.exam.empty'),
+      color: '#A68BE8',
+      icon: 'clipboard-pulse-outline',
+    },
+
+    // Key stays 'note' (internal, persisted nowhere). The dot means "a daily
+    // tracking entry exists that day" (symptoms, weight, mood, sleep or medical
+    // information) — NOT a free-text note, which is why it is labelled "Suivi".
+    note: {
+      label: t('pregnancyCalendar.eventTypes.note.label'),
+      empty: t('pregnancyCalendar.eventTypes.note.empty'),
+      color: '#2AA7A1',
+      icon: 'note-text-outline',
+    },
+  };
+}
+
+const EVENT_TYPES: EventType[] = ['appointment', 'exam', 'note'];
 
 // Same canonical spiritual-marker colors already approved in the seven
 // other objective calendars. The Hijri classification itself is provided by
@@ -168,87 +180,95 @@ type FilterKey =
   | 'medical'
   | 'appointments';
 
-const FILTER_META: Record<
-  FilterKey,
-  {
-    label: string;
-    description: string;
-    empty: string;
-    icon: React.ComponentProps<
-      typeof MaterialDesignIcons
-    >['name'];
-  }
-> = {
-  symptoms: {
-    label: 'Symptômes',
-    description:
-      'Signes et symptômes enregistrés dans ton journal.',
-    empty: 'Aucun',
-    icon: 'clipboard-pulse-outline',
-  },
-
-  weight: {
-    label: 'Poids',
-    description:
-      'Évolution de ton poids pendant la grossesse.',
-    empty: 'Non enregistré',
-    icon: 'scale-bathroom',
-  },
-
-  mood: {
-    label: 'Humeur',
-    description:
-      'Humeurs et émotions notées au quotidien.',
-    empty: 'Non enregistrée',
-    icon: 'heart-outline',
-  },
-
-  sleep: {
-    label: 'Sommeil',
-    description:
-      'Durée et qualité de ton sommeil.',
-    empty: 'Non renseigné',
-    icon: 'weather-night',
-  },
-
-  medical: {
-    label: 'Infos médicales',
-    description:
-      'Informations médicales importantes.',
-    empty: 'Aucune information',
-    icon: 'shield-lock-outline',
-  },
-
-  appointments: {
-    label: 'Rendez-vous / Examens',
-    description:
-      'Rendez-vous médicaux et examens prévus.',
-    empty: 'Aucun rendez-vous ou examen',
-    icon: 'calendar-clock-outline',
-  },
+type FilterMeta = {
+  label: string;
+  description: string;
+  empty: string;
+  icon: React.ComponentProps<
+    typeof MaterialDesignIcons
+  >['name'];
 };
 
-const FILTER_KEYS =
-  Object.keys(FILTER_META) as FilterKey[];
+// i18n (Phase 3): needs the live `t` from useTranslation(), so it's a factory
+// called from inside each component that needs it.
+function filterMetaFor(t: TFunction): Record<FilterKey, FilterMeta> {
+  return {
+    symptoms: {
+      label: t('pregnancyCalendar.filters.symptoms.label'),
+      description: t('pregnancyCalendar.filters.symptoms.description'),
+      empty: t('pregnancyCalendar.filters.symptoms.empty'),
+      icon: 'clipboard-pulse-outline',
+    },
+
+    weight: {
+      label: t('pregnancyCalendar.filters.weight.label'),
+      description: t('pregnancyCalendar.filters.weight.description'),
+      empty: t('pregnancyCalendar.filters.weight.empty'),
+      icon: 'scale-bathroom',
+    },
+
+    mood: {
+      label: t('pregnancyCalendar.filters.mood.label'),
+      description: t('pregnancyCalendar.filters.mood.description'),
+      empty: t('pregnancyCalendar.filters.mood.empty'),
+      icon: 'heart-outline',
+    },
+
+    sleep: {
+      label: t('pregnancyCalendar.filters.sleep.label'),
+      description: t('pregnancyCalendar.filters.sleep.description'),
+      empty: t('pregnancyCalendar.filters.sleep.empty'),
+      icon: 'weather-night',
+    },
+
+    medical: {
+      label: t('pregnancyCalendar.filters.medical.label'),
+      description: t('pregnancyCalendar.filters.medical.description'),
+      empty: t('pregnancyCalendar.filters.medical.empty'),
+      icon: 'shield-lock-outline',
+    },
+
+    appointments: {
+      label: t('pregnancyCalendar.filters.appointments.label'),
+      description: t('pregnancyCalendar.filters.appointments.description'),
+      empty: t('pregnancyCalendar.filters.appointments.empty'),
+      icon: 'calendar-clock-outline',
+    },
+  };
+}
+
+const FILTER_KEYS: FilterKey[] = [
+  'symptoms',
+  'weight',
+  'mood',
+  'sleep',
+  'medical',
+  'appointments',
+];
 
 /* ============================================================
    MOOD LABELS
 ============================================================ */
 
-const MOOD_LABELS: Record<
+// Reuses the shared `cycleHome.mood.*` keys — the exact same MoodLevel enum
+// already localized there and by SelectedDayCard.tsx/HeroCycleCard.tsx —
+// instead of re-translating the same 9 mood labels a second time here.
+function moodLabelsFor(t: TFunction): Record<
   MoodLevel,
   string
-> = {
-  veryGood: 'Très bien',
-  good: 'Bien',
-  neutral: 'Neutre',
-  stressed: 'Stressée',
-  irritable: 'Irritable',
-  anxious: 'Anxieuse',
-  sad: 'Triste',
-  tired: 'Fatiguée',
-  motivated: 'Motivée',
-};
+> {
+  return {
+    veryGood: t('cycleHome.mood.veryGood'),
+    good: t('cycleHome.mood.good'),
+    neutral: t('cycleHome.mood.neutral'),
+    stressed: t('cycleHome.mood.stressed'),
+    irritable: t('cycleHome.mood.irritable'),
+    anxious: t('cycleHome.mood.anxious'),
+    sad: t('cycleHome.mood.sad'),
+    tired: t('cycleHome.mood.tired'),
+    motivated: t('cycleHome.mood.motivated'),
+  };
+}
 
 /* ============================================================
    HELPERS
@@ -298,6 +318,7 @@ type DailyInfoItem = {
 };
 
 function buildDailyItems(
+  t: TFunction,
   date: string,
   daily:
     | DailyJournalEntry
@@ -305,6 +326,9 @@ function buildDailyItems(
   pregnancy: PregnancyJournalState,
   events: ReadonlyArray<PregnancyMedicalEvent>,
 ): DailyInfoItem[] {
+  const filterMeta = filterMetaFor(t);
+  const moodLabels = moodLabelsFor(t);
+
   const symptomEntry =
     pregnancy.symptoms.find(
       item =>
@@ -346,14 +370,14 @@ function buildDailyItems(
               }`,
           )
           .join(' • ')
-      : FILTER_META
+      : filterMeta
           .appointments.empty;
 
   return [
     {
       key: 'symptoms',
       label:
-        FILTER_META.symptoms
+        filterMeta.symptoms
           .label,
       value:
         symptomEntry
@@ -361,17 +385,17 @@ function buildDailyItems(
           ? symptomEntry.symptoms.join(
               ', ',
             )
-          : FILTER_META
+          : filterMeta
               .symptoms.empty,
       icon:
-        FILTER_META.symptoms
+        filterMeta.symptoms
           .icon,
     },
 
     {
       key: 'weight',
       label:
-        FILTER_META.weight
+        filterMeta.weight
           .label,
       value: weightEntry
         ? `${String(
@@ -380,43 +404,43 @@ function buildDailyItems(
             '.',
             ',',
           )} kg`
-        : FILTER_META.weight
+        : filterMeta.weight
             .empty,
       icon:
-        FILTER_META.weight
+        filterMeta.weight
           .icon,
     },
 
     {
       key: 'mood',
       label:
-        FILTER_META.mood
+        filterMeta.mood
           .label,
       value: daily?.mood
-        ? MOOD_LABELS[
+        ? moodLabels[
             daily.mood.level
           ]
-        : FILTER_META.mood
+        : filterMeta.mood
             .empty,
       icon:
-        FILTER_META.mood
+        filterMeta.mood
           .icon,
     },
 
     {
       key: 'sleep',
       label:
-        FILTER_META.sleep
+        filterMeta.sleep
           .label,
       value:
         daily?.sleep
           ?.duration ??
         daily?.sleep
           ?.quality ??
-        FILTER_META.sleep
+        filterMeta.sleep
           .empty,
       icon:
-        FILTER_META.sleep
+        filterMeta.sleep
           .icon,
     },
 
@@ -427,25 +451,25 @@ function buildDailyItems(
       // date, never `medicalEntry.note` itself — do not read `.note` here.
       key: 'medical',
       label:
-        FILTER_META.medical
+        filterMeta.medical
           .label,
       value: medicalEntry
-        ? 'Enregistré'
-        : 'Non enregistré',
+        ? t('pregnancyCalendar.dailyInfo.recorded')
+        : t('pregnancyCalendar.dailyInfo.notRecorded'),
       icon:
-        FILTER_META.medical
+        filterMeta.medical
           .icon,
     },
 
     {
       key: 'appointments',
       label:
-        FILTER_META.appointments
+        filterMeta.appointments
           .label,
       value:
         appointmentValue,
       icon:
-        FILTER_META.appointments
+        filterMeta.appointments
           .icon,
       wide: true,
     },
@@ -478,9 +502,14 @@ function isEventVisible(
 ============================================================ */
 
 function PregnancyCalendarContent(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+  const MODES = useMemo(() => modesFor(t), [t]);
+  const EVENT_META = useMemo(() => eventMetaFor(t), [t]);
+  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
 
   const insets =
     useSafeAreaInsets();
@@ -726,7 +755,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
   const monthTitle =
     capitalize(
       new Intl.DateTimeFormat(
-        'fr-FR',
+        dateLocale,
         {
           month: 'long',
           year: 'numeric',
@@ -750,7 +779,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
   const selectedTitle =
     capitalize(
       new Intl.DateTimeFormat(
-        'fr-FR',
+        dateLocale,
         {
           weekday: 'long',
           day: 'numeric',
@@ -871,6 +900,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
   const dailyItems =
     buildDailyItems(
+      t,
       selectedKey,
       dailyEntry,
       pregnancyJournal,
@@ -933,21 +963,20 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 style={
                   styles.title
                 }>
-                Calendrier
+                {t('pregnancyCalendar.title')}
               </Text>
 
               <Text
                 style={
                   styles.subtitle
                 }>
-                Organise ton suivi
-                de grossesse
+                {t('pregnancyCalendar.subtitle')}
               </Text>
             </View>
 
             <HeaderAction
               icon="tune-variant"
-              label="Filtres"
+              label={t('pregnancyCalendar.filtersLabel')}
               onPress={() =>
                 setSheet(
                   'filters',
@@ -957,7 +986,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
             <HeaderAction
               icon="format-list-bulleted"
-              label="Légende"
+              label={t('pregnancyCalendar.legendLabel')}
               onPress={() =>
                 setSheet(
                   'legend',
@@ -1024,7 +1053,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 styles.monthHeader
               }>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('calendar.previousMonth')}
                 accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={
@@ -1063,7 +1092,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('calendar.nextMonth')}
                 accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={
@@ -1150,9 +1179,9 @@ function PregnancyCalendarContent(): React.JSX.Element {
                       : DHOUL_HIJJA_MARKER_COLOR;
                   const spiritualMarkerLabel =
                     spiritualMonth === 'ramadan'
-                      ? ', Ramadan'
+                      ? t('pregnancyCalendar.dayAccessibility.ramadan')
                       : spiritualMonth === 'dhoulHijja'
-                        ? ', Dhou al-Hijja'
+                        ? t('pregnancyCalendar.dayAccessibility.dhoulHijja')
                         : '';
 
                   const markers =
@@ -1333,7 +1362,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 <View style={styles.inlineTodayIndicator} />
 
                 <Text style={styles.inlineLegendText}>
-                  Aujourd’hui
+                  {t('pregnancyCalendar.todayLabel')}
                 </Text>
               </View>
 
@@ -1350,7 +1379,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                         styles.inlineLegendText,
                         styles.inlineLegendTextWithIcon,
                       ]}>
-                      Ramadan
+                      {t('pregnancyCalendar.ramadanLabel')}
                     </Text>
                   </View>
 
@@ -1365,7 +1394,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                         styles.inlineLegendText,
                         styles.inlineLegendTextWithIcon,
                       ]}>
-                      Dhou al-Hijja
+                      {t('pregnancyCalendar.dhoulHijjaLabel')}
                     </Text>
                   </View>
                 </>
@@ -1437,22 +1466,22 @@ function PregnancyCalendarContent(): React.JSX.Element {
                 styles.pregnancyGrid
               }>
               <PregnancyInfo
-                label="Semaine de grossesse"
-                value={pregnancyStatus.configured ? `Semaine ${pregnancyStatus.week}` : 'Non configurée'}
+                label={t('pregnancyCalendar.selectedCard.weekLabel')}
+                value={pregnancyStatus.configured ? t('pregnancyCalendar.selectedCard.weekValue', {week: pregnancyStatus.week}) : t('pregnancyCalendar.selectedCard.notConfigured')}
               />
 
               <PregnancyInfo
-                label="Gestation"
+                label={t('pregnancyCalendar.selectedCard.gestationLabel')}
                 value={
                   pregnancyStatus.configured
-                    ? `${pregnancyStatus.gestationalWeeks} SA + ${pregnancyStatus.gestationalDays} jours`
-                    : 'Non configurée'
+                    ? t('pregnancyCalendar.selectedCard.gestationValue', {weeks: pregnancyStatus.gestationalWeeks, days: pregnancyStatus.gestationalDays})
+                    : t('pregnancyCalendar.selectedCard.notConfigured')
                 }
               />
 
               <PregnancyInfo
-                label="Trimestre"
-                value={pregnancyStatus.configured ? formatPregnancyTrimester(pregnancyStatus.trimester) : 'Non configurée'}
+                label={t('pregnancyCalendar.selectedCard.trimesterLabel')}
+                value={pregnancyStatus.configured ? formatPregnancyTrimester(pregnancyStatus.trimester) : t('pregnancyCalendar.selectedCard.notConfigured')}
                 wide
               />
             </View>
@@ -1544,12 +1573,12 @@ function PregnancyCalendarContent(): React.JSX.Element {
               style={
                 styles.sectionTitle
               }>
-              À venir
+              {t('pregnancyCalendar.upcoming.title')}
             </Text>
 
             {upcomingEvents.length === 0 ? (
               <Text style={styles.upcomingEmpty}>
-                Aucun rendez-vous ou examen à venir.
+                {t('pregnancyCalendar.upcoming.empty')}
               </Text>
             ) : null}
 
@@ -1570,7 +1599,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
                 return (
                   <Pressable
-                    accessibilityLabel={`Modifier ${event.title}`}
+                    accessibilityLabel={t('pregnancyCalendar.upcoming.editAccessibility', {title: event.title})}
                     accessibilityRole="button"
                     key={
                       event.id
@@ -1619,7 +1648,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
                           styles.upcomingMonth
                         }>
                         {new Intl.DateTimeFormat(
-                          'fr-FR',
+                          dateLocale,
                           {
                             month:
                               'short',
@@ -1821,23 +1850,27 @@ function PregnancyCalendarSheet({
 
   showSpiritualMarkers: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets =
     useSafeAreaInsets();
+
+  const EVENT_META = useMemo(() => eventMetaFor(t), [t]);
+  const FILTER_META = useMemo(() => filterMetaFor(t), [t]);
 
   const descriptions: Record<
     EventType,
     string
   > = {
     appointment:
-      'Consultations, visites ou rendez-vous médicaux programmés.',
+      t('pregnancyCalendar.sheet.legend.eventDescriptions.appointment'),
 
     exam:
-      'Examens médicaux ou échographies prévus.',
+      t('pregnancyCalendar.sheet.legend.eventDescriptions.exam'),
 
     note:
-      'Suivi quotidien enregistré ce jour-là (symptômes, poids, humeur, sommeil ou informations médicales).',
+      t('pregnancyCalendar.sheet.legend.eventDescriptions.note'),
   };
 
   return (
@@ -1858,7 +1891,7 @@ function PregnancyCalendarSheet({
         {/* BACKDROP */}
 
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('pregnancyCalendar.sheet.closeAccessibility')}
           onPress={
             onClose
           }
@@ -1921,17 +1954,14 @@ function PregnancyCalendarSheet({
                   style={
                     styles.legendSheetTitle
                   }>
-                  Légende du
-                  calendrier
+                  {t('pregnancyCalendar.sheet.legend.title')}
                 </Text>
 
                 <Text
                   style={
                     styles.legendSheetSubtitle
                   }>
-                  Comprendre les
-                  couleurs et repères
-                  utilisés.
+                  {t('pregnancyCalendar.sheet.legend.subtitle')}
                 </Text>
               </View>
 
@@ -2040,9 +2070,9 @@ function PregnancyCalendarSheet({
                       />
 
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Ramadan</Text>
+                        <Text style={styles.legendRowTitle}>{t('pregnancyCalendar.ramadanLabel')}</Text>
                         <Text style={styles.legendRowText}>
-                          Ce jour se situe dans le mois du Ramadan (jeûne).
+                          {t('pregnancyCalendar.sheet.legend.ramadanDescription')}
                         </Text>
                       </View>
                     </View>
@@ -2064,9 +2094,9 @@ function PregnancyCalendarSheet({
                       />
 
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Dhou al-Hijja</Text>
+                        <Text style={styles.legendRowTitle}>{t('pregnancyCalendar.dhoulHijjaLabel')}</Text>
                         <Text style={styles.legendRowText}>
-                          Ce jour se situe dans le mois de Dhou al-Hijja.
+                          {t('pregnancyCalendar.sheet.legend.dhoulHijjaDescription')}
                         </Text>
                       </View>
                     </View>
@@ -2109,16 +2139,14 @@ function PregnancyCalendarSheet({
                     style={
                       styles.todayTitle
                     }>
-                    Aujourd’hui
+                    {t('pregnancyCalendar.todayLabel')}
                   </Text>
 
                   <Text
                     style={
                       styles.todayText
                     }>
-                    Le contour noir en
-                    pointillés indique la
-                    date d’aujourd’hui.
+                    {t('pregnancyCalendar.sheet.legend.todayDescription')}
                   </Text>
                 </View>
               </View>
@@ -2133,7 +2161,7 @@ function PregnancyCalendarSheet({
                 styles.legendFooter
               }>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('pregnancyCalendar.sheet.legend.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={
                   onClose
@@ -2150,7 +2178,7 @@ function PregnancyCalendarSheet({
                   style={
                     styles.closeLegendText
                   }>
-                  Fermer
+                  {t('pregnancyCalendar.sheet.legend.closeLabel')}
                 </Text>
               </Pressable>
             </View>
@@ -2192,18 +2220,14 @@ function PregnancyCalendarSheet({
                 style={
                   styles.filterSheetTitle
                 }>
-                Filtres du
-                calendrier
+                {t('pregnancyCalendar.sheet.filters.title')}
               </Text>
 
               <Text
                 style={
                   styles.filterSheetSubtitle
                 }>
-                Choisis les
-                informations à
-                afficher sur ton
-                calendrier.
+                {t('pregnancyCalendar.sheet.filters.subtitle')}
               </Text>
             </View>
 
@@ -2345,7 +2369,7 @@ function PregnancyCalendarSheet({
                   style={
                     styles.doneText
                   }>
-                  Terminé
+                  {t('pregnancyCalendar.sheet.filters.doneLabel')}
                 </Text>
               </Pressable>
             </View>

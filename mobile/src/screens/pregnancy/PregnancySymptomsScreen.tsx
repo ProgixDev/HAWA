@@ -15,6 +15,7 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useNavigation, type NavigationProp} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -25,6 +26,7 @@ import {deletePregnancySymptoms, getPregnancyJournalState, savePregnancySymptoms
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import '../../i18n';
 
 // Pregnancy's "Symptômes ressentis" — visually rebuilt to match Cycle's own
 // JournalSymptomsScreen.tsx (src/screens/journal/JournalSymptomsScreen.tsx)
@@ -45,6 +47,17 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
+// DATA-BEARING: SYMPTOMS[] is DATA, not just display text — each string is
+// persisted verbatim as `PregnancySymptomEntry.symptoms` in
+// pregnancyJournalStore.ts (see `save()` below), matched by string equality
+// against `selected` (`toggle()`/`accessibilityLabel={item}`/the row label
+// Text below), and read back elsewhere. Translating these values would
+// either silently change already-saved user data's meaning across a
+// language switch, or require a genuine semantic-key migration (separate id
+// vs. display label) that is out of this phase's UI-only scope — see
+// CLAUDE.md §0 (report conflicts rather than silently picking one). Left in
+// French, not wrapped in t(), same known gap already flagged for Cycle's own
+// JournalSymptomsScreen.tsx SYMPTOMS[]/LOCATIONS[].
 const SYMPTOMS = ['Nausées', 'Fatigue', 'Sensibilité des seins', 'Ballonnements', 'Maux de tête', 'Reflux / brûlures d’estomac', 'Douleurs lombaires', 'Constipation', 'Crampes légères', 'Essoufflement', 'Gonflement', 'Vertiges', 'Troubles du sommeil'];
 
 // Icons cross-checked against MaterialDesignIcons names already confirmed
@@ -69,6 +82,7 @@ const SYMPTOM_ICONS: Record<string, IconName> = {
 const HERO_IMAGE = require('../../assets/images/symptoms-header-woman.png');
 
 export default function PregnancySymptomsScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -125,7 +139,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
 
   const save = async () => {
     setError('');
-    if (selected.length === 0) {setError('Sélectionne au moins un symptôme.'); return;}
+    if (selected.length === 0) {setError(t('pregnancySymptoms.errors.selectAtLeastOne')); return;}
     setSaving(true);
     try {
       await savePregnancySymptoms({
@@ -135,7 +149,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
         updatedAt: new Date().toISOString(),
       });
       setHasSavedEntry(true);
-      saveToast.show('Symptômes enregistrés', 'Ton suivi de grossesse a bien été mis à jour.', navigation.goBack);
+      saveToast.show(t('pregnancySymptoms.saveToast.savedTitle'), t('pregnancySymptoms.saveToast.savedMessage'), navigation.goBack);
     } finally {
       setSaving(false);
     }
@@ -151,7 +165,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
       setSelected([]);
       setNote('');
       setHasSavedEntry(false);
-      saveToast.show('Symptômes effacés', 'Ton suivi de grossesse a bien été mis à jour.', navigation.goBack);
+      saveToast.show(t('pregnancySymptoms.saveToast.clearedTitle'), t('pregnancySymptoms.saveToast.clearedMessage'), navigation.goBack);
     } finally {
       setSaving(false);
     }
@@ -168,7 +182,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined} keyboardVerticalOffset={insets.top} style={styles.flex}>
         <View style={[styles.topBar, {paddingTop: getTopPadding(insets.top, true)}]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -176,10 +190,10 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
             <MaterialDesignIcons color={theme.colors.primary} name="arrow-left" size={24} />
           </Pressable>
 
-          <Text style={styles.pageTitle}>Symptômes ressentis</Text>
+          <Text style={styles.pageTitle}>{t('pregnancySymptoms.pageTitle')}</Text>
 
           <Pressable
-            accessibilityLabel="Enregistrer les symptômes"
+            accessibilityLabel={t('pregnancySymptoms.saveSymptomsAccessibility')}
             accessibilityRole="button"
             accessibilityState={{disabled: saving}}
             disabled={saving}
@@ -197,8 +211,8 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
           <Animated.View style={entranceStyle}>
             <ImageBackground imageStyle={styles.heroImage} resizeMode="cover" source={HERO_IMAGE} style={styles.hero}>
               <View style={styles.heroCopy}>
-                <Text style={styles.heroTitle}>Écoute ton corps</Text>
-                <Text style={styles.heroSubtitle}>Note tes ressentis physiques{'\n'}aujourd’hui.</Text>
+                <Text style={styles.heroTitle}>{t('pregnancySymptoms.hero.title')}</Text>
+                <Text style={styles.heroSubtitle}>{t('pregnancySymptoms.hero.subtitle')}</Text>
               </View>
             </ImageBackground>
 
@@ -208,12 +222,12 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
                   <MaterialDesignIcons color={theme.colors.primary} name="clipboard-pulse-outline" size={18} />
                 </View>
                 <View style={styles.headingCopy}>
-                  <Text style={styles.sectionTitle}>Symptômes ressentis</Text>
-                  <Text style={styles.sectionSubtitle}>Sélectionne tous les symptômes que tu ressens aujourd’hui.</Text>
+                  <Text style={styles.sectionTitle}>{t('pregnancySymptoms.section.title')}</Text>
+                  <Text style={styles.sectionSubtitle}>{t('pregnancySymptoms.section.subtitle')}</Text>
                 </View>
                 <View style={styles.countBadge}>
                   <MaterialDesignIcons color={theme.colors.primary} name="check-circle-outline" size={14} />
-                  <Text style={styles.countBadgeText}>{selected.length} sélectionné{selected.length > 1 ? 's' : ''}</Text>
+                  <Text style={styles.countBadgeText}>{t('pregnancySymptoms.selectedCount', {count: selected.length})}</Text>
                 </View>
               </View>
 
@@ -232,9 +246,12 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
                         <MaterialDesignIcons color={active ? onPrimaryTextColor(theme) : theme.colors.primary} name={SYMPTOM_ICONS[item]} size={20} />
                       </View>
                       <View style={styles.symptomCopy}>
+                        {/* DATA-BEARING: `item` is the raw persisted symptom
+                            value (French) — see the SYMPTOMS[] comment above.
+                            Intentionally rendered as-is, not translated. */}
                         <Text style={[styles.symptomText, active && styles.symptomTextActive]}>{item}</Text>
                         <Text style={[styles.symptomHelperText, active && styles.symptomHelperTextActive]}>
-                          {active ? 'Ajouté à ton journal' : 'Appuie pour sélectionner'}
+                          {active ? t('pregnancySymptoms.row.added') : t('pregnancySymptoms.row.tapToSelect')}
                         </Text>
                       </View>
                       <View style={[styles.selectionIndicator, active && styles.selectionIndicatorActive]}>
@@ -248,16 +265,16 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
 
             <View style={styles.card}>
               <Text style={styles.sectionTitleStandalone}>
-                Notes supplémentaires <Text style={styles.optional}>(optionnel)</Text>
+                {t('pregnancySymptoms.notes.title')} <Text style={styles.optional}>{t('pregnancySymptoms.notes.optional')}</Text>
               </Text>
-              <Text style={styles.sectionSubtitle}>Ajoute une observation si tu le souhaites.</Text>
+              <Text style={styles.sectionSubtitle}>{t('pregnancySymptoms.notes.subtitle')}</Text>
               <View style={styles.noteBox}>
                 <TextInput
-                  accessibilityLabel="Notes supplémentaires"
+                  accessibilityLabel={t('pregnancySymptoms.notes.title')}
                   maxLength={300}
                   multiline
                   onChangeText={setNote}
-                  placeholder="Écris ici..."
+                  placeholder={t('pregnancySymptoms.notes.placeholder')}
                   placeholderTextColor={theme.colors.textMuted}
                   style={styles.noteInput}
                   textAlignVertical="top"
@@ -270,24 +287,24 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
             {error ? <Text accessibilityRole="alert" style={styles.error}>{error}</Text> : null}
 
             <Pressable
-              accessibilityLabel="Enregistrer mes symptômes"
+              accessibilityLabel={t('pregnancySymptoms.saveMineAccessibility')}
               accessibilityRole="button"
               accessibilityState={{disabled: saving}}
               disabled={saving}
               onPress={save}
               style={({pressed}) => [styles.saveButton, (pressed || saving) && styles.pressedRow]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={saving ? 'loading' : 'content-save-outline'} size={20} />
-              <Text style={styles.saveText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+              <Text style={styles.saveText}>{saving ? t('periodStartSheet.saving') : t('common.save')}</Text>
             </Pressable>
 
             {hasSavedEntry ? (
               <Pressable
-                accessibilityLabel="Effacer les symptômes du jour"
+                accessibilityLabel={t('pregnancySymptoms.clearToday')}
                 accessibilityRole="button"
                 disabled={saving}
                 onPress={clearEntry}
                 style={({pressed}) => [styles.clearButton, pressed && styles.pressedRow]}>
-                <Text style={styles.clearText}>Effacer les symptômes du jour</Text>
+                <Text style={styles.clearText}>{t('pregnancySymptoms.clearToday')}</Text>
               </Pressable>
             ) : null}
           </Animated.View>

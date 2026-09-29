@@ -14,6 +14,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -26,70 +27,80 @@ import {
   setMenopauseTrackedSymptoms,
   type MenopauseSymptom,
 } from '../state/menopausePreferences';
+import '../i18n';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
   'MenopauseSymptoms'
 >;
 
-const OPTIONS: Array<{
+// Display-only labels for the persisted MenopauseSymptom enum (the semantic
+// value itself, never the label, is what's saved — see
+// setMenopauseTrackedSymptoms()). Wording mirrors
+// menopauseJournalConfig.ts's MENOPAUSE_SYMPTOM_OPTIONS labels so the setup
+// screen and the journal/dashboard never drift apart.
+function buildOptions(t: (key: string) => string): Array<{
   id: MenopauseSymptom;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {
-    id: 'hot_flashes',
-    title: 'Bouffées de chaleur',
-    subtitle: 'Sensations de chaleur soudaines',
-    icon: 'fire',
-    tint: '#FBE9E7',
-  },
-  {
-    id: 'night_sweats',
-    title: 'Sueurs nocturnes',
-    subtitle: 'Transpiration pendant le sommeil',
-    icon: 'water-outline',
-    tint: '#E8F1F6',
-  },
-  {
-    id: 'sleep_disturbances',
-    title: 'Troubles du sommeil',
-    subtitle: 'Difficultés à s’endormir ou à rester endormie',
-    icon: 'weather-night',
-    tint: '#EEE8F6',
-  },
-  {
-    id: 'fatigue',
-    title: 'Fatigue',
-    subtitle: 'Une énergie plus difficile à retrouver',
-    icon: 'sleep',
-    tint: '#F4EEE3',
-  },
-  {
-    id: 'mood_changes',
-    title: 'Variations d’humeur',
-    subtitle: 'Des émotions plus changeantes',
-    icon: 'heart-outline',
-    tint: '#F4EAF7',
-  },
-  {
-    id: 'brain_fog',
-    title: 'Brouillard mental',
-    subtitle: 'Concentration ou mémoire moins nettes',
-    icon: 'weather-fog',
-    tint: '#E9EEF5',
-  },
-];
+}> {
+  return [
+    {
+      id: 'hot_flashes',
+      title: t('menopauseSymptoms.options.hot_flashes.title'),
+      subtitle: t('menopauseSymptoms.options.hot_flashes.subtitle'),
+      icon: 'fire',
+      tint: '#FBE9E7',
+    },
+    {
+      id: 'night_sweats',
+      title: t('menopauseSymptoms.options.night_sweats.title'),
+      subtitle: t('menopauseSymptoms.options.night_sweats.subtitle'),
+      icon: 'water-outline',
+      tint: '#E8F1F6',
+    },
+    {
+      id: 'sleep_disturbances',
+      title: t('menopauseSymptoms.options.sleep_disturbances.title'),
+      subtitle: t('menopauseSymptoms.options.sleep_disturbances.subtitle'),
+      icon: 'weather-night',
+      tint: '#EEE8F6',
+    },
+    {
+      id: 'fatigue',
+      title: t('menopauseSymptoms.options.fatigue.title'),
+      subtitle: t('menopauseSymptoms.options.fatigue.subtitle'),
+      icon: 'sleep',
+      tint: '#F4EEE3',
+    },
+    {
+      id: 'mood_changes',
+      title: t('menopauseSymptoms.options.mood_changes.title'),
+      subtitle: t('menopauseSymptoms.options.mood_changes.subtitle'),
+      icon: 'heart-outline',
+      tint: '#F4EAF7',
+    },
+    {
+      id: 'brain_fog',
+      title: t('menopauseSymptoms.options.brain_fog.title'),
+      subtitle: t('menopauseSymptoms.options.brain_fog.subtitle'),
+      icon: 'weather-fog',
+      tint: '#E9EEF5',
+    },
+  ];
+}
 
 function MenopauseSymptomsScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const OPTIONS = useMemo(() => buildOptions(t), [t]);
 
   const entrance = useRef(new Animated.Value(0)).current;
   const floatAnimation = useRef(new Animated.Value(0)).current;
@@ -279,16 +290,15 @@ function MenopauseSymptomsScreen({
               </Animated.View>
 
               <Text style={styles.eyebrow}>
-                SUIVI PERSONNEL
+                {t('menopauseSymptoms.eyebrow')}
               </Text>
 
               <Text style={styles.title}>
-                Quels symptômes veux-tu suivre ?
+                {t('menopauseSymptoms.title')}
               </Text>
 
               <Text style={styles.subtitle}>
-                Choisis ceux qui te concernent aujourd’hui.
-                Tu peux en sélectionner plusieurs.
+                {t('menopauseSymptoms.subtitle')}
               </Text>
             </View>
 
@@ -305,15 +315,15 @@ function MenopauseSymptomsScreen({
 
                 <View style={styles.summaryTextWrapper}>
                   <Text style={styles.summaryTitle}>
-                    Symptômes sélectionnés
+                    {t('menopauseSymptoms.summary.title')}
                   </Text>
 
                   <Text style={styles.summarySubtitle}>
                     {selected.length === 0
-                      ? 'Aucun pour le moment'
-                      : `${selected.length} sélectionné${
-                          selected.length > 1 ? 's' : ''
-                        }`}
+                      ? t('menopauseSymptoms.summary.none')
+                      : t('menopauseSymptoms.summary.selectedCount', {
+                          count: selected.length,
+                        })}
                   </Text>
                 </View>
 
@@ -342,7 +352,7 @@ function MenopauseSymptomsScreen({
 
               <View style={styles.optionsHeader}>
                 <Text style={styles.optionsTitle}>
-                  Mes symptômes
+                  {t('menopauseSymptoms.options.title')}
                 </Text>
 
                 {selected.length > 0 && (
@@ -354,7 +364,7 @@ function MenopauseSymptomsScreen({
                       pressed && styles.clearButtonPressed,
                     ]}>
                     <Text style={styles.clearText}>
-                      Effacer
+                      {t('menopauseSymptoms.options.clear')}
                     </Text>
                   </Pressable>
                 )}
@@ -389,7 +399,7 @@ function MenopauseSymptomsScreen({
               />
 
               <Text style={styles.helperText}>
-                Tu pourras modifier tes choix plus tard.
+                {t('menopauseSymptoms.helper')}
               </Text>
             </View>
 
@@ -417,10 +427,10 @@ function MenopauseSymptomsScreen({
 
                 <Text style={styles.nextText}>
                   {saving
-                    ? 'Enregistrement…'
+                    ? t('menopauseSymptoms.saving')
                     : route.params?.mode === 'edit'
-                      ? 'Enregistrer'
-                      : 'Continuer'}
+                      ? t('common.save')
+                      : t('common.continue')}
                 </Text>
 
                 {!saving && (

@@ -8,6 +8,7 @@ import {
   type RouteProp,
 } from '@react-navigation/native';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
+import { useTranslation } from 'react-i18next';
 
 import {
   PostpartumInfoPanel,
@@ -45,6 +46,8 @@ import {
 } from '../state/postpartumPreferences';
 import { computePostpartumStatus } from '../utils/postpartumTrackingUtils';
 import { showPostpartumSuccessToast } from '../state/postpartumSuccessToastStore';
+import { getAppLanguage } from '../state/themePreferences';
+import '../i18n';
 
 // Single generic entry screen for all 5 Postpartum daily-tracking categories
 // — reached from BOTH the shared "Journal quotidien" sheet AND the
@@ -67,6 +70,10 @@ import { showPostpartumSuccessToast } from '../state/postpartumSuccessToastStore
 type Props = RouteProp<RootStackParamList, 'PostpartumJournalEntry'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
+// DATA-BEARING keys — NOT display-only text. These keys are POSTPARTUM_MOOD_OPTIONS'
+// exact raw French label strings (see postpartumJournalConfig.ts), used here purely
+// to look up an emoji; they must stay French and untranslated so the lookup keeps
+// matching the DATA-BEARING option values rendered below.
 const MOOD_EMOJI: Record<string, string> = {
   'Très difficile': '😣',
   Difficile: '😟',
@@ -96,110 +103,138 @@ const DESCENDING_SEVERITY_ICONS: IconName[] = [
   'emoticon-sad-outline',
 ];
 
-const FATIGUE_RATINGS: WellnessRatingOption[] = [
-  {
-    label: 'Aucune',
-    description: 'Je me sens disponible et reposée.',
-    icon: 'weather-sunny',
-    tint: '#FFF2C9',
-  },
-  {
-    label: 'Légère',
-    description: 'Un peu de repos me ferait du bien.',
-    icon: 'weather-partly-cloudy',
-    tint: '#FFF0DF',
-  },
-  {
-    label: 'Modérée',
-    description: 'Je ralentis et j’écoute mon corps.',
-    icon: 'weather-cloudy',
-    tint: '#F1E8FF',
-  },
-  {
-    label: 'Forte',
-    description: 'J’ai besoin de pauses plus fréquentes.',
-    icon: 'weather-pouring',
-    tint: '#EEE5FF',
-  },
-  {
-    label: 'Très forte',
-    description: 'Je privilégie le repos et le soutien.',
-    icon: 'weather-night',
-    tint: '#E8E0FA',
-  },
-];
+// The 3 option lists below are built inside the component (see
+// useFatigueRatings/usePainRatings/useRecoveryRatings) instead of staying
+// module-level constants, so `description` re-renders with the active
+// language. `label` is DATA-BEARING — NOT display-only text: it is the
+// exact raw French string from POSTPARTUM_FATIGUE_OPTIONS/
+// POSTPARTUM_PAIN_OPTIONS/POSTPARTUM_RECOVERY_OPTIONS (postpartumJournalConfig.ts),
+// matched against `selected` and saved verbatim via savePostpartumJournalField(...)
+// — there is no separate enum — so it must stay French and untranslated.
+// Only `description` (a purely presentational blurb) is translated.
+function useFatigueRatings(t: (key: string) => string): WellnessRatingOption[] {
+  return useMemo(
+    () => [
+      {
+        label: 'Aucune',
+        description: t('postpartumJournalEntry.fatigueRatings.none.description'),
+        icon: 'weather-sunny',
+        tint: '#FFF2C9',
+      },
+      {
+        label: 'Légère',
+        description: t('postpartumJournalEntry.fatigueRatings.light.description'),
+        icon: 'weather-partly-cloudy',
+        tint: '#FFF0DF',
+      },
+      {
+        label: 'Modérée',
+        description: t('postpartumJournalEntry.fatigueRatings.moderate.description'),
+        icon: 'weather-cloudy',
+        tint: '#F1E8FF',
+      },
+      {
+        label: 'Forte',
+        description: t('postpartumJournalEntry.fatigueRatings.strong.description'),
+        icon: 'weather-pouring',
+        tint: '#EEE5FF',
+      },
+      {
+        label: 'Très forte',
+        description: t('postpartumJournalEntry.fatigueRatings.veryStrong.description'),
+        icon: 'weather-night',
+        tint: '#E8E0FA',
+      },
+    ],
+    [t],
+  );
+}
 
-const PAIN_RATINGS: WellnessRatingOption[] = [
-  {
-    label: 'Aucune',
-    description: 'Je suis confortable aujourd’hui.',
-    icon: 'heart-outline',
-    tint: '#F4ECFF',
-  },
-  {
-    label: 'Légère',
-    description: 'Une gêne présente mais supportable.',
-    icon: 'heart-pulse',
-    tint: '#FCEBF2',
-  },
-  {
-    label: 'Modérée',
-    description: 'Je m’accorde du calme et des pauses.',
-    icon: 'alert-circle-outline',
-    tint: '#FFF0E8',
-  },
-  {
-    label: 'Forte',
-    description: 'La douleur demande une attention particulière.',
-    icon: 'alert-outline',
-    tint: '#FFE9EC',
-  },
-  {
-    label: 'Très forte',
-    description: 'N’hésite pas à contacter un professionnel.',
-    icon: 'medical-bag',
-    tint: '#F9E4E8',
-  },
-];
+function usePainRatings(t: (key: string) => string): WellnessRatingOption[] {
+  return useMemo(
+    () => [
+      {
+        label: 'Aucune',
+        description: t('postpartumJournalEntry.painRatings.none.description'),
+        icon: 'heart-outline',
+        tint: '#F4ECFF',
+      },
+      {
+        label: 'Légère',
+        description: t('postpartumJournalEntry.painRatings.light.description'),
+        icon: 'heart-pulse',
+        tint: '#FCEBF2',
+      },
+      {
+        label: 'Modérée',
+        description: t('postpartumJournalEntry.painRatings.moderate.description'),
+        icon: 'alert-circle-outline',
+        tint: '#FFF0E8',
+      },
+      {
+        label: 'Forte',
+        description: t('postpartumJournalEntry.painRatings.strong.description'),
+        icon: 'alert-outline',
+        tint: '#FFE9EC',
+      },
+      {
+        label: 'Très forte',
+        description: t('postpartumJournalEntry.painRatings.veryStrong.description'),
+        icon: 'medical-bag',
+        tint: '#F9E4E8',
+      },
+    ],
+    [t],
+  );
+}
 
-const RECOVERY_RATINGS: WellnessRatingOption[] = [
-  {
-    label: 'Difficile',
-    description: 'Je prends le temps dont mon corps a besoin.',
-    icon: 'weather-cloudy',
-    tint: '#F4EAFE',
-  },
-  {
-    label: 'Lente',
-    description: 'Chaque petit progrès compte.',
-    icon: 'walk',
-    tint: '#F0E8FF',
-  },
-  {
-    label: 'Stable',
-    description: 'Je retrouve doucement mon équilibre.',
-    icon: 'chart-line',
-    tint: '#E9F2FF',
-  },
-  {
-    label: 'Bonne',
-    description: 'Je sens une évolution positive.',
-    icon: 'sprout',
-    tint: '#E8F7EE',
-  },
-  {
-    label: 'Très bonne',
-    description: 'Je me sens de plus en plus en forme.',
-    icon: 'star-outline',
-    tint: '#FFF2D9',
-  },
-];
+function useRecoveryRatings(t: (key: string) => string): WellnessRatingOption[] {
+  return useMemo(
+    () => [
+      {
+        label: 'Difficile',
+        description: t('postpartumJournalEntry.recoveryRatings.difficult.description'),
+        icon: 'weather-cloudy',
+        tint: '#F4EAFE',
+      },
+      {
+        label: 'Lente',
+        description: t('postpartumJournalEntry.recoveryRatings.slow.description'),
+        icon: 'walk',
+        tint: '#F0E8FF',
+      },
+      {
+        label: 'Stable',
+        description: t('postpartumJournalEntry.recoveryRatings.stable.description'),
+        icon: 'chart-line',
+        tint: '#E9F2FF',
+      },
+      {
+        label: 'Bonne',
+        description: t('postpartumJournalEntry.recoveryRatings.good.description'),
+        icon: 'sprout',
+        tint: '#E8F7EE',
+      },
+      {
+        label: 'Très bonne',
+        description: t('postpartumJournalEntry.recoveryRatings.veryGood.description'),
+        icon: 'star-outline',
+        tint: '#FFF2D9',
+      },
+    ],
+    [t],
+  );
+}
 
 export default function PostpartumJournalEntryScreen(): React.JSX.Element {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const route = useRoute<Props>();
   const { category } = route.params;
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
+  const fatigueRatings = useFatigueRatings(t);
+  const painRatings = usePainRatings(t);
+  const recoveryRatings = useRecoveryRatings(t);
 
   const item = POSTPARTUM_JOURNAL_ITEMS.find(entry => entry.key === category);
   // Re-evaluated when the local day changes / the app returns to the
@@ -266,20 +301,20 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     const complete = (title: string) => {
       showPostpartumSuccessToast({
         title,
-        message: 'Ton suivi du jour est à jour.',
+        message: t('postpartumJournalEntry.toast.dailyUpToDate'),
       });
       navigation.navigate('MainTabs', { screen: 'CycleHome' });
     };
 
     if (category === 'fatigue') {
       if (!fatigue) {
-        setError('Choisis un niveau de fatigue avant d’enregistrer.');
+        setError(t('postpartumJournalEntry.errors.fatigue'));
         return;
       }
       setSaving(true);
       try {
         await savePostpartumJournalField(todayKey, 'fatigue', fatigue);
-        complete('Fatigue enregistrée');
+        complete(t('postpartumJournalEntry.toast.saved.fatigue'));
       } finally {
         setSaving(false);
       }
@@ -288,7 +323,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
 
     if (category === 'mood') {
       if (!mood) {
-        setError('Choisis une humeur avant d’enregistrer.');
+        setError(t('postpartumJournalEntry.errors.mood'));
         return;
       }
       setSaving(true);
@@ -304,7 +339,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
           // An emptied note field must clear the previously saved note.
           await clearPostpartumMoodNote(todayKey);
         }
-        complete('Humeur enregistrée');
+        complete(t('postpartumJournalEntry.toast.saved.mood'));
       } finally {
         setSaving(false);
       }
@@ -313,7 +348,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
 
     if (category === 'sleep') {
       if (!sleepQuality) {
-        setError('Choisis une qualité de sommeil avant d’enregistrer.');
+        setError(t('postpartumJournalEntry.errors.sleep'));
         return;
       }
       setSaving(true);
@@ -326,7 +361,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
             sleepDuration,
           );
         }
-        complete('Sommeil enregistré');
+        complete(t('postpartumJournalEntry.toast.saved.sleep'));
       } finally {
         setSaving(false);
       }
@@ -335,13 +370,13 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
 
     if (category === 'pain') {
       if (!pain) {
-        setError('Choisis un niveau de douleur avant d’enregistrer.');
+        setError(t('postpartumJournalEntry.errors.pain'));
         return;
       }
       setSaving(true);
       try {
         await savePostpartumJournalField(todayKey, 'pain', pain);
-        complete('Douleurs enregistrées');
+        complete(t('postpartumJournalEntry.toast.saved.pain'));
       } finally {
         setSaving(false);
       }
@@ -349,7 +384,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     }
 
     if (!physicalRecovery) {
-      setError('Choisis un niveau de récupération avant d’enregistrer.');
+      setError(t('postpartumJournalEntry.errors.physicalRecovery'));
       return;
     }
     setSaving(true);
@@ -359,7 +394,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         'physicalRecovery',
         physicalRecovery,
       );
-      complete('Récupération enregistrée');
+      complete(t('postpartumJournalEntry.toast.saved.physicalRecovery'));
     } finally {
       setSaving(false);
     }
@@ -384,8 +419,8 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       setPhysicalRecovery(undefined);
       setHasSavedAnswer(false);
       showPostpartumSuccessToast({
-        title: 'Réponse effacée',
-        message: 'Ton suivi du jour est à jour.',
+        title: t('postpartumJournalEntry.toast.cleared'),
+        message: t('postpartumJournalEntry.toast.dailyUpToDate'),
       });
       navigation.navigate('MainTabs', { screen: 'CycleHome' });
     } finally {
@@ -420,15 +455,15 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     [deliveryDate, today],
   );
   const dateLabel = useMemo(() => {
-    const base = new Intl.DateTimeFormat('fr-FR', {
+    const base = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
     }).format(today);
     return postpartumStatus.configured
-      ? `${base} · Jour ${postpartumStatus.postpartumDay} post-partum`
+      ? t('postpartumJournalEntry.dateLabel.withDay', {base, day: postpartumStatus.postpartumDay})
       : base;
-  }, [postpartumStatus, today]);
+  }, [postpartumStatus, today, t]);
 
   if (category === 'mood') {
     return (
@@ -437,12 +472,12 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         error={error}
         heroIcon="heart-outline"
         heroImage={require('../assets/images/mood-header-woman.png')}
-        heroText="Prends un moment pour reconnaître ce que tu ressens."
-        heroTitle="Comment te sens-tu aujourd’hui ?"
+        heroText={t('postpartumJournalEntry.mood.heroText')}
+        heroTitle={t('postpartumJournalEntry.mood.heroTitle')}
         onSave={save}
         onClear={onClear}
         saving={saving}
-        title="Humeur"
+        title={item?.label ?? t('postpartumJournalEntry.categoryTitle.mood')}
       >
         <MoodContent
           note={moodNote}
@@ -461,12 +496,12 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
         error={error}
         heroIcon="weather-night"
         heroImage={require('../assets/images/sleep-header-woman.png')}
-        heroText="Un bon repos soutient ta récupération et ton énergie."
-        heroTitle="Prends soin de ton repos"
+        heroText={t('postpartumJournalEntry.sleep.heroText')}
+        heroTitle={t('postpartumJournalEntry.sleep.heroTitle')}
         onSave={save}
         onClear={onClear}
         saving={saving}
-        title="Sommeil"
+        title={item?.label ?? t('postpartumJournalEntry.categoryTitle.sleep')}
       >
         <SleepContent
           duration={sleepDuration}
@@ -482,20 +517,20 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     return (
       <PostpartumWellnessRatingLayout
         adviceIcon="weather-night"
-        adviceText="Observer ta fatigue t’aide à mieux répartir tes moments de repos et à demander du soutien quand il le faut."
-        adviceTitle="Ton énergie compte"
+        adviceText={t('postpartumJournalEntry.fatigue.adviceText')}
+        adviceTitle={t('postpartumJournalEntry.fatigue.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
         heroImage={require('../assets/images/postpartum/postpartum-fatigue.png')}
-        heroText="Ton corps traverse beaucoup de changements. Prends le temps de l’écouter."
-        heroTitle="Comment est ton énergie ?"
+        heroText={t('postpartumJournalEntry.fatigue.heroText')}
+        heroTitle={t('postpartumJournalEntry.fatigue.heroTitle')}
         onSave={save}
         onClear={onClear}
         onSelect={setFatigue}
-        options={FATIGUE_RATINGS}
+        options={fatigueRatings}
         saving={saving}
         selected={fatigue}
-        title="Fatigue"
+        title={item?.label ?? t('postpartumJournalEntry.categoryTitle.fatigue')}
       />
     );
   }
@@ -504,20 +539,20 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     return (
       <PostpartumWellnessRatingLayout
         adviceIcon="heart-pulse"
-        adviceText="Ce suivi est un repère personnel. Si une douleur est intense, nouvelle ou inquiétante, contacte ton professionnel de santé."
-        adviceTitle="Avec bienveillance"
+        adviceText={t('postpartumJournalEntry.pain.adviceText')}
+        adviceTitle={t('postpartumJournalEntry.pain.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
         heroImage={require('../assets/images/postpartum/postpartum-pain.png')}
-        heroText="Noter ton confort aide à mieux comprendre tes besoins au fil des jours."
-        heroTitle={'Comment te sens-tu\ndans ton corps ?'}
+        heroText={t('postpartumJournalEntry.pain.heroText')}
+        heroTitle={t('postpartumJournalEntry.pain.heroTitle')}
         onSave={save}
         onClear={onClear}
         onSelect={setPain}
-        options={PAIN_RATINGS}
+        options={painRatings}
         saving={saving}
         selected={pain}
-        title="Douleurs"
+        title={item?.label ?? t('postpartumJournalEntry.categoryTitle.pain')}
       />
     );
   }
@@ -526,20 +561,20 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     return (
       <PostpartumWellnessRatingLayout
         adviceIcon="heart-outline"
-        adviceText="Chaque corps récupère à son rythme après l’accouchement. Célèbre les petits pas et accorde-toi de la douceur."
-        adviceTitle="À ton rythme"
+        adviceText={t('postpartumJournalEntry.physicalRecovery.adviceText')}
+        adviceTitle={t('postpartumJournalEntry.physicalRecovery.adviceTitle')}
         dateLabel={dateLabel}
         error={error}
         heroImage={require('../assets/images/postpartum/postpartum-recovery.png')}
-        heroText="Ton bien-être se construit un jour après l’autre, sans pression."
-        heroTitle="Comment évolue ta récupération ?"
+        heroText={t('postpartumJournalEntry.physicalRecovery.heroText')}
+        heroTitle={t('postpartumJournalEntry.physicalRecovery.heroTitle')}
         onSave={save}
         onClear={onClear}
         onSelect={setPhysicalRecovery}
-        options={RECOVERY_RATINGS}
+        options={recoveryRatings}
         saving={saving}
         selected={physicalRecovery}
-        title="Récupération physique"
+        title={item?.label ?? t('postpartumJournalEntry.categoryTitle.physicalRecovery')}
       />
     );
   }
@@ -552,7 +587,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
       saving={saving}
       subtitle={item?.journalSubtitle ?? ''}
       tint={item?.tint ?? theme.colors.primarySoft}
-      title={item?.label ?? 'Suivi'}
+      title={item?.label ?? t('postpartumJournalEntry.categoryTitle.fallback')}
     >
       {category === 'fatigue' ? (
         <FatigueContent onSelect={setFatigue} selected={fatigue} />
@@ -581,12 +616,17 @@ function FatigueContent({
   selected: string | undefined;
   onSelect: (value: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Niveau de fatigue</Text>
+        <Text style={styles.cardTitle}>{t('postpartumJournalEntry.fatigue.levelTitle')}</Text>
+        {/* DATA-BEARING render site — `option` is a raw POSTPARTUM_FATIGUE_OPTIONS
+            French string saved verbatim via savePostpartumJournalField(...);
+            the chip label itself must stay untranslated (only the card chrome
+            above is translated). */}
         <View style={styles.qualityRow}>
           {POSTPARTUM_FATIGUE_OPTIONS.map((option, index) => {
             const active = selected === option;
@@ -624,8 +664,8 @@ function FatigueContent({
       </View>
       <PostpartumInfoPanel
         icon="information-outline"
-        text="Observer ta fatigue t’aide à mieux répartir tes moments de repos."
-        title="Ton énergie"
+        text={t('postpartumJournalEntry.fatigue.infoText')}
+        title={t('postpartumJournalEntry.fatigue.infoTitle')}
       />
     </>
   );
@@ -642,12 +682,15 @@ function PainContent({
   selected: string | undefined;
   onSelect: (value: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Niveau de douleur</Text>
+        <Text style={styles.cardTitle}>{t('postpartumJournalEntry.pain.levelTitle')}</Text>
+        {/* DATA-BEARING render site — see FatigueContent's comment above;
+            same rule for POSTPARTUM_PAIN_OPTIONS. */}
         <View style={styles.qualityRow}>
           {POSTPARTUM_PAIN_OPTIONS.map((option, index) => {
             const active = selected === option;
@@ -685,8 +728,8 @@ function PainContent({
       </View>
       <PostpartumInfoPanel
         icon="information-outline"
-        text="Ce suivi est un simple repère personnel, pas un diagnostic."
-        title="Ton suivi"
+        text={t('postpartumJournalEntry.pain.infoText')}
+        title={t('postpartumJournalEntry.pain.infoTitle')}
       />
     </>
   );
@@ -703,12 +746,15 @@ function RecoveryContent({
   selected: string | undefined;
   onSelect: (value: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
       <View style={styles.card}>
-        <Text style={styles.cardTitle}>Récupération physique</Text>
+        <Text style={styles.cardTitle}>{t('postpartumJournalEntry.categoryTitle.physicalRecovery')}</Text>
+        {/* DATA-BEARING render site — see FatigueContent's comment above;
+            same rule for POSTPARTUM_RECOVERY_OPTIONS. */}
         <View style={styles.qualityRow}>
           {POSTPARTUM_RECOVERY_OPTIONS.map((option, index) => {
             const active = selected === option;
@@ -746,8 +792,8 @@ function RecoveryContent({
       </View>
       <PostpartumInfoPanel
         icon="information-outline"
-        text="Chaque corps récupère à son propre rythme après l’accouchement."
-        title="À ton rythme"
+        text={t('postpartumJournalEntry.physicalRecovery.infoText')}
+        title={t('postpartumJournalEntry.physicalRecovery.infoTitle')}
       />
     </>
   );
@@ -768,11 +814,15 @@ function MoodContent({
   note: string;
   setNote: (value: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
     <>
-      <PostpartumJournalCard icon="heart-outline" title="Humeur principale">
+      <PostpartumJournalCard icon="heart-outline" title={t('postpartumJournalEntry.mood.mainMoodTitle')}>
+        {/* DATA-BEARING render site — `option` is a raw POSTPARTUM_MOOD_OPTIONS
+            French string saved verbatim via savePostpartumJournalField(...);
+            the chip label itself must stay untranslated. */}
         <View style={styles.moodGrid}>
           {POSTPARTUM_MOOD_OPTIONS.map(option => {
             const active = selected === option;
@@ -812,27 +862,27 @@ function MoodContent({
       <PostpartumJournalCard
         icon="pencil-outline"
         optional
-        title="Un mot sur ton humeur"
+        title={t('postpartumJournalEntry.mood.noteTitle')}
       >
         <View style={styles.noteBox}>
           <TextInput
-            accessibilityLabel="Un mot sur ton humeur"
+            accessibilityLabel={t('postpartumJournalEntry.mood.noteTitle')}
             maxLength={300}
             multiline
             onChangeText={setNote}
-            placeholder="Écris ce que tu souhaites retenir..."
+            placeholder={t('postpartumJournalEntry.mood.notePlaceholder')}
             placeholderTextColor={theme.colors.textMuted}
             style={styles.noteInput}
             value={note}
           />
-          <Text style={styles.noteCounter}>{note.length} / 300</Text>
+          <Text style={styles.noteCounter}>{t('postpartumJournalEntry.mood.noteCounter', {count: note.length})}</Text>
         </View>
       </PostpartumJournalCard>
 
       <PostpartumInfoPanel
         icon="heart"
-        text="Écoute-toi avec bienveillance, à ton rythme."
-        title="Chaque émotion compte"
+        text={t('postpartumJournalEntry.mood.infoText')}
+        title={t('postpartumJournalEntry.mood.infoTitle')}
       />
     </>
   );
@@ -853,16 +903,17 @@ function SleepContent({
   quality: string | undefined;
   onSelectQuality: (value: string) => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const durationLabel =
     duration !== null ? `${String(duration).replace('.', ',')} h` : '— h';
   return (
     <>
-      <PostpartumJournalCard icon="weather-night" title="Durée de sommeil">
+      <PostpartumJournalCard icon="weather-night" title={t('postpartumJournalEntry.sleep.durationTitle')}>
         <View style={styles.stepperRow}>
           <Pressable
-            accessibilityLabel="Diminuer la durée de 30 minutes"
+            accessibilityLabel={t('postpartumJournalEntry.sleep.decreaseDurationLabel')}
             accessibilityRole="button"
             onPress={() => onAdjustDuration(-0.5)}
             style={({ pressed }) => [
@@ -887,7 +938,7 @@ function SleepContent({
           </View>
 
           <Pressable
-            accessibilityLabel="Augmenter la durée de 30 minutes"
+            accessibilityLabel={t('postpartumJournalEntry.sleep.increaseDurationLabel')}
             accessibilityRole="button"
             onPress={() => onAdjustDuration(0.5)}
             style={({ pressed }) => [
@@ -904,7 +955,10 @@ function SleepContent({
         </View>
       </PostpartumJournalCard>
 
-      <PostpartumJournalCard icon="star-outline" title="Qualité du sommeil">
+      <PostpartumJournalCard icon="star-outline" title={t('postpartumJournalEntry.sleep.qualityTitle')}>
+        {/* DATA-BEARING render site — `option` is a raw POSTPARTUM_SLEEP_OPTIONS
+            French string saved verbatim via savePostpartumJournalField(...);
+            the chip label itself must stay untranslated. */}
         <View style={styles.qualityRow}>
           {POSTPARTUM_SLEEP_OPTIONS.map((option, index) => {
             const active = quality === option;
@@ -943,8 +997,8 @@ function SleepContent({
 
       <PostpartumInfoPanel
         icon="weather-night"
-        text="C’est normal d’avoir un sommeil irrégulier après l’accouchement. Ton corps se régule progressivement."
-        title="Prends soin de toi"
+        text={t('postpartumJournalEntry.sleep.infoText')}
+        title={t('postpartumJournalEntry.sleep.infoTitle')}
       />
     </>
   );

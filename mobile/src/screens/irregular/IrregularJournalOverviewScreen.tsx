@@ -14,6 +14,7 @@ import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {TOP_SPACING_EXTRA} from '../../theme/spacing';
@@ -27,6 +28,7 @@ import {
 import {capitalize} from '../../utils/cycleMath';
 import type {DailyJournalEntry, FlowIntensity} from '../../types/journal';
 import {getJournalEntry} from '../../state/dailyJournalStore';
+import {getAppLanguage} from '../../state/themePreferences';
 import {
   getIrregularJournalEntry,
   hydrateIrregularJournal,
@@ -36,6 +38,7 @@ import {
 import {IRREGULAR_JOURNAL_ITEMS} from '../../config/irregularJournalConfig';
 import {computeIrregularDailyProgress} from '../../utils/irregularDailyTrackingMath';
 import {classifyIrregularPeriodDay} from '../../utils/irregularJournalSelectors';
+import '../../i18n';
 
 // The SOPK Daily Journal's full-screen overview — reached from
 // IrregularDashboard.tsx's "Suivi du jour" card (tapping the card header or
@@ -49,13 +52,15 @@ import {classifyIrregularPeriodDay} from '../../utils/irregularJournalSelectors'
 // `flow` field (dailyJournalStore.ts, shared with every other objective for
 // "Règles"). No second source of truth is introduced.
 
-const FLOW_LABELS: Record<FlowIntensity, string> = {
-  light: 'Léger',
-  moderate: 'Modéré',
-  heavy: 'Abondant',
-  veryHeavy: 'Très abondant',
-  none: 'Pas de règles',
-};
+function flowLabels(t: (key: string) => string): Record<FlowIntensity, string> {
+  return {
+    light: t('irregularJournalOverview.flow.light'),
+    moderate: t('irregularJournalOverview.flow.moderate'),
+    heavy: t('irregularJournalOverview.flow.heavy'),
+    veryHeavy: t('irregularJournalOverview.flow.veryHeavy'),
+    none: t('irregularJournalOverview.flow.none'),
+  };
+}
 
 /** "Règles" row wording, from the ONE canonical classifier (H10 / Calendar /
  * Statistics): a real flow shows its intensity, "Spotting" is shown as
@@ -65,15 +70,18 @@ const FLOW_LABELS: Record<FlowIntensity, string> = {
 function periodRowValue(
   flow: DailyJournalEntry['flow'] | undefined,
   irregularEntry: IrregularJournalEntry | undefined,
+  t: (key: string) => string,
 ): string | null {
   const kind = classifyIrregularPeriodDay(flow, irregularEntry);
   if (kind === null) {return null;}
-  if (kind === 'spotting') {return 'Spotting';}
-  if (kind === 'no-bleeding') {return FLOW_LABELS.none;}
-  return flow && flow.intensity !== 'none' ? FLOW_LABELS[flow.intensity] : 'Oui';
+  const labels = flowLabels(t);
+  if (kind === 'spotting') {return t('irregularJournalOverview.periodSpotting');}
+  if (kind === 'no-bleeding') {return labels.none;}
+  return flow && flow.intensity !== 'none' ? labels[flow.intensity] : t('irregularJournalOverview.periodYes');
 }
 
 function IrregularJournalOverviewScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -111,7 +119,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
     }, [todayKey]),
   );
 
-  const periodValue = periodRowValue(periodFlow, todayEntry);
+  const periodValue = periodRowValue(periodFlow, todayEntry, t);
   const periodDoneToday = periodValue !== null;
 
   const progress = useMemo(
@@ -121,7 +129,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
   const progressRatio = progress.total > 0 ? progress.completed / progress.total : 0;
 
   const dateLabel = useMemo(
-    () => capitalize(new Intl.DateTimeFormat('fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}).format(today)),
+    () => capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}).format(today)),
     [today],
   );
 
@@ -146,7 +154,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -155,12 +163,12 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
             </Pressable>
 
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Journal du jour</Text>
+              <Text style={styles.title}>{t('irregularJournalOverview.title')}</Text>
               <Text style={styles.subtitle}>{dateLabel}</Text>
             </View>
 
             <Pressable
-              accessibilityLabel="Voir le calendrier"
+              accessibilityLabel={t('irregularJournalOverview.calendarAccessibility')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={() => navigation.navigate('MainTabs', {screen: 'Calendar'})}
@@ -173,9 +181,9 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
           <View style={styles.progressCard}>
             <View style={styles.progressTopRow}>
               <View style={styles.progressCopy}>
-                <Text style={styles.progressTitle}>Ton suivi du jour</Text>
+                <Text style={styles.progressTitle}>{t('irregularJournalOverview.progressTitle')}</Text>
                 <Text style={styles.progressDescription}>
-                  Chaque petite donnée compte. Prends quelques instants pour ton suivi.
+                  {t('irregularJournalOverview.progressDescription')}
                 </Text>
               </View>
 
@@ -183,7 +191,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
                 <Text style={styles.progressBadgeValue}>
                   {progress.completed} / {progress.total}
                 </Text>
-                <Text style={styles.progressBadgeLabel}>complété</Text>
+                <Text style={styles.progressBadgeLabel}>{t('irregularJournalOverview.completedLabel')}</Text>
               </View>
             </View>
 
@@ -198,9 +206,9 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
               done={periodDoneToday}
               icon="water-outline"
               isFirst
-              label="Règles"
+              label={t('irregularJournalOverview.periodLabel')}
               onPress={() => navigation.navigate('IrregularJournalEntry', {category: 'period'})}
-              value={periodValue ?? 'Renseigne le début de tes règles'}
+              value={periodValue ?? t('irregularJournalOverview.periodPlaceholder')}
             />
 
             {IRREGULAR_JOURNAL_ITEMS.map(item => {
@@ -241,12 +249,13 @@ function JournalRow({
   onPress: () => void;
   isFirst?: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <Pressable
-      accessibilityLabel={`${label}${done ? ', enregistré' : ''}`}
+      accessibilityLabel={done ? t('irregularJournalOverview.rowDoneAccessibility', {label}) : label}
       accessibilityRole="button"
       onPress={onPress}
       style={({pressed}) => [styles.row, !isFirst && styles.rowBorder, pressed && styles.pressed]}>
