@@ -15,6 +15,10 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../../i18n';
+import {getAppLanguage} from '../../state/themePreferences';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -33,7 +37,6 @@ import {
   formatHijriMonthYear,
   sameDay,
   startOfDay,
-  WEEK_DAYS,
 } from '../../utils/cycleMath';
 import {
   getMiscarriagePreferences,
@@ -75,11 +78,15 @@ import { isDhoulHijja, isRamadan } from '../../utils/hijriCalendar';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const MODES: Array<{ key: CalendarPreference; label: string }> = [
-  { key: 'gregorian', label: 'Grégorien' },
-  { key: 'hijri', label: 'Hijri' },
-  { key: 'double', label: 'Double' },
-];
+// Reused verbatim (identical French wording) from the shared `calendar.*`
+// namespace — same pattern as ConceiveCalendarContent.tsx's own modesFor(t).
+function modesFor(t: TFunction): Array<{ key: CalendarPreference; label: string }> {
+  return [
+    { key: 'gregorian', label: t('calendar.modeGregorian') },
+    { key: 'hijri', label: t('calendar.modeHijri') },
+    { key: 'double', label: t('calendar.modeDouble') },
+  ];
+}
 
 /* ============================================================
    CATEGORY META — exactly the 4 Miscarriage Daily Journal
@@ -87,7 +94,10 @@ const MODES: Array<{ key: CalendarPreference; label: string }> = [
    calendar ever displays.
 ============================================================ */
 
-const CATEGORY_META: Record<
+// Labels reuse the exact same `miscarriageJournalConfig.items.*.label` keys
+// as the Dashboard/Journal category set (identical French wording there)
+// instead of duplicating the same copy under a second key.
+function categoryMetaFor(t: TFunction): Record<
   MiscarriageJournalCategory,
   {
     label: string;
@@ -96,42 +106,55 @@ const CATEGORY_META: Record<
     icon: IconName;
     color: string;
   }
-> = {
-  bleeding: {
-    label: 'Saignements',
-    description: 'Intensité des saignements enregistrée dans ton journal.',
-    empty: 'Non renseigné',
-    icon: 'water-outline',
-    color: '#D8697A',
-  },
-  physicalSymptoms: {
-    label: 'Symptômes physiques',
-    description: 'Symptômes physiques ressentis, notés au quotidien.',
-    empty: 'Aucun',
-    icon: 'clipboard-pulse-outline',
-    // Category identity color, fixed like every other CATEGORY_META entry
-    // here — computed at module scope, before any theme is available.
-    color: '#6D4AE8',
-  },
-  personalNotes: {
-    label: 'Notes personnelles',
-    description: 'Présence d’une note personnelle ce jour-là.',
-    empty: 'Aucune note',
-    icon: 'notebook-edit-outline',
-    color: '#A68BE8',
-  },
-  tryingAgain: {
-    label: 'Reprise des essais',
-    description: 'Ta réponse « Reprise des essais » enregistrée dans ton journal ce jour-là.',
-    empty: 'Non renseigné',
-    icon: 'heart-outline',
-    color: '#E08CB0',
-  },
-};
+> {
+  return {
+    bleeding: {
+      label: t('miscarriageJournalConfig.items.bleeding.label'),
+      description: t('miscarriageCalendar.categories.bleeding.description'),
+      empty: t('miscarriageDashboard.notProvided'),
+      icon: 'water-outline',
+      color: '#D8697A',
+    },
+    physicalSymptoms: {
+      label: t('miscarriageJournalConfig.items.physicalSymptoms.label'),
+      description: t('miscarriageCalendar.categories.physicalSymptoms.description'),
+      empty: t('miscarriageCalendar.categories.physicalSymptoms.empty'),
+      icon: 'clipboard-pulse-outline',
+      // Category identity color, fixed like every other CATEGORY_META entry
+      // here — computed at module scope, before any theme is available.
+      color: '#6D4AE8',
+    },
+    personalNotes: {
+      label: t('miscarriageJournalConfig.items.personalNotes.label'),
+      description: t('miscarriageCalendar.categories.personalNotes.description'),
+      empty: t('miscarriageCalendar.categories.personalNotes.empty'),
+      icon: 'notebook-edit-outline',
+      color: '#A68BE8',
+    },
+    tryingAgain: {
+      label: t('miscarriageJournalConfig.items.tryingAgain.label'),
+      description: t('miscarriageCalendar.categories.tryingAgain.description'),
+      empty: t('miscarriageDashboard.notProvided'),
+      icon: 'heart-outline',
+      color: '#E08CB0',
+    },
+  };
+}
 
-const CATEGORY_KEYS = Object.keys(
-  CATEGORY_META,
-) as MiscarriageJournalCategory[];
+// Fixed set of the 4 Miscarriage Journal categories — no longer derived from
+// CATEGORY_META (now a per-render factory, not a module constant).
+const CATEGORY_KEYS: MiscarriageJournalCategory[] = [
+  'bleeding',
+  'physicalSymptoms',
+  'personalNotes',
+  'tryingAgain',
+];
+
+// Local weekday abbreviations — never the shared cycleMath.ts WEEK_DAYS
+// export (used by 15+ unrelated files), same pattern as
+// MonthCalendarCard.tsx's own WEEK_DAYS_FR/WEEK_DAYS_EN consts.
+const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 // Same value every sibling calendar content (MenopauseCalendarContent.tsx,
 // ContraceptionCalendarContent.tsx, ...) already uses for these two markers —
@@ -143,11 +166,15 @@ const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 // already theme-adaptive), this fill never changes with the active theme.
 const MISCARRIAGE_FILL_COLOR = '#F3D9DF';
 
-const CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
-  no: 'Pas encore de règles',
-  yes: 'Règles revenues',
-  unknown: 'Je ne sais pas encore',
-};
+// Reused verbatim (identical French wording) by MiscarriageDashboard.tsx and
+// MiscarriageStatisticsScreen.tsx — see `miscarriageCycleReturn.statusLabels.*`.
+function cycleReturnLabelsFor(t: TFunction): Record<MiscarriageCycleReturnStatus, string> {
+  return {
+    no: t('miscarriageCycleReturn.statusLabels.no'),
+    yes: t('miscarriageCycleReturn.statusLabels.yes'),
+    unknown: t('miscarriageCycleReturn.statusLabels.unknown'),
+  };
+}
 
 const dateKey = (date: Date): string => date.toLocaleDateString('en-CA');
 const backgroundColorStyle = (backgroundColor: string) => ({ backgroundColor });
@@ -166,26 +193,32 @@ type DailyInfoItem = {
 
 function buildDailyItems(
   entry: MiscarriageJournalEntry | undefined,
+  categoryMeta: ReturnType<typeof categoryMetaFor>,
+  t: TFunction,
 ): DailyInfoItem[] {
   const items: DailyInfoItem[] = [];
 
   if (entry?.bleeding) {
     items.push({
       key: 'bleeding',
-      label: CATEGORY_META.bleeding.label,
+      label: categoryMeta.bleeding.label,
+      // DATA-BEARING: entry.bleeding/entry.bleedingNote are the raw stored
+      // strings (see MiscarriageJournalEntryScreen.tsx / bleedingColor's own
+      // DATA-BEARING comment) — never translated.
       value: entry.bleedingNote
         ? `${entry.bleeding} · ${entry.bleedingNote}`
         : entry.bleeding,
-      icon: CATEGORY_META.bleeding.icon,
+      icon: categoryMeta.bleeding.icon,
     });
   }
 
   if (entry?.physicalSymptoms?.length) {
     items.push({
       key: 'physicalSymptoms',
-      label: CATEGORY_META.physicalSymptoms.label,
+      label: categoryMeta.physicalSymptoms.label,
+      // DATA-BEARING: raw stored symptom labels — never translated.
       value: entry.physicalSymptoms.join(' · '),
-      icon: CATEGORY_META.physicalSymptoms.icon,
+      icon: categoryMeta.physicalSymptoms.icon,
     });
   }
 
@@ -194,9 +227,9 @@ function buildDailyItems(
   if (entry?.personalNotes?.trim()) {
     items.push({
       key: 'personalNotes',
-      label: CATEGORY_META.personalNotes.label,
-      value: '1 note enregistrée',
-      icon: CATEGORY_META.personalNotes.icon,
+      label: categoryMeta.personalNotes.label,
+      value: t('miscarriageCalendar.noteRecorded'),
+      icon: categoryMeta.personalNotes.icon,
     });
   }
 
@@ -207,9 +240,9 @@ function buildDailyItems(
   if (entry?.tryingAgain) {
     items.push({
       key: 'tryingAgain',
-      label: CATEGORY_META.tryingAgain.label,
+      label: categoryMeta.tryingAgain.label,
       value: getMiscarriageTryingAgainDisplay(entry.tryingAgain).label,
-      icon: CATEGORY_META.tryingAgain.icon,
+      icon: categoryMeta.tryingAgain.icon,
     });
   }
 
@@ -243,6 +276,11 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const { open: openMiscarriageJournal } = useJournalSheet();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const {t} = useTranslation();
+  const MODES = useMemo(() => modesFor(t), [t]);
+  const CATEGORY_META = useMemo(() => categoryMetaFor(t), [t]);
+  const CYCLE_RETURN_LABELS = useMemo(() => cycleReturnLabelsFor(t), [t]);
+  const WEEK_DAYS = getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR;
 
   // Re-evaluated when the day changes / the app returns to the foreground —
   // see src/hooks/useToday.ts.
@@ -395,7 +433,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   }, [visibleMonth]);
 
   const monthTitle = capitalize(
-    new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(
+    new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', { month: 'long', year: 'numeric' }).format(
       visibleMonth,
     ),
   );
@@ -407,7 +445,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   // preference (which is only hidden — never reset — while the toggle is off).
   const showHijri = spiritualMarkersEnabled && displayMode !== 'gregorian';
   const selectedTitle = capitalize(
-    new Intl.DateTimeFormat('fr-FR', {
+    new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -443,8 +481,8 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   // "Aucune information enregistrée" message is never shown incorrectly
   // while filters are narrowed.
   const allDailyItems = useMemo(
-    () => buildDailyItems(selectedEntry),
-    [selectedEntry],
+    () => buildDailyItems(selectedEntry, CATEGORY_META, t),
+    [selectedEntry, CATEGORY_META, t],
   );
   const dailyItems = useMemo(
     () => allDailyItems.filter(item => visibleFilters.has(item.key)),
@@ -498,20 +536,20 @@ function MiscarriageCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Calendrier</Text>
+              <Text style={styles.title}>{t('calendar.title')}</Text>
               <Text style={styles.subtitle}>
-                Suis ton évolution, à ton rythme
+                {t('miscarriageCalendar.subtitle')}
               </Text>
             </View>
 
             <HeaderAction
               icon="tune-variant"
-              label="Filtres"
+              label={t('calendar.filters')}
               onPress={() => setSheet('filters')}
             />
             <HeaderAction
               icon="format-list-bulleted"
-              label="Légende"
+              label={t('calendar.legend')}
               onPress={() => setSheet('legend')}
             />
           </View>
@@ -545,7 +583,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
 
             <View style={styles.monthHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('calendar.previousMonth')}
                 accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={styles.arrowButton}
@@ -567,7 +605,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('calendar.nextMonth')}
                 accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={styles.arrowButton}
@@ -648,19 +686,21 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                   : spiritualMonth === 'ramadan'
                     ? RAMADAN_MARKER_COLOR
                     : DHOUL_HIJJA_MARKER_COLOR;
+                // Reused verbatim (identical French wording) from
+                // ConceiveCalendarContent.tsx's own dayAccessibility keys.
                 const spiritualMarkerLabel =
                   spiritualMonth === 'ramadan'
-                    ? ', Ramadan'
+                    ? t('conceiveCalendar.dayAccessibility.ramadan')
                     : spiritualMonth === 'dhoulHijja'
-                      ? ', Dhou al-Hijja'
+                      ? t('conceiveCalendar.dayAccessibility.dhoulHijja')
                       : '';
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
                     <Pressable
                       accessibilityLabel={`${date.getDate()} ${monthTitle}${
-                        isMiscarriageDay ? ', événement de départ' : ''
-                      }${isReturnedPeriodDay ? ', retour des règles' : ''}${spiritualMarkerLabel}`}
+                        isMiscarriageDay ? t('miscarriageCalendar.dayAccessibility.lossEvent') : ''
+                      }${isReturnedPeriodDay ? t('miscarriageCalendar.dayAccessibility.cycleReturn') : ''}${spiritualMarkerLabel}`}
                       onPress={() => setSelectedDate(date)}
                       style={[
                         styles.dayButton,
@@ -749,17 +789,17 @@ function MiscarriageCalendarContent(): React.JSX.Element {
               ))}
               <View style={styles.inlineLegendItem}>
                 <View style={styles.inlineTodayIndicator} />
-                <Text style={styles.inlineLegendText}>Aujourd’hui</Text>
+                <Text style={styles.inlineLegendText}>{t('miscarriageCalendar.today')}</Text>
               </View>
               {spiritualMarkersEnabled ? (
                 <>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Ramadan</Text>
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendRamadan')}</Text>
                   </View>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Dhou al-Hijja</Text>
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('calendar.legendDhoulHijja')}</Text>
                   </View>
                 </>
               ) : null}
@@ -790,23 +830,26 @@ function MiscarriageCalendarContent(): React.JSX.Element {
             <View style={styles.statusGrid}>
               <View style={styles.statusInfo}>
                 <Text style={styles.statusInfoLabel}>
-                  Jours depuis l’événement
+                  {t('miscarriageCalendar.daysSinceEvent')}
                 </Text>
                 <Text style={styles.statusInfoValue}>
                   {daysSinceEvent === null
-                    ? 'Non renseignée'
+                    ? t('miscarriageCalendar.notProvidedFeminine')
                     : daysSinceEvent === 0
-                    ? 'Le jour même'
-                    : `${daysSinceEvent} jour${daysSinceEvent > 1 ? 's' : ''}`}
+                    ? t('miscarriageCalendar.sameDay')
+                    // Original had explicit singular/plural grammar (the
+                    // `> 1 ? 's' : ''` ternary), so this uses real i18next
+                    // `_one`/`_other` pluralization.
+                    : t('miscarriageDashboard.daysCount', {count: daysSinceEvent})}
                 </Text>
               </View>
               <View style={styles.statusInfo}>
-                <Text style={styles.statusInfoLabel}>Retour du cycle</Text>
+                <Text style={styles.statusInfoLabel}>{t('miscarriageDashboard.hero.cycleReturn')}</Text>
                 <Text style={styles.statusInfoValue}>
                   {miscarriage.cycleReturnStatus
                     ? CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus]
-                    : 'Non renseigné'}
-                  {cycleReturnDateNeedsCheck ? ' · date à vérifier' : ''}
+                    : t('miscarriageDashboard.notProvided')}
+                  {cycleReturnDateNeedsCheck ? t('miscarriageCalendar.dateToCheckSuffix') : ''}
                 </Text>
               </View>
             </View>
@@ -822,7 +865,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                       size={14}
                     />
                     <Text style={styles.eventBadgeText}>
-                      Événement de départ
+                      {t('miscarriageCalendar.lossEventBadge')}
                     </Text>
                   </View>
                 ) : null}
@@ -834,7 +877,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                       size={14}
                     />
                     <Text style={styles.returnBadgeText}>
-                      Retour des règles
+                      {t('miscarriageCalendar.cycleReturnBadge')}
                     </Text>
                   </View>
                 ) : null}
@@ -870,11 +913,11 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                   size={19}
                 />
                 <Text style={styles.emptyText}>
-                  Aucune information enregistrée pour cette journée.
+                  {t('miscarriageCalendar.emptyText')}
                 </Text>
                 {isTodaySelected ? (
                   <Pressable
-                    accessibilityLabel="Ajouter au journal"
+                    accessibilityLabel={t('miscarriageCalendar.addToJournal')}
                     accessibilityRole="button"
                     onPress={openMiscarriageJournal}
                     style={({ pressed }) => [
@@ -887,7 +930,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                       name="plus"
                       size={16}
                     />
-                    <Text style={styles.addButtonText}>Ajouter au journal</Text>
+                    <Text style={styles.addButtonText}>{t('miscarriageCalendar.addToJournal')}</Text>
                   </Pressable>
                 ) : null}
               </View>
@@ -898,9 +941,10 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                 {(['bleeding', 'physicalSymptoms'] as const).map(category => {
                   const filled = Boolean(selectedEntry?.[category]?.length);
                   const label = CATEGORY_META[category].label;
+                  const actionLabel = filled ? t('miscarriageCalendar.modify') : t('common.add');
                   return (
                     <Pressable
-                      accessibilityLabel={`${filled ? 'Modifier' : 'Ajouter'} : ${label} de cette journée`}
+                      accessibilityLabel={t('miscarriageCalendar.pastEntryAccessibility', {action: actionLabel, label})}
                       accessibilityRole="button"
                       key={category}
                       onPress={() =>
@@ -920,7 +964,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
                         size={15}
                       />
                       <Text style={styles.pastEntryButtonText}>
-                        {filled ? 'Modifier' : 'Ajouter'} · {label}
+                        {actionLabel} · {label}
                       </Text>
                     </Pressable>
                   );
@@ -1003,6 +1047,8 @@ function MiscarriageCalendarSheet({
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
+  const {t} = useTranslation();
+  const CATEGORY_META = useMemo(() => categoryMetaFor(t), [t]);
 
   return (
     <Modal
@@ -1014,7 +1060,7 @@ function MiscarriageCalendarSheet({
     >
       <View style={styles.modalRoot}>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           onPress={onClose}
           style={styles.backdrop}
         />
@@ -1037,10 +1083,10 @@ function MiscarriageCalendarSheet({
             >
               <View style={styles.legendSheetHeader}>
                 <Text style={styles.legendSheetTitle}>
-                  Légende du calendrier
+                  {t('miscarriageCalendar.legendSheet.title')}
                 </Text>
                 <Text style={styles.legendSheetSubtitle}>
-                  Comprendre les couleurs et repères utilisés.
+                  {t('miscarriageCalendar.legendSheet.subtitle')}
                 </Text>
               </View>
 
@@ -1087,8 +1133,8 @@ function MiscarriageCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(RAMADAN_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Ramadan</Text>
-                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois du Ramadan (jeûne).</Text>
+                        <Text style={styles.legendRowTitle}>{t('calendar.legendRamadan')}</Text>
+                        <Text style={styles.legendRowText}>{t('miscarriageCalendar.legendSheet.ramadanDescription')}</Text>
                       </View>
                     </View>
                     <View style={[styles.legendRow, styles.legendRowLast]}>
@@ -1097,8 +1143,8 @@ function MiscarriageCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Dhou al-Hijja</Text>
-                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois de Dhou al-Hijja.</Text>
+                        <Text style={styles.legendRowTitle}>{t('calendar.legendDhoulHijja')}</Text>
+                        <Text style={styles.legendRowText}>{t('miscarriageCalendar.legendSheet.dhoulHijjaDescription')}</Text>
                       </View>
                     </View>
                   </>
@@ -1115,9 +1161,9 @@ function MiscarriageCalendarSheet({
                   ) : null}
                 </View>
                 <View style={styles.todayCopy}>
-                  <Text style={styles.todayTitle}>Aujourd’hui</Text>
+                  <Text style={styles.todayTitle}>{t('miscarriageCalendar.today')}</Text>
                   <Text style={styles.todayText}>
-                    Le contour noir en pointillés indique la date d’aujourd’hui.
+                    {t('miscarriageCalendar.legendSheet.todayDescription')}
                   </Text>
                 </View>
               </View>
@@ -1125,7 +1171,7 @@ function MiscarriageCalendarSheet({
 
             <View style={styles.legendFooter}>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('miscarriageCalendar.legendSheet.closeAccessibility')}
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({ pressed }) => [
@@ -1133,7 +1179,7 @@ function MiscarriageCalendarSheet({
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={styles.closeLegendText}>Fermer</Text>
+                <Text style={styles.closeLegendText}>{t('common.close')}</Text>
               </Pressable>
             </View>
           </View>
@@ -1148,9 +1194,9 @@ function MiscarriageCalendarSheet({
             <View style={styles.handle} />
 
             <View style={styles.filterSheetHeader}>
-              <Text style={styles.filterSheetTitle}>Filtres du calendrier</Text>
+              <Text style={styles.filterSheetTitle}>{t('miscarriageCalendar.filtersSheet.title')}</Text>
               <Text style={styles.filterSheetSubtitle}>
-                Choisis les informations à afficher sur ton calendrier.
+                {t('miscarriageCalendar.filtersSheet.subtitle')}
               </Text>
             </View>
 
@@ -1215,7 +1261,7 @@ function MiscarriageCalendarSheet({
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={styles.doneText}>Terminé</Text>
+                <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
               </Pressable>
             </View>
           </View>
