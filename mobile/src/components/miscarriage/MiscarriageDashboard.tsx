@@ -24,6 +24,9 @@ import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-
 import { useFocusEffect } from '@react-navigation/native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../../i18n';
 
 import type { MainTabScreenProps } from '../../navigation/MainTabNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -90,11 +93,15 @@ const MISCARRIAGE_DASHBOARD_WOMAN = require('../../assets/images/miscarriage/mis
 
 type Props = MainTabScreenProps<'CycleHome'>;
 
-const CYCLE_RETURN_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
-  no: 'Pas encore de règles',
-  yes: 'Règles revenues',
-  unknown: 'Je ne sais pas encore',
-};
+// Reused verbatim (identical French wording) by MiscarriageCalendarContent.tsx
+// and MiscarriageStatisticsScreen.tsx — see `miscarriageCycleReturn.statusLabels.*`.
+function cycleReturnLabelsFor(t: TFunction): Record<MiscarriageCycleReturnStatus, string> {
+  return {
+    no: t('miscarriageCycleReturn.statusLabels.no'),
+    yes: t('miscarriageCycleReturn.statusLabels.yes'),
+    unknown: t('miscarriageCycleReturn.statusLabels.unknown'),
+  };
+}
 
 const DAILY_ITEMS = MISCARRIAGE_JOURNAL_ITEMS;
 
@@ -128,6 +135,7 @@ function ConceiveTransitionModal({
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const transitionModalStyles = useMemo(() => createTransitionModalStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   useEffect(() => {
     if (!visible) {
@@ -193,7 +201,7 @@ function ConceiveTransitionModal({
           ]}
         >
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             accessibilityRole="button"
             onPress={onCancel}
             style={StyleSheet.absoluteFill}
@@ -208,23 +216,21 @@ function ConceiveTransitionModal({
             <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={32} />
           </View>
 
-          <Text style={transitionModalStyles.title}>Passer au suivi conception ?</Text>
+          <Text style={transitionModalStyles.title}>{t('miscarriageDashboard.conceiveTransitionModal.title')}</Text>
 
           <Text style={transitionModalStyles.message}>
-            Tu peux commencer ton suivi pour essayer de concevoir. Tes données
-            liées à ton parcours après fausse couche resteront enregistrées et
-            tu pourras les retrouver à tout moment.
+            {t('miscarriageDashboard.conceiveTransitionModal.message')}
           </Text>
 
           <View style={transitionModalStyles.reassurance}>
             <MaterialDesignIcons color={theme.colors.primary} name="check-circle-outline" size={16} />
             <Text style={transitionModalStyles.reassuranceText}>
-              Tes données sont conservées
+              {t('miscarriageDashboard.conceiveTransitionModal.dataKept')}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel="Continuer et passer au suivi conception"
+            accessibilityLabel={t('miscarriageDashboard.conceiveTransitionModal.confirmAccessibility')}
             accessibilityRole="button"
             accessibilityState={{ disabled: confirming }}
             disabled={confirming}
@@ -235,11 +241,11 @@ function ConceiveTransitionModal({
               confirming && transitionModalStyles.primaryDisabled,
             ]}
           >
-            <Text style={transitionModalStyles.primaryText}>Continuer</Text>
+            <Text style={transitionModalStyles.primaryText}>{t('common.continue')}</Text>
           </Pressable>
 
           <Pressable
-            accessibilityLabel="Annuler"
+            accessibilityLabel={t('common.cancel')}
             accessibilityRole="button"
             onPress={onCancel}
             style={({ pressed }) => [
@@ -247,7 +253,7 @@ function ConceiveTransitionModal({
               pressed && transitionModalStyles.secondaryPressed,
             ]}
           >
-            <Text style={transitionModalStyles.secondaryText}>Annuler</Text>
+            <Text style={transitionModalStyles.secondaryText}>{t('common.cancel')}</Text>
           </Pressable>
         </Animated.View>
       </View>
@@ -388,6 +394,8 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
 
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const CYCLE_RETURN_LABELS = useMemo(() => cycleReturnLabelsFor(t), [t]);
 
   // PHASE D7 — decorative-brand-purple identifier, now theme-derived (see
   // the module-level comment above where this used to be a fixed literal).
@@ -590,7 +598,9 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'mosque',
       iconColor: PURPLE,
       iconBg: theme.colors.primarySoft,
-      label: 'Horaires\nde prière',
+      // Reused verbatim (identical French wording) from the generic Cycle
+      // Home's own quick-actions namespace — never duplicated locally.
+      label: t('cycleHome.quickActions.prayerTimes'),
       onPress: () => navigation.navigate('PrayerTimes'),
     },
     {
@@ -598,7 +608,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'book-open-page-variant-outline',
       iconColor: PURPLE,
       iconBg: theme.colors.primarySoft,
-      label: 'Bibliothèque',
+      label: t('cycleHome.quickActions.library'),
       onPress: () => navigation.navigate('Library'),
     },
     // Category E (fixed action-identity accent). Slightly different from
@@ -611,7 +621,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'notebook-edit-outline',
       iconColor: '#B24C70',
       iconBg: '#FBE6EE',
-      label: 'Journal quotidien',
+      label: t('cycleHome.quickActions.dailyJournal'),
       onPress: openMiscarriageJournal,
     },
     {
@@ -619,7 +629,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'moon-waning-crescent',
       iconColor: PURPLE,
       iconBg: theme.colors.primarySoft,
-      label: 'Calendrier Hijri',
+      label: t('cycleHome.quickActions.hijriCalendar'),
       onPress: () => navigation.navigate('HijriCalendar'),
     },
     {
@@ -627,7 +637,9 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'silverware-fork-knife',
       iconColor: PURPLE,
       iconBg: theme.colors.primarySoft,
-      label: 'Jeûne à rattraper',
+      // NOT cycleHome.quickActions.qadaa — that key is the plural "Jeûnes à
+      // rattraper"; this dashboard's own copy is deliberately singular.
+      label: t('miscarriageDashboard.quickActions.qadaa'),
       onPress: () => navigation.navigate('FastingQadaa'),
     },
     // Category E (fixed action-identity accent). Slightly different from
@@ -638,14 +650,14 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
       icon: 'chart-donut',
       iconColor: '#328C92',
       iconBg: '#E3F2F3',
-      label: 'Statistiques',
+      label: t('cycleHome.quickActions.statistics'),
       onPress: () => navigation.navigate('Statistics'),
     },
   ];
 
   const cycleReturnLabel = miscarriage.cycleReturnStatus
     ? CYCLE_RETURN_LABELS[miscarriage.cycleReturnStatus]
-    : 'Non renseigné';
+    : t('miscarriageDashboard.notProvided');
 
   // A legacy stored date that is in the future / before the loss is never
   // shown as "Depuis le ..." (it is not an event that already happened); it is
@@ -659,7 +671,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
 
   const cycleReturnSubvalue =
     cycleReturnDateState === 'ok' && firstReturnedPeriodDate
-      ? `Depuis le ${formatFullDate(firstReturnedPeriodDate)}`
+      ? t('miscarriageDashboard.sinceDate', {date: formatFullDate(firstReturnedPeriodDate)})
       : cycleReturnDateState === 'none' || cycleReturnDateState === 'ok'
       ? null
       : CYCLE_RETURN_DATE_TO_CHECK;
@@ -668,8 +680,10 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
     daysSince === null
       ? '—'
       : daysSince === 0
-      ? 'Aujourd’hui'
-      : `${daysSince} jour${daysSince > 1 ? 's' : ''}`;
+      ? t('miscarriageDashboard.today')
+      // Original had explicit singular/plural grammar (the `> 1 ? 's' : ''`
+      // ternary), so this uses real i18next `_one`/`_other` pluralization.
+      : t('miscarriageDashboard.daysCount', {count: daysSince});
 
   const progressPercentage =
     DAILY_ITEMS.length > 0
@@ -721,7 +735,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
           <HomeHeader
             firstName={getFirstName()}
             onPressProfile={() => navigation.navigate('Profile')}
-            subtitle="Prends soin de toi, à ton rythme."
+            subtitle={t('miscarriageDashboard.headerSubtitle')}
           />
 
           <Animated.View style={entranceStyle}>
@@ -735,12 +749,12 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   <View style={styles.heroTitleRow}>
                     <View style={styles.heroTitleDot} />
                     <Text style={styles.heroTitle}>
-                      Où en es-tu aujourd’hui ?
+                      {t('miscarriageDashboard.hero.title')}
                     </Text>
                   </View>
 
                   <Text style={styles.heroSubtitle}>
-                    Chaque jour compte, avance à ton rythme.
+                    {t('miscarriageDashboard.hero.subtitle')}
                   </Text>
                 </View>
 
@@ -756,7 +770,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                       </View>
 
                       <Text style={styles.heroStatLabel}>
-                        Depuis la fausse couche
+                        {t('miscarriageDashboard.hero.sinceLoss')}
                       </Text>
 
                       <Text style={styles.heroStatValue}>{daysSinceLabel}</Text>
@@ -771,8 +785,8 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         Postpartum D6's lochia icon and Conceive D4's hero
                         badge. */}
                     <Pressable
-                      accessibilityHint="Modifier le retour de mon cycle"
-                      accessibilityLabel="Retour du cycle"
+                      accessibilityHint={t('miscarriageDashboard.hero.cycleReturnHint')}
+                      accessibilityLabel={t('miscarriageDashboard.hero.cycleReturn')}
                       accessibilityRole="button"
                       onPress={() =>
                         navigation.navigate('MiscarriageCycleReturn', {
@@ -788,7 +802,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                         />
                       </View>
 
-                      <Text style={styles.heroStatLabel}>Retour du cycle</Text>
+                      <Text style={styles.heroStatLabel}>{t('miscarriageDashboard.hero.cycleReturn')}</Text>
 
                       <Text style={styles.heroStatValueSmall}>
                         {cycleReturnLabel}
@@ -820,7 +834,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   </View>
 
                   <Text style={styles.supportText}>
-                    Ton suivi s’adapte à ton évolution, jour après jour.
+                    {t('miscarriageDashboard.hero.supportText')}
                   </Text>
                 </View>
               </View>
@@ -837,20 +851,19 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                 </View>
 
                 <Text style={styles.unconfiguredEyebrow}>
-                  PERSONNALISE TON SUIVI
+                  {t('miscarriageDashboard.unconfigured.eyebrow')}
                 </Text>
 
                 <Text style={styles.unconfiguredTitle}>
-                  Indique la date de ta fausse couche
+                  {t('miscarriageDashboard.unconfigured.title')}
                 </Text>
 
                 <Text style={styles.unconfiguredText}>
-                  Cette date nous permet d’adapter ton accompagnement jour après
-                  jour.
+                  {t('miscarriageDashboard.unconfigured.text')}
                 </Text>
 
                 <Pressable
-                  accessibilityLabel="Indiquer la date"
+                  accessibilityLabel={t('miscarriageDashboard.unconfigured.buttonAccessibility')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('MiscarriageDate', {mode: 'edit'})}
                   style={({ pressed }) => [
@@ -865,7 +878,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   />
 
                   <Text style={styles.unconfiguredButtonText}>
-                    Renseigner la date
+                    {t('miscarriageDashboard.unconfigured.button')}
                   </Text>
 
                   <MaterialDesignIcons
@@ -885,15 +898,15 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
 
                 <View style={styles.conceiveTransitionCopy}>
                   <Text style={styles.conceiveTransitionTitle}>
-                    Reprendre ton projet de conception
+                    {t('miscarriageDashboard.conceiveTransition.title')}
                   </Text>
 
                   <Text style={styles.conceiveTransitionText}>
-                    Si tu le souhaites, tu peux passer au suivi Essayer de concevoir.
+                    {t('miscarriageDashboard.conceiveTransition.text')}
                   </Text>
 
                   <Pressable
-                    accessibilityLabel="Passer au suivi conception"
+                    accessibilityLabel={t('miscarriageDashboard.conceiveTransition.button')}
                     accessibilityRole="button"
                     onPress={openConceiveTransitionModal}
                     style={({ pressed }) => [
@@ -902,7 +915,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                     ]}
                   >
                     <Text style={styles.conceiveTransitionButtonText}>
-                      Passer au suivi conception
+                      {t('miscarriageDashboard.conceiveTransition.button')}
                     </Text>
 
                     <MaterialDesignIcons color={PURPLE} name="arrow-right" size={15} />
@@ -950,10 +963,10 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                   </View>
 
                   <View style={styles.dailyTitleCopy}>
-                    <Text style={styles.dailyTitle}>Suivi du jour</Text>
+                    <Text style={styles.dailyTitle}>{t('miscarriageDashboard.daily.title')}</Text>
 
                     <Text style={styles.dailySubtitle}>
-                      Comment te sens-tu aujourd’hui ?
+                      {t('miscarriageDashboard.daily.subtitle')}
                     </Text>
                   </View>
                 </View>
@@ -963,7 +976,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                     {completedTodayCount}/{DAILY_ITEMS.length}
                   </Text>
 
-                  <Text style={styles.progressBadgeLabel}>complété</Text>
+                  <Text style={styles.progressBadgeLabel}>{t('miscarriageDashboard.daily.completed')}</Text>
                 </View>
               </View>
 
@@ -1063,7 +1076,7 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
                             done && styles.dailyStateTextDone,
                           ]}
                         >
-                          {done ? 'Renseigné' : 'Non renseigné'}
+                          {done ? t('miscarriageDashboard.daily.filled') : t('miscarriageDashboard.notProvided')}
                         </Text>
                       </View>
                     </Pressable>
@@ -1089,11 +1102,11 @@ function MiscarriageDashboard({ navigation }: Props): React.JSX.Element {
 
                 <View style={styles.completeJournalCopy}>
                   <Text style={styles.completeJournalTitle}>
-                    Ouvrir le journal quotidien
+                    {t('miscarriageDashboard.daily.openJournal')}
                   </Text>
 
                   <Text style={styles.completeJournalSubtitle}>
-                    Complète ton suivi en quelques instants
+                    {t('miscarriageDashboard.daily.openJournalSubtitle')}
                   </Text>
                 </View>
 
