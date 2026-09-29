@@ -15,6 +15,7 @@ import {
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
@@ -70,6 +71,10 @@ import {
   resolvePostpartumCycleReturnEventInPeriod,
   withinPeriod,
 } from '../../utils/postpartumStatisticsMath';
+import {getAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
+
+const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 
 /* ============================================================
    Postpartum Statistics — every number on this screen is derived
@@ -116,15 +121,19 @@ type TabKey =
   | 'pain'
   | 'recovery';
 
-const TABS: Array<{ key: TabKey; label: string }> = [
-  { key: 'summary', label: 'Résumé' },
-  { key: 'lochia', label: 'Lochies' },
-  { key: 'fatigue', label: 'Fatigue' },
-  { key: 'mood', label: 'Humeur' },
-  { key: 'sleep', label: 'Sommeil' },
-  { key: 'pain', label: 'Douleurs' },
-  { key: 'recovery', label: 'Récupération' },
-];
+// Built inside the screen via useMemo (needs the t() hook) instead of a
+// static module-level array.
+function buildTabs(t: (key: string) => string): Array<{ key: TabKey; label: string }> {
+  return [
+    { key: 'summary', label: t('postpartumStatistics.tabs.summary') },
+    { key: 'lochia', label: t('postpartumStatistics.tabs.lochia') },
+    { key: 'fatigue', label: t('postpartumStatistics.tabs.fatigue') },
+    { key: 'mood', label: t('postpartumStatistics.tabs.mood') },
+    { key: 'sleep', label: t('postpartumStatistics.tabs.sleep') },
+    { key: 'pain', label: t('postpartumStatistics.tabs.pain') },
+    { key: 'recovery', label: t('postpartumStatistics.tabs.recovery') },
+  ];
+}
 
 /** Display cap on the FREE (1 mois) daily trend charts — the underlying
  * entry set is already restricted to the selected period's real date
@@ -146,15 +155,21 @@ const LOCHIA_FLOWS: LochiaFlow[] = [
 ];
 
 const dateLabel = (date: string): string =>
-  new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short' }).format(
+  new Intl.DateTimeFormat(dateFormatLocale(), { day: 'numeric', month: 'short' }).format(
     new Date(`${date}T12:00:00`),
   );
 
+// A plain module-level helper (no hook access) — uses the i18n singleton's
+// own `.t()`, same pattern as src/config/menopauseJournalConfig.ts's
+// buildXxxLabels() functions, since this is not a React component.
 const formatHoursMinutes = (hours: number): string => {
   const totalMinutes = Math.round(hours * 60);
   const h = Math.floor(totalMinutes / 60);
   const m = totalMinutes % 60;
-  return `${h} h ${String(m).padStart(2, '0')} min`;
+  return i18n.t('postpartumStatistics.durationFormat', {
+    hours: h,
+    minutes: String(m).padStart(2, '0'),
+  });
 };
 
 /** Counts entries per option (in the option list's own canonical order,
@@ -277,6 +292,7 @@ function DistributionRow({
   maxCount: number;
   last?: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const percent = maxCount > 0 ? (count / maxCount) * 100 : 0;
@@ -285,7 +301,7 @@ function DistributionRow({
       <View style={styles.distributionTop}>
         <Text style={styles.distributionLabel}>{label}</Text>
         <Text style={styles.distributionCount}>
-          {count} {count > 1 ? 'jours' : 'jour'}
+          {t('postpartumStatistics.dayCount', {count})}
         </Text>
       </View>
       <View style={styles.distributionTrack}>
@@ -330,10 +346,12 @@ function TrendBar({
 ============================================================ */
 
 function PostpartumStatisticsScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const TABS = useMemo(() => buildTabs(t), [t]);
   const [tab, setTab] = useState<TabKey>('summary');
 
   const { isPremium } = usePremium();
@@ -757,7 +775,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
         style={[styles.header, { paddingTop: getTopPadding(insets.top, true) }]}
       >
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={10}
           onPress={navigation.goBack}
@@ -772,10 +790,10 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             size={24}
           />
         </Pressable>
-        <Text style={styles.headerTitle}>Statistiques</Text>
+        <Text style={styles.headerTitle}>{t('navigation.statistics')}</Text>
         <View style={styles.objectivePill}>
           <MaterialDesignIcons color={theme.colors.primary} name="chart-donut" size={15} />
-          <Text style={styles.objectivePillText}>Post-partum</Text>
+          <Text style={styles.objectivePillText}>{t('postpartumStatistics.header.objectivePill')}</Text>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-down" size={15} />
         </View>
       </View>
@@ -868,15 +886,15 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           <LevelTab
             counts={fatigueCounts}
             emptyIcon="lightning-bolt-outline"
-            emptyText="Enregistre ta fatigue dans ton journal quotidien pour voir son évolution ici."
+            emptyText={t('postpartumStatistics.fatigue.emptyText')}
             entriesCount={fatigueEntries.length}
             icon="lightning-bolt-outline"
             isMonthlyView={isMonthlyView}
             kpiIcon="lightning-bolt-outline"
-            kpiLabel="Fatigue la plus fréquente"
+            kpiLabel={t('postpartumStatistics.fatigue.kpiLabel')}
             maxCount={maxFatigueCount}
             mostFrequent={mostFrequentFatigue}
-            title="Fatigue"
+            title={t('postpartumStatistics.fatigue.title')}
             trend={isMonthlyView ? fatigueTrendFull : fatigueTrend}
             trendMax={5}
           />
@@ -886,15 +904,15 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           <LevelTab
             counts={moodCounts}
             emptyIcon="emoticon-outline"
-            emptyText="Enregistre ton humeur dans ton journal quotidien pour voir son évolution ici."
+            emptyText={t('postpartumStatistics.mood.emptyText')}
             entriesCount={moodEntries.length}
             icon="heart-outline"
             isMonthlyView={isMonthlyView}
             kpiIcon="emoticon-happy-outline"
-            kpiLabel="Humeur la plus fréquente"
+            kpiLabel={t('postpartumStatistics.mood.kpiLabel')}
             maxCount={maxMoodCount}
             mostFrequent={mostFrequentMood}
-            title="Humeur"
+            title={t('postpartumStatistics.mood.title')}
             trend={isMonthlyView ? moodTrendFull : moodTrend}
             trendMax={5}
           />
@@ -923,15 +941,15 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           <LevelTab
             counts={painCounts}
             emptyIcon="heat-wave"
-            emptyText="Enregistre tes douleurs dans ton journal quotidien pour voir leur fréquence ici."
+            emptyText={t('postpartumStatistics.pain.emptyText')}
             entriesCount={painEntries.length}
             icon="heat-wave"
             isMonthlyView={isMonthlyView}
             kpiIcon="heat-wave"
-            kpiLabel="Douleur la plus fréquente"
+            kpiLabel={t('postpartumStatistics.pain.kpiLabel')}
             maxCount={maxPainCount}
             mostFrequent={mostFrequentPain}
-            title="Douleurs"
+            title={t('postpartumStatistics.pain.title')}
             trend={isMonthlyView ? painTrendFull : painTrend}
             trendMax={5}
           />
@@ -941,15 +959,15 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
           <LevelTab
             counts={recoveryCounts}
             emptyIcon="heart-pulse"
-            emptyText="Enregistre ta récupération dans ton journal quotidien pour voir sa progression ici."
+            emptyText={t('postpartumStatistics.recovery.emptyText')}
             entriesCount={recoveryEntries.length}
             icon="heart-pulse"
             isMonthlyView={isMonthlyView}
             kpiIcon="heart-pulse"
-            kpiLabel="Récupération la plus fréquente"
+            kpiLabel={t('postpartumStatistics.recovery.kpiLabel')}
             maxCount={maxRecoveryCount}
             mostFrequent={mostFrequentRecovery}
-            title="Récupération physique"
+            title={t('postpartumStatistics.recovery.title')}
             trend={isMonthlyView ? recoveryTrendFull : recoveryTrend}
             trendMax={5}
           />
@@ -1004,6 +1022,7 @@ function SummaryTab({
   cycleReturnEventInPeriod: Date | null;
   periodLabel: string;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
@@ -1011,28 +1030,28 @@ function SummaryTab({
       <View style={styles.card}>
         <SectionHeader
           icon="chart-box-outline"
-          subtitle="Depuis l’accouchement"
-          title="Aperçu"
+          subtitle={t('postpartumStatistics.summary.sinceDelivery')}
+          title={t('postpartumStatistics.summary.title')}
         />
         <View style={styles.kpiGrid}>
           <KpiCard
             icon="calendar-heart"
-            label="Jours post-partum"
+            label={t('postpartumStatistics.summary.postpartumDays')}
             value={status.configured ? String(status.postpartumDay) : '—'}
           />
           <KpiCard
             icon="water-outline"
-            label="Entrées lochies"
+            label={t('postpartumStatistics.summary.lochiaEntries')}
             value={String(lochiaCount)}
           />
           <KpiCard
             icon="notebook-outline"
-            label="Jours de suivi"
+            label={t('postpartumStatistics.summary.trackedDays')}
             value={String(trackedDays)}
           />
           <KpiCard
             icon="check-decagram-outline"
-            label="Journées complètes"
+            label={t('postpartumStatistics.summary.completeDays')}
             value={String(completeDays)}
           />
         </View>
@@ -1043,8 +1062,7 @@ function SummaryTab({
             size={16}
           />
           <Text style={styles.infoStripText}>
-            Une journée complète comprend : Fatigue, Sommeil, Humeur, Douleurs
-            et Récupération physique.
+            {t('postpartumStatistics.summary.completeDayExplainer')}
           </Text>
         </View>
         <View style={styles.infoStrip}>
@@ -1055,21 +1073,21 @@ function SummaryTab({
           />
           <Text style={styles.infoStripText}>
             {firstPostpartumPeriodDate
-              ? `Retour des règles : le ${dateLabel(firstPostpartumPeriodDate)}`
-              : 'Retour des règles : pas encore enregistré'}
+              ? t('postpartumStatistics.summary.cycleReturnOn', {date: dateLabel(firstPostpartumPeriodDate)})
+              : t('postpartumStatistics.summary.cycleReturnNotRecorded')}
           </Text>
         </View>
       </View>
 
       {isMonthlyView ? (
         <View
-          accessibilityLabel={`Retour du cycle — repères enregistrés sur ${periodLabel}`}
+          accessibilityLabel={t('postpartumStatistics.summary.cycleReturnCardAccessibility', {periodLabel})}
           style={styles.card}
         >
           <SectionHeader
             icon="calendar-heart"
-            subtitle="Repères enregistrés au fil du temps"
-            title="Retour du cycle"
+            subtitle={t('postpartumStatistics.summary.cycleReturnSubtitle')}
+            title={t('postpartumStatistics.summary.cycleReturnTitle')}
           />
           {cycleReturnEventInPeriod && firstPostpartumPeriodDate ? (
             <View style={styles.infoStrip}>
@@ -1079,14 +1097,13 @@ function SummaryTab({
                 size={16}
               />
               <Text style={styles.infoStripText}>
-                Retour du cycle confirmé — tu as indiqué le retour de tes
-                règles le {dateLabel(firstPostpartumPeriodDate)}.
+                {t('postpartumStatistics.summary.cycleReturnConfirmed', {date: dateLabel(firstPostpartumPeriodDate)})}
               </Text>
             </View>
           ) : (
             <EmptyState
               icon="calendar-heart"
-              text={`Aucun retour de cycle confirmé sur ${periodLabel}.`}
+              text={t('postpartumStatistics.summary.cycleReturnEmpty', {periodLabel})}
             />
           )}
         </View>
@@ -1096,14 +1113,16 @@ function SummaryTab({
         <SectionHeader
           icon="chart-bar"
           subtitle={
-            isMonthlyView ? 'Historique complet, par mois' : 'Flux dominant'
+            isMonthlyView
+              ? t('postpartumStatistics.monthlyHistorySubtitle')
+              : t('postpartumStatistics.summary.dominantFlow')
           }
-          title="Évolution des lochies"
+          title={t('postpartumStatistics.summary.lochiaEvolutionTitle')}
         />
         {lochiaChart.length === 0 ? (
           <EmptyState
             icon="water-outline"
-            text="Pas encore de données sur les lochies."
+            text={t('postpartumStatistics.lochia.emptyText')}
           />
         ) : (
           <View style={styles.chart}>
@@ -1120,14 +1139,13 @@ function SummaryTab({
         <View style={styles.infoStrip}>
           <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={16} />
           <Text style={styles.infoStripText}>
-            L’évolution des lochies est propre à chaque femme. Continue ton
-            suivi quotidien.
+            {t('postpartumStatistics.lochia.evolutionFootnote')}
           </Text>
         </View>
       </View>
 
       <View style={styles.card}>
-        <SectionHeader icon="chart-timeline-variant-shimmer" title="Moyennes" />
+        <SectionHeader icon="chart-timeline-variant-shimmer" title={t('postpartumStatistics.summary.averagesTitle')} />
         <View style={styles.averagesRow}>
           <View style={styles.averageCard}>
             <View style={styles.averageIcon}>
@@ -1137,16 +1155,15 @@ function SummaryTab({
                 size={18}
               />
             </View>
-            <Text style={styles.averageLabel}>Sommeil moyen</Text>
+            <Text style={styles.averageLabel}>{t('postpartumStatistics.summary.averageSleep')}</Text>
             <Text numberOfLines={1} style={styles.averageValue}>
               {averageSleepHours !== undefined
                 ? formatHoursMinutes(averageSleepHours)
-                : 'Pas encore de données'}
+                : t('postpartumStatistics.noDataYet')}
             </Text>
             {sleepEntriesCount > 0 ? (
               <Text style={styles.averageSupporting}>
-                Basé sur {sleepEntriesCount} jour
-                {sleepEntriesCount > 1 ? 's' : ''}
+                {t('postpartumStatistics.basedOnDays', {count: sleepEntriesCount})}
               </Text>
             ) : null}
           </View>
@@ -1158,14 +1175,17 @@ function SummaryTab({
                 size={18}
               />
             </View>
-            <Text style={styles.averageLabel}>Humeur moyenne</Text>
+            <Text style={styles.averageLabel}>{t('postpartumStatistics.summary.averageMood')}</Text>
             <Text numberOfLines={1} style={styles.averageValue}>
-              {mostFrequentMood ?? 'Pas encore de données'}
+              {/* DATA-BEARING: mostFrequentMood is one of
+                  POSTPARTUM_MOOD_OPTIONS' raw French strings
+                  (postpartumJournalConfig.ts) — never translated here; only
+                  the "no data yet" fallback is. */}
+              {mostFrequentMood ?? t('postpartumStatistics.noDataYet')}
             </Text>
             {moodEntriesCount > 0 ? (
               <Text style={styles.averageSupporting}>
-                Basé sur {moodEntriesCount} jour
-                {moodEntriesCount > 1 ? 's' : ''}
+                {t('postpartumStatistics.basedOnDays', {count: moodEntriesCount})}
               </Text>
             ) : null}
           </View>
@@ -1177,10 +1197,9 @@ function SummaryTab({
           <MaterialDesignIcons color={theme.colors.primary} name="sprout" size={20} />
         </View>
         <View style={styles.adviceCopy}>
-          <Text style={styles.adviceTitle}>Conseil</Text>
+          <Text style={styles.adviceTitle}>{t('postpartumStatistics.summary.adviceTitle')}</Text>
           <Text style={styles.adviceText}>
-            Chaque petit pas compte. Prends soin de toi, ton corps récupère jour
-            après jour.
+            {t('postpartumStatistics.summary.adviceText')}
           </Text>
         </View>
       </View>
@@ -1217,6 +1236,7 @@ function LochiaTab({
   maxSymptomCount: number;
   isMonthlyView: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   return (
@@ -1224,27 +1244,27 @@ function LochiaTab({
       <View style={styles.card}>
         <SectionHeader
           icon="timeline-clock-outline"
-          subtitle="Données réellement enregistrées"
-          title="Durée des lochies"
+          subtitle={t('postpartumStatistics.lochia.actuallyRecorded')}
+          title={t('postpartumStatistics.lochia.durationTitle')}
         />
         <View style={styles.lochiaSummaryGrid}>
-          <SummaryValue label="Début" value={dateValue(summary.deliveryDate)} />
+          <SummaryValue label={t('postpartumStatistics.lochia.start')} value={dateValue(summary.deliveryDate)} />
           <SummaryValue
-            label="Dernier jour enregistré"
+            label={t('postpartumStatistics.lochia.lastRecordedDay')}
             value={dateValue(summary.lastRecordedDate)}
           />
           <SummaryValue
-            label="Durée enregistrée"
-            value={summary.durationDays ? `${summary.durationDays} jours` : '—'}
+            label={t('postpartumStatistics.lochia.recordedDuration')}
+            value={summary.durationDays ? t('postpartumStatistics.lochia.durationDays', {days: summary.durationDays}) : '—'}
           />
           <SummaryValue
-            label="Statut"
+            label={t('postpartumStatistics.lochia.status')}
             value={
               summary.status === 'ended'
-                ? `Terminées le ${dateValue(summary.endedDate)}`
+                ? t('postpartumStatistics.lochia.endedOn', {date: dateValue(summary.endedDate)})
                 : summary.status === 'ongoing'
-                ? 'En cours'
-                : 'Non renseigné'
+                ? t('postpartumStatistics.lochia.ongoing')
+                : t('postpartumStatistics.lochia.notRecorded')
             }
           />
         </View>
@@ -1252,10 +1272,10 @@ function LochiaTab({
 
       {entriesCount === 0 ? (
         <View style={styles.card}>
-          <SectionHeader icon="water-outline" title="Observations" />
+          <SectionHeader icon="water-outline" title={t('postpartumStatistics.lochia.observationsTitle')} />
           <EmptyState
             icon="water-outline"
-            text="Pas encore de données sur les lochies."
+            text={t('postpartumStatistics.lochia.emptyText')}
           />
         </View>
       ) : (
@@ -1263,12 +1283,12 @@ function LochiaTab({
           <View style={styles.kpiGrid}>
             <KpiCard
               icon="water-outline"
-              label="Entrées"
+              label={t('postpartumStatistics.lochia.entries')}
               value={String(entriesCount)}
             />
             <KpiCard
               icon="calendar-check-outline"
-              label="Jours suivis"
+              label={t('postpartumStatistics.lochia.daysTracked')}
               value={String(entriesCount)}
             />
           </View>
@@ -1278,10 +1298,10 @@ function LochiaTab({
               icon="chart-bar"
               subtitle={
                 isMonthlyView
-                  ? 'Historique complet, par mois'
-                  : 'Séquence enregistrée'
+                  ? t('postpartumStatistics.monthlyHistorySubtitle')
+                  : t('postpartumStatistics.lochia.recordedSequence')
               }
-              title="Évolution du flux"
+              title={t('postpartumStatistics.lochia.flowEvolutionTitle')}
             />
             <View style={styles.chart}>
               {chart.map(item => (
@@ -1296,7 +1316,7 @@ function LochiaTab({
           </View>
 
           <View style={styles.card}>
-            <SectionHeader icon="chart-donut" title="Répartition du flux" />
+            <SectionHeader icon="chart-donut" title={t('postpartumStatistics.lochia.flowDistributionTitle')} />
             {flowCounts.map((item, index) => (
               <DistributionRow
                 count={item.count}
@@ -1312,8 +1332,8 @@ function LochiaTab({
             <View style={styles.card}>
               <SectionHeader
                 icon="alert-circle-outline"
-                subtitle="Symptômes déjà notés dans le journal des lochies"
-                title="Symptômes associés"
+                subtitle={t('postpartumStatistics.lochia.symptomsSubtitle')}
+                title={t('postpartumStatistics.lochia.symptomsTitle')}
               />
               {symptomCounts.map((item, index) => (
                 <DistributionRow
@@ -1328,7 +1348,7 @@ function LochiaTab({
           ) : null}
 
           <View style={styles.card}>
-            <SectionHeader icon="history" title="Historique" />
+            <SectionHeader icon="history" title={t('postpartumStatistics.lochia.historyTitle')} />
             <View style={styles.timelineList}>
               {timeline.map((entry, index) => (
                 <View
@@ -1348,6 +1368,9 @@ function LochiaTab({
                   <Text style={styles.timelineDate}>
                     {dateLabel(entry.date)}
                   </Text>
+                  {/* DATA-BEARING: entry.flow is a raw LochiaFlow French
+                      string persisted as-is by postpartumLochiaStore — never
+                      translated here. */}
                   <Text numberOfLines={1} style={styles.timelineValue}>
                     {entry.flow}
                   </Text>
@@ -1363,8 +1386,7 @@ function LochiaTab({
               size={16}
             />
             <Text style={styles.infoStripText}>
-              L’évolution des lochies est propre à chaque femme. Continue ton
-              suivi quotidien.
+              {t('postpartumStatistics.lochia.evolutionFootnote')}
             </Text>
           </View>
         </>
@@ -1427,6 +1449,7 @@ function LevelTab({
   maxCount: number;
   isMonthlyView: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   if (entriesCount === 0) {
@@ -1444,7 +1467,7 @@ function LevelTab({
         <KpiCard icon={kpiIcon} label={kpiLabel} value={mostFrequent ?? '—'} />
         <KpiCard
           icon="notebook-outline"
-          label="Journées renseignées"
+          label={t('postpartumStatistics.daysLogged')}
           value={String(entriesCount)}
         />
       </View>
@@ -1454,9 +1477,9 @@ function LevelTab({
           <SectionHeader
             icon="chart-bar"
             subtitle={
-              isMonthlyView ? 'Historique complet, par mois' : 'Évolution récente'
+              isMonthlyView ? t('postpartumStatistics.monthlyHistorySubtitle') : t('postpartumStatistics.recentEvolution')
             }
-            title={`Évolution — ${title}`}
+            title={t('postpartumStatistics.evolutionOf', {title})}
           />
           <View style={styles.chart}>
             {trend.map(point => (
@@ -1472,7 +1495,7 @@ function LevelTab({
       ) : null}
 
       <View style={styles.card}>
-        <SectionHeader icon="chart-donut" title={`Répartition — ${title}`} />
+        <SectionHeader icon="chart-donut" title={t('postpartumStatistics.distributionOf', {title})} />
         {counts.map((item, index) => (
           <DistributionRow
             count={item.count}
@@ -1508,15 +1531,16 @@ function SleepTab({
   maxQualityCount: number;
   isMonthlyView: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   if (nightsCount === 0 && qualityCounts.length === 0) {
     return (
       <View style={styles.card}>
-        <SectionHeader icon="weather-night" title="Sommeil" />
+        <SectionHeader icon="weather-night" title={t('postpartumStatistics.tabs.sleep')} />
         <EmptyState
           icon="weather-night"
-          text="Pas encore assez de données pour calculer une moyenne."
+          text={t('postpartumStatistics.sleep.notEnoughData')}
         />
       </View>
     );
@@ -1527,16 +1551,16 @@ function SleepTab({
       <View style={styles.kpiGrid}>
         <KpiCard
           icon="weather-night"
-          label="Sommeil moyen"
+          label={t('postpartumStatistics.summary.averageSleep')}
           value={
             averageHours !== undefined
               ? formatHoursMinutes(averageHours)
-              : 'Pas encore de données'
+              : t('postpartumStatistics.noDataYet')
           }
         />
         <KpiCard
           icon="calendar-check-outline"
-          label="Nuits enregistrées"
+          label={t('postpartumStatistics.sleep.nightsRecorded')}
           value={String(nightsCount)}
         />
       </View>
@@ -1547,10 +1571,10 @@ function SleepTab({
             icon="chart-bar"
             subtitle={
               isMonthlyView
-                ? 'Historique complet, par mois'
-                : 'Durée par jour enregistré'
+                ? t('postpartumStatistics.monthlyHistorySubtitle')
+                : t('postpartumStatistics.sleep.durationPerDay')
             }
-            title="Évolution du sommeil"
+            title={t('postpartumStatistics.sleep.evolutionTitle')}
           />
           <View style={styles.chart}>
             {chart.map(entry => (
@@ -1567,7 +1591,7 @@ function SleepTab({
 
       {qualityCounts.length > 0 ? (
         <View style={styles.card}>
-          <SectionHeader icon="star-outline" title="Qualité du sommeil" />
+          <SectionHeader icon="star-outline" title={t('postpartumStatistics.sleep.qualityTitle')} />
           {qualityCounts.map((item, index) => (
             <DistributionRow
               count={item.count}

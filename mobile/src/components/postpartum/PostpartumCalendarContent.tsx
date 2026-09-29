@@ -17,6 +17,7 @@ import {
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -65,6 +66,10 @@ import {
   subscribePostpartumLochia,
   type PostpartumLochiaEntry,
 } from '../../state/postpartumLochiaStore';
+import {getAppLanguage} from '../../state/themePreferences';
+import '../../i18n';
+
+const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 
 // Postpartum Calendar — a dedicated content branch for the ONE global
 // Calendar tab (see ObjectiveAwareCalendarScreen.tsx). Same premium HAWA
@@ -92,11 +97,15 @@ const DELIVERY_COLOR = '#DC7B82';
 const RAMADAN_MARKER_COLOR = '#6D4AE8';
 const DHOUL_HIJJA_MARKER_COLOR = '#B7791F';
 
-const MODES: Array<{ key: CalendarPreference; label: string }> = [
-  { key: 'gregorian', label: 'Grégorien' },
-  { key: 'hijri', label: 'Hijri' },
-  { key: 'double', label: 'Double' },
-];
+// Built inside each component via useMemo (needs the t() hook) instead of a
+// static module-level array — see buildModes()/buildCategoryMeta() below.
+function buildModes(t: (key: string) => string): Array<{ key: CalendarPreference; label: string }> {
+  return [
+    { key: 'gregorian', label: t('postpartumCalendar.modes.gregorian') },
+    { key: 'hijri', label: t('postpartumCalendar.modes.hijri') },
+    { key: 'double', label: t('postpartumCalendar.modes.double') },
+  ];
+}
 
 /* ============================================================
    CATEGORY META — Lochies (postpartumLochiaStore) + the 5 real
@@ -107,55 +116,67 @@ const MODES: Array<{ key: CalendarPreference; label: string }> = [
 
 type PostpartumCalendarCategory = PostpartumJournalCategory | 'lochia';
 
-const CATEGORY_META: Record<
+// Stable regardless of language — the insertion order CATEGORY_META used to
+// derive via Object.keys() before its labels became translated.
+const CATEGORY_KEYS: PostpartumCalendarCategory[] = [
+  'lochia',
+  'fatigue',
+  'sleep',
+  'mood',
+  'pain',
+  'physicalRecovery',
+];
+
+// Built inside each component via useMemo (needs the t() hook) instead of a
+// static module-level record — same reasoning as buildModes() above.
+function buildCategoryMeta(
+  t: (key: string) => string,
+): Record<
   PostpartumCalendarCategory,
   { label: string; description: string; icon: IconName; color: string }
-> = {
-  lochia: {
-    label: 'Lochies',
-    description: 'Flux et couleur des lochies enregistrés dans ton suivi.',
-    icon: 'water-outline',
-    color: DELIVERY_COLOR,
-  },
-  fatigue: {
-    label: 'Fatigue',
-    description: 'Évalue ton niveau de fatigue aujourd’hui',
-    icon: 'lightning-bolt-outline',
-    color: '#8C6FD6',
-  },
-  sleep: {
-    label: 'Sommeil',
-    description: 'Durée et qualité de ton sommeil',
-    icon: 'weather-night',
-    color: '#6F8FD1',
-  },
-  mood: {
-    label: 'Humeur',
-    description: 'Comment te sens-tu aujourd’hui ?',
-    icon: 'heart-outline',
-    color: '#D889AE',
-  },
-  pain: {
-    label: 'Douleurs',
-    description: 'Note les douleurs que tu ressens aujourd’hui',
-    icon: 'heat-wave',
-    color: '#D79A55',
-  },
-  physicalRecovery: {
-    label: 'Récupération physique',
-    description: 'Comment progresse ta récupération ?',
-    icon: 'heart-pulse',
-    // Category identity color, fixed like every other CATEGORY_META entry
-    // above — same value as RAMADAN_MARKER_COLOR/theme.colors.primary's
-    // current default, but never theme-driven (computed at module scope,
-    // before any theme is available).
-    color: '#6D4AE8',
-  },
-};
-
-const CATEGORY_KEYS = Object.keys(
-  CATEGORY_META,
-) as PostpartumCalendarCategory[];
+> {
+  return {
+    lochia: {
+      label: t('postpartumCalendar.categories.lochia.label'),
+      description: t('postpartumCalendar.categories.lochia.description'),
+      icon: 'water-outline',
+      color: DELIVERY_COLOR,
+    },
+    fatigue: {
+      label: t('postpartumCalendar.categories.fatigue.label'),
+      description: t('postpartumCalendar.categories.fatigue.description'),
+      icon: 'lightning-bolt-outline',
+      color: '#8C6FD6',
+    },
+    sleep: {
+      label: t('postpartumCalendar.categories.sleep.label'),
+      description: t('postpartumCalendar.categories.sleep.description'),
+      icon: 'weather-night',
+      color: '#6F8FD1',
+    },
+    mood: {
+      label: t('postpartumCalendar.categories.mood.label'),
+      description: t('postpartumCalendar.categories.mood.description'),
+      icon: 'heart-outline',
+      color: '#D889AE',
+    },
+    pain: {
+      label: t('postpartumCalendar.categories.pain.label'),
+      description: t('postpartumCalendar.categories.pain.description'),
+      icon: 'heat-wave',
+      color: '#D79A55',
+    },
+    physicalRecovery: {
+      label: t('postpartumCalendar.categories.physicalRecovery.label'),
+      description: t('postpartumCalendar.categories.physicalRecovery.description'),
+      icon: 'heart-pulse',
+      // Category identity color, fixed like every other entry above — same
+      // value as RAMADAN_MARKER_COLOR/theme.colors.primary's current
+      // default, but never theme-driven.
+      color: '#6D4AE8',
+    },
+  };
+}
 
 const dateKey = (date: Date): string => date.toLocaleDateString('en-CA');
 const backgroundColorStyle = (backgroundColor: string) => ({ backgroundColor });
@@ -182,8 +203,11 @@ function categoriesPresent(
 }
 
 function PostpartumCalendarContent(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const modes = useMemo(() => buildModes(t), [t]);
+  const categoryMeta = useMemo(() => buildCategoryMeta(t), [t]);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const { open: openPostpartumJournal } = useJournalSheet();
@@ -342,7 +366,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
   }, [visibleMonth]);
 
   const monthTitle = capitalize(
-    new Intl.DateTimeFormat('fr-FR', { month: 'long', year: 'numeric' }).format(
+    new Intl.DateTimeFormat(dateFormatLocale(), { month: 'long', year: 'numeric' }).format(
       visibleMonth,
     ),
   );
@@ -358,7 +382,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
     : undefined;
 
   const selectedTitle = capitalize(
-    new Intl.DateTimeFormat('fr-FR', {
+    new Intl.DateTimeFormat(dateFormatLocale(), {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
@@ -423,6 +447,11 @@ function PostpartumCalendarContent(): React.JSX.Element {
         key: item.key,
         icon: item.icon,
         label: item.label,
+        // DATA-BEARING: `raw` is the persisted PostpartumJournalEntry field
+        // value — one of POSTPARTUM_MOOD/SLEEP/FATIGUE/PAIN/RECOVERY_OPTIONS'
+        // raw French strings (postpartumJournalConfig.ts), stored as-is with
+        // no separate stable id. Left untranslated here — same accepted
+        // trade-off as IrregularCalendarContent.tsx's own DATA-BEARING rows.
         value: String(raw),
       });
     }
@@ -469,18 +498,18 @@ function PostpartumCalendarContent(): React.JSX.Element {
           {/* HEADER */}
           <View style={styles.header}>
             <View style={styles.headerCopy}>
-              <Text style={styles.title}>Calendrier</Text>
-              <Text style={styles.subtitle}>Suis ton parcours post-partum</Text>
+              <Text style={styles.title}>{t('postpartumCalendar.header.title')}</Text>
+              <Text style={styles.subtitle}>{t('postpartumCalendar.header.subtitle')}</Text>
             </View>
 
             <HeaderAction
               icon="tune-variant"
-              label="Filtres"
+              label={t('calendar.filters')}
               onPress={() => setSheet('filters')}
             />
             <HeaderAction
               icon="format-list-bulleted"
-              label="Légende"
+              label={t('calendar.legend')}
               onPress={() => setSheet('legend')}
             />
           </View>
@@ -489,7 +518,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
           <View style={styles.calendarCard}>
             {spiritualMarkersEnabled ? (
             <View style={styles.modeRow}>
-              {MODES.map(mode => (
+              {modes.map(mode => (
                 <Pressable
                   accessibilityRole="button"
                   key={mode.key}
@@ -514,7 +543,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
 
             <View style={styles.monthHeader}>
               <Pressable
-                accessibilityLabel="Mois précédent"
+                accessibilityLabel={t('calendar.previousMonth')}
                 accessibilityRole="button"
                 onPress={goToPreviousMonth}
                 style={styles.arrowButton}
@@ -534,7 +563,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
               </View>
 
               <Pressable
-                accessibilityLabel="Mois suivant"
+                accessibilityLabel={t('calendar.nextMonth')}
                 accessibilityRole="button"
                 onPress={goToNextMonth}
                 style={styles.arrowButton}
@@ -595,16 +624,16 @@ function PostpartumCalendarContent(): React.JSX.Element {
                     : DHOUL_HIJJA_MARKER_COLOR;
                 const spiritualMarkerLabel =
                   spiritualMonth === 'ramadan'
-                    ? ', Ramadan'
+                    ? t('postpartumCalendar.dayAccessibility.ramadan')
                     : spiritualMonth === 'dhoulHijja'
-                      ? ', Dhou al-Hijja'
+                      ? t('postpartumCalendar.dayAccessibility.dhoulHijja')
                       : '';
 
                 return (
                   <View key={date.toISOString()} style={styles.dayCell}>
                     <Pressable
                       accessibilityLabel={`${date.getDate()} ${monthTitle}${
-                        isDelivery ? ', accouchement' : ''
+                        isDelivery ? t('postpartumCalendar.dayAccessibility.delivery') : ''
                       }${spiritualMarkerLabel}`}
                       accessibilityRole="button"
                       onPress={() => setSelectedDate(date)}
@@ -660,7 +689,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
                                 backgroundColorStyle(
                                   lightText
                                     ? onPrimaryTextColor(theme)
-                                    : CATEGORY_META[key].color,
+                                    : categoryMeta[key].color,
                                 ),
                               ]}
                             />
@@ -680,27 +709,27 @@ function PostpartumCalendarContent(): React.JSX.Element {
                   <View
                     style={[
                       styles.inlineLegendDot,
-                      backgroundColorStyle(CATEGORY_META[key].color),
+                      backgroundColorStyle(categoryMeta[key].color),
                     ]}
                   />
                   <Text style={styles.inlineLegendText}>
-                    {CATEGORY_META[key].label}
+                    {categoryMeta[key].label}
                   </Text>
                 </View>
               ))}
               <View style={styles.inlineLegendItem}>
                 <View style={styles.inlineTodayIndicator} />
-                <Text style={styles.inlineLegendText}>Aujourd’hui</Text>
+                <Text style={styles.inlineLegendText}>{t('cycleHome.todayLabel')}</Text>
               </View>
               {spiritualMarkersEnabled ? (
                 <>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={RAMADAN_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Ramadan</Text>
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('postpartumCalendar.ramadan')}</Text>
                   </View>
                   <View style={styles.inlineLegendItem}>
                     <MaterialDesignIcons color={DHOUL_HIJJA_MARKER_COLOR} name="moon-waning-crescent" size={11} />
-                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>Dhou al-Hijja</Text>
+                    <Text style={[styles.inlineLegendText, styles.inlineLegendTextWithIcon]}>{t('postpartumCalendar.dhoulHijja')}</Text>
                   </View>
                 </>
               ) : null}
@@ -735,8 +764,8 @@ function PostpartumCalendarContent(): React.JSX.Element {
                 />
                 <Text style={styles.neutralText}>
                   {selectedStatus.configured
-                    ? 'Cette date précède le début de ton suivi post-partum.'
-                    : 'Renseigne ta date d’accouchement pour activer ton suivi post-partum.'}
+                    ? t('postpartumCalendar.selected.beforeTracking')
+                    : t('postpartumCalendar.selected.notConfigured')}
                 </Text>
               </View>
             ) : (
@@ -749,7 +778,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
                       size={14}
                     />
                     <Text style={styles.dayBadgeText}>
-                      Jour {selectedStatus.postpartumDay} post-partum
+                      {t('postpartumCalendar.selected.dayBadge', {day: selectedStatus.postpartumDay})}
                     </Text>
                   </View>
                   {isDeliveryDaySelected ? (
@@ -759,7 +788,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         name="flower"
                         size={14}
                       />
-                      <Text style={styles.deliveryBadgeText}>Accouchement</Text>
+                      <Text style={styles.deliveryBadgeText}>{t('postpartumCalendar.selected.delivery')}</Text>
                     </View>
                   ) : null}
                 </View>
@@ -767,7 +796,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
                 <View style={styles.dataRows}>
                   {showLochiaRow ? (
                     <Pressable
-                      accessibilityLabel="Lochies"
+                      accessibilityLabel={t('postpartumCalendar.categories.lochia.label')}
                       accessibilityRole="button"
                       onPress={() => navigation.navigate('PostpartumLochia')}
                       style={({ pressed }) => [
@@ -783,11 +812,15 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         />
                       </View>
                       <View style={styles.flexCopy}>
-                        <Text style={styles.dataRowLabel}>Lochies</Text>
+                        <Text style={styles.dataRowLabel}>{t('postpartumCalendar.categories.lochia.label')}</Text>
                         <Text style={styles.dataRowValue}>
                           {selectedLochia
+                            // DATA-BEARING: selectedLochia.flow/.color are raw
+                            // French strings persisted as-is by
+                            // postpartumLochiaStore — never translated here,
+                            // same as PostpartumDashboard.tsx's identical value.
                             ? `${selectedLochia.flow} · ${selectedLochia.color}`
-                            : 'Non renseigné'}
+                            : t('postpartumCalendar.selected.lochiaEmpty')}
                         </Text>
                       </View>
                       <MaterialDesignIcons
@@ -808,9 +841,9 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         />
                       </View>
                       <View style={styles.flexCopy}>
-                        <Text style={styles.dataRowLabel}>Retour du cycle</Text>
+                        <Text style={styles.dataRowLabel}>{t('postpartumCalendar.selected.cycleReturnTitle')}</Text>
                         <Text style={styles.dataRowValue}>
-                          Premières règles post-partum enregistrées
+                          {t('postpartumCalendar.selected.cycleReturnValue')}
                         </Text>
                       </View>
                     </View>
@@ -842,11 +875,11 @@ function PostpartumCalendarContent(): React.JSX.Element {
                             size={19}
                           />
                           <Text style={styles.emptyText}>
-                            Aucune donnée enregistrée pour cette journée.
+                            {t('postpartumCalendar.selected.emptyText')}
                           </Text>
                           {isTodaySelected ? (
                             <Pressable
-                              accessibilityLabel="Ajouter au journal"
+                              accessibilityLabel={t('postpartumCalendar.selected.addToJournal')}
                               accessibilityRole="button"
                               onPress={openPostpartumJournal}
                               style={({ pressed }) => [
@@ -860,7 +893,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
                                 size={16}
                               />
                               <Text style={styles.addButtonText}>
-                                Ajouter au journal
+                                {t('postpartumCalendar.selected.addToJournal')}
                               </Text>
                             </Pressable>
                           ) : null}
@@ -941,8 +974,10 @@ function PostpartumCalendarSheet({
   showHijri: boolean;
   showSpiritualMarkers: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const categoryMeta = useMemo(() => buildCategoryMeta(t), [t]);
   const insets = useSafeAreaInsets();
 
   return (
@@ -955,7 +990,7 @@ function PostpartumCalendarSheet({
     >
       <View style={styles.modalRoot}>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           onPress={onClose}
           style={styles.backdrop}
         />
@@ -978,16 +1013,16 @@ function PostpartumCalendarSheet({
             >
               <View style={styles.legendSheetHeader}>
                 <Text style={styles.legendSheetTitle}>
-                  Légende du calendrier
+                  {t('postpartumCalendar.legend.title')}
                 </Text>
                 <Text style={styles.legendSheetSubtitle}>
-                  Comprendre les couleurs et repères utilisés.
+                  {t('postpartumCalendar.legend.subtitle')}
                 </Text>
               </View>
 
               <View style={styles.legendRows}>
                 {CATEGORY_KEYS.map((key, index) => {
-                  const meta = CATEGORY_META[key];
+                  const meta = categoryMeta[key];
                   return (
                     <View
                       key={key}
@@ -1028,8 +1063,8 @@ function PostpartumCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(RAMADAN_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Ramadan</Text>
-                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois du Ramadan (jeûne).</Text>
+                        <Text style={styles.legendRowTitle}>{t('postpartumCalendar.ramadan')}</Text>
+                        <Text style={styles.legendRowText}>{t('postpartumCalendar.legend.ramadanDescription')}</Text>
                       </View>
                     </View>
                     <View style={[styles.legendRow, styles.legendRowLast]}>
@@ -1038,8 +1073,8 @@ function PostpartumCalendarSheet({
                       </View>
                       <View style={[styles.legendDotLarge, backgroundColorStyle(DHOUL_HIJJA_MARKER_COLOR)]} />
                       <View style={styles.legendRowCopy}>
-                        <Text style={styles.legendRowTitle}>Dhou al-Hijja</Text>
-                        <Text style={styles.legendRowText}>Ce jour se situe dans le mois de Dhou al-Hijja.</Text>
+                        <Text style={styles.legendRowTitle}>{t('postpartumCalendar.dhoulHijja')}</Text>
+                        <Text style={styles.legendRowText}>{t('postpartumCalendar.legend.dhoulHijjaDescription')}</Text>
                       </View>
                     </View>
                   </>
@@ -1056,9 +1091,9 @@ function PostpartumCalendarSheet({
                   ) : null}
                 </View>
                 <View style={styles.todayCopy}>
-                  <Text style={styles.todayTitle}>Aujourd’hui</Text>
+                  <Text style={styles.todayTitle}>{t('cycleHome.todayLabel')}</Text>
                   <Text style={styles.todayText}>
-                    Le contour noir en pointillés indique la date d’aujourd’hui.
+                    {t('postpartumCalendar.legend.todayDescription')}
                   </Text>
                 </View>
               </View>
@@ -1066,7 +1101,7 @@ function PostpartumCalendarSheet({
 
             <View style={styles.legendFooter}>
               <Pressable
-                accessibilityLabel="Fermer la légende"
+                accessibilityLabel={t('calendar.closeLegend')}
                 accessibilityRole="button"
                 onPress={onClose}
                 style={({ pressed }) => [
@@ -1074,7 +1109,7 @@ function PostpartumCalendarSheet({
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={styles.closeLegendText}>Fermer</Text>
+                <Text style={styles.closeLegendText}>{t('common.close')}</Text>
               </Pressable>
             </View>
           </View>
@@ -1089,9 +1124,9 @@ function PostpartumCalendarSheet({
             <View style={styles.handle} />
 
             <View style={styles.filterSheetHeader}>
-              <Text style={styles.filterSheetTitle}>Filtres du calendrier</Text>
+              <Text style={styles.filterSheetTitle}>{t('postpartumCalendar.filters.title')}</Text>
               <Text style={styles.filterSheetSubtitle}>
-                Choisis les informations à afficher sur ton calendrier.
+                {t('postpartumCalendar.filters.subtitle')}
               </Text>
             </View>
 
@@ -1102,7 +1137,7 @@ function PostpartumCalendarSheet({
               style={styles.filterScroll}
             >
               {CATEGORY_KEYS.map((key, index) => {
-                const meta = CATEGORY_META[key];
+                const meta = categoryMeta[key];
                 const active = visibleFilters.has(key);
                 return (
                   <Pressable
@@ -1156,7 +1191,7 @@ function PostpartumCalendarSheet({
                   pressed && styles.pressed,
                 ]}
               >
-                <Text style={styles.doneText}>Terminé</Text>
+                <Text style={styles.doneText}>{t('cycleHome.quickActions.done')}</Text>
               </Pressable>
             </View>
           </View>
