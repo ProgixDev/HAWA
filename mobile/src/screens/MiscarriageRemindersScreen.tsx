@@ -14,6 +14,9 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
+import {useTranslation} from 'react-i18next';
+import '../i18n';
+import {getAppLanguage} from '../state/themePreferences';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -33,7 +36,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 // PostpartumRemindersScreen.tsx's/MenopauseRemindersScreen.tsx's own
 // un-exported helpers — kept local since it's pure UI display formatting.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);
@@ -48,6 +51,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const editStyles = useMemo(() => createEditStyles(theme), [theme]);
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
 
   const mode = route.params?.mode ?? 'onboarding';
@@ -106,7 +110,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
     // Never persist "enabled" without a real, user-chosen time — no
     // fallback hour is invented here; she must explicitly pick one.
     if (dailyEnabled && !dailyTime) {
-      setError('Choisis une heure pour ton rappel de suivi quotidien.');
+      setError(t('miscarriageReminders.chooseTimeError'));
       return;
     }
     setError('');
@@ -143,7 +147,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
           showsVerticalScrollIndicator={false}>
           <View style={editStyles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -151,9 +155,9 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
               <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
             </Pressable>
             <View style={editStyles.headerCopy}>
-              <Text style={editStyles.title}>Notifications &amp; rappels</Text>
+              <Text style={editStyles.title}>{t('miscarriageReminders.editTitle')}</Text>
               <Text style={editStyles.subtitle}>
-                Gère le rappel qui t’accompagne dans ton suivi, à ton rythme.
+                {t('miscarriageReminders.editSubtitle')}
               </Text>
             </View>
           </View>
@@ -164,13 +168,13 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                 <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={18} />
               </View>
               <View style={editStyles.rowCopy}>
-                <Text style={editStyles.rowTitle}>Suivi quotidien</Text>
+                <Text style={editStyles.rowTitle}>{t('miscarriageReminders.dailyTracking')}</Text>
                 <Text style={editStyles.rowSubtitle}>
-                  Un rappel doux pour prendre un moment pour ton suivi.
+                  {t('miscarriageReminders.dailyTrackingDescription')}
                 </Text>
               </View>
               <Switch
-                accessibilityLabel="Suivi quotidien"
+                accessibilityLabel={t('miscarriageReminders.dailyTracking')}
                 ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setDailyEnabled(value);
@@ -184,14 +188,14 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
 
             {dailyEnabled ? (
               <Pressable
-                accessibilityLabel={dailyTime ? `Heure du rappel, ${dailyTime}` : 'Choisir une heure de rappel'}
+                accessibilityLabel={dailyTime ? t('miscarriageReminders.timeAccessibility', {time: dailyTime}) : t('miscarriageReminders.chooseTime')}
                 accessibilityRole="button"
                 onPress={() => setTimePickerVisible(true)}
                 style={({pressed}) => [editStyles.timeRow, pressed && editStyles.pressed]}>
-                <Text style={editStyles.timeRowLabel}>Heure du rappel</Text>
+                <Text style={editStyles.timeRowLabel}>{t('miscarriageReminders.timeLabel')}</Text>
                 <View style={editStyles.timeRowValueGroup}>
                   <Text style={dailyTime ? editStyles.timeValue : editStyles.timeValuePlaceholder}>
-                    {dailyTime ?? 'Choisir'}
+                    {dailyTime ?? t('miscarriageReminders.choose')}
                   </Text>
                   <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
                 </View>
@@ -224,7 +228,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
             <View accessibilityRole="alert" style={editStyles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={editStyles.errorText}>
-                Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                {t('miscarriageReminders.permissionNotice')}
               </Text>
             </View>
           ) : null}
@@ -234,7 +238,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
             disabled={saving}
             onPress={handleContinue}
             style={({pressed}) => [editStyles.saveButton, (pressed || saving) && editStyles.pressed]}>
-            <Text style={editStyles.saveButtonText}>{saving ? 'Enregistrement…' : 'Enregistrer'}</Text>
+            <Text style={editStyles.saveButtonText}>{saving ? t('miscarriageReminders.saving') : t('common.save')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>
@@ -276,9 +280,9 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
               </LinearGradient>
             </View>
 
-            <Text style={styles.title}>Un petit rappel pour toi ?</Text>
+            <Text style={styles.title}>{t('miscarriageReminders.title')}</Text>
             <Text style={styles.subtitle}>
-              Si tu le souhaites, AWA peut te rappeler une fois par jour de prendre un moment pour ton suivi.
+              {t('miscarriageReminders.subtitle')}
             </Text>
           </View>
 
@@ -288,11 +292,16 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                 <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={22} />
               </View>
               <View style={styles.cardCopy}>
+                {/* Scheduled-notification title/body copy — out of scope for
+                    this display-localization pass (deferred to Phase 4+,
+                    matching what's actually passed to
+                    scheduleLocalNotification() in
+                    miscarriageReminderScheduling.ts). */}
                 <Text style={styles.cardTitle}>{MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE}</Text>
                 <Text style={styles.cardDescription}>{MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY}</Text>
               </View>
               <Switch
-                accessibilityLabel="Activer le rappel quotidien"
+                accessibilityLabel={t('miscarriageReminders.enableDailyReminder')}
                 ios_backgroundColor={theme.colors.primarySoft}
                 onValueChange={value => {
                   setDailyEnabled(value);
@@ -306,7 +315,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
 
             {dailyEnabled ? (
               <Pressable
-                accessibilityLabel={dailyTime ? `Heure du rappel, ${dailyTime}` : 'Choisir une heure de rappel'}
+                accessibilityLabel={dailyTime ? t('miscarriageReminders.timeAccessibility', {time: dailyTime}) : t('miscarriageReminders.chooseTimeAccessibility')}
                 accessibilityRole="button"
                 onPress={() => setTimePickerVisible(true)}
                 style={({pressed}) => [styles.timeRow, pressed && styles.pressed]}>
@@ -314,9 +323,9 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                   <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={18} />
                 </View>
                 <View style={styles.timeCopy}>
-                  <Text style={styles.timeLabel}>Heure du rappel</Text>
+                  <Text style={styles.timeLabel}>{t('miscarriageReminders.timeLabel')}</Text>
                   <Text style={dailyTime ? styles.timeValue : styles.timeValuePlaceholder}>
-                    {dailyTime ?? 'Choisir une heure'}
+                    {dailyTime ?? t('miscarriageReminders.chooseTimeLong')}
                   </Text>
                 </View>
                 <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
@@ -349,7 +358,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
             <View accessibilityRole="alert" style={styles.errorCard}>
               <MaterialDesignIcons color={theme.colors.danger} name="bell-off-outline" size={16} />
               <Text style={styles.errorText}>
-                Active les notifications dans les réglages de ton téléphone pour recevoir tes rappels.
+                {t('miscarriageReminders.permissionNotice')}
               </Text>
             </View>
           ) : null}
@@ -359,7 +368,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
               <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={18} />
             </View>
             <Text style={styles.infoText}>
-              Tu pourras modifier ce réglage à tout moment dans tes préférences.
+              {t('miscarriageReminders.infoText')}
             </Text>
           </View>
 
@@ -371,7 +380,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
             onPress={handleContinue}
             style={({pressed}) => [styles.nextButton, (pressed || saving) && styles.pressed]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : 'Continuer'}
+              {saving ? t('miscarriageReminders.saving') : t('miscarriageReminders.continue')}
             </Text>
           </Pressable>
 
@@ -380,7 +389,7 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
             disabled={saving}
             onPress={handleSkip}
             style={({pressed}) => [styles.skipButton, pressed && styles.pressed]}>
-            <Text style={styles.skipText}>Pas maintenant</Text>
+            <Text style={styles.skipText}>{t('miscarriageReminders.notNow')}</Text>
           </Pressable>
         </ScrollView>
       </View>

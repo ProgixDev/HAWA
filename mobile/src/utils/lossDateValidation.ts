@@ -1,5 +1,26 @@
 import {diffDays, formatFullDate, startOfDay} from './cycleMath';
 import {validateLossDate} from './postpartumLossDateValidation';
+import i18n from '../i18n';
+
+// i18n (Phase 3): this is a plain util file, not a component, so it cannot
+// call `useTranslation()`. Every message below is built with the i18n
+// singleton (`i18n.t()`) at CALL time (never cached at module scope), so
+// each of these pure functions already returns the current language on
+// every invocation without needing the languageChanged-listener/in-place-
+// mutation pattern the config files use for their cached arrays. This file
+// is exclusively used by the "Après une fausse couche" (loss) objective's
+// own screens (MiscarriageDateScreen.tsx, MiscarriageCycleReturnScreen.tsx,
+// MiscarriageJournalEntryScreen.tsx, miscarriagePreferences.ts) — EXCEPT
+// `CYCLE_RETURN_DATE_TO_CHECK` and `classifyStoredCycleReturnDate`, which
+// ProfileScreen.tsx and SummaryScreen.tsx (large, multi-objective, out of
+// this pass's scope) also import; `classifyStoredCycleReturnDate` returns a
+// plain state enum (no text) so it needs no change, but
+// `CYCLE_RETURN_DATE_TO_CHECK` is deliberately left as a plain French
+// constant — see its own comment below.
+//
+// `validateLossDate` (from postpartumLossDateValidation.ts) is a SEPARATE,
+// Postpartum-shared util and stays out of this pass's scope — its message
+// stays French for now when reached through `validateLossDateChange` below.
 
 // ONE shared, pure chronology model for the "Après une fausse couche" (loss)
 // objective, used by every writer/reader of these dates:
@@ -22,16 +43,10 @@ export type LossDateValidation =
   | {valid: true}
   | {valid: false; message: string};
 
-export const CYCLE_RETURN_FUTURE_MESSAGE =
-  'La date de tes premières règles revenues ne peut pas être dans le futur.';
-export const CYCLE_RETURN_BEFORE_LOSS_MESSAGE =
-  'La date de tes premières règles revenues ne peut pas précéder la date de ta fausse couche.';
-export const CYCLE_RETURN_INVALID_MESSAGE =
-  'La date de tes premières règles revenues n’est pas valide.';
-export const JOURNAL_FUTURE_MESSAGE =
-  'Tu ne peux pas enregistrer un suivi pour une date à venir.';
-export const JOURNAL_BEFORE_LOSS_MESSAGE =
-  'Tu ne peux pas enregistrer un suivi pour une date antérieure à ta fausse couche.';
+// Not exported any more (nothing outside this file imported them — verified
+// via a repo-wide grep): inlined as direct `i18n.t()` calls at each return
+// site below instead, so each message is resolved fresh, in the current
+// language, at the moment it's actually returned.
 
 const KEY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -53,21 +68,25 @@ export function validateCycleReturnDate(params: {
   lossDate: string | null | undefined;
 }): LossDateValidation {
   if (Number.isNaN(params.date.getTime())) {
-    return {valid: false, message: CYCLE_RETURN_INVALID_MESSAGE};
+    return {valid: false, message: i18n.t('miscarriageCycleReturn.dateErrors.invalid')};
   }
   const day = startOfDay(params.date);
   if (diffDays(day, startOfDay(params.now)) > 0) {
-    return {valid: false, message: CYCLE_RETURN_FUTURE_MESSAGE};
+    return {valid: false, message: i18n.t('miscarriageCycleReturn.dateErrors.future')};
   }
   const loss = parseLossDateKey(params.lossDate);
   if (loss && diffDays(day, loss) < 0) {
-    return {valid: false, message: CYCLE_RETURN_BEFORE_LOSS_MESSAGE};
+    return {valid: false, message: i18n.t('miscarriageCycleReturn.dateErrors.beforeLoss')};
   }
   return {valid: true};
 }
 
 /** Wording shown wherever a stored (legacy) invalid cycle-return date would
- * otherwise be displayed as a date (Dashboard, Profile, Summary). */
+ * otherwise be displayed as a date (Dashboard, Profile, Summary). Deliberately
+ * left as a plain French constant, NOT wired to i18n.t(), because
+ * ProfileScreen.tsx and SummaryScreen.tsx (large, multi-objective screens,
+ * out of this pass's scope) also import it — see the file-level i18n
+ * comment above. Revisit once those screens have their own Phase 3 pass. */
 export const CYCLE_RETURN_DATE_TO_CHECK = 'Date à vérifier';
 
 export type StoredCycleReturnDateState =
@@ -102,13 +121,13 @@ export function validateLossJournalDate(params: {
   lossDate: string | null | undefined;
 }): LossDateValidation {
   const date = parseLossDateKey(params.dateKey);
-  if (!date) {return {valid: false, message: 'Cette date n’est pas valide.'};}
+  if (!date) {return {valid: false, message: i18n.t('miscarriageJournalEntry.dateInvalid')};}
   if (diffDays(date, startOfDay(params.now)) > 0) {
-    return {valid: false, message: JOURNAL_FUTURE_MESSAGE};
+    return {valid: false, message: i18n.t('miscarriageJournalEntry.dateErrors.future')};
   }
   const loss = parseLossDateKey(params.lossDate);
   if (loss && diffDays(date, loss) < 0) {
-    return {valid: false, message: JOURNAL_BEFORE_LOSS_MESSAGE};
+    return {valid: false, message: i18n.t('miscarriageJournalEntry.dateErrors.beforeLoss')};
   }
   return {valid: true};
 }
@@ -185,17 +204,15 @@ const formatKey = (key: string): string => {
 
 export function describeLossDateConflict(conflict: LossDateConflict): string {
   if (conflict.kind === 'cycle_return') {
-    return `Cette date est postérieure à la date de retour de tes règles déjà enregistrée (${formatKey(
-      conflict.date,
-    )}). Corrige d’abord le retour du cycle, puis reviens modifier la date de la fausse couche.`;
+    return i18n.t('miscarriageDate.conflicts.cycleReturn', {date: formatKey(conflict.date)});
   }
-  return conflict.count > 1
-    ? `Ton journal contient déjà ${conflict.count} jours renseignés avant cette date (le premier : ${formatKey(
-        conflict.firstDate,
-      )}). Choisis une date antérieure ou égale à cette première entrée : ton historique n’est jamais modifié ni supprimé.`
-    : `Ton journal contient déjà une entrée datée du ${formatKey(
-        conflict.firstDate,
-      )}, avant cette date. Choisis une date antérieure ou égale : ton historique n’est jamais modifié ni supprimé.`;
+  // The original French had two structurally different sentences (not just
+  // a word-suffix change) depending on count > 1, so this uses real
+  // `_one`/`_other` i18next pluralization rather than a single flat key.
+  return i18n.t('miscarriageDate.conflicts.journal', {
+    count: conflict.count,
+    date: formatKey(conflict.firstDate),
+  });
 }
 
 /** Full check before SAVING a corrected loss date: the date itself (never in

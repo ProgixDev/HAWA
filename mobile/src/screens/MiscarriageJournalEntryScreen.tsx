@@ -22,6 +22,9 @@ import DateTimePicker, {
   type DateTimePickerChangeEvent,
 } from '@react-native-community/datetimepicker';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import '../i18n';
+import {getAppLanguage} from '../state/themePreferences';
 
 import {
   PostpartumInfoPanel,
@@ -133,7 +136,7 @@ const SYMPTOM_VISUALS: Record<
 ============================================================ */
 
 function formatToday(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {
+  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -213,6 +216,7 @@ function AnimatedSection({
 
 export default function MiscarriageJournalEntryScreen(): React.JSX.Element | null {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const {t} = useTranslation();
 
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -259,11 +263,11 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
   const dateProblem = useMemo(() => {
     if (requestedDate && !parseLossDateKey(requestedDate)) {
-      return 'Cette date n’est pas valide.';
+      return t('miscarriageJournalEntry.dateInvalid');
     }
     if (entryDateKey === todayKey) {return null;}
     if (!supportsPastDay) {
-      return 'Cette rubrique ne peut être renseignée que pour aujourd’hui.';
+      return t('miscarriageJournalEntry.pastDayNotSupported');
     }
     const validation = validateLossJournalDate({
       dateKey: entryDateKey,
@@ -271,14 +275,14 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
       lossDate: getMiscarriagePreferences().miscarriageDate,
     });
     return validation.valid ? null : validation.message;
-  }, [requestedDate, entryDateKey, todayKey, supportsPastDay, today]);
+  }, [requestedDate, entryDateKey, todayKey, supportsPastDay, today, t]);
 
   const todaySubtitle = useMemo(
     () =>
       isPastEntry
-        ? `Journée du ${formatToday(new Date(`${entryDateKey}T12:00:00`))}`
-        : `Aujourd’hui  •  ${formatToday(today)}`,
-    [isPastEntry, entryDateKey, today],
+        ? t('miscarriageJournalEntry.subtitlePast', {date: formatToday(new Date(`${entryDateKey}T12:00:00`))})
+        : t('miscarriageJournalEntry.subtitleToday', {date: formatToday(today)}),
+    [isPastEntry, entryDateKey, today, t],
   );
 
   /* ==========================================================
@@ -390,7 +394,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
     if (category === 'bleeding') {
       if (!bleeding) {
-        setError('Choisis une intensité avant d’enregistrer.');
+        setError(t('miscarriageJournalEntry.errors.chooseIntensity'));
 
         return;
       }
@@ -418,7 +422,11 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           bleedingNote.trim(),
         );
 
-        saveToast.show('Saignements enregistrés', 'Ton suivi a bien été mis à jour.', navigation.goBack);
+        saveToast.show(
+          t('miscarriageJournalEntry.toasts.bleedingSaved.title'),
+          t('miscarriageJournalEntry.toasts.bleedingSaved.message'),
+          navigation.goBack,
+        );
       } finally {
         setSaving(false);
       }
@@ -435,7 +443,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
       const clearing = symptoms.length === 0 && hadSavedSymptoms;
 
       if (symptoms.length === 0 && !hadSavedSymptoms) {
-        setError('Choisis au moins un symptôme avant d’enregistrer.');
+        setError(t('miscarriageJournalEntry.errors.chooseSymptom'));
 
         return;
       }
@@ -460,8 +468,10 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
         }
 
         saveToast.show(
-          clearing ? 'Symptômes effacés' : 'Symptômes enregistrés',
-          'Ton suivi a bien été mis à jour.',
+          clearing
+            ? t('miscarriageJournalEntry.toasts.symptomsCleared.title')
+            : t('miscarriageJournalEntry.toasts.symptomsSaved.title'),
+          t('miscarriageJournalEntry.toasts.symptomsSaved.message'),
           navigation.goBack,
         );
       } finally {
@@ -479,7 +489,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
       const clearingNote = !personalNotes.trim() && hadSavedNote;
 
       if (!personalNotes.trim() && !hadSavedNote) {
-        setError('Ajoute une note avant d’enregistrer.');
+        setError(t('miscarriageJournalEntry.errors.addNote'));
 
         return;
       }
@@ -494,10 +504,12 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
         );
 
         saveToast.show(
-          clearingNote ? 'Note effacée' : 'Note enregistrée',
           clearingNote
-            ? 'Ta note personnelle a bien été effacée.'
-            : 'Ta note personnelle a bien été enregistrée.',
+            ? t('miscarriageJournalEntry.toasts.noteCleared.title')
+            : t('miscarriageJournalEntry.toasts.noteSaved.title'),
+          clearingNote
+            ? t('miscarriageJournalEntry.toasts.noteCleared.message')
+            : t('miscarriageJournalEntry.toasts.noteSaved.message'),
           navigation.goBack,
         );
       } finally {
@@ -510,7 +522,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
     /* ================= REPRISE DES ESSAIS ================= */
 
     if (!tryingAgain) {
-      setError('Choisis une réponse avant d’enregistrer.');
+      setError(t('miscarriageJournalEntry.errors.chooseAnswer'));
 
       return;
     }
@@ -522,7 +534,11 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
 
       await setMiscarriageTryingAgainStatus(tryingAgain);
 
-      saveToast.show('Information enregistrée', 'Ton suivi a bien été mis à jour.', navigation.goBack);
+      saveToast.show(
+        t('miscarriageJournalEntry.toasts.tryingAgainSaved.title'),
+        t('miscarriageJournalEntry.toasts.tryingAgainSaved.message'),
+        navigation.goBack,
+      );
     } finally {
       setSaving(false);
     }
@@ -566,7 +582,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           saving={saving}
           subtitle={todaySubtitle}
           tint={theme.colors.primarySoft}
-          title="Symptômes physiques"
+          title={t('miscarriageJournalConfig.items.physicalSymptoms.label')}
         >
           <SymptomsContent
             note={symptomsNote}
@@ -599,7 +615,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           saving={saving}
           subtitle={todaySubtitle}
           tint={theme.colors.primarySoft}
-          title="Notes personnelles"
+          title={t('miscarriageJournalConfig.items.personalNotes.label')}
         >
           <NotesContent note={personalNotes} setNote={setPersonalNotes} />
         </PostpartumJournalScreenLayout>
@@ -624,7 +640,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
           saving={saving}
           subtitle={todaySubtitle}
           tint={withAlpha(theme.colors.secondary, 0.12)}
-          title="Reprise des essais"
+          title={t('miscarriageJournalConfig.items.tryingAgain.label')}
         >
           <TryingAgainContent onSelect={setTryingAgain} selected={tryingAgain} />
         </PostpartumJournalScreenLayout>
@@ -652,7 +668,7 @@ export default function MiscarriageJournalEntryScreen(): React.JSX.Element | nul
         saving={saving}
         subtitle={todaySubtitle}
         tint={withAlpha(theme.colors.secondary, 0.12)}
-        title="Saignements"
+        title={t('miscarriageJournalConfig.items.bleeding.label')}
       >
         <BleedingContent
           color={bleedingColor}
@@ -751,9 +767,14 @@ function BleedingContent({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  // DATA-BEARING: `label` here is persisted as `bleedingColor`'s raw string
+  // (see saveMiscarriageJournalField(entryDateKey, 'bleedingColor', ...)
+  // above) — do not translate, same reasoning as MISCARRIAGE_BLEEDING_OPTIONS/
+  // MISCARRIAGE_PHYSICAL_SYMPTOMS in miscarriageJournalConfig.ts.
   const colors = [
     {
       label: 'Rouge clair',
@@ -777,6 +798,8 @@ function BleedingContent({
     },
   ];
 
+  // Keyed by MISCARRIAGE_BLEEDING_OPTIONS' own DATA-BEARING French values —
+  // never translate these keys independently of that array.
   const intensitySizes: Record<string, number> = {
     Absent: 18,
     Léger: 25,
@@ -786,7 +809,7 @@ function BleedingContent({
 
   const selectedDate = new Date(`${startDate}T12:00:00`);
 
-  const formattedDate = selectedDate.toLocaleDateString('fr-FR', {
+  const formattedDate = selectedDate.toLocaleDateString(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -812,9 +835,9 @@ function BleedingContent({
         <SectionHeader
           color={theme.colors.secondary}
           icon="water-outline"
-          subtitle="Sélectionne l’intensité d’aujourd’hui"
+          subtitle={t('miscarriageJournalEntry.bleeding.flow.subtitle')}
           tint={withAlpha(theme.colors.secondary, 0.12)}
-          title="Flux"
+          title={t('miscarriageJournalEntry.bleeding.flow.title')}
         />
 
         <View style={styles.qualityRow}>
@@ -886,9 +909,9 @@ function BleedingContent({
         <SectionHeader
           color={theme.colors.secondary}
           icon="palette-outline"
-          subtitle="Indique la couleur observée"
+          subtitle={t('miscarriageJournalEntry.bleeding.color.subtitle')}
           tint={withAlpha(theme.colors.secondary, 0.12)}
-          title="Couleur"
+          title={t('miscarriageJournalEntry.bleeding.color.title')}
         />
 
         <View style={styles.colorRow}>
@@ -897,7 +920,7 @@ function BleedingContent({
 
             return (
               <Pressable
-                accessibilityLabel={`Couleur ${option.label}`}
+                accessibilityLabel={t('miscarriageJournalEntry.bleeding.color.optionAccessibility', {label: option.label})}
                 accessibilityRole="radio"
                 accessibilityState={{
                   checked: active,
@@ -957,12 +980,12 @@ function BleedingContent({
       <AnimatedSection delay={100} style={styles.card}>
         <SectionHeader
           icon="calendar-clock-outline"
-          subtitle="Depuis quand les observes-tu ?"
-          title="Durée"
+          subtitle={t('miscarriageJournalEntry.bleeding.duration.subtitle')}
+          title={t('miscarriageJournalEntry.bleeding.duration.title')}
         />
 
         <Pressable
-          accessibilityLabel="Choisir la date de début"
+          accessibilityLabel={t('miscarriageJournalEntry.bleeding.duration.chooseDateAccessibility')}
           accessibilityRole="button"
           onPress={() => setShowDatePicker(true)}
           style={({ pressed }) => [styles.dateCard, pressed && styles.pressed]}
@@ -977,7 +1000,7 @@ function BleedingContent({
             </View>
 
             <View style={styles.dateCopy}>
-              <Text style={styles.dateEyebrow}>Depuis le</Text>
+              <Text style={styles.dateEyebrow}>{t('miscarriageJournalEntry.bleeding.duration.since')}</Text>
 
               <Text style={styles.dateValue}>{formattedDate}</Text>
             </View>
@@ -1007,14 +1030,14 @@ function BleedingContent({
       <AnimatedSection delay={140} style={styles.card}>
         <SectionHeader
           icon="notebook-edit-outline"
-          subtitle="Optionnel et privé"
-          title="Notes"
+          subtitle={t('miscarriageJournalEntry.optionalAndPrivate')}
+          title={t('miscarriageJournalEntry.bleeding.notes.title')}
         />
 
         <PremiumTextArea
           maxLength={300}
           onChangeText={setNote}
-          placeholder="Comment te sens-tu aujourd’hui ?"
+          placeholder={t('miscarriageJournalEntry.bleeding.notes.placeholder')}
           value={note}
         />
       </AnimatedSection>
@@ -1045,6 +1068,7 @@ function PremiumTextArea({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const [focused, setFocused] = useState(false);
 
@@ -1079,7 +1103,7 @@ function PremiumTextArea({
             size={11}
           />
 
-          <Text style={styles.privatePillText}>Privé</Text>
+          <Text style={styles.privatePillText}>{t('miscarriageJournalEntry.private')}</Text>
         </View>
 
         <Text style={styles.noteCounter}>
@@ -1219,6 +1243,7 @@ function SymptomsContent({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   return (
     <>
@@ -1236,10 +1261,10 @@ function SymptomsContent({
         </View>
 
         <View style={styles.heroCopy}>
-          <Text style={styles.heroTitle}>Comment te sens-tu ?</Text>
+          <Text style={styles.heroTitle}>{t('miscarriageJournalEntry.symptoms.hero.title')}</Text>
 
           <Text style={styles.heroSubtitle}>
-            Sélectionne les symptômes que tu ressens aujourd’hui.
+            {t('miscarriageJournalEntry.symptoms.hero.subtitle')}
           </Text>
         </View>
       </AnimatedSection>
@@ -1249,8 +1274,8 @@ function SymptomsContent({
       <AnimatedSection delay={60} style={styles.card}>
         <SectionHeader
           icon="clipboard-pulse-outline"
-          subtitle="Tu peux en sélectionner plusieurs"
-          title="Symptômes ressentis"
+          subtitle={t('miscarriageJournalEntry.symptoms.section.subtitle')}
+          title={t('miscarriageJournalEntry.symptoms.section.title')}
         />
 
         <View style={styles.symptomsGrid}>
@@ -1275,9 +1300,7 @@ function SymptomsContent({
             </View>
 
             <Text style={styles.selectedSummaryText}>
-              {selected.length} symptôme
-              {selected.length > 1 ? 's' : ''} sélectionné
-              {selected.length > 1 ? 's' : ''}
+              {t('miscarriageJournalEntry.symptoms.selectedSummary', {count: selected.length})}
             </Text>
           </View>
         ) : null}
@@ -1288,22 +1311,22 @@ function SymptomsContent({
       <AnimatedSection delay={110} style={styles.card}>
         <SectionHeader
           icon="notebook-outline"
-          subtitle="Optionnel et privé"
-          title="Ajouter un détail"
+          subtitle={t('miscarriageJournalEntry.optionalAndPrivate')}
+          title={t('miscarriageJournalEntry.symptoms.note.title')}
         />
 
         <PremiumTextArea
           maxLength={300}
           onChangeText={setNote}
-          placeholder="Intensité, durée, moment de la journée ou autre détail…"
+          placeholder={t('miscarriageJournalEntry.symptoms.note.placeholder')}
           value={note}
         />
       </AnimatedSection>
 
       <PostpartumInfoPanel
         icon="information-outline"
-        text="Ce suivi t’aide à observer ton évolution au fil des jours."
-        title="Ton suivi"
+        text={t('miscarriageJournalEntry.symptoms.infoPanel.text')}
+        title={t('miscarriageJournalEntry.symptoms.infoPanel.title')}
       />
     </>
   );
@@ -1323,6 +1346,7 @@ function NotesContent({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   return (
     <>
@@ -1340,10 +1364,10 @@ function NotesContent({
         </View>
 
         <View style={styles.heroCopy}>
-          <Text style={styles.heroTitle}>Ton espace personnel</Text>
+          <Text style={styles.heroTitle}>{t('miscarriageJournalEntry.personalNotes.hero.title')}</Text>
 
           <Text style={styles.heroSubtitle}>
-            Un endroit calme et privé pour déposer ce que tu ressens.
+            {t('miscarriageJournalEntry.personalNotes.hero.subtitle')}
           </Text>
         </View>
       </AnimatedSection>
@@ -1353,15 +1377,15 @@ function NotesContent({
       <AnimatedSection delay={70} style={styles.card}>
         <SectionHeader
           icon="notebook-edit-outline"
-          subtitle="Écris librement, à ton rythme"
-          title="Ce que je souhaite noter"
+          subtitle={t('miscarriageJournalEntry.personalNotes.editor.subtitle')}
+          title={t('miscarriageJournalEntry.personalNotes.editor.title')}
         />
 
         <PremiumTextArea
           large
           maxLength={1000}
           onChangeText={setNote}
-          placeholder="Écris librement ce que tu ressens aujourd’hui, une pensée, une émotion ou quelque chose que tu souhaites simplement garder…"
+          placeholder={t('miscarriageJournalEntry.personalNotes.editor.placeholder')}
           value={note}
         />
 
@@ -1375,16 +1399,15 @@ function NotesContent({
           </View>
 
           <Text style={styles.encouragementText}>
-            Quelques mots suffisent. Il n’y a aucune manière parfaite d’écrire
-            ce que tu ressens.
+            {t('miscarriageJournalEntry.personalNotes.encouragement')}
           </Text>
         </View>
       </AnimatedSection>
 
       <PostpartumInfoPanel
         icon="flower-outline"
-        text="Écoute-toi avec bienveillance et avance à ton propre rythme."
-        title="Chaque étape compte"
+        text={t('miscarriageJournalEntry.personalNotes.infoPanel.text')}
+        title={t('miscarriageJournalEntry.personalNotes.infoPanel.title')}
       />
     </>
   );
@@ -1535,6 +1558,7 @@ function TryingAgainContent({
 }): React.JSX.Element {
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   return (
     <>
@@ -1552,11 +1576,10 @@ function TryingAgainContent({
         </View>
 
         <View style={styles.heroCopy}>
-          <Text style={styles.heroTitle}>Où en es-tu aujourd’hui ?</Text>
+          <Text style={styles.heroTitle}>{t('miscarriageJournalEntry.tryingAgain.hero.title')}</Text>
 
           <Text style={styles.heroSubtitle}>
-            Il n’y a pas de bonne ou de mauvaise réponse. Choisis simplement ce
-            qui te correspond.
+            {t('miscarriageJournalEntry.tryingAgain.hero.subtitle')}
           </Text>
         </View>
       </AnimatedSection>
@@ -1567,9 +1590,9 @@ function TryingAgainContent({
         <SectionHeader
           color={theme.colors.secondary}
           icon="heart-circle-outline"
-          subtitle="Ce choix personnalise uniquement ton accompagnement"
+          subtitle={t('miscarriageJournalEntry.tryingAgain.section.subtitle')}
           tint={withAlpha(theme.colors.secondary, 0.12)}
-          title="Reprise des essais"
+          title={t('miscarriageJournalConfig.items.tryingAgain.label')}
         />
 
         <View style={styles.tryingList}>
@@ -1587,8 +1610,8 @@ function TryingAgainContent({
 
       <PostpartumInfoPanel
         icon="flower-outline"
-        text="Ton choix ne change jamais automatiquement ton objectif. Tu restes libre d’avancer à ton rythme."
-        title="Sans pression"
+        text={t('miscarriageJournalEntry.tryingAgain.infoPanel.text')}
+        title={t('miscarriageJournalEntry.tryingAgain.infoPanel.title')}
       />
     </>
   );

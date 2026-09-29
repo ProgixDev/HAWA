@@ -16,6 +16,10 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
+import '../i18n';
+import {getAppLanguage} from '../state/themePreferences';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -34,24 +38,30 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageCycleReturn'>;
 
-const OPTIONS: Array<{
+// `id` is the persisted enum (MiscarriageCycleReturnStatus) — title/subtitle
+// are pure display text, safe to translate.
+function optionsFor(t: TFunction): Array<{
   id: MiscarriageCycleReturnStatus;
   title: string;
   subtitle: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
   tint: string;
-}> = [
-  {id: 'yes', title: 'Oui', subtitle: 'Mes règles sont revenues', icon: 'check-decagram-outline', tint: '#E7F0E8'},
-  {id: 'no', title: 'Non', subtitle: 'Mes règles ne sont pas encore revenues', icon: 'calendar-clock-outline', tint: '#FBE9EB'},
-  {id: 'unknown', title: 'Je ne sais pas encore', subtitle: 'Je ne suis pas sûre', icon: 'help-circle-outline', tint: '#F1E8F5'},
-];
+}> {
+  return [
+    {id: 'yes', title: t('miscarriageCycleReturn.options.yes.title'), subtitle: t('miscarriageCycleReturn.options.yes.subtitle'), icon: 'check-decagram-outline', tint: '#E7F0E8'},
+    {id: 'no', title: t('miscarriageCycleReturn.options.no.title'), subtitle: t('miscarriageCycleReturn.options.no.subtitle'), icon: 'calendar-clock-outline', tint: '#FBE9EB'},
+    {id: 'unknown', title: t('miscarriageCycleReturn.options.unknown.title'), subtitle: t('miscarriageCycleReturn.options.unknown.subtitle'), icon: 'help-circle-outline', tint: '#F1E8F5'},
+  ];
+}
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  const OPTIONS = useMemo(() => optionsFor(t), [t]);
   const insets = useSafeAreaInsets();
   const entrance = useRef(new Animated.Value(0)).current;
   const reduceMotion = useRef(false);
@@ -110,7 +120,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
     const candidate = startOfDay(date);
     const validation = validateReturned(candidate);
     if (!validation.valid) {
-      Alert.alert('Date invalide', validation.message);
+      Alert.alert(t('miscarriageCycleReturn.invalidDateTitle'), validation.message);
       return;
     }
     setReturnedDate(candidate);
@@ -130,7 +140,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
     if (selected === 'yes' && returnedDate) {
       const validation = validateReturned(returnedDate);
       if (!validation.valid) {
-        Alert.alert('Date invalide', validation.message);
+        Alert.alert(t('miscarriageCycleReturn.invalidDateTitle'), validation.message);
         return;
       }
     }
@@ -139,7 +149,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
       const result = await setMiscarriageCycleReturnStatus(selected, selected === 'yes' ? returnedDate : null);
       if (!result.valid) {
         // Rejected by the store's own guard: nothing was written.
-        Alert.alert('Date invalide', result.message);
+        Alert.alert(t('miscarriageCycleReturn.invalidDateTitle'), result.message);
         return;
       }
       if (route.params?.mode === 'edit') {
@@ -183,13 +193,13 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
             <View style={styles.header}>
               <Image
                 accessibilityIgnoresInvertColors
-                accessibilityLabel="Calendrier avec un cœur"
+                accessibilityLabel={t('miscarriageCycleReturn.illustrationAccessibility')}
                 resizeMode="contain"
                 source={require('../assets/images/miscarriage/miscarriage-calendar.png')}
                 style={styles.headerImage}
               />
-              <Text style={styles.title}>Tes règles sont-elles{'\n'}revenues depuis ?</Text>
-              <Text style={styles.subtitle}>Cela nous aide à suivre le retour de ton cycle en douceur.</Text>
+              <Text style={styles.title}>{t('miscarriageCycleReturn.title')}</Text>
+              <Text style={styles.subtitle}>{t('miscarriageCycleReturn.subtitle')}</Text>
             </View>
 
             <View style={styles.optionsCenterContainer}>
@@ -205,7 +215,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                     title={option.title}>
                     {option.id === 'yes' ? (
                       <Pressable
-                        accessibilityLabel="Date du premier jour de tes règles revenues"
+                        accessibilityLabel={t('miscarriageCycleReturn.dateField.accessibilityLabel')}
                         accessibilityRole="button"
                         onPress={() => setPickerVisible(true)}
                         style={({pressed}) => [styles.dateField, pressed && styles.pressed]}>
@@ -214,11 +224,11 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                         </View>
                         <View style={styles.dateFieldCopy}>
                           <Text style={styles.dateFieldLabel}>
-                            Date du premier jour de tes règles revenues{' '}
-                            <Text style={styles.dateFieldOptional}>(Optionnel)</Text>
+                            {t('miscarriageCycleReturn.dateField.label')}{' '}
+                            <Text style={styles.dateFieldOptional}>{t('miscarriageCycleReturn.dateField.optional')}</Text>
                           </Text>
                           <Text style={[styles.dateFieldValue, !returnedDate && styles.dateFieldPlaceholder]}>
-                            {returnedDate ? formatFullDate(returnedDate) : 'JJ / MM / AAAA'}
+                            {returnedDate ? formatFullDate(returnedDate) : t('miscarriageCycleReturn.dateField.placeholder')}
                           </Text>
                         </View>
                         <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={18} />
@@ -228,15 +238,15 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
                       <>
                         {returnedDateProblem && !returnedDateProblem.valid ? (
                           <Text accessibilityRole="alert" style={styles.dateWarning}>
-                            Date à vérifier : {returnedDateProblem.message} Choisis une date valide ou retire-la pour enregistrer.
+                            {t('miscarriageCycleReturn.dateWarning', {message: returnedDateProblem.message})}
                           </Text>
                         ) : null}
                         <Pressable
-                          accessibilityLabel="Retirer la date"
+                          accessibilityLabel={t('miscarriageCycleReturn.removeDate')}
                           accessibilityRole="button"
                           onPress={() => setReturnedDate(null)}
                           style={({pressed}) => [styles.clearDate, pressed && styles.pressed]}>
-                          <Text style={styles.clearDateText}>Retirer la date</Text>
+                          <Text style={styles.clearDateText}>{t('miscarriageCycleReturn.removeDate')}</Text>
                         </Pressable>
                       </>
                     ) : null}
@@ -256,7 +266,7 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
               (pressed || saving) && selected && styles.pressed,
             ]}>
             <Text style={styles.nextText}>
-              {saving ? 'Enregistrement…' : route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}
+              {saving ? t('miscarriageCycleReturn.saving') : route.params?.mode === 'edit' ? t('common.save') : t('miscarriageCycleReturn.next')}
             </Text>
           </Pressable>
         </ScrollView>
@@ -267,8 +277,8 @@ function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Ele
         minimumDate={miscarriageDate ?? undefined}
         onClose={() => setPickerVisible(false)}
         onSelect={chooseReturnedDate}
-        subtitle="Indique le premier jour de tes règles revenues depuis ta fausse couche."
-        title="Retour de tes règles"
+        subtitle={t('miscarriageCycleReturn.pickerSubtitle')}
+        title={t('miscarriageCycleReturn.pickerTitle')}
         value={returnedDate && !(returnedDateProblem && !returnedDateProblem.valid) ? returnedDate : miscarriageDate ?? new Date()}
         visible={pickerVisible}
       />
