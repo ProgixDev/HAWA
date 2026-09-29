@@ -263,11 +263,9 @@ describe('E3 calendar family — readable foreground on colored day cells (Dark 
 ============================================================ */
 
 describe('Calendar family — month-navigation buttons expose accessibilityRole="button" (Phase 3 accessibility fix)', () => {
-  // MonthCalendarCard's and ConceiveCalendarContent's labels are now
-  // localized (Phase 2/3 English localization:
+  // All 5 files' labels are now localized (Phase 2/3 English localization:
   // `t('calendar.previousMonth')`/`t('calendar.nextMonth')`) rather than the
-  // literal French strings — the other 3 (not yet migrated) files are
-  // untouched and still use the literal text.
+  // literal French strings they used before translation.
   const FIXED_FILES: Array<[string, string, RegExp, RegExp]> = [
     [
       'MonthCalendarCard (Cycle)',
@@ -284,20 +282,20 @@ describe('Calendar family — month-navigation buttons expose accessibilityRole=
     [
       'MiscarriageCalendarContent',
       '../../miscarriage/MiscarriageCalendarContent.tsx',
-      /accessibilityLabel="Mois précédent"[\s\S]{0,40}accessibilityRole="button"/,
-      /accessibilityLabel="Mois suivant"[\s\S]{0,40}accessibilityRole="button"/,
+      /accessibilityLabel=\{t\('calendar\.previousMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
+      /accessibilityLabel=\{t\('calendar\.nextMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
     ],
     [
       'PostpartumCalendarContent',
       '../../postpartum/PostpartumCalendarContent.tsx',
-      /accessibilityLabel="Mois précédent"[\s\S]{0,40}accessibilityRole="button"/,
-      /accessibilityLabel="Mois suivant"[\s\S]{0,40}accessibilityRole="button"/,
+      /accessibilityLabel=\{t\('calendar\.previousMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
+      /accessibilityLabel=\{t\('calendar\.nextMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
     ],
     [
       'PregnancyCalendarContent',
       '../../pregnancy/PregnancyCalendarContent.tsx',
-      /accessibilityLabel="Mois précédent"[\s\S]{0,40}accessibilityRole="button"/,
-      /accessibilityLabel="Mois suivant"[\s\S]{0,40}accessibilityRole="button"/,
+      /accessibilityLabel=\{t\('calendar\.previousMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
+      /accessibilityLabel=\{t\('calendar\.nextMonth'\)\}[\s\S]{0,40}accessibilityRole="button"/,
     ],
   ];
 
