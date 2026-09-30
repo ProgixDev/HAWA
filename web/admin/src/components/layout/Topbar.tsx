@@ -146,7 +146,7 @@ export default function Topbar({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.96 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 top-full z-50 mt-2 w-80 rounded-[22px] border border-border bg-card shadow-dropdown"
+                className="fixed left-4 right-4 top-[calc(var(--topbar-height)+0.5rem)] z-50 rounded-[22px] border border-border bg-card shadow-dropdown sm:absolute sm:left-auto sm:right-0 sm:top-full sm:mt-2 sm:w-80"
               >
                 <div className="p-4 border-b border-border">
                   <h3 className="font-display font-semibold text-sm text-foreground">

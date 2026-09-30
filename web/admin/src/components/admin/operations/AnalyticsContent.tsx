@@ -76,7 +76,7 @@ export default function AnalyticsContent({ datasets }: { datasets: AnalyticsData
       animate={{ opacity: 1 }}
       className="min-w-0 space-y-7"
     >
-      <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
             Performance
