@@ -61,8 +61,8 @@ export default function UserGrowthChart({ data }: UserGrowthChartProps) {
             <stop offset="95%" stopColor="var(--primary)" stopOpacity={0} />
           </linearGradient>
           <linearGradient id="gradPremium" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor="var(--success)" stopOpacity={0.15} />
-            <stop offset="95%" stopColor="var(--success)" stopOpacity={0} />
+            <stop offset="5%" stopColor="var(--accent)" stopOpacity={0.18} />
+            <stop offset="95%" stopColor="var(--accent)" stopOpacity={0} />
           </linearGradient>
         </defs>
         <CartesianGrid strokeDasharray="3 3" stroke="var(--border)" vertical={false} />
@@ -71,7 +71,7 @@ export default function UserGrowthChart({ data }: UserGrowthChartProps) {
           tick={{
             fontSize: 11,
             fill: 'var(--muted-foreground)',
-            fontFamily: 'var(--font-manrope)',
+            fontFamily: 'var(--font-dm-sans)',
           }}
           axisLine={false}
           tickLine={false}
@@ -81,7 +81,7 @@ export default function UserGrowthChart({ data }: UserGrowthChartProps) {
           tick={{
             fontSize: 11,
             fill: 'var(--muted-foreground)',
-            fontFamily: 'var(--font-manrope)',
+            fontFamily: 'var(--font-dm-sans)',
           }}
           axisLine={false}
           tickLine={false}
@@ -89,7 +89,7 @@ export default function UserGrowthChart({ data }: UserGrowthChartProps) {
         />
         <Tooltip content={<CustomTooltip />} />
         <Legend
-          wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-manrope)', paddingTop: 16 }}
+          wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-dm-sans)', paddingTop: 16 }}
           iconType="circle"
           iconSize={8}
         />
@@ -107,11 +107,11 @@ export default function UserGrowthChart({ data }: UserGrowthChartProps) {
           type="monotone"
           dataKey="secondary"
           name="Abonnées Premium"
-          stroke="var(--success)"
+          stroke="var(--accent)"
           strokeWidth={2}
           fill="url(#gradPremium)"
           dot={false}
-          activeDot={{ r: 4, fill: 'var(--success)', strokeWidth: 0 }}
+          activeDot={{ r: 4, fill: 'var(--accent)', strokeWidth: 0 }}
         />
       </AreaChart>
     </ResponsiveContainer>
