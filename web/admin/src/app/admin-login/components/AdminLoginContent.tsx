@@ -86,7 +86,7 @@ export default function AdminLoginContent() {
   };
 
   return (
-    <main className="flex min-h-[100dvh] w-full overflow-x-hidden bg-[#f7f3ed] lg:h-[100dvh] lg:min-h-0 lg:overflow-hidden">
+    <main className="flex min-h-[100dvh] w-full overflow-x-hidden bg-muted lg:h-[100dvh] lg:min-h-0 lg:overflow-hidden">
       <motion.section
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -95,7 +95,7 @@ export default function AdminLoginContent() {
         style={{ backgroundImage: "url('/assets/images/font.png')" }}
         aria-label="Présentation AWA Administration"
       >
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(250,246,239,0.05)_0%,rgba(230,216,197,0.08)_58%,rgba(61,48,40,0.16)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(247,239,242,0.12)_0%,rgba(214,175,186,0.14)_58%,rgba(73,45,70,0.24)_100%)]" />
 
         <div className="relative z-10 flex h-full w-full flex-col items-center justify-between px-5 py-8 text-center lg:px-10 lg:py-10 xl:px-14 xl:py-12">
           <div aria-hidden="true" className="h-4 shrink-0" />
@@ -113,8 +113,8 @@ export default function AdminLoginContent() {
               className="drop-shadow-[0_12px_30px_rgba(95,66,34,0.16)] md:scale-90 lg:scale-100"
             />
 
-            <div className="my-5 h-px w-12 bg-[#b68b55]/65 lg:my-6" />
-            <p className="max-w-[410px] font-display text-[15px] font-medium leading-[1.75] tracking-[-0.01em] text-[#3d342f] lg:text-[17px]">
+            <div className="my-5 h-px w-12 bg-accent/75 lg:my-6" />
+            <p className="max-w-[410px] font-display text-[19px] font-medium leading-[1.55] tracking-[-0.01em] text-primary lg:text-[22px]">
               Une gestion bienveillante
               <br />
               pour un impact réel sur la vie des femmes
@@ -132,13 +132,13 @@ export default function AdminLoginContent() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.45, delay: 0.42 + index * 0.1 }}
-                    className="rounded-[16px] border border-white/55 bg-white/45 px-3 py-4 shadow-[0_10px_30px_rgba(73,54,38,0.08)] backdrop-blur-md"
+                    className="rounded-[20px] border border-white/65 bg-white/60 px-3 py-4 shadow-[0_10px_30px_rgba(73,45,70,0.09)] backdrop-blur-md"
                   >
-                    <Icon className="mx-auto mb-2 text-[#8f6a3d]" size={17} strokeWidth={1.6} />
-                    <p className="font-display text-[19px] font-semibold tracking-[-0.02em] text-[#342d29] tabular-nums">
+                    <Icon className="mx-auto mb-2 text-accent" size={17} strokeWidth={1.6} />
+                    <p className="font-display text-[22px] font-semibold tracking-[-0.02em] text-primary tabular-nums">
                       {stat.value}
                     </p>
-                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-[#6f6259]">
+                    <p className="mt-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                       {stat.label}
                     </p>
                   </motion.div>
@@ -150,7 +150,7 @@ export default function AdminLoginContent() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.78 }}
-              className="mt-5 text-[9px] font-semibold uppercase tracking-[0.34em] text-[#51463e]/80 lg:mt-7 lg:text-[10px]"
+              className="mt-5 text-[9px] font-semibold uppercase tracking-[0.34em] text-primary/70 lg:mt-7 lg:text-[10px]"
             >
               Santé&nbsp;&nbsp;·&nbsp;&nbsp;Équilibre&nbsp;&nbsp;·&nbsp;&nbsp;Spiritualité
             </motion.p>
@@ -158,9 +158,9 @@ export default function AdminLoginContent() {
         </div>
       </motion.section>
 
-      <section className="relative flex min-h-[100dvh] w-full min-w-0 flex-1 overflow-y-auto bg-[#faf8f4] px-5 py-6 sm:px-8 md:h-[100dvh] md:min-h-0 md:w-auto md:px-7 lg:px-10 lg:py-7 xl:px-14">
+      <section className="relative flex min-h-[100dvh] w-full min-w-0 flex-1 overflow-y-auto bg-white px-5 py-6 sm:px-8 md:h-[100dvh] md:min-h-0 md:w-auto md:px-7 lg:px-10 lg:py-7 xl:px-14">
         <span
-          className="absolute right-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-[#e5ded4] bg-white/60 px-3 py-2 text-[11px] font-semibold tracking-[0.08em] text-[#655f68] sm:right-8 sm:top-7 xl:right-10"
+          className="absolute right-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-border bg-primary-ghost px-3 py-2 text-[11px] font-semibold tracking-[0.08em] text-primary sm:right-8 sm:top-7 xl:right-10"
           title="AWA Admin est disponible en français uniquement"
         >
           <Globe2 size={14} strokeWidth={1.7} />
@@ -184,15 +184,15 @@ export default function AdminLoginContent() {
 
           <header className="mb-6 sm:mb-7">
             <div className="mb-3 flex items-center gap-3">
-              <span className="h-px w-8 bg-[#b68b55]" />
-              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-[#9a774e]">
+              <span className="h-px w-8 bg-accent" />
+              <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-accent">
                 Bienvenue
               </p>
             </div>
-            <h1 className="font-display text-[30px] font-semibold leading-tight tracking-[-0.035em] text-[#302a35] sm:text-[34px]">
+            <h1 className="font-display text-[36px] font-semibold leading-tight tracking-[-0.035em] text-primary sm:text-[42px]">
               Se connecter
             </h1>
-            <p className="mt-2 text-[13px] leading-relaxed text-[#756f78] sm:text-sm">
+            <p className="mt-2 text-[13px] leading-relaxed text-muted-foreground sm:text-sm">
               Accédez à votre espace d&apos;administration AWA
             </p>
           </header>
@@ -223,7 +223,7 @@ export default function AdminLoginContent() {
             <div>
               <label
                 htmlFor="email"
-                className="mb-2 block text-[12px] font-semibold text-[#403a45]"
+                className="mb-2 block text-[12px] font-semibold text-foreground"
               >
                 Adresse e-mail
               </label>
@@ -231,14 +231,14 @@ export default function AdminLoginContent() {
                 <Mail
                   size={17}
                   strokeWidth={1.6}
-                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#8a838e]"
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
                 />
                 <input
                   id="email"
                   type="email"
                   autoComplete="email"
                   placeholder={CURRENT_ADMIN.email}
-                  className={`h-[54px] w-full rounded-[14px] border bg-[#f1eef2] px-4 pl-11 text-[13px] text-[#37313c] outline-none transition-all placeholder:text-[#9a949d] focus:border-[#89779a] focus:bg-[#f8f6f8] focus:ring-4 focus:ring-[#75618c]/10 ${errors.email ? 'border-danger focus:border-danger focus:ring-danger/10' : 'border-[#e5e0e7]'}`}
+                  className={`h-[54px] w-full rounded-[16px] border bg-primary-ghost px-4 pl-11 text-[13px] text-foreground outline-none transition-all placeholder:text-muted-foreground/65 focus:border-accent/60 focus:bg-white focus:ring-4 focus:ring-accent/10 ${errors.email ? 'border-danger focus:border-danger focus:ring-danger/10' : 'border-border'}`}
                   {...register('email', {
                     required: "L'adresse e-mail est requise",
                     pattern: {
@@ -257,14 +257,14 @@ export default function AdminLoginContent() {
 
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label htmlFor="password" className="text-[12px] font-semibold text-[#403a45]">
+                <label htmlFor="password" className="text-[12px] font-semibold text-foreground">
                   Mot de passe
                 </label>
                 <button
                   type="button"
                   disabled
                   title="Disponible après connexion du service d’authentification"
-                  className="cursor-not-allowed text-[11px] font-semibold text-[#a39da8]"
+                  className="btn-link cursor-not-allowed text-[11px] text-muted-foreground/55"
                 >
                   Mot de passe oublié ?
                 </button>
@@ -273,14 +273,14 @@ export default function AdminLoginContent() {
                 <Lock
                   size={17}
                   strokeWidth={1.6}
-                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#8a838e]"
+                  className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
                 />
                 <input
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
                   placeholder="••••••••••••"
-                  className={`h-[54px] w-full rounded-[14px] border bg-[#f1eef2] px-11 text-[13px] text-[#37313c] outline-none transition-all placeholder:text-[#9a949d] focus:border-[#89779a] focus:bg-[#f8f6f8] focus:ring-4 focus:ring-[#75618c]/10 ${errors.password ? 'border-danger focus:border-danger focus:ring-danger/10' : 'border-[#e5e0e7]'}`}
+                  className={`h-[54px] w-full rounded-[16px] border bg-primary-ghost px-11 text-[13px] text-foreground outline-none transition-all placeholder:text-muted-foreground/65 focus:border-accent/60 focus:bg-white focus:ring-4 focus:ring-accent/10 ${errors.password ? 'border-danger focus:border-danger focus:ring-danger/10' : 'border-border'}`}
                   {...register('password', {
                     required: 'Le mot de passe est requis',
                     minLength: {
@@ -292,7 +292,7 @@ export default function AdminLoginContent() {
                 <button
                   type="button"
                   onClick={() => setShowPassword((value) => !value)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 rounded-md p-1 text-[#8a838e] transition-colors hover:bg-white/60 hover:text-[#44394e]"
+                  className="btn-icon-sm absolute right-3 top-1/2 !h-7 !w-7 -translate-y-1/2 border-0 shadow-none"
                   aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
                 >
                   {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -309,12 +309,12 @@ export default function AdminLoginContent() {
               <input
                 id="rememberMe"
                 type="checkbox"
-                className="h-4 w-4 cursor-pointer rounded border-[#d7d0da] accent-[#6f5b82] focus:ring-[#75618c]/20"
+                className="h-4 w-4 cursor-pointer rounded border-border accent-[#492d46] focus:ring-accent/20"
                 {...register('rememberMe')}
               />
               <label
                 htmlFor="rememberMe"
-                className="cursor-pointer select-none text-[12px] text-[#6f6872]"
+                className="cursor-pointer select-none text-[12px] text-muted-foreground"
               >
                 Se souvenir de moi
               </label>
@@ -325,7 +325,7 @@ export default function AdminLoginContent() {
               disabled={isLoading}
               whileHover={isLoading ? undefined : { y: -1 }}
               whileTap={isLoading ? undefined : { scale: 0.99 }}
-              className="mt-1 flex h-[54px] w-full items-center justify-center rounded-[15px] bg-[#6b587d] px-5 text-[13px] font-semibold text-white shadow-[0_10px_24px_rgba(85,68,101,0.2)] transition-[background-color,box-shadow] hover:bg-[#5e4c70] hover:shadow-[0_13px_28px_rgba(85,68,101,0.25)] disabled:cursor-not-allowed disabled:bg-[#92849e]"
+              className="btn-primary mt-1 h-[54px] w-full px-5 text-[13px] disabled:hover:translate-y-0"
             >
               {isLoading ? (
                 <span className="flex items-center gap-2">
@@ -346,20 +346,20 @@ export default function AdminLoginContent() {
           </form>
 
           <div className="my-5 flex items-center gap-3" aria-hidden="true">
-            <span className="h-px flex-1 bg-[#e5dfe7]" />
-            <span className="text-[10px] font-medium text-[#a19aa4]">ou</span>
-            <span className="h-px flex-1 bg-[#e5dfe7]" />
+            <span className="h-px flex-1 bg-border" />
+            <span className="text-[10px] font-medium text-muted-foreground">ou</span>
+            <span className="h-px flex-1 bg-border" />
           </div>
 
-          <div className="flex items-start gap-3 rounded-[14px] border border-[#e7e1e9] bg-[#f1eef3]/75 p-3.5">
-            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-white text-[#75618c] shadow-sm">
+          <div className="flex items-start gap-3 rounded-[16px] border border-border bg-primary-ghost p-3.5">
+            <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[10px] bg-white text-primary shadow-sm">
               <ShieldCheck size={17} strokeWidth={1.7} />
             </div>
             <div>
-              <p className="text-[12px] font-semibold text-[#443d49]">
+              <p className="text-[12px] font-semibold text-foreground">
                 Connexion sécurisée par 2FA
               </p>
-              <p className="mt-0.5 text-[10px] leading-relaxed text-[#7d7680]">
+              <p className="mt-0.5 text-[10px] leading-relaxed text-muted-foreground">
                 Une vérification en deux étapes peut être requise.
               </p>
             </div>
@@ -369,36 +369,36 @@ export default function AdminLoginContent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.45, delay: 0.5 }}
-            className="mt-4 overflow-hidden rounded-[15px] border border-[#ded5e3] bg-white/55"
+            className="mt-4 overflow-hidden rounded-[18px] border border-border bg-white shadow-[0_4px_16px_rgba(73,45,70,0.05)]"
           >
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#e8e2ea] px-4 py-3 sm:flex-nowrap sm:gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border px-4 py-3 sm:flex-nowrap sm:gap-3">
               <div className="flex items-center gap-2">
-                <UserRoundCog size={15} strokeWidth={1.7} className="text-[#75618c]" />
-                <p className="text-[11px] font-semibold text-[#443d49]">Accès de démonstration</p>
+                <UserRoundCog size={15} strokeWidth={1.7} className="text-primary" />
+                <p className="text-[11px] font-semibold text-foreground">Accès de démonstration</p>
               </div>
               <button
                 type="button"
                 onClick={handleUseDemoCredentials}
-                className="text-right text-[10px] font-semibold text-[#75618c] transition-colors hover:text-[#554465]"
+                className="btn-link ml-auto text-[10px]"
               >
                 Utiliser ces identifiants
               </button>
             </div>
 
             <div className="grid gap-2.5 p-3.5 sm:grid-cols-2 sm:gap-3">
-              <div className="flex min-w-0 items-center justify-between gap-2 rounded-[11px] bg-[#f7f4f7] px-3 py-2.5">
+              <div className="flex min-w-0 items-center justify-between gap-2 rounded-[12px] bg-primary-ghost px-3 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <p className="mb-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#8b838d]">
+                  <p className="mb-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
                     E-mail
                   </p>
-                  <p className="truncate font-mono text-[10px] font-medium text-[#4b444f]">
+                  <p className="truncate font-mono text-[10px] font-medium text-foreground">
                     {ADMIN_DEMO_CREDENTIALS.email}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleCopy('email')}
-                  className="flex-shrink-0 rounded-lg p-1.5 text-[#8b838d] transition-colors hover:bg-white hover:text-[#655276]"
+                  className="btn-icon-sm border-0 shadow-none"
                   title="Copier l’e-mail"
                   aria-label="Copier l’e-mail de démonstration"
                 >
@@ -410,19 +410,19 @@ export default function AdminLoginContent() {
                 </button>
               </div>
 
-              <div className="flex min-w-0 items-center justify-between gap-2 rounded-[11px] bg-[#f7f4f7] px-3 py-2.5">
+              <div className="flex min-w-0 items-center justify-between gap-2 rounded-[12px] bg-primary-ghost px-3 py-2.5">
                 <div className="min-w-0 flex-1">
-                  <p className="mb-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-[#8b838d]">
+                  <p className="mb-0.5 text-[9px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
                     Mot de passe
                   </p>
-                  <p className="truncate font-mono text-[10px] font-medium text-[#4b444f]">
+                  <p className="truncate font-mono text-[10px] font-medium text-foreground">
                     {ADMIN_DEMO_CREDENTIALS.password}
                   </p>
                 </div>
                 <button
                   type="button"
                   onClick={() => handleCopy('password')}
-                  className="flex-shrink-0 rounded-lg p-1.5 text-[#8b838d] transition-colors hover:bg-white hover:text-[#655276]"
+                  className="btn-icon-sm border-0 shadow-none"
                   title="Copier le mot de passe"
                   aria-label="Copier le mot de passe de démonstration"
                 >
@@ -436,7 +436,7 @@ export default function AdminLoginContent() {
             </div>
           </motion.div>
 
-          <div className="mt-5 flex items-center justify-center gap-2 text-center text-[9px] font-medium uppercase tracking-[0.1em] text-[#999199]">
+          <div className="mt-5 flex items-center justify-center gap-2 text-center text-[9px] font-medium uppercase tracking-[0.1em] text-muted-foreground/70">
             <Lock size={11} strokeWidth={1.7} />
             <span>Accès sécurisé · Chiffrement de bout en bout</span>
           </div>
