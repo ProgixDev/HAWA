@@ -81,7 +81,7 @@ export default function Topbar({
 
   return (
     <header
-      className={`fixed left-0 right-0 top-0 z-30 flex items-center gap-3 border-b border-border bg-card/95 px-4 backdrop-blur-sm transition-[left] duration-300 ease-in-out sm:px-6 md:gap-4 ${
+      className={`fixed left-0 right-0 top-0 z-30 flex items-center gap-3 border-b border-border bg-white/90 px-4 shadow-topbar backdrop-blur-xl transition-[left] duration-300 ease-in-out sm:px-6 md:gap-4 ${
         sidebarCollapsed ? 'md:left-[80px]' : 'md:left-[284px]'
       }`}
       style={{
@@ -91,7 +91,7 @@ export default function Topbar({
       <button
         type="button"
         onClick={onMobileMenuToggle}
-        className="flex-shrink-0 rounded-xl p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+        className="btn-icon h-10 w-10 md:hidden"
         aria-label={mobileSidebarOpen ? 'Fermer la navigation' : 'Ouvrir la navigation'}
         aria-controls="admin-sidebar"
         aria-expanded={mobileSidebarOpen}
@@ -109,7 +109,7 @@ export default function Topbar({
             <span
               className={`text-sm truncate ${
                 idx === crumbs.length - 1
-                  ? 'font-semibold text-foreground'
+                  ? 'font-display text-base font-semibold text-foreground'
                   : 'text-muted-foreground'
               }`}
             >
@@ -128,7 +128,7 @@ export default function Topbar({
         <div className="relative">
           <button
             onClick={() => setNotifOpen((o) => !o)}
-            className="relative p-2 rounded-xl hover:bg-muted transition-colors text-muted-foreground hover:text-foreground"
+            className="btn-icon relative"
             title="Notifications"
             aria-label="Ouvrir les notifications"
           >
@@ -146,7 +146,7 @@ export default function Topbar({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -8, scale: 0.96 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 top-full mt-2 w-80 bg-card rounded-2xl border border-border shadow-dropdown z-50"
+                className="absolute right-0 top-full z-50 mt-2 w-80 rounded-[22px] border border-border bg-card shadow-dropdown"
               >
                 <div className="p-4 border-b border-border">
                   <h3 className="font-display font-semibold text-sm text-foreground">
@@ -188,7 +188,7 @@ export default function Topbar({
         </div>
 
         {/* Avatar */}
-        <div className="flex items-center gap-2.5 ml-1 pl-3 border-l border-border">
+        <div className="ml-1 flex items-center gap-2.5 border-l border-border pl-3">
           <div className="text-right hidden lg:block">
             <p className="text-sm font-semibold text-foreground leading-none">
               {CURRENT_ADMIN.name}
@@ -196,7 +196,7 @@ export default function Topbar({
             <p className="text-xs text-muted-foreground mt-0.5">{CURRENT_ADMIN.roleLabel}</p>
           </div>
           <div
-            className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-primary-foreground flex-shrink-0"
+            className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-white text-xs font-bold text-primary-foreground shadow-[0_4px_12px_rgba(73,45,70,0.18)]"
             style={{
               background: 'linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%)',
             }}

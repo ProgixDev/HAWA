@@ -280,7 +280,7 @@ interface SidebarProps {
 
 function NotificationBadge({ count }: { count: number }) {
   return (
-    <span className="ml-auto inline-flex h-6 min-w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#b9788f] px-1.5 text-[10px] font-bold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]">
+    <span className="ml-auto inline-flex h-6 min-w-6 flex-shrink-0 items-center justify-center rounded-full bg-accent px-1.5 text-[10px] font-bold text-white shadow-[0_3px_8px_rgba(196,95,124,0.2)]">
       {count}
     </span>
   );
@@ -322,15 +322,15 @@ function NavItemComponent({
         <button
           type="button"
           onClick={() => !collapsed && setOpen((value) => !value)}
-          className={`group flex h-12 w-full items-center gap-3 rounded-[15px] px-3.5 text-[13px] font-medium transition-colors duration-200 ${
+          className={`btn-nav group flex h-12 w-full items-center gap-3 px-3.5 text-[13px] font-medium ${
             hasActiveChild || open
-              ? 'bg-white/[0.08] text-white'
-              : 'text-white/75 hover:bg-white/[0.07] hover:text-white'
+              ? 'bg-primary-pale text-primary'
+              : 'text-muted-foreground hover:bg-primary-ghost hover:text-primary'
           } ${collapsed ? 'justify-center px-0' : ''}`}
           title={collapsed ? item.label : undefined}
           aria-expanded={open}
         >
-          <span className="flex-shrink-0 text-[#d8cce1]/90 transition-colors group-hover:text-white">
+          <span className="flex-shrink-0 text-primary/65 transition-colors group-hover:text-primary">
             {item.icon}
           </span>
           {!collapsed && (
@@ -340,7 +340,7 @@ function NavItemComponent({
               <motion.span
                 animate={{ rotate: open ? 180 : 0 }}
                 transition={{ duration: 0.2 }}
-                className="flex-shrink-0 text-white/45"
+                className="flex-shrink-0 text-muted-foreground/60"
               >
                 <ChevronDown size={14} />
               </motion.span>
@@ -357,7 +357,7 @@ function NavItemComponent({
               transition={{ duration: 0.2, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
-              <div className="ml-[22px] mt-1 space-y-0.5 border-l border-white/10 pl-2.5">
+              <div className="ml-[22px] mt-1 space-y-0.5 border-l border-border pl-2.5">
                 {item.children!.map((child) => (
                   <NavItemComponent
                     key={child.id}
@@ -381,14 +381,14 @@ function NavItemComponent({
       onClick={onNavigate}
       className={`group relative flex ${depth ? 'h-10' : 'h-12'} items-center gap-3 rounded-[15px] px-3.5 text-[13px] transition-colors duration-200 ${
         isActive
-          ? 'bg-[#bca4cf]/25 font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]'
-          : 'font-medium text-white/75 hover:bg-white/[0.07] hover:text-white'
+          ? 'bg-primary-pale font-semibold text-primary shadow-[inset_0_0_0_1px_rgba(214,175,186,0.32)]'
+          : 'font-medium text-muted-foreground hover:bg-primary-ghost hover:text-primary'
       } ${collapsed ? 'justify-center px-0' : ''}`}
       title={collapsed ? item.label : undefined}
       aria-current={isActive ? 'page' : undefined}
     >
       <span
-        className={`flex-shrink-0 ${isActive ? 'text-white' : 'text-[#d8cce1]/90 group-hover:text-white'}`}
+        className={`flex-shrink-0 ${isActive ? 'text-primary' : 'text-primary/60 group-hover:text-primary'}`}
       >
         {item.icon}
       </span>
@@ -426,7 +426,7 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-[#211b27]/45 backdrop-blur-[2px] md:hidden"
+            className="fixed inset-0 z-40 bg-primary/35 backdrop-blur-[2px] md:hidden"
             onClick={onMobileClose}
             aria-label="Fermer le menu de navigation"
           />
@@ -435,18 +435,17 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
 
       <aside
         id="admin-sidebar"
-        className={`fixed left-0 top-0 z-50 flex h-[100dvh] w-[284px] flex-col overflow-hidden rounded-r-[22px] border-r border-white/[0.08] bg-[#493956] bg-cover bg-top shadow-[8px_0_28px_rgba(43,31,51,0.14)] transition-[width,transform] duration-300 ease-in-out md:translate-x-0 ${
+        className={`fixed left-0 top-0 z-50 flex h-[100dvh] w-[284px] flex-col overflow-hidden rounded-r-[24px] border-r border-border bg-white shadow-sidebar transition-[width,transform] duration-300 ease-in-out md:translate-x-0 ${
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         } ${desktopCollapsed ? 'md:w-[80px]' : 'md:w-[284px]'}`}
-        style={{ backgroundImage: "url('/assets/images/sidebar.png')" }}
       >
         <div
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(73,57,86,0.55)_0%,rgba(69,52,81,0.6)_55%,rgba(43,31,51,0.72)_100%)]"
+          className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.96)_0%,rgba(250,244,246,0.96)_100%)]"
           aria-hidden="true"
         />
 
         <header
-          className={`relative z-10 flex flex-shrink-0 items-center justify-center border-b border-white/[0.08] transition-[height,padding] duration-300 ${
+          className={`relative z-10 flex flex-shrink-0 items-center justify-center border-b border-border transition-[height,padding] duration-300 ${
             desktopCollapsed ? 'h-[94px] px-2' : 'h-[148px] px-6'
           }`}
         >
@@ -456,16 +455,16 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
                 src="/assets/images/app_logo.png"
                 width={desktopCollapsed ? 50 : 126}
                 height={desktopCollapsed ? 41 : 103}
-                className="drop-shadow-[0_8px_20px_rgba(20,13,24,0.2)] transition-all duration-300"
+                className="drop-shadow-[0_8px_20px_rgba(73,45,70,0.12)] transition-all duration-300"
               />
             </div>
             {!desktopCollapsed && (
               <div className="mt-1.5 flex items-center justify-center gap-2.5">
-                <span className="h-px w-5 bg-[#c7a064]/90" aria-hidden="true" />
-                <span className="text-[11px] font-medium tracking-[0.16em] text-white/90">
+                <span className="h-px w-5 bg-accent/70" aria-hidden="true" />
+                <span className="text-[11px] font-semibold tracking-[0.16em] text-primary/75">
                   Administration
                 </span>
-                <span className="h-px w-5 bg-[#c7a064]/90" aria-hidden="true" />
+                <span className="h-px w-5 bg-accent/70" aria-hidden="true" />
               </div>
             )}
           </div>
@@ -473,7 +472,7 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
           <button
             type="button"
             onClick={onMobileClose}
-            className="absolute right-4 top-4 rounded-lg p-1.5 text-white/55 transition-colors hover:bg-white/10 hover:text-white md:hidden"
+            className="btn-icon-sm absolute right-4 top-4 border-0 shadow-none md:hidden"
             aria-label="Fermer le menu"
           >
             <X size={18} />
@@ -482,7 +481,7 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
           <button
             type="button"
             onClick={onToggle}
-            className="absolute -right-px bottom-3 hidden rounded-l-xl border border-r-0 border-white/10 bg-white/[0.07] p-1.5 text-white/55 transition-colors hover:bg-white/[0.12] hover:text-white md:block"
+            className="btn-icon-sm absolute -right-px bottom-3 hidden rounded-l-full rounded-r-none border-r-0 md:inline-flex"
             title={desktopCollapsed ? 'Développer' : 'Réduire'}
             aria-label={desktopCollapsed ? 'Développer la navigation' : 'Réduire la navigation'}
           >
@@ -506,7 +505,7 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
             return (
               <React.Fragment key={item.id}>
                 {isGroupStart && !desktopCollapsed && (
-                  <div className="mx-3 my-2 h-px bg-white/[0.08]" />
+                  <div className="mx-3 my-2 h-px bg-border/80" />
                 )}
                 <NavItemComponent
                   item={item}
@@ -518,13 +517,13 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
           })}
         </nav>
 
-        <div className="relative z-10 flex-shrink-0 border-t border-white/10 bg-[#453451]/90 p-3">
+        <div className="relative z-10 flex-shrink-0 border-t border-border bg-primary-ghost/80 p-3">
           <div
-            className={`flex min-h-12 items-center gap-3 rounded-[14px] px-2 py-1.5 transition-colors hover:bg-white/[0.06] ${
+            className={`flex min-h-12 items-center gap-3 rounded-[14px] px-2 py-1.5 transition-colors hover:bg-white ${
               desktopCollapsed ? 'justify-center' : ''
             }`}
           >
-            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-[#c8b2d7]/55 bg-[#392b44] text-xs font-semibold text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+            <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-primary/10 bg-primary text-xs font-semibold text-white shadow-[0_4px_12px_rgba(73,45,70,0.18)]">
               {CURRENT_ADMIN.avatarInitials}
             </div>
 
@@ -537,10 +536,10 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
                   transition={{ duration: 0.15 }}
                   className="min-w-0 flex-1"
                 >
-                  <p className="truncate text-[13px] font-semibold text-white">
+                  <p className="truncate text-[13px] font-semibold text-foreground">
                     {CURRENT_ADMIN.name}
                   </p>
-                  <p className="mt-0.5 truncate text-[10px] font-medium text-white/50">
+                  <p className="mt-0.5 truncate text-[10px] font-medium text-muted-foreground">
                     {CURRENT_ADMIN.roleLabel}
                   </p>
                 </motion.div>
@@ -551,7 +550,7 @@ export default function Sidebar({ collapsed, mobileOpen, onToggle, onMobileClose
               <Link
                 href="/admin-login"
                 onClick={onMobileClose}
-                className="flex-shrink-0 rounded-[10px] p-2 text-white/50 transition-colors hover:bg-[#b9788f]/20 hover:text-[#f0cad7]"
+                className="flex-shrink-0 rounded-full p-2 text-muted-foreground transition-colors hover:bg-primary-pale hover:text-accent"
                 title="Déconnexion"
                 aria-label="Se déconnecter"
               >
