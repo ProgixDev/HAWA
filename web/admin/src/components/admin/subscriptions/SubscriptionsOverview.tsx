@@ -26,10 +26,10 @@ const iconMap = {
 };
 
 const iconStyles = {
-  users: 'bg-[#eee9f7] text-[#765b9b]',
-  sparkles: 'bg-[#fff0df] text-[#eb8a29]',
-  revenue: 'bg-[#ffeaed] text-[#ef5363]',
-  conversion: 'bg-[#e7f1ff] text-[#367df2]',
+  users: 'bg-primary-pale text-primary',
+  sparkles: 'bg-primary-ghost text-accent',
+  revenue: 'bg-[#f8e8ed] text-[#a84f69]',
+  conversion: 'bg-info-bg text-info',
 } as const;
 
 const periodKpiValues: Record<
@@ -80,10 +80,10 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
     >
       <header className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div className="min-w-0">
-          <h1 className="font-display text-[30px] font-bold tracking-[-0.035em] text-[#171321] sm:text-[34px]">
+          <h1 className="font-display text-[34px] font-semibold tracking-[-0.035em] text-foreground sm:text-[38px]">
             Abonnements
           </h1>
-          <p className="mt-1 max-w-full text-[15px] font-medium text-[#626079]">
+          <p className="mt-1 max-w-full text-[15px] font-medium text-muted-foreground">
             Vue d’ensemble de la performance des abonnements
           </p>
         </div>
@@ -91,12 +91,12 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
           <span className="sr-only">Période d’analyse</span>
           <CalendarDays
             size={17}
-            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#596078]"
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
           <select
             value={period}
             onChange={(event) => setPeriod(event.target.value as SubscriptionPeriod)}
-            className="h-[52px] w-full max-w-full appearance-none rounded-[13px] border border-[#d8d9e3] bg-white pl-12 pr-11 text-[14px] font-semibold text-[#272438] shadow-[0_2px_10px_rgba(49,42,59,0.035)] outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 sm:w-[226px]"
+            className="h-[52px] w-full max-w-full appearance-none rounded-[16px] border border-border bg-white pl-12 pr-11 text-[14px] font-semibold text-foreground shadow-card outline-none transition-all focus:border-accent/60 focus:ring-4 focus:ring-accent/10 sm:w-[226px]"
           >
             {periods.map((item) => (
               <option key={item.value} value={item.value}>
@@ -106,7 +106,7 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
           </select>
           <ChevronDown
             size={15}
-            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#687087]"
+            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground"
           />
         </label>
       </header>
@@ -133,7 +133,7 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="min-w-0 overflow-hidden rounded-[19px] border border-[#dedee8] bg-white p-5 shadow-[0_4px_18px_rgba(64,52,76,0.035)] sm:min-h-[198px] sm:p-6"
+              className="card-base min-w-0 overflow-hidden p-5 sm:min-h-[198px] sm:p-6"
               title={`${kpi.comparison} : +${snapshot.trend}%`}
             >
               <div className="flex items-start justify-between gap-3">
@@ -144,19 +144,19 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
                 </span>
                 <TrendBadge value={snapshot.trend} />
               </div>
-              <p className="mt-7 font-display text-[28px] font-bold tracking-[-0.035em] text-[#171321] sm:text-[31px]">
+              <p className="mt-7 font-display text-[31px] font-semibold tracking-[-0.035em] text-foreground sm:text-[34px]">
                 {value}
               </p>
-              <p className="mt-1.5 text-[15px] font-medium text-[#65647b]">{kpi.label}</p>
+              <p className="mt-1.5 text-[15px] font-medium text-muted-foreground">{kpi.label}</p>
             </motion.article>
           );
         })}
       </section>
 
       <section className="grid w-full min-w-0 grid-cols-[minmax(0,1fr)] gap-5 xl:grid-cols-[minmax(0,1.8fr)_minmax(340px,0.9fr)]">
-        <article className="min-w-0 overflow-hidden rounded-[19px] border border-[#dedee8] bg-white p-5 shadow-[0_4px_18px_rgba(64,52,76,0.035)] sm:p-6">
+        <article className="chart-card min-w-0 overflow-hidden">
           <div className="mb-1 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <h2 className="font-display text-[18px] font-bold tracking-[-0.02em] text-[#171321]">
+            <h2 className="font-display text-[21px] font-semibold tracking-[-0.02em] text-foreground">
               Évolution des abonnements
             </h2>
             <label className="relative w-full sm:w-auto">
@@ -164,7 +164,7 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
               <select
                 value={period}
                 onChange={(event) => setPeriod(event.target.value as SubscriptionPeriod)}
-                className="h-10 w-full appearance-none rounded-xl border border-[#d8d9e3] bg-white pl-3.5 pr-9 text-[13px] font-semibold text-[#353148] outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 sm:w-[126px]"
+                className="h-10 w-full appearance-none rounded-[14px] border border-border bg-white pl-3.5 pr-9 text-[13px] font-semibold text-foreground outline-none transition-all focus:border-accent/60 focus:ring-4 focus:ring-accent/10 sm:w-[126px]"
               >
                 <option value="7d">7 jours</option>
                 <option value="30d">30 jours</option>
@@ -173,7 +173,7 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
               </select>
               <ChevronDown
                 size={14}
-                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#687087]"
+                className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
               />
             </label>
           </div>
@@ -184,8 +184,8 @@ export default function SubscriptionsOverview({ data }: { data: SubscriptionOver
           )}
         </article>
 
-        <article className="min-w-0 overflow-hidden rounded-[19px] border border-[#dedee8] bg-white p-5 shadow-[0_4px_18px_rgba(64,52,76,0.035)] sm:p-6">
-          <h2 className="font-display text-[18px] font-bold tracking-[-0.02em] text-[#171321]">
+        <article className="chart-card min-w-0 overflow-hidden">
+          <h2 className="font-display text-[21px] font-semibold tracking-[-0.02em] text-foreground">
             Répartition des abonnements
           </h2>
           {chartLoading ? (
