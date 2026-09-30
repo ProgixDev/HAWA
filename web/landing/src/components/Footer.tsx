@@ -5,7 +5,8 @@ import React from 'react';
 import AppLogo from '@/components/ui/AppLogo';
 import Icon from '@/components/ui/AppIcon';
 
-const adminUrl = process.env.NEXT_PUBLIC_ADMIN_URL || 'http://localhost:4028';
+const adminUrl =
+  process.env.NEXT_PUBLIC_ADMIN_URL || 'https://awa-women-admin.vercel.app/admin-login';
 
 const links = [
   { label: 'Fonctionnalités', href: '#features' },
@@ -78,7 +79,8 @@ export default function Footer() {
                   (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(214,175,186,0.3)';
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLAnchorElement).style.background = 'rgba(214,175,186,0.15)';
+                  (e.currentTarget as HTMLAnchorElement).style.background =
+                    'rgba(214,175,186,0.15)';
                 }}
               >
                 <Icon name={s.icon as Parameters<typeof Icon>[0]['name']} size={15} />
@@ -94,10 +96,18 @@ export default function Footer() {
         >
           <span>© 2026 AWA. Tous droits réservés.</span>
           <div className="flex gap-4">
-            <a href="#" className="hover:text-white transition-colors" style={{ color: 'rgba(214,175,186,0.5)' }}>
+            <a
+              href="#"
+              className="hover:text-white transition-colors"
+              style={{ color: 'rgba(214,175,186,0.5)' }}
+            >
               Politique de confidentialité
             </a>
-            <a href="#" className="hover:text-white transition-colors" style={{ color: 'rgba(214,175,186,0.5)' }}>
+            <a
+              href="#"
+              className="hover:text-white transition-colors"
+              style={{ color: 'rgba(214,175,186,0.5)' }}
+            >
               CGU
             </a>
           </div>
