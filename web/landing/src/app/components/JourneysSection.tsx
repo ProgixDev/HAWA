@@ -155,12 +155,12 @@ export default function JourneysSection() {
         </div>
 
         {/* Tab selector — horizontally scrollable */}
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 fade-up" style={{ scrollbarWidth: 'none' }}>
+        <div className="journey-tabs fade-up mb-8 flex w-full flex-nowrap gap-2 overflow-x-auto pb-2">
           {journeys?.map((j) =>
           <button
             key={j?.id}
             onClick={() => setActiveId(j?.id)}
-            className={`tab-journey ${activeId === j?.id ? 'active' : ''}`}>
+            className={`tab-journey shrink-0 ${activeId === j?.id ? 'active' : ''}`}>
             
               {j?.label}
             </button>
@@ -171,7 +171,7 @@ export default function JourneysSection() {
         <div className="grid grid-cols-1 lg:grid-cols-[15rem_minmax(0,1fr)] gap-8 lg:gap-20 items-start">
           {/* Phone */}
           <div className="flex justify-center lg:justify-start fade-up">
-            <div className="phone-frame">
+            <div className="phone-frame journey-phone-frame">
               <div className="phone-notch" />
               <AppImage
                 key={active?.id}
