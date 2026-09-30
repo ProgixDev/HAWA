@@ -73,7 +73,7 @@ export default function PremiumConversionChart() {
           tick={{
             fontSize: 11,
             fill: 'var(--muted-foreground)',
-            fontFamily: 'var(--font-manrope)',
+            fontFamily: 'var(--font-dm-sans)',
           }}
           axisLine={false}
           tickLine={false}
@@ -82,7 +82,7 @@ export default function PremiumConversionChart() {
           tick={{
             fontSize: 11,
             fill: 'var(--muted-foreground)',
-            fontFamily: 'var(--font-manrope)',
+            fontFamily: 'var(--font-dm-sans)',
           }}
           axisLine={false}
           tickLine={false}
@@ -90,7 +90,7 @@ export default function PremiumConversionChart() {
         />
         <Tooltip content={<CustomTooltip />} />
         <Legend
-          wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-manrope)', paddingTop: 12 }}
+          wrapperStyle={{ fontSize: 12, fontFamily: 'var(--font-dm-sans)', paddingTop: 12 }}
           iconType="circle"
           iconSize={8}
         />

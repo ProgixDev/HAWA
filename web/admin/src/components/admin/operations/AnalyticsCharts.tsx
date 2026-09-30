@@ -19,7 +19,7 @@ import {
 import type { AnalyticsDataset } from '@/types/adminOperations';
 
 const tooltipStyle = {
-  border: '1px solid #e8e0ef',
+  border: '1px solid #E9DFE5',
   borderRadius: 12,
   boxShadow: '0 8px 24px rgba(59,49,70,0.1)',
   fontSize: 12,
@@ -37,15 +37,15 @@ export function AnalyticsUserGrowthChart({ data }: { data: AnalyticsDataset['use
         <AreaChart data={data} margin={{ top: 18, right: 10, left: 0, bottom: 0 }}>
           <defs>
             <linearGradient id="analyticsTotal" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#6f5a8a" stopOpacity={0.22} />
-              <stop offset="95%" stopColor="#6f5a8a" stopOpacity={0} />
+              <stop offset="5%" stopColor="#492D46" stopOpacity={0.22} />
+              <stop offset="95%" stopColor="#492D46" stopOpacity={0} />
             </linearGradient>
             <linearGradient id="analyticsActive" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#4a9b7f" stopOpacity={0.18} />
-              <stop offset="95%" stopColor="#4a9b7f" stopOpacity={0} />
+              <stop offset="5%" stopColor="#C45F7C" stopOpacity={0.18} />
+              <stop offset="95%" stopColor="#C45F7C" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid stroke="#ebe7ee" strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid stroke="#E9DFE5" strokeDasharray="3 3" vertical={false} />
           <XAxis
             dataKey="label"
             tick={{ fontSize: 11, fill: '#716a78' }}
@@ -65,7 +65,7 @@ export function AnalyticsUserGrowthChart({ data }: { data: AnalyticsDataset['use
             type="monotone"
             dataKey="total"
             name="Total"
-            stroke="#6f5a8a"
+            stroke="#492D46"
             strokeWidth={2.4}
             fill="url(#analyticsTotal)"
           />
@@ -73,7 +73,7 @@ export function AnalyticsUserGrowthChart({ data }: { data: AnalyticsDataset['use
             type="monotone"
             dataKey="active"
             name="Actives"
-            stroke="#4a9b7f"
+            stroke="#C45F7C"
             strokeWidth={2.2}
             fill="url(#analyticsActive)"
           />
@@ -87,16 +87,18 @@ export function AcquisitionChart({ data }: { data: AnalyticsDataset['acquisition
   const total = data.reduce((sum, item) => sum + item.value, 0);
   if (!total) return <ChartEmptyState />;
   return (
-    <div className="flex min-h-[330px] flex-col items-center justify-center gap-2 sm:flex-row xl:flex-col 2xl:flex-row">
-      <div className="relative h-[220px] w-full min-w-0 max-w-[230px]">
+    <div className="flex min-h-[280px] w-full flex-wrap items-center justify-center gap-x-4 gap-y-3 pt-2">
+      <div className="relative h-[200px] w-[200px] shrink-0">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={62}
-              outerRadius={92}
+              cx="50%"
+              cy="50%"
+              innerRadius={57}
+              outerRadius={84}
               startAngle={90}
               endAngle={-270}
             >
@@ -117,14 +119,19 @@ export function AcquisitionChart({ data }: { data: AnalyticsDataset['acquisition
           </strong>
         </div>
       </div>
-      <ul className="w-full space-y-2.5">
+      <ul className="w-full min-w-[160px] max-w-[210px] flex-1 space-y-2.5">
         {data.map((item) => (
           <li key={item.name} className="flex items-center justify-between gap-3 text-xs">
-            <span className="flex items-center gap-2 text-muted-foreground">
-              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: item.color }} />
-              {item.name}
+            <span className="flex min-w-0 items-center gap-2 text-muted-foreground">
+              <span
+                className="h-2.5 w-2.5 shrink-0 rounded-full"
+                style={{ backgroundColor: item.color }}
+              />
+              <span>{item.name}</span>
             </span>
-            <strong className="text-foreground">{Math.round((item.value / total) * 100)}%</strong>
+            <strong className="shrink-0 text-foreground">
+              {Math.round((item.value / total) * 100)}%
+            </strong>
           </li>
         ))}
       </ul>
@@ -138,7 +145,7 @@ export function RetentionChart({ data }: { data: AnalyticsDataset['retention'] }
     <div className="h-64 w-full min-w-0">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 20, right: 10, left: -10, bottom: 0 }}>
-          <CartesianGrid stroke="#ebe7ee" strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid stroke="#E9DFE5" strokeDasharray="3 3" vertical={false} />
           <XAxis
             dataKey="label"
             tick={{ fontSize: 12, fill: '#716a78' }}
@@ -159,7 +166,7 @@ export function RetentionChart({ data }: { data: AnalyticsDataset['retention'] }
           <Bar
             dataKey="value"
             name="Rétention"
-            fill="#8d79a8"
+            fill="#D6AFBA"
             radius={[8, 8, 0, 0]}
             maxBarSize={48}
           />
@@ -183,7 +190,7 @@ export function SubscriptionPerformanceChart({
           layout="vertical"
           margin={{ top: 16, right: 24, left: 32, bottom: 0 }}
         >
-          <CartesianGrid stroke="#ebe7ee" strokeDasharray="3 3" horizontal={false} />
+          <CartesianGrid stroke="#E9DFE5" strokeDasharray="3 3" horizontal={false} />
           <XAxis
             type="number"
             tick={{ fontSize: 11, fill: '#716a78' }}

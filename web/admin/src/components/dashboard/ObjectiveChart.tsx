@@ -10,14 +10,14 @@ export interface ObjectiveChartDatum {
 }
 
 const defaultObjectiveData: ObjectiveChartDatum[] = [
-  { name: 'Cycle menstruel', value: 8240, color: '#6F5A8A' },
-  { name: 'Essayer de concevoir', value: 4180, color: '#8D79A8' },
-  { name: 'Contraception', value: 3960, color: '#B8A6CB' },
-  { name: 'SOPK', value: 2840, color: '#4A9B7F' },
-  { name: 'Grossesse', value: 2420, color: '#C4882A' },
-  { name: 'Post-partum', value: 1680, color: '#5A7EC4' },
-  { name: 'Après fausse couche', value: 820, color: '#C45A5A' },
-  { name: 'Périménopause', value: 706, color: '#6A6270' },
+  { name: 'Cycle menstruel', value: 8240, color: '#492D46' },
+  { name: 'Essayer de concevoir', value: 4180, color: '#684363' },
+  { name: 'Contraception', value: 3960, color: '#C45F7C' },
+  { name: 'SOPK', value: 2840, color: '#D6AFBA' },
+  { name: 'Grossesse', value: 2420, color: '#9E7584' },
+  { name: 'Post-partum', value: 1680, color: '#B98F9D' },
+  { name: 'Après fausse couche', value: 820, color: '#8A687B' },
+  { name: 'Périménopause', value: 706, color: '#73646F' },
 ];
 
 function CustomTooltip({

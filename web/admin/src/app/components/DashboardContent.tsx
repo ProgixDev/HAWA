@@ -230,11 +230,7 @@ export default function DashboardContent() {
               Événements plateforme — {snapshot.rangeLabel}
             </p>
           </div>
-          <button
-            type="button"
-            onClick={() => setActivityDialogOpen(true)}
-            className="text-xs font-semibold text-primary hover:text-primary-light transition-colors"
-          >
+          <button type="button" onClick={() => setActivityDialogOpen(true)} className="btn-link">
             Voir tout
           </button>
         </div>

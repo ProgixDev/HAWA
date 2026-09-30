@@ -86,10 +86,10 @@ export const medicalExportOverview: MedicalExportOverview = {
     },
   ],
   distribution: [
-    { name: 'Données cycle', value: 102, color: '#6f5a8a' },
-    { name: 'Données complètes', value: 64, color: '#8d79a8' },
-    { name: 'Historique médical', value: 51, color: '#5a7ec4' },
-    { name: 'Rapports', value: 39, color: '#c4882a' },
+    { name: 'Données cycle', value: 102, color: '#492D46' },
+    { name: 'Données complètes', value: 64, color: '#684363' },
+    { name: 'Historique médical', value: 51, color: '#C45F7C' },
+    { name: 'Rapports', value: 39, color: '#D6AFBA' },
   ],
   requests: Array.from({ length: 18 }, (_, index) => {
     const user = mockUsers[index % mockUsers.length];
@@ -373,11 +373,11 @@ function buildAnalyticsDataset(
       active: Math.round(active * (0.88 + index * (0.12 / Math.max(config.labels.length - 1, 1)))),
     })),
     acquisition: [
-      { name: 'App Store', value: acquisitionCounts[0], color: '#654474' },
-      { name: 'Google Play', value: acquisitionCounts[1], color: '#8d79a8' },
-      { name: 'Réseaux sociaux', value: acquisitionCounts[2], color: '#5a7ec4' },
-      { name: 'Recommandations', value: acquisitionCounts[3], color: '#4a9b7f' },
-      { name: 'Autres', value: acquisitionOther, color: '#c4882a' },
+      { name: 'App Store', value: acquisitionCounts[0], color: '#492D46' },
+      { name: 'Google Play', value: acquisitionCounts[1], color: '#684363' },
+      { name: 'Réseaux sociaux', value: acquisitionCounts[2], color: '#C45F7C' },
+      { name: 'Recommandations', value: acquisitionCounts[3], color: '#D6AFBA' },
+      { name: 'Autres', value: acquisitionOther, color: '#9E7584' },
     ],
     engagement: [
       {
@@ -408,9 +408,9 @@ function buildAnalyticsDataset(
       { label: 'J30', value: Math.round(41 * Math.min(config.factor + 0.08, 1)) },
     ],
     subscriptions: [
-      { plan: 'Gratuit', users: free, share: 83, color: '#b8a6cb' },
-      { plan: 'Premium Mensuel', users: monthly, share: 14, color: '#654474' },
-      { plan: 'Premium Annuel', users: annual, share: 3, color: '#c4882a' },
+      { plan: 'Gratuit', users: free, share: 83, color: '#D6AFBA' },
+      { plan: 'Premium Mensuel', users: monthly, share: 14, color: '#492D46' },
+      { plan: 'Premium Annuel', users: annual, share: 3, color: '#C45F7C' },
     ],
     conversion: [
       { label: 'Utilisatrices', value: total },

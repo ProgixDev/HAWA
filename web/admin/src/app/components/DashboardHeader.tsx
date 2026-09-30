@@ -35,7 +35,7 @@ export default function DashboardHeader({
       className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
     >
       <div>
-        <h1 className="font-display text-2xl font-bold text-foreground">
+        <h1 className="font-display text-3xl font-semibold text-foreground sm:text-[34px]">
           Bonjour, {CURRENT_ADMIN.name} 👋
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
@@ -44,23 +44,21 @@ export default function DashboardHeader({
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
-        <div className="flex items-center gap-2 p-1 rounded-xl border border-border bg-card shadow-card flex-shrink-0">
+        <div className="flex flex-shrink-0 items-center gap-2 rounded-full border border-border bg-card p-1 shadow-card">
           <CalendarDays size={15} className="text-muted-foreground ml-2" />
           {DASHBOARD_RANGES.map((range) => (
             <button
               key={range.id}
               type="button"
               onClick={() => onRangeChange(range.id)}
-              className={`relative px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                selectedRange === range.id
-                  ? 'text-primary-foreground'
-                  : 'text-muted-foreground hover:text-foreground'
+              className={`btn-tab relative px-3 py-1.5 ${
+                selectedRange === range.id ? 'text-primary-foreground' : ''
               }`}
             >
               {selectedRange === range.id && (
                 <motion.div
                   layoutId="date-range-bg"
-                  className="absolute inset-0 rounded-lg bg-primary"
+                  className="absolute inset-0 rounded-full bg-primary"
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
               )}
