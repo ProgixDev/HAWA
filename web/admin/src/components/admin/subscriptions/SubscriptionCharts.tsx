@@ -39,10 +39,10 @@ export function SubscriptionEvolutionChart({ data }: { data: SubscriptionEvoluti
     <div className="h-[340px] w-full" aria-label="Évolution des abonnements">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 8, right: 12, left: -4, bottom: 0 }}>
-          <CartesianGrid stroke="#e7e6ee" strokeDasharray="3 3" vertical={false} />
+          <CartesianGrid stroke="#E9DFE5" strokeDasharray="3 3" vertical={false} />
           <XAxis
             dataKey="label"
-            tick={{ fontSize: 11, fill: '#66677d' }}
+            tick={{ fontSize: 11, fill: '#73646F' }}
             tickLine={false}
             axisLine={false}
           />
@@ -50,7 +50,7 @@ export function SubscriptionEvolutionChart({ data }: { data: SubscriptionEvoluti
             domain={[0, 8000]}
             ticks={[0, 2000, 4000, 6000, 8000]}
             tickFormatter={(value) => (value === 0 ? '0' : `${value / 1000}k`)}
-            tick={{ fontSize: 11, fill: '#66677d' }}
+            tick={{ fontSize: 11, fill: '#73646F' }}
             tickLine={false}
             axisLine={false}
           />
@@ -60,7 +60,7 @@ export function SubscriptionEvolutionChart({ data }: { data: SubscriptionEvoluti
             type="monotone"
             dataKey="total"
             name="Total"
-            stroke="#3f27e9"
+            stroke="#492D46"
             strokeWidth={2.25}
             dot={false}
             activeDot={{ r: 4 }}
@@ -69,7 +69,7 @@ export function SubscriptionEvolutionChart({ data }: { data: SubscriptionEvoluti
             type="monotone"
             dataKey="newSubscriptions"
             name="Nouveaux"
-            stroke="#14ad8b"
+            stroke="#C45F7C"
             strokeWidth={2}
             dot={false}
           />
@@ -77,7 +77,7 @@ export function SubscriptionEvolutionChart({ data }: { data: SubscriptionEvoluti
             type="monotone"
             dataKey="cancelled"
             name="Annulés"
-            stroke="#f14f5b"
+            stroke="#A95562"
             strokeWidth={2}
             dot={false}
           />
@@ -99,18 +99,20 @@ export function SubscriptionDistributionChart({ data }: { data: SubscriptionDist
 
   return (
     <div
-      className="flex min-h-[340px] flex-col items-center justify-center gap-3 sm:flex-row xl:flex-col 2xl:flex-row"
+      className="flex min-h-[280px] w-full flex-wrap items-center justify-center gap-x-4 gap-y-3 pt-2"
       aria-label="Répartition des abonnements"
     >
-      <div className="relative h-[250px] w-full min-w-0 sm:w-[250px] xl:w-full 2xl:w-[250px]">
+      <div className="relative h-[210px] w-[210px] shrink-0">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
             <Pie
               data={data}
               dataKey="value"
               nameKey="name"
-              innerRadius={70}
-              outerRadius={105}
+              cx="50%"
+              cy="50%"
+              innerRadius={61}
+              outerRadius={90}
               paddingAngle={0}
               startAngle={90}
               endAngle={-270}
@@ -126,20 +128,25 @@ export function SubscriptionDistributionChart({ data }: { data: SubscriptionDist
           </PieChart>
         </ResponsiveContainer>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-          <p className="text-xs text-[#6a687c]">Total</p>
-          <p className="mt-1 font-display text-[25px] font-bold text-[#171321]">
+          <p className="text-xs text-muted-foreground">Total</p>
+          <p className="mt-1 font-display text-[25px] font-bold text-foreground">
             {total.toLocaleString('fr-FR')}
           </p>
         </div>
       </div>
-      <ul className="w-full min-w-[150px] space-y-5 sm:w-auto xl:w-full 2xl:w-auto">
+      <ul className="w-full min-w-[160px] max-w-[210px] flex-1 space-y-4">
         {data.map((item) => (
-          <li key={item.name} className="flex items-center justify-between gap-5 text-[13px]">
-            <span className="inline-flex items-center gap-2 whitespace-nowrap text-[#66647a]">
-              <span className="h-3 w-3 rounded-full" style={{ backgroundColor: item.color }} />
-              {item.name}
+          <li key={item.name} className="flex items-center justify-between gap-3 text-[13px]">
+            <span className="flex min-w-0 items-center gap-2 text-muted-foreground">
+              <span
+                className="h-3 w-3 shrink-0 rounded-full"
+                style={{ backgroundColor: item.color }}
+              />
+              <span>{item.name}</span>
             </span>
-            <strong className="text-[#242031]">{Math.round((item.value / total) * 100)}%</strong>
+            <strong className="shrink-0 text-foreground">
+              {Math.round((item.value / total) * 100)}%
+            </strong>
           </li>
         ))}
       </ul>

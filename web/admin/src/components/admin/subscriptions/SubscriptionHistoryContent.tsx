@@ -268,11 +268,7 @@ export default function SubscriptionHistoryContent({
                     <HistoryStatusBadge status={event.status} />
                   </td>
                   <td className={`${tableCellClass} text-center`}>
-                    <button
-                      type="button"
-                      onClick={() => setSelected(event)}
-                      className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-2 text-xs font-semibold text-primary hover:bg-primary-ghost"
-                    >
+                    <button type="button" onClick={() => setSelected(event)} className="btn-link">
                       <Eye size={14} /> Voir
                     </button>
                   </td>

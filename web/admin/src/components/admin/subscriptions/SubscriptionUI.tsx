@@ -31,11 +31,7 @@ export function SubscriptionPageHeader({
       <div className="flex shrink-0 flex-wrap items-center gap-2">
         {children}
         {actionLabel && onAction && (
-          <button
-            type="button"
-            onClick={onAction}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[#655276] px-4 text-xs font-semibold text-white shadow-[0_6px_18px_rgba(81,64,95,0.16)] transition-colors hover:bg-[#584767]"
-          >
+          <button type="button" onClick={onAction} className="btn-primary h-10 px-4 text-xs">
             {actionLabel === 'Exporter' ? <Download size={15} /> : <Plus size={15} />}
             {actionLabel}
           </button>

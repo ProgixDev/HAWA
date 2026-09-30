@@ -204,11 +204,7 @@ export default function ActiveSubscriptionsContent({
               ))}
             </SelectField>
           </div>
-          <button
-            type="button"
-            onClick={clearFilters}
-            className="inline-flex h-10 items-center justify-center gap-2 rounded-xl px-3 text-xs font-semibold text-muted-foreground hover:bg-muted hover:text-foreground"
-          >
+          <button type="button" onClick={clearFilters} className="btn-ghost h-10 px-3 text-xs">
             <RotateCcw size={14} /> Effacer
           </button>
         </div>

@@ -159,9 +159,9 @@ export const subscriptionOverview: SubscriptionOverviewData = {
     ],
   },
   distribution: [
-    { name: 'Gratuit', value: 599, color: '#c99952' },
-    { name: 'Premium Mensuel', value: 2654, color: '#654474' },
-    { name: 'Premium Annuel', value: 1027, color: '#8d79a8' },
+    { name: 'Gratuit', value: 599, color: '#D6AFBA' },
+    { name: 'Premium Mensuel', value: 2654, color: '#492D46' },
+    { name: 'Premium Annuel', value: 1027, color: '#C45F7C' },
   ],
 };
 
