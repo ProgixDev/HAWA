@@ -163,17 +163,10 @@ function PremiumForm({
         L’accès Premium est appliqué automatiquement à ce contenu.
       </div>
       <div className="flex justify-end gap-2 border-t border-border pt-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold hover:bg-muted"
-        >
+        <button type="button" onClick={onCancel} className="btn-secondary h-10 px-4 text-xs">
           Annuler
         </button>
-        <button
-          type="submit"
-          className="h-10 rounded-xl bg-primary px-5 text-xs font-semibold text-white hover:opacity-90"
-        >
+        <button type="submit" className="btn-primary h-10 px-5 text-xs">
           {item ? 'Enregistrer' : 'Ajouter le contenu'}
         </button>
       </div>

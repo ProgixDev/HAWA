@@ -293,17 +293,10 @@ function ArticleForm({
         </label>
       </div>
       <div className="flex justify-end gap-2 border-t border-border pt-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold text-foreground hover:bg-muted"
-        >
+        <button type="button" onClick={onCancel} className="btn-secondary h-10 px-4 text-xs">
           Annuler
         </button>
-        <button
-          type="submit"
-          className="h-10 rounded-xl bg-primary px-5 text-xs font-semibold text-white hover:opacity-90"
-        >
+        <button type="submit" className="btn-primary h-10 px-5 text-xs">
           {article ? 'Enregistrer' : 'Créer l’article'}
         </button>
       </div>
@@ -627,7 +620,7 @@ export default function ArticlesContent() {
           <button
             type="button"
             onClick={() => setShowMore((value) => !value)}
-            className={`inline-flex h-10 items-center gap-2 rounded-xl border px-3 text-xs font-semibold ${showMore ? 'border-primary/25 bg-primary-ghost text-primary' : 'border-border bg-white text-foreground hover:bg-muted'}`}
+            className={`btn-filter h-10 px-3 ${showMore ? 'btn-filter-active' : ''}`}
           >
             <Filter size={14} /> Plus de filtres
           </button>
@@ -637,11 +630,7 @@ export default function ArticlesContent() {
             type !== 'all' ||
             access !== 'all' ||
             statusFilter !== 'all') && (
-            <button
-              type="button"
-              onClick={reset}
-              className="inline-flex h-10 items-center gap-1.5 rounded-xl px-3 text-xs font-semibold text-muted-foreground hover:bg-muted"
-            >
+            <button type="button" onClick={reset} className="btn-ghost h-10 px-3 text-xs">
               <RotateCcw size={13} /> Réinitialiser
             </button>
           )}
@@ -696,35 +685,35 @@ export default function ArticlesContent() {
                 onClick={() =>
                   bulkUpdateStatus('published', 'Articles publiés dans cette session.')
                 }
-                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-[11px] font-semibold text-foreground hover:bg-muted"
+                className="btn-secondary btn-sm h-9 px-3 text-[11px]"
               >
                 <Send size={13} /> Publier
               </button>
               <button
                 type="button"
                 onClick={() => bulkUpdateStatus('draft', 'Articles dépubliés.')}
-                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-[11px] font-semibold text-foreground hover:bg-muted"
+                className="btn-secondary btn-sm h-9 px-3 text-[11px]"
               >
                 <RotateCcw size={13} /> Dépublier
               </button>
               <button
                 type="button"
                 onClick={() => bulkUpdateStatus('archived', 'Articles archivés.')}
-                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border bg-white px-3 text-[11px] font-semibold text-foreground hover:bg-muted"
+                className="btn-secondary btn-sm h-9 px-3 text-[11px]"
               >
                 <Archive size={13} /> Archiver
               </button>
               <button
                 type="button"
                 onClick={() => setModal({ type: 'bulk-delete', ids: Array.from(selected) })}
-                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-danger/25 bg-white px-3 text-[11px] font-semibold text-danger hover:bg-danger-bg"
+                className="btn-danger btn-sm h-9 px-3 text-[11px]"
               >
                 <Trash2 size={13} /> Supprimer
               </button>
               <button
                 type="button"
                 onClick={clearSelection}
-                className="inline-flex h-9 items-center gap-1 rounded-lg px-2 text-[11px] font-semibold text-muted-foreground hover:text-foreground"
+                className="btn-ghost btn-sm h-9 px-2 text-[11px]"
                 aria-label="Annuler la sélection"
               >
                 <X size={13} />

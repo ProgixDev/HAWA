@@ -96,11 +96,7 @@ export function PageHeader({
         </h1>
         <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">{subtitle}</p>
       </div>
-      <button
-        type="button"
-        onClick={onAction}
-        className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#655276] px-4 text-xs font-semibold text-white shadow-[0_6px_18px_rgba(81,64,95,0.16)] transition-colors hover:bg-[#584767]"
-      >
+      <button type="button" onClick={onAction} className="btn-primary h-10 shrink-0 px-4 text-xs">
         <Plus size={15} />
         {actionLabel}
       </button>
@@ -138,7 +134,7 @@ export function SearchInput({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className={`h-10 w-full rounded-xl border border-border bg-[#f8f6f8] pl-10 pr-3 text-foreground outline-none placeholder:text-muted-foreground/70 focus:border-primary focus:ring-2 focus:ring-primary/15 ${comfortable ? 'text-sm' : 'text-xs'}`}
+        className={`h-10 w-full rounded-[14px] border border-border bg-white pl-10 pr-3 text-foreground outline-none transition-all placeholder:text-muted-foreground/70 focus:border-accent/60 focus:ring-4 focus:ring-accent/10 ${comfortable ? 'text-sm' : 'text-xs'}`}
       />
     </label>
   );
@@ -171,7 +167,7 @@ export function SelectField({
           aria-label={label}
           value={value}
           onChange={(event) => onChange(event.target.value)}
-          className={`h-10 w-full appearance-none rounded-xl border border-border bg-[#f8f6f8] px-3 pr-8 text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/15 ${comfortable ? 'text-[13px]' : 'text-xs'}`}
+          className={`h-10 w-full appearance-none rounded-[14px] border border-border bg-white px-3 pr-8 text-foreground outline-none transition-all focus:border-accent/60 focus:ring-4 focus:ring-accent/10 ${comfortable ? 'text-[13px]' : 'text-xs'}`}
         >
           {children}
         </select>
@@ -203,11 +199,9 @@ export function Tabs<T extends string>({
             key={item.value}
             type="button"
             onClick={() => onChange(item.value)}
-            className={`relative px-3.5 py-3 font-semibold transition-colors ${
+            className={`btn-tab relative rounded-none px-3.5 py-3 ${
               comfortable ? 'text-[13px] sm:text-sm' : 'text-xs'
-            } ${
-              value === item.value ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
-            }`}
+            } ${value === item.value ? 'text-primary' : ''}`}
           >
             {item.label}
             {typeof item.count === 'number' && (
@@ -280,7 +274,7 @@ export function SortButton<T extends string>({
     <button
       type="button"
       onClick={() => onSort(field)}
-      className="inline-flex items-center gap-1.5 whitespace-nowrap transition-colors hover:text-foreground"
+      className="btn-link whitespace-nowrap !px-1.5 !py-1 text-muted-foreground hover:text-foreground"
     >
       {label}
       {active ? (
@@ -307,7 +301,7 @@ export function RowActions({
     <details className="group relative">
       <summary
         aria-label={label}
-        className="mx-auto flex h-8 w-8 cursor-pointer list-none items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground [&::-webkit-details-marker]:hidden"
+        className="btn-icon-sm mx-auto cursor-pointer list-none [&::-webkit-details-marker]:hidden"
       >
         <MoreHorizontal size={17} />
       </summary>
@@ -334,11 +328,7 @@ export function ActionButton({
         onClick();
         event.currentTarget.closest('details')?.removeAttribute('open');
       }}
-      className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-[11px] font-medium transition-colors ${
-        danger
-          ? 'text-danger hover:bg-danger-bg'
-          : 'text-[#5e5762] hover:bg-muted hover:text-foreground'
-      }`}
+      className={`${danger ? 'btn-menu-danger' : 'btn-menu'} text-[11px]`}
     >
       {children}
     </button>
@@ -371,7 +361,7 @@ export function Modal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-[#2b2232]/45 p-4 backdrop-blur-[2px]"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-primary/40 p-4 backdrop-blur-[2px]"
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
       <motion.section
@@ -380,9 +370,9 @@ export function Modal({
         exit={{ opacity: 0, y: 8, scale: 0.99 }}
         role="dialog"
         aria-modal="true"
-        className={`max-h-[92vh] w-full overflow-y-auto rounded-[20px] border border-border bg-[#fcfaf7] shadow-modal ${wide ? 'max-w-[860px]' : 'max-w-[560px]'}`}
+        className={`max-h-[92vh] w-full overflow-y-auto rounded-[24px] border border-border bg-card shadow-modal ${wide ? 'max-w-[860px]' : 'max-w-[560px]'}`}
       >
-        <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border bg-[#fcfaf7]/95 px-5 py-4 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border bg-white/95 px-5 py-4 backdrop-blur sm:px-6">
           <div>
             <h2 className="font-display text-lg font-semibold text-foreground">{title}</h2>
             {subtitle && <p className="mt-1 text-xs text-muted-foreground">{subtitle}</p>}
@@ -391,7 +381,7 @@ export function Modal({
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="btn-icon-sm border-0 shadow-none"
             aria-label="Fermer"
           >
             <X size={17} />
@@ -421,18 +411,10 @@ export function ConfirmDialog({
       <div className="space-y-5 p-5 sm:p-6">
         <p className="text-sm leading-6 text-muted-foreground">{message}</p>
         <div className="flex justify-end gap-2">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold text-foreground hover:bg-muted"
-          >
+          <button type="button" onClick={onCancel} className="btn-secondary h-10 px-4 text-xs">
             Annuler
           </button>
-          <button
-            type="button"
-            onClick={onConfirm}
-            className="h-10 rounded-xl bg-danger px-4 text-xs font-semibold text-white hover:opacity-90"
-          >
+          <button type="button" onClick={onConfirm} className="btn-danger h-10 px-4 text-xs">
             {confirmLabel}
           </button>
         </div>
@@ -492,7 +474,7 @@ export function Pagination({
           type="button"
           disabled={safePage === 1}
           onClick={() => onPageChange(safePage - 1)}
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white disabled:opacity-40"
+          className="btn-page !w-8 px-0 disabled:opacity-40"
           aria-label="Page précédente"
         >
           <ChevronLeft size={14} />
@@ -503,11 +485,7 @@ export function Pagination({
             <button
               type="button"
               onClick={() => onPageChange(number)}
-              className={`h-8 min-w-8 rounded-lg px-2 font-semibold ${
-                number === safePage
-                  ? 'bg-primary text-white'
-                  : 'border border-border bg-white text-muted-foreground hover:text-foreground'
-              }`}
+              className={`btn-page ${number === safePage ? 'btn-page-active' : ''}`}
             >
               {number}
             </button>
@@ -517,7 +495,7 @@ export function Pagination({
           type="button"
           disabled={safePage === pages}
           onClick={() => onPageChange(safePage + 1)}
-          className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white disabled:opacity-40"
+          className="btn-page !w-8 px-0 disabled:opacity-40"
           aria-label="Page suivante"
         >
           <ChevronRight size={14} />
@@ -540,10 +518,10 @@ export function EmptyState({ title, description }: { title: string; description:
 }
 
 export const inputClassName =
-  'h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/15';
+  'h-11 w-full rounded-[14px] border border-border bg-white px-3.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:border-accent/60 focus:ring-4 focus:ring-accent/10';
 
 export const textareaClassName =
-  'w-full rounded-xl border border-border bg-white px-3.5 py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/15';
+  'w-full rounded-[14px] border border-border bg-white px-3.5 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:border-accent/60 focus:ring-4 focus:ring-accent/10';
 
 export function FieldLabel({ children }: { children: React.ReactNode }) {
   return <span className="mb-1.5 block text-xs font-semibold text-foreground">{children}</span>;

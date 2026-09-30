@@ -102,8 +102,8 @@ export function SpiritualTabs<T extends string>({
             key={item.value}
             type="button"
             onClick={() => onChange(item.value)}
-            className={`relative px-3.5 py-3.5 text-[13px] font-semibold transition-colors ${
-              item.value === value ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+            className={`btn-tab relative rounded-none px-3.5 py-3.5 text-[13px] ${
+              item.value === value ? 'text-primary' : ''
             }`}
           >
             {item.label}
@@ -211,15 +211,15 @@ export function SpiritualModal({
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-[#2b2232]/45 p-4 backdrop-blur-[2px]"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-primary/40 p-4 backdrop-blur-[2px]"
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
       <section
         role="dialog"
         aria-modal="true"
-        className={`max-h-[92vh] w-full overflow-y-auto rounded-[20px] border border-border bg-[#fcfaf7] shadow-modal ${wide ? 'max-w-[820px]' : 'max-w-[560px]'}`}
+        className={`max-h-[92vh] w-full overflow-y-auto rounded-[24px] border border-border bg-card shadow-modal ${wide ? 'max-w-[820px]' : 'max-w-[560px]'}`}
       >
-        <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border bg-[#fcfaf7]/95 px-5 py-4 backdrop-blur sm:px-6">
+        <header className="sticky top-0 z-10 flex items-start justify-between gap-4 border-b border-border bg-white/95 px-5 py-4 backdrop-blur sm:px-6">
           <div>
             <h2 className="font-display text-lg font-semibold text-foreground">{title}</h2>
             {subtitle && <p className="mt-1 text-xs text-muted-foreground">{subtitle}</p>}
@@ -228,7 +228,7 @@ export function SpiritualModal({
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted"
+            className="btn-icon-sm border-0 shadow-none"
             aria-label="Fermer"
           >
             <X size={17} />
