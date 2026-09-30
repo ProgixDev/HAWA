@@ -11,8 +11,9 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['var(--font-manrope)', 'Manrope', 'sans-serif'],
-        display: ['var(--font-plus-jakarta)', 'Plus Jakarta Sans', 'sans-serif'],
+        sans: ['var(--font-dm-sans)', 'DM Sans', 'sans-serif'],
+        display: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
+        serif: ['var(--font-cormorant)', 'Cormorant Garamond', 'serif'],
       },
       colors: {
         background: 'var(--background)',
@@ -68,12 +69,12 @@ module.exports = {
         xl: 'var(--radius-xl)',
       },
       boxShadow: {
-        card: '0 1px 3px rgba(59, 49, 70, 0.06), 0 4px 16px rgba(111, 90, 138, 0.06)',
-        'card-hover': '0 8px 32px rgba(111, 90, 138, 0.12)',
-        'sidebar': '2px 0 24px rgba(59, 49, 70, 0.08)',
+        card: '0 2px 12px rgba(73, 45, 70, 0.055)',
+        'card-hover': '0 10px 30px rgba(73, 45, 70, 0.11)',
+        'sidebar': '6px 0 30px rgba(73, 45, 70, 0.08)',
         'topbar': '0 1px 0 var(--border)',
-        'dropdown': '0 8px 32px rgba(59, 49, 70, 0.12)',
-        'modal': '0 24px 64px rgba(59, 49, 70, 0.18)',
+        'dropdown': '0 12px 36px rgba(73, 45, 70, 0.13)',
+        'modal': '0 28px 72px rgba(73, 45, 70, 0.2)',
       },
       transitionTimingFunction: {
         'spring': 'cubic-bezier(0.4, 0, 0.2, 1)',
