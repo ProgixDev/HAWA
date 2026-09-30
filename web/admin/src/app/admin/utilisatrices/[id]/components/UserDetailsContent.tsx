@@ -103,35 +103,27 @@ export default function UserDetailsContent({
               <button
                 type="button"
                 onClick={() => setDialog('disable')}
-                className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-[#655276] px-4 text-xs font-semibold text-white hover:bg-[#584767]"
+                className="btn-primary h-10 px-4 text-xs"
               >
                 <Ban size={15} /> Désactiver le compte
               </button>
             )}
             <details className="group relative">
-              <summary className="inline-flex h-10 cursor-pointer list-none items-center gap-2 rounded-xl border border-border bg-white px-4 text-xs font-semibold text-foreground hover:bg-muted [&::-webkit-details-marker]:hidden">
+              <summary className="btn-secondary h-10 cursor-pointer list-none px-4 text-xs [&::-webkit-details-marker]:hidden">
                 <MoreHorizontal size={15} /> Autres <ChevronDown size={13} />
               </summary>
               <div className="absolute right-0 z-30 mt-1.5 w-56 rounded-xl border border-border bg-white p-1.5 shadow-dropdown">
-                <button
-                  type="button"
-                  onClick={() => setDialog('update')}
-                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#5e5762] hover:bg-muted"
-                >
+                <button type="button" onClick={() => setDialog('update')} className="btn-menu">
                   <Pencil size={14} /> Modifier le profil
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setTab('subscription')}
-                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#5e5762] hover:bg-muted"
-                >
+                <button type="button" onClick={() => setTab('subscription')} className="btn-menu">
                   <CreditCard size={14} /> Voir l’abonnement
                 </button>
                 {canReactivate && (
                   <button
                     type="button"
                     onClick={() => setDialog('reactivate')}
-                    className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-[#5e5762] hover:bg-muted"
+                    className="btn-menu"
                   >
                     <RotateCcw size={14} /> Réactiver le compte
                   </button>
@@ -140,7 +132,7 @@ export default function UserDetailsContent({
                 <button
                   type="button"
                   onClick={() => setDialog('delete')}
-                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-xs font-medium text-danger hover:bg-danger-bg"
+                  className="btn-menu-danger"
                 >
                   <Trash2 size={14} /> Supprimer le compte
                 </button>
@@ -165,8 +157,8 @@ export default function UserDetailsContent({
               key={item.value}
               type="button"
               onClick={() => setTab(item.value)}
-              className={`relative px-3.5 py-3.5 text-[13px] font-semibold transition-colors ${
-                tab === item.value ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
+              className={`btn-tab rounded-none px-3.5 py-3.5 text-[13px] ${
+                tab === item.value ? 'text-primary' : ''
               }`}
             >
               {item.label}

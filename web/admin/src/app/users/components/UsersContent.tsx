@@ -396,7 +396,7 @@ function SortableHeader({
     <button
       type="button"
       onClick={() => onSort(sortKey)}
-      className="group inline-flex items-center gap-1.5 whitespace-nowrap text-left transition-colors hover:text-foreground"
+      className="btn-link group whitespace-nowrap !px-1.5 !py-1 text-left text-muted-foreground hover:text-foreground"
       aria-label={`Trier par ${label}`}
     >
       {label}
@@ -599,11 +599,7 @@ export default function UsersContent() {
           <button
             type="button"
             onClick={() => setShowAdvanced((visible) => !visible)}
-            className={`inline-flex h-10 items-center gap-2 rounded-xl border px-4 text-xs font-semibold transition-colors ${
-              showAdvanced
-                ? 'border-primary/25 bg-primary-ghost text-primary'
-                : 'border-border bg-white text-foreground hover:bg-muted/60'
-            }`}
+            className={`btn-filter h-10 px-4 ${showAdvanced ? 'btn-filter-active' : ''}`}
             aria-expanded={showAdvanced}
             aria-controls="advanced-user-filters"
           >
@@ -614,7 +610,7 @@ export default function UsersContent() {
             type="button"
             onClick={exportCsv}
             disabled={filteredUsers.length === 0}
-            className="inline-flex h-10 items-center gap-2 rounded-xl bg-[#655276] px-4 text-xs font-semibold text-white shadow-[0_6px_18px_rgba(81,64,95,0.16)] transition-colors hover:bg-[#584767] disabled:cursor-not-allowed disabled:opacity-45"
+            className="btn-primary h-10 px-4 text-xs"
           >
             <Download size={15} />
             Exporter
@@ -659,7 +655,7 @@ export default function UsersContent() {
                 setFilters(INITIAL_FILTERS);
                 setPage(1);
               }}
-              className="inline-flex h-10 items-center justify-center gap-1.5 rounded-xl px-3 text-xs font-semibold text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="btn-ghost h-10 px-3 text-xs"
             >
               <RotateCcw size={13} /> Réinitialiser
             </button>
@@ -864,7 +860,7 @@ export default function UsersContent() {
                         <button
                           type="button"
                           onClick={(event) => openActions(event, user.id)}
-                          className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20"
+                          className="btn-icon h-9 w-9 border-0 shadow-none"
                           aria-label={`Actions pour ${user.name}`}
                           aria-haspopup="menu"
                           aria-expanded={actionMenu?.userId === user.id}
@@ -929,7 +925,7 @@ export default function UsersContent() {
                 type="button"
                 disabled={safePage === 1}
                 onClick={() => setPage((current) => Math.max(1, current - 1))}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white text-muted-foreground transition-colors hover:text-foreground disabled:cursor-not-allowed disabled:opacity-35"
+                className="btn-page !w-8 px-0 disabled:opacity-35"
                 aria-label="Page précédente"
               >
                 <ChevronLeft size={14} />
@@ -939,7 +935,7 @@ export default function UsersContent() {
                   key={pageNumber}
                   type="button"
                   onClick={() => setPage(pageNumber)}
-                  className={`flex h-8 min-w-8 items-center justify-center rounded-lg px-2 text-[11px] font-semibold transition-colors ${safePage === pageNumber ? 'bg-primary text-white' : 'border border-border bg-white text-muted-foreground hover:text-foreground'}`}
+                  className={`btn-page ${safePage === pageNumber ? 'btn-page-active' : ''}`}
                   aria-label={`Page ${pageNumber}`}
                   aria-current={safePage === pageNumber ? 'page' : undefined}
                 >
@@ -950,7 +946,7 @@ export default function UsersContent() {
                 type="button"
                 disabled={safePage === totalPages}
                 onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
-                className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white text-muted-foreground transition-colors hover:text-foreground disabled:cursor-not-allowed disabled:opacity-35"
+                className="btn-page !w-8 px-0 disabled:opacity-35"
                 aria-label="Page suivante"
               >
                 <ChevronRight size={14} />
@@ -1010,7 +1006,7 @@ export default function UsersContent() {
                     item.action();
                     setActionMenu(null);
                   }}
-                  className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-[11px] font-medium text-[#5e5762] transition-colors hover:bg-muted hover:text-foreground"
+                  className="btn-menu text-[11px]"
                 >
                   <Icon size={14} />
                   {item.label}
@@ -1025,7 +1021,7 @@ export default function UsersContent() {
                 router.push(`/admin/utilisatrices/${actionUser.id}?action=delete`);
                 setActionMenu(null);
               }}
-              className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-[11px] font-medium text-danger transition-colors hover:bg-danger-bg"
+              className="btn-menu-danger text-[11px]"
             >
               <Trash2 size={14} />
               Supprimer

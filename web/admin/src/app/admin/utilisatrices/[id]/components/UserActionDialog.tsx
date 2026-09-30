@@ -96,14 +96,14 @@ export default function UserActionDialog({
 
   return (
     <div
-      className="fixed inset-0 z-[90] flex items-center justify-center bg-[#2b2232]/45 p-4 backdrop-blur-[2px]"
+      className="fixed inset-0 z-[90] flex items-center justify-center bg-primary/40 p-4 backdrop-blur-[2px]"
       onMouseDown={(event) => event.target === event.currentTarget && onClose()}
     >
       <section
         role="dialog"
         aria-modal="true"
         aria-labelledby="user-action-title"
-        className="max-h-[92vh] w-full max-w-[560px] overflow-y-auto rounded-[20px] border border-border bg-[#fcfaf7] shadow-modal"
+        className="max-h-[92vh] w-full max-w-[560px] overflow-y-auto rounded-[24px] border border-border bg-card shadow-modal"
       >
         <header className="flex items-start justify-between gap-4 border-b border-border px-5 py-4 sm:px-6">
           <div>
@@ -119,7 +119,7 @@ export default function UserActionDialog({
             ref={closeRef}
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="btn-icon-sm border-0 shadow-none"
             aria-label="Fermer"
           >
             <X size={17} />
@@ -230,10 +230,10 @@ export default function UserActionDialog({
             <button
               type="submit"
               disabled={!canSubmit}
-              className={`inline-flex h-10 items-center justify-center gap-2 rounded-xl px-4 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-45 ${
+              className={`h-10 px-4 text-xs ${
                 action === 'delete' || action === 'suspend' || action === 'disable'
-                  ? 'bg-[#a65f58] hover:bg-[#92514b]'
-                  : 'bg-primary hover:bg-primary-light'
+                  ? 'btn-danger'
+                  : 'btn-primary'
               }`}
             >
               {submitting && <Loader2 size={14} className="animate-spin" />}
