@@ -44,9 +44,8 @@ const AppImage = memo(function AppImage({
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
 
-    // Remote images from hosts allow-listed in image-hosts.config.mjs are resized/re-encoded by the
-    // Next.js optimizer too; forcing them unoptimized shipped 1.2-1.4 MB PNG avatars at 128px.
-    const resolvedUnoptimized = unoptimized;
+    const isExternalUrl = useMemo(() => typeof imageSrc === 'string' && imageSrc.startsWith('http'), [imageSrc]);
+    const resolvedUnoptimized = unoptimized || isExternalUrl;
 
     const handleError = useCallback(() => {
         if (!hasError && imageSrc !== fallbackSrc) {
@@ -95,14 +94,13 @@ const AppImage = memo(function AppImage({
     }, [imageSrc, alt, imageClassName, quality, placeholder, blurDataURL, resolvedUnoptimized, priority, loading, handleError, handleLoad, onClick]);
 
     if (fill) {
-        const hasObjectFitClass = /\bobject-(contain|cover|fill|none|scale-down)\b/.test(className);
         return (
             <div className="relative" style={{ width: '100%', height: '100%' }}>
                 <Image
                     {...imageProps}
                     fill
                     sizes={sizes || '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'}
-                    style={hasObjectFitClass ? undefined : { objectFit: 'cover' }}
+                    style={{ objectFit: 'cover' }}
                     {...props}
                 />
             </div>
