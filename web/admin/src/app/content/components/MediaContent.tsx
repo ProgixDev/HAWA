@@ -168,17 +168,10 @@ function UploadForm({
         ))}
       </SelectField>
       <div className="flex justify-end gap-2 border-t border-border pt-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold hover:bg-muted"
-        >
+        <button type="button" onClick={onCancel} className="btn-secondary h-10 px-4 text-xs">
           Annuler
         </button>
-        <button
-          type="submit"
-          className="h-10 rounded-xl bg-primary px-5 text-xs font-semibold text-white hover:opacity-90"
-        >
+        <button type="submit" className="btn-primary h-10 px-5 text-xs">
           {replacement ? 'Remplacer' : 'Ajouter le média'}
         </button>
       </div>
@@ -367,7 +360,7 @@ export default function MediaContent() {
           <button
             type="button"
             onClick={() => setShowMore((value) => !value)}
-            className={`inline-flex h-10 items-center gap-2 rounded-xl border px-3 text-xs font-semibold ${showMore ? 'border-primary/25 bg-primary-ghost text-primary' : 'border-border bg-white text-foreground hover:bg-muted'}`}
+            className={`btn-filter h-10 px-3 ${showMore ? 'btn-filter-active' : ''}`}
           >
             <Filter size={14} /> Plus de filtres
           </button>
@@ -443,7 +436,7 @@ export default function MediaContent() {
                   <button
                     type="button"
                     onClick={() => setModal({ type: 'view', item })}
-                    className="block w-full overflow-hidden text-left"
+                    className="btn-card block w-full overflow-hidden text-left"
                   >
                     <MediaPreview item={item} />
                   </button>
@@ -589,14 +582,11 @@ export default function MediaContent() {
                 <button
                   type="button"
                   onClick={() => setModal(null)}
-                  className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold"
+                  className="btn-secondary h-10 px-4 text-xs"
                 >
                   Annuler
                 </button>
-                <button
-                  type="submit"
-                  className="h-10 rounded-xl bg-primary px-5 text-xs font-semibold text-white"
-                >
+                <button type="submit" className="btn-primary h-10 px-5 text-xs">
                   Renommer
                 </button>
               </div>

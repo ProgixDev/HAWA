@@ -209,17 +209,10 @@ function CategoryForm({
         Catégorie active
       </label>
       <div className="flex justify-end gap-2 border-t border-border pt-4">
-        <button
-          type="button"
-          onClick={onCancel}
-          className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold hover:bg-muted"
-        >
+        <button type="button" onClick={onCancel} className="btn-secondary h-10 px-4 text-xs">
           Annuler
         </button>
-        <button
-          type="submit"
-          className="h-10 rounded-xl bg-primary px-5 text-xs font-semibold text-white hover:opacity-90"
-        >
+        <button type="submit" className="btn-primary h-10 px-5 text-xs">
           {category ? 'Enregistrer' : 'Ajouter la catégorie'}
         </button>
       </div>
@@ -277,7 +270,11 @@ function CategoryCard({
         )}
       </div>
 
-      <button type="button" onClick={onOpen} className="flex w-full items-center gap-4 text-left">
+      <button
+        type="button"
+        onClick={onOpen}
+        className="btn-card flex w-full items-center gap-4 text-left"
+      >
         <span
           className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl"
           style={{ backgroundColor: `${category.color}18`, color: category.color }}
@@ -315,7 +312,7 @@ function CategoryCard({
               type="button"
               disabled={first}
               onClick={() => onMove(-1)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white text-muted-foreground hover:text-primary disabled:cursor-not-allowed disabled:opacity-35"
+              className="btn-icon-sm disabled:opacity-35"
               aria-label={`Monter ${category.name}`}
             >
               <ArrowUp size={14} />
@@ -324,7 +321,7 @@ function CategoryCard({
               type="button"
               disabled={last}
               onClick={() => onMove(1)}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-border bg-white text-muted-foreground hover:text-primary disabled:cursor-not-allowed disabled:opacity-35"
+              className="btn-icon-sm disabled:opacity-35"
               aria-label={`Descendre ${category.name}`}
             >
               <ArrowDown size={14} />
@@ -378,11 +375,7 @@ function CategorySection({
         <button
           type="button"
           onClick={onToggleOrder}
-          className={`inline-flex h-9 shrink-0 items-center justify-center gap-2 rounded-xl border px-3 text-[11px] font-semibold transition-colors ${
-            reorderMode
-              ? 'border-primary/25 bg-primary-ghost text-primary'
-              : 'border-border bg-white text-foreground hover:bg-muted'
-          }`}
+          className={`btn-filter h-9 shrink-0 px-3 text-[11px] ${reorderMode ? 'btn-filter-active' : ''}`}
         >
           <ListOrdered size={14} />
           {reorderMode ? 'Terminer' : 'Gérer l’ordre'}

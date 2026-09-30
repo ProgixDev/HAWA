@@ -248,17 +248,13 @@ function ReviewDialog({
         <HistoryList record={record} />
 
         <div className="flex flex-col-reverse gap-2 border-t border-border pt-4 sm:flex-row sm:justify-end">
-          <button
-            type="button"
-            onClick={onClose}
-            className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold text-foreground hover:bg-muted"
-          >
+          <button type="button" onClick={onClose} className="btn-secondary h-10 px-4 text-xs">
             Annuler
           </button>
           <button
             type="button"
             onClick={() => submit('rejected')}
-            className="h-10 rounded-xl border border-danger/30 bg-white px-4 text-xs font-semibold text-danger hover:bg-danger-bg"
+            className="btn-danger h-10 px-4 text-xs"
           >
             Refuser
           </button>

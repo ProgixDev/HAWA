@@ -368,7 +368,7 @@ export default function ReligiousArticlesContent({
                   </td>
                   <td className="px-4 py-4">
                     <details className="group relative">
-                      <summary className="mx-auto flex h-8 w-8 cursor-pointer list-none items-center justify-center rounded-lg text-muted-foreground hover:bg-muted [&::-webkit-details-marker]:hidden">
+                      <summary className="btn-icon-sm mx-auto cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                         <MoreHorizontal size={17} />
                       </summary>
                       <div className="absolute right-0 z-30 mt-1 w-52 rounded-xl border border-border bg-white p-1.5 shadow-dropdown">
@@ -381,7 +381,7 @@ export default function ReligiousArticlesContent({
                                 ? setModal({ type: name as 'view' | 'edit', article })
                                 : setModal({ type: 'action', article, action: String(name) })
                             }
-                            className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-xs font-medium hover:bg-muted ${name === 'delete' ? 'text-danger' : 'text-foreground'}`}
+                            className={name === 'delete' ? 'btn-menu-danger' : 'btn-menu'}
                           >
                             <Icon size={14} />
                             {label}
