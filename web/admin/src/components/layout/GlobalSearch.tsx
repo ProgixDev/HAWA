@@ -105,7 +105,7 @@ export default function GlobalSearch() {
 
   return (
     <div ref={containerRef} className="relative hidden md:flex items-center">
-      <div className="relative w-[220px]">
+      <div className="relative w-[240px] xl:w-[280px]">
         <Search
           size={15}
           className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground/60 pointer-events-none"
@@ -134,7 +134,7 @@ export default function GlobalSearch() {
           aria-haspopup="listbox"
           aria-autocomplete="list"
           autoComplete="off"
-          className="w-full h-9 pl-9 pr-8 rounded-xl border border-border bg-muted/40 text-sm text-foreground placeholder:text-muted-foreground/70 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40"
+          className="h-10 w-full rounded-full border border-border bg-white pl-9 pr-8 text-sm text-foreground shadow-[0_2px_8px_rgba(73,45,70,0.04)] transition-all placeholder:text-muted-foreground/70 focus:border-accent/60 focus:outline-none focus:ring-4 focus:ring-accent/10"
         />
         {hasQuery && (
           <button
@@ -144,7 +144,7 @@ export default function GlobalSearch() {
               setOpen(false);
               inputRef.current?.focus();
             }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 p-0.5 rounded-full text-muted-foreground/60 hover:text-foreground hover:bg-muted transition-colors"
+            className="btn-icon-sm absolute right-2 top-1/2 !h-6 !w-6 -translate-y-1/2 border-0 shadow-none"
             aria-label="Effacer la recherche"
           >
             <X size={13} />
@@ -157,7 +157,7 @@ export default function GlobalSearch() {
           id="global-search-results"
           role="listbox"
           aria-label="Résultats de la recherche"
-          className="absolute right-0 top-full mt-2 w-80 max-w-[calc(100vw-2rem)] max-h-[420px] overflow-y-auto scrollbar-thin bg-card rounded-2xl border border-border shadow-dropdown z-50"
+          className="scrollbar-thin absolute right-0 top-full z-50 mt-2 max-h-[420px] w-80 max-w-[calc(100vw-2rem)] overflow-y-auto rounded-[22px] border border-border bg-card shadow-dropdown"
         >
           {resultCount === 0 ? (
             <div className="px-4 py-6 text-center">
@@ -190,9 +190,7 @@ export default function GlobalSearch() {
                           aria-selected={active}
                           onMouseEnter={() => setActiveIndex(index)}
                           onClick={() => goToResult(item.href)}
-                          className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left transition-colors ${
-                            active ? 'bg-primary-ghost/60' : 'hover:bg-muted/50'
-                          }`}
+                          className={`btn-option ${active ? 'bg-primary-ghost/60' : ''}`}
                         >
                           <span className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground">
                             <Icon size={15} />

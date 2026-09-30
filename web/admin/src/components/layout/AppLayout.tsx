@@ -13,7 +13,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background">
+    <div className="admin-shell min-h-screen overflow-x-hidden bg-background">
       <Sidebar
         collapsed={sidebarCollapsed}
         mobileOpen={mobileSidebarOpen}
@@ -31,7 +31,9 @@ export default function AppLayout({ children }: AppLayoutProps) {
         }`}
         style={{ paddingTop: 'var(--topbar-height)' }}
       >
-        <div className="max-w-screen-2xl mx-auto px-6 lg:px-8 xl:px-10 py-8">{children}</div>
+        <div className="mx-auto max-w-screen-2xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8 xl:px-10">
+          {children}
+        </div>
       </main>
     </div>
   );

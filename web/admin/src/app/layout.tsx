@@ -1,20 +1,20 @@
 import React from 'react';
 import type { Metadata, Viewport } from 'next';
-import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
+import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import '../styles/tailwind.css';
 import { Toaster } from 'sonner';
 
-const plusJakarta = Plus_Jakarta_Sans({
+const dmSans = DM_Sans({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta',
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-dm-sans',
   display: 'swap',
 });
 
-const manrope = Manrope({
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  variable: '--font-manrope',
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-cormorant',
   display: 'swap',
 });
 
@@ -38,15 +38,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className={`${plusJakarta.variable} ${manrope.variable}`}>
-      <body className={manrope.className}>
+    <html lang="fr" className={`${dmSans.variable} ${cormorantGaramond.variable}`}>
+      <body className={dmSans.className}>
         {children}
         <Toaster
           position="bottom-right"
           toastOptions={{
             style: {
-              fontFamily: 'var(--font-manrope)',
-              borderRadius: '14px',
+              fontFamily: 'var(--font-dm-sans)',
+              borderRadius: '18px',
               border: '1px solid var(--border)',
               background: 'var(--card)',
               color: 'var(--foreground)',
