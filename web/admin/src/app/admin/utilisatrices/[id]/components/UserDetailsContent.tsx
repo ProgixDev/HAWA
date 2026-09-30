@@ -112,7 +112,7 @@ export default function UserDetailsContent({
               <summary className="btn-secondary h-10 cursor-pointer list-none px-4 text-xs [&::-webkit-details-marker]:hidden">
                 <MoreHorizontal size={15} /> Autres <ChevronDown size={13} />
               </summary>
-              <div className="absolute right-0 z-30 mt-1.5 w-56 rounded-xl border border-border bg-white p-1.5 shadow-dropdown">
+              <div className="absolute left-0 z-30 mt-1.5 w-56 rounded-xl border border-border bg-white p-1.5 shadow-dropdown sm:left-auto sm:right-0">
                 <button type="button" onClick={() => setDialog('update')} className="btn-menu">
                   <Pencil size={14} /> Modifier le profil
                 </button>

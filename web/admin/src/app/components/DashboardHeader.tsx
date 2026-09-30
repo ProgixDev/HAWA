@@ -32,7 +32,7 @@ export default function DashboardHeader({
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8"
+      className="mb-8 flex flex-col justify-between gap-4 lg:flex-row lg:items-end"
     >
       <div>
         <h1 className="font-display text-3xl font-semibold text-foreground sm:text-[34px]">
@@ -43,8 +43,8 @@ export default function DashboardHeader({
         </p>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        <div className="flex flex-shrink-0 items-center gap-2 rounded-full border border-border bg-card p-1 shadow-card">
+      <div className="flex min-w-0 flex-wrap items-center gap-2">
+        <div className="flex max-w-full flex-wrap items-center gap-2 rounded-[22px] border border-border bg-card p-1 shadow-card sm:rounded-full">
           <CalendarDays size={15} className="text-muted-foreground ml-2" />
           {DASHBOARD_RANGES.map((range) => (
             <button
