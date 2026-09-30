@@ -50,7 +50,7 @@ export function ConfigurationSearch({
         value={value}
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
-        className="h-10 w-full rounded-xl border border-border bg-[#f8f6f8] pl-10 pr-3 text-xs text-foreground outline-none placeholder:text-muted-foreground/70 focus:border-primary focus:ring-2 focus:ring-primary/15"
+        className="h-10 w-full rounded-full border border-border bg-white pl-10 pr-3 text-xs text-foreground outline-none transition-all placeholder:text-muted-foreground/70 focus:border-accent/60 focus:ring-4 focus:ring-accent/10"
       />
     </label>
   );
@@ -99,7 +99,7 @@ export function Switch({
       aria-label={label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className={`relative inline-flex h-6 w-11 shrink-0 rounded-full border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-45 ${
+      className={`btn-switch h-6 w-11 focus:outline-none disabled:opacity-45 ${
         checked ? 'border-primary bg-primary' : 'border-[#cfc8d5] bg-[#dcd7e1]'
       }`}
     >
@@ -128,7 +128,7 @@ export function PrimaryButton({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary px-4 text-xs font-semibold text-white shadow-[0_6px_18px_rgba(81,64,95,0.16)] transition-colors hover:bg-primary-light focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/35 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-55"
+      className="btn-primary h-10 shrink-0 px-4 text-xs"
     >
       {children}
     </button>
@@ -149,7 +149,7 @@ export function SecondaryButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="inline-flex h-9 items-center justify-center gap-1.5 rounded-xl border border-border bg-white px-3 text-[11px] font-semibold text-foreground transition-colors hover:bg-muted focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 disabled:cursor-not-allowed disabled:opacity-45"
+      className="btn-secondary h-9 px-3 text-[11px]"
     >
       {children}
     </button>
@@ -157,10 +157,10 @@ export function SecondaryButton({
 }
 
 export const fieldClassName =
-  'h-11 w-full rounded-xl border border-border bg-white px-3.5 text-sm text-foreground outline-none placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/15 disabled:cursor-not-allowed disabled:bg-[#f4f1f5] disabled:text-muted-foreground';
+  'h-11 w-full rounded-[14px] border border-border bg-white px-3.5 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:border-accent/60 focus:ring-4 focus:ring-accent/10 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground';
 
 export const textAreaClassName =
-  'w-full rounded-xl border border-border bg-white px-3.5 py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/15';
+  'w-full rounded-[14px] border border-border bg-white px-3.5 py-3 text-sm text-foreground outline-none transition-all placeholder:text-muted-foreground/60 focus:border-accent/60 focus:ring-4 focus:ring-accent/10';
 
 export function FieldLabel({ children }: { children: React.ReactNode }) {
   return <span className="mb-1.5 block text-xs font-semibold text-foreground">{children}</span>;

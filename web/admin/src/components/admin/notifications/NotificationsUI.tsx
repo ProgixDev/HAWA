@@ -256,14 +256,14 @@ export function CampaignForm({
         <button
           type="button"
           onClick={() => submit('draft')}
-          className="h-10 rounded-xl border border-border bg-white px-4 text-xs font-semibold text-foreground hover:bg-muted"
+          className="btn-secondary h-10 px-4 text-xs"
         >
           Enregistrer le brouillon
         </button>
         <button
           type="button"
           onClick={() => submit('schedule')}
-          className="h-10 rounded-xl border border-primary/30 bg-white px-4 text-xs font-semibold text-primary hover:bg-primary-ghost"
+          className="btn-filter h-10 border-primary/30 px-4 text-primary"
         >
           Programmer
         </button>

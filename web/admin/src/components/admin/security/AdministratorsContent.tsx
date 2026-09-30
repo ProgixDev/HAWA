@@ -419,10 +419,10 @@ export default function AdministratorsContent() {
             type="button"
             onClick={() => setFiltersOpen((current) => !current)}
             aria-expanded={filtersOpen}
-            className={`inline-flex h-10 items-center justify-center gap-2 rounded-xl border px-4 text-xs font-semibold transition-colors ${
+            className={`btn-filter h-10 px-4 ${
               filtersOpen || roleFilter !== 'all' || statusFilter !== 'all'
-                ? 'border-primary/25 bg-primary-ghost text-primary'
-                : 'border-border bg-white text-foreground hover:bg-muted'
+                ? 'btn-filter-active'
+                : ''
             }`}
           >
             <Filter size={14} /> Filtrer
@@ -463,7 +463,7 @@ export default function AdministratorsContent() {
                       setRoleFilter('all');
                       setStatusFilter('all');
                     }}
-                    className="h-10 px-3 text-xs font-semibold text-muted-foreground hover:text-foreground"
+                    className="btn-ghost h-10 px-3 text-xs"
                   >
                     Réinitialiser
                   </button>

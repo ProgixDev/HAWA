@@ -102,10 +102,8 @@ export default function FeatureFlagsContent() {
                 type="button"
                 onClick={() => setFilter(item)}
                 aria-pressed={filter === item}
-                className={`relative shrink-0 rounded-xl px-3 py-2 text-[11px] font-semibold transition-colors ${
-                  filter === item
-                    ? 'bg-primary-pale text-primary'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                className={`btn-tab relative shrink-0 px-3 py-2 text-[11px] ${
+                  filter === item ? 'btn-tab-active' : ''
                 }`}
               >
                 {item} <span className="ml-1 opacity-65">{counts[item]}</span>
