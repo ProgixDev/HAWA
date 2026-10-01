@@ -6,6 +6,7 @@ import type {
   SymptomSeverity,
 } from '../types/journal';
 import {formatFullDate} from '../utils/cycleMath';
+import i18n from '../i18n';
 
 // Pure data-shaping/serialization logic for the Medical Export feature
 // (DataExportScreen). Deliberately free of any native import (no
@@ -46,51 +47,79 @@ export type ExportReportModel = {
   days: {date: string; dateLabel: string; categories: {label: string; lines: string[]}[]}[];
 };
 
-const MOOD_LABELS: Record<MoodLevel, string> = {
-  veryGood: 'Très bien',
-  good: 'Bien',
-  neutral: 'Neutre',
-  stressed: 'Stressée',
-  irritable: 'Irritable',
-  anxious: 'Anxieuse',
-  sad: 'Triste',
-  tired: 'Fatiguée',
-  motivated: 'Motivée',
-};
+// i18n (Phase 6): this is a plain data-shaping file, not a component, so it
+// cannot call `useTranslation()`. Every label map below is built with the
+// i18n singleton (same pattern as menopauseJournalConfig.ts's own
+// MENOPAUSE_MOOD_LABELS etc.) and kept as a plain `Record<Enum, string>`,
+// refreshed IN PLACE on `languageChanged` via `Object.assign()` — so every
+// existing call site (`MOOD_LABELS[mood]`, `formatEnumOrRaw(value, LABELS)`)
+// keeps working unchanged; only the object's own values are ever replaced.
 
-const FLOW_LABELS: Record<FlowIntensity, string> = {
-  none: 'Aucun',
-  light: 'Léger',
-  moderate: 'Modéré',
-  heavy: 'Abondant',
-  veryHeavy: 'Très abondant',
-};
+function buildMoodLabels(): Record<MoodLevel, string> {
+  return {
+    veryGood: i18n.t('export.enums.mood.veryGood'),
+    good: i18n.t('export.enums.mood.good'),
+    neutral: i18n.t('export.enums.mood.neutral'),
+    stressed: i18n.t('export.enums.mood.stressed'),
+    irritable: i18n.t('export.enums.mood.irritable'),
+    anxious: i18n.t('export.enums.mood.anxious'),
+    sad: i18n.t('export.enums.mood.sad'),
+    tired: i18n.t('export.enums.mood.tired'),
+    motivated: i18n.t('export.enums.mood.motivated'),
+  };
+}
+const MOOD_LABELS: Record<MoodLevel, string> = buildMoodLabels();
+i18n.on('languageChanged', () => Object.assign(MOOD_LABELS, buildMoodLabels()));
+
+function buildFlowLabels(): Record<FlowIntensity, string> {
+  return {
+    none: i18n.t('export.enums.flow.none'),
+    light: i18n.t('export.enums.flow.light'),
+    moderate: i18n.t('export.enums.flow.moderate'),
+    heavy: i18n.t('export.enums.flow.heavy'),
+    veryHeavy: i18n.t('export.enums.flow.veryHeavy'),
+  };
+}
+const FLOW_LABELS: Record<FlowIntensity, string> = buildFlowLabels();
+i18n.on('languageChanged', () => Object.assign(FLOW_LABELS, buildFlowLabels()));
 
 // 'severe' is what the symptom screen persists for BOTH its "Forte" and "Très
 // forte" choices (see INTENSITIES in JournalSymptomsScreen.tsx) — the stored
 // value cannot tell them apart, so the export says exactly that instead of
 // guessing one.
-const SEVERITY_LABELS: Record<SymptomSeverity, string> = {
-  mild: 'Légère',
-  moderate: 'Modérée',
-  severe: 'Forte / très forte',
-};
+function buildSeverityLabels(): Record<SymptomSeverity, string> {
+  return {
+    mild: i18n.t('export.enums.severity.mild'),
+    moderate: i18n.t('export.enums.severity.moderate'),
+    severe: i18n.t('export.enums.severity.severe'),
+  };
+}
+const SEVERITY_LABELS: Record<SymptomSeverity, string> = buildSeverityLabels();
+i18n.on('languageChanged', () => Object.assign(SEVERITY_LABELS, buildSeverityLabels()));
 
 // Same wording the TTC Calendar/Statistics show for each cervical-mucus type.
-const CERVICAL_MUCUS_LABELS: Record<CervicalMucusType, string> = {
-  dry: 'Sèche',
-  sticky: 'Collante',
-  creamy: 'Crémeuse',
-  watery: 'Aqueuse',
-  eggWhite: 'Claire et élastique',
-};
+function buildCervicalMucusLabels(): Record<CervicalMucusType, string> {
+  return {
+    dry: i18n.t('export.enums.cervicalMucus.dry'),
+    sticky: i18n.t('export.enums.cervicalMucus.sticky'),
+    creamy: i18n.t('export.enums.cervicalMucus.creamy'),
+    watery: i18n.t('export.enums.cervicalMucus.watery'),
+    eggWhite: i18n.t('export.enums.cervicalMucus.eggWhite'),
+  };
+}
+const CERVICAL_MUCUS_LABELS: Record<CervicalMucusType, string> = buildCervicalMucusLabels();
+i18n.on('languageChanged', () => Object.assign(CERVICAL_MUCUS_LABELS, buildCervicalMucusLabels()));
 
 // Same wording as the "Protection utilisée ?" choices of the intimacy screens.
-const PROTECTION_LABELS: Record<'yes' | 'no' | 'unknown', string> = {
-  yes: 'Oui',
-  no: 'Non',
-  unknown: 'Non renseigné',
-};
+function buildProtectionLabels(): Record<'yes' | 'no' | 'unknown', string> {
+  return {
+    yes: i18n.t('export.enums.protection.yes'),
+    no: i18n.t('export.enums.protection.no'),
+    unknown: i18n.t('export.enums.protection.unknown'),
+  };
+}
+const PROTECTION_LABELS: Record<'yes' | 'no' | 'unknown', string> = buildProtectionLabels();
+i18n.on('languageChanged', () => Object.assign(PROTECTION_LABELS, buildProtectionLabels()));
 
 /** Filters real dailyJournalStore entries down to the selected lookback
  * window. `now` is an explicit parameter (never `new Date()` internally) so
@@ -163,17 +192,24 @@ export function formatProtectionLabel(protection: string): string {
 // Daily-journal sections whose free-text `note` is encrypted at rest
 // (dailyJournalStore.ts encrypts EVERY `<section>.note`), with the label each
 // note is filed under in the sensitive "notes" category.
-const SECTION_NOTE_LABELS = {
-  symptoms: 'Symptômes',
-  mood: 'Humeur',
-  flow: 'Flux menstruel',
-  sleep: 'Sommeil',
-  activity: 'Activité',
-  temperature: 'Température basale',
-  weight: 'Poids',
-  cervicalMucus: 'Glaire cervicale',
-  lhTest: 'Tests d’ovulation (LH)',
-} as const;
+function buildSectionNoteLabels(): Record<
+  'symptoms' | 'mood' | 'flow' | 'sleep' | 'activity' | 'temperature' | 'weight' | 'cervicalMucus' | 'lhTest',
+  string
+> {
+  return {
+    symptoms: i18n.t('export.sectionNotes.symptoms'),
+    mood: i18n.t('export.sectionNotes.mood'),
+    flow: i18n.t('export.sectionNotes.flow'),
+    sleep: i18n.t('export.sectionNotes.sleep'),
+    activity: i18n.t('export.sectionNotes.activity'),
+    temperature: i18n.t('export.sectionNotes.temperature'),
+    weight: i18n.t('export.sectionNotes.weight'),
+    cervicalMucus: i18n.t('export.sectionNotes.cervicalMucus'),
+    lhTest: i18n.t('export.sectionNotes.lhTest'),
+  };
+}
+const SECTION_NOTE_LABELS = buildSectionNoteLabels();
+i18n.on('languageChanged', () => Object.assign(SECTION_NOTE_LABELS, buildSectionNoteLabels()));
 
 type NoteSection = keyof typeof SECTION_NOTE_LABELS;
 
@@ -204,20 +240,20 @@ export function formatSectionNoteLines(entry: DailyJournalEntry, sections: reado
 export function formatCategoryValue(category: string, entry: DailyJournalEntry): string[] {
   switch (category) {
     case 'cycle':
-      return entry.cycleDay !== undefined ? [`Jour du cycle : ${entry.cycleDay}`] : [];
+      return entry.cycleDay !== undefined ? [`${i18n.t('export.fields.cycleDay')} : ${entry.cycleDay}`] : [];
 
     case 'flow': {
       const flow = entry.flow;
       if (!flow) {return [];}
       const lines: string[] = [];
       const intensity = formatEnumOrRaw(flow.intensity, FLOW_LABELS);
-      if (intensity) {lines.push(`Flux : ${intensity}`);}
-      if (flow.color) {lines.push(`Couleur : ${flow.color}`);}
-      if (flow.clots) {lines.push(`Caillots : ${flow.clots}`);}
-      if (flow.protections?.length) {lines.push(`Protections : ${flow.protections.join(', ')}`);}
-      if (flow.periodStart) {lines.push('Début des règles');}
-      if (flow.periodEnd) {lines.push('Fin des règles');}
-      if (flow.pain) {lines.push(`Douleur : ${flow.pain}`);}
+      if (intensity) {lines.push(`${i18n.t('export.fields.flow')} : ${intensity}`);}
+      if (flow.color) {lines.push(`${i18n.t('export.fields.color')} : ${flow.color}`);}
+      if (flow.clots) {lines.push(`${i18n.t('export.fields.clots')} : ${flow.clots}`);}
+      if (flow.protections?.length) {lines.push(`${i18n.t('export.fields.protections')} : ${flow.protections.join(', ')}`);}
+      if (flow.periodStart) {lines.push(i18n.t('export.fields.periodStart'));}
+      if (flow.periodEnd) {lines.push(i18n.t('export.fields.periodEnd'));}
+      if (flow.pain) {lines.push(`${i18n.t('export.fields.pain')} : ${flow.pain}`);}
       return lines;
     }
 
@@ -225,10 +261,10 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const symptoms = entry.symptoms;
       if (!symptoms?.names?.length) {return [];}
       const lines: string[] = [];
-      lines.push(`Symptômes : ${symptoms.names.join(', ')}`);
+      lines.push(`${i18n.t('export.fields.symptoms')} : ${symptoms.names.join(', ')}`);
       const severity = formatEnumOrRaw(symptoms.severity, SEVERITY_LABELS);
-      if (severity) {lines.push(`Intensité : ${severity}`);}
-      if (symptoms.painLocation) {lines.push(`Localisation : ${symptoms.painLocation}`);}
+      if (severity) {lines.push(`${i18n.t('export.fields.intensity')} : ${severity}`);}
+      if (symptoms.painLocation) {lines.push(`${i18n.t('export.fields.location')} : ${symptoms.painLocation}`);}
       return lines;
     }
 
@@ -237,11 +273,11 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (!mood) {return [];}
       const lines: string[] = [];
       const level = formatEnumOrRaw(mood.level, MOOD_LABELS);
-      if (level) {lines.push(`Humeur : ${level}`);}
-      if (mood.energy !== undefined) {lines.push(`Énergie : ${mood.energy}/5`);}
-      if (mood.stress !== undefined) {lines.push(`Stress : ${mood.stress}/5`);}
-      if (mood.irritability !== undefined) {lines.push(`Irritabilité : ${mood.irritability}/5`);}
-      if (mood.motivation !== undefined) {lines.push(`Motivation : ${mood.motivation}/5`);}
+      if (level) {lines.push(`${i18n.t('export.fields.mood')} : ${level}`);}
+      if (mood.energy !== undefined) {lines.push(`${i18n.t('export.fields.energy')} : ${mood.energy}/5`);}
+      if (mood.stress !== undefined) {lines.push(`${i18n.t('export.fields.stress')} : ${mood.stress}/5`);}
+      if (mood.irritability !== undefined) {lines.push(`${i18n.t('export.fields.irritability')} : ${mood.irritability}/5`);}
+      if (mood.motivation !== undefined) {lines.push(`${i18n.t('export.fields.motivation')} : ${mood.motivation}/5`);}
       return lines;
     }
 
@@ -249,63 +285,67 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const sleep = entry.sleep;
       if (!sleep) {return [];}
       const lines: string[] = [];
-      if (sleep.bedtime) {lines.push(`Coucher : ${sleep.bedtime}`);}
-      if (sleep.wakeTime) {lines.push(`Réveil : ${sleep.wakeTime}`);}
-      if (sleep.duration) {lines.push(`Durée : ${sleep.duration}`);}
-      if (sleep.quality) {lines.push(`Qualité : ${sleep.quality}`);}
-      if (sleep.awakenings !== undefined) {lines.push(`Réveils nocturnes : ${sleep.awakenings}`);}
-      if (sleep.wakeFeeling) {lines.push(`Ressenti au réveil : ${sleep.wakeFeeling}`);}
+      if (sleep.bedtime) {lines.push(`${i18n.t('export.fields.bedtime')} : ${sleep.bedtime}`);}
+      if (sleep.wakeTime) {lines.push(`${i18n.t('export.fields.wakeTime')} : ${sleep.wakeTime}`);}
+      if (sleep.duration) {lines.push(`${i18n.t('export.fields.duration')} : ${sleep.duration}`);}
+      if (sleep.quality) {lines.push(`${i18n.t('export.fields.quality')} : ${sleep.quality}`);}
+      if (sleep.awakenings !== undefined) {lines.push(`${i18n.t('export.fields.nightWakenings')} : ${sleep.awakenings}`);}
+      if (sleep.wakeFeeling) {lines.push(`${i18n.t('export.fields.wakeFeeling')} : ${sleep.wakeFeeling}`);}
       return lines;
     }
 
     case 'activity': {
       const activity = entry.activity;
-      if (!activity || activity.none) {return activity?.none ? ['Aucune activité'] : [];}
+      if (!activity || activity.none) {return activity?.none ? [i18n.t('export.fields.noActivity')] : [];}
       const lines: string[] = [];
-      if (activity.type) {lines.push(`Type : ${activity.type}`);}
-      if (activity.durationMinutes !== undefined) {lines.push(`Durée : ${activity.durationMinutes} min`);}
-      if (activity.intensity) {lines.push(`Intensité : ${activity.intensity}`);}
-      if (activity.feeling) {lines.push(`Ressenti : ${activity.feeling}`);}
+      if (activity.type) {lines.push(`${i18n.t('export.fields.type')} : ${activity.type}`);}
+      if (activity.durationMinutes !== undefined) {lines.push(`${i18n.t('export.fields.duration')} : ${activity.durationMinutes} min`);}
+      if (activity.intensity) {lines.push(`${i18n.t('export.fields.intensity')} : ${activity.intensity}`);}
+      if (activity.feeling) {lines.push(`${i18n.t('export.fields.feeling')} : ${activity.feeling}`);}
       return lines;
     }
 
     case 'hydration': {
       const hydration = entry.hydration;
       if (!hydration) {return [];}
-      const lines: string[] = [`Eau bue : ${hydration.milliliters} ml`];
-      if (hydration.glasses !== undefined) {lines.push(`Verres : ${hydration.glasses}`);}
+      const lines: string[] = [`${i18n.t('export.fields.waterDrunk')} : ${hydration.milliliters} ml`];
+      if (hydration.glasses !== undefined) {lines.push(`${i18n.t('export.fields.glasses')} : ${hydration.glasses}`);}
       return lines;
     }
 
     case 'temperature': {
       const temperature = entry.temperature;
       if (!temperature) {return [];}
-      const lines: string[] = [`Température : ${temperature.value}°${temperature.unit}`];
-      if (temperature.time) {lines.push(`Heure de prise : ${temperature.time}`);}
-      if (temperature.method) {lines.push(`Méthode : ${temperature.method}`);}
+      const lines: string[] = [`${i18n.t('export.fields.temperature')} : ${temperature.value}°${temperature.unit}`];
+      if (temperature.time) {lines.push(`${i18n.t('export.fields.measurementTime')} : ${temperature.time}`);}
+      if (temperature.method) {lines.push(`${i18n.t('export.fields.method')} : ${temperature.method}`);}
       return lines;
     }
 
     case 'weight': {
       const weight = entry.weight;
       if (!weight?.value) {return [];}
-      const lines: string[] = [`Poids : ${weight.value} ${weight.unit}`];
-      if (weight.moment) {lines.push(`Moment : ${weight.moment}`);}
+      const lines: string[] = [`${i18n.t('export.fields.weight')} : ${weight.value} ${weight.unit}`];
+      if (weight.moment) {lines.push(`${i18n.t('export.fields.moment')} : ${weight.moment}`);}
       return lines;
     }
 
     case 'cervicalMucus': {
       const cervicalMucus = entry.cervicalMucus;
       if (!cervicalMucus) {return [];}
-      return [`Glaire cervicale : ${formatEnumOrRaw(cervicalMucus.type, CERVICAL_MUCUS_LABELS) ?? cervicalMucus.type}`];
+      return [`${i18n.t('export.fields.cervicalMucus')} : ${formatEnumOrRaw(cervicalMucus.type, CERVICAL_MUCUS_LABELS) ?? cervicalMucus.type}`];
     }
 
     case 'lhTest': {
       const lhTest = entry.lhTest;
       if (!lhTest) {return [];}
-      const resultLabel = lhTest.result === 'positive' ? 'Positif' : lhTest.result === 'negative' ? 'Négatif' : 'Non valide';
-      const lines: string[] = [`Test d’ovulation (LH) : ${resultLabel}`];
-      if (lhTest.time) {lines.push(`Heure : ${lhTest.time}`);}
+      const resultLabel = lhTest.result === 'positive'
+        ? i18n.t('export.enums.lhResult.positive')
+        : lhTest.result === 'negative'
+          ? i18n.t('export.enums.lhResult.negative')
+          : i18n.t('export.enums.lhResult.invalid');
+      const lines: string[] = [`${i18n.t('export.fields.lhTest')} : ${resultLabel}`];
+      if (lhTest.time) {lines.push(`${i18n.t('export.fields.time')} : ${lhTest.time}`);}
       return lines;
     }
 
@@ -343,9 +383,13 @@ const CSV_DELIMITER = ';';
  * their own rows with an empty date and the fixed category "Estimation" —
  * each notice string must already spell out that it is an estimate. */
 export function buildExportCsv(days: ExportDayEntry[], notices: string[] = []): string {
-  const rows = [['date', 'categorie', 'valeur'].join(CSV_DELIMITER)];
+  const rows = [[
+    i18n.t('export.csv.headerDate'),
+    i18n.t('export.csv.headerCategory'),
+    i18n.t('export.csv.headerValue'),
+  ].join(CSV_DELIMITER)];
   notices.forEach(notice => {
-    rows.push(['', escapeCsvField('Estimation'), escapeCsvField(notice)].join(CSV_DELIMITER));
+    rows.push(['', escapeCsvField(i18n.t('export.csv.estimationLabel')), escapeCsvField(notice)].join(CSV_DELIMITER));
   });
   days.forEach(day => {
     day.categories.forEach(categoryValue => {

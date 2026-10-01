@@ -3,6 +3,7 @@ import fontkit from '@pdf-lib/fontkit';
 import bidiFactory from 'bidi-js';
 import type {ExportReportModel} from './medicalExportFormatting';
 import {CAIRO_ARABIC_SUBSET_BASE64} from './pdfArabicFont';
+import i18n from '../i18n';
 
 // Local, on-device PDF generation for the Medical Export "Rapport de suivi" —
 // pure JS (pdf-lib has zero native modules, so no autolinking/Android
@@ -68,8 +69,15 @@ type Fonts = {
 type Cursor = {doc: PDFDocument; page: PDFPage; y: number; fonts: Fonts; support: PdfCharSupport};
 
 export const PDF_UNSUPPORTED_MARKER = '[…]';
-export const PDF_UNSUPPORTED_NOTICE =
-  'Remarque : certains caractères (émojis, autres écritures…) ne peuvent pas être affichés dans ce PDF et sont remplacés par « […] ». Ils sont conservés tels quels dans l’export CSV.';
+// i18n (Phase 6): a live-reassigned `let` (not `const`), refreshed on
+// `languageChanged` — ESM/Babel named exports are live bindings, so every
+// importer (generateMedicalExportPdfBase64 below, and the existing test
+// suites' own `import {PDF_UNSUPPORTED_NOTICE}`) always reads the CURRENT
+// value, never a stale one captured at first import.
+export let PDF_UNSUPPORTED_NOTICE = i18n.t('export.pdf.unsupportedNotice');
+i18n.on('languageChanged', () => {
+  PDF_UNSUPPORTED_NOTICE = i18n.t('export.pdf.unsupportedNotice');
+});
 
 function pdfCharSupport(font: PDFFont): Set<number> {
   return new Set(font.getCharacterSet());
@@ -337,10 +345,10 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   const cursor: Cursor = {doc, page: newPage(doc), y: PAGE_HEIGHT - MARGIN, fonts, support};
 
   drawParagraph(cursor, 'AWA', {size: 22, bold: true, color: TITLE_COLOR, gapAfter: 2});
-  drawParagraph(cursor, 'Rapport de suivi', {size: 15, bold: true, color: TITLE_COLOR, gapAfter: 10});
-  drawParagraph(cursor, `Objectif : ${model.objectiveLabel}`, {size: 10.5, color: MUTED_COLOR});
-  drawParagraph(cursor, `Période : ${model.periodLabel}`, {size: 10.5, color: MUTED_COLOR});
-  drawParagraph(cursor, `Généré le ${model.generatedAtLabel}`, {size: 10.5, color: MUTED_COLOR, gapAfter: 12});
+  drawParagraph(cursor, i18n.t('export.pdf.reportTitle'), {size: 15, bold: true, color: TITLE_COLOR, gapAfter: 10});
+  drawParagraph(cursor, `${i18n.t('export.pdf.objectiveLabel')} : ${model.objectiveLabel}`, {size: 10.5, color: MUTED_COLOR});
+  drawParagraph(cursor, `${i18n.t('export.pdf.periodLabel')} : ${model.periodLabel}`, {size: 10.5, color: MUTED_COLOR});
+  drawParagraph(cursor, `${i18n.t('export.pdf.generatedLabel')} ${model.generatedAtLabel}`, {size: 10.5, color: MUTED_COLOR, gapAfter: 12});
 
   const hasUnsupportedText = strings.some(value => sanitizeTextForPdf(value, support).replaced);
   const notices = hasUnsupportedText ? [...model.notices, PDF_UNSUPPORTED_NOTICE] : model.notices;
@@ -355,21 +363,21 @@ export async function generateMedicalExportPdfBase64(model: ExportReportModel): 
   drawRule(cursor);
   cursor.y -= 6;
 
-  drawParagraph(cursor, 'RÉSUMÉ', {size: 12.5, bold: true, color: TITLE_COLOR, gapAfter: 6});
-  drawParagraph(cursor, `Nombre de jours renseignés : ${model.totalDays}`, {size: 10.5, gapAfter: 4});
+  drawParagraph(cursor, i18n.t('export.pdf.summaryHeading'), {size: 12.5, bold: true, color: TITLE_COLOR, gapAfter: 6});
+  drawParagraph(cursor, `${i18n.t('export.pdf.totalDaysLabel')} : ${model.totalDays}`, {size: 10.5, gapAfter: 4});
   if (model.categoryCounts.length) {
     model.categoryCounts.forEach(({label, count}) => {
-      drawParagraph(cursor, `${label} : ${count} jour${count > 1 ? 's' : ''}`, {size: 10.5, indent: 8});
+      drawParagraph(cursor, `${label} : ${i18n.t('export.pdf.daysCount', {count})}`, {size: 10.5, indent: 8});
     });
   }
   cursor.y -= 8;
   drawRule(cursor);
   cursor.y -= 6;
 
-  drawParagraph(cursor, 'HISTORIQUE', {size: 12.5, bold: true, color: TITLE_COLOR, gapAfter: 6});
+  drawParagraph(cursor, i18n.t('export.pdf.historyHeading'), {size: 12.5, bold: true, color: TITLE_COLOR, gapAfter: 6});
 
   if (!model.days.length) {
-    drawParagraph(cursor, 'Aucune donnée disponible pour cette période et ces catégories.', {
+    drawParagraph(cursor, i18n.t('export.pdf.emptyState'), {
       size: 10.5,
       color: MUTED_COLOR,
     });
