@@ -16,6 +16,7 @@ import {
   resolveLatestIrregularPeriodStart,
   type IrregularPeriodSources,
 } from './irregularJournalSelectors';
+import i18n from '../i18n';
 
 // SOPK's 2 optional reminders — reuses the exact same chokepoint
 // (scheduleLocalNotification/cancelLocalNotification in
@@ -108,17 +109,20 @@ async function syncDailyJournalReminder(active: boolean, prefs: IrregularPrefere
     return;
   }
 
+  const title = i18n.t('notifications.irregular.dailyJournal.title');
+  const body = i18n.t('notifications.irregular.dailyJournal.body');
+
   await scheduleLocalNotification({
     id: DAILY_JOURNAL_ID,
-    title: 'Journal quotidien',
-    body: 'Comment te sens-tu aujourd’hui ? Pense à mettre ton suivi à jour.',
+    title,
+    body,
     fireDate: nextDailyFireDate(prefs.reminders.dailyJournalTime),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: IRREGULAR_REMINDER_NOTIFICATION_KIND,
       irregularReminderType: 'daily-journal',
-      inAppTitle: 'Journal quotidien',
-      inAppMessage: 'Comment te sens-tu aujourd’hui ? Pense à mettre ton suivi à jour.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -135,17 +139,19 @@ async function syncUnrecordedPeriodReminder(active: boolean, prefs: IrregularPre
     return;
   }
 
+  const title = i18n.t('notifications.irregular.unrecordedPeriod.title');
+  const body = i18n.t('notifications.irregular.unrecordedPeriod.body');
+
   await scheduleLocalNotification({
     id: UNRECORDED_PERIOD_ID,
-    title: 'Règles non renseignées',
-    body: 'Tu n’as pas encore renseigné de nouvelles règles. Pense à mettre ton suivi à jour si elles ont commencé.',
+    title,
+    body,
     fireDate,
     data: {
       hawaNotificationKind: IRREGULAR_REMINDER_NOTIFICATION_KIND,
       irregularReminderType: 'unrecorded-period',
-      inAppTitle: 'Règles non renseignées',
-      inAppMessage:
-        'Tu n’as pas encore renseigné de nouvelles règles. Pense à mettre ton suivi à jour si elles ont commencé.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }

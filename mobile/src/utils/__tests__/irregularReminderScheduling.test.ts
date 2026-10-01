@@ -8,6 +8,7 @@ import {saveIrregularJournalEntry} from '../../state/irregularJournalStore';
 import {collectActualPeriodDayKeys} from '../irregularJournalSelectors';
 import type {DailyJournalEntry} from '../../types/journal';
 import type {IrregularJournalEntry} from '../../state/irregularJournalStore';
+import i18n from '../../i18n';
 
 jest.mock('../../services/pregnancyNotifications', () => ({
   scheduleLocalNotification: jest.fn(),
@@ -168,6 +169,56 @@ describe('syncIrregularReminders — unrecorded period reminder (neutral, no "la
     await syncIrregularReminders(NOW);
 
     expect(mockCancelLocalNotification).toHaveBeenCalledWith('irregular-unrecorded-period-reminder');
+  });
+});
+
+// Phase 4 localization.
+describe('syncIrregularReminders — language change', () => {
+  it('re-syncing after switching to English rebuilds both reminders with English text, still never "late", same ids/times', async () => {
+    mockGetIrregularPreferences.mockReturnValue({
+      ...DEFAULT_PREFS,
+      reminders: {dailyJournalEnabled: true, dailyJournalTime: '20:00', unrecordedPeriodEnabled: true},
+    });
+    mockGetConfirmedPeriodHistory.mockReturnValue([
+      occurrence('a', '2026-07-04T08:00:00'),
+      occurrence('b', '2026-08-01T08:00:00'),
+    ]);
+
+    await syncIrregularReminders(NOW);
+    const frJournal = mockScheduleLocalNotification.mock.calls.find(([c]) => c.id === 'irregular-daily-journal-reminder')![0];
+    const frUnrecorded = mockScheduleLocalNotification.mock.calls.find(([c]) => c.id === 'irregular-unrecorded-period-reminder')![0];
+
+    await i18n.changeLanguage('en');
+    try {
+      jest.clearAllMocks();
+      mockScheduleLocalNotification.mockResolvedValue(true);
+      mockGetActiveObjective.mockReturnValue('irregular');
+      mockGetIrregularPreferences.mockReturnValue({
+        ...DEFAULT_PREFS,
+        reminders: {dailyJournalEnabled: true, dailyJournalTime: '20:00', unrecordedPeriodEnabled: true},
+      });
+      mockGetConfirmedPeriodHistory.mockReturnValue([
+        occurrence('a', '2026-07-04T08:00:00'),
+        occurrence('b', '2026-08-01T08:00:00'),
+      ]);
+
+      await syncIrregularReminders(NOW);
+
+      const enJournal = mockScheduleLocalNotification.mock.calls.find(([c]) => c.id === 'irregular-daily-journal-reminder')![0];
+      const enUnrecorded = mockScheduleLocalNotification.mock.calls.find(([c]) => c.id === 'irregular-unrecorded-period-reminder')![0];
+
+      expect(enJournal.title).toBe('How are you feeling today?');
+      expect(enJournal.title).not.toBe(frJournal.title);
+      expect(enJournal.fireDate).toEqual(frJournal.fireDate);
+
+      expect(enUnrecorded.title).toBe('Period not logged yet');
+      expect(enUnrecorded.title).not.toBe(frUnrecorded.title);
+      expect(enUnrecorded.title.toLowerCase()).not.toContain('late');
+      expect(enUnrecorded.body.toLowerCase()).not.toContain('late');
+      expect(enUnrecorded.fireDate).toEqual(frUnrecorded.fireDate);
+    } finally {
+      await i18n.changeLanguage('fr');
+    }
   });
 });
 

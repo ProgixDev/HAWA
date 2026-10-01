@@ -2,6 +2,7 @@ import {syncCycleReminders} from '../cycleReminderScheduling';
 import {scheduleLocalNotification, cancelLocalNotification} from '../../services/pregnancyNotifications';
 import {getActiveObjective, getCyclePreferences, getCycleObservationStartedAt, getHasConfirmedCycleDuration, getRecordedPeriodHistory} from '../../state/onboardingPreferences';
 import {getCycleReminderPreferences} from '../../state/cycleReminderPreferences';
+import i18n from '../../i18n';
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
 // native module at the top level, which isn't available in the Jest
@@ -84,6 +85,46 @@ describe('syncCycleReminders — upcoming period reminder', () => {
     expect(fireDate.getDate()).toBe(8);
     expect(fireDate.getHours()).toBe(9);
     expect(call![0].title).toBe('Tes règles sont prévues bientôt 🌸');
+  });
+
+  // Phase 4 localization. Deliberately never asserts an exact calendar date
+  // (see this suite's other tests for that) — only that the SAME fire time
+  // and id survive a language switch, while the text changes.
+  it('language change: re-syncing after switching to English reschedules the same id/time with English text', async () => {
+    mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
+    mockGetCycleReminderPreferences.mockReturnValue({
+      ...DEFAULT_PREFS,
+      upcomingPeriodEnabled: true,
+      upcomingPeriodDaysBefore: 2,
+    });
+
+    await syncCycleReminders();
+    const frCall = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner')![0];
+
+    await i18n.changeLanguage('en');
+    try {
+      jest.clearAllMocks();
+      mockScheduleLocalNotification.mockResolvedValue(true);
+      mockCancelLocalNotification.mockResolvedValue(undefined);
+      mockGetActiveObjective.mockReturnValue('cycle');
+      mockGetCycleObservationStartedAt.mockReturnValue(null);
+      mockGetRecordedPeriodHistory.mockReturnValue([]);
+      mockGetCyclePreferences.mockReturnValue(regularBasics('2026-08-13'));
+      mockGetCycleReminderPreferences.mockReturnValue({
+        ...DEFAULT_PREFS,
+        upcomingPeriodEnabled: true,
+        upcomingPeriodDaysBefore: 2,
+      });
+
+      await syncCycleReminders();
+      const enCall = mockScheduleLocalNotification.mock.calls.find(([arg]) => arg.id === 'cycle-upcoming-period-reminder:owner')![0];
+
+      expect(enCall.fireDate).toEqual(frCall.fireDate);
+      expect(enCall.title).toBe('Your period is coming up soon 🌸');
+      expect(enCall.title).not.toBe(frCall.title);
+    } finally {
+      await i18n.changeLanguage('fr');
+    }
   });
 
   it('does not schedule when disabled', async () => {

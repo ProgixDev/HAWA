@@ -113,16 +113,21 @@ export function contraceptionDefaultIntakeActionLabel(t: TranslateFn): string {
 // UI copy) — the exact string passed to scheduleLocalNotification's `title`.
 // Single source so contraceptionReminderScheduling.ts and any settings UI
 // showing "what the notification will say" never disagree.
-// OUT OF SCOPE for Phase 3 (notification title/body copy is Phase 4+) — stays
-// French/untouched, never converted to a factory. Do not translate.
-export const CONTRACEPTION_REMINDER_NOTIFICATION_TITLE: Record<ContraceptionMethod, string> = {
-  pill: 'Rappel de prise',
-  ring: 'Rappel lié à ton anneau',
-  patch: 'Rappel lié à ton patch',
-  other: 'Rappel de traitement',
-};
+// Phase 4: a factory (not a static object), called fresh at every schedule/
+// resync so it always reflects the CURRENT app language.
+export function contraceptionReminderNotificationTitle(t: TranslateFn): Record<ContraceptionMethod, string> {
+  return {
+    pill: t('notifications.contraception.reminderTitle.pill'),
+    ring: t('notifications.contraception.reminderTitle.ring'),
+    patch: t('notifications.contraception.reminderTitle.patch'),
+    other: t('notifications.contraception.reminderTitle.other'),
+  };
+}
 
-export const CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE = 'Rappel de contraception';
+export function contraceptionDefaultReminderNotificationTitle(t: TranslateFn): string {
+  return t('notifications.contraception.defaultReminderTitle');
+}
+
 
 // Status wording shared by Dashboard/Calendar/Journal/History for pill and
 // other (the two methods tracked via contraceptionIntakeHistoryStore) — one

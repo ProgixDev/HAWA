@@ -1,6 +1,7 @@
 import type {Notification} from '@notifee/react-native';
 
 import {getNotificationDataString} from './postpartumNifasNotificationPersistence';
+import i18n from '../i18n';
 import {CYCLE_REMINDER_NOTIFICATION_KIND} from '../utils/cycleReminderScheduling';
 import {IRREGULAR_REMINDER_NOTIFICATION_KIND} from '../utils/irregularReminderScheduling';
 import {CONTRACEPTION_REMINDER_NOTIFICATION_KIND} from '../utils/contraceptionReminderScheduling';
@@ -103,10 +104,12 @@ export async function persistGenericReminderNotification(
   await addInAppNotification({
     id: occurrenceId,
     type: kind,
-    title: getNotificationDataString(notification, 'inAppTitle') ?? 'Rappel AWA',
+    title:
+      getNotificationDataString(notification, 'inAppTitle') ??
+      i18n.t('notifications.fallbackTitle'),
     message:
       getNotificationDataString(notification, 'inAppMessage') ??
-      'Un nouveau rappel est disponible.',
+      i18n.t('notifications.fallbackBody'),
     receivedAt: new Date().toISOString(),
     read,
     route: routeForKind(kind),
