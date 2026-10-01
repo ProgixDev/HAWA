@@ -1,4 +1,4 @@
-import type {ArticleLevel, ArticleType} from '../data/libraryContent';
+import type {ArticleLevel, ArticleType, TranslateFn} from '../data/libraryContent';
 
 export type ReadingTimeFilter = 'any' | 'short' | 'medium' | 'long';
 
@@ -38,6 +38,23 @@ export const TYPE_OPTIONS: {key: ArticleType; label: string}[] = [
   {key: 'guide', label: 'Guide'},
   {key: 'faq', label: 'FAQ'},
 ];
+
+// Translated variants of the option lists above (see libraryContent.ts's
+// TranslateFn for the established pattern). The plain *_OPTIONS constants
+// above stay untouched, still French-literal, so LibraryFiltersSheet.tsx
+// (out of scope for this phase) keeps compiling and behaving exactly as
+// before; wiring it to real translations is a future phase.
+export function getReadingTimeOptions(t: TranslateFn): {key: ReadingTimeFilter; label: string}[] {
+  return READING_TIME_OPTIONS.map(option => ({...option, label: t(`library.filters.readingTime.${option.key}`)}));
+}
+
+export function getLevelOptions(t: TranslateFn): {key: ArticleLevel; label: string}[] {
+  return LEVEL_OPTIONS.map(option => ({...option, label: t(`library.filters.level.${option.key}`)}));
+}
+
+export function getTypeOptions(t: TranslateFn): {key: ArticleType; label: string}[] {
+  return TYPE_OPTIONS.map(option => ({...option, label: t(`library.filters.type.${option.key}`)}));
+}
 
 export function matchesReadingTime(durationMinutes: number, filter: ReadingTimeFilter): boolean {
   if (filter === 'any') {return true;}

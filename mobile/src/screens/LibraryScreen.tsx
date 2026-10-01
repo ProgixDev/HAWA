@@ -23,12 +23,15 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
+  getLibraryArticles,
   LIBRARY_ARTICLES,
   type LibraryArticle,
   type LibraryCategoryId,
+  type TranslateFn,
 } from '../data/libraryContent';
 import {
   getSelectedObjective,
@@ -208,32 +211,34 @@ type TabId =
   | 'religious'
   | 'featured';
 
-const TABS: {
+function getTabs(t: TranslateFn): {
   id: TabId;
   label: string;
   icon: string;
-}[] = [
-  {
-    id: 'all',
-    label: 'Tout',
-    icon: 'view-grid-outline',
-  },
-  {
-    id: 'medical',
-    label: 'Médical',
-    icon: 'medical-bag',
-  },
-  {
-    id: 'religious',
-    label: 'Religieux',
-    icon: 'moon-waning-crescent',
-  },
-  {
-    id: 'featured',
-    label: 'À la une',
-    icon: 'star-outline',
-  },
-];
+}[] {
+  return [
+    {
+      id: 'all',
+      label: t('library.screen.tabs.all'),
+      icon: 'view-grid-outline',
+    },
+    {
+      id: 'medical',
+      label: t('library.screen.tabs.medical'),
+      icon: 'medical-bag',
+    },
+    {
+      id: 'religious',
+      label: t('library.screen.tabs.religious'),
+      icon: 'moon-waning-crescent',
+    },
+    {
+      id: 'featured',
+      label: t('library.screen.tabs.featured'),
+      icon: 'star-outline',
+    },
+  ];
+}
 
 type CategoryCard = {
   id: LibraryGroupId | 'spiritual';
@@ -249,168 +254,169 @@ type CategoryCard = {
 const countArticlesForCategoryIds = (ids: LibraryCategoryId[]): number =>
   LIBRARY_ARTICLES.filter(article => ids.includes(article.categoryId)).length;
 
-const CATEGORY_DEFINITIONS: Omit<CategoryCard, 'count'>[] = [
-  {
-    id: 'firstPeriod',
-    label: 'Premières règles',
+function getCategoryDefinitions(t: TranslateFn): Omit<CategoryCard, 'count'>[] {
+  return [
+    {
+      id: 'firstPeriod',
+      label: t('library.screen.categoryTiles.firstPeriod.label'),
 
-    // On conserve premier_regle.png pour cette catégorie
-    image: ART.flower,
+      // On conserve premier_regle.png pour cette catégorie
+      image: ART.flower,
 
-    articleCategoryIds: ['firstPeriod'],
-    contentType: 'medical',
-  },
-  {
-    id: 'cycle',
-    label: 'Cycle menstruel',
-    image: ART.cycle,
-    articleCategoryIds: [
-      'cycle',
-      'flow',
-      'symptoms',
-      'pain',
-      'hydration',
-      'sleep',
-      'mood',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'fertility',
-    label: 'Fertilité &\nconception',
-    image: ART.fertility,
-    articleCategoryIds: [
-      'fertility',
-      'ovulation',
-      'conceptionTips',
-      'basalTemperature',
-      'cervicalMucus',
-      'lhTests',
-      'nutrition',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'contraception',
-    label: 'Contraception',
-    image: ART.hormonal,
-    articleCategoryIds: [
-      'birthControlPills',
-      'patch',
-      'ring',
-      'hormonalTreatments',
-      'missedPills',
-      'sideEffects',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'pregnancy',
-    label: 'Grossesse',
-    image: ART.pregnancy,
-    articleCategoryIds: [
-      'pregnancyWeekly',
-      'babyDevelopment',
-      'medicalExams',
-      'childbirthPrep',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'postpartum',
-    label: 'Post-partum',
-    image: ART.postpartum,
-    articleCategoryIds: [
-      'postpartumRecovery',
-      'lochia',
-      'nifas',
-      'breastfeeding',
-      'emotionalHealth',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'loss',
-    label: 'Après une\nfausse couche',
+      articleCategoryIds: ['firstPeriod'],
+      contentType: 'medical',
+    },
+    {
+      id: 'cycle',
+      label: t('library.screen.categoryTiles.cycle.label'),
+      image: ART.cycle,
+      articleCategoryIds: [
+        'cycle',
+        'flow',
+        'symptoms',
+        'pain',
+        'hydration',
+        'sleep',
+        'mood',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'fertility',
+      label: t('library.screen.categoryTiles.fertility.label'),
+      image: ART.fertility,
+      articleCategoryIds: [
+        'fertility',
+        'ovulation',
+        'conceptionTips',
+        'basalTemperature',
+        'cervicalMucus',
+        'lhTests',
+        'nutrition',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'contraception',
+      label: t('library.screen.categoryTiles.contraception.label'),
+      image: ART.hormonal,
+      articleCategoryIds: [
+        'birthControlPills',
+        'patch',
+        'ring',
+        'hormonalTreatments',
+        'missedPills',
+        'sideEffects',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'pregnancy',
+      label: t('library.screen.categoryTiles.pregnancy.label'),
+      image: ART.pregnancy,
+      articleCategoryIds: [
+        'pregnancyWeekly',
+        'babyDevelopment',
+        'medicalExams',
+        'childbirthPrep',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'postpartum',
+      label: t('library.screen.categoryTiles.postpartum.label'),
+      image: ART.postpartum,
+      articleCategoryIds: [
+        'postpartumRecovery',
+        'lochia',
+        'nifas',
+        'breastfeeding',
+        'emotionalHealth',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'loss',
+      label: t('library.screen.categoryTiles.loss.label'),
 
-    // Nouvelle image dédiée à "Après une fausse couche"
-    image: ART.miscarriage,
+      // Nouvelle image dédiée à "Après une fausse couche"
+      image: ART.miscarriage,
 
-    articleCategoryIds: [
-      'physicalRecoveryLoss',
-      'emotionalRecoveryLoss',
-      'fertilityAfterLoss',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'pcos',
-    label: 'SOPK',
-    image: ART.sopk,
-    articleCategoryIds: [
-      'pcos',
-      'hormones',
-      'acne',
-      'weight',
-      'exercise',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'menopause',
-    label: 'Périménopause &\nMénopause',
-    image: ART.lifestyle,
-    articleCategoryIds: [
-      'menopause',
-      'hotFlashes',
-      'bones',
-      'treatments',
-    ],
-    contentType: 'medical',
-  },
-  {
-    id: 'spiritual',
-    label: 'Cycle & pratique\nreligieuse',
-    image: ART.spiritual,
-    articleCategoryIds: [
-      'fiqhWomen',
-      'menstruationPurity',
-      'istihada',
-      'nifasFiqh',
-      'ramadan',
-      'fastingQadaa',
-      'prayerDuringMenstruation',
-      'returningToPrayer',
-      'religiousFaq',
-    ],
-    contentType: 'religious',
-  },
-];
+      articleCategoryIds: [
+        'physicalRecoveryLoss',
+        'emotionalRecoveryLoss',
+        'fertilityAfterLoss',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'pcos',
+      label: t('library.screen.categoryTiles.pcos.label'),
+      image: ART.sopk,
+      articleCategoryIds: [
+        'pcos',
+        'hormones',
+        'acne',
+        'weight',
+        'exercise',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'menopause',
+      label: t('library.screen.categoryTiles.menopause.label'),
+      image: ART.lifestyle,
+      articleCategoryIds: [
+        'menopause',
+        'hotFlashes',
+        'bones',
+        'treatments',
+      ],
+      contentType: 'medical',
+    },
+    {
+      id: 'spiritual',
+      label: t('library.screen.categoryTiles.spiritual.label'),
+      image: ART.spiritual,
+      articleCategoryIds: [
+        'fiqhWomen',
+        'menstruationPurity',
+        'istihada',
+        'nifasFiqh',
+        'ramadan',
+        'fastingQadaa',
+        'prayerDuringMenstruation',
+        'returningToPrayer',
+        'religiousFaq',
+      ],
+      contentType: 'religious',
+    },
+  ];
+}
 
-const CATEGORIES: CategoryCard[] = CATEGORY_DEFINITIONS.map(category => ({
-  ...category,
-  count: countArticlesForCategoryIds(category.articleCategoryIds),
-}));
+function getCategories(t: TranslateFn): CategoryCard[] {
+  return getCategoryDefinitions(t).map(category => ({
+    ...category,
+    count: countArticlesForCategoryIds(category.articleCategoryIds),
+  }));
+}
 
+// Each entry's own translated title (library.articles.<id>.title) is
+// identical to the underlying article's title — see articleById — so it is
+// looked up from there rather than duplicated as a separate literal here.
 const POPULAR = [
   {
     id: 'cycle-phases-expliquees',
-    title:
-      'Les différentes phases du cycle',
     image: require('../assets/images/library/cycle-phases-hero.png'),
     duration: 6,
   },
   {
     id: 'flow-comprendre-flux',
-    title:
-      'Comprendre ton flux menstruel',
     image: ART.flow,
     duration: 5,
   },
   {
     id: 'nutrition-conception-fertilite',
-    title:
-      'Nutrition et fertilité',
     image: ART.nutrition,
     duration: 4,
   },
@@ -427,6 +433,8 @@ function SectionTitle({
   onPress?: () => void;
   styles: ReturnType<typeof createStyles>;
 }) {
+  const {t} = useTranslation();
+
   return (
     <View style={styles.sectionHeading}>
       <Text style={styles.sectionTitle}>
@@ -435,7 +443,7 @@ function SectionTitle({
 
       {action ? (
         <Pressable
-          accessibilityLabel={`${action} : ${title}`}
+          accessibilityLabel={t('library.screen.sectionActionA11y', {action, title})}
           accessibilityRole="button"
           hitSlop={10}
           onPress={onPress}>
@@ -451,6 +459,7 @@ function SectionTitle({
 function LibraryScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(
     () => createStyles(theme),
@@ -458,6 +467,10 @@ function LibraryScreen({
   );
 
   const insets = useSafeAreaInsets();
+
+  const tabs = useMemo(() => getTabs(t), [t]);
+
+  const categories = useMemo(() => getCategories(t), [t]);
 
   const scrollRef = useRef<ScrollView>(null);
 
@@ -508,7 +521,7 @@ function LibraryScreen({
   );
 
   useEffect(() => {
-    const index = TABS.findIndex(
+    const index = tabs.findIndex(
       tab => tab.id === activeTab,
     );
 
@@ -518,7 +531,7 @@ function LibraryScreen({
       easing: Easing.out(Easing.cubic),
       useNativeDriver: true,
     }).start();
-  }, [activeTab, tabProgress]);
+  }, [activeTab, tabProgress, tabs]);
 
   useEffect(() => {
     objectiveFade.setValue(0);
@@ -557,15 +570,20 @@ function LibraryScreen({
     };
   }, []);
 
+  const translatedArticles = useMemo(
+    () => getLibraryArticles(t),
+    [t],
+  );
+
   const articleById = useMemo(
     () =>
       new Map(
-        LIBRARY_ARTICLES.map(article => [
+        translatedArticles.map(article => [
           article.id,
           article,
         ]),
       ),
-    [],
+    [translatedArticles],
   );
 
   const libraryConfig = useMemo(
@@ -601,12 +619,12 @@ function LibraryScreen({
       ),
     );
 
-    return [...LIBRARY_ARTICLES].sort(
+    return [...translatedArticles].sort(
       (a, b) =>
         (priority.get(a.id) ?? 999) -
         (priority.get(b.id) ?? 999),
     );
-  }, [libraryConfig]);
+  }, [libraryConfig, translatedArticles]);
 
   const filteredArticles = useMemo(() => {
     const query = search
@@ -616,7 +634,7 @@ function LibraryScreen({
     return objectiveArticles.filter(
       article => {
         const religious =
-          CATEGORIES.find(
+          categories.find(
             category =>
               category.id === 'spiritual',
           )!.articleCategoryIds.includes(
@@ -680,6 +698,7 @@ function LibraryScreen({
     );
   }, [
     activeTab,
+    categories,
     objectiveArticles,
     search,
     selectedCategory,
@@ -688,7 +707,7 @@ function LibraryScreen({
 
   const orderedCategories = useMemo(() => {
     const byId = new Map(
-      CATEGORIES.map(category => [
+      categories.map(category => [
         category.id,
         category,
       ]),
@@ -706,6 +725,7 @@ function LibraryScreen({
         ]
       : medical;
   }, [
+    categories,
     libraryConfig,
     spiritualEnabled,
   ]);
@@ -811,7 +831,7 @@ function LibraryScreen({
         showsVerticalScrollIndicator={false}>
         <View style={styles.headerRow}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('library.screen.backA11y')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={() =>
@@ -827,18 +847,16 @@ function LibraryScreen({
 
           <View style={styles.headerCopy}>
             <Text style={styles.title}>
-              Bibliothèque
+              {t('library.screen.title')}
             </Text>
 
             <Text style={styles.subtitle}>
-              Des contenus fiables pour{`\n`}
-              mieux comprendre ton corps,{`\n`}
-              ta santé et ta foi.
+              {t('library.screen.subtitle')}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel="Rechercher"
+            accessibilityLabel={t('library.screen.searchA11y')}
             onPress={() =>
               setSearchOpen(value => !value)
             }
@@ -866,7 +884,7 @@ function LibraryScreen({
             <TextInput
               autoFocus
               onChangeText={setSearch}
-              placeholder="Rechercher un article…"
+              placeholder={t('library.screen.searchPlaceholder')}
               placeholderTextColor={theme.colors.textMuted}
               style={styles.searchInput}
               value={search}
@@ -889,7 +907,7 @@ function LibraryScreen({
                 {
                   width:
                     (tabsWidth - 6) /
-                    TABS.length,
+                    tabs.length,
 
                   transform: [
                     {
@@ -922,7 +940,7 @@ function LibraryScreen({
             />
           ) : null}
 
-          {TABS.map(tab => {
+          {tabs.map(tab => {
             const active =
               activeTab === tab.id;
 
@@ -966,8 +984,8 @@ function LibraryScreen({
         </View>
 
         <SectionTitle
-          title="Catégories"
-          action="Voir tout"
+          title={t('library.screen.categoriesTitle')}
+          action={t('library.screen.seeAll')}
           onPress={() => {
             setActiveTab('all');
             setSelectedCategory(null);
@@ -1081,7 +1099,7 @@ function LibraryScreen({
                           selected &&
                             styles.categoryCountActive,
                         ]}>
-                        articles
+                        {t('library.screen.articlesLabel')}
                       </Text>
 
                       <MaterialDesignIcons
@@ -1104,7 +1122,7 @@ function LibraryScreen({
         {activeTab !== 'religious' ? (
           <>
             <SectionTitle
-              title="Recommandé pour toi"
+              title={t('library.screen.recommendedTitle')}
               styles={styles}
             />
 
@@ -1112,7 +1130,7 @@ function LibraryScreen({
               style={
                 styles.objectiveLabel
               }>
-              Objectif actuel :{' '}
+              {t('library.screen.currentObjective')}{' '}
               {OBJECTIVE_LABELS[
                 objective
               ]}
@@ -1159,10 +1177,7 @@ function LibraryScreen({
                       style={
                         styles.recommendedMeta
                       }>
-                      {
-                        article.durationMinutes
-                      }{' '}
-                      min
+                      {t('library.screen.durationMin', {count: article.durationMinutes})}
                     </Text>
                   </Pressable>
                 ),
@@ -1170,7 +1185,7 @@ function LibraryScreen({
             </ScrollView>
 
             <SectionTitle
-              title="À la une"
+              title={t('library.screen.featuredTitle')}
               styles={styles}
             />
 
@@ -1202,7 +1217,7 @@ function LibraryScreen({
                       style={
                         styles.badgeText
                       }>
-                      MÉDICAL
+                      {t('library.screen.featuredBadge')}
                     </Text>
                   </View>
 
@@ -1228,9 +1243,7 @@ function LibraryScreen({
                       style={
                         styles.durationText
                       }>
-                      {featuredArticle?.durationMinutes ??
-                        6}{' '}
-                      min de lecture
+                      {t('library.screen.durationMinRead', {count: featuredArticle?.durationMinutes ?? 6})}
                     </Text>
                   </View>
 
@@ -1242,7 +1255,7 @@ function LibraryScreen({
                       style={
                         styles.readText
                       }>
-                      Lire l'article
+                      {t('library.screen.readArticle')}
                     </Text>
 
                     <MaterialDesignIcons
@@ -1264,10 +1277,10 @@ function LibraryScreen({
               ' ',
             ) ??
             (activeTab === 'religious'
-              ? 'Repères spirituels'
-              : 'Articles populaires')
+              ? t('library.screen.spiritualSectionTitle')
+              : t('library.screen.popularSectionTitle'))
           }
-          action="Voir tout"
+          action={t('library.screen.seeAll')}
           onPress={() =>
             setShowAll(true)
           }
@@ -1284,9 +1297,7 @@ function LibraryScreen({
 
             <Text
               style={styles.infoText}>
-              Contenu éducatif. Pour une
-              décision religieuse personnelle,
-              consulte une personne qualifiée.
+              {t('library.screen.religiousInfo')}
             </Text>
           </View>
         ) : null}
@@ -1313,7 +1324,6 @@ function LibraryScreen({
                   item.id,
                 ),
               image: item.image,
-              title: item.title,
               duration: item.duration,
             })).filter(
               item => item.article,
@@ -1322,11 +1332,7 @@ function LibraryScreen({
           const article =
             item.article as LibraryArticle;
 
-          const title =
-            'title' in item &&
-            item.title
-              ? item.title
-              : article.title;
+          const title = article.title;
 
           const duration =
             'duration' in item &&
@@ -1376,7 +1382,7 @@ function LibraryScreen({
                     style={
                       styles.articleMeta
                     }>
-                    {duration} min de lecture
+                    {t('library.screen.durationMinRead', {count: duration})}
                   </Text>
                 </View>
               </View>
@@ -1384,8 +1390,8 @@ function LibraryScreen({
               <Pressable
                 accessibilityLabel={
                   bookmarks.has(article.id)
-                    ? 'Retirer des favoris'
-                    : 'Ajouter aux favoris'
+                    ? t('library.screen.removeBookmark')
+                    : t('library.screen.addBookmark')
                 }
                 accessibilityRole="button"
                 hitSlop={12}
@@ -1429,7 +1435,7 @@ function LibraryScreen({
 
             <Text
               style={styles.emptyTitle}>
-              Aucun contenu trouvé
+              {t('library.screen.emptyTitle')}
             </Text>
 
             <Pressable
@@ -1441,7 +1447,7 @@ function LibraryScreen({
                 style={
                   styles.emptyAction
                 }>
-                Réinitialiser
+                {t('library.screen.emptyReset')}
               </Text>
             </Pressable>
           </View>

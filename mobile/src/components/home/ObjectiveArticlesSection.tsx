@@ -6,7 +6,7 @@ import {useTranslation} from 'react-i18next';
 import type {ObjectiveId} from '../../state/onboardingPreferences';
 import '../../i18n';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
-import {LIBRARY_ARTICLES, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
+import {getLibraryArticles, type LibraryArticle, type LibraryCategoryId} from '../../data/libraryContent';
 import {ArticlePremiumBadge} from '../library/ArticlePremiumBadge';
 import {homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -92,11 +92,11 @@ function ObjectiveArticlesSection({objective, onOpenArticle, onSeeAll}: Props): 
 
   const articles = useMemo(() => {
     const recommendedIds = getLibraryConfigForObjective(objective).recommendedArticleIds;
-    const byId = new Map(LIBRARY_ARTICLES.map(article => [article.id, article]));
+    const byId = new Map(getLibraryArticles(t).map(article => [article.id, article]));
     return recommendedIds
       .map(id => byId.get(id))
       .filter((article): article is LibraryArticle => Boolean(article));
-  }, [objective]);
+  }, [objective, t]);
 
   if (articles.length === 0) {
     return null;

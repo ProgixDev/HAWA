@@ -10,6 +10,7 @@ import {
 import { MaterialDesignIcons } from '@react-native-vector-icons/material-design-icons';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useTranslation } from 'react-i18next';
 
 import { usePremium } from '../../hooks/usePremium';
 import type { RootStackParamList } from '../../navigation/AppNavigator';
@@ -22,9 +23,14 @@ import ReadingControls from '../../components/articles/ReadingControls';
 import {
   getArticleById,
   getCategoryById,
+  getReligiousDisclaimer,
+  getTranslatedArticleById,
   isPremiumArticle,
+  libraryCategoryLabel,
   LIBRARY_TINTS,
-  RELIGIOUS_DISCLAIMER,
+  type ArticleLevel,
+  type ArticleType,
+  type TranslateFn,
 } from '../../data/libraryContent';
 import {
   isArticleBookmarked,
@@ -110,12 +116,13 @@ import BasalTemperatureArticleScreen from './BasalTemperatureArticleScreen';
 import CervicalMucusArticleScreen from './CervicalMucusArticleScreen';
 import LhTestsArticleScreen from './LhTestsArticleScreen';
 
-const LEVEL_LABEL = {
-  beginner: 'Débutant',
-  intermediate: 'Intermédiaire',
-  advanced: 'Avancé',
-} as const;
-const TYPE_LABEL = { article: 'Article', guide: 'Guide', faq: 'FAQ' } as const;
+function levelLabel(level: ArticleLevel, t: TranslateFn): string {
+  return t(`library.reader.levels.${level}`);
+}
+
+function typeLabel(type: ArticleType, t: TranslateFn): string {
+  return t(`library.reader.types.${type}`);
+}
 
 // These articles have a bespoke, hand-designed editorial layout (hero
 // illustration, table of contents, highlight/tip cards, etc.) that doesn't
@@ -221,10 +228,11 @@ function ArticleReaderScreen(props: Props): React.JSX.Element {
 }
 
 function PremiumArticleGate({ route, navigation }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
-  const article = getArticleById(route.params.articleId);
+  const article = getTranslatedArticleById(route.params.articleId, t);
   const [premiumVisible, setPremiumVisible] = useState(false);
 
   return (
@@ -239,17 +247,17 @@ function PremiumArticleGate({ route, navigation }: Props): React.JSX.Element {
     >
       <View style={styles.gateContent}>
         <PremiumLockedCard
-          description="Ce guide fait partie des contenus AWA Premium."
+          description={t('library.reader.premiumDescription')}
           onUpgrade={() => setPremiumVisible(true)}
-          title={article?.title ?? 'Guide Premium'}
+          title={article?.title ?? t('library.reader.premiumFallbackTitle')}
         />
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('library.reader.back')}
           accessibilityRole="button"
           onPress={navigation.goBack}
           style={styles.missingButton}
         >
-          <Text style={styles.missingButtonText}>Retour</Text>
+          <Text style={styles.missingButtonText}>{t('library.reader.back')}</Text>
         </Pressable>
       </View>
       <HawaPremiumBottomSheet
@@ -265,11 +273,13 @@ function GenericArticleReaderScreen({
   navigation,
 }: Props): React.JSX.Element {
   const { articleId } = route.params;
+  const { t } = useTranslation();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
-  const article = useMemo(() => getArticleById(articleId), [articleId]);
+  const article = useMemo(() => getTranslatedArticleById(articleId, t), [articleId, t]);
   const category = article ? getCategoryById(article.categoryId) : undefined;
+  const categoryLabel = category ? libraryCategoryLabel(category.id, t) : undefined;
   const tint = LIBRARY_TINTS[category?.tint ?? 'purple'];
   const isReligious = category?.contentType === 'religious';
   const scrollRef = useRef<ScrollView>(null);
@@ -301,14 +311,14 @@ function GenericArticleReaderScreen({
         ]}
       >
         <Text style={styles.missingText}>
-          Cet article n’est plus disponible.
+          {t('library.reader.missingArticle')}
         </Text>
         <Pressable
           accessibilityRole="button"
           onPress={navigation.goBack}
           style={styles.missingButton}
         >
-          <Text style={styles.missingButtonText}>Retour</Text>
+          <Text style={styles.missingButtonText}>{t('library.reader.back')}</Text>
         </Pressable>
       </View>
     );
@@ -346,7 +356,7 @@ function GenericArticleReaderScreen({
           ]}
         >
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('library.reader.back')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={navigation.goBack}
@@ -382,7 +392,7 @@ function GenericArticleReaderScreen({
             {category ? (
               <View style={[styles.categoryPill, { backgroundColor: tint.bg }]}>
                 <Text style={[styles.categoryPillText, { color: tint.fg }]}>
-                  {category.label}
+                  {categoryLabel}
                 </Text>
               </View>
             ) : null}
@@ -393,7 +403,7 @@ function GenericArticleReaderScreen({
                   name="school-outline"
                   size={11}
                 />
-                <Text style={styles.educationalPillText}>Contenu éducatif</Text>
+                <Text style={styles.educationalPillText}>{t('library.reader.educationalContent')}</Text>
               </View>
             )}
           </View>
@@ -406,11 +416,11 @@ function GenericArticleReaderScreen({
               name="clock-outline"
               size={13}
             />
-            <Text style={styles.metaText}>{article.durationMinutes} min</Text>
+            <Text style={styles.metaText}>{t('library.reader.durationMinutes', {count: article.durationMinutes})}</Text>
             <Text style={styles.metaDot}>•</Text>
-            <Text style={styles.metaText}>{TYPE_LABEL[article.type]}</Text>
+            <Text style={styles.metaText}>{typeLabel(article.type, t)}</Text>
             <Text style={styles.metaDot}>•</Text>
-            <Text style={styles.metaText}>{LEVEL_LABEL[article.level]}</Text>
+            <Text style={styles.metaText}>{levelLabel(article.level, t)}</Text>
           </View>
 
           <Text style={styles.summary}>{article.summary}</Text>
@@ -424,7 +434,7 @@ function GenericArticleReaderScreen({
                 name="information-outline"
                 size={16}
               />
-              <Text style={styles.disclaimerText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.disclaimerText}>{getReligiousDisclaimer(t)}</Text>
             </View>
           )}
 

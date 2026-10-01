@@ -11,6 +11,7 @@ import ObjectiveArticlesSection from '../ObjectiveArticlesSection';
 import DailyJournalCard from '../DailyJournalCard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const TEST_METRICS: Metrics = {
   frame: {x: 0, y: 0, width: 320, height: 640},
@@ -214,6 +215,41 @@ describe('ObjectiveArticlesSection — theme reactivity', () => {
     });
 
     expect(flattenStyle(seeAll.props.style).color).toBe('#B08A5C');
+  });
+
+  // Phase 5 localization — article titles/summaries shown in this shared
+  // "Pour t'accompagner" section (rendered on every objective's Home screen)
+  // must follow the app language like the surrounding chrome, not stay
+  // frozen in French — this was a real gap found after Phase 5's initial
+  // pass only translated LibraryScreen.tsx/ArticleReaderScreen.tsx
+  // themselves, missing this and ConceiveDashboard.tsx's separate, own
+  // "recommended articles" reads of the same library data.
+  it('article titles switch to English with the app language, id/order unchanged', async () => {
+    const renderer = await renderWithProviders(
+      <ObjectiveArticlesSection objective="cycle" onOpenArticle={() => {}} onSeeAll={() => {}} />,
+    );
+    const frTitle = renderer.root.findAll(
+      node => node.props.children === 'Comprendre ton cycle menstruel',
+    );
+    expect(frTitle.length).toBeGreaterThan(0);
+
+    await act(async () => {
+      await i18n.changeLanguage('en');
+    });
+
+    try {
+      const enTitle = renderer.root.findAll(
+        node => node.props.children === 'Understanding your menstrual cycle',
+      );
+      expect(enTitle.length).toBeGreaterThan(0);
+      expect(
+        renderer.root.findAll(node => node.props.children === 'Comprendre ton cycle menstruel').length,
+      ).toBe(0);
+    } finally {
+      await act(async () => {
+        await i18n.changeLanguage('fr');
+      });
+    }
   });
 });
 

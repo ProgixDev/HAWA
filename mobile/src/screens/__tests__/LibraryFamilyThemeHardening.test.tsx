@@ -347,7 +347,12 @@ describe('BookmarkButton (shared, standalone) — resolved global theme', () => 
 describe('LibraryScreen — inline bookmark toggle exposes a dynamic label and a role (Phase 3 fix)', () => {
   it('the source computes the label from the current bookmark state rather than a fixed string', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../LibraryScreen.tsx'), 'utf8');
-    expect(source).toMatch(/accessibilityLabel=\{\s*\n\s*bookmarks\.has\(article\.id,?\)\s*\n\s*\?\s*'Retirer des favoris'\s*\n\s*:\s*'Ajouter aux favoris'/);
+    // Phase 5 localization — the label is still computed from the live
+    // bookmark state, now via translated t() calls rather than fixed French
+    // literals (library.screen.removeBookmark / .addBookmark resolve to the
+    // exact same 'Retirer des favoris' / 'Ajouter aux favoris' strings for
+    // French users — see src/i18n/locales/fr.ts).
+    expect(source).toMatch(/accessibilityLabel=\{\s*\n\s*bookmarks\.has\(article\.id,?\)\s*\n\s*\?\s*t\('library\.screen\.removeBookmark'\)\s*\n\s*:\s*t\('library\.screen\.addBookmark'\)/);
     expect(source).toMatch(/accessibilityRole="button"/);
   });
 

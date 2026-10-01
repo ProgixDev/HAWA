@@ -6,6 +6,20 @@ import type { ComputedCyclePhase } from '../utils/cycleMath';
 
 export type IconName = ComponentProps<typeof MaterialDesignIcons>['name'];
 
+/** A function compatible with react-i18next's useTranslation() `t` (see
+ * src/utils/supportContent.ts's identical TranslateFn for the established
+ * pattern this mirrors). Every LIBRARY_* export below stays a plain,
+ * French-literal constant/array — unchanged — so the many existing
+ * consumers across the app (ObjectiveArticlesSection, ConceiveDashboard,
+ * RecommendedCarousel, ArticleRow, ContinueReadingSection,
+ * ReligiousPracticeSection, CategoryChipsBar, CategoryListSheet, TopicGrid,
+ * HawaPremiumBottomSheet, ProfileScreen, etc.) keep compiling and behaving
+ * exactly as before. The get*(t)/getTranslated*(t, ...) functions below are
+ * an additive, parallel API: today only LibraryScreen.tsx and
+ * ArticleReaderScreen.tsx (Phase 5 scope) call them; wiring the remaining
+ * consumers to real translations is a future phase. */
+export type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
 export type LibraryTint =
   | 'pink'
   | 'purple'
@@ -472,6 +486,36 @@ export const getCategoryById = (
   id: LibraryCategoryId,
 ): LibraryCategory | undefined => CATEGORY_BY_ID.get(id);
 
+/** The DISPLAYED label for a library category — the category `id` is a
+ * stable, language-independent slug used directly as the i18n key path. */
+export function libraryCategoryLabel(id: LibraryCategoryId, t: TranslateFn): string {
+  return t(`library.categories.${id}.label`);
+}
+
+function withTranslatedLabel(category: LibraryCategory, t: TranslateFn): LibraryCategory {
+  return {...category, label: libraryCategoryLabel(category.id, t)};
+}
+
+export function getTranslatedCategoryById(
+  id: LibraryCategoryId,
+  t: TranslateFn,
+): LibraryCategory | undefined {
+  const category = getCategoryById(id);
+  return category ? withTranslatedLabel(category, t) : undefined;
+}
+
+export function getMedicalCategories(t: TranslateFn): LibraryCategory[] {
+  return MEDICAL_CATEGORIES.map(category => withTranslatedLabel(category, t));
+}
+
+export function getReligiousCategories(t: TranslateFn): LibraryCategory[] {
+  return RELIGIOUS_CATEGORIES.map(category => withTranslatedLabel(category, t));
+}
+
+export function getLibraryCategories(t: TranslateFn): LibraryCategory[] {
+  return LIBRARY_CATEGORIES.map(category => withTranslatedLabel(category, t));
+}
+
 export const OBJECTIVE_HEADLINES: Record<ObjectiveId, string> = {
   cycle: 'Suivre mon cycle',
   conceive: 'Essayer de concevoir',
@@ -558,9 +602,26 @@ export function getMedicalCategoriesForObjective(
   return MEDICAL_CATEGORIES.filter(category => ids.has(category.id));
 }
 
+/** The DISPLAYED headline for an onboarding objective in the Library —
+ * `objective` is used directly as the i18n key path. */
+export function getObjectiveHeadline(objective: ObjectiveId, t: TranslateFn): string {
+  return t(`library.objectiveHeadlines.${objective}`);
+}
+
+export function getObjectiveHeadlines(t: TranslateFn): Record<ObjectiveId, string> {
+  const entries = (Object.keys(OBJECTIVE_HEADLINES) as ObjectiveId[]).map(
+    id => [id, getObjectiveHeadline(id, t)] as const,
+  );
+  return Object.fromEntries(entries) as Record<ObjectiveId, string>;
+}
+
 export const RELIGIOUS_DISCLAIMER =
   'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. ' +
   'AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
+
+export function getReligiousDisclaimer(t: TranslateFn): string {
+  return t('library.religiousDisclaimer');
+}
 
 export type ArticleLevel = 'beginner' | 'intermediate' | 'advanced';
 export type ArticleType = 'article' | 'guide' | 'faq';
@@ -1816,3 +1877,28 @@ export const isPremiumArticle = (article: Pick<LibraryArticle, 'premium'> | unde
  * bullet "Guides approfondis" is only shown while this holds, so the paywall
  * never advertises exclusive content that does not exist. */
 export const hasPremiumArticles = (): boolean => LIBRARY_ARTICLES.some(isPremiumArticle);
+
+/** Builds one article with its current-language title/summary, from the
+ * shared, language-independent LIBRARY_ARTICLES entry — the article's own
+ * `id` is a stable slug used directly as the i18n key path. `content` (the
+ * full article body) is explicitly OUT OF SCOPE for this phase and is
+ * passed through untouched, still in French. */
+export function getTranslatedArticle(article: LibraryArticle, t: TranslateFn): LibraryArticle {
+  return {
+    ...article,
+    // defaultValue falls back to the article's own (French) title/summary
+    // when no matching key exists — e.g. a test-only article fixture pushed
+    // directly onto LIBRARY_ARTICLES rather than a real, translated entry.
+    title: t(`library.articles.${article.id}.title`, {defaultValue: article.title}),
+    summary: t(`library.articles.${article.id}.summary`, {defaultValue: article.summary}),
+  };
+}
+
+export function getLibraryArticles(t: TranslateFn): LibraryArticle[] {
+  return LIBRARY_ARTICLES.map(article => getTranslatedArticle(article, t));
+}
+
+export function getTranslatedArticleById(id: string, t: TranslateFn): LibraryArticle | undefined {
+  const article = getArticleById(id);
+  return article ? getTranslatedArticle(article, t) : undefined;
+}
