@@ -35,14 +35,14 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {mapPlaceIdentity, mapProvider, MapProviderError} from '../services/maps/mapProvider';
 import {loadMapStyle} from '../services/maps/mapStyle';
 import type {MapPlace} from '../services/maps/types';
-import {getHasConfirmedCycleData, getSelectedLocation, getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
+import {resolveInitialLocation} from '../services/locationInitialization';
+import {getHasConfirmedCycleData, getSelectedObjective, setSelectedLocation as saveSelectedLocation} from '../state/onboardingPreferences';
 import {spacing} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 const LOCATION_PIN = require('../assets/images/location-pin.png');
 const LOCATION_TARGET = require('../assets/images/location-target.png');
-const FALLBACK_CENTER: [number, number] = [3.0588, 36.7538];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Location'>;
 type Feedback = {kind: 'error' | 'info'; text: string} | null;
@@ -71,6 +71,12 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const cameraRef = useRef<CameraRef>(null);
   const reverseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reverseRequest = useRef(0);
+  // Guards against a race: if she searches, drags the map, or taps the GPS
+  // button WHILE the initial suggestion is still resolving (saved location/
+  // country detection can take a moment), that explicit choice must win —
+  // the resolution effect below checks this before applying its result, so
+  // it can never silently overwrite a location she already chose herself.
+  const userChangedLocation = useRef(false);
 
   // Onboarding (default, unchanged behavior) vs. edit — reached from
   // PrayerTimesScreen.tsx's "Modifier" location pill so she can update her
@@ -80,19 +86,26 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const mode = route.params?.mode ?? 'onboarding';
   const isEdit = mode === 'edit';
 
-  // Prefills whatever location is already saved (regardless of mode) — a
-  // form should never blank out a real, previously-entered value. A
-  // brand-new user with nothing saved yet still sees the normal empty state,
-  // since getSelectedLocation() returns null until she's ever chosen one.
-  const initialLocation = getSelectedLocation();
-  const [query, setQuery] = useState(
-    initialLocation ? `${initialLocation.city}, ${initialLocation.country}` : '',
-  );
+  // The map's initial camera position: resolved once, asynchronously, by
+  // resolveInitialLocation() (saved location → approximate country
+  // detection → neutral London default — see that module's header comment).
+  // Deliberately starts `null` and stays null until resolution completes, so
+  // the map/camera are never mounted with a wrong default center — see the
+  // render below, where the map card waits on this exactly like it already
+  // waits on `mapStyle`. This is what prevents the previous behavior where
+  // every user, worldwide, briefly or permanently saw Algiers.
+  const [initialCenter, setInitialCenter] = useState<[number, number]>();
+  const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<MapPlace[]>([]);
-  const [selectedLocation, setSelectedLocation] = useState<MapPlace | null>(initialLocation);
+  const [selectedLocation, setSelectedLocation] = useState<MapPlace | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [searching, setSearching] = useState(false);
-  const [resolving, setResolving] = useState(false);
+  // Doubles as "resolving the initial suggestion" (mount) and "reverse-
+  // geocoding a map interaction" (later) — both are the same "figuring out
+  // what location to show" state from the user's point of view, and both
+  // already render as the existing "Recherche du lieu…" location-card text,
+  // so no new UI/state is needed for the initial-resolution case.
+  const [resolving, setResolving] = useState(true);
   const [locating, setLocating] = useState(false);
   const [locationPermission, setLocationPermission] = useState(false);
   const [mapStyle, setMapStyle] = useState<StyleSpecification>();
@@ -102,6 +115,21 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       ? null
       : {kind: 'info', text: 'Configure la clé cartographique pour activer la carte.'},
   );
+
+  useEffect(() => {
+    let cancelled = false;
+    resolveInitialLocation().then(location => {
+      if (cancelled || userChangedLocation.current) {return;}
+      setSelectedLocation(location);
+      setQuery(`${location.city}, ${location.country}`);
+      setInitialCenter([location.longitude, location.latitude]);
+      setResolving(false);
+    });
+    return () => {cancelled = true;};
+    // Runs once per mount — a saved location set later via the search box,
+    // the map, or the GPS button updates `selectedLocation` directly and
+    // must never be overridden by re-running this resolution.
+  }, []);
 
   const mapHeightStyle =
     height < 720
@@ -131,7 +159,9 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       const place = await mapProvider.reverseGeocode(latitude, longitude);
       if (requestId !== reverseRequest.current) {return;}
       if (place) {
+        userChangedLocation.current = true;
         setSelectedLocation(place);
+        setInitialCenter(current => current ?? [place.longitude, place.latitude]);
       } else {
         setSelectedLocation(null);
         setFeedback({kind: 'info', text: 'Aucune ville trouvée à cet endroit.'});
@@ -183,9 +213,11 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   }, []);
 
   const moveTo = (place: MapPlace) => {
+    userChangedLocation.current = true;
     setSelectedLocation(place);
     setQuery(`${place.city}, ${place.country}`);
     setShowSuggestions(false);
+    setInitialCenter(current => current ?? [place.longitude, place.latitude]);
     Keyboard.dismiss();
     cameraRef.current?.easeTo({
       center: [place.longitude, place.latitude],
@@ -402,7 +434,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
           </View>
 
           <View style={[styles.mapCard, mapHeightStyle]}>
-            {IS_MAPS_CONFIGURED && mapStyle ? (
+            {IS_MAPS_CONFIGURED && mapStyle && initialCenter ? (
               <>
                 <MapLibreMap
                   attribution
@@ -411,7 +443,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                   mapStyle={mapStyle}
                   onRegionDidChange={handleMapIdle}
                   style={styles.map}>
-                  <Camera ref={cameraRef} initialViewState={{center: FALLBACK_CENTER, zoom: 11}} />
+                  <Camera ref={cameraRef} initialViewState={{center: initialCenter, zoom: 11}} />
                   {locationPermission ? <UserLocation animated /> : null}
                 </MapLibreMap>
                 <View pointerEvents="none" style={styles.centerMarker}>
