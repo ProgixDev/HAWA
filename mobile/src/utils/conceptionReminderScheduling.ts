@@ -10,6 +10,7 @@ import {
 } from '../state/onboardingPreferences';
 import {getConceptionPreferences, type ConceptionReminderKey} from '../state/conceptionPreferences';
 import {resolveConceptionCycleBasics} from './conceptionStatisticsMath';
+import i18n from '../i18n';
 
 // Scheduling for "Essayer de concevoir"'s 5 onboarding "Rappels
 // personnalisés" toggles (conceptionPreferences.ts's `reminders`). Reuses
@@ -121,29 +122,34 @@ const CYCLE_DAY_OFFSETS: Partial<Record<ConceptionReminderKey, {dayOffset: numbe
 
 // Exported so conceptionReminderNotificationPersistence.ts reuses the exact
 // same title/message text for the in-app notification-center card instead
-// of duplicating it — single source of truth for TTC reminder copy.
-export const CONTENT: Record<ConceptionReminderKey, {title: string; body: string}> = {
-  fertile_window: {
-    title: 'Ta fenêtre fertile commence',
-    body: 'Aujourd’hui commence ta période la plus fertile de ce cycle.',
-  },
-  estimated_ovulation: {
-    title: 'Ovulation estimée aujourd’hui',
-    body: 'Ton ovulation est estimée aujourd’hui, selon ton cycle.',
-  },
-  lh_test: {
-    title: 'Pense à ton test d’ovulation (LH)',
-    body: 'C’est un bon moment pour faire ton test LH.',
-  },
-  temperature: {
-    title: 'Température basale',
-    body: 'N’oublie pas de prendre ta température avant de te lever.',
-  },
-  daily_journal: {
-    title: 'Journal quotidien',
-    body: 'Prends un instant pour compléter ton suivi du jour.',
-  },
-};
+// of duplicating it — single source of truth for TTC reminder copy. A
+// function (not a static object) so it always reflects the CURRENT app
+// language — called fresh at every read site, never cached across a
+// language change.
+export function conceptionReminderContent(): Record<ConceptionReminderKey, {title: string; body: string}> {
+  return {
+    fertile_window: {
+      title: i18n.t('notifications.conception.fertileWindow.title'),
+      body: i18n.t('notifications.conception.fertileWindow.body'),
+    },
+    estimated_ovulation: {
+      title: i18n.t('notifications.conception.estimatedOvulation.title'),
+      body: i18n.t('notifications.conception.estimatedOvulation.body'),
+    },
+    lh_test: {
+      title: i18n.t('notifications.conception.lhTest.title'),
+      body: i18n.t('notifications.conception.lhTest.body'),
+    },
+    temperature: {
+      title: i18n.t('notifications.conception.temperature.title'),
+      body: i18n.t('notifications.conception.temperature.body'),
+    },
+    daily_journal: {
+      title: i18n.t('notifications.conception.dailyJournal.title'),
+      body: i18n.t('notifications.conception.dailyJournal.body'),
+    },
+  };
+}
 
 const HAWA_NOTIFICATION_KIND = 'conception-reminder';
 
@@ -157,6 +163,7 @@ async function syncDailyReminder(key: ConceptionReminderKey, enabled: boolean): 
     await cancelLocalNotification(id);
     return;
   }
+  const content = conceptionReminderContent();
 
   if (TEST_TTC_REMINDERS) {
     // One-shot in test mode — a repeating daily trigger would keep re-firing
@@ -164,8 +171,8 @@ async function syncDailyReminder(key: ConceptionReminderKey, enabled: boolean): 
     // already restores the real repeating schedule anyway.
     await scheduleLocalNotification({
       id,
-      title: CONTENT[key].title,
-      body: CONTENT[key].body,
+      title: content[key].title,
+      body: content[key].body,
       fireDate: testFireDate(key),
       data: dataFor(key),
     });
@@ -175,8 +182,8 @@ async function syncDailyReminder(key: ConceptionReminderKey, enabled: boolean): 
   const time = DAILY_TIMES[key] as string;
   await scheduleLocalNotification({
     id,
-    title: CONTENT[key].title,
-    body: CONTENT[key].body,
+    title: content[key].title,
+    body: content[key].body,
     fireDate: nextDailyFireDate(time),
     repeatFrequency: 'daily',
     data: dataFor(key),
@@ -197,12 +204,13 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
     await cancelLocalNotification(id);
     return;
   }
+  const content = conceptionReminderContent();
 
   if (TEST_TTC_REMINDERS) {
     await scheduleLocalNotification({
       id,
-      title: CONTENT[key].title,
-      body: CONTENT[key].body,
+      title: content[key].title,
+      body: content[key].body,
       fireDate: testFireDate(key),
       data: dataFor(key),
     });
@@ -235,8 +243,8 @@ async function syncCycleDayReminder(key: ConceptionReminderKey, enabled: boolean
 
   await scheduleLocalNotification({
     id,
-    title: CONTENT[key].title,
-    body: CONTENT[key].body,
+    title: content[key].title,
+    body: content[key].body,
     fireDate,
     data: dataFor(key),
   });

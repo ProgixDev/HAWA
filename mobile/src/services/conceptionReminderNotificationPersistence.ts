@@ -1,12 +1,13 @@
 import type { Notification } from '@notifee/react-native';
 
 import { getNotificationDataString } from './postpartumNifasNotificationPersistence';
-import { CONTENT } from '../utils/conceptionReminderScheduling';
+import { conceptionReminderContent } from '../utils/conceptionReminderScheduling';
 import type { ConceptionReminderKey } from '../state/conceptionPreferences';
 import {
   addInAppNotification,
   markInAppNotificationAsRead,
 } from '../state/inAppNotificationStore';
+import i18n from '../i18n';
 
 // TTC ("Essayer de concevoir") equivalent of postpartumNifasNotificationPersistence.ts
 // — same shape, same addInAppNotification() dedup guarantee, different
@@ -47,13 +48,13 @@ export async function persistConceptionReminderNotification(
     'conceptionReminderType',
   ) as ConceptionReminderKey | undefined;
   const occurrenceId = getConceptionReminderOccurrenceId(notification);
-  const content = reminderType ? CONTENT[reminderType] : undefined;
+  const content = reminderType ? conceptionReminderContent()[reminderType] : undefined;
 
   await addInAppNotification({
     id: occurrenceId,
     type: CONCEPTION_REMINDER_KIND,
-    title: content?.title ?? 'Rappel de suivi',
-    message: content?.body ?? 'Un rappel de ton suivi TTC est disponible.',
+    title: content?.title ?? i18n.t('notifications.conception.fallbackTitle'),
+    message: content?.body ?? i18n.t('notifications.conception.fallbackBody'),
     receivedAt: new Date().toISOString(),
     read,
     route: CONCEPTION_REMINDER_KIND,
