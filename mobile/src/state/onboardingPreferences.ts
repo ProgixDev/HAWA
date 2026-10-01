@@ -466,6 +466,19 @@ export const subscribeSelectedLocation = (listener: () => void) => {
   };
 };
 
+/** Test-only reset — mirrors the reset helpers other AsyncStorage-backed
+ * stores in this codebase expose for test isolation (e.g.
+ * themePreferences.ts's resetAppLanguageForTests). Clears the cached
+ * hydration promise too, so a subsequent hydrateSelectedLocation() call
+ * re-reads AsyncStorage instead of returning a stale in-memory value. */
+export const resetSelectedLocationForTests = async (): Promise<void> => {
+  selectedLocation = null;
+  locationHydrated = false;
+  locationHydration = null;
+  notifyLocationListeners();
+  await AsyncStorage.removeItem(LOCATION_STORAGE_KEY).catch(() => {});
+};
+
 // Mirrors personalInformationStore's real preferredName/firstName, including
 // clearing to '' when she has none (or deliberately removed it) — never
 // guards against an empty value, since that would silently keep a stale
