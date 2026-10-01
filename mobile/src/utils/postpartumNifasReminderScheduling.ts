@@ -6,9 +6,7 @@ import {
 import {
   NIFAS_EDUCATIONAL_ARTICLE_ID,
   NIFAS_REFERENCE_CONFIG_VERSION,
-  NIFAS_REFERENCE_APPROACHING_HEADLINE,
   NIFAS_REFERENCE_DAYS,
-  NIFAS_REFERENCE_REACHED_HEADLINE,
   NIFAS_WARNING_DAYS,
 } from '../config/nifasReminderConfig';
 
@@ -46,6 +44,8 @@ import {
 import {
   computePostpartumLochiaSummary,
 } from './postpartumTrackingUtils';
+
+import i18n from '../i18n';
 
 /* ============================================================
  * NOTIFICATION IDS
@@ -178,18 +178,27 @@ const occurrenceIdFor = (
 // callout "Repère souvent utilisé") — never presenting the 40-day figure as
 // an absolute universal ruling, and never issuing an unconditional command
 // where the app itself documents jurisprudential divergence.
+//
+// Phase 4 (i18n): translated via the notifications.postpartum.nifas.* keys,
+// which — for French — hold the exact same strings this file always used
+// (including reusing config/nifasReminderConfig.ts's NIFAS_REFERENCE_*_
+// HEADLINE wording verbatim for `reachedTitle`), so French behavior is
+// byte-identical. That config file's own exports (also read directly by
+// PostpartumDashboard.tsx's Nifas banner/popup, and asserted on by
+// PostpartumNifasConsistency.test.tsx) are deliberately left untouched —
+// only THIS file's own notification/in-app-history copy is now
+// language-aware, independent of that shared, still-French-only constant.
 const internalContent = (
   type: ReminderType,
 ) =>
   type === 'warning'
     ? {
-        title: 'Repère du nifâs à venir',
-        message: `${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`,
+        title: i18n.t('notifications.postpartum.nifas.approachingTitle'),
+        message: i18n.t('notifications.postpartum.nifas.approachingInAppMessage'),
       }
     : {
-        title: NIFAS_REFERENCE_REACHED_HEADLINE,
-        message:
-          'Selon ce repère, tu peux reprendre tes prières même si des saignements persistent.',
+        title: i18n.t('notifications.postpartum.nifas.reachedTitle'),
+        message: i18n.t('notifications.postpartum.nifas.reachedBody'),
       };
 
 /**
@@ -208,7 +217,7 @@ const notificationTitle = (
   type: ReminderType,
 ): string =>
   type === 'reference'
-    ? NIFAS_REFERENCE_REACHED_HEADLINE
+    ? i18n.t('notifications.postpartum.nifas.reachedTitle')
     : internalContent(type).title;
 
 /**
@@ -223,8 +232,8 @@ const notificationBody = (
   type: ReminderType,
 ): string =>
   type === 'reference'
-    ? 'Selon ce repère, tu peux reprendre tes prières même si des saignements persistent.'
-    : 'Un repère concernant ton suivi post-partum approche.';
+    ? i18n.t('notifications.postpartum.nifas.reachedBody')
+    : i18n.t('notifications.postpartum.nifas.approachingBody');
 
 /* ============================================================
  * DEBUG LOG

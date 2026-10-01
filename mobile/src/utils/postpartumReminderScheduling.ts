@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getPostpartumPreferences} from '../state/postpartumPreferences';
+import i18n from '../i18n';
 
 // Post-partum's optional "Suivi quotidien" reminder — a separate, user-
 // configurable, recurring health-tracking reminder. Deliberately its own
@@ -41,16 +42,19 @@ export async function syncPostpartumDailyTrackingReminder(): Promise<void> {
     return;
   }
 
+  const title = i18n.t('notifications.postpartum.dailyTracking.title');
+  const body = i18n.t('notifications.postpartum.dailyTracking.body');
+
   await scheduleLocalNotification({
     id: DAILY_TRACKING_REMINDER_ID,
-    title: 'Ton suivi du jour',
-    body: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+    title,
+    body,
     fireDate: nextDailyFireDate(preferences.dailyTrackingReminderTime),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: POSTPARTUM_DAILY_TRACKING_NOTIFICATION_KIND,
-      inAppTitle: 'Ton suivi du jour',
-      inAppMessage: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
