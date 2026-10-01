@@ -196,6 +196,10 @@ describe('M5 - "Jour N du cycle" on the shared journal screens', () => {
     it('Conceive objective with confirmed data shows the same canonical day', async () => {
       confirmCycle(9);
       await setActiveObjective('conceive');
+      // An objective change now invalidates the private-section unlock by
+      // design (privateSectionAuthStore.ts) — re-unlock in the objective
+      // this test actually renders in, exactly as a real user would.
+      unlockIntimacy();
       const renderer = await renderScreen(render());
       expect(cycleDayTexts(renderer).some(text => /Jour 10/.test(text))).toBe(true);
     });

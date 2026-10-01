@@ -58,20 +58,25 @@ export function getBiometryIcon(type: Keychain.BIOMETRY_TYPE | null): string {
 }
 
 export async function authenticateWithBiometry(): Promise<boolean> {
+  const authenticationPrompt = {
+    title: i18n.t('privateSectionAuth.promptTitle'),
+    subtitle: i18n.t('privateSectionAuth.promptSubtitle'),
+    cancel: i18n.t('privateSectionAuth.promptCancel'),
+  };
   const existing = await Keychain.getGenericPassword({
     service: BIOMETRIC_SERVICE,
-    authenticationPrompt: {title:'Espace privé AWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
+    authenticationPrompt,
   });
   if (existing) {return true;}
   await Keychain.setGenericPassword('intimacy-biometric', `session-${Date.now()}`, {
     service: BIOMETRIC_SERVICE,
     accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,
     accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED_THIS_DEVICE_ONLY,
-    authenticationPrompt: {title:'Espace privé AWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
+    authenticationPrompt,
   });
   const verified = await Keychain.getGenericPassword({
     service: BIOMETRIC_SERVICE,
-    authenticationPrompt: {title:'Espace privé AWA', subtitle:'Confirme ton identité pour continuer', cancel:'Annuler'},
+    authenticationPrompt,
   });
   return Boolean(verified);
 }

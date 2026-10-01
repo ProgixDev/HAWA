@@ -1,6 +1,8 @@
 import {AppState, type AppStateStatus} from 'react-native';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import type {RootStackParamList} from '../navigation/AppNavigator';
+import {getActiveObjective, hydrateActiveObjective, subscribeActiveObjective, type ObjectiveId} from './onboardingPreferences';
+import {getActiveProfileId, hydrateActiveProfileId, subscribeActiveProfileId} from './activeProfileStore';
 
 const BACKGROUND_LOCK_DELAY_MS = 60_000;
 let intimacyUnlocked = false;
@@ -9,6 +11,52 @@ let backgroundedAt: number | undefined;
 export const isIntimacyUnlocked = (): boolean => intimacyUnlocked;
 export const unlockIntimacy = (): void => {intimacyUnlocked = true;};
 export const lockIntimacy = (): void => {intimacyUnlocked = false;};
+
+// SECURITY: the temporary unlock above is a single, GLOBAL session — never
+// scoped per objective or per profile (no "unlockedByObjective" map — see
+// the audit this fixes). Instead, a change of EITHER the active objective OR
+// the active profile invalidates the whole session outright, so returning to
+// a previously-unlocked objective/profile never silently restores it.
+//
+// `lastKnownObjective`/`lastKnownProfileId` are this module's own baseline —
+// deliberately NOT read from onboardingPreferences.ts/activeProfileStore.ts's
+// hydration flags (not exported), so instead this compares each observed
+// value against the last one *this module* saw. The first observation ever
+// (baseline still `undefined`) only records the baseline and never locks:
+// at that point in the app lifecycle nothing has been unlocked yet (hydration
+// runs once, very early, long before a user could have reached a PIN
+// screen), and treating "undefined → initial value" as a real switch is
+// exactly the spurious-lock hydration has warned against.
+let lastKnownObjective: ObjectiveId | undefined;
+let lastKnownProfileId: string | undefined;
+
+const handleActiveContextChange = (): void => {
+  const objective = getActiveObjective();
+  const profileId = getActiveProfileId();
+
+  if (lastKnownObjective === undefined && lastKnownProfileId === undefined) {
+    lastKnownObjective = objective;
+    lastKnownProfileId = profileId;
+    return;
+  }
+
+  const changed = objective !== lastKnownObjective || profileId !== lastKnownProfileId;
+  lastKnownObjective = objective;
+  lastKnownProfileId = profileId;
+
+  if (changed) {
+    lockIntimacy();
+  }
+};
+
+// Kicks off hydration if nothing else has yet (both are idempotent/cached —
+// see their own modules), so the baseline above reflects the REAL persisted
+// objective/profile as soon as it's known, not just their in-memory
+// defaults. Subscribed unconditionally, module-load time — same standing
+// pattern as the AppState listener below.
+subscribeActiveObjective(handleActiveContextChange);
+subscribeActiveProfileId(handleActiveContextChange);
+Promise.all([hydrateActiveObjective(), hydrateActiveProfileId()]).then(handleActiveContextChange);
 
 export type IntimacyTarget =
   | 'cycle'
@@ -62,3 +110,16 @@ const handleAppState = (nextState: AppStateStatus): void => {
 };
 
 AppState.addEventListener('change', handleAppState);
+
+/** Test-only reset — mirrors the reset helpers other stores in this codebase
+ * expose for test isolation (e.g. activeProfileStore.ts's
+ * resetActiveProfileForTests). Re-baselines against whatever objective/
+ * profile the real stores currently report, exactly like the module's own
+ * first-observation logic above, so a reset test never sees a spurious
+ * "context changed" lock from state left over by an earlier test. */
+export const resetPrivateSectionAuthForTests = (): void => {
+  intimacyUnlocked = false;
+  backgroundedAt = undefined;
+  lastKnownObjective = getActiveObjective();
+  lastKnownProfileId = getActiveProfileId();
+};
