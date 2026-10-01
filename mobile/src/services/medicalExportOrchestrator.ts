@@ -20,6 +20,8 @@ import {
   type ExportReportModel,
 } from './medicalExportFormatting';
 import {getAllJournalEntries} from '../state/dailyJournalStore';
+import {formatFullDate} from '../utils/cycleMath';
+import i18n from '../i18n';
 
 // Objective-aware dispatch: the active objective determines BOTH which
 // categories are valid (checked below — never trusts the caller blindly)
@@ -36,12 +38,19 @@ export type MedicalExportResult =
   | {kind: 'csv'; content: string; fromKey: string; toKey: string}
   | {kind: 'pdf'; model: ExportReportModel; fromKey: string; toKey: string};
 
-const PERIOD_LABELS: Record<ExportPeriod, string> = {
-  all: 'Tout l’historique',
-  '3m': '3 derniers mois',
-  '6m': '6 derniers mois',
-  '12m': '12 derniers mois',
-};
+// i18n (Phase 6): refreshed IN PLACE on `languageChanged` (same pattern as
+// objectiveExportConfig.ts's own labels) so `PERIOD_LABELS[period]` below
+// keeps working unchanged.
+function buildPeriodLabels(): Record<ExportPeriod, string> {
+  return {
+    all: i18n.t('export.periods.all'),
+    '3m': i18n.t('export.periods.3m'),
+    '6m': i18n.t('export.periods.6m'),
+    '12m': i18n.t('export.periods.12m'),
+  };
+}
+const PERIOD_LABELS: Record<ExportPeriod, string> = buildPeriodLabels();
+i18n.on('languageChanged', () => Object.assign(PERIOD_LABELS, buildPeriodLabels()));
 
 const READERS: Record<
   ObjectiveId,
@@ -118,7 +127,7 @@ export async function buildMedicalExport(
     days,
     config.label,
     PERIOD_LABELS[period],
-    new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(now),
+    formatFullDate(now),
     notices,
   );
   return {kind: 'pdf', model, fromKey, toKey};

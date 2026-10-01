@@ -7,6 +7,7 @@ import {
 } from '../medicalExportPdf';
 import {buildExportCsv, buildExportReportModel, type ExportDayEntry} from '../medicalExportFormatting';
 import {extractDrawnText} from '../../testUtils/pdfExtract';
+import i18n from '../../i18n';
 
 describe('generateMedicalExportPdfBase64', () => {
   it('produces a real, parseable PDF file containing only the selected data', async () => {
@@ -146,5 +147,108 @@ describe('generateMedicalExportPdfBase64 — Unicode behaviour (M45)', () => {
       {date: '2026-08-24', categories: [{category: 'notes', label: 'Notes du jour', lines: ['مرحبا 😊']}]},
     ]);
     expect(csv).toContain('مرحبا 😊');
+  });
+});
+
+// Phase 6 localization — the PDF document chrome (title, section headings,
+// labels, empty state, unsupported-content notice) and the CSV headers must
+// follow the app language, while a real Arabic user note embedded in the
+// same document must keep rendering correctly regardless of that language —
+// the two are orthogonal (script detection vs. app language), never conflated.
+describe('generateMedicalExportPdfBase64 / buildExportCsv — language switch', () => {
+  afterEach(async () => {
+    await i18n.changeLanguage('fr');
+  });
+
+  it('French PDF chrome (default)', async () => {
+    const model = buildExportReportModel(
+      [{date: '2026-08-24', categories: [{category: 'mood', label: 'Humeur', lines: ['Humeur : Bien']}]}],
+      'Suivre mon cycle',
+      'Tout l’historique',
+      '25 août 2026',
+    );
+    const text = await extractPdfText(await generateMedicalExportPdfBase64(model));
+    expect(text).toContain('Rapport de suivi');
+    expect(text).toContain('RÉSUMÉ');
+    expect(text).toContain('HISTORIQUE');
+    expect(text).toContain('Objectif');
+    expect(text).toContain('Généré le');
+  });
+
+  it('English PDF chrome, same structure, same data', async () => {
+    await i18n.changeLanguage('en');
+    const model = buildExportReportModel(
+      [{date: '2026-08-24', categories: [{category: 'mood', label: 'Mood', lines: ['Mood: Good']}]}],
+      'Cycle tracking',
+      'Entire history',
+      'August 25, 2026',
+    );
+    const text = await extractPdfText(await generateMedicalExportPdfBase64(model));
+    expect(text).toContain('Tracking report');
+    expect(text).toContain('SUMMARY');
+    expect(text).toContain('HISTORY');
+    expect(text).toContain('Objective');
+    expect(text).toContain('Generated on');
+    expect(text).not.toContain('Rapport de suivi');
+  });
+
+  it('the days-count summary line pluralizes correctly in both languages', async () => {
+    const twoDays: ExportDayEntry[] = [
+      {date: '2026-08-24', categories: [{category: 'mood', label: 'Humeur', lines: ['Humeur : Bien']}]},
+      {date: '2026-08-25', categories: [{category: 'mood', label: 'Humeur', lines: ['Humeur : Triste']}]},
+    ];
+    const frModel = buildExportReportModel(twoDays, 'Suivre mon cycle', 'Tout l’historique', '25 août 2026');
+    const frText = await extractPdfText(await generateMedicalExportPdfBase64(frModel));
+    expect(frText).toContain('Humeur : 2 jours');
+
+    await i18n.changeLanguage('en');
+    const enModel = buildExportReportModel(twoDays, 'Cycle tracking', 'Entire history', 'August 25, 2026');
+    const enText = await extractPdfText(await generateMedicalExportPdfBase64(enModel));
+    expect(enText).toContain('Humeur : 2 days');
+  });
+
+  it('the unsupported-content notice follows the app language', async () => {
+    const emojiModel = buildExportReportModel(
+      [{date: '2026-08-24', categories: [{category: 'notes', label: 'Notes', lines: ['😊']}]}],
+      'Suivre mon cycle',
+      'Tout l’historique',
+      '25 août 2026',
+    );
+    const frText = await extractPdfText(await generateMedicalExportPdfBase64(emojiModel));
+    expect(frText).toContain('Remarque');
+
+    await i18n.changeLanguage('en');
+    const enText = await extractPdfText(await generateMedicalExportPdfBase64(emojiModel));
+    expect(enText).toContain('Note: some characters');
+    expect(enText).not.toContain('Remarque');
+  });
+
+  it('an Arabic user note keeps rendering correctly under an English-language document', async () => {
+    const model = buildExportReportModel(
+      [{date: '2026-08-24', categories: [{category: 'notes', label: 'Notes', lines: ['مرحبا']}]}],
+      'Cycle tracking',
+      'Entire history',
+      'August 25, 2026',
+    );
+    await i18n.changeLanguage('en');
+    const drawn = await extractDrawnText(await generateMedicalExportPdfBase64(model));
+    const arabicRun = drawn.find(run => run.kind === 'arabic');
+    // `.text` is in VISUAL (painted left-to-right) order for RTL runs, not
+    // logical order (see pdfExtract.ts's own doc comment) — compare by
+    // character set, not string equality, to avoid asserting on a specific
+    // reversal/shaping detail this test doesn't care about.
+    expect(arabicRun?.text.trim().split('').sort().join('')).toBe('مرحبا'.split('').sort().join(''));
+  });
+
+  it('CSV headers follow the app language; the date-key column stays "date" (technical, unchanged)', async () => {
+    const days: ExportDayEntry[] = [
+      {date: '2026-08-24', categories: [{category: 'mood', label: 'Humeur', lines: ['Humeur : Bien']}]},
+    ];
+    const frCsv = buildExportCsv(days);
+    expect(frCsv.split('\r\n')[0]).toBe('date;categorie;valeur');
+
+    await i18n.changeLanguage('en');
+    const enCsv = buildExportCsv(days);
+    expect(enCsv.split('\r\n')[0]).toBe('date;category;value');
   });
 });

@@ -1,4 +1,5 @@
 import type {ObjectiveId} from '../state/onboardingPreferences';
+import i18n from '../i18n';
 
 // Single source of truth for "which export categories exist for which
 // objective" (DataExportScreen in BackupUtilityScreens.tsx) AND for the
@@ -156,6 +157,27 @@ export const OBJECTIVE_EXPORT_CONFIG: Record<ObjectiveId, ObjectiveExportConfig>
     ],
   },
 };
+
+// i18n (Phase 6): a plain config file, not a component, so it cannot call
+// `useTranslation()`. `label` fields are refreshed IN PLACE on
+// `languageChanged` (same pattern as menopauseJournalConfig.ts) rather than
+// converting this into a `getExportConfigurationForObjective(objective, t)`
+// factory — every existing call site (medicalExportOrchestrator.ts,
+// BackupUtilityScreens.tsx, and every test reading `.value`/`.sensitive`
+// directly off `OBJECTIVE_EXPORT_CONFIG`) keeps working completely
+// unchanged; only the `label` string values are ever replaced, on the same
+// object references.
+function applyExportConfigLabels(): void {
+  (Object.keys(OBJECTIVE_EXPORT_CONFIG) as ObjectiveId[]).forEach(objective => {
+    const config = OBJECTIVE_EXPORT_CONFIG[objective];
+    config.label = i18n.t(`export.ui.objectives.${objective}`);
+    config.categories.forEach(category => {
+      category.label = i18n.t(`export.ui.categories.${objective}.${category.value}`);
+    });
+  });
+}
+applyExportConfigLabels();
+i18n.on('languageChanged', applyExportConfigLabels);
 
 export function getExportConfigurationForObjective(objective: ObjectiveId): ObjectiveExportConfig {
   return OBJECTIVE_EXPORT_CONFIG[objective];
