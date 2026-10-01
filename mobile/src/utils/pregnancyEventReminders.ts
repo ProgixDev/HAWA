@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import type {PregnancyMedicalEvent, PregnancyReminderOffset} from '../state/pregnancyMedicalEventsStore';
 import {getPregnancyNotificationSettings} from '../state/pregnancyNotificationSettingsStore';
 import {PREGNANCY_REMINDER_NOTIFICATION_KIND} from './pregnancyReminderScheduling';
+import i18n from '../i18n';
 
 // Keeps a PregnancyMedicalEvent's reminder fields and its real scheduled
 // local notification in sync. Every appointment/exam create, update and
@@ -17,13 +18,19 @@ export const OFFSET_MINUTES: Record<Exclude<PregnancyReminderOffset, 'custom'>, 
   '1day': 24 * 60,
 };
 
-export const REMINDER_OFFSET_LABELS: Record<PregnancyReminderOffset, string> = {
-  '30min': '30 minutes avant',
-  '1hour': '1 heure avant',
-  '2hours': '2 heures avant',
-  '1day': '1 jour avant',
-  custom: 'Personnalisé',
-};
+// A factory (not a static object) — PregnancyEventForm.tsx/
+// PregnancyNotificationsScreen.tsx (components) call this with their own `t`
+// from useTranslation(); this file (not a component) calls it with the i18n
+// singleton. Both read the exact same keys.
+export function reminderOffsetLabels(t: (key: string) => string): Record<PregnancyReminderOffset, string> {
+  return {
+    '30min': t('notifications.pregnancy.reminderOffsetLabels.30min'),
+    '1hour': t('notifications.pregnancy.reminderOffsetLabels.1hour'),
+    '2hours': t('notifications.pregnancy.reminderOffsetLabels.2hours'),
+    '1day': t('notifications.pregnancy.reminderOffsetLabels.1day'),
+    custom: t('notifications.pregnancy.reminderOffsetLabels.custom'),
+  };
+}
 
 export const REMINDER_OFFSETS: PregnancyReminderOffset[] = ['30min', '1hour', '2hours', '1day', 'custom'];
 
@@ -55,8 +62,6 @@ export function computeEventReminderFireDate(event: PregnancyMedicalEvent): Date
   return fireDate;
 }
 
-const TYPE_LABELS = {appointment: 'Rendez-vous', exam: 'Examen'} as const;
-
 /** Schedules (or cancels, if the reminder is off/in the past/its category is
  * disabled in "Notifications & rappels") the real local notification for
  * this event. Call after every save. */
@@ -71,7 +76,9 @@ export async function syncEventReminder(event: PregnancyMedicalEvent): Promise<v
     return;
   }
 
-  const title = `${TYPE_LABELS[event.type]} à venir`;
+  const typeLabel = i18n.t(`notifications.pregnancy.eventTypeLabels.${event.type}`);
+  const title = i18n.t('notifications.pregnancy.eventUpcomingTitle', {type: typeLabel});
+  // event.title is the appointment/exam's own user-typed title — never translated.
   const body = event.time ? `${event.title} · ${event.time}` : event.title;
 
   await scheduleLocalNotification({

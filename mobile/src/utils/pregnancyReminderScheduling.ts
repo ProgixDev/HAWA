@@ -10,6 +10,7 @@ import {getCustomReminders, type CustomReminder} from '../state/pregnancyCustomR
 import {getPregnancyMedicalEvents} from '../state/pregnancyMedicalEventsStore';
 import {cancelEventReminder, syncEventReminder} from './pregnancyEventReminders';
 import {getActiveObjective, hydrateActiveObjective} from '../state/onboardingPreferences';
+import i18n from '../i18n';
 
 // Scheduling for every recurring/one-off Pregnancy Tracking reminder that
 // ISN'T a per-appointment/exam reminder (those live in
@@ -76,17 +77,20 @@ async function syncWeeklyUpdateReminder(settings: PregnancyNotificationSettings)
     return;
   }
 
+  const title = i18n.t('notifications.pregnancy.weeklyUpdate.title');
+  const body = i18n.t('notifications.pregnancy.weeklyUpdate.body');
+
   await scheduleLocalNotification({
     id: WEEKLY_UPDATE_ID,
-    title: 'Nouvelle semaine de grossesse',
-    body: 'Découvre les informations de ta nouvelle semaine.',
+    title,
+    body,
     fireDate: nextWeeklyUpdateFireDate(status.gestationalDays, '09:00'),
     repeatFrequency: 'weekly',
     data: {
       hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
       pregnancyReminderType: 'weekly-update',
-      inAppTitle: 'Nouvelle semaine de grossesse',
-      inAppMessage: 'Découvre les informations de ta nouvelle semaine.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -97,17 +101,20 @@ async function syncDailyJournalReminder(settings: PregnancyNotificationSettings)
     return;
   }
 
+  const title = i18n.t('notifications.pregnancy.dailyJournal.title');
+  const body = i18n.t('notifications.pregnancy.dailyJournal.body');
+
   await scheduleLocalNotification({
     id: DAILY_JOURNAL_ID,
-    title: 'Journal quotidien',
-    body: 'Prends un instant pour compléter ton suivi du jour.',
+    title,
+    body,
     fireDate: nextDailyFireDate(settings.dailyJournalTime),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: PREGNANCY_REMINDER_NOTIFICATION_KIND,
       pregnancyReminderType: 'daily-journal',
-      inAppTitle: 'Journal quotidien',
-      inAppMessage: 'Prends un instant pour compléter ton suivi du jour.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -134,7 +141,9 @@ export async function syncHealthReminder(reminder: HealthReminder): Promise<void
     return new Date(year, month - 1, day, hours, minutes, 0, 0);
   })() : nextDailyFireDate(reminder.time);
 
-  const title = reminder.kind === 'vitamin' ? 'Vitamines & compléments' : 'Médicament';
+  const title = reminder.kind === 'vitamin'
+    ? i18n.t('notifications.pregnancy.vitaminTitle')
+    : i18n.t('notifications.pregnancy.medicationTitle');
 
   await scheduleLocalNotification({
     id,
@@ -184,7 +193,7 @@ export async function syncCustomReminder(reminder: CustomReminder): Promise<void
 
   const fireDate = customReminderFireDate(reminder);
 
-  const body = reminder.description?.trim() || 'Rappel personnalisé';
+  const body = reminder.description?.trim() || i18n.t('notifications.pregnancy.customReminderFallbackBody');
 
   await scheduleLocalNotification({
     id,

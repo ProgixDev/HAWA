@@ -43,7 +43,7 @@ import {
   type CustomReminder,
   type CustomReminderRepeat,
 } from '../../state/pregnancyCustomRemindersStore';
-import {REMINDER_OFFSETS, REMINDER_OFFSET_LABELS} from '../../utils/pregnancyEventReminders';
+import {REMINDER_OFFSETS, reminderOffsetLabels} from '../../utils/pregnancyEventReminders';
 import {
   cancelCustomReminderNotification,
   cancelHealthReminderNotification,
@@ -187,6 +187,8 @@ function OffsetPicker({
   onChange: (value: PregnancyReminderOffset) => void;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
+  const offsetLabels = reminderOffsetLabels(t);
   return (
     <View style={styles.chips}>
       {REMINDER_OFFSETS.map(option => (
@@ -196,7 +198,7 @@ function OffsetPicker({
           key={option}
           onPress={() => onChange(option)}
           style={[styles.chip, value === option && styles.chipActive]}>
-          <Text style={[styles.chipText, value === option && styles.chipTextActive]}>{REMINDER_OFFSET_LABELS[option]}</Text>
+          <Text style={[styles.chipText, value === option && styles.chipTextActive]}>{offsetLabels[option]}</Text>
         </Pressable>
       ))}
     </View>
