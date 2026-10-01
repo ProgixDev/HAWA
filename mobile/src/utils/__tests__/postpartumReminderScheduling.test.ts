@@ -5,6 +5,7 @@ import {
 import {scheduleLocalNotification, cancelLocalNotification} from '../../services/pregnancyNotifications';
 import {getActiveObjective} from '../../state/onboardingPreferences';
 import {getPostpartumPreferences} from '../../state/postpartumPreferences';
+import i18n from '../../i18n';
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
 // native module at the top level, which isn't available in the Jest
@@ -107,5 +108,40 @@ describe('syncPostpartumDailyTrackingReminder', () => {
       inAppTitle: 'Ton suivi du jour',
       inAppMessage: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
     });
+  });
+
+  // Phase 4 localization.
+  it('language change: re-syncing after switching to English reschedules the same id/time with English text', async () => {
+    mockGetPostpartumPreferences.mockReturnValue({
+      ...DEFAULT_PREFS,
+      dailyTrackingReminderEnabled: true,
+      dailyTrackingReminderTime: '20:00',
+    });
+
+    await syncPostpartumDailyTrackingReminder();
+    const frCall = mockScheduleLocalNotification.mock.calls[0][0];
+
+    await i18n.changeLanguage('en');
+    try {
+      jest.clearAllMocks();
+      mockScheduleLocalNotification.mockResolvedValue(true);
+      mockGetActiveObjective.mockReturnValue('postpartum');
+      mockGetPostpartumPreferences.mockReturnValue({
+        ...DEFAULT_PREFS,
+        dailyTrackingReminderEnabled: true,
+        dailyTrackingReminderTime: '20:00',
+      });
+
+      await syncPostpartumDailyTrackingReminder();
+
+      expect(mockScheduleLocalNotification).toHaveBeenCalledTimes(1);
+      const enCall = mockScheduleLocalNotification.mock.calls[0][0];
+      expect(enCall.id).toBe(frCall.id);
+      expect(enCall.fireDate).toEqual(frCall.fireDate);
+      expect(enCall.title).toBe('Your tracking for today');
+      expect(enCall.title).not.toBe(frCall.title);
+    } finally {
+      await i18n.changeLanguage('fr');
+    }
   });
 });

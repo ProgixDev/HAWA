@@ -5,6 +5,7 @@ import {
   NIFAS_REFERENCE_APPROACHING_HEADLINE,
   NIFAS_REFERENCE_REACHED_HEADLINE,
 } from '../config/nifasReminderConfig';
+import i18n from '../i18n';
 import {
   addInAppNotification,
   markInAppNotificationAsRead,
@@ -50,7 +51,9 @@ export async function persistPostpartumNifasNotification(
     type: NIFAS_NOTIFICATION_KIND,
     title:
       getNotificationDataString(notification, 'inAppTitle') ??
-      (reached ? 'Repère du nifas atteint' : 'Repère du nifas à venir'),
+      (reached
+        ? i18n.t('notifications.postpartum.nifas.fallbackReachedTitle')
+        : i18n.t('notifications.postpartum.nifas.fallbackApproachingTitle')),
     message:
       getNotificationDataString(notification, 'inAppMessage') ??
       (reached
