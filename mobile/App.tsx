@@ -21,13 +21,13 @@ import {
   subscribeSpiritualMarkersEnabled,
 } from './src/state/onboardingPreferences';
 import { syncPregnancyNotificationsForActiveObjective } from './src/utils/pregnancyReminderScheduling';
-import { syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
+import { cancelPostpartumNifasReminders, syncPostpartumNifasReminders } from './src/utils/postpartumNifasReminderScheduling';
 import { syncPostpartumDailyTrackingReminder } from './src/utils/postpartumReminderScheduling';
 import { syncMiscarriageDailyTrackingReminder } from './src/utils/miscarriageReminderScheduling';
 import { syncConceptionReminders } from './src/utils/conceptionReminderScheduling';
 import { syncIrregularReminders } from './src/utils/irregularReminderScheduling';
 import { hydrateIrregularPreferences, subscribeIrregularPreferences } from './src/state/irregularPreferences';
-import { syncQadaaReminderNotification } from './src/utils/qadaaReminderScheduling';
+import { cancelQadaaReminderNotification, syncQadaaReminderNotification } from './src/utils/qadaaReminderScheduling';
 import {
   hydrateConfirmedPeriodHistory,
   subscribeConfirmedPeriodHistory,
@@ -61,6 +61,7 @@ import {syncMenopauseReminders} from './src/utils/menopauseReminderScheduling';
 import {openPendingMenopauseReminderNotification} from './src/services/menopauseReminderNotificationNavigation';
 import {hydrateCycleReminderPreferences, subscribeCycleReminderPreferences} from './src/state/cycleReminderPreferences';
 import {syncCycleReminders} from './src/utils/cycleReminderScheduling';
+import {getAppLanguage, hydrateAppearancePreferences, subscribeThemePreferences} from './src/state/themePreferences';
 import AppLockScreen from './src/screens/AppLockScreen';
 import {AUTO_LOCK_TIMEOUT_MS,getAppLockState,lockApp,setAppLockState,subscribeAppLock} from './src/state/appLockStore';
 import {isBiometricPromptActive} from './src/services/appSecurityService';
@@ -313,6 +314,60 @@ function resyncAllRemindersForPrivacyChange(): void {
   syncIrregularReminders();
 }
 subscribePrivacySecuritySettings(resyncAllRemindersForPrivacyChange);
+
+// "Langue de l'application" (AppearanceScreen) changes every reminder's
+// title/body text (src/i18n) but must NEVER change timing, notification ids,
+// channel ids, or duplicate/cancel a schedule for any reason other than the
+// language itself. Most objectives' sync functions above already
+// unconditionally cancel-then-reschedule by the same id on every call (see
+// resyncAllRemindersForPrivacyChange()'s own comment), so simply re-invoking
+// them here rebuilds each already-scheduled notification with the
+// now-current language's text, at the exact same fire date/id. Qadaa and
+// Nifas are the two exceptions: their sync functions short-circuit
+// ("canReuseSchedule") and skip rescheduling entirely when the persisted
+// schedule already matches, which would otherwise leave an already-scheduled
+// notification showing stale, previous-language text until an unrelated
+// change (a new Ramadan month, a new delivery date) invalidated that cache —
+// so those two are cancelled first, which resets exactly the persisted
+// fields canReuseSchedule checks, forcing a genuine reschedule with
+// identical fire-date math but fresh, current-language text.
+function resyncAllReminderNotificationsForLanguageChange(): void {
+  syncPostpartumDailyTrackingReminder();
+  syncMiscarriageDailyTrackingReminder();
+  syncConceptionReminders();
+  syncContraceptionReminder();
+  syncMenopauseReminders();
+  syncCycleReminders();
+  syncIrregularReminders();
+  resyncPregnancyNotificationsIfActive();
+  syncNifasReminders();
+  cancelQadaaReminderNotification().then(syncQadaaReminderNotification).catch(() => {});
+  cancelPostpartumNifasReminders().then(syncPostpartumNifasReminders).catch(() => {});
+}
+
+// Baselined on first observation (mirrors privateSectionAuthStore.ts's
+// lastKnownObjective/lastKnownProfileId pattern): subscribeThemePreferences()
+// fires for EVERY appearance-preference change (palette, mode, true black,
+// language), not language alone, and also fires once, unconditionally, right
+// after hydrateAppearancePreferences() resolves — neither of those should
+// trigger a resync, only a REAL language change should. Whichever of the two
+// calls below runs first correctly establishes the baseline, since
+// getAppLanguage() already reflects the just-hydrated in-memory value by the
+// time hydrateAppearancePreferences()'s own notify() can fire this listener.
+let lastKnownAppLanguage: ReturnType<typeof getAppLanguage> | undefined;
+function handleAppLanguageChange(): void {
+  const language = getAppLanguage();
+  if (lastKnownAppLanguage === language) {
+    return;
+  }
+  const isFirstObservation = lastKnownAppLanguage === undefined;
+  lastKnownAppLanguage = language;
+  if (!isFirstObservation) {
+    resyncAllReminderNotificationsForLanguageChange();
+  }
+}
+hydrateAppearancePreferences().then(handleAppLanguageChange);
+subscribeThemePreferences(handleAppLanguageChange);
 
 function App(): React.JSX.Element {
   const [lockState, setLockState] = React.useState(getAppLockState);
