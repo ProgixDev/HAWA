@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getMiscarriagePreferences} from '../state/miscarriagePreferences';
+import i18n from '../i18n';
 
 // Miscarriage's ONLY reminder — a single, optional, gentle "Suivi quotidien"
 // nudge. Deliberately its own file/scheduler/notification ID, mirroring
@@ -33,9 +34,17 @@ export const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_KIND = 'miscarriage-daily-t
 // mention of miscarriage, periods, fertility or conception anywhere in the
 // OS-visible text. The existing discreet-notification/privacy redaction in
 // pregnancyNotifications.ts still applies automatically on top of this.
-export const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE = 'Ton suivi du jour 🌿';
-export const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY =
-  'Si tu le souhaites, prends un moment pour noter comment tu te sens aujourd’hui.';
+// Phase 4: functions (not static strings) — MiscarriageRemindersScreen.tsx
+// (a component) calls these with its own `t` from useTranslation(); this
+// file (not a component) calls them with the i18n singleton — both read the
+// exact same keys, so the OS notification and the settings-screen preview
+// can never drift apart, in either language.
+export function miscarriageDailyTrackingNotificationTitle(t: (key: string) => string): string {
+  return t('notifications.miscarriage.dailyTracking.title');
+}
+export function miscarriageDailyTrackingNotificationBody(t: (key: string) => string): string {
+  return t('notifications.miscarriage.dailyTracking.body');
+}
 
 /** Re-derives and (re)schedules — or explicitly cancels — the Miscarriage
  * daily tracking reminder from real persisted preferences. Safe to call any
@@ -55,16 +64,19 @@ export async function syncMiscarriageDailyTrackingReminder(): Promise<void> {
     return;
   }
 
+  const title = miscarriageDailyTrackingNotificationTitle(i18n.t);
+  const body = miscarriageDailyTrackingNotificationBody(i18n.t);
+
   await scheduleLocalNotification({
     id: DAILY_TRACKING_REMINDER_ID,
-    title: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE,
-    body: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY,
+    title,
+    body,
     fireDate: nextDailyFireDate(preferences.dailyTrackingReminderTime),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_KIND,
-      inAppTitle: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE,
-      inAppMessage: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY,
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }

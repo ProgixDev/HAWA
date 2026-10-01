@@ -1,12 +1,16 @@
 import {
   syncMiscarriageDailyTrackingReminder,
   MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_KIND,
-  MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE,
-  MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY,
+  miscarriageDailyTrackingNotificationTitle,
+  miscarriageDailyTrackingNotificationBody,
 } from '../miscarriageReminderScheduling';
 import {scheduleLocalNotification, cancelLocalNotification} from '../../services/pregnancyNotifications';
 import {getActiveObjective} from '../../state/onboardingPreferences';
 import {getMiscarriagePreferences} from '../../state/miscarriagePreferences';
+import i18n from '../../i18n';
+
+const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE = miscarriageDailyTrackingNotificationTitle(i18n.t);
+const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY = miscarriageDailyTrackingNotificationBody(i18n.t);
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
 // native module at the top level, which isn't available in the Jest
@@ -126,5 +130,46 @@ describe('syncMiscarriageDailyTrackingReminder', () => {
     const forbidden = /fausse couche|règles|période|fertil|ovulation|conception|retard/i;
     expect(call.title).not.toMatch(forbidden);
     expect(call.body).not.toMatch(forbidden);
+  });
+
+  // Phase 4 localization: re-running the SAME sync function after the app
+  // language changes must rebuild the notification with the new language's
+  // text at the exact same id/fire time (upsert semantics of
+  // scheduleLocalNotification(), never a second notification).
+  it('language change: re-syncing after switching to English reschedules the same id with English text, same fire time', async () => {
+    mockGetMiscarriagePreferences.mockReturnValue({
+      ...DEFAULT_PREFS,
+      dailyTrackingReminderEnabled: true,
+      dailyTrackingReminderTime: '19:00',
+    });
+
+    await syncMiscarriageDailyTrackingReminder();
+    const frCall = mockScheduleLocalNotification.mock.calls[0][0];
+    expect(frCall.title).toBe('Ton suivi du jour 🌿');
+
+    await i18n.changeLanguage('en');
+    try {
+      jest.clearAllMocks();
+      mockScheduleLocalNotification.mockResolvedValue(true);
+      mockGetActiveObjective.mockReturnValue('loss');
+      mockGetMiscarriagePreferences.mockReturnValue({
+        ...DEFAULT_PREFS,
+        dailyTrackingReminderEnabled: true,
+        dailyTrackingReminderTime: '19:00',
+      });
+
+      await syncMiscarriageDailyTrackingReminder();
+
+      expect(mockScheduleLocalNotification).toHaveBeenCalledTimes(1);
+      const enCall = mockScheduleLocalNotification.mock.calls[0][0];
+      expect(enCall.id).toBe(frCall.id);
+      expect(enCall.fireDate.getHours()).toBe(frCall.fireDate.getHours());
+      expect(enCall.fireDate.getMinutes()).toBe(frCall.fireDate.getMinutes());
+      expect(enCall.repeatFrequency).toBe(frCall.repeatFrequency);
+      expect(enCall.title).toBe('Your tracking for today 🌿');
+      expect(enCall.title).not.toBe(frCall.title);
+    } finally {
+      await i18n.changeLanguage('fr');
+    }
   });
 });

@@ -22,8 +22,8 @@ import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {ensureNotificationPermission} from '../services/pregnancyNotifications';
 import {
-  MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY,
-  MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE,
+  miscarriageDailyTrackingNotificationBody,
+  miscarriageDailyTrackingNotificationTitle,
 } from '../utils/miscarriageReminderScheduling';
 import {
   getMiscarriagePreferences,
@@ -292,13 +292,12 @@ function MiscarriageRemindersScreen({navigation, route}: Props): React.JSX.Eleme
                 <MaterialDesignIcons color={theme.colors.primary} name="leaf" size={22} />
               </View>
               <View style={styles.cardCopy}>
-                {/* Scheduled-notification title/body copy — out of scope for
-                    this display-localization pass (deferred to Phase 4+,
-                    matching what's actually passed to
-                    scheduleLocalNotification() in
-                    miscarriageReminderScheduling.ts). */}
-                <Text style={styles.cardTitle}>{MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE}</Text>
-                <Text style={styles.cardDescription}>{MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY}</Text>
+                {/* Scheduled-notification title/body preview — same keys
+                    scheduleLocalNotification() actually uses in
+                    miscarriageReminderScheduling.ts, so this card can never
+                    disagree with what the real notification will say. */}
+                <Text style={styles.cardTitle}>{miscarriageDailyTrackingNotificationTitle(t)}</Text>
+                <Text style={styles.cardDescription}>{miscarriageDailyTrackingNotificationBody(t)}</Text>
               </View>
               <Switch
                 accessibilityLabel={t('miscarriageReminders.enableDailyReminder')}
