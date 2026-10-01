@@ -14,6 +14,7 @@ import {
   hydrateQadaaReminderNotificationState,
   setQadaaReminderNotificationState,
 } from '../state/qadaaReminderNotificationStore';
+import i18n from '../i18n';
 
 // Real LOCAL scheduled notification completing the post-Ramadan Qadaa
 // reminder (src/utils/qadaaLogic.ts's shouldShowQadaaReminder()) so it can
@@ -33,9 +34,12 @@ export const QADAA_POST_RAMADAN_NOTIFICATION_KIND = 'qadaa-post-ramadan';
 // postpartumNifasReminderScheduling.ts's own reminders.
 const REMINDER_HOUR = 9;
 
-const NOTIFICATION_TITLE = 'Jeûnes à rattraper';
-const NOTIFICATION_BODY =
-  'Il te reste des jours de jeûne à rattraper. Tu peux organiser ton suivi dans AWA.';
+function notificationTitle(): string {
+  return i18n.t('notifications.qadaa.title');
+}
+function notificationBody(): string {
+  return i18n.t('notifications.qadaa.body');
+}
 
 const dateKey = (date: Date): string => {
   const year = date.getFullYear();
@@ -139,16 +143,19 @@ export async function syncQadaaReminderNotification(): Promise<void> {
     return;
   }
 
+  const title = notificationTitle();
+  const body = notificationBody();
+
   const scheduled = await scheduleLocalNotification({
     id: QADAA_POST_RAMADAN_NOTIFICATION_ID,
-    title: NOTIFICATION_TITLE,
-    body: NOTIFICATION_BODY,
+    title,
+    body,
     fireDate,
     data: {
       hawaNotificationKind: QADAA_POST_RAMADAN_NOTIFICATION_KIND,
       inAppOccurrenceId: occurrenceId,
-      inAppTitle: NOTIFICATION_TITLE,
-      inAppMessage: NOTIFICATION_BODY,
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 

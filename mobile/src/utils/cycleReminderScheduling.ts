@@ -1,5 +1,6 @@
 import {cancelLocalNotification, scheduleLocalNotification} from '../services/pregnancyNotifications';
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
+import i18n from '../i18n';
 import {
   addDays,
   computeCyclePredictionStatus,
@@ -122,8 +123,11 @@ async function syncUpcomingPeriodReminder(
   // as if her cycle were the phone owner's own (CLAUDE.md §4). Her own
   // wording is unaffected: byte-identical to before.
   const {title, body} = ownerOrDaughterCopy(
-    {title: 'Tes règles sont prévues bientôt 🌸', body: 'Pense à garder ce dont tu as besoin à portée de main.'},
-    firstName => ({title: `Suivi de ${firstName}`, body: `Ses prochaines règles sont estimées dans quelques jours.`}),
+    {title: i18n.t('notifications.cycle.upcomingPeriod.title'), body: i18n.t('notifications.cycle.upcomingPeriod.body')},
+    firstName => ({
+      title: i18n.t('notifications.cycle.upcomingPeriodDaughter.title', {firstName}),
+      body: i18n.t('notifications.cycle.upcomingPeriodDaughter.body', {firstName}),
+    }),
   );
 
   await scheduleLocalNotification({
@@ -159,8 +163,11 @@ async function syncPeriodStartCheckReminder(
   }
 
   const {title, body} = ownerOrDaughterCopy(
-    {title: 'Tes règles ont peut-être commencé ?', body: 'Pense à renseigner leur début pour garder ton suivi à jour.'},
-    firstName => ({title: `Cycle de ${firstName}`, body: `Tu peux vérifier si ses règles ont commencé.`}),
+    {title: i18n.t('notifications.cycle.periodStartCheck.title'), body: i18n.t('notifications.cycle.periodStartCheck.body')},
+    firstName => ({
+      title: i18n.t('notifications.cycle.periodStartCheckDaughter.title', {firstName}),
+      body: i18n.t('notifications.cycle.periodStartCheckDaughter.body', {firstName}),
+    }),
   );
 
   // A single, one-time check on the predicted day itself — never recurring,
@@ -192,8 +199,11 @@ async function syncDailyJournalReminder(active: boolean, prefs: CycleReminderPre
   }
 
   const {title, body} = ownerOrDaughterCopy(
-    {title: 'Comment te sens-tu aujourd’hui ?', body: 'Prends un moment pour mettre ton suivi à jour.'},
-    firstName => ({title: `Journal de ${firstName}`, body: `Pense à compléter son journal du jour.`}),
+    {title: i18n.t('notifications.cycle.dailyJournal.title'), body: i18n.t('notifications.cycle.dailyJournal.body')},
+    firstName => ({
+      title: i18n.t('notifications.cycle.dailyJournalDaughter.title', {firstName}),
+      body: i18n.t('notifications.cycle.dailyJournalDaughter.body', {firstName}),
+    }),
   );
 
   await scheduleLocalNotification({
@@ -259,8 +269,11 @@ async function syncFertileWindowReminder(
   }
 
   const {title, body} = ownerOrDaughterCopy(
-    {title: 'Ta fenêtre fertile estimée approche', body: 'Selon les données de ton cycle, ta période fertile estimée commence bientôt.'},
-    firstName => ({title: `Cycle de ${firstName}`, body: `Sa fenêtre fertile estimée approche.`}),
+    {title: i18n.t('notifications.cycle.fertileWindow.title'), body: i18n.t('notifications.cycle.fertileWindow.body')},
+    firstName => ({
+      title: i18n.t('notifications.cycle.fertileWindowDaughter.title', {firstName}),
+      body: i18n.t('notifications.cycle.fertileWindowDaughter.body', {firstName}),
+    }),
   );
 
   const fertileStart = nextOccurrence(fertility.estimate.fertileStart, fertility.cycleLength, today);
@@ -294,8 +307,11 @@ async function syncOvulationReminder(
   }
 
   const {title, body} = ownerOrDaughterCopy(
-    {title: 'Ovulation estimée 🌸', body: 'Selon ton suivi, ton ovulation est estimée prochainement.'},
-    firstName => ({title: `Cycle de ${firstName}`, body: `Son ovulation est estimée prochainement.`}),
+    {title: i18n.t('notifications.cycle.ovulation.title'), body: i18n.t('notifications.cycle.ovulation.body')},
+    firstName => ({
+      title: i18n.t('notifications.cycle.ovulationDaughter.title', {firstName}),
+      body: i18n.t('notifications.cycle.ovulationDaughter.body', {firstName}),
+    }),
   );
 
   const ovulation = nextOccurrence(fertility.estimate.ovulation, fertility.cycleLength, today);

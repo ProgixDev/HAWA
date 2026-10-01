@@ -3,9 +3,10 @@ import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getContraceptionPreferences, type ContraceptionMethod} from '../state/contraceptionPreferences';
 import {
-  CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE,
-  CONTRACEPTION_REMINDER_NOTIFICATION_TITLE,
+  contraceptionDefaultReminderNotificationTitle,
+  contraceptionReminderNotificationTitle,
 } from '../config/contraceptionLabels';
+import i18n from '../i18n';
 
 // Contraception's daily reminder — reuses the exact same chokepoint
 // (scheduleLocalNotification/cancelLocalNotification in
@@ -113,10 +114,10 @@ export async function syncContraceptionReminder(): Promise<void> {
   }
 
   const title =
-    CONTRACEPTION_REMINDER_NOTIFICATION_TITLE[preferences.method] ??
-    CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE;
+    contraceptionReminderNotificationTitle(i18n.t)[preferences.method] ??
+    contraceptionDefaultReminderNotificationTitle(i18n.t);
 
-  const body = 'Prends un instant pour ton suivi de contraception.';
+  const body = i18n.t('notifications.contraception.body');
 
   const success = await scheduleLocalNotification({
     id: CONTRACEPTION_REMINDER_ID,

@@ -2,6 +2,7 @@ import {cancelLocalNotification, scheduleLocalNotification} from '../services/pr
 import {nextDailyFireDate} from './pregnancyReminderScheduling';
 import {getActiveObjective} from '../state/onboardingPreferences';
 import {getMenopausePreferences} from '../state/menopausePreferences';
+import i18n from '../i18n';
 
 // Menopause's two optional reminders — reuses the exact same chokepoint
 // (scheduleLocalNotification/cancelLocalNotification in
@@ -29,16 +30,19 @@ async function syncDailyTrackingReminder(active: boolean): Promise<void> {
     return;
   }
 
+  const title = i18n.t('notifications.menopause.dailyTracking.title');
+  const body = i18n.t('notifications.menopause.dailyTracking.body');
+
   await scheduleLocalNotification({
     id: DAILY_TRACKING_REMINDER_ID,
-    title: 'Ton suivi du jour',
-    body: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+    title,
+    body,
     fireDate: nextDailyFireDate(preferences.dailyTrackingReminderTime),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: MENOPAUSE_DAILY_TRACKING_NOTIFICATION_KIND,
-      inAppTitle: 'Ton suivi du jour',
-      inAppMessage: 'Prends un moment pour noter comment tu te sens aujourd’hui.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
@@ -60,16 +64,19 @@ async function syncTreatmentReminder(active: boolean): Promise<void> {
     return;
   }
 
+  const title = i18n.t('notifications.menopause.treatment.title');
+  const body = i18n.t('notifications.menopause.treatment.body');
+
   await scheduleLocalNotification({
     id: TREATMENT_REMINDER_ID,
-    title: 'Petit rappel',
-    body: 'Ton rappel personnel est prévu maintenant.',
+    title,
+    body,
     fireDate: nextDailyFireDate(preferences.treatmentReminderTime as string),
     repeatFrequency: 'daily',
     data: {
       hawaNotificationKind: MENOPAUSE_TREATMENT_NOTIFICATION_KIND,
-      inAppTitle: 'Petit rappel',
-      inAppMessage: 'Ton rappel personnel est prévu maintenant.',
+      inAppTitle: title,
+      inAppMessage: body,
     },
   });
 }
