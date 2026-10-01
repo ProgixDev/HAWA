@@ -16,8 +16,11 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
+import {getAppLanguage} from '../state/themePreferences';
 
 import {
   deleteTrackedData,
@@ -93,6 +96,8 @@ function Shell({
   const compact =
     width < 360;
 
+  const {t} = useTranslation();
+
   return (
     <SafeAreaView
       edges={['left', 'right']}
@@ -121,7 +126,7 @@ function Shell({
           },
         ]}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={8}
           onPress={
@@ -241,6 +246,7 @@ export function RestoreBackupScreen({
 >) {
   const {theme} = useAwaTheme();
   const backupStyles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   // A managed daughter profile is NOT an independent account (CLAUDE.md §4)
   // — restoring while she's active reads from and writes back to HER OWN
@@ -269,6 +275,14 @@ export function RestoreBackupScreen({
     setMessage,
   ] = useState('');
 
+  // Tracked explicitly rather than inferred from the message text (e.g.
+  // `message.includes('succès')`) — that check would silently break for any
+  // translated (non-French) success message.
+  const [
+    messageKind,
+    setMessageKind,
+  ] = useState<'success' | 'error' | null>(null);
+
   useEffect(() => {
     (activeIdentity.isManagedProfile
       ? getBackupSnapshotForProfile(activeIdentity.id)
@@ -295,14 +309,16 @@ export function RestoreBackupScreen({
       }
 
       setMessage(
-        'Restauration terminée avec succès ✨',
+        t('backupUtility.restore.successMessage'),
       );
+      setMessageKind('success');
 
       setConfirm(false);
     } catch {
       setMessage(
-        'Impossible de restaurer cette sauvegarde.',
+        t('backupUtility.restore.errorMessage'),
       );
+      setMessageKind('error');
     } finally {
       setBusy(false);
     }
@@ -314,11 +330,11 @@ export function RestoreBackupScreen({
       styles={backupStyles}
       subtitle={
         activeIdentity.isManagedProfile
-          ? `Récupère les données de ${daughterFirstName} à partir d’une sauvegarde existante.`
-          : 'Récupère tes données à partir d’une sauvegarde existante.'
+          ? t('backupUtility.restore.subtitleDaughter', {firstName: daughterFirstName})
+          : t('backupUtility.restore.subtitleOwner')
       }
       theme={theme}
-      title={activeIdentity.isManagedProfile ? `Restaurer les données de ${daughterFirstName}` : 'Restaurer'}>
+      title={activeIdentity.isManagedProfile ? t('backupUtility.restore.titleDaughter', {firstName: daughterFirstName}) : t('backupUtility.restore.titleOwner')}>
       <View
         style={
           backupStyles.heroCard
@@ -338,8 +354,8 @@ export function RestoreBackupScreen({
             backupStyles.heroTitle
           }>
           {snapshot
-            ? 'Sauvegarde disponible'
-            : 'Aucune sauvegarde'}
+            ? t('backupUtility.restore.heroAvailable')
+            : t('backupUtility.restore.heroNone')}
         </Text>
 
         <Text
@@ -348,9 +364,9 @@ export function RestoreBackupScreen({
           }>
           {snapshot
             ? activeIdentity.isManagedProfile
-              ? `Une copie des données de ${daughterFirstName} est prête à être restaurée.`
-              : 'Une copie de tes données est prête à être restaurée.'
-            : 'Crée d’abord une copie depuis la section Sauvegarde.'}
+              ? t('backupUtility.restore.heroDescriptionAvailableDaughter', {firstName: daughterFirstName})
+              : t('backupUtility.restore.heroDescriptionAvailableOwner')
+            : t('backupUtility.restore.heroDescriptionNone')}
         </Text>
 
         {snapshot ? (
@@ -360,11 +376,11 @@ export function RestoreBackupScreen({
             }>
             <InfoRow
               icon="calendar-outline"
-              label="Date"
+              label={t('backupUtility.restore.dateLabel')}
               theme={theme}
               styles={backupStyles}
               value={new Intl.DateTimeFormat(
-                'fr-FR',
+                getAppLanguage() === 'en' ? 'en-US' : 'fr-FR',
                 {
                   dateStyle:
                     'medium',
@@ -386,7 +402,7 @@ export function RestoreBackupScreen({
 
             <InfoRow
               icon="database-outline"
-              label="Taille"
+              label={t('backupUtility.restore.sizeLabel')}
               theme={theme}
               styles={backupStyles}
               value={formatBytes(
@@ -401,7 +417,7 @@ export function RestoreBackupScreen({
       !confirm ? (
         <PrimaryButton
           icon="backup-restore"
-          label="Restaurer cette sauvegarde"
+          label={t('backupUtility.restore.restoreButton')}
           onPress={() =>
             setConfirm(true)
           }
@@ -438,7 +454,7 @@ export function RestoreBackupScreen({
                 style={
                   backupStyles.confirmTitle
                 }>
-                Confirmer la restauration
+                {t('backupUtility.restore.confirmTitle')}
               </Text>
 
               <Text
@@ -446,8 +462,8 @@ export function RestoreBackupScreen({
                   backupStyles.confirmDescription
                 }>
                 {activeIdentity.isManagedProfile
-                  ? `Les données actuelles de ${daughterFirstName} seront remplacées par celles de cette sauvegarde.`
-                  : 'Les données actuelles seront remplacées par celles de cette sauvegarde.'}
+                  ? t('backupUtility.restore.confirmDescriptionDaughter', {firstName: daughterFirstName})
+                  : t('backupUtility.restore.confirmDescriptionOwner')}
               </Text>
             </View>
           </View>
@@ -482,7 +498,7 @@ export function RestoreBackupScreen({
                   style={
                     backupStyles.primaryText
                   }>
-                  Confirmer
+                  {t('backupUtility.restore.confirmButton')}
                 </Text>
               </>
             )}
@@ -502,7 +518,7 @@ export function RestoreBackupScreen({
               style={
                 backupStyles.cancelText
               }>
-              Annuler
+              {t('common.cancel')}
             </Text>
           </Pressable>
         </View>
@@ -513,24 +529,18 @@ export function RestoreBackupScreen({
           style={[
             backupStyles.message,
 
-            message.includes(
-              'succès',
-            )
+            messageKind === 'success'
               ? backupStyles.messageSuccess
               : backupStyles.messageError,
           ]}>
           <MaterialDesignIcons
             color={
-              message.includes(
-                'succès',
-              )
+              messageKind === 'success'
                 ? theme.colors.success
                 : theme.colors.danger
             }
             name={
-              message.includes(
-                'succès',
-              )
+              messageKind === 'success'
                 ? 'check-circle-outline'
                 : 'alert-circle-outline'
             }
@@ -543,9 +553,7 @@ export function RestoreBackupScreen({
 
               {
                 color:
-                  message.includes(
-                    'succès',
-                  )
+                  messageKind === 'success'
                     ? theme.colors.success
                     : theme.colors.danger,
               },
@@ -571,6 +579,7 @@ export function DataExportScreen({
 >) {
   const {theme} = useAwaTheme();
   const backupStyles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const [
     period,
@@ -687,7 +696,7 @@ export function DataExportScreen({
     setMessage('');
 
     if (!selected.length) {
-      setMessage('Sélectionne au moins une catégorie à exporter.');
+      setMessage(t('backupUtility.export.errorNoCategory'));
       return;
     }
 
@@ -701,12 +710,12 @@ export function DataExportScreen({
       );
 
       if (result.kind === 'locked') {
-        setMessage('Déverrouille ton espace privé pour exporter des données sensibles.');
+        setMessage(t('backupUtility.export.errorLocked'));
         return;
       }
 
       if (result.kind === 'empty') {
-        setMessage('Aucune donnée disponible pour cette période et ces catégories.');
+        setMessage(t('backupUtility.export.errorEmpty'));
         return;
       }
 
@@ -719,7 +728,7 @@ export function DataExportScreen({
       const outcome = await shareExportFile(format, content, filename);
       if (outcome === 'cancelled') {return;}
     } catch {
-      setMessage('L’export a échoué. Réessaie dans un instant.');
+      setMessage(t('backupUtility.export.errorFailed'));
     } finally {
       setExporting(false);
     }
@@ -762,11 +771,11 @@ export function DataExportScreen({
       styles={backupStyles}
       subtitle={
         activeIdentity.isManagedProfile
-          ? `Choisis les informations de ${daughterFirstName} à récupérer.`
-          : 'Choisis les informations que tu souhaites récupérer.'
+          ? t('backupUtility.export.subtitleDaughter', {firstName: daughterFirstName})
+          : t('backupUtility.export.subtitleOwner')
       }
       theme={theme}
-      title={activeIdentity.isManagedProfile ? `Exporter les données de ${daughterFirstName}` : 'Exporter mes données'}>
+      title={activeIdentity.isManagedProfile ? t('backupUtility.export.titleDaughter', {firstName: daughterFirstName}) : t('backupUtility.export.titleOwner')}>
       <View
         style={
           backupStyles.exportHero
@@ -790,21 +799,21 @@ export function DataExportScreen({
             style={
               backupStyles.exportTitle
             }>
-            Ton export personnalisé
+            {t('backupUtility.export.heroTitle')}
           </Text>
 
           <Text
             style={
               backupStyles.exportDescription
             }>
-            Sélectionne la période, le format et les informations à inclure.
+            {t('backupUtility.export.heroDescription')}
           </Text>
 
           <Text
             style={
               backupStyles.exportObjectiveLabel
             }>
-            Objectif actif : {exportConfig.label}
+            {t('backupUtility.export.activeObjectiveLabel')} : {exportConfig.label}
           </Text>
         </View>
       </View>
@@ -813,8 +822,8 @@ export function DataExportScreen({
       <>
       <SectionTitle
         styles={backupStyles}
-        subtitle="Choisis la durée de l’historique à exporter."
-        title="Période"
+        subtitle={t('backupUtility.export.periodSectionSubtitle')}
+        title={t('backupUtility.export.periodSectionTitle')}
       />
 
       <View
@@ -823,7 +832,7 @@ export function DataExportScreen({
         }>
         <Choice
           icon="history"
-          label="Tout l’historique"
+          label={t('backupUtility.export.periodAll')}
           onPress={() =>
             setPeriod('all')
           }
@@ -836,7 +845,7 @@ export function DataExportScreen({
 
         <Choice
           icon="calendar-range"
-          label="3 mois"
+          label={t('backupUtility.export.period3m')}
           onPress={() =>
             setPeriod('3m')
           }
@@ -849,7 +858,7 @@ export function DataExportScreen({
 
         <Choice
           icon="calendar-range"
-          label="6 mois"
+          label={t('backupUtility.export.period6m')}
           onPress={() =>
             setPeriod('6m')
           }
@@ -862,7 +871,7 @@ export function DataExportScreen({
 
         <Choice
           icon="calendar-range"
-          label="12 mois"
+          label={t('backupUtility.export.period12m')}
           onPress={() =>
             setPeriod('12m')
           }
@@ -876,8 +885,8 @@ export function DataExportScreen({
 
       <SectionTitle
         styles={backupStyles}
-        subtitle="CSV et PDF sont générés directement sur ton téléphone."
-        title="Format"
+        subtitle={t('backupUtility.export.formatSectionSubtitle')}
+        title={t('backupUtility.export.formatSectionTitle')}
       />
 
       <View
@@ -913,8 +922,8 @@ export function DataExportScreen({
 
       <SectionTitle
         styles={backupStyles}
-        subtitle="Les données sensibles ne sont jamais sélectionnées automatiquement."
-        title="Catégories"
+        subtitle={t('backupUtility.export.categoriesSectionSubtitle')}
+        title={t('backupUtility.export.categoriesSectionTitle')}
       />
 
       <View
@@ -1009,7 +1018,7 @@ export function DataExportScreen({
                         style={
                           backupStyles.sensitiveText
                         }>
-                        Donnée sensible
+                        {t('backupUtility.export.sensitiveBadge')}
                       </Text>
                     </View>
                   ) : null}
@@ -1048,17 +1057,7 @@ export function DataExportScreen({
           style={
             backupStyles.selectionText
           }>
-          {selected.length}{' '}
-          catégorie
-          {selected.length >
-          1
-            ? 's'
-            : ''}{' '}
-          sélectionnée
-          {selected.length >
-          1
-            ? 's'
-            : ''}
+          {t('backupUtility.export.selectedCount', {count: selected.length})}
         </Text>
       </View>
 
@@ -1077,7 +1076,7 @@ export function DataExportScreen({
             style={
               backupStyles.infoMessageText
             }>
-            Les catégories sensibles sont déchiffrées le temps de l’export, et le fichier créé n’est pas chiffré : ne le partage qu’avec des personnes de confiance. Ton code privé (ou ta biométrie) te sera demandé.
+            {t('backupUtility.export.sensitiveWarning')}
           </Text>
         </View>
       ) : null}
@@ -1085,7 +1084,7 @@ export function DataExportScreen({
       <PrimaryButton
         disabled={exporting}
         icon="export-variant"
-        label={exporting ? 'Génération en cours…' : 'Exporter mes données'}
+        label={exporting ? t('backupUtility.export.exportingButton') : t('backupUtility.export.exportButton')}
         loading={exporting}
         onPress={exportData}
         styles={backupStyles}
@@ -1122,8 +1121,8 @@ export function DataExportScreen({
             <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={23} />
           </View>
           <View style={backupStyles.privacyPriorityCopy}>
-            <Text style={backupStyles.privacyPriorityTitle}>Ta confidentialité est notre priorité</Text>
-            <Text style={backupStyles.privacyPriorityDescription}>AWA ne partage jamais tes informations.</Text>
+            <Text style={backupStyles.privacyPriorityTitle}>{t('backupUtility.export.privacyPriorityTitle')}</Text>
+            <Text style={backupStyles.privacyPriorityDescription}>{t('backupUtility.export.privacyPriorityDescription')}</Text>
           </View>
           <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={25} />
         </View>
@@ -1149,6 +1148,7 @@ function PremiumExportBenefit({icon, title, description, theme, styles: benefitS
 }
 
 function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUpgrade: () => void; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>}) {
+  const {t} = useTranslation();
   return (
     <View style={lockedStyles.premiumExportCard}>
       <View style={lockedStyles.premiumLockHalo}>
@@ -1158,12 +1158,12 @@ function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUp
       </View>
 
       <View style={lockedStyles.premiumPill}>
-        <Text style={lockedStyles.premiumPillText}>PREMIUM</Text>
+        <Text style={lockedStyles.premiumPillText}>{t('backupUtility.export.premium.pill')}</Text>
       </View>
 
-      <Text style={lockedStyles.premiumExportTitle}>Export CSV &amp; PDF</Text>
+      <Text style={lockedStyles.premiumExportTitle}>{t('backupUtility.export.premium.title')}</Text>
       <Text style={lockedStyles.premiumExportDescription}>
-        Génère et partage un rapport complet de ton suivi à tout moment.
+        {t('backupUtility.export.premium.description')}
       </Text>
 
       <View style={lockedStyles.premiumDividerRow}>
@@ -1174,32 +1174,32 @@ function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUp
 
       <View style={lockedStyles.premiumBenefits}>
         <PremiumExportBenefit
-          description="CSV ou PDF prêts à être utilisés ou partagés."
+          description={t('backupUtility.export.premium.benefit1Description')}
           icon="file-document-outline"
           styles={lockedStyles}
           theme={theme}
-          title="Rapports complets et structurés"
+          title={t('backupUtility.export.premium.benefit1Title')}
         />
         <PremiumExportBenefit
-          description="Accède à tout ton historique sans aucune limite."
+          description={t('backupUtility.export.premium.benefit2Description')}
           icon="history"
           styles={lockedStyles}
           theme={theme}
-          title="Historique illimité"
+          title={t('backupUtility.export.premium.benefit2Title')}
         />
         <PremiumExportBenefit
-          description="Tes données restent 100% privées et sécurisées."
+          description={t('backupUtility.export.premium.benefit3Description')}
           icon="shield-check-outline"
           styles={lockedStyles}
           theme={theme}
-          title="Confidentialité assurée"
+          title={t('backupUtility.export.premium.benefit3Title')}
         />
         <PremiumExportBenefit
-          description="Exploite tes données avec plus de profondeur et de clarté."
+          description={t('backupUtility.export.premium.benefit4Description')}
           icon="chart-box-outline"
           styles={lockedStyles}
           theme={theme}
-          title="Analyse avancée"
+          title={t('backupUtility.export.premium.benefit4Title')}
         />
       </View>
 
@@ -1208,7 +1208,7 @@ function PremiumExportLockedCard({onUpgrade, theme, styles: lockedStyles}: {onUp
         onPress={onUpgrade}
         style={({pressed}) => [lockedStyles.premiumUpgradeButton, pressed && lockedStyles.pressed]}>
         <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="crown" size={23} />
-        <Text style={lockedStyles.premiumUpgradeText}>Découvrir Premium</Text>
+        <Text style={lockedStyles.premiumUpgradeText}>{t('backupUtility.export.premium.upgradeButton')}</Text>
         <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="chevron-right" size={27} />
       </Pressable>
     </View>
@@ -1227,6 +1227,12 @@ export function DeleteTrackedDataScreen({
 >) {
   const {theme} = useAwaTheme();
   const backupStyles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
+  // The word the user must type to confirm follows the app language
+  // (SUPPRIMER/DELETE) — kept in sync with the on-screen instruction, which
+  // always shows this same value. Validated by exact string comparison, not
+  // a real password, so localizing it changes no security property.
+  const confirmWord = t('backupUtility.delete.confirmWord');
 
   // A managed daughter profile is NOT an independent account (CLAUDE.md
   // §4) — "Supprimer les données de suivi de Haifa" must clear ONLY her own
@@ -1259,12 +1265,12 @@ export function DeleteTrackedDataScreen({
     value
       .trim()
       .toUpperCase() ===
-    'SUPPRIMER';
+    confirmWord;
 
   const remove = async () => {
     if (!isValid) {
       setError(
-        'Écris SUPPRIMER pour confirmer.',
+        t('backupUtility.delete.errorTypeWord', {word: confirmWord}),
       );
 
       return;
@@ -1285,11 +1291,11 @@ export function DeleteTrackedDataScreen({
       styles={backupStyles}
       subtitle={
         activeIdentity.isManagedProfile
-          ? `Gère définitivement les données de suivi locales de ${daughterFirstName}.`
-          : 'Gère définitivement tes données de suivi locales.'
+          ? t('backupUtility.delete.subtitleDaughter', {firstName: daughterFirstName})
+          : t('backupUtility.delete.subtitleOwner')
       }
       theme={theme}
-      title={activeIdentity.isManagedProfile ? `Supprimer les données de ${daughterFirstName}` : 'Supprimer mes données'}>
+      title={activeIdentity.isManagedProfile ? t('backupUtility.delete.titleDaughter', {firstName: daughterFirstName}) : t('backupUtility.delete.titleOwner')}>
       {!done ? (
         <>
           <View
@@ -1308,7 +1314,7 @@ export function DeleteTrackedDataScreen({
               style={
                 backupStyles.dangerTitle
               }>
-              Action irréversible
+              {t('backupUtility.delete.irreversibleTitle')}
             </Text>
 
             <Text
@@ -1316,8 +1322,8 @@ export function DeleteTrackedDataScreen({
                 backupStyles.dangerDescription
               }>
               {activeIdentity.isManagedProfile
-                ? `Cette action supprimera définitivement les données de suivi locales de ${daughterFirstName}.`
-                : 'Cette action supprimera définitivement tes données de suivi locales.'}
+                ? t('backupUtility.delete.descriptionDaughter', {firstName: daughterFirstName})
+                : t('backupUtility.delete.descriptionOwner')}
             </Text>
 
             <View
@@ -1325,19 +1331,19 @@ export function DeleteTrackedDataScreen({
                 backupStyles.dangerItems
               }>
               <DangerItem
-                label="Journal quotidien"
+                label={t('backupUtility.delete.itemJournal')}
                 styles={backupStyles}
                 theme={theme}
               />
 
               <DangerItem
-                label="Historique du cycle"
+                label={t('backupUtility.delete.itemCycleHistory')}
                 styles={backupStyles}
                 theme={theme}
               />
 
               <DangerItem
-                label="Données de suivi locales"
+                label={t('backupUtility.delete.itemLocalData')}
                 styles={backupStyles}
                 theme={theme}
               />
@@ -1358,8 +1364,8 @@ export function DeleteTrackedDataScreen({
                   backupStyles.accountNoticeText
                 }>
                 {activeIdentity.isManagedProfile
-                  ? `Le profil de ${daughterFirstName} ne sera pas supprimé — seules ses données de suivi le seront.`
-                  : 'Ton compte AWA ne sera pas supprimé.'}
+                  ? t('backupUtility.delete.accountNoticeDaughter', {firstName: daughterFirstName})
+                  : t('backupUtility.delete.accountNoticeOwner')}
               </Text>
             </View>
           </View>
@@ -1392,14 +1398,14 @@ export function DeleteTrackedDataScreen({
                   style={
                     backupStyles.deleteConfirmTitle
                   }>
-                  Confirme ton choix
+                  {t('backupUtility.delete.confirmYourChoice')}
                 </Text>
 
                 <Text
                   style={
                     backupStyles.deleteConfirmSubtitle
                   }>
-                  Écris SUPPRIMER pour continuer.
+                  {t('backupUtility.delete.typeToConfirmSubtitle', {word: confirmWord})}
                 </Text>
               </View>
             </View>
@@ -1411,7 +1417,7 @@ export function DeleteTrackedDataScreen({
                 setValue(text);
                 setError('');
               }}
-              placeholder="SUPPRIMER"
+              placeholder={confirmWord}
               placeholderTextColor={theme.colors.textMuted}
               style={[
                 backupStyles.input,
@@ -1440,7 +1446,7 @@ export function DeleteTrackedDataScreen({
                   style={
                     backupStyles.validText
                   }>
-                  Confirmation correcte
+                  {t('backupUtility.delete.validConfirmation')}
                 </Text>
               </View>
             ) : null}
@@ -1490,7 +1496,7 @@ export function DeleteTrackedDataScreen({
               style={
                 backupStyles.primaryText
               }>
-              Supprimer définitivement
+              {t('backupUtility.delete.deleteButton')}
             </Text>
           </Pressable>
 
@@ -1498,7 +1504,7 @@ export function DeleteTrackedDataScreen({
             style={
               backupStyles.deleteFootnote
             }>
-            Cette action ne peut pas être annulée.
+            {t('backupUtility.delete.footnote')}
           </Text>
         </>
       ) : (
@@ -1518,7 +1524,7 @@ export function DeleteTrackedDataScreen({
             style={
               backupStyles.successTitle
             }>
-            Données supprimées
+            {t('backupUtility.delete.doneTitle')}
           </Text>
 
           <Text
@@ -1526,8 +1532,8 @@ export function DeleteTrackedDataScreen({
               backupStyles.successDescription
             }>
             {activeIdentity.isManagedProfile
-              ? `Les données de suivi locales de ${daughterFirstName} ont été supprimées avec succès.`
-              : 'Tes données de suivi locales ont été supprimées avec succès.'}
+              ? t('backupUtility.delete.doneDescriptionDaughter', {firstName: daughterFirstName})
+              : t('backupUtility.delete.doneDescriptionOwner')}
           </Text>
 
           <View
@@ -1537,7 +1543,7 @@ export function DeleteTrackedDataScreen({
           />
 
           <PrimaryButton
-            label="Terminer"
+            label={t('backupUtility.delete.finishButton')}
             onPress={
               navigation.goBack
             }

@@ -4,10 +4,13 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {backupNow, backupNowForProfile, buildPortableDataJson, buildPortableDataJsonForProfile, formatBytes, getBackupSnapshot, getBackupSnapshotForProfile, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
 import {getActiveProfileIdentity} from '../state/activeProfileStore';
+import {getAppLanguage} from '../state/themePreferences';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -41,6 +44,7 @@ function DataRow({
 export default function BackupDataScreen({navigation}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
 
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -75,9 +79,11 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
     setBackingUp(true);
     try {
       setSnapshot(activeIdentity.isManagedProfile ? await backupNowForProfile(activeIdentity.id) : await backupNow());
-      notify(activeIdentity.isManagedProfile ? `Sauvegarde de ${daughterFirstName} terminée ✓` : 'Sauvegarde locale terminée ✓');
+      notify(activeIdentity.isManagedProfile
+        ? t('backupData.toastBackupDoneDaughter', {firstName: daughterFirstName})
+        : t('backupData.toastBackupDoneOwner'));
     } catch {
-      notify('Impossible d’effectuer la sauvegarde.');
+      notify(t('backupData.toastBackupFailed'));
     } finally {
       setBackingUp(false);
     }
@@ -92,7 +98,9 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
       ? await buildPortableDataJsonForProfile(activeIdentity.id)
       : await buildPortableDataJson();
     await Share.share({
-      title: activeIdentity.isManagedProfile ? `Données de ${daughterFirstName} — AWA` : 'Mes données AWA',
+      title: activeIdentity.isManagedProfile
+        ? t('backupData.shareTitleDaughter', {firstName: daughterFirstName})
+        : t('backupData.shareTitleOwner'),
       message,
     });
   };
@@ -104,8 +112,8 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
   const snapshotCreatedAt = snapshot ? new Date(snapshot.createdAt) : null;
   const backupDate =
     snapshotCreatedAt && !Number.isNaN(snapshotCreatedAt.getTime())
-      ? new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(snapshotCreatedAt)
-      : 'Aucune copie';
+      ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(snapshotCreatedAt)
+      : t('backupData.noBackupYet');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
@@ -118,13 +126,15 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
         ]}
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
-          <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}>
+          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
           </Pressable>
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>Sauvegarde</Text>
+            <Text style={styles.title}>{t('backupData.title')}</Text>
             <Text style={styles.subtitle}>
-              {activeIdentity.isManagedProfile ? `Les données de ${daughterFirstName}, toujours en sécurité 💜` : 'Tes données, toujours en sécurité 💜'}
+              {activeIdentity.isManagedProfile
+                ? t('backupData.subtitleDaughter', {firstName: daughterFirstName})
+                : t('backupData.subtitleOwner')}
             </Text>
           </View>
           <View style={styles.decor}>
@@ -138,12 +148,12 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
             <MaterialDesignIcons color={theme.colors.primary} name="cloud-lock-outline" size={30} />
           </View>
           <View style={styles.introCopy}>
-            <Text style={styles.introTitle}>Tes données sont protégées</Text>
-            <Text style={styles.introText}>AWA peut créer une copie locale de tes informations sur cet appareil.</Text>
+            <Text style={styles.introTitle}>{t('backupData.introTitle')}</Text>
+            <Text style={styles.introText}>{t('backupData.introText')}</Text>
           </View>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Sauvegarde sécurisée</Text>
+        <Text style={styles.sectionTitle}>{t('backupData.sectionSecureBackup')}</Text>
         <Animated.View entering={FadeInUp.delay(130).duration(420)} style={styles.backupCard}>
           <Pressable onPress={() => setSettingsOpen(true)} style={({pressed}) => [styles.backupTop, pressed && styles.pressed]}>
             <View style={styles.cloudIcon}>
@@ -151,12 +161,12 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
             </View>
             <View style={styles.backupCopy}>
               <View style={styles.statusLine}>
-                <Text style={styles.backupTitle}>{settings.enabled ? 'Sauvegarde activée' : 'Sauvegarde désactivée'}</Text>
-                <View style={styles.localBadge}><Text style={styles.localText}>Copie locale</Text></View>
+                <Text style={styles.backupTitle}>{settings.enabled ? t('backupData.statusEnabled') : t('backupData.statusDisabled')}</Text>
+                <View style={styles.localBadge}><Text style={styles.localText}>{t('backupData.localCopyBadge')}</Text></View>
               </View>
-              <Text style={styles.metaLabel}>Dernière sauvegarde</Text>
+              <Text style={styles.metaLabel}>{t('backupData.lastBackupLabel')}</Text>
               <Text style={styles.metaValue}>{backupDate}</Text>
-              <Text style={styles.metaLabel}>Taille des données</Text>
+              <Text style={styles.metaLabel}>{t('backupData.dataSizeLabel')}</Text>
               <Text style={styles.metaValue}>{snapshot ? formatBytes(snapshot.sizeBytes) : '—'}</Text>
             </View>
             <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
@@ -166,51 +176,73 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
             <MaterialDesignIcons color={theme.colors.primary} name="sync" size={23} />
             <View style={styles.actionCopy}>
               <Text style={styles.actionTitle}>
-                {activeIdentity.isManagedProfile ? `Sauvegarder les données de ${daughterFirstName}` : 'Sauvegarder maintenant'}
+                {activeIdentity.isManagedProfile
+                  ? t('backupData.backupNowTitleDaughter', {firstName: daughterFirstName})
+                  : t('backupData.backupNowTitleOwner')}
               </Text>
               <Text style={styles.actionText}>
-                {activeIdentity.isManagedProfile ? `Créer une nouvelle copie des données de ${daughterFirstName}` : 'Créer une nouvelle copie de tes données'}
+                {activeIdentity.isManagedProfile
+                  ? t('backupData.backupNowTextDaughter', {firstName: daughterFirstName})
+                  : t('backupData.backupNowTextOwner')}
               </Text>
             </View>
             <Pressable disabled={backingUp} onPress={runBackup} style={[styles.saveButton, backingUp && styles.disabled]}>
-              {backingUp ? <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" /> : <Text style={styles.saveText}>Sauvegarder</Text>}
+              {backingUp ? <ActivityIndicator color={onPrimaryTextColor(theme)} size="small" /> : <Text style={styles.saveText}>{t('backupData.backupButton')}</Text>}
             </Pressable>
           </View>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Restaurer</Text>
+        <Text style={styles.sectionTitle}>{t('backupData.sectionRestore')}</Text>
         <DataRow
           icon="backup-restore" onPress={() => navigation.navigate('RestoreBackup')} styles={styles} theme={theme}
           subtitle={
             activeIdentity.isManagedProfile
-              ? `Remettre les données de ${daughterFirstName} comme lors de la copie précédente`
-              : 'Remettre tes données comme lors de la copie précédente'
+              ? t('backupData.restoreSubtitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.restoreSubtitleOwner')
           }
-          title={activeIdentity.isManagedProfile ? `Restaurer les données de ${daughterFirstName}` : 'Restaurer une sauvegarde'}
+          title={activeIdentity.isManagedProfile
+            ? t('backupData.restoreTitleDaughter', {firstName: daughterFirstName})
+            : t('backupData.restoreTitleOwner')}
         />
 
-        <Text style={styles.sectionTitle}>{activeIdentity.isManagedProfile ? `Gérer les données de ${daughterFirstName}` : 'Gérer mes données'}</Text>
+        <Text style={styles.sectionTitle}>
+          {activeIdentity.isManagedProfile
+            ? t('backupData.sectionManageDaughter', {firstName: daughterFirstName})
+            : t('backupData.sectionManageOwner')}
+        </Text>
         <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
           <DataRow
             icon="download-outline" onPress={download} styles={styles} theme={theme}
-            subtitle={activeIdentity.isManagedProfile ? `Recevoir une copie des données de ${daughterFirstName}` : 'Recevoir une copie de toutes tes données'}
-            title={activeIdentity.isManagedProfile ? `Télécharger les données de ${daughterFirstName}` : 'Télécharger mes données'}
+            subtitle={activeIdentity.isManagedProfile
+              ? t('backupData.downloadSubtitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.downloadSubtitleOwner')}
+            title={activeIdentity.isManagedProfile
+              ? t('backupData.downloadTitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.downloadTitleOwner')}
           />
           <DataRow
             badge="PDF / CSV" icon="file-export-outline" onPress={() => navigation.navigate('DataExport')} styles={styles} theme={theme}
-            subtitle={activeIdentity.isManagedProfile ? `Exporter l’historique et les données de ${daughterFirstName}` : 'Exporter ton historique et tes données'}
-            title={activeIdentity.isManagedProfile ? `Exporter les données de ${daughterFirstName}` : 'Exporter mes données'}
+            subtitle={activeIdentity.isManagedProfile
+              ? t('backupData.exportSubtitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.exportSubtitleOwner')}
+            title={activeIdentity.isManagedProfile
+              ? t('backupData.exportTitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.exportTitleOwner')}
           />
           <DataRow
             danger last icon="delete-outline" onPress={() => navigation.navigate('DeleteTrackedData')} styles={styles} theme={theme}
-            subtitle={activeIdentity.isManagedProfile ? `Supprimer définitivement les données de suivi de ${daughterFirstName}` : 'Supprimer définitivement tes données de suivi'}
-            title={activeIdentity.isManagedProfile ? `Supprimer les données de ${daughterFirstName}` : 'Supprimer mes données'}
+            subtitle={activeIdentity.isManagedProfile
+              ? t('backupData.deleteSubtitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.deleteSubtitleOwner')}
+            title={activeIdentity.isManagedProfile
+              ? t('backupData.deleteTitleDaughter', {firstName: daughterFirstName})
+              : t('backupData.deleteTitleOwner')}
           />
         </Animated.View>
 
         <View style={styles.info}>
           <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={21} />
-          <Text style={styles.infoText}>Tes données sont stockées localement par AWA.{'\n'}La copie locale reste sur cet appareil.</Text>
+          <Text style={styles.infoText}>{t('backupData.infoText')}</Text>
         </View>
       </ScrollView>
 
@@ -219,33 +251,33 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
           <Pressable onPress={() => setSettingsOpen(false)} style={styles.backdrop} />
           <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.handle} />
-            <Text style={styles.sheetTitle}>Sauvegarde automatique</Text>
+            <Text style={styles.sheetTitle}>{t('backupData.modal.title')}</Text>
             <View style={styles.settingRow}>
               <View style={styles.settingCopy}>
-                <Text style={styles.settingTitle}>Activée</Text>
-                <Text style={styles.settingText}>Autoriser la création de copies locales.</Text>
+                <Text style={styles.settingTitle}>{t('backupData.modal.enabledTitle')}</Text>
+                <Text style={styles.settingText}>{t('backupData.modal.enabledText')}</Text>
               </View>
               <Switch onValueChange={value => updateSettings({enabled: value})} trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}} value={settings.enabled} />
             </View>
             <View style={styles.settingRow}>
               <View style={styles.settingCopy}>
-                <Text style={styles.settingTitle}>Wi-Fi uniquement</Text>
-                <Text style={styles.settingText}>Prêt pour une future sauvegarde cloud.</Text>
+                <Text style={styles.settingTitle}>{t('backupData.modal.wifiTitle')}</Text>
+                <Text style={styles.settingText}>{t('backupData.modal.wifiText')}</Text>
               </View>
               <Switch onValueChange={value => updateSettings({wifiOnly: value})} trackColor={{false: theme.colors.surfaceSecondary, true: theme.colors.primary}} value={settings.wifiOnly} />
             </View>
-            <Text style={styles.settingTitle}>Fréquence préférée</Text>
+            <Text style={styles.settingTitle}>{t('backupData.modal.frequencyTitle')}</Text>
             <View style={styles.frequency}>
               {(['daily', 'weekly', 'manual'] as const).map(value => (
                 <Pressable key={value} onPress={() => updateSettings({frequency: value})} style={[styles.frequencyOption, settings.frequency === value && styles.frequencySelected]}>
                   <Text style={[styles.frequencyText, settings.frequency === value && styles.frequencyTextSelected]}>
-                    {value === 'daily' ? 'Quotidienne' : value === 'weekly' ? 'Hebdomadaire' : 'Manuelle'}
+                    {t(`backupData.modal.frequency.${value}`)}
                   </Text>
                 </Pressable>
               ))}
             </View>
             <Pressable onPress={() => setSettingsOpen(false)} style={styles.done}>
-              <Text style={styles.doneText}>Terminer</Text>
+              <Text style={styles.doneText}>{t('backupData.modal.done')}</Text>
             </Pressable>
           </View>
         </View>
