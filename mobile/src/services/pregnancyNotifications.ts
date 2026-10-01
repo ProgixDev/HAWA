@@ -12,6 +12,8 @@ import {
   getPrivacySecuritySettings,
   loadSecurityPreferences,
 } from '../state/securityPreferences';
+import {getAppLanguage} from '../state/themePreferences';
+import i18n from '../i18n';
 
 // Central local-notification helper for the whole app (despite the module
 // name, this now backs every reminder kind: Pregnancy appointment/exam,
@@ -27,16 +29,23 @@ import {
 // every notification passes through on its way to Android, so "Notifications
 // discrètes" / "Masquer l'aperçu" (src/state/securityPreferences.ts) apply to
 // every current and future reminder type without each caller having to
-// remember to check it itself.
+// remember to check it itself. "AWA" is the brand name — never translated.
 const PRIVACY_GENERIC_TITLE = 'AWA';
-const PRIVACY_GENERIC_BODY = 'Tu as un nouveau rappel AWA.';
 
 const CHANNEL_ID = 'pregnancy-reminders';
 let channelReady: Promise<string> | null = null;
+let channelLanguage: string | null = null;
 let permissionRequest: Promise<boolean> | null = null;
 
 function ensureChannel(): Promise<string> {
-  if (!channelReady) {
+  const language = getAppLanguage();
+  // Re-upserts (never duplicates — notifee.createChannel() is keyed by the
+  // same stable CHANNEL_ID) whenever the app language has changed since the
+  // channel was last created, so its Android-visible name follows the
+  // current language too. A plain re-render/resync with no language change
+  // reuses the cached promise exactly as before.
+  if (!channelReady || channelLanguage !== language) {
+    channelLanguage = language;
     // Same CHANNEL_ID as always — notifee.createChannel() upserts by id, so
     // this renames the existing Android channel in place (both for fresh
     // installs and for users who already have the old "Grossesse — rappels"
@@ -45,7 +54,7 @@ function ensureChannel(): Promise<string> {
     // not just Pregnancy.
     channelReady = notifee.createChannel({
       id: CHANNEL_ID,
-      name: 'Rappels AWA',
+      name: i18n.t('notifications.channelName'),
       importance: AndroidImportance.HIGH,
     });
   }
@@ -120,7 +129,7 @@ export async function scheduleLocalNotification({
   const hidePreview =
     privacy.discreetNotifications || privacy.hideNotificationPreview || privacy.discreetMode;
   const displayTitle = hidePreview ? PRIVACY_GENERIC_TITLE : title;
-  const displayBody = hidePreview ? PRIVACY_GENERIC_BODY : body;
+  const displayBody = hidePreview ? i18n.t('notifications.privacyGenericBody') : body;
 
   const trigger: TimestampTrigger = {
     type: TriggerType.TIMESTAMP,

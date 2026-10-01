@@ -15,7 +15,7 @@ import {
   type PregnancyMedicalEventType,
   type PregnancyReminderOffset,
 } from '../../state/pregnancyMedicalEventsStore';
-import {REMINDER_OFFSETS, REMINDER_OFFSET_LABELS, cancelEventReminder, syncEventReminder} from '../../utils/pregnancyEventReminders';
+import {REMINDER_OFFSETS, reminderOffsetLabels, cancelEventReminder, syncEventReminder} from '../../utils/pregnancyEventReminders';
 import {getPregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
 import '../../i18n';
 
@@ -198,6 +198,7 @@ function PregnancyEventForm({
   const styles = useMemo(() => createStyles(theme), [theme]);
   const typeLabels = eventTypeLabels(t);
   const placeholders = titlePlaceholders(t);
+  const offsetLabels = reminderOffsetLabels(t);
 
   const [dateValue, setDateValue] = useState<Date>(() => (initialEvent ? fromISODate(initialEvent.date) : new Date()));
   const [hasTime, setHasTime] = useState(() => Boolean(initialEvent?.time));
@@ -401,7 +402,7 @@ function PregnancyEventForm({
             <Pressable accessibilityRole="button" onPress={() => setReminderOffsetOpen(open => !open)} style={styles.reminderRow}>
               <Text style={styles.reminderRowLabel}>{t('pregnancyEvent.form.remindMe')}</Text>
               <View style={styles.reminderRowValueWrap}>
-                <Text style={styles.reminderRowValue}>{REMINDER_OFFSET_LABELS[reminderOffset]}</Text>
+                <Text style={styles.reminderRowValue}>{offsetLabels[reminderOffset]}</Text>
                 <MaterialDesignIcons color={theme.colors.textSecondary} name={reminderOffsetOpen ? 'chevron-up' : 'chevron-down'} size={18} />
               </View>
             </Pressable>
@@ -416,7 +417,7 @@ function PregnancyEventForm({
                     onPress={() => {setReminderOffset(option); setReminderOffsetOpen(false);}}
                     style={[styles.reminderChip, reminderOffset === option && styles.reminderChipActive]}>
                     <Text style={[styles.reminderChipText, reminderOffset === option && styles.reminderChipTextActive]}>
-                      {REMINDER_OFFSET_LABELS[option]}
+                      {offsetLabels[option]}
                     </Text>
                   </Pressable>
                 ))}
