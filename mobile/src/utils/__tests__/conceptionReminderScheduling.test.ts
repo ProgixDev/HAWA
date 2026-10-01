@@ -8,6 +8,7 @@ import {
   getRecordedPeriodHistory,
 } from '../../state/onboardingPreferences';
 import {getConceptionPreferences} from '../../state/conceptionPreferences';
+import i18n from '../../i18n';
 
 // M10 — TTC cycle-day reminders (fertile window / estimated ovulation / LH
 // test) use the SAME cycle length the TTC Dashboard uses for its phase: the
@@ -135,5 +136,39 @@ describe('syncConceptionReminders — cycle-day reminders', () => {
 
     expect(scheduledIds()).toEqual([]);
     expect(cancelledIds()).toEqual(expect.arrayContaining(Object.values(IDS)));
+  });
+});
+
+// Phase 4 localization.
+describe('syncConceptionReminders — language change', () => {
+  it('re-syncing after switching to English rebuilds the same ids/fire times with English text', async () => {
+    mockBasics.mockReturnValue(basics('2026-09-15', 'yes'));
+
+    await syncConceptionReminders();
+    const frOvulation = scheduled(IDS.estimated_ovulation);
+    const frLh = scheduled(IDS.lh_test);
+
+    await i18n.changeLanguage('en');
+    try {
+      jest.clearAllMocks();
+      mockSchedule.mockResolvedValue(true);
+      mockObjective.mockReturnValue('conceive');
+      mockConfirmed.mockReturnValue(true);
+      mockBasics.mockReturnValue(basics('2026-09-15', 'yes'));
+
+      await syncConceptionReminders();
+
+      const enOvulation = scheduled(IDS.estimated_ovulation);
+      const enLh = scheduled(IDS.lh_test);
+
+      expect(enOvulation.title).toBe('Estimated ovulation today');
+      expect(enOvulation.title).not.toBe(frOvulation.title);
+      expect(enOvulation.fireDate).toEqual(frOvulation.fireDate);
+
+      expect(enLh.title).toBe('Time for your ovulation (LH) test');
+      expect(enLh.fireDate).toEqual(frLh.fireDate);
+    } finally {
+      await i18n.changeLanguage('fr');
+    }
   });
 });

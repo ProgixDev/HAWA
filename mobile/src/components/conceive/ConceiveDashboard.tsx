@@ -55,7 +55,7 @@ import {getConceptionJournalItems} from '../../config/conceptionJournalConfig';
 import {getConceptionPreferences, hydrateConceptionPreferences, subscribeConceptionPreferences} from '../../state/conceptionPreferences';
 import {syncConceptionReminders} from '../../utils/conceptionReminderScheduling';
 import {getLibraryConfigForObjective} from '../../data/libraryObjectiveConfig';
-import {LIBRARY_ARTICLES, type LibraryArticle} from '../../data/libraryContent';
+import {getLibraryArticles, type LibraryArticle} from '../../data/libraryContent';
 import {getFloatingTabBarClearance, TOP_SPACING_EXTRA} from '../../theme/spacing';
 import {
   computeCyclePredictionStatus,
@@ -529,11 +529,11 @@ function ConceiveDashboard({navigation}: Props): React.JSX.Element {
   // data/route ArticleReader already uses elsewhere.
   const articles = useMemo(() => {
     const recommendedIds = getLibraryConfigForObjective('conceive').recommendedArticleIds;
-    const byId = new Map(LIBRARY_ARTICLES.map(article => [article.id, article]));
+    const byId = new Map(getLibraryArticles(t).map(article => [article.id, article]));
     return recommendedIds
       .map(id => byId.get(id))
       .filter((article): article is LibraryArticle => Boolean(article));
-  }, []);
+  }, [t]);
 
   const animatedStyle = {
     opacity: entrance,
