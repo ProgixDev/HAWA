@@ -11,6 +11,8 @@ import PregnancyDatingSetupScreen from '../PregnancyDatingSetupScreen';
 import {getPregnancyDating, setPregnancyDating} from '../../../state/pregnancyPreferences';
 import {syncPregnancyNotificationsForActiveObjective} from '../../../utils/pregnancyReminderScheduling';
 import {addDays, startOfDay} from '../../../utils/cycleMath';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M30 - saving a valid dating from the edit screen triggers the (objective-
 // gated) Pregnancy notification resync, so the weekly reminder follows the
@@ -85,6 +87,11 @@ const save = async (renderer: ReactTestRenderer.ReactTestRenderer) => {
 beforeEach(async () => {
   mockSync.mockClear();
   await setPregnancyDating({method: 'lastPeriod', date: startOfDay(addDays(new Date(), -70)).toISOString()});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

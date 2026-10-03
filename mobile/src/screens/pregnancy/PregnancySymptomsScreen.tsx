@@ -26,6 +26,7 @@ import {deletePregnancySymptoms, getPregnancyJournalState, savePregnancySymptoms
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
 // Pregnancy's "Symptômes ressentis" — visually rebuilt to match Cycle's own
@@ -50,14 +51,11 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 // DATA-BEARING: SYMPTOMS[] is DATA, not just display text — each string is
 // persisted verbatim as `PregnancySymptomEntry.symptoms` in
 // pregnancyJournalStore.ts (see `save()` below), matched by string equality
-// against `selected` (`toggle()`/`accessibilityLabel={item}`/the row label
-// Text below), and read back elsewhere. Translating these values would
-// either silently change already-saved user data's meaning across a
-// language switch, or require a genuine semantic-key migration (separate id
-// vs. display label) that is out of this phase's UI-only scope — see
-// CLAUDE.md §0 (report conflicts rather than silently picking one). Left in
-// French, not wrapped in t(), same known gap already flagged for Cycle's own
-// JournalSymptomsScreen.tsx SYMPTOMS[]/LOCATIONS[].
+// against `selected` (`toggle()`). The raw French string stays the
+// stored/compared/selected value forever — PHASE 7H adds a DISPLAY-ONLY
+// translation via journalOptionLabel('pregnancySymptom', value, t), falling
+// back to the original French string for any legacy/unknown value — same
+// pattern now applied to Cycle's own JournalSymptomsScreen.tsx SYMPTOMS[].
 const SYMPTOMS = ['Nausées', 'Fatigue', 'Sensibilité des seins', 'Ballonnements', 'Maux de tête', 'Reflux / brûlures d’estomac', 'Douleurs lombaires', 'Constipation', 'Crampes légères', 'Essoufflement', 'Gonflement', 'Vertiges', 'Troubles du sommeil'];
 
 // Icons cross-checked against MaterialDesignIcons names already confirmed
@@ -236,7 +234,7 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
                   const active = selected.includes(item);
                   return (
                     <Pressable
-                      accessibilityLabel={item}
+                      accessibilityLabel={journalOptionLabel('pregnancySymptom', item, t)}
                       accessibilityRole="checkbox"
                       accessibilityState={{checked: active}}
                       key={item}
@@ -246,10 +244,11 @@ export default function PregnancySymptomsScreen(): React.JSX.Element {
                         <MaterialDesignIcons color={active ? onPrimaryTextColor(theme) : theme.colors.primary} name={SYMPTOM_ICONS[item]} size={20} />
                       </View>
                       <View style={styles.symptomCopy}>
-                        {/* DATA-BEARING: `item` is the raw persisted symptom
-                            value (French) — see the SYMPTOMS[] comment above.
-                            Intentionally rendered as-is, not translated. */}
-                        <Text style={[styles.symptomText, active && styles.symptomTextActive]}>{item}</Text>
+                        {/* `item` is the raw persisted symptom value (French) — see the
+                            SYMPTOMS[] comment above. PHASE 7H: wrapped in
+                            journalOptionLabel('pregnancySymptom', ...) for DISPLAY only;
+                            the stored/compared/selected value is still `item` itself. */}
+                        <Text style={[styles.symptomText, active && styles.symptomTextActive]}>{journalOptionLabel('pregnancySymptom', item, t)}</Text>
                         <Text style={[styles.symptomHelperText, active && styles.symptomHelperTextActive]}>
                           {active ? t('pregnancySymptoms.row.added') : t('pregnancySymptoms.row.tapToSelect')}
                         </Text>

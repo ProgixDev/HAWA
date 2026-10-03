@@ -59,6 +59,7 @@ import {
   formatMonthLabel,
 } from '../../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../../utils/cycleStatisticsMath';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import {getFloatingTabBarClearance, spacing} from '../../theme/spacing';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
@@ -2108,8 +2109,9 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
               icon="heart-pulse"
               label={t('pregnancyStatistics.overview.topSymptom')}
               value={
-                mostFrequentSymptom?.name ??
-                t('pregnancyStatistics.overview.noData')
+                mostFrequentSymptom
+                  ? journalOptionLabel('pregnancySymptom', mostFrequentSymptom.name, t)
+                  : t('pregnancyStatistics.overview.noData')
               }
               wide
             />
@@ -2573,7 +2575,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                 styles.symptomName
                               }>
                               {
-                                item.name
+                                journalOptionLabel('pregnancySymptom', item.name, t)
                               }
                             </Text>
 
@@ -2681,7 +2683,7 @@ function PregnancyStatisticsScreen(): React.JSX.Element {
                                   styles.chipText
                                 }>
                                 {t('pregnancyStatistics.symptoms.monthChip', {
-                                  name: symptom.name,
+                                  name: journalOptionLabel('pregnancySymptom', symptom.name, t),
                                   count: symptom.count,
                                 })}
                               </Text>

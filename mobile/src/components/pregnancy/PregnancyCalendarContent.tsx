@@ -33,7 +33,7 @@ import {
   formatHijriDay,
   formatHijriMonthYear,
   sameDay,
-  WEEK_DAYS,
+  localizedWeekDays,
 } from '../../utils/cycleMath';
 
 import {
@@ -53,6 +53,7 @@ import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/preg
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {getAppLanguage} from '../../state/themePreferences';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
@@ -382,9 +383,9 @@ function buildDailyItems(
       value:
         symptomEntry
           ?.symptoms.length
-          ? symptomEntry.symptoms.join(
-              ', ',
-            )
+          ? symptomEntry.symptoms
+              .map(symptom => journalOptionLabel('pregnancySymptom', symptom, t))
+              .join(', ')
           : filterMeta
               .symptoms.empty,
       icon:
@@ -398,12 +399,7 @@ function buildDailyItems(
         filterMeta.weight
           .label,
       value: weightEntry
-        ? `${String(
-            weightEntry.valueKg,
-          ).replace(
-            '.',
-            ',',
-          )} kg`
+        ? `${new Intl.NumberFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR').format(weightEntry.valueKg)} kg`
         : filterMeta.weight
             .empty,
       icon:
@@ -435,8 +431,9 @@ function buildDailyItems(
       value:
         daily?.sleep
           ?.duration ??
-        daily?.sleep
-          ?.quality ??
+        (daily?.sleep?.quality
+          ? journalOptionLabel('cycleSleepQuality', daily.sleep.quality, t)
+          : undefined) ??
         filterMeta.sleep
           .empty,
       icon:
@@ -1114,7 +1111,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
               style={
                 styles.weekRow
               }>
-              {WEEK_DAYS.map(
+              {localizedWeekDays().map(
                 day => (
                   <Text
                     key={day}

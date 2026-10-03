@@ -167,7 +167,8 @@ function pregnancyDailyItemLabels(
 function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const pregnancyDataLang = i18n.language === 'en' ? 'en' : 'fr';
 
   const compact = width < 370;
   const veryCompact = width < 345;
@@ -361,7 +362,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   // No fabricated fallback: when nothing is available for this week, the
   // "Ton bébé" card shows an honest message instead of a fixed number.
   const weekData = status.configured
-    ? getPregnancyWeekData(status.week)
+    ? getPregnancyWeekData(status.week, pregnancyDataLang)
     : undefined;
 
   // Same shared bottom-sheet context Cycle uses — JournalSheetHost (see

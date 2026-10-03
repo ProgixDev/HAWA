@@ -169,7 +169,8 @@ function InfoRow({
 export default function PregnancyWeekScreen({
   navigation,
 }: Props): React.JSX.Element {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
+  const pregnancyDataLang = i18n.language === 'en' ? 'en' : 'fr';
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -251,6 +252,7 @@ export default function PregnancyWeekScreen({
     status.configured
       ? getPregnancyWeekData(
           displayedWeek,
+          pregnancyDataLang,
         )
       : undefined;
 
