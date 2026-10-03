@@ -15,9 +15,10 @@ import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePrefere
 // Phase 2 localization — Statistics is read-only (never persists anything),
 // so unlike the Journal entry screens, its flow-intensity/period labels are
 // pure display text and are fully translated — no data-bearing gap here.
-// Symptom NAMES themselves are the user's own saved data (from
-// JournalSymptomsScreen, deliberately left in French) and are correctly
-// never translated by this screen either way.
+// Symptom NAMES are the user's own saved data (stored in French forever,
+// per Phase 7H's journalOptionLabel architecture) but their DISPLAY label
+// is translated per app language via journalOptionLabel('cycleSymptom', ...)
+// — only the persisted/compared value stays French (see Phase 7H.1).
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -106,11 +107,12 @@ describe('StatisticsScreen — localization', () => {
     expect(texts).not.toContain('Moyen');
   });
 
-  it('keeps the user’s own saved symptom names in French (real data, never translated) even in English', async () => {
+  it('translates the display label of the user’s own saved symptom names in English (persisted value stays French)', async () => {
     await setAppLanguage('en');
     await saveJournalSection('2026-09-20', 'symptoms', {names: ['Crampes'], severity: 'mild'});
     const texts = allTexts(await renderScreen());
     expect(texts).toContain('Most frequent symptoms');
-    expect(texts).toContain('Crampes');
+    expect(texts).toContain('Cramps');
+    expect(texts).not.toContain('Crampes');
   });
 });
