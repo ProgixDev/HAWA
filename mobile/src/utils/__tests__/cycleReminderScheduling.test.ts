@@ -3,6 +3,7 @@ import {scheduleLocalNotification, cancelLocalNotification} from '../../services
 import {getActiveObjective, getCyclePreferences, getCycleObservationStartedAt, getHasConfirmedCycleDuration, getRecordedPeriodHistory} from '../../state/onboardingPreferences';
 import {getCycleReminderPreferences} from '../../state/cycleReminderPreferences';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
 // native module at the top level, which isn't available in the Jest
@@ -55,7 +56,7 @@ function regularBasics(lastPeriodStart: string, cycleDuration = 28, periodDurati
   };
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockScheduleLocalNotification.mockResolvedValue(true);
   mockCancelLocalNotification.mockResolvedValue(undefined);
@@ -63,6 +64,11 @@ beforeEach(() => {
   mockGetCycleObservationStartedAt.mockReturnValue(null);
   mockGetRecordedPeriodHistory.mockReturnValue([]);
   mockGetCycleReminderPreferences.mockReturnValue({...DEFAULT_PREFS});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('syncCycleReminders — upcoming period reminder', () => {
@@ -123,7 +129,8 @@ describe('syncCycleReminders — upcoming period reminder', () => {
       expect(enCall.title).toBe('Your period is coming up soon 🌸');
       expect(enCall.title).not.toBe(frCall.title);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 

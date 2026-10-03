@@ -2,6 +2,8 @@ import notifee from '@notifee/react-native';
 
 import {scheduleLocalNotification, cancelLocalNotification} from '../pregnancyNotifications';
 import {getPrivacySecuritySettings, loadSecurityPreferences} from '../../state/securityPreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // pregnancyNotifications.ts is AWA's single privacy-redaction chokepoint: every
 // reminder system in the app (Cycle, TTC, Contraception, SOPK, Pregnancy,
@@ -69,10 +71,16 @@ function lastTrigger() {
   return mockCreateTrigger.mock.calls[mockCreateTrigger.mock.calls.length - 1][1];
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockRequestPermission.mockResolvedValue({authorizationStatus: 1});
   mockGetPrivacySettings.mockReturnValue({...ALL_OFF});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's redaction fallback-text assertions were written against the
+  // French default. Pinning French explicitly here preserves every test's
+  // original intent without depending on the current app-wide default.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('scheduleLocalNotification — privacy redaction', () => {

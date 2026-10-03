@@ -22,6 +22,7 @@ import type {HealthReminder} from '../../state/pregnancyHealthRemindersStore';
 import type {CustomReminder} from '../../state/pregnancyCustomRemindersStore';
 import type {PregnancyMedicalEvent} from '../../state/pregnancyMedicalEventsStore';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 jest.mock('../../services/pregnancyNotifications', () => ({
   scheduleLocalNotification: jest.fn(),
@@ -43,13 +44,21 @@ const mockActiveObjective = getActiveObjective as jest.Mock;
 const mockContraceptionPrefs = getContraceptionPreferences as jest.Mock;
 const mockMenopausePrefs = getMenopausePreferences as jest.Mock;
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockSchedule.mockResolvedValue(true);
   mockCancel.mockResolvedValue(undefined);
+  // PHASE 7M: the app's default language is now English (not French) — the
+  // afterEach below already restores French after every test, but the very
+  // first test in the file runs before any afterEach has fired. Pinning
+  // French here too covers that first-test case, matching every other
+  // test's starting assumption.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(async () => {
+  await setAppLanguage('fr');
   await i18n.changeLanguage('fr');
 });
 

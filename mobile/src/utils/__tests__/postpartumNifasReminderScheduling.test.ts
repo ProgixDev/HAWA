@@ -8,6 +8,7 @@ import {
   NIFAS_REFERENCE_NOTIFICATION_ID,
 } from '../postpartumNifasReminderScheduling';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Phase 4 localization — Postpartum's Nifas reminders are the other file
 // (with qadaaReminderScheduling.ts) whose sync function short-circuits
@@ -34,6 +35,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  await setAppLanguage('fr');
   await i18n.changeLanguage('fr');
 });
 
@@ -43,6 +45,11 @@ beforeEach(async () => {
   await cancelPostpartumNifasReminders();
   schedule.mockClear();
   cancel.mockClear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('syncPostpartumNifasReminders — no duplicate scheduling', () => {
@@ -68,7 +75,8 @@ describe('syncPostpartumNifasReminders — language change', () => {
       await syncPostpartumNifasReminders();
       expect(schedule).not.toHaveBeenCalled();
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 
@@ -98,7 +106,8 @@ describe('syncPostpartumNifasReminders — language change', () => {
       expect(enReference.title).toBe('AWA’s 40-day reference point has been reached');
       expect(enReference.title).not.toBe(frReference.title);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 });

@@ -9,6 +9,7 @@ import {collectActualPeriodDayKeys} from '../irregularJournalSelectors';
 import type {DailyJournalEntry} from '../../types/journal';
 import type {IrregularJournalEntry} from '../../state/irregularJournalStore';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 jest.mock('../../services/pregnancyNotifications', () => ({
   scheduleLocalNotification: jest.fn(),
@@ -50,13 +51,18 @@ const occurrence = (id: string, periodStart: string) => ({
   capturedAt: periodStart,
 });
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockScheduleLocalNotification.mockResolvedValue(true);
   mockCancelLocalNotification.mockResolvedValue(undefined);
   mockGetActiveObjective.mockReturnValue('irregular');
   mockGetIrregularPreferences.mockReturnValue({...DEFAULT_PREFS, reminders: {...DEFAULT_PREFS.reminders}});
   mockGetConfirmedPeriodHistory.mockReturnValue([]);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('syncIrregularReminders — daily journal reminder', () => {
@@ -217,7 +223,8 @@ describe('syncIrregularReminders — language change', () => {
       expect(enUnrecorded.body.toLowerCase()).not.toContain('late');
       expect(enUnrecorded.fireDate).toEqual(frUnrecorded.fireDate);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 });

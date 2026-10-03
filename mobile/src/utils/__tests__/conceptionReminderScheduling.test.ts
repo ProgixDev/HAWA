@@ -9,6 +9,7 @@ import {
 } from '../../state/onboardingPreferences';
 import {getConceptionPreferences} from '../../state/conceptionPreferences';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M10 — TTC cycle-day reminders (fertile window / estimated ovulation / LH
 // test) use the SAME cycle length the TTC Dashboard uses for its phase: the
@@ -52,7 +53,7 @@ const scheduledIds = () => mockSchedule.mock.calls.map(([arg]) => arg.id as stri
 const cancelledIds = () => mockCancel.mock.calls.map(([id]) => id as string);
 const stamp = (date: Date) => `${date.toLocaleDateString('en-CA')} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   jest.useFakeTimers({now: NOW});
   mockSchedule.mockResolvedValue(true);
@@ -64,6 +65,11 @@ beforeEach(() => {
   mockConceptionPrefs.mockReturnValue({
     reminders: {temperature: false, daily_journal: false, fertile_window: true, estimated_ovulation: true, lh_test: true},
   });
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -168,7 +174,8 @@ describe('syncConceptionReminders — language change', () => {
       expect(enLh.title).toBe('Time for your ovulation (LH) test');
       expect(enLh.fireDate).toEqual(frLh.fireDate);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 });
