@@ -17,17 +17,11 @@ import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaTheme
 import {getAppLanguage} from '../../state/themePreferences';
 import type {PrayerWindow} from '../../services/prayerTimes';
 import {
-  NIFAS_REFERENCE_APPROACHING_HEADLINE,
-  NIFAS_REFERENCE_REACHED_HEADLINE,
+  nifasReferenceApproachingHeadline,
+  nifasReferenceReachedHeadline,
 } from '../../config/nifasReminderConfig';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
 import '../../i18n';
-
-// NIFAS_REFERENCE_APPROACHING_HEADLINE/NIFAS_REFERENCE_REACHED_HEADLINE (used
-// below in the Nifas reminder block) are reminder-copy strings from
-// nifasReminderConfig.ts — full notification/reminder copy is explicitly out
-// of this localization phase's scope, so they are left as-is, in French, for
-// now. Every other string in this file is migrated.
 
 // ============================================================================
 // PHASE C — SEMANTIC vs THEMEABLE COLORS IN THIS FILE
@@ -471,13 +465,10 @@ function SpiritualGuidanceCard({
               {t('spiritualGuidance.nifasReminderTitle')}
             </Text>
 
-            {/* NIFAS_REFERENCE_REACHED_HEADLINE/APPROACHING_HEADLINE are
-                reminder-copy strings (nifasReminderConfig.ts) — out of this
-                phase's scope, still French, see the file-header note above. */}
             <Text style={styles.nifasReminderText}>
               {nifasReminderStatus === 'reference_reached'
-                ? `${NIFAS_REFERENCE_REACHED_HEADLINE}.`
-                : `${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`}
+                ? `${nifasReferenceReachedHeadline()}.`
+                : `${nifasReferenceApproachingHeadline()}.`}
             </Text>
           </View>
 

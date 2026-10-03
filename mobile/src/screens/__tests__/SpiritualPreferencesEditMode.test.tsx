@@ -7,6 +7,13 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import SpiritualPreferencesScreen from '../SpiritualPreferencesScreen';
+
+// Phase 7B migrated this screen to useTranslation() — i18next must be
+// initialized (side effect of importing the singleton) before it renders,
+// same requirement every other migrated-screen test already follows (see
+// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
+// keys instead of the French default copy this file's assertions expect.
+import '../../i18n';
 import {
   getSpiritualMarkersEnabled,
   setActiveObjective,

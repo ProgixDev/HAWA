@@ -2,6 +2,7 @@ import React, {memo, useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {FadeInUp} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -23,16 +24,17 @@ const formatTime = (date: Date, timezone?: string) =>
   }).format(date);
 
 function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <View style={styles.card}>
       <View style={styles.headingRow}>
-        <Text style={styles.title}>Horaires du jour</Text>
+        <Text style={styles.title}>{t('prayerTimes.schedule.title')}</Text>
         <View style={styles.headingRight}>
           <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={13} />
-          <Text style={styles.headingRightText}>Heures locales</Text>
+          <Text style={styles.headingRightText}>{t('prayerTimes.schedule.localTimes')}</Text>
         </View>
       </View>
 
@@ -56,10 +58,10 @@ function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JS
               </View>
               {active ? (
                 <View style={styles.nextBadge}>
-                  <Text style={styles.nextBadgeText}>Prochaine prière</Text>
+                  <Text style={styles.nextBadgeText}>{t('spiritualGuidance.nextPrayerLabel')}</Text>
                 </View>
               ) : (
-                <Text style={styles.endLabel}>Fin du créneau · {formatTime(window.end, timezone)}</Text>
+                <Text style={styles.endLabel}>{t('prayerTimes.nextPrayerEndCaption', {time: formatTime(window.end, timezone)})}</Text>
               )}
             </View>
           </Animated.View>
@@ -67,7 +69,7 @@ function PrayerScheduleList({windows, timezone, highlightName}: Props): React.JS
       })}
 
       <Text style={styles.footnote}>
-        Les horaires sont calculés selon ta localisation. Pense à les vérifier régulièrement.
+        {t('prayerTimes.schedule.footnote')}
       </Text>
     </View>
   );

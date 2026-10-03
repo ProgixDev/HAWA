@@ -7,6 +7,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {FadeIn, FadeInUp, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {homeRadii} from '../components/home/homeTheme';
@@ -29,6 +30,7 @@ import {
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {getAppLanguage} from '../state/themePreferences';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
@@ -56,6 +58,7 @@ function ShortcutRow({
 }
 
 function HijriCalendarScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
@@ -118,10 +121,11 @@ function HijriCalendarScreen(): React.JSX.Element {
   const monthLabel = formatHijriMonthYear(monthStart) ?? '—';
   const todayHijriDay = formatHijriDay(today) ?? '—';
   const todayHijriMonthYear = formatHijriMonthYear(today) ?? '—';
-  const todayWeekdayDate = `${capitalize(new Intl.DateTimeFormat('fr-FR', {weekday: 'long'}).format(today))} ${formatFullDate(today)}`;
+  const weekdayLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const todayWeekdayDate = `${capitalize(new Intl.DateTimeFormat(weekdayLocale, {weekday: 'long'}).format(today))} ${formatFullDate(today)}`;
 
   const selectedHijriDate = formatHijriDate(selectedDate) ?? '—';
-  const selectedWeekdayDate = `${capitalize(new Intl.DateTimeFormat('fr-FR', {weekday: 'long'}).format(selectedDate))} ${formatFullDate(selectedDate)}`;
+  const selectedWeekdayDate = `${capitalize(new Intl.DateTimeFormat(weekdayLocale, {weekday: 'long'}).format(selectedDate))} ${formatFullDate(selectedDate)}`;
   const selectedIsToday = sameDay(selectedDate, today);
 
   const goToPreviousMonth = () => {
@@ -170,7 +174,7 @@ function HijriCalendarScreen(): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(380)} style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -180,11 +184,11 @@ function HijriCalendarScreen(): React.JSX.Element {
           <View style={styles.headerTitleRow}>
             <MaterialDesignIcons color={theme.colors.primary} name="moon-waning-crescent" size={16} />
             <Text adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={1} style={styles.headerTitle}>
-              Calendrier Hijri
+              {t('hijriCalendar.title')}
             </Text>
           </View>
           <Pressable
-            accessibilityLabel="Revenir à aujourd’hui"
+            accessibilityLabel={t('hijriCalendar.todayAccessibility')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={goToToday}
@@ -195,7 +199,7 @@ function HijriCalendarScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeInUp.delay(60).duration(450)} style={styles.heroCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="mosque" size={128} style={styles.heroWatermark} />
-          <Text style={styles.heroEyebrow}>Aujourd’hui</Text>
+          <Text style={styles.heroEyebrow}>{t('hijriCalendar.today')}</Text>
           <Text style={styles.heroDay}>{todayHijriDay}</Text>
           <Text style={styles.heroMonth}>{todayHijriMonthYear}</Text>
           <Text style={styles.heroGregorian}>{todayWeekdayDate}</Text>
@@ -217,7 +221,7 @@ function HijriCalendarScreen(): React.JSX.Element {
 
         <Animated.View entering={FadeInUp.delay(180).duration(420)}>
           <Animated.View style={[styles.selectedCard, selectedAnimatedStyle]}>
-            <Text style={styles.selectedLabel}>Date sélectionnée</Text>
+            <Text style={styles.selectedLabel}>{t('hijriCalendar.selectedDateLabel')}</Text>
             <View style={styles.selectedRow}>
               <View style={styles.selectedCopy}>
                 <Text style={styles.selectedHijri}>{selectedHijriDate}</Text>
@@ -225,7 +229,7 @@ function HijriCalendarScreen(): React.JSX.Element {
               </View>
               {selectedIsToday ? (
                 <View style={styles.todayPill}>
-                  <Text style={styles.todayPillText}>Aujourd’hui</Text>
+                  <Text style={styles.todayPillText}>{t('hijriCalendar.today')}</Text>
                 </View>
               ) : null}
             </View>
@@ -246,12 +250,12 @@ function HijriCalendarScreen(): React.JSX.Element {
             <View style={styles.monthRefIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-star" size={16} />
             </View>
-            <Text style={styles.monthRefEyebrow}>Repères du mois</Text>
+            <Text style={styles.monthRefEyebrow}>{t('hijriCalendar.monthReferenceEyebrow')}</Text>
           </View>
 
           {ramadan ? (
             <View style={styles.monthPill}>
-              <Text style={styles.monthPillText}>Ramadan</Text>
+              <Text style={styles.monthPillText}>{t('hijriCalendar.ramadanPill')}</Text>
             </View>
           ) : null}
 
@@ -260,35 +264,35 @@ function HijriCalendarScreen(): React.JSX.Element {
           {ramadan ? (
             <>
               <Text style={styles.monthRefText}>
-                C’est le mois du jeûne. Retrouve ici tes repères spirituels et ton suivi du jeûne.
+                {t('hijriCalendar.ramadanText')}
               </Text>
               <Pressable
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('FastingQadaa')}
                 style={({pressed}) => [styles.monthRefButton, pressed && styles.pressed]}>
-                <Text style={styles.monthRefButtonText}>Consulter mes jeûnes à rattraper</Text>
+                <Text style={styles.monthRefButtonText}>{t('hijriCalendar.ramadanButton')}</Text>
               </Pressable>
             </>
           ) : dhoulHijja ? (
             <>
-              <Text style={styles.monthRefText}>Mois important du calendrier hijri.</Text>
+              <Text style={styles.monthRefText}>{t('hijriCalendar.dhoulHijjaText')}</Text>
               <Pressable
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
                 style={({pressed}) => [styles.monthRefButton, pressed && styles.pressed]}>
-                <Text style={styles.monthRefButtonText}>Découvrir les repères spirituels</Text>
+                <Text style={styles.monthRefButtonText}>{t('hijriCalendar.dhoulHijjaButton')}</Text>
               </Pressable>
             </>
           ) : (
-            <Text style={styles.monthRefText}>Aucun repère particulier pour ce mois.</Text>
+            <Text style={styles.monthRefText}>{t('hijriCalendar.noSpecialReference')}</Text>
           )}
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(300).duration(420)} style={styles.shortcutsCard}>
-          <Text style={styles.shortcutsTitle}>Repères spirituels</Text>
-          <ShortcutRow icon="mosque" label="Horaires de prière" onPress={() => navigation.navigate('PrayerTimes')} styles={styles} theme={theme} />
-          <ShortcutRow icon="silverware-fork-knife" label="Jeûnes à rattraper" onPress={() => navigation.navigate('FastingQadaa')} styles={styles} theme={theme} />
-          <ShortcutRow icon="book-open-page-variant-outline" label="Contenus spirituels" last onPress={() => navigation.navigate('Library')} styles={styles} theme={theme} />
+          <Text style={styles.shortcutsTitle}>{t('hijriCalendar.shortcutsTitle')}</Text>
+          <ShortcutRow icon="mosque" label={t('hijriCalendar.shortcutPrayerTimes')} onPress={() => navigation.navigate('PrayerTimes')} styles={styles} theme={theme} />
+          <ShortcutRow icon="silverware-fork-knife" label={t('hijriCalendar.shortcutQadaa')} onPress={() => navigation.navigate('FastingQadaa')} styles={styles} theme={theme} />
+          <ShortcutRow icon="book-open-page-variant-outline" label={t('hijriCalendar.shortcutLibrary')} last onPress={() => navigation.navigate('Library')} styles={styles} theme={theme} />
         </Animated.View>
       </ScrollView>
     </View>

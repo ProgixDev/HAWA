@@ -11,6 +11,7 @@ import {
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import { useTranslation } from 'react-i18next';
 
 import type { RootStackParamList } from '../navigation/AppNavigator';
 import { spacing, TOP_SPACING_EXTRA } from '../theme/spacing';
@@ -24,19 +25,22 @@ import {
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
-const features = [
-  { icon: '🗓️', label: 'Calendrier hijri' },
-  { icon: '🤲', label: 'Prières & statut de pureté' },
-  { icon: '🌙', label: 'Jeûne (Ramadan, rattrapages)' },
-  { icon: '🔔', label: 'Rappels de la prière' },
-];
+const featureIcons = ['🗓️', '🤲', '🌙', '🔔'];
+const featureLabelKeys = [
+  'onboarding.spiritual.featureHijri',
+  'onboarding.spiritual.featurePrayers',
+  'onboarding.spiritual.featureFasting',
+  'onboarding.spiritual.featureReminders',
+] as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'SpiritualPreferences'>;
 
 function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Element {
+  const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const features = featureIcons.map((icon, index) => ({icon, label: t(featureLabelKeys[index])}));
   // null = no explicit choice yet (brand-new users start here — never
   // silently treated as true or false). Pre-fills her real answer if she's
   // already confirmed one before (e.g. navigating back), instead of
@@ -154,12 +158,10 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
         >
           <View style={styles.header}>
             <Text style={styles.title}>
-              {'Souhaites-tu activer\nles repères spirituels ?'}
+              {t('onboarding.spiritual.title')}
             </Text>
             <Text style={styles.subtitle}>
-              {
-                'Calendrier hijri, prières, jeûne, état de pureté…\nTu pourras modifier ce choix à tout moment.'
-              }
+              {t('onboarding.spiritual.subtitle')}
             </Text>
           </View>
 
@@ -180,7 +182,7 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
               <Text
                 style={[styles.choiceText, isYes && styles.choiceTextActive]}
               >
-                Oui, activer
+                {t('onboarding.spiritual.enable')}
               </Text>
               {isYes && (
                 <View style={styles.checkCircle}>
@@ -205,7 +207,7 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
               <Text
                 style={[styles.choiceText, isNo && styles.choiceTextActive]}
               >
-                Non, pas maintenant
+                {t('onboarding.spiritual.disable')}
               </Text>
               {isNo && (
                 <View style={styles.checkCircle}>
@@ -254,7 +256,7 @@ function SpiritualPreferencesScreen({ navigation, route }: Props): React.JSX.Ele
               pressed && enabled !== null && styles.pressed,
             ]}
           >
-            <Text style={styles.nextText}>{route.params?.mode === 'edit' ? 'Enregistrer' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{route.params?.mode === 'edit' ? t('common.save') : t('onboarding.spiritual.next')}</Text>
           </Pressable>
         </ScrollView>
       </SafeAreaView>

@@ -16,6 +16,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {homeRadii} from '../components/home/homeTheme';
@@ -29,6 +30,7 @@ import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
 import {capitalize, formatFullDate, formatHijriDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {objectiveShowsMenstrualPurity} from '../utils/spiritualObjectiveScope';
+import {getAppLanguage} from '../state/themePreferences';
 import {
   getActiveObjective,
   getHijriAdjustmentDays,
@@ -41,6 +43,7 @@ const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
 
 function PrayerTimesScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -88,7 +91,7 @@ function PrayerTimesScreen(): React.JSX.Element {
     setRefreshing(false);
   }, [refresh]);
 
-  const weekdayLabel = capitalize(new Intl.DateTimeFormat('fr-FR', {weekday: 'long'}).format(now));
+  const weekdayLabel = capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long'}).format(now));
   const hijriLabel = formatHijriDate(now) ?? '—';
   const metaDateLabel = `${weekdayLabel} ${formatFullDate(now)}`;
 
@@ -121,7 +124,7 @@ function PrayerTimesScreen(): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(380)} style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -129,10 +132,10 @@ function PrayerTimesScreen(): React.JSX.Element {
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={26} />
           </Pressable>
           <Text adjustsFontSizeToFit minimumFontScale={0.85} numberOfLines={1} style={styles.headerTitle}>
-            Horaires de prière
+            {t('prayerTimes.title')}
           </Text>
           <Pressable
-            accessibilityLabel="Réglages des horaires de prière"
+            accessibilityLabel={t('prayerTimes.settingsAccessibility')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() => navigation.navigate('SpiritualPreferences', {mode: 'edit'})}
@@ -148,16 +151,16 @@ function PrayerTimesScreen(): React.JSX.Element {
             style={({pressed}) => [styles.locationPill, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="map-marker-outline" size={15} />
             <Text numberOfLines={1} style={styles.locationText}>
-              {selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : 'Localisation requise'}
+              {selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : t('spiritualGuidance.locationRequired')}
             </Text>
-            <Text style={styles.locationModify}>Modifier</Text>
+            <Text style={styles.locationModify}>{t('prayerTimes.modify')}</Text>
           </Pressable>
 
           <Text numberOfLines={2} style={styles.dateText}>
             {hijriLabel} · {metaDateLabel}
           </Text>
           {schedule?.fajrAngle ? (
-            <Text style={styles.angleText}>Fajr - Angle de {schedule.fajrAngle}°</Text>
+            <Text style={styles.angleText}>{t('prayerTimes.fajrAngle', {angle: schedule.fajrAngle})}</Text>
           ) : null}
         </Animated.View>
 
@@ -186,11 +189,11 @@ function PrayerTimesScreen(): React.JSX.Element {
 
         {shouldShowMenstrualPurity && purityResult.status !== 'unknown' ? (
           <Animated.View entering={FadeInUp.delay(280).duration(420)} style={styles.noteCard}>
-            <Text style={styles.noteEyebrow}>Conseil spirituel</Text>
+            <Text style={styles.noteEyebrow}>{t('prayerTimes.spiritualAdviceEyebrow')}</Text>
             <View style={styles.noteRow}>
               <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={15} />
               <Text style={styles.noteText}>
-                Les prières manquées pendant les règles ne sont pas à rattraper.
+                {t('prayerTimes.missedPrayersNote')}
               </Text>
             </View>
           </Animated.View>
@@ -205,32 +208,32 @@ function PrayerTimesScreen(): React.JSX.Element {
               <MaterialDesignIcons color={theme.colors.primary} name="book-open-page-variant-outline" size={18} />
             </View>
             <View style={styles.guidanceCopy}>
-              <Text style={styles.guidanceTitle}>Repères spirituels</Text>
-              <Text style={styles.guidanceSubtitle}>Découvre des rappels et des contenus utiles pour ton quotidien.</Text>
+              <Text style={styles.guidanceTitle}>{t('spiritualGuidance.title')}</Text>
+              <Text style={styles.guidanceSubtitle}>{t('prayerTimes.guidanceSubtitle')}</Text>
             </View>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={19} />
           </Pressable>
         </Animated.View>
 
         <Animated.View entering={FadeInUp.delay(360).duration(420)} style={styles.hijriCard}>
-          <Text style={styles.hijriEyebrow}>Calendrier Hijri</Text>
+          <Text style={styles.hijriEyebrow}>{t('prayerTimes.hijriSectionTitle')}</Text>
 
           <View style={styles.hijriRow}>
-            <Text style={styles.hijriRowLabel}>Pays</Text>
+            <Text style={styles.hijriRowLabel}>{t('prayerTimes.countryLabel')}</Text>
             <Text numberOfLines={1} style={styles.hijriRowValue}>
-              {selectedLocation?.country ?? 'Non défini'}
+              {selectedLocation?.country ?? t('prayerTimes.locationUndefined')}
             </Text>
           </View>
 
-          <Text style={[styles.hijriRowLabel, styles.hijriAdjustmentLabel]}>Ajuster la date Hijri</Text>
+          <Text style={[styles.hijriRowLabel, styles.hijriAdjustmentLabel]}>{t('prayerTimes.adjustHijriLabel')}</Text>
           <View accessibilityRole="radiogroup" style={styles.hijriAdjustmentRow}>
             {([-1, 0, 1] as const).map(value => {
               const selected = hijriAdjustment === value;
-              const label = value === 0 ? 'Aucun' : value > 0 ? '+1 jour' : '-1 jour';
+              const label = value === 0 ? t('prayerTimes.adjustmentNone') : value > 0 ? t('prayerTimes.adjustmentPlusOneDay') : t('prayerTimes.adjustmentMinusOneDay');
               return (
                 <Pressable
                   key={value}
-                  accessibilityLabel={`Ajustement Hijri : ${label}`}
+                  accessibilityLabel={t('prayerTimes.adjustmentAccessibility', {label})}
                   accessibilityRole="radio"
                   accessibilityState={{checked: selected}}
                   onPress={() => handleSetHijriAdjustment(value)}
@@ -252,23 +255,23 @@ function PrayerTimesScreen(): React.JSX.Element {
           </View>
 
           <Text style={styles.hijriHelperText}>
-            Laisse « Aucun » si la date affichée correspond à celle suivie dans ta région.
+            {t('prayerTimes.adjustmentHelper')}
           </Text>
 
           {hijriAdjustment !== 0 ? (
             <Text style={styles.hijriActiveNote}>
-              Calendrier ajusté de {hijriAdjustment > 0 ? '+1 jour' : '−1 jour'}
+              {t(hijriAdjustment > 0 ? 'prayerTimes.adjustmentActiveNotePlus' : 'prayerTimes.adjustmentActiveNoteMinus')}
             </Text>
           ) : null}
 
           <Pressable
-            accessibilityLabel="À propos du calendrier Hijri"
+            accessibilityLabel={t('prayerTimes.aboutHijri')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={() => setHijriInfoVisible(true)}
             style={({pressed}) => [styles.hijriInfoRow, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="information-outline" size={14} />
-            <Text style={styles.hijriInfoText}>À propos du calendrier Hijri</Text>
+            <Text style={styles.hijriInfoText}>{t('prayerTimes.aboutHijri')}</Text>
           </Pressable>
         </Animated.View>
       </ScrollView>
@@ -291,29 +294,27 @@ function PrayerTimesScreen(): React.JSX.Element {
         visible={hijriInfoVisible}>
         <View style={styles.infoModalRoot}>
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('common.close')}
             onPress={() => setHijriInfoVisible(false)}
             style={styles.infoOverlay}
           />
           <View style={[styles.infoSheet, {paddingBottom: getBottomPadding(insets.bottom) + 8}]}>
             <View style={styles.infoHandle} />
-            <Text style={styles.infoTitle}>À propos du calendrier Hijri</Text>
+            <Text style={styles.infoTitle}>{t('prayerTimes.aboutHijri')}</Text>
 
             <Text style={styles.infoParagraph}>
-              Les dates Hijri sont calculées et peuvent varier d’un jour selon l’observation lunaire et les annonces
-              officielles locales.
+              {t('prayerTimes.aboutHijriParagraph1')}
             </Text>
-            <Text style={styles.infoParagraph}>Méthode : calendrier Hijri calculé</Text>
+            <Text style={styles.infoParagraph}>{t('prayerTimes.aboutHijriMethod')}</Text>
             <Text style={styles.infoParagraph}>
-              Le pays affiché correspond à la localisation utilisée pour tes horaires de prière. Il ne signifie pas
-              qu’AWA récupère automatiquement les annonces officielles de ce pays.
+              {t('prayerTimes.aboutHijriParagraph2')}
             </Text>
 
             <Pressable
               accessibilityRole="button"
               onPress={() => setHijriInfoVisible(false)}
               style={({pressed}) => [styles.infoCloseButton, pressed && styles.pressed]}>
-              <Text style={styles.infoCloseText}>Fermer</Text>
+              <Text style={styles.infoCloseText}>{t('common.close')}</Text>
             </Pressable>
           </View>
         </View>

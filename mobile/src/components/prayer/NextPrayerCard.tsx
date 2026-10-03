@@ -9,6 +9,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -34,16 +35,19 @@ const formatTime = (date: Date, timezone?: string) =>
     hour12: false,
   }).format(date);
 
-const formatCountdown = (targetMs: number, nowMs: number): string => {
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
+const formatCountdown = (t: TranslateFn, targetMs: number, nowMs: number): string => {
   const totalMinutes = Math.max(0, Math.ceil((targetMs - nowMs) / 60_000));
   const hours = Math.floor(totalMinutes / 60);
   const minutes = totalMinutes % 60;
-  if (hours === 0) {return `Dans ${minutes}min`;}
-  if (minutes === 0) {return `Dans ${hours}h`;}
-  return `Dans ${hours}h ${minutes.toString().padStart(2, '0')}min`;
+  if (hours === 0) {return t('prayerTimes.countdownMinutes', {minutes});}
+  if (minutes === 0) {return t('prayerTimes.countdownHours', {hours});}
+  return t('prayerTimes.countdownHoursMinutes', {hours, minutes: minutes.toString().padStart(2, '0')});
 };
 
 function NextPrayerCard({window, timezone, loading, error, now}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -75,7 +79,7 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
     <View style={styles.card}>
       <Animated.Image resizeMode="contain" source={PRAYER_IMAGE} style={[styles.prayerImage, floatStyle]} />
 
-      <Text style={styles.eyebrow}>Prochaine prière</Text>
+      <Text style={styles.eyebrow}>{t('spiritualGuidance.nextPrayerLabel')}</Text>
 
       {window ? (
         <>
@@ -84,13 +88,13 @@ function NextPrayerCard({window, timezone, loading, error, now}: Props): React.J
 
           <View style={styles.countdownPill}>
             <MaterialDesignIcons color={theme.colors.primary} name="clock-time-four-outline" size={13} />
-            <Text style={styles.countdownText}>{formatCountdown(window.start.getTime(), now.getTime())}</Text>
+            <Text style={styles.countdownText}>{formatCountdown(t, window.start.getTime(), now.getTime())}</Text>
           </View>
 
-          <Text style={styles.endCaption}>Fin du créneau · {formatTime(window.end, timezone)}</Text>
+          <Text style={styles.endCaption}>{t('prayerTimes.nextPrayerEndCaption', {time: formatTime(window.end, timezone)})}</Text>
         </>
       ) : (
-        <Text style={styles.name}>{loading ? 'Calcul…' : error ? 'Indisponible' : '—'}</Text>
+        <Text style={styles.name}>{loading ? t('prayerTimes.calculating') : error ? t('spiritualGuidance.unavailable') : '—'}</Text>
       )}
     </View>
   );
