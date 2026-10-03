@@ -13,7 +13,8 @@ import {pickReadableTextColor} from '../../../theme/awaThemeTokens';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import MenopauseDashboard from '../MenopauseDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {setMenopauseStage} from '../../../state/menopausePreferences';
 import {saveMenopauseJournalField} from '../../../state/menopauseJournalStore';
 
@@ -65,6 +66,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   // Confirmed real stage + a symptom entry — renders the hero/stage/daily
   // branches instead of the "Non renseignée" unconfigured state.
   await setMenopauseStage('perimenopause');

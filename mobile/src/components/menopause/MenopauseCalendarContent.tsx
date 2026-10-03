@@ -62,7 +62,7 @@ import {
   formatHijriDay,
   formatHijriMonthYear,
   sameDay,
-  WEEK_DAYS,
+  localizedWeekDays,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {computeMenopauseMonthlySummary} from '../../utils/menopauseCalendarMath';
@@ -433,7 +433,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
             </View>
 
             <View style={styles.weekRow}>
-              {WEEK_DAYS.map(day => (
+              {localizedWeekDays().map(day => (
                 <Text key={day} numberOfLines={1} style={styles.weekDay}>{day}</Text>
               ))}
             </View>
