@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,71 +34,429 @@ const ID = 'exercise-renforcer-perinee';
 
 const HERO = require('../../assets/images/library/featured-comfort-hero.png');
 
-const EXERCISES = [
-  ['weather-windy', 'Respiration'],
-  ['human-handsup', 'Contraction douce'],
-  ['arrow-up-bold-circle-outline', 'Contraction longue'],
-  ['gesture-tap-button', 'Contractions rapides'],
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+// Icon names are language-neutral and stay paired with their translated
+// label inside each language's arrays.
+const CONTENT = {
+  fr: {
+    badge: 'POST-PARTUM • RÉCUPÉRATION',
+    title: 'Renforcer son périnée\naprès l’accouchement',
+    metaDuration: '8 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Après la grossesse et l’accouchement, le plancher pelvien a besoin de temps pour récupérer. Des exercices simples, réguliers et progressifs peuvent aider à retrouver force, contrôle et confiance, sans chercher à aller trop vite.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comprendre le rôle du périnée',
+      'Pourquoi l’accouchement le sollicite',
+      'Quand commencer la rééducation',
+      'Apprendre à contracter correctement',
+      'Construire une routine progressive',
+      'Les erreurs à éviter',
+      'Quand demander de l’aide',
+      'Reprendre le sport progressivement',
+      'Préparer une consultation',
+      'À retenir',
+    ],
+    shareMessage: 'Renforcer son périnée après l’accouchement — AWA',
 
-const BENEFITS = [
-  {
-    icon: 'water-outline',
-    title: 'Mieux contrôler la vessie',
-    text: 'Le plancher pelvien participe au contrôle de la vessie. Le renforcer progressivement peut aider à réduire certaines fuites urinaires.',
+    s1Heading: 'Comprendre le rôle du périnée',
+    s1Body1:
+      'Le périnée, aussi appelé plancher pelvien, est un ensemble de muscles situé à la base du bassin. Il participe notamment au contrôle de la vessie et de l’intestin et contribue au soutien des organes pelviens.',
+    s1Body2:
+      'Pendant la grossesse, ces muscles doivent supporter une charge supplémentaire pendant plusieurs mois. Ils sont également fortement sollicités au moment de l’accouchement.',
+    s1HighlightTitle: 'Un muscle discret mais essentiel',
+    s1HighlightText:
+      'Le plancher pelvien intervient dans plusieurs fonctions quotidiennes : retenir les urines et les selles, contrôler les gaz, soutenir les organes pelviens et participer à certaines fonctions sexuelles.',
+
+    benefitsHeading: 'Les bénéfices d’un plancher pelvien renforcé',
+    benefitsIntro:
+      'Un renforcement progressif et correctement réalisé peut contribuer à améliorer le contrôle et le soutien du plancher pelvien.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Mieux contrôler la vessie',
+        text: 'Le plancher pelvien participe au contrôle de la vessie. Le renforcer progressivement peut aider à réduire certaines fuites urinaires.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Soutenir les fonctions intestinales',
+        text: 'Ces muscles participent également au contrôle des gaz et des selles et contribuent au soutien des organes pelviens.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Soutenir les organes pelviens',
+        text: 'Le plancher pelvien forme une véritable base musculaire qui participe au soutien de la vessie, de l’utérus et de l’intestin.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Retrouver progressivement ses sensations',
+        text: 'Une rééducation adaptée peut aussi contribuer à retrouver une meilleure conscience et un meilleur contrôle de cette zone.',
+      },
+    ],
+
+    s2Heading: 'Pourquoi la grossesse et l’accouchement le sollicitent',
+    s2Body1:
+      'La grossesse exerce progressivement davantage de pression sur le plancher pelvien. L’accouchement vaginal peut ensuite étirer fortement les muscles et les tissus de cette région.',
+    s2Body2:
+      'Une césarienne n’épargne pas pour autant totalement le plancher pelvien : la grossesse elle-même reste une période importante pour ces muscles.',
+    s2Body3:
+      'Après la naissance, il est donc normal que la récupération demande du temps. Certaines femmes ne ressentent presque aucun symptôme, tandis que d’autres peuvent observer des fuites, une sensation de pesanteur ou une diminution du contrôle musculaire.',
+    s2TipTitle: 'Chaque récupération est différente',
+    s2TipText:
+      'Le type d’accouchement, une déchirure ou une épisiotomie, la présence de douleurs et l’état général après la naissance peuvent influencer la récupération.',
+
+    s3Heading: 'Quand commencer la rééducation ?',
+    s3Body1:
+      'Après un accouchement sans complication, des contractions douces du plancher pelvien peuvent généralement être reprises progressivement. Il reste toutefois important d’adapter les exercices à ta situation et de demander conseil si tu as eu une complication, une douleur importante ou une intervention particulière.',
+    s3Body2:
+      'Si tu as une sonde urinaire, certaines recommandations conseillent d’attendre son retrait et le retour d’une miction normale avant de commencer les exercices du périnée.',
+    s3AlertTitle: 'Ne force pas sur une douleur',
+    s3AlertText:
+      'Une douleur importante, une aggravation des symptômes, une plaie qui cicatrise mal ou une inquiétude particulière justifient un avis auprès d’une sage-femme, d’un médecin ou d’un professionnel de la rééducation.',
+
+    s4Heading: 'Apprendre à contracter correctement',
+    s4Body1:
+      'Pour identifier le mouvement, imagine que tu veux retenir simultanément un gaz et une envie d’uriner. Le mouvement recherché est une sensation de contraction et de remontée vers l’intérieur.',
+    s4Body2:
+      'L’objectif n’est pas de serrer très fort tout le corps. Les fesses, les cuisses et les abdominaux doivent rester aussi détendus que possible, tandis que la respiration continue normalement.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Respiration'},
+      {icon: 'human-handsup', label: 'Contraction douce'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Contraction longue'},
+      {icon: 'gesture-tap-button', label: 'Contractions rapides'},
+    ],
+    s4HighlightTitle: 'Le relâchement est aussi important',
+    s4HighlightText:
+      'Après chaque contraction, laisse complètement les muscles se relâcher. Une bonne rééducation ne consiste pas à garder le périnée contracté toute la journée.',
+
+    s5Heading: 'Construire une routine progressive',
+    s5Body1:
+      'Au début, le plus important est d’apprendre à identifier les muscles et à effectuer correctement le mouvement. La régularité compte davantage que l’intensité.',
+    s5h3a: 'Les contractions longues',
+    s5Body2:
+      'Contracte doucement le plancher pelvien puis maintiens la contraction pendant quelques secondes, sans bloquer ta respiration. Relâche ensuite complètement avant de recommencer.',
+    s5h3b: 'Les contractions courtes',
+    s5Body3:
+      'Une fois le mouvement maîtrisé, de petites contractions rapides peuvent être ajoutées. Elles permettent de travailler la capacité à contracter rapidement les muscles lorsqu’une pression abdominale augmente, par exemple avant de tousser ou d’éternuer.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Associer les exercices à une habitude quotidienne'},
+      {icon: 'human-sitting', label: 'Commencer dans une position confortable'},
+      {icon: 'weather-windy', label: 'Respirer normalement pendant les contractions'},
+      {icon: 'sleep', label: 'Respecter les temps de relâchement'},
+      {icon: 'chart-line', label: 'Augmenter progressivement la difficulté'},
+      {icon: 'doctor', label: 'Demander conseil en cas de doute'},
+    ],
+    s5TipTitle: 'La régularité avant tout',
+    s5TipText:
+      'Associer les exercices à une habitude déjà présente dans ta journée peut faciliter leur régularité : après une tétée, après le brossage des dents ou à un autre moment qui te convient.',
+
+    s6Heading: 'Les erreurs fréquentes à éviter',
+    s6Body1:
+      'Les exercices du périnée semblent simples, mais il est facile de compenser avec d’autres muscles ou de faire trop d’efforts.',
+    commonMistakes: [
+      'Contracter les fesses ou les cuisses au lieu du plancher pelvien',
+      'Bloquer sa respiration pendant la contraction',
+      'Contracter en permanence sans laisser les muscles se relâcher',
+      'Faire les exercices uniquement pendant quelques jours puis arrêter',
+      'Arrêter d’uriner volontairement pour vérifier la contraction',
+    ],
+    s6TipTitle: 'À ne pas faire',
+    s6TipText:
+      'Il n’est pas recommandé de pratiquer les exercices en interrompant volontairement le jet d’urine. Cette méthode ne permet pas d’entraîner correctement le périnée et peut perturber le fonctionnement normal de la vessie.',
+
+    s7Heading: 'Quels symptômes doivent inciter à consulter ?',
+    s7Body1:
+      'Les petites fuites ou une sensation inhabituelle peuvent parfois apparaître après l’accouchement. Elles ne doivent cependant pas être ignorées si elles persistent, s’aggravent ou gênent ta vie quotidienne.',
+    warningSigns: [
+      'Des fuites urinaires lorsque tu tousses, éternues, ris ou fais un effort',
+      'Une sensation de pesanteur ou de pression dans le bas du bassin',
+      'La sensation qu’une masse ou quelque chose descend dans le vagin',
+      'Des difficultés à retenir les gaz ou les selles',
+      'Une douleur persistante au niveau du périnée',
+      'Une douleur pendant ou après les rapports sexuels',
+      'Une difficulté à identifier ou à contracter correctement les muscles du périnée',
+    ],
+    consultLabel: 'Quand demander conseil ?',
+    s7Body2:
+      'Une sage-femme, un médecin ou un kinésithérapeute spécialisé en rééducation pelvi-périnéale peut vérifier la fonction musculaire et proposer un programme adapté.',
+
+    s8Heading: 'Et après une déchirure, une épisiotomie ou une césarienne ?',
+    s8Body1:
+      'Une déchirure ou une épisiotomie nécessite une attention particulière pendant la cicatrisation. La reprise des activités doit respecter la douleur, l’état de la cicatrice et les recommandations données après l’accouchement.',
+    s8Body2:
+      'Après une césarienne, la récupération concerne également la paroi abdominale et la cicatrice. Même si l’accouchement n’a pas été vaginal, la grossesse a tout de même sollicité le plancher pelvien.',
+    s8HighlightTitle: 'Une prise en charge personnalisée peut aider',
+    s8HighlightText:
+      'En cas de déchirure importante, de douleur, de symptômes urinaires ou intestinaux ou de difficultés persistantes, un bilan auprès d’un professionnel de santé peut être particulièrement utile.',
+
+    s9Heading: 'Reprendre le sport progressivement',
+    s9Body1:
+      'La reprise du mouvement après l’accouchement doit être progressive. La marche et les mouvements doux peuvent généralement reprendre selon ton état et ton ressenti, tandis que les activités à fort impact demandent davantage de prudence.',
+    s9Body2:
+      'Avant de reprendre la course, les sauts ou les entraînements très intenses, il est préférable d’évaluer la récupération du plancher pelvien et de tenir compte des éventuels symptômes.',
+    s9AlertTitle: 'Ne pas brûler les étapes',
+    s9AlertText:
+      'Des fuites, une sensation de pesanteur ou une douleur pendant ou après l’exercice sont des signes qu’il faut ralentir et demander conseil avant d’augmenter l’intensité.',
+
+    s10Heading: 'Quand consulter un spécialiste ?',
+    s10Body1:
+      'Une rééducation pelvi-périnéale avec une sage-femme ou un kinésithérapeute peut être utile si tu ne sais pas si tu contractes correctement, si tes symptômes persistent ou si tu souhaites reprendre certaines activités physiques en toute confiance.',
+    questionCardTitle: 'Questions utiles à poser',
+    appointmentQuestions: [
+      'Est-ce que mes symptômes sont compatibles avec une faiblesse du plancher pelvien ?',
+      'Est-ce que je réalise correctement les contractions ?',
+      'Combien de répétitions dois-je faire chaque jour ?',
+      'Puis-je reprendre la course, le sport ou les exercices à impact ?',
+      'Ai-je besoin d’une rééducation avec une sage-femme ou un kinésithérapeute ?',
+      'Ma cicatrice, ma déchirure ou ma césarienne nécessite-t-elle des précautions particulières ?',
+    ],
+    s10TipTitle: 'Bon à savoir',
+    s10TipText:
+      'Consulter ne signifie pas forcément que quelque chose va mal. Une séance peut simplement servir à vérifier la technique, évaluer la récupération et apprendre à progresser correctement.',
+
+    s11Heading: 'Une récupération qui prend du temps',
+    s11Body1:
+      'Après la naissance, il est normal de ne pas retrouver immédiatement les mêmes sensations ou la même force musculaire qu’avant la grossesse.',
+    s11Body2:
+      'L’objectif n’est pas de faire le plus grand nombre de contractions possible. Il s’agit plutôt de retrouver progressivement une bonne coordination entre contraction et relâchement, puis de pouvoir utiliser ces muscles naturellement dans les activités quotidiennes.',
+    s11HighlightTitle: 'Petit progrès = vrai progrès',
+    s11HighlightText:
+      'Une meilleure perception du mouvement, quelques secondes de contraction supplémentaires ou une diminution des fuites sont déjà des signes encourageants.',
+
+    s12Heading: 'À retenir',
+    summaryTitle: 'L’essentiel',
+    summaryItems: [
+      'La grossesse et l’accouchement sollicitent fortement le plancher pelvien.',
+      'Une récupération progressive est normale après la naissance.',
+      'Les exercices doivent privilégier la qualité du mouvement plutôt que la force.',
+      'La respiration et le relâchement sont aussi importants que la contraction.',
+      'Les fuites urinaires, la pesanteur ou la douleur persistante méritent un avis professionnel.',
+      'Une rééducation avec une sage-femme ou un kinésithérapeute peut aider à retrouver un meilleur contrôle.',
+      'La reprise du sport doit être progressive, surtout pour les activités à impact.',
+    ],
+
+    finalTipTitle: 'Prends le temps de récupérer',
+    finalTipText:
+      'Après l’accouchement, ton corps a traversé beaucoup de changements. Le périnée mérite la même attention que les autres parties du corps : progressivement, régulièrement et sans pression.',
+
+    disclaimerText:
+      'Cet article a une vocation informative et ne remplace pas un avis médical personnalisé. En cas de douleur, de symptômes persistants ou de doute concernant ta récupération, demande conseil à un professionnel de santé.',
   },
-  {
-    icon: 'toilet',
-    title: 'Soutenir les fonctions intestinales',
-    text: 'Ces muscles participent également au contrôle des gaz et des selles et contribuent au soutien des organes pelviens.',
+  en: {
+    badge: 'POSTPARTUM • RECOVERY',
+    title: 'Strengthening your pelvic floor\nafter childbirth',
+    metaDuration: '8 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro:
+      'After pregnancy and childbirth, the pelvic floor needs time to recover. Simple, regular, and gradual exercises can help you regain strength, control, and confidence, without trying to rush things.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Understanding the role of the perineum',
+      'Why childbirth puts it under strain',
+      'When to start pelvic floor rehabilitation',
+      'Learning to contract correctly',
+      'Building a gradual routine',
+      'Mistakes to avoid',
+      'When to ask for help',
+      'Gradually resuming sport',
+      'Preparing for an appointment',
+      'Key takeaways',
+    ],
+    shareMessage: 'Strengthening your pelvic floor after childbirth — AWA',
+
+    s1Heading: 'Understanding the role of the perineum',
+    s1Body1:
+      'The perineum, also called the pelvic floor, is a group of muscles located at the base of the pelvis. It plays a role in bladder and bowel control and helps support the pelvic organs.',
+    s1Body2:
+      'During pregnancy, these muscles have to carry extra weight for several months. They are also put under considerable strain during childbirth.',
+    s1HighlightTitle: 'A discreet but essential muscle',
+    s1HighlightText:
+      'The pelvic floor is involved in several everyday functions: holding in urine and stool, controlling gas, supporting the pelvic organs, and playing a role in certain sexual functions.',
+
+    benefitsHeading: 'The benefits of a stronger pelvic floor',
+    benefitsIntro:
+      'Gradual, correctly performed strengthening can help improve pelvic floor control and support.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Better bladder control',
+        text: 'The pelvic floor plays a role in bladder control. Strengthening it gradually may help reduce certain urinary leaks.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Supporting bowel function',
+        text: 'These muscles also help control gas and stool and contribute to supporting the pelvic organs.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Supporting the pelvic organs',
+        text: 'The pelvic floor forms a genuine muscular base that helps support the bladder, uterus, and intestine.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Gradually regaining sensation',
+        text: 'Suitable rehabilitation can also help you regain better awareness and control of this area.',
+      },
+    ],
+
+    s2Heading: 'Why pregnancy and childbirth put it under strain',
+    s2Body1:
+      'Pregnancy gradually places more pressure on the pelvic floor. Vaginal childbirth can then stretch the muscles and tissues in this area significantly.',
+    s2Body2:
+      'A cesarean section does not completely spare the pelvic floor either: pregnancy itself remains a significant period for these muscles.',
+    s2Body3:
+      'After birth, it is therefore normal for recovery to take time. Some women feel almost no symptoms, while others may notice leaks, a feeling of heaviness, or reduced muscle control.',
+    s2TipTitle: 'Every recovery is different',
+    s2TipText:
+      'The type of delivery, a tear or episiotomy, the presence of pain, and your general condition after birth can all influence recovery.',
+
+    s3Heading: 'When to start pelvic floor rehabilitation?',
+    s3Body1:
+      'After an uncomplicated birth, gentle pelvic floor contractions can usually be resumed gradually. It remains important to adapt the exercises to your situation and to seek advice if you experienced a complication, significant pain, or a specific procedure.',
+    s3Body2:
+      'If you have a urinary catheter, some recommendations suggest waiting until it is removed and normal urination has resumed before starting perineum exercises.',
+    s3AlertTitle: 'Do not push through pain',
+    s3AlertText:
+      'Significant pain, worsening symptoms, a wound that is healing poorly, or any particular concern call for advice from a midwife, doctor, or rehabilitation professional.',
+
+    s4Heading: 'Learning to contract correctly',
+    s4Body1:
+      'To identify the movement, imagine trying to hold in gas and the urge to urinate at the same time. The movement you’re looking for is a sensation of contraction and lifting inward.',
+    s4Body2:
+      'The goal is not to tense your entire body tightly. Your buttocks, thighs, and abdominals should stay as relaxed as possible, while breathing continues normally.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Breathing'},
+      {icon: 'human-handsup', label: 'Gentle contraction'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Long contraction'},
+      {icon: 'gesture-tap-button', label: 'Quick contractions'},
+    ],
+    s4HighlightTitle: 'Relaxing matters just as much',
+    s4HighlightText:
+      'After each contraction, let the muscles relax completely. Good rehabilitation does not mean keeping the perineum contracted all day.',
+
+    s5Heading: 'Building a gradual routine',
+    s5Body1:
+      'At first, the most important thing is learning to identify the muscles and perform the movement correctly. Consistency matters more than intensity.',
+    s5h3a: 'Long contractions',
+    s5Body2:
+      'Gently contract the pelvic floor, then hold the contraction for a few seconds without holding your breath. Then release completely before starting again.',
+    s5h3b: 'Short contractions',
+    s5Body3:
+      'Once the movement is mastered, small quick contractions can be added. They help train your ability to contract the muscles quickly when abdominal pressure increases, for example just before coughing or sneezing.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Pair the exercises with a daily habit'},
+      {icon: 'human-sitting', label: 'Start in a comfortable position'},
+      {icon: 'weather-windy', label: 'Breathe normally during contractions'},
+      {icon: 'sleep', label: 'Respect the relaxation phases'},
+      {icon: 'chart-line', label: 'Gradually increase the difficulty'},
+      {icon: 'doctor', label: 'Ask for advice if you’re unsure'},
+    ],
+    s5TipTitle: 'Consistency above all',
+    s5TipText:
+      'Pairing the exercises with a habit already part of your day can make it easier to stay consistent: after a feeding, after brushing your teeth, or at another time that suits you.',
+
+    s6Heading: 'Common mistakes to avoid',
+    s6Body1:
+      'Perineum exercises may look simple, but it’s easy to compensate with other muscles or push too hard.',
+    commonMistakes: [
+      'Tensing the buttocks or thighs instead of the pelvic floor',
+      'Holding your breath during the contraction',
+      'Keeping the muscles contracted constantly without letting them relax',
+      'Doing the exercises for only a few days and then stopping',
+      'Deliberately stopping the urine stream to check the contraction',
+    ],
+    s6TipTitle: 'What not to do',
+    s6TipText:
+      'It is not recommended to practice the exercises by deliberately stopping your urine stream. This method does not train the perineum correctly and can disrupt normal bladder function.',
+
+    s7Heading: 'What symptoms should prompt a consultation?',
+    s7Body1:
+      'Minor leaks or an unusual sensation can sometimes appear after childbirth. However, they should not be ignored if they persist, worsen, or interfere with your daily life.',
+    warningSigns: [
+      'Urinary leaks when you cough, sneeze, laugh, or strain',
+      'A feeling of heaviness or pressure in the lower pelvis',
+      'A feeling that a lump or something is dropping into the vagina',
+      'Difficulty holding in gas or stool',
+      'Persistent pain in the perineum',
+      'Pain during or after sexual intercourse',
+      'Difficulty identifying or correctly contracting the perineal muscles',
+    ],
+    consultLabel: 'When should you seek advice?',
+    s7Body2:
+      'A midwife, doctor, or physiotherapist specializing in pelvic floor rehabilitation can check muscle function and suggest a suitable program.',
+
+    s8Heading: 'And after a tear, an episiotomy, or a cesarean section?',
+    s8Body1:
+      'A tear or episiotomy requires particular care during healing. Resuming activities should take into account pain, the condition of the scar, and the guidance given after childbirth.',
+    s8Body2:
+      'After a cesarean section, recovery also involves the abdominal wall and the scar. Even if the birth was not vaginal, pregnancy itself still placed strain on the pelvic floor.',
+    s8HighlightTitle: 'Personalized care can help',
+    s8HighlightText:
+      'In the case of a significant tear, pain, urinary or bowel symptoms, or persistent difficulties, an assessment with a healthcare professional can be especially helpful.',
+
+    s9Heading: 'Gradually resuming sport',
+    s9Body1:
+      'Resuming movement after childbirth should be gradual. Walking and gentle movements can generally resume based on how you feel, while high-impact activities call for more caution.',
+    s9Body2:
+      'Before resuming running, jumping, or very intense training, it’s best to assess pelvic floor recovery and take any symptoms into account.',
+    s9AlertTitle: 'Don’t rush the stages',
+    s9AlertText:
+      'Leaks, a feeling of heaviness, or pain during or after exercise are signs that you should slow down and seek advice before increasing intensity.',
+
+    s10Heading: 'When to see a specialist?',
+    s10Body1:
+      'Pelvic floor rehabilitation with a midwife or physiotherapist can be helpful if you’re unsure whether you’re contracting correctly, if your symptoms persist, or if you want to resume certain physical activities with confidence.',
+    questionCardTitle: 'Helpful questions to ask',
+    appointmentQuestions: [
+      'Are my symptoms consistent with pelvic floor weakness?',
+      'Am I performing the contractions correctly?',
+      'How many repetitions should I do each day?',
+      'Can I go back to running, sport, or high-impact exercise?',
+      'Do I need rehabilitation with a midwife or physiotherapist?',
+      'Does my scar, tear, or cesarean section require any particular precautions?',
+    ],
+    s10TipTitle: 'Good to know',
+    s10TipText:
+      'Seeing a professional doesn’t necessarily mean something is wrong. A session can simply help check your technique, assess your recovery, and learn to progress correctly.',
+
+    s11Heading: 'A recovery that takes time',
+    s11Body1:
+      'After giving birth, it’s normal not to immediately regain the same sensations or muscle strength you had before pregnancy.',
+    s11Body2:
+      'The goal is not to do as many contractions as possible. It’s more about gradually regaining good coordination between contraction and relaxation, and then being able to use these muscles naturally in everyday activities.',
+    s11HighlightTitle: 'Small progress is real progress',
+    s11HighlightText:
+      'Better awareness of the movement, a few extra seconds of contraction, or a reduction in leaks are already encouraging signs.',
+
+    s12Heading: 'Key takeaways',
+    summaryTitle: 'The essentials',
+    summaryItems: [
+      'Pregnancy and childbirth place significant strain on the pelvic floor.',
+      'Gradual recovery is normal after giving birth.',
+      'Exercises should prioritize movement quality over strength.',
+      'Breathing and relaxation matter just as much as contraction.',
+      'Urinary leaks, heaviness, or persistent pain deserve a professional opinion.',
+      'Rehabilitation with a midwife or physiotherapist can help you regain better control.',
+      'Returning to sport should be gradual, especially for high-impact activities.',
+    ],
+
+    finalTipTitle: 'Take the time to recover',
+    finalTipText:
+      'After childbirth, your body has been through a lot of changes. The perineum deserves the same attention as the rest of your body: gradually, regularly, and without pressure.',
+
+    disclaimerText:
+      'This article is for informational purposes only and does not replace personalized medical advice. If you experience pain, persistent symptoms, or have any concerns about your recovery, seek advice from a healthcare professional.',
   },
-  {
-    icon: 'human-female',
-    title: 'Soutenir les organes pelviens',
-    text: 'Le plancher pelvien forme une véritable base musculaire qui participe au soutien de la vessie, de l’utérus et de l’intestin.',
-  },
-  {
-    icon: 'heart-pulse',
-    title: 'Retrouver progressivement ses sensations',
-    text: 'Une rééducation adaptée peut aussi contribuer à retrouver une meilleure conscience et un meilleur contrôle de cette zone.',
-  },
-];
-
-const WARNING_SIGNS = [
-  'Des fuites urinaires lorsque tu tousses, éternues, ris ou fais un effort',
-  'Une sensation de pesanteur ou de pression dans le bas du bassin',
-  'La sensation qu’une masse ou quelque chose descend dans le vagin',
-  'Des difficultés à retenir les gaz ou les selles',
-  'Une douleur persistante au niveau du périnée',
-  'Une douleur pendant ou après les rapports sexuels',
-  'Une difficulté à identifier ou à contracter correctement les muscles du périnée',
-];
-
-const COMMON_MISTAKES = [
-  'Contracter les fesses ou les cuisses au lieu du plancher pelvien',
-  'Bloquer sa respiration pendant la contraction',
-  'Contracter en permanence sans laisser les muscles se relâcher',
-  'Faire les exercices uniquement pendant quelques jours puis arrêter',
-  'Arrêter d’uriner volontairement pour vérifier la contraction',
-];
-
-const DAILY_TIPS = [
-  ['clock-outline', 'Associer les exercices à une habitude quotidienne'],
-  ['human-sitting', 'Commencer dans une position confortable'],
-  ['weather-windy', 'Respirer normalement pendant les contractions'],
-  ['sleep', 'Respecter les temps de relâchement'],
-  ['chart-line', 'Augmenter progressivement la difficulté'],
-  ['doctor', 'Demander conseil en cas de doute'],
-] as const;
-
-const APPOINTMENT_QUESTIONS = [
-  'Est-ce que mes symptômes sont compatibles avec une faiblesse du plancher pelvien ?',
-  'Est-ce que je réalise correctement les contractions ?',
-  'Combien de répétitions dois-je faire chaque jour ?',
-  'Puis-je reprendre la course, le sport ou les exercices à impact ?',
-  'Ai-je besoin d’une rééducation avec une sage-femme ou un kinésithérapeute ?',
-  'Ma cicatrice, ma déchirure ou ma césarienne nécessite-t-elle des précautions particulières ?',
-];
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -107,6 +466,9 @@ type Props = NativeStackScreenProps<
 export default function PerineumStrengtheningArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -135,8 +497,7 @@ export default function PerineumStrengtheningArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message:
-        'Renforcer son périnée après l’accouchement — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -188,7 +549,7 @@ export default function PerineumStrengtheningArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -204,7 +565,7 @@ export default function PerineumStrengtheningArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -223,7 +584,7 @@ export default function PerineumStrengtheningArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -244,23 +605,23 @@ export default function PerineumStrengtheningArticleScreen({
         <View style={styles.article}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              POST-PARTUM • RÉCUPÉRATION
+              {content.badge}
             </Text>
           </View>
 
           <Text style={styles.title}>
-            Renforcer son périnée{'\n'}après l’accouchement
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '8 min de lecture'],
+              ['clock-outline', content.metaDuration],
               [
                 'book-open-page-variant-outline',
-                'Guide',
+                content.metaType,
               ],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? (
@@ -283,32 +644,17 @@ export default function PerineumStrengtheningArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Après la grossesse et l’accouchement, le plancher
-            pelvien a besoin de temps pour récupérer. Des
-            exercices simples, réguliers et progressifs peuvent
-            aider à retrouver force, contrôle et confiance,
-            sans chercher à aller trop vite.
+            {content.intro}
           </Text>
 
           {/* TABLE OF CONTENTS */}
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Comprendre le rôle du périnée',
-              'Pourquoi l’accouchement le sollicite',
-              'Quand commencer la rééducation',
-              'Apprendre à contracter correctement',
-              'Construire une routine progressive',
-              'Les erreurs à éviter',
-              'Quand demander de l’aide',
-              'Reprendre le sport progressivement',
-              'Préparer une consultation',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -334,22 +680,15 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 1 */}
 
           <Text style={styles.h2}>
-            1. Comprendre le rôle du périnée
+            1. {content.s1Heading}
           </Text>
 
           <Text style={styles.body}>
-            Le périnée, aussi appelé plancher pelvien, est un
-            ensemble de muscles situé à la base du bassin. Il
-            participe notamment au contrôle de la vessie et de
-            l’intestin et contribue au soutien des organes
-            pelviens.
+            {content.s1Body1}
           </Text>
 
           <Text style={styles.body}>
-            Pendant la grossesse, ces muscles doivent supporter
-            une charge supplémentaire pendant plusieurs mois.
-            Ils sont également fortement sollicités au moment
-            de l’accouchement.
+            {content.s1Body2}
           </Text>
 
           <View style={styles.highlight}>
@@ -361,15 +700,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Un muscle discret mais essentiel
+                {content.s1HighlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                Le plancher pelvien intervient dans plusieurs
-                fonctions quotidiennes : retenir les urines et
-                les selles, contrôler les gaz, soutenir les
-                organes pelviens et participer à certaines
-                fonctions sexuelles.
+                {content.s1HighlightText}
               </Text>
             </View>
           </View>
@@ -377,16 +712,15 @@ export default function PerineumStrengtheningArticleScreen({
 
           {/* BENEFITS */}
           <Text style={styles.h2}>
-            Les bénéfices d’un plancher pelvien renforcé
+            {content.benefitsHeading}
           </Text>
 
           <Text style={styles.body}>
-            Un renforcement progressif et correctement réalisé peut contribuer
-            à améliorer le contrôle et le soutien du plancher pelvien.
+            {content.benefitsIntro}
           </Text>
 
           <View style={styles.benefitsGrid}>
-            {BENEFITS.map(item => (
+            {content.benefits.map(item => (
               <View key={item.title} style={styles.benefitCard}>
                 <View style={styles.benefitIcon}>
                   <MaterialDesignIcons
@@ -410,29 +744,19 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 2 */}
 
           <Text style={styles.h2}>
-            2. Pourquoi la grossesse et l’accouchement le
-            sollicitent
+            2. {content.s2Heading}
           </Text>
 
           <Text style={styles.body}>
-            La grossesse exerce progressivement davantage de
-            pression sur le plancher pelvien. L’accouchement
-            vaginal peut ensuite étirer fortement les muscles
-            et les tissus de cette région.
+            {content.s2Body1}
           </Text>
 
           <Text style={styles.body}>
-            Une césarienne n’épargne pas pour autant totalement
-            le plancher pelvien : la grossesse elle-même reste
-            une période importante pour ces muscles.
+            {content.s2Body2}
           </Text>
 
           <Text style={styles.body}>
-            Après la naissance, il est donc normal que la
-            récupération demande du temps. Certaines femmes ne
-            ressentent presque aucun symptôme, tandis que
-            d’autres peuvent observer des fuites, une sensation
-            de pesanteur ou une diminution du contrôle musculaire.
+            {content.s2Body3}
           </Text>
 
           <View style={styles.tip}>
@@ -444,14 +768,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Chaque récupération est différente
+                {content.s2TipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Le type d’accouchement, une déchirure ou une
-                épisiotomie, la présence de douleurs et l’état
-                général après la naissance peuvent influencer
-                la récupération.
+                {content.s2TipText}
               </Text>
             </View>
           </View>
@@ -459,24 +780,15 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 3 */}
 
           <Text style={styles.h2}>
-            3. Quand commencer la rééducation ?
+            3. {content.s3Heading}
           </Text>
 
           <Text style={styles.body}>
-            Après un accouchement sans complication, des
-            contractions douces du plancher pelvien peuvent
-            généralement être reprises progressivement. Il
-            reste toutefois important d’adapter les exercices à
-            ta situation et de demander conseil si tu as eu une
-            complication, une douleur importante ou une
-            intervention particulière.
+            {content.s3Body1}
           </Text>
 
           <Text style={styles.body}>
-            Si tu as une sonde urinaire, certaines
-            recommandations conseillent d’attendre son retrait
-            et le retour d’une miction normale avant de
-            commencer les exercices du périnée.
+            {content.s3Body2}
           </Text>
 
           <View style={styles.alert}>
@@ -488,15 +800,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Ne force pas sur une douleur
+                {content.s3AlertTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Une douleur importante, une aggravation des
-                symptômes, une plaie qui cicatrise mal ou une
-                inquiétude particulière justifient un avis
-                auprès d’une sage-femme, d’un médecin ou d’un
-                professionnel de la rééducation.
+                {content.s3AlertText}
               </Text>
             </View>
           </View>
@@ -504,36 +812,30 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 4 */}
 
           <Text style={styles.h2}>
-            4. Apprendre à contracter correctement
+            4. {content.s4Heading}
           </Text>
 
           <Text style={styles.body}>
-            Pour identifier le mouvement, imagine que tu veux
-            retenir simultanément un gaz et une envie d’uriner.
-            Le mouvement recherché est une sensation de
-            contraction et de remontée vers l’intérieur.
+            {content.s4Body1}
           </Text>
 
           <Text style={styles.body}>
-            L’objectif n’est pas de serrer très fort tout le
-            corps. Les fesses, les cuisses et les abdominaux
-            doivent rester aussi détendus que possible, tandis
-            que la respiration continue normalement.
+            {content.s4Body2}
           </Text>
 
           <View style={styles.daily}>
-            {EXERCISES.map(([icon, label]) => (
+            {content.exercises.map(item => (
               <View
-                key={label}
+                key={item.label}
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
-                  name={icon as never}
+                  name={item.icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
                 <Text style={styles.dailyText}>
-                  {label}
+                  {item.label}
                 </Text>
               </View>
             ))}
@@ -548,14 +850,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Le relâchement est aussi important
+                {content.s4HighlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                Après chaque contraction, laisse complètement
-                les muscles se relâcher. Une bonne rééducation
-                ne consiste pas à garder le périnée contracté
-                toute la journée.
+                {content.s4HighlightText}
               </Text>
             </View>
           </View>
@@ -563,55 +862,44 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 5 */}
 
           <Text style={styles.h2}>
-            5. Construire une routine progressive
+            5. {content.s5Heading}
           </Text>
 
           <Text style={styles.body}>
-            Au début, le plus important est d’apprendre à
-            identifier les muscles et à effectuer correctement
-            le mouvement. La régularité compte davantage que
-            l’intensité.
+            {content.s5Body1}
           </Text>
 
           <Text style={styles.h3}>
-            Les contractions longues
+            {content.s5h3a}
           </Text>
 
           <Text style={styles.body}>
-            Contracte doucement le plancher pelvien puis
-            maintiens la contraction pendant quelques secondes,
-            sans bloquer ta respiration. Relâche ensuite
-            complètement avant de recommencer.
+            {content.s5Body2}
           </Text>
 
           <Text style={styles.h3}>
-            Les contractions courtes
+            {content.s5h3b}
           </Text>
 
           <Text style={styles.body}>
-            Une fois le mouvement maîtrisé, de petites
-            contractions rapides peuvent être ajoutées. Elles
-            permettent de travailler la capacité à contracter
-            rapidement les muscles lorsqu’une pression
-            abdominale augmente, par exemple avant de tousser ou
-            d’éternuer.
+            {content.s5Body3}
           </Text>
 
           <View style={styles.dailyTips}>
-            {DAILY_TIPS.map(([icon, label]) => (
+            {content.dailyTips.map(item => (
               <View
-                key={label}
+                key={item.label}
                 style={styles.dailyTipRow}>
                 <View style={styles.dailyTipIcon}>
                   <MaterialDesignIcons
-                    name={icon as never}
+                    name={item.icon as never}
                     size={19}
                     color={theme.colors.primary}
                   />
                 </View>
 
                 <Text style={styles.dailyTipText}>
-                  {label}
+                  {item.label}
                 </Text>
               </View>
             ))}
@@ -626,14 +914,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                La régularité avant tout
+                {content.s5TipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Associer les exercices à une habitude déjà
-                présente dans ta journée peut faciliter leur
-                régularité : après une tétée, après le brossage
-                des dents ou à un autre moment qui te convient.
+                {content.s5TipText}
               </Text>
             </View>
           </View>
@@ -641,17 +926,15 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 6 */}
 
           <Text style={styles.h2}>
-            6. Les erreurs fréquentes à éviter
+            6. {content.s6Heading}
           </Text>
 
           <Text style={styles.body}>
-            Les exercices du périnée semblent simples, mais il
-            est facile de compenser avec d’autres muscles ou de
-            faire trop d’efforts.
+            {content.s6Body1}
           </Text>
 
           <View style={styles.warningList}>
-            {COMMON_MISTAKES.map(item => (
+            {content.commonMistakes.map(item => (
               <View
                 key={item}
                 style={styles.warningRow}>
@@ -677,15 +960,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                À ne pas faire
+                {content.s6TipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Il n’est pas recommandé de pratiquer les
-                exercices en interrompant volontairement le
-                jet d’urine. Cette méthode ne permet pas
-                d’entraîner correctement le périnée et peut
-                perturber le fonctionnement normal de la vessie.
+                {content.s6TipText}
               </Text>
             </View>
           </View>
@@ -693,19 +972,15 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 7 */}
 
           <Text style={styles.h2}>
-            7. Quels symptômes doivent inciter à consulter ?
+            7. {content.s7Heading}
           </Text>
 
           <Text style={styles.body}>
-            Les petites fuites ou une sensation inhabituelle
-            peuvent parfois apparaître après l’accouchement.
-            Elles ne doivent cependant pas être ignorées si
-            elles persistent, s’aggravent ou gênent ta vie
-            quotidienne.
+            {content.s7Body1}
           </Text>
 
           <View style={styles.consultList}>
-            {WARNING_SIGNS.map((item, index) => (
+            {content.warningSigns.map((item, index) => (
               <View
                 key={item}
                 style={styles.consultCard}>
@@ -719,7 +994,7 @@ export default function PerineumStrengtheningArticleScreen({
 
                 <View style={styles.consultCopy}>
                   <Text style={styles.consultTitle}>
-                    {index + 1}. Quand demander conseil ?
+                    {index + 1}. {content.consultLabel}
                   </Text>
 
                   <Text style={styles.consultText}>
@@ -731,33 +1006,21 @@ export default function PerineumStrengtheningArticleScreen({
           </View>
 
           <Text style={styles.body}>
-            Une sage-femme, un médecin ou un kinésithérapeute
-            spécialisé en rééducation pelvi-périnéale peut
-            vérifier la fonction musculaire et proposer un
-            programme adapté.
+            {content.s7Body2}
           </Text>
 
           {/* SECTION 8 */}
 
           <Text style={styles.h2}>
-            8. Et après une déchirure, une épisiotomie ou une
-            césarienne ?
+            8. {content.s8Heading}
           </Text>
 
           <Text style={styles.body}>
-            Une déchirure ou une épisiotomie nécessite une
-            attention particulière pendant la cicatrisation.
-            La reprise des activités doit respecter la douleur,
-            l’état de la cicatrice et les recommandations
-            données après l’accouchement.
+            {content.s8Body1}
           </Text>
 
           <Text style={styles.body}>
-            Après une césarienne, la récupération concerne
-            également la paroi abdominale et la cicatrice.
-            Même si l’accouchement n’a pas été vaginal, la
-            grossesse a tout de même sollicité le plancher
-            pelvien.
+            {content.s8Body2}
           </Text>
 
           <View style={styles.highlight}>
@@ -769,15 +1032,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Une prise en charge personnalisée peut aider
+                {content.s8HighlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                En cas de déchirure importante, de douleur, de
-                symptômes urinaires ou intestinaux ou de
-                difficultés persistantes, un bilan auprès d’un
-                professionnel de santé peut être particulièrement
-                utile.
+                {content.s8HighlightText}
               </Text>
             </View>
           </View>
@@ -785,22 +1044,15 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 9 */}
 
           <Text style={styles.h2}>
-            9. Reprendre le sport progressivement
+            9. {content.s9Heading}
           </Text>
 
           <Text style={styles.body}>
-            La reprise du mouvement après l’accouchement doit
-            être progressive. La marche et les mouvements doux
-            peuvent généralement reprendre selon ton état et
-            ton ressenti, tandis que les activités à fort impact
-            demandent davantage de prudence.
+            {content.s9Body1}
           </Text>
 
           <Text style={styles.body}>
-            Avant de reprendre la course, les sauts ou les
-            entraînements très intenses, il est préférable
-            d’évaluer la récupération du plancher pelvien et de
-            tenir compte des éventuels symptômes.
+            {content.s9Body2}
           </Text>
 
           <View style={styles.alert}>
@@ -812,14 +1064,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Ne pas brûler les étapes
+                {content.s9AlertTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Des fuites, une sensation de pesanteur ou une
-                douleur pendant ou après l’exercice sont des
-                signes qu’il faut ralentir et demander conseil
-                avant d’augmenter l’intensité.
+                {content.s9AlertText}
               </Text>
             </View>
           </View>
@@ -827,15 +1076,11 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 10 */}
 
           <Text style={styles.h2}>
-            10. Quand consulter un spécialiste ?
+            10. {content.s10Heading}
           </Text>
 
           <Text style={styles.body}>
-            Une rééducation pelvi-périnéale avec une sage-femme
-            ou un kinésithérapeute peut être utile si tu ne
-            sais pas si tu contractes correctement, si tes
-            symptômes persistent ou si tu souhaites reprendre
-            certaines activités physiques en toute confiance.
+            {content.s10Body1}
           </Text>
 
           <View style={styles.questionCard}>
@@ -847,11 +1092,11 @@ export default function PerineumStrengtheningArticleScreen({
               />
 
               <Text style={styles.questionTitle}>
-                Questions utiles à poser
+                {content.questionCardTitle}
               </Text>
             </View>
 
-            {APPOINTMENT_QUESTIONS.map(
+            {content.appointmentQuestions.map(
               (item, index) => (
                 <View
                   key={item}
@@ -879,14 +1124,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.s10TipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Consulter ne signifie pas forcément que quelque
-                chose va mal. Une séance peut simplement servir
-                à vérifier la technique, évaluer la récupération
-                et apprendre à progresser correctement.
+                {content.s10TipText}
               </Text>
             </View>
           </View>
@@ -894,22 +1136,15 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SECTION 11 */}
 
           <Text style={styles.h2}>
-            11. Une récupération qui prend du temps
+            11. {content.s11Heading}
           </Text>
 
           <Text style={styles.body}>
-            Après la naissance, il est normal de ne pas retrouver
-            immédiatement les mêmes sensations ou la même force
-            musculaire qu’avant la grossesse.
+            {content.s11Body1}
           </Text>
 
           <Text style={styles.body}>
-            L’objectif n’est pas de faire le plus grand nombre
-            de contractions possible. Il s’agit plutôt de
-            retrouver progressivement une bonne coordination
-            entre contraction et relâchement, puis de pouvoir
-            utiliser ces muscles naturellement dans les activités
-            quotidiennes.
+            {content.s11Body2}
           </Text>
 
           <View style={styles.highlight}>
@@ -921,14 +1156,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Petit progrès = vrai progrès
+                {content.s11HighlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                Une meilleure perception du mouvement, quelques
-                secondes de contraction supplémentaires ou une
-                diminution des fuites sont déjà des signes
-                encourageants.
+                {content.s11HighlightText}
               </Text>
             </View>
           </View>
@@ -936,7 +1168,7 @@ export default function PerineumStrengtheningArticleScreen({
           {/* SUMMARY */}
 
           <Text style={styles.h2}>
-            12. À retenir
+            12. {content.s12Heading}
           </Text>
 
           <View style={styles.summaryCard}>
@@ -948,19 +1180,11 @@ export default function PerineumStrengtheningArticleScreen({
               />
 
               <Text style={styles.summaryTitle}>
-                L’essentiel
+                {content.summaryTitle}
               </Text>
             </View>
 
-            {[
-              'La grossesse et l’accouchement sollicitent fortement le plancher pelvien.',
-              'Une récupération progressive est normale après la naissance.',
-              'Les exercices doivent privilégier la qualité du mouvement plutôt que la force.',
-              'La respiration et le relâchement sont aussi importants que la contraction.',
-              'Les fuites urinaires, la pesanteur ou la douleur persistante méritent un avis professionnel.',
-              'Une rééducation avec une sage-femme ou un kinésithérapeute peut aider à retrouver un meilleur contrôle.',
-              'La reprise du sport doit être progressive, surtout pour les activités à impact.',
-            ].map(item => (
+            {content.summaryItems.map(item => (
               <View
                 key={item}
                 style={styles.summaryItem}>
@@ -988,14 +1212,11 @@ export default function PerineumStrengtheningArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Prends le temps de récupérer
+                {content.finalTipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Après l’accouchement, ton corps a traversé
-                beaucoup de changements. Le périnée mérite la
-                même attention que les autres parties du corps :
-                progressivement, régulièrement et sans pression.
+                {content.finalTipText}
               </Text>
             </View>
           </View>
@@ -1010,11 +1231,7 @@ export default function PerineumStrengtheningArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Cet article a une vocation informative et ne
-              remplace pas un avis médical personnalisé. En cas
-              de douleur, de symptômes persistants ou de doute
-              concernant ta récupération, demande conseil à un
-              professionnel de santé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

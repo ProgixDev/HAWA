@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,31 +38,135 @@ const ART = {
   tracking: require('../../assets/images/library/featured-tracking-hero.png'),
 };
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const SPIRITUAL_ACTS = [
-  ['hands-pray', 'Dhikr (évocation de Dieu)'],
-  ['heart-outline', 'Du’a (invocations)'],
-  ['headphones', 'Écoute de contenus religieux'],
-  ['book-open-variant', 'Lecture de contenus éducatifs'],
-  ['hand-heart-outline', 'Charité et gestes de bienveillance'],
-  ['pot-steam-outline', 'Aider à préparer l’iftar'],
-  ['weather-night', 'Temps de réflexion personnelle'],
-  ['calendar-check-outline', 'Maintenir une routine spirituelle'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const SPIRITUAL_ACT_ICONS = [
+  'hands-pray',
+  'heart-outline',
+  'headphones',
+  'book-open-variant',
+  'hand-heart-outline',
+  'pot-steam-outline',
+  'weather-night',
+  'calendar-check-outline',
 ] as const;
 
-const TRACKING_TIPS = [
-  'Noter la date de chaque jour non jeûné au fur et à mesure',
-  'Utiliser un calendrier, une application ou un carnet dédié',
-  'Faire un point rapide en fin de mois pour vérifier le total',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'RAMADAN',
+    title: 'Le jeûne pendant\nle Ramadan',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Conseils pratiques et repères éducatifs pour vivre le mois de Ramadan en période de règles, avec sérénité.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pendant les règles, le jeûne suspendu',
+      'Vivre la spiritualité autrement',
+      'Noter ses jours pour le rattrapage',
+      'À retenir',
+    ],
+    section1Body1: 'Pendant les règles, le jeûne n’est pas requis : cette période place la femme dans un état où plusieurs actes d’adoration, dont le jeûne, sont temporairement suspendus. Cette suspension est reconnue comme une facilité, et non comme une interdiction ou une sanction.',
+    section1Body2: 'Suspendre le jeûne pendant les règles ne signifie pas s’éloigner de sa pratique religieuse. Il est simplement mis en pause pour une durée limitée, puis repris normalement dès la fin des règles, sans qu’aucun acte de foi ne soit perdu. Les jours non jeûnés seront rattrapés plus tard (qadaa), en dehors du Ramadan.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Cette pause peut aussi être vécue comme un moment différent du mois, où la spiritualité continue de s’exprimer autrement, sans jeûne.',
+    note1Title: 'À noter',
+    note1Text: 'Cette situation ne doit pas être vécue avec culpabilité : elle fait partie du cycle naturel du corps et est prise en compte par la tradition religieuse elle-même.',
+    section2Body: 'Ne pas jeûner ne signifie pas être coupée du mois de Ramadan. De nombreuses formes de spiritualité restent accessibles et permettent de continuer à vivre pleinement cette période.',
+    spiritualActs: [
+      'Dhikr (évocation de Dieu)',
+      'Du’a (invocations)',
+      'Écoute de contenus religieux',
+      'Lecture de contenus éducatifs',
+      'Charité et gestes de bienveillance',
+      'Aider à préparer l’iftar',
+      'Temps de réflexion personnelle',
+      'Maintenir une routine spirituelle',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Ces gestes, même simples, permettent de rester pleinement connectée à l’esprit du mois, quelle que soit la situation.',
+    section3Body: 'Garder une trace des jours de règles pendant le Ramadan facilite ensuite le calcul du nombre de jours à rattraper (qadaa), et évite d’avoir à s’en souvenir de mémoire une fois le mois terminé.',
+    trackingTips: [
+      'Noter la date de chaque jour non jeûné au fur et à mesure',
+      'Utiliser un calendrier, une application ou un carnet dédié',
+      'Faire un point rapide en fin de mois pour vérifier le total',
+    ],
+    visualTitle: 'Un suivi simplifié',
+    visualText: 'AWA peut t’aider à suivre ton cycle au fil du Ramadan, pour retrouver facilement ces informations plus tard.',
+    note2Title: 'À noter',
+    note2Text: 'Les modalités exactes du rattrapage (délai, situations particulières comme la grossesse ou l’allaitement) peuvent varier selon les écoles juridiques. Pour toute situation spécifique ou complexe, l’avis d’un savant qualifié reste la référence.',
+    tip3Title: 'Bon à savoir',
+    tip3Text: 'Le jeûne suspendu pendant les règles est une facilité reconnue, non une rupture avec sa pratique religieuse. Vivre cette période autrement, garder une trace de ses jours, et demander conseil en cas de doute permettent de traverser le Ramadan avec sérénité.',
+    shareMessage: 'Le jeûne pendant le Ramadan — AWA',
+  },
+  en: {
+    badge: 'RAMADAN',
+    title: 'Fasting during\nRamadan',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Practical tips and educational pointers for living through the month of Ramadan while on your period, with serenity.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Fasting suspended during your period',
+      'Experiencing spirituality differently',
+      'Keeping track of days for make-up fasting',
+      'Key takeaways',
+    ],
+    section1Body1: 'During your period, fasting is not required: this time places a woman in a state in which several acts of worship, including fasting, are temporarily suspended. This suspension is recognized as a relief, not as a prohibition or a punishment.',
+    section1Body2: 'Suspending the fast during your period does not mean stepping away from your religious practice. It is simply paused for a limited time, then resumed normally once your period ends, without any act of faith being lost. The days not fasted will be made up later (qadaa), outside of Ramadan.',
+    tip1Title: 'Good to know',
+    tip1Text: 'This pause can also be experienced as a different kind of time within the month, where spirituality continues to express itself in other ways, without fasting.',
+    note1Title: 'Please note',
+    note1Text: 'This situation should not be experienced with guilt: it is part of the body’s natural cycle and is accounted for by religious tradition itself.',
+    section2Body: 'Not fasting does not mean being cut off from the month of Ramadan. Many forms of spirituality remain accessible and allow you to continue fully experiencing this time.',
+    spiritualActs: [
+      'Dhikr (remembrance of God)',
+      'Du’a (supplications)',
+      'Listening to religious content',
+      'Reading educational content',
+      'Charity and acts of kindness',
+      'Helping prepare iftar',
+      'Time for personal reflection',
+      'Maintaining a spiritual routine',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'These small gestures, even simple ones, help you stay fully connected to the spirit of the month, whatever your situation.',
+    section3Body: 'Keeping track of your period days during Ramadan makes it easier afterward to calculate the number of days to make up (qadaa), and avoids having to rely on memory once the month is over.',
+    trackingTips: [
+      'Note the date of each day not fasted as you go',
+      'Use a calendar, an app, or a dedicated notebook',
+      'Do a quick check at the end of the month to verify the total',
+    ],
+    visualTitle: 'Simplified tracking',
+    visualText: 'AWA can help you track your cycle throughout Ramadan, so you can easily find this information again later.',
+    note2Title: 'Please note',
+    note2Text: 'The exact terms of making up missed days (timing, special situations such as pregnancy or breastfeeding) can vary according to the school of jurisprudence. For any specific or complex situation, the opinion of a qualified scholar remains the reference.',
+    tip3Title: 'Good to know',
+    tip3Text: 'Fasting suspended during your period is a recognized relief, not a break from your religious practice. Living through this time differently, keeping track of your days, and asking for guidance when in doubt all help you get through Ramadan with serenity.',
+    shareMessage: 'Fasting during Ramadan — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function RamadanFastingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -88,7 +193,7 @@ export default function RamadanFastingArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le jeûne pendant le Ramadan — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -126,7 +231,7 @@ export default function RamadanFastingArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -135,7 +240,7 @@ export default function RamadanFastingArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -150,7 +255,7 @@ export default function RamadanFastingArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -168,19 +273,19 @@ export default function RamadanFastingArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>RAMADAN</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Le jeûne pendant{`\n`}le Ramadan
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -199,8 +304,7 @@ export default function RamadanFastingArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Conseils pratiques et repères éducatifs pour vivre le mois de
-            Ramadan en période de règles, avec sérénité.
+            {content.intro}
           </Text>
 
           <View style={styles.alert}>
@@ -211,20 +315,15 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pendant les règles, le jeûne suspendu',
-              'Vivre la spiritualité autrement',
-              'Noter ses jours pour le rattrapage',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -240,22 +339,14 @@ export default function RamadanFastingArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Pendant les règles, le jeûne suspendu</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Pendant les règles, le jeûne n’est pas requis : cette période
-            place la femme dans un état où plusieurs actes d’adoration, dont
-            le jeûne, sont temporairement suspendus. Cette suspension est
-            reconnue comme une facilité, et non comme une interdiction ou
-            une sanction.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            Suspendre le jeûne pendant les règles ne signifie pas s’éloigner
-            de sa pratique religieuse. Il est simplement mis en pause pour
-            une durée limitée, puis repris normalement dès la fin des
-            règles, sans qu’aucun acte de foi ne soit perdu. Les jours non
-            jeûnés seront rattrapés plus tard (qadaa), en dehors du Ramadan.
+            {content.section1Body2}
           </Text>
 
           <View style={styles.tip}>
@@ -266,11 +357,9 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Cette pause peut aussi être vécue comme un moment différent
-                du mois, où la spiritualité continue de s’exprimer
-                autrement, sans jeûne.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
@@ -283,33 +372,29 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.note1Title}</Text>
               <Text style={styles.tipText}>
-                Cette situation ne doit pas être vécue avec culpabilité :
-                elle fait partie du cycle naturel du corps et est prise en
-                compte par la tradition religieuse elle-même.
+                {content.note1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>2. Vivre la spiritualité autrement</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Ne pas jeûner ne signifie pas être coupée du mois de Ramadan. De
-            nombreuses formes de spiritualité restent accessibles et
-            permettent de continuer à vivre pleinement cette période.
+            {content.section2Body}
           </Text>
 
           <View style={styles.daily}>
-            {SPIRITUAL_ACTS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {SPIRITUAL_ACT_ICONS.map((icon, index) => (
+              <View key={content.spiritualActs[index]} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.spiritualActs[index]}</Text>
               </View>
             ))}
           </View>
@@ -322,25 +407,21 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Ces gestes, même simples, permettent de rester pleinement
-                connectée à l’esprit du mois, quelle que soit la situation.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Noter ses jours pour le rattrapage</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Garder une trace des jours de règles pendant le Ramadan facilite
-            ensuite le calcul du nombre de jours à rattraper (qadaa), et
-            évite d’avoir à s’en souvenir de mémoire une fois le mois
-            terminé.
+            {content.section3Body}
           </Text>
 
           <View style={styles.checkList}>
-            {TRACKING_TIPS.map(item => (
+            {content.trackingTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -361,11 +442,10 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>Un suivi simplifié</Text>
+              <Text style={styles.visualTitle}>{content.visualTitle}</Text>
 
               <Text style={styles.visualText}>
-                AWA peut t’aider à suivre ton cycle au fil du Ramadan, pour
-                retrouver facilement ces informations plus tard.
+                {content.visualText}
               </Text>
             </View>
           </View>
@@ -378,18 +458,14 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.note2Title}</Text>
               <Text style={styles.tipText}>
-                Les modalités exactes du rattrapage (délai, situations
-                particulières comme la grossesse ou l’allaitement) peuvent
-                varier selon les écoles juridiques. Pour toute situation
-                spécifique ou complexe, l’avis d’un savant qualifié reste la
-                référence.
+                {content.note2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -399,13 +475,9 @@ export default function RamadanFastingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
               <Text style={styles.tipText}>
-                Le jeûne suspendu pendant les règles est une facilité
-                reconnue, non une rupture avec sa pratique religieuse.
-                Vivre cette période autrement, garder une trace de ses
-                jours, et demander conseil en cas de doute permettent de
-                traverser le Ramadan avec sérénité.
+                {content.tip3Text}
               </Text>
             </View>
           </View>

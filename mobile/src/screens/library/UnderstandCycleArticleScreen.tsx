@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   NativeScrollEvent,
@@ -96,6 +97,7 @@ const REASONS = [
 function UnderstandCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
 
@@ -150,7 +152,7 @@ function UnderstandCycleArticleScreen({
           <Pressable
             onPress={navigation.goBack}
             accessibilityRole="button"
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('library.reader.back')}
             style={({pressed}) => [
               styles.circle,
               pressed && styles.pressed,
@@ -170,7 +172,7 @@ function UnderstandCycleArticleScreen({
                 )
               }
               accessibilityRole="button"
-              accessibilityLabel="Favori"
+              accessibilityLabel={t('libraryArticle.bookmarkA11y')}
               style={({pressed}) => [
                 styles.circle,
                 pressed && styles.pressed,
@@ -196,7 +198,7 @@ function UnderstandCycleArticleScreen({
                 })
               }
               accessibilityRole="button"
-              accessibilityLabel="Partager"
+              accessibilityLabel={t('libraryArticle.shareA11y')}
               style={({pressed}) => [
                 styles.circle,
                 pressed && styles.pressed,

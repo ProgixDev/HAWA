@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,54 +34,215 @@ const ID = 'cycle-signe-vital';
 
 const HERO = require('../../assets/images/library/regular-cycle-heartbeat.png');
 
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
 // Section 1 — what to observe day to day.
-const OBSERVE = [
-  ['calendar-range', 'Durée du cycle'],
-  ['calendar-clock', 'Durée des règles'],
-  ['water-outline', 'Flux menstruel'],
-  ['heart-pulse', 'Douleurs'],
-  ['opacity', 'Pertes vaginales'],
-  ['emoticon-outline', 'Humeur'],
-  ['flash-outline', 'Énergie / fatigue'],
-  ['clipboard-pulse-outline', 'Autres symptômes récurrents'],
+const OBSERVE_ICONS = [
+  'calendar-range',
+  'calendar-clock',
+  'water-outline',
+  'heart-pulse',
+  'opacity',
+  'emoticon-outline',
+  'flash-outline',
+  'clipboard-pulse-outline',
 ] as const;
 
 // Section 4 — factors that can influence the cycle. Same icon vocabulary as
 // the reference "Cycle régulier ou irrégulier" article's own CAUSES list,
 // for visual/editorial consistency across the family.
-const FACTORS = [
-  ['head-heart-outline', 'Stress'],
-  ['weather-night', 'Manque de sommeil'],
-  ['scale-bathroom', 'Changements de poids importants'],
-  ['shoe-sneaker', 'Activité physique très intense'],
-  ['molecule', 'Changements hormonaux'],
-  ['pill', 'Contraception'],
-  ['hospital-box-outline', 'Certaines conditions médicales'],
+const FACTOR_ICONS = [
+  'head-heart-outline',
+  'weather-night',
+  'scale-bathroom',
+  'shoe-sneaker',
+  'molecule',
+  'pill',
+  'hospital-box-outline',
 ] as const;
 
-const CHANGES_TO_WATCH = [
-  'Un changement marqué dans la régularité du cycle',
-  'Des règles nettement plus abondantes qu’à l’habitude',
-  'Des douleurs inhabituellement fortes ou persistantes',
-  'Une absence prolongée de règles',
-  'Des saignements entre les règles',
-  'Un changement important qui se répète sur plusieurs cycles',
-];
-
-const WHEN_TO_ASK = [
-  'Des changements importants qui persistent sur plusieurs cycles',
-  'Des douleurs qui empêchent de suivre tes activités habituelles',
-  'Des règles très abondantes',
-  'Une absence prolongée de règles',
-  'Des saignements inhabituels',
-  'Tout symptôme persistant qui t’inquiète',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE & RÈGLES',
+    title: 'Ton cycle, un excellent\nindicateur de santé',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi le cycle est parfois appelé le « cinquième signe vital ».',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Ton cycle : un reflet de ton corps',
+      'Qu’est-ce qu’un cycle « normal » ?',
+      'Les changements à surveiller',
+      'Que peuvent révéler ces changements ?',
+      'Suivre son cycle pour mieux se connaître',
+      'Quand demander conseil ?',
+      'Bon à savoir',
+    ],
+    observeLabels: [
+      'Durée du cycle',
+      'Durée des règles',
+      'Flux menstruel',
+      'Douleurs',
+      'Pertes vaginales',
+      'Humeur',
+      'Énergie / fatigue',
+      'Autres symptômes récurrents',
+    ],
+    factorLabels: [
+      'Stress',
+      'Manque de sommeil',
+      'Changements de poids importants',
+      'Activité physique très intense',
+      'Changements hormonaux',
+      'Contraception',
+      'Certaines conditions médicales',
+    ],
+    s1Body1:
+      'Le cycle menstruel est influencé par l’activité hormonale du corps tout au long du mois. Apprendre à l’observer peut t’aider à mieux comprendre ton propre fonctionnement, sans qu’il soit nécessaire de tout analyser en détail.',
+    s1Body2: 'Voici les éléments les plus utiles à remarquer :',
+    s2Body1:
+      'Il n’existe pas un seul cycle parfait : chaque corps a son propre rythme, et ce rythme peut aussi varier légèrement d’un mois à l’autre. Un cycle est généralement considéré comme régulier lorsque sa durée se situe entre 21 et 35 jours, et les règles durent le plus souvent de 3 à 7 jours.',
+    s2Body2:
+      'Ces repères restent des moyennes : de légères variations restent tout à fait normales, surtout après la puberté, un accouchement ou à l’approche de la ménopause.',
+    s3Body1:
+      'Certains changements méritent d’être observés avec un peu plus d’attention, notamment :',
+    changesToWatch: [
+      'Un changement marqué dans la régularité du cycle',
+      'Des règles nettement plus abondantes qu’à l’habitude',
+      'Des douleurs inhabituellement fortes ou persistantes',
+      'Une absence prolongée de règles',
+      'Des saignements entre les règles',
+      'Un changement important qui se répète sur plusieurs cycles',
+    ],
+    s3Body2:
+      'Un cycle inhabituel, isolé, ne signifie pas automatiquement un problème de santé : le corps peut réagir ponctuellement à de nombreux facteurs.',
+    s4Body1:
+      'Ces changements peuvent parfois être liés à plusieurs facteurs, sans qu’il s’agisse forcément d’un problème :',
+    s4Body2:
+      'Ce ne sont que des pistes possibles parmi d’autres : elles ne remplacent jamais l’avis d’un professionnel de santé.',
+    s5VisualTitle: 'Observer ton propre rythme',
+    s5VisualText:
+      'Noter tes dates, ton flux ou ton ressenti t’aide à mieux connaître tes habitudes, mois après mois.',
+    s5Body:
+      'Le premier jour des règles, leur durée, le flux, les douleurs, l’humeur, l’énergie ou encore les pertes vaginales sont autant d’éléments que tu peux noter au fil du temps. L’objectif n’est pas de comparer ton cycle à celui d’une autre personne, mais de mieux repérer ce qui est habituel pour toi, et ce qui s’en écarte.',
+    s6Body1:
+      'Il est tout à fait normal de se poser des questions sur son cycle. Demander un avis médical peut être utile dans certaines situations, par exemple :',
+    whenToAsk: [
+      'Des changements importants qui persistent sur plusieurs cycles',
+      'Des douleurs qui empêchent de suivre tes activités habituelles',
+      'Des règles très abondantes',
+      'Une absence prolongée de règles',
+      'Des saignements inhabituels',
+      'Tout symptôme persistant qui t’inquiète',
+    ],
+    s6Body2:
+      'En parler à un professionnel de santé permet d’être rassurée ou, si besoin, d’être accompagnée — ce n’est jamais un motif d’inquiétude en soi.',
+    tipText:
+      'Un cycle n’a pas besoin d’être parfaitement régulier pour être normal. Connaître ton propre rythme habituel est souvent plus utile que de chercher une durée idéale.',
+    finalBody:
+      'Ton cycle menstruel est l’un des nombreux indicateurs de ta santé. Le suivre régulièrement peut t’aider à mieux comprendre ton corps et à repérer, avec le temps, les changements qui méritent une attention particulière.',
+    shareMessage: 'Ton cycle, un excellent indicateur de santé — AWA',
+  },
+  en: {
+    badge: 'CYCLE & PERIODS',
+    title: 'Your cycle, an excellent\nhealth indicator',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Why the cycle is sometimes called the “fifth vital sign.”',
+    contentsTitle: 'In this article',
+    topics: [
+      'Your cycle: a reflection of your body',
+      'What is a “normal” cycle?',
+      'Changes to watch for',
+      'What can these changes reveal?',
+      'Tracking your cycle to know yourself better',
+      'When to seek advice?',
+      'Good to know',
+    ],
+    observeLabels: [
+      'Cycle length',
+      'Period length',
+      'Menstrual flow',
+      'Pain',
+      'Vaginal discharge',
+      'Mood',
+      'Energy / fatigue',
+      'Other recurring symptoms',
+    ],
+    factorLabels: [
+      'Stress',
+      'Lack of sleep',
+      'Significant weight changes',
+      'Very intense physical activity',
+      'Hormonal changes',
+      'Contraception',
+      'Certain medical conditions',
+    ],
+    s1Body1:
+      'The menstrual cycle is influenced by the body’s hormonal activity throughout the month. Learning to observe it can help you better understand how your body works, without needing to analyze everything in detail.',
+    s1Body2: 'Here are the most useful things to notice:',
+    s2Body1:
+      'There’s no single perfect cycle: every body has its own rhythm, and that rhythm can also vary slightly from month to month. A cycle is generally considered regular when it lasts between 21 and 35 days, and periods most often last 3 to 7 days.',
+    s2Body2:
+      'These figures are averages: slight variations remain completely normal, especially after puberty, after giving birth, or as menopause approaches.',
+    s3Body1:
+      'Some changes are worth watching a little more closely, such as:',
+    changesToWatch: [
+      'A marked change in cycle regularity',
+      'Periods noticeably heavier than usual',
+      'Unusually strong or persistent pain',
+      'A prolonged absence of periods',
+      'Bleeding between periods',
+      'A significant change that repeats over several cycles',
+    ],
+    s3Body2:
+      'A single, isolated unusual cycle doesn’t automatically mean a health problem: the body can react temporarily to many different factors.',
+    s4Body1:
+      'These changes can sometimes be linked to several factors, without necessarily being a problem:',
+    s4Body2:
+      'These are just some possible explanations among others: they never replace the advice of a healthcare professional.',
+    s5VisualTitle: 'Observing your own rhythm',
+    s5VisualText:
+      'Noting your dates, flow, or how you feel helps you get to know your habits, month after month.',
+    s5Body:
+      'The first day of your period, its length, the flow, pain, mood, energy, or vaginal discharge are all things you can note over time. The goal isn’t to compare your cycle to someone else’s, but to better recognize what’s usual for you, and what differs from it.',
+    s6Body1:
+      'It’s completely normal to have questions about your cycle. Seeking medical advice can be helpful in certain situations, for example:',
+    whenToAsk: [
+      'Significant changes that persist over several cycles',
+      'Pain that keeps you from your usual activities',
+      'Very heavy periods',
+      'A prolonged absence of periods',
+      'Unusual bleeding',
+      'Any persistent symptom that worries you',
+    ],
+    s6Body2:
+      'Talking to a healthcare professional can help put your mind at ease or, if needed, get you the right support — it’s never a reason for concern in itself.',
+    tipText:
+      'A cycle doesn’t need to be perfectly regular to be normal. Knowing your own usual rhythm is often more useful than looking for an ideal length.',
+    finalBody:
+      'Your menstrual cycle is one of many indicators of your health. Tracking it regularly can help you better understand your body and, over time, notice changes that deserve particular attention.',
+    shareMessage: 'Your cycle, an excellent health indicator — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function CycleVitalSignArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -107,7 +269,7 @@ export default function CycleVitalSignArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Ton cycle, un excellent indicateur de santé — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -145,7 +307,7 @@ export default function CycleVitalSignArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -154,7 +316,7 @@ export default function CycleVitalSignArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -169,7 +331,7 @@ export default function CycleVitalSignArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -187,19 +349,17 @@ export default function CycleVitalSignArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>CYCLE & RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Ton cycle, un excellent{`\n`}indicateur de santé
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -217,23 +377,12 @@ export default function CycleVitalSignArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Pourquoi le cycle est parfois appelé le « cinquième signe
-            vital ».
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Ton cycle : un reflet de ton corps',
-              'Qu’est-ce qu’un cycle « normal » ?',
-              'Les changements à surveiller',
-              'Que peuvent révéler ces changements ?',
-              'Suivre son cycle pour mieux se connaître',
-              'Quand demander conseil ?',
-              'Bon à savoir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -249,37 +398,24 @@ export default function CycleVitalSignArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Ton cycle : un reflet de ton corps</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Le cycle menstruel est influencé par l’activité hormonale du
-            corps tout au long du mois. Apprendre à l’observer peut t’aider
-            à mieux comprendre ton propre fonctionnement, sans qu’il soit
-            nécessaire de tout analyser en détail.
-          </Text>
+          <Text style={styles.body}>{content.s1Body1}</Text>
 
-          <Text style={styles.body}>
-            Voici les éléments les plus utiles à remarquer :
-          </Text>
+          <Text style={styles.body}>{content.s1Body2}</Text>
 
           <View style={styles.daily}>
-            {OBSERVE.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {OBSERVE_ICONS.map((icon, index) => (
+              <View key={content.observeLabels[index]} style={styles.dailyItem}>
                 <MaterialDesignIcons name={icon as never} color={theme.colors.primary} size={25} />
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.observeLabels[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. Qu’est-ce qu’un cycle « normal » ?</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Il n’existe pas un seul cycle parfait : chaque corps a son propre
-            rythme, et ce rythme peut aussi varier légèrement d’un mois à
-            l’autre. Un cycle est généralement considéré comme régulier
-            lorsque sa durée se situe entre 21 et 35 jours, et les règles
-            durent le plus souvent de 3 à 7 jours.
-          </Text>
+          <Text style={styles.body}>{content.s2Body1}</Text>
 
           <Image
             source={require('../../assets/images/library/regular-cycle-balance.png')}
@@ -287,21 +423,14 @@ export default function CycleVitalSignArticleScreen({
             style={styles.wideImage}
           />
 
-          <Text style={styles.body}>
-            Ces repères restent des moyennes : de légères variations restent
-            tout à fait normales, surtout après la puberté, un accouchement
-            ou à l’approche de la ménopause.
-          </Text>
+          <Text style={styles.body}>{content.s2Body2}</Text>
 
-          <Text style={styles.h2}>3. Les changements à surveiller</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Certains changements méritent d’être observés avec un peu plus
-            d’attention, notamment :
-          </Text>
+          <Text style={styles.body}>{content.s3Body1}</Text>
 
           <View style={styles.alertList}>
-            {CHANGES_TO_WATCH.map(item => (
+            {content.changesToWatch.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="close-circle-outline"
@@ -314,36 +443,24 @@ export default function CycleVitalSignArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.body}>
-            Un cycle inhabituel, isolé, ne signifie pas automatiquement un
-            problème de santé : le corps peut réagir ponctuellement à de
-            nombreux facteurs.
-          </Text>
+          <Text style={styles.body}>{content.s3Body2}</Text>
 
-          <Text style={styles.h2}>4. Que peuvent révéler ces changements ?</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Ces changements peuvent parfois être liés à plusieurs facteurs,
-            sans qu’il s’agisse forcément d’un problème :
-          </Text>
+          <Text style={styles.body}>{content.s4Body1}</Text>
 
           <View style={styles.daily}>
-            {FACTORS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {FACTOR_ICONS.map((icon, index) => (
+              <View key={content.factorLabels[index]} style={styles.dailyItem}>
                 <MaterialDesignIcons name={icon as never} color={theme.colors.primary} size={25} />
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.factorLabels[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.body}>
-            Ce ne sont que des pistes possibles parmi d’autres : elles ne
-            remplacent jamais l’avis d’un professionnel de santé.
-          </Text>
+          <Text style={styles.body}>{content.s4Body2}</Text>
 
-          <Text style={styles.h2}>
-            5. Suivre son cycle pour mieux se connaître
-          </Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.visualCard}>
             <Image
@@ -353,33 +470,17 @@ export default function CycleVitalSignArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>
-                Observer ton propre rythme
-              </Text>
+              <Text style={styles.visualTitle}>{content.s5VisualTitle}</Text>
 
-              <Text style={styles.visualText}>
-                Noter tes dates, ton flux ou ton ressenti t’aide à mieux
-                connaître tes habitudes, mois après mois.
-              </Text>
+              <Text style={styles.visualText}>{content.s5VisualText}</Text>
             </View>
           </View>
 
-          <Text style={styles.body}>
-            Le premier jour des règles, leur durée, le flux, les douleurs,
-            l’humeur, l’énergie ou encore les pertes vaginales sont autant
-            d’éléments que tu peux noter au fil du temps. L’objectif n’est
-            pas de comparer ton cycle à celui d’une autre personne, mais de
-            mieux repérer ce qui est habituel pour toi, et ce qui s’en
-            écarte.
-          </Text>
+          <Text style={styles.body}>{content.s5Body}</Text>
 
-          <Text style={styles.h2}>6. Quand demander conseil ?</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
-          <Text style={styles.body}>
-            Il est tout à fait normal de se poser des questions sur son
-            cycle. Demander un avis médical peut être utile dans certaines
-            situations, par exemple :
-          </Text>
+          <Text style={styles.body}>{content.s6Body1}</Text>
 
           <Image
             source={require('../../assets/images/library/regular-cycle-consult.png')}
@@ -388,7 +489,7 @@ export default function CycleVitalSignArticleScreen({
           />
 
           <View style={styles.checkList}>
-            {WHEN_TO_ASK.map(item => (
+            {content.whenToAsk.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -401,13 +502,9 @@ export default function CycleVitalSignArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.body}>
-            En parler à un professionnel de santé permet d’être rassurée ou,
-            si besoin, d’être accompagnée — ce n’est jamais un motif
-            d’inquiétude en soi.
-          </Text>
+          <Text style={styles.body}>{content.s6Body2}</Text>
 
-          <Text style={styles.h2}>7. Bon à savoir</Text>
+          <Text style={styles.h2}>7. {content.topics[6]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -417,21 +514,12 @@ export default function CycleVitalSignArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Un cycle n’a pas besoin d’être parfaitement régulier pour
-                être normal. Connaître ton propre rythme habituel est
-                souvent plus utile que de chercher une durée idéale.
-              </Text>
+              <Text style={styles.tipTitle}>{content.topics[6]}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
-          <Text style={styles.body}>
-            Ton cycle menstruel est l’un des nombreux indicateurs de ta
-            santé. Le suivre régulièrement peut t’aider à mieux comprendre
-            ton corps et à repérer, avec le temps, les changements qui
-            méritent une attention particulière.
-          </Text>
+          <Text style={styles.body}>{content.finalBody}</Text>
         </View>
       </ScrollView>
 

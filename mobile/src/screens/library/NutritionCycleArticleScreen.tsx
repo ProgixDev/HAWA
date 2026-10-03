@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,91 +34,168 @@ const ID = 'nutrition-conception-fertilite';
 
 const HERO = require('../../assets/images/library/nutrition-hero.png');
 
-const FOODS = [
-  [
-    'Fer',
-    'Lentilles, épinards, viandes maigres, pois chiches.',
-    require('../../assets/images/library/food-iron.png'),
-  ],
-  [
-    'Magnésium',
-    'Amandes, graines de courge, chocolat noir, banane.',
-    require('../../assets/images/library/food-magnesium.png'),
-  ],
-  [
-    'Oméga-3',
-    'Saumon, sardines, noix, graines de lin.',
-    require('../../assets/images/library/food-omega.png'),
-  ],
-  [
-    'Protéines',
-    'Œufs, tofu, volaille, yaourt grec, quinoa.',
-    require('../../assets/images/library/food-protein.png'),
-  ],
-  [
-    'Fibres & antioxydants',
-    'Fruits rouges, avocat, brocolis, carottes.',
-    require('../../assets/images/library/food-fibre.png'),
-  ],
+// Images/icons stay language-neutral — only TEXT moves into the bilingual
+// CONTENT object below, keyed by index to stay aligned with these assets.
+const FOOD_IMAGES = [
+  require('../../assets/images/library/food-iron.png'),
+  require('../../assets/images/library/food-magnesium.png'),
+  require('../../assets/images/library/food-omega.png'),
+  require('../../assets/images/library/food-protein.png'),
+  require('../../assets/images/library/food-fibre.png'),
 ] as const;
 
-const MEALS = [
-  [
-    'Petit-déjeuner',
-    'Porridge, fruits rouges, amandes et chia',
-    require('../../assets/images/library/meal-breakfast.png'),
-  ],
-  [
-    'Déjeuner',
-    'Saumon, quinoa, brocoli vapeur et huile d’olive',
-    require('../../assets/images/library/meal-lunch.png'),
-  ],
-  [
-    'Collation',
-    'Yaourt nature, myrtilles et graines de lin',
-    require('../../assets/images/library/meal-snack.png'),
-  ],
-  [
-    'Dîner',
-    'Soupe de lentilles, légumes rôtis et pain complet',
-    require('../../assets/images/library/meal-dinner.png'),
-  ],
+const MEAL_IMAGES = [
+  require('../../assets/images/library/meal-breakfast.png'),
+  require('../../assets/images/library/meal-lunch.png'),
+  require('../../assets/images/library/meal-snack.png'),
+  require('../../assets/images/library/meal-dinner.png'),
 ] as const;
 
-const PHASES = [
-  [
-    'water',
-    'Phase menstruelle',
-    'Jours 1 à 5',
-    'Privilégie le fer, le magnésium et les vitamines B.',
-  ],
-  [
-    'flower',
-    'Phase folliculaire',
-    'Jours 6 à 14',
-    'Mise sur les protéines maigres et les légumes frais.',
-  ],
-  [
-    'circle',
-    'Phase ovulatoire',
-    'Autour du jour 14',
-    'Choisis antioxydants et oméga-3.',
-  ],
-  [
-    'leaf',
-    'Phase lutéale',
-    'Jours 15 à 28',
-    'Soutiens ton système nerveux et limite l’inflammation.',
-  ],
+const PHASE_ICONS = ['water', 'flower', 'circle', 'leaf'] as const;
+
+const LIMIT_ICONS = [
+  'shaker-outline',
+  'cupcake',
+  'hamburger',
+  'coffee-outline',
+  'glass-cocktail',
 ] as const;
 
-const LIMITS = [
-  ['shaker-outline', 'Excès de sel'],
-  ['cupcake', 'Produits sucrés'],
-  ['hamburger', 'Ultra-transformés'],
-  ['coffee-outline', 'Excès de caféine'],
-  ['glass-cocktail', 'Alcool'],
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE MENSTRUEL',
+    titleLine1: 'Alimentation et cycle :',
+    titleLine2: 'ce que ton corps aime',
+    metaDuration: '4 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Ton alimentation influence ton énergie, ton humeur, tes hormones et ton bien-être général tout au long de ton cycle.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les besoins nutritionnels selon les phases',
+      'Les aliments à privilégier',
+      'Les aliments à limiter',
+      'Exemples de repas équilibrés',
+    ],
+    section1Body:
+      'Ton corps n’a pas les mêmes besoins tout au long du cycle. Adapter ton alimentation peut faire une vraie différence.',
+    phases: [
+      {
+        title: 'Phase menstruelle',
+        days: 'Jours 1 à 5',
+        body: 'Privilégie le fer, le magnésium et les vitamines B.',
+      },
+      {
+        title: 'Phase folliculaire',
+        days: 'Jours 6 à 14',
+        body: 'Mise sur les protéines maigres et les légumes frais.',
+      },
+      {
+        title: 'Phase ovulatoire',
+        days: 'Autour du jour 14',
+        body: 'Choisis antioxydants et oméga-3.',
+      },
+      {
+        title: 'Phase lutéale',
+        days: 'Jours 15 à 28',
+        body: 'Soutiens ton système nerveux et limite l’inflammation.',
+      },
+    ],
+    foods: [
+      {title: 'Fer', body: 'Lentilles, épinards, viandes maigres, pois chiches.'},
+      {title: 'Magnésium', body: 'Amandes, graines de courge, chocolat noir, banane.'},
+      {title: 'Oméga-3', body: 'Saumon, sardines, noix, graines de lin.'},
+      {title: 'Protéines', body: 'Œufs, tofu, volaille, yaourt grec, quinoa.'},
+      {title: 'Fibres & antioxydants', body: 'Fruits rouges, avocat, brocolis, carottes.'},
+    ],
+    limits: [
+      {title: 'Excès de sel'},
+      {title: 'Produits sucrés'},
+      {title: 'Ultra-transformés'},
+      {title: 'Excès de caféine'},
+      {title: 'Alcool'},
+    ],
+    limitText: 'À consommer avec modération pour préserver ton équilibre.',
+    meals: [
+      {tag: 'Petit-déjeuner', body: 'Porridge, fruits rouges, amandes et chia'},
+      {tag: 'Déjeuner', body: 'Saumon, quinoa, brocoli vapeur et huile d’olive'},
+      {tag: 'Collation', body: 'Yaourt nature, myrtilles et graines de lin'},
+      {tag: 'Dîner', body: 'Soupe de lentilles, légumes rôtis et pain complet'},
+    ],
+    shareMessage: 'Alimentation et cycle : ce que ton corps aime — AWA',
+  },
+  en: {
+    badge: 'MENSTRUAL CYCLE',
+    titleLine1: 'Nutrition and your cycle:',
+    titleLine2: 'what your body loves',
+    metaDuration: '4 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro:
+      'Your diet influences your energy, your mood, your hormones, and your overall well-being throughout your cycle.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Nutritional needs by phase',
+      'Foods to favor',
+      'Foods to limit',
+      'Examples of balanced meals',
+    ],
+    section1Body:
+      'Your body doesn’t have the same needs throughout your cycle. Adjusting what you eat can make a real difference.',
+    phases: [
+      {
+        title: 'Menstrual phase',
+        days: 'Days 1 to 5',
+        body: 'Favor iron, magnesium, and B vitamins.',
+      },
+      {
+        title: 'Follicular phase',
+        days: 'Days 6 to 14',
+        body: 'Focus on lean protein and fresh vegetables.',
+      },
+      {
+        title: 'Ovulatory phase',
+        days: 'Around day 14',
+        body: 'Choose antioxidants and omega-3s.',
+      },
+      {
+        title: 'Luteal phase',
+        days: 'Days 15 to 28',
+        body: 'Support your nervous system and limit inflammation.',
+      },
+    ],
+    foods: [
+      {title: 'Iron', body: 'Lentils, spinach, lean meats, chickpeas.'},
+      {title: 'Magnesium', body: 'Almonds, pumpkin seeds, dark chocolate, banana.'},
+      {title: 'Omega-3', body: 'Salmon, sardines, walnuts, flaxseed.'},
+      {title: 'Protein', body: 'Eggs, tofu, poultry, Greek yogurt, quinoa.'},
+      {title: 'Fiber & antioxidants', body: 'Berries, avocado, broccoli, carrots.'},
+    ],
+    limits: [
+      {title: 'Excess salt'},
+      {title: 'Sugary foods'},
+      {title: 'Ultra-processed foods'},
+      {title: 'Excess caffeine'},
+      {title: 'Alcohol'},
+    ],
+    limitText: 'Enjoy in moderation to help maintain your balance.',
+    meals: [
+      {tag: 'Breakfast', body: 'Porridge, berries, almonds, and chia'},
+      {tag: 'Lunch', body: 'Salmon, quinoa, steamed broccoli, and olive oil'},
+      {tag: 'Snack', body: 'Plain yogurt, blueberries, and flaxseed'},
+      {tag: 'Dinner', body: 'Lentil soup, roasted vegetables, and whole-grain bread'},
+    ],
+    shareMessage: 'Nutrition and your cycle: what your body loves — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -127,6 +205,9 @@ type Props = NativeStackScreenProps<
 export default function NutritionCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -153,8 +234,7 @@ export default function NutritionCycleArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message:
-        'Alimentation et cycle : ce que ton corps aime — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -201,7 +281,7 @@ export default function NutritionCycleArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -217,7 +297,7 @@ export default function NutritionCycleArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Favori"
+                accessibilityLabel={t('libraryArticle.bookmarkA11y')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -236,7 +316,7 @@ export default function NutritionCycleArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -255,13 +335,13 @@ export default function NutritionCycleArticleScreen({
         <View style={styles.article}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              CYCLE MENSTRUEL
+              {content.badge}
             </Text>
           </View>
 
           <Text style={styles.title}>
-            Alimentation et cycle :{`\n`}
-            ce que ton corps aime
+            {content.titleLine1}{`\n`}
+            {content.titleLine2}
           </Text>
 
           {/* META COMME TA CAPTURE */}
@@ -274,7 +354,7 @@ export default function NutritionCycleArticleScreen({
                   color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
-                  4 min de lecture
+                  {content.metaDuration}
                 </Text>
               </View>
 
@@ -287,7 +367,7 @@ export default function NutritionCycleArticleScreen({
                   color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
-                  Guide
+                  {content.metaType}
                 </Text>
               </View>
 
@@ -300,7 +380,7 @@ export default function NutritionCycleArticleScreen({
                   color={theme.colors.textMuted}
                 />
                 <Text style={styles.metaText}>
-                  Débutant
+                  {content.metaLevel}
                 </Text>
               </View>
             </View>
@@ -312,28 +392,21 @@ export default function NutritionCycleArticleScreen({
                 color={theme.colors.textMuted}
               />
               <Text style={styles.metaText}>
-                Contenu validé
+                {content.metaValidated}
               </Text>
             </View>
           </View>
 
           <Text style={styles.intro}>
-            Ton alimentation influence ton énergie,
-            ton humeur, tes hormones et ton bien-être
-            général tout au long de ton cycle.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Les besoins nutritionnels selon les phases',
-              'Les aliments à privilégier',
-              'Les aliments à limiter',
-              'Exemples de repas équilibrés',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -358,41 +431,39 @@ export default function NutritionCycleArticleScreen({
 
           {/* SECTION 1 */}
           <Text style={styles.h2}>
-            1. Les besoins nutritionnels selon les phases
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Ton corps n’a pas les mêmes besoins tout
-            au long du cycle. Adapter ton alimentation
-            peut faire une vraie différence.
+            {content.section1Body}
           </Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.row}>
-            {PHASES.map(([icon, title, days, body]) => (
+            {content.phases.map((phase, index) => (
               <View
-                key={title}
+                key={phase.title}
                 style={styles.phase}>
                 <View style={styles.phaseIcon}>
                   <MaterialDesignIcons
-                    name={icon as never}
+                    name={PHASE_ICONS[index] as never}
                     size={25}
                     color={theme.colors.primary}
                   />
                 </View>
 
                 <Text style={styles.cardTitle}>
-                  {title}
+                  {phase.title}
                 </Text>
 
                 <Text style={styles.days}>
-                  {days}
+                  {phase.days}
                 </Text>
 
                 <Text style={styles.cardBody}>
-                  {body}
+                  {phase.body}
                 </Text>
               </View>
             ))}
@@ -400,27 +471,27 @@ export default function NutritionCycleArticleScreen({
 
           {/* SECTION 2 */}
           <Text style={styles.h2}>
-            2. Les aliments à privilégier
+            2. {content.topics[1]}
           </Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.row}>
-            {FOODS.map(([title, body, image]) => (
-              <View key={title} style={styles.food}>
+            {content.foods.map((food, index) => (
+              <View key={food.title} style={styles.food}>
                 <Image
-                  source={image}
+                  source={FOOD_IMAGES[index]}
                   resizeMode="cover"
                   style={styles.foodImage}
                 />
 
                 <Text style={styles.cardTitle}>
-                  {title}
+                  {food.title}
                 </Text>
 
                 <Text style={styles.cardBody}>
-                  {body}
+                  {food.body}
                 </Text>
               </View>
             ))}
@@ -428,32 +499,31 @@ export default function NutritionCycleArticleScreen({
 
           {/* SECTION 3 */}
           <Text style={styles.h2}>
-            3. Les aliments à limiter
+            3. {content.topics[2]}
           </Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.row}>
-            {LIMITS.map(([icon, title]) => (
+            {content.limits.map((limit, index) => (
               <View
-                key={title}
+                key={limit.title}
                 style={styles.limit}>
                 <View style={styles.limitIcon}>
                   <MaterialDesignIcons
-                    name={icon as never}
+                    name={LIMIT_ICONS[index] as never}
                     size={26}
                     color={theme.colors.primary}
                   />
                 </View>
 
                 <Text style={styles.cardTitle}>
-                  {title}
+                  {limit.title}
                 </Text>
 
                 <Text style={styles.limitText}>
-                  À consommer avec modération pour
-                  préserver ton équilibre.
+                  {content.limitText}
                 </Text>
               </View>
             ))}
@@ -461,29 +531,29 @@ export default function NutritionCycleArticleScreen({
 
           {/* SECTION 4 */}
           <Text style={styles.h2}>
-            4. Exemples de repas équilibrés
+            4. {content.topics[3]}
           </Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.row}>
-            {MEALS.map(([tag, body, image]) => (
+            {content.meals.map((meal, index) => (
               <View
-                key={tag}
+                key={meal.tag}
                 style={styles.meal}>
                 <Image
-                  source={image}
+                  source={MEAL_IMAGES[index]}
                   resizeMode="cover"
                   style={styles.mealImage}
                 />
 
                 <Text style={styles.mealTag}>
-                  {tag}
+                  {meal.tag}
                 </Text>
 
                 <Text style={styles.mealText}>
-                  {body}
+                  {meal.body}
                 </Text>
               </View>
             ))}

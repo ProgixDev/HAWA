@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,25 +34,124 @@ const ID = 'prayerduringmenstruation-la-priere-suspendue';
 
 const HERO = require('../../assets/images/library/featured-comfort-hero.png');
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const WORSHIP_ACTS = [
-  ['hands-pray', 'Dhikr (évocation de Dieu)'],
-  ['heart-outline', 'Du’a (invocations)'],
-  ['hand-heart-outline', 'Charité'],
-  ['account-heart-outline', 'Aider les autres'],
-  ['book-open-variant', 'Apprentissage religieux'],
-  ['headphones', 'Écoute de contenus religieux'],
-  ['weather-night', 'Réflexion et gratitude'],
-  ['emoticon-happy-outline', 'Gestes de bienveillance'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const WORSHIP_ICONS = [
+  'hands-pray',
+  'heart-outline',
+  'hand-heart-outline',
+  'account-heart-outline',
+  'book-open-variant',
+  'headphones',
+  'weather-night',
+  'emoticon-happy-outline',
 ] as const;
+
+// PHASE 7L.2 — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+//
+// RELIGIOUS CONTENT — this article is fiqh-adjacent (the suspended prayer
+// during menstruation). The English translation preserves every hedge
+// ("généralement", "peuvent faire l'objet d'avis différents selon les
+// écoles juridiques") and scholarly-referral exactly, states no ruling
+// more strongly than the French, and never attributes a position to a
+// specific madhhab that the French itself does not attribute.
+const CONTENT = {
+  fr: {
+    badge: 'PRIÈRE PENDANT LES RÈGLES',
+    title: 'La prière pendant\nles règles',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi la prière rituelle est suspendue durant cette période, et comment vivre ce moment avec sérénité.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'La prière suspendue pendant les règles',
+      'Pas de rattrapage, contrairement au jeûne',
+      'Les autres formes d’adoration restent possibles',
+      'À retenir',
+    ],
+    section1Body1: 'Pendant les règles, l’obligation de la prière (salat) est suspendue : la femme n’est pas tenue de prier durant cette période. Cette suspension fait partie intégrante de la pratique religieuse elle-même, reconnue de longue date par la tradition.',
+    section1Body2: 'Cette suspension ne signifie en rien un éloignement de la foi ou un relâchement dans la pratique religieuse. Il s’agit d’une dispense reconnue, à vivre sans culpabilité : elle fait partie du cadre naturel de la vie spirituelle d’une femme.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Cette période peut être abordée avec sérénité : elle ne remet en cause ni la valeur de la foi, ni la régularité de la pratique religieuse.',
+    section1Body3: 'Si les règles commencent pendant que la prière est en cours, celle-ci est interrompue : elle n’a pas besoin d’être terminée ni rattrapée. À l’inverse, lorsque les règles se terminent, la prière reprend normalement après le ghusl (grande ablution), qui marque le retour à l’état de pureté rituelle.',
+    section2Body1: 'Contrairement au jeûne du Ramadan, dont les jours manqués pendant les règles sont rattrapés plus tard (qadaa), les prières manquées pour cette même raison ne sont généralement pas rattrapées après. Cette différence s’explique par la nature même de ces deux actes d’adoration : la prière est un acte quotidien répété plusieurs fois par jour, tandis que le jeûne est annuel et concentré sur un mois précis.',
+    section2Body2: 'Cette distinction peut surprendre lorsqu’on découvre le fiqh pour la première fois. Elle ne signifie pas que la prière compte moins : suivre la dispense telle qu’elle est prescrite fait, en soi, pleinement partie de la pratique religieuse.',
+    section3Body: 'Ne pas prier pendant les règles ne signifie pas être coupée de sa spiritualité. De nombreuses formes d’adoration et d’engagement religieux restent accessibles durant cette période.',
+    worshipActs: [
+      'Dhikr (évocation de Dieu)',
+      'Du’a (invocations)',
+      'Charité',
+      'Aider les autres',
+      'Apprentissage religieux',
+      'Écoute de contenus religieux',
+      'Réflexion et gratitude',
+      'Gestes de bienveillance',
+    ],
+    noteTitle: 'À noter',
+    noteText: 'Certaines pratiques, comme la récitation ou la manipulation directe du Coran, peuvent faire l’objet d’avis différents selon les écoles juridiques. Se référer à l’avis suivi habituellement, ou demander conseil à un savant qualifié, aide à clarifier ces cas.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'La prière suspendue pendant les règles est une dispense reconnue, à vivre sans culpabilité. De nombreuses formes de spiritualité restent accessibles durant cette période, et l’avis d’un savant qualifié reste la référence pour toute question précise.',
+    shareMessage: 'La prière pendant les règles — AWA',
+  },
+  en: {
+    badge: 'PRAYER DURING MENSTRUATION',
+    title: 'Prayer during\nmenstruation',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Why ritual prayer is suspended during this time, and how to experience this period with serenity.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The suspended prayer during menstruation',
+      'No making up missed prayers, unlike fasting',
+      'Other forms of worship remain possible',
+      'Key takeaways',
+    ],
+    section1Body1: 'During menstruation, the obligation of prayer (salat) is suspended: a woman is not required to pray during this period. This suspension is an integral part of religious practice itself, long recognized by tradition.',
+    section1Body2: 'This suspension in no way means a distancing from faith or a lapse in religious practice. It is a recognized exemption, to be experienced without guilt: it is part of the natural framework of a woman’s spiritual life.',
+    tip1Title: 'Good to know',
+    tip1Text: 'This time can be approached with serenity: it calls into question neither the value of one’s faith nor the regularity of one’s religious practice.',
+    section1Body3: 'If menstruation begins while prayer is in progress, it is interrupted: it does not need to be finished or made up. Conversely, when menstruation ends, prayer resumes normally after the ghusl (major ablution), which marks the return to the state of ritual purity.',
+    section2Body1: 'Unlike the Ramadan fast, whose missed days during menstruation are made up later (qadaa), prayers missed for this same reason are generally not made up afterward. This difference is explained by the very nature of these two acts of worship: prayer is a daily act repeated several times a day, while fasting is annual and concentrated on a specific month.',
+    section2Body2: 'This distinction can be surprising when first discovering fiqh. It does not mean that prayer counts for less: following the exemption as it is prescribed is, in itself, fully part of religious practice.',
+    section3Body: 'Not praying during menstruation does not mean being cut off from one’s spirituality. Many forms of worship and religious engagement remain accessible during this time.',
+    worshipActs: [
+      'Dhikr (remembrance of God)',
+      'Du’a (supplications)',
+      'Charity',
+      'Helping others',
+      'Religious learning',
+      'Listening to religious content',
+      'Reflection and gratitude',
+      'Acts of kindness',
+    ],
+    noteTitle: 'Please note',
+    noteText: 'Some practices, such as reciting or directly handling the Quran, may be subject to differing opinions depending on the school of jurisprudence. Referring to the opinion you usually follow, or seeking advice from a qualified scholar, helps clarify these cases.',
+    tip2Title: 'Good to know',
+    tip2Text: 'The suspended prayer during menstruation is a recognized exemption, to be experienced without guilt. Many forms of spirituality remain accessible during this time, and the advice of a qualified scholar remains the reference for any specific question.',
+    shareMessage: 'Prayer during menstruation — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PrayerDuringMenstruationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +178,7 @@ export default function PrayerDuringMenstruationArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'La prière pendant les règles — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -117,7 +217,7 @@ export default function PrayerDuringMenstruationArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -133,7 +233,7 @@ export default function PrayerDuringMenstruationArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -148,7 +248,7 @@ export default function PrayerDuringMenstruationArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -169,22 +269,22 @@ export default function PrayerDuringMenstruationArticleScreen({
           {/* CATEGORY */}
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              PRIÈRE PENDANT LES RÈGLES
+              {content.badge}
             </Text>
           </View>
 
           {/* TITLE */}
           <Text style={styles.title}>
-            La prière pendant{`\n`}les règles
+            {content.title}
           </Text>
 
           {/* METADATA */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -204,8 +304,7 @@ export default function PrayerDuringMenstruationArticleScreen({
 
           {/* INTRODUCTION */}
           <Text style={styles.intro}>
-            Pourquoi la prière rituelle est suspendue durant cette période,
-            et comment vivre ce moment avec sérénité.
+            {content.intro}
           </Text>
 
           {/* DISCLAIMER */}
@@ -218,11 +317,11 @@ export default function PrayerDuringMenstruationArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Information importante
+                {content.disclaimerTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                {RELIGIOUS_DISCLAIMER}
+                {content.disclaimerText}
               </Text>
             </View>
           </View>
@@ -230,15 +329,10 @@ export default function PrayerDuringMenstruationArticleScreen({
           {/* TABLE OF CONTENTS */}
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'La prière suspendue pendant les règles',
-              'Pas de rattrapage, contrairement au jeûne',
-              'Les autres formes d’adoration restent possibles',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>
@@ -261,21 +355,15 @@ export default function PrayerDuringMenstruationArticleScreen({
 
           {/* SECTION 1 */}
           <Text style={styles.h2}>
-            1. La prière suspendue pendant les règles
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Pendant les règles, l’obligation de la prière (salat) est
-            suspendue : la femme n’est pas tenue de prier durant cette
-            période. Cette suspension fait partie intégrante de la pratique
-            religieuse elle-même, reconnue de longue date par la tradition.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            Cette suspension ne signifie en rien un éloignement de la foi
-            ou un relâchement dans la pratique religieuse. Il s’agit d’une
-            dispense reconnue, à vivre sans culpabilité : elle fait partie
-            du cadre naturel de la vie spirituelle d’une femme.
+            {content.section1Body2}
           </Text>
 
           {/* TIP */}
@@ -288,65 +376,47 @@ export default function PrayerDuringMenstruationArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Cette période peut être abordée avec sérénité : elle ne
-                remet en cause ni la valeur de la foi, ni la régularité de
-                la pratique religieuse.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.body}>
-            Si les règles commencent pendant que la prière est en cours,
-            celle-ci est interrompue : elle n’a pas besoin d’être terminée
-            ni rattrapée. À l’inverse, lorsque les règles se terminent, la
-            prière reprend normalement après le ghusl (grande ablution), qui
-            marque le retour à l’état de pureté rituelle.
+            {content.section1Body3}
           </Text>
 
           {/* SECTION 2 */}
           <Text style={styles.h2}>
-            2. Pas de rattrapage, contrairement au jeûne
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Contrairement au jeûne du Ramadan, dont les jours manqués
-            pendant les règles sont rattrapés plus tard (qadaa), les
-            prières manquées pour cette même raison ne sont généralement
-            pas rattrapées après. Cette différence s’explique par la nature
-            même de ces deux actes d’adoration : la prière est un acte
-            quotidien répété plusieurs fois par jour, tandis que le jeûne
-            est annuel et concentré sur un mois précis.
+            {content.section2Body1}
           </Text>
 
           <Text style={styles.body}>
-            Cette distinction peut surprendre lorsqu’on découvre le fiqh
-            pour la première fois. Elle ne signifie pas que la prière compte
-            moins : suivre la dispense telle qu’elle est prescrite fait,
-            en soi, pleinement partie de la pratique religieuse.
+            {content.section2Body2}
           </Text>
 
           {/* SECTION 3 */}
           <Text style={styles.h2}>
-            3. Les autres formes d’adoration restent possibles
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Ne pas prier pendant les règles ne signifie pas être coupée de
-            sa spiritualité. De nombreuses formes d’adoration et
-            d’engagement religieux restent accessibles durant cette
-            période.
+            {content.section3Body}
           </Text>
 
           {/* WORSHIP GRID */}
           <View style={styles.daily}>
-            {WORSHIP_ACTS.map(([icon, label]) => (
+            {content.worshipActs.map((label, index) => (
               <View key={label} style={styles.dailyItem}>
                 <MaterialDesignIcons
-                  name={icon as never}
+                  name={WORSHIP_ICONS[index] as never}
                   color={theme.colors.primary}
                   size={25}
                 />
@@ -368,22 +438,18 @@ export default function PrayerDuringMenstruationArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                À noter
+                {content.noteTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Certaines pratiques, comme la récitation ou la manipulation
-                directe du Coran, peuvent faire l’objet d’avis différents
-                selon les écoles juridiques. Se référer à l’avis suivi
-                habituellement, ou demander conseil à un savant qualifié,
-                aide à clarifier ces cas.
+                {content.noteText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 4 */}
           <Text style={styles.h2}>
-            4. À retenir
+            4. {content.topics[3]}
           </Text>
 
           <View style={styles.tip}>
@@ -395,15 +461,11 @@ export default function PrayerDuringMenstruationArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip2Title}
               </Text>
 
               <Text style={styles.tipText}>
-                La prière suspendue pendant les règles est une dispense
-                reconnue, à vivre sans culpabilité. De nombreuses formes de
-                spiritualité restent accessibles durant cette période, et
-                l’avis d’un savant qualifié reste la référence pour toute
-                question précise.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

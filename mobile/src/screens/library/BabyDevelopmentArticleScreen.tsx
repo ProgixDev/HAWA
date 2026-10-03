@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,24 +34,107 @@ const ID = 'babydevelopment-developpement-bebe';
 
 const HERO = require('../../assets/images/library/cycle-phases-diagram.png');
 
-const MILESTONES = [
-  ['heart-pulse', 'Dès 6 semaines : le cœur commence à battre'],
-  ['baby-face-outline', 'Vers 20 semaines : premiers mouvements ressentis'],
-  ['ear-hearing', 'Vers 24-26 semaines : l’audition se développe'],
-  ['eye-outline', 'Vers 28 semaines : les yeux s’ouvrent progressivement'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const MILESTONE_ICONS = [
+  'heart-pulse',
+  'baby-face-outline',
+  'ear-hearing',
+  'eye-outline',
 ] as const;
 
-const MYTHS = [
-  'Le bébé « entend tout » dès le début : l’audition ne se développe réellement qu’à partir du 2e trimestre',
-  'La forme du ventre indique le sexe du bébé : aucune preuve scientifique ne le confirme',
-  'Un bébé actif est forcément en meilleure santé : le niveau d’activité varie beaucoup d’un bébé à l’autre',
-];
+// PHASE 7L.2 — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'GROSSESSE • DÉVELOPPEMENT',
+    title: 'Le développement\ndu bébé in utero',
+    metaDuration: '6 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Comment ton bébé grandit, trimestre après trimestre.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Le premier trimestre : les débuts',
+      'Le deuxième trimestre : les sens s’éveillent',
+      'Le troisième trimestre : la dernière ligne droite',
+      'Les grandes étapes en un coup d’œil',
+      'Idées reçues',
+      'À retenir',
+    ],
+    body1: 'Dès la 6e semaine, un cœur minuscule commence déjà à battre. Au cours de ce premier trimestre, les organes principaux se mettent progressivement en place.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Le rythme cardiaque du bébé est l’un des premiers signes visibles à l’échographie, souvent un moment marquant du suivi.',
+    body2: 'Vers la 20e semaine, tu peux généralement ressentir les premiers mouvements du bébé. C’est aussi la période où ses sens commencent à se développer.',
+    body3: 'À partir du 3e trimestre, le bébé prend rapidement du poids et se positionne progressivement pour la naissance.',
+    neutralText: 'Le rythme de développement varie d’un bébé à l’autre : ces repères restent des moyennes générales.',
+    milestones: [
+      'Dès 6 semaines : le cœur commence à battre',
+      'Vers 20 semaines : premiers mouvements ressentis',
+      'Vers 24-26 semaines : l’audition se développe',
+      'Vers 28 semaines : les yeux s’ouvrent progressivement',
+    ],
+    myths: [
+      'Le bébé « entend tout » dès le début : l’audition ne se développe réellement qu’à partir du 2e trimestre',
+      'La forme du ventre indique le sexe du bébé : aucune preuve scientifique ne le confirme',
+      'Un bébé actif est forcément en meilleure santé : le niveau d’activité varie beaucoup d’un bébé à l’autre',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Chaque étape du développement du bébé suit un rythme propre ; le suivi médical régulier permet de vérifier que tout évolue normalement.',
+    shareMessage: 'Le développement du bébé in utero — AWA',
+  },
+  en: {
+    badge: 'PREGNANCY • DEVELOPMENT',
+    title: 'Your baby’s development\nin utero',
+    metaDuration: '6 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'How your baby grows, trimester by trimester.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The first trimester: the early days',
+      'The second trimester: the senses awaken',
+      'The third trimester: the home stretch',
+      'Key milestones at a glance',
+      'Common myths',
+      'What to remember',
+    ],
+    body1: 'From as early as week 6, a tiny heart already begins to beat. Over the course of this first trimester, the main organs gradually form.',
+    tip1Title: 'Good to know',
+    tip1Text: 'The baby’s heartbeat is one of the first visible signs on ultrasound, often a memorable moment in your care.',
+    body2: 'Around week 20, you can usually feel the baby’s first movements. This is also when the senses start to develop.',
+    body3: 'From the 3rd trimester onward, the baby gains weight quickly and gradually moves into position for birth.',
+    neutralText: 'The pace of development varies from baby to baby: these milestones remain general averages.',
+    milestones: [
+      'From 6 weeks: the heart begins to beat',
+      'Around 20 weeks: first movements felt',
+      'Around 24-26 weeks: hearing develops',
+      'Around 28 weeks: the eyes gradually open',
+    ],
+    myths: [
+      'The baby “hears everything” from the start: hearing doesn’t really develop until the 2nd trimester',
+      'The shape of the belly indicates the baby’s sex: no scientific evidence supports this',
+      'An active baby is necessarily healthier: activity levels vary widely from one baby to another',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'Each stage of the baby’s development follows its own pace; regular medical check-ups help confirm that everything is progressing normally.',
+    shareMessage: 'Baby’s development in utero — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function BabyDevelopmentArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -77,7 +161,7 @@ export default function BabyDevelopmentArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le développement du bébé in utero — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -115,7 +199,7 @@ export default function BabyDevelopmentArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -124,7 +208,7 @@ export default function BabyDevelopmentArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -139,7 +223,7 @@ export default function BabyDevelopmentArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -157,19 +241,19 @@ export default function BabyDevelopmentArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>GROSSESSE • DÉVELOPPEMENT</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Le développement{`\n`}du bébé in utero
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -188,20 +272,13 @@ export default function BabyDevelopmentArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comment ton bébé grandit, trimestre après trimestre.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Le premier trimestre : les débuts',
-              'Le deuxième trimestre : les sens s’éveillent',
-              'Le troisième trimestre : la dernière ligne droite',
-              'Les grandes étapes en un coup d’œil',
-              'Idées reçues',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -217,12 +294,10 @@ export default function BabyDevelopmentArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Le premier trimestre : les débuts</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Dès la 6e semaine, un cœur minuscule commence déjà à battre.
-            Au cours de ce premier trimestre, les organes principaux se
-            mettent progressivement en place.
+            {content.body1}
           </Text>
 
           <View style={styles.tip}>
@@ -233,32 +308,27 @@ export default function BabyDevelopmentArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Le rythme cardiaque du bébé est l’un des premiers signes
-                visibles à l’échographie, souvent un moment marquant du
-                suivi.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Le deuxième trimestre : les sens s’éveillent
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Vers la 20e semaine, tu peux généralement ressentir les
-            premiers mouvements du bébé. C’est aussi la période où ses sens
-            commencent à se développer.
+            {content.body2}
           </Text>
 
           <Text style={styles.h2}>
-            3. Le troisième trimestre : la dernière ligne droite
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            À partir du 3e trimestre, le bébé prend rapidement du poids et
-            se positionne progressivement pour la naissance.
+            {content.body3}
           </Text>
 
           <View style={styles.neutralBox}>
@@ -269,31 +339,30 @@ export default function BabyDevelopmentArticleScreen({
             />
 
             <Text style={styles.neutralText}>
-              Le rythme de développement varie d’un bébé à l’autre : ces
-              repères restent des moyennes générales.
+              {content.neutralText}
             </Text>
           </View>
 
-          <Text style={styles.h2}>4. Les grandes étapes en un coup d’œil</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.daily}>
-            {MILESTONES.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {MILESTONE_ICONS.map((icon, index) => (
+              <View key={content.milestones[index]} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.milestones[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>5. Idées reçues</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.checkList}>
-            {MYTHS.map(item => (
+            {content.myths.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="close-circle-outline"
@@ -306,7 +375,7 @@ export default function BabyDevelopmentArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>6. À retenir</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -316,11 +385,9 @@ export default function BabyDevelopmentArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Chaque étape du développement du bébé suit un rythme
-                propre ; le suivi médical régulier permet de vérifier que
-                tout évolue normalement.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

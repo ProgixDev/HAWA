@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -36,64 +37,122 @@ const WOMAN = require('../../assets/images/library/spm-woman.png');
 const CAUSES = require('../../assets/images/library/spm-causes.png');
 const CONSULT = require('../../assets/images/library/spm-consult.png');
 
-const SYMPTOMS = [
-  [
-    'weather-cloudy',
-    'Émotions',
-    'Irritabilité, anxiété, tristesse, sautes d’humeur',
-  ],
-  [
-    'human-female',
-    'Physiques',
-    'Ballonnements, douleurs, fatigue, maux de tête',
-  ],
-  [
-    'cupcake',
-    'Comportement',
-    'Envie de sucre, changements d’appétit, fatigue',
-  ],
-  [
-    'weather-night',
-    'Sommeil',
-    'Difficultés à dormir ou sommeil moins réparateur',
-  ],
+// Icons/images stay language-neutral — only TEXT moves into the bilingual
+// CONTENT object below, keyed by index to stay aligned with these.
+const SYMPTOM_ICONS = [
+  'weather-cloudy',
+  'human-female',
+  'cupcake',
+  'weather-night',
 ] as const;
 
-const TIPS = [
-  [
-    'Hydrate-toi',
-    'Boire suffisamment d’eau aide à réduire les ballonnements.',
-    require('../../assets/images/library/spm-water.png'),
-  ],
-  [
-    'Adopte une alimentation équilibrée',
-    'Privilégie les aliments riches en magnésium, oméga-3 et vitamines B.',
-    require('../../assets/images/library/spm-food.png'),
-  ],
-  [
-    'Bouge régulièrement',
-    'L’activité physique libère des endorphines et réduit le stress.',
-    require('../../assets/images/library/spm-yoga.png'),
-  ],
-  [
-    'Gère ton stress',
-    'Respiration, méditation, journal intime… Trouve ce qui te fait du bien.',
-    require('../../assets/images/library/spm-stress.png'),
-  ],
-  [
-    'Dors suffisamment',
-    'Un sommeil de qualité favorise l’équilibre hormonal.',
-    require('../../assets/images/library/spm-sleep.png'),
-  ],
+const TIP_IMAGES = [
+  require('../../assets/images/library/spm-water.png'),
+  require('../../assets/images/library/spm-food.png'),
+  require('../../assets/images/library/spm-yoga.png'),
+  require('../../assets/images/library/spm-stress.png'),
+  require('../../assets/images/library/spm-sleep.png'),
 ] as const;
 
-const CONTENTS = [
-  'Qu’est-ce que le SPM ?',
-  'Symptômes courants',
-  'Causes possibles',
-  'Conseils pour mieux le vivre',
-  'Quand consulter ?',
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE & BIEN-ÊTRE',
+    title: 'Syndrome prémenstruel (SPM) :\nmieux le comprendre',
+    metaDuration: '4 min de lecture',
+    metaValidated: 'Contenu vérifié',
+    intro:
+      'Le SPM touche jusqu’à 8 femmes sur 10. Fatigue, irritabilité, ballonnements… Comprendre ses causes et adopter les bons réflexes peut grandement améliorer cette période.',
+    contentsTitle: 'Dans cet article',
+    contents: [
+      'Qu’est-ce que le SPM ?',
+      'Symptômes courants',
+      'Causes possibles',
+      'Conseils pour mieux le vivre',
+      'Quand consulter ?',
+    ],
+    section1Body:
+      'Le syndrome prémenstruel regroupe des symptômes physiques et émotionnels qui apparaissent généralement 5 à 10 jours avant les règles et disparaissent au début du cycle menstruel.',
+    visual1Title: 'Une période liée au cycle',
+    visual1Text:
+      'Les symptômes apparaissent avant les règles puis diminuent généralement avec leur arrivée.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'L’intensité et le type de symptômes peuvent être très différents d’une femme à l’autre et d’un cycle à l’autre.',
+    symptoms: [
+      {title: 'Émotions', text: 'Irritabilité, anxiété, tristesse, sautes d’humeur'},
+      {title: 'Physiques', text: 'Ballonnements, douleurs, fatigue, maux de tête'},
+      {title: 'Comportement', text: 'Envie de sucre, changements d’appétit, fatigue'},
+      {title: 'Sommeil', text: 'Difficultés à dormir ou sommeil moins réparateur'},
+    ],
+    section3Body:
+      'Les variations hormonales, en particulier de la progestérone et des œstrogènes, affectent les neurotransmetteurs du cerveau (sérotonine, dopamine), ce qui peut expliquer les symptômes émotionnels et physiques du SPM.',
+    tip2Title: 'Les hormones jouent un rôle clé',
+    tip2Text:
+      'Les variations hormonales peuvent influencer l’humeur, l’énergie, le sommeil et certaines sensations physiques.',
+    tips: [
+      {title: 'Hydrate-toi', text: 'Boire suffisamment d’eau aide à réduire les ballonnements.'},
+      {title: 'Adopte une alimentation équilibrée', text: 'Privilégie les aliments riches en magnésium, oméga-3 et vitamines B.'},
+      {title: 'Bouge régulièrement', text: 'L’activité physique libère des endorphines et réduit le stress.'},
+      {title: 'Gère ton stress', text: 'Respiration, méditation, journal intime… Trouve ce qui te fait du bien.'},
+      {title: 'Dors suffisamment', text: 'Un sommeil de qualité favorise l’équilibre hormonal.'},
+    ],
+    consultTitle: 'Quand demander un avis médical ?',
+    consultText:
+      'Si les symptômes sont très intenses et impactent ta vie quotidienne, il peut s’agir de trouble dysphorique prémenstruel (TDPM). N’hésite pas à consulter un·e professionnel·le de santé.',
+    shareMessage: 'Syndrome prémenstruel (SPM) : mieux le comprendre — AWA',
+  },
+  en: {
+    badge: 'CYCLE & WELLBEING',
+    title: 'Premenstrual syndrome (PMS):\nunderstanding it better',
+    metaDuration: '4 min read',
+    metaValidated: 'Reviewed content',
+    intro:
+      'PMS affects up to 8 in 10 women. Fatigue, irritability, bloating… Understanding its causes and adopting the right habits can greatly improve this time of the month.',
+    contentsTitle: 'In this article',
+    contents: [
+      'What is PMS?',
+      'Common symptoms',
+      'Possible causes',
+      'Tips to feel better',
+      'When to see a doctor?',
+    ],
+    section1Body:
+      'Premenstrual syndrome brings together physical and emotional symptoms that usually appear 5 to 10 days before your period and go away at the start of the menstrual cycle.',
+    visual1Title: 'A phase tied to your cycle',
+    visual1Text:
+      'Symptoms appear before your period and usually ease once it starts.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'The intensity and type of symptoms can vary widely from one woman to another, and from one cycle to the next.',
+    symptoms: [
+      {title: 'Emotions', text: 'Irritability, anxiety, sadness, mood swings'},
+      {title: 'Physical', text: 'Bloating, pain, fatigue, headaches'},
+      {title: 'Behavior', text: 'Sugar cravings, appetite changes, fatigue'},
+      {title: 'Sleep', text: 'Trouble sleeping or less restful sleep'},
+    ],
+    section3Body:
+      'Hormonal fluctuations, particularly in progesterone and estrogen, affect brain neurotransmitters (serotonin, dopamine), which may explain the emotional and physical symptoms of PMS.',
+    tip2Title: 'Hormones play a key role',
+    tip2Text:
+      'Hormonal fluctuations can affect mood, energy, sleep, and certain physical sensations.',
+    tips: [
+      {title: 'Stay hydrated', text: 'Drinking enough water helps reduce bloating.'},
+      {title: 'Eat a balanced diet', text: 'Favor foods rich in magnesium, omega-3s, and B vitamins.'},
+      {title: 'Stay active', text: 'Physical activity releases endorphins and reduces stress.'},
+      {title: 'Manage your stress', text: 'Breathing exercises, meditation, journaling… Find what works for you.'},
+      {title: 'Get enough sleep', text: 'Quality sleep supports hormonal balance.'},
+    ],
+    consultTitle: 'When should you seek medical advice?',
+    consultText:
+      'If symptoms are very intense and affect your daily life, it may be premenstrual dysphoric disorder (PMDD). Don’t hesitate to consult a healthcare professional.',
+    shareMessage: 'Premenstrual syndrome (PMS): understanding it better — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -103,6 +162,9 @@ type Props = NativeStackScreenProps<
 export default function PmsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -129,8 +191,7 @@ export default function PmsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message:
-        'Syndrome prémenstruel (SPM) : mieux le comprendre — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -177,7 +238,7 @@ export default function PmsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -193,7 +254,7 @@ export default function PmsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -212,7 +273,7 @@ export default function PmsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -231,19 +292,18 @@ export default function PmsArticleScreen({
         <View style={styles.article}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              CYCLE & BIEN-ÊTRE
+              {content.badge}
             </Text>
           </View>
 
           <Text style={styles.title}>
-            Syndrome prémenstruel (SPM) :{`\n`}
-            mieux le comprendre
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '4 min de lecture'],
-              ['check-decagram-outline', 'Contenu vérifié'],
+              ['clock-outline', content.metaDuration],
+              ['check-decagram-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? (
@@ -266,19 +326,15 @@ export default function PmsArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Le SPM touche jusqu’à 8 femmes sur 10.
-            Fatigue, irritabilité, ballonnements…
-            Comprendre ses causes et adopter les bons
-            réflexes peut grandement améliorer cette
-            période.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {CONTENTS.map((item, index) => (
+            {content.contents.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -302,15 +358,11 @@ export default function PmsArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Qu’est-ce que le SPM ?
+            1. {content.contents[0]}
           </Text>
 
           <Text style={styles.body}>
-            Le syndrome prémenstruel regroupe des
-            symptômes physiques et émotionnels qui
-            apparaissent généralement 5 à 10 jours
-            avant les règles et disparaissent au
-            début du cycle menstruel.
+            {content.section1Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -322,13 +374,11 @@ export default function PmsArticleScreen({
 
             <View style={styles.visualCopy}>
               <Text style={styles.visualTitle}>
-                Une période liée au cycle
+                {content.visual1Title}
               </Text>
 
               <Text style={styles.visualText}>
-                Les symptômes apparaissent avant les
-                règles puis diminuent généralement
-                avec leur arrivée.
+                {content.visual1Text}
               </Text>
             </View>
           </View>
@@ -342,46 +392,46 @@ export default function PmsArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                L’intensité et le type de symptômes
-                peuvent être très différents d’une
-                femme à l’autre et d’un cycle à
-                l’autre.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Symptômes courants
+            2. {content.contents[1]}
           </Text>
 
           <View style={styles.symptomGrid}>
-            {SYMPTOMS.map(([icon, title, text]) => (
-              <View
-                key={title}
-                style={styles.symptomItem}>
-                <MaterialDesignIcons
-                  name={icon as never}
-                  size={25}
-                  color={theme.colors.primary}
-                />
+            {SYMPTOM_ICONS.map((icon, index) => {
+              const symptom = content.symptoms[index];
+              return (
+                <View
+                  key={symptom.title}
+                  style={styles.symptomItem}>
+                  <MaterialDesignIcons
+                    name={icon as never}
+                    size={25}
+                    color={theme.colors.primary}
+                  />
 
-                <Text style={styles.symptomTitle}>
-                  {title}
-                </Text>
+                  <Text style={styles.symptomTitle}>
+                    {symptom.title}
+                  </Text>
 
-                <Text style={styles.symptomText}>
-                  {text}
-                </Text>
-              </View>
-            ))}
+                  <Text style={styles.symptomText}>
+                    {symptom.text}
+                  </Text>
+                </View>
+              );
+            })}
           </View>
 
           <Text style={styles.h2}>
-            3. Causes possibles
+            3. {content.contents[2]}
           </Text>
 
           <Image
@@ -391,12 +441,7 @@ export default function PmsArticleScreen({
           />
 
           <Text style={styles.body}>
-            Les variations hormonales, en particulier
-            de la progestérone et des œstrogènes,
-            affectent les neurotransmetteurs du
-            cerveau (sérotonine, dopamine), ce qui
-            peut expliquer les symptômes émotionnels
-            et physiques du SPM.
+            {content.section3Body}
           </Text>
 
           <View style={styles.tip}>
@@ -408,49 +453,49 @@ export default function PmsArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Les hormones jouent un rôle clé
+                {content.tip2Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Les variations hormonales peuvent
-                influencer l’humeur, l’énergie, le
-                sommeil et certaines sensations
-                physiques.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            4. Conseils pour mieux le vivre
+            4. {content.contents[3]}
           </Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.tips}>
-            {TIPS.map(([title, text, image]) => (
-              <View
-                key={title}
-                style={styles.tipCard}>
-                <Image
-                  source={image}
-                  resizeMode="cover"
-                  style={styles.tipImage}
-                />
+            {TIP_IMAGES.map((image, index) => {
+              const tip = content.tips[index];
+              return (
+                <View
+                  key={tip.title}
+                  style={styles.tipCard}>
+                  <Image
+                    source={image}
+                    resizeMode="cover"
+                    style={styles.tipImage}
+                  />
 
-                <Text style={styles.tipCardTitle}>
-                  {title}
-                </Text>
+                  <Text style={styles.tipCardTitle}>
+                    {tip.title}
+                  </Text>
 
-                <Text style={styles.tipCardText}>
-                  {text}
-                </Text>
-              </View>
-            ))}
+                  <Text style={styles.tipCardText}>
+                    {tip.text}
+                  </Text>
+                </View>
+              );
+            })}
           </ScrollView>
 
           <Text style={styles.h2}>
-            5. Quand consulter ?
+            5. {content.contents[4]}
           </Text>
 
           <View style={styles.consultCard}>
@@ -471,17 +516,12 @@ export default function PmsArticleScreen({
                 </View>
 
                 <Text style={styles.consultTitle}>
-                  Quand demander un avis médical ?
+                  {content.consultTitle}
                 </Text>
               </View>
 
               <Text style={styles.consultText}>
-                Si les symptômes sont très intenses
-                et impactent ta vie quotidienne, il
-                peut s’agir de trouble dysphorique
-                prémenstruel (TDPM). N’hésite pas à
-                consulter un·e professionnel·le de
-                santé.
+                {content.consultText}
               </Text>
             </View>
           </View>

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,32 +34,94 @@ const ID = 'firstperiod-cycle-irregulier';
 
 const HERO = require('../../assets/images/library/regular-cycle-hero.png');
 
-const RELATED = [
-  {
-    title: 'Cycle régulier ou irrégulier : quelles différences ?',
-    meta: '5 min  ·  Guide',
-    image: require('../../assets/images/library/regular-cycle-hero.png'),
-    articleId: 'cycle-comprendre-ton-cycle',
-  },
-  {
-    title: 'Tes premières règles : à quoi t’attendre',
-    meta: '5 min  ·  Guide',
-    image: require('../../assets/images/library/cycle-phases-hero.png'),
-    articleId: 'firstperiod-premieres-regles',
-  },
-  {
-    title: 'Questions fréquentes sur les premières règles',
-    meta: '4 min  ·  FAQ',
-    image: require('../../assets/images/library/popular-flower.png'),
-    articleId: 'firstperiod-questions-frequentes',
-  },
+// Images/ids stay language-neutral — only TEXT (title/meta) moves into the
+// bilingual CONTENT object below, keyed by index to stay aligned with these.
+const RELATED_IMAGES = [
+  require('../../assets/images/library/regular-cycle-hero.png'),
+  require('../../assets/images/library/cycle-phases-hero.png'),
+  require('../../assets/images/library/popular-flower.png'),
 ] as const;
+
+const RELATED_IDS = [
+  'cycle-comprendre-ton-cycle',
+  'firstperiod-premieres-regles',
+  'firstperiod-questions-frequentes',
+] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Mes premières règles sont\nirrégulières : est-ce normal ?',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Oui, c’est tout à fait normal. Voici pourquoi le cycle met du temps à se stabiliser, et quand il est utile d’en parler.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi le cycle est irrégulier au début',
+      'Combien de temps pour se stabiliser',
+      'Quand consulter',
+    ],
+    body1: 'Les hormones qui régulent le cycle mettent du temps à trouver leur équilibre. Il est donc fréquent que les cycles soient plus courts, plus longs, ou espacés de façon inégale pendant les premières années.',
+    body2: 'Le cycle peut mettre un à deux ans, parfois un peu plus, avant de devenir plus régulier. Ce temps d’adaptation varie beaucoup d’une personne à l’autre, sans que cela pose problème.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Un cycle irrégulier au début n’est jamais considéré comme un retard : le corps prend simplement le temps qu’il lui faut.',
+    body3: 'Dans la grande majorité des cas, il n’y a rien d’inquiétant à observer. Un avis médical reste toutefois utile si les règles sont absentes pendant plusieurs mois après leur apparition, ou en cas de doute persistant.',
+    alertTitle: 'Consulter si',
+    alertText: 'Absence de règles pendant plusieurs mois, douleurs très intenses, ou saignements très abondants.',
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {title: 'Cycle régulier ou irrégulier : quelles différences ?', meta: '5 min  ·  Guide'},
+      {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
+      {title: 'Questions fréquentes sur les premières règles', meta: '4 min  ·  FAQ'},
+    ],
+    shareMessage: 'Mes premières règles sont irrégulières : est-ce normal ? — AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'My first period is\nirregular: is that normal?',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Yes, that’s completely normal. Here’s why the cycle takes time to settle down, and when it’s worth talking about it.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why the cycle is irregular at first',
+      'How long it takes to settle down',
+      'When to see a doctor',
+    ],
+    body1: 'The hormones that regulate the cycle take time to find their balance. It’s therefore common for cycles to be shorter, longer, or spaced unevenly during the first few years.',
+    body2: 'The cycle can take one to two years, sometimes a bit more, to become more regular. This adjustment period varies a lot from person to person, without it being a problem.',
+    tip1Title: 'Good to know',
+    tip1Text: 'An irregular cycle at first is never considered a delay: your body is simply taking the time it needs.',
+    body3: 'In the vast majority of cases, there’s nothing to worry about. That said, it’s a good idea to see a doctor if your period is absent for several months after it first appears, or if you have ongoing doubts.',
+    alertTitle: 'See a doctor if',
+    alertText: 'No period for several months, very intense pain, or very heavy bleeding.',
+    relatedTitle: '♥  You might also like',
+    related: [
+      {title: 'Regular or irregular cycle: what’s the difference?', meta: '5 min  ·  Guide'},
+      {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
+      {title: 'Frequently asked questions about your first period', meta: '4 min  ·  FAQ'},
+    ],
+    shareMessage: 'My first period is irregular: is that normal? — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodIrregularArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -85,7 +148,7 @@ export default function FirstPeriodIrregularArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Mes premières règles sont irrégulières : est-ce normal ? — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -123,7 +186,7 @@ export default function FirstPeriodIrregularArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -132,7 +195,7 @@ export default function FirstPeriodIrregularArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -147,7 +210,7 @@ export default function FirstPeriodIrregularArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -165,19 +228,19 @@ export default function FirstPeriodIrregularArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Mes premières règles sont{`\n`}irrégulières : est-ce normal ?
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -196,18 +259,13 @@ export default function FirstPeriodIrregularArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Oui, c’est tout à fait normal. Voici pourquoi le cycle met du
-            temps à se stabiliser, et quand il est utile d’en parler.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pourquoi le cycle est irrégulier au début',
-              'Combien de temps pour se stabiliser',
-              'Quand consulter',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -224,14 +282,11 @@ export default function FirstPeriodIrregularArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Pourquoi le cycle est irrégulier au début
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Les hormones qui régulent le cycle mettent du temps à trouver leur
-            équilibre. Il est donc fréquent que les cycles soient plus courts,
-            plus longs, ou espacés de façon inégale pendant les premières
-            années.
+            {content.body1}
           </Text>
 
           <Image
@@ -240,12 +295,10 @@ export default function FirstPeriodIrregularArticleScreen({
             style={styles.wideImage}
           />
 
-          <Text style={styles.h2}>2. Combien de temps pour se stabiliser</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Le cycle peut mettre un à deux ans, parfois un peu plus, avant de
-            devenir plus régulier. Ce temps d’adaptation varie beaucoup d’une
-            personne à l’autre, sans que cela pose problème.
+            {content.body2}
           </Text>
 
           <Image
@@ -262,21 +315,17 @@ export default function FirstPeriodIrregularArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Un cycle irrégulier au début n’est jamais considéré comme un
-                retard : le corps prend simplement le temps qu’il lui faut.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Quand consulter</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Dans la grande majorité des cas, il n’y a rien d’inquiétant à
-            observer. Un avis médical reste toutefois utile si les règles
-            sont absentes pendant plusieurs mois après leur apparition, ou en
-            cas de doute persistant.
+            {content.body3}
           </Text>
 
           <Image
@@ -293,32 +342,33 @@ export default function FirstPeriodIrregularArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Consulter si</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Absence de règles pendant plusieurs mois, douleurs très
-                intenses, ou saignements très abondants.
+                {content.alertText}
               </Text>
             </View>
           </View>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {content.related.map((item, index) => (
             <Pressable
               key={item.title}
               onPress={() =>
-                navigation.push('ArticleReader', {articleId: item.articleId})
+                navigation.push('ArticleReader', {
+                  articleId: RELATED_IDS[index],
+                })
               }
               style={styles.relatedCard}>
               <Image
-                source={item.image}
+                source={RELATED_IMAGES[index]}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

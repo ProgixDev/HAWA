@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,83 +39,268 @@ const ID = 'lochia-comprendre-lochies';
 const HERO = require('../../assets/images/library/featured-pain.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — language-neutral (icons/numbers only; text lives in CONTENT below) */
 /* -------------------------------------------------------------------------- */
 
-const EVOLUTION = [
-  {
-    number: '01',
-    icon: 'numeric-1-circle-outline',
-    label: 'Rouge vif',
-    period: 'Les premiers jours',
-    text: 'Les pertes sont généralement rouges et peuvent être plus abondantes au début.',
-  },
-  {
-    number: '02',
-    icon: 'numeric-2-circle-outline',
-    label: 'Rosé / brunâtre',
-    period: 'Après quelques jours',
-    text: 'La couleur devient progressivement plus claire et peut tirer vers le rose ou le brun.',
-  },
-  {
-    number: '03',
-    icon: 'numeric-3-circle-outline',
-    label: 'Blanc-jaunâtre',
-    period: 'Au fil des semaines',
-    text: 'Les pertes deviennent généralement plus claires, jaunâtres ou blanchâtres avant de diminuer.',
-  },
+const EVOLUTION_META = [
+  {number: '01', icon: 'numeric-1-circle-outline'},
+  {number: '02', icon: 'numeric-2-circle-outline'},
+  {number: '03', icon: 'numeric-3-circle-outline'},
 ] as const;
 
-const NORMAL_POINTS = [
-  {
-    icon: 'water-outline',
-    title: 'Une quantité variable',
-    text: 'L’abondance peut changer au cours des premiers jours puis diminuer progressivement.',
-  },
-  {
-    icon: 'palette-outline',
-    title: 'Une couleur qui évolue',
-    text: 'Les lochies passent généralement du rouge vers des teintes plus claires au fil du temps.',
-  },
-  {
-    icon: 'clock-outline',
-    title: 'Une durée variable',
-    text: 'Elles peuvent persister plusieurs semaines et leur évolution diffère selon chaque personne.',
-  },
+const NORMAL_META = [
+  {icon: 'water-outline'},
+  {icon: 'palette-outline'},
+  {icon: 'clock-outline'},
 ] as const;
 
-const COMFORT_TIPS = [
-  {
-    icon: 'hand-wash-outline',
-    title: 'Hygiène douce',
-    text: 'Privilégie une toilette douce et régulière sans produits irritants.',
-  },
-  {
-    icon: 'calendar-check-outline',
-    title: 'Observe l’évolution',
-    text: 'Tu peux noter la couleur, la quantité et l’évolution des pertes si cela t’aide à suivre ton rétablissement.',
-  },
-  {
-    icon: 'sleep-outline',
-    title: 'Accorde-toi du repos',
-    text: 'La période post-partum demande du temps. Écoute ton corps et respecte tes besoins de récupération.',
-  },
+const COMFORT_META = [
+  {icon: 'hand-wash-outline'},
+  {icon: 'calendar-check-outline'},
+  {icon: 'sleep-outline'},
 ] as const;
 
-const WARNING_SIGNS = [
-  'Une odeur forte ou inhabituelle',
-  'De la fièvre ou un état général qui se dégrade',
-  'Un flux qui devient soudainement beaucoup plus abondant',
-  'Des douleurs importantes, persistantes ou inhabituelles',
-  'Un symptôme nouveau qui t’inquiète',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L bilingual editorial content. Article identity (ID,     */
+/* images, bookmark/progress keys, JSX structure) is untouched; only this    */
+/* object changes per language. The French text below is byte-identical to  */
+/* the original — never retyped, only moved into the `fr` key — so the app  */
+/* remains fully bilingual rather than having French replaced by English.   */
+/* -------------------------------------------------------------------------- */
 
-const SUMMARY_POINTS = [
-  'Les lochies sont des pertes normales après l’accouchement.',
-  'Elles évoluent généralement en couleur et en quantité au fil des semaines.',
-  'Leur durée et leur évolution peuvent varier selon chaque personne.',
-  'Une odeur inhabituelle, de la fièvre, des douleurs importantes ou un saignement soudainement très abondant nécessitent un avis médical.',
-] as const;
+const CONTENT = {
+  fr: {
+    badgeText: 'POST-PARTUM • LOCHIES',
+    title: 'Comprendre les lochies après \nla naissance',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu informatif',
+    intro:
+      'Après l’accouchement, les lochies correspondent aux pertes vaginales liées au processus naturel de récupération de l’utérus. Leur couleur et leur quantité évoluent progressivement au fil des jours et des semaines.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Que sont les lochies ?',
+      'Comment évoluent-elles ?',
+      'Ce qui peut être normal',
+      'Conseils de confort',
+      'Quand consulter ?',
+      'À retenir',
+    ],
+    section1Heading: '1. Que sont les lochies ?',
+    section1Body1:
+      'Les lochies sont des pertes vaginales qui apparaissent après l’accouchement. Elles correspondent notamment à l’élimination progressive de sang, de sécrétions et de tissus provenant de l’utérus pendant sa récupération.',
+    section1Body2:
+      'Elles sont différentes des règles habituelles. Leur présence est attendue pendant la période post-partum et elles diminuent généralement progressivement.',
+    infoTitle: 'À retenir',
+    infoText:
+      'Les lochies ne signifient pas que les règles ont déjà repris. Le retour des règles est un phénomène différent qui survient plus tard.',
+    section2Heading: '2. Comment évoluent les lochies ?',
+    section2Body:
+      'Leur aspect change généralement au cours des premières semaines. La couleur devient progressivement plus claire et la quantité tend à diminuer.',
+    evolutionTitle: 'Une évolution progressive',
+    evolutionSubtitle: 'Les étapes peuvent varier selon chaque personne',
+    evolution: [
+      {
+        label: 'Rouge vif',
+        period: 'Les premiers jours',
+        text: 'Les pertes sont généralement rouges et peuvent être plus abondantes au début.',
+      },
+      {
+        label: 'Rosé / brunâtre',
+        period: 'Après quelques jours',
+        text: 'La couleur devient progressivement plus claire et peut tirer vers le rose ou le brun.',
+      },
+      {
+        label: 'Blanc-jaunâtre',
+        period: 'Au fil des semaines',
+        text: 'Les pertes deviennent généralement plus claires, jaunâtres ou blanchâtres avant de diminuer.',
+      },
+    ],
+    section3Heading: '3. Ce qui peut être normal',
+    section3Body:
+      'L’évolution des lochies n’est pas exactement identique pour tout le monde. Certains changements peuvent accompagner naturellement la récupération après la naissance.',
+    normalPoints: [
+      {
+        title: 'Une quantité variable',
+        text: 'L’abondance peut changer au cours des premiers jours puis diminuer progressivement.',
+      },
+      {
+        title: 'Une couleur qui évolue',
+        text: 'Les lochies passent généralement du rouge vers des teintes plus claires au fil du temps.',
+      },
+      {
+        title: 'Une durée variable',
+        text: 'Elles peuvent persister plusieurs semaines et leur évolution diffère selon chaque personne.',
+      },
+    ],
+    section4Heading: '4. Conseils de confort et de suivi',
+    section4Body:
+      'Pendant cette période, un suivi simple peut t’aider à observer l’évolution de ton corps sans chercher à comparer ton expérience à celle d’une autre personne.',
+    comfortTips: [
+      {
+        title: 'Hygiène douce',
+        text: 'Privilégie une toilette douce et régulière sans produits irritants.',
+      },
+      {
+        title: 'Observe l’évolution',
+        text: 'Tu peux noter la couleur, la quantité et l’évolution des pertes si cela t’aide à suivre ton rétablissement.',
+      },
+      {
+        title: 'Accorde-toi du repos',
+        text: 'La période post-partum demande du temps. Écoute ton corps et respecte tes besoins de récupération.',
+      },
+    ],
+    section5Heading: '5. Lochies ou retour des règles ?',
+    section5Body:
+      'Les lochies apparaissent dans les suites de l’accouchement et diminuent progressivement. Le retour des règles correspond, lui, à la reprise du cycle menstruel après cette période.',
+    compareLochiaTitle: 'Lochies',
+    compareLochiaText:
+      'Pertes liées à la récupération de l’utérus après la naissance.',
+    compareReturnTitle: 'Retour des règles',
+    compareReturnText:
+      'Reprise du cycle menstruel, à un moment variable selon chaque personne.',
+    section6Heading: '6. Quand consulter ?',
+    section6Body:
+      'Si l’évolution te semble inhabituelle ou si ton état général se dégrade, il est important de demander conseil à un professionnel de santé.',
+    warningTitle: 'Signes qui méritent un avis médical',
+    warningSigns: [
+      'Une odeur forte ou inhabituelle',
+      'De la fièvre ou un état général qui se dégrade',
+      'Un flux qui devient soudainement beaucoup plus abondant',
+      'Des douleurs importantes, persistantes ou inhabituelles',
+      'Un symptôme nouveau qui t’inquiète',
+    ],
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Les lochies évoluent généralement progressivement : elles peuvent être rouges au début, puis devenir plus claires avant de diminuer. Chaque récupération est cependant individuelle.',
+    summaryHeading: 'À retenir',
+    summaryPoints: [
+      'Les lochies sont des pertes normales après l’accouchement.',
+      'Elles évoluent généralement en couleur et en quantité au fil des semaines.',
+      'Leur durée et leur évolution peuvent varier selon chaque personne.',
+      'Une odeur inhabituelle, de la fièvre, des douleurs importantes ou un saignement soudainement très abondant nécessitent un avis médical.',
+    ],
+    disclaimerText:
+      'Contenu informatif. Cet article ne remplace pas un avis ou un examen médical. En cas de doute ou de symptôme préoccupant, demande conseil à un professionnel de santé.',
+    shareMessage: 'Comprendre les lochies après la naissance — AWA',
+  },
+  en: {
+    badgeText: 'POSTPARTUM • LOCHIA',
+    title: 'Understanding lochia\nafter birth',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informational content',
+    intro:
+      'After giving birth, lochia refers to the vaginal discharge linked to the natural process of uterine recovery. Its color and amount gradually change over the days and weeks that follow.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is lochia?',
+      'How does it change over time?',
+      'What can be normal',
+      'Comfort tips',
+      'When to seek medical advice?',
+      'Key takeaways',
+    ],
+    section1Heading: '1. What is lochia?',
+    section1Body1:
+      'Lochia is vaginal discharge that appears after giving birth. It mainly consists of the gradual elimination of blood, secretions, and tissue from the uterus as it recovers.',
+    section1Body2:
+      'It’s different from a regular period. It’s expected during the postpartum period and generally decreases progressively.',
+    infoTitle: 'Key takeaways',
+    infoText:
+      'Lochia doesn’t mean your period has already returned. The return of your period is a separate event that happens later.',
+    section2Heading: '2. How does lochia change over time?',
+    section2Body:
+      'Its appearance usually changes over the first few weeks. The color gradually becomes lighter and the amount tends to decrease.',
+    evolutionTitle: 'A gradual progression',
+    evolutionSubtitle: 'The stages can vary from person to person',
+    evolution: [
+      {
+        label: 'Bright red',
+        period: 'The first days',
+        text: 'Discharge is usually red and can be heavier at the start.',
+      },
+      {
+        label: 'Pink / brownish',
+        period: 'After a few days',
+        text: 'The color gradually becomes lighter and may shift toward pink or brown.',
+      },
+      {
+        label: 'Whitish-yellow',
+        period: 'Over the following weeks',
+        text: 'Discharge usually becomes lighter, yellowish or whitish, before tapering off.',
+      },
+    ],
+    section3Heading: '3. What can be normal',
+    section3Body:
+      'How lochia evolves isn’t exactly the same for everyone. Certain changes can naturally accompany recovery after birth.',
+    normalPoints: [
+      {
+        title: 'A varying amount',
+        text: 'The amount can change over the first few days and then gradually decrease.',
+      },
+      {
+        title: 'A color that changes',
+        text: 'Lochia usually moves from red toward lighter shades over time.',
+      },
+      {
+        title: 'A varying duration',
+        text: 'It can persist for several weeks, and how it evolves differs from person to person.',
+      },
+    ],
+    section4Heading: '4. Comfort and tracking tips',
+    section4Body:
+      'During this period, simple tracking can help you observe how your body is changing without comparing your experience to someone else’s.',
+    comfortTips: [
+      {
+        title: 'Gentle hygiene',
+        text: 'Favor gentle, regular washing without irritating products.',
+      },
+      {
+        title: 'Watch how it evolves',
+        text: 'You can note the color, amount, and progression of the discharge if that helps you track your recovery.',
+      },
+      {
+        title: 'Allow yourself rest',
+        text: 'The postpartum period takes time. Listen to your body and respect your need to recover.',
+      },
+    ],
+    section5Heading: '5. Lochia or the return of your period?',
+    section5Body:
+      'Lochia appears in the days following birth and gradually decreases. The return of your period, on the other hand, corresponds to the resumption of your menstrual cycle after this period.',
+    compareLochiaTitle: 'Lochia',
+    compareLochiaText: 'Discharge linked to uterine recovery after birth.',
+    compareReturnTitle: 'Return of your period',
+    compareReturnText:
+      'Resumption of the menstrual cycle, at a time that varies from person to person.',
+    section6Heading: '6. When to seek medical advice?',
+    section6Body:
+      'If the progression seems unusual to you, or if your overall condition is getting worse, it’s important to seek advice from a healthcare professional.',
+    warningTitle: 'Signs that call for medical advice',
+    warningSigns: [
+      'A strong or unusual odor',
+      'Fever or a worsening general condition',
+      'A flow that suddenly becomes much heavier',
+      'Significant, persistent, or unusual pain',
+      'A new symptom that worries you',
+    ],
+    tipTitle: 'Good to know',
+    tipText:
+      'Lochia usually evolves gradually: it can be red at first, then become lighter before tapering off. However, every recovery is individual.',
+    summaryHeading: 'Key takeaways',
+    summaryPoints: [
+      'Lochia is normal discharge after childbirth.',
+      'It usually changes in color and amount over the weeks.',
+      'Its duration and progression can vary from person to person.',
+      'An unusual odor, fever, significant pain, or a sudden, very heavy bleed require medical advice.',
+    ],
+    disclaimerText:
+      'Informational content. This article does not replace medical advice or an examination. If in doubt or if you notice a concerning symptom, seek advice from a healthcare professional.',
+    shareMessage: 'Understanding lochia after birth — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -132,6 +318,9 @@ type Props = NativeStackScreenProps<
 export default function LochiaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -167,7 +356,7 @@ export default function LochiaArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Comprendre les lochies après la naissance — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -234,7 +423,7 @@ export default function LochiaArticleScreen({
 
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -254,9 +443,7 @@ export default function LochiaArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved
-                    ? 'Retirer des favoris'
-                    : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 onPress={handleBookmark}
                 style={({pressed}) => [
@@ -277,7 +464,7 @@ export default function LochiaArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -307,7 +494,7 @@ export default function LochiaArticleScreen({
 
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              POST-PARTUM • LOCHIES
+              {content.badgeText}
             </Text>
           </View>
 
@@ -316,8 +503,7 @@ export default function LochiaArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.title}>
-            Comprendre les lochies
-            après {`\n`}la naissance
+            {content.title}
           </Text>
 
           {/* ---------------------------------------------------------------- */}
@@ -326,10 +512,10 @@ export default function LochiaArticleScreen({
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu informatif'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? (
@@ -356,10 +542,7 @@ export default function LochiaArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.intro}>
-            Après l’accouchement, les lochies correspondent aux
-            pertes vaginales liées au processus naturel de
-            récupération de l’utérus. Leur couleur et leur quantité
-            évoluent progressivement au fil des jours et des semaines.
+            {content.intro}
           </Text>
 
           {/* ---------------------------------------------------------------- */}
@@ -368,17 +551,10 @@ export default function LochiaArticleScreen({
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Que sont les lochies ?',
-              'Comment évoluent-elles ?',
-              'Ce qui peut être normal',
-              'Conseils de confort',
-              'Quand consulter ?',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}
@@ -407,20 +583,15 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            1. Que sont les lochies ?
+            {content.section1Heading}
           </Text>
 
           <Text style={styles.body}>
-            Les lochies sont des pertes vaginales qui apparaissent
-            après l’accouchement. Elles correspondent notamment à
-            l’élimination progressive de sang, de sécrétions et de
-            tissus provenant de l’utérus pendant sa récupération.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            Elles sont différentes des règles habituelles. Leur
-            présence est attendue pendant la période post-partum
-            et elles diminuent généralement progressivement.
+            {content.section1Body2}
           </Text>
 
           <View style={styles.infoCard}>
@@ -432,13 +603,11 @@ export default function LochiaArticleScreen({
 
             <View style={styles.infoCopy}>
               <Text style={styles.infoTitle}>
-                À retenir
+                {content.infoTitle}
               </Text>
 
               <Text style={styles.infoText}>
-                Les lochies ne signifient pas que les règles ont
-                déjà repris. Le retour des règles est un phénomène
-                différent qui survient plus tard.
+                {content.infoText}
               </Text>
             </View>
           </View>
@@ -448,13 +617,11 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            2. Comment évoluent les lochies ?
+            {content.section2Heading}
           </Text>
 
           <Text style={styles.body}>
-            Leur aspect change généralement au cours des premières
-            semaines. La couleur devient progressivement plus claire
-            et la quantité tend à diminuer.
+            {content.section2Body}
           </Text>
 
           {/* EVOLUTION TIMELINE */}
@@ -472,30 +639,31 @@ export default function LochiaArticleScreen({
 
               <View style={styles.evolutionHeaderCopy}>
                 <Text style={styles.evolutionTitle}>
-                  Une évolution progressive
+                  {content.evolutionTitle}
                 </Text>
 
                 <Text style={styles.evolutionSubtitle}>
-                  Les étapes peuvent varier selon chaque personne
+                  {content.evolutionSubtitle}
                 </Text>
               </View>
             </View>
 
             <View style={styles.timeline}>
-              {EVOLUTION.map((item, index) => {
+              {content.evolution.map((item, index) => {
+                const meta = EVOLUTION_META[index];
                 const isLast =
-                  index === EVOLUTION.length - 1;
+                  index === content.evolution.length - 1;
 
                 return (
                   <View
-                    key={item.number}
+                    key={meta.number}
                     style={styles.timelineItem}
                   >
 
                     <View style={styles.timelineLeft}>
                       <View style={styles.timelineNode}>
                         <Text style={styles.timelineNumber}>
-                          {item.number}
+                          {meta.number}
                         </Text>
                       </View>
 
@@ -508,7 +676,7 @@ export default function LochiaArticleScreen({
 
                       <View style={styles.timelineTitleRow}>
                         <MaterialDesignIcons
-                          name={item.icon as never}
+                          name={meta.icon as never}
                           size={18}
                           color={theme.colors.primary}
                         />
@@ -538,38 +706,40 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            3. Ce qui peut être normal
+            {content.section3Heading}
           </Text>
 
           <Text style={styles.body}>
-            L’évolution des lochies n’est pas exactement identique
-            pour tout le monde. Certains changements peuvent
-            accompagner naturellement la récupération après la naissance.
+            {content.section3Body}
           </Text>
 
           <View style={styles.normalGrid}>
-            {NORMAL_POINTS.map(item => (
-              <View
-                key={item.title}
-                style={styles.normalCard}
-              >
-                <View style={styles.normalIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={20}
-                    color={theme.colors.primary}
-                  />
+            {content.normalPoints.map((item, index) => {
+              const meta = NORMAL_META[index];
+
+              return (
+                <View
+                  key={item.title}
+                  style={styles.normalCard}
+                >
+                  <View style={styles.normalIcon}>
+                    <MaterialDesignIcons
+                      name={meta.icon as never}
+                      size={20}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <Text style={styles.normalTitle}>
+                    {item.title}
+                  </Text>
+
+                  <Text style={styles.normalText}>
+                    {item.text}
+                  </Text>
                 </View>
-
-                <Text style={styles.normalTitle}>
-                  {item.title}
-                </Text>
-
-                <Text style={styles.normalText}>
-                  {item.text}
-                </Text>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* ================================================================= */}
@@ -577,44 +747,46 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            4. Conseils de confort et de suivi
+            {content.section4Heading}
           </Text>
 
           <Text style={styles.body}>
-            Pendant cette période, un suivi simple peut t’aider
-            à observer l’évolution de ton corps sans chercher
-            à comparer ton expérience à celle d’une autre personne.
+            {content.section4Body}
           </Text>
 
           <View style={styles.comfortCard}>
-            {COMFORT_TIPS.map((item, index) => (
-              <View
-                key={item.title}
-                style={[
-                  styles.comfortRow,
-                  index < COMFORT_TIPS.length - 1 &&
-                    styles.comfortRowBorder,
-                ]}
-              >
-                <View style={styles.comfortIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={19}
-                    color={theme.colors.primary}
-                  />
-                </View>
+            {content.comfortTips.map((item, index) => {
+              const meta = COMFORT_META[index];
 
-                <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>
-                    {item.title}
-                  </Text>
+              return (
+                <View
+                  key={item.title}
+                  style={[
+                    styles.comfortRow,
+                    index < content.comfortTips.length - 1 &&
+                      styles.comfortRowBorder,
+                  ]}
+                >
+                  <View style={styles.comfortIcon}>
+                    <MaterialDesignIcons
+                      name={meta.icon as never}
+                      size={19}
+                      color={theme.colors.primary}
+                    />
+                  </View>
 
-                  <Text style={styles.comfortText}>
-                    {item.text}
-                  </Text>
+                  <View style={styles.comfortCopy}>
+                    <Text style={styles.comfortTitle}>
+                      {item.title}
+                    </Text>
+
+                    <Text style={styles.comfortText}>
+                      {item.text}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* ================================================================= */}
@@ -622,14 +794,11 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            5. Lochies ou retour des règles ?
+            {content.section5Heading}
           </Text>
 
           <Text style={styles.body}>
-            Les lochies apparaissent dans les suites de
-            l’accouchement et diminuent progressivement.
-            Le retour des règles correspond, lui, à la reprise
-            du cycle menstruel après cette période.
+            {content.section5Body}
           </Text>
 
           <View style={styles.compareCard}>
@@ -644,12 +813,11 @@ export default function LochiaArticleScreen({
               </View>
 
               <Text style={styles.compareTitle}>
-                Lochies
+                {content.compareLochiaTitle}
               </Text>
 
               <Text style={styles.compareText}>
-                Pertes liées à la récupération de l’utérus
-                après la naissance.
+                {content.compareLochiaText}
               </Text>
             </View>
 
@@ -665,12 +833,11 @@ export default function LochiaArticleScreen({
               </View>
 
               <Text style={styles.compareTitle}>
-                Retour des règles
+                {content.compareReturnTitle}
               </Text>
 
               <Text style={styles.compareText}>
-                Reprise du cycle menstruel, à un moment
-                variable selon chaque personne.
+                {content.compareReturnText}
               </Text>
             </View>
 
@@ -681,13 +848,11 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            6. Quand consulter ?
+            {content.section6Heading}
           </Text>
 
           <Text style={styles.body}>
-            Si l’évolution te semble inhabituelle ou si ton état
-            général se dégrade, il est important de demander
-            conseil à un professionnel de santé.
+            {content.section6Body}
           </Text>
 
           <View style={styles.warningCard}>
@@ -700,11 +865,11 @@ export default function LochiaArticleScreen({
               />
 
               <Text style={styles.warningTitle}>
-                Signes qui méritent un avis médical
+                {content.warningTitle}
               </Text>
             </View>
 
-            {WARNING_SIGNS.map(item => (
+            {content.warningSigns.map(item => (
               <View
                 key={item}
                 style={styles.warningRow}
@@ -737,14 +902,11 @@ export default function LochiaArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Les lochies évoluent généralement progressivement :
-                elles peuvent être rouges au début, puis devenir
-                plus claires avant de diminuer. Chaque récupération
-                est cependant individuelle.
+                {content.tipText}
               </Text>
             </View>
           </View>
@@ -754,11 +916,11 @@ export default function LochiaArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            À retenir
+            {content.summaryHeading}
           </Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View
                 key={item}
                 style={styles.summaryRow}
@@ -788,10 +950,7 @@ export default function LochiaArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas
-              un avis ou un examen médical. En cas de doute ou
-              de symptôme préoccupant, demande conseil à un
-              professionnel de santé.
+              {content.disclaimerText}
             </Text>
           </View>
 

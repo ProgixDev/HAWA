@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,50 +34,111 @@ const ID = 'firstperiod-comment-savoir';
 
 const HERO = require('../../assets/images/library/flow-colors-hero.png');
 
-const OBSERVE = [
-  [
-    'Pertes blanchâtres',
-    'De légères pertes claires apparaissent souvent quelques mois avant.',
-    require('../../assets/images/library/flow-texture-mucus.png'),
-  ],
-  [
-    'Poitrine qui se développe',
-    'Un signe fréquent, apparu généralement bien avant les règles.',
-    require('../../assets/images/library/spm-woman.png'),
-  ],
-  [
-    'Tiraillements au ventre',
-    'De petites sensations peuvent annoncer l’arrivée prochaine des règles.',
-    require('../../assets/images/library/pain-massage.png'),
-  ],
+// Images stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these illustrations.
+const OBSERVE_IMAGES = [
+  require('../../assets/images/library/flow-texture-mucus.png'),
+  require('../../assets/images/library/spm-woman.png'),
+  require('../../assets/images/library/pain-massage.png'),
 ] as const;
 
-const RELATED = [
+const RELATED_IMAGES = [
   {
-    title: 'Les premiers signes avant les règles',
-    meta: '5 min  ·  Article',
     image: require('../../assets/images/library/spm-hero.png'),
     articleId: 'firstperiod-premiers-signes',
   },
   {
-    title: 'Quelle protection choisir pour mes premières règles ?',
-    meta: '6 min  ·  Guide',
     image: require('../../assets/images/library/featured-flow.png'),
     articleId: 'firstperiod-choisir-protection',
   },
   {
-    title: 'Tes premières règles : à quoi t’attendre',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/cycle-phases-hero.png'),
     articleId: 'firstperiod-premieres-regles',
   },
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Comment savoir si mes\npremières règles arrivent ?',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Quelques signes concrets t’aident à repérer que tes premières règles approchent vraiment.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les signes à observer',
+      'Premières pertes : à quoi ressemblent-elles ?',
+      'Pertes vaginales ou sang menstruel ?',
+      'Quand en parler à un adulte ?',
+    ],
+    observe: [
+      {title: 'Pertes blanchâtres', text: 'De légères pertes claires apparaissent souvent quelques mois avant.'},
+      {title: 'Poitrine qui se développe', text: 'Un signe fréquent, apparu généralement bien avant les règles.'},
+      {title: 'Tiraillements au ventre', text: 'De petites sensations peuvent annoncer l’arrivée prochaine des règles.'},
+    ],
+    body2: 'Avant l’arrivée des toutes premières règles, il est fréquent de remarquer de légères pertes blanchâtres ou légèrement jaunâtres dans les sous-vêtements. C’est un phénomène normal, lié à l’activité hormonale qui se met en place.',
+    body3: 'Les pertes vaginales sont claires ou blanchâtres, sans odeur marquée. Le sang menstruel, lui, a une couleur rouge à brunâtre et marque le vrai début des règles. Si un doute persiste, ce n’est jamais grave d’en parler.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Il n’existe pas de moyen de prédire le jour exact. Garder une protection avec toi dès les premiers signes reste la meilleure habitude.',
+    body4: 'Dès que tu observes ces signes, ou dès que tu as une question ou une inquiétude, tu peux en parler à ta mère, une sœur, une proche ou un professionnel de santé de confiance. Il n’y a jamais de mauvais moment pour demander de l’aide.',
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {title: 'Les premiers signes avant les règles', meta: '5 min  ·  Article'},
+      {title: 'Quelle protection choisir pour mes premières règles ?', meta: '6 min  ·  Guide'},
+      {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
+    ],
+    shareMessage: 'Comment savoir si mes premières règles arrivent ? — AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'How can I tell if my\nfirst period is coming?',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'A few concrete signs can help you recognize that your first period is really on its way.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Signs to watch for',
+      'First discharge: what does it look like?',
+      'Vaginal discharge or menstrual blood?',
+      'When should you talk to an adult?',
+    ],
+    observe: [
+      {title: 'Whitish discharge', text: 'Light, clear discharge often appears a few months beforehand.'},
+      {title: 'Breast development', text: 'A common sign that usually appears well before your period.'},
+      {title: 'Mild tummy twinges', text: 'Small sensations like these can signal that your period is coming soon.'},
+    ],
+    body2: 'Before your very first period arrives, it’s common to notice light whitish or slightly yellowish discharge in your underwear. This is a normal phenomenon, linked to the hormonal activity getting underway in your body.',
+    body3: 'Vaginal discharge is clear or whitish, without a strong smell. Menstrual blood, on the other hand, is red to brownish in color and marks the true start of your period. If you’re ever unsure, it’s never a big deal to talk about it.',
+    tipTitle: 'Good to know',
+    tipText: 'There’s no way to predict the exact day. Keeping protection with you from the very first signs is the best habit to have.',
+    body4: 'As soon as you notice these signs, or whenever you have a question or a worry, you can talk to your mother, a sister, someone close to you, or a healthcare professional you trust. There’s never a wrong time to ask for help.',
+    relatedTitle: '♥  You might also like',
+    related: [
+      {title: 'The first signs before your period', meta: '5 min  ·  Article'},
+      {title: 'Which protection should I choose for my first period?', meta: '6 min  ·  Guide'},
+      {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
+    ],
+    shareMessage: 'How can I tell if my first period is coming? — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodComingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -103,7 +165,7 @@ export default function FirstPeriodComingArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comment savoir si mes premières règles arrivent ? — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -141,7 +203,7 @@ export default function FirstPeriodComingArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -150,7 +212,7 @@ export default function FirstPeriodComingArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -165,7 +227,7 @@ export default function FirstPeriodComingArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -183,19 +245,19 @@ export default function FirstPeriodComingArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Comment savoir si mes{`\n`}premières règles arrivent ?
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -214,19 +276,13 @@ export default function FirstPeriodComingArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Quelques signes concrets t’aident à repérer que tes premières
-            règles approchent vraiment.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Les signes à observer',
-              'Premières pertes : à quoi ressemblent-elles ?',
-              'Pertes vaginales ou sang menstruel ?',
-              'Quand en parler à un adulte ?',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -242,37 +298,31 @@ export default function FirstPeriodComingArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Les signes à observer</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          {OBSERVE.map(([title, description, image]) => (
-            <View key={title} style={styles.visualCard}>
+          {OBSERVE_IMAGES.map((image, index) => (
+            <View key={content.observe[index].title} style={styles.visualCard}>
               <Image source={image} resizeMode="cover" style={styles.visualImage} />
 
               <View style={styles.visualCopy}>
-                <Text style={styles.visualTitle}>{title}</Text>
-                <Text style={styles.visualText}>{description}</Text>
+                <Text style={styles.visualTitle}>{content.observe[index].title}</Text>
+                <Text style={styles.visualText}>{content.observe[index].text}</Text>
               </View>
             </View>
           ))}
 
           <Text style={styles.h2}>
-            2. Premières pertes : à quoi ressemblent-elles ?
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Avant l’arrivée des toutes premières règles, il est fréquent de
-            remarquer de légères pertes blanchâtres ou légèrement jaunâtres
-            dans les sous-vêtements. C’est un phénomène normal, lié à
-            l’activité hormonale qui se met en place.
+            {content.body2}
           </Text>
 
-          <Text style={styles.h2}>3. Pertes vaginales ou sang menstruel ?</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Les pertes vaginales sont claires ou blanchâtres, sans odeur
-            marquée. Le sang menstruel, lui, a une couleur rouge à brunâtre et
-            marque le vrai début des règles. Si un doute persiste, ce n’est
-            jamais grave d’en parler.
+            {content.body3}
           </Text>
 
           <Image
@@ -289,36 +339,31 @@ export default function FirstPeriodComingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Il n’existe pas de moyen de prédire le jour exact. Garder une
-                protection avec toi dès les premiers signes reste la meilleure
-                habitude.
+                {content.tipText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. Quand en parler à un adulte ?</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <Text style={styles.body}>
-            Dès que tu observes ces signes, ou dès que tu as une question ou
-            une inquiétude, tu peux en parler à ta mère, une sœur, une proche
-            ou un professionnel de santé de confiance. Il n’y a jamais de
-            mauvais moment pour demander de l’aide.
+            {content.body4}
           </Text>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {RELATED_IMAGES.map((item, index) => (
             <Pressable
-              key={item.title}
+              key={item.articleId + index}
               onPress={() =>
                 navigation.push('ArticleReader', {articleId: item.articleId})
               }
@@ -331,9 +376,9 @@ export default function FirstPeriodComingArticleScreen({
 
               <View style={styles.relatedCopy}>
                 <Text numberOfLines={3} style={styles.relatedCardTitle}>
-                  {item.title}
+                  {content.related[index].title}
                 </Text>
-                <Text style={styles.relatedMeta}>{item.meta}</Text>
+                <Text style={styles.relatedMeta}>{content.related[index].meta}</Text>
               </View>
             </Pressable>
           ))}

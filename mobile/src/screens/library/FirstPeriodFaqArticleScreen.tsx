@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,65 +34,136 @@ const ID = 'firstperiod-questions-frequentes';
 
 const HERO = require('../../assets/images/library/popular-flower.png');
 
-const FAQ = [
-  {
-    question: '« Est-ce normal d’avoir peu de sang ? »',
-    answer:
-      'Oui. Les tout premiers cycles ont souvent un flux léger. Le flux peut varier d’un cycle à l’autre, surtout au début.',
-    image: null,
-  },
-  {
-    question: '« Est-ce normal d’avoir beaucoup de sang ? »',
-    answer:
-      'Un flux plus abondant peut aussi arriver, notamment les deux premiers jours. Si les protections doivent être changées plus d’une fois par heure pendant plusieurs heures, il est utile d’en parler à un professionnel de santé.',
-    image: null,
-  },
-  {
-    question: '« Est-ce normal d’avoir mal ? »',
-    answer:
-      'De légères crampes dans le bas-ventre sont fréquentes et généralement sans gravité. Une bouillotte ou un peu de repos peuvent aider. Des douleurs très intenses méritent d’être signalées.',
-    image: require('../../assets/images/library/pain-massage.png'),
-  },
-  {
-    question: '« Est-ce que je peux faire du sport ? »',
-    answer:
-      'Oui, le sport reste possible pendant les règles. Il suffit d’adapter l’intensité à ce que le corps ressent ce jour-là.',
-    image: null,
-  },
-  {
-    question: '« Est-ce que je peux me baigner ? »',
-    answer:
-      'Oui, se baigner reste possible avec une protection adaptée. Beaucoup de personnes choisissent simplement d’attendre d’être plus à l’aise avec cette idée.',
-    image: null,
-  },
+// Images stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these illustrations.
+const FAQ_IMAGES = [
+  null,
+  null,
+  require('../../assets/images/library/pain-massage.png'),
+  null,
+  null,
 ] as const;
 
-const RELATED = [
-  {
-    title: 'Tes premières règles : à quoi t’attendre',
-    meta: '5 min  ·  Guide',
-    image: require('../../assets/images/library/cycle-phases-hero.png'),
-    articleId: 'firstperiod-premieres-regles',
-  },
-  {
-    title: 'Quelle protection choisir pour mes premières règles ?',
-    meta: '6 min  ·  Guide',
-    image: require('../../assets/images/library/featured-flow.png'),
-    articleId: 'firstperiod-choisir-protection',
-  },
-  {
-    title: 'Gérer les douleurs menstruelles',
-    meta: '7 min  ·  Guide',
-    image: require('../../assets/images/library/pain-hero.png'),
-    articleId: 'pain-gerer-douleurs',
-  },
+const RELATED_IMAGES = [
+  require('../../assets/images/library/cycle-phases-hero.png'),
+  require('../../assets/images/library/featured-flow.png'),
+  require('../../assets/images/library/pain-hero.png'),
 ] as const;
+
+const RELATED_ARTICLE_IDS = [
+  'firstperiod-premieres-regles',
+  'firstperiod-choisir-protection',
+  'pain-gerer-douleurs',
+] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Questions fréquentes\nsur les premières règles',
+    metaDuration: '4 min de lecture',
+    metaType: 'FAQ',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Les réponses simples aux questions les plus courantes sur les premières règles.',
+    contentsTitle: 'Dans cet article',
+    faq: [
+      {
+        question: '« Est-ce normal d’avoir peu de sang ? »',
+        answer:
+          'Oui. Les tout premiers cycles ont souvent un flux léger. Le flux peut varier d’un cycle à l’autre, surtout au début.',
+      },
+      {
+        question: '« Est-ce normal d’avoir beaucoup de sang ? »',
+        answer:
+          'Un flux plus abondant peut aussi arriver, notamment les deux premiers jours. Si les protections doivent être changées plus d’une fois par heure pendant plusieurs heures, il est utile d’en parler à un professionnel de santé.',
+      },
+      {
+        question: '« Est-ce normal d’avoir mal ? »',
+        answer:
+          'De légères crampes dans le bas-ventre sont fréquentes et généralement sans gravité. Une bouillotte ou un peu de repos peuvent aider. Des douleurs très intenses méritent d’être signalées.',
+      },
+      {
+        question: '« Est-ce que je peux faire du sport ? »',
+        answer:
+          'Oui, le sport reste possible pendant les règles. Il suffit d’adapter l’intensité à ce que le corps ressent ce jour-là.',
+      },
+      {
+        question: '« Est-ce que je peux me baigner ? »',
+        answer:
+          'Oui, se baigner reste possible avec une protection adaptée. Beaucoup de personnes choisissent simplement d’attendre d’être plus à l’aise avec cette idée.',
+      },
+    ],
+    tipTitle: 'Bon à savoir',
+    tipText: 'Il n’existe pas de question gênante : chaque corps est différent, et il est toujours possible d’en parler à une personne de confiance.',
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
+      {title: 'Quelle protection choisir pour mes premières règles ?', meta: '6 min  ·  Guide'},
+      {title: 'Gérer les douleurs menstruelles', meta: '7 min  ·  Guide'},
+    ],
+    shareMessage: 'Questions fréquentes sur les premières règles — AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'Frequently asked questions\nabout your first period',
+    metaDuration: '4 min read',
+    metaType: 'FAQ',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Simple answers to the most common questions about your first period.',
+    contentsTitle: 'In this article',
+    faq: [
+      {
+        question: '“Is it normal to have very little blood?”',
+        answer:
+          'Yes. The very first cycles often have a light flow. The flow can vary from one cycle to the next, especially at the start.',
+      },
+      {
+        question: '“Is it normal to have a lot of blood?”',
+        answer:
+          'A heavier flow can also happen, especially during the first two days. If you need to change your protection more than once an hour for several hours in a row, it’s a good idea to talk to a healthcare professional about it.',
+      },
+      {
+        question: '“Is it normal to have cramps?”',
+        answer:
+          'Mild cramps in the lower belly are common and usually nothing to worry about. A hot water bottle or a bit of rest can help. Very intense pain is worth mentioning to someone.',
+      },
+      {
+        question: '“Can I play sports?”',
+        answer:
+          'Yes, you can still play sports during your period. Just adjust the intensity to how your body feels that day.',
+      },
+      {
+        question: '“Can I go swimming?”',
+        answer:
+          'Yes, you can still go swimming with the right protection. Many people simply choose to wait until they feel more comfortable with the idea.',
+      },
+    ],
+    tipTitle: 'Good to know',
+    tipText: 'There’s no such thing as an embarrassing question: every body is different, and you can always talk to someone you trust.',
+    relatedTitle: '♥  You might also like',
+    related: [
+      {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
+      {title: 'Which protection should I choose for my first period?', meta: '6 min  ·  Guide'},
+      {title: 'Managing period pain', meta: '7 min  ·  Guide'},
+    ],
+    shareMessage: 'Frequently asked questions about your first period — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -118,7 +190,7 @@ export default function FirstPeriodFaqArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Questions fréquentes sur les premières règles — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -156,7 +228,7 @@ export default function FirstPeriodFaqArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -165,7 +237,7 @@ export default function FirstPeriodFaqArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -180,7 +252,7 @@ export default function FirstPeriodFaqArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -198,19 +270,19 @@ export default function FirstPeriodFaqArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Questions fréquentes{`\n`}sur les premières règles
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '4 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -229,14 +301,13 @@ export default function FirstPeriodFaqArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Les réponses simples aux questions les plus courantes sur les
-            premières règles.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {FAQ.map((item, index) => (
+            {content.faq.map((item, index) => (
               <View key={item.question} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -254,7 +325,7 @@ export default function FirstPeriodFaqArticleScreen({
             ))}
           </View>
 
-          {FAQ.map((item, index) => (
+          {content.faq.map((item, index) => (
             <React.Fragment key={item.question}>
               <Text style={styles.h2}>
                 {index + 1}. {item.question}
@@ -262,9 +333,9 @@ export default function FirstPeriodFaqArticleScreen({
 
               <Text style={styles.body}>{item.answer}</Text>
 
-              {item.image ? (
+              {FAQ_IMAGES[index] ? (
                 <Image
-                  source={item.image}
+                  source={FAQ_IMAGES[index]}
                   resizeMode="cover"
                   style={styles.wideImage}
                 />
@@ -280,33 +351,33 @@ export default function FirstPeriodFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Il n’existe pas de question gênante : chaque corps est
-                différent, et il est toujours possible d’en parler à une
-                personne de confiance.
+                {content.tipText}
               </Text>
             </View>
           </View>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {content.related.map((item, index) => (
             <Pressable
               key={item.title}
               onPress={() =>
-                navigation.push('ArticleReader', {articleId: item.articleId})
+                navigation.push('ArticleReader', {
+                  articleId: RELATED_ARTICLE_IDS[index],
+                })
               }
               style={styles.relatedCard}>
               <Image
-                source={item.image}
+                source={RELATED_IMAGES[index]}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,40 +34,217 @@ const ID = 'pcos-acne-hormonale';
 
 const HERO = require('../../assets/images/library/featured-cycle.png');
 
-const RECOGNIZE_SIGNS = [
-  ['map-marker-outline', 'Bas du visage : mâchoire, menton'],
-  ['circle-outline', 'Boutons plus profonds, parfois douloureux'],
-  ['calendar-refresh', 'Réapparition souvent aux mêmes endroits'],
-  ['palette-outline', 'Rougeurs ou marques qui persistent'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icon lists.
+const RECOGNIZE_SIGN_ICONS = [
+  'map-marker-outline',
+  'circle-outline',
+  'calendar-refresh',
+  'palette-outline',
 ] as const;
 
-const CARE_HABITS = [
-  ['face-woman-outline', 'Nettoyer la peau en douceur, matin et soir'],
-  ['water-off-outline', 'Éviter les produits agressifs ou décapants'],
-  ['weather-sunny', 'Protéger sa peau du soleil au quotidien'],
-  ['hand-back-left-outline', 'Ne pas percer ou triturer les boutons'],
+const CARE_HABIT_ICONS = [
+  'face-woman-outline',
+  'water-off-outline',
+  'weather-sunny',
+  'hand-back-left-outline',
 ] as const;
 
-const CONSULT_REASONS = [
-  ['clock-alert-outline', 'Acné qui persiste malgré des soins adaptés'],
-  ['emoticon-sad-outline', 'Boutons douloureux ou profonds (nodules, kystes)'],
-  ['alert-circle-outline', 'Acné sévère ou qui s’aggrave rapidement'],
-  ['blur', 'Marques ou cicatrices qui s’installent'],
+const CONSULT_REASON_ICONS = [
+  'clock-alert-outline',
+  'emoticon-sad-outline',
+  'alert-circle-outline',
+  'blur',
 ] as const;
 
-const KEY_POINTS = [
-  'L’acné hormonale a une cause identifiable, liée aux androgènes.',
-  'Elle touche souvent le bas du visage et peut s’aggraver avant les règles.',
-  'Ce n’est ni un manque d’hygiène, ni une fatalité.',
-  'Des soins doux et, si besoin, un traitement adapté peuvent l’améliorer.',
-  'Un dermatologue ou un gynécologue peut t’accompagner en cas de persistance.',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'SOPK • ACNÉ HORMONALE',
+    title: 'Comprendre\nl’acné hormonale',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu éducatif',
+    intro:
+      'Pourquoi l’acné hormonale peut apparaître avec le SOPK, comment la reconnaître et quelles solutions peuvent aider à la prendre en charge.',
+    introSecondary:
+      'Elle touche de nombreuses femmes et n’est ni un manque d’hygiène, ni une fatalité : comprendre son origine aide à mieux la prendre en charge.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que l’acné hormonale ?',
+      'Pourquoi le SOPK peut provoquer de l’acné ?',
+      'Comment reconnaître l’acné hormonale',
+      'Acné hormonale et cycle menstruel',
+      'Ce qui peut aider',
+      'Quand consulter ?',
+      'À retenir',
+    ],
+    h1: 'Qu’est-ce que l’acné hormonale ?',
+    body1a:
+      'L’acné hormonale est une forme d’acné directement liée aux fluctuations ou à un déséquilibre des hormones, notamment des androgènes. Contrairement à l’acné plus classique de l’adolescence, elle touche souvent des femmes adultes et peut persister ou apparaître après cette période.',
+    body1b:
+      'Elle se distingue aussi par sa localisation, sa profondeur et sa tendance à réapparaître aux mêmes endroits malgré des soins habituels bien suivis.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'L’acné hormonale n’est pas liée à un manque d’hygiène : se laver davantage le visage ne la fait pas disparaître, et peut même irriter la peau.',
+    h2Title: 'Pourquoi le SOPK peut provoquer de l’acné ?',
+    body2:
+      'Dans le SOPK, un excès relatif d’androgènes stimule les glandes sébacées, qui produisent alors plus de sébum. Certaines peaux sont aussi plus sensibles à ces hormones, ce qui explique pourquoi l’acné peut être marquée même sans déséquilibre majeur mesuré en laboratoire.',
+    neutralText:
+      'Ce n’est pas une question de volonté : cette sensibilité varie d’une personne à l’autre et ne dépend pas de tes habitudes de vie.',
+    h3Title: 'Comment reconnaître l’acné hormonale',
+    body3:
+      'Certaines caractéristiques reviennent souvent, sans être systématiques :',
+    recognizeSigns: [
+      'Bas du visage : mâchoire, menton',
+      'Boutons plus profonds, parfois douloureux',
+      'Réapparition souvent aux mêmes endroits',
+      'Rougeurs ou marques qui persistent',
+    ],
+    h4Title: 'Acné hormonale et cycle menstruel',
+    body4:
+      'L’acné hormonale peut fluctuer au fil du cycle. Beaucoup de femmes remarquent une poussée dans les jours précédant les règles, lorsque la progestérone augmente puis chute brutalement, stimulant temporairement la production de sébum.',
+    highlightTitle: 'Suivre ses poussées',
+    highlightText:
+      'Noter les dates d’apparition des boutons par rapport à ton cycle peut t’aider, toi et ton dermatologue, à mieux comprendre le lien hormonal.',
+    h5Title: 'Ce qui peut aider',
+    body5a:
+      'Certaines habitudes de soin simples peuvent limiter les poussées, sans les faire disparaître complètement à elles seules :',
+    careHabits: [
+      'Nettoyer la peau en douceur, matin et soir',
+      'Éviter les produits agressifs ou décapants',
+      'Protéger sa peau du soleil au quotidien',
+      'Ne pas percer ou triturer les boutons',
+    ],
+    body5b:
+      'Selon la situation, un dermatologue ou un gynécologue peut proposer des traitements locaux (crèmes, gels) ou, si nécessaire, un traitement hormonal adapté.',
+    alertTitle: 'Pas d’automédication',
+    alertText:
+      'Les traitements contre l’acné hormonale (locaux ou hormonaux) doivent être prescrits et suivis par un professionnel de santé, en particulier en cas de désir de grossesse.',
+    h6Title: 'Quand consulter ?',
+    body6:
+      'Un avis médical est particulièrement utile dans certaines situations :',
+    consultReasons: [
+      'Acné qui persiste malgré des soins adaptés',
+      'Boutons douloureux ou profonds (nodules, kystes)',
+      'Acné sévère ou qui s’aggrave rapidement',
+      'Marques ou cicatrices qui s’installent',
+    ],
+    h7Title: 'À retenir',
+    summaryTitle: 'Les points essentiels',
+    keyPoints: [
+      'L’acné hormonale a une cause identifiable, liée aux androgènes.',
+      'Elle touche souvent le bas du visage et peut s’aggraver avant les règles.',
+      'Ce n’est ni un manque d’hygiène, ni une fatalité.',
+      'Des soins doux et, si besoin, un traitement adapté peuvent l’améliorer.',
+      'Un dermatologue ou un gynécologue peut t’accompagner en cas de persistance.',
+    ],
+    finalNoteTitle: 'Un guide pour mieux comprendre',
+    finalNoteText:
+      'Cet article est destiné à l’information générale et ne remplace pas une consultation médicale. En cas de doute ou de symptômes persistants, demande conseil à un professionnel de santé.',
+    shareMessage: 'Comprendre l’acné hormonale — AWA',
+  },
+  en: {
+    badge: 'PCOS • HORMONAL ACNE',
+    title: 'Understanding\nhormonal acne',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Educational content',
+    intro:
+      'Why hormonal acne can appear with PCOS, how to recognize it, and what solutions may help manage it.',
+    introSecondary:
+      'It affects many women and is neither a lack of hygiene nor an inevitability: understanding its origin helps manage it better.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is hormonal acne?',
+      'Why can PCOS cause acne?',
+      'How to recognize hormonal acne',
+      'Hormonal acne and the menstrual cycle',
+      'What can help',
+      'When to see a doctor?',
+      'Key takeaways',
+    ],
+    h1: 'What is hormonal acne?',
+    body1a:
+      'Hormonal acne is a form of acne directly linked to hormonal fluctuations or an imbalance, particularly in androgens. Unlike the more typical acne of adolescence, it often affects adult women and can persist or appear after that period.',
+    body1b:
+      'It is also distinguished by its location, its depth, and its tendency to reappear in the same spots despite a well-followed regular skincare routine.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'Hormonal acne is not linked to a lack of hygiene: washing your face more often does not make it go away, and may even irritate the skin.',
+    h2Title: 'Why can PCOS cause acne?',
+    body2:
+      'In PCOS, a relative excess of androgens stimulates the sebaceous glands, which then produce more sebum. Some skin is also more sensitive to these hormones, which explains why acne can be pronounced even without a major imbalance measured in a lab.',
+    neutralText:
+      'This is not a matter of willpower: this sensitivity varies from person to person and does not depend on your lifestyle habits.',
+    h3Title: 'How to recognize hormonal acne',
+    body3:
+      'Certain features often recur, though not systematically:',
+    recognizeSigns: [
+      'Lower face: jawline, chin',
+      'Deeper, sometimes painful breakouts',
+      'Often reappears in the same spots',
+      'Redness or marks that persist',
+    ],
+    h4Title: 'Hormonal acne and the menstrual cycle',
+    body4:
+      'Hormonal acne can fluctuate throughout the cycle. Many women notice a flare-up in the days before their period, when progesterone rises and then drops sharply, temporarily stimulating sebum production.',
+    highlightTitle: 'Tracking your flare-ups',
+    highlightText:
+      'Noting when breakouts appear relative to your cycle can help you and your dermatologist better understand the hormonal link.',
+    h5Title: 'What can help',
+    body5a:
+      'A few simple care habits can help limit flare-ups, without fully clearing them on their own:',
+    careHabits: [
+      'Gently cleanse your skin morning and evening',
+      'Avoid harsh or stripping products',
+      'Protect your skin from the sun daily',
+      'Avoid squeezing or picking at breakouts',
+    ],
+    body5b:
+      'Depending on the situation, a dermatologist or gynecologist may suggest topical treatments (creams, gels) or, if needed, a suitable hormonal treatment.',
+    alertTitle: 'No self-medicating',
+    alertText:
+      'Treatments for hormonal acne (topical or hormonal) must be prescribed and monitored by a healthcare professional, particularly if you are hoping to conceive.',
+    h6Title: 'When to see a doctor?',
+    body6:
+      'Medical advice is especially helpful in certain situations:',
+    consultReasons: [
+      'Acne that persists despite suitable care',
+      'Painful or deep breakouts (nodules, cysts)',
+      'Severe acne or acne that worsens rapidly',
+      'Marks or scars that are settling in',
+    ],
+    h7Title: 'Key takeaways',
+    summaryTitle: 'The essential points',
+    keyPoints: [
+      'Hormonal acne has an identifiable cause, linked to androgens.',
+      'It often affects the lower face and can worsen before your period.',
+      'It is neither a lack of hygiene nor an inevitability.',
+      'Gentle care and, if needed, a suitable treatment can improve it.',
+      'A dermatologist or gynecologist can support you if it persists.',
+    ],
+    finalNoteTitle: 'A guide to better understanding',
+    finalNoteText:
+      'This article is for general information only and does not replace a medical consultation. If in doubt or if symptoms persist, seek advice from a healthcare professional.',
+    shareMessage: 'Understanding hormonal acne — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PcosHormonalAcneArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -93,7 +271,7 @@ export default function PcosHormonalAcneArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comprendre l’acné hormonale — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -132,7 +310,7 @@ export default function PcosHormonalAcneArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -141,7 +319,7 @@ export default function PcosHormonalAcneArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -156,7 +334,7 @@ export default function PcosHormonalAcneArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -175,19 +353,19 @@ export default function PcosHormonalAcneArticleScreen({
         <View style={styles.article}>
           {/* HEADER */}
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>SOPK • ACNÉ HORMONALE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Comprendre{`\n`}l’acné hormonale
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu éducatif'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -206,30 +384,18 @@ export default function PcosHormonalAcneArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Pourquoi l’acné hormonale peut apparaître avec le SOPK, comment
-            la reconnaître et quelles solutions peuvent aider à la prendre
-            en charge.
+            {content.intro}
           </Text>
 
           <Text style={styles.introSecondary}>
-            Elle touche de nombreuses femmes et n’est ni un manque
-            d’hygiène, ni une fatalité : comprendre son origine aide à
-            mieux la prendre en charge.
+            {content.introSecondary}
           </Text>
 
           {/* CONTENTS */}
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que l’acné hormonale ?',
-              'Pourquoi le SOPK peut provoquer de l’acné ?',
-              'Comment reconnaître l’acné hormonale',
-              'Acné hormonale et cycle menstruel',
-              'Ce qui peut aider',
-              'Quand consulter ?',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -246,20 +412,14 @@ export default function PcosHormonalAcneArticleScreen({
           </View>
 
           {/* 1 */}
-          <Text style={styles.h2}>1. Qu’est-ce que l’acné hormonale ?</Text>
+          <Text style={styles.h2}>1. {content.h1}</Text>
 
           <Text style={styles.body}>
-            L’acné hormonale est une forme d’acné directement liée aux
-            fluctuations ou à un déséquilibre des hormones, notamment des
-            androgènes. Contrairement à l’acné plus classique de
-            l’adolescence, elle touche souvent des femmes adultes et peut
-            persister ou apparaître après cette période.
+            {content.body1a}
           </Text>
 
           <Text style={styles.body}>
-            Elle se distingue aussi par sa localisation, sa profondeur et
-            sa tendance à réapparaître aux mêmes endroits malgré des soins
-            habituels bien suivis.
+            {content.body1b}
           </Text>
 
           <View style={styles.tip}>
@@ -270,26 +430,20 @@ export default function PcosHormonalAcneArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                L’acné hormonale n’est pas liée à un manque d’hygiène : se
-                laver davantage le visage ne la fait pas disparaître, et
-                peut même irriter la peau.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* 2 */}
           <Text style={styles.h2}>
-            2. Pourquoi le SOPK peut provoquer de l’acné ?
+            2. {content.h2Title}
           </Text>
 
           <Text style={styles.body}>
-            Dans le SOPK, un excès relatif d’androgènes stimule les glandes
-            sébacées, qui produisent alors plus de sébum. Certaines peaux
-            sont aussi plus sensibles à ces hormones, ce qui explique
-            pourquoi l’acné peut être marquée même sans déséquilibre majeur
-            mesuré en laboratoire.
+            {content.body2}
           </Text>
 
           <View style={styles.neutralBox}>
@@ -300,44 +454,40 @@ export default function PcosHormonalAcneArticleScreen({
             />
 
             <Text style={styles.neutralText}>
-              Ce n’est pas une question de volonté : cette sensibilité
-              varie d’une personne à l’autre et ne dépend pas de tes
-              habitudes de vie.
+              {content.neutralText}
             </Text>
           </View>
 
           {/* 3 */}
           <Text style={styles.h2}>
-            3. Comment reconnaître l’acné hormonale
+            3. {content.h3Title}
           </Text>
 
           <Text style={styles.body}>
-            Certaines caractéristiques reviennent souvent, sans être
-            systématiques :
+            {content.body3}
           </Text>
 
           <View style={styles.daily}>
-            {RECOGNIZE_SIGNS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {RECOGNIZE_SIGN_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>
+                  {content.recognizeSigns[index]}
+                </Text>
               </View>
             ))}
           </View>
 
           {/* 4 */}
-          <Text style={styles.h2}>4. Acné hormonale et cycle menstruel</Text>
+          <Text style={styles.h2}>4. {content.h4Title}</Text>
 
           <Text style={styles.body}>
-            L’acné hormonale peut fluctuer au fil du cycle. Beaucoup de
-            femmes remarquent une poussée dans les jours précédant les
-            règles, lorsque la progestérone augmente puis chute
-            brutalement, stimulant temporairement la production de sébum.
+            {content.body4}
           </Text>
 
           <View style={styles.highlightBox}>
@@ -348,70 +498,62 @@ export default function PcosHormonalAcneArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>Suivre ses poussées</Text>
+              <Text style={styles.highlightTitle}>{content.highlightTitle}</Text>
 
               <Text style={styles.highlightText}>
-                Noter les dates d’apparition des boutons par rapport à ton
-                cycle peut t’aider, toi et ton dermatologue, à mieux
-                comprendre le lien hormonal.
+                {content.highlightText}
               </Text>
             </View>
           </View>
 
           {/* 5 */}
-          <Text style={styles.h2}>5. Ce qui peut aider</Text>
+          <Text style={styles.h2}>5. {content.h5Title}</Text>
 
           <Text style={styles.body}>
-            Certaines habitudes de soin simples peuvent limiter les
-            poussées, sans les faire disparaître complètement à elles
-            seules :
+            {content.body5a}
           </Text>
 
           <View style={styles.daily}>
-            {CARE_HABITS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {CARE_HABIT_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>
+                  {content.careHabits[index]}
+                </Text>
               </View>
             ))}
           </View>
 
           <Text style={styles.body}>
-            Selon la situation, un dermatologue ou un gynécologue peut
-            proposer des traitements locaux (crèmes, gels) ou, si
-            nécessaire, un traitement hormonal adapté.
+            {content.body5b}
           </Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons name="doctor" size={24} color={theme.colors.warning} />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Pas d’automédication</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Les traitements contre l’acné hormonale (locaux ou
-                hormonaux) doivent être prescrits et suivis par un
-                professionnel de santé, en particulier en cas de désir de
-                grossesse.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           {/* 6 */}
-          <Text style={styles.h2}>6. Quand consulter ?</Text>
+          <Text style={styles.h2}>6. {content.h6Title}</Text>
 
           <Text style={styles.body}>
-            Un avis médical est particulièrement utile dans certaines
-            situations :
+            {content.body6}
           </Text>
 
           <View style={styles.consultCard}>
-            {CONSULT_REASONS.map(([icon, text]) => (
-              <View key={text} style={styles.consultRow}>
+            {CONSULT_REASON_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -420,13 +562,15 @@ export default function PcosHormonalAcneArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultText}>{text}</Text>
+                <Text style={styles.consultText}>
+                  {content.consultReasons[index]}
+                </Text>
               </View>
             ))}
           </View>
 
           {/* 7 */}
-          <Text style={styles.h2}>7. À retenir</Text>
+          <Text style={styles.h2}>7. {content.h7Title}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -436,10 +580,10 @@ export default function PcosHormonalAcneArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>Les points essentiels</Text>
+              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
             </View>
 
-            {KEY_POINTS.map(item => (
+            {content.keyPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons name="check" size={17} color={theme.colors.success} />
                 <Text style={styles.summaryText}>{item}</Text>
@@ -457,14 +601,11 @@ export default function PcosHormonalAcneArticleScreen({
 
             <View style={styles.finalNoteCopy}>
               <Text style={styles.finalNoteTitle}>
-                Un guide pour mieux comprendre
+                {content.finalNoteTitle}
               </Text>
 
               <Text style={styles.finalNoteText}>
-                Cet article est destiné à l’information générale et ne
-                remplace pas une consultation médicale. En cas de doute ou
-                de symptômes persistants, demande conseil à un
-                professionnel de santé.
+                {content.finalNoteText}
               </Text>
             </View>
           </View>

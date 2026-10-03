@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,30 +34,116 @@ const ID = 'childbirthprep-preparer-accouchement';
 
 const HERO = require('../../assets/images/library/featured-tracker.png');
 
-const PREP_STEPS = [
-  ['numeric-1-circle-outline', 'Cours de préparation à la naissance'],
-  ['numeric-2-circle-outline', 'Techniques de respiration et de relaxation'],
-  ['numeric-3-circle-outline', 'Sac de maternité prêt dès le 8e mois'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const PREP_ICONS = [
+  'numeric-1-circle-outline',
+  'numeric-2-circle-outline',
+  'numeric-3-circle-outline',
 ] as const;
 
-const BAG_ITEMS = [
-  'Papiers administratifs et carnet de grossesse',
-  'Vêtements confortables pour toi et le bébé',
-  'Nécessaire de toilette et protections post-accouchement',
-  'Une tenue de sortie pour le bébé',
-];
-
-const BIRTH_PLAN_POINTS = [
-  'Tes préférences pour gérer la douleur',
-  'La présence souhaitée pendant le travail',
-  'Tes attentes concernant le peau à peau',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'GROSSESSE • ACCOUCHEMENT',
+    title: 'Se préparer sereinement\nà l’accouchement',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Trois piliers pour aborder le jour J avec plus de confiance.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Se préparer en 3 étapes',
+      'Le sac de maternité',
+      'Rédiger ton projet de naissance',
+      'À noter',
+      'À retenir',
+    ],
+    prepSteps: [
+      'Cours de préparation à la naissance',
+      'Techniques de respiration et de relaxation',
+      'Sac de maternité prêt dès le 8e mois',
+    ],
+    body1:
+      'Les cours de préparation à la naissance t’aident à comprendre les étapes du travail et les techniques de respiration qui t’accompagneront le jour J.',
+    body2:
+      'Préparer ton sac de maternité dès le 8e mois t’évite le stress de dernière minute. Il contient généralement :',
+    bagItems: [
+      'Papiers administratifs et carnet de grossesse',
+      'Vêtements confortables pour toi et le bébé',
+      'Nécessaire de toilette et protections post-accouchement',
+      'Une tenue de sortie pour le bébé',
+    ],
+    birthPlanPoints: [
+      'Tes préférences pour gérer la douleur',
+      'La présence souhaitée pendant le travail',
+      'Tes attentes concernant le peau à peau',
+    ],
+    neutralText:
+      'Un projet de naissance simple t’aide à exprimer tes souhaits à l’équipe médicale, tout en restant ouverte : le déroulement réel peut évoluer selon la situation.',
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Se préparer ne veut pas dire tout contrôler : c’est surtout se donner les moyens d’aborder le jour J avec plus de confiance et moins d’incertitude.',
+    shareMessage: 'Se préparer sereinement à l’accouchement — AWA',
+  },
+  en: {
+    badge: 'PREGNANCY • CHILDBIRTH',
+    title: 'Preparing calmly\nfor childbirth',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Three pillars for approaching the big day with more confidence.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Preparing in 3 steps',
+      'Your hospital bag',
+      'Writing your birth plan',
+      'Worth noting',
+      'What to remember',
+    ],
+    prepSteps: [
+      'Childbirth preparation classes',
+      'Breathing and relaxation techniques',
+      'Hospital bag ready by month 8',
+    ],
+    body1:
+      'Childbirth preparation classes help you understand the stages of labor and the breathing techniques that will support you on the big day.',
+    body2:
+      'Packing your hospital bag by month 8 saves you last-minute stress. It usually includes:',
+    bagItems: [
+      'ID documents and your pregnancy record book',
+      'Comfortable clothing for you and the baby',
+      'Toiletries and postpartum pads',
+      'An outfit for the baby to go home in',
+    ],
+    birthPlanPoints: [
+      'Your preferences for managing pain',
+      'Who you’d like present during labor',
+      'Your expectations around skin-to-skin contact',
+    ],
+    neutralText:
+      'A simple birth plan helps you share your wishes with the medical team, while staying open-minded: the actual course of events can change depending on the situation.',
+    tipTitle: 'Good to know',
+    tipText:
+      'Preparing doesn’t mean controlling everything: it’s mainly about giving yourself the means to approach the big day with more confidence and less uncertainty.',
+    shareMessage: 'Preparing calmly for childbirth — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function ChildbirthPrepArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -83,7 +170,7 @@ export default function ChildbirthPrepArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Se préparer sereinement à l’accouchement — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -121,7 +208,7 @@ export default function ChildbirthPrepArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -130,7 +217,7 @@ export default function ChildbirthPrepArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -145,7 +232,7 @@ export default function ChildbirthPrepArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -163,19 +250,19 @@ export default function ChildbirthPrepArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>GROSSESSE • ACCOUCHEMENT</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Se préparer sereinement{`\n`}à l’accouchement
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -194,19 +281,13 @@ export default function ChildbirthPrepArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Trois piliers pour aborder le jour J avec plus de confiance.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Se préparer en 3 étapes',
-              'Le sac de maternité',
-              'Rédiger ton projet de naissance',
-              'À noter',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -222,37 +303,34 @@ export default function ChildbirthPrepArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Se préparer en 3 étapes</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Les cours de préparation à la naissance t’aident à comprendre les
-            étapes du travail et les techniques de respiration qui
-            t’accompagneront le jour J.
+            {content.body1}
           </Text>
 
           <View style={styles.daily}>
-            {PREP_STEPS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {PREP_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.prepSteps[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. Le sac de maternité</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Préparer ton sac de maternité dès le 8e mois t’évite le stress de
-            dernière minute. Il contient généralement :
+            {content.body2}
           </Text>
 
           <View style={styles.checkList}>
-            {BAG_ITEMS.map(item => (
+            {content.bagItems.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -265,10 +343,10 @@ export default function ChildbirthPrepArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. Rédiger ton projet de naissance</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.consultCard}>
-            {BIRTH_PLAN_POINTS.map(item => (
+            {content.birthPlanPoints.map(item => (
               <View key={item} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
@@ -283,7 +361,7 @@ export default function ChildbirthPrepArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>4. À noter</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.neutralBox}>
             <MaterialDesignIcons
@@ -293,13 +371,11 @@ export default function ChildbirthPrepArticleScreen({
             />
 
             <Text style={styles.neutralText}>
-              Un projet de naissance simple t’aide à exprimer tes souhaits à
-              l’équipe médicale, tout en restant ouverte : le déroulement réel
-              peut évoluer selon la situation.
+              {content.neutralText}
             </Text>
           </View>
 
-          <Text style={styles.h2}>5. À retenir</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -309,11 +385,9 @@ export default function ChildbirthPrepArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Se préparer ne veut pas dire tout contrôler : c’est surtout se
-                donner les moyens d’aborder le jour J avec plus de confiance
-                et moins d’incertitude.
+                {content.tipText}
               </Text>
             </View>
           </View>

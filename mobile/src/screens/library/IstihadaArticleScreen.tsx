@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,35 +38,148 @@ const ART = {
   observe: require('../../assets/images/library/flow-texture-creamy.png'),
 };
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const DIFFERENCES = [
-  ['calendar-clock-outline', 'Durée par rapport à ton cycle habituel'],
-  ['repeat-variant', 'Régularité ou caractère inhabituel du saignement'],
-  ['water-outline', 'Évolution du saignement dans le temps'],
-  ['clipboard-pulse-outline', 'Présence éventuelle d’une cause médicale connue'],
-] as const;
-
-const OBSERVE_TIPS = [
-  'Noter la date de début et, si possible, la durée habituelle de tes cycles',
-  'Observer si le saignement suit une évolution proche de tes règles précédentes',
-  'Ne pas te baser uniquement sur une seule journée isolée',
-  'Consigner ces observations si tu prévois de consulter un savant ou un professionnel de santé',
-];
-
-const DOUBT_STEPS = [
-  'Te référer à la durée et au rythme habituels de tes propres règles',
-  'Consulter un professionnel de santé si le saignement est inhabituel ou prolongé',
-  'Demander l’avis d’un savant ou d’une savante qualifiée pour la dimension religieuse',
-  'Garder à l’esprit qu’une réponse générale ne remplace pas un avis adapté à ta situation',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+//
+// RELIGIOUS CONTENT: "Istihâda" is kept untranslated in both languages
+// (it is an Islamic jurisprudence term, not a generic word for bleeding).
+// Every hedge ("généralement" / "generally", "selon les écoles
+// juridiques" / "according to the schools of jurisprudence", "parfois" /
+// "sometimes") and every scholarly-attribution phrase is preserved as-is
+// across languages — no ruling is stated more strongly in English than in
+// the French source.
+const CONTENT = {
+  fr: {
+    badge: 'ISTIHÂDA',
+    title: 'Comprendre l’Istihâda',
+    metaDuration: '7 min de lecture',
+    metaType: 'FAQ',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Distinguer un saignement irrégulier des règles habituelles, avec des repères généraux pour t’orienter.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que l’Istihâda ?',
+      'Pourquoi peut-elle être difficile à identifier ?',
+      'Les différences entre menstruation et Istihâda',
+      'Comment observer les saignements ?',
+      'Prière et jeûne pendant l’Istihâda',
+      'Que faire en cas de doute ?',
+      'À retenir',
+    ],
+    section1Body: 'L’Istihâda désigne un saignement qui survient en dehors du cycle menstruel habituel, ou qui se prolonge au-delà de la durée des règles reconnue par la tradition islamique. Contrairement aux règles (hayd) ou au nifas (saignement après l’accouchement), elle n’a pas le même statut rituel : elle est généralement considérée comme un saignement de nature différente, parfois lié à une cause médicale.',
+    note1Title: 'À noter',
+    note1Text: 'Ce contenu explique le concept de manière générale ; il ne permet pas de déterminer si un saignement précis correspond à une Istihâda dans ta situation personnelle.',
+    section2Body: 'Il peut être difficile de distinguer l’Istihâda des règles ou d’un cycle irrégulier, car les saignements peuvent parfois se ressembler, varier en intensité, ou se prolonger de façon inhabituelle. Cette difficulté est reconnue par les savants eux-mêmes, ce qui explique l’existence de plusieurs approches pour l’identifier.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Il est normal de ne pas savoir immédiatement à quoi correspond un saignement inhabituel ; ce doute est une situation courante, pas une erreur de ta part.',
+    section3Body: 'Certains éléments peuvent aider à orienter la réflexion, sans constituer des règles universelles, car les repères précis varient selon les écoles juridiques.',
+    differences: [
+      ['calendar-clock-outline', 'Durée par rapport à ton cycle habituel'],
+      ['repeat-variant', 'Régularité ou caractère inhabituel du saignement'],
+      ['water-outline', 'Évolution du saignement dans le temps'],
+      ['clipboard-pulse-outline', 'Présence éventuelle d’une cause médicale connue'],
+    ],
+    note2Title: 'À noter',
+    note2Text: 'Ces éléments sont des repères généraux et non des critères absolus : ils peuvent être interprétés différemment selon les savants et les écoles juridiques.',
+    section4Body: 'Prendre le temps d’observer ses saignements sur plusieurs jours, sans précipitation, aide à mieux comprendre sa propre situation avant d’en tirer une conclusion.',
+    checkList1Title: 'Quelques repères pratiques',
+    observeTips: [
+      'Noter la date de début et, si possible, la durée habituelle de tes cycles',
+      'Observer si le saignement suit une évolution proche de tes règles précédentes',
+      'Ne pas te baser uniquement sur une seule journée isolée',
+      'Consigner ces observations si tu prévois de consulter un savant ou un professionnel de santé',
+    ],
+    section5Body: 'Dans le cas de l’Istihâda, la prière et le jeûne restent généralement obligatoires, à la différence des règles. Des précautions d’hygiène (comme des protections adaptées) sont alors recommandées pour permettre la pratique du culte, selon les modalités enseignées par les différentes écoles juridiques.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Les précautions précises (comme le renouvellement des ablutions) peuvent varier selon l’école juridique suivie ; se référer à l’avis habituellement suivi ou à un savant qualifié aide à les appliquer correctement.',
+    section6Body: 'Un doute persistant sur la nature d’un saignement est une situation fréquente, qui ne doit pas être source d’inquiétude excessive.',
+    doubtSteps: [
+      'Te référer à la durée et au rythme habituels de tes propres règles',
+      'Consulter un professionnel de santé si le saignement est inhabituel ou prolongé',
+      'Demander l’avis d’un savant ou d’une savante qualifiée pour la dimension religieuse',
+      'Garder à l’esprit qu’une réponse générale ne remplace pas un avis adapté à ta situation',
+    ],
+    alert2Title: 'Information importante',
+    alert2Text: 'Ce contenu reste éducatif et général : il ne constitue pas une fatwa ni une décision religieuse individuelle. Pour toute situation personnelle, en particulier en cas de doute prolongé, l’avis d’un savant qualifié reste la référence.',
+    tip3Title: 'Bon à savoir',
+    tip3Text: 'L’Istihâda est un concept qui distingue un saignement inhabituel des règles ou du nifas, avec des implications spécifiques sur la prière et le jeûne. En cas de doute, l’observation attentive et l’avis d’un savant qualifié restent les meilleures ressources.',
+    shareMessage: 'Comprendre l’Istihâda — AWA',
+  },
+  en: {
+    badge: 'ISTIHÂDA',
+    title: 'Understanding Istihâda',
+    metaDuration: '7 min read',
+    metaType: 'FAQ',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'Distinguishing irregular bleeding from your usual period, with general markers to help guide you.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is Istihâda?',
+      'Why can it be difficult to identify?',
+      'Differences between menstruation and Istihâda',
+      'How to observe the bleeding?',
+      'Prayer and fasting during Istihâda',
+      'What to do in case of doubt?',
+      'Key takeaways',
+    ],
+    section1Body: 'Istihâda refers to bleeding that occurs outside the usual menstrual cycle, or that continues beyond the duration of menstruation recognized by Islamic tradition. Unlike menstruation (hayd) or nifas (bleeding after childbirth), it does not have the same ritual status: it is generally considered to be bleeding of a different nature, sometimes linked to a medical cause.',
+    note1Title: 'Please note',
+    note1Text: 'This content explains the concept in general terms; it does not allow you to determine whether a specific instance of bleeding corresponds to Istihâda in your personal situation.',
+    section2Body: 'It can be difficult to distinguish Istihâda from menstruation or an irregular cycle, because the bleeding can sometimes look similar, vary in intensity, or continue in an unusual way. This difficulty is recognized by scholars themselves, which explains why several approaches exist to identify it.',
+    tip1Title: 'Good to know',
+    tip1Text: 'It is normal not to know right away what unusual bleeding corresponds to; this uncertainty is a common situation, not a mistake on your part.',
+    section3Body: 'Certain elements can help guide your thinking, without being universal rules, since the precise markers vary according to the schools of jurisprudence.',
+    differences: [
+      ['calendar-clock-outline', 'Duration compared to your usual cycle'],
+      ['repeat-variant', 'Regularity or unusual nature of the bleeding'],
+      ['water-outline', 'How the bleeding evolves over time'],
+      ['clipboard-pulse-outline', 'Possible presence of a known medical cause'],
+    ],
+    note2Title: 'Please note',
+    note2Text: 'These elements are general markers, not absolute criteria: they may be interpreted differently by scholars and schools of jurisprudence.',
+    section4Body: 'Taking the time to observe your bleeding over several days, without rushing, helps you better understand your own situation before drawing a conclusion.',
+    checkList1Title: 'Some practical pointers',
+    observeTips: [
+      'Note the start date and, if possible, the usual length of your cycles',
+      'Observe whether the bleeding follows a pattern close to your previous periods',
+      'Do not rely on a single isolated day alone',
+      'Record these observations if you plan to consult a scholar or a healthcare professional',
+    ],
+    section5Body: 'In the case of Istihâda, prayer and fasting generally remain obligatory, unlike during menstruation. Hygiene precautions (such as suitable protection) are then recommended to allow worship to continue, according to the methods taught by the different schools of jurisprudence.',
+    tip2Title: 'Good to know',
+    tip2Text: 'The precise precautions (such as renewing ablutions) may vary depending on the school of jurisprudence followed; referring to the opinion you usually follow or to a qualified scholar helps you apply them correctly.',
+    section6Body: 'Persistent doubt about the nature of bleeding is a common situation, and should not be a source of excessive worry.',
+    doubtSteps: [
+      'Refer to the usual duration and rhythm of your own periods',
+      'Consult a healthcare professional if the bleeding is unusual or prolonged',
+      'Ask a qualified scholar for their opinion on the religious dimension',
+      'Keep in mind that a general answer does not replace guidance suited to your situation',
+    ],
+    alert2Title: 'Important information',
+    alert2Text: 'This content remains educational and general: it does not constitute a fatwa or an individual religious ruling. For any personal situation, especially in case of prolonged doubt, the opinion of a qualified scholar remains the reference.',
+    tip3Title: 'Good to know',
+    tip3Text: 'Istihâda is a concept that distinguishes unusual bleeding from menstruation or nifas, with specific implications for prayer and fasting. In case of doubt, careful observation and the opinion of a qualified scholar remain the best resources.',
+    shareMessage: 'Understanding Istihâda — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function IstihadaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -92,7 +206,7 @@ export default function IstihadaArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comprendre l’Istihâda — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -130,7 +244,7 @@ export default function IstihadaArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -139,7 +253,7 @@ export default function IstihadaArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -154,7 +268,7 @@ export default function IstihadaArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -172,17 +286,17 @@ export default function IstihadaArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>ISTIHÂDA</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>Comprendre l’Istihâda</Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -200,10 +314,7 @@ export default function IstihadaArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Distinguer un saignement irrégulier des règles habituelles, avec
-            des repères généraux pour t’orienter.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -213,23 +324,15 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que l’Istihâda ?',
-              'Pourquoi peut-elle être difficile à identifier ?',
-              'Les différences entre menstruation et Istihâda',
-              'Comment observer les saignements ?',
-              'Prière et jeûne pendant l’Istihâda',
-              'Que faire en cas de doute ?',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -245,17 +348,9 @@ export default function IstihadaArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que l’Istihâda ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            L’Istihâda désigne un saignement qui survient en dehors du cycle
-            menstruel habituel, ou qui se prolonge au-delà de la durée des
-            règles reconnue par la tradition islamique. Contrairement aux
-            règles (hayd) ou au nifas (saignement après l’accouchement),
-            elle n’a pas le même statut rituel : elle est généralement
-            considérée comme un saignement de nature différente, parfois
-            lié à une cause médicale.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -265,27 +360,14 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
-              <Text style={styles.tipText}>
-                Ce contenu explique le concept de manière générale ; il ne
-                permet pas de déterminer si un saignement précis correspond
-                à une Istihâda dans ta situation personnelle.
-              </Text>
+              <Text style={styles.tipTitle}>{content.note1Title}</Text>
+              <Text style={styles.tipText}>{content.note1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>
-            2. Pourquoi peut-elle être difficile à identifier ?
-          </Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Il peut être difficile de distinguer l’Istihâda des règles ou
-            d’un cycle irrégulier, car les saignements peuvent parfois se
-            ressembler, varier en intensité, ou se prolonger de façon
-            inhabituelle. Cette difficulté est reconnue par les savants
-            eux-mêmes, ce qui explique l’existence de plusieurs approches
-            pour l’identifier.
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -295,27 +377,17 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Il est normal de ne pas savoir immédiatement à quoi
-                correspond un saignement inhabituel ; ce doute est une
-                situation courante, pas une erreur de ta part.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>
-            3. Les différences entre menstruation et Istihâda
-          </Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Certains éléments peuvent aider à orienter la réflexion, sans
-            constituer des règles universelles, car les repères précis
-            varient selon les écoles juridiques.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.daily}>
-            {DIFFERENCES.map(([icon, label]) => (
+            {content.differences.map(([icon, label]) => (
               <View key={label} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
@@ -336,22 +408,14 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
-              <Text style={styles.tipText}>
-                Ces éléments sont des repères généraux et non des critères
-                absolus : ils peuvent être interprétés différemment selon
-                les savants et les écoles juridiques.
-              </Text>
+              <Text style={styles.tipTitle}>{content.note2Title}</Text>
+              <Text style={styles.tipText}>{content.note2Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. Comment observer les saignements ?</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Prendre le temps d’observer ses saignements sur plusieurs jours,
-            sans précipitation, aide à mieux comprendre sa propre situation
-            avant d’en tirer une conclusion.
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           <Image
             source={ART.observe}
@@ -360,9 +424,9 @@ export default function IstihadaArticleScreen({
           />
 
           <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>Quelques repères pratiques</Text>
+            <Text style={styles.checkListTitle}>{content.checkList1Title}</Text>
 
-            {OBSERVE_TIPS.map(item => (
+            {content.observeTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -375,15 +439,9 @@ export default function IstihadaArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>5. Prière et jeûne pendant l’Istihâda</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Dans le cas de l’Istihâda, la prière et le jeûne restent
-            généralement obligatoires, à la différence des règles. Des
-            précautions d’hygiène (comme des protections adaptées) sont
-            alors recommandées pour permettre la pratique du culte, selon
-            les modalités enseignées par les différentes écoles juridiques.
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -393,26 +451,17 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Les précautions précises (comme le renouvellement des
-                ablutions) peuvent varier selon l’école juridique suivie ;
-                se référer à l’avis habituellement suivi ou à un savant
-                qualifié aide à les appliquer correctement.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+              <Text style={styles.tipText}>{content.tip2Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Que faire en cas de doute ?</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
-          <Text style={styles.body}>
-            Un doute persistant sur la nature d’un saignement est une
-            situation fréquente, qui ne doit pas être source d’inquiétude
-            excessive.
-          </Text>
+          <Text style={styles.body}>{content.section6Body}</Text>
 
           <View style={styles.checkList}>
-            {DOUBT_STEPS.map(item => (
+            {content.doubtSteps.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -433,17 +482,12 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>
-                Ce contenu reste éducatif et général : il ne constitue pas
-                une fatwa ni une décision religieuse individuelle. Pour
-                toute situation personnelle, en particulier en cas de doute
-                prolongé, l’avis d’un savant qualifié reste la référence.
-              </Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
+              <Text style={styles.tipText}>{content.alert2Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>7. À retenir</Text>
+          <Text style={styles.h2}>7. {content.topics[6]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -453,14 +497,8 @@ export default function IstihadaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                L’Istihâda est un concept qui distingue un saignement
-                inhabituel des règles ou du nifas, avec des implications
-                spécifiques sur la prière et le jeûne. En cas de doute,
-                l’observation attentive et l’avis d’un savant qualifié
-                restent les meilleures ressources.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
+              <Text style={styles.tipText}>{content.tip3Text}</Text>
             </View>
           </View>
         </View>

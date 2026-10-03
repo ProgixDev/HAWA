@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,59 +34,228 @@ const ID = 'hotflashes-bouffees-de-chaleur';
 
 const HERO = require('../../assets/images/library/tip-heat.png');
 
-const TRIGGERS = [
-  'La caféine et l’alcool',
-  'Les plats épicés',
-  'Le stress et les émotions fortes',
-  'Une pièce surchauffée ou des vêtements trop couvrants',
-];
-
-const DAILY_HABITS = [
-  ['tshirt-crew-outline', 'S’habiller en plusieurs couches légères'],
-  ['weather-windy', 'Garder un espace frais et bien aéré'],
-  ['meditation', 'Pratiquer une respiration lente en cas de bouffée'],
-  ['cup-water', 'Boire de l’eau fraîche régulièrement'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const DAILY_ICONS = [
+  'tshirt-crew-outline',
+  'weather-windy',
+  'meditation',
+  'cup-water',
 ] as const;
 
-const CONSULT_REASONS = [
-  {
-    icon: 'sleep',
-    title: 'Quand le sommeil est perturbé',
-    text: 'Des bouffées ou des sueurs nocturnes fréquentes qui provoquent des réveils répétés, une fatigue importante ou des difficultés à fonctionner normalement dans la journée.',
-  },
-  {
-    icon: 'briefcase-outline',
-    title: 'Quand le quotidien devient difficile',
-    text: 'Si les bouffées de chaleur gênent ton travail, tes activités, tes déplacements, tes relations sociales ou simplement ton confort au quotidien.',
-  },
-  {
-    icon: 'chart-line',
-    title: 'Quand les symptômes deviennent plus fréquents',
-    text: 'Une augmentation nette de la fréquence ou de l’intensité des symptômes mérite d’être discutée afin de rechercher les solutions les plus adaptées.',
-  },
-  {
-    icon: 'medical-bag',
-    title: 'Si tu souhaites un traitement',
-    text: 'Des options hormonales et non hormonales peuvent être proposées selon la situation. Un professionnel peut t’aider à évaluer leurs bénéfices, leurs risques et leurs éventuelles contre-indications.',
-  },
-];
+const CONSULT_ICONS = ['sleep', 'briefcase-outline', 'chart-line', 'medical-bag'] as const;
 
-const EMERGENCY_SIGNS = [
-  'Une douleur thoracique inhabituelle ou importante',
-  'Un essoufflement soudain ou une difficulté importante à respirer',
-  'Un malaise ou une perte de connaissance',
-  'Une faiblesse brutale, un trouble de la parole ou de la vision',
-  'Un gonflement douloureux et inhabituel d’une jambe',
-];
-
-const APPOINTMENT_QUESTIONS = [
-  'À quelle fréquence les bouffées surviennent-elles ?',
-  'Depuis combien de temps sont-elles présentes ?',
-  'Surviennent-elles plutôt le jour, la nuit ou les deux ?',
-  'Perturbent-elles ton sommeil ou tes activités ?',
-  'As-tu identifié certains déclencheurs ?',
-  'Prends-tu actuellement un traitement ou une contraception hormonale ?',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'BOUFFÉES DE CHALEUR',
+    title: 'Apprivoiser les\nbouffées de chaleur',
+    metaDuration: '10 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi elles surviennent, comment identifier tes déclencheurs et quelles solutions peuvent aider lorsqu’elles deviennent gênantes.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi les bouffées de chaleur surviennent',
+      'Les sueurs nocturnes',
+      'Les déclencheurs courants',
+      'Des gestes qui aident au quotidien',
+      'Quand en parler à un professionnel',
+      'À retenir',
+    ],
+    section1Body1: 'Les bouffées de chaleur sont très fréquentes pendant la transition vers la ménopause. Elles sont liées notamment aux variations hormonales qui modifient la façon dont le cerveau régule la température du corps.',
+    section1Body2: 'Une petite variation de la température corporelle peut alors être ressentie comme une chaleur soudaine. Le corps réagit en dilatant les vaisseaux sanguins de la peau, ce qui peut provoquer une sensation de chaleur, des rougeurs et parfois une transpiration importante.',
+    highlight1Title: 'Chaque personne est différente',
+    highlight1Text: 'Certaines femmes ressentent quelques épisodes par semaine, tandis que d’autres peuvent en avoir plusieurs par jour. L’intensité et la durée peuvent également varier.',
+    section2Body1: 'Lorsqu’elles surviennent pendant le sommeil, les bouffées de chaleur peuvent provoquer des sueurs nocturnes. Elles peuvent entraîner plusieurs réveils et rendre le sommeil moins réparateur.',
+    section2Body2: 'Le manque de sommeil peut ensuite accentuer la fatigue, les difficultés de concentration et l’irritabilité pendant la journée. Il peut donc être utile de prendre en compte la qualité du sommeil lorsque tu évalues l’impact des symptômes.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Un pyjama en matière respirante, un linge de lit léger et une chambre suffisamment fraîche peuvent aider à limiter l’inconfort pendant la nuit.',
+    section3Body1: 'Certains facteurs peuvent déclencher ou accentuer une bouffée de chaleur. Ils ne provoquent pas forcément de symptômes chez tout le monde, mais les identifier peut aider à mieux comprendre ton propre fonctionnement.',
+    triggers: [
+      'La caféine et l’alcool',
+      'Les plats épicés',
+      'Le stress et les émotions fortes',
+      'Une pièce surchauffée ou des vêtements trop couvrants',
+    ],
+    tip2Title: 'Petit réflexe utile',
+    tip2Text: 'Pendant quelques semaines, note le moment où surviennent les bouffées, leur intensité et ce qui s’est passé juste avant. Cela peut t’aider à repérer des déclencheurs personnels.',
+    dailyHabits: [
+      'S’habiller en plusieurs couches légères',
+      'Garder un espace frais et bien aéré',
+      'Pratiquer une respiration lente en cas de bouffée',
+      'Boire de l’eau fraîche régulièrement',
+    ],
+    section4Body1: 'Ces mesures ne font pas disparaître systématiquement les bouffées, mais elles peuvent rendre les épisodes plus faciles à gérer et diminuer l’inconfort lorsqu’ils surviennent.',
+    section5Body1: 'Les bouffées de chaleur sont fréquentes pendant la périménopause et la ménopause. Cependant, tu n’as pas besoin de simplement les supporter si elles deviennent difficiles à vivre. Un médecin ou une sage-femme peut évaluer tes symptômes et discuter avec toi des différentes possibilités.',
+    whenAppointmentTitle: 'Quand prendre rendez-vous ?',
+    section5Body2: 'Une consultation peut être particulièrement utile lorsque les symptômes ont un impact important sur ton quotidien ou lorsque tu souhaites connaître les options disponibles.',
+    consultReasons: [
+      {
+        title: 'Quand le sommeil est perturbé',
+        text: 'Des bouffées ou des sueurs nocturnes fréquentes qui provoquent des réveils répétés, une fatigue importante ou des difficultés à fonctionner normalement dans la journée.',
+      },
+      {
+        title: 'Quand le quotidien devient difficile',
+        text: 'Si les bouffées de chaleur gênent ton travail, tes activités, tes déplacements, tes relations sociales ou simplement ton confort au quotidien.',
+      },
+      {
+        title: 'Quand les symptômes deviennent plus fréquents',
+        text: 'Une augmentation nette de la fréquence ou de l’intensité des symptômes mérite d’être discutée afin de rechercher les solutions les plus adaptées.',
+      },
+      {
+        title: 'Si tu souhaites un traitement',
+        text: 'Des options hormonales et non hormonales peuvent être proposées selon la situation. Un professionnel peut t’aider à évaluer leurs bénéfices, leurs risques et leurs éventuelles contre-indications.',
+      },
+    ],
+    notMenopauseTitle: 'Ne pas tout attribuer à la ménopause',
+    notMenopauseBody: 'Une bouffée de chaleur peut avoir différentes causes. Certains symptômes peuvent également être liés à un médicament, à une autre condition médicale ou à un changement important dans ton état de santé. Si quelque chose te semble inhabituel, nouveau ou particulièrement intense, il est préférable d’en parler à un professionnel plutôt que de supposer automatiquement qu’il s’agit de la ménopause.',
+    alertTitle: 'Consulter rapidement',
+    alertText: 'Une douleur thoracique, un essoufflement soudain, un malaise, une faiblesse brutale ou un gonflement douloureux inhabituel d’une jambe nécessitent un avis médical rapide.',
+    emergencySignsTitle: 'Quels signes doivent particulièrement attirer ton attention ?',
+    emergencySigns: [
+      'Une douleur thoracique inhabituelle ou importante',
+      'Un essoufflement soudain ou une difficulté importante à respirer',
+      'Un malaise ou une perte de connaissance',
+      'Une faiblesse brutale, un trouble de la parole ou de la vision',
+      'Un gonflement douloureux et inhabituel d’une jambe',
+    ],
+    solutionsTitle: 'Quelles solutions peuvent être proposées ?',
+    solutionsBody: 'Si les bouffées de chaleur sont suffisamment gênantes pour nécessiter une prise en charge, plusieurs approches peuvent être envisagées. Selon ta situation, le professionnel peut discuter de mesures liées au mode de vie, de traitements non hormonaux ou, lorsque cela est approprié, d’un traitement hormonal.',
+    highlight2Title: 'Un traitement se choisit au cas par cas',
+    highlight2Text: 'L’âge, les symptômes, les antécédents médicaux, les traitements en cours et les préférences personnelles peuvent influencer les options proposées.',
+    prepareTitle: 'Préparer ton rendez-vous',
+    prepareBody: 'Arriver avec quelques informations peut rendre la consultation plus utile. Tu peux noter pendant quelques jours ou semaines la fréquence des épisodes, leur intensité et leur impact sur ton sommeil ou tes activités.',
+    questionsTitle: 'Informations utiles à préparer',
+    appointmentQuestions: [
+      'À quelle fréquence les bouffées surviennent-elles ?',
+      'Depuis combien de temps sont-elles présentes ?',
+      'Surviennent-elles plutôt le jour, la nuit ou les deux ?',
+      'Perturbent-elles ton sommeil ou tes activités ?',
+      'As-tu identifié certains déclencheurs ?',
+      'Prends-tu actuellement un traitement ou une contraception hormonale ?',
+    ],
+    professionalTipText: 'Il n’est pas nécessaire d’attendre que les symptômes deviennent très importants pour en parler. Une consultation peut aussi servir simplement à comprendre ce qui se passe et à connaître les solutions disponibles.',
+    summaryTitle: 'L’essentiel',
+    summaryItems: [
+      'Les bouffées de chaleur sont fréquentes pendant la transition ménopausique.',
+      'Identifier tes déclencheurs peut t’aider à mieux gérer les épisodes.',
+      'Des habitudes simples peuvent réduire l’inconfort au quotidien.',
+      'Si les symptômes perturbent ton sommeil ou ta vie quotidienne, parle-en à un professionnel.',
+      'Plusieurs options de prise en charge peuvent être discutées selon ta situation.',
+    ],
+    finalTipText: 'Les bouffées de chaleur sont courantes, mais elles ne doivent pas être minimisées lorsqu’elles affectent ton sommeil, ton travail ou ton bien-être. Observer tes symptômes et en parler à un professionnel permet de mieux comprendre leur origine et d’explorer les solutions adaptées.',
+    disclaimerText: 'Cet article a une vocation informative et ne remplace pas un avis médical personnalisé.',
+    shareMessage: 'Apprivoiser les bouffées de chaleur — AWA',
+  },
+  en: {
+    badge: 'HOT FLASHES',
+    title: 'Taming\nhot flashes',
+    metaDuration: '10 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Why they happen, how to identify your triggers, and what solutions may help when they become bothersome.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why hot flashes happen',
+      'Night sweats',
+      'Common triggers',
+      'Everyday habits that help',
+      'When to talk to a professional',
+      'Key takeaways',
+    ],
+    section1Body1: 'Hot flashes are very common during the transition to menopause. They’re linked in part to hormonal changes that affect how the brain regulates body temperature.',
+    section1Body2: 'A small shift in body temperature can then feel like sudden heat. The body responds by dilating the blood vessels in the skin, which can cause a sensation of heat, flushing, and sometimes heavy sweating.',
+    highlight1Title: 'Every person is different',
+    highlight1Text: 'Some women experience a few episodes a week, while others may have several a day. Intensity and duration can also vary.',
+    section2Body1: 'When they happen during sleep, hot flashes can cause night sweats. They can lead to repeated waking and make sleep less restful.',
+    section2Body2: 'Lack of sleep can then increase fatigue, difficulty concentrating, and irritability during the day. It can therefore be helpful to factor sleep quality into how you assess the impact of your symptoms.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Breathable pajamas, light bedding, and a sufficiently cool bedroom can help limit discomfort at night.',
+    section3Body1: 'Certain factors can trigger or intensify a hot flash. They don’t necessarily cause symptoms in everyone, but identifying them can help you better understand your own patterns.',
+    triggers: [
+      'Caffeine and alcohol',
+      'Spicy foods',
+      'Stress and strong emotions',
+      'An overheated room or clothing that’s too heavy',
+    ],
+    tip2Title: 'A helpful little habit',
+    tip2Text: 'For a few weeks, note when your hot flashes happen, how intense they are, and what happened right before. This can help you spot your personal triggers.',
+    dailyHabits: [
+      'Dress in light layers',
+      'Keep your space cool and well-ventilated',
+      'Practice slow breathing during a hot flash',
+      'Drink cool water regularly',
+    ],
+    section4Body1: 'These measures won’t necessarily make hot flashes disappear, but they can make episodes easier to manage and reduce discomfort when they occur.',
+    section5Body1: 'Hot flashes are common during perimenopause and menopause. Still, you don’t have to simply put up with them if they become difficult to live with. A doctor or midwife can assess your symptoms and discuss the different options with you.',
+    whenAppointmentTitle: 'When should you make an appointment?',
+    section5Body2: 'A consultation can be especially helpful when symptoms have a significant impact on your daily life or when you’d like to know what options are available.',
+    consultReasons: [
+      {
+        title: 'When sleep is disrupted',
+        text: 'Frequent hot flashes or night sweats that cause repeated waking, significant fatigue, or difficulty functioning normally during the day.',
+      },
+      {
+        title: 'When daily life becomes difficult',
+        text: 'If hot flashes interfere with your work, activities, travel, social relationships, or simply your everyday comfort.',
+      },
+      {
+        title: 'When symptoms become more frequent',
+        text: 'A clear increase in the frequency or intensity of symptoms is worth discussing in order to find the most suitable solutions.',
+      },
+      {
+        title: 'If you’re considering treatment',
+        text: 'Hormonal and non-hormonal options may be offered depending on your situation. A professional can help you weigh their benefits, risks, and any possible contraindications.',
+      },
+    ],
+    notMenopauseTitle: 'Don’t attribute everything to menopause',
+    notMenopauseBody: 'A hot flash can have different causes. Some symptoms may also be related to a medication, another medical condition, or a significant change in your health. If something feels unusual, new, or especially intense, it’s best to talk to a professional rather than automatically assuming it’s menopause.',
+    alertTitle: 'Seek care promptly',
+    alertText: 'Chest pain, sudden shortness of breath, feeling faint, sudden weakness, or unusual painful swelling in one leg require prompt medical attention.',
+    emergencySignsTitle: 'Which signs deserve special attention?',
+    emergencySigns: [
+      'Unusual or severe chest pain',
+      'Sudden shortness of breath or significant difficulty breathing',
+      'Feeling faint or losing consciousness',
+      'Sudden weakness, or trouble speaking or seeing',
+      'Painful, unusual swelling in one leg',
+    ],
+    solutionsTitle: 'What solutions may be available?',
+    solutionsBody: 'If hot flashes are bothersome enough to need management, several approaches may be considered. Depending on your situation, the professional may discuss lifestyle measures, non-hormonal treatments, or, when appropriate, hormone therapy.',
+    highlight2Title: 'Treatment is chosen case by case',
+    highlight2Text: 'Age, symptoms, medical history, current treatments, and personal preferences can all influence the options offered.',
+    prepareTitle: 'Preparing for your appointment',
+    prepareBody: 'Arriving with a bit of information can make the consultation more useful. You can track, for a few days or weeks, how often episodes occur, how intense they are, and their impact on your sleep or activities.',
+    questionsTitle: 'Helpful information to prepare',
+    appointmentQuestions: [
+      'How often do your hot flashes happen?',
+      'How long have you been experiencing them?',
+      'Do they tend to happen during the day, at night, or both?',
+      'Do they disrupt your sleep or activities?',
+      'Have you identified any triggers?',
+      'Are you currently taking any medication or hormonal contraception?',
+    ],
+    professionalTipText: 'You don’t need to wait until symptoms become very severe before talking about them. A consultation can also simply help you understand what’s going on and learn about the solutions available.',
+    summaryTitle: 'The essentials',
+    summaryItems: [
+      'Hot flashes are common during the menopause transition.',
+      'Identifying your triggers can help you manage episodes better.',
+      'Simple habits can reduce everyday discomfort.',
+      'If symptoms disrupt your sleep or daily life, talk to a professional.',
+      'Several management options may be discussed depending on your situation.',
+    ],
+    finalTipText: 'Hot flashes are common, but they shouldn’t be dismissed when they affect your sleep, work, or well-being. Paying attention to your symptoms and talking to a professional can help you better understand their cause and explore suitable solutions.',
+    disclaimerText: 'This article is for informational purposes only and doesn’t replace personalized medical advice.',
+    shareMessage: 'Taming hot flashes — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -95,6 +265,9 @@ type Props = NativeStackScreenProps<
 export default function HotFlashesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -123,7 +296,7 @@ export default function HotFlashesArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Apprivoiser les bouffées de chaleur — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -175,7 +348,7 @@ export default function HotFlashesArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -191,7 +364,7 @@ export default function HotFlashesArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -210,7 +383,7 @@ export default function HotFlashesArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -233,27 +406,27 @@ export default function HotFlashesArticleScreen({
 
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              BOUFFÉES DE CHALEUR
+              {content.badge}
             </Text>
           </View>
 
           {/* TITLE */}
 
           <Text style={styles.title}>
-            Apprivoiser les{'\n'}bouffées de chaleur
+            {content.title}
           </Text>
 
           {/* METADATA */}
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '10 min de lecture'],
+              ['clock-outline', content.metaDuration],
               [
                 'book-open-page-variant-outline',
-                'Article',
+                content.metaType,
               ],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? (
@@ -278,26 +451,17 @@ export default function HotFlashesArticleScreen({
           {/* INTRO */}
 
           <Text style={styles.intro}>
-            Pourquoi elles surviennent, comment identifier
-            tes déclencheurs et quelles solutions peuvent
-            aider lorsqu’elles deviennent gênantes.
+            {content.intro}
           </Text>
 
           {/* TABLE OF CONTENTS */}
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Pourquoi les bouffées de chaleur surviennent',
-              'Les sueurs nocturnes',
-              'Les déclencheurs courants',
-              'Des gestes qui aident au quotidien',
-              'Quand en parler à un professionnel',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -323,24 +487,15 @@ export default function HotFlashesArticleScreen({
           {/* SECTION 1 */}
 
           <Text style={styles.h2}>
-            1. Pourquoi les bouffées de chaleur surviennent
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Les bouffées de chaleur sont très fréquentes
-            pendant la transition vers la ménopause. Elles
-            sont liées notamment aux variations hormonales
-            qui modifient la façon dont le cerveau régule la
-            température du corps.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            Une petite variation de la température corporelle
-            peut alors être ressentie comme une chaleur
-            soudaine. Le corps réagit en dilatant les
-            vaisseaux sanguins de la peau, ce qui peut
-            provoquer une sensation de chaleur, des rougeurs
-            et parfois une transpiration importante.
+            {content.section1Body2}
           </Text>
 
           <View style={styles.highlight}>
@@ -352,15 +507,11 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Chaque personne est différente
+                {content.highlight1Title}
               </Text>
 
               <Text style={styles.highlightText}>
-                Certaines femmes ressentent quelques
-                épisodes par semaine, tandis que d’autres
-                peuvent en avoir plusieurs par jour.
-                L’intensité et la durée peuvent également
-                varier.
+                {content.highlight1Text}
               </Text>
             </View>
           </View>
@@ -368,22 +519,15 @@ export default function HotFlashesArticleScreen({
           {/* SECTION 2 */}
 
           <Text style={styles.h2}>
-            2. Les sueurs nocturnes
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Lorsqu’elles surviennent pendant le sommeil, les
-            bouffées de chaleur peuvent provoquer des sueurs
-            nocturnes. Elles peuvent entraîner plusieurs
-            réveils et rendre le sommeil moins réparateur.
+            {content.section2Body1}
           </Text>
 
           <Text style={styles.body}>
-            Le manque de sommeil peut ensuite accentuer la
-            fatigue, les difficultés de concentration et
-            l’irritabilité pendant la journée. Il peut donc
-            être utile de prendre en compte la qualité du
-            sommeil lorsque tu évalues l’impact des symptômes.
+            {content.section2Body2}
           </Text>
 
           <View style={styles.tip}>
@@ -395,14 +539,11 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Un pyjama en matière respirante, un linge de
-                lit léger et une chambre suffisamment fraîche
-                peuvent aider à limiter l’inconfort pendant
-                la nuit.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
@@ -410,19 +551,15 @@ export default function HotFlashesArticleScreen({
           {/* SECTION 3 */}
 
           <Text style={styles.h2}>
-            3. Les déclencheurs courants
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Certains facteurs peuvent déclencher ou accentuer
-            une bouffée de chaleur. Ils ne provoquent pas
-            forcément de symptômes chez tout le monde, mais
-            les identifier peut aider à mieux comprendre ton
-            propre fonctionnement.
+            {content.section3Body1}
           </Text>
 
           <View style={styles.checkList}>
-            {TRIGGERS.map(item => (
+            {content.triggers.map(item => (
               <View
                 key={item}
                 style={styles.checkRow}>
@@ -448,14 +585,11 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Petit réflexe utile
+                {content.tip2Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Pendant quelques semaines, note le moment où
-                surviennent les bouffées, leur intensité et
-                ce qui s’est passé juste avant. Cela peut
-                t’aider à repérer des déclencheurs personnels.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
@@ -463,16 +597,16 @@ export default function HotFlashesArticleScreen({
           {/* SECTION 4 */}
 
           <Text style={styles.h2}>
-            4. Des gestes qui aident au quotidien
+            4. {content.topics[3]}
           </Text>
 
           <View style={styles.daily}>
-            {DAILY_HABITS.map(([icon, label]) => (
+            {content.dailyHabits.map((label, index) => (
               <View
                 key={label}
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
-                  name={icon as never}
+                  name={DAILY_ICONS[index] as never}
                   color={theme.colors.primary}
                   size={25}
                 />
@@ -485,46 +619,35 @@ export default function HotFlashesArticleScreen({
           </View>
 
           <Text style={styles.body}>
-            Ces mesures ne font pas disparaître
-            systématiquement les bouffées, mais elles peuvent
-            rendre les épisodes plus faciles à gérer et
-            diminuer l’inconfort lorsqu’ils surviennent.
+            {content.section4Body1}
           </Text>
 
           {/* SECTION 5 */}
 
           <Text style={styles.h2}>
-            5. Quand en parler à un professionnel
+            5. {content.topics[4]}
           </Text>
 
           <Text style={styles.body}>
-            Les bouffées de chaleur sont fréquentes pendant la
-            périménopause et la ménopause. Cependant, tu n’as
-            pas besoin de simplement les supporter si elles
-            deviennent difficiles à vivre. Un médecin ou une
-            sage-femme peut évaluer tes symptômes et discuter
-            avec toi des différentes possibilités.
+            {content.section5Body1}
           </Text>
 
           <Text style={styles.h3}>
-            Quand prendre rendez-vous ?
+            {content.whenAppointmentTitle}
           </Text>
 
           <Text style={styles.body}>
-            Une consultation peut être particulièrement utile
-            lorsque les symptômes ont un impact important sur
-            ton quotidien ou lorsque tu souhaites connaître
-            les options disponibles.
+            {content.section5Body2}
           </Text>
 
           <View style={styles.consultList}>
-            {CONSULT_REASONS.map(item => (
+            {content.consultReasons.map((item, index) => (
               <View
                 key={item.title}
                 style={styles.consultCard}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={CONSULT_ICONS[index] as never}
                     size={21}
                     color={theme.colors.primary}
                   />
@@ -544,19 +667,11 @@ export default function HotFlashesArticleScreen({
           </View>
 
           <Text style={styles.h3}>
-            Ne pas tout attribuer à la ménopause
+            {content.notMenopauseTitle}
           </Text>
 
           <Text style={styles.body}>
-            Une bouffée de chaleur peut avoir différentes
-            causes. Certains symptômes peuvent également être
-            liés à un médicament, à une autre condition
-            médicale ou à un changement important dans ton
-            état de santé. Si quelque chose te semble
-            inhabituel, nouveau ou particulièrement intense,
-            il est préférable d’en parler à un professionnel
-            plutôt que de supposer automatiquement qu’il
-            s’agit de la ménopause.
+            {content.notMenopauseBody}
           </Text>
 
           {/* ALERT */}
@@ -570,25 +685,21 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Consulter rapidement
+                {content.alertTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Une douleur thoracique, un essoufflement
-                soudain, un malaise, une faiblesse brutale ou
-                un gonflement douloureux inhabituel d’une
-                jambe nécessitent un avis médical rapide.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h3}>
-            Quels signes doivent particulièrement attirer ton
-            attention ?
+            {content.emergencySignsTitle}
           </Text>
 
           <View style={styles.warningList}>
-            {EMERGENCY_SIGNS.map(item => (
+            {content.emergencySigns.map(item => (
               <View
                 key={item}
                 style={styles.warningRow}>
@@ -606,17 +717,11 @@ export default function HotFlashesArticleScreen({
           </View>
 
           <Text style={styles.h3}>
-            Quelles solutions peuvent être proposées ?
+            {content.solutionsTitle}
           </Text>
 
           <Text style={styles.body}>
-            Si les bouffées de chaleur sont suffisamment
-            gênantes pour nécessiter une prise en charge,
-            plusieurs approches peuvent être envisagées.
-            Selon ta situation, le professionnel peut discuter
-            de mesures liées au mode de vie, de traitements
-            non hormonaux ou, lorsque cela est approprié, d’un
-            traitement hormonal.
+            {content.solutionsBody}
           </Text>
 
           <View style={styles.highlight}>
@@ -628,28 +733,21 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Un traitement se choisit au cas par cas
+                {content.highlight2Title}
               </Text>
 
               <Text style={styles.highlightText}>
-                L’âge, les symptômes, les antécédents
-                médicaux, les traitements en cours et les
-                préférences personnelles peuvent influencer
-                les options proposées.
+                {content.highlight2Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h3}>
-            Préparer ton rendez-vous
+            {content.prepareTitle}
           </Text>
 
           <Text style={styles.body}>
-            Arriver avec quelques informations peut rendre la
-            consultation plus utile. Tu peux noter pendant
-            quelques jours ou semaines la fréquence des
-            épisodes, leur intensité et leur impact sur ton
-            sommeil ou tes activités.
+            {content.prepareBody}
           </Text>
 
           {/* QUESTIONS */}
@@ -663,11 +761,11 @@ export default function HotFlashesArticleScreen({
               />
 
               <Text style={styles.questionTitle}>
-                Informations utiles à préparer
+                {content.questionsTitle}
               </Text>
             </View>
 
-            {APPOINTMENT_QUESTIONS.map(
+            {content.appointmentQuestions.map(
               (item, index) => (
                 <View
                   key={item}
@@ -697,15 +795,11 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Il n’est pas nécessaire d’attendre que les
-                symptômes deviennent très importants pour en
-                parler. Une consultation peut aussi servir
-                simplement à comprendre ce qui se passe et à
-                connaître les solutions disponibles.
+                {content.professionalTipText}
               </Text>
             </View>
           </View>
@@ -713,7 +807,7 @@ export default function HotFlashesArticleScreen({
           {/* SECTION 6 */}
 
           <Text style={styles.h2}>
-            6. À retenir
+            6. {content.topics[5]}
           </Text>
 
           <View style={styles.summaryCard}>
@@ -725,74 +819,23 @@ export default function HotFlashesArticleScreen({
               />
 
               <Text style={styles.summaryTitle}>
-                L’essentiel
+                {content.summaryTitle}
               </Text>
             </View>
 
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
+            {content.summaryItems.map(item => (
+              <View key={item} style={styles.summaryItem}>
+                <MaterialDesignIcons
+                  name="check"
+                  size={18}
+                  color={theme.colors.success}
+                />
 
-              <Text style={styles.summaryText}>
-                Les bouffées de chaleur sont fréquentes
-                pendant la transition ménopausique.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Identifier tes déclencheurs peut t’aider à
-                mieux gérer les épisodes.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Des habitudes simples peuvent réduire
-                l’inconfort au quotidien.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Si les symptômes perturbent ton sommeil ou ta
-                vie quotidienne, parle-en à un professionnel.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Plusieurs options de prise en charge peuvent
-                être discutées selon ta situation.
-              </Text>
-            </View>
+                <Text style={styles.summaryText}>
+                  {item}
+                </Text>
+              </View>
+            ))}
           </View>
 
           {/* FINAL TIP */}
@@ -806,17 +849,11 @@ export default function HotFlashesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                À retenir
+                {content.topics[5]}
               </Text>
 
               <Text style={styles.tipText}>
-                Les bouffées de chaleur sont courantes, mais
-                elles ne doivent pas être minimisées lorsqu’elles
-                affectent ton sommeil, ton travail ou ton
-                bien-être. Observer tes symptômes et en parler
-                à un professionnel permet de mieux comprendre
-                leur origine et d’explorer les solutions
-                adaptées.
+                {content.finalTipText}
               </Text>
             </View>
           </View>
@@ -831,8 +868,7 @@ export default function HotFlashesArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Cet article a une vocation informative et ne
-              remplace pas un avis médical personnalisé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,17 +34,80 @@ const ID = 'conceptiontips-essayer-de-concevoir';
 
 const HERO = require('../../assets/images/library/featured-tracker.png');
 
-const RHYTHM_POINTS = [
-  'Pas besoin de te limiter au seul jour de l’ovulation',
-  'Un rythme régulier reste plus simple à maintenir qu’une planification stricte',
-  'Le bien-être du couple compte aussi pendant cette période',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'ESSAYER DE CONCEVOIR',
+    title: 'Essayer de concevoir :\npar où commencer',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Les repères essentiels pour démarrer sereinement ton parcours de conception.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Identifier sa fenêtre fertile',
+      'Le rythme des rapports',
+      'Combien de temps cela peut prendre',
+      'À retenir',
+    ],
+    body1: 'La première étape la plus utile consiste à identifier ta fenêtre fertile grâce à ton cycle : durée du cycle, signes physiques et, si tu le souhaites, des outils de suivi comme les tests d’ovulation ou la température basale.',
+    body2: 'Des rapports réguliers, tous les 2 à 3 jours, couvrent naturellement la période la plus fertile, sans nécessiter une planification trop rigide.',
+    rhythmPoints: [
+      'Pas besoin de te limiter au seul jour de l’ovulation',
+      'Un rythme régulier reste plus simple à maintenir qu’une planification stricte',
+      'Le bien-être du couple compte aussi pendant cette période',
+    ],
+    body3: 'La majorité des couples conçoivent dans les 12 mois suivant l’arrêt de la contraception. Ce délai varie selon de nombreux facteurs propres à chaque situation.',
+    alertTitle: 'À noter',
+    alertText: 'Au-delà de 12 mois (ou 6 mois après 35 ans), il est conseillé de consulter un professionnel de santé pour un bilan, sans que cela signifie nécessairement un problème.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Connaître son cycle, garder un rythme naturel et rester patiente sont les trois piliers d’un début de parcours serein.',
+    shareMessage: 'Essayer de concevoir : par où commencer — AWA',
+  },
+  en: {
+    badge: 'TRYING TO CONCEIVE',
+    title: 'Trying to conceive:\nwhere to start',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'The essential pointers to start your conception journey with confidence.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Identifying your fertile window',
+      'The rhythm of intercourse',
+      'How long it can take',
+      'Key takeaways',
+    ],
+    body1: 'The most useful first step is identifying your fertile window using your cycle: cycle length, physical signs, and, if you’d like, tracking tools such as ovulation tests or basal body temperature.',
+    body2: 'Having intercourse regularly, every 2 to 3 days, naturally covers your most fertile period without requiring overly rigid planning.',
+    rhythmPoints: [
+      'No need to limit yourself to the day of ovulation alone',
+      'A regular rhythm is easier to keep up than strict planning',
+      'The couple’s well-being matters too during this time',
+    ],
+    body3: 'Most couples conceive within 12 months of stopping contraception. This timeframe varies depending on many factors specific to each situation.',
+    alertTitle: 'Please note',
+    alertText: 'Beyond 12 months (or 6 months after age 35), it’s advisable to see a healthcare professional for a check-up, though this doesn’t necessarily mean there’s a problem.',
+    tipTitle: 'Good to know',
+    tipText: 'Knowing your cycle, keeping a natural rhythm, and staying patient are the three pillars of a calm start to this journey.',
+    shareMessage: 'Trying to conceive: where to start — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function ConceptionStartArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -70,7 +134,7 @@ export default function ConceptionStartArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Essayer de concevoir : par où commencer — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -108,7 +172,7 @@ export default function ConceptionStartArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -117,7 +181,7 @@ export default function ConceptionStartArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -132,7 +196,7 @@ export default function ConceptionStartArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -150,19 +214,19 @@ export default function ConceptionStartArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>ESSAYER DE CONCEVOIR</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Essayer de concevoir :{`\n`}par où commencer
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -181,19 +245,13 @@ export default function ConceptionStartArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Les repères essentiels pour démarrer sereinement ton parcours de
-            conception.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Identifier sa fenêtre fertile',
-              'Le rythme des rapports',
-              'Combien de temps cela peut prendre',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -209,25 +267,20 @@ export default function ConceptionStartArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Identifier sa fenêtre fertile</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            La première étape la plus utile consiste à identifier ta
-            fenêtre fertile grâce à ton cycle : durée du cycle, signes
-            physiques et, si tu le souhaites, des outils de suivi comme les
-            tests d’ovulation ou la température basale.
+            {content.body1}
           </Text>
 
-          <Text style={styles.h2}>2. Le rythme des rapports</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Des rapports réguliers, tous les 2 à 3 jours, couvrent
-            naturellement la période la plus fertile, sans nécessiter une
-            planification trop rigide.
+            {content.body2}
           </Text>
 
           <View style={styles.checkList}>
-            {RHYTHM_POINTS.map(item => (
+            {content.rhythmPoints.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -240,12 +293,10 @@ export default function ConceptionStartArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. Combien de temps cela peut prendre</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            La majorité des couples conçoivent dans les 12 mois suivant
-            l’arrêt de la contraception. Ce délai varie selon de nombreux
-            facteurs propres à chaque situation.
+            {content.body3}
           </Text>
 
           <View style={styles.alert}>
@@ -256,16 +307,14 @@ export default function ConceptionStartArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Au-delà de 12 mois (ou 6 mois après 35 ans), il est conseillé
-                de consulter un professionnel de santé pour un bilan, sans
-                que cela signifie nécessairement un problème.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -275,11 +324,9 @@ export default function ConceptionStartArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Connaître son cycle, garder un rythme naturel et rester
-                patiente sont les trois piliers d’un début de parcours
-                serein.
+                {content.tipText}
               </Text>
             </View>
           </View>

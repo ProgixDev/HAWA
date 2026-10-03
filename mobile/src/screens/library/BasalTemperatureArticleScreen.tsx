@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,48 +38,129 @@ const ID = 'basaltemp-suivre-temperature';
 
 const HERO = require('../../assets/images/library/featured-spm.png');
 
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const MEASURING_ICONS = ['thermometer', 'clock-outline', 'pencil-outline'] as const;
+
 /* -------------------------------------------------------------------------- */
 /* DATA                                                                       */
 /* -------------------------------------------------------------------------- */
 
-const MEASURING_TIPS = [
-  {
-    icon: 'thermometer',
-    title: 'Le même thermomètre',
-    text: 'Utilise toujours le même thermomètre, idéalement basal (plus précis au dixième de degré).',
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'FERTILITÉ • TEMPÉRATURE BASALE',
+    title: 'Suivre sa\ntempérature basale',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Une méthode simple pour confirmer, après coup, que l’ovulation a bien eu lieu.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que la température basale ?',
+      'Quand et comment la mesurer',
+      'Repérer la hausse après l’ovulation',
+      'Ce qui peut fausser une mesure',
+      'Les limites de cette méthode',
+      'Quand en parler à un professionnel',
+      'À retenir',
+    ],
+    section1Body: 'La température basale est la température de ton corps au repos complet, avant toute activité. Elle varie très légèrement au fil du cycle, sous l’influence de tes hormones.',
+    section2Body: 'Elle se mesure chaque matin, avant de te lever, toujours à la même heure et avec le même thermomètre.',
+    measuringTips: [
+      {title: 'Le même thermomètre', text: 'Utilise toujours le même thermomètre, idéalement basal (plus précis au dixième de degré).'},
+      {title: 'La même heure', text: 'Mesure à heure fixe, avant de te lever, après au moins 3 heures de sommeil ininterrompu.'},
+      {title: 'Noter aussitôt', text: 'Note la valeur immédiatement, avant même de te lever ou de parler.'},
+    ],
+    section3Body: 'La température basale augmente légèrement (0,2 à 0,5 °C) juste après l’ovulation, sous l’effet de la progestérone, et reste plus haute jusqu’aux règles suivantes.',
+    curveTitle: 'À quoi ressemble la courbe',
+    curveText: 'Plus basse en première partie de cycle, elle monte d’un cran après l’ovulation et s’y maintient — un profil qui ne devient lisible qu’après plusieurs jours de relevés.',
+    disruptingFactors: [
+      'Une nuit de sommeil courte ou agitée',
+      'Un réveil à une heure inhabituelle',
+      'De la fièvre ou une maladie',
+      'De l’alcool la veille au soir',
+      'Un décalage horaire récent',
+    ],
+    section5Body: 'Ce n’est pas une méthode prédictive mais confirmative : elle t’aide à mieux connaître ton propre cycle, une fois l’ovulation déjà passée — pas à l’anticiper.',
+    section5Caption: 'La observer seule sur un ou deux cycles ne suffit généralement pas : le profil se dessine avec la répétition.',
+    warningTitle: 'Bon à évoquer avec un professionnel',
+    consultSituations: [
+      'Aucune hausse de température ne se dessine sur plusieurs cycles complets',
+      'Les températures restent très irrégulières malgré une mesure rigoureuse',
+      'Tu as des questions sur ta fertilité que ce suivi seul ne peut pas résoudre',
+    ],
+    tipTitle: 'Bon à savoir',
+    tipText: 'Associer la température basale à l’observation de ta glaire cervicale ou à des tests d’ovulation donne une image plus complète de ton cycle.',
+    summaryPoints: [
+      'La température basale augmente légèrement (0,2 à 0,5 °C) juste après l’ovulation, sous l’effet de la progestérone.',
+      'Elle se mesure chaque matin, avant de se lever, toujours à la même heure et avec le même thermomètre.',
+      'Ce n’est pas une méthode prédictive mais confirmative : elle t’aide à mieux connaître ton propre cycle.',
+      'La combiner à d’autres signes (glaire cervicale, tests d’ovulation) donne une vision plus complète.',
+    ],
+    disclaimerText: 'Contenu informatif. Cet article ne remplace pas un avis médical personnalisé. En cas de doute, demande conseil à un professionnel de santé.',
+    shareMessage: 'Suivre sa température basale — AWA',
   },
-  {
-    icon: 'clock-outline',
-    title: 'La même heure',
-    text: 'Mesure à heure fixe, avant de te lever, après au moins 3 heures de sommeil ininterrompu.',
+  en: {
+    badge: 'FERTILITY • BASAL BODY TEMPERATURE',
+    title: 'Tracking your\nbasal body temperature',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'A simple method to confirm, after the fact, that ovulation has occurred.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is basal body temperature?',
+      'When and how to measure it',
+      'Spotting the rise after ovulation',
+      'What can skew a reading',
+      'The limits of this method',
+      'When to talk to a professional',
+      'Key takeaways',
+    ],
+    section1Body: 'Basal body temperature is the temperature of your body at complete rest, before any activity. It varies very slightly over the course of the cycle, under the influence of your hormones.',
+    section2Body: 'It’s measured every morning, before you get up, always at the same time and with the same thermometer.',
+    measuringTips: [
+      {title: 'The same thermometer', text: 'Always use the same thermometer, ideally a basal one (more precise, to a tenth of a degree).'},
+      {title: 'The same time', text: 'Measure at a fixed time, before getting up, after at least 3 hours of uninterrupted sleep.'},
+      {title: 'Write it down right away', text: 'Write down the reading immediately, before even getting up or speaking.'},
+    ],
+    section3Body: 'Basal body temperature rises slightly (0.2 to 0.5°C) just after ovulation, under the effect of progesterone, and stays higher until your next period.',
+    curveTitle: 'What the chart looks like',
+    curveText: 'Lower in the first part of the cycle, it steps up after ovulation and stays there — a pattern that only becomes clear after several days of readings.',
+    disruptingFactors: [
+      'A short or restless night’s sleep',
+      'Waking up at an unusual time',
+      'Fever or illness',
+      'Alcohol the night before',
+      'Recent jet lag',
+    ],
+    section5Body: 'This isn’t a predictive method but a confirmative one: it helps you better understand your own cycle, once ovulation has already happened — not to anticipate it.',
+    section5Caption: 'Observing it alone over one or two cycles usually isn’t enough: the pattern emerges with repetition.',
+    warningTitle: 'Worth mentioning to a professional',
+    consultSituations: [
+      'No temperature rise appears over several complete cycles',
+      'Temperatures stay very irregular despite careful measurement',
+      'You have questions about your fertility that this tracking alone can’t answer',
+    ],
+    tipTitle: 'Good to know',
+    tipText: 'Combining basal body temperature with observing your cervical mucus or ovulation tests gives a more complete picture of your cycle.',
+    summaryPoints: [
+      'Basal body temperature rises slightly (0.2 to 0.5°C) right after ovulation, under the effect of progesterone.',
+      'It’s measured every morning, before getting up, always at the same time and with the same thermometer.',
+      'This isn’t a predictive method but a confirmative one: it helps you better understand your own cycle.',
+      'Combining it with other signs (cervical mucus, ovulation tests) gives a more complete picture.',
+    ],
+    disclaimerText: 'Informational content. This article doesn’t replace personalized medical advice. If in doubt, ask a healthcare professional for guidance.',
+    shareMessage: 'Tracking basal body temperature — AWA',
   },
-  {
-    icon: 'pencil-outline',
-    title: 'Noter aussitôt',
-    text: 'Note la valeur immédiatement, avant même de te lever ou de parler.',
-  },
-] as const;
-
-const DISRUPTING_FACTORS = [
-  'Une nuit de sommeil courte ou agitée',
-  'Un réveil à une heure inhabituelle',
-  'De la fièvre ou une maladie',
-  'De l’alcool la veille au soir',
-  'Un décalage horaire récent',
-] as const;
-
-const CONSULT_SITUATIONS = [
-  'Aucune hausse de température ne se dessine sur plusieurs cycles complets',
-  'Les températures restent très irrégulières malgré une mesure rigoureuse',
-  'Tu as des questions sur ta fertilité que ce suivi seul ne peut pas résoudre',
-] as const;
-
-const SUMMARY_POINTS = [
-  'La température basale augmente légèrement (0,2 à 0,5 °C) juste après l’ovulation, sous l’effet de la progestérone.',
-  'Elle se mesure chaque matin, avant de se lever, toujours à la même heure et avec le même thermomètre.',
-  'Ce n’est pas une méthode prédictive mais confirmative : elle t’aide à mieux connaître ton propre cycle.',
-  'La combiner à d’autres signes (glaire cervicale, tests d’ovulation) donne une vision plus complète.',
-] as const;
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -93,6 +175,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function BasalTemperatureArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -120,7 +205,7 @@ export default function BasalTemperatureArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Suivre sa température basale — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -165,7 +250,7 @@ export default function BasalTemperatureArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -176,7 +261,7 @@ export default function BasalTemperatureArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -193,7 +278,7 @@ export default function BasalTemperatureArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -216,19 +301,17 @@ export default function BasalTemperatureArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>FERTILITÉ • TEMPÉRATURE BASALE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Suivre sa{`\n`}température basale
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -246,27 +329,16 @@ export default function BasalTemperatureArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Une méthode simple pour confirmer, après coup, que l’ovulation a
-            bien eu lieu.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que la température basale ?',
-              'Quand et comment la mesurer',
-              'Repérer la hausse après l’ovulation',
-              'Ce qui peut fausser une mesure',
-              'Les limites de cette méthode',
-              'Quand en parler à un professionnel',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -286,37 +358,30 @@ export default function BasalTemperatureArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Qu’est-ce que la température basale ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            La température basale est la température de ton corps au repos
-            complet, avant toute activité. Elle varie très légèrement au fil
-            du cycle, sous l’influence de tes hormones.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. Quand et comment la mesurer</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Elle se mesure chaque matin, avant de te lever, toujours à la
-            même heure et avec le même thermomètre.
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.comfortCard}>
-            {MEASURING_TIPS.map((item, index) => (
+            {content.measuringTips.map((item, index) => (
               <View
                 key={item.title}
                 style={[
                   styles.comfortRow,
-                  index < MEASURING_TIPS.length - 1 &&
+                  index < content.measuringTips.length - 1 &&
                     styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={MEASURING_ICONS[index] as never}
                     size={19}
                     color={theme.colors.primary}
                   />
@@ -334,13 +399,9 @@ export default function BasalTemperatureArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Repérer la hausse après l’ovulation</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            La température basale augmente légèrement (0,2 à 0,5 °C) juste
-            après l’ovulation, sous l’effet de la progestérone, et reste plus
-            haute jusqu’aux règles suivantes.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -350,12 +411,8 @@ export default function BasalTemperatureArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>À quoi ressemble la courbe</Text>
-              <Text style={styles.infoText}>
-                Plus basse en première partie de cycle, elle monte d’un cran
-                après l’ovulation et s’y maintient — un profil qui ne devient
-                lisible qu’après plusieurs jours de relevés.
-              </Text>
+              <Text style={styles.infoTitle}>{content.curveTitle}</Text>
+              <Text style={styles.infoText}>{content.curveText}</Text>
             </View>
           </View>
 
@@ -363,10 +420,10 @@ export default function BasalTemperatureArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Ce qui peut fausser une mesure</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.checkList}>
-            {DISRUPTING_FACTORS.map(item => (
+            {content.disruptingFactors.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="checkbox-blank-circle-outline"
@@ -383,24 +440,17 @@ export default function BasalTemperatureArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Les limites de cette méthode</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Ce n’est pas une méthode prédictive mais confirmative : elle
-            t’aide à mieux connaître ton propre cycle, une fois l’ovulation
-            déjà passée — pas à l’anticiper.
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
-          <Text style={styles.caption}>
-            La observer seule sur un ou deux cycles ne suffit généralement
-            pas : le profil se dessine avec la répétition.
-          </Text>
+          <Text style={styles.caption}>{content.section5Caption}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>6. Quand en parler à un professionnel</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.warningCard}>
             <View style={styles.warningHeader}>
@@ -411,11 +461,11 @@ export default function BasalTemperatureArticleScreen({
               />
 
               <Text style={[styles.warningTitle, styles.warningTitleNeutral]}>
-                Bon à évoquer avec un professionnel
+                {content.warningTitle}
               </Text>
             </View>
 
-            {CONSULT_SITUATIONS.map(item => (
+            {content.consultSituations.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -442,12 +492,8 @@ export default function BasalTemperatureArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Associer la température basale à l’observation de ta glaire
-                cervicale ou à des tests d’ovulation donne une image plus
-                complète de ton cycle.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -455,10 +501,10 @@ export default function BasalTemperatureArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[6]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -482,11 +528,7 @@ export default function BasalTemperatureArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical personnalisé. En cas de doute, demande conseil à un
-              professionnel de santé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

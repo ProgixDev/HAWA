@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,55 +34,162 @@ const ID = 'pcos-poids-metabolisme-insuline';
 
 const HERO = require('../../assets/images/library/popular-nutrition.png');
 
-const WEIGHT_FACTS = [
-  'Le SOPK touche des femmes de toutes corpulences, minces comme fortes.',
-  'La prise de poids n’est pas systématique.',
-  'Perdre du poids n’est pas toujours nécessaire ni suffisant pour améliorer les symptômes.',
-  'Une petite perte de poids peut parfois améliorer certains paramètres métaboliques ou la régularité du cycle lorsqu’un surpoids est présent.',
-];
-
-const DAILY_HABITS = [
-  ['bowl-mix-outline', 'Des repas réguliers et variés, riches en fibres'],
-  ['shoe-sneaker', 'Une activité physique régulière, même modérée'],
-  ['weather-night', 'Un sommeil suffisant et régulier'],
-  ['cup-water', 'Une hydratation suffisante au quotidien'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const DAILY_HABIT_ICONS = [
+  'bowl-mix-outline',
+  'shoe-sneaker',
+  'weather-night',
+  'cup-water',
 ] as const;
 
-const MEDICAL_FOLLOW_UP = [
-  [
-    'calendar-check-outline',
-    'Cycles très irréguliers',
-    'Signaler des règles très espacées ou imprévisibles.',
-  ],
-  [
-    'water-alert-outline',
-    'Soif ou urines fréquentes',
-    'En parler au médecin si ces signes apparaissent de façon inhabituelle.',
-  ],
-  [
-    'scale-bathroom',
-    'Variation importante du poids',
-    'Une évolution rapide ou inexpliquée mérite une évaluation.',
-  ],
-  [
-    'heart-pulse',
-    'Antécédents familiaux',
-    'Mentionner les antécédents de diabète ou de maladies métaboliques.',
-  ],
+const FOLLOW_UP_ICONS = [
+  'calendar-check-outline',
+  'water-alert-outline',
+  'scale-bathroom',
+  'heart-pulse',
 ] as const;
 
-const MEDICAL_CHECKS = [
-  'Glycémie et/ou HbA1c selon le contexte',
-  'Bilan lipidique (cholestérol et triglycérides)',
-  'Évaluation de la tension artérielle et du risque cardiovasculaire',
-  'Suivi du poids et du tour de taille sans jugement',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'SOPK',
+    title: 'Poids, métabolisme et\nrésistance à l’insuline',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Le lien entre SOPK, poids et résistance à l’insuline, sans jugement ni raccourci.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Le lien entre SOPK et métabolisme',
+      'Comprendre la résistance à l’insuline',
+      'Poids : ce qui est vrai et ce qui ne l’est pas',
+      'Des habitudes qui soutiennent l’équilibre',
+      'Quand un suivi médical est utile',
+      'À retenir',
+    ],
+    body1: 'Le SOPK est souvent associé à des changements métaboliques, notamment une résistance à l’insuline. Cette association ne concerne cependant pas uniquement les femmes en surpoids : le profil métabolique varie d’une personne à l’autre.',
+    body2: 'L’insuline est une hormone qui aide les cellules à utiliser le glucose présent dans le sang. En cas de résistance à l’insuline, les cellules répondent moins bien à cette hormone et l’organisme peut compenser en produisant davantage d’insuline.',
+    body3: 'Dans le SOPK, cette situation peut être associée à une augmentation de la production d’androgènes et contribuer à certains symptômes. Mais toutes les femmes atteintes de SOPK n’ont pas le même profil métabolique.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'La résistance à l’insuline peut être recherchée par un bilan biologique lorsque le médecin le juge pertinent. Le besoin d’examens dépend du contexte individuel.',
+    weightFacts: [
+      'Le SOPK touche des femmes de toutes corpulences, minces comme fortes.',
+      'La prise de poids n’est pas systématique.',
+      'Perdre du poids n’est pas toujours nécessaire ni suffisant pour améliorer les symptômes.',
+      'Une petite perte de poids peut parfois améliorer certains paramètres métaboliques ou la régularité du cycle lorsqu’un surpoids est présent.',
+    ],
+    body4: 'L’objectif n’est pas de rechercher un poids « parfait », mais de mettre en place des habitudes réalistes et durables. Une alimentation équilibrée, le mouvement et un sommeil régulier peuvent participer à une meilleure santé métabolique.',
+    dailyHabits: [
+      'Des repas réguliers et variés, riches en fibres',
+      'Une activité physique régulière, même modérée',
+      'Un sommeil suffisant et régulier',
+      'Une hydratation suffisante au quotidien',
+    ],
+    body5: 'Le suivi médical du SOPK ne se limite pas au cycle ou aux symptômes hormonaux. Selon ton profil, le professionnel de santé peut aussi surveiller certains paramètres métaboliques afin d’identifier précocement d’éventuels facteurs de risque.',
+    medicalTitle: 'Un suivi adapté à ton profil',
+    medicalSubtitle: 'Le bilan n’est pas identique pour tout le monde.',
+    medicalDescription: 'Le médecin peut décider de contrôler certains paramètres en fonction de tes symptômes, de tes antécédents, de ta situation familiale et des autres facteurs de risque.',
+    medicalSectionTitle: 'Ce qui peut être surveillé',
+    medicalChecks: [
+      'Glycémie et/ou HbA1c selon le contexte',
+      'Bilan lipidique (cholestérol et triglycérides)',
+      'Évaluation de la tension artérielle et du risque cardiovasculaire',
+      'Suivi du poids et du tour de taille sans jugement',
+    ],
+    subH3: 'Situations à signaler',
+    body6: 'Certains changements méritent d’être mentionnés lors d’une consultation, surtout lorsqu’ils sont nouveaux, persistants ou inhabituels pour toi.',
+    medicalFollowUp: [
+      {title: 'Cycles très irréguliers', description: 'Signaler des règles très espacées ou imprévisibles.'},
+      {title: 'Soif ou urines fréquentes', description: 'En parler au médecin si ces signes apparaissent de façon inhabituelle.'},
+      {title: 'Variation importante du poids', description: 'Une évolution rapide ou inexpliquée mérite une évaluation.'},
+      {title: 'Antécédents familiaux', description: 'Mentionner les antécédents de diabète ou de maladies métaboliques.'},
+    ],
+    alertTitle: 'À noter',
+    alertText: 'Une soif inhabituelle, des urines fréquentes, une fatigue persistante ou une variation importante et inexpliquée du poids doivent être signalées à un professionnel de santé. Ces signes peuvent avoir plusieurs causes et ne permettent pas, à eux seuls, de conclure à une résistance à l’insuline ou à un diabète.',
+    followUpTipTitle: 'Le suivi se fait dans le temps',
+    followUpTipText: 'Le médecin peut proposer un contrôle régulier plutôt qu’un bilan unique. L’objectif est d’adapter les conseils et les examens à ton évolution, sans se focaliser uniquement sur le poids.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Le poids n’est qu’une partie du tableau métabolique du SOPK. Une prise en charge globale tient compte des cycles, des symptômes, des habitudes de vie, des antécédents et des paramètres métaboliques.',
+    shareMessage: 'Poids, métabolisme et résistance à l’insuline — AWA',
+  },
+  en: {
+    badge: 'PCOS',
+    title: 'Weight, metabolism, and\ninsulin resistance',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'The link between PCOS, weight, and insulin resistance — without judgment or shortcuts.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The link between PCOS and metabolism',
+      'Understanding insulin resistance',
+      'Weight: what’s true and what isn’t',
+      'Habits that support balance',
+      'When medical follow-up is helpful',
+      'Key takeaways',
+    ],
+    body1: 'PCOS is often associated with metabolic changes, including insulin resistance. However, this association doesn’t concern only women who are overweight — metabolic profiles vary from person to person.',
+    body2: 'Insulin is a hormone that helps cells use the glucose in the blood. With insulin resistance, cells respond less well to this hormone, and the body may compensate by producing more insulin.',
+    body3: 'In PCOS, this can be associated with increased androgen production and may contribute to certain symptoms. But not all women with PCOS have the same metabolic profile.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Insulin resistance can be checked through blood tests when the doctor considers it relevant. Whether tests are needed depends on your individual situation.',
+    weightFacts: [
+      'PCOS affects women of all body types, from slim to heavier builds.',
+      'Weight gain isn’t systematic.',
+      'Losing weight isn’t always necessary — or enough on its own — to improve symptoms.',
+      'A small weight loss can sometimes improve certain metabolic markers or cycle regularity when excess weight is present.',
+    ],
+    body4: 'The goal isn’t to chase a “perfect” weight, but to build realistic, lasting habits. A balanced diet, movement, and regular sleep can all contribute to better metabolic health.',
+    dailyHabits: [
+      'Regular, varied meals rich in fiber',
+      'Regular physical activity, even if moderate',
+      'Enough regular sleep',
+      'Enough daily hydration',
+    ],
+    body5: 'Medical follow-up for PCOS isn’t limited to the cycle or hormonal symptoms. Depending on your profile, your healthcare provider may also monitor certain metabolic markers to help identify potential risk factors early.',
+    medicalTitle: 'Follow-up tailored to your profile',
+    medicalSubtitle: 'The workup isn’t the same for everyone.',
+    medicalDescription: 'Your doctor may decide to check certain markers based on your symptoms, your medical history, your family situation, and other risk factors.',
+    medicalSectionTitle: 'What may be monitored',
+    medicalChecks: [
+      'Blood glucose and/or HbA1c, depending on context',
+      'Lipid panel (cholesterol and triglycerides)',
+      'Blood pressure and cardiovascular risk assessment',
+      'Weight and waist circumference tracking, without judgment',
+    ],
+    subH3: 'Situations worth mentioning',
+    body6: 'Certain changes are worth mentioning during a consultation, especially when they’re new, persistent, or unusual for you.',
+    medicalFollowUp: [
+      {title: 'Very irregular cycles', description: 'Mention periods that are very spaced out or unpredictable.'},
+      {title: 'Thirst or frequent urination', description: 'Talk to your doctor if these signs appear in an unusual way.'},
+      {title: 'Significant weight change', description: 'A rapid or unexplained change is worth getting evaluated.'},
+      {title: 'Family history', description: 'Mention any family history of diabetes or metabolic conditions.'},
+    ],
+    alertTitle: 'Please note',
+    alertText: 'Unusual thirst, frequent urination, persistent fatigue, or a significant, unexplained change in weight should be reported to a healthcare professional. These signs can have several causes and don’t, on their own, confirm insulin resistance or diabetes.',
+    followUpTipTitle: 'Follow-up happens over time',
+    followUpTipText: 'Your doctor may suggest regular check-ups rather than a single workup. The goal is to adapt advice and tests to how you progress, without focusing solely on weight.',
+    tip2Title: 'Good to know',
+    tip2Text: 'Weight is only one part of the metabolic picture in PCOS. A comprehensive approach takes into account cycles, symptoms, lifestyle habits, medical history, and metabolic markers.',
+    shareMessage: 'Weight, metabolism, and insulin resistance — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PcosMetabolismArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -108,7 +216,7 @@ export default function PcosMetabolismArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Poids, métabolisme et résistance à l’insuline — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -148,7 +256,7 @@ export default function PcosMetabolismArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -164,7 +272,7 @@ export default function PcosMetabolismArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -179,7 +287,7 @@ export default function PcosMetabolismArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -197,19 +305,19 @@ export default function PcosMetabolismArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>SOPK</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Poids, métabolisme et{`\n`}résistance à l’insuline
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -228,21 +336,13 @@ export default function PcosMetabolismArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Le lien entre SOPK, poids et résistance à l’insuline, sans
-            jugement ni raccourci.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Le lien entre SOPK et métabolisme',
-              'Comprendre la résistance à l’insuline',
-              'Poids : ce qui est vrai et ce qui ne l’est pas',
-              'Des habitudes qui soutiennent l’équilibre',
-              'Quand un suivi médical est utile',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -259,32 +359,23 @@ export default function PcosMetabolismArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Le lien entre SOPK et métabolisme
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Le SOPK est souvent associé à des changements métaboliques,
-            notamment une résistance à l’insuline. Cette association ne
-            concerne cependant pas uniquement les femmes en surpoids : le
-            profil métabolique varie d’une personne à l’autre.
+            {content.body1}
           </Text>
 
           <Text style={styles.h2}>
-            2. Comprendre la résistance à l’insuline
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            L’insuline est une hormone qui aide les cellules à utiliser le
-            glucose présent dans le sang. En cas de résistance à l’insuline,
-            les cellules répondent moins bien à cette hormone et l’organisme
-            peut compenser en produisant davantage d’insuline.
+            {content.body2}
           </Text>
 
           <Text style={styles.body}>
-            Dans le SOPK, cette situation peut être associée à une
-            augmentation de la production d’androgènes et contribuer à
-            certains symptômes. Mais toutes les femmes atteintes de SOPK
-            n’ont pas le même profil métabolique.
+            {content.body3}
           </Text>
 
           <View style={styles.tip}>
@@ -295,22 +386,20 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
               <Text style={styles.tipText}>
-                La résistance à l’insuline peut être recherchée par un bilan
-                biologique lorsque le médecin le juge pertinent. Le besoin
-                d’examens dépend du contexte individuel.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            3. Poids : ce qui est vrai et ce qui ne l’est pas
+            3. {content.topics[2]}
           </Text>
 
           <View style={styles.checkList}>
-            {WEIGHT_FACTS.map(item => (
+            {content.weightFacts.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -324,19 +413,16 @@ export default function PcosMetabolismArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            4. Des habitudes qui soutiennent l’équilibre
+            4. {content.topics[3]}
           </Text>
 
           <Text style={styles.body}>
-            L’objectif n’est pas de rechercher un poids « parfait », mais de
-            mettre en place des habitudes réalistes et durables. Une
-            alimentation équilibrée, le mouvement et un sommeil régulier
-            peuvent participer à une meilleure santé métabolique.
+            {content.body4}
           </Text>
 
           <View style={styles.daily}>
-            {DAILY_HABITS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {DAILY_HABIT_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <View style={styles.dailyIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -345,20 +431,17 @@ export default function PcosMetabolismArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.dailyHabits[index]}</Text>
               </View>
             ))}
           </View>
 
           <Text style={styles.h2}>
-            5. Quand un suivi médical est utile
+            5. {content.topics[4]}
           </Text>
 
           <Text style={styles.body}>
-            Le suivi médical du SOPK ne se limite pas au cycle ou aux
-            symptômes hormonaux. Selon ton profil, le professionnel de santé
-            peut aussi surveiller certains paramètres métaboliques afin
-            d’identifier précocement d’éventuels facteurs de risque.
+            {content.body5}
           </Text>
 
           <View style={styles.medicalCard}>
@@ -373,27 +456,25 @@ export default function PcosMetabolismArticleScreen({
 
               <View style={styles.medicalHeaderCopy}>
                 <Text style={styles.medicalTitle}>
-                  Un suivi adapté à ton profil
+                  {content.medicalTitle}
                 </Text>
 
                 <Text style={styles.medicalSubtitle}>
-                  Le bilan n’est pas identique pour tout le monde.
+                  {content.medicalSubtitle}
                 </Text>
               </View>
             </View>
 
             <Text style={styles.medicalDescription}>
-              Le médecin peut décider de contrôler certains paramètres en
-              fonction de tes symptômes, de tes antécédents, de ta situation
-              familiale et des autres facteurs de risque.
+              {content.medicalDescription}
             </Text>
 
             <Text style={styles.medicalSectionTitle}>
-              Ce qui peut être surveillé
+              {content.medicalSectionTitle}
             </Text>
 
             <View style={styles.medicalChecks}>
-              {MEDICAL_CHECKS.map((item, index) => (
+              {content.medicalChecks.map((item, index) => (
                 <View key={item} style={styles.medicalCheckRow}>
                   <View style={styles.medicalCheckNumber}>
                     <Text style={styles.medicalCheckNumberText}>
@@ -407,17 +488,15 @@ export default function PcosMetabolismArticleScreen({
             </View>
           </View>
 
-          <Text style={styles.subH3}>Situations à signaler</Text>
+          <Text style={styles.subH3}>{content.subH3}</Text>
 
           <Text style={styles.body}>
-            Certains changements méritent d’être mentionnés lors d’une
-            consultation, surtout lorsqu’ils sont nouveaux, persistants ou
-            inhabituels pour toi.
+            {content.body6}
           </Text>
 
           <View style={styles.signalGrid}>
-            {MEDICAL_FOLLOW_UP.map(([icon, title, description]) => (
-              <View key={title} style={styles.signalCard}>
+            {FOLLOW_UP_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.signalCard}>
                 <View style={styles.signalIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -426,9 +505,13 @@ export default function PcosMetabolismArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.signalTitle}>{title}</Text>
+                <Text style={styles.signalTitle}>
+                  {content.medicalFollowUp[index].title}
+                </Text>
 
-                <Text style={styles.signalDescription}>{description}</Text>
+                <Text style={styles.signalDescription}>
+                  {content.medicalFollowUp[index].description}
+                </Text>
               </View>
             ))}
           </View>
@@ -441,15 +524,10 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
               <Text style={styles.tipText}>
-                Une soif inhabituelle, des urines fréquentes, une fatigue
-                persistante ou une variation importante et inexpliquée du
-                poids doivent être signalées à un professionnel de santé.
-                Ces signes peuvent avoir plusieurs causes et ne permettent
-                pas, à eux seuls, de conclure à une résistance à l’insuline
-                ou à un diabète.
+                {content.alertText}
               </Text>
             </View>
           </View>
@@ -463,19 +541,16 @@ export default function PcosMetabolismArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Le suivi se fait dans le temps
+                {content.followUpTipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Le médecin peut proposer un contrôle régulier plutôt qu’un
-                bilan unique. L’objectif est d’adapter les conseils et les
-                examens à ton évolution, sans se focaliser uniquement sur le
-                poids.
+                {content.followUpTipText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. À retenir</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -485,13 +560,10 @@ export default function PcosMetabolismArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
 
               <Text style={styles.tipText}>
-                Le poids n’est qu’une partie du tableau métabolique du SOPK.
-                Une prise en charge globale tient compte des cycles, des
-                symptômes, des habitudes de vie, des antécédents et des
-                paramètres métaboliques.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

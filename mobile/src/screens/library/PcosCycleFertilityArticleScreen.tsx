@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
 Image,
 Pressable,
@@ -33,36 +34,182 @@ const ID = 'pcos-cycle-ovulation-fertilite';
 
 const HERO = require('../../assets/images/library/featured-cycle.png');
 
-const TRACKING_TIPS = [
-'Noter la date du premier jour de chaque cycle, même lorsque les cycles sont très espacés',
-'Observer les changements de glaire cervicale au fil du cycle',
-'Noter d’éventuelles douleurs pelviennes ou autres signes pouvant accompagner l’ovulation',
-'Éviter de se baser uniquement sur une durée moyenne de 28 jours pour prédire l’ovulation',
-'Utiliser les tests d’ovulation avec prudence et, si besoin, demander conseil à un professionnel',
-'Partager les informations recueillies avec un professionnel de santé en cas de désir de grossesse',
-];
-
-const OVULATION_SIGNS = [
-'Modification de la glaire cervicale, qui peut devenir plus abondante, transparente et filante',
-'Légère douleur ou gêne pelvienne chez certaines femmes',
-'Variation de la température corporelle après l’ovulation',
-'Modification de la sensation d’humidité vaginale',
-'Éventuelle augmentation de la libido chez certaines femmes',
-];
-
-const FERTILITY_POINTS = [
-'Le SOPK n’entraîne pas automatiquement une infertilité',
-'La principale difficulté vient souvent d’une ovulation irrégulière ou imprévisible',
-'Une ovulation peut survenir même lorsque les cycles sont très longs',
-'Une prise en charge adaptée peut améliorer les chances de conception',
-'Le parcours de fertilité dépend de chaque personne et de nombreux autres facteurs',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'SOPK',
+    title: 'Cycle, ovulation\net fertilité dans le SOPK',
+    metaDuration: '8 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Avec le SOPK, le cycle peut devenir long, irrégulier et parfois difficile à prévoir. Comprendre ce qui se passe autour de l’ovulation permet de mieux interpréter son cycle et de mieux comprendre les questions liées à la fertilité.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi le cycle devient irrégulier',
+      'Ce qui se passe autour de l’ovulation',
+      'Comment reconnaître une ovulation',
+      'SOPK et fertilité',
+      'Pourquoi les applications peuvent être moins précises',
+      'Suivre son cycle avec le SOPK',
+      'Quand consulter pour un désir de grossesse',
+      'À retenir',
+    ],
+    section1Body1: 'Le cycle menstruel dépend d’une succession coordonnée de signaux hormonaux. Dans le SOPK, cette organisation peut être perturbée, notamment au niveau du développement des follicules et de l’ovulation.',
+    section1Body2: 'Les ovaires peuvent contenir de nombreux petits follicules qui commencent leur développement sans qu’un follicule dominant arrive régulièrement à maturité. L’ovulation peut alors être retardée, survenir de manière imprévisible ou ne pas avoir lieu pendant certains cycles.',
+    section1Body3: 'C’est l’une des raisons pour lesquelles certaines personnes atteintes de SOPK ont des cycles de 35, 45 ou parfois davantage de jours, tandis que d’autres peuvent avoir des cycles plus proches d’une durée habituelle.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'La durée d’un cycle ne permet pas, à elle seule, de savoir si une ovulation a eu lieu. Deux cycles de même durée peuvent avoir une histoire hormonale différente.',
+    section2Body1: 'L’ovulation correspond à la libération d’un ovocyte par un ovaire. Elle intervient après une phase de maturation folliculaire et précède la phase lutéale du cycle.',
+    section2Body2: 'Dans un cycle régulier, l’ovulation est souvent située au milieu du cycle. Mais avec le SOPK, cette règle simple ne fonctionne pas toujours. L’ovulation peut être beaucoup plus tardive ou ne pas se produire au cours d’un cycle donné.',
+    infoTitle: 'Pourquoi cela compte',
+    infoText: 'Lorsque l’ovulation est imprévisible, il devient plus difficile d’estimer la période fertile uniquement à partir des dates des règles.',
+    section3Body1: 'Il existe plusieurs signes corporels pouvant accompagner les changements hormonaux autour de l’ovulation. Ils peuvent être utiles pour mieux observer son propre cycle, mais aucun signe isolé ne permet de confirmer avec certitude une ovulation.',
+    ovulationSigns: [
+      'Modification de la glaire cervicale, qui peut devenir plus abondante, transparente et filante',
+      'Légère douleur ou gêne pelvienne chez certaines femmes',
+      'Variation de la température corporelle après l’ovulation',
+      'Modification de la sensation d’humidité vaginale',
+      'Éventuelle augmentation de la libido chez certaines femmes',
+    ],
+    section3Body2: 'La glaire cervicale est notamment intéressante à observer. À l’approche de la période fertile, elle peut devenir plus abondante, transparente, glissante et extensible. Cependant, son aspect peut varier d’une personne à l’autre et d’un cycle à l’autre.',
+    alert1Title: 'Attention aux prédictions',
+    alert1Text: 'Avec des cycles très irréguliers, une date d’ovulation calculée automatiquement à partir des cycles précédents peut être très approximative. Une prédiction n’est pas une confirmation médicale de l’ovulation.',
+    section4Body1: 'Le SOPK peut rendre la conception plus difficile principalement lorsque l’ovulation est peu fréquente ou difficile à prévoir. Toutefois, avoir un SOPK ne signifie pas être stérile.',
+    section4Body2: 'Certaines femmes atteintes de SOPK ovulent régulièrement et conçoivent sans difficulté particulière. Pour d’autres, l’ovulation est suffisamment irrégulière pour nécessiter une évaluation et éventuellement une prise en charge médicale.',
+    fertilityPoints: [
+      'Le SOPK n’entraîne pas automatiquement une infertilité',
+      'La principale difficulté vient souvent d’une ovulation irrégulière ou imprévisible',
+      'Une ovulation peut survenir même lorsque les cycles sont très longs',
+      'Une prise en charge adaptée peut améliorer les chances de conception',
+      'Le parcours de fertilité dépend de chaque personne et de nombreux autres facteurs',
+    ],
+    section4Body3: 'La fertilité ne dépend d’ailleurs pas uniquement de l’ovulation. L’âge, la qualité du sperme du partenaire, l’état des trompes, l’endomètre et d’autres facteurs peuvent également intervenir. C’est pourquoi une évaluation globale est importante lorsqu’une grossesse tarde à survenir.',
+    section5Body1: 'Les applications de suivi menstruel utilisent généralement les données des cycles précédents pour proposer des estimations. Lorsque les cycles sont relativement réguliers, ces estimations peuvent être utiles pour se repérer.',
+    section5Body2: 'Avec le SOPK, la variabilité des cycles peut cependant rendre ces calculs moins fiables. Une application ne peut pas savoir avec certitude qu’une ovulation a eu lieu uniquement parce qu’une date théorique est atteinte.',
+    tip2Title: 'À utiliser comme repère',
+    tip2Text: 'Le suivi numérique est surtout intéressant pour observer les tendances de ton propre cycle et conserver un historique à partager avec ton professionnel de santé.',
+    section6Body1: 'Un suivi régulier peut aider à mieux comprendre les variations personnelles. Il ne s’agit pas de chercher à rendre le cycle parfaitement prévisible, mais plutôt de recueillir suffisamment d’informations pour identifier des tendances.',
+    trackingTips: [
+      'Noter la date du premier jour de chaque cycle, même lorsque les cycles sont très espacés',
+      'Observer les changements de glaire cervicale au fil du cycle',
+      'Noter d’éventuelles douleurs pelviennes ou autres signes pouvant accompagner l’ovulation',
+      'Éviter de se baser uniquement sur une durée moyenne de 28 jours pour prédire l’ovulation',
+      'Utiliser les tests d’ovulation avec prudence et, si besoin, demander conseil à un professionnel',
+      'Partager les informations recueillies avec un professionnel de santé en cas de désir de grossesse',
+    ],
+    section6Body2: 'Il peut également être utile de noter les symptômes associés : douleurs, acné, changements de glaire, saignements inhabituels, humeur, sommeil ou autres observations personnelles. Ces informations peuvent aider à donner une vision plus complète du cycle.',
+    section7Body1: 'Une consultation peut être pertinente avant même de commencer les essais lorsque les cycles sont très irréguliers, très espacés ou lorsqu’une absence prolongée de règles est observée.',
+    section7Body2: 'Un professionnel pourra rechercher les causes des irrégularités, évaluer l’ovulation et proposer, si nécessaire, une stratégie adaptée au projet de grossesse.',
+    alert2Title: 'Quand demander conseil',
+    alert2Text: 'Si tes règles sont très espacées, si tu n’as pas de règles pendant plusieurs mois, ou si une grossesse ne survient pas malgré des rapports réguliers, parle-en à un professionnel de santé.',
+    summaryTitle: 'Les points essentiels',
+    summaryRows: [
+      'Le SOPK peut rendre les cycles longs et imprévisibles.',
+      'L’ovulation peut être irrégulière ou absente certains cycles.',
+      'Un cycle irrégulier ne signifie pas automatiquement absence de fertilité.',
+      'Les prédictions basées uniquement sur le calendrier peuvent être moins fiables avec le SOPK.',
+      'Observer son cycle et conserver un historique peut être utile, notamment lors d’une consultation.',
+    ],
+    finalTipTitle: 'Un dernier mot',
+    finalTipText: 'Le SOPK ne se manifeste pas de la même manière chez toutes les femmes. Ton cycle peut évoluer avec le temps. Le suivi est là pour t’aider à mieux comprendre ton fonctionnement, pas pour remplacer un avis médical.',
+    disclaimer: 'Cet article a une vocation informative et éducative. Il ne constitue pas un diagnostic médical et ne remplace pas une consultation avec un professionnel de santé.',
+    shareMessage: 'Cycle, ovulation et fertilité dans le SOPK — AWA',
+  },
+  en: {
+    badge: 'PCOS',
+    title: 'Cycle, ovulation,\nand fertility in PCOS',
+    metaDuration: '8 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'With PCOS, your cycle can become long, irregular, and sometimes hard to predict. Understanding what happens around ovulation can help you make sense of your cycle and better understand fertility-related questions.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why the cycle becomes irregular',
+      'What happens around ovulation',
+      'How to recognize ovulation',
+      'PCOS and fertility',
+      'Why apps may be less accurate',
+      'Tracking your cycle with PCOS',
+      'When to see a doctor if you want to conceive',
+      'Key takeaways',
+    ],
+    section1Body1: 'The menstrual cycle depends on a coordinated sequence of hormonal signals. In PCOS, this organization can be disrupted, particularly in follicle development and ovulation.',
+    section1Body2: 'The ovaries can contain many small follicles that begin developing without a dominant follicle regularly reaching maturity. Ovulation may then be delayed, occur unpredictably, or not happen at all during certain cycles.',
+    section1Body3: 'This is one of the reasons some people with PCOS have cycles of 35, 45, or sometimes more days, while others may have cycles closer to a typical length.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Cycle length alone doesn’t tell you whether ovulation occurred. Two cycles of the same length can have a different hormonal story.',
+    section2Body1: 'Ovulation is the release of an egg from an ovary. It follows a phase of follicular maturation and precedes the luteal phase of the cycle.',
+    section2Body2: 'In a regular cycle, ovulation is often around the midpoint. But with PCOS, this simple rule doesn’t always apply. Ovulation may be much later or may not happen at all in a given cycle.',
+    infoTitle: 'Why this matters',
+    infoText: 'When ovulation is unpredictable, it becomes harder to estimate the fertile window based on period dates alone.',
+    section3Body1: 'There are several physical signs that can accompany the hormonal changes around ovulation. They can be useful for observing your own cycle, but no single sign can confirm ovulation with certainty.',
+    ovulationSigns: [
+      'A change in cervical mucus, which may become more abundant, clear, and stretchy',
+      'Mild pelvic pain or discomfort in some women',
+      'A change in body temperature after ovulation',
+      'A change in vaginal wetness',
+      'A possible increase in libido in some women',
+    ],
+    section3Body2: 'Cervical mucus is particularly worth observing. As the fertile window approaches, it may become more abundant, clear, slippery, and stretchy. However, its appearance can vary from person to person and from cycle to cycle.',
+    alert1Title: 'Be careful with predictions',
+    alert1Text: 'With very irregular cycles, an ovulation date calculated automatically from previous cycles can be very approximate. A prediction is not a medical confirmation of ovulation.',
+    section4Body1: 'PCOS can make conception more difficult, mainly when ovulation is infrequent or hard to predict. However, having PCOS doesn’t mean being infertile.',
+    section4Body2: 'Some women with PCOS ovulate regularly and conceive without particular difficulty. For others, ovulation is irregular enough to call for an evaluation and possibly medical care.',
+    fertilityPoints: [
+      'PCOS doesn’t automatically cause infertility',
+      'The main difficulty is often irregular or unpredictable ovulation',
+      'Ovulation can occur even when cycles are very long',
+      'Appropriate care can improve the chances of conception',
+      'The fertility journey depends on each individual and many other factors',
+    ],
+    section4Body3: 'Fertility doesn’t depend on ovulation alone, either. Age, partner sperm quality, the condition of the fallopian tubes, the endometrium, and other factors can also play a role. This is why a comprehensive evaluation matters when pregnancy takes longer than expected.',
+    section5Body1: 'Period-tracking apps generally use data from previous cycles to produce estimates. When cycles are relatively regular, these estimates can be useful as a reference.',
+    section5Body2: 'With PCOS, however, cycle variability can make these calculations less reliable. An app cannot know for certain that ovulation has occurred just because a theoretical date has been reached.',
+    tip2Title: 'Use it as a reference point',
+    tip2Text: 'Digital tracking is most useful for observing trends in your own cycle and keeping a history to share with your healthcare provider.',
+    section6Body1: 'Regular tracking can help you better understand your personal variations. The goal isn’t to make the cycle perfectly predictable, but rather to gather enough information to identify trends.',
+    trackingTips: [
+      'Note the date of the first day of each cycle, even when cycles are very spaced out',
+      'Observe changes in cervical mucus throughout the cycle',
+      'Note any pelvic pain or other signs that may accompany ovulation',
+      'Avoid relying solely on an average 28-day length to predict ovulation',
+      'Use ovulation tests with caution and, if needed, ask a professional for advice',
+      'Share the information you gather with a healthcare professional if you want to become pregnant',
+    ],
+    section6Body2: 'It can also help to note associated symptoms: pain, acne, changes in mucus, unusual bleeding, mood, sleep, or other personal observations. This information can help build a fuller picture of your cycle.',
+    section7Body1: 'A consultation can be worthwhile even before starting to try to conceive, when cycles are very irregular, very spaced out, or when periods are absent for an extended time.',
+    section7Body2: 'A healthcare professional can investigate the causes of the irregularities, assess ovulation, and if needed, suggest a strategy suited to your pregnancy plans.',
+    alert2Title: 'When to seek advice',
+    alert2Text: 'If your periods are very spaced out, if you haven’t had a period for several months, or if pregnancy doesn’t happen despite regular intercourse, talk to a healthcare professional.',
+    summaryTitle: 'Key points',
+    summaryRows: [
+      'PCOS can make cycles long and unpredictable.',
+      'Ovulation may be irregular or absent in some cycles.',
+      'An irregular cycle doesn’t automatically mean a lack of fertility.',
+      'Predictions based solely on the calendar may be less reliable with PCOS.',
+      'Observing your cycle and keeping a history can be useful, especially for a consultation.',
+    ],
+    finalTipTitle: 'One last word',
+    finalTipText: 'PCOS doesn’t show up the same way in every woman. Your cycle may change over time. Tracking is there to help you better understand how your body works, not to replace medical advice.',
+    disclaimer: 'This article is for informational and educational purposes only. It does not constitute a medical diagnosis and does not replace a consultation with a healthcare professional.',
+    shareMessage: 'Cycle, ovulation, and fertility in PCOS — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PcosCycleFertilityArticleScreen({
 navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
 const {theme} = useAwaTheme();
 const styles = useMemo(() => createStyles(theme), [theme]);
 const insets = useSafeAreaInsets();
@@ -90,7 +237,7 @@ setSaved(toggleBookmark(ID));
 
 const handleShare = () => {
 Share.share({
-message: 'Cycle, ovulation et fertilité dans le SOPK — AWA',
+  message: content.shareMessage,
 });
 };
 
@@ -126,7 +273,7 @@ return (
         ]}>
         <Pressable
           accessibilityRole="button"
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('library.reader.back')}
           onPress={() => navigation.goBack()}
           style={({pressed}) => [
             styles.circle,
@@ -142,7 +289,7 @@ return (
         <View style={styles.actions}>
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Ajouter aux favoris"
+            accessibilityLabel={t('library.screen.addBookmark')}
             onPress={handleBookmark}
             style={({pressed}) => [
               styles.circle,
@@ -157,7 +304,7 @@ return (
 
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Partager"
+            accessibilityLabel={t('libraryArticle.shareA11y')}
             onPress={handleShare}
             style={({pressed}) => [
               styles.circle,
@@ -175,19 +322,19 @@ return (
 
     <View style={styles.article}>
       <View style={styles.badge}>
-        <Text style={styles.badgeText}>SOPK</Text>
+        <Text style={styles.badgeText}>{content.badge}</Text>
       </View>
 
       <Text style={styles.title}>
-        Cycle, ovulation{`\n`}et fertilité dans le SOPK
+        {content.title}
       </Text>
 
       <View style={styles.metas}>
         {[
-          ['clock-outline', '8 min de lecture'],
-          ['book-open-page-variant-outline', 'Guide'],
-          ['chart-bar', 'Intermédiaire'],
-          ['shield-check-outline', 'Contenu validé'],
+          ['clock-outline', content.metaDuration],
+          ['book-open-page-variant-outline', content.metaType],
+          ['chart-bar', content.metaLevel],
+          ['shield-check-outline', content.metaValidated],
         ].map(([icon, text], index) => (
           <React.Fragment key={text}>
             {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -206,25 +353,13 @@ return (
       </View>
 
       <Text style={styles.intro}>
-        Avec le SOPK, le cycle peut devenir long, irrégulier et parfois
-        difficile à prévoir. Comprendre ce qui se passe autour de
-        l’ovulation permet de mieux interpréter son cycle et de mieux
-        comprendre les questions liées à la fertilité.
+        {content.intro}
       </Text>
 
       <View style={styles.contents}>
-        <Text style={styles.contentsTitle}>Dans cet article</Text>
+        <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-        {[
-          'Pourquoi le cycle devient irrégulier',
-          'Ce qui se passe autour de l’ovulation',
-          'Comment reconnaître une ovulation',
-          'SOPK et fertilité',
-          'Pourquoi les applications peuvent être moins précises',
-          'Suivre son cycle avec le SOPK',
-          'Quand consulter pour un désir de grossesse',
-          'À retenir',
-        ].map((item, index) => (
+        {content.topics.map((item, index) => (
           <View key={item} style={styles.contentRow}>
             <View style={styles.contentLeft}>
               <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -241,29 +376,19 @@ return (
       </View>
 
       <Text style={styles.h2}>
-        1. Pourquoi le cycle devient irrégulier
+        1. {content.topics[0]}
       </Text>
 
       <Text style={styles.body}>
-        Le cycle menstruel dépend d’une succession coordonnée de signaux
-        hormonaux. Dans le SOPK, cette organisation peut être perturbée,
-        notamment au niveau du développement des follicules et de
-        l’ovulation.
+        {content.section1Body1}
       </Text>
 
       <Text style={styles.body}>
-        Les ovaires peuvent contenir de nombreux petits follicules qui
-        commencent leur développement sans qu’un follicule dominant
-        arrive régulièrement à maturité. L’ovulation peut alors être
-        retardée, survenir de manière imprévisible ou ne pas avoir lieu
-        pendant certains cycles.
+        {content.section1Body2}
       </Text>
 
       <Text style={styles.body}>
-        C’est l’une des raisons pour lesquelles certaines personnes
-        atteintes de SOPK ont des cycles de 35, 45 ou parfois davantage
-        de jours, tandis que d’autres peuvent avoir des cycles plus
-        proches d’une durée habituelle.
+        {content.section1Body3}
       </Text>
 
       <View style={styles.tip}>
@@ -274,29 +399,22 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>Bon à savoir</Text>
+          <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
           <Text style={styles.tipText}>
-            La durée d’un cycle ne permet pas, à elle seule, de savoir
-            si une ovulation a eu lieu. Deux cycles de même durée peuvent
-            avoir une histoire hormonale différente.
+            {content.tip1Text}
           </Text>
         </View>
       </View>
 
-      <Text style={styles.h2}>2. Ce qui se passe autour de l’ovulation</Text>
+      <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
       <Text style={styles.body}>
-        L’ovulation correspond à la libération d’un ovocyte par un ovaire.
-        Elle intervient après une phase de maturation folliculaire et
-        précède la phase lutéale du cycle.
+        {content.section2Body1}
       </Text>
 
       <Text style={styles.body}>
-        Dans un cycle régulier, l’ovulation est souvent située au milieu
-        du cycle. Mais avec le SOPK, cette règle simple ne fonctionne pas
-        toujours. L’ovulation peut être beaucoup plus tardive ou ne pas
-        se produire au cours d’un cycle donné.
+        {content.section2Body2}
       </Text>
 
       <View style={styles.infoCard}>
@@ -307,29 +425,24 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>Pourquoi cela compte</Text>
+          <Text style={styles.tipTitle}>{content.infoTitle}</Text>
 
           <Text style={styles.tipText}>
-            Lorsque l’ovulation est imprévisible, il devient plus
-            difficile d’estimer la période fertile uniquement à partir
-            des dates des règles.
+            {content.infoText}
           </Text>
         </View>
       </View>
 
       <Text style={styles.h2}>
-        3. Comment reconnaître une ovulation
+        3. {content.topics[2]}
       </Text>
 
       <Text style={styles.body}>
-        Il existe plusieurs signes corporels pouvant accompagner les
-        changements hormonaux autour de l’ovulation. Ils peuvent être
-        utiles pour mieux observer son propre cycle, mais aucun signe
-        isolé ne permet de confirmer avec certitude une ovulation.
+        {content.section3Body1}
       </Text>
 
       <View style={styles.checkList}>
-        {OVULATION_SIGNS.map(item => (
+        {content.ovulationSigns.map(item => (
           <View key={item} style={styles.checkRow}>
             <MaterialDesignIcons
               name="check-circle-outline"
@@ -343,11 +456,7 @@ return (
       </View>
 
       <Text style={styles.body}>
-        La glaire cervicale est notamment intéressante à observer. À
-        l’approche de la période fertile, elle peut devenir plus
-        abondante, transparente, glissante et extensible. Cependant, son
-        aspect peut varier d’une personne à l’autre et d’un cycle à
-        l’autre.
+        {content.section3Body2}
       </Text>
 
       <View style={styles.alert}>
@@ -358,34 +467,26 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>Attention aux prédictions</Text>
+          <Text style={styles.tipTitle}>{content.alert1Title}</Text>
 
           <Text style={styles.tipText}>
-            Avec des cycles très irréguliers, une date d’ovulation
-            calculée automatiquement à partir des cycles précédents peut
-            être très approximative. Une prédiction n’est pas une
-            confirmation médicale de l’ovulation.
+            {content.alert1Text}
           </Text>
         </View>
       </View>
 
-      <Text style={styles.h2}>4. SOPK et fertilité</Text>
+      <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
       <Text style={styles.body}>
-        Le SOPK peut rendre la conception plus difficile principalement
-        lorsque l’ovulation est peu fréquente ou difficile à prévoir.
-        Toutefois, avoir un SOPK ne signifie pas être stérile.
+        {content.section4Body1}
       </Text>
 
       <Text style={styles.body}>
-        Certaines femmes atteintes de SOPK ovulent régulièrement et
-        conçoivent sans difficulté particulière. Pour d’autres,
-        l’ovulation est suffisamment irrégulière pour nécessiter une
-        évaluation et éventuellement une prise en charge médicale.
+        {content.section4Body2}
       </Text>
 
       <View style={styles.checkList}>
-        {FERTILITY_POINTS.map(item => (
+        {content.fertilityPoints.map(item => (
           <View key={item} style={styles.checkRow}>
             <MaterialDesignIcons
               name="heart-pulse"
@@ -399,29 +500,19 @@ return (
       </View>
 
       <Text style={styles.body}>
-        La fertilité ne dépend d’ailleurs pas uniquement de l’ovulation.
-        L’âge, la qualité du sperme du partenaire, l’état des trompes,
-        l’endomètre et d’autres facteurs peuvent également intervenir.
-        C’est pourquoi une évaluation globale est importante lorsqu’une
-        grossesse tarde à survenir.
+        {content.section4Body3}
       </Text>
 
       <Text style={styles.h2}>
-        5. Pourquoi les applications peuvent être moins précises
+        5. {content.topics[4]}
       </Text>
 
       <Text style={styles.body}>
-        Les applications de suivi menstruel utilisent généralement les
-        données des cycles précédents pour proposer des estimations.
-        Lorsque les cycles sont relativement réguliers, ces estimations
-        peuvent être utiles pour se repérer.
+        {content.section5Body1}
       </Text>
 
       <Text style={styles.body}>
-        Avec le SOPK, la variabilité des cycles peut cependant rendre ces
-        calculs moins fiables. Une application ne peut pas savoir avec
-        certitude qu’une ovulation a eu lieu uniquement parce qu’une date
-        théorique est atteinte.
+        {content.section5Body2}
       </Text>
 
       <View style={styles.tip}>
@@ -432,27 +523,22 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>À utiliser comme repère</Text>
+          <Text style={styles.tipTitle}>{content.tip2Title}</Text>
 
           <Text style={styles.tipText}>
-            Le suivi numérique est surtout intéressant pour observer les
-            tendances de ton propre cycle et conserver un historique à
-            partager avec ton professionnel de santé.
+            {content.tip2Text}
           </Text>
         </View>
       </View>
 
-      <Text style={styles.h2}>6. Suivre son cycle avec le SOPK</Text>
+      <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
       <Text style={styles.body}>
-        Un suivi régulier peut aider à mieux comprendre les variations
-        personnelles. Il ne s’agit pas de chercher à rendre le cycle
-        parfaitement prévisible, mais plutôt de recueillir suffisamment
-        d’informations pour identifier des tendances.
+        {content.section6Body1}
       </Text>
 
       <View style={styles.checkList}>
-        {TRACKING_TIPS.map(item => (
+        {content.trackingTips.map(item => (
           <View key={item} style={styles.checkRow}>
             <MaterialDesignIcons
               name="check-circle-outline"
@@ -466,27 +552,19 @@ return (
       </View>
 
       <Text style={styles.body}>
-        Il peut également être utile de noter les symptômes associés :
-        douleurs, acné, changements de glaire, saignements inhabituels,
-        humeur, sommeil ou autres observations personnelles. Ces
-        informations peuvent aider à donner une vision plus complète du
-        cycle.
+        {content.section6Body2}
       </Text>
 
       <Text style={styles.h2}>
-        7. Quand consulter pour un désir de grossesse
+        7. {content.topics[6]}
       </Text>
 
       <Text style={styles.body}>
-        Une consultation peut être pertinente avant même de commencer
-        les essais lorsque les cycles sont très irréguliers, très espacés
-        ou lorsqu’une absence prolongée de règles est observée.
+        {content.section7Body1}
       </Text>
 
       <Text style={styles.body}>
-        Un professionnel pourra rechercher les causes des irrégularités,
-        évaluer l’ovulation et proposer, si nécessaire, une stratégie
-        adaptée au projet de grossesse.
+        {content.section7Body2}
       </Text>
 
       <View style={styles.alert}>
@@ -497,18 +575,15 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>Quand demander conseil</Text>
+          <Text style={styles.tipTitle}>{content.alert2Title}</Text>
 
           <Text style={styles.tipText}>
-            Si tes règles sont très espacées, si tu n’as pas de règles
-            pendant plusieurs mois, ou si une grossesse ne survient pas
-            malgré des rapports réguliers, parle-en à un professionnel
-            de santé.
+            {content.alert2Text}
           </Text>
         </View>
       </View>
 
-      <Text style={styles.h2}>8. À retenir</Text>
+      <Text style={styles.h2}>8. {content.topics[7]}</Text>
 
       <View style={styles.summaryCard}>
         <View style={styles.summaryHeader}>
@@ -518,14 +593,14 @@ return (
             color={theme.colors.primary}
           />
 
-          <Text style={styles.summaryTitle}>Les points essentiels</Text>
+          <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
         </View>
 
         <View style={styles.summaryRow}>
           <Text style={styles.summaryNumber}>01</Text>
 
           <Text style={styles.summaryText}>
-            Le SOPK peut rendre les cycles longs et imprévisibles.
+            {content.summaryRows[0]}
           </Text>
         </View>
 
@@ -533,7 +608,7 @@ return (
           <Text style={styles.summaryNumber}>02</Text>
 
           <Text style={styles.summaryText}>
-            L’ovulation peut être irrégulière ou absente certains cycles.
+            {content.summaryRows[1]}
           </Text>
         </View>
 
@@ -541,8 +616,7 @@ return (
           <Text style={styles.summaryNumber}>03</Text>
 
           <Text style={styles.summaryText}>
-            Un cycle irrégulier ne signifie pas automatiquement absence
-            de fertilité.
+            {content.summaryRows[2]}
           </Text>
         </View>
 
@@ -550,8 +624,7 @@ return (
           <Text style={styles.summaryNumber}>04</Text>
 
           <Text style={styles.summaryText}>
-            Les prédictions basées uniquement sur le calendrier peuvent
-            être moins fiables avec le SOPK.
+            {content.summaryRows[3]}
           </Text>
         </View>
 
@@ -559,8 +632,7 @@ return (
           <Text style={styles.summaryNumber}>05</Text>
 
           <Text style={styles.summaryText}>
-            Observer son cycle et conserver un historique peut être
-            utile, notamment lors d’une consultation.
+            {content.summaryRows[4]}
           </Text>
         </View>
       </View>
@@ -573,21 +645,16 @@ return (
         />
 
         <View style={styles.tipCopy}>
-          <Text style={styles.tipTitle}>Un dernier mot</Text>
+          <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
 
           <Text style={styles.tipText}>
-            Le SOPK ne se manifeste pas de la même manière chez toutes
-            les femmes. Ton cycle peut évoluer avec le temps. Le suivi
-            est là pour t’aider à mieux comprendre ton fonctionnement,
-            pas pour remplacer un avis médical.
+            {content.finalTipText}
           </Text>
         </View>
       </View>
 
       <Text style={styles.disclaimer}>
-        Cet article a une vocation informative et éducative. Il ne
-        constitue pas un diagnostic médical et ne remplace pas une
-        consultation avec un professionnel de santé.
+        {content.disclaimer}
       </Text>
     </View>
   </ScrollView>

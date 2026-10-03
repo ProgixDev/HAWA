@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,61 +34,188 @@ const ID = 'missedpills-que-faire-en-cas-doubli';
 
 const HERO = require('../../assets/images/library/regular-cycle-consult.png');
 
-const REFERENCE_TIPS = [
-  'Garder la notice accessible (photo dans le téléphone, par exemple)',
-  'Contacter une pharmacienne en cas de doute rapide',
-  'Consulter si l’oubli se répète souvent',
-];
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const CHECK_ICONS = [
+  'clock-outline',
+  'file-document-outline',
+  'shield-check-outline',
+] as const;
 
-const CHECK_POINTS = [
-  {
-    icon: 'clock-outline',
-    title: 'Réagir rapidement',
-    text: 'Plus tu réagis rapidement après avoir constaté l’oubli, plus il est facile de suivre les recommandations adaptées.',
-  },
-  {
-    icon: 'file-document-outline',
-    title: 'Vérifier la notice',
-    text: 'Les consignes peuvent varier selon le type exact de pilule et le nombre de comprimés oubliés.',
-  },
-  {
-    icon: 'shield-check-outline',
-    title: 'Prévoir une protection complémentaire',
-    text: 'Dans certaines situations, un préservatif peut être recommandé pendant une période donnée.',
-  },
-];
+const SITUATION_ICONS = ['pill', 'calendar-alert', 'help-circle-outline'] as const;
 
-const SITUATIONS = [
-  {
-    icon: 'pill',
-    title: 'Un seul comprimé oublié',
-    text: 'La conduite à tenir dépend principalement du délai depuis l’heure habituelle de prise.',
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    shareMessage: 'Oubli de pilule : que faire ? — AWA',
+    badge: 'OUBLI DE PILULE',
+    title: 'Oubli de pilule :\nque faire ?',
+    metaDuration: '7 min de lecture',
+    metaType: 'FAQ',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Un oubli de pilule peut arriver à tout le monde. La conduite à tenir dépend principalement du délai depuis l’oubli, du type de pilule et du moment où celui-ci survient dans la plaquette.',
+    importantTitle: 'Le point essentiel',
+    importantText: 'Ne panique pas. Vérifie d’abord le type exact de ta pilule et consulte sa notice pour connaître la conduite recommandée.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Moins de 12 heures de retard',
+      'Plus de 12 heures de retard',
+      'Les situations qui demandent plus d’attention',
+      'La notice reste la référence',
+      'Quand demander conseil',
+      'À retenir',
+    ],
+    body1: 'Pour certaines pilules, un retard inférieur à 12 heures ne compromet généralement pas la protection contraceptive. Dans ce cas, la recommandation habituelle est de prendre le comprimé oublié dès que possible puis de poursuivre la plaquette à l’heure habituelle.',
+    step1Title: 'Prends le comprimé',
+    step1Text: 'Prends le comprimé dès que tu constates le retard.',
+    step2Title: 'Continue normalement',
+    step2Text: 'Reprends ensuite ton rythme habituel pour les comprimés suivants.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Si tu as pris le comprimé oublié puis celui prévu à l’heure habituelle, il peut arriver que deux comprimés soient pris le même jour.',
+    body2: 'Lorsque le retard dépasse le délai prévu pour ta pilule, la protection peut être diminuée. La conduite à tenir dépend alors du type de pilule, du nombre de comprimés oubliés et de l’emplacement de l’oubli dans la plaquette.',
+    alertTitle: 'Attention',
+    alertText: 'Ne te fie pas uniquement au nombre d’heures indiqué ici : certaines pilules ont des consignes différentes. Consulte toujours la notice de ton médicament.',
+    reflexesTitle: 'Les premiers réflexes',
+    checkPoints: [
+      {title: 'Réagir rapidement', text: 'Plus tu réagis rapidement après avoir constaté l’oubli, plus il est facile de suivre les recommandations adaptées.'},
+      {title: 'Vérifier la notice', text: 'Les consignes peuvent varier selon le type exact de pilule et le nombre de comprimés oubliés.'},
+      {title: 'Prévoir une protection complémentaire', text: 'Dans certaines situations, un préservatif peut être recommandé pendant une période donnée.'},
+    ],
+    body3: 'Toutes les situations ne se ressemblent pas. Certains oublis nécessitent une vérification plus précise des recommandations.',
+    situations: [
+      {title: 'Un seul comprimé oublié', text: 'La conduite à tenir dépend principalement du délai depuis l’heure habituelle de prise.'},
+      {title: 'Plusieurs comprimés oubliés', text: 'La situation nécessite une attention particulière et il est préférable de vérifier précisément la notice.'},
+      {title: 'Doute sur la conduite à tenir', text: 'Une pharmacie ou un professionnel de santé peut t’aider rapidement à identifier la bonne conduite.'},
+    ],
+    body4: 'La notice de ta pilule donne les consignes précises correspondant au médicament que tu prends. Les recommandations peuvent être différentes selon qu’il s’agit d’une pilule combinée ou d’une pilule progestative seule.',
+    referenceTitle: 'Vérifications utiles',
+    referenceTips: [
+      'Garder la notice accessible (photo dans le téléphone, par exemple)',
+      'Contacter une pharmacienne en cas de doute rapide',
+      'Consulter si l’oubli se répète souvent',
+    ],
+    guideTitle: 'Pourquoi le moment de l’oubli compte ?',
+    guideText: 'Le moment où survient l’oubli dans la plaquette peut modifier la conduite à tenir. C’est pourquoi la notice précise souvent des recommandations différentes selon la semaine de prise.',
+    body5: 'Si tu ne sais pas quelle conduite adopter, mieux vaut demander conseil plutôt que de rester dans le doute. Une pharmacie, une sage-femme ou un médecin peut t’aider à vérifier les recommandations adaptées à ta situation.',
+    questionTitle: 'Les informations à préparer',
+    questions: [
+      'Quel type de pilule est-ce exactement ?',
+      'Combien de temps s’est écoulé depuis l’heure habituelle ?',
+      'Combien de comprimés ont été oubliés ?',
+      'À quel moment de la plaquette l’oubli a-t-il eu lieu ?',
+      'Y a-t-il eu un rapport sexuel non protégé récemment ?',
+    ],
+    proTipTitle: 'Bon à savoir',
+    proTipText: 'Si un rapport sexuel non protégé a eu lieu autour de la période de l’oubli, demande rapidement conseil à un professionnel afin de connaître les options possibles.',
+    repeatTitle: 'Si les oublis se répètent',
+    body6: 'Des oublis fréquents peuvent être le signe que le mode de prise quotidien ne correspond pas parfaitement à ton rythme de vie. N’hésite pas à en parler avec un professionnel de santé afin d’explorer d’autres options contraceptives.',
+    methodTipTitle: 'Une autre méthode ?',
+    methodTipText: 'Si prendre un comprimé chaque jour est difficile à maintenir, il existe d’autres méthodes avec une fréquence d’utilisation différente.',
+    summaryTitle: 'L’essentiel',
+    summaryItems: [
+      'Réagis dès que tu constates l’oubli.',
+      'Vérifie le type exact de ta pilule.',
+      'Consulte la notice pour connaître la conduite précise.',
+      'Utilise une protection complémentaire si la notice le recommande.',
+      'Demande conseil en cas de doute ou de rapport à risque.',
+    ],
+    finalTipTitle: 'À retenir',
+    finalTipText: 'Un oubli ne signifie pas automatiquement que ta contraception ne fonctionne plus. La bonne conduite dépend du type de pilule et des circonstances de l’oubli. En cas de doute, vérifie la notice et demande conseil rapidement.',
+    disclaimerText: 'Cet article est fourni à titre informatif et ne remplace pas la notice de ton médicament ni un avis médical personnalisé. Les recommandations peuvent varier selon le type de pilule.',
   },
-  {
-    icon: 'calendar-alert',
-    title: 'Plusieurs comprimés oubliés',
-    text: 'La situation nécessite une attention particulière et il est préférable de vérifier précisément la notice.',
+  en: {
+    shareMessage: 'Missed pill: what to do? — AWA',
+    badge: 'MISSED PILL',
+    title: 'Missed pill:\nwhat to do?',
+    metaDuration: '7 min read',
+    metaType: 'FAQ',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'A missed pill can happen to anyone. What to do mainly depends on how long ago you missed it, the type of pill, and when in the pack it happens.',
+    importantTitle: 'The key point',
+    importantText: 'Don’t panic. First check the exact type of your pill and check its package insert to find out the recommended course of action.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Less than 12 hours late',
+      'More than 12 hours late',
+      'Situations that need extra attention',
+      'The package insert is your reference',
+      'When to ask for advice',
+      'Key takeaways',
+    ],
+    body1: 'For some pills, a delay of less than 12 hours generally doesn’t compromise contraceptive protection. In this case, the usual recommendation is to take the missed pill as soon as possible and then continue the pack at the usual time.',
+    step1Title: 'Take the pill',
+    step1Text: 'Take the pill as soon as you notice you’re late.',
+    step2Title: 'Continue as usual',
+    step2Text: 'Then go back to your usual schedule for the following pills.',
+    tip1Title: 'Good to know',
+    tip1Text: 'If you take the missed pill and then the one scheduled for the usual time, it can happen that two pills are taken on the same day.',
+    body2: 'When the delay exceeds the time allowed for your pill, protection may be reduced. What to do then depends on the type of pill, the number of pills missed, and where in the pack the missed pill falls.',
+    alertTitle: 'Warning',
+    alertText: 'Don’t rely only on the number of hours given here: some pills have different instructions. Always check your medication’s package insert.',
+    reflexesTitle: 'First things to do',
+    checkPoints: [
+      {title: 'React quickly', text: 'The more quickly you react after noticing the missed pill, the easier it is to follow the appropriate recommendations.'},
+      {title: 'Check the package insert', text: 'The instructions can vary depending on the exact type of pill and the number of pills missed.'},
+      {title: 'Plan for backup protection', text: 'In some situations, a condom may be recommended for a given period.'},
+    ],
+    body3: 'Not all situations are alike. Some missed pills call for a more precise check of the recommendations.',
+    situations: [
+      {title: 'Only one pill missed', text: 'What to do mainly depends on the time elapsed since the usual time of taking it.'},
+      {title: 'More than one pill missed', text: 'This situation needs particular attention, and it’s best to check the package insert precisely.'},
+      {title: 'Not sure what to do', text: 'A pharmacist or healthcare professional can quickly help you identify the right course of action.'},
+    ],
+    body4: 'Your pill’s package insert gives the precise instructions for the medication you’re taking. Recommendations can differ depending on whether it’s a combined pill or a progestin-only pill.',
+    referenceTitle: 'Useful things to check',
+    referenceTips: [
+      'Keep the package insert handy (a photo on your phone, for example)',
+      'Contact a pharmacist if you have a quick question',
+      'See a doctor if it happens often',
+    ],
+    guideTitle: 'Why does the timing of the missed pill matter?',
+    guideText: 'When the missed pill falls in the pack can change what to do. That’s why the package insert often gives different recommendations depending on the week of the pack.',
+    body5: 'If you don’t know what to do, it’s better to ask for advice than to stay in doubt. A pharmacist, midwife, or doctor can help you check the recommendations suited to your situation.',
+    questionTitle: 'Information to have ready',
+    questions: [
+      'What exact type of pill is it?',
+      'How much time has passed since the usual time?',
+      'How many pills were missed?',
+      'At what point in the pack did the missed pill happen?',
+      'Has there been unprotected sex recently?',
+    ],
+    proTipTitle: 'Good to know',
+    proTipText: 'If unprotected sex happened around the time of the missed pill, ask a professional for advice quickly to find out what options are available.',
+    repeatTitle: 'If you keep missing pills',
+    body6: 'Frequent missed pills can be a sign that the daily routine doesn’t quite fit your lifestyle. Don’t hesitate to talk to a healthcare professional to explore other contraceptive options.',
+    methodTipTitle: 'A different method?',
+    methodTipText: 'If taking a pill every day is hard to keep up, other methods exist with a different frequency of use.',
+    summaryTitle: 'The essentials',
+    summaryItems: [
+      'React as soon as you notice the missed pill.',
+      'Check the exact type of your pill.',
+      'Check the package insert to find out the precise course of action.',
+      'Use backup protection if the package insert recommends it.',
+      'Ask for advice if in doubt or after a risky encounter.',
+    ],
+    finalTipTitle: 'Key takeaways',
+    finalTipText: 'A missed pill doesn’t automatically mean your contraception has stopped working. The right course of action depends on the type of pill and the circumstances of the missed dose. If in doubt, check the package insert and ask for advice quickly.',
+    disclaimerText: 'This article is provided for informational purposes only and does not replace your medication’s package insert or personalized medical advice. Recommendations may vary depending on the type of pill.',
   },
-  {
-    icon: 'help-circle-outline',
-    title: 'Doute sur la conduite à tenir',
-    text: 'Une pharmacie ou un professionnel de santé peut t’aider rapidement à identifier la bonne conduite.',
-  },
-];
-
-const QUESTIONS = [
-  'Quel type de pilule est-ce exactement ?',
-  'Combien de temps s’est écoulé depuis l’heure habituelle ?',
-  'Combien de comprimés ont été oubliés ?',
-  'À quel moment de la plaquette l’oubli a-t-il eu lieu ?',
-  'Y a-t-il eu un rapport sexuel non protégé récemment ?',
-];
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function MissedPillsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -114,7 +242,7 @@ export default function MissedPillsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Oubli de pilule : que faire ? — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -156,7 +284,7 @@ export default function MissedPillsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -172,7 +300,7 @@ export default function MissedPillsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -187,7 +315,7 @@ export default function MissedPillsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -209,23 +337,23 @@ export default function MissedPillsArticleScreen({
           {/* CATEGORY */}
 
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>OUBLI DE PILULE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           {/* TITLE */}
 
           <Text style={styles.title}>
-            Oubli de pilule :{`\n`}que faire ?
+            {content.title}
           </Text>
 
           {/* METADATA */}
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -246,9 +374,7 @@ export default function MissedPillsArticleScreen({
           {/* INTRO */}
 
           <Text style={styles.intro}>
-            Un oubli de pilule peut arriver à tout le monde. La conduite à
-            tenir dépend principalement du délai depuis l’oubli, du type de
-            pilule et du moment où celui-ci survient dans la plaquette.
+            {content.intro}
           </Text>
 
           {/* IMPORTANT */}
@@ -263,11 +389,10 @@ export default function MissedPillsArticleScreen({
             </View>
 
             <View style={styles.importantCopy}>
-              <Text style={styles.importantTitle}>Le point essentiel</Text>
+              <Text style={styles.importantTitle}>{content.importantTitle}</Text>
 
               <Text style={styles.importantText}>
-                Ne panique pas. Vérifie d’abord le type exact de ta pilule et
-                consulte sa notice pour connaître la conduite recommandée.
+                {content.importantText}
               </Text>
             </View>
           </View>
@@ -275,16 +400,9 @@ export default function MissedPillsArticleScreen({
           {/* TABLE OF CONTENTS */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Moins de 12 heures de retard',
-              'Plus de 12 heures de retard',
-              'Les situations qui demandent plus d’attention',
-              'La notice reste la référence',
-              'Quand demander conseil',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -303,14 +421,10 @@ export default function MissedPillsArticleScreen({
 
           {/* SECTION 1 */}
 
-          <Text style={styles.h2}>1. Moins de 12 heures de retard</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Pour certaines pilules, un retard inférieur à 12 heures ne
-            compromet généralement pas la protection contraceptive. Dans ce
-            cas, la recommandation habituelle est de prendre le comprimé
-            oublié dès que possible puis de poursuivre la plaquette à l’heure
-            habituelle.
+            {content.body1}
           </Text>
 
           <View style={styles.stepCard}>
@@ -319,11 +433,11 @@ export default function MissedPillsArticleScreen({
                 <Text style={styles.stepNumberText}>1</Text>
               </View>
 
-              <Text style={styles.stepTitle}>Prends le comprimé</Text>
+              <Text style={styles.stepTitle}>{content.step1Title}</Text>
             </View>
 
             <Text style={styles.stepText}>
-              Prends le comprimé dès que tu constates le retard.
+              {content.step1Text}
             </Text>
           </View>
 
@@ -333,12 +447,11 @@ export default function MissedPillsArticleScreen({
                 <Text style={styles.stepNumberText}>2</Text>
               </View>
 
-              <Text style={styles.stepTitle}>Continue normalement</Text>
+              <Text style={styles.stepTitle}>{content.step2Title}</Text>
             </View>
 
             <Text style={styles.stepText}>
-              Reprends ensuite ton rythme habituel pour les comprimés
-              suivants.
+              {content.step2Text}
             </Text>
           </View>
 
@@ -350,25 +463,20 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
               <Text style={styles.tipText}>
-                Si tu as pris le comprimé oublié puis celui prévu à l’heure
-                habituelle, il peut arriver que deux comprimés soient pris le
-                même jour.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
 
-          <Text style={styles.h2}>2. Plus de 12 heures de retard</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Lorsque le retard dépasse le délai prévu pour ta pilule, la
-            protection peut être diminuée. La conduite à tenir dépend alors
-            du type de pilule, du nombre de comprimés oubliés et de
-            l’emplacement de l’oubli dans la plaquette.
+            {content.body2}
           </Text>
 
           <View style={styles.alert}>
@@ -379,26 +487,24 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Attention</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
               <Text style={styles.tipText}>
-                Ne te fie pas uniquement au nombre d’heures indiqué ici :
-                certaines pilules ont des consignes différentes. Consulte
-                toujours la notice de ton médicament.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           {/* QUICK GUIDE */}
 
-          <Text style={styles.h3}>Les premiers réflexes</Text>
+          <Text style={styles.h3}>{content.reflexesTitle}</Text>
 
           <View style={styles.checkList}>
-            {CHECK_POINTS.map(item => (
+            {content.checkPoints.map((item, index) => (
               <View key={item.title} style={styles.checkRow}>
                 <View style={styles.checkIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={CHECK_ICONS[index] as never}
                     size={18}
                     color={theme.colors.success}
                   />
@@ -416,20 +522,19 @@ export default function MissedPillsArticleScreen({
           {/* SECTION 3 */}
 
           <Text style={styles.h2}>
-            3. Les situations qui demandent plus d’attention
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Toutes les situations ne se ressemblent pas. Certains oublis
-            nécessitent une vérification plus précise des recommandations.
+            {content.body3}
           </Text>
 
           <View style={styles.situationList}>
-            {SITUATIONS.map(item => (
+            {content.situations.map((item, index) => (
               <View key={item.title} style={styles.situationCard}>
                 <View style={styles.situationIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={SITUATION_ICONS[index] as never}
                     size={21}
                     color={theme.colors.primary}
                   />
@@ -446,13 +551,10 @@ export default function MissedPillsArticleScreen({
 
           {/* SECTION 4 */}
 
-          <Text style={styles.h2}>4. La notice reste la référence</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <Text style={styles.body}>
-            La notice de ta pilule donne les consignes précises correspondant
-            au médicament que tu prends. Les recommandations peuvent être
-            différentes selon qu’il s’agit d’une pilule combinée ou d’une
-            pilule progestative seule.
+            {content.body4}
           </Text>
 
           <View style={styles.referenceCard}>
@@ -464,11 +566,11 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.referenceTitle}>
-                Vérifications utiles
+                {content.referenceTitle}
               </Text>
             </View>
 
-            {REFERENCE_TIPS.map((item, index) => (
+            {content.referenceTips.map((item, index) => (
               <View key={item} style={styles.referenceRow}>
                 <View style={styles.referenceNumber}>
                   <Text style={styles.referenceNumberText}>
@@ -492,26 +594,21 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.guideTitle}>
-                Pourquoi le moment de l’oubli compte ?
+                {content.guideTitle}
               </Text>
             </View>
 
             <Text style={styles.guideText}>
-              Le moment où survient l’oubli dans la plaquette peut modifier
-              la conduite à tenir. C’est pourquoi la notice précise souvent
-              des recommandations différentes selon la semaine de prise.
+              {content.guideText}
             </Text>
           </View>
 
           {/* SECTION 5 */}
 
-          <Text style={styles.h2}>5. Quand demander conseil</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <Text style={styles.body}>
-            Si tu ne sais pas quelle conduite adopter, mieux vaut demander
-            conseil plutôt que de rester dans le doute. Une pharmacie, une
-            sage-femme ou un médecin peut t’aider à vérifier les
-            recommandations adaptées à ta situation.
+            {content.body5}
           </Text>
 
           <View style={styles.questionCard}>
@@ -523,11 +620,11 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.questionTitle}>
-                Les informations à préparer
+                {content.questionTitle}
               </Text>
             </View>
 
-            {QUESTIONS.map((item, index) => (
+            {content.questions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionBullet}>
                   <Text style={styles.questionNumber}>{index + 1}</Text>
@@ -546,25 +643,20 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.proTipTitle}</Text>
 
               <Text style={styles.tipText}>
-                Si un rapport sexuel non protégé a eu lieu autour de la
-                période de l’oubli, demande rapidement conseil à un
-                professionnel afin de connaître les options possibles.
+                {content.proTipText}
               </Text>
             </View>
           </View>
 
           {/* REPEATED FORGETTING */}
 
-          <Text style={styles.h3}>Si les oublis se répètent</Text>
+          <Text style={styles.h3}>{content.repeatTitle}</Text>
 
           <Text style={styles.body}>
-            Des oublis fréquents peuvent être le signe que le mode de prise
-            quotidien ne correspond pas parfaitement à ton rythme de vie.
-            N’hésite pas à en parler avec un professionnel de santé afin
-            d’explorer d’autres options contraceptives.
+            {content.body6}
           </Text>
 
           <View style={styles.tip}>
@@ -575,19 +667,17 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Une autre méthode ?</Text>
+              <Text style={styles.tipTitle}>{content.methodTipTitle}</Text>
 
               <Text style={styles.tipText}>
-                Si prendre un comprimé chaque jour est difficile à maintenir,
-                il existe d’autres méthodes avec une fréquence d’utilisation
-                différente.
+                {content.methodTipText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 6 */}
 
-          <Text style={styles.h2}>6. À retenir</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -597,7 +687,7 @@ export default function MissedPillsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>L’essentiel</Text>
+              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
             </View>
 
             <View style={styles.summaryItem}>
@@ -608,7 +698,7 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Réagis dès que tu constates l’oubli.
+                {content.summaryItems[0]}
               </Text>
             </View>
 
@@ -620,7 +710,7 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Vérifie le type exact de ta pilule.
+                {content.summaryItems[1]}
               </Text>
             </View>
 
@@ -632,7 +722,7 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Consulte la notice pour connaître la conduite précise.
+                {content.summaryItems[2]}
               </Text>
             </View>
 
@@ -644,8 +734,7 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Utilise une protection complémentaire si la notice le
-                recommande.
+                {content.summaryItems[3]}
               </Text>
             </View>
 
@@ -657,7 +746,7 @@ export default function MissedPillsArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Demande conseil en cas de doute ou de rapport à risque.
+                {content.summaryItems[4]}
               </Text>
             </View>
           </View>
@@ -672,13 +761,10 @@ export default function MissedPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
 
               <Text style={styles.tipText}>
-                Un oubli ne signifie pas automatiquement que ta
-                contraception ne fonctionne plus. La bonne conduite dépend
-                du type de pilule et des circonstances de l’oubli. En cas de
-                doute, vérifie la notice et demande conseil rapidement.
+                {content.finalTipText}
               </Text>
             </View>
           </View>
@@ -693,9 +779,7 @@ export default function MissedPillsArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Cet article est fourni à titre informatif et ne remplace pas
-              la notice de ton médicament ni un avis médical personnalisé.
-              Les recommandations peuvent varier selon le type de pilule.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

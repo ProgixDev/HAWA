@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,51 +39,179 @@ const ID = 'lossfertility-fertilite-apres-perte';
 const HERO = require('../../assets/images/library/featured-pain.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — icons stay language-neutral — only TEXT moves into the bilingual   */
+/* CONTENT object below, keyed by index to stay aligned with these icons.    */
 /* -------------------------------------------------------------------------- */
 
-const READINESS_POINTS = [
-  {
-    icon: 'heart-outline',
-    title: 'Sur le plan émotionnel',
-    text: 'Te sentir prête intérieurement compte autant que la récupération physique.',
-  },
-  {
-    icon: 'account-heart-outline',
-    title: 'Sur le plan physique',
-    text: 'Un cycle régulier et un ressenti de bien-être sont de bons repères.',
-  },
-  {
-    icon: 'account-group-outline',
-    title: 'En couple ou entourée',
-    text: 'En parler avec ton ou ta partenaire peut aider à avancer au même rythme.',
-  },
+const READINESS_ICONS = [
+  'heart-outline',
+  'account-heart-outline',
+  'account-group-outline',
 ] as const;
 
-const FOLLOW_UP_STEPS = [
-  {
-    icon: 'clipboard-text-outline',
-    title: 'Faire le point',
-    text: 'Un échange avec un professionnel permet de revenir sur ce qui s’est passé.',
-  },
-  {
-    icon: 'test-tube',
-    title: 'Un bilan si nécessaire',
-    text: 'Selon la situation, des examens complémentaires peuvent être proposés.',
-  },
-  {
-    icon: 'calendar-heart',
-    title: 'Un nouveau projet',
-    text: 'Le suivi peut ensuite t’accompagner sereinement dans ce nouvel essai.',
-  },
+const FOLLOW_UP_ICONS = [
+  'clipboard-text-outline',
+  'test-tube',
+  'calendar-heart',
 ] as const;
 
-const SUMMARY_POINTS = [
-  'La fertilité revient généralement dès le cycle suivant une fausse couche précoce.',
-  'De nombreux professionnels considèrent qu’il n’y a pas besoin d’attendre plusieurs cycles, sauf avis contraire.',
-  'Se sentir prête, physiquement et émotionnellement, reste le repère le plus important.',
-  'Un suivi médical peut t’accompagner et te rassurer avant un nouvel essai.',
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'APRÈS UNE FAUSSE COUCHE • FERTILITÉ',
+    title: 'Fertilité et nouvel essai après une perte',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu informatif',
+    intro:
+      'Quand et comment envisager un nouveau projet, à ton rythme et en toute confiance.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Le retour de la fertilité',
+      'Ce que disent généralement les professionnels',
+      'Se sentir prête, à ton rythme',
+      'Un suivi qui peut rassurer',
+      'À retenir',
+    ],
+    body1:
+      'La fertilité revient généralement dès le cycle suivant une fausse couche précoce. L’ovulation peut même survenir avant le retour visible des règles.',
+    infoTitle: 'À retenir',
+    infoText:
+      'Selon le stade de la perte, le temps de récupération physique peut varier légèrement d’une situation à l’autre.',
+    body2:
+      'De nombreux professionnels considèrent qu’il n’y a pas besoin d’attendre plusieurs cycles avant un nouvel essai, sauf avis contraire de ton médecin ou de ta sage-femme.',
+    compareEarlyTitle: 'Perte précoce',
+    compareEarlyText:
+      'La fertilité revient souvent rapidement, dès le cycle suivant.',
+    compareLateTitle: 'Perte plus tardive',
+    compareLateText:
+      'Un temps de récupération un peu plus long peut être conseillé par l’équipe médicale.',
+    body3:
+      'Se sentir prête, physiquement et émotionnellement, reste le repère le plus important — bien plus qu’un délai théorique.',
+    readinessPoints: [
+      {
+        title: 'Sur le plan émotionnel',
+        text: 'Te sentir prête intérieurement compte autant que la récupération physique.',
+      },
+      {
+        title: 'Sur le plan physique',
+        text: 'Un cycle régulier et un ressenti de bien-être sont de bons repères.',
+      },
+      {
+        title: 'En couple ou entourée',
+        text: 'En parler avec ton ou ta partenaire peut aider à avancer au même rythme.',
+      },
+    ],
+    body4:
+      'Avant un nouvel essai, un rendez-vous médical peut t’aider à avancer plus sereinement :',
+    followUpSteps: [
+      {
+        title: 'Faire le point',
+        text: 'Un échange avec un professionnel permet de revenir sur ce qui s’est passé.',
+      },
+      {
+        title: 'Un bilan si nécessaire',
+        text: 'Selon la situation, des examens complémentaires peuvent être proposés.',
+      },
+      {
+        title: 'Un nouveau projet',
+        text: 'Le suivi peut ensuite t’accompagner sereinement dans ce nouvel essai.',
+      },
+    ],
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Une fausse couche isolée n’indique généralement pas un problème de fertilité. Ton équipe médicale reste la mieux placée pour répondre à tes questions personnelles.',
+    summaryPoints: [
+      'La fertilité revient généralement dès le cycle suivant une fausse couche précoce.',
+      'De nombreux professionnels considèrent qu’il n’y a pas besoin d’attendre plusieurs cycles, sauf avis contraire.',
+      'Se sentir prête, physiquement et émotionnellement, reste le repère le plus important.',
+      'Un suivi médical peut t’accompagner et te rassurer avant un nouvel essai.',
+    ],
+    disclaimerText:
+      'Contenu informatif. Cet article ne remplace pas un avis médical personnalisé. Ton médecin ou ta sage-femme reste la référence pour ta situation.',
+    shareMessage: 'Fertilité et nouvel essai après une perte — AWA',
+  },
+  en: {
+    badge: 'AFTER A MISCARRIAGE • FERTILITY',
+    title: 'Fertility and trying again after a loss',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Informational content',
+    intro:
+      'When and how to think about trying again, at your own pace and in full confidence.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The return of fertility',
+      'What professionals generally say',
+      'Feeling ready, at your own pace',
+      'Follow-up care that can reassure you',
+      'Key takeaways',
+    ],
+    body1:
+      'Fertility usually returns as early as the cycle following an early miscarriage. Ovulation can even occur before your period visibly returns.',
+    infoTitle: 'Key takeaway',
+    infoText:
+      'Depending on the stage of the loss, physical recovery time can vary slightly from one situation to another.',
+    body2:
+      'Many professionals consider that there’s no need to wait several cycles before trying again, unless your doctor or midwife advises otherwise.',
+    compareEarlyTitle: 'Early loss',
+    compareEarlyText:
+      'Fertility often returns quickly, as early as the next cycle.',
+    compareLateTitle: 'Later loss',
+    compareLateText:
+      'A slightly longer recovery time may be recommended by the medical team.',
+    body3:
+      'Feeling ready, physically and emotionally, remains the most important guide — far more than any theoretical timeframe.',
+    readinessPoints: [
+      {
+        title: 'Emotionally',
+        text: 'Feeling ready within yourself matters just as much as physical recovery.',
+      },
+      {
+        title: 'Physically',
+        text: 'A regular cycle and a sense of well-being are good indicators.',
+      },
+      {
+        title: 'As a couple or with support',
+        text: 'Talking about it with your partner can help you move forward at the same pace.',
+      },
+    ],
+    body4:
+      'Before trying again, a medical appointment can help you move forward with more peace of mind:',
+    followUpSteps: [
+      {
+        title: 'Taking stock',
+        text: 'A conversation with a professional allows you to revisit what happened.',
+      },
+      {
+        title: 'An assessment if needed',
+        text: 'Depending on the situation, additional tests may be offered.',
+      },
+      {
+        title: 'A new attempt',
+        text: 'Follow-up care can then calmly support you as you try again.',
+      },
+    ],
+    tipTitle: 'Good to know',
+    tipText:
+      'An isolated miscarriage generally does not indicate a fertility problem. Your medical team remains best placed to answer your personal questions.',
+    summaryPoints: [
+      'Fertility usually returns as early as the cycle following an early miscarriage.',
+      'Many professionals consider that there’s no need to wait several cycles, unless advised otherwise.',
+      'Feeling ready, physically and emotionally, remains the most important guide.',
+      'Medical follow-up can support and reassure you before trying again.',
+    ],
+    disclaimerText:
+      'Informational content. This article does not replace personalized medical advice. Your doctor or midwife remains the reference for your situation.',
+    shareMessage: 'Fertility and trying again after a loss — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -97,6 +226,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function MiscarriageFertilityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -124,7 +256,7 @@ export default function MiscarriageFertilityArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Fertilité et nouvel essai après une perte — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -169,7 +301,7 @@ export default function MiscarriageFertilityArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -184,7 +316,7 @@ export default function MiscarriageFertilityArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -201,7 +333,7 @@ export default function MiscarriageFertilityArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -224,21 +356,17 @@ export default function MiscarriageFertilityArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
-              APRÈS UNE FAUSSE COUCHE • FERTILITÉ
-            </Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Fertilité et nouvel essai après une perte
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu informatif'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -256,25 +384,16 @@ export default function MiscarriageFertilityArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Quand et comment envisager un nouveau projet, à ton rythme et en
-            toute confiance.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Le retour de la fertilité',
-              'Ce que disent généralement les professionnels',
-              'Se sentir prête, à ton rythme',
-              'Un suivi qui peut rassurer',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -294,13 +413,9 @@ export default function MiscarriageFertilityArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Le retour de la fertilité</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            La fertilité revient généralement dès le cycle suivant une fausse
-            couche précoce. L’ovulation peut même survenir avant le retour
-            visible des règles.
-          </Text>
+          <Text style={styles.body}>{content.body1}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -310,11 +425,8 @@ export default function MiscarriageFertilityArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>À retenir</Text>
-              <Text style={styles.infoText}>
-                Selon le stade de la perte, le temps de récupération
-                physique peut varier légèrement d’une situation à l’autre.
-              </Text>
+              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
+              <Text style={styles.infoText}>{content.infoText}</Text>
             </View>
           </View>
 
@@ -322,15 +434,9 @@ export default function MiscarriageFertilityArticleScreen({
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
-            2. Ce que disent généralement les professionnels
-          </Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            De nombreux professionnels considèrent qu’il n’y a pas besoin
-            d’attendre plusieurs cycles avant un nouvel essai, sauf avis
-            contraire de ton médecin ou de ta sage-femme.
-          </Text>
+          <Text style={styles.body}>{content.body2}</Text>
 
           <View style={styles.compareCard}>
             <View style={styles.compareColumn}>
@@ -342,11 +448,8 @@ export default function MiscarriageFertilityArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>Perte précoce</Text>
-              <Text style={styles.compareText}>
-                La fertilité revient souvent rapidement, dès le cycle
-                suivant.
-              </Text>
+              <Text style={styles.compareTitle}>{content.compareEarlyTitle}</Text>
+              <Text style={styles.compareText}>{content.compareEarlyText}</Text>
             </View>
 
             <View style={styles.compareDivider} />
@@ -360,11 +463,8 @@ export default function MiscarriageFertilityArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>Perte plus tardive</Text>
-              <Text style={styles.compareText}>
-                Un temps de récupération un peu plus long peut être conseillé
-                par l’équipe médicale.
-              </Text>
+              <Text style={styles.compareTitle}>{content.compareLateTitle}</Text>
+              <Text style={styles.compareText}>{content.compareLateText}</Text>
             </View>
           </View>
 
@@ -372,26 +472,27 @@ export default function MiscarriageFertilityArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Se sentir prête, à ton rythme</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Se sentir prête, physiquement et émotionnellement, reste le
-            repère le plus important — bien plus qu’un délai théorique.
-          </Text>
+          <Text style={styles.body}>{content.body3}</Text>
 
           <View style={styles.normalGrid}>
-            {READINESS_POINTS.map(item => (
-              <View key={item.title} style={styles.normalCard}>
+            {READINESS_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={icon as never}
                     size={20}
                     color={theme.colors.primary}
                   />
                 </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
+                <Text style={styles.normalTitle}>
+                  {content.readinessPoints[index].title}
+                </Text>
+                <Text style={styles.normalText}>
+                  {content.readinessPoints[index].text}
+                </Text>
               </View>
             ))}
           </View>
@@ -400,33 +501,34 @@ export default function MiscarriageFertilityArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Un suivi qui peut rassurer</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Avant un nouvel essai, un rendez-vous médical peut t’aider à
-            avancer plus sereinement :
-          </Text>
+          <Text style={styles.body}>{content.body4}</Text>
 
           <View style={styles.comfortCard}>
-            {FOLLOW_UP_STEPS.map((item, index) => (
+            {FOLLOW_UP_ICONS.map((icon, index) => (
               <View
-                key={item.title}
+                key={icon}
                 style={[
                   styles.comfortRow,
-                  index < FOLLOW_UP_STEPS.length - 1 &&
+                  index < FOLLOW_UP_ICONS.length - 1 &&
                     styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={icon as never}
                     size={19}
                     color={theme.colors.primary}
                   />
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <Text style={styles.comfortTitle}>
+                    {content.followUpSteps[index].title}
+                  </Text>
+                  <Text style={styles.comfortText}>
+                    {content.followUpSteps[index].text}
+                  </Text>
                 </View>
               </View>
             ))}
@@ -444,12 +546,8 @@ export default function MiscarriageFertilityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Une fausse couche isolée n’indique généralement pas un
-                problème de fertilité. Ton équipe médicale reste la mieux
-                placée pour répondre à tes questions personnelles.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -457,10 +555,10 @@ export default function MiscarriageFertilityArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[4]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -484,11 +582,7 @@ export default function MiscarriageFertilityArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical personnalisé. Ton médecin ou ta sage-femme reste la
-              référence pour ta situation.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

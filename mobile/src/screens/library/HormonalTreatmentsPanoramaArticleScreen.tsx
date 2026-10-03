@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,72 +38,246 @@ const ID = 'hormonaltreatments-panorama';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
-const METHODS = [
-  {
-    icon: 'pill',
-    title: 'Pilule',
-    frequency: 'Chaque jour',
-    duration: 'À prendre régulièrement',
-    profile: 'Idéale si tu veux gérer toi-même ta contraception',
-  },
-  {
-    icon: 'bandage',
-    title: 'Patch',
-    frequency: 'Chaque semaine',
-    duration: '3 semaines sur 4',
-    profile: 'Pratique si tu préfères éviter une prise quotidienne',
-  },
-  {
-    icon: 'circle-outline',
-    title: 'Anneau vaginal',
-    frequency: 'Toutes les 3 semaines',
-    duration: 'Avec une semaine de pause',
-    profile: 'Une option discrète avec peu de gestes au quotidien',
-  },
-  {
-    icon: 'needle',
-    title: 'Implant',
-    frequency: 'Plusieurs années',
-    duration: 'Sans prise quotidienne',
-    profile: 'Adapté si tu souhaites une contraception longue durée',
-  },
-  {
-    icon: 'record-circle-outline',
-    title: 'Stérilet hormonal',
-    frequency: 'Plusieurs années',
-    duration: 'Placé par un professionnel',
-    profile: 'Une solution longue durée nécessitant très peu d’entretien',
-  },
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below. These arrays are kept aligned by index with
+// CONTENT.<lang>.methods / CONTENT.<lang>.criteria.
+const METHOD_ICONS = [
+  'pill',
+  'bandage',
+  'circle-outline',
+  'needle',
+  'record-circle-outline',
 ] as const;
 
-const CHOICE_CRITERIA = [
-  {
-    icon: 'calendar-clock-outline',
-    title: 'Ton quotidien',
-    text: 'Certaines méthodes demandent une action quotidienne, tandis que d’autres fonctionnent pendant plusieurs semaines ou années.',
-  },
-  {
-    icon: 'heart-pulse',
-    title: 'Ta tolérance',
-    text: 'Les effets ressentis peuvent varier selon la méthode. Une discussion avec un professionnel permet d’évaluer ce qui te convient.',
-  },
-  {
-    icon: 'baby-face-outline',
-    title: 'Tes projets',
-    text: 'Si tu souhaites une grossesse prochainement ou plus tard, la durée et la réversibilité de la méthode peuvent guider ton choix.',
-  },
-  {
-    icon: 'shield-check-outline',
-    title: 'Tes priorités',
-    text: 'Discrétion, simplicité, absence de prise quotidienne ou durée prolongée : tes priorités comptent dans la décision.',
-  },
+const CRITERIA_ICONS = [
+  'calendar-clock-outline',
+  'heart-pulse',
+  'baby-face-outline',
+  'shield-check-outline',
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'TRAITEMENTS HORMONAUX',
+    title: 'Panorama des traitements hormonaux contraceptifs',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pilule, patch, anneau, implant, stérilet hormonal : ce qui les distingue et comment réfléchir à la méthode qui correspond le mieux à ton quotidien.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Un principe d’action commun',
+      'Les différentes méthodes',
+      'Comment orienter son choix',
+      'À retenir',
+    ],
+    body1: 'Les méthodes hormonales utilisent des hormones pour prévenir une grossesse. Selon la méthode, elles peuvent principalement empêcher l’ovulation, épaissir la glaire cervicale et modifier l’environnement de l’utérus.',
+    diagramTitle: 'Comment agit la contraception hormonale ?',
+    diagramSubtitle: 'Plusieurs mécanismes peuvent participer à la protection.',
+    step1Title: 'Ovulation',
+    step1Text: 'Certaines méthodes empêchent ou inhibent la libération de l’ovule.',
+    step2Title: 'Glaire cervicale',
+    step2Text: 'La glaire peut devenir plus épaisse, ce qui rend le passage des spermatozoïdes plus difficile.',
+    step3Title: 'Protection contraceptive',
+    step3Text: 'L’association de ces mécanismes contribue à réduire le risque de grossesse.',
+    body2: 'Toutes les méthodes ne demandent pas le même niveau d’implication. Le principal point de différence est la fréquence à laquelle tu dois penser à ta contraception.',
+    comparisonTitle: 'Comparer les méthodes',
+    comparisonSubtitle: 'Du geste quotidien à la protection longue durée',
+    scaleDaily: 'Quotidien',
+    scaleWeekly: 'Hebdomadaire',
+    scaleLongTerm: 'Longue durée',
+    methods: [
+      {
+        title: 'Pilule',
+        frequency: 'Chaque jour',
+        duration: 'À prendre régulièrement',
+        profile: 'Idéale si tu veux gérer toi-même ta contraception',
+      },
+      {
+        title: 'Patch',
+        frequency: 'Chaque semaine',
+        duration: '3 semaines sur 4',
+        profile: 'Pratique si tu préfères éviter une prise quotidienne',
+      },
+      {
+        title: 'Anneau vaginal',
+        frequency: 'Toutes les 3 semaines',
+        duration: 'Avec une semaine de pause',
+        profile: 'Une option discrète avec peu de gestes au quotidien',
+      },
+      {
+        title: 'Implant',
+        frequency: 'Plusieurs années',
+        duration: 'Sans prise quotidienne',
+        profile: 'Adapté si tu souhaites une contraception longue durée',
+      },
+      {
+        title: 'Stérilet hormonal',
+        frequency: 'Plusieurs années',
+        duration: 'Placé par un professionnel',
+        profile: 'Une solution longue durée nécessitant très peu d’entretien',
+      },
+    ],
+    highlightTitle: 'Le point commun à retenir',
+    highlightText: 'Plus une méthode réduit les gestes à effectuer au quotidien, moins tu as besoin d’y penser régulièrement. Cela peut être intéressant si tu sais que tu risques d’oublier une prise ou un changement.',
+    body3: 'Il n’existe pas une méthode idéale pour tout le monde. Le meilleur choix dépend de ton quotidien, de tes préférences, de ta tolérance et de tes projets.',
+    criteria: [
+      {
+        title: 'Ton quotidien',
+        text: 'Certaines méthodes demandent une action quotidienne, tandis que d’autres fonctionnent pendant plusieurs semaines ou années.',
+      },
+      {
+        title: 'Ta tolérance',
+        text: 'Les effets ressentis peuvent varier selon la méthode. Une discussion avec un professionnel permet d’évaluer ce qui te convient.',
+      },
+      {
+        title: 'Tes projets',
+        text: 'Si tu souhaites une grossesse prochainement ou plus tard, la durée et la réversibilité de la méthode peuvent guider ton choix.',
+      },
+      {
+        title: 'Tes priorités',
+        text: 'Discrétion, simplicité, absence de prise quotidienne ou durée prolongée : tes priorités comptent dans la décision.',
+      },
+    ],
+    choiceDiagramTitle: 'Une petite question pour t’orienter',
+    questionText: '« Est-ce que je préfère penser à ma contraception tous les jours, toutes les semaines, ou seulement quelques fois par an ? »',
+    choiceOption1Title: 'Souvent',
+    choiceOption1Text: 'Pilule ou méthode nécessitant un suivi régulier',
+    choiceOption2Title: 'Moins souvent',
+    choiceOption2Text: 'Patch ou anneau selon le rythme choisi',
+    choiceOption3Title: 'Très rarement',
+    choiceOption3Text: 'Implant ou stérilet hormonal longue durée',
+    alertTitle: 'À noter',
+    alertText: 'Le choix d’une contraception hormonale doit tenir compte de ta situation personnelle et médicale. Un professionnel de santé peut t’aider à comparer les bénéfices, les risques, contre-indications et effets indésirables possibles.',
+    summaryTitle: 'L’essentiel',
+    summarySubtitle: 'Les points importants à garder en tête',
+    summaryRow1: 'Les méthodes hormonales utilisent différentes combinaisons d’hormones et différents rythmes d’utilisation.',
+    summaryRow2: 'Pilule, patch et anneau demandent une implication régulière, tandis que l’implant et le stérilet hormonal sont des méthodes longue durée.',
+    summaryRow3: 'Le choix doit être adapté à ton quotidien, tes préférences, ta tolérance et tes projets.',
+    summaryRow4: 'Aucune méthode n’est universellement « meilleure » : elle doit surtout être compatible avec tes besoins et ta situation.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Prendre le temps de comparer les méthodes avec un professionnel de santé permet de choisir une contraception que tu peux utiliser sereinement et régulièrement.',
+    shareMessage: 'Panorama des traitements hormonaux contraceptifs — AWA',
+  },
+  en: {
+    badge: 'HORMONAL TREATMENTS',
+    title: 'Overview of hormonal contraceptive treatments',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Pill, patch, ring, implant, hormonal IUD: what sets them apart and how to think about the method that best fits your daily life.',
+    contentsTitle: 'In this article',
+    topics: [
+      'A shared mechanism of action',
+      'The different methods',
+      'How to guide your choice',
+      'Key takeaways',
+    ],
+    body1: 'Hormonal methods use hormones to prevent pregnancy. Depending on the method, they can mainly prevent ovulation, thicken cervical mucus, and change the uterine environment.',
+    diagramTitle: 'How does hormonal contraception work?',
+    diagramSubtitle: 'Several mechanisms may contribute to protection.',
+    step1Title: 'Ovulation',
+    step1Text: 'Some methods prevent or inhibit the release of the egg.',
+    step2Title: 'Cervical mucus',
+    step2Text: 'The mucus may become thicker, which makes it harder for sperm to get through.',
+    step3Title: 'Contraceptive protection',
+    step3Text: 'The combination of these mechanisms helps reduce the risk of pregnancy.',
+    body2: 'Not all methods call for the same level of involvement. The main difference is how often you need to think about your contraception.',
+    comparisonTitle: 'Comparing the methods',
+    comparisonSubtitle: 'From a daily action to long-term protection',
+    scaleDaily: 'Daily',
+    scaleWeekly: 'Weekly',
+    scaleLongTerm: 'Long-term',
+    methods: [
+      {
+        title: 'Pill',
+        frequency: 'Every day',
+        duration: 'Taken regularly',
+        profile: 'Ideal if you want to manage your own contraception',
+      },
+      {
+        title: 'Patch',
+        frequency: 'Every week',
+        duration: '3 weeks out of 4',
+        profile: 'Convenient if you’d rather avoid a daily routine',
+      },
+      {
+        title: 'Vaginal ring',
+        frequency: 'Every 3 weeks',
+        duration: 'With a one-week break',
+        profile: 'A discreet option with few day-to-day actions',
+      },
+      {
+        title: 'Implant',
+        frequency: 'Several years',
+        duration: 'No daily routine',
+        profile: 'Suited if you want long-term contraception',
+      },
+      {
+        title: 'Hormonal IUD',
+        frequency: 'Several years',
+        duration: 'Placed by a professional',
+        profile: 'A long-term solution that needs very little upkeep',
+      },
+    ],
+    highlightTitle: 'The key thing to remember',
+    highlightText: 'The fewer day-to-day actions a method requires, the less often you need to think about it. This can be worth considering if you know you’re likely to forget a dose or a change.',
+    body3: 'There isn’t one ideal method for everyone. The best choice depends on your daily life, your preferences, your tolerance, and your plans.',
+    criteria: [
+      {
+        title: 'Your daily life',
+        text: 'Some methods call for a daily action, while others work for several weeks or years.',
+      },
+      {
+        title: 'Your tolerance',
+        text: 'How a method feels can vary from person to person. Talking with a healthcare professional can help you work out what suits you.',
+      },
+      {
+        title: 'Your plans',
+        text: 'If you’re hoping for a pregnancy soon or later on, the method’s duration and reversibility can help guide your choice.',
+      },
+      {
+        title: 'Your priorities',
+        text: 'Discretion, simplicity, no daily routine, or long-lasting protection: your priorities matter in this decision.',
+      },
+    ],
+    choiceDiagramTitle: 'A quick question to help you decide',
+    questionText: '“Would I rather think about my contraception every day, every week, or only a few times a year?”',
+    choiceOption1Title: 'Often',
+    choiceOption1Text: 'Pill or a method that needs regular attention',
+    choiceOption2Title: 'Less often',
+    choiceOption2Text: 'Patch or ring, depending on the rhythm you choose',
+    choiceOption3Title: 'Very rarely',
+    choiceOption3Text: 'Implant or long-term hormonal IUD',
+    alertTitle: 'Worth noting',
+    alertText: 'Choosing a hormonal contraceptive should take your personal and medical situation into account. A healthcare professional can help you compare the benefits, risks, contraindications, and possible side effects.',
+    summaryTitle: 'The essentials',
+    summarySubtitle: 'The key points to keep in mind',
+    summaryRow1: 'Hormonal methods use different hormone combinations and different schedules of use.',
+    summaryRow2: 'The pill, patch, and ring call for ongoing involvement, while the implant and hormonal IUD are long-term methods.',
+    summaryRow3: 'The choice should fit your daily life, your preferences, your tolerance, and your plans.',
+    summaryRow4: 'No method is universally “best” — it mainly needs to be compatible with your needs and your situation.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Taking the time to compare methods with a healthcare professional helps you choose a contraception you can use calmly and consistently.',
+    shareMessage: 'Overview of hormonal contraceptive treatments — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function HormonalTreatmentsPanoramaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -129,7 +304,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Panorama des traitements hormonaux contraceptifs — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -167,7 +342,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -176,7 +351,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -191,7 +366,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -209,19 +384,19 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>TRAITEMENTS HORMONAUX</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Panorama des traitements hormonaux contraceptifs
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -240,20 +415,13 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Pilule, patch, anneau, implant, stérilet hormonal : ce qui les
-            distingue et comment réfléchir à la méthode qui correspond le
-            mieux à ton quotidien.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Un principe d’action commun',
-              'Les différentes méthodes',
-              'Comment orienter son choix',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -270,13 +438,10 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
           </View>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. Un principe d’action commun</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Les méthodes hormonales utilisent des hormones pour prévenir une
-            grossesse. Selon la méthode, elles peuvent principalement empêcher
-            l’ovulation, épaissir la glaire cervicale et modifier
-            l’environnement de l’utérus.
+            {content.body1}
           </Text>
 
           <View style={styles.actionDiagram}>
@@ -291,11 +456,11 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
 
               <View style={styles.diagramHeaderCopy}>
                 <Text style={styles.diagramTitle}>
-                  Comment agit la contraception hormonale ?
+                  {content.diagramTitle}
                 </Text>
 
                 <Text style={styles.diagramSubtitle}>
-                  Plusieurs mécanismes peuvent participer à la protection.
+                  {content.diagramSubtitle}
                 </Text>
               </View>
             </View>
@@ -308,11 +473,10 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               </View>
 
               <View style={styles.stepCopy}>
-                <Text style={styles.stepTitle}>Ovulation</Text>
+                <Text style={styles.stepTitle}>{content.step1Title}</Text>
 
                 <Text style={styles.stepText}>
-                  Certaines méthodes empêchent ou inhibent la libération de
-                  l’ovule.
+                  {content.step1Text}
                 </Text>
               </View>
             </View>
@@ -325,11 +489,10 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               </View>
 
               <View style={styles.stepCopy}>
-                <Text style={styles.stepTitle}>Glaire cervicale</Text>
+                <Text style={styles.stepTitle}>{content.step2Title}</Text>
 
                 <Text style={styles.stepText}>
-                  La glaire peut devenir plus épaisse, ce qui rend le passage
-                  des spermatozoïdes plus difficile.
+                  {content.step2Text}
                 </Text>
               </View>
             </View>
@@ -342,34 +505,31 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               </View>
 
               <View style={styles.stepCopy}>
-                <Text style={styles.stepTitle}>Protection contraceptive</Text>
+                <Text style={styles.stepTitle}>{content.step3Title}</Text>
 
                 <Text style={styles.stepText}>
-                  L’association de ces mécanismes contribue à réduire le risque
-                  de grossesse.
+                  {content.step3Text}
                 </Text>
               </View>
             </View>
           </View>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. Les différentes méthodes</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Toutes les méthodes ne demandent pas le même niveau d’implication.
-            Le principal point de différence est la fréquence à laquelle tu
-            dois penser à ta contraception.
+            {content.body2}
           </Text>
 
           <View style={styles.comparisonCard}>
             <View style={styles.comparisonHeader}>
               <View>
                 <Text style={styles.comparisonTitle}>
-                  Comparer les méthodes
+                  {content.comparisonTitle}
                 </Text>
 
                 <Text style={styles.comparisonSubtitle}>
-                  Du geste quotidien à la protection longue durée
+                  {content.comparisonSubtitle}
                 </Text>
               </View>
 
@@ -385,35 +545,36 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             <View style={styles.frequencyScale}>
               <View style={styles.scalePoint}>
                 <View style={styles.scaleDot} />
-                <Text style={styles.scaleText}>Quotidien</Text>
+                <Text style={styles.scaleText}>{content.scaleDaily}</Text>
               </View>
 
               <View style={styles.scaleLine} />
 
               <View style={styles.scalePoint}>
                 <View style={styles.scaleDot} />
-                <Text style={styles.scaleText}>Hebdomadaire</Text>
+                <Text style={styles.scaleText}>{content.scaleWeekly}</Text>
               </View>
 
               <View style={styles.scaleLine} />
 
               <View style={styles.scalePoint}>
                 <View style={styles.scaleDot} />
-                <Text style={styles.scaleText}>Longue durée</Text>
+                <Text style={styles.scaleText}>{content.scaleLongTerm}</Text>
               </View>
             </View>
 
             <View style={styles.methodList}>
-              {METHODS.map((method, index) => (
+              {content.methods.map((method, index) => (
                 <View
                   key={method.title}
                   style={[
                     styles.methodCard,
-                    index === METHODS.length - 1 && styles.methodCardLast,
+                    index === content.methods.length - 1 &&
+                      styles.methodCardLast,
                   ]}>
                   <View style={styles.methodIcon}>
                     <MaterialDesignIcons
-                      name={method.icon as never}
+                      name={METHOD_ICONS[index] as never}
                       size={23}
                       color={theme.colors.primary}
                     />
@@ -454,33 +615,28 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Le point commun à retenir
+                {content.highlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                Plus une méthode réduit les gestes à effectuer au quotidien,
-                moins tu as besoin d’y penser régulièrement. Cela peut être
-                intéressant si tu sais que tu risques d’oublier une prise ou
-                un changement.
+                {content.highlightText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. Comment orienter son choix</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Il n’existe pas une méthode idéale pour tout le monde. Le meilleur
-            choix dépend de ton quotidien, de tes préférences, de ta tolérance
-            et de tes projets.
+            {content.body3}
           </Text>
 
           <View style={styles.criteriaGrid}>
-            {CHOICE_CRITERIA.map(criterion => (
+            {content.criteria.map((criterion, index) => (
               <View key={criterion.title} style={styles.criteriaCard}>
                 <View style={styles.criteriaIcon}>
                   <MaterialDesignIcons
-                    name={criterion.icon as never}
+                    name={CRITERIA_ICONS[index] as never}
                     size={21}
                     color={theme.colors.primary}
                   />
@@ -502,34 +658,39 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               />
 
               <Text style={styles.choiceDiagramTitle}>
-                Une petite question pour t’orienter
+                {content.choiceDiagramTitle}
               </Text>
             </View>
 
             <Text style={styles.questionText}>
-              « Est-ce que je préfère penser à ma contraception tous les jours,
-              toutes les semaines, ou seulement quelques fois par an ? »
+              {content.questionText}
             </Text>
 
             <View style={styles.choiceOptions}>
               <View style={styles.choiceOption}>
-                <Text style={styles.choiceOptionTitle}>Souvent</Text>
+                <Text style={styles.choiceOptionTitle}>
+                  {content.choiceOption1Title}
+                </Text>
                 <Text style={styles.choiceOptionText}>
-                  Pilule ou méthode nécessitant un suivi régulier
+                  {content.choiceOption1Text}
                 </Text>
               </View>
 
               <View style={styles.choiceOption}>
-                <Text style={styles.choiceOptionTitle}>Moins souvent</Text>
+                <Text style={styles.choiceOptionTitle}>
+                  {content.choiceOption2Title}
+                </Text>
                 <Text style={styles.choiceOptionText}>
-                  Patch ou anneau selon le rythme choisi
+                  {content.choiceOption2Text}
                 </Text>
               </View>
 
               <View style={styles.choiceOption}>
-                <Text style={styles.choiceOptionTitle}>Très rarement</Text>
+                <Text style={styles.choiceOptionTitle}>
+                  {content.choiceOption3Title}
+                </Text>
                 <Text style={styles.choiceOptionText}>
-                  Implant ou stérilet hormonal longue durée
+                  {content.choiceOption3Text}
                 </Text>
               </View>
             </View>
@@ -543,19 +704,16 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
               <Text style={styles.tipText}>
-                Le choix d’une contraception hormonale doit tenir compte de ta
-                situation personnelle et médicale. Un professionnel de santé
-                peut t’aider à comparer les bénéfices, les risques,
-                contre-indications et effets indésirables possibles.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -568,10 +726,10 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               </View>
 
               <View style={styles.summaryHeaderCopy}>
-                <Text style={styles.summaryTitle}>L’essentiel</Text>
+                <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
 
                 <Text style={styles.summarySubtitle}>
-                  Les points importants à garder en tête
+                  {content.summarySubtitle}
                 </Text>
               </View>
             </View>
@@ -586,8 +744,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Les méthodes hormonales utilisent différentes combinaisons
-                d’hormones et différents rythmes d’utilisation.
+                {content.summaryRow1}
               </Text>
             </View>
 
@@ -599,9 +756,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Pilule, patch et anneau demandent une implication régulière,
-                tandis que l’implant et le stérilet hormonal sont des méthodes
-                longue durée.
+                {content.summaryRow2}
               </Text>
             </View>
 
@@ -613,8 +768,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Le choix doit être adapté à ton quotidien, tes préférences,
-                ta tolérance et tes projets.
+                {content.summaryRow3}
               </Text>
             </View>
 
@@ -626,8 +780,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
               />
 
               <Text style={styles.summaryText}>
-                Aucune méthode n’est universellement « meilleure » : elle doit
-                surtout être compatible avec tes besoins et ta situation.
+                {content.summaryRow4}
               </Text>
             </View>
           </View>
@@ -640,12 +793,10 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
               <Text style={styles.tipText}>
-                Prendre le temps de comparer les méthodes avec un professionnel
-                de santé permet de choisir une contraception que tu peux
-                utiliser sereinement et régulièrement.
+                {content.tip1Text}
               </Text>
             </View>
           </View>

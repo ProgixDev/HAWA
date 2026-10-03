@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,31 +34,114 @@ const ID = 'birthcontrolpills-comprendre-la-pilule';
 
 const HERO = require('../../assets/images/library/featured-tracking-hero.png');
 
-const ADVANTAGES = [
-  'Réduit fortement le risque de grossesse lorsqu’elle est utilisée correctement',
-  'Peut rendre les règles plus régulières et prévisibles',
-  'Peut diminuer les douleurs et les saignements chez certaines personnes',
-  'Peut être adaptée ou changée si elle ne convient pas',
-] as const;
-
-const LIMITATIONS = [
-  'Nécessite une prise régulière selon le type de pilule',
-  'Les oublis peuvent diminuer son efficacité',
-  'Des effets indésirables peuvent apparaître chez certaines personnes',
-  'Ne protège pas contre les infections sexuellement transmissibles (IST)',
-] as const;
-
-const ROUTINE_TIPS = [
-  'Choisir un moment de la journée facile à retenir (repas, coucher...)',
-  'Utiliser un rappel ou une application si besoin',
-  'Garder la notice à portée de main en cas de doute',
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PILULE CONTRACEPTIVE',
+    title: 'Comprendre la\npilule contraceptive',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Comment agit la pilule, comment l’utiliser au quotidien et quels sont ses principaux avantages et limites.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comment agit la pilule',
+      'Bien la prendre au quotidien',
+      'Avantages et limites',
+      'À retenir',
+    ],
+    body1: 'La pilule contient des hormones, œstrogènes et/ou progestatif selon le type, qui agissent principalement en empêchant ou en bloquant l’ovulation. Elle modifie également la glaire cervicale, ce qui rend le passage des spermatozoïdes plus difficile.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Il existe plusieurs types de pilules, notamment les pilules combinées et celles contenant uniquement un progestatif. Leur composition et leur mode de prise peuvent varier.',
+    body2: 'La régularité de la prise est importante. Selon le type de pilule, les règles en cas d’oubli peuvent être différentes : il est donc essentiel de consulter la notice de son médicament.',
+    routineTips: [
+      'Choisir un moment de la journée facile à retenir (repas, coucher...)',
+      'Utiliser un rappel ou une application si besoin',
+      'Garder la notice à portée de main en cas de doute',
+    ],
+    sectionIntro: 'Comme toute méthode contraceptive, la pilule présente des avantages mais aussi certaines limites à connaître avant de la choisir.',
+    advantagesTitle: 'Avantages',
+    advantagesSubtitle: 'Ce qu’elle peut apporter',
+    advantages: [
+      'Réduit fortement le risque de grossesse lorsqu’elle est utilisée correctement',
+      'Peut rendre les règles plus régulières et prévisibles',
+      'Peut diminuer les douleurs et les saignements chez certaines personnes',
+      'Peut être adaptée ou changée si elle ne convient pas',
+    ],
+    limitationsTitle: 'Limites',
+    limitationsSubtitle: 'Les points à connaître',
+    limitations: [
+      'Nécessite une prise régulière selon le type de pilule',
+      'Les oublis peuvent diminuer son efficacité',
+      'Des effets indésirables peuvent apparaître chez certaines personnes',
+      'Ne protège pas contre les infections sexuellement transmissibles (IST)',
+    ],
+    takeawayTitle: 'Une méthode à connaître',
+    takeawayText: 'La pilule est une méthode contraceptive hormonale efficace lorsqu’elle est utilisée correctement. Sa prise régulière, ses éventuels effets indésirables et l’absence de protection contre les IST sont des éléments importants à connaître.',
+    finalTipText: 'Si tu envisages une contraception ou si ta méthode actuelle ne te convient pas, n’hésite pas à en discuter avec un médecin, une sage-femme ou un autre professionnel de santé.',
+    shareMessage: 'Comprendre la pilule contraceptive — AWA',
+  },
+  en: {
+    badge: 'BIRTH CONTROL PILL',
+    title: 'Understanding\nthe birth control pill',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'How the pill works, how to take it day to day, and its main advantages and limitations.',
+    contentsTitle: 'In this article',
+    topics: [
+      'How the pill works',
+      'Taking it correctly every day',
+      'Advantages and limitations',
+      'Key takeaways',
+    ],
+    body1: 'The pill contains hormones — estrogen and/or progestin, depending on the type — that work mainly by preventing or blocking ovulation. It also changes cervical mucus, which makes it harder for sperm to pass through.',
+    tip1Title: 'Good to know',
+    tip1Text: 'There are several types of pills, including combined pills and progestin-only pills. Their composition and how they’re taken can vary.',
+    body2: 'Taking it consistently matters. Depending on the type of pill, what to do after a missed dose can differ — so it’s essential to check your medication’s package insert.',
+    routineTips: [
+      'Pick a time of day that’s easy to remember (a meal, bedtime...)',
+      'Use a reminder or an app if needed',
+      'Keep the package insert on hand in case of doubt',
+    ],
+    sectionIntro: 'Like any contraceptive method, the pill has advantages but also certain limitations to know about before choosing it.',
+    advantagesTitle: 'Advantages',
+    advantagesSubtitle: 'What it can offer',
+    advantages: [
+      'Greatly reduces the risk of pregnancy when used correctly',
+      'May make periods more regular and predictable',
+      'May reduce pain and bleeding for some people',
+      'Can be adjusted or changed if it doesn’t suit you',
+    ],
+    limitationsTitle: 'Limitations',
+    limitationsSubtitle: 'Points to be aware of',
+    limitations: [
+      'Requires regular intake depending on the type of pill',
+      'Missed doses can reduce its effectiveness',
+      'Some people may experience side effects',
+      'Does not protect against sexually transmitted infections (STIs)',
+    ],
+    takeawayTitle: 'A method worth understanding',
+    takeawayText: 'The pill is an effective hormonal contraceptive method when used correctly. Taking it consistently, its possible side effects, and the lack of protection against STIs are important things to know.',
+    finalTipText: 'If you’re considering contraception or your current method isn’t working for you, don’t hesitate to talk to a doctor, midwife, or another healthcare professional.',
+    shareMessage: 'Understanding the birth control pill — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function BirthControlPillsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -84,7 +168,7 @@ export default function BirthControlPillsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comprendre la pilule contraceptive — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -125,7 +209,7 @@ export default function BirthControlPillsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -141,7 +225,7 @@ export default function BirthControlPillsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -156,7 +240,7 @@ export default function BirthControlPillsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -175,20 +259,20 @@ export default function BirthControlPillsArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PILULE CONTRACEPTIVE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Comprendre la{`\n`}pilule contraceptive
+            {content.title}
           </Text>
 
           {/* METADATA */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -207,20 +291,14 @@ export default function BirthControlPillsArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comment agit la pilule, comment l’utiliser au quotidien et quels
-            sont ses principaux avantages et limites.
+            {content.intro}
           </Text>
 
           {/* TABLE OF CONTENTS */}
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Comment agit la pilule',
-              'Bien la prendre au quotidien',
-              'Avantages et limites',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -238,13 +316,10 @@ export default function BirthControlPillsArticleScreen({
           </View>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. Comment agit la pilule</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            La pilule contient des hormones, œstrogènes et/ou progestatif selon
-            le type, qui agissent principalement en empêchant ou en bloquant
-            l’ovulation. Elle modifie également la glaire cervicale, ce qui
-            rend le passage des spermatozoïdes plus difficile.
+            {content.body1}
           </Text>
 
           <View style={styles.tip}>
@@ -255,27 +330,23 @@ export default function BirthControlPillsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
               <Text style={styles.tipText}>
-                Il existe plusieurs types de pilules, notamment les pilules
-                combinées et celles contenant uniquement un progestatif. Leur
-                composition et leur mode de prise peuvent varier.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. Bien la prendre au quotidien</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            La régularité de la prise est importante. Selon le type de pilule,
-            les règles en cas d’oubli peuvent être différentes : il est donc
-            essentiel de consulter la notice de son médicament.
+            {content.body2}
           </Text>
 
           <View style={styles.checkList}>
-            {ROUTINE_TIPS.map(item => (
+            {content.routineTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -289,12 +360,10 @@ export default function BirthControlPillsArticleScreen({
           </View>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. Avantages et limites</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.sectionIntro}>
-            Comme toute méthode contraceptive, la pilule présente des
-            avantages mais aussi certaines limites à connaître avant de la
-            choisir.
+            {content.sectionIntro}
           </Text>
 
           {/* CENTRAL SCHEMA */}
@@ -311,21 +380,21 @@ export default function BirthControlPillsArticleScreen({
                 </View>
 
                 <View style={styles.schemaHeaderText}>
-                  <Text style={styles.schemaTitle}>Avantages</Text>
+                  <Text style={styles.schemaTitle}>{content.advantagesTitle}</Text>
                   <Text style={styles.schemaSubtitle}>
-                    Ce qu’elle peut apporter
+                    {content.advantagesSubtitle}
                   </Text>
                 </View>
               </View>
 
               <View style={styles.schemaLine} />
 
-              {ADVANTAGES.map((item, index) => (
+              {content.advantages.map((item, index) => (
                 <View
                   key={item}
                   style={[
                     styles.schemaRow,
-                    index === ADVANTAGES.length - 1 &&
+                    index === content.advantages.length - 1 &&
                       styles.schemaRowLast,
                   ]}>
                   <View style={styles.smallPositiveIcon}>
@@ -353,21 +422,21 @@ export default function BirthControlPillsArticleScreen({
                 </View>
 
                 <View style={styles.schemaHeaderText}>
-                  <Text style={styles.schemaTitle}>Limites</Text>
+                  <Text style={styles.schemaTitle}>{content.limitationsTitle}</Text>
                   <Text style={styles.schemaSubtitle}>
-                    Les points à connaître
+                    {content.limitationsSubtitle}
                   </Text>
                 </View>
               </View>
 
               <View style={styles.schemaLine} />
 
-              {LIMITATIONS.map((item, index) => (
+              {content.limitations.map((item, index) => (
                 <View
                   key={item}
                   style={[
                     styles.schemaRow,
-                    index === LIMITATIONS.length - 1 &&
+                    index === content.limitations.length - 1 &&
                       styles.schemaRowLast,
                   ]}>
                   <View style={styles.smallWarningIcon}>
@@ -385,7 +454,7 @@ export default function BirthControlPillsArticleScreen({
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.takeaway}>
             <View style={styles.takeawayIcon}>
@@ -398,14 +467,11 @@ export default function BirthControlPillsArticleScreen({
 
             <View style={styles.takeawayContent}>
               <Text style={styles.takeawayTitle}>
-                Une méthode à connaître
+                {content.takeawayTitle}
               </Text>
 
               <Text style={styles.takeawayText}>
-                La pilule est une méthode contraceptive hormonale efficace
-                lorsqu’elle est utilisée correctement. Sa prise régulière,
-                ses éventuels effets indésirables et l’absence de protection
-                contre les IST sont des éléments importants à connaître.
+                {content.takeawayText}
               </Text>
             </View>
           </View>
@@ -418,9 +484,7 @@ export default function BirthControlPillsArticleScreen({
             />
 
             <Text style={styles.finalTipText}>
-              Si tu envisages une contraception ou si ta méthode actuelle ne
-              te convient pas, n’hésite pas à en discuter avec un médecin,
-              une sage-femme ou un autre professionnel de santé.
+              {content.finalTipText}
             </Text>
           </View>
         </View>

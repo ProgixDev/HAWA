@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,30 +34,92 @@ const ID = 'firstperiod-premieres-regles';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
-// Same title/text pairs the article always had — TOPICS supplies each
-// section's heading + illustration, DETAILS supplies the visualCard's own
-// mini-title + description. Preserved verbatim, only the container changed.
-const TOPICS = [
-  {title: 'Quand arrivent les premières règles ?', image: require('../../assets/images/first-period-calendar.png')},
-  {title: 'Ce qui est normal', image: require('../../assets/images/first-period-normal.png')},
-  {title: 'Comment ça fonctionne ?', image: require('../../assets/images/first-period-pad.png')},
-  {title: 'Prendre soin de soi', image: require('../../assets/images/first-period-care.png')},
-  {title: 'Parler et se faire soutenir', image: require('../../assets/images/first-period-support.png')},
+// Images stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these illustrations.
+const TOPIC_IMAGES = [
+  require('../../assets/images/first-period-calendar.png'),
+  require('../../assets/images/first-period-normal.png'),
+  require('../../assets/images/first-period-pad.png'),
+  require('../../assets/images/first-period-care.png'),
+  require('../../assets/images/first-period-support.png'),
 ] as const;
 
-const DETAILS = [
-  {title: 'Quand arrivent les premières règles ?', text: 'Elles apparaissent le plus souvent entre 10 et 15 ans, environ deux ans après les premiers signes de la puberté.'},
-  {title: 'Ce qui est tout à fait normal', text: 'Au début, les cycles peuvent être irréguliers, courts ou longs. Ton corps prend simplement le temps de trouver son rythme.'},
-  {title: 'Comprendre comment ça fonctionne', text: 'Les règles durent généralement de 3 à 7 jours. Le flux et la couleur peuvent changer d’un jour à l’autre.'},
-  {title: 'Prendre soin de toi', text: 'Change régulièrement de protection, lave-toi doucement et choisis des vêtements confortables pour rester à l’aise.'},
-  {title: 'Parler et se faire soutenir', text: 'Tu peux en parler à ta mère, une sœur, une proche, une enseignante ou un professionnel de santé en qui tu as confiance.'},
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Tes premières règles :\nà quoi t’attendre',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Ce qui est normal, ce qui rassure, et ce qu’il faut savoir.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Quand arrivent les premières règles ?',
+      'Ce qui est normal',
+      'Comment ça fonctionne ?',
+      'Prendre soin de soi',
+      'Parler et se faire soutenir',
+    ],
+    details: [
+      {title: 'Quand arrivent les premières règles ?', text: 'Elles apparaissent le plus souvent entre 10 et 15 ans, environ deux ans après les premiers signes de la puberté.'},
+      {title: 'Ce qui est tout à fait normal', text: 'Au début, les cycles peuvent être irréguliers, courts ou longs. Ton corps prend simplement le temps de trouver son rythme.'},
+      {title: 'Comprendre comment ça fonctionne', text: 'Les règles durent généralement de 3 à 7 jours. Le flux et la couleur peuvent changer d’un jour à l’autre.'},
+      {title: 'Prendre soin de toi', text: 'Change régulièrement de protection, lave-toi doucement et choisis des vêtements confortables pour rester à l’aise.'},
+      {title: 'Parler et se faire soutenir', text: 'Tu peux en parler à ta mère, une sœur, une proche, une enseignante ou un professionnel de santé en qui tu as confiance.'},
+    ],
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Un cycle irrégulier au début est tout à fait normal. Ton corps apprend encore à fonctionner.',
+    tip2Title: 'Tu n’es pas seule',
+    tip2Text: 'Chaque corps est unique. Prends le temps, sois patiente et n’hésite pas à demander de l’aide à une personne de confiance.',
+    shareTitle: 'Premières règles · AWA',
+    shareMessage: 'Tes premières règles : à quoi t’attendre · AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'Your first period:\nwhat to expect',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'What’s normal, what’s reassuring, and what you need to know.',
+    contentsTitle: 'In this article',
+    topics: [
+      'When does your first period arrive?',
+      'What’s normal',
+      'How it works',
+      'Taking care of yourself',
+      'Talking about it and getting support',
+    ],
+    details: [
+      {title: 'When does your first period arrive?', text: 'It most often arrives between ages 10 and 15, about two years after the first signs of puberty.'},
+      {title: 'What’s completely normal', text: 'At first, cycles can be irregular, short, or long. Your body is simply taking its time to find its rhythm.'},
+      {title: 'Understanding how it works', text: 'Periods usually last 3 to 7 days. The flow and color can change from one day to the next.'},
+      {title: 'Taking care of yourself', text: 'Change your protection regularly, wash gently, and choose comfortable clothing so you feel at ease.'},
+      {title: 'Talking about it and getting support', text: 'You can talk to your mother, a sister, someone close to you, a teacher, or a healthcare professional you trust.'},
+    ],
+    tip1Title: 'Good to know',
+    tip1Text: 'An irregular cycle at first is completely normal. Your body is still learning how to find its rhythm.',
+    tip2Title: 'You’re not alone',
+    tip2Text: 'Every body is unique. Take your time, be patient, and don’t hesitate to ask for help from someone you trust.',
+    shareTitle: 'First period · AWA',
+    shareMessage: 'Your first period: what to expect · AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -83,8 +146,8 @@ export default function FirstPeriodArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      title: 'Premières règles · AWA',
-      message: 'Tes premières règles : à quoi t’attendre · AWA',
+      title: content.shareTitle,
+      message: content.shareMessage,
     });
   };
 
@@ -122,7 +185,7 @@ export default function FirstPeriodArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -131,7 +194,7 @@ export default function FirstPeriodArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -146,7 +209,7 @@ export default function FirstPeriodArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -164,19 +227,19 @@ export default function FirstPeriodArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Tes premières règles :{`\n`}à quoi t’attendre
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -195,17 +258,17 @@ export default function FirstPeriodArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ce qui est normal, ce qui rassure, et ce qu’il faut savoir.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {TOPICS.map((topic, index) => (
-              <View key={topic.title} style={styles.contentRow}>
+            {content.topics.map((topic, index) => (
+              <View key={topic} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{topic.title}</Text>
+                  <Text style={styles.contentText}>{topic}</Text>
                 </View>
 
                 <MaterialDesignIcons
@@ -217,33 +280,33 @@ export default function FirstPeriodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. {TOPICS[0].title}</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <View style={styles.visualCard}>
             <Image
-              source={TOPICS[0].image}
+              source={TOPIC_IMAGES[0]}
               resizeMode="cover"
               style={styles.visualImage}
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[0].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[0].text}</Text>
+              <Text style={styles.visualTitle}>{content.details[0].title}</Text>
+              <Text style={styles.visualText}>{content.details[0].text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>2. {TOPICS[1].title}</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <View style={styles.visualCard}>
             <Image
-              source={TOPICS[1].image}
+              source={TOPIC_IMAGES[1]}
               resizeMode="cover"
               style={styles.visualImage}
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[1].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[1].text}</Text>
+              <Text style={styles.visualTitle}>{content.details[1].title}</Text>
+              <Text style={styles.visualText}>{content.details[1].text}</Text>
             </View>
           </View>
 
@@ -255,56 +318,55 @@ export default function FirstPeriodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Un cycle irrégulier au début est tout à fait normal. Ton corps
-                apprend encore à fonctionner.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. {TOPICS[2].title}</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.visualCard}>
             <Image
-              source={TOPICS[2].image}
+              source={TOPIC_IMAGES[2]}
               resizeMode="cover"
               style={styles.visualImage}
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[2].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[2].text}</Text>
+              <Text style={styles.visualTitle}>{content.details[2].title}</Text>
+              <Text style={styles.visualText}>{content.details[2].text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. {TOPICS[3].title}</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.visualCard}>
             <Image
-              source={TOPICS[3].image}
+              source={TOPIC_IMAGES[3]}
               resizeMode="cover"
               style={styles.visualImage}
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[3].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[3].text}</Text>
+              <Text style={styles.visualTitle}>{content.details[3].title}</Text>
+              <Text style={styles.visualText}>{content.details[3].text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>5. {TOPICS[4].title}</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.visualCard}>
             <Image
-              source={TOPICS[4].image}
+              source={TOPIC_IMAGES[4]}
               resizeMode="cover"
               style={styles.visualImage}
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>{DETAILS[4].title}</Text>
-              <Text style={styles.visualText}>{DETAILS[4].text}</Text>
+              <Text style={styles.visualTitle}>{content.details[4].title}</Text>
+              <Text style={styles.visualText}>{content.details[4].text}</Text>
             </View>
           </View>
 
@@ -316,10 +378,9 @@ export default function FirstPeriodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Tu n’es pas seule</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Chaque corps est unique. Prends le temps, sois patiente et
-                n’hésite pas à demander de l’aide à une personne de confiance.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

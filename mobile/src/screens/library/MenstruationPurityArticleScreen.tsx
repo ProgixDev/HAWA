@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,28 +39,128 @@ const ART = {
   ghusl: require('../../assets/images/library/tip-water.png'),
 };
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const DURING_PERIOD = [
-  'Le dhikr (évocation de Dieu) et les invocations (du’a)',
-  'L’écoute ou la lecture de contenus éducatifs et spirituels',
-  'Le soutien à la pratique religieuse de ses proches',
-  'La réflexion et l’apprentissage religieux',
-];
-
-const DOUBT_MARKERS = [
-  'Observer l’absence totale de saignement, et non une simple diminution',
-  'Laisser passer un temps suffisant avant de conclure à la fin des règles',
-  'Se baser sur une observation claire plutôt que sur une simple impression',
-  'Tenir compte de ton propre rythme habituel, qui peut varier d’un cycle à l’autre',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'RÈGLES & PURETÉ',
+    title: 'Statut de pureté :\nles bases',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Comprendre le lien entre le cycle et l’état de pureté rituelle, pour aborder cette période avec plus de clarté.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comprendre ce que signifie la pureté rituelle',
+      'Règles et dispense d’adoration',
+      'Après les règles : reconnaître le retour à la pureté',
+      'Le ghusl : comprendre son rôle',
+      'Que faire lorsqu’on n’est pas sûre ?',
+      'À retenir',
+    ],
+    section1Body: 'Dans la tradition islamique, la pureté rituelle (tahara) désigne l’état requis pour accomplir certains actes d’adoration, comme la prière. Elle ne renvoie pas à une notion de propreté au sens courant, mais à un état spécifique reconnu par le fiqh, qui évolue selon les étapes du cycle féminin.',
+    section2Body: 'Pendant les règles, la femme est dispensée de certains actes d’adoration, en particulier la prière et le jeûne du Ramadan, qui pourra être rattrapé plus tard. Cette dispense est reconnue comme une facilité, et non comme une sanction.',
+    checkList1Title: 'Ce qui reste accessible pendant les règles',
+    duringPeriod: [
+      'Le dhikr (évocation de Dieu) et les invocations (du’a)',
+      'L’écoute ou la lecture de contenus éducatifs et spirituels',
+      'Le soutien à la pratique religieuse de ses proches',
+      'La réflexion et l’apprentissage religieux',
+    ],
+    noteTitle: 'À noter',
+    noteText: 'Certains détails (comme la lecture directe du Coran ou l’accès à la mosquée) peuvent varier selon les écoles juridiques ; mieux vaut se référer à l’avis suivi habituellement ou à un savant qualifié pour ces cas précis.',
+    section3Body: 'La fin des règles marque le retour progressif vers l’état de pureté rituelle. Sur le plan physique, cela correspond à l’arrêt du saignement, un repère que différentes traditions savantes peuvent définir avec des nuances légèrement différentes.',
+    visual1Title: 'Un processus physiologique',
+    visual1Text: 'Comprendre les étapes du cycle aide à mieux repérer le moment où les règles se terminent réellement.',
+    section3Body2: 'Une fois ce repère observé, le ghusl (grande ablution) permet de renouer avec la pureté rituelle et de reprendre les actes d’adoration suspendus.',
+    section4Body: 'Le ghusl est une grande ablution rituelle qui consiste à laver l’intégralité du corps avec l’intention de se purifier. Il marque la fin de l’état de dispense et permet de reprendre la prière normalement, sans qu’il soit nécessaire de rattraper les prières manquées pendant les règles.',
+    visual2Title: 'Un rituel de purification',
+    visual2Text: 'Le déroulement précis du ghusl peut varier légèrement selon les écoles juridiques suivies.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Si tu ne connais pas les étapes précises suivies dans ton école, une personne de confiance ou un savant qualifié pourra te les expliquer clairement.',
+    section5Body: 'Il est fréquent de ressentir un doute sur la fin réelle des règles, notamment lorsque le saignement diminue progressivement plutôt que de s’arrêter net.',
+    checkList2Title: 'Quelques repères utiles',
+    doubtMarkers: [
+      'Observer l’absence totale de saignement, et non une simple diminution',
+      'Laisser passer un temps suffisant avant de conclure à la fin des règles',
+      'Se baser sur une observation claire plutôt que sur une simple impression',
+      'Tenir compte de ton propre rythme habituel, qui peut varier d’un cycle à l’autre',
+    ],
+    alert2Title: 'Information importante',
+    alert2Text: 'En cas de saignements prolongés, irréguliers, ou de doute persistant, ces situations méritent d’être évoquées avec un savant qualifié, qui pourra t’orienter selon ta situation personnelle. Ce contenu reste informatif et ne remplace pas un avis religieux individualisé.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Ces repères sont des rappels éducatifs généraux. Chaque situation peut avoir ses particularités : en cas de doute, le dialogue avec un savant ou une savante qualifiée reste la meilleure ressource pour une réponse adaptée.',
+    shareMessage: 'Statut de pureté : les bases — AWA',
+  },
+  en: {
+    badge: 'PERIOD & PURITY',
+    title: 'Purity status:\nthe basics',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Understanding the link between the cycle and ritual purity status, to approach this time with more clarity.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Understanding what ritual purity means',
+      'Menstruation and exemption from worship',
+      'After menstruation: recognizing the return to purity',
+      'Ghusl: understanding its role',
+      'What to do when you’re not sure?',
+      'Key takeaways',
+    ],
+    section1Body: 'In Islamic tradition, ritual purity (tahara) refers to the state required to perform certain acts of worship, such as prayer. It does not refer to cleanliness in the everyday sense, but to a specific state recognized by fiqh, which changes according to the stages of the female cycle.',
+    section2Body: 'During menstruation, a woman is exempted from certain acts of worship, in particular prayer and the Ramadan fast, which can be made up later. This exemption is recognized as a relief, not as a punishment.',
+    checkList1Title: 'What remains accessible during menstruation',
+    duringPeriod: [
+      'Dhikr (remembrance of God) and supplications (du’a)',
+      'Listening to or reading educational and spiritual content',
+      'Supporting the religious practice of those close to you',
+      'Religious reflection and learning',
+    ],
+    noteTitle: 'Please note',
+    noteText: 'Some details (such as direct reading of the Quran or access to the mosque) may vary depending on the school of jurisprudence; it is best to refer to the opinion you usually follow or to a qualified scholar for these specific cases.',
+    section3Body: 'The end of menstruation marks the gradual return to the state of ritual purity. Physically, this corresponds to the stopping of the bleeding, a marker that different scholarly traditions may define with slightly different nuances.',
+    visual1Title: 'A physiological process',
+    visual1Text: 'Understanding the stages of the cycle helps you better identify the moment when menstruation actually ends.',
+    section3Body2: 'Once this marker has been observed, the ghusl (major ablution) allows one to return to ritual purity and resume the acts of worship that had been suspended.',
+    section4Body: 'Ghusl is a major ritual ablution that involves washing the entire body with the intention of purifying oneself. It marks the end of the exemption and allows prayer to resume normally, without it being necessary to make up the prayers missed during menstruation.',
+    visual2Title: 'A purification ritual',
+    visual2Text: 'The precise way ghusl is carried out may vary slightly depending on the school of jurisprudence followed.',
+    tip1Title: 'Good to know',
+    tip1Text: 'If you don’t know the precise steps followed in your school, someone you trust or a qualified scholar will be able to explain them to you clearly.',
+    section5Body: 'It is common to feel doubt about when menstruation has truly ended, especially when the bleeding decreases gradually rather than stopping abruptly.',
+    checkList2Title: 'Some useful markers',
+    doubtMarkers: [
+      'Observe the total absence of bleeding, not just a decrease',
+      'Allow enough time to pass before concluding that menstruation has ended',
+      'Rely on a clear observation rather than a mere impression',
+      'Take into account your own usual rhythm, which can vary from one cycle to another',
+    ],
+    alert2Title: 'Important information',
+    alert2Text: 'In cases of prolonged or irregular bleeding, or persistent doubt, these situations deserve to be discussed with a qualified scholar, who can guide you according to your personal situation. This content remains informational and does not replace individualized religious guidance.',
+    tip2Title: 'Good to know',
+    tip2Text: 'These markers are general educational reminders. Each situation can have its own particularities: in case of doubt, dialogue with a qualified scholar remains the best resource for an answer suited to your situation.',
+    shareMessage: 'Purity status: the basics — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function MenstruationPurityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -86,7 +187,7 @@ export default function MenstruationPurityArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Statut de pureté : les bases — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -124,7 +225,7 @@ export default function MenstruationPurityArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -133,7 +234,7 @@ export default function MenstruationPurityArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -148,7 +249,7 @@ export default function MenstruationPurityArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -166,19 +267,19 @@ export default function MenstruationPurityArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>RÈGLES & PURETÉ</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Statut de pureté :{`\n`}les bases
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -197,8 +298,7 @@ export default function MenstruationPurityArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le lien entre le cycle et l’état de pureté rituelle,
-            pour aborder cette période avec plus de clarté.
+            {content.intro}
           </Text>
 
           <View style={styles.alert}>
@@ -209,22 +309,15 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Comprendre ce que signifie la pureté rituelle',
-              'Règles et dispense d’adoration',
-              'Après les règles : reconnaître le retour à la pureté',
-              'Le ghusl : comprendre son rôle',
-              'Que faire lorsqu’on n’est pas sûre ?',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -241,32 +334,25 @@ export default function MenstruationPurityArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Comprendre ce que signifie la pureté rituelle
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Dans la tradition islamique, la pureté rituelle (tahara) désigne
-            l’état requis pour accomplir certains actes d’adoration, comme
-            la prière. Elle ne renvoie pas à une notion de propreté au sens
-            courant, mais à un état spécifique reconnu par le fiqh, qui
-            évolue selon les étapes du cycle féminin.
+            {content.section1Body}
           </Text>
 
-          <Text style={styles.h2}>2. Règles et dispense d’adoration</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Pendant les règles, la femme est dispensée de certains actes
-            d’adoration, en particulier la prière et le jeûne du Ramadan,
-            qui pourra être rattrapé plus tard. Cette dispense est reconnue
-            comme une facilité, et non comme une sanction.
+            {content.section2Body}
           </Text>
 
           <View style={styles.checkList}>
             <Text style={styles.checkListTitle}>
-              Ce qui reste accessible pendant les règles
+              {content.checkList1Title}
             </Text>
 
-            {DURING_PERIOD.map(item => (
+            {content.duringPeriod.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -287,25 +373,19 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.noteTitle}</Text>
               <Text style={styles.tipText}>
-                Certains détails (comme la lecture directe du Coran ou
-                l’accès à la mosquée) peuvent varier selon les écoles
-                juridiques ; mieux vaut se référer à l’avis suivi
-                habituellement ou à un savant qualifié pour ces cas précis.
+                {content.noteText}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            3. Après les règles : reconnaître le retour à la pureté
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            La fin des règles marque le retour progressif vers l’état de
-            pureté rituelle. Sur le plan physique, cela correspond à l’arrêt
-            du saignement, un repère que différentes traditions savantes
-            peuvent définir avec des nuances légèrement différentes.
+            {content.section3Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -316,29 +396,22 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>Un processus physiologique</Text>
+              <Text style={styles.visualTitle}>{content.visual1Title}</Text>
 
               <Text style={styles.visualText}>
-                Comprendre les étapes du cycle aide à mieux repérer le
-                moment où les règles se terminent réellement.
+                {content.visual1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.body}>
-            Une fois ce repère observé, le ghusl (grande ablution) permet de
-            renouer avec la pureté rituelle et de reprendre les actes
-            d’adoration suspendus.
+            {content.section3Body2}
           </Text>
 
-          <Text style={styles.h2}>4. Le ghusl : comprendre son rôle</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <Text style={styles.body}>
-            Le ghusl est une grande ablution rituelle qui consiste à laver
-            l’intégralité du corps avec l’intention de se purifier. Il
-            marque la fin de l’état de dispense et permet de reprendre la
-            prière normalement, sans qu’il soit nécessaire de rattraper les
-            prières manquées pendant les règles.
+            {content.section4Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -349,11 +422,10 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>Un rituel de purification</Text>
+              <Text style={styles.visualTitle}>{content.visual2Title}</Text>
 
               <Text style={styles.visualText}>
-                Le déroulement précis du ghusl peut varier légèrement selon
-                les écoles juridiques suivies.
+                {content.visual2Text}
               </Text>
             </View>
           </View>
@@ -366,29 +438,25 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Si tu ne connais pas les étapes précises suivies dans ton
-                école, une personne de confiance ou un savant qualifié
-                pourra te les expliquer clairement.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            5. Que faire lorsqu’on n’est pas sûre ?
+            5. {content.topics[4]}
           </Text>
 
           <Text style={styles.body}>
-            Il est fréquent de ressentir un doute sur la fin réelle des
-            règles, notamment lorsque le saignement diminue progressivement
-            plutôt que de s’arrêter net.
+            {content.section5Body}
           </Text>
 
           <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>Quelques repères utiles</Text>
+            <Text style={styles.checkListTitle}>{content.checkList2Title}</Text>
 
-            {DOUBT_MARKERS.map(item => (
+            {content.doubtMarkers.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -409,18 +477,14 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
               <Text style={styles.tipText}>
-                En cas de saignements prolongés, irréguliers, ou de doute
-                persistant, ces situations méritent d’être évoquées avec un
-                savant qualifié, qui pourra t’orienter selon ta situation
-                personnelle. Ce contenu reste informatif et ne remplace pas
-                un avis religieux individualisé.
+                {content.alert2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. À retenir</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -430,12 +494,9 @@ export default function MenstruationPurityArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Ces repères sont des rappels éducatifs généraux. Chaque
-                situation peut avoir ses particularités : en cas de doute,
-                le dialogue avec un savant ou une savante qualifiée reste la
-                meilleure ressource pour une réponse adaptée.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

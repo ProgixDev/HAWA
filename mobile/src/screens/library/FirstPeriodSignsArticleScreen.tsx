@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,60 +34,117 @@ const ID = 'firstperiod-premiers-signes';
 
 const HERO = require('../../assets/images/library/spm-hero.png');
 
-const SIGNS = [
-  [
-    'Changements corporels',
-    'Le corps évolue progressivement : silhouette, pilosité, transpiration.',
-    require('../../assets/images/library/spm-yoga.png'),
-  ],
-  [
-    'Pertes vaginales',
-    'De légères pertes blanchâtres apparaissent souvent quelques mois avant.',
-    require('../../assets/images/library/flow-texture-mucus.png'),
-  ],
-  [
-    'Douleurs ou tiraillements',
-    'De petites tensions dans le bas-ventre peuvent se faire sentir.',
-    require('../../assets/images/library/pain-massage.png'),
-  ],
-  [
-    'Changements d’humeur',
-    'Il est courant de se sentir plus sensible ou irritable que d’habitude.',
-    require('../../assets/images/library/spm-woman.png'),
-  ],
-  [
-    'Sensibilité des seins',
-    'Une légère sensibilité ou un gonflement peuvent apparaître.',
-    require('../../assets/images/library/regular-cycle-heartbeat.png'),
-  ],
+// Images stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these illustrations.
+const SIGNS_IMAGES = [
+  require('../../assets/images/library/spm-yoga.png'),
+  require('../../assets/images/library/flow-texture-mucus.png'),
+  require('../../assets/images/library/pain-massage.png'),
+  require('../../assets/images/library/spm-woman.png'),
+  require('../../assets/images/library/regular-cycle-heartbeat.png'),
 ] as const;
 
-const RELATED = [
+const RELATED_IMAGES = [
   {
-    title: 'Tes premières règles : à quoi t’attendre',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/popular-flower.png'),
     articleId: 'firstperiod-premieres-regles',
   },
   {
-    title: 'Comment savoir si mes premières règles arrivent ?',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/flow-colors-hero.png'),
     articleId: 'firstperiod-comment-savoir',
   },
   {
-    title: 'Les différentes phases du cycle',
-    meta: '5 min  ·  Article',
     image: require('../../assets/images/library/cycle-phases-hero.png'),
     articleId: 'cycle-phases-expliquees',
   },
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Les premiers signes\navant les règles',
+    metaDuration: '5 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Ton corps envoie souvent des indices avant l’arrivée des toutes premières règles. Les reconnaître aide à ne pas être surprise.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Des changements progressifs',
+      'Les signes à observer',
+      'Ce que cela signifie',
+    ],
+    body1: 'Dans les mois qui précèdent les premières règles, le corps change doucement : la silhouette évolue, la pilosité apparaît par endroits, la transpiration change. Ce sont les effets normaux de la puberté, qui prépare le corps en douceur.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Ces changements n’arrivent pas tous en même temps ni au même rythme d’une personne à l’autre : c’est normal.',
+    signs: [
+      {title: 'Changements corporels', text: 'Le corps évolue progressivement : silhouette, pilosité, transpiration.'},
+      {title: 'Pertes vaginales', text: 'De légères pertes blanchâtres apparaissent souvent quelques mois avant.'},
+      {title: 'Douleurs ou tiraillements', text: 'De petites tensions dans le bas-ventre peuvent se faire sentir.'},
+      {title: 'Changements d’humeur', text: 'Il est courant de se sentir plus sensible ou irritable que d’habitude.'},
+      {title: 'Sensibilité des seins', text: 'Une légère sensibilité ou un gonflement peuvent apparaître.'},
+    ],
+    body2: 'Ces signes annoncent généralement l’arrivée des premières règles dans les mois qui suivent, sans qu’on puisse prédire une date exacte. Garder une protection à portée de main devient alors une bonne habitude.',
+    alertTitle: 'À noter',
+    alertText: 'Ces signes restent des repères généraux, jamais une prédiction précise. Chaque corps suit son propre rythme.',
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
+      {title: 'Comment savoir si mes premières règles arrivent ?', meta: '5 min  ·  Guide'},
+      {title: 'Les différentes phases du cycle', meta: '5 min  ·  Article'},
+    ],
+    shareMessage: 'Les premiers signes avant les règles — AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'Early signs\nof your first period',
+    metaDuration: '5 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Your body often gives hints before your very first period arrives. Recognizing them can help you feel less surprised.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Gradual changes',
+      'Signs to watch for',
+      'What it means',
+    ],
+    body1: 'In the months before your first period, your body changes gently: your shape evolves, body hair starts appearing in new places, and sweating changes too. These are normal effects of puberty, gently preparing your body.',
+    tip1Title: 'Good to know',
+    tip1Text: 'These changes don’t all happen at the same time, or at the same pace, for everyone — that’s completely normal.',
+    signs: [
+      {title: 'Body changes', text: 'Your body changes gradually: your shape, body hair, and sweating can all shift.'},
+      {title: 'Vaginal discharge', text: 'Light, whitish discharge often appears a few months before your first period.'},
+      {title: 'Aches or twinges', text: 'You may feel slight tension or twinges in your lower belly.'},
+      {title: 'Mood changes', text: 'It’s common to feel more sensitive or irritable than usual.'},
+      {title: 'Breast tenderness', text: 'You may notice slight tenderness or swelling.'},
+    ],
+    body2: 'These signs usually mean your first period will arrive in the following months, though it’s impossible to predict an exact date. Keeping protection close at hand becomes a good habit at this point.',
+    alertTitle: 'Please note',
+    alertText: 'These signs are general guides, never a precise prediction. Every body follows its own pace.',
+    relatedTitle: '♥  You might also like',
+    related: [
+      {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
+      {title: 'How do I know if my first period is coming?', meta: '5 min  ·  Guide'},
+      {title: 'The different phases of the cycle', meta: '5 min  ·  Article'},
+    ],
+    shareMessage: 'Early signs before your first period — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodSignsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -113,7 +171,7 @@ export default function FirstPeriodSignsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Les premiers signes avant les règles — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -151,7 +209,7 @@ export default function FirstPeriodSignsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -160,7 +218,7 @@ export default function FirstPeriodSignsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -175,7 +233,7 @@ export default function FirstPeriodSignsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -193,19 +251,19 @@ export default function FirstPeriodSignsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Les premiers signes{`\n`}avant les règles
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -224,18 +282,13 @@ export default function FirstPeriodSignsArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ton corps envoie souvent des indices avant l’arrivée des toutes
-            premières règles. Les reconnaître aide à ne pas être surprise.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Des changements progressifs',
-              'Les signes à observer',
-              'Ce que cela signifie',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -251,14 +304,9 @@ export default function FirstPeriodSignsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Des changements progressifs</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Dans les mois qui précèdent les premières règles, le corps change
-            doucement : la silhouette évolue, la pilosité apparaît par
-            endroits, la transpiration change. Ce sont les effets normaux de
-            la puberté, qui prépare le corps en douceur.
-          </Text>
+          <Text style={styles.body}>{content.body1}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -268,35 +316,27 @@ export default function FirstPeriodSignsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Ces changements n’arrivent pas tous en même temps ni au même
-                rythme d’une personne à l’autre : c’est normal.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>2. Les signes à observer</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          {SIGNS.map(([title, description, image]) => (
-            <View key={title} style={styles.visualCard}>
-              <Image source={image} resizeMode="cover" style={styles.visualImage} />
+          {content.signs.map((item, index) => (
+            <View key={item.title} style={styles.visualCard}>
+              <Image source={SIGNS_IMAGES[index]} resizeMode="cover" style={styles.visualImage} />
 
               <View style={styles.visualCopy}>
-                <Text style={styles.visualTitle}>{title}</Text>
-                <Text style={styles.visualText}>{description}</Text>
+                <Text style={styles.visualTitle}>{item.title}</Text>
+                <Text style={styles.visualText}>{item.text}</Text>
               </View>
             </View>
           ))}
 
-          <Text style={styles.h2}>3. Ce que cela signifie</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Ces signes annoncent généralement l’arrivée des premières règles
-            dans les mois qui suivent, sans qu’on puisse prédire une date
-            exacte. Garder une protection à portée de main devient alors une
-            bonne habitude.
-          </Text>
+          <Text style={styles.body}>{content.body2}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -306,32 +346,29 @@ export default function FirstPeriodSignsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
-              <Text style={styles.tipText}>
-                Ces signes restent des repères généraux, jamais une prédiction
-                précise. Chaque corps suit son propre rythme.
-              </Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <Text style={styles.tipText}>{content.alertText}</Text>
             </View>
           </View>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {content.related.map((item, index) => (
             <Pressable
               key={item.title}
               onPress={() =>
-                navigation.push('ArticleReader', {articleId: item.articleId})
+                navigation.push('ArticleReader', {articleId: RELATED_IMAGES[index].articleId})
               }
               style={styles.relatedCard}>
               <Image
-                source={item.image}
+                source={RELATED_IMAGES[index].image}
                 resizeMode="cover"
                 style={styles.relatedImage}
               />

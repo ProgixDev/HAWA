@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,25 +34,101 @@ const ID = 'conceptiontips-hygiene-de-vie';
 
 const HERO = require('../../assets/images/library/spm-yoga.png');
 
-const SUPPORTIVE_HABITS = [
-  ['bowl-mix-outline', 'Une alimentation équilibrée'],
-  ['shoe-sneaker', 'Une activité physique modérée'],
-  ['weather-night', 'Un sommeil de qualité'],
-  ['meditation', 'Des moments de détente'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const SUPPORTIVE_HABITS_ICONS = [
+  'bowl-mix-outline',
+  'shoe-sneaker',
+  'weather-night',
+  'meditation',
 ] as const;
 
-const TO_LIMIT = [
-  'Le tabac, qui peut affecter la fertilité des deux partenaires',
-  'Une consommation excessive d’alcool',
-  'Un entraînement sportif intense et prolongé, qui peut à l’inverse freiner la fertilité',
-  'Le sucre raffiné en excès, qui peut perturber l’équilibre hormonal',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'MODE DE VIE',
+    title: 'Mode de vie et\nparcours de conception',
+    metaDuration: '5 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Des habitudes simples qui peuvent accompagner ton parcours, sans pression.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Ce qui peut soutenir la fertilité',
+      'Le stress, un facteur à ne pas négliger',
+      'Ce qu’il vaut mieux limiter',
+      'À retenir',
+    ],
+    body1: 'Certaines habitudes de vie simples peuvent accompagner un parcours de conception, sans garantir de résultat à elles seules.',
+    supportiveHabits: [
+      'Une alimentation équilibrée',
+      'Une activité physique modérée',
+      'Un sommeil de qualité',
+      'Des moments de détente',
+    ],
+    body2: 'Le stress chronique peut influencer l’équilibre hormonal et, chez certaines femmes, la régularité du cycle. Se préserver des moments de calme fait pleinement partie du parcours.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Vouloir « tout bien faire » peut lui-même devenir une source de stress : viser des habitudes globalement saines suffit, sans perfectionnisme.',
+    toLimit: [
+      'Le tabac, qui peut affecter la fertilité des deux partenaires',
+      'Une consommation excessive d’alcool',
+      'Un entraînement sportif intense et prolongé, qui peut à l’inverse freiner la fertilité',
+      'Le sucre raffiné en excès, qui peut perturber l’équilibre hormonal',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Des habitudes globalement équilibrées, sans excès ni perfectionnisme, sont le meilleur accompagnement au quotidien.',
+    shareMessage: 'Mode de vie et parcours de conception — AWA',
+  },
+  en: {
+    badge: 'LIFESTYLE',
+    title: 'Lifestyle habits and\nyour conception journey',
+    metaDuration: '5 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Simple habits that can support your journey — no pressure.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What can support fertility',
+      'Stress, a factor not to overlook',
+      'What’s best to limit',
+      'Key takeaway',
+    ],
+    body1: 'Some simple lifestyle habits can support a conception journey, though they can’t guarantee a result on their own.',
+    supportiveHabits: [
+      'A balanced diet',
+      'Moderate physical activity',
+      'Quality sleep',
+      'Moments of relaxation',
+    ],
+    body2: 'Chronic stress can affect hormonal balance and, in some women, cycle regularity. Giving yourself moments of calm is fully part of the journey.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Wanting to “do everything right” can itself become a source of stress: aiming for generally healthy habits is enough, without perfectionism.',
+    toLimit: [
+      'Smoking, which may affect fertility in both partners',
+      'Excessive alcohol consumption',
+      'Intense, prolonged athletic training, which may conversely slow fertility',
+      'Excess refined sugar, which may disrupt hormonal balance',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'Generally balanced habits, without excess or perfectionism, are the best everyday support.',
+    shareMessage: 'Lifestyle habits and conception journey — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function ConceptionLifestyleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +155,7 @@ export default function ConceptionLifestyleArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Mode de vie et parcours de conception — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -116,7 +193,7 @@ export default function ConceptionLifestyleArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -125,7 +202,7 @@ export default function ConceptionLifestyleArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -140,7 +217,7 @@ export default function ConceptionLifestyleArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -158,19 +235,19 @@ export default function ConceptionLifestyleArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>MODE DE VIE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Mode de vie et{`\n`}parcours de conception
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -189,19 +266,13 @@ export default function ConceptionLifestyleArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Des habitudes simples qui peuvent accompagner ton parcours, sans
-            pression.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Ce qui peut soutenir la fertilité',
-              'Le stress, un facteur à ne pas négliger',
-              'Ce qu’il vaut mieux limiter',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -217,19 +288,17 @@ export default function ConceptionLifestyleArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Ce qui peut soutenir la fertilité</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Certaines habitudes de vie simples peuvent accompagner un
-            parcours de conception, sans garantir de résultat à elles
-            seules.
+            {content.body1}
           </Text>
 
           <View style={styles.daily}>
-            {SUPPORTIVE_HABITS.map(([icon, label]) => (
+            {content.supportiveHabits.map((label, index) => (
               <View key={label} style={styles.dailyItem}>
                 <MaterialDesignIcons
-                  name={icon as never}
+                  name={SUPPORTIVE_HABITS_ICONS[index] as never}
                   color={theme.colors.primary}
                   size={25}
                 />
@@ -240,13 +309,11 @@ export default function ConceptionLifestyleArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            2. Le stress, un facteur à ne pas négliger
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Le stress chronique peut influencer l’équilibre hormonal et,
-            chez certaines femmes, la régularité du cycle. Se préserver des
-            moments de calme fait pleinement partie du parcours.
+            {content.body2}
           </Text>
 
           <View style={styles.tip}>
@@ -257,19 +324,17 @@ export default function ConceptionLifestyleArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Vouloir « tout bien faire » peut lui-même devenir une source
-                de stress : viser des habitudes globalement saines suffit,
-                sans perfectionnisme.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Ce qu’il vaut mieux limiter</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.checkList}>
-            {TO_LIMIT.map(item => (
+            {content.toLimit.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -282,7 +347,7 @@ export default function ConceptionLifestyleArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -292,11 +357,9 @@ export default function ConceptionLifestyleArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Des habitudes globalement équilibrées, sans excès ni
-                perfectionnisme, sont le meilleur accompagnement au
-                quotidien.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

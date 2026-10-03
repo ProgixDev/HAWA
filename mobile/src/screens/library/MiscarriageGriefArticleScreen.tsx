@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,65 +39,210 @@ const ID = 'lossemotional-traverser-le-deuil';
 const HERO = require('../../assets/images/library/rules-hero.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — icons are language-neutral and stay index-aligned with the matching */
+/* CONTENT.fr/.en text arrays below (feelings / dailySupport).               */
 /* -------------------------------------------------------------------------- */
 
-const FEELINGS = [
-  {
-    icon: 'emoticon-sad-outline',
-    title: 'Tristesse',
-    text: 'Un chagrin qui peut aller et venir, parfois de façon inattendue.',
-  },
-  {
-    icon: 'weather-lightning',
-    title: 'Colère',
-    text: 'Envers soi, la situation ou un sentiment d’injustice, sans que ce soit un problème.',
-  },
-  {
-    icon: 'help-circle-outline',
-    title: 'Sentiment de vide',
-    text: 'Une impression de vide ou d’incompréhension face à ce qui vient de se passer.',
-  },
+const FEELING_ICONS = [
+  'emoticon-sad-outline',
+  'weather-lightning',
+  'help-circle-outline',
 ] as const;
 
-const DAILY_SUPPORT = [
-  {
-    icon: 'clock-outline',
-    title: 'T’accorder du temps',
-    text: 'Sans pression ni date limite pour « aller mieux ».',
-  },
-  {
-    icon: 'account-off-outline',
-    title: 'Ne pas te comparer',
-    text: 'Chaque deuil est unique ; il n’y a pas de bonne façon de le vivre.',
-  },
-  {
-    icon: 'pencil-outline',
-    title: 'Mettre des mots dessus',
-    text: 'Écrire ou parler de ce que tu ressens peut alléger le poids des émotions.',
-  },
+const DAILY_SUPPORT_ICONS = [
+  'clock-outline',
+  'account-off-outline',
+  'pencil-outline',
 ] as const;
 
-const HOW_TO_SUPPORT = [
-  'Écouter sans juger, même sans avoir les mots parfaits',
-  'Éviter de minimiser (« ce n’était pas grave », « tu pourras réessayer »)',
-  'Proposer une présence plutôt que des solutions',
-  'Continuer à prendre des nouvelles dans les semaines qui suivent',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L bilingual editorial content. Article identity (ID,     */
+/* images, bookmark/progress keys, JSX structure) is untouched; only this    */
+/* object changes per language. The French text below is byte-identical to  */
+/* the original — never retyped, only moved into the `fr` key — so the app  */
+/* remains fully bilingual rather than having French replaced by English.   */
+/* -------------------------------------------------------------------------- */
 
-const ATTENTION_SIGNS = [
-  'La tristesse persiste longtemps et s’intensifie plutôt que de s’atténuer',
-  'Il devient difficile de fonctionner au quotidien',
-  'Un isolement important s’installe',
-  'Des pensées envahissantes ou un sentiment de détresse important apparaissent',
-] as const;
-
-const SUMMARY_POINTS = [
-  'Il n’existe pas de bonne ou de mauvaise façon de vivre cette épreuve.',
-  'La tristesse, la colère ou le sentiment de vide sont des réactions normales.',
-  'S’accorder du temps, sans pression ni comparaison, fait partie de la guérison.',
-  'Parler à un proche, un groupe de soutien ou un professionnel peut alléger ce poids.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'APRÈS UNE FAUSSE COUCHE • SOUTIEN ÉMOTIONNEL',
+    title: 'Traverser le deuil\némotionnellement',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu informatif',
+    intro:
+      'Il n’y a pas de bonne façon de vivre cette épreuve. Chacune la traverse à sa manière, à son propre rythme.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Un deuil réel et légitime',
+      'Des émotions qui varient selon chaque personne',
+      'Ce qui peut aider au quotidien',
+      'Le soutien de l’entourage',
+      'Quand demander de l’aide professionnelle',
+      'À retenir',
+    ],
+    section1Body:
+      'La tristesse, la colère ou le sentiment de vide sont des réactions normales face à cette perte, quel que soit le stade de la grossesse. Ce que tu ressens mérite d’être reconnu.',
+    section1InfoTitle: 'À retenir',
+    section1InfoText:
+      'Il n’existe pas de bonne ou de mauvaise façon de vivre cette épreuve. Chaque émotion que tu ressens est légitime.',
+    section2Body:
+      'Certaines personnes peuvent ressentir un ou plusieurs de ces états, parfois en même temps :',
+    feelings: [
+      {
+        title: 'Tristesse',
+        text: 'Un chagrin qui peut aller et venir, parfois de façon inattendue.',
+      },
+      {
+        title: 'Colère',
+        text: 'Envers soi, la situation ou un sentiment d’injustice, sans que ce soit un problème.',
+      },
+      {
+        title: 'Sentiment de vide',
+        text: 'Une impression de vide ou d’incompréhension face à ce qui vient de se passer.',
+      },
+    ],
+    section3Body:
+      'S’accorder du temps, sans pression ni comparaison, fait partie intégrante de la guérison.',
+    dailySupport: [
+      {
+        title: 'T’accorder du temps',
+        text: 'Sans pression ni date limite pour « aller mieux ».',
+      },
+      {
+        title: 'Ne pas te comparer',
+        text: 'Chaque deuil est unique ; il n’y a pas de bonne façon de le vivre.',
+      },
+      {
+        title: 'Mettre des mots dessus',
+        text: 'Écrire ou parler de ce que tu ressens peut alléger le poids des émotions.',
+      },
+    ],
+    section4Body:
+      'Parler à un proche, un groupe de soutien ou un professionnel peut alléger ce poids. Voici comment l’entourage peut aider :',
+    supportTitle: 'Comment un proche peut soutenir',
+    howToSupport: [
+      'Écouter sans juger, même sans avoir les mots parfaits',
+      'Éviter de minimiser (« ce n’était pas grave », « tu pourras réessayer »)',
+      'Proposer une présence plutôt que des solutions',
+      'Continuer à prendre des nouvelles dans les semaines qui suivent',
+    ],
+    section5Body:
+      'Certains signes peuvent indiquer qu’un accompagnement professionnel serait bénéfique :',
+    warningTitle: 'Signaux à surveiller',
+    attentionSigns: [
+      'La tristesse persiste longtemps et s’intensifie plutôt que de s’atténuer',
+      'Il devient difficile de fonctionner au quotidien',
+      'Un isolement important s’installe',
+      'Des pensées envahissantes ou un sentiment de détresse important apparaissent',
+    ],
+    section5InfoTitle: 'Un accompagnement est possible',
+    section5InfoText:
+      'Une sage-femme, un médecin, un psychologue ou un groupe de parole peut t’écouter et t’accompagner, sans jugement.',
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Demander de l’aide n’est pas un signe de faiblesse : c’est une façon de prendre soin de toi pendant cette période.',
+    summaryPoints: [
+      'Il n’existe pas de bonne ou de mauvaise façon de vivre cette épreuve.',
+      'La tristesse, la colère ou le sentiment de vide sont des réactions normales.',
+      'S’accorder du temps, sans pression ni comparaison, fait partie de la guérison.',
+      'Parler à un proche, un groupe de soutien ou un professionnel peut alléger ce poids.',
+    ],
+    disclaimerText:
+      'Contenu informatif. Cet article ne remplace pas un avis professionnel. Si tu traverses une période difficile, n’hésite pas à en parler à un professionnel de santé.',
+    shareMessage: 'Traverser le deuil émotionnellement — AWA',
+  },
+  en: {
+    badge: 'AFTER A MISCARRIAGE • EMOTIONAL SUPPORT',
+    title: 'Moving through grief\nemotionally',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informational content',
+    intro:
+      'There’s no right way to go through this. Everyone moves through it in her own way, at her own pace.',
+    contentsTitle: 'In this article',
+    topics: [
+      'A real and legitimate grief',
+      'Emotions that vary from person to person',
+      'What may help day to day',
+      'Support from loved ones',
+      'When to seek professional help',
+      'Key takeaways',
+    ],
+    section1Body:
+      'Sadness, anger, or a feeling of emptiness are normal reactions to this loss, whatever the stage of the pregnancy. What you’re feeling deserves to be acknowledged.',
+    section1InfoTitle: 'Keep in mind',
+    section1InfoText:
+      'There is no right or wrong way to go through this. Every emotion you feel is valid.',
+    section2Body:
+      'You may feel one or more of these, sometimes all at once:',
+    feelings: [
+      {
+        title: 'Sadness',
+        text: 'A sorrow that can come and go, sometimes unexpectedly.',
+      },
+      {
+        title: 'Anger',
+        text: 'Toward yourself, the situation, or a sense of unfairness — and that’s nothing to worry about.',
+      },
+      {
+        title: 'A feeling of emptiness',
+        text: 'A sense of emptiness or confusion about what just happened.',
+      },
+    ],
+    section3Body:
+      'Giving yourself time, without pressure or comparison, is an essential part of healing.',
+    dailySupport: [
+      {
+        title: 'Giving yourself time',
+        text: 'Without pressure or a deadline for “feeling better.”',
+      },
+      {
+        title: 'Not comparing yourself to others',
+        text: 'Every grief is unique; there’s no right way to go through it.',
+      },
+      {
+        title: 'Putting it into words',
+        text: 'Writing or talking about what you feel can help lighten the weight of your emotions.',
+      },
+    ],
+    section4Body:
+      'Talking to someone close to you, a support group, or a professional can help lighten this weight. Here’s how loved ones can help:',
+    supportTitle: 'How a loved one can offer support',
+    howToSupport: [
+      'Listen without judgment, even without having the perfect words',
+      'Avoid minimizing the experience (“it wasn’t a big deal,” “you can try again”)',
+      'Offer your presence rather than solutions',
+      'Keep checking in during the weeks that follow',
+    ],
+    section5Body:
+      'Some signs may indicate that professional support could be helpful:',
+    warningTitle: 'Signs to watch for',
+    attentionSigns: [
+      'Sadness lasts a long time and intensifies rather than easing',
+      'It becomes difficult to function day to day',
+      'A significant sense of isolation sets in',
+      'Intrusive thoughts or significant distress appear',
+    ],
+    section5InfoTitle: 'Support is available',
+    section5InfoText:
+      'A midwife, doctor, psychologist, or support group can listen and support you, without judgment.',
+    tipTitle: 'Good to know',
+    tipText:
+      'Asking for help isn’t a sign of weakness — it’s a way of taking care of yourself during this time.',
+    summaryPoints: [
+      'There is no right or wrong way to go through this experience.',
+      'Sadness, anger, or a feeling of emptiness are normal reactions.',
+      'Giving yourself time, without pressure or comparison, is part of healing.',
+      'Talking to someone close to you, a support group, or a professional can help lighten this weight.',
+    ],
+    disclaimerText:
+      'Informational content. This article does not replace professional advice. If you’re going through a difficult time, don’t hesitate to talk to a healthcare professional.',
+    shareMessage: 'Moving through grief, emotionally — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -111,6 +257,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function MiscarriageGriefArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -138,7 +287,7 @@ export default function MiscarriageGriefArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Traverser le deuil émotionnellement — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -183,7 +332,7 @@ export default function MiscarriageGriefArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -198,7 +347,7 @@ export default function MiscarriageGriefArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -215,7 +364,7 @@ export default function MiscarriageGriefArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -238,21 +387,17 @@ export default function MiscarriageGriefArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
-              APRÈS UNE FAUSSE COUCHE • SOUTIEN ÉMOTIONNEL
-            </Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Traverser le deuil{`\n`}émotionnellement
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu informatif'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -270,26 +415,16 @@ export default function MiscarriageGriefArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Il n’y a pas de bonne façon de vivre cette épreuve. Chacune la
-            traverse à sa manière, à son propre rythme.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Un deuil réel et légitime',
-              'Des émotions qui varient selon chaque personne',
-              'Ce qui peut aider au quotidien',
-              'Le soutien de l’entourage',
-              'Quand demander de l’aide professionnelle',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -309,13 +444,9 @@ export default function MiscarriageGriefArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Un deuil réel et légitime</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            La tristesse, la colère ou le sentiment de vide sont des
-            réactions normales face à cette perte, quel que soit le stade de
-            la grossesse. Ce que tu ressens mérite d’être reconnu.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -325,11 +456,8 @@ export default function MiscarriageGriefArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>À retenir</Text>
-              <Text style={styles.infoText}>
-                Il n’existe pas de bonne ou de mauvaise façon de vivre cette
-                épreuve. Chaque émotion que tu ressens est légitime.
-              </Text>
+              <Text style={styles.infoTitle}>{content.section1InfoTitle}</Text>
+              <Text style={styles.infoText}>{content.section1InfoText}</Text>
             </View>
           </View>
 
@@ -337,21 +465,16 @@ export default function MiscarriageGriefArticleScreen({
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>
-            2. Des émotions qui varient selon chaque personne
-          </Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Certaines personnes peuvent ressentir un ou plusieurs de ces
-            états, parfois en même temps :
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.normalGrid}>
-            {FEELINGS.map(item => (
+            {content.feelings.map((item, index) => (
               <View key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={FEELING_ICONS[index] as never}
                     size={20}
                     color={theme.colors.primary}
                   />
@@ -367,24 +490,22 @@ export default function MiscarriageGriefArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Ce qui peut aider au quotidien</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            S’accorder du temps, sans pression ni comparaison, fait partie
-            intégrante de la guérison.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.comfortCard}>
-            {DAILY_SUPPORT.map((item, index) => (
+            {content.dailySupport.map((item, index) => (
               <View
                 key={item.title}
                 style={[
                   styles.comfortRow,
-                  index < DAILY_SUPPORT.length - 1 && styles.comfortRowBorder,
+                  index < content.dailySupport.length - 1 &&
+                    styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={DAILY_SUPPORT_ICONS[index] as never}
                     size={19}
                     color={theme.colors.primary}
                   />
@@ -402,12 +523,9 @@ export default function MiscarriageGriefArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Le soutien de l’entourage</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Parler à un proche, un groupe de soutien ou un professionnel peut
-            alléger ce poids. Voici comment l’entourage peut aider :
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           <View style={styles.warningCard}>
             <View style={styles.warningHeader}>
@@ -418,11 +536,11 @@ export default function MiscarriageGriefArticleScreen({
               />
 
               <Text style={[styles.warningTitle, styles.supportTitle]}>
-                Comment un proche peut soutenir
+                {content.supportTitle}
               </Text>
             </View>
 
-            {HOW_TO_SUPPORT.map(item => (
+            {content.howToSupport.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -441,12 +559,9 @@ export default function MiscarriageGriefArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Quand demander de l’aide professionnelle</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Certains signes peuvent indiquer qu’un accompagnement
-            professionnel serait bénéfique :
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
           <View style={styles.warningCard}>
             <View style={styles.warningHeader}>
@@ -456,10 +571,10 @@ export default function MiscarriageGriefArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>Signaux à surveiller</Text>
+              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
             </View>
 
-            {ATTENTION_SIGNS.map(item => (
+            {content.attentionSigns.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -482,11 +597,8 @@ export default function MiscarriageGriefArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Un accompagnement est possible</Text>
-              <Text style={styles.infoText}>
-                Une sage-femme, un médecin, un psychologue ou un groupe de
-                parole peut t’écouter et t’accompagner, sans jugement.
-              </Text>
+              <Text style={styles.infoTitle}>{content.section5InfoTitle}</Text>
+              <Text style={styles.infoText}>{content.section5InfoText}</Text>
             </View>
           </View>
 
@@ -502,11 +614,8 @@ export default function MiscarriageGriefArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Demander de l’aide n’est pas un signe de faiblesse : c’est une
-                façon de prendre soin de toi pendant cette période.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -514,10 +623,10 @@ export default function MiscarriageGriefArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[5]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -541,11 +650,7 @@ export default function MiscarriageGriefArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              professionnel. Si tu traverses une période difficile,
-              n’hésite pas à en parler à un professionnel de santé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,60 +34,139 @@ const ID = 'flow-hygiene-intime';
 
 const HERO = require('../../assets/images/library/flow-colors-hero.png');
 
-// Same 3 practices this article always had — title and text merged into one
-// row string ("Title : text") to fit the checkList component, no words
-// added or removed.
-const GOOD_PRACTICES = [
-  'Lave-toi doucement : un simple lavage à l’eau claire, de l’avant vers l’arrière, suffit pour préserver ta flore naturelle.',
-  'Change régulièrement tes protections : toutes les 4 à 6 heures pour éviter l’humidité et les mauvaises odeurs.',
-  'Privilégie le coton : les sous-vêtements en coton laissent la peau respirer et réduisent les risques d’irritation.',
-];
-
-const THINGS_TO_AVOID = [
-  'Les savons agressifs et les produits parfumés',
-  'Les douches vaginales qui perturbent la flore naturelle',
-  'Garder une protection humide trop longtemps',
-];
-
-const CONSULT_REASONS = [
-  'Irritations, démangeaisons ou brûlures persistantes',
-  'Odeur inhabituelle ou pertes différentes de ton habitude',
-  'Douleurs importantes ou symptômes qui t’inquiètent',
-];
-
-const TAKEAWAYS = [
-  'Lavage doux à l’eau claire',
-  'Changer régulièrement',
-  'Éviter les produits parfumés',
-  'Privilégier le coton',
-];
-
-const RELATED = [
+// Images stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these illustrations.
+const RELATED_IMAGES = [
   {
-    title: 'Comprendre les douleurs menstruelles',
-    meta: '7 min  ·  Guide',
     image: require('../../assets/images/library/pain-hero.png'),
     articleId: 'pain-gerer-douleurs',
   },
   {
-    title: 'Choisir la protection adaptée à ton corps',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/rules-hero.png'),
     articleId: 'flow-comprendre-flux',
   },
   {
-    title: 'Comment soulager les crampes naturellement',
-    meta: '6 min  ·  Guide',
     image: require('../../assets/images/library/pain-hero.png'),
     articleId: 'pain-gerer-douleurs',
   },
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'FLUX MENSTRUEL',
+    title: 'Bien vivre son hygiène intime\npendant les règles',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Prendre soin de son intimité, c’est respecter son corps et son équilibre naturel.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi c’est important',
+      'Les bons gestes',
+      'À éviter',
+      'Quand consulter',
+      'Conseils pratiques',
+    ],
+    body: 'Pendant les règles, ton corps change et devient plus sensible. Adopter les bons gestes aide à prévenir les irritations, les infections et à rester à l’aise au quotidien.',
+    goodPractices: [
+      'Lave-toi doucement : un simple lavage à l’eau claire, de l’avant vers l’arrière, suffit pour préserver ta flore naturelle.',
+      'Change régulièrement tes protections : toutes les 4 à 6 heures pour éviter l’humidité et les mauvaises odeurs.',
+      'Privilégie le coton : les sous-vêtements en coton laissent la peau respirer et réduisent les risques d’irritation.',
+    ],
+    thingsToAvoid: [
+      'Les savons agressifs et les produits parfumés',
+      'Les douches vaginales qui perturbent la flore naturelle',
+      'Garder une protection humide trop longtemps',
+    ],
+    consultReasons: [
+      'Irritations, démangeaisons ou brûlures persistantes',
+      'Odeur inhabituelle ou pertes différentes de ton habitude',
+      'Douleurs importantes ou symptômes qui t’inquiètent',
+    ],
+    tipTitle: 'Conseil AWA',
+    tipText: 'Ton corps possède déjà un mécanisme naturel d’équilibre. Un lavage doux suffit généralement.',
+    takeawaysTitle: 'À retenir',
+    takeaways: [
+      'Lavage doux à l’eau claire',
+      'Changer régulièrement',
+      'Éviter les produits parfumés',
+      'Privilégier le coton',
+    ],
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {title: 'Comprendre les douleurs menstruelles', meta: '7 min  ·  Guide'},
+      {title: 'Choisir la protection adaptée à ton corps', meta: '5 min  ·  Guide'},
+      {title: 'Comment soulager les crampes naturellement', meta: '6 min  ·  Guide'},
+    ],
+    shareTitle: 'Hygiène intime · AWA',
+    shareMessage: 'Bien vivre son hygiène intime pendant les règles · AWA',
+  },
+  en: {
+    badge: 'MENSTRUAL FLOW',
+    title: 'Taking care of your intimate hygiene\nduring your period',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Caring for your intimate hygiene means respecting your body and its natural balance.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why it matters',
+      'Good habits',
+      'What to avoid',
+      'When to see a doctor',
+      'Practical tips',
+    ],
+    body: 'During your period, your body changes and becomes more sensitive. Adopting the right habits helps prevent irritation and infection, and helps you stay comfortable day to day.',
+    goodPractices: [
+      'Wash gently: a simple rinse with clear water, from front to back, is enough to protect your natural flora.',
+      'Change your protection regularly: every 4 to 6 hours to avoid moisture and unpleasant odors.',
+      'Choose cotton: cotton underwear lets your skin breathe and reduces the risk of irritation.',
+    ],
+    thingsToAvoid: [
+      'Harsh soaps and scented products',
+      'Vaginal douches, which disrupt your natural flora',
+      'Keeping a damp pad or tampon on for too long',
+    ],
+    consultReasons: [
+      'Persistent irritation, itching, or burning',
+      'Unusual odor or discharge that’s different from what’s normal for you',
+      'Significant pain or symptoms that worry you',
+    ],
+    tipTitle: 'AWA tip',
+    tipText: 'Your body already has a natural balancing mechanism. A gentle wash is usually enough.',
+    takeawaysTitle: 'Key takeaways',
+    takeaways: [
+      'Gentle wash with clear water',
+      'Change regularly',
+      'Avoid scented products',
+      'Choose cotton',
+    ],
+    relatedTitle: '♥  You might also like',
+    related: [
+      {title: 'Understanding menstrual pain', meta: '7 min  ·  Guide'},
+      {title: 'Choosing the right protection for your body', meta: '5 min  ·  Guide'},
+      {title: 'How to relieve cramps naturally', meta: '6 min  ·  Guide'},
+    ],
+    shareTitle: 'Intimate hygiene · AWA',
+    shareMessage: 'Taking care of your intimate hygiene during your period · AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FlowMenstrualArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -113,8 +193,8 @@ export default function FlowMenstrualArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      title: 'Hygiène intime · AWA',
-      message: 'Bien vivre son hygiène intime pendant les règles · AWA',
+      title: content.shareTitle,
+      message: content.shareMessage,
     });
   };
 
@@ -152,7 +232,7 @@ export default function FlowMenstrualArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -161,7 +241,7 @@ export default function FlowMenstrualArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -176,7 +256,7 @@ export default function FlowMenstrualArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -194,19 +274,19 @@ export default function FlowMenstrualArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>FLUX MENSTRUEL</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Bien vivre son hygiène intime{`\n`}pendant les règles
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -225,20 +305,13 @@ export default function FlowMenstrualArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Prendre soin de son intimité, c’est respecter son corps et son
-            équilibre naturel.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pourquoi c’est important',
-              'Les bons gestes',
-              'À éviter',
-              'Quand consulter',
-              'Conseils pratiques',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -254,18 +327,16 @@ export default function FlowMenstrualArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Pourquoi c’est important</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Pendant les règles, ton corps change et devient plus sensible.
-            Adopter les bons gestes aide à prévenir les irritations, les
-            infections et à rester à l’aise au quotidien.
+            {content.body}
           </Text>
 
-          <Text style={styles.h2}>2. Les bons gestes</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <View style={styles.checkList}>
-            {GOOD_PRACTICES.map(item => (
+            {content.goodPractices.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -278,10 +349,10 @@ export default function FlowMenstrualArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. À éviter</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.alertList}>
-            {THINGS_TO_AVOID.map(item => (
+            {content.thingsToAvoid.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="close-circle-outline"
@@ -294,10 +365,10 @@ export default function FlowMenstrualArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>4. Quand consulter</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.checkList}>
-            {CONSULT_REASONS.map(item => (
+            {content.consultReasons.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -310,7 +381,7 @@ export default function FlowMenstrualArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>5. Conseils pratiques</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -320,18 +391,17 @@ export default function FlowMenstrualArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Conseil AWA</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Ton corps possède déjà un mécanisme naturel d’équilibre. Un
-                lavage doux suffit généralement.
+                {content.tipText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.contentsTitle}>À retenir</Text>
+          <Text style={styles.contentsTitle}>{content.takeawaysTitle}</Text>
 
           <View style={styles.checkList}>
-            {TAKEAWAYS.map(item => (
+            {content.takeaways.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -346,16 +416,16 @@ export default function FlowMenstrualArticleScreen({
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {RELATED_IMAGES.map((item, index) => (
             <Pressable
-              key={item.title}
+              key={item.articleId + index}
               onPress={() =>
                 navigation.push('ArticleReader', {articleId: item.articleId})
               }
@@ -368,9 +438,11 @@ export default function FlowMenstrualArticleScreen({
 
               <View style={styles.relatedCopy}>
                 <Text numberOfLines={3} style={styles.relatedCardTitle}>
-                  {item.title}
+                  {content.related[index].title}
                 </Text>
-                <Text style={styles.relatedMeta}>{item.meta}</Text>
+                <Text style={styles.relatedMeta}>
+                  {content.related[index].meta}
+                </Text>
               </View>
             </Pressable>
           ))}

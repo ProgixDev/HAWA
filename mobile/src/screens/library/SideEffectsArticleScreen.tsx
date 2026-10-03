@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,56 +34,243 @@ const ID = 'sideeffects-reconnaitre-les-effets-secondaires';
 
 const HERO = require('../../assets/images/library/featured-pain.png');
 
-const WORTH_MENTIONING = [
-  'Des changements d’humeur marqués et persistants',
-  'Une baisse de libido qui te gêne',
-  'Des saignements irréguliers qui durent plus de 3 cycles',
-  'Des nausées ou maux de tête qui restent gênants',
-];
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const COMMON_EFFECT_ICONS = [
+  'water-outline',
+  'heart-outline',
+  'emoticon-outline',
+  'head-outline',
+] as const;
 
-const COMMON_EFFECTS = [
-  {
-    icon: 'water-outline',
-    title: 'Petits saignements',
-    text: 'Des saignements irréguliers peuvent apparaître, notamment au début d’une nouvelle méthode.',
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'EFFETS SECONDAIRES',
+    title: 'Reconnaître les effets\nsecondaires possibles',
+    metaDuration: '8 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Certains effets peuvent être fréquents et temporaires. D’autres nécessitent davantage d’attention. Apprends à distinguer les réactions habituelles des signes qui doivent être évalués.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Des effets courants et bénins',
+      'Le temps d’adaptation du corps',
+      'Observer ce qui change',
+      'Quand demander un avis médical',
+      'Quand consulter rapidement',
+      'À retenir',
+    ],
+    body1:
+      'Lorsqu’une personne commence une nouvelle contraception hormonale, le corps peut avoir besoin d’un temps d’adaptation. De petits changements peuvent apparaître au niveau du cycle, de l’humeur ou du confort physique.',
+    body2:
+      'Ces manifestations sont souvent modérées et peuvent diminuer progressivement. Leur présence ne signifie pas automatiquement que la méthode est dangereuse ou qu’elle doit être arrêtée.',
+    commonEffects: [
+      {
+        title: 'Petits saignements',
+        text: 'Des saignements irréguliers peuvent apparaître, notamment au début d’une nouvelle méthode.',
+      },
+      {
+        title: 'Sensibilité des seins',
+        text: 'Une tension ou une sensibilité des seins peut être ressentie temporairement.',
+      },
+      {
+        title: 'Humeur',
+        text: 'Certaines personnes remarquent des variations d’humeur ou une plus grande sensibilité émotionnelle.',
+      },
+      {
+        title: 'Maux de tête',
+        text: 'De légers maux de tête peuvent survenir pendant la période d’adaptation.',
+      },
+    ],
+    body3:
+      'Les premières semaines ou les premiers cycles peuvent être différents de ce que tu connaissais auparavant. Le corps peut progressivement s’adapter au nouveau fonctionnement hormonal.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'Un effet apparu peu après le début d’une méthode mérite d’être observé dans le temps. S’il devient gênant ou persiste, parle-en avec un professionnel de santé.',
+    body4:
+      'Il peut être utile de noter les symptômes dans ton application afin de mieux voir leur évolution d’un cycle à l’autre.',
+    trackingTitle: 'Observe l’évolution',
+    trackingSubtitle: 'Quelques repères peuvent être utiles',
+    trackingLines: [
+      'Note la date d’apparition du symptôme.',
+      'Indique son intensité et sa durée.',
+      'Observe s’il s’améliore ou s’aggrave.',
+    ],
+    body5:
+      'Tous les symptômes ne sont pas forcément liés à la contraception. Le stress, le sommeil, l’alimentation, le cycle ou d’autres traitements peuvent également influencer la façon dont tu te sens.',
+    body6:
+      'Pour comprendre la situation, essaie de regarder le contexte général plutôt que de considérer un symptôme isolé.',
+    worthMentioning: [
+      'Des changements d’humeur marqués et persistants',
+      'Une baisse de libido qui te gêne',
+      'Des saignements irréguliers qui durent plus de 3 cycles',
+      'Des nausées ou maux de tête qui restent gênants',
+    ],
+    questionsTitle: 'Quelques questions utiles',
+    questions: [
+      'Depuis quand ces symptômes ont-ils commencé ?',
+      'Sont-ils apparus après le début ou le changement d’une contraception ?',
+      'Sont-ils légers, gênants ou vraiment inhabituels pour toi ?',
+      'S’améliorent-ils avec le temps ou deviennent-ils plus fréquents ?',
+    ],
+    body7:
+      'Même lorsqu’un symptôme n’est pas urgent, il peut être utile d’en parler si celui-ci devient gênant, persiste ou modifie réellement ta qualité de vie.',
+    infoTitle: 'Un avis peut être utile si…',
+    infoText:
+      'les symptômes persistent, deviennent plus importants ou t’empêchent de vivre normalement.',
+    body8:
+      'Un médecin, une sage-femme ou un pharmacien peut t’aider à déterminer si les symptômes peuvent être liés à la méthode utilisée et s’il est nécessaire de l’adapter.',
+    body9:
+      'Certains signes sont inhabituels et nécessitent une évaluation médicale rapide. Ils ne signifient pas forcément qu’une complication est présente, mais ils ne doivent pas être ignorés.',
+    alertTitle: 'Consulter rapidement',
+    alertIntro: 'Demande rapidement un avis médical si tu présentes notamment :',
+    urgentSigns: [
+      'Douleur thoracique importante ou inhabituelle',
+      'Difficulté soudaine à respirer',
+      'Gonflement ou douleur inhabituelle d’une jambe',
+      'Mal de tête brutal, très intense ou inhabituel',
+      'Trouble soudain de la vision, de la parole ou de la force',
+    ],
+    emergencyTitle: 'En cas de situation sévère',
+    emergencyText:
+      'Si les symptômes sont soudains, très importants ou s’accompagnent d’une difficulté à respirer, d’un malaise ou d’un autre signe grave, recherche une aide médicale urgente.',
+    summaryTitle: 'L’essentiel',
+    summaryItems: [
+      'Certains effets peuvent apparaître au début d’une nouvelle contraception hormonale.',
+      'Beaucoup de manifestations sont temporaires et peuvent diminuer avec le temps.',
+      'Un symptôme gênant ou persistant mérite d’être discuté avec un professionnel.',
+      'Certains signes inhabituels nécessitent un avis médical rapide.',
+    ],
+    finalTipTitle: 'À retenir',
+    finalTipText:
+      'Écouter ton corps ne signifie pas forcément arrêter immédiatement une méthode. Note ce que tu ressens, observe son évolution et demande conseil lorsqu’un symptôme te préoccupe.',
+    disclaimerText:
+      'Cet article a une vocation informative et ne remplace pas un avis médical personnalisé. En cas de symptôme important ou inhabituel, demande conseil à un professionnel de santé.',
+    shareMessage: 'Reconnaître les effets secondaires possibles — AWA',
   },
-  {
-    icon: 'heart-outline',
-    title: 'Sensibilité des seins',
-    text: 'Une tension ou une sensibilité des seins peut être ressentie temporairement.',
+  en: {
+    badge: 'SIDE EFFECTS',
+    title: 'Recognizing possible\nside effects',
+    metaDuration: '8 min read',
+    metaType: 'Article',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro:
+      'Some effects can be common and temporary. Others need more attention. Learn to tell the difference between usual reactions and signs that should be evaluated.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Common, mild effects',
+      'The body’s adjustment period',
+      'Observing what changes',
+      'When to seek medical advice',
+      'When to seek care quickly',
+      'Key takeaways',
+    ],
+    body1:
+      'When someone starts a new hormonal contraception method, the body may need some time to adjust. Small changes can appear in the cycle, mood, or physical comfort.',
+    body2:
+      'These effects are often mild and may gradually decrease. Their presence doesn’t automatically mean the method is dangerous or that it needs to be stopped.',
+    commonEffects: [
+      {
+        title: 'Minor bleeding',
+        text: 'Irregular bleeding can occur, especially at the start of a new method.',
+      },
+      {
+        title: 'Breast tenderness',
+        text: 'Breast tightness or tenderness may be felt temporarily.',
+      },
+      {
+        title: 'Mood',
+        text: 'Some people notice mood changes or increased emotional sensitivity.',
+      },
+      {
+        title: 'Headaches',
+        text: 'Mild headaches can occur during the adjustment period.',
+      },
+    ],
+    body3:
+      'The first few weeks or cycles may be different from what you were used to before. The body can gradually adjust to the new hormonal balance.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'An effect that appears shortly after starting a method is worth watching over time. If it becomes bothersome or persists, talk to a healthcare professional.',
+    body4:
+      'It can be helpful to log symptoms in your app to better track how they change from one cycle to the next.',
+    trackingTitle: 'Track how things evolve',
+    trackingSubtitle: 'A few markers can be helpful',
+    trackingLines: [
+      'Note the date the symptom appeared.',
+      'Record its intensity and duration.',
+      'Watch whether it improves or worsens.',
+    ],
+    body5:
+      'Not all symptoms are necessarily linked to contraception. Stress, sleep, diet, your cycle, or other treatments can also affect how you feel.',
+    body6:
+      'To understand the situation, try to look at the overall context rather than a single symptom in isolation.',
+    worthMentioning: [
+      'Marked, persistent mood changes',
+      'A drop in libido that bothers you',
+      'Irregular bleeding that lasts more than 3 cycles',
+      'Nausea or headaches that remain bothersome',
+    ],
+    questionsTitle: 'A few helpful questions',
+    questions: [
+      'How long have these symptoms been going on?',
+      'Did they appear after starting or changing a contraception method?',
+      'Are they mild, bothersome, or truly unusual for you?',
+      'Are they improving over time or becoming more frequent?',
+    ],
+    body7:
+      'Even when a symptom isn’t urgent, it can be worth discussing it if it becomes bothersome, persists, or genuinely affects your quality of life.',
+    infoTitle: 'It may be worth getting advice if…',
+    infoText:
+      'symptoms persist, become more significant, or keep you from living normally.',
+    body8:
+      'A doctor, midwife, or pharmacist can help you determine whether the symptoms may be linked to the method you’re using and whether it needs to be adjusted.',
+    body9:
+      'Some signs are unusual and call for prompt medical evaluation. They don’t necessarily mean a complication is present, but they should not be ignored.',
+    alertTitle: 'Seek care quickly',
+    alertIntro: 'Seek medical advice quickly if you experience, in particular:',
+    urgentSigns: [
+      'Significant or unusual chest pain',
+      'Sudden difficulty breathing',
+      'Unusual swelling or pain in a leg',
+      'A sudden, very intense, or unusual headache',
+      'Sudden trouble with vision, speech, or strength',
+    ],
+    emergencyTitle: 'In case of a severe situation',
+    emergencyText:
+      'If symptoms are sudden, very severe, or come with difficulty breathing, feeling faint, or another serious sign, seek urgent medical help.',
+    summaryTitle: 'The essentials',
+    summaryItems: [
+      'Some effects can appear at the start of a new hormonal contraception method.',
+      'Many effects are temporary and may decrease over time.',
+      'A bothersome or persistent symptom is worth discussing with a professional.',
+      'Some unusual signs require prompt medical advice.',
+    ],
+    finalTipTitle: 'Key takeaway',
+    finalTipText:
+      'Listening to your body doesn’t necessarily mean stopping a method right away. Note what you’re feeling, watch how it evolves, and ask for advice whenever a symptom concerns you.',
+    disclaimerText:
+      'This article is intended for information purposes and does not replace personalized medical advice. If you have a significant or unusual symptom, seek advice from a healthcare professional.',
+    shareMessage: 'Recognizing possible side effects — AWA',
   },
-  {
-    icon: 'emoticon-outline',
-    title: 'Humeur',
-    text: 'Certaines personnes remarquent des variations d’humeur ou une plus grande sensibilité émotionnelle.',
-  },
-  {
-    icon: 'head-outline',
-    title: 'Maux de tête',
-    text: 'De légers maux de tête peuvent survenir pendant la période d’adaptation.',
-  },
-];
-
-const QUESTIONS = [
-  'Depuis quand ces symptômes ont-ils commencé ?',
-  'Sont-ils apparus après le début ou le changement d’une contraception ?',
-  'Sont-ils légers, gênants ou vraiment inhabituels pour toi ?',
-  'S’améliorent-ils avec le temps ou deviennent-ils plus fréquents ?',
-];
-
-const URGENT_SIGNS = [
-  'Douleur thoracique importante ou inhabituelle',
-  'Difficulté soudaine à respirer',
-  'Gonflement ou douleur inhabituelle d’une jambe',
-  'Mal de tête brutal, très intense ou inhabituel',
-  'Trouble soudain de la vision, de la parole ou de la force',
-];
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function SideEffectsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -109,7 +297,7 @@ export default function SideEffectsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Reconnaître les effets secondaires possibles — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -149,7 +337,7 @@ export default function SideEffectsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons
@@ -162,7 +350,7 @@ export default function SideEffectsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -177,7 +365,7 @@ export default function SideEffectsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -197,19 +385,17 @@ export default function SideEffectsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>EFFETS SECONDAIRES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Reconnaître les effets{`\n`}secondaires possibles
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '8 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -227,25 +413,14 @@ export default function SideEffectsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Certains effets peuvent être fréquents et temporaires. D’autres
-            nécessitent davantage d’attention. Apprends à distinguer les
-            réactions habituelles des signes qui doivent être évalués.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* CONTENTS */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Des effets courants et bénins',
-              'Le temps d’adaptation du corps',
-              'Observer ce qui change',
-              'Quand demander un avis médical',
-              'Quand consulter rapidement',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -264,48 +439,38 @@ export default function SideEffectsArticleScreen({
 
           {/* SECTION 1 */}
 
-          <Text style={styles.h2}>1. Des effets courants et bénins</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Lorsqu’une personne commence une nouvelle contraception hormonale,
-            le corps peut avoir besoin d’un temps d’adaptation. De petits
-            changements peuvent apparaître au niveau du cycle, de l’humeur ou
-            du confort physique.
-          </Text>
+          <Text style={styles.body}>{content.body1}</Text>
 
-          <Text style={styles.body}>
-            Ces manifestations sont souvent modérées et peuvent diminuer
-            progressivement. Leur présence ne signifie pas automatiquement
-            que la méthode est dangereuse ou qu’elle doit être arrêtée.
-          </Text>
+          <Text style={styles.body}>{content.body2}</Text>
 
           <View style={styles.commonGrid}>
-            {COMMON_EFFECTS.map(item => (
-              <View key={item.title} style={styles.commonCard}>
-                <View style={styles.commonIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={21}
-                    color={theme.colors.primary}
-                  />
+            {COMMON_EFFECT_ICONS.map((icon, index) => {
+              const item = content.commonEffects[index];
+              return (
+                <View key={item.title} style={styles.commonCard}>
+                  <View style={styles.commonIcon}>
+                    <MaterialDesignIcons
+                      name={icon as never}
+                      size={21}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <Text style={styles.commonTitle}>{item.title}</Text>
+
+                  <Text style={styles.commonText}>{item.text}</Text>
                 </View>
-
-                <Text style={styles.commonTitle}>{item.title}</Text>
-
-                <Text style={styles.commonText}>{item.text}</Text>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* SECTION 2 */}
 
-          <Text style={styles.h2}>2. Le temps d’adaptation du corps</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Les premières semaines ou les premiers cycles peuvent être
-            différents de ce que tu connaissais auparavant. Le corps peut
-            progressivement s’adapter au nouveau fonctionnement hormonal.
-          </Text>
+          <Text style={styles.body}>{content.body3}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -315,20 +480,13 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
-              <Text style={styles.tipText}>
-                Un effet apparu peu après le début d’une méthode mérite d’être
-                observé dans le temps. S’il devient gênant ou persiste,
-                parle-en avec un professionnel de santé.
-              </Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.body}>
-            Il peut être utile de noter les symptômes dans ton application
-            afin de mieux voir leur évolution d’un cycle à l’autre.
-          </Text>
+          <Text style={styles.body}>{content.body4}</Text>
 
           {/* TRACKING CARD */}
 
@@ -343,69 +501,39 @@ export default function SideEffectsArticleScreen({
               </View>
 
               <View style={styles.trackingHeaderCopy}>
-                <Text style={styles.trackingTitle}>Observe l’évolution</Text>
+                <Text style={styles.trackingTitle}>
+                  {content.trackingTitle}
+                </Text>
 
                 <Text style={styles.trackingSubtitle}>
-                  Quelques repères peuvent être utiles
+                  {content.trackingSubtitle}
                 </Text>
               </View>
             </View>
 
-            <View style={styles.trackingLine}>
-              <MaterialDesignIcons
-                name="check"
-                size={17}
-                color={theme.colors.success}
-              />
+            {content.trackingLines.map(line => (
+              <View key={line} style={styles.trackingLine}>
+                <MaterialDesignIcons
+                  name="check"
+                  size={17}
+                  color={theme.colors.success}
+                />
 
-              <Text style={styles.trackingText}>
-                Note la date d’apparition du symptôme.
-              </Text>
-            </View>
-
-            <View style={styles.trackingLine}>
-              <MaterialDesignIcons
-                name="check"
-                size={17}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.trackingText}>
-                Indique son intensité et sa durée.
-              </Text>
-            </View>
-
-            <View style={styles.trackingLine}>
-              <MaterialDesignIcons
-                name="check"
-                size={17}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.trackingText}>
-                Observe s’il s’améliore ou s’aggrave.
-              </Text>
-            </View>
+                <Text style={styles.trackingText}>{line}</Text>
+              </View>
+            ))}
           </View>
 
           {/* SECTION 3 */}
 
-          <Text style={styles.h2}>3. Observer ce qui change</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Tous les symptômes ne sont pas forcément liés à la contraception.
-            Le stress, le sommeil, l’alimentation, le cycle ou d’autres
-            traitements peuvent également influencer la façon dont tu te
-            sens.
-          </Text>
+          <Text style={styles.body}>{content.body5}</Text>
 
-          <Text style={styles.body}>
-            Pour comprendre la situation, essaie de regarder le contexte
-            général plutôt que de considérer un symptôme isolé.
-          </Text>
+          <Text style={styles.body}>{content.body6}</Text>
 
           <View style={styles.checkList}>
-            {WORTH_MENTIONING.map(item => (
+            {content.worthMentioning.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -429,11 +557,11 @@ export default function SideEffectsArticleScreen({
               />
 
               <Text style={styles.questionTitle}>
-                Quelques questions utiles
+                {content.questionsTitle}
               </Text>
             </View>
 
-            {QUESTIONS.map((item, index) => (
+            {content.questions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionNumberCircle}>
                   <Text style={styles.questionNumber}>{index + 1}</Text>
@@ -446,13 +574,9 @@ export default function SideEffectsArticleScreen({
 
           {/* SECTION 4 */}
 
-          <Text style={styles.h2}>4. Quand demander un avis médical</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Même lorsqu’un symptôme n’est pas urgent, il peut être utile
-            d’en parler si celui-ci devient gênant, persiste ou modifie
-            réellement ta qualité de vie.
-          </Text>
+          <Text style={styles.body}>{content.body7}</Text>
 
           <View style={styles.infoCard}>
             <View style={styles.infoIcon}>
@@ -464,32 +588,19 @@ export default function SideEffectsArticleScreen({
             </View>
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>
-                Un avis peut être utile si…
-              </Text>
+              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
 
-              <Text style={styles.infoText}>
-                les symptômes persistent, deviennent plus importants ou
-                t’empêchent de vivre normalement.
-              </Text>
+              <Text style={styles.infoText}>{content.infoText}</Text>
             </View>
           </View>
 
-          <Text style={styles.body}>
-            Un médecin, une sage-femme ou un pharmacien peut t’aider à
-            déterminer si les symptômes peuvent être liés à la méthode
-            utilisée et s’il est nécessaire de l’adapter.
-          </Text>
+          <Text style={styles.body}>{content.body8}</Text>
 
           {/* SECTION 5 */}
 
-          <Text style={styles.h2}>5. Quand consulter rapidement</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Certains signes sont inhabituels et nécessitent une évaluation
-            médicale rapide. Ils ne signifient pas forcément qu’une
-            complication est présente, mais ils ne doivent pas être ignorés.
-          </Text>
+          <Text style={styles.body}>{content.body9}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -499,13 +610,11 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.alertTitle}>Consulter rapidement</Text>
+              <Text style={styles.alertTitle}>{content.alertTitle}</Text>
 
-              <Text style={styles.alertIntro}>
-                Demande rapidement un avis médical si tu présentes notamment :
-              </Text>
+              <Text style={styles.alertIntro}>{content.alertIntro}</Text>
 
-              {URGENT_SIGNS.map(item => (
+              {content.urgentSigns.map(item => (
                 <View key={item} style={styles.alertRow}>
                   <View style={styles.alertDot} />
 
@@ -525,19 +634,19 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.emergencyTitle}>En cas de situation sévère</Text>
+              <Text style={styles.emergencyTitle}>
+                {content.emergencyTitle}
+              </Text>
 
               <Text style={styles.emergencyText}>
-                Si les symptômes sont soudains, très importants ou
-                s’accompagnent d’une difficulté à respirer, d’un malaise ou
-                d’un autre signe grave, recherche une aide médicale urgente.
+                {content.emergencyText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 6 */}
 
-          <Text style={styles.h2}>6. À retenir</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -547,60 +656,20 @@ export default function SideEffectsArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>L’essentiel</Text>
+              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
             </View>
 
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
+            {content.summaryItems.map(item => (
+              <View key={item} style={styles.summaryItem}>
+                <MaterialDesignIcons
+                  name="check"
+                  size={18}
+                  color={theme.colors.success}
+                />
 
-              <Text style={styles.summaryText}>
-                Certains effets peuvent apparaître au début d’une nouvelle
-                contraception hormonale.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Beaucoup de manifestations sont temporaires et peuvent
-                diminuer avec le temps.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Un symptôme gênant ou persistant mérite d’être discuté avec
-                un professionnel.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Certains signes inhabituels nécessitent un avis médical
-                rapide.
-              </Text>
-            </View>
+                <Text style={styles.summaryText}>{item}</Text>
+              </View>
+            ))}
           </View>
 
           {/* FINAL TIP */}
@@ -613,14 +682,9 @@ export default function SideEffectsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
 
-              <Text style={styles.tipText}>
-                Écouter ton corps ne signifie pas forcément arrêter
-                immédiatement une méthode. Note ce que tu ressens, observe
-                son évolution et demande conseil lorsqu’un symptôme te
-                préoccupe.
-              </Text>
+              <Text style={styles.tipText}>{content.finalTipText}</Text>
             </View>
           </View>
 
@@ -634,9 +698,7 @@ export default function SideEffectsArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Cet article a une vocation informative et ne remplace pas un
-              avis médical personnalisé. En cas de symptôme important ou
-              inhabituel, demande conseil à un professionnel de santé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

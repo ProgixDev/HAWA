@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -34,94 +35,175 @@ const ID = 'breastfeeding-debuter-allaitement';
 const HERO = require('../../assets/images/library/featured-tracking-hero.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                        */
+/* DATA — icons/numbers stay language-neutral; only TEXT moves into the       */
+/* bilingual CONTENT object below, keyed by index to stay aligned with these. */
 /* -------------------------------------------------------------------------- */
 
-const STARTING_STEPS = [
-  {
-    icon: 'baby-face-outline',
-    number: '01',
-    title: 'Après la naissance',
-    text: 'Le contact peau à peau et une première mise au sein peuvent favoriser le démarrage.',
-  },
-  {
-    icon: 'clock-outline',
-    number: '02',
-    title: 'Les premières heures',
-    text: 'Le bébé peut téter fréquemment. Il est normal que le rythme varie.',
-  },
-  {
-    icon: 'repeat',
-    number: '03',
-    title: 'Les premiers jours',
-    text: 'Les tétées deviennent progressivement un repère pour le bébé et la mère.',
-  },
-  {
-    icon: 'chart-line',
-    number: '04',
-    title: 'Installation progressive',
-    text: 'La lactation s’adapte progressivement aux besoins du bébé.',
-  },
+const STARTING_STEPS_META = [
+  {icon: 'baby-face-outline', number: '01'},
+  {icon: 'clock-outline', number: '02'},
+  {icon: 'repeat', number: '03'},
+  {icon: 'chart-line', number: '04'},
 ] as const;
 
-const SIGNALS = [
-  {
-    icon: 'clock-outline',
-    title: 'Un rythme fréquent',
-    text: 'Un nouveau-né peut demander souvent le sein, parfois 8 à 12 fois par 24 heures.',
-  },
-  {
-    icon: 'baby-face-outline',
-    title: 'Les signes d’éveil',
-    text: 'Le bébé peut bouger, ouvrir la bouche ou chercher le sein lorsqu’il commence à avoir faim.',
-  },
-  {
-    icon: 'water-outline',
-    title: 'Les couches',
-    text: 'L’évolution des couches mouillées et des selles fait partie des éléments observés au quotidien.',
-  },
+const SIGNALS_META = [
+  {icon: 'clock-outline'},
+  {icon: 'baby-face-outline'},
+  {icon: 'water-outline'},
 ] as const;
 
-const LATCH_POINTS = [
-  {
-    icon: 'account-child-outline',
-    title: 'Bébé bien positionné',
-    text: 'Le bébé est proche du corps et sa tête reste dans un axe confortable.',
-  },
-  {
-    icon: 'gesture-tap',
-    title: 'Bouche grande ouverte',
-    text: 'Attendre une ouverture suffisante avant de proposer le sein.',
-  },
-  {
-    icon: 'heart-outline',
-    title: 'Prise confortable',
-    text: 'Une prise efficace ne devrait pas provoquer une douleur importante ou persistante.',
-  },
-  {
-    icon: 'check-circle-outline',
-    title: 'Succion régulière',
-    text: 'Des mouvements de succion et de déglutition peuvent être observés pendant la tétée.',
-  },
+const LATCH_POINTS_META = [
+  {icon: 'account-child-outline'},
+  {icon: 'gesture-tap'},
+  {icon: 'heart-outline'},
+  {icon: 'check-circle-outline'},
 ] as const;
 
-const SUPPORT_OPTIONS = [
-  {
-    icon: 'account-heart-outline',
-    title: 'Sage-femme',
-    text: 'Peut accompagner les premières mises au sein.',
-  },
-  {
-    icon: 'doctor',
-    title: 'Professionnel de santé',
-    text: 'Peut vérifier la santé du bébé et de la mère.',
-  },
-  {
-    icon: 'human-male-board-poll',
-    title: 'Consultante en lactation',
-    text: 'Peut aider lorsque la mise au sein ou la prise du sein pose difficulté.',
-  },
+const SUPPORT_OPTIONS_META = [
+  {icon: 'account-heart-outline'},
+  {icon: 'doctor'},
+  {icon: 'human-male-board-poll'},
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    shareMessage: 'Débuter l’allaitement en confiance — AWA',
+    badge: 'POST-PARTUM • ALLAITEMENT',
+    title: 'Débuter l’allaitement\nen confiance',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Les premiers jours d’allaitement sont une période d’apprentissage pour le bébé comme pour la mère. Mise au sein, rythme, position et observation permettent progressivement de trouver un fonctionnement confortable.',
+    contentsTitle: 'Dans cet article',
+    contentsSubtitle: 'Les essentiels pour commencer',
+    tocItems: [
+      'Les premières étapes',
+      'Les signaux à observer',
+      'Une bonne prise du sein',
+      'Quand demander de l’aide',
+      'À retenir',
+    ],
+    h2Step1: '1. Les premières étapes',
+    body1: 'Le démarrage de l’allaitement se construit progressivement. Les premières heures puis les premiers jours permettent au bébé et à sa mère d’apprendre ensemble.',
+    timelineTitle: 'Le démarrage, étape par étape',
+    timelineSubtitle: 'Un repère simple, sans pression',
+    startingSteps: [
+      {title: 'Après la naissance', text: 'Le contact peau à peau et une première mise au sein peuvent favoriser le démarrage.'},
+      {title: 'Les premières heures', text: 'Le bébé peut téter fréquemment. Il est normal que le rythme varie.'},
+      {title: 'Les premiers jours', text: 'Les tétées deviennent progressivement un repère pour le bébé et la mère.'},
+      {title: 'Installation progressive', text: 'La lactation s’adapte progressivement aux besoins du bébé.'},
+    ],
+    h2Step2: '2. Les signaux à observer',
+    body2: 'Plutôt que de se concentrer uniquement sur l’horloge, il peut être utile d’observer les signes d’éveil, les tétées et l’évolution des couches.',
+    signals: [
+      {title: 'Un rythme fréquent', text: 'Un nouveau-né peut demander souvent le sein, parfois 8 à 12 fois par 24 heures.'},
+      {title: 'Les signes d’éveil', text: 'Le bébé peut bouger, ouvrir la bouche ou chercher le sein lorsqu’il commence à avoir faim.'},
+      {title: 'Les couches', text: 'L’évolution des couches mouillées et des selles fait partie des éléments observés au quotidien.'},
+    ],
+    h2Step3: '3. Une bonne prise du sein',
+    body3: 'Une position confortable et une prise efficace peuvent faciliter la tétée. Si la douleur est importante ou persistante, un professionnel peut vérifier la position et la prise du sein.',
+    latchTitle: 'Les 4 repères de confort',
+    latchSubtitle: 'Une vérification simple pendant la tétée',
+    latchCenterTitle: 'Bébé + sein',
+    latchCenterSubtitle: 'Position confortable',
+    latchPoints: [
+      {title: 'Bébé bien positionné', text: 'Le bébé est proche du corps et sa tête reste dans un axe confortable.'},
+      {title: 'Bouche grande ouverte', text: 'Attendre une ouverture suffisante avant de proposer le sein.'},
+      {title: 'Prise confortable', text: 'Une prise efficace ne devrait pas provoquer une douleur importante ou persistante.'},
+      {title: 'Succion régulière', text: 'Des mouvements de succion et de déglutition peuvent être observés pendant la tétée.'},
+    ],
+    h2Step4: '4. Quand demander de l’aide ?',
+    body4: 'Il n’est pas nécessaire d’attendre que les difficultés deviennent importantes. Une personne formée peut aider à vérifier la position, la prise du sein ou les besoins du bébé.',
+    supportOptions: [
+      {title: 'Sage-femme', text: 'Peut accompagner les premières mises au sein.'},
+      {title: 'Professionnel de santé', text: 'Peut vérifier la santé du bébé et de la mère.'},
+      {title: 'Consultante en lactation', text: 'Peut aider lorsque la mise au sein ou la prise du sein pose difficulté.'},
+    ],
+    infoTitle: 'Chaque allaitement est différent',
+    infoText: 'Les premières journées peuvent être très variables. Le rythme des tétées et la quantité de lait peuvent évoluer progressivement. Si quelque chose t’inquiète, demande conseil à un professionnel de santé.',
+    h2Summary: 'À retenir',
+    summaryItems: [
+      'Les premières tétées sont une période d’apprentissage pour le bébé et la mère.',
+      'Un nouveau-né peut demander fréquemment le sein.',
+      'Une position confortable et une bonne prise du sein sont importantes.',
+      'L’observation des signes du bébé est plus utile qu’une recherche de rythme parfaitement fixe.',
+      'Une sage-femme ou une consultante en lactation peut accompagner les premières difficultés.',
+    ],
+    disclaimerText: 'Contenu informatif. Cet article ne remplace pas l’accompagnement personnalisé d’un professionnel de santé.',
+  },
+  en: {
+    shareMessage: 'Starting breastfeeding with confidence — AWA',
+    badge: 'POSTPARTUM • BREASTFEEDING',
+    title: 'Starting breastfeeding\nwith confidence',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'The first days of breastfeeding are a learning period for both baby and mother. Latching, rhythm, positioning, and observation gradually help you find what feels comfortable.',
+    contentsTitle: 'In this article',
+    contentsSubtitle: 'The essentials to get started',
+    tocItems: [
+      'The first steps',
+      'Signs to watch for',
+      'A good latch',
+      'When to ask for help',
+      'Key takeaways',
+    ],
+    h2Step1: '1. The first steps',
+    body1: 'Breastfeeding gets established gradually. The first hours, then the first days, give baby and mother time to learn together.',
+    timelineTitle: 'Getting started, step by step',
+    timelineSubtitle: 'A simple guide, with no pressure',
+    startingSteps: [
+      {title: 'After birth', text: 'Skin-to-skin contact and an early latch can help breastfeeding get off to a good start.'},
+      {title: 'The first hours', text: 'Baby may feed frequently. It’s normal for the rhythm to vary.'},
+      {title: 'The first days', text: 'Feeds gradually become a shared rhythm for baby and mother.'},
+      {title: 'Settling into a rhythm', text: 'Milk supply gradually adjusts to baby’s needs.'},
+    ],
+    h2Step2: '2. Signs to watch for',
+    body2: 'Rather than focusing only on the clock, it can help to watch baby’s waking signs, feeds, and diaper patterns.',
+    signals: [
+      {title: 'A frequent rhythm', text: 'A newborn may ask to feed often, sometimes 8 to 12 times over 24 hours.'},
+      {title: 'Waking signs', text: 'Baby may move, open their mouth, or root for the breast when starting to feel hungry.'},
+      {title: 'Diapers', text: 'The number of wet and dirty diapers is one of the things to keep an eye on day to day.'},
+    ],
+    h2Step3: '3. A good latch',
+    body3: 'A comfortable position and an effective latch can make feeds easier. If pain is significant or persistent, a healthcare professional can check positioning and latch.',
+    latchTitle: 'The 4 comfort markers',
+    latchSubtitle: 'A simple check during feeds',
+    latchCenterTitle: 'Baby + breast',
+    latchCenterSubtitle: 'Comfortable position',
+    latchPoints: [
+      {title: 'Baby well positioned', text: 'Baby is held close to the body, with their head in a comfortable alignment.'},
+      {title: 'Mouth wide open', text: 'Wait for a wide-enough mouth opening before offering the breast.'},
+      {title: 'Comfortable latch', text: 'An effective latch shouldn’t cause significant or persistent pain.'},
+      {title: 'Regular suckling', text: 'Suckling and swallowing movements can be observed during the feed.'},
+    ],
+    h2Step4: '4. When to ask for help?',
+    body4: 'There’s no need to wait until difficulties become serious. A trained professional can help check positioning, latch, or baby’s needs.',
+    supportOptions: [
+      {title: 'Midwife', text: 'Can support you through the first latches.'},
+      {title: 'Healthcare professional', text: 'Can check on the health of baby and mother.'},
+      {title: 'Lactation consultant', text: 'Can help when latching proves difficult.'},
+    ],
+    infoTitle: 'Every breastfeeding journey is different',
+    infoText: 'The first days can vary a great deal. The rhythm of feeds and the amount of milk may change gradually over time. If something worries you, ask a healthcare professional for advice.',
+    h2Summary: 'Key takeaways',
+    summaryItems: [
+      'The first feeds are a learning period for baby and mother.',
+      'A newborn may ask to feed frequently.',
+      'A comfortable position and a good latch matter.',
+      'Watching baby’s cues is more useful than aiming for a perfectly fixed schedule.',
+      'A midwife or lactation consultant can help you through early difficulties.',
+    ],
+    disclaimerText: 'Informational content. This article does not replace personalized guidance from a healthcare professional.',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                       */
@@ -136,6 +218,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function BreastfeedingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -162,7 +247,7 @@ export default function BreastfeedingArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Débuter l’allaitement en confiance — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -213,7 +298,7 @@ export default function BreastfeedingArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -230,9 +315,7 @@ export default function BreastfeedingArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved
-                    ? 'Retirer des favoris'
-                    : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 onPress={handleBookmark}
                 style={({pressed}) => [
@@ -252,7 +335,7 @@ export default function BreastfeedingArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -276,22 +359,22 @@ export default function BreastfeedingArticleScreen({
           {/* Badge */}
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              POST-PARTUM • ALLAITEMENT
+              {content.badge}
             </Text>
           </View>
 
           {/* Title */}
           <Text style={styles.title}>
-            Débuter l’allaitement{'\n'}en confiance
+            {content.title}
           </Text>
 
           {/* Metadata */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? (
@@ -315,10 +398,7 @@ export default function BreastfeedingArticleScreen({
 
           {/* Introduction */}
           <Text style={styles.intro}>
-            Les premiers jours d’allaitement sont une période
-            d’apprentissage pour le bébé comme pour la mère.
-            Mise au sein, rythme, position et observation permettent
-            progressivement de trouver un fonctionnement confortable.
+            {content.intro}
           </Text>
 
           {/* ---------------------------------------------------------------- */}
@@ -337,22 +417,16 @@ export default function BreastfeedingArticleScreen({
 
               <View>
                 <Text style={styles.contentsTitle}>
-                  Dans cet article
+                  {content.contentsTitle}
                 </Text>
 
                 <Text style={styles.contentsSubtitle}>
-                  Les essentiels pour commencer
+                  {content.contentsSubtitle}
                 </Text>
               </View>
             </View>
 
-            {[
-              'Les premières étapes',
-              'Les signaux à observer',
-              'Une bonne prise du sein',
-              'Quand demander de l’aide',
-              'À retenir',
-            ].map((item, index) => (
+            {content.tocItems.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -382,13 +456,11 @@ export default function BreastfeedingArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            1. Les premières étapes
+            {content.h2Step1}
           </Text>
 
           <Text style={styles.body}>
-            Le démarrage de l’allaitement se construit progressivement.
-            Les premières heures puis les premiers jours permettent
-            au bébé et à sa mère d’apprendre ensemble.
+            {content.body1}
           </Text>
 
           {/* MODERN TIMELINE */}
@@ -404,50 +476,54 @@ export default function BreastfeedingArticleScreen({
 
               <View style={styles.timelineHeaderCopy}>
                 <Text style={styles.timelineTitle}>
-                  Le démarrage, étape par étape
+                  {content.timelineTitle}
                 </Text>
 
                 <Text style={styles.timelineSubtitle}>
-                  Un repère simple, sans pression
+                  {content.timelineSubtitle}
                 </Text>
               </View>
             </View>
 
-            {STARTING_STEPS.map((step, index) => (
-              <View
-                key={step.number}
-                style={styles.timelineItem}>
-                <View style={styles.timelineLeft}>
-                  <View style={styles.timelineNode}>
-                    <Text style={styles.timelineNumber}>
-                      {step.number}
-                    </Text>
+            {content.startingSteps.map((step, index) => {
+              const meta = STARTING_STEPS_META[index];
+
+              return (
+                <View
+                  key={meta.number}
+                  style={styles.timelineItem}>
+                  <View style={styles.timelineLeft}>
+                    <View style={styles.timelineNode}>
+                      <Text style={styles.timelineNumber}>
+                        {meta.number}
+                      </Text>
+                    </View>
+
+                    {index < content.startingSteps.length - 1 ? (
+                      <View style={styles.timelineLine} />
+                    ) : null}
                   </View>
 
-                  {index < STARTING_STEPS.length - 1 ? (
-                    <View style={styles.timelineLine} />
-                  ) : null}
-                </View>
+                  <View style={styles.timelineContent}>
+                    <View style={styles.timelineTitleRow}>
+                      <Text style={styles.timelineStepTitle}>
+                        {step.title}
+                      </Text>
 
-                <View style={styles.timelineContent}>
-                  <View style={styles.timelineTitleRow}>
-                    <Text style={styles.timelineStepTitle}>
-                      {step.title}
+                      <MaterialDesignIcons
+                        name={meta.icon as never}
+                        size={19}
+                        color={theme.colors.primary}
+                      />
+                    </View>
+
+                    <Text style={styles.timelineText}>
+                      {step.text}
                     </Text>
-
-                    <MaterialDesignIcons
-                      name={step.icon as never}
-                      size={19}
-                      color={theme.colors.primary}
-                    />
                   </View>
-
-                  <Text style={styles.timelineText}>
-                    {step.text}
-                  </Text>
                 </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* ---------------------------------------------------------------- */}
@@ -455,40 +531,42 @@ export default function BreastfeedingArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            2. Les signaux à observer
+            {content.h2Step2}
           </Text>
 
           <Text style={styles.body}>
-            Plutôt que de se concentrer uniquement sur l’horloge,
-            il peut être utile d’observer les signes d’éveil,
-            les tétées et l’évolution des couches.
+            {content.body2}
           </Text>
 
           <View style={styles.signalGrid}>
-            {SIGNALS.map((item, index) => (
-              <View
-                key={item.title}
-                style={[
-                  styles.signalCard,
-                  index === 0 && styles.signalCardLarge,
-                ]}>
-                <View style={styles.signalIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={21}
-                    color={theme.colors.primary}
-                  />
+            {content.signals.map((item, index) => {
+              const meta = SIGNALS_META[index];
+
+              return (
+                <View
+                  key={item.title}
+                  style={[
+                    styles.signalCard,
+                    index === 0 && styles.signalCardLarge,
+                  ]}>
+                  <View style={styles.signalIcon}>
+                    <MaterialDesignIcons
+                      name={meta.icon as never}
+                      size={21}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <Text style={styles.signalTitle}>
+                    {item.title}
+                  </Text>
+
+                  <Text style={styles.signalText}>
+                    {item.text}
+                  </Text>
                 </View>
-
-                <Text style={styles.signalTitle}>
-                  {item.title}
-                </Text>
-
-                <Text style={styles.signalText}>
-                  {item.text}
-                </Text>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* ---------------------------------------------------------------- */}
@@ -496,14 +574,11 @@ export default function BreastfeedingArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            3. Une bonne prise du sein
+            {content.h2Step3}
           </Text>
 
           <Text style={styles.body}>
-            Une position confortable et une prise efficace peuvent
-            faciliter la tétée. Si la douleur est importante ou
-            persistante, un professionnel peut vérifier la position
-            et la prise du sein.
+            {content.body3}
           </Text>
 
           {/* LATCH SCHEMA */}
@@ -519,11 +594,11 @@ export default function BreastfeedingArticleScreen({
 
               <View style={styles.latchHeaderCopy}>
                 <Text style={styles.latchTitle}>
-                  Les 4 repères de confort
+                  {content.latchTitle}
                 </Text>
 
                 <Text style={styles.latchSubtitle}>
-                  Une vérification simple pendant la tétée
+                  {content.latchSubtitle}
                 </Text>
               </View>
             </View>
@@ -541,45 +616,49 @@ export default function BreastfeedingArticleScreen({
 
               <View style={styles.latchCenterText}>
                 <Text style={styles.latchCenterTitle}>
-                  Bébé + sein
+                  {content.latchCenterTitle}
                 </Text>
 
                 <Text style={styles.latchCenterSubtitle}>
-                  Position confortable
+                  {content.latchCenterSubtitle}
                 </Text>
               </View>
             </View>
 
             <View style={styles.latchPoints}>
-              {LATCH_POINTS.map((item, index) => (
-                <View
-                  key={item.title}
-                  style={styles.latchPoint}>
-                  <View style={styles.latchPointNumber}>
-                    <Text style={styles.latchPointNumberText}>
-                      {index + 1}
-                    </Text>
-                  </View>
+              {content.latchPoints.map((item, index) => {
+                const meta = LATCH_POINTS_META[index];
 
-                  <View style={styles.latchPointIcon}>
-                    <MaterialDesignIcons
-                      name={item.icon as never}
-                      size={19}
-                      color={theme.colors.primary}
-                    />
-                  </View>
+                return (
+                  <View
+                    key={item.title}
+                    style={styles.latchPoint}>
+                    <View style={styles.latchPointNumber}>
+                      <Text style={styles.latchPointNumberText}>
+                        {index + 1}
+                      </Text>
+                    </View>
 
-                  <View style={styles.latchPointCopy}>
-                    <Text style={styles.latchPointTitle}>
-                      {item.title}
-                    </Text>
+                    <View style={styles.latchPointIcon}>
+                      <MaterialDesignIcons
+                        name={meta.icon as never}
+                        size={19}
+                        color={theme.colors.primary}
+                      />
+                    </View>
 
-                    <Text style={styles.latchPointText}>
-                      {item.text}
-                    </Text>
+                    <View style={styles.latchPointCopy}>
+                      <Text style={styles.latchPointTitle}>
+                        {item.title}
+                      </Text>
+
+                      <Text style={styles.latchPointText}>
+                        {item.text}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ))}
+                );
+              })}
             </View>
           </View>
 
@@ -588,44 +667,45 @@ export default function BreastfeedingArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            4. Quand demander de l’aide ?
+            {content.h2Step4}
           </Text>
 
           <Text style={styles.body}>
-            Il n’est pas nécessaire d’attendre que les difficultés
-            deviennent importantes. Une personne formée peut aider
-            à vérifier la position, la prise du sein ou les besoins
-            du bébé.
+            {content.body4}
           </Text>
 
           <View style={styles.supportCard}>
-            {SUPPORT_OPTIONS.map((item, index) => (
-              <React.Fragment key={item.title}>
-                <View style={styles.supportRow}>
-                  <View style={styles.supportIcon}>
-                    <MaterialDesignIcons
-                      name={item.icon as never}
-                      size={21}
-                      color={theme.colors.primary}
-                    />
+            {content.supportOptions.map((item, index) => {
+              const meta = SUPPORT_OPTIONS_META[index];
+
+              return (
+                <React.Fragment key={item.title}>
+                  <View style={styles.supportRow}>
+                    <View style={styles.supportIcon}>
+                      <MaterialDesignIcons
+                        name={meta.icon as never}
+                        size={21}
+                        color={theme.colors.primary}
+                      />
+                    </View>
+
+                    <View style={styles.supportCopy}>
+                      <Text style={styles.supportTitle}>
+                        {item.title}
+                      </Text>
+
+                      <Text style={styles.supportText}>
+                        {item.text}
+                      </Text>
+                    </View>
                   </View>
 
-                  <View style={styles.supportCopy}>
-                    <Text style={styles.supportTitle}>
-                      {item.title}
-                    </Text>
-
-                    <Text style={styles.supportText}>
-                      {item.text}
-                    </Text>
-                  </View>
-                </View>
-
-                {index < SUPPORT_OPTIONS.length - 1 ? (
-                  <View style={styles.supportSeparator} />
-                ) : null}
-              </React.Fragment>
-            ))}
+                  {index < content.supportOptions.length - 1 ? (
+                    <View style={styles.supportSeparator} />
+                  ) : null}
+                </React.Fragment>
+              );
+            })}
           </View>
 
           {/* ---------------------------------------------------------------- */}
@@ -643,14 +723,11 @@ export default function BreastfeedingArticleScreen({
 
             <View style={styles.infoCopy}>
               <Text style={styles.infoTitle}>
-                Chaque allaitement est différent
+                {content.infoTitle}
               </Text>
 
               <Text style={styles.infoText}>
-                Les premières journées peuvent être très variables.
-                Le rythme des tétées et la quantité de lait peuvent
-                évoluer progressivement. Si quelque chose t’inquiète,
-                demande conseil à un professionnel de santé.
+                {content.infoText}
               </Text>
             </View>
           </View>
@@ -660,17 +737,11 @@ export default function BreastfeedingArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            À retenir
+            {content.h2Summary}
           </Text>
 
           <View style={styles.summaryCard}>
-            {[
-              'Les premières tétées sont une période d’apprentissage pour le bébé et la mère.',
-              'Un nouveau-né peut demander fréquemment le sein.',
-              'Une position confortable et une bonne prise du sein sont importantes.',
-              'L’observation des signes du bébé est plus utile qu’une recherche de rythme parfaitement fixe.',
-              'Une sage-femme ou une consultante en lactation peut accompagner les premières difficultés.',
-            ].map(item => (
+            {content.summaryItems.map(item => (
               <View
                 key={item}
                 style={styles.summaryRow}>
@@ -696,9 +767,7 @@ export default function BreastfeedingArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas
-              l’accompagnement personnalisé d’un professionnel
-              de santé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

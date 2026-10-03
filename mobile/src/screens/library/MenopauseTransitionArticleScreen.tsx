@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,25 +34,181 @@ const ID = 'menopause-comprendre-la-transition';
 
 const HERO = require('../../assets/images/library/spm-sleep.png');
 
-const DAILY_HABITS = [
-  ['bowl-mix-outline', 'Une alimentation riche en calcium et fibres'],
-  ['shoe-sneaker', 'Une activité physique régulière'],
-  ['weather-night', 'Une routine de sommeil stable'],
-  ['meditation', 'Des moments de détente au quotidien'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const DAILY_HABIT_ICONS = [
+  'bowl-mix-outline',
+  'shoe-sneaker',
+  'weather-night',
+  'meditation',
 ] as const;
 
-const MYTHS = [
-  'La ménopause « arrive d’un coup » — en réalité, elle est précédée de plusieurs années de transition (périménopause)',
-  'Tous les symptômes sont sévères pour tout le monde — leur intensité varie énormément d’une femme à l’autre',
-  'Rien ne peut être fait — de nombreuses solutions, hormonales ou non, existent pour soulager les symptômes gênants',
-  'La vie intime s’arrête — elle évolue, mais reste tout à fait possible et épanouissante avec les bons ajustements',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PÉRIMÉNOPAUSE & MÉNOPAUSE',
+    title: 'Comprendre la transition ménopausique',
+    metaDuration: '10 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Ce qui change progressivement, des années avant l’arrêt des règles, et comment aborder cette étape avec plus de clarté.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Périménopause et ménopause : les définitions',
+      'Des cycles de plus en plus irréguliers',
+      'Sommeil et humeur',
+      'Vie intime et sécheresse vaginale',
+      'Poids et métabolisme',
+      'Idées reçues sur la ménopause',
+      'Symptômes normaux et signaux à surveiller',
+      'Conseils pratiques au quotidien',
+      'À retenir',
+    ],
+    h1: '1. Périménopause et ménopause : les définitions',
+    body1a:
+      'La périménopause désigne la période de transition hormonale qui précède la ménopause : elle peut débuter plusieurs années avant, généralement à partir de la quarantaine, avec des niveaux d’œstrogènes qui fluctuent de façon irrégulière.',
+    body1b:
+      'La ménopause, elle, est un moment précis : elle est confirmée après 12 mois consécutifs sans règles, en l’absence d’autre cause. En France, elle survient en moyenne autour de 51 ans, mais cet âge varie naturellement d’une femme à l’autre.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'Chaque femme vit cette transition différemment, en durée comme en intensité des symptômes. En parler ouvertement aide à mieux l’anticiper.',
+    h2: '2. Des cycles de plus en plus irréguliers',
+    body2:
+      'L’un des premiers signes de la périménopause est souvent un changement dans le rythme des cycles : ils peuvent devenir plus courts, plus longs, plus espacés, ou avec un flux différent d’un mois à l’autre.',
+    alert1Title: 'À noter',
+    alert1Text:
+      'Des saignements très abondants, très rapprochés, ou survenant après un an sans règles justifient un avis médical, car ils ne sont pas considérés comme un signe habituel de la transition.',
+    h3: '3. Sommeil et humeur',
+    body3a:
+      'La baisse et les fluctuations d’œstrogènes et de progestérone peuvent perturber le sommeil (endormissement, réveils nocturnes) et s’accompagner d’une irritabilité, d’une anxiété ou de sautes d’humeur inhabituelles.',
+    body3b:
+      'Ces changements ont une explication biologique réelle : ils ne traduisent ni un manque de volonté, ni un problème psychologique isolé.',
+    h4: '4. Vie intime et sécheresse vaginale',
+    body4:
+      'La baisse d’œstrogènes peut entraîner une sécheresse vaginale, parfois source d’inconfort ou de douleurs pendant les rapports. Le désir peut aussi évoluer, à la hausse comme à la baisse, selon les femmes.',
+    tip2Title: 'Bon à savoir',
+    tip2Text:
+      'Des solutions simples existent (lubrifiants, hydratants vaginaux, traitements locaux) : en parler à un professionnel de santé permet de trouver une réponse adaptée, sans tabou.',
+    h5: '5. Poids et métabolisme',
+    body5:
+      'Le métabolisme peut ralentir légèrement pendant cette période, et la répartition des graisses a tendance à se déplacer vers l’abdomen. Ces changements sont courants et ne dépendent pas uniquement de la volonté.',
+    h6: '6. Idées reçues sur la ménopause',
+    myths: [
+      'La ménopause « arrive d’un coup » — en réalité, elle est précédée de plusieurs années de transition (périménopause)',
+      'Tous les symptômes sont sévères pour tout le monde — leur intensité varie énormément d’une femme à l’autre',
+      'Rien ne peut être fait — de nombreuses solutions, hormonales ou non, existent pour soulager les symptômes gênants',
+      'La vie intime s’arrête — elle évolue, mais reste tout à fait possible et épanouissante avec les bons ajustements',
+    ],
+    h7: '7. Symptômes normaux et signaux à surveiller',
+    body7:
+      'La grande majorité des changements décrits ici sont des manifestations normales de la transition. Certains signes méritent en revanche une consultation plus rapide.',
+    alert2Title: 'Consulter si',
+    alert2Text:
+      'Saignements après la ménopause confirmée, douleurs pelviennes inhabituelles, symptômes qui perturbent fortement le quotidien, ou tout doute persistant.',
+    h8: '8. Conseils pratiques au quotidien',
+    dailyHabits: [
+      'Une alimentation riche en calcium et fibres',
+      'Une activité physique régulière',
+      'Une routine de sommeil stable',
+      'Des moments de détente au quotidien',
+    ],
+    h9: '9. À retenir',
+    tip3Title: 'Bon à savoir',
+    tip3Text:
+      'La périménopause et la ménopause sont des étapes naturelles, pas une maladie. De nombreuses solutions existent pour traverser cette transition avec plus de confort : un professionnel de santé reste la meilleure ressource pour les adapter à ta situation.',
+    shareMessage: 'Comprendre la transition ménopausique — AWA',
+  },
+  en: {
+    badge: 'PERIMENOPAUSE & MENOPAUSE',
+    title: 'Understanding the menopause transition',
+    metaDuration: '10 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro:
+      'What changes gradually, years before periods stop, and how to approach this stage with more clarity.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Perimenopause and menopause: definitions',
+      'Increasingly irregular cycles',
+      'Sleep and mood',
+      'Intimacy and vaginal dryness',
+      'Weight and metabolism',
+      'Common myths about menopause',
+      'Normal symptoms and signs to watch for',
+      'Practical everyday tips',
+      'Key takeaways',
+    ],
+    h1: '1. Perimenopause and menopause: definitions',
+    body1a:
+      'Perimenopause refers to the hormonal transition period that precedes menopause: it can begin several years earlier, generally from your forties onward, with estrogen levels fluctuating irregularly.',
+    body1b:
+      'Menopause, on the other hand, is a specific point in time: it is confirmed after 12 consecutive months without a period, with no other cause. In France, it occurs on average around age 51, though this age naturally varies from woman to woman.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'Every woman experiences this transition differently, both in duration and in the intensity of symptoms. Talking about it openly helps you anticipate it better.',
+    h2: '2. Increasingly irregular cycles',
+    body2:
+      'One of the first signs of perimenopause is often a change in cycle rhythm: cycles may become shorter, longer, more spaced out, or have a different flow from one month to the next.',
+    alert1Title: 'Please note',
+    alert1Text:
+      'Very heavy bleeding, bleeding that occurs very close together, or bleeding that happens after a year without a period calls for medical advice, as these are not considered typical signs of the transition.',
+    h3: '3. Sleep and mood',
+    body3a:
+      'The decline and fluctuations in estrogen and progesterone can disrupt sleep (falling asleep, waking during the night) and may be accompanied by irritability, anxiety, or unusual mood swings.',
+    body3b:
+      'These changes have a real biological explanation: they reflect neither a lack of willpower nor an isolated psychological problem.',
+    h4: '4. Intimacy and vaginal dryness',
+    body4:
+      'The decline in estrogen can lead to vaginal dryness, sometimes causing discomfort or pain during intercourse. Desire can also change, either increasing or decreasing, depending on the woman.',
+    tip2Title: 'Good to know',
+    tip2Text:
+      'Simple solutions exist (lubricants, vaginal moisturizers, local treatments): talking to a healthcare professional can help you find the right solution, without taboo.',
+    h5: '5. Weight and metabolism',
+    body5:
+      'Metabolism can slow down slightly during this period, and fat distribution tends to shift toward the abdomen. These changes are common and do not depend solely on willpower.',
+    h6: '6. Common myths about menopause',
+    myths: [
+      'Menopause "happens all at once" — in reality, it is preceded by several years of transition (perimenopause)',
+      'All symptoms are severe for everyone — their intensity varies enormously from woman to woman',
+      'Nothing can be done — many solutions, hormonal or not, exist to relieve bothersome symptoms',
+      'Intimate life comes to an end — it changes, but remains entirely possible and fulfilling with the right adjustments',
+    ],
+    h7: '7. Normal symptoms and signs to watch for',
+    body7:
+      'The vast majority of the changes described here are normal manifestations of the transition. However, certain signs warrant prompt medical attention.',
+    alert2Title: 'See a doctor if',
+    alert2Text:
+      'Bleeding after confirmed menopause, unusual pelvic pain, symptoms that significantly disrupt daily life, or any persistent doubt.',
+    h8: '8. Practical everyday tips',
+    dailyHabits: [
+      'A diet rich in calcium and fiber',
+      'Regular physical activity',
+      'A stable sleep routine',
+      'Daily moments of relaxation',
+    ],
+    h9: '9. Key takeaways',
+    tip3Title: 'Good to know',
+    tip3Text:
+      'Perimenopause and menopause are natural stages, not an illness. Many solutions exist to help you go through this transition more comfortably: a healthcare professional remains the best resource to adapt them to your situation.',
+    shareMessage: 'Understanding the menopause transition — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function MenopauseTransitionArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +235,7 @@ export default function MenopauseTransitionArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comprendre la transition ménopausique — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -116,7 +273,7 @@ export default function MenopauseTransitionArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -125,7 +282,7 @@ export default function MenopauseTransitionArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -140,7 +297,7 @@ export default function MenopauseTransitionArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -158,19 +315,19 @@ export default function MenopauseTransitionArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PÉRIMÉNOPAUSE & MÉNOPAUSE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Comprendre la transition ménopausique
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '10 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -189,24 +346,13 @@ export default function MenopauseTransitionArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ce qui change progressivement, des années avant l’arrêt des
-            règles, et comment aborder cette étape avec plus de clarté.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Périménopause et ménopause : les définitions',
-              'Des cycles de plus en plus irréguliers',
-              'Sommeil et humeur',
-              'Vie intime et sécheresse vaginale',
-              'Poids et métabolisme',
-              'Idées reçues sur la ménopause',
-              'Symptômes normaux et signaux à surveiller',
-              'Conseils pratiques au quotidien',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -223,21 +369,15 @@ export default function MenopauseTransitionArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Périménopause et ménopause : les définitions
+            {content.h1}
           </Text>
 
           <Text style={styles.body}>
-            La périménopause désigne la période de transition hormonale qui
-            précède la ménopause : elle peut débuter plusieurs années
-            avant, généralement à partir de la quarantaine, avec des
-            niveaux d’œstrogènes qui fluctuent de façon irrégulière.
+            {content.body1a}
           </Text>
 
           <Text style={styles.body}>
-            La ménopause, elle, est un moment précis : elle est confirmée
-            après 12 mois consécutifs sans règles, en l’absence d’autre
-            cause. En France, elle survient en moyenne autour de 51 ans,
-            mais cet âge varie naturellement d’une femme à l’autre.
+            {content.body1b}
           </Text>
 
           <View style={styles.tip}>
@@ -248,22 +388,17 @@ export default function MenopauseTransitionArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Chaque femme vit cette transition différemment, en durée
-                comme en intensité des symptômes. En parler ouvertement
-                aide à mieux l’anticiper.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>2. Des cycles de plus en plus irréguliers</Text>
+          <Text style={styles.h2}>{content.h2}</Text>
 
           <Text style={styles.body}>
-            L’un des premiers signes de la périménopause est souvent un
-            changement dans le rythme des cycles : ils peuvent devenir plus
-            courts, plus longs, plus espacés, ou avec un flux différent
-            d’un mois à l’autre.
+            {content.body2}
           </Text>
 
           <View style={styles.alert}>
@@ -274,38 +409,27 @@ export default function MenopauseTransitionArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alert1Title}</Text>
               <Text style={styles.tipText}>
-                Des saignements très abondants, très rapprochés, ou
-                survenant après un an sans règles justifient un avis
-                médical, car ils ne sont pas considérés comme un signe
-                habituel de la transition.
+                {content.alert1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Sommeil et humeur</Text>
+          <Text style={styles.h2}>{content.h3}</Text>
 
           <Text style={styles.body}>
-            La baisse et les fluctuations d’œstrogènes et de progestérone
-            peuvent perturber le sommeil (endormissement, réveils
-            nocturnes) et s’accompagner d’une irritabilité, d’une anxiété
-            ou de sautes d’humeur inhabituelles.
+            {content.body3a}
           </Text>
 
           <Text style={styles.body}>
-            Ces changements ont une explication biologique réelle : ils ne
-            traduisent ni un manque de volonté, ni un problème
-            psychologique isolé.
+            {content.body3b}
           </Text>
 
-          <Text style={styles.h2}>4. Vie intime et sécheresse vaginale</Text>
+          <Text style={styles.h2}>{content.h4}</Text>
 
           <Text style={styles.body}>
-            La baisse d’œstrogènes peut entraîner une sécheresse vaginale,
-            parfois source d’inconfort ou de douleurs pendant les rapports.
-            Le désir peut aussi évoluer, à la hausse comme à la baisse,
-            selon les femmes.
+            {content.body4}
           </Text>
 
           <View style={styles.tip}>
@@ -316,28 +440,23 @@ export default function MenopauseTransitionArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Des solutions simples existent (lubrifiants, hydratants
-                vaginaux, traitements locaux) : en parler à un professionnel
-                de santé permet de trouver une réponse adaptée, sans tabou.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>5. Poids et métabolisme</Text>
+          <Text style={styles.h2}>{content.h5}</Text>
 
           <Text style={styles.body}>
-            Le métabolisme peut ralentir légèrement pendant cette période,
-            et la répartition des graisses a tendance à se déplacer vers
-            l’abdomen. Ces changements sont courants et ne dépendent pas
-            uniquement de la volonté.
+            {content.body5}
           </Text>
 
-          <Text style={styles.h2}>6. Idées reçues sur la ménopause</Text>
+          <Text style={styles.h2}>{content.h6}</Text>
 
           <View style={styles.checkList}>
-            {MYTHS.map(item => (
+            {content.myths.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="close-circle-outline"
@@ -351,13 +470,11 @@ export default function MenopauseTransitionArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            7. Symptômes normaux et signaux à surveiller
+            {content.h7}
           </Text>
 
           <Text style={styles.body}>
-            La grande majorité des changements décrits ici sont des
-            manifestations normales de la transition. Certains signes
-            méritent en revanche une consultation plus rapide.
+            {content.body7}
           </Text>
 
           <View style={styles.alert}>
@@ -368,32 +485,30 @@ export default function MenopauseTransitionArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Consulter si</Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
               <Text style={styles.tipText}>
-                Saignements après la ménopause confirmée, douleurs
-                pelviennes inhabituelles, symptômes qui perturbent
-                fortement le quotidien, ou tout doute persistant.
+                {content.alert2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>8. Conseils pratiques au quotidien</Text>
+          <Text style={styles.h2}>{content.h8}</Text>
 
           <View style={styles.daily}>
-            {DAILY_HABITS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {DAILY_HABIT_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.dailyHabits[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>9. À retenir</Text>
+          <Text style={styles.h2}>{content.h9}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -403,13 +518,9 @@ export default function MenopauseTransitionArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
               <Text style={styles.tipText}>
-                La périménopause et la ménopause sont des étapes naturelles,
-                pas une maladie. De nombreuses solutions existent pour
-                traverser cette transition avec plus de confort : un
-                professionnel de santé reste la meilleure ressource pour
-                les adapter à ta situation.
+                {content.tip3Text}
               </Text>
             </View>
           </View>

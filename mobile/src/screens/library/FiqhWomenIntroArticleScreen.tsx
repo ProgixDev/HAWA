@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -40,44 +41,178 @@ const ART = {
   awaRole: require('../../assets/images/library/featured-tracking-hero.png'),
 };
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const TOPICS = [
-  ['calendar-month-outline', 'Les règles et le cycle menstruel'],
-  ['water-outline', 'Le sang menstruel et son statut'],
-  ['shield-check-outline', 'La pureté rituelle'],
-  ['shower', 'Le ghusl après les règles'],
-  ['mosque', 'La prière pendant et après les règles'],
-  ['moon-waning-crescent', 'Le jeûne du Ramadan et les jours à rattraper'],
-  ['help-circle-outline', 'Les saignements particuliers (istihâda)'],
-  ['baby-face-outline', 'Le nifas après l’accouchement'],
-  ['account-heart-outline', 'La vie quotidienne et la pratique religieuse'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const TOPIC_ICONS = [
+  'calendar-month-outline',
+  'water-outline',
+  'shield-check-outline',
+  'shower',
+  'mosque',
+  'moon-waning-crescent',
+  'help-circle-outline',
+  'baby-face-outline',
+  'account-heart-outline',
 ] as const;
 
-const AWA_ROLE = [
-  'Comprendre les notions de base du fiqh féminin',
-  'Mieux appréhender son cycle, d’un point de vue médical et religieux',
-  'Identifier les questions qui nécessitent l’avis d’un savant qualifié',
-  'Se repérer entre les différences de madhahib sans confusion',
-  'Accéder à des explications éducatives claires et neutres',
-  'Distinguer une information médicale d’une décision religieuse',
-  'Suivre les informations utiles à sa pratique religieuse, si besoin',
-  'Préparer des questions précises à poser à un savant qualifié',
-];
-
-const WHEN_TO_ASK = [
-  'Une situation personnelle ne correspond à aucun cas classique (saignement inhabituel, doute prolongé...)',
-  'Plusieurs avis semblent se contredire et tu ne sais pas lequel suivre',
-  'Une décision religieuse a un impact important sur ta pratique quotidienne',
-  'Tu ressens le besoin d’un accompagnement adapté à ta situation personnelle',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'FIQH FÉMININ',
+    title: 'Le fiqh féminin,\nune introduction',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Un aperçu complet des grands sujets abordés dans le fiqh féminin, entre pratique religieuse et vie quotidienne.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Ce que couvre le fiqh féminin',
+      'Pourquoi le fiqh féminin est-il important ?',
+      'Les écoles juridiques (madhab)',
+      'Fiqh, santé et pratique quotidienne',
+      'Le rôle éducatif d’AWA',
+      'Quand demander conseil à une personne qualifiée ?',
+      'À retenir',
+    ],
+    section1Body: 'Le fiqh féminin est le champ de la jurisprudence islamique (fiqh) qui s’intéresse aux questions pratiques liées au corps et au culte des femmes. Il aide à comprendre comment concilier la vie religieuse quotidienne avec les différentes étapes du cycle féminin.',
+    dailyTopics: [
+      'Les règles et le cycle menstruel',
+      'Le sang menstruel et son statut',
+      'La pureté rituelle',
+      'Le ghusl après les règles',
+      'La prière pendant et après les règles',
+      'Le jeûne du Ramadan et les jours à rattraper',
+      'Les saignements particuliers (istihâda)',
+      'Le nifas après l’accouchement',
+      'La vie quotidienne et la pratique religieuse',
+    ],
+    section1Body2: 'Le fiqh est un champ d’interprétation juridique : certaines questions font l’objet d’avis différents selon les savants et les écoles de pensée, sans qu’un avis soit à lui seul absolu.',
+    section2Body: 'Comprendre le fiqh féminin permet de vivre sa pratique religieuse avec plus de sérénité, sans confusion, aux moments où le corps traverse des étapes spécifiques (règles, grossesse, post-partum, ménopause). Cela aide aussi à distinguer ce qui relève d’une obligation, d’une dispense ou d’une simple recommandation.',
+    visual1Title: 'Une pratique religieuse apaisée',
+    visual1Text: 'Savoir ce qui est attendu à chaque étape du cycle permet d’aborder sa foi avec plus de confiance.',
+    section3Body: 'Un madhab désigne une école de pensée juridique, c’est-à-dire une méthode structurée que des savants utilisent pour interpréter les sources religieuses (Coran, Sunna, consensus, raisonnement) et répondre aux questions pratiques de la vie quotidienne. Plusieurs écoles existent, car les savants n’ont pas toujours suivi la même méthodologie ni interprété les mêmes textes de la même manière.',
+    section3Body2: 'C’est pourquoi certaines questions liées aux règles, à la pureté rituelle, à la prière ou au jeûne peuvent faire l’objet d’avis différents selon les savants consultés. Une divergence d’opinion ne signifie pas qu’un avis serait « faux » : elle reflète des méthodologies et des lectures différentes des mêmes sources.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Il est courant de suivre l’approche ou le madhab traditionnellement suivi dans sa famille ou sa communauté.',
+    noteTitle: 'À noter',
+    noteText: 'Lorsqu’une situation religieuse précise reste incertaine, il est tout à fait approprié de demander l’avis d’un savant ou d’une savante qualifiée.',
+    section4Body: 'Les informations médicales sur le cycle (durée, symptômes, phases hormonales) et les règles religieuses qui en découlent (pureté, prière, jeûne) répondent à deux logiques différentes : l’une décrit un phénomène biologique, l’autre définit un cadre de pratique spirituelle. Les deux peuvent se compléter, mais ne doivent pas être confondues.',
+    visual2Title: 'Deux regards complémentaires',
+    visual2Text: 'Le suivi médical du cycle et les repères religieux qui en découlent apportent chacun un éclairage utile.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Un professionnel de santé peut répondre aux questions médicales ; un savant qualifié reste la référence pour les questions religieuses.',
+    section5Body: 'AWA accompagne les utilisatrices dans la compréhension de leur cycle, à la croisée de la santé et de la pratique religieuse, avec une approche pédagogique et respectueuse des différences entre écoles.',
+    awaRole: [
+      'Comprendre les notions de base du fiqh féminin',
+      'Mieux appréhender son cycle, d’un point de vue médical et religieux',
+      'Identifier les questions qui nécessitent l’avis d’un savant qualifié',
+      'Se repérer entre les différences de madhahib sans confusion',
+      'Accéder à des explications éducatives claires et neutres',
+      'Distinguer une information médicale d’une décision religieuse',
+      'Suivre les informations utiles à sa pratique religieuse, si besoin',
+      'Préparer des questions précises à poser à un savant qualifié',
+    ],
+    alert3Title: 'Information importante',
+    alert3Text: 'AWA est un outil éducatif et informatif : elle ne remplace en aucun cas l’avis d’un savant ou d’une autorité religieuse qualifiée.',
+    section6Body: 'Certaines situations méritent d’être posées directement à un savant ou une savante de confiance, notamment lorsque :',
+    whenToAsk: [
+      'Une situation personnelle ne correspond à aucun cas classique (saignement inhabituel, doute prolongé...)',
+      'Plusieurs avis semblent se contredire et tu ne sais pas lequel suivre',
+      'Une décision religieuse a un impact important sur ta pratique quotidienne',
+      'Tu ressens le besoin d’un accompagnement adapté à ta situation personnelle',
+    ],
+    tip3Title: 'Bon à savoir',
+    tip3Text: 'Le fiqh féminin est un champ vivant d’interprétation, avec des avis parfois différents selon les écoles. AWA t’aide à comprendre les bases et à structurer tes questions, mais l’avis d’un savant qualifié reste la référence pour toute décision religieuse personnelle.',
+    shareMessage: 'Le fiqh féminin, une introduction — AWA',
+  },
+  en: {
+    badge: 'WOMEN’S FIQH',
+    title: 'Women’s fiqh:\nan introduction',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'A comprehensive overview of the main topics covered in women’s fiqh, between religious practice and daily life.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What women’s fiqh covers',
+      'Why is women’s fiqh important?',
+      'Schools of jurisprudence (madhab)',
+      'Fiqh, health, and daily practice',
+      'AWA’s educational role',
+      'When to seek advice from a qualified person?',
+      'Key takeaways',
+    ],
+    section1Body: 'Women’s fiqh is the field of Islamic jurisprudence (fiqh) concerned with practical questions related to women’s bodies and worship. It helps in understanding how to reconcile daily religious life with the different stages of the female cycle.',
+    dailyTopics: [
+      'Menstruation and the menstrual cycle',
+      'Menstrual blood and its status',
+      'Ritual purity',
+      'Ghusl after menstruation',
+      'Prayer during and after menstruation',
+      'The Ramadan fast and days to make up',
+      'Irregular bleeding (istihâda)',
+      'Nifas after childbirth',
+      'Daily life and religious practice',
+    ],
+    section1Body2: 'Fiqh is a field of legal interpretation: some questions are subject to different opinions depending on the scholars and schools of thought, without any single opinion being absolute on its own.',
+    section2Body: 'Understanding women’s fiqh makes it possible to live one’s religious practice with more serenity, without confusion, at times when the body goes through specific stages (menstruation, pregnancy, postpartum, menopause). It also helps distinguish what falls under an obligation, an exemption, or a simple recommendation.',
+    visual1Title: 'A more peaceful religious practice',
+    visual1Text: 'Knowing what is expected at each stage of the cycle makes it possible to approach one’s faith with more confidence.',
+    section3Body: 'A madhab refers to a school of legal thought, that is, a structured method that scholars use to interpret religious sources (Quran, Sunnah, consensus, reasoning) and answer practical questions of daily life. Several schools exist, because scholars have not always followed the same methodology or interpreted the same texts in the same way.',
+    section3Body2: 'This is why some questions related to menstruation, ritual purity, prayer, or fasting may be subject to different opinions depending on the scholars consulted. A difference of opinion does not mean that one opinion is “wrong”: it reflects different methodologies and readings of the same sources.',
+    tip1Title: 'Good to know',
+    tip1Text: 'It is common to follow the approach or madhab traditionally followed in one’s family or community.',
+    noteTitle: 'Please note',
+    noteText: 'When a specific religious situation remains uncertain, it is entirely appropriate to ask for the opinion of a qualified scholar.',
+    section4Body: 'Medical information about the cycle (duration, symptoms, hormonal phases) and the religious rules that follow from it (purity, prayer, fasting) respond to two different logics: one describes a biological phenomenon, the other defines a framework for spiritual practice. The two can complement each other, but must not be confused.',
+    visual2Title: 'Two complementary perspectives',
+    visual2Text: 'Medical tracking of the cycle and the religious markers that follow from it each provide useful insight.',
+    tip2Title: 'Good to know',
+    tip2Text: 'A healthcare professional can answer medical questions; a qualified scholar remains the reference for religious questions.',
+    section5Body: 'AWA supports users in understanding their cycle, at the intersection of health and religious practice, with an educational approach that respects differences between schools.',
+    awaRole: [
+      'Understand the basic concepts of women’s fiqh',
+      'Better understand one’s cycle, from both a medical and religious point of view',
+      'Identify questions that require the opinion of a qualified scholar',
+      'Find one’s way among differences between madhahib without confusion',
+      'Access clear and neutral educational explanations',
+      'Distinguish medical information from a religious decision',
+      'Follow information useful to one’s religious practice, if needed',
+      'Prepare specific questions to ask a qualified scholar',
+    ],
+    alert3Title: 'Important information',
+    alert3Text: 'AWA is an educational and informational tool: it does not replace, under any circumstances, the opinion of a qualified scholar or religious authority.',
+    section6Body: 'Some situations deserve to be raised directly with a trusted scholar, particularly when:',
+    whenToAsk: [
+      'A personal situation does not match any typical case (unusual bleeding, prolonged doubt...)',
+      'Several opinions seem to contradict each other and you don’t know which one to follow',
+      'A religious decision has a significant impact on your daily practice',
+      'You feel the need for guidance suited to your personal situation',
+    ],
+    tip3Title: 'Good to know',
+    tip3Text: 'Women’s fiqh is a living field of interpretation, with opinions that sometimes differ between schools. AWA helps you understand the basics and structure your questions, but the opinion of a qualified scholar remains the reference for any personal religious decision.',
+    shareMessage: 'Women’s fiqh, an introduction — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FiqhWomenIntroArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -104,7 +239,7 @@ export default function FiqhWomenIntroArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le fiqh féminin, une introduction — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -142,7 +277,7 @@ export default function FiqhWomenIntroArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -151,7 +286,7 @@ export default function FiqhWomenIntroArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -166,7 +301,7 @@ export default function FiqhWomenIntroArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -184,19 +319,19 @@ export default function FiqhWomenIntroArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>FIQH FÉMININ</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Le fiqh féminin,{`\n`}une introduction
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -215,8 +350,7 @@ export default function FiqhWomenIntroArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Un aperçu complet des grands sujets abordés dans le fiqh
-            féminin, entre pratique religieuse et vie quotidienne.
+            {content.intro}
           </Text>
 
           <View style={styles.alert}>
@@ -227,23 +361,15 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Ce que couvre le fiqh féminin',
-              'Pourquoi le fiqh féminin est-il important ?',
-              'Les écoles juridiques (madhab)',
-              'Fiqh, santé et pratique quotidienne',
-              'Le rôle éducatif d’AWA',
-              'Quand demander conseil à une personne qualifiée ?',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -259,46 +385,36 @@ export default function FiqhWomenIntroArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Ce que couvre le fiqh féminin</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Le fiqh féminin est le champ de la jurisprudence islamique (fiqh)
-            qui s’intéresse aux questions pratiques liées au corps et au
-            culte des femmes. Il aide à comprendre comment concilier la vie
-            religieuse quotidienne avec les différentes étapes du cycle
-            féminin.
+            {content.section1Body}
           </Text>
 
           <View style={styles.daily}>
-            {TOPICS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {TOPIC_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.dailyTopics[index]}</Text>
               </View>
             ))}
           </View>
 
           <Text style={styles.body}>
-            Le fiqh est un champ d’interprétation juridique : certaines
-            questions font l’objet d’avis différents selon les savants et
-            les écoles de pensée, sans qu’un avis soit à lui seul absolu.
+            {content.section1Body2}
           </Text>
 
           <Text style={styles.h2}>
-            2. Pourquoi le fiqh féminin est-il important ?
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Comprendre le fiqh féminin permet de vivre sa pratique religieuse
-            avec plus de sérénité, sans confusion, aux moments où le corps
-            traverse des étapes spécifiques (règles, grossesse, post-partum,
-            ménopause). Cela aide aussi à distinguer ce qui relève d’une
-            obligation, d’une dispense ou d’une simple recommandation.
+            {content.section2Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -310,26 +426,19 @@ export default function FiqhWomenIntroArticleScreen({
 
             <View style={styles.visualCopy}>
               <Text style={styles.visualTitle}>
-                Une pratique religieuse apaisée
+                {content.visual1Title}
               </Text>
 
               <Text style={styles.visualText}>
-                Savoir ce qui est attendu à chaque étape du cycle permet
-                d’aborder sa foi avec plus de confiance.
+                {content.visual1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Les écoles juridiques (madhab)</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Un madhab désigne une école de pensée juridique, c’est-à-dire
-            une méthode structurée que des savants utilisent pour
-            interpréter les sources religieuses (Coran, Sunna, consensus,
-            raisonnement) et répondre aux questions pratiques de la vie
-            quotidienne. Plusieurs écoles existent, car les savants n’ont
-            pas toujours suivi la même méthodologie ni interprété les mêmes
-            textes de la même manière.
+            {content.section3Body}
           </Text>
 
           <Image
@@ -339,12 +448,7 @@ export default function FiqhWomenIntroArticleScreen({
           />
 
           <Text style={styles.body}>
-            C’est pourquoi certaines questions liées aux règles, à la
-            pureté rituelle, à la prière ou au jeûne peuvent faire l’objet
-            d’avis différents selon les savants consultés. Une divergence
-            d’opinion ne signifie pas qu’un avis serait « faux » : elle
-            reflète des méthodologies et des lectures différentes des
-            mêmes sources.
+            {content.section3Body2}
           </Text>
 
           <View style={styles.tip}>
@@ -355,10 +459,9 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Il est courant de suivre l’approche ou le madhab
-                traditionnellement suivi dans sa famille ou sa communauté.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
@@ -371,26 +474,19 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.noteTitle}</Text>
               <Text style={styles.tipText}>
-                Lorsqu’une situation religieuse précise reste incertaine,
-                il est tout à fait approprié de demander l’avis d’un savant
-                ou d’une savante qualifiée.
+                {content.noteText}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            4. Fiqh, santé et pratique quotidienne
+            4. {content.topics[3]}
           </Text>
 
           <Text style={styles.body}>
-            Les informations médicales sur le cycle (durée, symptômes,
-            phases hormonales) et les règles religieuses qui en découlent
-            (pureté, prière, jeûne) répondent à deux logiques différentes :
-            l’une décrit un phénomène biologique, l’autre définit un cadre
-            de pratique spirituelle. Les deux peuvent se compléter, mais ne
-            doivent pas être confondues.
+            {content.section4Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -402,12 +498,11 @@ export default function FiqhWomenIntroArticleScreen({
 
             <View style={styles.visualCopy}>
               <Text style={styles.visualTitle}>
-                Deux regards complémentaires
+                {content.visual2Title}
               </Text>
 
               <Text style={styles.visualText}>
-                Le suivi médical du cycle et les repères religieux qui en
-                découlent apportent chacun un éclairage utile.
+                {content.visual2Text}
               </Text>
             </View>
           </View>
@@ -420,22 +515,17 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Un professionnel de santé peut répondre aux questions
-                médicales ; un savant qualifié reste la référence pour les
-                questions religieuses.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>5. Le rôle éducatif d’AWA</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <Text style={styles.body}>
-            AWA accompagne les utilisatrices dans la compréhension de leur
-            cycle, à la croisée de la santé et de la pratique religieuse,
-            avec une approche pédagogique et respectueuse des différences
-            entre écoles.
+            {content.section5Body}
           </Text>
 
           <Image
@@ -445,7 +535,7 @@ export default function FiqhWomenIntroArticleScreen({
           />
 
           <View style={styles.checkList}>
-            {AWA_ROLE.map(item => (
+            {content.awaRole.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -466,26 +556,23 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
+              <Text style={styles.tipTitle}>{content.alert3Title}</Text>
               <Text style={styles.tipText}>
-                AWA est un outil éducatif et informatif : elle ne remplace
-                en aucun cas l’avis d’un savant ou d’une autorité religieuse
-                qualifiée.
+                {content.alert3Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            6. Quand demander conseil à une personne qualifiée ?
+            6. {content.topics[5]}
           </Text>
 
           <Text style={styles.body}>
-            Certaines situations méritent d’être posées directement à un
-            savant ou une savante de confiance, notamment lorsque :
+            {content.section6Body}
           </Text>
 
           <View style={styles.checkList}>
-            {WHEN_TO_ASK.map(item => (
+            {content.whenToAsk.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -498,7 +585,7 @@ export default function FiqhWomenIntroArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>7. À retenir</Text>
+          <Text style={styles.h2}>7. {content.topics[6]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -508,13 +595,9 @@ export default function FiqhWomenIntroArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
               <Text style={styles.tipText}>
-                Le fiqh féminin est un champ vivant d’interprétation, avec
-                des avis parfois différents selon les écoles. AWA t’aide à
-                comprendre les bases et à structurer tes questions, mais
-                l’avis d’un savant qualifié reste la référence pour toute
-                décision religieuse personnelle.
+                {content.tip3Text}
               </Text>
             </View>
           </View>
