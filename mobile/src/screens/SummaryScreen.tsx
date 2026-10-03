@@ -16,6 +16,8 @@ import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -54,7 +56,7 @@ import {
 import {getConceptionPreferences, type ConceptionReminderKey, type ConceptionTryingDuration, type FertilityIndicator, type OvulationAwareness} from '../state/conceptionPreferences';
 import {getIrregularPreferences, type IrregularCyclePattern, type IrregularTrackedItem} from '../state/irregularPreferences';
 import {getContraceptionPreferences} from '../state/contraceptionPreferences';
-import {CONTRACEPTION_METHOD_LABELS} from '../config/contraceptionLabels';
+import {contraceptionMethodLabels} from '../config/contraceptionLabels';
 import {
   getMenopausePreferences,
   type MenopauseHormonalTreatmentStatus,
@@ -63,47 +65,54 @@ import {
   type MenopauseSymptom,
 } from '../state/menopausePreferences';
 import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled} from '../state/securityPreferences';
+import {formatFullDate} from '../utils/cycleMath';
 
 const WOMAN = require('../assets/images/summary-woman.png');
 
-const objectiveLabels: Record<ObjectiveId, string> = {
-  cycle: 'Suivre mon cycle',
-  conceive: 'Essayer de concevoir',
-  contraception: 'Contraception',
-  irregular: 'Cycles irréguliers (SOPK)',
-  menopause: 'Périménopause / Ménopause',
-  pregnancy: 'Suivi de grossesse',
-  postpartum: 'Post-partum',
-  loss: 'Après une fausse couche',
-};
+// All label lookups below are built fresh from `t` on every render (the
+// component re-renders on focus via forceRefresh() and on language change
+// via useTranslation()'s own subscription) rather than kept as module-level
+// Record constants — none of these are consumed outside this screen, so the
+// mutate-in-place pattern used for cross-module label configs elsewhere
+// (e.g. objectiveExportConfig.ts) isn't needed here.
+const objectiveLabelsOf = (t: TFunction): Record<ObjectiveId, string> => ({
+  cycle: t('objectives.cycle'),
+  conceive: t('objectives.conceive'),
+  contraception: t('objectives.contraception'),
+  irregular: t('objectives.irregular'),
+  menopause: t('objectives.menopause'),
+  pregnancy: t('objectives.pregnancy'),
+  postpartum: t('objectives.postpartum'),
+  loss: t('objectives.loss'),
+});
 
-const DATING_METHOD_LABELS: Record<PregnancyDatingMethod, string> = {
-  lastPeriod: 'Premier jour de mes dernières règles',
-  dueDate: 'Date prévue d’accouchement',
-  conceptionDate: 'Date estimée de conception',
-  later: 'À renseigner plus tard',
-};
+const datingMethodLabelsOf = (t: TFunction): Record<PregnancyDatingMethod, string> => ({
+  lastPeriod: t('onboarding.summary.rows.datingMethodLastPeriod'),
+  dueDate: t('onboarding.summary.rows.datingMethodDueDate'),
+  conceptionDate: t('onboarding.summary.rows.datingMethodConceptionDate'),
+  later: t('onboarding.summary.rows.datingMethodLater'),
+});
 
 // Dynamic label for the "date de référence" card — only shown for the
 // three methods that actually carry a real selected date.
-const DATING_REFERENCE_LABELS: Record<Exclude<PregnancyDatingMethod, 'later'>, string> = {
-  lastPeriod: 'Dernières règles',
-  dueDate: 'Date prévue d’accouchement',
-  conceptionDate: 'Date estimée de conception',
-};
+const datingReferenceLabelsOf = (t: TFunction): Record<Exclude<PregnancyDatingMethod, 'later'>, string> => ({
+  lastPeriod: t('onboarding.summary.rows.lastPeriod'),
+  dueDate: t('onboarding.summary.rows.datingMethodDueDate'),
+  conceptionDate: t('onboarding.summary.rows.datingMethodConceptionDate'),
+});
 
 // Same category order/wording as PregnancyTrackingPreferencesScreen.tsx.
-const TRACKING_PREFERENCE_LABELS: Record<PregnancyTrackingPreference, string> = {
-  symptoms: 'Symptômes',
-  mood: 'Humeur',
-  weight: 'Poids',
-  sleep: 'Sommeil',
-  hydration: 'Hydratation',
-  activity: 'Activité physique',
-  notes: 'Notes personnelles',
-  medicalInfo: 'Informations médicales personnelles',
-  appointments: 'Rendez-vous et examens',
-};
+const trackingPreferenceLabelsOf = (t: TFunction): Record<PregnancyTrackingPreference, string> => ({
+  symptoms: t('onboarding.summary.rows.trackingSymptoms'),
+  mood: t('onboarding.summary.rows.trackingMood'),
+  weight: t('onboarding.summary.rows.trackingWeight'),
+  sleep: t('onboarding.summary.rows.trackingSleep'),
+  hydration: t('onboarding.summary.rows.trackingHydration'),
+  activity: t('onboarding.summary.rows.trackingActivity'),
+  notes: t('onboarding.summary.rows.trackingNotes'),
+  medicalInfo: t('onboarding.summary.rows.trackingMedicalInfo'),
+  appointments: t('onboarding.summary.rows.trackingAppointments'),
+});
 
 // Same 3 canonical toggles PregnancyRemindersScreen.tsx now reads/writes —
 // the REAL pregnancyNotificationSettingsStore.ts fields, not the old
@@ -115,89 +124,88 @@ const TRACKING_PREFERENCE_LABELS: Record<PregnancyTrackingPreference, string> = 
 const REMINDER_PREFERENCE_ORDER: Array<'appointmentsEnabled' | 'examsEnabled' | 'dailyJournalEnabled'> = [
   'appointmentsEnabled', 'examsEnabled', 'dailyJournalEnabled',
 ];
-const REMINDER_PREFERENCE_LABELS: Record<'appointmentsEnabled' | 'examsEnabled' | 'dailyJournalEnabled', string> = {
-  appointmentsEnabled: 'Rendez-vous',
-  examsEnabled: 'Examens',
-  dailyJournalEnabled: 'Journal quotidien',
-};
+const reminderPreferenceLabelsOf = (t: TFunction): Record<'appointmentsEnabled' | 'examsEnabled' | 'dailyJournalEnabled', string> => ({
+  appointmentsEnabled: t('onboarding.summary.rows.reminderAppointments'),
+  examsEnabled: t('onboarding.summary.rows.reminderExams'),
+  dailyJournalEnabled: t('onboarding.summary.rows.reminderDailyJournal'),
+});
 
 // Same wording as PostpartumDeliveryTypeScreen/PostpartumFeedingScreen.
-const DELIVERY_TYPE_LABELS: Record<PostpartumDeliveryType, string> = {
-  vaginal: 'Accouchement vaginal',
-  planned_csection: 'Césarienne programmée',
-  emergency_csection: 'Césarienne en urgence',
-  prefer_not_to_say: 'Je préfère ne pas préciser',
-};
+const deliveryTypeLabelsOf = (t: TFunction): Record<PostpartumDeliveryType, string> => ({
+  vaginal: t('onboarding.summary.rows.deliveryTypeVaginal'),
+  planned_csection: t('onboarding.summary.rows.deliveryTypePlannedCsection'),
+  emergency_csection: t('onboarding.summary.rows.deliveryTypeEmergencyCsection'),
+  prefer_not_to_say: t('onboarding.summary.rows.deliveryTypePreferNotToSay'),
+});
 
-const FEEDING_TYPE_LABELS: Record<PostpartumFeedingType, string> = {
-  exclusive_breastfeeding: 'Allaitement maternel exclusif',
-  mixed: 'Allaitement mixte (sein + biberon)',
-  exclusive_bottle: 'Biberon exclusivement',
-  unknown: 'Je ne sais pas encore',
-};
+const feedingTypeLabelsOf = (t: TFunction): Record<PostpartumFeedingType, string> => ({
+  exclusive_breastfeeding: t('onboarding.summary.rows.feedingExclusiveBreastfeeding'),
+  mixed: t('onboarding.summary.rows.feedingMixed'),
+  exclusive_bottle: t('onboarding.summary.rows.feedingExclusiveBottle'),
+  unknown: t('onboarding.summary.rows.feedingUnknown'),
+});
 
 // Same wording as MiscarriageBleedingScreen/MiscarriageCycleReturnScreen/
 // MiscarriageTryingAgainScreen.
-const BLEEDING_STATUS_LABELS: Record<MiscarriageBleedingStatus, string> = {
-  yes: 'Oui',
-  no: 'Non',
-  variable: 'Je ne sais pas / cela varie',
-};
+const bleedingStatusLabelsOf = (t: TFunction): Record<MiscarriageBleedingStatus, string> => ({
+  yes: t('common.yes'),
+  no: t('common.no'),
+  variable: t('onboarding.summary.rows.bleedingVariable'),
+});
 
-const CYCLE_RETURN_STATUS_LABELS: Record<MiscarriageCycleReturnStatus, string> = {
-  yes: 'Oui, mes règles sont revenues',
-  no: 'Non, pas encore',
-  unknown: 'Je ne sais pas encore',
-};
+const cycleReturnStatusLabelsOf = (t: TFunction): Record<MiscarriageCycleReturnStatus, string> => ({
+  yes: t('onboarding.summary.rows.cycleReturnYes'),
+  no: t('onboarding.summary.rows.cycleReturnNo'),
+  unknown: t('onboarding.summary.rows.cycleReturnUnknown'),
+});
 
-const TRYING_AGAIN_STATUS_LABELS: Record<MiscarriageTryingAgainStatus, string> = {
-  not_now: 'Pas maintenant',
-  soon: 'Bientôt',
-  ready: 'Oui, je me sens prête',
-};
-const CONCEPTION_DURATION_LABELS: Record<ConceptionTryingDuration, string> = {starting_now:'Je commence maintenant',under_3_months:'Moins de 3 mois','3_to_6_months':'3 à 6 mois','6_to_12_months':'6 à 12 mois',over_1_year:'Plus d’un an'};
-const OVULATION_AWARENESS_LABELS: Record<OvulationAwareness, string> = {often:'Oui, souvent',sometimes:'Parfois',not_really:'Non, pas vraiment'};
-const INDICATOR_LABELS: Record<FertilityIndicator, string> = {temperature:'Température basale',cervical_mucus:'Glaire cervicale',lh_tests:'Tests LH',intercourse:'Rapports'};
-const CONCEPTION_REMINDER_LABELS: Record<ConceptionReminderKey, string> = {fertile_window:'Fenêtre fertile',estimated_ovulation:'Ovulation estimée',temperature:'Température basale',lh_test:'Test LH',daily_journal:'Journal quotidien'};
-const IRREGULAR_CYCLE_PATTERN_LABELS: Record<IrregularCyclePattern, string> = {regular:'Plutôt réguliers',irregular:'Irréguliers',very_variable:'Très variables',unknown:'Je ne sais pas encore'};
-const IRREGULAR_TRACKED_ITEM_LABELS: Record<IrregularTrackedItem, string> = {acne:'Acné',hairGrowth:'Pilosité',weight:'Poids',pain:'Douleurs',mood:'Humeur',fatigue:'Fatigue',otherSymptoms:'Autres symptômes'};
+const tryingAgainStatusLabelsOf = (t: TFunction): Record<MiscarriageTryingAgainStatus, string> => ({
+  not_now: t('onboarding.summary.rows.tryingAgainNotNow'),
+  soon: t('onboarding.summary.rows.tryingAgainSoon'),
+  ready: t('onboarding.summary.rows.tryingAgainReady'),
+});
+const conceptionDurationLabelsOf = (t: TFunction): Record<ConceptionTryingDuration, string> => ({starting_now: t('onboarding.summary.rows.tryingDurationStartingNow'), under_3_months: t('onboarding.summary.rows.tryingDurationUnder3Months'), '3_to_6_months': t('onboarding.summary.rows.tryingDuration3To6Months'), '6_to_12_months': t('onboarding.summary.rows.tryingDuration6To12Months'), over_1_year: t('onboarding.summary.rows.tryingDurationOver1Year')});
+const ovulationAwarenessLabelsOf = (t: TFunction): Record<OvulationAwareness, string> => ({often: t('onboarding.summary.rows.ovulationAwarenessOften'), sometimes: t('onboarding.summary.rows.ovulationAwarenessSometimes'), not_really: t('onboarding.summary.rows.ovulationAwarenessNotReally')});
+const indicatorLabelsOf = (t: TFunction): Record<FertilityIndicator, string> => ({temperature: t('onboarding.summary.rows.indicatorTemperature'), cervical_mucus: t('onboarding.summary.rows.indicatorCervicalMucus'), lh_tests: t('onboarding.summary.rows.indicatorLhTests'), intercourse: t('onboarding.summary.rows.indicatorIntercourse')});
+const conceptionReminderLabelsOf = (t: TFunction): Record<ConceptionReminderKey, string> => ({fertile_window: t('onboarding.summary.rows.conceptionReminderFertileWindow'), estimated_ovulation: t('onboarding.summary.rows.conceptionReminderEstimatedOvulation'), temperature: t('onboarding.summary.rows.indicatorTemperature'), lh_test: t('onboarding.summary.rows.conceptionReminderLhTest'), daily_journal: t('onboarding.summary.rows.reminderDailyJournal')});
+const irregularCyclePatternLabelsOf = (t: TFunction): Record<IrregularCyclePattern, string> => ({regular: t('onboarding.summary.rows.cyclePatternRegular'), irregular: t('onboarding.summary.rows.cyclePatternIrregular'), very_variable: t('onboarding.summary.rows.cyclePatternVeryVariable'), unknown: t('onboarding.summary.rows.cyclePatternUnknown')});
+const irregularTrackedItemLabelsOf = (t: TFunction): Record<IrregularTrackedItem, string> => ({acne: t('onboarding.summary.rows.itemAcne'), hairGrowth: t('onboarding.summary.rows.itemHairGrowth'), weight: t('onboarding.summary.rows.itemWeight'), pain: t('onboarding.summary.rows.itemPain'), mood: t('onboarding.summary.rows.itemMood'), fatigue: t('onboarding.summary.rows.itemFatigue'), otherSymptoms: t('onboarding.summary.rows.itemOtherSymptoms')});
 
 // Same wording as MenopauseStageScreen/MenopauseSymptomsScreen/
 // MenopauseHormonalTreatmentScreen/MenopauseLabTrackingScreen.
-const MENOPAUSE_STAGE_LABELS: Record<MenopauseStage, string> = {
-  perimenopause: 'Périménopause',
-  menopause: 'Ménopause',
-  unsure: 'Je ne sais pas encore',
-};
-const MENOPAUSE_SYMPTOM_LABELS: Record<MenopauseSymptom, string> = {
-  hot_flashes: 'Bouffées de chaleur',
-  night_sweats: 'Sueurs nocturnes',
-  sleep_disturbances: 'Troubles du sommeil',
-  fatigue: 'Fatigue',
-  mood_changes: 'Variations d’humeur',
-  brain_fog: 'Brouillard mental',
-};
+const menopauseStageLabelsOf = (t: TFunction): Record<MenopauseStage, string> => ({
+  perimenopause: t('onboarding.summary.rows.menopauseStagePerimenopause'),
+  menopause: t('onboarding.summary.rows.menopauseStageMenopause'),
+  unsure: t('onboarding.summary.rows.menopauseStageUnsure'),
+});
+const menopauseSymptomLabelsOf = (t: TFunction): Record<MenopauseSymptom, string> => ({
+  hot_flashes: t('onboarding.summary.rows.symptomHotFlashes'),
+  night_sweats: t('onboarding.summary.rows.symptomNightSweats'),
+  sleep_disturbances: t('onboarding.summary.rows.symptomSleepDisturbances'),
+  fatigue: t('onboarding.summary.rows.symptomFatigue'),
+  mood_changes: t('onboarding.summary.rows.symptomMoodChanges'),
+  brain_fog: t('onboarding.summary.rows.symptomBrainFog'),
+});
 const MENOPAUSE_ALL_SYMPTOMS: MenopauseSymptom[] = ['hot_flashes', 'night_sweats', 'sleep_disturbances', 'fatigue', 'mood_changes', 'brain_fog'];
-const MENOPAUSE_HORMONAL_TREATMENT_LABELS: Record<MenopauseHormonalTreatmentStatus, string> = {
-  track: 'Oui, suivi dans AWA',
-  no: 'Non',
-  not_now: 'Pas pour le moment',
-};
-const MENOPAUSE_LAB_TRACKING_LABELS: Record<MenopauseLabTracking, string> = {
-  fsh: 'FSH',
-  estradiol: 'Estradiol',
-  both: 'FSH et Estradiol',
-  none: 'Pas pour le moment',
-};
+const menopauseHormonalTreatmentLabelsOf = (t: TFunction): Record<MenopauseHormonalTreatmentStatus, string> => ({
+  track: t('onboarding.summary.rows.hormonalTreatmentTrack'),
+  no: t('common.no'),
+  not_now: t('onboarding.summary.rows.hormonalTreatmentNotNow'),
+});
+const menopauseLabTrackingLabelsOf = (t: TFunction): Record<MenopauseLabTracking, string> => ({
+  fsh: t('onboarding.summary.rows.labTrackingFsh'),
+  estradiol: t('onboarding.summary.rows.labTrackingEstradiol'),
+  both: t('onboarding.summary.rows.labTrackingBoth'),
+  none: t('onboarding.summary.rows.labTrackingNone'),
+});
 
-const formatSummaryDate = (date: Date): string =>
-  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+const formatSummaryDate = (date: Date): string => formatFullDate(date);
 
 // Compact "3 premiers · +N" preview, or the neutral "tout sélectionné"
 // phrasing when every option is active — matches the Pregnancy Summary
 // reference exactly ("9 éléments sélectionnés" / "5 rappels activés").
-const summarizeSelection = (selectedLabels: string[], totalCount: number, allSelectedLabel: string): string => {
-  if (selectedLabels.length === 0) {return 'Aucun sélectionné';}
+const summarizeSelection = (t: TFunction, selectedLabels: string[], totalCount: number, allSelectedLabel: string): string => {
+  if (selectedLabels.length === 0) {return t('onboarding.summary.rows.noneSelected');}
   if (selectedLabels.length === totalCount) {return allSelectedLabel;}
   const PREVIEW_COUNT = 3;
   const preview = selectedLabels.slice(0, PREVIEW_COUNT).join(' · ');
@@ -266,10 +274,35 @@ const TONE_ICON_COLOR: Record<SummaryRow['tone'], string> = {
 };
 
 function SummaryScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
+
+  const objectiveLabels = objectiveLabelsOf(t);
+  const DATING_METHOD_LABELS = datingMethodLabelsOf(t);
+  const DATING_REFERENCE_LABELS = datingReferenceLabelsOf(t);
+  const TRACKING_PREFERENCE_LABELS = trackingPreferenceLabelsOf(t);
+  const REMINDER_PREFERENCE_LABELS = reminderPreferenceLabelsOf(t);
+  const DELIVERY_TYPE_LABELS = deliveryTypeLabelsOf(t);
+  const FEEDING_TYPE_LABELS = feedingTypeLabelsOf(t);
+  const BLEEDING_STATUS_LABELS = bleedingStatusLabelsOf(t);
+  const CYCLE_RETURN_STATUS_LABELS = cycleReturnStatusLabelsOf(t);
+  const TRYING_AGAIN_STATUS_LABELS = tryingAgainStatusLabelsOf(t);
+  const CONCEPTION_DURATION_LABELS = conceptionDurationLabelsOf(t);
+  const OVULATION_AWARENESS_LABELS = ovulationAwarenessLabelsOf(t);
+  const INDICATOR_LABELS = indicatorLabelsOf(t);
+  const CONCEPTION_REMINDER_LABELS = conceptionReminderLabelsOf(t);
+  const IRREGULAR_CYCLE_PATTERN_LABELS = irregularCyclePatternLabelsOf(t);
+  const IRREGULAR_TRACKED_ITEM_LABELS = irregularTrackedItemLabelsOf(t);
+  const MENOPAUSE_STAGE_LABELS = menopauseStageLabelsOf(t);
+  const MENOPAUSE_SYMPTOM_LABELS = menopauseSymptomLabelsOf(t);
+  const MENOPAUSE_HORMONAL_TREATMENT_LABELS = menopauseHormonalTreatmentLabelsOf(t);
+  const MENOPAUSE_LAB_TRACKING_LABELS = menopauseLabTrackingLabelsOf(t);
+  const CONTRACEPTION_METHOD_LABELS = contraceptionMethodLabels(t);
+  const notProvidedFem = t('onboarding.summary.rows.notProvidedFem');
+  const notProvidedMasc = t('onboarding.summary.rows.notProvidedMasc');
 
   // Every row below reads its value via a plain synchronous store getter at
   // render time (no subscriptions) — returning here via goBack() after an
@@ -289,22 +322,22 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
   const objectiveRow: SummaryRow = {
     icon: 'calendar-heart',
-    label: 'Objectif principal',
+    label: t('onboarding.summary.rows.objective'),
     value: objectiveLabels[objective],
     route: 'Objective',
     tone: 'purple',
   };
   const spiritualRow: SummaryRow = {
     icon: 'star-crescent',
-    label: 'Repères spirituels',
-    value: spiritualEnabled ? 'Activés' : 'Désactivés',
+    label: t('onboarding.summary.rows.spiritual'),
+    value: spiritualEnabled ? t('onboarding.summary.rows.spiritualEnabled') : t('onboarding.summary.rows.spiritualDisabled'),
     route: 'SpiritualPreferences',
     tone: 'rose',
   };
   const locationRow: SummaryRow = {
     icon: 'map-marker-outline',
-    label: 'Localisation',
-    value: location ? `${location.city}, ${location.country}` : 'Non renseignée',
+    label: t('onboarding.summary.rows.location'),
+    value: location ? `${location.city}, ${location.country}` : notProvidedFem,
     route: 'Location',
     tone: 'green',
   };
@@ -312,9 +345,9 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
   const buildCycleRows = (): SummaryRow[] => {
     const cycle = getCyclePreferences();
     const regularityLabels = {
-      yes: 'Oui',
-      no: 'Non',
-      unknown: 'À observer',
+      yes: t('common.yes'),
+      no: t('common.no'),
+      unknown: t('onboarding.summary.rows.regularityUnknown'),
     } as const;
 
     return [
@@ -323,28 +356,28 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       locationRow,
       {
         icon: 'calendar-month-outline',
-        label: 'Dernières règles',
+        label: t('onboarding.summary.rows.lastPeriod'),
         value: formatSummaryDate(cycle.lastPeriodStart),
         route: 'CycleInformation',
         tone: 'rose',
       },
       {
         icon: 'water-outline',
-        label: 'Durée moyenne des règles',
-        value: `${cycle.periodDuration} jours`,
+        label: t('onboarding.summary.rows.periodDuration'),
+        value: t('averageCycle.days', {count: cycle.periodDuration}),
         route: 'CycleInformation',
         tone: 'purple',
       },
       {
         icon: 'sync',
-        label: 'Durée moyenne du cycle',
-        value: `${cycle.cycleDuration} jours`,
+        label: t('onboarding.summary.rows.cycleDuration'),
+        value: t('averageCycle.days', {count: cycle.cycleDuration}),
         route: 'CycleInformation',
         tone: 'blue',
       },
       {
         icon: 'shield-check-outline',
-        label: 'Cycle régulier',
+        label: t('onboarding.summary.rows.cycleRegular'),
         value: regularityLabels[cycle.regularity],
         route: 'CycleInformation',
         tone: 'green',
@@ -371,7 +404,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       locationRow,
       {
         icon: 'human-pregnant',
-        label: 'Datation de la grossesse',
+        label: t('onboarding.summary.rows.datingMethod'),
         value: DATING_METHOD_LABELS[dating.method],
         route: 'PregnancyDatingSetup',
         tone: 'purple',
@@ -393,22 +426,24 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     rows.push(
       {
         icon: 'clipboard-check-outline',
-        label: 'Suivi quotidien',
+        label: t('onboarding.summary.rows.dailyTracking'),
         value: summarizeSelection(
+          t,
           trackingLabels,
           ALL_PREGNANCY_TRACKING_PREFERENCES.length,
-          `${ALL_PREGNANCY_TRACKING_PREFERENCES.length} éléments sélectionnés`,
+          t('onboarding.summary.rows.allSelected', {count: ALL_PREGNANCY_TRACKING_PREFERENCES.length}),
         ),
         route: 'PregnancyTrackingPreferences',
         tone: 'blue',
       },
       {
         icon: 'bell-ring-outline',
-        label: 'Rappels',
+        label: t('onboarding.summary.rows.reminders'),
         value: summarizeSelection(
+          t,
           reminderLabels,
           REMINDER_PREFERENCE_ORDER.length,
-          `${REMINDER_PREFERENCE_ORDER.length} rappels activés`,
+          t('onboarding.summary.rows.remindersAllActive', {count: REMINDER_PREFERENCE_ORDER.length}),
         ),
         route: 'PregnancyReminders',
         tone: 'green',
@@ -433,32 +468,32 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       locationRow,
       {
         icon: 'calendar-month-outline',
-        label: 'Date d’accouchement',
-        value: deliveryDate ? formatSummaryDate(deliveryDate) : 'Non renseignée',
+        label: t('onboarding.summary.rows.deliveryDate'),
+        value: deliveryDate ? formatSummaryDate(deliveryDate) : notProvidedFem,
         route: 'PostpartumDeliveryDate',
         tone: 'rose',
       },
       {
         icon: 'baby-face-outline',
-        label: 'Type d’accouchement',
-        value: postpartum.deliveryType ? DELIVERY_TYPE_LABELS[postpartum.deliveryType] : 'Non renseigné',
+        label: t('onboarding.summary.rows.deliveryType'),
+        value: postpartum.deliveryType ? DELIVERY_TYPE_LABELS[postpartum.deliveryType] : notProvidedMasc,
         route: 'PostpartumDeliveryType',
         tone: 'purple',
       },
       {
         icon: 'baby-bottle-outline',
-        label: 'Allaitement',
-        value: postpartum.feedingType ? FEEDING_TYPE_LABELS[postpartum.feedingType] : 'Non renseigné',
+        label: t('onboarding.summary.rows.feeding'),
+        value: postpartum.feedingType ? FEEDING_TYPE_LABELS[postpartum.feedingType] : notProvidedMasc,
         route: 'PostpartumFeeding',
         tone: 'blue',
       },
       {
         icon: 'bell-outline',
-        label: 'Rappels',
+        label: t('onboarding.summary.rows.reminders'),
         value:
           postpartum.dailyTrackingReminderEnabled && postpartum.dailyTrackingReminderTime
-            ? `Suivi quotidien à ${postpartum.dailyTrackingReminderTime}`
-            : 'Aucun rappel activé',
+            ? t('onboarding.summary.rows.dailyTrackingReminderAt', {time: postpartum.dailyTrackingReminderTime})
+            : t('onboarding.summary.rows.remindersNoneActive'),
         route: 'PostpartumReminders',
         tone: 'green',
       },
@@ -483,15 +518,15 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       locationRow,
       {
         icon: 'pill',
-        label: 'Méthode de contraception',
-        value: contraception.method ? CONTRACEPTION_METHOD_LABELS[contraception.method] : 'Non renseignée',
+        label: t('onboarding.summary.rows.contraceptionMethod'),
+        value: contraception.method ? CONTRACEPTION_METHOD_LABELS[contraception.method] : notProvidedFem,
         route: 'ContraceptionMethod',
         tone: 'rose',
       },
       {
         icon: 'calendar-month-outline',
-        label: 'Depuis quand',
-        value: startDate ? formatSummaryDate(startDate) : 'Non renseignée',
+        label: t('onboarding.summary.rows.contraceptionSince'),
+        value: startDate ? formatSummaryDate(startDate) : notProvidedFem,
         route: 'ContraceptionInformation',
         tone: 'purple',
       },
@@ -500,14 +535,14 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     if (contraception.method === 'pill') {
       const scheduleValue =
         contraception.pillScheduleType === 'cyclic' && contraception.activeDays !== null && contraception.breakDays !== null
-          ? `${contraception.activeDays} j. + ${contraception.breakDays} j. d’arrêt`
+          ? t('onboarding.summary.rows.pillScheduleCyclic', {activeDays: contraception.activeDays, breakDays: contraception.breakDays})
           : contraception.pillScheduleType === 'continuous'
-            ? 'Prise continue'
-            : 'Non renseigné';
+            ? t('onboarding.summary.rows.pillScheduleContinuous')
+            : notProvidedMasc;
 
       rows.push({
         icon: 'calendar-month-outline',
-        label: 'Schéma de pilule',
+        label: t('onboarding.summary.rows.pillSchedule'),
         value: scheduleValue,
         route: 'PillSchedule',
         tone: 'purple',
@@ -517,10 +552,10 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     if (contraception.method) {
       rows.push({
         icon: 'bell-ring-outline',
-        label: 'Rappels',
+        label: t('onboarding.summary.rows.reminders'),
         value: (() => {
           const indicator = getContraceptionReminderIndicator(contraception.method, contraception.remindersEnabled);
-          return indicator === 'enabled' ? 'Activés' : indicator === 'unavailable' ? 'Non disponibles' : 'Désactivés';
+          return indicator === 'enabled' ? t('onboarding.summary.rows.contraceptionRemindersEnabled') : indicator === 'unavailable' ? t('onboarding.summary.rows.contraceptionRemindersUnavailable') : t('onboarding.summary.rows.contraceptionRemindersDisabled');
         })(),
         route: 'ContraceptionReminders',
         tone: 'blue',
@@ -535,10 +570,10 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     const rows: SummaryRow[] = [objectiveRow, spiritualRow];
     if (spiritualEnabled && location) {rows.push(locationRow);}
     rows.push(
-      {icon:'calendar-clock',label:'Essais de conception',value:conception.tryingDuration ? CONCEPTION_DURATION_LABELS[conception.tryingDuration] : 'Non renseigné',route:'ConceptionTryingDuration',tone:'rose'},
-      {icon:'target',label:'Repérage de l’ovulation',value:conception.ovulationAwareness ? OVULATION_AWARENESS_LABELS[conception.ovulationAwareness] : 'Non renseigné',route:'ConceptionOvulationAwareness',tone:'purple'},
-      {icon:'chart-timeline-variant',label:'Indicateurs suivis',value:summarizeSelection(conception.indicators.map(id => INDICATOR_LABELS[id]),4,'Tous les indicateurs'),route:'ConceptionIndicators',tone:'blue'},
-      {icon:'bell-ring-outline',label:'Rappels',value:summarizeSelection((Object.keys(conception.reminders) as ConceptionReminderKey[]).filter(id => conception.reminders[id]).map(id => CONCEPTION_REMINDER_LABELS[id]),5,'Tous les rappels'),route:'ConceptionReminders',tone:'green'},
+      {icon:'calendar-clock',label:t('onboarding.summary.rows.tryingDuration'),value:conception.tryingDuration ? CONCEPTION_DURATION_LABELS[conception.tryingDuration] : notProvidedMasc,route:'ConceptionTryingDuration',tone:'rose'},
+      {icon:'target',label:t('onboarding.summary.rows.ovulationAwareness'),value:conception.ovulationAwareness ? OVULATION_AWARENESS_LABELS[conception.ovulationAwareness] : notProvidedMasc,route:'ConceptionOvulationAwareness',tone:'purple'},
+      {icon:'chart-timeline-variant',label:t('onboarding.summary.rows.indicators'),value:summarizeSelection(t, conception.indicators.map(id => INDICATOR_LABELS[id]),4,t('onboarding.summary.rows.allIndicators')),route:'ConceptionIndicators',tone:'blue'},
+      {icon:'bell-ring-outline',label:t('onboarding.summary.rows.reminders'),value:summarizeSelection(t, (Object.keys(conception.reminders) as ConceptionReminderKey[]).filter(id => conception.reminders[id]).map(id => CONCEPTION_REMINDER_LABELS[id]),5,t('onboarding.summary.rows.allReminders')),route:'ConceptionReminders',tone:'green'},
     );
     return rows;
   };
@@ -567,22 +602,22 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     rows.push(
       {
         icon: 'calendar-heart',
-        label: 'Date de la fausse couche',
-        value: miscarriageDate ? formatSummaryDate(miscarriageDate) : 'Non renseignée',
+        label: t('onboarding.summary.rows.miscarriageDate'),
+        value: miscarriageDate ? formatSummaryDate(miscarriageDate) : notProvidedFem,
         route: 'MiscarriageDate',
         tone: 'rose',
       },
       {
         icon: 'water-outline',
-        label: 'Saignements actuels',
-        value: miscarriage.bleedingStatus ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus] : 'Non renseigné',
+        label: t('onboarding.summary.rows.currentBleeding'),
+        value: miscarriage.bleedingStatus ? BLEEDING_STATUS_LABELS[miscarriage.bleedingStatus] : notProvidedMasc,
         route: 'MiscarriageBleeding',
         tone: 'purple',
       },
       {
         icon: 'calendar-sync-outline',
-        label: 'Retour du cycle',
-        value: miscarriage.cycleReturnStatus ? CYCLE_RETURN_STATUS_LABELS[miscarriage.cycleReturnStatus] : 'Non renseigné',
+        label: t('onboarding.summary.rows.cycleReturn'),
+        value: miscarriage.cycleReturnStatus ? CYCLE_RETURN_STATUS_LABELS[miscarriage.cycleReturnStatus] : notProvidedMasc,
         route: 'MiscarriageCycleReturn',
         tone: 'blue',
       },
@@ -602,7 +637,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     if (cycleReturnDateState !== 'none') {
       rows.push({
         icon: 'calendar-check-outline',
-        label: 'Premières règles revenues',
+        label: t('onboarding.summary.rows.firstReturnedPeriod'),
         value: cycleReturnDateState === 'ok' && firstReturnedPeriodDate ? formatSummaryDate(firstReturnedPeriodDate) : CYCLE_RETURN_DATE_TO_CHECK,
         route: 'MiscarriageCycleReturn',
         tone: 'green',
@@ -611,8 +646,8 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
     rows.push({
       icon: 'heart-outline',
-      label: 'Reprise des essais',
-      value: miscarriage.tryingAgainStatus ? TRYING_AGAIN_STATUS_LABELS[miscarriage.tryingAgainStatus] : 'Non renseigné',
+      label: t('onboarding.summary.rows.tryingAgain'),
+      value: miscarriage.tryingAgainStatus ? TRYING_AGAIN_STATUS_LABELS[miscarriage.tryingAgainStatus] : notProvidedMasc,
       route: 'MiscarriageTryingAgain',
       tone: 'green',
     });
@@ -638,48 +673,48 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       locationRow,
       {
         icon: 'flower-outline',
-        label: 'Étape actuelle',
-        value: menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : 'Non renseignée',
+        label: t('onboarding.summary.rows.menopauseStage'),
+        value: menopause.stage ? MENOPAUSE_STAGE_LABELS[menopause.stage] : notProvidedFem,
         route: 'MenopauseStage',
         tone: 'rose',
       },
       {
         icon: 'clipboard-pulse-outline',
-        label: 'Symptômes suivis',
-        value: summarizeSelection(symptomLabels, MENOPAUSE_ALL_SYMPTOMS.length, 'Tous les symptômes'),
+        label: t('onboarding.summary.rows.menopauseSymptoms'),
+        value: summarizeSelection(t, symptomLabels, MENOPAUSE_ALL_SYMPTOMS.length, t('onboarding.summary.rows.allSymptoms')),
         route: 'MenopauseSymptoms',
         tone: 'purple',
       },
       {
         icon: 'pill',
-        label: 'Traitement hormonal',
-        value: menopause.hormonalTreatmentStatus ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus] : 'Non renseigné',
+        label: t('onboarding.summary.rows.hormonalTreatment'),
+        value: menopause.hormonalTreatmentStatus ? MENOPAUSE_HORMONAL_TREATMENT_LABELS[menopause.hormonalTreatmentStatus] : notProvidedMasc,
         route: 'MenopauseHormonalTreatment',
         tone: 'blue',
       },
       {
         icon: 'flask-outline',
-        label: 'Analyses biologiques',
-        value: menopause.labTracking ? MENOPAUSE_LAB_TRACKING_LABELS[menopause.labTracking] : 'Non renseigné',
+        label: t('onboarding.summary.rows.labTracking'),
+        value: menopause.labTracking ? MENOPAUSE_LAB_TRACKING_LABELS[menopause.labTracking] : notProvidedMasc,
         route: 'MenopauseLabTracking',
         tone: 'green',
       },
       {
         icon: 'bell-outline',
-        label: 'Rappels',
+        label: t('onboarding.summary.rows.reminders'),
         value: (() => {
           const active: string[] = [];
           if (menopause.dailyTrackingReminderEnabled && menopause.dailyTrackingReminderTime) {
-            active.push(`Suivi quotidien à ${menopause.dailyTrackingReminderTime}`);
+            active.push(t('onboarding.summary.rows.dailyTrackingReminderAt', {time: menopause.dailyTrackingReminderTime}));
           }
           if (
             menopause.hormonalTreatmentStatus === 'track' &&
             menopause.treatmentReminderEnabled &&
             menopause.treatmentReminderTime
           ) {
-            active.push(`Traitement à ${menopause.treatmentReminderTime}`);
+            active.push(t('onboarding.summary.rows.treatmentReminderAt', {time: menopause.treatmentReminderTime}));
           }
-          return active.length > 0 ? active.join(' · ') : 'Aucun rappel activé';
+          return active.length > 0 ? active.join(' · ') : t('onboarding.summary.rows.remindersNoneActive');
         })(),
         route: 'MenopauseReminders',
         tone: 'blue',
@@ -698,12 +733,12 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
     if (irregular.reminders.dailyJournalEnabled) {
       remindersActive.push(
         irregular.reminders.dailyJournalTime
-          ? `Journal quotidien à ${irregular.reminders.dailyJournalTime}`
-          : 'Journal quotidien',
+          ? t('onboarding.summary.rows.dailyJournalAt', {time: irregular.reminders.dailyJournalTime})
+          : t('onboarding.summary.rows.reminderDailyJournal'),
       );
     }
     if (irregular.reminders.unrecordedPeriodEnabled) {
-      remindersActive.push('Règles non renseignées');
+      remindersActive.push(t('onboarding.summary.rows.unrecordedPeriods'));
     }
 
     return [
@@ -712,29 +747,29 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
       locationRow,
       {
         icon: 'chart-timeline-variant',
-        label: 'Profil des cycles',
-        value: irregular.cyclePattern ? IRREGULAR_CYCLE_PATTERN_LABELS[irregular.cyclePattern] : 'Non renseigné',
+        label: t('onboarding.summary.rows.cyclePattern'),
+        value: irregular.cyclePattern ? IRREGULAR_CYCLE_PATTERN_LABELS[irregular.cyclePattern] : notProvidedMasc,
         route: 'IrregularCyclePattern',
         tone: 'rose',
       },
       {
         icon: 'calendar-month-outline',
-        label: 'Dernières règles',
-        value: irregular.lastPeriodDate ? formatSummaryDate(new Date(`${irregular.lastPeriodDate}T12:00:00`)) : 'Non renseignées',
+        label: t('onboarding.summary.rows.lastPeriod'),
+        value: irregular.lastPeriodDate ? formatSummaryDate(new Date(`${irregular.lastPeriodDate}T12:00:00`)) : notProvidedFem,
         route: 'IrregularLastPeriod',
         tone: 'purple',
       },
       {
         icon: 'clipboard-pulse-outline',
-        label: 'Suivi personnalisé',
-        value: summarizeSelection(trackedLabels, Object.keys(IRREGULAR_TRACKED_ITEM_LABELS).length, 'Tous les éléments'),
+        label: t('onboarding.summary.rows.trackedItems'),
+        value: summarizeSelection(t, trackedLabels, Object.keys(IRREGULAR_TRACKED_ITEM_LABELS).length, t('onboarding.summary.rows.allItems')),
         route: 'IrregularTrackedItems',
         tone: 'blue',
       },
       {
         icon: 'bell-outline',
-        label: 'Rappels',
-        value: remindersActive.length > 0 ? remindersActive.join(' · ') : 'Désactivés',
+        label: t('onboarding.summary.rows.reminders'),
+        value: remindersActive.length > 0 ? remindersActive.join(' · ') : t('onboarding.summary.rows.remindersDisabled'),
         route: 'IrregularReminders',
         tone: 'green',
       },
@@ -751,11 +786,11 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                 : objective === 'irregular' ? buildIrregularRows()
           : buildCycleRows();
   const privacy = getPrivacySecuritySettings();
-  const securityLabels = [isPinEnabled() ? 'PIN activé' : null, isBiometricEnabled() ? 'Biométrie activée' : null].filter((value): value is string => Boolean(value));
-  const privacyLabels = [privacy.discreetMode ? 'Mode discret activé' : null, privacy.hideNotificationPreview ? 'Aperçus masqués' : null, privacy.privateContentProtection ? 'Contenus privés protégés' : null].filter((value): value is string => Boolean(value));
+  const securityLabels = [isPinEnabled() ? t('onboarding.summary.rows.securityPinEnabled') : null, isBiometricEnabled() ? t('onboarding.summary.rows.securityBiometricEnabled') : null].filter((value): value is string => Boolean(value));
+  const privacyLabels = [privacy.discreetMode ? t('onboarding.summary.rows.privacyDiscreetMode') : null, privacy.hideNotificationPreview ? t('onboarding.summary.rows.privacyHiddenPreviews') : null, privacy.privateContentProtection ? t('onboarding.summary.rows.privacyProtectedContent') : null].filter((value): value is string => Boolean(value));
   const rows: SummaryRow[] = [...objectiveRows,
-    {icon:'shield-lock-outline',label:'Sécurité',value:securityLabels.length ? securityLabels.join(' · ') : 'Aucune protection supplémentaire',route:'SecuritySetup',tone:'purple'},
-    {icon:'incognito',label:'Confidentialité',value:privacyLabels.length ? privacyLabels.join(' · ') : 'Réglages standards',route:'Privacy',tone:'green'},
+    {icon:'shield-lock-outline',label:t('onboarding.summary.rows.security'),value:securityLabels.length ? securityLabels.join(' · ') : t('onboarding.summary.rows.securityNone'),route:'SecuritySetup',tone:'purple'},
+    {icon:'incognito',label:t('onboarding.summary.rows.privacy'),value:privacyLabels.length ? privacyLabels.join(' · ') : t('onboarding.summary.rows.privacyStandard'),route:'Privacy',tone:'green'},
   ];
 
   // Summary sits at the end of the single onboarding stack, so every one of
@@ -926,7 +961,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                   name="check-decagram"
                   size={16}
                 />
-                <Text style={styles.stepBadgeText}>Dernière étape</Text>
+                <Text style={styles.stepBadgeText}>{t('onboarding.summary.stepBadge')}</Text>
               </View>
 
               <Text
@@ -934,7 +969,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                   styles.title,
                   isSmallScreen && styles.titleSmall,
                 ]}>
-                Tout est prêt
+                {t('onboarding.summary.heroTitle')}
               </Text>
 
               <Text
@@ -942,7 +977,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                   styles.subtitle,
                   isSmallScreen && styles.subtitleSmall,
                 ]}>
-                Vérifie tes informations avant de commencer.
+                {t('onboarding.summary.heroSubtitle')}
               </Text>
 
               <View style={styles.editTip}>
@@ -952,7 +987,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
                   size={17}
                 />
                 <Text style={styles.editTipText}>
-                  Appuie sur une carte pour la modifier
+                  {t('onboarding.summary.editTip')}
                 </Text>
               </View>
             </View>
@@ -971,9 +1006,9 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
           <View style={styles.sectionHeader}>
             <View>
-              <Text style={styles.sectionTitle}>Tes informations</Text>
+              <Text style={styles.sectionTitle}>{t('onboarding.summary.sectionTitle')}</Text>
               <Text style={styles.sectionSubtitle}>
-                Tout est modifiable avant de continuer.
+                {t('onboarding.summary.sectionSubtitle')}
               </Text>
             </View>
 
@@ -984,11 +1019,11 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
           <View style={styles.grid}>
             {rows.map(row => {
-              const missing = row.value === 'Non renseignée';
+              const missing = row.value === notProvidedFem || row.value === notProvidedMasc;
 
               return (
                 <Pressable
-                  accessibilityHint="Ouvre l’écran correspondant pour modifier cette information"
+                  accessibilityHint={t('onboarding.summary.cardA11yHint')}
                   accessibilityLabel={`${row.label}, ${row.value}`}
                   accessibilityRole="button"
                   key={row.label}
@@ -1050,11 +1085,11 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
 
             <View style={styles.reassuranceCopy}>
               <Text style={styles.reassuranceTitle}>
-                Tu gardes le contrôle
+                {t('onboarding.summary.reassuranceTitle')}
               </Text>
 
               <Text style={styles.reassuranceText}>
-                Tu pourras modifier ces informations plus tard depuis les paramètres.
+                {t('onboarding.summary.reassuranceText')}
               </Text>
             </View>
           </View>
@@ -1067,7 +1102,7 @@ function SummaryScreen({navigation}: Props): React.JSX.Element {
               isSmallScreen && styles.startButtonSmall,
               pressed && styles.pressed,
             ]}>
-            <Text style={styles.startText}>Commencer</Text>
+            <Text style={styles.startText}>{t('onboarding.summary.start')}</Text>
 
             <View style={styles.startIcon}>
               <MaterialDesignIcons

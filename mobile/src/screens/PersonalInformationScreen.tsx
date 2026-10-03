@@ -19,6 +19,8 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {useTranslation} from 'react-i18next';
+import {getAppLanguage} from '../state/themePreferences';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -30,30 +32,41 @@ import {
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import {formatFullDate} from '../utils/cycleMath';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PersonalInformation'>;
 type FieldKey = keyof Pick<PersonalInformation, 'firstName' | 'lastName' | 'email' | 'phone' | 'preferredName'>;
 type SheetType = FieldKey | 'country' | 'calendar' | 'timeFormat' | 'avatar' | null;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
+// Country names are deliberately NOT translated — the stored `profile.country`
+// value IS this display string itself (no separate technical id exists, the
+// way themes separate `id` from `name`/`description`), so translating this
+// list would silently break the picker's `selected={profile.country === item}`
+// match for anyone who already picked a country, and would require migrating
+// already-persisted selections — a data migration this phase explicitly
+// excludes (see fr.ts's matching namespace comment).
 const COUNTRIES = ['Algérie', 'Maroc', 'Tunisie', 'France', 'Belgique', 'Canada', 'Suisse', 'Sénégal', 'Côte d’Ivoire'];
-const CALENDARS = [
-  {value: 'gregorian', label: 'Grégorien', detail: '14 mai 2026'},
-  {value: 'hijri', label: 'Hijri', detail: '27 Dhul Qi’dah 1447'},
-  {value: 'double', label: 'Double', detail: 'Grégorien + Hijri'},
+
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
+const calendarsOf = (t: TranslateFn) => [
+  {value: 'gregorian', label: t('personalInformation.calendars.gregorianLabel'), detail: t('personalInformation.calendars.gregorianDetail')},
+  {value: 'hijri', label: t('personalInformation.calendars.hijriLabel'), detail: t('personalInformation.calendars.hijriDetail')},
+  {value: 'double', label: t('personalInformation.calendars.doubleLabel'), detail: t('personalInformation.calendars.doubleDetail')},
 ] as const;
 
-const FIELD_META: Record<FieldKey, {title: string; label: string; keyboard?: 'default' | 'email-address' | 'phone-pad'}> = {
-  firstName: {title: 'Modifier le prénom', label: 'Prénom'},
-  lastName: {title: 'Modifier le nom', label: 'Nom'},
-  email: {title: 'Modifier l’adresse e-mail', label: 'Adresse e-mail', keyboard: 'email-address'},
-  phone: {title: 'Modifier le numéro', label: 'Numéro international', keyboard: 'phone-pad'},
-  preferredName: {title: 'Comment AWA doit-elle t’appeler ?', label: 'Prénom préféré'},
-};
+const fieldMetaOf = (t: TranslateFn): Record<FieldKey, {title: string; label: string; keyboard?: 'default' | 'email-address' | 'phone-pad'}> => ({
+  firstName: {title: t('personalInformation.editFirstNameTitle'), label: t('personalInformation.firstNameLabel')},
+  lastName: {title: t('personalInformation.editLastNameTitle'), label: t('personalInformation.lastNameLabel')},
+  email: {title: t('personalInformation.editEmailTitle'), label: t('personalInformation.emailLabel'), keyboard: 'email-address'},
+  phone: {title: t('personalInformation.editPhoneTitle'), label: t('personalInformation.phoneLabel'), keyboard: 'phone-pad'},
+  preferredName: {title: t('personalInformation.preferredNameSheetTitle'), label: t('personalInformation.preferredNameFieldLabel')},
+});
 
 function formatBirthDate(value: string): string {
   const date = new Date(`${value}T12:00:00`);
-  return Number.isNaN(date.getTime()) ? value : new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  return Number.isNaN(date.getTime()) ? value : formatFullDate(date);
 }
 
 function InfoRow({icon, label, value, onPress, last, theme, styles}: {
@@ -70,8 +83,11 @@ function InfoRow({icon, label, value, onPress, last, theme, styles}: {
 }
 
 export default function PersonalInformationScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const CALENDARS = useMemo(() => calendarsOf(t), [t]);
+  const FIELD_META = useMemo(() => fieldMetaOf(t), [t]);
 
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -101,9 +117,9 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
     if (!sheet || !['firstName', 'lastName', 'email', 'phone', 'preferredName'].includes(sheet)) {return;}
     const key = sheet as FieldKey;
     const value = draft.trim();
-    if (!value) {setError('Ce champ est obligatoire.'); return;}
-    if (key === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {setError('Saisis une adresse e-mail valide.'); return;}
-    if (key === 'phone' && value.replace(/\D/g, '').length < 8) {setError('Saisis un numéro international valide.'); return;}
+    if (!value) {setError(t('personalInformation.requiredField')); return;}
+    if (key === 'email' && !/^\S+@\S+\.\S+$/.test(value)) {setError(t('personalInformation.invalidEmail')); return;}
+    if (key === 'phone' && value.replace(/\D/g, '').length < 8) {setError(t('personalInformation.invalidPhone')); return;}
     persist({[key]: value});
   };
 
@@ -130,15 +146,24 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
     [query],
   );
 
-  const calendarLabel = CALENDARS.find(item => item.value === profile.calendar)?.label ?? 'Double';
+  const calendarLabel = CALENDARS.find(item => item.value === profile.calendar)?.label ?? t('personalInformation.calendars.doubleLabel');
+
+  // The "Langue" row must reflect the CURRENT app language (Appearance's own
+  // language switcher), never the stored `profile.language` field — that
+  // field is forced to a single fixed value by personalInformationStore.ts
+  // (a stale assumption from before English support existed) and would
+  // otherwise always show "Français" even after switching the app to
+  // English. This reads the live language fresh, fixing a real display bug,
+  // without touching the store's own field/migration logic at all.
+  const languageDisplayValue = getAppLanguage() === 'en' ? t('appearance.language.englishName') : t('appearance.language.frenchName');
 
   return (
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
       <StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} />
       <ScrollView contentContainerStyle={[styles.content, compact && styles.contentCompact, {paddingTop: Math.max(insets.top, 18) + 8, paddingBottom: Math.max(insets.bottom, 18) + 24}]} showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
-          <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} /></Pressable>
-          <View style={styles.headerCopy}><Text adjustsFontSizeToFit minimumFontScale={0.8} style={styles.title}>Informations personnelles</Text><Text style={styles.subtitle}>Gère tes informations de base 🌸</Text></View>
+          <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}><MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} /></Pressable>
+          <View style={styles.headerCopy}><Text adjustsFontSizeToFit minimumFontScale={0.8} style={styles.title}>{t('personalInformation.title')}</Text><Text style={styles.subtitle}>{t('personalInformation.subtitle')}</Text></View>
           <View style={styles.decor}><MaterialDesignIcons color={theme.colors.secondary} name="leaf" size={42} /><MaterialDesignIcons color={theme.colors.primary} name="star-four-points" size={12} /></View>
         </Animated.View>
 
@@ -149,7 +174,7 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
           <View style={styles.profileTopRow}>
             <View style={styles.avatarOuterRing}>
               <Pressable
-                accessibilityLabel={profile.avatarUri ? 'Modifier la photo' : 'Ajouter une photo'}
+                accessibilityLabel={profile.avatarUri ? t('personalInformation.editPhoto') : t('personalInformation.addPhoto')}
                 onPress={() => openField('avatar')}
                 style={({pressed}) => [
                   styles.avatarWrap,
@@ -183,13 +208,13 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
             </View>
 
             <View style={styles.profileCopy}>
-              <Text style={styles.greeting}>Salam ! 💜</Text>
+              <Text style={styles.greeting}>{t('personalInformation.greeting')}</Text>
               <Text style={styles.profileText}>
-                Ces informations sont utilisées pour personnaliser ton expérience dans AWA.
+                {t('personalInformation.intro')}
               </Text>
 
               <Pressable
-                accessibilityLabel={profile.avatarUri ? 'Changer ma photo' : 'Ajouter une photo'}
+                accessibilityLabel={profile.avatarUri ? t('personalInformation.changeMyPhoto') : t('personalInformation.addPhoto')}
                 onPress={() => openField('avatar')}
                 style={({pressed}) => [
                   styles.photoAction,
@@ -201,32 +226,32 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
                   size={14}
                 />
                 <Text style={styles.photoActionText}>
-                  {profile.avatarUri ? 'Changer la photo' : 'Ajouter une photo'}
+                  {profile.avatarUri ? t('personalInformation.changePhoto') : t('personalInformation.addPhoto')}
                 </Text>
               </Pressable>
             </View>
           </View>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Informations de base</Text>
+        <Text style={styles.sectionTitle}>{t('personalInformation.basicInfoSection')}</Text>
         <Animated.View entering={FadeInUp.delay(150).duration(420)} style={styles.card}>
-          <InfoRow icon="account-outline" label="Prénom" value={profile.firstName || 'Non renseigné'} onPress={() => openField('firstName')} styles={styles} theme={theme} />
-          <InfoRow icon="account-outline" label="Nom" value={profile.lastName} onPress={() => openField('lastName')} styles={styles} theme={theme} />
-          <InfoRow icon="calendar-month-outline" label="Date de naissance" value={formatBirthDate(profile.birthDate)} onPress={() => setDatePickerVisible(true)} styles={styles} theme={theme} />
-          <InfoRow icon="email-outline" label="Adresse e-mail" value={profile.email} onPress={() => openField('email')} styles={styles} theme={theme} />
-          <InfoRow icon="phone-outline" label="Numéro de téléphone" value={profile.phone} onPress={() => openField('phone')} styles={styles} theme={theme} />
-          <InfoRow icon="map-marker-outline" label="Pays" value={profile.country} onPress={() => openField('country')} styles={styles} theme={theme} />
-          <InfoRow icon="web" label="Langue" value={profile.language} last styles={styles} theme={theme} />
+          <InfoRow icon="account-outline" label={t('personalInformation.firstNameLabel')} value={profile.firstName || t('profile.notProvided')} onPress={() => openField('firstName')} styles={styles} theme={theme} />
+          <InfoRow icon="account-outline" label={t('personalInformation.lastNameLabel')} value={profile.lastName} onPress={() => openField('lastName')} styles={styles} theme={theme} />
+          <InfoRow icon="calendar-month-outline" label={t('personalInformation.birthDateLabel')} value={formatBirthDate(profile.birthDate)} onPress={() => setDatePickerVisible(true)} styles={styles} theme={theme} />
+          <InfoRow icon="email-outline" label={t('personalInformation.emailLabel')} value={profile.email} onPress={() => openField('email')} styles={styles} theme={theme} />
+          <InfoRow icon="phone-outline" label={t('personalInformation.phoneLabel')} value={profile.phone} onPress={() => openField('phone')} styles={styles} theme={theme} />
+          <InfoRow icon="map-marker-outline" label={t('personalInformation.countryLabel')} value={profile.country} onPress={() => openField('country')} styles={styles} theme={theme} />
+          <InfoRow icon="web" label={t('personalInformation.languageLabel')} value={languageDisplayValue} last styles={styles} theme={theme} />
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Préférences personnelles</Text>
+        <Text style={styles.sectionTitle}>{t('personalInformation.preferencesSection')}</Text>
         <Animated.View entering={FadeInUp.delay(220).duration(420)} style={styles.card}>
-          <InfoRow icon="gender-female" label="Comment souhaites-tu que AWA t’appelle ?" value={profile.preferredName || 'Non renseigné'} onPress={() => openField('preferredName')} styles={styles} theme={theme} />
-          <InfoRow icon="weather-night" label="Calendrier principal" value={calendarLabel} onPress={() => openField('calendar')} styles={styles} theme={theme} />
-          <InfoRow icon="clock-outline" label="Format de l’heure" value={profile.timeFormat === '24h' ? '24 heures' : '12 heures'} last onPress={() => openField('timeFormat')} styles={styles} theme={theme} />
+          <InfoRow icon="gender-female" label={t('personalInformation.preferredNameQuestion')} value={profile.preferredName || t('profile.notProvided')} onPress={() => openField('preferredName')} styles={styles} theme={theme} />
+          <InfoRow icon="weather-night" label={t('personalInformation.mainCalendarLabel')} value={calendarLabel} onPress={() => openField('calendar')} styles={styles} theme={theme} />
+          <InfoRow icon="clock-outline" label={t('personalInformation.timeFormatLabel')} value={profile.timeFormat === '24h' ? t('personalInformation.time24h') : t('personalInformation.time12h')} last onPress={() => openField('timeFormat')} styles={styles} theme={theme} />
         </Animated.View>
 
-        <View style={styles.infoCard}><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21} /><Text style={styles.infoText}>Tu peux modifier ces informations à tout moment.{'\n'}Certaines modifications peuvent affecter tes prédictions.</Text></View>
+        <View style={styles.infoCard}><MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21} /><Text style={styles.infoText}>{t('personalInformation.infoCardText')}</Text></View>
       </ScrollView>
 
       {datePickerVisible ? <DateTimePicker maximumDate={new Date()} mode="date" onDismiss={onDatePickerDismiss} onValueChange={onDateValueChange} value={new Date(`${profile.birthDate}T12:00:00`)} /> : null}
@@ -237,10 +262,10 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
           <View style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 18)}]}>
             <View style={styles.handle} />
             {sheet === 'avatar' ? <>
-              <Text style={styles.sheetTitle}>Photo de profil</Text>
-              <SheetAction icon="camera-outline" label="Prendre une photo" onPress={() => choosePhoto(true)} styles={styles} theme={theme} />
-              <SheetAction icon="image-outline" label="Choisir depuis la galerie" onPress={() => choosePhoto(false)} styles={styles} theme={theme} />
-              {profile.avatarUri ? <SheetAction danger icon="delete-outline" label="Supprimer la photo" onPress={() => persist({avatarUri: undefined})} styles={styles} theme={theme} /> : null}
+              <Text style={styles.sheetTitle}>{t('personalInformation.photoSheetTitle')}</Text>
+              <SheetAction icon="camera-outline" label={t('personalInformation.takePhoto')} onPress={() => choosePhoto(true)} styles={styles} theme={theme} />
+              <SheetAction icon="image-outline" label={t('personalInformation.chooseFromGallery')} onPress={() => choosePhoto(false)} styles={styles} theme={theme} />
+              {profile.avatarUri ? <SheetAction danger icon="delete-outline" label={t('personalInformation.deletePhoto')} onPress={() => persist({avatarUri: undefined})} styles={styles} theme={theme} /> : null}
             </> : sheet && ['firstName', 'lastName', 'email', 'phone', 'preferredName'].includes(sheet) ? <>
               <Text style={styles.sheetTitle}>{FIELD_META[sheet as FieldKey].title}</Text>
               <Text style={styles.inputLabel}>{FIELD_META[sheet as FieldKey].label}</Text>
@@ -248,15 +273,15 @@ export default function PersonalInformationScreen({navigation}: Props): React.JS
               {error ? <Text style={styles.error}>{error}</Text> : null}
               <SaveButton onPress={saveTextField} styles={styles} />
             </> : sheet === 'country' ? <>
-              <Text style={styles.sheetTitle}>Choisir le pays</Text><TextInput autoFocus onChangeText={setQuery} placeholder="Rechercher un pays" placeholderTextColor={theme.colors.textMuted} style={styles.input} value={query} />
+              <Text style={styles.sheetTitle}>{t('personalInformation.chooseCountryTitle')}</Text><TextInput autoFocus onChangeText={setQuery} placeholder={t('personalInformation.searchCountryPlaceholder')} placeholderTextColor={theme.colors.textMuted} style={styles.input} value={query} />
               <ScrollView style={styles.optionsScroll}>{filteredCountries.map(item => <Option key={item} label={item} selected={profile.country === item} onPress={() => persist({country: item})} styles={styles} theme={theme} />)}</ScrollView>
-            </> : sheet === 'calendar' ? <><Text style={styles.sheetTitle}>Calendrier principal</Text>{CALENDARS.map(item => <Option detail={item.detail} key={item.value} label={item.label} selected={profile.calendar === item.value} onPress={() => persist({calendar: item.value})} styles={styles} theme={theme} />)}</> : sheet === 'timeFormat' ? <><Text style={styles.sheetTitle}>Format de l’heure</Text><Option detail="Exemple : 08:30 et 20:30" label="24 heures" selected={profile.timeFormat === '24h'} onPress={() => persist({timeFormat: '24h'})} styles={styles} theme={theme} /><Option detail="Exemple : 8:30 AM et 8:30 PM" label="12 heures" selected={profile.timeFormat === '12h'} onPress={() => persist({timeFormat: '12h'})} styles={styles} theme={theme} /></> : null}
-            <Pressable onPress={() => setSheet(null)} style={styles.cancel}><Text style={styles.cancelText}>Annuler</Text></Pressable>
+            </> : sheet === 'calendar' ? <><Text style={styles.sheetTitle}>{t('personalInformation.calendarSheetTitle')}</Text>{CALENDARS.map(item => <Option detail={item.detail} key={item.value} label={item.label} selected={profile.calendar === item.value} onPress={() => persist({calendar: item.value})} styles={styles} theme={theme} />)}</> : sheet === 'timeFormat' ? <><Text style={styles.sheetTitle}>{t('personalInformation.timeFormatSheetTitle')}</Text><Option detail={t('personalInformation.time24hExample')} label={t('personalInformation.time24h')} selected={profile.timeFormat === '24h'} onPress={() => persist({timeFormat: '24h'})} styles={styles} theme={theme} /><Option detail={t('personalInformation.time12hExample')} label={t('personalInformation.time12h')} selected={profile.timeFormat === '12h'} onPress={() => persist({timeFormat: '12h'})} styles={styles} theme={theme} /></> : null}
+            <Pressable onPress={() => setSheet(null)} style={styles.cancel}><Text style={styles.cancelText}>{t('common.cancel')}</Text></Pressable>
           </View>
         </KeyboardAvoidingView>
       </Modal>
 
-      {toastVisible ? <Animated.View entering={FadeInUp.springify()} style={[styles.toast, {bottom: Math.max(insets.bottom, 18) + 12}]}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={15} /><Text style={styles.toastText}>Informations mises à jour ✓</Text></Animated.View> : null}
+      {toastVisible ? <Animated.View entering={FadeInUp.springify()} style={[styles.toast, {bottom: Math.max(insets.bottom, 18) + 12}]}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={15} /><Text style={styles.toastText}>{t('personalInformation.toastUpdated')}</Text></Animated.View> : null}
     </SafeAreaView>
   );
 }
@@ -274,7 +299,8 @@ function Option({label, detail, selected, onPress, theme, styles}: {
   return <Pressable onPress={onPress} style={({pressed}) => [styles.option, selected && styles.optionSelected, pressed && styles.pressed]}><View style={styles.optionCopy}><Text style={[styles.optionLabel, selected && styles.optionLabelSelected]}>{label}</Text>{detail ? <Text style={styles.optionDetail}>{detail}</Text> : null}</View>{selected ? <MaterialDesignIcons color={theme.colors.primary} name="check-circle" size={22} /> : <View style={styles.radio} />}</Pressable>;
 }
 function SaveButton({onPress, styles}: {onPress: () => void; styles: ReturnType<typeof createStyles>}) {
-  return <Pressable onPress={onPress} style={({pressed}) => [styles.save, pressed && styles.pressed]}><Text style={styles.saveText}>Enregistrer</Text></Pressable>;
+  const {t} = useTranslation();
+  return <Pressable onPress={onPress} style={({pressed}) => [styles.save, pressed && styles.pressed]}><Text style={styles.saveText}>{t('common.save')}</Text></Pressable>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {

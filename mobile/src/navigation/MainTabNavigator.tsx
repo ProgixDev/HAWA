@@ -40,7 +40,13 @@ import type {PregnancyTrackingPreference} from '../state/pregnancyPreferences';
 // MoodEntry/SleepEntry screens Cycle uses — this is pre-existing Pregnancy
 // behavior (unchanged by this task); see the final report for the
 // cross-objective-storage caveat that comes with reusing them.
-const PREGNANCY_JOURNAL_ITEMS: Array<{
+//
+// PHASE 7H: a function (not a static array), same convention as
+// getCycleJournalItems() — called fresh on every render so title/subtitle
+// stay in sync with the active app language instead of a French-only
+// module-level snapshot (this was a genuine, standalone gap: every sibling
+// objective's own *_JOURNAL_ITEMS config already followed this pattern).
+function pregnancyJournalItems(t: (key: string) => string): Array<{
   route: Extract<keyof RootStackParamList, 'PregnancySymptoms' | 'PregnancyWeight' | 'MoodEntry' | 'SleepEntry' | 'PregnancyMedicalInformation'>;
   icon: string;
   title: string;
@@ -49,13 +55,15 @@ const PREGNANCY_JOURNAL_ITEMS: Array<{
   /** The tracking-preference id (pregnancyPreferences.ts) that controls
    * whether this category is offered in the CURRENT journal. */
   preferenceKey: PregnancyTrackingPreference;
-}> = [
-  {route: 'PregnancySymptoms', icon: 'heart-pulse', title: 'Symptômes ressentis', subtitle: 'Note tes ressentis physiques', tint: '#E9DFFF', preferenceKey: 'symptoms'},
-  {route: 'PregnancyWeight', icon: 'scale-bathroom', title: 'Poids', subtitle: 'Enregistre une mesure en kg', tint: '#DDEEFF', preferenceKey: 'weight'},
-  {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: 'Humeur', subtitle: 'Comment te sens-tu aujourd’hui ?', tint: '#F9DDE8', preferenceKey: 'mood'},
-  {route: 'SleepEntry', icon: 'weather-night', title: 'Sommeil', subtitle: 'Durée et qualité de ton sommeil', tint: '#E8DDF8', preferenceKey: 'sleep'},
-  {route: 'PregnancyMedicalInformation', icon: 'shield-lock-outline', title: 'Informations médicales personnelles', subtitle: 'Un espace sobre et privé', tint: '#F3ECFB', preferenceKey: 'medicalInfo'},
-];
+}> {
+  return [
+    {route: 'PregnancySymptoms', icon: 'heart-pulse', title: t('dailyJournalSheet.pregnancyItems.symptoms.title'), subtitle: t('dailyJournalSheet.pregnancyItems.symptoms.subtitle'), tint: '#E9DFFF', preferenceKey: 'symptoms'},
+    {route: 'PregnancyWeight', icon: 'scale-bathroom', title: t('dailyJournalSheet.pregnancyItems.weight.title'), subtitle: t('dailyJournalSheet.pregnancyItems.weight.subtitle'), tint: '#DDEEFF', preferenceKey: 'weight'},
+    {route: 'MoodEntry', icon: 'emoticon-happy-outline', title: t('dailyJournalSheet.pregnancyItems.mood.title'), subtitle: t('dailyJournalSheet.pregnancyItems.mood.subtitle'), tint: '#F9DDE8', preferenceKey: 'mood'},
+    {route: 'SleepEntry', icon: 'weather-night', title: t('dailyJournalSheet.pregnancyItems.sleep.title'), subtitle: t('dailyJournalSheet.pregnancyItems.sleep.subtitle'), tint: '#E8DDF8', preferenceKey: 'sleep'},
+    {route: 'PregnancyMedicalInformation', icon: 'shield-lock-outline', title: t('dailyJournalSheet.pregnancyItems.medicalInfo.title'), subtitle: t('dailyJournalSheet.pregnancyItems.medicalInfo.subtitle'), tint: '#F3ECFB', preferenceKey: 'medicalInfo'},
+  ];
+}
 
 export type MainTabParamList = {
   CycleHome: undefined;
@@ -112,7 +120,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
     // Only the categories the user chose to track (tracking preferences) are
     // offered NOW; recorded history is never affected. Nothing selected → one
     // action that opens the preference screen in edit mode.
-    const trackedPregnancyItems = PREGNANCY_JOURNAL_ITEMS.filter(item => pregnancyTracking.has(item.preferenceKey));
+    const trackedPregnancyItems = pregnancyJournalItems(t).filter(item => pregnancyTracking.has(item.preferenceKey));
     const pregnancyActions: JournalSheetAction[] = trackedPregnancyItems.map(item => ({
       key: item.route,
       icon: item.icon,
@@ -132,8 +140,8 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       pregnancyActions.push({
         key: 'PregnancyTrackingPreferences',
         icon: 'tune-variant',
-        title: 'Choisir mes suivis',
-        subtitle: 'Sélectionne les catégories que tu souhaites suivre',
+        title: t('dailyJournalSheet.chooseTrackingTitle'),
+        subtitle: t('dailyJournalSheet.chooseTrackingSubtitle'),
         tint: '#E9DFFF',
         onPress: () => {
           close();
@@ -145,8 +153,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={pregnancyActions}
         onClose={close}
-        subtitle="Prends quelques secondes pour noter ton bien-être aujourd’hui."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.pregnancySubtitle')}
         visible={visible}
       />
     );
@@ -165,8 +172,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={postpartumActions}
         onClose={close}
-        subtitle="Prends un instant pour toi aujourd’hui."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.postpartumSubtitle')}
         visible={visible}
       />
     );
@@ -195,8 +201,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={miscarriageActions}
         onClose={close}
-        subtitle="Prends un instant pour toi aujourd’hui."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.miscarriageSubtitle')}
         visible={visible}
       />
     );
@@ -249,8 +254,7 @@ function JournalSheetHost({navigation}: Pick<Props, 'navigation'>): React.JSX.El
       <DailyJournalSheet
         actions={conceiveActions}
         onClose={close}
-        subtitle="Ton suivi de fertilité, un jour à la fois."
-        title="Journal quotidien"
+        subtitle={t('dailyJournalSheet.conceiveSubtitle')}
         visible={visible}
       />
     );

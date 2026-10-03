@@ -4,6 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../theme/spacing';
@@ -18,20 +19,22 @@ const APPLE = require('../assets/images/auth-apple-logo.png');
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Registration'>;
-type FieldProps = {icon: IconName; label: string; placeholder: string; value: string; onChangeText: (value: string) => void; secure?: boolean; visible?: boolean; onToggle?: () => void; keyboardType?: 'default' | 'email-address'; error?: string; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>};
+type FieldProps = {icon: IconName; label: string; placeholder: string; value: string; onChangeText: (value: string) => void; secure?: boolean; visible?: boolean; onToggle?: () => void; keyboardType?: 'default' | 'email-address'; error?: string; theme: ResolvedAwaTheme; styles: ReturnType<typeof createStyles>; t: (key: string, options?: Record<string, unknown>) => string};
 
-function Field({icon, label, placeholder, value, onChangeText, secure, visible, onToggle, keyboardType = 'default', error, theme, styles}: FieldProps) {
+function Field({icon, label, placeholder, value, onChangeText, secure, visible, onToggle, keyboardType = 'default', error, theme, styles, t}: FieldProps) {
+  const toggleAction = visible ? t('auth.registration.togglePasswordHide') : t('auth.registration.togglePasswordShow');
   return <View>
     <View style={[styles.field, error ? styles.fieldError : null]}>
       <MaterialDesignIcons color={theme.colors.primary} name={icon} size={22} />
       <View style={styles.fieldCopy}><Text style={styles.fieldLabel}>{label}</Text><TextInput autoCapitalize={keyboardType === 'email-address' ? 'none' : 'words'} keyboardType={keyboardType} onChangeText={onChangeText} placeholder={placeholder} placeholderTextColor={theme.colors.textMuted} secureTextEntry={secure && !visible} selectionColor={theme.colors.primary} style={styles.input} textContentType={keyboardType === 'email-address' ? 'emailAddress' : secure ? 'password' : 'none'} value={value} /></View>
-      {secure && <Pressable accessibilityLabel={`${visible ? 'Masquer' : 'Afficher'} : ${label}`} accessibilityRole="button" hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={theme.colors.primary} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
+      {secure && <Pressable accessibilityLabel={t('auth.registration.toggleVisibilityLabel', {action: toggleAction, label})} accessibilityRole="button" hitSlop={12} onPress={onToggle}><MaterialDesignIcons color={theme.colors.primary} name={visible ? 'eye-outline' : 'eye-off-outline'} size={18} /></Pressable>}
     </View>
     {error ? <Text style={styles.fieldErrorText}>{error}</Text> : null}
   </View>;
 }
 
 function RegistrationScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {height} = useWindowDimensions();
@@ -44,7 +47,7 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   const [confirmationError, setConfirmationError] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
-  const rules = useMemo(() => [{label: '8 caractères minimum', valid: password.length >= 8}, {label: 'Un chiffre', valid: /\d/.test(password)}, {label: 'Une majuscule', valid: /[A-Z]/.test(password)}, {label: 'Un caractère spécial', valid: /[^A-Za-z0-9]/.test(password)}], [password]);
+  const rules = useMemo(() => [{label: t('auth.registration.ruleMinLength'), valid: password.length >= 8}, {label: t('auth.registration.ruleDigit'), valid: /\d/.test(password)}, {label: t('auth.registration.ruleUppercase'), valid: /[A-Z]/.test(password)}, {label: t('auth.registration.ruleSpecialChar'), valid: /[^A-Za-z0-9]/.test(password)}], [password, t]);
   const allRulesValid = rules.every(rule => rule.valid);
 
   // TEMP FRONTEND-ONLY AUTH BYPASS:
@@ -82,46 +85,46 @@ function RegistrationScreen({navigation}: Props): React.JSX.Element {
   return <LinearGradient colors={[...theme.gradients.pageBackground]} end={{x: 1, y: 1}} locations={[0, 0.32, 0.7, 1]} start={{x: 0, y: 0}} style={styles.background}><View pointerEvents="none" style={styles.pageBackgroundDecor}><View style={styles.pageGlowTop} /><View style={styles.pageGlowMiddle} /><View style={styles.pageGlowBottom} /></View><KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} keyboardVerticalOffset={insets.top} style={styles.page}><SafeAreaView style={styles.safeArea}><StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle} /><ScrollView contentContainerStyle={[styles.content, {paddingBottom: Math.max(insets.bottom, 16) + 12, paddingTop: compact ? TOP_SPACING_EXTRA_COMPACT : TOP_SPACING_EXTRA}]} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
     <View style={styles.hero}>
       <View style={styles.brandArea}><Text style={styles.brand}>AWA</Text></View>
-      <Text style={styles.title}>Créer votre compte</Text>
-      <Text style={styles.subtitle}>{'Rejoignez AWA et commencez\nvotre parcours en toute sérénité.'}</Text>
+      <Text style={styles.title}>{t('auth.registration.title')}</Text>
+      <Text style={styles.subtitle}>{t('auth.registration.subtitle')}</Text>
     </View>
 
     <View style={styles.formArea}>
       <View style={styles.tabs}>
         <Pressable accessibilityRole="tab" accessibilityState={{selected: false}} onPress={() => navigation.navigate('Auth')} style={styles.tab}>
-          <Text style={styles.tabText}>Connexion</Text>
+          <Text style={styles.tabText}>{t('auth.shared.tabLogin')}</Text>
         </Pressable>
         <View accessibilityRole="tab" accessibilityState={{selected: true}} style={[styles.tab, styles.tabActive]}>
-          <Text style={[styles.tabText, styles.tabTextActive]}>Créer un compte</Text>
+          <Text style={[styles.tabText, styles.tabTextActive]}>{t('auth.shared.tabRegister')}</Text>
         </View>
       </View>
       <View style={styles.form}>
-        <Field icon="account-outline" label="Prénom" onChangeText={setFirstName} placeholder="Entrez votre prénom" styles={styles} theme={theme} value={firstName} />
-        <Field icon="account-outline" label="Nom" onChangeText={setLastName} placeholder="Entrez votre nom" styles={styles} theme={theme} value={lastName} />
-        <Field error={emailError} icon="email-outline" keyboardType="email-address" label="Adresse e-mail" onChangeText={value => {setEmail(value); setEmailError(''); setInfoMessage('');}} placeholder="Entrez votre adresse e-mail" styles={styles} theme={theme} value={email} />
-        <Field error={passwordError} icon="lock-outline" label="Mot de passe" onChangeText={value => {setPassword(value); setPasswordError(''); setInfoMessage('');}} onToggle={() => setPasswordVisible(v => !v)} placeholder="Créez un mot de passe" secure styles={styles} theme={theme} value={password} visible={passwordVisible} />
-        <Field error={confirmationError} icon="lock-outline" label="Confirmer le mot de passe" onChangeText={value => {setConfirmation(value); setConfirmationError(''); setInfoMessage('');}} onToggle={() => setConfirmationVisible(v => !v)} placeholder="Confirmez votre mot de passe" secure styles={styles} theme={theme} value={confirmation} visible={confirmationVisible} />
+        <Field icon="account-outline" label={t('auth.registration.firstNameLabel')} onChangeText={setFirstName} placeholder={t('auth.registration.firstNamePlaceholder')} styles={styles} t={t} theme={theme} value={firstName} />
+        <Field icon="account-outline" label={t('auth.registration.lastNameLabel')} onChangeText={setLastName} placeholder={t('auth.registration.lastNamePlaceholder')} styles={styles} t={t} theme={theme} value={lastName} />
+        <Field error={emailError} icon="email-outline" keyboardType="email-address" label={t('auth.registration.emailLabel')} onChangeText={value => {setEmail(value); setEmailError(''); setInfoMessage('');}} placeholder={t('auth.registration.emailPlaceholder')} styles={styles} t={t} theme={theme} value={email} />
+        <Field error={passwordError} icon="lock-outline" label={t('auth.registration.passwordLabel')} onChangeText={value => {setPassword(value); setPasswordError(''); setInfoMessage('');}} onToggle={() => setPasswordVisible(v => !v)} placeholder={t('auth.registration.passwordPlaceholder')} secure styles={styles} t={t} theme={theme} value={password} visible={passwordVisible} />
+        <Field error={confirmationError} icon="lock-outline" label={t('auth.registration.confirmPasswordLabel')} onChangeText={value => {setConfirmation(value); setConfirmationError(''); setInfoMessage('');}} onToggle={() => setConfirmationVisible(v => !v)} placeholder={t('auth.registration.confirmPasswordPlaceholder')} secure styles={styles} t={t} theme={theme} value={confirmation} visible={confirmationVisible} />
       </View>
       <View style={styles.hint}>
         <MaterialDesignIcons color={allRulesValid ? theme.colors.primary : theme.colors.textMuted} name={allRulesValid ? 'check-circle' : 'information-outline'} size={16} />
-        <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>8 caractères min., une majuscule, un chiffre et un caractère spécial</Text>
+        <Text style={[styles.hintText, allRulesValid && styles.hintTextValid]}>{t('auth.registration.hint')}</Text>
       </View>
-      <Pressable accessibilityRole="button" accessibilityState={{disabled: submitting}} disabled={submitting} onPress={handleSubmit} style={({pressed}) => [styles.primary, submitting && styles.disabled, pressed && !submitting && styles.pressed]}><Text style={styles.primaryText}>Créer mon compte</Text></Pressable>
+      <Pressable accessibilityRole="button" accessibilityState={{disabled: submitting}} disabled={submitting} onPress={handleSubmit} style={({pressed}) => [styles.primary, submitting && styles.disabled, pressed && !submitting && styles.pressed]}><Text style={styles.primaryText}>{t('auth.shared.createAccount')}</Text></Pressable>
       {infoMessage ? (
         <View style={styles.infoCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={16} />
           <Text style={styles.infoText}>{infoMessage}</Text>
         </View>
       ) : null}
-      <Text style={styles.or}>ou continuer avec</Text><View style={styles.socialRow}>
-        <Pressable accessibilityLabel="Continuer avec Google" accessibilityRole="button" onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
-        <Pressable accessibilityLabel="Continuer avec Apple" accessibilityRole="button" onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
-        <Pressable accessibilityLabel="Continuer avec une adresse e-mail" accessibilityRole="button" onPress={() => Alert.alert('E-mail')} style={styles.social}><MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={24} /></Pressable>
+      <Text style={styles.or}>{t('auth.shared.orContinueWith')}</Text><View style={styles.socialRow}>
+        <Pressable accessibilityLabel={t('auth.shared.continueWithGoogle')} accessibilityRole="button" onPress={() => Alert.alert('Google')} style={styles.social}><Image accessibilityIgnoresInvertColors source={GOOGLE} style={styles.socialLogo} /></Pressable>
+        <Pressable accessibilityLabel={t('auth.shared.continueWithApple')} accessibilityRole="button" onPress={() => Alert.alert('Apple')} style={styles.social}><Image accessibilityIgnoresInvertColors source={APPLE} style={styles.socialLogo} /></Pressable>
+        <Pressable accessibilityLabel={t('auth.shared.continueWithEmail')} accessibilityRole="button" onPress={() => Alert.alert('E-mail')} style={styles.social}><MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={24} /></Pressable>
       </View>
     </View>
 
     <View style={styles.legalArea}>
-      <Text style={styles.legal}>En créant un compte, vous acceptez nos</Text><Text style={styles.legalStrong}>Conditions d’utilisation et notre Politique de confidentialité.</Text>
+      <Text style={styles.legal}>{t('auth.registration.legalPrefix')}</Text><Text style={styles.legalStrong}>{t('auth.shared.legalTerms')}</Text>
     </View>
   </ScrollView></SafeAreaView></KeyboardAvoidingView></LinearGradient>;
 }

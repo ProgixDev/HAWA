@@ -1,6 +1,5 @@
 import React, {useMemo, useState} from 'react';
 import {
-  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -16,7 +15,9 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
+import HelpSupportModal from '../components/auth/HelpSupportModal';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {isValidEmail} from '../utils/emailValidation';
@@ -31,6 +32,7 @@ type Props = NativeStackScreenProps<
 function ForgotPasswordScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -42,18 +44,19 @@ function ForgotPasswordScreen({
   const [email, setEmail] = useState('');
   const [emailError, setEmailError] = useState('');
   const [infoMessage, setInfoMessage] = useState('');
+  const [helpVisible, setHelpVisible] = useState(false);
 
   const sendResetLink = () => {
     const trimmedEmail = email.trim();
 
     if (!trimmedEmail) {
-      setEmailError('Entre ton adresse e-mail.');
+      setEmailError(t('auth.forgotPassword.emailRequiredError'));
       setInfoMessage('');
       return;
     }
 
     if (!isValidEmail(trimmedEmail)) {
-      setEmailError('Entre une adresse e-mail valide.');
+      setEmailError(t('auth.forgotPassword.emailInvalidError'));
       setInfoMessage('');
       return;
     }
@@ -61,16 +64,11 @@ function ForgotPasswordScreen({
     setEmailError('');
     // Frontend validation passing does NOT mean a reset e-mail was sent —
     // no e-mail service exists yet, so we never claim delivery here.
-    setInfoMessage(
-      'L’adresse est valide. L’envoi du lien de réinitialisation sera disponible avec le service d’authentification.',
-    );
+    setInfoMessage(t('auth.forgotPassword.infoValidEmail'));
   };
 
   const contactSupport = () => {
-    Alert.alert(
-      'Besoin d’aide ?',
-      'Notre équipe support te répondra rapidement.',
-    );
+    setHelpVisible(true);
   };
 
   return (
@@ -112,7 +110,7 @@ function ForgotPasswordScreen({
                 veryCompact && styles.heroVeryCompact,
               ]}>
               <Pressable
-                accessibilityLabel="Retour"
+                accessibilityLabel={t('common.back')}
                 accessibilityRole="button"
                 hitSlop={12}
                 onPress={navigation.goBack}
@@ -135,7 +133,7 @@ function ForgotPasswordScreen({
                   styles.title,
                   compact && styles.titleCompact,
                 ]}>
-                Mot de passe oublié ?
+                {t('auth.forgotPassword.title')}
               </Text>
 
               <Text
@@ -143,9 +141,7 @@ function ForgotPasswordScreen({
                   styles.subtitle,
                   compact && styles.subtitleCompact,
                 ]}>
-                {
-                  'Pas de souci. Entre ton adresse e-mail\net nous t’enverrons un lien de réinitialisation.'
-                }
+                {t('auth.forgotPassword.subtitle')}
               </Text>
             </View>
 
@@ -172,7 +168,7 @@ function ForgotPasswordScreen({
                   styles.cardTitle,
                   compact && styles.cardTitleCompact,
                 ]}>
-                Adresse e-mail
+                {t('auth.registration.emailLabel')}
               </Text>
 
               <Text
@@ -180,7 +176,7 @@ function ForgotPasswordScreen({
                   styles.cardText,
                   compact && styles.cardTextCompact,
                 ]}>
-                Nous t’enverrons les instructions nécessaires pour réinitialiser ton mot de passe.
+                {t('auth.forgotPassword.cardText')}
               </Text>
 
               <View
@@ -204,7 +200,7 @@ function ForgotPasswordScreen({
                     setEmailError('');
                     setInfoMessage('');
                   }}
-                  placeholder="exemple@email.com"
+                  placeholder={t('auth.forgotPassword.emailFieldPlaceholder')}
                   placeholderTextColor={theme.colors.textMuted}
                   returnKeyType="send"
                   onSubmitEditing={sendResetLink}
@@ -232,7 +228,7 @@ function ForgotPasswordScreen({
                   styles.primaryText,
                   compact && styles.primaryTextCompact,
                 ]}>
-                Envoyer le lien de réinitialisation
+                {t('auth.forgotPassword.submit')}
               </Text>
             </Pressable>
 
@@ -275,7 +271,7 @@ function ForgotPasswordScreen({
                     styles.helpTitle,
                     compact && styles.helpTitleCompact,
                   ]}>
-                  Besoin d’aide ?
+                  {t('auth.forgotPassword.helpTitle')}
                 </Text>
 
                 <Text
@@ -284,7 +280,7 @@ function ForgotPasswordScreen({
                     styles.helpText,
                     compact && styles.helpTextCompact,
                   ]}>
-                  Contacte notre support, nous sommes là pour t’aider.
+                  {t('auth.forgotPassword.helpText')}
                 </Text>
               </View>
 
@@ -297,6 +293,8 @@ function ForgotPasswordScreen({
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
+
+      <HelpSupportModal onClose={() => setHelpVisible(false)} visible={helpVisible} />
     </LinearGradient>
   );
 }

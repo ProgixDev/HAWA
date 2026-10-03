@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing} from '../theme/spacing';
@@ -27,6 +28,7 @@ const SPLASH_BACKGROUND = require('../assets/images/hawa-splash-background.png')
 type Props = NativeStackScreenProps<RootStackParamList, 'Splash'>;
 
 function SplashScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {width, height} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
@@ -152,7 +154,7 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
             source={AWA_LOGO}
             resizeMode="contain"
             style={{width: logoWidth, height: logoWidth}}
-            accessibilityLabel="Logo AWA"
+            accessibilityLabel={t('onboarding.splash.logoLabel')}
           />
         </Animated.View>
 
@@ -163,7 +165,7 @@ function SplashScreen({navigation}: Props): React.JSX.Element {
         </Animated.View>
 
         <Animated.Text style={[styles.slogan, {opacity: sloganOpacity}]}>
-          {'L’application de cycle\nqui respecte ton corps,\ntes données et ta foi.'}
+          {t('onboarding.splash.slogan')}
         </Animated.Text>
       </View>
 

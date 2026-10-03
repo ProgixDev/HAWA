@@ -14,6 +14,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -26,6 +27,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 
 function WelcomeScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {height, width} = useWindowDimensions();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
@@ -322,7 +324,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                 compact &&
                   styles.welcomeTitleCompact,
               ]}>
-              Bienvenue
+              {t('onboarding.welcome.title')}
             </Text>
 
             <View style={styles.brandLine}>
@@ -331,7 +333,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                   styles.chez,
                   compact && styles.chezCompact,
                 ]}>
-                chez
+                {t('onboarding.welcome.brandPrefix')}
               </Text>
 
               <Text
@@ -355,8 +357,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                 styles.subtitle,
                 compact && styles.subtitleCompact,
               ]}>
-              Un espace personnel pour suivre ton cycle,
-              comprendre ton corps et avancer avec sérénité.
+              {t('onboarding.welcome.subtitle')}
             </Text>
           </Animated.View>
 
@@ -397,15 +398,15 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                 </Animated.View>
 
                 <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardTitle}>Ton espace AWA</Text>
+                  <Text style={styles.cardTitle}>{t('onboarding.welcome.cardTitle')}</Text>
                   <Text style={styles.cardDescription}>
-                    Un espace personnel, simple et confidentiel.
+                    {t('onboarding.welcome.cardDescription')}
                   </Text>
                 </View>
 
                 <View style={styles.cardStatusBadge}>
                   <View style={styles.cardStatusDot} />
-                  <Text style={styles.cardStatusText}>Privé</Text>
+                  <Text style={styles.cardStatusText}>{t('onboarding.welcome.privateBadge')}</Text>
                 </View>
               </View>
 
@@ -418,8 +419,8 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                       size={18}
                     />
                   </View>
-                  <Text style={styles.featureTitle}>Suivi</Text>
-                  <Text style={styles.featureText}>Personnalisé</Text>
+                  <Text style={styles.featureTitle}>{t('onboarding.welcome.feature1Title')}</Text>
+                  <Text style={styles.featureText}>{t('onboarding.welcome.feature1Text')}</Text>
                 </Animated.View>
 
                 <Animated.View style={[styles.featureTile, featureTwoStyle]}>
@@ -430,8 +431,8 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                       size={18}
                     />
                   </View>
-                  <Text style={styles.featureTitle}>Données</Text>
-                  <Text style={styles.featureText}>Protégées</Text>
+                  <Text style={styles.featureTitle}>{t('onboarding.welcome.feature2Title')}</Text>
+                  <Text style={styles.featureText}>{t('onboarding.welcome.feature2Text')}</Text>
                 </Animated.View>
 
                 <Animated.View style={[styles.featureTile, featureThreeStyle]}>
@@ -442,8 +443,8 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                       size={18}
                     />
                   </View>
-                  <Text style={styles.featureTitle}>Expérience</Text>
-                  <Text style={styles.featureText}>À ton rythme</Text>
+                  <Text style={styles.featureTitle}>{t('onboarding.welcome.feature3Title')}</Text>
+                  <Text style={styles.featureText}>{t('onboarding.welcome.feature3Text')}</Text>
                 </Animated.View>
               </View>
             </LinearGradient>
@@ -462,7 +463,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
               actionsStyle,
             ]}>
             <Pressable
-              accessibilityLabel="Commencer"
+              accessibilityLabel={t('onboarding.welcome.start')}
               accessibilityRole="button"
               onPress={() =>
                 navigation.navigate('Objective')
@@ -495,7 +496,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                     compact &&
                       styles.primaryButtonTextCompact,
                   ]}>
-                  Commencer
+                  {t('onboarding.welcome.start')}
                 </Text>
 
                 <View
@@ -514,7 +515,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
             </Pressable>
 
             <Pressable
-              accessibilityLabel="J’ai déjà un compte"
+              accessibilityLabel={t('onboarding.welcome.alreadyHaveAccount')}
               accessibilityRole="button"
               onPress={() =>
                 navigation.navigate('Auth')
@@ -538,7 +539,7 @@ function WelcomeScreen({navigation}: Props): React.JSX.Element {
                   compact &&
                     styles.loginTextCompact,
                 ]}>
-                J’ai déjà un compte
+                {t('onboarding.welcome.alreadyHaveAccount')}
               </Text>
 
               <MaterialDesignIcons
