@@ -10,6 +10,14 @@ import {purchasePremium, restorePurchases} from '../../../services/purchaseServi
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {HawaPremiumBottomSheet} from '../HawaPremiumBottomSheet';
 
+// Phase 7D migrated this component to useTranslation() — i18next must be
+// initialized (side effect of importing the singleton) before it renders,
+// same requirement every other migrated-component test already follows (see
+// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
+// keys instead of the French default copy this file's assertions expect.
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
+
 // M39 — provider UNAVAILABLE (the real default: PURCHASE_PROVIDER_AVAILABLE
 // is false). The sheet must not imply a transaction can be completed:
 // no purchase/restore control, no price, no "Sécurisé" claim, no radio plan
@@ -42,9 +50,14 @@ async function renderSheet() {
   return renderer;
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   jest.clearAllMocks();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

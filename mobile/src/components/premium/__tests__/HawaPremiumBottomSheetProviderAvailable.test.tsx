@@ -8,6 +8,15 @@ import {PREMIUM_PRICING} from '../../../config/premiumPricing';
 import {purchasePremium, restorePurchases} from '../../../services/purchaseService';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {HawaPremiumBottomSheet} from '../HawaPremiumBottomSheet';
+import {setAppLanguage} from '../../../state/themePreferences';
+
+// Phase 7D migrated this component to useTranslation() — i18next must be
+// initialized before it renders, same requirement every other migrated-
+// component test already follows (see LocationScreenLanguageSwitch.test.tsx).
+// PHASE 7M: the app's default language is now English, not French — this
+// file's assertions expect French, so the beforeEach below explicitly pins
+// the language rather than relying on import-time initialization order.
+import i18n from '../../../i18n';
 
 // M39 — provider AVAILABLE (flag mocked to true, simulating the day a real
 // purchase SDK is integrated): the purchase CTA, prices, plan radios and the
@@ -44,9 +53,14 @@ async function renderSheet() {
   return renderer;
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   jest.clearAllMocks();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

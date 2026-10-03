@@ -7,9 +7,17 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {resolveAwaTheme} from '../../../theme/awaThemeTokens';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {fr} from '../../../i18n/locales/fr';
 
 import {HawaPremiumBottomSheet} from '../HawaPremiumBottomSheet';
+
+// Phase 7D migrated this component to useTranslation() — i18next must be
+// initialized (side effect of importing the singleton) before it renders,
+// same requirement every other migrated-component test already follows (see
+// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
+// keys instead of the French default copy this file's assertions expect.
+import i18n from '../../../i18n';
 
 // Dark Mode audit: HawaPremiumBottomSheet was the highest-leverage
 // NOT-MIGRATED shared component (reachable from ~20 screens). Its Premium
@@ -69,6 +77,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -125,11 +138,18 @@ describe('HawaPremiumBottomSheet — static guard', () => {
   });
 
   it('preserves the 5 benefit items and their decorative per-item accents', () => {
-    expect(source).toMatch(/Statistiques avancées/);
-    expect(source).toMatch(/Exports santé/);
-    expect(source).toMatch(/Historique illimité/);
-    expect(source).toMatch(/Guides approfondis/);
-    expect(source).toMatch(/Plus de personnalisation/);
+    // Phase 7D moved the benefit titles/descriptions from inline French
+    // string literals (this component's own source) to i18n keys — the
+    // text itself now lives in fr.ts, so the guard checks there instead of
+    // grepping this component's source for the raw strings. The component
+    // source is still checked for the keys that read them (next assertion)
+    // and for the per-item decorative accents (tint), which never moved.
+    expect(fr.profile.premiumCard.features.advancedStatistics).toBe('Statistiques avancées');
+    expect(fr.premium.sheet.benefits.exportsTitle).toBe('Exports santé');
+    expect(fr.profile.premiumCard.features.unlimitedHistory).toBe('Historique illimité');
+    expect(fr.premium.sheet.benefits.guidesTitle).toBe('Guides approfondis');
+    expect(fr.premium.sheet.benefits.customizationTitle).toBe('Plus de personnalisation');
+    expect(source).toMatch(/benefitsOf\(/);
     expect(source).toContain("tint: '#EEE8FB'");
   });
 });
