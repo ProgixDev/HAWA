@@ -1,13 +1,17 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {localizedWeekDays} from '../../utils/cycleMath';
+import {getAppLanguage} from '../../state/themePreferences';
 
-// Same visual pattern as the existing onboarding calendar (see
-// CycleInformationScreen.tsx) — kept as its own component here since that
-// screen must not be modified, but the look should stay consistent.
-const WEEK_DAYS = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+// Locale FORMAT only (never the date calculation itself) — same
+// getAppLanguage()-driven convention as cycleMath.ts's internal
+// dateFormatLocale(), not exported from there so duplicated here rather than
+// widening that module's public surface for a single caller.
+const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 
 type Props = {
   visible: boolean;
@@ -27,8 +31,10 @@ type Props = {
 };
 
 function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, subtitle, maximumDate, minimumDate}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const weekDays = localizedWeekDays();
   const [visibleMonth, setVisibleMonth] = useState(() => new Date(value.getFullYear(), value.getMonth(), 1));
 
   useEffect(() => {
@@ -79,17 +85,17 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
 
           <View style={styles.calendarHeader}>
             <Pressable
-              accessibilityLabel="Mois précédent"
+              accessibilityLabel={t('inlineCalendarPicker.previousMonthA11y')}
               hitSlop={8}
               onPress={() => changeMonth(-1)}
               style={styles.calendarArrowButton}>
               <Text style={styles.calendarArrowText}>{'<'}</Text>
             </Pressable>
             <Text style={styles.calendarTitle}>
-              {new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+              {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
             </Text>
             <Pressable
-              accessibilityLabel="Mois suivant"
+              accessibilityLabel={t('inlineCalendarPicker.nextMonthA11y')}
               hitSlop={8}
               onPress={() => changeMonth(1)}
               style={styles.calendarArrowButton}>
@@ -98,7 +104,7 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
           </View>
 
           <View style={styles.weekRow}>
-            {WEEK_DAYS.map((day, index) => (
+            {weekDays.map((day, index) => (
               <Text key={`${day}-${index}`} style={styles.weekDay}>{day}</Text>
             ))}
           </View>
@@ -114,7 +120,7 @@ function InlineCalendarPickerModal({visible, value, onClose, onSelect, title, su
                 <View key={`${day ?? 'empty'}-${index}`} style={styles.dayCell}>
                   {day ? (
                     <Pressable
-                      accessibilityLabel={`${day} ${new Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(visibleMonth)}`}
+                      accessibilityLabel={t('inlineCalendarPicker.dayA11y', {day, month: new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long'}).format(visibleMonth)})}
                       accessibilityState={{disabled}}
                       disabled={disabled}
                       onPress={() => chooseDay(day)}

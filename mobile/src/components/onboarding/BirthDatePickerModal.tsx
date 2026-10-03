@@ -1,9 +1,12 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {FlatList, Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
+import {capitalize} from '../../utils/cycleMath';
 
 // Year → Month → Day birth-date picker — a faster alternative to the monthly
 // calendar (InlineCalendarPickerModal.tsx) for a date that can be many years back,
@@ -19,9 +22,19 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 // day grid disables days after today when the selected year+month is the current
 // month.
 
-const MONTHS = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
 const YEAR_ROW_HEIGHT = 50;
 const DEFAULT_YEAR_SPAN = 100;
+
+// Locale FORMAT only (never the date calculation itself) — same
+// getAppLanguage()-driven convention as cycleMath.ts's internal
+// dateFormatLocale(). Month names are derived from Intl rather than a second
+// hardcoded EN table, so there is exactly one place (the OS/ICU locale data)
+// that owns month-name wording.
+const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
+const monthNames = (): string[] =>
+  Array.from({length: 12}, (_, index) =>
+    capitalize(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long'}).format(new Date(2000, index, 1))),
+  );
 
 type Stage = 'year' | 'month' | 'day';
 
@@ -38,8 +51,10 @@ type Props = {
 };
 
 function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximumDate, minimumDate}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const MONTHS = monthNames();
   const today = maximumDate ?? new Date();
   const minYear = minimumDate ? minimumDate.getFullYear() : today.getFullYear() - DEFAULT_YEAR_SPAN;
   const maxYear = today.getFullYear();
@@ -94,7 +109,7 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
     onClose();
   };
 
-  const stageTitle = stage === 'year' ? 'Choisir l’année' : stage === 'month' ? 'Choisir le mois' : `${MONTHS[month]} ${year}`;
+  const stageTitle = stage === 'year' ? t('birthDatePicker.chooseYear') : stage === 'month' ? t('birthDatePicker.chooseMonth') : `${MONTHS[month]} ${year}`;
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} transparent visible={visible}>
@@ -105,7 +120,7 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
           {stage !== 'year' ? (
             <View style={styles.breadcrumb}>
               <Pressable
-                accessibilityLabel={`Revenir à l’année ${year}`}
+                accessibilityLabel={t('birthDatePicker.backToYearA11y', {year})}
                 accessibilityRole="button"
                 hitSlop={6}
                 onPress={() => setStage('year')}
@@ -116,7 +131,7 @@ function BirthDatePickerModal({visible, value, onClose, onSelect, title, maximum
                 <>
                   <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={16} />
                   <Pressable
-                    accessibilityLabel={`Revenir au mois de ${MONTHS[month]}`}
+                    accessibilityLabel={t('birthDatePicker.backToMonthA11y', {month: MONTHS[month]})}
                     accessibilityRole="button"
                     hitSlop={6}
                     onPress={() => setStage('month')}

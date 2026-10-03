@@ -19,6 +19,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -60,6 +61,7 @@ type PendingSwitch = {target: LauncherIdentity};
 type SupportState = 'unknown' | 'supported' | 'unsupported_vendor';
 
 export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -147,50 +149,42 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('discreetLauncher.backA11y')}
             accessibilityRole="button"
             onPress={navigation.goBack}
             style={({pressed}) => [styles.back, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
           </Pressable>
           <View style={styles.headerCopy}>
-            <Text style={styles.title}>Apparence discrète</Text>
-            <Text style={styles.subtitle}>Choisis comment AWA apparaît sur ton écran d’accueil</Text>
+            <Text style={styles.title}>{t('discreetLauncher.title')}</Text>
+            <Text style={styles.subtitle}>{t('discreetLauncher.subtitle')}</Text>
           </View>
         </View>
 
         <View style={styles.infoCard}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
-          <Text style={styles.infoText}>
-            Ceci change uniquement le nom et l’icône de l’application sur ton écran d’accueil.
-            Tes données et leur protection (code PIN, biométrie, chiffrement) restent exactement
-            les mêmes, quelle que soit l’identité choisie.
-          </Text>
+          <Text style={styles.infoText}>{t('discreetLauncher.infoCard')}</Text>
         </View>
 
         {!IS_ANDROID ? (
           <View style={styles.infoCard}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="cellphone-off" size={20} />
-            <Text style={styles.infoText}>
-              Cette fonctionnalité n’est disponible que sur Android.
-            </Text>
+            <Text style={styles.infoText}>{t('discreetLauncher.androidOnly')}</Text>
           </View>
         ) : (
           <>
-            <Text style={styles.sectionTitle}>Choisir l’apparence</Text>
+            <Text style={styles.sectionTitle}>{t('discreetLauncher.sectionChoose')}</Text>
 
             {loadError ? (
               <View style={styles.infoCardWarning}>
                 <MaterialDesignIcons color={theme.colors.warning} name="alert-circle-outline" size={20} />
-                <Text style={styles.infoTextWarning}>
-                  Impossible de lire l’apparence actuelle pour le moment.
-                </Text>
+                <Text style={styles.infoTextWarning}>{t('discreetLauncher.loadError')}</Text>
                 <Pressable
-                  accessibilityLabel="Réessayer"
+                  accessibilityLabel={t('discreetLauncher.retry')}
                   accessibilityRole="button"
                   onPress={refreshIdentity}
                   style={({pressed}) => [styles.retryButton, pressed && styles.pressed]}>
-                  <Text style={styles.retryButtonText}>Réessayer</Text>
+                  <Text style={styles.retryButtonText}>{t('discreetLauncher.retry')}</Text>
                 </Pressable>
               </View>
             ) : identity === null ? (
@@ -200,15 +194,15 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
             ) : (
               <View style={styles.choices}>
                 <IdentityCard
-                  description="Nom et icône AWA d’origine"
+                  description={t('discreetLauncher.awaDescription')}
                   disabled={switching}
                   onPress={() => requestSwitch('awa')}
                   preview={<Image resizeMode="contain" source={AWA_LOGO} style={styles.previewImage} />}
                   selected={identity === 'awa'}
-                  title="AWA"
+                  title={t('discreetLauncher.awaTitle')}
                 />
                 <IdentityCard
-                  description="Apparaît comme une application d’agenda neutre, sans référence à AWA"
+                  description={t('discreetLauncher.discreetDescription')}
                   disabled={switching}
                   onPress={() => requestSwitch('discreet')}
                   preview={
@@ -217,7 +211,7 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
                     </View>
                   }
                   selected={identity === 'discreet'}
-                  title="Agenda"
+                  title={t('discreetLauncher.discreetTitle')}
                 />
               </View>
             )}
@@ -225,24 +219,19 @@ export default function DiscreetLauncherScreen({navigation}: Props): React.JSX.E
             {switching ? (
               <View style={styles.switchingRow}>
                 <ActivityIndicator color={theme.colors.primary} size="small" />
-                <Text style={styles.switchingText}>Changement en cours…</Text>
+                <Text style={styles.switchingText}>{t('discreetLauncher.switching')}</Text>
               </View>
             ) : null}
 
             {supportState === 'unsupported_vendor' ? (
               <View style={styles.infoCardWarning}>
                 <MaterialDesignIcons color={theme.colors.warning} name="cellphone-remove" size={20} />
-                <Text style={styles.infoTextWarning}>
-                  Cette fonctionnalité est limitée par le lanceur de ton téléphone.
-                </Text>
+                <Text style={styles.infoTextWarning}>{t('discreetLauncher.unsupportedVendor')}</Text>
               </View>
             ) : (
               <View style={styles.noteCard}>
                 <MaterialDesignIcons color={theme.colors.textSecondary} name="clock-outline" size={17} />
-                <Text style={styles.noteText}>
-                  Le nouvel icône peut mettre quelques secondes à s’afficher selon ton launcher
-                  Android.
-                </Text>
+                <Text style={styles.noteText}>{t('discreetLauncher.noteDelay')}</Text>
               </View>
             )}
           </>
@@ -281,12 +270,13 @@ function IdentityCard({
   disabled: boolean;
   onPress: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
     <Pressable
-      accessibilityLabel={`${title} — ${description}`}
+      accessibilityLabel={t('discreetLauncher.identityCardA11y', {title, description})}
       accessibilityRole="radio"
       accessibilityState={{checked: selected, disabled}}
       disabled={disabled}
@@ -309,18 +299,20 @@ function IdentityCard({
   );
 }
 
-const SWITCH_COPY: Record<LauncherIdentity, {title: string; body: string; confirmLabel: string}> = {
-  discreet: {
-    title: 'Activer l’apparence discrète ?',
-    body: 'L’application apparaîtra sous le nom « Agenda » avec une icône neutre sur ton écran d’accueil. Tes données et tes paramètres resteront inchangés.',
-    confirmLabel: 'Activer',
-  },
-  awa: {
-    title: 'Restaurer l’apparence AWA ?',
-    body: 'L’application apparaîtra de nouveau sous son nom et son icône AWA.',
-    confirmLabel: 'Restaurer',
-  },
-};
+function switchCopy(t: (key: string) => string): Record<LauncherIdentity, {title: string; body: string; confirmLabel: string}> {
+  return {
+    discreet: {
+      title: t('discreetLauncher.switchDiscreetTitle'),
+      body: t('discreetLauncher.switchDiscreetBody'),
+      confirmLabel: t('discreetLauncher.switchDiscreetConfirm'),
+    },
+    awa: {
+      title: t('discreetLauncher.switchAwaTitle'),
+      body: t('discreetLauncher.switchAwaBody'),
+      confirmLabel: t('discreetLauncher.switchAwaConfirm'),
+    },
+  };
+}
 
 function LauncherSwitchConfirmModal({
   target,
@@ -333,6 +325,7 @@ function LauncherSwitchConfirmModal({
   onCancel: () => void;
   onConfirm: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const modalStyles = useMemo(() => createModalStyles(theme), [theme]);
 
@@ -357,7 +350,7 @@ function LauncherSwitchConfirmModal({
     return () => {active = false;};
   }, [visible, entrance]);
 
-  const copy = target ? SWITCH_COPY[target] : null;
+  const copy = target ? switchCopy(t)[target] : null;
 
   const cardStyle = {
     opacity: entrance,
@@ -371,7 +364,7 @@ function LauncherSwitchConfirmModal({
     <Modal animationType="none" onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
       <View style={modalStyles.overlay}>
         <Animated.View style={[StyleSheet.absoluteFill, modalStyles.backdrop, {opacity: entrance}]}>
-          <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onCancel} style={StyleSheet.absoluteFill} />
+          <Pressable accessibilityLabel={t('discreetLauncher.close')} accessibilityRole="button" onPress={onCancel} style={StyleSheet.absoluteFill} />
         </Animated.View>
 
         {copy ? (
@@ -397,15 +390,15 @@ function LauncherSwitchConfirmModal({
                 pressed && modalStyles.primaryPressed,
                 switching && modalStyles.primaryDisabled,
               ]}>
-              <Text style={modalStyles.primaryText}>{switching ? 'Patiente…' : copy.confirmLabel}</Text>
+              <Text style={modalStyles.primaryText}>{switching ? t('discreetLauncher.confirming') : copy.confirmLabel}</Text>
             </Pressable>
 
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('discreetLauncher.cancel')}
               accessibilityRole="button"
               onPress={onCancel}
               style={({pressed}) => [modalStyles.secondary, pressed && modalStyles.secondaryPressed]}>
-              <Text style={modalStyles.secondaryText}>Annuler</Text>
+              <Text style={modalStyles.secondaryText}>{t('discreetLauncher.cancel')}</Text>
             </Pressable>
           </Animated.View>
         ) : null}
@@ -415,28 +408,26 @@ function LauncherSwitchConfirmModal({
 }
 
 function ErrorModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const modalStyles = useMemo(() => createModalStyles(theme), [theme]);
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <View style={modalStyles.overlay}>
-        <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
+        <Pressable accessibilityLabel={t('discreetLauncher.close')} accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
         <View accessibilityRole="alert" style={modalStyles.card}>
           <View style={[modalStyles.icon, modalStyles.iconWarning]}>
             <MaterialDesignIcons color={theme.colors.warning} name="alert-circle-outline" size={30} />
           </View>
-          <Text style={modalStyles.title}>Changement impossible</Text>
-          <Text style={modalStyles.message}>
-            Impossible de changer l’apparence de l’application pour le moment. Ton identité
-            actuelle n’a pas changé. Réessaie plus tard.
-          </Text>
+          <Text style={modalStyles.title}>{t('discreetLauncher.errorModalTitle')}</Text>
+          <Text style={modalStyles.message}>{t('discreetLauncher.errorModalBody')}</Text>
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('discreetLauncher.close')}
             accessibilityRole="button"
             onPress={onClose}
             style={({pressed}) => [modalStyles.primary, pressed && modalStyles.primaryPressed]}>
-            <Text style={modalStyles.primaryText}>Fermer</Text>
+            <Text style={modalStyles.primaryText}>{t('discreetLauncher.close')}</Text>
           </Pressable>
         </View>
       </View>
@@ -452,28 +443,26 @@ function ErrorModal({visible, onClose}: {visible: boolean; onClose: () => void})
 // manufacturer) since the same honest message applies to any OEM that
 // restricts this standard Android API the same way.
 function UnsupportedVendorModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const modalStyles = useMemo(() => createModalStyles(theme), [theme]);
 
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <View style={modalStyles.overlay}>
-        <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
+        <Pressable accessibilityLabel={t('discreetLauncher.close')} accessibilityRole="button" onPress={onClose} style={StyleSheet.absoluteFill} />
         <View accessibilityRole="alert" style={modalStyles.card}>
           <View style={[modalStyles.icon, modalStyles.iconWarning]}>
             <MaterialDesignIcons color={theme.colors.warning} name="cellphone-remove" size={30} />
           </View>
-          <Text style={modalStyles.title}>Changement non pris en charge</Text>
-          <Text style={modalStyles.message}>
-            Le changement d’icône n’est pas pris en charge par ce téléphone. Cette fonctionnalité
-            est limitée par le lanceur de ton appareil. Ton identité actuelle n’a pas changé.
-          </Text>
+          <Text style={modalStyles.title}>{t('discreetLauncher.unsupportedVendorModalTitle')}</Text>
+          <Text style={modalStyles.message}>{t('discreetLauncher.unsupportedVendorModalBody')}</Text>
           <Pressable
-            accessibilityLabel="Fermer"
+            accessibilityLabel={t('discreetLauncher.close')}
             accessibilityRole="button"
             onPress={onClose}
             style={({pressed}) => [modalStyles.primary, pressed && modalStyles.primaryPressed]}>
-            <Text style={modalStyles.primaryText}>Fermer</Text>
+            <Text style={modalStyles.primaryText}>{t('discreetLauncher.close')}</Text>
           </Pressable>
         </View>
       </View>
