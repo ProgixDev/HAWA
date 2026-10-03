@@ -20,6 +20,8 @@ import {unlockIntimacy} from '../../../state/privateSectionAuthStore';
 import {encryptIntimacySection, resolveIntimacySection} from '../../../services/privateJournalEncryption';
 import {resolveNoteSection} from '../../../services/privateNotesEncryption';
 import {addDays} from '../../../utils/cycleMath';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // Shared Cycle journal entry screens (also reused by Pregnancy for Humeur /
 // Sommeil):
@@ -143,6 +145,11 @@ beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now});
   await setActiveObjective('cycle');
   unlockIntimacy();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

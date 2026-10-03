@@ -36,6 +36,7 @@ import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
 // Category E — fixed visual island: this hero uses a real illustration
@@ -51,11 +52,12 @@ const SLEEP_HERO_TEXT_COLOR = '#30205E';
 // itself, never theme-driven.
 // QUALITIES/FEELINGS labels, and the computed `duration.label` string below,
 // are DATA here (persisted verbatim into dailyJournalStore's `quality`/
-// `wakeFeeling`/`duration` fields — see `save()`), not just display text.
-// Translating them would change what's actually saved/already saved. Left in
-// French — same pattern/reasoning as JournalSymptomsScreen.tsx and
-// JournalActivityScreen.tsx (see their own notes; CLAUDE.md §0/§10/§11).
-// Only this screen's surrounding chrome is localized.
+// `wakeFeeling`/`duration` fields — see `save()`), not just display text. The
+// raw French string stays the stored/compared/selected value forever — PHASE
+// 7H adds a DISPLAY-ONLY translation via journalOptionLabel('cycleSleepQuality'
+// /'cycleSleepFeeling', value, t), falling back to the original French string
+// for any legacy/unknown value. Only this screen's surrounding chrome was
+// already localized before this phase.
 const QUALITIES = [
   {
     label: 'Très mauvaise',
@@ -610,7 +612,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
-                    accessibilityLabel={t('journalSleep.qualityAccessibility', {label: item.label})}
+                    accessibilityLabel={t('journalSleep.qualityAccessibility', {label: journalOptionLabel('cycleSleepQuality', item.label, t)})}
                     accessibilityRole="radio"
                     accessibilityState={{checked: active}}
                     key={item.label}
@@ -635,7 +637,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
                     />
 
                     <Text style={styles.choiceText}>
-                      {item.label}
+                      {journalOptionLabel('cycleSleepQuality', item.label, t)}
                     </Text>
                   </Pressable>
                 );
@@ -718,7 +720,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                   return (
                     <Pressable
-                      accessibilityLabel={t('journalSleep.wakeFeelingAccessibility', {label: item.label})}
+                      accessibilityLabel={t('journalSleep.wakeFeelingAccessibility', {label: journalOptionLabel('cycleSleepFeeling', item.label, t)})}
                       accessibilityRole="radio"
                       accessibilityState={{checked: active}}
                       key={item.label}
@@ -742,7 +744,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
 
                       <Text
                         style={styles.choiceText}>
-                        {item.label}
+                        {journalOptionLabel('cycleSleepFeeling', item.label, t)}
                       </Text>
                     </Pressable>
                   );

@@ -1,5 +1,7 @@
 import {useRoute} from '@react-navigation/native';
 
+import {getAppLanguage} from '../state/themePreferences';
+
 // M21 - the day a shared journal entry screen reads from / writes to.
 // Today by default (unchanged behaviour); an explicit `date` route param
 // ('YYYY-MM-DD', same optional param IrregularJournalEntry already accepts)
@@ -27,8 +29,6 @@ export type JournalEntryDate = {
   dateLabel: string | undefined;
 };
 
-export const FUTURE_ENTRY_MESSAGE = 'Tu ne peux pas enregistrer un suivi pour une date à venir.';
-
 /** `todayKey` comes from the screen's own useToday() (shared current day). */
 export function useJournalEntryDate(todayKey: string): JournalEntryDate {
   const route = useRoute();
@@ -36,8 +36,11 @@ export function useJournalEntryDate(todayKey: string): JournalEntryDate {
   const entryDateKey = typeof requested === 'string' && isRealDateKey(requested) ? requested : todayKey;
   const isPastEntryDate = entryDateKey < todayKey;
   const isFutureEntryDate = entryDateKey > todayKey;
+  // Locale FORMAT only (never the date calculation itself) — same
+  // getAppLanguage()-driven convention as cycleMath.ts's internal
+  // dateFormatLocale().
   const dateLabel = entryDateKey === todayKey
     ? undefined
-    : new Intl.DateTimeFormat('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date(`${entryDateKey}T12:00:00`));
+    : new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date(`${entryDateKey}T12:00:00`));
   return {entryDateKey, isPastEntryDate, isFutureEntryDate, dateLabel};
 }

@@ -16,18 +16,21 @@ import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing'
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
 // LIBIDOS/SYMPTOMS labels are DATA here, not just display text — persisted
 // verbatim into dailyJournalStore's encrypted `libido`/`discomfort` fields
 // (see `save()` below), and `toggleSymptom()` even compares against the
-// literal French 'Aucun' label as its "none selected" sentinel. Translating
-// them would change what's actually saved/already saved and would break that
-// comparison. Left in French — same pattern as JournalSymptomsScreen.tsx/
-// JournalActivityScreen.tsx/JournalSleepScreen.tsx (see their own notes;
-// CLAUDE.md §0/§10/§11). "Oui"/"Non" below are different: they only drive
-// the separate boolean `hasReport`, which persists as the semantic
-// 'yes'/'no' `answer` field — safe, pure display text, and localized.
+// literal French 'Aucun' label as its "none selected" sentinel. The raw
+// French string stays the stored/compared/selected value forever (including
+// that 'Aucun' sentinel comparison, untouched) — PHASE 7H adds a DISPLAY-ONLY
+// translation via journalOptionLabel('cycleIntimacyLibido'/
+// 'cycleIntimacyDiscomfort', value, t), falling back to the original French
+// string for any legacy/unknown value. "Oui"/"Non" below are different: they
+// only drive the separate boolean `hasReport`, which persists as the
+// semantic 'yes'/'no' `answer` field — safe, pure display text, and already
+// localized before this phase.
 const LIBIDOS = ['Très faible', 'Faible', 'Modérée', 'Élevée', 'Très élevée'];
 const SYMPTOMS = ['Douleur pendant le rapport', 'Sécheresse vaginale', 'Saignement après rapport', 'Fatigue', 'Douleurs pelviennes', 'Irritation', 'Aucun', 'Autre'];
 
@@ -351,7 +354,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
           </Card>
 
           <Card><Heading icon="fire" title={t('journalIntimacy.libidoTitle')} subtitle={t('journalIntimacy.libidoSubtitle')} />
-            <View style={styles.libidoRow}>{LIBIDOS.map((item,index) => {const active = libido === item; return <Pressable accessibilityRole="radio" accessibilityState={{checked: active, disabled: !hasReport}} disabled={!hasReport} key={item} onPress={() => setLibido(item)} style={[styles.libido, active && styles.selected, !hasReport && styles.disabled]}><MaterialDesignIcons color={active ? theme.colors.primary : withAlpha(theme.colors.primary, 0.22 + index * 0.16)} name={index === 0 ? 'heart-outline' : 'heart'} size={27} /><Text style={styles.choiceLabel}>{item}</Text></Pressable>;})}</View>
+            <View style={styles.libidoRow}>{LIBIDOS.map((item,index) => {const active = libido === item; return <Pressable accessibilityLabel={journalOptionLabel('cycleIntimacyLibido', item, t)} accessibilityRole="radio" accessibilityState={{checked: active, disabled: !hasReport}} disabled={!hasReport} key={item} onPress={() => setLibido(item)} style={[styles.libido, active && styles.selected, !hasReport && styles.disabled]}><MaterialDesignIcons color={active ? theme.colors.primary : withAlpha(theme.colors.primary, 0.22 + index * 0.16)} name={index === 0 ? 'heart-outline' : 'heart'} size={27} /><Text style={styles.choiceLabel}>{journalOptionLabel('cycleIntimacyLibido', item, t)}</Text></Pressable>;})}</View>
           </Card>
 
           <Card>
@@ -368,6 +371,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
+                    accessibilityLabel={journalOptionLabel('cycleIntimacyDiscomfort', item, t)}
                     accessibilityRole="checkbox"
                     accessibilityState={{checked: active}}
                     disabled={!hasReport}
@@ -384,7 +388,7 @@ export default function JournalIntimacyScreen(): React.JSX.Element {
                         styles.symptomText,
                         active && styles.symptomTextActive,
                       ]}>
-                      {item}
+                      {journalOptionLabel('cycleIntimacyDiscomfort', item, t)}
                     </Text>
 
                     <View

@@ -10,6 +10,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import JournalCycleEvolutionScreen from '../JournalCycleEvolutionScreen';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {addDays, computeNextPeriod, computeIrregularWindow, formatDateRange, formatShortDate, startOfDay} from '../../../utils/cycleMath';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M19 - "Évolution du cycle" only ever shows values derived from the user's
 // own confirmed cycle data. Module-singleton stores persist between tests in
@@ -69,8 +71,13 @@ beforeAll(async () => {
   await AsyncStorage.clear();
 });
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
