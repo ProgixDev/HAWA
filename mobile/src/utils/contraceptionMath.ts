@@ -1,6 +1,12 @@
 import type {ContraceptionIntakeRecord} from '../state/contraceptionIntakeHistoryStore';
 import type {ContraceptionEvent, ContraceptionEventType} from '../state/contraceptionEventStore';
 import {diffDays} from './cycleMath';
+import {getAppLanguage} from '../state/themePreferences';
+
+// Locale FORMAT only (never the grouping/calculation itself) — same
+// getAppLanguage()-driven convention as cycleMath.ts's internal
+// dateFormatLocale().
+const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 
 const parseLocalDate = (dateKey: string): Date | null => {
   const parsed = new Date(`${dateKey}T12:00:00`);
@@ -255,7 +261,7 @@ export const computeContraceptionWeeklyBreakdown = (
     }
 
     buckets.push({
-      label: new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'short'}).format(weekStart),
+      label: new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'short'}).format(weekStart),
       taken,
       late,
       missed,
@@ -301,7 +307,7 @@ export const computeContraceptionMonthlyBreakdown = (
     }
 
     buckets.push({
-      label: new Intl.DateTimeFormat('fr-FR', {month: 'short'}).format(monthCursor),
+      label: new Intl.DateTimeFormat(dateFormatLocale(), {month: 'short'}).format(monthCursor),
       taken,
       late,
       missed,

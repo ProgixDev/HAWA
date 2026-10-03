@@ -4,18 +4,13 @@ import type {ContraceptionMethod} from '../state/contraceptionPreferences';
 import type {ContraceptionIntakeStatus} from '../state/contraceptionIntakeHistoryStore';
 import type {ContraceptionEvent, ContraceptionEventType} from '../state/contraceptionEventStore';
 
-// i18n (Phase 3): this is a plain data/config file, not a component, so its
-// exports can't call useTranslation() themselves. Every map/function below
-// (except CONTRACEPTION_REMINDER_NOTIFICATION_TITLE/
+// i18n (Phase 3/7B): this is a plain data/config file, not a component, so
+// its exports can't call useTranslation() themselves. Every map/function
+// below (except CONTRACEPTION_REMINDER_NOTIFICATION_TITLE/
 // CONTRACEPTION_DEFAULT_REMINDER_NOTIFICATION_TITLE, which stay French — see
-// their own comment) is now a `function xxxLabels(t) {...}` factory that a
+// their own comment) is a `function xxxLabels(t) {...}` factory that a
 // component calls with its own `t` from useTranslation(), same pattern as
-// JournalCervicalMucusScreen.tsx's mucusLabels(t). CONTRACEPTION_METHOD_LABELS
-// itself stays ALSO exported as a plain (French-only) object, purely for
-// SummaryScreen.tsx's own direct `CONTRACEPTION_METHOD_LABELS[method]`
-// indexing — SummaryScreen.tsx is a separate onboarding recap screen that is
-// out of scope for this pass; keeping this one backward-compatible export
-// avoids touching it at all.
+// JournalCervicalMucusScreen.tsx's mucusLabels(t).
 type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 
 // Single shared source for contraception method/reminder copy — consumed by
@@ -23,13 +18,6 @@ type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 // they can never drift into describing the same persisted preference
 // differently (same pattern as the per-objective journal-category configs
 // in this directory, e.g. conceptionJournalConfig.ts).
-export const CONTRACEPTION_METHOD_LABELS: Record<ContraceptionMethod, string> = {
-  pill: 'Pilule contraceptive',
-  ring: 'Anneau vaginal',
-  patch: 'Patch contraceptif',
-  other: 'Autre traitement hormonal',
-};
-
 export function contraceptionMethodLabels(t: TranslateFn): Record<ContraceptionMethod, string> {
   return {
     pill: t('contraceptionLabels.method.pill'),
