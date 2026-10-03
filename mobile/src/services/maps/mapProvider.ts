@@ -2,6 +2,7 @@ import {
   MAPTILER_GEOCODING_URL,
   MAPTILER_PUBLIC_KEY,
 } from '../../config/maps';
+import {getAppLanguage} from '../../state/themePreferences';
 import type {MapPlace, MapProvider} from './types';
 
 export type MapProviderErrorCode =
@@ -24,7 +25,12 @@ export class MapProviderError extends Error {
 type GeocodingContext = {
   id?: string;
   text?: string;
-  text_fr?: string;
+  /** MapTiler returns one `text_<lang>` field per language actually requested
+   * (`text_fr`, `text_en`, …) alongside the untranslated `text` — never both
+   * at once, since only one `language` is ever sent per request (see
+   * fetchGeocoding below). Read via localizedField() against the CURRENT app
+   * language, never a hardcoded suffix. */
+  [textLangField: `text_${string}`]: string | undefined;
   kind?: string;
   place_designation?: string;
   properties?: {kind?: string; place_designation?: string; country_code?: string};
@@ -33,7 +39,8 @@ type GeocodingFeature = GeocodingContext & {
   center?: [number, number];
   geometry?: {coordinates?: [number, number]};
   place_name?: string;
-  place_name_fr?: string;
+  /** Same per-requested-language convention as `text_<lang>` above. */
+  [placeNameLangField: `place_name_${string}`]: string | undefined;
   place_type?: string[];
   context?: GeocodingContext[];
 };
@@ -46,7 +53,20 @@ const configuredKey = () => {
   return MAPTILER_PUBLIC_KEY;
 };
 
-const localizedText = (item?: GeocodingContext) => item?.text_fr ?? item?.text;
+/** Reads the field matching whichever language was actually requested
+ * (`text_fr`/`text_en`, `place_name_fr`/`place_name_en`) — resolved fresh
+ * from `getAppLanguage()` on every call, never cached, so a mid-session
+ * language switch is reflected on the very next search/reverse-geocode. */
+const localizedField = (
+  item: GeocodingContext | GeocodingFeature | undefined,
+  field: 'text' | 'place_name',
+): string | undefined => {
+  if (!item) {return undefined;}
+  const record = item as unknown as Record<string, string | undefined>;
+  return record[`${field}_${getAppLanguage()}`] ?? record[field];
+};
+
+const localizedText = (item?: GeocodingContext) => localizedField(item, 'text');
 const itemKind = (item: GeocodingContext) => item.properties?.kind ?? item.kind;
 const itemDesignation = (item: GeocodingContext) =>
   item.properties?.place_designation ?? item.place_designation;
@@ -99,7 +119,7 @@ const toPlace = (feature: GeocodingFeature): MapPlace | null => {
     country,
     latitude: latitude as number,
     longitude: longitude as number,
-    displayName: feature.place_name_fr ?? feature.place_name,
+    displayName: localizedField(feature, 'place_name'),
   };
 };
 
@@ -137,9 +157,14 @@ const fetchGeocoding = async (
   mode: 'forward' | 'reverse',
 ): Promise<GeocodingResponse> => {
   const forwardLimit = mode === 'forward' ? '&limit=5' : '';
+  // Resolved fresh on every call (never a module-level constant) so a
+  // language switch mid-session is reflected on the very next request,
+  // without requiring an app restart or re-import of this module. This
+  // affects only the LANGUAGE/presentation of results — the geocoder query
+  // itself stays global, with no country/region restriction added here.
   const url =
     `${MAPTILER_GEOCODING_URL}/${path}.json` +
-    `?key=${encodeURIComponent(configuredKey())}&language=fr${forwardLimit}`;
+    `?key=${encodeURIComponent(configuredKey())}&language=${getAppLanguage()}${forwardLimit}`;
 
   let response: Response;
   try {

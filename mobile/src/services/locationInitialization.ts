@@ -1,6 +1,5 @@
-import {representativeLocationForCountryCode} from '../config/countryLocations';
+import {LONDON_FALLBACK} from '../config/countryLocations';
 import type {MapPlace} from './maps/types';
-import {detectCountryCode} from './countryDetection';
 import {hydrateSelectedLocation} from '../state/onboardingPreferences';
 
 /**
@@ -11,20 +10,19 @@ import {hydrateSelectedLocation} from '../state/onboardingPreferences';
  *
  * Priority, highest first:
  *   1. A saved location — reopens exactly where she left it (e.g. "Edit
- *      location" from PrayerTimesScreen.tsx). Country detection never runs,
- *      and never overrides this.
- *   2. No saved location — an approximate, IP-based country guess
- *      (countryDetection.ts) mapped to a representative city
- *      (config/countryLocations.ts).
- *   3. Detection unavailable, failed, timed out, or the country is unknown
- *      — the neutral London default. Never Algiers.
+ *      location" from PrayerTimesScreen.tsx).
+ *   2. No saved location — the neutral London default, always. IP-based
+ *      country detection (countryDetection.ts) is deliberately NOT part of
+ *      this initial suggestion: an international, English-first app can't
+ *      silently guess a representative city (Paris, Algiers, Dubai…) from
+ *      an IP address and present it as the starting point before she's
+ *      done anything — see countryLocations.ts's header comment. GPS,
+ *      search and tapping the map remain the only ways to move off London.
  */
 export async function resolveInitialLocation(): Promise<MapPlace> {
   const saved = await hydrateSelectedLocation();
   if (saved) {
     return saved;
   }
-  const countryCode = await detectCountryCode();
-  const representative = representativeLocationForCountryCode(countryCode);
-  return {...representative};
+  return {...LONDON_FALLBACK};
 }

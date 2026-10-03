@@ -29,6 +29,8 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
+import '../i18n';
 
 import {IS_MAPS_CONFIGURED} from '../config/maps';
 import type {RootStackParamList} from '../navigation/AppNavigator';
@@ -47,20 +49,20 @@ const LOCATION_TARGET = require('../assets/images/location-target.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'Location'>;
 type Feedback = {kind: 'error' | 'info'; text: string} | null;
 
-const geocodingErrorMessage = (error: unknown) => {
+const geocodingErrorMessage = (error: unknown, t: (key: string) => string) => {
   if (!(error instanceof MapProviderError)) {
-    return 'Impossible d’identifier ce lieu pour le moment.';
+    return t('location.errors.generic');
   }
   if (error.code === 'NOT_CONFIGURED') {
-    return 'La clé cartographique doit être configurée.';
+    return t('location.errors.notConfigured');
   }
   if (error.code === 'NETWORK') {
-    return 'Connexion Internet indisponible.';
+    return t('location.errors.network');
   }
   if (error.code === 'INVALID_KEY') {
-    return 'La clé MapTiler est invalide ou non autorisée.';
+    return t('location.errors.invalidKey');
   }
-  return 'Impossible d’identifier ce lieu pour le moment.';
+  return t('location.errors.generic');
 };
 
 function LocationScreen({navigation, route}: Props): React.JSX.Element {
@@ -68,6 +70,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const {height} = useWindowDimensions();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const {t} = useTranslation();
   const cameraRef = useRef<CameraRef>(null);
   const reverseTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const reverseRequest = useRef(0);
@@ -113,7 +116,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
   const [feedback, setFeedback] = useState<Feedback>(
     IS_MAPS_CONFIGURED
       ? null
-      : {kind: 'info', text: 'Configure la clé cartographique pour activer la carte.'},
+      : {kind: 'info', text: t('location.mapsNotConfigured')},
   );
 
   useEffect(() => {
@@ -164,18 +167,18 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
         setInitialCenter(current => current ?? [place.longitude, place.latitude]);
       } else {
         setSelectedLocation(null);
-        setFeedback({kind: 'info', text: 'Aucune ville trouvée à cet endroit.'});
+        setFeedback({kind: 'info', text: t('location.noCityFoundHere')});
       }
     } catch (error) {
       if (requestId !== reverseRequest.current) {return;}
       setFeedback({
         kind: 'error',
-        text: geocodingErrorMessage(error),
+        text: geocodingErrorMessage(error, t),
       });
     } finally {
       if (requestId === reverseRequest.current) {setResolving(false);}
     }
-  }, []);
+  }, [t]);
 
   useEffect(() => {
     const trimmed = query.trim();
@@ -191,12 +194,12 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
         const results = await mapProvider.searchPlaces(trimmed);
         if (!cancelled) {
           setSuggestions(results.slice(0, 5));
-          setFeedback(results.length ? null : {kind: 'info', text: 'Aucun résultat trouvé.'});
+          setFeedback(results.length ? null : {kind: 'info', text: t('location.noResultsFound')});
         }
       } catch (error) {
         if (!cancelled) {
           setSuggestions([]);
-          setFeedback({kind: 'error', text: geocodingErrorMessage(error)});
+          setFeedback({kind: 'error', text: geocodingErrorMessage(error, t)});
         }
       } finally {
         if (!cancelled) {setSearching(false);}
@@ -206,7 +209,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [query, showSuggestions]);
+  }, [query, showSuggestions, t]);
 
   useEffect(() => () => {
     if (reverseTimer.current) {clearTimeout(reverseTimer.current);}
@@ -245,10 +248,10 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     const result = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
       {
-        title: 'Autoriser la localisation',
-        message: 'AWA utilise ta position pour sélectionner précisément ta ville.',
-        buttonPositive: 'Autoriser',
-        buttonNegative: 'Refuser',
+        title: t('location.gps.permissionTitle'),
+        message: t('location.gps.permissionMessage'),
+        buttonPositive: t('location.gps.permissionAllow'),
+        buttonNegative: t('location.gps.permissionDeny'),
       },
     );
     return result === PermissionsAndroid.RESULTS.GRANTED;
@@ -256,7 +259,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
 
   const useCurrentLocation = async () => {
     if (!IS_MAPS_CONFIGURED) {
-      setFeedback({kind: 'info', text: 'Configure d’abord la clé cartographique.'});
+      setFeedback({kind: 'info', text: t('location.gps.configureMapKeyFirst')});
       return;
     }
     setLocating(true);
@@ -264,7 +267,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
     const granted = await requestLocationPermission();
     if (!granted) {
       setLocating(false);
-      setFeedback({kind: 'error', text: 'Autorise la localisation dans les réglages pour utiliser ta position.'});
+      setFeedback({kind: 'error', text: t('location.gps.permissionDeniedError')});
       return;
     }
     setLocationPermission(true);
@@ -276,7 +279,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
       },
       () => {
         setLocating(false);
-        setFeedback({kind: 'error', text: 'Position indisponible. Vérifie que le GPS est activé.'});
+        setFeedback({kind: 'error', text: t('location.gps.positionUnavailable')});
       },
       {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
     );
@@ -379,20 +382,20 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
           ]}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}>
-          <Pressable accessibilityLabel="Retour" hitSlop={12} onPress={navigation.goBack} style={styles.backButton}>
+          <Pressable accessibilityLabel={t('location.back')} hitSlop={12} onPress={navigation.goBack} style={styles.backButton}>
             <MaterialDesignIcons name="arrow-left" size={25} color={theme.colors.primary} />
           </Pressable>
 
           <View style={styles.header}>
-            <Text style={styles.title}>Où te trouves-tu ?</Text>
-            <Text style={styles.subtitle}>Active ta localisation pour des horaires de prière et des rappels précis.</Text>
+            <Text style={styles.title}>{t('location.title')}</Text>
+            <Text style={styles.subtitle}>{t('location.subtitle')}</Text>
           </View>
 
           <View style={styles.searchArea}>
             <View style={styles.searchBox}>
               <MaterialDesignIcons color={theme.colors.textSecondary} name="magnify" size={22} />
               <TextInput
-                accessibilityLabel="Rechercher une ville"
+                accessibilityLabel={t('location.searchPlaceholder')}
                 autoCorrect={false}
                 onChangeText={value => {
                   setQuery(value);
@@ -400,14 +403,14 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                   setShowSuggestions(true);
                 }}
                 onFocus={() => setShowSuggestions(true)}
-                placeholder="Rechercher une ville"
+                placeholder={t('location.searchPlaceholder')}
                 placeholderTextColor={theme.colors.textMuted}
                 returnKeyType="search"
                 style={styles.input}
                 value={query}
               />
               {searching ? <ActivityIndicator color={theme.colors.primary} size="small" /> : null}
-              <Pressable accessibilityLabel="Utiliser ma position" hitSlop={10} onPress={useCurrentLocation}>
+              <Pressable accessibilityLabel={t('location.useMyLocation')} hitSlop={10} onPress={useCurrentLocation}>
                 {locating ? (
                   <ActivityIndicator color={theme.colors.primary} size="small" />
                 ) : (
@@ -459,10 +462,10 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
                   <MaterialDesignIcons name="map-outline" size={42} color={theme.colors.primary} />
                 )}
                 <Text style={styles.mapUnavailableTitle}>
-                  {IS_MAPS_CONFIGURED && !mapStyleFailed ? 'Chargement de la carte…' : 'Carte indisponible'}
+                  {IS_MAPS_CONFIGURED && !mapStyleFailed ? t('location.map.loading') : t('location.map.unavailable')}
                 </Text>
                 <Text style={styles.mapUnavailableText}>
-                  {IS_MAPS_CONFIGURED ? 'Vérifie ta connexion et la configuration MapTiler.' : 'Ajoute la clé publique MapTiler dans src/config/maps.ts.'}
+                  {IS_MAPS_CONFIGURED ? t('location.map.checkConnection') : t('location.map.addKey')}
                 </Text>
               </View>
             )}
@@ -472,9 +475,9 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             <Image source={LOCATION_PIN} style={styles.locationPin} />
             <View style={styles.locationCopy}>
               <Text numberOfLines={1} style={styles.locationText}>
-                {resolving ? 'Recherche du lieu…' : selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : 'Position non sélectionnée'}
+                {resolving ? t('location.resolvingLocation') : selectedLocation ? `${selectedLocation.city}, ${selectedLocation.country}` : t('location.noPositionSelected')}
               </Text>
-              <Text style={styles.locationHint}>{selectedLocation?.timezone ?? 'Position sélectionnée sur la carte'}</Text>
+              <Text style={styles.locationHint}>{selectedLocation?.timezone ?? t('location.positionSelectedOnMap')}</Text>
             </View>
             {resolving ? <ActivityIndicator color={theme.colors.primary} size="small" /> : selectedLocation ? (
               <View style={styles.checkCircle}><MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check" size={16} /></View>
@@ -489,7 +492,7 @@ function LocationScreen({navigation, route}: Props): React.JSX.Element {
             disabled={!selectedLocation}
             onPress={handleNext}
             style={({pressed}) => [styles.nextButton, !selectedLocation && styles.nextButtonDisabled, pressed && styles.pressed]}>
-            <Text style={styles.nextText}>{isEdit ? 'Enregistrer' : 'Suivant'}</Text>
+            <Text style={styles.nextText}>{isEdit ? t('location.save') : t('location.next')}</Text>
           </Pressable>
         </ScrollView>
       </KeyboardAvoidingView>

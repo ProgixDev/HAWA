@@ -15,11 +15,14 @@ import {
   resetSelectedLocationForTests,
   setSelectedLocation,
 } from '../../state/onboardingPreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Component-level coverage for LocationScreen.tsx's international
 // initialization (TEST 11-14 of the audited spec, plus the headline success
-// criteria rendered end-to-end): saved location wins, country detection
-// suggests a representative city, London is the neutral fallback, searching
+// criteria rendered end-to-end): a saved location wins, London is ALWAYS the
+// default otherwise (IP/country detection is deliberately never consulted
+// for this initial suggestion — see locationInitialization.ts), searching
 // moves the map, confirming persists, the GPS button still works, and
 // MapLibre's [longitude, latitude] coordinate order is never reversed.
 
@@ -122,6 +125,12 @@ const searchInput = (renderer: ReactTestRenderer.ReactTestRenderer) =>
 
 beforeEach(async () => {
   await resetSelectedLocationForTests();
+  // This file's assertions (accessibilityLabel 'Utiliser ma position',
+  // the 'Suivant' button text) were written in French — pinning French
+  // explicitly here preserves that original intent regardless of AWA's
+  // English-first (Phase 7M) default.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   mockDetectCountryCode.mockReset();
   mockSearchPlaces.mockReset().mockResolvedValue([]);
   mockGetCurrentPosition.mockReset();
@@ -135,8 +144,8 @@ afterEach(() => {
   });
 });
 
-describe('LocationScreen — saved location vs. country detection', () => {
-  it('a saved Paris opens directly on Paris', async () => {
+describe('LocationScreen — saved location vs. the London default', () => {
+  it('a saved Paris opens directly on Paris, and country detection is never even consulted', async () => {
     await setSelectedLocation({city: 'Paris', country: 'France', latitude: 48.8566, longitude: 2.3522});
     mockDetectCountryCode.mockResolvedValue('GB');
 
@@ -147,21 +156,23 @@ describe('LocationScreen — saved location vs. country detection', () => {
     expect(mockDetectCountryCode).not.toHaveBeenCalled();
   });
 
-  it('no saved location + France detected opens on Paris', async () => {
-    mockDetectCountryCode.mockResolvedValue('FR');
-
-    const {renderer} = await renderLocationScreen();
-
-    expect(textsOf(renderer)).toContain('Paris, France');
-    expect(cameraCenter(renderer)).toEqual([2.3522, 48.8566]);
-  });
-
-  it('no saved location + detection unavailable opens on London, not Algiers', async () => {
-    mockDetectCountryCode.mockResolvedValue(null);
+  it('no saved location opens on London, regardless of what IP/country detection would suggest', async () => {
+    mockDetectCountryCode.mockResolvedValue('FR'); // must have zero effect — detection is never consulted
 
     const {renderer} = await renderLocationScreen();
 
     expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
+    expect(mockDetectCountryCode).not.toHaveBeenCalled();
+  });
+
+  it('no saved location + an Algeria IP result still opens on London, never Algiers', async () => {
+    mockDetectCountryCode.mockResolvedValue('DZ');
+
+    const {renderer} = await renderLocationScreen();
+
+    expect(textsOf(renderer)).toContain('London, United Kingdom');
+    expect(textsOf(renderer)).not.toContain('Algiers, Algeria');
     expect(cameraCenter(renderer)).toEqual([-0.1278, 51.5074]);
   });
 });
