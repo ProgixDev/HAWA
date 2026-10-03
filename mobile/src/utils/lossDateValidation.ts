@@ -2,21 +2,17 @@ import {diffDays, formatFullDate, startOfDay} from './cycleMath';
 import {validateLossDate} from './postpartumLossDateValidation';
 import i18n from '../i18n';
 
-// i18n (Phase 3): this is a plain util file, not a component, so it cannot
-// call `useTranslation()`. Every message below is built with the i18n
+// i18n (Phase 3/7B): this is a plain util file, not a component, so it
+// cannot call `useTranslation()`. Every message below is built with the i18n
 // singleton (`i18n.t()`) at CALL time (never cached at module scope), so
 // each of these pure functions already returns the current language on
 // every invocation without needing the languageChanged-listener/in-place-
-// mutation pattern the config files use for their cached arrays. This file
-// is exclusively used by the "Après une fausse couche" (loss) objective's
-// own screens (MiscarriageDateScreen.tsx, MiscarriageCycleReturnScreen.tsx,
-// MiscarriageJournalEntryScreen.tsx, miscarriagePreferences.ts) — EXCEPT
-// `CYCLE_RETURN_DATE_TO_CHECK` and `classifyStoredCycleReturnDate`, which
-// ProfileScreen.tsx and SummaryScreen.tsx (large, multi-objective, out of
-// this pass's scope) also import; `classifyStoredCycleReturnDate` returns a
-// plain state enum (no text) so it needs no change, but
-// `CYCLE_RETURN_DATE_TO_CHECK` is deliberately left as a plain French
-// constant — see its own comment below.
+// mutation pattern the config files use for their cached arrays.
+// `CYCLE_RETURN_DATE_TO_CHECK` is the one exception — it's imported as a
+// plain constant (not called as a function) by MiscarriageDashboard.tsx,
+// ProfileScreen.tsx and SummaryScreen.tsx, so it uses the live-reassigned-
+// `let` pattern instead (see its own comment below). `classifyStoredCycleReturnDate`
+// returns a plain state enum (no text), so it needs no i18n handling at all.
 //
 // `validateLossDate` (from postpartumLossDateValidation.ts) is a SEPARATE,
 // Postpartum-shared util and stays out of this pass's scope — its message
@@ -82,12 +78,16 @@ export function validateCycleReturnDate(params: {
 }
 
 /** Wording shown wherever a stored (legacy) invalid cycle-return date would
- * otherwise be displayed as a date (Dashboard, Profile, Summary). Deliberately
- * left as a plain French constant, NOT wired to i18n.t(), because
- * ProfileScreen.tsx and SummaryScreen.tsx (large, multi-objective screens,
- * out of this pass's scope) also import it — see the file-level i18n
- * comment above. Revisit once those screens have their own Phase 3 pass. */
-export const CYCLE_RETURN_DATE_TO_CHECK = 'Date à vérifier';
+ * otherwise be displayed as a date (Dashboard, Profile, Summary). Exported as
+ * a live `let` binding (not a function) since MiscarriageDashboard.tsx,
+ * ProfileScreen.tsx and SummaryScreen.tsx all import it as a plain constant
+ * — reassigned in place on languageChanged, same pattern as
+ * PDF_UNSUPPORTED_NOTICE in medicalExportPdf.ts, so none of those call sites
+ * need to change. */
+export let CYCLE_RETURN_DATE_TO_CHECK = i18n.t('common.dateToCheck');
+i18n.on('languageChanged', () => {
+  CYCLE_RETURN_DATE_TO_CHECK = i18n.t('common.dateToCheck');
+});
 
 export type StoredCycleReturnDateState =
   | 'none' // nothing recorded

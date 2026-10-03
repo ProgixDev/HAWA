@@ -17,6 +17,8 @@ import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {getActiveObjective, setActiveObjective, setSelectedObjective} from '../../state/onboardingPreferences';
 import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../state/miscarriagePreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -158,6 +160,11 @@ beforeEach(async () => {
   await setActiveObjective('loss');
   await seed();
   alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

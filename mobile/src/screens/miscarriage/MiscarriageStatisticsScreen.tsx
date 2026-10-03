@@ -58,6 +58,7 @@ import {
   MISCARRIAGE_PHYSICAL_SYMPTOMS,
   MISCARRIAGE_TRYING_AGAIN_OPTIONS,
 } from '../../config/miscarriageJournalConfig';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 import { diffDays, startOfDay } from '../../utils/cycleMath';
 import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingAgainDisplay';
@@ -1616,7 +1617,7 @@ function BleedingTab({
             accent="pink"
             icon="water-outline"
             label={t('miscarriageStatistics.bleeding.kpi.mostFrequentIntensity')}
-            value={mostFrequent ?? '—'}
+            value={mostFrequent ? journalOptionLabel('miscarriageBleeding', mostFrequent, t) : '—'}
           />
 
           <KpiCard
@@ -1698,7 +1699,7 @@ function BleedingTab({
                 accent="pink"
                 count={item.count}
                 key={item.label}
-                label={item.label}
+                label={journalOptionLabel('miscarriageBleeding', item.label, t)}
                 last={index === counts.length - 1}
                 maxCount={maxCount}
               />
@@ -1781,7 +1782,7 @@ function SymptomsTab({
             accent="purple"
             icon="heart-pulse"
             label={t('miscarriageStatistics.symptoms.kpi.mostFrequentSymptom')}
-            value={mostFrequent ?? '—'}
+            value={mostFrequent ? journalOptionLabel('miscarriagePhysicalSymptom', mostFrequent, t) : '—'}
           />
 
           <KpiCard
@@ -1810,7 +1811,7 @@ function SymptomsTab({
               <DistributionRow
                 count={item.count}
                 key={item.label}
-                label={item.label}
+                label={journalOptionLabel('miscarriagePhysicalSymptom', item.label, t)}
                 last={index === counts.length - 1}
                 maxCount={maxCount}
               />
@@ -1837,7 +1838,7 @@ function SymptomsTab({
 
                     <Text style={styles.monthlyRowMeta}>
                       {t('miscarriageStatistics.daysCount', {count: item.daysCount})}
-                      {item.mostFrequent ? ` · ${item.mostFrequent}` : ''}
+                      {item.mostFrequent ? ` · ${journalOptionLabel('miscarriagePhysicalSymptom', item.mostFrequent, t)}` : ''}
                     </Text>
                   </View>
                 ))}

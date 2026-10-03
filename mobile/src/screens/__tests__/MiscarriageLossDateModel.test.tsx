@@ -14,6 +14,8 @@ import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setActiveObjective} from '../../state/onboardingPreferences';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../state/miscarriagePreferences';
 import {getAllMiscarriageJournalEntries, saveMiscarriageJournalField} from '../../state/miscarriageJournalStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M36 + M37 — the Loss chronology model wired through the REAL screens:
 // cycle-return edit (legacy invalid values, clear action) and loss-date edit
@@ -141,6 +143,11 @@ beforeEach(async () => {
   await setActiveObjective('loss');
   await seed();
   alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => undefined);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

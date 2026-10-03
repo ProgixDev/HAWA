@@ -56,6 +56,7 @@ import {
   MISCARRIAGE_PHYSICAL_SYMPTOMS,
   MISCARRIAGE_TRYING_AGAIN_OPTIONS,
 } from '../config/miscarriageJournalConfig';
+import {journalOptionLabel} from '../utils/journalOptionLabels';
 
 import {
   getMiscarriagePreferences,
@@ -846,7 +847,7 @@ function BleedingContent({
 
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('miscarriageBleeding', option, t)}
                 accessibilityRole="radio"
                 accessibilityState={{
                   checked: active,
@@ -885,7 +886,7 @@ function BleedingContent({
                     active && styles.qualityLabelActive,
                   ]}
                 >
-                  {option}
+                  {journalOptionLabel('miscarriageBleeding', option, t)}
                 </Text>
 
                 {active ? (
@@ -920,7 +921,7 @@ function BleedingContent({
 
             return (
               <Pressable
-                accessibilityLabel={t('miscarriageJournalEntry.bleeding.color.optionAccessibility', {label: option.label})}
+                accessibilityLabel={t('miscarriageJournalEntry.bleeding.color.optionAccessibility', {label: journalOptionLabel('miscarriageBleedingColor', option.label, t)})}
                 accessibilityRole="radio"
                 accessibilityState={{
                   checked: active,
@@ -967,7 +968,7 @@ function BleedingContent({
                   numberOfLines={2}
                   style={[styles.colorLabel, active && styles.colorLabelActive]}
                 >
-                  {option.label}
+                  {journalOptionLabel('miscarriageBleedingColor', option.label, t)}
                 </Text>
               </Pressable>
             );
@@ -1127,6 +1128,7 @@ function SymptomChoice({
   active: boolean;
   onPress: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const { theme } = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -1173,7 +1175,7 @@ function SymptomChoice({
       ]}
     >
       <Pressable
-        accessibilityLabel={option}
+        accessibilityLabel={journalOptionLabel('miscarriagePhysicalSymptom', option, t)}
         accessibilityRole="checkbox"
         accessibilityState={{
           checked: active,
@@ -1204,7 +1206,7 @@ function SymptomChoice({
           numberOfLines={2}
           style={[styles.symptomName, active && styles.symptomNameActive]}
         >
-          {option}
+          {journalOptionLabel('miscarriagePhysicalSymptom', option, t)}
         </Text>
 
         <View

@@ -8,9 +8,15 @@ import {scheduleLocalNotification, cancelLocalNotification} from '../../services
 import {getActiveObjective} from '../../state/onboardingPreferences';
 import {getMiscarriagePreferences} from '../../state/miscarriagePreferences';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
-const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE = miscarriageDailyTrackingNotificationTitle(i18n.t);
-const MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY = miscarriageDailyTrackingNotificationBody(i18n.t);
+// PHASE 7M: computed fresh (not as a module-level const) — a module-level
+// const would snapshot i18n.t's result at import time, before any test's
+// beforeEach has pinned the language, baking in whatever the app's default
+// language happens to be instead of the language actually active when each
+// test runs.
+const miscarriageDailyTrackingTitle = () => miscarriageDailyTrackingNotificationTitle(i18n.t);
+const miscarriageDailyTrackingBody = () => miscarriageDailyTrackingNotificationBody(i18n.t);
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
 // native module at the top level, which isn't available in the Jest
@@ -42,12 +48,17 @@ const DEFAULT_PREFS = {
   dailyTrackingReminderTime: null,
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockScheduleLocalNotification.mockResolvedValue(true);
   mockCancelLocalNotification.mockResolvedValue(undefined);
   mockGetActiveObjective.mockReturnValue('loss');
   mockGetMiscarriagePreferences.mockReturnValue({...DEFAULT_PREFS});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('syncMiscarriageDailyTrackingReminder', () => {
@@ -105,15 +116,15 @@ describe('syncMiscarriageDailyTrackingReminder', () => {
     const call = mockScheduleLocalNotification.mock.calls[0][0];
     expect(call.id).toBe('miscarriage-daily-tracking-reminder');
     expect(call.title).toBe('Ton suivi du jour 🌿');
-    expect(call.title).toBe(MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE);
+    expect(call.title).toBe(miscarriageDailyTrackingTitle());
     expect(call.body).toBe('Si tu le souhaites, prends un moment pour noter comment tu te sens aujourd’hui.');
-    expect(call.body).toBe(MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY);
+    expect(call.body).toBe(miscarriageDailyTrackingBody());
     expect(call.repeatFrequency).toBe('daily');
     expect(call.fireDate).toBeInstanceOf(Date);
     expect(call.data).toEqual({
       hawaNotificationKind: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_KIND,
-      inAppTitle: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_TITLE,
-      inAppMessage: MISCARRIAGE_DAILY_TRACKING_NOTIFICATION_BODY,
+      inAppTitle: miscarriageDailyTrackingTitle(),
+      inAppMessage: miscarriageDailyTrackingBody(),
     });
   });
 
@@ -169,7 +180,8 @@ describe('syncMiscarriageDailyTrackingReminder', () => {
       expect(enCall.title).toBe('Your tracking for today 🌿');
       expect(enCall.title).not.toBe(frCall.title);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 });
