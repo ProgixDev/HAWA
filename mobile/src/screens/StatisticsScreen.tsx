@@ -48,6 +48,7 @@ import {
   countTrackedDays,
 } from '../utils/cycleStatisticsMath';
 import type {StatisticsPeriod} from '../utils/cycleStatisticsMath';
+import {journalOptionLabel} from '../utils/journalOptionLabels';
 import '../i18n';
 
 /* ============================================================
@@ -509,7 +510,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                   return (
                     <View
                       accessible
-                      accessibilityLabel={t('statistics.rankedSymptomAccessibility', {rank: index + 1, name: item.name, days: t('statistics.daysPlural', {count: item.days})})}
+                      accessibilityLabel={t('statistics.rankedSymptomAccessibility', {rank: index + 1, name: journalOptionLabel('cycleSymptom', item.name, t), days: t('statistics.daysPlural', {count: item.days})})}
                       key={item.name}
                       style={[styles.symptomItem, index === array.length - 1 && styles.lastItem]}>
                       <View style={styles.symptomTop}>
@@ -517,7 +518,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                           <Text style={styles.rankText}>{index + 1}</Text>
                         </View>
 
-                        <Text style={styles.symptomName}>{item.name}</Text>
+                        <Text style={styles.symptomName}>{journalOptionLabel('cycleSymptom', item.name, t)}</Text>
 
                         <View style={styles.symptomBadge}>
                           <Text style={styles.symptomDays}>
@@ -550,7 +551,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                     accessible
                     accessibilityLabel={t('statistics.monthSymptomAccessibility', {
                       month: month.monthLabel,
-                      symptoms: month.topSymptoms.map(symptom => t('statistics.symptomDays', {name: symptom.name, days: t('statistics.daysPlural', {count: symptom.days})})).join(', '),
+                      symptoms: month.topSymptoms.map(symptom => t('statistics.symptomDays', {name: journalOptionLabel('cycleSymptom', symptom.name, t), days: t('statistics.daysPlural', {count: symptom.days})})).join(', '),
                     })}
                     key={month.monthKey}
                     style={styles.monthItem}>
@@ -562,7 +563,7 @@ function StatisticsScreen(_props: Props): React.JSX.Element {
                       {month.topSymptoms.map(symptom => (
                         <View key={symptom.name} style={styles.chip}>
                           <Text style={styles.chipText}>
-                            {symptom.name} · {t('statistics.daysAbbreviated', {count: symptom.days})}
+                            {journalOptionLabel('cycleSymptom', symptom.name, t)} · {t('statistics.daysAbbreviated', {count: symptom.days})}
                           </Text>
                         </View>
                       ))}

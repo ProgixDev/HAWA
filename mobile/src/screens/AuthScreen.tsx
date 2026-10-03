@@ -17,6 +17,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import LinearGradient from 'react-native-linear-gradient';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -34,6 +35,7 @@ const GOOGLE_LOGO = require('../assets/images/auth-google-logo.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'Auth'>;
 
 function AuthScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {height, width} = useWindowDimensions();
@@ -116,7 +118,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   styles.tagline,
                   compact && styles.taglineCompact,
                 ]}>
-                {'Pour une vie alignée,\nà chaque étape.'}
+                {t('auth.login.tagline')}
               </Text>
             </View>
 
@@ -153,8 +155,8 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                         active && styles.tabTextActive,
                       ]}>
                       {tab === 'login'
-                        ? 'Connexion'
-                        : 'Créer un compte'}
+                        ? t('auth.shared.tabLogin')
+                        : t('auth.shared.tabRegister')}
                     </Text>
                   </Pressable>
                 );
@@ -192,7 +194,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       setEmailError('');
                       setInfoMessage('');
                     }}
-                    placeholder="Adresse e-mail"
+                    placeholder={t('auth.login.emailPlaceholder')}
                     placeholderTextColor={theme.colors.textMuted}
                     returnKeyType="next"
                     selectionColor={theme.colors.primary}
@@ -220,7 +222,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       setPasswordError('');
                       setInfoMessage('');
                     }}
-                    placeholder="Mot de passe"
+                    placeholder={t('auth.login.passwordPlaceholder')}
                     placeholderTextColor={theme.colors.textMuted}
                     returnKeyType="done"
                     secureTextEntry={!passwordVisible}
@@ -233,8 +235,8 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   <Pressable
                     accessibilityLabel={
                       passwordVisible
-                        ? 'Masquer le mot de passe'
-                        : 'Afficher le mot de passe'
+                        ? t('auth.shared.hidePassword')
+                        : t('auth.shared.showPassword')
                     }
                     hitSlop={10}
                     onPress={() =>
@@ -261,7 +263,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                       navigation.navigate('ForgotPassword')
                     }>
                     <Text style={styles.forgot}>
-                      Mot de passe oublié ?
+                      {t('auth.login.forgotPassword')}
                     </Text>
                   </Pressable>
                 ) : null}
@@ -275,8 +277,8 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   ]}>
                   <Text style={styles.primaryText}>
                     {mode === 'login'
-                      ? 'Se connecter'
-                      : 'Créer mon compte'}
+                      ? t('auth.login.submit')
+                      : t('auth.shared.createAccount')}
                   </Text>
                 </Pressable>
 
@@ -291,11 +293,11 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   </View>
                 ) : null}
 
-                <Text style={styles.or}>ou continuer avec</Text>
+                <Text style={styles.or}>{t('auth.shared.orContinueWith')}</Text>
 
                 <View style={styles.socialRow}>
                   <Pressable
-                    accessibilityLabel="Continuer avec Google"
+                    accessibilityLabel={t('auth.shared.continueWithGoogle')}
                     onPress={() => Alert.alert('Google')}
                     style={({pressed}) => [
                       styles.social,
@@ -309,7 +311,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   </Pressable>
 
                   <Pressable
-                    accessibilityLabel="Continuer avec Apple"
+                    accessibilityLabel={t('auth.shared.continueWithApple')}
                     onPress={() => Alert.alert('Apple')}
                     style={({pressed}) => [
                       styles.social,
@@ -323,7 +325,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   </Pressable>
 
                   <Pressable
-                    accessibilityLabel="Continuer avec une adresse e-mail"
+                    accessibilityLabel={t('auth.shared.continueWithEmail')}
                     onPress={() => Alert.alert('E-mail')}
                     style={({pressed}) => [
                       styles.social,
@@ -338,7 +340,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                 </View>
 
                 <Pressable
-                  accessibilityLabel="Utiliser AWA en mode anonyme"
+                  accessibilityLabel={t('auth.shared.useAnonymousMode')}
                   accessibilityRole="button"
                   onPress={() =>
                     navigation.navigate('AnonymousMode', {source: 'auth'})
@@ -354,7 +356,7 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
                   />
 
                   <Text style={styles.anonymousText}>
-                    Mode anonyme
+                    {t('auth.shared.anonymousMode')}
                   </Text>
                 </Pressable>
               </View>
@@ -367,11 +369,11 @@ function AuthScreen({navigation}: Props): React.JSX.Element {
               compact && styles.legalAreaCompact,
             ]}>
             <Text style={styles.legal}>
-              En continuant, vous acceptez nos
+              {t('auth.login.legalPrefix')}
             </Text>
 
             <Text style={styles.legalStrong}>
-              Conditions d’utilisation et notre Politique de confidentialité.
+              {t('auth.shared.legalTerms')}
             </Text>
           </View>
         </View>

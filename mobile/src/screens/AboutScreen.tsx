@@ -19,6 +19,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {APP_METADATA} from '../utils/appMetadata';
@@ -128,6 +129,7 @@ function ValueBlock({
 export default function AboutScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -163,8 +165,8 @@ export default function AboutScreen({
     if (!target) {
       showToast(
         type === 'website'
-          ? 'Lien indisponible pour le moment.'
-          : 'Adresse e-mail non configurée.',
+          ? t('about.linkUnavailable')
+          : t('about.emailNotConfigured'),
       );
       return;
     }
@@ -175,12 +177,12 @@ export default function AboutScreen({
       } else {
         showToast(
           type === 'website'
-            ? 'Lien indisponible pour le moment.'
-            : 'Impossible d’ouvrir l’application e-mail.',
+            ? t('about.linkUnavailable')
+            : t('about.emailAppUnavailable'),
         );
       }
     } catch {
-      showToast('Impossible d’ouvrir ce lien.');
+      showToast(t('about.linkOpenFailed'));
     }
   };
 
@@ -213,7 +215,7 @@ export default function AboutScreen({
           entering={FadeIn.duration(300)}
           style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             onPress={navigation.goBack}
             style={({pressed}) => [
               styles.back,
@@ -228,11 +230,11 @@ export default function AboutScreen({
 
           <View style={styles.headerCopy}>
             <Text style={styles.title}>
-              À propos de AWA
+              {t('about.title')}
             </Text>
 
             <Text style={styles.subtitle}>
-              En savoir plus sur ton application 💜
+              {t('about.subtitle')}
             </Text>
           </View>
 
@@ -259,7 +261,7 @@ export default function AboutScreen({
 
           <View style={styles.logoWrap}>
             <Image
-              accessibilityLabel="Logo AWA"
+              accessibilityLabel={t('about.logoA11y')}
               resizeMode="contain"
               source={LOGO}
               style={styles.logo}
@@ -274,16 +276,13 @@ export default function AboutScreen({
 
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
-                  Version {APP_METADATA.version}
+                  {t('about.versionBadge', {version: APP_METADATA.version})}
                 </Text>
               </View>
             </View>
 
             <Text style={styles.description}>
-              AWA t’accompagne chaque jour pour
-              comprendre ton corps, suivre ton cycle
-              et prendre soin de toi en toute
-              sérénité.
+              {t('about.appDescription')}
             </Text>
           </View>
         </Animated.View>
@@ -291,7 +290,7 @@ export default function AboutScreen({
         {/* APPLICATION INFORMATION */}
 
         <Text style={styles.sectionTitle}>
-          Informations de l’application
+          {t('about.sectionAppInfo')}
         </Text>
 
         <Animated.View
@@ -299,7 +298,7 @@ export default function AboutScreen({
           style={styles.card}>
           <AboutRow
             icon="cellphone"
-            label="Version"
+            label={t('about.rowVersion')}
             onPress={() => setModal('version')}
             styles={styles}
             theme={theme}
@@ -308,46 +307,46 @@ export default function AboutScreen({
 
           <AboutRow
             icon="calendar-month-outline"
-            label="Date de publication"
+            label={t('about.rowPublicationDate')}
             styles={styles}
             theme={theme}
             value={
               APP_METADATA.publicationDate ??
-              'Non renseignée'
+              t('about.rowPublicationDateEmpty')
             }
           />
 
           <AboutRow
             icon="shield-outline"
-            label="Conçue avec"
+            label={t('about.rowDesignedWith')}
             onPress={() => setModal('team')}
             styles={styles}
             theme={theme}
-            value="💜 par l’équipe AWA"
+            value={t('about.rowDesignedWithValue')}
           />
 
           <AboutRow
             icon="web"
-            label="Site web"
+            label={t('about.rowWebsite')}
             onPress={() => openLink('website')}
             styles={styles}
             theme={theme}
             value={
               APP_METADATA.websiteUrl ??
-              'Non configuré'
+              t('about.rowWebsiteEmpty')
             }
           />
 
           <AboutRow
             icon="email-outline"
-            label="E-mail"
+            label={t('about.rowEmail')}
             last
             onPress={() => openLink('email')}
             styles={styles}
             theme={theme}
             value={
               APP_METADATA.contactEmail ??
-              'Non configurée'
+              t('about.rowEmailEmpty')
             }
           />
         </Animated.View>
@@ -355,7 +354,7 @@ export default function AboutScreen({
         {/* ABOUT */}
 
         <Text style={styles.sectionTitle}>
-          À propos
+          {t('about.sectionAbout')}
         </Text>
 
         <Animated.View
@@ -364,32 +363,32 @@ export default function AboutScreen({
           <ValueBlock
             icon="hand-heart-outline"
             styles={styles}
-            text="Aider chaque femme à mieux comprendre son corps, son cycle et sa santé pour vivre en harmonie avec elle-même."
+            text={t('about.missionText')}
             theme={theme}
-            title="Notre mission"
+            title={t('about.missionTitle')}
           />
 
           <ValueBlock
             icon="lock-outline"
             styles={styles}
-            text="Ta vie privée est notre priorité absolue. Toutes tes données restent protégées dans l’application."
+            text={t('about.privacyValueText')}
             theme={theme}
-            title="Ta confidentialité"
+            title={t('about.privacyValueTitle')}
           />
 
           <ValueBlock
             icon="leaf"
             styles={styles}
-            text="Bienveillance, respect, confidentialité et empowerment féminin sont au cœur de tout ce que nous faisons."
+            text={t('about.valuesText')}
             theme={theme}
-            title="Nos valeurs"
+            title={t('about.valuesTitle')}
           />
         </Animated.View>
 
         {/* LEGAL */}
 
         <Text style={styles.sectionTitle}>
-          Mentions légales
+          {t('about.sectionLegal')}
         </Text>
 
         <Animated.View
@@ -397,18 +396,18 @@ export default function AboutScreen({
           style={styles.card}>
           <AboutRow
             icon="file-document-outline"
-            label="Conditions d’utilisation"
+            label={t('about.termsOfUse')}
             onPress={() =>
               navigation.navigate('TermsOfUse')
             }
             styles={styles}
             theme={theme}
-            value="Consulter le document"
+            value={t('about.viewDocument')}
           />
 
           <AboutRow
             icon="shield-lock-outline"
-            label="Politique de confidentialité"
+            label={t('about.privacyPolicy')}
             last
             onPress={() =>
               navigation.navigate(
@@ -417,7 +416,7 @@ export default function AboutScreen({
             }
             styles={styles}
             theme={theme}
-            value="Consulter le document"
+            value={t('about.viewDocument')}
           />
         </Animated.View>
 
@@ -434,12 +433,11 @@ export default function AboutScreen({
 
           <View style={styles.communityCopy}>
             <Text style={styles.communityTitle}>
-              Merci de faire partie de la communauté
-              AWA 💜
+              {t('about.communityTitle')}
             </Text>
 
             <Text style={styles.communityText}>
-              Ensemble, prenons soin de nous.
+              {t('about.communityText')}
             </Text>
           </View>
 
@@ -491,25 +489,23 @@ export default function AboutScreen({
 
             <Text style={styles.sheetTitle}>
               {modal === 'version'
-                ? 'AWA'
-                : 'L’équipe AWA'}
+                ? t('about.versionModalTitle')
+                : t('about.teamModalTitle')}
             </Text>
 
             {modal === 'version' ? (
               <>
                 <Text style={styles.sheetText}>
-                  Version {APP_METADATA.version}
+                  {t('about.versionLabel', {version: APP_METADATA.version})}
                 </Text>
 
                 <Text style={styles.sheetText}>
-                  Build {APP_METADATA.buildNumber}
+                  {t('about.buildLabel', {build: APP_METADATA.buildNumber})}
                 </Text>
               </>
             ) : (
               <Text style={styles.teamText}>
-                Nous concevons AWA avec
-                bienveillance, respect et
-                confidentialité.
+                {t('about.teamText')}
               </Text>
             )}
 
@@ -517,7 +513,7 @@ export default function AboutScreen({
               onPress={() => setModal(null)}
               style={styles.done}>
               <Text style={styles.doneText}>
-                Fermer
+                {t('about.close')}
               </Text>
             </Pressable>
           </Animated.View>

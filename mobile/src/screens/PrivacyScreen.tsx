@@ -11,6 +11,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -23,36 +24,19 @@ import {
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const guarantees: {icon: IconName; title: string; description: string}[] = [
-  {
-    icon: 'cash-off',
-    title: 'Aucune revente de données',
-    description:
-      'Tes données ne sont jamais vendues, cédées ou utilisées à des fins commerciales.',
-  },
-  {
-    icon: 'lock-outline',
-    title: 'Contrôle absolu',
-    description:
-      'Tu gardes le contrôle de tes informations et de leur utilisation à tout moment.',
-  },
-  {
-    icon: 'database-lock-outline',
-    title: 'Aucune exportation',
-    description:
-      'Tes données personnelles ne sont pas exportées en dehors du service.',
-  },
-  {
-    icon: 'shield-lock-outline',
-    title: 'Données chiffrées et anonymisées',
-    description:
-      'Les informations sensibles sont protégées et les données d’identité sont anonymisées.',
-  },
+type Guarantee = {icon: IconName; titleKey: string; descriptionKey: string};
+
+const guarantees: Guarantee[] = [
+  {icon: 'cash-off', titleKey: 'privacyScreen.guarantees.noResaleTitle', descriptionKey: 'privacyScreen.guarantees.noResaleDescription'},
+  {icon: 'lock-outline', titleKey: 'privacyScreen.guarantees.fullControlTitle', descriptionKey: 'privacyScreen.guarantees.fullControlDescription'},
+  {icon: 'database-lock-outline', titleKey: 'privacyScreen.guarantees.noExportTitle', descriptionKey: 'privacyScreen.guarantees.noExportDescription'},
+  {icon: 'shield-lock-outline', titleKey: 'privacyScreen.guarantees.encryptedTitle', descriptionKey: 'privacyScreen.guarantees.encryptedDescription'},
 ];
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Privacy'>;
 
 function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -89,19 +73,17 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
           showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <Text style={styles.title}>
-              {'Ta confidentialité\nest notre priorité'}
+              {t('privacyScreen.title')}
             </Text>
 
             <Text style={styles.subtitle}>
-              {
-                'Tu gardes le contrôle absolu sur tes données.\nNous les protégeons à chaque étape.'
-              }
+              {t('privacyScreen.subtitle')}
             </Text>
           </View>
 
           <View style={styles.guaranteesCard}>
             {guarantees.map((item, index) => (
-              <View key={item.title}>
+              <View key={item.titleKey}>
                 <View style={styles.guaranteeRow}>
                   <View style={styles.iconContainer}>
                     <MaterialDesignIcons
@@ -113,11 +95,11 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
 
                   <View style={styles.guaranteeCopy}>
                     <Text style={styles.guaranteeTitle}>
-                      {item.title}
+                      {t(item.titleKey)}
                     </Text>
 
                     <Text style={styles.guaranteeDescription}>
-                      {item.description}
+                      {t(item.descriptionKey)}
                     </Text>
                   </View>
                 </View>
@@ -141,11 +123,11 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
 
               <View style={styles.commitmentCopy}>
                 <Text style={styles.commitmentTitle}>
-                  Notre engagement
+                  {t('privacyScreen.commitmentTitle')}
                 </Text>
 
                 <Text style={styles.commitmentSubtitle}>
-                  Tes informations restent privées.
+                  {t('privacyScreen.commitmentSubtitle')}
                 </Text>
               </View>
             </View>
@@ -154,30 +136,28 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
               <View style={styles.commitmentItem}>
                 <View style={styles.bullet} />
                 <Text style={styles.commitmentText}>
-                  Tu gardes le contrôle absolu sur tes données.
+                  {t('privacyScreen.commitmentFullControl')}
                 </Text>
               </View>
 
               <View style={styles.commitmentItem}>
                 <View style={styles.bullet} />
                 <Text style={styles.commitmentText}>
-                  Aucune de tes données personnelles n’est exportée.
+                  {t('privacyScreen.commitmentNoExport')}
                 </Text>
               </View>
 
               <View style={styles.commitmentItem}>
                 <View style={styles.bullet} />
                 <Text style={styles.commitmentText}>
-                  Aucun accès interne n’est autorisé en dehors des opérations
-                  strictement nécessaires et sécurisées.
+                  {t('privacyScreen.commitmentNoInternalAccess')}
                 </Text>
               </View>
 
               <View style={styles.commitmentItem}>
                 <View style={styles.bullet} />
                 <Text style={styles.commitmentText}>
-                  Les données d’identité, comme ton nom, sont chiffrées et
-                  anonymisées.
+                  {t('privacyScreen.commitmentIdentityEncrypted')}
                 </Text>
               </View>
             </View>
@@ -194,13 +174,11 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
 
             <View style={styles.preferenceCopy}>
               <Text style={styles.preferenceTitle}>
-                Tu restes libre
+                {t('privacyScreen.freedomTitle')}
               </Text>
 
               <Text style={styles.preferenceText}>
-                {
-                  'Tu peux modifier tes préférences ou demander la suppression de tes données à tout moment dans les paramètres.'
-                }
+                {t('privacyScreen.freedomText')}
               </Text>
             </View>
           </View>
@@ -218,7 +196,7 @@ function PrivacyScreen({navigation, route}: Props): React.JSX.Element {
               styles.nextButton,
               pressed && styles.pressed,
             ]}>
-            <Text style={styles.nextText}>Suivant</Text>
+            <Text style={styles.nextText}>{t('privacyScreen.next')}</Text>
 
             <View style={styles.nextArrowContainer}>
               <MaterialDesignIcons

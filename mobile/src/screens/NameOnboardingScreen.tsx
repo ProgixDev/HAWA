@@ -32,6 +32,8 @@ import {
   MaterialDesignIcons,
 } from '@react-native-vector-icons/material-design-icons';
 
+import {useTranslation} from 'react-i18next';
+
 import type {
   RootStackParamList,
 } from '../navigation/AppNavigator';
@@ -67,6 +69,7 @@ type Props =
 function NameOnboardingScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const insets =
     useSafeAreaInsets();
 
@@ -337,7 +340,7 @@ function NameOnboardingScreen({
                 style={
                   styles.brandEyebrow
                 }>
-                TON ESPACE PERSONNEL
+                {t('onboarding.name.eyebrow')}
               </Text>
             </View>
 
@@ -354,16 +357,14 @@ function NameOnboardingScreen({
                 style={
                   styles.title
                 }>
-                Comment souhaites-tu{'\n'}
-                qu’AWA t’appelle ?
+                {t('onboarding.name.title')}
               </Text>
 
               <Text
                 style={
                   styles.subtitle
                 }>
-                Tu peux utiliser ton prénom ou un pseudo.{'\n'}
-                Tu pourras modifier ce choix à tout moment.
+                {t('onboarding.name.subtitle')}
               </Text>
             </View>
 
@@ -404,14 +405,14 @@ function NameOnboardingScreen({
                     style={
                       styles.formCardTitle
                     }>
-                    Ton prénom ou pseudo
+                    {t('onboarding.name.cardTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.formCardSubtitle
                     }>
-                    C’est ce nom qu’AWA utilisera pour s’adresser à toi.
+                    {t('onboarding.name.cardSubtitle')}
                   </Text>
                 </View>
               </View>
@@ -440,7 +441,7 @@ function NameOnboardingScreen({
                 />
 
                 <TextInput
-                  accessibilityLabel="Prénom ou pseudo"
+                  accessibilityLabel={t('onboarding.name.inputLabel')}
                   autoCapitalize="words"
                   autoCorrect={false}
                   maxLength={
@@ -458,7 +459,7 @@ function NameOnboardingScreen({
                   onSubmitEditing={
                     handleNext
                   }
-                  placeholder="Ton prénom ou pseudo"
+                  placeholder={t('onboarding.name.inputPlaceholder')}
                   placeholderTextColor={theme.colors.textMuted}
                   returnKeyType="done"
                   selectionColor={
@@ -511,7 +512,7 @@ function NameOnboardingScreen({
                     style={
                       styles.privacyMetaText
                     }>
-                    Tu peux utiliser un pseudo
+                    {t('onboarding.name.privacyHint')}
                   </Text>
                 </View>
 
@@ -556,7 +557,7 @@ function NameOnboardingScreen({
                   style={
                     styles.previewLabel
                   }>
-                  Aperçu
+                  {t('onboarding.name.previewLabel')}
                 </Text>
 
                 <Text
@@ -564,8 +565,8 @@ function NameOnboardingScreen({
                     styles.previewText
                   }>
                   {hasName
-                    ? `As-salamu ‘alaykum, ${name.trim()} ✨`
-                    : 'As-salamu ‘alaykum ✨'}
+                    ? t('onboarding.name.previewGreeting', {name: name.trim()})
+                    : t('onboarding.name.previewGreetingNoName')}
                 </Text>
               </View>
             </View>
@@ -614,8 +615,8 @@ function NameOnboardingScreen({
                     styles.nextText
                   }>
                   {saving
-                    ? 'Enregistrement…'
-                    : 'Suivant'}
+                    ? t('onboarding.name.saving')
+                    : t('onboarding.name.next')}
                 </Text>
 
                 <View
@@ -636,7 +637,7 @@ function NameOnboardingScreen({
               style={
                 styles.footerText
               }>
-              Tu pourras modifier ce nom plus tard depuis ton profil.
+              {t('onboarding.name.footer')}
             </Text>
           </ScrollView>
         </KeyboardAvoidingView>
