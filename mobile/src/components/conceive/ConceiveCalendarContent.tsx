@@ -37,7 +37,7 @@ import {
   phaseFor,
   sameDay,
   startOfDay,
-  WEEK_DAYS,
+  localizedWeekDays,
 } from '../../utils/cycleMath';
 import {
   getCycleObservationStartedAt,
@@ -635,7 +635,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
             </View>
 
             <View style={styles.weekRow}>
-              {WEEK_DAYS.map(day => (
+              {localizedWeekDays().map(day => (
                 <Text key={day} style={styles.weekDay}>
                   {day}
                 </Text>

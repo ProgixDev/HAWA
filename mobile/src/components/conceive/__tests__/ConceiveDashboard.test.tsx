@@ -12,7 +12,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import ConceiveDashboard from '../ConceiveDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {interpolateHex} from '../../../theme/awaThemeTokens';
 
@@ -74,6 +75,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   // Confirmed real cycle data — renders the hero fertility ring + phase
   // timeline branch instead of the "Configure ton cycle" insufficient-data
   // state, so the semantic period/fertile/ovulation/luteal colors actually

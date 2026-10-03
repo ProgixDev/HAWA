@@ -11,6 +11,8 @@ import ConceiveStatisticsScreen from '../ConceiveStatisticsScreen';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {addDays} from '../../../utils/cycleMath';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M6 — separate file: the onboardingPreferences period history is a module
 // singleton, so the measured-cycle scenarios need a fresh module registry.
@@ -85,6 +87,11 @@ beforeEach(async () => {
   resetPremiumStateForTests();
   await AsyncStorage.clear();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
