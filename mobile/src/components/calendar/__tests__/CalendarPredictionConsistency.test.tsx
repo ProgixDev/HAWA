@@ -6,6 +6,8 @@ import MonthCalendarCard from '../MonthCalendarCard';
 import SelectedDayCard from '../SelectedDayCard';
 import {calendarDayKindFor, computeCyclePredictionStatus, type RecordedPeriod} from '../../../utils/cycleMath';
 import type {CalendarFilters} from '../../../state/calendarFilters';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const FILTERS: CalendarFilters = {
   rules: true,
@@ -24,6 +26,14 @@ const TODAY = new Date(2026, 8, 3);
 const RECORDED: RecordedPeriod[] = [{startDate: '2026-09-01', endDate: '2026-09-05'}];
 
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   act(() => {

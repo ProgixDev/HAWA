@@ -10,6 +10,8 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import StatisticsScreen from '../StatisticsScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {saveJournalSection} from '../../state/dailyJournalStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M19 - the Cycle Statistics "Évolution du flux" / "Évolution par mois" rows
 // are computed ONLY from real journal entries inside the SELECTED period
@@ -71,6 +73,11 @@ beforeEach(async () => {
   resetPremiumStateForTests();
   await AsyncStorage.clear();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

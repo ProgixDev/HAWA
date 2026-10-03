@@ -10,6 +10,7 @@ import type {CalendarFilters} from '../../state/calendarFilters';
 import type {DailyJournalEntry, MoodLevel} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -115,7 +116,7 @@ function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
       key: 'symptoms',
       icon: 'heart-outline',
       label: i18n.t('dailyJournal.symptoms'),
-      value: symptomNames.length > 0 ? symptomNames.join(', ') : i18n.t('calendar.dayCard.rows.symptomsNone'),
+      value: symptomNames.length > 0 ? symptomNames.map(name => journalOptionLabel('cycleSymptom', name, i18n.t)).join(', ') : i18n.t('calendar.dayCard.rows.symptomsNone'),
     },
     {
       key: 'mood',
@@ -136,7 +137,7 @@ function buildHealthRows(entry: DailyJournalEntry | undefined): HealthRow[] {
       value: entry?.activity?.none
         ? i18n.t('calendar.dayCard.rows.activityNone')
         : entry?.activity?.type
-          ? `${entry.activity.type}${entry.activity.durationMinutes ? ` · ${entry.activity.durationMinutes} min` : ''}`
+          ? `${journalOptionLabel('cycleActivityType', entry.activity.type, i18n.t)}${entry.activity.durationMinutes ? ` · ${entry.activity.durationMinutes} min` : ''}`
           : notProvided,
     },
     {

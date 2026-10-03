@@ -8,6 +8,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import CalendarScreen from '../CalendarScreen';
 import {getCyclePreferences, getPeriodHistory, setCyclePreferences} from '../../state/onboardingPreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M15 — the Calendar's period-start CTA acts on the SELECTED date: never a
 // future day, never silently "today", and the sheet names the date it writes.
@@ -75,11 +77,16 @@ const pressButtonWithText = async (renderer: ReactTestRenderer.ReactTestRenderer
   });
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
   jest.setSystemTime(new Date(2026, 8, 20, 10, 0, 0));
   // Period Sept 1–5: today (Sept 20) is not inside a recorded period.
   setCyclePreferences({lastPeriodStart: new Date(2026, 8, 1), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
