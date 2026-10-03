@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {FadeInUp} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -115,6 +116,7 @@ export default function QadaaLedgerSections({
   onDeleteManual,
   onUndoCompletion,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -130,10 +132,10 @@ export default function QadaaLedgerSections({
   const hasHistory = automaticEntries.length + manualEntries.length + completions.length > 0;
 
   const summaryRows: {label: string; value: number; strong?: boolean}[] = [
-    {label: 'Détectés automatiquement', value: balance.automaticDays},
-    {label: 'Ajoutés manuellement', value: balance.manualDays},
-    {label: 'Rattrapés', value: balance.completedDays},
-    {label: 'Restants', value: balance.remainingDays, strong: true},
+    {label: t('qadaa.ledger.automaticDetected'), value: balance.automaticDays},
+    {label: t('qadaa.ledger.manuallyAdded'), value: balance.manualDays},
+    {label: t('qadaa.ledger.caughtUp'), value: balance.completedDays},
+    {label: t('qadaa.ledger.remaining'), value: balance.remainingDays, strong: true},
   ];
 
   return (
@@ -143,7 +145,7 @@ export default function QadaaLedgerSections({
           <View style={styles.headerIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="scale-balance" size={16} />
           </View>
-          <Text style={styles.headerTitle}>Ton solde</Text>
+          <Text style={styles.headerTitle}>{t('qadaa.ledger.balanceTitle')}</Text>
         </View>
         <View style={styles.divider} />
         <View style={styles.summary}>
@@ -155,17 +157,16 @@ export default function QadaaLedgerSections({
           ))}
           {balance.surplusCompletedDays > 0 ? (
             <Text style={styles.note}>
-              {formatQadaaDayCount(balance.surplusCompletedDays)} rattrapé{balance.surplusCompletedDays === 1 ? '' : 's'}{' '}
-              au-delà du total actuel. Ils restent enregistrés : tu peux les retirer depuis l’historique.
+              {t('qadaa.ledger.surplusNote', {count: balance.surplusCompletedDays})}
             </Text>
           ) : null}
           <Pressable
-            accessibilityLabel="Ajouter des jours"
+            accessibilityLabel={t('qadaa.ledger.addDaysAccessibility')}
             accessibilityRole="button"
             onPress={onAdd}
             style={({pressed}) => [styles.addButton, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="plus-circle-outline" size={18} />
-            <Text style={styles.addButtonText}>Ajouter des jours</Text>
+            <Text style={styles.addButtonText}>{t('qadaa.ledger.addDays')}</Text>
           </Pressable>
         </View>
       </View>
@@ -176,7 +177,7 @@ export default function QadaaLedgerSections({
             <View style={styles.headerIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="calendar-star" size={16} />
             </View>
-            <Text style={styles.headerTitle}>Historique</Text>
+            <Text style={styles.headerTitle}>{t('qadaa.ledger.historyTitle')}</Text>
             <View style={styles.statusPill}>
               <Text style={styles.statusPillText}>{status.label}</Text>
             </View>
@@ -185,22 +186,22 @@ export default function QadaaLedgerSections({
 
           {automaticEntries.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>Détectés automatiquement</Text>
+              <Text style={styles.groupTitle}>{t('qadaa.ledger.automaticDetected')}</Text>
               {automaticEntries.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
                   actions={undefined}
-                  badge="Automatique"
+                  badge={t('qadaa.ledger.automaticBadge')}
                   icon="calendar-check"
                   index={index}
                   lines={[
-                    'Détectés à partir du suivi des règles (non modifiable ici)',
+                    t('qadaa.ledger.automaticHint'),
                     `${formatQadaaHistoryHijriRange(entry)} (${formatQadaaHistoryGregorianRange(entry)})`,
                   ]}
                   styles={styles}
                   subtitle={formatQadaaDayCount(entry.ramadanDays)}
                   theme={theme}
-                  title={`Ramadan ${entry.hijriYear} AH`}
+                  title={t('qadaa.ramadanYearHijri', {year: entry.hijriYear})}
                 />
               ))}
             </>
@@ -208,26 +209,26 @@ export default function QadaaLedgerSections({
 
           {sortedManual.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>Ajoutés manuellement</Text>
+              <Text style={styles.groupTitle}>{t('qadaa.ledger.manuallyAdded')}</Text>
               {sortedManual.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
                   actions={[
                     {
-                      label: 'Modifier',
-                      accessibilityLabel: `Modifier ${formatQadaaManualTitle(entry)}`,
+                      label: t('qadaa.ledger.editAction'),
+                      accessibilityLabel: t('qadaa.ledger.editAccessibility', {title: formatQadaaManualTitle(entry)}),
                       icon: 'pencil-outline',
                       onPress: () => onEditManual(entry),
                     },
                     {
-                      label: 'Supprimer',
-                      accessibilityLabel: `Supprimer ${formatQadaaManualTitle(entry)}`,
+                      label: t('qadaa.ledger.deleteAction'),
+                      accessibilityLabel: t('qadaa.ledger.deleteAccessibility', {title: formatQadaaManualTitle(entry)}),
                       icon: 'trash-can-outline',
                       destructive: true,
                       onPress: () => onDeleteManual(entry),
                     },
                   ]}
-                  badge="Manuel"
+                  badge={t('qadaa.ledger.manualBadge')}
                   icon="pencil-plus-outline"
                   index={index}
                   lines={entry.note ? [entry.note] : undefined}
@@ -242,20 +243,20 @@ export default function QadaaLedgerSections({
 
           {sortedCompletions.length > 0 ? (
             <>
-              <Text style={styles.groupTitle}>Jours rattrapés</Text>
+              <Text style={styles.groupTitle}>{t('qadaa.ledger.completedGroupTitle')}</Text>
               {sortedCompletions.map((entry, index) => (
                 <HistoryRow
                   key={entry.id}
                   actions={[
                     {
-                      label: 'Annuler',
-                      accessibilityLabel: `Annuler le rattrapage du ${formatQadaaCompletionTitle(entry)}`,
+                      label: t('qadaa.ledger.undoAction'),
+                      accessibilityLabel: t('qadaa.ledger.undoAccessibility', {title: formatQadaaCompletionTitle(entry)}),
                       icon: 'undo-variant',
                       destructive: true,
                       onPress: () => onUndoCompletion(entry),
                     },
                   ]}
-                  badge="Rattrapé"
+                  badge={t('qadaa.ledger.caughtUpBadge')}
                   icon="check-circle-outline"
                   index={index}
                   styles={styles}

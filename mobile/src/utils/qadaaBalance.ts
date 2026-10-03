@@ -1,4 +1,5 @@
 import type {QadaaCompletionEntry, QadaaManualEntry} from '../state/qadaaLedgerStore';
+import i18n from '../i18n';
 
 // The ONE authoritative Qadaa balance calculation. Every consumer — the hook
 // behind FastingQadaaScreen and the dashboards (useQadaaStatus) and the
@@ -63,8 +64,6 @@ export type QadaaBalanceStatus = {
   label: string;
 };
 
-const plural = (count: number, one: string, many: string) => `${count} ${count === 1 ? one : many}`;
-
 /**
  * Truthful, derived status wording for the balance (used by the history header).
  * Never says "À jour" while days remain: with a positive remainder it says how
@@ -72,10 +71,10 @@ const plural = (count: number, one: string, many: string) => `${count} ${count =
  */
 export function describeQadaaBalanceStatus(balance: QadaaBalance): QadaaBalanceStatus {
   if (balance.remainingDays > 0) {
-    return {kind: 'remaining', label: plural(balance.remainingDays, 'jour restant', 'jours restants')};
+    return {kind: 'remaining', label: i18n.t('qadaa.remainingDays', {count: balance.remainingDays})};
   }
   if (balance.totalDays > 0) {
-    return {kind: 'all-made-up', label: 'Tout est rattrapé'};
+    return {kind: 'all-made-up', label: i18n.t('qadaa.allMadeUp')};
   }
-  return {kind: 'none', label: 'À jour'};
+  return {kind: 'none', label: i18n.t('spiritualGuidance.upToDate')};
 }

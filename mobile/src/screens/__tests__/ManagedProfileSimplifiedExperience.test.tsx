@@ -8,6 +8,8 @@ import HelpSupportScreen from '../HelpSupportScreen';
 import {FAQScreen} from '../SupportResourcesScreens';
 import {addManagedProfile, resetManagedProfilesForTests} from '../../state/managedProfilesStore';
 import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Two DIFFERENT managed daughters are used across this file's tests (Hanane / Lina)
 // so no single test accidentally proves isolation with only one profile.
@@ -69,6 +71,11 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
 beforeEach(async () => {
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

@@ -2,6 +2,7 @@ import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
 import {Modal, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -26,6 +27,7 @@ type Props = {
  * invoked at most once per opening even on rapid double taps.
  */
 function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -64,7 +66,6 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
   };
 
   const destructiveText = pickReadableTextColor(theme.colors.danger);
-  const singular = shown?.quantity === 1;
 
   return (
     <Modal animationType="fade" onRequestClose={cancel} statusBarTranslucent transparent visible={entry !== null}>
@@ -74,7 +75,7 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
           {paddingTop: Math.max(insets.top, 16), paddingBottom: Math.max(insets.bottom, 16)},
         ]}>
         <Pressable
-          accessibilityLabel="Fermer sans supprimer"
+          accessibilityLabel={t('qadaa.deleteModal.closeAccessibility')}
           accessibilityRole="button"
           onPress={cancel}
           style={styles.backdrop}
@@ -85,13 +86,12 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
               <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={26} />
             </View>
 
-            <Text accessibilityRole="header" style={styles.title}>Supprimer ces jours ?</Text>
+            <Text accessibilityRole="header" style={styles.title}>{t('qadaa.deleteModal.title')}</Text>
 
             {summary ? (
               <>
                 <Text style={styles.body}>
-                  Tu es sur le point de supprimer {summary.quantityLabel} ajouté{singular ? '' : 's'} manuellement. Cette
-                  action retirera ces jours de ton solde de jeûnes à rattraper.
+                  {t('qadaa.deleteModal.body', {count: shown?.quantity ?? 0, quantityLabel: summary.quantityLabel})}
                 </Text>
 
                 <View style={styles.summaryCard}>
@@ -100,15 +100,14 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
                   {summary.yearHint ? <Text style={styles.summaryHint}>{summary.yearHint}</Text> : null}
                   {summary.note ? (
                     <View style={styles.noteBlock}>
-                      <Text style={styles.noteLabel}>Note</Text>
+                      <Text style={styles.noteLabel}>{t('qadaa.deleteModal.noteLabel')}</Text>
                       <Text numberOfLines={4} style={styles.noteText}>« {summary.note} »</Text>
                     </View>
                   ) : null}
                 </View>
 
                 <Text style={styles.reassurance}>
-                  Cette action supprimera uniquement cette entrée ajoutée manuellement. Tes jours détectés automatiquement
-                  et tes jours déjà rattrapés ne sont pas modifiés.
+                  {t('qadaa.deleteModal.reassurance')}
                 </Text>
               </>
             ) : null}
@@ -116,22 +115,22 @@ function QadaaDeleteConfirmModal({entry, onCancel, onConfirm}: Props): React.JSX
 
           <View style={styles.actions}>
             <Pressable
-              accessibilityLabel="Annuler la suppression"
+              accessibilityLabel={t('qadaa.deleteModal.cancelAccessibility')}
               accessibilityRole="button"
               accessibilityState={{disabled: deleting}}
               disabled={deleting}
               onPress={cancel}
               style={({pressed}) => [styles.button, styles.cancelButton, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>Annuler</Text>
+              <Text style={styles.cancelText}>{t('qadaa.deleteModal.cancelText')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Confirmer la suppression"
+              accessibilityLabel={t('qadaa.deleteModal.confirmAccessibility')}
               accessibilityRole="button"
               accessibilityState={{disabled: deleting, busy: deleting}}
               disabled={deleting}
               onPress={confirm}
               style={({pressed}) => [styles.button, styles.deleteButton, (pressed || deleting) && styles.pressed]}>
-              <Text style={[styles.deleteText, {color: destructiveText}]}>{deleting ? 'Suppression…' : 'Supprimer'}</Text>
+              <Text style={[styles.deleteText, {color: destructiveText}]}>{deleting ? t('qadaa.deleteModal.deleting') : t('qadaa.deleteModal.confirmText')}</Text>
             </Pressable>
           </View>
         </View>

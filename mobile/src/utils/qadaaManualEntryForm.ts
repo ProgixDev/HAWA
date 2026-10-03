@@ -8,6 +8,7 @@ import {
   type QadaaYearSystem,
 } from '../state/qadaaLedgerStore';
 import {addDays, formatFullDate, startOfDay} from './cycleMath';
+import i18n from '../i18n';
 
 // Validation + French wording for the manual Qadaa form and the history cards.
 // Manual entries are USER-DECLARED: nothing here infers a religious reason, and
@@ -47,18 +48,18 @@ export function classifyQadaaYear(year: number, now: Date = new Date()): QadaaYe
 export function validateQadaaManualForm(values: QadaaManualFormValues, now: Date = new Date()): QadaaManualFormResult {
   const quantityText = values.quantityText.trim();
   if (!quantityText) {
-    return {ok: false, field: 'quantity', message: 'Indique le nombre de jours.'};
+    return {ok: false, field: 'quantity', message: i18n.t('qadaa.errors.quantityRequired')};
   }
   // Digits only: "2.5", "-3", "1e3", "0x10", "٢" are all rejected rather than parsed loosely.
   if (!/^\d{1,4}$/.test(quantityText)) {
-    return {ok: false, field: 'quantity', message: 'Entre un nombre entier de jours (par exemple 2).'};
+    return {ok: false, field: 'quantity', message: i18n.t('qadaa.errors.quantityInteger')};
   }
   const quantity = Number(quantityText);
   if (quantity < 1) {
-    return {ok: false, field: 'quantity', message: 'Le nombre de jours doit être d’au moins 1.'};
+    return {ok: false, field: 'quantity', message: i18n.t('qadaa.errors.quantityMin')};
   }
   if (quantity > QADAA_MAX_DAYS_PER_ENTRY) {
-    return {ok: false, field: 'quantity', message: `Le nombre de jours ne peut pas dépasser ${QADAA_MAX_DAYS_PER_ENTRY}.`};
+    return {ok: false, field: 'quantity', message: i18n.t('qadaa.errors.quantityMax', {max: QADAA_MAX_DAYS_PER_ENTRY})};
   }
 
   const note = values.note.trim().slice(0, QADAA_MAX_NOTE_LENGTH) || null;
@@ -69,26 +70,28 @@ export function validateQadaaManualForm(values: QadaaManualFormValues, now: Date
 
   const yearText = values.yearText.trim();
   if (!/^\d{4}$/.test(yearText)) {
-    return {ok: false, field: 'year', message: 'Entre une année à 4 chiffres (par exemple 1445 ou 2018), ou choisis « Année inconnue ».'};
+    return {ok: false, field: 'year', message: i18n.t('qadaa.errors.yearFormat')};
   }
   const year = Number(yearText);
   const yearSystem = classifyQadaaYear(year, now);
   if (!yearSystem) {
-    return {ok: false, field: 'year', message: 'Cette année ne semble pas valide. Utilise une année hégirienne (ex. 1445) ou grégorienne (ex. 2018).'};
+    return {ok: false, field: 'year', message: i18n.t('qadaa.errors.yearInvalid')};
   }
   return {ok: true, value: {quantity, year, yearSystem, note}};
 }
 
-export const formatQadaaDayCount = (count: number): string => `${count} ${count === 1 ? 'jour' : 'jours'}`;
+export const formatQadaaDayCount = (count: number): string => i18n.t('qadaa.dayCount', {count});
 
 /** "Ramadan 1445 AH" / "Ramadan 2018" / "Ancien solde". */
 export function formatQadaaManualTitle(entry: Pick<QadaaManualEntry, 'year' | 'yearSystem'>): string {
-  if (entry.year === null) {return 'Ancien solde';}
-  return entry.yearSystem === 'hijri' ? `Ramadan ${entry.year} AH` : `Ramadan ${entry.year}`;
+  if (entry.year === null) {return i18n.t('qadaa.previousBalance');}
+  return entry.yearSystem === 'hijri'
+    ? i18n.t('qadaa.ramadanYearHijri', {year: entry.year})
+    : i18n.t('qadaa.ramadanYearGregorian', {year: entry.year});
 }
 
 export function formatQadaaManualSummary(entry: Pick<QadaaManualEntry, 'quantity'>): string {
-  return `${formatQadaaDayCount(entry.quantity)} ajouté${entry.quantity === 1 ? '' : 's'} manuellement`;
+  return i18n.t('qadaa.addedManually', {count: entry.quantity});
 }
 
 export type QadaaManualEntryDeleteSummary = {
@@ -113,15 +116,17 @@ export function describeQadaaManualEntryForDelete(
   const quantityLabel = formatQadaaDayCount(entry.quantity);
   const note = entry.note?.trim() || null;
   if (entry.year === null || entry.yearSystem === null) {
-    return {quantityLabel, yearLabel: 'Ancien solde', yearHint: 'Année non renseignée', note};
+    return {quantityLabel, yearLabel: i18n.t('qadaa.previousBalance'), yearHint: i18n.t('qadaa.yearNotProvided'), note};
   }
   if (entry.yearSystem === 'gregorian') {
-    return {quantityLabel, yearLabel: `Ramadan ${entry.year}`, yearHint: null, note};
+    return {quantityLabel, yearLabel: i18n.t('qadaa.ramadanYearGregorian', {year: entry.year}), yearHint: null, note};
   }
   const match = buildQadaaRamadanYearOptions(today).find(option => option.year === entry.year);
   return {
     quantityLabel,
-    yearLabel: match?.gregorianYear ? `Ramadan ${match.gregorianYear} (${entry.year} AH)` : `Ramadan ${entry.year} AH`,
+    yearLabel: match?.gregorianYear
+      ? i18n.t('qadaa.ramadanYearBoth', {gregorianYear: match.gregorianYear, year: entry.year})
+      : i18n.t('qadaa.ramadanYearHijri', {year: entry.year}),
     yearHint: null,
     note,
   };
@@ -144,8 +149,8 @@ export function formatQadaaCompletionTitle(entry: Pick<QadaaCompletionEntry, 'co
 }
 
 export function formatQadaaCompletionSummary(entry: Pick<QadaaCompletionEntry, 'quantity' | 'origin'>): string {
-  const base = `${formatQadaaDayCount(entry.quantity)} rattrapé${entry.quantity === 1 ? '' : 's'}`;
-  return entry.origin === 'MIGRATED' ? `${base} (suivi précédent)` : base;
+  const base = i18n.t('qadaa.completedSummary', {count: entry.quantity});
+  return entry.origin === 'MIGRATED' ? `${base} (${i18n.t('qadaa.migratedSuffix')})` : base;
 }
 
 /* ============================================================
@@ -170,9 +175,9 @@ export function parseQadaaQuantityText(text: string): number | null {
 
 /** "Ajouter 2 jours à rattraper" — updates with the quantity, correct singular / plural. */
 export function formatQadaaSubmitLabel(quantityText: string, editing: boolean): string {
-  if (editing) {return 'Enregistrer les modifications';}
+  if (editing) {return i18n.t('qadaa.saveChanges');}
   const quantity = parseQadaaQuantityText(quantityText);
-  return quantity === null ? 'Ajouter des jours à rattraper' : `Ajouter ${formatQadaaDayCount(quantity)} à rattraper`;
+  return quantity === null ? i18n.t('qadaa.addDaysGeneric') : i18n.t('qadaa.addDaysCount', {count: quantity});
 }
 
 export type QadaaRamadanYearOption = {
