@@ -11,6 +11,8 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import ConceiveCalendarContent from '../ConceiveCalendarContent';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {saveJournalSection} from '../../../state/dailyJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M21 - the Conceive Calendar's selected-day rows open the matching journal
 // for THAT day (today or past). Rapports stays non-interactive (its private
@@ -78,6 +80,11 @@ beforeEach(async () => {
     cycleDuration: 28,
     regularity: 'yes',
   });
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

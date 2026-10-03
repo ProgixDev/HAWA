@@ -12,6 +12,8 @@ import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {saveJournalSection} from '../../../state/dailyJournalStore';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {addDays} from '../../../utils/cycleMath';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M6 — Conceive statistics: (1) a changed cycle length refreshes the screen,
 // (2) a CONFIGURED cycle length is never worded as a measured average,
@@ -88,6 +90,11 @@ beforeEach(async () => {
   resetPremiumStateForTests();
   await AsyncStorage.clear();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

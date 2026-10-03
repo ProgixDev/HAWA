@@ -18,6 +18,8 @@ import {deleteJournalSection, getAllJournalEntries, saveJournalSection} from '..
 import {decryptIntimacySection, encryptIntimacySection, resolveIntimacySection} from '../../../services/privateJournalEncryption';
 import {lockIntimacy, unlockIntimacy} from '../../../state/privateSectionAuthStore';
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // CONCEIVE-01 - "Rapports" saved but not reflected on the Conceive Dashboard nor
 // counted in Statistics. ROOT CAUSE: Hermes (the release runtime) has no
@@ -128,6 +130,11 @@ beforeEach(async () => {
   lockIntimacy();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
   setCyclePreferences({...getCyclePreferences(), lastPeriodStart: new Date(2026, 8, 20), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {
