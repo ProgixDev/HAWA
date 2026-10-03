@@ -20,6 +20,8 @@ import {addManagedProfile, getManagedProfiles, resetManagedProfilesForTests} fro
 import {OWNER_PROFILE_ID, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
 import {recordManagedProfileFirstPeriod} from '../../state/managedProfileCycleSeed';
 import {computeCyclePredictionStatus} from '../../utils/cycleMath';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Dedicated PRE-FIRST-PERIOD dashboard/calendar state for managed daughter
 // profiles who answered "Non, pas encore" to "A-t-elle déjà eu ses premières
@@ -85,6 +87,11 @@ beforeEach(async () => {
   await resetActiveProfileForTests();
   // The owner's own cycle stays fully confirmed and untouched throughout.
   setCyclePreferences({lastPeriodStart: new Date(2026, 8, 1), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

@@ -10,6 +10,8 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import FastingQadaaScreen from '../FastingQadaaScreen';
 import {isRamadan} from '../../utils/hijriCalendar';
 import {buildQadaaRamadanYearOptions} from '../../utils/qadaaManualEntryForm';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 import {
   getConfirmedPeriodHistory,
   recordConfirmedPeriodEnd,
@@ -108,6 +110,11 @@ beforeEach(async () => {
   for (const entry of [...getQadaaLedger().manualEntries]) {await removeManualQadaaEntry(entry.id);}
   for (const entry of [...getQadaaLedger().completions]) {await undoQadaaCompletion(entry.id);}
   for (const occurrence of getConfirmedPeriodHistory()) {await removeConfirmedPeriodOccurrence(new Date(occurrence.periodStart));}
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

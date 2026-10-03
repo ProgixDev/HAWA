@@ -2,6 +2,7 @@ import React, {memo, useEffect, useMemo, useRef, useState} from 'react';
 import {Modal, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -25,6 +26,7 @@ type Props = {
  * most once per opening even on rapid double taps.
  */
 function ManagedProfileDeleteConfirmModal({profile, onCancel, onConfirm}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -70,7 +72,7 @@ function ManagedProfileDeleteConfirmModal({profile, onCancel, onConfirm}: Props)
           {paddingTop: Math.max(insets.top, 16), paddingBottom: Math.max(insets.bottom, 16)},
         ]}>
         <Pressable
-          accessibilityLabel="Fermer sans supprimer"
+          accessibilityLabel={t('managedProfile.deleteModal.closeAccessibility')}
           accessibilityRole="button"
           onPress={cancel}
           style={styles.backdrop}
@@ -81,13 +83,13 @@ function ManagedProfileDeleteConfirmModal({profile, onCancel, onConfirm}: Props)
               <MaterialDesignIcons color={theme.colors.danger} name="trash-can-outline" size={26} />
             </View>
 
-            <Text accessibilityRole="header" style={styles.title}>Supprimer ce profil ?</Text>
+            <Text accessibilityRole="header" style={styles.title}>{t('managedProfile.deleteModal.title')}</Text>
 
             {shown ? (
               <>
-                <Text style={styles.body}>Voulez-vous vraiment supprimer le profil de {shown.firstName} ?</Text>
+                <Text style={styles.body}>{t('managedProfile.deleteModal.body', {firstName: shown.firstName})}</Text>
                 <Text style={styles.reassurance}>
-                  Les informations enregistrées pour ce profil seront supprimées.
+                  {t('managedProfile.deleteModal.reassurance')}
                 </Text>
               </>
             ) : null}
@@ -95,23 +97,23 @@ function ManagedProfileDeleteConfirmModal({profile, onCancel, onConfirm}: Props)
 
           <View style={styles.actions}>
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('managedProfile.deleteModal.cancelAccessibility')}
               accessibilityRole="button"
               accessibilityState={{disabled: deleting}}
               disabled={deleting}
               onPress={cancel}
               style={({pressed}) => [styles.button, styles.cancelButton, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>Annuler</Text>
+              <Text style={styles.cancelText}>{t('managedProfile.deleteModal.cancelText')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel={shown ? `Confirmer la suppression du profil de ${shown.firstName}` : 'Confirmer la suppression'}
+              accessibilityLabel={shown ? t('managedProfile.deleteModal.confirmAccessibilityNamed', {firstName: shown.firstName}) : t('managedProfile.deleteModal.confirmAccessibility')}
               accessibilityRole="button"
               accessibilityState={{disabled: deleting, busy: deleting}}
               disabled={deleting}
               onPress={confirm}
               style={({pressed}) => [styles.button, styles.deleteButton, (pressed || deleting) && styles.pressed]}>
               <Text style={[styles.deleteText, {color: destructiveText}]}>
-                {deleting ? 'Suppression…' : 'Supprimer le profil'}
+                {deleting ? t('managedProfile.deleteModal.deleting') : t('managedProfile.deleteModal.confirmText')}
               </Text>
             </Pressable>
           </View>

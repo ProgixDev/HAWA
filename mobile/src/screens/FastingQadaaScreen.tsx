@@ -29,6 +29,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
@@ -48,7 +49,6 @@ import {
 } from '../state/qadaaLedgerStore';
 import {
   formatQadaaCompletionTitle,
-  formatQadaaDayCount,
 } from '../utils/qadaaManualEntryForm';
 
 import {
@@ -72,6 +72,8 @@ const LANTERN_IMAGE = require('../assets/images/qadaa-lantern.png');
 /* -------------------------------------------------------------------------- */
 
 function FastingQadaaScreen(): React.JSX.Element {
+  const {t} = useTranslation();
+
   const navigation =
     useNavigation<
       NavigationProp<RootStackParamList>
@@ -288,9 +290,7 @@ function FastingQadaaScreen(): React.JSX.Element {
     (remainingQadaaDays ?? 0) > 0;
 
   const dayLabel =
-    (remainingQadaaDays ?? 0) > 1
-      ? 'jours à rattraper'
-      : 'jour à rattraper';
+    t('qadaa.daysToMakeUpLabel', {count: remainingQadaaDays ?? 0});
 
   /* ------------------------------------------------------------------------ */
   /*                    MARK ONE FAST AS COMPLETED                            */
@@ -337,21 +337,21 @@ function FastingQadaaScreen(): React.JSX.Element {
       throw error;
     }
     setDeleteTarget(null);
-    toast.show('Entrée supprimée', 'Ton solde a été mis à jour.');
+    toast.show(t('qadaa.entryDeletedToastTitle'), t('qadaa.balanceUpdatedToastMessage'));
   };
 
   const confirmUndoCompletion = (entry: QadaaCompletionEntry) => {
     Alert.alert(
-      'Annuler ce rattrapage ?',
-      `${formatQadaaCompletionTitle(entry)} : ${formatQadaaDayCount(entry.quantity)} rattrapé${entry.quantity === 1 ? '' : 's'} ${entry.quantity === 1 ? 'sera remis' : 'seront remis'} dans ton solde.`,
+      t('qadaa.undoCompletionTitle'),
+      t('qadaa.undoCompletionMessage', {title: formatQadaaCompletionTitle(entry), count: entry.quantity}),
       [
-        {text: 'Garder', style: 'cancel'},
+        {text: t('qadaa.keepButton'), style: 'cancel'},
         {
-          text: 'Annuler le rattrapage',
+          text: t('qadaa.undoButton'),
           style: 'destructive',
           onPress: () => {
             undoQadaaCompletion(entry.id)
-              .then(() => toast.show('Rattrapage annulé', 'Ton solde a été mis à jour.'))
+              .then(() => toast.show(t('qadaa.undoneToastTitle'), t('qadaa.balanceUpdatedToastMessage')))
               .catch(error => console.warn('[FastingQadaaScreen] Unable to undo qadaa completion:', error));
           },
         },
@@ -391,7 +391,7 @@ function FastingQadaaScreen(): React.JSX.Element {
 
           <View style={styles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -419,12 +419,12 @@ function FastingQadaaScreen(): React.JSX.Element {
                 minimumFontScale={0.82}
                 numberOfLines={1}
                 style={styles.headerTitle}>
-                Jeûnes à rattraper
+                {t('qadaa.title')}
               </Text>
             </View>
 
             <Pressable
-              accessibilityLabel="À propos des jeûnes à rattraper"
+              accessibilityLabel={t('qadaa.aboutAccessibility')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={() =>
@@ -448,10 +448,10 @@ function FastingQadaaScreen(): React.JSX.Element {
           <Animated.View
             accessibilityLabel={
               loading
-                ? 'Chargement de ton suivi de jeûnes à rattraper'
+                ? t('qadaa.heroAccessibilityLoading')
                 : isZero
-                  ? 'À jour, aucun jour de jeûne à rattraper actuellement'
-                  : `${remainingQadaaDays} ${dayLabel}`
+                  ? t('qadaa.heroAccessibilityZero')
+                  : t('qadaa.heroAccessibilityCount', {count: remainingQadaaDays ?? 0})
             }
             style={[
               styles.hero,
@@ -483,7 +483,7 @@ function FastingQadaaScreen(): React.JSX.Element {
             {loading ? (
               <View style={styles.heroContent}>
                 <Text style={styles.heroEyebrow}>
-                  JEÛNES À RATTRAPER
+                  {t('qadaa.eyebrow')}
                 </Text>
 
                 <Text style={styles.loadingDash}>
@@ -491,13 +491,13 @@ function FastingQadaaScreen(): React.JSX.Element {
                 </Text>
 
                 <Text style={styles.loadingText}>
-                  Chargement du suivi…
+                  {t('qadaa.loading')}
                 </Text>
               </View>
             ) : (
               <View style={styles.heroContent}>
                 <Text style={styles.heroEyebrow}>
-                  JEÛNES À RATTRAPER
+                  {t('qadaa.eyebrow')}
                 </Text>
 
                 <Animated.Text
@@ -524,7 +524,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                       style={
                         styles.greenPillText
                       }>
-                      À jour
+                      {t('spiritualGuidance.upToDate')}
                     </Text>
                   </View>
                 ) : hijriYear ? (
@@ -533,7 +533,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                       style={
                         styles.yearPillText
                       }>
-                      Ramadan {hijriYear} AH
+                      {t('qadaa.ramadanYearHijri', {year: hijriYear})}
                     </Text>
                   </View>
                 ) : null}
@@ -543,9 +543,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                     style={
                       styles.zeroSubtitle
                     }>
-                    Al-hamdulillah, tu es à
-                    jour dans tes jeûnes à
-                    rattraper.
+                    {t('qadaa.allHamdulillahSubtitle')}
                   </Text>
                 ) : null}
               </View>
@@ -582,8 +580,8 @@ function FastingQadaaScreen(): React.JSX.Element {
                     styles.reminderTitle
                   }>
                   {showReminder
-                    ? 'Rappel de rattrapage'
-                    : 'Rappel'}
+                    ? t('qadaa.reminderTitleActive')
+                    : t('qadaa.reminderTitleIdle')}
                 </Text>
 
                 <Text
@@ -591,8 +589,8 @@ function FastingQadaaScreen(): React.JSX.Element {
                     styles.reminderText
                   }>
                   {showReminder
-                    ? 'Il te reste des jours de jeûne à rattraper. Organise ton suivi à ton rythme.'
-                    : 'Si de nouveaux jours deviennent dus, nous t’en informerons après Ramadan.'}
+                    ? t('qadaa.reminderTextActive')
+                    : t('qadaa.reminderTextIdle')}
                 </Text>
               </View>
             </Animated.View>
@@ -637,17 +635,12 @@ function FastingQadaaScreen(): React.JSX.Element {
                   style={
                     styles.aboutTitle
                   }>
-                  À propos des jeûnes à
-                  rattraper
+                  {t('qadaa.aboutTitle')}
                 </Text>
               </View>
 
               <Text style={styles.aboutText}>
-                Les jours de jeûne manqués à
-                cause des règles pendant
-                Ramadan doivent être
-                rattrapés plus tard. Allâh
-                sait mieux.
+                {t('qadaa.aboutText')}
               </Text>
             </View>
 
@@ -698,22 +691,21 @@ function FastingQadaaScreen(): React.JSX.Element {
                     style={
                       styles.completionTitle
                     }>
-                    Tu as rattrapé un jeûne ?
+                    {t('qadaa.completionTitle')}
                   </Text>
 
                   <Text
                     style={
                       styles.completionSubtitle
                     }>
-                    Enregistre un jour accompli
-                    pour actualiser ton suivi.
+                    {t('qadaa.completionSubtitle')}
                   </Text>
                 </View>
               </View>
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Marquer un jour de jeûne comme rattrapé"
+                accessibilityLabel={t('qadaa.markCompletedAccessibility')}
                 accessibilityState={{
                   disabled:
                     markingCompleted,
@@ -748,8 +740,8 @@ function FastingQadaaScreen(): React.JSX.Element {
                     styles.completionButtonText
                   }>
                   {markingCompleted
-                    ? 'Enregistrement…'
-                    : 'Marquer comme rattrapé'}
+                    ? t('qadaa.saving')
+                    : t('qadaa.markCompleted')}
                 </Text>
               </Pressable>
 
@@ -764,10 +756,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                   style={
                     styles.remainingHintText
                   }>
-                  {remainingQadaaDays}{' '}
-                  {remainingQadaaDays === 1
-                    ? 'jour restant'
-                    : 'jours restants'}
+                  {t('qadaa.remainingDays', {count: remainingQadaaDays ?? 0})}
                 </Text>
               </View>
             </View>
@@ -786,15 +775,14 @@ function FastingQadaaScreen(): React.JSX.Element {
                   style={
                     styles.completedTitle
                   }>
-                  Tous les jeûnes sont rattrapés
+                  {t('qadaa.allCompletedTitle')}
                 </Text>
 
                 <Text
                   style={
                     styles.completedText
                   }>
-                  Ton suivi est maintenant à
-                  jour.
+                  {t('qadaa.allCompletedText')}
                 </Text>
               </View>
             </View>
@@ -818,8 +806,7 @@ function FastingQadaaScreen(): React.JSX.Element {
               style={
                 styles.motivationText
               }>
-              Prends soin de toi, tu es
-              précieuse
+              {t('qadaa.motivationText')}
             </Text>
 
             <MaterialDesignIcons
@@ -836,8 +823,8 @@ function FastingQadaaScreen(): React.JSX.Element {
         onClose={() => setManualModal(null)}
         onSaved={mode =>
           toast.show(
-            mode === 'added' ? 'Jours ajoutés' : 'Jours modifiés',
-            'Ton solde a été mis à jour.',
+            mode === 'added' ? t('qadaa.addedToastTitle') : t('qadaa.editedToastTitle'),
+            t('qadaa.balanceUpdatedToastMessage'),
           )
         }
         visible={manualModal !== null}
@@ -869,7 +856,7 @@ function FastingQadaaScreen(): React.JSX.Element {
         }>
 
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           onPress={() =>
             setHelpVisible(false)
           }
@@ -888,27 +875,19 @@ function FastingQadaaScreen(): React.JSX.Element {
             </View>
 
             <Text style={styles.modalTitle}>
-              Jeûnes à rattraper
+              {t('qadaa.title')}
             </Text>
 
             <Text style={styles.modalText}>
-              Cette section t’aide à suivre
-              les jours de jeûne manqués à
-              cause des règles pendant
-              Ramadan.
+              {t('qadaa.helpParagraph1')}
             </Text>
 
             <Text style={styles.modalText}>
-              Les jours détectés automatiquement viennent de
-              ton suivi des règles pendant Ramadan. Tu peux
-              aussi ajouter toi-même des jours, même anciens.
-              Lorsque tu rattrapes un jour, marque-le comme
-              accompli afin que ton nombre de jours restants
-              reste à jour.
+              {t('qadaa.helpParagraph2')}
             </Text>
 
             <Pressable
-              accessibilityLabel="Fermer cette fenêtre d’aide"
+              accessibilityLabel={t('qadaa.closeHelpAccessibility')}
               accessibilityRole="button"
               onPress={() =>
                 setHelpVisible(false)
@@ -922,7 +901,7 @@ function FastingQadaaScreen(): React.JSX.Element {
                 style={
                   styles.modalButtonText
                 }>
-                Fermer
+                {t('common.close')}
               </Text>
             </Pressable>
           </Pressable>

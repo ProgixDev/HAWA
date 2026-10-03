@@ -12,6 +12,8 @@ import {useQadaaStatus, type QadaaStatus} from '../../hooks/useQadaaStatus';
 import {isRamadan} from '../../utils/hijriCalendar';
 import {buildQadaaRamadanYearOptions} from '../../utils/qadaaManualEntryForm';
 import {setSelectedObjective, setSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 import {
   getConfirmedPeriodHistory,
   recordConfirmedPeriodEnd,
@@ -118,6 +120,11 @@ beforeEach(async () => {
   for (const occurrence of getConfirmedPeriodHistory()) {await removeConfirmedPeriodOccurrence(new Date(occurrence.periodStart));}
   await setSelectedObjective('cycle');
   setSpiritualMarkersEnabled(true);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

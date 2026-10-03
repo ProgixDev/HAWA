@@ -1,6 +1,7 @@
 import {formatFullDate, formatShortDate, addDays, startOfDay} from './cycleMath';
 import {hijriPartsFor, isRamadan} from './hijriCalendar';
 import type {ConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
+import i18n from '../i18n';
 
 export type QadaaHistoryEntry = {
   id: string;
@@ -66,8 +67,8 @@ export function summarizeQadaaHistoryEntry(occurrence: ConfirmedPeriodOccurrence
 
 export const formatQadaaHistoryHijriRange = (entry: QadaaHistoryEntry): string =>
   entry.hijriDayStart === entry.hijriDayEnd
-    ? `${entry.hijriDayStart} Ramadan ${entry.hijriYear} AH`
-    : `${entry.hijriDayStart} au ${entry.hijriDayEnd} Ramadan ${entry.hijriYear} AH`;
+    ? i18n.t('qadaa.historyRangeSameDay', {day: entry.hijriDayStart, year: entry.hijriYear})
+    : i18n.t('qadaa.historyRangeSpan', {dayStart: entry.hijriDayStart, dayEnd: entry.hijriDayEnd, year: entry.hijriYear});
 
 export const formatQadaaHistoryGregorianRange = (entry: QadaaHistoryEntry): string => {
   const sameYear = entry.gregorianStart.getFullYear() === entry.gregorianEnd.getFullYear();

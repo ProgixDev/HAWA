@@ -9,6 +9,8 @@ import {addManagedProfile, resetManagedProfilesForTests} from '../../state/manag
 import {resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 const TEST_METRICS: Metrics = {
   frame: {x: 0, y: 0, width: 360, height: 740},
@@ -43,6 +45,11 @@ beforeEach(async () => {
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

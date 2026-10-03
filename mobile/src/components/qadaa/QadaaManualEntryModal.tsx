@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -61,6 +62,7 @@ const DEFAULT_QUANTITY = '1';
  * history limit does not apply: it never touches the menstrual history.
  */
 function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -115,7 +117,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
   const submit = async () => {
     if (submittingRef.current) {return;}
     if (knowsYear && !yearText) {
-      setError({field: 'year', message: 'Choisis l’année du Ramadan, ou sélectionne « Non, je ne m’en souviens plus ».'});
+      setError({field: 'year', message: t('qadaa.form.yearRequiredError')});
       return;
     }
     const result = validateQadaaManualForm({quantityText, knowsYear, yearText, note});
@@ -137,7 +139,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
     } catch {
       submittingRef.current = false;
       setSaving(false);
-      setError({field: 'quantity', message: 'Impossible d’enregistrer pour le moment. Réessaie.'});
+      setError({field: 'quantity', message: t('qadaa.form.saveFailedError')});
     }
   };
 
@@ -174,7 +176,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.root}>
-        <Pressable accessibilityLabel="Fermer" onPress={onClose} style={styles.overlay} />
+        <Pressable accessibilityLabel={t('common.close')} onPress={onClose} style={styles.overlay} />
         <View style={[styles.card, {marginTop: Math.max(insets.top, 16) + 8, marginBottom: Math.max(insets.bottom, 16)}]}>
           <ScrollView
             ref={scrollRef}
@@ -183,18 +185,17 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
             showsVerticalScrollIndicator={false}
             style={styles.scroll}>
             <Text accessibilityRole="header" style={styles.title}>
-              {editing ? 'Modifier ces jours' : 'Ajouter des jours\nà rattraper'}
+              {editing ? t('qadaa.form.titleEdit') : t('qadaa.form.titleAdd')}
             </Text>
             <Text style={styles.description}>
-              Ajoute ici des jours de jeûne que tu sais devoir rattraper, même s’ils datent de plusieurs années. Tu
-              pourras les modifier ou les supprimer à tout moment.
+              {t('qadaa.form.description')}
             </Text>
 
             {/* 1 — how many days */}
-            {stepTitle(1, 'Combien de jours veux-tu ajouter ?')}
+            {stepTitle(1, t('qadaa.form.step1Title'))}
             <View style={[styles.stepper, error?.field === 'quantity' && styles.fieldError]}>
               <TextInput
-                accessibilityLabel="Nombre de jours"
+                accessibilityLabel={t('qadaa.form.quantityAccessibility')}
                 keyboardType="number-pad"
                 maxLength={4}
                 onChangeText={text => {
@@ -206,7 +207,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
                 value={quantityText}
               />
               <Pressable
-                accessibilityLabel="Diminuer le nombre de jours"
+                accessibilityLabel={t('qadaa.form.decreaseAccessibility')}
                 accessibilityRole="button"
                 accessibilityState={{disabled: !canDecrease}}
                 disabled={!canDecrease}
@@ -217,7 +218,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
               </Pressable>
               <View style={styles.stepperDivider} />
               <Pressable
-                accessibilityLabel="Augmenter le nombre de jours"
+                accessibilityLabel={t('qadaa.form.increaseAccessibility')}
                 accessibilityRole="button"
                 accessibilityState={{disabled: !canIncrease}}
                 disabled={!canIncrease}
@@ -230,14 +231,14 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
             {error?.field === 'quantity' ? (
               <Text accessibilityRole="alert" style={styles.error}>{error.message}</Text>
             ) : (
-              <Text style={styles.helper}>Tu pourras modifier ce nombre plus tard.</Text>
+              <Text style={styles.helper}>{t('qadaa.form.quantityHelper')}</Text>
             )}
 
             {/* 2 — which Ramadan */}
-            {stepTitle(2, 'Sais-tu de quel Ramadan datent ces jours ?')}
+            {stepTitle(2, t('qadaa.form.step2Title'))}
             <View accessibilityRole="radiogroup" style={styles.radioGroup}>
-              {radioCard(knowsYear, 'Oui, je connais l’année', 'Je sais de quel Ramadan datent ces jours.', () => setKnowsYear(true))}
-              {radioCard(!knowsYear, 'Non, je ne m’en souviens plus', 'Ces jours font partie de mon ancien solde.', () => {
+              {radioCard(knowsYear, t('qadaa.form.knowsYearTitle'), t('qadaa.form.knowsYearSubtitle'), () => setKnowsYear(true))}
+              {radioCard(!knowsYear, t('qadaa.form.unknownYearTitle'), t('qadaa.form.unknownYearSubtitle'), () => {
                 setKnowsYear(false);
                 setYearListOpen(false);
                 if (error?.field === 'year') {setError(null);}
@@ -246,15 +247,15 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
 
             {knowsYear ? (
               <View style={styles.yearBlock}>
-                <Text style={styles.fieldLabel}>Année du Ramadan</Text>
+                <Text style={styles.fieldLabel}>{t('qadaa.form.yearFieldLabel')}</Text>
                 <Pressable
-                  accessibilityLabel={`Année du Ramadan : ${selectedYearOption?.label ?? 'non choisie'}`}
+                  accessibilityLabel={t('qadaa.form.yearAccessibility', {value: selectedYearOption?.label ?? t('qadaa.form.yearNotChosen')})}
                   accessibilityRole="button"
                   accessibilityState={{expanded: yearListOpen}}
                   onPress={() => setYearListOpen(open => !open)}
                   style={({pressed}) => [styles.select, error?.field === 'year' && styles.fieldError, pressed && styles.pressed]}>
                   <Text style={[styles.selectValue, !selectedYearOption && styles.selectPlaceholder]}>
-                    {selectedYearOption?.label ?? 'Choisir une année'}
+                    {selectedYearOption?.label ?? t('qadaa.form.yearPlaceholder')}
                   </Text>
                   <MaterialDesignIcons
                     color={theme.colors.textSecondary}
@@ -264,7 +265,7 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
                 </Pressable>
                 {yearListOpen ? (
                   <ScrollView
-                    accessibilityLabel="Liste des années de Ramadan"
+                    accessibilityLabel={t('qadaa.form.yearListAccessibility')}
                     keyboardShouldPersistTaps="handled"
                     nestedScrollEnabled
                     style={styles.yearList}>
@@ -296,9 +297,9 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
             ) : null}
 
             {/* 3 — optional note */}
-            {stepTitle(3, 'Ajouter une note (facultatif)')}
+            {stepTitle(3, t('qadaa.form.step3Title'))}
             <TextInput
-              accessibilityLabel="Note facultative"
+              accessibilityLabel={t('qadaa.form.noteAccessibility')}
               maxLength={QADAA_MAX_NOTE_LENGTH}
               multiline
               onChangeText={setNote}
@@ -306,13 +307,13 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
                 // Keep the note in view once the keyboard is up.
                 setTimeout(() => scrollRef.current?.scrollToEnd({animated: true}), 250);
               }}
-              placeholder="Ex. : jours qu’il me restait à rattraper"
+              placeholder={t('qadaa.form.notePlaceholder')}
               placeholderTextColor={theme.colors.textMuted}
               style={styles.noteInput}
               textAlignVertical="top"
               value={note}
             />
-            <Text accessibilityLabel={`${note.length} caractères sur ${QADAA_MAX_NOTE_LENGTH}`} style={styles.counter}>
+            <Text accessibilityLabel={t('qadaa.form.noteCounterAccessibility', {length: note.length, max: QADAA_MAX_NOTE_LENGTH})} style={styles.counter}>
               {note.length}/{QADAA_MAX_NOTE_LENGTH}
             </Text>
           </ScrollView>
@@ -325,15 +326,15 @@ function QadaaManualEntryModal({visible, entry, onClose, onSaved}: Props): React
               disabled={saving}
               onPress={submit}
               style={({pressed}) => [styles.confirm, (pressed || saving) && styles.pressed]}>
-              <Text style={styles.confirmText}>{saving ? 'Enregistrement…' : formatQadaaSubmitLabel(quantityText, editing)}</Text>
+              <Text style={styles.confirmText}>{saving ? t('qadaa.saving') : formatQadaaSubmitLabel(quantityText, editing)}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('qadaa.form.cancel')}
               accessibilityRole="button"
               disabled={saving}
               onPress={onClose}
               style={({pressed}) => [styles.cancel, pressed && styles.pressed]}>
-              <Text style={styles.cancelText}>Annuler</Text>
+              <Text style={styles.cancelText}>{t('qadaa.form.cancel')}</Text>
             </Pressable>
           </View>
         </View>
