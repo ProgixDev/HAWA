@@ -17,9 +17,9 @@ import {
   savePostpartumLochiaEntry,
 } from '../../../state/postpartumLochiaStore';
 import {
-  NIFAS_REFERENCE_APPROACHING_HEADLINE,
+  nifasReferenceApproachingHeadline,
   NIFAS_REFERENCE_DAYS,
-  NIFAS_REFERENCE_REACHED_HEADLINE,
+  nifasReferenceReachedHeadline,
   NIFAS_WARNING_DAYS,
 } from '../../../config/nifasReminderConfig';
 import {getNifasReminderStatus} from '../../../utils/postpartumTrackingUtils';
@@ -80,8 +80,8 @@ const bannerTexts = (renderer: ReactTestRenderer.ReactTestRenderer) => {
   const texts = textsOf(renderer);
   return {
     present: texts.includes('Repère du nifas'),
-    reached: texts.includes(`${NIFAS_REFERENCE_REACHED_HEADLINE}.`),
-    approaching: texts.includes(`${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`),
+    reached: texts.includes(`${nifasReferenceReachedHeadline()}.`),
+    approaching: texts.includes(`${nifasReferenceApproachingHeadline()}.`),
   };
 };
 const modalVisible = (renderer: ReactTestRenderer.ReactTestRenderer): boolean =>
@@ -145,7 +145,7 @@ describe('Dashboard — banner and popup follow the SAME state', () => {
     expect(bannerTexts(renderer)).toMatchObject({present: true, reached: true});
     expect(modalVisible(renderer)).toBe(true);
     // the popup title is the very same headline as the banner's
-    expect(textsOf(renderer)).toContain(NIFAS_REFERENCE_REACHED_HEADLINE);
+    expect(textsOf(renderer)).toContain(nifasReferenceReachedHeadline());
   });
 
   it('at the reference threshold (day 40), lochia ENDED: neither banner nor popup — no contradiction', async () => {

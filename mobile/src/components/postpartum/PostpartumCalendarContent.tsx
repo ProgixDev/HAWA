@@ -37,7 +37,7 @@ import {
   formatHijriMonthYear,
   sameDay,
   startOfDay,
-  WEEK_DAYS,
+  localizedWeekDays,
 } from '../../utils/cycleMath';
 import {
   getPostpartumPreferences,
@@ -48,6 +48,7 @@ import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import { usePremium } from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import { HawaPremiumBottomSheet } from '../premium/HawaPremiumBottomSheet';
 import { isMonthWithinHistoryAccess } from '../../utils/historyAccess';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
@@ -577,7 +578,7 @@ function PostpartumCalendarContent(): React.JSX.Element {
             </View>
 
             <View style={styles.weekRow}>
-              {WEEK_DAYS.map(day => (
+              {localizedWeekDays().map(day => (
                 <Text key={day} style={styles.weekDay}>
                   {day}
                 </Text>
@@ -815,11 +816,12 @@ function PostpartumCalendarContent(): React.JSX.Element {
                         <Text style={styles.dataRowLabel}>{t('postpartumCalendar.categories.lochia.label')}</Text>
                         <Text style={styles.dataRowValue}>
                           {selectedLochia
-                            // DATA-BEARING: selectedLochia.flow/.color are raw
-                            // French strings persisted as-is by
-                            // postpartumLochiaStore — never translated here,
+                            // DATA-BEARING: selectedLochia.flow/.color stay the
+                            // raw French strings persisted as-is by
+                            // postpartumLochiaStore; only the DISPLAYED label is
+                            // translated, via journalOptionLabel (Phase 7H.2) —
                             // same as PostpartumDashboard.tsx's identical value.
-                            ? `${selectedLochia.flow} · ${selectedLochia.color}`
+                            ? `${journalOptionLabel('postpartumLochiaFlow', selectedLochia.flow, t)} · ${journalOptionLabel('postpartumLochiaColor', selectedLochia.color, t)}`
                             : t('postpartumCalendar.selected.lochiaEmpty')}
                         </Text>
                       </View>

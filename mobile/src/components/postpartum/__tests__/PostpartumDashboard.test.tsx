@@ -12,7 +12,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import PostpartumDashboard from '../PostpartumDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {confirmDelivery} from '../../../state/postpartumPreferences';
 
 // PostpartumDashboard (via usePrayerPurityStatus/useFocusEffect) needs a real
@@ -61,6 +62,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   // Confirmed real delivery date — renders the hero/lochia/cycle-return
   // branch instead of the "Indique ta date d'accouchement" unconfigured
   // state.

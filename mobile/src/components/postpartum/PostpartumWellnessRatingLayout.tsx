@@ -29,6 +29,11 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export type WellnessRatingOption = {
   label: string;
+  /** PHASE 7H — optional DISPLAY-ONLY translation of `label` (which stays the
+   * DATA-BEARING, persisted/compared/selected value — see each caller's own
+   * comment). Falls back to `label` itself when omitted, so any other future
+   * caller that doesn't set it keeps today's exact behavior. */
+  displayLabel?: string;
   description: string;
   icon: IconName;
   tint: string;
@@ -229,7 +234,7 @@ export function PostpartumWellnessRatingLayout({
                   }}
                 >
                   <Pressable
-                    accessibilityLabel={option.label}
+                    accessibilityLabel={option.displayLabel ?? option.label}
                     accessibilityRole="radio"
                     accessibilityState={{ checked: active }}
                     onPress={() => onSelect(option.label)}
@@ -258,7 +263,7 @@ export function PostpartumWellnessRatingLayout({
                           active && styles.optionLabelActive,
                         ]}
                       >
-                        {option.label}
+                        {option.displayLabel ?? option.label}
                       </Text>
                       <Text style={styles.optionDescription}>
                         {option.description}
