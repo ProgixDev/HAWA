@@ -21,12 +21,13 @@ import AwaADeuxPartnerConnectedScreen from '../AwaADeuxPartnerConnectedScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import {PartnerPreviewModal} from '../AwaADeuxDialogs';
 import {DEMO_PAIRING_CODE} from '../awaADeuxDemo';
-import {EMAIL_BODY, buildEmailBody, EMAIL_SUBJECT, INVITATION_MESSAGE, buildMailtoUrl} from '../awaADeuxInvitation';
+import {buildEmailBody, emailSubject, invitationMessage, buildMailtoUrl} from '../awaADeuxInvitation';
 import {getDemoPartnerState, simulatePartnerConnected, stopDemoSharing} from '../../../state/awaADeuxDemoStore';
 import {DEFAULT_SHARING_TOGGLES, SHARING_KEYS, setSharingToggle} from '../../../state/awaADeuxSharingStore';
 import {clearAwaADeuxPartnerName, setAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // The frontend-only association flow: code card, copy, share, QR, e-mail, demo pairing,
 // partner screen, shared-information list, partner preview, stop sharing.
@@ -134,6 +135,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -156,14 +162,14 @@ describe('Association screen', () => {
     const renderer = await renderFlow();
     await press(renderer, 'Copier ou partager le code');
     expect(share).toHaveBeenCalledTimes(1);
-    expect((share.mock.calls[0][0] as {message: string}).message).toBe(INVITATION_MESSAGE);
+    expect((share.mock.calls[0][0] as {message: string}).message).toBe(invitationMessage());
     expect(textsOf(renderer)).not.toContain('Code copié');
     const pkg = fs.readFileSync(path.resolve(__dirname, '../../../../package.json'), 'utf8');
     expect(pkg).not.toMatch(/clipboard/i);
   });
 
   it('the share message is exactly the specified invitation with the demo code', () => {
-    expect(INVITATION_MESSAGE).toBe('Rejoins-moi sur AWA à deux 💜\n\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA !');
+    expect(invitationMessage()).toBe('Rejoins-moi sur AWA à deux 💜\n\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA !');
   });
 });
 
@@ -194,7 +200,7 @@ describe('QR code', () => {
     const renderer = await renderFlow();
     await press(renderer, 'Afficher le QR code');
     await press(renderer, 'Partager le QR code');
-    expect(share).toHaveBeenCalledWith({message: INVITATION_MESSAGE});
+    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
   });
 
   it('no QR library is available or added: the placeholder is drawn with the already installed react-native-svg', () => {
@@ -217,7 +223,7 @@ describe('E-mail invitation', () => {
     expect(emailInput(modal).props.placeholder).toBe('adresse@email.com');
     expect(modal.findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Objet du message')!.props.value).toBe('Rejoins-moi sur AWA à deux 💜');
     expect(modal.findAllByType(TextInput).find(node => node.props.accessibilityLabel === 'Message')!.props.value).toBe(buildEmailBody('Amine'));
-    expect(EMAIL_BODY).toBe('Bonjour !\n\nJe t’invite à me rejoindre sur AWA à deux.\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA ! 💜');
+    expect(buildEmailBody('')).toBe('Bonjour !\n\nJe t’invite à me rejoindre sur AWA à deux.\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA ! 💜');
 
     const cta = () => buttons(renderer, 'Ouvrir l’application email').pop() ?? renderer.root.findAll(node => node.props.accessibilityLabel === 'Ouvrir l’application email' && node.props.accessibilityRole === 'button').pop()!;
     expect(cta().props.disabled).toBe(true);
@@ -244,7 +250,7 @@ describe('E-mail invitation', () => {
     await press(renderer, 'Ouvrir l’application email');
     expect(open).toHaveBeenCalledTimes(1);
     const url = open.mock.calls[0][0] as string;
-    expect(url).toBe(buildMailtoUrl('sami@exemple.fr', EMAIL_SUBJECT, buildEmailBody('Amine')));
+    expect(url).toBe(buildMailtoUrl('sami@exemple.fr', emailSubject(), buildEmailBody('Amine')));
     expect(url.startsWith('mailto:sami%40exemple.fr?subject=')).toBe(true);
     expect(decodeURIComponent(url)).toContain(DEMO_PAIRING_CODE);
   });

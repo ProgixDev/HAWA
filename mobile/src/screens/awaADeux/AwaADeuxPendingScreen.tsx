@@ -2,6 +2,7 @@ import React, {useMemo, useRef, useState} from 'react';
 import {Animated, Image, Pressable, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
@@ -37,6 +38,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxPending'>;
 const INVITATION_IMAGE = require('../../assets/images/invitation.png');
 
 export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const {height} = useWindowDimensions();
   const layout = useMemo(() => getPendingLayout(height), [height]);
@@ -62,7 +64,7 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
 
   return (
     <AwaADeuxStepLayout
-      description={`Vous pourrez commencer à partager les informations sélectionnées dès que ${label} aura rejoint AWA à deux.`}
+      description={t('awaADeux.pending.description', {partner: label})}
       fit={{titleFontSize: layout.titleFontSize, titleLineHeight: layout.titleLineHeight, bodyMarginTop: layout.bodyMarginTop, bodyGap: layout.bodyGap, ctaHeight: layout.ctaHeight}}
       hero={
         <Animated.View style={[styles.hero, heroEntrance]}>
@@ -76,38 +78,40 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
         </Animated.View>
       }
       onBack={navigation.goBack}
-      title={`Invitation envoyée\nà ${label}`}>
+      title={t('awaADeux.pending.title', {partner: label})}>
       <Reveal index={0}>
         <View style={styles.statusCard}>
           <View style={styles.statusIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="clock-outline" size={layout.statusClockSize} />
           </View>
           <View style={styles.statusContent}>
-            <Text style={styles.statusTitle}>En attente d’acceptation</Text>
-            <Text style={styles.statusDescription}>{`Nous vous préviendrons dès que ${queBeforePartner(partnerName)} accepte votre invitation.`}</Text>
+            <Text style={styles.statusTitle}>{t('awaADeux.pending.statusTitle')}</Text>
+            {/* FR needs the elided "dès qu'elle accepte" form (queBeforePartner); EN uses the
+                plain name instead — same dual-interpolation-key pattern as AwaADeuxPartnerViewScreen. */}
+            <Text style={styles.statusDescription}>{t('awaADeux.pending.statusDescription', {quePartner: queBeforePartner(partnerName), name: label})}</Text>
           </View>
         </View>
       </Reveal>
 
       <Reveal index={1}>
         <Pressable
-          accessibilityLabel="Renvoyer l’invitation"
+          accessibilityLabel={t('awaADeux.pending.resend')}
           accessibilityRole="button"
           onPress={resendInvitation}
           style={({pressed}) => [styles.primaryAction, pressed && styles.pressed]}>
           <MaterialDesignIcons color={onPrimaryTextColor(theme)} name={resent ? 'check' : 'send-outline'} size={20} />
-          <Text style={styles.primaryActionText}>{resent ? 'Invitation renvoyée' : 'Renvoyer l’invitation'}</Text>
+          <Text style={styles.primaryActionText}>{resent ? t('awaADeux.pending.resent') : t('awaADeux.pending.resend')}</Text>
         </Pressable>
       </Reveal>
 
       <Reveal index={2}>
         <Pressable
-          accessibilityLabel="Annuler l’invitation"
+          accessibilityLabel={t('awaADeux.pending.cancel')}
           accessibilityRole="button"
           onPress={cancel}
           style={({pressed}) => [styles.cancelAction, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.danger} name="close-circle-outline" size={20} />
-          <Text style={styles.cancelActionText}>Annuler l’invitation</Text>
+          <Text style={styles.cancelActionText}>{t('awaADeux.pending.cancel')}</Text>
         </Pressable>
       </Reveal>
 
@@ -115,12 +119,12 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
         <Reveal index={3}>
           <View style={styles.divider}>
             <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>OU</Text>
+            <Text style={styles.dividerText}>{t('awaADeux.pending.previewDivider')}</Text>
             <View style={styles.dividerLine} />
           </View>
 
           <Pressable
-            accessibilityLabel="Prévisualiser le parcours partenaire"
+            accessibilityLabel={t('awaADeux.pending.previewTitle')}
             accessibilityRole="button"
             onPress={() => navigation.navigate('AwaADeuxInvitation')}
             style={({pressed}) => [styles.previewCard, pressed && styles.pressed]}>
@@ -128,8 +132,8 @@ export default function AwaADeuxPendingScreen({navigation}: Props): React.JSX.El
               <MaterialDesignIcons color={theme.colors.primary} name="cellphone" size={20} />
             </View>
             <View style={styles.previewContent}>
-              <Text style={styles.previewTitle}>Prévisualiser le parcours partenaire</Text>
-              <Text style={styles.previewDescription}>{`Découvrez ce que ${label} verra dans AWA à deux.`}</Text>
+              <Text style={styles.previewTitle}>{t('awaADeux.pending.previewTitle')}</Text>
+              <Text style={styles.previewDescription}>{t('awaADeux.pending.previewDescription', {partner: label})}</Text>
             </View>
             <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
           </Pressable>

@@ -5,6 +5,8 @@ import {useNavigation} from '@react-navigation/native';
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
+import type {TFunction} from 'i18next';
 
 import type {RootStackParamList} from '../../../navigation/AppNavigator';
 import type {PartnerMainTabParamList} from '../../../navigation/PartnerMainTabNavigator';
@@ -22,7 +24,7 @@ import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTh
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {partnerSubject} from '../../../utils/awaADeuxPartnerWording';
 import {APP_METADATA} from '../../../utils/appMetadata';
-import {SHARING_SECTIONS} from '../awaADeuxDemo';
+import {sharingSections} from '../awaADeuxDemo';
 import {buildMailtoUrl} from '../awaADeuxInvitation';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -55,6 +57,7 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 // to awaADeuxPartnerProfileStore, NEVER back to the owner's awaADeuxPartnerStore. When
 // neither value is set, a neutral "Partenaire" fallback is used — never an invented name.
 export default function PartnerProfileScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -71,7 +74,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
   // own header comment for why these two screens must never compute this separately.
   const {name: resolvedPartnerFirstName, hasName: hasPartnerName} = useAwaADeuxPartnerIdentity();
   const {setFirstName: setPartnerProfileFirstName} = useAwaADeuxPartnerProfile();
-  const identityName = resolvedPartnerFirstName || 'Partenaire';
+  const identityName = resolvedPartnerFirstName || t('awaADeux.partnerSide.profile.roleValue');
   const identityInitial = identityName.charAt(0).toUpperCase();
 
   const [nameModalVisible, setNameModalVisible] = useState(false);
@@ -82,8 +85,9 @@ export default function PartnerProfileScreen(): React.JSX.Element {
 
   const {toggles, isPregnant} = useAwaADeuxSharing();
   const visibility = computePartnerVisibility(toggles, {isPregnant});
-  const sharedItems = SHARING_SECTIONS.flatMap(section => section.items).filter(item => visibility.fields[item.key]);
+  const sharedItems = sharingSections().flatMap(section => section.items).filter(item => visibility.fields[item.key]);
   const ownerLabel = partnerSubject(getFirstName().trim());
+  const accessExplanations = accessExplanationsOf(t);
 
   const [expanded, setExpanded] = useState<'access' | 'privacy' | 'help' | null>(null);
   // Which single "Aide & support" FAQ row is currently expanded (independent of the
@@ -96,7 +100,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
   const contactSupport = () => {
     const address = APP_METADATA.contactEmail;
     if (!address) {return;}
-    Linking.openURL(buildMailtoUrl(address, 'Aide — AWA à deux', '')).catch(() => {});
+    Linking.openURL(buildMailtoUrl(address, t('awaADeux.partnerSide.profile.faq.contactEmailSubject'), '')).catch(() => {});
   };
 
   const [logoutConfirmVisible, setLogoutConfirmVisible] = useState(false);
@@ -122,8 +126,8 @@ export default function PartnerProfileScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
-        <Text accessibilityRole="header" style={styles.title}>Mon profil</Text>
-        <Text style={styles.subtitle}>Votre espace personnel dans AWA à deux</Text>
+        <Text accessibilityRole="header" style={styles.title}>{t('awaADeux.partnerSide.profile.title')}</Text>
+        <Text style={styles.subtitle}>{t('awaADeux.partnerSide.profile.subtitle')}</Text>
 
         {/* Welcome / identity card — compact HORIZONTAL layout: avatar left, greeting
             centered, a very subtle decorative heart behind the content on the right. No
@@ -138,23 +142,23 @@ export default function PartnerProfileScreen(): React.JSX.Element {
               {hasPartnerName ? (
                 <Text style={styles.avatarFallbackText}>{identityInitial}</Text>
               ) : (
-                <MaterialDesignIcons accessibilityLabel="Aucun prénom renseigné" color={theme.colors.primary} name="account-outline" size={30} />
+                <MaterialDesignIcons accessibilityLabel={t('awaADeux.partnerSide.profile.noNameAccessibility')} color={theme.colors.primary} name="account-outline" size={30} />
               )}
             </View>
           </View>
           <View style={styles.identityCopy}>
-            <Text style={styles.identityName}>{`Salam ${identityName} ! 💜`}</Text>
-           <Text style={styles.welcomeLine}>Partenaire sur AWA à deux.</Text>
-<Text style={styles.welcomeLine}>Merci d’être à ses côtés.</Text>
+            <Text style={styles.identityName}>{t('awaADeux.partnerSide.profile.greeting', {name: identityName})}</Text>
+           <Text style={styles.welcomeLine}>{t('awaADeux.partnerSide.profile.welcomeLine1')}</Text>
+<Text style={styles.welcomeLine}>{t('awaADeux.partnerSide.profile.welcomeLine2')}</Text>
           </View>
         </View>
 
-        <SectionHeader icon="account-outline" styles={styles} subtitle="Vos informations dans AWA à deux" theme={theme} title="Informations personnelles" />
+        <SectionHeader icon="account-outline" styles={styles} subtitle={t('awaADeux.partnerSide.profile.personalInfoSubtitle')} theme={theme} title={t('awaADeux.partnerSide.profile.personalInfoTitle')} />
         <View style={styles.personalInfoCard}>
           <InfoRow
-            accessibilityLabel="Modifier mon prénom"
+            accessibilityLabel={t('awaADeux.partnerSide.profile.editFirstNameAccessibility')}
             icon="account-outline"
-            label="Prénom"
+            label={t('awaADeux.partnerSide.profile.firstNameLabel')}
             onPress={() => setNameModalVisible(true)}
             styles={styles}
             theme={theme}
@@ -162,7 +166,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           />
           <View style={styles.infoRowDivider} />
           {/* Read-only — no onPress, so InfoRow renders it as a plain View with no chevron. */}
-          <InfoRow icon="account-heart-outline" label="Rôle" styles={styles} theme={theme} value="Partenaire" />
+          <InfoRow icon="account-heart-outline" label={t('awaADeux.partnerSide.profile.roleLabel')} styles={styles} theme={theme} value={t('awaADeux.partnerSide.profile.roleValue')} />
         </View>
 
         <EditFirstNameModal
@@ -174,7 +178,7 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           visible={nameModalVisible}
         />
 
-        <SectionHeader icon="link-variant" styles={styles} subtitle={`Vous êtes connecté à ${ownerLabel.toLowerCase()}.`} theme={theme} title="AWA à deux" />
+        <SectionHeader icon="link-variant" styles={styles} subtitle={t('awaADeux.partnerSide.profile.connectedToSubtitle', {owner: ownerLabel.toLowerCase()})} theme={theme} title={t('profile.awaADeuxTitle')} />
 
         {/* Same accordion component/visual system as Confidentialité below (Row +
             privacyRow/privacyIcon/privacyText/privacyDivider) — only the content differs:
@@ -184,18 +188,19 @@ export default function PartnerProfileScreen(): React.JSX.Element {
         <Row
           expanded={expanded === 'access'}
           icon="calendar-month-outline"
+          id="access"
           onPress={() => setExpanded(current => (current === 'access' ? null : 'access'))}
           styles={styles}
           theme={theme}
-          title="Informations auxquelles vous avez accès">
+          title={t('awaADeux.partnerSide.profile.accessRowTitle')}>
           {sharedItems.length === 0 ? (
             <View style={styles.privacyRow}>
               <View style={styles.privacyIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={22} />
               </View>
               <View style={styles.privacyText}>
-                <Text style={styles.privacyItemTitle}>Aucune information partagée pour le moment.</Text>
-                <Text style={styles.privacyItemDescription}>Votre partenaire peut modifier ses choix de partage à tout moment.</Text>
+                <Text style={styles.privacyItemTitle}>{t('awaADeux.partnerSide.profile.noSharedTitle')}</Text>
+                <Text style={styles.privacyItemDescription}>{t('awaADeux.partnerSide.profile.noSharedDescription')}</Text>
               </View>
             </View>
           ) : (
@@ -208,11 +213,11 @@ export default function PartnerProfileScreen(): React.JSX.Element {
                   </View>
                   <View style={styles.privacyText}>
                     <Text style={styles.privacyItemTitle}>{item.label}</Text>
-                    <Text style={styles.privacyItemDescription}>{ACCESS_EXPLANATIONS[item.key] ?? 'Vous pouvez voir cette information.'}</Text>
+                    <Text style={styles.privacyItemDescription}>{accessExplanations[item.key] ?? t('awaADeux.partnerSide.profile.defaultAccessDescription')}</Text>
                   </View>
                   <View style={styles.activeBadge}>
                     <View style={styles.activeDot} />
-                    <Text style={styles.activeBadgeText}>Activé</Text>
+                    <Text style={styles.activeBadgeText}>{t('awaADeux.partnerSide.profile.activeBadge')}</Text>
                   </View>
                 </View>
               </View>
@@ -223,18 +228,19 @@ export default function PartnerProfileScreen(): React.JSX.Element {
         <Row
           expanded={expanded === 'privacy'}
           icon="shield-lock-outline"
+          id="privacy"
           onPress={() => setExpanded(current => (current === 'privacy' ? null : 'privacy'))}
           styles={styles}
           theme={theme}
-          title="Confidentialité">
+          title={t('awaADeux.partnerSide.profile.privacyRowTitle')}>
           <View style={styles.privacyRow}>
             <View style={styles.privacyIcon}>
               <MaterialDesignIcons color={theme.colors.primary} name="eye-outline" size={22} />
             </View>
             <View style={styles.privacyText}>
-              <Text style={styles.privacyItemTitle}>Ce que vous pouvez voir</Text>
+              <Text style={styles.privacyItemTitle}>{t('awaADeux.partnerSide.profile.canSeeTitle')}</Text>
               <Text style={styles.privacyItemDescription}>
-                Vous voyez uniquement les informations que votre partenaire a choisi de partager avec vous dans AWA à deux.
+                {t('awaADeux.partnerSide.profile.canSeeDescription')}
               </Text>
             </View>
           </View>
@@ -246,9 +252,9 @@ export default function PartnerProfileScreen(): React.JSX.Element {
               <MaterialDesignIcons color={theme.colors.primary} name="lock-outline" size={22} />
             </View>
             <View style={styles.privacyText}>
-              <Text style={styles.privacyItemTitle}>Ce qui reste privé</Text>
+              <Text style={styles.privacyItemTitle}>{t('awaADeux.partnerSide.profile.stayPrivateTitle')}</Text>
               <Text style={styles.privacyItemDescription}>
-                Les informations qu’elle ne partage pas restent privées et ne sont pas visibles dans votre espace.
+                {t('awaADeux.partnerSide.profile.stayPrivateDescription')}
               </Text>
             </View>
           </View>
@@ -256,13 +262,14 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           {/* Small informational banner only — never pressable, no chevron, no navigation. */}
           <View style={styles.privacyBanner}>
             <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={18} />
-            <Text style={styles.privacyBannerText}>AWA à deux est conçu pour partager uniquement ce qu’elle souhaite vous montrer.</Text>
+            <Text style={styles.privacyBannerText}>{t('awaADeux.partnerSide.profile.privacyBanner')}</Text>
           </View>
         </Row>
 
         <Row
           expanded={expanded === 'help'}
           icon="help-circle-outline"
+          id="help"
           onPress={() =>
             setExpanded(current => {
               if (current === 'help') {
@@ -274,13 +281,13 @@ export default function PartnerProfileScreen(): React.JSX.Element {
           }
           styles={styles}
           theme={theme}
-          title="Aide & support">
+          title={t('awaADeux.partnerSide.profile.helpRowTitle')}>
           <View style={styles.faqList}>
             {/* Each question is now its own independent accordion (only one open at a
                 time) — including "Contacter le support", which also reveals a real,
                 separately-labelled action button (see FaqRow) instead of being a single
                 always-active row. */}
-            {HELP_FAQ.map((faq, index) => (
+            {helpFaqOf(t).map((faq, index) => (
               <FaqRow
                 key={faq.key}
                 expanded={expandedHelpItem === faq.key}
@@ -296,12 +303,12 @@ export default function PartnerProfileScreen(): React.JSX.Element {
         </Row>
 
         <Pressable
-          accessibilityLabel="Se déconnecter"
+          accessibilityLabel={t('awaADeux.partnerSide.profile.signOut')}
           accessibilityRole="button"
           onPress={() => setLogoutConfirmVisible(true)}
           style={({pressed}) => [styles.signOut, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.danger} name="logout" size={20} />
-          <Text style={styles.signOutText}>Se déconnecter</Text>
+          <Text style={styles.signOutText}>{t('awaADeux.partnerSide.profile.signOut')}</Text>
         </Pressable>
       </ScrollView>
 
@@ -318,19 +325,19 @@ export default function PartnerProfileScreen(): React.JSX.Element {
 
 // Explains the CATEGORY of access granted — never the actual value (that belongs on
 // PartnerHome/PartnerCalendar, where sharing already permits it).
-const ACCESS_EXPLANATIONS: Partial<Record<SharingKey, string>> = {
-  cycleDay: 'Vous pouvez voir son jour de cycle et sa phase actuelle.',
-  nextPeriod: 'Vous pouvez voir la date estimée de ses prochaines règles.',
-  periodStatus: 'Vous pouvez voir si ses règles sont en cours ou terminées.',
-  fertileWindow: 'Vous pouvez voir ses jours fertiles.',
-  ovulation: 'Vous pouvez voir son ovulation estimée.',
-  fertilityStatus: 'Vous pouvez voir son statut de fertilité.',
-  pregnancyWeek: 'Vous pouvez voir sa semaine de grossesse.',
-  dueDate: 'Vous pouvez voir sa date d’accouchement prévue.',
-  babyDevelopment: 'Vous pouvez voir les informations sur le développement du bébé.',
-  mood: 'Vous pouvez voir son humeur du jour.',
-  dailyAdvice: 'Vous recevez un conseil quotidien pour la soutenir.',
-};
+const accessExplanationsOf = (t: TFunction): Partial<Record<SharingKey, string>> => ({
+  cycleDay: t('awaADeux.partnerSide.profile.accessExplanationCycleDay'),
+  nextPeriod: t('awaADeux.partnerSide.profile.accessExplanationNextPeriod'),
+  periodStatus: t('awaADeux.partnerSide.profile.accessExplanationPeriodStatus'),
+  fertileWindow: t('awaADeux.partnerSide.profile.accessExplanationFertileWindow'),
+  ovulation: t('awaADeux.partnerSide.profile.accessExplanationOvulation'),
+  fertilityStatus: t('awaADeux.partnerSide.profile.accessExplanationFertilityStatus'),
+  pregnancyWeek: t('awaADeux.partnerSide.profile.accessExplanationPregnancyWeek'),
+  dueDate: t('awaADeux.partnerSide.profile.accessExplanationDueDate'),
+  babyDevelopment: t('awaADeux.partnerSide.profile.accessExplanationBabyDevelopment'),
+  mood: t('awaADeux.partnerSide.profile.accessExplanationMood'),
+  dailyAdvice: t('awaADeux.partnerSide.profile.accessExplanationDailyAdvice'),
+});
 
 // Semantic colors already used elsewhere in AWA for these exact categories — reused, not
 // invented: pink for period-related information (same as PartnerHomeScreen's "Prochaines
@@ -364,78 +371,78 @@ type FaqItem = {
   contact?: boolean;
 };
 
-const HELP_FAQ: FaqItem[] = [
+const helpFaqOf = (t: TFunction): FaqItem[] => [
   {
     key: 'how-it-works',
     icon: 'book-open-variant',
-    title: 'Comment fonctionne AWA à deux ?',
-    description: 'Découvrez comment l’application vous permet de soutenir votre partenaire tout en respectant sa vie privée.',
+    title: t('awaADeux.partnerSide.profile.faq.howItWorksTitle'),
+    description: t('awaADeux.partnerSide.profile.faq.howItWorksDescription'),
     answer: {
       kind: 'paragraph',
       paragraphs: [
-        'AWA à deux vous permet de consulter uniquement les informations que votre partenaire a choisi de partager avec vous.',
-        'Vous pouvez par exemple voir certaines informations sur son cycle, ses prochaines règles ou sa fenêtre fertile lorsque leur partage est activé.',
-        'Les informations visibles dépendent toujours de ses choix. Elle peut modifier ce qu’elle partage à tout moment.',
+        t('awaADeux.partnerSide.profile.faq.howItWorksParagraph1'),
+        t('awaADeux.partnerSide.profile.faq.howItWorksParagraph2'),
+        t('awaADeux.partnerSide.profile.faq.howItWorksParagraph3'),
       ],
     },
   },
   {
     key: 'hidden-information',
     icon: 'eye-off-outline',
-    title: 'Pourquoi certaines informations sont masquées ?',
-    description: 'Votre partenaire choisit ce qu’elle partage avec vous. Elle peut modifier ces choix à tout moment.',
+    title: t('awaADeux.partnerSide.profile.faq.hiddenInfoTitle'),
+    description: t('awaADeux.partnerSide.profile.faq.hiddenInfoDescription'),
     answer: {
       kind: 'paragraph',
       paragraphs: [
-        'Votre partenaire garde le contrôle sur les informations qu’elle souhaite partager avec vous.',
-        'Si une information n’apparaît pas dans votre espace, cela peut simplement signifier qu’elle n’a pas choisi de la partager.',
-        'Ses choix peuvent être modifiés à tout moment. AWA à deux vous montre uniquement les informations auxquelles vous avez actuellement accès.',
+        t('awaADeux.partnerSide.profile.faq.hiddenInfoParagraph1'),
+        t('awaADeux.partnerSide.profile.faq.hiddenInfoParagraph2'),
+        t('awaADeux.partnerSide.profile.faq.hiddenInfoParagraph3'),
       ],
     },
   },
   {
     key: 'understanding-shared-info',
     icon: 'format-list-bulleted',
-    title: 'Comprendre les informations partagées',
-    description: 'Explications simples sur le jour du cycle, la phase actuelle, la fenêtre fertile, l’ovulation estimée et les prochaines règles.',
+    title: t('awaADeux.partnerSide.profile.faq.understandingTitle'),
+    description: t('awaADeux.partnerSide.profile.faq.understandingDescription'),
     answer: {
       kind: 'definitions',
-      intro: 'Voici ce que peuvent signifier les informations partagées avec vous :',
+      intro: t('awaADeux.partnerSide.profile.faq.understandingIntro'),
       items: [
-        {term: 'Jour du cycle', description: 'Indique le nombre de jours écoulés depuis le début des dernières règles.'},
-        {term: 'Phase actuelle', description: 'Indique l’étape actuelle du cycle lorsqu’elle est disponible.'},
-        {term: 'Fenêtre fertile', description: 'Période estimée durant laquelle la probabilité de conception peut être plus élevée.'},
-        {term: 'Ovulation estimée', description: 'Estimation du moment de l’ovulation basée sur les informations disponibles.'},
-        {term: 'Prochaines règles estimées', description: 'Date estimée du début des prochaines règles.'},
-        {term: 'Statut des règles', description: 'Indique si les règles sont actuellement en cours ou terminées.'},
+        {term: t('awaADeux.partnerSide.profile.faq.termCycleDay'), description: t('awaADeux.partnerSide.profile.faq.descriptionCycleDay')},
+        {term: t('awaADeux.partnerSide.profile.faq.termCurrentPhase'), description: t('awaADeux.partnerSide.profile.faq.descriptionCurrentPhase')},
+        {term: t('awaADeux.partnerSide.profile.faq.termFertileWindow'), description: t('awaADeux.partnerSide.profile.faq.descriptionFertileWindow')},
+        {term: t('awaADeux.partnerSide.profile.faq.termOvulation'), description: t('awaADeux.partnerSide.profile.faq.descriptionOvulation')},
+        {term: t('awaADeux.partnerSide.profile.faq.termNextPeriod'), description: t('awaADeux.partnerSide.profile.faq.descriptionNextPeriod')},
+        {term: t('awaADeux.partnerSide.profile.faq.termPeriodStatus'), description: t('awaADeux.partnerSide.profile.faq.descriptionPeriodStatus')},
       ],
     },
   },
   {
     key: 'troubleshooting',
     icon: 'cog-outline',
-    title: 'J’ai un problème avec AWA à deux',
-    description: 'Que faire si les informations ne s’affichent pas, si la connexion semble interrompue ou si vous avez un autre souci.',
+    title: t('awaADeux.partnerSide.profile.faq.troubleshootingTitle'),
+    description: t('awaADeux.partnerSide.profile.faq.troubleshootingDescription'),
     answer: {
       kind: 'paragraph',
       paragraphs: [
-        'Si certaines informations ne s’affichent pas, commencez par vérifier que votre connexion internet fonctionne correctement.',
-        'Certaines informations peuvent aussi être absentes simplement parce que votre partenaire ne les partage pas actuellement.',
-        'Vous pouvez également fermer puis rouvrir l’application.',
-        'Si le problème persiste, vous pourrez contacter le support AWA.',
+        t('awaADeux.partnerSide.profile.faq.troubleshootingParagraph1'),
+        t('awaADeux.partnerSide.profile.faq.troubleshootingParagraph2'),
+        t('awaADeux.partnerSide.profile.faq.troubleshootingParagraph3'),
+        t('awaADeux.partnerSide.profile.faq.troubleshootingParagraph4'),
       ],
     },
   },
   {
     key: 'contact-support',
     icon: 'email-outline',
-    title: 'Contacter le support',
-    description: 'Besoin d’aide supplémentaire ? Notre équipe est là pour vous accompagner.',
+    title: t('awaADeux.partnerSide.profile.faq.contactSupportTitle'),
+    description: t('awaADeux.partnerSide.profile.faq.contactSupportDescription'),
     answer: {
       kind: 'paragraph',
       paragraphs: [
-        'Si vous avez une question, rencontrez un problème ou souhaitez nous faire un retour, vous pourrez contacter l’équipe AWA depuis cette section.',
-        'Merci de nous aider à améliorer AWA ! 💜',
+        t('awaADeux.partnerSide.profile.faq.contactSupportParagraph1'),
+        t('awaADeux.partnerSide.profile.faq.contactSupportParagraph2'),
       ],
     },
     contact: true,
@@ -548,6 +555,7 @@ function EditFirstNameModal({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const [value, setValue] = useState(initialValue);
 
   // Re-seed from the current display value each time the sheet opens (never stale, never
@@ -567,14 +575,14 @@ function EditFirstNameModal({
   return (
     <Modal animationType="fade" onRequestClose={onClose} statusBarTranslucent transparent visible={visible}>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.nameModalRoot}>
-        <Pressable accessibilityLabel="Fermer" onPress={onClose} style={styles.nameModalOverlay} />
+        <Pressable accessibilityLabel={t('common.close')} onPress={onClose} style={styles.nameModalOverlay} />
         <View style={styles.nameModalCard}>
-          <Text accessibilityRole="header" style={styles.nameModalTitle}>Modifier mon prénom</Text>
-          <Text style={styles.nameModalSubtitle}>Ce prénom sera utilisé dans votre espace AWA à deux.</Text>
+          <Text accessibilityRole="header" style={styles.nameModalTitle}>{t('awaADeux.partnerSide.profile.editNameModal.title')}</Text>
+          <Text style={styles.nameModalSubtitle}>{t('awaADeux.partnerSide.profile.editNameModal.subtitle')}</Text>
 
-          <Text style={styles.nameModalLabel}>Prénom</Text>
+          <Text style={styles.nameModalLabel}>{t('awaADeux.partnerSide.profile.editNameModal.label')}</Text>
           <TextInput
-            accessibilityLabel="Prénom"
+            accessibilityLabel={t('awaADeux.partnerSide.profile.editNameModal.label')}
             autoCapitalize="words"
             autoComplete="off"
             autoCorrect={false}
@@ -591,20 +599,20 @@ function EditFirstNameModal({
 
           <View style={styles.nameModalFooter}>
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('common.cancel')}
               accessibilityRole="button"
               onPress={onClose}
               style={({pressed}) => [styles.nameModalCancel, pressed && styles.pressed]}>
-              <Text style={styles.nameModalCancelText}>Annuler</Text>
+              <Text style={styles.nameModalCancelText}>{t('common.cancel')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Enregistrer"
+              accessibilityLabel={t('common.save')}
               accessibilityRole="button"
               accessibilityState={{disabled: !canSave}}
               disabled={!canSave}
               onPress={submit}
               style={({pressed}) => [styles.nameModalSave, !canSave && styles.nameModalSaveDisabled, pressed && canSave && styles.pressed]}>
-              <Text style={styles.nameModalSaveText}>Enregistrer</Text>
+              <Text style={styles.nameModalSaveText}>{t('common.save')}</Text>
             </Pressable>
           </View>
         </View>
@@ -633,33 +641,34 @@ function LogoutConfirmModal({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <Modal animationType="fade" onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
       <View style={styles.logoutRoot}>
-        <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={onCancel} style={styles.logoutBackdrop} />
+        <Pressable accessibilityLabel={t('common.close')} accessibilityRole="button" onPress={onCancel} style={styles.logoutBackdrop} />
         <View accessibilityViewIsModal style={styles.logoutCard}>
           <View importantForAccessibility="no-hide-descendants" style={styles.logoutIconCircle}>
             <MaterialDesignIcons color={theme.colors.danger} name="logout" size={26} />
           </View>
 
-          <Text accessibilityRole="header" style={styles.logoutTitle}>Se déconnecter ?</Text>
-          <Text style={styles.logoutBody}>Voulez-vous vraiment vous déconnecter de votre espace partenaire ?</Text>
-          <Text style={styles.logoutReassurance}>Vous pourrez vous reconnecter à tout moment.</Text>
+          <Text accessibilityRole="header" style={styles.logoutTitle}>{t('awaADeux.partnerSide.profile.logoutModal.title')}</Text>
+          <Text style={styles.logoutBody}>{t('awaADeux.partnerSide.profile.logoutModal.body')}</Text>
+          <Text style={styles.logoutReassurance}>{t('awaADeux.partnerSide.profile.logoutModal.reassurance')}</Text>
 
           <View style={styles.logoutActions}>
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('common.cancel')}
               accessibilityRole="button"
               onPress={onCancel}
               style={({pressed}) => [styles.logoutButton, styles.logoutCancelButton, pressed && styles.pressed]}>
-              <Text style={styles.logoutCancelText}>Annuler</Text>
+              <Text style={styles.logoutCancelText}>{t('common.cancel')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Se déconnecter"
+              accessibilityLabel={t('awaADeux.partnerSide.profile.signOut')}
               accessibilityRole="button"
               onPress={onConfirm}
               style={({pressed}) => [styles.logoutButton, styles.logoutDestructiveButton, pressed && styles.pressed]}>
-              <Text style={[styles.logoutDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>Se déconnecter</Text>
+              <Text style={[styles.logoutDestructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>{t('awaADeux.partnerSide.profile.signOut')}</Text>
             </Pressable>
           </View>
         </View>
@@ -689,6 +698,7 @@ function FaqRow({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <View style={index > 0 ? styles.faqRowDivider : undefined}>
       <Pressable
@@ -738,12 +748,12 @@ function FaqRow({
               announces two "Contacter le support" buttons. */}
           {item.contact ? (
             <Pressable
-              accessibilityLabel="Nous contacter par e-mail"
+              accessibilityLabel={t('awaADeux.partnerSide.profile.faq.contactAccessibility')}
               accessibilityRole="button"
               onPress={onContactPress}
               style={({pressed}) => [styles.faqContactButton, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={18} />
-              <Text style={styles.faqContactButtonText}>Nous écrire</Text>
+              <Text style={styles.faqContactButtonText}>{t('awaADeux.partnerSide.profile.faq.contactButton')}</Text>
             </Pressable>
           ) : null}
         </RowBody>
@@ -757,6 +767,7 @@ function FaqRow({
  * hit area is a known source of touch-handling bugs on Android). */
 function Row({
   icon,
+  id,
   title,
   children,
   expanded,
@@ -765,6 +776,7 @@ function Row({
   styles,
 }: {
   icon: string;
+  id: 'access' | 'privacy' | 'help';
   title: string;
   children: React.ReactNode;
   expanded: boolean;
@@ -772,6 +784,7 @@ function Row({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <View style={styles.row}>
       <Pressable
@@ -785,7 +798,7 @@ function Row({
         </View>
         <View style={styles.rowCopy}>
           <Text style={styles.rowTitle}>{title}</Text>
-          {!expanded ? <Text numberOfLines={2} style={styles.rowHint}>{ROW_HINTS[title]}</Text> : null}
+          {!expanded ? <Text numberOfLines={2} style={styles.rowHint}>{rowHintsOf(t)[id]}</Text> : null}
         </View>
         <MaterialDesignIcons color={theme.colors.textMuted} name={expanded ? 'chevron-up' : 'chevron-down'} size={20} />
       </Pressable>
@@ -794,11 +807,13 @@ function Row({
   );
 }
 
-const ROW_HINTS: Record<string, string> = {
-  'Informations auxquelles vous avez accès': 'Votre partenaire a choisi de partager ces informations avec vous.',
-  'Confidentialité': 'Comprendre ce qui est partagé et ce qui reste privé.',
-  'Aide & support': 'Des réponses à vos questions sur AWA à deux.',
-};
+// Keyed by the STABLE id, never by the (now-translated) title — a lookup by title would
+// silently break once the title is displayed in English.
+const rowHintsOf = (t: TFunction): Record<'access' | 'privacy' | 'help', string> => ({
+  access: t('awaADeux.partnerSide.profile.rowHintAccess'),
+  privacy: t('awaADeux.partnerSide.profile.rowHintPrivacy'),
+  help: t('awaADeux.partnerSide.profile.rowHintHelp'),
+});
 
 /** Subtle entrance for the revealed body: opacity + a small translateY, ~200ms — never
  * starting fully invisible, no looping. */

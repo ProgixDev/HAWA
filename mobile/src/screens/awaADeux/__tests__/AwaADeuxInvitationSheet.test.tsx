@@ -12,8 +12,9 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {resolveAwaTheme, withAlpha} from '../../../theme/awaThemeTokens';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
 import {DEMO_PAIRING_CODE} from '../awaADeuxDemo';
-import {EMAIL_SUBJECT, INVITATION_MESSAGE, buildMailtoUrl, buildShareTargetUrl} from '../awaADeuxInvitation';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {emailSubject, invitationMessage, buildMailtoUrl, buildShareTargetUrl} from '../awaADeuxInvitation';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // "Partager l'invitation": a themed bottom sheet with the invitation card, four app
 // shortcuts, "Copier le texte" and "Plus d'options". Frontend only, demo code.
@@ -88,6 +89,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -106,7 +112,7 @@ describe('Opening and content', () => {
     // "Utilise ce code : " + the emphasized code + "\npour te connecter et m’accompagner."
     const line = modal.findAllByType(Text).find(node => textOf(node) === 'Utilise ce code : \npour te connecter et m’accompagner.')!;
     expect(line).toBeDefined();
-    expect(INVITATION_MESSAGE).toBe('Rejoins-moi sur AWA à deux 💜\n\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA !');
+    expect(invitationMessage()).toBe('Rejoins-moi sur AWA à deux 💜\n\nUtilise ce code : AWA-7K4P9\npour te connecter et m’accompagner.\n\nTélécharge l’application AWA !');
   });
 
   it('AWA-7K4P9 is visually emphasized: bold, in the theme accent color', async () => {
@@ -158,7 +164,7 @@ describe('Actions', () => {
     const share = jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
     const {modal} = await openSheet();
     await press(modal, 'WhatsApp');
-    expect(open).toHaveBeenCalledWith(`whatsapp://send?text=${encodeURIComponent(INVITATION_MESSAGE)}`);
+    expect(open).toHaveBeenCalledWith(`whatsapp://send?text=${encodeURIComponent(invitationMessage())}`);
     expect(share).not.toHaveBeenCalled();
   });
 
@@ -167,7 +173,7 @@ describe('Actions', () => {
     const share = jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
     const {modal} = await openSheet();
     await press(modal, 'WhatsApp');
-    expect(share).toHaveBeenCalledWith({message: INVITATION_MESSAGE});
+    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
   });
 
   it('Messages opens the SMS composer; Gmail opens the mail composer with subject and body', async () => {
@@ -177,7 +183,7 @@ describe('Actions', () => {
     expect((open.mock.calls[0][0] as string).startsWith('sms:')).toBe(true);
     expect(decodeURIComponent(open.mock.calls[0][0] as string)).toContain(DEMO_PAIRING_CODE);
     await press(modal, 'Gmail');
-    expect(open.mock.calls[1][0]).toBe(buildMailtoUrl('', EMAIL_SUBJECT, INVITATION_MESSAGE));
+    expect(open.mock.calls[1][0]).toBe(buildMailtoUrl('', emailSubject(), invitationMessage()));
     expect(buildShareTargetUrl('sms', 'ios')).toContain('sms:&body=');
     expect(buildShareTargetUrl('sms', 'android')).toContain('sms:?body=');
   });
@@ -188,7 +194,7 @@ describe('Actions', () => {
     const {modal} = await openSheet();
     await press(modal, 'Instagram');
     expect(open).not.toHaveBeenCalled();
-    expect(share).toHaveBeenCalledWith({message: INVITATION_MESSAGE});
+    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
     expect(buildShareTargetUrl('instagram')).toBeNull();
   });
 
@@ -197,14 +203,14 @@ describe('Actions', () => {
     const {modal} = await openSheet();
     await press(modal, 'Plus d’options');
     expect(share).toHaveBeenCalledTimes(1);
-    expect(share).toHaveBeenCalledWith({message: INVITATION_MESSAGE});
+    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
   });
 
   it('there is no clipboard package: "Copier le texte" opens the share sheet (which offers Copier) and never claims "Invitation copiée"', async () => {
     const share = jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
     const {renderer, modal} = await openSheet();
     await press(modal, 'Copier le texte');
-    expect(share).toHaveBeenCalledWith({message: INVITATION_MESSAGE});
+    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
     expect(renderer.root.findAllByType(Text).map(textOf)).not.toContain('Invitation copiée');
     const pkg = fs.readFileSync(path.resolve(__dirname, '../../../../package.json'), 'utf8');
     expect(pkg).not.toMatch(/clipboard/i);
@@ -337,7 +343,7 @@ describe('External apps: missing app / failures never crash and never pair', () 
     const share = jest.spyOn(Share, 'share').mockResolvedValue({action: 'sharedAction'} as never);
     const {modal} = await openSheet();
     await press(modal, label);
-    expect(share).toHaveBeenCalledWith({message: INVITATION_MESSAGE});
+    expect(share).toHaveBeenCalledWith({message: invitationMessage()});
     expect(notices(modal)).toEqual([message]);
     expect(modal.findAllByType(Text).map(textOf).join(' ')).not.toMatch(/Exception|Could not open|Error/);
   });

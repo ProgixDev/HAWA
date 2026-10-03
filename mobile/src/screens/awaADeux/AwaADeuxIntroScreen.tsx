@@ -22,6 +22,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -53,11 +54,11 @@ const HERO_IMAGE = require('../../assets/images/partenaire.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxIntro'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const BENEFITS: Array<{icon: IconName; text: string}> = [
-  {icon: 'share-variant-outline', text: 'Partagez les repères que vous souhaitez avec votre partenaire'},
-  {icon: 'calendar-heart', text: 'Aidez-le à mieux comprendre votre cycle et vos différentes étapes'},
-  {icon: 'hand-heart-outline', text: 'Recevez plus de soutien au quotidien'},
-  {icon: 'shield-lock-outline', text: 'Vous gardez toujours le contrôle de vos informations'},
+const benefitsOf = (t: (key: string) => string): Array<{icon: IconName; text: string}> => [
+  {icon: 'share-variant-outline', text: t('awaADeux.intro.benefit1')},
+  {icon: 'calendar-heart', text: t('awaADeux.intro.benefit2')},
+  {icon: 'hand-heart-outline', text: t('awaADeux.intro.benefit3')},
+  {icon: 'shield-lock-outline', text: t('awaADeux.intro.benefit4')},
 ];
 
 // Entrance sequence (ms): illustration → title + subtitle → four cards (staggered) → CTA.
@@ -104,6 +105,7 @@ const BenefitItem = memo(function BenefitItem({icon, text, index, iconSize, redu
 });
 
 export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
@@ -111,6 +113,7 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
 
   const layout = useMemo(() => getIntroLayout(height, insets.top, insets.bottom), [height, insets.top, insets.bottom]);
   const styles = useMemo(() => createStyles(theme, layout), [theme, layout]);
+  const BENEFITS = useMemo(() => benefitsOf(t), [t]);
 
   // Illustration: entrance, then a barely visible breathing loop.
   const breathe = useSharedValue(1);
@@ -145,7 +148,7 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
       {/* Back button — below the status bar */}
       <View style={styles.header}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={8}
           onPress={navigation.goBack}
@@ -170,8 +173,8 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
         </Animated.View>
 
         <Animated.View style={titleEntrance}>
-          <Text accessibilityRole="header" maxFontSizeMultiplier={1.15} style={styles.title}>AWA à deux</Text>
-          <Text maxFontSizeMultiplier={1.15} style={styles.subtitle}>{'Avancez ensemble,\nà votre rythme.'}</Text>
+          <Text accessibilityRole="header" maxFontSizeMultiplier={1.15} style={styles.title}>{t('profile.awaADeuxTitle')}</Text>
+          <Text maxFontSizeMultiplier={1.15} style={styles.subtitle}>{t('awaADeux.intro.subtitle')}</Text>
         </Animated.View>
 
         <View style={styles.benefits}>
@@ -196,7 +199,7 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
         <Animated.View style={ctaEntrance}>
           <Animated.View style={ctaPress}>
             <Pressable
-              accessibilityLabel="Découvrir AWA à deux"
+              accessibilityLabel={t('awaADeux.intro.discoverAccessibility')}
               accessibilityRole="button"
               onPress={() => navigation.navigate('AwaADeuxPartnerName')}
               onPressIn={() => {
@@ -206,7 +209,7 @@ export default function AwaADeuxIntroScreen({navigation}: Props): React.JSX.Elem
                 pressScale.value = withTiming(1, {duration: 140});
               }}
               style={({pressed}) => [styles.cta, pressed && styles.pressed]}>
-              <Text maxFontSizeMultiplier={1.15} style={styles.ctaText}>Découvrir</Text>
+              <Text maxFontSizeMultiplier={1.15} style={styles.ctaText}>{t('awaADeux.intro.discoverCta')}</Text>
             </Pressable>
           </Animated.View>
         </Animated.View>

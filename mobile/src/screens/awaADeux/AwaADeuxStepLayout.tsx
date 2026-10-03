@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {Pressable, ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
@@ -118,6 +119,7 @@ export default function AwaADeuxStepLayout({
   centerBody,
   children,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -182,7 +184,7 @@ export default function AwaADeuxStepLayout({
 
       <View style={[styles.header, headerAccessory ? styles.headerWithAccessory : null, {paddingTop: Math.max(insets.top, 18) + 8}]}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={8}
           onPress={onBack}

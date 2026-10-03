@@ -10,11 +10,12 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {DEMO_PAIRING_CODE} from './awaADeuxDemo';
-import {INVITATION_MESSAGE, buildShareTargetUrl, type ShareTarget} from './awaADeuxInvitation';
+import {invitationMessage, buildShareTargetUrl, type ShareTarget} from './awaADeuxInvitation';
 import {useEntrance} from './useEntrance';
 
 // "Partager l'invitation" — a bottom sheet. FRONTEND ONLY, DEMO code (AWA-7K4P9): AWA
@@ -41,22 +42,24 @@ type Props = {
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const APPS: Array<{target: ShareTarget; label: string; icon: IconName; unavailable: string}> = [
-  {target: 'whatsapp', label: 'WhatsApp', icon: 'whatsapp', unavailable: 'WhatsApp n’est pas disponible sur cet appareil'},
-  {target: 'sms', label: 'Messages', icon: 'message-text-outline', unavailable: 'Messages n’est pas disponible sur cet appareil'},
+const appsOf = (t: (key: string) => string): Array<{target: ShareTarget; label: string; icon: IconName; unavailable: string}> => [
+  {target: 'whatsapp', label: 'WhatsApp', icon: 'whatsapp', unavailable: t('awaADeux.shareSheet.whatsappUnavailable')},
+  {target: 'sms', label: 'Messages', icon: 'message-text-outline', unavailable: t('awaADeux.shareSheet.messagesUnavailable')},
   {target: 'instagram', label: 'Instagram', icon: 'instagram', unavailable: ''},
-  {target: 'gmail', label: 'Gmail', icon: 'gmail', unavailable: 'Aucune application e-mail n’est disponible sur cet appareil'},
+  {target: 'gmail', label: 'Gmail', icon: 'gmail', unavailable: t('awaADeux.shareSheet.gmailUnavailable')},
 ];
 
 const SLIDE_MS = 260;
 const CLOSE_MS = 200;
 
 function SheetContent({onClose, closeRef}: {onClose: () => void; closeRef: React.MutableRefObject<(() => void) | null>}): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
   const reduceMotion = useReducedMotion();
+  const APPS = useMemo(() => appsOf(t), [t]);
 
   // A short, non-technical line under the actions: an app that is missing, or a share sheet that failed.
   const [notice, setNotice] = useState('');
@@ -102,9 +105,9 @@ function SheetContent({onClose, closeRef}: {onClose: () => void; closeRef: React
   const systemShare = async (keepNotice = false) => {
     if (!keepNotice) {setNotice('');}
     try {
-      await Share.share({message: INVITATION_MESSAGE});
+      await Share.share({message: invitationMessage()});
     } catch {
-      setNotice('Impossible d’ouvrir le partage pour le moment.');
+      setNotice(t('awaADeux.shareSheet.shareFailed'));
     }
   };
 
@@ -131,7 +134,7 @@ function SheetContent({onClose, closeRef}: {onClose: () => void; closeRef: React
   return (
     <View style={styles.root}>
       <Animated.View style={[styles.backdropLayer, backdropStyle]}>
-        <Pressable accessibilityLabel="Fermer" accessibilityRole="button" onPress={requestClose} style={styles.backdrop} />
+        <Pressable accessibilityLabel={t('common.close')} accessibilityRole="button" onPress={requestClose} style={styles.backdrop} />
       </Animated.View>
 
       <Animated.View accessibilityViewIsModal style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 16) + 12}, sheetStyle]}>
@@ -140,9 +143,9 @@ function SheetContent({onClose, closeRef}: {onClose: () => void; closeRef: React
         <ScrollView bounces={false} contentContainerStyle={styles.content} showsVerticalScrollIndicator={false} style={styles.scroll}>
           <Animated.View style={headEntrance}>
             <View style={styles.header}>
-              <Text accessibilityRole="header" maxFontSizeMultiplier={1.2} style={styles.title}>Partager l’invitation</Text>
+              <Text accessibilityRole="header" maxFontSizeMultiplier={1.2} style={styles.title}>{t('awaADeux.shareSheet.title')}</Text>
               <Pressable
-                accessibilityLabel="Fermer"
+                accessibilityLabel={t('common.close')}
                 accessibilityRole="button"
                 hitSlop={8}
                 onPress={requestClose}
@@ -151,14 +154,14 @@ function SheetContent({onClose, closeRef}: {onClose: () => void; closeRef: React
               </Pressable>
             </View>
 
-            <View accessibilityLabel="Aperçu de l’invitation" style={styles.card}>
-              <Text maxFontSizeMultiplier={1.2} style={styles.line}>Rejoins-moi sur AWA à deux 💜</Text>
+            <View accessibilityLabel={t('awaADeux.shareSheet.previewAccessibility')} style={styles.card}>
+              <Text maxFontSizeMultiplier={1.2} style={styles.line}>{t('awaADeux.shareSheet.previewLine1')}</Text>
               <Text maxFontSizeMultiplier={1.2} style={styles.line}>
-                {'Utilise ce code : '}
+                {t('awaADeux.shareSheet.previewCodePrefix')}
                 <Text style={styles.code}>{DEMO_PAIRING_CODE}</Text>
-                {'\npour te connecter et m’accompagner.'}
+                {t('awaADeux.shareSheet.previewCodeSuffix')}
               </Text>
-              <Text maxFontSizeMultiplier={1.2} style={[styles.line, styles.lastLine]}>Télécharge l’application AWA !</Text>
+              <Text maxFontSizeMultiplier={1.2} style={[styles.line, styles.lastLine]}>{t('awaADeux.shareSheet.previewLine3')}</Text>
             </View>
           </Animated.View>
 
@@ -181,25 +184,25 @@ function SheetContent({onClose, closeRef}: {onClose: () => void; closeRef: React
 
           <Animated.View style={[styles.actionsRow, actionsEntrance]}>
             <Pressable
-              accessibilityHint="Ouvre le partage du téléphone, qui propose Copier"
-              accessibilityLabel="Copier le texte"
+              accessibilityHint={t('awaADeux.shareSheet.copyHint')}
+              accessibilityLabel={t('awaADeux.shareSheet.copyText')}
               accessibilityRole="button"
               onPress={() => systemShare()}
               style={({pressed}) => [styles.action, pressed && styles.pressedScale]}>
               <View style={styles.actionIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="content-copy" size={24} />
               </View>
-              <Text maxFontSizeMultiplier={1.15} numberOfLines={1} style={styles.appLabel}>Copier le texte</Text>
+              <Text maxFontSizeMultiplier={1.15} numberOfLines={1} style={styles.appLabel}>{t('awaADeux.shareSheet.copyText')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Plus d’options"
+              accessibilityLabel={t('awaADeux.shareSheet.moreOptions')}
               accessibilityRole="button"
               onPress={() => systemShare()}
               style={({pressed}) => [styles.action, pressed && styles.pressedScale]}>
               <View style={styles.actionIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name="dots-horizontal" size={24} />
               </View>
-              <Text maxFontSizeMultiplier={1.15} numberOfLines={1} style={styles.appLabel}>Plus d’options</Text>
+              <Text maxFontSizeMultiplier={1.15} numberOfLines={1} style={styles.appLabel}>{t('awaADeux.shareSheet.moreOptions')}</Text>
             </Pressable>
           </Animated.View>
 

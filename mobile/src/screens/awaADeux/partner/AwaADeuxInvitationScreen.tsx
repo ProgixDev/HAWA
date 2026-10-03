@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {Animated, Image, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../../navigation/AppNavigator';
 import {getFirstName} from '../../../state/onboardingPreferences';
@@ -29,6 +30,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxInvitation'>;
 const INVITATION_IMAGE = require('../../../assets/images/invitation.png');
 
 export default function AwaADeuxInvitationScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const heroEntrance = useHeroEntrance();
@@ -40,12 +42,12 @@ export default function AwaADeuxInvitationScreen({navigation}: Props): React.JSX
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel="Continuer"
+      ctaLabel={t('common.continue')}
       decor
       description={
         ownerName
-          ? `${ownerName} vous invite\nà rejoindre AWA à deux`
-          : 'Vous avez reçu une invitation\nà rejoindre AWA à deux'
+          ? t('awaADeux.partnerSide.invitation.descriptionWithName', {name: ownerName})
+          : t('awaADeux.partnerSide.invitation.descriptionNeutral')
       }
       hero={
         <Animated.View style={[styles.hero, heroEntrance]}>
@@ -60,15 +62,14 @@ export default function AwaADeuxInvitationScreen({navigation}: Props): React.JSX
       }
       onBack={navigation.goBack}
       onContinue={() => navigation.navigate('AwaADeuxAcceptInvitation')}
-      title="AWA à deux">
+      title={t('awaADeux.partnerSide.invitation.title')}>
       <Reveal index={0}>
         <View style={styles.card}>
           <View style={styles.cardIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="text-box-outline" size={20} />
           </View>
           <Text style={styles.body}>
-            Elle souhaite partager avec vous certaines informations pour vous aider à
-            mieux comprendre son parcours.
+            {t('awaADeux.partnerSide.invitation.cardBody')}
           </Text>
         </View>
       </Reveal>
@@ -77,7 +78,7 @@ export default function AwaADeuxInvitationScreen({navigation}: Props): React.JSX
         <View style={styles.privacy}>
           <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
           <Text style={styles.privacyText}>
-            Vous verrez uniquement les informations qu’elle choisit de partager.
+            {t('awaADeux.partnerSide.invitation.privacyText')}
           </Text>
         </View>
       </Reveal>

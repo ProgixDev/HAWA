@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {BottomTabBarProps} from '@react-navigation/bottom-tabs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {AnimatedTabItem} from './AnimatedTabItem';
 import type {PartnerMainTabParamList} from '../../navigation/PartnerMainTabNavigator';
@@ -17,18 +18,20 @@ import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaTheme
 // exact current behavior.
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const TAB_META: Record<keyof PartnerMainTabParamList, {icon: IconName; label: string}> = {
-  PartnerHome: {icon: 'home-variant', label: 'Accueil'},
-  PartnerCalendar: {icon: 'calendar-month-outline', label: 'Calendrier'},
-  PartnerAdvice: {icon: 'hand-heart-outline', label: 'Conseils'},
-  PartnerProfile: {icon: 'account-outline', label: 'Profil'},
-};
+const tabMetaOf = (t: (key: string) => string): Record<keyof PartnerMainTabParamList, {icon: IconName; label: string}> => ({
+  PartnerHome: {icon: 'home-variant', label: t('navigation.home')},
+  PartnerCalendar: {icon: 'calendar-month-outline', label: t('navigation.calendar')},
+  PartnerAdvice: {icon: 'hand-heart-outline', label: t('awaADeux.partnerSide.tabs.advice')},
+  PartnerProfile: {icon: 'account-outline', label: t('navigation.profile')},
+});
 
 function PartnerBottomTabBar({state, navigation}: BottomTabBarProps): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const onPill = pickReadableTextColor(theme.colors.accent);
+  const TAB_META = useMemo(() => tabMetaOf(t), [t]);
 
   return (
     <View pointerEvents="box-none" style={[styles.bottomBarArea, {paddingBottom: Math.max(insets.bottom, 8)}]}>

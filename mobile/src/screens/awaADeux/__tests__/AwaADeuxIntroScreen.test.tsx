@@ -14,8 +14,9 @@ import ProfileScreen from '../../ProfileScreen';
 import AwaADeuxIntroScreen from '../AwaADeuxIntroScreen';
 import {INTRO_HERO_MIN_HEIGHT, getIntroLayout} from '../awaADeuxIntroLayout';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
 import {updatePrivacySecuritySettings} from '../../../state/securityPreferences';
+import i18n from '../../../i18n';
 
 // Profile → "AWA à deux" → introduction screen. UI + navigation only.
 const Stack = createNativeStackNavigator();
@@ -67,6 +68,11 @@ beforeEach(async () => {
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
   updatePrivacySecuritySettings({anonymousMode: false});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

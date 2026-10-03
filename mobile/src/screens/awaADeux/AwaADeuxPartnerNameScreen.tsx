@@ -18,6 +18,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import LinearGradient from 'react-native-linear-gradient';
 import {useReducedMotion} from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -73,6 +74,7 @@ function useSoftEntrance(delay: number, reduceMotion: boolean, distance = 8) {
 }
 
 export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const {width, height} = useWindowDimensions();
@@ -121,7 +123,7 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
 
       <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={8}
           onPress={navigation.goBack}
@@ -142,7 +144,7 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
 
           <Animated.View style={titleEntrance}>
             <Text accessibilityRole="header" maxFontSizeMultiplier={1.15} style={styles.title}>
-              {'Comment s’appelle\nvotre partenaire ?'}
+              {t('awaADeux.partnerName.title')}
             </Text>
             <View accessibilityElementsHidden importantForAccessibility="no-hide-descendants" style={styles.divider}>
               <View style={styles.dividerLine} />
@@ -151,15 +153,15 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
             </View>
             {keyboardOpen && compact ? null : (
               <Text maxFontSizeMultiplier={1.15} style={styles.description}>
-                {'Cela nous permettra de personnaliser\nvotre expérience AWA à deux.'}
+                {t('awaADeux.partnerName.description')}
               </Text>
             )}
           </Animated.View>
 
           <Animated.View style={[styles.card, cardEntrance]}>
-            <Text maxFontSizeMultiplier={1.2} style={styles.label}>Prénom du partenaire</Text>
+            <Text maxFontSizeMultiplier={1.2} style={styles.label}>{t('awaADeux.partnerName.fieldLabel')}</Text>
             <TextInput
-              accessibilityLabel="Prénom du partenaire"
+              accessibilityLabel={t('awaADeux.partnerName.fieldLabel')}
               autoCapitalize="words"
               autoComplete="off"
               autoCorrect={false}
@@ -170,7 +172,7 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
                 setName(value);
               }}
               onFocus={() => setFocused(true)}
-              placeholder="Ex : Yacine"
+              placeholder={t('awaADeux.partnerName.placeholder')}
               placeholderTextColor={theme.colors.textMuted}
               returnKeyType="done"
               selectionColor={theme.colors.primary}
@@ -198,13 +200,13 @@ export default function AwaADeuxPartnerNameScreen({navigation}: Props): React.JS
 
         <View style={[styles.footer, {paddingBottom: Math.max(insets.bottom, 16) + 8}]}>
           <Pressable
-            accessibilityLabel="Continuer"
+            accessibilityLabel={t('common.continue')}
             accessibilityRole="button"
             accessibilityState={{disabled: !canContinue}}
             disabled={!canContinue}
             onPress={onContinue}
             style={({pressed}) => [styles.cta, !canContinue && styles.ctaDisabled, pressed && styles.pressed]}>
-            <Text maxFontSizeMultiplier={1.15} style={styles.ctaText}>Continuer</Text>
+            <Text maxFontSizeMultiplier={1.15} style={styles.ctaText}>{t('common.continue')}</Text>
             <View style={styles.ctaArrow}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="arrow-right" size={20} />
             </View>

@@ -7,6 +7,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import * as Reanimated from 'react-native-reanimated';
 
+import '../../../i18n'; // side effect: initializes i18next (AwaADeuxIntroScreen renders via useTranslation())
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import AwaADeuxIntroScreen, {INTRO_ENTRANCE} from '../AwaADeuxIntroScreen';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';

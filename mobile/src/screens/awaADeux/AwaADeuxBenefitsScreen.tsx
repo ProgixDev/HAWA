@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -18,25 +19,27 @@ import {getBenefitsLayout, type BenefitsLayout} from './awaADeuxBenefitsLayout';
 type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxBenefits'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const BENEFITS: Array<{icon: IconName; text: string}> = [
-  {icon: 'account-heart-outline', text: 'Un partenaire plus informé et plus attentif'},
-  {icon: 'lightbulb-on-outline', text: 'Des conseils adaptés à chaque étape'},
-  {icon: 'chat-outline', text: 'Une meilleure communication'},
-  {icon: 'hand-heart-outline', text: 'Un soutien au quotidien'},
-  {icon: 'heart-outline', text: 'Un parcours plus serein ensemble'},
+const benefitsOf = (t: (key: string) => string): Array<{icon: IconName; text: string}> => [
+  {icon: 'account-heart-outline', text: t('awaADeux.benefits.item1')},
+  {icon: 'lightbulb-on-outline', text: t('awaADeux.benefits.item2')},
+  {icon: 'chat-outline', text: t('awaADeux.benefits.item3')},
+  {icon: 'hand-heart-outline', text: t('awaADeux.benefits.item4')},
+  {icon: 'heart-outline', text: t('awaADeux.benefits.item5')},
 ];
 
 export default function AwaADeuxBenefitsScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const {height} = useWindowDimensions();
 
   const layout = useMemo(() => getBenefitsLayout(height, insets.top, insets.bottom), [height, insets.top, insets.bottom]);
   const styles = useMemo(() => createStyles(theme, layout), [theme, layout]);
+  const BENEFITS = useMemo(() => benefitsOf(t), [t]);
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel="Continuer"
+      ctaLabel={t('common.continue')}
       fit={{
         titleFontSize: layout.titleFontSize,
         titleLineHeight: layout.titleLineHeight,
@@ -46,7 +49,7 @@ export default function AwaADeuxBenefitsScreen({navigation}: Props): React.JSX.E
       }}
       onBack={navigation.goBack}
       onContinue={() => navigation.navigate('AwaADeuxSharing')}
-      title={'Les avantages\npour vous deux'}>
+      title={t('awaADeux.benefits.title')}>
       {BENEFITS.map((benefit, index) => (
         <Reveal key={benefit.text} index={index}>
           <View style={styles.card}>

@@ -19,9 +19,10 @@ import {clearAwaADeuxPartnerProfileFirstName, getAwaADeuxPartnerProfileFirstName
 import {getDemoPartnerState, simulatePartnerConnected, stopDemoSharing} from '../../../state/awaADeuxDemoStore';
 import {DEFAULT_SHARING_TOGGLES, SHARING_KEYS, getSharingToggles, setSharingToggle} from '../../../state/awaADeuxSharingStore';
 import {setActiveObjective, setFirstName} from '../../../state/onboardingPreferences';
-import {setAppearanceMode} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage} from '../../../state/themePreferences';
 import * as partnerCycleInfo from '../../../utils/awaADeuxPartnerCycleInfo';
 import {APP_METADATA} from '../../../utils/appMetadata';
+import i18n from '../../../i18n';
 
 // The PARTNER-side demo journey: AwaADeuxPending (owner) → [__DEV__ only] →
 // AwaADeuxInvitation → AwaADeuxAcceptInvitation → PartnerMainTabs. Frontend / in-memory
@@ -107,6 +108,11 @@ beforeEach(async () => {
   for (const key of SHARING_KEYS) {await setSharingToggle(key, DEFAULT_SHARING_TOGGLES[key]);}
   await setActiveObjective('cycle');
   setFirstName('');
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -142,7 +148,7 @@ describe('AwaADeuxPendingScreen actions', () => {
 
   it('the dev preview action is gated by __DEV__ in source (never shown in a production build)', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../AwaADeuxPendingScreen.tsx'), 'utf8');
-    expect(source).toMatch(/\{__DEV__\s*\?[\s\S]*Prévisualiser le parcours partenaire/);
+    expect(source).toMatch(/\{__DEV__\s*\?[\s\S]*awaADeux\.pending\.previewTitle/);
   });
 });
 

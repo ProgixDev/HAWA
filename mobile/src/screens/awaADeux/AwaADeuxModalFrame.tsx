@@ -8,6 +8,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -32,6 +33,7 @@ type Props = {
 };
 
 function ModalCard({title, onClose, children, ctaLabel, onCta, ctaDisabled}: Omit<Props, 'visible' | 'avoidKeyboard'>) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const reduceMotion = useReducedMotion();
@@ -46,7 +48,7 @@ function ModalCard({title, onClose, children, ctaLabel, onCta, ctaDisabled}: Omi
       <View style={styles.header}>
         <Text accessibilityRole="header" maxFontSizeMultiplier={1.2} numberOfLines={2} style={styles.title}>{title}</Text>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           accessibilityRole="button"
           hitSlop={8}
           onPress={onClose}
@@ -89,6 +91,7 @@ function ModalCard({title, onClose, children, ctaLabel, onCta, ctaDisabled}: Omi
 }
 
 export default function AwaADeuxModalFrame({visible, onClose, avoidKeyboard, ...card}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -99,7 +102,7 @@ export default function AwaADeuxModalFrame({visible, onClose, avoidKeyboard, ...
         behavior={avoidKeyboard ? (Platform.OS === 'ios' ? 'padding' : 'height') : undefined}
         style={[styles.root, {paddingTop: Math.max(insets.top, 16), paddingBottom: Math.max(insets.bottom, 16)}]}>
         <Pressable
-          accessibilityLabel="Fermer"
+          accessibilityLabel={t('common.close')}
           accessibilityRole="button"
           onPress={onClose}
           style={styles.backdrop}

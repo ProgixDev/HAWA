@@ -2,6 +2,7 @@ import React, {useMemo, useRef, useState} from 'react';
 import {Animated, Image, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../../navigation/AppNavigator';
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
@@ -11,7 +12,7 @@ import {useAwaTheme} from '../../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import AwaADeuxStepLayout, {Reveal} from '../AwaADeuxStepLayout';
-import {SHARING_SECTIONS} from '../awaADeuxDemo';
+import {sharingSections} from '../awaADeuxDemo';
 import {useHeroEntrance} from '../useEntrance';
 
 // "AWA à deux" — PARTNER-SIDE demo acceptance. FRONTEND ONLY: "Accepter l'invitation"
@@ -33,11 +34,12 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxAcceptInvitatio
 const INVITATION_IMAGE = require('../../../assets/images/invitation.png');
 
 export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {toggles, isPregnant} = useAwaADeuxSharing();
   const visibility = computePartnerVisibility(toggles, {isPregnant});
-  const sharedItems = SHARING_SECTIONS.flatMap(section => section.items).filter(item => visibility.fields[item.key]);
+  const sharedItems = sharingSections().flatMap(section => section.items).filter(item => visibility.fields[item.key]);
   const heroEntrance = useHeroEntrance();
 
   const ownerName = getFirstName().trim();
@@ -78,18 +80,20 @@ export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): Rea
           minimumFontScale={0.82}
           numberOfLines={1}
           style={styles.title}>
-          <Text style={styles.titlePrimary}>Accepter </Text>
-          <Text style={styles.titleAccent}>l’invitation ?</Text>
+          <Text style={styles.titlePrimary}>{t('awaADeux.partnerSide.accept.titlePrimary')}</Text>
+          <Text style={styles.titleAccent}>{t('awaADeux.partnerSide.accept.titleAccent')}</Text>
         </Text>
         <Text style={styles.subtitle}>
-          {ownerName ? `${ownerName} souhaite partager\navec vous :` : 'Votre partenaire souhaite partager\navec vous :'}
+          {ownerName
+            ? t('awaADeux.partnerSide.accept.subtitleWithName', {name: ownerName})
+            : t('awaADeux.partnerSide.accept.subtitleNeutral')}
         </Text>
       </Reveal>
 
       <Reveal index={1}>
         <View style={styles.card}>
           {sharedItems.length === 0 ? (
-            <Text style={styles.emptyText}>Aucune information n’est partagée pour le moment.</Text>
+            <Text style={styles.emptyText}>{t('awaADeux.partnerSide.accept.emptyShared')}</Text>
           ) : (
             sharedItems.map((item, index) => (
               <View key={item.key} style={[styles.row, index > 0 && styles.rowDivider]}>
@@ -107,7 +111,7 @@ export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): Rea
         <View style={styles.privacy}>
           <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
           <Text style={styles.privacyText}>
-            Vous aurez uniquement accès aux informations qu’elle choisit de partager.
+            {t('awaADeux.partnerSide.accept.privacyText')}
           </Text>
         </View>
       </Reveal>
@@ -119,21 +123,21 @@ export default function AwaADeuxAcceptInvitationScreen({navigation}: Props): Rea
       <Reveal index={3}>
         <View style={styles.actionsRow}>
           <Pressable
-            accessibilityLabel="Accepter l’invitation"
+            accessibilityLabel={t('awaADeux.partnerSide.accept.acceptCta')}
             accessibilityRole="button"
             accessibilityState={{disabled: busy}}
             disabled={busy}
             onPress={accept}
             style={({pressed}) => [styles.acceptButton, pressed && styles.pressed]}>
-            <Text style={styles.acceptButtonText}>Accepter l’invitation</Text>
+            <Text style={styles.acceptButtonText}>{t('awaADeux.partnerSide.accept.acceptCta')}</Text>
           </Pressable>
           <Pressable
-            accessibilityLabel="Plus tard"
+            accessibilityLabel={t('awaADeux.partnerSide.accept.later')}
             accessibilityRole="button"
             disabled={busy}
             onPress={navigation.goBack}
             style={({pressed}) => [styles.later, pressed && styles.pressed]}>
-            <Text style={styles.laterText}>Plus tard</Text>
+            <Text style={styles.laterText}>{t('awaADeux.partnerSide.accept.later')}</Text>
           </Pressable>
         </View>
       </Reveal>
