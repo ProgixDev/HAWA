@@ -9,6 +9,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import MenopauseStatisticsScreen from '../MenopauseStatisticsScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {setMenopauseLabTracking} from '../../../state/menopausePreferences';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 import {
   addMenopauseLabResult,
   clearMenopauseJournalFields,
@@ -78,6 +80,11 @@ beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 25, 20, 30, 0)});
   resetPremiumStateForTests();
   await setMenopauseLabTracking('fsh');
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

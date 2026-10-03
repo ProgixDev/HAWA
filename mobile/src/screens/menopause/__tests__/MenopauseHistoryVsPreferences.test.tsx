@@ -18,6 +18,8 @@ import {
   type MenopauseSymptom,
 } from '../../../state/menopausePreferences';
 import {addMenopauseLabResult, saveMenopauseJournalField} from '../../../state/menopauseJournalStore';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M27 — changing the tracking PREFERENCES only steers what is offered for NEW
 // tracking. What was genuinely recorded stays represented in the history views
@@ -117,6 +119,11 @@ const offered = (renderer: ReactTestRenderer.ReactTestRenderer) =>
 beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 25, 12, 0, 0)});
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
