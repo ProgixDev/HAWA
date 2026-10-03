@@ -13,6 +13,7 @@ import {
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import AnonymousAvatar, {
@@ -86,11 +87,13 @@ function ColorSwatch({
   selected,
   onPress,
   styles,
+  t,
 }: {
   color: string;
   selected: boolean;
   onPress: () => void;
   styles: ReturnType<typeof createStyles>;
+  t: (key: string, options?: Record<string, unknown>) => string;
 }): React.JSX.Element {
   const scale = useRef(new Animated.Value(selected ? 1.07 : 1)).current;
 
@@ -105,7 +108,7 @@ function ColorSwatch({
 
   return (
     <Pressable
-      accessibilityLabel={`Couleur ${color}`}
+      accessibilityLabel={t('anonymous.avatar.colorSwatchA11y', {color})}
       accessibilityRole="radio"
       accessibilityState={{checked: selected}}
       hitSlop={4}
@@ -241,6 +244,7 @@ export default function AnonymousAvatarCustomizerScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -344,7 +348,7 @@ export default function AnonymousAvatarCustomizerScreen({
             },
           ]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -364,12 +368,12 @@ export default function AnonymousAvatarCustomizerScreen({
               adjustsFontSizeToFit
               minimumFontScale={0.82}
               style={styles.headerTitle}>
-              Personnaliser mon avatar
+              {t('anonymous.avatar.headerTitle')}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel="Enregistrer"
+            accessibilityLabel={t('common.save')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={save}
@@ -381,7 +385,7 @@ export default function AnonymousAvatarCustomizerScreen({
               adjustsFontSizeToFit
               minimumFontScale={0.82}
               style={styles.saveText}>
-              Enregistrer
+              {t('common.save')}
             </Text>
           </Pressable>
         </View>
@@ -407,16 +411,15 @@ export default function AnonymousAvatarCustomizerScreen({
           <FadeInUp>
             <View style={styles.intro}>
               <Text style={styles.eyebrow}>
-                TON PROFIL ANONYME
+                {t('anonymous.avatar.eyebrow')}
               </Text>
 
               <Text style={styles.title}>
-                Crée un avatar qui te ressemble
+                {t('anonymous.avatar.title')}
               </Text>
 
               <Text style={styles.subtitle}>
-                Choisis simplement un style et une couleur. Aucune photo
-                personnelle n’est nécessaire.
+                {t('anonymous.avatar.subtitle')}
               </Text>
             </View>
           </FadeInUp>
@@ -469,7 +472,7 @@ export default function AnonymousAvatarCustomizerScreen({
                 />
 
                 <Text style={styles.privateBadgeText}>
-                  Profil privé
+                  {t('anonymous.avatar.privateProfile')}
                 </Text>
               </View>
             </View>
@@ -484,11 +487,11 @@ export default function AnonymousAvatarCustomizerScreen({
               <View style={styles.sectionHeading}>
                 <View>
                   <Text style={styles.sectionTitle}>
-                    Choisis une couleur
+                    {t('anonymous.avatar.colorSectionTitle')}
                   </Text>
 
                   <Text style={styles.sectionDescription}>
-                    Sélectionne la teinte de ton avatar.
+                    {t('anonymous.avatar.colorSectionDescription')}
                   </Text>
                 </View>
               </View>
@@ -505,6 +508,7 @@ export default function AnonymousAvatarCustomizerScreen({
                       onPress={() => setDraftColor(color)}
                       selected={draftColor === color}
                       styles={styles}
+                      t={t}
                     />
                   ))}
                 </ScrollView>
@@ -521,11 +525,11 @@ export default function AnonymousAvatarCustomizerScreen({
               <View style={styles.sectionHeading}>
                 <View style={styles.sectionTextContainer}>
                   <Text style={styles.sectionTitle}>
-                    Choisis ton style
+                    {t('anonymous.avatar.styleSectionTitle')}
                   </Text>
 
                   <Text style={styles.sectionDescription}>
-                    Tu pourras le modifier plus tard depuis ton profil.
+                    {t('anonymous.avatar.styleSectionDescription')}
                   </Text>
                 </View>
               </View>
@@ -564,13 +568,11 @@ export default function AnonymousAvatarCustomizerScreen({
 
               <View style={styles.infoContent}>
                 <Text style={styles.infoTitle}>
-                  Ta confidentialité avant tout
+                  {t('anonymous.avatar.infoTitle')}
                 </Text>
 
                 <Text style={styles.infoText}>
-                  Cet avatar remplace ta photo tant que le mode anonyme
-                  est actif. Aucune photo réelle n’est utilisée pour ton
-                  profil.
+                  {t('anonymous.avatar.infoText')}
                 </Text>
               </View>
             </View>
@@ -584,7 +586,7 @@ export default function AnonymousAvatarCustomizerScreen({
             <FadeInUp delay={250}>
               <View style={styles.authActions}>
                 <Pressable
-                  accessibilityLabel="Enregistrer et continuer"
+                  accessibilityLabel={t('anonymous.avatar.saveAndContinue')}
                   accessibilityRole="button"
                   onPress={save}
                   style={({pressed}) => [
@@ -592,7 +594,7 @@ export default function AnonymousAvatarCustomizerScreen({
                     pressed && styles.buttonPressed,
                   ]}>
                   <Text style={styles.continueButtonText}>
-                    Enregistrer et continuer
+                    {t('anonymous.avatar.saveAndContinue')}
                   </Text>
 
                   <MaterialDesignIcons
@@ -603,7 +605,7 @@ export default function AnonymousAvatarCustomizerScreen({
                 </Pressable>
 
                 <Pressable
-                  accessibilityLabel="Plus tard"
+                  accessibilityLabel={t('anonymous.avatar.later')}
                   accessibilityRole="button"
                   hitSlop={8}
                   onPress={skip}
@@ -612,7 +614,7 @@ export default function AnonymousAvatarCustomizerScreen({
                     pressed && styles.pressOpacity,
                   ]}>
                   <Text style={styles.skipText}>
-                    Plus tard
+                    {t('anonymous.avatar.later')}
                   </Text>
                 </Pressable>
               </View>
@@ -620,7 +622,7 @@ export default function AnonymousAvatarCustomizerScreen({
           ) : (
             <FadeInUp delay={250}>
               <Pressable
-                accessibilityLabel="Enregistrer les modifications"
+                accessibilityLabel={t('anonymous.avatar.saveChanges')}
                 accessibilityRole="button"
                 onPress={save}
                 style={({pressed}) => [
@@ -629,7 +631,7 @@ export default function AnonymousAvatarCustomizerScreen({
                   pressed && styles.buttonPressed,
                 ]}>
                 <Text style={styles.continueButtonText}>
-                  Enregistrer les modifications
+                  {t('anonymous.avatar.saveChanges')}
                 </Text>
 
                 <MaterialDesignIcons

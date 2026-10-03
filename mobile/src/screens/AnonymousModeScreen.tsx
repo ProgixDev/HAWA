@@ -4,6 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useFocusEffect} from '@react-navigation/native';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
   getPrivacySecuritySettings,
@@ -22,21 +23,21 @@ const HERO = require('../assets/images/privacy/anonymous-mode-woman.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'AnonymousMode'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const PRIVACY_ROWS: ReadonlyArray<{key: string; icon: IconName; title: string}> = [
-  {key: 'name', icon: 'account-off-outline', title: 'Aucun nom requis'},
-  {key: 'email', icon: 'email-off-outline', title: 'Aucune adresse e-mail requise'},
-  {key: 'account', icon: 'link-off', title: 'Aucun compte Google ou Apple associé'},
-  {key: 'profile', icon: 'shield-account-outline', title: 'Profil dissocié de ton identité'},
+const PRIVACY_ROW_ICONS: ReadonlyArray<{key: string; icon: IconName; titleKey: string}> = [
+  {key: 'name', icon: 'account-off-outline', titleKey: 'anonymous.mode.privacyRowName'},
+  {key: 'email', icon: 'email-off-outline', titleKey: 'anonymous.mode.privacyRowEmail'},
+  {key: 'account', icon: 'link-off', titleKey: 'anonymous.mode.privacyRowAccount'},
+  {key: 'profile', icon: 'shield-account-outline', titleKey: 'anonymous.mode.privacyRowProfile'},
 ];
 
 // What is/isn't retained while Anonymous Mode is active — shown on the
 // management view (spec: "E-mail / Nom / Identifiants techniques — Non
-// conservés"). Kept separate from PRIVACY_ROWS above (that one explains the
-// onboarding promise before activation; this one confirms it afterwards).
-const RETENTION_ROWS: ReadonlyArray<{key: string; icon: IconName; label: string}> = [
-  {key: 'email', icon: 'email-off-outline', label: 'E-mail'},
-  {key: 'name', icon: 'account-off-outline', label: 'Nom'},
-  {key: 'technical', icon: 'key-outline', label: 'Identifiants techniques'},
+// conservés"). Kept separate from PRIVACY_ROW_ICONS above (that one explains
+// the onboarding promise before activation; this one confirms it afterwards).
+const RETENTION_ROW_ICONS: ReadonlyArray<{key: string; icon: IconName; labelKey: string}> = [
+  {key: 'email', icon: 'email-off-outline', labelKey: 'anonymous.mode.retentionEmail'},
+  {key: 'name', icon: 'account-off-outline', labelKey: 'anonymous.mode.retentionName'},
+  {key: 'technical', icon: 'key-outline', labelKey: 'anonymous.mode.retentionTechnical'},
 ];
 
 function FadeInUp({
@@ -72,8 +73,11 @@ function FadeInUp({
 }
 
 export default function AnonymousModeScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const PRIVACY_ROWS = PRIVACY_ROW_ICONS.map(row => ({...row, title: t(row.titleKey)}));
+  const RETENTION_ROWS = RETENTION_ROW_ICONS.map(row => ({...row, label: t(row.labelKey)}));
   const insets = useSafeAreaInsets();
   const source = route.params?.source;
   const [enabled, setEnabled] = useState(() => getPrivacySecuritySettings().anonymousMode);
@@ -119,7 +123,7 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
         <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
           <View style={styles.header}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -128,8 +132,8 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
             </Pressable>
 
             <View style={styles.headerTitleBlock}>
-              <Text style={styles.headerTitle}>Mode anonyme</Text>
-              <Text style={styles.headerSubtitle}>Confidentialité</Text>
+              <Text style={styles.headerTitle}>{t('anonymous.mode.headerTitle')}</Text>
+              <Text style={styles.headerSubtitle}>{t('anonymous.mode.headerSubtitle')}</Text>
             </View>
 
             <View style={styles.headerSpace} />
@@ -142,7 +146,7 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
               <View style={styles.hero}>
                 <View style={styles.heroHaloOuter}>
                   <View style={styles.heroHaloInner}>
-                    <Image accessibilityLabel="Illustration du mode anonyme" resizeMode="contain" source={HERO} style={styles.heroImage} />
+                    <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
                   </View>
 
                   <View style={[styles.securityBadge, styles.securityBadgeSuccess]}>
@@ -150,9 +154,9 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                   </View>
                 </View>
 
-                <Text style={styles.title}>Mode Anonyme activé</Text>
+                <Text style={styles.title}>{t('anonymous.mode.activeTitle')}</Text>
                 <Text style={styles.subtitle}>
-                  Ton profil reste dissocié de ton identité tant que ce mode est actif.
+                  {t('anonymous.mode.activeSubtitle')}
                 </Text>
               </View>
             </FadeInUp>
@@ -164,9 +168,9 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                     <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
                   </View>
                   <View style={styles.cardHeaderCopy}>
-                    <Text style={styles.cardHeaderTitle}>Rien n’est conservé</Text>
+                    <Text style={styles.cardHeaderTitle}>{t('anonymous.mode.nothingKeptTitle')}</Text>
                     <Text style={styles.cardHeaderSubtitle}>
-                      Ces informations ne sont pas associées à ton profil anonyme.
+                      {t('anonymous.mode.nothingKeptSubtitle')}
                     </Text>
                   </View>
                 </View>
@@ -179,7 +183,7 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                       </View>
                       <Text style={styles.rowTitle}>{row.label}</Text>
                       <View style={styles.rowStatus}>
-                        <Text style={styles.rowStatusText}>Non conservé</Text>
+                        <Text style={styles.rowStatusText}>{t('anonymous.mode.notRetained')}</Text>
                         <MaterialDesignIcons color={theme.colors.success} name="check-circle" size={16} />
                       </View>
                     </View>
@@ -190,7 +194,7 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
 
             <FadeInUp delay={150}>
               <Pressable
-                accessibilityLabel="Verrouillage de l’application"
+                accessibilityLabel={t('anonymous.mode.appLockA11y')}
                 accessibilityRole="button"
                 onPress={() => navigation.navigate('PrivacySecurity')}
                 style={({pressed}) => [styles.securityCard, pressed && styles.pressed]}>
@@ -198,28 +202,28 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                   <MaterialDesignIcons color={theme.colors.primary} name="shield-key-outline" size={20} />
                 </View>
                 <View style={styles.securityCopy}>
-                  <Text style={styles.securityTitle}>Verrouillage de l’appli</Text>
-                  <Text style={styles.securityText}>Code PIN ou biométrie à l’ouverture d’AWA</Text>
+                  <Text style={styles.securityTitle}>{t('anonymous.mode.appLockTitle')}</Text>
+                  <Text style={styles.securityText}>{t('anonymous.mode.appLockText')}</Text>
                 </View>
-                <Text style={styles.securityStatus}>{locked ? 'Activé' : 'Désactivé'}</Text>
+                <Text style={styles.securityStatus}>{locked ? t('anonymous.mode.appLockEnabled') : t('anonymous.mode.appLockDisabled')}</Text>
                 <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
               </Pressable>
             </FadeInUp>
 
             <FadeInUp delay={210}>
               <View style={styles.conversionCard}>
-                <Text style={styles.conversionTitle}>Désactiver le mode Anonyme</Text>
+                <Text style={styles.conversionTitle}>{t('anonymous.mode.disableTitle')}</Text>
                 <Text style={styles.conversionText}>
-                  Pour quitter le mode anonyme, tu peux créer un compte et associer une adresse e-mail ou un identifiant.
+                  {t('anonymous.mode.disableText')}
                 </Text>
 
                 <Pressable
-                  accessibilityLabel="Créer un compte"
+                  accessibilityLabel={t('auth.shared.tabRegister')}
                   accessibilityRole="button"
                   onPress={() => navigation.navigate('Registration')}
                   style={({pressed}) => [styles.secondaryButton, pressed && styles.pressed]}>
                   <MaterialDesignIcons color={theme.colors.primary} name="account-plus-outline" size={19} />
-                  <Text style={styles.secondaryButtonText}>Créer un compte</Text>
+                  <Text style={styles.secondaryButtonText}>{t('auth.shared.tabRegister')}</Text>
                 </Pressable>
               </View>
             </FadeInUp>
@@ -242,7 +246,7 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
         <View style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -251,8 +255,8 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
           </Pressable>
 
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>Mode anonyme</Text>
-            <Text style={styles.headerSubtitle}>Confidentialité</Text>
+            <Text style={styles.headerTitle}>{t('anonymous.mode.headerTitle')}</Text>
+            <Text style={styles.headerSubtitle}>{t('anonymous.mode.headerSubtitle')}</Text>
           </View>
 
           <View style={styles.headerSpace} />
@@ -265,7 +269,7 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
             <View style={styles.hero}>
               <View style={styles.heroHaloOuter}>
                 <View style={styles.heroHaloInner}>
-                  <Image accessibilityLabel="Illustration du mode anonyme" resizeMode="contain" source={HERO} style={styles.heroImage} />
+                  <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
                 </View>
 
                 <View style={styles.securityBadge}>
@@ -273,9 +277,9 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                 </View>
               </View>
 
-              <Text style={styles.title}>Utiliser AWA en mode anonyme</Text>
+              <Text style={styles.title}>{t('anonymous.mode.pitchTitle')}</Text>
               <Text style={styles.subtitle}>
-                Profite de ton espace AWA sans associer ton identité à ton profil.
+                {t('anonymous.mode.pitchSubtitle')}
               </Text>
             </View>
           </FadeInUp>
@@ -287,9 +291,9 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                   <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={20} />
                 </View>
                 <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardHeaderTitle}>Ton identité reste privée</Text>
+                  <Text style={styles.cardHeaderTitle}>{t('anonymous.mode.identityPrivateTitle')}</Text>
                   <Text style={styles.cardHeaderSubtitle}>
-                    Les informations permettant de t’identifier ne sont pas nécessaires pour utiliser ce mode.
+                    {t('anonymous.mode.identityPrivateSubtitle')}
                   </Text>
                 </View>
               </View>
@@ -312,9 +316,9 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
             <View style={styles.infoCard}>
               <MaterialDesignIcons color={theme.colors.accent} name="information-outline" size={19} />
               <View style={styles.infoCopy}>
-                <Text style={styles.infoTitle}>À savoir</Text>
+                <Text style={styles.infoTitle}>{t('anonymous.mode.infoTitle')}</Text>
                 <Text style={styles.infoText}>
-                  Certaines fonctionnalités liées au compte, à la synchronisation ou à la récupération peuvent être limitées en mode anonyme.
+                  {t('anonymous.mode.infoText')}
                 </Text>
               </View>
             </View>
@@ -326,9 +330,9 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
                 <MaterialDesignIcons color={theme.colors.primary} name="shield-key-outline" size={20} />
               </View>
               <View style={styles.securityCopy}>
-                <Text style={styles.securityTitle}>Protection recommandée</Text>
+                <Text style={styles.securityTitle}>{t('anonymous.mode.recommendedProtectionTitle')}</Text>
                 <Text style={styles.securityText}>
-                  Tu pourras protéger l’accès à AWA avec ton code PIN ou la biométrie.
+                  {t('anonymous.mode.recommendedProtectionText')}
                 </Text>
               </View>
               <MaterialDesignIcons color={theme.colors.textSecondary} name="chevron-right" size={20} />
@@ -339,21 +343,21 @@ export default function AnonymousModeScreen({navigation, route}: Props): React.J
         <FadeInUp delay={260} distance={12}>
           <View style={[styles.ctaArea, {paddingBottom: Math.max(insets.bottom, 14)}]}>
             <Pressable
-              accessibilityLabel="Continuer en mode anonyme"
+              accessibilityLabel={t('anonymous.mode.continueInAnonymousMode')}
               accessibilityRole="button"
               onPress={proceed}
               style={({pressed}) => [styles.primary, pressed && styles.pressed]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="incognito" size={20} />
-              <Text style={styles.primaryText}>Continuer en mode anonyme</Text>
+              <Text style={styles.primaryText}>{t('anonymous.mode.continueInAnonymousMode')}</Text>
             </Pressable>
 
             <Pressable
-              accessibilityLabel="Annuler"
+              accessibilityLabel={t('common.cancel')}
               accessibilityRole="button"
               hitSlop={8}
               onPress={navigation.goBack}
               style={styles.cancel}>
-              <Text style={styles.cancelText}>Annuler</Text>
+              <Text style={styles.cancelText}>{t('common.cancel')}</Text>
             </Pressable>
           </View>
         </FadeInUp>

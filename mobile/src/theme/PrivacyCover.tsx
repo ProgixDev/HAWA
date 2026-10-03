@@ -1,5 +1,6 @@
 import React, {useMemo} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from './AwaThemeProvider';
 import type {ResolvedAwaTheme} from './awaThemeTokens';
@@ -11,13 +12,14 @@ import type {ResolvedAwaTheme} from './awaThemeTokens';
 // useAwaTheme() directly — only a child of the provider can), so this now
 // reacts to System/Light/Dark/True Black exactly like the rest of the app.
 export function PrivacyCover(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   return (
-    <View accessibilityLabel="AWA protégée" style={styles.cover}>
+    <View accessibilityLabel={t('privacyCover.a11y')} style={styles.cover}>
       <Text style={styles.title}>AWA</Text>
-      <Text style={styles.subtitle}>Ton espace reste privé</Text>
+      <Text style={styles.subtitle}>{t('privacyCover.subtitle')}</Text>
     </View>
   );
 }

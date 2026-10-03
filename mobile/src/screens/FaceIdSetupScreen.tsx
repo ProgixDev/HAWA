@@ -15,6 +15,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -45,6 +46,7 @@ export default function FaceIdSetupScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -75,12 +77,17 @@ export default function FaceIdSetupScreen({
         setLoading(false);
         setMessage({
           type: 'error',
-          text: 'La biométrie n’est pas disponible sur cet appareil.',
+          text: t('faceIdSetup.unavailable'),
         });
       });
+    // Runs once on mount only, matching the pre-localization behavior
+    // exactly; `t` is intentionally excluded so a language switch never
+    // re-triggers the biometry detection call itself (only re-renders
+    // translated copy).
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const label = capability?.label ?? 'Biométrie';
+  const label = capability?.label ?? t('biometrics.genericLabel');
 
   const biometricIcon = useMemo(
     () =>
@@ -96,7 +103,7 @@ export default function FaceIdSetupScreen({
     if (loading || !capability) {
       setMessage({
         type: 'error',
-        text: 'Aucune méthode biométrique n’est configurée sur cet appareil.',
+        text: t('faceIdSetup.noCapability'),
       });
 
       return;
@@ -114,7 +121,7 @@ export default function FaceIdSetupScreen({
       if (!ok) {
         setMessage({
           type: 'error',
-          text: 'Authentification impossible ou annulée.',
+          text: t('faceIdSetup.authFailedOrCancelled'),
         });
 
         return;
@@ -125,7 +132,7 @@ export default function FaceIdSetupScreen({
 
         setMessage({
           type: 'success',
-          text: `${label} est maintenant activé.`,
+          text: t('faceIdSetup.enabledSuccess', {label}),
         });
 
         setTimeout(() => {
@@ -140,7 +147,7 @@ export default function FaceIdSetupScreen({
 
         setMessage({
           type: 'success',
-          text: `${label} a été désactivé.`,
+          text: t('faceIdSetup.disabledSuccess', {label}),
         });
 
         setTimeout(() => {
@@ -153,7 +160,7 @@ export default function FaceIdSetupScreen({
     } catch {
       setMessage({
         type: 'error',
-        text: 'Authentification annulée ou indisponible.',
+        text: t('security.authCancelledOrUnavailable'),
       });
     } finally {
       setLoading(false);
@@ -162,12 +169,12 @@ export default function FaceIdSetupScreen({
 
   const title =
     action === 'enable'
-      ? `Activer ${label}`
-      : `Gérer ${label}`;
+      ? t('faceIdSetup.enableTitle', {label})
+      : t('faceIdSetup.manageTitle', {label});
 
   const subtitle = capability
-    ? 'Protège l’accès à AWA avec la biométrie sécurisée de ton appareil.'
-    : 'Aucune méthode biométrique utilisable n’a été détectée.';
+    ? t('faceIdSetup.subtitleAvailable')
+    : t('faceIdSetup.subtitleUnavailable');
 
   return (
     <LinearGradient
@@ -197,7 +204,7 @@ export default function FaceIdSetupScreen({
             {paddingTop: Math.max(insets.top, 16) + 4},
           ]}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             onPress={navigation.goBack}
             style={({pressed}) => [
@@ -219,7 +226,7 @@ export default function FaceIdSetupScreen({
             />
 
             <Text style={styles.securityBadgeText}>
-              Sécurité
+              {t('faceIdSetup.securityBadge')}
             </Text>
           </View>
         </View>
@@ -280,14 +287,11 @@ export default function FaceIdSetupScreen({
 
             <View style={styles.securityCardCopy}>
               <Text style={styles.securityCardTitle}>
-                Vérification sécurisée
+                {t('faceIdSetup.secureVerificationTitle')}
               </Text>
 
               <Text style={styles.securityCardText}>
-                AWA utilise uniquement le dialogue
-                biométrique natif de ton appareil.
-                Aucune donnée biométrique n’est stockée
-                dans l’application.
+                {t('faceIdSetup.secureVerificationText')}
               </Text>
             </View>
           </View>
@@ -349,7 +353,7 @@ export default function FaceIdSetupScreen({
               />
 
               <Text style={styles.loadingText}>
-                Vérification de la biométrie…
+                {t('faceIdSetup.verifyingBiometrics')}
               </Text>
             </View>
           ) : action === 'enable' ? (
@@ -371,7 +375,7 @@ export default function FaceIdSetupScreen({
                 />
 
                 <Text style={styles.primaryText}>
-                  Activer {label}
+                  {t('faceIdSetup.enableTitle', {label})}
                 </Text>
 
                 <View style={styles.primaryArrow}>
@@ -384,8 +388,7 @@ export default function FaceIdSetupScreen({
               </Pressable>
 
               <Text style={styles.footerHint}>
-                Tu pourras désactiver cette option à
-                tout moment dans les réglages.
+                {t('faceIdSetup.footerHint')}
               </Text>
             </>
           ) : (
@@ -407,7 +410,7 @@ export default function FaceIdSetupScreen({
                 />
 
                 <Text style={styles.dangerText}>
-                  Désactiver {label}
+                  {t('faceIdSetup.disableAction', {label})}
                 </Text>
               </Pressable>
             </>

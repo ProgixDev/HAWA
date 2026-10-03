@@ -3,6 +3,7 @@ import {Animated, Easing, Image, Pressable, ScrollView, StatusBar, StyleSheet, T
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -45,6 +46,7 @@ function FadeInUp({
 }
 
 export default function AnonymousModeSuccessScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -89,7 +91,7 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
         <View style={styles.header}>
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>Mode anonyme</Text>
+            <Text style={styles.headerTitle}>{t('anonymous.success.headerTitle')}</Text>
           </View>
         </View>
 
@@ -106,7 +108,7 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
             ]}>
             <View style={styles.heroHaloOuter}>
               <View style={styles.heroHaloInner}>
-                <Image accessibilityLabel="Illustration du mode anonyme" resizeMode="contain" source={HERO} style={styles.heroImage} />
+                <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
               </View>
 
               <View style={styles.successBadge}>
@@ -116,9 +118,9 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
           </Animated.View>
 
           <FadeInUp delay={90} distance={10}>
-            <Text style={styles.title}>Mode anonyme activé</Text>
+            <Text style={styles.title}>{t('anonymous.success.title')}</Text>
             <Text style={styles.subtitle}>
-              Ton profil est maintenant dissocié de ton identité. Profite d’AWA en toute confidentialité.
+              {t('anonymous.success.subtitle')}
             </Text>
           </FadeInUp>
 
@@ -129,9 +131,9 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
                   <MaterialDesignIcons color={theme.colors.primary} name="shield-check-outline" size={20} />
                 </View>
                 <View style={styles.cardHeaderCopy}>
-                  <Text style={styles.cardHeaderTitle}>Ton espace est prêt</Text>
+                  <Text style={styles.cardHeaderTitle}>{t('anonymous.success.cardTitle')}</Text>
                   <Text style={styles.cardHeaderSubtitle}>
-                    Tu peux désactiver le mode anonyme à tout moment depuis Confidentialité &amp; sécurité.
+                    {t('anonymous.success.cardSubtitle')}
                   </Text>
                 </View>
               </View>
@@ -142,12 +144,12 @@ export default function AnonymousModeSuccessScreen({navigation, route}: Props): 
         <FadeInUp delay={220} distance={12}>
           <View style={[styles.ctaArea, {paddingBottom: Math.max(insets.bottom, 14)}]}>
             <Pressable
-              accessibilityLabel={fromAuth ? 'Continuer' : 'Terminer'}
+              accessibilityLabel={fromAuth ? t('anonymous.success.continue') : t('anonymous.success.finish')}
               accessibilityRole="button"
               onPress={finish}
               style={({pressed}) => [styles.primary, pressed && styles.pressed]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-circle-outline" size={20} />
-              <Text style={styles.primaryText}>{fromAuth ? 'Continuer' : 'Terminer'}</Text>
+              <Text style={styles.primaryText}>{fromAuth ? t('anonymous.success.continue') : t('anonymous.success.finish')}</Text>
             </Pressable>
           </View>
         </FadeInUp>

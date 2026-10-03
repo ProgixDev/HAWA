@@ -3,6 +3,7 @@ import {Animated, Easing, Pressable, ScrollView, StatusBar, StyleSheet, Text, Vi
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -11,30 +12,30 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 type Props = NativeStackScreenProps<RootStackParamList, 'AnonymousModeLimitations'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
-const LIMITATIONS: ReadonlyArray<{key: string; icon: IconName; title: string; description: string; accent?: 'success'}> = [
+const LIMITATION_ICONS: ReadonlyArray<{key: string; icon: IconName; titleKey: string; descriptionKey: string; accent?: 'success'}> = [
   {
     key: 'recovery',
     icon: 'email-outline',
-    title: 'Récupération du compte',
-    description: 'Sans adresse e-mail associée, la récupération de ton accès pourra être limitée.',
+    titleKey: 'anonymous.limitations.recoveryTitle',
+    descriptionKey: 'anonymous.limitations.recoveryText',
   },
   {
     key: 'sync',
     icon: 'cloud-sync-outline',
-    title: 'Synchronisation',
-    description: 'Certaines données pourront ne pas être synchronisées sur d’autres appareils.',
+    titleKey: 'anonymous.limitations.syncTitle',
+    descriptionKey: 'anonymous.limitations.syncText',
   },
   {
     key: 'communications',
     icon: 'email-off-outline',
-    title: 'Communications',
-    description: 'AWA ne pourra pas t’envoyer d’e-mails liés à ton compte anonyme.',
+    titleKey: 'anonymous.limitations.communicationsTitle',
+    descriptionKey: 'anonymous.limitations.communicationsText',
   },
   {
     key: 'security',
     icon: 'shield-key-outline',
-    title: 'Sécurité recommandée',
-    description: 'Nous te recommandons d’activer un code PIN ou la biométrie pour protéger l’accès à AWA.',
+    titleKey: 'anonymous.limitations.securityTitle',
+    descriptionKey: 'anonymous.limitations.securityText',
     accent: 'success',
   },
 ];
@@ -72,11 +73,13 @@ function FadeInUp({
 }
 
 export default function AnonymousModeLimitationsScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
   const source = route.params?.source;
   const [accepted, setAccepted] = useState(false);
+  const LIMITATIONS = LIMITATION_ICONS.map(item => ({...item, title: t(item.titleKey), description: t(item.descriptionKey)}));
 
   const activate = () => {
     if (!accepted) {return;}
@@ -98,7 +101,7 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
       <SafeAreaView edges={['top', 'left', 'right']} style={styles.safe}>
         <View style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={navigation.goBack}
@@ -107,8 +110,8 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
           </Pressable>
 
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>Avant de continuer</Text>
-            <Text style={styles.headerSubtitle}>Mode anonyme</Text>
+            <Text style={styles.headerTitle}>{t('anonymous.limitations.headerTitle')}</Text>
+            <Text style={styles.headerSubtitle}>{t('anonymous.limitations.headerSubtitle')}</Text>
           </View>
 
           <View style={styles.headerSpace} />
@@ -132,9 +135,9 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
                 <MaterialDesignIcons color={theme.colors.primarySoft} name="star-four-points" size={10} style={styles.sparkleBottom} />
               </View>
 
-              <Text style={styles.title}>Avant de continuer</Text>
+              <Text style={styles.title}>{t('anonymous.limitations.title')}</Text>
               <Text style={styles.subtitle}>
-                En mode anonyme, certaines fonctionnalités liées au compte seront limitées ou indisponibles.
+                {t('anonymous.limitations.subtitle')}
               </Text>
             </View>
           </FadeInUp>
@@ -157,7 +160,7 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
 
           <FadeInUp delay={160}>
             <Pressable
-              accessibilityLabel="J’ai compris le fonctionnement du mode anonyme."
+              accessibilityLabel={t('anonymous.limitations.acknowledgeLabel')}
               accessibilityRole="checkbox"
               accessibilityState={{checked: accepted}}
               onPress={() => setAccepted(current => !current)}
@@ -165,7 +168,7 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
               <View style={[styles.checkbox, accepted && styles.checkboxChecked]}>
                 {accepted ? <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="check-bold" size={14} /> : null}
               </View>
-              <Text style={styles.checkboxText}>J’ai compris le fonctionnement du mode anonyme.</Text>
+              <Text style={styles.checkboxText}>{t('anonymous.limitations.acknowledgeLabel')}</Text>
             </Pressable>
           </FadeInUp>
         </ScrollView>
@@ -173,23 +176,23 @@ export default function AnonymousModeLimitationsScreen({navigation, route}: Prop
         <FadeInUp delay={220} distance={12}>
           <View style={[styles.ctaArea, {paddingBottom: Math.max(insets.bottom, 14)}]}>
             <Pressable
-              accessibilityLabel="Activer le mode anonyme"
+              accessibilityLabel={t('anonymous.limitations.activate')}
               accessibilityRole="button"
               accessibilityState={{disabled: !accepted}}
               disabled={!accepted}
               onPress={activate}
               style={({pressed}) => [styles.primary, !accepted && styles.primaryDisabled, pressed && accepted && styles.pressed]}>
               <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="incognito" size={20} />
-              <Text style={styles.primaryText}>Activer le mode anonyme</Text>
+              <Text style={styles.primaryText}>{t('anonymous.limitations.activate')}</Text>
             </Pressable>
 
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={8}
               onPress={navigation.goBack}
               style={styles.cancel}>
-              <Text style={styles.cancelText}>Retour</Text>
+              <Text style={styles.cancelText}>{t('common.back')}</Text>
             </Pressable>
           </View>
         </FadeInUp>

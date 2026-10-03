@@ -5,6 +5,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView,useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {isPinEnabled,loadSecurityPreferences} from '../state/securityPreferences';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -13,6 +14,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 type Props=NativeStackScreenProps<RootStackParamList,'PinManagement'>;
 
 export default function PinManagementScreen({navigation}:Props):React.JSX.Element{
+  const {t}=useTranslation();
   const {theme}=useAwaTheme();
   const styles=useMemo(()=>createStyles(theme),[theme]);
   const insets=useSafeAreaInsets();
@@ -27,16 +29,16 @@ export default function PinManagementScreen({navigation}:Props):React.JSX.Elemen
     <View pointerEvents="none" style={styles.pageBackgroundDecor}><View style={styles.pageGlowTop}/><View style={styles.pageGlowMiddle}/><View style={styles.pageGlowBottom}/></View>
     <SafeAreaView style={styles.safe}>
       <StatusBar translucent backgroundColor="transparent" barStyle={theme.statusBarStyle}/>
-      <Pressable accessibilityLabel="Retour" accessibilityRole="button" onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons name="arrow-left" size={25} color={theme.colors.primary}/></Pressable>
+      <Pressable accessibilityLabel={t('common.back')} accessibilityRole="button" onPress={navigation.goBack} style={styles.back}><MaterialDesignIcons name="arrow-left" size={25} color={theme.colors.primary}/></Pressable>
       <ScrollView contentContainerStyle={[styles.content,{paddingTop:Math.max(insets.top,18)+8,paddingBottom:Math.max(insets.bottom,18)}]} showsVerticalScrollIndicator={false}>
         <View style={styles.icon}><MaterialDesignIcons name="lock-outline" size={40} color={theme.colors.primary}/></View>
-        <Text style={styles.title}>Code PIN</Text>
-        <View style={styles.status}><MaterialDesignIcons name={enabled?'check-circle':'shield-off-outline'} size={21} color={enabled?theme.colors.success:theme.colors.textSecondary}/><Text style={styles.statusText}>{enabled?'Protection activée':'Protection désactivée'}</Text></View>
+        <Text style={styles.title}>{t('pinManagement.title')}</Text>
+        <View style={styles.status}><MaterialDesignIcons name={enabled?'check-circle':'shield-off-outline'} size={21} color={enabled?theme.colors.success:theme.colors.textSecondary}/><Text style={styles.statusText}>{enabled?t('pinManagement.protectionEnabled'):t('pinManagement.protectionDisabled')}</Text></View>
         <View style={styles.spacer}/>
         {enabled?<>
-          <Pressable onPress={()=>navigation.navigate('PinSetup',{mode:'change',returnTo:'previous'})} style={styles.primary}><Text style={styles.primaryText}>Modifier mon code PIN</Text></Pressable>
-          <Pressable onPress={()=>navigation.navigate('PinSetup',{mode:'disable',returnTo:'previous'})} style={styles.danger}><Text style={styles.dangerText}>Désactiver le code PIN</Text></Pressable>
-        </>:<Pressable onPress={()=>navigation.navigate('PinSetup',{mode:'create',returnTo:'previous'})} style={styles.primary}><Text style={styles.primaryText}>Activer le code PIN</Text></Pressable>}
+          <Pressable onPress={()=>navigation.navigate('PinSetup',{mode:'change',returnTo:'previous'})} style={styles.primary}><Text style={styles.primaryText}>{t('pinManagement.changePin')}</Text></Pressable>
+          <Pressable onPress={()=>navigation.navigate('PinSetup',{mode:'disable',returnTo:'previous'})} style={styles.danger}><Text style={styles.dangerText}>{t('pinManagement.disablePin')}</Text></Pressable>
+        </>:<Pressable onPress={()=>navigation.navigate('PinSetup',{mode:'create',returnTo:'previous'})} style={styles.primary}><Text style={styles.primaryText}>{t('pinManagement.enablePin')}</Text></Pressable>}
       </ScrollView>
     </SafeAreaView>
   </LinearGradient>;
