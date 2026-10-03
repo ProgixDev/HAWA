@@ -19,6 +19,7 @@ import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 import '../../i18n';
 import {getAppLanguage} from '../../state/themePreferences';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -199,15 +200,18 @@ function buildDailyItems(
   const items: DailyInfoItem[] = [];
 
   if (entry?.bleeding) {
+    // DATA-BEARING: entry.bleeding/entry.bleedingNote stay the raw stored
+    // French strings (see MiscarriageJournalEntryScreen.tsx / bleedingColor's
+    // own DATA-BEARING comment); only the DISPLAYED label is translated, via
+    // journalOptionLabel (Phase 7J) — bleedingNote is free-text user data and
+    // is never translated.
+    const bleedingLabel = journalOptionLabel('miscarriageBleeding', entry.bleeding, t);
     items.push({
       key: 'bleeding',
       label: categoryMeta.bleeding.label,
-      // DATA-BEARING: entry.bleeding/entry.bleedingNote are the raw stored
-      // strings (see MiscarriageJournalEntryScreen.tsx / bleedingColor's own
-      // DATA-BEARING comment) — never translated.
       value: entry.bleedingNote
-        ? `${entry.bleeding} · ${entry.bleedingNote}`
-        : entry.bleeding,
+        ? `${bleedingLabel} · ${entry.bleedingNote}`
+        : bleedingLabel,
       icon: categoryMeta.bleeding.icon,
     });
   }
@@ -216,8 +220,11 @@ function buildDailyItems(
     items.push({
       key: 'physicalSymptoms',
       label: categoryMeta.physicalSymptoms.label,
-      // DATA-BEARING: raw stored symptom labels — never translated.
-      value: entry.physicalSymptoms.join(' · '),
+      // DATA-BEARING: raw stored symptom values stay French; only the
+      // DISPLAYED label is translated (Phase 7J).
+      value: entry.physicalSymptoms
+        .map(symptom => journalOptionLabel('miscarriagePhysicalSymptom', symptom, t))
+        .join(' · '),
       icon: categoryMeta.physicalSymptoms.icon,
     });
   }

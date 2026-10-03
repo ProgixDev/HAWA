@@ -7,9 +7,19 @@ import {
   validateLossDateChange,
   validateLossJournalDate,
 } from '../lossDateValidation';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Pinned "now": 2026-09-26 (noon).
 const NOW = new Date(2026, 8, 26, 12, 0, 0);
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 describe('parseLossDateKey', () => {
   it('parses a real key and rejects malformed / impossible keys', () => {

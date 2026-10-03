@@ -11,6 +11,8 @@ import MiscarriageJournalEntryScreen from '../MiscarriageJournalEntryScreen';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../state/miscarriagePreferences';
 import {getMiscarriageJournalEntry, saveMiscarriageJournalField} from '../../state/miscarriageJournalStore';
 import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M21 (historical entry through the `date` route param) + M25 (saved values
 // can be cleared) for the Loss journal entry screen. Clock pinned to
@@ -108,6 +110,11 @@ beforeEach(async () => {
     miscarriageDate: '2026-09-10',
   });
   unlockIntimacy();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
