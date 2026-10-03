@@ -11,8 +11,19 @@ import {fr} from './locales/fr';
 // uses. Not a native module: pure JS, no linking, no device-locale
 // detection — the active language is entirely driven by AWA's own "Langue de
 // l'application" preference (themePreferences.ts's getAppLanguage/
-// setAppLanguage), which already defaults to 'fr' and is already hydrated
-// before this module's `init()` call runs (see App.tsx's import order).
+// setAppLanguage).
+//
+// PHASE 7M — English-first default: `lng`/`fallbackLng` are both 'en' now,
+// matching themePreferences.ts's DEFAULT_APP_LANGUAGE. A brand-new install
+// (or any install with no/invalid persisted value) therefore renders in
+// English from this very first synchronous `init()` call — no hydration
+// round-trip is needed to reach the correct language for that case, so
+// there is no French flash on a fresh English-default launch. An existing
+// install with an explicitly persisted 'fr' preference still correctly ends
+// up in French once hydrateAppearancePreferences() (App.tsx) resolves and
+// the subscribeThemePreferences listener below calls changeLanguage('fr') —
+// exactly the same async hydration pattern every other preference in this
+// app already uses (theme id, appearance mode, true black).
 //
 // Language is deliberately app-wide (never profile-scoped — see
 // themePreferences.ts's own header comment): this module subscribes to the
@@ -31,7 +42,7 @@ i18n.use(initReactI18next).init({
     en: {translation: en},
   },
   lng: getAppLanguage(),
-  fallbackLng: 'fr',
+  fallbackLng: 'en',
   interpolation: {escapeValue: false}, // React already escapes rendered text
   returnNull: false,
 });
