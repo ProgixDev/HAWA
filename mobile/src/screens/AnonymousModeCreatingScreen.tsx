@@ -3,6 +3,7 @@ import {Animated, Easing, Image, Pressable, ScrollView, StatusBar, StyleSheet, T
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {ensureAnonymousAccount, updatePrivacySecuritySettings} from '../state/securityPreferences';
 
@@ -18,7 +19,7 @@ type CreationStatus = 'loading' | 'error';
 // Purely visual, generic checkpoints — no backend/API/database wording, no
 // step is claimed unless it's harmless UI-only framing of the same single
 // local activation call below.
-const STEPS = ['Préparation de ton espace', 'Configuration de la confidentialité', 'Finalisation'] as const;
+const STEP_KEYS = ['anonymous.creating.step1', 'anonymous.creating.step2', 'anonymous.creating.step3'] as const;
 
 // Keeps the loader on screen long enough to read as a deliberate, premium
 // transition instead of a flash — the real activation call below is a
@@ -61,7 +62,7 @@ function FadeIn({children, delay = 0}: {children: React.ReactNode; delay?: numbe
   return <Animated.View style={{opacity: progress}}>{children}</Animated.View>;
 }
 
-function RotatingLoader({styles}: {styles: ReturnType<typeof createStyles>}): React.JSX.Element {
+function RotatingLoader({styles, label}: {styles: ReturnType<typeof createStyles>; label: string}): React.JSX.Element {
   const rotation = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -75,15 +76,17 @@ function RotatingLoader({styles}: {styles: ReturnType<typeof createStyles>}): Re
   const spin = rotation.interpolate({inputRange: [0, 1], outputRange: ['0deg', '360deg']});
 
   return (
-    <View accessibilityLabel="Création de ton espace anonyme en cours" style={styles.loaderHalo}>
+    <View accessibilityLabel={label} style={styles.loaderHalo}>
       <Animated.View style={[styles.loaderRing, {transform: [{rotate: spin}]}]} />
     </View>
   );
 }
 
 export default function AnonymousModeCreatingScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const STEPS = STEP_KEYS.map(key => t(key));
   const insets = useSafeAreaInsets();
   const source = route.params?.source;
   const [status, setStatus] = useState<CreationStatus>('loading');
@@ -167,7 +170,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
         <View style={styles.header}>
           {isError ? (
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={navigation.goBack}
@@ -183,7 +186,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
           )}
 
           <View style={styles.headerTitleBlock}>
-            <Text style={styles.headerTitle}>Création de ton espace</Text>
+            <Text style={styles.headerTitle}>{t('anonymous.creating.headerTitle')}</Text>
           </View>
 
           <View style={styles.headerSpace} />
@@ -203,7 +206,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
             <View style={styles.heroHaloOuter}>
               <View style={styles.heroHaloMiddle}>
                 <View style={styles.heroHaloInner}>
-                  <Image accessibilityLabel="Illustration du mode anonyme" resizeMode="contain" source={HERO} style={styles.heroImage} />
+                  <Image accessibilityLabel={t('anonymous.mode.illustrationA11y')} resizeMode="contain" source={HERO} style={styles.heroImage} />
                 </View>
               </View>
 
@@ -216,14 +219,14 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
           <FadeIn delay={80}>
             {isError ? (
               <>
-                <Text style={styles.title}>Impossible de terminer l’activation</Text>
-                <Text style={styles.subtitle}>Une erreur est survenue. Tu peux réessayer.</Text>
+                <Text style={styles.title}>{t('anonymous.creating.errorTitle')}</Text>
+                <Text style={styles.subtitle}>{t('anonymous.creating.errorSubtitle')}</Text>
               </>
             ) : (
               <>
-                <Text style={styles.title}>Création de ton espace anonyme</Text>
+                <Text style={styles.title}>{t('anonymous.creating.creatingTitle')}</Text>
                 <Text style={styles.subtitle}>
-                  AWA prépare ton espace privé et dissocie ton profil de tes informations d’identification.
+                  {t('anonymous.creating.creatingSubtitle')}
                 </Text>
               </>
             )}
@@ -232,30 +235,30 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
           {isError ? (
             <FadeIn delay={140}>
               <Pressable
-                accessibilityLabel="Réessayer"
+                accessibilityLabel={t('anonymous.creating.retry')}
                 accessibilityRole="button"
                 onPress={retry}
                 style={({pressed}) => [styles.primary, pressed && styles.pressed]}>
                 <MaterialDesignIcons color={onPrimaryTextColor(theme)} name="reload" size={20} />
-                <Text style={styles.primaryText}>Réessayer</Text>
+                <Text style={styles.primaryText}>{t('anonymous.creating.retry')}</Text>
               </Pressable>
 
               <Pressable
-                accessibilityLabel="Retour"
+                accessibilityLabel={t('common.back')}
                 accessibilityRole="button"
                 hitSlop={8}
                 onPress={navigation.goBack}
                 style={styles.cancel}>
-                <Text style={styles.cancelText}>Retour</Text>
+                <Text style={styles.cancelText}>{t('common.back')}</Text>
               </Pressable>
             </FadeIn>
           ) : (
             <>
               <FadeIn delay={140}>
                 <View style={styles.loaderBlock}>
-                  <RotatingLoader styles={styles} />
-                  <Text style={styles.loaderLabel}>Veuillez patienter</Text>
-                  <Text style={styles.loaderCaption}>Cette opération ne prendra que quelques instants.</Text>
+                  <RotatingLoader label={t('anonymous.creating.loaderA11y')} styles={styles} />
+                  <Text style={styles.loaderLabel}>{t('anonymous.creating.loaderLabel')}</Text>
+                  <Text style={styles.loaderCaption}>{t('anonymous.creating.loaderCaption')}</Text>
                 </View>
               </FadeIn>
 
@@ -266,9 +269,9 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
                       <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={20} />
                     </View>
                     <View style={styles.cardHeaderCopy}>
-                      <Text style={styles.cardHeaderTitle}>Protection de ton identité</Text>
+                      <Text style={styles.cardHeaderTitle}>{t('anonymous.creating.protectionTitle')}</Text>
                       <Text style={styles.cardHeaderSubtitle}>
-                        AWA prépare ton espace tout en appliquant tes préférences de confidentialité.
+                        {t('anonymous.creating.protectionSubtitle')}
                       </Text>
                     </View>
                   </View>
@@ -297,7 +300,7 @@ export default function AnonymousModeCreatingScreen({navigation, route}: Props):
               <FadeIn delay={260}>
                 <View style={styles.infoCard}>
                   <MaterialDesignIcons color={theme.colors.warning} name="information-outline" size={19} />
-                  <Text style={styles.infoText}>Ne ferme pas l’application pendant la préparation de ton espace.</Text>
+                  <Text style={styles.infoText}>{t('anonymous.creating.warning')}</Text>
                 </View>
               </FadeIn>
             </>

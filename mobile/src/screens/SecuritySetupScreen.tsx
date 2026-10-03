@@ -19,6 +19,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useFocusEffect} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -63,6 +64,7 @@ type OptionProps = {
   styles: ReturnType<
     typeof createStyles
   >;
+  t: (key: string) => string;
 };
 
 function SecurityOption({
@@ -74,6 +76,7 @@ function SecurityOption({
   onValueChange,
   theme,
   styles,
+  t,
 }: OptionProps): React.JSX.Element {
   return (
     <View
@@ -129,7 +132,7 @@ function SecurityOption({
                 style={
                   styles.activeBadgeText
                 }>
-                Activé
+                {t('security.enabled')}
               </Text>
             </View>
           ) : null}
@@ -165,6 +168,7 @@ function SecuritySetupScreen({
   navigation,
   route,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
 
   const styles = useMemo(
@@ -307,7 +311,7 @@ function SecuritySetupScreen({
           },
         ]}>
         <Pressable
-          accessibilityLabel="Retour"
+          accessibilityLabel={t('common.back')}
           accessibilityRole="button"
           hitSlop={12}
           onPress={
@@ -427,7 +431,7 @@ function SecuritySetupScreen({
               compact &&
                 styles.titleCompact,
             ]}>
-            Protège ton espace
+            {t('securitySetup.heroTitle')}
           </Text>
 
           <Text
@@ -436,7 +440,7 @@ function SecuritySetupScreen({
               compact &&
                 styles.subtitleCompact,
             ]}>
-            Choisis les protections que tu souhaites activer. Tu pourras modifier ces réglages à tout moment.
+            {t('securitySetup.heroSubtitle')}
           </Text>
         </View>
 
@@ -469,7 +473,7 @@ function SecuritySetupScreen({
               style={
                 styles.statusTitle
               }>
-              Protection de ton espace
+              {t('securitySetup.statusCardTitle')}
             </Text>
 
             <Text
@@ -477,18 +481,8 @@ function SecuritySetupScreen({
                 styles.statusText
               }>
               {enabledCount === 0
-                ? 'Aucune protection optionnelle activée'
-                : `${enabledCount} protection${
-                    enabledCount >
-                    1
-                      ? 's'
-                      : ''
-                  } activée${
-                    enabledCount >
-                    1
-                      ? 's'
-                      : ''
-                  }`}
+                ? t('securitySetup.statusNoneActive')
+                : t('securitySetup.statusActiveCount', {count: enabledCount})}
             </Text>
           </View>
 
@@ -518,14 +512,14 @@ function SecuritySetupScreen({
               style={
                 styles.sectionTitle
               }>
-              Tes protections
+              {t('securitySetup.sectionTitle')}
             </Text>
 
             <Text
               style={
                 styles.sectionSubtitle
               }>
-              Active seulement ce qui te convient
+              {t('securitySetup.sectionSubtitle')}
             </Text>
           </View>
 
@@ -549,7 +543,7 @@ function SecuritySetupScreen({
           ]}>
           <SecurityOption
             compact={compact}
-            description="Verrouille AWA à l’ouverture avec un code personnel."
+            description={t('securitySetup.pinDescription')}
             icon="dialpad"
             onValueChange={value =>
               navigation.navigate(
@@ -565,14 +559,15 @@ function SecuritySetupScreen({
               )
             }
             styles={styles}
+            t={t}
             theme={theme}
-            title="Code PIN"
+            title={t('securitySetup.pinTitle')}
             value={pin}
           />
 
           <SecurityOption
             compact={compact}
-            description="Utilise l’empreinte digitale ou la reconnaissance faciale de ton appareil."
+            description={t('securitySetup.biometricsDescription')}
             icon="fingerprint"
             onValueChange={value =>
               navigation.navigate(
@@ -585,14 +580,15 @@ function SecuritySetupScreen({
               )
             }
             styles={styles}
+            t={t}
             theme={theme}
-            title="Biométrie"
+            title={t('securitySetup.biometricsTitle')}
             value={biometric}
           />
 
           <SecurityOption
             compact={compact}
-            description="Masque les informations sensibles dans l’aperçu de tes notifications."
+            description={t('securitySetup.discreetNotificationsDescription')}
             icon="eye-off-outline"
             onValueChange={value => {
               setNotifications(
@@ -610,8 +606,9 @@ function SecuritySetupScreen({
               );
             }}
             styles={styles}
+            t={t}
             theme={theme}
-            title="Notifications discrètes"
+            title={t('securitySetup.discreetNotificationsTitle')}
             value={notifications}
           />
         </View>
@@ -653,7 +650,7 @@ function SecuritySetupScreen({
                 compact &&
                   styles.infoTitleCompact,
               ]}>
-              Tes choix restent privés
+              {t('securitySetup.infoTitle')}
             </Text>
 
             <Text
@@ -662,7 +659,7 @@ function SecuritySetupScreen({
                 compact &&
                   styles.infoTextCompact,
               ]}>
-              Ces réglages sont enregistrés pour protéger ton utilisation d’AWA et peuvent être modifiés plus tard.
+              {t('securitySetup.infoText')}
             </Text>
           </View>
         </View>
@@ -715,7 +712,7 @@ function SecuritySetupScreen({
               compact &&
                 styles.continueTextCompact,
             ]}>
-            Continuer
+            {t('common.continue')}
           </Text>
 
           <View

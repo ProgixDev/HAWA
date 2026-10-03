@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -19,6 +20,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import {PinKeypad} from '../components/security/PinKeypad';
 
@@ -40,6 +42,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 export default function AppLockScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -109,7 +112,7 @@ export default function AppLockScreen(): React.JSX.Element {
    * ========================================================== */
 
   const runBiometric =
-    async () => {
+    useCallback(async () => {
       if (
         verifying.current
       ) {
@@ -130,12 +133,12 @@ export default function AppLockScreen(): React.JSX.Element {
           unlockApp();
         } else {
           setError(
-            'Authentification impossible. Réessaie.',
+            t('appLock.biometricFailed'),
           );
         }
       } catch {
         setError(
-          'Authentification annulée ou indisponible.',
+          t('security.authCancelledOrUnavailable'),
         );
       } finally {
         verifying.current =
@@ -143,7 +146,7 @@ export default function AppLockScreen(): React.JSX.Element {
 
         setBiometricBusy(false);
       }
-    };
+    }, [t]);
 
   /* ==========================================================
    * BLOCK BACK + AUTO BIOMETRIC
@@ -180,6 +183,12 @@ export default function AppLockScreen(): React.JSX.Element {
     return () => {
       subscription.remove();
     };
+    // Runs once on mount only (unchanged pre-localization behavior) — the
+    // BackHandler subscription and the one-shot auto-biometric trigger
+    // (guarded by requested.current) must never re-run on a language switch.
+    // runBiometric is itself a stable useCallback (deps: [t]), so this omits
+    // no genuinely-reactive dependency.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* ==========================================================
@@ -212,7 +221,7 @@ export default function AppLockScreen(): React.JSX.Element {
           unlockApp();
         } else {
           setError(
-            'Code incorrect. Réessaie.',
+            t('security.incorrectCode'),
           );
 
           setPin('');
@@ -220,7 +229,7 @@ export default function AppLockScreen(): React.JSX.Element {
       })
       .catch(() => {
         setError(
-          'Vérification impossible. Réessaie.',
+          t('appLock.pinVerifyError'),
         );
 
         setPin('');
@@ -229,7 +238,7 @@ export default function AppLockScreen(): React.JSX.Element {
         verifying.current =
           false;
       });
-  }, [pin]);
+  }, [pin, t]);
 
   return (
     <LinearGradient
@@ -370,7 +379,7 @@ export default function AppLockScreen(): React.JSX.Element {
                 veryCompact &&
                   styles.titleVeryCompact,
               ]}>
-              Ton espace est protégé
+              {t('appLock.title')}
             </Text>
 
             {!veryCompact ? (
@@ -381,7 +390,7 @@ export default function AppLockScreen(): React.JSX.Element {
                   compact &&
                     styles.subtitleCompact,
                 ]}>
-                Authentifie-toi pour accéder à ton espace personnel.
+                {t('appLock.subtitle')}
               </Text>
             ) : null}
           </View>
@@ -452,14 +461,14 @@ export default function AppLockScreen(): React.JSX.Element {
                       style={
                         styles.pinTitle
                       }>
-                      Entre ton code PIN
+                      {t('appLock.enterPinTitle')}
                     </Text>
 
                     <Text
                       style={
                         styles.pinSubtitle
                       }>
-                      {PIN_LENGTH} chiffres
+                      {t('appLock.enterPinSubtitle', {length: PIN_LENGTH})}
                     </Text>
                   </View>
 
@@ -520,14 +529,14 @@ export default function AppLockScreen(): React.JSX.Element {
                   style={
                     styles.biometricTitle
                   }>
-                  Vérification biométrique
+                  {t('appLock.biometricAreaTitle')}
                 </Text>
 
                 <Text
                   style={
                     styles.biometricText
                   }>
-                  Utilise la biométrie sécurisée de ton appareil pour déverrouiller AWA.
+                  {t('appLock.biometricAreaText')}
                 </Text>
               </View>
             )}
@@ -579,7 +588,7 @@ export default function AppLockScreen(): React.JSX.Element {
                     styles.biometricButtonText
                   }>
                   {biometricBusy
-                    ? 'Vérification…'
+                    ? t('appLock.verifying')
                     : capability.actionLabel}
                 </Text>
 
@@ -623,7 +632,7 @@ export default function AppLockScreen(): React.JSX.Element {
                   style={
                     styles.secondaryButtonText
                   }>
-                  Utiliser mon code PIN
+                  {t('appLock.usePin')}
                 </Text>
               </Pressable>
             ) : null}
@@ -663,7 +672,7 @@ export default function AppLockScreen(): React.JSX.Element {
                   style={
                     styles.secondaryButtonText
                   }>
-                  Utiliser la biométrie
+                  {t('appLock.useBiometrics')}
                 </Text>
               </Pressable>
             ) : null}

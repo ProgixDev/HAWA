@@ -15,6 +15,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
 import type * as Keychain from 'react-native-keychain';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import type {PrivateAccessPurpose} from '../navigation/privateAccess';
@@ -66,12 +67,12 @@ const LETTERS: Record<string, string> = {
   '9': 'WXYZ',
 };
 
-const PURPOSE_COPY: Record<PrivateAccessPurpose, string> = {
+const purposeCopyOf = (t: (key: string) => string): Record<PrivateAccessPurpose, string> => ({
   miscarriagePersonalNotes:
-    'Tes notes personnelles sont protégées.',
+    t('privateAccess.purposeMiscarriagePersonalNotes'),
   pregnancyMedicalInformation:
-    'Tes informations médicales personnelles sont protégées.',
-};
+    t('privateAccess.purposePregnancyMedicalInformation'),
+});
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -174,6 +175,7 @@ function KeypadKey({
   onPress,
   theme,
   styles,
+  t,
 }: {
   compact: boolean;
   icon?: IconName;
@@ -182,6 +184,7 @@ function KeypadKey({
   onPress: () => void;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
+  t: (key: string) => string;
 }): React.JSX.Element {
   const scale = useRef(new Animated.Value(1)).current;
   const reduceMotion = useRef(false);
@@ -225,8 +228,8 @@ function KeypadKey({
     <Pressable
       accessibilityLabel={
         icon === 'backspace-outline'
-          ? 'Effacer'
-          : label ?? 'Biométrie'
+          ? t('privateAccess.deleteKey')
+          : label ?? t('biometrics.genericLabel')
       }
       accessibilityRole="button"
       onPress={onPress}
@@ -273,8 +276,10 @@ export default function PrivateAccessScreen({
 }: Props): React.JSX.Element {
   const {purpose} = route.params;
 
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const PURPOSE_COPY = purposeCopyOf(t);
 
   const insets = useSafeAreaInsets();
   const {height, width} = useWindowDimensions();
@@ -405,7 +410,7 @@ export default function PrivateAccessScreen({
         }
 
         fail(
-          'Code incorrect. Réessaie.',
+          t('security.incorrectCode'),
         );
 
         return;
@@ -416,7 +421,7 @@ export default function PrivateAccessScreen({
         setPin('');
 
         setError(
-          'Confirme ton nouveau code.',
+          t('privateAccess.confirmNewCode'),
         );
 
         return;
@@ -426,7 +431,7 @@ export default function PrivateAccessScreen({
         setFirstPin('');
 
         fail(
-          'Les codes ne correspondent pas. Recommence.',
+          t('security.codesDontMatch'),
         );
 
         return;
@@ -437,7 +442,7 @@ export default function PrivateAccessScreen({
       succeed();
     } catch {
       fail(
-        'Une erreur est survenue. Réessaie.',
+        t('security.genericError'),
       );
     } finally {
       setBusy(false);
@@ -464,11 +469,11 @@ export default function PrivateAccessScreen({
         }
 
         fail(
-          'Authentification non reconnue. Réessaie.',
+          t('privateAccess.authNotRecognized'),
         );
       } catch {
         fail(
-          'Authentification non reconnue. Réessaie.',
+          t('privateAccess.authNotRecognized'),
         );
       } finally {
         setBusy(false);
@@ -520,10 +525,10 @@ export default function PrivateAccessScreen({
   const instruction = checkingPin
     ? ' '
     : pinConfigured
-      ? 'Entre ton code PIN pour continuer'
+      ? t('privateAccess.enterPinToContinue')
       : firstPin
-        ? 'Confirme ton code PIN'
-        : 'Crée ton code PIN pour continuer';
+        ? t('privateAccess.confirmPin')
+        : t('privateAccess.createPinToContinue');
 
   const horizontalPadding = 26 * 2;
   const columnGap = 18 * 2;
@@ -565,7 +570,7 @@ export default function PrivateAccessScreen({
             false
           }>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={
@@ -645,14 +650,14 @@ export default function PrivateAccessScreen({
                 compact &&
                   styles.titleCompact,
               ]}>
-              Espace privé
+              {t('privateAccess.title')}
             </Text>
 
             <Text
               style={
                 styles.subtitle
               }>
-              Ton espace, rien qu’à toi
+              {t('privateAccess.subtitle')}
             </Text>
 
             <Text
@@ -675,7 +680,7 @@ export default function PrivateAccessScreen({
           </Animated.View>
 
           <Animated.View
-            accessibilityLabel={`${pin.length} sur ${PIN_LENGTH} chiffres saisis`}
+            accessibilityLabel={t('privateAccess.digitsEnteredOf', {count: pin.length, total: PIN_LENGTH})}
             style={[
               styles.dots,
               {
@@ -760,6 +765,7 @@ export default function PrivateAccessScreen({
                       enter(key)
                     }
                     styles={styles}
+                    t={t}
                     theme={theme}
                   />
                 );
@@ -779,6 +785,7 @@ export default function PrivateAccessScreen({
                       enter(key)
                     }
                     styles={styles}
+                    t={t}
                     theme={theme}
                   />
                 );
@@ -796,6 +803,7 @@ export default function PrivateAccessScreen({
                     enter(key)
                   }
                   styles={styles}
+                  t={t}
                   theme={theme}
                 />
               );
@@ -827,16 +835,14 @@ export default function PrivateAccessScreen({
                 style={
                   styles.privacyTitle
                 }>
-                100% privé et sécurisé
+                {t('privateAccess.privacyCardTitle')}
               </Text>
 
               <Text
                 style={
                   styles.privacyText
                 }>
-                Toutes tes informations
-                restent protégées sur ton
-                appareil.
+                {t('privateAccess.privacyCardText')}
               </Text>
             </View>
           </View>

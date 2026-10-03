@@ -3,21 +3,35 @@ import {StyleSheet, View} from 'react-native';
 
 import {ANONYMOUS_AVATAR_ILLUSTRATIONS, type AnonymousAvatarIllustrationId} from './anonymousAvatarIllustrations';
 import type {AnonymousAvatarStyleId} from '../../state/profileAvatarPreferences';
+import i18n from '../../i18n';
 
 // Single source of truth for the anonymous avatar CHOICES (id + label) —
 // shared by ProfileScreen's header and AnonymousAvatarCustomizerScreen so
 // they can never disagree about what a saved preference looks like. The
-// illustrations themselves live in anonymousAvatarIllustrations.tsx.
-export const ANONYMOUS_AVATAR_STYLES: ReadonlyArray<{id: AnonymousAvatarIllustrationId; label: string}> = [
-  {id: 'hijab', label: 'Avatar avec hijab'},
-  {id: 'glasses', label: 'Avatar avec lunettes'},
-  {id: 'hat', label: 'Avatar avec chapeau'},
-  {id: 'minimal', label: 'Avatar minimal'},
-  {id: 'headscarfGlasses', label: 'Avatar avec foulard et lunettes'},
-  {id: 'silhouetteHat', label: 'Silhouette avec chapeau élégant'},
-  {id: 'turban', label: 'Avatar avec turban'},
-  {id: 'shortHair', label: 'Avatar aux cheveux courts'},
+// illustrations themselves live in anonymousAvatarIllustrations.tsx. Labels
+// are kept on this same array reference and refreshed in place on
+// languageChanged (see buildAvatarStyleLabels() below) rather than converted
+// to a getStyles(t) factory, since it's exported and consumed by two
+// independent screens.
+export const ANONYMOUS_AVATAR_STYLES: Array<{id: AnonymousAvatarIllustrationId; label: string}> = [
+  {id: 'hijab', label: ''},
+  {id: 'glasses', label: ''},
+  {id: 'hat', label: ''},
+  {id: 'minimal', label: ''},
+  {id: 'headscarfGlasses', label: ''},
+  {id: 'silhouetteHat', label: ''},
+  {id: 'turban', label: ''},
+  {id: 'shortHair', label: ''},
 ];
+
+function applyAvatarStyleLabels(): void {
+  ANONYMOUS_AVATAR_STYLES.forEach(style => {
+    style.label = i18n.t(`anonymous.avatarStyles.${style.id}`);
+  });
+}
+
+applyAvatarStyleLabels();
+i18n.on('languageChanged', applyAvatarStyleLabels);
 
 // Sober AWA palette for the backdrop behind the avatar — no baby pink,
 // matches the rest of the anonymous-mode flow's purple/lavender identity.
