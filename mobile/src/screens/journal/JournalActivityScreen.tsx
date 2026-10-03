@@ -32,15 +32,22 @@ import {
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
 // ACTIVITIES/FEELINGS/INTENSITIES labels are DATA here, not just display
 // text: `save()` below persists `type`/`intensity`/`feeling` as the raw
 // selected `.label` string directly into dailyJournalStore (no separate
-// semantic value, unlike JournalSymptomsScreen's INTENSITIES). Translating
-// them would change what's actually saved. Left in French — see the same
-// note in JournalSymptomsScreen.tsx and CLAUDE.md §0/§10/§11. Only this
-// screen's surrounding chrome is localized.
+// semantic value, unlike JournalSymptomsScreen's INTENSITIES). The raw French
+// string stays the stored/compared/selected value forever — PHASE 7H adds a
+// DISPLAY-ONLY translation via journalOptionLabel('cycleActivityType'/
+// 'cycleActivityFeeling'/'cycleActivityIntensity', value, t), falling back to
+// the original French string for any legacy/unknown value. INTENSITIES'
+// `description` field is different: it is pure UI chrome (never persisted —
+// only `label` is), so it is now translated directly via t() instead
+// (see INTENSITY_DESCRIPTION_KEYS below) — this was a genuine, harmless gap
+// (the array's hardcoded `description` strings were never actually wrapped in
+// t(), unlike every sibling field in this file).
 const ACTIVITIES: Array<{
   label: string;
   icon: React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -131,6 +138,15 @@ const INTENSITIES: Array<{
     description: 'Effort intense',
   },
 ];
+
+// `description` above is pure UI chrome (never persisted — only `label` is),
+// so it is translated directly via t(), unlike every other field in this
+// file. Keyed by the (unchanged, DATA-BEARING) `label` string.
+const INTENSITY_DESCRIPTION_KEYS: Record<string, string> = {
+  'Légère': 'journalActivity.intensityLightDescription',
+  'Modérée': 'journalActivity.intensityModerateDescription',
+  'Élevée': 'journalActivity.intensityHighDescription',
+};
 export default function JournalActivityScreen(): React.JSX.Element {
   const {t} = useTranslation();
   const navigation =
@@ -480,7 +496,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
-                    accessibilityLabel={item.label}
+                    accessibilityLabel={journalOptionLabel('cycleActivityType', item.label, t)}
                     accessibilityRole="button"
                     accessibilityState={{
                       selected: active,
@@ -523,7 +539,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                         active &&
                           styles.activityLabelSelected,
                       ]}>
-                      {item.label}
+                      {journalOptionLabel('cycleActivityType', item.label, t)}
                     </Text>
 
                     {active ? (
@@ -755,7 +771,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                         active &&
                           styles.intensityTextSelected,
                       ]}>
-                      {item.label}
+                      {journalOptionLabel('cycleActivityIntensity', item.label, t)}
                     </Text>
 
                     <Text
@@ -764,7 +780,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                         active &&
                           styles.intensityDescriptionSelected,
                       ]}>
-                      {item.description}
+                      {INTENSITY_DESCRIPTION_KEYS[item.label] ? t(INTENSITY_DESCRIPTION_KEYS[item.label]) : item.description}
                     </Text>
 
                     {active ? (
@@ -817,7 +833,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
 
                 return (
                   <Pressable
-                    accessibilityLabel={t('journalActivity.feelingAccessibility', {label: item.label})}
+                    accessibilityLabel={t('journalActivity.feelingAccessibility', {label: journalOptionLabel('cycleActivityFeeling', item.label, t)})}
                     accessibilityRole="radio"
                     accessibilityState={{checked: active}}
                     key={item.label}
@@ -840,7 +856,7 @@ export default function JournalActivityScreen(): React.JSX.Element {
                         active &&
                           styles.feelingTextSelected,
                       ]}>
-                      {item.label}
+                      {journalOptionLabel('cycleActivityFeeling', item.label, t)}
                     </Text>
 
                   </Pressable>

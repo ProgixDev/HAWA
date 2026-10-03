@@ -33,7 +33,7 @@ import {
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
-import {FUTURE_ENTRY_MESSAGE, useJournalEntryDate} from '../../hooks/useJournalEntryDate';
+import {useJournalEntryDate} from '../../hooks/useJournalEntryDate';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {
   ChoiceChips,
@@ -48,6 +48,7 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 // Fixed modal scrim — never themed, same precedent as every migrated screen.
 const OVERLAY_COLOR = 'rgba(25, 15, 39, 0.48)';
@@ -81,9 +82,11 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
 
   // `method` is DATA — `temperature.method` is a free `string` field (see
   // types/journal.ts), and this raw French label is persisted verbatim by
-  // `save()` below, not a separate enum. Translating these ChoiceChips
-  // options would silently change/corrupt every already-saved entry, so
-  // they stay French (same rule as JournalSymptomsScreen.tsx's SYMPTOMS).
+  // `save()` below, not a separate enum. The raw French string stays the
+  // stored/compared/selected value forever — PHASE 7H adds a DISPLAY-ONLY
+  // translation via ChoiceChips' `labelFor` prop (journalOptionLabel(
+  // 'cycleTemperatureMethod', value, t)), falling back to the original
+  // French string for any legacy/unknown value.
   const [method, setMethod] = useState('Orale');
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
@@ -201,7 +204,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
     setError('');
 
     if (isFutureEntryDate) {
-      setError(FUTURE_ENTRY_MESSAGE);
+      setError(t('journalEntryDate.futureEntryMessage'));
       return;
     }
 
@@ -479,6 +482,7 @@ export default function JournalTemperatureScreen(): React.JSX.Element {
           {/* DATA-BEARING — see the `method` state comment above; these
               option labels are persisted verbatim and must stay French. */}
           <ChoiceChips
+            labelFor={option => journalOptionLabel('cycleTemperatureMethod', option, t)}
             onChange={setMethod}
             options={[
               'Orale',

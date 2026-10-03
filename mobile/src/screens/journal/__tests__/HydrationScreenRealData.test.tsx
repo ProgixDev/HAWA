@@ -9,6 +9,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import HydrationScreen from '../HydrationScreen';
 import {getJournalEntry, saveJournalSection} from '../../../state/dailyJournalStore';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M12 — the Hydration screen shows the user's REAL hydration: 0/8 when nothing
 // is recorded (no seeded 5/8), and a weekly chart drawn only from the days the
@@ -79,6 +81,11 @@ const key = (offsetFromMonday: number) =>
 beforeEach(async () => {
   await AsyncStorage.clear();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

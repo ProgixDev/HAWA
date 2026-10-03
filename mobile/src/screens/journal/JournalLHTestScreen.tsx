@@ -44,7 +44,7 @@ import {
   getJournalEntry,
   saveJournalSection,
 } from '../../state/dailyJournalStore';
-import {FUTURE_ENTRY_MESSAGE, useJournalEntryDate} from '../../hooks/useJournalEntryDate';
+import {useJournalEntryDate} from '../../hooks/useJournalEntryDate';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 
 import {
@@ -461,7 +461,7 @@ export default function JournalLHTestScreen(): React.JSX.Element {
   const save =
     async () => {
       if (isFutureEntryDate) {
-        setError(FUTURE_ENTRY_MESSAGE);
+        setError(t('journalEntryDate.futureEntryMessage'));
         return;
       }
 

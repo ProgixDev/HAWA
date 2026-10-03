@@ -36,6 +36,7 @@ import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import type {SymptomSeverity} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
 
 type SymptomOption = {
@@ -55,15 +56,14 @@ type IntensityOption = {
 // SYMPTOMS[].label and LOCATIONS[] are DATA, not just display text — they are
 // persisted verbatim as `symptoms.names`/`symptoms.painLocation` in
 // dailyJournalStore (see `save()` below) and read back elsewhere (e.g.
-// SelectedDayCard's `symptomNames.join(', ')`). Translating them would either
-// silently change already-saved user data's meaning across a language switch,
-// or require a genuine semantic-key migration (separate id vs. display label)
-// that is out of this phase's UI-only scope — see CLAUDE.md §0 (report
-// conflicts rather than silently picking one) and Phase 2 §10/§11 (never
-// translate user data or rename internal identifiers). Left in French,
-// flagged as a known Phase 2 gap. INTENSITIES is different: its persisted
-// value is the separate semantic `value` field ('mild'/'moderate'/'severe'),
-// so its `label`/`description` are safe, pure DISPLAY text and are localized.
+// SelectedDayCard's `symptomNames.join(', ')`). The raw French string stays
+// the stored/compared/selected value forever (never renamed here) — PHASE 7H
+// adds a DISPLAY-ONLY translation via journalOptionLabel('cycleSymptom'/
+// 'cycleSymptomLocation', value, t), which falls back to the original French
+// string for any value it doesn't recognize (legacy/unknown data). INTENSITIES
+// is different: its persisted value is the separate semantic `value` field
+// ('mild'/'moderate'/'severe'), so its `label`/`description` were already
+// safe, pure DISPLAY text and already localized before this phase.
 const SYMPTOMS: SymptomOption[] = [
   {
     label: 'Douleurs menstruelles',
@@ -698,7 +698,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                 return (
                   <Pressable
                     key={item.label}
-                    accessibilityLabel={item.label}
+                    accessibilityLabel={journalOptionLabel('cycleSymptom', item.label, t)}
                     accessibilityRole="checkbox"
                     accessibilityState={{checked: active}}
                     onPress={() => toggleSymptom(item.label)}
@@ -736,7 +736,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                           styles.symptomText,
                           active && styles.symptomTextActive,
                         ]}>
-                        {item.label}
+                        {journalOptionLabel('cycleSymptom', item.label, t)}
                       </Text>
 
                       <Text
@@ -1022,7 +1022,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                     {t('journalSymptoms.selectedZone')}
                   </Text>
                   <Text style={styles.selectedLocationText}>
-                    {location}
+                    {journalOptionLabel('cycleSymptomLocation', location, t)}
                   </Text>
                 </View>
 
@@ -1042,7 +1042,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                   return (
                     <Pressable
                       key={item}
-                      accessibilityLabel={item}
+                      accessibilityLabel={journalOptionLabel('cycleSymptomLocation', item, t)}
                       accessibilityRole="radio"
                       accessibilityState={{checked: active}}
                       onPress={() => changeLocation(item)}
@@ -1069,7 +1069,7 @@ export default function JournalSymptomsScreen(): React.JSX.Element {
                           styles.locationChoiceText,
                           active && styles.locationChoiceTextActive,
                         ]}>
-                        {item}
+                        {journalOptionLabel('cycleSymptomLocation', item, t)}
                       </Text>
 
                       <View

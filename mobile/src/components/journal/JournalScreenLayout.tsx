@@ -31,10 +31,16 @@ export function SectionCard({title, children}: {title: string; children: React.R
   return <View style={styles.section}><Text style={styles.sectionTitle}>{title}</Text>{children}</View>;
 }
 
-export function ChoiceChips({options, value, values, onChange, multiple}: {options: string[]; value?: string; values?: string[]; onChange: (value: string) => void; multiple?: boolean}) {
+// `labelFor` is optional and display-only: when provided, it renders a
+// translated label for each option while `onChange`/`value`/`values`/`key`
+// keep operating on the raw `option` string untouched — used by screens whose
+// options are themselves DATA-BEARING (the persisted value), e.g.
+// JournalTemperatureScreen.tsx's `method` chips (PHASE 7H). Every other
+// caller omits it and keeps today's exact behavior (renders `option` as-is).
+export function ChoiceChips({options, value, values, onChange, multiple, labelFor}: {options: string[]; value?: string; values?: string[]; onChange: (value: string) => void; multiple?: boolean; labelFor?: (option: string) => string}) {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  return <View style={styles.chips}>{options.map(option => {const selected = multiple ? values?.includes(option) : value === option; return <Pressable key={option} accessibilityRole={multiple ? 'checkbox' : 'radio'} accessibilityState={{checked: Boolean(selected)}} onPress={() => onChange(option)} style={({pressed}) => [styles.chip, selected && styles.chipSelected, pressed && styles.pressed]}><Text style={[styles.chipText, selected && styles.chipTextSelected]}>{option}</Text></Pressable>;})}</View>;
+  return <View style={styles.chips}>{options.map(option => {const selected = multiple ? values?.includes(option) : value === option; return <Pressable key={option} accessibilityLabel={labelFor ? labelFor(option) : undefined} accessibilityRole={multiple ? 'checkbox' : 'radio'} accessibilityState={{checked: Boolean(selected)}} onPress={() => onChange(option)} style={({pressed}) => [styles.chip, selected && styles.chipSelected, pressed && styles.pressed]}><Text style={[styles.chipText, selected && styles.chipTextSelected]}>{labelFor ? labelFor(option) : option}</Text></Pressable>;})}</View>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {

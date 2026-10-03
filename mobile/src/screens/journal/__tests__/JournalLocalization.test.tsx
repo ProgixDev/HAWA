@@ -20,11 +20,14 @@ import {unlockIntimacy} from '../../../state/privateSectionAuthStore';
 import {resetAppLanguageForTests, setAppLanguage} from '../../../state/themePreferences';
 
 // Phase 2 localization — the shared Cycle journal entry screens. Verifies
-// both languages for the CHROME (headers, section titles, buttons, toasts)
-// and confirms the known, deliberately-scoped-out gap: symptom/activity/
-// sleep-quality/wake-feeling/libido category labels are DATA (persisted
-// verbatim into dailyJournalStore — see each screen's own header comment)
-// and stay in French regardless of the active app language.
+// both languages for the CHROME (headers, section titles, buttons, toasts).
+// PHASE 7H closed the symptom/activity/sleep-quality/wake-feeling/libido
+// display gap: these option values are still DATA (persisted verbatim into
+// dailyJournalStore — see each screen's own header comment, and
+// journalOptionLabels.ts), but their DISPLAYED text now follows the active
+// app language via journalOptionLabel(); only the stored/selected/compared
+// value stays French forever (see Phase7HJournalLanguageSwitch.test.tsx for
+// the storage-identity proof).
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -99,35 +102,40 @@ describe('JournalMoodScreen — localization', () => {
   });
 });
 
-describe('JournalSymptomsScreen — localization (chrome translates, symptom/location data stays French)', () => {
-  it('renders chrome in English but keeps the picklist data in French', async () => {
+describe('JournalSymptomsScreen — localization (chrome AND symptom/location display translate, PHASE 7H)', () => {
+  it('renders chrome and the picklist display labels in English; the French originals are gone from the rendered text', async () => {
     await setAppLanguage('en');
     const texts = allTexts(await renderScreen(<JournalSymptomsScreen />));
     expect(texts).toContain('Listen to your body');
     expect(texts).toContain('Symptoms felt');
     expect(texts).toContain('Intensity');
     expect(texts.some(text => text.includes('Location'))).toBe(true);
-    // Known, deliberate Phase 2 gap: these are persisted verbatim as saved
-    // data (see the screen's own header comment) and are NOT translated.
-    expect(texts).toContain('Douleurs menstruelles');
-    expect(texts).toContain('Bas ventre');
+    // PHASE 7H: display-only translation via journalOptionLabel(); the
+    // underlying stored/selected value is still the French string (see
+    // Phase7HJournalLanguageSwitch.test.tsx for that proof).
+    expect(texts).toContain('Menstrual pain');
+    expect(texts).toContain('Lower abdomen');
+    expect(texts).not.toContain('Douleurs menstruelles');
+    expect(texts).not.toContain('Bas ventre');
   });
 });
 
-describe('JournalActivityScreen — localization (chrome translates, activity/intensity/feeling data stays French)', () => {
-  it('renders chrome in English but keeps the picklist data in French', async () => {
+describe('JournalActivityScreen — localization (chrome AND activity/intensity/feeling display translate, PHASE 7H)', () => {
+  it('renders chrome and the picklist display labels in English; the French originals are gone from the rendered text', async () => {
     await setAppLanguage('en');
     const texts = allTexts(await renderScreen(<JournalActivityScreen />));
     expect(texts).toContain('Physical activity');
     expect(texts).toContain('Activity type');
     expect(texts).toContain('Duration');
     expect(texts).toContain('minutes');
-    // Known, deliberate Phase 2 gap — see the screen's own header comment.
-    expect(texts).toContain('Marche');
+    // PHASE 7H: display-only translation via journalOptionLabel(); the
+    // underlying stored/selected value is still the French string.
+    expect(texts).toContain('Walking');
+    expect(texts).not.toContain('Marche');
   });
 });
 
-describe('JournalSleepScreen — localization (chrome translates, quality/feeling data stays French)', () => {
+describe('JournalSleepScreen — localization (chrome AND quality/feeling display translate, PHASE 7H)', () => {
   it('renders in French by default', async () => {
     const texts = allTexts(await renderScreen(<JournalSleepScreen />));
     expect(texts).toContain('Sommeil');
@@ -135,15 +143,17 @@ describe('JournalSleepScreen — localization (chrome translates, quality/feelin
     expect(texts).toContain('Qualité du sommeil');
   });
 
-  it('renders chrome in English but keeps quality/feeling data in French', async () => {
+  it('renders chrome and the quality/feeling display labels in English; the French originals are gone from the rendered text', async () => {
     await setAppLanguage('en');
     const texts = allTexts(await renderScreen(<JournalSleepScreen />));
     expect(texts).toContain('Sleep');
     expect(texts).toContain('Sleep hours');
     expect(texts).toContain('Sleep quality');
     expect(texts).toContain('Night awakenings');
-    // Known, deliberate Phase 2 gap — see the screen's own header comment.
-    expect(texts).toContain('Bonne');
+    // PHASE 7H: display-only translation via journalOptionLabel(); the
+    // underlying stored/selected value is still the French string.
+    expect(texts).toContain('Good');
+    expect(texts).not.toContain('Bonne');
   });
 });
 
@@ -214,7 +224,7 @@ describe('JournalNoteScreen / JournalIntimacyScreen — localization (unlocked p
     expect(texts).not.toContain('Notes personnelles');
   });
 
-  it('JournalIntimacyScreen renders chrome in English but keeps libido/symptom data in French', async () => {
+  it('JournalIntimacyScreen renders chrome and the libido/symptom display labels in English; the French originals are gone from the rendered text', async () => {
     await setAppLanguage('en');
     const texts = allTexts(await renderScreen(<JournalIntimacyScreen />));
     expect(texts).toContain('Intimate health');
@@ -222,7 +232,9 @@ describe('JournalNoteScreen / JournalIntimacyScreen — localization (unlocked p
     expect(texts).toContain('Libido');
     expect(texts).toContain('Yes');
     expect(texts).toContain('No');
-    // Known, deliberate Phase 2 gap — see the screen's own header comment.
-    expect(texts).toContain('Très élevée');
+    // PHASE 7H: display-only translation via journalOptionLabel(); the
+    // underlying stored/selected value is still the French string.
+    expect(texts).toContain('Very high');
+    expect(texts).not.toContain('Très élevée');
   });
 });
