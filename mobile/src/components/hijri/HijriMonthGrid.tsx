@@ -2,12 +2,14 @@ import React, {memo, useEffect, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
-import {sameDay, WEEK_DAYS} from '../../utils/cycleMath';
+import {sameDay, localizedWeekDays} from '../../utils/cycleMath';
 import {getHijriMonthDays, hijriPartsFor, type HijriMonthDay} from '../../utils/hijriCalendar';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {getAppLanguage} from '../../state/themePreferences';
 
 type Props = {
   monthStart: Date;
@@ -23,7 +25,7 @@ type Props = {
 };
 
 const cellDateLabel = (date: Date) =>
-  new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'short'}).format(date);
+  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'short'}).format(date);
 
 type DayCellProps = {
   cell: HijriMonthDay;
@@ -83,6 +85,7 @@ function HijriMonthGrid({
   onToday,
   direction,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -119,7 +122,7 @@ function HijriMonthGrid({
     <View style={styles.card}>
       <View style={styles.monthHeader}>
         <Pressable
-          accessibilityLabel="Mois hijri précédent"
+          accessibilityLabel={t('hijriCalendar.previousMonthAccessibility')}
           hitSlop={10}
           onPress={onPrevious}
           style={({pressed}) => [styles.navButton, pressed && styles.pressed]}>
@@ -129,7 +132,7 @@ function HijriMonthGrid({
         <Text numberOfLines={1} style={styles.monthTitle}>{monthLabel}</Text>
 
         <Pressable
-          accessibilityLabel="Mois hijri suivant"
+          accessibilityLabel={t('hijriCalendar.nextMonthAccessibility')}
           hitSlop={10}
           onPress={onNext}
           style={({pressed}) => [styles.navButton, pressed && styles.pressed]}>
@@ -143,12 +146,12 @@ function HijriMonthGrid({
           onPress={onToday}
           style={({pressed}) => [styles.todayButton, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.primary} name="calendar-today" size={12} />
-          <Text style={styles.todayButtonText}>Revenir à aujourd’hui</Text>
+          <Text style={styles.todayButtonText}>{t('hijriCalendar.todayAccessibility')}</Text>
         </Pressable>
       ) : null}
 
       <View style={styles.weekRow}>
-        {WEEK_DAYS.map(day => (
+        {localizedWeekDays().map(day => (
           <Text key={day} numberOfLines={1} style={styles.weekDay}>{day}</Text>
         ))}
       </View>

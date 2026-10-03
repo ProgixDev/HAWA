@@ -2,11 +2,15 @@ import React, {memo, useEffect, useMemo} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Animated, {useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
+import {getAppLanguage} from '../../state/themePreferences';
+
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 
 type Props = {
   result: PurityPrayerResult;
@@ -28,12 +32,16 @@ const formatTime = (date: Date, timezone?: string) =>
     hour12: false,
   }).format(date);
 
-const formatDeclaredEnd = (date: Date, timezone?: string): string => {
-  const prefix = sameDay(date, new Date()) ? 'Aujourd’hui' : 'Le ' + new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long'}).format(date);
-  return `${prefix} à ${formatTime(date, timezone)}`;
+const formatDeclaredEnd = (t: TranslateFn, date: Date, timezone?: string): string => {
+  if (sameDay(date, new Date())) {
+    return t('prayerTimes.purity.todayAt', {time: formatTime(date, timezone)});
+  }
+  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long'}).format(date);
+  return t('prayerTimes.purity.dateAt', {date: dateLabel, time: formatTime(date, timezone)});
 };
 
 function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, onEdit}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -63,12 +71,12 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
           <View style={styles.dropCircle}>
             <MaterialDesignIcons color={theme.colors.primary} name="water-outline" size={18} />
           </View>
-          <Text style={styles.title}>Statut de pureté</Text>
+          <Text style={styles.title}>{t('prayerTimes.purity.title')}</Text>
         </View>
         {result.status === 'pure' ? (
           <Pressable accessibilityRole="button" hitSlop={8} onPress={onEdit} style={({pressed}) => [styles.editButton, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="pencil-outline" size={13} />
-            <Text style={styles.editText}>Modifier</Text>
+            <Text style={styles.editText}>{t('prayerTimes.modify')}</Text>
           </Pressable>
         ) : null}
       </View>
@@ -78,10 +86,10 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
           <View style={styles.neutralBlock}>
             <View style={styles.discreetRow}>
               <View style={[styles.discreetDot, styles.discreetDotPeriod]} />
-              <Text style={styles.discreetText}>Menstrues en cours</Text>
+              <Text style={styles.discreetText}>{t('prayerTimes.purity.menstruatingLabel')}</Text>
             </View>
             <Text style={styles.neutralHint}>
-              Les repères de pureté seront actualisés lorsque tu déclareras la fin de tes règles.
+              {t('prayerTimes.purity.menstruatingHint')}
             </Text>
           </View>
         ) : null}
@@ -90,10 +98,10 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
           <View style={styles.unknownBlock}>
             <View style={styles.discreetRow}>
               <View style={styles.discreetDot} />
-              <Text style={styles.discreetText}>Fin des règles non renseignée</Text>
+              <Text style={styles.discreetText}>{t('prayerTimes.purity.unknownLabel')}</Text>
             </View>
             <Pressable accessibilityRole="button" onPress={onEdit} style={({pressed}) => [styles.renseignerButton, pressed && styles.pressed]}>
-              <Text style={styles.renseignerText}>Renseigner</Text>
+              <Text style={styles.renseignerText}>{t('prayerTimes.purity.declareButton')}</Text>
             </Pressable>
           </View>
         ) : null}
@@ -105,16 +113,16 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
                 <MaterialDesignIcons color={theme.colors.success} name="check" size={14} />
               </View>
               <View style={styles.pureCopy}>
-                <Text style={styles.pureTitle}>Pureté retrouvée</Text>
+                <Text style={styles.pureTitle}>{t('prayerTimes.purity.pureTitle')}</Text>
                 <Text style={styles.pureSubtitle}>
-                  Fin des règles · {periodEndDateTime ? formatDeclaredEnd(periodEndDateTime, timezone) : '—'}
+                  {t('prayerTimes.purity.pureSubtitle', {value: periodEndDateTime ? formatDeclaredEnd(t, periodEndDateTime, timezone) : '—'})}
                 </Text>
               </View>
             </View>
 
             {result.prayerDue && result.prayerName && result.prayerStart && result.prayerEnd ? (
               <View style={styles.dueSection}>
-                <Text style={styles.dueLabel}>Prière concernée</Text>
+                <Text style={styles.dueLabel}>{t('prayerTimes.purity.dueLabel')}</Text>
                 <Text style={styles.duePrayerName}>{result.prayerName}</Text>
                 <Text style={styles.dueRange}>
                   {formatTime(result.prayerStart, timezone)} → {formatTime(result.prayerEnd, timezone)}
@@ -122,18 +130,18 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
 
                 <View style={styles.duePill}>
                   <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="hand-heart-outline" size={14} />
-                  <Text style={styles.duePillText}>{result.prayerName} est due aujourd’hui</Text>
+                  <Text style={styles.duePillText}>{t('prayerTimes.purity.dueBadge', {prayerName: result.prayerName})}</Text>
                 </View>
 
                 <Text style={styles.dueSubtitle}>
-                  Ta pureté a été retrouvée pendant le créneau de {result.prayerName}. Cette prière est due.
+                  {t('prayerTimes.purity.dueSubtitle', {prayerName: result.prayerName})}
                 </Text>
               </View>
             ) : result.nextPrayerName && result.nextPrayerTime ? (
               <View style={styles.betweenSection}>
-                <Text style={styles.betweenTitle}>Aucune prière en cours au moment du retour à la pureté.</Text>
+                <Text style={styles.betweenTitle}>{t('prayerTimes.purity.betweenTitle')}</Text>
                 <View style={styles.nextAfterPurityBlock}>
-                  <Text style={styles.nextAfterPurityLabel}>1re prière après la pureté</Text>
+                  <Text style={styles.nextAfterPurityLabel}>{t('prayerTimes.purity.nextAfterPurityLabel')}</Text>
                   <Text style={styles.nextAfterPurityValue}>
                     {result.nextPrayerName} · {formatTime(result.nextPrayerTime, timezone)}
                   </Text>
@@ -141,7 +149,7 @@ function PurityStatusCard({result, periodEndDateTime, timezone, loading, error, 
               </View>
             ) : (loading || error) ? (
               <Text style={styles.pendingNote}>
-                {loading ? 'Chargement des horaires de prière…' : 'Horaires de prière momentanément indisponibles.'}
+                {loading ? t('prayerTimes.purity.loadingSchedule') : t('prayerTimes.purity.scheduleUnavailable')}
               </Text>
             ) : null}
           </>
