@@ -7,6 +7,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import CalendarScreen from '../CalendarScreen';
 import {addPeriodOccurrence, setCyclePreferences} from '../../state/onboardingPreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M9 residual - the selected-day card's "Début / Fin / Durée des règles" block
 // must not present a PROJECTION as history for a past cycle with no recorded
@@ -63,9 +65,14 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
     .findAll(node => (node.type as unknown) === 'Text')
     .map(node => (Array.isArray(node.props.children) ? node.props.children.join('') : String(node.props.children)));
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
   jest.setSystemTime(new Date(2026, 8, 26, 10, 0, 0));
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

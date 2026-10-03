@@ -11,7 +11,16 @@ export type CycleBasics = {
   periodDuration: number;
 };
 
+// Stable, Monday-first weekday abbreviations — index/order is relied on by
+// every calendar grid's leading-blank math (e.g. `(date.getDay() + 6) % 7`)
+// across the app and must never change. `WEEK_DAYS` itself stays French and
+// unchanged for backward compatibility; `localizedWeekDays()` is the
+// language-aware accessor new call sites should use (same pattern several
+// screens had already built locally — see MonthCalendarCard.tsx's own
+// `localizedWeekDays()` — now centralized here instead of duplicated).
 export const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
+export const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+export const localizedWeekDays = (): string[] => (getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS);
 
 const DAY_MS = 86_400_000;
 
