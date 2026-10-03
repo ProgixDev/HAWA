@@ -16,6 +16,13 @@ import AuthScreen from '../AuthScreen';
 import RegistrationScreen from '../RegistrationScreen';
 import ForgotPasswordScreen from '../ForgotPasswordScreen';
 
+// Phase 7B migrated these 3 screens to useTranslation() — i18next must be
+// initialized (side effect of importing the singleton) before they render,
+// same requirement every other migrated-screen test already follows (see
+// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
+// keys instead of the French default copy this file's assertions expect.
+import '../../i18n';
+
 // The Auth family (Login/Register/Forgot Password) was previously
 // intentionally LIGHT-ONLY (frozen AUTH_LIGHT_THEME snapshot, never reacting
 // to the user's actual theme). That decision has been reversed: Auth now

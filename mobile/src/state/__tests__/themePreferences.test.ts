@@ -196,6 +196,90 @@ describe('hydrateAppearancePreferences', () => {
   });
 });
 
+// PHASE 7M — English-first default language. Same jest.isolateModulesAsync
+// technique as the rest of this file: a fresh module instance per test is
+// the only reliable way to exercise "a brand-new install" (module-scope
+// `appLanguage` at its just-loaded default) versus "an existing install"
+// (after hydrateAppearancePreferences() resolves from a specific persisted
+// AsyncStorage value).
+const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
+
+describe('getAppLanguage — PHASE 7M default', () => {
+  it('TEST 1 — is "en" before hydration and for a brand-new install with no saved preference', async () => {
+    let result: string | undefined;
+    await jest.isolateModulesAsync(async () => {
+      const store = freshStore();
+      await store.hydrateAppearancePreferences();
+      result = store.getAppLanguage();
+    });
+    expect(result).toBe('en');
+  });
+
+  it('TEST 2 — an explicitly persisted "fr" preference still produces French on cold init', async () => {
+    await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, 'fr');
+
+    let result: string | undefined;
+    await jest.isolateModulesAsync(async () => {
+      const store = freshStore();
+      await store.hydrateAppearancePreferences();
+      result = store.getAppLanguage();
+    });
+    expect(result).toBe('fr');
+  });
+
+  it('TEST 3 — an explicitly persisted "en" preference produces English on cold init', async () => {
+    await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, 'en');
+
+    let result: string | undefined;
+    await jest.isolateModulesAsync(async () => {
+      const store = freshStore();
+      await store.hydrateAppearancePreferences();
+      result = store.getAppLanguage();
+    });
+    expect(result).toBe('en');
+  });
+
+  it('TEST 4 — an invalid/corrupt persisted value safely falls back to English, never French, never throws', async () => {
+    await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, 'xx-not-a-real-language');
+
+    let result: string | undefined;
+    await jest.isolateModulesAsync(async () => {
+      const store = freshStore();
+      await expect(store.hydrateAppearancePreferences()).resolves.not.toThrow();
+      result = store.getAppLanguage();
+    });
+    expect(result).toBe('en');
+  });
+
+  it('TEST 9/10 — an explicit choice (either language) persists and survives a simulated app restart', async () => {
+    await jest.isolateModulesAsync(async () => {
+      const firstSession = freshStore();
+      await firstSession.setAppLanguage('fr');
+    });
+
+    let restoredFr: string | undefined;
+    await jest.isolateModulesAsync(async () => {
+      const secondSession = freshStore();
+      await secondSession.hydrateAppearancePreferences();
+      restoredFr = secondSession.getAppLanguage();
+    });
+    expect(restoredFr).toBe('fr');
+
+    await jest.isolateModulesAsync(async () => {
+      const thirdSession = freshStore();
+      await thirdSession.setAppLanguage('en');
+    });
+
+    let restoredEn: string | undefined;
+    await jest.isolateModulesAsync(async () => {
+      const fourthSession = freshStore();
+      await fourthSession.hydrateAppearancePreferences();
+      restoredEn = fourthSession.getAppLanguage();
+    });
+    expect(restoredEn).toBe('en');
+  });
+});
+
 describe('setAppearanceMode / setTrueBlackEnabled', () => {
   it('updates in-memory state immediately and persists it', async () => {
     await jest.isolateModulesAsync(async () => {

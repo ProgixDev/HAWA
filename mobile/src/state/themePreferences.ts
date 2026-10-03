@@ -96,7 +96,13 @@ export function getTrueBlackEnabled(): boolean {
 export type AwaAppLanguage = 'fr' | 'en';
 
 const LANGUAGE_STORAGE_KEY = '@awa/appearance/language-v1';
-const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'fr';
+// PHASE 7M: English is now AWA's default/fallback language — a brand-new
+// install, or any install with no (or an invalid) persisted value, must land
+// on English, never French. French remains fully supported: an explicitly
+// persisted 'fr' value (set via the Appearance language sheet) always wins —
+// see isValidAppLanguage()'s hydration check below, which only ever
+// overwrites this default with a persisted 'fr' or 'en', never anything else.
+const DEFAULT_APP_LANGUAGE: AwaAppLanguage = 'en';
 
 const isValidAppLanguage = (value: unknown): value is AwaAppLanguage =>
   value === 'fr' || value === 'en';
@@ -123,9 +129,9 @@ export function hydrateAppearancePreferences(): Promise<void> {
           appearanceMode = storedMode;
         }
         trueBlackEnabled = storedTrueBlack === 'true';
-        // No stored value (existing installs predating this preference) —
-        // keeps the module default ('fr'), never triggers onboarding or any
-        // migration prompt.
+        // No stored value (a brand-new install, or an existing install that
+        // predates this preference) — keeps the module default ('en', since
+        // Phase 7M), never triggers onboarding or any migration prompt.
         if (isValidAppLanguage(storedLanguage)) {
           appLanguage = storedLanguage;
         }

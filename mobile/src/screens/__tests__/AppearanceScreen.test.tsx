@@ -64,6 +64,17 @@ beforeEach(async () => {
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
   await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (see
+  // themePreferences.ts's DEFAULT_APP_LANGUAGE) — this whole file's tests
+  // were written against a French-rendered screen (French accessibility
+  // labels, French row/sheet text), which was a safe assumption back when
+  // French was the default. Pinning French explicitly here preserves every
+  // test's original intent (testing the sheet's apply/cancel/selection
+  // mechanics) without relying on which language happens to be the current
+  // default. The one test that's actually ABOUT the default (further below)
+  // calls resetAppLanguageForTests() again itself to get the true
+  // no-preference state.
+  await setAppLanguage('fr');
 });
 
 afterEach(() => {
@@ -451,13 +462,14 @@ describe('AppearanceScreen — "Langue de l’application" bottom sheet', () => 
     expect(textsOf(renderer)).not.toContain('Appearance');
   });
 
-  it('existing installs with no saved preference default to French — no onboarding, no migration popup', async () => {
-    // resetAppLanguageForTests() in beforeEach already simulates "no saved
-    // value" (removes the AsyncStorage key) — this just asserts the honest
-    // default rather than re-deriving it.
-    expect(getAppLanguage()).toBe('fr');
+  it('PHASE 7M — brand-new installs with no saved preference default to English — no onboarding, no migration popup', async () => {
+    // Undo this file's own beforeEach pin-to-French (see its comment) to get
+    // back to the true "nothing ever saved" state this test is about.
+    await resetAppLanguageForTests();
+    expect(getAppLanguage()).toBe('en');
     const renderer = await renderScreen();
-    expect(renderer.root.findAllByProps({children: 'Français'}).length).toBeGreaterThan(0);
+    expect(renderer.root.findAllByProps({children: 'Appearance'}).length).toBeGreaterThan(0);
+    expect(renderer.root.findAllByProps({children: 'Apparence'}).length).toBe(0);
   });
 });
 
