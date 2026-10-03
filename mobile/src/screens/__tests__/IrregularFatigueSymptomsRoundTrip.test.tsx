@@ -18,6 +18,8 @@ import {
 } from '../../state/irregularJournalStore';
 import {getJournalEntry} from '../../state/dailyJournalStore';
 import {classifyIrregularPeriodDay, getIrregularFatigueSymptoms} from '../../utils/irregularJournalSelectors';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Real screen, real stores: save "Fatigue & symptômes", reopen it, and check
 // that Calendar and Statistics read the SAME symptoms back.
@@ -123,11 +125,16 @@ const pressSave = async (renderer: ReactTestRenderer.ReactTestRenderer, label: s
   await settle();
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   // Pinned to mid-afternoon: statistics window entries at noon of their day, so a
   // real-clock run before 12:00 would not yet see today's entries.
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 25, 15, 0, 0)});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

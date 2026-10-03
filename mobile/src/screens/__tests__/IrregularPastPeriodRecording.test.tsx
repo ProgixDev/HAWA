@@ -19,6 +19,8 @@ import {
   resolveLatestIrregularPeriodStart,
 } from '../../utils/irregularJournalSelectors';
 import {diffDays} from '../../utils/cycleMath';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // H11 — SOPK can record / correct a PAST period from the Calendar selected
 // day. Today is pinned to 2026-09-26.
@@ -111,9 +113,14 @@ const periodSources = async () => {
   };
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   unmountAll();

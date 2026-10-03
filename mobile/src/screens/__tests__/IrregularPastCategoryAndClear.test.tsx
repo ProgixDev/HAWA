@@ -9,6 +9,8 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import IrregularJournalEntryScreen from '../IrregularJournalEntryScreen';
 import {getAllIrregularJournalEntries, getIrregularJournalEntry} from '../../state/irregularJournalStore';
 import {computeIrregularMonthlySummary} from '../../utils/irregularCalendarMath';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M21 / M25 (SOPK) - every non-period SOPK category screen already honours the
 // optional `date` route param (hydrate + save are keyed by the requested day,
@@ -89,8 +91,13 @@ const allTexts = (renderer: ReactTestRenderer.ReactTestRenderer) => renderer.roo
 const noteInput = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   renderer.root.findAllByType(TextInput).find(input => input.props.placeholder === 'Ajouter une note…')!;
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   unmountAll();

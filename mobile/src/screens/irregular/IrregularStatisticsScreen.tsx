@@ -52,7 +52,24 @@ import {
   type CategoryDistributionEntry,
   type MonthlyCategoryTrendEntry,
 } from '../../utils/irregularStatisticsMath';
+import {journalOptionLabel, type JournalOptionNamespace} from '../../utils/journalOptionLabels';
 import '../../i18n';
+
+// Phase 7H.1 — maps each single-value scale field read by
+// calculateCategoryDistribution (entry.acne/hairGrowth/pain/mood/fatigue) to
+// the SAME namespace already used for the identical options on
+// IrregularJournalEntryScreen — the persisted/grouped `item.value` stays the
+// original French string; only the rendered label translates.
+const CATEGORY_NAMESPACE: Record<
+  Exclude<IrregularJournalCategory, 'weight'>,
+  JournalOptionNamespace
+> = {
+  acne: 'irregularAcne',
+  hairGrowth: 'irregularHair',
+  pain: 'irregularIntensity',
+  mood: 'irregularMood',
+  fatigue: 'irregularFatigueLevel',
+};
 
 /* ============================================================
    TYPES
@@ -76,7 +93,7 @@ function periodLabels(t: (key: string) => string): Record<StatisticsPeriod, stri
 // Statistics data model, not SOPK's own store).
 function symptomCategoryMeta(
   t: (key: string) => string,
-): Array<{key: IrregularJournalCategory; label: string; icon: IconName}> {
+): Array<{key: Exclude<IrregularJournalCategory, 'weight'>; label: string; icon: IconName}> {
   return [
     {key: 'acne', label: t('irregularStatistics.categories.acne'), icon: 'face-woman-outline'},
     {key: 'hairGrowth', label: t('irregularStatistics.categories.hairGrowth'), icon: 'human'},
@@ -155,6 +172,7 @@ function CategoryCard({
   monthlyTrend,
   showLongitudinalView,
   monthsLabel,
+  namespace,
 }: {
   icon: IconName;
   title: string;
@@ -162,6 +180,7 @@ function CategoryCard({
   monthlyTrend: MonthlyCategoryTrendEntry[];
   showLongitudinalView: boolean;
   monthsLabel: string;
+  namespace: JournalOptionNamespace;
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
@@ -207,7 +226,7 @@ function CategoryCard({
                     <View key={item.value} style={styles.distributionItem}>
                       <View style={styles.distributionItemTop}>
                         <Text numberOfLines={1} style={styles.distributionLabel}>
-                          {item.value}
+                          {journalOptionLabel(namespace, item.value, t)}
                         </Text>
                         <Text style={styles.distributionValue}>
                           {t('irregularStatistics.common.daysCount', {count: item.days})}
@@ -227,7 +246,7 @@ function CategoryCard({
               {distribution.map(item => (
                 <View key={item.value} style={styles.chip}>
                   <Text style={styles.chipText}>
-                    {`${item.value} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
+                    {`${journalOptionLabel(namespace, item.value, t)} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
                   </Text>
                 </View>
               ))}
@@ -256,7 +275,7 @@ function CategoryCard({
                 {month.distribution.map(item => (
                   <View key={item.value} style={styles.chip}>
                     <Text style={styles.chipText}>
-                      {`${item.value} · ${t('irregularStatistics.common.daysAbbrev', {count: item.days})}`}
+                      {`${journalOptionLabel(namespace, item.value, t)} · ${t('irregularStatistics.common.daysAbbrev', {count: item.days})}`}
                     </Text>
                   </View>
                 ))}
@@ -653,6 +672,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
               key={stat.key}
               monthlyTrend={stat.monthlyTrend}
               monthsLabel={monthsLabel}
+              namespace={CATEGORY_NAMESPACE[stat.key]}
               showLongitudinalView={showLongitudinalView}
               title={stat.label}
             />
@@ -675,7 +695,7 @@ function IrregularStatisticsScreen(): React.JSX.Element {
                 {associatedSymptomFrequency.map(item => (
                   <View key={item.name} style={styles.chip}>
                     <Text style={styles.chipText}>
-                      {`${item.name} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
+                      {`${journalOptionLabel('irregularSymptom', item.name, t)} · ${t('irregularStatistics.common.daysCount', {count: item.days})}`}
                     </Text>
                   </View>
                 ))}
