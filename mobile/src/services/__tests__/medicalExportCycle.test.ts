@@ -8,6 +8,8 @@ import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore'
 import {resolveNoteSection} from '../privateNotesEncryption';
 import {resolveIntimacySection} from '../privateJournalEncryption';
 import {formatFullDate} from '../../utils/cycleMath';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M14 — the Cycle export offers only categories Cycle can really record, and
 // now includes the recorded / confirmed period dates. Real stores (in-memory
@@ -29,10 +31,15 @@ beforeAll(async () => {
   await hydrateCyclePreferences();
 });
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockResolveNote.mockResolvedValue({data: undefined, corrupted: false});
   mockResolveIntimacy.mockResolvedValue({data: undefined, corrupted: false});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('Cycle export configuration — only categories Cycle can record', () => {
