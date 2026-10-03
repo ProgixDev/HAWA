@@ -138,7 +138,7 @@ describe('E — tracking preferences control the current Pregnancy tracking UI',
 
   it('the journal sheet only offers the tracked categories (static guard on MainTabNavigator)', () => {
     const source = fs.readFileSync(path.resolve(__dirname, '../../../navigation/MainTabNavigator.tsx'), 'utf8');
-    expect(source).toMatch(/PREGNANCY_JOURNAL_ITEMS\.filter\(item => pregnancyTracking\.has\(item\.preferenceKey\)\)/);
+    expect(source).toMatch(/pregnancyJournalItems\(t\)\.filter\(item => pregnancyTracking\.has\(item\.preferenceKey\)\)/);
     for (const key of ['symptoms', 'weight', 'mood', 'sleep', 'medicalInfo']) {
       expect(source).toContain(`preferenceKey: '${key}'`);
     }

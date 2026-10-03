@@ -6,13 +6,14 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
 import {getPregnancyMedicalEvents, type PregnancyMedicalEvent} from '../../../state/pregnancyMedicalEventsStore';
 
 import PregnancyAppointmentScreen from '../PregnancyAppointmentScreen';
 import PregnancyExamScreen from '../PregnancyExamScreen';
 import PregnancyAppointmentsScreen from '../PregnancyAppointmentsScreen';
 import PregnancyEventForm from '../../../components/pregnancy/PregnancyEventForm';
+import i18n from '../../../i18n';
 
 // Phase 1 — Pregnancy Appointment/Exam flow separation. The dedicated
 // PregnancyAppointmentScreen/PregnancyExamScreen must never show the
@@ -73,6 +74,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

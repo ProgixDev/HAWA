@@ -29,6 +29,8 @@ import {
 import {getJournalEntry, saveJournalSection} from '../../../state/dailyJournalStore';
 import {addDays, startOfDay} from '../../../utils/cycleMath';
 import {PREGNANCY_TOTAL_DAYS} from '../../../utils/pregnancyTrackingUtils';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // J/K — the Pregnancy dating and tracking-preference screens double as EDIT
 // screens (route param mode: 'edit'): prefilled, validated, saved, back to the
@@ -140,6 +142,11 @@ beforeEach(async () => {
   visited.length = 0;
   await setPregnancyDating({method: 'lastPeriod', date: lmpDate(70).toISOString()});
   await setPregnancyTrackingPreferences(new Set(['symptoms', 'weight', 'mood', 'sleep', 'medicalInfo']));
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
