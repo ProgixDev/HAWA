@@ -6,6 +6,7 @@ import type {
   SymptomSeverity,
 } from '../types/journal';
 import {formatFullDate} from '../utils/cycleMath';
+import {journalOptionLabel} from '../utils/journalOptionLabels';
 import i18n from '../i18n';
 
 // Pure data-shaping/serialization logic for the Medical Export feature
@@ -120,6 +121,32 @@ function buildProtectionLabels(): Record<'yes' | 'no' | 'unknown', string> {
 }
 const PROTECTION_LABELS: Record<'yes' | 'no' | 'unknown', string> = buildProtectionLabels();
 i18n.on('languageChanged', () => Object.assign(PROTECTION_LABELS, buildProtectionLabels()));
+
+// flow.clots/flow.protections are stable technical ids ('none'/'small'/...,
+// 'pad'/'tampon'/...), NOT French words — see MenstrualFlowScreen.tsx's own
+// CLOTS/PROTECTIONS option arrays. Reusing THEIR existing translation keys
+// here (never a new namespace) keeps one source of truth for this wording.
+function buildClotsLabels(): Record<string, string> {
+  return {
+    none: i18n.t('journalMenstrualFlow.clots.none'),
+    small: i18n.t('journalMenstrualFlow.clots.small'),
+    medium: i18n.t('journalMenstrualFlow.clots.medium'),
+    large: i18n.t('journalMenstrualFlow.clots.large'),
+  };
+}
+const CLOTS_LABELS: Record<string, string> = buildClotsLabels();
+i18n.on('languageChanged', () => Object.assign(CLOTS_LABELS, buildClotsLabels()));
+
+function buildProtectionTypeLabels(): Record<string, string> {
+  return {
+    pad: i18n.t('journalMenstrualFlow.protection.pad'),
+    tampon: i18n.t('journalMenstrualFlow.protection.tampon'),
+    cup: i18n.t('journalMenstrualFlow.protection.cup'),
+    underwear: i18n.t('journalMenstrualFlow.protection.underwear'),
+  };
+}
+const PROTECTION_TYPE_LABELS: Record<string, string> = buildProtectionTypeLabels();
+i18n.on('languageChanged', () => Object.assign(PROTECTION_TYPE_LABELS, buildProtectionTypeLabels()));
 
 /** Filters real dailyJournalStore entries down to the selected lookback
  * window. `now` is an explicit parameter (never `new Date()` internally) so
@@ -248,11 +275,19 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const lines: string[] = [];
       const intensity = formatEnumOrRaw(flow.intensity, FLOW_LABELS);
       if (intensity) {lines.push(`${i18n.t('export.fields.flow')} : ${intensity}`);}
+      // flow.color is a hex swatch code (FLOW_COLORS in MenstrualFlowScreen.tsx),
+      // not a word — never translated, nothing to map.
       if (flow.color) {lines.push(`${i18n.t('export.fields.color')} : ${flow.color}`);}
-      if (flow.clots) {lines.push(`${i18n.t('export.fields.clots')} : ${flow.clots}`);}
-      if (flow.protections?.length) {lines.push(`${i18n.t('export.fields.protections')} : ${flow.protections.join(', ')}`);}
+      if (flow.clots) {lines.push(`${i18n.t('export.fields.clots')} : ${formatEnumOrRaw(flow.clots, CLOTS_LABELS) ?? flow.clots}`);}
+      if (flow.protections?.length) {
+        lines.push(`${i18n.t('export.fields.protections')} : ${flow.protections.map(value => formatEnumOrRaw(value, PROTECTION_TYPE_LABELS) ?? value).join(', ')}`);
+      }
       if (flow.periodStart) {lines.push(i18n.t('export.fields.periodStart'));}
       if (flow.periodEnd) {lines.push(i18n.t('export.fields.periodEnd'));}
+      // flow.pain has no live writer (only the superseded/dead
+      // JournalFlowScreen.tsx ever set it) — left as a raw, unknown-value
+      // passthrough rather than inventing a mapping for a field nothing
+      // currently produces.
       if (flow.pain) {lines.push(`${i18n.t('export.fields.pain')} : ${flow.pain}`);}
       return lines;
     }
@@ -261,10 +296,13 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const symptoms = entry.symptoms;
       if (!symptoms?.names?.length) {return [];}
       const lines: string[] = [];
-      lines.push(`${i18n.t('export.fields.symptoms')} : ${symptoms.names.join(', ')}`);
+      const names = symptoms.names.map(name => journalOptionLabel('cycleSymptom', name, i18n.t));
+      lines.push(`${i18n.t('export.fields.symptoms')} : ${names.join(', ')}`);
       const severity = formatEnumOrRaw(symptoms.severity, SEVERITY_LABELS);
       if (severity) {lines.push(`${i18n.t('export.fields.intensity')} : ${severity}`);}
-      if (symptoms.painLocation) {lines.push(`${i18n.t('export.fields.location')} : ${symptoms.painLocation}`);}
+      if (symptoms.painLocation) {
+        lines.push(`${i18n.t('export.fields.location')} : ${journalOptionLabel('cycleSymptomLocation', symptoms.painLocation, i18n.t)}`);
+      }
       return lines;
     }
 
@@ -288,9 +326,9 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (sleep.bedtime) {lines.push(`${i18n.t('export.fields.bedtime')} : ${sleep.bedtime}`);}
       if (sleep.wakeTime) {lines.push(`${i18n.t('export.fields.wakeTime')} : ${sleep.wakeTime}`);}
       if (sleep.duration) {lines.push(`${i18n.t('export.fields.duration')} : ${sleep.duration}`);}
-      if (sleep.quality) {lines.push(`${i18n.t('export.fields.quality')} : ${sleep.quality}`);}
+      if (sleep.quality) {lines.push(`${i18n.t('export.fields.quality')} : ${journalOptionLabel('cycleSleepQuality', sleep.quality, i18n.t)}`);}
       if (sleep.awakenings !== undefined) {lines.push(`${i18n.t('export.fields.nightWakenings')} : ${sleep.awakenings}`);}
-      if (sleep.wakeFeeling) {lines.push(`${i18n.t('export.fields.wakeFeeling')} : ${sleep.wakeFeeling}`);}
+      if (sleep.wakeFeeling) {lines.push(`${i18n.t('export.fields.wakeFeeling')} : ${journalOptionLabel('cycleSleepFeeling', sleep.wakeFeeling, i18n.t)}`);}
       return lines;
     }
 
@@ -298,10 +336,10 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const activity = entry.activity;
       if (!activity || activity.none) {return activity?.none ? [i18n.t('export.fields.noActivity')] : [];}
       const lines: string[] = [];
-      if (activity.type) {lines.push(`${i18n.t('export.fields.type')} : ${activity.type}`);}
+      if (activity.type) {lines.push(`${i18n.t('export.fields.type')} : ${journalOptionLabel('cycleActivityType', activity.type, i18n.t)}`);}
       if (activity.durationMinutes !== undefined) {lines.push(`${i18n.t('export.fields.duration')} : ${activity.durationMinutes} min`);}
-      if (activity.intensity) {lines.push(`${i18n.t('export.fields.intensity')} : ${activity.intensity}`);}
-      if (activity.feeling) {lines.push(`${i18n.t('export.fields.feeling')} : ${activity.feeling}`);}
+      if (activity.intensity) {lines.push(`${i18n.t('export.fields.intensity')} : ${journalOptionLabel('cycleActivityIntensity', activity.intensity, i18n.t)}`);}
+      if (activity.feeling) {lines.push(`${i18n.t('export.fields.feeling')} : ${journalOptionLabel('cycleActivityFeeling', activity.feeling, i18n.t)}`);}
       return lines;
     }
 
@@ -318,7 +356,7 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       if (!temperature) {return [];}
       const lines: string[] = [`${i18n.t('export.fields.temperature')} : ${temperature.value}°${temperature.unit}`];
       if (temperature.time) {lines.push(`${i18n.t('export.fields.measurementTime')} : ${temperature.time}`);}
-      if (temperature.method) {lines.push(`${i18n.t('export.fields.method')} : ${temperature.method}`);}
+      if (temperature.method) {lines.push(`${i18n.t('export.fields.method')} : ${journalOptionLabel('cycleTemperatureMethod', temperature.method, i18n.t)}`);}
       return lines;
     }
 
@@ -326,6 +364,9 @@ export function formatCategoryValue(category: string, entry: DailyJournalEntry):
       const weight = entry.weight;
       if (!weight?.value) {return [];}
       const lines: string[] = [`${i18n.t('export.fields.weight')} : ${weight.value} ${weight.unit}`];
+      // weight.moment has no live writer (only the superseded/dead
+      // JournalHydrationWeightScreen.tsx ever set it) — left as a raw,
+      // unknown-value passthrough, same reasoning as flow.pain above.
       if (weight.moment) {lines.push(`${i18n.t('export.fields.moment')} : ${weight.moment}`);}
       return lines;
     }

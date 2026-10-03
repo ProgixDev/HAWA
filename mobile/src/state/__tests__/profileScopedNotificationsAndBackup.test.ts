@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 import {
   getCycleReminderPreferences,
   hydrateCycleReminderPreferences,
@@ -81,6 +83,11 @@ beforeEach(async () => {
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
   await AsyncStorage.clear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('cycleReminderPreferences — profile-scoped reminder settings', () => {

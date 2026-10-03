@@ -67,6 +67,7 @@ import {
 
 import {getAllIrregularJournalEntries, hydrateIrregularJournal} from '../state/irregularJournalStore';
 import {classifyIrregularPeriodDay, getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
+import {journalOptionLabel} from '../utils/journalOptionLabels';
 import i18n from '../i18n';
 
 // i18n (Phase 6): a plain data-reading file, not a component, so it cannot
@@ -152,8 +153,8 @@ async function buildDailyJournalCategories(
         lines.push(`${i18n.t('export.data.intimacy.intercourse')} : ${answerLabel}`);
         if (data.time) {lines.push(`${i18n.t('export.fields.time')} : ${data.time}`);}
         if (data.protection) {lines.push(`${i18n.t('export.data.intimacy.protection')} : ${formatProtectionLabel(data.protection)}`);}
-        if (data.libido) {lines.push(`${i18n.t('export.data.intimacy.libido')} : ${data.libido}`);}
-        if (data.discomfort) {lines.push(`${i18n.t('export.data.intimacy.discomfort')} : ${data.discomfort}`);}
+        if (data.libido) {lines.push(`${i18n.t('export.data.intimacy.libido')} : ${journalOptionLabel('cycleIntimacyLibido', data.libido, i18n.t)}`);}
+        if (data.discomfort) {lines.push(`${i18n.t('export.data.intimacy.discomfort')} : ${journalOptionLabel('cycleIntimacyDiscomfort', data.discomfort, i18n.t)}`);}
         if (data.note) {lines.push(`${i18n.t('export.data.note')} : ${data.note}`);}
         return {category, label, lines};
       }
@@ -362,53 +363,74 @@ export async function buildIrregularExportDays(
         if (kind === 'period') {
           const intensity = flow?.intensity && flow.intensity !== 'none'
             ? formatFlowIntensityLabel(flow.intensity)
-            : details?.period?.flowIntensity; // SOPK's own stored label when no shared flow exists — user/config data, never translated here
+            // SOPK's own stored flow-intensity value — same irregularIntensity
+            // namespace IrregularJournalEntryScreen.tsx's chip already uses.
+            : details?.period?.flowIntensity
+              ? journalOptionLabel('irregularIntensity', details.period.flowIntensity, i18n.t)
+              : undefined;
           lines.push(intensity ? `${i18n.t('export.fields.flow')} : ${intensity}` : i18n.t('export.data.yes'));
         } else if (kind === 'spotting') {
           lines.push(i18n.t('export.data.irregular.spotting'));
         } else {
           lines.push(i18n.t('export.data.irregular.noPeriod'));
         }
+        // details.period.painLevel uses the irregularPeriodPainLevel namespace;
+        // flow?.pain has no live writer (dead JournalFlowScreen.tsx only) and
+        // falls back unchanged through the same lookup — safe either way.
         const painLevel = details?.period?.painLevel ?? flow?.pain;
-        if (painLevel) {lines.push(`${i18n.t('export.fields.pain')} : ${painLevel}`);}
+        if (painLevel) {lines.push(`${i18n.t('export.fields.pain')} : ${journalOptionLabel('irregularPeriodPainLevel', painLevel, i18n.t)}`);}
         push('period', lines);
       }
     }
 
     if (wants('acne') && entry?.acne) {
-      const lines = [entry.acne];
-      if (details?.acne?.areas?.length) {lines.push(`${i18n.t('export.data.zones')} : ${details.acne.areas.join(', ')}`);}
+      const lines = [journalOptionLabel('irregularAcne', entry.acne, i18n.t)];
+      if (details?.acne?.areas?.length) {
+        lines.push(`${i18n.t('export.data.zones')} : ${details.acne.areas.map(area => journalOptionLabel('irregularAcneArea', area, i18n.t)).join(', ')}`);
+      }
       push('acne', lines);
     }
 
     if (wants('hairGrowth') && entry?.hairGrowth) {
-      const lines = [entry.hairGrowth];
-      if (details?.hairGrowth?.areas?.length) {lines.push(`${i18n.t('export.data.zones')} : ${details.hairGrowth.areas.join(', ')}`);}
+      const lines = [journalOptionLabel('irregularHair', entry.hairGrowth, i18n.t)];
+      if (details?.hairGrowth?.areas?.length) {
+        lines.push(`${i18n.t('export.data.zones')} : ${details.hairGrowth.areas.map(area => journalOptionLabel('irregularHairArea', area, i18n.t)).join(', ')}`);
+      }
       push('hairGrowth', lines);
     }
 
     if (wants('pain') && entry?.pain) {
-      const lines = [entry.pain];
+      const lines = [journalOptionLabel('irregularIntensity', entry.pain, i18n.t)];
       // In the SOPK pain form `areas` holds the pain TYPES and `symptoms` the
       // body ZONES (see IrregularJournalEntryScreen.tsx).
-      if (details?.pain?.areas?.length) {lines.push(`${i18n.t('export.data.types')} : ${details.pain.areas.join(', ')}`);}
-      if (details?.pain?.symptoms?.length) {lines.push(`${i18n.t('export.data.zones')} : ${details.pain.symptoms.join(', ')}`);}
+      if (details?.pain?.areas?.length) {
+        lines.push(`${i18n.t('export.data.types')} : ${details.pain.areas.map(type => journalOptionLabel('irregularPainType', type, i18n.t)).join(', ')}`);
+      }
+      if (details?.pain?.symptoms?.length) {
+        lines.push(`${i18n.t('export.data.zones')} : ${details.pain.symptoms.map(zone => journalOptionLabel('irregularPainArea', zone, i18n.t)).join(', ')}`);
+      }
       push('pain', lines);
     }
 
     if (wants('fatigue') && entry) {
       const associated = getIrregularFatigueSymptoms(entry);
       const lines: string[] = [];
-      if (entry.fatigue) {lines.push(entry.fatigue);}
-      if (associated.length) {lines.push(`${i18n.t('export.data.associatedSymptoms')} : ${associated.join(', ')}`);}
+      if (entry.fatigue) {lines.push(journalOptionLabel('irregularFatigueLevel', entry.fatigue, i18n.t));}
+      if (associated.length) {
+        lines.push(`${i18n.t('export.data.associatedSymptoms')} : ${associated.map(symptom => journalOptionLabel('irregularSymptom', symptom, i18n.t)).join(', ')}`);
+      }
       push('fatigue', lines);
     }
 
-    if (wants('mood') && entry?.mood) {push('mood', [entry.mood]);}
+    if (wants('mood') && entry?.mood) {push('mood', [journalOptionLabel('irregularMood', entry.mood, i18n.t)]);}
 
     if (wants('weight') && entry?.weight) {
+      // entry.weight itself is free text (e.g. "68,5 kg"), never translated —
+      // only the weightFeeling categorical value below is.
       const lines = [entry.weight];
-      if (details?.weight?.weightFeeling) {lines.push(`${i18n.t('export.fields.feeling')} : ${details.weight.weightFeeling}`);}
+      if (details?.weight?.weightFeeling) {
+        lines.push(`${i18n.t('export.fields.feeling')} : ${journalOptionLabel('irregularWeightFeeling', details.weight.weightFeeling, i18n.t)}`);
+      }
       push('weight', lines);
     }
 
@@ -531,7 +553,7 @@ export async function buildPregnancyExportDays(
       ensureDay(entry.date).push({
         category: 'symptoms',
         label: i18n.t('export.fields.symptoms'),
-        lines: entry.symptoms.length ? [entry.symptoms.join(', ')] : [],
+        lines: entry.symptoms.length ? [entry.symptoms.map(symptom => journalOptionLabel('pregnancySymptom', symptom, i18n.t)).join(', ')] : [],
       });
     });
   }
@@ -602,7 +624,7 @@ export async function buildPregnancyExportDays(
   if (dating.date) {
     const status = computePregnancyStatus(dating.method, new Date(dating.date), now);
     if (status.week > 0) {
-      notices.push(`Semaine de grossesse estimée (estimation basée sur le mode de datation choisi) : ${status.week}.`);
+      notices.push(i18n.t('export.data.pregnancy.weekNotice', {week: status.week}));
     }
   }
 
@@ -676,7 +698,7 @@ export async function buildContraceptionExportDays(
     const journalEntries = await hydrateContraceptionJournal();
     Object.values(journalEntries).forEach(entry => {
       const lines = [
-        entry.feelings?.length ? `${i18n.t('export.fields.feeling')} : ${entry.feelings.join(', ')}` : '',
+        entry.feelings?.length ? `${i18n.t('export.fields.feeling')} : ${entry.feelings.map(feeling => journalOptionLabel('contraceptionFeeling', feeling, i18n.t)).join(', ')}` : '',
         entry.notes ? `${i18n.t('export.data.note')} : ${entry.notes}` : '',
       ].filter(Boolean);
       if (lines.length) {ensureDay(entry.date).push({category: 'journal', label: i18n.t('export.data.contraception.categories.journal'), lines});}
@@ -723,6 +745,17 @@ function buildPostpartumFieldLabels(): Record<string, string> {
 const POSTPARTUM_FIELD_LABELS: Record<string, string> = buildPostpartumFieldLabels();
 i18n.on('languageChanged', () => Object.assign(POSTPARTUM_FIELD_LABELS, buildPostpartumFieldLabels()));
 
+// Maps each postpartum journal category to its matching journalOptionLabel
+// namespace (same namespaces PostpartumJournalEntryScreen.tsx/
+// PostpartumStatisticsScreen.tsx already use for display).
+const POSTPARTUM_FIELD_NAMESPACE = {
+  fatigue: 'postpartumFatigue',
+  sleep: 'postpartumSleep',
+  mood: 'postpartumMood',
+  pain: 'postpartumPain',
+  physicalRecovery: 'postpartumRecovery',
+} as const;
+
 export async function buildPostpartumExportDays(
   selectedCategories: string[],
   period: ExportPeriod,
@@ -742,7 +775,7 @@ export async function buildPostpartumExportDays(
       if (!selectedCategories.includes(category)) {return;}
       const value = entry[category];
       if (!value) {return;}
-      const lines = [String(value)];
+      const lines = [journalOptionLabel(POSTPARTUM_FIELD_NAMESPACE[category], String(value), i18n.t)];
       if (category === 'sleep' && entry.sleepDuration !== undefined) {lines.push(`${i18n.t('export.fields.duration')} : ${entry.sleepDuration} h`);}
       ensureDay(entry.date).push({category, label: POSTPARTUM_FIELD_LABELS[category], lines});
     });
@@ -756,11 +789,13 @@ export async function buildPostpartumExportDays(
   if (selectedCategories.includes('lochia')) {
     Object.values(getAllPostpartumLochiaEntries()).forEach(entry => {
       const lines = [
-        `${i18n.t('export.fields.flow')} : ${entry.flow}`,
-        `${i18n.t('export.fields.color')} : ${entry.color}`,
-        `${i18n.t('export.data.postpartum.consistency')} : ${entry.consistency}`,
+        `${i18n.t('export.fields.flow')} : ${journalOptionLabel('postpartumLochiaFlow', entry.flow, i18n.t)}`,
+        `${i18n.t('export.fields.color')} : ${journalOptionLabel('postpartumLochiaColor', entry.color, i18n.t)}`,
+        `${i18n.t('export.data.postpartum.consistency')} : ${journalOptionLabel('postpartumLochiaConsistency', entry.consistency, i18n.t)}`,
       ];
-      if (entry.symptoms.length) {lines.push(`${i18n.t('export.data.associatedSymptoms')} : ${entry.symptoms.join(', ')}`);}
+      if (entry.symptoms.length) {
+        lines.push(`${i18n.t('export.data.associatedSymptoms')} : ${entry.symptoms.map(symptom => journalOptionLabel('postpartumLochiaSymptom', symptom, i18n.t)).join(', ')}`);
+      }
       if (entry.note) {lines.push(`${i18n.t('export.data.note')} : ${entry.note}`);}
       ensureDay(entry.date).push({category: 'lochia', label: i18n.t('export.data.postpartum.categories.lochia'), lines});
     });
@@ -803,12 +838,16 @@ export async function buildMiscarriageExportDays(
   const days: ExportDayEntry[] = entries.map(entry => {
     const categories: ExportCategoryValue[] = [];
     if (selectedCategories.includes('bleeding') && entry.bleeding) {
-      const lines = [entry.bleeding];
-      if (entry.bleedingColor) {lines.push(`${i18n.t('export.fields.color')} : ${entry.bleedingColor}`);}
+      const lines = [journalOptionLabel('miscarriageBleeding', entry.bleeding, i18n.t)];
+      if (entry.bleedingColor) {lines.push(`${i18n.t('export.fields.color')} : ${journalOptionLabel('miscarriageBleedingColor', entry.bleedingColor, i18n.t)}`);}
       categories.push({category: 'bleeding', label: i18n.t('export.data.loss.categories.bleeding'), lines});
     }
     if (selectedCategories.includes('symptoms') && entry.physicalSymptoms?.length) {
-      categories.push({category: 'symptoms', label: i18n.t('export.data.loss.categories.symptoms'), lines: [entry.physicalSymptoms.join(', ')]});
+      categories.push({
+        category: 'symptoms',
+        label: i18n.t('export.data.loss.categories.symptoms'),
+        lines: [entry.physicalSymptoms.map(symptom => journalOptionLabel('miscarriagePhysicalSymptom', symptom, i18n.t)).join(', ')],
+      });
     }
     // personalNotes AND the two free-text annotations attached to bleeding /
     // symptoms are all ENCRYPTED at rest (miscarriageJournalStore

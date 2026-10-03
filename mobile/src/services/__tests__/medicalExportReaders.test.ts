@@ -9,6 +9,8 @@ import {savePostpartumLochiaEntry} from '../../state/postpartumLochiaStore';
 import {saveMenopauseJournalField, addMenopauseLabResult} from '../../state/menopauseJournalStore';
 import {setContraceptionIntakeStatus} from '../../state/contraceptionIntakeHistoryStore';
 import {saveContraceptionJournalField} from '../../state/contraceptionJournalStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // medicalExportReaders.ts imports privateNotesEncryption.ts/
 // privateJournalEncryption.ts at module scope for the Cycle/TTC readers —
@@ -22,6 +24,11 @@ const now = new Date('2026-08-25T12:00:00');
 
 beforeEach(async () => {
   await AsyncStorage.clear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('buildPostpartumExportDays', () => {

@@ -5,6 +5,16 @@ import {getExportConfigurationForObjective} from '../../config/objectiveExportCo
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {saveIrregularFatigueEntry, saveIrregularJournalEntry} from '../../state/irregularJournalStore';
 import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 // medicalExportReaders.ts imports privateNotesEncryption.ts/
 // privateJournalEncryption.ts at module scope (react-native-keychain-backed);
@@ -63,6 +73,16 @@ describe('buildIrregularExportDays — SOPK store data', () => {
     jest.isolateModules(() => {
       const storage = require('@react-native-async-storage/async-storage').default;
       const readers = require('../medicalExportReaders');
+      // PHASE 7M: jest.isolateModules() sandboxes this require() graph with
+      // its own fresh themePreferences/i18n instances, independent of the
+      // outer file's beforeEach pin — the app's default language is now
+      // English, so this fresh instance would otherwise read/export in
+      // English instead of the French this test asserts. Pin it directly
+      // on the isolated instance.
+      const isolatedI18n = require('../../i18n').default;
+      const isolatedThemePreferences = require('../../state/themePreferences');
+      isolatedThemePreferences.setAppLanguage('fr');
+      isolatedI18n.changeLanguage('fr');
       run = storage
         .setItem(
           '@hawa/irregular-journal/v1',

@@ -14,6 +14,8 @@ import {saveMenopauseJournalField} from '../../state/menopauseJournalStore';
 import {buildExportCsv} from '../medicalExportFormatting';
 import {buildCycleExportDays} from '../medicalExportReaders';
 import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // M40 — backup / restore vs the Premium medical export are SEPARATE layers.
 //   Backup/restore : machine-oriented raw AsyncStorage snapshot; every field
@@ -35,6 +37,11 @@ const DATE = '2026-08-22';
 
 beforeAll(async () => {
   await AsyncStorage.clear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await saveJournalSection(DATE, 'symptoms', {names: ['Crampes'], severity: 'moderate', note: SECRET_SECTION_NOTE});
   await saveJournalSection(DATE, 'mood', {level: 'good', energy: 3, stress: 2, irritability: 1, motivation: 3});
   await saveJournalSection(

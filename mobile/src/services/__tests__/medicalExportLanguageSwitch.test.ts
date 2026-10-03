@@ -30,6 +30,11 @@ const now = new Date('2026-08-25T12:00:00');
 // real store (an entered symptom, a free-text note) must stay untouched.
 beforeEach(async () => {
   await AsyncStorage.clear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's tests assert French output first before switching to English,
+  // which was a safe assumption back when French was the i18n default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(async () => {
@@ -37,7 +42,7 @@ afterEach(async () => {
 });
 
 describe('buildPostpartumExportDays — language switch', () => {
-  it('category labels switch to English, values (data) stay the same', async () => {
+  it('category labels AND the categorical value label switch to English (Phase 7K); the persisted value stays French', async () => {
     await savePostpartumJournalField('2026-08-20', 'fatigue', 'Modérée');
     const fr = await buildPostpartumExportDays(['fatigue'], '3m', now);
     expect(fr.days[0].categories[0].label).toBe('Fatigue');
@@ -46,7 +51,9 @@ describe('buildPostpartumExportDays — language switch', () => {
     await i18n.changeLanguage('en');
     const en = await buildPostpartumExportDays(['fatigue'], '3m', now);
     expect(en.days[0].categories[0].label).toBe('Fatigue'); // same word both languages
-    expect(en.days[0].categories[0].lines).toEqual(['Modérée']); // the value itself is never translated
+    // Phase 7K: journalOptionLabel now translates this DISPLAY value —
+    // storage (savePostpartumJournalField above) is never touched.
+    expect(en.days[0].categories[0].lines).toEqual(['Moderate']);
   });
 });
 
