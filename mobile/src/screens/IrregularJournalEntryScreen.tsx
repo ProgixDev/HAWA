@@ -52,6 +52,7 @@ import {saveJournalSection} from '../state/dailyJournalStore';
 import type {FlowIntensity} from '../types/journal';
 import {computeWeightVariation} from '../utils/irregularDailyTrackingMath';
 import {getIrregularFatigueSymptoms} from '../utils/irregularJournalSelectors';
+import {journalOptionLabel, type JournalOptionNamespace} from '../utils/journalOptionLabels';
 import '../i18n';
 
 type IconName = React.ComponentProps<
@@ -425,12 +426,18 @@ function Chips({
   options,
   selected,
   onToggle,
+  namespace,
 }: {
   icon?: IconName;
   options: string[];
   selected: string[];
   onToggle: (option: string) => void;
+  /** Optional: when the options are DATA-BEARING (the persisted value), the
+   * rendered label is translated display-only via journalOptionLabel — the
+   * stored/compared/selected value (`option` itself) never changes. */
+  namespace?: JournalOptionNamespace;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -438,9 +445,11 @@ function Chips({
     <View style={styles.chips}>
       {options.map(option => {
         const active = selected.includes(option);
+        const label = namespace ? journalOptionLabel(namespace, option, t) : option;
 
         return (
           <Pressable
+            accessibilityLabel={label}
             accessibilityRole="checkbox"
             accessibilityState={{checked: active}}
             key={option}
@@ -463,7 +472,7 @@ function Chips({
                 styles.chipText,
                 active && styles.chipTextActive,
               ]}>
-              {option}
+              {label}
             </Text>
 
             {active ? (
@@ -1052,7 +1061,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                               : 'water'
                           }
                           key={option}
-                          label={option}
+                          label={journalOptionLabel('irregularIntensity', option, t)}
                           onPress={() =>
                             setValue(
                               option,
@@ -1097,7 +1106,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                             : 'lightning-bolt-outline'
                         }
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularPeriodPainLevel', option, t)}
                         onPress={() =>
                           setSecondary(
                             option,
@@ -1132,7 +1141,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     option => (
                       <ChoiceRow
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularAcne', option, t)}
                         onPress={() =>
                           setValue(
                             option,
@@ -1176,6 +1185,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       option,
                     )
                   }
+                  namespace="irregularAcneArea"
                   options={ACNE_AREAS}
                   selected={areas}
                 />
@@ -1200,7 +1210,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     option => (
                       <ChoiceRow
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularHair', option, t)}
                         onPress={() =>
                           setValue(
                             option,
@@ -1266,6 +1276,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       option,
                     )
                   }
+                  namespace="irregularHairArea"
                   options={HAIR_AREAS}
                   selected={areas}
                 />
@@ -1364,7 +1375,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                               : 'emoticon-sad-outline'
                         }
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularWeightFeeling', option, t)}
                         onPress={() =>
                           setSecondary(
                             option,
@@ -1405,6 +1416,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       option,
                     )
                   }
+                  namespace="irregularPainType"
                   options={PAIN_TYPES}
                   selected={areas}
                 />
@@ -1423,7 +1435,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                     option => (
                       <ChoiceRow
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularIntensity', option, t)}
                         onPress={() =>
                           setValue(
                             option,
@@ -1467,6 +1479,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       option,
                     )
                   }
+                  namespace="irregularPainArea"
                   options={PAIN_AREAS}
                   selected={symptoms}
                 />
@@ -1510,7 +1523,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                           icons[index]
                         }
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularMood', option, t)}
                         onPress={() =>
                           setValue(
                             option,
@@ -1606,7 +1619,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                                 : 'battery-alert-variant-outline'
                         }
                         key={option}
-                        label={option}
+                        label={journalOptionLabel('irregularFatigueLevel', option, t)}
                         onPress={() =>
                           setValue(
                             option,
@@ -1661,6 +1674,7 @@ export default function IrregularJournalEntryScreen(): React.JSX.Element {
                       option,
                     )
                   }
+                  namespace="irregularSymptom"
                   options={
                     IRREGULAR_SYMPTOM_OPTIONS
                   }
