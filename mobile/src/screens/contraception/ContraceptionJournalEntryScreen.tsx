@@ -27,6 +27,7 @@ import {
   CONTRACEPTION_FEELINGS_OPTIONS,
   CONTRACEPTION_JOURNAL_ITEMS,
 } from '../../config/contraceptionJournalConfig';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 import {
   contraceptionDefaultIntakeActionLabel,
@@ -520,7 +521,7 @@ function FeelingsContent({
             const active = selected.includes(option);
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('contraceptionFeeling', option, t)}
                 accessibilityRole="checkbox"
                 accessibilityState={{checked: active}}
                 key={option}
@@ -530,7 +531,7 @@ function FeelingsContent({
                   active && styles.chipActive,
                   pressed && styles.pressed,
                 ]}>
-                <Text style={[styles.chipText, active && styles.chipTextActive]}>{option}</Text>
+                <Text style={[styles.chipText, active && styles.chipTextActive]}>{journalOptionLabel('contraceptionFeeling', option, t)}</Text>
                 {active ? (
                   <View style={styles.chipCheck}>
                     <MaterialDesignIcons color={chipCheckIconColor} name="check" size={10} />

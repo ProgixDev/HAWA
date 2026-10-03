@@ -12,6 +12,8 @@ import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {setContraceptionPreferences} from '../../../state/contraceptionPreferences';
 import {deleteContraceptionIntakeRecord, setContraceptionIntakeStatus} from '../../../state/contraceptionIntakeHistoryStore';
 import {addDays} from '../../../utils/cycleMath';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // contraceptionReminderScheduling schedules through the Notifee-backed
 // chokepoint; replaced so no real scheduling is attempted.
@@ -92,6 +94,11 @@ beforeEach(async () => {
     remindersEnabled: false,
     reminderTime: null,
   });
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(unmountAll);
