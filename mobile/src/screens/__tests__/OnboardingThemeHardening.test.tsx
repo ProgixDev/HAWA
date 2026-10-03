@@ -14,6 +14,13 @@ import WelcomeScreen from '../WelcomeScreen';
 import ObjectiveScreen from '../ObjectiveScreen';
 import MiscarriageBleedingScreen from '../MiscarriageBleedingScreen';
 
+// Phase 7B migrated WelcomeScreen to useTranslation() — i18next must be
+// initialized (side effect of importing the singleton) before it renders,
+// same requirement every other migrated-screen test already follows (see
+// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
+// keys instead of the French default copy this file's assertions expect.
+import '../../i18n';
+
 // E10 — full onboarding funnel theme migration (39 screens across 33 files
 // + the 2 shared onboarding components they depend on). Mirrors the
 // established pattern from this session's other *ThemeHardening suites:

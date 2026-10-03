@@ -571,7 +571,7 @@ function ThemePaletteCard({
               appTheme.colors.textSecondary,
           },
         ]}>
-        {theme.description}
+        {t(`appearanceThemes.${theme.id}`)}
       </Text>
     </Pressable>
   );

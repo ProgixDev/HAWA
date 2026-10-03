@@ -12,6 +12,13 @@ import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../
 
 import PrivateAccessScreen from '../PrivateAccessScreen';
 
+// Phase 7C migrated this screen to useTranslation() — i18next must be
+// initialized (side effect of importing the singleton) before it renders,
+// same requirement every other migrated-screen test already follows (see
+// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
+// keys instead of the French default copy this file's assertions expect.
+import '../../i18n';
+
 // PrivateAccessScreen.tsx (Pregnancy "Info médicale" / Miscarriage "Notes
 // personnelles" private access — System B, distinct from the shared
 // PrivateIntimacy* gate flow) was the last remaining fixed-light-only
