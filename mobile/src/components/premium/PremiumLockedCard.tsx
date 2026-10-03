@@ -1,6 +1,7 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {homeColors, homeRadii, homeShadow} from '../home/homeTheme';
 
@@ -13,10 +14,11 @@ type Props = {
    * not decoration"). */
   description: string;
   onUpgrade: () => void;
-  /** Overrides the default CTA label ("Découvrir Premium") only when a
-   * screen genuinely needs different wording — defaults to the app's
-   * existing canonical phrase (ProfileScreen.tsx's own Premium card) so
-   * every locked surface reads consistently. */
+  /** Overrides the default, translated CTA label only when a screen
+   * genuinely needs different wording — defaults to the app's existing
+   * canonical phrase (ProfileScreen.tsx's own Premium card,
+   * profile.premiumCard.discoverPremium) so every locked surface reads
+   * consistently. */
   ctaLabel?: string;
 };
 
@@ -25,27 +27,34 @@ type Props = {
  * avancées, …) instead of each screen hand-rolling its own locked-state UI.
  * Opens the existing Premium bottom sheet via `onUpgrade` — never a second,
  * competing Premium screen. */
-export function PremiumLockedCard({title, description, onUpgrade, ctaLabel = 'Découvrir Premium'}: Props): React.JSX.Element {
+export function PremiumLockedCard({title, description, onUpgrade, ctaLabel}: Props): React.JSX.Element {
+  const {t} = useTranslation();
+  // Defaults to the app's existing canonical phrase (ProfileScreen.tsx's own
+  // Premium card, profile.premiumCard.discoverPremium) so every locked
+  // surface reads consistently — reused, not duplicated, per that key's own
+  // byte-identical French wording.
+  const resolvedCtaLabel = ctaLabel ?? t('profile.premiumCard.discoverPremium');
+
   return (
     <View style={styles.card}>
       <View style={styles.badgeRow}>
         <View style={styles.lockIconCircle}>
           <MaterialDesignIcons color={homeColors.primary} name="lock-outline" size={18} />
         </View>
-        <Text style={styles.badgeText}>Premium</Text>
+        <Text style={styles.badgeText}>{t('premium.lockedCard.badge')}</Text>
       </View>
 
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.description}>{description}</Text>
 
       <Pressable
-        accessibilityHint="Ouvre la présentation des avantages Premium"
-        accessibilityLabel={ctaLabel}
+        accessibilityHint={t('profile.premiumCard.accessibilityHint')}
+        accessibilityLabel={resolvedCtaLabel}
         accessibilityRole="button"
         onPress={onUpgrade}
         style={({pressed}) => [styles.cta, pressed && styles.pressed]}>
         <MaterialDesignIcons color="#FFFFFF" name="crown" size={16} />
-        <Text style={styles.ctaText}>{ctaLabel}</Text>
+        <Text style={styles.ctaText}>{resolvedCtaLabel}</Text>
       </Pressable>
     </View>
   );

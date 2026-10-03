@@ -1,6 +1,7 @@
 import type {PremiumPlan} from '../config/premiumPricing';
 import {PURCHASE_PROVIDER_AVAILABLE} from '../config/purchaseProvider';
 import {getPremiumState, updatePremiumState} from '../state/premiumStore';
+import i18n from '../i18n';
 
 // The ONLY file that is allowed to know about a native purchase provider
 // (Google Play Billing / StoreKit / RevenueCat) and the ONLY file allowed to
@@ -19,8 +20,14 @@ import {getPremiumState, updatePremiumState} from '../state/premiumStore';
 
 export type PurchaseOutcome = 'success' | 'cancelled' | 'error' | 'unavailable';
 
-const NO_PROVIDER_ERROR =
-  'AWA Premium n’est pas encore disponible sur cet appareil. Réessaie plus tard.';
+// Live-reassigned on languageChanged (not a plain const) since this is a
+// plain service file that can't call useTranslation() — same pattern as
+// CYCLE_RETURN_DATE_TO_CHECK in lossDateValidation.ts — so every call site
+// below keeps reading a plain variable, no signature changes needed.
+let NO_PROVIDER_ERROR = i18n.t('premium.providerError');
+i18n.on('languageChanged', () => {
+  NO_PROVIDER_ERROR = i18n.t('premium.providerError');
+});
 
 // The availability flag now lives in config/purchaseProvider.ts so the
 // Premium UI can read the very same value (see that file). Flipping it —

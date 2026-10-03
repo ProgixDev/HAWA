@@ -20,9 +20,11 @@ import {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import {
   PREMIUM_PRICING,
+  premiumPlanLabels,
   type PremiumPlan,
 } from '../../config/premiumPricing';
 import {PURCHASE_PROVIDER_AVAILABLE} from '../../config/purchaseProvider';
@@ -67,40 +69,47 @@ const COLORS = {
   goldLight: '#FFF4D7',
 };
 
-const BENEFITS: Benefit[] = [
+// Built fresh from `t` on every render (the component re-renders on language
+// change via useTranslation()'s own subscription) rather than kept as a
+// module-level constant — BENEFITS is private to this file (never exported),
+// so the mutate-in-place pattern used for cross-module label configs
+// elsewhere isn't needed here. The first and third titles are byte-identical
+// to profile.premiumCard.features.{advancedStatistics,unlimitedHistory} and
+// reuse those keys directly rather than duplicating the translation.
+const benefitsOf = (t: (key: string) => string): Benefit[] => [
   {
     icon: 'chart-timeline-variant',
-    title: 'Statistiques avancées',
-    description: 'Analyse ton évolution sur 3, 6 et 12 mois.',
+    title: t('profile.premiumCard.features.advancedStatistics'),
+    description: t('premium.sheet.benefits.advancedStatisticsDescription'),
     tint: '#EEE8FB',
     iconColor: '#7454C8',
   },
   {
     icon: 'file-document-outline',
-    title: 'Exports santé',
-    description: 'Génère facilement tes rapports PDF et CSV.',
+    title: t('premium.sheet.benefits.exportsTitle'),
+    description: t('premium.sheet.benefits.exportsDescription'),
     tint: '#E9EEFB',
     iconColor: '#607EBD',
   },
   {
     icon: 'infinity',
-    title: 'Historique illimité',
-    description: 'Retrouve toutes tes données sans limite.',
+    title: t('profile.premiumCard.features.unlimitedHistory'),
+    description: t('premium.sheet.benefits.unlimitedHistoryDescription'),
     tint: '#F1E9FB',
     iconColor: '#8A5BC2',
   },
   {
     icon: 'book-open-page-variant-outline',
-    title: 'Guides approfondis',
-    description: 'Accède à des contenus éducatifs exclusifs.',
+    title: t('premium.sheet.benefits.guidesTitle'),
+    description: t('premium.sheet.benefits.guidesDescription'),
     tint: '#FCECF3',
     iconColor: '#C26193',
     requiresPremiumGuides: true,
   },
   {
     icon: 'palette-outline',
-    title: 'Plus de personnalisation',
-    description: 'Profite de thèmes et réglages supplémentaires.',
+    title: t('premium.sheet.benefits.customizationTitle'),
+    description: t('premium.sheet.benefits.customizationDescription'),
     tint: '#E8F5F2',
     iconColor: '#4F9185',
   },
@@ -110,6 +119,7 @@ export function HawaPremiumBottomSheet({
   visible,
   onClose,
 }: Props): React.JSX.Element | null {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -282,9 +292,11 @@ export function HawaPremiumBottomSheet({
     visible,
   ]);
 
+  const planLabels = useMemo(() => premiumPlanLabels(t), [t]);
+
   const selectedPricing = useMemo(
-    () => PREMIUM_PRICING[plan],
-    [plan],
+    () => ({...planLabels[plan], price: PREMIUM_PRICING[plan].price}),
+    [plan, planLabels],
   );
 
   // While no real purchase provider exists the sheet is a truthful preview:
@@ -294,8 +306,8 @@ export function HawaPremiumBottomSheet({
   const purchaseAvailable = PURCHASE_PROVIDER_AVAILABLE;
 
   const benefits = useMemo(
-    () => BENEFITS.filter(item => !item.requiresPremiumGuides || hasPremiumArticles()),
-    [],
+    () => benefitsOf(t).filter(item => !item.requiresPremiumGuides || hasPremiumArticles()),
+    [t],
   );
 
   /*
@@ -429,7 +441,7 @@ export function HawaPremiumBottomSheet({
     const outcome = await purchasePremium(plan);
 
     if (outcome === 'success') {
-      setFeedback({tone: 'success', message: 'AWA Premium est maintenant actif. Merci !'});
+      setFeedback({tone: 'success', message: t('premium.sheet.feedback.subscribeSuccess')});
       return;
     }
     if (outcome === 'cancelled') {
@@ -439,11 +451,11 @@ export function HawaPremiumBottomSheet({
     if (outcome === 'unavailable') {
       setFeedback({
         tone: 'neutral',
-        message: 'Aucun achat ne sera activé tant que le système de paiement n’est pas connecté.',
+        message: t('premium.sheet.feedback.unavailable'),
       });
       return;
     }
-    setFeedback({tone: 'error', message: 'Une erreur est survenue. Réessaie dans un instant.'});
+    setFeedback({tone: 'error', message: t('premium.sheet.feedback.subscribeError')});
   };
 
   /*
@@ -459,7 +471,7 @@ export function HawaPremiumBottomSheet({
     const outcome = await restorePurchases();
 
     if (outcome === 'success') {
-      setFeedback({tone: 'success', message: 'Tes achats ont été restaurés.'});
+      setFeedback({tone: 'success', message: t('premium.sheet.feedback.restoreSuccess')});
       return;
     }
     if (outcome === 'cancelled') {
@@ -468,11 +480,11 @@ export function HawaPremiumBottomSheet({
     if (outcome === 'unavailable') {
       setFeedback({
         tone: 'neutral',
-        message: 'Aucun achat ne sera activé tant que le système de paiement n’est pas connecté.',
+        message: t('premium.sheet.feedback.unavailable'),
       });
       return;
     }
-    setFeedback({tone: 'error', message: 'Impossible de restaurer tes achats pour le moment.'});
+    setFeedback({tone: 'error', message: t('premium.sheet.feedback.restoreError')});
   };
 
   const animateButton = (pressed: boolean) => {
@@ -508,7 +520,7 @@ export function HawaPremiumBottomSheet({
       />
 
       <Pressable
-        accessibilityLabel="Fermer AWA Premium"
+        accessibilityLabel={t('premium.sheet.closeAccessibility')}
         accessibilityRole="button"
         onPress={onClose}
         style={StyleSheet.absoluteFill}
@@ -615,7 +627,7 @@ export function HawaPremiumBottomSheet({
                     isCompact &&
                       styles.heroTitleCompact,
                   ]}>
-                  AWA Premium
+                  {t('premium.sheet.heroTitle')}
                 </Text>
 
                 {!isVeryCompact ? (
@@ -630,7 +642,7 @@ export function HawaPremiumBottomSheet({
                       style={
                         styles.premiumBadgeText
                       }>
-                      PREMIUM
+                      {t('premium.sheet.heroBadge')}
                     </Text>
                   </View>
                 ) : null}
@@ -642,15 +654,14 @@ export function HawaPremiumBottomSheet({
                   isCompact &&
                     styles.heroSubtitleCompact,
                 ]}>
-                Une expérience plus complète,
-                pensée pour toi.
+                {t('premium.sheet.heroSubtitle')}
               </Text>
             </View>
 
             {/* CLOSE */}
 
             <Pressable
-              accessibilityLabel="Fermer AWA Premium"
+              accessibilityLabel={t('premium.sheet.closeAccessibility')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={onClose}
@@ -689,7 +700,7 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.introCopy}>
               <Text style={styles.eyebrow}>
-                TON EXPÉRIENCE PREMIUM
+                {t('premium.sheet.introEyebrow')}
               </Text>
 
               <Text
@@ -698,14 +709,13 @@ export function HawaPremiumBottomSheet({
                   isCompact &&
                     styles.sectionTitleCompact,
                 ]}>
-                Plus de possibilités,
-                simplement.
+                {t('premium.sheet.introTitle')}
               </Text>
 
               <Text style={styles.sectionSubtitle}>
                 {purchaseAvailable
-                  ? 'Débloque les outils qui enrichissent ton suivi au quotidien.'
-                  : 'Découvre les outils prévus pour enrichir ton suivi au quotidien.'}
+                  ? t('premium.sheet.introSubtitleAvailable')
+                  : t('premium.sheet.introSubtitleUnavailable')}
               </Text>
             </View>
 
@@ -799,7 +809,7 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.planHeadingCopy}>
               <Text style={styles.eyebrow}>
-                {purchaseAvailable ? 'TON ABONNEMENT' : 'BIENTÔT DISPONIBLE'}
+                {purchaseAvailable ? t('premium.sheet.planEyebrowAvailable') : t('premium.sheet.planEyebrowUnavailable')}
               </Text>
 
               <Text
@@ -809,14 +819,14 @@ export function HawaPremiumBottomSheet({
                     styles.sectionTitleCompact,
                 ]}>
                 {purchaseAvailable
-                  ? 'Choisis la formule qui te convient'
-                  : 'Les abonnements arrivent bientôt'}
+                  ? t('premium.sheet.planTitleAvailable')
+                  : t('premium.sheet.planTitleUnavailable')}
               </Text>
 
               <Text style={styles.sectionSubtitle}>
                 {purchaseAvailable
-                  ? 'Modifie ton choix librement avant de continuer.'
-                  : 'Les formules ci-dessous sont présentées à titre indicatif : aucun achat n’est possible pour le moment.'}
+                  ? t('premium.sheet.planSubtitleAvailable')
+                  : t('premium.sheet.planSubtitleUnavailable')}
               </Text>
             </View>
 
@@ -833,7 +843,7 @@ export function HawaPremiumBottomSheet({
                     style={
                       styles.secureBadgeText
                     }>
-                    Sécurisé
+                    {t('premium.sheet.secure')}
                   </Text>
                 ) : null}
               </View>
@@ -846,8 +856,8 @@ export function HawaPremiumBottomSheet({
 
           <PlanCard
             checked={plan === 'annual'}
-            detail={PREMIUM_PRICING.annual.detail}
-            label={PREMIUM_PRICING.annual.label}
+            detail={planLabels.annual.detail}
+            label={planLabels.annual.label}
             onPress={() => setPlan('annual')}
             preview={!purchaseAvailable}
             price={PREMIUM_PRICING.annual.price}
@@ -860,8 +870,8 @@ export function HawaPremiumBottomSheet({
 
           <PlanCard
             checked={plan === 'monthly'}
-            detail={PREMIUM_PRICING.monthly.detail}
-            label={PREMIUM_PRICING.monthly.label}
+            detail={planLabels.monthly.detail}
+            label={planLabels.monthly.label}
             onPress={() => setPlan('monthly')}
             preview={!purchaseAvailable}
             price={PREMIUM_PRICING.monthly.price}
@@ -883,13 +893,13 @@ export function HawaPremiumBottomSheet({
 
             <View style={styles.securityCopy}>
               <Text style={styles.securityTitle}>
-                {purchaseAvailable ? 'Paiement via la plateforme' : 'Aucun paiement pour le moment'}
+                {purchaseAvailable ? t('premium.sheet.securityTitleAvailable') : t('premium.sheet.securityTitleUnavailable')}
               </Text>
 
               <Text style={styles.securityText}>
                 {purchaseAvailable
-                  ? 'Tes achats et abonnements seront gérés par Google Play ou l’App Store.'
-                  : 'Aucun paiement n’est demandé tant que les abonnements ne sont pas disponibles.'}
+                  ? t('premium.sheet.securityTextAvailable')
+                  : t('premium.sheet.securityTextUnavailable')}
               </Text>
             </View>
 
@@ -914,8 +924,8 @@ export function HawaPremiumBottomSheet({
                 <MaterialDesignIcons color={theme.colors.success} name="check-circle" size={22} />
               </View>
               <View style={styles.ctaCopy}>
-                <Text style={styles.activeStatusTitle}>Abonnement actif</Text>
-                <Text style={styles.activeStatusSubtitle}>Merci de soutenir AWA — profite de tous les avantages Premium.</Text>
+                <Text style={styles.activeStatusTitle}>{t('profile.premiumCard.activeSubscription')}</Text>
+                <Text style={styles.activeStatusSubtitle}>{t('premium.sheet.activeSubtitle')}</Text>
               </View>
             </View>
           ) : !purchaseAvailable ? (
@@ -924,8 +934,8 @@ export function HawaPremiumBottomSheet({
                 <MaterialDesignIcons color={theme.colors.textMuted} name="clock-outline" size={22} />
               </View>
               <View style={styles.ctaCopy}>
-                <Text style={styles.activeStatusTitle}>Abonnement bientôt disponible</Text>
-                <Text style={styles.activeStatusSubtitle}>AWA Premium n’est pas encore disponible à l’achat.</Text>
+                <Text style={styles.activeStatusTitle}>{t('premium.sheet.unavailableTitle')}</Text>
+                <Text style={styles.activeStatusSubtitle}>{t('premium.sheet.unavailableSubtitle')}</Text>
               </View>
             </View>
           ) : (
@@ -936,8 +946,8 @@ export function HawaPremiumBottomSheet({
               ]}>
 
               <Pressable
-                accessibilityHint={purchaseInProgress ? 'Achat en cours' : undefined}
-                accessibilityLabel="S’abonner à AWA Premium"
+                accessibilityHint={purchaseInProgress ? t('premium.sheet.ctaInProgressHint') : undefined}
+                accessibilityLabel={t('premium.sheet.ctaAccessibilityLabel')}
                 accessibilityRole="button"
                 accessibilityState={{disabled: purchaseInProgress || restoreInProgress, busy: purchaseInProgress}}
                 disabled={purchaseInProgress || restoreInProgress}
@@ -985,7 +995,7 @@ export function HawaPremiumBottomSheet({
 
                   <View style={styles.ctaCopy}>
                     <Text style={styles.ctaText}>
-                      {purchaseInProgress ? 'Achat en cours…' : 'S’abonner maintenant'}
+                      {purchaseInProgress ? t('premium.sheet.ctaInProgressText') : t('premium.sheet.ctaText')}
                     </Text>
 
                     <Text
@@ -1018,7 +1028,7 @@ export function HawaPremiumBottomSheet({
 
           {!isPremium && purchaseAvailable ? (
             <Pressable
-              accessibilityLabel="Restaurer mes achats"
+              accessibilityLabel={t('premium.sheet.restoreText')}
               accessibilityRole="button"
               accessibilityState={{disabled: purchaseInProgress || restoreInProgress, busy: restoreInProgress}}
               disabled={purchaseInProgress || restoreInProgress}
@@ -1039,7 +1049,7 @@ export function HawaPremiumBottomSheet({
               )}
 
               <Text style={styles.restoreText}>
-                {restoreInProgress ? 'Restauration en cours…' : 'Restaurer mes achats'}
+                {restoreInProgress ? t('premium.sheet.restoreInProgressText') : t('premium.sheet.restoreText')}
               </Text>
             </Pressable>
           ) : null}
@@ -1058,8 +1068,7 @@ export function HawaPremiumBottomSheet({
 
           {!isPremium && !purchaseAvailable ? (
             <Text style={styles.footerText}>
-              Aucun achat n’est possible pour le moment et
-              aucun paiement ne sera demandé.
+              {t('premium.sheet.footerDisclaimer')}
             </Text>
           ) : null}
         </ScrollView>
@@ -1091,20 +1100,21 @@ function PlanCard({
   price: string;
   recommended?: boolean;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
   if (preview) {
     return (
       <View
-        accessibilityLabel={`${label}, bientôt disponible`}
+        accessibilityLabel={t('premium.sheet.planComingSoonAccessibility', {label})}
         style={[styles.planCard, styles.planCardPreview]}>
         <View style={styles.planMain}>
           <Text style={styles.planTitle}>{label}</Text>
           <Text style={styles.planDescription}>{detail}</Text>
         </View>
         <View style={styles.planPriceArea}>
-          <Text style={styles.planPreviewLabel}>Bientôt</Text>
+          <Text style={styles.planPreviewLabel}>{t('premium.sheet.comingSoon')}</Text>
         </View>
       </View>
     );
@@ -1112,7 +1122,7 @@ function PlanCard({
 
   return (
     <Pressable
-      accessibilityLabel={`Choisir ${label}`}
+      accessibilityLabel={t('premium.sheet.choosePlanAccessibility', {label})}
       accessibilityRole="radio"
       accessibilityState={{
         checked,
@@ -1133,7 +1143,7 @@ function PlanCard({
           />
 
           <Text style={styles.recommendedText}>
-            RECOMMANDÉ
+            {t('premium.sheet.recommended')}
           </Text>
         </View>
       ) : null}
@@ -1158,7 +1168,7 @@ function PlanCard({
           {recommended ? (
             <View style={styles.savingBadge}>
               <Text style={styles.savingText}>
-                Meilleur choix
+                {t('premium.sheet.bestChoice')}
               </Text>
             </View>
           ) : null}
@@ -1180,7 +1190,7 @@ function PlanCard({
               style={
                 styles.planFeatureText
               }>
-              Accès Premium pendant 12 mois
+              {t('premium.sheet.recommendedPlanFeature')}
             </Text>
           </View>
         ) : null}
