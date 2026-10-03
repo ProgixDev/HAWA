@@ -26,6 +26,7 @@ import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
 import {getAppLanguage} from '../../state/themePreferences';
+import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 import {getAllJournalEntries} from '../../state/dailyJournalStore';
 import type {DailyJournalEntry, FlowIntensity} from '../../types/journal';
@@ -49,7 +50,7 @@ import {
   formatHijriDay,
   formatHijriMonthYear,
   sameDay,
-  WEEK_DAYS,
+  localizedWeekDays,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {computeIrregularMonthlySummary, computeVisibleDayMarkers} from '../../utils/irregularCalendarMath';
@@ -441,7 +442,7 @@ function IrregularCalendarContent(): React.JSX.Element {
             </View>
 
             <View style={styles.weekRow}>
-              {WEEK_DAYS.map(day => (
+              {localizedWeekDays().map(day => (
                 <Text key={day} numberOfLines={1} style={styles.weekDay}>{day}</Text>
               ))}
             </View>
@@ -610,17 +611,18 @@ function IrregularCalendarContent(): React.JSX.Element {
                 ) : null}
                 {/* selectedEntry.acne/hairGrowth/weight/pain/mood/fatigue below are
                     raw values from irregularJournalConfig.ts's DATA-BEARING option
-                    lists (IRREGULAR_INTENSITY_OPTIONS/IRREGULAR_MOOD_OPTIONS), saved
-                    verbatim in French — never wrapped in t(), same rule as that
-                    config file's own comments. Only the row LABELS below (categoryLabel)
-                    are translated display text. */}
+                    lists (IRREGULAR_INTENSITY_OPTIONS/IRREGULAR_MOOD_OPTIONS) and
+                    IrregularJournalEntryScreen.tsx's own local arrays, saved verbatim
+                    in French. PHASE 7H: the stored value itself stays untouched; each
+                    is now wrapped in journalOptionLabel(...) purely for DISPLAY, same
+                    as categoryLabel already was. */}
                 {selectedEntry?.acne ? (
                   <SelectedRow
                     icon={CATEGORY_ICON.acne}
                     iconColor={CATEGORY_COLOR.acne}
                     iconTint="#FBEAF0"
                     label={categoryLabel.acne}
-                    value={selectedEntry.acne}
+                    value={journalOptionLabel('irregularAcne', selectedEntry.acne, t)}
                   />
                 ) : null}
                 {selectedEntry?.hairGrowth ? (
@@ -629,7 +631,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     iconColor={CATEGORY_COLOR.hairGrowth}
                     iconTint="#EEE7FC"
                     label={categoryLabel.hairGrowth}
-                    value={selectedEntry.hairGrowth}
+                    value={journalOptionLabel('irregularHair', selectedEntry.hairGrowth, t)}
                   />
                 ) : null}
                 {selectedEntry?.weight ? (
@@ -638,7 +640,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     iconColor={CATEGORY_COLOR.weight}
                     iconTint="#E7F0F8"
                     label={categoryLabel.weight}
-                    value={selectedEntry.weight}
+                    value={journalOptionLabel('irregularWeightFeeling', selectedEntry.weight, t)}
                   />
                 ) : null}
                 {selectedEntry?.pain ? (
@@ -647,7 +649,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     iconColor={CATEGORY_COLOR.pain}
                     iconTint="#FBEAF0"
                     label={categoryLabel.pain}
-                    value={selectedEntry.pain}
+                    value={journalOptionLabel('irregularIntensity', selectedEntry.pain, t)}
                   />
                 ) : null}
                 {selectedEntry?.mood ? (
@@ -656,7 +658,7 @@ function IrregularCalendarContent(): React.JSX.Element {
                     iconColor={CATEGORY_COLOR.mood}
                     iconTint="#F1E8F5"
                     label={categoryLabel.mood}
-                    value={selectedEntry.mood}
+                    value={journalOptionLabel('irregularMood', selectedEntry.mood, t)}
                   />
                 ) : null}
                 {selectedEntry?.fatigue ? (
@@ -668,10 +670,10 @@ function IrregularCalendarContent(): React.JSX.Element {
                     value={
                       selectedSymptoms.length
                         ? t('irregularCalendar.selected.fatigueWithSymptoms', {
-                            value: selectedEntry.fatigue,
+                            value: journalOptionLabel('irregularFatigueLevel', selectedEntry.fatigue, t),
                             count: selectedSymptoms.length,
                           })
-                        : selectedEntry.fatigue
+                        : journalOptionLabel('irregularFatigueLevel', selectedEntry.fatigue, t)
                     }
                   />
                 ) : null}
