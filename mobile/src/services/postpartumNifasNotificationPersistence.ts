@@ -2,8 +2,8 @@ import type { Notification } from '@notifee/react-native';
 
 import {
   NIFAS_EDUCATIONAL_ARTICLE_ID,
-  NIFAS_REFERENCE_APPROACHING_HEADLINE,
-  NIFAS_REFERENCE_REACHED_HEADLINE,
+  nifasReferenceApproachingHeadline,
+  nifasReferenceReachedHeadline,
 } from '../config/nifasReminderConfig';
 import i18n from '../i18n';
 import {
@@ -57,8 +57,8 @@ export async function persistPostpartumNifasNotification(
     message:
       getNotificationDataString(notification, 'inAppMessage') ??
       (reached
-        ? `${NIFAS_REFERENCE_REACHED_HEADLINE}.`
-        : `${NIFAS_REFERENCE_APPROACHING_HEADLINE}.`),
+        ? `${nifasReferenceReachedHeadline()}.`
+        : `${nifasReferenceApproachingHeadline()}.`),
     receivedAt: new Date().toISOString(),
     read,
     route: 'ArticleReader',

@@ -4,6 +4,7 @@ import {addManualQadaaEntry, hydrateQadaaLedger} from '../../state/qadaaLedgerSt
 import {isRamadan} from '../hijriCalendar';
 import {cancelQadaaReminderNotification, syncQadaaReminderNotification} from '../qadaaReminderScheduling';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Phase 4 localization — the post-Ramadan Qadaa reminder is one of the two
 // files (with postpartumNifasReminderScheduling.ts) whose sync function
@@ -37,6 +38,7 @@ beforeAll(() => {
 });
 afterAll(async () => {
   jest.useRealTimers();
+  await setAppLanguage('fr');
   await i18n.changeLanguage('fr');
 });
 
@@ -48,6 +50,11 @@ beforeEach(async () => {
   await cancelQadaaReminderNotification();
   schedule.mockClear();
   cancel.mockClear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   setSpiritualMarkersEnabled(true);
   await addManualQadaaEntry({quantity: 3, year: 2016, yearSystem: 'gregorian'});
   await hydrateQadaaLedger();
@@ -76,7 +83,8 @@ describe('syncQadaaReminderNotification — language change', () => {
       await syncQadaaReminderNotification();
       expect(schedule).not.toHaveBeenCalled();
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 
@@ -101,7 +109,8 @@ describe('syncQadaaReminderNotification — language change', () => {
       expect(enCall.title).not.toBe(frCall.title);
       expect(enCall.data.inAppOccurrenceId).toBe(frCall.data.inAppOccurrenceId);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 });

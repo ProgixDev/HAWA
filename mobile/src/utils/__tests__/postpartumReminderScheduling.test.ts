@@ -6,6 +6,7 @@ import {scheduleLocalNotification, cancelLocalNotification} from '../../services
 import {getActiveObjective} from '../../state/onboardingPreferences';
 import {getPostpartumPreferences} from '../../state/postpartumPreferences';
 import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // Explicit factories — pregnancyNotifications.ts imports the real Notifee
 // native module at the top level, which isn't available in the Jest
@@ -37,12 +38,17 @@ const DEFAULT_PREFS = {
   dailyTrackingReminderTime: null,
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockScheduleLocalNotification.mockResolvedValue(true);
   mockCancelLocalNotification.mockResolvedValue(undefined);
   mockGetActiveObjective.mockReturnValue('postpartum');
   mockGetPostpartumPreferences.mockReturnValue({...DEFAULT_PREFS});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('syncPostpartumDailyTrackingReminder', () => {
@@ -141,7 +147,8 @@ describe('syncPostpartumDailyTrackingReminder', () => {
       expect(enCall.title).toBe('Your tracking for today');
       expect(enCall.title).not.toBe(frCall.title);
     } finally {
-      await i18n.changeLanguage('fr');
+      await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
     }
   });
 });
