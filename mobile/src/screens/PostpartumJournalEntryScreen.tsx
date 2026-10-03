@@ -40,6 +40,7 @@ import {
   POSTPARTUM_RECOVERY_OPTIONS,
   POSTPARTUM_SLEEP_OPTIONS,
 } from '../config/postpartumJournalConfig';
+import {journalOptionLabel} from '../utils/journalOptionLabels';
 import {
   getPostpartumPreferences,
   subscribePostpartumPreferences,
@@ -105,42 +106,50 @@ const DESCENDING_SEVERITY_ICONS: IconName[] = [
 
 // The 3 option lists below are built inside the component (see
 // useFatigueRatings/usePainRatings/useRecoveryRatings) instead of staying
-// module-level constants, so `description` re-renders with the active
-// language. `label` is DATA-BEARING — NOT display-only text: it is the
+// module-level constants, so `description`/`displayLabel` re-render with the
+// active language. `label` is DATA-BEARING — NOT display-only text: it is the
 // exact raw French string from POSTPARTUM_FATIGUE_OPTIONS/
 // POSTPARTUM_PAIN_OPTIONS/POSTPARTUM_RECOVERY_OPTIONS (postpartumJournalConfig.ts),
 // matched against `selected` and saved verbatim via savePostpartumJournalField(...)
 // — there is no separate enum — so it must stay French and untranslated.
-// Only `description` (a purely presentational blurb) is translated.
-function useFatigueRatings(t: (key: string) => string): WellnessRatingOption[] {
+// `description` (a purely presentational blurb) was already translated;
+// PHASE 7H adds `displayLabel` (journalOptionLabel) so the VISIBLE/
+// accessibility text for `label` itself now also follows the app language —
+// see PostpartumWellnessRatingLayout.tsx's own `option.displayLabel ?? option.label`.
+function useFatigueRatings(t: (key: string, options?: Record<string, unknown>) => string): WellnessRatingOption[] {
   return useMemo(
     () => [
       {
         label: 'Aucune',
+        displayLabel: journalOptionLabel('postpartumFatigue', 'Aucune', t),
         description: t('postpartumJournalEntry.fatigueRatings.none.description'),
         icon: 'weather-sunny',
         tint: '#FFF2C9',
       },
       {
         label: 'Légère',
+        displayLabel: journalOptionLabel('postpartumFatigue', 'Légère', t),
         description: t('postpartumJournalEntry.fatigueRatings.light.description'),
         icon: 'weather-partly-cloudy',
         tint: '#FFF0DF',
       },
       {
         label: 'Modérée',
+        displayLabel: journalOptionLabel('postpartumFatigue', 'Modérée', t),
         description: t('postpartumJournalEntry.fatigueRatings.moderate.description'),
         icon: 'weather-cloudy',
         tint: '#F1E8FF',
       },
       {
         label: 'Forte',
+        displayLabel: journalOptionLabel('postpartumFatigue', 'Forte', t),
         description: t('postpartumJournalEntry.fatigueRatings.strong.description'),
         icon: 'weather-pouring',
         tint: '#EEE5FF',
       },
       {
         label: 'Très forte',
+        displayLabel: journalOptionLabel('postpartumFatigue', 'Très forte', t),
         description: t('postpartumJournalEntry.fatigueRatings.veryStrong.description'),
         icon: 'weather-night',
         tint: '#E8E0FA',
@@ -150,35 +159,40 @@ function useFatigueRatings(t: (key: string) => string): WellnessRatingOption[] {
   );
 }
 
-function usePainRatings(t: (key: string) => string): WellnessRatingOption[] {
+function usePainRatings(t: (key: string, options?: Record<string, unknown>) => string): WellnessRatingOption[] {
   return useMemo(
     () => [
       {
         label: 'Aucune',
+        displayLabel: journalOptionLabel('postpartumPain', 'Aucune', t),
         description: t('postpartumJournalEntry.painRatings.none.description'),
         icon: 'heart-outline',
         tint: '#F4ECFF',
       },
       {
         label: 'Légère',
+        displayLabel: journalOptionLabel('postpartumPain', 'Légère', t),
         description: t('postpartumJournalEntry.painRatings.light.description'),
         icon: 'heart-pulse',
         tint: '#FCEBF2',
       },
       {
         label: 'Modérée',
+        displayLabel: journalOptionLabel('postpartumPain', 'Modérée', t),
         description: t('postpartumJournalEntry.painRatings.moderate.description'),
         icon: 'alert-circle-outline',
         tint: '#FFF0E8',
       },
       {
         label: 'Forte',
+        displayLabel: journalOptionLabel('postpartumPain', 'Forte', t),
         description: t('postpartumJournalEntry.painRatings.strong.description'),
         icon: 'alert-outline',
         tint: '#FFE9EC',
       },
       {
         label: 'Très forte',
+        displayLabel: journalOptionLabel('postpartumPain', 'Très forte', t),
         description: t('postpartumJournalEntry.painRatings.veryStrong.description'),
         icon: 'medical-bag',
         tint: '#F9E4E8',
@@ -188,35 +202,40 @@ function usePainRatings(t: (key: string) => string): WellnessRatingOption[] {
   );
 }
 
-function useRecoveryRatings(t: (key: string) => string): WellnessRatingOption[] {
+function useRecoveryRatings(t: (key: string, options?: Record<string, unknown>) => string): WellnessRatingOption[] {
   return useMemo(
     () => [
       {
         label: 'Difficile',
+        displayLabel: journalOptionLabel('postpartumRecovery', 'Difficile', t),
         description: t('postpartumJournalEntry.recoveryRatings.difficult.description'),
         icon: 'weather-cloudy',
         tint: '#F4EAFE',
       },
       {
         label: 'Lente',
+        displayLabel: journalOptionLabel('postpartumRecovery', 'Lente', t),
         description: t('postpartumJournalEntry.recoveryRatings.slow.description'),
         icon: 'walk',
         tint: '#F0E8FF',
       },
       {
         label: 'Stable',
+        displayLabel: journalOptionLabel('postpartumRecovery', 'Stable', t),
         description: t('postpartumJournalEntry.recoveryRatings.stable.description'),
         icon: 'chart-line',
         tint: '#E9F2FF',
       },
       {
         label: 'Bonne',
+        displayLabel: journalOptionLabel('postpartumRecovery', 'Bonne', t),
         description: t('postpartumJournalEntry.recoveryRatings.good.description'),
         icon: 'sprout',
         tint: '#E8F7EE',
       },
       {
         label: 'Très bonne',
+        displayLabel: journalOptionLabel('postpartumRecovery', 'Très bonne', t),
         description: t('postpartumJournalEntry.recoveryRatings.veryGood.description'),
         icon: 'star-outline',
         tint: '#FFF2D9',
@@ -632,7 +651,7 @@ function FatigueContent({
             const active = selected === option;
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('postpartumFatigue', option, t)}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: active }}
                 key={option}
@@ -655,7 +674,7 @@ function FatigueContent({
                     active && styles.qualityLabelActive,
                   ]}
                 >
-                  {option}
+                  {journalOptionLabel('postpartumFatigue', option, t)}
                 </Text>
               </Pressable>
             );
@@ -696,7 +715,7 @@ function PainContent({
             const active = selected === option;
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('postpartumPain', option, t)}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: active }}
                 key={option}
@@ -719,7 +738,7 @@ function PainContent({
                     active && styles.qualityLabelActive,
                   ]}
                 >
-                  {option}
+                  {journalOptionLabel('postpartumPain', option, t)}
                 </Text>
               </Pressable>
             );
@@ -760,7 +779,7 @@ function RecoveryContent({
             const active = selected === option;
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('postpartumRecovery', option, t)}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: active }}
                 key={option}
@@ -783,7 +802,7 @@ function RecoveryContent({
                     active && styles.qualityLabelActive,
                   ]}
                 >
-                  {option}
+                  {journalOptionLabel('postpartumRecovery', option, t)}
                 </Text>
               </Pressable>
             );
@@ -828,7 +847,7 @@ function MoodContent({
             const active = selected === option;
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('postpartumMood', option, t)}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: active }}
                 key={option}
@@ -851,7 +870,7 @@ function MoodContent({
                   numberOfLines={2}
                   style={[styles.moodLabel, active && styles.moodLabelActive]}
                 >
-                  {option}
+                  {journalOptionLabel('postpartumMood', option, t)}
                 </Text>
               </Pressable>
             );
@@ -964,7 +983,7 @@ function SleepContent({
             const active = quality === option;
             return (
               <Pressable
-                accessibilityLabel={option}
+                accessibilityLabel={journalOptionLabel('postpartumSleep', option, t)}
                 accessibilityRole="radio"
                 accessibilityState={{ checked: active }}
                 key={option}
@@ -987,7 +1006,7 @@ function SleepContent({
                     active && styles.qualityLabelActive,
                   ]}
                 >
-                  {option}
+                  {journalOptionLabel('postpartumSleep', option, t)}
                 </Text>
               </Pressable>
             );

@@ -47,6 +47,7 @@ import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumC
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 import i18n from '../i18n';
 import { getAppLanguage } from '../state/themePreferences';
+import { journalOptionLabel } from '../utils/journalOptionLabels';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
 
@@ -56,15 +57,16 @@ type Flow = 'Très léger' | 'Léger' | 'Modéré' | 'Abondant';
 type LochiaColor = 'Rouge vif' | 'Rouge' | 'Rose' | 'Brun' | 'Jaune / blanc';
 type Consistency = 'Liquide' | 'Épais' | 'Avec petits caillots';
 
-// DATA-BEARING — NOT display-only text. flow/color/consistency/symptoms are
-// persisted as the raw label string(s) themselves via
-// savePostpartumLochiaEntry() (see src/state/postpartumLochiaStore.ts's
-// LochiaFlow/LochiaColor/LochiaConsistency string-literal union types and
-// FLOWS/COLORS/CONSISTENCIES validation arrays — there is no separate
-// stable enum). Translating these options would silently change/corrupt
-// every already-saved entry, so they stay French (same rule as
-// contraceptionJournalConfig.ts's CONTRACEPTION_FEELINGS_OPTIONS and
-// irregularJournalConfig.ts's IRREGULAR_SYMPTOM_OPTIONS).
+// DATA-BEARING — the PERSISTED flow/color/consistency/symptoms values are
+// the raw French label string(s) themselves via savePostpartumLochiaEntry()
+// (see src/state/postpartumLochiaStore.ts's LochiaFlow/LochiaColor/
+// LochiaConsistency string-literal union types and FLOWS/COLORS/
+// CONSISTENCIES validation arrays — there is no separate stable enum), and
+// that storage format never changes (Phase 7H.2). The DISPLAYED label is
+// translated per app language via journalOptionLabel('postpartumLochiaFlow'
+// |'postpartumLochiaColor'|'postpartumLochiaConsistency'|
+// 'postpartumLochiaSymptom', value, t) — selection/comparison below always
+// uses the original French value, never the translated label.
 const flowOptions: Array<{ label: Flow; icon: string }> = [
   { label: 'Très léger', icon: 'water-outline' },
   { label: 'Léger', icon: 'water' },
@@ -483,9 +485,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.flowRow}>
                 {flowOptions.map(item => {
                   const selected = flow === item.label;
+                  const displayLabel = journalOptionLabel('postpartumLochiaFlow', item.label, t);
                   return (
                     <Pressable
-                      accessibilityLabel={item.label}
+                      accessibilityLabel={displayLabel}
                       accessibilityRole="radio"
                       accessibilityState={{ selected }}
                       key={item.label}
@@ -513,7 +516,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                           selected && styles.selectedText,
                         ]}
                       >
-                        {item.label}
+                        {displayLabel}
                       </Text>
                     </Pressable>
                   );
@@ -525,9 +528,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.colorRow}>
                 {colorOptions.map(item => {
                   const selected = color === item.label;
+                  const displayLabel = journalOptionLabel('postpartumLochiaColor', item.label, t);
                   return (
                     <Pressable
-                      accessibilityLabel={item.label}
+                      accessibilityLabel={displayLabel}
                       accessibilityRole="radio"
                       accessibilityState={{ selected }}
                       key={item.label}
@@ -554,7 +558,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                           selected && styles.selectedText,
                         ]}
                       >
-                        {item.label}
+                        {displayLabel}
                       </Text>
                     </Pressable>
                   );
@@ -566,9 +570,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.consistencyRow}>
                 {consistencyOptions.map(item => {
                   const selected = consistency === item;
+                  const displayLabel = journalOptionLabel('postpartumLochiaConsistency', item, t);
                   return (
                     <Pressable
-                      accessibilityLabel={item}
+                      accessibilityLabel={displayLabel}
                       accessibilityRole="radio"
                       accessibilityState={{ selected }}
                       key={item}
@@ -584,7 +589,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                           selected && styles.selectedText,
                         ]}
                       >
-                        {item}
+                        {displayLabel}
                       </Text>
                     </Pressable>
                   );
@@ -596,9 +601,10 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
               <View style={styles.symptomWrap}>
                 {symptomOptions.map(item => {
                   const selected = symptoms.includes(item);
+                  const displayLabel = journalOptionLabel('postpartumLochiaSymptom', item, t);
                   return (
                     <Pressable
-                      accessibilityLabel={item}
+                      accessibilityLabel={displayLabel}
                       accessibilityRole="checkbox"
                       accessibilityState={{ checked: selected }}
                       key={item}
@@ -614,7 +620,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
                           selected && styles.selectedText,
                         ]}
                       >
-                        {item}
+                        {displayLabel}
                       </Text>
                     </Pressable>
                   );
