@@ -27,6 +27,7 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -40,6 +41,7 @@ import {
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 import {getActiveProfileIdentity, subscribeActiveProfileId} from '../state/activeProfileStore';
+import {formatFullDate} from '../utils/cycleMath';
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -73,6 +75,12 @@ const BLOOD_TYPES = [
   'O-',
 ];
 
+// CONDITIONS/ALLERGIES/GOALS are deliberately NOT translated — the stored
+// value IS the display string itself (no separate technical id exists, the
+// way themes separate id/name from description), so translating these lists
+// would require migrating already-persisted selections, which this phase
+// explicitly excludes. See personalInformation's COUNTRIES for the same
+// reasoning, and the generalHealth namespace comment in fr.ts/en.ts.
 const CONDITIONS = [
   'Asthme',
   'Diabète',
@@ -106,14 +114,7 @@ function formatUpdateDate(
       `${value}T12:00:00`,
     );
 
-  return new Intl.DateTimeFormat(
-    'fr-FR',
-    {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    },
-  ).format(date);
+  return Number.isNaN(date.getTime()) ? value : formatFullDate(date);
 }
 
 function listValue(
@@ -536,6 +537,7 @@ function SaveButton({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <Pressable
       accessibilityRole="button"
@@ -555,7 +557,7 @@ function SaveButton({
         style={
           styles.saveButtonText
         }>
-        Enregistrer
+        {t('common.save')}
       </Text>
     </Pressable>
   );
@@ -568,6 +570,7 @@ function SaveButton({
 export default function GeneralHealthScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -676,6 +679,9 @@ export default function GeneralHealthScreen({
 
   const bmiClass =
     classifyBmi(bmi);
+
+  const bmiClassLabel =
+    t(`generalHealth.bmiClasses.${bmiClass}`);
 
   const open = (
     next: Sheet,
@@ -791,7 +797,7 @@ export default function GeneralHealthScreen({
         value <= 0
       ) {
         setError(
-          'Saisis une valeur positive valide.',
+          t('generalHealth.errors.invalidPositiveValue'),
         );
 
         return;
@@ -804,7 +810,7 @@ export default function GeneralHealthScreen({
           value > 250)
       ) {
         setError(
-          'Saisis une taille comprise entre 80 et 250 cm.',
+          t('generalHealth.errors.invalidHeight'),
         );
 
         return;
@@ -817,7 +823,7 @@ export default function GeneralHealthScreen({
           value > 400)
       ) {
         setError(
-          'Saisis un poids compris entre 20 et 400 kg.',
+          t('generalHealth.errors.invalidWeight'),
         );
 
         return;
@@ -885,7 +891,7 @@ export default function GeneralHealthScreen({
 
       if (!value) {
         setError(
-          'Indique le nom du traitement.',
+          t('generalHealth.errors.treatmentNameRequired'),
         );
 
         return;
@@ -991,7 +997,7 @@ export default function GeneralHealthScreen({
               styles.header
             }>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('common.back')}
               accessibilityRole="button"
               onPress={
                 navigation.goBack
@@ -1018,14 +1024,14 @@ export default function GeneralHealthScreen({
                 style={
                   styles.pageTitle
                 }>
-                Santé générale
+                {t('generalHealth.title')}
               </Text>
 
               <Text
                 style={
                   styles.pageSubtitle
                 }>
-                Tes informations de santé au même endroit
+                {t('generalHealth.subtitle')}
               </Text>
             </View>
 
@@ -1069,14 +1075,14 @@ export default function GeneralHealthScreen({
                 style={
                   styles.privacyTitle
                 }>
-                Tes informations sont privées
+                {t('generalHealth.privacyTitle')}
               </Text>
 
               <Text
                 style={
                   styles.privacyText
                 }>
-                Elles servent à personnaliser ton suivi AWA et restent modifiables à tout moment.
+                {t('generalHealth.privacyText')}
               </Text>
             </View>
           </Animated.View>
@@ -1086,9 +1092,9 @@ export default function GeneralHealthScreen({
           <SectionHeader
             icon="human"
             styles={styles}
-            subtitle="Tes mesures principales"
+            subtitle={t('generalHealth.physicalSectionSubtitle')}
             theme={theme}
-            title="Informations physiques"
+            title={t('generalHealth.physicalSectionTitle')}
           />
 
           <Animated.View
@@ -1100,7 +1106,7 @@ export default function GeneralHealthScreen({
             }>
             <HealthRow
               icon="human-male-height"
-              label="Taille"
+              label={t('generalHealth.heightLabel')}
               onPress={() =>
                 open(
                   'height',
@@ -1113,7 +1119,7 @@ export default function GeneralHealthScreen({
 
             <HealthRow
               icon="scale-bathroom"
-              label="Poids actuel"
+              label={t('generalHealth.weightLabel')}
               onPress={() =>
                 open(
                   'weight',
@@ -1126,7 +1132,7 @@ export default function GeneralHealthScreen({
 
             <HealthRow
               icon="weight"
-              label="IMC"
+              label={t('generalHealth.bmiLabel')}
               onPress={() =>
                 open(
                   profile.heightCm
@@ -1141,7 +1147,7 @@ export default function GeneralHealthScreen({
                   ? bmi.toFixed(
                       1,
                     )
-                  : bmiClass
+                  : bmiClassLabel
               }
               valueNode={
                 <Text
@@ -1162,12 +1168,12 @@ export default function GeneralHealthScreen({
                   <Text
                     style={
                       bmiClass ===
-                      'Normal'
+                      'normal'
                         ? styles.success
                         : styles.bmiClass
                     }>
                     {
-                      bmiClass
+                      bmiClassLabel
                     }
                   </Text>
                 </Text>
@@ -1176,7 +1182,7 @@ export default function GeneralHealthScreen({
 
             <HealthRow
               icon="water-outline"
-              label="Groupe sanguin"
+              label={t('generalHealth.bloodTypeLabel')}
               onPress={() =>
                 open(
                   'blood',
@@ -1191,7 +1197,7 @@ export default function GeneralHealthScreen({
 
             <HealthRow
               icon="calendar-month-outline"
-              label="Dernière mise à jour"
+              label={t('generalHealth.lastUpdateLabel')}
               last
               styles={styles}
               theme={theme}
@@ -1206,9 +1212,9 @@ export default function GeneralHealthScreen({
           <SectionHeader
             icon="medical-bag"
             styles={styles}
-            subtitle="Les informations importantes à conserver"
+            subtitle={t('generalHealth.medicalSectionSubtitle')}
             theme={theme}
-            title="Informations médicales"
+            title={t('generalHealth.medicalSectionTitle')}
           />
 
           <Animated.View
@@ -1219,7 +1225,7 @@ export default function GeneralHealthScreen({
               styles.medicalCard
             }>
             <MedicalRow
-              helper="Appuie pour ajouter ou modifier"
+              helper={t('generalHealth.chronicConditionsHelper')}
               icon="heart-plus-outline"
               onPress={() =>
                 open(
@@ -1228,15 +1234,15 @@ export default function GeneralHealthScreen({
               }
               styles={styles}
               theme={theme}
-              title="Maladies chroniques"
+              title={t('generalHealth.chronicConditionsTitle')}
               value={listValue(
                 profile.chronicConditions,
-                'Aucune maladie chronique renseignée',
+                t('generalHealth.chronicConditionsEmpty'),
               )}
             />
 
             <MedicalRow
-              helper="Nom, dosage ou fréquence"
+              helper={t('generalHealth.treatmentsHelper')}
               icon="pill"
               onPress={() =>
                 open(
@@ -1245,15 +1251,15 @@ export default function GeneralHealthScreen({
               }
               styles={styles}
               theme={theme}
-              title="Traitements en cours"
+              title={t('generalHealth.treatmentsTitle')}
               value={listValue(
                 profile.treatments,
-                'Aucun traitement renseigné',
+                t('generalHealth.treatmentsEmpty'),
               )}
             />
 
             <MedicalRow
-              helper="Médicaments, aliments ou autres"
+              helper={t('generalHealth.allergiesHelper')}
               icon="allergy"
               onPress={() =>
                 open(
@@ -1262,15 +1268,15 @@ export default function GeneralHealthScreen({
               }
               styles={styles}
               theme={theme}
-              title="Allergies"
+              title={t('generalHealth.allergiesTitle')}
               value={listValue(
                 profile.allergies,
-                'Aucune allergie renseignée',
+                t('generalHealth.allergiesEmpty'),
               )}
             />
 
             <MedicalRow
-              helper="Tes informations personnelles complémentaires"
+              helper={t('generalHealth.notesHelper')}
               icon="clipboard-text-outline"
               last
               onPress={() =>
@@ -1280,10 +1286,10 @@ export default function GeneralHealthScreen({
               }
               styles={styles}
               theme={theme}
-              title="Notes médicales"
+              title={t('generalHealth.notesTitle')}
               value={
                 profile.medicalNotes ||
-                'Aucune note médicale ajoutée'
+                t('generalHealth.notesEmpty')
               }
             />
           </Animated.View>
@@ -1296,9 +1302,9 @@ export default function GeneralHealthScreen({
           <SectionHeader
             icon="target"
             styles={styles}
-            subtitle="Ton objectif personnel actuel"
+            subtitle={t('generalHealth.goalsSectionSubtitle')}
             theme={theme}
-            title="Objectifs de santé"
+            title={t('generalHealth.goalsSectionTitle')}
           />
 
           <Pressable
@@ -1334,7 +1340,7 @@ export default function GeneralHealthScreen({
                 style={
                   styles.rowLabel
                 }>
-                Mon objectif actuel
+                {t('generalHealth.currentGoalLabel')}
               </Text>
 
               <Text
@@ -1378,7 +1384,7 @@ export default function GeneralHealthScreen({
                   style={
                     styles.progressStatus
                   }>
-                  En cours
+                  {t('generalHealth.inProgress')}
                 </Text>
               </View>
             </View>
@@ -1406,7 +1412,7 @@ export default function GeneralHealthScreen({
               style={
                 styles.infoText
               }>
-              Tu peux modifier toutes ces informations à tout moment.
+              {t('generalHealth.infoCardText')}
             </Text>
           </View>
         </ScrollView>
@@ -1437,7 +1443,7 @@ export default function GeneralHealthScreen({
               styles.modalRoot
             }>
             <Pressable
-              accessibilityLabel="Fermer"
+              accessibilityLabel={t('common.close')}
               onPress={() =>
                 setSheet(
                   null,
@@ -1490,13 +1496,13 @@ export default function GeneralHealthScreen({
                           : 'scale-bathroom'
                       }
                       styles={styles}
-                      subtitle="Mets à jour cette information."
+                      subtitle={t('generalHealth.updateInfoSubtitle')}
                       theme={theme}
                       title={
                         sheet ===
                         'height'
-                          ? 'Modifier ma taille'
-                          : 'Modifier mon poids'
+                          ? t('generalHealth.editHeightTitle')
+                          : t('generalHealth.editWeightTitle')
                       }
                     />
 
@@ -1506,8 +1512,8 @@ export default function GeneralHealthScreen({
                       }>
                       {sheet ===
                       'height'
-                        ? 'Taille en centimètres'
-                        : 'Poids en kilogrammes'}
+                        ? t('generalHealth.heightInCm')
+                        : t('generalHealth.weightInKg')}
                     </Text>
 
                     <View
@@ -1574,9 +1580,9 @@ export default function GeneralHealthScreen({
                     <SheetHeader
                       icon="water-outline"
                       styles={styles}
-                      subtitle="Sélectionne ton groupe sanguin si tu le connais."
+                      subtitle={t('generalHealth.bloodTypeSheetSubtitle')}
                       theme={theme}
-                      title="Groupe sanguin"
+                      title={t('generalHealth.bloodTypeSheetTitle')}
                     />
 
                     <View
@@ -1631,15 +1637,15 @@ export default function GeneralHealthScreen({
                       subtitle={
                         sheet ===
                         'conditions'
-                          ? 'Sélectionne les maladies déjà connues. Tu peux choisir plusieurs éléments.'
-                          : 'Sélectionne les allergies déjà connues. Tu peux choisir plusieurs éléments.'
+                          ? t('generalHealth.conditionsSheetSubtitle')
+                          : t('generalHealth.allergiesSheetSubtitle')
                       }
                       theme={theme}
                       title={
                         sheet ===
                         'conditions'
-                          ? 'Maladies chroniques'
-                          : 'Allergies'
+                          ? t('generalHealth.chronicConditionsTitle')
+                          : t('generalHealth.allergiesTitle')
                       }
                     />
 
@@ -1679,14 +1685,14 @@ export default function GeneralHealthScreen({
                       style={
                         styles.inputLabel
                       }>
-                      Autre information
+                      {t('generalHealth.otherInfoLabel')}
                     </Text>
 
                     <TextInput
                       onChangeText={
                         setCustom
                       }
-                      placeholder="Ajoute une autre information (optionnel)"
+                      placeholder={t('generalHealth.otherInfoPlaceholder')}
                       placeholderTextColor={theme.colors.textMuted}
                       style={
                         styles.textInput
@@ -1719,16 +1725,16 @@ export default function GeneralHealthScreen({
                     <SheetHeader
                       icon="pill"
                       styles={styles}
-                      subtitle="Ajoute les traitements que tu prends actuellement."
+                      subtitle={t('generalHealth.treatmentsSheetSubtitle')}
                       theme={theme}
-                      title="Traitements en cours"
+                      title={t('generalHealth.treatmentsTitle')}
                     />
 
                     <Text
                       style={
                         styles.inputLabel
                       }>
-                      Nouveau traitement
+                      {t('generalHealth.newTreatmentLabel')}
                     </Text>
 
                     <View
@@ -1744,7 +1750,7 @@ export default function GeneralHealthScreen({
                             '',
                           );
                         }}
-                        placeholder="Ex. Fer 20 mg, chaque matin"
+                        placeholder={t('generalHealth.treatmentPlaceholder')}
                         placeholderTextColor={theme.colors.textMuted}
                         style={[
                           styles.textInput,
@@ -1756,7 +1762,7 @@ export default function GeneralHealthScreen({
                       />
 
                       <Pressable
-                        accessibilityLabel="Ajouter le traitement"
+                        accessibilityLabel={t('generalHealth.addTreatmentAccessibility')}
                         accessibilityRole="button"
                         onPress={
                           addTreatment
@@ -1790,7 +1796,7 @@ export default function GeneralHealthScreen({
                           style={
                             styles.selectedTitle
                           }>
-                          Traitements ajoutés
+                          {t('generalHealth.treatmentsAddedTitle')}
                         </Text>
 
                         <View
@@ -1845,7 +1851,7 @@ export default function GeneralHealthScreen({
                           style={
                             styles.emptyStateText
                           }>
-                          Aucun traitement ajouté.
+                          {t('generalHealth.noTreatmentAdded')}
                         </Text>
                       </View>
                     )}
@@ -1873,9 +1879,9 @@ export default function GeneralHealthScreen({
                     <SheetHeader
                       icon="clipboard-text-outline"
                       styles={styles}
-                      subtitle="Ajoute uniquement les informations que tu souhaites conserver."
+                      subtitle={t('generalHealth.notesSheetSubtitle')}
                       theme={theme}
-                      title="Notes médicales"
+                      title={t('generalHealth.notesTitle')}
                     />
 
                     <TextInput
@@ -1887,7 +1893,7 @@ export default function GeneralHealthScreen({
                       onChangeText={
                         setDraft
                       }
-                      placeholder="Ajoute ici tes informations importantes..."
+                      placeholder={t('generalHealth.notesPlaceholder')}
                       placeholderTextColor={theme.colors.textMuted}
                       style={[
                         styles.textInput,
@@ -1932,9 +1938,9 @@ export default function GeneralHealthScreen({
                     <SheetHeader
                       icon="target"
                       styles={styles}
-                      subtitle="Choisis l’objectif qui correspond le mieux à ton suivi actuel."
+                      subtitle={t('generalHealth.goalSheetSubtitle')}
                       theme={theme}
-                      title="Mon objectif de santé"
+                      title={t('generalHealth.goalSheetTitle')}
                     />
 
                     {GOALS.map(
@@ -1965,7 +1971,7 @@ export default function GeneralHealthScreen({
                       style={
                         styles.inputLabel
                       }>
-                      Progression personnelle :{' '}
+                      {t('generalHealth.personalProgressLabel')}{' '}
                       {
                         draftProgress
                       }
@@ -2049,7 +2055,7 @@ export default function GeneralHealthScreen({
                     style={
                       styles.cancelText
                     }>
-                    Annuler
+                    {t('common.cancel')}
                   </Text>
                 </Pressable>
               </ScrollView>
@@ -2080,7 +2086,7 @@ export default function GeneralHealthScreen({
               style={
                 styles.toastText
               }>
-              Informations mises à jour
+              {t('generalHealth.toastUpdated')}
             </Text>
           </Animated.View>
         ) : null}

@@ -123,10 +123,12 @@ export function calculateBmi(heightCm: number, weightKg: number): number | undef
   return weightKg / Math.pow(heightCm / 100, 2);
 }
 
-export function classifyBmi(bmi?: number): string {
-  if (bmi === undefined) {return 'Données insuffisantes';}
-  if (bmi < 18.5) {return 'Insuffisance pondérale';}
-  if (bmi < 25) {return 'Normal';}
-  if (bmi < 30) {return 'Surpoids';}
-  return 'Obésité';
+export type BmiClass = 'insufficientData' | 'underweight' | 'normal' | 'overweight' | 'obese';
+
+export function classifyBmi(bmi?: number): BmiClass {
+  if (bmi === undefined) {return 'insufficientData';}
+  if (bmi < 18.5) {return 'underweight';}
+  if (bmi < 25) {return 'normal';}
+  if (bmi < 30) {return 'overweight';}
+  return 'obese';
 }
