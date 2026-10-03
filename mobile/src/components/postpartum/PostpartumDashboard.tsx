@@ -79,9 +79,10 @@ import {
 import { usePostpartumSpiritualStatus } from '../../hooks/usePrayerPurityStatus';
 import { useToday } from '../../hooks/useToday';
 import { formatFullDate, formatHijriDate } from '../../utils/cycleMath';
+import { journalOptionLabel } from '../../utils/journalOptionLabels';
 import {
   NIFAS_EDUCATIONAL_ARTICLE_ID,
-  NIFAS_REFERENCE_REACHED_HEADLINE,
+  nifasReferenceReachedHeadline,
 } from '../../config/nifasReminderConfig';
 import '../../i18n';
 
@@ -465,13 +466,12 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
     ? t('postpartumDashboard.cycleReturn.since', {date: formatFullDate(firstPeriodDate)})
     : null;
   const todayLochia = lochiaEntries[todayKey];
-  // DATA-BEARING: todayLochia.flow/.color are raw French strings persisted
-  // as-is by postpartumLochiaStore (LochiaFlow/LochiaColor are string enums
-  // with French label text, no separate stable id) — never translated here,
-  // same established trade-off as POSTPARTUM_MOOD_OPTIONS etc. (see
-  // postpartumJournalConfig.ts).
+  // DATA-BEARING: todayLochia.flow/.color stay the raw French strings
+  // persisted as-is by postpartumLochiaStore (LochiaFlow/LochiaColor are
+  // string enums with French label text, no separate stable id); only the
+  // DISPLAYED label is translated, via journalOptionLabel (Phase 7H.2).
   const lochiaDashboardValue = todayLochia
-    ? `${todayLochia.flow} · ${todayLochia.color}`
+    ? `${journalOptionLabel('postpartumLochiaFlow', todayLochia.flow, t)} · ${journalOptionLabel('postpartumLochiaColor', todayLochia.color, t)}`
     : lochiaSummary.status === 'ended'
     ? t('postpartumDashboard.lochia.endedSummary', {days: lochiaSummary.durationDays ?? '—'})
     : t('postpartumDashboard.lochia.noneRecordedToday');
@@ -913,7 +913,7 @@ function PostpartumDashboard({ navigation }: Props): React.JSX.Element {
           </View>
 
           <Text style={styles.nifasModalTitle}>
-            {NIFAS_REFERENCE_REACHED_HEADLINE}
+            {nifasReferenceReachedHeadline()}
           </Text>
 
           <Text style={styles.nifasModalBody}>

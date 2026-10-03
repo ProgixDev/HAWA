@@ -66,6 +66,7 @@ import {
   POSTPARTUM_RECOVERY_OPTIONS,
   POSTPARTUM_SLEEP_OPTIONS,
 } from '../../config/postpartumJournalConfig';
+import {journalOptionLabel, type JournalOptionNamespace} from '../../utils/journalOptionLabels';
 import {
   averageByMonth,
   resolvePostpartumCycleReturnEventInPeriod,
@@ -894,6 +895,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             kpiLabel={t('postpartumStatistics.fatigue.kpiLabel')}
             maxCount={maxFatigueCount}
             mostFrequent={mostFrequentFatigue}
+            namespace="postpartumFatigue"
             title={t('postpartumStatistics.fatigue.title')}
             trend={isMonthlyView ? fatigueTrendFull : fatigueTrend}
             trendMax={5}
@@ -912,6 +914,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             kpiLabel={t('postpartumStatistics.mood.kpiLabel')}
             maxCount={maxMoodCount}
             mostFrequent={mostFrequentMood}
+            namespace="postpartumMood"
             title={t('postpartumStatistics.mood.title')}
             trend={isMonthlyView ? moodTrendFull : moodTrend}
             trendMax={5}
@@ -949,6 +952,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             kpiLabel={t('postpartumStatistics.pain.kpiLabel')}
             maxCount={maxPainCount}
             mostFrequent={mostFrequentPain}
+            namespace="postpartumPain"
             title={t('postpartumStatistics.pain.title')}
             trend={isMonthlyView ? painTrendFull : painTrend}
             trendMax={5}
@@ -967,6 +971,7 @@ function PostpartumStatisticsScreen(): React.JSX.Element {
             kpiLabel={t('postpartumStatistics.recovery.kpiLabel')}
             maxCount={maxRecoveryCount}
             mostFrequent={mostFrequentRecovery}
+            namespace="postpartumRecovery"
             title={t('postpartumStatistics.recovery.title')}
             trend={isMonthlyView ? recoveryTrendFull : recoveryTrend}
             trendMax={5}
@@ -1177,11 +1182,11 @@ function SummaryTab({
             </View>
             <Text style={styles.averageLabel}>{t('postpartumStatistics.summary.averageMood')}</Text>
             <Text numberOfLines={1} style={styles.averageValue}>
-              {/* DATA-BEARING: mostFrequentMood is one of
-                  POSTPARTUM_MOOD_OPTIONS' raw French strings
-                  (postpartumJournalConfig.ts) — never translated here; only
-                  the "no data yet" fallback is. */}
-              {mostFrequentMood ?? t('postpartumStatistics.noDataYet')}
+              {/* mostFrequentMood is one of POSTPARTUM_MOOD_OPTIONS' raw
+                  French strings (postpartumJournalConfig.ts) — the STORED/
+                  AGGREGATED value is untouched; PHASE 7H.1 wraps it in
+                  journalOptionLabel(...) purely for display. */}
+              {mostFrequentMood ? journalOptionLabel('postpartumMood', mostFrequentMood, t) : t('postpartumStatistics.noDataYet')}
             </Text>
             {moodEntriesCount > 0 ? (
               <Text style={styles.averageSupporting}>
@@ -1321,7 +1326,7 @@ function LochiaTab({
               <DistributionRow
                 count={item.count}
                 key={item.label}
-                label={item.label}
+                label={journalOptionLabel('postpartumLochiaFlow', item.label, t)}
                 last={index === flowCounts.length - 1}
                 maxCount={maxFlowCount}
               />
@@ -1339,7 +1344,7 @@ function LochiaTab({
                 <DistributionRow
                   count={item.count}
                   key={item.label}
-                  label={item.label}
+                  label={journalOptionLabel('postpartumLochiaSymptom', item.label, t)}
                   last={index === symptomCounts.length - 1}
                   maxCount={maxSymptomCount}
                 />
@@ -1368,11 +1373,11 @@ function LochiaTab({
                   <Text style={styles.timelineDate}>
                     {dateLabel(entry.date)}
                   </Text>
-                  {/* DATA-BEARING: entry.flow is a raw LochiaFlow French
-                      string persisted as-is by postpartumLochiaStore — never
-                      translated here. */}
+                  {/* DATA-BEARING: entry.flow stays a raw LochiaFlow French
+                      string persisted as-is by postpartumLochiaStore; only
+                      the DISPLAYED label is translated (Phase 7H.2). */}
                   <Text numberOfLines={1} style={styles.timelineValue}>
-                    {entry.flow}
+                    {journalOptionLabel('postpartumLochiaFlow', entry.flow, t)}
                   </Text>
                 </View>
               ))}
@@ -1434,6 +1439,7 @@ function LevelTab({
   counts,
   maxCount,
   isMonthlyView,
+  namespace,
 }: {
   icon: IconName;
   title: string;
@@ -1448,6 +1454,11 @@ function LevelTab({
   counts: Array<{ label: string; count: number }>;
   maxCount: number;
   isMonthlyView: boolean;
+  /** PHASE 7H.1 — DISPLAY-ONLY: `mostFrequent`/`counts[].label` are raw
+   * stored French values (see each caller's own POSTPARTUM_*_OPTIONS);
+   * this never changes the aggregation itself (computed by the caller from
+   * the real stored values), only what's rendered here. */
+  namespace: JournalOptionNamespace;
 }): React.JSX.Element {
   const {t} = useTranslation();
   const {theme} = useAwaTheme();
@@ -1464,7 +1475,7 @@ function LevelTab({
   return (
     <>
       <View style={styles.kpiGrid}>
-        <KpiCard icon={kpiIcon} label={kpiLabel} value={mostFrequent ?? '—'} />
+        <KpiCard icon={kpiIcon} label={kpiLabel} value={mostFrequent ? journalOptionLabel(namespace, mostFrequent, t) : '—'} />
         <KpiCard
           icon="notebook-outline"
           label={t('postpartumStatistics.daysLogged')}
@@ -1500,7 +1511,7 @@ function LevelTab({
           <DistributionRow
             count={item.count}
             key={item.label}
-            label={item.label}
+            label={journalOptionLabel(namespace, item.label, t)}
             last={index === counts.length - 1}
             maxCount={maxCount}
           />
@@ -1596,7 +1607,7 @@ function SleepTab({
             <DistributionRow
               count={item.count}
               key={item.label}
-              label={item.label}
+              label={journalOptionLabel('postpartumSleep', item.label, t)}
               last={index === qualityCounts.length - 1}
               maxCount={maxQualityCount}
             />
