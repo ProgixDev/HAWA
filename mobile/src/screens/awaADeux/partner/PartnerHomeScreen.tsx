@@ -4,6 +4,7 @@ import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-ic
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {PartnerMainTabParamList} from '../../../navigation/PartnerMainTabNavigator';
 
@@ -26,6 +27,21 @@ import PartnerScreenBackground from './PartnerScreenBackground';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
+// Matches `styles.content`'s `paddingHorizontal` below.
+const CONTENT_HORIZONTAL_PADDING = 20;
+const TILE_GAP = 10;
+// A FIXED, compact square size for both "Informations partagées" and "Prochains
+// événements" tiles — deliberately NOT derived from the item count or the
+// available row width. One card must look exactly the same, and stay exactly
+// this small, whether it's alone or one of four; only the device's own width
+// class (compact vs. regular, the same `compact` flag already used for the
+// ring/greeting elsewhere on this screen) picks between the two sizes below.
+// When the row's natural content width (count × (size + gap)) exceeds the
+// screen, the row scrolls horizontally instead of shrinking or stretching any
+// card — see styles.tileRow / styles.tileScroll.
+export const TILE_SIZE_COMPACT = 108;
+export const TILE_SIZE_REGULAR = 122;
+
 // PartnerHome is read-only. Every health value comes from computePartnerCycleInfo() (the
 // SAME cycleMath source of truth the owner's own Cycle dashboard uses) or, for mood/energy,
 // from the owner's own real dailyJournalStore entry — never a fabricated example. Visibility
@@ -35,24 +51,23 @@ type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 // The animated ring is the OWNER's own ring component (CycleProgressRing, extracted from
 // HeroCycleCard/"Suivi de cycle") — not a second implementation. Only the phase-specific
 // color/label (getCyclePhaseIdentity) and the day/length numbers are supplied here.
-const PARTNER_PHASE_MESSAGES: Record<ComputedCyclePhase, string> = {
-  menstruation: 'Ses règles sont en cours. Un peu de soutien peut faire la différence.',
-  follicular: 'Elle est actuellement dans sa phase folliculaire.',
-  fertile: 'Sa fenêtre fertile a commencé, reste à l’écoute de ses besoins.',
-  ovulation: 'Son ovulation est estimée aujourd’hui.',
-  luteal: 'Elle est actuellement dans sa phase lutéale.',
-};
+const partnerPhaseMessagesOf = (t: (key: string) => string): Record<ComputedCyclePhase, string> => ({
+  menstruation: t('awaADeux.partnerSide.home.phaseMessageMenstruation'),
+  follicular: t('awaADeux.partnerSide.home.phaseMessageFollicular'),
+  fertile: t('awaADeux.partnerSide.home.phaseMessageFertile'),
+  ovulation: t('awaADeux.partnerSide.home.phaseMessageOvulation'),
+  luteal: t('awaADeux.partnerSide.home.phaseMessageLuteal'),
+});
 
 // A short, generic partner-facing suggestion per phase — never a health value, just tone.
 // Adapted from HeroCycleCard's own owner-facing `tip` wording (e.g. "Écoute-toi" → "Écoute-la").
-const PARTNER_TIPS: Record<ComputedCyclePhase, string> = {
-  menstruation: 'Douceur & repos',
-  follicular: 'Encouragez-la',
-  fertile: 'Écoute-la',
-  ovulation: 'Un mot doux',
-  luteal: 'Patience & calme',
-};
-const GENERAL_TIP = 'Restez à l’écoute';
+const partnerTipsOf = (t: (key: string) => string): Record<ComputedCyclePhase, string> => ({
+  menstruation: t('awaADeux.partnerSide.home.tipMenstruation'),
+  follicular: t('awaADeux.partnerSide.home.tipFollicular'),
+  fertile: t('awaADeux.partnerSide.home.tipFertile'),
+  ovulation: t('awaADeux.partnerSide.home.tipOvulation'),
+  luteal: t('awaADeux.partnerSide.home.tipLuteal'),
+});
 
 // Same semantic accent colors already used for these exact categories elsewhere in AWA à
 // deux (PartnerProfileScreen's "Informations auxquelles vous avez accès" access rows) —
@@ -65,6 +80,7 @@ function accentColorFor(key: SharingKey, theme: ResolvedAwaTheme): string {
 }
 
 export default function PartnerHomeScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   // Typed against the PARTNER tab navigator itself (not the root stack): this is a same-
@@ -110,29 +126,53 @@ export default function PartnerHomeScreen(): React.JSX.Element {
     }, [showMood, today]),
   );
 
+  const partnerPhaseMessages = partnerPhaseMessagesOf(t);
+  const partnerTips = partnerTipsOf(t);
+
+  // getCyclePhaseIdentity()'s own `label` is a hardcoded-French legacy value
+  // (PHASE_INSIGHTS in HeroCycleCard.tsx) — HeroCycleCard itself already
+  // moved its own display label to the shared `cyclePhase.*` i18n keys and
+  // only kept exporting the old label for other, not-yet-migrated callers.
+  // PartnerHome must use the same translated keys for the ring label; only
+  // `ringColor` still comes from getCyclePhaseIdentity().
   const phaseIdentity = info.phase ? getCyclePhaseIdentity(info.phase) : null;
+  const phaseLabel = info.phase ? t(`cyclePhase.${info.phase}`) : null;
   const phaseMessage = info.phase
-    ? PARTNER_PHASE_MESSAGES[info.phase]
-    : 'Les informations de son cycle ne sont pas disponibles pour le moment.';
-  const tip = info.phase ? PARTNER_TIPS[info.phase] : GENERAL_TIP;
+    ? partnerPhaseMessages[info.phase]
+    : t('awaADeux.partnerSide.home.phaseMessageUnavailable');
+  const tip = info.phase ? partnerTips[info.phase] : t('awaADeux.partnerSide.home.tipGeneral');
 
-  const nextPeriodTiming = info.nextPeriodDate ? formatFutureTiming(info.nextPeriodDate, today) : undefined;
-  const fertileWindowTiming = info.fertileWindowRange ? formatFertileTiming(info.fertileWindowRange, today) : undefined;
-  const ovulationTiming = info.ovulationDate ? formatFutureTiming(info.ovulationDate, today) : undefined;
+  const nextPeriodTiming = info.nextPeriodDate ? formatFutureTiming(info.nextPeriodDate, today, t) : undefined;
+  const fertileWindowTiming = info.fertileWindowRange ? formatFertileTiming(info.fertileWindowRange, today, t) : undefined;
+  const ovulationTiming = info.ovulationDate ? formatFutureTiming(info.ovulationDate, today, t) : undefined;
 
-  const periodStatusValue = info.phase ? (info.phase === 'menstruation' ? 'En cours' : 'Non en cours') : 'Information non disponible';
-  const fertileWindowStatusValue = fertileWindowTiming
-    ? fertileWindowTiming === 'Aujourd’hui' || fertileWindowTiming.startsWith('Encore')
-      ? 'En cours'
-      : fertileWindowTiming
-    : info.fertileWindow ?? 'Information non disponible';
+  const infoUnavailable = t('awaADeux.partnerSide.home.infoUnavailable');
+  const periodStatusValue = info.phase
+    ? (info.phase === 'menstruation' ? t('awaADeux.partnerSide.home.periodInProgress') : t('awaADeux.partnerSide.home.periodNotInProgress'))
+    : infoUnavailable;
+  // "En cours" (in progress) whenever today falls inside the fertile window itself — a date
+  // comparison, never a match on the translated countdown text (which would break per-locale).
+  const fertileInProgress = info.fertileWindowRange
+    ? diffDays(startOfDay(info.fertileWindowRange.start), startOfDay(today)) <= 0 &&
+      diffDays(startOfDay(info.fertileWindowRange.end), startOfDay(today)) >= 0
+    : false;
+  const fertileWindowStatusValue = fertileInProgress
+    ? t('awaADeux.partnerSide.home.periodInProgress')
+    : fertileWindowTiming ?? info.fertileWindow ?? infoUnavailable;
 
   const sharedTiles: Array<{key: SharingKey; icon: IconName; shortLabel: string; value: string}> = [
-    showCycle ? {key: 'cycleDay', icon: 'calendar-month-outline', shortLabel: 'Cycle', value: info.cycleDay !== null ? `Jour ${info.cycleDay}` : 'Information non disponible'} : null,
-    showPeriodStatus ? {key: 'periodStatus', icon: 'calendar-check-outline', shortLabel: 'Règles', value: periodStatusValue} : null,
-    showFertileWindow ? {key: 'fertileWindow', icon: 'flower-outline', shortLabel: 'Fenêtre fertile', value: fertileWindowStatusValue} : null,
-    showOvulation ? {key: 'ovulation', icon: 'water-outline', shortLabel: 'Ovulation', value: ovulationTiming ?? (info.ovulation ?? 'Information non disponible')} : null,
+    showCycle ? {key: 'cycleDay', icon: 'calendar-month-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelCycle'), value: info.cycleDay !== null ? t('awaADeux.partnerSide.home.cycleDayValue', {day: info.cycleDay}) : infoUnavailable} : null,
+    showPeriodStatus ? {key: 'periodStatus', icon: 'calendar-check-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelPeriods'), value: periodStatusValue} : null,
+    showFertileWindow ? {key: 'fertileWindow', icon: 'flower-outline', shortLabel: t('awaADeux.demo.fertileWindowLabel'), value: fertileWindowStatusValue} : null,
+    showOvulation ? {key: 'ovulation', icon: 'water-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelOvulation'), value: ovulationTiming ?? (info.ovulation ?? infoUnavailable)} : null,
   ].filter((tile): tile is {key: SharingKey; icon: IconName; shortLabel: string; value: string} => tile !== null);
+
+  // A compact, fixed square (see TILE_SIZE_COMPACT/REGULAR above) — the exact same
+  // size whether there's 1 card or 4, for both this grid and "Prochains événements"
+  // below. The row never stretches to fill the screen (no flexGrow on the scroll
+  // content), so a single card sits at the row's start with empty space after it,
+  // and a row that doesn't fit scrolls horizontally instead of shrinking any card.
+  const tileSize = compact ? TILE_SIZE_COMPACT : TILE_SIZE_REGULAR;
 
   const hasUpcomingEvents = showNextPeriod || showOvulation;
 
@@ -149,9 +189,9 @@ export default function PartnerHomeScreen(): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <View style={styles.headerRow}>
           <View style={styles.headerCopy}>
-            <Text accessibilityRole="header" style={styles.greeting}>As-salamu ‘alaykum,</Text>
+            <Text accessibilityRole="header" style={styles.greeting}>{t('awaADeux.partnerSide.home.greeting')}</Text>
             {hasPartnerFirstName ? <Text numberOfLines={1} style={styles.partnerFirstName}>{`${partnerFirstName}`}</Text> : null}
-            <Text style={styles.subtitle}>Tu es là pour elle 💜</Text>
+            <Text style={styles.subtitle}>{t('awaADeux.partnerSide.home.subtitle')}</Text>
           </View>
 
           {/* Same profile shortcut as the owner's own Cycle dashboard header
@@ -159,7 +199,7 @@ export default function PartnerHomeScreen(): React.JSX.Element {
               feedback — only the destination differs (this tab navigator's own
               PartnerProfile tab, never the owner's ProfileScreen). */}
           <Pressable
-            accessibilityLabel="Ouvrir mon profil"
+            accessibilityLabel={t('awaADeux.partnerSide.home.openProfileAccessibility')}
             accessibilityRole="button"
             hitSlop={8}
             onPress={() => navigation.navigate('PartnerProfile')}
@@ -171,25 +211,25 @@ export default function PartnerHomeScreen(): React.JSX.Element {
         {!hasSharedCycleInformation ? (
           <View style={styles.emptyCard}>
             <MaterialDesignIcons color={theme.colors.textSecondary} name="shield-lock-outline" size={22} />
-            <Text style={styles.emptyText}>Aucune information n’est partagée avec vous pour le moment.</Text>
+            <Text style={styles.emptyText}>{t('awaADeux.partnerSide.home.emptyShared')}</Text>
           </View>
         ) : (
           <>
             {showCycle ? (
-              <View accessibilityLabel="Informations du cycle aujourd’hui" style={styles.heroCard}>
+              <View accessibilityLabel={t('awaADeux.partnerSide.home.cycleInfoAccessibility')} style={styles.heroCard}>
                 <View style={styles.heroTopRow}>
                   <CycleProgressRing
-                    accessibilityLabel={info.cycleDay === null ? 'Jour du cycle indisponible' : `Jour ${info.cycleDay} du cycle`}
+                    accessibilityLabel={info.cycleDay === null ? t('awaADeux.partnerSide.home.cycleDayUnavailableAccessibility') : t('awaADeux.partnerSide.home.cycleDayAccessibility', {day: info.cycleDay})}
                     currentDay={info.cycleDay}
                     cycleLength={info.cycleLength ?? 1}
-                    phaseLabel={phaseIdentity?.label ?? null}
+                    phaseLabel={phaseLabel}
                     ringColor={phaseIdentity?.ringColor ?? theme.colors.primary}
                     size={compact ? 100 : 116}
                   />
 
                   <View style={styles.heroCopy}>
                     <View style={styles.heroTitleRow}>
-                      <Text style={styles.heroTitle}>Aujourd’hui</Text>
+                      <Text style={styles.heroTitle}>{t('awaADeux.partnerSide.home.todayLabel')}</Text>
                       <MaterialDesignIcons color={theme.colors.primary} name="calendar-blank-outline" size={16} />
                     </View>
                     <Text style={styles.heroMessage}>{phaseMessage}</Text>
@@ -200,15 +240,15 @@ export default function PartnerHomeScreen(): React.JSX.Element {
                   <View style={styles.chipsRow}>
                     {showMood && moodEntry ? (
                       <>
-                        <Chip icon="lightning-bolt-outline" label="Son énergie" styles={styles} theme={theme} value={ENERGY_LABELS[Math.min(5, Math.max(1, Math.round(moodEntry.energy)))] ?? 'Information non disponible'} />
+                        <Chip icon="lightning-bolt-outline" label={t('awaADeux.partnerSide.home.energyLabel')} styles={styles} theme={theme} value={ENERGY_LABELS[Math.min(5, Math.max(1, Math.round(moodEntry.energy)))] ?? infoUnavailable} />
                         <View style={styles.chipDivider} />
-                        <Chip icon="emoticon-outline" label="Son humeur" styles={styles} theme={theme} value={MOOD_LABELS[moodEntry.level]} />
+                        <Chip icon="emoticon-outline" label={t('awaADeux.partnerSide.home.moodLabel')} styles={styles} theme={theme} value={MOOD_LABELS[moodEntry.level]} />
                       </>
                     ) : null}
                     {showAdvice ? (
                       <>
                         {showMood && moodEntry ? <View style={styles.chipDivider} /> : null}
-                        <Chip icon="heart-outline" label="Mon conseil" styles={styles} theme={theme} value={tip} />
+                        <Chip icon="heart-outline" label={t('awaADeux.partnerSide.home.adviceLabel')} styles={styles} theme={theme} value={tip} />
                       </>
                     ) : null}
                   </View>
@@ -218,14 +258,19 @@ export default function PartnerHomeScreen(): React.JSX.Element {
 
             {sharedTiles.length > 0 ? (
               <>
-                <SectionHeader styles={styles} subtitle="Voici les informations qu’elle a choisi de partager." theme={theme} title="Informations partagées" />
-                <ScrollView contentContainerStyle={styles.tileRow} horizontal showsHorizontalScrollIndicator={false}>
+                <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.home.sharedInfoSubtitle')} theme={theme} title={t('awaADeux.partnerSide.home.sharedInfoTitle')} />
+                <ScrollView
+                  contentContainerStyle={styles.tileRow}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}>
                   {sharedTiles.map(tile => (
                     <SharedInfoTile
                       key={tile.key}
                       accentColor={accentColorFor(tile.key, theme)}
+                      compact={compact}
                       icon={tile.icon}
                       label={tile.shortLabel}
+                      size={tileSize}
                       styles={styles}
                       theme={theme}
                       value={tile.value}
@@ -237,31 +282,43 @@ export default function PartnerHomeScreen(): React.JSX.Element {
 
             {hasUpcomingEvents ? (
               <>
-                <SectionHeader styles={styles} subtitle="Les dates estimées selon les informations partagées." theme={theme} title="Prochains événements" />
-                <View style={styles.eventsRow}>
+                <SectionHeader styles={styles} subtitle={t('awaADeux.partnerSide.home.upcomingSubtitle')} theme={theme} title={t('awaADeux.partnerSide.home.upcomingTitle')} />
+                {/* Same square SharedInfoTile used by "Informations partagées" above —
+                    not a second card implementation — so both sections share the exact
+                    same compact proportions, spacing and accent-bar treatment. */}
+                <ScrollView
+                  contentContainerStyle={styles.tileRow}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}>
                   {showNextPeriod ? (
-                    <EventCard
+                    <SharedInfoTile
+                      accentColor={homeColors.pink}
+                      compact={compact}
                       icon="calendar-clock-outline"
-                      iconColor={homeColors.pink}
-                      label="Prochaines règles estimées"
+                      label={t('awaADeux.partnerSide.home.nextPeriodLabel')}
+                      size={tileSize}
                       styles={styles}
                       subtitle={nextPeriodTiming}
+                      testID="partner-upcoming-event-tile"
                       theme={theme}
-                      value={info.nextPeriod ?? 'Information non disponible'}
+                      value={info.nextPeriod ?? infoUnavailable}
                     />
                   ) : null}
                   {showOvulation ? (
-                    <EventCard
+                    <SharedInfoTile
+                      accentColor={theme.colors.accent}
+                      compact={compact}
                       icon="water-outline"
-                      iconColor={theme.colors.accent}
-                      label="Ovulation estimée"
+                      label={t('awaADeux.partnerSide.home.ovulationLabel')}
+                      size={tileSize}
                       styles={styles}
                       subtitle={ovulationTiming}
+                      testID="partner-upcoming-event-tile"
                       theme={theme}
-                      value={info.ovulation ?? 'Information non disponible'}
+                      value={info.ovulation ?? infoUnavailable}
                     />
                   ) : null}
-                </View>
+                </ScrollView>
               </>
             ) : null}
           </>
@@ -271,27 +328,29 @@ export default function PartnerHomeScreen(): React.JSX.Element {
   );
 }
 
-function formatDayCount(prefix: 'Dans' | 'Encore', days: number): string {
-  return `${prefix} ${days} jour${days > 1 ? 's' : ''}`;
+type T = (key: string, options?: Record<string, unknown>) => string;
+
+function formatDayCount(t: T, prefix: 'in' | 'remaining', days: number): string {
+  return t(prefix === 'in' ? 'awaADeux.partnerSide.home.inDays' : 'awaADeux.partnerSide.home.remainingDays', {count: days});
 }
 
 /** Same local-day arithmetic as the Cycle dashboard; no UTC conversion or duplicate prediction. */
-function formatFutureTiming(target: Date, today: Date): string | undefined {
+function formatFutureTiming(target: Date, today: Date, t: T): string | undefined {
   const days = diffDays(startOfDay(target), startOfDay(today));
   if (days < 0) {return undefined;}
-  if (days === 0) {return 'Aujourd’hui';}
-  return formatDayCount('Dans', days);
+  if (days === 0) {return t('awaADeux.partnerSide.home.todayLabel');}
+  return formatDayCount(t, 'in', days);
 }
 
 /** Relative wording derived only from the already-computed real fertile-window dates. */
-function formatFertileTiming(range: {start: Date; end: Date}, today: Date): string | undefined {
+function formatFertileTiming(range: {start: Date; end: Date}, today: Date, t: T): string | undefined {
   const day = startOfDay(today);
   const untilStart = diffDays(startOfDay(range.start), day);
-  if (untilStart > 0) {return formatDayCount('Dans', untilStart);}
+  if (untilStart > 0) {return formatDayCount(t, 'in', untilStart);}
 
   const untilEnd = diffDays(startOfDay(range.end), day);
   if (untilEnd < 0) {return undefined;}
-  return formatDayCount('Encore', untilEnd + 1);
+  return formatDayCount(t, 'remaining', untilEnd + 1);
 }
 
 function Chip({
@@ -332,12 +391,13 @@ function SectionHeader({
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   return (
     <View style={styles.sectionHeader}>
       <View style={styles.sectionHeaderTopRow}>
         <Text accessibilityRole="header" style={styles.sectionTitle}>{title}</Text>
         <View importantForAccessibility="no-hide-descendants" style={styles.sectionMoreRow}>
-          <Text style={styles.sectionMoreText}>Voir tout</Text>
+          <Text style={styles.sectionMoreText}>{t('common.seeAll')}</Text>
           <MaterialDesignIcons color={theme.colors.primary} name="arrow-right" size={13} />
         </View>
       </View>
@@ -346,68 +406,52 @@ function SectionHeader({
   );
 }
 
+/** The one square card used for both "Informations partagées" and "Prochains
+ * événements" — a single implementation so the two sections can never visually
+ * drift apart. `subtitle` is optional (only the event tiles use it, for the
+ * relative countdown under the date) so the plain 2-line shared-info tiles are
+ * unaffected. */
 function SharedInfoTile({
   icon,
   label,
   value,
+  subtitle,
   accentColor,
   theme,
   styles,
+  size,
+  compact,
+  testID = 'partner-shared-info-tile',
 }: {
   icon: IconName;
   label: string;
   value: string;
+  subtitle?: string;
   accentColor: string;
   theme: ResolvedAwaTheme;
   styles: ReturnType<typeof createStyles>;
+  size: number;
+  compact: boolean;
+  testID?: string;
 }): React.JSX.Element {
   return (
-    <View style={styles.tile}>
-      <View style={[styles.tileIcon, {backgroundColor: withAlpha(accentColor, theme.isDark ? 0.24 : 0.14)}]}>
-        <MaterialDesignIcons color={accentColor} name={icon} size={20} />
+    <View style={[styles.tile, compact && styles.tileCompact, {width: size}]} testID={testID}>
+      <View style={[styles.tileIcon, compact && styles.tileIconCompact, {backgroundColor: withAlpha(accentColor, theme.isDark ? 0.24 : 0.14)}]}>
+        <MaterialDesignIcons color={accentColor} name={icon} size={compact ? 16 : 20} />
       </View>
-      <Text numberOfLines={2} style={styles.tileLabel}>{label}</Text>
-      <Text numberOfLines={2} style={styles.tileValue}>{value}</Text>
+      <View style={styles.tileTextGroup}>
+        <Text numberOfLines={2} style={[styles.tileLabel, compact && styles.tileLabelCompact]}>{label}</Text>
+        <Text numberOfLines={subtitle ? 1 : 2} style={[styles.tileValue, compact && styles.tileValueCompact]}>{value}</Text>
+        {subtitle ? <Text numberOfLines={1} style={[styles.tileSubtitle, compact && styles.tileSubtitleCompact]}>{subtitle}</Text> : null}
+      </View>
       <View style={[styles.tileAccent, {backgroundColor: accentColor}]} />
-    </View>
-  );
-}
-
-function EventCard({
-  icon,
-  iconColor,
-  label,
-  subtitle,
-  theme,
-  value,
-  styles,
-}: {
-  icon: IconName;
-  iconColor: string;
-  label: string;
-  subtitle?: string;
-  theme: ResolvedAwaTheme;
-  value: string;
-  styles: ReturnType<typeof createStyles>;
-}): React.JSX.Element {
-  return (
-    <View style={styles.eventCard}>
-      <View style={[styles.eventIcon, {backgroundColor: withAlpha(iconColor, theme.isDark ? 0.22 : 0.14)}]}>
-        <MaterialDesignIcons color={iconColor} name={icon} size={22} />
-      </View>
-      {/* Icon on its own row, label/value/timing below at the card's FULL width (not
-          squeezed beside the icon) — the structural fix for "13 octo…"/"29 sept…"
-          truncation: a real date always has the whole card width to wrap into. */}
-      <Text style={styles.eventLabel}>{label}</Text>
-      <Text style={styles.eventValue}>{value}</Text>
-      {subtitle ? <Text style={styles.eventSubtitle}>{subtitle}</Text> : null}
     </View>
   );
 }
 
 function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
   return StyleSheet.create({
-    content: {paddingHorizontal: 20, paddingBottom: 20},
+    content: {paddingHorizontal: CONTENT_HORIZONTAL_PADDING, paddingBottom: 20},
     headerRow: {flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between'},
     headerCopy: {flex: 1, minWidth: 0, marginRight: 12},
     greeting: {
@@ -485,22 +529,28 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
     sectionMoreRow: {flexShrink: 0, flexDirection: 'row', alignItems: 'center', gap: 3, marginLeft: 8},
     sectionMoreText: {color: theme.colors.primary, fontSize: 12.5, fontWeight: '700'},
     sectionSubtitle: {marginTop: 4, color: theme.colors.textSecondary, fontSize: 12, lineHeight: 17},
-    // "Informations partagées" — a horizontally-scrolling strip of compact tiles so any
-    // number of shared categories (1 to 4) stays comfortable on a narrow phone. Wide
-    // enough for a full 2-line label/value (e.g. "Fenêtre fertile" / "Non en cours")
-    // without truncating — the row scrolls rather than shrinking text to fit.
-    tileRow: {gap: 10, paddingRight: 4},
+    // "Informations partagées" / "Prochains événements" — both render inside a
+    // horizontal ScrollView whose contentContainerStyle is this row: it only ever
+    // sizes itself to its children (no flexGrow/stretch), so a single card sits at
+    // the start with empty space after it, never stretched to fill the screen. Once
+    // enough fixed-size cards exist to exceed the available width, the row scrolls
+    // instead of shrinking or wrapping any card — see TILE_SIZE_COMPACT/REGULAR
+    // above for the one, device-width-class-based (not count-based) card size.
+    tileRow: {flexDirection: 'row', gap: TILE_GAP, paddingRight: TILE_GAP},
     tile: {
-      width: compact ? 108 : 122,
+      aspectRatio: 1,
+      justifyContent: 'space-between',
       borderWidth: 1,
       borderColor: withAlpha(theme.colors.primary, theme.isDark ? 0.28 : 0.16),
       borderRadius: 18,
       backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.9 : 0.96),
       paddingHorizontal: 10,
-      paddingTop: 10,
-      paddingBottom: 8,
+      paddingVertical: 9,
       ...theme.shadow,
     },
+    // The smaller (TILE_SIZE_COMPACT) card gets a tighter icon/type scale so the
+    // same four pieces of content never feel cramped or clipped.
+    tileCompact: {paddingHorizontal: 8, paddingVertical: 7},
     tileIcon: {
       width: 34,
       height: 34,
@@ -508,38 +558,20 @@ function createStyles(theme: ResolvedAwaTheme, compact: boolean) {
       justifyContent: 'center',
       borderRadius: 12,
     },
-    tileLabel: {marginTop: 8, color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600'},
+    tileIconCompact: {width: 26, height: 26, borderRadius: 10},
+    tileTextGroup: {minHeight: 0},
+    tileLabel: {color: theme.colors.textSecondary, fontSize: 11, fontWeight: '600'},
+    tileLabelCompact: {fontSize: 9.5},
     tileValue: {marginTop: 2, color: theme.colors.text, fontSize: 13, fontWeight: '800'},
-    tileAccent: {marginTop: 7, height: 3, borderRadius: 2, alignSelf: 'stretch'},
-    // "Prochains événements" — up to two cards, icon on its own row so the label/value/
-    // timing below always have the card's FULL width to wrap into (never squeezed next
-    // to the icon) — this is what actually fixes the "13 octo…" truncation, not a font
-    // shrink. `flex: 1` + `minWidth: 0` keep both cards responsive at any screen width;
-    // a long value simply wraps onto a second line instead of being cut.
-    eventsRow: {flexDirection: 'row', alignItems: 'stretch', gap: 12},
-    eventCard: {
-      flex: 1,
-      minWidth: 0,
-      borderWidth: 1,
-      borderColor: withAlpha(theme.colors.primary, theme.isDark ? 0.3 : 0.2),
-      borderRadius: 20,
-      backgroundColor: withAlpha(theme.colors.surface, theme.isDark ? 0.9 : 0.95),
-      paddingHorizontal: 14,
-      paddingVertical: 14,
-      ...theme.shadow,
-    },
-    eventIcon: {
-      width: compact ? 40 : 44,
-      height: compact ? 40 : 44,
-      alignSelf: 'flex-start',
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 14,
-      marginBottom: 10,
-    },
-    eventLabel: {color: theme.colors.textSecondary, fontSize: 11, lineHeight: 15, fontWeight: '600'},
-    eventValue: {marginTop: 4, color: theme.colors.text, fontSize: compact ? 14 : 15, lineHeight: compact ? 19 : 20, fontWeight: '800'},
-    eventSubtitle: {marginTop: 2, color: theme.colors.textSecondary, fontSize: 11.5, lineHeight: 16},
+    tileValueCompact: {fontSize: 11},
+    // Only the "Prochains événements" tiles use this (the relative countdown under
+    // the date, e.g. "Dans 5 jours") — shared-info tiles never pass a subtitle.
+    tileSubtitle: {marginTop: 1, color: theme.colors.textSecondary, fontSize: 10.5, fontWeight: '600'},
+    tileSubtitleCompact: {fontSize: 9},
+    // A thicker, fully-rounded pill — matching AWA's refreshed compact-card design —
+    // rather than a thin 3px line; still inset from the card's own edges by the
+    // tile's horizontal padding, never touching the rounded corners.
+    tileAccent: {height: 6, borderRadius: 3, alignSelf: 'stretch'},
     emptyCard: {
       marginTop: 20,
       flexDirection: 'row',

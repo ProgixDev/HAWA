@@ -26,7 +26,8 @@ import {clearAwaADeuxPartnerName, setAwaADeuxPartnerName} from '../../../state/a
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {updatePrivacySecuritySettings} from '../../../state/securityPreferences';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // Reduced motion: sheets/modals close immediately (the animated close is covered by AwaADeuxInvitationSheet.test.tsx).
 jest.mock('react-native-reanimated', () => {
@@ -183,6 +184,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -247,8 +253,8 @@ describe('ONE linear onboarding path', () => {
     const dir = path.resolve(__dirname, '..');
     const sources = fs.readdirSync(dir).filter(name => /\.tsx?$/.test(name)).map(name => [name, fs.readFileSync(path.join(dir, name), 'utf8')] as const);
     const defining = (needle: string) => sources.filter(([name, source]) => !name.endsWith('.ts') && source.includes(needle)).map(([name]) => name);
-    expect(defining("'Ce que votre\\npartenaire voit'")).toEqual(['AwaADeuxPartnerViewScreen.tsx']);
-    expect(defining("title={'Choisissez ce que\\nvous souhaitez partager'}")).toEqual(['AwaADeuxSharingScreen.tsx']);
+    expect(defining('awaADeux.partnerView.titleNeutral')).toEqual(['AwaADeuxPartnerViewScreen.tsx']);
+    expect(defining("title={t('awaADeux.sharing.title')}")).toEqual(['AwaADeuxSharingScreen.tsx']);
     expect(defining('<Switch')).toEqual(['AwaADeuxSharingScreen.tsx']); // the only place permissions are edited
     expect(defining('export function PartnerPreviewModal')).toEqual(['AwaADeuxDialogs.tsx']); // one partner preview
     const nav = fs.readFileSync(path.resolve(__dirname, '../../../navigation/AppNavigator.tsx'), 'utf8');

@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import PartnerScreenBackground from './PartnerScreenBackground';
@@ -10,6 +11,7 @@ import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing'
 import {withAlpha, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
+import type {ComputedCyclePhase} from '../../../utils/cycleMath';
 
 // The partner's read-only advice (PartnerMainTabs "Conseils"). PRIVACY RULE: advice must
 // NEVER reveal information the owner did not choose to share. It reuses the SAME
@@ -19,11 +21,11 @@ import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 // text below is generic, exactly as computePartnerVisibility already models it elsewhere.
 // This pass only redesigns the visual presentation (cards/icons/hierarchy); the logic
 // below (phaseTip, the privacy sentence, SMALL_GESTURES) is unchanged from before.
-const GENERAL_SUPPORT_TIP = 'Restez à l’écoute et proposez votre aide, sans avoir besoin de connaître le détail de son cycle.';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export default function PartnerAdviceScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -31,23 +33,25 @@ export default function PartnerAdviceScreen(): React.JSX.Element {
   const {toggles, isPregnant} = useAwaADeuxSharing();
   const visibility = computePartnerVisibility(toggles, {isPregnant});
   const info = useMemo(() => computePartnerCycleInfo(), []);
+  const phaseTips = phaseTipsOf(t);
+  const smallGestures = smallGesturesOf(t);
 
   // Only ever built from a phase that IS shared (visibility.fields.cycleDay) — never from
   // a phase computed for internal use elsewhere.
   const phaseTip =
     visibility.recommendations === 'phase' && info.phase
-      ? PHASE_TIPS[info.phase]
-      : GENERAL_SUPPORT_TIP;
+      ? phaseTips[info.phase]
+      : t('awaADeux.partnerSide.advice.generalSupportTip');
 
   return (
     <PartnerScreenBackground>
       <ScrollView
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
-        <Text accessibilityRole="header" style={styles.title}>Conseils</Text>
-        <Text style={styles.subtitle}>Des idées simples pour la soutenir au quotidien</Text>
+        <Text accessibilityRole="header" style={styles.title}>{t('awaADeux.partnerSide.advice.title')}</Text>
+        <Text style={styles.subtitle}>{t('awaADeux.partnerSide.advice.subtitle')}</Text>
 
-        <SectionHeader icon="heart-outline" styles={styles} theme={theme} title="Comment la soutenir aujourd’hui" />
+        <SectionHeader icon="heart-outline" styles={styles} theme={theme} title={t('awaADeux.partnerSide.advice.supportSectionTitle')} />
         <View style={styles.card}>
           <View style={styles.cardIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="heart-outline" size={24} />
@@ -55,20 +59,19 @@ export default function PartnerAdviceScreen(): React.JSX.Element {
           <Text style={styles.cardText}>{phaseTip}</Text>
         </View>
 
-        <SectionHeader icon="information-outline" styles={styles} theme={theme} title="À savoir" />
+        <SectionHeader icon="information-outline" styles={styles} theme={theme} title={t('awaADeux.partnerSide.advice.infoSectionTitle')} />
         <View style={styles.card}>
           <View style={styles.cardIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={24} />
           </View>
           <Text style={styles.cardText}>
-            Vous ne voyez que ce qu’elle a choisi de partager avec vous — c’est normal si
-            certaines informations restent privées.
+            {t('awaADeux.partnerSide.advice.infoText')}
           </Text>
         </View>
 
-        <SectionHeader icon="format-list-bulleted" styles={styles} theme={theme} title="Petites attentions" />
+        <SectionHeader icon="format-list-bulleted" styles={styles} theme={theme} title={t('awaADeux.partnerSide.advice.gesturesSectionTitle')} />
         <View style={styles.attentionCard}>
-          {SMALL_GESTURES.map((gesture, index) => (
+          {smallGestures.map((gesture, index) => (
             <View key={gesture.text} style={[styles.attentionRow, index > 0 && styles.attentionRowDivider]}>
               <View style={styles.attentionIcon}>
                 <MaterialDesignIcons color={theme.colors.primary} name={gesture.icon} size={20} />
@@ -107,18 +110,18 @@ function SectionHeader({
   );
 }
 
-const PHASE_TIPS: Record<string, string> = {
-  menstruation: 'Elle traverse ses règles : un peu de douceur, une boisson chaude ou un moment de repos peuvent l’aider.',
-  follicular: 'Elle est en phase folliculaire : c’est souvent un moment d’énergie retrouvée, une belle occasion pour une sortie ou un projet ensemble.',
-  fertile: 'Elle est dans sa fenêtre fertile : rien de particulier à faire, sauf si vous êtes en train d’essayer de concevoir ensemble.',
-  ovulation: 'C’est le jour de son ovulation estimée : un simple message attentionné peut faire la différence.',
-  luteal: 'Elle est en phase lutéale : de petites attentions et de la patience sont toujours bienvenues.',
-};
+const phaseTipsOf = (t: (key: string) => string): Record<ComputedCyclePhase, string> => ({
+  menstruation: t('awaADeux.partnerSide.advice.phaseTipMenstruation'),
+  follicular: t('awaADeux.partnerSide.advice.phaseTipFollicular'),
+  fertile: t('awaADeux.partnerSide.advice.phaseTipFertile'),
+  ovulation: t('awaADeux.partnerSide.advice.phaseTipOvulation'),
+  luteal: t('awaADeux.partnerSide.advice.phaseTipLuteal'),
+});
 
-const SMALL_GESTURES: Array<{text: string; icon: IconName}> = [
-  {text: 'Un message pour prendre de ses nouvelles.', icon: 'message-text-outline'},
-  {text: 'Proposer de l’aide pour une tâche du quotidien.', icon: 'coffee-outline'},
-  {text: 'Être disponible pour l’écouter, sans juger.', icon: 'account-heart-outline'},
+const smallGesturesOf = (t: (key: string) => string): Array<{text: string; icon: IconName}> => [
+  {text: t('awaADeux.partnerSide.advice.gesture1'), icon: 'message-text-outline'},
+  {text: t('awaADeux.partnerSide.advice.gesture2'), icon: 'coffee-outline'},
+  {text: t('awaADeux.partnerSide.advice.gesture3'), icon: 'account-heart-outline'},
 ];
 
 function createStyles(theme: ResolvedAwaTheme) {

@@ -2,15 +2,17 @@ import React, {useMemo, useState} from 'react';
 import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../../../components/home/homeTheme';
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import PartnerScreenBackground from './PartnerScreenBackground';
 import {getHasConfirmedCycleData, getRecordedPeriodHistory} from '../../../state/onboardingPreferences';
+import {getAppLanguage} from '../../../state/themePreferences';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
 import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
-import {addDays, capitalize, formatFullDate, sameDay, startOfDay, WEEK_DAYS} from '../../../utils/cycleMath';
+import {addDays, capitalize, formatFullDate, localizedWeekDays, sameDay, startOfDay} from '../../../utils/cycleMath';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 
@@ -29,8 +31,6 @@ import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 // come from the same confirmed history the owner's own calendar reads
 // (getRecordedPeriodHistory()); the fertile window and next-period date come from
 // computePartnerCycleInfo() (utils/cycleMath.ts, reused — not re-derived).
-const MONTH_LABEL = new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'});
-
 // SEMANTIC calendar-tracking colors — the exact same fixed literals the owner's own
 // calendar system uses (MonthCalendarCard.tsx's PERIOD_DOT_COLOR/PERIOD_FILL_COLOR/
 // FERTILE_COLOR/FERTILE_FILL_COLOR, itself duplicated the same way in LegendSheet.tsx):
@@ -42,11 +42,6 @@ const PERIOD_DOT_COLOR = '#DC7B82';
 const PERIOD_FILL_COLOR = '#F7D7D6';
 const FERTILE_COLOR = '#3E8E56';
 const FERTILE_FILL_COLOR = '#DCEFE0';
-
-// Wording reused verbatim from LegendSheet.tsx's own entries (createEntries()) — the
-// already-approved, existing AWA copy for these two categories, not invented here.
-const PERIOD_LEGEND_DESCRIPTION = 'Jours enregistrés comme période de menstruation.';
-const FERTILE_LEGEND_DESCRIPTION = 'Période où la probabilité de conception est la plus élevée.';
 
 function startOfMonth(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), 1);
@@ -62,9 +57,13 @@ function leadingBlanks(date: Date): number {
 }
 
 export default function PartnerCalendarScreen(): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const insets = useSafeAreaInsets();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  // Live app language, not a fixed 'fr-FR' — recomputed every render (cheap) so a runtime
+  // FR→EN switch updates the month header immediately (same pattern as PrayerTimesScreen.tsx).
+  const monthLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'});
 
   const {toggles, isPregnant} = useAwaADeuxSharing();
   const visibility = computePartnerVisibility(toggles, {isPregnant});
@@ -105,10 +104,10 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
   // just because no ovulation day falls in the visible month either).
   const legend: Array<{color: string; label: string; description: string}> = [];
   if (visibility.fields.periodStatus || visibility.fields.nextPeriod) {
-    legend.push({color: PERIOD_DOT_COLOR, label: 'Règles', description: PERIOD_LEGEND_DESCRIPTION});
+    legend.push({color: PERIOD_DOT_COLOR, label: t('calendar.legendPeriod'), description: t('calendar.legendSheet.periodDescription')});
   }
   if (visibility.fields.fertileWindow) {
-    legend.push({color: FERTILE_COLOR, label: 'Fenêtre fertile', description: FERTILE_LEGEND_DESCRIPTION});
+    legend.push({color: FERTILE_COLOR, label: t('cycleHome.fertileWindowLabel'), description: t('calendar.legendSheet.fertileDescription')});
   }
 
   return (
@@ -116,22 +115,22 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
       <ScrollView
         contentContainerStyle={[styles.content, {paddingTop: getTopPadding(insets.top), paddingBottom: getFloatingTabBarClearance(insets.bottom, 16)}]}
         showsVerticalScrollIndicator={false}>
-        <Text accessibilityRole="header" style={styles.title}>Calendrier</Text>
+        <Text accessibilityRole="header" style={styles.title}>{t('awaADeux.partnerSide.calendar.title')}</Text>
 
         <View style={styles.card}>
           <View style={styles.monthHeader}>
             <Pressable
-              accessibilityLabel="Mois précédent"
+              accessibilityLabel={t('awaADeux.partnerSide.calendar.previousMonth')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={() => setMonthCursor(previous => startOfMonth(addDays(previous, -1)))}>
               <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={24} />
             </Pressable>
             <View style={styles.monthTitleBlock}>
-              <Text numberOfLines={1} style={styles.monthTitle}>{capitalize(MONTH_LABEL.format(monthCursor))}</Text>
+              <Text numberOfLines={1} style={styles.monthTitle}>{capitalize(monthLabel.format(monthCursor))}</Text>
             </View>
             <Pressable
-              accessibilityLabel="Mois suivant"
+              accessibilityLabel={t('awaADeux.partnerSide.calendar.nextMonth')}
               accessibilityRole="button"
               hitSlop={12}
               onPress={() => setMonthCursor(previous => startOfMonth(addDays(previous, daysInMonth(previous) + 1)))}>
@@ -140,7 +139,7 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
           </View>
 
           <View style={styles.weekRow}>
-            {WEEK_DAYS.map(day => (
+            {localizedWeekDays().map(day => (
               <Text key={day} numberOfLines={1} style={styles.weekDay}>{day}</Text>
             ))}
           </View>
@@ -153,9 +152,9 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
               const isFertile = !isPeriod && isFertileDay(date);
               const label = [
                 formatFullDate(date),
-                isPeriod && 'règles',
-                isFertile && 'fenêtre fertile',
-                isToday && 'aujourd’hui',
+                isPeriod && t('awaADeux.partnerSide.calendar.periodTag'),
+                isFertile && t('awaADeux.partnerSide.calendar.fertileTag'),
+                isToday && t('awaADeux.partnerSide.calendar.todayTag'),
               ].filter(Boolean).join(', ');
               const dots: string[] = [];
               if (isPeriod) {dots.push(PERIOD_DOT_COLOR);}
@@ -204,7 +203,7 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
 
         {legend.length > 0 ? (
           <View style={styles.legendCard}>
-            <Text style={styles.legendTitle}>Légende</Text>
+            <Text style={styles.legendTitle}>{t('awaADeux.partnerSide.calendar.legendTitle')}</Text>
             {legend.map((item, index) => (
               <View key={item.label} style={[styles.legendRow, index > 0 && styles.legendRowDivider]}>
                 <View style={[styles.legendDot, {backgroundColor: item.color}]} />
@@ -217,7 +216,7 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
           </View>
         ) : (
           <View style={styles.legendCard}>
-            <Text style={styles.emptyText}>Aucun repère n’est partagé avec vous pour le moment.</Text>
+            <Text style={styles.emptyText}>{t('awaADeux.partnerSide.calendar.emptyLegend')}</Text>
           </View>
         )}
       </ScrollView>

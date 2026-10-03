@@ -3,6 +3,7 @@ import React, {useMemo} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import Svg, {Rect} from 'react-native-svg';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import type {ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -44,6 +45,7 @@ type Props = {
 };
 
 export default function QrPlaceholder({value, size = 200}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme, size), [theme, size]);
 
@@ -68,7 +70,7 @@ export default function QrPlaceholder({value, size = 200}: Props): React.JSX.Ele
 
   return (
     <View
-      accessibilityLabel={`QR code d’exemple pour ${value} (aperçu non scannable)`}
+      accessibilityLabel={t('awaADeux.dialogs.qr.accessibility', {code: value})}
       accessibilityRole="image"
       style={styles.box}>
       <Svg height={size} viewBox={`0 0 ${total} ${total}`} width={size}>

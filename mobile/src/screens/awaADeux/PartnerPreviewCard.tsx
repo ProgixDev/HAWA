@@ -1,12 +1,13 @@
 import React, {useMemo} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PartnerVisibility} from '../../utils/awaADeuxSharing';
-import {DEMO_PREVIEW} from './awaADeuxDemo';
+import {demoPreview} from './awaADeuxDemo';
 
 // "What your partner sees" — a phone / dashboard style preview built from native
 // components. DEMO CONTENT ONLY: every value comes from awaADeuxDemo.ts, nothing is
@@ -31,30 +32,34 @@ type MiniStat = {key: string; label: string; value: string};
 export default function PartnerPreviewCard({
   visibility,
   showSupportContent = false,
-  greetingText = 'Voici quelques repères pour mieux vous accompagner aujourd’hui.',
-  cycleDayCaption = DEMO_PREVIEW.cycleDayCaption,
+  greetingText,
+  cycleDayCaption,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const shown = visibility.fields;
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   // The greeting uses the partner name she entered ("Bonjour 💜" while none is configured).
   const {partnerName} = useAwaADeuxPartnerName();
+  const preview = demoPreview();
+  const resolvedGreetingText = greetingText ?? t('awaADeux.demo.greetingText');
+  const resolvedCycleDayCaption = cycleDayCaption ?? preview.cycleDayCaption;
 
   const candidates: Array<MiniStat | null> = [
-    shown.nextPeriod ? {key: 'nextPeriod', label: 'Prochaines règles', value: DEMO_PREVIEW.nextPeriod} : null,
-    shown.periodStatus ? {key: 'periodStatus', label: 'Règles', value: DEMO_PREVIEW.periodStatus} : null,
-    shown.cycleDay ? {key: 'phase', label: 'Phase actuelle', value: DEMO_PREVIEW.phase} : null,
-    shown.fertileWindow ? {key: 'fertileWindow', label: 'Fenêtre fertile', value: DEMO_PREVIEW.fertileWindow} : null,
-    shown.ovulation ? {key: 'ovulation', label: 'Ovulation estimée', value: DEMO_PREVIEW.ovulation} : null,
-    shown.fertilityStatus ? {key: 'fertilityStatus', label: 'Fertilité', value: DEMO_PREVIEW.fertilityStatus} : null,
-    shown.pregnancyWeek ? {key: 'pregnancyWeek', label: 'Grossesse', value: DEMO_PREVIEW.pregnancyWeek} : null,
-    shown.dueDate ? {key: 'dueDate', label: 'Accouchement prévu', value: DEMO_PREVIEW.dueDate} : null,
-    shown.mood ? {key: 'mood', label: 'Humeur', value: DEMO_PREVIEW.mood} : null,
+    shown.nextPeriod ? {key: 'nextPeriod', label: t('awaADeux.demo.nextPeriodLabel'), value: preview.nextPeriod} : null,
+    shown.periodStatus ? {key: 'periodStatus', label: t('awaADeux.demo.periodStatusLabel'), value: preview.periodStatus} : null,
+    shown.cycleDay ? {key: 'phase', label: t('awaADeux.demo.phaseLabel'), value: preview.phase} : null,
+    shown.fertileWindow ? {key: 'fertileWindow', label: t('awaADeux.demo.fertileWindowLabel'), value: preview.fertileWindow} : null,
+    shown.ovulation ? {key: 'ovulation', label: t('awaADeux.demo.ovulationLabel'), value: preview.ovulation} : null,
+    shown.fertilityStatus ? {key: 'fertilityStatus', label: t('awaADeux.demo.fertilityStatusLabel'), value: preview.fertilityStatus} : null,
+    shown.pregnancyWeek ? {key: 'pregnancyWeek', label: t('awaADeux.demo.pregnancyWeekLabel'), value: preview.pregnancyWeek} : null,
+    shown.dueDate ? {key: 'dueDate', label: t('awaADeux.demo.dueDateLabel'), value: preview.dueDate} : null,
+    shown.mood ? {key: 'mood', label: t('awaADeux.demo.moodLabel'), value: preview.mood} : null,
   ];
   const stats = candidates.filter((stat): stat is MiniStat => stat !== null);
 
   const recommendation =
-    visibility.recommendations === 'phase' ? DEMO_PREVIEW.phaseRecommendation : DEMO_PREVIEW.generalRecommendation;
+    visibility.recommendations === 'phase' ? preview.phaseRecommendation : preview.generalRecommendation;
   const nothingShared =
     !shown.cycleDay && !shown.dailyAdvice && !shown.babyDevelopment && stats.length === 0 && !showSupportContent;
 
@@ -62,17 +67,19 @@ export default function PartnerPreviewCard({
     <View style={styles.frame}>
       <View style={styles.greetingRow}>
         <View style={styles.greetingCopy}>
-          <Text style={styles.greeting}>{partnerName.trim() ? `Bonjour ${partnerName.trim()} 💜` : 'Bonjour 💜'}</Text>
-          <Text style={styles.greetingText}>{greetingText}</Text>
+          <Text style={styles.greeting}>
+            {partnerName.trim() ? t('awaADeux.demo.greetingWithName', {name: partnerName.trim()}) : t('awaADeux.demo.greetingNeutral')}
+          </Text>
+          <Text style={styles.greetingText}>{resolvedGreetingText}</Text>
         </View>
       </View>
 
       {shown.cycleDay ? (
         <View style={styles.mainCard}>
           <View style={styles.mainCopy}>
-            <Text style={styles.mainLabel}>Jour du cycle</Text>
-            <Text style={styles.mainValue}>{DEMO_PREVIEW.cycleDay}</Text>
-            <Text style={styles.mainCaption}>{cycleDayCaption}</Text>
+            <Text style={styles.mainLabel}>{t('awaADeux.demo.cycleDayLabel')}</Text>
+            <Text style={styles.mainValue}>{preview.cycleDay}</Text>
+            <Text style={styles.mainCaption}>{resolvedCycleDayCaption}</Text>
           </View>
           <View style={styles.mainIcon}>
             <MaterialDesignIcons color={theme.colors.primary} name="calendar-month-outline" size={26} />
@@ -93,16 +100,16 @@ export default function PartnerPreviewCard({
 
       {shown.babyDevelopment ? (
         <View style={styles.textCard}>
-          <Text style={styles.adviceTitle}>Développement de bébé</Text>
-          <Text style={styles.adviceText}>{DEMO_PREVIEW.babyDevelopment}</Text>
+          <Text style={styles.adviceTitle}>{t('awaADeux.demo.babyDevelopmentTitle')}</Text>
+          <Text style={styles.adviceText}>{preview.babyDevelopment}</Text>
         </View>
       ) : null}
 
       {shown.dailyAdvice ? (
         <View style={styles.adviceCard}>
           <View style={styles.adviceCopy}>
-            <Text style={styles.adviceTitle}>Conseil du jour</Text>
-            <Text style={styles.adviceText}>{DEMO_PREVIEW.advice}</Text>
+            <Text style={styles.adviceTitle}>{t('awaADeux.demo.dailyAdviceTitle')}</Text>
+            <Text style={styles.adviceText}>{preview.advice}</Text>
           </View>
           {/* Small, decorative: not announced */}
           <Image
@@ -117,20 +124,20 @@ export default function PartnerPreviewCard({
 
       {showSupportContent && visibility.supportTips ? (
         <View style={styles.textCard}>
-          <Text style={styles.adviceTitle}>Pour la soutenir</Text>
-          <Text style={styles.adviceText}>{DEMO_PREVIEW.supportTips}</Text>
+          <Text style={styles.adviceTitle}>{t('awaADeux.demo.supportTipsTitle')}</Text>
+          <Text style={styles.adviceText}>{preview.supportTips}</Text>
         </View>
       ) : null}
 
       {showSupportContent ? (
         <View style={styles.textCard}>
-          <Text style={styles.adviceTitle}>Recommandation</Text>
+          <Text style={styles.adviceTitle}>{t('awaADeux.demo.recommendationTitle')}</Text>
           <Text style={styles.adviceText}>{recommendation}</Text>
         </View>
       ) : null}
 
       {nothingShared ? (
-        <Text style={styles.empty}>Aucune information n’est partagée pour le moment.</Text>
+        <Text style={styles.empty}>{t('awaADeux.demo.emptyShared')}</Text>
       ) : null}
     </View>
   );

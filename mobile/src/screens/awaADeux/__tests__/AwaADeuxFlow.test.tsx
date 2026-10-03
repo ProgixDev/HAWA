@@ -17,11 +17,12 @@ import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import AwaADeuxBenefitsScreen from '../AwaADeuxBenefitsScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
-import {DEFAULT_SHARING_TOGGLES, DEMO_PAIRING_CODE, SHARING_SECTIONS} from '../awaADeuxDemo';
+import {DEFAULT_SHARING_TOGGLES, DEMO_PAIRING_CODE, sharingSections} from '../awaADeuxDemo';
 import {SHARING_KEYS, setSharingToggle} from '../../../state/awaADeuxSharingStore';
 import {clearAwaADeuxPartnerName} from '../../../state/awaADeuxPartnerStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // AWA à deux: Intro → Découvrir → Prénom du partenaire → 1 Ce que votre partenaire voit → 2 Les avantages →
 // 3 Choisissez ce que vous souhaitez partager → 4 Associer votre partenaire.
@@ -117,6 +118,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -172,7 +178,7 @@ describe('Navigation: the four steps in order, with Back', () => {
     await goTo(renderer, 4);
     expect(textsOf(renderer)).toContain('Associer votre\npartenaire');
     const source = fs.readFileSync(path.resolve(__dirname, '../AwaADeuxPairingScreen.tsx'), 'utf8');
-    expect(source).toContain('ctaLabel="Continuer"');
+    expect(source).toContain("ctaLabel={t('common.continue')}");
     // No direct `navigate` (it would push a duplicate): the helper guards against a double push.
     expect(source).not.toMatch(/navigation\.navigate\(/);
     expect(source).toContain('advanceToPending(navigation)');
@@ -244,7 +250,7 @@ describe('Step 3 — Choisissez ce que vous souhaitez partager', () => {
     for (const forbidden of ['note', 'rapport', 'intim', 'symptôme', 'analyse', 'médicament', 'contracepti', 'fausse couche', 'saignement', 'lochie', 'nifas', 'qadaa', 'prière', 'pureté', 'spirituel', 'jeûne']) {
       expect(everything).not.toContain(forbidden);
     }
-    const labels = SHARING_SECTIONS.flatMap(section => section.items.map(item => item.label));
+    const labels = sharingSections().flatMap(section => section.items.map(item => item.label));
     expect(labels).toHaveLength(11); // the eleven choices — nothing else is ever offered
   });
 

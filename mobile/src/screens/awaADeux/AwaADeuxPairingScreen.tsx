@@ -2,6 +2,7 @@ import React, {useMemo, useState} from 'react';
 import {Pressable, Share, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {simulateInvitationSent} from '../../state/awaADeuxDemoStore';
@@ -11,10 +12,10 @@ import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {EmailInvitationModal, QrCodeModal} from './AwaADeuxDialogs';
 import InvitationShareSheet from './InvitationShareSheet';
-import {DEMO_PAIRING_CODE, DEMO_PAIRING_VALIDITY} from './awaADeuxDemo';
+import {DEMO_PAIRING_CODE, demoPairingValidity} from './awaADeuxDemo';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {partnerLabel, partnerSubject} from '../../utils/awaADeuxPartnerWording';
-import {INVITATION_MESSAGE} from './awaADeuxInvitation';
+import {invitationMessage} from './awaADeuxInvitation';
 
 // "AWA à deux" — associate the partner. FRONTEND ONLY, DEMO UI.
 //
@@ -33,6 +34,7 @@ import {INVITATION_MESSAGE} from './awaADeuxInvitation';
 type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxPairing'>;
 
 export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {partnerName} = useAwaADeuxPartnerName();
@@ -48,7 +50,7 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
 
   const copyOrShare = async () => {
     try {
-      await Share.share({message: INVITATION_MESSAGE});
+      await Share.share({message: invitationMessage()});
     } catch {
       // The share sheet could not open: nothing else to do in this demo phase.
     }
@@ -56,24 +58,24 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel="Continuer"
-      description={`Partagez ce code avec ${partnerLabel(partnerName)} pour l’inviter à se connecter.`}
+      ctaLabel={t('common.continue')}
+      description={t('awaADeux.pairing.description', {partner: partnerLabel(partnerName)})}
       onBack={navigation.goBack}
       onContinue={continueDemo}
-      title={'Associer votre\npartenaire'}>
+      title={t('awaADeux.pairing.title')}>
       <Reveal index={0}>
         <View style={styles.codeCard}>
-          <Text style={styles.codeLabel}>Code d’association</Text>
+          <Text style={styles.codeLabel}>{t('awaADeux.pairing.codeLabel')}</Text>
           <View style={styles.codeRow}>
             <Text
-              accessibilityLabel={`Code d’association ${DEMO_PAIRING_CODE.split('').join(' ')}`}
+              accessibilityLabel={t('awaADeux.pairing.codeAccessibility', {spacedCode: DEMO_PAIRING_CODE.split('').join(' ')})}
               maxFontSizeMultiplier={1.2}
               selectable
               style={styles.code}>
               {DEMO_PAIRING_CODE}
             </Text>
             <Pressable
-              accessibilityLabel="Copier ou partager le code"
+              accessibilityLabel={t('awaADeux.pairing.copyOrShareAccessibility')}
               accessibilityRole="button"
               hitSlop={8}
               onPress={copyOrShare}
@@ -81,41 +83,41 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
               <MaterialDesignIcons color={theme.colors.primary} name="content-copy" size={22} />
             </Pressable>
           </View>
-          <Text style={styles.validity}>{DEMO_PAIRING_VALIDITY}</Text>
+          <Text style={styles.validity}>{demoPairingValidity()}</Text>
         </View>
       </Reveal>
 
       <Reveal index={1}>
         <View style={styles.shareCard}>
-          <Text accessibilityRole="header" style={styles.shareTitle}>Partager le code</Text>
+          <Text accessibilityRole="header" style={styles.shareTitle}>{t('awaADeux.pairing.shareSectionTitle')}</Text>
 
           <View style={styles.actions}>
             <Pressable
-              accessibilityLabel="Partager"
+              accessibilityLabel={t('awaADeux.pairing.shareAction')}
               accessibilityRole="button"
               onPress={() => setDialog('invitation')}
               style={({pressed}) => [styles.action, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="share-variant-outline" size={24} />
-              <Text style={styles.actionText}>Partager</Text>
+              <Text style={styles.actionText}>{t('awaADeux.pairing.shareAction')}</Text>
             </Pressable>
             <Pressable
-              accessibilityLabel="Afficher le QR code"
+              accessibilityLabel={t('awaADeux.pairing.showQrAction')}
               accessibilityRole="button"
               onPress={() => setDialog('qr')}
               style={({pressed}) => [styles.action, pressed && styles.pressed]}>
               <MaterialDesignIcons color={theme.colors.primary} name="qrcode" size={24} />
-              <Text style={styles.actionText}>Afficher le QR code</Text>
+              <Text style={styles.actionText}>{t('awaADeux.pairing.showQrAction')}</Text>
             </Pressable>
           </View>
 
           <View style={styles.separator}>
             <View style={styles.separatorLine} />
-            <Text style={styles.separatorText}>ou</Text>
+            <Text style={styles.separatorText}>{t('awaADeux.pairing.orSeparator')}</Text>
             <View style={styles.separatorLine} />
           </View>
 
           <Pressable
-            accessibilityLabel="Envoyer par email"
+            accessibilityLabel={t('awaADeux.pairing.emailAction')}
             accessibilityRole="button"
             onPress={() => setDialog('email')}
             style={({pressed}) => [styles.emailRow, pressed && styles.pressed]}>
@@ -123,8 +125,8 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
               <MaterialDesignIcons color={theme.colors.primary} name="email-outline" size={24} />
             </View>
             <View style={styles.emailCopy}>
-              <Text style={styles.emailTitle}>Envoyer par email</Text>
-              <Text style={styles.emailText}>{`Invitez ${partnerLabel(partnerName)} par email directement depuis l’app`}</Text>
+              <Text style={styles.emailTitle}>{t('awaADeux.pairing.emailAction')}</Text>
+              <Text style={styles.emailText}>{t('awaADeux.pairing.emailDescription', {partner: partnerLabel(partnerName)})}</Text>
             </View>
           </Pressable>
         </View>
@@ -134,7 +136,7 @@ export default function AwaADeuxPairingScreen({navigation}: Props): React.JSX.El
         <View style={styles.info}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={20} />
           <Text maxFontSizeMultiplier={1.2} style={styles.infoText}>
-            {`${partnerSubject(partnerName)} devra créer un compte AWA et utiliser ce code pour se connecter.`}
+            {t('awaADeux.pairing.infoNote', {Partner: partnerSubject(partnerName)})}
           </Text>
         </View>
 

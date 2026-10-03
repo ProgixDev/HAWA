@@ -10,6 +10,7 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
@@ -21,7 +22,7 @@ import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../the
 import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
 import {StopSharingModal} from './AwaADeuxDialogs';
-import {SHARING_SECTIONS} from './awaADeuxDemo';
+import {sharingSections} from './awaADeuxDemo';
 import {rebuildStackToAssociation} from './awaADeuxNavigation';
 import {useEntrance} from './useEntrance';
 
@@ -43,6 +44,7 @@ const PARTNER_IMAGE = require('../../assets/images/partenaire.png');
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
 
 export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const {height} = useWindowDimensions();
   const reduceMotion = useReducedMotion();
@@ -59,7 +61,7 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
   const [stopOpen, setStopOpen] = useState(false);
 
   // Only what is ON, in the order of the sharing screen.
-  const sharedItems = SHARING_SECTIONS.flatMap(section => section.items).filter(item => visibility.fields[item.key]);
+  const sharedItems = sharingSections().flatMap(section => section.items).filter(item => visibility.fields[item.key]);
 
   // Illustration: fade + slight scale (0.96 → 1); success check: a quick scale-in after it.
   const heroEntrance = useEntrance(120, 320, reduceMotion, 8, 0.96);
@@ -81,7 +83,7 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
     <AwaADeuxStepLayout
       compact={{titleFontSize: 24, titleLineHeight: 30, bodyMarginTop: short ? 8 : 12, bodyGap: short ? 8 : 10}}
       onBack={navigation.goBack}
-      title={'Partenaire associé 💜'}>
+      title={t('awaADeux.connected.title')}>
       <Animated.View style={[styles.hero, heroEntrance]}>
         {/* Decorative illustration (the title says it all): not announced */}
         <Image
@@ -91,21 +93,21 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
           source={PARTNER_IMAGE}
           style={styles.heroImage}
         />
-        <Animated.View accessibilityLabel="Partenaire associé" accessibilityRole="image" style={[styles.check, checkStyle]}>
+        <Animated.View accessibilityLabel={t('awaADeux.connected.accessibilityConnected')} accessibilityRole="image" style={[styles.check, checkStyle]}>
           <MaterialDesignIcons color={pickReadableTextColor(theme.colors.success)} name="check" size={18} />
         </Animated.View>
       </Animated.View>
 
       <Reveal index={1}>
         <Text style={styles.partnerName}>{partnerSubject(partnerName)}</Text>
-        <Text style={styles.since}>Connecté depuis aujourd’hui</Text>
+        <Text style={styles.since}>{t('awaADeux.connected.since')}</Text>
       </Reveal>
 
       <Reveal index={2}>
         <View style={styles.card}>
-          <Text accessibilityRole="header" style={styles.cardTitle}>Informations partagées</Text>
+          <Text accessibilityRole="header" style={styles.cardTitle}>{t('awaADeux.connected.sharedInfoTitle')}</Text>
           {sharedItems.length === 0 ? (
-            <Text style={styles.emptyText}>Aucune information n’est partagée pour le moment.</Text>
+            <Text style={styles.emptyText}>{t('awaADeux.connected.emptyShared')}</Text>
           ) : (
             sharedItems.map((item, index) => (
               <View key={item.key} style={[styles.sharedRow, index > 0 && styles.sharedRowDivider]}>
@@ -122,24 +124,24 @@ export default function AwaADeuxPartnerConnectedScreen({navigation}: Props): Rea
 
       <Reveal index={3}>
         <Pressable
-          accessibilityLabel="Gérer les informations partagées"
+          accessibilityLabel={t('awaADeux.connected.manageAction')}
           accessibilityRole="button"
           onPress={() => navigation.navigate('AwaADeuxSharing', {mode: 'manage'})}
           style={({pressed}) => [styles.action, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.primary} name="tune-variant" size={20} />
-          <Text maxFontSizeMultiplier={1.2} style={styles.actionText}>Gérer les informations partagées</Text>
+          <Text maxFontSizeMultiplier={1.2} style={styles.actionText}>{t('awaADeux.connected.manageAction')}</Text>
           <MaterialDesignIcons color={theme.colors.textMuted} name="chevron-right" size={22} />
         </Pressable>
       </Reveal>
 
       <Reveal index={4}>
         <Pressable
-          accessibilityLabel="Arrêter le partage"
+          accessibilityLabel={t('awaADeux.connected.stopAction')}
           accessibilityRole="button"
           onPress={() => setStopOpen(true)}
           style={({pressed}) => [styles.action, styles.stop, pressed && styles.pressed]}>
           <MaterialDesignIcons color={theme.colors.danger} name="account-cancel-outline" size={20} />
-          <Text maxFontSizeMultiplier={1.2} style={[styles.actionText, styles.stopText]}>Arrêter le partage</Text>
+          <Text maxFontSizeMultiplier={1.2} style={[styles.actionText, styles.stopText]}>{t('awaADeux.connected.stopAction')}</Text>
         </Pressable>
 
         <StopSharingModal

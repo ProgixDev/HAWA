@@ -28,7 +28,10 @@ import {
 } from '../../../state/awaADeuxPartnerStore';
 import {DEFAULT_SHARING_TOGGLES, SHARING_KEYS, setSharingToggle} from '../../../state/awaADeuxSharingStore';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import {fr} from '../../../i18n/locales/fr';
+import {en} from '../../../i18n/locales/en';
+import i18n from '../../../i18n';
 
 // The partner name is the user's own input, saved once (awaADeuxPartnerStore) and read by
 // every AWA à deux screen. Nothing is hardcoded, and with no name the wording is neutral.
@@ -112,6 +115,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -369,18 +377,18 @@ describe('No hardcoded partner name left in the AWA à deux implementation', () 
     expect(files.length).toBeGreaterThan(15);
   });
 
-  it('has no "Sami", no demoPartnerName / DEMO_PARTNER_NAME, and "Yacine" only in the name field placeholder', () => {
+  it('has no "Sami", no demoPartnerName / DEMO_PARTNER_NAME, and "Yacine" only in the translated placeholder key', () => {
     for (const file of files) {
       const source = fs.readFileSync(file, 'utf8');
       expect({file: path.basename(file), sami: /\bSami\b/.test(source)}).toEqual({file: path.basename(file), sami: false});
       expect({file: path.basename(file), legacy: /demoPartnerName|DEMO_PARTNER_NAME/.test(source)}).toEqual({file: path.basename(file), legacy: false});
+      // "Yacine" (a static example name) now lives only in the translated placeholder key
+      // (awaADeux.partnerName.placeholder, fr.ts/en.ts) — never as a literal in this source.
       const yacine = source.split('\n').filter(line => line.includes('Yacine'));
-      if (path.basename(file) === 'AwaADeuxPartnerNameScreen.tsx') {
-        expect(yacine.map(line => line.trim())).toEqual(['placeholder="Ex : Yacine"']);
-      } else {
-        expect({file: path.basename(file), yacine}).toEqual({file: path.basename(file), yacine: []});
-      }
+      expect({file: path.basename(file), yacine}).toEqual({file: path.basename(file), yacine: []});
     }
+    expect(fr.awaADeux.partnerName.placeholder).toContain('Yacine');
+    expect(en.awaADeux.partnerName.placeholder).toContain('Yacine');
   });
 
   it('never falls back to a person: no `partnerName || \'…\'` / `?? \'…\'` with a name', () => {

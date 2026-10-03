@@ -15,7 +15,8 @@ import AwaADeuxIntroScreen from '../AwaADeuxIntroScreen';
 import AwaADeuxPartnerNameScreen from '../AwaADeuxPartnerNameScreen';
 import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import {clearAwaADeuxPartnerName, getAwaADeuxPartnerName, normalizePartnerName} from '../../../state/awaADeuxPartnerStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // "Comment s'appelle votre partenaire ?": Intro → Découvrir → this screen → Continuer.
 // Frontend only: the name is local state, handed to the next step as a route param.
@@ -90,6 +91,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

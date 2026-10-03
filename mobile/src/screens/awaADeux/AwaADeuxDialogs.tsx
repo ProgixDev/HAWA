@@ -3,6 +3,8 @@ import {Linking, Modal, Pressable, Share, StyleSheet, Text, TextInput, View} fro
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
+import {useTranslation} from 'react-i18next';
+
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
 import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
 import {partnerSubject} from '../../utils/awaADeuxPartnerWording';
@@ -13,8 +15,8 @@ import {computePartnerVisibility} from '../../utils/awaADeuxSharing';
 import AwaADeuxModalFrame from './AwaADeuxModalFrame';
 import PartnerPreviewCard from './PartnerPreviewCard';
 import QrPlaceholder from './QrPlaceholder';
-import {DEMO_PAIRING_CODE, DEMO_PAIRING_VALIDITY} from './awaADeuxDemo';
-import {buildEmailBody, buildMailtoUrl, EMAIL_SUBJECT, INVITATION_MESSAGE} from './awaADeuxInvitation';
+import {DEMO_PAIRING_CODE, demoPairingValidity} from './awaADeuxDemo';
+import {buildEmailBody, buildMailtoUrl, emailSubject, invitationMessage} from './awaADeuxInvitation';
 
 // The dialogs of the "AWA à deux" association flow. FRONTEND ONLY, DEMO content: nothing
 // is sent by AWA — the platform share sheet and the phone's mail application do the
@@ -31,26 +33,27 @@ const useDialogStyles = () => {
 /* ------------------------------------------------------------------ */
 
 export function QrCodeModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
+  const {t} = useTranslation();
   const {styles} = useDialogStyles();
   const {partnerName} = useAwaADeuxPartnerName();
 
   // No image-sharing library: the invitation text (with the code) is what gets shared.
   const shareQr = async () => {
     try {
-      await Share.share({message: INVITATION_MESSAGE});
+      await Share.share({message: invitationMessage()});
     } catch {
       // The share sheet could not open: nothing else to do in this demo phase.
     }
   };
 
   return (
-    <AwaADeuxModalFrame ctaLabel="Partager le QR code" onClose={onClose} onCta={shareQr} title="QR code d’association" visible={visible}>
+    <AwaADeuxModalFrame ctaLabel={t('awaADeux.dialogs.qr.shareCta')} onClose={onClose} onCta={shareQr} title={t('awaADeux.dialogs.qr.title')} visible={visible}>
       <View style={styles.center}>
         <QrPlaceholder size={210} value={DEMO_PAIRING_CODE} />
         <Text style={styles.qrCode}>{DEMO_PAIRING_CODE}</Text>
-        <Text style={styles.muted}>{DEMO_PAIRING_VALIDITY}</Text>
-        <Text style={styles.demoNote}>Aperçu de démonstration</Text>
-        <Text style={styles.body}>{`${partnerSubject(partnerName)} peut scanner ce QR code depuis son application AWA pour se connecter.`}</Text>
+        <Text style={styles.muted}>{demoPairingValidity()}</Text>
+        <Text style={styles.demoNote}>{t('awaADeux.dialogs.qr.demoNote')}</Text>
+        <Text style={styles.body}>{t('awaADeux.dialogs.qr.body', {Partner: partnerSubject(partnerName)})}</Text>
       </View>
     </AwaADeuxModalFrame>
   );
@@ -61,18 +64,19 @@ export function QrCodeModal({visible, onClose}: {visible: boolean; onClose: () =
 /* ------------------------------------------------------------------ */
 
 export function EmailInvitationModal({visible, onClose}: {visible: boolean; onClose: () => void}): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme, styles} = useDialogStyles();
   const [to, setTo] = useState('');
   const {partnerName} = useAwaADeuxPartnerName();
   const emailBody = buildEmailBody(partnerName);
-  const [subject, setSubject] = useState(EMAIL_SUBJECT);
+  const [subject, setSubject] = useState(emailSubject());
   const [message, setMessage] = useState(emailBody);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     if (visible) {
       setTo('');
-      setSubject(EMAIL_SUBJECT);
+      setSubject(emailSubject());
       setMessage(emailBody);
       setFailed(false);
     }
@@ -102,31 +106,31 @@ export function EmailInvitationModal({visible, onClose}: {visible: boolean; onCl
     <AwaADeuxModalFrame
       avoidKeyboard
       ctaDisabled={!valid}
-      ctaLabel="Ouvrir l’application email"
+      ctaLabel={t('awaADeux.dialogs.email.cta')}
       onClose={onClose}
       onCta={openMail}
-      title="Envoyer par email"
+      title={t('awaADeux.dialogs.email.title')}
       visible={visible}>
       <View style={styles.field}>
-        <Text style={styles.fieldLabel}>À</Text>
+        <Text style={styles.fieldLabel}>{t('awaADeux.dialogs.email.toLabel')}</Text>
         <TextInput
-          accessibilityLabel="Adresse email du destinataire"
+          accessibilityLabel={t('awaADeux.dialogs.email.toAccessibility')}
           autoCapitalize="none"
           autoCorrect={false}
           keyboardType="email-address"
           onChangeText={setTo}
-          placeholder="adresse@email.com"
+          placeholder={t('awaADeux.dialogs.email.toPlaceholder')}
           placeholderTextColor={theme.colors.textMuted}
           style={[styles.input, showInvalid && styles.inputInvalid]}
           value={to}
         />
-        {showInvalid ? <Text accessibilityRole="alert" style={styles.error}>Entre une adresse email valide.</Text> : null}
+        {showInvalid ? <Text accessibilityRole="alert" style={styles.error}>{t('awaADeux.dialogs.email.invalidEmail')}</Text> : null}
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.fieldLabel}>Objet</Text>
+        <Text style={styles.fieldLabel}>{t('awaADeux.dialogs.email.subjectLabel')}</Text>
         <TextInput
-          accessibilityLabel="Objet du message"
+          accessibilityLabel={t('awaADeux.dialogs.email.subjectAccessibility')}
           onChangeText={setSubject}
           placeholderTextColor={theme.colors.textMuted}
           style={styles.input}
@@ -135,9 +139,9 @@ export function EmailInvitationModal({visible, onClose}: {visible: boolean; onCl
       </View>
 
       <View style={styles.field}>
-        <Text style={styles.fieldLabel}>Message</Text>
+        <Text style={styles.fieldLabel}>{t('awaADeux.dialogs.email.messageLabel')}</Text>
         <TextInput
-          accessibilityLabel="Message"
+          accessibilityLabel={t('awaADeux.dialogs.email.messageAccessibility')}
           multiline
           onChangeText={setMessage}
           placeholderTextColor={theme.colors.textMuted}
@@ -147,7 +151,7 @@ export function EmailInvitationModal({visible, onClose}: {visible: boolean; onCl
         />
       </View>
 
-      {failed ? <Text accessibilityRole="alert" style={styles.error}>Impossible d’ouvrir l’application e-mail.</Text> : null}
+      {failed ? <Text accessibilityRole="alert" style={styles.error}>{t('awaADeux.dialogs.email.openFailed')}</Text> : null}
     </AwaADeuxModalFrame>
   );
 }
@@ -203,6 +207,7 @@ export function StopSharingModal({
   onCancel: () => void;
   onConfirm: () => void;
 }): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme, styles} = useDialogStyles();
   const insets = useSafeAreaInsets();
   const [busy, setBusy] = useState(false);
@@ -221,32 +226,32 @@ export function StopSharingModal({
   return (
     <Modal animationType="fade" onRequestClose={onCancel} statusBarTranslucent transparent visible={visible}>
       <View style={styles.sheetRoot}>
-        <Pressable accessibilityLabel="Annuler" accessibilityRole="button" onPress={onCancel} style={styles.backdrop} />
+        <Pressable accessibilityLabel={t('common.cancel')} accessibilityRole="button" onPress={onCancel} style={styles.backdrop} />
         <View accessibilityViewIsModal style={[styles.sheet, {paddingBottom: Math.max(insets.bottom, 16) + 8}]}>
           <View style={styles.sheetHandle} />
           <View importantForAccessibility="no-hide-descendants" style={styles.sheetIcon}>
             <MaterialDesignIcons color={theme.colors.danger} name="account-cancel-outline" size={28} />
           </View>
-          <Text accessibilityRole="header" style={styles.sheetTitle}>Arrêter le partage ?</Text>
+          <Text accessibilityRole="header" style={styles.sheetTitle}>{t('awaADeux.stopSharingModal.title')}</Text>
           <Text style={styles.sheetText}>
-            {`${partnerSubject(partnerName)} ne pourra plus accéder aux informations que vous avez choisi de partager.`}
+            {t('awaADeux.stopSharingModal.body', {Partner: partnerSubject(partnerName)})}
           </Text>
           <Pressable
-            accessibilityLabel="Arrêter le partage"
+            accessibilityLabel={t('awaADeux.stopSharingModal.confirm')}
             accessibilityRole="button"
             accessibilityState={{disabled: busy}}
             disabled={busy}
             onPress={confirm}
             style={({pressed}) => [styles.destructive, pressed && styles.pressed]}>
-            <Text style={[styles.destructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>Arrêter le partage</Text>
+            <Text style={[styles.destructiveText, {color: pickReadableTextColor(theme.colors.danger)}]}>{t('awaADeux.stopSharingModal.confirm')}</Text>
           </Pressable>
           <Pressable
-            accessibilityLabel="Annuler"
+            accessibilityLabel={t('common.cancel')}
             accessibilityRole="button"
             disabled={busy}
             onPress={onCancel}
             style={({pressed}) => [styles.cancel, pressed && styles.pressed]}>
-            <Text style={styles.cancelText}>Annuler</Text>
+            <Text style={styles.cancelText}>{t('common.cancel')}</Text>
           </Pressable>
         </View>
       </View>

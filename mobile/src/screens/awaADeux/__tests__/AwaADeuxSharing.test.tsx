@@ -11,7 +11,7 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import {PartnerPreviewModal} from '../AwaADeuxDialogs';
-import {SHARING_SECTIONS, SUPPORT_CONTENT} from '../awaADeuxDemo';
+import {sharingSections, supportContent} from '../awaADeuxDemo';
 import {
   AWA_A_DEUX_SHARING_STORAGE_KEY,
   DEFAULT_SHARING_TOGGLES,
@@ -22,7 +22,8 @@ import {
 } from '../../../state/awaADeuxSharingStore';
 import {buildPartnerSnapshot, computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {setSelectedObjective} from '../../../state/onboardingPreferences';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // "Choisissez ce que vous souhaitez partager": four categories, eleven saved choices,
 // pregnancy category only in pregnancy mode, and a partner preview built from the
@@ -63,7 +64,7 @@ async function renderScreen() {
 }
 
 const switches = (renderer: ReactTestRenderer.ReactTestRenderer) => renderer.root.findAllByType(Switch);
-const labelOf = (key: SharingKey) => SHARING_SECTIONS.flatMap(section => section.items).find(item => item.key === key)!.label;
+const labelOf = (key: SharingKey) => sharingSections().flatMap(section => section.items).find(item => item.key === key)!.label;
 const toggle = (renderer: ReactTestRenderer.ReactTestRenderer, key: SharingKey) =>
   switches(renderer).filter(node => node.props.accessibilityLabel === labelOf(key))[0];
 const flip = async (renderer: ReactTestRenderer.ReactTestRenderer, key: SharingKey, value: boolean) => {
@@ -136,6 +137,11 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -281,7 +287,7 @@ describe('the four categories', () => {
   it('every item of every category has its own switch, with the default states', async () => {
     await setSelectedObjective('pregnancy');
     const renderer = await renderScreen();
-    expect(SHARING_SECTIONS.map(section => section.title)).toEqual(['Cycle', 'Fertilité et conception', 'Grossesse', 'Bien-être et soutien']);
+    expect(sharingSections().map(section => section.title)).toEqual(['Cycle', 'Fertilité et conception', 'Grossesse', 'Bien-être et soutien']);
     for (const key of SHARING_KEYS) {
       expect(toggle(renderer, key)).toBeDefined();
       expect(toggle(renderer, key).props.value).toBe(DEFAULT_SHARING_TOGGLES[key]);
@@ -293,7 +299,7 @@ describe('the four categories', () => {
   it('the support tips and the phase recommendations are shown WITHOUT a switch', async () => {
     const renderer = await renderScreen();
     const texts = textsOf(renderer);
-    SUPPORT_CONTENT.forEach(item => {
+    supportContent().forEach(item => {
       expect(texts).toContain(item.label);
       expect(texts).toContain(item.note);
       expect(switches(renderer).some(node => node.props.accessibilityLabel === item.label)).toBe(false);

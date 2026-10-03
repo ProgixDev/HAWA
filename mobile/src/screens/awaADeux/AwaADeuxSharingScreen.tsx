@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {StyleSheet, Switch, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {useAwaADeuxPartnerName} from '../../hooks/useAwaADeuxPartnerName';
@@ -10,7 +11,7 @@ import {useAwaADeuxSharing} from '../../hooks/useAwaADeuxSharing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import AwaADeuxStepLayout, {Reveal} from './AwaADeuxStepLayout';
-import {SHARING_SECTIONS, SUPPORT_CONTENT} from './awaADeuxDemo';
+import {sharingSections, supportContent} from './awaADeuxDemo';
 
 // "AWA à deux" — step 3: what she chooses to share, in four categories.
 //
@@ -28,6 +29,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'AwaADeuxSharing'>;
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
 export default function AwaADeuxSharingScreen({navigation, route}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -39,15 +41,15 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
   //    the button simply goes back there.
   const managing = route.params?.mode === 'manage';
 
-  const sections = SHARING_SECTIONS.filter(section => !section.pregnancyOnly || isPregnant);
+  const sections = sharingSections().filter(section => !section.pregnancyOnly || isPregnant);
 
   return (
     <AwaADeuxStepLayout
-      ctaLabel={managing ? 'Terminé' : 'Continuer'}
-      description={`${partnerSubject(partnerName)} verra uniquement les informations que vous activez.`}
+      ctaLabel={managing ? t('awaADeux.sharing.ctaDone') : t('common.continue')}
+      description={t('awaADeux.sharing.description', {partner: partnerSubject(partnerName)})}
       onBack={navigation.goBack}
       onContinue={() => (managing ? navigation.goBack() : navigation.navigate('AwaADeuxPairing'))}
-      title={'Choisissez ce que\nvous souhaitez partager'}>
+      title={t('awaADeux.sharing.title')}>
       {sections.map((section, sectionIndex) => (
         <Reveal key={section.id} index={sectionIndex}>
           <Text accessibilityRole="header" style={styles.sectionTitle}>{section.title}</Text>
@@ -72,7 +74,7 @@ export default function AwaADeuxSharingScreen({navigation, route}: Props): React
             ))}
 
             {section.id === 'wellbeing'
-              ? SUPPORT_CONTENT.map(item => (
+              ? supportContent().map(item => (
                   <View key={item.id} style={[styles.row, styles.rowDivider]}>
                     <View style={styles.rowIcon}>
                       <MaterialDesignIcons color={theme.colors.primary} name={item.icon as IconName} size={19} />
