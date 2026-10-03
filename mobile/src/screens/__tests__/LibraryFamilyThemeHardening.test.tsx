@@ -304,14 +304,14 @@ describe('FeaturedArticlesScreen — hero card photo-legibility scrim (Dark Mode
       flattenStyle(renderer.root.findAll(node => node.props?.children === text)[0].props.style).color;
 
     const badgeBefore = findColor('ARTICLE DU MOMENT');
-    const ctaBefore = findColor('Lire l’article');
+    const ctaBefore = findColor('Lire l\'article');
 
     await act(async () => {
       await setSelectedThemeId('rose-quartz');
     });
 
     expect(findColor('ARTICLE DU MOMENT')).not.toBe(badgeBefore);
-    expect(findColor('Lire l’article')).not.toBe(ctaBefore);
+    expect(findColor('Lire l\'article')).not.toBe(ctaBefore);
   });
 });
 

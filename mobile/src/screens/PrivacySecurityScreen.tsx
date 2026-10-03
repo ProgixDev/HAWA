@@ -5,6 +5,7 @@ import {useFocusEffect} from '@react-navigation/native';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Animated, {FadeIn, FadeInUp} from 'react-native-reanimated';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {getPrivacySecuritySettings, isBiometricEnabled, isPinEnabled, loadSecurityPreferences, updatePrivacySecuritySettings, type PrivacySecuritySettings} from '../state/securityPreferences';
@@ -58,6 +59,7 @@ function SettingRow({
 }
 
 export default function PrivacySecurityScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
 
@@ -67,7 +69,7 @@ export default function PrivacySecurityScreen({navigation}: Props): React.JSX.El
   const [settings, setSettings] = useState(getPrivacySecuritySettings());
   const [pin, setPin] = useState(isPinEnabled());
   const [bio, setBio] = useState(isBiometricEnabled());
-  const [biometryLabel, setBiometryLabel] = useState('Biométrie');
+  const [biometryLabel, setBiometryLabel] = useState(t('biometrics.genericLabel'));
 
   useEffect(() => {
     loadSecurityPreferences().then(() => {
@@ -100,12 +102,12 @@ export default function PrivacySecurityScreen({navigation}: Props): React.JSX.El
         ]}
         showsVerticalScrollIndicator={false}>
         <Animated.View entering={FadeIn.duration(300)} style={styles.header}>
-          <Pressable accessibilityLabel="Retour" onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}>
+          <Pressable accessibilityLabel={t('privacySecurity.backA11y')} onPress={navigation.goBack} style={({pressed}) => [styles.back, pressed && styles.pressed]}>
             <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
           </Pressable>
           <View style={styles.headerCopy}>
-            <Text adjustsFontSizeToFit minimumFontScale={0.78} style={styles.title}>Confidentialité & Sécurité</Text>
-            <Text style={styles.subtitle}>Tes données, ta vie privée, ton choix 💜</Text>
+            <Text adjustsFontSizeToFit minimumFontScale={0.78} style={styles.title}>{t('privacySecurity.title')}</Text>
+            <Text style={styles.subtitle}>{t('privacySecurity.subtitle')}</Text>
           </View>
           <View style={styles.decor}>
             <MaterialDesignIcons color={theme.colors.primary} name="shield-lock-outline" size={39} />
@@ -118,75 +120,75 @@ export default function PrivacySecurityScreen({navigation}: Props): React.JSX.El
             <MaterialDesignIcons color={theme.colors.primary} name="shield-account-outline" size={28} />
           </View>
           <View style={styles.introCopy}>
-            <Text style={styles.introTitle}>Tu es aux commandes 🔒</Text>
-            <Text style={styles.introText}>Gère la confidentialité de tes données et choisis les protections qui te conviennent.</Text>
+            <Text style={styles.introTitle}>{t('privacySecurity.introTitle')}</Text>
+            <Text style={styles.introText}>{t('privacySecurity.introText')}</Text>
           </View>
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Accès et protection</Text>
+        <Text style={styles.sectionTitle}>{t('privacySecurity.sectionAccess')}</Text>
         <Animated.View entering={FadeInUp.delay(130).duration(420)} style={styles.card}>
           <SettingRow
             icon="lock-outline" onPress={() => navigation.navigate('PinManagement')}
-            status={pin ? 'Activé' : 'Inactif'} styles={styles} theme={theme} title="Code PIN"
-            subtitle={pin ? 'Appuie pour modifier ou désactiver' : 'Protéger l’accès à ton application'}
+            status={pin ? t('privacySecurity.statusOn') : t('privacySecurity.statusOff')} styles={styles} theme={theme} title={t('privacySecurity.pinTitle')}
+            subtitle={pin ? t('privacySecurity.pinSubtitleOn') : t('privacySecurity.pinSubtitleOff')}
           />
           <SettingRow
             icon="fingerprint" onPress={() => navigation.navigate('FaceIdSetup', {action: bio ? 'manage' : 'enable'})}
-            status={bio ? 'Activée' : 'Inactive'} styles={styles} theme={theme} title={biometryLabel}
-            subtitle={bio ? 'Appuie pour tester ou désactiver' : 'Déverrouillage natif sécurisé'}
+            status={bio ? t('privacySecurity.statusOnFeminine') : t('privacySecurity.statusOffFeminine')} styles={styles} theme={theme} title={biometryLabel}
+            subtitle={bio ? t('privacySecurity.biometrySubtitleOn') : t('privacySecurity.biometrySubtitleOff')}
           />
           <SettingRow
             icon="eye-off-outline" onToggle={value => change('discreetMode', value)} styles={styles} theme={theme}
-            subtitle="Masquer le contenu sensible de l’application" title="Mode discret / pudeur" toggle={settings.discreetMode}
+            subtitle={t('privacySecurity.discreetModeSubtitle')} title={t('privacySecurity.discreetModeTitle')} toggle={settings.discreetMode}
           />
           <SettingRow
             icon="bell-outline" onToggle={value => change('discreetNotifications', value)} styles={styles} theme={theme}
-            subtitle="Utiliser des notifications discrètes" title="Notifications discrètes" toggle={settings.discreetNotifications}
+            subtitle={t('privacySecurity.discreetNotificationsSubtitle')} title={t('privacySecurity.discreetNotificationsTitle')} toggle={settings.discreetNotifications}
           />
           <SettingRow
             icon="cellphone-lock" onToggle={value => change('hideNotificationPreview', value)} styles={styles} theme={theme}
-            subtitle="Ne pas afficher le contenu sur l’écran verrouillé" title="Masquer l’aperçu des notifications" toggle={settings.hideNotificationPreview}
+            subtitle={t('privacySecurity.hideNotificationPreviewSubtitle')} title={t('privacySecurity.hideNotificationPreviewTitle')} toggle={settings.hideNotificationPreview}
           />
           <SettingRow
             last icon="shape-outline" onPress={() => navigation.navigate('DiscreetLauncher')} styles={styles} theme={theme}
-            subtitle="Nom et icône de l’application sur l’écran d’accueil" title="Apparence discrète"
+            subtitle={t('privacySecurity.discreetAppearanceSubtitle')} title={t('privacySecurity.discreetAppearanceTitle')}
           />
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Contenu sensible</Text>
+        <Text style={styles.sectionTitle}>{t('privacySecurity.sectionSensitive')}</Text>
         <Animated.View entering={FadeInUp.delay(190).duration(420)} style={styles.card}>
           <SettingRow
             icon="heart-outline" onPress={() => change('intimacyProtection', !settings.intimacyProtection)}
-            status={settings.intimacyProtection ? 'Activée' : 'Inactive'} styles={styles} theme={theme}
-            subtitle="Verrouiller la section Vie intime" title="Protection de Vie intime"
+            status={settings.intimacyProtection ? t('privacySecurity.statusOnFeminine') : t('privacySecurity.statusOffFeminine')} styles={styles} theme={theme}
+            subtitle={t('privacySecurity.intimacySubtitle')} title={t('privacySecurity.intimacyTitle')}
           />
           <SettingRow
             last icon="image-lock-outline" onPress={() => change('privateContentProtection', !settings.privateContentProtection)}
-            status={settings.privateContentProtection ? 'Activée' : 'Inactive'} styles={styles} theme={theme}
-            subtitle="Verrouiller tes notes et photos personnelles" title="Protection des Notes / Photos privées"
+            status={settings.privateContentProtection ? t('privacySecurity.statusOnFeminine') : t('privacySecurity.statusOffFeminine')} styles={styles} theme={theme}
+            subtitle={t('privacySecurity.privateContentSubtitle')} title={t('privacySecurity.privateContentTitle')}
           />
         </Animated.View>
 
-        <Text style={styles.sectionTitle}>Compte et données</Text>
+        <Text style={styles.sectionTitle}>{t('privacySecurity.sectionAccount')}</Text>
         <Animated.View entering={FadeInUp.delay(250).duration(420)} style={styles.card}>
           <SettingRow
             icon="account-outline" onPress={() => navigation.navigate('AnonymousMode')}
-            status={settings.anonymousMode ? 'Activé' : 'Inactif'} styles={styles} theme={theme}
-            subtitle="Utiliser l’application sans partager ton identité" title="Mode anonyme"
+            status={settings.anonymousMode ? t('privacySecurity.statusOn') : t('privacySecurity.statusOff')} styles={styles} theme={theme}
+            subtitle={t('privacySecurity.anonymousSubtitle')} title={t('privacySecurity.anonymousTitle')}
           />
           <SettingRow
             icon="cloud-outline" onPress={() => navigation.navigate('DataManagement')} styles={styles} theme={theme}
-            subtitle="Voir, exporter ou supprimer tes données" title="Gestion des données"
+            subtitle={t('privacySecurity.dataManagementSubtitle')} title={t('privacySecurity.dataManagementTitle')}
           />
           <SettingRow
             danger last icon="delete-outline" onPress={() => navigation.navigate('DeleteAccount')} styles={styles} theme={theme}
-            subtitle="Supprimer définitivement ton compte et tes données" title="Supprimer mon compte"
+            subtitle={t('privacySecurity.deleteAccountSubtitle')} title={t('privacySecurity.deleteAccountTitle')}
           />
         </Animated.View>
 
         <View style={styles.info}>
           <MaterialDesignIcons color={theme.colors.primary} name="information-outline" size={21} />
-          <Text style={styles.infoText}>Tes paramètres de confidentialité restent sous ton contrôle.{'\n'}Tu peux les modifier à tout moment.</Text>
+          <Text style={styles.infoText}>{t('privacySecurity.footerInfo')}</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

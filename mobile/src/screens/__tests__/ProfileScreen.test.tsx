@@ -10,7 +10,7 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {resolveAwaTheme} from '../../theme/awaThemeTokens';
 import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled, setAppLanguage} from '../../state/themePreferences';
 import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
 import {getCyclePreferences, setCyclePreferences, setSelectedObjective} from '../../state/onboardingPreferences';
 import {seedManagedProfileCycleIfNeeded} from '../../state/managedProfileCycleSeed';
@@ -23,6 +23,7 @@ import {addManagedProfile, getManagedProfiles, requestReopenManageProfilesSheet,
 import {OWNER_PROFILE_ID, getActiveProfileId, resetActiveProfileForTests, setActiveProfileId} from '../../state/activeProfileStore';
 import {getDemoPartnerState} from '../../state/awaADeuxDemoStore';
 import {getSharingToggles} from '../../state/awaADeuxSharingStore';
+import i18n from '../../i18n';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -71,6 +72,11 @@ beforeEach(async () => {
   updatePrivacySecuritySettings({anonymousMode: false});
   await resetManagedProfilesForTests();
   await resetActiveProfileForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
