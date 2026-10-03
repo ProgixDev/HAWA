@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,77 +34,196 @@ const ID = 'religiousfaq-questions-frequentes';
 
 const HERO = require('../../assets/images/library/popular-flower.png');
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const FAQ_ITEMS = [
-  [
-    'Qu’est-ce que le fiqh féminin ?',
-    'Le fiqh féminin regroupe les règles pratiques qui concernent spécifiquement le corps et le culte des femmes : cycle, pureté, prière, jeûne, nifas et istihâda.',
-  ],
-  [
-    'Quels sont les grands sujets couverts par le fiqh féminin ?',
-    'Il aborde notamment les règles et le cycle, la pureté rituelle, le ghusl, la prière et le jeûne pendant et après les règles, le nifas et l’istihâda.',
-  ],
-  [
-    'Quelle est la différence entre règles, saignements post-partum et saignements irréguliers ?',
-    'Les règles (hayd) suivent le cycle habituel, le nifas survient après l’accouchement, et l’Istihâda désigne un saignement irrégulier, hors cycle. Chacun suit un statut différent.',
-  ],
-  [
-    'Qu’advient-il de la prière pendant les règles ?',
-    'La prière est suspendue pendant cette période : il s’agit d’une dispense reconnue, à vivre sans culpabilité.',
-  ],
-  [
-    'Qu’advient-il du jeûne pendant les règles ?',
-    'Le jeûne est également suspendu ; les jours non jeûnés sont rattrapés plus tard (qadaa), en dehors du Ramadan.',
-  ],
-  [
-    'Pourquoi les prières manquées ne sont-elles généralement pas rattrapées, contrairement au jeûne ?',
-    'Cette différence tient à la nature des deux actes : la prière est quotidienne et répétée, tandis que le jeûne est annuel et concentré sur un mois. Suivre la dispense fait pleinement partie de la pratique religieuse.',
-  ],
-  [
-    'Quand la prière reprend-elle après les règles ?',
-    'Dès que les règles sont terminées et que le ghusl a été effectué, la prière reprend normalement, sans délai.',
-  ],
-  [
-    'Quel est le rôle du ghusl ?',
-    'Le ghusl est la grande ablution qui permet de retrouver l’état de pureté rituelle nécessaire pour reprendre la prière et d’autres actes d’adoration.',
-  ],
-  [
-    'Que faire si on n’est pas sûre que les règles sont terminées ?',
-    'Observer l’absence totale de saignement pendant un temps suffisant, plutôt que de se fier à une impression ponctuelle, aide à clarifier la situation.',
-  ],
-  [
-    'Peut-on pratiquer d’autres formes d’adoration pendant les règles ?',
-    'Oui : le dhikr, les invocations, la charité, l’apprentissage religieux et d’autres gestes de bienveillance restent accessibles.',
-  ],
-  [
-    'Pourquoi certaines réponses peuvent-elles varier selon la situation ?',
-    'Le fiqh est un champ d’interprétation : les avis peuvent varier selon les écoles juridiques et les circonstances personnelles, sans qu’un avis soit à lui seul absolu.',
-  ],
-];
-
-const DOUBT_SITUATIONS = [
-  'Il y a une incertitude sur la fin réelle des règles',
-  'La nature d’un saignement reste incertaine (règles, istihâda, autre)',
-  'Un doute persiste sur la nécessité d’effectuer le ghusl',
-  'La question de la reprise de la prière reste incertaine',
-  'Des informations contradictoires ont été trouvées en ligne',
-];
-
-const KEY_POINTS = [
-  'Le fiqh féminin couvre de nombreux aspects de la pratique religieuse des femmes',
-  'Certains détails peuvent légitimement varier selon les écoles',
-  'Une information générale ne remplace pas un avis religieux personnalisé',
-  'Un doute persistant mérite d’être posé à un savant qualifié',
-  'Le rôle d’AWA est éducatif, non de délivrer des fatwas',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'QUESTIONS FRÉQUENTES',
+    title: 'Questions fréquentes\nde fiqh féminin',
+    metaDuration: '8 min de lecture',
+    metaType: 'FAQ',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Les interrogations les plus posées sur le fiqh féminin, réunies en un endroit avec des réponses claires.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les questions qui reviennent souvent',
+      'Des écoles juridiques qui peuvent varier',
+      'En cas de doute persistant',
+      'Points clés à retenir',
+    ],
+    section1Body: 'De nombreuses questions autour du cycle, de la prière et du jeûne reviennent régulièrement d’une femme à l’autre. Voici des réponses générales aux plus fréquentes ; pour aller plus loin, chaque thème est aussi développé dans un article dédié.',
+    faqItems: [
+      [
+        'Qu’est-ce que le fiqh féminin ?',
+        'Le fiqh féminin regroupe les règles pratiques qui concernent spécifiquement le corps et le culte des femmes : cycle, pureté, prière, jeûne, nifas et istihâda.',
+      ],
+      [
+        'Quels sont les grands sujets couverts par le fiqh féminin ?',
+        'Il aborde notamment les règles et le cycle, la pureté rituelle, le ghusl, la prière et le jeûne pendant et après les règles, le nifas et l’istihâda.',
+      ],
+      [
+        'Quelle est la différence entre règles, saignements post-partum et saignements irréguliers ?',
+        'Les règles (hayd) suivent le cycle habituel, le nifas survient après l’accouchement, et l’Istihâda désigne un saignement irrégulier, hors cycle. Chacun suit un statut différent.',
+      ],
+      [
+        'Qu’advient-il de la prière pendant les règles ?',
+        'La prière est suspendue pendant cette période : il s’agit d’une dispense reconnue, à vivre sans culpabilité.',
+      ],
+      [
+        'Qu’advient-il du jeûne pendant les règles ?',
+        'Le jeûne est également suspendu ; les jours non jeûnés sont rattrapés plus tard (qadaa), en dehors du Ramadan.',
+      ],
+      [
+        'Pourquoi les prières manquées ne sont-elles généralement pas rattrapées, contrairement au jeûne ?',
+        'Cette différence tient à la nature des deux actes : la prière est quotidienne et répétée, tandis que le jeûne est annuel et concentré sur un mois. Suivre la dispense fait pleinement partie de la pratique religieuse.',
+      ],
+      [
+        'Quand la prière reprend-elle après les règles ?',
+        'Dès que les règles sont terminées et que le ghusl a été effectué, la prière reprend normalement, sans délai.',
+      ],
+      [
+        'Quel est le rôle du ghusl ?',
+        'Le ghusl est la grande ablution qui permet de retrouver l’état de pureté rituelle nécessaire pour reprendre la prière et d’autres actes d’adoration.',
+      ],
+      [
+        'Que faire si on n’est pas sûre que les règles sont terminées ?',
+        'Observer l’absence totale de saignement pendant un temps suffisant, plutôt que de se fier à une impression ponctuelle, aide à clarifier la situation.',
+      ],
+      [
+        'Peut-on pratiquer d’autres formes d’adoration pendant les règles ?',
+        'Oui : le dhikr, les invocations, la charité, l’apprentissage religieux et d’autres gestes de bienveillance restent accessibles.',
+      ],
+      [
+        'Pourquoi certaines réponses peuvent-elles varier selon la situation ?',
+        'Le fiqh est un champ d’interprétation : les avis peuvent varier selon les écoles juridiques et les circonstances personnelles, sans qu’un avis soit à lui seul absolu.',
+      ],
+    ],
+    section2Body1: 'Le fiqh islamique comporte des différences d’interprétation reconnues sur certains points de détail. Ces différences existent depuis des siècles et sont considérées comme légitimes au sein de la tradition religieuse.',
+    section2Body2: 'Selon la source consultée, une même question peut ainsi recevoir des réponses légèrement différentes. Cela ne signifie pas qu’une réponse serait automatiquement fausse : cela reflète des méthodologies et des lectures différentes des mêmes sources.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Suivre une source qualifiée de manière cohérente, plutôt que de changer constamment d’avis selon les réponses trouvées, aide à garder une pratique claire et sereine.',
+    section3Body: 'Certaines situations restent difficiles à trancher à partir d’une seule explication générale. C’est notamment le cas lorsque :',
+    doubtSituations: [
+      'Il y a une incertitude sur la fin réelle des règles',
+      'La nature d’un saignement reste incertaine (règles, istihâda, autre)',
+      'Un doute persiste sur la nécessité d’effectuer le ghusl',
+      'La question de la reprise de la prière reste incertaine',
+      'Des informations contradictoires ont été trouvées en ligne',
+    ],
+    alert2Title: 'Information importante',
+    alert2Text: 'Lorsqu’une situation est personnelle, complexe ou persistante, elle ne peut pas être résolue par une information générale. Le recours à un savant ou une savante qualifiée, capable de tenir compte de ta situation précise, reste alors la meilleure approche. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    keyPoints: [
+      'Le fiqh féminin couvre de nombreux aspects de la pratique religieuse des femmes',
+      'Certains détails peuvent légitimement varier selon les écoles',
+      'Une information générale ne remplace pas un avis religieux personnalisé',
+      'Un doute persistant mérite d’être posé à un savant qualifié',
+      'Le rôle d’AWA est éducatif, non de délivrer des fatwas',
+    ],
+    shareMessage: 'Questions fréquentes de fiqh féminin — AWA',
+  },
+  en: {
+    badge: 'FREQUENTLY ASKED QUESTIONS',
+    title: 'Frequently asked questions\non women’s fiqh',
+    metaDuration: '8 min read',
+    metaType: 'FAQ',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'The most common questions about women’s fiqh, gathered in one place with clear answers.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Questions that come up often',
+      'Schools of jurisprudence that may vary',
+      'In case of persistent doubt',
+      'Key takeaways',
+    ],
+    section1Body: 'Many questions about the cycle, prayer, and fasting come up regularly from one woman to another. Here are general answers to the most frequent ones; to go further, each topic is also covered in more depth in its own dedicated article.',
+    faqItems: [
+      [
+        'What is women’s fiqh?',
+        'Women’s fiqh brings together the practical rules that specifically concern women’s bodies and worship: the cycle, purity, prayer, fasting, nifas, and istihâda.',
+      ],
+      [
+        'What are the main topics covered by women’s fiqh?',
+        'It covers in particular menstruation and the cycle, ritual purity, ghusl, prayer and fasting during and after menstruation, nifas, and istihâda.',
+      ],
+      [
+        'What is the difference between menstruation, postpartum bleeding, and irregular bleeding?',
+        'Menstruation (hayd) follows the usual cycle, nifas occurs after childbirth, and istihâda refers to irregular bleeding, outside the cycle. Each follows a different status.',
+      ],
+      [
+        'What happens to prayer during menstruation?',
+        'Prayer is suspended during this time: it is a recognized exemption, to be experienced without guilt.',
+      ],
+      [
+        'What happens to fasting during menstruation?',
+        'Fasting is also suspended; the days not fasted are made up later (qadaa), outside of Ramadan.',
+      ],
+      [
+        'Why are missed prayers generally not made up, unlike fasting?',
+        'This difference is due to the nature of the two acts: prayer is daily and repeated, while fasting is annual and concentrated within one month. Following the exemption is fully part of religious practice.',
+      ],
+      [
+        'When does prayer resume after menstruation?',
+        'As soon as menstruation has ended and ghusl has been performed, prayer resumes normally, without delay.',
+      ],
+      [
+        'What is the role of ghusl?',
+        'Ghusl is the major ablution that allows one to return to the state of ritual purity needed to resume prayer and other acts of worship.',
+      ],
+      [
+        'What should you do if you’re not sure menstruation has ended?',
+        'Observing the total absence of bleeding for a sufficient amount of time, rather than relying on a one-off impression, helps clarify the situation.',
+      ],
+      [
+        'Can other forms of worship be practiced during menstruation?',
+        'Yes: dhikr, supplications, charity, religious learning, and other acts of kindness remain accessible.',
+      ],
+      [
+        'Why can some answers vary depending on the situation?',
+        'Fiqh is a field of interpretation: opinions can vary depending on the school of jurisprudence and personal circumstances, without any single opinion being absolute on its own.',
+      ],
+    ],
+    section2Body1: 'Islamic fiqh includes recognized differences of interpretation on certain points of detail. These differences have existed for centuries and are considered legitimate within the religious tradition.',
+    section2Body2: 'Depending on the source consulted, the same question can therefore receive slightly different answers. This does not mean that an answer would automatically be wrong: it reflects different methodologies and readings of the same sources.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Consistently following a qualified source, rather than constantly changing opinion based on whatever answer is found, helps keep your practice clear and calm.',
+    section3Body: 'Some situations remain difficult to settle based on a single general explanation. This is particularly the case when:',
+    doubtSituations: [
+      'There is uncertainty about when menstruation has actually ended',
+      'The nature of bleeding remains uncertain (menstruation, istihâda, other)',
+      'Doubt persists about the need to perform ghusl',
+      'The question of resuming prayer remains uncertain',
+      'Conflicting information has been found online',
+    ],
+    alert2Title: 'Important information',
+    alert2Text: 'When a situation is personal, complex, or persistent, it cannot be resolved with general information. Turning to a qualified scholar, able to take your specific situation into account, remains the best approach in that case. AWA does not issue fatwas or personalized religious rulings.',
+    keyPoints: [
+      'Women’s fiqh covers many aspects of women’s religious practice',
+      'Some details may legitimately vary depending on the school of jurisprudence',
+      'General information does not replace personalized religious guidance',
+      'A persistent doubt deserves to be raised with a qualified scholar',
+      'AWA’s role is educational, not to issue fatwas',
+    ],
+    shareMessage: 'Frequently asked questions on women’s fiqh — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function ReligiousFaqArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -130,7 +250,7 @@ export default function ReligiousFaqArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Questions fréquentes de fiqh féminin — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -168,7 +288,7 @@ export default function ReligiousFaqArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -177,7 +297,7 @@ export default function ReligiousFaqArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -192,7 +312,7 @@ export default function ReligiousFaqArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -210,19 +330,19 @@ export default function ReligiousFaqArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>QUESTIONS FRÉQUENTES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Questions fréquentes{`\n`}de fiqh féminin
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '8 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -241,8 +361,7 @@ export default function ReligiousFaqArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Les interrogations les plus posées sur le fiqh féminin, réunies
-            en un endroit avec des réponses claires.
+            {content.intro}
           </Text>
 
           <View style={styles.alert}>
@@ -253,20 +372,15 @@ export default function ReligiousFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Les questions qui reviennent souvent',
-              'Des écoles juridiques qui peuvent varier',
-              'En cas de doute persistant',
-              'Points clés à retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -282,17 +396,14 @@ export default function ReligiousFaqArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Les questions qui reviennent souvent</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            De nombreuses questions autour du cycle, de la prière et du
-            jeûne reviennent régulièrement d’une femme à l’autre. Voici des
-            réponses générales aux plus fréquentes ; pour aller plus loin,
-            chaque thème est aussi développé dans un article dédié.
+            {content.section1Body}
           </Text>
 
           <View style={styles.faqList}>
-            {FAQ_ITEMS.map(([question, answer], index) => (
+            {content.faqItems.map(([question, answer], index) => (
               <View
                 key={question}
                 style={[
@@ -305,21 +416,14 @@ export default function ReligiousFaqArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>2. Des écoles juridiques qui peuvent varier</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Le fiqh islamique comporte des différences d’interprétation
-            reconnues sur certains points de détail. Ces différences
-            existent depuis des siècles et sont considérées comme
-            légitimes au sein de la tradition religieuse.
+            {content.section2Body1}
           </Text>
 
           <Text style={styles.body}>
-            Selon la source consultée, une même question peut ainsi
-            recevoir des réponses légèrement différentes. Cela ne signifie
-            pas qu’une réponse serait automatiquement fausse : cela reflète
-            des méthodologies et des lectures différentes des mêmes
-            sources.
+            {content.section2Body2}
           </Text>
 
           <View style={styles.tip}>
@@ -330,25 +434,21 @@ export default function ReligiousFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Suivre une source qualifiée de manière cohérente, plutôt que
-                de changer constamment d’avis selon les réponses trouvées,
-                aide à garder une pratique claire et sereine.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. En cas de doute persistant</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Certaines situations restent difficiles à trancher à partir
-            d’une seule explication générale. C’est notamment le cas
-            lorsque :
+            {content.section3Body}
           </Text>
 
           <View style={styles.checkList}>
-            {DOUBT_SITUATIONS.map(item => (
+            {content.doubtSituations.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -369,22 +469,17 @@ export default function ReligiousFaqArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
               <Text style={styles.tipText}>
-                Lorsqu’une situation est personnelle, complexe ou
-                persistante, elle ne peut pas être résolue par une
-                information générale. Le recours à un savant ou une savante
-                qualifiée, capable de tenir compte de ta situation précise,
-                reste alors la meilleure approche. AWA ne délivre pas de
-                fatwas ni de décisions religieuses personnalisées.
+                {content.alert2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. Points clés à retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.checkList}>
-            {KEY_POINTS.map(item => (
+            {content.keyPoints.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"

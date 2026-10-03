@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {isPremiumArticle, type LibraryArticle} from '../../data/libraryContent';
 import {usePremium} from '../../hooks/usePremium';
@@ -17,6 +18,7 @@ type Props = {
  * a Premium user sees a crown instead. The actual gate is enforced by
  * ArticleReaderScreen — this badge is presentation only. */
 export function ArticlePremiumBadge({article}: Props): React.JSX.Element | null {
+  const {t} = useTranslation();
   const {isPremium} = usePremium();
 
   if (!isPremiumArticle(article)) {
@@ -25,10 +27,10 @@ export function ArticlePremiumBadge({article}: Props): React.JSX.Element | null 
 
   return (
     <View
-      accessibilityLabel={isPremium ? 'Contenu Premium' : 'Contenu Premium verrouillé'}
+      accessibilityLabel={isPremium ? t('premium.articleBadge.unlocked') : t('premium.articleBadge.locked')}
       style={styles.badge}>
       <MaterialDesignIcons color={homeColors.primary} name={isPremium ? 'crown' : 'lock-outline'} size={11} />
-      <Text style={styles.text}>Premium</Text>
+      <Text style={styles.text}>{t('premium.articleBadge.label')}</Text>
     </View>
   );
 }

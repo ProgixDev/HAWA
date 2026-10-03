@@ -1,6 +1,7 @@
 import React, {memo, useRef} from 'react';
 import {Animated, Easing, Pressable, StyleSheet} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 
@@ -12,6 +13,7 @@ type Props = {
 };
 
 function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const scale = useRef(new Animated.Value(1)).current;
   const dimension = size === 'small' ? 30 : 36;
@@ -27,7 +29,7 @@ function BookmarkButton({active, onPress, size = 'medium', tone = 'light'}: Prop
 
   return (
     <Pressable
-      accessibilityLabel={active ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+      accessibilityLabel={active ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')}
       accessibilityRole="button"
       hitSlop={8}
       onPress={handlePress}

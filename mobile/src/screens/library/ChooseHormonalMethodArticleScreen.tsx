@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,69 +34,185 @@ const ID = 'hormonaltreatments-choisir-sa-methode';
 
 const HERO = require('../../assets/images/library/featured-spm.png');
 
-const QUESTIONS = [
-  'Comment mon corps réagit-il aux hormones ?',
-  'Ai-je besoin d’un geste quotidien, hebdomadaire, ou d’une solution longue durée ?',
-  'Ai-je un projet de grossesse à moyen terme ?',
-  'Quel est mon budget et l’accès à ce moyen de contraception ?',
-];
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const PRIORITY_ICONS = [
+  'calendar-check-outline',
+  'heart-pulse',
+  'baby-face-outline',
+  'shield-check-outline',
+] as const;
 
-const PRIORITIES = [
-  {
-    icon: 'calendar-check-outline',
-    title: 'Simplicité',
-    text: 'Certaines méthodes demandent une action quotidienne, alors que d’autres nécessitent seulement une attention hebdomadaire ou beaucoup plus espacée.',
-  },
-  {
-    icon: 'heart-pulse',
-    title: 'Tolérance',
-    text: 'Les effets ressentis peuvent varier d’une personne à l’autre. Il est important d’observer comment ton corps réagit et d’en parler si quelque chose te gêne.',
-  },
-  {
-    icon: 'baby-face-outline',
-    title: 'Projet de grossesse',
-    text: 'Si tu souhaites une grossesse prochainement, la durée d’utilisation et le retour de la fertilité après l’arrêt peuvent faire partie des éléments à discuter.',
-  },
-  {
-    icon: 'shield-check-outline',
-    title: 'Efficacité',
-    text: 'L’efficacité dépend non seulement de la méthode choisie, mais aussi de son utilisation correcte et régulière.',
-  },
-];
+const COMPARISON_ICONS = [
+  'pill',
+  'bandage',
+  'circle-outline',
+  'needle',
+  'shape-outline',
+] as const;
 
-const COMPARISON = [
-  {
-    icon: 'pill',
-    title: 'Pilule',
-    detail: 'Geste quotidien',
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CHOISIR SA MÉTHODE',
+    title: 'Choisir le traitement\nqui te convient',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Les bonnes questions à te poser pour trouver une méthode contraceptive adaptée à ton quotidien, à tes besoins et à tes projets.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les questions à te poser',
+      'Aucune méthode « meilleure » dans l’absolu',
+      'Les critères qui peuvent faire la différence',
+      'En parler avec un professionnel',
+      'À retenir',
+    ],
+    section1Body: 'Il n’existe pas une contraception idéale pour tout le monde. Avant de choisir une méthode, il peut être utile de réfléchir à tes habitudes, tes préférences, ta tolérance et tes projets.',
+    questions: [
+      'Comment mon corps réagit-il aux hormones ?',
+      'Ai-je besoin d’un geste quotidien, hebdomadaire, ou d’une solution longue durée ?',
+      'Ai-je un projet de grossesse à moyen terme ?',
+      'Quel est mon budget et l’accès à ce moyen de contraception ?',
+    ],
+    section2Body: 'Deux personnes peuvent choisir des méthodes différentes et avoir toutes les deux fait un choix parfaitement adapté à leur situation. Le bon choix dépend notamment de la façon dont tu souhaites utiliser ta contraception et de ce que tu recherches.',
+    highlightTitle: 'Le bon repère',
+    highlightText: 'Une méthode intéressante sur le papier n’est pas forcément celle qui sera la plus simple ou la plus confortable pour toi au quotidien.',
+    section3Body: 'Pour comparer plusieurs options, tu peux regarder différents critères. L’objectif n’est pas de tout connaître par cœur, mais d’identifier ce qui compte réellement pour toi.',
+    priorities: [
+      {title: 'Simplicité', text: 'Certaines méthodes demandent une action quotidienne, alors que d’autres nécessitent seulement une attention hebdomadaire ou beaucoup plus espacée.'},
+      {title: 'Tolérance', text: 'Les effets ressentis peuvent varier d’une personne à l’autre. Il est important d’observer comment ton corps réagit et d’en parler si quelque chose te gêne.'},
+      {title: 'Projet de grossesse', text: 'Si tu souhaites une grossesse prochainement, la durée d’utilisation et le retour de la fertilité après l’arrêt peuvent faire partie des éléments à discuter.'},
+      {title: 'Efficacité', text: 'L’efficacité dépend non seulement de la méthode choisie, mais aussi de son utilisation correcte et régulière.'},
+    ],
+    rhythmTitle: 'Le rythme d’utilisation',
+    rhythmBody: 'Une différence importante entre les méthodes concerne la fréquence à laquelle tu dois penser à ta contraception.',
+    comparison: [
+      {title: 'Pilule', detail: 'Geste quotidien'},
+      {title: 'Patch', detail: 'Changement hebdomadaire'},
+      {title: 'Anneau', detail: 'Cycle de plusieurs semaines'},
+      {title: 'Implant', detail: 'Solution longue durée'},
+      {title: 'Stérilet hormonal', detail: 'Solution longue durée'},
+    ],
+    bodyReactionTitle: 'Observer la réaction de ton corps',
+    bodyReactionText: 'Une méthode hormonale peut être ressentie différemment selon les personnes. Certaines remarquent des changements du cycle, des saignements ou d’autres effets indésirables. Ces réactions ne signifient pas automatiquement que la méthode ne convient pas, mais elles méritent d’être prises en compte.',
+    alertTitle: 'À surveiller',
+    alertText: 'Si un effet est important, persistant ou inhabituel, ne reste pas seule avec tes questions. Un médecin, une sage-femme ou un autre professionnel de santé peut t’aider à déterminer s’il faut poursuivre, adapter ou changer la méthode.',
+    projectsTitle: 'Tenir compte de tes projets',
+    projectsBody: 'Ton projet de grossesse peut également influencer le choix. Si tu souhaites éviter une grossesse pendant plusieurs années, une méthode longue durée peut être intéressante. Si tu envisages une grossesse plus prochainement, d’autres options peuvent davantage correspondre à ton calendrier.',
+    keepInMindTitle: 'À garder en tête',
+    keepInMindText: 'Parler de ton projet de grossesse, même s’il est encore lointain ou incertain, permet au professionnel de santé de mieux orienter la discussion.',
+    section4Body: 'Un rendez-vous permet de mettre en balance les avantages, les contraintes et les éventuelles contre-indications de chaque méthode. Tu peux préparer quelques questions avant la consultation afin de ne pas oublier les points importants.',
+    questionCardTitle: 'Questions utiles à poser',
+    professionalQuestions: [
+      'Quels sont les avantages de cette méthode pour moi ?',
+      'Quels effets indésirables puis-je rencontrer ?',
+      'Comment l’utiliser correctement ?',
+      'Que faire si j’oublie, si elle se déplace ou si je souhaite l’arrêter ?',
+      'Cette méthode correspond-elle à mon projet de grossesse ?',
+    ],
+    professionalTipTitle: 'Bon à savoir',
+    professionalTipText: 'Une sage-femme ou un médecin peut prendre en compte tes antécédents, tes traitements, tes préférences et ton mode de vie avant de te conseiller une méthode.',
+    summaryTitle: 'L’essentiel',
+    summaryItems: [
+      'Choisis une méthode compatible avec ton quotidien.',
+      'Tiens compte de ta tolérance et de tes préférences.',
+      'Pense à ton projet de grossesse et à ton horizon de temps.',
+      'Demande conseil à un professionnel en cas de doute.',
+    ],
+    finalTipTitle: 'À retenir',
+    finalTipText: 'La meilleure méthode n’est pas nécessairement celle qui semble la plus pratique ou la plus populaire. C’est celle qui correspond à ta situation, à tes besoins et à tes préférences, après une discussion éclairée avec un professionnel de santé.',
+    disclaimerText: 'Cet article a une vocation informative et ne remplace pas un avis médical personnalisé.',
+    shareMessage: 'Choisir le traitement qui te convient — AWA',
   },
-  {
-    icon: 'bandage',
-    title: 'Patch',
-    detail: 'Changement hebdomadaire',
+  en: {
+    badge: 'CHOOSING YOUR METHOD',
+    title: 'Choosing the treatment\nthat suits you',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'The right questions to ask yourself to find a contraceptive method suited to your daily life, your needs, and your plans.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Questions to ask yourself',
+      'No method is “best” in absolute terms',
+      'Criteria that can make a difference',
+      'Talking it over with a professional',
+      'Key takeaways',
+    ],
+    section1Body: 'There is no single ideal contraceptive method for everyone. Before choosing a method, it can help to think about your habits, preferences, tolerance, and plans.',
+    questions: [
+      'How does my body react to hormones?',
+      'Do I need a daily or weekly action, or a long-acting solution?',
+      'Do I have a medium-term pregnancy plan?',
+      'What is my budget, and how accessible is this contraceptive method?',
+    ],
+    section2Body: 'Two people can choose different methods and both have made a choice that is perfectly suited to their situation. The right choice depends in particular on how you want to use your contraception and on what you’re looking for.',
+    highlightTitle: 'The key thing to remember',
+    highlightText: 'A method that looks appealing on paper isn’t necessarily the one that will be simplest or most comfortable for you day to day.',
+    section3Body: 'To compare several options, you can look at different criteria. The goal isn’t to know everything by heart, but to identify what really matters to you.',
+    priorities: [
+      {title: 'Simplicity', text: 'Some methods require a daily action, while others only need weekly attention, or far less often.'},
+      {title: 'Tolerance', text: 'The effects you feel can vary from person to person. It’s important to notice how your body reacts and to talk about it if something bothers you.'},
+      {title: 'Pregnancy plans', text: 'If you’re hoping for a pregnancy soon, the length of use and the return of fertility after stopping can be part of what you discuss.'},
+      {title: 'Effectiveness', text: 'Effectiveness depends not only on the method chosen, but also on using it correctly and consistently.'},
+    ],
+    rhythmTitle: 'How often you need to use it',
+    rhythmBody: 'One important difference between methods is how often you need to think about your contraception.',
+    comparison: [
+      {title: 'Pill', detail: 'Daily action'},
+      {title: 'Patch', detail: 'Weekly change'},
+      {title: 'Ring', detail: 'Cycle of several weeks'},
+      {title: 'Implant', detail: 'Long-acting solution'},
+      {title: 'Hormonal IUD', detail: 'Long-acting solution'},
+    ],
+    bodyReactionTitle: 'Watching how your body reacts',
+    bodyReactionText: 'A hormonal method can feel different from one person to another. Some notice changes in their cycle, bleeding, or other side effects. These reactions don’t automatically mean the method isn’t right for you, but they’re worth paying attention to.',
+    alertTitle: 'Worth watching for',
+    alertText: 'If an effect is significant, persistent, or unusual, don’t stay alone with your questions. A doctor, midwife, or another healthcare professional can help you determine whether to continue, adjust, or change the method.',
+    projectsTitle: 'Taking your plans into account',
+    projectsBody: 'Your pregnancy plans can also influence your choice. If you want to avoid pregnancy for several years, a long-acting method may be worth considering. If you’re thinking about a pregnancy sooner, other options may fit your timeline better.',
+    keepInMindTitle: 'Worth keeping in mind',
+    keepInMindText: 'Talking about your pregnancy plans, even if they’re still distant or uncertain, helps the healthcare professional better guide the discussion.',
+    section4Body: 'An appointment lets you weigh the benefits, constraints, and possible contraindications of each method. You can prepare a few questions beforehand so you don’t forget anything important.',
+    questionCardTitle: 'Useful questions to ask',
+    professionalQuestions: [
+      'What are the benefits of this method for me?',
+      'What side effects might I experience?',
+      'How do I use it correctly?',
+      'What should I do if I forget it, if it shifts out of place, or if I want to stop it?',
+      'Does this method fit with my pregnancy plans?',
+    ],
+    professionalTipTitle: 'Good to know',
+    professionalTipText: 'A midwife or doctor can take your medical history, treatments, preferences, and lifestyle into account before recommending a method.',
+    summaryTitle: 'The essentials',
+    summaryItems: [
+      'Choose a method that fits your daily life.',
+      'Take your tolerance and preferences into account.',
+      'Think about your pregnancy plans and your timeline.',
+      'Ask a professional for advice if you’re unsure.',
+    ],
+    finalTipTitle: 'Remember',
+    finalTipText: 'The best method isn’t necessarily the one that seems most convenient or most popular. It’s the one that fits your situation, your needs, and your preferences, following an informed discussion with a healthcare professional.',
+    disclaimerText: 'This article is for informational purposes only and does not replace personalized medical advice.',
+    shareMessage: 'Choosing the treatment that suits you — AWA',
   },
-  {
-    icon: 'circle-outline',
-    title: 'Anneau',
-    detail: 'Cycle de plusieurs semaines',
-  },
-  {
-    icon: 'needle',
-    title: 'Implant',
-    detail: 'Solution longue durée',
-  },
-  {
-    icon: 'shape-outline',
-    title: 'Stérilet hormonal',
-    detail: 'Solution longue durée',
-  },
-];
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function ChooseHormonalMethodArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -122,9 +239,19 @@ export default function ChooseHormonalMethodArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Choisir le traitement qui te convient — AWA',
+      message: content.shareMessage,
     });
   };
+
+  const priorities = content.priorities.map((item, index) => ({
+    ...item,
+    icon: PRIORITY_ICONS[index],
+  }));
+
+  const comparison = content.comparison.map((item, index) => ({
+    ...item,
+    icon: COMPARISON_ICONS[index],
+  }));
 
   return (
     <View style={styles.screen}>
@@ -160,7 +287,7 @@ export default function ChooseHormonalMethodArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons
@@ -173,7 +300,7 @@ export default function ChooseHormonalMethodArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -188,7 +315,7 @@ export default function ChooseHormonalMethodArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -206,19 +333,17 @@ export default function ChooseHormonalMethodArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>CHOISIR SA MÉTHODE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Choisir le traitement{`\n`}qui te convient
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -236,22 +361,12 @@ export default function ChooseHormonalMethodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Les bonnes questions à te poser pour trouver une méthode
-            contraceptive adaptée à ton quotidien, à tes besoins et à tes
-            projets.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Les questions à te poser',
-              'Aucune méthode « meilleure » dans l’absolu',
-              'Les critères qui peuvent faire la différence',
-              'En parler avec un professionnel',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -267,16 +382,12 @@ export default function ChooseHormonalMethodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Les questions à te poser</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Il n’existe pas une contraception idéale pour tout le monde.
-            Avant de choisir une méthode, il peut être utile de réfléchir à
-            tes habitudes, tes préférences, ta tolérance et tes projets.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           <View style={styles.checkList}>
-            {QUESTIONS.map(item => (
+            {content.questions.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -289,16 +400,9 @@ export default function ChooseHormonalMethodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>
-            2. Aucune méthode « meilleure » dans l’absolu
-          </Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Deux personnes peuvent choisir des méthodes différentes et avoir
-            toutes les deux fait un choix parfaitement adapté à leur
-            situation. Le bon choix dépend notamment de la façon dont tu
-            souhaites utiliser ta contraception et de ce que tu recherches.
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.highlight}>
             <MaterialDesignIcons
@@ -308,28 +412,18 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.highlightCopy}>
-              <Text style={styles.highlightTitle}>Le bon repère</Text>
+              <Text style={styles.highlightTitle}>{content.highlightTitle}</Text>
 
-              <Text style={styles.highlightText}>
-                Une méthode intéressante sur le papier n’est pas forcément
-                celle qui sera la plus simple ou la plus confortable pour toi
-                au quotidien.
-              </Text>
+              <Text style={styles.highlightText}>{content.highlightText}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>
-            3. Les critères qui peuvent faire la différence
-          </Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Pour comparer plusieurs options, tu peux regarder différents
-            critères. L’objectif n’est pas de tout connaître par cœur, mais
-            d’identifier ce qui compte réellement pour toi.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.priorityList}>
-            {PRIORITIES.map(item => (
+            {priorities.map(item => (
               <View key={item.title} style={styles.priorityCard}>
                 <View style={styles.priorityIcon}>
                   <MaterialDesignIcons
@@ -348,20 +442,17 @@ export default function ChooseHormonalMethodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h3}>Le rythme d’utilisation</Text>
+          <Text style={styles.h3}>{content.rhythmTitle}</Text>
 
-          <Text style={styles.body}>
-            Une différence importante entre les méthodes concerne la
-            fréquence à laquelle tu dois penser à ta contraception.
-          </Text>
+          <Text style={styles.body}>{content.rhythmBody}</Text>
 
           <View style={styles.comparison}>
-            {COMPARISON.map((item, index) => (
+            {comparison.map((item, index) => (
               <View
                 key={item.title}
                 style={[
                   styles.comparisonRow,
-                  index === COMPARISON.length - 1 &&
+                  index === comparison.length - 1 &&
                     styles.comparisonRowLast,
                 ]}>
                 <View style={styles.comparisonIcon}>
@@ -386,15 +477,9 @@ export default function ChooseHormonalMethodArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h3}>Observer la réaction de ton corps</Text>
+          <Text style={styles.h3}>{content.bodyReactionTitle}</Text>
 
-          <Text style={styles.body}>
-            Une méthode hormonale peut être ressentie différemment selon les
-            personnes. Certaines remarquent des changements du cycle, des
-            saignements ou d’autres effets indésirables. Ces réactions ne
-            signifient pas automatiquement que la méthode ne convient pas,
-            mais elles méritent d’être prises en compte.
-          </Text>
+          <Text style={styles.body}>{content.bodyReactionText}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -404,26 +489,15 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À surveiller</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
-              <Text style={styles.tipText}>
-                Si un effet est important, persistant ou inhabituel, ne reste
-                pas seule avec tes questions. Un médecin, une sage-femme ou
-                un autre professionnel de santé peut t’aider à déterminer
-                s’il faut poursuivre, adapter ou changer la méthode.
-              </Text>
+              <Text style={styles.tipText}>{content.alertText}</Text>
             </View>
           </View>
 
-          <Text style={styles.h3}>Tenir compte de tes projets</Text>
+          <Text style={styles.h3}>{content.projectsTitle}</Text>
 
-          <Text style={styles.body}>
-            Ton projet de grossesse peut également influencer le choix. Si
-            tu souhaites éviter une grossesse pendant plusieurs années, une
-            méthode longue durée peut être intéressante. Si tu envisages une
-            grossesse plus prochainement, d’autres options peuvent davantage
-            correspondre à ton calendrier.
-          </Text>
+          <Text style={styles.body}>{content.projectsBody}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -433,24 +507,15 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À garder en tête</Text>
+              <Text style={styles.tipTitle}>{content.keepInMindTitle}</Text>
 
-              <Text style={styles.tipText}>
-                Parler de ton projet de grossesse, même s’il est encore
-                lointain ou incertain, permet au professionnel de santé de
-                mieux orienter la discussion.
-              </Text>
+              <Text style={styles.tipText}>{content.keepInMindText}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. En parler avec un professionnel</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Un rendez-vous permet de mettre en balance les avantages, les
-            contraintes et les éventuelles contre-indications de chaque
-            méthode. Tu peux préparer quelques questions avant la consultation
-            afin de ne pas oublier les points importants.
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           <View style={styles.questionCard}>
             <View style={styles.questionHeader}>
@@ -461,17 +526,11 @@ export default function ChooseHormonalMethodArticleScreen({
               />
 
               <Text style={styles.questionTitle}>
-                Questions utiles à poser
+                {content.questionCardTitle}
               </Text>
             </View>
 
-            {[
-              'Quels sont les avantages de cette méthode pour moi ?',
-              'Quels effets indésirables puis-je rencontrer ?',
-              'Comment l’utiliser correctement ?',
-              'Que faire si j’oublie, si elle se déplace ou si je souhaite l’arrêter ?',
-              'Cette méthode correspond-elle à mon projet de grossesse ?',
-            ].map((item, index) => (
+            {content.professionalQuestions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionBullet}>
                   <Text style={styles.questionNumber}>{index + 1}</Text>
@@ -490,17 +549,13 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.professionalTipTitle}</Text>
 
-              <Text style={styles.tipText}>
-                Une sage-femme ou un médecin peut prendre en compte tes
-                antécédents, tes traitements, tes préférences et ton mode de
-                vie avant de te conseiller une méthode.
-              </Text>
+              <Text style={styles.tipText}>{content.professionalTipText}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>5. À retenir</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -510,56 +565,20 @@ export default function ChooseHormonalMethodArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>L’essentiel</Text>
+              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
             </View>
 
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
+            {content.summaryItems.map(item => (
+              <View key={item} style={styles.summaryItem}>
+                <MaterialDesignIcons
+                  name="check"
+                  size={18}
+                  color={theme.colors.success}
+                />
 
-              <Text style={styles.summaryText}>
-                Choisis une méthode compatible avec ton quotidien.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Tiens compte de ta tolérance et de tes préférences.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Pense à ton projet de grossesse et à ton horizon de temps.
-              </Text>
-            </View>
-
-            <View style={styles.summaryItem}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-
-              <Text style={styles.summaryText}>
-                Demande conseil à un professionnel en cas de doute.
-              </Text>
-            </View>
+                <Text style={styles.summaryText}>{item}</Text>
+              </View>
+            ))}
           </View>
 
           <View style={styles.finalTip}>
@@ -570,15 +589,9 @@ export default function ChooseHormonalMethodArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
 
-              <Text style={styles.tipText}>
-                La meilleure méthode n’est pas nécessairement celle qui
-                semble la plus pratique ou la plus populaire. C’est celle
-                qui correspond à ta situation, à tes besoins et à tes
-                préférences, après une discussion éclairée avec un
-                professionnel de santé.
-              </Text>
+              <Text style={styles.tipText}>{content.finalTipText}</Text>
             </View>
           </View>
 
@@ -589,10 +602,7 @@ export default function ChooseHormonalMethodArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Cet article a une vocation informative et ne remplace pas un
-              avis médical personnalisé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

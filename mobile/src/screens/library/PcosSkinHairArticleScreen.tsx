@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,47 +34,234 @@ const ID = 'pcos-peau-pilosite-symptomes';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
-const CARE_HABITS = [
-  ['face-woman-outline', 'Une routine de peau douce et régulière'],
-  ['weather-sunny', 'Une protection solaire quotidienne'],
-  ['bowl-mix-outline', 'Une alimentation équilibrée'],
-  ['account-heart-outline', 'De la patience : les résultats prennent du temps'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const CARE_HABIT_ICONS = [
+  'face-woman-outline',
+  'weather-sunny',
+  'bowl-mix-outline',
+  'account-heart-outline',
 ] as const;
 
-const SKIN_SIGNS = [
-  'Une acné persistante, notamment sur le bas du visage',
-  'Une peau plus grasse qu’auparavant',
-  'Des poussées d’acné qui suivent parfois les variations hormonales',
-  'Des marques ou cicatrices laissées après les poussées',
-];
+const MINI_CARD_ICONS = [
+  'face-woman-outline',
+  'content-cut',
+  'hair-dryer-outline',
+  'account-heart-outline',
+] as const;
 
-const HAIR_SIGNS = [
-  'Une pilosité plus visible sur le visage',
-  'Des poils plus épais au niveau du menton ou de la lèvre supérieure',
-  'Une pilosité pouvant apparaître sur la poitrine, le ventre ou le dos',
-  'Un amincissement progressif des cheveux au niveau du sommet du crâne',
-];
-
-const PRACTICAL_TIPS = [
-  'Choisir des produits non agressifs et éviter de multiplier les soins irritants',
-  'Nettoyer la peau sans la décaper, matin et soir si nécessaire',
-  'Utiliser une protection solaire lorsque la peau est exposée',
-  'Éviter de percer les boutons afin de limiter les marques et cicatrices',
-  'Demander conseil à un professionnel si les symptômes persistent ou s’aggravent',
-];
-
-const IDEAS_RECEIVED = [
-  'Avoir de l’acné ne signifie pas automatiquement avoir un SOPK',
-  'Une pilosité visible n’est pas forcément liée uniquement aux hormones',
-  'Le SOPK peut concerner des femmes de toutes corpulences',
-  'Les symptômes peuvent évoluer avec le temps et ne sont pas identiques chez toutes les femmes',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'SOPK',
+    title: 'Peau, pilosité et\nsymptômes visibles',
+    metaDuration: '9 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Le SOPK peut se manifester par des changements visibles de la peau, de la pilosité ou des cheveux. Comprendre leur origine permet de mieux les identifier et de savoir quelles solutions peuvent être envisagées.',
+    infoBannerText: 'Ces manifestations sont fréquentes, mais elles ne sont ni obligatoires ni suffisantes à elles seules pour diagnostiquer un SOPK.',
+    contentsTitle: 'Dans cet article',
+    contents: [
+      'Pourquoi ces symptômes apparaissent',
+      'L’acné hormonale',
+      'La pilosité excessive',
+      'Le dégarnissement capillaire',
+      'Prendre soin de sa peau',
+      'Prendre soin de ses cheveux',
+      'Ce qui peut aider au quotidien',
+      'Quand consulter',
+      'Idées reçues',
+      'À retenir',
+    ],
+    section1Body1: 'Le SOPK peut s’accompagner d’une production ou d’une activité accrue des androgènes, des hormones également présentes naturellement chez la femme. Lorsque leur effet est plus marqué, elles peuvent influencer les glandes sébacées, les follicules pileux et le cycle de croissance des cheveux.',
+    section1Body2: 'C’est notamment cette influence hormonale qui peut expliquer l’apparition d’une acné persistante, d’une pilosité plus importante ou, chez certaines femmes, d’un amincissement des cheveux.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Les symptômes visibles ne reflètent pas forcément la gravité du SOPK. Une femme peut avoir plusieurs manifestations visibles, tandis qu’une autre peut présenter peu ou pas de symptômes cutanés.',
+    section2Body1: 'L’acné associée aux variations hormonales peut apparaître ou persister après l’adolescence. Elle peut notamment concerner le menton, la mâchoire, le bas des joues ou parfois le cou.',
+    section2Body2: 'Chez certaines personnes, les lésions sont profondes, sensibles et récurrentes. Elles peuvent également laisser des marques pigmentées ou des cicatrices lorsqu’elles sont manipulées ou lorsqu’elles sont particulièrement inflammatoires.',
+    skinSignsTitle: 'Signes cutanés possibles',
+    skinSigns: [
+      'Une acné persistante, notamment sur le bas du visage',
+      'Une peau plus grasse qu’auparavant',
+      'Des poussées d’acné qui suivent parfois les variations hormonales',
+      'Des marques ou cicatrices laissées après les poussées',
+    ],
+    section3Body1: 'L’hirsutisme correspond à une pilosité terminale plus importante dans certaines zones habituellement moins concernées chez la femme. Dans le contexte du SOPK, il peut être lié à l’action des androgènes sur les follicules pileux.',
+    section3Body2: 'Les zones fréquemment concernées sont le menton, la lèvre supérieure, la poitrine, le ventre ou le dos. L’importance de la pilosité varie considérablement d’une personne à l’autre.',
+    hairSignsTitle: 'Manifestations possibles',
+    hairSigns: [
+      'Une pilosité plus visible sur le visage',
+      'Des poils plus épais au niveau du menton ou de la lèvre supérieure',
+      'Une pilosité pouvant apparaître sur la poitrine, le ventre ou le dos',
+      'Un amincissement progressif des cheveux au niveau du sommet du crâne',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'La pilosité dépend aussi de facteurs génétiques et individuels. Une pilosité importante ne signifie donc pas automatiquement qu’un SOPK est présent.',
+    section4Body1: 'Certaines femmes présentant un SOPK remarquent également une diminution de la densité des cheveux. L’amincissement peut être particulièrement visible au niveau du sommet du crâne ou de la ligne centrale.',
+    section4Body2: 'Cette manifestation peut être progressive. Il est important de distinguer une chute de cheveux liée aux hormones d’autres causes possibles, comme une carence, un problème thyroïdien, certains médicaments ou une période de stress important.',
+    alert1Title: 'À noter',
+    alert1Text: 'Une chute de cheveux importante, rapide ou inhabituelle mérite une évaluation médicale afin d’en rechercher la cause.',
+    section5Body: 'Une routine simple et régulière est généralement préférable à l’accumulation de nombreux produits. L’objectif est de nettoyer, hydrater et protéger la peau tout en limitant les agressions qui peuvent entretenir l’irritation.',
+    careHabits: [
+      'Une routine de peau douce et régulière',
+      'Une protection solaire quotidienne',
+      'Une alimentation équilibrée',
+      'De la patience : les résultats prennent du temps',
+    ],
+    section6Body1: 'Lorsque les cheveux deviennent plus fins, il peut être utile de limiter les agressions répétées : chaleur excessive, coiffures très serrées ou traitements chimiques fréquents.',
+    section6Body2: 'Une consultation dermatologique peut être intéressante si la perte de densité progresse, afin de déterminer la cause et de discuter des traitements disponibles.',
+    practicalTitle: 'Conseils pratiques',
+    practicalTips: [
+      'Choisir des produits non agressifs et éviter de multiplier les soins irritants',
+      'Nettoyer la peau sans la décaper, matin et soir si nécessaire',
+      'Utiliser une protection solaire lorsque la peau est exposée',
+      'Éviter de percer les boutons afin de limiter les marques et cicatrices',
+      'Demander conseil à un professionnel si les symptômes persistent ou s’aggravent',
+    ],
+    section7Body: 'La prise en charge dépend des symptômes, de leur intensité, de leur impact sur la qualité de vie et des objectifs de chaque femme. Il peut être utile d’agir sur plusieurs aspects plutôt que de chercher une seule solution.',
+    miniCards: [
+      {title: 'Peau', text: 'Routine adaptée et avis dermatologique si nécessaire.'},
+      {title: 'Pilosité', text: 'Solutions esthétiques ou médicales selon la situation.'},
+      {title: 'Cheveux', text: 'Identifier la cause avant de choisir un traitement.'},
+      {title: 'Bien-être', text: 'Prendre en compte l’impact émotionnel des symptômes.'},
+    ],
+    section8Body1: 'Il est conseillé d’en parler à un professionnel de santé lorsque l’acné devient persistante ou douloureuse, lorsque la pilosité augmente rapidement, lorsque les cheveux s’affinent de façon importante ou lorsque ces changements s’accompagnent de cycles très irréguliers.',
+    section8Body2: 'Un dermatologue peut prendre en charge les manifestations de la peau et des cheveux. Un gynécologue ou un autre professionnel compétent peut également évaluer le contexte hormonal et les autres manifestations éventuelles du SOPK.',
+    alert2Title: 'Consulte si nécessaire',
+    alert2Text: 'Une apparition rapide et importante de pilosité, une chute de cheveux brutale ou des changements hormonaux inhabituels nécessitent un avis médical.',
+    ideasReceived: [
+      'Avoir de l’acné ne signifie pas automatiquement avoir un SOPK',
+      'Une pilosité visible n’est pas forcément liée uniquement aux hormones',
+      'Le SOPK peut concerner des femmes de toutes corpulences',
+      'Les symptômes peuvent évoluer avec le temps et ne sont pas identiques chez toutes les femmes',
+    ],
+    quoteText: 'Les symptômes visibles du SOPK peuvent être gênants, mais ils ne définissent pas ta féminité, ta valeur ou ton hygiène.',
+    summaryTitle: 'L’essentiel',
+    summaryItems: [
+      'Le SOPK peut influencer la peau, la pilosité et les cheveux.',
+      'Les manifestations sont très variables d’une femme à l’autre.',
+      'Un symptôme isolé ne suffit pas à diagnostiquer un SOPK.',
+      'Des solutions existent pour améliorer les symptômes.',
+      'Un accompagnement médical peut aider à choisir une prise en charge adaptée.',
+    ],
+    finalTipTitle: 'À retenir',
+    finalTipText: 'L’acné, la pilosité ou la chute de cheveux peuvent être des manifestations du SOPK, mais elles ne sont pas une fatalité. Une prise en charge personnalisée peut permettre de mieux contrôler les symptômes et d’améliorer le confort au quotidien.',
+    disclaimerText: 'Cet article est informatif et ne remplace pas une consultation médicale, un diagnostic ou un traitement personnalisé.',
+    shareMessage: 'Peau, pilosité et symptômes visibles du SOPK — AWA',
+  },
+  en: {
+    badge: 'PCOS',
+    title: 'Skin, hair, and\nvisible symptoms',
+    metaDuration: '9 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'PCOS can cause visible changes in the skin, body hair, or scalp hair. Understanding where they come from makes it easier to recognize them and to know what solutions may be considered.',
+    infoBannerText: 'These signs are common, but on their own they are neither required nor enough to diagnose PCOS.',
+    contentsTitle: 'In this article',
+    contents: [
+      'Why these symptoms appear',
+      'Hormonal acne',
+      'Excess hair growth',
+      'Hair thinning',
+      'Taking care of your skin',
+      'Taking care of your hair',
+      'What can help day to day',
+      'When to see a doctor',
+      'Common misconceptions',
+      'Key takeaways',
+    ],
+    section1Body1: 'PCOS can involve increased production or activity of androgens, hormones that are also naturally present in women. When their effect is more pronounced, they can influence the sebaceous glands, the hair follicles, and the hair growth cycle.',
+    section1Body2: 'This hormonal influence is largely what can explain the appearance of persistent acne, increased hair growth, or, in some women, hair thinning.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Visible symptoms don’t necessarily reflect how severe PCOS is. One woman may have several visible symptoms, while another may have few or none at all.',
+    section2Body1: 'Acne linked to hormonal changes can appear or persist beyond adolescence. It tends to affect the chin, jawline, lower cheeks, or sometimes the neck.',
+    section2Body2: 'In some people, the lesions are deep, tender, and recurring. They can also leave pigmented marks or scars when they’re picked at or when they’re especially inflamed.',
+    skinSignsTitle: 'Possible skin signs',
+    skinSigns: [
+      'Persistent acne, especially on the lower face',
+      'Skin that is oilier than before',
+      'Acne flare-ups that sometimes follow hormonal changes',
+      'Marks or scars left after flare-ups',
+    ],
+    section3Body1: 'Hirsutism refers to increased terminal hair growth in areas not usually affected in women. In the context of PCOS, it can be linked to the effect of androgens on the hair follicles.',
+    section3Body2: 'The areas most commonly affected are the chin, upper lip, chest, abdomen, or back. How much hair growth occurs varies considerably from person to person.',
+    hairSignsTitle: 'Possible signs',
+    hairSigns: [
+      'More visible hair growth on the face',
+      'Coarser hair on the chin or upper lip',
+      'Hair growth that can appear on the chest, abdomen, or back',
+      'Gradual thinning of hair at the crown of the head',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'Hair growth also depends on genetic and individual factors. Noticeable hair growth doesn’t automatically mean PCOS is present.',
+    section4Body1: 'Some women with PCOS also notice a decrease in hair density. The thinning can be especially visible at the crown of the head or along the center part.',
+    section4Body2: 'This can develop gradually. It’s important to distinguish hormone-related hair loss from other possible causes, such as a deficiency, a thyroid issue, certain medications, or a period of significant stress.',
+    alert1Title: 'Worth noting',
+    alert1Text: 'Hair loss that is significant, rapid, or unusual deserves a medical evaluation to look into the cause.',
+    section5Body: 'A simple, consistent routine is generally better than layering on many products. The goal is to cleanse, hydrate, and protect the skin while limiting anything that can keep irritation going.',
+    careHabits: [
+      'A gentle, consistent skincare routine',
+      'Daily sun protection',
+      'A balanced diet',
+      'Patience: results take time',
+    ],
+    section6Body1: 'When hair becomes finer, it can help to limit repeated stress on it: excessive heat, very tight hairstyles, or frequent chemical treatments.',
+    section6Body2: 'A dermatology consultation can be worthwhile if hair density keeps decreasing, to help determine the cause and discuss available treatments.',
+    practicalTitle: 'Practical tips',
+    practicalTips: [
+      'Choose gentle products and avoid layering on multiple irritating treatments',
+      'Cleanse the skin without stripping it, morning and evening if needed',
+      'Use sun protection when the skin is exposed',
+      'Avoid picking at blemishes to limit marks and scarring',
+      'Ask a professional for advice if symptoms persist or get worse',
+    ],
+    section7Body: 'Management depends on the symptoms, how intense they are, their impact on quality of life, and each woman’s goals. It can help to work on several fronts rather than looking for a single solution.',
+    miniCards: [
+      {title: 'Skin', text: 'A suitable routine and dermatology advice if needed.'},
+      {title: 'Hair growth', text: 'Cosmetic or medical solutions depending on the situation.'},
+      {title: 'Hair', text: 'Identify the cause before choosing a treatment.'},
+      {title: 'Well-being', text: 'Take the emotional impact of symptoms into account.'},
+    ],
+    section8Body1: 'It’s a good idea to talk to a healthcare professional when acne becomes persistent or painful, when hair growth increases quickly, when hair thins noticeably, or when these changes come with very irregular cycles.',
+    section8Body2: 'A dermatologist can manage skin and hair symptoms. A gynecologist or another qualified professional can also assess the hormonal context and any other possible signs of PCOS.',
+    alert2Title: 'See a doctor if needed',
+    alert2Text: 'Rapid, significant hair growth, sudden hair loss, or unusual hormonal changes call for medical advice.',
+    ideasReceived: [
+      'Having acne doesn’t automatically mean you have PCOS',
+      'Visible hair growth isn’t necessarily linked to hormones alone',
+      'PCOS can affect women of any body type',
+      'Symptoms can change over time and aren’t the same for every woman',
+    ],
+    quoteText: 'The visible symptoms of PCOS can be frustrating, but they don’t define your femininity, your worth, or your hygiene.',
+    summaryTitle: 'The essentials',
+    summaryItems: [
+      'PCOS can affect the skin, body hair, and scalp hair.',
+      'Symptoms vary widely from woman to woman.',
+      'A single symptom isn’t enough to diagnose PCOS.',
+      'Solutions exist to help improve symptoms.',
+      'Medical support can help you choose the right approach for you.',
+    ],
+    finalTipTitle: 'Key takeaways',
+    finalTipText: 'Acne, excess hair growth, or hair loss can be symptoms of PCOS, but they aren’t inevitable. A personalized approach can help you manage symptoms better and feel more comfortable day to day.',
+    disclaimerText: 'This article is for information only and doesn’t replace a medical consultation, diagnosis, or personalized treatment.',
+    shareMessage: 'Skin, hair, and visible PCOS symptoms — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PcosSkinHairArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -100,22 +288,9 @@ export default function PcosSkinHairArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Peau, pilosité et symptômes visibles du SOPK — AWA',
+      message: content.shareMessage,
     });
   };
-
-  const contents = [
-    'Pourquoi ces symptômes apparaissent',
-    'L’acné hormonale',
-    'La pilosité excessive',
-    'Le dégarnissement capillaire',
-    'Prendre soin de sa peau',
-    'Prendre soin de ses cheveux',
-    'Ce qui peut aider au quotidien',
-    'Quand consulter',
-    'Idées reçues',
-    'À retenir',
-  ];
 
   return (
     <View style={styles.screen}>
@@ -151,7 +326,7 @@ export default function PcosSkinHairArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons
@@ -164,7 +339,7 @@ export default function PcosSkinHairArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -179,7 +354,7 @@ export default function PcosSkinHairArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -197,19 +372,17 @@ export default function PcosSkinHairArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>SOPK</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Peau, pilosité et{`\n`}symptômes visibles
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '9 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -227,12 +400,7 @@ export default function PcosSkinHairArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Le SOPK peut se manifester par des changements visibles de la
-            peau, de la pilosité ou des cheveux. Comprendre leur origine
-            permet de mieux les identifier et de savoir quelles solutions
-            peuvent être envisagées.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           <View style={styles.infoBanner}>
             <MaterialDesignIcons
@@ -241,17 +409,13 @@ export default function PcosSkinHairArticleScreen({
               color={theme.colors.primary}
             />
 
-            <Text style={styles.infoBannerText}>
-              Ces manifestations sont fréquentes, mais elles ne sont ni
-              obligatoires ni suffisantes à elles seules pour diagnostiquer
-              un SOPK.
-            </Text>
+            <Text style={styles.infoBannerText}>{content.infoBannerText}</Text>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {contents.map((item, index) => (
+            {content.contents.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -267,24 +431,11 @@ export default function PcosSkinHairArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>
-            1. Pourquoi ces symptômes apparaissent
-          </Text>
+          <Text style={styles.h2}>1. {content.contents[0]}</Text>
 
-          <Text style={styles.body}>
-            Le SOPK peut s’accompagner d’une production ou d’une activité
-            accrue des androgènes, des hormones également présentes
-            naturellement chez la femme. Lorsque leur effet est plus marqué,
-            elles peuvent influencer les glandes sébacées, les follicules
-            pileux et le cycle de croissance des cheveux.
-          </Text>
+          <Text style={styles.body}>{content.section1Body1}</Text>
 
-          <Text style={styles.body}>
-            C’est notamment cette influence hormonale qui peut expliquer
-            l’apparition d’une acné persistante, d’une pilosité plus
-            importante ou, chez certaines femmes, d’un amincissement des
-            cheveux.
-          </Text>
+          <Text style={styles.body}>{content.section1Body2}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -294,35 +445,21 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Les symptômes visibles ne reflètent pas forcément la gravité
-                du SOPK. Une femme peut avoir plusieurs manifestations
-                visibles, tandis qu’une autre peut présenter peu ou pas de
-                symptômes cutanés.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>2. L’acné hormonale</Text>
+          <Text style={styles.h2}>2. {content.contents[1]}</Text>
 
-          <Text style={styles.body}>
-            L’acné associée aux variations hormonales peut apparaître ou
-            persister après l’adolescence. Elle peut notamment concerner le
-            menton, la mâchoire, le bas des joues ou parfois le cou.
-          </Text>
+          <Text style={styles.body}>{content.section2Body1}</Text>
 
-          <Text style={styles.body}>
-            Chez certaines personnes, les lésions sont profondes, sensibles
-            et récurrentes. Elles peuvent également laisser des marques
-            pigmentées ou des cicatrices lorsqu’elles sont manipulées ou
-            lorsqu’elles sont particulièrement inflammatoires.
-          </Text>
+          <Text style={styles.body}>{content.section2Body2}</Text>
 
           <View style={styles.sectionCard}>
-            <Text style={styles.cardTitle}>Signes cutanés possibles</Text>
+            <Text style={styles.cardTitle}>{content.skinSignsTitle}</Text>
 
-            {SKIN_SIGNS.map(item => (
+            {content.skinSigns.map(item => (
               <View key={item} style={styles.cardRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -335,25 +472,16 @@ export default function PcosSkinHairArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. La pilosité excessive</Text>
+          <Text style={styles.h2}>3. {content.contents[2]}</Text>
 
-          <Text style={styles.body}>
-            L’hirsutisme correspond à une pilosité terminale plus importante
-            dans certaines zones habituellement moins concernées chez la
-            femme. Dans le contexte du SOPK, il peut être lié à l’action des
-            androgènes sur les follicules pileux.
-          </Text>
+          <Text style={styles.body}>{content.section3Body1}</Text>
 
-          <Text style={styles.body}>
-            Les zones fréquemment concernées sont le menton, la lèvre
-            supérieure, la poitrine, le ventre ou le dos. L’importance de la
-            pilosité varie considérablement d’une personne à l’autre.
-          </Text>
+          <Text style={styles.body}>{content.section3Body2}</Text>
 
           <View style={styles.sectionCard}>
-            <Text style={styles.cardTitle}>Manifestations possibles</Text>
+            <Text style={styles.cardTitle}>{content.hairSignsTitle}</Text>
 
-            {HAIR_SIGNS.map(item => (
+            {content.hairSigns.map(item => (
               <View key={item} style={styles.cardRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -374,30 +502,16 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                La pilosité dépend aussi de facteurs génétiques et
-                individuels. Une pilosité importante ne signifie donc pas
-                automatiquement qu’un SOPK est présent.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+              <Text style={styles.tipText}>{content.tip2Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. Le dégarnissement capillaire</Text>
+          <Text style={styles.h2}>4. {content.contents[3]}</Text>
 
-          <Text style={styles.body}>
-            Certaines femmes présentant un SOPK remarquent également une
-            diminution de la densité des cheveux. L’amincissement peut être
-            particulièrement visible au niveau du sommet du crâne ou de la
-            ligne centrale.
-          </Text>
+          <Text style={styles.body}>{content.section4Body1}</Text>
 
-          <Text style={styles.body}>
-            Cette manifestation peut être progressive. Il est important de
-            distinguer une chute de cheveux liée aux hormones d’autres causes
-            possibles, comme une carence, un problème thyroïdien, certains
-            médicaments ou une période de stress important.
-          </Text>
+          <Text style={styles.body}>{content.section4Body2}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -407,50 +521,34 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
-              <Text style={styles.tipText}>
-                Une chute de cheveux importante, rapide ou inhabituelle mérite
-                une évaluation médicale afin d’en rechercher la cause.
-              </Text>
+              <Text style={styles.tipTitle}>{content.alert1Title}</Text>
+              <Text style={styles.tipText}>{content.alert1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>5. Prendre soin de sa peau</Text>
+          <Text style={styles.h2}>5. {content.contents[4]}</Text>
 
-          <Text style={styles.body}>
-            Une routine simple et régulière est généralement préférable à
-            l’accumulation de nombreux produits. L’objectif est de nettoyer,
-            hydrater et protéger la peau tout en limitant les agressions qui
-            peuvent entretenir l’irritation.
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
           <View style={styles.daily}>
-            {CARE_HABITS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {CARE_HABIT_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.careHabits[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>6. Prendre soin de ses cheveux</Text>
+          <Text style={styles.h2}>6. {content.contents[5]}</Text>
 
-          <Text style={styles.body}>
-            Lorsque les cheveux deviennent plus fins, il peut être utile de
-            limiter les agressions répétées : chaleur excessive, coiffures
-            très serrées ou traitements chimiques fréquents.
-          </Text>
+          <Text style={styles.body}>{content.section6Body1}</Text>
 
-          <Text style={styles.body}>
-            Une consultation dermatologique peut être intéressante si la
-            perte de densité progresse, afin de déterminer la cause et de
-            discuter des traitements disponibles.
-          </Text>
+          <Text style={styles.body}>{content.section6Body2}</Text>
 
           <View style={styles.practicalBox}>
             <View style={styles.practicalHeader}>
@@ -460,10 +558,10 @@ export default function PcosSkinHairArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.practicalTitle}>Conseils pratiques</Text>
+              <Text style={styles.practicalTitle}>{content.practicalTitle}</Text>
             </View>
 
-            {PRACTICAL_TIPS.map((item, index) => (
+            {content.practicalTips.map((item, index) => (
               <View key={item} style={styles.practicalRow}>
                 <View style={styles.practicalNumber}>
                   <Text style={styles.practicalNumberText}>
@@ -476,83 +574,33 @@ export default function PcosSkinHairArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>
-            7. Ce qui peut aider au quotidien
-          </Text>
+          <Text style={styles.h2}>7. {content.contents[6]}</Text>
 
-          <Text style={styles.body}>
-            La prise en charge dépend des symptômes, de leur intensité, de
-            leur impact sur la qualité de vie et des objectifs de chaque
-            femme. Il peut être utile d’agir sur plusieurs aspects plutôt que
-            de chercher une seule solution.
-          </Text>
+          <Text style={styles.body}>{content.section7Body}</Text>
 
           <View style={styles.twoColumn}>
-            <View style={styles.miniCard}>
-              <MaterialDesignIcons
-                name="face-woman-outline"
-                size={25}
-                color={theme.colors.primary}
-              />
-              <Text style={styles.miniTitle}>Peau</Text>
-              <Text style={styles.miniText}>
-                Routine adaptée et avis dermatologique si nécessaire.
-              </Text>
-            </View>
-
-            <View style={styles.miniCard}>
-              <MaterialDesignIcons
-                name="content-cut"
-                size={25}
-                color={theme.colors.primary}
-              />
-              <Text style={styles.miniTitle}>Pilosité</Text>
-              <Text style={styles.miniText}>
-                Solutions esthétiques ou médicales selon la situation.
-              </Text>
-            </View>
-
-            <View style={styles.miniCard}>
-              <MaterialDesignIcons
-                name="hair-dryer-outline"
-                size={25}
-                color={theme.colors.primary}
-              />
-              <Text style={styles.miniTitle}>Cheveux</Text>
-              <Text style={styles.miniText}>
-                Identifier la cause avant de choisir un traitement.
-              </Text>
-            </View>
-
-            <View style={styles.miniCard}>
-              <MaterialDesignIcons
-                name="account-heart-outline"
-                size={25}
-                color={theme.colors.primary}
-              />
-              <Text style={styles.miniTitle}>Bien-être</Text>
-              <Text style={styles.miniText}>
-                Prendre en compte l’impact émotionnel des symptômes.
-              </Text>
-            </View>
+            {MINI_CARD_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.miniCard}>
+                <MaterialDesignIcons
+                  name={icon as never}
+                  size={25}
+                  color={theme.colors.primary}
+                />
+                <Text style={styles.miniTitle}>
+                  {content.miniCards[index].title}
+                </Text>
+                <Text style={styles.miniText}>
+                  {content.miniCards[index].text}
+                </Text>
+              </View>
+            ))}
           </View>
 
-          <Text style={styles.h2}>8. Quand consulter</Text>
+          <Text style={styles.h2}>8. {content.contents[7]}</Text>
 
-          <Text style={styles.body}>
-            Il est conseillé d’en parler à un professionnel de santé lorsque
-            l’acné devient persistante ou douloureuse, lorsque la pilosité
-            augmente rapidement, lorsque les cheveux s’affinent de façon
-            importante ou lorsque ces changements s’accompagnent de cycles
-            très irréguliers.
-          </Text>
+          <Text style={styles.body}>{content.section8Body1}</Text>
 
-          <Text style={styles.body}>
-            Un dermatologue peut prendre en charge les manifestations de la
-            peau et des cheveux. Un gynécologue ou un autre professionnel
-            compétent peut également évaluer le contexte hormonal et les
-            autres manifestations éventuelles du SOPK.
-          </Text>
+          <Text style={styles.body}>{content.section8Body2}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -562,19 +610,15 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Consulte si nécessaire</Text>
-              <Text style={styles.tipText}>
-                Une apparition rapide et importante de pilosité, une chute de
-                cheveux brutale ou des changements hormonaux inhabituels
-                nécessitent un avis médical.
-              </Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
+              <Text style={styles.tipText}>{content.alert2Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>9. Idées reçues</Text>
+          <Text style={styles.h2}>9. {content.contents[8]}</Text>
 
           <View style={styles.mythList}>
-            {IDEAS_RECEIVED.map(item => (
+            {content.ideasReceived.map(item => (
               <View key={item} style={styles.mythRow}>
                 <MaterialDesignIcons
                   name="close-circle-outline"
@@ -594,13 +638,10 @@ export default function PcosSkinHairArticleScreen({
               color={theme.colors.primary}
             />
 
-            <Text style={styles.quoteText}>
-              Les symptômes visibles du SOPK peuvent être gênants, mais ils
-              ne définissent pas ta féminité, ta valeur ou ton hygiène.
-            </Text>
+            <Text style={styles.quoteText}>{content.quoteText}</Text>
           </View>
 
-          <Text style={styles.h2}>10. À retenir</Text>
+          <Text style={styles.h2}>10. {content.contents[9]}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -610,64 +651,19 @@ export default function PcosSkinHairArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>L’essentiel</Text>
+              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
             </View>
 
-            <View style={styles.summaryRow}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-              <Text style={styles.summaryText}>
-                Le SOPK peut influencer la peau, la pilosité et les cheveux.
-              </Text>
-            </View>
-
-            <View style={styles.summaryRow}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-              <Text style={styles.summaryText}>
-                Les manifestations sont très variables d’une femme à l’autre.
-              </Text>
-            </View>
-
-            <View style={styles.summaryRow}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-              <Text style={styles.summaryText}>
-                Un symptôme isolé ne suffit pas à diagnostiquer un SOPK.
-              </Text>
-            </View>
-
-            <View style={styles.summaryRow}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-              <Text style={styles.summaryText}>
-                Des solutions existent pour améliorer les symptômes.
-              </Text>
-            </View>
-
-            <View style={styles.summaryRow}>
-              <MaterialDesignIcons
-                name="check"
-                size={18}
-                color={theme.colors.success}
-              />
-              <Text style={styles.summaryText}>
-                Un accompagnement médical peut aider à choisir une prise en
-                charge adaptée.
-              </Text>
-            </View>
+            {content.summaryItems.map(item => (
+              <View key={item} style={styles.summaryRow}>
+                <MaterialDesignIcons
+                  name="check"
+                  size={18}
+                  color={theme.colors.success}
+                />
+                <Text style={styles.summaryText}>{item}</Text>
+              </View>
+            ))}
           </View>
 
           <View style={styles.finalTip}>
@@ -678,13 +674,8 @@ export default function PcosSkinHairArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
-              <Text style={styles.tipText}>
-                L’acné, la pilosité ou la chute de cheveux peuvent être des
-                manifestations du SOPK, mais elles ne sont pas une fatalité.
-                Une prise en charge personnalisée peut permettre de mieux
-                contrôler les symptômes et d’améliorer le confort au quotidien.
-              </Text>
+              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
+              <Text style={styles.tipText}>{content.finalTipText}</Text>
             </View>
           </View>
 
@@ -695,10 +686,7 @@ export default function PcosSkinHairArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Cet article est informatif et ne remplace pas une consultation
-              médicale, un diagnostic ou un traitement personnalisé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

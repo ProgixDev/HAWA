@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,25 +34,157 @@ const ID = 'ring-anneau-vaginal';
 
 const HERO = require('../../assets/images/library/popular-phases.png');
 
-const CARE_TIPS = [
-  ['hand-heart-outline', 'Simple à utiliser', 'Il se pose et se retire soi-même.'],
-  ['calendar-week-outline', 'Rythme régulier', 'Il reste généralement en place pendant trois semaines.'],
-  ['shield-check-outline', 'Action continue', 'Les hormones sont diffusées en continu pendant la période d’utilisation.'],
-  ['alert-circle-outline', 'Ne protège pas des IST', 'Une protection supplémentaire peut être nécessaire selon la situation.'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const CARE_TIP_ICONS = [
+  'hand-heart-outline',
+  'calendar-week-outline',
+  'shield-check-outline',
+  'alert-circle-outline',
 ] as const;
 
-const PRACTICAL_STEPS = [
-  'Se laver les mains avant la pose ou le retrait',
-  'Choisir un moment facile à retenir pour suivre le calendrier',
-  'Vérifier occasionnellement qu’il est toujours en place',
-  'Consulter la notice en cas de déplacement ou d’expulsion',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'ANNEAU VAGINAL',
+    title: 'L’anneau vaginal\ncontraceptif',
+    metaDuration: '5 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Un anneau souple, posé pour trois semaines.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comment fonctionne l’anneau',
+      'La pose et le retrait',
+      'Ce qu’il faut savoir',
+      'À retenir',
+    ],
+    body1:
+      'L’anneau est un dispositif souple qui libère en continu de faibles doses d’hormones directement au niveau vaginal, avec la même action contraceptive qu’une pilule combinée.',
+    flowTitle: 'Son fonctionnement',
+    flowSteps: [
+      {title: 'Anneau', text: 'Placé dans le vagin'},
+      {title: 'Hormones', text: 'Diffusion continue'},
+      {title: 'Protection', text: 'Action contraceptive'},
+    ],
+    body2:
+      'Il se place soi-même, reste en continu pendant trois semaines, puis est retiré pour une semaine de pause pendant laquelle les règles surviennent.',
+    calendarTitle: 'Un rythme simple à suivre',
+    weekLabelActive: 'Anneau',
+    weekLabelPause: 'Pause',
+    legendActive: 'Période avec anneau',
+    legendPause: 'Semaine de pause',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'Sa position exacte dans le vagin n’a pas besoin d’être précise pour être efficace, ce qui le rend simple à utiliser.',
+    body3:
+      'L’anneau présente plusieurs points pratiques à connaître avant de l’adopter.',
+    careTips: [
+      {title: 'Simple à utiliser', text: 'Il se pose et se retire soi-même.'},
+      {title: 'Rythme régulier', text: 'Il reste généralement en place pendant trois semaines.'},
+      {title: 'Action continue', text: 'Les hormones sont diffusées en continu pendant la période d’utilisation.'},
+      {title: 'Ne protège pas des IST', text: 'Une protection supplémentaire peut être nécessaire selon la situation.'},
+    ],
+    checkListTitle: 'Les bons réflexes',
+    practicalSteps: [
+      'Se laver les mains avant la pose ou le retrait',
+      'Choisir un moment facile à retenir pour suivre le calendrier',
+      'Vérifier occasionnellement qu’il est toujours en place',
+      'Consulter la notice en cas de déplacement ou d’expulsion',
+    ],
+    alertTitle: 'À noter',
+    alertText:
+      'Une expulsion ou un déplacement prolongé peut nécessiter des consignes particulières. Consulte toujours la notice du dispositif ou demande conseil à un professionnel de santé en cas de doute.',
+    summaryTitle: 'L’essentiel en 4 points',
+    summaryItems: [
+      {title: 'Pose simple', text: 'L’anneau peut être posé et retiré soi-même.'},
+      {title: 'Rythme hebdomadaire', text: 'Il suit généralement un cycle de trois semaines avec une semaine de pause.'},
+      {title: 'Contrôle occasionnel', text: 'Vérifier régulièrement sa présence aide à utiliser le dispositif sereinement.'},
+      {title: 'Pas de protection contre les IST', text: 'Une protection adaptée peut être nécessaire selon la situation.'},
+    ],
+    tip2Title: 'À retenir',
+    tip2Text:
+      'L’anneau vaginal combine une diffusion hormonale continue avec un rythme d’utilisation qui évite une prise quotidienne. Le choix d’une contraception doit toutefois être adapté à chaque personne et discuté avec un professionnel de santé.',
+    shareMessage: 'L’anneau vaginal contraceptif — AWA',
+  },
+  en: {
+    badge: 'VAGINAL RING',
+    title: 'The contraceptive\nvaginal ring',
+    metaDuration: '5 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'A flexible ring, worn for three weeks.',
+    contentsTitle: 'In this article',
+    topics: [
+      'How the ring works',
+      'Insertion and removal',
+      'What you need to know',
+      'Key takeaways',
+    ],
+    body1:
+      'The ring is a flexible device that continuously releases low doses of hormones directly in the vagina, with the same contraceptive action as a combined pill.',
+    flowTitle: 'How it works',
+    flowSteps: [
+      {title: 'Ring', text: 'Placed in the vagina'},
+      {title: 'Hormones', text: 'Continuous diffusion'},
+      {title: 'Protection', text: 'Contraceptive action'},
+    ],
+    body2:
+      'You insert it yourself, it stays in place continuously for three weeks, then it’s removed for a one-week break during which your period occurs.',
+    calendarTitle: 'A simple rhythm to follow',
+    weekLabelActive: 'Ring',
+    weekLabelPause: 'Break',
+    legendActive: 'Week with the ring',
+    legendPause: 'Break week',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'Its exact position in the vagina doesn’t need to be precise for it to be effective, which makes it simple to use.',
+    body3:
+      'The ring has several practical points worth knowing before choosing it.',
+    careTips: [
+      {title: 'Simple to use', text: 'You insert and remove it yourself.'},
+      {title: 'Regular rhythm', text: 'It generally stays in place for three weeks.'},
+      {title: 'Continuous action', text: 'Hormones are released continuously throughout the period of use.'},
+      {title: 'Doesn’t protect against STIs', text: 'Additional protection may be needed depending on the situation.'},
+    ],
+    checkListTitle: 'Good habits to keep',
+    practicalSteps: [
+      'Wash your hands before inserting or removing it',
+      'Choose a time that’s easy to remember to keep track of the schedule',
+      'Occasionally check that it’s still in place',
+      'Check the leaflet if it shifts or is expelled',
+    ],
+    alertTitle: 'Please note',
+    alertText:
+      'An expulsion or prolonged displacement may require specific guidance. Always check the device’s leaflet or ask a healthcare professional if you’re unsure.',
+    summaryTitle: 'The essentials in 4 points',
+    summaryItems: [
+      {title: 'Simple insertion', text: 'The ring can be inserted and removed by yourself.'},
+      {title: 'Weekly rhythm', text: 'It generally follows a three-week cycle with a one-week break.'},
+      {title: 'Occasional check', text: 'Checking regularly that it’s in place helps you use the device with peace of mind.'},
+      {title: 'No protection against STIs', text: 'Suitable protection may be needed depending on the situation.'},
+    ],
+    tip2Title: 'Key takeaways',
+    tip2Text:
+      'The vaginal ring combines continuous hormone release with a usage rhythm that avoids a daily dose. However, the choice of contraception should be tailored to each person and discussed with a healthcare professional.',
+    shareMessage: 'The contraceptive vaginal ring — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function VaginalRingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +211,7 @@ export default function VaginalRingArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'L’anneau vaginal contraceptif — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -117,7 +250,7 @@ export default function VaginalRingArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -133,7 +266,7 @@ export default function VaginalRingArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -148,7 +281,7 @@ export default function VaginalRingArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -167,20 +300,18 @@ export default function VaginalRingArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>ANNEAU VAGINAL</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            L’anneau vaginal{`\n`}contraceptif
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           {/* META */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -198,20 +329,13 @@ export default function VaginalRingArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Un anneau souple, posé pour trois semaines.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* TABLE OF CONTENTS */}
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Comment fonctionne l’anneau',
-              'La pose et le retrait',
-              'Ce qu’il faut savoir',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -229,17 +353,13 @@ export default function VaginalRingArticleScreen({
           </View>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. Comment fonctionne l’anneau</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            L’anneau est un dispositif souple qui libère en continu de
-            faibles doses d’hormones directement au niveau vaginal, avec la
-            même action contraceptive qu’une pilule combinée.
-          </Text>
+          <Text style={styles.body}>{content.body1}</Text>
 
           {/* VISUAL SCHEMA */}
           <View style={styles.flowCard}>
-            <Text style={styles.flowTitle}>Son fonctionnement</Text>
+            <Text style={styles.flowTitle}>{content.flowTitle}</Text>
 
             <View style={styles.flow}>
               <View style={styles.flowStep}>
@@ -251,10 +371,12 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.flowStepTitle}>Anneau</Text>
+                <Text style={styles.flowStepTitle}>
+                  {content.flowSteps[0].title}
+                </Text>
 
                 <Text style={styles.flowStepText}>
-                  Placé dans le vagin
+                  {content.flowSteps[0].text}
                 </Text>
               </View>
 
@@ -273,10 +395,12 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.flowStepTitle}>Hormones</Text>
+                <Text style={styles.flowStepTitle}>
+                  {content.flowSteps[1].title}
+                </Text>
 
                 <Text style={styles.flowStepText}>
-                  Diffusion continue
+                  {content.flowSteps[1].text}
                 </Text>
               </View>
 
@@ -295,58 +419,56 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.flowStepTitle}>Protection</Text>
+                <Text style={styles.flowStepTitle}>
+                  {content.flowSteps[2].title}
+                </Text>
 
                 <Text style={styles.flowStepText}>
-                  Action contraceptive
+                  {content.flowSteps[2].text}
                 </Text>
               </View>
             </View>
           </View>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. La pose et le retrait</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Il se place soi-même, reste en continu pendant trois semaines,
-            puis est retiré pour une semaine de pause pendant laquelle les
-            règles surviennent.
-          </Text>
+          <Text style={styles.body}>{content.body2}</Text>
 
           {/* 3 WEEK SCHEMA */}
           <View style={styles.calendarCard}>
-            <Text style={styles.calendarTitle}>Un rythme simple à suivre</Text>
+            <Text style={styles.calendarTitle}>{content.calendarTitle}</Text>
 
             <View style={styles.weekRow}>
               <View style={styles.weekItemActive}>
                 <Text style={styles.weekNumber}>1</Text>
-                <Text style={styles.weekLabel}>Anneau</Text>
+                <Text style={styles.weekLabel}>{content.weekLabelActive}</Text>
               </View>
 
               <View style={styles.weekItemActive}>
                 <Text style={styles.weekNumber}>2</Text>
-                <Text style={styles.weekLabel}>Anneau</Text>
+                <Text style={styles.weekLabel}>{content.weekLabelActive}</Text>
               </View>
 
               <View style={styles.weekItemActive}>
                 <Text style={styles.weekNumber}>3</Text>
-                <Text style={styles.weekLabel}>Anneau</Text>
+                <Text style={styles.weekLabel}>{content.weekLabelActive}</Text>
               </View>
 
               <View style={styles.weekItemPause}>
                 <Text style={styles.weekNumber}>4</Text>
-                <Text style={styles.weekLabel}>Pause</Text>
+                <Text style={styles.weekLabel}>{content.weekLabelPause}</Text>
               </View>
             </View>
 
             <View style={styles.calendarLegend}>
               <View style={styles.legendDotActive} />
 
-              <Text style={styles.legendText}>Période avec anneau</Text>
+              <Text style={styles.legendText}>{content.legendActive}</Text>
 
               <View style={styles.legendDotPause} />
 
-              <Text style={styles.legendText}>Semaine de pause</Text>
+              <Text style={styles.legendText}>{content.legendPause}</Text>
             </View>
           </View>
 
@@ -358,27 +480,21 @@ export default function VaginalRingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
-              <Text style={styles.tipText}>
-                Sa position exacte dans le vagin n’a pas besoin d’être
-                précise pour être efficace, ce qui le rend simple à utiliser.
-              </Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. Ce qu’il faut savoir</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            L’anneau présente plusieurs points pratiques à connaître avant
-            de l’adopter.
-          </Text>
+          <Text style={styles.body}>{content.body3}</Text>
 
           {/* INFORMATION GRID */}
           <View style={styles.infoGrid}>
-            {CARE_TIPS.map(([icon, title, text]) => (
-              <View key={title} style={styles.infoCard}>
+            {CARE_TIP_ICONS.map((icon, index) => (
+              <View key={content.careTips[index].title} style={styles.infoCard}>
                 <View style={styles.infoIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -387,20 +503,22 @@ export default function VaginalRingArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.infoTitle}>{title}</Text>
+                <Text style={styles.infoTitle}>
+                  {content.careTips[index].title}
+                </Text>
 
-                <Text style={styles.infoText}>{text}</Text>
+                <Text style={styles.infoText}>
+                  {content.careTips[index].text}
+                </Text>
               </View>
             ))}
           </View>
 
           {/* PRACTICAL CHECKLIST */}
           <View style={styles.checkList}>
-            <Text style={styles.checkListTitle}>
-              Les bons réflexes
-            </Text>
+            <Text style={styles.checkListTitle}>{content.checkListTitle}</Text>
 
-            {PRACTICAL_STEPS.map(item => (
+            {content.practicalSteps.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -422,19 +540,14 @@ export default function VaginalRingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
-              <Text style={styles.tipText}>
-                Une expulsion ou un déplacement prolongé peut nécessiter
-                des consignes particulières. Consulte toujours la notice
-                du dispositif ou demande conseil à un professionnel de santé
-                en cas de doute.
-              </Text>
+              <Text style={styles.tipText}>{content.alertText}</Text>
             </View>
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           {/* SUMMARY SCHEMA */}
           <View style={styles.summaryCard}>
@@ -445,9 +558,7 @@ export default function VaginalRingArticleScreen({
                 color={theme.colors.primary}
               />
 
-              <Text style={styles.summaryTitle}>
-                L’essentiel en 4 points
-              </Text>
+              <Text style={styles.summaryTitle}>{content.summaryTitle}</Text>
             </View>
 
             <View style={styles.summaryItem}>
@@ -457,11 +568,11 @@ export default function VaginalRingArticleScreen({
 
               <View style={styles.summaryCopy}>
                 <Text style={styles.summaryItemTitle}>
-                  Pose simple
+                  {content.summaryItems[0].title}
                 </Text>
 
                 <Text style={styles.summaryItemText}>
-                  L’anneau peut être posé et retiré soi-même.
+                  {content.summaryItems[0].text}
                 </Text>
               </View>
             </View>
@@ -473,12 +584,11 @@ export default function VaginalRingArticleScreen({
 
               <View style={styles.summaryCopy}>
                 <Text style={styles.summaryItemTitle}>
-                  Rythme hebdomadaire
+                  {content.summaryItems[1].title}
                 </Text>
 
                 <Text style={styles.summaryItemText}>
-                  Il suit généralement un cycle de trois semaines avec une
-                  semaine de pause.
+                  {content.summaryItems[1].text}
                 </Text>
               </View>
             </View>
@@ -490,12 +600,11 @@ export default function VaginalRingArticleScreen({
 
               <View style={styles.summaryCopy}>
                 <Text style={styles.summaryItemTitle}>
-                  Contrôle occasionnel
+                  {content.summaryItems[2].title}
                 </Text>
 
                 <Text style={styles.summaryItemText}>
-                  Vérifier régulièrement sa présence aide à utiliser le
-                  dispositif sereinement.
+                  {content.summaryItems[2].text}
                 </Text>
               </View>
             </View>
@@ -507,12 +616,11 @@ export default function VaginalRingArticleScreen({
 
               <View style={styles.summaryCopy}>
                 <Text style={styles.summaryItemTitle}>
-                  Pas de protection contre les IST
+                  {content.summaryItems[3].title}
                 </Text>
 
                 <Text style={styles.summaryItemText}>
-                  Une protection adaptée peut être nécessaire selon la
-                  situation.
+                  {content.summaryItems[3].text}
                 </Text>
               </View>
             </View>
@@ -526,14 +634,9 @@ export default function VaginalRingArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
 
-              <Text style={styles.tipText}>
-                L’anneau vaginal combine une diffusion hormonale continue
-                avec un rythme d’utilisation qui évite une prise quotidienne.
-                Le choix d’une contraception doit toutefois être adapté à
-                chaque personne et discuté avec un professionnel de santé.
-              </Text>
+              <Text style={styles.tipText}>{content.tip2Text}</Text>
             </View>
           </View>
         </View>

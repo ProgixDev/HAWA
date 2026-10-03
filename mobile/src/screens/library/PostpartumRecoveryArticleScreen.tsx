@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,77 +34,244 @@ const ID = 'postpartum-recuperation-globale';
 
 const HERO = require('../../assets/images/library/spm-water.png');
 
-const NORMAL_SIGNS = [
-  'Fatigue importante',
-  'Saignements qui diminuent progressivement',
-  'Fluctuations hormonales et émotionnelles',
-];
-
-const RECOVERY_PILLARS = [
-  {
-    icon: 'bed-outline',
-    title: 'Repos',
-    text: 'Alterner les moments d’activité et de repos aide le corps à récupérer progressivement.',
-  },
-  {
-    icon: 'food-apple-outline',
-    title: 'Alimentation',
-    text: 'Manger régulièrement et boire selon ses besoins soutient la récupération au quotidien.',
-  },
-  {
-    icon: 'account-heart-outline',
-    title: 'Soutien',
-    text: 'Accepter de l’aide permet de préserver de l’énergie pour les soins essentiels et la récupération.',
-  },
-  {
-    icon: 'walk',
-    title: 'Mouvement doux',
-    text: 'Reprendre les gestes et déplacements progressivement, en respectant son état et son confort.',
-  },
-];
-
-const SELF_CARE_TIPS = [
-  'Prévoir de vrais moments de repos lorsque cela est possible.',
-  'Demander de l’aide pour les tâches quotidiennes et les repas.',
-  'Boire régulièrement et garder une alimentation variée.',
-  'Éviter de comparer sa récupération à celle des autres.',
-  'Reprendre les activités progressivement, sans chercher à tout faire immédiatement.',
-];
-
-const CONSULTATION_SIGNS = [
-  {
-    icon: 'alert-circle-outline',
-    title: 'Symptômes qui s’aggravent',
-    text: 'Une douleur ou un inconfort qui augmente au lieu de s’améliorer mérite un avis professionnel.',
-  },
-  {
-    icon: 'water-alert-outline',
-    title: 'Saignements inhabituels',
-    text: 'Des saignements qui deviennent soudainement plus importants ou inhabituels doivent être signalés à un professionnel de santé.',
-  },
-  {
-    icon: 'emoticon-sad-outline',
-    title: 'Mal-être persistant',
-    text: 'Si le mal-être émotionnel prend beaucoup de place ou rend le quotidien difficile, il est important d’en parler et de demander du soutien.',
-  },
-  {
-    icon: 'medical-bag',
-    title: 'Une inquiétude importante',
-    text: 'En cas de doute sur la récupération, demander conseil permet d’obtenir des recommandations adaptées à sa situation.',
-  },
-];
-
-const MILESTONES = [
-  ['Premiers jours', 'Repos, adaptation et soins essentiels.'],
-  ['Premières semaines', 'Récupération progressive et installation de nouveaux repères.'],
-  ['Après la consultation post-natale', 'Faire le point sur la récupération et discuter de la reprise progressive des activités.'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const RECOVERY_PILLAR_ICONS = [
+  'bed-outline',
+  'food-apple-outline',
+  'account-heart-outline',
+  'walk',
 ] as const;
+
+const CONSULTATION_SIGN_ICONS = [
+  'alert-circle-outline',
+  'water-alert-outline',
+  'emoticon-sad-outline',
+  'medical-bag',
+] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'POST-PARTUM • RÉCUPÉRATION',
+    title: 'La récupération\naprès l’accouchement',
+    metaDuration: '10 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Ton corps a besoin de temps : ce qui est normal après la naissance.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comprendre le post-partum',
+      'Les premiers jours : ralentir et récupérer',
+      'Ce qui peut être normal pendant la récupération',
+      'Prendre soin de soi au quotidien',
+      'Bouger et reprendre les activités progressivement',
+      'Sommeil, fatigue et nouveaux rythmes',
+      'Les émotions après la naissance',
+      'Quand demander conseil',
+      'Faire le point avec un professionnel',
+      'À retenir',
+    ],
+    headings: [
+      'Comprendre le post-partum',
+      'Les premiers jours : ralentir et récupérer',
+      'Ce qui peut être normal pendant la récupération',
+      'Prendre soin de soi au quotidien',
+      'Bouger et reprendre les activités progressivement',
+      'Sommeil, fatigue et nouveaux rythmes',
+      'Les émotions après la naissance',
+      'Quand demander conseil ?',
+      'Faire le point avec un professionnel',
+      'À retenir',
+    ],
+    section1Body1: 'Le post-partum correspond à la période qui suit la naissance. Il ne se limite pas à quelques jours : le corps, le rythme quotidien et les émotions peuvent évoluer progressivement au fil des semaines.',
+    section1Body2: 'La « quarantaine » est une expression traditionnelle souvent utilisée pour évoquer les premières semaines de récupération. Elle peut être un bon rappel : après la grossesse et l’accouchement, il est utile de ralentir et de laisser du temps au corps.',
+    highlight1Title: 'Une récupération globale',
+    highlight1Text: 'La récupération concerne le corps, mais aussi le sommeil, l’énergie, l’organisation quotidienne et l’adaptation émotionnelle à une nouvelle étape de vie.',
+    section2Body: 'Les premiers jours peuvent être intenses. Le repos, les soins de base et l’adaptation au nouveau rythme sont souvent les priorités. Il n’est pas nécessaire de retrouver immédiatement son niveau d’énergie habituel.',
+    recoveryPillars: [
+      {title: 'Repos', text: 'Alterner les moments d’activité et de repos aide le corps à récupérer progressivement.'},
+      {title: 'Alimentation', text: 'Manger régulièrement et boire selon ses besoins soutient la récupération au quotidien.'},
+      {title: 'Soutien', text: 'Accepter de l’aide permet de préserver de l’énergie pour les soins essentiels et la récupération.'},
+      {title: 'Mouvement doux', text: 'Reprendre les gestes et déplacements progressivement, en respectant son état et son confort.'},
+    ],
+    section3Body1: 'Chaque récupération est différente. Certains changements peuvent faire partie de la période d’adaptation et évoluer progressivement :',
+    normalSigns: [
+      'Fatigue importante',
+      'Saignements qui diminuent progressivement',
+      'Fluctuations hormonales et émotionnelles',
+    ],
+    section3Body2: 'L’intensité et la durée des symptômes peuvent varier d’une personne à l’autre. L’important est d’observer leur évolution et de demander conseil lorsqu’un changement semble préoccupant ou inhabituel.',
+    section4Body: 'Pendant le post-partum, les petites habitudes réalistes sont souvent plus utiles qu’un programme exigeant. L’objectif est de soutenir la récupération sans ajouter de pression.',
+    selfCareTips: [
+      'Prévoir de vrais moments de repos lorsque cela est possible.',
+      'Demander de l’aide pour les tâches quotidiennes et les repas.',
+      'Boire régulièrement et garder une alimentation variée.',
+      'Éviter de comparer sa récupération à celle des autres.',
+      'Reprendre les activités progressivement, sans chercher à tout faire immédiatement.',
+    ],
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'S’entourer et accepter de l’aide n’est pas un luxe. Cela peut permettre de préserver de l’énergie et de rendre la récupération plus progressive.',
+    section5Body1: 'La reprise des activités peut se faire étape par étape selon le confort, l’énergie et les recommandations reçues après l’accouchement. Les mouvements doux et les activités quotidiennes constituent déjà une reprise du mouvement.',
+    section5Body2: 'Pour les activités plus intenses, il est préférable de progresser sans brûler les étapes et de tenir compte des éventuels symptômes ou inconforts.',
+    alertTitle: 'Écouter les signaux du corps',
+    alertText: 'Une gêne qui augmente pendant une activité est une raison de ralentir et, si nécessaire, de demander un avis adapté avant de poursuivre ou d’augmenter l’intensité.',
+    section6Body: 'Le sommeil peut devenir irrégulier après la naissance. La fatigue accumulée peut influencer l’énergie, la concentration et l’humeur. Lorsque c’est possible, simplifier certaines tâches et partager les responsabilités peut aider.',
+    milestones: [
+      ['Premiers jours', 'Repos, adaptation et soins essentiels.'],
+      ['Premières semaines', 'Récupération progressive et installation de nouveaux repères.'],
+      ['Après la consultation post-natale', 'Faire le point sur la récupération et discuter de la reprise progressive des activités.'],
+    ],
+    section7Body1: 'Le post-partum peut s’accompagner de nombreuses émotions : joie, inquiétude, fatigue, sensibilité ou sentiment d’être dépassée. Ces ressentis peuvent varier rapidement, notamment dans une période où le sommeil et les habitudes quotidiennes changent.',
+    section7Body2: 'Parler à une personne de confiance ou à un professionnel peut être utile lorsque les émotions deviennent difficiles à gérer ou prennent beaucoup de place dans le quotidien.',
+    highlight2Title: 'Demander du soutien est normal',
+    highlight2Text: 'Il n’est pas nécessaire d’attendre d’être totalement épuisée ou dépassée pour parler de ce que l’on ressent et chercher du soutien.',
+    section8Body: 'Certaines situations méritent d’être discutées avec un professionnel de santé, surtout lorsqu’elles s’aggravent, persistent ou créent une inquiétude importante.',
+    consultationSigns: [
+      {title: 'Symptômes qui s’aggravent', text: 'Une douleur ou un inconfort qui augmente au lieu de s’améliorer mérite un avis professionnel.'},
+      {title: 'Saignements inhabituels', text: 'Des saignements qui deviennent soudainement plus importants ou inhabituels doivent être signalés à un professionnel de santé.'},
+      {title: 'Mal-être persistant', text: 'Si le mal-être émotionnel prend beaucoup de place ou rend le quotidien difficile, il est important d’en parler et de demander du soutien.'},
+      {title: 'Une inquiétude importante', text: 'En cas de doute sur la récupération, demander conseil permet d’obtenir des recommandations adaptées à sa situation.'},
+    ],
+    section9Body: 'Les rendez-vous de suivi sont l’occasion de parler de la récupération, des symptômes, de la reprise des activités et des questions qui restent en suspens. Préparer quelques questions à l’avance peut aider à ne rien oublier.',
+    questionTitle: 'Questions que tu peux préparer',
+    questions: [
+      'Est-ce que ma récupération évolue comme prévu pour ma situation ?',
+      'Quelles activités puis-je reprendre progressivement ?',
+      'Quels symptômes dois-je surveiller ?',
+      'Quand puis-je envisager une reprise sportive plus intense ?',
+      'Ai-je besoin de conseils ou d’une rééducation particulière ?',
+    ],
+    summaryItems: [
+      'La récupération après l’accouchement est progressive et différente pour chaque personne.',
+      'Le repos et le soutien peuvent faire partie intégrante de la récupération.',
+      'Les changements physiques, le sommeil et les émotions peuvent évoluer au fil des semaines.',
+      'Reprendre les activités progressivement permet de mieux respecter son énergie et son confort.',
+      'En cas de symptôme inhabituel, persistant ou inquiétant, demander conseil est une bonne démarche.',
+    ],
+    finalTipTitle: 'Prends le temps nécessaire',
+    finalTipText: 'La récupération n’est pas une course. Avancer progressivement, respecter ses besoins et demander du soutien lorsque nécessaire sont déjà des étapes importantes.',
+    disclaimerText: 'Cet article a une vocation informative et ne remplace pas un avis médical personnalisé. En cas de symptôme important, persistant ou inquiétant, contacte un professionnel de santé.',
+    shareMessage: 'La récupération après l’accouchement — AWA',
+  },
+  en: {
+    badge: 'POSTPARTUM • RECOVERY',
+    title: 'Recovery\nafter childbirth',
+    metaDuration: '10 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Your body needs time: what’s normal after giving birth.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Understanding postpartum',
+      'The first days: slowing down and recovering',
+      'What can be normal during recovery',
+      'Taking care of yourself day to day',
+      'Moving and resuming activities gradually',
+      'Sleep, fatigue, and new routines',
+      'Emotions after childbirth',
+      'When to seek advice',
+      'Checking in with a healthcare professional',
+      'What to remember',
+    ],
+    headings: [
+      'Understanding postpartum',
+      'The first days: slowing down and recovering',
+      'What can be normal during recovery',
+      'Taking care of yourself day to day',
+      'Moving and resuming activities gradually',
+      'Sleep, fatigue, and new routines',
+      'Emotions after childbirth',
+      'When should you seek advice?',
+      'Checking in with a healthcare professional',
+      'What to remember',
+    ],
+    section1Body1: 'The postpartum period follows childbirth. It isn’t limited to a few days: the body, daily rhythm, and emotions can keep evolving gradually over the following weeks.',
+    section1Body2: 'The “quarantaine” is a traditional expression often used to describe the first weeks of recovery. It can serve as a good reminder: after pregnancy and childbirth, it’s worth slowing down and giving the body time.',
+    highlight1Title: 'A whole-body recovery',
+    highlight1Text: 'Recovery concerns the body, but also sleep, energy, daily organization, and the emotional adjustment to a new stage of life.',
+    section2Body: 'The first days can be intense. Rest, basic care, and adjusting to the new rhythm are often the priorities. There’s no need to immediately regain your usual energy level.',
+    recoveryPillars: [
+      {title: 'Rest', text: 'Alternating activity and rest helps the body recover gradually.'},
+      {title: 'Nutrition', text: 'Eating regularly and drinking according to your needs supports day-to-day recovery.'},
+      {title: 'Support', text: 'Accepting help makes it possible to save energy for essential care and recovery.'},
+      {title: 'Gentle movement', text: 'Gradually resume movements and activities, respecting your condition and comfort.'},
+    ],
+    section3Body1: 'Every recovery is different. Some changes can be part of the adjustment period and evolve gradually:',
+    normalSigns: [
+      'Significant fatigue',
+      'Bleeding that gradually decreases',
+      'Hormonal and emotional fluctuations',
+    ],
+    section3Body2: 'The intensity and duration of symptoms can vary from person to person. What matters is watching how they evolve and seeking advice if a change seems concerning or unusual.',
+    section4Body: 'During the postpartum period, small, realistic habits are often more helpful than a demanding routine. The goal is to support recovery without adding pressure.',
+    selfCareTips: [
+      'Plan real moments of rest whenever possible.',
+      'Ask for help with daily tasks and meals.',
+      'Drink regularly and keep a varied diet.',
+      'Avoid comparing your recovery to anyone else’s.',
+      'Resume activities gradually, without trying to do everything right away.',
+    ],
+    tip1Title: 'Good to know',
+    tip1Text: 'Surrounding yourself with support and accepting help isn’t a luxury. It can help preserve energy and make recovery more gradual.',
+    section5Body1: 'Resuming activities can happen step by step, based on comfort, energy, and the recommendations received after childbirth. Gentle movements and everyday activities already count as a return to movement.',
+    section5Body2: 'For more intense activities, it’s best to progress without skipping steps and to take any symptoms or discomfort into account.',
+    alertTitle: 'Listen to your body’s signals',
+    alertText: 'Discomfort that increases during an activity is a reason to slow down and, if needed, to seek tailored advice before continuing or increasing intensity.',
+    section6Body: 'Sleep can become irregular after giving birth. Accumulated fatigue can affect energy, concentration, and mood. When possible, simplifying certain tasks and sharing responsibilities can help.',
+    milestones: [
+      ['First days', 'Rest, adjustment, and essential care.'],
+      ['First weeks', 'Gradual recovery and the start of new routines.'],
+      ['After the postnatal check-up', 'Review recovery progress and discuss gradually resuming activities.'],
+    ],
+    section7Body1: 'The postpartum period can bring many emotions: joy, worry, fatigue, sensitivity, or a feeling of being overwhelmed. These feelings can shift quickly, especially during a time when sleep and daily habits are changing.',
+    section7Body2: 'Talking to someone you trust or to a professional can help when emotions become difficult to manage or take up a lot of space in daily life.',
+    highlight2Title: 'Asking for support is normal',
+    highlight2Text: 'There’s no need to wait until you’re completely exhausted or overwhelmed to talk about how you’re feeling and seek support.',
+    section8Body: 'Some situations are worth discussing with a healthcare professional, especially when they get worse, persist, or cause significant concern.',
+    consultationSigns: [
+      {title: 'Worsening symptoms', text: 'Pain or discomfort that increases instead of improving deserves professional advice.'},
+      {title: 'Unusual bleeding', text: 'Bleeding that suddenly becomes heavier or unusual should be reported to a healthcare professional.'},
+      {title: 'Persistent distress', text: 'If emotional distress takes up a lot of space or makes daily life difficult, it’s important to talk about it and ask for support.'},
+      {title: 'Significant concern', text: 'If in doubt about your recovery, asking for advice helps you get recommendations suited to your situation.'},
+    ],
+    section9Body: 'Follow-up appointments are an opportunity to talk about recovery, symptoms, resuming activities, and any remaining questions. Preparing a few questions in advance can help make sure nothing gets forgotten.',
+    questionTitle: 'Questions you can prepare',
+    questions: [
+      'Is my recovery progressing as expected for my situation?',
+      'Which activities can I gradually resume?',
+      'What symptoms should I watch for?',
+      'When can I consider a more intense return to exercise?',
+      'Do I need any specific advice or rehabilitation?',
+    ],
+    summaryItems: [
+      'Recovery after childbirth is gradual and different for everyone.',
+      'Rest and support can be an integral part of recovery.',
+      'Physical changes, sleep, and emotions can evolve over the weeks.',
+      'Resuming activities gradually helps you better respect your energy and comfort.',
+      'If you notice an unusual, persistent, or concerning symptom, seeking advice is a good step.',
+    ],
+    finalTipTitle: 'Take the time you need',
+    finalTipText: 'Recovery isn’t a race. Moving forward gradually, respecting your needs, and asking for support when necessary are already important steps.',
+    disclaimerText: 'This article is for informational purposes only and does not replace personalized medical advice. If you experience a significant, persistent, or concerning symptom, contact a healthcare professional.',
+    shareMessage: 'Recovery after childbirth — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PostpartumRecoveryArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -130,7 +298,7 @@ export default function PostpartumRecoveryArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'La récupération après l’accouchement — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -168,7 +336,7 @@ export default function PostpartumRecoveryArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -177,7 +345,7 @@ export default function PostpartumRecoveryArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -192,7 +360,7 @@ export default function PostpartumRecoveryArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -210,19 +378,19 @@ export default function PostpartumRecoveryArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>POST-PARTUM • RÉCUPÉRATION</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            La récupération{`\n`}après l’accouchement
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '10 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -241,25 +409,13 @@ export default function PostpartumRecoveryArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ton corps a besoin de temps : ce qui est normal après la
-            naissance.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Comprendre le post-partum',
-              'Les premiers jours : ralentir et récupérer',
-              'Ce qui peut être normal pendant la récupération',
-              'Prendre soin de soi au quotidien',
-              'Bouger et reprendre les activités progressivement',
-              'Sommeil, fatigue et nouveaux rythmes',
-              'Les émotions après la naissance',
-              'Quand demander conseil',
-              'Faire le point avec un professionnel',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -276,19 +432,14 @@ export default function PostpartumRecoveryArticleScreen({
           </View>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. Comprendre le post-partum</Text>
+          <Text style={styles.h2}>1. {content.headings[0]}</Text>
 
           <Text style={styles.body}>
-            Le post-partum correspond à la période qui suit la naissance. Il ne
-            se limite pas à quelques jours : le corps, le rythme quotidien et
-            les émotions peuvent évoluer progressivement au fil des semaines.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            La « quarantaine » est une expression traditionnelle souvent
-            utilisée pour évoquer les premières semaines de récupération. Elle
-            peut être un bon rappel : après la grossesse et l’accouchement, il
-            est utile de ralentir et de laisser du temps au corps.
+            {content.section1Body2}
           </Text>
 
           <View style={styles.highlight}>
@@ -298,55 +449,49 @@ export default function PostpartumRecoveryArticleScreen({
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Une récupération globale</Text>
+              <Text style={styles.tipTitle}>{content.highlight1Title}</Text>
               <Text style={styles.tipText}>
-                La récupération concerne le corps, mais aussi le sommeil,
-                l’énergie, l’organisation quotidienne et l’adaptation
-                émotionnelle à une nouvelle étape de vie.
+                {content.highlight1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
           <Text style={styles.h2}>
-            2. Les premiers jours : ralentir et récupérer
+            2. {content.headings[1]}
           </Text>
 
           <Text style={styles.body}>
-            Les premiers jours peuvent être intenses. Le repos, les soins de
-            base et l’adaptation au nouveau rythme sont souvent les priorités.
-            Il n’est pas nécessaire de retrouver immédiatement son niveau
-            d’énergie habituel.
+            {content.section2Body}
           </Text>
 
           <View style={styles.pillarGrid}>
-            {RECOVERY_PILLARS.map(item => (
-              <View key={item.title} style={styles.pillarCard}>
+            {RECOVERY_PILLAR_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.pillarCard}>
                 <View style={styles.pillarIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={icon as never}
                     size={22}
                     color={theme.colors.primary}
                   />
                 </View>
-                <Text style={styles.pillarTitle}>{item.title}</Text>
-                <Text style={styles.pillarText}>{item.text}</Text>
+                <Text style={styles.pillarTitle}>{content.recoveryPillars[index].title}</Text>
+                <Text style={styles.pillarText}>{content.recoveryPillars[index].text}</Text>
               </View>
             ))}
           </View>
 
           {/* SECTION 3 */}
           <Text style={styles.h2}>
-            3. Ce qui peut être normal pendant la récupération
+            3. {content.headings[2]}
           </Text>
 
           <Text style={styles.body}>
-            Chaque récupération est différente. Certains changements peuvent
-            faire partie de la période d’adaptation et évoluer progressivement :
+            {content.section3Body1}
           </Text>
 
           <View style={styles.checkList}>
-            {NORMAL_SIGNS.map(item => (
+            {content.normalSigns.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -359,24 +504,20 @@ export default function PostpartumRecoveryArticleScreen({
           </View>
 
           <Text style={styles.body}>
-            L’intensité et la durée des symptômes peuvent varier d’une personne
-            à l’autre. L’important est d’observer leur évolution et de demander
-            conseil lorsqu’un changement semble préoccupant ou inhabituel.
+            {content.section3Body2}
           </Text>
 
           {/* SECTION 4 */}
           <Text style={styles.h2}>
-            4. Prendre soin de soi au quotidien
+            4. {content.headings[3]}
           </Text>
 
           <Text style={styles.body}>
-            Pendant le post-partum, les petites habitudes réalistes sont souvent
-            plus utiles qu’un programme exigeant. L’objectif est de soutenir la
-            récupération sans ajouter de pression.
+            {content.section4Body}
           </Text>
 
           <View style={styles.tipList}>
-            {SELF_CARE_TIPS.map((item, index) => (
+            {content.selfCareTips.map((item, index) => (
               <View key={item} style={styles.tipRow}>
                 <View style={styles.tipNumber}>
                   <Text style={styles.tipNumberText}>{index + 1}</Text>
@@ -393,31 +534,24 @@ export default function PostpartumRecoveryArticleScreen({
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                S’entourer et accepter de l’aide n’est pas un luxe. Cela peut
-                permettre de préserver de l’énergie et de rendre la récupération
-                plus progressive.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 5 */}
           <Text style={styles.h2}>
-            5. Bouger et reprendre les activités progressivement
+            5. {content.headings[4]}
           </Text>
 
           <Text style={styles.body}>
-            La reprise des activités peut se faire étape par étape selon le
-            confort, l’énergie et les recommandations reçues après
-            l’accouchement. Les mouvements doux et les activités quotidiennes
-            constituent déjà une reprise du mouvement.
+            {content.section5Body1}
           </Text>
 
           <Text style={styles.body}>
-            Pour les activités plus intenses, il est préférable de progresser
-            sans brûler les étapes et de tenir compte des éventuels symptômes ou
-            inconforts.
+            {content.section5Body2}
           </Text>
 
           <View style={styles.alert}>
@@ -427,29 +561,24 @@ export default function PostpartumRecoveryArticleScreen({
               color={theme.colors.warning}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Écouter les signaux du corps</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Une gêne qui augmente pendant une activité est une raison de
-                ralentir et, si nécessaire, de demander un avis adapté avant de
-                poursuivre ou d’augmenter l’intensité.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 6 */}
           <Text style={styles.h2}>
-            6. Sommeil, fatigue et nouveaux rythmes
+            6. {content.headings[5]}
           </Text>
 
           <Text style={styles.body}>
-            Le sommeil peut devenir irrégulier après la naissance. La fatigue
-            accumulée peut influencer l’énergie, la concentration et l’humeur.
-            Lorsque c’est possible, simplifier certaines tâches et partager les
-            responsabilités peut aider.
+            {content.section6Body}
           </Text>
 
           <View style={styles.timeline}>
-            {MILESTONES.map(([period, description], index) => (
+            {content.milestones.map(([period, description], index) => (
               <View key={period} style={styles.timelineRow}>
                 <View style={styles.timelineMarker}>
                   <Text style={styles.timelineNumber}>{index + 1}</Text>
@@ -464,20 +593,15 @@ export default function PostpartumRecoveryArticleScreen({
 
           {/* SECTION 7 */}
           <Text style={styles.h2}>
-            7. Les émotions après la naissance
+            7. {content.headings[6]}
           </Text>
 
           <Text style={styles.body}>
-            Le post-partum peut s’accompagner de nombreuses émotions : joie,
-            inquiétude, fatigue, sensibilité ou sentiment d’être dépassée. Ces
-            ressentis peuvent varier rapidement, notamment dans une période où
-            le sommeil et les habitudes quotidiennes changent.
+            {content.section7Body1}
           </Text>
 
           <Text style={styles.body}>
-            Parler à une personne de confiance ou à un professionnel peut être
-            utile lorsque les émotions deviennent difficiles à gérer ou prennent
-            beaucoup de place dans le quotidien.
+            {content.section7Body2}
           </Text>
 
           <View style={styles.highlight}>
@@ -487,37 +611,33 @@ export default function PostpartumRecoveryArticleScreen({
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Demander du soutien est normal</Text>
+              <Text style={styles.tipTitle}>{content.highlight2Title}</Text>
               <Text style={styles.tipText}>
-                Il n’est pas nécessaire d’attendre d’être totalement épuisée ou
-                dépassée pour parler de ce que l’on ressent et chercher du
-                soutien.
+                {content.highlight2Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 8 */}
-          <Text style={styles.h2}>8. Quand demander conseil ?</Text>
+          <Text style={styles.h2}>8. {content.headings[7]}</Text>
 
           <Text style={styles.body}>
-            Certaines situations méritent d’être discutées avec un professionnel
-            de santé, surtout lorsqu’elles s’aggravent, persistent ou créent une
-            inquiétude importante.
+            {content.section8Body}
           </Text>
 
           <View style={styles.consultList}>
-            {CONSULTATION_SIGNS.map(item => (
-              <View key={item.title} style={styles.consultCard}>
+            {CONSULTATION_SIGN_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.consultCard}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={icon as never}
                     size={21}
                     color={theme.colors.primary}
                   />
                 </View>
                 <View style={styles.consultCopy}>
-                  <Text style={styles.consultTitle}>{item.title}</Text>
-                  <Text style={styles.consultText}>{item.text}</Text>
+                  <Text style={styles.consultTitle}>{content.consultationSigns[index].title}</Text>
+                  <Text style={styles.consultText}>{content.consultationSigns[index].text}</Text>
                 </View>
               </View>
             ))}
@@ -525,14 +645,11 @@ export default function PostpartumRecoveryArticleScreen({
 
           {/* SECTION 9 */}
           <Text style={styles.h2}>
-            9. Faire le point avec un professionnel
+            9. {content.headings[8]}
           </Text>
 
           <Text style={styles.body}>
-            Les rendez-vous de suivi sont l’occasion de parler de la
-            récupération, des symptômes, de la reprise des activités et des
-            questions qui restent en suspens. Préparer quelques questions à
-            l’avance peut aider à ne rien oublier.
+            {content.section9Body}
           </Text>
 
           <View style={styles.questionCard}>
@@ -543,17 +660,11 @@ export default function PostpartumRecoveryArticleScreen({
                 color={theme.colors.primary}
               />
               <Text style={styles.questionTitle}>
-                Questions que tu peux préparer
+                {content.questionTitle}
               </Text>
             </View>
 
-            {[
-              'Est-ce que ma récupération évolue comme prévu pour ma situation ?',
-              'Quelles activités puis-je reprendre progressivement ?',
-              'Quels symptômes dois-je surveiller ?',
-              'Quand puis-je envisager une reprise sportive plus intense ?',
-              'Ai-je besoin de conseils ou d’une rééducation particulière ?',
-            ].map((item, index) => (
+            {content.questions.map((item, index) => (
               <View key={item} style={styles.questionRow}>
                 <View style={styles.questionBullet}>
                   <Text style={styles.questionNumber}>{index + 1}</Text>
@@ -564,16 +675,10 @@ export default function PostpartumRecoveryArticleScreen({
           </View>
 
           {/* SECTION 10 */}
-          <Text style={styles.h2}>10. À retenir</Text>
+          <Text style={styles.h2}>10. {content.headings[9]}</Text>
 
           <View style={styles.summaryCard}>
-            {[
-              'La récupération après l’accouchement est progressive et différente pour chaque personne.',
-              'Le repos et le soutien peuvent faire partie intégrante de la récupération.',
-              'Les changements physiques, le sommeil et les émotions peuvent évoluer au fil des semaines.',
-              'Reprendre les activités progressivement permet de mieux respecter son énergie et son confort.',
-              'En cas de symptôme inhabituel, persistant ou inquiétant, demander conseil est une bonne démarche.',
-            ].map(item => (
+            {content.summaryItems.map(item => (
               <View key={item} style={styles.summaryItem}>
                 <MaterialDesignIcons
                   name="check"
@@ -592,11 +697,9 @@ export default function PostpartumRecoveryArticleScreen({
               color={theme.colors.primary}
             />
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Prends le temps nécessaire</Text>
+              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
               <Text style={styles.tipText}>
-                La récupération n’est pas une course. Avancer progressivement,
-                respecter ses besoins et demander du soutien lorsque nécessaire
-                sont déjà des étapes importantes.
+                {content.finalTipText}
               </Text>
             </View>
           </View>
@@ -608,9 +711,7 @@ export default function PostpartumRecoveryArticleScreen({
               color={theme.colors.textMuted}
             />
             <Text style={styles.disclaimerText}>
-              Cet article a une vocation informative et ne remplace pas un avis
-              médical personnalisé. En cas de symptôme important, persistant ou
-              inquiétant, contacte un professionnel de santé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

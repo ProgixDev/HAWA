@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,58 +38,128 @@ const ID = 'sleep-sommeil-et-cycle';
 
 const HERO = require('../../assets/images/library/spm-sleep.png');
 
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const PHASE_SLEEP_ICONS = ['water-outline', 'egg-outline', 'weather-night'] as const;
+
+const EVENING_ROUTINE_ICONS = ['clock-outline', 'cellphone-off', 'snowflake'] as const;
+
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* CONTENT (PHASE 7L — bilingual editorial content)                          */
 /* -------------------------------------------------------------------------- */
-
-const PHASE_SLEEP = [
-  {
-    icon: 'water-outline',
-    title: 'Pendant les règles',
-    text: 'L’inconfort physique et la fatigue peuvent rendre le sommeil plus léger.',
+// Article identity (ID, images, bookmark/progress keys, JSX structure) is
+// untouched; only this object changes per language. The French text below
+// is byte-identical to the original — never retyped, only moved into the
+// `fr` key — so the app remains fully bilingual rather than having French
+// replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE MENSTRUEL • SOMMEIL',
+    title: 'Sommeil et hormones :\nle lien méconnu',
+    metaDuration: '6 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi ton sommeil varie selon la phase du cycle, et à la ménopause.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi les hormones influencent le sommeil',
+      'Le sommeil selon les phases du cycle',
+      'Stress et qualité du sommeil',
+      'Une routine du soir apaisante',
+      'Quand consulter',
+      'À retenir',
+    ],
+    section1Body: 'La progestérone a un léger effet sédatif ; sa baisse en fin de cycle peut perturber le sommeil, en le rendant plus léger ou plus fragmenté.',
+    infoCard1Title: 'Bon à savoir',
+    infoCard1Text: 'La légère hausse de température corporelle après l’ovulation peut aussi rendre l’endormissement un peu plus difficile pour certaines personnes.',
+    phaseSleep: [
+      {title: 'Pendant les règles', text: 'L’inconfort physique et la fatigue peuvent rendre le sommeil plus léger.'},
+      {title: 'Autour de l’ovulation', text: 'Le sommeil est généralement plus stable pour la plupart des personnes.'},
+      {title: 'Avant les règles', text: 'La baisse de progestérone peut rendre le sommeil plus léger, avec des réveils possibles.'},
+    ],
+    section2Body: 'À la ménopause, les bouffées de chaleur nocturnes sont une cause fréquente de réveils, pour des raisons hormonales similaires.',
+    section3Body: 'Le stress peut amplifier les perturbations du sommeil pendant les phases déjà plus sensibles du cycle. Des techniques de relaxation simples (respiration, étirements doux) peuvent aider à s’apaiser avant le coucher.',
+    section4Body: 'Une routine du coucher stable et une chambre fraîche aident à limiter ces perturbations, à tout âge.',
+    eveningRoutine: [
+      {title: 'Des horaires réguliers', text: 'Se coucher et se lever à des heures stables aide à réguler l’horloge interne.'},
+      {title: 'Moins d’écrans le soir', text: 'La lumière bleue peut retarder l’endormissement ; une pause écran aide à s’apaiser.'},
+      {title: 'Une chambre fraîche', text: 'Une température modérée facilite l’endormissement, à tout âge.'},
+    ],
+    section5Body: 'De bonnes habitudes ne suffisent pas toujours. Il peut être utile d’en parler à un professionnel si :',
+    warningTitle: 'Signes qui méritent un avis',
+    consultSigns: [
+      'Les troubles du sommeil durent depuis plusieurs semaines',
+      'La fatigue impacte fortement le quotidien',
+      'L’insomnie persiste malgré de bonnes habitudes',
+    ],
+    infoCard2Title: 'Se préparer à ce rendez-vous',
+    infoCard2Text: 'Noter depuis quand les troubles durent et ce qui semble les influencer peut aider ton professionnel de santé à mieux t’orienter.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Ces variations de sommeil sont fréquentes et généralement temporaires : elles ne signifient pas qu’il y a un problème.',
+    summaryPoints: [
+      'La progestérone a un léger effet sédatif ; sa baisse en fin de cycle peut perturber le sommeil.',
+      'À la ménopause, les bouffées de chaleur nocturnes sont une cause fréquente de réveils.',
+      'Une routine du coucher stable et une chambre fraîche aident à limiter ces perturbations, à tout âge.',
+      'Des troubles du sommeil qui persistent méritent d’être évoqués avec un professionnel de santé.',
+    ],
+    disclaimerText: 'Contenu informatif. Cet article ne remplace pas un avis médical personnalisé. En cas de doute, demande conseil à un professionnel de santé.',
+    shareMessage: 'Sommeil et hormones : le lien méconnu — AWA',
   },
-  {
-    icon: 'egg-outline',
-    title: 'Autour de l’ovulation',
-    text: 'Le sommeil est généralement plus stable pour la plupart des personnes.',
+  en: {
+    badge: 'MENSTRUAL CYCLE • SLEEP',
+    title: 'Sleep and hormones:\nthe little-known link',
+    metaDuration: '6 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Why your sleep changes depending on your cycle phase, and at menopause.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why hormones affect sleep',
+      'Sleep across the phases of the cycle',
+      'Stress and sleep quality',
+      'A soothing evening routine',
+      'When to see a professional',
+      'Key takeaways',
+    ],
+    section1Body: 'Progesterone has a mild sedative effect; its drop at the end of the cycle can disrupt sleep, making it lighter or more fragmented.',
+    infoCard1Title: 'Good to know',
+    infoCard1Text: 'The slight rise in body temperature after ovulation can also make falling asleep a little harder for some people.',
+    phaseSleep: [
+      {title: 'During your period', text: 'Physical discomfort and fatigue can make sleep lighter.'},
+      {title: 'Around ovulation', text: 'Sleep is generally more stable for most people.'},
+      {title: 'Before your period', text: 'The drop in progesterone can make sleep lighter, with possible wake-ups.'},
+    ],
+    section2Body: 'At menopause, night sweats are a common cause of waking up, for similar hormonal reasons.',
+    section3Body: 'Stress can amplify sleep disruptions during phases of the cycle that are already more sensitive. Simple relaxation techniques (breathing, gentle stretching) can help you unwind before bed.',
+    section4Body: 'A stable bedtime routine and a cool bedroom help limit these disruptions, at any age.',
+    eveningRoutine: [
+      {title: 'Regular hours', text: 'Going to bed and waking up at stable times helps regulate your internal clock.'},
+      {title: 'Less screen time in the evening', text: 'Blue light can delay falling asleep; a screen break helps you wind down.'},
+      {title: 'A cool bedroom', text: 'A moderate temperature makes falling asleep easier, at any age.'},
+    ],
+    section5Body: 'Good habits aren’t always enough. It can be helpful to talk to a professional if:',
+    warningTitle: 'Signs worth getting checked',
+    consultSigns: [
+      'Sleep problems have lasted for several weeks',
+      'Fatigue is strongly affecting daily life',
+      'Insomnia persists despite good habits',
+    ],
+    infoCard2Title: 'Preparing for this appointment',
+    infoCard2Text: 'Noting how long the problems have lasted and what seems to influence them can help your healthcare professional guide you better.',
+    tipTitle: 'Good to know',
+    tipText: 'These sleep changes are common and usually temporary: they don’t mean something is wrong.',
+    summaryPoints: [
+      'Progesterone has a mild sedative effect; its drop at the end of the cycle can disrupt sleep.',
+      'At menopause, night sweats are a common cause of waking up.',
+      'A stable bedtime routine and a cool bedroom help limit these disruptions, at any age.',
+      'Persistent sleep problems are worth discussing with a healthcare professional.',
+    ],
+    disclaimerText: 'Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional.',
+    shareMessage: 'Sleep and hormones: the little-known link — AWA',
   },
-  {
-    icon: 'weather-night',
-    title: 'Avant les règles',
-    text: 'La baisse de progestérone peut rendre le sommeil plus léger, avec des réveils possibles.',
-  },
-] as const;
-
-const EVENING_ROUTINE = [
-  {
-    icon: 'clock-outline',
-    title: 'Des horaires réguliers',
-    text: 'Se coucher et se lever à des heures stables aide à réguler l’horloge interne.',
-  },
-  {
-    icon: 'cellphone-off',
-    title: 'Moins d’écrans le soir',
-    text: 'La lumière bleue peut retarder l’endormissement ; une pause écran aide à s’apaiser.',
-  },
-  {
-    icon: 'snowflake',
-    title: 'Une chambre fraîche',
-    text: 'Une température modérée facilite l’endormissement, à tout âge.',
-  },
-] as const;
-
-const CONSULT_SIGNS = [
-  'Les troubles du sommeil durent depuis plusieurs semaines',
-  'La fatigue impacte fortement le quotidien',
-  'L’insomnie persiste malgré de bonnes habitudes',
-] as const;
-
-const SUMMARY_POINTS = [
-  'La progestérone a un léger effet sédatif ; sa baisse en fin de cycle peut perturber le sommeil.',
-  'À la ménopause, les bouffées de chaleur nocturnes sont une cause fréquente de réveils.',
-  'Une routine du coucher stable et une chambre fraîche aident à limiter ces perturbations, à tout âge.',
-  'Des troubles du sommeil qui persistent méritent d’être évoqués avec un professionnel de santé.',
-] as const;
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -103,6 +174,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function SleepHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -130,7 +204,7 @@ export default function SleepHormonesArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Sommeil et hormones : le lien méconnu — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -175,7 +249,7 @@ export default function SleepHormonesArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -186,7 +260,7 @@ export default function SleepHormonesArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -203,7 +277,7 @@ export default function SleepHormonesArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -226,19 +300,19 @@ export default function SleepHormonesArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>CYCLE MENSTRUEL • SOMMEIL</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Sommeil et hormones :{`\n`}le lien méconnu
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -257,8 +331,7 @@ export default function SleepHormonesArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Pourquoi ton sommeil varie selon la phase du cycle, et à la
-            ménopause.
+            {content.intro}
           </Text>
 
           {/* -------------------------------------------------------------- */}
@@ -266,16 +339,9 @@ export default function SleepHormonesArticleScreen({
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pourquoi les hormones influencent le sommeil',
-              'Le sommeil selon les phases du cycle',
-              'Stress et qualité du sommeil',
-              'Une routine du soir apaisante',
-              'Quand consulter',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -295,12 +361,10 @@ export default function SleepHormonesArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Pourquoi les hormones influencent le sommeil</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            La progestérone a un léger effet sédatif ; sa baisse en fin de
-            cycle peut perturber le sommeil, en le rendant plus léger ou plus
-            fragmenté.
+            {content.section1Body}
           </Text>
 
           <View style={styles.infoCard}>
@@ -311,11 +375,9 @@ export default function SleepHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Bon à savoir</Text>
+              <Text style={styles.infoTitle}>{content.infoCard1Title}</Text>
               <Text style={styles.infoText}>
-                La légère hausse de température corporelle après l’ovulation
-                peut aussi rendre l’endormissement un peu plus difficile pour
-                certaines personnes.
+                {content.infoCard1Text}
               </Text>
             </View>
           </View>
@@ -324,14 +386,14 @@ export default function SleepHormonesArticleScreen({
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. Le sommeil selon les phases du cycle</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <View style={styles.normalGrid}>
-            {PHASE_SLEEP.map(item => (
+            {content.phaseSleep.map((item, index) => (
               <View key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={PHASE_SLEEP_ICONS[index] as never}
                     size={20}
                     color={theme.colors.primary}
                   />
@@ -344,45 +406,40 @@ export default function SleepHormonesArticleScreen({
           </View>
 
           <Text style={styles.body}>
-            À la ménopause, les bouffées de chaleur nocturnes sont une cause
-            fréquente de réveils, pour des raisons hormonales similaires.
+            {content.section2Body}
           </Text>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Stress et qualité du sommeil</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Le stress peut amplifier les perturbations du sommeil pendant les
-            phases déjà plus sensibles du cycle. Des techniques de relaxation
-            simples (respiration, étirements doux) peuvent aider à s’apaiser
-            avant le coucher.
+            {content.section3Body}
           </Text>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Une routine du soir apaisante</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <Text style={styles.body}>
-            Une routine du coucher stable et une chambre fraîche aident à
-            limiter ces perturbations, à tout âge.
+            {content.section4Body}
           </Text>
 
           <View style={styles.comfortCard}>
-            {EVENING_ROUTINE.map((item, index) => (
+            {content.eveningRoutine.map((item, index) => (
               <View
                 key={item.title}
                 style={[
                   styles.comfortRow,
-                  index < EVENING_ROUTINE.length - 1 && styles.comfortRowBorder,
+                  index < content.eveningRoutine.length - 1 && styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={EVENING_ROUTINE_ICONS[index] as never}
                     size={19}
                     color={theme.colors.primary}
                   />
@@ -400,11 +457,10 @@ export default function SleepHormonesArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Quand consulter</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <Text style={styles.body}>
-            De bonnes habitudes ne suffisent pas toujours. Il peut être utile
-            d’en parler à un professionnel si :
+            {content.section5Body}
           </Text>
 
           <View style={styles.warningCard}>
@@ -415,10 +471,10 @@ export default function SleepHormonesArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>Signes qui méritent un avis</Text>
+              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
             </View>
 
-            {CONSULT_SIGNS.map(item => (
+            {content.consultSigns.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -441,11 +497,9 @@ export default function SleepHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Se préparer à ce rendez-vous</Text>
+              <Text style={styles.infoTitle}>{content.infoCard2Title}</Text>
               <Text style={styles.infoText}>
-                Noter depuis quand les troubles durent et ce qui semble les
-                influencer peut aider ton professionnel de santé à mieux
-                t’orienter.
+                {content.infoCard2Text}
               </Text>
             </View>
           </View>
@@ -462,10 +516,9 @@ export default function SleepHormonesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Ces variations de sommeil sont fréquentes et généralement
-                temporaires : elles ne signifient pas qu’il y a un problème.
+                {content.tipText}
               </Text>
             </View>
           </View>
@@ -474,10 +527,10 @@ export default function SleepHormonesArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[5]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -502,9 +555,7 @@ export default function SleepHormonesArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical personnalisé. En cas de doute, demande conseil à un
-              professionnel de santé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

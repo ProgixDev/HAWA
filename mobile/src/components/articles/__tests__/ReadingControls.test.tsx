@@ -7,6 +7,7 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import ReadingControls from '../ReadingControls';
 import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
+import '../../../i18n';
 
 const TEST_METRICS: Metrics = {
   frame: {x: 0, y: 0, width: 320, height: 640},

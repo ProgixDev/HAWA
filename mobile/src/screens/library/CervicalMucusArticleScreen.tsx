@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,53 +38,164 @@ const ID = 'cervicalmucus-observer-glaire';
 
 const HERO = require('../../assets/images/library/flow-texture-mucus.png');
 
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const CYCLE_EVOLUTION_ICONS = [
+  'circle-outline',
+  'weather-cloudy',
+  'egg-outline',
+  'moon-waning-crescent',
+] as const;
+
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* CONTENT                                                                    */
 /* -------------------------------------------------------------------------- */
 
-const CYCLE_EVOLUTION = [
-  {
-    icon: 'circle-outline',
-    title: 'Après les règles',
-    text: 'Peu de glaire, souvent une sensation de sécheresse.',
+// PHASE 7L.2 — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'FERTILITÉ • GLAIRE CERVICALE',
+    title: 'Observer sa\nglaire cervicale',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Un signal naturel et gratuit pour repérer ta période fertile.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que la glaire cervicale ?',
+      'Comment elle évolue au fil du cycle',
+      'Reconnaître une glaire fertile',
+      'Comment l’observer au quotidien',
+      'Ce qui peut modifier tes observations',
+      'Les limites de cette méthode',
+      'À retenir',
+    ],
+    section1Body:
+      'C’est une sécrétion naturelle produite par le col de l’utérus. La glaire cervicale change de texture au fil du cycle sous l’effet des œstrogènes et de la progestérone.',
+    cycleEvolution: [
+      {
+        title: 'Après les règles',
+        text: 'Peu de glaire, souvent une sensation de sécheresse.',
+      },
+      {
+        title: 'Avant l’ovulation',
+        text: 'Plus abondante, trouble et collante.',
+      },
+      {
+        title: 'À l’approche de l’ovulation',
+        text: 'Claire, filante et élastique, semblable à du blanc d’œuf.',
+      },
+      {
+        title: 'Après l’ovulation',
+        text: 'Plus épaisse, opaque, ou beaucoup moins présente.',
+      },
+    ],
+    section3Intro: 'À l’approche de l’ovulation, elle devient :',
+    fertileSigns: [
+      'Claire ou transparente',
+      'Filante, elle s’étire entre deux doigts',
+      'Élastique, semblable à du blanc d’œuf cru',
+      'Abondante par rapport aux autres jours',
+    ],
+    infoTitle: 'Un geste simple, chaque jour',
+    infoText:
+      'Observe l’aspect et la texture avec du papier toilette ou des doigts propres, à peu près au même moment de la journée, et note ce que tu remarques.',
+    modifyingFactors: [
+      'Des rapports récents',
+      'Des produits d’hygiène intime',
+      'Une contraception hormonale ou certains traitements',
+      'Une infection ou un déséquilibre local',
+    ],
+    section6Body:
+      'Chaque personne a un profil différent, et reconnaître le sien demande de la pratique sur plusieurs cycles. Observer ce changement chaque jour, en complément d’autres signes, aide à mieux cerner ta fenêtre fertile — sans jamais remplacer un avis médical en cas d’inquiétude.',
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Associer la glaire cervicale à ta température basale ou à des tests d’ovulation donne une image plus complète de ton cycle.',
+    summaryPoints: [
+      'La glaire cervicale change de texture au fil du cycle sous l’effet des œstrogènes et de la progestérone.',
+      'À l’approche de l’ovulation, elle devient claire, filante et élastique, semblable à du blanc d’œuf.',
+      'Observer ce changement chaque jour, en complément d’autres signes, aide à mieux cerner ta fenêtre fertile.',
+      'Reconnaître son propre profil demande de la pratique et plusieurs cycles d’observation.',
+    ],
+    disclaimerText:
+      'Contenu informatif. Cet article ne remplace pas un avis médical personnalisé. En cas de doute, demande conseil à un professionnel de santé.',
+    shareMessage: 'Observer sa glaire cervicale — AWA',
   },
-  {
-    icon: 'weather-cloudy',
-    title: 'Avant l’ovulation',
-    text: 'Plus abondante, trouble et collante.',
+  en: {
+    badge: 'FERTILITY • CERVICAL MUCUS',
+    title: 'Observing your\ncervical mucus',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'A natural, free signal for spotting your fertile window.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is cervical mucus?',
+      'How it changes throughout the cycle',
+      'Recognizing fertile mucus',
+      'How to observe it daily',
+      'What can affect your observations',
+      'The limits of this method',
+      'Key takeaways',
+    ],
+    section1Body:
+      'It’s a natural secretion produced by the cervix. Cervical mucus changes texture throughout the cycle under the effect of estrogen and progesterone.',
+    cycleEvolution: [
+      {
+        title: 'After your period',
+        text: 'Little mucus, often a feeling of dryness.',
+      },
+      {
+        title: 'Before ovulation',
+        text: 'More abundant, cloudy, and sticky.',
+      },
+      {
+        title: 'As ovulation approaches',
+        text: 'Clear, stretchy, and elastic, similar to raw egg white.',
+      },
+      {
+        title: 'After ovulation',
+        text: 'Thicker, opaque, or much less present.',
+      },
+    ],
+    section3Intro: 'As ovulation approaches, it becomes:',
+    fertileSigns: [
+      'Clear or transparent',
+      'Stretchy — it stretches between two fingers',
+      'Elastic, similar to raw egg white',
+      'More abundant than on other days',
+    ],
+    infoTitle: 'A simple habit, every day',
+    infoText:
+      'Observe the appearance and texture using toilet paper or clean fingers, at roughly the same time of day, and note what you notice.',
+    modifyingFactors: [
+      'Recent intercourse',
+      'Intimate hygiene products',
+      'Hormonal contraception or certain treatments',
+      'An infection or local imbalance',
+    ],
+    section6Body:
+      'Everyone has a different profile, and recognizing your own takes practice over several cycles. Observing this change every day, alongside other signs, helps you better pinpoint your fertile window — but it never replaces medical advice if you’re concerned.',
+    tipTitle: 'Good to know',
+    tipText:
+      'Combining cervical mucus with your basal body temperature or ovulation tests gives a fuller picture of your cycle.',
+    summaryPoints: [
+      'Cervical mucus changes texture throughout the cycle under the effect of estrogen and progesterone.',
+      'As ovulation approaches, it becomes clear, stretchy, and elastic, similar to raw egg white.',
+      'Observing this change every day, alongside other signs, helps you better pinpoint your fertile window.',
+      'Recognizing your own pattern takes practice and several cycles of observation.',
+    ],
+    disclaimerText:
+      'Informational content. This article does not replace personalized medical advice. If in doubt, ask a healthcare professional for guidance.',
+    shareMessage: 'Observing your cervical mucus — AWA',
   },
-  {
-    icon: 'egg-outline',
-    title: 'À l’approche de l’ovulation',
-    text: 'Claire, filante et élastique, semblable à du blanc d’œuf.',
-  },
-  {
-    icon: 'moon-waning-crescent',
-    title: 'Après l’ovulation',
-    text: 'Plus épaisse, opaque, ou beaucoup moins présente.',
-  },
-] as const;
-
-const FERTILE_SIGNS = [
-  'Claire ou transparente',
-  'Filante, elle s’étire entre deux doigts',
-  'Élastique, semblable à du blanc d’œuf cru',
-  'Abondante par rapport aux autres jours',
-] as const;
-
-const MODIFYING_FACTORS = [
-  'Des rapports récents',
-  'Des produits d’hygiène intime',
-  'Une contraception hormonale ou certains traitements',
-  'Une infection ou un déséquilibre local',
-] as const;
-
-const SUMMARY_POINTS = [
-  'La glaire cervicale change de texture au fil du cycle sous l’effet des œstrogènes et de la progestérone.',
-  'À l’approche de l’ovulation, elle devient claire, filante et élastique, semblable à du blanc d’œuf.',
-  'Observer ce changement chaque jour, en complément d’autres signes, aide à mieux cerner ta fenêtre fertile.',
-  'Reconnaître son propre profil demande de la pratique et plusieurs cycles d’observation.',
-] as const;
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -98,6 +210,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function CervicalMucusArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -125,7 +240,7 @@ export default function CervicalMucusArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Observer sa glaire cervicale — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -170,7 +285,7 @@ export default function CervicalMucusArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -181,7 +296,7 @@ export default function CervicalMucusArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -198,7 +313,7 @@ export default function CervicalMucusArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -221,19 +336,19 @@ export default function CervicalMucusArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>FERTILITÉ • GLAIRE CERVICALE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Observer sa{`\n`}glaire cervicale
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -252,7 +367,7 @@ export default function CervicalMucusArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Un signal naturel et gratuit pour repérer ta période fertile.
+            {content.intro}
           </Text>
 
           {/* -------------------------------------------------------------- */}
@@ -260,21 +375,13 @@ export default function CervicalMucusArticleScreen({
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que la glaire cervicale ?',
-              'Comment elle évolue au fil du cycle',
-              'Reconnaître une glaire fertile',
-              'Comment l’observer au quotidien',
-              'Ce qui peut modifier tes observations',
-              'Les limites de cette méthode',
-              'À retenir',
-            ].map((item, index) => (
-              <View key={item} style={styles.contentRow}>
+            {content.topics.map((topic, index) => (
+              <View key={topic} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
-                  <Text style={styles.contentText}>{item}</Text>
+                  <Text style={styles.contentText}>{topic}</Text>
                 </View>
 
                 <MaterialDesignIcons
@@ -290,26 +397,24 @@ export default function CervicalMucusArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Qu’est-ce que la glaire cervicale ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            C’est une sécrétion naturelle produite par le col de l’utérus.
-            La glaire cervicale change de texture au fil du cycle sous
-            l’effet des œstrogènes et de la progestérone.
+            {content.section1Body}
           </Text>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. Comment elle évolue au fil du cycle</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <View style={styles.normalGrid}>
-            {CYCLE_EVOLUTION.map(item => (
+            {content.cycleEvolution.map((item, index) => (
               <View key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={CYCLE_EVOLUTION_ICONS[index] as never}
                     size={20}
                     color={theme.colors.primary}
                   />
@@ -325,14 +430,14 @@ export default function CervicalMucusArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Reconnaître une glaire fertile</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            À l’approche de l’ovulation, elle devient :
+            {content.section3Intro}
           </Text>
 
           <View style={styles.checkList}>
-            {FERTILE_SIGNS.map(item => (
+            {content.fertileSigns.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -349,7 +454,7 @@ export default function CervicalMucusArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Comment l’observer au quotidien</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -359,11 +464,9 @@ export default function CervicalMucusArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Un geste simple, chaque jour</Text>
+              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
               <Text style={styles.infoText}>
-                Observe l’aspect et la texture avec du papier toilette ou des
-                doigts propres, à peu près au même moment de la journée, et
-                note ce que tu remarques.
+                {content.infoText}
               </Text>
             </View>
           </View>
@@ -372,10 +475,10 @@ export default function CervicalMucusArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Ce qui peut modifier tes observations</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.checkList}>
-            {MODIFYING_FACTORS.map(item => (
+            {content.modifyingFactors.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="checkbox-blank-circle-outline"
@@ -392,14 +495,10 @@ export default function CervicalMucusArticleScreen({
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>6. Les limites de cette méthode</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <Text style={styles.body}>
-            Chaque personne a un profil différent, et reconnaître le sien
-            demande de la pratique sur plusieurs cycles. Observer ce
-            changement chaque jour, en complément d’autres signes, aide à
-            mieux cerner ta fenêtre fertile — sans jamais remplacer un avis
-            médical en cas d’inquiétude.
+            {content.section6Body}
           </Text>
 
           {/* ================================================================= */}
@@ -414,10 +513,9 @@ export default function CervicalMucusArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Associer la glaire cervicale à ta température basale ou à des
-                tests d’ovulation donne une image plus complète de ton cycle.
+                {content.tipText}
               </Text>
             </View>
           </View>
@@ -426,10 +524,10 @@ export default function CervicalMucusArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[6]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -454,9 +552,7 @@ export default function CervicalMucusArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical personnalisé. En cas de doute, demande conseil à un
-              professionnel de santé.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

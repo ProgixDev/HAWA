@@ -19,6 +19,8 @@ import {
 } from '../../../data/libraryContent';
 import {getLibraryConfigForObjective} from '../../../data/libraryObjectiveConfig';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
+import i18n from '../../../i18n';
+import {setAppLanguage} from '../../../state/themePreferences';
 
 // M38 — every entry path to a Premium-flagged guide goes through
 // ArticleReaderScreen (cards/lists/dashboards/notifications/deep links all
@@ -86,8 +88,13 @@ afterAll(() => {
   LIBRARY_ARTICLES.splice(LIBRARY_ARTICLES.indexOf(PREMIUM_GENERIC), 1);
   LIBRARY_ARTICLES.splice(LIBRARY_ARTICLES.indexOf(FREE_GENERIC), 1);
 });
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

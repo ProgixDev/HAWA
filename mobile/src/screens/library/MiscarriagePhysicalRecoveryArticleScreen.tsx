@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,58 +39,138 @@ const ID = 'lossphysical-recuperation-physique';
 const HERO = require('../../assets/images/library/spm-water.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — icons stay language-neutral — only TEXT moves into the bilingual   */
+/* CONTENT object below, keyed by index to stay aligned with these icons.    */
 /* -------------------------------------------------------------------------- */
 
-const PHYSICAL_SIGNS = [
-  {
-    icon: 'water-outline',
-    title: 'Des saignements',
-    text: 'Leur intensité et leur durée peuvent varier selon chaque situation, puis diminuent progressivement.',
-  },
-  {
-    icon: 'pulse',
-    title: 'Des crampes',
-    text: 'Des douleurs proches de crampes menstruelles, parfois plus marquées, peuvent accompagner cette étape.',
-  },
-  {
-    icon: 'clock-outline',
-    title: 'Une durée variable',
-    text: 'La récupération physique s’étale généralement sur quelques jours à quelques semaines.',
-  },
+const PHYSICAL_SIGNS_ICONS = ['water-outline', 'pulse', 'clock-outline'] as const;
+
+const COMFORT_TIPS_ICONS = [
+  'bed-outline',
+  'cup-water',
+  'account-heart-outline',
 ] as const;
 
-const COMFORT_TIPS = [
-  {
-    icon: 'bed-outline',
-    title: 'Accorde-toi du repos',
-    text: 'Ton corps a besoin de temps pour retrouver son équilibre, sans obligation de résultat.',
-  },
-  {
-    icon: 'cup-water',
-    title: 'Reste bien hydratée',
-    text: 'Une bonne hydratation accompagne naturellement la récupération.',
-  },
-  {
-    icon: 'account-heart-outline',
-    title: 'Écoute ton corps',
-    text: 'Chaque parcours est différent : avance à ton propre rythme, sans te comparer.',
-  },
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L — bilingual editorial content. Article identity (ID,   */
+/* images, bookmark/progress keys, JSX structure) is untouched; only this    */
+/* object changes per language. The French text below is byte-identical to  */
+/* the original — never retyped, only moved into the `fr` key — so the app  */
+/* remains fully bilingual rather than having French replaced by English.   */
+/* -------------------------------------------------------------------------- */
 
-const WARNING_SIGNS = [
-  'De la fièvre ou un état général qui se dégrade',
-  'Des saignements très abondants (protection à changer en moins d’une heure)',
-  'Des douleurs intenses qui ne s’améliorent pas',
-  'Une odeur inhabituelle',
-] as const;
-
-const SUMMARY_POINTS = [
-  'Une fausse couche n’est causée par rien que tu aies fait ou pas fait.',
-  'Le corps met généralement quelques semaines à retrouver son équilibre hormonal.',
-  'Un cycle peut revenir dès 4 à 6 semaines, mais chaque parcours est différent.',
-  'Un contrôle médical permet de vérifier que tout évolue normalement, en toute sérénité.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'APRÈS UNE FAUSSE COUCHE • RÉCUPÉRATION',
+    title: 'La récupération physique après \nune fausse couche',
+    metaDuration: '7 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu informatif',
+    intro: 'Ton corps a besoin de temps pour retrouver son équilibre. Voici ce qui peut t’aider à mieux comprendre cette étape, en douceur.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce qu’une fausse couche ?',
+      'Ce qui peut se passer physiquement',
+      'Le retour du cycle',
+      'Un suivi médical rassurant',
+      'Quand consulter',
+      'À retenir',
+    ],
+    section1Body1: 'Une fausse couche correspond à l’arrêt spontané d’une grossesse, le plus souvent avant la 12e à 14e semaine. On estime qu’une grossesse confirmée sur six à sept se termine ainsi, le plus souvent tôt dans la grossesse.',
+    section1Body2: 'Ce n’est ni rare, ni le signe d’un problème de fertilité future. Dans la grande majorité des cas, elle est liée à des facteurs indépendants de la volonté, comme une anomalie chromosomique survenue par hasard lors du développement.',
+    infoCard1Title: 'À retenir',
+    infoCard1Text: 'Une fausse couche n’est causée par rien que tu aies fait ou pas fait. Tu n’es pas responsable de ce qui est arrivé.',
+    section2Body: 'L’expérience varie beaucoup d’une personne à l’autre. Voici les manifestations les plus courantes :',
+    physicalSigns: [
+      {title: 'Des saignements', text: 'Leur intensité et leur durée peuvent varier selon chaque situation, puis diminuent progressivement.'},
+      {title: 'Des crampes', text: 'Des douleurs proches de crampes menstruelles, parfois plus marquées, peuvent accompagner cette étape.'},
+      {title: 'Une durée variable', text: 'La récupération physique s’étale généralement sur quelques jours à quelques semaines.'},
+    ],
+    section3Body: 'Le corps met généralement quelques semaines à retrouver un équilibre hormonal après une fausse couche. Un cycle peut revenir dès 4 à 6 semaines, mais chaque parcours est différent.',
+    comfortTips: [
+      {title: 'Accorde-toi du repos', text: 'Ton corps a besoin de temps pour retrouver son équilibre, sans obligation de résultat.'},
+      {title: 'Reste bien hydratée', text: 'Une bonne hydratation accompagne naturellement la récupération.'},
+      {title: 'Écoute ton corps', text: 'Chaque parcours est différent : avance à ton propre rythme, sans te comparer.'},
+    ],
+    section4Body: 'Un suivi médical de contrôle permet de vérifier que tout est rentré dans l’ordre, en toute sérénité. Ce rendez-vous est aussi l’occasion de poser toutes tes questions.',
+    infoCard2Title: 'Ce que ce rendez-vous peut inclure',
+    infoCard2Text: 'Une discussion sur ce que tu as vécu, un examen si nécessaire, et un espace pour répondre à tes questions sur la suite.',
+    section5Body: 'Si l’un de ces signes apparaît, il est important de contacter un professionnel de santé sans attendre.',
+    warningTitle: 'Signes qui méritent un avis médical',
+    warningSigns: [
+      'De la fièvre ou un état général qui se dégrade',
+      'Des saignements très abondants (protection à changer en moins d’une heure)',
+      'Des douleurs intenses qui ne s’améliorent pas',
+      'Une odeur inhabituelle',
+    ],
+    tipTitle: 'Bon à savoir',
+    tipText: 'Prendre soin de ton corps ne veut pas dire tout contrôler : c’est surtout t’accorder le temps dont tu as besoin.',
+    summaryPoints: [
+      'Une fausse couche n’est causée par rien que tu aies fait ou pas fait.',
+      'Le corps met généralement quelques semaines à retrouver son équilibre hormonal.',
+      'Un cycle peut revenir dès 4 à 6 semaines, mais chaque parcours est différent.',
+      'Un contrôle médical permet de vérifier que tout évolue normalement, en toute sérénité.',
+    ],
+    disclaimerText: 'Contenu informatif. Cet article ne remplace pas un avis ou un examen médical. En cas de doute ou de symptôme préoccupant, demande conseil à un professionnel de santé.',
+    shareMessage: 'La récupération physique après une fausse couche — AWA',
+  },
+  en: {
+    badge: 'AFTER A MISCARRIAGE • RECOVERY',
+    title: 'Physical recovery after \na miscarriage',
+    metaDuration: '7 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informational content',
+    intro: 'Your body needs time to find its balance again. Here’s what can help you better understand this stage, gently.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is a miscarriage?',
+      'What can happen physically',
+      'The return of your cycle',
+      'A reassuring medical check-up',
+      'When to seek medical care',
+      'Key takeaways',
+    ],
+    section1Body1: 'A miscarriage is the spontaneous end of a pregnancy, most often before the 12th to 14th week. It’s estimated that one in six to seven confirmed pregnancies ends this way, most often early in the pregnancy.',
+    section1Body2: 'It isn’t rare, nor is it a sign of a future fertility problem. In the vast majority of cases, it’s linked to factors beyond anyone’s control, such as a chromosomal anomaly that occurred by chance during development.',
+    infoCard1Title: 'Key takeaway',
+    infoCard1Text: 'A miscarriage isn’t caused by anything you did or didn’t do. You aren’t responsible for what happened.',
+    section2Body: 'Every experience is different from one person to another. Here are the most common signs:',
+    physicalSigns: [
+      {title: 'Bleeding', text: 'Its intensity and duration can vary depending on the situation, then gradually decrease.'},
+      {title: 'Cramping', text: 'Pain similar to menstrual cramps, sometimes more intense, can accompany this stage.'},
+      {title: 'A variable duration', text: 'Physical recovery usually spans a few days to a few weeks.'},
+    ],
+    section3Body: 'Your body generally takes a few weeks to regain hormonal balance after a miscarriage. A cycle can return as early as 4 to 6 weeks, but every journey is different.',
+    comfortTips: [
+      {title: 'Allow yourself to rest', text: 'Your body needs time to find its balance again, with no pressure to achieve a particular outcome.'},
+      {title: 'Stay well hydrated', text: 'Good hydration naturally supports recovery.'},
+      {title: 'Listen to your body', text: 'Every journey is different: move at your own pace, without comparing yourself to others.'},
+    ],
+    section4Body: 'A medical check-up helps confirm that everything is progressing normally, with complete peace of mind. This appointment is also a chance to ask all your questions.',
+    infoCard2Title: 'What this appointment can include',
+    infoCard2Text: 'A conversation about what you’ve been through, an exam if needed, and space to answer your questions about what comes next.',
+    section5Body: 'If any of these signs appear, it’s important to contact a healthcare professional right away.',
+    warningTitle: 'Signs that call for medical advice',
+    warningSigns: [
+      'Fever or a worsening general condition',
+      'Very heavy bleeding (needing to change your protection in less than an hour)',
+      'Intense pain that doesn’t improve',
+      'An unusual odor',
+    ],
+    tipTitle: 'Good to know',
+    tipText: 'Taking care of your body doesn’t mean controlling everything: it mainly means giving yourself the time you need.',
+    summaryPoints: [
+      'A miscarriage isn’t caused by anything you did or didn’t do.',
+      'Your body generally takes a few weeks to regain hormonal balance.',
+      'A cycle can return as early as 4 to 6 weeks, but every journey is different.',
+      'A medical check-up lets you confirm that everything is progressing normally, with complete peace of mind.',
+    ],
+    disclaimerText: 'Informational content. This article does not replace medical advice or examination. If in doubt or experiencing concerning symptoms, seek advice from a healthcare professional.',
+    shareMessage: 'Physical recovery after a miscarriage — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -104,6 +185,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function MiscarriagePhysicalRecoveryArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -131,7 +215,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'La récupération physique après une fausse couche — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -176,7 +260,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -191,7 +275,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -208,7 +292,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -231,21 +315,17 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
-              APRÈS UNE FAUSSE COUCHE • RÉCUPÉRATION
-            </Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            La récupération physique après {`\n`}une fausse couche
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu informatif'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -263,26 +343,16 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Ton corps a besoin de temps pour retrouver son équilibre. Voici ce
-            qui peut t’aider à mieux comprendre cette étape, en douceur.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce qu’une fausse couche ?',
-              'Ce qui peut se passer physiquement',
-              'Le retour du cycle',
-              'Un suivi médical rassurant',
-              'Quand consulter',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -302,21 +372,11 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Qu’est-ce qu’une fausse couche ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Une fausse couche correspond à l’arrêt spontané d’une grossesse,
-            le plus souvent avant la 12e à 14e semaine. On estime qu’une
-            grossesse confirmée sur six à sept se termine ainsi, le plus
-            souvent tôt dans la grossesse.
-          </Text>
+          <Text style={styles.body}>{content.section1Body1}</Text>
 
-          <Text style={styles.body}>
-            Ce n’est ni rare, ni le signe d’un problème de fertilité future.
-            Dans la grande majorité des cas, elle est liée à des facteurs
-            indépendants de la volonté, comme une anomalie chromosomique
-            survenue par hasard lors du développement.
-          </Text>
+          <Text style={styles.body}>{content.section1Body2}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -326,11 +386,8 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>À retenir</Text>
-              <Text style={styles.infoText}>
-                Une fausse couche n’est causée par rien que tu aies fait ou
-                pas fait. Tu n’es pas responsable de ce qui est arrivé.
-              </Text>
+              <Text style={styles.infoTitle}>{content.infoCard1Title}</Text>
+              <Text style={styles.infoText}>{content.infoCard1Text}</Text>
             </View>
           </View>
 
@@ -338,19 +395,16 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. Ce qui peut se passer physiquement</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            L’expérience varie beaucoup d’une personne à l’autre. Voici les
-            manifestations les plus courantes :
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.normalGrid}>
-            {PHYSICAL_SIGNS.map(item => (
+            {content.physicalSigns.map((item, index) => (
               <View key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={PHYSICAL_SIGNS_ICONS[index] as never}
                     size={20}
                     color={theme.colors.primary}
                   />
@@ -366,25 +420,21 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Le retour du cycle</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Le corps met généralement quelques semaines à retrouver un
-            équilibre hormonal après une fausse couche. Un cycle peut revenir
-            dès 4 à 6 semaines, mais chaque parcours est différent.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.comfortCard}>
-            {COMFORT_TIPS.map((item, index) => (
+            {content.comfortTips.map((item, index) => (
               <View
                 key={item.title}
                 style={[
                   styles.comfortRow,
-                  index < COMFORT_TIPS.length - 1 && styles.comfortRowBorder,
+                  index < content.comfortTips.length - 1 && styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={COMFORT_TIPS_ICONS[index] as never}
                     size={19}
                     color={theme.colors.primary}
                   />
@@ -402,13 +452,9 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Un suivi médical rassurant</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Un suivi médical de contrôle permet de vérifier que tout est
-            rentré dans l’ordre, en toute sérénité. Ce rendez-vous est aussi
-            l’occasion de poser toutes tes questions.
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -418,13 +464,8 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>
-                Ce que ce rendez-vous peut inclure
-              </Text>
-              <Text style={styles.infoText}>
-                Une discussion sur ce que tu as vécu, un examen si nécessaire,
-                et un espace pour répondre à tes questions sur la suite.
-              </Text>
+              <Text style={styles.infoTitle}>{content.infoCard2Title}</Text>
+              <Text style={styles.infoText}>{content.infoCard2Text}</Text>
             </View>
           </View>
 
@@ -432,12 +473,9 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Quand consulter</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Si l’un de ces signes apparaît, il est important de contacter un
-            professionnel de santé sans attendre.
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
           <View style={styles.warningCard}>
             <View style={styles.warningHeader}>
@@ -447,12 +485,10 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>
-                Signes qui méritent un avis médical
-              </Text>
+              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
             </View>
 
-            {WARNING_SIGNS.map(item => (
+            {content.warningSigns.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -479,11 +515,8 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Prendre soin de ton corps ne veut pas dire tout contrôler :
-                c’est surtout t’accorder le temps dont tu as besoin.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -491,10 +524,10 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[5]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -518,11 +551,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis ou un
-              examen médical. En cas de doute ou de symptôme préoccupant,
-              demande conseil à un professionnel de santé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

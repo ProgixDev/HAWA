@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,64 +39,148 @@ const ID = 'hydration-bien-shydrater';
 const HERO = require('../../assets/images/library/spm-water.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — icons stay language-neutral — only TEXT moves into the bilingual   */
+/* CONTENT object below, keyed by index to stay aligned with these icons.    */
 /* -------------------------------------------------------------------------- */
 
-const PHASE_NEEDS = [
-  {
-    icon: 'water-outline',
-    title: 'Pendant les règles',
-    text: 'Un peu plus d’eau aide à compenser les pertes et à limiter les ballonnements.',
-  },
-  {
-    icon: 'egg-outline',
-    title: 'Autour de l’ovulation',
-    text: 'Les besoins restent stables ; une légère hausse de la température corporelle peut augmenter la soif.',
-  },
-  {
-    icon: 'weather-cloudy',
-    title: 'Phase prémenstruelle',
-    text: 'Une bonne hydratation aide à limiter la sensation de gonflement souvent ressentie à cette période.',
-  },
-] as const;
+const PHASE_NEEDS_ICONS = ['water-outline', 'egg-outline', 'weather-cloudy'] as const;
 
-const DAILY_DRINKS = [
-  {
-    icon: 'cup-water',
-    title: 'De l’eau, en priorité',
-    text: 'Environ 1,5 à 2 litres par jour, un peu plus pendant les règles.',
-  },
-  {
-    icon: 'tea',
-    title: 'Des tisanes apaisantes',
-    text: 'Gingembre ou camomille apportent une hydratation douce en période de crampes.',
-  },
-  {
-    icon: 'cup-outline',
-    title: 'Sucre et caféine, avec modération',
-    text: 'Limiter les boissons très sucrées ou caféinées peut aider en fin de cycle.',
-  },
-] as const;
+const DAILY_DRINKS_ICONS = ['cup-water', 'tea', 'cup-outline'] as const;
 
-const LOW_HYDRATION_SIGNS = [
-  'Une soif intense ou inhabituelle',
-  'Des urines plus foncées que d’habitude',
-  'Des maux de tête fréquents',
-  'Une fatigue qui ne s’explique pas autrement',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — bilingual editorial content. Article identity (ID, images,      */
+/* bookmark/progress keys, JSX structure) is untouched; only this object     */
+/* changes per language. The French text below is byte-identical to the      */
+/* original — never retyped, only moved into the `fr` key — so the app       */
+/* remains fully bilingual rather than having French replaced by English.    */
+/* -------------------------------------------------------------------------- */
 
-const PRACTICAL_TIPS = [
-  'Garder une bouteille d’eau à portée de main tout au long de la journée',
-  'Associer un verre d’eau à une habitude déjà installée (réveil, chaque repas)',
-  'Varier avec des infusions si l’eau seule te lasse',
-] as const;
-
-const SUMMARY_POINTS = [
-  'Bien s’hydrater aide le corps à moins retenir d’eau et réduit les ballonnements.',
-  'Vise environ 1,5 à 2 litres par jour, un peu plus pendant les règles.',
-  'Les tisanes de gingembre ou de camomille apaisent aussi en période de crampes.',
-  'Une soif intense et persistante mérite d’être signalée à un professionnel de santé.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE MENSTRUEL • HYDRATATION',
+    title: 'Bien s’hydrater\npendant le cycle',
+    metaDuration: '6 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Contre-intuitif mais vrai : bien t’hydrater aide ton corps à moins retenir d’eau, tout au long de ton cycle.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi l’hydratation compte',
+      'Les besoins selon les phases du cycle',
+      'Que boire au quotidien ?',
+      'Signes d’une hydratation insuffisante',
+      'Conseils pratiques',
+      'Idées reçues',
+      'À retenir',
+    ],
+    section1Body: 'Contre-intuitif mais vrai : bien s’hydrater aide le corps à moins retenir d’eau et réduit les ballonnements, notamment en fin de cycle.',
+    infoTitle: 'Bon à savoir',
+    infoText: 'Quand le corps manque d’eau, il a tendance à en stocker davantage par précaution. Boire suffisamment lui indique au contraire qu’il peut en relâcher plus facilement.',
+    section2Body: 'Tes besoins en eau restent globalement stables, avec quelques nuances selon la phase :',
+    phaseNeeds: [
+      {title: 'Pendant les règles', text: 'Un peu plus d’eau aide à compenser les pertes et à limiter les ballonnements.'},
+      {title: 'Autour de l’ovulation', text: 'Les besoins restent stables ; une légère hausse de la température corporelle peut augmenter la soif.'},
+      {title: 'Phase prémenstruelle', text: 'Une bonne hydratation aide à limiter la sensation de gonflement souvent ressentie à cette période.'},
+    ],
+    section3Body: 'Vise environ 1,5 à 2 litres par jour, un peu plus pendant les règles pour compenser les pertes.',
+    dailyDrinks: [
+      {title: 'De l’eau, en priorité', text: 'Environ 1,5 à 2 litres par jour, un peu plus pendant les règles.'},
+      {title: 'Des tisanes apaisantes', text: 'Gingembre ou camomille apportent une hydratation douce en période de crampes.'},
+      {title: 'Sucre et caféine, avec modération', text: 'Limiter les boissons très sucrées ou caféinées peut aider en fin de cycle.'},
+    ],
+    warningTitle: 'À surveiller doucement',
+    lowHydrationSigns: [
+      'Une soif intense ou inhabituelle',
+      'Des urines plus foncées que d’habitude',
+      'Des maux de tête fréquents',
+      'Une fatigue qui ne s’explique pas autrement',
+    ],
+    section5Body: 'Quelques habitudes simples suffisent souvent à mieux s’hydrater sans y penser :',
+    practicalTips: [
+      'Garder une bouteille d’eau à portée de main tout au long de la journée',
+      'Associer un verre d’eau à une habitude déjà installée (réveil, chaque repas)',
+      'Varier avec des infusions si l’eau seule te lasse',
+    ],
+    section5Body2: 'Pendant une activité physique, pense aussi à boire avant, pendant et après l’effort pour compenser la transpiration.',
+    compareTitle1: 'Idée reçue',
+    compareText1: '« Boire beaucoup me fait plus gonfler. »',
+    compareTitle2: 'Plutôt le contraire',
+    compareText2: 'Une bonne hydratation aide le corps à moins retenir d’eau.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Les tisanes de gingembre ou de camomille apportent aussi une hydratation apaisante en période de crampes.',
+    summaryPoints: [
+      'Bien s’hydrater aide le corps à moins retenir d’eau et réduit les ballonnements.',
+      'Vise environ 1,5 à 2 litres par jour, un peu plus pendant les règles.',
+      'Les tisanes de gingembre ou de camomille apaisent aussi en période de crampes.',
+      'Une soif intense et persistante mérite d’être signalée à un professionnel de santé.',
+    ],
+    disclaimerText: 'Contenu informatif. Cet article ne remplace pas un avis médical personnalisé. En cas de doute, demande conseil à un professionnel de santé.',
+    shareMessage: 'Bien s’hydrater pendant le cycle — AWA',
+  },
+  en: {
+    badge: 'MENSTRUAL CYCLE • HYDRATION',
+    title: 'Staying hydrated\nthrough your cycle',
+    metaDuration: '6 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Counterintuitive but true: staying well hydrated helps your body retain less water throughout your cycle.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why hydration matters',
+      'Needs across the phases of your cycle',
+      'What to drink day to day',
+      'Signs of insufficient hydration',
+      'Practical tips',
+      'Common misconceptions',
+      'Key takeaways',
+    ],
+    section1Body: 'Counterintuitive but true: staying well hydrated helps the body retain less water and reduces bloating, especially toward the end of the cycle.',
+    infoTitle: 'Good to know',
+    infoText: 'When the body is short on water, it tends to store more of it as a precaution. Drinking enough tells it, on the contrary, that it can release water more easily.',
+    section2Body: 'Your water needs stay fairly stable overall, with a few nuances depending on the phase:',
+    phaseNeeds: [
+      {title: 'During your period', text: 'A little extra water helps offset fluid loss and limit bloating.'},
+      {title: 'Around ovulation', text: 'Needs stay stable; a slight rise in body temperature can increase thirst.'},
+      {title: 'Premenstrual phase', text: 'Good hydration helps limit the feeling of puffiness often felt during this time.'},
+    ],
+    section3Body: 'Aim for about 1.5 to 2 liters a day, a little more during your period to offset fluid loss.',
+    dailyDrinks: [
+      {title: 'Water, first and foremost', text: 'About 1.5 to 2 liters a day, a little more during your period.'},
+      {title: 'Soothing herbal teas', text: 'Ginger or chamomile offer gentle hydration during cramps.'},
+      {title: 'Sugar and caffeine, in moderation', text: 'Limiting very sugary or caffeinated drinks can help toward the end of the cycle.'},
+    ],
+    warningTitle: 'Worth keeping an eye on',
+    lowHydrationSigns: [
+      'Intense or unusual thirst',
+      'Urine darker than usual',
+      'Frequent headaches',
+      'Fatigue with no other obvious explanation',
+    ],
+    section5Body: 'A few simple habits are often enough to stay hydrated without even thinking about it:',
+    practicalTips: [
+      'Keep a water bottle within reach throughout the day',
+      'Pair a glass of water with a habit you already have (waking up, each meal)',
+      'Mix in herbal infusions if plain water gets dull',
+    ],
+    section5Body2: 'During physical activity, remember to drink before, during, and after exercise to make up for sweat loss.',
+    compareTitle1: 'Common belief',
+    compareText1: '"Drinking a lot makes me more bloated."',
+    compareTitle2: 'Actually the opposite',
+    compareText2: 'Good hydration helps the body retain less water.',
+    tipTitle: 'Good to know',
+    tipText: 'Ginger or chamomile teas also offer soothing hydration during cramps.',
+    summaryPoints: [
+      'Staying well hydrated helps the body retain less water and reduces bloating.',
+      'Aim for about 1.5 to 2 liters a day, a little more during your period.',
+      'Ginger or chamomile teas can also soothe during cramps.',
+      'Intense, persistent thirst is worth mentioning to a healthcare professional.',
+    ],
+    disclaimerText: 'Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional.',
+    shareMessage: 'Staying hydrated through your cycle — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -110,6 +195,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function HydrationCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -137,7 +225,7 @@ export default function HydrationCycleArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Bien s’hydrater pendant le cycle — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -182,7 +270,7 @@ export default function HydrationCycleArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -193,7 +281,7 @@ export default function HydrationCycleArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -210,7 +298,7 @@ export default function HydrationCycleArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -233,19 +321,17 @@ export default function HydrationCycleArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>CYCLE MENSTRUEL • HYDRATATION</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Bien s’hydrater{`\n`}pendant le cycle
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -263,27 +349,16 @@ export default function HydrationCycleArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Contre-intuitif mais vrai : bien t’hydrater aide ton corps à moins
-            retenir d’eau, tout au long de ton cycle.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pourquoi l’hydratation compte',
-              'Les besoins selon les phases du cycle',
-              'Que boire au quotidien ?',
-              'Signes d’une hydratation insuffisante',
-              'Conseils pratiques',
-              'Idées reçues',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -303,13 +378,9 @@ export default function HydrationCycleArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Pourquoi l’hydratation compte</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Contre-intuitif mais vrai : bien s’hydrater aide le corps à moins
-            retenir d’eau et réduit les ballonnements, notamment en fin de
-            cycle.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -319,12 +390,8 @@ export default function HydrationCycleArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Bon à savoir</Text>
-              <Text style={styles.infoText}>
-                Quand le corps manque d’eau, il a tendance à en stocker
-                davantage par précaution. Boire suffisamment lui indique au
-                contraire qu’il peut en relâcher plus facilement.
-              </Text>
+              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
+              <Text style={styles.infoText}>{content.infoText}</Text>
             </View>
           </View>
 
@@ -332,19 +399,16 @@ export default function HydrationCycleArticleScreen({
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. Les besoins selon les phases du cycle</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Tes besoins en eau restent globalement stables, avec quelques
-            nuances selon la phase :
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.normalGrid}>
-            {PHASE_NEEDS.map(item => (
+            {content.phaseNeeds.map((item, index) => (
               <View key={item.title} style={styles.normalCard}>
                 <View style={styles.normalIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={PHASE_NEEDS_ICONS[index] as never}
                     size={20}
                     color={theme.colors.primary}
                   />
@@ -360,24 +424,21 @@ export default function HydrationCycleArticleScreen({
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Que boire au quotidien ?</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Vise environ 1,5 à 2 litres par jour, un peu plus pendant les
-            règles pour compenser les pertes.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.comfortCard}>
-            {DAILY_DRINKS.map((item, index) => (
+            {content.dailyDrinks.map((item, index) => (
               <View
                 key={item.title}
                 style={[
                   styles.comfortRow,
-                  index < DAILY_DRINKS.length - 1 && styles.comfortRowBorder,
+                  index < content.dailyDrinks.length - 1 && styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={DAILY_DRINKS_ICONS[index] as never}
                     size={19}
                     color={theme.colors.primary}
                   />
@@ -395,7 +456,7 @@ export default function HydrationCycleArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Signes d’une hydratation insuffisante</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.warningCard}>
             <View style={styles.warningHeader}>
@@ -405,10 +466,10 @@ export default function HydrationCycleArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>À surveiller doucement</Text>
+              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
             </View>
 
-            {LOW_HYDRATION_SIGNS.map(item => (
+            {content.lowHydrationSigns.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -427,15 +488,12 @@ export default function HydrationCycleArticleScreen({
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Conseils pratiques</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Quelques habitudes simples suffisent souvent à mieux s’hydrater
-            sans y penser :
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
           <View style={styles.checkList}>
-            {PRACTICAL_TIPS.map(item => (
+            {content.practicalTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -448,16 +506,13 @@ export default function HydrationCycleArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.body}>
-            Pendant une activité physique, pense aussi à boire avant, pendant
-            et après l’effort pour compenser la transpiration.
-          </Text>
+          <Text style={styles.body}>{content.section5Body2}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 6                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>6. Idées reçues</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.compareCard}>
             <View style={styles.compareColumn}>
@@ -469,10 +524,8 @@ export default function HydrationCycleArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>Idée reçue</Text>
-              <Text style={styles.compareText}>
-                « Boire beaucoup me fait plus gonfler. »
-              </Text>
+              <Text style={styles.compareTitle}>{content.compareTitle1}</Text>
+              <Text style={styles.compareText}>{content.compareText1}</Text>
             </View>
 
             <View style={styles.compareDivider} />
@@ -486,10 +539,8 @@ export default function HydrationCycleArticleScreen({
                 />
               </View>
 
-              <Text style={styles.compareTitle}>Plutôt le contraire</Text>
-              <Text style={styles.compareText}>
-                Une bonne hydratation aide le corps à moins retenir d’eau.
-              </Text>
+              <Text style={styles.compareTitle}>{content.compareTitle2}</Text>
+              <Text style={styles.compareText}>{content.compareText2}</Text>
             </View>
           </View>
 
@@ -505,11 +556,8 @@ export default function HydrationCycleArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Les tisanes de gingembre ou de camomille apportent aussi une
-                hydratation apaisante en période de crampes.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -517,10 +565,10 @@ export default function HydrationCycleArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[6]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -544,11 +592,7 @@ export default function HydrationCycleArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical personnalisé. En cas de doute, demande conseil à un
-              professionnel de santé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

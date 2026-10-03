@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -35,82 +36,161 @@ type Props = NativeStackScreenProps<
   'ArticleReader'
 >;
 
-const BODY_CHANGES = [
-  {
-    icon: 'water-outline',
-    title: 'Pendant les règles',
-    text: 'Ton énergie peut être plus basse et ton corps peut avoir besoin de davantage de repos.',
-  },
-  {
-    icon: 'leaf',
-    title: 'Phase folliculaire',
-    text: 'L’énergie remonte progressivement et tu peux te sentir plus dynamique.',
-  },
-  {
-    icon: 'white-balance-sunny',
-    title: 'Autour de l’ovulation',
-    text: 'Certaines femmes ressentent davantage d’énergie, de motivation et de confiance.',
-  },
-  {
-    icon: 'weather-night',
-    title: 'Phase lutéale',
-    text: 'La fatigue, les ballonnements ou les variations d’humeur peuvent apparaître.',
-  },
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const BODY_CHANGES_ICONS = [
+  {icon: 'water-outline'},
+  {icon: 'leaf'},
+  {icon: 'white-balance-sunny'},
+  {icon: 'weather-night'},
 ] as const;
 
-const WHY_ITEMS = [
-  {
-    icon: 'heart-pulse',
-    text: 'Mieux comprendre les signaux de ton corps',
-  },
-  {
-    icon: 'calendar-check-outline',
-    text: 'Anticiper tes règles et tes différentes phases',
-  },
-  {
-    icon: 'emoticon-happy-outline',
-    text: 'Comprendre certaines variations d’humeur',
-  },
-  {
-    icon: 'lightning-bolt',
-    text: 'Adapter ton activité selon ton niveau d’énergie',
-  },
-  {
-    icon: 'notebook-edit-outline',
-    text: 'Améliorer ton suivi quotidien',
-  },
+const WHY_ITEMS_ICONS = [
+  {icon: 'heart-pulse'},
+  {icon: 'calendar-check-outline'},
+  {icon: 'emoticon-happy-outline'},
+  {icon: 'lightning-bolt'},
+  {icon: 'notebook-edit-outline'},
 ] as const;
 
-const FAQ = [
-  {
-    question:
-      'Est-ce normal que mon cycle ne dure pas exactement 28 jours ?',
-    answer:
-      'Oui. La durée d’un cycle peut varier d’une personne à l’autre et même légèrement d’un mois à l’autre.',
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'Cycle menstruel',
+    title: 'Les différentes phases\ndu cycle expliquées',
+    metaDuration: '6 min de lecture',
+    metaValidated: 'Contenu validé',
+    intro: 'Ton cycle menstruel se compose de plusieurs phases, chacune ayant un rôle essentiel dans ton équilibre hormonal et ta santé.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les 4 phases du cycle',
+      'Comment ton corps change',
+      'Pourquoi comprendre ton cycle est important',
+      'Questions fréquentes',
+    ],
+    body1: 'Ton cycle est généralement divisé en quatre phases principales. Leur durée peut varier d’une personne à l’autre : chaque corps possède son propre rythme.',
+    diagram: {
+      menstrual: {name: 'Phase menstruelle', days: 'Jours 1 à 5'},
+      follicular: {name: 'Phase folliculaire', days: 'Jours 1 à 13'},
+      luteal: {name: 'Phase lutéale', days: 'Jours 15 à 28'},
+      ovulatory: {name: 'Phase ovulatoire', days: 'Autour du jour 14'},
+    },
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Chaque femme est unique : observe ton corps et apprends à connaître ton propre rythme.',
+    body2: 'Les variations hormonales peuvent influencer ton énergie, ton humeur, ton sommeil et certaines sensations physiques tout au long du cycle.',
+    bodyChanges: [
+      {title: 'Pendant les règles', text: 'Ton énergie peut être plus basse et ton corps peut avoir besoin de davantage de repos.'},
+      {title: 'Phase folliculaire', text: 'L’énergie remonte progressivement et tu peux te sentir plus dynamique.'},
+      {title: 'Autour de l’ovulation', text: 'Certaines femmes ressentent davantage d’énergie, de motivation et de confiance.'},
+      {title: 'Phase lutéale', text: 'La fatigue, les ballonnements ou les variations d’humeur peuvent apparaître.'},
+    ],
+    softTipTitle: 'Écoute ton corps',
+    softTipText: 'Il n’existe pas une seule façon de vivre chaque phase. Tes sensations personnelles restent le meilleur repère.',
+    body3: 'Mieux connaître ton cycle peut t’aider à anticiper certaines périodes et à comprendre les changements que tu observes dans ton quotidien.',
+    whyItems: [
+      'Mieux comprendre les signaux de ton corps',
+      'Anticiper tes règles et tes différentes phases',
+      'Comprendre certaines variations d’humeur',
+      'Adapter ton activité selon ton niveau d’énergie',
+      'Améliorer ton suivi quotidien',
+    ],
+    body4: 'Voici quelques réponses aux questions souvent posées sur les différentes phases du cycle.',
+    faq: [
+      {
+        question: 'Est-ce normal que mon cycle ne dure pas exactement 28 jours ?',
+        answer: 'Oui. La durée d’un cycle peut varier d’une personne à l’autre et même légèrement d’un mois à l’autre.',
+      },
+      {
+        question: 'L’ovulation a-t-elle toujours lieu au jour 14 ?',
+        answer: 'Non. Le jour 14 est une estimation courante pour un cycle de 28 jours, mais l’ovulation peut survenir plus tôt ou plus tard.',
+      },
+      {
+        question: 'Pourquoi mes symptômes changent-ils selon les phases ?',
+        answer: 'Les variations hormonales au cours du cycle peuvent influencer l’énergie, l’humeur, le sommeil et certaines sensations physiques.',
+      },
+      {
+        question: 'Est-ce utile de suivre mes symptômes ?',
+        answer: 'Oui. Les noter régulièrement peut t’aider à reconnaître tes propres tendances et à mieux comprendre ton rythme.',
+      },
+    ],
+    endTitle: 'Ton cycle, ton rythme',
+    endText: 'Plus tu observes ton cycle, plus tu peux comprendre ce qui est habituel pour toi.',
+    shareMessage: 'Les différentes phases du cycle expliquées — AWA',
   },
-  {
-    question:
-      'L’ovulation a-t-elle toujours lieu au jour 14 ?',
-    answer:
-      'Non. Le jour 14 est une estimation courante pour un cycle de 28 jours, mais l’ovulation peut survenir plus tôt ou plus tard.',
+  en: {
+    badge: 'Menstrual cycle',
+    title: 'The different phases\nof the cycle explained',
+    metaDuration: '6 min read',
+    metaValidated: 'Reviewed content',
+    intro: 'Your menstrual cycle is made up of several phases, each playing an essential role in your hormonal balance and your health.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The 4 phases of the cycle',
+      'How your body changes',
+      'Why understanding your cycle matters',
+      'Frequently asked questions',
+    ],
+    body1: 'Your cycle is generally divided into four main phases. Their length can vary from person to person: every body has its own rhythm.',
+    diagram: {
+      menstrual: {name: 'Menstrual phase', days: 'Days 1 to 5'},
+      follicular: {name: 'Follicular phase', days: 'Days 1 to 13'},
+      luteal: {name: 'Luteal phase', days: 'Days 15 to 28'},
+      ovulatory: {name: 'Ovulatory phase', days: 'Around day 14'},
+    },
+    tip1Title: 'Good to know',
+    tip1Text: 'Every woman is unique: observe your body and learn your own rhythm.',
+    body2: 'Hormonal changes can influence your energy, mood, sleep, and certain physical sensations throughout the cycle.',
+    bodyChanges: [
+      {title: 'During your period', text: 'Your energy may be lower and your body may need more rest.'},
+      {title: 'Follicular phase', text: 'Energy gradually rises and you may feel more energized.'},
+      {title: 'Around ovulation', text: 'Some women feel more energy, motivation, and confidence.'},
+      {title: 'Luteal phase', text: 'Fatigue, bloating, or mood changes may appear.'},
+    ],
+    softTipTitle: 'Listen to your body',
+    softTipText: 'There isn’t just one way to experience each phase. Your own sensations remain the best guide.',
+    body3: 'Getting to know your cycle better can help you anticipate certain periods and understand the changes you notice day to day.',
+    whyItems: [
+      'Better understand your body’s signals',
+      'Anticipate your period and its different phases',
+      'Understand certain mood changes',
+      'Adjust your activity to your energy level',
+      'Improve your daily tracking',
+    ],
+    body4: 'Here are a few answers to questions commonly asked about the different phases of the cycle.',
+    faq: [
+      {
+        question: 'Is it normal that my cycle doesn’t last exactly 28 days?',
+        answer: 'Yes. The length of a cycle can vary from person to person, and even slightly from month to month.',
+      },
+      {
+        question: 'Does ovulation always happen on day 14?',
+        answer: 'No. Day 14 is a common estimate for a 28-day cycle, but ovulation can happen earlier or later.',
+      },
+      {
+        question: 'Why do my symptoms change depending on the phase?',
+        answer: 'Hormonal changes throughout the cycle can influence energy, mood, sleep, and certain physical sensations.',
+      },
+      {
+        question: 'Is it useful to track my symptoms?',
+        answer: 'Yes. Noting them regularly can help you recognize your own patterns and better understand your rhythm.',
+      },
+    ],
+    endTitle: 'Your cycle, your rhythm',
+    endText: 'The more you observe your cycle, the more you can understand what’s typical for you.',
+    shareMessage: 'The different phases of the cycle explained — AWA',
   },
-  {
-    question:
-      'Pourquoi mes symptômes changent-ils selon les phases ?',
-    answer:
-      'Les variations hormonales au cours du cycle peuvent influencer l’énergie, l’humeur, le sommeil et certaines sensations physiques.',
-  },
-  {
-    question:
-      'Est-ce utile de suivre mes symptômes ?',
-    answer:
-      'Oui. Les noter régulièrement peut t’aider à reconnaître tes propres tendances et à mieux comprendre ton rythme.',
-  },
-] as const;
+} as const;
 
 function CyclePhasesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -139,8 +219,7 @@ function CyclePhasesArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message:
-        'Les différentes phases du cycle expliquées — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -190,7 +269,7 @@ function CyclePhasesArticleScreen({
               },
             ]}>
             <Pressable
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               accessibilityRole="button"
               hitSlop={10}
               onPress={() =>
@@ -209,7 +288,7 @@ function CyclePhasesArticleScreen({
 
             <View style={styles.topActions}>
               <Pressable
-                accessibilityLabel="Favori"
+                accessibilityLabel={t('libraryArticle.bookmarkA11y')}
                 accessibilityRole="button"
                 hitSlop={10}
                 onPress={() =>
@@ -233,7 +312,7 @@ function CyclePhasesArticleScreen({
               </Pressable>
 
               <Pressable
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 accessibilityRole="button"
                 hitSlop={10}
                 onPress={handleShare}
@@ -255,24 +334,23 @@ function CyclePhasesArticleScreen({
         <View style={styles.article}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              Cycle menstruel
+              {content.badge}
             </Text>
           </View>
 
           <Text style={styles.title}>
-            Les différentes phases{`\n`}
-            du cycle expliquées
+            {content.title}
           </Text>
 
           <View style={styles.metaRow}>
             {[
               [
                 'clock-outline',
-                '6 min de lecture',
+                content.metaDuration,
               ],
               [
                 'shield-check-outline',
-                'Contenu validé',
+                content.metaValidated,
               ],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
@@ -298,24 +376,16 @@ function CyclePhasesArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Ton cycle menstruel se compose de
-            plusieurs phases, chacune ayant un rôle
-            essentiel dans ton équilibre hormonal et
-            ta santé.
+            {content.intro}
           </Text>
 
           {/* SOMMAIRE */}
           <View style={styles.contentsCard}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Les 4 phases du cycle',
-              'Comment ton corps change',
-              'Pourquoi comprendre ton cycle est important',
-              'Questions fréquentes',
-            ].map((text, index) => (
+            {content.topics.map((text, index) => (
               <View
                 key={text}
                 style={styles.contentsRow}>
@@ -345,25 +415,22 @@ function CyclePhasesArticleScreen({
 
           {/* SECTION 1 */}
           <Text style={styles.sectionTitle}>
-            1. Les 4 phases du cycle
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Ton cycle est généralement divisé en
-            quatre phases principales. Leur durée
-            peut varier d’une personne à l’autre :
-            chaque corps possède son propre rythme.
+            {content.body1}
           </Text>
 
           <View style={styles.diagramCard}>
             <View style={styles.phaseRow}>
               <View style={styles.phaseCopy}>
                 <Text style={styles.phaseName}>
-                  Phase menstruelle
+                  {content.diagram.menstrual.name}
                 </Text>
 
                 <Text style={styles.phaseDays}>
-                  Jours 1 à 5
+                  {content.diagram.menstrual.days}
                 </Text>
               </View>
 
@@ -373,7 +440,7 @@ function CyclePhasesArticleScreen({
                     styles.phaseName,
                     styles.right,
                   ]}>
-                  Phase folliculaire
+                  {content.diagram.follicular.name}
                 </Text>
 
                 <Text
@@ -381,7 +448,7 @@ function CyclePhasesArticleScreen({
                     styles.phaseDays,
                     styles.right,
                   ]}>
-                  Jours 1 à 13
+                  {content.diagram.follicular.days}
                 </Text>
               </View>
             </View>
@@ -395,11 +462,11 @@ function CyclePhasesArticleScreen({
             <View style={styles.phaseRow}>
               <View style={styles.phaseCopy}>
                 <Text style={styles.phaseName}>
-                  Phase lutéale
+                  {content.diagram.luteal.name}
                 </Text>
 
                 <Text style={styles.phaseDays}>
-                  Jours 15 à 28
+                  {content.diagram.luteal.days}
                 </Text>
               </View>
 
@@ -409,7 +476,7 @@ function CyclePhasesArticleScreen({
                     styles.phaseName,
                     styles.right,
                   ]}>
-                  Phase ovulatoire
+                  {content.diagram.ovulatory.name}
                 </Text>
 
                 <Text
@@ -417,7 +484,7 @@ function CyclePhasesArticleScreen({
                     styles.phaseDays,
                     styles.right,
                   ]}>
-                  Autour du jour 14
+                  {content.diagram.ovulatory.days}
                 </Text>
               </View>
             </View>
@@ -432,51 +499,50 @@ function CyclePhasesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Chaque femme est unique : observe
-                ton corps et apprends à connaître
-                ton propre rythme.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
           <Text style={styles.sectionTitle}>
-            2. Comment ton corps change
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Les variations hormonales peuvent
-            influencer ton énergie, ton humeur, ton
-            sommeil et certaines sensations
-            physiques tout au long du cycle.
+            {content.body2}
           </Text>
 
           <View style={styles.changeGrid}>
-            {BODY_CHANGES.map(item => (
-              <View
-                key={item.title}
-                style={styles.changeCard}>
-                <View style={styles.changeIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={24}
-                    color={theme.colors.primary}
-                  />
+            {BODY_CHANGES_ICONS.map((iconItem, index) => {
+              const item = content.bodyChanges[index];
+
+              return (
+                <View
+                  key={item.title}
+                  style={styles.changeCard}>
+                  <View style={styles.changeIcon}>
+                    <MaterialDesignIcons
+                      name={iconItem.icon as never}
+                      size={24}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <Text style={styles.changeTitle}>
+                    {item.title}
+                  </Text>
+
+                  <Text style={styles.changeText}>
+                    {item.text}
+                  </Text>
                 </View>
-
-                <Text style={styles.changeTitle}>
-                  {item.title}
-                </Text>
-
-                <Text style={styles.changeText}>
-                  {item.text}
-                </Text>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           <View style={styles.softTip}>
@@ -488,68 +554,64 @@ function CyclePhasesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Écoute ton corps
+                {content.softTipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Il n’existe pas une seule façon de
-                vivre chaque phase. Tes sensations
-                personnelles restent le meilleur
-                repère.
+                {content.softTipText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 3 */}
           <Text style={styles.sectionTitle}>
-            3. Pourquoi comprendre ton cycle est important
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Mieux connaître ton cycle peut t’aider à
-            anticiper certaines périodes et à
-            comprendre les changements que tu
-            observes dans ton quotidien.
+            {content.body3}
           </Text>
 
           <View style={styles.whyCard}>
-            {WHY_ITEMS.map((item, index) => (
-              <View
-                key={item.text}
-                style={[
-                  styles.whyRow,
-                  index <
-                    WHY_ITEMS.length - 1 &&
-                    styles.whyDivider,
-                ]}>
-                <View style={styles.whyIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={20}
-                    color={theme.colors.primary}
-                  />
-                </View>
+            {WHY_ITEMS_ICONS.map((iconItem, index) => {
+              const text = content.whyItems[index];
 
-                <Text style={styles.whyText}>
-                  {item.text}
-                </Text>
-              </View>
-            ))}
+              return (
+                <View
+                  key={text}
+                  style={[
+                    styles.whyRow,
+                    index <
+                      WHY_ITEMS_ICONS.length - 1 &&
+                      styles.whyDivider,
+                  ]}>
+                  <View style={styles.whyIcon}>
+                    <MaterialDesignIcons
+                      name={iconItem.icon as never}
+                      size={20}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <Text style={styles.whyText}>
+                    {text}
+                  </Text>
+                </View>
+              );
+            })}
           </View>
 
           {/* SECTION 4 */}
           <Text style={styles.sectionTitle}>
-            4. Questions fréquentes
+            4. {content.topics[3]}
           </Text>
 
           <Text style={styles.body}>
-            Voici quelques réponses aux questions
-            souvent posées sur les différentes
-            phases du cycle.
+            {content.body4}
           </Text>
 
           <View style={styles.faqList}>
-            {FAQ.map((item, index) => {
+            {content.faq.map((item, index) => {
               const opened = openFaq === index;
 
               return (
@@ -609,13 +671,11 @@ function CyclePhasesArticleScreen({
 
             <View style={styles.endCopy}>
               <Text style={styles.endTitle}>
-                Ton cycle, ton rythme
+                {content.endTitle}
               </Text>
 
               <Text style={styles.endText}>
-                Plus tu observes ton cycle, plus tu
-                peux comprendre ce qui est habituel
-                pour toi.
+                {content.endText}
               </Text>
             </View>
           </View>

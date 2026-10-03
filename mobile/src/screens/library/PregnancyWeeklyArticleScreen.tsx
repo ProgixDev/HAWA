@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,33 +34,141 @@ const ID = 'pregnancy-semaine-par-semaine';
 
 const HERO = require('../../assets/images/library/grossesse_semiane.png');
 
-const TRIMESTERS = [
-  ['numeric-1-circle-outline', '1er trimestre : formation des organes'],
-  ['numeric-2-circle-outline', '2e trimestre : premiers mouvements'],
-  ['numeric-3-circle-outline', '3e trimestre : préparation à la naissance'],
-  ['calendar-check-outline', 'Un suivi médical à chaque étape'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icon lists.
+const TRIMESTER_ICONS = [
+  'numeric-1-circle-outline',
+  'numeric-2-circle-outline',
+  'numeric-3-circle-outline',
+  'calendar-check-outline',
 ] as const;
 
-const COMMON_SYMPTOMS = [
-  'Nausées et fatigue, surtout au premier trimestre',
-  'Tiraillements abdominaux liés à l’étirement des ligaments',
-  'Essoufflement léger en fin de grossesse',
-  'Troubles du sommeil en fin de troisième trimestre',
-];
-
-const URGENT_SIGNS = [
-  ['water-alert-outline', 'Saignements, même légers'],
-  ['alert-circle-outline', 'Douleur abdominale intense'],
-  ['baby-face-outline', 'Absence de mouvements ressentis'],
-  ['head-alert-outline', 'Maux de tête violents ou troubles de la vue'],
-  ['thermometer-alert', 'Fièvre inhabituelle'],
+const URGENT_SIGN_ICONS = [
+  'water-alert-outline',
+  'alert-circle-outline',
+  'baby-face-outline',
+  'head-alert-outline',
+  'thermometer-alert',
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'GROSSESSE • VUE D’ENSEMBLE',
+    title: 'Ta grossesse,\nsemaine par semaine',
+    metaDuration: '8 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Les grandes étapes du premier au troisième trimestre, pour savoir à quoi t’attendre à chaque période.',
+    introSecondary: 'Chaque grossesse suit son propre rythme : ces repères sont généraux et peuvent varier d’une femme à l’autre.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Le premier trimestre : les fondations',
+      'Le deuxième trimestre : plus de confort',
+      'Le troisième trimestre : se préparer',
+      'Les grands repères par trimestre',
+      'Symptômes courants à chaque étape',
+      'Quand consulter rapidement',
+      'À retenir',
+    ],
+    body1: 'Le premier trimestre pose les fondations : tous les organes principaux du bébé se forment progressivement. C’est aussi une période où la fatigue et les nausées sont fréquentes, à des degrés très variables selon les femmes.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Ces symptômes, bien que parfois inconfortables, sont un signe que le corps s’adapte activement à la grossesse.',
+    body2: 'Le deuxième trimestre est souvent le plus confortable, avec l’apparition des premiers mouvements du bébé.',
+    highlightTitle: 'Les premiers mouvements',
+    highlightText: 'Ils sont généralement ressentis entre la 18e et la 22e semaine, un peu plus tôt si ce n’est pas ta première grossesse.',
+    body3: 'Le troisième trimestre prépare le corps à l’accouchement, avec une prise de poids et une fatigue plus marquées. Des contractions d’entraînement (dites de Braxton Hicks) peuvent aussi apparaître.',
+    neutralText: 'Ces contractions sont généralement irrégulières et peu douloureuses ; elles diffèrent des contractions du travail.',
+    trimesters: [
+      '1er trimestre : formation des organes',
+      '2e trimestre : premiers mouvements',
+      '3e trimestre : préparation à la naissance',
+      'Un suivi médical à chaque étape',
+    ],
+    commonSymptoms: [
+      'Nausées et fatigue, surtout au premier trimestre',
+      'Tiraillements abdominaux liés à l’étirement des ligaments',
+      'Essoufflement léger en fin de grossesse',
+      'Troubles du sommeil en fin de troisième trimestre',
+    ],
+    consultIntro: 'Certains signes justifient un avis médical rapide, quel que soit le trimestre :',
+    urgentSigns: [
+      'Saignements, même légers',
+      'Douleur abdominale intense',
+      'Absence de mouvements ressentis',
+      'Maux de tête violents ou troubles de la vue',
+      'Fièvre inhabituelle',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Chaque trimestre apporte ses propres changements : les connaître à l’avance aide à mieux vivre chaque étape, sans remplacer le suivi régulier de ta sage-femme ou de ton médecin.',
+    shareMessage: 'Ta grossesse, semaine par semaine — AWA',
+  },
+  en: {
+    badge: 'PREGNANCY • OVERVIEW',
+    title: 'Your pregnancy,\nweek by week',
+    metaDuration: '8 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'The key milestones from the first to the third trimester, so you know what to expect at each stage.',
+    introSecondary: 'Every pregnancy follows its own rhythm: these benchmarks are general and can vary from woman to woman.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The first trimester: laying the foundations',
+      'The second trimester: more comfort',
+      'The third trimester: getting ready',
+      'Key milestones by trimester',
+      'Common symptoms at each stage',
+      'When to seek care quickly',
+      'Key takeaways',
+    ],
+    body1: 'The first trimester lays the foundations: all of the baby’s main organs form progressively. It’s also a time when fatigue and nausea are common, to very different degrees depending on the woman.',
+    tip1Title: 'Good to know',
+    tip1Text: 'These symptoms, although sometimes uncomfortable, are a sign that the body is actively adapting to pregnancy.',
+    body2: 'The second trimester is often the most comfortable, with the baby’s first movements appearing.',
+    highlightTitle: 'The first movements',
+    highlightText: 'These are usually felt between weeks 18 and 22, a little earlier if this isn’t your first pregnancy.',
+    body3: 'The third trimester prepares the body for childbirth, with more noticeable weight gain and fatigue. Practice contractions (known as Braxton Hicks) may also appear.',
+    neutralText: 'These contractions are usually irregular and not very painful; they differ from labor contractions.',
+    trimesters: [
+      '1st trimester: organ formation',
+      '2nd trimester: first movements',
+      '3rd trimester: preparing for birth',
+      'Medical follow-up at every stage',
+    ],
+    commonSymptoms: [
+      'Nausea and fatigue, especially in the first trimester',
+      'Abdominal twinges linked to ligaments stretching',
+      'Mild shortness of breath later in pregnancy',
+      'Sleep trouble in late third trimester',
+    ],
+    consultIntro: 'Certain signs call for prompt medical advice, whatever the trimester:',
+    urgentSigns: [
+      'Bleeding, even light',
+      'Intense abdominal pain',
+      'No movement felt',
+      'Severe headaches or vision problems',
+      'Unusual fever',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'Each trimester brings its own changes: knowing them in advance helps you experience each stage better, without replacing regular follow-up with your midwife or doctor.',
+    shareMessage: 'Your pregnancy, week by week — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PregnancyWeeklyArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -86,7 +195,7 @@ export default function PregnancyWeeklyArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Ta grossesse, semaine par semaine — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -124,7 +233,7 @@ export default function PregnancyWeeklyArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -133,7 +242,7 @@ export default function PregnancyWeeklyArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -148,7 +257,7 @@ export default function PregnancyWeeklyArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -166,19 +275,19 @@ export default function PregnancyWeeklyArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>GROSSESSE • VUE D’ENSEMBLE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Ta grossesse,{`\n`}semaine par semaine
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '8 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -197,27 +306,17 @@ export default function PregnancyWeeklyArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Les grandes étapes du premier au troisième trimestre, pour
-            savoir à quoi t’attendre à chaque période.
+            {content.intro}
           </Text>
 
           <Text style={styles.introSecondary}>
-            Chaque grossesse suit son propre rythme : ces repères sont
-            généraux et peuvent varier d’une femme à l’autre.
+            {content.introSecondary}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Le premier trimestre : les fondations',
-              'Le deuxième trimestre : plus de confort',
-              'Le troisième trimestre : se préparer',
-              'Les grands repères par trimestre',
-              'Symptômes courants à chaque étape',
-              'Quand consulter rapidement',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -233,13 +332,10 @@ export default function PregnancyWeeklyArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Le premier trimestre : les fondations</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Le premier trimestre pose les fondations : tous les organes
-            principaux du bébé se forment progressivement. C’est aussi une
-            période où la fatigue et les nausées sont fréquentes, à des
-            degrés très variables selon les femmes.
+            {content.body1}
           </Text>
 
           <View style={styles.tip}>
@@ -250,21 +346,19 @@ export default function PregnancyWeeklyArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Ces symptômes, bien que parfois inconfortables, sont un
-                signe que le corps s’adapte activement à la grossesse.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Le deuxième trimestre : plus de confort
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Le deuxième trimestre est souvent le plus confortable, avec
-            l’apparition des premiers mouvements du bébé.
+            {content.body2}
           </Text>
 
           <View style={styles.highlightBox}>
@@ -276,26 +370,21 @@ export default function PregnancyWeeklyArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                Les premiers mouvements
+                {content.highlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                Ils sont généralement ressentis entre la 18e et la 22e
-                semaine, un peu plus tôt si ce n’est pas ta première
-                grossesse.
+                {content.highlightText}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            3. Le troisième trimestre : se préparer
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Le troisième trimestre prépare le corps à l’accouchement, avec
-            une prise de poids et une fatigue plus marquées. Des
-            contractions d’entraînement (dites de Braxton Hicks) peuvent
-            aussi apparaître.
+            {content.body3}
           </Text>
 
           <View style={styles.neutralBox}>
@@ -306,33 +395,32 @@ export default function PregnancyWeeklyArticleScreen({
             />
 
             <Text style={styles.neutralText}>
-              Ces contractions sont généralement irrégulières et peu
-              douloureuses ; elles diffèrent des contractions du travail.
+              {content.neutralText}
             </Text>
           </View>
 
-          <Text style={styles.h2}>4. Les grands repères par trimestre</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.daily}>
-            {TRIMESTERS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {TRIMESTER_ICONS.map((icon, index) => (
+              <View key={content.trimesters[index]} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.trimesters[index]}</Text>
               </View>
             ))}
           </View>
 
           <Text style={styles.h2}>
-            5. Symptômes courants à chaque étape
+            5. {content.topics[4]}
           </Text>
 
           <View style={styles.checkList}>
-            {COMMON_SYMPTOMS.map(item => (
+            {content.commonSymptoms.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -345,16 +433,15 @@ export default function PregnancyWeeklyArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>6. Quand consulter rapidement</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <Text style={styles.body}>
-            Certains signes justifient un avis médical rapide, quel que
-            soit le trimestre :
+            {content.consultIntro}
           </Text>
 
           <View style={styles.consultCard}>
-            {URGENT_SIGNS.map(([icon, text]) => (
-              <View key={text} style={styles.consultRow}>
+            {URGENT_SIGN_ICONS.map((icon, index) => (
+              <View key={content.urgentSigns[index]} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
                     name={icon as never}
@@ -363,12 +450,12 @@ export default function PregnancyWeeklyArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.consultText}>{text}</Text>
+                <Text style={styles.consultText}>{content.urgentSigns[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>7. À retenir</Text>
+          <Text style={styles.h2}>7. {content.topics[6]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -378,12 +465,9 @@ export default function PregnancyWeeklyArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Chaque trimestre apporte ses propres changements : les
-                connaître à l’avance aide à mieux vivre chaque étape, sans
-                remplacer le suivi régulier de ta sage-femme ou de ton
-                médecin.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

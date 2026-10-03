@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -34,117 +35,278 @@ const ID = 'nifas-aspects-medicaux';
 const HERO = require('../../assets/images/library/featured-spm.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA */
+/* LANGUAGE-NEUTRAL DATA (icons/numbers only — text lives in CONTENT below) */
 /* -------------------------------------------------------------------------- */
 
-const NIFAS_STAGES = [
-  {
-    icon: 'hospital-box-outline',
-    number: '01',
-    title: 'Après l’accouchement',
-    subtitle: 'Début du post-partum',
-    text:
-      'Le corps commence progressivement sa récupération après la naissance.',
-  },
-  {
-    icon: 'water-outline',
-    number: '02',
-    title: 'Les lochies',
-    subtitle: 'Pertes post-accouchement',
-    text:
-      'Les pertes évoluent progressivement en quantité et en couleur.',
-  },
-  {
-    icon: 'chart-timeline-variant',
-    number: '03',
-    title: 'Diminution progressive',
-    subtitle: 'Sur plusieurs semaines',
-    text:
-      'Les pertes diminuent généralement au fil du temps.',
-  },
-  {
-    icon: 'calendar-check-outline',
-    number: '04',
-    title: 'Retour progressif',
-    subtitle: 'Vers le cycle habituel',
-    text:
-      'Le cycle menstruel peut ensuite reprendre progressivement.',
-  },
+const NIFAS_STAGE_META = [
+  {icon: 'hospital-box-outline', number: '01'},
+  {icon: 'water-outline', number: '02'},
+  {icon: 'chart-timeline-variant', number: '03'},
+  {icon: 'calendar-check-outline', number: '04'},
 ] as const;
 
-// Note: the three stages below are differentiated purely by their text
-// labels/periods ("Rouges" → "Rosées/brunâtres" → "Blanchâtres"), matching
-// the sibling LochiaArticleScreen.tsx timeline exactly — the icons all use
-// the same theme accent color rather than a per-stage swatch (an earlier
-// per-item tint here was decorative, not a genuine medical color legend:
-// it used a green icon for the "blanchâtre"/whitish stage, which does not
-// represent that color at all).
-const LOCHIA_EVOLUTION = [
-  {
-    icon: 'numeric-1-circle-outline',
-    title: 'Lochies rouges',
-    period: 'Premiers jours',
-    text:
-      'Les pertes sont généralement rouges et peuvent être plus abondantes au début.',
-  },
-  {
-    icon: 'numeric-2-circle-outline',
-    title: 'Lochies rosées / brunâtres',
-    period: 'Après quelques jours',
-    text:
-      'La couleur peut devenir plus claire ou brunâtre tandis que le flux diminue.',
-  },
-  {
-    icon: 'numeric-3-circle-outline',
-    title: 'Lochies blanchâtres',
-    period: 'Semaines suivantes',
-    text:
-      'Les pertes deviennent progressivement plus claires et moins abondantes.',
-  },
+// Note: the three lochia-evolution stages below are differentiated purely by
+// their text labels/periods ("Rouges" → "Rosées/brunâtres" → "Blanchâtres"),
+// matching the sibling LochiaArticleScreen.tsx timeline exactly — the icons
+// all use the same theme accent color rather than a per-stage swatch (an
+// earlier per-item tint here was decorative, not a genuine medical color
+// legend: it used a green icon for the "blanchâtre"/whitish stage, which
+// does not represent that color at all).
+const LOCHIA_EVOLUTION_ICONS = [
+  'numeric-1-circle-outline',
+  'numeric-2-circle-outline',
+  'numeric-3-circle-outline',
 ] as const;
 
-const CARE_TIPS = [
-  {
-    icon: 'shower',
-    title: 'Hygiène douce',
-    text:
-      'Garde une hygiène quotidienne simple et confortable.',
-  },
-  {
-    icon: 'bed-outline',
-    title: 'Repos',
-    text:
-      'Accorde à ton corps du temps pour récupérer.',
-  },
-  {
-    icon: 'cup-water',
-    title: 'Hydratation',
-    text:
-      'Pense à boire régulièrement selon tes besoins.',
-  },
-  {
-    icon: 'food-apple-outline',
-    title: 'Alimentation',
-    text:
-      'Une alimentation variée accompagne la récupération.',
-  },
+const CARE_TIP_ICONS = [
+  'shower',
+  'bed-outline',
+  'cup-water',
+  'food-apple-outline',
 ] as const;
 
-const WARNING_SIGNS = [
-  'Une odeur forte ou inhabituelle des pertes',
-  'De la fièvre ou un état général qui se dégrade',
-  'Un saignement qui devient soudainement très abondant',
-  'Une douleur importante, persistante ou inhabituelle',
-  'Un symptôme nouveau qui t’inquiète',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L bilingual editorial content. Article identity (ID,
+   images, bookmark/progress keys, JSX structure) is untouched; only this
+   object changes per language. The French text below is byte-identical to
+   the original — never retyped, only moved into the `fr` key — so the app
+   remains fully bilingual rather than having French replaced by English.
+   "Nifas" is an Islamic jurisprudence term and is kept untranslated in both
+   languages, exactly as the rest of the app does. */
+/* -------------------------------------------------------------------------- */
 
-const SUMMARY = [
-  'Le nifas est un terme utilisé dans le cadre religieux après l’accouchement.',
-  'Sur le plan médical, les pertes post-accouchement sont appelées lochies.',
-  'Les lochies évoluent progressivement en couleur et en quantité.',
-  'Le repos, l’hygiène douce et une bonne hydratation accompagnent la récupération.',
-  'Un changement inhabituel ou préoccupant mérite un avis professionnel.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'POST-PARTUM • NIFAS',
+    title: 'Le nifas :\naspects médicaux',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu informatif',
+    intro:
+      'Après la naissance, le corps traverse une période de récupération progressive. Comprendre les pertes post-accouchement, leur évolution et les signes qui doivent attirer l’attention peut aider à vivre cette période avec davantage de repères.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comprendre le terme nifas',
+      'Le schéma médical après la naissance',
+      'L’évolution des lochies',
+      'Prendre soin de soi',
+      'Quand demander conseil ?',
+      'À retenir',
+    ],
+    h2Section1: '1. Comprendre le terme « nifas »',
+    body1a:
+      'Le terme « nifas » appartient au vocabulaire religieux et désigne la période liée aux saignements qui suivent l’accouchement dans les règles de jurisprudence islamique.',
+    body1b:
+      'Sur le plan médical, les pertes observées après l’accouchement sont appelées « lochies ». Ces deux notions peuvent être étudiées séparément : l’une relève d’un cadre religieux, l’autre décrit un phénomène physiologique.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'Notion relevant du cadre religieux après l’accouchement.',
+      lochiaTitle: 'Lochies',
+      lochiaText: 'Terme médical utilisé pour les pertes post-accouchement.',
+    },
+    h2Section2: '2. Le schéma médical après la naissance',
+    body2:
+      'La récupération post-partum se fait progressivement. Les pertes post-accouchement évoluent généralement avec le temps tandis que l’utérus poursuit son retour vers son état habituel.',
+    schemaTitle: 'Évolution post-accouchement',
+    schemaSubtitle: 'Repère médical simplifié',
+    stages: [
+      {
+        title: 'Après l’accouchement',
+        subtitle: 'Début du post-partum',
+        text: 'Le corps commence progressivement sa récupération après la naissance.',
+      },
+      {
+        title: 'Les lochies',
+        subtitle: 'Pertes post-accouchement',
+        text: 'Les pertes évoluent progressivement en quantité et en couleur.',
+      },
+      {
+        title: 'Diminution progressive',
+        subtitle: 'Sur plusieurs semaines',
+        text: 'Les pertes diminuent généralement au fil du temps.',
+      },
+      {
+        title: 'Retour progressif',
+        subtitle: 'Vers le cycle habituel',
+        text: 'Le cycle menstruel peut ensuite reprendre progressivement.',
+      },
+    ],
+    h2Section3: '3. L’évolution des lochies',
+    body3:
+      'Les lochies changent généralement progressivement de couleur et diminuent en quantité. Leur évolution peut cependant varier d’une personne à l’autre.',
+    lochiaEvolution: [
+      {
+        title: 'Lochies rouges',
+        period: 'Premiers jours',
+        text: 'Les pertes sont généralement rouges et peuvent être plus abondantes au début.',
+      },
+      {
+        title: 'Lochies rosées / brunâtres',
+        period: 'Après quelques jours',
+        text: 'La couleur peut devenir plus claire ou brunâtre tandis que le flux diminue.',
+      },
+      {
+        title: 'Lochies blanchâtres',
+        period: 'Semaines suivantes',
+        text: 'Les pertes deviennent progressivement plus claires et moins abondantes.',
+      },
+    ],
+    infoTitle: 'À retenir',
+    infoText:
+      'La couleur et la quantité des lochies peuvent évoluer progressivement. L’évolution exacte n’est pas identique chez toutes les personnes.',
+    h2Section4: '4. Prendre soin de soi',
+    body4:
+      'Pendant cette période, quelques habitudes simples peuvent contribuer au confort et accompagner la récupération du corps.',
+    careTips: [
+      {title: 'Hygiène douce', text: 'Garde une hygiène quotidienne simple et confortable.'},
+      {title: 'Repos', text: 'Accorde à ton corps du temps pour récupérer.'},
+      {title: 'Hydratation', text: 'Pense à boire régulièrement selon tes besoins.'},
+      {title: 'Alimentation', text: 'Une alimentation variée accompagne la récupération.'},
+    ],
+    h2Section5: '5. Quand demander conseil ?',
+    body5:
+      'Certaines situations nécessitent de demander rapidement conseil à un professionnel de santé, notamment lorsqu’un changement paraît important, soudain ou inhabituel.',
+    warningTitle: 'Signes à ne pas ignorer',
+    warningSubtitle: 'Demande un avis professionnel si nécessaire',
+    warningSigns: [
+      'Une odeur forte ou inhabituelle des pertes',
+      'De la fièvre ou un état général qui se dégrade',
+      'Un saignement qui devient soudainement très abondant',
+      'Une douleur importante, persistante ou inhabituelle',
+      'Un symptôme nouveau qui t’inquiète',
+    ],
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Chaque récupération post-partum est différente. Les informations de cet article sont destinées à donner des repères généraux et ne remplacent pas une consultation médicale.',
+    summaryHeading: 'À retenir',
+    summary: [
+      'Le nifas est un terme utilisé dans le cadre religieux après l’accouchement.',
+      'Sur le plan médical, les pertes post-accouchement sont appelées lochies.',
+      'Les lochies évoluent progressivement en couleur et en quantité.',
+      'Le repos, l’hygiène douce et une bonne hydratation accompagnent la récupération.',
+      'Un changement inhabituel ou préoccupant mérite un avis professionnel.',
+    ],
+    disclaimerText:
+      'Contenu informatif. Les informations médicales présentées ici sont générales et ne remplacent pas l’avis d’un professionnel de santé. Pour les questions religieuses spécifiques, il est recommandé de se référer à une source religieuse qualifiée.',
+    shareMessage: 'Le nifas : aspects médicaux — AWA',
+  },
+  en: {
+    badge: 'POSTPARTUM • NIFAS',
+    title: 'Nifas:\nmedical aspects',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Informational content',
+    intro:
+      'After giving birth, the body goes through a gradual recovery period. Understanding postpartum bleeding, how it evolves, and the signs that call for attention can help you feel more informed during this time.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Understanding the term Nifas',
+      'The medical pattern after birth',
+      'How lochia evolves',
+      'Taking care of yourself',
+      'When to seek advice',
+      'Key takeaways',
+    ],
+    h2Section1: '1. Understanding the term "Nifas"',
+    body1a:
+      'The term "Nifas" belongs to religious vocabulary and refers to the period associated with the bleeding that follows childbirth within the rules of Islamic jurisprudence.',
+    body1b:
+      'Medically, the bleeding observed after childbirth is called "lochia." These two notions can be considered separately: one belongs to a religious framework, the other describes a physiological phenomenon.',
+    distinction: {
+      nifasTitle: 'Nifas',
+      nifasText: 'A notion belonging to the religious framework after childbirth.',
+      lochiaTitle: 'Lochia',
+      lochiaText: 'Medical term used for postpartum bleeding.',
+    },
+    h2Section2: '2. The medical pattern after birth',
+    body2:
+      'Postpartum recovery happens gradually. Postpartum bleeding generally changes over time as the uterus continues returning to its usual state.',
+    schemaTitle: 'Postpartum progression',
+    schemaSubtitle: 'Simplified medical reference',
+    stages: [
+      {
+        title: 'After childbirth',
+        subtitle: 'Start of the postpartum period',
+        text: 'The body gradually begins its recovery after birth.',
+      },
+      {
+        title: 'Lochia',
+        subtitle: 'Postpartum bleeding',
+        text: 'The bleeding gradually changes in amount and color.',
+      },
+      {
+        title: 'Gradual decrease',
+        subtitle: 'Over several weeks',
+        text: 'The bleeding generally decreases over time.',
+      },
+      {
+        title: 'Gradual return',
+        subtitle: 'Toward the usual cycle',
+        text: 'The menstrual cycle can then gradually resume.',
+      },
+    ],
+    h2Section3: '3. How lochia evolves',
+    body3:
+      'Lochia generally changes color gradually and decreases in amount. However, this progression can vary from person to person.',
+    lochiaEvolution: [
+      {
+        title: 'Red lochia',
+        period: 'First days',
+        text: 'The bleeding is usually red and can be heavier at the start.',
+      },
+      {
+        title: 'Pink / brownish lochia',
+        period: 'After a few days',
+        text: 'The color can become lighter or brownish as the flow decreases.',
+      },
+      {
+        title: 'Whitish lochia',
+        period: 'Following weeks',
+        text: 'The bleeding gradually becomes lighter and less abundant.',
+      },
+    ],
+    infoTitle: 'Key takeaways',
+    infoText:
+      'The color and amount of lochia can change gradually. The exact progression isn’t the same for everyone.',
+    h2Section4: '4. Taking care of yourself',
+    body4:
+      'During this period, a few simple habits can help with comfort and support the body’s recovery.',
+    careTips: [
+      {title: 'Gentle hygiene', text: 'Keep a simple, comfortable daily hygiene routine.'},
+      {title: 'Rest', text: 'Give your body time to recover.'},
+      {title: 'Hydration', text: 'Remember to drink regularly according to your needs.'},
+      {title: 'Nutrition', text: 'A varied diet supports recovery.'},
+    ],
+    h2Section5: '5. When to seek advice',
+    body5:
+      'Certain situations call for prompt advice from a healthcare professional, particularly when a change seems significant, sudden, or unusual.',
+    warningTitle: 'Signs not to ignore',
+    warningSubtitle: 'Seek professional advice if needed',
+    warningSigns: [
+      'A strong or unusual odor in the bleeding',
+      'Fever or a worsening general condition',
+      'Bleeding that suddenly becomes very heavy',
+      'Significant, persistent, or unusual pain',
+      'A new symptom that worries you',
+    ],
+    tipTitle: 'Good to know',
+    tipText:
+      'Every postpartum recovery is different. The information in this article is meant to provide general guidance and doesn’t replace a medical consultation.',
+    summaryHeading: 'Key takeaways',
+    summary: [
+      'Nifas is a term used in the religious context after childbirth.',
+      'Medically, postpartum bleeding is called lochia.',
+      'Lochia gradually changes in color and amount.',
+      'Rest, gentle hygiene, and good hydration support recovery.',
+      'An unusual or concerning change deserves professional advice.',
+    ],
+    disclaimerText:
+      'Informational content. The medical information presented here is general and doesn’t replace the advice of a healthcare professional. For specific religious questions, it’s recommended to refer to a qualified religious source.',
+    shareMessage: 'Nifas: medical aspects — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES */
@@ -162,6 +324,9 @@ type Props = NativeStackScreenProps<
 export default function NifasMedicalArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -190,7 +355,7 @@ export default function NifasMedicalArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas : aspects médicaux — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -243,7 +408,7 @@ export default function NifasMedicalArticleScreen({
           >
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -260,7 +425,7 @@ export default function NifasMedicalArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -280,7 +445,7 @@ export default function NifasMedicalArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -306,30 +471,29 @@ export default function NifasMedicalArticleScreen({
 
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              POST-PARTUM • NIFAS
+              {content.badge}
             </Text>
           </View>
 
           {/* Title */}
 
           <Text style={styles.title}>
-            Le nifas :{'\n'}
-            aspects médicaux
+            {content.title}
           </Text>
 
           {/* Metadata */}
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
+              ['clock-outline', content.metaDuration],
               [
                 'book-open-page-variant-outline',
-                'Guide',
+                content.metaType,
               ],
-              ['chart-bar', 'Débutant'],
+              ['chart-bar', content.metaLevel],
               [
                 'shield-check-outline',
-                'Contenu informatif',
+                content.metaValidated,
               ],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
@@ -355,12 +519,7 @@ export default function NifasMedicalArticleScreen({
           {/* Introduction */}
 
           <Text style={styles.intro}>
-            Après la naissance, le corps traverse une
-            période de récupération progressive.
-            Comprendre les pertes post-accouchement,
-            leur évolution et les signes qui doivent
-            attirer l’attention peut aider à vivre cette
-            période avec davantage de repères.
+            {content.intro}
           </Text>
 
           {/* ---------------------------------------------------------------- */}
@@ -369,17 +528,10 @@ export default function NifasMedicalArticleScreen({
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Comprendre le terme nifas',
-              'Le schéma médical après la naissance',
-              'L’évolution des lochies',
-              'Prendre soin de soi',
-              'Quand demander conseil ?',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}
@@ -408,23 +560,15 @@ export default function NifasMedicalArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            1. Comprendre le terme « nifas »
+            {content.h2Section1}
           </Text>
 
           <Text style={styles.body}>
-            Le terme « nifas » appartient au vocabulaire
-            religieux et désigne la période liée aux
-            saignements qui suivent l’accouchement dans
-            les règles de jurisprudence islamique.
+            {content.body1a}
           </Text>
 
           <Text style={styles.body}>
-            Sur le plan médical, les pertes observées
-            après l’accouchement sont appelées
-            « lochies ». Ces deux notions peuvent être
-            étudiées séparément : l’une relève d’un cadre
-            religieux, l’autre décrit un phénomène
-            physiologique.
+            {content.body1b}
           </Text>
 
           {/* Distinction card */}
@@ -441,12 +585,11 @@ export default function NifasMedicalArticleScreen({
 
               <View style={styles.distinctionCopy}>
                 <Text style={styles.distinctionTitle}>
-                  Nifas
+                  {content.distinction.nifasTitle}
                 </Text>
 
                 <Text style={styles.distinctionText}>
-                  Notion relevant du cadre religieux
-                  après l’accouchement.
+                  {content.distinction.nifasText}
                 </Text>
               </View>
             </View>
@@ -464,12 +607,11 @@ export default function NifasMedicalArticleScreen({
 
               <View style={styles.distinctionCopy}>
                 <Text style={styles.distinctionTitle}>
-                  Lochies
+                  {content.distinction.lochiaTitle}
                 </Text>
 
                 <Text style={styles.distinctionText}>
-                  Terme médical utilisé pour les pertes
-                  post-accouchement.
+                  {content.distinction.lochiaText}
                 </Text>
               </View>
             </View>
@@ -480,15 +622,11 @@ export default function NifasMedicalArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            2. Le schéma médical après la naissance
+            {content.h2Section2}
           </Text>
 
           <Text style={styles.body}>
-            La récupération post-partum se fait
-            progressivement. Les pertes post-accouchement
-            évoluent généralement avec le temps tandis
-            que l’utérus poursuit son retour vers son état
-            habituel.
+            {content.body2}
           </Text>
 
           {/* SCHEMA */}
@@ -505,19 +643,19 @@ export default function NifasMedicalArticleScreen({
 
               <View style={styles.schemaHeaderCopy}>
                 <Text style={styles.schemaTitle}>
-                  Évolution post-accouchement
+                  {content.schemaTitle}
                 </Text>
 
                 <Text style={styles.schemaSubtitle}>
-                  Repère médical simplifié
+                  {content.schemaSubtitle}
                 </Text>
               </View>
             </View>
 
             <View style={styles.schemaTimeline}>
-              {NIFAS_STAGES.map((stage, index) => (
+              {content.stages.map((stage, index) => (
                 <View
-                  key={stage.number}
+                  key={stage.title}
                   style={styles.schemaStage}
                 >
                   <View style={styles.schemaRail}>
@@ -525,12 +663,12 @@ export default function NifasMedicalArticleScreen({
                       <Text
                         style={styles.schemaNodeNumber}
                       >
-                        {stage.number}
+                        {NIFAS_STAGE_META[index].number}
                       </Text>
                     </View>
 
                     {index <
-                    NIFAS_STAGES.length - 1 ? (
+                    content.stages.length - 1 ? (
                       <View
                         style={styles.schemaConnector}
                       />
@@ -545,7 +683,7 @@ export default function NifasMedicalArticleScreen({
                         style={styles.schemaStageIcon}
                       >
                         <MaterialDesignIcons
-                          name={stage.icon as never}
+                          name={NIFAS_STAGE_META[index].icon as never}
                           size={19}
                           color={theme.colors.primary}
                         />
@@ -588,18 +726,15 @@ export default function NifasMedicalArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            3. L’évolution des lochies
+            {content.h2Section3}
           </Text>
 
           <Text style={styles.body}>
-            Les lochies changent généralement
-            progressivement de couleur et diminuent en
-            quantité. Leur évolution peut cependant
-            varier d’une personne à l’autre.
+            {content.body3}
           </Text>
 
           <View style={styles.evolutionCard}>
-            {LOCHIA_EVOLUTION.map((item, index) => (
+            {content.lochiaEvolution.map((item, index) => (
               <View
                 key={item.title}
                 style={styles.evolutionItem}
@@ -607,14 +742,14 @@ export default function NifasMedicalArticleScreen({
                 <View style={styles.evolutionLeft}>
                   <View style={styles.evolutionIcon}>
                     <MaterialDesignIcons
-                      name={item.icon as never}
+                      name={LOCHIA_EVOLUTION_ICONS[index] as never}
                       size={21}
                       color={theme.colors.primary}
                     />
                   </View>
 
                   {index <
-                  LOCHIA_EVOLUTION.length - 1 ? (
+                  content.lochiaEvolution.length - 1 ? (
                     <View
                       style={
                         styles.evolutionConnector
@@ -653,14 +788,11 @@ export default function NifasMedicalArticleScreen({
 
             <View style={styles.infoCopy}>
               <Text style={styles.infoTitle}>
-                À retenir
+                {content.infoTitle}
               </Text>
 
               <Text style={styles.infoText}>
-                La couleur et la quantité des lochies
-                peuvent évoluer progressivement.
-                L’évolution exacte n’est pas identique
-                chez toutes les personnes.
+                {content.infoText}
               </Text>
             </View>
           </View>
@@ -670,24 +802,22 @@ export default function NifasMedicalArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            4. Prendre soin de soi
+            {content.h2Section4}
           </Text>
 
           <Text style={styles.body}>
-            Pendant cette période, quelques habitudes
-            simples peuvent contribuer au confort et
-            accompagner la récupération du corps.
+            {content.body4}
           </Text>
 
           <View style={styles.careGrid}>
-            {CARE_TIPS.map(item => (
+            {content.careTips.map((item, index) => (
               <View
                 key={item.title}
                 style={styles.careCard}
               >
                 <View style={styles.careIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={CARE_TIP_ICONS[index] as never}
                     size={22}
                     color={theme.colors.primary}
                   />
@@ -709,14 +839,11 @@ export default function NifasMedicalArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            5. Quand demander conseil ?
+            {content.h2Section5}
           </Text>
 
           <Text style={styles.body}>
-            Certaines situations nécessitent de demander
-            rapidement conseil à un professionnel de
-            santé, notamment lorsqu’un changement paraît
-            important, soudain ou inhabituel.
+            {content.body5}
           </Text>
 
           <View style={styles.warningCard}>
@@ -731,19 +858,18 @@ export default function NifasMedicalArticleScreen({
 
               <View style={styles.warningHeaderCopy}>
                 <Text style={styles.warningTitle}>
-                  Signes à ne pas ignorer
+                  {content.warningTitle}
                 </Text>
 
                 <Text
                   style={styles.warningSubtitle}
                 >
-                  Demande un avis professionnel si
-                  nécessaire
+                  {content.warningSubtitle}
                 </Text>
               </View>
             </View>
 
-            {WARNING_SIGNS.map(item => (
+            {content.warningSigns.map(item => (
               <View
                 key={item}
                 style={styles.warningRow}
@@ -774,15 +900,11 @@ export default function NifasMedicalArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Chaque récupération post-partum est
-                différente. Les informations de cet
-                article sont destinées à donner des
-                repères généraux et ne remplacent pas
-                une consultation médicale.
+                {content.tipText}
               </Text>
             </View>
           </View>
@@ -792,11 +914,11 @@ export default function NifasMedicalArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.h2}>
-            À retenir
+            {content.summaryHeading}
           </Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY.map(item => (
+            {content.summary.map(item => (
               <View
                 key={item}
                 style={styles.summaryRow}
@@ -824,13 +946,7 @@ export default function NifasMedicalArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Contenu informatif. Les informations
-              médicales présentées ici sont générales
-              et ne remplacent pas l’avis d’un
-              professionnel de santé. Pour les questions
-              religieuses spécifiques, il est recommandé
-              de se référer à une source religieuse
-              qualifiée.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,30 +34,116 @@ const ID = 'medicalexams-suivi-medical';
 
 const HERO = require('../../assets/images/library/spm-consult.png');
 
-const ULTRASOUNDS = [
-  ['numeric-1-circle-outline', '1er trimestre : datation et clarté nucale'],
-  ['numeric-2-circle-outline', '2e trimestre : échographie morphologique'],
-  ['numeric-3-circle-outline', '3e trimestre : croissance et position du bébé'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const ULTRASOUND_ICONS = [
+  'numeric-1-circle-outline',
+  'numeric-2-circle-outline',
+  'numeric-3-circle-outline',
 ] as const;
 
-const BLOOD_TESTS = [
-  'Taux de fer, pour dépister une éventuelle anémie',
-  'Dépistage du diabète gestationnel, généralement autour du 2e trimestre',
-  'Groupe sanguin et recherche d’agglutinines irrégulières',
-  'Sérologies (toxoplasmose, rubéole) selon ton statut immunitaire',
-];
-
-const PREP_TIPS = [
-  'Noter tes questions au fur et à mesure, avant de les oublier',
-  'Apporter ton carnet de suivi de grossesse à chaque rendez-vous',
-  'Signaler tout symptôme nouveau, même s’il te semble mineur',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'GROSSESSE • SUIVI MÉDICAL',
+    title: 'Le calendrier des\nexamens de grossesse',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Échographies et bilans essentiels, trimestre par trimestre.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les échographies de suivi',
+      'Les prises de sang essentielles',
+      'Préparer chaque rendez-vous',
+      'À noter',
+      'À retenir',
+    ],
+    body1:
+      'Trois échographies principales rythment généralement la grossesse, une par trimestre, chacune avec un objectif différent.',
+    ultrasounds: [
+      '1er trimestre : datation et clarté nucale',
+      '2e trimestre : échographie morphologique',
+      '3e trimestre : croissance et position du bébé',
+    ],
+    body2:
+      'Des prises de sang régulières surveillent plusieurs marqueurs clés tout au long de la grossesse :',
+    bloodTests: [
+      'Taux de fer, pour dépister une éventuelle anémie',
+      'Dépistage du diabète gestationnel, généralement autour du 2e trimestre',
+      'Groupe sanguin et recherche d’agglutinines irrégulières',
+      'Sérologies (toxoplasmose, rubéole) selon ton statut immunitaire',
+    ],
+    prepTips: [
+      'Noter tes questions au fur et à mesure, avant de les oublier',
+      'Apporter ton carnet de suivi de grossesse à chaque rendez-vous',
+      'Signaler tout symptôme nouveau, même s’il te semble mineur',
+    ],
+    neutralText:
+      'Le nombre et le calendrier exact des examens peuvent varier selon ton suivi, ton profil de risque et les pratiques de ton pays ou de ton établissement.',
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Ne pas hésiter à noter tes questions avant chaque rendez-vous pour ne rien oublier sur le moment : aucune question n’est trop petite pour être posée.',
+    shareMessage: 'Le calendrier des examens de grossesse — AWA',
+  },
+  en: {
+    badge: 'PREGNANCY • MEDICAL FOLLOW-UP',
+    title: 'The pregnancy exam\ncalendar',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Ultrasounds and essential tests, trimester by trimester.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Follow-up ultrasounds',
+      'Essential blood tests',
+      'Preparing for each appointment',
+      'Worth noting',
+      'Key takeaways',
+    ],
+    body1:
+      'Pregnancy generally includes three main ultrasounds, one per trimester, each with a different purpose.',
+    ultrasounds: [
+      '1st trimester: dating and nuchal translucency',
+      '2nd trimester: morphology ultrasound',
+      '3rd trimester: growth and the baby’s position',
+    ],
+    body2:
+      'Regular blood tests monitor several key markers throughout pregnancy:',
+    bloodTests: [
+      'Iron levels, to screen for possible anemia',
+      'Gestational diabetes screening, generally around the 2nd trimester',
+      'Blood type and irregular antibody screening',
+      'Serology tests (toxoplasmosis, rubella) depending on your immune status',
+    ],
+    prepTips: [
+      'Write down your questions as they come to you, before you forget them',
+      'Bring your pregnancy follow-up booklet to every appointment',
+      'Mention any new symptom, even if it seems minor',
+    ],
+    neutralText:
+      'The exact number and schedule of exams can vary depending on your care, your risk profile, and the practices of your country or care provider.',
+    tipTitle: 'Good to know',
+    tipText:
+      'Don’t hesitate to write down your questions before each appointment so you don’t forget anything in the moment: no question is too small to ask.',
+    shareMessage: 'The pregnancy exam calendar — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function MedicalExamsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -83,7 +170,7 @@ export default function MedicalExamsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le calendrier des examens de grossesse — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -121,7 +208,7 @@ export default function MedicalExamsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -130,7 +217,7 @@ export default function MedicalExamsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -145,7 +232,7 @@ export default function MedicalExamsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -163,19 +250,19 @@ export default function MedicalExamsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>GROSSESSE • SUIVI MÉDICAL</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Le calendrier des{`\n`}examens de grossesse
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -194,19 +281,13 @@ export default function MedicalExamsArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Échographies et bilans essentiels, trimestre par trimestre.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Les échographies de suivi',
-              'Les prises de sang essentielles',
-              'Préparer chaque rendez-vous',
-              'À noter',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -222,37 +303,34 @@ export default function MedicalExamsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Les échographies de suivi</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Trois échographies principales rythment généralement la
-            grossesse, une par trimestre, chacune avec un objectif
-            différent.
+            {content.body1}
           </Text>
 
           <View style={styles.daily}>
-            {ULTRASOUNDS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {ULTRASOUND_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.ultrasounds[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. Les prises de sang essentielles</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Des prises de sang régulières surveillent plusieurs marqueurs
-            clés tout au long de la grossesse :
+            {content.body2}
           </Text>
 
           <View style={styles.checkList}>
-            {BLOOD_TESTS.map(item => (
+            {content.bloodTests.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -265,10 +343,10 @@ export default function MedicalExamsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. Préparer chaque rendez-vous</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.consultCard}>
-            {PREP_TIPS.map(item => (
+            {content.prepTips.map(item => (
               <View key={item} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
@@ -283,7 +361,7 @@ export default function MedicalExamsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>4. À noter</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.neutralBox}>
             <MaterialDesignIcons
@@ -293,13 +371,11 @@ export default function MedicalExamsArticleScreen({
             />
 
             <Text style={styles.neutralText}>
-              Le nombre et le calendrier exact des examens peuvent varier
-              selon ton suivi, ton profil de risque et les pratiques de ton
-              pays ou de ton établissement.
+              {content.neutralText}
             </Text>
           </View>
 
-          <Text style={styles.h2}>5. À retenir</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -309,11 +385,9 @@ export default function MedicalExamsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Ne pas hésiter à noter tes questions avant chaque rendez-vous
-                pour ne rien oublier sur le moment : aucune question n’est
-                trop petite pour être posée.
+                {content.tipText}
               </Text>
             </View>
           </View>

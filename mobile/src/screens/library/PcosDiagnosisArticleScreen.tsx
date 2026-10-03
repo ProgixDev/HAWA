@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,63 +34,189 @@ const ID = 'pcos-diagnostic-examens';
 
 const HERO = require('../../assets/images/library/featured-spm.png');
 
-const APPOINTMENT_QUESTIONS = [
-  'Depuis quand tes cycles sont-ils irréguliers ?',
-  'As-tu remarqué de l’acné, une pilosité ou une perte de cheveux inhabituelles ?',
-  'Y a-t-il des antécédents de SOPK ou de diabète dans ta famille ?',
-  'As-tu un désir de grossesse à court ou moyen terme ?',
-];
-
-const DIAGNOSIS_STEPS = [
-  {
-    number: '01',
-    icon: 'clipboard-text-outline',
-    title: 'Interrogatoire',
-    text: 'Le professionnel recueille ton histoire : cycles, symptômes, antécédents et traitements.',
-  },
-  {
-    number: '02',
-    icon: 'stethoscope',
-    title: 'Examen clinique',
-    text: 'Il recherche notamment des signes d’excès d’androgènes et évalue ton état général.',
-  },
-  {
-    number: '03',
-    icon: 'flask-outline',
-    title: 'Bilan sanguin',
-    text: 'Des analyses hormonales et métaboliques peuvent être demandées pour préciser la situation.',
-  },
-  {
-    number: '04',
-    icon: 'ultrasound',
-    title: 'Échographie',
-    text: 'Elle peut compléter le bilan en observant l’aspect des ovaires.',
-  },
+// Icons/numbers stay language-neutral — only TEXT moves into the bilingual
+// CONTENT object below, keyed by index to stay aligned with these entries.
+const DIAGNOSIS_STEP_META = [
+  {number: '01', icon: 'clipboard-text-outline'},
+  {number: '02', icon: 'stethoscope'},
+  {number: '03', icon: 'flask-outline'},
+  {number: '04', icon: 'ultrasound'},
 ] as const;
 
-const BLOOD_TESTS = [
-  {
-    icon: 'test-tube',
-    title: 'Androgènes',
-    text: 'Testostérone et autres hormones selon le contexte.',
+const BLOOD_TEST_META = [
+  {icon: 'test-tube'},
+  {icon: 'water-outline'},
+  {icon: 'chart-line'},
+] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'SOPK',
+    title: 'Diagnostic du SOPK :\nexamens et bilan',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Comment le SOPK est diagnostiqué, quels examens peuvent être proposés et comment préparer sereinement ta consultation.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comprendre le bilan diagnostique',
+      'Les principales étapes du bilan',
+      'La prise de sang hormonale',
+      'L’échographie pelvienne',
+      'Ce que le diagnostic ne dit pas',
+      'Préparer sa consultation',
+      'À retenir',
+    ],
+    section1Body1: 'Le diagnostic du syndrome des ovaires polykystiques ne repose pas sur un seul examen. Le professionnel de santé rassemble plusieurs informations : l’histoire des cycles, les symptômes éventuels, l’examen clinique, les analyses biologiques et, selon la situation, une échographie.',
+    section1Body2: 'L’objectif est à la fois de rechercher les caractéristiques compatibles avec un SOPK et d’écarter d’autres causes pouvant expliquer des règles irrégulières ou certains symptômes hormonaux.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Le diagnostic est toujours personnalisé. Deux femmes ayant un SOPK peuvent avoir des symptômes et des résultats d’examens très différents.',
+    section2Body: 'Le bilan peut suivre plusieurs étapes. Elles ne sont pas nécessairement toutes réalisées de la même façon chez chaque personne.',
+    diagnosisSteps: [
+      {title: 'Interrogatoire', text: 'Le professionnel recueille ton histoire : cycles, symptômes, antécédents et traitements.'},
+      {title: 'Examen clinique', text: 'Il recherche notamment des signes d’excès d’androgènes et évalue ton état général.'},
+      {title: 'Bilan sanguin', text: 'Des analyses hormonales et métaboliques peuvent être demandées pour préciser la situation.'},
+      {title: 'Échographie', text: 'Elle peut compléter le bilan en observant l’aspect des ovaires.'},
+    ],
+    flowTitle: 'Le parcours en un coup d’œil',
+    flowItems: [
+      'Histoire et symptômes',
+      'Examen clinique',
+      'Analyses selon le contexte',
+      'Échographie si nécessaire',
+    ],
+    section3Body1: 'Une prise de sang peut être proposée pour rechercher des signes d’excès d’androgènes, évaluer certaines hormones impliquées dans le fonctionnement reproductif et rechercher d’autres causes possibles des symptômes.',
+    section3Body2: 'Les analyses choisies dépendent de ton âge, de tes symptômes, de ton histoire médicale et de ce que le professionnel cherche à vérifier.',
+    bloodTests: [
+      {title: 'Androgènes', text: 'Testostérone et autres hormones selon le contexte.'},
+      {title: 'Fonction thyroïdienne', text: 'Permet notamment d’écarter certaines causes de cycles irréguliers.'},
+      {title: 'Bilan métabolique', text: 'Glycémie, parfois bilan lipidique selon les facteurs de risque.'},
+    ],
+    alertTitle: 'Important',
+    alertText: 'Les résultats hormonaux doivent être interprétés avec le contexte clinique. Une valeur isolée ne permet généralement pas, à elle seule, de conclure à un SOPK.',
+    section4Body: 'Une échographie peut être utilisée pour observer l’aspect des ovaires et rechercher notamment un nombre important de petits follicules. Elle permet également au professionnel de rechercher d’autres éléments pouvant expliquer certains symptômes.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Voir de nombreux follicules à l’échographie ne signifie pas automatiquement que tu as un SOPK. Le résultat doit être interprété avec les autres éléments du bilan.',
+    section5Body: 'Recevoir un diagnostic de SOPK ne permet pas de prédire exactement ton évolution future. Le syndrome peut se manifester de manière très différente d’une personne à l’autre.',
+    mythItems: [
+      'Le SOPK ne signifie pas automatiquement infertilité.',
+      'Le SOPK ne signifie pas forcément avoir des kystes.',
+      'Le diagnostic ne détermine pas à lui seul le traitement.',
+      'Une échographie normale n’exclut pas nécessairement le SOPK.',
+    ],
+    section6Body: 'Quelques informations préparées à l’avance peuvent aider le professionnel à comprendre ton histoire et à choisir les examens les plus pertinents.',
+    appointmentQuestions: [
+      'Depuis quand tes cycles sont-ils irréguliers ?',
+      'As-tu remarqué de l’acné, une pilosité ou une perte de cheveux inhabituelles ?',
+      'Y a-t-il des antécédents de SOPK ou de diabète dans ta famille ?',
+      'As-tu un désir de grossesse à court ou moyen terme ?',
+    ],
+    preparationTitle: 'Petit conseil avant le rendez-vous',
+    preparationText: 'Si possible, note les dates de tes dernières règles, la durée approximative de tes cycles, les symptômes que tu observes et les traitements ou compléments que tu prends.',
+    summaryTitle: 'L’essentiel du bilan',
+    summaryItems: [
+      'Le diagnostic repose sur plusieurs éléments, pas sur un seul examen.',
+      'Une prise de sang peut rechercher certains déséquilibres hormonaux et éliminer d’autres causes.',
+      'Une échographie peut compléter le bilan selon la situation.',
+      'Les résultats doivent toujours être interprétés par un professionnel de santé.',
+    ],
+    finalTipTitle: 'À retenir',
+    finalTipText: 'Un bilan de SOPK n’est pas un examen unique ni un jugement définitif. Il sert à comprendre ton fonctionnement hormonal, à rechercher d’autres causes possibles et à construire un accompagnement adapté à ta situation.',
+    disclaimerText: 'Cet article est informatif et ne remplace pas une consultation médicale ni l’interprétation personnalisée de tes examens.',
+    shareMessage: 'Diagnostic du SOPK : examens et bilan — AWA',
   },
-  {
-    icon: 'water-outline',
-    title: 'Fonction thyroïdienne',
-    text: 'Permet notamment d’écarter certaines causes de cycles irréguliers.',
+  en: {
+    badge: 'PCOS',
+    title: 'PCOS diagnosis:\ntests and workup',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'How PCOS is diagnosed, what tests may be offered, and how to prepare calmly for your appointment.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Understanding the diagnostic workup',
+      'The main steps of the workup',
+      'The hormonal blood test',
+      'The pelvic ultrasound',
+      'What the diagnosis doesn’t tell you',
+      'Preparing for your appointment',
+      'Key takeaways',
+    ],
+    section1Body1: 'The diagnosis of polycystic ovary syndrome doesn’t rely on a single test. The healthcare professional brings together several pieces of information: your cycle history, any symptoms, the clinical exam, lab tests, and, depending on the situation, an ultrasound.',
+    section1Body2: 'The goal is both to look for features consistent with PCOS and to rule out other causes that could explain irregular periods or certain hormonal symptoms.',
+    tip1Title: 'Good to know',
+    tip1Text: 'The diagnosis is always personalized. Two women with PCOS can have very different symptoms and test results.',
+    section2Body: 'The workup can follow several steps. They aren’t necessarily all carried out the same way for everyone.',
+    diagnosisSteps: [
+      {title: 'History-taking', text: 'The professional gathers your history: cycles, symptoms, medical background, and treatments.'},
+      {title: 'Clinical exam', text: 'They look in particular for signs of excess androgens and assess your overall condition.'},
+      {title: 'Blood workup', text: 'Hormonal and metabolic tests may be requested to clarify the situation.'},
+      {title: 'Ultrasound', text: 'It can complete the workup by observing the appearance of the ovaries.'},
+    ],
+    flowTitle: 'The process at a glance',
+    flowItems: [
+      'History and symptoms',
+      'Clinical exam',
+      'Tests depending on the situation',
+      'Ultrasound if needed',
+    ],
+    section3Body1: 'A blood test may be offered to look for signs of excess androgens, assess certain hormones involved in reproductive function, and look for other possible causes of your symptoms.',
+    section3Body2: 'The tests chosen depend on your age, your symptoms, your medical history, and what the professional is looking to check.',
+    bloodTests: [
+      {title: 'Androgens', text: 'Testosterone and other hormones depending on the situation.'},
+      {title: 'Thyroid function', text: 'Helps in particular rule out certain causes of irregular cycles.'},
+      {title: 'Metabolic workup', text: 'Blood glucose, sometimes a lipid panel depending on risk factors.'},
+    ],
+    alertTitle: 'Important',
+    alertText: 'Hormonal results need to be interpreted alongside the clinical context. A single value usually isn’t enough, on its own, to conclude a PCOS diagnosis.',
+    section4Body: 'An ultrasound can be used to observe the appearance of the ovaries and look in particular for a high number of small follicles. It also allows the professional to look for other factors that could explain certain symptoms.',
+    tip2Title: 'Good to know',
+    tip2Text: 'Seeing many follicles on ultrasound doesn’t automatically mean you have PCOS. The result needs to be interpreted alongside the rest of the workup.',
+    section5Body: 'Receiving a PCOS diagnosis doesn’t make it possible to predict exactly how things will progress for you. The syndrome can show up very differently from one person to another.',
+    mythItems: [
+      'PCOS doesn’t automatically mean infertility.',
+      'PCOS doesn’t necessarily mean having cysts.',
+      'The diagnosis alone doesn’t determine the treatment.',
+      'A normal ultrasound doesn’t necessarily rule out PCOS.',
+    ],
+    section6Body: 'A few pieces of information prepared ahead of time can help the professional understand your history and choose the most relevant tests.',
+    appointmentQuestions: [
+      'How long have your cycles been irregular?',
+      'Have you noticed acne, unusual hair growth, or hair loss?',
+      'Is there a family history of PCOS or diabetes?',
+      'Do you wish to become pregnant in the short or medium term?',
+    ],
+    preparationTitle: 'A small tip before the appointment',
+    preparationText: 'If possible, note the dates of your last period, the approximate length of your cycles, the symptoms you’re noticing, and any treatments or supplements you’re taking.',
+    summaryTitle: 'The essentials of the workup',
+    summaryItems: [
+      'The diagnosis relies on several factors, not a single test.',
+      'A blood test can look for certain hormonal imbalances and rule out other causes.',
+      'An ultrasound can complete the workup depending on the situation.',
+      'Results should always be interpreted by a healthcare professional.',
+    ],
+    finalTipTitle: 'Key takeaways',
+    finalTipText: 'A PCOS workup isn’t a single test or a final verdict. It helps you understand your hormonal functioning, look for other possible causes, and build care that’s suited to your situation.',
+    disclaimerText: 'This article is for information only and doesn’t replace a medical consultation or the personalized interpretation of your test results.',
+    shareMessage: 'PCOS diagnosis: tests and workup — AWA',
   },
-  {
-    icon: 'chart-line',
-    title: 'Bilan métabolique',
-    text: 'Glycémie, parfois bilan lipidique selon les facteurs de risque.',
-  },
-];
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PcosDiagnosisArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -116,7 +243,7 @@ export default function PcosDiagnosisArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Diagnostic du SOPK : examens et bilan — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -157,7 +284,7 @@ export default function PcosDiagnosisArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -173,7 +300,7 @@ export default function PcosDiagnosisArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -188,7 +315,7 @@ export default function PcosDiagnosisArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -207,20 +334,20 @@ export default function PcosDiagnosisArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>SOPK</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Diagnostic du SOPK :{'\n'}examens et bilan
+            {content.title}
           </Text>
 
           {/* METADATA */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -239,23 +366,14 @@ export default function PcosDiagnosisArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comment le SOPK est diagnostiqué, quels examens peuvent être
-            proposés et comment préparer sereinement ta consultation.
+            {content.intro}
           </Text>
 
           {/* SOMMAIRE */}
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Comprendre le bilan diagnostique',
-              'Les principales étapes du bilan',
-              'La prise de sang hormonale',
-              'L’échographie pelvienne',
-              'Ce que le diagnostic ne dit pas',
-              'Préparer sa consultation',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -274,21 +392,15 @@ export default function PcosDiagnosisArticleScreen({
 
           {/* SECTION 1 */}
           <Text style={styles.h2}>
-            1. Comprendre le bilan diagnostique
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Le diagnostic du syndrome des ovaires polykystiques ne repose pas
-            sur un seul examen. Le professionnel de santé rassemble plusieurs
-            informations : l’histoire des cycles, les symptômes éventuels,
-            l’examen clinique, les analyses biologiques et, selon la situation,
-            une échographie.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            L’objectif est à la fois de rechercher les caractéristiques
-            compatibles avec un SOPK et d’écarter d’autres causes pouvant
-            expliquer des règles irrégulières ou certains symptômes hormonaux.
+            {content.section1Body2}
           </Text>
 
           <View style={styles.tip}>
@@ -299,30 +411,26 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
               <Text style={styles.tipText}>
-                Le diagnostic est toujours personnalisé. Deux femmes ayant
-                un SOPK peuvent avoir des symptômes et des résultats
-                d’examens très différents.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
           <Text style={styles.h2}>
-            2. Les principales étapes du bilan
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Le bilan peut suivre plusieurs étapes. Elles ne sont pas
-            nécessairement toutes réalisées de la même façon chez chaque
-            personne.
+            {content.section2Body}
           </Text>
 
           {/* DIAGNOSTIC STEPS */}
           <View style={styles.stepsContainer}>
-            {DIAGNOSIS_STEPS.map(step => (
+            {DIAGNOSIS_STEP_META.map((step, index) => (
               <View key={step.number} style={styles.stepCard}>
                 <View style={styles.stepTop}>
                   <View style={styles.stepNumber}>
@@ -338,9 +446,13 @@ export default function PcosDiagnosisArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.stepTitle}>{step.title}</Text>
+                <Text style={styles.stepTitle}>
+                  {content.diagnosisSteps[index].title}
+                </Text>
 
-                <Text style={styles.stepText}>{step.text}</Text>
+                <Text style={styles.stepText}>
+                  {content.diagnosisSteps[index].text}
+                </Text>
               </View>
             ))}
           </View>
@@ -355,52 +467,47 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.flowTitle}>
-                Le parcours en un coup d’œil
+                {content.flowTitle}
               </Text>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>Histoire et symptômes</Text>
+              <Text style={styles.flowText}>{content.flowItems[0]}</Text>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>Examen clinique</Text>
+              <Text style={styles.flowText}>{content.flowItems[1]}</Text>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>Analyses selon le contexte</Text>
+              <Text style={styles.flowText}>{content.flowItems[2]}</Text>
             </View>
 
             <View style={styles.flowLine}>
               <View style={styles.flowDot} />
-              <Text style={styles.flowText}>Échographie si nécessaire</Text>
+              <Text style={styles.flowText}>{content.flowItems[3]}</Text>
             </View>
           </View>
 
           {/* SECTION 3 */}
           <Text style={styles.h2}>
-            3. La prise de sang hormonale
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Une prise de sang peut être proposée pour rechercher des signes
-            d’excès d’androgènes, évaluer certaines hormones impliquées dans
-            le fonctionnement reproductif et rechercher d’autres causes
-            possibles des symptômes.
+            {content.section3Body1}
           </Text>
 
           <Text style={styles.body}>
-            Les analyses choisies dépendent de ton âge, de tes symptômes,
-            de ton histoire médicale et de ce que le professionnel cherche
-            à vérifier.
+            {content.section3Body2}
           </Text>
 
           <View style={styles.testsGrid}>
-            {BLOOD_TESTS.map(test => (
-              <View key={test.title} style={styles.testCard}>
+            {BLOOD_TEST_META.map((test, index) => (
+              <View key={content.bloodTests[index].title} style={styles.testCard}>
                 <View style={styles.testIcon}>
                   <MaterialDesignIcons
                     name={test.icon as never}
@@ -409,9 +516,13 @@ export default function PcosDiagnosisArticleScreen({
                   />
                 </View>
 
-                <Text style={styles.testTitle}>{test.title}</Text>
+                <Text style={styles.testTitle}>
+                  {content.bloodTests[index].title}
+                </Text>
 
-                <Text style={styles.testText}>{test.text}</Text>
+                <Text style={styles.testText}>
+                  {content.bloodTests[index].text}
+                </Text>
               </View>
             ))}
           </View>
@@ -424,26 +535,21 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Important</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
               <Text style={styles.tipText}>
-                Les résultats hormonaux doivent être interprétés avec le
-                contexte clinique. Une valeur isolée ne permet généralement
-                pas, à elle seule, de conclure à un SOPK.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 4 */}
           <Text style={styles.h2}>
-            4. L’échographie pelvienne
+            4. {content.topics[3]}
           </Text>
 
           <Text style={styles.body}>
-            Une échographie peut être utilisée pour observer l’aspect des
-            ovaires et rechercher notamment un nombre important de petits
-            follicules. Elle permet également au professionnel de rechercher
-            d’autres éléments pouvant expliquer certains symptômes.
+            {content.section4Body}
           </Text>
 
           <View style={styles.tip}>
@@ -454,25 +560,21 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
 
               <Text style={styles.tipText}>
-                Voir de nombreux follicules à l’échographie ne signifie pas
-                automatiquement que tu as un SOPK. Le résultat doit être
-                interprété avec les autres éléments du bilan.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 5 */}
           <Text style={styles.h2}>
-            5. Ce que le diagnostic ne dit pas
+            5. {content.topics[4]}
           </Text>
 
           <Text style={styles.body}>
-            Recevoir un diagnostic de SOPK ne permet pas de prédire exactement
-            ton évolution future. Le syndrome peut se manifester de manière
-            très différente d’une personne à l’autre.
+            {content.section5Body}
           </Text>
 
           <View style={styles.mythList}>
@@ -484,7 +586,7 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.mythText}>
-                Le SOPK ne signifie pas automatiquement infertilité.
+                {content.mythItems[0]}
               </Text>
             </View>
 
@@ -496,7 +598,7 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.mythText}>
-                Le SOPK ne signifie pas forcément avoir des kystes.
+                {content.mythItems[1]}
               </Text>
             </View>
 
@@ -508,7 +610,7 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.mythText}>
-                Le diagnostic ne détermine pas à lui seul le traitement.
+                {content.mythItems[2]}
               </Text>
             </View>
 
@@ -520,24 +622,22 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.mythText}>
-                Une échographie normale n’exclut pas nécessairement le SOPK.
+                {content.mythItems[3]}
               </Text>
             </View>
           </View>
 
           {/* SECTION 6 */}
           <Text style={styles.h2}>
-            6. Préparer sa consultation
+            6. {content.topics[5]}
           </Text>
 
           <Text style={styles.body}>
-            Quelques informations préparées à l’avance peuvent aider le
-            professionnel à comprendre ton histoire et à choisir les examens
-            les plus pertinents.
+            {content.section6Body}
           </Text>
 
           <View style={styles.checkList}>
-            {APPOINTMENT_QUESTIONS.map(item => (
+            {content.appointmentQuestions.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -559,19 +659,17 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.preparationTitle}>
-                Petit conseil avant le rendez-vous
+                {content.preparationTitle}
               </Text>
             </View>
 
             <Text style={styles.preparationText}>
-              Si possible, note les dates de tes dernières règles, la durée
-              approximative de tes cycles, les symptômes que tu observes et
-              les traitements ou compléments que tu prends.
+              {content.preparationText}
             </Text>
           </View>
 
           {/* SECTION 7 */}
-          <Text style={styles.h2}>7. À retenir</Text>
+          <Text style={styles.h2}>7. {content.topics[6]}</Text>
 
           <View style={styles.summaryCard}>
             <View style={styles.summaryHeader}>
@@ -582,7 +680,7 @@ export default function PcosDiagnosisArticleScreen({
               />
 
               <Text style={styles.summaryTitle}>
-                L’essentiel du bilan
+                {content.summaryTitle}
               </Text>
             </View>
 
@@ -590,8 +688,7 @@ export default function PcosDiagnosisArticleScreen({
               <Text style={styles.summaryNumber}>01</Text>
 
               <Text style={styles.summaryText}>
-                Le diagnostic repose sur plusieurs éléments, pas sur un seul
-                examen.
+                {content.summaryItems[0]}
               </Text>
             </View>
 
@@ -599,8 +696,7 @@ export default function PcosDiagnosisArticleScreen({
               <Text style={styles.summaryNumber}>02</Text>
 
               <Text style={styles.summaryText}>
-                Une prise de sang peut rechercher certains déséquilibres
-                hormonaux et éliminer d’autres causes.
+                {content.summaryItems[1]}
               </Text>
             </View>
 
@@ -608,7 +704,7 @@ export default function PcosDiagnosisArticleScreen({
               <Text style={styles.summaryNumber}>03</Text>
 
               <Text style={styles.summaryText}>
-                Une échographie peut compléter le bilan selon la situation.
+                {content.summaryItems[2]}
               </Text>
             </View>
 
@@ -616,8 +712,7 @@ export default function PcosDiagnosisArticleScreen({
               <Text style={styles.summaryNumber}>04</Text>
 
               <Text style={styles.summaryText}>
-                Les résultats doivent toujours être interprétés par un
-                professionnel de santé.
+                {content.summaryItems[3]}
               </Text>
             </View>
           </View>
@@ -630,13 +725,10 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>{content.finalTipTitle}</Text>
 
               <Text style={styles.tipText}>
-                Un bilan de SOPK n’est pas un examen unique ni un jugement
-                définitif. Il sert à comprendre ton fonctionnement hormonal,
-                à rechercher d’autres causes possibles et à construire un
-                accompagnement adapté à ta situation.
+                {content.finalTipText}
               </Text>
             </View>
           </View>
@@ -649,8 +741,7 @@ export default function PcosDiagnosisArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Cet article est informatif et ne remplace pas une consultation
-              médicale ni l’interprétation personnalisée de tes examens.
+              {content.disclaimerText}
             </Text>
           </View>
         </View>

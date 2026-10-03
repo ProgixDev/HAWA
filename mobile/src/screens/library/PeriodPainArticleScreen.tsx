@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,52 +34,102 @@ const ID = 'pain-gerer-douleurs';
 
 const HERO = require('../../assets/images/library/pain-hero.png');
 
-const SOL = [
-  [
-    'Chaleur',
-    'Une bouillotte sur le bas-ventre peut détendre les muscles.',
-    require('../../assets/images/library/pain-heat.png'),
-  ],
-  [
-    'Mouvement doux',
-    'Yoga, étirements et marche légère soulagent les tensions.',
-    require('../../assets/images/library/pain-movement.png'),
-  ],
-  [
-    'Alimentation',
-    'Magnésium, oméga-3 et aliments anti-inflammatoires.',
-    require('../../assets/images/library/pain-food.png'),
-  ],
-  [
-    'Hydratation',
-    'Boire suffisamment aide à limiter les ballonnements.',
-    require('../../assets/images/library/pain-water.png'),
-  ],
-  [
-    'Massage',
-    'Un massage circulaire du bas-ventre détend.',
-    require('../../assets/images/library/pain-massage.png'),
-  ],
+// Images/icons stay language-neutral — only TEXT moves into the bilingual
+// CONTENT object below, keyed by index to stay aligned with these assets.
+const SOL_IMAGES = [
+  require('../../assets/images/library/pain-heat.png'),
+  require('../../assets/images/library/pain-movement.png'),
+  require('../../assets/images/library/pain-food.png'),
+  require('../../assets/images/library/pain-water.png'),
+  require('../../assets/images/library/pain-massage.png'),
 ] as const;
 
-const DAILY_TIPS = [
-  [
-    'weather-sunny',
-    'Échauffe doucement ton corps au réveil',
-  ],
-  [
-    'food-apple-outline',
-    'Privilégie une alimentation équilibrée',
-  ],
-  [
-    'sleep',
-    'Prends le temps de respirer et te détendre',
-  ],
-  [
-    'calendar-heart',
-    'Suis ton cycle pour mieux comprendre tes douleurs',
-  ],
+const DAILY_ICONS = [
+  'weather-sunny',
+  'food-apple-outline',
+  'sleep',
+  'calendar-heart',
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'DOULEURS',
+    title: 'Gérer les douleurs\nmenstruelles',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Chaleur, mouvement doux, alimentation : des gestes qui soulagent vraiment.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comprendre les douleurs menstruelles',
+      'Les solutions naturelles efficaces',
+      'Quand faut-il consulter ?',
+      'Conseils pratiques au quotidien',
+    ],
+    section1Text: 'Les crampes viennent des contractions utérines qui aident à évacuer la muqueuse. Elles sont dues aux prostaglandines. Chaque corps réagit différemment.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Les douleurs peuvent varier d’un cycle à l’autre et ne sont pas toujours identiques.',
+    solutions: [
+      {title: 'Chaleur', text: 'Une bouillotte sur le bas-ventre peut détendre les muscles.'},
+      {title: 'Mouvement doux', text: 'Yoga, étirements et marche légère soulagent les tensions.'},
+      {title: 'Alimentation', text: 'Magnésium, oméga-3 et aliments anti-inflammatoires.'},
+      {title: 'Hydratation', text: 'Boire suffisamment aide à limiter les ballonnements.'},
+      {title: 'Massage', text: 'Un massage circulaire du bas-ventre détend.'},
+    ],
+    section3Text: 'Si les douleurs t’empêchent de vivre normalement chaque mois malgré ces solutions, il est important d’en parler à un professionnel de santé.',
+    alertTitle: 'Consulter si',
+    alertText: 'Douleurs très intenses, saignements importants, fatigue extrême ou symptômes anormaux.',
+    dailyTips: [
+      'Échauffe doucement ton corps au réveil',
+      'Privilégie une alimentation équilibrée',
+      'Prends le temps de respirer et te détendre',
+      'Suis ton cycle pour mieux comprendre tes douleurs',
+    ],
+    shareMessage: 'Gérer les douleurs menstruelles — AWA',
+  },
+  en: {
+    badge: 'PAIN',
+    title: 'Managing period\npain',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Heat, gentle movement, diet: habits that really bring relief.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Understanding period pain',
+      'Effective natural solutions',
+      'When should you see a doctor?',
+      'Practical everyday tips',
+    ],
+    section1Text: 'Cramps come from uterine contractions that help shed the uterine lining. They’re caused by prostaglandins. Every body reacts differently.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Pain can vary from one cycle to the next and isn’t always the same.',
+    solutions: [
+      {title: 'Heat', text: 'A hot water bottle on your lower abdomen can relax the muscles.'},
+      {title: 'Gentle movement', text: 'Yoga, stretching, and light walking relieve tension.'},
+      {title: 'Diet', text: 'Magnesium, omega-3s, and anti-inflammatory foods.'},
+      {title: 'Hydration', text: 'Drinking enough water helps limit bloating.'},
+      {title: 'Massage', text: 'A circular massage on your lower abdomen helps you relax.'},
+    ],
+    section3Text: 'If the pain keeps you from living normally every month despite these solutions, it’s important to talk to a healthcare professional.',
+    alertTitle: 'See a doctor if',
+    alertText: 'Very intense pain, heavy bleeding, extreme fatigue, or abnormal symptoms.',
+    dailyTips: [
+      'Gently warm up your body when you wake up',
+      'Favor a balanced diet',
+      'Take time to breathe and relax',
+      'Track your cycle to better understand your pain',
+    ],
+    shareMessage: 'Managing period pain — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -88,6 +139,9 @@ type Props = NativeStackScreenProps<
 export default function PeriodPainArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -114,7 +168,7 @@ export default function PeriodPainArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Gérer les douleurs menstruelles — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -161,7 +215,7 @@ export default function PeriodPainArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -177,7 +231,7 @@ export default function PeriodPainArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -196,7 +250,7 @@ export default function PeriodPainArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -215,26 +269,25 @@ export default function PeriodPainArticleScreen({
         <View style={styles.article}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              DOULEURS
+              {content.badge}
             </Text>
           </View>
 
           <Text style={styles.title}>
-            Gérer les douleurs{`\n`}
-            menstruelles
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
+              ['clock-outline', content.metaDuration],
               [
                 'book-open-page-variant-outline',
-                'Guide',
+                content.metaType,
               ],
-              ['chart-bar', 'Débutant'],
+              ['chart-bar', content.metaLevel],
               [
                 'shield-check-outline',
-                'Contenu validé',
+                content.metaValidated,
               ],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
@@ -258,21 +311,15 @@ export default function PeriodPainArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Chaleur, mouvement doux, alimentation :
-            des gestes qui soulagent vraiment.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Comprendre les douleurs menstruelles',
-              'Les solutions naturelles efficaces',
-              'Quand faut-il consulter ?',
-              'Conseils pratiques au quotidien',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -296,15 +343,11 @@ export default function PeriodPainArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Comprendre les douleurs menstruelles
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Les crampes viennent des contractions
-            utérines qui aident à évacuer la
-            muqueuse. Elles sont dues aux
-            prostaglandines. Chaque corps réagit
-            différemment.
+            {content.section1Text}
           </Text>
 
           <View style={styles.tip}>
@@ -316,31 +359,29 @@ export default function PeriodPainArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Les douleurs peuvent varier d’un
-                cycle à l’autre et ne sont pas
-                toujours identiques.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Les solutions naturelles efficaces
+            2. {content.topics[1]}
           </Text>
 
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.solutions}>
-            {SOL.map(([title, body, image]) => (
+            {content.solutions.map(({title, text}, index) => (
               <View
                 key={title}
                 style={styles.solution}>
                 <Image
-                  source={image}
+                  source={SOL_IMAGES[index]}
                   resizeMode="cover"
                   style={styles.solImage}
                 />
@@ -350,21 +391,18 @@ export default function PeriodPainArticleScreen({
                 </Text>
 
                 <Text style={styles.solText}>
-                  {body}
+                  {text}
                 </Text>
               </View>
             ))}
           </ScrollView>
 
           <Text style={styles.h2}>
-            3. Quand faut-il consulter ?
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Si les douleurs t’empêchent de vivre
-            normalement chaque mois malgré ces
-            solutions, il est important d’en parler
-            à un professionnel de santé.
+            {content.section3Text}
           </Text>
 
           <View style={styles.alert}>
@@ -376,28 +414,26 @@ export default function PeriodPainArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Consulter si
+                {content.alertTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Douleurs très intenses, saignements
-                importants, fatigue extrême ou
-                symptômes anormaux.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            4. Conseils pratiques au quotidien
+            4. {content.topics[3]}
           </Text>
 
           <View style={styles.daily}>
-            {DAILY_TIPS.map(([icon, text]) => (
+            {content.dailyTips.map((text, index) => (
               <View
                 key={text}
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
-                  name={icon as never}
+                  name={DAILY_ICONS[index] as never}
                   color={theme.colors.primary}
                   size={25}
                 />

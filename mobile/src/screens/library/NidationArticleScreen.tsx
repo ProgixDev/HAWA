@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,17 +34,98 @@ const ID = 'conceptiontips-comprendre-nidation';
 
 const HERO = require('../../assets/images/library/featured-cycle.png');
 
-const POSSIBLE_SIGNS = [
-  'De très légers saignements, parfois appelés « spotting »',
-  'De légères tensions dans le bas-ventre',
-  'Aucun signe particulier, pour beaucoup de femmes',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'NIDATION',
+    title: 'Comprendre\nla nidation',
+    metaDuration: '5 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Ce qui se passe entre la fécondation et le test de grossesse positif.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'De la fécondation à la nidation',
+      'Les signes possibles, sans certitude',
+      'Quand un test devient fiable',
+      'À retenir',
+    ],
+    body1:
+      'Après la fécondation, l’œuf met généralement 6 à 10 jours pour atteindre l’utérus et s’y implanter : c’est la nidation. Cette étape marque le véritable point de départ de la grossesse.',
+    body2:
+      'De légers saignements ou tiraillements peuvent parfois accompagner la nidation, sans que ce soit systématique ni un signe fiable à lui seul.',
+    possibleSigns: [
+      'De très légers saignements, parfois appelés « spotting »',
+      'De légères tensions dans le bas-ventre',
+      'Aucun signe particulier, pour beaucoup de femmes',
+    ],
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'L’absence de signe ne veut rien dire : de nombreuses grossesses débutent sans aucun symptôme perceptible à ce stade.',
+    body3:
+      'C’est seulement après l’implantation que l’hormone hCG commence à être produite, et devient détectable par un test de grossesse. Faire un test trop tôt peut donner un résultat faussement négatif.',
+    alertTitle: 'À noter',
+    alertText:
+      'Attendre le jour présumé des règles avant de tester donne un résultat plus fiable qu’un test réalisé trop précocement.',
+    tip2Title: 'Bon à savoir',
+    tip2Text:
+      'La nidation se déroule discrètement, avec ou sans signe visible. Un peu de patience avant de tester t’évite un résultat peu fiable.',
+    shareMessage: 'Comprendre la nidation — AWA',
+  },
+  en: {
+    badge: 'IMPLANTATION',
+    title: 'Understanding\nimplantation',
+    metaDuration: '5 min read',
+    metaType: 'Article',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro:
+      'What happens between fertilization and a positive pregnancy test.',
+    contentsTitle: 'In this article',
+    topics: [
+      'From fertilization to implantation',
+      'Possible signs, without certainty',
+      'When a test becomes reliable',
+      'Key takeaways',
+    ],
+    body1:
+      'After fertilization, the egg usually takes 6 to 10 days to reach the uterus and implant there: this is implantation. This step marks the true starting point of pregnancy.',
+    body2:
+      'Light bleeding or cramping can sometimes accompany implantation, though this isn’t systematic, nor a reliable sign on its own.',
+    possibleSigns: [
+      'Very light bleeding, sometimes called "spotting"',
+      'Mild cramping in the lower abdomen',
+      'No particular sign at all, for many women',
+    ],
+    tip1Title: 'Good to know',
+    tip1Text:
+      'The absence of a sign doesn’t mean anything: many pregnancies begin without any noticeable symptom at this stage.',
+    body3:
+      'It’s only after implantation that the hCG hormone starts being produced and becomes detectable by a pregnancy test. Testing too early can give a falsely negative result.',
+    alertTitle: 'Note',
+    alertText:
+      'Waiting until the presumed day of your period before testing gives a more reliable result than testing too early.',
+    tip2Title: 'Good to know',
+    tip2Text:
+      'Implantation happens discreetly, with or without a visible sign. A little patience before testing saves you from an unreliable result.',
+    shareMessage: 'Understanding implantation — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function NidationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -70,7 +152,7 @@ export default function NidationArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comprendre la nidation — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -108,7 +190,7 @@ export default function NidationArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -117,7 +199,7 @@ export default function NidationArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -132,7 +214,7 @@ export default function NidationArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -150,17 +232,17 @@ export default function NidationArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIDATION</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>Comprendre{`\n`}la nidation</Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -178,20 +260,12 @@ export default function NidationArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Ce qui se passe entre la fécondation et le test de grossesse
-            positif.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'De la fécondation à la nidation',
-              'Les signes possibles, sans certitude',
-              'Quand un test devient fiable',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -207,26 +281,16 @@ export default function NidationArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. De la fécondation à la nidation</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Après la fécondation, l’œuf met généralement 6 à 10 jours pour
-            atteindre l’utérus et s’y implanter : c’est la nidation. Cette
-            étape marque le véritable point de départ de la grossesse.
-          </Text>
+          <Text style={styles.body}>{content.body1}</Text>
 
-          <Text style={styles.h2}>
-            2. Les signes possibles, sans certitude
-          </Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            De légers saignements ou tiraillements peuvent parfois
-            accompagner la nidation, sans que ce soit systématique ni un
-            signe fiable à lui seul.
-          </Text>
+          <Text style={styles.body}>{content.body2}</Text>
 
           <View style={styles.checkList}>
-            {POSSIBLE_SIGNS.map(item => (
+            {content.possibleSigns.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -247,23 +311,14 @@ export default function NidationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                L’absence de signe ne veut rien dire : de nombreuses
-                grossesses débutent sans aucun symptôme perceptible à ce
-                stade.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Quand un test devient fiable</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            C’est seulement après l’implantation que l’hormone hCG commence
-            à être produite, et devient détectable par un test de
-            grossesse. Faire un test trop tôt peut donner un résultat
-            faussement négatif.
-          </Text>
+          <Text style={styles.body}>{content.body3}</Text>
 
           <View style={styles.alert}>
             <MaterialDesignIcons
@@ -273,15 +328,12 @@ export default function NidationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
-              <Text style={styles.tipText}>
-                Attendre le jour présumé des règles avant de tester donne un
-                résultat plus fiable qu’un test réalisé trop précocement.
-              </Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
+              <Text style={styles.tipText}>{content.alertText}</Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -291,12 +343,8 @@ export default function NidationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                La nidation se déroule discrètement, avec ou sans signe
-                visible. Un peu de patience avant de tester t’évite un
-                résultat peu fiable.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
+              <Text style={styles.tipText}>{content.tip2Text}</Text>
             </View>
           </View>
         </View>

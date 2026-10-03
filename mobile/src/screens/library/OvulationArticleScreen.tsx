@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,18 +38,104 @@ const ART = {
   mucus: require('../../assets/images/library/flow-texture-mucus.png'),
 };
 
-const OTHER_SIGNS = [
-  'Une légère douleur d’un côté du bas-ventre (« mittelschmerz »)',
-  'Une sensibilité des seins',
-  'Une légère hausse de la température basale après l’ovulation',
-  'Un regain d’énergie chez certaines femmes',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'OVULATION',
+    title: 'Comprendre\nl’ovulation',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Le moment clé de ton cycle, et comment le repérer.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que l’ovulation ?',
+      'Les signes qui peuvent l’accompagner',
+      'Repérer son propre rythme',
+      'À retenir',
+    ],
+    body1:
+      'L’ovulation correspond à la libération d’un ovule par l’un des ovaires. Elle survient généralement environ 14 jours avant les règles suivantes, quelle que soit la durée totale du cycle.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'C’est la date des prochaines règles qui varie d’une femme à l’autre, bien plus que le délai entre l’ovulation et leur arrivée.',
+    body2:
+      'Certains signes physiques peuvent accompagner l’approche de l’ovulation, à des degrés variables selon les femmes.',
+    visualTitle: 'Une glaire plus fluide',
+    visualText:
+      'À l’approche de l’ovulation, la glaire cervicale devient plus claire, filante et élastique.',
+    otherSigns: [
+      'Une légère douleur d’un côté du bas-ventre (« mittelschmerz »)',
+      'Une sensibilité des seins',
+      'Une légère hausse de la température basale après l’ovulation',
+      'Un regain d’énergie chez certaines femmes',
+    ],
+    body3:
+      'Observer ces signes sur plusieurs cycles aide à mieux connaître ton propre rythme, qui peut différer des moyennes générales.',
+    alertTitle: 'À noter',
+    alertText:
+      'Un cycle sans ovulation peut arriver occasionnellement, sans que cela soit systématiquement préoccupant. En cas d’absence prolongée de règles ou de doute, un avis médical est recommandé.',
+    tip2Title: 'Bon à savoir',
+    tip2Text:
+      'Aucun signe isolé n’est parfaitement fiable à lui seul : les combiner donne une meilleure idée de ton moment le plus fertile.',
+    shareMessage: 'Comprendre l’ovulation — AWA',
+  },
+  en: {
+    badge: 'OVULATION',
+    title: 'Understanding\novulation',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'The key moment of your cycle, and how to recognize it.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is ovulation?',
+      'The signs that may come with it',
+      'Recognizing your own rhythm',
+      'Key takeaways',
+    ],
+    body1:
+      'Ovulation is the release of an egg by one of the ovaries. It usually occurs about 14 days before your next period, regardless of your cycle’s total length.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'It’s the date of your next period that varies from woman to woman, much more than the time between ovulation and its arrival.',
+    body2:
+      'Certain physical signs may accompany the approach of ovulation, to varying degrees depending on the woman.',
+    visualTitle: 'More fluid cervical mucus',
+    visualText:
+      'As ovulation approaches, cervical mucus becomes clearer, stretchier, and more elastic.',
+    otherSigns: [
+      'Mild pain on one side of the lower abdomen ("mittelschmerz")',
+      'Breast tenderness',
+      'A slight rise in basal body temperature after ovulation',
+      'A boost of energy in some women',
+    ],
+    body3:
+      'Observing these signs over several cycles helps you get to know your own rhythm, which can differ from general averages.',
+    alertTitle: 'Please note',
+    alertText:
+      'A cycle without ovulation can occasionally happen, without this necessarily being a cause for concern. If your period is absent for a long time or you’re unsure, medical advice is recommended.',
+    tip2Title: 'Good to know',
+    tip2Text:
+      'No single sign is perfectly reliable on its own: combining them gives a better idea of your most fertile time.',
+    shareMessage: 'Understanding ovulation — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function OvulationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -75,7 +162,7 @@ export default function OvulationArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comprendre l’ovulation — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -113,7 +200,7 @@ export default function OvulationArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -122,7 +209,7 @@ export default function OvulationArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -137,7 +224,7 @@ export default function OvulationArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -155,17 +242,17 @@ export default function OvulationArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>OVULATION</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>Comprendre{`\n`}l’ovulation</Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -184,18 +271,13 @@ export default function OvulationArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Le moment clé de ton cycle, et comment le repérer.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que l’ovulation ?',
-              'Les signes qui peuvent l’accompagner',
-              'Repérer son propre rythme',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -211,12 +293,10 @@ export default function OvulationArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que l’ovulation ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            L’ovulation correspond à la libération d’un ovule par l’un des
-            ovaires. Elle survient généralement environ 14 jours avant les
-            règles suivantes, quelle que soit la durée totale du cycle.
+            {content.body1}
           </Text>
 
           <View style={styles.tip}>
@@ -227,22 +307,19 @@ export default function OvulationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                C’est la date des prochaines règles qui varie d’une femme à
-                l’autre, bien plus que le délai entre l’ovulation et leur
-                arrivée.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Les signes qui peuvent l’accompagner
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Certains signes physiques peuvent accompagner l’approche de
-            l’ovulation, à des degrés variables selon les femmes.
+            {content.body2}
           </Text>
 
           <View style={styles.visualCard}>
@@ -253,17 +330,16 @@ export default function OvulationArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>Une glaire plus fluide</Text>
+              <Text style={styles.visualTitle}>{content.visualTitle}</Text>
 
               <Text style={styles.visualText}>
-                À l’approche de l’ovulation, la glaire cervicale devient
-                plus claire, filante et élastique.
+                {content.visualText}
               </Text>
             </View>
           </View>
 
           <View style={styles.checkList}>
-            {OTHER_SIGNS.map(item => (
+            {content.otherSigns.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -276,11 +352,10 @@ export default function OvulationArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. Repérer son propre rythme</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Observer ces signes sur plusieurs cycles aide à mieux connaître
-            ton propre rythme, qui peut différer des moyennes générales.
+            {content.body3}
           </Text>
 
           <View style={styles.alert}>
@@ -291,17 +366,14 @@ export default function OvulationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Un cycle sans ovulation peut arriver occasionnellement, sans
-                que cela soit systématiquement préoccupant. En cas d’absence
-                prolongée de règles ou de doute, un avis médical est
-                recommandé.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -311,11 +383,9 @@ export default function OvulationArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Aucun signe isolé n’est parfaitement fiable à lui seul :
-                les combiner donne une meilleure idée de ton moment le plus
-                fertile.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

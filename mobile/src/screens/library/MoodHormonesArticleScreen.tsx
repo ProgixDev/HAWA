@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,71 +39,140 @@ const ID = 'mood-humeur-et-hormones';
 const HERO = require('../../assets/images/library/spm-hero.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — icons are language-neutral; matching titles/text live in CONTENT   */
+/* below, keyed by index to stay aligned with these icon lists.              */
 /* -------------------------------------------------------------------------- */
 
-const PHASE_MOOD = [
-  {
-    icon: 'water-outline',
-    title: 'Pendant les règles',
-    text: 'Fatigue et sensibilité émotionnelle sont fréquentes pour beaucoup de personnes.',
-  },
-  {
-    icon: 'egg-outline',
-    title: 'Autour de l’ovulation',
-    text: 'C’est souvent une phase de meilleure énergie et de bien-être ressenti.',
-  },
-  {
-    icon: 'weather-cloudy',
-    title: 'Avant les règles',
-    text: 'L’irritabilité ou les sautes d’humeur sont plus fréquentes à cette période.',
-  },
-] as const;
+const PHASE_MOOD_ICONS = ['water-outline', 'egg-outline', 'weather-cloudy'] as const;
 
-const OBSERVE_HABITS = [
-  {
-    icon: 'notebook-outline',
-    title: 'Tenir un journal',
-    text: 'Noter ton humeur et la phase de ton cycle t’aide à repérer tes propres tendances.',
-  },
-  {
-    icon: 'chart-line',
-    title: 'Identifier des schémas',
-    text: 'Sans te juger : le but est de mieux te connaître, pas de tout contrôler.',
-  },
-] as const;
+const OBSERVE_HABITS_ICONS = ['notebook-outline', 'chart-line'] as const;
 
-const HELPFUL_HABITS = [
-  {
-    icon: 'sleep',
-    title: 'Un sommeil suffisant',
-    text: 'Le manque de sommeil amplifie souvent la sensibilité émotionnelle.',
-  },
-  {
-    icon: 'run',
-    title: 'Une activité physique régulière',
-    text: 'Même modérée, elle aide à stabiliser l’humeur au fil du cycle.',
-  },
-  {
-    icon: 'account-group-outline',
-    title: 'Un soutien social',
-    text: 'En parler à une personne de confiance peut alléger ce que tu ressens.',
-  },
-] as const;
+const HELPFUL_HABITS_ICONS = ['sleep', 'run', 'account-group-outline'] as const;
 
-const CONCERNING_SIGNS = [
-  'Une tristesse intense ou qui persiste au-delà du cycle',
-  'Une perte d’intérêt marquée pour ce que tu aimes habituellement',
-  'Un impact important sur ton quotidien ou tes relations',
-  'Des pensées envahissantes ou un sentiment de détresse important',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L bilingual editorial content. Article identity (ID,     */
+/* images, bookmark/progress keys, JSX structure) is untouched; only this    */
+/* object changes per language. The French text below is byte-identical to  */
+/* the original — never retyped, only moved into the `fr` key — so the app  */
+/* remains fully bilingual rather than having French replaced by English.   */
+/* -------------------------------------------------------------------------- */
 
-const SUMMARY_POINTS = [
-  'Les variations d’œstrogènes et de progestérone influencent directement les neurotransmetteurs liés à l’humeur.',
-  'L’irritabilité prémenstruelle a donc une explication biologique réelle.',
-  'Toutes les variations d’humeur ne sont pas forcément liées au cycle : le contexte de vie compte aussi.',
-  'Sommeil, activité physique et soutien social restent les meilleurs alliés pour stabiliser l’humeur.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE MENSTRUEL • HUMEUR',
+    title: 'Humeur et fluctuations\nhormonales',
+    metaDuration: '6 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi ton moral peut varier au fil du cycle, sans que ce soit systématiquement le cas.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi l’humeur peut varier',
+      'L’humeur selon les phases du cycle',
+      'Observer tes propres variations',
+      'Des habitudes qui peuvent aider',
+      'Quand les changements deviennent préoccupants',
+      'À retenir',
+    ],
+    section1Body: 'Les variations d’œstrogènes et de progestérone influencent directement les neurotransmetteurs liés à l’humeur, comme la sérotonine.',
+    info1Title: 'À garder en tête',
+    info1Text: 'Toutes les variations d’humeur ne sont pas forcément liées au cycle : le contexte de vie, le stress ou la fatigue jouent aussi un rôle important.',
+    phaseMood: [
+      {title: 'Pendant les règles', text: 'Fatigue et sensibilité émotionnelle sont fréquentes pour beaucoup de personnes.'},
+      {title: 'Autour de l’ovulation', text: 'C’est souvent une phase de meilleure énergie et de bien-être ressenti.'},
+      {title: 'Avant les règles', text: 'L’irritabilité ou les sautes d’humeur sont plus fréquentes à cette période.'},
+    ],
+    section2Body: 'L’irritabilité prémenstruelle ou les sautes d’humeur ménopausiques ont donc une explication biologique réelle, même si elles ne se manifestent pas de la même façon chez tout le monde.',
+    observeHabits: [
+      {title: 'Tenir un journal', text: 'Noter ton humeur et la phase de ton cycle t’aide à repérer tes propres tendances.'},
+      {title: 'Identifier des schémas', text: 'Sans te juger : le but est de mieux te connaître, pas de tout contrôler.'},
+    ],
+    section4Body: 'Sommeil, activité physique et soutien social restent les meilleurs alliés pour stabiliser l’humeur.',
+    helpfulHabits: [
+      {title: 'Un sommeil suffisant', text: 'Le manque de sommeil amplifie souvent la sensibilité émotionnelle.'},
+      {title: 'Une activité physique régulière', text: 'Même modérée, elle aide à stabiliser l’humeur au fil du cycle.'},
+      {title: 'Un soutien social', text: 'En parler à une personne de confiance peut alléger ce que tu ressens.'},
+    ],
+    section5Body: 'Une variation d’humeur liée au cycle reste généralement passagère. Certains signes méritent en revanche une attention particulière :',
+    warningTitle: 'Signaux à surveiller',
+    concerningSigns: [
+      'Une tristesse intense ou qui persiste au-delà du cycle',
+      'Une perte d’intérêt marquée pour ce que tu aimes habituellement',
+      'Un impact important sur ton quotidien ou tes relations',
+      'Des pensées envahissantes ou un sentiment de détresse important',
+    ],
+    info2Title: 'Un accompagnement est possible',
+    info2Text: 'Un médecin, une sage-femme ou un psychologue peut t’aider à mieux comprendre ce que tu ressens et t’orienter si besoin.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Reconnaître le lien entre hormones et humeur peut aider à mieux comprendre ce que tu ressens, sans pour autant tout réduire à cette seule explication.',
+    summaryPoints: [
+      'Les variations d’œstrogènes et de progestérone influencent directement les neurotransmetteurs liés à l’humeur.',
+      'L’irritabilité prémenstruelle a donc une explication biologique réelle.',
+      'Toutes les variations d’humeur ne sont pas forcément liées au cycle : le contexte de vie compte aussi.',
+      'Sommeil, activité physique et soutien social restent les meilleurs alliés pour stabiliser l’humeur.',
+    ],
+    disclaimerText: 'Contenu informatif. Cet article ne remplace pas un avis médical ou psychologique personnalisé. En cas de doute, demande conseil à un professionnel de santé.',
+    shareMessage: 'Humeur et fluctuations hormonales — AWA',
+  },
+  en: {
+    badge: 'MENSTRUAL CYCLE • MOOD',
+    title: 'Mood and hormonal\nfluctuations',
+    metaDuration: '6 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Why your mood can vary throughout your cycle, though not always.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why mood can vary',
+      'Mood across the phases of the cycle',
+      'Observing your own variations',
+      'Habits that can help',
+      'When changes become concerning',
+      'Key takeaways',
+    ],
+    section1Body: 'Fluctuations in estrogen and progesterone directly influence mood-related neurotransmitters, such as serotonin.',
+    info1Title: 'Keep in mind',
+    info1Text: 'Not every mood swing is necessarily linked to your cycle: life circumstances, stress, and fatigue also play an important role.',
+    phaseMood: [
+      {title: 'During your period', text: 'Fatigue and emotional sensitivity are common for many people.'},
+      {title: 'Around ovulation', text: 'This is often a phase of better energy and a greater sense of well-being.'},
+      {title: 'Before your period', text: 'Irritability or mood swings are more common during this time.'},
+    ],
+    section2Body: 'Premenstrual irritability or menopausal mood swings therefore have a real biological explanation, even if they don’t show up the same way for everyone.',
+    observeHabits: [
+      {title: 'Keeping a journal', text: 'Writing down your mood and your cycle phase helps you spot your own patterns.'},
+      {title: 'Identifying patterns', text: 'Without judging yourself: the goal is to know yourself better, not to control everything.'},
+    ],
+    section4Body: 'Sleep, physical activity, and social support remain the best allies for stabilizing mood.',
+    helpfulHabits: [
+      {title: 'Enough sleep', text: 'Lack of sleep often heightens emotional sensitivity.'},
+      {title: 'Regular physical activity', text: 'Even moderate activity helps stabilize mood throughout the cycle.'},
+      {title: 'Social support', text: 'Talking to someone you trust can ease what you’re feeling.'},
+    ],
+    section5Body: 'A mood change linked to your cycle is usually temporary. However, certain signs deserve particular attention:',
+    warningTitle: 'Signs to watch for',
+    concerningSigns: [
+      'Intense sadness, or sadness that persists beyond the cycle',
+      'A marked loss of interest in things you usually enjoy',
+      'A significant impact on your daily life or relationships',
+      'Intrusive thoughts or a significant feeling of distress',
+    ],
+    info2Title: 'Support is available',
+    info2Text: 'A doctor, midwife, or psychologist can help you better understand what you’re feeling and refer you to further support if needed.',
+    tipTitle: 'Good to know',
+    tipText: 'Recognizing the link between hormones and mood can help you better understand what you’re feeling, without reducing everything to this one explanation.',
+    summaryPoints: [
+      'Fluctuations in estrogen and progesterone directly influence mood-related neurotransmitters.',
+      'Premenstrual irritability therefore has a real biological explanation.',
+      'Not every mood swing is necessarily linked to the cycle: life circumstances matter too.',
+      'Sleep, physical activity, and social support remain the best allies for stabilizing mood.',
+    ],
+    disclaimerText: 'Informational content. This article does not replace personalized medical or psychological advice. If in doubt, seek guidance from a healthcare professional.',
+    shareMessage: 'Mood and hormonal fluctuations — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -117,6 +187,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function MoodHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -144,7 +217,7 @@ export default function MoodHormonesArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Humeur et fluctuations hormonales — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -189,7 +262,7 @@ export default function MoodHormonesArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -200,7 +273,7 @@ export default function MoodHormonesArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -217,7 +290,7 @@ export default function MoodHormonesArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -240,19 +313,17 @@ export default function MoodHormonesArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>CYCLE MENSTRUEL • HUMEUR</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Humeur et fluctuations{`\n`}hormonales
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -270,26 +341,16 @@ export default function MoodHormonesArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Pourquoi ton moral peut varier au fil du cycle, sans que ce soit
-            systématiquement le cas.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pourquoi l’humeur peut varier',
-              'L’humeur selon les phases du cycle',
-              'Observer tes propres variations',
-              'Des habitudes qui peuvent aider',
-              'Quand les changements deviennent préoccupants',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -309,13 +370,9 @@ export default function MoodHormonesArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Pourquoi l’humeur peut varier</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Les variations d’œstrogènes et de progestérone influencent
-            directement les neurotransmetteurs liés à l’humeur, comme la
-            sérotonine.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           <View style={styles.infoCard}>
             <MaterialDesignIcons
@@ -325,12 +382,8 @@ export default function MoodHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>À garder en tête</Text>
-              <Text style={styles.infoText}>
-                Toutes les variations d’humeur ne sont pas forcément liées au
-                cycle : le contexte de vie, le stress ou la fatigue jouent
-                aussi un rôle important.
-              </Text>
+              <Text style={styles.infoTitle}>{content.info1Title}</Text>
+              <Text style={styles.infoText}>{content.info1Text}</Text>
             </View>
           </View>
 
@@ -338,99 +391,98 @@ export default function MoodHormonesArticleScreen({
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. L’humeur selon les phases du cycle</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <View style={styles.normalGrid}>
-            {PHASE_MOOD.map(item => (
-              <View key={item.title} style={styles.normalCard}>
-                <View style={styles.normalIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={20}
-                    color={theme.colors.primary}
-                  />
-                </View>
+            {PHASE_MOOD_ICONS.map((icon, index) => {
+              const item = content.phaseMood[index];
+              return (
+                <View key={item.title} style={styles.normalCard}>
+                  <View style={styles.normalIcon}>
+                    <MaterialDesignIcons
+                      name={icon as never}
+                      size={20}
+                      color={theme.colors.primary}
+                    />
+                  </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
-            ))}
+                  <Text style={styles.normalTitle}>{item.title}</Text>
+                  <Text style={styles.normalText}>{item.text}</Text>
+                </View>
+              );
+            })}
           </View>
 
-          <Text style={styles.body}>
-            L’irritabilité prémenstruelle ou les sautes d’humeur ménopausiques
-            ont donc une explication biologique réelle, même si elles ne se
-            manifestent pas de la même façon chez tout le monde.
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Observer tes propres variations</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.comfortCard}>
-            {OBSERVE_HABITS.map((item, index) => (
-              <View
-                key={item.title}
-                style={[
-                  styles.comfortRow,
-                  index < OBSERVE_HABITS.length - 1 && styles.comfortRowBorder,
-                ]}>
-                <View style={styles.comfortIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={19}
-                    color={theme.colors.primary}
-                  />
-                </View>
+            {OBSERVE_HABITS_ICONS.map((icon, index) => {
+              const item = content.observeHabits[index];
+              return (
+                <View
+                  key={item.title}
+                  style={[
+                    styles.comfortRow,
+                    index < OBSERVE_HABITS_ICONS.length - 1 && styles.comfortRowBorder,
+                  ]}>
+                  <View style={styles.comfortIcon}>
+                    <MaterialDesignIcons
+                      name={icon as never}
+                      size={19}
+                      color={theme.colors.primary}
+                    />
+                  </View>
 
-                <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <View style={styles.comfortCopy}>
+                    <Text style={styles.comfortTitle}>{item.title}</Text>
+                    <Text style={styles.comfortText}>{item.text}</Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* ================================================================= */}
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Des habitudes qui peuvent aider</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Sommeil, activité physique et soutien social restent les
-            meilleurs alliés pour stabiliser l’humeur.
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           <View style={styles.normalGrid}>
-            {HELPFUL_HABITS.map(item => (
-              <View key={item.title} style={styles.normalCard}>
-                <View style={styles.normalIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={20}
-                    color={theme.colors.primary}
-                  />
-                </View>
+            {HELPFUL_HABITS_ICONS.map((icon, index) => {
+              const item = content.helpfulHabits[index];
+              return (
+                <View key={item.title} style={styles.normalCard}>
+                  <View style={styles.normalIcon}>
+                    <MaterialDesignIcons
+                      name={icon as never}
+                      size={20}
+                      color={theme.colors.primary}
+                    />
+                  </View>
 
-                <Text style={styles.normalTitle}>{item.title}</Text>
-                <Text style={styles.normalText}>{item.text}</Text>
-              </View>
-            ))}
+                  <Text style={styles.normalTitle}>{item.title}</Text>
+                  <Text style={styles.normalText}>{item.text}</Text>
+                </View>
+              );
+            })}
           </View>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Quand les changements deviennent préoccupants</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
-          <Text style={styles.body}>
-            Une variation d’humeur liée au cycle reste généralement passagère.
-            Certains signes méritent en revanche une attention particulière :
-          </Text>
+          <Text style={styles.body}>{content.section5Body}</Text>
 
           <View style={styles.warningCard}>
             <View style={styles.warningHeader}>
@@ -440,10 +492,10 @@ export default function MoodHormonesArticleScreen({
                 color={theme.colors.warning}
               />
 
-              <Text style={styles.warningTitle}>Signaux à surveiller</Text>
+              <Text style={styles.warningTitle}>{content.warningTitle}</Text>
             </View>
 
-            {CONCERNING_SIGNS.map(item => (
+            {content.concerningSigns.map(item => (
               <View key={item} style={styles.warningRow}>
                 <View style={styles.warningBullet}>
                   <MaterialDesignIcons
@@ -466,11 +518,8 @@ export default function MoodHormonesArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>Un accompagnement est possible</Text>
-              <Text style={styles.infoText}>
-                Un médecin, une sage-femme ou un psychologue peut t’aider à
-                mieux comprendre ce que tu ressens et t’orienter si besoin.
-              </Text>
+              <Text style={styles.infoTitle}>{content.info2Title}</Text>
+              <Text style={styles.infoText}>{content.info2Text}</Text>
             </View>
           </View>
 
@@ -486,12 +535,8 @@ export default function MoodHormonesArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Reconnaître le lien entre hormones et humeur peut aider à
-                mieux comprendre ce que tu ressens, sans pour autant tout
-                réduire à cette seule explication.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -499,10 +544,10 @@ export default function MoodHormonesArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[5]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View key={item} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -526,11 +571,7 @@ export default function MoodHormonesArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical ou psychologique personnalisé. En cas de doute,
-              demande conseil à un professionnel de santé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

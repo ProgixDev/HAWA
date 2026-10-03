@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,40 +39,146 @@ const ID = 'lhtests-comprendre-tests-ovulation';
 const HERO = require('../../assets/images/library/spm-consult.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — icons stay language-neutral; TEXT moves into the bilingual CONTENT  */
+/* object below, keyed by index to stay aligned with these icons.            */
 /* -------------------------------------------------------------------------- */
 
-const TESTING_TIPS = [
-  {
-    icon: 'calendar-range',
-    title: 'Se baser sur ton cycle',
-    text: 'Commence quelques jours avant la date d’ovulation estimée par la longueur moyenne de tes cycles.',
-  },
-  {
-    icon: 'clock-outline',
-    title: 'Tester à heure fixe',
-    text: 'Idéalement en milieu de journée, en évitant la première urine du matin.',
-  },
-  {
-    icon: 'cup-water',
-    title: 'Éviter de trop diluer',
-    text: 'Limite les grandes quantités de boisson dans les heures qui précèdent le test.',
-  },
-] as const;
+const TESTING_TIP_ICONS = ['calendar-range', 'clock-outline', 'cup-water'] as const;
 
-const LIMITATIONS = [
-  'Le SOPK peut donner des taux de LH naturellement plus élevés, brouillant la lecture',
-  'Certains traitements de fertilité peuvent influencer le résultat',
-  'Une urine très diluée peut donner un faux négatif',
-  'Un test de moins bonne qualité peut être moins fiable',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L bilingual editorial content. Article identity (ID,     */
+/* images, bookmark/progress keys, JSX structure) is untouched; only this    */
+/* object changes per language. The French text below is byte-identical to  */
+/* the original — never retyped, only moved into the `fr` key — so the app  */
+/* remains fully bilingual rather than having French replaced by English.   */
+/* -------------------------------------------------------------------------- */
 
-const SUMMARY_POINTS = [
-  'Les tests d’ovulation détectent le pic de l’hormone LH, qui déclenche la libération de l’ovule 24 à 36 heures après.',
-  'Il est conseillé de commencer les tests quelques jours avant la date d’ovulation estimée par ton cycle.',
-  'Un résultat positif signale le moment le plus fertile pour les rapports dans les 1 à 2 jours qui suivent.',
-  'Un pic de LH ne garantit pas à lui seul que l’ovulation a effectivement eu lieu.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'FERTILITÉ • TESTS D’OVULATION',
+    title: 'Comprendre les tests\nd’ovulation (LH)',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Comment fonctionnent ces bandelettes, et quand les utiliser.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que la LH ?',
+      'Comment fonctionnent ces tests',
+      'Quand commencer à tester',
+      'Interpréter un résultat',
+      'Faux positifs et limites',
+      'Les combiner à d’autres signes',
+      'À retenir',
+    ],
+    section1Body:
+      'La LH (hormone lutéinisante) est produite par le cerveau et pilote le fonctionnement des ovaires. Les tests d’ovulation détectent le pic de cette hormone, qui déclenche la libération de l’ovule 24 à 36 heures après.',
+    section2Body:
+      'Une bandelette urinaire mesure le taux de LH : une ligne test aussi foncée ou plus foncée que la ligne de contrôle indique un pic.',
+    section3Body:
+      'Il est conseillé de commencer les tests quelques jours avant la date d’ovulation estimée par ton cycle.',
+    testingTips: [
+      {
+        title: 'Se baser sur ton cycle',
+        text: 'Commence quelques jours avant la date d’ovulation estimée par la longueur moyenne de tes cycles.',
+      },
+      {
+        title: 'Tester à heure fixe',
+        text: 'Idéalement en milieu de journée, en évitant la première urine du matin.',
+      },
+      {
+        title: 'Éviter de trop diluer',
+        text: 'Limite les grandes quantités de boisson dans les heures qui précèdent le test.',
+      },
+    ],
+    section4Body:
+      'Un résultat positif signale le moment le plus fertile pour les rapports dans les 1 à 2 jours qui suivent. Un résultat négatif signifie simplement que le pic n’a pas encore eu lieu.',
+    limitations: [
+      'Le SOPK peut donner des taux de LH naturellement plus élevés, brouillant la lecture',
+      'Certains traitements de fertilité peuvent influencer le résultat',
+      'Une urine très diluée peut donner un faux négatif',
+      'Un test de moins bonne qualité peut être moins fiable',
+    ],
+    infoTitle: 'À garder en tête',
+    infoText:
+      'Un pic de LH indique un signal hormonal déclencheur, mais ne garantit pas à lui seul que l’ovule a effectivement été libéré.',
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Associer les tests d’ovulation à ta température basale ou à l’observation de ta glaire cervicale donne une image plus complète de ton cycle.',
+    summaryPoints: [
+      'Les tests d’ovulation détectent le pic de l’hormone LH, qui déclenche la libération de l’ovule 24 à 36 heures après.',
+      'Il est conseillé de commencer les tests quelques jours avant la date d’ovulation estimée par ton cycle.',
+      'Un résultat positif signale le moment le plus fertile pour les rapports dans les 1 à 2 jours qui suivent.',
+      'Un pic de LH ne garantit pas à lui seul que l’ovulation a effectivement eu lieu.',
+    ],
+    disclaimerText:
+      'Contenu informatif. Cet article ne remplace pas un avis médical personnalisé. En cas de doute, demande conseil à un professionnel de santé.',
+    shareMessage: 'Comprendre les tests d’ovulation (LH) — AWA',
+  },
+  en: {
+    badge: 'FERTILITY • OVULATION TESTS',
+    title: 'Understanding ovulation\ntests (LH)',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'How these strips work, and when to use them.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is LH?',
+      'How these tests work',
+      'When to start testing',
+      'Interpreting a result',
+      'False positives and limitations',
+      'Combining them with other signs',
+      'Key takeaways',
+    ],
+    section1Body:
+      'LH (luteinizing hormone) is produced by the brain and controls how the ovaries function. Ovulation tests detect the surge in this hormone, which triggers the release of the egg 24 to 36 hours later.',
+    section2Body:
+      'A urine test strip measures LH levels: a test line as dark as or darker than the control line indicates a surge.',
+    section3Body:
+      'It’s recommended to start testing a few days before the ovulation date estimated from your cycle.',
+    testingTips: [
+      {
+        title: 'Base it on your cycle',
+        text: 'Start a few days before the ovulation date estimated from the average length of your cycles.',
+      },
+      {
+        title: 'Test at the same time each day',
+        text: 'Ideally around midday, avoiding your first urine of the morning.',
+      },
+      {
+        title: 'Avoid diluting your urine',
+        text: 'Limit large amounts of fluids in the hours before the test.',
+      },
+    ],
+    section4Body:
+      'A positive result signals the most fertile time for intercourse over the following 1 to 2 days. A negative result simply means the surge hasn’t happened yet.',
+    limitations: [
+      'PCOS can cause naturally higher LH levels, which can blur the reading',
+      'Certain fertility treatments can affect the result',
+      'Very diluted urine can give a false negative',
+      'A lower-quality test can be less reliable',
+    ],
+    infoTitle: 'Keep in mind',
+    infoText:
+      'An LH surge indicates a triggering hormonal signal, but on its own it doesn’t guarantee that the egg was actually released.',
+    tipTitle: 'Good to know',
+    tipText:
+      'Combining ovulation tests with your basal body temperature or cervical mucus observation gives a fuller picture of your cycle.',
+    summaryPoints: [
+      'Ovulation tests detect the LH surge, which triggers the release of the egg 24 to 36 hours later.',
+      'It’s recommended to start testing a few days before the ovulation date estimated from your cycle.',
+      'A positive result signals the most fertile time for intercourse over the following 1 to 2 days.',
+      'An LH surge on its own doesn’t guarantee that ovulation actually occurred.',
+    ],
+    disclaimerText:
+      'Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional.',
+    shareMessage: 'Understanding ovulation tests (LH) — AWA',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -86,6 +193,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function LhTestsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -113,7 +223,7 @@ export default function LhTestsArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Comprendre les tests d’ovulation (LH) — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Partage annulé ou indisponible.
@@ -158,7 +268,7 @@ export default function LhTestsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
@@ -169,7 +279,7 @@ export default function LhTestsArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved ? 'Retirer des favoris' : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -186,7 +296,7 @@ export default function LhTestsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -209,19 +319,17 @@ export default function LhTestsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>FERTILITÉ • TESTS D’OVULATION</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Comprendre les tests{`\n`}d’ovulation (LH)
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -239,27 +347,17 @@ export default function LhTestsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Comment fonctionnent ces bandelettes, et quand les utiliser.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* -------------------------------------------------------------- */}
           {/* CONTENTS                                                        */}
           {/* -------------------------------------------------------------- */}
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que la LH ?',
-              'Comment fonctionnent ces tests',
-              'Quand commencer à tester',
-              'Interpréter un résultat',
-              'Faux positifs et limites',
-              'Les combiner à d’autres signes',
-              'À retenir',
-            ].map((item, index) => (
-              <View key={item} style={styles.contentRow}>
+            {content.topics.map((item, index) => (
+              <View key={index} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
                   <Text style={styles.contentText}>{item}</Text>
@@ -278,57 +376,45 @@ export default function LhTestsArticleScreen({
           {/* SECTION 1                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>1. Qu’est-ce que la LH ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            La LH (hormone lutéinisante) est produite par le cerveau et
-            pilote le fonctionnement des ovaires. Les tests d’ovulation
-            détectent le pic de cette hormone, qui déclenche la libération
-            de l’ovule 24 à 36 heures après.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 2                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>2. Comment fonctionnent ces tests</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Une bandelette urinaire mesure le taux de LH : une ligne test
-            aussi foncée ou plus foncée que la ligne de contrôle indique un
-            pic.
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 3                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>3. Quand commencer à tester</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Il est conseillé de commencer les tests quelques jours avant la
-            date d’ovulation estimée par ton cycle.
-          </Text>
+          <Text style={styles.body}>{content.section3Body}</Text>
 
           <View style={styles.comfortCard}>
-            {TESTING_TIPS.map((item, index) => (
+            {TESTING_TIP_ICONS.map((icon, index) => (
               <View
-                key={item.title}
+                key={icon}
                 style={[
                   styles.comfortRow,
-                  index < TESTING_TIPS.length - 1 && styles.comfortRowBorder,
+                  index < TESTING_TIP_ICONS.length - 1 && styles.comfortRowBorder,
                 ]}>
                 <View style={styles.comfortIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={icon as never}
                     size={19}
                     color={theme.colors.primary}
                   />
                 </View>
 
                 <View style={styles.comfortCopy}>
-                  <Text style={styles.comfortTitle}>{item.title}</Text>
-                  <Text style={styles.comfortText}>{item.text}</Text>
+                  <Text style={styles.comfortTitle}>{content.testingTips[index].title}</Text>
+                  <Text style={styles.comfortText}>{content.testingTips[index].text}</Text>
                 </View>
               </View>
             ))}
@@ -338,23 +424,19 @@ export default function LhTestsArticleScreen({
           {/* SECTION 4                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>4. Interpréter un résultat</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Un résultat positif signale le moment le plus fertile pour les
-            rapports dans les 1 à 2 jours qui suivent. Un résultat négatif
-            signifie simplement que le pic n’a pas encore eu lieu.
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           {/* ================================================================= */}
           {/* SECTION 5                                                         */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>5. Faux positifs et limites</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.checkList}>
-            {LIMITATIONS.map(item => (
-              <View key={item} style={styles.checkRow}>
+            {content.limitations.map((item, index) => (
+              <View key={index} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="checkbox-blank-circle-outline"
                   size={14}
@@ -374,12 +456,8 @@ export default function LhTestsArticleScreen({
             />
 
             <View style={styles.infoCopy}>
-              <Text style={styles.infoTitle}>À garder en tête</Text>
-              <Text style={styles.infoText}>
-                Un pic de LH indique un signal hormonal déclencheur, mais ne
-                garantit pas à lui seul que l’ovule a effectivement été
-                libéré.
-              </Text>
+              <Text style={styles.infoTitle}>{content.infoTitle}</Text>
+              <Text style={styles.infoText}>{content.infoText}</Text>
             </View>
           </View>
 
@@ -395,12 +473,8 @@ export default function LhTestsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
-              <Text style={styles.tipText}>
-                Associer les tests d’ovulation à ta température basale ou à
-                l’observation de ta glaire cervicale donne une image plus
-                complète de ton cycle.
-              </Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
+              <Text style={styles.tipText}>{content.tipText}</Text>
             </View>
           </View>
 
@@ -408,11 +482,11 @@ export default function LhTestsArticleScreen({
           {/* SUMMARY                                                           */}
           {/* ================================================================= */}
 
-          <Text style={styles.h2}>À retenir</Text>
+          <Text style={styles.h2}>{content.topics[6]}</Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
-              <View key={item} style={styles.summaryRow}>
+            {content.summaryPoints.map((item, index) => (
+              <View key={index} style={styles.summaryRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
                   size={18}
@@ -435,11 +509,7 @@ export default function LhTestsArticleScreen({
               color={theme.colors.textMuted}
             />
 
-            <Text style={styles.disclaimerText}>
-              Contenu informatif. Cet article ne remplace pas un avis
-              médical personnalisé. En cas de doute, demande conseil à un
-              professionnel de santé.
-            </Text>
+            <Text style={styles.disclaimerText}>{content.disclaimerText}</Text>
           </View>
         </View>
       </ScrollView>

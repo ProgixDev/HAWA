@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,39 +34,152 @@ const ID = 'nifasfiqh-repere-fiqh';
 
 const HERO = require('../../assets/images/library/nifas-fiqh-hero.png');
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const STEPS = [
-  'Observer la fin des pertes',
-  'Effectuer la purification rituelle',
-  'Reprendre les actes d’adoration concernés',
-];
-
-const FAQ = [
-  {
-    q: 'Le nifas dure-t-il toujours 40 jours ?',
-    a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
+// PHASE 7L.2 — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+//
+// RELIGIOUS CONTENT: "nifas" is kept untranslated in both languages. Every
+// hedge/attribution present in the French ("selon la référence suivie",
+// "selon l'école juridique", "une référence fréquemment retenue", etc.) is
+// preserved in English with the same scope — no ruling is strengthened,
+// invented, or resolved beyond what the French source states.
+const CONTENT = {
+  fr: {
+    badge: 'NIFAS (FIQH)',
+    title: 'Le nifas en\npratique religieuse',
+    metaDuration: '6 min de lecture',
+    metaType: 'FAQ',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Comprendre le nifas, sa durée, la prière, le jeûne et la reprise des adorations après l’accouchement.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que le nifas ?',
+      'Sa durée selon les références juridiques',
+      'Prière pendant le nifas',
+      'Jeûne pendant le nifas',
+      'Purification et reprise des adorations',
+      'Questions fréquentes',
+    ],
+    section1Body: 'Le nifas désigne, dans la pratique religieuse, la période liée aux pertes de sang après l’accouchement. Les lochies décrivent l’aspect médical et physiologique de ces pertes ; le nifas est leur classification religieuse. Ces deux notions ne doivent pas être confondues.',
+    tip1Title: 'À retenir',
+    tip1Text: 'AWA sépare volontairement les informations médicales sur les lochies des repères religieux sur le nifas.',
+    question1: 'Combien de temps dure le nifas ?',
+    section2Body: 'La durée maximale peut varier selon l’école juridique ou la référence religieuse suivie. 40 jours est une référence fréquemment retenue, sans être présentée comme une règle universelle par AWA.',
+    tip2Title: 'Repère souvent utilisé',
+    tip2Text: 'Une référence fréquemment retenue est de 40 jours, mais AWA ne présente pas ce chiffre comme une vérité unique pour toutes les écoles juridiques. Suis la référence religieuse que tu as choisie.',
+    question2: 'Dois-je prier pendant le nifas ?',
+    section3Body: 'Pendant une période reconnue comme nifas selon la référence suivie, la prière rituelle est suspendue. AWA ne classe pas automatiquement les saignements et ne fournit pas de décision personnalisée. Aucun compteur de prières manquées n’est ajouté pour cette période.',
+    question3: 'Puis-je jeûner pendant le nifas ?',
+    section4Body: 'Le jeûne obligatoire n’est pas accompli pendant une période reconnue comme nifas. Les jours concernés sont ensuite traités par le rattrapage approprié, selon la référence suivie.',
+    tip3Title: 'Organiser, sans décider',
+    tip3Text: 'AWA peut t’aider à mémoriser ou organiser les jours concernés, sans émettre de décision religieuse personnalisée.',
+    section5Body: 'La reprise dépend des signes observés et de la référence religieuse suivie.',
+    steps: [
+      'Observer la fin des pertes',
+      'Effectuer la purification rituelle',
+      'Reprendre les actes d’adoration concernés',
+    ],
+    alert2Title: 'En cas de doute',
+    alert2Text: 'Si les saignements persistent au-delà de la durée maximale retenue par la référence suivie, leur statut religieux peut changer. Un avis qualifié est recommandé.',
+    faq: [
+      {
+        q: 'Le nifas dure-t-il toujours 40 jours ?',
+        a: 'Non. 40 jours est une référence fréquemment utilisée, mais les références juridiques peuvent différer.',
+      },
+      {
+        q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
+        a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
+      },
+      {
+        q: 'Et si les saignements continuent longtemps ?',
+        a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
+      },
+      {
+        q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
+        a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
+      },
+    ],
+    alert3Title: 'Un repère, pas une fatwa',
+    alert3Text: 'Les situations personnelles peuvent être différentes. En cas de doute, rapproche-toi d’un savant qualifié ou d’une organisation religieuse reconnue.',
+    shareMessage: 'Le nifas en pratique religieuse — AWA',
   },
-  {
-    q: 'Que faire si les pertes s’arrêtent avant 40 jours ?',
-    a: 'La reprise des actes d’adoration dépend des signes observés et de la référence religieuse suivie.',
+  en: {
+    badge: 'NIFAS (FIQH)',
+    title: 'Nifas in\nreligious practice',
+    metaDuration: '6 min read',
+    metaType: 'FAQ',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Understanding nifas, its duration, prayer, fasting, and the resumption of acts of worship after childbirth.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is nifas?',
+      'Its duration according to jurisprudential references',
+      'Prayer during nifas',
+      'Fasting during nifas',
+      'Purification and resumption of acts of worship',
+      'Frequently asked questions',
+    ],
+    section1Body: 'In religious practice, nifas refers to the period linked to the bleeding after childbirth. Lochia describes the medical and physiological aspect of this bleeding; nifas is its religious classification. These two notions should not be confused.',
+    tip1Title: 'Key takeaway',
+    tip1Text: 'AWA deliberately separates the medical information about lochia from the religious markers about nifas.',
+    question1: 'How long does nifas last?',
+    section2Body: 'The maximum duration may vary according to the school of jurisprudence or the religious reference followed. 40 days is a frequently used reference, without being presented by AWA as a universal rule.',
+    tip2Title: 'A commonly used marker',
+    tip2Text: 'A frequently used reference is 40 days, but AWA does not present this figure as the one truth for all schools of jurisprudence. Follow the religious reference you have chosen.',
+    question2: 'Should I pray during nifas?',
+    section3Body: 'During a period recognized as nifas according to the reference followed, ritual prayer is suspended. AWA does not automatically classify bleeding and does not provide a personalized decision. No missed-prayer counter is added for this period.',
+    question3: 'Can I fast during nifas?',
+    section4Body: 'The obligatory fast is not performed during a period recognized as nifas. The days concerned are then handled through the appropriate make-up, according to the reference followed.',
+    tip3Title: 'Organizing, without deciding',
+    tip3Text: 'AWA can help you keep track of or organize the days concerned, without issuing a personalized religious decision.',
+    section5Body: 'Resumption depends on the signs observed and the religious reference followed.',
+    steps: [
+      'Observe the end of the bleeding',
+      'Perform the ritual purification',
+      'Resume the acts of worship concerned',
+    ],
+    alert2Title: 'In case of doubt',
+    alert2Text: 'If the bleeding persists beyond the maximum duration adopted by the reference followed, its religious status may change. A qualified opinion is recommended.',
+    faq: [
+      {
+        q: 'Does nifas always last 40 days?',
+        a: 'No. 40 days is a frequently used reference, but jurisprudential references may differ.',
+      },
+      {
+        q: 'What should I do if the bleeding stops before 40 days?',
+        a: 'The resumption of acts of worship depends on the signs observed and the religious reference followed.',
+      },
+      {
+        q: 'What if the bleeding continues for a long time?',
+        a: 'If it exceeds the maximum duration adopted, its religious status may change: ask for a qualified opinion.',
+      },
+      {
+        q: 'Can AWA say exactly whether my bleeding is still nifas?',
+        a: 'No. AWA provides general educational markers and does not issue a fatwa or a personalized decision.',
+      },
+    ],
+    alert3Title: 'A marker, not a fatwa',
+    alert3Text: 'Personal situations can differ. In case of doubt, reach out to a qualified scholar or a recognized religious organization.',
+    shareMessage: 'Nifas in religious practice — AWA',
   },
-  {
-    q: 'Et si les saignements continuent longtemps ?',
-    a: 'S’ils dépassent la durée maximale retenue, leur statut religieux peut changer : demande un avis qualifié.',
-  },
-  {
-    q: 'AWA peut-elle dire exactement si mes pertes sont encore du nifas ?',
-    a: 'Non. AWA donne des repères éducatifs généraux et ne délivre ni fatwa ni décision personnalisée.',
-  },
-];
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function NifasFiqhArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -92,7 +206,7 @@ export default function NifasFiqhArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le nifas en pratique religieuse — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -130,7 +244,7 @@ export default function NifasFiqhArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -139,7 +253,7 @@ export default function NifasFiqhArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -154,7 +268,7 @@ export default function NifasFiqhArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -172,19 +286,19 @@ export default function NifasFiqhArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>NIFAS (FIQH)</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Le nifas en{`\n`}pratique religieuse
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -203,8 +317,7 @@ export default function NifasFiqhArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comprendre le nifas, sa durée, la prière, le jeûne et la reprise
-            des adorations après l’accouchement.
+            {content.intro}
           </Text>
 
           <View style={styles.alert}>
@@ -215,22 +328,15 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que le nifas ?',
-              'Sa durée selon les références juridiques',
-              'Prière pendant le nifas',
-              'Jeûne pendant le nifas',
-              'Purification et reprise des adorations',
-              'Questions fréquentes',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -246,14 +352,10 @@ export default function NifasFiqhArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que le nifas ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Le nifas désigne, dans la pratique religieuse, la période liée
-            aux pertes de sang après l’accouchement. Les lochies décrivent
-            l’aspect médical et physiologique de ces pertes ; le nifas est
-            leur classification religieuse. Ces deux notions ne doivent pas
-            être confondues.
+            {content.section1Body}
           </Text>
 
           <View style={styles.tip}>
@@ -264,25 +366,21 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                AWA sépare volontairement les informations médicales sur les
-                lochies des repères religieux sur le nifas.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            2. Sa durée selon les références juridiques
+            2. {content.topics[1]}
           </Text>
 
-          <Text style={styles.question}>Combien de temps dure le nifas ?</Text>
+          <Text style={styles.question}>{content.question1}</Text>
 
           <Text style={styles.body}>
-            La durée maximale peut varier selon l’école juridique ou la
-            référence religieuse suivie. 40 jours est une référence
-            fréquemment retenue, sans être présentée comme une règle
-            universelle par AWA.
+            {content.section2Body}
           </Text>
 
           <View style={styles.tip}>
@@ -293,36 +391,27 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Repère souvent utilisé</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Une référence fréquemment retenue est de 40 jours, mais AWA
-                ne présente pas ce chiffre comme une vérité unique pour
-                toutes les écoles juridiques. Suis la référence religieuse
-                que tu as choisie.
+                {content.tip2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Prière pendant le nifas</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.question}>Dois-je prier pendant le nifas ?</Text>
+          <Text style={styles.question}>{content.question2}</Text>
 
           <Text style={styles.body}>
-            Pendant une période reconnue comme nifas selon la référence
-            suivie, la prière rituelle est suspendue. AWA ne classe pas
-            automatiquement les saignements et ne fournit pas de décision
-            personnalisée. Aucun compteur de prières manquées n’est ajouté
-            pour cette période.
+            {content.section3Body}
           </Text>
 
-          <Text style={styles.h2}>4. Jeûne pendant le nifas</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.question}>Puis-je jeûner pendant le nifas ?</Text>
+          <Text style={styles.question}>{content.question3}</Text>
 
           <Text style={styles.body}>
-            Le jeûne obligatoire n’est pas accompli pendant une période
-            reconnue comme nifas. Les jours concernés sont ensuite traités
-            par le rattrapage approprié, selon la référence suivie.
+            {content.section4Body}
           </Text>
 
           <View style={styles.tip}>
@@ -333,25 +422,23 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Organiser, sans décider</Text>
+              <Text style={styles.tipTitle}>{content.tip3Title}</Text>
               <Text style={styles.tipText}>
-                AWA peut t’aider à mémoriser ou organiser les jours
-                concernés, sans émettre de décision religieuse personnalisée.
+                {content.tip3Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            5. Purification et reprise des adorations
+            5. {content.topics[4]}
           </Text>
 
           <Text style={styles.body}>
-            La reprise dépend des signes observés et de la référence
-            religieuse suivie.
+            {content.section5Body}
           </Text>
 
           <View style={styles.checkList}>
-            {STEPS.map((label, index) => (
+            {content.steps.map((label, index) => (
               <View key={label} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -374,18 +461,16 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
               <Text style={styles.tipText}>
-                Si les saignements persistent au-delà de la durée maximale
-                retenue par la référence suivie, leur statut religieux peut
-                changer. Un avis qualifié est recommandé.
+                {content.alert2Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. Questions fréquentes</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
-          {FAQ.map(item => (
+          {content.faq.map(item => (
             <View key={item.q} style={styles.faqItem}>
               <Text style={styles.question}>{item.q}</Text>
               <Text style={styles.body}>{item.a}</Text>
@@ -400,11 +485,9 @@ export default function NifasFiqhArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Un repère, pas une fatwa</Text>
+              <Text style={styles.tipTitle}>{content.alert3Title}</Text>
               <Text style={styles.tipText}>
-                Les situations personnelles peuvent être différentes. En cas
-                de doute, rapproche-toi d’un savant qualifié ou d’une
-                organisation religieuse reconnue.
+                {content.alert3Text}
               </Text>
             </View>
           </View>

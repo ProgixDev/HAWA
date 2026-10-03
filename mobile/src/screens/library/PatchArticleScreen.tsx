@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,46 +34,149 @@ const ID = 'patch-le-patch-contraceptif';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
-const APPLICATION_TIPS = [
-  'Changer de zone d’application à chaque pose',
-  'Vérifier qu’il reste bien collé',
-  'Le poser sur une peau propre et sèche',
-];
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const PATCH_FACT_ICONS = [
+  'calendar-week-outline',
+  'water-outline',
+  'shield-check-outline',
+  'alert-circle-outline',
+] as const;
 
-const PATCH_FACTS = [
-  {
-    icon: 'calendar-week-outline',
-    title: 'Chaque semaine',
-    text: 'Le patch se remplace une fois par semaine.',
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PATCH CONTRACEPTIF',
+    title: 'Le patch\ncontraceptif',
+    metaDuration: '5 min de lecture',
+    metaType: 'Article',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Une alternative hebdomadaire à la pilule quotidienne.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Comment fonctionne le patch',
+      'Le rythme d’application',
+      'Ce qu’il faut savoir',
+      'À retenir',
+    ],
+    section1Body:
+      'Le patch diffuse en continu des hormones à travers la peau, avec une action comparable à celle de la pilule combinée : il empêche l’ovulation et épaissit la glaire cervicale.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'Son principal avantage est de ne pas nécessiter une prise quotidienne.',
+    section2Body:
+      'Le patch se change généralement une fois par semaine pendant trois semaines, suivies d’une semaine sans patch.',
+    applicationTips: [
+      'Changer de zone d’application à chaque pose',
+      'Vérifier qu’il reste bien collé',
+      'Le poser sur une peau propre et sèche',
+    ],
+    sectionIntro:
+      'Les points essentiels à connaître avant et pendant son utilisation.',
+    facts: [
+      {title: 'Chaque semaine', text: 'Le patch se remplace une fois par semaine.'},
+      {title: 'Peau sèche', text: 'Il doit être posé sur une peau propre et sèche.'},
+      {title: 'Protection', text: 'Il agit en continu lorsqu’il est utilisé correctement.'},
+      {title: 'À surveiller', text: 'Une irritation locale peut parfois apparaître.'},
+    ],
+    comparisonTitle: 'Avantages & limites',
+    advantageTitle: 'Avantages',
+    advantages: [
+      '• Une application par semaine',
+      '• Pas de prise quotidienne',
+      '• Diffusion hormonale continue',
+    ],
+    limitTitle: 'Limites',
+    limits: [
+      'Ne protège pas des IST',
+      'Peut provoquer une irritation cutanée',
+      'Nécessite de respecter le rythme de remplacement',
+    ],
+    alertTitle: 'À noter',
+    alertText:
+      'Une légère irritation peut apparaître à l’endroit de la pose. Alterner les zones d’application peut aider à limiter ce problème.',
+    rememberTitle: 'Les 3 essentiels',
+    remember: [
+      'Changer le patch chaque semaine.',
+      'Vérifier régulièrement son adhérence.',
+      'Demander conseil à un professionnel de santé si nécessaire.',
+    ],
+    shareMessage: 'Le patch contraceptif — AWA',
   },
-  {
-    icon: 'water-outline',
-    title: 'Peau sèche',
-    text: 'Il doit être posé sur une peau propre et sèche.',
+  en: {
+    badge: 'CONTRACEPTIVE PATCH',
+    title: 'The contraceptive\npatch',
+    metaDuration: '5 min read',
+    metaType: 'Article',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'A weekly alternative to the daily pill.',
+    contentsTitle: 'In this article',
+    topics: [
+      'How the patch works',
+      'Application schedule',
+      'What you need to know',
+      'Key takeaways',
+    ],
+    section1Body:
+      'The patch continuously releases hormones through the skin, working in a way comparable to the combined pill: it prevents ovulation and thickens cervical mucus.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'Its main advantage is that it doesn’t require a daily dose.',
+    section2Body:
+      'The patch is generally changed once a week for three weeks, followed by one week without a patch.',
+    applicationTips: [
+      'Change the application site each time',
+      'Check that it’s still firmly stuck',
+      'Apply it to clean, dry skin',
+    ],
+    sectionIntro:
+      'The key points to know before and during use.',
+    facts: [
+      {title: 'Every week', text: 'The patch is replaced once a week.'},
+      {title: 'Dry skin', text: 'It must be applied to clean, dry skin.'},
+      {title: 'Protection', text: 'It works continuously when used correctly.'},
+      {title: 'Watch for', text: 'Local irritation can sometimes occur.'},
+    ],
+    comparisonTitle: 'Advantages & limitations',
+    advantageTitle: 'Advantages',
+    advantages: [
+      '• One application per week',
+      '• No daily dose',
+      '• Continuous hormone release',
+    ],
+    limitTitle: 'Limitations',
+    limits: [
+      'Doesn’t protect against STIs',
+      'May cause skin irritation',
+      'Requires sticking to the replacement schedule',
+    ],
+    alertTitle: 'Please note',
+    alertText:
+      'Slight irritation may appear at the application site. Alternating application sites can help limit this.',
+    rememberTitle: 'The 3 essentials',
+    remember: [
+      'Change the patch every week.',
+      'Check regularly that it’s sticking well.',
+      'Ask a healthcare professional for advice if needed.',
+    ],
+    shareMessage: 'The contraceptive patch — AWA',
   },
-  {
-    icon: 'shield-check-outline',
-    title: 'Protection',
-    text: 'Il agit en continu lorsqu’il est utilisé correctement.',
-  },
-  {
-    icon: 'alert-circle-outline',
-    title: 'À surveiller',
-    text: 'Une irritation locale peut parfois apparaître.',
-  },
-];
-
-const PATCH_LIMITS = [
-  'Ne protège pas des IST',
-  'Peut provoquer une irritation cutanée',
-  'Nécessite de respecter le rythme de remplacement',
-];
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PatchArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -99,7 +203,7 @@ export default function PatchArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Le patch contraceptif — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -140,7 +244,7 @@ export default function PatchArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -156,7 +260,7 @@ export default function PatchArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -171,7 +275,7 @@ export default function PatchArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -190,20 +294,18 @@ export default function PatchArticleScreen({
         {/* ARTICLE */}
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PATCH CONTRACEPTIF</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Le patch{`\n`}contraceptif
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           {/* METADATA */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Article'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -221,20 +323,13 @@ export default function PatchArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Une alternative hebdomadaire à la pilule quotidienne.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* TABLE OF CONTENTS */}
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Comment fonctionne le patch',
-              'Le rythme d’application',
-              'Ce qu’il faut savoir',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -252,13 +347,9 @@ export default function PatchArticleScreen({
           </View>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. Comment fonctionne le patch</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Le patch diffuse en continu des hormones à travers la peau,
-            avec une action comparable à celle de la pilule combinée :
-            il empêche l’ovulation et épaissit la glaire cervicale.
-          </Text>
+          <Text style={styles.body}>{content.section1Body}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -268,25 +359,19 @@ export default function PatchArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
 
-              <Text style={styles.tipText}>
-                Son principal avantage est de ne pas nécessiter une prise
-                quotidienne.
-              </Text>
+              <Text style={styles.tipText}>{content.tip1Text}</Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>2. Le rythme d’application</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Le patch se change généralement une fois par semaine pendant
-            trois semaines, suivies d’une semaine sans patch.
-          </Text>
+          <Text style={styles.body}>{content.section2Body}</Text>
 
           <View style={styles.checkList}>
-            {APPLICATION_TIPS.map(item => (
+            {content.applicationTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -300,20 +385,17 @@ export default function PatchArticleScreen({
           </View>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. Ce qu’il faut savoir</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.sectionIntro}>
-            Les points essentiels à connaître avant et pendant son
-            utilisation.
-          </Text>
+          <Text style={styles.sectionIntro}>{content.sectionIntro}</Text>
 
           {/* VISUAL FACT CARDS */}
           <View style={styles.factGrid}>
-            {PATCH_FACTS.map(item => (
+            {content.facts.map((item, index) => (
               <View key={item.title} style={styles.factCard}>
                 <View style={styles.factIcon}>
                   <MaterialDesignIcons
-                    name={item.icon as never}
+                    name={PATCH_FACT_ICONS[index] as never}
                     size={23}
                     color={theme.colors.primary}
                   />
@@ -336,12 +418,12 @@ export default function PatchArticleScreen({
               />
 
               <Text style={styles.comparisonTitle}>
-                Avantages & limites
+                {content.comparisonTitle}
               </Text>
             </View>
 
             <View style={styles.comparisonColumns}>
-              {/* AVANTAGES */}
+              {/* ADVANTAGES */}
               <View style={styles.column}>
                 <View style={styles.columnTitleRow}>
                   <MaterialDesignIcons
@@ -350,23 +432,17 @@ export default function PatchArticleScreen({
                     color={theme.colors.success}
                   />
 
-                  <Text style={styles.advantageTitle}>Avantages</Text>
+                  <Text style={styles.advantageTitle}>{content.advantageTitle}</Text>
                 </View>
 
-                <Text style={styles.columnItem}>
-                  • Une application par semaine
-                </Text>
-
-                <Text style={styles.columnItem}>
-                  • Pas de prise quotidienne
-                </Text>
-
-                <Text style={styles.columnItem}>
-                  • Diffusion hormonale continue
-                </Text>
+                {content.advantages.map(item => (
+                  <Text key={item} style={styles.columnItem}>
+                    {item}
+                  </Text>
+                ))}
               </View>
 
-              {/* LIMITES */}
+              {/* LIMITS */}
               <View style={styles.column}>
                 <View style={styles.columnTitleRow}>
                   <MaterialDesignIcons
@@ -375,10 +451,10 @@ export default function PatchArticleScreen({
                     color={theme.colors.warning}
                   />
 
-                  <Text style={styles.limitTitle}>Limites</Text>
+                  <Text style={styles.limitTitle}>{content.limitTitle}</Text>
                 </View>
 
-                {PATCH_LIMITS.map(item => (
+                {content.limits.map(item => (
                   <Text key={item} style={styles.columnItem}>
                     • {item}
                   </Text>
@@ -396,18 +472,14 @@ export default function PatchArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
 
-              <Text style={styles.tipText}>
-                Une légère irritation peut apparaître à l’endroit de la
-                pose. Alterner les zones d’application peut aider à
-                limiter ce problème.
-              </Text>
+              <Text style={styles.tipText}>{content.alertText}</Text>
             </View>
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.rememberCard}>
             <View style={styles.rememberIcon}>
@@ -420,30 +492,17 @@ export default function PatchArticleScreen({
 
             <View style={styles.rememberContent}>
               <Text style={styles.rememberTitle}>
-                Les 3 essentiels
+                {content.rememberTitle}
               </Text>
 
-              <View style={styles.rememberRow}>
-                <Text style={styles.rememberNumber}>01</Text>
-                <Text style={styles.rememberText}>
-                  Changer le patch chaque semaine.
-                </Text>
-              </View>
-
-              <View style={styles.rememberRow}>
-                <Text style={styles.rememberNumber}>02</Text>
-                <Text style={styles.rememberText}>
-                  Vérifier régulièrement son adhérence.
-                </Text>
-              </View>
-
-              <View style={styles.rememberRow}>
-                <Text style={styles.rememberNumber}>03</Text>
-                <Text style={styles.rememberText}>
-                  Demander conseil à un professionnel de santé
-                  si nécessaire.
-                </Text>
-              </View>
+              {content.remember.map((item, index) => (
+                <View key={item} style={styles.rememberRow}>
+                  <Text style={styles.rememberNumber}>
+                    {String(index + 1).padStart(2, '0')}
+                  </Text>
+                  <Text style={styles.rememberText}>{item}</Text>
+                </View>
+              ))}
             </View>
           </View>
         </View>

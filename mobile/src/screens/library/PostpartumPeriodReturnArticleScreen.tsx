@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,73 +39,151 @@ const ID = 'postpartum-retour-de-couches-freemium';
 const HERO = require('../../assets/images/library/featured-cycle.png');
 
 /* -------------------------------------------------------------------------- */
-/* DATA                                                                       */
+/* DATA — language-neutral (icons/numbers only; text lives in CONTENT below) */
 /* -------------------------------------------------------------------------- */
 
-const CYCLE_STAGES = [
-  {
-    number: '01',
-    icon: 'baby-face-outline',
-    title: 'Après l’accouchement',
-    text: 'Le cycle menstruel s’interrompt temporairement après la naissance.',
-  },
-  {
-    number: '02',
-    icon: 'clock-outline',
-    title: 'Période post-partum',
-    text: 'Le corps récupère progressivement et le rythme hormonal évolue.',
-  },
-  {
-    number: '03',
-    icon: 'baby-bottle-outline',
-    title: 'Allaitement',
-    text: 'L’allaitement peut retarder le retour des règles, mais son effet varie selon chaque personne.',
-  },
-  {
-    number: '04',
-    icon: 'calendar-month-outline',
-    title: 'Retour des règles',
-    text: 'Les premières règles peuvent revenir après quelques semaines ou plusieurs mois.',
-  },
-  {
-    number: '05',
-    icon: 'chart-timeline-variant',
-    title: 'Premiers cycles',
-    text: 'Les cycles peuvent être irréguliers avant de retrouver progressivement leur rythme habituel.',
-  },
+const CYCLE_STAGES_META = [
+  {number: '01', icon: 'baby-face-outline'},
+  {number: '02', icon: 'clock-outline'},
+  {number: '03', icon: 'baby-bottle-outline'},
+  {number: '04', icon: 'calendar-month-outline'},
+  {number: '05', icon: 'chart-timeline-variant'},
 ] as const;
 
-const OBSERVATIONS = [
-  {
-    icon: 'calendar-outline',
-    title: 'Les dates',
-    text: 'Note le premier jour des règles.',
-  },
-  {
-    icon: 'clock-outline',
-    title: 'Le rythme',
-    text: 'Observe progressivement l’intervalle entre les cycles.',
-  },
-  {
-    icon: 'water-outline',
-    title: 'Le flux',
-    text: 'Observe simplement les changements par rapport à ton habitude.',
-  },
+const OBSERVATIONS_META = [
+  {icon: 'calendar-outline'},
+  {icon: 'clock-outline'},
+  {icon: 'water-outline'},
 ] as const;
 
-const WARNING_SIGNS = [
-  'Des saignements qui te semblent inhabituels',
-  'Une douleur importante ou persistante',
-  'De la fièvre ou un malaise important',
-  'Un symptôme nouveau qui t’inquiète',
-] as const;
+/* -------------------------------------------------------------------------- */
+/* CONTENT — PHASE 7L bilingual editorial content. Article identity (ID,     */
+/* images, bookmark/progress keys, JSX structure) is untouched; only this    */
+/* object changes per language. The French text below is byte-identical to  */
+/* the original — never retyped, only moved into the `fr` key — so the app  */
+/* remains fully bilingual rather than having French replaced by English.   */
+/* -------------------------------------------------------------------------- */
 
-const SUMMARY_POINTS = [
-  'Le retour de couches correspond au retour des règles après l’accouchement.',
-  'L’allaitement peut retarder le retour des règles.',
-  'Les premiers cycles peuvent être irréguliers.',
-  'Noter les dates peut aider à suivre l’évolution du cycle.',
-] as const;
+const CONTENT = {
+  fr: {
+    badge: 'FREEMIUM • POST-PARTUM',
+    title: 'Le retour de couches,\nà quoi s’attendre',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    intro: 'Après l’accouchement, le retour des règles peut prendre un certain temps. Le délai varie notamment selon l’allaitement et chaque personne peut vivre cette période différemment.',
+    shareMessage: 'Le retour de couches, à quoi s’attendre — AWA',
+    h2_1: '1. Qu’est-ce que le retour de couches ?',
+    body1: 'Le « retour de couches » désigne le retour des règles après l’accouchement. Le cycle menstruel ne reprend pas forcément immédiatement son rythme habituel.',
+    highlightTitle: 'À retenir',
+    highlightText: 'Il n’existe pas une date unique valable pour toutes les personnes.',
+    h2_2: '2. Quand les règles peuvent-elles revenir ?',
+    body2: 'Le délai dépend notamment de l’allaitement. Sans allaitement, le retour peut généralement survenir autour de 6 à 8 semaines. Avec un allaitement exclusif, il peut être retardé de plusieurs mois.',
+    simpleInfoTitle1: 'Sans allaitement',
+    simpleInfoText1: 'En général autour de 6 à 8 semaines.',
+    simpleInfoTitle2: 'Avec allaitement exclusif',
+    simpleInfoText2: 'Le retour peut être retardé de plusieurs mois.',
+    h2_3: '3. Le schéma du retour du cycle',
+    body3: 'Le retour du cycle se fait progressivement après l’accouchement. L’allaitement peut influencer le moment où les règles réapparaissent.',
+    schemaTitle: 'Retour progressif du cycle',
+    schemaSubtitle: 'Un repère général, étape par étape',
+    cycleStages: [
+      {title: 'Après l’accouchement', text: 'Le cycle menstruel s’interrompt temporairement après la naissance.'},
+      {title: 'Période post-partum', text: 'Le corps récupère progressivement et le rythme hormonal évolue.'},
+      {title: 'Allaitement', text: 'L’allaitement peut retarder le retour des règles, mais son effet varie selon chaque personne.'},
+      {title: 'Retour des règles', text: 'Les premières règles peuvent revenir après quelques semaines ou plusieurs mois.'},
+      {title: 'Premiers cycles', text: 'Les cycles peuvent être irréguliers avant de retrouver progressivement leur rythme habituel.'},
+    ],
+    schemaNoteText: 'Il n’existe pas de calendrier identique pour tout le monde. Le moment du retour des règles peut varier selon la personne, notamment en fonction de l’allaitement.',
+    h2_4: '4. Les premiers cycles',
+    body4: 'Lorsque les règles reviennent, les premiers cycles peuvent être différents de ceux d’avant la grossesse. Ils peuvent notamment être irréguliers au début.',
+    card1Title: 'Rythme variable',
+    card1Text: 'Le cycle peut mettre du temps à retrouver un rythme familier.',
+    card2Title: 'Flux différent',
+    card2Text: 'Le flux peut être différent de celui observé avant la grossesse.',
+    h2_5: '5. Que peux-tu observer ?',
+    body5: 'Un suivi simple permet de mieux observer l’évolution du cycle au fil du temps.',
+    observations: [
+      {title: 'Les dates', text: 'Note le premier jour des règles.'},
+      {title: 'Le rythme', text: 'Observe progressivement l’intervalle entre les cycles.'},
+      {title: 'Le flux', text: 'Observe simplement les changements par rapport à ton habitude.'},
+    ],
+    h2_6: '6. Quand demander conseil ?',
+    body6: 'Si quelque chose te semble inhabituel, persistant ou préoccupant, demande conseil à un professionnel de santé.',
+    warningSigns: [
+      'Des saignements qui te semblent inhabituels',
+      'Une douleur importante ou persistante',
+      'De la fièvre ou un malaise important',
+      'Un symptôme nouveau qui t’inquiète',
+    ],
+    summaryTitle: 'À retenir',
+    summaryPoints: [
+      'Le retour de couches correspond au retour des règles après l’accouchement.',
+      'L’allaitement peut retarder le retour des règles.',
+      'Les premiers cycles peuvent être irréguliers.',
+      'Noter les dates peut aider à suivre l’évolution du cycle.',
+    ],
+    disclaimerText: 'Contenu informatif. Les délais peuvent varier selon chaque situation et ne remplacent pas un avis médical.',
+  },
+  en: {
+    badge: 'FREEMIUM • POSTPARTUM',
+    title: 'Return of periods after birth,\nwhat to expect',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    intro: 'After giving birth, the return of your period can take some time. The timing varies depending on breastfeeding, among other things, and each person may experience this period differently.',
+    shareMessage: 'Return of periods after birth, what to expect — AWA',
+    h2_1: '1. What is the return of periods after birth?',
+    body1: 'The “return of periods” refers to your period coming back after giving birth. The menstrual cycle doesn’t necessarily return to its usual rhythm right away.',
+    highlightTitle: 'Key point',
+    highlightText: 'There’s no single timeline that applies to everyone.',
+    h2_2: '2. When can your period come back?',
+    body2: 'The timing largely depends on breastfeeding. Without breastfeeding, your period can generally return around 6 to 8 weeks. With exclusive breastfeeding, it may be delayed by several months.',
+    simpleInfoTitle1: 'Without breastfeeding',
+    simpleInfoText1: 'Generally around 6 to 8 weeks.',
+    simpleInfoTitle2: 'With exclusive breastfeeding',
+    simpleInfoText2: 'The return can be delayed by several months.',
+    h2_3: '3. The pattern of the cycle’s return',
+    body3: 'The cycle returns gradually after giving birth. Breastfeeding can influence when your period reappears.',
+    schemaTitle: 'Gradual return of the cycle',
+    schemaSubtitle: 'A general guide, step by step',
+    cycleStages: [
+      {title: 'After giving birth', text: 'The menstrual cycle pauses temporarily after birth.'},
+      {title: 'Postpartum period', text: 'The body recovers gradually and hormone levels shift.'},
+      {title: 'Breastfeeding', text: 'Breastfeeding may delay the return of your period, but its effect varies from person to person.'},
+      {title: 'Return of periods', text: 'Your first period may return after a few weeks or several months.'},
+      {title: 'First cycles', text: 'Cycles may be irregular before gradually settling back into their usual rhythm.'},
+    ],
+    schemaNoteText: 'There’s no identical timeline for everyone. When your period returns can vary from person to person, particularly depending on breastfeeding.',
+    h2_4: '4. The first cycles',
+    body4: 'When your period returns, the first cycles may differ from those before pregnancy. In particular, they may be irregular at first.',
+    card1Title: 'Variable rhythm',
+    card1Text: 'The cycle may take time to settle back into a familiar rhythm.',
+    card2Title: 'Different flow',
+    card2Text: 'The flow may be different from what you observed before pregnancy.',
+    h2_5: '5. What can you observe?',
+    body5: 'Simple tracking helps you better observe how your cycle evolves over time.',
+    observations: [
+      {title: 'Dates', text: 'Note the first day of your period.'},
+      {title: 'Rhythm', text: 'Gradually observe the interval between cycles.'},
+      {title: 'Flow', text: 'Simply observe any changes compared to what’s usual for you.'},
+    ],
+    h2_6: '6. When should you seek advice?',
+    body6: 'If something seems unusual, persistent, or concerning, seek advice from a healthcare professional.',
+    warningSigns: [
+      'Bleeding that seems unusual to you',
+      'Significant or persistent pain',
+      'Fever or significant discomfort',
+      'Any new symptom that worries you',
+    ],
+    summaryTitle: 'Key takeaways',
+    summaryPoints: [
+      'The return of periods after birth refers to your period coming back after giving birth.',
+      'Breastfeeding may delay the return of your period.',
+      'The first cycles may be irregular.',
+      'Noting the dates can help you track how your cycle evolves.',
+    ],
+    disclaimerText: 'Informational content. Timelines may vary depending on each situation and do not replace medical advice.',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /* TYPES                                                                      */
@@ -122,6 +201,9 @@ type Props = NativeStackScreenProps<
 export default function PostpartumPeriodReturnFreemiumArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -157,7 +239,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        message: 'Le retour de couches, à quoi s’attendre — AWA',
+        message: content.shareMessage,
       });
     } catch {
       // Share cancelled or unavailable.
@@ -221,7 +303,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             {/* BACK */}
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -240,9 +322,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved
-                    ? 'Retirer des favoris'
-                    : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 onPress={handleBookmark}
                 style={({pressed}) => [
@@ -263,7 +343,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -292,7 +372,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              FREEMIUM • POST-PARTUM
+              {content.badge}
             </Text>
           </View>
 
@@ -301,8 +381,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.title}>
-            Le retour de couches,{'\n'}
-            à quoi s’attendre
+            {content.title}
           </Text>
 
           {/* ---------------------------------------------------------------- */}
@@ -318,7 +397,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               />
 
               <Text style={styles.meta}>
-                5 min de lecture
+                {content.metaDuration}
               </Text>
             </View>
 
@@ -332,7 +411,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               />
 
               <Text style={styles.meta}>
-                Guide
+                {content.metaType}
               </Text>
             </View>
           </View>
@@ -342,10 +421,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ---------------------------------------------------------------- */}
 
           <Text style={styles.intro}>
-            Après l’accouchement, le retour des règles peut prendre
-            un certain temps. Le délai varie notamment selon
-            l’allaitement et chaque personne peut vivre cette période
-            différemment.
+            {content.intro}
           </Text>
 
           {/* ================================================================= */}
@@ -353,13 +429,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            1. Qu’est-ce que le retour de couches ?
+            {content.h2_1}
           </Text>
 
           <Text style={styles.body}>
-            Le « retour de couches » désigne le retour des règles
-            après l’accouchement. Le cycle menstruel ne reprend pas
-            forcément immédiatement son rythme habituel.
+            {content.body1}
           </Text>
 
           <View style={styles.highlight}>
@@ -371,12 +445,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
             <View style={styles.highlightCopy}>
               <Text style={styles.highlightTitle}>
-                À retenir
+                {content.highlightTitle}
               </Text>
 
               <Text style={styles.highlightText}>
-                Il n’existe pas une date unique valable pour toutes
-                les personnes.
+                {content.highlightText}
               </Text>
             </View>
           </View>
@@ -386,14 +459,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            2. Quand les règles peuvent-elles revenir ?
+            {content.h2_2}
           </Text>
 
           <Text style={styles.body}>
-            Le délai dépend notamment de l’allaitement. Sans
-            allaitement, le retour peut généralement survenir
-            autour de 6 à 8 semaines. Avec un allaitement exclusif,
-            il peut être retardé de plusieurs mois.
+            {content.body2}
           </Text>
 
           <View style={styles.simpleInfo}>
@@ -407,11 +477,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
               <View style={styles.simpleInfoCopy}>
                 <Text style={styles.simpleInfoTitle}>
-                  Sans allaitement
+                  {content.simpleInfoTitle1}
                 </Text>
 
                 <Text style={styles.simpleInfoText}>
-                  En général autour de 6 à 8 semaines.
+                  {content.simpleInfoText1}
                 </Text>
               </View>
             </View>
@@ -427,11 +497,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
               <View style={styles.simpleInfoCopy}>
                 <Text style={styles.simpleInfoTitle}>
-                  Avec allaitement exclusif
+                  {content.simpleInfoTitle2}
                 </Text>
 
                 <Text style={styles.simpleInfoText}>
-                  Le retour peut être retardé de plusieurs mois.
+                  {content.simpleInfoText2}
                 </Text>
               </View>
             </View>
@@ -443,13 +513,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            3. Le schéma du retour du cycle
+            {content.h2_3}
           </Text>
 
           <Text style={styles.body}>
-            Le retour du cycle se fait progressivement après
-            l’accouchement. L’allaitement peut influencer le moment
-            où les règles réapparaissent.
+            {content.body3}
           </Text>
 
           {/* TIMELINE CARD */}
@@ -469,11 +537,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
               <View style={styles.schemaHeaderCopy}>
                 <Text style={styles.schemaTitle}>
-                  Retour progressif du cycle
+                  {content.schemaTitle}
                 </Text>
 
                 <Text style={styles.schemaSubtitle}>
-                  Un repère général, étape par étape
+                  {content.schemaSubtitle}
                 </Text>
               </View>
             </View>
@@ -481,13 +549,14 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             {/* TIMELINE */}
 
             <View style={styles.timeline}>
-              {CYCLE_STAGES.map((stage, index) => {
+              {CYCLE_STAGES_META.map((meta, index) => {
                 const isLast =
-                  index === CYCLE_STAGES.length - 1;
+                  index === CYCLE_STAGES_META.length - 1;
+                const stage = content.cycleStages[index];
 
                 return (
                   <View
-                    key={stage.number}
+                    key={meta.number}
                     style={styles.timelineItem}
                   >
 
@@ -497,7 +566,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
                       <View style={styles.timelineNode}>
                         <Text style={styles.timelineNumber}>
-                          {stage.number}
+                          {meta.number}
                         </Text>
                       </View>
 
@@ -512,7 +581,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
 
                       <View style={styles.timelineTitleRow}>
                         <MaterialDesignIcons
-                          name={stage.icon as never}
+                          name={meta.icon as never}
                           size={17}
                           color={theme.colors.primary}
                         />
@@ -542,10 +611,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               />
 
               <Text style={styles.schemaNoteText}>
-                Il n’existe pas de calendrier identique pour tout
-                le monde. Le moment du retour des règles peut
-                varier selon la personne, notamment en fonction
-                de l’allaitement.
+                {content.schemaNoteText}
               </Text>
             </View>
 
@@ -556,13 +622,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            4. Les premiers cycles
+            {content.h2_4}
           </Text>
 
           <Text style={styles.body}>
-            Lorsque les règles reviennent, les premiers cycles
-            peuvent être différents de ceux d’avant la grossesse.
-            Ils peuvent notamment être irréguliers au début.
+            {content.body4}
           </Text>
 
           <View style={styles.cards}>
@@ -577,12 +641,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               </View>
 
               <Text style={styles.cardTitle}>
-                Rythme variable
+                {content.card1Title}
               </Text>
 
               <Text style={styles.cardText}>
-                Le cycle peut mettre du temps à retrouver
-                un rythme familier.
+                {content.card1Text}
               </Text>
             </View>
 
@@ -596,12 +659,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
               </View>
 
               <Text style={styles.cardTitle}>
-                Flux différent
+                {content.card2Title}
               </Text>
 
               <Text style={styles.cardText}>
-                Le flux peut être différent de celui observé
-                avant la grossesse.
+                {content.card2Text}
               </Text>
             </View>
 
@@ -612,39 +674,42 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            5. Que peux-tu observer ?
+            {content.h2_5}
           </Text>
 
           <Text style={styles.body}>
-            Un suivi simple permet de mieux observer l’évolution
-            du cycle au fil du temps.
+            {content.body5}
           </Text>
 
           <View style={styles.observationCard}>
-            {OBSERVATIONS.map(item => (
-              <View
-                key={item.title}
-                style={styles.observationRow}
-              >
-                <View style={styles.observationIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={19}
-                    color={theme.colors.primary}
-                  />
-                </View>
+            {OBSERVATIONS_META.map((meta, index) => {
+              const observation = content.observations[index];
 
-                <View style={styles.observationCopy}>
-                  <Text style={styles.observationTitle}>
-                    {item.title}
-                  </Text>
+              return (
+                <View
+                  key={observation.title}
+                  style={styles.observationRow}
+                >
+                  <View style={styles.observationIcon}>
+                    <MaterialDesignIcons
+                      name={meta.icon as never}
+                      size={19}
+                      color={theme.colors.primary}
+                    />
+                  </View>
 
-                  <Text style={styles.observationText}>
-                    {item.text}
-                  </Text>
+                  <View style={styles.observationCopy}>
+                    <Text style={styles.observationTitle}>
+                      {observation.title}
+                    </Text>
+
+                    <Text style={styles.observationText}>
+                      {observation.text}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           {/* ================================================================= */}
@@ -652,16 +717,15 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            6. Quand demander conseil ?
+            {content.h2_6}
           </Text>
 
           <Text style={styles.body}>
-            Si quelque chose te semble inhabituel, persistant ou
-            préoccupant, demande conseil à un professionnel de santé.
+            {content.body6}
           </Text>
 
           <View style={styles.warningCard}>
-            {WARNING_SIGNS.map(item => (
+            {content.warningSigns.map(item => (
               <View
                 key={item}
                 style={styles.warningRow}
@@ -684,11 +748,11 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
           {/* ================================================================= */}
 
           <Text style={styles.h2}>
-            À retenir
+            {content.summaryTitle}
           </Text>
 
           <View style={styles.summaryCard}>
-            {SUMMARY_POINTS.map(item => (
+            {content.summaryPoints.map(item => (
               <View
                 key={item}
                 style={styles.summaryRow}
@@ -718,8 +782,7 @@ export default function PostpartumPeriodReturnFreemiumArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Contenu informatif. Les délais peuvent varier selon
-              chaque situation et ne remplacent pas un avis médical.
+              {content.disclaimerText}
             </Text>
           </View>
 

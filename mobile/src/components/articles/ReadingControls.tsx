@@ -2,6 +2,7 @@ import React, {useMemo} from 'react';
 import {type LayoutChangeEvent, Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -25,34 +26,35 @@ export type ReadingControlsProps = {
   onLayout?: (event: LayoutChangeEvent) => void;
 };
 
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
 // "45 s restantes" under a minute; otherwise minutes (+seconds when
 // `precise`, used for the live "reading" countdown — paused/finished states
 // pass `precise=false` to round to whole minutes instead).
-function formatRemaining(remainingSeconds: number, precise: boolean): string {
+function formatRemaining(t: TranslateFn, remainingSeconds: number, precise: boolean): string {
   const rounded = Math.max(0, Math.round(remainingSeconds));
   if (rounded < 60) {
-    return `${rounded} s restantes`;
+    return t('library.readingControls.secondsRemaining', {count: rounded});
   }
   const minutes = precise ? Math.floor(rounded / 60) : Math.ceil(rounded / 60);
   const seconds = precise ? rounded % 60 : 0;
-  const suffix = minutes === 1 && seconds === 0 ? 'restante' : 'restantes';
   if (seconds > 0) {
-    return `${minutes} min ${seconds} s ${suffix}`;
+    return t('library.readingControls.minutesSecondsRemaining', {minutes, seconds});
   }
-  return `${minutes} min ${suffix}`;
+  return t('library.readingControls.minutesRemaining', {count: minutes});
 }
 
-function cardCopyFor(status: ReadingStatus, durationMinutes: number, remainingSeconds: number): {title: string; subtitle: string} {
+function cardCopyFor(t: TranslateFn, status: ReadingStatus, durationMinutes: number, remainingSeconds: number): {title: string; subtitle: string} {
   if (status === 'not_started') {
-    return {title: 'Commencer la lecture', subtitle: `${durationMinutes} min de lecture`};
+    return {title: t('library.readingControls.notStartedTitle'), subtitle: t('library.screen.durationMinRead', {count: durationMinutes})};
   }
   if (status === 'reading') {
-    return {title: 'Lecture en cours', subtitle: formatRemaining(remainingSeconds, true)};
+    return {title: t('library.readingControls.readingTitle'), subtitle: formatRemaining(t, remainingSeconds, true)};
   }
   if (status === 'finished') {
-    return {title: 'Reprendre la lecture', subtitle: 'Lecture terminée'};
+    return {title: t('library.readingControls.resumeTitle'), subtitle: t('library.readingControls.finishedSubtitle')};
   }
-  return {title: 'Reprendre la lecture', subtitle: formatRemaining(remainingSeconds, false)};
+  return {title: t('library.readingControls.resumeTitle'), subtitle: formatRemaining(t, remainingSeconds, false)};
 }
 
 function cardIconFor(status: ReadingStatus): {name: React.ComponentProps<typeof MaterialDesignIcons>['name']} {
@@ -61,14 +63,15 @@ function cardIconFor(status: ReadingStatus): {name: React.ComponentProps<typeof 
   return {name: 'play'};
 }
 
-function buttonCopyFor(status: ReadingStatus): {label: string; icon: React.ComponentProps<typeof MaterialDesignIcons>['name']} {
-  if (status === 'reading') {return {label: 'Mettre en pause', icon: 'pause'};}
-  if (status === 'paused') {return {label: 'Reprendre la lecture', icon: 'play'};}
-  if (status === 'finished') {return {label: 'Article terminé', icon: 'check-circle'};}
-  return {label: 'Commencer à lire', icon: 'play'};
+function buttonCopyFor(t: TranslateFn, status: ReadingStatus): {label: string; icon: React.ComponentProps<typeof MaterialDesignIcons>['name']} {
+  if (status === 'reading') {return {label: t('library.readingControls.pauseButton'), icon: 'pause'};}
+  if (status === 'paused') {return {label: t('library.readingControls.resumeTitle'), icon: 'play'};}
+  if (status === 'finished') {return {label: t('library.readingControls.finishedButton'), icon: 'check-circle'};}
+  return {label: t('library.readingControls.startButton'), icon: 'play'};
 }
 
 function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: ReadingControlsProps): React.JSX.Element {
+  const {t} = useTranslation();
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
@@ -94,9 +97,9 @@ function ReadingControls({articleId, durationMinutes, scrollRef, onLayout}: Read
     // is already complete and must not restart the timer.
   };
 
-  const {title, subtitle} = cardCopyFor(status, durationMinutes, remainingSeconds);
+  const {title, subtitle} = cardCopyFor(t, status, durationMinutes, remainingSeconds);
   const cardIcon = cardIconFor(status);
-  const buttonCopy = buttonCopyFor(status);
+  const buttonCopy = buttonCopyFor(t, status);
   const showMeta = status !== 'not_started';
   const roundedPercent = Math.round(progressPercent);
 

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,38 +34,123 @@ const ID = 'firstperiod-gerer-quotidien';
 
 const HERO = require('../../assets/images/library/rules-hero.png');
 
-const DAILY_TIPS = [
-  ['school-outline', 'École ou activités : garde une protection dans ton sac'],
-  ['run', 'Sport : le sport reste possible, adapte simplement ton rythme'],
-  ['power-sleep', 'Sommeil : une protection de nuit adaptée suffit'],
-] as const;
+// Icons/images stay language-neutral — only TEXT moves into the bilingual
+// CONTENT object below, keyed by index to stay aligned with these icons.
+const DAILY_ICONS = ['school-outline', 'run', 'power-sleep'] as const;
 
-const RELATED = [
+const RELATED_META = [
   {
-    title: 'Quelle protection choisir pour mes premières règles ?',
-    meta: '6 min  ·  Guide',
     image: require('../../assets/images/library/featured-flow.png'),
     articleId: 'firstperiod-choisir-protection',
   },
   {
-    title: 'Gérer les douleurs menstruelles',
-    meta: '7 min  ·  Guide',
     image: require('../../assets/images/library/pain-hero.png'),
     articleId: 'pain-gerer-douleurs',
   },
   {
-    title: 'Mes premières règles sont irrégulières : est-ce normal ?',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/regular-cycle-hero.png'),
     articleId: 'firstperiod-cycle-irregulier',
   },
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Comment gérer ses\npremières règles au quotidien ?',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Avec quelques petites habitudes, les premières règles s’intègrent facilement à ton quotidien, à l’école comme en dehors.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'S’organiser au quotidien',
+      'Préparer une trousse de secours',
+      'Si les règles arrivent de façon inattendue',
+    ],
+    body1: 'École, sport, sommeil : les règles n’empêchent pas de continuer tes activités habituelles. Il suffit d’adapter quelques habitudes pour rester à l’aise tout au long de la journée.',
+    dailyTips: [
+      'École ou activités : garde une protection dans ton sac',
+      'Sport : le sport reste possible, adapte simplement ton rythme',
+      'Sommeil : une protection de nuit adaptée suffit',
+    ],
+    body2: 'Une petite trousse avec une ou deux protections, une culotte de rechange et des lingettes peut se glisser facilement dans un sac d’école ou de sport. Elle permet de rester tranquille en toute circonstance.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Garder toujours une protection avec toi évite le stress d’être prise au dépourvu.',
+    body3: 'Cela arrive souvent, surtout au début. Une infirmière scolaire, une enseignante ou une amie a presque toujours de quoi dépanner. Un vêtement noué autour de la taille peut aussi suffire en attendant de trouver une protection.',
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {
+        title: 'Quelle protection choisir pour mes premières règles ?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'Gérer les douleurs menstruelles',
+        meta: '7 min  ·  Guide',
+      },
+      {
+        title: 'Mes premières règles sont irrégulières : est-ce normal ?',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'Comment gérer ses premières règles au quotidien ? — AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'How to manage your\nfirst period day to day?',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'With a few small habits, your first period fits easily into your daily life, at school and beyond.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Getting organized day to day',
+      'Putting together a small emergency kit',
+      'If your period arrives unexpectedly',
+    ],
+    body1: 'School, sports, sleep: your period doesn’t stop you from continuing your usual activities. You just need to adjust a few habits to stay comfortable throughout the day.',
+    dailyTips: [
+      'School or activities: keep a pad or tampon in your bag',
+      'Sports: you can still play sports, just adjust your pace',
+      'Sleep: a suitable overnight pad is enough',
+    ],
+    body2: 'A small kit with one or two pads or tampons, a spare pair of underwear, and some wipes can easily fit into a school or sports bag. It helps you feel at ease no matter what happens.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Always keeping a pad or tampon with you avoids the stress of being caught off guard.',
+    body3: 'This happens often, especially at first. A school nurse, a teacher, or a friend almost always has something that can help. Tying a piece of clothing around your waist can also work while you find a pad or tampon.',
+    relatedTitle: '♥  You might also like',
+    related: [
+      {
+        title: 'Which pad or tampon should I choose for my first period?',
+        meta: '6 min  ·  Guide',
+      },
+      {
+        title: 'Managing period pain',
+        meta: '7 min  ·  Guide',
+      },
+      {
+        title: 'My first periods are irregular: is that normal?',
+        meta: '5 min  ·  Guide',
+      },
+    ],
+    shareMessage: 'How to manage your first period day to day? — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodDailyLifeArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -91,7 +177,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Comment gérer ses premières règles au quotidien ? — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -129,7 +215,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -138,7 +224,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -153,7 +239,7 @@ export default function FirstPeriodDailyLifeArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -171,19 +257,19 @@ export default function FirstPeriodDailyLifeArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Comment gérer ses{`\n`}premières règles au quotidien ?
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -202,18 +288,13 @@ export default function FirstPeriodDailyLifeArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Avec quelques petites habitudes, les premières règles s’intègrent
-            facilement à ton quotidien, à l’école comme en dehors.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'S’organiser au quotidien',
-              'Préparer une trousse de secours',
-              'Si les règles arrivent de façon inattendue',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -229,30 +310,25 @@ export default function FirstPeriodDailyLifeArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. S’organiser au quotidien</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            École, sport, sommeil : les règles n’empêchent pas de continuer
-            tes activités habituelles. Il suffit d’adapter quelques
-            habitudes pour rester à l’aise tout au long de la journée.
+            {content.body1}
           </Text>
 
           <View style={styles.daily}>
-            {DAILY_TIPS.map(([icon, text]) => (
-              <View key={text} style={styles.dailyItem}>
+            {DAILY_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons name={icon as never} color={theme.colors.primary} size={25} />
-                <Text style={styles.dailyText}>{text}</Text>
+                <Text style={styles.dailyText}>{content.dailyTips[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. Préparer une trousse de secours</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Une petite trousse avec une ou deux protections, une culotte de
-            rechange et des lingettes peut se glisser facilement dans un sac
-            d’école ou de sport. Elle permet de rester tranquille en toute
-            circonstance.
+            {content.body2}
           </Text>
 
           <View style={styles.tip}>
@@ -263,37 +339,33 @@ export default function FirstPeriodDailyLifeArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Garder toujours une protection avec toi évite le stress d’être
-                prise au dépourvu.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.h2}>
-            3. Si les règles arrivent de façon inattendue
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Cela arrive souvent, surtout au début. Une infirmière scolaire,
-            une enseignante ou une amie a presque toujours de quoi dépanner.
-            Un vêtement noué autour de la taille peut aussi suffire en
-            attendant de trouver une protection.
+            {content.body3}
           </Text>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {RELATED_META.map((item, index) => (
             <Pressable
-              key={item.title}
+              key={item.articleId}
               onPress={() =>
                 navigation.push('ArticleReader', {articleId: item.articleId})
               }
@@ -306,9 +378,9 @@ export default function FirstPeriodDailyLifeArticleScreen({
 
               <View style={styles.relatedCopy}>
                 <Text numberOfLines={3} style={styles.relatedCardTitle}>
-                  {item.title}
+                  {content.related[index].title}
                 </Text>
-                <Text style={styles.relatedMeta}>{item.meta}</Text>
+                <Text style={styles.relatedMeta}>{content.related[index].meta}</Text>
               </View>
             </Pressable>
           ))}

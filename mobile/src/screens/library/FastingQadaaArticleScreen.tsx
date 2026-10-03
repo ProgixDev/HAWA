@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -38,20 +39,110 @@ const ART = {
   pregnancy: require('../../assets/images/library/category-pregnancy.png'),
 };
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.';
-
-const RECORD_TIPS = [
-  'Noter le nombre total de jours à rattraper dès la fin du Ramadan',
-  'Choisir une méthode simple : calendrier, application, carnet',
-  'Cocher chaque jour rattrapé au fur et à mesure',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'JEÛNE & QADAA',
+    title: 'Jeûne et dispense :\nle rattrapage (Qadaa)',
+    metaDuration: '6 min de lecture',
+    metaType: 'FAQ',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Comment et quand rattraper les jours de jeûne manqués, à son propre rythme et sans culpabilité.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText: 'Ce contenu est purement éducatif. Les questions religieuses doivent être validées par des savants qualifiés. AWA ne délivre pas de fatwas ni de décisions religieuses personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Quand rattraper les jours manqués ?',
+      'Un délai courant : avant le Ramadan suivant',
+      'Grossesse et allaitement',
+      'À retenir',
+    ],
+    section1Body: 'Le Qadaa désigne le fait de rattraper, plus tard, les jours de jeûne manqués pendant le Ramadan — notamment en raison des règles. Ces jours doivent être rattrapés car le jeûne du Ramadan reste un pilier du mois, et les jours suspendus pour cause de règles sont comptés comme dus, sans qu’il s’agisse d’une faute de ta part.',
+    section1Body2: 'Le rattrapage peut généralement commencer dès la fin du Ramadan, dès que ta situation le permet. Tu peux organiser ces jours selon ton propre rythme : certaines personnes préfèrent les regrouper rapidement après le Ramadan, d’autres les répartissent progressivement au fil des mois suivants.',
+    noteTitle: 'À noter',
+    noteText: 'Rattraper les jours de manière consécutive ou de façon répartie peut faire l’objet d’avis différents selon les écoles juridiques ; aucune des deux approches n’est présentée ici comme la seule valable.',
+    recordTips: [
+      'Noter le nombre total de jours à rattraper dès la fin du Ramadan',
+      'Choisir une méthode simple : calendrier, application, carnet',
+      'Cocher chaque jour rattrapé au fur et à mesure',
+    ],
+    section1Body3: 'Par exemple, une personne ayant 6 jours à rattraper peut choisir d’en jeûner un par semaine pendant six semaines, ou de les regrouper sur une même période si cela lui convient mieux.',
+    section2Body: 'Il est courant de chercher à rattraper les jours manqués avant le Ramadan suivant. Cette pratique n’est pas systématiquement obligatoire dans tous les cas, mais elle facilite l’organisation et évite d’accumuler un nombre important de jours en attente.',
+    visual1Title: 'Un rythme qui s’adapte à toi',
+    visual1Text: 'Répartir les jours à rattraper selon ton emploi du temps permet d’avancer sereinement, sans pression.',
+    section2Body2: 'Planifier à l’avance permet d’éviter le stress de dernière minute. Une astuce simple consiste à compter le nombre de jours restants avant le prochain Ramadan et à répartir les jours à rattraper sur les semaines ou mois disponibles.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Si une raison durable ou récurrente empêche de jeûner (un état de santé prolongé, par exemple), la situation peut relever d’un cadre différent ; il est alors particulièrement utile d’en parler avec un savant qualifié.',
+    alert2Title: 'Information importante',
+    alert2Text: 'Les modalités précises en cas de délai dépassé peuvent différer selon les interprétations. Pour toute situation compliquée, l’avis d’un savant ou d’une savante qualifiée reste la référence.',
+    section2Body3: 'Par exemple, si le prochain Ramadan commence dans 8 mois et qu’il reste 6 jours à rattraper, une possibilité est de prévoir environ un jour par mois, avec de la flexibilité selon les imprévus.',
+    section3Body: 'La grossesse et l’allaitement peuvent affecter la capacité à jeûner, notamment lorsque le jeûne présente un risque pour la santé de la mère ou de l’enfant. Le bien-être physique et la capacité réelle à jeûner sont des éléments importants à prendre en compte.',
+    visual2Title: 'Une situation prise en compte',
+    visual2Text: 'Ces circonstances sont reconnues par la tradition religieuse comme pouvant donner lieu à une dispense.',
+    section3Body2: 'Les avis religieux concernant le jeûne non effectué pendant la grossesse ou l’allaitement peuvent varier selon les écoles, notamment sur la question de savoir si un simple rattrapage suffit ou si une compensation est également concernée. La raison précise de l’absence de jeûne et la situation personnelle peuvent influencer la réponse applicable.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Le Qadaa permet de rattraper sereinement les jours de jeûne manqués, à ton propre rythme. En cas de situation particulière (délai dépassé, grossesse, allaitement, empêchement durable), l’avis d’un savant qualifié reste la meilleure ressource.',
+    shareMessage: 'Jeûne et dispense : le rattrapage (Qadaa) — AWA',
+  },
+  en: {
+    badge: 'FASTING & QADAA',
+    title: 'Fasting and exemption:\nthe make-up (Qadaa)',
+    metaDuration: '6 min read',
+    metaType: 'FAQ',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'How and when to make up missed fasting days, at your own pace and without guilt.',
+    disclaimerTitle: 'Important information',
+    disclaimerText: 'This content is purely educational. Religious questions should be validated by qualified scholars. AWA does not issue fatwas or personalized religious rulings.',
+    contentsTitle: 'In this article',
+    topics: [
+      'When to make up the missed days?',
+      'A common timeframe: before the next Ramadan',
+      'Pregnancy and breastfeeding',
+      'Key takeaways',
+    ],
+    section1Body: 'Qadaa refers to making up, at a later time, the fasting days missed during Ramadan — notably because of menstruation. These days must be made up because the Ramadan fast remains a pillar of the month, and the days suspended due to menstruation are counted as owed, without this being any fault of yours.',
+    section1Body2: 'The make-up can generally begin as soon as Ramadan ends, as soon as your situation allows it. You can organize these days at your own pace: some people prefer to group them together soon after Ramadan, while others spread them out gradually over the following months.',
+    noteTitle: 'Please note',
+    noteText: 'Making up the days consecutively or spreading them out may be viewed differently depending on the school of jurisprudence; neither approach is presented here as the only valid one.',
+    recordTips: [
+      'Write down the total number of days to make up as soon as Ramadan ends',
+      'Choose a simple method: calendar, app, notebook',
+      'Check off each day as it is made up',
+    ],
+    section1Body3: 'For example, a person with 6 days to make up can choose to fast one per week for six weeks, or group them into the same period if that suits them better.',
+    section2Body: 'It is common to try to make up the missed days before the next Ramadan. This practice is not systematically mandatory in every case, but it makes organizing easier and avoids accumulating a large number of pending days.',
+    visual1Title: 'A pace that adapts to you',
+    visual1Text: 'Spreading out the days to make up according to your schedule lets you move forward calmly, without pressure.',
+    section2Body2: 'Planning ahead helps avoid last-minute stress. A simple tip is to count the number of days remaining before the next Ramadan and spread the days to make up over the available weeks or months.',
+    tip1Title: 'Good to know',
+    tip1Text: 'If a lasting or recurring reason prevents fasting (a prolonged health condition, for example), the situation may fall under a different framework; it is then especially useful to discuss it with a qualified scholar.',
+    alert2Title: 'Important information',
+    alert2Text: 'The precise rules in case the timeframe is exceeded can differ depending on interpretation. For any complicated situation, the opinion of a qualified scholar remains the reference.',
+    section2Body3: 'For example, if the next Ramadan begins in 8 months and 6 days remain to be made up, one possibility is to plan for about one day per month, with flexibility for unforeseen circumstances.',
+    section3Body: 'Pregnancy and breastfeeding can affect the ability to fast, particularly when fasting poses a risk to the health of the mother or the child. Physical well-being and the real ability to fast are important factors to take into account.',
+    visual2Title: 'A situation that is taken into account',
+    visual2Text: 'These circumstances are recognized by religious tradition as potentially giving rise to an exemption.',
+    section3Body2: 'Religious opinions regarding fasting not carried out during pregnancy or breastfeeding can vary depending on the school, particularly on the question of whether a simple make-up is sufficient or whether a compensation is also involved. The precise reason for not fasting and the personal situation can influence the applicable answer.',
+    tip2Title: 'Good to know',
+    tip2Text: 'Qadaa allows you to calmly make up the missed fasting days, at your own pace. In case of a particular situation (exceeded timeframe, pregnancy, breastfeeding, lasting impediment), the opinion of a qualified scholar remains the best resource.',
+    shareMessage: 'Fasting and exemption: the make-up (Qadaa) — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FastingQadaaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +169,7 @@ export default function FastingQadaaArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Jeûne et dispense : le rattrapage (Qadaa) — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -116,7 +207,7 @@ export default function FastingQadaaArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -125,7 +216,7 @@ export default function FastingQadaaArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -140,7 +231,7 @@ export default function FastingQadaaArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -158,19 +249,19 @@ export default function FastingQadaaArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>JEÛNE & QADAA</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Jeûne et dispense :{`\n`}le rattrapage (Qadaa)
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'FAQ'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -189,8 +280,7 @@ export default function FastingQadaaArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Comment et quand rattraper les jours de jeûne manqués, à son
-            propre rythme et sans culpabilité.
+            {content.intro}
           </Text>
 
           <View style={styles.alert}>
@@ -201,20 +291,15 @@ export default function FastingQadaaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>{RELIGIOUS_DISCLAIMER}</Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Quand rattraper les jours manqués ?',
-              'Un délai courant : avant le Ramadan suivant',
-              'Grossesse et allaitement',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -230,23 +315,14 @@ export default function FastingQadaaArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Quand rattraper les jours manqués ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Le Qadaa désigne le fait de rattraper, plus tard, les jours de
-            jeûne manqués pendant le Ramadan — notamment en raison des
-            règles. Ces jours doivent être rattrapés car le jeûne du
-            Ramadan reste un pilier du mois, et les jours suspendus pour
-            cause de règles sont comptés comme dus, sans qu’il s’agisse
-            d’une faute de ta part.
+            {content.section1Body}
           </Text>
 
           <Text style={styles.body}>
-            Le rattrapage peut généralement commencer dès la fin du
-            Ramadan, dès que ta situation le permet. Tu peux organiser ces
-            jours selon ton propre rythme : certaines personnes préfèrent
-            les regrouper rapidement après le Ramadan, d’autres les
-            répartissent progressivement au fil des mois suivants.
+            {content.section1Body2}
           </Text>
 
           <View style={styles.alert}>
@@ -257,18 +333,15 @@ export default function FastingQadaaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.noteTitle}</Text>
               <Text style={styles.tipText}>
-                Rattraper les jours de manière consécutive ou de façon
-                répartie peut faire l’objet d’avis différents selon les
-                écoles juridiques ; aucune des deux approches n’est
-                présentée ici comme la seule valable.
+                {content.noteText}
               </Text>
             </View>
           </View>
 
           <View style={styles.checkList}>
-            {RECORD_TIPS.map(item => (
+            {content.recordTips.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -282,20 +355,15 @@ export default function FastingQadaaArticleScreen({
           </View>
 
           <Text style={styles.body}>
-            Par exemple, une personne ayant 6 jours à rattraper peut choisir
-            d’en jeûner un par semaine pendant six semaines, ou de les
-            regrouper sur une même période si cela lui convient mieux.
+            {content.section1Body3}
           </Text>
 
           <Text style={styles.h2}>
-            2. Un délai courant : avant le Ramadan suivant
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Il est courant de chercher à rattraper les jours manqués avant
-            le Ramadan suivant. Cette pratique n’est pas systématiquement
-            obligatoire dans tous les cas, mais elle facilite l’organisation
-            et évite d’accumuler un nombre important de jours en attente.
+            {content.section2Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -307,21 +375,17 @@ export default function FastingQadaaArticleScreen({
 
             <View style={styles.visualCopy}>
               <Text style={styles.visualTitle}>
-                Un rythme qui s’adapte à toi
+                {content.visual1Title}
               </Text>
 
               <Text style={styles.visualText}>
-                Répartir les jours à rattraper selon ton emploi du temps
-                permet d’avancer sereinement, sans pression.
+                {content.visual1Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.body}>
-            Planifier à l’avance permet d’éviter le stress de dernière
-            minute. Une astuce simple consiste à compter le nombre de jours
-            restants avant le prochain Ramadan et à répartir les jours à
-            rattraper sur les semaines ou mois disponibles.
+            {content.section2Body2}
           </Text>
 
           <View style={styles.tip}>
@@ -332,12 +396,9 @@ export default function FastingQadaaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Si une raison durable ou récurrente empêche de jeûner (un
-                état de santé prolongé, par exemple), la situation peut
-                relever d’un cadre différent ; il est alors particulièrement
-                utile d’en parler avec un savant qualifié.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
@@ -350,31 +411,21 @@ export default function FastingQadaaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
+              <Text style={styles.tipTitle}>{content.alert2Title}</Text>
               <Text style={styles.tipText}>
-                Les modalités précises en cas de délai dépassé peuvent
-                différer selon les interprétations. Pour toute situation
-                compliquée, l’avis d’un savant ou d’une savante qualifiée
-                reste la référence.
+                {content.alert2Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.body}>
-            Par exemple, si le prochain Ramadan commence dans 8 mois et
-            qu’il reste 6 jours à rattraper, une possibilité est de prévoir
-            environ un jour par mois, avec de la flexibilité selon les
-            imprévus.
+            {content.section2Body3}
           </Text>
 
-          <Text style={styles.h2}>3. Grossesse et allaitement</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            La grossesse et l’allaitement peuvent affecter la capacité à
-            jeûner, notamment lorsque le jeûne présente un risque pour la
-            santé de la mère ou de l’enfant. Le bien-être physique et la
-            capacité réelle à jeûner sont des éléments importants à prendre
-            en compte.
+            {content.section3Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -385,28 +436,19 @@ export default function FastingQadaaArticleScreen({
             />
 
             <View style={styles.visualCopy}>
-              <Text style={styles.visualTitle}>Une situation prise en compte</Text>
+              <Text style={styles.visualTitle}>{content.visual2Title}</Text>
 
               <Text style={styles.visualText}>
-                Ces circonstances sont reconnues par la tradition religieuse
-                comme pouvant donner lieu à une dispense.
+                {content.visual2Text}
               </Text>
             </View>
           </View>
 
           <Text style={styles.body}>
-            Les avis religieux concernant le jeûne non effectué pendant la
-            grossesse ou l’allaitement peuvent varier selon les écoles,
-            notamment sur la question de savoir si un simple rattrapage
-            suffit ou si une compensation est également concernée. La
-            raison précise de l’absence de jeûne et la situation
-            personnelle peuvent influencer la réponse applicable.
+            {content.section3Body2}
           </Text>
 
-
-
-  
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -416,13 +458,9 @@ export default function FastingQadaaArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Le Qadaa permet de rattraper sereinement les jours de jeûne
-                manqués, à ton propre rythme. En cas de situation
-                particulière (délai dépassé, grossesse, allaitement,
-                empêchement durable), l’avis d’un savant qualifié reste la
-                meilleure ressource.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

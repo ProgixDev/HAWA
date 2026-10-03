@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,22 +34,150 @@ const ID = 'religiousfaq-reperes-apres-une-perte';
 
 const HERO = require('../../assets/images/library/spm-woman.png');
 
-const RELIGIOUS_DISCLAIMER =
-  'Ce contenu est éducatif. Les questions religieuses précises doivent être vérifiées auprès d’un savant ou d’une savante qualifiée. AWA ne délivre pas de fatwas personnalisées.';
-
-const GENTLE_STEPS = [
-  'Prendre le temps de vivre son chagrin',
-  'S’entourer de personnes bienveillantes',
-  'Conserver de petits gestes spirituels si cela apporte du réconfort',
-  'Demander conseil pour toute question religieuse précise',
-  'Chercher du soutien si le chagrin devient trop difficile à porter',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'REPÈRES SPIRITUELS',
+    title: 'Repères spirituels\naprès une perte',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaEducational: 'Contenu éducatif',
+    intro:
+      'Quelques repères spirituels pour traverser une perte avec douceur, patience et bienveillance.',
+    disclaimerTitle: 'Information importante',
+    disclaimerText:
+      'Ce contenu est éducatif. Les questions religieuses précises doivent être vérifiées auprès d’un savant ou d’une savante qualifiée. AWA ne délivre pas de fatwas personnalisées.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Une épreuve reconnue',
+      'Un statut selon la situation',
+      'Patience et espérance',
+      'Quelques repères pour avancer',
+    ],
+    section1H2: '1. Une épreuve reconnue',
+    section1Body1:
+      'Une perte de grossesse peut être une épreuve profondément douloureuse. La tristesse, le silence, la confusion ou le besoin de prendre du recul sont des réactions humaines naturelles.',
+    section1Body2:
+      'Ressentir ces émotions ne signifie pas manquer de foi. Chacune peut vivre son deuil à son propre rythme.',
+    visual1Title: 'Accueillir ses émotions',
+    visual1Body: 'Tristesse • besoin de repos • silence • soutien',
+    section2H2: '2. Un statut qui peut varier selon la situation',
+    section2Body1:
+      'Après une perte, les règles religieuses peuvent dépendre de la situation et de la nature des saignements.',
+    section2Body2:
+      'Il peut notamment être nécessaire de distinguer différents types de saignements avant de déterminer les pratiques religieuses à suivre.',
+    schemaTitle: 'Le principe général',
+    schemaLabel1: 'Situation',
+    schemaLabel2: 'Nature du saignement',
+    schemaLabel3: 'Avis adapté',
+    doubtTipTitle: 'En cas de doute',
+    doubtTipText:
+      'Une situation personnelle peut nécessiter une réponse différente. Il est préférable de demander conseil à une personne qualifiée.',
+    section3H2: '3. Patience et espérance',
+    section3Body1:
+      'La patience (sabr) ne signifie pas ne pas pleurer ou ne pas ressentir de douleur. Elle peut simplement accompagner le cheminement avec foi et espérance.',
+    section3Body2:
+      'De petits gestes peuvent aider à retrouver progressivement un sentiment d’apaisement : une invocation, un moment de dhikr, une écoute spirituelle ou la présence d’un proche.',
+    spiritual1: 'Invocation',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Soutien',
+    retainTipTitle: 'À retenir',
+    retainTipText:
+      'La guérison prend du temps. Il n’existe pas de rythme universel pour traverser une perte.',
+    section4H2: '4. Quelques repères pour avancer',
+    section4Body:
+      'Il n’est pas nécessaire de tout faire à la fois. Choisis ce qui correspond à ton état et à tes besoins du moment.',
+    gentleSteps: [
+      'Prendre le temps de vivre son chagrin',
+      'S’entourer de personnes bienveillantes',
+      'Conserver de petits gestes spirituels si cela apporte du réconfort',
+      'Demander conseil pour toute question religieuse précise',
+      'Chercher du soutien si le chagrin devient trop difficile à porter',
+    ],
+    finalTitle: 'Un chemin à ton rythme',
+    finalText:
+      'Prendre soin de soi, chercher du soutien et conserver l’espérance peuvent accompagner progressivement le chemin vers l’apaisement.',
+    shareMessage: 'Repères spirituels après une perte — AWA',
+  },
+  en: {
+    badge: 'SPIRITUAL GUIDANCE',
+    title: 'Spiritual guidance\nafter a loss',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaEducational: 'Educational content',
+    intro:
+      'A few spiritual guidance points to help you move through a loss with gentleness, patience, and compassion.',
+    disclaimerTitle: 'Important information',
+    disclaimerText:
+      'This content is educational. Specific religious questions should be verified with a qualified scholar. AWA does not issue personalized fatwas.',
+    contentsTitle: 'In this article',
+    topics: [
+      'A recognized trial',
+      'A status that depends on the situation',
+      'Patience and hope',
+      'A few guidance points for moving forward',
+    ],
+    section1H2: '1. A recognized trial',
+    section1Body1:
+      'A pregnancy loss can be a deeply painful trial. Sadness, silence, confusion, or the need to step back are natural human reactions.',
+    section1Body2:
+      'Feeling these emotions does not mean lacking faith. Each woman can go through her grief at her own pace.',
+    visual1Title: 'Welcoming your emotions',
+    visual1Body: 'Sadness • need for rest • silence • support',
+    section2H2: '2. A status that can vary depending on the situation',
+    section2Body1:
+      'After a loss, religious rules can depend on the situation and the nature of the bleeding.',
+    section2Body2:
+      'In particular, it may be necessary to distinguish between different types of bleeding before determining which religious practices to follow.',
+    schemaTitle: 'The general principle',
+    schemaLabel1: 'Situation',
+    schemaLabel2: 'Nature of the bleeding',
+    schemaLabel3: 'Suitable guidance',
+    doubtTipTitle: 'If in doubt',
+    doubtTipText:
+      'A personal situation may call for a different answer. It is best to seek advice from a qualified person.',
+    section3H2: '3. Patience and hope',
+    section3Body1:
+      'Patience (sabr) does not mean not crying or not feeling pain. It can simply accompany the journey with faith and hope.',
+    section3Body2:
+      'Small gestures can help gradually restore a sense of peace: an invocation, a moment of dhikr, spiritual listening, or the presence of a loved one.',
+    spiritual1: 'Invocation',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Support',
+    retainTipTitle: 'Keep in mind',
+    retainTipText:
+      'Healing takes time. There is no universal pace for moving through a loss.',
+    section4H2: '4. A few guidance points for moving forward',
+    section4Body:
+      'There is no need to do everything at once. Choose what matches how you feel and what you need right now.',
+    gentleSteps: [
+      'Take the time to live through your grief',
+      'Surround yourself with caring people',
+      'Keep up small spiritual practices if they bring comfort',
+      'Seek advice for any specific religious question',
+      'Seek support if the grief becomes too difficult to carry',
+    ],
+    finalTitle: 'A path at your own pace',
+    finalText:
+      'Taking care of yourself, seeking support, and holding on to hope can gradually help guide the path toward peace.',
+    shareMessage: 'Spiritual guidance after a loss — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function ReligiousFaqAfterLossArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -75,7 +204,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Repères spirituels après une perte — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -114,7 +243,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -130,7 +259,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -145,7 +274,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -164,19 +293,17 @@ export default function ReligiousFaqAfterLossArticleScreen({
         <View style={styles.article}>
           {/* HEADER */}
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>REPÈRES SPIRITUELS</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Repères spirituels{`\n`}après une perte
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu éducatif'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaEducational],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -193,10 +320,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Quelques repères spirituels pour traverser une perte avec
-            douceur, patience et bienveillance.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           {/* DISCLAIMER */}
           <View style={styles.alert}>
@@ -207,23 +331,16 @@ export default function ReligiousFaqAfterLossArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Information importante</Text>
-              <Text style={styles.tipText}>
-                {RELIGIOUS_DISCLAIMER}
-              </Text>
+              <Text style={styles.tipTitle}>{content.disclaimerTitle}</Text>
+              <Text style={styles.tipText}>{content.disclaimerText}</Text>
             </View>
           </View>
 
           {/* CONTENTS */}
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Une épreuve reconnue',
-              'Un statut selon la situation',
-              'Patience et espérance',
-              'Quelques repères pour avancer',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -240,19 +357,11 @@ export default function ReligiousFaqAfterLossArticleScreen({
           </View>
 
           {/* SECTION 1 */}
-          <Text style={styles.h2}>1. Une épreuve reconnue</Text>
+          <Text style={styles.h2}>{content.section1H2}</Text>
 
-          <Text style={styles.body}>
-            Une perte de grossesse peut être une épreuve profondément
-            douloureuse. La tristesse, le silence, la confusion ou le
-            besoin de prendre du recul sont des réactions humaines
-            naturelles.
-          </Text>
+          <Text style={styles.body}>{content.section1Body1}</Text>
 
-          <Text style={styles.body}>
-            Ressentir ces émotions ne signifie pas manquer de foi. Chacune
-            peut vivre son deuil à son propre rythme.
-          </Text>
+          <Text style={styles.body}>{content.section1Body2}</Text>
 
           {/* SIMPLE VISUAL */}
           <View style={styles.visualCard}>
@@ -265,41 +374,28 @@ export default function ReligiousFaqAfterLossArticleScreen({
             </View>
 
             <View style={styles.visualText}>
-              <Text style={styles.visualTitle}>Accueillir ses émotions</Text>
-              <Text style={styles.visualBody}>
-                Tristesse • besoin de repos • silence • soutien
-              </Text>
+              <Text style={styles.visualTitle}>{content.visual1Title}</Text>
+              <Text style={styles.visualBody}>{content.visual1Body}</Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
-          <Text style={styles.h2}>
-            2. Un statut qui peut varier selon la situation
-          </Text>
+          <Text style={styles.h2}>{content.section2H2}</Text>
 
-          <Text style={styles.body}>
-            Après une perte, les règles religieuses peuvent dépendre de la
-            situation et de la nature des saignements.
-          </Text>
+          <Text style={styles.body}>{content.section2Body1}</Text>
 
-          <Text style={styles.body}>
-            Il peut notamment être nécessaire de distinguer différents
-            types de saignements avant de déterminer les pratiques
-            religieuses à suivre.
-          </Text>
+          <Text style={styles.body}>{content.section2Body2}</Text>
 
           {/* SCHEMA */}
           <View style={styles.schema}>
-            <Text style={styles.schemaTitle}>Le principe général</Text>
+            <Text style={styles.schemaTitle}>{content.schemaTitle}</Text>
 
             <View style={styles.schemaRow}>
               <View style={styles.schemaStep}>
                 <View style={styles.schemaCircle}>
                   <Text style={styles.schemaNumber}>1</Text>
                 </View>
-                <Text style={styles.schemaLabel}>
-                  Situation
-                </Text>
+                <Text style={styles.schemaLabel}>{content.schemaLabel1}</Text>
               </View>
 
               <MaterialDesignIcons
@@ -312,9 +408,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 <View style={styles.schemaCircle}>
                   <Text style={styles.schemaNumber}>2</Text>
                 </View>
-                <Text style={styles.schemaLabel}>
-                  Nature du saignement
-                </Text>
+                <Text style={styles.schemaLabel}>{content.schemaLabel2}</Text>
               </View>
 
               <MaterialDesignIcons
@@ -327,9 +421,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 <View style={styles.schemaCircle}>
                   <Text style={styles.schemaNumber}>3</Text>
                 </View>
-                <Text style={styles.schemaLabel}>
-                  Avis adapté
-                </Text>
+                <Text style={styles.schemaLabel}>{content.schemaLabel3}</Text>
               </View>
             </View>
           </View>
@@ -342,29 +434,17 @@ export default function ReligiousFaqAfterLossArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>En cas de doute</Text>
-              <Text style={styles.tipText}>
-                Une situation personnelle peut nécessiter une réponse
-                différente. Il est préférable de demander conseil à une
-                personne qualifiée.
-              </Text>
+              <Text style={styles.tipTitle}>{content.doubtTipTitle}</Text>
+              <Text style={styles.tipText}>{content.doubtTipText}</Text>
             </View>
           </View>
 
           {/* SECTION 3 */}
-          <Text style={styles.h2}>3. Patience et espérance</Text>
+          <Text style={styles.h2}>{content.section3H2}</Text>
 
-          <Text style={styles.body}>
-            La patience (sabr) ne signifie pas ne pas pleurer ou ne pas
-            ressentir de douleur. Elle peut simplement accompagner le
-            cheminement avec foi et espérance.
-          </Text>
+          <Text style={styles.body}>{content.section3Body1}</Text>
 
-          <Text style={styles.body}>
-            De petits gestes peuvent aider à retrouver progressivement un
-            sentiment d’apaisement : une invocation, un moment de dhikr,
-            une écoute spirituelle ou la présence d’un proche.
-          </Text>
+          <Text style={styles.body}>{content.section3Body2}</Text>
 
           {/* SPIRITUALITY VISUAL */}
           <View style={styles.spiritualCard}>
@@ -374,7 +454,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 size={23}
                 color={theme.colors.primary}
               />
-              <Text style={styles.spiritualText}>Invocation</Text>
+              <Text style={styles.spiritualText}>{content.spiritual1}</Text>
             </View>
 
             <View style={styles.spiritualItem}>
@@ -383,7 +463,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 size={23}
                 color={theme.colors.primary}
               />
-              <Text style={styles.spiritualText}>Dhikr</Text>
+              <Text style={styles.spiritualText}>{content.spiritual2}</Text>
             </View>
 
             <View style={styles.spiritualItem}>
@@ -392,7 +472,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
                 size={23}
                 color={theme.colors.primary}
               />
-              <Text style={styles.spiritualText}>Soutien</Text>
+              <Text style={styles.spiritualText}>{content.spiritual3}</Text>
             </View>
           </View>
 
@@ -404,24 +484,18 @@ export default function ReligiousFaqAfterLossArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À retenir</Text>
-              <Text style={styles.tipText}>
-                La guérison prend du temps. Il n’existe pas de rythme
-                universel pour traverser une perte.
-              </Text>
+              <Text style={styles.tipTitle}>{content.retainTipTitle}</Text>
+              <Text style={styles.tipText}>{content.retainTipText}</Text>
             </View>
           </View>
 
           {/* SECTION 4 */}
-          <Text style={styles.h2}>4. Quelques repères pour avancer</Text>
+          <Text style={styles.h2}>{content.section4H2}</Text>
 
-          <Text style={styles.body}>
-            Il n’est pas nécessaire de tout faire à la fois. Choisis ce
-            qui correspond à ton état et à tes besoins du moment.
-          </Text>
+          <Text style={styles.body}>{content.section4Body}</Text>
 
           <View style={styles.checkList}>
-            {GENTLE_STEPS.map(item => (
+            {content.gentleSteps.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -442,13 +516,9 @@ export default function ReligiousFaqAfterLossArticleScreen({
               color={theme.colors.primary}
             />
 
-            <Text style={styles.finalTitle}>Un chemin à ton rythme</Text>
+            <Text style={styles.finalTitle}>{content.finalTitle}</Text>
 
-            <Text style={styles.finalText}>
-              Prendre soin de soi, chercher du soutien et conserver
-              l’espérance peuvent accompagner progressivement le chemin
-              vers l’apaisement.
-            </Text>
+            <Text style={styles.finalText}>{content.finalText}</Text>
           </View>
         </View>
       </ScrollView>

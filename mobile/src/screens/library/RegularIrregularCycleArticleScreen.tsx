@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -37,21 +38,139 @@ const ART = {
   balance: require('../../assets/images/library/regular-cycle-balance.png'),
 };
 
-const CAUSES = [
-  ['head-heart-outline', 'Stress & anxiété'],
-  ['molecule', 'Déséquilibres hormonaux'],
-  ['weather-night', 'Manque de sommeil & fatigue'],
-  ['scale-bathroom', 'Poids trop bas ou trop élevé'],
-  ['human-female', 'SOPK ou autres conditions médicales'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const CAUSE_ICONS = [
+  'head-heart-outline',
+  'molecule',
+  'weather-night',
+  'scale-bathroom',
+  'human-female',
 ] as const;
 
-const ADVICE = [
-  ['bowl-mix-outline', 'Alimentation équilibrée'],
-  ['water-outline', 'Hydratation suffisante'],
-  ['shoe-sneaker', 'Activité physique'],
-  ['meditation', 'Gestion du stress'],
-  ['weather-night', 'Sommeil de qualité'],
+const ADVICE_ICONS = [
+  'bowl-mix-outline',
+  'water-outline',
+  'shoe-sneaker',
+  'meditation',
+  'weather-night',
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE & RÈGLES',
+    title: 'Cycle régulier ou irrégulier :\nquelles différences ?',
+    metaDuration: '5 min de lecture',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Chaque cycle menstruel est unique. Comprendre ce qui est considéré comme “normal” peut t’aider à mieux suivre ta santé et à détecter d’éventuels déséquilibres.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Cycle menstruel régulier : qu’est-ce que c’est ?',
+      'Cycle irrégulier : qu’est-ce que cela signifie ?',
+      'Causes possibles d’un cycle irrégulier',
+      'Quand faut-il consulter ?',
+      'Conseils pour un cycle plus équilibré',
+    ],
+    section1Body:
+      'Un cycle est considéré comme régulier lorsque sa durée varie entre 21 et 35 jours, avec une différence de moins de 7 jours d’un cycle à l’autre.',
+    section1VisualTitle: 'Un rythme relativement stable',
+    section1VisualText:
+      'L’important est surtout d’observer ton propre rythme au fil des mois.',
+    tip1Title: 'Bon à savoir',
+    tip1Text:
+      'Chaque femme est différente. L’important est de connaître son propre rythme et ses variations normales.',
+    section2Body:
+      'Un cycle est dit irrégulier lorsque sa durée varie souvent ou de manière imprévisible (plus de 7 jours d’écart). Cela peut se traduire par des cycles très courts, très longs ou l’absence d’ovulation.',
+    section2VisualTitle: 'Des variations plus marquées',
+    section2VisualText:
+      'Les écarts peuvent être temporaires ou s’installer sur plusieurs cycles.',
+    alertTitle: 'À noter',
+    alertText:
+      'L’irrégularité temporaire peut être normale (stress, changements hormonaux, fatigue…). Mais si elle persiste, il est important d’en rechercher la cause.',
+    causes: [
+      'Stress & anxiété',
+      'Déséquilibres hormonaux',
+      'Manque de sommeil & fatigue',
+      'Poids trop bas ou trop élevé',
+      'SOPK ou autres conditions médicales',
+    ],
+    checklist: [
+      'Absence de règles pendant plus de 3 mois (hors grossesse/allaitement)',
+      'Cycles très longs (plus de 90 jours) ou très courts (moins de 21 jours)',
+      'Douleurs intenses qui t’empêchent de vivre normalement',
+      'Saignements très abondants ou irréguliers',
+      'Si tu souhaites concevoir et que l’ovulation semble absente',
+    ],
+    advice: [
+      'Alimentation équilibrée',
+      'Hydratation suffisante',
+      'Activité physique',
+      'Gestion du stress',
+      'Sommeil de qualité',
+    ],
+    shareMessage: 'Cycle régulier ou irrégulier : quelles différences ? — AWA',
+  },
+  en: {
+    badge: 'CYCLE & PERIODS',
+    title: 'Regular or irregular cycle:\nwhat’s the difference?',
+    metaDuration: '5 min read',
+    metaValidated: 'Reviewed content',
+    intro:
+      'Every menstrual cycle is unique. Understanding what’s considered “normal” can help you track your health more closely and spot possible imbalances.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Regular menstrual cycle: what is it?',
+      'Irregular cycle: what does it mean?',
+      'Possible causes of an irregular cycle',
+      'When should you see a doctor?',
+      'Tips for a more balanced cycle',
+    ],
+    section1Body:
+      'A cycle is considered regular when its length varies between 21 and 35 days, with less than a 7-day difference from one cycle to the next.',
+    section1VisualTitle: 'A fairly steady rhythm',
+    section1VisualText:
+      'What matters most is observing your own rhythm over the months.',
+    tip1Title: 'Good to know',
+    tip1Text:
+      'Every woman is different. What matters is knowing your own rhythm and its normal variations.',
+    section2Body:
+      'A cycle is considered irregular when its length varies often or unpredictably (a difference of more than 7 days). This can show up as very short cycles, very long cycles, or an absence of ovulation.',
+    section2VisualTitle: 'More noticeable variations',
+    section2VisualText:
+      'These differences can be temporary or persist over several cycles.',
+    alertTitle: 'Please note',
+    alertText:
+      'Temporary irregularity can be normal (stress, hormonal changes, fatigue…). But if it persists, it’s important to look into the cause.',
+    causes: [
+      'Stress & anxiety',
+      'Hormonal imbalances',
+      'Lack of sleep & fatigue',
+      'Weight too low or too high',
+      'PCOS or other medical conditions',
+    ],
+    checklist: [
+      'No period for more than 3 months (outside of pregnancy/breastfeeding)',
+      'Very long cycles (more than 90 days) or very short cycles (less than 21 days)',
+      'Intense pain that keeps you from living normally',
+      'Very heavy or irregular bleeding',
+      'If you’re trying to conceive and ovulation seems to be absent',
+    ],
+    advice: [
+      'Balanced diet',
+      'Adequate hydration',
+      'Physical activity',
+      'Stress management',
+      'Quality sleep',
+    ],
+    shareMessage: 'Regular or irregular cycle: what’s the difference? — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -61,6 +180,9 @@ type Props = NativeStackScreenProps<
 export default function RegularIrregularCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -87,8 +209,7 @@ export default function RegularIrregularCycleArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message:
-        'Cycle régulier ou irrégulier : quelles différences ? — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -132,7 +253,7 @@ export default function RegularIrregularCycleArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
                 styles.circle,
@@ -148,7 +269,7 @@ export default function RegularIrregularCycleArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -167,7 +288,7 @@ export default function RegularIrregularCycleArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -187,20 +308,19 @@ export default function RegularIrregularCycleArticleScreen({
         <View style={styles.article}>
           <View style={styles.badge}>
             <Text style={styles.badgeText}>
-              CYCLE & RÈGLES
+              {content.badge}
             </Text>
           </View>
 
           <Text style={styles.title}>
-            Cycle régulier ou irrégulier :{`\n`}
-            quelles différences ?
+            {content.title}
           </Text>
 
           {/* META */}
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? (
@@ -223,26 +343,16 @@ export default function RegularIrregularCycleArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Chaque cycle menstruel est unique.
-            Comprendre ce qui est considéré comme
-            “normal” peut t’aider à mieux suivre ta
-            santé et à détecter d’éventuels
-            déséquilibres.
+            {content.intro}
           </Text>
 
           {/* SOMMAIRE */}
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Cycle menstruel régulier : qu’est-ce que c’est ?',
-              'Cycle irrégulier : qu’est-ce que cela signifie ?',
-              'Causes possibles d’un cycle irrégulier',
-              'Quand faut-il consulter ?',
-              'Conseils pour un cycle plus équilibré',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -267,14 +377,11 @@ export default function RegularIrregularCycleArticleScreen({
 
           {/* SECTION 1 */}
           <Text style={styles.h2}>
-            1. Cycle menstruel régulier : qu’est-ce que c’est ?
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Un cycle est considéré comme régulier
-            lorsque sa durée varie entre 21 et 35
-            jours, avec une différence de moins de 7
-            jours d’un cycle à l’autre.
+            {content.section1Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -286,12 +393,11 @@ export default function RegularIrregularCycleArticleScreen({
 
             <View style={styles.visualCopy}>
               <Text style={styles.visualTitle}>
-                Un rythme relativement stable
+                {content.section1VisualTitle}
               </Text>
 
               <Text style={styles.visualText}>
-                L’important est surtout d’observer
-                ton propre rythme au fil des mois.
+                {content.section1VisualText}
               </Text>
             </View>
           </View>
@@ -305,30 +411,22 @@ export default function RegularIrregularCycleArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tip1Title}
               </Text>
 
               <Text style={styles.tipText}>
-                Chaque femme est différente.
-                L’important est de connaître son
-                propre rythme et ses variations
-                normales.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
           {/* SECTION 2 */}
           <Text style={styles.h2}>
-            2. Cycle irrégulier : qu’est-ce que cela signifie ?
+            2. {content.topics[1]}
           </Text>
 
           <Text style={styles.body}>
-            Un cycle est dit irrégulier lorsque sa
-            durée varie souvent ou de manière
-            imprévisible (plus de 7 jours d’écart).
-            Cela peut se traduire par des cycles très
-            courts, très longs ou l’absence
-            d’ovulation.
+            {content.section2Body}
           </Text>
 
           <View style={styles.visualCard}>
@@ -340,12 +438,11 @@ export default function RegularIrregularCycleArticleScreen({
 
             <View style={styles.visualCopy}>
               <Text style={styles.visualTitle}>
-                Des variations plus marquées
+                {content.section2VisualTitle}
               </Text>
 
               <Text style={styles.visualText}>
-                Les écarts peuvent être temporaires
-                ou s’installer sur plusieurs cycles.
+                {content.section2VisualText}
               </Text>
             </View>
           </View>
@@ -359,22 +456,18 @@ export default function RegularIrregularCycleArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                À noter
+                {content.alertTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                L’irrégularité temporaire peut être
-                normale (stress, changements
-                hormonaux, fatigue…). Mais si elle
-                persiste, il est important d’en
-                rechercher la cause.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
           {/* SECTION 3 */}
           <Text style={styles.h2}>
-            3. Causes possibles d’un cycle irrégulier
+            3. {content.topics[2]}
           </Text>
 
           <Image
@@ -384,9 +477,9 @@ export default function RegularIrregularCycleArticleScreen({
           />
 
           <View style={styles.daily}>
-            {CAUSES.map(([icon, label]) => (
+            {CAUSE_ICONS.map((icon, index) => (
               <View
-                key={label}
+                key={icon}
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
@@ -395,7 +488,7 @@ export default function RegularIrregularCycleArticleScreen({
                 />
 
                 <Text style={styles.dailyText}>
-                  {label}
+                  {content.causes[index]}
                 </Text>
               </View>
             ))}
@@ -403,7 +496,7 @@ export default function RegularIrregularCycleArticleScreen({
 
           {/* SECTION 4 */}
           <Text style={styles.h2}>
-            4. Quand faut-il consulter ?
+            4. {content.topics[3]}
           </Text>
 
           <Image
@@ -413,13 +506,7 @@ export default function RegularIrregularCycleArticleScreen({
           />
 
           <View style={styles.checkList}>
-            {[
-              'Absence de règles pendant plus de 3 mois (hors grossesse/allaitement)',
-              'Cycles très longs (plus de 90 jours) ou très courts (moins de 21 jours)',
-              'Douleurs intenses qui t’empêchent de vivre normalement',
-              'Saignements très abondants ou irréguliers',
-              'Si tu souhaites concevoir et que l’ovulation semble absente',
-            ].map(item => (
+            {content.checklist.map(item => (
               <View
                 key={item}
                 style={styles.checkRow}>
@@ -438,7 +525,7 @@ export default function RegularIrregularCycleArticleScreen({
 
           {/* SECTION 5 */}
           <Text style={styles.h2}>
-            5. Conseils pour un cycle plus équilibré
+            5. {content.topics[4]}
           </Text>
 
           <Image
@@ -448,9 +535,9 @@ export default function RegularIrregularCycleArticleScreen({
           />
 
           <View style={styles.daily}>
-            {ADVICE.map(([icon, label]) => (
+            {ADVICE_ICONS.map((icon, index) => (
               <View
-                key={label}
+                key={icon}
                 style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
@@ -459,7 +546,7 @@ export default function RegularIrregularCycleArticleScreen({
                 />
 
                 <Text style={styles.dailyText}>
-                  {label}
+                  {content.advice[index]}
                 </Text>
               </View>
             ))}

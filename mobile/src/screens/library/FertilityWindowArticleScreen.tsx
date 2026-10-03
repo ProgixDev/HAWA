@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,18 +34,93 @@ const ID = 'fertility-fenetre-fertile';
 
 const HERO = require('../../assets/images/library/cycle-phases-hero.png');
 
-const TRACKING_SIGNS = [
-  ['calendar-month-outline', 'Suivre la longueur de ton cycle'],
-  ['water-outline', 'Observer ta glaire cervicale'],
-  ['thermometer', 'Mesurer ta température basale'],
-  ['test-tube', 'Utiliser des tests d’ovulation (LH)'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const TRACKING_ICONS = [
+  'calendar-month-outline',
+  'water-outline',
+  'thermometer',
+  'test-tube',
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'FENÊTRE FERTILE',
+    title: 'La fenêtre fertile,\ncomment ça marche',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi les jours autour de l’ovulation comptent le plus pour concevoir.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que la fenêtre fertile ?',
+      'Pourquoi ces jours comptent le plus',
+      'Comment repérer sa fenêtre fertile',
+      'À retenir',
+    ],
+    section1Body: 'La fenêtre fertile désigne la période du cycle pendant laquelle une grossesse est possible. Elle s’étend sur environ 6 jours : les 5 jours précédant l’ovulation, plus le jour de l’ovulation lui-même.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Chaque cycle est différent : la fenêtre fertile ne tombe pas forcément au même jour du calendrier d’un mois à l’autre.',
+    section2Body1: 'Les spermatozoïdes peuvent survivre jusqu’à 5 jours dans les voies génitales, ce qui élargit la période de conception possible. L’ovule, lui, ne reste fécondable qu’environ 24 heures après sa libération.',
+    section2Body2: 'Par exemple, un rapport survenu 3 jours avant l’ovulation peut aboutir à une conception, alors qu’un rapport le lendemain de l’ovulation arrive souvent trop tard.',
+    section3Intro: 'Plusieurs signaux, observés ensemble, aident à mieux cerner cette période :',
+    trackingSigns: [
+      'Suivre la longueur de ton cycle',
+      'Observer ta glaire cervicale',
+      'Mesurer ta température basale',
+      'Utiliser des tests d’ovulation (LH)',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Multiplier les repères (cycle, glaire, température) donne une vision plus fiable de ta fenêtre fertile qu’un seul indice isolé.',
+    shareMessage: 'La fenêtre fertile, comment ça marche — AWA',
+  },
+  en: {
+    badge: 'FERTILE WINDOW',
+    title: 'The fertile window:\nhow it works',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Why the days around ovulation matter most for conceiving.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is the fertile window?',
+      'Why these days matter most',
+      'How to identify your fertile window',
+      'Key takeaways',
+    ],
+    section1Body: 'The fertile window refers to the period in your cycle during which pregnancy is possible. It spans about 6 days: the 5 days before ovulation, plus the day of ovulation itself.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Every cycle is different: the fertile window doesn’t necessarily fall on the same calendar day from one month to the next.',
+    section2Body1: 'Sperm can survive for up to 5 days in the reproductive tract, which widens the period during which conception is possible. The egg, meanwhile, remains fertilizable for only about 24 hours after it’s released.',
+    section2Body2: 'For example, intercourse that happens 3 days before ovulation can lead to conception, while intercourse the day after ovulation often comes too late.',
+    section3Intro: 'Several signs, observed together, help you better pinpoint this period:',
+    trackingSigns: [
+      'Tracking your cycle length',
+      'Observing your cervical mucus',
+      'Measuring your basal body temperature',
+      'Using ovulation (LH) tests',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'Combining several signs (cycle, mucus, temperature) gives a more reliable picture of your fertile window than any single sign on its own.',
+    shareMessage: 'The fertile window: how it works — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FertilityWindowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -71,7 +147,7 @@ export default function FertilityWindowArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'La fenêtre fertile, comment ça marche — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -109,7 +185,7 @@ export default function FertilityWindowArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -118,7 +194,7 @@ export default function FertilityWindowArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -133,7 +209,7 @@ export default function FertilityWindowArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -151,19 +227,19 @@ export default function FertilityWindowArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>FENÊTRE FERTILE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            La fenêtre fertile,{`\n`}comment ça marche
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -182,19 +258,13 @@ export default function FertilityWindowArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Pourquoi les jours autour de l’ovulation comptent le plus pour
-            concevoir.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Qu’est-ce que la fenêtre fertile ?',
-              'Pourquoi ces jours comptent le plus',
-              'Comment repérer sa fenêtre fertile',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -210,13 +280,10 @@ export default function FertilityWindowArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Qu’est-ce que la fenêtre fertile ?</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            La fenêtre fertile désigne la période du cycle pendant laquelle
-            une grossesse est possible. Elle s’étend sur environ 6 jours :
-            les 5 jours précédant l’ovulation, plus le jour de l’ovulation
-            lui-même.
+            {content.section1Body}
           </Text>
 
           <View style={styles.tip}>
@@ -227,53 +294,46 @@ export default function FertilityWindowArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Chaque cycle est différent : la fenêtre fertile ne tombe pas
-                forcément au même jour du calendrier d’un mois à l’autre.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>2. Pourquoi ces jours comptent le plus</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Les spermatozoïdes peuvent survivre jusqu’à 5 jours dans les
-            voies génitales, ce qui élargit la période de conception
-            possible. L’ovule, lui, ne reste fécondable qu’environ 24 heures
-            après sa libération.
+            {content.section2Body1}
           </Text>
 
           <Text style={styles.body}>
-            Par exemple, un rapport survenu 3 jours avant l’ovulation peut
-            aboutir à une conception, alors qu’un rapport le lendemain de
-            l’ovulation arrive souvent trop tard.
+            {content.section2Body2}
           </Text>
 
           <Text style={styles.h2}>
-            3. Comment repérer sa fenêtre fertile
+            3. {content.topics[2]}
           </Text>
 
           <Text style={styles.body}>
-            Plusieurs signaux, observés ensemble, aident à mieux cerner
-            cette période :
+            {content.section3Intro}
           </Text>
 
           <View style={styles.daily}>
-            {TRACKING_SIGNS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {TRACKING_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.trackingSigns[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>4. À retenir</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -283,11 +343,9 @@ export default function FertilityWindowArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Multiplier les repères (cycle, glaire, température) donne
-                une vision plus fiable de ta fenêtre fertile qu’un seul
-                indice isolé.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

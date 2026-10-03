@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,50 +34,127 @@ const ID = 'firstperiod-choisir-protection';
 
 const HERO = require('../../assets/images/library/featured-flow.png');
 
-const OPTIONS = [
-  [
-    'Serviettes hygiéniques',
-    'Faciles à utiliser, elles se placent dans la culotte et se changent régulièrement.',
-    require('../../assets/images/first-period-pad.png'),
-  ],
-  [
-    'Culottes menstruelles',
-    'Une culotte absorbante et lavable, confortable pour un usage quotidien.',
-    require('../../assets/images/flux7.png'),
-  ],
-  [
-    'Tampons',
-    'S’insèrent à l’intérieur ; leur usage se choisit avec le temps et à son rythme.',
-    require('../../assets/images/flux6.png'),
-  ],
+// Images stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these illustrations.
+const OPTION_IMAGES = [
+  require('../../assets/images/first-period-pad.png'),
+  require('../../assets/images/flux7.png'),
+  require('../../assets/images/flux6.png'),
 ] as const;
 
-const RELATED = [
+const RELATED_IMAGES = [
   {
-    title: 'Comprendre ton flux menstruel',
-    meta: '7 min  ·  Guide',
     image: require('../../assets/images/library/rules-hero.png'),
     articleId: 'flow-comprendre-flux',
   },
   {
-    title: 'Comment gérer ses premières règles au quotidien ?',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/rules-hero.png'),
     articleId: 'firstperiod-gerer-quotidien',
   },
   {
-    title: 'Tes premières règles : à quoi t’attendre',
-    meta: '5 min  ·  Guide',
     image: require('../../assets/images/library/cycle-phases-hero.png'),
     articleId: 'firstperiod-premieres-regles',
   },
 ] as const;
+
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'PREMIÈRES RÈGLES',
+    title: 'Quelle protection choisir\npour mes premières règles ?',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Il existe plusieurs façons de se protéger pendant les règles. Aucune n’est meilleure qu’une autre : le confort personnel guide le choix.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les différentes protections',
+      'Comment choisir selon son confort',
+      'Comment changer sa protection',
+    ],
+    body1: 'Pour les premières règles, la serviette hygiénique est généralement la protection la plus simple à utiliser, car elle se place directement dans la culotte. Les culottes menstruelles et les tampons sont d’autres options, à essayer plus tard si l’on s’en sent l’envie.',
+    options: [
+      {
+        title: 'Serviettes hygiéniques',
+        text: 'Faciles à utiliser, elles se placent dans la culotte et se changent régulièrement.',
+      },
+      {
+        title: 'Culottes menstruelles',
+        text: 'Une culotte absorbante et lavable, confortable pour un usage quotidien.',
+      },
+      {
+        title: 'Tampons',
+        text: 'S’insèrent à l’intérieur ; leur usage se choisit avec le temps et à son rythme.',
+      },
+    ],
+    body2: 'Il n’y a pas de bonne ou de mauvaise protection : chacune convient différemment selon le corps, les habitudes et le niveau d’aisance de chacune. Les tampons, par exemple, s’insèrent à l’intérieur et demandent un peu plus de familiarité avec son corps — rien n’oblige à les utiliser dès les premières règles.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Tester différentes protections au fil du temps permet de trouver celle qui convient le mieux, sans pression.',
+    body3: 'Une protection se change en moyenne toutes les 4 à 6 heures, davantage les jours de flux plus abondant. La changer régulièrement permet de rester à l’aise et de préserver l’hygiène intime.',
+    relatedTitle: '♥  Tu pourrais aussi aimer',
+    related: [
+      {title: 'Comprendre ton flux menstruel', meta: '7 min  ·  Guide'},
+      {title: 'Comment gérer ses premières règles au quotidien ?', meta: '5 min  ·  Guide'},
+      {title: 'Tes premières règles : à quoi t’attendre', meta: '5 min  ·  Guide'},
+    ],
+    shareMessage: 'Quelle protection choisir pour mes premières règles ? — AWA',
+  },
+  en: {
+    badge: 'FIRST PERIOD',
+    title: 'Which protection should I choose\nfor my first period?',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'There are several ways to protect yourself during your period. None is better than another — personal comfort is what guides the choice.',
+    contentsTitle: 'In this article',
+    topics: [
+      'The different types of protection',
+      'How to choose based on your comfort',
+      'How to change your protection',
+    ],
+    body1: 'For your first period, a pad is usually the simplest protection to use, since it goes directly into your underwear. Period underwear and tampons are other options you can try later, whenever you feel like it.',
+    options: [
+      {
+        title: 'Pads',
+        text: 'Easy to use, they go in your underwear and are changed regularly.',
+      },
+      {
+        title: 'Period underwear',
+        text: 'Absorbent, washable underwear that’s comfortable for everyday use.',
+      },
+      {
+        title: 'Tampons',
+        text: 'Inserted inside the body; whether and when to use them is up to you, at your own pace.',
+      },
+    ],
+    body2: 'There’s no right or wrong protection: each one suits different bodies, habits, and comfort levels. Tampons, for example, are inserted inside the body and call for a bit more familiarity with it — nothing says you have to use them from your very first period.',
+    tipTitle: 'Good to know',
+    tipText: 'Trying different types of protection over time helps you find the one that suits you best, with no pressure.',
+    body3: 'On average, protection should be changed every 4 to 6 hours, more often on heavier-flow days. Changing it regularly helps you stay comfortable and keep up good intimate hygiene.',
+    relatedTitle: '♥  You might also like',
+    related: [
+      {title: 'Understanding your menstrual flow', meta: '7 min  ·  Guide'},
+      {title: 'How to manage your first period day to day?', meta: '5 min  ·  Guide'},
+      {title: 'Your first period: what to expect', meta: '5 min  ·  Guide'},
+    ],
+    shareMessage: 'Which protection should I choose for my first period? — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function FirstPeriodProtectionArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -103,7 +181,7 @@ export default function FirstPeriodProtectionArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Quelle protection choisir pour mes premières règles ? — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -141,7 +219,7 @@ export default function FirstPeriodProtectionArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -150,7 +228,7 @@ export default function FirstPeriodProtectionArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -165,7 +243,7 @@ export default function FirstPeriodProtectionArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -183,19 +261,19 @@ export default function FirstPeriodProtectionArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>PREMIÈRES RÈGLES</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Quelle protection choisir{`\n`}pour mes premières règles ?
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -214,19 +292,13 @@ export default function FirstPeriodProtectionArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Il existe plusieurs façons de se protéger pendant les règles.
-            Aucune n’est meilleure qu’une autre : le confort personnel guide
-            le choix.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Les différentes protections',
-              'Comment choisir selon son confort',
-              'Comment changer sa protection',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -242,35 +314,31 @@ export default function FirstPeriodProtectionArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Les différentes protections</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Pour les premières règles, la serviette hygiénique est
-            généralement la protection la plus simple à utiliser, car elle se
-            place directement dans la culotte. Les culottes menstruelles et
-            les tampons sont d’autres options, à essayer plus tard si l’on
-            s’en sent l’envie.
+            {content.body1}
           </Text>
 
-          {OPTIONS.map(([title, description, image]) => (
-            <View key={title} style={styles.visualCard}>
-              <Image source={image} resizeMode="cover" style={styles.visualImage} />
+          {content.options.map((option, index) => (
+            <View key={option.title} style={styles.visualCard}>
+              <Image
+                source={OPTION_IMAGES[index]}
+                resizeMode="cover"
+                style={styles.visualImage}
+              />
 
               <View style={styles.visualCopy}>
-                <Text style={styles.visualTitle}>{title}</Text>
-                <Text style={styles.visualText}>{description}</Text>
+                <Text style={styles.visualTitle}>{option.title}</Text>
+                <Text style={styles.visualText}>{option.text}</Text>
               </View>
             </View>
           ))}
 
-          <Text style={styles.h2}>2. Comment choisir selon son confort</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Il n’y a pas de bonne ou de mauvaise protection : chacune convient
-            différemment selon le corps, les habitudes et le niveau d’aisance
-            de chacune. Les tampons, par exemple, s’insèrent à l’intérieur et
-            demandent un peu plus de familiarité avec son corps — rien
-            n’oblige à les utiliser dès les premières règles.
+            {content.body2}
           </Text>
 
           <View style={styles.tip}>
@@ -281,35 +349,31 @@ export default function FirstPeriodProtectionArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Tester différentes protections au fil du temps permet de
-                trouver celle qui convient le mieux, sans pression.
+                {content.tipText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Comment changer sa protection</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Une protection se change en moyenne toutes les 4 à 6 heures,
-            davantage les jours de flux plus abondant. La changer
-            régulièrement permet de rester à l’aise et de préserver
-            l’hygiène intime.
+            {content.body3}
           </Text>
         </View>
 
         <View style={styles.relatedHeader}>
-          <Text style={styles.relatedTitle}>♥  Tu pourrais aussi aimer</Text>
+          <Text style={styles.relatedTitle}>{content.relatedTitle}</Text>
         </View>
 
         <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.relatedRow}>
-          {RELATED.map(item => (
+          {RELATED_IMAGES.map((item, index) => (
             <Pressable
-              key={item.title}
+              key={item.articleId + index}
               onPress={() =>
                 navigation.push('ArticleReader', {articleId: item.articleId})
               }
@@ -322,9 +386,11 @@ export default function FirstPeriodProtectionArticleScreen({
 
               <View style={styles.relatedCopy}>
                 <Text numberOfLines={3} style={styles.relatedCardTitle}>
-                  {item.title}
+                  {content.related[index].title}
                 </Text>
-                <Text style={styles.relatedMeta}>{item.meta}</Text>
+                <Text style={styles.relatedMeta}>
+                  {content.related[index].meta}
+                </Text>
               </View>
             </Pressable>
           ))}

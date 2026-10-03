@@ -14,6 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {
@@ -59,63 +60,72 @@ const HERO_SUMMARY_ON_SCRIM = 'rgba(255,255,255,0.88)';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'FeaturedArticles'>;
 
-const HERO_SLIDES = [
-  {id: 'cycle-phases-expliquees', image: HERO, title: 'Les différentes phases du cycle', summary: 'Découvre les phases de ton cycle et leur rôle dans ton équilibre hormonal.', minutes: 6},
-  {id: 'pain-gerer-douleurs', image: COMFORT_HERO, title: 'Gérer les douleurs menstruelles', summary: 'Des gestes doux et naturels pour apaiser les crampes et retrouver ton confort.', minutes: 7},
-  {id: 'cycle-comprendre-ton-cycle', image: TRACKING_HERO, title: 'Comprendre ton cycle menstruel', summary: 'Observe tes rythmes et apprends à reconnaître les signaux uniques de ton corps.', minutes: 6},
+type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
+
+// Title/summary/meta are translated via the library.featured.articles.* keys
+// (see fr.ts/en.ts's matching namespace comment); id/image/minutes stay
+// stable technical values, never translated.
+const heroSlidesOf = (t: TranslateFn) => [
+  {id: 'cycle-phases-expliquees', image: HERO, title: t('library.featured.articles.cyclePhasesExpliquees.title'), summary: t('library.featured.articles.cyclePhasesExpliquees.summary'), minutes: 6},
+  {id: 'pain-gerer-douleurs', image: COMFORT_HERO, title: t('library.featured.articles.painGererDouleurs.title'), summary: t('library.featured.articles.painGererDouleurs.summary'), minutes: 7},
+  {id: 'cycle-comprendre-ton-cycle', image: TRACKING_HERO, title: t('library.featured.articles.cycleComprendreTonCycle.title'), summary: t('library.featured.articles.cycleComprendreTonCycle.summary'), minutes: 6},
 ] as const;
 
-const POPULAR = [
+const popularOf = (t: TranslateFn) => [
   {
     id: 'cycle-phases-expliquees',
-    title: 'Les différentes phases du cycle',
+    title: t('library.featured.articles.cyclePhasesExpliquees.title'),
     minutes: 6,
     image: PHASES,
   },
   {
     id: 'flow-comprendre-flux',
-    title: 'Comprendre ton flux menstruel',
+    title: t('library.featured.articles.flowComprendreFlux.title'),
     minutes: 6,
     image: BRANCH,
   },
   {
     id: 'nutrition-conception-fertilite',
-    title: 'Nutrition et fertilité',
+    title: t('library.featured.articles.nutritionConceptionFertilite.title'),
     minutes: 4,
     image: FOOD,
   },
 ] as const;
 
-const NEW_ARTICLES = [
+const newArticlesOf = (t: TranslateFn) => [
   {
     id: 'pain-gerer-douleurs',
-    title: 'Gérer les douleurs menstruelles',
-    meta: '7 min de lecture',
+    title: t('library.featured.articles.painGererDouleurs.title'),
+    meta: t('library.screen.durationMinRead', {count: 7}),
     image: PAIN,
   },
   {
     id: 'cycle-comprendre-ton-cycle',
-    title: 'Comprendre ton cycle menstruel',
-    meta: '5 min de lecture',
+    title: t('library.featured.articles.cycleComprendreTonCycle.title'),
+    meta: t('library.screen.durationMinRead', {count: 5}),
     image: TRACKER,
   },
   {
     id: 'symptoms-reconnaitre',
-    title: 'Comprendre les symptômes avant les règles',
-    meta: '4 min de lecture',
+    title: t('library.featured.articles.symptomsReconnaitre.title'),
+    meta: t('library.screen.durationMinRead', {count: 4}),
     image: SPM,
   },
   {
     id: 'flow-colors-textures',
-    title: 'Flux menstruel : comprendre les couleurs et textures',
-    meta: '4 min de lecture',
+    title: t('library.featured.articles.flowColorsTextures.title'),
+    meta: t('library.screen.durationMinRead', {count: 4}),
     image: FLOW,
   },
 ] as const;
 
 function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const HERO_SLIDES = useMemo(() => heroSlidesOf(t), [t]);
+  const POPULAR = useMemo(() => popularOf(t), [t]);
+  const NEW_ARTICLES = useMemo(() => newArticlesOf(t), [t]);
 
   const insets = useSafeAreaInsets();
   const [saved, setSaved] = useState<Set<string>>(new Set());
@@ -151,7 +161,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
       });
     }, 3000);
     return () => {clearInterval(timer); heroOpacity.stopAnimation();};
-  }, [heroOpacity]);
+  }, [heroOpacity, HERO_SLIDES.length]);
 
   const toggle = (id: string) => {
     toggleBookmark(id);
@@ -181,7 +191,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
         showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
           <Pressable
-            accessibilityLabel="Retour"
+            accessibilityLabel={t('common.back')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() => navigation.goBack()}
@@ -197,14 +207,14 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
           </Pressable>
 
           <View style={styles.headerCopy}>
-            <Text style={styles.pageTitle}>À la une</Text>
+            <Text style={styles.pageTitle}>{t('library.screen.featuredTitle')}</Text>
             <Text style={styles.pageSubtitle}>
-              Des articles sélectionnés pour toi
+              {t('library.featured.headerSubtitle')}
             </Text>
           </View>
 
           <Pressable
-            accessibilityLabel="Ajouter l’article du moment aux favoris"
+            accessibilityLabel={t('library.featured.addMomentToFavorites')}
             accessibilityRole="button"
             hitSlop={10}
             onPress={() => toggle(activeHero.id)}
@@ -250,7 +260,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
             <View style={styles.heroCopy}>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
-                  ARTICLE DU MOMENT
+                  {t('library.featured.momentBadge')}
                 </Text>
               </View>
 
@@ -270,7 +280,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                     size={14}
                   />
                   <Text style={styles.timeText}>
-                    {activeHero.minutes} min
+                    {t('library.screen.durationMin', {count: activeHero.minutes})}
                   </Text>
                 </View>
 
@@ -278,7 +288,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                   <Text
                     numberOfLines={1}
                     style={styles.readButtonText}>
-                    Lire l’article
+                    {t('library.screen.readArticle')}
                   </Text>
                   <MaterialDesignIcons
                     color={onPrimaryTextColor(theme)}
@@ -295,7 +305,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
         <View style={styles.dots}>
           {HERO_SLIDES.map((slide, index) => (
             <Pressable
-              accessibilityLabel={`Article ${index + 1} sur ${HERO_SLIDES.length}`}
+              accessibilityLabel={t('library.featured.slideAccessibility', {current: index + 1, total: HERO_SLIDES.length})}
               accessibilityRole="button"
               accessibilityState={{selected: index === heroIndex}}
               key={slide.id}
@@ -308,11 +318,11 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
 
         <View style={styles.heading}>
           <Text style={styles.headingText}>
-            Articles populaires
+            {t('library.screen.popularSectionTitle')}
           </Text>
-          <Pressable accessibilityLabel="Voir tout : Articles populaires" accessibilityRole="button" hitSlop={10}>
+          <Pressable accessibilityLabel={t('library.featured.seeAllPopular')} accessibilityRole="button" hitSlop={10}>
             <Text style={styles.seeAll}>
-              Voir tout
+              {t('library.screen.seeAll')}
             </Text>
           </Pressable>
         </View>
@@ -346,7 +356,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
                   size={11}
                 />
                 <Text style={styles.cardMeta}>
-                  {item.minutes} min de lecture
+                  {t('library.screen.durationMinRead', {count: item.minutes})}
                 </Text>
               </View>
             </Pressable>
@@ -355,11 +365,11 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
 
         <View style={styles.heading}>
           <Text style={styles.headingText}>
-            Nouveautés
+            {t('library.featured.newHeading')}
           </Text>
-          <Pressable accessibilityLabel="Voir tout : Nouveautés" accessibilityRole="button" hitSlop={10}>
+          <Pressable accessibilityLabel={t('library.featured.seeAllNew')} accessibilityRole="button" hitSlop={10}>
             <Text style={styles.seeAll}>
-              Voir tout
+              {t('library.screen.seeAll')}
             </Text>
           </Pressable>
         </View>
@@ -388,7 +398,7 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
             </View>
 
             <Pressable
-              accessibilityLabel="Ajouter aux favoris"
+              accessibilityLabel={t('library.screen.addBookmark')}
               hitSlop={10}
               onPress={event => {
                 event.stopPropagation();
@@ -422,11 +432,10 @@ function FeaturedArticlesScreen({navigation}: Props): React.JSX.Element {
 
           <View style={styles.trustCopy}>
             <Text style={styles.trustTitle}>
-              Contenus fiables et validés
+              {t('library.featured.trustTitle')}
             </Text>
             <Text style={styles.trustText}>
-              Tous nos articles sont rédigés par des
-              professionnels de santé et des experts.
+              {t('library.featured.trustText')}
             </Text>
           </View>
 

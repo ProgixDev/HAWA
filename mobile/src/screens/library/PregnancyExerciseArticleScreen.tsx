@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,30 +34,96 @@ const ID = 'exercise-bouger-enceinte';
 
 const HERO = require('../../assets/images/library/activité_grossesse.png');
 
-const RECOMMENDED = [
-  ['walk', 'Marche'],
-  ['swim', 'Natation'],
-  ['yoga', 'Yoga prénatal'],
-] as const;
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const RECOMMENDED_ICONS = ['walk', 'swim', 'yoga'] as const;
 
-const TO_AVOID = [
-  'Sports à impact (course intensive, sports de raquette rapides)',
-  'Activités avec risque de chute (ski, équitation, vélo en terrain accidenté)',
-  'Sports de contact ou de combat',
-  'Efforts intenses en altitude ou forte chaleur',
-];
-
-const LISTEN_SIGNS = [
-  'Essoufflement inhabituel ou vertiges',
-  'Douleurs, saignements ou contractions pendant l’effort',
-  'Fatigue qui ne passe pas après le repos',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'GROSSESSE • ACTIVITÉ PHYSIQUE',
+    title: 'Bouger pendant\nla grossesse',
+    metaDuration: '5 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Débutant',
+    metaValidated: 'Contenu validé',
+    intro: 'Rester active en douceur, en toute sécurité, à chaque trimestre.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Les activités recommandées',
+      'Ce qu’il vaut mieux éviter',
+      'Écouter les signaux de ton corps',
+      'À noter',
+      'À retenir',
+    ],
+    body1: 'La marche, la natation et le yoga prénatal sont généralement recommandés tout au long de la grossesse, à un rythme adapté à ton ressenti.',
+    recommended: ['Marche', 'Natation', 'Yoga prénatal'],
+    body2: 'Éviter les sports à impact ou à risque de chute, surtout à partir du deuxième trimestre :',
+    toAvoid: [
+      'Sports à impact (course intensive, sports de raquette rapides)',
+      'Activités avec risque de chute (ski, équitation, vélo en terrain accidenté)',
+      'Sports de contact ou de combat',
+      'Efforts intenses en altitude ou forte chaleur',
+    ],
+    listenSigns: [
+      'Essoufflement inhabituel ou vertiges',
+      'Douleurs, saignements ou contractions pendant l’effort',
+      'Fatigue qui ne passe pas après le repos',
+    ],
+    neutralText: 'Toujours écouter les signaux de ton corps et en parler à ta sage-femme ou ton médecin avant de commencer ou de modifier une activité physique.',
+    tipTitle: 'Bon à savoir',
+    tipText: 'Une activité douce et régulière est bénéfique pour la plupart des grossesses : l’essentiel est d’adapter l’intensité à chaque étape et à ton propre ressenti.',
+    shareMessage: 'Bouger pendant la grossesse — AWA',
+  },
+  en: {
+    badge: 'PREGNANCY • PHYSICAL ACTIVITY',
+    title: 'Staying active\nduring pregnancy',
+    metaDuration: '5 min read',
+    metaType: 'Guide',
+    metaLevel: 'Beginner',
+    metaValidated: 'Reviewed content',
+    intro: 'Staying gently active, safely, at every trimester.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Recommended activities',
+      'What’s best to avoid',
+      'Listening to your body’s signals',
+      'Note',
+      'Key takeaway',
+    ],
+    body1: 'Walking, swimming, and prenatal yoga are generally recommended throughout pregnancy, at a pace that matches how you feel.',
+    recommended: ['Walking', 'Swimming', 'Prenatal yoga'],
+    body2: 'Avoid high-impact sports or activities with a risk of falling, especially from the second trimester onward:',
+    toAvoid: [
+      'High-impact sports (intense running, fast-paced racquet sports)',
+      'Activities with a risk of falling (skiing, horseback riding, cycling on rough terrain)',
+      'Contact or combat sports',
+      'Intense exertion at altitude or in extreme heat',
+    ],
+    listenSigns: [
+      'Unusual shortness of breath or dizziness',
+      'Pain, bleeding, or contractions during exertion',
+      'Fatigue that doesn’t go away after resting',
+    ],
+    neutralText: 'Always listen to your body’s signals and talk to your midwife or doctor before starting or changing a physical activity.',
+    tipTitle: 'Good to know',
+    tipText: 'Gentle, regular activity is beneficial for most pregnancies: the key is adapting the intensity to each stage and to how you feel.',
+    shareMessage: 'Staying active during pregnancy — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function PregnancyExerciseArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -83,7 +150,7 @@ export default function PregnancyExerciseArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Bouger pendant la grossesse — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -121,7 +188,7 @@ export default function PregnancyExerciseArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -130,7 +197,7 @@ export default function PregnancyExerciseArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -145,7 +212,7 @@ export default function PregnancyExerciseArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -163,17 +230,17 @@ export default function PregnancyExerciseArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>GROSSESSE • ACTIVITÉ PHYSIQUE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>Bouger pendant{`\n`}la grossesse</Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '5 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Débutant'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -192,19 +259,13 @@ export default function PregnancyExerciseArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Rester active en douceur, en toute sécurité, à chaque trimestre.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Les activités recommandées',
-              'Ce qu’il vaut mieux éviter',
-              'Écouter les signaux de ton corps',
-              'À noter',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -220,37 +281,34 @@ export default function PregnancyExerciseArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Les activités recommandées</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            La marche, la natation et le yoga prénatal sont généralement
-            recommandés tout au long de la grossesse, à un rythme adapté à
-            ton ressenti.
+            {content.body1}
           </Text>
 
           <View style={styles.daily}>
-            {RECOMMENDED.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {RECOMMENDED_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.recommended[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>2. Ce qu’il vaut mieux éviter</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Éviter les sports à impact ou à risque de chute, surtout à partir
-            du deuxième trimestre :
+            {content.body2}
           </Text>
 
           <View style={styles.checkList}>
-            {TO_AVOID.map(item => (
+            {content.toAvoid.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="close-circle-outline"
@@ -263,10 +321,10 @@ export default function PregnancyExerciseArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>3. Écouter les signaux de ton corps</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <View style={styles.consultCard}>
-            {LISTEN_SIGNS.map(item => (
+            {content.listenSigns.map(item => (
               <View key={item} style={styles.consultRow}>
                 <View style={styles.consultIcon}>
                   <MaterialDesignIcons
@@ -281,7 +339,7 @@ export default function PregnancyExerciseArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>4. À noter</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.neutralBox}>
             <MaterialDesignIcons
@@ -291,13 +349,11 @@ export default function PregnancyExerciseArticleScreen({
             />
 
             <Text style={styles.neutralText}>
-              Toujours écouter les signaux de ton corps et en parler à ta
-              sage-femme ou ton médecin avant de commencer ou de modifier une
-              activité physique.
+              {content.neutralText}
             </Text>
           </View>
 
-          <Text style={styles.h2}>5. À retenir</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -307,11 +363,9 @@ export default function PregnancyExerciseArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tipTitle}</Text>
               <Text style={styles.tipText}>
-                Une activité douce et régulière est bénéfique pour la
-                plupart des grossesses : l’essentiel est d’adapter
-                l’intensité à chaque étape et à ton propre ressenti.
+                {content.tipText}
               </Text>
             </View>
           </View>

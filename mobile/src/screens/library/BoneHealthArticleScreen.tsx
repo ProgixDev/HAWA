@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,25 +34,111 @@ const ID = 'bones-sante-osseuse';
 
 const HERO = require('../../assets/images/library/food-magnesium.png');
 
-const PREVENTION_HABITS = [
-  ['bowl-mix-outline', 'Calcium (produits laitiers, légumes verts)'],
-  ['weather-sunny', 'Vitamine D (soleil modéré, alimentation)'],
-  ['shoe-sneaker', 'Exercices porteurs de poids (marche, renforcement)'],
-  ['smoking-off', 'Limiter tabac et alcool'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const PREVENTION_ICONS = [
+  'bowl-mix-outline',
+  'weather-sunny',
+  'shoe-sneaker',
+  'smoking-off',
 ] as const;
 
-const RISK_FACTORS = [
-  'Des antécédents familiaux d’ostéoporose',
-  'Une ménopause précoce (avant 45 ans)',
-  'Un tabagisme actuel ou passé',
-  'Une corpulence très mince ou une activité physique très faible',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'SANTÉ OSSEUSE',
+    title: 'Prendre soin de\nsa santé osseuse',
+    metaDuration: '6 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Pourquoi la ménopause augmente le risque d’ostéoporose, et comment protéger ses os au quotidien.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Pourquoi la ménopause fragilise les os',
+      'Ostéopénie et ostéoporose',
+      'Le dépistage par ostéodensitométrie',
+      'Les piliers de la prévention',
+      'Facteurs qui augmentent le risque',
+      'À retenir',
+    ],
+    body1: 'Les œstrogènes protègent naturellement la densité osseuse en freinant le renouvellement osseux. Leur baisse pendant la ménopause accélère la perte osseuse, surtout durant les premières années suivant l’arrêt des règles.',
+    body2: 'L’ostéopénie désigne une densité osseuse plus basse que la normale, sans atteindre le seuil de l’ostéoporose. L’ostéoporose correspond à une fragilité osseuse plus marquée, qui augmente le risque de fracture, notamment en cas de chute.',
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Ces deux termes décrivent une perte de densité osseuse, pas une fracture déjà présente : ils invitent à la prévention, pas à l’inquiétude.',
+    body3: 'Cet examen indolore mesure la densité minérale osseuse. Il peut être proposé selon ton âge, tes antécédents personnels et familiaux, ou d’autres facteurs de risque identifiés avec ton médecin.',
+    preventionHabits: [
+      'Calcium (produits laitiers, légumes verts)',
+      'Vitamine D (soleil modéré, alimentation)',
+      'Exercices porteurs de poids (marche, renforcement)',
+      'Limiter tabac et alcool',
+    ],
+    riskFactors: [
+      'Des antécédents familiaux d’ostéoporose',
+      'Une ménopause précoce (avant 45 ans)',
+      'Un tabagisme actuel ou passé',
+      'Une corpulence très mince ou une activité physique très faible',
+    ],
+    alertTitle: 'À noter',
+    alertText: 'Avoir un ou plusieurs de ces facteurs ne signifie pas développer une ostéoporose : ils aident surtout à orienter la discussion avec ton médecin sur un éventuel dépistage.',
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Calcium, vitamine D et activité physique porteuse de poids restent les gestes les plus utiles au quotidien pour préserver la solidité de tes os sur le long terme.',
+    shareMessage: 'Prendre soin de sa santé osseuse — AWA',
+  },
+  en: {
+    badge: 'BONE HEALTH',
+    title: 'Taking care of\nyour bone health',
+    metaDuration: '6 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'Why menopause increases the risk of osteoporosis, and how to protect your bones every day.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Why menopause weakens bones',
+      'Osteopenia and osteoporosis',
+      'Screening with bone densitometry',
+      'The pillars of prevention',
+      'Factors that increase the risk',
+      'What to remember',
+    ],
+    body1: 'Estrogen naturally helps protect bone density by slowing down bone turnover. The drop in estrogen during menopause speeds up bone loss, especially in the first few years after your periods stop.',
+    body2: 'Osteopenia refers to bone density that’s lower than normal, without reaching the threshold for osteoporosis. Osteoporosis is a more pronounced bone fragility that increases the risk of fracture, particularly in the event of a fall.',
+    tip1Title: 'Good to know',
+    tip1Text: 'Both terms describe a loss of bone density, not a fracture that has already happened — they’re a prompt for prevention, not a reason to worry.',
+    body3: 'This painless exam measures bone mineral density. It may be offered based on your age, your personal and family history, or other risk factors identified with your doctor.',
+    preventionHabits: [
+      'Calcium (dairy products, leafy greens)',
+      'Vitamin D (moderate sun exposure, diet)',
+      'Weight-bearing exercise (walking, strength training)',
+      'Limit tobacco and alcohol',
+    ],
+    riskFactors: [
+      'A family history of osteoporosis',
+      'Early menopause (before age 45)',
+      'Current or past smoking',
+      'A very slim build or very low physical activity',
+    ],
+    alertTitle: 'Please note',
+    alertText: 'Having one or more of these factors doesn’t mean you’ll develop osteoporosis — they’re mainly there to help guide the conversation with your doctor about possible screening.',
+    tip2Title: 'Good to know',
+    tip2Text: 'Calcium, vitamin D, and weight-bearing physical activity remain the most useful everyday habits for preserving bone strength in the long run.',
+    shareMessage: 'Taking care of your bone health — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function BoneHealthArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +165,7 @@ export default function BoneHealthArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Prendre soin de sa santé osseuse — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -116,7 +203,7 @@ export default function BoneHealthArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -125,7 +212,7 @@ export default function BoneHealthArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -140,7 +227,7 @@ export default function BoneHealthArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -158,19 +245,19 @@ export default function BoneHealthArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>SANTÉ OSSEUSE</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Prendre soin de{`\n`}sa santé osseuse
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '6 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -189,21 +276,13 @@ export default function BoneHealthArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Pourquoi la ménopause augmente le risque d’ostéoporose, et
-            comment protéger ses os au quotidien.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Pourquoi la ménopause fragilise les os',
-              'Ostéopénie et ostéoporose',
-              'Le dépistage par ostéodensitométrie',
-              'Les piliers de la prévention',
-              'Facteurs qui augmentent le risque',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -219,22 +298,16 @@ export default function BoneHealthArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>1. Pourquoi la ménopause fragilise les os</Text>
+          <Text style={styles.h2}>1. {content.topics[0]}</Text>
 
           <Text style={styles.body}>
-            Les œstrogènes protègent naturellement la densité osseuse en
-            freinant le renouvellement osseux. Leur baisse pendant la
-            ménopause accélère la perte osseuse, surtout durant les
-            premières années suivant l’arrêt des règles.
+            {content.body1}
           </Text>
 
-          <Text style={styles.h2}>2. Ostéopénie et ostéoporose</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            L’ostéopénie désigne une densité osseuse plus basse que la
-            normale, sans atteindre le seuil de l’ostéoporose. L’ostéoporose
-            correspond à une fragilité osseuse plus marquée, qui augmente le
-            risque de fracture, notamment en cas de chute.
+            {content.body2}
           </Text>
 
           <View style={styles.tip}>
@@ -245,44 +318,39 @@ export default function BoneHealthArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Ces deux termes décrivent une perte de densité osseuse, pas
-                une fracture déjà présente : ils invitent à la prévention,
-                pas à l’inquiétude.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Le dépistage par ostéodensitométrie</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Cet examen indolore mesure la densité minérale osseuse. Il peut
-            être proposé selon ton âge, tes antécédents personnels et
-            familiaux, ou d’autres facteurs de risque identifiés avec ton
-            médecin.
+            {content.body3}
           </Text>
 
-          <Text style={styles.h2}>4. Les piliers de la prévention</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <View style={styles.daily}>
-            {PREVENTION_HABITS.map(([icon, label]) => (
-              <View key={label} style={styles.dailyItem}>
+            {PREVENTION_ICONS.map((icon, index) => (
+              <View key={icon} style={styles.dailyItem}>
                 <MaterialDesignIcons
                   name={icon as never}
                   color={theme.colors.primary}
                   size={25}
                 />
 
-                <Text style={styles.dailyText}>{label}</Text>
+                <Text style={styles.dailyText}>{content.preventionHabits[index]}</Text>
               </View>
             ))}
           </View>
 
-          <Text style={styles.h2}>5. Facteurs qui augmentent le risque</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.checkList}>
-            {RISK_FACTORS.map(item => (
+            {content.riskFactors.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="alert-circle-outline"
@@ -303,16 +371,14 @@ export default function BoneHealthArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Avoir un ou plusieurs de ces facteurs ne signifie pas
-                développer une ostéoporose : ils aident surtout à orienter
-                la discussion avec ton médecin sur un éventuel dépistage.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>6. À retenir</Text>
+          <Text style={styles.h2}>6. {content.topics[5]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -322,11 +388,9 @@ export default function BoneHealthArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Calcium, vitamine D et activité physique porteuse de poids
-                restent les gestes les plus utiles au quotidien pour
-                préserver la solidité de tes os sur le long terme.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

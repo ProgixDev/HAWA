@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -33,25 +34,102 @@ const ID = 'treatments-traitements-menopause';
 
 const HERO = require('../../assets/images/library/spm-consult.png');
 
-const NON_HORMONAL = [
-  'Thérapies comportementales et cognitives (gestion du stress, du sommeil)',
-  'Phytothérapie encadrée par un professionnel',
-  'Ajustements du mode de vie (alimentation, activité physique, sommeil)',
-  'Lubrifiants et hydratants vaginaux pour la sécheresse intime',
-];
-
-const DISCUSS_POINTS = [
-  'Tes symptômes les plus gênants au quotidien',
-  'Tes antécédents médicaux personnels et familiaux',
-  'Tes préférences (hormonal ou non, durée envisagée)',
-  'Tes questions et inquiétudes, sans hésiter à les poser',
-];
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'TRAITEMENTS',
+    title: 'Les traitements\nde la ménopause',
+    metaDuration: '7 min de lecture',
+    metaType: 'Guide',
+    metaLevel: 'Intermédiaire',
+    metaValidated: 'Contenu validé',
+    intro: 'Traitement hormonal et alternatives non hormonales, pour t’aider à préparer la discussion avec ton médecin.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Le traitement hormonal de la ménopause',
+      'Bénéfices et précautions',
+      'Les approches non hormonales',
+      'En parler avec un professionnel',
+      'À retenir',
+    ],
+    body1: 'Le traitement hormonal de la ménopause (THM) compense la baisse d’œstrogènes et soulage les symptômes les plus gênants, comme les bouffées de chaleur, les troubles du sommeil ou la sécheresse vaginale.',
+    body2: 'Le THM peut aussi contribuer à protéger la densité osseuse. Il n’est cependant pas adapté à toutes les situations : des antécédents personnels (cardiovasculaires, certains cancers hormonodépendants) peuvent en limiter l’usage.',
+    alertTitle: 'À noter',
+    alertText: 'Le rapport bénéfices/risques du THM dépend de ton âge, du moment où il est débuté par rapport à la ménopause, et de tes antécédents personnels : un bilan médical individualisé est nécessaire avant toute décision.',
+    body3: 'Lorsque le THM n’est pas souhaité ou pas adapté, d’autres pistes existent pour soulager les symptômes :',
+    nonHormonal: [
+      'Thérapies comportementales et cognitives (gestion du stress, du sommeil)',
+      'Phytothérapie encadrée par un professionnel',
+      'Ajustements du mode de vie (alimentation, activité physique, sommeil)',
+      'Lubrifiants et hydratants vaginaux pour la sécheresse intime',
+    ],
+    tip1Title: 'Bon à savoir',
+    tip1Text: 'Même la phytothérapie mérite un avis professionnel : « naturel » ne signifie pas « sans interaction possible » avec d’autres traitements.',
+    body4: 'Préparer quelques points avant un rendez-vous aide à profiter pleinement de la discussion :',
+    discussPoints: [
+      'Tes symptômes les plus gênants au quotidien',
+      'Tes antécédents médicaux personnels et familiaux',
+      'Tes préférences (hormonal ou non, durée envisagée)',
+      'Tes questions et inquiétudes, sans hésiter à les poser',
+    ],
+    tip2Title: 'Bon à savoir',
+    tip2Text: 'Hormonal ou non, aucun traitement n’est universel : celui qui te convient dépend de ta situation personnelle, évaluée avec un professionnel de santé.',
+    shareMessage: 'Les traitements de la ménopause — AWA',
+  },
+  en: {
+    badge: 'TREATMENTS',
+    title: 'Menopause\ntreatments',
+    metaDuration: '7 min read',
+    metaType: 'Guide',
+    metaLevel: 'Intermediate',
+    metaValidated: 'Reviewed content',
+    intro: 'Hormone replacement therapy and non-hormonal alternatives, to help you prepare for the conversation with your doctor.',
+    contentsTitle: 'In this article',
+    topics: [
+      'Menopause hormone replacement therapy',
+      'Benefits and precautions',
+      'Non-hormonal approaches',
+      'Talking to a healthcare professional',
+      'What to remember',
+    ],
+    body1: 'Menopause hormone replacement therapy (HRT) compensates for the drop in estrogen and can relieve the most bothersome symptoms, such as hot flashes, sleep disturbances, or vaginal dryness.',
+    body2: 'HRT can also help protect bone density. However, it isn’t suitable for every situation: a personal history of certain conditions (cardiovascular disease, some hormone-dependent cancers) may limit its use.',
+    alertTitle: 'Please note',
+    alertText: 'The benefit-risk balance of HRT depends on your age, when it is started relative to menopause, and your personal medical history: an individualized medical assessment is needed before any decision.',
+    body3: 'When HRT isn’t wanted or isn’t suitable, other options exist to help relieve symptoms:',
+    nonHormonal: [
+      'Cognitive behavioral therapy (for managing stress and sleep)',
+      'Herbal medicine, supervised by a healthcare professional',
+      'Lifestyle adjustments (diet, physical activity, sleep)',
+      'Vaginal lubricants and moisturizers for intimate dryness',
+    ],
+    tip1Title: 'Good to know',
+    tip1Text: 'Even herbal medicine deserves professional advice: “natural” doesn’t mean “without possible interactions” with other treatments.',
+    body4: 'Preparing a few points before an appointment helps you make the most of the conversation:',
+    discussPoints: [
+      'Your most bothersome day-to-day symptoms',
+      'Your personal and family medical history',
+      'Your preferences (hormonal or not, how long you’re considering)',
+      'Your questions and concerns — don’t hesitate to ask them',
+    ],
+    tip2Title: 'Good to know',
+    tip2Text: 'Hormonal or not, no treatment is universal: what’s right for you depends on your personal situation, assessed with a healthcare professional.',
+    shareMessage: 'Menopause treatments — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 
 export default function MenopauseTreatmentsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -78,7 +156,7 @@ export default function MenopauseTreatmentsArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message: 'Les traitements de la ménopause — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -116,7 +194,7 @@ export default function MenopauseTreatmentsArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [styles.circle, pressed && styles.pressed]}>
               <MaterialDesignIcons name="chevron-left" size={23} color={theme.colors.text} />
@@ -125,7 +203,7 @@ export default function MenopauseTreatmentsArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -140,7 +218,7 @@ export default function MenopauseTreatmentsArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -158,19 +236,19 @@ export default function MenopauseTreatmentsArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>TRAITEMENTS</Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
           <Text style={styles.title}>
-            Les traitements{`\n`}de la ménopause
+            {content.title}
           </Text>
 
           <View style={styles.metas}>
             {[
-              ['clock-outline', '7 min de lecture'],
-              ['book-open-page-variant-outline', 'Guide'],
-              ['chart-bar', 'Intermédiaire'],
-              ['shield-check-outline', 'Contenu validé'],
+              ['clock-outline', content.metaDuration],
+              ['book-open-page-variant-outline', content.metaType],
+              ['chart-bar', content.metaLevel],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text], index) => (
               <React.Fragment key={text}>
                 {index > 0 ? <View style={styles.metaDivider} /> : null}
@@ -189,20 +267,13 @@ export default function MenopauseTreatmentsArticleScreen({
           </View>
 
           <Text style={styles.intro}>
-            Traitement hormonal et alternatives non hormonales, pour
-            t’aider à préparer la discussion avec ton médecin.
+            {content.intro}
           </Text>
 
           <View style={styles.contents}>
-            <Text style={styles.contentsTitle}>Dans cet article</Text>
+            <Text style={styles.contentsTitle}>{content.contentsTitle}</Text>
 
-            {[
-              'Le traitement hormonal de la ménopause',
-              'Bénéfices et précautions',
-              'Les approches non hormonales',
-              'En parler avec un professionnel',
-              'À retenir',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View key={item} style={styles.contentRow}>
                 <View style={styles.contentLeft}>
                   <Text style={styles.contentNumber}>{index + 1}.</Text>
@@ -219,23 +290,17 @@ export default function MenopauseTreatmentsArticleScreen({
           </View>
 
           <Text style={styles.h2}>
-            1. Le traitement hormonal de la ménopause
+            1. {content.topics[0]}
           </Text>
 
           <Text style={styles.body}>
-            Le traitement hormonal de la ménopause (THM) compense la baisse
-            d’œstrogènes et soulage les symptômes les plus gênants, comme
-            les bouffées de chaleur, les troubles du sommeil ou la
-            sécheresse vaginale.
+            {content.body1}
           </Text>
 
-          <Text style={styles.h2}>2. Bénéfices et précautions</Text>
+          <Text style={styles.h2}>2. {content.topics[1]}</Text>
 
           <Text style={styles.body}>
-            Le THM peut aussi contribuer à protéger la densité osseuse.
-            Il n’est cependant pas adapté à toutes les situations : des
-            antécédents personnels (cardiovasculaires, certains cancers
-            hormonodépendants) peuvent en limiter l’usage.
+            {content.body2}
           </Text>
 
           <View style={styles.alert}>
@@ -246,25 +311,21 @@ export default function MenopauseTreatmentsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>À noter</Text>
+              <Text style={styles.tipTitle}>{content.alertTitle}</Text>
               <Text style={styles.tipText}>
-                Le rapport bénéfices/risques du THM dépend de ton âge, du
-                moment où il est débuté par rapport à la ménopause, et de
-                tes antécédents personnels : un bilan médical individualisé
-                est nécessaire avant toute décision.
+                {content.alertText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>3. Les approches non hormonales</Text>
+          <Text style={styles.h2}>3. {content.topics[2]}</Text>
 
           <Text style={styles.body}>
-            Lorsque le THM n’est pas souhaité ou pas adapté, d’autres pistes
-            existent pour soulager les symptômes :
+            {content.body3}
           </Text>
 
           <View style={styles.checkList}>
-            {NON_HORMONAL.map(item => (
+            {content.nonHormonal.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -285,24 +346,21 @@ export default function MenopauseTreatmentsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip1Title}</Text>
               <Text style={styles.tipText}>
-                Même la phytothérapie mérite un avis professionnel : « naturel »
-                ne signifie pas « sans interaction possible » avec d’autres
-                traitements.
+                {content.tip1Text}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.h2}>4. En parler avec un professionnel</Text>
+          <Text style={styles.h2}>4. {content.topics[3]}</Text>
 
           <Text style={styles.body}>
-            Préparer quelques points avant un rendez-vous aide à profiter
-            pleinement de la discussion :
+            {content.body4}
           </Text>
 
           <View style={styles.checkList}>
-            {DISCUSS_POINTS.map(item => (
+            {content.discussPoints.map(item => (
               <View key={item} style={styles.checkRow}>
                 <MaterialDesignIcons
                   name="check-circle-outline"
@@ -315,7 +373,7 @@ export default function MenopauseTreatmentsArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.h2}>5. À retenir</Text>
+          <Text style={styles.h2}>5. {content.topics[4]}</Text>
 
           <View style={styles.tip}>
             <MaterialDesignIcons
@@ -325,11 +383,9 @@ export default function MenopauseTreatmentsArticleScreen({
             />
 
             <View style={styles.tipCopy}>
-              <Text style={styles.tipTitle}>Bon à savoir</Text>
+              <Text style={styles.tipTitle}>{content.tip2Title}</Text>
               <Text style={styles.tipText}>
-                Hormonal ou non, aucun traitement n’est universel : celui
-                qui te convient dépend de ta situation personnelle, évaluée
-                avec un professionnel de santé.
+                {content.tip2Text}
               </Text>
             </View>
           </View>

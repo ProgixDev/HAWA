@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -30,75 +31,151 @@ const ID = 'flow-comprendre-flux';
 const HERO = require('../../assets/images/library/rules-hero.png');
 const PROCESS = require('../../assets/images/library/rules-process.png');
 
+// Images/icons stay language-neutral — only TEXT moves into the bilingual
+// CONTENT object below, keyed by index to stay aligned with these entries.
 const TIPS = [
-  {
-    image: require('../../assets/images/library/tip-water.png'),
-    text: 'Bois suffisamment\nd’eau pour limiter\nla fatigue.',
-  },
-  {
-    image: require('../../assets/images/library/tip-heat.png'),
-    text: 'Applique de la\nchaleur sur le bas-\nventre si besoin.',
-  },
-  {
-    image: require('../../assets/images/library/tip-movement.png'),
-    text: 'Pratique une activité\ndouce : marche,\nyoga, étirements.',
-  },
-  {
-    image: require('../../assets/images/library/tip-sleep.png'),
-    text: 'Accorde-toi du\nrepos et un sommeil\nde qualité.',
-  },
+  {image: require('../../assets/images/library/tip-water.png')},
+  {image: require('../../assets/images/library/tip-heat.png')},
+  {image: require('../../assets/images/library/tip-movement.png')},
+  {image: require('../../assets/images/library/tip-sleep.png')},
 ] as const;
 
 const FLOW_STEPS = [
-  {
-    number: '01',
-    title: 'Début des règles',
-    text: 'Le flux est souvent plus important pendant les premiers jours.',
-    icon: 'water',
-  },
-  {
-    number: '02',
-    title: 'Milieu des règles',
-    text: 'Le flux commence généralement à diminuer progressivement.',
-    icon: 'calendar-clock-outline',
-  },
-  {
-    number: '03',
-    title: 'Fin des règles',
-    text: 'Le flux devient plus léger et peut prendre une couleur plus foncée.',
-    icon: 'weather-sunset-down',
-  },
+  {number: '01', icon: 'water'},
+  {number: '02', icon: 'calendar-clock-outline'},
+  {number: '03', icon: 'weather-sunset-down'},
 ] as const;
 
 const NORMAL_SIGNS = [
-  {
-    icon: 'calendar-range',
-    title: 'Durée',
-    text: 'Des règles qui durent généralement quelques jours.',
-  },
-  {
-    icon: 'water-outline',
-    title: 'Flux variable',
-    text: 'Un flux plus abondant au début puis plus léger.',
-  },
-  {
-    icon: 'palette-outline',
-    title: 'Couleur',
-    text: 'Du rouge vif au rouge foncé ou brun en fin de règles.',
-  },
-  {
-    icon: 'heart-pulse',
-    title: 'Sensations',
-    text: 'Des crampes légères à modérées peuvent être ressenties.',
-  },
+  {icon: 'calendar-range'},
+  {icon: 'water-outline'},
+  {icon: 'palette-outline'},
+  {icon: 'heart-pulse'},
 ] as const;
 
-const WARNING_SIGNS = [
-  'Douleurs très intenses ou inhabituelles',
-  'Saignements qui imbibent une protection très rapidement',
-  'Fatigue importante, malaise ou vertiges',
-  'Changement brutal et persistant par rapport à tes habitudes',
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badge: 'CYCLE MENSTRUEL',
+    title: 'Comprendre les règles :\nce qui se passe vraiment',
+    metaDuration: '5 min de lecture',
+    metaValidated: 'Contenu validé',
+    intro:
+      'Les règles font partie d’un processus naturel essentiel à la santé hormonale et reproductive féminine. Comprendre ce qui se passe dans ton corps peut t’aider à mieux vivre chaque cycle.',
+    contentsTitle: 'Dans cet article',
+    topics: [
+      'Qu’est-ce que les règles ?',
+      'Le déroulement des règles',
+      'Ce qui est normal (et ce qui ne l’est pas)',
+      'Soulager les douleurs naturellement',
+    ],
+    body1:
+      'Les règles correspondent à l’élimination de la muqueuse utérine lorsqu’il n’y a pas de fécondation. Ce phénomène se produit en moyenne une fois par mois.',
+    knowTitle: 'Bon à savoir',
+    knowText:
+      'Chaque femme est unique : la durée, l’intensité et les sensations peuvent varier d’un cycle à l’autre.',
+    body2:
+      'Le flux n’est pas identique pendant toute la période. Il évolue généralement au fil des jours et peut changer en intensité, en couleur et en texture.',
+    flowSteps: [
+      {title: 'Début des règles', text: 'Le flux est souvent plus important pendant les premiers jours.'},
+      {title: 'Milieu des règles', text: 'Le flux commence généralement à diminuer progressivement.'},
+      {title: 'Fin des règles', text: 'Le flux devient plus léger et peut prendre une couleur plus foncée.'},
+    ],
+    softInfoTitle: 'À retenir',
+    softInfoText:
+      'Le déroulement peut varier d’un cycle à l’autre. Ce qui compte surtout est de connaître ton propre rythme habituel.',
+    body3:
+      'Certaines variations sont fréquentes pendant les règles. D’autres signes méritent davantage d’attention, surtout lorsqu’ils sont nouveaux ou très intenses.',
+    normalSigns: [
+      {title: 'Durée', text: 'Des règles qui durent généralement quelques jours.'},
+      {title: 'Flux variable', text: 'Un flux plus abondant au début puis plus léger.'},
+      {title: 'Couleur', text: 'Du rouge vif au rouge foncé ou brun en fin de règles.'},
+      {title: 'Sensations', text: 'Des crampes légères à modérées peuvent être ressenties.'},
+    ],
+    warningTitle: 'Quand demander un avis médical ?',
+    warningSigns: [
+      'Douleurs très intenses ou inhabituelles',
+      'Saignements qui imbibent une protection très rapidement',
+      'Fatigue importante, malaise ou vertiges',
+      'Changement brutal et persistant par rapport à tes habitudes',
+    ],
+    body4:
+      'Des gestes simples peuvent aider à réduire l’inconfort et à mieux vivre les premiers jours des règles.',
+    tipsTitle: 'Conseils pratiques',
+    tips: [
+      'Bois suffisamment\nd’eau pour limiter\nla fatigue.',
+      'Applique de la\nchaleur sur le bas-\nventre si besoin.',
+      'Pratique une activité\ndouce : marche,\nyoga, étirements.',
+      'Accorde-toi du\nrepos et un sommeil\nde qualité.',
+    ],
+    reliefTitle: 'Écoute ton corps',
+    reliefText:
+      'Le repos, la chaleur et une activité douce peuvent être utiles. Si la douleur reste très forte ou inhabituelle, demande un avis médical.',
+    shareMessage: 'Comprendre les règles : ce qui se passe vraiment — AWA',
+  },
+  en: {
+    badge: 'MENSTRUAL CYCLE',
+    title: 'Understanding your period:\nwhat’s really happening',
+    metaDuration: '5 min read',
+    metaValidated: 'Reviewed content',
+    intro:
+      'Your period is part of a natural process that’s essential to hormonal and reproductive health. Understanding what’s happening in your body can help you feel more at ease with each cycle.',
+    contentsTitle: 'In this article',
+    topics: [
+      'What is a period?',
+      'How your period unfolds',
+      'What’s normal (and what isn’t)',
+      'Relieving pain naturally',
+    ],
+    body1:
+      'A period is the shedding of the uterine lining when no fertilization has occurred. This happens on average once a month.',
+    knowTitle: 'Good to know',
+    knowText:
+      'Every woman is unique: duration, intensity, and sensations can vary from one cycle to the next.',
+    body2:
+      'Flow isn’t the same throughout your period. It usually changes from day to day, in intensity, color, and texture.',
+    flowSteps: [
+      {title: 'Start of your period', text: 'Flow is often heavier during the first few days.'},
+      {title: 'Middle of your period', text: 'Flow generally starts to gradually decrease.'},
+      {title: 'End of your period', text: 'Flow becomes lighter and may take on a darker color.'},
+    ],
+    softInfoTitle: 'Keep in mind',
+    softInfoText:
+      'This can vary from one cycle to another. What matters most is knowing your own usual rhythm.',
+    body3:
+      'Some variations are common during your period. Other signs deserve more attention, especially when they’re new or very intense.',
+    normalSigns: [
+      {title: 'Duration', text: 'A period that usually lasts a few days.'},
+      {title: 'Varying flow', text: 'Heavier flow at first, then lighter.'},
+      {title: 'Color', text: 'From bright red to dark red or brown toward the end of your period.'},
+      {title: 'Sensations', text: 'Mild to moderate cramps may be felt.'},
+    ],
+    warningTitle: 'When to seek medical advice?',
+    warningSigns: [
+      'Very intense or unusual pain',
+      'Bleeding that soaks through a pad or tampon very quickly',
+      'Significant fatigue, feeling faint, or dizziness',
+      'A sudden and persistent change from your usual pattern',
+    ],
+    body4:
+      'Simple habits can help ease discomfort and make the first days of your period more comfortable.',
+    tipsTitle: 'Practical tips',
+    tips: [
+      'Drink enough\nwater to help\nlimit fatigue.',
+      'Apply heat\nto your lower\nabdomen if needed.',
+      'Try a gentle\nactivity: walking,\nyoga, stretching.',
+      'Give yourself\nrest and good-\nquality sleep.',
+    ],
+    reliefTitle: 'Listen to your body',
+    reliefText:
+      'Rest, heat, and gentle activity can help. If the pain remains very intense or unusual, seek medical advice.',
+    shareMessage: 'Understanding your period: what’s really happening — AWA',
+  },
+} as const;
 
 type Props = NativeStackScreenProps<
   RootStackParamList,
@@ -108,6 +185,9 @@ type Props = NativeStackScreenProps<
 export default function UnderstandMenstrualFlowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -136,8 +216,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
   const handleShare = () => {
     Share.share({
-      message:
-        'Comprendre les règles : ce qui se passe vraiment — AWA',
+      message: content.shareMessage,
     });
   };
 
@@ -182,7 +261,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               onPress={navigation.goBack}
               style={({pressed}) => [
                 styles.circle,
@@ -198,7 +277,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
             <View style={styles.actions}>
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Ajouter aux favoris"
+                accessibilityLabel={t('library.screen.addBookmark')}
                 onPress={handleBookmark}
                 style={({pressed}) => [
                   styles.circle,
@@ -217,7 +296,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 onPress={handleShare}
                 style={({pressed}) => [
                   styles.circle,
@@ -235,29 +314,18 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
         <View style={styles.article}>
           <View style={styles.badge}>
-            <Text style={styles.badgeText}>
-              CYCLE MENSTRUEL
-            </Text>
+            <Text style={styles.badgeText}>{content.badge}</Text>
           </View>
 
-          <Text style={styles.title}>
-            Comprendre les règles :{`\n`}
-            ce qui se passe vraiment
-          </Text>
+          <Text style={styles.title}>{content.title}</Text>
 
           <View style={styles.metas}>
             {[
-              [
-                'clock-outline',
-                '5 min de lecture',
-              ],
-              [
-                'shield-check-outline',
-                'Contenu validé',
-              ],
+              ['clock-outline', content.metaDuration],
+              ['shield-check-outline', content.metaValidated],
             ].map(([icon, text]) => (
               <View
-                key={text}
+                key={icon}
                 style={styles.meta}>
                 <MaterialDesignIcons
                   name={icon as never}
@@ -272,25 +340,14 @@ export default function UnderstandMenstrualFlowArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.intro}>
-            Les règles font partie d’un processus
-            naturel essentiel à la santé hormonale
-            et reproductive féminine. Comprendre ce
-            qui se passe dans ton corps peut t’aider
-            à mieux vivre chaque cycle.
-          </Text>
+          <Text style={styles.intro}>{content.intro}</Text>
 
           <View style={styles.contents}>
             <Text style={styles.contentsTitle}>
-              Dans cet article
+              {content.contentsTitle}
             </Text>
 
-            {[
-              'Qu’est-ce que les règles ?',
-              'Le déroulement des règles',
-              'Ce qui est normal (et ce qui ne l’est pas)',
-              'Soulager les douleurs naturellement',
-            ].map((item, index) => (
+            {content.topics.map((item, index) => (
               <View
                 key={item}
                 style={styles.contentRow}>
@@ -311,16 +368,9 @@ export default function UnderstandMenstrualFlowArticleScreen({
             ))}
           </View>
 
-          <Text style={styles.sectionTitle}>
-            1. Qu’est-ce que les règles ?
-          </Text>
+          <Text style={styles.sectionTitle}>1. {content.topics[0]}</Text>
 
-          <Text style={styles.body}>
-            Les règles correspondent à l’élimination
-            de la muqueuse utérine lorsqu’il n’y a
-            pas de fécondation. Ce phénomène se
-            produit en moyenne une fois par mois.
-          </Text>
+          <Text style={styles.body}>{content.body1}</Text>
 
           <View style={styles.processCard}>
             <Image
@@ -339,60 +389,56 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
             <View style={styles.knowCopy}>
               <Text style={styles.knowTitle}>
-                Bon à savoir
+                {content.knowTitle}
               </Text>
 
               <Text style={styles.knowText}>
-                Chaque femme est unique : la durée,
-                l’intensité et les sensations peuvent
-                varier d’un cycle à l’autre.
+                {content.knowText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.sectionTitle}>
-            2. Le déroulement des règles
-          </Text>
+          <Text style={styles.sectionTitle}>2. {content.topics[1]}</Text>
 
-          <Text style={styles.body}>
-            Le flux n’est pas identique pendant toute la période.
-            Il évolue généralement au fil des jours et peut changer
-            en intensité, en couleur et en texture.
-          </Text>
+          <Text style={styles.body}>{content.body2}</Text>
 
           <View style={styles.timelineCard}>
-            {FLOW_STEPS.map((step, index) => (
-              <View
-                key={step.title}
-                style={[
-                  styles.timelineRow,
-                  index < FLOW_STEPS.length - 1 &&
-                    styles.timelineDivider,
-                ]}>
-                <View style={styles.timelineNumber}>
-                  <Text style={styles.timelineNumberText}>
-                    {step.number}
-                  </Text>
-                </View>
+            {FLOW_STEPS.map((step, index) => {
+              const stepContent = content.flowSteps[index];
 
-                <View style={styles.timelineIcon}>
-                  <MaterialDesignIcons
-                    name={step.icon as never}
-                    size={20}
-                    color={theme.colors.primary}
-                  />
-                </View>
+              return (
+                <View
+                  key={step.number}
+                  style={[
+                    styles.timelineRow,
+                    index < FLOW_STEPS.length - 1 &&
+                      styles.timelineDivider,
+                  ]}>
+                  <View style={styles.timelineNumber}>
+                    <Text style={styles.timelineNumberText}>
+                      {step.number}
+                    </Text>
+                  </View>
 
-                <View style={styles.timelineCopy}>
-                  <Text style={styles.timelineTitle}>
-                    {step.title}
-                  </Text>
-                  <Text style={styles.timelineText}>
-                    {step.text}
-                  </Text>
+                  <View style={styles.timelineIcon}>
+                    <MaterialDesignIcons
+                      name={step.icon as never}
+                      size={20}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <View style={styles.timelineCopy}>
+                    <Text style={styles.timelineTitle}>
+                      {stepContent.title}
+                    </Text>
+                    <Text style={styles.timelineText}>
+                      {stepContent.text}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           <View style={styles.softInfo}>
@@ -404,48 +450,44 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
             <View style={styles.softInfoCopy}>
               <Text style={styles.softInfoTitle}>
-                À retenir
+                {content.softInfoTitle}
               </Text>
               <Text style={styles.softInfoText}>
-                Le déroulement peut varier d’un cycle à l’autre.
-                Ce qui compte surtout est de connaître ton propre
-                rythme habituel.
+                {content.softInfoText}
               </Text>
             </View>
           </View>
 
-          <Text style={styles.sectionTitle}>
-            3. Ce qui est normal (et ce qui ne l’est pas)
-          </Text>
+          <Text style={styles.sectionTitle}>3. {content.topics[2]}</Text>
 
-          <Text style={styles.body}>
-            Certaines variations sont fréquentes pendant les règles.
-            D’autres signes méritent davantage d’attention, surtout
-            lorsqu’ils sont nouveaux ou très intenses.
-          </Text>
+          <Text style={styles.body}>{content.body3}</Text>
 
           <View style={styles.normalGrid}>
-            {NORMAL_SIGNS.map(item => (
-              <View
-                key={item.title}
-                style={styles.normalCard}>
-                <View style={styles.normalIcon}>
-                  <MaterialDesignIcons
-                    name={item.icon as never}
-                    size={22}
-                    color={theme.colors.primary}
-                  />
+            {NORMAL_SIGNS.map((item, index) => {
+              const signContent = content.normalSigns[index];
+
+              return (
+                <View
+                  key={item.icon}
+                  style={styles.normalCard}>
+                  <View style={styles.normalIcon}>
+                    <MaterialDesignIcons
+                      name={item.icon as never}
+                      size={22}
+                      color={theme.colors.primary}
+                    />
+                  </View>
+
+                  <Text style={styles.normalTitle}>
+                    {signContent.title}
+                  </Text>
+
+                  <Text style={styles.normalText}>
+                    {signContent.text}
+                  </Text>
                 </View>
-
-                <Text style={styles.normalTitle}>
-                  {item.title}
-                </Text>
-
-                <Text style={styles.normalText}>
-                  {item.text}
-                </Text>
-              </View>
-            ))}
+              );
+            })}
           </View>
 
           <View style={styles.warningCard}>
@@ -459,12 +501,12 @@ export default function UnderstandMenstrualFlowArticleScreen({
               </View>
 
               <Text style={styles.warningTitle}>
-                Quand demander un avis médical ?
+                {content.warningTitle}
               </Text>
             </View>
 
             <View style={styles.warningList}>
-              {WARNING_SIGNS.map(item => (
+              {content.warningSigns.map(item => (
                 <View
                   key={item}
                   style={styles.warningRow}>
@@ -477,14 +519,9 @@ export default function UnderstandMenstrualFlowArticleScreen({
             </View>
           </View>
 
-          <Text style={styles.sectionTitle}>
-            4. Soulager les douleurs naturellement
-          </Text>
+          <Text style={styles.sectionTitle}>4. {content.topics[3]}</Text>
 
-          <Text style={styles.body}>
-            Des gestes simples peuvent aider à réduire l’inconfort
-            et à mieux vivre les premiers jours des règles.
-          </Text>
+          <Text style={styles.body}>{content.body4}</Text>
 
           <View style={styles.tipsCard}>
             <View style={styles.tipsTitleRow}>
@@ -495,14 +532,14 @@ export default function UnderstandMenstrualFlowArticleScreen({
               />
 
               <Text style={styles.tipsTitle}>
-                Conseils pratiques
+                {content.tipsTitle}
               </Text>
             </View>
 
             <View style={styles.tipsRow}>
               {TIPS.map((tip, index) => (
                 <View
-                  key={tip.text}
+                  key={index}
                   style={[
                     styles.tip,
                     index > 0 &&
@@ -514,7 +551,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
                   />
 
                   <Text style={styles.tipText}>
-                    {tip.text}
+                    {content.tips[index]}
                   </Text>
                 </View>
               ))}
@@ -530,12 +567,10 @@ export default function UnderstandMenstrualFlowArticleScreen({
 
             <View style={styles.reliefCopy}>
               <Text style={styles.reliefTitle}>
-                Écoute ton corps
+                {content.reliefTitle}
               </Text>
               <Text style={styles.reliefText}>
-                Le repos, la chaleur et une activité douce peuvent
-                être utiles. Si la douleur reste très forte ou
-                inhabituelle, demande un avis médical.
+                {content.reliefText}
               </Text>
             </View>
           </View>

@@ -1,4 +1,5 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
+import {useTranslation} from 'react-i18next';
 import {
   Image,
   Pressable,
@@ -43,74 +44,276 @@ const HERO = require('../../assets/images/library/rules-hero.png');
 /*                                    DATA                                    */
 /* -------------------------------------------------------------------------- */
 
-const META_ITEMS = [
-  ['clock-outline', '10 min de lecture'],
-  ['book-open-page-variant-outline', 'Article'],
-  ['chart-bar', 'Débutant'],
-  ['shield-check-outline', 'Contenu validé'],
+// Icons stay language-neutral — only TEXT moves into the bilingual CONTENT
+// object below, keyed by index to stay aligned with these icons.
+const META_ICONS = [
+  'clock-outline',
+  'book-open-page-variant-outline',
+  'chart-bar',
+  'shield-check-outline',
 ] as const;
 
-const CONTENTS = [
-  'Comprendre le baby blues',
-  'Les signes les plus fréquents',
-  'Ce qui aide au quotidien',
-  'Baby blues ou dépression post-partum ?',
-  'Quand demander de l’aide',
-  'À retenir',
+const SIGN_ICONS = [
+  'emoticon-sad-outline',
+  'heart-outline',
+  'weather-cloudy',
+  'sleep',
 ] as const;
 
-const COMMON_SIGNS = [
-  [
-    'emoticon-sad-outline',
-    'Émotivité',
-    'Pleurer plus facilement ou se sentir particulièrement sensible.',
-  ],
-  [
-    'heart-outline',
-    'Hypersensibilité',
-    'Les émotions peuvent sembler plus fortes et changer rapidement.',
-  ],
-  [
-    'weather-cloudy',
-    'Variations d’humeur',
-    'Un sentiment de fragilité peut alterner avec des moments de bien-être.',
-  ],
-  [
-    'sleep',
-    'Fatigue',
-    'La fatigue des premiers jours peut amplifier les émotions.',
-  ],
+const SUPPORT_ICONS = [
+  'sleep',
+  'account-group-outline',
+  'cup-water',
+  'food-apple-outline',
 ] as const;
 
-const DAILY_SUPPORT = [
-  [
-    'sleep',
-    'Se reposer',
-    'Profiter des moments disponibles pour récupérer.',
-  ],
-  [
-    'account-group-outline',
-    'Accepter de l’aide',
-    'Ne pas hésiter à demander du soutien autour de soi.',
-  ],
-  [
-    'cup-water',
-    'Boire régulièrement',
-    'Garder une hydratation suffisante au cours de la journée.',
-  ],
-  [
-    'food-apple-outline',
-    'Manger suffisamment',
-    'Privilégier des repas réguliers et simples.',
-  ],
-] as const;
-
-const ATTENTION_SIGNS = [
-  'Les symptômes durent plus de deux semaines.',
-  'La tristesse ou l’angoisse devient plus intense.',
-  'Il devient difficile de s’occuper de soi ou du bébé.',
-  'Un sentiment de détresse important apparaît.',
-] as const;
+// PHASE 7L — bilingual editorial content. Article identity (ID, images,
+// bookmark/progress keys, JSX structure) is untouched; only this object
+// changes per language. The French text below is byte-identical to the
+// original — never retyped, only moved into the `fr` key — so the app
+// remains fully bilingual rather than having French replaced by English.
+const CONTENT = {
+  fr: {
+    badgeText: 'POST-PARTUM • SANTÉ ÉMOTIONNELLE',
+    title: 'Baby blues et santé\némotionnelle post-partum',
+    subtitle:
+      'Comprendre ce qui peut changer émotionnellement après la naissance et savoir quand demander du soutien.',
+    metaItems: ['10 min de lecture', 'Article', 'Débutant', 'Contenu validé'],
+    introTitle: 'À savoir',
+    introText:
+      'Après une naissance, il est courant de traverser une période de grande sensibilité émotionnelle. Le baby blues est généralement temporaire, mais une souffrance qui persiste ou s’intensifie mérite une attention professionnelle.',
+    contentsEyebrow: 'GUIDE',
+    contentsTitle: 'Dans cet article',
+    contents: [
+      'Comprendre le baby blues',
+      'Les signes les plus fréquents',
+      'Ce qui aide au quotidien',
+      'Baby blues ou dépression post-partum ?',
+      'Quand demander de l’aide',
+      'À retenir',
+    ],
+    section1Kicker: 'COMPRENDRE',
+    section1Title: 'Qu’est-ce que le baby blues ?',
+    section1Body1:
+      'Le baby blues correspond à une période de changements émotionnels qui peut survenir dans les premiers jours après la naissance. Les variations hormonales, la fatigue, le manque de sommeil et l’adaptation à cette nouvelle étape peuvent contribuer à cette sensibilité.',
+    section1Body2:
+      'Ce n’est pas un échec et cela ne signifie pas que l’on est une mauvaise mère. Chaque personne vit les premiers jours du post-partum à sa manière.',
+    statTitle: 'Un phénomène fréquent',
+    statText:
+      'Le baby blues est fréquent après l’accouchement et tend à s’améliorer spontanément en quelques jours.',
+    section2Kicker: 'LES SIGNES',
+    section2Title: 'Ce que l’on peut ressentir',
+    section2Body:
+      'Les manifestations sont variables. Certaines personnes ressentent surtout de la fatigue et de la sensibilité, tandis que d’autres peuvent avoir des changements d’humeur plus marqués.',
+    commonSigns: [
+      {
+        title: 'Émotivité',
+        description:
+          'Pleurer plus facilement ou se sentir particulièrement sensible.',
+      },
+      {
+        title: 'Hypersensibilité',
+        description:
+          'Les émotions peuvent sembler plus fortes et changer rapidement.',
+      },
+      {
+        title: 'Variations d’humeur',
+        description:
+          'Un sentiment de fragilité peut alterner avec des moments de bien-être.',
+      },
+      {
+        title: 'Fatigue',
+        description: 'La fatigue des premiers jours peut amplifier les émotions.',
+      },
+    ],
+    section3Kicker: 'QUOTIDIEN',
+    section3Title: 'Ce qui peut aider',
+    section3Body:
+      'Pendant cette période, les besoins de récupération sont importants. De petites choses simples peuvent rendre les journées plus confortables.',
+    dailySupport: [
+      {
+        title: 'Se reposer',
+        description: 'Profiter des moments disponibles pour récupérer.',
+      },
+      {
+        title: 'Accepter de l’aide',
+        description: 'Ne pas hésiter à demander du soutien autour de soi.',
+      },
+      {
+        title: 'Boire régulièrement',
+        description: 'Garder une hydratation suffisante au cours de la journée.',
+      },
+      {
+        title: 'Manger suffisamment',
+        description: 'Privilégier des repas réguliers et simples.',
+      },
+    ],
+    quoteText:
+      '« Demander de l’aide pendant le post-partum est une façon de prendre soin de soi et de son bébé. »',
+    section4Kicker: 'DIFFÉRENCIER',
+    section4Title: 'Baby blues ou dépression post-partum ?',
+    section4Body:
+      'Le baby blues est généralement bref et s’améliore progressivement. Une dépression post-partum est différente : elle peut être plus persistante, plus intense et avoir un impact important sur le quotidien.',
+    compareTitle: 'Deux situations à distinguer',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Souvent bref, avec une amélioration progressive au fil des jours.',
+    comparePostpartumTitle: 'Dépression post-partum',
+    comparePostpartumText:
+      'Peut durer davantage, s’intensifier et nécessiter un accompagnement professionnel.',
+    section5Kicker: 'VIGILANCE',
+    section5Title: 'Quand demander de l’aide ?',
+    section5Body:
+      'Il est important de parler à un professionnel de santé si la souffrance émotionnelle ne s’améliore pas, devient plus intense ou commence à compliquer le quotidien.',
+    attentionTitle: 'Signaux à surveiller',
+    attentionSubtitle: 'Parlez-en à un professionnel si…',
+    attentionSigns: [
+      'Les symptômes durent plus de deux semaines.',
+      'La tristesse ou l’angoisse devient plus intense.',
+      'Il devient difficile de s’occuper de soi ou du bébé.',
+      'Un sentiment de détresse important apparaît.',
+    ],
+    professionalTitle: 'Un accompagnement est possible',
+    professionalText:
+      'Une sage-femme, un médecin, un psychologue ou un autre professionnel de santé peut écouter, évaluer la situation et proposer un accompagnement adapté.',
+    tipTitle: 'Bon à savoir',
+    tipText:
+      'Les émotions du post-partum ne sont pas une mesure de la qualité de ton rôle de mère. Tu as le droit d’avoir besoin de repos, d’écoute et de soutien.',
+    section6Kicker: 'ESSENTIEL',
+    section6Title: 'À retenir',
+    takeaways: [
+      'Le baby blues est fréquent après une naissance.',
+      'La fatigue et les changements hormonaux peuvent influencer l’humeur.',
+      'Le soutien de l’entourage peut faciliter cette période.',
+      'Une souffrance persistante ou importante mérite une évaluation professionnelle.',
+    ],
+    disclaimerText:
+      'Cet article a une vocation informative et ne remplace pas un avis médical personnalisé. En cas de doute ou de souffrance importante, adresse-toi à un professionnel de santé.',
+    endText: 'Prendre soin de soi fait aussi partie du post-partum.',
+    shareTitle: 'Baby blues et santé émotionnelle post-partum',
+    shareMessage:
+      'Baby blues et santé émotionnelle post-partum — AWA\n\nUn guide pour comprendre les changements émotionnels fréquents après la naissance.',
+  },
+  en: {
+    badgeText: 'POSTPARTUM • EMOTIONAL HEALTH',
+    title: 'Baby blues and postpartum\nemotional health',
+    subtitle:
+      'Understanding what can change emotionally after birth and knowing when to seek support.',
+    metaItems: ['10 min read', 'Article', 'Beginner', 'Reviewed content'],
+    introTitle: 'Good to know',
+    introText:
+      'After giving birth, it’s common to go through a period of heightened emotional sensitivity. The baby blues is usually temporary, but distress that persists or intensifies deserves professional attention.',
+    contentsEyebrow: 'GUIDE',
+    contentsTitle: 'In this article',
+    contents: [
+      'Understanding the baby blues',
+      'The most common signs',
+      'What helps day to day',
+      'Baby blues or postpartum depression?',
+      'When to ask for help',
+      'Key takeaways',
+    ],
+    section1Kicker: 'UNDERSTANDING',
+    section1Title: 'What is the baby blues?',
+    section1Body1:
+      'The baby blues is a period of emotional changes that can occur in the first few days after giving birth. Hormonal shifts, fatigue, lack of sleep, and adjusting to this new stage can all contribute to this sensitivity.',
+    section1Body2:
+      'This is not a failure and it does not mean you are a bad mother. Everyone experiences the first days of postpartum in their own way.',
+    statTitle: 'A common experience',
+    statText:
+      'The baby blues is common after childbirth and tends to improve on its own within a few days.',
+    section2Kicker: 'THE SIGNS',
+    section2Title: 'What you may feel',
+    section2Body:
+      'What people experience varies. Some mainly feel fatigue and sensitivity, while others may have more noticeable mood changes.',
+    commonSigns: [
+      {
+        title: 'Emotionality',
+        description: 'Crying more easily or feeling particularly sensitive.',
+      },
+      {
+        title: 'Hypersensitivity',
+        description: 'Emotions can feel stronger and shift quickly.',
+      },
+      {
+        title: 'Mood swings',
+        description:
+          'A sense of fragility can alternate with moments of well-being.',
+      },
+      {
+        title: 'Fatigue',
+        description: 'Fatigue from the first days can amplify emotions.',
+      },
+    ],
+    section3Kicker: 'DAY TO DAY',
+    section3Title: 'What can help',
+    section3Body:
+      'During this period, the need for rest is significant. Small, simple things can make the days more comfortable.',
+    dailySupport: [
+      {
+        title: 'Resting',
+        description: 'Taking advantage of any free moments to recover.',
+      },
+      {
+        title: 'Accepting help',
+        description: 'Don’t hesitate to ask for support from those around you.',
+      },
+      {
+        title: 'Drinking regularly',
+        description: 'Staying sufficiently hydrated throughout the day.',
+      },
+      {
+        title: 'Eating enough',
+        description: 'Favoring regular, simple meals.',
+      },
+    ],
+    quoteText:
+      '“Asking for help during postpartum is a way of taking care of yourself and your baby.”',
+    section4Kicker: 'TELLING THEM APART',
+    section4Title: 'Baby blues or postpartum depression?',
+    section4Body:
+      'The baby blues is usually brief and improves gradually. Postpartum depression is different: it can be more persistent, more intense, and have a significant impact on daily life.',
+    compareTitle: 'Two situations to distinguish',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'Often brief, with gradual improvement over the following days.',
+    comparePostpartumTitle: 'Postpartum depression',
+    comparePostpartumText:
+      'Can last longer, intensify, and require professional support.',
+    section5Kicker: 'STAYING ALERT',
+    section5Title: 'When to ask for help?',
+    section5Body:
+      'It’s important to talk to a healthcare professional if the emotional distress doesn’t improve, becomes more intense, or starts to make daily life harder.',
+    attentionTitle: 'Warning signs to watch for',
+    attentionSubtitle: 'Talk to a professional if…',
+    attentionSigns: [
+      'Symptoms last more than two weeks.',
+      'Sadness or anxiety becomes more intense.',
+      'It becomes difficult to take care of yourself or your baby.',
+      'A significant feeling of distress appears.',
+    ],
+    professionalTitle: 'Support is available',
+    professionalText:
+      'A midwife, doctor, psychologist, or other healthcare professional can listen, assess the situation, and offer appropriate support.',
+    tipTitle: 'Good to know',
+    tipText:
+      'Postpartum emotions are not a measure of how good a mother you are. You have the right to need rest, to be listened to, and to be supported.',
+    section6Kicker: 'KEY POINTS',
+    section6Title: 'Key takeaways',
+    takeaways: [
+      'The baby blues is common after giving birth.',
+      'Fatigue and hormonal changes can affect mood.',
+      'Support from those around you can make this period easier.',
+      'Persistent or significant distress deserves a professional evaluation.',
+    ],
+    disclaimerText:
+      'This article is for informational purposes and does not replace personalized medical advice. If in doubt or experiencing significant distress, speak with a healthcare professional.',
+    endText: 'Taking care of yourself is also part of postpartum.',
+    shareTitle: 'Baby blues and postpartum emotional health',
+    shareMessage:
+      'Baby blues and postpartum emotional health — AWA\n\nA guide to understanding the emotional changes that are common after giving birth.',
+  },
+} as const;
 
 /* -------------------------------------------------------------------------- */
 /*                                   TYPES                                    */
@@ -125,6 +328,9 @@ type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
 export default function BabyBluesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
+  const {t, i18n} = useTranslation();
+  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -167,9 +373,8 @@ export default function BabyBluesArticleScreen({
   const handleShare = async () => {
     try {
       await Share.share({
-        title: 'Baby blues et santé émotionnelle post-partum',
-        message:
-          'Baby blues et santé émotionnelle post-partum — AWA\n\nUn guide pour comprendre les changements émotionnels fréquents après la naissance.',
+        title: content.shareTitle,
+        message: content.shareMessage,
       });
     } catch {
       // Le partage peut être annulé par l'utilisateur.
@@ -229,7 +434,7 @@ export default function BabyBluesArticleScreen({
             ]}>
             <Pressable
               accessibilityRole="button"
-              accessibilityLabel="Retour"
+              accessibilityLabel={t('library.reader.back')}
               hitSlop={8}
               onPress={() => navigation.goBack()}
               style={({pressed}) => [
@@ -247,9 +452,7 @@ export default function BabyBluesArticleScreen({
               <Pressable
                 accessibilityRole="button"
                 accessibilityLabel={
-                  saved
-                    ? 'Retirer des favoris'
-                    : 'Ajouter aux favoris'
+                  saved ? t('library.screen.removeBookmark') : t('library.screen.addBookmark')
                 }
                 hitSlop={8}
                 onPress={handleBookmark}
@@ -266,7 +469,7 @@ export default function BabyBluesArticleScreen({
 
               <Pressable
                 accessibilityRole="button"
-                accessibilityLabel="Partager"
+                accessibilityLabel={t('libraryArticle.shareA11y')}
                 hitSlop={8}
                 onPress={handleShare}
                 style={({pressed}) => [
@@ -301,22 +504,20 @@ export default function BabyBluesArticleScreen({
             />
 
             <Text style={styles.badgeText}>
-              POST-PARTUM • SANTÉ ÉMOTIONNELLE
+              {content.badgeText}
             </Text>
           </View>
 
           {/* TITLE */}
 
           <Text style={styles.title}>
-            Baby blues et santé{`\n`}
-            émotionnelle post-partum
+            {content.title}
           </Text>
 
           {/* SUBTITLE */}
 
           <Text style={styles.subtitle}>
-            Comprendre ce qui peut changer émotionnellement après
-            la naissance et savoir quand demander du soutien.
+            {content.subtitle}
           </Text>
 
           {/* ================================================================= */}
@@ -324,23 +525,27 @@ export default function BabyBluesArticleScreen({
           {/* ================================================================= */}
 
           <View style={styles.metas}>
-            {META_ITEMS.map(([icon, text], index) => (
-              <React.Fragment key={text}>
-                {index > 0 && <View style={styles.metaDivider} />}
+            {META_ICONS.map((icon, index) => {
+              const text = content.metaItems[index];
 
-                <View style={styles.metaItem}>
-                  <MaterialDesignIcons
-                    name={icon as never}
-                    color={theme.colors.textMuted}
-                    size={16}
-                  />
+              return (
+                <React.Fragment key={text}>
+                  {index > 0 && <View style={styles.metaDivider} />}
 
-                  <Text style={styles.meta}>
-                    {text}
-                  </Text>
-                </View>
-              </React.Fragment>
-            ))}
+                  <View style={styles.metaItem}>
+                    <MaterialDesignIcons
+                      name={icon as never}
+                      color={theme.colors.textMuted}
+                      size={16}
+                    />
+
+                    <Text style={styles.meta}>
+                      {text}
+                    </Text>
+                  </View>
+                </React.Fragment>
+              );
+            })}
           </View>
 
           {/* ================================================================= */}
@@ -358,15 +563,11 @@ export default function BabyBluesArticleScreen({
 
             <View style={styles.introCopy}>
               <Text style={styles.introTitle}>
-                À savoir
+                {content.introTitle}
               </Text>
 
               <Text style={styles.introText}>
-                Après une naissance, il est courant de traverser
-                une période de grande sensibilité émotionnelle.
-                Le baby blues est généralement temporaire, mais une
-                souffrance qui persiste ou s’intensifie mérite une
-                attention professionnelle.
+                {content.introText}
               </Text>
             </View>
           </View>
@@ -379,27 +580,27 @@ export default function BabyBluesArticleScreen({
             <View style={styles.contentsHeader}>
               <View>
                 <Text style={styles.contentsEyebrow}>
-                  GUIDE
+                  {content.contentsEyebrow}
                 </Text>
 
                 <Text style={styles.contentsTitle}>
-                  Dans cet article
+                  {content.contentsTitle}
                 </Text>
               </View>
 
               <View style={styles.contentsCount}>
                 <Text style={styles.contentsCountText}>
-                  {String(CONTENTS.length).padStart(2, '0')}
+                  {String(content.contents.length).padStart(2, '0')}
                 </Text>
               </View>
             </View>
 
-            {CONTENTS.map((item, index) => (
+            {content.contents.map((item, index) => (
               <View
                 key={item}
                 style={[
                   styles.contentRow,
-                  index === CONTENTS.length - 1 &&
+                  index === content.contents.length - 1 &&
                     styles.contentRowLast,
                 ]}>
                 <View style={styles.contentLeft}>
@@ -430,22 +631,16 @@ export default function BabyBluesArticleScreen({
           <SectionHeading
             styles={styles}
             number="01"
-            kicker="COMPRENDRE"
-            title="Qu’est-ce que le baby blues ?"
+            kicker={content.section1Kicker}
+            title={content.section1Title}
           />
 
           <Text style={styles.body}>
-            Le baby blues correspond à une période de changements
-            émotionnels qui peut survenir dans les premiers jours
-            après la naissance. Les variations hormonales, la
-            fatigue, le manque de sommeil et l’adaptation à cette
-            nouvelle étape peuvent contribuer à cette sensibilité.
+            {content.section1Body1}
           </Text>
 
           <Text style={styles.body}>
-            Ce n’est pas un échec et cela ne signifie pas que l’on
-            est une mauvaise mère. Chaque personne vit les premiers
-            jours du post-partum à sa manière.
+            {content.section1Body2}
           </Text>
 
           {/* STAT CARD */}
@@ -461,12 +656,11 @@ export default function BabyBluesArticleScreen({
 
             <View style={styles.statCopy}>
               <Text style={styles.statTitle}>
-                Un phénomène fréquent
+                {content.statTitle}
               </Text>
 
               <Text style={styles.statText}>
-                Le baby blues est fréquent après l’accouchement et
-                tend à s’améliorer spontanément en quelques jours.
+                {content.statText}
               </Text>
             </View>
           </View>
@@ -478,42 +672,43 @@ export default function BabyBluesArticleScreen({
           <SectionHeading
             styles={styles}
             number="02"
-            kicker="LES SIGNES"
-            title="Ce que l’on peut ressentir"
+            kicker={content.section2Kicker}
+            title={content.section2Title}
           />
 
           <Text style={styles.body}>
-            Les manifestations sont variables. Certaines personnes
-            ressentent surtout de la fatigue et de la sensibilité,
-            tandis que d’autres peuvent avoir des changements
-            d’humeur plus marqués.
+            {content.section2Body}
           </Text>
 
           {/* SIGNS GRID */}
 
           <View style={styles.signGrid}>
-            {COMMON_SIGNS.map(
-              ([icon, title, description]) => (
-                <View
-                  key={title}
-                  style={styles.signCard}>
-                  <View style={styles.signIcon}>
-                    <MaterialDesignIcons
-                      name={icon as never}
-                      size={21}
-                      color={theme.colors.primary}
-                    />
+            {SIGN_ICONS.map(
+              (icon, index) => {
+                const {title, description} = content.commonSigns[index];
+
+                return (
+                  <View
+                    key={title}
+                    style={styles.signCard}>
+                    <View style={styles.signIcon}>
+                      <MaterialDesignIcons
+                        name={icon as never}
+                        size={21}
+                        color={theme.colors.primary}
+                      />
+                    </View>
+
+                    <Text style={styles.signTitle}>
+                      {title}
+                    </Text>
+
+                    <Text style={styles.signDescription}>
+                      {description}
+                    </Text>
                   </View>
-
-                  <Text style={styles.signTitle}>
-                    {title}
-                  </Text>
-
-                  <Text style={styles.signDescription}>
-                    {description}
-                  </Text>
-                </View>
-              ),
+                );
+              },
             )}
           </View>
 
@@ -524,49 +719,51 @@ export default function BabyBluesArticleScreen({
           <SectionHeading
             styles={styles}
             number="03"
-            kicker="QUOTIDIEN"
-            title="Ce qui peut aider"
+            kicker={content.section3Kicker}
+            title={content.section3Title}
           />
 
           <Text style={styles.body}>
-            Pendant cette période, les besoins de récupération sont
-            importants. De petites choses simples peuvent rendre
-            les journées plus confortables.
+            {content.section3Body}
           </Text>
 
           {/* SUPPORT LIST */}
 
           <View style={styles.supportList}>
-            {DAILY_SUPPORT.map(
-              ([icon, title, description], index) => (
-                <View
-                  key={title}
-                  style={styles.supportRow}>
-                  <View style={styles.supportIcon}>
-                    <MaterialDesignIcons
-                      name={icon as never}
-                      size={21}
-                      color={theme.colors.success}
-                    />
-                  </View>
+            {SUPPORT_ICONS.map(
+              (icon, index) => {
+                const {title, description} = content.dailySupport[index];
 
-                  <View style={styles.supportCopy}>
-                    <Text style={styles.supportTitle}>
-                      {title}
-                    </Text>
+                return (
+                  <View
+                    key={title}
+                    style={styles.supportRow}>
+                    <View style={styles.supportIcon}>
+                      <MaterialDesignIcons
+                        name={icon as never}
+                        size={21}
+                        color={theme.colors.success}
+                      />
+                    </View>
 
-                    <Text style={styles.supportDescription}>
-                      {description}
-                    </Text>
-                  </View>
+                    <View style={styles.supportCopy}>
+                      <Text style={styles.supportTitle}>
+                        {title}
+                      </Text>
 
-                  <View style={styles.supportNumber}>
-                    <Text style={styles.supportNumberText}>
-                      {index + 1}
-                    </Text>
+                      <Text style={styles.supportDescription}>
+                        {description}
+                      </Text>
+                    </View>
+
+                    <View style={styles.supportNumber}>
+                      <Text style={styles.supportNumberText}>
+                        {index + 1}
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ),
+                );
+              },
             )}
           </View>
 
@@ -582,8 +779,7 @@ export default function BabyBluesArticleScreen({
             </View>
 
             <Text style={styles.quoteText}>
-              « Demander de l’aide pendant le post-partum est une
-              façon de prendre soin de soi et de son bébé. »
+              {content.quoteText}
             </Text>
           </View>
 
@@ -594,15 +790,12 @@ export default function BabyBluesArticleScreen({
           <SectionHeading
             styles={styles}
             number="04"
-            kicker="DIFFÉRENCIER"
-            title="Baby blues ou dépression post-partum ?"
+            kicker={content.section4Kicker}
+            title={content.section4Title}
           />
 
           <Text style={styles.body}>
-            Le baby blues est généralement bref et s’améliore
-            progressivement. Une dépression post-partum est
-            différente : elle peut être plus persistante, plus
-            intense et avoir un impact important sur le quotidien.
+            {content.section4Body}
           </Text>
 
           {/* COMPARISON */}
@@ -618,7 +811,7 @@ export default function BabyBluesArticleScreen({
               </View>
 
               <Text style={styles.compareTitle}>
-                Deux situations à distinguer
+                {content.compareTitle}
               </Text>
             </View>
 
@@ -627,12 +820,11 @@ export default function BabyBluesArticleScreen({
 
               <View style={styles.compareCopy}>
                 <Text style={styles.compareItemTitle}>
-                  Baby blues
+                  {content.compareBabyBluesTitle}
                 </Text>
 
                 <Text style={styles.compareItemText}>
-                  Souvent bref, avec une amélioration progressive au
-                  fil des jours.
+                  {content.compareBabyBluesText}
                 </Text>
               </View>
             </View>
@@ -644,12 +836,11 @@ export default function BabyBluesArticleScreen({
 
               <View style={styles.compareCopy}>
                 <Text style={styles.compareItemTitle}>
-                  Dépression post-partum
+                  {content.comparePostpartumTitle}
                 </Text>
 
                 <Text style={styles.compareItemText}>
-                  Peut durer davantage, s’intensifier et nécessiter
-                  un accompagnement professionnel.
+                  {content.comparePostpartumText}
                 </Text>
               </View>
             </View>
@@ -662,14 +853,12 @@ export default function BabyBluesArticleScreen({
           <SectionHeading
             styles={styles}
             number="05"
-            kicker="VIGILANCE"
-            title="Quand demander de l’aide ?"
+            kicker={content.section5Kicker}
+            title={content.section5Title}
           />
 
           <Text style={styles.body}>
-            Il est important de parler à un professionnel de santé
-            si la souffrance émotionnelle ne s’améliore pas, devient
-            plus intense ou commence à compliquer le quotidien.
+            {content.section5Body}
           </Text>
 
           {/* ATTENTION CARD */}
@@ -686,16 +875,16 @@ export default function BabyBluesArticleScreen({
 
               <View style={styles.attentionHeaderCopy}>
                 <Text style={styles.attentionTitle}>
-                  Signaux à surveiller
+                  {content.attentionTitle}
                 </Text>
 
                 <Text style={styles.attentionSubtitle}>
-                  Parlez-en à un professionnel si…
+                  {content.attentionSubtitle}
                 </Text>
               </View>
             </View>
 
-            {ATTENTION_SIGNS.map((item, index) => (
+            {content.attentionSigns.map((item, index) => (
               <View
                 key={item}
                 style={styles.attentionRow}>
@@ -727,13 +916,11 @@ export default function BabyBluesArticleScreen({
 
             <View style={styles.professionalCopy}>
               <Text style={styles.professionalTitle}>
-                Un accompagnement est possible
+                {content.professionalTitle}
               </Text>
 
               <Text style={styles.professionalText}>
-                Une sage-femme, un médecin, un psychologue ou un
-                autre professionnel de santé peut écouter, évaluer
-                la situation et proposer un accompagnement adapté.
+                {content.professionalText}
               </Text>
             </View>
           </View>
@@ -753,13 +940,11 @@ export default function BabyBluesArticleScreen({
 
             <View style={styles.tipCopy}>
               <Text style={styles.tipTitle}>
-                Bon à savoir
+                {content.tipTitle}
               </Text>
 
               <Text style={styles.tipText}>
-                Les émotions du post-partum ne sont pas une mesure
-                de la qualité de ton rôle de mère. Tu as le droit
-                d’avoir besoin de repos, d’écoute et de soutien.
+                {content.tipText}
               </Text>
             </View>
           </View>
@@ -771,23 +956,20 @@ export default function BabyBluesArticleScreen({
           <SectionHeading
             styles={styles}
             number="06"
-            kicker="ESSENTIEL"
-            title="À retenir"
+            kicker={content.section6Kicker}
+            title={content.section6Title}
           />
 
           <View style={styles.takeawayList}>
-            <Takeaway styles={styles} successColor={theme.colors.success} text="Le baby blues est fréquent après une naissance." />
-
-            <Takeaway styles={styles} successColor={theme.colors.success} text="La fatigue et les changements hormonaux peuvent influencer l’humeur." />
-
-            <Takeaway styles={styles} successColor={theme.colors.success} text="Le soutien de l’entourage peut faciliter cette période." />
-
-            <Takeaway
-              styles={styles}
-              successColor={theme.colors.success}
-              text="Une souffrance persistante ou importante mérite une évaluation professionnelle."
-              last
-            />
+            {content.takeaways.map((text, index) => (
+              <Takeaway
+                key={text}
+                styles={styles}
+                successColor={theme.colors.success}
+                text={text}
+                last={index === content.takeaways.length - 1}
+              />
+            ))}
           </View>
 
           {/* ================================================================= */}
@@ -802,10 +984,7 @@ export default function BabyBluesArticleScreen({
             />
 
             <Text style={styles.disclaimerText}>
-              Cet article a une vocation informative et ne remplace
-              pas un avis médical personnalisé. En cas de doute ou
-              de souffrance importante, adresse-toi à un professionnel
-              de santé.
+              {content.disclaimerText}
             </Text>
           </View>
 
@@ -828,7 +1007,7 @@ export default function BabyBluesArticleScreen({
           </View>
 
           <Text style={styles.endText}>
-            Prendre soin de soi fait aussi partie du post-partum.
+            {content.endText}
           </Text>
         </View>
       </ScrollView>
