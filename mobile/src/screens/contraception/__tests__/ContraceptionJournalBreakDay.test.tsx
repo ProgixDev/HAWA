@@ -17,6 +17,8 @@ import {
 } from '../../../state/contraceptionIntakeHistoryStore';
 import {getContraceptionEventsForDate} from '../../../state/contraceptionEventStore';
 import {addDays} from '../../../utils/cycleMath';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const INTAKE_KEY = '@hawa/contraception-intake-history/v1';
 
@@ -115,6 +117,12 @@ const pressEverything = async (renderer: ReactTestRenderer.ReactTestRenderer) =>
 beforeEach(async () => {
   await hydrateContraceptionIntakeHistory();
   await deleteContraceptionIntakeRecord(todayKey());
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's radio-label assertions ('Effectuée', 'En retard', 'Oubliée',
+  // 'Anneau inséré', etc.) were written against the French default. Pinning
+  // French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(async () => {

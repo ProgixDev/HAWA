@@ -94,7 +94,6 @@ import {
 import {getPillPackDay, isPillBreakDay} from '../../utils/contraceptionMath';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
-import {getAppLanguage} from '../../state/themePreferences';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {filterRecordsForHistoryAccess} from '../../utils/historyAccess';
 
@@ -109,6 +108,7 @@ import {useContraceptionSpiritualStatus} from '../../hooks/usePrayerPurityStatus
 import {
   formatFullDate,
   formatHijriDate,
+  dateFormatLocale,
 } from '../../utils/cycleMath';
 import '../../i18n';
 
@@ -165,7 +165,7 @@ const formatRecordTime = (
     return '—';
   }
 
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  return new Intl.DateTimeFormat(dateFormatLocale(), {
     hour: '2-digit',
     minute: '2-digit',
     hour12: false,
@@ -949,7 +949,7 @@ function ContraceptionDashboard({
 
       return {
         dateKey,
-        weekday: new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+        weekday: new Intl.DateTimeFormat(dateFormatLocale(), {
           weekday: 'short',
         })
           .format(date)

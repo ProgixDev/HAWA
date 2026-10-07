@@ -20,7 +20,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {
   getContraceptionPreferences,
   setContraceptionPreferences,
@@ -38,7 +38,7 @@ import '../../i18n';
 // (not exported) since it's pure UI display formatting, exactly like that
 // screen's own un-exported helpers.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);

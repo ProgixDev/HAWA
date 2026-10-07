@@ -16,6 +16,8 @@ import {
   saveContraceptionJournalField,
 } from '../../../state/contraceptionJournalStore';
 import {lockIntimacy, unlockIntimacy} from '../../../state/privateSectionAuthStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const STORAGE_KEY = '@hawa/contraception-journal/v1';
 
@@ -91,6 +93,8 @@ const GOOD = 'Nausées';
 const OTHER = 'Fatigue';
 
 beforeEach(async () => {
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await setContraceptionPreferences({method: 'pill'});
   await hydrateContraceptionJournal();
   await clearContraceptionJournalField(todayKey(), 'feelings');
