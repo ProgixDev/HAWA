@@ -5,6 +5,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import AnonymousAvatarCustomizerScreen from '../AnonymousAvatarCustomizerScreen';
 import {getHasCompletedOnboarding, setHasCompletedOnboarding} from '../../state/onboardingPreferences';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // Phase 2 — persistent onboarding completion. This screen's `enterApp()` is
 // THE single real write boundary (see onboardingPreferences.ts's section
@@ -39,6 +41,12 @@ async function renderScreen(source: 'auth' | undefined, navigation: {replace: je
 
 beforeEach(async () => {
   await setHasCompletedOnboarding(false);
+  // This file's button lookups key off French accessibility labels
+  // ("Enregistrer et continuer", "Plus tard", "Enregistrer les modifications")
+  // — pin French explicitly now that English, not French, is the app's
+  // default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
