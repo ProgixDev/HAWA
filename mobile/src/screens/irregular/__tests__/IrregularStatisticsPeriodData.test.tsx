@@ -12,6 +12,8 @@ import {setIrregularPreferences} from '../../../state/irregularPreferences';
 import {saveIrregularJournalEntry} from '../../../state/irregularJournalStore';
 import {saveJournalSection} from '../../../state/dailyJournalStore';
 import {addDays} from '../../../utils/cycleMath';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // SOPK Statistics used to read ONLY confirmedPeriodHistory (a period
 // with a confirmed END — an explicit "Mes règles sont terminées" step the SOPK
@@ -65,11 +67,18 @@ async function recordPeriodDay(offsetDays: number) {
   await saveIrregularJournalEntry(date, 'period', 'Oui · Modérée', {status: 'yes', flowIntensity: 'Modérée'});
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   // Pinned to mid-afternoon: statistics window entries at noon of their day, so a
   // real-clock run before 12:00 would not yet see today's entries.
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 25, 15, 0, 0)});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's assertions ('Pas encore assez de cycles enregistrés', 'DURÉE
+  // OBSERVÉE DE TES CYCLES', 'Basé sur 1 cycle enregistré') were written
+  // against the French default. Pinning French here preserves every test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

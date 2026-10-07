@@ -13,6 +13,8 @@ import {
   saveIrregularFatigueEntry,
   saveIrregularJournalField,
 } from '../../../state/irregularJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M23 — an explicit "Aucune" answer is an ANSWER (the selected-day card still
 // shows it) but never a symptom occurrence: no Calendar marker, not counted in
@@ -78,8 +80,16 @@ const todayCellLabel = (renderer: ReactTestRenderer.ReactTestRenderer): string =
 const hasText = (renderer: ReactTestRenderer.ReactTestRenderer, value: string) =>
   renderer.root.findAllByType(Text).some(node => textOf(node) === value);
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's UI-text assertions ("Jours avec ...", "suivi enregistré") were
+  // written against the French default. Pinning French explicitly here
+  // preserves every test's original intent. The stored field values
+  // ('Aucune', 'Légère', ...) are raw data keys (see journalOptionLabels.ts),
+  // not display text, so they are unaffected by and unrelated to this.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

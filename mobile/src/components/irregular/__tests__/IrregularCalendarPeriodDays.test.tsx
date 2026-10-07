@@ -12,6 +12,8 @@ import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {saveIrregularJournalEntry} from '../../../state/irregularJournalStore';
 import {deleteJournalSection, saveJournalSection} from '../../../state/dailyJournalStore';
 import type {FlowIntensity} from '../../../types/journal';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // The SOPK calendar must tell apart "Non", "Spotting" and an ACTUAL period.
 // "Non" and "Spotting" are both stored with flow.intensity 'none' — a non-empty
@@ -100,8 +102,14 @@ async function answerToday(status: 'yes' | 'no' | 'spotting', level = 'Modérée
   );
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's UI-text assertions ("Règles", "Jours de règles", "Non", "Spotting",
+  // "Moyen", "suivi enregistré") were written against the French default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(async () => {

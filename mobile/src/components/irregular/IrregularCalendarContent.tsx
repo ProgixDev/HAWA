@@ -25,7 +25,6 @@ import {useToday} from '../../hooks/useToday';
 import {rollSelectedDate, rollVisibleMonth} from '../../utils/dayRollover';
 import {HawaPremiumBottomSheet} from '../premium/HawaPremiumBottomSheet';
 import {isMonthWithinHistoryAccess} from '../../utils/historyAccess';
-import {getAppLanguage} from '../../state/themePreferences';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 import {getAllJournalEntries} from '../../state/dailyJournalStore';
@@ -51,6 +50,7 @@ import {
   formatHijriMonthYear,
   sameDay,
   localizedWeekDays,
+  dateFormatLocale,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {computeIrregularMonthlySummary, computeVisibleDayMarkers} from '../../utils/irregularCalendarMath';
@@ -236,7 +236,7 @@ function IrregularCalendarContent(): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const {open: openJournal} = useJournalSheet();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const locale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const locale = dateFormatLocale();
 
   const flowLabels = useMemo(() => flowLabelsFor(t), [t]);
   const categoryLabel = useMemo(() => categoryLabelFor(t), [t]);

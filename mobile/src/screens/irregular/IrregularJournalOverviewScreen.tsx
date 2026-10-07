@@ -25,10 +25,9 @@ import {
   withAlpha,
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
-import {capitalize} from '../../utils/cycleMath';
+import {capitalize, dateFormatLocale} from '../../utils/cycleMath';
 import type {DailyJournalEntry, FlowIntensity} from '../../types/journal';
 import {getJournalEntry} from '../../state/dailyJournalStore';
-import {getAppLanguage} from '../../state/themePreferences';
 import {
   getIrregularJournalEntry,
   hydrateIrregularJournal,
@@ -129,7 +128,7 @@ function IrregularJournalOverviewScreen(): React.JSX.Element {
   const progressRatio = progress.total > 0 ? progress.completed / progress.total : 0;
 
   const dateLabel = useMemo(
-    () => capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}).format(today)),
+    () => capitalize(new Intl.DateTimeFormat(dateFormatLocale(), {weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'}).format(today)),
     [today],
   );
 
