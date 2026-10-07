@@ -7,7 +7,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 import CustomBottomTabBar from '../CustomBottomTabBar';
 
@@ -89,6 +90,13 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — the
+  // "Ajouter" accessibility-label assertion below was written against the
+  // French default. Pinning French here preserves that test's original
+  // intent. (The separate static-source guard for 'Accueil'/'Calendrier'/
+  // etc. is unrelated — see the standalone report for that one.)
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -133,10 +141,12 @@ describe('CustomBottomTabBar — static guard', () => {
     expect(source).toMatch(/height:\s*58/);
     expect(source).toMatch(/borderRadius:\s*34/);
     expect(source).toMatch(/marginHorizontal:\s*10/);
-    expect(source).toContain("label: 'Accueil'");
-    expect(source).toContain("label: 'Calendrier'");
-    expect(source).toContain("label: 'Statistiques'");
-    expect(source).toContain("label: 'Profil'");
+    // Labels are i18n-driven (t('navigation.*')), not hardcoded French — this
+    // guard predates that refactor; updated to check the current real shape.
+    expect(source).toContain("label: t('navigation.home')");
+    expect(source).toContain("label: t('navigation.calendar')");
+    expect(source).toContain("label: t('navigation.statistics')");
+    expect(source).toContain("label: t('navigation.profile')");
   });
 });
 
