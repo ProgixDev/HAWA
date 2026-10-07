@@ -27,7 +27,7 @@ import {
   recordConfirmedPeriodEnd,
   removeConfirmedPeriodOccurrence,
 } from '../state/confirmedPeriodHistoryStore';
-import {startOfDay} from '../utils/cycleMath';
+import {startOfDay, dateFormatLocale} from '../utils/cycleMath';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
@@ -37,12 +37,19 @@ import '../i18n';
 
 const CALENDAR_ICON = require('../assets/images/cycle-calendar-icon.png');
 const CHEVRON_ICON = require('../assets/images/cycle-chevron-icon.png');
-// Single-letter weekday abbreviations — kept local to this screen, same
-// precedent as MonthCalendarCard.tsx's own localizedWeekDays() (the shared
-// cycleMath.ts WEEK_DAYS export stays French, used by 15+ out-of-scope
-// calendars).
+// Single-letter weekday abbreviations — kept local to this screen (a
+// different, more compact format than cycleMath.ts's own 3-letter
+// localizedWeekDays(), so not reused directly). Lunes/Martes/Miércoles
+// share the Spanish M-M collision the same way French's Mardi/Mercredi do.
 const WEEK_DAYS_FR = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
 const WEEK_DAYS_EN = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+const WEEK_DAYS_ES = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+const localizedSingleLetterWeekDays = (): string[] => {
+  const language = getAppLanguage();
+  if (language === 'en') {return WEEK_DAYS_EN;}
+  if (language === 'es') {return WEEK_DAYS_ES;}
+  return WEEK_DAYS_FR;
+};
 const PERIOD_DURATIONS = Array.from({length: 9}, (_, index) => index + 2);
 const CYCLE_DURATIONS = Array.from({length: 21}, (_, index) => index + 20);
 
@@ -53,7 +60,7 @@ type DatePickerTarget = 'start' | 'end' | null;
 type Props = NativeStackScreenProps<RootStackParamList, 'CycleInformation'>;
 
 const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -511,7 +518,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
                 <Text style={styles.calendarArrowText}>{'<'}</Text>
               </Pressable>
               <Text style={styles.calendarTitle}>
-                {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+                {new Intl.DateTimeFormat(dateFormatLocale(), {
                   month: 'long',
                   year: 'numeric',
                 }).format(visibleMonth)}
@@ -525,7 +532,7 @@ function CycleInformationScreen({navigation, route}: Props): React.JSX.Element {
               </Pressable>
             </View>
             <View style={styles.weekRow}>
-              {(getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR).map((day, index) => (
+              {localizedSingleLetterWeekDays().map((day, index) => (
                 <Text key={`${day}-${index}`} style={styles.weekDay}>{day}</Text>
               ))}
             </View>
