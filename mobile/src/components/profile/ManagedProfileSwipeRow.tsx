@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useRef} from 'react';
 import {Animated, PanResponder, Pressable, StyleSheet, Text, View} from 'react-native';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
+import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -63,6 +64,7 @@ export default function ManagedProfileSwipeRow({
   onDeletePress,
   deleteAccessibilityLabel,
 }: Props): React.JSX.Element {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const translateX = useRef(new Animated.Value(0)).current;
@@ -106,7 +108,7 @@ export default function ManagedProfileSwipeRow({
           onPress={onDeletePress}
           style={({pressed}) => [styles.deleteButton, pressed && styles.pressed]}>
           <MaterialDesignIcons color={pickReadableTextColor(theme.colors.danger)} name="trash-can-outline" size={21} />
-          <Text style={styles.deleteText}>Supprimer</Text>
+          <Text style={styles.deleteText}>{t('profile.managedProfiles.swipeDeleteLabel')}</Text>
         </Pressable>
       </View>
 

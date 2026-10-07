@@ -12,7 +12,7 @@ import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {getManagedProfileDraft, updateManagedProfileDraft, clearManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {addManagedProfile} from '../../state/managedProfilesStore';
 import type {CycleRegularity} from '../../state/onboardingPreferences';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 // Step 3/4 — "Informations sur son cycle" (ONLY reached when "Oui" was answered on
@@ -43,11 +43,21 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const draft = getManagedProfileDraft();
-  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const dateLocale = dateFormatLocale();
 
   const [lastPeriodDate, setLastPeriodDate] = useState<Date | null>(draft.lastPeriodDate);
   const [periodLength, setPeriodLength] = useState(draft.periodLength ?? DEFAULT_PERIOD_LENGTH);
   const [cycleLength, setCycleLength] = useState(draft.cycleLength ?? DEFAULT_CYCLE_LENGTH);
+  // The stepper must show a sensible starting value, but an untouched default
+  // must never be saved as if the mother had actually confirmed it (never
+  // fabricate a 28-day cycle / 5-day period — see CLAUDE.md §5). Each stepper
+  // only becomes "confirmed" once she actually presses + or -; an already-
+  // confirmed value from the draft (e.g. Back then forward with the SAME
+  // mounted flow) stays confirmed. periodLength/cycleLength are only ever
+  // written to the draft at submission time (see onCreate below), so a fresh
+  // mount of this screen always starts untouched, exactly as intended.
+  const [periodLengthTouched, setPeriodLengthTouched] = useState(draft.periodLength !== null);
+  const [cycleLengthTouched, setCycleLengthTouched] = useState(draft.cycleLength !== null);
   const [regularity, setRegularity] = useState<CycleRegularity>(draft.regularity ?? 'unknown');
   const [datePickerVisible, setDatePickerVisible] = useState(false);
   const [creating, setCreating] = useState(false);
@@ -58,15 +68,17 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
     if (!canContinue || creating || !lastPeriodDate || !draft.firstName || !draft.birthDate) {return;}
     setCreating(true);
     try {
-      updateManagedProfileDraft({lastPeriodDate, periodLength, cycleLength, regularity});
+      const confirmedPeriodLength = periodLengthTouched ? periodLength : null;
+      const confirmedCycleLength = cycleLengthTouched ? cycleLength : null;
+      updateManagedProfileDraft({lastPeriodDate, periodLength: confirmedPeriodLength, cycleLength: confirmedCycleLength, regularity});
       const profile = await addManagedProfile({
         type: 'daughter',
         firstName: draft.firstName,
         birthDate: draft.birthDate.toLocaleDateString('en-CA'),
         hasHadFirstPeriod: true,
         lastPeriodDate: lastPeriodDate.toLocaleDateString('en-CA'),
-        periodLength,
-        cycleLength,
+        periodLength: confirmedPeriodLength,
+        cycleLength: confirmedCycleLength,
         regularity,
         profileImageUri: draft.profileImageUri,
       });
@@ -108,7 +120,10 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
           <DurationStepper
             max={PERIOD_LENGTH_MAX}
             min={PERIOD_LENGTH_MIN}
-            onChange={setPeriodLength}
+            onChange={value => {
+              setPeriodLength(value);
+              setPeriodLengthTouched(true);
+            }}
             styles={styles}
             theme={theme}
             value={periodLength}
@@ -122,7 +137,10 @@ export default function ManagedProfileCycleSetupScreen({navigation}: Props): Rea
           <DurationStepper
             max={CYCLE_LENGTH_MAX}
             min={CYCLE_LENGTH_MIN}
-            onChange={setCycleLength}
+            onChange={value => {
+              setCycleLength(value);
+              setCycleLengthTouched(true);
+            }}
             styles={styles}
             theme={theme}
             value={cycleLength}

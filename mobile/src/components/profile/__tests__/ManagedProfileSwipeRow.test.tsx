@@ -4,6 +4,8 @@ import {Text} from 'react-native';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import ManagedProfileSwipeRow, {clampSwipeOffset, shouldClaimSwipeGesture, shouldRevealDelete} from '../ManagedProfileSwipeRow';
+import {resetAppLanguageForTests, setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // PanResponder's own touch-responder machinery (TouchHistoryMath) cannot be driven
 // faithfully from a plain Jest test without a real native touch-event stream — so the
@@ -90,5 +92,40 @@ describe('ManagedProfileSwipeRow — component behavior', () => {
   it('forceClosed renders without crashing and never triggers a delete by itself', () => {
     const {onDeletePress} = renderRow({forceClosed: true});
     expect(onDeletePress).not.toHaveBeenCalled();
+  });
+});
+
+// LOCALIZATION FIX — the visible "Supprimer" label was hardcoded regardless
+// of app language (the accessibilityLabel prop was already correctly
+// localized by the caller; only the VISIBLE text was missed). Now routed
+// through profile.managedProfiles.swipeDeleteLabel.
+describe('ManagedProfileSwipeRow — visible delete label follows the app language', () => {
+  afterEach(async () => {
+    await resetAppLanguageForTests();
+    await i18n.changeLanguage('en');
+  });
+
+  it.each([
+    ['fr', 'Supprimer'],
+    ['en', 'Delete'],
+    ['es', 'Eliminar'],
+  ] as const)('shows "%s" visible label in %s, never staying in another language', async (language, expectedLabel) => {
+    await setAppLanguage(language);
+    await i18n.changeLanguage(language);
+    let renderer!: ReactTestRenderer.ReactTestRenderer;
+    act(() => {
+      renderer = ReactTestRenderer.create(
+        <AwaThemeProvider>
+          <ManagedProfileSwipeRow
+            deleteAccessibilityLabel="Supprimer le profil de Lina"
+            forceClosed={false}
+            onDeletePress={jest.fn()}
+            onSwipeOpen={jest.fn()}>
+            <Text>Lina</Text>
+          </ManagedProfileSwipeRow>
+        </AwaThemeProvider>,
+      );
+    });
+    expect(renderer.root.findAllByType(Text).some(node => [node.props.children].flat(Infinity).join('') === expectedLabel)).toBe(true);
   });
 });
