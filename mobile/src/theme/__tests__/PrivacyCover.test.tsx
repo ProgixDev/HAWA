@@ -4,7 +4,8 @@ import ReactTestRenderer, {act} from 'react-test-renderer';
 import {AwaThemeProvider} from '../AwaThemeProvider';
 import {PrivacyCover} from '../PrivacyCover';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 function flattenStyle(style: unknown): Record<string, unknown> {
   return Object.assign({}, ...(Array.isArray(style) ? style : [style]).filter(Boolean));
@@ -30,6 +31,14 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PrivacyCover.tsx's accessibilityLabel comes from useTranslation()/t(), and
+  // nothing else in this render tree ever imports '../../i18n' — run
+  // standalone, react-i18next has no instance yet and t() falls back to the
+  // raw key ('privacyCover.a11y'), matching neither language's string.
+  // Explicitly initializing/pinning the language (English, the app's
+  // default since Phase 7M) makes the real translated label render.
+  await setAppLanguage('en');
+  await i18n.changeLanguage('en');
 });
 
 afterEach(() => {
@@ -41,13 +50,13 @@ afterEach(() => {
 describe('PrivacyCover — resolved global theme', () => {
   it('uses theme.colors.background in Light, not a fixed lavender', async () => {
     const renderer = await renderPrivacyCover();
-    const cover = renderer.root.findByProps({accessibilityLabel: 'AWA protégée'});
+    const cover = renderer.root.findByProps({accessibilityLabel: 'AWA protected'});
     expect(flattenStyle(cover.props.style).backgroundColor).toBe('#FCFAFF');
   });
 
   it('updates immediately to the dark surface when appearance mode changes, without remounting', async () => {
     const renderer = await renderPrivacyCover();
-    const cover = () => renderer.root.findByProps({accessibilityLabel: 'AWA protégée'});
+    const cover = () => renderer.root.findByProps({accessibilityLabel: 'AWA protected'});
     const lightBg = flattenStyle(cover().props.style).backgroundColor;
 
     await act(async () => {
@@ -64,7 +73,7 @@ describe('PrivacyCover — resolved global theme', () => {
       await setTrueBlackEnabled(true);
     });
     const renderer = await renderPrivacyCover();
-    const cover = renderer.root.findByProps({accessibilityLabel: 'AWA protégée'});
+    const cover = renderer.root.findByProps({accessibilityLabel: 'AWA protected'});
     expect(flattenStyle(cover.props.style).backgroundColor).toBe('#030304');
   });
 });
