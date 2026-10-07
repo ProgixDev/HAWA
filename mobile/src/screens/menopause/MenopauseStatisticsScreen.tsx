@@ -29,13 +29,12 @@ import {
   hydrateMenopausePreferences,
   subscribeMenopausePreferences,
 } from '../../state/menopausePreferences';
-import {getAppLanguage} from '../../state/themePreferences';
 import {getFloatingTabBarClearance, getTopPadding, spacing} from '../../theme/spacing';
 import type {MoodLevel} from '../../types/journal';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {endOfStatisticsDay} from '../../utils/cycleStatisticsMath';
-import {startOfDay} from '../../utils/cycleMath';
+import {dateFormatLocale, startOfDay} from '../../utils/cycleMath';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import {
   buildLabChartPoints,
@@ -69,7 +68,7 @@ function isPeriodFree(option: PeriodOption): boolean {
 function formatResultDate(dateKey: string): string {
   const parsed = new Date(`${dateKey}T12:00:00`);
   if (Number.isNaN(parsed.getTime())) {return dateKey;}
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'short'}).format(parsed);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'short'}).format(parsed);
 }
 
 function ProgressBar({ratio, color}: {ratio: number; color: string}): React.JSX.Element {

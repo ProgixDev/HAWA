@@ -14,6 +14,8 @@ import {
   setMenopauseTrackedSymptoms,
 } from '../../../state/menopausePreferences';
 import {addMenopauseLabResult, saveMenopauseJournalField} from '../../../state/menopauseJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // The Statistics screen stays mounted inside the tab navigator. It used to read
 // the journal stores once (useMemo on the period only), so data recorded on
@@ -82,6 +84,12 @@ beforeEach(async () => {
   await setMenopauseTrackedSymptoms(['hot_flashes']);
   await setMenopauseHormonalTreatmentStatus('track');
   await setMenopauseLabTracking('fsh');
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's assertions ('Bouffées de chaleur', 'Jours suivis', 'Traitement
+  // hormonal', etc.) were written against the French default. Pinning
+  // French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

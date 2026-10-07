@@ -27,15 +27,15 @@ describe('calculateSymptomMonthlyTrend — real per-symptom monthly day counts',
       entry('2026-07-01', {symptoms: ['fatigue']}),
     ];
     expect(calculateSymptomMonthlyTrend(entries, 'hot_flashes')).toEqual([
-      {monthKey: '2026-06', monthLabel: 'Juin 2026', count: 2},
-      {monthKey: '2026-07', monthLabel: 'Juillet 2026', count: 0},
+      {monthKey: '2026-06', monthLabel: 'June 2026', count: 2},
+      {monthKey: '2026-07', monthLabel: 'July 2026', count: 0},
     ]);
   });
 
   it('night_sweats: filters correctly within a real 1-month window', () => {
     const oneMonth = [entry('2026-08-10', {symptoms: ['night_sweats']})];
     expect(calculateSymptomMonthlyTrend(oneMonth, 'night_sweats')).toEqual([
-      {monthKey: '2026-08', monthLabel: 'Août 2026', count: 1},
+      {monthKey: '2026-08', monthLabel: 'August 2026', count: 1},
     ]);
   });
 
@@ -50,8 +50,8 @@ describe('calculateSymptomMonthlyTrend — real per-symptom monthly day counts',
   it('fatigue: filters correctly across a real 6-month window', () => {
     const sixMonths = [entry('2026-03-01', {symptoms: ['fatigue']}), entry('2026-08-01', {symptoms: []})];
     expect(calculateSymptomMonthlyTrend(sixMonths, 'fatigue')).toEqual([
-      {monthKey: '2026-03', monthLabel: 'Mars 2026', count: 1},
-      {monthKey: '2026-08', monthLabel: 'Août 2026', count: 0},
+      {monthKey: '2026-03', monthLabel: 'March 2026', count: 1},
+      {monthKey: '2026-08', monthLabel: 'August 2026', count: 0},
     ]);
   });
 
@@ -62,7 +62,7 @@ describe('calculateSymptomMonthlyTrend — real per-symptom monthly day counts',
 
   it('brain_fog: real data, never a fabricated field', () => {
     const entries = [entry('2026-08-01', {symptoms: ['brain_fog']}), entry('2026-08-02', {symptoms: []})];
-    expect(calculateSymptomMonthlyTrend(entries, 'brain_fog')).toEqual([{monthKey: '2026-08', monthLabel: 'Août 2026', count: 1}]);
+    expect(calculateSymptomMonthlyTrend(entries, 'brain_fog')).toEqual([{monthKey: '2026-08', monthLabel: 'August 2026', count: 1}]);
   });
 
   it('never fabricates a trend for zero real entries', () => {
@@ -78,7 +78,7 @@ describe('calculateSleepMonthlyTrend', () => {
       entry('2026-08-03', {}), // not recorded — excluded, never counted as 0h
     ];
     expect(calculateSleepMonthlyTrend(entries)).toEqual([
-      {monthKey: '2026-08', monthLabel: 'Août 2026', averageHours: 7, count: 2},
+      {monthKey: '2026-08', monthLabel: 'August 2026', averageHours: 7, count: 2},
     ]);
   });
 
@@ -117,7 +117,7 @@ describe('calculateMoodMonthlyTrend', () => {
       entry('2026-08-03', {mood: 'good'}),
     ];
     const result = calculateMoodMonthlyTrend(entries);
-    expect(result).toEqual([{monthKey: '2026-08', monthLabel: 'Août 2026', dominantMood: 'tired', dominantCount: 2, totalCount: 3}]);
+    expect(result).toEqual([{monthKey: '2026-08', monthLabel: 'August 2026', dominantMood: 'tired', dominantCount: 2, totalCount: 3}]);
   });
 
   it('omits months with no recorded mood', () => {

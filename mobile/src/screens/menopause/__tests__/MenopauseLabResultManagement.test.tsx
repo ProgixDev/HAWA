@@ -9,6 +9,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import MenopauseJournalEntryScreen from '../MenopauseJournalEntryScreen';
 import {setMenopauseLabTracking} from '../../../state/menopausePreferences';
 import {addMenopauseLabResult, getMenopauseLabResults} from '../../../state/menopauseJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M26 — existing lab results can be opened, edited and deleted (with a
 // confirmation) from the journal's "Résultats d'analyses" screen.
@@ -119,6 +121,8 @@ const findResult = (value: number) => getMenopauseLabResults('fsh').find(result 
 beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 25, 12, 0, 0)});
   alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await setMenopauseLabTracking('fsh');
 });
 

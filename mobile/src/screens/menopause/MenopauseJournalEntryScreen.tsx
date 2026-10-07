@@ -78,8 +78,8 @@ import {
   type MenopauseTreatmentStatus,
 } from '../../state/menopauseJournalStore';
 import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
-import {getAppLanguage} from '../../state/themePreferences';
 import type {MoodLevel} from '../../types/journal';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
@@ -155,7 +155,7 @@ function formatResultDate(dateKey: string): string {
   if (Number.isNaN(parsed.getTime())) {
     return dateKey;
   }
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  return new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -163,7 +163,7 @@ function formatResultDate(dateKey: string): string {
 }
 
 function todayLabel(): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  return new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
