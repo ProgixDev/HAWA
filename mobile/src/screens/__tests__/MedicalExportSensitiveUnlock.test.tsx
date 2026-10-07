@@ -13,6 +13,8 @@ import {isIntimacyUnlocked, lockIntimacy} from '../../state/privateSectionAuthSt
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {buildMedicalExport} from '../../services/medicalExportOrchestrator';
 import {purgeMedicalExportCache, shareExportFile} from '../../services/medicalExportShare';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M44 — exporting a sensitive (decrypted) category must first go through the
 // EXISTING private-section unlock (PIN screens / privateSectionAuthStore — the
@@ -126,11 +128,13 @@ const typePin = async (pin: string) => {
 const hasText = (text: string) =>
   renderer.root.findAll(node => node.type === Text && node.props.children === text).length > 0;
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   lockIntimacy();
   resetPremiumStateForTests();
   updatePremiumState({isPremium: true, initialized: true});
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   mockBuildMedicalExport.mockResolvedValue({kind: 'csv', content: 'date;categorie;valeur', fromKey: '2026-08-01', toKey: '2026-08-25'});
   mockShareExportFile.mockResolvedValue('shared');
 });

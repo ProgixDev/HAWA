@@ -8,16 +8,15 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
 
 import PrivateAccessScreen from '../PrivateAccessScreen';
 
 // Phase 7C migrated this screen to useTranslation() — i18next must be
-// initialized (side effect of importing the singleton) before it renders,
-// same requirement every other migrated-screen test already follows (see
-// LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
-// keys instead of the French default copy this file's assertions expect.
-import '../../i18n';
+// initialized before it renders, same requirement every other
+// migrated-screen test already follows (see
+// LocationScreenLanguageSwitch.test.tsx).
+import i18n from '../../i18n';
 
 // PrivateAccessScreen.tsx (Pregnancy "Info médicale" / Miscarriage "Notes
 // personnelles" private access — System B, distinct from the shared
@@ -161,6 +160,10 @@ describe.each(['pregnancyMedicalInformation', 'miscarriagePersonalNotes'] as con
     });
 
     it('the purpose-specific privacy line still renders', async () => {
+      // This assertion targets the French copy specifically; pin the
+      // language explicitly since the app default is now English.
+      await setAppLanguage('fr');
+      await i18n.changeLanguage('fr');
       const renderer = await renderScreen(purpose);
       const expectedLine = purpose === 'pregnancyMedicalInformation'
         ? 'Tes informations médicales personnelles sont protégées.'
