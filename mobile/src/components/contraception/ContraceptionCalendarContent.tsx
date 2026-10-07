@@ -68,7 +68,6 @@ import {
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
 
 import {
   formatFullDate,
@@ -77,6 +76,7 @@ import {
   formatHijriMonthYear,
   sameDay,
   localizedWeekDays,
+  dateFormatLocale,
 } from '../../utils/cycleMath';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {
@@ -410,7 +410,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
   const formatRecordTime = (recordedAt: string): string | null => {
     const parsed = new Date(recordedAt);
     if (Number.isNaN(parsed.getTime())) {return null;}
-    return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(parsed);
+    return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(parsed);
   };
 
   const intakeStatusLine = (() => {
@@ -470,7 +470,7 @@ function ContraceptionCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>

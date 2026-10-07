@@ -10,6 +10,8 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import ContraceptionDashboard from '../ContraceptionDashboard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
 import {setContraceptionPreferences} from '../../../state/contraceptionPreferences';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {
   getAllContraceptionIntakeRecords,
   setContraceptionIntakeStatus,
@@ -83,6 +85,8 @@ const unlockHint = (renderer: ReactTestRenderer.ReactTestRenderer) =>
 
 beforeEach(async () => {
   resetPremiumStateForTests();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   jest.useFakeTimers({advanceTimers: true, now: NOW});
   await setContraceptionPreferences({method: 'pill', remindersEnabled: false});
   await setContraceptionIntakeStatus(key(0), 'taken', 'pill');

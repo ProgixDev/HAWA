@@ -17,7 +17,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {
   getContraceptionPreferences,
@@ -33,7 +33,7 @@ const TREATMENT_BREAK_ICON: MaterialDesignIconName = 'clock-outline';
 type Props = NativeStackScreenProps<RootStackParamList, 'ContraceptionInformation'>;
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 // Local yyyy-mm-dd — never toISOString(), which is UTC-based and can shift
 // the calendar day near midnight (see CLAUDE.md's date-key convention).

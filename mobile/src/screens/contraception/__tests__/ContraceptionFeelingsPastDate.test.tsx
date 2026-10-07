@@ -10,6 +10,8 @@ import ContraceptionJournalEntryScreen from '../ContraceptionJournalEntryScreen'
 import {setContraceptionPreferences} from '../../../state/contraceptionPreferences';
 import {getContraceptionJournalEntry, hydrateContraceptionJournal} from '../../../state/contraceptionJournalStore';
 import {getContraceptionIntakeRecord} from '../../../state/contraceptionIntakeHistoryStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M21 (Contraception) - "Effets ressentis" (general tracking data) accepts an
 // explicit past day (from the Calendar selected day); today's behaviour is
@@ -70,6 +72,12 @@ beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
   await setContraceptionPreferences({method: 'pill'});
   await hydrateContraceptionJournal();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's assertions ('Aujourd’hui', 'Enregistrer', French date formatting)
+  // were written against the French default. Pinning French here preserves
+  // every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

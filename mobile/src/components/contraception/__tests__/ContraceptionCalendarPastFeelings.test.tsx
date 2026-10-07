@@ -9,6 +9,8 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import ContraceptionCalendarContent from '../ContraceptionCalendarContent';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {setContraceptionPreferences} from '../../../state/contraceptionPreferences';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M21 (Contraception) - the Calendar offers "Effets ressentis" for a PAST
 // selected day only (intake / ring-patch events / notes stay today-only).
@@ -77,6 +79,11 @@ beforeEach(async () => {
   navigateSpy.mockClear();
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
   await setContraceptionPreferences({method: 'pill', methodStartDate: '2026-09-01'});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's shortcut-label assertions were written against the French
+  // default. Pinning French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

@@ -42,9 +42,9 @@ import {
 import {
   getContraceptionPreferences,
 } from '../../state/contraceptionPreferences';
-import {getAppLanguage} from '../../state/themePreferences';
 import '../../i18n';
 import {getCyclicPillSchedule, isPillBreakDateKey} from '../../utils/contraceptionMath';
+import {dateFormatLocale} from '../../utils/cycleMath';
 
 import {
   getContraceptionIntakeRecord,
@@ -94,7 +94,7 @@ const DANGER = '#D96176';
 type Props = RouteProp<RootStackParamList, 'ContraceptionJournalEntry'>;
 
 function formatToday(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  return new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
