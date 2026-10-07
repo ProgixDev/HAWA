@@ -28,7 +28,7 @@ import {
 import { subscribeActiveProfileId } from '../../state/activeProfileStore';
 import { useAwaTheme } from '../../theme/AwaThemeProvider';
 import type { ResolvedAwaTheme } from '../../theme/awaThemeTokens';
-import { getAppLanguage } from '../../state/themePreferences';
+import { dateFormatLocale } from '../../utils/cycleMath';
 import i18n from '../../i18n';
 
 // PHASE C — every color here is decorative chrome (no health/tracking
@@ -47,7 +47,7 @@ const formatReceivedAt = (isoDate: string): string => {
   if (Number.isNaN(date.getTime())) {
     return '';
   }
-  const locale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const locale = dateFormatLocale();
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   const yesterday = new Date(today);

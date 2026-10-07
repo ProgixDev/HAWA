@@ -17,6 +17,8 @@ import {setMiscarriageDate} from '../../state/miscarriagePreferences';
 import {confirmDelivery} from '../../state/postpartumPreferences';
 import {saveJournalSection} from '../../state/dailyJournalStore';
 import {savePregnancySymptoms} from '../../state/pregnancyJournalStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 jest.mock('../../state/dailyJournalStore', () => ({
   ...jest.requireActual('../../state/dailyJournalStore'),
@@ -73,8 +75,10 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
 const kpiValue = (renderer: ReactTestRenderer.ReactTestRenderer, label: string): unknown =>
   renderer.root.findAll(node => node.props.label === label && node.props.value !== undefined)[0]?.props.value;
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   mockSaveJournalSection.mockClear();
   mockSavePregnancySymptoms.mockClear();
   appStateListener = undefined;
