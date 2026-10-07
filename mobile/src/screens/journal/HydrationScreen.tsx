@@ -34,8 +34,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {deleteJournalSection, getAllJournalEntries, saveJournalSection} from '../../state/dailyJournalStore';
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
-import {addDays} from '../../utils/cycleMath';
-import {getAppLanguage} from '../../state/themePreferences';
+import {addDays, localizedWeekDays, WEEK_DAYS} from '../../utils/cycleMath';
 import type {DailyJournalEntry} from '../../types/journal';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
@@ -46,12 +45,11 @@ const HYDRATION_ILLUSTRATION = require('../../assets/images/hydration-bottle.png
 const DEFAULT_GOAL = 8;
 const GLASS_ML = 250;
 const GOAL_OPTIONS = [6, 7, 8, 9, 10] as const;
-// DAY_LABELS stays the internal index-order reference (Monday-first, 7
-// entries) — never rendered directly; localizedDayLabels() below supplies the
-// DISPLAY text for the same 7 positions, in the active app language.
-const DAY_LABELS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'] as const;
-const DAY_LABELS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'] as const;
-const localizedDayLabels = () => (getAppLanguage() === 'en' ? DAY_LABELS_EN : DAY_LABELS);
+// WEEK_DAYS (cycleMath.ts) stays the internal index-order reference
+// (Monday-first, 7 entries) — never rendered directly; localizedWeekDays()
+// below supplies the DISPLAY text for the same 7 positions, in the active
+// app language (fr/en/es) — reused here instead of a 4th local duplicate of
+// this exact array (see Spanish calendar/date localization fix).
 
 type WeeklyHydrationDatum = {
   day: string;
@@ -78,7 +76,7 @@ function storedGlasses(hydration: DailyJournalEntry['hydration']): number | null
 /** Local 'YYYY-MM-DD' keys of the Monday-first week containing `date`. */
 function weekDateKeys(date: Date): string[] {
   const mondayOffset = (date.getDay() + 6) % 7;
-  return DAY_LABELS.map((_, index) => addDays(date, index - mondayOffset).toLocaleDateString('en-CA'));
+  return WEEK_DAYS.map((_, index) => addDays(date, index - mondayOffset).toLocaleDateString('en-CA'));
 }
 
 type WaterDropProps = {
@@ -198,10 +196,10 @@ export default function HydrationScreen(): React.JSX.Element {
   const [currentIntake, setCurrentIntake] = useState(0);
   // Glasses recorded for each day of the current week (Mon..Sun), read from
   // the shared daily journal — null = nothing recorded that day.
-  const [storedWeek, setStoredWeek] = useState<Array<number | null>>(() => DAY_LABELS.map(() => null));
+  const [storedWeek, setStoredWeek] = useState<Array<number | null>>(() => WEEK_DAYS.map(() => null));
   const weeklyHistory = useMemo<WeeklyHydrationDatum[]>(
     () =>
-      localizedDayLabels().map((day, index) => {
+      localizedWeekDays().map((day, index) => {
         if (index !== todayIndex) {
           return {day, glasses: storedWeek[index]};
         }

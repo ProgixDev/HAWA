@@ -34,7 +34,7 @@ import {deleteJournalSection, getJournalEntry, saveJournalSection} from '../../s
 import {ClearEntryButton} from '../../components/journal/ClearEntryButton';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import '../../i18n';
@@ -202,7 +202,7 @@ export default function JournalSleepScreen(): React.JSX.Element {
   // no valid menstrual cycle day - see journalCycleDayFor().
   const cycleDay = useJournalCycleDay(today);
 
-  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  const dateLabel = new Intl.DateTimeFormat(dateFormatLocale(), {
     weekday: 'long',
     day: 'numeric',
     month: 'long',

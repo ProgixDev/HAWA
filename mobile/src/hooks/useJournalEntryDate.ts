@@ -1,6 +1,6 @@
 import {useRoute} from '@react-navigation/native';
 
-import {getAppLanguage} from '../state/themePreferences';
+import {dateFormatLocale} from '../utils/cycleMath';
 
 // M21 - the day a shared journal entry screen reads from / writes to.
 // Today by default (unchanged behaviour); an explicit `date` route param
@@ -36,11 +36,10 @@ export function useJournalEntryDate(todayKey: string): JournalEntryDate {
   const entryDateKey = typeof requested === 'string' && isRealDateKey(requested) ? requested : todayKey;
   const isPastEntryDate = entryDateKey < todayKey;
   const isFutureEntryDate = entryDateKey > todayKey;
-  // Locale FORMAT only (never the date calculation itself) — same
-  // getAppLanguage()-driven convention as cycleMath.ts's internal
-  // dateFormatLocale().
+  // Locale FORMAT only (never the date calculation itself) — uses the
+  // shared, 3-way-correct dateFormatLocale() from cycleMath.ts.
   const dateLabel = entryDateKey === todayKey
     ? undefined
-    : new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date(`${entryDateKey}T12:00:00`));
+    : new Intl.DateTimeFormat(dateFormatLocale(), {weekday: 'long', day: 'numeric', month: 'long'}).format(new Date(`${entryDateKey}T12:00:00`));
   return {entryDateKey, isPastEntryDate, isFutureEntryDate, dateLabel};
 }

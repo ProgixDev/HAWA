@@ -35,11 +35,10 @@ import PeriodEndBottomSheet from '../../components/prayer/PeriodEndBottomSheet';
 import {getJournalEntry, saveJournalSection} from '../../state/dailyJournalStore';
 import {getCyclePreferences, getPeriodEndDateTime, hydratePeriodEndDateTime} from '../../state/onboardingPreferences';
 import type {FlowIntensity} from '../../types/journal';
-import {formatFullDate} from '../../utils/cycleMath';
+import {dateFormatLocale, formatFullDate} from '../../utils/cycleMath';
 import {useJournalCycleDay} from '../../hooks/useJournalCycleDay';
 import {isCurrentlyMenstruating} from '../../utils/menstruationStatus';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
 import {interpolateHex, onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
 
@@ -187,7 +186,7 @@ export default function MenstrualFlowScreen(): React.JSX.Element {
   const periodStartLabel = useMemo(() => {
     const start = cyclePreferences.lastPeriodStart;
     const hasTime = start.getHours() !== 0 || start.getMinutes() !== 0;
-    const timeLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(start);
+    const timeLabel = new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(start);
     return hasTime ? t('journalMenstrualFlow.dateAtTime', {date: formatFullDate(start), time: timeLabel}) : formatFullDate(start);
   }, [cyclePreferences, t]);
 

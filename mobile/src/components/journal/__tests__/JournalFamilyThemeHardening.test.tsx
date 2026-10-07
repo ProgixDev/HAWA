@@ -9,7 +9,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 import JournalMoodScreen from '../../../screens/journal/JournalMoodScreen';
 import MenstrualFlowScreen from '../../../screens/journal/MenstrualFlowScreen';
@@ -92,6 +93,12 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — the
+  // "save payload is identical across a theme switch" describe block's
+  // assertions look up buttons/rows by their French accessibility labels.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

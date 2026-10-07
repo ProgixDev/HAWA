@@ -82,12 +82,17 @@ afterEach(() => {
 });
 
 describe('JournalMoodScreen — localization', () => {
-  it('renders in French by default', async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // test originally asserted French without ever selecting a language,
+  // which was correct under the old French default. Flipped to assert the
+  // now-correct English default; French-when-selected remains covered by
+  // Phase7HJournalLanguageSwitch.test.tsx.
+  it('renders in English by default', async () => {
     const texts = allTexts(await renderScreen(<JournalMoodScreen />));
-    expect(texts).toContain('Humeur');
-    expect(texts).toContain('Humeur principale');
-    expect(texts).toContain('Niveaux du jour');
-    expect(texts).toContain('Enregistrer');
+    expect(texts).toContain('Mood');
+    expect(texts).toContain('Main mood');
+    expect(texts).toContain('Today’s levels');
+    expect(texts).toContain('Save');
   });
 
   it('renders in English when the app language is English', async () => {
@@ -136,11 +141,15 @@ describe('JournalActivityScreen — localization (chrome AND activity/intensity/
 });
 
 describe('JournalSleepScreen — localization (chrome AND quality/feeling display translate, PHASE 7H)', () => {
-  it('renders in French by default', async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // test originally asserted French without ever selecting a language,
+  // which was correct under the old French default. Flipped to assert the
+  // now-correct English default; French-when-selected remains covered below.
+  it('renders in English by default', async () => {
     const texts = allTexts(await renderScreen(<JournalSleepScreen />));
-    expect(texts).toContain('Sommeil');
-    expect(texts).toContain('Heures de sommeil');
-    expect(texts).toContain('Qualité du sommeil');
+    expect(texts).toContain('Sleep');
+    expect(texts).toContain('Sleep hours');
+    expect(texts).toContain('Sleep quality');
   });
 
   it('renders chrome and the quality/feeling display labels in English; the French originals are gone from the rendered text', async () => {
@@ -158,11 +167,15 @@ describe('JournalSleepScreen — localization (chrome AND quality/feeling displa
 });
 
 describe('HydrationScreen — localization', () => {
-  it('renders in French by default', async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // test originally asserted French without ever selecting a language,
+  // which was correct under the old French default. Flipped to assert the
+  // now-correct English default; French-when-selected remains covered below.
+  it('renders in English by default', async () => {
     const texts = allTexts(await renderScreen(<HydrationScreen />));
-    expect(texts).toContain('Hydratation');
-    expect(texts).toContain('Objectif quotidien');
-    expect(texts).toContain('Historique');
+    expect(texts).toContain('Hydration');
+    expect(texts).toContain('Daily goal');
+    expect(texts).toContain('History');
   });
 
   it('renders in English when the app language is English', async () => {
@@ -173,6 +186,24 @@ describe('HydrationScreen — localization', () => {
     expect(texts).toContain('History');
     expect(texts.some(text => /^\d+ glasses?$/.test(text))).toBe(true);
     expect(texts).not.toContain('Hydratation');
+  });
+
+  // SPANISH CALENDAR / DATE LOCALIZATION FIX — the weekly chart's weekday
+  // abbreviations used to have no Spanish array at all (a local duplicate of
+  // cycleMath.ts's WEEK_DAYS/WEEK_DAYS_EN with no _ES variant), so Spanish
+  // users saw French day letters. Now reuses the shared localizedWeekDays().
+  it('shows Spanish weekday abbreviations in the weekly chart, never French', async () => {
+    await setAppLanguage('es');
+    const texts = allTexts(await renderScreen(<HydrationScreen />));
+    expect(texts).toContain('Mié'); // Spanish Wednesday — distinct from French 'Mer'
+    expect(texts).not.toContain('Mer');
+  });
+
+  it('shows French weekday abbreviations when the app language is French', async () => {
+    await setAppLanguage('fr');
+    const texts = allTexts(await renderScreen(<HydrationScreen />));
+    expect(texts).toContain('Mer');
+    expect(texts).not.toContain('Mié');
   });
 });
 
@@ -196,10 +227,14 @@ describe('MenstrualFlowScreen — localization', () => {
 });
 
 describe('PrivateIntimacyUnlockScreen — localization', () => {
-  it('renders in French by default', async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // test originally asserted French without ever selecting a language,
+  // which was correct under the old French default. Flipped to assert the
+  // now-correct English default; French-when-selected remains covered below.
+  it('renders in English by default', async () => {
     const texts = allTexts(await renderScreen(<PrivateIntimacyUnlockScreen navigation={{goBack: jest.fn(), navigate: jest.fn()} as never} route={{key: 'test', name: 'PrivateIntimacyUnlock', params: undefined}} />));
-    expect(texts).toContain('Espace privé');
-    expect(texts).toContain('Ta vie intime reste entièrement privée.');
+    expect(texts).toContain('Private space');
+    expect(texts).toContain('Your intimate life stays completely private.');
   });
 
   it('renders in English when the app language is English', async () => {

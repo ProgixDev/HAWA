@@ -15,7 +15,7 @@ import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing'
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 type Props=NativeStackScreenProps<RootStackParamList,'JournalConceptionReports'>;
@@ -34,7 +34,7 @@ export default function JournalConceptionReportsScreen({navigation}:Props):React
   // honest failure state, never a crash, never auto-deleted.
   const [hadLegacyPlaintextIntimacy,setHadLegacyPlaintextIntimacy]=useState(false);
   const [corrupted,setCorrupted]=useState(false);
-  const {today}=useToday(); const cycleDay=useJournalCycleDay(today); const dateLabel=new Intl.DateTimeFormat(getAppLanguage()==='en'?'en-US':'fr-FR',{weekday:'long',day:'numeric',month:'long'}).format(today); const todayKey=useMemo(()=>today.toLocaleDateString('en-CA'),[today]);
+  const {today}=useToday(); const cycleDay=useJournalCycleDay(today); const dateLabel=new Intl.DateTimeFormat(dateFormatLocale(),{weekday:'long',day:'numeric',month:'long'}).format(today); const todayKey=useMemo(()=>today.toLocaleDateString('en-CA'),[today]);
   useEffect(()=>{if(!isIntimacyUnlocked()){navigation.replace('PrivateIntimacyUnlock',{target:'conception'});return;} getJournalEntry(todayKey).then(async entry=>{setHadLegacyPlaintextIntimacy(Boolean(entry?.intimacy)&&!entry?.encryptedIntimacy);setHasSaved(Boolean(entry?.intimacy||entry?.encryptedIntimacy));const {data:saved,corrupted:isCorrupted}=await resolveIntimacySection(entry);setCorrupted(isCorrupted);if(!saved){return;}setHasReport(saved.answer==='yes');setTime(saved.time??'21:30');if(saved.protection==='yes'||saved.protection==='no'||saved.protection==='unknown'){setProtection(saved.protection);}setNote(saved.note??'');});Animated.timing(entrance,{toValue:1,duration:320,useNativeDriver:true}).start();},[entrance,navigation,todayKey]);
   /* M25: deletes today's Rapports record (encrypted payload + legacy plaintext copy) - section absent = the canonical empty state. */
   const clearEntry=async()=>{await deleteJournalSection(todayKey,'encryptedIntimacy');await deleteJournalSection(todayKey,'intimacy');setHadLegacyPlaintextIntimacy(false);setCorrupted(false);setHasSaved(false);navigation.goBack();};

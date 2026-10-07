@@ -30,7 +30,7 @@ import {resolvePrivatePhotos} from '../../types/journal';
 import {TOP_SPACING_EXTRA, TOP_SPACING_EXTRA_COMPACT} from '../../theme/spacing';
 import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
 
@@ -73,7 +73,7 @@ export default function JournalNoteScreen(): React.JSX.Element | null {
   // always saves to the CURRENT day, never to the day the screen opened.
   const {today, todayKey: storageDate} = useToday();
   const now = new Date();
-  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const dateLocale = dateFormatLocale();
   const longDate = new Intl.DateTimeFormat(dateLocale, {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
   }).format(now);
