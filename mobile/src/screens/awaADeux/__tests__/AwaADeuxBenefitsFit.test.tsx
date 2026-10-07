@@ -14,7 +14,8 @@ import AwaADeuxPartnerViewScreen from '../AwaADeuxPartnerViewScreen';
 import AwaADeuxSharingScreen from '../AwaADeuxSharingScreen';
 import AwaADeuxPairingScreen from '../AwaADeuxPairingScreen';
 import {BENEFITS_COUNT, getBenefitsLayout} from '../awaADeuxBenefitsLayout';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // "Les avantages pour vous deux": ONE viewport, no scrolling, no decorative element.
 const Stack = createNativeStackNavigator();
@@ -76,6 +77,13 @@ afterEach(() => {
 });
 
 describe('"Les avantages pour vous deux" — one screen, no scrolling', () => {
+  beforeEach(async () => {
+    // This block's assertions use French text/labels; pin the language
+    // explicitly since the app default is now English.
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+  });
+
   it('has no ScrollView at all, while the other AWA à deux steps keep theirs', async () => {
     const benefits = await renderStep('AwaADeuxBenefits');
     expect(benefits.root.findAll(node => node.type === ScrollView)).toHaveLength(0);

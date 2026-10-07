@@ -13,6 +13,7 @@ import {setAwaADeuxPartnerName, getAwaADeuxPartnerName} from '../../../state/awa
 import {resetAppLanguageForTests, setAppLanguage} from '../../../state/themePreferences';
 import {fr} from '../../../i18n/locales/fr';
 import {en} from '../../../i18n/locales/en';
+import {es} from '../../../i18n/locales/es';
 import i18n from '../../../i18n';
 
 // PHASE 7J.1 — TEST 1-4: AwaADeuxStepLayout.tsx, confirmed by Phase 7J's own
@@ -111,6 +112,21 @@ describe('TEST 3 — AWA à deux / AWA Together terminology remains correct', ()
     expect(enJson).not.toContain('AWA à deux');
     expect(frJson).toContain('AWA à deux');
     expect(frJson).not.toContain('AWA Together');
+  });
+
+  // LOCALIZATION FIX — the Profile entry point (awaADeuxSectionTitle/
+  // awaADeuxTitle) used to say "AWA EN PAREJA"/"AWA en pareja" while every
+  // other occurrence inside the feature itself (pairing, invitation, FAQ,
+  // partner screens — 24+ occurrences) said "AWA Pareja"/"AWA PAREJA". Now
+  // consistently "AWA Pareja" everywhere, and never "AWA à deux"/"AWA
+  // Together" (those stay FR/EN-only).
+  it('es.ts consistently says "AWA Pareja" everywhere, never the old "AWA en pareja" variant or the FR/EN names', () => {
+    const esJson = JSON.stringify(es);
+    expect(esJson).toContain('AWA Pareja');
+    expect(esJson).not.toContain('AWA en pareja');
+    expect(esJson).not.toContain('AWA EN PAREJA');
+    expect(esJson).not.toContain('AWA à deux');
+    expect(esJson).not.toContain('AWA Together');
   });
 });
 
