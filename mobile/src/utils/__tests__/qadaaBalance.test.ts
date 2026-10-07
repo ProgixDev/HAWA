@@ -90,32 +90,32 @@ describe('computeQadaaBalance — the one authoritative formula', () => {
   });
 });
 
-describe('P. describeQadaaBalanceStatus — never "À jour" while days remain', () => {
-  it('days remaining → says how many, never "À jour"', () => {
+describe('P. describeQadaaBalanceStatus — never "Up to date" while days remain', () => {
+  it('days remaining → says how many, never "Up to date"', () => {
     const status = describeQadaaBalanceStatus(computeQadaaBalance(4, manual(2), done(1)));
-    expect(status).toEqual({kind: 'remaining', label: '5 jours restants'});
-    expect(status.label).not.toMatch(/à jour/i);
+    expect(status).toEqual({kind: 'remaining', label: '5 days remaining'});
+    expect(status.label).not.toMatch(/up to date/i);
   });
 
   it('exactly one remaining → singular', () => {
-    expect(describeQadaaBalanceStatus(computeQadaaBalance(2, [], done(1))).label).toBe('1 jour restant');
+    expect(describeQadaaBalanceStatus(computeQadaaBalance(2, [], done(1))).label).toBe('1 day remaining');
   });
 
-  it('every owed day made up → "Tout est rattrapé"', () => {
-    expect(describeQadaaBalanceStatus(computeQadaaBalance(2, [], done(2)))).toEqual({kind: 'all-made-up', label: 'Tout est rattrapé'});
+  it('every owed day made up → "All made up"', () => {
+    expect(describeQadaaBalanceStatus(computeQadaaBalance(2, [], done(2)))).toEqual({kind: 'all-made-up', label: 'All made up'});
   });
 
-  it('nothing owed at all → "À jour"', () => {
-    expect(describeQadaaBalanceStatus(computeQadaaBalance(0, [], []))).toEqual({kind: 'none', label: 'À jour'});
+  it('nothing owed at all → "Up to date"', () => {
+    expect(describeQadaaBalanceStatus(computeQadaaBalance(0, [], []))).toEqual({kind: 'none', label: 'Up to date'});
   });
 
-  it('for every combination with remaining > 0 the label is never "À jour"', () => {
+  it('for every combination with remaining > 0 the label is never "Up to date"', () => {
     for (let automatic = 0; automatic <= 6; automatic += 1) {
       for (let manualDays = 0; manualDays <= 4; manualDays += 1) {
         for (let completed = 0; completed <= 12; completed += 1) {
           const balance = computeQadaaBalance(automatic, manualDays ? manual(manualDays) : [], completed ? done(completed) : []);
           const label = describeQadaaBalanceStatus(balance).label;
-          if (balance.remainingDays > 0) {expect(label).not.toMatch(/à jour|rattrapé$/i);}
+          if (balance.remainingDays > 0) {expect(label).not.toMatch(/up to date|made up$/i);}
         }
       }
     }

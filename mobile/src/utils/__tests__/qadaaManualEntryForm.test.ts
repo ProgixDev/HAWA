@@ -12,6 +12,17 @@ import {
   validateQadaaManualForm,
   type QadaaManualFormValues,
 } from '../qadaaManualEntryForm';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
+
+// PHASE 7M: the app's default language is now English (not French) — this
+// file's "friendly French labels" and CTA-label assertions were written
+// against the French default. Pinning French here preserves every test's
+// original intent.
+beforeEach(async () => {
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 const NOW = new Date(2026, 8, 26, 12, 0, 0);
 const form = (overrides: Partial<QadaaManualFormValues> = {}): QadaaManualFormValues => ({

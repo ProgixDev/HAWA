@@ -1,4 +1,5 @@
 import type {OnboardingLocation, SchoolId} from '../state/onboardingPreferences';
+import {dateFormatLocale} from '../utils/cycleMath';
 
 export type PrayerName = 'Fajr' | 'Dhuhr' | 'Asr' | 'Maghrib' | 'Isha';
 
@@ -122,7 +123,7 @@ const nextFromDay = (day: ApiDay, now: Date): NextPrayer | undefined => {
       return {
         name,
         at,
-        time: new Intl.DateTimeFormat('fr-FR', {
+        time: new Intl.DateTimeFormat(dateFormatLocale(), {
           timeZone: day.meta.timezone,
           hour: '2-digit',
           minute: '2-digit',

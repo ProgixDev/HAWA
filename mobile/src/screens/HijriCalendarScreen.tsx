@@ -14,6 +14,7 @@ import {homeRadii} from '../components/home/homeTheme';
 import HijriMonthGrid from '../components/hijri/HijriMonthGrid';
 import {
   capitalize,
+  dateFormatLocale,
   formatFullDate,
   formatHijriDate,
   formatHijriDay,
@@ -30,7 +31,6 @@ import {
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
-import {getAppLanguage} from '../state/themePreferences';
 
 const MOSQUE_BANNER = require('../assets/images/auth-mosque-background.png');
 const MOSQUE_BANNER_RATIO = 848 / 1854;
@@ -121,7 +121,7 @@ function HijriCalendarScreen(): React.JSX.Element {
   const monthLabel = formatHijriMonthYear(monthStart) ?? '—';
   const todayHijriDay = formatHijriDay(today) ?? '—';
   const todayHijriMonthYear = formatHijriMonthYear(today) ?? '—';
-  const weekdayLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const weekdayLocale = dateFormatLocale();
   const todayWeekdayDate = `${capitalize(new Intl.DateTimeFormat(weekdayLocale, {weekday: 'long'}).format(today))} ${formatFullDate(today)}`;
 
   const selectedHijriDate = formatHijriDate(selectedDate) ?? '—';

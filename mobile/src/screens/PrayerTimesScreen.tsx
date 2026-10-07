@@ -27,10 +27,9 @@ import PurityStatusCard from '../components/prayer/PurityStatusCard';
 import PrayerScheduleList from '../components/prayer/PrayerScheduleList';
 import PeriodEndBottomSheet from '../components/prayer/PeriodEndBottomSheet';
 import {usePrayerPurityStatus} from '../hooks/usePrayerPurityStatus';
-import {capitalize, formatFullDate, formatHijriDate} from '../utils/cycleMath';
+import {capitalize, dateFormatLocale, formatFullDate, formatHijriDate} from '../utils/cycleMath';
 import {getBottomPadding, getTopPadding} from '../theme/spacing';
 import {objectiveShowsMenstrualPurity} from '../utils/spiritualObjectiveScope';
-import {getAppLanguage} from '../state/themePreferences';
 import {
   getActiveObjective,
   getHijriAdjustmentDays,
@@ -91,7 +90,7 @@ function PrayerTimesScreen(): React.JSX.Element {
     setRefreshing(false);
   }, [refresh]);
 
-  const weekdayLabel = capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {weekday: 'long'}).format(now));
+  const weekdayLabel = capitalize(new Intl.DateTimeFormat(dateFormatLocale(), {weekday: 'long'}).format(now));
   const hijriLabel = formatHijriDate(now) ?? '—';
   const metaDateLabel = `${weekdayLabel} ${formatFullDate(now)}`;
 

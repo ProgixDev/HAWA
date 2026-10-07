@@ -13,12 +13,13 @@ import SpiritualPreferencesScreen from '../SpiritualPreferencesScreen';
 // same requirement every other migrated-screen test already follows (see
 // LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
 // keys instead of the French default copy this file's assertions expect.
-import '../../i18n';
+import i18n from '../../i18n';
 import {
   getSpiritualMarkersEnabled,
   setActiveObjective,
   setSpiritualMarkersEnabled,
 } from '../../state/onboardingPreferences';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // H1 - every post-onboarding entry point (Prayer times x2, Hijri calendar,
 // Summary) opens the spiritual-markers screen in EDIT mode: prefilled, saves
@@ -61,6 +62,15 @@ const checked = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =
   renderer.root.find(
     n => n.props.accessibilityRole === 'radio' && n.findAllByType(Text).some(text => textOf(text) === label),
   ).props.accessibilityState.checked;
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text/label assertions ('Suivant', 'Oui, activer', etc.) were
+  // written against the French default. Pinning French here preserves
+  // every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   act(() => {
