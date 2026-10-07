@@ -48,6 +48,8 @@ jest.mock('../../state/miscarriageJournalStore', () => ({
 
 import {isIntimacyUnlocked} from '../../state/privateSectionAuthStore';
 import MiscarriageJournalEntryScreen from '../MiscarriageJournalEntryScreen';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 const mockedIsIntimacyUnlocked = isIntimacyUnlocked as jest.Mock;
 
@@ -73,9 +75,14 @@ async function renderScreen() {
   return renderer!;
 }
 
-beforeEach(() => {
+beforeEach(async () => {
   mockReplace.mockClear();
   mockedIsIntimacyUnlocked.mockReset();
+  // This file's content-leak assertions key off the French title "Notes
+  // personnelles" — pin French explicitly now that English, not French, is
+  // the app's default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

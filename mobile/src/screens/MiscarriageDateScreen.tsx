@@ -18,8 +18,6 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 import '../i18n';
-import {getAppLanguage} from '../state/themePreferences';
-
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
 import {
@@ -29,24 +27,18 @@ import {
 } from '../state/miscarriagePreferences';
 import {getAllMiscarriageJournalEntries, hydrateMiscarriageJournal} from '../state/miscarriageJournalStore';
 import {journalDatesWithContent} from '../utils/lossDateValidation';
-import {diffDays, startOfDay} from '../utils/cycleMath';
+import {dateFormatLocale, diffDays, localizedWeekDays, startOfDay} from '../utils/cycleMath';
 import {validateLossDate} from '../utils/postpartumLossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
-// Local weekday abbreviations — never the shared cycleMath.ts WEEK_DAYS
-// export (used by 15+ unrelated files), same pattern as
-// MonthCalendarCard.tsx's own WEEK_DAYS_FR/WEEK_DAYS_EN consts.
-const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
 type Props = NativeStackScreenProps<RootStackParamList, 'MiscarriageDate'>;
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 const formatMonthYear = (date: Date): string => {
-  const label = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(date);
+  const label = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(date);
   return label.charAt(0).toUpperCase() + label.slice(1);
 };
 
@@ -54,7 +46,7 @@ function MiscarriageDateScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const {t} = useTranslation();
-  const WEEK_DAYS = getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR;
+  const WEEK_DAYS = localizedWeekDays();
   const insets = useSafeAreaInsets();
   const scrollRef = useRef<ScrollView>(null);
   const entrance = useRef(new Animated.Value(0)).current;

@@ -12,6 +12,8 @@ import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../state/miscarriagePreferences';
 import {CYCLE_RETURN_DATE_TO_CHECK} from '../../utils/lossDateValidation';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M36 - a LEGACY invalid stored cycle-return date (future / before the loss /
 // unparsable) is never displayed as a date by Profile or Summary: the same
@@ -89,6 +91,12 @@ beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
   resetPremiumStateForTests();
   await setSelectedObjective('loss');
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's PROFILE_LABEL/SUMMARY_LABEL and "Date à vérifier" assertions were
+  // written against the French default. Pinning French here preserves every
+  // test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

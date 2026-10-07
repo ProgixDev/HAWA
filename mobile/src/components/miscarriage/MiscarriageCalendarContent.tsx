@@ -18,7 +18,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 import '../../i18n';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale, localizedWeekDays} from '../../utils/cycleMath';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
@@ -151,12 +151,6 @@ const CATEGORY_KEYS: MiscarriageJournalCategory[] = [
   'tryingAgain',
 ];
 
-// Local weekday abbreviations — never the shared cycleMath.ts WEEK_DAYS
-// export (used by 15+ unrelated files), same pattern as
-// MonthCalendarCard.tsx's own WEEK_DAYS_FR/WEEK_DAYS_EN consts.
-const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
 // Same value every sibling calendar content (MenopauseCalendarContent.tsx,
 // ContraceptionCalendarContent.tsx, ...) already uses for these two markers —
 // never invented locally.
@@ -287,7 +281,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   const MODES = useMemo(() => modesFor(t), [t]);
   const CATEGORY_META = useMemo(() => categoryMetaFor(t), [t]);
   const CYCLE_RETURN_LABELS = useMemo(() => cycleReturnLabelsFor(t), [t]);
-  const WEEK_DAYS = getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR;
+  const WEEK_DAYS = localizedWeekDays();
 
   // Re-evaluated when the day changes / the app returns to the foreground —
   // see src/hooks/useToday.ts.
@@ -440,7 +434,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   }, [visibleMonth]);
 
   const monthTitle = capitalize(
-    new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', { month: 'long', year: 'numeric' }).format(
+    new Intl.DateTimeFormat(dateFormatLocale(), { month: 'long', year: 'numeric' }).format(
       visibleMonth,
     ),
   );
@@ -452,7 +446,7 @@ function MiscarriageCalendarContent(): React.JSX.Element {
   // preference (which is only hidden — never reset — while the toggle is off).
   const showHijri = spiritualMarkersEnabled && displayMode !== 'gregorian';
   const selectedTitle = capitalize(
-    new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+    new Intl.DateTimeFormat(dateFormatLocale(), {
       weekday: 'long',
       day: 'numeric',
       month: 'long',

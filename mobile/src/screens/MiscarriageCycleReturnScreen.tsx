@@ -19,7 +19,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 import '../i18n';
-import {getAppLanguage} from '../state/themePreferences';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -31,7 +30,7 @@ import {
   setMiscarriageCycleReturnStatus,
   type MiscarriageCycleReturnStatus,
 } from '../state/miscarriagePreferences';
-import {startOfDay} from '../utils/cycleMath';
+import {dateFormatLocale, startOfDay} from '../utils/cycleMath';
 import {validateCycleReturnDate} from '../utils/lossDateValidation';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -55,7 +54,7 @@ function optionsFor(t: TFunction): Array<{
 }
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 
 function MiscarriageCycleReturnScreen({navigation, route}: Props): React.JSX.Element {
   const {theme} = useAwaTheme();

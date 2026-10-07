@@ -11,6 +11,8 @@ import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import MiscarriageCalendarContent from '../MiscarriageCalendarContent';
 import {getMiscarriagePreferences, setMiscarriagePreferences} from '../../../state/miscarriagePreferences';
 import {saveMiscarriageJournalField} from '../../../state/miscarriageJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M35 — the Loss Calendar never attaches the GLOBAL, UNDATED
 // miscarriagePreferences.tryingAgainStatus to arbitrary days; only a real
@@ -104,6 +106,11 @@ afterAll(() => {
 
 beforeEach(async () => {
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's UI-text assertions were written against the French default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await seed();
 });
 
