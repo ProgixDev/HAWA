@@ -20,7 +20,7 @@ import {useTranslation} from 'react-i18next';
 import '../i18n';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
-import {getAppLanguage} from '../state/themePreferences';
+import {dateFormatLocale} from '../utils/cycleMath';
 
 import {
   deleteTrackedData,
@@ -380,7 +380,7 @@ export function RestoreBackupScreen({
               theme={theme}
               styles={backupStyles}
               value={new Intl.DateTimeFormat(
-                getAppLanguage() === 'en' ? 'en-US' : 'fr-FR',
+                dateFormatLocale(),
                 {
                   dateStyle:
                     'medium',

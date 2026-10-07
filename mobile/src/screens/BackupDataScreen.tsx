@@ -10,7 +10,7 @@ import '../i18n';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {backupNow, backupNowForProfile, buildPortableDataJson, buildPortableDataJsonForProfile, formatBytes, getBackupSnapshot, getBackupSnapshotForProfile, loadBackupSettings, saveBackupSettings, type BackupSettings, type BackupSnapshot} from '../services/backupService';
 import {getActiveProfileIdentity} from '../state/activeProfileStore';
-import {getAppLanguage} from '../state/themePreferences';
+import {dateFormatLocale} from '../utils/cycleMath';
 
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
@@ -112,7 +112,7 @@ export default function BackupDataScreen({navigation}: Props): React.JSX.Element
   const snapshotCreatedAt = snapshot ? new Date(snapshot.createdAt) : null;
   const backupDate =
     snapshotCreatedAt && !Number.isNaN(snapshotCreatedAt.getTime())
-      ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(snapshotCreatedAt)
+      ? new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'}).format(snapshotCreatedAt)
       : t('backupData.noBackupYet');
 
   return (

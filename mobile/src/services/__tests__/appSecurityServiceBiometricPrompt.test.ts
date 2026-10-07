@@ -16,6 +16,13 @@ const getGenericPasswordMock = Keychain.getGenericPassword as jest.Mock;
 
 beforeEach(async () => {
   await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's "French"-expecting tests were written against the old French
+  // default and never set a language explicitly (every English-expecting
+  // test already does). Pinning French here preserves every test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   getGenericPasswordMock.mockClear();
 });
 

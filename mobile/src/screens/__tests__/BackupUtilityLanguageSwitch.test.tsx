@@ -8,6 +8,7 @@ import BackupDataScreen from '../BackupDataScreen';
 import {RestoreBackupScreen, DataExportScreen, DeleteTrackedDataScreen} from '../BackupUtilityScreens';
 import {resetActiveProfileForTests} from '../../state/activeProfileStore';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
+import {setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
 
 const TEST_METRICS: Metrics = {
@@ -42,6 +43,11 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
 beforeEach(async () => {
   await resetActiveProfileForTests();
   resetPremiumStateForTests();
+  // This whole file tests explicit French -> English switching; the app
+  // default is now English, so each test must start pinned to French (its
+  // own "before switching" baseline) rather than relying on leftover state.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(async () => {

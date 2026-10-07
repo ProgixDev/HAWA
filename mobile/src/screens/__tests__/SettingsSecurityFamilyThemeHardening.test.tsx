@@ -9,7 +9,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {interpolateHex, pickReadableTextColor, resolveAwaTheme} from '../../theme/awaThemeTokens';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 import PinManagementScreen from '../PinManagementScreen';
 import DiscreetLauncherScreen from '../DiscreetLauncherScreen';
@@ -241,6 +242,14 @@ function relativeLuminance(hex: string): number {
 }
 
 describe('AboutScreen — AWA logo container readable in Light, Dark and True Black', () => {
+  beforeEach(async () => {
+    // These assertions locate the logo by its French accessibility label
+    // ("Logo AWA"); pin the language explicitly since the app default is
+    // now English.
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+  });
+
   function logoContainerBackground(renderer: ReactTestRenderer.ReactTestRenderer): unknown {
     const logo = renderer.root.findByProps({accessibilityLabel: 'Logo AWA'});
     let node: ReactTestRenderer.ReactTestInstance | null = logo.parent;

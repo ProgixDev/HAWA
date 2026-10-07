@@ -8,30 +8,72 @@ import {useTranslation} from 'react-i18next';
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {type ResolvedAwaTheme} from '../theme/awaThemeTokens';
+import type {AwaAppLanguage} from '../state/themePreferences';
 
 type LegalSection = {title: string; body: string};
 
-// LEGAL CONTENT TRANSLATION GAP (Phase 7J.1): these sections are themselves a
-// provisional, not-yet-legally-validated placeholder (see each body's own
-// text) — not an approved legal document. No approved English version exists
-// in this repository. Per Phase 7J.1's explicit instruction, this body is
-// NOT machine-translated and NOT presented as approved legal copy; only the
-// screen's chrome (back button, title, provisional-notice banner) is
-// localized below. Translate this content only once an approved EN legal
-// version is provided.
-const TERMS: LegalSection[] = [
-  {title: 'Objet', body: 'Ce document présente la structure provisoire des conditions d’utilisation de l’application AWA.'},
-  {title: 'Utilisation de l’application', body: 'AWA propose des outils de suivi personnel et de bien-être. Le contenu définitif décrivant les droits et responsabilités des utilisatrices sera ajouté après validation juridique.'},
-  {title: 'Disponibilité du service', body: 'Les modalités définitives de disponibilité, de maintenance et d’évolution du service restent à valider.'},
-  {title: 'Contact', body: 'Les coordonnées officielles seront ajoutées dès leur validation par l’équipe AWA.'},
-];
+// TERMS & PRIVACY FR/EN/ES LOCALIZATION: this screen's body is itself a
+// provisional, not-yet-legally-validated placeholder (see each section's own
+// text below) — there is no approved Terms/Privacy document in this
+// repository yet, in any language. The French text is the original,
+// unchanged source of truth; English and Spanish are faithful translations
+// of that same placeholder content (not new legal drafting). Keyed by
+// AwaAppLanguage so the body — not just the screen's chrome — now follows
+// the app language, with no fallback to French for en/es.
+// Exported for TERMS/PRIVACY structural-parity and content-leak tests
+// (Phase7J1LegalDocumentLanguageSwitch.test.tsx) — never imported by any
+// other screen/component.
+export const TERMS: Record<AwaAppLanguage, LegalSection[]> = {
+  fr: [
+    {title: 'Objet', body: 'Ce document présente la structure provisoire des conditions d’utilisation de l’application AWA.'},
+    {title: 'Utilisation de l’application', body: 'AWA propose des outils de suivi personnel et de bien-être. Le contenu définitif décrivant les droits et responsabilités des utilisatrices sera ajouté après validation juridique.'},
+    {title: 'Disponibilité du service', body: 'Les modalités définitives de disponibilité, de maintenance et d’évolution du service restent à valider.'},
+    {title: 'Contact', body: 'Les coordonnées officielles seront ajoutées dès leur validation par l’équipe AWA.'},
+  ],
+  en: [
+    {title: 'Purpose', body: 'This document presents the provisional structure of AWA’s terms of use.'},
+    {title: 'Use of the application', body: 'AWA offers personal tracking and well-being tools. The final content describing users’ rights and responsibilities will be added once legal validation is complete.'},
+    {title: 'Service availability', body: 'The final terms governing the service’s availability, maintenance, and evolution are still to be confirmed.'},
+    {title: 'Contact', body: 'Official contact details will be added once validated by the AWA team.'},
+  ],
+  es: [
+    {title: 'Objeto', body: 'Este documento presenta la estructura provisional de las condiciones de uso de la aplicación AWA.'},
+    {title: 'Uso de la aplicación', body: 'AWA ofrece herramientas de seguimiento personal y bienestar. El contenido definitivo que describe los derechos y responsabilidades de las usuarias se añadirá tras la validación jurídica.'},
+    {title: 'Disponibilidad del servicio', body: 'Las modalidades definitivas de disponibilidad, mantenimiento y evolución del servicio están aún por determinar.'},
+    {title: 'Contacto', body: 'Los datos de contacto oficiales se añadirán una vez validados por el equipo de AWA.'},
+  ],
+};
 
-const PRIVACY: LegalSection[] = [
-  {title: 'Données concernées', body: 'Cette section décrira précisément les données traitées par AWA et leur finalité après validation juridique.'},
-  {title: 'Stockage et sécurité', body: 'La documentation définitive précisera les mesures de stockage, de protection et les durées de conservation.'},
-  {title: 'Tes droits', body: 'Les procédures permettant d’accéder, corriger ou supprimer les données seront détaillées dans la version validée.'},
-  {title: 'Contact confidentialité', body: 'L’adresse officielle du responsable de la confidentialité sera ajoutée avant publication.'},
-];
+export const PRIVACY: Record<AwaAppLanguage, LegalSection[]> = {
+  fr: [
+    {title: 'Données concernées', body: 'Cette section décrira précisément les données traitées par AWA et leur finalité après validation juridique.'},
+    {title: 'Stockage et sécurité', body: 'La documentation définitive précisera les mesures de stockage, de protection et les durées de conservation.'},
+    {title: 'Tes droits', body: 'Les procédures permettant d’accéder, corriger ou supprimer les données seront détaillées dans la version validée.'},
+    {title: 'Contact confidentialité', body: 'L’adresse officielle du responsable de la confidentialité sera ajoutée avant publication.'},
+  ],
+  en: [
+    {title: 'Data concerned', body: 'This section will precisely describe the data processed by AWA and its purpose, once legal validation is complete.'},
+    {title: 'Storage and security', body: 'The final documentation will specify the storage measures, protections, and retention periods.'},
+    {title: 'Your rights', body: 'The procedures for accessing, correcting, or deleting your data will be detailed in the validated version.'},
+    {title: 'Privacy contact', body: 'The official contact address for the privacy officer will be added before publication.'},
+  ],
+  es: [
+    {title: 'Datos tratados', body: 'Esta sección describirá con precisión los datos tratados por AWA y su finalidad, tras la validación jurídica.'},
+    {title: 'Almacenamiento y seguridad', body: 'La documentación definitiva precisará las medidas de almacenamiento, protección y los plazos de conservación.'},
+    {title: 'Tus derechos', body: 'Los procedimientos para acceder, corregir o eliminar los datos se detallarán en la versión validada.'},
+    {title: 'Contacto de privacidad', body: 'La dirección oficial del responsable de privacidad se añadirá antes de la publicación.'},
+  ],
+};
+
+/** Resolves the app's current language to one of the 3 legal-content keys —
+ * the single place this screen decides fr/en/es, so body and chrome can never
+ * drift apart. Unknown/invalid language (e.g. not yet loaded) falls back to
+ * English, never to French. */
+function resolveLegalLanguage(language: string): AwaAppLanguage {
+  if (language === 'fr') {return 'fr';}
+  if (language === 'es') {return 'es';}
+  return 'en';
+}
 
 function LegalDocument({navigation, title, sections, theme}: {navigation: {goBack: () => void}; title: string; sections: LegalSection[]; theme: ResolvedAwaTheme}) {
   const {t} = useTranslation();
@@ -51,14 +93,16 @@ function LegalDocument({navigation, title, sections, theme}: {navigation: {goBac
 }
 
 export function TermsOfUseScreen({navigation}: NativeStackScreenProps<RootStackParamList,'TermsOfUse'>) {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme} = useAwaTheme();
-  return <LegalDocument navigation={navigation} sections={TERMS} theme={theme} title={t('about.termsOfUse')}/>;
+  const lang = resolveLegalLanguage(i18n.language);
+  return <LegalDocument navigation={navigation} sections={TERMS[lang]} theme={theme} title={t('about.termsOfUse')}/>;
 }
 export function PrivacyPolicyScreen({navigation}: NativeStackScreenProps<RootStackParamList,'PrivacyPolicy'>) {
-  const {t} = useTranslation();
+  const {t, i18n} = useTranslation();
   const {theme} = useAwaTheme();
-  return <LegalDocument navigation={navigation} sections={PRIVACY} theme={theme} title={t('about.privacyPolicy')}/>;
+  const lang = resolveLegalLanguage(i18n.language);
+  return <LegalDocument navigation={navigation} sections={PRIVACY[lang]} theme={theme} title={t('about.privacyPolicy')}/>;
 }
 
 function createStyles(theme: ResolvedAwaTheme) {

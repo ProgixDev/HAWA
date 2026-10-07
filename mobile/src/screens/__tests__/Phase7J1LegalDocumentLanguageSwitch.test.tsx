@@ -6,7 +6,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import {TermsOfUseScreen, PrivacyPolicyScreen} from '../LegalDocumentScreen';
+import {TermsOfUseScreen, PrivacyPolicyScreen, TERMS, PRIVACY} from '../LegalDocumentScreen';
 import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
 
@@ -14,10 +14,15 @@ import i18n from '../../i18n';
 // this is NOT an approved legal document — every section's own body text
 // says the real content is still pending legal validation (a provisional
 // placeholder, reachable only from AboutScreen's "Terms of Use"/"Privacy
-// Policy" rows). Per the explicit LEGAL CONTENT TRANSLATION GAP instruction,
-// only the screen's own chrome (back button, title, provisional-notice
-// banner) is localized; the placeholder section titles/bodies stay French,
-// unchanged, since no approved English legal version exists in this repo.
+// Policy" rows).
+//
+// TERMS & PRIVACY FR/EN/ES LOCALIZATION (supersedes the original Phase 7J.1
+// decision below TEST 7): the placeholder body itself is now translated —
+// faithfully, not newly drafted — into English and Spanish, so it follows
+// the app language exactly like the chrome does, with no fallback to French
+// for en/es. TEST 7 below was rewritten accordingly (its original
+// "stays in French" expectation is now stale, superseded by this decision);
+// TEST 8-12 are new.
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -111,17 +116,125 @@ describe('TEST 6 — LegalDocumentScreen application chrome switches to EN', () 
   });
 });
 
-describe('TEST 7 — legal body handling matches the discovered architecture (no approved EN version exists)', () => {
-  it('the placeholder section content stays in French in English UI — not translated, not invented', async () => {
+describe('TEST 7 — legal body now follows the app language (EN), with no fallback to French', () => {
+  it('TermsOfUseScreen renders the English placeholder body, not the French one', async () => {
     await setAppLanguage('en');
     await i18n.changeLanguage('en');
     const renderer = await renderScreen(TermsOfUseScreen);
     const texts = textsOf(renderer);
-    // The chrome is English, but the (explicitly provisional, not-yet-
-    // validated) section body is deliberately left exactly as it is in the
-    // repository today — a real LEGAL CONTENT TRANSLATION GAP, not a bug.
+    expect(texts).toContain('Purpose');
+    expect(texts.some(text => text.includes('provisional structure of AWA’s terms of use'))).toBe(true);
+    expect(texts).not.toContain('Objet');
+    expect(texts.some(text => text.includes('structure provisoire des conditions d’utilisation'))).toBe(false);
+  });
+
+  it('PrivacyPolicyScreen renders the English placeholder body, not the French one', async () => {
+    await setAppLanguage('en');
+    await i18n.changeLanguage('en');
+    const renderer = await renderScreen(PrivacyPolicyScreen);
+    const texts = textsOf(renderer);
+    expect(texts).toContain('Data concerned');
+    expect(texts).not.toContain('Données concernées');
+  });
+});
+
+describe('TEST 8 — legal body renders in Spanish, with no fallback to French or English', () => {
+  it('TermsOfUseScreen renders the Spanish placeholder body', async () => {
+    await setAppLanguage('es');
+    await i18n.changeLanguage('es');
+    const renderer = await renderScreen(TermsOfUseScreen);
+    const texts = textsOf(renderer);
+    expect(texts).toContain('Objeto');
+    expect(texts.some(text => text.includes('estructura provisional de las condiciones de uso'))).toBe(true);
+    expect(texts).not.toContain('Objet');
+    expect(texts).not.toContain('Purpose');
+  });
+
+  it('PrivacyPolicyScreen renders the Spanish placeholder body', async () => {
+    await setAppLanguage('es');
+    await i18n.changeLanguage('es');
+    const renderer = await renderScreen(PrivacyPolicyScreen);
+    const texts = textsOf(renderer);
+    expect(texts).toContain('Datos tratados');
+    expect(texts).not.toContain('Données concernées');
+    expect(texts).not.toContain('Data concerned');
+  });
+});
+
+describe('TEST 9 — structural parity: FR/EN/ES have the same number of sections, in the same order', () => {
+  const LANGUAGES = ['fr', 'en', 'es'] as const;
+
+  it('Terms: identical section count across fr/en/es, never silently losing a section in one language', () => {
+    for (const language of LANGUAGES) {
+      expect(TERMS[language]).toHaveLength(TERMS.fr.length);
+    }
+  });
+
+  it('Privacy: identical section count across fr/en/es, never silently losing a section in one language', () => {
+    for (const language of LANGUAGES) {
+      expect(PRIVACY[language]).toHaveLength(PRIVACY.fr.length);
+    }
+  });
+
+  it('Terms: every language has a non-empty title and body for each positional section (no blank/missing translation)', () => {
+    for (const language of LANGUAGES) {
+      TERMS[language].forEach(section => {
+        expect(section.title.length).toBeGreaterThan(0);
+        expect(section.body.length).toBeGreaterThan(0);
+      });
+    }
+  });
+
+  it('Privacy: every language has a non-empty title and body for each positional section (no blank/missing translation)', () => {
+    for (const language of LANGUAGES) {
+      PRIVACY[language].forEach(section => {
+        expect(section.title.length).toBeGreaterThan(0);
+        expect(section.body.length).toBeGreaterThan(0);
+      });
+    }
+  });
+
+  it('Terms and Privacy both keep their last section as the contact section, in every language (positional order preserved)', () => {
+    expect(TERMS.fr[TERMS.fr.length - 1].title).toBe('Contact');
+    expect(TERMS.en[TERMS.en.length - 1].title).toBe('Contact');
+    expect(TERMS.es[TERMS.es.length - 1].title).toBe('Contacto');
+    expect(PRIVACY.fr[PRIVACY.fr.length - 1].title).toBe('Contact confidentialité');
+    expect(PRIVACY.en[PRIVACY.en.length - 1].title).toBe('Privacy contact');
+    expect(PRIVACY.es[PRIVACY.es.length - 1].title).toBe('Contacto de privacidad');
+  });
+});
+
+describe('TEST 10 — runtime switching FR -> EN -> ES -> FR updates the mounted legal body each time', () => {
+  it('TermsOfUseScreen body text updates on every switch, on the same mounted instance', async () => {
+    const renderer = await renderScreen(TermsOfUseScreen);
+    expect(textsOf(renderer)).toContain('Objet');
+
+    await act(async () => {
+      await setAppLanguage('en');
+      await i18n.changeLanguage('en');
+    });
+    await settle();
+    let texts = textsOf(renderer);
+    expect(texts).toContain('Purpose');
+    expect(texts).not.toContain('Objet');
+
+    await act(async () => {
+      await setAppLanguage('es');
+      await i18n.changeLanguage('es');
+    });
+    await settle();
+    texts = textsOf(renderer);
+    expect(texts).toContain('Objeto');
+    expect(texts).not.toContain('Purpose');
+
+    await act(async () => {
+      await setAppLanguage('fr');
+      await i18n.changeLanguage('fr');
+    });
+    await settle();
+    texts = textsOf(renderer);
     expect(texts).toContain('Objet');
-    expect(texts.some(text => text.includes('structure provisoire des conditions d’utilisation'))).toBe(true);
+    expect(texts).not.toContain('Objeto');
   });
 });
 

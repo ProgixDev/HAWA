@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {SafeAreaView, useSafeAreaInsets} from 'react-native-safe-area-context';
+import {useTranslation} from 'react-i18next';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 
@@ -11,6 +12,7 @@ import {useAwaTheme} from '../theme/AwaThemeProvider';
 import {pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awaThemeTokens';
 
 function Shell({title, navigation, children}: {title: string; navigation: {goBack: () => void}; children: React.ReactNode}) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const insets = useSafeAreaInsets();
@@ -18,7 +20,7 @@ function Shell({title, navigation, children}: {title: string; navigation: {goBac
     <SafeAreaView edges={['left', 'right']} style={styles.safe}>
       <StatusBar backgroundColor="transparent" barStyle={theme.statusBarStyle} translucent />
       <View style={[styles.header, {paddingTop: Math.max(insets.top, 18) + 8}]}>
-        <Pressable onPress={navigation.goBack} style={styles.back}>
+        <Pressable accessibilityLabel={t('common.back')} onPress={navigation.goBack} style={styles.back}>
           <MaterialDesignIcons color={theme.colors.primary} name="chevron-left" size={28} />
         </Pressable>
         <Text style={styles.title}>{title}</Text>
@@ -38,6 +40,7 @@ async function readAwaData() {
 }
 
 export function DataManagementScreen({navigation}: NativeStackScreenProps<RootStackParamList, 'DataManagement'>) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [count, setCount] = useState(0);
@@ -47,24 +50,24 @@ export function DataManagementScreen({navigation}: NativeStackScreenProps<RootSt
   }, []);
   const exportData = async () => {
     const data = await readAwaData();
-    await Share.share({title: 'Mes données AWA', message: JSON.stringify(data, null, 2)});
+    await Share.share({title: t('dataPrivacy.management.exportShareTitle'), message: JSON.stringify(data, null, 2)});
   };
   return (
-    <Shell navigation={navigation} title="Gestion des données">
+    <Shell navigation={navigation} title={t('privacySecurity.dataManagementTitle')}>
       <View style={styles.hero}>
         <MaterialDesignIcons color={theme.colors.primary} name="database-lock-outline" size={35} />
-        <Text style={styles.heroTitle}>Tes données AWA</Text>
-        <Text style={styles.text}>{count} espaces de stockage locaux sont actuellement utilisés sur cet appareil.</Text>
+        <Text style={styles.heroTitle}>{t('dataPrivacy.management.heroTitle')}</Text>
+        <Text style={styles.text}>{t('dataPrivacy.management.storageCount', {count})}</Text>
       </View>
       <Pressable onPress={exportData} style={styles.action}>
         <MaterialDesignIcons color={theme.colors.primary} name="export-variant" size={22} />
         <View style={styles.actionCopy}>
-          <Text style={styles.actionTitle}>Exporter mes données</Text>
-          <Text style={styles.text}>Créer une copie JSON via le menu de partage sécurisé.</Text>
+          <Text style={styles.actionTitle}>{t('dataPrivacy.management.exportTitle')}</Text>
+          <Text style={styles.text}>{t('dataPrivacy.management.exportDescription')}</Text>
         </View>
       </Pressable>
-      <Pressable onPress={() => setMessage('Pour tout supprimer, utilise « Supprimer mon compte » dans l’écran précédent.')} style={styles.secondary}>
-        <Text style={styles.secondaryText}>Informations sur la suppression</Text>
+      <Pressable onPress={() => setMessage(t('dataPrivacy.management.deletionInfoMessage'))} style={styles.secondary}>
+        <Text style={styles.secondaryText}>{t('dataPrivacy.management.deletionInfoButton')}</Text>
       </Pressable>
       {message ? <Text style={styles.notice}>{message}</Text> : null}
     </Shell>
@@ -72,33 +75,40 @@ export function DataManagementScreen({navigation}: NativeStackScreenProps<RootSt
 }
 
 export function DeleteAccountScreen({navigation}: NativeStackScreenProps<RootStackParamList, 'DeleteAccount'>) {
+  const {t} = useTranslation();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
   const [value, setValue] = useState('');
   const [error, setError] = useState('');
+  // The displayed confirmation label AND this check both read the SAME
+  // dataPrivacy.deleteAccount.confirmWord translation — never a hardcoded
+  // 'SUPPRIMER' — so the required word can never drift out of sync with
+  // what's actually validated, in any language.
+  const confirmWord = t('dataPrivacy.deleteAccount.confirmWord');
   const remove = async () => {
-    if (value.trim().toUpperCase() !== 'SUPPRIMER') {
-      setError('Écris SUPPRIMER pour confirmer.');
+    if (value.trim().toUpperCase() !== confirmWord.toUpperCase()) {
+      setError(t('dataPrivacy.deleteAccount.confirmError'));
       return;
     }
     await AsyncStorage.clear();
     navigation.reset({index: 0, routes: [{name: 'Welcome'}]});
   };
   return (
-    <Shell navigation={navigation} title="Supprimer mon compte">
+    <Shell navigation={navigation} title={t('privacySecurity.deleteAccountTitle')}>
       <View style={styles.warning}>
         <MaterialDesignIcons color={theme.colors.danger} name="alert-outline" size={35} />
-        <Text style={styles.warningTitle}>Cette action est irréversible</Text>
-        <Text style={styles.text}>Toutes les données AWA enregistrées localement sur cet appareil seront définitivement supprimées.</Text>
+        <Text style={styles.warningTitle}>{t('dataPrivacy.deleteAccount.warningTitle')}</Text>
+        <Text style={styles.text}>{t('dataPrivacy.deleteAccount.warningText')}</Text>
       </View>
-      <Text style={styles.label}>Écris SUPPRIMER pour confirmer</Text>
+      <Text style={styles.label}>{t('dataPrivacy.deleteAccount.confirmLabel')}</Text>
       <TextInput
+        accessibilityLabel={t('dataPrivacy.deleteAccount.confirmLabel')}
         autoCapitalize="characters" onChangeText={text => {setValue(text); setError('');}}
         style={[styles.input, error && styles.inputError]} value={value}
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Pressable onPress={remove} style={styles.delete}>
-        <Text style={styles.deleteText}>Supprimer définitivement</Text>
+      <Pressable accessibilityLabel={t('dataPrivacy.deleteAccount.deleteButtonAccessibility')} onPress={remove} style={styles.delete}>
+        <Text style={styles.deleteText}>{t('dataPrivacy.deleteAccount.deleteButton')}</Text>
       </Pressable>
     </Shell>
   );
