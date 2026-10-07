@@ -8,7 +8,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 import StatisticsScreen from '../../../screens/StatisticsScreen';
 import ContraceptionStatisticsScreen from '../../../screens/contraception/ContraceptionStatisticsScreen';
@@ -353,6 +354,14 @@ describe('E5 Statistics family — selected period survives a theme switch', () 
 ============================================================ */
 
 describe('E5 Statistics family — period filter accessibility (Phase 3 fix)', () => {
+  beforeEach(async () => {
+    // These assertions target the French period-filter labels ("1 mois",
+    // "3 mois") rendered by StatisticsScreen's own inline selector; pin the
+    // language explicitly since the app default is now English.
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+  });
+
   it('Cycle — StatisticsScreen: a locked (Premium-only) period exposes a label naming it and its selected state', async () => {
     const renderer = await renderScreen(SCREENS[0].render);
     const lockedPressable = renderer.root

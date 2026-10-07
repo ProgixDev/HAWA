@@ -9,7 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
 import {getPrivacySecuritySettings, updatePrivacySecuritySettings} from '../../state/securityPreferences';
 
 import AuthScreen from '../AuthScreen';
@@ -21,7 +21,7 @@ import ForgotPasswordScreen from '../ForgotPasswordScreen';
 // same requirement every other migrated-screen test already follows (see
 // LocationScreenLanguageSwitch.test.tsx). Without this, t() calls return raw
 // keys instead of the French default copy this file's assertions expect.
-import '../../i18n';
+import i18n from '../../i18n';
 
 // The Auth family (Login/Register/Forgot Password) was previously
 // intentionally LIGHT-ONLY (frozen AUTH_LIGHT_THEME snapshot, never reacting
@@ -97,6 +97,12 @@ beforeEach(async () => {
   // anonymousMode is a module-level singleton (state/securityPreferences.ts)
   // that otherwise leaks between tests.
   updatePrivacySecuritySettings({anonymousMode: false});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's assertions ('Créer mon compte', 'Se connecter', etc.) were written
+  // against the French default. Pinning French here preserves every test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
