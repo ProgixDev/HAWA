@@ -16,7 +16,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 import '../../i18n';
-import {getAppLanguage} from '../../state/themePreferences';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 import { useJournalSheet } from '../../navigation/JournalSheetContext';
@@ -38,6 +37,7 @@ import {
   sameDay,
   startOfDay,
   localizedWeekDays,
+  dateFormatLocale,
 } from '../../utils/cycleMath';
 import {
   getCycleObservationStartedAt,
@@ -425,7 +425,7 @@ function ConceiveCalendarContent(): React.JSX.Element {
     ];
   }, [visibleMonth]);
 
-  const locale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const locale = dateFormatLocale();
   const monthTitle = capitalize(
     new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(
       visibleMonth,

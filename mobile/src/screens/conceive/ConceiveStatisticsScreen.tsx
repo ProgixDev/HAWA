@@ -28,7 +28,6 @@ import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
-import {getAppLanguage} from '../../state/themePreferences';
 import '../../i18n';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
@@ -57,6 +56,7 @@ import {
   formatShortDate,
   startOfDay,
   upcomingFertileWindow,
+  dateFormatLocale,
 } from '../../utils/cycleMath';
 
 import {
@@ -192,7 +192,7 @@ const TREND_DISPLAY_CAP = 20;
 ============================================================ */
 
 const dateLabel = (date: string): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'short',
   }).format(new Date(`${date}T12:00:00`));

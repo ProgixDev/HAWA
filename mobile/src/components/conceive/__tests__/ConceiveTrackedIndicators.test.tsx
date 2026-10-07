@@ -16,6 +16,8 @@ import {setConceptionPreferences, type FertilityIndicator} from '../../../state/
 import {getCyclePreferences, setCyclePreferences} from '../../../state/onboardingPreferences';
 import {getJournalEntry, saveJournalSection} from '../../../state/dailyJournalStore';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M17 - "Indicateurs suivis" (conceptionPreferences.indicators) filters the
 // Conceive daily-tracking ENTRY POINTS (Suivi du jour card + journal sheet
@@ -66,6 +68,11 @@ const progress = (renderer: ReactTestRenderer.ReactTestRenderer) =>
 beforeEach(async () => {
   resetPremiumStateForTests();
   await AsyncStorage.clear();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibility-label assertions match the French indicator names.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   setCyclePreferences({
     ...getCyclePreferences(),
     lastPeriodStart: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000),

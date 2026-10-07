@@ -10,6 +10,8 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import ConceiveDashboard from '../ConceiveDashboard';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {getHasConfirmedCycleData} from '../../../state/onboardingPreferences';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // No cycle configuration at all: no period length is invented - the dashboard
 // shows the "Configure ton cycle" state (no "J1-n" legend from a placeholder).
@@ -22,6 +24,11 @@ const TEST_METRICS: Metrics = {
 
 it('unconfirmed cycle data: "Configure ton cycle", no period legend', async () => {
   resetPremiumStateForTests();
+  // This test's assertion ("Configure ton cycle") is a French string — pin
+  // French explicitly now that English, not French, is the app's default
+  // (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   expect(getHasConfirmedCycleData()).toBe(false);
   let renderer!: ReactTestRenderer.ReactTestRenderer;
   await act(async () => {

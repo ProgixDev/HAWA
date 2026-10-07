@@ -15,6 +15,8 @@ import {
   setCyclePreferences,
 } from '../../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../../state/confirmedPeriodHistoryStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // The Conceive Dashboard's CURRENT period reads the real recorded / confirmed
 // range (same rule as the Cycle Dashboard): actual occurrence > habitual
@@ -70,9 +72,11 @@ const enterScenario = () => {
   return today;
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
   resetPremiumStateForTests();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {
