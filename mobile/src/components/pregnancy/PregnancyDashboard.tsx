@@ -40,7 +40,6 @@ import {
   getFirstName,
   getSpiritualMarkersEnabled,
 } from '../../state/onboardingPreferences';
-import { getAppLanguage } from '../../state/themePreferences';
 import {
   getPregnancyDating,
   hydratePregnancyDating,
@@ -65,7 +64,7 @@ import DeliveryDateSheet from './DeliveryDateSheet';
 import PostpartumCongratsCard from './PostpartumCongratsCard';
 import { usePregnancySpiritualStatus } from '../../hooks/usePrayerPurityStatus';
 import { useToday } from '../../hooks/useToday';
-import { formatHijriDate } from '../../utils/cycleMath';
+import { dateFormatLocale, formatHijriDate } from '../../utils/cycleMath';
 import { getJournalEntry } from '../../state/dailyJournalStore';
 import {
   getPregnancyJournalState,
@@ -168,7 +167,10 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const { t, i18n } = useTranslation();
-  const pregnancyDataLang = i18n.language === 'en' ? 'en' : 'fr';
+  // getPregnancyWeekData() has full French/English/Spanish content — explicit
+  // French and Spanish opt-ins, default to English for any other/unrecognized
+  // active language rather than silently falling back to French.
+  const pregnancyDataLang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
 
   const compact = width < 370;
   const veryCompact = width < 345;
@@ -650,7 +652,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
                     style={styles.dueValue}
                   >
                     {status.estimatedDueDate
-                      ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+                      ? new Intl.DateTimeFormat(dateFormatLocale(), {
                           day: 'numeric',
                           month: 'long',
                           year: 'numeric',
@@ -822,7 +824,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
               lines={
                 nextAppointment
                   ? [
-                      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+                      new Intl.DateTimeFormat(dateFormatLocale(), {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
@@ -848,7 +850,7 @@ function PregnancyDashboard({ navigation }: Props): React.JSX.Element {
               lines={
                 nextExam
                   ? [
-                      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+                      new Intl.DateTimeFormat(dateFormatLocale(), {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',

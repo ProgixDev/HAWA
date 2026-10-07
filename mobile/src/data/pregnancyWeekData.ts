@@ -50,6 +50,17 @@ import type {ImageSourcePropType} from 'react-native';
 // reformatted to English decimal/locale conventions (comma → period).
 // `week`, `babyImage`, and `sourceRefs` are language-neutral and are never
 // duplicated per language — see PregnancyWeekEntry below.
+//
+// SPANISH EDITORIAL CONTENT: the `es` object per week is a complete,
+// independent translation of the French original (the source language),
+// never of the English text. Same careful, non-literal medical-translation
+// discipline as English: "peut"/"peuvent" always render as "puede"/"pueden"
+// (never a stronger claim), every numeric value is preserved exactly (only
+// the decimal separator is localized, comma stays a comma as in French —
+// matching established Spanish numeric formatting elsewhere in the app, e.g.
+// "64,2 kg" in src/i18n/locales/es.ts), and each week's `es` object has
+// exactly the same fields present as that week's `fr`/`en` objects (no
+// invented `comparison` for weeks 1–3/41, no `weight` anywhere).
 // ============================================================
 
 export type PregnancyWeekData = {
@@ -92,6 +103,7 @@ type PregnancyWeekEntry = {
   content: {
     fr: PregnancyWeekEditorialContent;
     en: PregnancyWeekEditorialContent;
+    es: PregnancyWeekEditorialContent;
   };
 };
 
@@ -125,6 +137,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'It’s common not to notice any change at this stage.',
         ],
       },
+      es: {
+        babyDescription:
+          'El embarazo se calcula a partir del primer día de tu última regla, por convención médica. En esta etapa, la fecundación generalmente todavía no ha tenido lugar.',
+        bodyChanges: [
+          'Este periodo suele preceder a la concepción; habitualmente todavía no hay ningún cambio físico relacionado con el embarazo.',
+        ],
+        toKnow: [
+          'Contar el embarazo desde la última regla permite estimar una fecha prevista de parto de forma estandarizada, aunque la concepción ocurra en realidad un poco más tarde.',
+          'Es habitual no notar ningún cambio en esta etapa.',
+        ],
+      },
     },
   },
   {
@@ -150,6 +173,15 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: ['The exact timing of ovulation varies from person to person, which is why this period remains an estimate.'],
       },
+      es: {
+        babyDescription:
+          'La ovulación y una posible fecundación suelen producirse alrededor de este periodo, según la duración del ciclo de cada mujer.',
+        bodyChanges: [
+          'El momento de la ovulación puede variar según la duración del ciclo, lo que influye en la fecha real posible de la concepción.',
+          'En esta etapa generalmente todavía no hay ningún cambio físico específico del embarazo.',
+        ],
+        toKnow: ['El momento exacto de la ovulación varía de una persona a otra, lo que explica por qué este periodo sigue siendo una estimación.'],
+      },
     },
   },
   {
@@ -172,6 +204,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
           'This week still falls within the medical dating period surrounding conception; no physical sign is generally noticeable at this stage.',
         ],
         toKnow: ['Most urine pregnancy tests become reliable from around the following week, once implantation has begun.'],
+      },
+      es: {
+        babyDescription:
+          'Si ha habido fecundación, el óvulo fecundado comienza a dividirse y a desplazarse hacia el útero, pero todavía no se puede detectar nada con una prueba de embarazo.',
+        bodyChanges: [
+          'Esta semana todavía se sitúa dentro del periodo de datación médica en torno a la concepción; en esta etapa generalmente no hay ningún signo físico perceptible.',
+        ],
+        toKnow: ['La mayoría de las pruebas de embarazo en orina empiezan a ser fiables aproximadamente a partir de la semana siguiente, una vez iniciada la implantación.'],
       },
     },
   },
@@ -204,6 +244,17 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         ],
         toKnow: ['This is the usual time when a pregnancy test can start giving a positive result.'],
       },
+      es: {
+        babyDescription:
+          'El embrión acaba de implantarse en la pared del útero. El saco amniótico y el saco vitelino, que lo nutrirá al principio, se están formando.',
+        length: 'Aproximadamente 2 mm',
+        comparison: 'Semilla de amapola',
+        bodyChanges: [
+          'Algunas personas todavía no notan ningún signo en esta etapa tan temprana.',
+          'Una prueba de embarazo en orina generalmente puede detectar el embarazo a partir de esta semana.',
+        ],
+        toKnow: ['Este es el momento habitual en el que una prueba de embarazo puede empezar a dar un resultado positivo.'],
+      },
     },
   },
   {
@@ -226,6 +277,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Sesame seed',
         bodyChanges: ['Unusual fatigue, mild nausea, or breast tenderness may appear.'],
         toKnow: ['This is the recommended time to make an appointment with a healthcare professional to start pregnancy care.'],
+      },
+      es: {
+        babyDescription:
+          'El sistema nervioso comienza a formarse y el corazón, todavía diminuto, está a punto de latir por primera vez.',
+        length: 'Aproximadamente 2 mm',
+        comparison: 'Semilla de sésamo',
+        bodyChanges: ['Puede aparecer un cansancio inusual, náuseas leves o sensibilidad en el pecho.'],
+        toKnow: ['Este es el momento recomendado para pedir cita con un profesional de la salud y comenzar el seguimiento del embarazo.'],
       },
     },
   },
@@ -250,6 +309,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Nausea and fatigue may intensify for some people during this period.'],
         toKnow: ['Heart activity can sometimes be visible as early as this week on an early ultrasound.'],
       },
+      es: {
+        babyDescription:
+          'Aparecen los primeros esbozos de los brazos y las piernas, así como pequeñas marcas donde se formarán las orejas. A veces ya puede detectarse el corazón mediante una ecografía.',
+        length: 'Aproximadamente 6 mm',
+        comparison: 'Guisante',
+        bodyChanges: ['Las náuseas y el cansancio pueden intensificarse en algunas personas durante este periodo.'],
+        toKnow: ['A veces puede verse actividad cardiaca ya desde esta semana en una ecografía precoz.'],
+      },
     },
   },
   {
@@ -272,6 +339,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Grape',
         bodyChanges: ['Particular food cravings, or conversely aversions to certain foods, are possible.'],
         toKnow: ['The neural tube, which gives rise to the brain and spinal cord, continues closing during these weeks.'],
+      },
+      es: {
+        babyDescription:
+          'El cerebro se desarrolla más rápido que el resto del cuerpo, lo que da una frente prominente. Empiezan a aparecer pequeños esbozos de manos en el extremo de los brazos.',
+        length: 'Aproximadamente 10 mm',
+        comparison: 'Grano de uva',
+        bodyChanges: ['Son posibles antojos alimentarios particulares o, por el contrario, aversiones a ciertos alimentos.'],
+        toKnow: ['El tubo neural, origen del cerebro y la médula espinal, continúa cerrándose durante estas semanas.'],
       },
     },
   },
@@ -298,6 +373,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Sensitivity to smells and morning sickness are common at this stage, though not universal.'],
         toKnow: ['The first dating ultrasound is generally scheduled between week 8 and week 14.'],
       },
+      es: {
+        babyDescription:
+          'El embrión pasa ahora a llamarse feto. Los brazos se alargan, la cabeza empieza a enderezarse ligeramente y la placenta continúa formándose.',
+        length: 'Aproximadamente 16 mm',
+        comparison: 'Frambuesa',
+        bodyChanges: ['La sensibilidad a los olores y las náuseas matutinas son frecuentes en esta etapa, sin ser sistemáticas.'],
+        toKnow: ['La primera ecografía de datación suele programarse entre la semana 8 y la semana 14.'],
+      },
     },
   },
   {
@@ -320,6 +403,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Strawberry',
         bodyChanges: ['Marked fatigue and nausea may still be present; they often tend to ease off by the end of the first trimester.'],
         toKnow: ['The genital organs are just beginning to differentiate, but the sex generally isn’t identifiable until much later, at the anatomy ultrasound.'],
+      },
+      es: {
+        babyDescription:
+          'Los rasgos del rostro se precisan, los párpados protegen los ojos, y las manos y los pies van tomando forma con los futuros dedos.',
+        length: 'Aproximadamente 22 mm',
+        comparison: 'Fresa',
+        bodyChanges: ['Todavía puede haber un cansancio marcado y náuseas; suelen tender a atenuarse hacia el final del primer trimestre.'],
+        toKnow: ['Los órganos genitales apenas empiezan a diferenciarse, pero el sexo generalmente solo es identificable mucho más tarde, en la ecografía morfológica.'],
       },
     },
   },
@@ -344,6 +435,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Your waistline may start to change slightly, even though the belly generally isn’t visible yet.'],
         toKnow: ['Combined first-trimester screening, when offered, is generally done between week 11 and week 14.'],
       },
+      es: {
+        babyDescription:
+          'El rostro se vuelve más reconocible, los párpados reaccionan a la luz y el corazón late a un ritmo rápido, aproximadamente tres veces más rápido que el de un adulto.',
+        length: 'Aproximadamente 30 mm',
+        comparison: 'Albaricoque pequeño',
+        bodyChanges: ['Tu contorno de cintura puede empezar a cambiar ligeramente, aunque el vientre generalmente todavía no es visible.'],
+        toKnow: ['El cribado combinado del primer trimestre, cuando se ofrece, suele realizarse entre la semana 11 y la semana 14.'],
+      },
     },
   },
   {
@@ -366,6 +465,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Fig',
         bodyChanges: ['You may notice mood swings, linked in particular to hormonal changes.'],
         toKnow: ['The baby’s movements are beginning, but they generally aren’t felt yet at this stage.'],
+      },
+      es: {
+        babyDescription:
+          'Los dedos de las manos y los pies se separan, aparecen diminutas uñas, y la placenta va asumiendo progresivamente el papel del saco vitelino para nutrir al feto.',
+        length: 'Aproximadamente 41 mm',
+        comparison: 'Higo',
+        bodyChanges: ['Es posible notar cambios de humor, relacionados en particular con las variaciones hormonales.'],
+        toKnow: ['Los movimientos del bebé comienzan, pero generalmente todavía no se sienten en esta etapa.'],
       },
     },
   },
@@ -390,6 +497,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Nausea often tends to gradually ease around this time, though this varies a lot from person to person.'],
         toKnow: ['The end of the first trimester is often associated with a lower miscarriage risk compared with the preceding weeks.'],
       },
+      es: {
+        babyDescription:
+          'Los órganos internos y los músculos han crecido bien, y el esqueleto empieza a osificarse. Los órganos reproductores se han formado, aunque todavía no son visibles en la ecografía.',
+        length: 'Aproximadamente 5,4 cm',
+        comparison: 'Ciruela',
+        bodyChanges: ['Las náuseas suelen tender a atenuarse progresivamente en torno a este periodo, aunque esto varía mucho de una persona a otra.'],
+        toKnow: ['El final del primer trimestre suele asociarse a una disminución del riesgo de aborto espontáneo en comparación con las semanas anteriores.'],
+      },
     },
   },
   {
@@ -412,6 +527,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Peach',
         bodyChanges: ['Many people gradually regain a bit more energy as the second trimester approaches.'],
         toKnow: ['The first trimester generally ends around this week; care continues with more widely spaced appointments.'],
+      },
+      es: {
+        babyDescription:
+          'Los movimientos, todavía entrecortados, se vuelven un poco más coordinados. Algunos bebés ya esbozan un reflejo de succión del pulgar.',
+        length: 'Aproximadamente 7,4 cm',
+        comparison: 'Melocotón',
+        bodyChanges: ['Muchas personas recuperan progresivamente algo más de energía a medida que se acerca el segundo trimestre.'],
+        toKnow: ['El primer trimestre suele terminar alrededor de esta semana; el seguimiento continúa con consultas más espaciadas.'],
       },
     },
   },
@@ -438,6 +561,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['The belly starts to round out more visibly for some people.'],
         toKnow: ['A healthcare professional can sometimes start hearing the heartbeat with an ultrasound device placed on the belly.'],
       },
+      es: {
+        babyDescription:
+          'La cabeza se redondea y se proporciona cada vez más con el resto del cuerpo. El feto traga un poco de líquido amniótico, que pasa por el estómago y los riñones.',
+        length: 'Aproximadamente 8,5 cm',
+        comparison: 'Kiwi',
+        bodyChanges: ['El vientre empieza a redondearse de forma más visible en algunas personas.'],
+        toKnow: ['Un profesional de la salud a veces puede empezar a oír el ritmo cardiaco con un aparato de ultrasonidos colocado sobre el vientre.'],
+      },
     },
   },
   {
@@ -461,6 +592,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Your appetite may change, sometimes with new food cravings or aversions.'],
         toKnow: ['Hearing begins developing around this time: your voice and the body’s internal sounds gradually become perceptible.'],
       },
+      es: {
+        babyDescription:
+          'Un vello fino llamado lanugo va cubriendo progresivamente la piel, y empiezan a aparecer las cejas y las pestañas. Los ojos se vuelven sensibles a la luz.',
+        length: 'Aproximadamente 10,1 cm',
+        comparison: 'Manzana',
+        bodyChanges: ['El apetito puede cambiar, a veces con nuevos antojos o aversiones alimentarias.'],
+        toKnow: ['La audición empieza a desarrollarse hacia este periodo: tu voz y los sonidos internos del cuerpo se vuelven progresivamente perceptibles.'],
+      },
     },
   },
   {
@@ -481,6 +620,13 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Avocado',
         bodyChanges: ['Some people start feeling very light movements from around this time, often described as fluttering.'],
         toKnow: ['Feeling the first movements varies a lot from one pregnancy to another, particularly depending on whether it’s a first pregnancy.'],
+      },
+      es: {
+        babyDescription: 'El sistema nervioso permite movimientos de los brazos y las piernas. Las manos pueden cerrarse formando pequeños puños.',
+        length: 'Aproximadamente 11,6 cm',
+        comparison: 'Aguacate',
+        bodyChanges: ['Algunas personas empiezan a notar movimientos muy ligeros a partir de este periodo, a menudo descritos como un aleteo.'],
+        toKnow: ['Sentir los primeros movimientos varía mucho de un embarazo a otro, en particular según se trate o no de un primer embarazo.'],
       },
     },
   },
@@ -505,6 +651,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Mild back pain may appear as your center of gravity shifts.'],
         toKnow: ['Outside sounds are starting to be perceived, in muffled form, through the amniotic fluid.'],
       },
+      es: {
+        babyDescription:
+          'Los ojos, todavía cerrados, pueden moverse, y el bebé ahora reacciona a los sonidos fuertes. Las huellas digitales empiezan a formarse.',
+        length: 'Aproximadamente 12 cm',
+        comparison: 'Granada',
+        bodyChanges: ['Pueden aparecer dolores de espalda leves a medida que cambia tu centro de gravedad.'],
+        toKnow: ['Los sonidos externos empiezan a percibirse, de forma amortiguada, a través del líquido amniótico.'],
+      },
     },
   },
   {
@@ -528,6 +682,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['The belly is often clearly visible at this stage, and your center of gravity keeps shifting.'],
         toKnow: ['The anatomy ultrasound, which examines the baby’s overall development, is generally offered between week 18 and week 21.'],
       },
+      es: {
+        babyDescription:
+          'La audición, el tacto, la deglución y el reflejo de succión siguen desarrollándose. El bebé se vuelve cada vez más activo, con más movimientos de brazos y piernas.',
+        length: 'Aproximadamente 14,2 cm',
+        comparison: 'Pimiento',
+        bodyChanges: ['El vientre suele ser bien visible en esta etapa, y tu centro de gravedad continúa desplazándose.'],
+        toKnow: ['La ecografía morfológica, que examina el desarrollo general del bebé, suele ofrecerse entre la semana 18 y la semana 21.'],
+      },
     },
   },
   {
@@ -550,6 +712,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Large tomato',
         bodyChanges: ['A pulling sensation on the sides of the belly (round ligament pain) may occur as the uterus grows.'],
         toKnow: ['This is a common time to start feeling the baby’s movements more distinctly.'],
+      },
+      es: {
+        babyDescription:
+          'Los futuros dientes definitivos empiezan a formarse detrás de los dientes de leche en preparación, y el bebé sigue ganando peso progresivamente.',
+        length: 'Aproximadamente 15,3 cm',
+        comparison: 'Tomate grande',
+        bodyChanges: ['Puede aparecer una sensación de tirón en los laterales del vientre (dolor ligamentoso) a medida que crece el útero.'],
+        toKnow: ['Este es un periodo frecuente para empezar a sentir con más claridad los movimientos del bebé.'],
       },
     },
   },
@@ -576,6 +746,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Your nicely rounded belly may start to affect your balance and posture.'],
         toKnow: ['The midpoint of pregnancy is often marked by a full check-up with the healthcare professional following your care.'],
       },
+      es: {
+        babyDescription:
+          'A partir de esta semana, la longitud se mide de la cabeza a los talones en lugar de la cabeza a la parte baja de la espalda, ya que las piernas ahora están extendidas y se pueden medir — esto explica un aumento visible de la talla de referencia respecto a las semanas anteriores.',
+        length: 'Aproximadamente 25,6 cm',
+        comparison: 'Plátano',
+        bodyChanges: ['El vientre bien redondeado puede empezar a modificar tu equilibrio y tu postura.'],
+        toKnow: ['La mitad del embarazo suele marcarse con un chequeo completo con el profesional de la salud que lleva tu seguimiento.'],
+      },
     },
   },
   {
@@ -596,6 +774,13 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Carrot',
         bodyChanges: ['Mild shortness of breath on exertion may appear as the uterus takes up more space.'],
         toKnow: ['Getting familiar with your baby’s usual movement pattern makes it easier to notice an unusual change.'],
+      },
+      es: {
+        babyDescription: 'Los movimientos se vuelven más claros y coordinados, y es frecuente empezar a sentirlos bien durante este periodo.',
+        length: 'Aproximadamente 26,7 cm',
+        comparison: 'Zanahoria',
+        bodyChanges: ['Puede aparecer una ligera falta de aliento al hacer esfuerzos, a medida que el útero ocupa más espacio.'],
+        toKnow: ['Familiarizarte con el ritmo habitual de los movimientos del bebé te ayuda a detectar mejor un cambio inusual.'],
       },
     },
   },
@@ -620,6 +805,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Leg cramps, particularly at night, are possible for some people.'],
         toKnow: ['What you eat can influence the amniotic fluid, which the baby regularly swallows.'],
       },
+      es: {
+        babyDescription:
+          'Los pulmones continúan desarrollándose y el bebé practica pequeños movimientos respiratorios. Las papilas gustativas también se están formando.',
+        length: 'Aproximadamente 27,8 cm',
+        comparison: 'Boniato',
+        bodyChanges: ['Pueden aparecer calambres en las piernas, sobre todo por la noche, en algunas personas.'],
+        toKnow: ['Lo que comes puede influir en el líquido amniótico, que el bebé traga regularmente.'],
+      },
     },
   },
   {
@@ -642,6 +835,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Large mango',
         bodyChanges: ['More pronounced back pain may appear with gradual weight gain.'],
         toKnow: ['Observing the baby’s active and quiet periods helps you learn their own rhythm.'],
+      },
+      es: {
+        babyDescription:
+          'Los miembros ya están bien proporcionados. El bebé practica la respiración y empieza a alternar fases de sueño y de vigilia.',
+        length: 'Aproximadamente 28,9 cm',
+        comparison: 'Mango grande',
+        bodyChanges: ['Pueden aparecer dolores de espalda más marcados con el aumento de peso progresivo.'],
+        toKnow: ['Observar los periodos de actividad y de calma del bebé te ayuda a conocer su propio ritmo.'],
       },
     },
   },
@@ -666,6 +867,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Increased pressure on the bladder and frequent urges to urinate may appear.'],
         toKnow: ['Gestational diabetes screening is generally offered around this time.'],
       },
+      es: {
+        babyDescription:
+          'El bebé alcanza el umbral de viabilidad: en caso de un nacimiento muy prematuro en esta etapa, una atención médica especializada en neonatología puede permitir la supervivencia, con un acompañamiento adecuado.',
+        length: 'Aproximadamente 30 cm',
+        comparison: 'Mazorca de maíz',
+        bodyChanges: ['Puede aparecer una presión mayor sobre la vejiga y ganas frecuentes de orinar.'],
+        toKnow: ['El cribado de la diabetes gestacional suele ofrecerse en torno a este periodo.'],
+      },
     },
   },
   {
@@ -689,6 +898,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Heartburn or acid reflux may become more frequent.'],
         toKnow: ['Fetal hiccups felt from time to time are generally considered normal.'],
       },
+      es: {
+        babyDescription:
+          'El bebé ahora reacciona a los ruidos fuertes con un sobresalto o una patada, y a veces puede sentirse hipo ocasional. Orina regularmente en el líquido amniótico.',
+        length: 'Aproximadamente 34,6 cm',
+        comparison: 'Calabacín',
+        bodyChanges: ['Pueden volverse más frecuentes los ardores de estómago o los reflujos ácidos.'],
+        toKnow: ['Sentir hipo fetal de vez en cuando generalmente se considera normal.'],
+      },
     },
   },
   {
@@ -709,6 +926,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Cucumber',
         bodyChanges: ['Mild swelling of the ankles or feet may appear, particularly by the end of the day.'],
         toKnow: ['The third trimester is approaching, with medical follow-up generally becoming more frequent.'],
+      },
+      es: {
+        babyDescription:
+          'Los ojos se abren por primera vez. El color definitivo de los ojos generalmente no se conocerá hasta varios meses después del nacimiento.',
+        length: 'Aproximadamente 35,6 cm',
+        comparison: 'Pepino',
+        bodyChanges: ['Puede aparecer una hinchazón leve en los tobillos o los pies, especialmente al final del día.'],
+        toKnow: ['El tercer trimestre se acerca, con un seguimiento médico que generalmente se vuelve más frecuente.'],
       },
     },
   },
@@ -732,6 +957,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Cauliflower',
         bodyChanges: ['Fatigue may return as your body carries a growing amount of weight.'],
         toKnow: ['The start of the third trimester is often a good time to start thinking about your birth plan.'],
+      },
+      es: {
+        babyDescription:
+          'Los pulmones empiezan a ser capaces de iniciar una respiración, y el bebé sigue ganando redondez a medida que se deposita grasa bajo la piel.',
+        length: 'Aproximadamente 36,6 cm',
+        comparison: 'Coliflor',
+        bodyChanges: ['El cansancio puede volver a medida que tu cuerpo carga con un peso creciente.'],
+        toKnow: ['El inicio del tercer trimestre suele ser una buena ocasión para empezar a pensar en tu plan de parto.'],
       },
     },
   },
@@ -758,6 +991,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Shortness of breath or heartburn may become more frequent as the uterus takes up more space.'],
         toKnow: ['The third trimester generally begins around this week, with appointments becoming more frequent.'],
       },
+      es: {
+        babyDescription:
+          'El ritmo cardiaco, más rápido al principio del embarazo, se ha estabilizado en torno a 130 a 140 latidos por minuto y ahora puede oírse con un estetoscopio.',
+        length: 'Aproximadamente 37,6 cm',
+        comparison: 'Berenjena',
+        bodyChanges: ['La falta de aliento o los ardores de estómago pueden volverse más frecuentes a medida que el útero ocupa más espacio.'],
+        toKnow: ['El tercer trimestre suele comenzar alrededor de esta semana, con consultas que se vuelven más seguidas.'],
+      },
     },
   },
   {
@@ -780,6 +1021,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Butternut squash',
         bodyChanges: ['Sleep may become harder to find because of your growing belly.'],
         toKnow: ['Resting on your left side is often recommended in late pregnancy to support circulation.'],
+      },
+      es: {
+        babyDescription:
+          'El bebé ya está bien formado; las próximas semanas se dedicarán sobre todo a la maduración de los órganos y al aumento de peso. La fina capa protectora que cubre su piel empieza a reabsorberse.',
+        length: 'Aproximadamente 38,6 cm',
+        comparison: 'Calabaza butternut',
+        bodyChanges: ['Puede costar más conciliar el sueño, debido al tamaño cada vez mayor del vientre.'],
+        toKnow: ['Descansar sobre el lado izquierdo suele recomendarse al final del embarazo para favorecer la circulación.'],
       },
     },
   },
@@ -804,6 +1053,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['A feeling of heaviness in the lower back or pelvis may increase.'],
         toKnow: ['Prenatal appointments generally become more frequent from this stage onward.'],
       },
+      es: {
+        babyDescription:
+          'La visión sigue desarrollándose; al nacer, el bebé podrá distinguir los rostros cercanos, antes de aprender progresivamente a seguir objetos en movimiento.',
+        length: 'Aproximadamente 39,9 cm',
+        comparison: 'Col',
+        bodyChanges: ['Puede acentuarse una sensación de pesadez en la parte baja de la espalda o en la pelvis.'],
+        toKnow: ['Las consultas prenatales generalmente se vuelven más seguidas a partir de esta etapa.'],
+      },
     },
   },
   {
@@ -826,6 +1083,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Coconut',
         bodyChanges: ['Practice contractions, known as Braxton Hicks, may start being felt occasionally.'],
         toKnow: ['The baby is starting to recognize certain familiar voices heard regularly from outside.'],
+      },
+      es: {
+        babyDescription:
+          'El bebé se mueve activamente, a veces se chupa los dedos y puede hacer movimientos amplios. Su piel se vuelve menos arrugada a medida que se acumula grasa.',
+        length: 'Aproximadamente 41,1 cm',
+        comparison: 'Coco',
+        bodyChanges: ['Pueden empezar a sentirse ocasionalmente contracciones de entrenamiento, llamadas de Braxton Hicks.'],
+        toKnow: ['El bebé empieza a reconocer algunas voces familiares que oye regularmente desde el exterior.'],
       },
     },
   },
@@ -850,6 +1115,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['More noticeable weight gain is common during this period, linked to the baby’s growth.'],
         toKnow: ['Head-down positioning (cephalic presentation) becomes more common as term approaches.'],
       },
+      es: {
+        babyDescription:
+          'El bebé ya está bien formado y se va colocando poco a poco con la cabeza hacia abajo de cara al nacimiento. Durante las semanas restantes, sobre todo continúa ganando peso.',
+        length: 'Aproximadamente 42,4 cm',
+        comparison: 'Manojo de apio',
+        bodyChanges: ['Un aumento de peso más marcado es habitual durante este periodo, relacionado con el crecimiento del bebé.'],
+        toKnow: ['La colocación con la cabeza hacia abajo (presentación cefálica) se vuelve más frecuente a medida que se acerca el término.'],
+      },
     },
   },
   {
@@ -872,6 +1145,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Pineapple',
         bodyChanges: ['Difficulty finding a comfortable sleeping position is common at this stage.'],
         toKnow: ['The flexibility of the skull bones at birth is temporary and gradually closes up during the first year.'],
+      },
+      es: {
+        babyDescription:
+          'El cerebro y el sistema nervioso ya están bien desarrollados. Los huesos continúan endureciéndose, a excepción de los del cráneo, que permanecen flexibles para facilitar el paso durante el nacimiento.',
+        length: 'Aproximadamente 43,7 cm',
+        comparison: 'Piña',
+        bodyChanges: ['Es frecuente en esta etapa tener dificultad para encontrar una posición cómoda para dormir.'],
+        toKnow: ['La flexibilidad de los huesos del cráneo al nacer es temporal y se va cerrando progresivamente durante el primer año.'],
       },
     },
   },
@@ -896,6 +1177,13 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Despite the reduced space, the baby’s movements and the changing shape of your belly usually remain noticeable.'],
         toKnow: ['Continuing to pay attention to the baby’s usual movements remains relevant right up until birth.'],
       },
+      es: {
+        babyDescription: 'El bebé, acurrucado por falta de espacio, generalmente mantiene las piernas replegadas hacia el pecho mientras sigue moviéndose con regularidad.',
+        length: 'Aproximadamente 45 cm',
+        comparison: 'Melón cantalupo',
+        bodyChanges: ['A pesar del espacio reducido, los movimientos del bebé y los cambios de forma del vientre suelen seguir siendo perceptibles.'],
+        toKnow: ['Seguir prestando atención a los movimientos habituales del bebé sigue siendo pertinente hasta el parto.'],
+      },
     },
   },
   {
@@ -916,6 +1204,13 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Honeydew melon',
         bodyChanges: ['More pronounced pelvic pressure may appear as the baby gradually descends.'],
         toKnow: ['Despite the limited space, the baby should continue moving with a regularity similar to previous weeks.'],
+      },
+      es: {
+        babyDescription: 'El bebé sigue ganando redondez, lo que le ayudará a regular su temperatura una vez nacido. El espacio disponible en el útero se vuelve más limitado.',
+        length: 'Aproximadamente 46,2 cm',
+        comparison: 'Melón dulce',
+        bodyChanges: ['Puede aparecer una presión pélvica más marcada a medida que el bebé desciende progresivamente.'],
+        toKnow: ['A pesar del espacio reducido, el bebé debe seguir moviéndose con una regularidad similar a la de las semanas anteriores.'],
       },
     },
   },
@@ -940,6 +1235,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['You may sometimes feel shorter of breath, as the uterus takes up a lot of space under the ribs.'],
         toKnow: ['Pregnancy is considered full term between week 37 and week 42.'],
       },
+      es: {
+        babyDescription:
+          'Los pulmones generalmente han madurado lo suficiente para permitir una respiración autónoma, y el bebé es capaz de succionar y digerir.',
+        length: 'Aproximadamente 47,4 cm',
+        comparison: 'Lechuga romana',
+        bodyChanges: ['A veces puedes sentir una respiración más corta, ya que el útero ocupa mucho espacio bajo las costillas.'],
+        toKnow: ['El embarazo se considera a término entre la semana 37 y la semana 42.'],
+      },
     },
   },
   {
@@ -961,6 +1264,13 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['A feeling of growing pelvic pressure is common as the baby engages in the pelvis.'],
         toKnow: ['From this week on, term is considered reached and birth can happen at any time.'],
       },
+      es: {
+        babyDescription: 'El bebé se considera suficientemente maduro para nacer. La gran mayoría de los bebés ya se colocan con la cabeza hacia abajo.',
+        length: 'Aproximadamente 48,6 cm',
+        comparison: 'Puerro',
+        bodyChanges: ['Es frecuente sentir una presión pélvica creciente a medida que el bebé se encaja en la pelvis.'],
+        toKnow: ['A partir de esta semana, se considera alcanzado el término y el nacimiento puede producirse en cualquier momento.'],
+      },
     },
   },
   {
@@ -981,6 +1291,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Rhubarb stalk',
         bodyChanges: ['Getting familiar with the signs of labor can be useful as birth approaches.'],
         toKnow: ['A scheduled birth, when considered without a medical indication, is generally not recommended before week 39.'],
+      },
+      es: {
+        babyDescription:
+          'El vello fino que cubría la piel ha desaparecido en su mayor parte, y los intestinos acumulan meconio, las primeras heces del recién nacido.',
+        length: 'Aproximadamente 49,8 cm',
+        comparison: 'Tallo de ruibarbo',
+        bodyChanges: ['Familiarizarte con los signos que anuncian el trabajo de parto puede ser útil a medida que se acerca el nacimiento.'],
+        toKnow: ['Un parto programado, cuando se plantea sin indicación médica, generalmente no se recomienda antes de la semana 39.'],
       },
     },
   },
@@ -1005,6 +1323,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['Impatience and a certain amount of fatigue are common as the due date approaches.'],
         toKnow: ['The newborn’s blood circulation continues adjusting just after birth, which can temporarily give the hands or feet a slightly bluish tinge.'],
       },
+      es: {
+        babyDescription:
+          'La piel, antes más fina, se ha engrosado y ahora protege mejor al bebé. Una capa protectora, el vérnix, también facilita su paso durante el nacimiento.',
+        length: 'Aproximadamente 50,7 cm',
+        comparison: 'Sandía',
+        bodyChanges: ['La impaciencia y un cierto cansancio son frecuentes a medida que se acerca la fecha prevista.'],
+        toKnow: ['La circulación sanguínea del recién nacido continúa ajustándose justo después del nacimiento, lo que puede dar temporalmente un tono ligeramente azulado a las manos o los pies.'],
+      },
     },
   },
   {
@@ -1027,6 +1353,14 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         comparison: 'Pumpkin',
         bodyChanges: ['Waiting for signs of labor (regular contractions, water breaking) is common during this period.'],
         toKnow: ['Going slightly past the due date remains common and doesn’t necessarily mean there’s a problem; closer monitoring is generally offered.'],
+      },
+      es: {
+        babyDescription:
+          'El bebé está totalmente desarrollado y listo para nacer. La fecha prevista de parto es una estimación: muchos nacimientos ocurren en los días que la rodean, antes o después.',
+        length: 'Aproximadamente 51,2 cm',
+        comparison: 'Calabaza',
+        bodyChanges: ['Es frecuente durante este periodo esperar signos de trabajo de parto (contracciones regulares, rotura de aguas).'],
+        toKnow: ['Superar ligeramente la fecha prevista sigue siendo habitual y no significa necesariamente que haya un problema; generalmente se propone un seguimiento más cercano.'],
       },
     },
   },
@@ -1051,20 +1385,30 @@ const PREGNANCY_WEEK_DATA: readonly PregnancyWeekEntry[] = [
         bodyChanges: ['The prolonged wait may come with increased fatigue and impatience.'],
         toKnow: ['Going past term generally leads to increased monitoring by the medical team.'],
       },
+      es: {
+        babyDescription:
+          'El bebé sigue totalmente desarrollado. Más allá de la fecha prevista, generalmente se propone un seguimiento más cercano para vigilar el bienestar del bebé.',
+        bodyChanges: ['La espera prolongada puede ir acompañada de un mayor cansancio e impaciencia.'],
+        toKnow: ['Sobrepasar el término generalmente es objeto de una vigilancia reforzada por parte del equipo médico.'],
+      },
     },
   },
 ];
 
-// PHASE 7M: default matches the app's English-first default (both real
-// callers — PregnancyDashboard.tsx, PregnancyWeekScreen.tsx — already pass an
-// explicit, normalized `lang` derived from i18n.language, so this default is
-// only ever exercised by a caller that omits it, e.g. a test).
-export function getPregnancyWeekData(week: number, lang: 'fr' | 'en' = 'en'): PregnancyWeekData | undefined {
+// PHASE 7M / Spanish editorial content: default matches the app's
+// English-first default (all real callers — PregnancyDashboard.tsx,
+// PregnancyWeekScreen.tsx — already pass an explicit, normalized `lang`
+// derived from i18n.language, so this default is only ever exercised by a
+// caller that omits it, e.g. a test). Resolution is a proper 3-way: 'fr' ->
+// French, 'es' -> Spanish, anything else (including 'en' and any
+// unrecognized/future value) -> English. English is the fallback for an
+// unknown language — never French.
+export function getPregnancyWeekData(week: number, lang: 'fr' | 'en' | 'es' = 'en'): PregnancyWeekData | undefined {
   const entry = PREGNANCY_WEEK_DATA.find(item => item.week === week);
   if (!entry) {
     return undefined;
   }
-  const content = lang === 'en' ? entry.content.en : entry.content.fr;
+  const content = lang === 'fr' ? entry.content.fr : lang === 'es' ? entry.content.es : entry.content.en;
   return {
     week: entry.week,
     babyImage: entry.babyImage,

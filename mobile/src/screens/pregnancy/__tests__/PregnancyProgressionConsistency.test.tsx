@@ -13,6 +13,8 @@ import PregnancyStatisticsScreen from '../PregnancyStatisticsScreen';
 import PregnancyWeekScreen from '../PregnancyWeekScreen';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {setPregnancyDating} from '../../../state/pregnancyPreferences';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {addDays} from '../../../utils/cycleMath';
 import {
   PREGNANCY_TOTAL_DAYS,
@@ -83,8 +85,15 @@ const valueAfter = (renderer: ReactTestRenderer.ReactTestRenderer, label: string
 const setLmp = (elapsedDays: number) =>
   setPregnancyDating({method: 'lastPeriod', date: addDays(new Date(), -elapsedDays).toISOString()});
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
+  // This file's text-scraping helpers (dashboardRemaining/statsRemainingWeeks) key off
+  // French-specific substrings ("semaines", "sem. restantes") — pin French explicitly
+  // now that English, not French, is the app's default (Phase 7M). Without this, these
+  // helpers find no match against the English-rendered text and return null, which looks
+  // like a production bug (`Expected {days,weeks}, Received: null`) but isn't one.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

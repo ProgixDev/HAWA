@@ -170,7 +170,10 @@ export default function PregnancyWeekScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const pregnancyDataLang = i18n.language === 'en' ? 'en' : 'fr';
+  // getPregnancyWeekData() has full French/English/Spanish content — explicit
+  // French and Spanish opt-ins, default to English for any other/unrecognized
+  // active language rather than silently falling back to French.
+  const pregnancyDataLang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const insets = useSafeAreaInsets();
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -27,6 +27,8 @@ import {
   savePregnancyWeight,
 } from '../../../state/pregnancyJournalStore';
 import {addDays} from '../../../utils/cycleMath';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // "Suivi du jour" on the Pregnancy Dashboard: each of the 5 categories shows the
 // shared AWA completed state (solid icon + success check badge) ONLY when its own
@@ -120,6 +122,12 @@ beforeEach(async () => {
   await setTrueBlackEnabled(false);
   await setPregnancyDating({method: 'lastPeriod', date: addDays(new Date(), -70).toISOString()});
   await setPregnancyTrackingPreferences(new Set(ALL_TRACKED));
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibility-label assertions ("Symptômes", ...) were written
+  // against the French default. Pinning French explicitly here preserves
+  // every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

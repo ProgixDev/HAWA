@@ -46,6 +46,7 @@ import {
   type ResolvedAwaTheme,
 } from '../../theme/awaThemeTokens';
 import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import i18n from '../../i18n';
 
 /* ============================================================
@@ -78,6 +79,23 @@ const WEEK_DAYS_EN = [
   'S',
   'S',
 ] as const;
+
+const WEEK_DAYS_ES = [
+  'L',
+  'M',
+  'M',
+  'J',
+  'V',
+  'S',
+  'D',
+] as const;
+
+function localizedSingleLetterWeekDays(): readonly string[] {
+  const language = getAppLanguage();
+  if (language === 'en') {return WEEK_DAYS_EN;}
+  if (language === 'es') {return WEEK_DAYS_ES;}
+  return WEEK_DAYS_FR;
+}
 
 /* ============================================================
    DATE HELPERS
@@ -189,9 +207,7 @@ function formatDisplayDate(
   }
 
   return new Intl.DateTimeFormat(
-    getAppLanguage() === 'en'
-      ? 'en-US'
-      : 'fr-FR',
+    dateFormatLocale(),
     {
       day: 'numeric',
       month: 'long',
@@ -356,10 +372,7 @@ function PremiumDatePickerModal({
       [visibleMonth],
     );
 
-  const dateLocale =
-    getAppLanguage() === 'en'
-      ? 'en-US'
-      : 'fr-FR';
+  const dateLocale = dateFormatLocale();
 
   const monthTitle =
     new Intl.DateTimeFormat(
@@ -385,10 +398,7 @@ function PremiumDatePickerModal({
       selectedDate,
     );
 
-  const weekDays =
-    getAppLanguage() === 'en'
-      ? WEEK_DAYS_EN
-      : WEEK_DAYS_FR;
+  const weekDays = localizedSingleLetterWeekDays();
 
   const today =
     new Date();

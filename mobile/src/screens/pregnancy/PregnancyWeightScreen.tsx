@@ -34,7 +34,7 @@ import {
 import {JournalSaveToast, useJournalSaveToast} from '../../components/journal/JournalSaveToast';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 const WEIGHT_ILLUSTRATION = require('../../assets/images/pregnancy/pregnancy-weight-scale.png');
@@ -77,7 +77,7 @@ function ScaleIllustration(): React.JSX.Element {
 }
 
 function formatKg(value: number): string {
-  return value.toLocaleString('fr-FR', {minimumFractionDigits: 1, maximumFractionDigits: 1});
+  return value.toLocaleString(dateFormatLocale(), {minimumFractionDigits: 1, maximumFractionDigits: 1});
 }
 
 function WeightEntrySheet({
@@ -292,7 +292,7 @@ export default function PregnancyWeightScreen(): React.JSX.Element {
   // always saves to the CURRENT day, never to the day the screen opened.
   const {today, todayKey} = useToday();
   const todayLabel = useMemo(
-    () => new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(today),
+    () => new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(today),
     [today],
   );
 

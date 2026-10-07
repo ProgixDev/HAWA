@@ -26,6 +26,8 @@ import {
 } from '../../../state/pregnancyJournalStore';
 import {savePregnancyMedicalEvent} from '../../../state/pregnancyMedicalEventsStore';
 import {addDays} from '../../../utils/cycleMath';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -82,6 +84,8 @@ const prefs = (...ids: PregnancyTrackingPreference[]) => new Set<PregnancyTracki
 beforeEach(async () => {
   resetPremiumStateForTests();
   navigate.mockClear();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await setPregnancyDating({method: 'lastPeriod', date: addDays(new Date(), -70).toISOString()});
 });
 

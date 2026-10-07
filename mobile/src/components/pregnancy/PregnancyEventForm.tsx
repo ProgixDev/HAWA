@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {Alert, Platform, Pressable, StyleSheet, Switch, Text, TextInput, View} from 'react-native';
+import {Platform, Pressable, StyleSheet, Switch, Text, TextInput, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 import {MaterialDesignIcons} from '@react-native-vector-icons/material-design-icons';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
@@ -7,7 +7,7 @@ import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-comm
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {
   deletePregnancyMedicalEvent,
   savePregnancyMedicalEvent,
@@ -17,6 +17,7 @@ import {
 } from '../../state/pregnancyMedicalEventsStore';
 import {REMINDER_OFFSETS, reminderOffsetLabels, cancelEventReminder, syncEventReminder} from '../../utils/pregnancyEventReminders';
 import {getPregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
+import PregnancyEventDeleteConfirmModal, {type PendingPregnancyEventDelete} from './PregnancyEventDeleteConfirmModal';
 import '../../i18n';
 
 // Shared Appointment/Exam form — extracted so PregnancyAppointmentScreen.tsx
@@ -61,10 +62,6 @@ export function toISODate(date: Date): string {
 export function fromISODate(iso: string): Date {
   const [year, month, day] = iso.split('-').map(Number);
   return new Date(year, month - 1, day);
-}
-
-function dateFormatLocale(): string {
-  return getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
 }
 
 function formatLongDate(date: Date): string {
@@ -217,6 +214,7 @@ function PregnancyEventForm({
   const [reminderOffsetOpen, setReminderOffsetOpen] = useState(false);
   const [activePicker, setActivePicker] = useState<ActivePicker>(null);
   const [error, setError] = useState('');
+  const [pendingDelete, setPendingDelete] = useState<PendingPregnancyEventDelete | null>(null);
 
   const handleDateChange = (_event: DateTimePickerChangeEvent, selected: Date) => {
     if (Platform.OS === 'android') {setActivePicker(null);}
@@ -263,23 +261,14 @@ function PregnancyEventForm({
 
   const requestDelete = () => {
     if (!initialEvent) {return;}
-    const eventId = initialEvent.id;
-    Alert.alert(
-      type === 'exam' ? t('pregnancyEvent.form.deleteExamTitle') : t('pregnancyEvent.form.deleteAppointmentTitle'),
-      t('pregnancyEvent.form.deleteMessage'),
-      [
-        {text: t('common.cancel'), style: 'cancel'},
-        {
-          text: t('pregnancyEvent.form.delete'),
-          style: 'destructive',
-          onPress: async () => {
-            const next = await deletePregnancyMedicalEvent(eventId);
-            cancelEventReminder(eventId);
-            onDeleted(next);
-          },
-        },
-      ],
-    );
+    setPendingDelete({id: initialEvent.id, type});
+  };
+
+  const confirmDelete = async ({id: eventId}: PendingPregnancyEventDelete) => {
+    const next = await deletePregnancyMedicalEvent(eventId);
+    cancelEventReminder(eventId);
+    setPendingDelete(null);
+    onDeleted(next);
   };
 
   const canSave = title.trim().length > 0;
@@ -483,6 +472,12 @@ function PregnancyEventForm({
           <Text style={styles.saveButtonText}>{t('common.save')}</Text>
         </Pressable>
       </View>
+
+      <PregnancyEventDeleteConfirmModal
+        event={pendingDelete}
+        onCancel={() => setPendingDelete(null)}
+        onConfirm={confirmDelete}
+      />
     </>
   );
 }

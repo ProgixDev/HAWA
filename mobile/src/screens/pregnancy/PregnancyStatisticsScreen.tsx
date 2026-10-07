@@ -51,7 +51,7 @@ import {
   formatPregnancyProgressLabel,
   formatPregnancyTrimester,
 } from '../../utils/pregnancyTrackingUtils';
-import {addDays} from '../../utils/cycleMath';
+import {addDays, dateFormatLocale} from '../../utils/cycleMath';
 import {
   coverageMonthsForAnchor,
   isDateKeyWithinPeriod,
@@ -65,7 +65,6 @@ import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
 import {HawaPremiumBottomSheet} from '../../components/premium/HawaPremiumBottomSheet';
 import StatisticsPeriodSelector from '../../components/statistics/StatisticsPeriodSelector';
-import i18n from '../../i18n';
 
 /* ============================================================
    ASSETS / CONSTANTS
@@ -148,9 +147,10 @@ const MOOD_ICONS: Record<
 /** Locale for every `Intl.DateTimeFormat`/`toLocaleString` call in this
  * screen — mirrors the current app language (driven by AWA's own "Langue
  * de l'application" preference, see src/i18n/index.ts) instead of a
- * hardcoded 'fr-FR'. */
-const appLocale = (): string =>
-  i18n.language === 'en' ? 'en-US' : 'fr-FR';
+ * hardcoded 'fr-FR'. Delegates to the shared, 3-way-correct
+ * dateFormatLocale() (fr-FR/en-US/es-ES) so this screen can't drift out of
+ * sync with the rest of the app's Spanish support. */
+const appLocale = (): string => dateFormatLocale();
 
 const dateLabel = (
   date: string,

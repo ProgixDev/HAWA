@@ -16,7 +16,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {homeColors, homeRadii} from '../home/homeTheme';
 import {setActiveObjective} from '../../state/onboardingPreferences';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 // Reusing the existing flower illustration (already used by HeroCycleCard)
@@ -118,7 +118,7 @@ function PostpartumCongratsCard({visible, deliveryDate, onStarted, onLater}: Pro
           {deliveryDate ? (
             <Text style={styles.deliveryLine}>
               {t('pregnancyPostpartumCongrats.deliveryRecordedOn')}{' '}
-              {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(deliveryDate)}
+              {new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(deliveryDate)}
             </Text>
           ) : null}
 
