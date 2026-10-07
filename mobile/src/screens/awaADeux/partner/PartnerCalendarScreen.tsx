@@ -8,11 +8,10 @@ import {homeRadii} from '../../../components/home/homeTheme';
 import {useAwaADeuxSharing} from '../../../hooks/useAwaADeuxSharing';
 import PartnerScreenBackground from './PartnerScreenBackground';
 import {getHasConfirmedCycleData, getRecordedPeriodHistory} from '../../../state/onboardingPreferences';
-import {getAppLanguage} from '../../../state/themePreferences';
 import {useAwaTheme} from '../../../theme/AwaThemeProvider';
 import {getFloatingTabBarClearance, getTopPadding} from '../../../theme/spacing';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../../theme/awaThemeTokens';
-import {addDays, capitalize, formatFullDate, localizedWeekDays, sameDay, startOfDay} from '../../../utils/cycleMath';
+import {addDays, capitalize, formatFullDate, localizedWeekDays, sameDay, startOfDay, dateFormatLocale} from '../../../utils/cycleMath';
 import {computePartnerVisibility} from '../../../utils/awaADeuxSharing';
 import {computePartnerCycleInfo} from '../../../utils/awaADeuxPartnerCycleInfo';
 
@@ -63,7 +62,7 @@ export default function PartnerCalendarScreen(): React.JSX.Element {
   const styles = useMemo(() => createStyles(theme), [theme]);
   // Live app language, not a fixed 'fr-FR' — recomputed every render (cheap) so a runtime
   // FR→EN switch updates the month header immediately (same pattern as PrayerTimesScreen.tsx).
-  const monthLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'});
+  const monthLabel = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'});
 
   const {toggles, isPregnant} = useAwaADeuxSharing();
   const visibility = computePartnerVisibility(toggles, {isPregnant});

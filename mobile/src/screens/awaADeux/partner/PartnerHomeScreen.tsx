@@ -156,15 +156,22 @@ export default function PartnerHomeScreen(): React.JSX.Element {
     ? diffDays(startOfDay(info.fertileWindowRange.start), startOfDay(today)) <= 0 &&
       diffDays(startOfDay(info.fertileWindowRange.end), startOfDay(today)) >= 0
     : false;
+  // Never fall back to the raw `info.fertileWindow` date-range string here: once the
+  // window is fully in the past, formatFertileTiming() returns undefined on purpose —
+  // "category only, never a value" means that case must resolve to infoUnavailable,
+  // not leak the owner's actual fertile-window dates.
   const fertileWindowStatusValue = fertileInProgress
     ? t('awaADeux.partnerSide.home.periodInProgress')
-    : fertileWindowTiming ?? info.fertileWindow ?? infoUnavailable;
+    : fertileWindowTiming ?? infoUnavailable;
 
   const sharedTiles: Array<{key: SharingKey; icon: IconName; shortLabel: string; value: string}> = [
     showCycle ? {key: 'cycleDay', icon: 'calendar-month-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelCycle'), value: info.cycleDay !== null ? t('awaADeux.partnerSide.home.cycleDayValue', {day: info.cycleDay}) : infoUnavailable} : null,
     showPeriodStatus ? {key: 'periodStatus', icon: 'calendar-check-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelPeriods'), value: periodStatusValue} : null,
     showFertileWindow ? {key: 'fertileWindow', icon: 'flower-outline', shortLabel: t('awaADeux.demo.fertileWindowLabel'), value: fertileWindowStatusValue} : null,
-    showOvulation ? {key: 'ovulation', icon: 'water-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelOvulation'), value: ovulationTiming ?? (info.ovulation ?? infoUnavailable)} : null,
+    // Same rule as fertileWindowStatusValue above: once ovulation is in the past,
+    // formatFutureTiming() returns undefined on purpose — never fall back to the raw
+    // `info.ovulation` date here.
+    showOvulation ? {key: 'ovulation', icon: 'water-outline', shortLabel: t('awaADeux.partnerSide.home.shortLabelOvulation'), value: ovulationTiming ?? infoUnavailable} : null,
   ].filter((tile): tile is {key: SharingKey; icon: IconName; shortLabel: string; value: string} => tile !== null);
 
   // A compact, fixed square (see TILE_SIZE_COMPACT/REGULAR above) — the exact same
@@ -315,6 +322,11 @@ export default function PartnerHomeScreen(): React.JSX.Element {
                       subtitle={ovulationTiming}
                       testID="partner-upcoming-event-tile"
                       theme={theme}
+                      // "Prochains événements" is the ONE section allowed to show the actual
+                      // date as its main value (same contract as the nextPeriod tile right
+                      // above it) — the relative countdown is the `subtitle`, not a
+                      // replacement for the date. This is distinct from "Informations
+                      // partagées" (sharedTiles below), which must stay category-only.
                       value={info.ovulation ?? infoUnavailable}
                     />
                   ) : null}

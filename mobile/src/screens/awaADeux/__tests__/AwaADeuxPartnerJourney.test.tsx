@@ -814,6 +814,135 @@ describe('PartnerProfileScreen — identity, avatar and access summary', () => {
   });
 });
 
+describe('PartnerHomeScreen — fertile-window and ovulation privacy regression (category only, never a raw value)', () => {
+  // Regression test for a real production bug: once the fertile window (or ovulation) was
+  // entirely in the past, PartnerHomeScreen's "Informations partagées" tiles fell back to
+  // the raw `info.fertileWindow`/`info.ovulation` strings instead of staying category-only
+  // ("En cours" / "Dans N jours" / "Information non disponible"). These raw strings use
+  // obviously-fake sentinel text (never a real date format) specifically so this test can
+  // never pass by accident if a real date happens to collide with an expected substring.
+  const DAY_MS = 24 * 60 * 60 * 1000;
+  const RAW_FERTILE_SENTINEL = 'RAW-FERTILE-DATE-RANGE-SENTINEL';
+  const RAW_OVULATION_SENTINEL = 'RAW-OVULATION-DATE-SENTINEL';
+
+  type CycleInfoOverrides = Partial<ReturnType<typeof partnerCycleInfo.computePartnerCycleInfo>>;
+  function mockCycleInfo(overrides: CycleInfoOverrides) {
+    jest.spyOn(partnerCycleInfo, 'computePartnerCycleInfo').mockReturnValue({
+      cycleDay: 10,
+      cycleLength: 28,
+      cycleProgress: 10 / 28,
+      phase: 'follicular',
+      nextPeriod: null,
+      nextPeriodDate: null,
+      fertileWindow: null,
+      fertileWindowRange: null,
+      ovulation: null,
+      ovulationDate: null,
+      ...overrides,
+    });
+  }
+
+  it('past fertile window, permission ON: category label shown, raw date range never shown, resolves to "Information non disponible"', async () => {
+    const start = new Date(Date.now() - 20 * DAY_MS);
+    const end = new Date(Date.now() - 14 * DAY_MS);
+    mockCycleInfo({fertileWindow: RAW_FERTILE_SENTINEL, fertileWindowRange: {start, end}});
+    await setSharingToggle('fertileWindow', true);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(texts).toContain('Fenêtre fertile');
+    expect(texts).not.toContain(RAW_FERTILE_SENTINEL);
+    expect(texts).toContain('Information non disponible');
+  });
+
+  it('current (in-progress) fertile window, permission ON: shows "En cours", never the raw range', async () => {
+    const start = new Date(Date.now() - 2 * DAY_MS);
+    const end = new Date(Date.now() + 2 * DAY_MS);
+    mockCycleInfo({fertileWindow: RAW_FERTILE_SENTINEL, fertileWindowRange: {start, end}});
+    await setSharingToggle('fertileWindow', true);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(texts).toContain('Fenêtre fertile');
+    expect(texts).not.toContain(RAW_FERTILE_SENTINEL);
+    expect(texts).toContain('En cours');
+  });
+
+  it('future fertile window, permission ON: shows "Dans N jours", never the raw range', async () => {
+    const start = new Date(Date.now() + 10 * DAY_MS);
+    const end = new Date(Date.now() + 15 * DAY_MS);
+    mockCycleInfo({fertileWindow: RAW_FERTILE_SENTINEL, fertileWindowRange: {start, end}});
+    await setSharingToggle('fertileWindow', true);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(texts).toContain('Fenêtre fertile');
+    expect(texts).not.toContain(RAW_FERTILE_SENTINEL);
+    expect(texts.some(text => /^Dans \d+ jours?$/.test(text))).toBe(true);
+  });
+
+  it('past fertile window, permission OFF: no fertile-window tile, category, or raw value appears at all', async () => {
+    const start = new Date(Date.now() - 20 * DAY_MS);
+    const end = new Date(Date.now() - 14 * DAY_MS);
+    mockCycleInfo({fertileWindow: RAW_FERTILE_SENTINEL, fertileWindowRange: {start, end}});
+    await setSharingToggle('fertileWindow', false);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(texts).not.toContain('Fenêtre fertile');
+    expect(texts).not.toContain(RAW_FERTILE_SENTINEL);
+  });
+
+  it('no cycle information at all (no permissions on): empty-state card shown, nothing resembling a date leaks', async () => {
+    mockCycleInfo({});
+    for (const key of SHARING_KEYS) {await setSharingToggle(key, false);}
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(texts).toContain('Aucune information n’est partagée avec vous pour le moment.');
+    expect(texts).not.toContain(RAW_FERTILE_SENTINEL);
+    expect(texts).not.toContain(RAW_OVULATION_SENTINEL);
+  });
+
+  // The "Informations partagées" ovulation tile (shortLabel exactly 'Ovulation') and the
+  // "Prochains événements" ovulation tile (label 'Ovulation estimée') are two DIFFERENT,
+  // intentionally-coexisting tiles — see the dedicated test below confirming the second one
+  // legitimately shows the raw date. These two tests isolate the FIRST tile's value (the
+  // text immediately following the exact 'Ovulation' label) rather than asserting a blanket
+  // absence of the sentinel across the whole screen.
+  function valueAfterExactLabel(texts: string[], label: string): string | undefined {
+    const index = texts.indexOf(label);
+    return index === -1 ? undefined : texts[index + 1];
+  }
+
+  it('past ovulation, permission ON ("Informations partagées" category tile): category label shown, raw date never shown', async () => {
+    const ovulationDate = new Date(Date.now() - 10 * DAY_MS);
+    mockCycleInfo({ovulation: RAW_OVULATION_SENTINEL, ovulationDate});
+    await setSharingToggle('ovulation', true);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    // The shared-info ovulation tile (shortLabelOvulation) must fall back to the same
+    // category-safe "Information non disponible" as fertile window — never the raw date.
+    expect(valueAfterExactLabel(texts, 'Ovulation')).toBe('Information non disponible');
+  });
+
+  it('future ovulation, permission ON ("Informations partagées" category tile): shows "Dans N jours", never the raw date', async () => {
+    const ovulationDate = new Date(Date.now() + 8 * DAY_MS);
+    mockCycleInfo({ovulation: RAW_OVULATION_SENTINEL, ovulationDate});
+    await setSharingToggle('ovulation', true);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(valueAfterExactLabel(texts, 'Ovulation')).toMatch(/^Dans \d+ jours?$/);
+  });
+
+  it('past ovulation, permission OFF: no ovulation tile, category, or raw value appears at all', async () => {
+    const ovulationDate = new Date(Date.now() - 10 * DAY_MS);
+    mockCycleInfo({ovulation: RAW_OVULATION_SENTINEL, ovulationDate});
+    await setSharingToggle('ovulation', false);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    expect(texts).not.toContain(RAW_OVULATION_SENTINEL);
+  });
+
+  it('"Prochains événements" upcoming-event tiles are a DIFFERENT, already-established contract: they legitimately show the absolute date as their value (same as nextPeriod) — this must not regress into also being hidden', async () => {
+    const ovulationDate = new Date(Date.now() + 8 * DAY_MS);
+    mockCycleInfo({ovulation: RAW_OVULATION_SENTINEL, ovulationDate});
+    await setSharingToggle('ovulation', true);
+    const texts = textsOf(await renderFlow('PartnerMainTabs'));
+    // The upcoming-events ovulation tile legitimately shows the raw date as its main value
+    // (mirroring nextPeriod's own tile right above it) — only the "Informations partagées"
+    // category tile above must stay relative-only. Both coexist on this screen by design.
+    expect(texts).toContain(RAW_OVULATION_SENTINEL);
+  });
+});
+
 describe('PartnerProfileScreen — Confidentialité', () => {
   it('is collapsed by default; tapping it expands the two privacy rows and the bottom banner inside the same card; tapping again collapses it', async () => {
     const renderer = await renderFlow('PartnerMainTabs');

@@ -103,7 +103,7 @@ const press = async (renderer: ReactTestRenderer.ReactTestRenderer, label: strin
   });
   await settle();
 };
-const switchLanguage = async (language: 'fr' | 'en') => {
+const switchLanguage = async (language: 'fr' | 'en' | 'es') => {
   await act(async () => {
     await setAppLanguage(language);
     await i18n.changeLanguage(language);
@@ -121,6 +121,12 @@ const enterPartnerName = async (renderer: ReactTestRenderer.ReactTestRenderer, n
 
 beforeEach(async () => {
   await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's "French:" tests were written against the old French default and
+  // never set a language explicitly (every "English:" test already does).
+  // Pinning French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   jest.restoreAllMocks();
   stopDemoSharing();
   await clearAwaADeuxPartnerName();
@@ -290,6 +296,43 @@ describe('TEST 14 — Partner Calendar month label localizes, and the navigated-
     // Same calendar position (one month ahead of "today"), only the wording translated —
     // the switch never resets monthCursor back to the current month.
     expect(textsOf(renderer)).toContain(nextEn);
+    expect(textsOf(renderer)).not.toContain(nextFr);
+  });
+});
+
+// SPANISH CALENDAR / DATE LOCALIZATION — extends TEST 13/14's FR -> EN
+// pattern one step further to Spanish, since both the weekday row and the
+// month label used to silently fall through to French for 'es' (the shared
+// locale ternary only ever distinguished 'en' from everything else).
+describe('TEST 13b — Partner Calendar weekday row: FR -> ES runtime switch via localizedWeekDays()', () => {
+  it('Lun/Mar/Mer/Jeu/Ven/Sam/Dim become Lun/Mar/Mié/Jue/Vie/Sáb/Dom on the same mounted instance, never staying French', async () => {
+    const renderer = await renderFlow('PartnerMainTabs');
+    await press(renderer, 'Calendrier');
+    expect(textsOf(renderer)).toEqual(expect.arrayContaining(['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']));
+
+    await switchLanguage('es');
+
+    const texts = textsOf(renderer);
+    expect(texts).toEqual(expect.arrayContaining(['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']));
+    expect(texts).not.toContain('Mer');
+  });
+});
+
+describe('TEST 14b — Partner Calendar month label localizes to Spanish, and the navigated-to month position survives the switch', () => {
+  it('pressing "Mois suivant" then switching to Spanish still shows the SAME (next) month, now in Spanish, never French', async () => {
+    const now = new Date();
+    const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+    const nextFr = capitalize(new Intl.DateTimeFormat('fr-FR', {month: 'long', year: 'numeric'}).format(nextMonth));
+    const nextEs = capitalize(new Intl.DateTimeFormat('es-ES', {month: 'long', year: 'numeric'}).format(nextMonth));
+
+    const renderer = await renderFlow('PartnerMainTabs');
+    await press(renderer, 'Calendrier');
+    await press(renderer, 'Mois suivant');
+    expect(textsOf(renderer)).toContain(nextFr);
+
+    await switchLanguage('es');
+
+    expect(textsOf(renderer)).toContain(nextEs);
     expect(textsOf(renderer)).not.toContain(nextFr);
   });
 });

@@ -10,7 +10,8 @@ import * as Reanimated from 'react-native-reanimated';
 import '../../../i18n'; // side effect: initializes i18next (AwaADeuxIntroScreen renders via useTranslation())
 import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import AwaADeuxIntroScreen, {INTRO_ENTRANCE} from '../AwaADeuxIntroScreen';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // The entrance sequence and the CTA press feedback of the AWA à deux introduction.
 // Animations are opacity / transform only, on Reanimated (already used by AWA), and
@@ -93,6 +94,12 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibility-label assertions ("Retour", "Découvrir AWA à deux")
+  // were written against the French default. Pinning French explicitly
+  // here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
