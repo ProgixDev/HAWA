@@ -10,6 +10,8 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import ConceiveDashboard from '../ConceiveDashboard';
 import ConceiveCalendarContent from '../ConceiveCalendarContent';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 import {
   getCyclePreferences,
   getPeriodHistory,
@@ -66,8 +68,10 @@ const pressByLabel = async (renderer: ReactTestRenderer.ReactTestRenderer, label
 const hasLabel = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
   renderer.root.findAll(n => n.props.accessibilityLabel === label && typeof n.props.onPress === 'function').length > 0;
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   // A period recorded ~3 weeks ago (not active today): the CTA is offered.
   setCyclePreferences({
     ...getCyclePreferences(),

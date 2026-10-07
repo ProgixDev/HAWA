@@ -6,6 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 import {
   ConceptionIndicatorsScreen,
   ConceptionOvulationAwarenessScreen,
@@ -196,6 +198,8 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   visited.length = 0;
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await setConceptionPreferences(BASE);
 });
 
