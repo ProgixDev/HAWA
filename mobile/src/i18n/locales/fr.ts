@@ -177,6 +177,8 @@ export const fr = {
       frenchSubtitle: 'Utiliser AWA en français',
       englishName: 'English',
       englishSubtitle: 'Langue par défaut',
+      spanishName: 'Español',
+      spanishSubtitle: 'Utiliser AWA en espagnol',
     },
   },
 
@@ -1245,6 +1247,8 @@ export const fr = {
     cycleRegularityLabel: 'Régularité du cycle',
     dataProtected: 'Données protégées',
     disabledSingular: 'Désactivé',
+    editAnonymousAvatarAccessibility: 'Personnaliser mon avatar anonyme',
+    editAvatarAccessibility: 'Changer la photo de profil',
     editProfile: 'Modifier le profil',
     generalHealthSubtitle: 'Poids, taille, groupe sanguin, maladies…',
     generalHealthTitle: 'Santé générale',
@@ -1370,6 +1374,7 @@ export const fr = {
       addDaughterProfile: 'Ajouter le profil de ma fille',
       addProfile: 'Ajouter un profil',
       deleteProfileOf: 'Supprimer le profil de {{name}}',
+      swipeDeleteLabel: 'Supprimer',
       myDaughter: 'Ma fille',
       myProfile: 'Mon profil',
       profileOf: 'Profil de {{name}}',
@@ -3864,6 +3869,8 @@ export const fr = {
       delete: 'Supprimer',
       deleteAppointmentAccessibility: 'Supprimer ce rendez-vous',
       deleteExamAccessibility: 'Supprimer cet examen',
+      deleting: 'Suppression…',
+      deleteModalCloseAccessibility: 'Fermer sans supprimer',
     },
     appointmentScreen: {
       addTitle: 'Ajouter un RDV',
@@ -7044,6 +7051,31 @@ export const fr = {
     statusOff: 'Inactif',
     statusOnFeminine: 'Activée',
     statusOffFeminine: 'Inactive',
+  },
+
+  dataPrivacy: {
+    management: {
+      heroTitle: 'Tes données AWA',
+      storageCount_one: '{{count}} espace de stockage local est actuellement utilisé sur cet appareil.',
+      storageCount_other: '{{count}} espaces de stockage locaux sont actuellement utilisés sur cet appareil.',
+      exportTitle: 'Exporter mes données',
+      exportDescription: 'Créer une copie JSON via le menu de partage sécurisé.',
+      exportShareTitle: 'Mes données AWA',
+      deletionInfoButton: 'Informations sur la suppression',
+      deletionInfoMessage: 'Pour tout supprimer, utilise « Supprimer mon compte » dans l’écran précédent.',
+    },
+    deleteAccount: {
+      warningTitle: 'Cette action est irréversible',
+      warningText: 'Toutes les données AWA enregistrées localement sur cet appareil seront définitivement supprimées.',
+      // Displayed label AND validation check both read this SAME value (see
+      // DataPrivacyScreens.tsx) so the required word can never drift out of
+      // sync with what's actually validated, in any language.
+      confirmWord: 'SUPPRIMER',
+      confirmLabel: 'Écris SUPPRIMER pour confirmer',
+      confirmError: 'Écris SUPPRIMER pour confirmer.',
+      deleteButton: 'Supprimer définitivement',
+      deleteButtonAccessibility: 'Supprimer définitivement mon compte',
+    },
   },
 
   discreetLauncher: {

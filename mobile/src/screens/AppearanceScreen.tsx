@@ -820,6 +820,7 @@ function LanguageBottomSheet({
   const LANGUAGE_OPTIONS: LanguageOption[] = [
     {id: 'fr', flag: '🇫🇷', label: t('appearance.language.frenchName'), subtitle: t('appearance.language.frenchSubtitle')},
     {id: 'en', flag: '🇬🇧', label: t('appearance.language.englishName'), subtitle: t('appearance.language.englishSubtitle')},
+    {id: 'es', flag: '🇪🇸', label: t('appearance.language.spanishName'), subtitle: t('appearance.language.spanishSubtitle')},
   ];
   // Temporary selection only — never committed until "Appliquer" is pressed
   // (see onApply below). Re-synced to the real saved value every time the
@@ -1678,7 +1679,9 @@ export default function AppearanceScreen({
               subtitle={
                 appLanguage === 'en'
                   ? t('appearance.language.englishName')
-                  : t('appearance.language.frenchName')
+                  : appLanguage === 'es'
+                    ? t('appearance.language.spanishName')
+                    : t('appearance.language.frenchName')
               }
 
               theme={theme}

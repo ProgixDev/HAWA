@@ -164,6 +164,8 @@ export const en = {
       frenchSubtitle: 'Use AWA in French',
       englishName: 'English',
       englishSubtitle: 'Default language',
+      spanishName: 'Español',
+      spanishSubtitle: 'Use AWA in Spanish',
     },
   },
 
@@ -1230,6 +1232,8 @@ export const en = {
     cycleRegularityLabel: 'Cycle regularity',
     dataProtected: 'Data protected',
     disabledSingular: 'Disabled',
+    editAnonymousAvatarAccessibility: 'Customize my anonymous avatar',
+    editAvatarAccessibility: 'Change profile photo',
     editProfile: 'Edit profile',
     generalHealthSubtitle: 'Weight, height, blood type, conditions…',
     generalHealthTitle: 'General health',
@@ -1355,6 +1359,7 @@ export const en = {
       addDaughterProfile: 'Add my daughter’s profile',
       addProfile: 'Add a profile',
       deleteProfileOf: 'Delete {{name}}’s profile',
+      swipeDeleteLabel: 'Delete',
       myDaughter: 'My daughter',
       myProfile: 'My profile',
       profileOf: '{{name}}’s profile',
@@ -3849,6 +3854,8 @@ export const en = {
       delete: 'Delete',
       deleteAppointmentAccessibility: 'Delete this appointment',
       deleteExamAccessibility: 'Delete this exam',
+      deleting: 'Deleting…',
+      deleteModalCloseAccessibility: 'Close without deleting',
     },
     appointmentScreen: {
       addTitle: 'Add appointment',
@@ -6965,6 +6972,31 @@ export const en = {
     statusOff: 'Off',
     statusOnFeminine: 'On',
     statusOffFeminine: 'Off',
+  },
+
+  dataPrivacy: {
+    management: {
+      heroTitle: 'Your AWA data',
+      storageCount_one: '{{count}} local storage space is currently used on this device.',
+      storageCount_other: '{{count}} local storage spaces are currently used on this device.',
+      exportTitle: 'Export my data',
+      exportDescription: 'Create a JSON copy via the secure share menu.',
+      exportShareTitle: 'My AWA data',
+      deletionInfoButton: 'Information about deletion',
+      deletionInfoMessage: 'To delete everything, use "Delete my account" on the previous screen.',
+    },
+    deleteAccount: {
+      warningTitle: 'This action is irreversible',
+      warningText: 'All AWA data saved locally on this device will be permanently deleted.',
+      // Displayed label AND validation check both read this SAME value (see
+      // DataPrivacyScreens.tsx) so the required word can never drift out of
+      // sync with what's actually validated, in any language.
+      confirmWord: 'DELETE',
+      confirmLabel: 'Type DELETE to confirm',
+      confirmError: 'Type DELETE to confirm.',
+      deleteButton: 'Permanently delete',
+      deleteButtonAccessibility: 'Permanently delete my account',
+    },
   },
 
   discreetLauncher: {
