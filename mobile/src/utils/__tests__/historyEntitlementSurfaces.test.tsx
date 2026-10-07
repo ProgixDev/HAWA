@@ -17,6 +17,8 @@ import MenopauseCalendarContent from '../../components/menopause/MenopauseCalend
 import MiscarriageCalendarContent from '../../components/miscarriage/MiscarriageCalendarContent';
 import PostpartumCalendarContent from '../../components/postpartum/PostpartumCalendarContent';
 import PregnancyCalendarContent from '../../components/pregnancy/PregnancyCalendarContent';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M41 — the ACTUAL current history entitlement, surface by surface. The
 // canonical rule is utils/historyAccess.ts: a Free user can browse the last
@@ -107,6 +109,12 @@ beforeEach(async () => {
   await AsyncStorage.clear();
   resetPremiumStateForTests();
   jest.useFakeTimers({advanceTimers: true, now: NOW});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's UI-text/month-label assertions were written against the French
+  // default. Pinning French explicitly here preserves every test's original
+  // intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

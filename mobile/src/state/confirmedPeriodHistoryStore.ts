@@ -135,8 +135,17 @@ export const hydrateConfirmedPeriodHistory = (): Promise<ConfirmedPeriodOccurren
       history = [];
       if (raw) {
         const parsed: unknown = JSON.parse(raw);
-        if (Array.isArray(parsed) && parsed.every(isValidOccurrence)) {
-          history = parsed;
+        // Filter per-record rather than discarding the WHOLE array over one
+        // malformed entry (e.g. a future schema change touching a single
+        // record, or any other partial corruption) — matches the same
+        // per-record filtering onboardingPreferences.ts's hydrateCyclePreferences()
+        // already uses for its own periodHistory array. Every occurrence here
+        // is independent (keyed by its own `id`), so dropping only the
+        // invalid ones is safe and loses no valid, already-confirmed history
+        // — history that also feeds qadaa (fasting makeup) calculations,
+        // where silently discarding it all would be a real-world cost.
+        if (Array.isArray(parsed)) {
+          history = parsed.filter(isValidOccurrence);
         }
       }
       notifyListeners();

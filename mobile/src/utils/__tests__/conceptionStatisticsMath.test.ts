@@ -9,6 +9,17 @@ import {
 } from '../conceptionStatisticsMath';
 import {addDays} from '../cycleMath';
 import type {DailyJournalEntry} from '../../types/journal';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
+
+// PHASE 7M: the app's default language is now English (not French) — this
+// file's month-label assertions ('Juin 2026', 'Août 2026', etc.) were
+// written against the French default. Pinning French here preserves every
+// test's original intent.
+beforeEach(async () => {
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 // TTC's Premium longitudinal LH/mucus views (audited as static
 // distributions only, now real month-by-month/chronological evolutions).

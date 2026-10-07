@@ -8,6 +8,8 @@ import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import {JournalSheetProvider} from '../../navigation/JournalSheetContext';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 import {resetPremiumStateForTests, updatePremiumState} from '../../state/premiumStore';
 import {isPeriodFree, STATISTICS_PERIODS} from '../cycleStatisticsMath';
 import StatisticsScreen from '../../screens/StatisticsScreen';
@@ -104,6 +106,8 @@ const selectedState = (node: ReactTestRenderer.ReactTestInstance): boolean | und
 beforeEach(async () => {
   await AsyncStorage.clear();
   resetPremiumStateForTests();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   jest.useFakeTimers({advanceTimers: true, now: NOW});
 });
 afterEach(() => {

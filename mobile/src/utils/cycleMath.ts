@@ -20,7 +20,13 @@ export type CycleBasics = {
 // `localizedWeekDays()` — now centralized here instead of duplicated).
 export const WEEK_DAYS = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
 export const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-export const localizedWeekDays = (): string[] => (getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS);
+export const WEEK_DAYS_ES = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
+export const localizedWeekDays = (): string[] => {
+  const language = getAppLanguage();
+  if (language === 'en') {return WEEK_DAYS_EN;}
+  if (language === 'es') {return WEEK_DAYS_ES;}
+  return WEEK_DAYS;
+};
 
 const DAY_MS = 86_400_000;
 
@@ -53,7 +59,17 @@ export const capitalize = (value: string): string =>
 // getAppLanguage()). Callers never pass a locale explicitly, so every one of
 // this function's many existing call sites across the app is already
 // correctly localized without needing its own change.
-const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
+//
+// Exported (SPANISH CALENDAR LOCALIZATION fix) so screens that used to
+// duplicate this exact fr/en-only ternary locally (and therefore had
+// Spanish silently fall through to 'fr-FR') can import this single,
+// now-3-way-correct helper instead of re-deriving their own.
+export const dateFormatLocale = (): string => {
+  const language = getAppLanguage();
+  if (language === 'en') {return 'en-US';}
+  if (language === 'es') {return 'es-ES';}
+  return 'fr-FR';
+};
 
 export const formatShortDate = (date: Date): string =>
   capitalize(

@@ -1,12 +1,6 @@
 import type {ContraceptionIntakeRecord} from '../state/contraceptionIntakeHistoryStore';
 import type {ContraceptionEvent, ContraceptionEventType} from '../state/contraceptionEventStore';
-import {diffDays} from './cycleMath';
-import {getAppLanguage} from '../state/themePreferences';
-
-// Locale FORMAT only (never the grouping/calculation itself) — same
-// getAppLanguage()-driven convention as cycleMath.ts's internal
-// dateFormatLocale().
-const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
+import {diffDays, dateFormatLocale} from './cycleMath';
 
 const parseLocalDate = (dateKey: string): Date | null => {
   const parsed = new Date(`${dateKey}T12:00:00`);
