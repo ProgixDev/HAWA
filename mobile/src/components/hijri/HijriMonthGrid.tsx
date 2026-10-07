@@ -5,11 +5,10 @@ import Animated, {useAnimatedStyle, useSharedValue, withTiming} from 'react-nati
 import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
-import {sameDay, localizedWeekDays} from '../../utils/cycleMath';
+import {dateFormatLocale, sameDay, localizedWeekDays} from '../../utils/cycleMath';
 import {getHijriMonthDays, hijriPartsFor, type HijriMonthDay} from '../../utils/hijriCalendar';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
 
 type Props = {
   monthStart: Date;
@@ -25,7 +24,7 @@ type Props = {
 };
 
 const cellDateLabel = (date: Date) =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'short'}).format(date);
+  new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'short'}).format(date);
 
 type DayCellProps = {
   cell: HijriMonthDay;

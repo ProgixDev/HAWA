@@ -14,6 +14,8 @@ import {isRamadan} from '../../utils/hijriCalendar';
 import {computeQadaaFromHistory, shouldShowQadaaReminder} from '../../utils/qadaaLogic';
 import {setHijriAdjustmentDays, setSelectedObjective} from '../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -61,6 +63,12 @@ beforeEach(async () => {
   }) as never);
   setHijriAdjustmentDays(0);
   await setSelectedObjective('cycle');
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's date-string assertions ("26 septembre 2026", ...) were written
+  // against the French default. Pinning French explicitly here preserves
+  // every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

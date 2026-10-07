@@ -7,6 +7,7 @@ import {useTranslation} from 'react-i18next';
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import type {PrayerName, PrayerWindow} from '../../services/prayerTimes';
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 };
 
 const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     ...(timezone ? {timeZone: timezone} : {}),
     hour: '2-digit',
     minute: '2-digit',

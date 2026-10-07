@@ -8,7 +8,7 @@ import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import type {PurityPrayerResult} from '../../utils/purityPrayerLogic';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 
 type TranslateFn = (key: string, options?: Record<string, unknown>) => string;
 
@@ -25,7 +25,7 @@ const sameDay = (a: Date, b: Date) =>
   a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 
 const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat('fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     ...(timezone ? {timeZone: timezone} : {}),
     hour: '2-digit',
     minute: '2-digit',
@@ -36,7 +36,7 @@ const formatDeclaredEnd = (t: TranslateFn, date: Date, timezone?: string): strin
   if (sameDay(date, new Date())) {
     return t('prayerTimes.purity.todayAt', {time: formatTime(date, timezone)});
   }
-  const dateLabel = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long'}).format(date);
+  const dateLabel = new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long'}).format(date);
   return t('prayerTimes.purity.dateAt', {date: dateLabel, time: formatTime(date, timezone)});
 };
 

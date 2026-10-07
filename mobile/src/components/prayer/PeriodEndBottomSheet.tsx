@@ -21,9 +21,8 @@ import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import {setPeriodEndDateTime} from '../../state/onboardingPreferences';
 import {recordConfirmedPeriodEnd} from '../../state/confirmedPeriodHistoryStore';
-import {formatFullDate} from '../../utils/cycleMath';
+import {dateFormatLocale, formatFullDate} from '../../utils/cycleMath';
 import {getBottomPadding} from '../../theme/spacing';
-import {getAppLanguage} from '../../state/themePreferences';
 import i18n from '../../i18n';
 
 type Props = {
@@ -44,7 +43,7 @@ const formatDateLabel = (date: Date): string =>
   sameDay(date, new Date()) ? i18n.t('periodStartSheet.todayLabel', {date: formatFullDate(date)}) : formatFullDate(date);
 
 const formatTimeLabel = (date: Date): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 
 const clampDateTime = (value: Date, minDateTime: Date): Date => {
   const now = new Date();

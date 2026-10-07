@@ -14,7 +14,7 @@ import {useTranslation} from 'react-i18next';
 import {homeColors, homeRadii} from './homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import type {PrayerWindow} from '../../services/prayerTimes';
 import {
   nifasReferenceApproachingHeadline,
@@ -78,7 +78,7 @@ type Props = {
 };
 
 const formatTime = (date: Date, timezone?: string) =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     ...(timezone ? {timeZone: timezone} : {}),
     hour: '2-digit',
     minute: '2-digit',

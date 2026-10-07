@@ -12,6 +12,8 @@ import SpiritualGuidanceCard from '../../components/home/SpiritualGuidanceCard';
 import {MENSTRUAL_PURITY_OBJECTIVES, objectiveShowsMenstrualPurity} from '../../utils/spiritualObjectiveScope';
 import {getActiveObjective} from '../../state/onboardingPreferences';
 import PrayerTimesScreen from '../PrayerTimesScreen';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M48 — UI consistency only (same canonical usePrayerPurityStatus() state ->
 // same display): the objectives whose dashboard SpiritualGuidanceCard shows
@@ -71,6 +73,15 @@ async function renderNode(renderElement: () => React.ReactElement) {
   activeRenderers.push(renderer!);
   return renderer!;
 }
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's purity-text matches ('Statut de pureté', 'Menstrues') were
+  // written against the French default. Pinning French here preserves
+  // every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   act(() => {
