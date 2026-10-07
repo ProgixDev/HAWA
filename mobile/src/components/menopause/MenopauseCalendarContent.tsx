@@ -53,7 +53,7 @@ import {
 } from '../../config/menopauseJournalConfig';
 
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -416,7 +416,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
 
               <View style={styles.monthTitleBlock}>
                 <Text numberOfLines={1} style={styles.monthTitle}>
-                  {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+                  {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
                 </Text>
                 {hijriRangeLabel ? (
                   <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
@@ -581,7 +581,7 @@ function MenopauseCalendarContent(): React.JSX.Element {
           <View style={styles.card}>
             <View style={styles.selectedHeader}>
               <Text style={styles.selectedDateText}>
-                {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
+                {new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)}
               </Text>
               {selectedHijriDate ? (
                 <Text style={styles.selectedHijriText}>{selectedHijriDate}</Text>

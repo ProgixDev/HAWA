@@ -19,6 +19,8 @@ import {
   getMenopauseLabResults,
   saveMenopauseJournalField,
 } from '../../../state/menopauseJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // The date picker is a native component: replaced by a stub that exposes its
 // props so the test can "pick" a date.
@@ -120,6 +122,14 @@ const offered = (renderer: ReactTestRenderer.ReactTestRenderer) =>
   (Object.keys(SYMPTOM_LABELS) as MenopauseSymptom[]).filter(id => allTexts(renderer).includes(SYMPTOM_LABELS[id]));
 
 const localKey = (date: Date) => date.toLocaleDateString('en-CA');
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's UI-text assertions were written against the French default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   act(() => {

@@ -14,6 +14,8 @@ import ProfileScreen from '../ProfileScreen';
 import {resetPremiumStateForTests} from '../../state/premiumStore';
 import {setSelectedObjective} from '../../state/onboardingPreferences';
 import {updatePrivacySecuritySettings} from '../../state/securityPreferences';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 import {
   getMenopausePreferences,
   setMenopauseHormonalTreatmentStatus,
@@ -140,9 +142,14 @@ beforeAll(async () => {
   await addMenopauseLabResult({type: 'fsh', value: 38, date: '2026-09-02'});
 });
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   visited.length = 0;
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's button-label assertions were written against the French default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

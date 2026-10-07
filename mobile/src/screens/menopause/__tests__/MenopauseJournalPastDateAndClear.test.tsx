@@ -11,6 +11,8 @@ import MenopauseJournalEntryScreen from '../MenopauseJournalEntryScreen';
 import MenopauseCalendarContent from '../../../components/menopause/MenopauseCalendarContent';
 import {setMenopauseHormonalTreatmentStatus, setMenopauseTrackedSymptoms} from '../../../state/menopausePreferences';
 import {getMenopauseJournalEntry, saveMenopauseJournalField} from '../../../state/menopauseJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M21 (past-day entry) and M25 (saved values can be cleared) for the Menopause journals.
 
@@ -110,9 +112,14 @@ const confirmLastAlert = async (buttonText: string) => {
   await settle();
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 25, 12, 0, 0)});
   alertSpy = jest.spyOn(Alert, 'alert').mockImplementation(() => {});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text assertions were written against the French default. Pinning
+  // French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
