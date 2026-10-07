@@ -3,6 +3,7 @@ import {initReactI18next} from 'react-i18next';
 
 import {getAppLanguage, subscribeThemePreferences} from '../state/themePreferences';
 import {en} from './locales/en';
+import {es} from './locales/es';
 import {fr} from './locales/fr';
 
 // Centralized localization (i18next + react-i18next) — imported once, as a
@@ -40,6 +41,7 @@ i18n.use(initReactI18next).init({
   resources: {
     fr: {translation: fr},
     en: {translation: en},
+    es: {translation: es},
   },
   lng: getAppLanguage(),
   fallbackLng: 'en',
