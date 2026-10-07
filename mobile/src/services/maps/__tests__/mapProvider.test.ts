@@ -23,13 +23,25 @@ const FEATURE_WITH_BOTH_LANGUAGES = {
   ],
 };
 
+beforeEach(async () => {
+  await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's tests were written against the old French default and never set
+  // a language explicitly before expecting French request behavior (each
+  // test that wants English already calls setAppLanguage('en')). Pinning
+  // French here preserves every test's original intent. mapProvider.ts
+  // reads getAppLanguage() directly (not i18n.language), so setAppLanguage
+  // alone is sufficient here — no i18n.changeLanguage call is needed.
+  await setAppLanguage('fr');
+});
+
 afterEach(async () => {
   global.fetch = originalFetch;
   await resetAppLanguageForTests();
 });
 
 describe('mapProvider — geocoding request language', () => {
-  it('TEST 3: requests language=fr while the app language is French (default)', async () => {
+  it('TEST 3: requests language=fr while the app language is French', async () => {
     const fetchMock = jest.fn(async (_url: string) => jsonResponse({features: [FEATURE_WITH_BOTH_LANGUAGES]}));
     global.fetch = fetchMock as unknown as typeof fetch;
 
