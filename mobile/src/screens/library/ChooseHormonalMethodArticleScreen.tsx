@@ -203,6 +203,79 @@ const CONTENT = {
     disclaimerText: 'This article is for informational purposes only and does not replace personalized medical advice.',
     shareMessage: 'Choosing the treatment that suits you — AWA',
   },
+  es: {
+    badge: 'ELEGIR TU MÉTODO',
+    title: 'Elige el tratamiento\nque más te convenga',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Las preguntas correctas que debes hacerte para encontrar un método anticonceptivo adaptado a tu día a día, a tus necesidades y a tus planes.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las preguntas que debes hacerte',
+      'Ningún método es «mejor» en términos absolutos',
+      'Los criterios que pueden marcar la diferencia',
+      'Hablarlo con un profesional',
+      'Lo esencial',
+    ],
+    section1Body: 'No existe una anticoncepción ideal para todo el mundo. Antes de elegir un método, puede ser útil reflexionar sobre tus hábitos, tus preferencias, tu tolerancia y tus planes.',
+    questions: [
+      '¿Cómo reacciona mi cuerpo a las hormonas?',
+      '¿Necesito un gesto diario, semanal, o una solución de larga duración?',
+      '¿Tengo un proyecto de embarazo a medio plazo?',
+      '¿Cuál es mi presupuesto y el acceso a este método anticonceptivo?',
+    ],
+    section2Body: 'Dos personas pueden elegir métodos diferentes y haber hecho ambas una elección perfectamente adaptada a su situación. La elección correcta depende sobre todo de cómo quieres usar tu anticoncepción y de lo que buscas.',
+    highlightTitle: 'La referencia clave',
+    highlightText: 'Un método interesante sobre el papel no es necesariamente el que te resultará más sencillo o más cómodo en tu día a día.',
+    section3Body: 'Para comparar varias opciones, puedes fijarte en distintos criterios. El objetivo no es conocerlo todo de memoria, sino identificar lo que realmente te importa.',
+    priorities: [
+      {title: 'Sencillez', text: 'Algunos métodos requieren una acción diaria, mientras que otros solo necesitan atención semanal, o mucho más espaciada.'},
+      {title: 'Tolerancia', text: 'Los efectos percibidos pueden variar de una persona a otra. Es importante observar cómo reacciona tu cuerpo y hablar de ello si algo te molesta.'},
+      {title: 'Proyecto de embarazo', text: 'Si deseas un embarazo próximamente, la duración de uso y el retorno de la fertilidad tras dejarlo pueden formar parte de lo que converses.'},
+      {title: 'Eficacia', text: 'La eficacia depende no solo del método elegido, sino también de su uso correcto y regular.'},
+    ],
+    rhythmTitle: 'El ritmo de uso',
+    rhythmBody: 'Una diferencia importante entre los métodos es la frecuencia con la que debes pensar en tu anticoncepción.',
+    comparison: [
+      {title: 'Píldora', detail: 'Gesto diario'},
+      {title: 'Parche', detail: 'Cambio semanal'},
+      {title: 'Anillo', detail: 'Ciclo de varias semanas'},
+      {title: 'Implante', detail: 'Solución de larga duración'},
+      {title: 'DIU hormonal', detail: 'Solución de larga duración'},
+    ],
+    bodyReactionTitle: 'Observar la reacción de tu cuerpo',
+    bodyReactionText: 'Un método hormonal puede sentirse de forma diferente según la persona. Algunas notan cambios en el ciclo, sangrados u otros efectos indeseados. Estas reacciones no significan automáticamente que el método no sea adecuado, pero merecen tenerse en cuenta.',
+    alertTitle: 'A vigilar',
+    alertText: 'Si un efecto es importante, persistente o inusual, no te quedes sola con tus dudas. Un médico, una matrona u otro profesional de la salud puede ayudarte a determinar si hay que continuar, adaptar o cambiar el método.',
+    projectsTitle: 'Tener en cuenta tus planes',
+    projectsBody: 'Tu proyecto de embarazo también puede influir en la elección. Si quieres evitar un embarazo durante varios años, un método de larga duración puede ser interesante. Si te planteas un embarazo más próximo, otras opciones pueden ajustarse mejor a tu calendario.',
+    keepInMindTitle: 'Para tener en cuenta',
+    keepInMindText: 'Hablar de tu proyecto de embarazo, aunque todavía sea lejano o incierto, permite al profesional de la salud orientar mejor la conversación.',
+    section4Body: 'Una cita permite sopesar las ventajas, las limitaciones y las posibles contraindicaciones de cada método. Puedes preparar algunas preguntas antes de la consulta para no olvidar los puntos importantes.',
+    questionCardTitle: 'Preguntas útiles para hacer',
+    professionalQuestions: [
+      '¿Cuáles son las ventajas de este método para mí?',
+      '¿Qué efectos indeseados puedo experimentar?',
+      '¿Cómo se usa correctamente?',
+      '¿Qué hacer si lo olvido, si se desplaza o si quiero dejarlo?',
+      '¿Este método se ajusta a mi proyecto de embarazo?',
+    ],
+    professionalTipTitle: 'DATO ÚTIL',
+    professionalTipText: 'Una matrona o un médico puede tener en cuenta tus antecedentes, tus tratamientos, tus preferencias y tu estilo de vida antes de recomendarte un método.',
+    summaryTitle: 'Lo esencial',
+    summaryItems: [
+      'Elige un método compatible con tu día a día.',
+      'Ten en cuenta tu tolerancia y tus preferencias.',
+      'Piensa en tu proyecto de embarazo y en tu horizonte temporal.',
+      'Pide consejo a un profesional si tienes dudas.',
+    ],
+    finalTipTitle: 'Para recordar',
+    finalTipText: 'El mejor método no es necesariamente el que parece más práctico o más popular. Es el que se ajusta a tu situación, a tus necesidades y a tus preferencias, tras una conversación informada con un profesional de la salud.',
+    disclaimerText: 'Este artículo tiene una finalidad informativa y no sustituye un consejo médico personalizado.',
+    shareMessage: 'Elige el tratamiento que más te convenga — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -211,7 +284,7 @@ export default function ChooseHormonalMethodArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

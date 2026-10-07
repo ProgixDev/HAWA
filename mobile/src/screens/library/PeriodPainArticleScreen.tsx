@@ -129,6 +129,42 @@ const CONTENT = {
     ],
     shareMessage: 'Managing period pain — AWA',
   },
+  es: {
+    badge: 'DOLORES',
+    title: 'Manejar los dolores\nmenstruales',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Calor, movimiento suave, alimentación: gestos que realmente alivian.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Entender los dolores menstruales',
+      'Soluciones naturales eficaces',
+      '¿Cuándo hay que consultar?',
+      'Consejos prácticos para el día a día',
+    ],
+    section1Text: 'Los cólicos provienen de las contracciones uterinas que ayudan a expulsar el revestimiento uterino. Se deben a las prostaglandinas. Cada cuerpo reacciona de forma diferente.',
+    tip1Title: 'Dato útil',
+    tip1Text: 'Los dolores pueden variar de un ciclo a otro y no son siempre iguales.',
+    solutions: [
+      {title: 'Calor', text: 'Una bolsa de agua caliente en la parte baja del abdomen puede relajar los músculos.'},
+      {title: 'Movimiento suave', text: 'El yoga, los estiramientos y caminar suavemente alivian las tensiones.'},
+      {title: 'Alimentación', text: 'Magnesio, omega-3 y alimentos antiinflamatorios.'},
+      {title: 'Hidratación', text: 'Beber suficiente agua ayuda a limitar la hinchazón.'},
+      {title: 'Masaje', text: 'Un masaje circular en la parte baja del abdomen ayuda a relajar.'},
+    ],
+    section3Text: 'Si los dolores te impiden llevar una vida normal cada mes a pesar de estas soluciones, es importante hablar de ello con un profesional de la salud.',
+    alertTitle: 'Consulta si',
+    alertText: 'Dolores muy intensos, sangrado abundante, fatiga extrema o síntomas anormales.',
+    dailyTips: [
+      'Calienta suavemente tu cuerpo al despertar',
+      'Opta por una alimentación equilibrada',
+      'Tómate tiempo para respirar y relajarte',
+      'Haz seguimiento de tu ciclo para entender mejor tus dolores',
+    ],
+    shareMessage: 'Manejar los dolores menstruales — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -140,7 +176,7 @@ export default function PeriodPainArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

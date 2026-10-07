@@ -255,6 +255,108 @@ const CONTENT = {
     disclaimerText: 'This article is for informational purposes only and doesn’t replace personalized medical advice.',
     shareMessage: 'Taming hot flashes — AWA',
   },
+  es: {
+    badge: 'SOFOCOS',
+    title: 'Domar los\nsofocos',
+    metaDuration: '10 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué ocurren, cómo identificar tus desencadenantes y qué soluciones pueden ayudar cuando se vuelven molestos.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué ocurren los sofocos',
+      'Los sudores nocturnos',
+      'Los desencadenantes habituales',
+      'Gestos que ayudan en el día a día',
+      'Cuándo hablarlo con un profesional',
+      'Para recordar',
+    ],
+    section1Body1: 'Los sofocos son muy frecuentes durante la transición hacia la menopausia. Están relacionados en particular con las variaciones hormonales que modifican la forma en que el cerebro regula la temperatura del cuerpo.',
+    section1Body2: 'Una pequeña variación de la temperatura corporal puede entonces sentirse como un calor repentino. El cuerpo reacciona dilatando los vasos sanguíneos de la piel, lo que puede provocar una sensación de calor, enrojecimiento y a veces una transpiración importante.',
+    highlight1Title: 'Cada persona es diferente',
+    highlight1Text: 'Algunas mujeres sienten algunos episodios por semana, mientras que otras pueden tener varios al día. La intensidad y la duración también pueden variar.',
+    section2Body1: 'Cuando ocurren durante el sueño, los sofocos pueden provocar sudores nocturnos. Pueden causar varios despertares y hacer que el sueño sea menos reparador.',
+    section2Body2: 'La falta de sueño puede entonces acentuar la fatiga, las dificultades de concentración y la irritabilidad durante el día. Por eso puede ser útil tener en cuenta la calidad del sueño cuando evalúas el impacto de los síntomas.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Un pijama de material transpirable, ropa de cama ligera y una habitación suficientemente fresca pueden ayudar a limitar la incomodidad durante la noche.',
+    section3Body1: 'Ciertos factores pueden desencadenar o acentuar un sofoco. No provocan necesariamente síntomas en todo el mundo, pero identificarlos puede ayudarte a entender mejor tu propio funcionamiento.',
+    triggers: [
+      'La cafeína y el alcohol',
+      'Los platos picantes',
+      'El estrés y las emociones fuertes',
+      'Una habitación recalentada o ropa demasiado abrigada',
+    ],
+    tip2Title: 'Un pequeño hábito útil',
+    tip2Text: 'Durante algunas semanas, anota el momento en que ocurren los sofocos, su intensidad y lo que pasó justo antes. Esto puede ayudarte a detectar desencadenantes personales.',
+    dailyHabits: [
+      'Vestirte con varias capas ligeras',
+      'Mantener un espacio fresco y bien ventilado',
+      'Practicar una respiración lenta en caso de sofoco',
+      'Beber agua fresca con regularidad',
+    ],
+    section4Body1: 'Estas medidas no eliminan sistemáticamente los sofocos, pero pueden hacer que los episodios sean más fáciles de gestionar y disminuir la incomodidad cuando ocurren.',
+    section5Body1: 'Los sofocos son frecuentes durante la perimenopausia y la menopausia. Sin embargo, no tienes que limitarte a soportarlos si se vuelven difíciles de vivir. Un médico o una matrona puede evaluar tus síntomas y hablar contigo de las diferentes posibilidades.',
+    whenAppointmentTitle: '¿Cuándo pedir cita?',
+    section5Body2: 'Una consulta puede ser especialmente útil cuando los síntomas tienen un impacto importante en tu día a día o cuando quieres conocer las opciones disponibles.',
+    consultReasons: [
+      {
+        title: 'Cuando el sueño se ve alterado',
+        text: 'Sofocos o sudores nocturnos frecuentes que provocan despertares repetidos, una fatiga importante o dificultades para funcionar con normalidad durante el día.',
+      },
+      {
+        title: 'Cuando el día a día se vuelve difícil',
+        text: 'Si los sofocos dificultan tu trabajo, tus actividades, tus desplazamientos, tus relaciones sociales o simplemente tu comodidad en el día a día.',
+      },
+      {
+        title: 'Cuando los síntomas se vuelven más frecuentes',
+        text: 'Un aumento claro de la frecuencia o de la intensidad de los síntomas merece ser comentado para buscar las soluciones más adecuadas.',
+      },
+      {
+        title: 'Si deseas un tratamiento',
+        text: 'Se pueden proponer opciones hormonales y no hormonales según la situación. Un profesional puede ayudarte a evaluar sus beneficios, sus riesgos y sus posibles contraindicaciones.',
+      },
+    ],
+    notMenopauseTitle: 'No atribuirlo todo a la menopausia',
+    notMenopauseBody: 'Un sofoco puede tener diferentes causas. Algunos síntomas también pueden estar relacionados con un medicamento, con otra afección médica o con un cambio importante en tu estado de salud. Si algo te parece inusual, nuevo o especialmente intenso, es preferible hablarlo con un profesional en lugar de suponer automáticamente que se trata de la menopausia.',
+    alertTitle: 'Consultar rápidamente',
+    alertText: 'Un dolor en el pecho, una falta de aire repentina, un desmayo, una debilidad brusca o una hinchazón dolorosa e inusual en una pierna requieren un aviso médico rápido.',
+    emergencySignsTitle: '¿Qué señales deben llamar especialmente tu atención?',
+    emergencySigns: [
+      'Un dolor en el pecho inusual o importante',
+      'Una falta de aire repentina o una dificultad importante para respirar',
+      'Un desmayo o una pérdida de conocimiento',
+      'Una debilidad brusca, un trastorno del habla o de la vista',
+      'Una hinchazón dolorosa e inusual en una pierna',
+    ],
+    solutionsTitle: '¿Qué soluciones se pueden proponer?',
+    solutionsBody: 'Si los sofocos son lo bastante molestos como para necesitar atención, se pueden considerar varios enfoques. Según tu situación, el profesional puede hablar de medidas relacionadas con el estilo de vida, de tratamientos no hormonales o, cuando sea apropiado, de un tratamiento hormonal.',
+    highlight2Title: 'Un tratamiento se elige caso por caso',
+    highlight2Text: 'La edad, los síntomas, los antecedentes médicos, los tratamientos en curso y las preferencias personales pueden influir en las opciones propuestas.',
+    prepareTitle: 'Preparar tu cita',
+    prepareBody: 'Llegar con algo de información puede hacer que la consulta sea más útil. Puedes anotar durante algunos días o semanas la frecuencia de los episodios, su intensidad y su impacto en tu sueño o tus actividades.',
+    questionsTitle: 'Información útil para preparar',
+    appointmentQuestions: [
+      '¿Con qué frecuencia ocurren los sofocos?',
+      '¿Desde cuándo están presentes?',
+      '¿Ocurren más bien de día, de noche o ambos?',
+      '¿Alteran tu sueño o tus actividades?',
+      '¿Has identificado algunos desencadenantes?',
+      '¿Tomas actualmente algún tratamiento o anticoncepción hormonal?',
+    ],
+    professionalTipText: 'No es necesario esperar a que los síntomas sean muy importantes para hablar de ellos. Una consulta también puede servir simplemente para entender lo que está pasando y conocer las soluciones disponibles.',
+    summaryTitle: 'Lo esencial',
+    summaryItems: [
+      'Los sofocos son frecuentes durante la transición menopáusica.',
+      'Identificar tus desencadenantes puede ayudarte a gestionar mejor los episodios.',
+      'Algunos hábitos sencillos pueden reducir la incomodidad en el día a día.',
+      'Si los síntomas alteran tu sueño o tu vida diaria, háblalo con un profesional.',
+      'Se pueden comentar varias opciones de atención según tu situación.',
+    ],
+    finalTipText: 'Los sofocos son habituales, pero no deben minimizarse cuando afectan a tu sueño, tu trabajo o tu bienestar. Observar tus síntomas y hablarlo con un profesional permite entender mejor su origen y explorar las soluciones adecuadas.',
+    disclaimerText: 'Este artículo tiene una vocación informativa y no sustituye un asesoramiento médico personalizado.',
+    shareMessage: 'Domar los sofocos — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -266,7 +368,7 @@ export default function HotFlashesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

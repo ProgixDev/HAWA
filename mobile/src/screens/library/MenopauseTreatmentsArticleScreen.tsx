@@ -120,6 +120,46 @@ const CONTENT = {
     tip2Text: 'Hormonal or not, no treatment is universal: what’s right for you depends on your personal situation, assessed with a healthcare professional.',
     shareMessage: 'Menopause treatments — AWA',
   },
+  es: {
+    badge: 'TRATAMIENTOS',
+    title: 'Los tratamientos\nde la menopausia',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Tratamiento hormonal y alternativas no hormonales, para ayudarte a preparar la conversación con tu médico.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'El tratamiento hormonal de la menopausia',
+      'Beneficios y precauciones',
+      'Los enfoques no hormonales',
+      'Hablarlo con un profesional',
+      'Para recordar',
+    ],
+    body1: 'El tratamiento hormonal de la menopausia (THM) compensa la disminución de estrógenos y alivia los síntomas más molestos, como los sofocos, los trastornos del sueño o la sequedad vaginal.',
+    body2: 'El THM también puede contribuir a proteger la densidad ósea. Sin embargo, no es adecuado para todas las situaciones: ciertos antecedentes personales (cardiovasculares, algunos cánceres hormonodependientes) pueden limitar su uso.',
+    alertTitle: 'A tener en cuenta',
+    alertText: 'La relación beneficio-riesgo del THM depende de tu edad, del momento en que se inicia con respecto a la menopausia, y de tus antecedentes personales: es necesario un balance médico individualizado antes de cualquier decisión.',
+    body3: 'Cuando el THM no se desea o no es adecuado, existen otras vías para aliviar los síntomas:',
+    nonHormonal: [
+      'Terapias cognitivo-conductuales (gestión del estrés, del sueño)',
+      'Fitoterapia supervisada por un profesional',
+      'Ajustes del estilo de vida (alimentación, actividad física, sueño)',
+      'Lubricantes e hidratantes vaginales para la sequedad íntima',
+    ],
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Incluso la fitoterapia merece un asesoramiento profesional: «natural» no significa «sin posibles interacciones» con otros tratamientos.',
+    body4: 'Preparar algunos puntos antes de una cita ayuda a aprovechar plenamente la conversación:',
+    discussPoints: [
+      'Tus síntomas más molestos en el día a día',
+      'Tus antecedentes médicos personales y familiares',
+      'Tus preferencias (hormonal o no, duración prevista)',
+      'Tus preguntas e inquietudes, sin dudar en plantearlas',
+    ],
+    tip2Title: 'DATO ÚTIL',
+    tip2Text: 'Hormonal o no, ningún tratamiento es universal: el que te conviene depende de tu situación personal, evaluada con un profesional de la salud.',
+    shareMessage: 'Los tratamientos de la menopausia — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -128,7 +168,7 @@ export default function MenopauseTreatmentsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

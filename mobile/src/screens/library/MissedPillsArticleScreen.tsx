@@ -206,6 +206,84 @@ const CONTENT = {
     finalTipText: 'A missed pill doesn’t automatically mean your contraception has stopped working. The right course of action depends on the type of pill and the circumstances of the missed dose. If in doubt, check the package insert and ask for advice quickly.',
     disclaimerText: 'This article is provided for informational purposes only and does not replace your medication’s package insert or personalized medical advice. Recommendations may vary depending on the type of pill.',
   },
+  es: {
+    shareMessage: 'Olvido de la píldora: ¿qué hacer? — AWA',
+    badge: 'OLVIDO DE PÍLDORA',
+    title: 'Olvido de la píldora:\n¿qué hacer?',
+    metaDuration: '7 min de lectura',
+    metaType: 'FAQ',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Un olvido de píldora puede pasarle a cualquiera. La actuación a seguir depende principalmente del tiempo transcurrido desde el olvido, del tipo de píldora y del momento en que este se produce dentro del blíster.',
+    importantTitle: 'El punto esencial',
+    importantText: 'No entres en pánico. Primero comprueba el tipo exacto de tu píldora y consulta su prospecto para conocer la actuación recomendada.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Menos de 12 horas de retraso',
+      'Más de 12 horas de retraso',
+      'Las situaciones que requieren más atención',
+      'El prospecto sigue siendo la referencia',
+      'Cuándo pedir consejo',
+      'Lo esencial',
+    ],
+    body1: 'En algunas píldoras, un retraso inferior a 12 horas generalmente no compromete la protección anticonceptiva. En ese caso, la recomendación habitual es tomar el comprimido olvidado lo antes posible y luego continuar el blíster a la hora habitual.',
+    step1Title: 'Toma el comprimido',
+    step1Text: 'Toma el comprimido en cuanto detectes el retraso.',
+    step2Title: 'Continúa con normalidad',
+    step2Text: 'Retoma después tu ritmo habitual para los comprimidos siguientes.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Si tomaste el comprimido olvidado y luego el previsto para la hora habitual, puede ocurrir que se tomen dos comprimidos el mismo día.',
+    body2: 'Cuando el retraso supera el plazo previsto para tu píldora, la protección puede disminuir. La actuación a seguir depende entonces del tipo de píldora, del número de comprimidos olvidados y del momento del olvido dentro del blíster.',
+    alertTitle: 'Atención',
+    alertText: 'No te bases únicamente en el número de horas indicado aquí: algunas píldoras tienen instrucciones diferentes. Consulta siempre el prospecto de tu medicamento.',
+    reflexesTitle: 'Los primeros reflejos',
+    checkPoints: [
+      {title: 'Reaccionar rápidamente', text: 'Cuanto más rápido reacciones después de notar el olvido, más fácil será seguir las recomendaciones adecuadas.'},
+      {title: 'Comprobar el prospecto', text: 'Las instrucciones pueden variar según el tipo exacto de píldora y el número de comprimidos olvidados.'},
+      {title: 'Prever una protección complementaria', text: 'En algunas situaciones, puede recomendarse el uso de un preservativo durante un período determinado.'},
+    ],
+    body3: 'No todas las situaciones son iguales. Algunos olvidos requieren una comprobación más precisa de las recomendaciones.',
+    situations: [
+      {title: 'Un solo comprimido olvidado', text: 'La actuación a seguir depende principalmente del tiempo transcurrido desde la hora habitual de la toma.'},
+      {title: 'Varios comprimidos olvidados', text: 'La situación requiere una atención especial y es preferible comprobar con precisión el prospecto.'},
+      {title: 'Duda sobre la actuación a seguir', text: 'Una farmacia o un profesional de la salud puede ayudarte rápidamente a identificar la actuación correcta.'},
+    ],
+    body4: 'El prospecto de tu píldora da las instrucciones precisas correspondientes al medicamento que tomas. Las recomendaciones pueden diferir según se trate de una píldora combinada o de una píldora de progestágeno solo.',
+    referenceTitle: 'Comprobaciones útiles',
+    referenceTips: [
+      'Guarda el prospecto accesible (por ejemplo, una foto en el teléfono)',
+      'Contacta con una farmacéutica en caso de duda rápida',
+      'Consulta si el olvido se repite con frecuencia',
+    ],
+    guideTitle: '¿Por qué importa el momento del olvido?',
+    guideText: 'El momento en que ocurre el olvido dentro del blíster puede modificar la actuación a seguir. Por eso el prospecto suele indicar recomendaciones diferentes según la semana de toma.',
+    body5: 'Si no sabes qué actuación adoptar, es mejor pedir consejo que quedarte con la duda. Una farmacia, una matrona o un médico puede ayudarte a comprobar las recomendaciones adaptadas a tu situación.',
+    questionTitle: 'La información que debes preparar',
+    questions: [
+      '¿Qué tipo de píldora es exactamente?',
+      '¿Cuánto tiempo ha pasado desde la hora habitual?',
+      '¿Cuántos comprimidos se han olvidado?',
+      '¿En qué momento del blíster se produjo el olvido?',
+      '¿Ha habido alguna relación sexual sin protección recientemente?',
+    ],
+    proTipTitle: 'DATO ÚTIL',
+    proTipText: 'Si ha habido una relación sexual sin protección alrededor del período del olvido, pide consejo rápidamente a un profesional para conocer las opciones posibles.',
+    repeatTitle: 'Si los olvidos se repiten',
+    body6: 'Los olvidos frecuentes pueden ser una señal de que la forma de toma diaria no se ajusta bien a tu ritmo de vida. No dudes en hablarlo con un profesional de la salud para explorar otras opciones anticonceptivas.',
+    methodTipTitle: '¿Otro método?',
+    methodTipText: 'Si tomar un comprimido cada día resulta difícil de mantener, existen otros métodos con una frecuencia de uso diferente.',
+    summaryTitle: 'Lo esencial',
+    summaryItems: [
+      'Reacciona en cuanto detectes el olvido.',
+      'Comprueba el tipo exacto de tu píldora.',
+      'Consulta el prospecto para conocer la actuación precisa.',
+      'Usa una protección complementaria si el prospecto lo recomienda.',
+      'Pide consejo en caso de duda o de relación de riesgo.',
+    ],
+    finalTipTitle: 'Para recordar',
+    finalTipText: 'Un olvido no significa automáticamente que tu anticoncepción haya dejado de funcionar. La actuación correcta depende del tipo de píldora y de las circunstancias del olvido. En caso de duda, consulta el prospecto y pide consejo rápidamente.',
+    disclaimerText: 'Este artículo se ofrece con fines informativos y no sustituye el prospecto de tu medicamento ni un consejo médico personalizado. Las recomendaciones pueden variar según el tipo de píldora.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -214,7 +292,7 @@ export default function MissedPillsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

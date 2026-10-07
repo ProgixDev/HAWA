@@ -134,6 +134,49 @@ const CONTENT = {
       'Don’t hesitate to write down your questions before each appointment so you don’t forget anything in the moment: no question is too small to ask.',
     shareMessage: 'The pregnancy exam calendar — AWA',
   },
+  es: {
+    badge: 'EMBARAZO • SEGUIMIENTO MÉDICO',
+    title: 'El calendario de\nlos exámenes del embarazo',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Ecografías y pruebas esenciales, trimestre a trimestre.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las ecografías de seguimiento',
+      'Los análisis de sangre esenciales',
+      'Preparar cada cita',
+      'Para tener en cuenta',
+      'Para recordar',
+    ],
+    body1:
+      'Tres ecografías principales marcan generalmente el ritmo del embarazo, una por trimestre, cada una con un objetivo diferente.',
+    ultrasounds: [
+      '1.er trimestre: datación y translucencia nucal',
+      '2.º trimestre: ecografía morfológica',
+      '3.er trimestre: crecimiento y posición del bebé',
+    ],
+    body2:
+      'Varios análisis de sangre regulares controlan varios marcadores clave a lo largo del embarazo:',
+    bloodTests: [
+      'Nivel de hierro, para detectar una posible anemia',
+      'Cribado de diabetes gestacional, generalmente alrededor del 2.º trimestre',
+      'Grupo sanguíneo e investigación de aglutininas irregulares',
+      'Serologías (toxoplasmosis, rubéola) según tu estado inmunitario',
+    ],
+    prepTips: [
+      'Anota tus preguntas a medida que te surjan, antes de olvidarlas',
+      'Lleva tu cartilla de seguimiento del embarazo a cada cita',
+      'Comenta cualquier síntoma nuevo, aunque te parezca menor',
+    ],
+    neutralText:
+      'El número y el calendario exacto de los exámenes pueden variar según tu seguimiento, tu perfil de riesgo y las prácticas de tu país o de tu centro médico.',
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'No dudes en anotar tus preguntas antes de cada cita para no olvidar nada en el momento: ninguna pregunta es demasiado pequeña para hacerla.',
+    shareMessage: 'El calendario de los exámenes del embarazo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -142,7 +185,7 @@ export default function MedicalExamsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

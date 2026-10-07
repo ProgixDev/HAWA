@@ -175,6 +175,64 @@ const CONTENT = {
       'Rest, heat, and gentle activity can help. If the pain remains very intense or unusual, seek medical advice.',
     shareMessage: 'Understanding your period: what’s really happening — AWA',
   },
+  es: {
+    badge: 'CICLO MENSTRUAL',
+    title: 'Entender el período:\nqué es lo que realmente pasa',
+    metaDuration: '5 min de lectura',
+    metaValidated: 'Contenido validado',
+    intro:
+      'El período forma parte de un proceso natural esencial para la salud hormonal y reproductiva femenina. Entender lo que ocurre en tu cuerpo puede ayudarte a vivir mejor cada ciclo.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es el período?',
+      'Cómo transcurre el período',
+      'Qué es normal (y qué no lo es)',
+      'Aliviar los dolores de forma natural',
+    ],
+    body1:
+      'El período corresponde a la eliminación del revestimiento uterino cuando no se ha producido una fecundación. Este fenómeno ocurre, en promedio, una vez al mes.',
+    knowTitle: 'Dato útil',
+    knowText:
+      'Cada mujer es única: la duración, la intensidad y las sensaciones pueden variar de un ciclo a otro.',
+    body2:
+      'El flujo no es igual durante todo el período. Suele cambiar día a día, tanto en intensidad como en color y textura.',
+    flowSteps: [
+      {title: 'Inicio del período', text: 'El flujo suele ser más abundante durante los primeros días.'},
+      {title: 'Mitad del período', text: 'El flujo generalmente comienza a disminuir poco a poco.'},
+      {title: 'Final del período', text: 'El flujo se vuelve más ligero y puede adquirir un color más oscuro.'},
+    ],
+    softInfoTitle: 'Para recordar',
+    softInfoText:
+      'El desarrollo puede variar de un ciclo a otro. Lo más importante es conocer tu propio ritmo habitual.',
+    body3:
+      'Algunas variaciones son frecuentes durante el período. Otros signos merecen más atención, sobre todo cuando son nuevos o muy intensos.',
+    normalSigns: [
+      {title: 'Duración', text: 'Un período que suele durar unos días.'},
+      {title: 'Flujo variable', text: 'Un flujo más abundante al principio y luego más ligero.'},
+      {title: 'Color', text: 'Del rojo vivo al rojo oscuro o marrón hacia el final del período.'},
+      {title: 'Sensaciones', text: 'Pueden sentirse cólicos leves a moderados.'},
+    ],
+    warningTitle: '¿Cuándo pedir una opinión médica?',
+    warningSigns: [
+      'Dolores muy intensos o inusuales',
+      'Sangrado que empapa una protección muy rápidamente',
+      'Fatiga importante, malestar o mareos',
+      'Un cambio brusco y persistente respecto a tus hábitos',
+    ],
+    body4:
+      'Algunos gestos sencillos pueden ayudar a reducir la incomodidad y a vivir mejor los primeros días del período.',
+    tipsTitle: 'Consejos prácticos',
+    tips: [
+      'Bebe suficiente\nagua para limitar\nla fatiga.',
+      'Aplica calor\nen la parte baja\ndel abdomen si lo necesitas.',
+      'Practica una actividad\nsuave: caminar,\nyoga, estiramientos.',
+      'Date tiempo para\ndescansar y dormir\nbien.',
+    ],
+    reliefTitle: 'Escucha a tu cuerpo',
+    reliefText:
+      'El descanso, el calor y una actividad suave pueden ser útiles. Si el dolor sigue siendo muy fuerte o inusual, pide una opinión médica.',
+    shareMessage: 'Entender el período: qué es lo que realmente pasa — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -186,7 +244,7 @@ export default function UnderstandMenstrualFlowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

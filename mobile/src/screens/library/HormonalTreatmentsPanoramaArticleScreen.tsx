@@ -268,6 +268,109 @@ const CONTENT = {
     tip1Text: 'Taking the time to compare methods with a healthcare professional helps you choose a contraception you can use calmly and consistently.',
     shareMessage: 'Overview of hormonal contraceptive treatments — AWA',
   },
+  es: {
+    badge: 'TRATAMIENTOS HORMONALES',
+    title: 'Panorama de los tratamientos hormonales anticonceptivos',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Píldora, parche, anillo, implante, DIU hormonal: qué los diferencia y cómo reflexionar sobre el método que mejor se ajusta a tu día a día.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Un principio de acción común',
+      'Los distintos métodos',
+      'Cómo orientar tu elección',
+      'Lo esencial',
+    ],
+    body1: 'Los métodos hormonales utilizan hormonas para prevenir un embarazo. Según el método, pueden principalmente impedir la ovulación, espesar el moco cervical y modificar el entorno del útero.',
+    diagramTitle: '¿Cómo actúa la anticoncepción hormonal?',
+    diagramSubtitle: 'Varios mecanismos pueden contribuir a la protección.',
+    step1Title: 'Ovulación',
+    step1Text: 'Algunos métodos impiden o inhiben la liberación del óvulo.',
+    step2Title: 'Moco cervical',
+    step2Text: 'El moco puede volverse más espeso, lo que dificulta el paso de los espermatozoides.',
+    step3Title: 'Protección anticonceptiva',
+    step3Text: 'La combinación de estos mecanismos contribuye a reducir el riesgo de embarazo.',
+    body2: 'No todos los métodos requieren el mismo nivel de implicación. El principal punto de diferencia es la frecuencia con la que debes pensar en tu anticoncepción.',
+    comparisonTitle: 'Comparar los métodos',
+    comparisonSubtitle: 'Del gesto diario a la protección de larga duración',
+    scaleDaily: 'Diario',
+    scaleWeekly: 'Semanal',
+    scaleLongTerm: 'Larga duración',
+    methods: [
+      {
+        title: 'Píldora',
+        frequency: 'Cada día',
+        duration: 'Hay que tomarla regularmente',
+        profile: 'Ideal si quieres gestionar tú misma tu anticoncepción',
+      },
+      {
+        title: 'Parche',
+        frequency: 'Cada semana',
+        duration: '3 semanas de cada 4',
+        profile: 'Práctico si prefieres evitar una toma diaria',
+      },
+      {
+        title: 'Anillo vaginal',
+        frequency: 'Cada 3 semanas',
+        duration: 'Con una semana de descanso',
+        profile: 'Una opción discreta con pocos gestos en el día a día',
+      },
+      {
+        title: 'Implante',
+        frequency: 'Varios años',
+        duration: 'Sin toma diaria',
+        profile: 'Adecuado si deseas una anticoncepción de larga duración',
+      },
+      {
+        title: 'DIU hormonal',
+        frequency: 'Varios años',
+        duration: 'Colocado por un profesional',
+        profile: 'Una solución de larga duración que requiere muy poco mantenimiento',
+      },
+    ],
+    highlightTitle: 'El punto en común que hay que recordar',
+    highlightText: 'Cuantos menos gestos diarios requiera un método, menos necesitas pensar en él regularmente. Esto puede ser interesante si sabes que corres el riesgo de olvidar una toma o un cambio.',
+    body3: 'No existe un método ideal para todo el mundo. La mejor elección depende de tu día a día, tus preferencias, tu tolerancia y tus planes.',
+    criteria: [
+      {
+        title: 'Tu día a día',
+        text: 'Algunos métodos requieren una acción diaria, mientras que otros funcionan durante varias semanas o años.',
+      },
+      {
+        title: 'Tu tolerancia',
+        text: 'Los efectos percibidos pueden variar según el método. Hablar con un profesional permite evaluar lo que te conviene.',
+      },
+      {
+        title: 'Tus planes',
+        text: 'Si deseas un embarazo próximamente o más adelante, la duración y la reversibilidad del método pueden orientar tu elección.',
+      },
+      {
+        title: 'Tus prioridades',
+        text: 'Discreción, sencillez, ausencia de toma diaria o duración prolongada: tus prioridades cuentan en la decisión.',
+      },
+    ],
+    choiceDiagramTitle: 'Una pequeña pregunta para orientarte',
+    questionText: '«¿Prefiero pensar en mi anticoncepción todos los días, todas las semanas, o solo algunas veces al año?»',
+    choiceOption1Title: 'A menudo',
+    choiceOption1Text: 'Píldora o método que requiere un seguimiento regular',
+    choiceOption2Title: 'Con menos frecuencia',
+    choiceOption2Text: 'Parche o anillo según el ritmo elegido',
+    choiceOption3Title: 'Muy raramente',
+    choiceOption3Text: 'Implante o DIU hormonal de larga duración',
+    alertTitle: 'A tener en cuenta',
+    alertText: 'La elección de una anticoncepción hormonal debe tener en cuenta tu situación personal y médica. Un profesional de la salud puede ayudarte a comparar los beneficios, los riesgos, las contraindicaciones y los posibles efectos indeseados.',
+    summaryTitle: 'Lo esencial',
+    summarySubtitle: 'Los puntos importantes que hay que tener en cuenta',
+    summaryRow1: 'Los métodos hormonales utilizan distintas combinaciones de hormonas y distintos ritmos de uso.',
+    summaryRow2: 'La píldora, el parche y el anillo requieren una implicación regular, mientras que el implante y el DIU hormonal son métodos de larga duración.',
+    summaryRow3: 'La elección debe adaptarse a tu día a día, tus preferencias, tu tolerancia y tus planes.',
+    summaryRow4: 'Ningún método es universalmente «mejor»: sobre todo debe ser compatible con tus necesidades y tu situación.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Tomarte el tiempo de comparar los métodos con un profesional de la salud te permite elegir una anticoncepción que puedas usar con tranquilidad y de forma regular.',
+    shareMessage: 'Panorama de los tratamientos hormonales anticonceptivos — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -276,7 +379,7 @@ export default function HormonalTreatmentsPanoramaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

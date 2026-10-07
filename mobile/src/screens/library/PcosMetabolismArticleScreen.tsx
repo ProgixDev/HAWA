@@ -180,6 +180,68 @@ const CONTENT = {
     tip2Text: 'Weight is only one part of the metabolic picture in PCOS. A comprehensive approach takes into account cycles, symptoms, lifestyle habits, medical history, and metabolic markers.',
     shareMessage: 'Weight, metabolism, and insulin resistance — AWA',
   },
+  es: {
+    badge: 'SOP',
+    title: 'Peso, metabolismo y\nresistencia a la insulina',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'El vínculo entre el SOP, el peso y la resistencia a la insulina, sin juicios ni atajos.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'El vínculo entre el SOP y el metabolismo',
+      'Comprender la resistencia a la insulina',
+      'Peso: lo que es cierto y lo que no',
+      'Hábitos que sostienen el equilibrio',
+      'Cuándo un seguimiento médico es útil',
+      'Para recordar',
+    ],
+    body1: 'El SOP suele estar asociado con cambios metabólicos, entre ellos una resistencia a la insulina. Sin embargo, esta asociación no concierne únicamente a las mujeres con sobrepeso: el perfil metabólico varía de una persona a otra.',
+    body2: 'La insulina es una hormona que ayuda a las células a utilizar la glucosa presente en la sangre. En caso de resistencia a la insulina, las células responden peor a esta hormona y el organismo puede compensarlo produciendo más insulina.',
+    body3: 'En el SOP, esta situación puede estar asociada con un aumento de la producción de andrógenos y contribuir a ciertos síntomas. Pero no todas las mujeres con SOP tienen el mismo perfil metabólico.',
+    tip1Title: 'Dato útil',
+    tip1Text: 'La resistencia a la insulina puede buscarse mediante un análisis biológico cuando el médico lo considera pertinente. La necesidad de exámenes depende del contexto individual.',
+    weightFacts: [
+      'El SOP afecta a mujeres de todas las complexiones, delgadas y con más peso.',
+      'El aumento de peso no es sistemático.',
+      'Perder peso no siempre es necesario ni suficiente para mejorar los síntomas.',
+      'Una pequeña pérdida de peso a veces puede mejorar ciertos parámetros metabólicos o la regularidad del ciclo cuando hay sobrepeso.',
+    ],
+    body4: 'El objetivo no es buscar un peso «perfecto», sino establecer hábitos realistas y duraderos. Una alimentación equilibrada, el movimiento y un sueño regular pueden contribuir a una mejor salud metabólica.',
+    dailyHabits: [
+      'Comidas regulares y variadas, ricas en fibra',
+      'Una actividad física regular, aunque sea moderada',
+      'Un sueño suficiente y regular',
+      'Una hidratación suficiente a diario',
+    ],
+    body5: 'El seguimiento médico del SOP no se limita al ciclo ni a los síntomas hormonales. Según tu perfil, el profesional de salud también puede vigilar ciertos parámetros metabólicos para identificar precozmente posibles factores de riesgo.',
+    medicalTitle: 'Un seguimiento adaptado a tu perfil',
+    medicalSubtitle: 'El balance no es idéntico para todo el mundo.',
+    medicalDescription: 'El médico puede decidir controlar ciertos parámetros en función de tus síntomas, tus antecedentes, tu situación familiar y otros factores de riesgo.',
+    medicalSectionTitle: 'Lo que puede vigilarse',
+    medicalChecks: [
+      'Glucemia y/o HbA1c según el contexto',
+      'Perfil lipídico (colesterol y triglicéridos)',
+      'Evaluación de la tensión arterial y del riesgo cardiovascular',
+      'Seguimiento del peso y del perímetro de cintura sin juicios',
+    ],
+    subH3: 'Situaciones que señalar',
+    body6: 'Algunos cambios merecen mencionarse durante una consulta, sobre todo cuando son nuevos, persistentes o inusuales para ti.',
+    medicalFollowUp: [
+      {title: 'Ciclos muy irregulares', description: 'Señalar reglas muy espaciadas o imprevisibles.'},
+      {title: 'Sed o micciones frecuentes', description: 'Hablar con el médico si estos signos aparecen de forma inusual.'},
+      {title: 'Variación importante de peso', description: 'Una evolución rápida o inexplicada merece una evaluación.'},
+      {title: 'Antecedentes familiares', description: 'Mencionar los antecedentes de diabetes o de enfermedades metabólicas.'},
+    ],
+    alertTitle: 'A tener en cuenta',
+    alertText: 'Una sed inusual, micciones frecuentes, una fatiga persistente o una variación importante e inexplicada del peso deben señalarse a un profesional de salud. Estos signos pueden tener varias causas y no permiten, por sí solos, concluir una resistencia a la insulina o una diabetes.',
+    followUpTipTitle: 'El seguimiento se hace a lo largo del tiempo',
+    followUpTipText: 'El médico puede proponer un control regular en lugar de un balance único. El objetivo es adaptar los consejos y los exámenes a tu evolución, sin centrarse únicamente en el peso.',
+    tip2Title: 'Dato útil',
+    tip2Text: 'El peso es solo una parte del cuadro metabólico del SOP. Un manejo global tiene en cuenta los ciclos, los síntomas, los hábitos de vida, los antecedentes y los parámetros metabólicos.',
+    shareMessage: 'Peso, metabolismo y resistencia a la insulina — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -188,7 +250,7 @@ export default function PcosMetabolismArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

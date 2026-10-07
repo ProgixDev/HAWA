@@ -110,6 +110,36 @@ const CONTENT = {
     shareTitle: 'First period · AWA',
     shareMessage: 'Your first period: what to expect · AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: 'Tu primera menstruación:\nqué esperar',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Lo que es normal, lo que tranquiliza y lo que necesitas saber.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Cuándo llega la primera menstruación?',
+      'Lo que es normal',
+      '¿Cómo funciona?',
+      'Cuidar de ti misma',
+      'Hablar de ello y sentirte apoyada',
+    ],
+    details: [
+      {title: '¿Cuándo llega la primera menstruación?', text: 'Suele llegar entre los 10 y los 15 años, unos dos años después de los primeros signos de la pubertad.'},
+      {title: 'Lo que es completamente normal', text: 'Al principio, los ciclos pueden ser irregulares, cortos o largos. Tu cuerpo simplemente se toma su tiempo para encontrar su ritmo.'},
+      {title: 'Entender cómo funciona', text: 'La menstruación suele durar de 3 a 7 días. El flujo y el color pueden cambiar de un día a otro.'},
+      {title: 'Cuidar de ti', text: 'Cambia tu protección con regularidad, lávate con suavidad y elige ropa cómoda para sentirte bien.'},
+      {title: 'Hablar de ello y sentirte apoyada', text: 'Puedes hablar de ello con tu madre, una hermana, alguien cercano, una profesora o un profesional de la salud en quien confíes.'},
+    ],
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Un ciclo irregular al principio es completamente normal. Tu cuerpo todavía está aprendiendo a encontrar su ritmo.',
+    tip2Title: 'No estás sola',
+    tip2Text: 'Cada cuerpo es único. Tómate tu tiempo, ten paciencia y no dudes en pedir ayuda a una persona de confianza.',
+    shareTitle: 'Primera menstruación · AWA',
+    shareMessage: 'Tu primera menstruación: qué esperar · AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -118,7 +148,7 @@ export default function FirstPeriodArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

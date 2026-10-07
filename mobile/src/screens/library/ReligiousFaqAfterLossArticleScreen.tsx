@@ -168,6 +168,70 @@ const CONTENT = {
       'Taking care of yourself, seeking support, and holding on to hope can gradually help guide the path toward peace.',
     shareMessage: 'Spiritual guidance after a loss — AWA',
   },
+  es: {
+    badge: 'REFERENCIAS ESPIRITUALES',
+    title: 'Referencias espirituales\ndespués de una pérdida',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaEducational: 'Contenido educativo',
+    intro:
+      'Algunas referencias espirituales para atravesar una pérdida con dulzura, paciencia y compasión.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText:
+      'Este contenido es educativo. Las preguntas religiosas precisas deben verificarse con un erudito o una erudita cualificada. AWA no emite fatuas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Una prueba reconocida',
+      'Un estatus según la situación',
+      'Paciencia y esperanza',
+      'Algunas referencias para avanzar',
+    ],
+    section1H2: '1. Una prueba reconocida',
+    section1Body1:
+      'Una pérdida del embarazo puede ser una prueba profundamente dolorosa. La tristeza, el silencio, la confusión o la necesidad de tomar distancia son reacciones humanas naturales.',
+    section1Body2:
+      'Sentir estas emociones no significa carecer de fe. Cada mujer puede vivir su duelo a su propio ritmo.',
+    visual1Title: 'Acoger tus emociones',
+    visual1Body: 'Tristeza • necesidad de descanso • silencio • apoyo',
+    section2H2: '2. Un estatus que puede variar según la situación',
+    section2Body1:
+      'Después de una pérdida, las reglas religiosas pueden depender de la situación y de la naturaleza de los sangrados.',
+    section2Body2:
+      'En particular, puede ser necesario distinguir entre diferentes tipos de sangrado antes de determinar las prácticas religiosas que seguir.',
+    schemaTitle: 'El principio general',
+    schemaLabel1: 'Situación',
+    schemaLabel2: 'Naturaleza del sangrado',
+    schemaLabel3: 'Opinión adaptada',
+    doubtTipTitle: 'En caso de duda',
+    doubtTipText:
+      'Una situación personal puede requerir una respuesta diferente. Es preferible pedir consejo a una persona cualificada.',
+    section3H2: '3. Paciencia y esperanza',
+    section3Body1:
+      'La paciencia (sabr) no significa no llorar ni dejar de sentir dolor. Simplemente puede acompañar el camino con fe y esperanza.',
+    section3Body2:
+      'Pequeños gestos pueden ayudar a recuperar progresivamente una sensación de sosiego: una invocación, un momento de dhikr, una escucha espiritual o la presencia de un ser querido.',
+    spiritual1: 'Invocación',
+    spiritual2: 'Dhikr',
+    spiritual3: 'Apoyo',
+    retainTipTitle: 'Para recordar',
+    retainTipText:
+      'La sanación lleva tiempo. No existe un ritmo universal para atravesar una pérdida.',
+    section4H2: '4. Algunas referencias para avanzar',
+    section4Body:
+      'No es necesario hacerlo todo a la vez. Elige lo que corresponda a tu estado y a tus necesidades del momento.',
+    gentleSteps: [
+      'Tomarte el tiempo de vivir tu duelo',
+      'Rodearte de personas comprensivas',
+      'Conservar pequeños gestos espirituales si te aportan consuelo',
+      'Pedir consejo para cualquier pregunta religiosa precisa',
+      'Buscar apoyo si el duelo se vuelve demasiado difícil de sobrellevar',
+    ],
+    finalTitle: 'Un camino a tu propio ritmo',
+    finalText:
+      'Cuidarte, buscar apoyo y conservar la esperanza pueden acompañar progresivamente el camino hacia el sosiego.',
+    shareMessage: 'Referencias espirituales después de una pérdida — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -176,7 +240,7 @@ export default function ReligiousFaqAfterLossArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

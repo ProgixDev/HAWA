@@ -170,6 +170,60 @@ const CONTENT = {
     ],
     shareMessage: 'Regular or irregular cycle: what’s the difference? — AWA',
   },
+  es: {
+    badge: 'CICLO Y PERÍODO',
+    title: 'Ciclo regular o irregular:\n¿qué diferencias hay?',
+    metaDuration: '5 min de lectura',
+    metaValidated: 'Contenido validado',
+    intro:
+      'Cada ciclo menstrual es único. Entender qué se considera «normal» puede ayudarte a hacer un mejor seguimiento de tu salud y a detectar posibles desequilibrios.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Ciclo menstrual regular: ¿qué es?',
+      'Ciclo irregular: ¿qué significa?',
+      'Posibles causas de un ciclo irregular',
+      '¿Cuándo hay que consultar?',
+      'Consejos para un ciclo más equilibrado',
+    ],
+    section1Body:
+      'Se considera que un ciclo es regular cuando su duración varía entre 21 y 35 días, con una diferencia de menos de 7 días de un ciclo a otro.',
+    section1VisualTitle: 'Un ritmo relativamente estable',
+    section1VisualText:
+      'Lo más importante es observar tu propio ritmo a lo largo de los meses.',
+    tip1Title: 'Dato útil',
+    tip1Text:
+      'Cada mujer es diferente. Lo importante es conocer tu propio ritmo y sus variaciones normales.',
+    section2Body:
+      'Se dice que un ciclo es irregular cuando su duración varía con frecuencia o de forma imprevisible (una diferencia de más de 7 días). Esto puede traducirse en ciclos muy cortos, muy largos o en la ausencia de ovulación.',
+    section2VisualTitle: 'Variaciones más marcadas',
+    section2VisualText:
+      'Las diferencias pueden ser temporales o mantenerse durante varios ciclos.',
+    alertTitle: 'Ten en cuenta',
+    alertText:
+      'La irregularidad temporal puede ser normal (estrés, cambios hormonales, fatiga...). Pero si persiste, es importante buscar su causa.',
+    causes: [
+      'Estrés y ansiedad',
+      'Desequilibrios hormonales',
+      'Falta de sueño y fatiga',
+      'Peso demasiado bajo o demasiado alto',
+      'SOP u otras condiciones médicas',
+    ],
+    checklist: [
+      'Ausencia de período durante más de 3 meses (fuera del embarazo o la lactancia)',
+      'Ciclos muy largos (más de 90 días) o muy cortos (menos de 21 días)',
+      'Dolores intensos que te impiden llevar una vida normal',
+      'Sangrado muy abundante o irregular',
+      'Si deseas concebir y la ovulación parece estar ausente',
+    ],
+    advice: [
+      'Alimentación equilibrada',
+      'Hidratación suficiente',
+      'Actividad física',
+      'Gestión del estrés',
+      'Sueño de calidad',
+    ],
+    shareMessage: 'Ciclo regular o irregular: ¿qué diferencias hay? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -181,7 +235,7 @@ export default function RegularIrregularCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

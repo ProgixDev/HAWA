@@ -211,6 +211,81 @@ const CONTENT = {
       'Informational content. This article does not replace personalized medical advice. Your doctor or midwife remains the reference for your situation.',
     shareMessage: 'Fertility and trying again after a loss — AWA',
   },
+  es: {
+    badge: 'DESPUÉS DE UNA PÉRDIDA DEL EMBARAZO • FERTILIDAD',
+    title: 'Fertilidad y un nuevo intento después de una pérdida',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido informativo',
+    intro:
+      'Cuándo y cómo plantearte un nuevo proyecto, a tu ritmo y con total confianza.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'El regreso de la fertilidad',
+      'Lo que suelen decir los profesionales',
+      'Sentirte preparada, a tu ritmo',
+      'Un seguimiento que puede tranquilizarte',
+      'Para recordar',
+    ],
+    body1:
+      'La fertilidad suele volver ya en el ciclo siguiente a una pérdida del embarazo precoz. La ovulación puede incluso ocurrir antes de que la regla vuelva de forma visible.',
+    infoTitle: 'Para recordar',
+    infoText:
+      'Según la etapa de la pérdida, el tiempo de recuperación física puede variar ligeramente de una situación a otra.',
+    body2:
+      'Muchos profesionales consideran que no es necesario esperar varios ciclos antes de un nuevo intento, salvo indicación contraria de tu médico o tu matrona.',
+    compareEarlyTitle: 'Pérdida precoz',
+    compareEarlyText:
+      'La fertilidad suele volver rápidamente, ya desde el ciclo siguiente.',
+    compareLateTitle: 'Pérdida más tardía',
+    compareLateText:
+      'El equipo médico puede aconsejar un tiempo de recuperación un poco más largo.',
+    body3:
+      'Sentirte preparada, física y emocionalmente, sigue siendo la referencia más importante — mucho más que un plazo teórico.',
+    readinessPoints: [
+      {
+        title: 'En el plano emocional',
+        text: 'Sentirte preparada interiormente cuenta tanto como la recuperación física.',
+      },
+      {
+        title: 'En el plano físico',
+        text: 'Un ciclo regular y una sensación de bienestar son buenas señales.',
+      },
+      {
+        title: 'En pareja o acompañada',
+        text: 'Hablarlo con tu pareja puede ayudar a avanzar al mismo ritmo.',
+      },
+    ],
+    body4:
+      'Antes de un nuevo intento, una cita médica puede ayudarte a avanzar con más serenidad:',
+    followUpSteps: [
+      {
+        title: 'Hacer balance',
+        text: 'Una conversación con un profesional permite volver sobre lo que ocurrió.',
+      },
+      {
+        title: 'Un balance si es necesario',
+        text: 'Según la situación, se pueden proponer exámenes complementarios.',
+      },
+      {
+        title: 'Un nuevo proyecto',
+        text: 'El seguimiento puede entonces acompañarte con serenidad en este nuevo intento.',
+      },
+    ],
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'Una pérdida del embarazo aislada generalmente no indica un problema de fertilidad. Tu equipo médico sigue siendo quien mejor puede responder a tus preguntas personales.',
+    summaryPoints: [
+      'La fertilidad suele volver ya en el ciclo siguiente a una pérdida del embarazo precoz.',
+      'Muchos profesionales consideran que no es necesario esperar varios ciclos, salvo indicación contraria.',
+      'Sentirte preparada, física y emocionalmente, sigue siendo la referencia más importante.',
+      'Un seguimiento médico puede acompañarte y tranquilizarte antes de un nuevo intento.',
+    ],
+    disclaimerText:
+      'Contenido informativo. Este artículo no sustituye un asesoramiento médico personalizado. Tu médico o tu matrona sigue siendo la referencia para tu situación.',
+    shareMessage: 'Fertilidad y un nuevo intento después de una pérdida — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -227,7 +302,7 @@ export default function MiscarriageFertilityArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

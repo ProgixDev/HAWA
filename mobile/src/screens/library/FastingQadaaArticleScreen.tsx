@@ -133,6 +133,50 @@ const CONTENT = {
     tip2Text: 'Qadaa allows you to calmly make up the missed fasting days, at your own pace. In case of a particular situation (exceeded timeframe, pregnancy, breastfeeding, lasting impediment), the opinion of a qualified scholar remains the best resource.',
     shareMessage: 'Fasting and exemption: the make-up (Qadaa) — AWA',
   },
+  es: {
+    badge: 'AYUNO Y QADAA',
+    title: 'Ayuno y dispensa:\nla recuperación (Qadaa)',
+    metaDuration: '6 min de lectura',
+    metaType: 'Preguntas frecuentes',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Cómo y cuándo recuperar los días de ayuno no realizados, a tu propio ritmo y sin culpa.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Cuándo recuperar los días no realizados?',
+      'Un plazo habitual: antes del siguiente Ramadán',
+      'Embarazo y lactancia',
+      'Para recordar',
+    ],
+    section1Body: 'El Qadaa designa el hecho de recuperar, más tarde, los días de ayuno no realizados durante el Ramadán, en particular a causa de la menstruación. Estos días deben recuperarse porque el ayuno del Ramadán sigue siendo un pilar del mes, y los días suspendidos por causa de la menstruación se cuentan como pendientes, sin que esto suponga ninguna falta por tu parte.',
+    section1Body2: 'La recuperación puede comenzar generalmente desde el final del Ramadán, en cuanto tu situación lo permita. Puedes organizar estos días a tu propio ritmo: algunas personas prefieren agruparlos rápidamente después del Ramadán, otras los reparten progresivamente a lo largo de los meses siguientes.',
+    noteTitle: 'Para tener en cuenta',
+    noteText: 'Recuperar los días de forma consecutiva o de forma repartida puede ser objeto de opiniones distintas según las escuelas jurídicas; ninguno de los dos enfoques se presenta aquí como el único válido.',
+    recordTips: [
+      'Anotar el número total de días a recuperar desde el final del Ramadán',
+      'Elegir un método sencillo: calendario, aplicación, cuaderno',
+      'Marcar cada día recuperado a medida que avanzas',
+    ],
+    section1Body3: 'Por ejemplo, una persona con 6 días por recuperar puede elegir ayunar uno por semana durante seis semanas, o agruparlos en un mismo periodo si le resulta más conveniente.',
+    section2Body: 'Es habitual tratar de recuperar los días no realizados antes del siguiente Ramadán. Esta práctica no es sistemáticamente obligatoria en todos los casos, pero facilita la organización y evita acumular un número importante de días pendientes.',
+    visual1Title: 'Un ritmo que se adapta a ti',
+    visual1Text: 'Repartir los días por recuperar según tu horario te permite avanzar con tranquilidad, sin presión.',
+    section2Body2: 'Planificar con antelación ayuda a evitar el estrés de última hora. Un truco sencillo consiste en contar el número de días restantes antes del próximo Ramadán y repartir los días por recuperar entre las semanas o meses disponibles.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Si una razón duradera o recurrente impide ayunar (un estado de salud prolongado, por ejemplo), la situación puede corresponder a un marco diferente; en ese caso es especialmente útil hablarlo con un erudito cualificado.',
+    alert2Title: 'Información importante',
+    alert2Text: 'Las modalidades precisas en caso de plazo excedido pueden diferir según las interpretaciones. Para cualquier situación complicada, la opinión de un erudito o una erudita cualificada sigue siendo la referencia.',
+    section2Body3: 'Por ejemplo, si el próximo Ramadán comienza dentro de 8 meses y quedan 6 días por recuperar, una posibilidad es prever aproximadamente un día por mes, con flexibilidad según los imprevistos.',
+    section3Body: 'El embarazo y la lactancia pueden afectar a la capacidad de ayunar, en particular cuando el ayuno supone un riesgo para la salud de la madre o del bebé. El bienestar físico y la capacidad real de ayunar son elementos importantes a tener en cuenta.',
+    visual2Title: 'Una situación tenida en cuenta',
+    visual2Text: 'Estas circunstancias son reconocidas por la tradición religiosa como susceptibles de dar lugar a una dispensa.',
+    section3Body2: 'Las opiniones religiosas sobre el ayuno no realizado durante el embarazo o la lactancia pueden variar según las escuelas, en particular sobre si basta con una simple recuperación o si también se contempla una compensación. La razón precisa de la ausencia de ayuno y la situación personal pueden influir en la respuesta aplicable.',
+    tip2Title: 'Bueno saberlo',
+    tip2Text: 'El Qadaa permite recuperar con tranquilidad los días de ayuno no realizados, a tu propio ritmo. En caso de situación particular (plazo excedido, embarazo, lactancia, impedimento duradero), la opinión de un erudito cualificado sigue siendo el mejor recurso.',
+    shareMessage: 'Ayuno y dispensa: la recuperación (Qadaa) — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -141,7 +185,7 @@ export default function FastingQadaaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

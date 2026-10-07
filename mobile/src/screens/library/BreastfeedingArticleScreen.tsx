@@ -203,6 +203,72 @@ const CONTENT = {
     ],
     disclaimerText: 'Informational content. This article does not replace personalized guidance from a healthcare professional.',
   },
+  es: {
+    shareMessage: 'Empezar la lactancia con confianza — AWA',
+    badge: 'POSPARTO • LACTANCIA',
+    title: 'Empezar la lactancia\ncon confianza',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Los primeros días de lactancia son un periodo de aprendizaje tanto para el bebé como para la madre. El agarre al pecho, el ritmo, la posición y la observación permiten encontrar progresivamente una forma de funcionar cómoda.',
+    contentsTitle: 'En este artículo',
+    contentsSubtitle: 'Lo esencial para empezar',
+    tocItems: [
+      'Las primeras etapas',
+      'Las señales a observar',
+      'Un buen agarre al pecho',
+      'Cuándo pedir ayuda',
+      'Para recordar',
+    ],
+    h2Step1: '1. Las primeras etapas',
+    body1: 'El inicio de la lactancia se construye progresivamente. Las primeras horas y después los primeros días permiten al bebé y a su madre aprender juntos.',
+    timelineTitle: 'El inicio, paso a paso',
+    timelineSubtitle: 'Una referencia sencilla, sin presión',
+    startingSteps: [
+      {title: 'Después del nacimiento', text: 'El contacto piel con piel y un primer agarre al pecho pueden favorecer el inicio.'},
+      {title: 'Las primeras horas', text: 'El bebé puede mamar con frecuencia. Es normal que el ritmo varíe.'},
+      {title: 'Los primeros días', text: 'Las tomas se convierten progresivamente en una referencia para el bebé y la madre.'},
+      {title: 'Instauración progresiva', text: 'La lactancia se adapta progresivamente a las necesidades del bebé.'},
+    ],
+    h2Step2: '2. Las señales a observar',
+    body2: 'En lugar de centrarte únicamente en el reloj, puede ser útil observar las señales de que el bebé está despierto, las tomas y la evolución de los pañales.',
+    signals: [
+      {title: 'Un ritmo frecuente', text: 'Un recién nacido puede pedir el pecho a menudo, a veces de 8 a 12 veces en 24 horas.'},
+      {title: 'Las señales de hambre', text: 'El bebé puede moverse, abrir la boca o buscar el pecho cuando empieza a tener hambre.'},
+      {title: 'Los pañales', text: 'La evolución de los pañales mojados y las deposiciones forma parte de lo que se observa en el día a día.'},
+    ],
+    h2Step3: '3. Un buen agarre al pecho',
+    body3: 'Una posición cómoda y un agarre eficaz pueden facilitar la toma. Si el dolor es importante o persistente, un profesional puede comprobar la posición y el agarre al pecho.',
+    latchTitle: 'Los 4 indicadores de comodidad',
+    latchSubtitle: 'Una comprobación sencilla durante la toma',
+    latchCenterTitle: 'Bebé + pecho',
+    latchCenterSubtitle: 'Posición cómoda',
+    latchPoints: [
+      {title: 'Bebé bien colocado', text: 'El bebé está cerca del cuerpo y su cabeza se mantiene en un eje cómodo.'},
+      {title: 'Boca bien abierta', text: 'Espera a que la boca esté lo bastante abierta antes de ofrecer el pecho.'},
+      {title: 'Agarre cómodo', text: 'Un agarre eficaz no debería provocar un dolor importante o persistente.'},
+      {title: 'Succión regular', text: 'Durante la toma pueden observarse movimientos de succión y deglución.'},
+    ],
+    h2Step4: '4. ¿Cuándo pedir ayuda?',
+    body4: 'No es necesario esperar a que las dificultades se vuelvan importantes. Una persona formada puede ayudar a comprobar la posición, el agarre al pecho o las necesidades del bebé.',
+    supportOptions: [
+      {title: 'Partera', text: 'Puede acompañarte en los primeros agarres al pecho.'},
+      {title: 'Profesional de la salud', text: 'Puede comprobar la salud del bebé y de la madre.'},
+      {title: 'Consultora de lactancia', text: 'Puede ayudar cuando el agarre al pecho resulta difícil.'},
+    ],
+    infoTitle: 'Cada lactancia es diferente',
+    infoText: 'Los primeros días pueden ser muy variables. El ritmo de las tomas y la cantidad de leche pueden evolucionar progresivamente. Si algo te preocupa, pide consejo a un profesional de la salud.',
+    h2Summary: 'Para recordar',
+    summaryItems: [
+      'Las primeras tomas son un periodo de aprendizaje para el bebé y la madre.',
+      'Un recién nacido puede pedir el pecho con frecuencia.',
+      'Una posición cómoda y un buen agarre al pecho son importantes.',
+      'Observar las señales del bebé es más útil que buscar un ritmo perfectamente fijo.',
+      'Una partera o una consultora de lactancia puede acompañarte en las primeras dificultades.',
+    ],
+    disclaimerText: 'Contenido informativo. Este artículo no sustituye el acompañamiento personalizado de un profesional de la salud.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -219,7 +285,7 @@ export default function BreastfeedingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

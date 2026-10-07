@@ -366,6 +366,164 @@ const CONTENT = {
       'This article is intended for general information and does not replace a medical consultation. Every situation is different: if in doubt or if symptoms persist, seek advice from a healthcare professional.',
     shareMessage: 'Understanding PCOS — AWA',
   },
+  es: {
+    badge: 'SOP • GUÍA ESENCIAL',
+    title: 'Comprender\nel SOP',
+    metaDuration: '10 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido educativo',
+    intro:
+      'El síndrome de ovario poliquístico, a menudo llamado SOP, es un trastorno hormonal frecuente que puede influir en tus ciclos, la ovulación, la piel, el cabello, el metabolismo y, a veces, la fertilidad.',
+    introSecondary:
+      'Su manifestación varía mucho de una mujer a otra. Comprender el SOP te permite sobre todo identificar mejor sus síntomas, saber cuándo pedir una opinión médica y seguir su evolución sin culpabilizarte.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es el SOP?',
+      '¿Por qué aparece el SOP?',
+      'Los principales signos',
+      '¿Cómo se establece el diagnóstico?',
+      'SOP y ovulación',
+      'SOP y fertilidad',
+      'SOP y peso / metabolismo',
+      'Piel, cabello y vello',
+      '¿Cómo se maneja el SOP?',
+      'Ideas falsas',
+      '¿Cuándo consultar?',
+      'Para recordar',
+    ],
+    s1Heading: '¿Qué es el SOP?',
+    s1Body1:
+      'El síndrome de ovario poliquístico (SOP) es un trastorno hormonal frecuente que puede modificar el funcionamiento habitual de los ovarios y el equilibrio de ciertas hormonas.',
+    s1Body2:
+      'En algunas mujeres, el principal problema es una ovulación irregular. En otras, es más bien el acné, el vello, la caída de cabello o manifestaciones metabólicas lo que llama la atención.',
+    s1TipTitle: 'Dato útil',
+    s1TipText:
+      'A pesar de su nombre, el SOP no significa necesariamente que los ovarios contengan «quistes». El término histórico puede resultar engañoso y la ecografía por sí sola no es suficiente para establecer el diagnóstico.',
+    s2Heading: '¿Por qué aparece el SOP?',
+    s2Body1:
+      'No existe una única causa del SOP. Su aparición parece resultar de varios factores que pueden combinarse: predisposición familiar, funcionamiento hormonal, ovulación, metabolismo y factores individuales.',
+    s2Factors: [
+      'Predisposición familiar y factores genéticos',
+      'Alteraciones de la ovulación',
+      'Exceso relativo de andrógenos',
+      'Resistencia a la insulina en algunas mujeres',
+      'Factores metabólicos y ambientales',
+    ],
+    s2NeutralText:
+      'El SOP no es una culpa personal. No resulta simplemente de una falta de voluntad, una mala alimentación o una falta de actividad física.',
+    s3Heading: 'Los principales signos',
+    s3Body1:
+      'El SOP puede manifestarse de forma muy diferente. Algunas mujeres presentan varios síntomas mientras que otras apenas notan alguno.',
+    s3Signs: [
+      'Ciclos irregulares, muy espaciados o a veces ausentes',
+      'Una ovulación irregular o difícil de prever',
+      'Un acné persistente, especialmente en la parte baja del rostro',
+      'Un vello más abundante en el rostro, el torso o el cuerpo',
+      'Una caída de cabello de tipo hormonal',
+      'Un aumento de peso o dificultades para perderlo',
+      'Dificultades para concebir',
+    ],
+    s3AlertTitle: 'Importante',
+    s3AlertText:
+      'La presencia de uno de estos síntomas no significa automáticamente que tengas SOP. Varias otras situaciones pueden provocar síntomas similares.',
+    s4Heading: '¿Cómo se establece el diagnóstico?',
+    s4Body1:
+      'El diagnóstico del SOP es médico. El profesional de salud suele comenzar hablando de los ciclos, los síntomas, los antecedentes y los posibles tratamientos.',
+    s4Body2:
+      'Según la situación, también pueden proponerse análisis hormonales y una ecografía.',
+    s4Points: [
+      'Ciclos irregulares u ovulación poco frecuente',
+      'Signos de un exceso de andrógenos: acné, vello, caída de cabello o resultados analíticos',
+      'Aspecto ovárico compatible con un SOP en la ecografía, cuando este examen está indicado',
+    ],
+    s4Body3:
+      'El médico también debe descartar otras posibles causas de irregularidad de los ciclos o de exceso de andrógenos antes de confirmar un diagnóstico de SOP.',
+    s5Heading: 'SOP y ovulación',
+    s5Body1:
+      'La ovulación corresponde a la liberación de un ovocito por el ovario. En el SOP, la ovulación puede ser menos frecuente o más difícil de prever.',
+    s5Body2:
+      'Esto puede explicar por qué los ciclos a veces son largos, irregulares o difíciles de anticipar.',
+    s5HighlightTitle: 'Seguir tu ciclo',
+    s5HighlightText:
+      'Anotar las fechas de la regla, los síntomas y los posibles signos de ovulación puede ayudarte a comprender mejor tu propio funcionamiento.',
+    s6Heading: 'SOP y fertilidad',
+    s6Body1:
+      'Como la ovulación puede ser irregular, algunas mujeres con SOP pueden tener más dificultades para concebir.',
+    s6Body2:
+      'Sin embargo, esto no significa que el SOP impida automáticamente un embarazo. Muchas mujeres con SOP conciben de forma natural o con un acompañamiento médico adecuado.',
+    s6TipTitle: 'Para recordar',
+    s6TipText:
+      'Tener dificultades para concebir no significa que sea imposible. Si deseas un embarazo, un médico o una matrona puede proponerte una estrategia adaptada a tu situación.',
+    s7Heading: 'SOP y peso / metabolismo',
+    s7Body1:
+      'El SOP puede estar asociado con modificaciones del metabolismo, entre ellas una resistencia a la insulina en algunas mujeres.',
+    s7Body2:
+      'Sin embargo, el peso por sí solo no permite diagnosticar ni descartar un SOP. Una mujer delgada puede tener SOP, al igual que una mujer con sobrepeso puede no tenerlo.',
+    s7NeutralText:
+      'El seguimiento debe tener en cuenta la salud global y no únicamente la cifra que marca la báscula.',
+    s8Heading: 'Piel, cabello y vello',
+    s8Body1:
+      'Un exceso relativo de andrógenos puede influir en las glándulas sebáceas y los folículos pilosos.',
+    s8Body2:
+      'Esto puede traducirse en un acné persistente, un vello más abundante o una caída de cabello, según la mujer.',
+    s8Items: [
+      'Acné hormonal',
+      'Vello facial o corporal más abundante',
+      'Cabello más fino o caída de cabello',
+    ],
+    s9Heading: '¿Cómo se maneja el SOP?',
+    s9Body1:
+      'No existe un único manejo válido para todas las mujeres. La elección depende de los síntomas, los objetivos y la situación médica.',
+    s9Body2:
+      'El objetivo puede ser diferente según las etapas de la vida: regularizar los ciclos, mejorar ciertos síntomas, proteger la salud metabólica o acompañar un proyecto de embarazo.',
+    s9MiniTitle: 'Hábitos favorables para la salud',
+    s9Lifestyle: [
+      'Llevar una alimentación variada y regular, adaptada a tus necesidades',
+      'Practicar una actividad física regular que puedas mantener en el tiempo',
+      'Cuidar un sueño suficientemente regular',
+      'Seguir la evolución de los ciclos y los síntomas',
+      'No culpabilizarte en caso de variación de peso o de síntomas',
+    ],
+    s9Body3:
+      'Según las necesidades, un profesional de salud también puede proponer tratamientos para ciertos síntomas o para acompañar un proyecto de embarazo.',
+    s9AlertTitle: 'Sin automedicación',
+    s9AlertText:
+      'Los tratamientos hormonales, los medicamentos metabólicos y los complementos alimenticios deben hablarse con un profesional de salud.',
+    s10Heading: 'Ideas falsas sobre el SOP',
+    s10Myths: [
+      'El SOP significa forzosamente «tener quistes»: el nombre puede resultar engañoso. El diagnóstico no se basa únicamente en la presencia de quistes.',
+      'Todas las mujeres con SOP tienen sobrepeso: el SOP puede afectar a mujeres de todas las complexiones.',
+      'El SOP impide forzosamente un embarazo: la ovulación puede ser irregular, pero un embarazo sigue siendo posible.',
+      'Un solo síntoma basta para diagnosticar un SOP: el diagnóstico requiere una evaluación global.',
+      'El SOP simplemente desaparece con la edad: su manifestación puede evolucionar a lo largo de la vida, pero el seguimiento sigue siendo importante.',
+    ],
+    s11Heading: '¿Cuándo consultar?',
+    s11Body1:
+      'Una opinión médica es especialmente pertinente cuando los ciclos se vuelven muy irregulares, desaparecen durante varios meses, o cuando aparecen síntomas inusuales.',
+    s11ConsultItems: [
+      'Ciclos muy irregulares o ausentes',
+      'Acné o vello inusual',
+      'Caída de cabello importante',
+      'Dificultades para concebir',
+      'Síntomas que evolucionan rápidamente',
+    ],
+    s12Heading: 'Para recordar',
+    s12SummaryTitle: 'Los puntos esenciales',
+    s12SummaryItems: [
+      'El SOP es un trastorno hormonal frecuente.',
+      'Puede manifestarse de muchas formas.',
+      'No todas las mujeres con SOP presentan los mismos síntomas.',
+      'El peso no basta para diagnosticar o descartar un SOP.',
+      'El diagnóstico requiere una evaluación médica global.',
+      'El SOP puede influir en la ovulación y, a veces, en la fertilidad.',
+      'Un manejo personalizado permite responder a las necesidades de cada mujer.',
+    ],
+    finalNoteTitle: 'Una guía para comprender mejor',
+    finalNoteText:
+      'Este artículo tiene fines de información general y no sustituye una consulta médica. Cada situación es diferente: en caso de duda o de síntomas persistentes, pide consejo a un profesional de salud.',
+    shareMessage: 'Comprender el SOP — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -374,7 +532,7 @@ export default function PcosIntroArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -180,6 +180,68 @@ const CONTENT = {
     disclaimerText: 'Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional.',
     shareMessage: 'Staying hydrated through your cycle — AWA',
   },
+  es: {
+    badge: 'CICLO MENSTRUAL • HIDRATACIÓN',
+    title: 'Hidratarte bien\ndurante el ciclo',
+    metaDuration: '6 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Contraintuitivo pero cierto: hidratarte bien ayuda a tu cuerpo a retener menos agua a lo largo de todo tu ciclo.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué importa la hidratación',
+      'Las necesidades según las fases del ciclo',
+      '¿Qué beber cada día?',
+      'Señales de hidratación insuficiente',
+      'Consejos prácticos',
+      'Ideas equivocadas',
+      'Para recordar',
+    ],
+    section1Body: 'Contraintuitivo pero cierto: hidratarse bien ayuda al cuerpo a retener menos agua y reduce la hinchazón, sobre todo al final del ciclo.',
+    infoTitle: 'Dato útil',
+    infoText: 'Cuando al cuerpo le falta agua, tiende a almacenar más por precaución. Beber lo suficiente le indica, por el contrario, que puede liberarla con más facilidad.',
+    section2Body: 'Tus necesidades de agua se mantienen bastante estables, con algunos matices según la fase:',
+    phaseNeeds: [
+      {title: 'Durante la regla', text: 'Un poco más de agua ayuda a compensar las pérdidas y a limitar la hinchazón.'},
+      {title: 'Alrededor de la ovulación', text: 'Las necesidades se mantienen estables; una ligera subida de la temperatura corporal puede aumentar la sed.'},
+      {title: 'Fase premenstrual', text: 'Una buena hidratación ayuda a limitar la sensación de hinchazón que suele sentirse en este momento.'},
+    ],
+    section3Body: 'Apunta a unos 1,5 a 2 litros al día, un poco más durante la regla para compensar las pérdidas.',
+    dailyDrinks: [
+      {title: 'Agua, en primer lugar', text: 'Unos 1,5 a 2 litros al día, un poco más durante la regla.'},
+      {title: 'Infusiones calmantes', text: 'El jengibre o la manzanilla aportan una hidratación suave en los días de cólicos.'},
+      {title: 'Azúcar y cafeína, con moderación', text: 'Limitar las bebidas muy azucaradas o con cafeína puede ayudar al final del ciclo.'},
+    ],
+    warningTitle: 'Para vigilar con calma',
+    lowHydrationSigns: [
+      'Una sed intensa o inusual',
+      'Una orina más oscura de lo habitual',
+      'Dolores de cabeza frecuentes',
+      'Un cansancio que no se explica de otra forma',
+    ],
+    section5Body: 'Unos cuantos hábitos sencillos suelen bastar para hidratarte mejor sin pensarlo demasiado:',
+    practicalTips: [
+      'Tener una botella de agua a mano durante todo el día',
+      'Asociar un vaso de agua a un hábito que ya tengas (al despertar, en cada comida)',
+      'Variar con infusiones si el agua sola se te hace monótona',
+    ],
+    section5Body2: 'Durante la actividad física, recuerda también beber antes, durante y después del esfuerzo para compensar la transpiración.',
+    compareTitle1: 'Idea equivocada',
+    compareText1: '«Beber mucho me hincha más».',
+    compareTitle2: 'Más bien lo contrario',
+    compareText2: 'Una buena hidratación ayuda al cuerpo a retener menos agua.',
+    tipTitle: 'Dato útil',
+    tipText: 'Las infusiones de jengibre o manzanilla también aportan una hidratación calmante en los días de cólicos.',
+    summaryPoints: [
+      'Hidratarte bien ayuda al cuerpo a retener menos agua y reduce la hinchazón.',
+      'Apunta a unos 1,5 a 2 litros al día, un poco más durante la regla.',
+      'Las infusiones de jengibre o manzanilla también calman en los días de cólicos.',
+      'Una sed intensa y persistente merece comentarse con un profesional de la salud.',
+    ],
+    disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
+    shareMessage: 'Hidratarte bien durante el ciclo — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -196,7 +258,7 @@ export default function HydrationCycleArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

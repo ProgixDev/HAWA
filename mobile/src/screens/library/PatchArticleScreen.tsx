@@ -167,6 +167,65 @@ const CONTENT = {
     ],
     shareMessage: 'The contraceptive patch — AWA',
   },
+  es: {
+    badge: 'PARCHE ANTICONCEPTIVO',
+    title: 'El parche\nanticonceptivo',
+    metaDuration: '5 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Una alternativa semanal a la píldora diaria.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Cómo funciona el parche',
+      'El ritmo de aplicación',
+      'Lo que hay que saber',
+      'Lo esencial',
+    ],
+    section1Body:
+      'El parche libera hormonas de forma continua a través de la piel, con una acción comparable a la de la píldora combinada: impide la ovulación y espesa el moco cervical.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text:
+      'Su principal ventaja es que no requiere una toma diaria.',
+    section2Body:
+      'El parche se cambia generalmente una vez por semana durante tres semanas, seguidas de una semana sin parche.',
+    applicationTips: [
+      'Cambiar de zona de aplicación en cada colocación',
+      'Comprobar que sigue bien pegado',
+      'Colocarlo sobre una piel limpia y seca',
+    ],
+    sectionIntro:
+      'Los puntos esenciales que hay que conocer antes y durante su uso.',
+    facts: [
+      {title: 'Cada semana', text: 'El parche se sustituye una vez por semana.'},
+      {title: 'Piel seca', text: 'Debe colocarse sobre una piel limpia y seca.'},
+      {title: 'Protección', text: 'Actúa de forma continua cuando se usa correctamente.'},
+      {title: 'A vigilar', text: 'A veces puede aparecer una irritación local.'},
+    ],
+    comparisonTitle: 'Ventajas y límites',
+    advantageTitle: 'Ventajas',
+    advantages: [
+      '• Una aplicación por semana',
+      '• Sin toma diaria',
+      '• Liberación hormonal continua',
+    ],
+    limitTitle: 'Límites',
+    limits: [
+      'No protege de las ITS',
+      'Puede provocar irritación cutánea',
+      'Requiere respetar el ritmo de sustitución',
+    ],
+    alertTitle: 'A tener en cuenta',
+    alertText:
+      'Puede aparecer una ligera irritación en el lugar de la aplicación. Alternar las zonas de aplicación puede ayudar a limitar este problema.',
+    rememberTitle: 'Los 3 esenciales',
+    remember: [
+      'Cambia el parche cada semana.',
+      'Comprueba regularmente que se mantiene adherido.',
+      'Pide consejo a un profesional de la salud si es necesario.',
+    ],
+    shareMessage: 'El parche anticonceptivo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -175,7 +234,7 @@ export default function PatchArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

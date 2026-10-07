@@ -170,6 +170,68 @@ const CONTENT = {
     alert3Text: 'Personal situations can differ. In case of doubt, reach out to a qualified scholar or a recognized religious organization.',
     shareMessage: 'Nifas in religious practice — AWA',
   },
+  es: {
+    badge: 'NIFAS (FIQH)',
+    title: 'El nifas en la\npráctica religiosa',
+    metaDuration: '6 min de lectura',
+    metaType: 'Preguntas frecuentes',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Comprender el nifas, su duración, la oración, el ayuno y la reanudación de las adoraciones después del parto.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es el nifas?',
+      'Su duración según las referencias jurídicas',
+      'Oración durante el nifas',
+      'Ayuno durante el nifas',
+      'Purificación y reanudación de las adoraciones',
+      'Preguntas frecuentes',
+    ],
+    section1Body: 'El nifas designa, en la práctica religiosa, el periodo relacionado con las pérdidas de sangre después del parto. Los loquios describen el aspecto médico y fisiológico de estas pérdidas; el nifas es su clasificación religiosa. Estas dos nociones no deben confundirse.',
+    tip1Title: 'Para recordar',
+    tip1Text: 'AWA separa deliberadamente la información médica sobre los loquios de las referencias religiosas sobre el nifas.',
+    question1: '¿Cuánto dura el nifas?',
+    section2Body: 'La duración máxima puede variar según la escuela jurídica o la referencia religiosa seguida. 40 días es una referencia frecuentemente utilizada, sin que AWA la presente como una regla universal.',
+    tip2Title: 'Referencia frecuentemente utilizada',
+    tip2Text: 'Una referencia frecuentemente utilizada es la de 40 días, pero AWA no presenta esta cifra como una verdad única para todas las escuelas jurídicas. Sigue la referencia religiosa que hayas elegido.',
+    question2: '¿Debo rezar durante el nifas?',
+    section3Body: 'Durante un periodo reconocido como nifas según la referencia seguida, la oración ritual queda suspendida. AWA no clasifica automáticamente los sangrados y no ofrece una decisión personalizada. No se añade ningún contador de oraciones no realizadas para este periodo.',
+    question3: '¿Puedo ayunar durante el nifas?',
+    section4Body: 'El ayuno obligatorio no se realiza durante un periodo reconocido como nifas. Los días correspondientes se tratan después mediante la recuperación adecuada, según la referencia seguida.',
+    tip3Title: 'Organizar, sin decidir',
+    tip3Text: 'AWA puede ayudarte a recordar u organizar los días correspondientes, sin emitir una decisión religiosa personalizada.',
+    section5Body: 'La reanudación depende de los signos observados y de la referencia religiosa seguida.',
+    steps: [
+      'Observar el fin de las pérdidas',
+      'Realizar la purificación ritual',
+      'Reanudar los actos de adoración correspondientes',
+    ],
+    alert2Title: 'En caso de duda',
+    alert2Text: 'Si los sangrados persisten más allá de la duración máxima adoptada por la referencia seguida, su estatus religioso puede cambiar. Se recomienda una opinión cualificada.',
+    faq: [
+      {
+        q: '¿El nifas dura siempre 40 días?',
+        a: 'No. 40 días es una referencia frecuentemente utilizada, pero las referencias jurídicas pueden diferir.',
+      },
+      {
+        q: '¿Qué hacer si las pérdidas se detienen antes de los 40 días?',
+        a: 'La reanudación de los actos de adoración depende de los signos observados y de la referencia religiosa seguida.',
+      },
+      {
+        q: '¿Y si los sangrados continúan durante mucho tiempo?',
+        a: 'Si superan la duración máxima adoptada, su estatus religioso puede cambiar: pide una opinión cualificada.',
+      },
+      {
+        q: '¿Puede AWA decir con exactitud si mis pérdidas siguen siendo nifas?',
+        a: 'No. AWA ofrece referencias educativas generales y no emite fatuas ni decisiones personalizadas.',
+      },
+    ],
+    alert3Title: 'Una referencia, no una fatua',
+    alert3Text: 'Las situaciones personales pueden ser diferentes. En caso de duda, acércate a un erudito cualificado o a una organización religiosa reconocida.',
+    shareMessage: 'El nifas en la práctica religiosa — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -178,7 +240,7 @@ export default function NifasFiqhArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

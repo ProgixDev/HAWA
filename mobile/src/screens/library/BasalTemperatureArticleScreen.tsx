@@ -160,6 +160,60 @@ const CONTENT = {
     disclaimerText: 'Informational content. This article doesn’t replace personalized medical advice. If in doubt, ask a healthcare professional for guidance.',
     shareMessage: 'Tracking basal body temperature — AWA',
   },
+  es: {
+    badge: 'FERTILIDAD • TEMPERATURA BASAL',
+    title: 'Seguir tu\ntemperatura basal',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Un método sencillo para confirmar, a posteriori, que la ovulación realmente ocurrió.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es la temperatura basal?',
+      'Cuándo y cómo medirla',
+      'Detectar la subida después de la ovulación',
+      'Qué puede alterar una medición',
+      'Los límites de este método',
+      'Cuándo hablarlo con un profesional',
+      'Para recordar',
+    ],
+    section1Body: 'La temperatura basal es la temperatura de tu cuerpo en reposo completo, antes de cualquier actividad. Varía muy ligeramente a lo largo del ciclo, bajo la influencia de tus hormonas.',
+    section2Body: 'Se mide cada mañana, antes de levantarte, siempre a la misma hora y con el mismo termómetro.',
+    measuringTips: [
+      {title: 'El mismo termómetro', text: 'Usa siempre el mismo termómetro, idealmente uno basal (más preciso, a la décima de grado).'},
+      {title: 'La misma hora', text: 'Mide a una hora fija, antes de levantarte, después de al menos 3 horas de sueño ininterrumpido.'},
+      {title: 'Anotar de inmediato', text: 'Anota el valor de inmediato, incluso antes de levantarte o de hablar.'},
+    ],
+    section3Body: 'La temperatura basal aumenta ligeramente (de 0,2 a 0,5 °C) justo después de la ovulación, por efecto de la progesterona, y permanece más alta hasta la siguiente regla.',
+    curveTitle: 'A qué se parece la curva',
+    curveText: 'Más baja en la primera parte del ciclo, sube un escalón después de la ovulación y se mantiene ahí: un perfil que solo se vuelve claro después de varios días de registros.',
+    disruptingFactors: [
+      'Una noche de sueño corta o agitada',
+      'Despertarte a una hora inusual',
+      'Fiebre o enfermedad',
+      'Alcohol la noche anterior',
+      'Un desfase horario reciente',
+    ],
+    section5Body: 'No es un método predictivo, sino confirmativo: te ayuda a conocer mejor tu propio ciclo, una vez que la ovulación ya ha pasado, no a anticiparla.',
+    section5Caption: 'Observarla sola durante uno o dos ciclos generalmente no basta: el perfil se define con la repetición.',
+    warningTitle: 'Bueno comentarlo con un profesional',
+    consultSituations: [
+      'No se observa ninguna subida de temperatura en varios ciclos completos',
+      'Las temperaturas se mantienen muy irregulares a pesar de una medición rigurosa',
+      'Tienes preguntas sobre tu fertilidad que este seguimiento por sí solo no puede resolver',
+    ],
+    tipTitle: 'Dato útil',
+    tipText: 'Combinar la temperatura basal con la observación de tu moco cervical o con pruebas de ovulación te da una imagen más completa de tu ciclo.',
+    summaryPoints: [
+      'La temperatura basal aumenta ligeramente (de 0,2 a 0,5 °C) justo después de la ovulación, por efecto de la progesterona.',
+      'Se mide cada mañana, antes de levantarte, siempre a la misma hora y con el mismo termómetro.',
+      'No es un método predictivo, sino confirmativo: te ayuda a conocer mejor tu propio ciclo.',
+      'Combinarla con otras señales (moco cervical, pruebas de ovulación) da una visión más completa.',
+    ],
+    disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
+    shareMessage: 'Seguir tu temperatura basal — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -176,7 +230,7 @@ export default function BasalTemperatureArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

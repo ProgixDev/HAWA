@@ -170,6 +170,65 @@ const CONTENT = {
     tip3Text: 'Istihâda is a concept that distinguishes unusual bleeding from menstruation or nifas, with specific implications for prayer and fasting. In case of doubt, careful observation and the opinion of a qualified scholar remain the best resources.',
     shareMessage: 'Understanding Istihâda — AWA',
   },
+  es: {
+    badge: 'ISTIHADA',
+    title: 'Comprender la Istihada',
+    metaDuration: '7 min de lectura',
+    metaType: 'Preguntas frecuentes',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Distinguir un sangrado irregular de la menstruación habitual, con referencias generales para orientarte.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es la Istihada?',
+      '¿Por qué puede ser difícil de identificar?',
+      'Las diferencias entre la menstruación y la Istihada',
+      '¿Cómo observar el sangrado?',
+      'Oración y ayuno durante la Istihada',
+      '¿Qué hacer en caso de duda?',
+      'Para recordar',
+    ],
+    section1Body: 'La Istihada designa un sangrado que se produce fuera del ciclo menstrual habitual, o que se prolonga más allá de la duración de la menstruación reconocida por la tradición islámica. A diferencia de la menstruación (hayd) o del nifas (sangrado después del parto), no tiene el mismo estatus ritual: se considera generalmente un sangrado de naturaleza diferente, a veces vinculado a una causa médica.',
+    note1Title: 'Para tener en cuenta',
+    note1Text: 'Este contenido explica el concepto de manera general; no permite determinar si un sangrado concreto corresponde a una Istihada en tu situación personal.',
+    section2Body: 'Puede resultar difícil distinguir la Istihada de la menstruación o de un ciclo irregular, porque los sangrados a veces pueden parecerse, variar en intensidad o prolongarse de forma inusual. Esta dificultad es reconocida por los propios eruditos, lo que explica que existan varios enfoques para identificarla.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Es normal no saber de inmediato a qué corresponde un sangrado inusual; esta duda es una situación habitual, no un error por tu parte.',
+    section3Body: 'Algunos elementos pueden ayudar a orientar la reflexión, sin constituir reglas universales, ya que las referencias precisas varían según las escuelas jurídicas.',
+    differences: [
+      ['calendar-clock-outline', 'Duración en comparación con tu ciclo habitual'],
+      ['repeat-variant', 'Regularidad o carácter inusual del sangrado'],
+      ['water-outline', 'Evolución del sangrado a lo largo del tiempo'],
+      ['clipboard-pulse-outline', 'Posible presencia de una causa médica conocida'],
+    ],
+    note2Title: 'Para tener en cuenta',
+    note2Text: 'Estos elementos son referencias generales y no criterios absolutos: pueden interpretarse de forma diferente según los eruditos y las escuelas jurídicas.',
+    section4Body: 'Tomarse el tiempo de observar el sangrado durante varios días, sin precipitarse, ayuda a comprender mejor la propia situación antes de sacar una conclusión.',
+    checkList1Title: 'Algunas pautas prácticas',
+    observeTips: [
+      'Anotar la fecha de inicio y, si es posible, la duración habitual de tus ciclos',
+      'Observar si el sangrado sigue una evolución cercana a la de tus menstruaciones anteriores',
+      'No basarte únicamente en un solo día aislado',
+      'Registrar estas observaciones si prevés consultar a un erudito o a un profesional de la salud',
+    ],
+    section5Body: 'En el caso de la Istihada, la oración y el ayuno siguen siendo generalmente obligatorios, a diferencia de la menstruación. Entonces se recomiendan precauciones de higiene (como protecciones adecuadas) para permitir la práctica del culto, según las modalidades enseñadas por las distintas escuelas jurídicas.',
+    tip2Title: 'Bueno saberlo',
+    tip2Text: 'Las precauciones precisas (como la renovación de las abluciones) pueden variar según la escuela jurídica seguida; referirse a la opinión que se suele seguir o a un erudito cualificado ayuda a aplicarlas correctamente.',
+    section6Body: 'Una duda persistente sobre la naturaleza de un sangrado es una situación frecuente, que no debe ser motivo de preocupación excesiva.',
+    doubtSteps: [
+      'Referirte a la duración y al ritmo habituales de tu propia menstruación',
+      'Consultar a un profesional de la salud si el sangrado es inusual o prolongado',
+      'Pedir la opinión de un erudito o una erudita cualificada para la dimensión religiosa',
+      'Tener presente que una respuesta general no sustituye un consejo adaptado a tu situación',
+    ],
+    alert2Title: 'Información importante',
+    alert2Text: 'Este contenido sigue siendo educativo y general: no constituye una fatua ni una decisión religiosa individual. Para cualquier situación personal, en particular en caso de duda prolongada, la opinión de un erudito cualificado sigue siendo la referencia.',
+    tip3Title: 'Bueno saberlo',
+    tip3Text: 'La Istihada es un concepto que distingue un sangrado inusual de la menstruación o del nifas, con implicaciones específicas en la oración y el ayuno. En caso de duda, la observación atenta y la opinión de un erudito cualificado siguen siendo los mejores recursos.',
+    shareMessage: 'Comprender la Istihada — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -178,7 +237,7 @@ export default function IstihadaArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

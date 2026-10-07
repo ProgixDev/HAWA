@@ -111,6 +111,37 @@ const CONTENT = {
     tip2Text: 'Combining several signs (cycle, mucus, temperature) gives a more reliable picture of your fertile window than any single sign on its own.',
     shareMessage: 'The fertile window: how it works — AWA',
   },
+  es: {
+    badge: 'VENTANA FÉRTIL',
+    title: 'La ventana fértil,\ncómo funciona',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué los días alrededor de la ovulación son los que más importan para concebir.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es la ventana fértil?',
+      'Por qué estos días importan más',
+      'Cómo identificar tu ventana fértil',
+      'Para recordar',
+    ],
+    section1Body: 'La ventana fértil designa el periodo del ciclo durante el cual un embarazo es posible. Se extiende a lo largo de unos 6 días: los 5 días previos a la ovulación, más el día de la ovulación en sí.',
+    tip1Title: 'Dato útil',
+    tip1Text: 'Cada ciclo es diferente: la ventana fértil no cae necesariamente en el mismo día del calendario de un mes a otro.',
+    section2Body1: 'Los espermatozoides pueden sobrevivir hasta 5 días en las vías genitales, lo que amplía el periodo de concepción posible. El óvulo, en cambio, solo permanece fecundable durante unas 24 horas tras su liberación.',
+    section2Body2: 'Por ejemplo, una relación sexual 3 días antes de la ovulación puede derivar en una concepción, mientras que una relación al día siguiente de la ovulación suele llegar demasiado tarde.',
+    section3Intro: 'Varias señales, observadas en conjunto, ayudan a identificar mejor este periodo:',
+    trackingSigns: [
+      'Seguir la duración de tu ciclo',
+      'Observar tu moco cervical',
+      'Medir tu temperatura basal',
+      'Usar pruebas de ovulación (LH)',
+    ],
+    tip2Title: 'Dato útil',
+    tip2Text: 'Combinar varios indicios (ciclo, moco, temperatura) da una visión más fiable de tu ventana fértil que una sola señal aislada.',
+    shareMessage: 'La ventana fértil, cómo funciona — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -119,7 +150,7 @@ export default function FertilityWindowArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

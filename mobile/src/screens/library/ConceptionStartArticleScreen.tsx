@@ -98,6 +98,35 @@ const CONTENT = {
     tipText: 'Knowing your cycle, keeping a natural rhythm, and staying patient are the three pillars of a calm start to this journey.',
     shareMessage: 'Trying to conceive: where to start — AWA',
   },
+  es: {
+    badge: 'INTENTAR CONCEBIR',
+    title: 'Intentar concebir:\npor dónde empezar',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Las claves esenciales para comenzar tu camino hacia la concepción con tranquilidad.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Identificar tu ventana fértil',
+      'El ritmo de las relaciones',
+      'Cuánto tiempo puede llevar',
+      'Para recordar',
+    ],
+    body1: 'El primer paso más útil consiste en identificar tu ventana fértil a partir de tu ciclo: duración del ciclo, signos físicos y, si lo deseas, herramientas de seguimiento como los test de ovulación o la temperatura basal.',
+    body2: 'Tener relaciones con regularidad, cada 2 o 3 días, cubre de forma natural el período más fértil, sin necesidad de una planificación demasiado rígida.',
+    rhythmPoints: [
+      'No hace falta limitarte únicamente al día de la ovulación',
+      'Un ritmo regular es más fácil de mantener que una planificación estricta',
+      'El bienestar de la pareja también cuenta durante este período',
+    ],
+    body3: 'La mayoría de las parejas conciben dentro de los 12 meses posteriores a dejar la anticoncepción. Este plazo varía según numerosos factores propios de cada situación.',
+    alertTitle: 'Ten en cuenta',
+    alertText: 'Pasados los 12 meses (o 6 meses después de los 35 años), se recomienda consultar a un profesional de la salud para un chequeo, sin que eso signifique necesariamente que haya un problema.',
+    tipTitle: 'DATO ÚTIL',
+    tipText: 'Conocer tu ciclo, mantener un ritmo natural y tener paciencia son los tres pilares de un comienzo de camino tranquilo.',
+    shareMessage: 'Intentar concebir: por dónde empezar — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -106,7 +135,7 @@ export default function ConceptionStartArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

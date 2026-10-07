@@ -129,6 +129,39 @@ const CONTENT = {
     ],
     shareMessage: 'How can I tell if my first period is coming? — AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: '¿Cómo saber si se acerca\nmi primera menstruación?',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Algunas señales concretas te ayudan a reconocer que tu primera menstruación realmente se acerca.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las señales que debes observar',
+      'Primeras secreciones: ¿cómo son?',
+      '¿Secreción vaginal o sangre menstrual?',
+      '¿Cuándo hablar de ello con una persona adulta?',
+    ],
+    observe: [
+      {title: 'Secreción blanquecina', text: 'Suele aparecer una secreción clara y ligera unos meses antes.'},
+      {title: 'Desarrollo del pecho', text: 'Una señal frecuente, que suele aparecer mucho antes de la menstruación.'},
+      {title: 'Tirones en el vientre', text: 'Pequeñas sensaciones que pueden anunciar la llegada próxima de la menstruación.'},
+    ],
+    body2: 'Antes de la llegada de la primera menstruación, es frecuente notar una ligera secreción blanquecina o algo amarillenta en la ropa interior. Es un fenómeno normal, relacionado con la actividad hormonal que se está poniendo en marcha.',
+    body3: 'La secreción vaginal es clara o blanquecina, sin un olor marcado. La sangre menstrual, en cambio, tiene un color rojo a marrón y marca el verdadero comienzo de la menstruación. Si persiste alguna duda, nunca está de más hablar de ello.',
+    tipTitle: 'DATO ÚTIL',
+    tipText: 'No existe ninguna forma de predecir el día exacto. Llevar protección contigo desde las primeras señales sigue siendo el mejor hábito.',
+    body4: 'En cuanto observes estas señales, o en cuanto tengas una pregunta o una preocupación, puedes hablar de ello con tu madre, una hermana, alguien cercano o un profesional de la salud de confianza. Nunca hay un mal momento para pedir ayuda.',
+    relatedTitle: '♥  También te podría gustar',
+    related: [
+      {title: 'Las primeras señales antes de la menstruación', meta: '5 min  ·  Artículo'},
+      {title: '¿Qué protección elegir para mi primera menstruación?', meta: '6 min  ·  Guía'},
+      {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
+    ],
+    shareMessage: '¿Cómo saber si se acerca mi primera menstruación? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -137,7 +170,7 @@ export default function FirstPeriodComingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

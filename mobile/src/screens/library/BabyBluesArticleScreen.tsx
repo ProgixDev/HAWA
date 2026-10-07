@@ -313,6 +313,127 @@ const CONTENT = {
     shareMessage:
       'Baby blues and postpartum emotional health — AWA\n\nA guide to understanding the emotional changes that are common after giving birth.',
   },
+  es: {
+    badgeText: 'POSPARTO • SALUD EMOCIONAL',
+    title: 'Baby blues y salud\nemocional posparto',
+    subtitle:
+      'Comprender lo que puede cambiar emocionalmente después del parto y saber cuándo pedir apoyo.',
+    metaItems: ['10 min de lectura', 'Artículo', 'Principiante', 'Contenido validado'],
+    introTitle: 'DATO ÚTIL',
+    introText:
+      'Después de un parto, es frecuente atravesar un periodo de gran sensibilidad emocional. El baby blues suele ser temporal, pero un malestar que persiste o se intensifica merece atención profesional.',
+    contentsEyebrow: 'GUÍA',
+    contentsTitle: 'En este artículo',
+    contents: [
+      'Comprender el baby blues',
+      'Los signos más frecuentes',
+      'Lo que ayuda en el día a día',
+      '¿Baby blues o depresión posparto?',
+      'Cuándo pedir ayuda',
+      'Para recordar',
+    ],
+    section1Kicker: 'COMPRENDER',
+    section1Title: '¿Qué es el baby blues?',
+    section1Body1:
+      'El baby blues corresponde a un periodo de cambios emocionales que puede surgir en los primeros días después del parto. Las variaciones hormonales, la fatiga, la falta de sueño y la adaptación a esta nueva etapa pueden contribuir a esta sensibilidad.',
+    section1Body2:
+      'Esto no es un fracaso y no significa que seas una mala madre. Cada persona vive los primeros días del posparto a su manera.',
+    statTitle: 'Un fenómeno frecuente',
+    statText:
+      'El baby blues es frecuente después del parto y tiende a mejorar espontáneamente en unos pocos días.',
+    section2Kicker: 'LOS SIGNOS',
+    section2Title: 'Lo que puedes sentir',
+    section2Body:
+      'Las manifestaciones son variables. Algunas personas sienten sobre todo fatiga y sensibilidad, mientras que otras pueden tener cambios de humor más marcados.',
+    commonSigns: [
+      {
+        title: 'Emotividad',
+        description:
+          'Llorar con más facilidad o sentirte especialmente sensible.',
+      },
+      {
+        title: 'Hipersensibilidad',
+        description:
+          'Las emociones pueden parecer más intensas y cambiar rápidamente.',
+      },
+      {
+        title: 'Cambios de humor',
+        description:
+          'Una sensación de fragilidad puede alternar con momentos de bienestar.',
+      },
+      {
+        title: 'Fatiga',
+        description: 'La fatiga de los primeros días puede amplificar las emociones.',
+      },
+    ],
+    section3Kicker: 'DÍA A DÍA',
+    section3Title: 'Lo que puede ayudar',
+    section3Body:
+      'Durante este periodo, las necesidades de recuperación son importantes. Pequeñas cosas sencillas pueden hacer que los días sean más llevaderos.',
+    dailySupport: [
+      {
+        title: 'Descansar',
+        description: 'Aprovechar los momentos disponibles para recuperarte.',
+      },
+      {
+        title: 'Aceptar ayuda',
+        description: 'No dudar en pedir apoyo a quienes te rodean.',
+      },
+      {
+        title: 'Beber con regularidad',
+        description: 'Mantener una hidratación suficiente a lo largo del día.',
+      },
+      {
+        title: 'Comer lo suficiente',
+        description: 'Priorizar comidas regulares y sencillas.',
+      },
+    ],
+    quoteText:
+      '«Pedir ayuda durante el posparto es una forma de cuidar de ti misma y de tu bebé.»',
+    section4Kicker: 'DIFERENCIAR',
+    section4Title: '¿Baby blues o depresión posparto?',
+    section4Body:
+      'El baby blues suele ser breve y mejora progresivamente. La depresión posparto es diferente: puede ser más persistente, más intensa y tener un impacto importante en el día a día.',
+    compareTitle: 'Dos situaciones que distinguir',
+    compareBabyBluesTitle: 'Baby blues',
+    compareBabyBluesText:
+      'A menudo breve, con una mejora progresiva a lo largo de los días.',
+    comparePostpartumTitle: 'Depresión posparto',
+    comparePostpartumText:
+      'Puede durar más, intensificarse y requerir acompañamiento profesional.',
+    section5Kicker: 'VIGILANCIA',
+    section5Title: '¿Cuándo pedir ayuda?',
+    section5Body:
+      'Es importante hablar con un profesional de la salud si el malestar emocional no mejora, se vuelve más intenso o empieza a complicar el día a día.',
+    attentionTitle: 'Señales a vigilar',
+    attentionSubtitle: 'Habla con un profesional si…',
+    attentionSigns: [
+      'Los síntomas duran más de dos semanas.',
+      'La tristeza o la angustia se vuelve más intensa.',
+      'Se vuelve difícil cuidar de ti misma o del bebé.',
+      'Aparece una sensación de angustia importante.',
+    ],
+    professionalTitle: 'Es posible recibir acompañamiento',
+    professionalText:
+      'Una partera, un médico, un psicólogo u otro profesional de la salud puede escucharte, evaluar la situación y proponer un acompañamiento adaptado.',
+    tipTitle: 'DATO ÚTIL',
+    tipText:
+      'Las emociones del posparto no son una medida de lo buena madre que eres. Tienes derecho a necesitar descanso, a que te escuchen y a recibir apoyo.',
+    section6Kicker: 'ESENCIAL',
+    section6Title: 'Para recordar',
+    takeaways: [
+      'El baby blues es frecuente después de un parto.',
+      'La fatiga y los cambios hormonales pueden influir en el estado de ánimo.',
+      'El apoyo del entorno puede facilitar este periodo.',
+      'Un malestar persistente o importante merece una evaluación profesional.',
+    ],
+    disclaimerText:
+      'Este artículo tiene una finalidad informativa y no sustituye una opinión médica personalizada. En caso de duda o de malestar importante, acude a un profesional de la salud.',
+    endText: 'Cuidar de ti misma también forma parte del posparto.',
+    shareTitle: 'Baby blues y salud emocional posparto',
+    shareMessage:
+      'Baby blues y salud emocional posparto — AWA\n\nUna guía para comprender los cambios emocionales frecuentes después del parto.',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -329,7 +450,7 @@ export default function BabyBluesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

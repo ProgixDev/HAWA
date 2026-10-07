@@ -195,6 +195,75 @@ const CONTENT = {
       'Informational content. This article does not replace personalized medical advice. If in doubt, ask a healthcare professional for guidance.',
     shareMessage: 'Observing your cervical mucus — AWA',
   },
+  es: {
+    badge: 'FERTILIDAD • MOCO CERVICAL',
+    title: 'Observar tu\nmoco cervical',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Una señal natural y gratuita para detectar tu ventana fértil.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es el moco cervical?',
+      'Cómo evoluciona a lo largo del ciclo',
+      'Reconocer un moco fértil',
+      'Cómo observarlo cada día',
+      'Qué puede modificar tus observaciones',
+      'Los límites de este método',
+      'Para recordar',
+    ],
+    section1Body:
+      'Es una secreción natural producida por el cuello del útero. El moco cervical cambia de textura a lo largo del ciclo por efecto de los estrógenos y la progesterona.',
+    cycleEvolution: [
+      {
+        title: 'Después de la regla',
+        text: 'Poco moco, a menudo con sensación de sequedad.',
+      },
+      {
+        title: 'Antes de la ovulación',
+        text: 'Más abundante, turbio y pegajoso.',
+      },
+      {
+        title: 'Cerca de la ovulación',
+        text: 'Claro, filante y elástico, parecido a la clara de huevo.',
+      },
+      {
+        title: 'Después de la ovulación',
+        text: 'Más espeso, opaco, o mucho menos presente.',
+      },
+    ],
+    section3Intro: 'Cerca de la ovulación, se vuelve:',
+    fertileSigns: [
+      'Claro o transparente',
+      'Filante: se estira entre dos dedos',
+      'Elástico, parecido a la clara de huevo cruda',
+      'Abundante en comparación con otros días',
+    ],
+    infoTitle: 'Un gesto sencillo, cada día',
+    infoText:
+      'Observa el aspecto y la textura con papel higiénico o con los dedos limpios, más o menos a la misma hora del día, y anota lo que notes.',
+    modifyingFactors: [
+      'Relaciones sexuales recientes',
+      'Productos de higiene íntima',
+      'Una anticoncepción hormonal o ciertos tratamientos',
+      'Una infección o un desequilibrio local',
+    ],
+    section6Body:
+      'Cada persona tiene un perfil diferente, y reconocer el tuyo requiere práctica a lo largo de varios ciclos. Observar este cambio cada día, junto con otras señales, te ayuda a identificar mejor tu ventana fértil, sin que esto reemplace nunca una opinión médica si tienes alguna inquietud.',
+    tipTitle: 'Dato útil',
+    tipText:
+      'Combinar el moco cervical con tu temperatura basal o con pruebas de ovulación te da una imagen más completa de tu ciclo.',
+    summaryPoints: [
+      'El moco cervical cambia de textura a lo largo del ciclo por efecto de los estrógenos y la progesterona.',
+      'Cerca de la ovulación, se vuelve claro, filante y elástico, parecido a la clara de huevo.',
+      'Observar este cambio cada día, junto con otras señales, te ayuda a identificar mejor tu ventana fértil.',
+      'Reconocer tu propio perfil requiere práctica y varios ciclos de observación.',
+    ],
+    disclaimerText:
+      'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
+    shareMessage: 'Observar tu moco cervical — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -211,7 +280,7 @@ export default function CervicalMucusArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

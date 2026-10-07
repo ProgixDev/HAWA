@@ -172,6 +172,63 @@ const CONTENT = {
     disclaimerText: 'Informational content. This article does not replace personalized medical or psychological advice. If in doubt, seek guidance from a healthcare professional.',
     shareMessage: 'Mood and hormonal fluctuations — AWA',
   },
+  es: {
+    badge: 'CICLO MENSTRUAL • ESTADO DE ÁNIMO',
+    title: 'Estado de ánimo y\nfluctuaciones hormonales',
+    metaDuration: '6 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué tu estado de ánimo puede variar a lo largo del ciclo, aunque no siempre sea así.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué puede variar el estado de ánimo',
+      'El estado de ánimo según las fases del ciclo',
+      'Observar tus propias variaciones',
+      'Hábitos que pueden ayudar',
+      'Cuándo los cambios se vuelven preocupantes',
+      'Para recordar',
+    ],
+    section1Body: 'Las variaciones de estrógeno y progesterona influyen directamente en los neurotransmisores relacionados con el estado de ánimo, como la serotonina.',
+    info1Title: 'Ten en cuenta',
+    info1Text: 'No todas las variaciones del estado de ánimo están necesariamente ligadas al ciclo: el contexto de vida, el estrés o el cansancio también juegan un papel importante.',
+    phaseMood: [
+      {title: 'Durante la regla', text: 'El cansancio y la sensibilidad emocional son frecuentes en muchas personas.'},
+      {title: 'Alrededor de la ovulación', text: 'Suele ser una fase de mejor energía y de mayor bienestar percibido.'},
+      {title: 'Antes de la regla', text: 'La irritabilidad o los cambios de humor son más frecuentes en este momento.'},
+    ],
+    section2Body: 'La irritabilidad premenstrual o los cambios de humor de la menopausia tienen, por tanto, una explicación biológica real, aunque no se manifiesten de la misma manera en todas las personas.',
+    observeHabits: [
+      {title: 'Llevar un diario', text: 'Anotar tu estado de ánimo y la fase de tu ciclo te ayuda a detectar tus propias tendencias.'},
+      {title: 'Identificar patrones', text: 'Sin juzgarte: el objetivo es conocerte mejor, no controlarlo todo.'},
+    ],
+    section4Body: 'El sueño, la actividad física y el apoyo social siguen siendo los mejores aliados para estabilizar el estado de ánimo.',
+    helpfulHabits: [
+      {title: 'Un sueño suficiente', text: 'La falta de sueño suele intensificar la sensibilidad emocional.'},
+      {title: 'Actividad física regular', text: 'Incluso moderada, ayuda a estabilizar el estado de ánimo a lo largo del ciclo.'},
+      {title: 'Apoyo social', text: 'Hablarlo con alguien de confianza puede aliviar lo que sientes.'},
+    ],
+    section5Body: 'Un cambio de humor ligado al ciclo suele ser pasajero. En cambio, algunas señales merecen una atención especial:',
+    warningTitle: 'Señales a vigilar',
+    concerningSigns: [
+      'Una tristeza intensa o que persiste más allá del ciclo',
+      'Una pérdida marcada de interés por lo que normalmente disfrutas',
+      'Un impacto importante en tu vida diaria o en tus relaciones',
+      'Pensamientos invasivos o una sensación de angustia importante',
+    ],
+    info2Title: 'Existe apoyo disponible',
+    info2Text: 'Un médico, una matrona o un psicólogo pueden ayudarte a comprender mejor lo que sientes y orientarte si es necesario.',
+    tipTitle: 'Dato útil',
+    tipText: 'Reconocer el vínculo entre las hormonas y el estado de ánimo puede ayudarte a comprender mejor lo que sientes, sin por ello reducirlo todo a esta única explicación.',
+    summaryPoints: [
+      'Las variaciones de estrógeno y progesterona influyen directamente en los neurotransmisores relacionados con el estado de ánimo.',
+      'La irritabilidad premenstrual tiene, por tanto, una explicación biológica real.',
+      'No todas las variaciones del estado de ánimo están necesariamente ligadas al ciclo: el contexto de vida también importa.',
+      'El sueño, la actividad física y el apoyo social siguen siendo los mejores aliados para estabilizar el estado de ánimo.',
+    ],
+    disclaimerText: 'Contenido informativo. Este artículo no sustituye una opinión médica o psicológica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
+    shareMessage: 'Estado de ánimo y fluctuaciones hormonales — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -188,7 +245,7 @@ export default function MoodHormonesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

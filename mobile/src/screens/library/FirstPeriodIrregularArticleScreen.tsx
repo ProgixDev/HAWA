@@ -112,6 +112,35 @@ const CONTENT = {
     ],
     shareMessage: 'My first period is irregular: is that normal? — AWA',
   },
+  es: {
+    badge: 'PRIMERA MENSTRUACIÓN',
+    title: 'Mi primera menstruación es\nirregular: ¿es normal?',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Sí, es completamente normal. Aquí te explicamos por qué el ciclo tarda en estabilizarse, y cuándo conviene hablar de ello.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Por qué el ciclo es irregular al principio',
+      'Cuánto tiempo tarda en estabilizarse',
+      'Cuándo consultar',
+    ],
+    body1: 'Las hormonas que regulan el ciclo tardan en encontrar su equilibrio. Por eso es frecuente que los ciclos sean más cortos, más largos o estén espaciados de forma desigual durante los primeros años.',
+    body2: 'El ciclo puede tardar de uno a dos años, a veces un poco más, en volverse más regular. Este tiempo de adaptación varía mucho de una persona a otra, sin que eso suponga un problema.',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text: 'Un ciclo irregular al principio nunca se considera un retraso: el cuerpo simplemente se toma el tiempo que necesita.',
+    body3: 'En la gran mayoría de los casos, no hay nada preocupante que observar. Aun así, conviene pedir una opinión médica si la menstruación está ausente durante varios meses después de su aparición, o si persisten las dudas.',
+    alertTitle: 'Consulta si',
+    alertText: 'Ausencia de menstruación durante varios meses, dolores muy intensos o sangrados muy abundantes.',
+    relatedTitle: '♥  También te podría gustar',
+    related: [
+      {title: 'Ciclo regular o irregular: ¿qué diferencias hay?', meta: '5 min  ·  Guía'},
+      {title: 'Tu primera menstruación: qué esperar', meta: '5 min  ·  Guía'},
+      {title: 'Preguntas frecuentes sobre la primera menstruación', meta: '4 min  ·  FAQ'},
+    ],
+    shareMessage: 'Mi primera menstruación es irregular: ¿es normal? — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -120,7 +149,7 @@ export default function FirstPeriodIrregularArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

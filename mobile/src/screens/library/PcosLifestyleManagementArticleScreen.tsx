@@ -112,6 +112,42 @@ const CONTENT = {
     tip2Text: 'PCOS is managed day to day with simple habits and regular medical follow-up: every small adjustment counts, at your own pace.',
     shareMessage: 'PCOS lifestyle and management — AWA',
   },
+  es: {
+    badge: 'SOP',
+    title: 'Estilo de vida y\nmanejo del SOP',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Las opciones de manejo del SOP, y hábitos sencillos para acompañar tu día a día.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Un acompañamiento construido con un profesional',
+      'Alimentación equilibrada',
+      'Actividad física adaptada',
+      'Sueño y manejo del estrés',
+      'Bienestar emocional',
+      'Señales que merecen atención rápida',
+      'Para recordar',
+    ],
+    nutritionTips: [
+      'Priorizar la fibra (verduras, legumbres, cereales integrales)',
+      'Repartir las comidas para evitar grandes hambres',
+      'Limitar los azúcares rápidos y los productos muy procesados',
+      'Ningún alimento prohibido: apuntar a un equilibrio global más que a reglas estrictas',
+    ],
+    section1Body: 'No existe un tratamiento único para el SOP: el manejo se adapta a tus síntomas, tus prioridades (ciclo, fertilidad, piel, peso) y tu situación personal. Puede combinar medidas de estilo de vida, tratamientos hormonales u otras opciones según las necesidades.',
+    section3Body: 'Una actividad física regular, incluso moderada (caminar a paso rápido, bicicleta, fortalecimiento ligero), ayuda a sostener el equilibrio hormonal y metabólico. Lo esencial es la regularidad, más que la intensidad.',
+    section4Body: 'Un sueño suficiente y momentos de relajación regulares contribuyen a limitar el impacto del estrés sobre el equilibrio hormonal, que a su vez puede influir en los síntomas del SOP.',
+    tip1Title: 'Dato útil',
+    tip1Text: 'Pequeños cambios duraderos suelen ser más eficaces a largo plazo que cambios radicales difíciles de mantener.',
+    section5Body: 'Vivir con el SOP puede pesar en el ánimo, especialmente por síntomas visibles o dudas sobre la fertilidad. Estas emociones son legítimas: hablar de ello con alguien cercano o con un profesional forma plenamente parte de un manejo completo.',
+    alertTitle: 'Consultar si',
+    alertText: 'Dolores pélvicos intensos o inusuales, sangrados muy abundantes o prolongados, una fatiga extrema o una sed persistente inusual, o un malestar emocional que se instala en el tiempo.',
+    tip2Title: 'Dato útil',
+    tip2Text: 'El SOP se maneja día a día con hábitos sencillos y un seguimiento médico regular: cada pequeño ajuste cuenta, a tu propio ritmo.',
+    shareMessage: 'Estilo de vida y manejo del SOP — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -120,7 +156,7 @@ export default function PcosLifestyleManagementArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

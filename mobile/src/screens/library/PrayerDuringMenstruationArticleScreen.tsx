@@ -142,6 +142,47 @@ const CONTENT = {
     tip2Text: 'The suspended prayer during menstruation is a recognized exemption, to be experienced without guilt. Many forms of spirituality remain accessible during this time, and the advice of a qualified scholar remains the reference for any specific question.',
     shareMessage: 'Prayer during menstruation — AWA',
   },
+  es: {
+    badge: 'ORACIÓN DURANTE LA MENSTRUACIÓN',
+    title: 'La oración durante\nla menstruación',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué la oración ritual queda suspendida durante este periodo, y cómo vivirlo con serenidad.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'La oración suspendida durante la menstruación',
+      'Sin recuperación, a diferencia del ayuno',
+      'Otras formas de adoración siguen siendo posibles',
+      'Para recordar',
+    ],
+    section1Body1: 'Durante la menstruación, la obligación de la oración (salat) queda suspendida: la mujer no está obligada a rezar durante este periodo. Esta suspensión forma parte integral de la propia práctica religiosa, reconocida desde hace mucho tiempo por la tradición.',
+    section1Body2: 'Esta suspensión no supone en absoluto un alejamiento de la fe ni un relajamiento en la práctica religiosa. Se trata de una dispensa reconocida, que se vive sin culpa: forma parte del marco natural de la vida espiritual de una mujer.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Este periodo puede vivirse con serenidad: no pone en duda ni el valor de la fe ni la regularidad de la práctica religiosa.',
+    section1Body3: 'Si la menstruación comienza mientras la oración está en curso, esta se interrumpe: no es necesario terminarla ni recuperarla. A la inversa, cuando la menstruación termina, la oración se reanuda con normalidad después del gusl (ablución mayor), que marca el regreso al estado de pureza ritual.',
+    section2Body1: 'A diferencia del ayuno del Ramadán, cuyos días no realizados durante la menstruación se recuperan más tarde (qadaa), las oraciones no realizadas por este mismo motivo generalmente no se recuperan después. Esta diferencia se explica por la propia naturaleza de estos dos actos de adoración: la oración es un acto diario que se repite varias veces al día, mientras que el ayuno es anual y se concentra en un mes concreto.',
+    section2Body2: 'Esta distinción puede sorprender cuando se descubre el fiqh por primera vez. No significa que la oración cuente menos: seguir la dispensa tal y como está prescrita forma, en sí misma, plenamente parte de la práctica religiosa.',
+    section3Body: 'No rezar durante la menstruación no significa estar desconectada de la propia espiritualidad. Muchas formas de adoración y de compromiso religioso siguen siendo accesibles durante este periodo.',
+    worshipActs: [
+      'Dhikr (evocación de Dios)',
+      'Dua (invocaciones)',
+      'Caridad',
+      'Ayudar a los demás',
+      'Aprendizaje religioso',
+      'Escuchar contenidos religiosos',
+      'Reflexión y gratitud',
+      'Gestos de bondad',
+    ],
+    noteTitle: 'Para tener en cuenta',
+    noteText: 'Algunas prácticas, como la recitación o la manipulación directa del Corán, pueden ser objeto de opiniones distintas según las escuelas jurídicas. Referirse a la opinión que se suele seguir, o pedir consejo a un erudito cualificado, ayuda a aclarar estos casos.',
+    tip2Title: 'Bueno saberlo',
+    tip2Text: 'La oración suspendida durante la menstruación es una dispensa reconocida, que se vive sin culpa. Muchas formas de espiritualidad siguen siendo accesibles durante este periodo, y la opinión de un erudito cualificado sigue siendo la referencia para cualquier pregunta concreta.',
+    shareMessage: 'La oración durante la menstruación — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -150,7 +191,7 @@ export default function PrayerDuringMenstruationArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

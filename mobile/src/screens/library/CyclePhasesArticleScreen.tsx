@@ -183,13 +183,75 @@ const CONTENT = {
     endText: 'The more you observe your cycle, the more you can understand what’s typical for you.',
     shareMessage: 'The different phases of the cycle explained — AWA',
   },
+  es: {
+    badge: 'Ciclo menstrual',
+    title: 'Las diferentes fases\ndel ciclo explicadas',
+    metaDuration: '6 min de lectura',
+    metaValidated: 'Contenido validado',
+    intro: 'Tu ciclo menstrual se compone de varias fases, cada una con un papel esencial en tu equilibrio hormonal y tu salud.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las 4 fases del ciclo',
+      'Cómo cambia tu cuerpo',
+      'Por qué es importante entender tu ciclo',
+      'Preguntas frecuentes',
+    ],
+    body1: 'Tu ciclo generalmente se divide en cuatro fases principales. Su duración puede variar de una persona a otra: cada cuerpo tiene su propio ritmo.',
+    diagram: {
+      menstrual: {name: 'Fase menstrual', days: 'Días 1 a 5'},
+      follicular: {name: 'Fase folicular', days: 'Días 1 a 13'},
+      luteal: {name: 'Fase lútea', days: 'Días 15 a 28'},
+      ovulatory: {name: 'Fase ovulatoria', days: 'Alrededor del día 14'},
+    },
+    tip1Title: 'Dato útil',
+    tip1Text: 'Cada mujer es única: observa tu cuerpo y aprende a conocer tu propio ritmo.',
+    body2: 'Las variaciones hormonales pueden influir en tu energía, tu estado de ánimo, tu sueño y ciertas sensaciones físicas a lo largo del ciclo.',
+    bodyChanges: [
+      {title: 'Durante el período', text: 'Tu energía puede ser más baja y tu cuerpo puede necesitar más descanso.'},
+      {title: 'Fase folicular', text: 'La energía sube progresivamente y puedes sentirte más activa.'},
+      {title: 'Alrededor de la ovulación', text: 'Algunas mujeres sienten más energía, motivación y confianza.'},
+      {title: 'Fase lútea', text: 'Pueden aparecer fatiga, hinchazón o cambios en el estado de ánimo.'},
+    ],
+    softTipTitle: 'Escucha a tu cuerpo',
+    softTipText: 'No existe una única forma de vivir cada fase. Tus propias sensaciones siguen siendo la mejor referencia.',
+    body3: 'Conocer mejor tu ciclo puede ayudarte a anticipar ciertos momentos y a entender los cambios que observas en tu día a día.',
+    whyItems: [
+      'Entender mejor las señales de tu cuerpo',
+      'Anticipar tu período y sus diferentes fases',
+      'Entender ciertos cambios en el estado de ánimo',
+      'Adaptar tu actividad según tu nivel de energía',
+      'Mejorar tu seguimiento diario',
+    ],
+    body4: 'Aquí tienes algunas respuestas a las preguntas que se hacen con frecuencia sobre las diferentes fases del ciclo.',
+    faq: [
+      {
+        question: '¿Es normal que mi ciclo no dure exactamente 28 días?',
+        answer: 'Sí. La duración de un ciclo puede variar de una persona a otra, e incluso ligeramente de un mes a otro.',
+      },
+      {
+        question: '¿La ovulación siempre ocurre en el día 14?',
+        answer: 'No. El día 14 es una estimación habitual para un ciclo de 28 días, pero la ovulación puede ocurrir antes o después.',
+      },
+      {
+        question: '¿Por qué cambian mis síntomas según la fase?',
+        answer: 'Las variaciones hormonales a lo largo del ciclo pueden influir en la energía, el estado de ánimo, el sueño y ciertas sensaciones físicas.',
+      },
+      {
+        question: '¿Es útil hacer seguimiento de mis síntomas?',
+        answer: 'Sí. Anotarlos con regularidad puede ayudarte a reconocer tus propias tendencias y a entender mejor tu ritmo.',
+      },
+    ],
+    endTitle: 'Tu ciclo, tu ritmo',
+    endText: 'Cuanto más observes tu ciclo, mejor podrás entender lo que es habitual para ti.',
+    shareMessage: 'Las diferentes fases del ciclo explicadas — AWA',
+  },
 } as const;
 
 function CyclePhasesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

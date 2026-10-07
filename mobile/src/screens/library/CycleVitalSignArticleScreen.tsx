@@ -233,6 +233,89 @@ const CONTENT = {
       'Your menstrual cycle is one of many indicators of your health. Tracking it regularly can help you better understand your body and, over time, notice changes that deserve particular attention.',
     shareMessage: 'Your cycle, an excellent health indicator — AWA',
   },
+  es: {
+    badge: 'CICLO Y PERÍODO',
+    title: 'Tu ciclo, un excelente\nindicador de salud',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Por qué al ciclo a veces se le llama el «quinto signo vital».',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Tu ciclo: un reflejo de tu cuerpo',
+      '¿Qué es un ciclo «normal»?',
+      'Los cambios que hay que vigilar',
+      '¿Qué pueden revelar estos cambios?',
+      'Hacer seguimiento de tu ciclo para conocerte mejor',
+      '¿Cuándo pedir consejo?',
+      'Dato útil',
+    ],
+    observeLabels: [
+      'Duración del ciclo',
+      'Duración del período',
+      'Flujo menstrual',
+      'Dolores',
+      'Flujo vaginal',
+      'Estado de ánimo',
+      'Energía / fatiga',
+      'Otros síntomas recurrentes',
+    ],
+    factorLabels: [
+      'Estrés',
+      'Falta de sueño',
+      'Cambios de peso importantes',
+      'Actividad física muy intensa',
+      'Cambios hormonales',
+      'Anticoncepción',
+      'Ciertas condiciones médicas',
+    ],
+    s1Body1:
+      'El ciclo menstrual está influenciado por la actividad hormonal del cuerpo a lo largo del mes. Aprender a observarlo puede ayudarte a entender mejor tu propio funcionamiento, sin necesidad de analizarlo todo en detalle.',
+    s1Body2: 'Estos son los elementos más útiles para observar:',
+    s2Body1:
+      'No existe un único ciclo perfecto: cada cuerpo tiene su propio ritmo, y ese ritmo también puede variar ligeramente de un mes a otro. Por lo general, se considera que un ciclo es regular cuando su duración está entre 21 y 35 días, y el período suele durar de 3 a 7 días.',
+    s2Body2:
+      'Estas cifras son solo promedios: las variaciones leves siguen siendo totalmente normales, sobre todo después de la pubertad, de un parto o al acercarse la menopausia.',
+    s3Body1:
+      'Algunos cambios merecen observarse con un poco más de atención, en particular:',
+    changesToWatch: [
+      'Un cambio marcado en la regularidad del ciclo',
+      'Un período notablemente más abundante de lo habitual',
+      'Dolores inusualmente fuertes o persistentes',
+      'Una ausencia prolongada del período',
+      'Sangrado entre períodos',
+      'Un cambio importante que se repite durante varios ciclos',
+    ],
+    s3Body2:
+      'Un ciclo inusual y aislado no significa automáticamente un problema de salud: el cuerpo puede reaccionar puntualmente a numerosos factores.',
+    s4Body1:
+      'Estos cambios a veces pueden estar relacionados con varios factores, sin que se trate necesariamente de un problema:',
+    s4Body2:
+      'Estas son solo algunas posibles explicaciones entre otras: nunca sustituyen la opinión de un profesional de la salud.',
+    s5VisualTitle: 'Observar tu propio ritmo',
+    s5VisualText:
+      'Anotar tus fechas, tu flujo o cómo te sientes te ayuda a conocer mejor tus hábitos, mes tras mes.',
+    s5Body:
+      'El primer día del período, su duración, el flujo, los dolores, el estado de ánimo, la energía o el flujo vaginal son otros tantos elementos que puedes anotar con el tiempo. El objetivo no es comparar tu ciclo con el de otra persona, sino identificar mejor lo que es habitual para ti y lo que se aparta de ello.',
+    s6Body1:
+      'Es completamente normal tener preguntas sobre tu ciclo. Pedir una opinión médica puede ser útil en ciertas situaciones, por ejemplo:',
+    whenToAsk: [
+      'Cambios importantes que persisten durante varios ciclos',
+      'Dolores que te impiden seguir con tus actividades habituales',
+      'Un período muy abundante',
+      'Una ausencia prolongada del período',
+      'Sangrado inusual',
+      'Cualquier síntoma persistente que te preocupe',
+    ],
+    s6Body2:
+      'Hablar de ello con un profesional de la salud te permite quedarte tranquila o, si es necesario, recibir el acompañamiento adecuado; nunca es, en sí mismo, un motivo de preocupación.',
+    tipText:
+      'Un ciclo no necesita ser perfectamente regular para ser normal. Conocer tu propio ritmo habitual suele ser más útil que buscar una duración ideal.',
+    finalBody:
+      'Tu ciclo menstrual es uno de los muchos indicadores de tu salud. Hacerle seguimiento con regularidad puede ayudarte a entender mejor tu cuerpo y a identificar, con el tiempo, los cambios que merecen una atención especial.',
+    shareMessage: 'Tu ciclo, un excelente indicador de salud — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -241,7 +324,7 @@ export default function CycleVitalSignArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

@@ -114,6 +114,43 @@ const CONTENT = {
     ],
     shareMessage: 'Ghusl and the return to prayer — AWA',
   },
+  es: {
+    badge: 'REGRESO A LA ORACIÓN',
+    title: 'El gusl y el\nregreso a la oración',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Los pasos generales para reanudar la oración después de la menstruación, con serenidad.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'El gusl, regreso a la pureza ritual',
+      'Un método que puede variar según la escuela',
+      'La reanudación de la oración, sin recuperación',
+      'Puntos prácticos para recordar',
+    ],
+    section1Body1: 'El gusl es una ablución ritual mayor: consiste en lavar todo el cuerpo con la intención de recuperar el estado de pureza ritual (tahara), necesario para realizar la oración y otros actos de adoración.',
+    section1Body2: 'Antes de realizar el gusl, es importante asegurarse de que la menstruación ha terminado realmente: el gusl debe seguir, y no preceder, a la certeza de que el sangrado se ha detenido. De manera general, este fin se reconoce por el cese total del sangrado, observado durante un tiempo suficiente para descartar cualquier duda, un punto detallado en el artículo dedicado a la pureza ritual.',
+    section1Body3: 'Es esta purificación la que permite retomar los momentos de adoración suspendidos durante la menstruación.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'No hay ninguna urgencia que sentir: el gusl puede realizarse en cuanto estés lista, sin presión, una vez constatado con certeza el fin de la menstruación.',
+    section2Body: 'El gusl se basa en principios generales comunes: la intención de purificarse y el lavado completo del cuerpo, incluidos el cabello y la piel. Los detalles precisos del método, en cambio, pueden variar según las escuelas jurídicas seguidas.',
+    alertTitle: 'Nota importante',
+    alertText: 'Ningún método concreto se presenta aquí como el único válido: referirse a la escuela o a la opinión que se suele seguir, o pedir consejo a un erudito cualificado, permite conocer las modalidades precisas adaptadas a tu situación.',
+    section3Body1: 'Una vez terminada la menstruación y realizado el gusl, la oración se reanuda con normalidad, sin ningún plazo particular ni condición adicional.',
+    section3Body2: 'Es útil distinguir dos situaciones que siguen reglas diferentes: las oraciones no realizadas durante la menstruación generalmente no se recuperan, mientras que los días de ayuno no realizados durante el Ramadán sí deben recuperarse más tarde (qadaa).',
+    section3Body3: 'Por ejemplo, una mujer que ha tenido la menstruación durante 6 días reanuda la oración con normalidad después del gusl, sin tener que recuperar las oraciones de esos 6 días. Los 6 días de ayuno correspondientes, en cambio, se recuperarán después del Ramadán.',
+    practicalPoints: [
+      'Reconocer el fin de la menstruación con certeza',
+      'Realizar el gusl (ablución mayor) para recuperar la pureza ritual',
+      'Reanudar la oración con normalidad, sin demora',
+      'Saber que las oraciones no realizadas durante la menstruación generalmente no se recuperan',
+      'Pedir consejo a un erudito cualificado para cualquier situación particular o duda persistente',
+    ],
+    shareMessage: 'El gusl y el regreso a la oración — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -122,7 +159,7 @@ export default function ReturningToPrayerArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

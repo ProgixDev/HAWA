@@ -178,6 +178,68 @@ const CONTENT = {
       'Informational content. This article does not replace personalized medical advice. If in doubt, seek guidance from a healthcare professional.',
     shareMessage: 'Understanding ovulation tests (LH) — AWA',
   },
+  es: {
+    badge: 'FERTILIDAD • PRUEBAS DE OVULACIÓN',
+    title: 'Comprender las pruebas\nde ovulación (LH)',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Cómo funcionan estas tiras, y cuándo usarlas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es la LH?',
+      'Cómo funcionan estas pruebas',
+      'Cuándo empezar a hacerte las pruebas',
+      'Interpretar un resultado',
+      'Falsos positivos y límites',
+      'Combinarlas con otras señales',
+      'Para recordar',
+    ],
+    section1Body:
+      'La LH (hormona luteinizante) es producida por el cerebro y controla el funcionamiento de los ovarios. Las pruebas de ovulación detectan el pico de esta hormona, que desencadena la liberación del óvulo entre 24 y 36 horas después.',
+    section2Body:
+      'Una tira de orina mide el nivel de LH: una línea de prueba tan oscura o más oscura que la línea de control indica un pico.',
+    section3Body:
+      'Se recomienda empezar las pruebas unos días antes de la fecha de ovulación estimada según tu ciclo.',
+    testingTips: [
+      {
+        title: 'Basarte en tu ciclo',
+        text: 'Empieza unos días antes de la fecha de ovulación estimada según la duración media de tus ciclos.',
+      },
+      {
+        title: 'Probar a una hora fija',
+        text: 'Idealmente a mediodía, evitando la primera orina de la mañana.',
+      },
+      {
+        title: 'Evitar diluir demasiado',
+        text: 'Limita las grandes cantidades de líquido en las horas previas a la prueba.',
+      },
+    ],
+    section4Body:
+      'Un resultado positivo señala el momento más fértil para las relaciones sexuales en el 1 o 2 días siguientes. Un resultado negativo simplemente significa que el pico aún no ha ocurrido.',
+    limitations: [
+      'El SOP puede dar niveles de LH naturalmente más altos, lo que dificulta la lectura',
+      'Algunos tratamientos de fertilidad pueden influir en el resultado',
+      'Una orina muy diluida puede dar un falso negativo',
+      'Una prueba de menor calidad puede ser menos fiable',
+    ],
+    infoTitle: 'Ten en cuenta',
+    infoText:
+      'Un pico de LH indica una señal hormonal desencadenante, pero por sí solo no garantiza que el óvulo se haya liberado realmente.',
+    tipTitle: 'Dato útil',
+    tipText:
+      'Combinar las pruebas de ovulación con tu temperatura basal o con la observación de tu moco cervical te da una imagen más completa de tu ciclo.',
+    summaryPoints: [
+      'Las pruebas de ovulación detectan el pico de la hormona LH, que desencadena la liberación del óvulo entre 24 y 36 horas después.',
+      'Se recomienda empezar las pruebas unos días antes de la fecha de ovulación estimada según tu ciclo.',
+      'Un resultado positivo señala el momento más fértil para las relaciones sexuales en el 1 o 2 días siguientes.',
+      'Un pico de LH por sí solo no garantiza que la ovulación haya ocurrido realmente.',
+    ],
+    disclaimerText:
+      'Contenido informativo. Este artículo no sustituye una opinión médica personalizada. Si tienes dudas, consulta a un profesional de la salud.',
+    shareMessage: 'Comprender las pruebas de ovulación (LH) — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -194,7 +256,7 @@ export default function LhTestsArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

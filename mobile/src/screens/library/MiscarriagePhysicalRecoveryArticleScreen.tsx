@@ -170,6 +170,61 @@ const CONTENT = {
     disclaimerText: 'Informational content. This article does not replace medical advice or examination. If in doubt or experiencing concerning symptoms, seek advice from a healthcare professional.',
     shareMessage: 'Physical recovery after a miscarriage — AWA',
   },
+  es: {
+    badge: 'DESPUÉS DE UNA PÉRDIDA DEL EMBARAZO • RECUPERACIÓN',
+    title: 'La recuperación física después de \nuna pérdida del embarazo',
+    metaDuration: '7 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido informativo',
+    intro: 'Tu cuerpo necesita tiempo para recuperar su equilibrio. Esto es lo que puede ayudarte a entender mejor esta etapa, con suavidad.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      '¿Qué es una pérdida del embarazo?',
+      'Lo que puede ocurrir físicamente',
+      'El regreso del ciclo',
+      'Un seguimiento médico tranquilizador',
+      'Cuándo consultar',
+      'Para recordar',
+    ],
+    section1Body1: 'Una pérdida del embarazo corresponde a la interrupción espontánea de un embarazo, casi siempre antes de la semana 12 a 14. Se estima que entre una de cada seis y una de cada siete embarazos confirmados termina así, casi siempre pronto en el embarazo.',
+    section1Body2: 'No es algo raro, ni es señal de un problema de fertilidad futura. En la gran mayoría de los casos, está relacionada con factores ajenos a la voluntad, como una anomalía cromosómica ocurrida por azar durante el desarrollo.',
+    infoCard1Title: 'Para recordar',
+    infoCard1Text: 'Una pérdida del embarazo no está causada por nada que hayas hecho o dejado de hacer. No eres responsable de lo que ha ocurrido.',
+    section2Body: 'La experiencia varía mucho de una persona a otra. Estas son las manifestaciones más frecuentes:',
+    physicalSigns: [
+      {title: 'Sangrado', text: 'Su intensidad y su duración pueden variar según cada situación, y luego disminuyen progresivamente.'},
+      {title: 'Cólicos', text: 'Dolores parecidos a cólicos menstruales, a veces más marcados, pueden acompañar esta etapa.'},
+      {title: 'Una duración variable', text: 'La recuperación física se extiende generalmente entre unos días y unas semanas.'},
+    ],
+    section3Body: 'El cuerpo tarda generalmente unas semanas en recuperar el equilibrio hormonal después de una pérdida del embarazo. Un ciclo puede volver ya a partir de las 4 a 6 semanas, pero cada recorrido es diferente.',
+    comfortTips: [
+      {title: 'Concédete descanso', text: 'Tu cuerpo necesita tiempo para recuperar su equilibrio, sin obligación de resultado.'},
+      {title: 'Mantente bien hidratada', text: 'Una buena hidratación acompaña naturalmente la recuperación.'},
+      {title: 'Escucha tu cuerpo', text: 'Cada recorrido es diferente: avanza a tu propio ritmo, sin compararte.'},
+    ],
+    section4Body: 'Un seguimiento médico de control permite verificar que todo ha vuelto a la normalidad, con total tranquilidad. Esta cita es también la ocasión de hacer todas tus preguntas.',
+    infoCard2Title: 'Lo que esta cita puede incluir',
+    infoCard2Text: 'Una conversación sobre lo que has vivido, un examen si es necesario, y un espacio para responder a tus preguntas sobre lo que sigue.',
+    section5Body: 'Si aparece alguna de estas señales, es importante contactar con un profesional de la salud sin esperar.',
+    warningTitle: 'Señales que merecen un aviso médico',
+    warningSigns: [
+      'Fiebre o un estado general que empeora',
+      'Sangrado muy abundante (necesidad de cambiar de protección en menos de una hora)',
+      'Dolores intensos que no mejoran',
+      'Un olor inusual',
+    ],
+    tipTitle: 'DATO ÚTIL',
+    tipText: 'Cuidar tu cuerpo no significa controlarlo todo: significa sobre todo concederte el tiempo que necesitas.',
+    summaryPoints: [
+      'Una pérdida del embarazo no está causada por nada que hayas hecho o dejado de hacer.',
+      'El cuerpo tarda generalmente unas semanas en recuperar su equilibrio hormonal.',
+      'Un ciclo puede volver ya a partir de las 4 a 6 semanas, pero cada recorrido es diferente.',
+      'Un control médico permite verificar que todo evoluciona con normalidad, con total tranquilidad.',
+    ],
+    disclaimerText: 'Contenido informativo. Este artículo no sustituye un aviso o un examen médico. En caso de duda o de síntoma preocupante, pide consejo a un profesional de la salud.',
+    shareMessage: 'La recuperación física después de una pérdida del embarazo — AWA',
+  },
 } as const;
 
 /* -------------------------------------------------------------------------- */
@@ -186,7 +241,7 @@ export default function MiscarriagePhysicalRecoveryArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

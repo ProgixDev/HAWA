@@ -175,6 +175,69 @@ const CONTENT = {
       'The vaginal ring combines continuous hormone release with a usage rhythm that avoids a daily dose. However, the choice of contraception should be tailored to each person and discussed with a healthcare professional.',
     shareMessage: 'The contraceptive vaginal ring — AWA',
   },
+  es: {
+    badge: 'ANILLO VAGINAL',
+    title: 'El anillo vaginal\nanticonceptivo',
+    metaDuration: '5 min de lectura',
+    metaType: 'Artículo',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Un anillo flexible, que se coloca durante tres semanas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Cómo funciona el anillo',
+      'La colocación y la extracción',
+      'Lo que hay que saber',
+      'Lo esencial',
+    ],
+    body1:
+      'El anillo es un dispositivo flexible que libera de forma continua dosis bajas de hormonas directamente a nivel vaginal, con la misma acción anticonceptiva que una píldora combinada.',
+    flowTitle: 'Su funcionamiento',
+    flowSteps: [
+      {title: 'Anillo', text: 'Colocado en la vagina'},
+      {title: 'Hormonas', text: 'Difusión continua'},
+      {title: 'Protección', text: 'Acción anticonceptiva'},
+    ],
+    body2:
+      'Te lo colocas tú misma, permanece de forma continua durante tres semanas y después se retira para una semana de descanso, durante la cual se produce la menstruación.',
+    calendarTitle: 'Un ritmo sencillo de seguir',
+    weekLabelActive: 'Anillo',
+    weekLabelPause: 'Descanso',
+    legendActive: 'Semana con anillo',
+    legendPause: 'Semana de descanso',
+    tip1Title: 'DATO ÚTIL',
+    tip1Text:
+      'Su posición exacta en la vagina no necesita ser precisa para que sea eficaz, lo que lo hace sencillo de usar.',
+    body3:
+      'El anillo presenta varios aspectos prácticos que conviene conocer antes de adoptarlo.',
+    careTips: [
+      {title: 'Fácil de usar', text: 'Puedes colocarlo y retirarlo tú misma.'},
+      {title: 'Ritmo regular', text: 'Generalmente permanece colocado durante tres semanas.'},
+      {title: 'Acción continua', text: 'Las hormonas se liberan de forma continua durante el período de uso.'},
+      {title: 'No protege de las ITS', text: 'Puede ser necesaria una protección adicional según la situación.'},
+    ],
+    checkListTitle: 'Los buenos hábitos',
+    practicalSteps: [
+      'Lávate las manos antes de colocarlo o retirarlo',
+      'Elige un momento fácil de recordar para seguir el calendario',
+      'Comprueba de vez en cuando que sigue colocado',
+      'Consulta el prospecto en caso de desplazamiento o expulsión',
+    ],
+    alertTitle: 'A tener en cuenta',
+    alertText:
+      'Una expulsión o un desplazamiento prolongado puede requerir instrucciones particulares. Consulta siempre el prospecto del dispositivo o pide consejo a un profesional de la salud en caso de duda.',
+    summaryTitle: 'Lo esencial en 4 puntos',
+    summaryItems: [
+      {title: 'Colocación sencilla', text: 'Puedes colocarlo y retirarlo tú misma.'},
+      {title: 'Ritmo semanal', text: 'Generalmente sigue un ciclo de tres semanas con una semana de descanso.'},
+      {title: 'Control ocasional', text: 'Comprobar regularmente su presencia ayuda a usar el dispositivo con tranquilidad.'},
+      {title: 'Sin protección frente a las ITS', text: 'Puede ser necesaria una protección adecuada según la situación.'},
+    ],
+    tip2Title: 'Para recordar',
+    tip2Text:
+      'El anillo vaginal combina una liberación hormonal continua con un ritmo de uso que evita una toma diaria. Sin embargo, la elección de una anticoncepción debe adaptarse a cada persona y hablarse con un profesional de la salud.',
+    shareMessage: 'El anillo vaginal anticonceptivo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -183,7 +246,7 @@ export default function VaginalRingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

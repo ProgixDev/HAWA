@@ -183,6 +183,58 @@ const CONTENT = {
     ],
     shareMessage: 'Period flow: understanding colors and textures — AWA',
   },
+  es: {
+    badge: 'CICLO Y BIENESTAR',
+    title: 'Flujo menstrual: entender\nlos colores y las texturas',
+    metaDuration: '4 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro:
+      'El color y la textura de tu período dicen mucho sobre tu salud hormonal. Aprende a interpretarlos para entender mejor tu ciclo.',
+    contentsTitle: 'En este artículo',
+    contents: [
+      'Los colores del flujo menstrual',
+      'Las texturas del flujo',
+      'Qué puede indicar cada color',
+      '¿Cuándo hay que preocuparse?',
+      'Nuestros consejos para conocerte mejor',
+    ],
+    colors: [
+      {name: 'Rojo vivo', text: 'Flujo fresco, sangre nueva. Frecuente al inicio del período.'},
+      {name: 'Rojo oscuro', text: 'Sangre más antigua, normal a mitad del ciclo.'},
+      {name: 'Marrón', text: 'Sangre oxidada, frecuente al final del período.'},
+      {name: 'Rosa', text: 'Puede indicar un flujo ligero o un cambio hormonal.'},
+      {name: 'Naranja', text: 'Puede estar relacionado con una infección o un desequilibrio.'},
+    ],
+    textures: [
+      {name: 'Fluido', text: 'Flujo líquido, sin grumos.'},
+      {name: 'Cremoso', text: 'Textura espesa y homogénea.'},
+      {name: 'Coágulos', text: 'Coágulos de sangre pequeños o grandes.'},
+      {name: 'Filamentoso / Mucoso', text: 'Elástico, transparente o blanquecino.'},
+      {name: 'Tejido', text: 'Fragmentos de tejido o de mucosa.'},
+    ],
+    meanings: [
+      {name: 'Del rojo vivo al oscuro', text: 'Ciclo normal. Tu cuerpo elimina el revestimiento uterino.'},
+      {name: 'Marrón', text: 'Sangre más antigua, no es motivo de preocupación.'},
+      {name: 'Rosa', text: 'Puede aparecer al inicio o al final del período, o con un desequilibrio hormonal.'},
+      {name: 'Naranja', text: 'Presta atención si va acompañado de olor fuerte, picor o dolor.'},
+    ],
+    warningTitle: 'Señales que hay que vigilar',
+    warningItems: [
+      'Sangrado muy abundante (cambiar de protección cada 1-2 horas)',
+      'Presencia frecuente de coágulos muy grandes',
+      'Mal olor persistente o picor',
+      'Dolores intensos e inusuales',
+    ],
+    advice: [
+      {title: 'Observa tu flujo', text: 'Anota los cambios cada mes.'},
+      {title: 'Elige la protección adecuada', text: 'Según tu flujo y tu comodidad.'},
+      {title: 'Escucha a tu cuerpo', text: 'Te da señales valiosas.'},
+      {title: 'Si tienes dudas', text: 'Habla con un profesional de la salud.'},
+    ],
+    shareMessage: 'Flujo menstrual: entender los colores y las texturas — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -194,7 +246,7 @@ export default function FlowColorsTexturesArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

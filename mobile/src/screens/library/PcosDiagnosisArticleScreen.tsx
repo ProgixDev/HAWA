@@ -207,6 +207,82 @@ const CONTENT = {
     disclaimerText: 'This article is for information only and doesn’t replace a medical consultation or the personalized interpretation of your test results.',
     shareMessage: 'PCOS diagnosis: tests and workup — AWA',
   },
+  es: {
+    badge: 'SOP',
+    title: 'Diagnóstico del SOP:\nexámenes y balance',
+    metaDuration: '7 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Intermedio',
+    metaValidated: 'Contenido validado',
+    intro: 'Cómo se diagnostica el SOP, qué exámenes pueden proponerse y cómo preparar tu consulta con tranquilidad.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Comprender el balance diagnóstico',
+      'Las principales etapas del balance',
+      'El análisis de sangre hormonal',
+      'La ecografía pélvica',
+      'Lo que el diagnóstico no dice',
+      'Preparar tu consulta',
+      'Para recordar',
+    ],
+    section1Body1: 'El diagnóstico del síndrome de ovario poliquístico no se basa en un solo examen. El profesional de salud reúne varias informaciones: la historia de tus ciclos, los posibles síntomas, el examen clínico, los análisis biológicos y, según la situación, una ecografía.',
+    section1Body2: 'El objetivo es a la vez buscar las características compatibles con un SOP y descartar otras causas que puedan explicar reglas irregulares o ciertos síntomas hormonales.',
+    tip1Title: 'Dato útil',
+    tip1Text: 'El diagnóstico siempre es personalizado. Dos mujeres con SOP pueden tener síntomas y resultados de exámenes muy diferentes.',
+    section2Body: 'El balance puede seguir varias etapas. No se realizan necesariamente todas de la misma manera en cada persona.',
+    diagnosisSteps: [
+      {title: 'Interrogatorio', text: 'El profesional recoge tu historia: ciclos, síntomas, antecedentes y tratamientos.'},
+      {title: 'Examen clínico', text: 'Busca especialmente signos de exceso de andrógenos y evalúa tu estado general.'},
+      {title: 'Balance sanguíneo', text: 'Pueden solicitarse análisis hormonales y metabólicos para precisar la situación.'},
+      {title: 'Ecografía', text: 'Puede completar el balance observando el aspecto de los ovarios.'},
+    ],
+    flowTitle: 'El recorrido de un vistazo',
+    flowItems: [
+      'Historia y síntomas',
+      'Examen clínico',
+      'Análisis según el contexto',
+      'Ecografía si es necesario',
+    ],
+    section3Body1: 'Puede proponerse un análisis de sangre para buscar signos de exceso de andrógenos, evaluar ciertas hormonas implicadas en el funcionamiento reproductivo y buscar otras posibles causas de los síntomas.',
+    section3Body2: 'Los análisis elegidos dependen de tu edad, tus síntomas, tu historia médica y lo que el profesional busca verificar.',
+    bloodTests: [
+      {title: 'Andrógenos', text: 'Testosterona y otras hormonas según el contexto.'},
+      {title: 'Función tiroidea', text: 'Permite especialmente descartar ciertas causas de ciclos irregulares.'},
+      {title: 'Balance metabólico', text: 'Glucemia, a veces perfil lipídico según los factores de riesgo.'},
+    ],
+    alertTitle: 'Importante',
+    alertText: 'Los resultados hormonales deben interpretarse junto con el contexto clínico. Un valor aislado generalmente no permite, por sí solo, concluir un SOP.',
+    section4Body: 'Una ecografía puede utilizarse para observar el aspecto de los ovarios y buscar especialmente un número importante de pequeños folículos. También permite al profesional buscar otros elementos que puedan explicar ciertos síntomas.',
+    tip2Title: 'Dato útil',
+    tip2Text: 'Ver numerosos folículos en la ecografía no significa automáticamente que tengas SOP. El resultado debe interpretarse junto con los demás elementos del balance.',
+    section5Body: 'Recibir un diagnóstico de SOP no permite predecir exactamente tu evolución futura. El síndrome puede manifestarse de manera muy diferente de una persona a otra.',
+    mythItems: [
+      'El SOP no significa automáticamente infertilidad.',
+      'El SOP no significa forzosamente tener quistes.',
+      'El diagnóstico por sí solo no determina el tratamiento.',
+      'Una ecografía normal no excluye necesariamente el SOP.',
+    ],
+    section6Body: 'Algunas informaciones preparadas de antemano pueden ayudar al profesional a comprender tu historia y a elegir los exámenes más pertinentes.',
+    appointmentQuestions: [
+      '¿Desde cuándo son irregulares tus ciclos?',
+      '¿Has notado acné, vello o caída de cabello inusuales?',
+      '¿Hay antecedentes de SOP o de diabetes en tu familia?',
+      '¿Tienes deseo de embarazo a corto o medio plazo?',
+    ],
+    preparationTitle: 'Un pequeño consejo antes de la cita',
+    preparationText: 'Si es posible, anota las fechas de tu última regla, la duración aproximada de tus ciclos, los síntomas que observas y los tratamientos o complementos que tomas.',
+    summaryTitle: 'Lo esencial del balance',
+    summaryItems: [
+      'El diagnóstico se basa en varios elementos, no en un solo examen.',
+      'Un análisis de sangre puede buscar ciertos desequilibrios hormonales y descartar otras causas.',
+      'Una ecografía puede completar el balance según la situación.',
+      'Los resultados siempre deben ser interpretados por un profesional de salud.',
+    ],
+    finalTipTitle: 'Para recordar',
+    finalTipText: 'Un balance de SOP no es un examen único ni un juicio definitivo. Sirve para comprender tu funcionamiento hormonal, buscar otras posibles causas y construir un acompañamiento adaptado a tu situación.',
+    disclaimerText: 'Este artículo es informativo y no sustituye una consulta médica ni la interpretación personalizada de tus exámenes.',
+    shareMessage: 'Diagnóstico del SOP: exámenes y balance — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -215,7 +291,7 @@ export default function PcosDiagnosisArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

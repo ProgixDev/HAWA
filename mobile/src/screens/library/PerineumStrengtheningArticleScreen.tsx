@@ -456,6 +456,213 @@ const CONTENT = {
     disclaimerText:
       'This article is for informational purposes only and does not replace personalized medical advice. If you experience pain, persistent symptoms, or have any concerns about your recovery, seek advice from a healthcare professional.',
   },
+  es: {
+    badge: 'POSPARTO • RECUPERACIÓN',
+    title: 'Fortalece tu periné\ndespués del parto',
+    metaDuration: '8 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro:
+      'Después del embarazo y el parto, el suelo pélvico necesita tiempo para recuperarse. Unos ejercicios sencillos, regulares y progresivos pueden ayudar a recuperar fuerza, control y confianza, sin intentar ir demasiado rápido.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Comprender el papel del periné',
+      'Por qué el parto lo somete a esfuerzo',
+      'Cuándo empezar la reeducación',
+      'Aprender a contraer correctamente',
+      'Construir una rutina progresiva',
+      'Los errores que hay que evitar',
+      'Cuándo pedir ayuda',
+      'Retomar el deporte progresivamente',
+      'Preparar una consulta',
+      'Para recordar',
+    ],
+    shareMessage: 'Fortalece tu periné después del parto — AWA',
+
+    s1Heading: 'Comprender el papel del periné',
+    s1Body1:
+      'El periné, también llamado suelo pélvico, es un conjunto de músculos situado en la base de la pelvis. Participa especialmente en el control de la vejiga y del intestino y contribuye al sostén de los órganos pélvicos.',
+    s1Body2:
+      'Durante el embarazo, estos músculos deben soportar una carga adicional durante varios meses. También se ven fuertemente solicitados en el momento del parto.',
+    s1HighlightTitle: 'Un músculo discreto pero esencial',
+    s1HighlightText:
+      'El suelo pélvico interviene en varias funciones cotidianas: retener la orina y las heces, controlar los gases, sostener los órganos pélvicos y participar en ciertas funciones sexuales.',
+
+    benefitsHeading: 'Los beneficios de un suelo pélvico fortalecido',
+    benefitsIntro:
+      'Un fortalecimiento progresivo y realizado correctamente puede contribuir a mejorar el control y el sostén del suelo pélvico.',
+    benefits: [
+      {
+        icon: 'water-outline',
+        title: 'Controlar mejor la vejiga',
+        text: 'El suelo pélvico participa en el control de la vejiga. Fortalecerlo progresivamente puede ayudar a reducir algunas pérdidas urinarias.',
+      },
+      {
+        icon: 'toilet',
+        title: 'Apoyar las funciones intestinales',
+        text: 'Estos músculos también participan en el control de los gases y las heces y contribuyen al sostén de los órganos pélvicos.',
+      },
+      {
+        icon: 'human-female',
+        title: 'Sostener los órganos pélvicos',
+        text: 'El suelo pélvico forma una verdadera base muscular que participa en el sostén de la vejiga, el útero y el intestino.',
+      },
+      {
+        icon: 'heart-pulse',
+        title: 'Recuperar progresivamente las sensaciones',
+        text: 'Una reeducación adaptada también puede contribuir a recuperar una mejor conciencia y un mejor control de esta zona.',
+      },
+    ],
+
+    s2Heading: 'Por qué el embarazo y el parto lo someten a esfuerzo',
+    s2Body1:
+      'El embarazo ejerce progresivamente más presión sobre el suelo pélvico. El parto vaginal puede después estirar fuertemente los músculos y los tejidos de esta zona.',
+    s2Body2:
+      'Una cesárea no libra por completo al suelo pélvico: el embarazo en sí mismo sigue siendo un período importante para estos músculos.',
+    s2Body3:
+      'Después del nacimiento, es por tanto normal que la recuperación requiera tiempo. Algunas mujeres apenas sienten síntomas, mientras que otras pueden notar pérdidas, una sensación de pesadez o una disminución del control muscular.',
+    s2TipTitle: 'Cada recuperación es diferente',
+    s2TipText:
+      'El tipo de parto, un desgarro o una episiotomía, la presencia de dolor y el estado general después del nacimiento pueden influir en la recuperación.',
+
+    s3Heading: '¿Cuándo empezar la reeducación?',
+    s3Body1:
+      'Después de un parto sin complicaciones, las contracciones suaves del suelo pélvico pueden retomarse generalmente de forma progresiva. Sigue siendo importante adaptar los ejercicios a tu situación y pedir consejo si has tenido una complicación, un dolor importante o una intervención particular.',
+    s3Body2:
+      'Si llevas una sonda urinaria, algunas recomendaciones aconsejan esperar a que se retire y a que se restablezca una micción normal antes de empezar los ejercicios del periné.',
+    s3AlertTitle: 'No fuerces si hay dolor',
+    s3AlertText:
+      'Un dolor importante, un empeoramiento de los síntomas, una herida que cicatriza mal o una preocupación particular justifican pedir un consejo a una matrona, un médico o un profesional de la reeducación.',
+
+    s4Heading: 'Aprender a contraer correctamente',
+    s4Body1:
+      'Para identificar el movimiento, imagina que quieres retener al mismo tiempo un gas y unas ganas de orinar. El movimiento buscado es una sensación de contracción y de ascenso hacia el interior.',
+    s4Body2:
+      'El objetivo no es apretar con fuerza todo el cuerpo. Los glúteos, los muslos y los abdominales deben permanecer lo más relajados posible, mientras la respiración continúa con normalidad.',
+    exercises: [
+      {icon: 'weather-windy', label: 'Respiración'},
+      {icon: 'human-handsup', label: 'Contracción suave'},
+      {icon: 'arrow-up-bold-circle-outline', label: 'Contracción larga'},
+      {icon: 'gesture-tap-button', label: 'Contracciones rápidas'},
+    ],
+    s4HighlightTitle: 'El relajamiento también es importante',
+    s4HighlightText:
+      'Después de cada contracción, deja que los músculos se relajen por completo. Una buena reeducación no consiste en mantener el periné contraído todo el día.',
+
+    s5Heading: 'Construir una rutina progresiva',
+    s5Body1:
+      'Al principio, lo más importante es aprender a identificar los músculos y a realizar correctamente el movimiento. La regularidad importa más que la intensidad.',
+    s5h3a: 'Las contracciones largas',
+    s5Body2:
+      'Contrae suavemente el suelo pélvico y luego mantén la contracción durante unos segundos, sin contener la respiración. Después relaja por completo antes de volver a empezar.',
+    s5h3b: 'Las contracciones cortas',
+    s5Body3:
+      'Una vez dominado el movimiento, se pueden añadir pequeñas contracciones rápidas. Permiten trabajar la capacidad de contraer rápidamente los músculos cuando aumenta la presión abdominal, por ejemplo antes de toser o estornudar.',
+    dailyTips: [
+      {icon: 'clock-outline', label: 'Asociar los ejercicios a un hábito diario'},
+      {icon: 'human-sitting', label: 'Empezar en una posición cómoda'},
+      {icon: 'weather-windy', label: 'Respirar con normalidad durante las contracciones'},
+      {icon: 'sleep', label: 'Respetar los tiempos de relajación'},
+      {icon: 'chart-line', label: 'Aumentar progresivamente la dificultad'},
+      {icon: 'doctor', label: 'Pedir consejo en caso de duda'},
+    ],
+    s5TipTitle: 'La regularidad ante todo',
+    s5TipText:
+      'Asociar los ejercicios a un hábito ya presente en tu día puede facilitar su regularidad: después de una toma, después de cepillarte los dientes o en otro momento que te convenga.',
+
+    s6Heading: 'Los errores frecuentes que hay que evitar',
+    s6Body1:
+      'Los ejercicios del periné parecen sencillos, pero es fácil compensar con otros músculos o hacer demasiado esfuerzo.',
+    commonMistakes: [
+      'Contraer los glúteos o los muslos en lugar del suelo pélvico',
+      'Contener la respiración durante la contracción',
+      'Contraer de forma permanente sin dejar que los músculos se relajen',
+      'Hacer los ejercicios solo durante unos días y luego dejarlo',
+      'Dejar de orinar voluntariamente para comprobar la contracción',
+    ],
+    s6TipTitle: 'Qué no hacer',
+    s6TipText:
+      'No se recomienda practicar los ejercicios interrumpiendo voluntariamente el chorro de orina. Este método no permite entrenar correctamente el periné y puede alterar el funcionamiento normal de la vejiga.',
+
+    s7Heading: '¿Qué síntomas deben llevarte a consultar?',
+    s7Body1:
+      'Pequeñas pérdidas o una sensación inusual pueden aparecer a veces después del parto. Sin embargo, no deben ignorarse si persisten, se agravan o afectan tu vida cotidiana.',
+    warningSigns: [
+      'Pérdidas urinarias cuando toses, estornudas, ríes o haces un esfuerzo',
+      'Una sensación de pesadez o presión en la parte baja de la pelvis',
+      'La sensación de que una masa o algo desciende en la vagina',
+      'Dificultades para retener los gases o las heces',
+      'Un dolor persistente en el periné',
+      'Un dolor durante o después de las relaciones sexuales',
+      'Una dificultad para identificar o contraer correctamente los músculos del periné',
+    ],
+    consultLabel: '¿Cuándo pedir consejo?',
+    s7Body2:
+      'Una matrona, un médico o un fisioterapeuta especializado en reeducación pelviperineal puede comprobar la función muscular y proponer un programa adaptado.',
+
+    s8Heading: '¿Y después de un desgarro, una episiotomía o una cesárea?',
+    s8Body1:
+      'Un desgarro o una episiotomía requiere una atención particular durante la cicatrización. La reanudación de las actividades debe respetar el dolor, el estado de la cicatriz y las recomendaciones dadas después del parto.',
+    s8Body2:
+      'Después de una cesárea, la recuperación también afecta a la pared abdominal y a la cicatriz. Aunque el parto no haya sido vaginal, el embarazo en sí mismo ha sometido igualmente al suelo pélvico a esfuerzo.',
+    s8HighlightTitle: 'Una atención personalizada puede ayudar',
+    s8HighlightText:
+      'En caso de desgarro importante, dolor, síntomas urinarios o intestinales o dificultades persistentes, una valoración con un profesional de la salud puede ser especialmente útil.',
+
+    s9Heading: 'Retomar el deporte progresivamente',
+    s9Body1:
+      'La reanudación del movimiento después del parto debe ser progresiva. Caminar y los movimientos suaves pueden generalmente retomarse según tu estado y cómo te sientas, mientras que las actividades de fuerte impacto requieren más prudencia.',
+    s9Body2:
+      'Antes de retomar la carrera, los saltos o los entrenamientos muy intensos, es preferible evaluar la recuperación del suelo pélvico y tener en cuenta los posibles síntomas.',
+    s9AlertTitle: 'No te saltes etapas',
+    s9AlertText:
+      'Las pérdidas, una sensación de pesadez o un dolor durante o después del ejercicio son señales de que hay que ralentizar y pedir consejo antes de aumentar la intensidad.',
+
+    s10Heading: '¿Cuándo consultar a un especialista?',
+    s10Body1:
+      'Una reeducación pelviperineal con una matrona o un fisioterapeuta puede ser útil si no sabes si estás contrayendo correctamente, si tus síntomas persisten o si deseas retomar ciertas actividades físicas con total confianza.',
+    questionCardTitle: 'Preguntas útiles para hacer',
+    appointmentQuestions: [
+      '¿Mis síntomas son compatibles con una debilidad del suelo pélvico?',
+      '¿Estoy realizando correctamente las contracciones?',
+      '¿Cuántas repeticiones debo hacer cada día?',
+      '¿Puedo retomar la carrera, el deporte o los ejercicios de impacto?',
+      '¿Necesito una reeducación con una matrona o un fisioterapeuta?',
+      '¿Mi cicatriz, mi desgarro o mi cesárea requieren precauciones particulares?',
+    ],
+    s10TipTitle: 'DATO ÚTIL',
+    s10TipText:
+      'Consultar no significa necesariamente que algo va mal. Una sesión puede simplemente servir para comprobar la técnica, evaluar la recuperación y aprender a progresar correctamente.',
+
+    s11Heading: 'Una recuperación que lleva tiempo',
+    s11Body1:
+      'Después del nacimiento, es normal no recuperar de inmediato las mismas sensaciones o la misma fuerza muscular que antes del embarazo.',
+    s11Body2:
+      'El objetivo no es hacer el mayor número de contracciones posible. Se trata más bien de recuperar progresivamente una buena coordinación entre contracción y relajación, y luego poder usar estos músculos de forma natural en las actividades cotidianas.',
+    s11HighlightTitle: 'Un pequeño progreso es un progreso real',
+    s11HighlightText:
+      'Una mejor percepción del movimiento, unos segundos más de contracción o una disminución de las pérdidas ya son señales alentadoras.',
+
+    s12Heading: 'Para recordar',
+    summaryTitle: 'Lo esencial',
+    summaryItems: [
+      'El embarazo y el parto someten al suelo pélvico a un esfuerzo importante.',
+      'Una recuperación progresiva es normal después del nacimiento.',
+      'Los ejercicios deben priorizar la calidad del movimiento más que la fuerza.',
+      'La respiración y la relajación son tan importantes como la contracción.',
+      'Las pérdidas urinarias, la pesadez o el dolor persistente merecen un consejo profesional.',
+      'Una reeducación con una matrona o un fisioterapeuta puede ayudar a recuperar un mejor control.',
+      'La reanudación del deporte debe ser progresiva, sobre todo para las actividades de impacto.',
+    ],
+
+    finalTipTitle: 'Tómate el tiempo de recuperarte',
+    finalTipText:
+      'Después del parto, tu cuerpo ha atravesado muchos cambios. El periné merece la misma atención que las demás partes del cuerpo: de forma progresiva, regular y sin presión.',
+
+    disclaimerText:
+      'Este artículo tiene una finalidad informativa y no sustituye un consejo médico personalizado. En caso de dolor, de síntomas persistentes o de duda sobre tu recuperación, pide consejo a un profesional de la salud.',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<
@@ -467,7 +674,7 @@ export default function PerineumStrengtheningArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

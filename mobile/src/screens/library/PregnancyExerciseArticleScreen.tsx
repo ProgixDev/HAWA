@@ -114,6 +114,41 @@ const CONTENT = {
     tipText: 'Gentle, regular activity is beneficial for most pregnancies: the key is adapting the intensity to each stage and to how you feel.',
     shareMessage: 'Staying active during pregnancy — AWA',
   },
+  es: {
+    badge: 'EMBARAZO • ACTIVIDAD FÍSICA',
+    title: 'Moverte durante\nel embarazo',
+    metaDuration: '5 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Mantenerte activa con suavidad, con toda seguridad, en cada trimestre.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Las actividades recomendadas',
+      'Lo que es mejor evitar',
+      'Escuchar las señales de tu cuerpo',
+      'Para tener en cuenta',
+      'Para recordar',
+    ],
+    body1: 'Caminar, nadar y el yoga prenatal generalmente se recomiendan durante todo el embarazo, a un ritmo adaptado a cómo te sientas.',
+    recommended: ['Caminar', 'Natación', 'Yoga prenatal'],
+    body2: 'Evita los deportes de impacto o con riesgo de caída, sobre todo a partir del segundo trimestre:',
+    toAvoid: [
+      'Deportes de impacto (carrera intensa, deportes de raqueta rápidos)',
+      'Actividades con riesgo de caída (esquí, equitación, bicicleta en terreno accidentado)',
+      'Deportes de contacto o de combate',
+      'Esfuerzos intensos en altitud o con mucho calor',
+    ],
+    listenSigns: [
+      'Falta de aire inusual o mareos',
+      'Dolor, sangrado o contracciones durante el esfuerzo',
+      'Fatiga que no desaparece después de descansar',
+    ],
+    neutralText: 'Escucha siempre las señales de tu cuerpo y habla con tu partera o tu médico antes de empezar o modificar una actividad física.',
+    tipTitle: 'DATO ÚTIL',
+    tipText: 'Una actividad suave y regular es beneficiosa para la mayoría de los embarazos: lo esencial es adaptar la intensidad a cada etapa y a cómo te sientas.',
+    shareMessage: 'Moverte durante el embarazo — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -122,7 +157,7 @@ export default function PregnancyExerciseArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);

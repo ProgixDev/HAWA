@@ -157,6 +157,56 @@ const CONTENT = {
     tip3Text: 'Fasting suspended during your period is a recognized relief, not a break from your religious practice. Living through this time differently, keeping track of your days, and asking for guidance when in doubt all help you get through Ramadan with serenity.',
     shareMessage: 'Fasting during Ramadan — AWA',
   },
+  es: {
+    badge: 'RAMADÁN',
+    title: 'El ayuno durante\nel Ramadán',
+    metaDuration: '6 min de lectura',
+    metaType: 'Guía',
+    metaLevel: 'Principiante',
+    metaValidated: 'Contenido validado',
+    intro: 'Consejos prácticos y referencias educativas para vivir el mes de Ramadán durante la menstruación, con serenidad.',
+    disclaimerTitle: 'Información importante',
+    disclaimerText: 'Este contenido es puramente educativo. Las preguntas religiosas deben ser validadas por eruditos cualificados. AWA no emite fatuas ni decisiones religiosas personalizadas.',
+    contentsTitle: 'En este artículo',
+    topics: [
+      'Durante la menstruación, el ayuno suspendido',
+      'Vivir la espiritualidad de otra manera',
+      'Anotar tus días para la recuperación',
+      'Para recordar',
+    ],
+    section1Body1: 'Durante la menstruación, el ayuno no es obligatorio: este periodo sitúa a la mujer en un estado en el que varios actos de adoración, entre ellos el ayuno, quedan temporalmente suspendidos. Esta suspensión se reconoce como una facilidad, y no como una prohibición o una sanción.',
+    section1Body2: 'Suspender el ayuno durante la menstruación no significa alejarse de la propia práctica religiosa. Simplemente se pone en pausa durante un tiempo limitado, y luego se reanuda con normalidad en cuanto termina la menstruación, sin que se pierda ningún acto de fe. Los días no ayunados se recuperarán más tarde (qadaa), fuera del Ramadán.',
+    tip1Title: 'Bueno saberlo',
+    tip1Text: 'Esta pausa también puede vivirse como un momento diferente del mes, en el que la espiritualidad sigue expresándose de otra manera, sin ayuno.',
+    note1Title: 'Para tener en cuenta',
+    note1Text: 'Esta situación no debe vivirse con culpa: forma parte del ciclo natural del cuerpo y está contemplada por la propia tradición religiosa.',
+    section2Body: 'No ayunar no significa estar desconectada del mes de Ramadán. Muchas formas de espiritualidad siguen siendo accesibles y permiten seguir viviendo plenamente este periodo.',
+    spiritualActs: [
+      'Dhikr (evocación de Dios)',
+      'Dua (invocaciones)',
+      'Escuchar contenidos religiosos',
+      'Leer contenidos educativos',
+      'Caridad y gestos de bondad',
+      'Ayudar a preparar el iftar',
+      'Tiempo de reflexión personal',
+      'Mantener una rutina espiritual',
+    ],
+    tip2Title: 'Bueno saberlo',
+    tip2Text: 'Estos gestos, aunque sean sencillos, permiten seguir plenamente conectada con el espíritu del mes, sea cual sea la situación.',
+    section3Body: 'Llevar un registro de los días de menstruación durante el Ramadán facilita después el cálculo del número de días por recuperar (qadaa), y evita tener que recordarlo de memoria una vez terminado el mes.',
+    trackingTips: [
+      'Anotar la fecha de cada día no ayunado a medida que avanza',
+      'Usar un calendario, una aplicación o un cuaderno dedicado',
+      'Hacer un repaso rápido a final de mes para comprobar el total',
+    ],
+    visualTitle: 'Un seguimiento simplificado',
+    visualText: 'AWA puede ayudarte a seguir tu ciclo a lo largo del Ramadán, para encontrar fácilmente esta información más tarde.',
+    note2Title: 'Para tener en cuenta',
+    note2Text: 'Las modalidades exactas de la recuperación (plazo, situaciones particulares como el embarazo o la lactancia) pueden variar según las escuelas jurídicas. Para cualquier situación específica o compleja, la opinión de un erudito cualificado sigue siendo la referencia.',
+    tip3Title: 'Bueno saberlo',
+    tip3Text: 'El ayuno suspendido durante la menstruación es una facilidad reconocida, no una ruptura con la propia práctica religiosa. Vivir este periodo de otra manera, llevar un registro de tus días y pedir consejo en caso de duda permiten atravesar el Ramadán con serenidad.',
+    shareMessage: 'El ayuno durante el Ramadán — AWA',
+  },
 } as const;
 
 type Props = NativeStackScreenProps<RootStackParamList, 'ArticleReader'>;
@@ -165,7 +215,7 @@ export default function RamadanFastingArticleScreen({
   navigation,
 }: Props): React.JSX.Element {
   const {t, i18n} = useTranslation();
-  const lang = i18n.language === 'en' ? 'en' : 'fr';
+  const lang = i18n.language === 'fr' ? 'fr' : i18n.language === 'es' ? 'es' : 'en';
   const content = CONTENT[lang];
   const {theme} = useAwaTheme();
   const styles = useMemo(() => createStyles(theme), [theme]);
