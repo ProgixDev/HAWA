@@ -28,6 +28,7 @@ import {
 } from '../../state/pregnancyMedicalEventsStore';
 import {cancelEventReminder} from '../../utils/pregnancyEventReminders';
 import {hydratePregnancyNotificationSettings} from '../../state/pregnancyNotificationSettingsStore';
+import {dateFormatLocale} from '../../utils/cycleMath';
 
 // Legacy combined "browse every Rendez-vous/Examen" list + generic
 // type-togglable form. No navigation call in the app reaches this screen
@@ -43,7 +44,7 @@ import {hydratePregnancyNotificationSettings} from '../../state/pregnancyNotific
 type Props = NativeStackScreenProps<RootStackParamList, 'PregnancyAppointments'>;
 
 function formatLongDate(date: Date): string {
-  return new Intl.DateTimeFormat('fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 }
 
 function sortEvents(events: PregnancyMedicalEvent[]): PregnancyMedicalEvent[] {

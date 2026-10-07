@@ -22,7 +22,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getBottomPadding, spacing} from '../../theme/spacing';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {
   getPregnancyNotificationSettings,
   hydratePregnancyNotificationSettings,
@@ -92,7 +92,7 @@ function fromISODate(iso: string): Date {
 }
 
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 
 function parseTimeToDate(hhmm: string): Date {
@@ -103,7 +103,7 @@ function parseTimeToDate(hhmm: string): Date {
 }
 
 function formatLongDate(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(date);
 }
 
 /* ============================================================

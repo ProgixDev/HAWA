@@ -22,6 +22,8 @@ import {
 } from '../../../state/postpartumPreferences';
 import {savePregnancySymptoms} from '../../../state/pregnancyJournalStore';
 import {addDays, startOfDay} from '../../../utils/cycleMath';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M31 (40-week boundary label), M32/M34 (Pregnancy -> Postpartum transition
 // with earlier postpartum history) and M33 (calendar dot = "Suivi", not "Note").
@@ -102,8 +104,10 @@ const PREVIOUS_JOURNEY: PostpartumPreferences = {
   dailyTrackingReminderTime: '20:00',
 };
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

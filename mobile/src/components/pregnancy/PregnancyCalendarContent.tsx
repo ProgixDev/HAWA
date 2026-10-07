@@ -28,6 +28,7 @@ import {
 
 import {
   capitalize,
+  dateFormatLocale,
   formatFullDate,
   formatHijriDate,
   formatHijriDay,
@@ -52,7 +53,6 @@ import {
 import {computePregnancyStatus, formatPregnancyTrimester} from '../../utils/pregnancyTrackingUtils';
 import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
-import {getAppLanguage} from '../../state/themePreferences';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 import {usePremium} from '../../hooks/usePremium';
 import {useToday} from '../../hooks/useToday';
@@ -399,7 +399,7 @@ function buildDailyItems(
         filterMeta.weight
           .label,
       value: weightEntry
-        ? `${new Intl.NumberFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR').format(weightEntry.valueKg)} kg`
+        ? `${new Intl.NumberFormat(dateFormatLocale()).format(weightEntry.valueKg)} kg`
         : filterMeta.weight
             .empty,
       icon:
@@ -506,7 +506,7 @@ function PregnancyCalendarContent(): React.JSX.Element {
 
   const MODES = useMemo(() => modesFor(t), [t]);
   const EVENT_META = useMemo(() => eventMetaFor(t), [t]);
-  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const dateLocale = dateFormatLocale();
 
   const insets =
     useSafeAreaInsets();
