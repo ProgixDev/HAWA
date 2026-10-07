@@ -24,6 +24,8 @@ import {
 } from '../../../config/nifasReminderConfig';
 import {getNifasReminderStatus} from '../../../utils/postpartumTrackingUtils';
 import {addDays} from '../../../utils/cycleMath';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // E — the Nifas banner (SpiritualGuidanceCard) and the completion popup are two
 // presentations of ONE state, getNifasReminderStatus(). No religious rule is
@@ -95,6 +97,12 @@ beforeEach(async () => {
   resetPremiumStateForTests();
   setSpiritualMarkersEnabled(true);
   await reopenPostpartumLochiaTracking();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's banner/button-label assertions ("Repère du nifas", "Compris",
+  // ...) were written against the French default. Pinning French explicitly
+  // here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

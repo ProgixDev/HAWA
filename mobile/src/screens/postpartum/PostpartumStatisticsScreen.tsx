@@ -72,10 +72,8 @@ import {
   resolvePostpartumCycleReturnEventInPeriod,
   withinPeriod,
 } from '../../utils/postpartumStatisticsMath';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import i18n from '../../i18n';
-
-const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 
 /* ============================================================
    Postpartum Statistics — every number on this screen is derived

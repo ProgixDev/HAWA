@@ -6,7 +6,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import i18n from '../../i18n';
 import {confirmDelivery} from '../../state/postpartumPreferences';
 import {markPostpartumLochiaEnded} from '../../state/postpartumLochiaStore';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
@@ -61,6 +62,8 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await confirmDelivery(new Date('2026-08-01T12:00:00'));
   await markPostpartumLochiaEnded('2026-08-10');
 });

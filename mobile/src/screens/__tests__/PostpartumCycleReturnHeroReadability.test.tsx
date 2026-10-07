@@ -9,8 +9,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SafeAreaProvider, type Metrics} from 'react-native-safe-area-context';
 
 import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../state/themePreferences';
 import {confirmDelivery, recordFirstPostpartumPeriod} from '../../state/postpartumPreferences';
+import i18n from '../../i18n';
 
 import PostpartumCycleReturnScreen from '../PostpartumCycleReturnScreen';
 
@@ -68,6 +69,12 @@ beforeEach(async () => {
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
   await confirmDelivery(new Date('2026-08-01T12:00:00'));
+  // Every text lookup in this file keys off French screen text ("Cycle non
+  // repris", "Cycle repris", "STATUT ACTUEL", "Retour enregistré",
+  // "Illustration du retour du cycle") — pin French explicitly now that
+  // English, not French, is the app's default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

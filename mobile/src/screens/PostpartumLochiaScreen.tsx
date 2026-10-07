@@ -42,11 +42,10 @@ import {
 } from '../state/postpartumPreferences';
 import { computePostpartumLochiaSummary } from '../utils/postpartumTrackingUtils';
 import { validateLochiaEndDate } from '../utils/postpartumLossDateValidation';
-import { startOfDay } from '../utils/cycleMath';
+import { dateFormatLocale, startOfDay } from '../utils/cycleMath';
 import { PostpartumConsistencyModal } from '../components/postpartum/PostpartumConsistencyModal';
 import InlineCalendarPickerModal from '../components/onboarding/InlineCalendarPickerModal';
 import i18n from '../i18n';
-import { getAppLanguage } from '../state/themePreferences';
 import { journalOptionLabel } from '../utils/journalOptionLabels';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'PostpartumLochia'>;
@@ -266,7 +265,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
   const todayLabel = useMemo(
     () =>
-      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+      new Intl.DateTimeFormat(dateFormatLocale(), {
         weekday: 'long',
         day: 'numeric',
         month: 'long',
@@ -276,7 +275,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
   );
   const endDateLabel = useMemo(
     () =>
-      new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+      new Intl.DateTimeFormat(dateFormatLocale(), {
         weekday: 'long',
         day: 'numeric',
         month: 'long',
@@ -931,7 +930,7 @@ function PostpartumLochiaScreen({ navigation }: Props): React.JSX.Element {
 
 const formatLocalDate = (value: string | null): string =>
   value
-    ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+    ? new Intl.DateTimeFormat(dateFormatLocale(), {
         day: 'numeric',
         month: 'short',
         year: 'numeric',

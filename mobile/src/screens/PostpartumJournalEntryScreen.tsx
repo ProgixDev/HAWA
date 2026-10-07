@@ -47,7 +47,7 @@ import {
 } from '../state/postpartumPreferences';
 import { computePostpartumStatus } from '../utils/postpartumTrackingUtils';
 import { showPostpartumSuccessToast } from '../state/postpartumSuccessToastStore';
-import { getAppLanguage } from '../state/themePreferences';
+import { dateFormatLocale } from '../utils/cycleMath';
 import '../i18n';
 
 // Single generic entry screen for all 5 Postpartum daily-tracking categories
@@ -474,7 +474,7 @@ export default function PostpartumJournalEntryScreen(): React.JSX.Element {
     [deliveryDate, today],
   );
   const dateLabel = useMemo(() => {
-    const base = new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+    const base = new Intl.DateTimeFormat(dateFormatLocale(), {
       weekday: 'long',
       day: 'numeric',
       month: 'long',

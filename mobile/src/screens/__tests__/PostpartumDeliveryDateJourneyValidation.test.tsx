@@ -16,6 +16,8 @@ import {
   setPostpartumPreferences,
 } from '../../state/postpartumPreferences';
 import {markPostpartumLochiaEnded, reopenPostpartumLochiaTracking, getPostpartumLochiaTracking} from '../../state/postpartumLochiaStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M32/M34 - editing the delivery date is constrained by the CURRENT journey's
 // first period / lochia end only; values left over from an EARLIER journey
@@ -107,6 +109,11 @@ beforeEach(async () => {
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
   await setPostpartumPreferences({...EMPTY});
   await reopenPostpartumLochiaTracking();
+  // pressSave() looks up the Save/Next button by its French label
+  // ("Enregistrer"/"Suivant") — pin French explicitly now that English, not
+  // French, is the app's default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {
