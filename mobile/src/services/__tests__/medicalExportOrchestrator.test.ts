@@ -3,6 +3,8 @@ import {getAllJournalEntries} from '../../state/dailyJournalStore';
 import {resolveNoteSection} from '../privateNotesEncryption';
 import {resolveIntimacySection} from '../privateJournalEncryption';
 import {lockIntimacy, unlockIntimacy} from '../../state/privateSectionAuthStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // Explicit factories — privateNotesEncryption.ts/privateJournalEncryption.ts
 // transitively import react-native-keychain, a native module unavailable in
@@ -28,10 +30,17 @@ afterEach(() => {
   lockIntimacy();
 });
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockResolveNoteSection.mockResolvedValue({data: undefined, corrupted: false});
   mockResolveIntimacySection.mockResolvedValue({data: undefined, corrupted: false});
+  // This file asserts the exact category label text produced by the export
+  // (e.g. 'Symptômes'), which is i18n-driven (medicalExportFormatting.ts) and
+  // matches the sibling medicalExportEnumLabels.test.ts's French-pinning
+  // convention — pin French explicitly now that English, not French, is the
+  // app's default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('buildMedicalExport — privacy boundary', () => {

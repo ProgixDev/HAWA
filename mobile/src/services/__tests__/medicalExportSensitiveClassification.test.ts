@@ -23,6 +23,8 @@ import {savePostpartumJournalField} from '../../state/postpartumJournalStore';
 import {savePostpartumLochiaEntry} from '../../state/postpartumLochiaStore';
 import {saveMiscarriageJournalField} from '../../state/miscarriageJournalStore';
 import {saveMenopauseJournalField} from '../../state/menopauseJournalStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M43 — every ENCRYPTED-at-rest free-text field the export can reach must land
 // in a category flagged `sensitive` in objectiveExportConfig (default-off,
@@ -82,6 +84,14 @@ async function rawStorageDump(): Promise<Record<string, string>> {
 }
 
 beforeAll(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's DISPLAY-label assertions ('Intensité : Légère', 'Symptômes :
+  // ...', etc.) were written against the French default. Pinning French
+  // here preserves every test's original intent; the raw persisted
+  // categorical values themselves (Phase 7K export contract) are unaffected
+  // by UI language and are never translated at storage time.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await AsyncStorage.clear();
 
   // ---- shared dailyJournalStore (Cycle / Conceive / Pregnancy mood+sleep)

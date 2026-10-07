@@ -1,6 +1,8 @@
 import {buildConceiveExportDays} from '../medicalExportReaders';
 import {getAllJournalEntries} from '../../state/dailyJournalStore';
 import {getCyclePreferences, getHasConfirmedCycleData} from '../../state/onboardingPreferences';
+import i18n from '../../i18n';
+import {setAppLanguage} from '../../state/themePreferences';
 
 // medicalExportReaders.ts imports privateNotesEncryption.ts/
 // privateJournalEncryption.ts at module scope (react-native-keychain, not
@@ -21,9 +23,15 @@ const mockGetHasConfirmedCycleData = getHasConfirmedCycleData as jest.Mock;
 
 const now = new Date('2026-08-25T12:00:00');
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.clearAllMocks();
   mockGetAllJournalEntries.mockResolvedValue([]);
+  // These assertions check the French display wording/date formatting of
+  // the estimate notices; pin the language explicitly since the app
+  // default is now English. formatFullDate() reads the persisted
+  // setAppLanguage() setting, not i18n.language, so both must be set.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('buildConceiveExportDays — estimate labeling', () => {
