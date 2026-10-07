@@ -1,4 +1,4 @@
-import {WEEK_DAYS, WEEK_DAYS_EN, localizedWeekDays} from '../cycleMath';
+import {WEEK_DAYS, WEEK_DAYS_EN, WEEK_DAYS_ES, localizedWeekDays} from '../cycleMath';
 import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePreferences';
 
 // Phase 7F.1 — WEEK_DAYS cleanup. `localizedWeekDays()` is the shared,
@@ -12,6 +12,13 @@ import {resetAppLanguageForTests, setAppLanguage} from '../../state/themePrefere
 
 beforeEach(async () => {
   await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's French-expecting assertions were written against the old French
+  // default and never set a language explicitly (every English-expecting
+  // assertion already does). Pinning French here preserves every test's
+  // original intent. localizedWeekDays() reads getAppLanguage() directly
+  // (not i18n.language), so setAppLanguage alone is sufficient here.
+  await setAppLanguage('fr');
 });
 
 describe('TEST 1 — French weekday labels are correct', () => {
@@ -55,6 +62,30 @@ describe('TEST 5 — a runtime FR → EN switch updates the returned labels', ()
     expect(localizedWeekDays()[0]).toBe('Mon');
     await setAppLanguage('fr');
     expect(localizedWeekDays()[0]).toBe('Lun');
+  });
+});
+
+// SPANISH CALENDAR / DATE LOCALIZATION — localizedWeekDays() used to be a
+// binary fr/en ternary, so Spanish silently fell through to the French
+// array. Now a real 3-way mapping (fr/en/es).
+describe('TEST 6 — Spanish weekday labels are correct, and distinct from French', () => {
+  it('matches the Monday-first Spanish array (previously fell through to French)', async () => {
+    await setAppLanguage('es');
+    expect(WEEK_DAYS_ES).toEqual(['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']);
+    expect(localizedWeekDays()).toEqual(['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']);
+    expect(localizedWeekDays()).not.toEqual(WEEK_DAYS);
+  });
+
+  it('a runtime FR -> ES -> EN -> FR switch updates the returned labels each time, never a stale snapshot', async () => {
+    expect(localizedWeekDays()[0]).toBe('Lun');
+    expect(localizedWeekDays()[2]).toBe('Mer');
+    await setAppLanguage('es');
+    expect(localizedWeekDays()[0]).toBe('Lun');
+    expect(localizedWeekDays()[2]).toBe('Mié');
+    await setAppLanguage('en');
+    expect(localizedWeekDays()[2]).toBe('Wed');
+    await setAppLanguage('fr');
+    expect(localizedWeekDays()[2]).toBe('Mer');
   });
 });
 

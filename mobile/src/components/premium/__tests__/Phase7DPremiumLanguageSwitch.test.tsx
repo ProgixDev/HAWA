@@ -39,6 +39,12 @@ function renderDirect(element: React.ReactElement) {
 
 beforeEach(async () => {
   await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's "French:" tests were written against the old French default and
+  // never set a language explicitly (every "English:" test already does).
+  // Pinning French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   resetPremiumStateForTests();
 });
 

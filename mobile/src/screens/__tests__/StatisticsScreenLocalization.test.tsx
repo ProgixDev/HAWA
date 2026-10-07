@@ -77,12 +77,16 @@ afterEach(() => {
 });
 
 describe('StatisticsScreen — localization', () => {
-  it('renders empty states in French by default', async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // test originally asserted French without ever selecting a language,
+  // which was correct under the old French default. Flipped to assert the
+  // now-correct English default; French-when-selected remains covered below.
+  it('renders empty states in English by default', async () => {
     const texts = allTexts(await renderScreen());
-    expect(texts).toContain('Statistiques');
-    expect(texts).toContain('Aucun flux enregistré ce mois-ci');
-    expect(texts).toContain('Aucun symptôme enregistré ce mois-ci');
-    expect(texts).toContain('Pas encore assez de cycles enregistrés');
+    expect(texts).toContain('Statistics');
+    expect(texts).toContain('No flow recorded this month');
+    expect(texts).toContain('No symptoms recorded this month');
+    expect(texts).toContain('Not enough cycles recorded yet');
   });
 
   it('renders empty states in English when the app language is English', async () => {
