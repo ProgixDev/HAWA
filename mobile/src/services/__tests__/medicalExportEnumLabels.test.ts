@@ -19,6 +19,8 @@ import {setMenopauseHormonalTreatmentStatus, setMenopauseLabTracking} from '../.
 import {addContraceptionEvent} from '../../state/contraceptionEventStore';
 import {savePregnancyMedicalEvent} from '../../state/pregnancyMedicalEventsStore';
 import type {DailyJournalEntry} from '../../types/journal';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M42 / M27 — the medical export must speak human-readable French, never the
 // internal enum identifiers stored in AsyncStorage, and must not hide history
@@ -33,6 +35,16 @@ const allLines = (days: ExportDayEntry[]) => days.flatMap(day => day.categories.
 
 beforeAll(async () => {
   await AsyncStorage.clear();
+});
+
+beforeEach(async () => {
+  // This file's test names and assertions are specifically about the medical
+  // export's French labels ("is a French label", "are French labels") —
+  // pin French explicitly now that English, not French, is the app's
+  // default (Phase 7M). The export labels are i18n-driven (medicalExportFormatting.ts
+  // reads i18n.t(...)), so without this pin they'd silently render in English.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 describe('formatEnumOrRaw / formatCategoryValue — labels, unknown fallback', () => {

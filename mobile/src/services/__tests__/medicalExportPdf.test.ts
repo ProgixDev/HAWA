@@ -156,6 +156,12 @@ describe('generateMedicalExportPdfBase64 — Unicode behaviour (M45)', () => {
 // same document must keep rendering correctly regardless of that language —
 // the two are orthogonal (script detection vs. app language), never conflated.
 describe('generateMedicalExportPdfBase64 / buildExportCsv — language switch', () => {
+  beforeEach(async () => {
+    // The app default is now English; this block explicitly tests both
+    // French and English chrome, so each test starts pinned to French.
+    await i18n.changeLanguage('fr');
+  });
+
   afterEach(async () => {
     await i18n.changeLanguage('fr');
   });
