@@ -73,6 +73,13 @@ beforeEach(async () => {
   mockGetJournalEntry.mockClear();
   confirmedCycle('yes');
   await resetAppLanguageForTests();
+  // PHASE 7M: the app's default language is now English (not French) — most
+  // of this file's assertions check French text without ever selecting a
+  // language explicitly, which was correct under the old French default.
+  // Pinning French here preserves every test's original intent; the
+  // "localization (English)" describe block below already opts into
+  // English explicitly for its own tests.
+  await setAppLanguage('fr');
 });
 
 afterEach(() => {

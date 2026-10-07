@@ -10,7 +10,7 @@ import SpiritualGuidanceCard from '../SpiritualGuidanceCard';
 import ObjectiveArticlesSection from '../ObjectiveArticlesSection';
 import DailyJournalCard from '../DailyJournalCard';
 import {resetPremiumStateForTests, updatePremiumState} from '../../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
 import i18n from '../../../i18n';
 
 const TEST_METRICS: Metrics = {
@@ -42,6 +42,15 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text lookups ('Actions rapides', 'Repères spirituels',
+  // 'Menstrues', 'Pureté', 'Comprendre ton cycle menstruel', 'Journal du
+  // jour', etc.) were written against the French default. Pinning French
+  // here preserves every test's original intent (the language-switch test
+  // below explicitly switches to 'en' itself, starting from this French
+  // baseline).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

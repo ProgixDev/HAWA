@@ -6,7 +6,8 @@ import HeroCycleCard from '../HeroCycleCard';
 import CycleOverviewCard, {type OverviewItem} from '../CycleOverviewCard';
 import MotivationCard from '../MotivationCard';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
-import {setAppearanceMode, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import {setAppearanceMode, setAppLanguage, setSelectedThemeId, setTrueBlackEnabled} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
 
@@ -28,6 +29,13 @@ beforeEach(async () => {
   await setSelectedThemeId('awa-original');
   await setAppearanceMode('light');
   await setTrueBlackEnabled(false);
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's text lookups ('Aujourd’hui', 'Phase menstruelle', 'Fenêtre
+  // fertile', 'Aperçu de ton cycle', 'Voir plus', etc.) were written against
+  // the French default. Pinning French here preserves every test's original
+  // intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
@@ -141,7 +149,7 @@ describe('MotivationCard — theme reactivity, fixed text over fixed image', () 
 
   it('title/subtitle text stay fixed regardless of palette or dark mode (calibrated against the fixed photo)', async () => {
     const renderer = await renderWithTheme(<MotivationCard />);
-    const title = renderer.root.findAll(node => node.props.children === 'Prends soin de toi, tu es précieuse ✨')[0];
+    const title = renderer.root.findAll(node => node.props.children === 'Prends soin de toi,\n tu es précieuse ✨')[0];
     expect(flattenStyle(title.props.style).color).toBe('#2F2258');
 
     await act(async () => {
