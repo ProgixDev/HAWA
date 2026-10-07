@@ -16,6 +16,8 @@ import {
   hydratePostpartumJournal,
   savePostpartumJournalField,
 } from '../../state/postpartumJournalStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M25 - values that could be saved but never cleared: Pregnancy symptoms and
 // weight, Postpartum daily answers (fatigue / mood + note / ...).
@@ -76,6 +78,15 @@ const unmountAll = () =>
   act(() => {
     activeRenderers.splice(0).forEach(renderer => renderer.unmount());
   });
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's chip/button labels ('Nausées', 'Modérée', 'Bien', 'Poids
+  // enregistré', etc.) were written against the French default. Pinning
+  // French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   unmountAll();
