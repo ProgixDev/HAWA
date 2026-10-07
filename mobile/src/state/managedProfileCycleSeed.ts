@@ -1,14 +1,6 @@
 import {getManagedProfiles, recordManagedProfileFirstPeriod as recordFirstPeriodOnProfile} from './managedProfilesStore';
 import {getHasConfirmedCycleData, hydrateCyclePreferences, recordFirstEverPeriod, setCyclePreferences} from './onboardingPreferences';
 
-// Same neutral "until she says otherwise" defaults the creation flow's own
-// ManagedProfileCycleSetupScreen.tsx stepper defaults to (DEFAULT_PERIOD_LENGTH/
-// DEFAULT_CYCLE_LENGTH there) — kept local rather than imported across screen/state
-// layers, since duplicating two small constants is simpler and safer than adding a
-// cross-layer dependency for it.
-const NEUTRAL_PERIOD_LENGTH = 5;
-const NEUTRAL_CYCLE_LENGTH = 28;
-
 // Initializes a managed (daughter) profile's own cycle context from whatever she
 // declared during creation (ManagedProfileCycleSetupScreen — lastPeriodDate/
 // periodLength/cycleLength) THE FIRST TIME she becomes the active profile —
@@ -34,18 +26,33 @@ export async function seedManagedProfileCycleIfNeeded(profileId: string): Promis
   const profile = getManagedProfiles().find(item => item.id === profileId);
   if (!profile || !profile.hasHadFirstPeriod || !profile.lastPeriodDate) {return;}
 
-  // Regularity: whatever the mother declared on ManagedProfileCycleSetupScreen
-  // (profile.regularity) — never fabricated from cycleLength/periodLength (a
-  // 28-day cycle does not itself establish regularity). Falls back to
-  // 'unknown' only when it was never asked (a pre-existing profile created
-  // before this field existed) — the same honest state ProfileScreen.tsx's
-  // "Régularité du cycle" row/editor shows as "Non renseignée".
-  setCyclePreferences({
-    lastPeriodStart: new Date(`${profile.lastPeriodDate}T12:00:00`),
-    periodDuration: profile.periodLength ?? NEUTRAL_PERIOD_LENGTH,
-    cycleDuration: profile.cycleLength ?? NEUTRAL_CYCLE_LENGTH,
-    regularity: profile.regularity ?? 'unknown',
-  });
+  // CyclePreferences.periodDuration/cycleDuration are non-nullable — there is
+  // no way to represent "only one of the two was confirmed" at this layer. So
+  // only call setCyclePreferences() (which marks getHasConfirmedCycleData()
+  // true) when BOTH were genuinely confirmed on ManagedProfileCycleSetupScreen
+  // (never ManagedProfileCycleSetupScreen's own untouched-stepper defaults —
+  // ManagedProfileCycleSetupScreen.tsx only ever persists a real number once
+  // the mother actually touched that stepper, null otherwise). If either is
+  // still unknown, fall back to the SAME recordFirstEverPeriod() path
+  // recordManagedProfileFirstPeriod() below already uses for this exact
+  // reason (see its own comment) — the real date is seeded without
+  // fabricating a duration, and getHasConfirmedCycleData() stays false.
+  if (profile.periodLength !== null && profile.cycleLength !== null) {
+    // Regularity: whatever the mother declared on ManagedProfileCycleSetupScreen
+    // (profile.regularity) — never fabricated from cycleLength/periodLength (a
+    // 28-day cycle does not itself establish regularity). Falls back to
+    // 'unknown' only when it was never asked (a pre-existing profile created
+    // before this field existed) — the same honest state ProfileScreen.tsx's
+    // "Régularité du cycle" row/editor shows as "Non renseignée".
+    setCyclePreferences({
+      lastPeriodStart: new Date(`${profile.lastPeriodDate}T12:00:00`),
+      periodDuration: profile.periodLength,
+      cycleDuration: profile.cycleLength,
+      regularity: profile.regularity ?? 'unknown',
+    });
+  } else {
+    recordFirstEverPeriod(new Date(`${profile.lastPeriodDate}T12:00:00`), profile.regularity ?? 'unknown');
+  }
 }
 
 /**

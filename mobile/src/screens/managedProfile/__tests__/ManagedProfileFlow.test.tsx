@@ -82,6 +82,23 @@ const press = async (renderer: ReactTestRenderer.ReactTestRenderer, label: strin
 };
 const radios = (renderer: ReactTestRenderer.ReactTestRenderer, label: string) =>
   renderer.root.findAll(node => node.props.accessibilityLabel === label && node.props.accessibilityRole === 'radio' && typeof node.props.onPress === 'function');
+// ManagedProfileCycleSetupScreen.tsx renders TWO DurationStepper instances
+// (period length, then cycle length) sharing the same "Augmenter"/"Diminuer"
+// labels — same stale-fiber duplication as pickCalendarDay/tapLabel above
+// (the live Pressable's immediate parent is always a host 'View', a stale
+// one's isn't), so filtering on that disambiguates the 2 live buttons from
+// any stale duplicates. `index` 0 = period-length stepper, 1 = cycle-length
+// stepper (their render order in the screen).
+const pressStepper = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string, index: 0 | 1) => {
+  const matches = renderer.root.findAll(
+    node => typeof node.props.onPress === 'function' && node.props.accessibilityLabel === label && (node.parent?.type as unknown) === 'View',
+  );
+  expect(matches.length).toBe(2);
+  await act(async () => {
+    matches[index].props.onPress();
+  });
+  await settle();
+};
 const selectRadio = async (renderer: ReactTestRenderer.ReactTestRenderer, label: string) => {
   const matches = radios(renderer, label);
   expect(matches.length).toBeGreaterThan(0);
@@ -96,15 +113,18 @@ const typeInto = async (renderer: ReactTestRenderer.ReactTestRenderer, label: st
     input.props.onChangeText(value);
   });
 };
-const monthNameFr = (date: Date) => new Intl.DateTimeFormat('fr-FR', {month: 'long'}).format(date);
+// Defaults to French since every test but the English-localization one below exercises
+// the app in French — pass `locale` explicitly wherever the app language under test isn't
+// French (see 'ManagedProfile flow — localization (English)' for the one such case).
+const monthName = (date: Date, locale = 'fr-FR') => new Intl.DateTimeFormat(locale, {month: 'long'}).format(date);
 const capitalize = (value: string) => value.charAt(0).toUpperCase() + value.slice(1);
 // InlineCalendarPickerModal's day cell is `<View style={dayCell}><Pressable .../></View>` —
 // its own composite Pressable node and the underlying host node both carry the same
 // accessibilityLabel, and react-test-renderer's tree walk also surfaces a stale/inert
 // duplicate whose immediate parent is itself a Pressable (not the real dayCell View). Only
 // the match whose immediate parent is a host 'View' is the live, current one.
-const pickCalendarDay = async (renderer: ReactTestRenderer.ReactTestRenderer, date: Date) => {
-  const label = `${date.getDate()} ${monthNameFr(date)}`;
+const pickCalendarDay = async (renderer: ReactTestRenderer.ReactTestRenderer, date: Date, locale = 'fr-FR') => {
+  const label = `${date.getDate()} ${monthName(date, locale)}`;
   const matches = renderer.root.findAll(
     node => typeof node.props.onPress === 'function' && node.props.accessibilityLabel === label && (node.parent?.type as unknown) === 'View',
   );
@@ -127,10 +147,10 @@ const tapLabel = async (renderer: ReactTestRenderer.ReactTestRenderer, label: st
   });
   await settle();
 };
-const pickBirthDate = async (renderer: ReactTestRenderer.ReactTestRenderer, date: Date) => {
+const pickBirthDate = async (renderer: ReactTestRenderer.ReactTestRenderer, date: Date, locale = 'fr-FR') => {
   await tapLabel(renderer, String(date.getFullYear()));
-  await tapLabel(renderer, capitalize(monthNameFr(date)));
-  await tapLabel(renderer, `${date.getDate()} ${capitalize(monthNameFr(date))}`);
+  await tapLabel(renderer, capitalize(monthName(date, locale)));
+  await tapLabel(renderer, `${date.getDate()} ${capitalize(monthName(date, locale))}`);
 };
 
 // A minimal stand-in for the real MainTabs tab navigator — this suite only needs to
@@ -203,90 +223,18 @@ afterEach(() => {
   });
 });
 
-describe('ManagedProfile flow — top progress indicator', () => {
-  // ManagedProfileProgress renders its own accessibilityLabel ("Étape N sur 2") on
-  // its container — reading that directly is simpler and more robust than counting
-  // styled segment Views by color.
-  const progressLabel = (renderer: ReactTestRenderer.ReactTestRenderer) =>
-    renderer.root.findAll(node => node.props.accessibilityRole === 'progressbar').slice(-1)[0]?.props.accessibilityLabel;
-
-  it('the intro screen shows no step-progress indicator — it is not a counted step', async () => {
-    const renderer = await renderFlow();
-    expect(progressLabel(renderer)).toBeUndefined();
-  });
-
-  it('Daughter Information shows step 1 of 2', async () => {
-    const renderer = await renderFlow();
-    await press(renderer, 'Continuer');
-    expect(progressLabel(renderer)).toBe('Étape 1 sur 2');
-  });
-
-  it('First Period shows step 2 of 2', async () => {
-    const renderer = await renderFlow();
-    await walkToFirstPeriod(renderer, 'Lina');
-    expect(progressLabel(renderer)).toBe('Étape 2 sur 2');
-  });
-
-  it('Cycle Setup (reached only via "Oui") keeps progress fully complete — never a 3rd segment', async () => {
-    const renderer = await renderFlow();
-    await walkToFirstPeriod(renderer, 'Lina');
-    await selectRadio(renderer, 'Oui');
-    await press(renderer, 'Continuer');
-    expect(progressLabel(renderer)).toBe('Étape 2 sur 2');
-    // Exactly 2 segments are rendered — never a 3rd one for this extra screen.
-    const container = renderer.root.findAll(node => node.props.accessibilityRole === 'progressbar').slice(-1)[0];
-    expect(container.props.accessibilityValue).toEqual({min: 1, max: 2, now: 2});
-  });
-
-  it('Back navigation restores the PREVIOUS screen’s progress — derived from the current step, never an incremental counter', async () => {
-    const renderer = await renderFlow();
-    await walkToFirstPeriod(renderer, 'Lina');
-    expect(progressLabel(renderer)).toBe('Étape 2 sur 2');
-
-    await press(renderer, 'Retour');
-    expect(progressLabel(renderer)).toBe('Étape 1 sur 2');
-
-    await press(renderer, 'Retour');
-    // Back on the intro screen — no progress indicator again.
-    expect(progressLabel(renderer)).toBeUndefined();
-  });
-
-  it('always exactly 2 segments, regardless of the current step', async () => {
-    const renderer = await renderFlow();
-    await press(renderer, 'Continuer'); // intro has no progress bar — check from Daughter Information on
-    const container = () => renderer.root.findAll(node => node.props.accessibilityRole === 'progressbar').slice(-1)[0];
-    expect(container().props.accessibilityValue.max).toBe(2);
-
-    await typeInto(renderer, 'Prénom de votre fille', 'Lina');
-    await press(renderer, 'Date de naissance');
-    await pickBirthDate(renderer, tenYearsAgo());
-    await press(renderer, 'Continuer');
-    expect(container().props.accessibilityValue.max).toBe(2);
-  });
-
-  it('the progress segment colors resolve from useAwaTheme() in both Light and Dark — nothing hardcoded', async () => {
-    const renderer = await renderFlow();
-    await press(renderer, 'Continuer'); // intro has no progress bar — check it on Daughter Information
-    const light = resolveAwaTheme('awa-original', false, false);
-    const segments = () =>
-      renderer.root.findAll(node => flattenStyle(node.props.style).height === 5 && flattenStyle(node.props.style).width === 22);
-    // At step 1, exactly one segment is active — the theme-primary color must appear
-    // among the segments, and never a hardcoded hex regardless of which node instance
-    // (composite/host) is inspected.
-    expect(segments().some(node => flattenStyle(node.props.style).backgroundColor === light.colors.primary)).toBe(true);
-
-    await act(async () => {
-      await setAppearanceMode('dark');
-    });
-    const dark = resolveAwaTheme('awa-original', true, false);
-    expect(segments().some(node => flattenStyle(node.props.style).backgroundColor === dark.colors.primary)).toBe(true);
-    expect(dark.colors.primary).not.toBe(light.colors.primary);
-
-    await act(async () => {
-      await setAppearanceMode('light');
-    });
-  });
-});
+// PRODUCT DECISION: ManagedProfileProgress (the "Étape N sur 2" step indicator) was
+// removed from the managed-profile flow and must not be reintroduced — see
+// ManagedProfileDaughterInfoScreen.tsx / ManagedProfileFirstPeriodScreen.tsx /
+// ManagedProfileCycleSetupScreen.tsx, none of which pass a `headerAccessory` anymore.
+// The describe block that used to live here ('top progress indicator') tested nothing
+// but that indicator's presence/label/segment-count/theming; every test's own
+// navigation path (intro → Daughter Information → First Period → "Oui" → Cycle Setup,
+// and the back-navigation chain) is independently and more thoroughly covered by the
+// dedicated describe blocks below ('"Oui" branch (cycle setup)', 'draft preserved
+// across back navigation', 'exiting before creation never persists a partial profile'),
+// so removing it drops no real coverage — it was not replaced with placeholder
+// assertions.
 
 describe('ManagedProfile flow — intro screen ("Ajouter le profil de ma fille")', () => {
   it('is the first screen of the flow, replacing the old "Pour qui créez-vous ce profil ?" picker', async () => {
@@ -491,11 +439,11 @@ describe('ManagedProfile flow — birth-date picker (Year → Month → Day)', (
     }
 
     await tapLabel(renderer, monthNames[today.getMonth()]); // the current month
-    const todayLabel = `${today.getDate()} ${capitalize(monthNameFr(today))}`;
+    const todayLabel = `${today.getDate()} ${capitalize(monthName(today))}`;
     expect(findByLabel(todayLabel).props.disabled).toBe(false);
     const daysInCurrentMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
     if (today.getDate() < daysInCurrentMonth) {
-      const tomorrowLabel = `${today.getDate() + 1} ${capitalize(monthNameFr(today))}`;
+      const tomorrowLabel = `${today.getDate() + 1} ${capitalize(monthName(today))}`;
       expect(findByLabel(tomorrowLabel).props.disabled).toBe(true);
     }
   });
@@ -565,10 +513,11 @@ describe('ManagedProfile flow — "Non" branch (skips cycle setup entirely)', ()
 
     // Success circle: fille.png alongside the existing green check — the check is
     // never replaced by the illustration. Disambiguated from earlier screens' own
-    // (smaller) fille.png images, still mounted underneath, by its own 122px size.
+    // (smaller) fille.png images, still mounted underneath, by its own 136px size
+    // (styles.successIllustration in ManagedProfileSuccessScreen.tsx).
     const successImages = renderer.root.findAllByType(Image).filter(node => {
       if (node.props.source !== 1 || node.props.resizeMode !== 'contain') {return false;}
-      return flattenStyle(node.props.style).width === 122;
+      return flattenStyle(node.props.style).width === 136;
     });
     expect(successImages.length).toBeGreaterThan(0);
     const checkIcons = renderer.root.findAll(node => node.props.name === 'check-bold');
@@ -630,7 +579,13 @@ describe('ManagedProfile flow — "Oui" branch (cycle setup)', () => {
     expect(textsOf(renderer)).toContain('2 jours'); // clamped at the minimum, never below
   });
 
-  it('creates the profile with every cycle field, then Success', async () => {
+  // SAFETY FIX — never fabricate a confirmed 28-day cycle / 5-day period: the
+  // stepper still SHOWS a sensible starting value (5/28), but unless the
+  // mother actually presses + or - on a given stepper, that value is never
+  // persisted as if she had confirmed it (see ManagedProfileCycleSetupScreen
+  // .tsx's periodLengthTouched/cycleLengthTouched and managedProfileCycleSeed
+  // .ts's getHasConfirmedCycleDuration()-gated seeding).
+  it('[A] submitting without touching either stepper creates the profile with period/cycle length null, not the displayed 5/28 default', async () => {
     const renderer = await renderFlow();
     await walkToFirstPeriod(renderer, 'Lina');
     await selectRadio(renderer, 'Oui');
@@ -652,11 +607,85 @@ describe('ManagedProfile flow — "Oui" branch (cycle setup)', () => {
     const profiles = getManagedProfiles();
     expect(profiles).toHaveLength(1);
     expect(profiles[0].hasHadFirstPeriod).toBe(true);
-    expect(profiles[0].periodLength).toBe(5);
-    expect(profiles[0].cycleLength).toBe(28);
+    expect(profiles[0].periodLength).toBeNull(); // untouched stepper — never silently confirmed
+    expect(profiles[0].cycleLength).toBeNull();
     expect(profiles[0].regularity).toBe('unknown'); // never selected — default, never inferred from 28 days
     expect(profiles[0].lastPeriodDate).toMatch(/^\d{4}-\d{2}-\d{2}$/);
     expect(textsOf(renderer)).toContain('Profil de Lina créé avec succès !');
+  });
+
+  it('[B] explicitly confirming only the period-length stepper persists it, while cycle length stays null', async () => {
+    const renderer = await renderFlow();
+    await walkToFirstPeriod(renderer, 'Lina');
+    await selectRadio(renderer, 'Oui');
+    await press(renderer, 'Continuer');
+
+    await press(renderer, 'Date des dernières règles');
+    await pickCalendarDay(renderer, new Date());
+    await pressStepper(renderer, 'Augmenter', 0); // period-length stepper only (5 -> 6)
+    await press(renderer, 'Créer le profil');
+
+    const profiles = getManagedProfiles();
+    expect(profiles[0].periodLength).toBe(6);
+    expect(profiles[0].cycleLength).toBeNull();
+  });
+
+  it('[C] explicitly confirming only the cycle-length stepper persists it, while period length stays null', async () => {
+    const renderer = await renderFlow();
+    await walkToFirstPeriod(renderer, 'Lina');
+    await selectRadio(renderer, 'Oui');
+    await press(renderer, 'Continuer');
+
+    await press(renderer, 'Date des dernières règles');
+    await pickCalendarDay(renderer, new Date());
+    await pressStepper(renderer, 'Augmenter', 1); // cycle-length stepper only (28 -> 29)
+    await press(renderer, 'Créer le profil');
+
+    const profiles = getManagedProfiles();
+    expect(profiles[0].periodLength).toBeNull();
+    expect(profiles[0].cycleLength).toBe(29);
+  });
+
+  it('[D] explicitly confirming both steppers persists both real values, and marks cycle duration genuinely confirmed', async () => {
+    const renderer = await renderFlow();
+    await walkToFirstPeriod(renderer, 'Lina');
+    await selectRadio(renderer, 'Oui');
+    await press(renderer, 'Continuer');
+
+    await press(renderer, 'Date des dernières règles');
+    await pickCalendarDay(renderer, new Date());
+    await pressStepper(renderer, 'Augmenter', 0); // 5 -> 6
+    await pressStepper(renderer, 'Diminuer', 1); // 28 -> 27
+    await press(renderer, 'Créer le profil');
+
+    const profiles = getManagedProfiles();
+    expect(profiles[0].periodLength).toBe(6);
+    expect(profiles[0].cycleLength).toBe(27);
+
+    await press(renderer, 'Accéder au profil de Lina');
+    expect(getCyclePreferences().periodDuration).toBe(6);
+    expect(getCyclePreferences().cycleDuration).toBe(27);
+    expect(getHasConfirmedCycleDuration()).toBe(true); // genuinely confirmed this time
+  });
+
+  it('[E] leaving Cycle Setup without creating and coming back never pre-marks the (fresh) steppers as touched', async () => {
+    const renderer = await renderFlow();
+    await walkToFirstPeriod(renderer, 'Lina');
+    await selectRadio(renderer, 'Oui');
+    await press(renderer, 'Continuer');
+    await pressStepper(renderer, 'Augmenter', 0); // touch period length (never submitted)
+
+    await press(renderer, 'Retour'); // back to First Period — Cycle Setup unmounts
+    await selectRadio(renderer, 'Oui');
+    await press(renderer, 'Continuer'); // forward again — Cycle Setup remounts fresh
+
+    await press(renderer, 'Date des dernières règles');
+    await pickCalendarDay(renderer, new Date());
+    await press(renderer, 'Créer le profil'); // never touched the (fresh) steppers this time
+
+    const profiles = getManagedProfiles();
+    expect(profiles[0].periodLength).toBeNull();
+    expect(profiles[0].cycleLength).toBeNull();
   });
 
   describe('regularity ("Régularité du cycle")', () => {
@@ -695,15 +724,20 @@ describe('ManagedProfile flow — "Oui" branch (cycle setup)', () => {
 
       const profiles = getManagedProfiles();
       expect(profiles[0].regularity).toBe(expected);
-      expect(profiles[0].periodLength).toBe(5); // explicitly confirmed during "Oui" cycle setup — a real value, unlike the later "record first period" path
-      expect(profiles[0].cycleLength).toBe(28);
+      // Steppers were never touched in this flow — selecting a regularity
+      // radio must never be conflated with confirming a duration (see the
+      // safety fix above): period/cycle length stay null, never the 5/28
+      // displayed default.
+      expect(profiles[0].periodLength).toBeNull();
+      expect(profiles[0].cycleLength).toBeNull();
 
       await press(renderer, `Accéder au profil de Lina`);
       expect(getCyclePreferences().regularity).toBe(expected);
-      // The "Oui" path DID explicitly ask/confirm her duration — unlike a
-      // later "record first period" action for a previously pre-first-period
-      // daughter — so it must be treated as genuinely confirmed.
-      expect(getHasConfirmedCycleDuration()).toBe(true);
+      // The "Oui" path only explicitly asked/confirmed REGULARITY here, not
+      // duration (the steppers were never touched) — so duration must NOT be
+      // treated as genuinely confirmed. [D] above covers the case where she
+      // does touch both steppers.
+      expect(getHasConfirmedCycleDuration()).toBe(false);
     });
 
     it('the "Non" branch (never reaches this screen) never fabricates a regularity value', async () => {
@@ -1150,7 +1184,7 @@ describe('ManagedProfile flow — localization (English)', () => {
     expect(textsOf(renderer)).toContain('First name');
     await typeInto(renderer, 'Your daughter’s first name', 'Lina');
     await press(renderer, 'Date of birth');
-    await pickBirthDate(renderer, tenYearsAgo());
+    await pickBirthDate(renderer, tenYearsAgo(), 'en-US');
     expect(textsOf(renderer).some(text => text.includes('Age: 10 year'))).toBe(true);
     await press(renderer, 'Continue');
 
@@ -1161,13 +1195,55 @@ describe('ManagedProfile flow — localization (English)', () => {
     expect(textsOf(renderer)).toContain('About her cycle');
     expect(textsOf(renderer)).toContain('Cycle regularity');
     await press(renderer, 'Last period start date');
-    await pickCalendarDay(renderer, new Date());
+    await pickCalendarDay(renderer, new Date(), 'en-US');
     await selectRadio(renderer, 'Regular');
     await press(renderer, 'Create profile');
 
     expect(textsOf(renderer)).toContain('Lina’s profile has been created!');
     expect(textsOf(renderer)).toContain('Go to Lina’s profile');
     expect(textsOf(renderer)).toContain('Stay on my profile');
+
+    await setAppLanguage('fr');
+  });
+});
+
+// SPANISH CALENDAR / DATE LOCALIZATION — extends the English-localization
+// test above to Spanish, since the birth-date picker and the cycle-setup
+// calendar both render real month/day labels (BirthDatePickerModal /
+// InlineCalendarPickerModal) that used to silently fall back to French
+// whenever the app language was Spanish.
+describe('ManagedProfile flow — localization (Spanish)', () => {
+  it('the whole flow (intro, daughter info, first period, cycle setup, success) renders in Spanish, including the date pickers, when the app language is Spanish', async () => {
+    await setAppLanguage('es');
+    const renderer = await renderFlow();
+
+    expect(textsOf(renderer)).toContain('Añadir el perfil\nde mi hija');
+    expect(textsOf(renderer)).toContain('Seguimiento completo del ciclo');
+    expect(textsOf(renderer)).not.toContain('Ajouter le profil\nde ma fille');
+
+    await press(renderer, 'Continuar'); // intro -> Daughter Information
+    expect(textsOf(renderer)).toContain('Información sobre tu hija');
+    expect(textsOf(renderer)).toContain('Nombre');
+    await typeInto(renderer, 'Nombre de tu hija', 'Lina');
+    await press(renderer, 'Fecha de nacimiento');
+    await pickBirthDate(renderer, tenYearsAgo(), 'es-ES');
+    expect(textsOf(renderer).some(text => text.includes('Edad: 10 año'))).toBe(true);
+    await press(renderer, 'Continuar');
+
+    expect(textsOf(renderer)).toContain('¿Ya tuvo su primera menstruación?');
+    await selectRadio(renderer, 'Sí');
+    await press(renderer, 'Continuar');
+
+    expect(textsOf(renderer)).toContain('Información sobre su ciclo');
+    expect(textsOf(renderer)).toContain('Regularidad del ciclo');
+    await press(renderer, 'Fecha de la última menstruación');
+    await pickCalendarDay(renderer, new Date(), 'es-ES');
+    await selectRadio(renderer, 'Regular');
+    await press(renderer, 'Crear el perfil');
+
+    expect(textsOf(renderer)).toContain('¡Perfil de Lina creado con éxito!');
+    expect(textsOf(renderer)).toContain('Acceder al perfil de Lina');
+    expect(textsOf(renderer)).toContain('Permanecer en mi perfil');
 
     await setAppLanguage('fr');
   });

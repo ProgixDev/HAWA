@@ -14,7 +14,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/
 import {calculateAgeInYears} from '../../utils/age';
 import {getManagedProfileDraft, updateManagedProfileDraft} from '../../state/managedProfileDraftStore';
 import {MANAGED_PROFILE_FIRST_NAME_MAX_LENGTH} from '../../state/managedProfilesStore';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import '../../i18n';
 
 // Step 1/4 — "Informations sur votre fille" (reached right after the intro screen,
@@ -47,7 +47,7 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
   // Date FORMAT only (locale swap) — never the underlying calculation, per
   // CLAUDE.md's real-data-only rule and this task's own "locale formatting
   // only" scope.
-  const dateLocale = getAppLanguage() === 'en' ? 'en-US' : 'fr-FR';
+  const dateLocale = dateFormatLocale();
 
   const draft = getManagedProfileDraft();
   const [firstName, setFirstName] = useState(draft.firstName);
@@ -94,6 +94,7 @@ export default function ManagedProfileDaughterInfoScreen({navigation}: Props): R
     <AwaADeuxStepLayout
       ctaLabel={t('common.continue')}
       description={t('managedProfile.daughterInfo.description')}
+  
       onBack={navigation.goBack}
       onContinue={canContinue ? onContinue : undefined}
       title={t('managedProfile.daughterInfo.title')}>
