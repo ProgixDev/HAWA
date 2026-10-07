@@ -9,6 +9,8 @@ import {AwaThemeProvider} from '../../theme/AwaThemeProvider';
 import CalendarScreen from '../CalendarScreen';
 import {getPeriodEndDateTime, getCyclePreferences, getRecordedPeriodHistory, setCyclePreferences} from '../../state/onboardingPreferences';
 import {getConfirmedPeriodHistory} from '../../state/confirmedPeriodHistoryStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 // M8 (+M4/M7 through the Calendar's range editor): editing ONE actual period
 // must not redefine the habitual periodDuration/cycleDuration, must replace
@@ -68,11 +70,17 @@ const textsOf = (renderer: ReactTestRenderer.ReactTestRenderer): string[] =>
     .findAll(node => (node.type as unknown) === 'Text')
     .map(node => (Array.isArray(node.props.children) ? node.props.children.join('') : String(node.props.children)));
 
-beforeEach(() => {
+beforeEach(async () => {
   jest.useFakeTimers();
   jest.setSystemTime(new Date(2026, 8, 20, 10, 0, 0));
   setCyclePreferences({lastPeriodStart: new Date(2026, 7, 4), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
   setCyclePreferences({lastPeriodStart: new Date(2026, 8, 1), periodDuration: 5, cycleDuration: 28, regularity: 'yes'});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's button text and day-card assertions ('Modifier', 'Enregistrer',
+  // '7 jours') were written against the French default. Pinning French here
+  // preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {
