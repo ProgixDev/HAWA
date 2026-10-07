@@ -3,10 +3,9 @@ import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useTranslation} from 'react-i18next';
 
 import {homeRadii} from '../home/homeTheme';
-import {capitalize, sameDay} from '../../utils/cycleMath';
+import {capitalize, dateFormatLocale, sameDay} from '../../utils/cycleMath';
 import type {PeriodHistoryRecord} from '../../state/onboardingPreferences';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
-import {getAppLanguage} from '../../state/themePreferences';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 import '../../i18n';
 
@@ -44,7 +43,7 @@ function MonthHistoryStrip({visibleMonth, monthsBack = 8, onSelectMonth, periodH
               onPress={() => onSelectMonth(month)}
               style={({pressed}) => [styles.chip, active && styles.chipActive, pressed && styles.pressed]}>
               <Text numberOfLines={1} style={[styles.chipText, active && styles.chipTextActive]}>
-                {capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(month))}
+                {capitalize(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(month))}
               </Text>
               {range ? <Text style={[styles.rangeText, active && styles.rangeTextActive]}>{t('calendar.periodRange', {range})}</Text> : null}
             </Pressable>

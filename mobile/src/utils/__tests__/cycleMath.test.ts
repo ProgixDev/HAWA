@@ -1,6 +1,7 @@
 import {
   calendarDayKindFor,
   computeCyclePredictionStatus,
+  dateFormatLocale,
   describeAverageCycle,
   estimateFertilityDates,
   isWithinRecordedPeriod,
@@ -12,6 +13,8 @@ import {
   type CycleBasics,
   type RecordedPeriod,
 } from '../cycleMath';
+import {setAppLanguage, resetAppLanguageForTests} from '../../state/themePreferences';
+import i18n from '../../i18n';
 
 const day = (month: number, date: number, year = 2026) => new Date(year, month - 1, date);
 const key = (date: Date) =>
@@ -140,6 +143,15 @@ describe('describeAverageCycle — a configured number is never called a measure
   const exactRegular = computeCyclePredictionStatus(basics, 'yes', [day(9, 1)], null, today);
   const window = computeCyclePredictionStatus(basics, 'no', [day(9, 1)], null, today);
   const observing = computeCyclePredictionStatus(basics, 'unknown', [day(9, 1)], day(9, 1), today);
+
+  beforeEach(async () => {
+    // PHASE 7M: the app's default language is now English (not French) —
+    // describeAverageCycle() renders its label/value/subtitle via i18n.t(),
+    // and these assertions were written against the French default. Pinning
+    // French explicitly here preserves every test's original intent.
+    await setAppLanguage('fr');
+    await i18n.changeLanguage('fr');
+  });
 
   it('declared regular cycle → "Durée habituelle", worded as declared by the user', () => {
     expect(describeAverageCycle(exactRegular, basics, true)).toEqual({
@@ -350,5 +362,86 @@ describe('estimateFertilityDates — a single coherent fertile window (start ≤
     const fertility = estimateFertilityDates(basics, status, at)!;
     expect(key(fertility.fertileStart)).toBe('2026-09-10');
     expect(key(fertility.fertileEnd)).toBe('2026-09-16');
+  });
+});
+
+// SPANISH CALENDAR / DATE LOCALIZATION — these two helpers are the single
+// source of truth every calendar/date-related screen now imports instead of
+// re-deriving its own fr/en-only ternary (which used to make Spanish
+// silently fall back to French). Regression-guards the 3-way mapping itself.
+describe('dateFormatLocale — app language to Intl locale, 3-way (fr/en/es)', () => {
+  afterEach(async () => {
+    await resetAppLanguageForTests();
+  });
+
+  it('maps fr -> fr-FR', async () => {
+    await setAppLanguage('fr');
+    expect(dateFormatLocale()).toBe('fr-FR');
+  });
+
+  it('maps en -> en-US', async () => {
+    await setAppLanguage('en');
+    expect(dateFormatLocale()).toBe('en-US');
+  });
+
+  it('maps es -> es-ES (previously fell through to fr-FR)', async () => {
+    await setAppLanguage('es');
+    expect(dateFormatLocale()).toBe('es-ES');
+  });
+
+  it('full French date renders with no English/Spanish leakage', async () => {
+    await setAppLanguage('fr');
+    const formatted = new Intl.DateTimeFormat(dateFormatLocale(), {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(day(3, 15));
+    expect(formatted.toLowerCase()).toContain('mars');
+  });
+
+  it('full English date renders with no French/Spanish leakage', async () => {
+    await setAppLanguage('en');
+    const formatted = new Intl.DateTimeFormat(dateFormatLocale(), {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(day(3, 15));
+    expect(formatted.toLowerCase()).toContain('march');
+  });
+
+  it('full Spanish date renders in Spanish, not French', async () => {
+    await setAppLanguage('es');
+    const formatted = new Intl.DateTimeFormat(dateFormatLocale(), {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(day(3, 15));
+    expect(formatted.toLowerCase()).toContain('marzo');
+    expect(formatted.toLowerCase()).not.toContain('mars');
+  });
+
+  it('all 12 months render in Spanish when the app language is es', async () => {
+    await setAppLanguage('es');
+    const expectedMonths = [
+      'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+      'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
+    ];
+    for (let month = 0; month < 12; month += 1) {
+      const formatted = new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long'}).format(
+        new Date(2026, month, 1),
+      );
+      expect(formatted.toLowerCase()).toBe(expectedMonths[month]);
+    }
+  });
+
+  it('runtime switching en -> es -> fr -> en never leaves a stale locale behind', async () => {
+    await setAppLanguage('en');
+    expect(dateFormatLocale()).toBe('en-US');
+    await setAppLanguage('es');
+    expect(dateFormatLocale()).toBe('es-ES');
+    await setAppLanguage('fr');
+    expect(dateFormatLocale()).toBe('fr-FR');
+    await setAppLanguage('en');
+    expect(dateFormatLocale()).toBe('en-US');
   });
 });

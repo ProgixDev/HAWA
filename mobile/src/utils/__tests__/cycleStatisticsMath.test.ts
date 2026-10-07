@@ -16,6 +16,17 @@ import {
 } from '../cycleStatisticsMath';
 import type {DailyJournalEntry} from '../../types/journal';
 import type {ConfirmedPeriodOccurrence} from '../../state/confirmedPeriodHistoryStore';
+import {setAppLanguage} from '../../state/themePreferences';
+import i18n from '../../i18n';
+
+// PHASE 7M: the app's default language is now English (not French) — this
+// file's wording assertions ('fin n'a pas encore été confirmée', 'Continue
+// à renseigner tes règles...', etc.) were written against the French
+// default. Pinning French here preserves every test's original intent.
+beforeEach(async () => {
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 const NOW = new Date(2026, 7, 26); // 26 August 2026 — matches the session's currentDate.
 

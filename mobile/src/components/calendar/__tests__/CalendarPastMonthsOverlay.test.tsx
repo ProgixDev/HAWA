@@ -5,6 +5,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import MonthCalendarCard from '../MonthCalendarCard';
 import {calendarDayKindFor, computeCyclePredictionStatus, type RecordedPeriod} from '../../../utils/cycleMath';
 import type {CalendarFilters} from '../../../state/calendarFilters';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M9 — navigating backwards: recorded periods stay painted, unrecorded
 // predictions do not; the current and future prediction is unchanged.
@@ -25,6 +27,15 @@ const RECORDED: RecordedPeriod[] = [
   {startDate: '2026-09-01', endDate: '2026-09-05'},
 ];
 const activeRenderers: ReactTestRenderer.ReactTestRenderer[] = [];
+
+beforeEach(async () => {
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's accessibilityLabel day-kind assertions ('règles', 'jour normal')
+  // were written against the French default. Pinning French here preserves
+  // every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(() => {
   act(() => {

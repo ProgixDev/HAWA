@@ -1,7 +1,6 @@
 import type {DailyJournalEntry, FlowIntensity} from '../types/journal';
 import type {ConfirmedPeriodOccurrence} from '../state/confirmedPeriodHistoryStore';
-import {capitalize, startOfDay} from './cycleMath';
-import {getAppLanguage} from '../state/themePreferences';
+import {capitalize, startOfDay, dateFormatLocale} from './cycleMath';
 import i18n from '../i18n';
 
 // Pure calculation layer for Cycle Tracking's Statistics screen
@@ -229,7 +228,7 @@ export function calculateSymptomFrequency(entries: readonly DailyJournalEntry[])
  * duplicating it, per CLAUDE.md's REUSE→EXTEND→CREATE rule. */
 export function formatMonthLabel(monthKey: string): string {
   const [year, month] = monthKey.split('-').map(Number);
-  return capitalize(new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(new Date(year, month - 1, 1)));
+  return capitalize(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(new Date(year, month - 1, 1)));
 }
 
 /** Groups journal entries by real calendar month ('YYYY-MM'). Exported for

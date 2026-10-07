@@ -6,12 +6,13 @@ import {useTranslation} from 'react-i18next';
 import {homeRadii} from '../home/homeTheme';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, pickReadableTextColor, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
 import {
   type CycleBasics,
+  dateFormatLocale,
   formatHijriDay,
   formatHijriMonthYear,
   kindFor,
+  localizedWeekDays,
   sameDay,
   type DayKind,
 } from '../../utils/cycleMath';
@@ -19,16 +20,6 @@ import {isDhoulHijja, isRamadan} from '../../utils/hijriCalendar';
 import {getSpiritualMarkersEnabled} from '../../state/onboardingPreferences';
 import type {CalendarFilters} from '../../state/calendarFilters';
 import '../../i18n';
-
-// A localized, in-scope-only copy of weekday abbreviations for this card —
-// cycleMath.ts's own exported WEEK_DAYS stays French/untouched, since it is
-// shared with several out-of-this-phase's-scope per-objective calendars
-// (Pregnancy, Postpartum, Miscarriage, Conceive, Contraception, Irregular,
-// Menopause) that this phase must not silently alter (CLAUDE.md §9 change-
-// scope discipline).
-const WEEK_DAYS_EN = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const WEEK_DAYS_FR = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'];
-const localizedWeekDays = () => (getAppLanguage() === 'en' ? WEEK_DAYS_EN : WEEK_DAYS_FR);
 
 type IconName = React.ComponentProps<typeof MaterialDesignIcons>['name'];
 
@@ -355,7 +346,7 @@ function MonthCalendarCard({
 
         <View style={styles.monthTitleBlock}>
           <Text numberOfLines={1} style={styles.monthTitle}>
-            {new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {month: 'long', year: 'numeric'}).format(visibleMonth)}
+            {new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long', year: 'numeric'}).format(visibleMonth)}
           </Text>
           {hijriRangeLabel ? (
             <Text numberOfLines={2} style={styles.hijriRange}>{hijriRangeLabel}</Text>
