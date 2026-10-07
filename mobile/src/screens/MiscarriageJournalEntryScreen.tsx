@@ -24,7 +24,7 @@ import DateTimePicker, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import {useTranslation} from 'react-i18next';
 import '../i18n';
-import {getAppLanguage} from '../state/themePreferences';
+import {dateFormatLocale} from '../utils/cycleMath';
 
 import {
   PostpartumInfoPanel,
@@ -137,7 +137,7 @@ const SYMPTOM_VISUALS: Record<
 ============================================================ */
 
 function formatToday(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  return new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
@@ -810,7 +810,7 @@ function BleedingContent({
 
   const selectedDate = new Date(`${startDate}T12:00:00`);
 
-  const formattedDate = selectedDate.toLocaleDateString(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  const formattedDate = selectedDate.toLocaleDateString(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

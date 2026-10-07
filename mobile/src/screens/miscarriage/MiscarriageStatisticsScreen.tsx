@@ -29,7 +29,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useTranslation} from 'react-i18next';
 import type {TFunction} from 'i18next';
 import '../../i18n';
-import {getAppLanguage} from '../../state/themePreferences';
 
 import type { RootStackParamList } from '../../navigation/AppNavigator';
 
@@ -60,7 +59,7 @@ import {
 } from '../../config/miscarriageJournalConfig';
 import {journalOptionLabel} from '../../utils/journalOptionLabels';
 
-import { diffDays, startOfDay } from '../../utils/cycleMath';
+import { dateFormatLocale, diffDays, startOfDay } from '../../utils/cycleMath';
 import { getMiscarriageTryingAgainDisplay } from '../../utils/miscarriageTryingAgainDisplay';
 
 import { usePremium } from '../../hooks/usePremium';
@@ -179,13 +178,13 @@ function tryingAgainLabelsFor(
 ============================================================ */
 
 const dateLabel = (date: string): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'short',
   }).format(new Date(`${date}T12:00:00`));
 
 const formatFullDate = (date: Date): string =>
-  new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {
+  new Intl.DateTimeFormat(dateFormatLocale(), {
     day: 'numeric',
     month: 'long',
     year: 'numeric',

@@ -35,6 +35,8 @@ import {
   resetObjectiveSetupFlowForTests,
 } from '../../../state/objectiveSetupFlow';
 import {validateLossDate} from '../../../utils/postpartumLossDateValidation';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 const Stack = createNativeStackNavigator();
 const navRef = createNavigationContainerRef();
@@ -152,6 +154,11 @@ beforeEach(async () => {
   resetPremiumStateForTests();
   resetObjectiveSetupFlowForTests();
   visited.length = 0;
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's button-label assertions were written against the French default.
+  // Pinning French explicitly here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 
 afterEach(() => {

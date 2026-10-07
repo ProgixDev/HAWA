@@ -33,7 +33,7 @@ describe('M36 — setMiscarriageCycleReturnStatus is the guarded writer of the c
   it('rejects a FUTURE date: nothing written, previous values intact', async () => {
     await seed({cycleReturnStatus: 'unknown'});
     const result = await setMiscarriageCycleReturnStatus('yes', new Date(2026, 8, 27));
-    expect(result).toEqual({valid: false, message: expect.stringContaining('dans le futur')});
+    expect(result).toEqual({valid: false, message: expect.stringContaining('can’t be in the future')});
     expect(getMiscarriagePreferences().cycleReturnStatus).toBe('unknown');
     expect(getMiscarriagePreferences().firstReturnedPeriodDate).toBeNull();
   });
@@ -41,7 +41,7 @@ describe('M36 — setMiscarriageCycleReturnStatus is the guarded writer of the c
   it('rejects a date BEFORE the loss date', async () => {
     await seed();
     const result = await setMiscarriageCycleReturnStatus('yes', new Date(2026, 8, 5));
-    expect(result).toEqual({valid: false, message: expect.stringContaining('précéder')});
+    expect(result).toEqual({valid: false, message: expect.stringContaining('can’t be before the date of your pregnancy loss')});
     expect(getMiscarriagePreferences().cycleReturnStatus).toBe('no');
     expect(getMiscarriagePreferences().firstReturnedPeriodDate).toBeNull();
   });
@@ -102,14 +102,14 @@ describe('M37 — setMiscarriageDate is guarded against contradicting dated data
   it('a loss date AFTER the recorded cycle-return date is rejected; nothing is moved', async () => {
     await seed({cycleReturnStatus: 'yes', firstReturnedPeriodDate: '2026-09-15'});
     const result = await setMiscarriageDate(new Date(2026, 8, 18));
-    expect(result).toEqual({valid: false, message: expect.stringContaining('retour de tes règles')});
+    expect(result).toEqual({valid: false, message: expect.stringContaining('return-of-cycle date you already recorded')});
     expect(getMiscarriagePreferences()).toMatchObject({miscarriageDate: '2026-09-10', firstReturnedPeriodDate: '2026-09-15'});
   });
 
   it('a loss date AFTER existing dated journal history is rejected', async () => {
     await seed();
     const result = await setMiscarriageDate(new Date(2026, 8, 14), {journalDates: ['2026-09-12']});
-    expect(result).toEqual({valid: false, message: expect.stringContaining('12 septembre 2026')});
+    expect(result).toEqual({valid: false, message: expect.stringContaining('september 12, 2026')});
     expect(getMiscarriagePreferences().miscarriageDate).toBe('2026-09-10');
   });
 

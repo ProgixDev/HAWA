@@ -16,7 +16,6 @@ import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker, {type DateTimePickerChangeEvent} from '@react-native-community/datetimepicker';
 import {useTranslation} from 'react-i18next';
 import '../i18n';
-import {getAppLanguage} from '../state/themePreferences';
 
 import type {RootStackParamList} from '../navigation/AppNavigator';
 import {spacing, getTopPadding} from '../theme/spacing';
@@ -25,6 +24,7 @@ import {
   miscarriageDailyTrackingNotificationBody,
   miscarriageDailyTrackingNotificationTitle,
 } from '../utils/miscarriageReminderScheduling';
+import {dateFormatLocale} from '../utils/cycleMath';
 import {
   getMiscarriagePreferences,
   setMiscarriageDailyTrackingReminder,
@@ -36,7 +36,7 @@ import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../theme/awa
 // PostpartumRemindersScreen.tsx's/MenopauseRemindersScreen.tsx's own
 // un-exported helpers — kept local since it's pure UI display formatting.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);
