@@ -20,7 +20,7 @@ import type {RootStackParamList} from '../../navigation/AppNavigator';
 import {getTopPadding} from '../../theme/spacing';
 import InlineCalendarPickerModal from '../../components/onboarding/InlineCalendarPickerModal';
 import {ensureNotificationPermission} from '../../services/pregnancyNotifications';
-import {getAppLanguage} from '../../state/themePreferences';
+import {dateFormatLocale} from '../../utils/cycleMath';
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
 
@@ -319,7 +319,7 @@ export function IrregularLastPeriodScreen({navigation, route}: Props) {
   }, []);
 
   const formattedDate = selectedDate
-    ? new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)
+    ? new Intl.DateTimeFormat(dateFormatLocale(), {day: 'numeric', month: 'long', year: 'numeric'}).format(selectedDate)
     : null;
 
   return (
@@ -477,7 +477,7 @@ export function IrregularTrackedItemsScreen({navigation, route}: Props) {
 // MenopauseRemindersScreen.tsx's own un-exported helpers — kept local since
 // it's pure UI display formatting.
 function formatTimeValue(date: Date): string {
-  return new Intl.DateTimeFormat(getAppLanguage() === 'en' ? 'en-US' : 'fr-FR', {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
+  return new Intl.DateTimeFormat(dateFormatLocale(), {hour: '2-digit', minute: '2-digit', hour12: false}).format(date);
 }
 function parseTimeToDate(hhmm: string): Date {
   const [hours, minutes] = hhmm.split(':').map(Number);

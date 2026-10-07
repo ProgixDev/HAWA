@@ -9,6 +9,8 @@ import {AwaThemeProvider} from '../../../theme/AwaThemeProvider';
 import IrregularJournalOverviewScreen from '../IrregularJournalOverviewScreen';
 import {saveIrregularJournalEntry} from '../../../state/irregularJournalStore';
 import {deleteJournalSection, saveJournalSection} from '../../../state/dailyJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M24 — the SOPK Overview "Règles" row must tell "Pas de règles" (a real
 // "Non"), "Spotting" and a real menstrual flow apart. "Non" and "Spotting" are
@@ -66,6 +68,15 @@ const rulesRowValue = (renderer: ReactTestRenderer.ReactTestRenderer): string | 
 
 const rulesRowDone = (renderer: ReactTestRenderer.ReactTestRenderer): boolean =>
   renderer.root.findAll(node => node.props.accessibilityLabel === 'Règles, enregistré').length > 0;
+
+beforeEach(async () => {
+  // This file's row-lookup helpers key off the French row label ("Règles")
+  // and its French value strings ("Pas de règles", "Renseigne le début de
+  // tes règles", "Règles, enregistré") — pin French explicitly now that
+  // English, not French, is the app's default (Phase 7M).
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
+});
 
 afterEach(async () => {
   act(() => {

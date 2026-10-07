@@ -9,6 +9,8 @@ import {JournalSheetProvider} from '../../../navigation/JournalSheetContext';
 import IrregularCalendarContent from '../IrregularCalendarContent';
 import {resetPremiumStateForTests} from '../../../state/premiumStore';
 import {saveIrregularJournalField} from '../../../state/irregularJournalStore';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // M21 - the SOPK Calendar offers the other tracking categories (acne, hair,
 // weight, pain, mood, fatigue) for a PAST selected day only; each shortcut
@@ -68,10 +70,16 @@ const cell = (renderer: ReactTestRenderer.ReactTestRenderer, day: number) =>
       new RegExp(`^${day}(,|$)`).test(node.props.accessibilityLabel),
   )[0];
 
-beforeEach(() => {
+beforeEach(async () => {
   resetPremiumStateForTests();
   navigateSpy.mockClear();
   jest.useFakeTimers({advanceTimers: true, now: new Date(2026, 8, 26, 15, 0, 0)});
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's category-shortcut-label assertions ('Modifier Acné de ce jour',
+  // 'Renseigner Pilosité de ce jour', etc.) were written against the French
+  // default. Pinning French here preserves every test's original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
 });
 afterEach(() => {
   act(() => {

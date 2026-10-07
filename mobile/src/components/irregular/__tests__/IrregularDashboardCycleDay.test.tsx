@@ -13,6 +13,8 @@ import {saveIrregularJournalEntry} from '../../../state/irregularJournalStore';
 import {saveJournalSection} from '../../../state/dailyJournalStore';
 import {addDays} from '../../../utils/cycleMath';
 import type {FlowIntensity} from '../../../types/journal';
+import {setAppLanguage} from '../../../state/themePreferences';
+import i18n from '../../../i18n';
 
 // "Jour N du cycle" on the SOPK dashboard must count from the MOST RECENT real
 // period start — the onboarding answer until a new period is recorded, then
@@ -87,6 +89,12 @@ async function answerPeriod(offsetDays: number, status: 'yes' | 'no' | 'spotting
 
 beforeEach(async () => {
   resetPremiumStateForTests();
+  // PHASE 7M: the app's default language is now English (not French) — this
+  // file's "Jour N de ton cycle..." text assertions were written against the
+  // French default. Pinning French explicitly here preserves every test's
+  // original intent.
+  await setAppLanguage('fr');
+  await i18n.changeLanguage('fr');
   await setIrregularPreferences({lastPeriodDate: keyFor(-24)}); // onboarding: last period 24 days ago → day 25
 });
 
