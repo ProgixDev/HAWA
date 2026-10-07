@@ -4,14 +4,7 @@ import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {localizedWeekDays} from '../../utils/cycleMath';
-import {getAppLanguage} from '../../state/themePreferences';
-
-// Locale FORMAT only (never the date calculation itself) — same
-// getAppLanguage()-driven convention as cycleMath.ts's internal
-// dateFormatLocale(), not exported from there so duplicated here rather than
-// widening that module's public surface for a single caller.
-const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
+import {dateFormatLocale, localizedWeekDays} from '../../utils/cycleMath';
 
 type Props = {
   visible: boolean;

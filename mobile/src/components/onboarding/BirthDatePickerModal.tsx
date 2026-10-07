@@ -5,8 +5,7 @@ import {useTranslation} from 'react-i18next';
 
 import {useAwaTheme} from '../../theme/AwaThemeProvider';
 import {onPrimaryTextColor, withAlpha, type ResolvedAwaTheme} from '../../theme/awaThemeTokens';
-import {getAppLanguage} from '../../state/themePreferences';
-import {capitalize} from '../../utils/cycleMath';
+import {capitalize, dateFormatLocale} from '../../utils/cycleMath';
 
 // Year → Month → Day birth-date picker — a faster alternative to the monthly
 // calendar (InlineCalendarPickerModal.tsx) for a date that can be many years back,
@@ -25,12 +24,12 @@ import {capitalize} from '../../utils/cycleMath';
 const YEAR_ROW_HEIGHT = 50;
 const DEFAULT_YEAR_SPAN = 100;
 
-// Locale FORMAT only (never the date calculation itself) — same
-// getAppLanguage()-driven convention as cycleMath.ts's internal
-// dateFormatLocale(). Month names are derived from Intl rather than a second
+// Locale FORMAT only (never the date calculation itself) — uses the shared,
+// 3-way-correct dateFormatLocale() from cycleMath.ts (previously a local
+// en/fr-only duplicate here, which silently fell through to French for
+// Spanish). Month names are derived from Intl rather than a second
 // hardcoded EN table, so there is exactly one place (the OS/ICU locale data)
 // that owns month-name wording.
-const dateFormatLocale = (): string => (getAppLanguage() === 'en' ? 'en-US' : 'fr-FR');
 const monthNames = (): string[] =>
   Array.from({length: 12}, (_, index) =>
     capitalize(new Intl.DateTimeFormat(dateFormatLocale(), {month: 'long'}).format(new Date(2000, index, 1))),
